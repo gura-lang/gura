@@ -65,6 +65,16 @@ Gura_DeclareClassMethod(surface, create_similar)
 	DeclareArg(env, "width", VTYPE_number);
 	DeclareArg(env, "height", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	"Create a new surface that is as compatible as possible with an existing surface.\n"
+	"For example the new surface will have the same fallback resolution and font options as other.\n"
+	"Generally, the new surface will also use the same backend as other, unless that is not possible for some reason.\n"
+	"The type of the returned surface may be examined with cairo.surface#get_type().\n"
+	"\n"
+	"Initially the surface contents are all 0 (transparent if contents have transparency, black otherwise.)\n"
+	"\n"
+	"Use cairo.surface.create_similar_image() if you need an image surface which can be painted quickly to the target surface.\n"
+	);
 }
 
 Gura_ImplementClassMethod(surface, create_similar)
@@ -87,6 +97,14 @@ Gura_DeclareClassMethod(surface, create_similar_image)
 	DeclareArg(env, "width", VTYPE_number);
 	DeclareArg(env, "height", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	"Create a new image surface that is as compatible as possible for uploading to and the use in conjunction with an existing surface.\n"
+	"However, this surface can still be used like any normal image surface.\n"
+	"\n"
+	"Initially the surface contents are all 0 (transparent if contents have transparency, black otherwise.)\n"
+	"\n"
+	"Use cairo.surface.create_similar() if you don't need an image surface.\n"
+	);
 }
 
 Gura_ImplementClassMethod(surface, create_similar_image)
@@ -114,6 +132,16 @@ Gura_DeclareClassMethod(surface, create_for_rectangle)
 	DeclareArg(env, "width", VTYPE_number);
 	DeclareArg(env, "height", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	"Create a new surface that is a rectangle within the target surface.\n"
+	"All operations drawn to this surface are then clipped and translated onto the target surface.\n"
+	"Nothing drawn via this sub-surface outside of its bounds is drawn onto the target surface,\n"
+	"making this a useful method for passing constrained child surfaces to library routines that draw directly onto the parent surface,\n"
+	"i.e. with no further backend allocations, double buffering or copies.\n"
+	"\n"
+	"*Note:* The semantics of subsurfaces have not been finalized yet unless the rectangle is in full device units,\n"
+	"is contained within the extents of the target surface, and the target or subsurface's device transforms are not changed.\n"
+	);
 }
 
 Gura_ImplementClassMethod(surface, create_for_rectangle)
@@ -135,6 +163,9 @@ Gura_ImplementClassMethod(surface, create_for_rectangle)
 Gura_DeclareMethod(surface, status)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Checks whether an error has previously occurred for this surface.\n"
+	);
 }
 
 Gura_ImplementMethod(surface, status)
@@ -149,6 +180,16 @@ Gura_ImplementMethod(surface, status)
 Gura_DeclareMethod(surface, finish)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"This function finishes the surface and drops all references to external resources.\n"
+	"For example, for the Xlib backend it means that cairo will no longer access the drawable, which can be freed.\n"
+	"After calling cairo.surface#finish() the only valid operations on a surface are getting and setting user,\n"
+	"referencing and destroying, and flushing and finishing it.\n"
+	"Further drawing to the surface will not affect the surface but will instead trigger a cairo.STATUS_SURFACE_FINISHED error.\n"
+	"\n"
+	"When the last call to cairo_surface_destroy() decreases the reference count to zero,\n"
+	"cairo will call cairo_surface_finish() if it hasn't been called already, before freeing the resources associated with the surface.\n"
+	);
 }
 
 Gura_ImplementMethod(surface, finish)
@@ -164,6 +205,11 @@ Gura_ImplementMethod(surface, finish)
 Gura_DeclareMethod(surface, flush)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Do any pending drawing for the surface and also restore any temporary modifications cairo has made to the surface's state.\n"
+	"This function must be called before switching from drawing on the surface with cairo to drawing on it directly with native APIs.\n"
+	"If the surface doesn't support direct access, then this function does nothing.\n"
+	);
 }
 
 Gura_ImplementMethod(surface, flush)
@@ -179,6 +225,9 @@ Gura_ImplementMethod(surface, flush)
 Gura_DeclareMethod(surface, get_device)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"This function returns the device for a surface. See cairo.device.\n"
+	);
 }
 
 Gura_ImplementMethod(surface, get_device)
@@ -195,6 +244,12 @@ Gura_ImplementMethod(surface, get_device)
 Gura_DeclareMethod(surface, get_font_options)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Retrieves the default font rendering options for the surface.\n"
+	"This allows display surfaces to report the correct subpixel order for rendering on them,\n"
+	"print surfaces to disable hinting of metrics and so forth.\n"
+	"The result can then be used with cairo.scaled_font.create().\n"
+	);
 }
 
 Gura_ImplementMethod(surface, get_font_options)
@@ -215,6 +270,10 @@ Gura_ImplementMethod(surface, get_font_options)
 Gura_DeclareMethod(surface, get_content)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"This function returns the content type of surface which indicates whether the surface contains color and/or alpha information.\n"
+	"See cairo_content_t.\n"
+	);
 }
 
 Gura_ImplementMethod(surface, get_content)
@@ -230,6 +289,10 @@ Gura_ImplementMethod(surface, get_content)
 Gura_DeclareMethod(surface, mark_dirty)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"Tells cairo that drawing has been done to surface using means other than cairo, and that cairo should reread any cached areas.\n"
+	"Note that you must call cairo.surface#flush() before doing such drawing.\n"
+	);
 }
 
 Gura_ImplementMethod(surface, mark_dirty)
@@ -249,6 +312,12 @@ Gura_DeclareMethod(surface, mark_dirty_rectangle)
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "width", VTYPE_number);
 	DeclareArg(env, "height", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	"Like cairo.surface#mark_dirty(), but drawing has been done only to the specified rectangle,\n"
+	"so that cairo can retain cached contents for other parts of the surface.\n"
+	"\n"
+	"Any cached clip set on the surface will be reset by this function, to make sure that future cairo calls have the clip set that they expect.\n"
+	);
 }
 
 Gura_ImplementMethod(surface, mark_dirty_rectangle)
@@ -267,6 +336,16 @@ Gura_DeclareMethod(surface, set_device_offset)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "x_offset", VTYPE_number);
 	DeclareArg(env, "y_offset", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	"Sets an offset that is added to the device coordinates determined by the CTM when drawing to surface.\n"
+	"One use case for this function is when we want to create a cairo.surface\n"
+	"that redirects drawing for a portion of an onscreen surface to an offscreen surface\n"
+	"in a way that is completely invisible to the user of the cairo API.\n"
+	"Setting a transformation via cairo.context#translate() isn't sufficient to do this,\n"
+	"since functions like cairo.context#device_to_user() will expose the hidden offset.\n"
+	"\n"
+	"Note that the offset affects drawing to the surface as well as using the surface in a source pattern.\n"
+	);
 }
 
 Gura_ImplementMethod(surface, set_device_offset)
@@ -282,6 +361,9 @@ Gura_ImplementMethod(surface, set_device_offset)
 Gura_DeclareMethod(surface, get_device_offset)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(surface, get_device_offset)
@@ -300,6 +382,9 @@ Gura_DeclareMethod(surface, set_fallback_resolution)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "x_pixels_per_inch", VTYPE_number);
 	DeclareArg(env, "y_pixels_per_inch", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(surface, set_fallback_resolution)
@@ -315,6 +400,9 @@ Gura_ImplementMethod(surface, set_fallback_resolution)
 Gura_DeclareMethod(surface, get_fallback_resolution)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(surface, get_fallback_resolution)
@@ -331,6 +419,9 @@ Gura_ImplementMethod(surface, get_fallback_resolution)
 Gura_DeclareMethod(surface, get_type)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(surface, get_type)
@@ -346,6 +437,9 @@ Gura_ImplementMethod(surface, get_type)
 Gura_DeclareMethod(surface, get_reference_count)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(surface, get_reference_count)
@@ -364,6 +458,9 @@ Gura_ImplementMethod(surface, get_reference_count)
 Gura_DeclareMethod(surface, copy_page)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(surface, copy_page)
@@ -379,6 +476,9 @@ Gura_ImplementMethod(surface, copy_page)
 Gura_DeclareMethod(surface, show_page)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(surface, show_page)
@@ -394,6 +494,9 @@ Gura_ImplementMethod(surface, show_page)
 Gura_DeclareMethod(surface, has_show_text_glyphs)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(surface, has_show_text_glyphs)
@@ -409,6 +512,9 @@ Gura_ImplementMethod(surface, has_show_text_glyphs)
 Gura_DeclareMethod(surface, set_mime_data)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(surface, set_mime_data)
@@ -425,6 +531,9 @@ Gura_ImplementMethod(surface, set_mime_data)
 Gura_DeclareMethod(surface, get_mime_data)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(surface, get_mime_data)
@@ -441,6 +550,9 @@ Gura_ImplementMethod(surface, get_mime_data)
 Gura_DeclareMethod(surface, supports_mime_type)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(surface, supports_mime_type)
@@ -457,6 +569,9 @@ Gura_ImplementMethod(surface, supports_mime_type)
 Gura_DeclareMethod(surface, map_to_image)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(surface, map_to_image)
@@ -473,6 +588,9 @@ Gura_ImplementMethod(surface, map_to_image)
 Gura_DeclareMethod(surface, unmap_image)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(surface, unmap_image)
@@ -490,6 +608,9 @@ Gura_DeclareMethod(surface, write_to_png)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(surface, write_to_png)

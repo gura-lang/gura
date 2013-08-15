@@ -84,7 +84,7 @@ Gura_DeclareClassMethod(pattern, create_color)
 	DeclareArg(env, "alpha", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Creates a new cairo,pattern corresponding to a color instance of Gura and an alpha value.\n"
 	);
 }
 
