@@ -686,14 +686,13 @@ Gura_ImplementUserClassWithCast(surface)
 
 Gura_ImplementCastFrom(surface)
 {
-	if (value.IsImage()) {
-		Image *pImage = Image::Reference(Object_image::GetObject(value)->GetImage());
+	Value valueCast(value);
+	env.LookupClass(VTYPE_image)->CastFrom(env, sig, valueCast, pDecl);
+	if (valueCast.IsImage()) {
+		Image *pImage = Object_image::GetObject(valueCast)->GetImage();
 		cairo_surface_t *surface = CreateSurfaceFromImage(sig, pImage);
-		if (sig.IsSignalled()) {
-			Image::Delete(pImage);
-			return false;
-		}
-		value = Value(new Object_image_surface(surface, pImage));
+		if (sig.IsSignalled()) return false;
+		value = Value(new Object_image_surface(surface, pImage->Reference()));
 		return true;
 	}
 	return false;

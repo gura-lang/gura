@@ -1175,11 +1175,12 @@ Gura_ImplementUserClassWithCast(sequence)
 
 Gura_ImplementCastFrom(sequence)
 {
-	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, value, pDecl);
+	Value valueCast(value);
+	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, valueCast, pDecl);
 	if (value.IsStream()) {
 		AutoPtr<Object_sequence> pObj(new Object_sequence(env));
-		pObj->GetSequence().Read(env, sig, value.GetStream());
-		value = Value::Null; // delete stream instance
+		pObj->GetSequence().Read(env, sig, valueCast.GetStream());
+		valueCast = Value::Null; // delete stream instance
 		if (sig.IsSignalled()) return false;
 		value = Value(pObj.release());
 		return true;

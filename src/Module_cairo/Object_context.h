@@ -15,6 +15,7 @@ class Object_context : public Object {
 private:
 	cairo_t *_cr;
 	AutoPtr<Object_surface> _pObjSurface;
+	AutoPtr<Object_surface> _pObjSurfaceSrc;
 public:
 	Gura_DeclareObjectAccessor(context)
 public:
@@ -28,6 +29,9 @@ public:
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline cairo_t *GetEntity() { return _cr; }
 	inline Object_surface *GetSurfaceObj() { return _pObjSurface.get(); }
+	inline void SetSurfaceSrcObj(Object_surface *pObjSurfaceSrc) {
+		_pObjSurfaceSrc.reset(pObjSurfaceSrc);
+	}
 	void Destroy();
 };
 

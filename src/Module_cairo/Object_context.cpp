@@ -469,6 +469,7 @@ Gura_ImplementMethod(context, set_source_surface)
 	double y = args.GetDouble(2);
 	::cairo_set_source_surface(cr, surface, x, y);
 	if (IsError(sig, cr)) return Value::Null;
+	pThis->SetSurfaceSrcObj(Object_surface::Reference(Object_surface::GetObject(args, 0)));
 	return args.GetThis();
 }
 

@@ -627,7 +627,7 @@ Gura_ImplementMethod(pattern, get_type)
 //#void *cairo_pattern_get_user_data(cairo_pattern_t *pattern, const cairo_user_data_key_t *key);
 
 // implementation of class pattern
-Gura_ImplementUserClass(pattern)
+Gura_ImplementUserClassWithCast(pattern)
 {
 	Gura_AssignMethod(pattern, create_rgb);
 	Gura_AssignMethod(pattern, create_rgba);
@@ -651,6 +651,28 @@ Gura_ImplementUserClass(pattern)
 	Gura_AssignMethod(pattern, set_matrix);
 	Gura_AssignMethod(pattern, get_matrix);
 	Gura_AssignMethod(pattern, get_type);
+}
+
+Gura_ImplementCastFrom(pattern)
+{
+	Value valueCast(value);
+	env.LookupClass(VTYPE_surface)->CastFrom(env, sig, valueCast, pDecl);
+	if (valueCast.GetValueType() == VTYPE_surface) {
+		cairo_surface_t *surface = Object_surface::GetObject(valueCast)->GetEntity();
+		cairo_pattern_t *pattern = ::cairo_pattern_create_for_surface(surface);
+		if (IsError(sig, pattern)) {
+			::cairo_pattern_destroy(pattern);
+			return false;
+		}
+		value = Value(new Object_pattern(pattern));
+		return true;
+	}
+	return false;
+}
+
+Gura_ImplementCastTo(pattern)
+{
+	return false;
 }
 
 }}
