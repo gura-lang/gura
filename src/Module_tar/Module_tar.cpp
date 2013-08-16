@@ -32,19 +32,19 @@ const char XHDTYPE			= 'x';		// Extended header referring to the next file in th
 const char XGLTYPE			= 'g';		// Global extended header
 
 // Bits used in the mode field, values in octal. 
-const unsigned long TSUID	= 04000;	// set UID on execution
-const unsigned long TSGID	= 02000;	// set GID on execution
-const unsigned long TSVTX	= 01000;	// reserved
-										// file permissions
-const unsigned long TUREAD	= 00400;	// read by owner
-const unsigned long TUWRITE	= 00200;	// write by owner
-const unsigned long TUEXEC	= 00100;	// execute/search by owner
-const unsigned long TGREAD	= 00040;	// read by group
-const unsigned long TGWRITE	= 00020;	// write by group
-const unsigned long TGEXEC	= 00010;	// execute/search by group
-const unsigned long TOREAD	= 00004;	// read by other
-const unsigned long TOWRITE	= 00002;	// write by other
-const unsigned long TOEXEC	= 00001;	// execute/search by other
+const ULong TSUID	= 04000;	// set UID on execution
+const ULong TSGID	= 02000;	// set GID on execution
+const ULong TSVTX	= 01000;	// reserved
+								// file permissions
+const ULong TUREAD	= 00400;	// read by owner
+const ULong TUWRITE	= 00200;	// write by owner
+const ULong TUEXEC	= 00100;	// execute/search by owner
+const ULong TGREAD	= 00040;	// read by group
+const ULong TGWRITE	= 00020;	// write by group
+const ULong TGEXEC	= 00010;	// execute/search by group
+const ULong TOREAD	= 00004;	// read by other
+const ULong TOWRITE	= 00002;	// write by other
+const ULong TOEXEC	= 00001;	// execute/search by other
 
 //-----------------------------------------------------------------------------
 // Header implementation
@@ -103,17 +103,17 @@ bool Header::SetRawHeader(Signal sig, const star_header &rawHdr)
 	_size = OctetToULong(sig, rawHdr.size, sizeof(rawHdr.size));
 	if (sig.IsSignalled()) return false;
 	do {
-		unsigned long num = OctetToULong(sig, rawHdr.mtime, sizeof(rawHdr.mtime));
+		ULong num = OctetToULong(sig, rawHdr.mtime, sizeof(rawHdr.mtime));
 		if (sig.IsSignalled()) return false;
 		_mtime.SetUnixTime(num);
 	} while (0);
 	do {
-		unsigned long num = OctetToULong(sig, rawHdr.atime, sizeof(rawHdr.atime));
+		ULong num = OctetToULong(sig, rawHdr.atime, sizeof(rawHdr.atime));
 		if (sig.IsSignalled()) return false;
 		_atime.SetUnixTime(num);
 	} while (0);
 	do {
-		unsigned long num = OctetToULong(sig, rawHdr.ctime, sizeof(rawHdr.ctime));
+		ULong num = OctetToULong(sig, rawHdr.ctime, sizeof(rawHdr.ctime));
 		if (sig.IsSignalled()) return false;
 		_ctime.SetUnixTime(num);
 	} while (0);
@@ -153,8 +153,8 @@ void Header::ComposeHeaderBlock(void *memBlock)
 	//rawHdr.atime[11] = ' ';
 	//::sprintf(rawHdr.ctime,		"%11o", _ctime.GetUnixTime());
 	//rawHdr.ctime[11] = ' ';
-	unsigned long chksum = 0;
-	unsigned char *p = reinterpret_cast<unsigned char *>(&rawHdr);
+	ULong chksum = 0;
+	UChar *p = reinterpret_cast<UChar *>(&rawHdr);
 	for (int i = 0; i < BLOCKSIZE; i++, p++) chksum += *p;
 	::sprintf(rawHdr.chksum,	"%6o ", chksum);
 }
@@ -616,7 +616,7 @@ Directory *Directory_TAR::DoNext(Environment &env, Signal sig)
 	return _pRecord->Next(this);
 }
 
-Stream *Directory_TAR::DoOpenStream(Environment &env, Signal sig, unsigned long attr)
+Stream *Directory_TAR::DoOpenStream(Environment &env, Signal sig, ULong attr)
 {
 	Directory *pDirectory = this;
 	for ( ; pDirectory != NULL && !pDirectory->IsBoundaryContainer();
@@ -871,7 +871,7 @@ Header *ReadHeader(Signal sig, Stream *pStream, void *buffBlock)
 			return NULL;
 		}
 		bool zeroBlockFlag = true;
-		unsigned long *p = reinterpret_cast<unsigned long *>(buffBlock);
+		ULong *p = reinterpret_cast<ULong *>(buffBlock);
 		for (int i = 0; i < BLOCKSIZE / 4; i++, p++) {
 			if (*p != 0x00000000) {
 				zeroBlockFlag = false;
@@ -952,9 +952,9 @@ Stream *DecorateWriterStream(Environment &env, Signal sig, Stream *pStreamDst,
 	return pStreamDst;
 }
 
-unsigned long OctetToULong(Signal sig, const char *octet, size_t len)
+ULong OctetToULong(Signal sig, const char *octet, size_t len)
 {
-	unsigned long num = 0;
+	ULong num = 0;
 	for (const char *p = octet; len > 0; len--, p++) {
 		char ch = *p;
 		if (ch == '\0') break;

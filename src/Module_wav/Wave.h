@@ -5,8 +5,8 @@
 Gura_BeginModule(wav)
 
 #define FOURCC(c1, c2, c3, c4) \
-	(static_cast<unsigned long>(c1) << 0) + (static_cast<unsigned long>(c2) << 8) + \
-	(static_cast<unsigned long>(c3) << 16) + (static_cast<unsigned long>(c4) << 24)
+	(static_cast<ULong>(c1) << 0) + (static_cast<ULong>(c2) << 8) + \
+	(static_cast<ULong>(c3) << 16) + (static_cast<ULong>(c4) << 24)
 
 class Wave {
 public:

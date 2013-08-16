@@ -67,7 +67,7 @@ bool Object_content::Read(Environment &env, Signal sig,
 		}
 		int biWidth = Gura_UnpackLong(bih.biWidth);
 		int biHeight = Gura_UnpackLong(bih.biHeight) / 2;
-		unsigned short biBitCount = Gura_UnpackUShort(bih.biBitCount);
+		UShort biBitCount = Gura_UnpackUShort(bih.biBitCount);
 		AutoPtr<Image> pImage(new Image(format));
 		if (!pImage->ReadDIBPalette(env, sig, stream, biBitCount)) return false;
 		if (!pImage->ReadDIB(sig, stream, biWidth, biHeight, biBitCount, true)) {
@@ -90,7 +90,7 @@ bool Object_content::Write(Environment &env, Signal sig, Stream &stream)
 		stream.Write(sig, &iconDir, IconDir::Size);
 		if (sig.IsSignalled()) return false;
 	} while (0);
-	unsigned long dwImageOffset = IconDir::Size + IconDirEntry::Size * cntIcons;
+	ULong dwImageOffset = IconDir::Size + IconDirEntry::Size * cntIcons;
 	foreach (ValueList, pValue, _valList) {
 		Image *pImage = Object_image::GetObject(*pValue)->GetImage();
 		size_t width = pImage->GetWidth(), height = pImage->GetHeight();
@@ -100,20 +100,20 @@ bool Object_content::Write(Environment &env, Signal sig, Stream &stream)
 			return false;
 		}
 		int biBitCount = pImage->CalcDIBBitCount();
-		unsigned long dwBytesInRes = static_cast<unsigned long>(
+		ULong dwBytesInRes = static_cast<ULong>(
 						BitmapInfoHeader::Size +
 						Image::CalcDIBPaletteSize(biBitCount) +
 						pImage->CalcDIBImageSize(biBitCount, true));
 		IconDirEntry iconDirEntry;
 		::memset(&iconDirEntry, 0x00, sizeof(iconDirEntry));
-		iconDirEntry.bWidth = static_cast<unsigned char>(width & 0xff);
-		iconDirEntry.bHeight = static_cast<unsigned char>(height & 0xff);
+		iconDirEntry.bWidth = static_cast<UChar>(width & 0xff);
+		iconDirEntry.bHeight = static_cast<UChar>(height & 0xff);
 		iconDirEntry.bColorCount = (biBitCount < 8)?
-						static_cast<unsigned char>(1 << biBitCount) : 0;
+						static_cast<UChar>(1 << biBitCount) : 0;
 		iconDirEntry.bReserved = 0;
-		unsigned short wPlanes = (biBitCount >= 8)? 1 : 0;
+		UShort wPlanes = (biBitCount >= 8)? 1 : 0;
 		Gura_PackUShort(iconDirEntry.wPlanes, wPlanes);
-		unsigned short wBitCount = (biBitCount >= 8)? biBitCount : 0;
+		UShort wBitCount = (biBitCount >= 8)? biBitCount : 0;
 		Gura_PackUShort(iconDirEntry.wBitCount, wBitCount);
 		Gura_PackULong(iconDirEntry.dwBytesInRes, dwBytesInRes);
 		Gura_PackULong(iconDirEntry.dwImageOffset, dwImageOffset);
@@ -339,7 +339,7 @@ bool ImageStreamer_ICO::ReadStream(Environment &env, Signal sig,
 		}
 		int biWidth = Gura_UnpackLong(bih.biWidth);
 		int biHeight = Gura_UnpackLong(bih.biHeight) / 2;
-		unsigned short biBitCount = Gura_UnpackUShort(bih.biBitCount);
+		UShort biBitCount = Gura_UnpackUShort(bih.biBitCount);
 		if (!pImage->ReadDIBPalette(env, sig, stream, biBitCount)) return false;
 		if (!pImage->ReadDIB(sig, stream, biWidth, biHeight, biBitCount, true)) {
 			return false;

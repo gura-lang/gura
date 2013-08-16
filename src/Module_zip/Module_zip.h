@@ -39,20 +39,20 @@ class CentralFileHeader;
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-unsigned short SymbolToCompressionMethod(const Symbol *pSymbol);
-unsigned short GetDosTime(const DateTime &dt);
-unsigned short GetDosDate(const DateTime &dt);
-DateTime MakeDateTimeFromDos(unsigned short dosDate, unsigned short dosTime);
+UShort SymbolToCompressionMethod(const Symbol *pSymbol);
+UShort GetDosTime(const DateTime &dt);
+UShort GetDosDate(const DateTime &dt);
+DateTime MakeDateTimeFromDos(UShort dosDate, UShort dosTime);
 bool IsMatchedName(const char *name1, const char *name2);
 
-unsigned long SeekCentralDirectory(Signal sig, Stream *pStream);
+ULong SeekCentralDirectory(Signal sig, Stream *pStream);
 Directory *CreateDirectory(Environment &env, Signal sig, Stream *pStreamSrc,
 	Directory *pParent, const char **pPathName, PathManager::NotFoundMode notFoundMode);
 Stream *CreateStream(Environment &env, Signal sig, Stream *pStreamSrc, const CentralFileHeader *pHdr);
 
 bool SkipStream(Signal sig, Stream &stream, size_t bytes);
 bool ReadStream(Signal sig, Stream &stream, void *buff, size_t bytes, size_t offset = 0);
-bool ReadStream(Signal sig, Stream &stream, unsigned long *pSignature);
+bool ReadStream(Signal sig, Stream &stream, ULong *pSignature);
 bool ReadStream(Signal sig, Stream &stream, Binary &binary, size_t bytes);
 bool WriteStream(Signal sig, Stream &stream, void *buff, size_t bytes);
 bool WriteStream(Signal sig, Stream &stream, Binary &binary);
@@ -153,8 +153,8 @@ public:
 		return (Gura_UnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 11)) != 0;
 	}
 	inline DateTime GetLastModDateTime() const {
-		unsigned short dosTime = Gura_UnpackUShort(_fields.LastModFileTime);
-		unsigned short dosDate = Gura_UnpackUShort(_fields.LastModFileDate);
+		UShort dosTime = Gura_UnpackUShort(_fields.LastModFileTime);
+		UShort dosDate = Gura_UnpackUShort(_fields.LastModFileDate);
 		return MakeDateTimeFromDos(dosDate, dosTime);
 	}
 	inline void Print() const {
@@ -305,9 +305,9 @@ public:
 						Gura_UnpackULong(_fields.CompressedSize));
 		Gura_PackULong(fields.UncompressedSize,
 						Gura_UnpackULong(_fields.UncompressedSize));
-		unsigned short fileNameLength = static_cast<unsigned short>(_fileName.size());
+		UShort fileNameLength = static_cast<UShort>(_fileName.size());
 		Gura_PackUShort(fields.FileNameLength, fileNameLength);
-		unsigned short extraFieldLength = static_cast<unsigned short>(_extraField.size());
+		UShort extraFieldLength = static_cast<UShort>(_extraField.size());
 		Gura_PackUShort(fields.ExtraFieldLength, extraFieldLength);
 		if (!WriteStream(sig, stream, &fields, 30)) return false;
 		if (!WriteStream(sig, stream, _fileName)) return false;
@@ -329,27 +329,27 @@ public:
 	inline bool IsUtf8() const {
 		return (Gura_UnpackUShort(_fields.GeneralPurposeBitFlag) & (1 << 11)) != 0;
 	}
-	inline unsigned long GetRelativeOffsetOfLocalHeader() const {
+	inline ULong GetRelativeOffsetOfLocalHeader() const {
 		return Gura_UnpackULong(_fields.RelativeOffsetOfLocalHeader);
 	}
-	inline unsigned short GetCompressionMethod() const {
+	inline UShort GetCompressionMethod() const {
 		return Gura_UnpackUShort(_fields.CompressionMethod);
 	}
 	inline DateTime GetLastModDateTime() const {
-		unsigned short dosTime = Gura_UnpackUShort(_fields.LastModFileTime);
-		unsigned short dosDate = Gura_UnpackUShort(_fields.LastModFileDate);
+		UShort dosTime = Gura_UnpackUShort(_fields.LastModFileTime);
+		UShort dosDate = Gura_UnpackUShort(_fields.LastModFileDate);
 		return MakeDateTimeFromDos(dosDate, dosTime);
 	}
-	inline unsigned long GetCrc32() const {
+	inline ULong GetCrc32() const {
 		return Gura_UnpackULong(_fields.Crc32);
 	}
-	inline unsigned long GetCompressedSize() const {
+	inline ULong GetCompressedSize() const {
 		return Gura_UnpackULong(_fields.CompressedSize);
 	}
-	inline unsigned long GetUncompressedSize() const {
+	inline ULong GetUncompressedSize() const {
 		return Gura_UnpackULong(_fields.UncompressedSize);
 	}
-	inline unsigned long GetExternalFileAttributes() const {
+	inline ULong GetExternalFileAttributes() const {
 		return Gura_UnpackULong(_fields.ExternalFileAttributes);
 	}
 	inline void Print() const {
@@ -672,7 +672,7 @@ public:
 		Gura_PackedUShort_LE(Tag);
 		Gura_PackedUShort_LE(TSize);
 		Gura_PackedULong_BE(Signature);	// "ZPIT"
-		unsigned char FnLen;
+		UChar FnLen;
 		// FileName, FileType, Creator
 	};
 };
@@ -708,7 +708,7 @@ public:
 	struct Fields {
 		Gura_PackedUShort_LE(Tag);
 		Gura_PackedUShort_LE(TSize);
-		unsigned char Version;
+		UChar Version;
 		Gura_PackedULong_LE(ComCRC32);
 		// UnicodeCom
 	};
@@ -721,7 +721,7 @@ public:
 	struct Fields {
 		Gura_PackedUShort_LE(Tag);
 		Gura_PackedUShort_LE(TSize);
-		unsigned char Version;
+		UChar Version;
 		Gura_PackedULong_LE(NameCRC32);
 		// UnicodeName
 	};
@@ -795,21 +795,21 @@ class Object_writer : public Object {
 private:
 	Signal _sig;
 	AutoPtr<Stream> _pStreamDst;
-	unsigned short _compressionMethod;
+	UShort _compressionMethod;
 	CentralFileHeaderList _hdrList;
 public:
 	Gura_DeclareObjectAccessor(writer)
 public:
-	Object_writer(Signal sig, Stream *pStreamDst, unsigned short compressionMethod);
+	Object_writer(Signal sig, Stream *pStreamDst, UShort compressionMethod);
 	inline CentralFileHeaderList &GetHeaderList() { return _hdrList; }
 	virtual ~Object_writer();
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline Stream *GetStreamDst() { return _pStreamDst.get(); }
 	bool Add(Environment &env, Signal sig, Stream &streamSrc,
-					const char *fileName, unsigned short compressionMethod);
+					const char *fileName, UShort compressionMethod);
 	bool Finish();
-	inline unsigned short GetCompressionMethod() const { return _compressionMethod; }
+	inline UShort GetCompressionMethod() const { return _compressionMethod; }
 };
 
 //-----------------------------------------------------------------------------
@@ -842,7 +842,7 @@ public:
 		Type type, DirBuilder::Structure *pStructure, Record_ZIP *pRecord);
 	virtual ~Directory_ZIP();
 	virtual Directory *DoNext(Environment &env, Signal sig);
-	virtual Stream *DoOpenStream(Environment &env, Signal sig, unsigned long attr);
+	virtual Stream *DoOpenStream(Environment &env, Signal sig, ULong attr);
 	virtual Object *DoGetStatObj(Signal sig);
 	inline Record_ZIP &GetRecord() { return *_pRecord; }
 };
@@ -884,7 +884,7 @@ protected:
 	String _name;
 	size_t _bytesUncompressed;
 	size_t _bytesCompressed;
-	unsigned long _crc32Expected;
+	ULong _crc32Expected;
 	bool _seekedFlag;
 	CRC32 _crc32;
 public:

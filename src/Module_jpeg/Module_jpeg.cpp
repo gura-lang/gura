@@ -297,7 +297,7 @@ Gura_ModuleEntry()
 	// image streamer registration
 	ImageStreamer::Register(new ImageStreamer_JPEG());
 	do {
-		const unsigned short tagId = TAG_Compression;
+		const UShort tagId = TAG_Compression;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 1,		"uncompressed",					NULL,	},
 			{ 6,		"JPEG",							NULL,	},
@@ -306,7 +306,7 @@ Gura_ModuleEntry()
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
-		const unsigned short tagId = TAG_PhotometricInterpretation;
+		const UShort tagId = TAG_PhotometricInterpretation;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 2,		"RGB",							NULL,	},
 			{ 6,		"YCbCr",						NULL,	},
@@ -315,7 +315,7 @@ Gura_ModuleEntry()
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
-		const unsigned short tagId = TAG_Orientation;
+		const UShort tagId = TAG_Orientation;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 1,		"LeftTopVert",					NULL,	},
 			{ 2,		"RightTopVert",					NULL,	},
@@ -330,7 +330,7 @@ Gura_ModuleEntry()
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
-		const unsigned short tagId = TAG_PlanarConfiguration;
+		const UShort tagId = TAG_PlanarConfiguration;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 1,		"chunky",						NULL,	},
 			{ 2,		"planar",						NULL,	},
@@ -339,7 +339,7 @@ Gura_ModuleEntry()
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
-		const unsigned short tagId = TAG_YCbCrPositioning;
+		const UShort tagId = TAG_YCbCrPositioning;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 1,		"centered",						NULL,	},
 			{ 2,		"cosited",						NULL,	},
@@ -348,7 +348,7 @@ Gura_ModuleEntry()
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
-		const unsigned short tagId = TAG_ResolutionUnit;
+		const UShort tagId = TAG_ResolutionUnit;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 2,		"inches",						NULL,	},
 			{ 3,		"centimeters",					NULL,	},
@@ -357,7 +357,7 @@ Gura_ModuleEntry()
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
-		const unsigned short tagId = TAG_ColorSpace;
+		const UShort tagId = TAG_ColorSpace;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 1,		"sRGB",							NULL,	},
 			{ 0xffff,	"uncalibrated",					NULL,	},
@@ -366,7 +366,7 @@ Gura_ModuleEntry()
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
-		const unsigned short tagId = TAG_ComponentsConfiguration;
+		const UShort tagId = TAG_ComponentsConfiguration;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 0,		"not_exist",					NULL,	},
 			{ 1,		"Y",							NULL,	},
@@ -380,7 +380,7 @@ Gura_ModuleEntry()
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
-		const unsigned short tagId = TAG_ExposureProgram;
+		const UShort tagId = TAG_ExposureProgram;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 0,		"NotDefined",					NULL,	},
 			{ 1,		"Manual",						NULL,	},
@@ -397,7 +397,7 @@ Gura_ModuleEntry()
 	} while (0);
 
 	do {
-		const unsigned short tagId = TAG_MeteringMode;
+		const UShort tagId = TAG_MeteringMode;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 0,		"unknown",						NULL,	},
 			{ 1,		"Average",						NULL,	},
@@ -412,7 +412,7 @@ Gura_ModuleEntry()
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
-		const unsigned short tagId = TAG_LightSource;
+		const UShort tagId = TAG_LightSource;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 0,		"unknown",						NULL,	},
 			{ 1,		"Daylight",						NULL,	},
@@ -440,7 +440,7 @@ Gura_ModuleEntry()
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
-		const unsigned short tagId = TAG_Flash;
+		const UShort tagId = TAG_Flash;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 0x0000,	"FlashDidNotFire",																NULL,	},
 			{ 0x0001,	"FlashFired",																	NULL,	},
@@ -469,7 +469,7 @@ Gura_ModuleEntry()
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
-		const unsigned short tagId = TAG_FocalPlaneResolutionUnit;
+		const UShort tagId = TAG_FocalPlaneResolutionUnit;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 2,		"inches",						NULL,	},
 			{ 3,		"centimeters",					NULL,	},
@@ -478,7 +478,7 @@ Gura_ModuleEntry()
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
-		const unsigned short tagId = TAG_SensingMethod;
+		const UShort tagId = TAG_SensingMethod;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 1,		"NotDefined",					NULL,	},
 			{ 2,		"OneChipColorAreaSensor",		NULL,	},
@@ -492,7 +492,7 @@ Gura_ModuleEntry()
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
-		const unsigned short tagId = TAG_FileSource;
+		const UShort tagId = TAG_FileSource;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 3,		"DSC",							NULL,	},
 			{ 0,		NULL,							NULL,	},
@@ -500,7 +500,7 @@ Gura_ModuleEntry()
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
-		const unsigned short tagId = TAG_SceneType;
+		const UShort tagId = TAG_SceneType;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 1,		"DirectlyPhotographedImage",	NULL,	},
 			{ 0,		NULL,							NULL,	},
@@ -508,7 +508,7 @@ Gura_ModuleEntry()
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
-		const unsigned short tagId = TAG_CustomRendered;
+		const UShort tagId = TAG_CustomRendered;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 0,		"NormalProces",					NULL,	},
 			{ 1,		"CustomProcess",				NULL,	},
@@ -517,7 +517,7 @@ Gura_ModuleEntry()
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
-		const unsigned short tagId = TAG_ExposureMode;
+		const UShort tagId = TAG_ExposureMode;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 0,		"AutoExposure",					NULL,	},
 			{ 1,		"ManualExposure",				NULL,	},
@@ -527,7 +527,7 @@ Gura_ModuleEntry()
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
-		const unsigned short tagId = TAG_WhiteBalance;
+		const UShort tagId = TAG_WhiteBalance;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 0,		"AutoWhiteBalance",				NULL,	},
 			{ 1,		"ManualWhiteBalance",			NULL,	},
@@ -536,7 +536,7 @@ Gura_ModuleEntry()
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
-		const unsigned short tagId = TAG_SceneCaptureType;
+		const UShort tagId = TAG_SceneCaptureType;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 0,		"Standard",						NULL,	},
 			{ 1,		"Landscape",					NULL,	},
@@ -547,7 +547,7 @@ Gura_ModuleEntry()
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
-		const unsigned short tagId = TAG_GainControl;
+		const UShort tagId = TAG_GainControl;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 0,		"None",							NULL,	},
 			{ 1,		"LowGainUp",					NULL,	},
@@ -559,7 +559,7 @@ Gura_ModuleEntry()
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
-		const unsigned short tagId = TAG_Contrast;
+		const UShort tagId = TAG_Contrast;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 0,		"Normal",						NULL,	},
 			{ 1,		"Soft",							NULL,	},
@@ -569,7 +569,7 @@ Gura_ModuleEntry()
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
-		const unsigned short tagId = TAG_Saturation;
+		const UShort tagId = TAG_Saturation;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 0,		"Normal",						NULL,	},
 			{ 1,		"LowSaturation",				NULL,	},
@@ -579,7 +579,7 @@ Gura_ModuleEntry()
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
-		const unsigned short tagId = TAG_Sharpness;
+		const UShort tagId = TAG_Sharpness;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 0,		"Normal",						NULL,	},
 			{ 1,		"Soft",							NULL,	},
@@ -589,7 +589,7 @@ Gura_ModuleEntry()
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
-		const unsigned short tagId = TAG_SubjectDistanceRange;
+		const UShort tagId = TAG_SubjectDistanceRange;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 0,		"unknown",						NULL,	},
 			{ 1,		"Macro",						NULL,	},
@@ -600,7 +600,7 @@ Gura_ModuleEntry()
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
 	do {
-		const unsigned short tagId = TAG_GPSAltitudeRef;
+		const UShort tagId = TAG_GPSAltitudeRef;
 		static SymbolAssoc::Entry entryTbl[] = {
 			{ 0,		"SeaLevel",						NULL,	},
 			{ 1,		"SeaLavelReference",			NULL,	},
@@ -671,9 +671,9 @@ bool ImageStreamer_JPEG::ReadStream(Environment &env, Signal sig, Image *pImage,
 			::jpeg_destroy_decompress(&cinfo);
 			return false;
 		}
-		const unsigned char *srcp = scanlines[0];
-		unsigned char *dstp = pImage->GetPointer(0, cinfo.output_scanline - 1);
-		for (unsigned int i = 0; i < cinfo.image_width; i++) {
+		const UChar *srcp = scanlines[0];
+		UChar *dstp = pImage->GetPointer(0, cinfo.output_scanline - 1);
+		for (UInt i = 0; i < cinfo.image_width; i++) {
 			*(dstp + Image::OffsetRed) = *srcp++;
 			*(dstp + Image::OffsetGreen) = *srcp++;
 			*(dstp + Image::OffsetBlue) = *srcp++;
@@ -709,9 +709,9 @@ bool ImageStreamer_JPEG::WriteStream(Environment &env, Signal sig,
 	JSAMPARRAY scanlines = (*cinfo.mem->alloc_sarray)((j_common_ptr)&cinfo,
 					JPOOL_IMAGE, cinfo.image_width * cinfo.input_components, 1);
 	while (cinfo.next_scanline < cinfo.image_height) {
-		const unsigned char *srcp = pImage->GetPointer(0, cinfo.next_scanline);
-		unsigned char *dstp = scanlines[0];
-		for (unsigned int i = 0; i < cinfo.image_width; i++) {
+		const UChar *srcp = pImage->GetPointer(0, cinfo.next_scanline);
+		UChar *dstp = scanlines[0];
+		for (UInt i = 0; i < cinfo.image_width; i++) {
 			*dstp++ = *(srcp + Image::OffsetRed);
 			*dstp++ = *(srcp + Image::OffsetGreen);
 			*dstp++ = *(srcp + Image::OffsetBlue);
@@ -855,7 +855,7 @@ void DestinationMgr::term_destination(j_compress_ptr cinfo)
 //-----------------------------------------------------------------------------
 // SymbolAssoc
 //-----------------------------------------------------------------------------
-SymbolAssoc::SymbolAssoc(unsigned short tagId, Entry *entryTbl) :
+SymbolAssoc::SymbolAssoc(UShort tagId, Entry *entryTbl) :
 									_tagId(tagId), _entryTbl(entryTbl)
 {
 	for (Entry *pEntry = _entryTbl; pEntry->name != NULL; pEntry++) {
@@ -863,7 +863,7 @@ SymbolAssoc::SymbolAssoc(unsigned short tagId, Entry *entryTbl) :
 	}
 }
 
-const Symbol *SymbolAssoc::NumToSymbol(unsigned short num) const
+const Symbol *SymbolAssoc::NumToSymbol(UShort num) const
 {
 	for (const Entry *pEntry = _entryTbl; pEntry->name != NULL; pEntry++) {
 		if (pEntry->num == num) return pEntry->pSymbol;
@@ -874,7 +874,7 @@ const Symbol *SymbolAssoc::NumToSymbol(unsigned short num) const
 //-----------------------------------------------------------------------------
 // SymbolAssocList
 //-----------------------------------------------------------------------------
-const SymbolAssoc *SymbolAssocList::FindByTagId(unsigned short tagId) const
+const SymbolAssoc *SymbolAssocList::FindByTagId(UShort tagId) const
 {
 	foreach_const (SymbolAssocList, ppSymbolAssoc, *this) {
 		const SymbolAssoc *pSymbolAssoc = *ppSymbolAssoc;
@@ -883,7 +883,7 @@ const SymbolAssoc *SymbolAssocList::FindByTagId(unsigned short tagId) const
 	return NULL;
 }
 
-const Symbol *SymbolAssocList::NumToSymbol(unsigned short tagId, unsigned short num) const
+const Symbol *SymbolAssocList::NumToSymbol(UShort tagId, UShort num) const
 {
 	const SymbolAssoc *pSymbolAssoc = FindByTagId(tagId);
 	return (pSymbolAssoc == NULL)? NULL : pSymbolAssoc->NumToSymbol(num);
@@ -924,7 +924,7 @@ bool ReadBuff(Signal sig, Stream &stream, void *buff, size_t bytes)
 	return true;
 }
 
-const TagInfo *TagIdToInfo(const Symbol *pSymbolOfIFD, unsigned short id)
+const TagInfo *TagIdToInfo(const Symbol *pSymbolOfIFD, UShort id)
 {
 	const TagInfo *pTagInfo =
 		(pSymbolOfIFD == Gura_UserSymbol(Exif))? g_tagInfoTbl_Exif :
@@ -938,7 +938,7 @@ const TagInfo *TagIdToInfo(const Symbol *pSymbolOfIFD, unsigned short id)
 	return NULL;
 }
 
-const TypeInfo *TypeToInfo(unsigned short type)
+const TypeInfo *TypeToInfo(UShort type)
 {
 	const TypeInfo *pTypeInfo = g_typeInfoTbl;
 	for (int i = 0; i < ArraySizeOf(g_typeInfoTbl); i++, pTypeInfo++) {

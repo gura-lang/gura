@@ -152,7 +152,7 @@ Stream_File::Stream_File(Environment &env, Signal sig) :
 {
 }
 
-bool Stream_File::Open(Signal sig, const char *fileName, unsigned long attr)
+bool Stream_File::Open(Signal sig, const char *fileName, ULong attr)
 {
 	Close();
 	_attr |= attr;
@@ -192,7 +192,7 @@ bool Stream_File::Open(Signal sig, const char *fileName, unsigned long attr)
 			// it seems to open an empty file
 			return true;
 		}
-		_map.buff = reinterpret_cast<unsigned char *>(
+		_map.buff = reinterpret_cast<UChar *>(
 				::MapViewOfFile(_map.hFileMappingObject, FILE_MAP_READ, 0, 0, 0));
 		_map.bytes = ::GetFileSize(_hFile, NULL);
 		_map.offset = 0;
@@ -349,7 +349,7 @@ Stream_File::Stream_File(Environment &env, Signal sig) :
 {
 }
 
-bool Stream_File::Open(Signal sig, const char *fileName, unsigned long attr)
+bool Stream_File::Open(Signal sig, const char *fileName, ULong attr)
 {
 	Close();
 	_attr |= attr;
@@ -454,7 +454,7 @@ size_t Stream_File::DoGetSize()
 
 Object *Stream_File::DoGetStatObj(Signal sig)
 {
-	unsigned long attr = 0;
+	ULong attr = 0;
 	struct stat stat;
 	String pathName = OAL::MakeAbsPathName(OAL::FileSeparator, _fileName.c_str());
 	if (::fstat(fileno(_fp), &stat) != 0) {
@@ -589,7 +589,7 @@ Object *Directory_FileSys::DoGetStatObj(Signal sig)
 	return new Object_Stat(*_pFileStat);
 }
 
-Stream *Directory_FileSys::DoOpenStream(Environment &env, Signal sig, unsigned long attr)
+Stream *Directory_FileSys::DoOpenStream(Environment &env, Signal sig, ULong attr)
 {
 	Stream_File *pStream = new Stream_File(env, sig);
 	if (!pStream->Open(sig, MakePathName(false).c_str(), attr)) {

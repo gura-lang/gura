@@ -255,20 +255,20 @@ int XMLCALL Parser::NotStandaloneHandler(void *userData)
 
 int Parser::Convert_shift_jis(void *data, const char *s)
 {
-	unsigned short codeCP932 =
-		(static_cast<unsigned short>(static_cast<unsigned char>(s[0])) << 8) +
-		static_cast<unsigned char>(s[1]);
-	unsigned short codeUTF16 = CP932ToUTF16(codeCP932);
+	UShort codeCP932 =
+		(static_cast<UShort>(static_cast<UChar>(s[0])) << 8) +
+		static_cast<UChar>(s[1]);
+	UShort codeUTF16 = CP932ToUTF16(codeCP932);
 	return (codeUTF16 == 0)? -1 : codeUTF16;
 }
 
 int Parser::Convert_euc_jp(void *data, const char *s)
 {
-	unsigned short codeEUCJP =
-		(static_cast<unsigned short>(static_cast<unsigned char>(s[0])) << 8) +
-		static_cast<unsigned char>(s[1]);
-	unsigned short codeCP932 = EUCJPToCP932(codeEUCJP);
-	unsigned short codeUTF16 = CP932ToUTF16(codeCP932);
+	UShort codeEUCJP =
+		(static_cast<UShort>(static_cast<UChar>(s[0])) << 8) +
+		static_cast<UChar>(s[1]);
+	UShort codeCP932 = EUCJPToCP932(codeEUCJP);
+	UShort codeUTF16 = CP932ToUTF16(codeCP932);
 	return (codeUTF16 == 0)? -1 : codeUTF16;
 }
 

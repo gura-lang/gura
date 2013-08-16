@@ -189,9 +189,9 @@ bool ImageStreamer_PPM::ReadStream(Environment &env, Signal sig, Image *pImage, 
 	} else if (format == '3') {
 		size_t iLine = 0, iPixel = 0;
 		size_t bytesPitch = pImage->GetBytesPerLine();
-		unsigned char *pLine = pImage->GetPointer(0);
-		unsigned char *pPixel = pLine;
-		unsigned long red = 0, green = 0, blue = 0;
+		UChar *pLine = pImage->GetPointer(0);
+		UChar *pPixel = pLine;
+		ULong red = 0, green = 0, blue = 0;
 		enum {
 			STAT_SkipSpace, STAT_Red, STAT_Green, STAT_Blue,
 		} stat = STAT_SkipSpace, statNext = STAT_Red;
@@ -236,9 +236,9 @@ bool ImageStreamer_PPM::ReadStream(Environment &env, Signal sig, Image *pImage, 
 						blue = blue * 255 / depth;
 					}
 					Image::StorePixel(pPixel,
-						 static_cast<unsigned char>(red),
-						 static_cast<unsigned char>(green),
-						 static_cast<unsigned char>(blue));
+						 static_cast<UChar>(red),
+						 static_cast<UChar>(green),
+						 static_cast<UChar>(blue));
 					pPixel += pImage->GetBytesPerPixel();
 					iPixel++;
 					if (iPixel >= width) {
@@ -262,11 +262,11 @@ bool ImageStreamer_PPM::ReadStream(Environment &env, Signal sig, Image *pImage, 
 			return false;
 		}
 	} else if (format == '6') {
-		unsigned char buff[3];
+		UChar buff[3];
 		size_t iLine = 0, iPixel = 0;
 		size_t bytesPitch = pImage->GetBytesPerLine();
-		unsigned char *pLine = pImage->GetPointer(0);
-		unsigned char *pPixel = pLine;
+		UChar *pLine = pImage->GetPointer(0);
+		UChar *pPixel = pLine;
 		while (stream.Read(sig, buff, 3) == 3) {
 			if (iPixel >= width) {
 				if (++iLine >= height) break;
@@ -289,8 +289,8 @@ bool ImageStreamer_PPM::WriteStream(Environment &env, Signal sig, Image *pImage,
 	::sprintf(buff, "P%d %d %d 255\n", grayFlag? 2 : 6, width, height);
 	stream.Write(sig, buff, ::strlen(buff));
 	size_t iLine = 0, iPixel = 0;
-	unsigned char *pLine = pImage->GetPointer(0);
-	unsigned char *pPixel = pLine;
+	UChar *pLine = pImage->GetPointer(0);
+	UChar *pPixel = pLine;
 	size_t bytesPitch = pImage->GetBytesPerLine();
 	if (grayFlag) {
 		for (;;) {

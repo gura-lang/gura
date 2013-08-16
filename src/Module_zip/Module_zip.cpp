@@ -54,10 +54,10 @@ bool Object_reader::ReadDirectory(Environment &env, Signal sig)
 		if (sig.IsSignalled()) return false;
 		_pStreamSrc.reset(pStreamPrefetch);
 	}
-	unsigned long offsetCentralDirectory = SeekCentralDirectory(sig, _pStreamSrc.get());
+	ULong offsetCentralDirectory = SeekCentralDirectory(sig, _pStreamSrc.get());
 	if (sig.IsSignalled()) return false;
 	if (!_pStreamSrc->Seek(sig, offsetCentralDirectory, Stream::SeekSet)) return false;
-	unsigned long signature;
+	ULong signature;
 	while (ReadStream(sig, *_pStreamSrc, &signature)) {
 		//::printf("%08x\n", signature);
 		if (signature == LocalFileHeader::Signature) {
@@ -163,7 +163,7 @@ Gura_ImplementUserClass(reader)
 // Implementation of Object_writer
 //-----------------------------------------------------------------------------
 Object_writer::Object_writer(Signal sig, Stream *pStreamDst,
-											unsigned short compressionMethod) :
+											UShort compressionMethod) :
 		Object(Gura_UserClass(writer)), _sig(sig),
 		_pStreamDst(pStreamDst), _compressionMethod(compressionMethod)
 {
@@ -202,7 +202,7 @@ String Object_writer::ToString(Signal sig, bool exprFlag)
 }
 
 bool Object_writer::Add(Environment &env, Signal sig, Stream &streamSrc,
-					const char *fileName, unsigned short compressionMethod)
+					const char *fileName, UShort compressionMethod)
 {
 	if (_pStreamDst.IsNull()) {
 		sig.SetError(ERR_IOError, "invalid accesss to writer");
@@ -211,8 +211,8 @@ bool Object_writer::Add(Environment &env, Signal sig, Stream &streamSrc,
 	const int memLevel = 8;
 	CentralFileHeader *pHdr = new CentralFileHeader();
 	_hdrList.push_back(pHdr);
-	unsigned short version = (0 << 8) | (2 * 10 + 0);	// MS-DOS, 2.0
-	unsigned short generalPurposeBitFlag = (1 << 3);	// ExistDataDescriptor
+	UShort version = (0 << 8) | (2 * 10 + 0);	// MS-DOS, 2.0
+	UShort generalPurposeBitFlag = (1 << 3);	// ExistDataDescriptor
 	DateTime dt;
 	Stream::Attribute attr;
 	if (streamSrc.GetAttribute(attr)) {
@@ -220,13 +220,13 @@ bool Object_writer::Add(Environment &env, Signal sig, Stream &streamSrc,
 	} else {
 		dt = OAL::GetCurDateTime(false);
 	}
-	unsigned short lastModFileTime = GetDosTime(dt);
-	unsigned short lastModFileDate = GetDosDate(dt);
-	unsigned long compressedSize = 0;
-	unsigned long uncompressedSize = 0;
-	unsigned long externalFileAttributes = (1 << 5);
-	unsigned long relativeOffsetOfLocalHeader =
-							static_cast<unsigned long>(_pStreamDst->Tell());
+	UShort lastModFileTime = GetDosTime(dt);
+	UShort lastModFileDate = GetDosDate(dt);
+	ULong compressedSize = 0;
+	ULong uncompressedSize = 0;
+	ULong externalFileAttributes = (1 << 5);
+	ULong relativeOffsetOfLocalHeader =
+							static_cast<ULong>(_pStreamDst->Tell());
 	do {
 		CentralFileHeader::Fields &fields = pHdr->GetFields();
 		Gura_PackUShort(fields.VersionMadeBy,				version);
@@ -313,9 +313,9 @@ bool Object_writer::Add(Environment &env, Signal sig, Stream &streamSrc,
 	}
 	pStreamOut->Flush(sig);
 	if (sig.IsSignalled()) return false;
-	unsigned long crc32num = crc32.GetResult();
-	compressedSize = static_cast<unsigned long>(_pStreamDst->Tell() - offsetDst);
-	uncompressedSize = static_cast<unsigned long>(streamSrc.Tell() - offsetSrc);
+	ULong crc32num = crc32.GetResult();
+	compressedSize = static_cast<ULong>(_pStreamDst->Tell() - offsetDst);
+	uncompressedSize = static_cast<ULong>(streamSrc.Tell() - offsetSrc);
 	do {
 		DataDescriptor desc;
 		DataDescriptor::Fields &fields = desc.GetFields();
@@ -342,10 +342,10 @@ bool Object_writer::Finish()
 		if (!pHdr->Write(_sig, *_pStreamDst)) return false;
 		//pHdr->Print();
 	}
-	unsigned long offsetOfCentralDirectory = static_cast<unsigned long>(offset);
-	unsigned long sizeOfTheCentralDirectory =
-							static_cast<unsigned long>(_pStreamDst->Tell() - offset);
-	unsigned short nCentralFileHeaders = static_cast<unsigned short>(_hdrList.size());
+	ULong offsetOfCentralDirectory = static_cast<ULong>(offset);
+	ULong sizeOfTheCentralDirectory =
+							static_cast<ULong>(_pStreamDst->Tell() - offset);
+	UShort nCentralFileHeaders = static_cast<UShort>(_hdrList.size());
 	do {
 		EndOfCentralDirectoryRecord rec;
 		EndOfCentralDirectoryRecord::Fields &fields = rec.GetFields();
@@ -390,7 +390,7 @@ Gura_ImplementMethod(writer, add)
 		}
 		PathManager::SplitFileName(identifier, NULL, &fileName);
 	}
-	unsigned short compressionMethod = args.IsSymbol(2)?
+	UShort compressionMethod = args.IsSymbol(2)?
 						SymbolToCompressionMethod(args.GetSymbol(2)) :
 						pThis->GetCompressionMethod();
 	if (compressionMethod == METHOD_Invalid) {
@@ -501,7 +501,7 @@ Gura_DeclareFunction(writer)
 Gura_ImplementFunction(writer)
 {
 	Stream &streamDst = args.GetStream(0);
-	unsigned short compressionMethod = args.IsSymbol(1)?
+	UShort compressionMethod = args.IsSymbol(1)?
 			SymbolToCompressionMethod(args.GetSymbol(1)) : METHOD_Deflate;
 	if (compressionMethod == METHOD_Invalid) {
 		sig.SetError(ERR_IOError, "invalid compression method");
@@ -607,13 +607,13 @@ Value Object_stat::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(crc32))) {
 		return Value(env, _hdr.GetCrc32());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(compression_method))) {
-		return Value(static_cast<unsigned long>(_hdr.GetCompressionMethod()));
+		return Value(static_cast<ULong>(_hdr.GetCompressionMethod()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(size))) {
-		return Value(static_cast<unsigned long>(_hdr.GetUncompressedSize()));
+		return Value(static_cast<ULong>(_hdr.GetUncompressedSize()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(compressed_size))) {
-		return Value(static_cast<unsigned long>(_hdr.GetCompressedSize()));
+		return Value(static_cast<ULong>(_hdr.GetCompressedSize()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(attributes))) {
-		return Value(static_cast<unsigned long>(_hdr.GetExternalFileAttributes()));
+		return Value(static_cast<ULong>(_hdr.GetExternalFileAttributes()));
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -887,7 +887,7 @@ Directory *Directory_ZIP::DoNext(Environment &env, Signal sig)
 	return _pRecord->Next(this);
 }
 
-Stream *Directory_ZIP::DoOpenStream(Environment &env, Signal sig, unsigned long attr)
+Stream *Directory_ZIP::DoOpenStream(Environment &env, Signal sig, ULong attr)
 {
 	AutoPtr<Stream> pStreamSrc;
 	for (Directory *pDirectory = this; pDirectory != NULL;
@@ -933,7 +933,7 @@ Directory *PathManager_ZIP::DoOpenDirectory(Environment &env, Signal sig,
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-unsigned short SymbolToCompressionMethod(const Symbol *pSymbol)
+UShort SymbolToCompressionMethod(const Symbol *pSymbol)
 {
 	if (pSymbol->IsIdentical(Gura_UserSymbol(store))) {
 		return METHOD_Store;
@@ -972,21 +972,21 @@ unsigned short SymbolToCompressionMethod(const Symbol *pSymbol)
 	}
 }
 
-unsigned short GetDosTime(const DateTime &dt)
+UShort GetDosTime(const DateTime &dt)
 {
-	return (static_cast<unsigned short>(dt.GetHour()) << 11) |
-			(static_cast<unsigned short>(dt.GetMin()) << 5) |
-			(static_cast<unsigned short>(dt.GetSec() / 2) << 0);
+	return (static_cast<UShort>(dt.GetHour()) << 11) |
+			(static_cast<UShort>(dt.GetMin()) << 5) |
+			(static_cast<UShort>(dt.GetSec() / 2) << 0);
 }
 
-unsigned short GetDosDate(const DateTime &dt)
+UShort GetDosDate(const DateTime &dt)
 {
-	return (static_cast<unsigned short>(dt.GetYear() - 1980) << 9) |
-			(static_cast<unsigned short>(dt.GetMonth()) << 5) |
-			(static_cast<unsigned short>(dt.GetDay()) << 0);
+	return (static_cast<UShort>(dt.GetYear() - 1980) << 9) |
+			(static_cast<UShort>(dt.GetMonth()) << 5) |
+			(static_cast<UShort>(dt.GetDay()) << 0);
 }
 
-DateTime MakeDateTimeFromDos(unsigned short dosDate, unsigned short dosTime)
+DateTime MakeDateTimeFromDos(UShort dosDate, UShort dosTime)
 {
 	short year = static_cast<short>((dosDate >> 9) + 1980);
 	char month = static_cast<char>((dosDate >> 5) & 0xf);
@@ -1012,14 +1012,14 @@ bool IsMatchedName(const char *name1, const char *name2)
 	return true;
 }
 
-unsigned long SeekCentralDirectory(Signal sig, Stream *pStream)
+ULong SeekCentralDirectory(Signal sig, Stream *pStream)
 {
 	size_t bytesZIPFile = pStream->GetSize();
 	if (bytesZIPFile == InvalidSize) {
 		sig.SetError(ERR_IOError, "can't seek end of file");
 		return 0;
 	}
-	unsigned long offsetCentralDirectory = 0;
+	ULong offsetCentralDirectory = 0;
 	if (bytesZIPFile < EndOfCentralDirectoryRecord::MinSize) {
 		sig.SetError(ERR_FormatError, "can't find central directory record");
 		return 0;
@@ -1065,10 +1065,10 @@ Directory *CreateDirectory(Environment &env, Signal sig, Stream *pStreamSrc,
 	}
 	AutoPtr<DirBuilder::Structure> pStructure(new DirBuilder::Structure());
 	pStructure->SetRoot(new Record_ZIP(pStructure.get(), NULL, "", true));
-	unsigned long offsetCentralDirectory = SeekCentralDirectory(sig, pStreamSrc);
+	ULong offsetCentralDirectory = SeekCentralDirectory(sig, pStreamSrc);
 	if (sig.IsSignalled()) return NULL;
 	if (!pStreamSrc->Seek(sig, offsetCentralDirectory, Stream::SeekSet)) return NULL;
-	unsigned long signature;
+	ULong signature;
 	while (ReadStream(sig, *pStreamSrc, &signature)) {
 		//::printf("%08x\n", signature);
 		if (signature == LocalFileHeader::Signature) {
@@ -1117,7 +1117,7 @@ Stream *CreateStream(Environment &env, Signal sig, Stream *pStreamSrc, const Cen
 	pStreamSrc->Seek(sig, offset, Stream::SeekSet);
 	if (sig.IsSignalled()) return NULL;
 	do {
-		unsigned long signature;
+		ULong signature;
 		if (!ReadStream(sig, *pStreamSrc, &signature)) return NULL;
 		if (signature != LocalFileHeader::Signature) {
 			sig.SetError(ERR_FormatError, "invalid ZIP format");
@@ -1127,10 +1127,10 @@ Stream *CreateStream(Environment &env, Signal sig, Stream *pStreamSrc, const Cen
 		if (!hdr.Read(sig, *pStreamSrc)) return NULL;
 	} while (0);
 	//const char *name = pHdr->GetFileName();
-	unsigned short compressionMethod = pHdr->GetCompressionMethod();
+	UShort compressionMethod = pHdr->GetCompressionMethod();
 	//size_t bytesUncompressed = pHdr->GetUncompressedSize();
 	//size_t bytesCompressed = pHdr->GetCompressedSize();
-	//unsigned long crc32Expected = pHdr->GetCrc32();
+	//ULong crc32Expected = pHdr->GetCrc32();
 	if (compressionMethod == METHOD_Store) {
 		pStream.reset(new Stream_reader_Store(env, sig, Stream::Reference(pStreamSrc), *pHdr));
 	} else if (compressionMethod == METHOD_Shrink) {
@@ -1193,7 +1193,7 @@ bool ReadStream(Signal sig, Stream &stream, void *buff, size_t bytes, size_t off
 	return true;
 }
 
-bool ReadStream(Signal sig, Stream &stream, unsigned long *pSignature)
+bool ReadStream(Signal sig, Stream &stream, ULong *pSignature)
 {
 	struct {
 		Gura_PackedULong_LE(Signature);

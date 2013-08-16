@@ -51,7 +51,7 @@ Value Object_hash::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		String str;
 		foreach_const (Binary, p, digest) {
 			char buff[8];
-			::sprintf(buff, "%02x", static_cast<unsigned char>(*p));
+			::sprintf(buff, "%02x", static_cast<UChar>(*p));
 			str += buff;
 		}
 		return Value(env, str.c_str());
@@ -235,12 +235,12 @@ size_t Hash_CRC32::DoWrite(Signal sig, const void *buff, size_t len)
 
 void Hash_CRC32::Finish()
 {
-	unsigned char digest[4];
-	unsigned long result = _crc32.GetResult();
-	digest[0] = static_cast<unsigned char>(result >> 24);
-	digest[1] = static_cast<unsigned char>(result >> 16);
-	digest[2] = static_cast<unsigned char>(result >> 8);
-	digest[3] = static_cast<unsigned char>(result >> 0);
+	UChar digest[4];
+	ULong result = _crc32.GetResult();
+	digest[0] = static_cast<UChar>(result >> 24);
+	digest[1] = static_cast<UChar>(result >> 16);
+	digest[2] = static_cast<UChar>(result >> 8);
+	digest[3] = static_cast<UChar>(result >> 0);
 	_value = Value(result);
 	_digest = Binary(reinterpret_cast<char *>(digest), sizeof(digest));
 }

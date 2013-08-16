@@ -43,7 +43,7 @@ private:
 	HANDLE _hFile;
 	struct {
 		HANDLE hFileMappingObject;
-		unsigned char *buff;
+		UChar *buff;
 		size_t offset;
 		size_t bytes;
 	} _map;
@@ -56,7 +56,7 @@ private:
 public:
 	Stream_File(Environment &env, Signal sig);
 	~Stream_File();
-	bool Open(Signal sig, const char *fileName, unsigned long attr);
+	bool Open(Signal sig, const char *fileName, ULong attr);
 	bool OpenStdin();
 	bool OpenStdout();
 	bool OpenStderr();
@@ -97,7 +97,7 @@ public:
 	static bool IsDir(Signal sig, const char *pathName);
 protected:
 	virtual Directory *DoNext(Environment &env, Signal sig);
-	virtual Stream *DoOpenStream(Environment &env, Signal sig, unsigned long attr);
+	virtual Stream *DoOpenStream(Environment &env, Signal sig, ULong attr);
 };
 
 //-----------------------------------------------------------------------------

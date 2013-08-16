@@ -130,7 +130,7 @@ Gura_ImplementFunction(glCallLists)
 		lists = ::malloc(sizeof(GLubyte) * 2 * n);
 		GLubyte *p = reinterpret_cast<GLubyte *>(lists);
 		foreach_const (ValueList, pValue, lists_in) {
-			unsigned short num = pValue->GetUShort();
+			UShort num = pValue->GetUShort();
 			*p++ = static_cast<GLubyte>(num >> 8);
 			*p++ = static_cast<GLubyte>(num);
 		}
@@ -138,7 +138,7 @@ Gura_ImplementFunction(glCallLists)
 		lists = ::malloc(sizeof(GLubyte) * 3 * n);
 		GLubyte *p = reinterpret_cast<GLubyte *>(lists);
 		foreach_const (ValueList, pValue, lists_in) {
-			unsigned long num = pValue->GetULong();
+			ULong num = pValue->GetULong();
 			*p++ = static_cast<GLubyte>(num >> 16);
 			*p++ = static_cast<GLubyte>(num >> 8);
 			*p++ = static_cast<GLubyte>(num);
@@ -147,7 +147,7 @@ Gura_ImplementFunction(glCallLists)
 		lists = ::malloc(sizeof(GLubyte) * 4 * n);
 		GLubyte *p = reinterpret_cast<GLubyte *>(lists);
 		foreach_const (ValueList, pValue, lists_in) {
-			unsigned long num = pValue->GetULong();
+			ULong num = pValue->GetULong();
 			*p++ = static_cast<GLubyte>(num >> 24);
 			*p++ = static_cast<GLubyte>(num >> 16);
 			*p++ = static_cast<GLubyte>(num >> 8);

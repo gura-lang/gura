@@ -49,7 +49,7 @@ Stream *DecorateReaderStream(Environment &env, Signal sig, Stream *pStreamSrc,
 						const char *name, CompressionType compressionType);
 Stream *DecorateWriterStream(Environment &env, Signal sig, Stream *pStreamDst,
 						const char *name, CompressionType compressionType);
-unsigned long OctetToULong(Signal sig, const char *octet, size_t len);
+ULong OctetToULong(Signal sig, const char *octet, size_t len);
 
 CompressionType SymbolToCompressionType(const Symbol *pSymbol);
 
@@ -120,17 +120,17 @@ private:
 	char _linkname[100 + 1];
 	char _uname[32 + 1];
 	char _gname[32 + 1];
-	unsigned long _mode;
-	unsigned long _uid;
-	unsigned long _gid;
+	ULong _mode;
+	ULong _uid;
+	ULong _gid;
 	size_t _size;
 	DateTime _mtime;
 	DateTime _atime;
 	DateTime _ctime;
-	unsigned long _chksum;
+	ULong _chksum;
 	char _typeflag;
-	unsigned long _devmajor;
-	unsigned long _devminor;
+	ULong _devmajor;
+	ULong _devminor;
 public:
 	Header();
 	Header(const Header &hdr);
@@ -155,12 +155,12 @@ public:
 		::memset(_gname, 0x00, sizeof(_gname)), ::strcpy(_gname, gname);
 	}
 	inline const char *GetGName() const { return _gname; }
-	inline void SetMode(unsigned long mode) { _mode = mode; }
-	inline unsigned long GetMode() const { return _mode; }
-	inline void SetUid(unsigned long uid) { _uid = uid; }
-	inline unsigned long GetUid() const { return _uid; }
-	inline void SetGid(unsigned long gid) { _gid = gid; }
-	inline unsigned long GetGid() const { return _gid; }
+	inline void SetMode(ULong mode) { _mode = mode; }
+	inline ULong GetMode() const { return _mode; }
+	inline void SetUid(ULong uid) { _uid = uid; }
+	inline ULong GetUid() const { return _uid; }
+	inline void SetGid(ULong gid) { _gid = gid; }
+	inline ULong GetGid() const { return _gid; }
 	inline void SetSize(size_t size) { _size = size; }
 	inline size_t GetSize() const { return _size; }
 	inline void SetMTime(const DateTime &mtime) { _mtime = mtime; }
@@ -169,15 +169,15 @@ public:
 	inline DateTime GetATime() const { return _atime; }
 	inline void SetCTime(const DateTime &ctime) { _ctime = ctime; }
 	inline DateTime GetCTime() const { return _ctime; }
-	inline void SetChksum(unsigned long chksum) { _chksum = chksum; }
-	inline unsigned long GetChksum() const { return _chksum; }
+	inline void SetChksum(ULong chksum) { _chksum = chksum; }
+	inline ULong GetChksum() const { return _chksum; }
 	inline void SetTypeFlag(char typeflag) { _typeflag = typeflag; }
 	inline char GetTypeFlag() const { return _typeflag; }
-	inline void SetDevMajor(unsigned long devmajor) { _devmajor = devmajor; }
-	inline unsigned long GetDevMajor() const { return _devmajor; }
-	inline void SetDevMinor(unsigned long devminor) { _devminor = devminor; }
-	inline unsigned long GetDevMinor() const { return _devminor; }
-	inline unsigned long CalcBlocks() const {
+	inline void SetDevMajor(ULong devmajor) { _devmajor = devmajor; }
+	inline ULong GetDevMajor() const { return _devmajor; }
+	inline void SetDevMinor(ULong devminor) { _devminor = devminor; }
+	inline ULong GetDevMinor() const { return _devminor; }
+	inline ULong CalcBlocks() const {
 		return (_size + BLOCKSIZE - 1) / BLOCKSIZE;
 	}
 };
@@ -224,7 +224,7 @@ public:
 		Type type, DirBuilder::Structure *pStructure, Record_TAR *pRecord);
 	virtual ~Directory_TAR();
 	virtual Directory *DoNext(Environment &env, Signal sig);
-	virtual Stream *DoOpenStream(Environment &env, Signal sig, unsigned long attr);
+	virtual Stream *DoOpenStream(Environment &env, Signal sig, ULong attr);
 	virtual Object *DoGetStatObj(Signal sig);
 };
 

@@ -20,7 +20,7 @@ public:
 
 void Thread1::Run()
 {
-	unsigned char buff[1024];
+	UChar buff[1024];
 	::printf("Thread1 starts\n");
 	int num = 0;
 	for (;;) {
@@ -51,7 +51,7 @@ Gura_DeclareFunction(run)
 Gura_ImplementFunction(run)
 {
 	RandomGenerator::Initialize(0);
-	unsigned char buff[1024];
+	UChar buff[1024];
 	AutoPtr<StreamFIFO> pStreamFIFO(new StreamFIFO(env, sig, 256));
 	OAL::Thread *pThread1 = new Thread1(sig,
 			dynamic_cast<StreamFIFO *>(Stream::Reference(pStreamFIFO.get())));
@@ -61,7 +61,7 @@ Gura_ImplementFunction(run)
 	for (;;) {
 		size_t bytesToWrite = static_cast<int>(RandomGenerator::Real2() * 1024) + 1;
 		for (size_t i = 0; i < bytesToWrite; i++, num++) {
-			buff[i] = static_cast<unsigned char>(num);
+			buff[i] = static_cast<UChar>(num);
 		}
 		size_t bytesWritten = pStreamFIFO->Write(sig, buff, bytesToWrite);
 		//::printf("Write(%d) .. %d bytes written\n", bytesToWrite, bytesWritten);

@@ -323,7 +323,7 @@ struct TagRaw_BE {
 	Gura_PackedUShort_BE(Id);
 	Gura_PackedUShort_BE(Type);
 	Gura_PackedULong_BE(Count);
-	unsigned char ValueRaw;
+	UChar ValueRaw;
 };
 
 union ValueRaw_LE {
@@ -345,18 +345,18 @@ struct TagRaw_LE {
 	Gura_PackedUShort_LE(Id);
 	Gura_PackedUShort_LE(Type);
 	Gura_PackedULong_LE(Count);
-	unsigned char ValueRaw;
+	UChar ValueRaw;
 };
 
 struct TagInfo {
-	unsigned short id;
+	UShort id;
 	const char *name;
-	unsigned short type;
+	UShort type;
 	const char *nameForIFD;
 };
 
 struct TypeInfo {
-	unsigned short type;
+	UShort type;
 	const char *name;
 	size_t unitSize;
 };
@@ -424,17 +424,17 @@ struct DestinationMgr {
 class SymbolAssoc {
 public:
 	struct Entry {
-		unsigned short num;
+		UShort num;
 		const char *name;
 		const Symbol *pSymbol;
 	};
 private:
-	unsigned short _tagId;
+	UShort _tagId;
 	Entry *_entryTbl;
 public:
-	SymbolAssoc(unsigned short tagId, Entry *entryTbl);
-	inline unsigned short GetTagId() const { return _tagId; }
-	const Symbol *NumToSymbol(unsigned short num) const;
+	SymbolAssoc(UShort tagId, Entry *entryTbl);
+	inline UShort GetTagId() const { return _tagId; }
+	const Symbol *NumToSymbol(UShort num) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -442,8 +442,8 @@ public:
 //-----------------------------------------------------------------------------
 class SymbolAssocList : public std::vector<SymbolAssoc *> {
 public:
-	const SymbolAssoc *FindByTagId(unsigned short tagId) const;
-	const Symbol *NumToSymbol(unsigned short tagId, unsigned short num) const;
+	const SymbolAssoc *FindByTagId(UShort tagId) const;
+	const Symbol *NumToSymbol(UShort tagId, UShort num) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -460,8 +460,8 @@ public:
 //-----------------------------------------------------------------------------
 void SetError_InvalidFormat(Signal &sig);
 bool ReadBuff(Signal sig, Stream &stream, void *buff, size_t bytes);
-const TagInfo *TagIdToInfo(const Symbol *pSymbolOfIFD, unsigned short id);
-const TypeInfo *TypeToInfo(unsigned short type);
+const TagInfo *TagIdToInfo(const Symbol *pSymbolOfIFD, UShort id);
+const TypeInfo *TypeToInfo(UShort type);
 
 extern SymbolAssocOwner g_symbolAssocOwner;
 

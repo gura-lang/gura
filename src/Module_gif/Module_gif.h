@@ -102,12 +102,12 @@ public:
 	struct LogicalScreenDescriptor {
 		Gura_PackedUShort_LE(LogicalScreenWidth);
 		Gura_PackedUShort_LE(LogicalScreenHeight);
-		unsigned char PackedFields;
-		unsigned char BackgroundColorIndex;
-		unsigned char PixelAspectRatio;
-		inline unsigned char GlobalColorTableFlag() const { return (PackedFields >> 7) & 1; }
-		inline unsigned char ColorResolution() const { return (PackedFields >> 4) & 7; }
-		inline unsigned char SortFlag() const { return (PackedFields >> 3) & 1; }
+		UChar PackedFields;
+		UChar BackgroundColorIndex;
+		UChar PixelAspectRatio;
+		inline UChar GlobalColorTableFlag() const { return (PackedFields >> 7) & 1; }
+		inline UChar ColorResolution() const { return (PackedFields >> 4) & 7; }
+		inline UChar SortFlag() const { return (PackedFields >> 3) & 1; }
 		inline size_t SizeOfGlobalColorTable() const { return (PackedFields >> 0) & 7; }
 	};
 	struct ImageDescriptor {
@@ -115,7 +115,7 @@ public:
 		Gura_PackedUShort_LE(ImageTopPosition);
 		Gura_PackedUShort_LE(ImageWidth);
 		Gura_PackedUShort_LE(ImageHeight);
-		unsigned char PackedFields;
+		UChar PackedFields;
 		inline ImageDescriptor() {
 			Gura_PackUShort(ImageLeftPosition, 0);
 			Gura_PackUShort(ImageTopPosition, 0);
@@ -123,16 +123,16 @@ public:
 			Gura_PackUShort(ImageHeight, 0);
 			PackedFields = 0x00;
 		}
-		inline unsigned char LocalColorTableFlag() const { return (PackedFields >> 7) & 1; }
-		inline unsigned char InterlaceFlag() const { return (PackedFields >> 6) & 1; }
-		inline unsigned char SortFlag() const { return (PackedFields >> 5) & 1; }
-		inline unsigned char SizeOfLocalColorTable() const { return (PackedFields >> 0) & 7; }
+		inline UChar LocalColorTableFlag() const { return (PackedFields >> 7) & 1; }
+		inline UChar InterlaceFlag() const { return (PackedFields >> 6) & 1; }
+		inline UChar SortFlag() const { return (PackedFields >> 5) & 1; }
+		inline UChar SizeOfLocalColorTable() const { return (PackedFields >> 0) & 7; }
 	};
 	struct GraphicControlExtension {
-		unsigned char BlockSize;
-		unsigned char PackedFields;
+		UChar BlockSize;
+		UChar PackedFields;
 		Gura_PackedUShort_LE(DelayTime);
-		unsigned char TransparentColorIndex;
+		UChar TransparentColorIndex;
 		enum { Label = 0xf9 };
 		inline GraphicControlExtension() {
 			BlockSize = 4;
@@ -140,9 +140,9 @@ public:
 			Gura_PackUShort(DelayTime, 0);
 			TransparentColorIndex = 0;
 		}
-		inline unsigned char DisposalMethod() const { return (PackedFields >> 2) & 7; }
-		inline unsigned char UserInputFlag() const { return (PackedFields >> 1) & 1; }
-		inline unsigned char TransparentColorFlag() const { return (PackedFields >> 0) & 1; }
+		inline UChar DisposalMethod() const { return (PackedFields >> 2) & 7; }
+		inline UChar UserInputFlag() const { return (PackedFields >> 1) & 1; }
+		inline UChar TransparentColorFlag() const { return (PackedFields >> 0) & 1; }
 	};
 	struct CommentExtension {
 		Binary CommentData;
@@ -153,15 +153,15 @@ public:
 		}
 	};
 	struct PlainTextExtension {
-		unsigned char BlockSize;
+		UChar BlockSize;
 		Gura_PackedUShort_LE(TextGridLeftPosition);
 		Gura_PackedUShort_LE(TextGridTopPosition);
 		Gura_PackedUShort_LE(TextGridWidth);
 		Gura_PackedUShort_LE(TextGridHeight);
-		unsigned char CharacterCellWidth;
-		unsigned char CharacterCellHeight;
-		unsigned char TextForegroundColorIndex;
-		unsigned char TextBackgroundColorIndex;
+		UChar CharacterCellWidth;
+		UChar CharacterCellHeight;
+		UChar TextForegroundColorIndex;
+		UChar TextBackgroundColorIndex;
 		Binary PlainTextData;
 		bool validFlag;
 		enum { Label = 0x01 };
@@ -179,7 +179,7 @@ public:
 		}
 	};
 	struct ApplicationExtension {
-		unsigned char BlockSize;
+		UChar BlockSize;
 		char ApplicationIdentifier[8];
 		char AuthenticationCode[3];
 		Binary ApplicationData;
@@ -201,14 +201,14 @@ public:
 	private:
 		int _bitOffset;
 		int _bitsRead;
-		unsigned char _blockData[256];
+		UChar _blockData[256];
 	public:
 		ImageDataBlock();
-		bool ReadCode(Signal sig, Stream &stream, unsigned short &code, int bitsOfCode);
-		bool WriteCode(Signal sig, Stream &stream, unsigned short code, int bitsOfCode);
+		bool ReadCode(Signal sig, Stream &stream, UShort &code, int bitsOfCode);
+		bool WriteCode(Signal sig, Stream &stream, UShort code, int bitsOfCode);
 		bool Flush(Signal sig, Stream &stream);
 	};
-	typedef std::map<Binary, unsigned short> TransMap;
+	typedef std::map<Binary, UShort> TransMap;
 private:
 	Header _header;
 	LogicalScreenDescriptor _logicalScreenDescriptor;
@@ -221,7 +221,7 @@ public:
 	bool Read(Environment &env, Signal sig, Stream &stream,
 								Image *pImageTgt, Image::Format format);
 	bool Write(Environment &env, Signal sig, Stream &stream,
-		const Color &colorBackground, bool validBackgroundFlag, unsigned short loopCount);
+		const Color &colorBackground, bool validBackgroundFlag, UShort loopCount);
 	bool ReadColorTable(Signal sig, Stream &stream, Palette *pPalette);
 	bool WriteColorTable(Signal sig, Stream &stream, const Palette *pPalette);
 	bool ReadDataBlocks(Signal sig, Stream &stream, Binary &binary);
@@ -242,13 +242,13 @@ public:
 	inline Extensions &GetExtensions() { return _exts; }
 	inline ValueList &GetList() { return _valList; }
 	void AddImage(const Value &value,
-			unsigned short imageLeftPosition, unsigned short imageTopPosition,
-			unsigned short delayTime, unsigned char disposalMethod);
+			UShort imageLeftPosition, UShort imageTopPosition,
+			UShort delayTime, UChar disposalMethod);
 	static bool ReadBuff(Signal sig, Stream &stream, void *buff, size_t bytes);
 	static bool WriteBuff(Signal sig, Stream &stream, const void *buff, size_t bytes);
-	static void Dump(unsigned char *data, int bytes);
-	static const Symbol *DisposalMethodToSymbol(unsigned char disposalMethod);
-	static unsigned char DisposalMethodFromSymbol(Signal sig, const Symbol *pSymbol);
+	static void Dump(UChar *data, int bytes);
+	static const Symbol *DisposalMethodToSymbol(UChar disposalMethod);
+	static UChar DisposalMethodFromSymbol(Signal sig, const Symbol *pSymbol);
 	static ImageDescriptor *GetImageDescriptor(const Object_image *pObjImage);
 	static GraphicControlExtension *GetGraphicControl(const Object_image *pObjImage);
 	static int GetPlausibleBackgroundIndex(Palette *pPalette, Image *pImage);

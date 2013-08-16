@@ -85,7 +85,7 @@ Value Object_LogicalScreenDescriptor::DoGetProp(Environment &env, Signal sig, co
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(SortFlag))) {
 		return Value(lsd.SortFlag());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(SizeOfGlobalColorTable))) {
-		return Value(static_cast<unsigned int>(lsd.SizeOfGlobalColorTable()));
+		return Value(static_cast<UInt>(lsd.SizeOfGlobalColorTable()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(BackgroundColorIndex))) {
 		return Value(lsd.BackgroundColorIndex);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(BackgroundColor))) {
@@ -299,7 +299,7 @@ bool GIF::Read(Environment &env, Signal sig, Stream &stream,
 		graphicControl.TransparentColorIndex = 0;
 	} while (0);
 	for (;;) {
-		unsigned char imageSeparator;
+		UChar imageSeparator;
 		size_t bytesRead = stream.Read(sig, &imageSeparator, 1);
 		if (bytesRead < 1) break;
 		//::printf("%02x\n", imageSeparator);
@@ -318,12 +318,12 @@ bool GIF::Read(Environment &env, Signal sig, Stream &stream,
 				GetList().push_back(Value(pObjImage.release()));
 			}
 		} else if (imageSeparator == SEP_ExtensionIntroducer) {
-			unsigned char label;
+			UChar label;
 			if (!ReadBuff(sig, stream, &label, 1)) break;
 			//::printf("%02x - %02x\n", imageSeparator, label);
 			if (label == GraphicControlExtension::Label) {
 				if (!ReadBuff(sig, stream, &graphicControl, 5)) break;
-				unsigned char blockTerminator;
+				UChar blockTerminator;
 				if (!ReadBuff(sig, stream, &blockTerminator, 1)) break;
 			} else if (label == CommentExtension::Label) {
 				_exts.comment.validFlag = true;
@@ -350,7 +350,7 @@ bool GIF::Read(Environment &env, Signal sig, Stream &stream,
 }
 
 bool GIF::Write(Environment &env, Signal sig, Stream &stream,
-	const Color &colorBackground, bool validBackgroundFlag, unsigned short loopCount)
+	const Color &colorBackground, bool validBackgroundFlag, UShort loopCount)
 {
 	if (GetList().empty()) {
 		sig.SetError(ERR_ValueError, "no image to write");
@@ -382,14 +382,14 @@ bool GIF::Write(Environment &env, Signal sig, Stream &stream,
 		}
 	}
 	int backgroundColorIndex = -1;
-	unsigned char transparentColorIndex = 0;
-	unsigned char transparentColorFlag = 0;
+	UChar transparentColorIndex = 0;
+	UChar transparentColorFlag = 0;
 	do {
 		size_t idxBlank = _pPaletteGlobal->NextBlankIndex();
 		if (idxBlank < _pPaletteGlobal->CountEntries()) {
 			// add an entry for transparent color
 			_pPaletteGlobal->SetEntry(idxBlank, 128, 128, 128, 0);
-			transparentColorIndex = static_cast<unsigned char>(idxBlank);
+			transparentColorIndex = static_cast<UChar>(idxBlank);
 			transparentColorFlag = 1;
 			idxBlank++;
 		}
@@ -422,22 +422,22 @@ bool GIF::Write(Environment &env, Signal sig, Stream &stream,
 	}
 	if (backgroundColorIndex < 0) backgroundColorIndex = 0;
 	do {
-		unsigned char globalColorTableFlag = 1;
-		unsigned char colorResolution = 7;
-		unsigned char sortFlag = 0;
-		unsigned char sizeOfGlobalColorTable = 0;
+		UChar globalColorTableFlag = 1;
+		UChar colorResolution = 7;
+		UChar sortFlag = 0;
+		UChar sizeOfGlobalColorTable = 0;
 		int nEntries = static_cast<int>(_pPaletteGlobal->CountEntries());
 		for ( ; nEntries > (1 << sizeOfGlobalColorTable); sizeOfGlobalColorTable++) ;
 		sizeOfGlobalColorTable--;
 		Gura_PackUShort(_logicalScreenDescriptor.LogicalScreenWidth,
-						static_cast<unsigned short>(logicalScreenWidth));
+						static_cast<UShort>(logicalScreenWidth));
 		Gura_PackUShort(_logicalScreenDescriptor.LogicalScreenHeight,
-						static_cast<unsigned short>(logicalScreenHeight));
+						static_cast<UShort>(logicalScreenHeight));
 		_logicalScreenDescriptor.PackedFields =
 				(globalColorTableFlag << 7) | (colorResolution << 4) |
 				(sortFlag << 3) | (sizeOfGlobalColorTable << 0);
 		_logicalScreenDescriptor.BackgroundColorIndex =
-						static_cast<unsigned char>(backgroundColorIndex);
+						static_cast<UChar>(backgroundColorIndex);
 		_logicalScreenDescriptor.PixelAspectRatio = 0;
 	} while (0);
 	do {
@@ -445,10 +445,10 @@ bool GIF::Write(Environment &env, Signal sig, Stream &stream,
 		_exts.application.BlockSize = 11;
 		::memcpy(_exts.application.ApplicationIdentifier, "NETSCAPE", 8);
 		::memcpy(_exts.application.AuthenticationCode, "2.0", 3);
-		unsigned char applicationData[3];
+		UChar applicationData[3];
 		applicationData[0] = 0x01;
-		applicationData[1] = static_cast<unsigned char>(loopCount & 0xff);
-		applicationData[2] = static_cast<unsigned char>((loopCount >> 8) & 0xff);
+		applicationData[1] = static_cast<UChar>(loopCount & 0xff);
+		applicationData[2] = static_cast<UChar>((loopCount >> 8) & 0xff);
 		_exts.application.ApplicationData =
 						Binary(reinterpret_cast<char *>(applicationData), 3);
 	} while (0);
@@ -462,7 +462,7 @@ bool GIF::Write(Environment &env, Signal sig, Stream &stream,
 	}
 	if (_exts.application.validFlag) {
 		// Application
-		const unsigned char buff[] = {
+		const UChar buff[] = {
 			SEP_ExtensionIntroducer, ApplicationExtension::Label
 		};
 		if (!WriteBuff(sig, stream, &buff, 2)) return false;
@@ -480,7 +480,7 @@ bool GIF::Write(Environment &env, Signal sig, Stream &stream,
 	}
 	do {
 		// Trailer
-		const unsigned char buff[] = { SEP_Trailer };
+		const UChar buff[] = { SEP_Trailer };
 		if (!WriteBuff(sig, stream, buff, 1)) return false;
 	} while (0);
 	return false;
@@ -489,7 +489,7 @@ bool GIF::Write(Environment &env, Signal sig, Stream &stream,
 bool GIF::ReadDataBlocks(Signal sig, Stream &stream, Binary &binary)
 {
 	for (;;) {
-		unsigned char blockSize;
+		UChar blockSize;
 		if (!ReadBuff(sig, stream, &blockSize, 1)) return false;
 		if (blockSize == 0) break;
 		char buff[256];
@@ -503,14 +503,14 @@ bool GIF::WriteDataBlocks(Signal sig, Stream &stream, const Binary &binary)
 {
 	size_t size = binary.size();
 	for (size_t offset = 0; offset < size; ) {
-		unsigned char blockSize =
-			static_cast<unsigned char>((size - offset <= 255)? size - offset : 255);
+		UChar blockSize =
+			static_cast<UChar>((size - offset <= 255)? size - offset : 255);
 		if (!WriteBuff(sig, stream, &blockSize, 1)) return false;
 		if (!WriteBuff(sig, stream, binary.data() + offset, blockSize)) return false;
 		offset += blockSize;
 	}
 	do {
-		unsigned char blockSize = 0x00;
+		UChar blockSize = 0x00;
 		if (!WriteBuff(sig, stream, &blockSize, 1)) return false;
 	} while (0);
 	return true;
@@ -524,10 +524,10 @@ bool GIF::SkipImageDescriptor(Signal sig, Stream &stream)
 		int nEntries = 1 << (imageDescriptor.SizeOfLocalColorTable() + 1);
 		stream.Seek(sig, nEntries * 3, Stream::SeekCur);
 	}
-	unsigned char mininumBitsOfCode;
+	UChar mininumBitsOfCode;
 	if (!ReadBuff(sig, stream, &mininumBitsOfCode, 1)) return false;
 	for (;;) {
-		unsigned char blockSize;
+		UChar blockSize;
 		if (!ReadBuff(sig, stream, &blockSize, 1)) return false;
 		if (blockSize == 0) break;
 		if (!stream.Seek(sig, blockSize, Stream::SeekCur)) return false;
@@ -565,7 +565,7 @@ bool GIF::ReadImageDescriptor(Environment &env, Signal sig, Stream &stream,
 		transparentColorIndex = -1;
 	}
 	const int maximumBitsOfCode = 12;
-	unsigned char mininumBitsOfCode;
+	UChar mininumBitsOfCode;
 	if (!ReadBuff(sig, stream, &mininumBitsOfCode, 1)) return false;
 	int bitsOfCode = mininumBitsOfCode + 1;
 	if (bitsOfCode > maximumBitsOfCode) {
@@ -573,30 +573,30 @@ bool GIF::ReadImageDescriptor(Environment &env, Signal sig, Stream &stream,
 		return false;
 	}
 	bool interlaceFlag = (imageDescriptor.InterlaceFlag() != 0);
-	const unsigned short codeInvalid = 0xffff;
-	unsigned short codeMaxCeiling = 1 << maximumBitsOfCode;
-	unsigned short codeBoundary = 1 << mininumBitsOfCode;
-	unsigned short codeClear = codeBoundary;
-	unsigned short codeEnd = codeBoundary + 1;
-	unsigned short codeMax = codeBoundary + 2;
-	unsigned short codeFirst = codeInvalid, codeOld = codeInvalid;
+	const UShort codeInvalid = 0xffff;
+	UShort codeMaxCeiling = 1 << maximumBitsOfCode;
+	UShort codeBoundary = 1 << mininumBitsOfCode;
+	UShort codeClear = codeBoundary;
+	UShort codeEnd = codeBoundary + 1;
+	UShort codeMax = codeBoundary + 2;
+	UShort codeFirst = codeInvalid, codeOld = codeInvalid;
 	const size_t bytesCodeTable = codeMaxCeiling * 2;
 	const size_t bytesCodeStack = codeMaxCeiling * 2;
-	unsigned short *codeTable = new unsigned short [bytesCodeTable];
-	unsigned short *codeStack = new unsigned short [bytesCodeStack];
-	unsigned short *pCodeStack = codeStack;
+	UShort *codeTable = new UShort [bytesCodeTable];
+	UShort *codeStack = new UShort [bytesCodeStack];
+	UShort *pCodeStack = codeStack;
 	do {
 		::memset(codeTable, 0x00, bytesCodeTable);
-		for (unsigned short code = 0; code < codeBoundary; code++) {
+		for (UShort code = 0; code < codeBoundary; code++) {
 			codeTable[code * 2 + 1] = code;
 		}
 	} while (0);
 	ImageDataBlock imageDataBlock;
 	size_t x = 0, y = 0;
 	int iPass = 0;
-	unsigned char *dstp = pImage->GetPointer(0);
+	UChar *dstp = pImage->GetPointer(0);
 	for (;;) {
-		unsigned short code = 0;
+		UShort code = 0;
 		if (pCodeStack > codeStack) {
 			pCodeStack--;
 			code = *pCodeStack;
@@ -605,9 +605,9 @@ bool GIF::ReadImageDescriptor(Environment &env, Signal sig, Stream &stream,
 			// LZW (Lempel-Ziv-Welch) decompression algorithm
 			if (code == codeClear) {
 				//::printf("clear\n");
-				unsigned short code = 0;
+				UShort code = 0;
 				::memset(codeTable, 0x00, bytesCodeTable);
-				for (unsigned short code = 0; code < codeBoundary; code++) {
+				for (UShort code = 0; code < codeBoundary; code++) {
 					codeTable[code * 2 + 1] = code;
 				}
 				pCodeStack = codeStack;
@@ -618,7 +618,7 @@ bool GIF::ReadImageDescriptor(Environment &env, Signal sig, Stream &stream,
 			} else if (code == codeEnd) {
 				// skip trailing blocks
 				for (;;) {
-					unsigned char blockSize;
+					UChar blockSize;
 					if (!ReadBuff(sig, stream, &blockSize, 1)) break;
 					if (blockSize == 0) break;
 					if (!stream.Seek(sig, blockSize, Stream::SeekCur)) break;
@@ -627,7 +627,7 @@ bool GIF::ReadImageDescriptor(Environment &env, Signal sig, Stream &stream,
 			} else if (codeFirst == codeInvalid) {
 				codeFirst = codeOld = code;
 			} else {
-				unsigned short codeIn = code;
+				UShort codeIn = code;
 				if (code >= codeMax) {
 					*pCodeStack++ = codeFirst;
 					code = codeOld;
@@ -658,7 +658,7 @@ bool GIF::ReadImageDescriptor(Environment &env, Signal sig, Stream &stream,
 				}
 			}
 		}
-		const unsigned char *srcp = pPalette->GetEntry(code);
+		const UChar *srcp = pPalette->GetEntry(code);
 		if (x >= imageWidth) {
 			x = 0;
 			if (interlaceFlag) {
@@ -692,12 +692,12 @@ done:
 bool GIF::WriteGraphicControl(Signal sig, Stream &stream,
 								const GraphicControlExtension &graphicControl)
 {
-	const unsigned char buff[] = {
+	const UChar buff[] = {
 		SEP_ExtensionIntroducer, GraphicControlExtension::Label
 	};
 	if (!WriteBuff(sig, stream, &buff, 2)) return false;
 	if (!WriteBuff(sig, stream, &graphicControl, 5)) return false;
-	unsigned char blockTerminator = 0x00;
+	UChar blockTerminator = 0x00;
 	if (!WriteBuff(sig, stream, &blockTerminator, 1)) return false;
 	return true;
 }
@@ -707,7 +707,7 @@ bool GIF::WriteImageDescriptor(Environment &env, Signal sig, Stream &stream,
 {
 	Image *pImage = pObjImage->GetImage();
 	do {
-		const unsigned char buff[] = { SEP_ImageDescriptor };
+		const UChar buff[] = { SEP_ImageDescriptor };
 		if (!WriteBuff(sig, stream, buff, 1)) return false;
 	} while (0);
 	const Palette *pPalette = _pPaletteGlobal.get();
@@ -719,33 +719,33 @@ bool GIF::WriteImageDescriptor(Environment &env, Signal sig, Stream &stream,
 	if (pImageDescriptor->LocalColorTableFlag()) {
 		if (!WriteColorTable(sig, stream, pPalette)) return false;
 	}
-	unsigned char transparentColorIndex = graphicControl.TransparentColorIndex;
+	UChar transparentColorIndex = graphicControl.TransparentColorIndex;
 	bool transparentColorFlag = (pImage->GetFormat() == Image::FORMAT_RGBA) &&
 					(graphicControl.TransparentColorFlag() != 0);
 	const int maximumBitsOfCode = 12;
-	unsigned char minimumBitsOfCode = 8;
+	UChar minimumBitsOfCode = 8;
 	if (!WriteBuff(sig, stream, &minimumBitsOfCode, 1)) return false;
 	Binary word;
 	int bitsOfCode = minimumBitsOfCode + 1;
-	unsigned short code = 0x0000;
-	unsigned short codeBoundary = 1 << minimumBitsOfCode;
-	unsigned short codeClear = codeBoundary;
-	unsigned short codeEnd = codeBoundary + 1;
-	unsigned short codeMax = codeBoundary + 2;
-	unsigned short codeMaxCeiling = 1 << maximumBitsOfCode;
+	UShort code = 0x0000;
+	UShort codeBoundary = 1 << minimumBitsOfCode;
+	UShort codeClear = codeBoundary;
+	UShort codeEnd = codeBoundary + 1;
+	UShort codeMax = codeBoundary + 2;
+	UShort codeMaxCeiling = 1 << maximumBitsOfCode;
 	TransMap transMap;
 	ImageDataBlock imageDataBlock;
 	if (!imageDataBlock.WriteCode(sig, stream, codeClear, bitsOfCode)) return false;
 	for (size_t y = 0; y < pImage->GetHeight(); y++) {
-		const unsigned char *pPixel = pImage->GetPointer(y);
+		const UChar *pPixel = pImage->GetPointer(y);
 		for (size_t x = 0; x < pImage->GetWidth();
 							x++, pPixel += pImage->GetBytesPerPixel()) {
 			// LZW (Lempel-Ziv-Welch) compression algorithm
-			unsigned char k;
+			UChar k;
 			if (transparentColorFlag && Image::GetPixelA(pPixel) < 128) {
 				k = transparentColorIndex;
 			} else {
-				k = static_cast<unsigned char>(pPalette->LookupNearest(pPixel));
+				k = static_cast<UChar>(pPalette->LookupNearest(pPixel));
 			}
 			//::printf("- %3d,%3d code = %03x\n", x, y, k);
 			if (word.empty()) {
@@ -805,7 +805,7 @@ bool GIF::WriteBuff(Signal sig, Stream &stream, const void *buff, size_t bytes)
 
 bool GIF::ReadColorTable(Signal sig, Stream &stream, Palette *pPalette)
 {
-	unsigned char buff[3];
+	UChar buff[3];
 	size_t nEntries = pPalette->CountEntries();
 	for (size_t idx = 0; idx < nEntries; idx++) {
 		if (!GIF::ReadBuff(sig, stream, buff, 3)) return false;
@@ -816,11 +816,11 @@ bool GIF::ReadColorTable(Signal sig, Stream &stream, Palette *pPalette)
 
 bool GIF::WriteColorTable(Signal sig, Stream &stream, const Palette *pPalette)
 {
-	unsigned char buff[3];
+	UChar buff[3];
 	int nEntries = static_cast<int>(pPalette->CountEntries());
 	int idx = 0;
 	for ( ; idx < nEntries; idx++) {
-		const unsigned char *pEntry = pPalette->GetEntry(idx);
+		const UChar *pEntry = pPalette->GetEntry(idx);
 		buff[0] = *(pEntry + Image::OffsetRed);
 		buff[1] = *(pEntry + Image::OffsetGreen);
 		buff[2] = *(pEntry + Image::OffsetBlue);
@@ -835,9 +835,9 @@ bool GIF::WriteColorTable(Signal sig, Stream &stream, const Palette *pPalette)
 	return true;
 }
 
-void GIF::AddImage(const Value &value, unsigned short delayTime,
-		unsigned short imageLeftPosition, unsigned short imageTopPosition,
-		unsigned char disposalMethod)
+void GIF::AddImage(const Value &value, UShort delayTime,
+		UShort imageLeftPosition, UShort imageTopPosition,
+		UChar disposalMethod)
 {
 	Object_image *pObjImage = dynamic_cast<Object_image *>(value.GetObject());
 	Image *pImage = pObjImage->GetImage();
@@ -868,9 +868,9 @@ void GIF::AddImage(const Value &value, unsigned short delayTime,
 		Gura_PackUShort(imageDescriptor.ImageLeftPosition, imageLeftPosition);
 		Gura_PackUShort(imageDescriptor.ImageTopPosition, imageTopPosition);
 		Gura_PackUShort(imageDescriptor.ImageWidth,
-					static_cast<unsigned short>(pImage->GetWidth()));
+					static_cast<UShort>(pImage->GetWidth()));
 		Gura_PackUShort(imageDescriptor.ImageHeight,
-					static_cast<unsigned short>(pImage->GetHeight()));
+					static_cast<UShort>(pImage->GetHeight()));
 		imageDescriptor.PackedFields =
 			(imageDescriptorOrg.LocalColorTableFlag() << 7) |
 			(imageDescriptorOrg.InterlaceFlag() << 6) |
@@ -883,7 +883,7 @@ void GIF::AddImage(const Value &value, unsigned short delayTime,
 	GetList().push_back(value);
 }
 
-void GIF::Dump(unsigned char *data, int bytes)
+void GIF::Dump(UChar *data, int bytes)
 {
 	for (int i = 0; i < bytes; i++) {
 		int iCol = i % 16;
@@ -893,7 +893,7 @@ void GIF::Dump(unsigned char *data, int bytes)
 	if (bytes % 16 != 0) ::printf("\n");
 }
 
-const Symbol *GIF::DisposalMethodToSymbol(unsigned char disposalMethod)
+const Symbol *GIF::DisposalMethodToSymbol(UChar disposalMethod)
 {
 	if (disposalMethod == 0) {
 		return Gura_UserSymbol(none);
@@ -908,9 +908,9 @@ const Symbol *GIF::DisposalMethodToSymbol(unsigned char disposalMethod)
 	}
 }
 
-unsigned char GIF::DisposalMethodFromSymbol(Signal sig, const Symbol *pSymbol)
+UChar GIF::DisposalMethodFromSymbol(Signal sig, const Symbol *pSymbol)
 {
-	unsigned char disposalMethod;
+	UChar disposalMethod;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(none))) {
 		disposalMethod = 0;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(keep))) {
@@ -992,19 +992,19 @@ GIF::ImageDataBlock::ImageDataBlock() : _bitOffset(0), _bitsRead(0)
 }
 
 bool GIF::ImageDataBlock::ReadCode(Signal sig, Stream &stream,
-										unsigned short &code, int bitsOfCode)
+										UShort &code, int bitsOfCode)
 {
 	for (int bitsAccum = 0; bitsAccum < bitsOfCode; ) {
 		int bitsRest = bitsOfCode - bitsAccum;
 		if (_bitOffset >= _bitsRead) {
-			unsigned char blockSize;
+			UChar blockSize;
 			if (!ReadBuff(sig, stream, &blockSize, 1)) return false;
 			if (blockSize == 0) return false;
 			if (!ReadBuff(sig, stream, _blockData, blockSize)) return false;
 			_bitsRead = blockSize * 8;
 			_bitOffset = 0;
 		}
-		unsigned short ch = static_cast<unsigned short>(_blockData[_bitOffset >> 3]);
+		UShort ch = static_cast<UShort>(_blockData[_bitOffset >> 3]);
 		int bitsRight = _bitOffset & 7;
 		int bitsLeft = 8 - bitsRight;
 		if (bitsRest < bitsLeft) {
@@ -1021,13 +1021,13 @@ bool GIF::ImageDataBlock::ReadCode(Signal sig, Stream &stream,
 }
 
 bool GIF::ImageDataBlock::WriteCode(Signal sig, Stream &stream,
-										unsigned short code, int bitsOfCode)
+										UShort code, int bitsOfCode)
 {
 	const int bitsFull = 8 * 255;
 	for (int bitsAccum = 0; bitsAccum < bitsOfCode; ) {
 		int bitsRest = bitsOfCode - bitsAccum;
 		if (_bitOffset >= bitsFull) {
-			unsigned char blockSize = 255;
+			UChar blockSize = 255;
 			if (!GIF::WriteBuff(sig, stream, &blockSize, 1)) return false;
 			if (!GIF::WriteBuff(sig, stream, _blockData, blockSize)) return false;
 			::memset(_blockData, 0x00, 256);
@@ -1035,7 +1035,7 @@ bool GIF::ImageDataBlock::WriteCode(Signal sig, Stream &stream,
 		}
 		int bitsRight = _bitOffset & 7;
 		int bitsLeft = 8 - bitsRight;
-		_blockData[_bitOffset >> 3] |= static_cast<unsigned char>(code << bitsRight);
+		_blockData[_bitOffset >> 3] |= static_cast<UChar>(code << bitsRight);
 		if (bitsRest < bitsLeft) {
 			_bitOffset += bitsRest;
 			break;
@@ -1051,12 +1051,12 @@ bool GIF::ImageDataBlock::WriteCode(Signal sig, Stream &stream,
 bool GIF::ImageDataBlock::Flush(Signal sig, Stream &stream)
 {
 	if (_bitOffset > 0) {
-		unsigned char blockSize = static_cast<unsigned char>((_bitOffset + 7) / 8);
+		UChar blockSize = static_cast<UChar>((_bitOffset + 7) / 8);
 		if (!GIF::WriteBuff(sig, stream, &blockSize, 1)) return false;
 		if (!GIF::WriteBuff(sig, stream, _blockData, blockSize)) return false;
 	}
 	do {
-		unsigned char blockSize = 0x00;
+		UChar blockSize = 0x00;
 		if (!WriteBuff(sig, stream, &blockSize, 1)) return false;
 	} while (0);
 	return true;
@@ -1139,7 +1139,7 @@ Gura_ImplementMethod(content, write)
 {
 	GIF &gif = Object_content::GetThisObj(args)->GetGIF();
 	Stream &stream = args.GetStream(0);
-	unsigned short loopCount = 0;
+	UShort loopCount = 0;
 	if (!gif.Write(env, sig, stream, Color::Zero, false, loopCount)) {
 		return Value::Null;
 	}
@@ -1172,7 +1172,7 @@ Gura_DeclareMethod(content, addimage)
 Gura_ImplementMethod(content, addimage)
 {
 	GIF &gif = Object_content::GetThisObj(args)->GetGIF();
-	unsigned char disposalMethod = GIF::DisposalMethodFromSymbol(sig, args.GetSymbol(4));
+	UChar disposalMethod = GIF::DisposalMethodFromSymbol(sig, args.GetSymbol(4));
 	if (sig.IsSignalled()) return Value::Null;
 	gif.AddImage(args.GetValue(0), args.GetUShort(1),
 					args.GetUShort(2), args.GetUShort(3), disposalMethod);
@@ -1286,7 +1286,7 @@ Value Object_ImageDescriptor::DoGetProp(Environment &env, Signal sig, const Symb
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(SortFlag))) {
 		return Value(_desc.SortFlag()? true : false);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(SizeOfLocalColorTable))) {
-		return Value(static_cast<unsigned int>(_desc.SizeOfLocalColorTable()));
+		return Value(static_cast<UInt>(_desc.SizeOfLocalColorTable()));
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -1391,7 +1391,7 @@ Gura_ImplementMethod(image, gifwrite)
 	Stream &stream = args.GetStream(0);
 	GIF gif;
 	gif.AddImage(args.GetThis(), 0, 0, 0, 1);
-	unsigned short loopCount = 0;
+	UShort loopCount = 0;
 	if (!gif.Write(env, sig, stream, Color::Zero, false, loopCount)) {
 		return Value::Null;
 	}
@@ -1540,7 +1540,7 @@ bool ImageStreamer_GIF::Write(Environment &env, Signal sig,
 	GIF gif;
 	Value value(new Object_image(env, Image::Reference(pImage)));
 	gif.AddImage(value, 0, 0, 0, 1);
-	unsigned short loopCount = 0;
+	UShort loopCount = 0;
 	return gif.Write(env, sig, stream, Color::Zero, false, loopCount);
 }
 

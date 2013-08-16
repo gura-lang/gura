@@ -1551,10 +1551,10 @@ void Object_AudioSpec::Callback(Uint8 *stream, int len)
 	do {
 		Uint8 *p = stream;
 		for (int i = 0; i < len / 2; i++, p += 2) {
-			unsigned short num = static_cast<unsigned short>(
+			UShort num = static_cast<UShort>(
 								::sin(6.28 * i * 400 / _pAudioSpec->freq) * 3000);
-			*(p + 0) = static_cast<unsigned char>(num);
-			*(p + 1) = static_cast<unsigned char>(num >> 8);
+			*(p + 0) = static_cast<UChar>(num);
+			*(p + 1) = static_cast<UChar>(num >> 8);
 		}
 	} while (0);
 #endif
@@ -3253,10 +3253,10 @@ void callback(void *userdata, Uint8 *stream, int len)
 	SDL_AudioSpec &specObtained = *reinterpret_cast<SDL_AudioSpec *>(userdata);
 	Uint8 *p = stream;
 	for (int i = 0; i < len / 2; i++, p += 2) {
-		unsigned short num = static_cast<unsigned short>(
+		UShort num = static_cast<UShort>(
 							::sin(6.28 * i * 400 / specObtained.freq) * 3000);
-		*(p + 0) = static_cast<unsigned char>(num);
-		*(p + 1) = static_cast<unsigned char>(num >> 8);
+		*(p + 0) = static_cast<UChar>(num);
+		*(p + 1) = static_cast<UChar>(num >> 8);
 	}
 }
 

@@ -359,7 +359,7 @@ bool ImageStreamer_xpm::WriteStream(Environment &env, Signal sig, Image *pImage,
 		stream.Println(sig, "\"   c None\",");
 	} while (0);
 	for (int i = 0; i < pPalette->CountEntries(); i++) {
-		const unsigned char *entry = pPalette->GetEntry(i);
+		const UChar *entry = pPalette->GetEntry(i);
 		char buff[64];
 		buff[0] = '"';
 		::memcpy(buff + 1, convTbl + i * nCharsPerPixel, nCharsPerPixel);

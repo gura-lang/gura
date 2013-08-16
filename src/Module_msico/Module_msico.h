@@ -22,10 +22,10 @@ struct IconDir {
 
 struct IconDirEntry {
 	enum { Size = 16 };
-	unsigned char bWidth;
-	unsigned char bHeight;
-	unsigned char bColorCount;
-	unsigned char bReserved;
+	UChar bWidth;
+	UChar bHeight;
+	UChar bColorCount;
+	UChar bReserved;
 	Gura_PackedUShort_LE(wPlanes);
 	Gura_PackedUShort_LE(wBitCount);
 	Gura_PackedULong_LE(dwBytesInRes);

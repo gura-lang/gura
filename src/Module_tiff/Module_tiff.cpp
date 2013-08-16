@@ -160,18 +160,18 @@ bool ImageStreamer_TIFF::ReadStream(Environment &env, Signal sig, Image *pImage,
 	if (pImage->GetFormat() == Image::FORMAT_RGBA) {
 		do {
 			pScannerDst->StorePixel(
-				static_cast<unsigned char>(*pSrc & 0xff),
-				static_cast<unsigned char>((*pSrc >> 8) & 0xff),
-				static_cast<unsigned char>((*pSrc >> 16) & 0xff),
-				static_cast<unsigned char>((*pSrc >> 24) & 0xff));
+				static_cast<UChar>(*pSrc & 0xff),
+				static_cast<UChar>((*pSrc >> 8) & 0xff),
+				static_cast<UChar>((*pSrc >> 16) & 0xff),
+				static_cast<UChar>((*pSrc >> 24) & 0xff));
 			pSrc++;
 		} while (pScannerDst->Next());
 	} else {
 		do {
 			pScannerDst->StorePixel(
-				static_cast<unsigned char>(*pSrc & 0xff),
-				static_cast<unsigned char>((*pSrc >> 8) & 0xff),
-				static_cast<unsigned char>((*pSrc >> 16) & 0xff));
+				static_cast<UChar>(*pSrc & 0xff),
+				static_cast<UChar>((*pSrc >> 8) & 0xff),
+				static_cast<UChar>((*pSrc >> 16) & 0xff));
 			pSrc++;
 		} while (pScannerDst->Next());
 	}

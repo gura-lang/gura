@@ -66,8 +66,8 @@ bool Wave::Read(Signal sig, Stream &stream)
 		sig.SetError(ERR_FormatError, "invalid WAVE format");
 		return false;
 	}
-	unsigned long ckID = Gura_UnpackULong(chunkHdr.ckID);
-	unsigned long ckSize = Gura_UnpackULong(chunkHdr.ckSize);
+	ULong ckID = Gura_UnpackULong(chunkHdr.ckID);
+	ULong ckSize = Gura_UnpackULong(chunkHdr.ckSize);
 	if (ckID != CKID_RIFF) {
 		sig.SetError(ERR_FormatError, "can't find RIFF chunk");
 		return false;
@@ -134,9 +134,9 @@ bool Wave::ReadSubChunk(Signal sig, Stream &stream, size_t bytes)
 			return false;
 		}
 		bytesRest -= bytesRead;
-		unsigned long ckID = Gura_UnpackULong(chunkHdr.ckID);
-		unsigned long ckSize = Gura_UnpackULong(chunkHdr.ckSize);
-		unsigned long ckSizeAlign = (ckSize + 1) / 2 * 2;
+		ULong ckID = Gura_UnpackULong(chunkHdr.ckID);
+		ULong ckSize = Gura_UnpackULong(chunkHdr.ckSize);
+		ULong ckSizeAlign = (ckSize + 1) / 2 * 2;
 		switch (ckID) {
 		case CKID_fmt: {
 			Format::RawData rawData;

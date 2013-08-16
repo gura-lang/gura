@@ -125,7 +125,7 @@ String UnquoteURI(Signal sig, const char *str)
 	enum {
 		STAT_Start, STAT_Hex1, STAT_Hex2,
 	} stat = STAT_Start;
-	unsigned char chHex = 0x00;
+	UChar chHex = 0x00;
 	String rtn;
 	for (const char *p = str; *p != '\0'; p++) {
 		char ch = *p;
@@ -174,7 +174,7 @@ bool DecodeURIQuery(Signal sig, const char *str, StringList &stringList)
 		STAT_Hex1, STAT_Hex2,
 	} stat = STAT_Key, statNext = STAT_Key;
 	String token;
-	unsigned char chHex = 0x00;
+	UChar chHex = 0x00;
 	for (const char *p = str; ; p++) {
 		const char ch = *p;
 		switch (stat) {
@@ -1234,7 +1234,7 @@ Object *Stream_Socket::DoGetStatObj(Signal sig)
 //-----------------------------------------------------------------------------
 // Stream_Chunked implementation
 //-----------------------------------------------------------------------------
-Stream_Chunked::Stream_Chunked(Environment &env, Signal sig, Stream *pStream, unsigned long attr) :
+Stream_Chunked::Stream_Chunked(Environment &env, Signal sig, Stream *pStream, ULong attr) :
 		Stream(env, sig, attr), _pStream(pStream), _bytesChunk(0), _doneFlag(false)
 {
 }
@@ -1344,7 +1344,7 @@ size_t Stream_Chunked::DoGetSize()
 //-----------------------------------------------------------------------------
 // Stream_Http implementation
 //-----------------------------------------------------------------------------
-Stream_Http::Stream_Http(Environment &env, Signal sig, Stream *pStream, unsigned long attr,
+Stream_Http::Stream_Http(Environment &env, Signal sig, Stream *pStream, ULong attr,
 					const char *name, size_t bytes, const Header &header) :
 		Stream(env, sig, attr), _pStream(pStream), _name(name),
 		_bytesRead(bytes), _header(header)
@@ -2019,7 +2019,7 @@ bool Object_server::Prepare(Signal sig, const char *addr, short port)
 		return false;
 	}
 	::memset(&_saddrServer, 0x00, sizeof(_saddrServer));
-	unsigned long addrNum = ::htonl(INADDR_ANY);
+	ULong addrNum = ::htonl(INADDR_ANY);
 	_saddrServer.sin_family = AF_INET;
 	if (addr != NULL) {
 		addrNum = ::inet_addr(addr);
@@ -2030,7 +2030,7 @@ bool Object_server::Prepare(Signal sig, const char *addr, short port)
 				return false;
 			}
 			_saddrServer.sin_family = pHostEnt->h_addrtype;
-			addrNum = **reinterpret_cast<unsigned long **>(pHostEnt->h_addr_list);
+			addrNum = **reinterpret_cast<ULong **>(pHostEnt->h_addr_list);
 		}
 	}
 	_saddrServer.sin_addr.s_addr = addrNum;
@@ -2068,7 +2068,7 @@ Object_request *Object_server::Wait(Signal sig)
 	for (;;) {
 		bool requestFlag = false;
 		if (FD_ISSET(_sockListen, &_fdsRead)) {
-			FD_CLR(static_cast<unsigned int>(_sockListen), &_fdsRead);
+			FD_CLR(static_cast<UInt>(_sockListen), &_fdsRead);
 			sockaddr_in saddrClient;
 			socklen_t bytesAddr = sizeof(saddrClient);
 			int sockClient = static_cast<int>(::accept(_sockListen,
@@ -2101,8 +2101,8 @@ Object_request *Object_server::Wait(Signal sig)
 				Object_session *pObjSession = *ppObjSession;
 				if (!pObjSession->IsValid()) continue;
 				int sock = pObjSession->GetSocket();
-				if (FD_ISSET(static_cast<unsigned int>(sock), &_fdsRead)) {
-					FD_CLR(static_cast<unsigned int>(sock), &_fdsRead);
+				if (FD_ISSET(static_cast<UInt>(sock), &_fdsRead)) {
+					FD_CLR(static_cast<UInt>(sock), &_fdsRead);
 					requestFlag = true;
 					pObjSessionCur.reset(Object_session::Reference(pObjSession));
 					break;
@@ -2119,13 +2119,13 @@ Object_request *Object_server::Wait(Signal sig)
 			pObjSessionCur.reset(NULL);
 		}
 		FD_ZERO(&_fdsRead);
-		FD_SET(static_cast<unsigned int>(_sockListen), &_fdsRead);
+		FD_SET(static_cast<UInt>(_sockListen), &_fdsRead);
 		int sockMax = _sockListen;
 		foreach (SessionList, ppObjSession, _sessionList) {
 			Object_session *pObjSession = *ppObjSession;
 			if (pObjSession->IsValid()) {
 				int sock = pObjSession->GetSocket();
-				FD_SET(static_cast<unsigned int>(sock), &_fdsRead);
+				FD_SET(static_cast<UInt>(sock), &_fdsRead);
 				if (sockMax < sock) sockMax = sock;
 			}
 		}
@@ -2249,7 +2249,7 @@ bool Object_client::Prepare(Signal sig, const char *addr, short port,
 	}
 	sockaddr_in saddrServer;
 	::memset(&saddrServer, 0x00, sizeof(saddrServer));
-	unsigned long addrNum = ::inet_addr(addrToConnect);
+	ULong addrNum = ::inet_addr(addrToConnect);
 	if (addrNum == 0xffffffff) {
 		hostent *pHostEnt = ::gethostbyname(addrToConnect);
 		if (pHostEnt == NULL) {
@@ -2257,7 +2257,7 @@ bool Object_client::Prepare(Signal sig, const char *addr, short port,
 			return false;
 		}
 		saddrServer.sin_family = pHostEnt->h_addrtype;
-		addrNum = **reinterpret_cast<unsigned long **>(pHostEnt->h_addr_list);
+		addrNum = **reinterpret_cast<ULong **>(pHostEnt->h_addr_list);
 	} else {
 		saddrServer.sin_family = AF_INET;
 	}
@@ -2671,7 +2671,7 @@ Directory *Directory_Http::DoNext(Environment &env, Signal sig)
 	return NULL;
 }
 
-Stream *Directory_Http::DoOpenStream(Environment &env, Signal sig, unsigned long attr)
+Stream *Directory_Http::DoOpenStream(Environment &env, Signal sig, ULong attr)
 {
 	AutoPtr<Object_client> pObjClient(new Object_client());
 	String pathName;

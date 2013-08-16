@@ -25,7 +25,7 @@ Gura_ImplementFunction(test)
 	}
 	sockaddr_in saddrServer;
 	::memset(&saddrServer, 0x00, sizeof(saddrServer));
-	unsigned long addrNum = ::inet_addr(addrToConnect);
+	ULong addrNum = ::inet_addr(addrToConnect);
 	if (addrNum == 0xffffffff) {
 		hostent *pHostEnt = ::gethostbyname(addrToConnect);
 		if (pHostEnt == NULL) {
@@ -33,7 +33,7 @@ Gura_ImplementFunction(test)
 			return Value::Null;
 		}
 		saddrServer.sin_family = pHostEnt->h_addrtype;
-		addrNum = **reinterpret_cast<unsigned long **>(pHostEnt->h_addr_list);
+		addrNum = **reinterpret_cast<ULong **>(pHostEnt->h_addr_list);
 	} else {
 		saddrServer.sin_family = AF_INET;
 	}
