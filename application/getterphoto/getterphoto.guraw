@@ -26,11 +26,13 @@ main = module {
 	}
 	main() = {
 		cfg.store():default {
-			'wdFrame'		=> 480
-			'htFrame'		=> 680
-			'dirNameDst'	=> path.join(sys.localdir, 'getterphoto')
+			'wdFrame'			=> 480
+			'htFrame'			=> 680
+			'dirNamesSrc'		=> []
+			'dirNameDstBase'	=> path.join(sys.localdir, 'getterphoto')
 		}
 		wx.IMPLEMENT_APP(App)
+		yaml.write(fileNameCfg, cfg)
 	}
 }
 
@@ -42,6 +44,8 @@ Panel = class(wx.Panel) {
 		outerBox = wx.BoxSizer(wx.VERTICAL)
 		this.SetSizer(outerBox)
 		wdLabel = 80
+		this.imageList = wx.ImageList(16, 16, true)
+		this.imageList.Add(wx.BitmapFromXPMData(imageicon_xpm))
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
 			outerBox.Add(hbox, wx.SizerFlags().Expand())
 			wx.StaticText(this, wx.ID_ANY, 'Source', size => wx.Size(wdLabel, -1)) {|ctrl|
@@ -80,6 +84,7 @@ Panel = class(wx.Panel) {
 		}
 		wx.ListCtrl(this, wx.ID_ANY, style => wx.LC_REPORT | wx.LC_HRULES) {|ctrl|
 			outerBox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
+			ctrl.SetImageList(this.imageList, wx.IMAGE_LIST_SMALL)
 			ctrl.InsertColumn(0.., ['Source', 'Destination'])
 			ctrl.Bind(wx.EVT_SIZE) {|event|
 				size = event.GetSize()
@@ -109,7 +114,7 @@ Panel = class(wx.Panel) {
 			}
 		}
 		this.UpdateSourceDirNames()
-		this.textDirNameDstBase.SetValue(main.cfg['dirNameDst'])
+		this.textDirNameDstBase.SetValue(main.cfg['dirNameDstBase'])
 	}
 	UpdateSourceDirNames() = {
 		dirNames = path.join(chr(ord('A')..ord('K')) + ':', 'DCIM')
@@ -133,33 +138,19 @@ Panel = class(wx.Panel) {
 		pathNames = path.dir(dirName, main.patternImgList*,
 								main.patternAviList*):icase:file:list
 		this.listFileNames.pathNames:public = pathNames
-		this.listFileNames.InsertStringItem(0.., path.filename(pathNames))
+		pathNames.each {|pathName, idx|
+			wx.ListItem {|item|
+				item.SetId(idx)
+				item.SetText(path.filename(pathName))
+				item.SetImage(0)
+				this.listFileNames.InsertItem(item)
+			}
+		}
 		this.btnGetPhoto.Enable(!pathNames.isempty())
 	}
 	GetPhoto(dirNameDstBase:string, index:number):map = {
 		pathName = this.listFileNames.pathNames[index]
 		pathNameDst = MakeUniqPathName(pathName, dirNameDstBase)
-		/*
-		stat = path.stat(pathName)
-		mtime = stat.mtime
-		extName = path.splitext(pathName)[1]
-		dirNameDst = path.join(dirNameDstBase,
-					'%04d%02d%02d xxxx' % [mtime.year, mtime.month, mtime.day])
-		!path.exists(dirNameDst) && fs.mkdir(dirNameDst):tree
-		if ((path.match(main.patternAviList, pathName):icase).or()) {
-			dirNameDst = path.join(dirNameDst, 'AVI')
-			!path.exists(dirNameDst) && fs.mkdir(dirNameDst):tree
-		}
-		pathNameDst = nil
-		cross (upper in main.charsAtoZ, lower in main.charsAtoZ) {
-			fileNameDst = format('%04d_%02d%02d_%02d%02d%02d%s%s.%s',
-				mtime.year, mtime.month, mtime.day, mtime.hour, mtime.min, mtime.sec,
-				upper, lower, extName)
-			pathNameDst = path.join(dirNameDst, fileNameDst)
-			!path.exists(pathNameDst) && break
-			pathNameDst = nil
-		}
-		*/
 		!pathNameDst && return
 		item = wx.ListItem()
 		item.SetMask(wx.LIST_MASK_TEXT | wx.LIST_MASK_STATE)
@@ -193,8 +184,6 @@ Panel = class(wx.Panel) {
 Frame = class(wx.Frame) {
 	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0]),
 							size => wx.Size(main.cfg['wdFrame', 'htFrame']*)|
-		//this.SetIcon(wx.Icon(path.join(sys.maindir, 'getterphoto.ico'),
-		//												wx.BITMAP_TYPE_ICO))
 		this.SetIcon(wx.IconFromXPMData(mainicon_xpm))
 		Panel(this)
 		this.Bind(wx.EVT_SIZE) {|event|
@@ -748,6 +737,54 @@ mainicon_xpm = @{
 "                      <&=&8%>&?&@&U%A&B&                        ",
 "                                                                ",
 };
+
+imageicon_xpm = @{
+"16 16 28 2 0 0",
+"   c None",
+"!  c #000000",
+"#  c #ff0000",
+"$  c #c0c0c0",
+"%  c #a0a0a4",
+"&  c #ffffff",
+"'  c #808080",
+"(  c #a6caf0",
+")  c #408080",
+"*  c #80c0c0",
+"+  c #408040",
+",  c #40a080",
+"-  c #60a0c0",
+".  c #fffbf0",
+"/  c #206040",
+"0  c #208040",
+"1  c #20a080",
+"2  c #60a080",
+"3  c #204040",
+"4  c #20a040",
+"5  c #2080c0",
+"6  c #6080c0",
+"7  c #80a0c0",
+"8  c #60c0c0",
+"9  c #0060c0",
+":  c #4080c0",
+";  c #40a0c0",
+"<  c #2060c0",
+"                                ",
+"$ % % % % % % % % % % % % % % $ ",
+"% & & & & & & & & & & & & & & ' ",
+"% & ( ( ( ( ( ( ( ( ( ( ( ( & ' ",
+"% & ( ( & & ( ( ( ( ( & & ( & ' ",
+"% & ) * ( & ( ( ( & & & & ( & ' ",
+"% & + , - * . ( & & & & & ( & ' ",
+"% & / 0 + 1 2 * ( ( ( ( ( ( & ' ",
+"% & 3 3 / / 0 0 0 0 4 , 1 , & ' ",
+"% & 5 6 - - - 7 * * * * 8 - & ' ",
+"% & 9 9 5 5 5 : : ; ; ; - - & ' ",
+"% & 9 9 9 < 5 5 5 5 5 5 : : & ' ",
+"% & & & & & & & & & & & & & & ' ",
+"$ ' ' ' ' ' ' ' ' ' ' ' ' ' ' $ ",
+"                                ",
+"                                ",
+}
 
 //-----------------------------------------------------------------------------
 // utilities
