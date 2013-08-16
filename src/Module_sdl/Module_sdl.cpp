@@ -36,6 +36,9 @@ String Object_Cursor::ToString(Signal sig, bool exprFlag)
 Gura_DeclareMethod(Cursor, FreeCursor)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Cursor, FreeCursor)
@@ -129,6 +132,9 @@ Uint32 Object_Timer::CallbackStub(Uint32 interval, void *param)
 Gura_DeclareMethod(Timer, RemoveTimer)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Timer, RemoveTimer)
@@ -728,6 +734,9 @@ Gura_DeclareMethod(PixelFormat, MapRGB)
 	DeclareArg(env, "r", VTYPE_number);
 	DeclareArg(env, "g", VTYPE_number);
 	DeclareArg(env, "b", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(PixelFormat, MapRGB)
@@ -745,6 +754,9 @@ Gura_DeclareMethod(PixelFormat, MapRGBA)
 	DeclareArg(env, "g", VTYPE_number);
 	DeclareArg(env, "b", VTYPE_number);
 	DeclareArg(env, "a", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(PixelFormat, MapRGBA)
@@ -760,6 +772,9 @@ Gura_DeclareMethod(PixelFormat, GetRGB)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "pixel", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(PixelFormat, GetRGB)
@@ -775,6 +790,9 @@ Gura_DeclareMethod(PixelFormat, GetRGBA)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "pixel", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(PixelFormat, GetRGBA)
@@ -893,6 +911,9 @@ Gura_DeclareMethod(Surface, UpdateRect)
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareArg(env, "w", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareArg(env, "h", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Surface, UpdateRect)
@@ -908,6 +929,9 @@ Gura_DeclareMethod(Surface, UpdateRects)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_List);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Surface, UpdateRects)
@@ -932,6 +956,9 @@ Gura_ImplementMethod(Surface, UpdateRects)
 Gura_DeclareMethod(Surface, Flip)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Surface, Flip)
@@ -947,6 +974,9 @@ Gura_DeclareMethod(Surface, SetColors)
 	DeclareArg(env, "colors", VTYPE_Color, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "firstcolor", VTYPE_number, OCCUR_Once, FLAG_None,
 															new Expr_Value(0));
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Surface, SetColors)
@@ -976,6 +1006,9 @@ Gura_DeclareMethod(Surface, SetPalette)
 	DeclareArg(env, "colors", VTYPE_Color, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "firstcolor", VTYPE_number, OCCUR_Once, FLAG_None,
 															new Expr_Value(0));
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Surface, SetPalette)
@@ -1002,6 +1035,9 @@ Gura_ImplementMethod(Surface, SetPalette)
 Gura_DeclareMethod(Surface, LockSurface)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Surface, LockSurface)
@@ -1014,6 +1050,9 @@ Gura_ImplementMethod(Surface, LockSurface)
 Gura_DeclareMethod(Surface, UnlockSurface)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Surface, UnlockSurface)
@@ -1028,6 +1067,9 @@ Gura_DeclareMethod(Surface, SaveBMP)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "file", VTYPE_string);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Surface, SaveBMP)
@@ -1042,6 +1084,9 @@ Gura_DeclareMethod(Surface, SetColorKey)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "flag", VTYPE_number);
 	DeclareArg(env, "key", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Surface, SetColorKey)
@@ -1056,6 +1101,9 @@ Gura_DeclareMethod(Surface, SetAlpha)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "flag", VTYPE_number);
 	DeclareArg(env, "alpha", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Surface, SetAlpha)
@@ -1069,6 +1117,9 @@ Gura_DeclareMethod(Surface, SetClipRect)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_Rect);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Surface, SetClipRect)
@@ -1083,6 +1134,9 @@ Gura_ImplementMethod(Surface, SetClipRect)
 Gura_DeclareMethod(Surface, GetClipRect)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Surface, GetClipRect)
@@ -1100,6 +1154,9 @@ Gura_DeclareMethod(Surface, ConvertSurface)
 	DeclareArg(env, "fmt", VTYPE_PixelFormat);
 	DeclareArg(env, "flag", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Surface, ConvertSurface)
@@ -1120,6 +1177,9 @@ Gura_DeclareMethod(Surface, FillRect)
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "rect", VTYPE_Rect);
 	DeclareArg(env, "color", VTYPE_Color);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Surface, FillRect)
@@ -1136,6 +1196,9 @@ Gura_DeclareMethod(Surface, DisplayFormat)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Surface, DisplayFormat)
@@ -1151,6 +1214,9 @@ Gura_DeclareMethod(Surface, DisplayFormatAlpha)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Surface, DisplayFormatAlpha)
@@ -1227,6 +1293,9 @@ String Object_Overlay::ToString(Signal sig, bool exprFlag)
 Gura_DeclareMethod(Overlay, LockYUVOverlay)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Overlay, LockYUVOverlay)
@@ -1239,6 +1308,9 @@ Gura_ImplementMethod(Overlay, LockYUVOverlay)
 Gura_DeclareMethod(Overlay, UnlockYUVOverlay)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Overlay, UnlockYUVOverlay)
@@ -1253,6 +1325,9 @@ Gura_DeclareMethod(Overlay, DisplayYUVOverlay)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "dstrect", VTYPE_Rect);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Overlay, DisplayYUVOverlay)
@@ -1370,6 +1445,9 @@ String Object_Joystick::ToString(Signal sig, bool exprFlag)
 Gura_DeclareMethod(Joystick, JoystickIndex)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Joystick, JoystickIndex)
@@ -1382,6 +1460,9 @@ Gura_ImplementMethod(Joystick, JoystickIndex)
 Gura_DeclareMethod(Joystick, JoystickNumAxes)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Joystick, JoystickNumAxes)
@@ -1394,6 +1475,9 @@ Gura_ImplementMethod(Joystick, JoystickNumAxes)
 Gura_DeclareMethod(Joystick, JoystickNumBalls)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Joystick, JoystickNumBalls)
@@ -1406,6 +1490,9 @@ Gura_ImplementMethod(Joystick, JoystickNumBalls)
 Gura_DeclareMethod(Joystick, JoystickNumHats)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Joystick, JoystickNumHats)
@@ -1418,6 +1505,9 @@ Gura_ImplementMethod(Joystick, JoystickNumHats)
 Gura_DeclareMethod(Joystick, JoystickNumButtons)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Joystick, JoystickNumButtons)
@@ -1431,6 +1521,9 @@ Gura_DeclareMethod(Joystick, JoystickGetAxis)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "axis", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Joystick, JoystickGetAxis)
@@ -1444,6 +1537,9 @@ Gura_DeclareMethod(Joystick, JoystickGetHat)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "hat", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Joystick, JoystickGetHat)
@@ -1457,6 +1553,9 @@ Gura_DeclareMethod(Joystick, JoystickGetButton)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "button", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Joystick, JoystickGetButton)
@@ -1470,6 +1569,9 @@ Gura_DeclareMethod(Joystick, JoystickGetBall)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "ball", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Joystick, JoystickGetBall)
@@ -1486,6 +1588,9 @@ Gura_ImplementMethod(Joystick, JoystickGetBall)
 Gura_DeclareMethod(Joystick, JoystickClose)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(Joystick, JoystickClose)
@@ -1625,6 +1730,9 @@ Gura_DeclareMethod(AudioSpec, MixAudio)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "src", VTYPE_AudioSpec);
 	DeclareArg(env, "volume", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(AudioSpec, MixAudio)
@@ -1678,6 +1786,9 @@ String Object_AudioCVT::ToString(Signal sig, bool exprFlag)
 Gura_DeclareMethod(AudioCVT, ConvertAudio)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(AudioCVT, ConvertAudio)
@@ -1797,6 +1908,9 @@ String Object_CD::ToString(Signal sig, bool exprFlag)
 Gura_DeclareMethod(CD, CDStatus)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(CD, CDStatus)
@@ -1811,6 +1925,9 @@ Gura_DeclareMethod(CD, CDPlay)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "start", VTYPE_number);
 	DeclareArg(env, "length", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(CD, CDPlay)
@@ -1828,6 +1945,9 @@ Gura_DeclareMethod(CD, CDPlayTracks)
 	DeclareArg(env, "start_frame", VTYPE_number);
 	DeclareArg(env, "ntracks", VTYPE_number);
 	DeclareArg(env, "nframes", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(CD, CDPlayTracks)
@@ -1841,6 +1961,9 @@ Gura_ImplementMethod(CD, CDPlayTracks)
 Gura_DeclareMethod(CD, CDPause)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(CD, CDPause)
@@ -1853,6 +1976,9 @@ Gura_ImplementMethod(CD, CDPause)
 Gura_DeclareMethod(CD, CDResume)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(CD, CDResume)
@@ -1865,6 +1991,9 @@ Gura_ImplementMethod(CD, CDResume)
 Gura_DeclareMethod(CD, CDStop)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(CD, CDStop)
@@ -1877,6 +2006,9 @@ Gura_ImplementMethod(CD, CDStop)
 Gura_DeclareMethod(CD, CDEject)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(CD, CDEject)
@@ -1889,6 +2021,9 @@ Gura_ImplementMethod(CD, CDEject)
 Gura_DeclareMethod(CD, CDClose)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(CD, CDClose)
@@ -1903,6 +2038,9 @@ Gura_DeclareMethod(CD, GetTrack)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementMethod(CD, GetTrack)
@@ -1940,6 +2078,21 @@ Gura_DeclareFunction(Init)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	"Initializes SDL. This should be called before all other SDL functions.\n"
+	"The flags parameter specifies what part(s) of SDL to initialize.\n"
+	"\n"
+	"  sdl.INIT_TIMER       Initializes the timer subsystem.\n"
+	"  sdl.INIT_AUDIO       Initializes the audio subsystem.\n"
+	"  sdl.INIT_VIDEO       Initializes the video subsystem.\n"
+	"  sdl.INIT_CDROM       Initializes the cdrom subsystem.\n"
+	"  sdl.INIT_JOYSTICK    Initializes the joystick subsystem.\n"
+	"  sdl.INIT_EVERYTHING  Initialize all of the above.\n"
+	"  sdl.INIT_NOPARACHUTE Prevents SDL from catching fatal signals.\n"
+	"  sdl.INIT_EVENTTHREAD\n"
+	"\n"
+	"*Return Value* Returns -1 on an error or 0 on success.\n"
+	);
 }
 
 Gura_ImplementFunction(Init)
@@ -1954,6 +2107,12 @@ Gura_DeclareFunction(InitSubSystem)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	"After SDL has been initialized with sdl.Init you may initialize uninitialized subsystems with sdl.InitSubSystem.\n"
+	"The flags parameter is the same as that used in sdl.Init.\n"
+	"\n"
+	"*Return Value* Returns -1 on an error or 0 on success.\n"
+	);
 }
 
 Gura_ImplementFunction(InitSubSystem)
@@ -1966,6 +2125,10 @@ Gura_DeclareFunction(QuitSubSystem)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	"sdl.QuitSubSystem allows you to shut down a subsystem that has been previously initialized by sdl.Init or sdl.InitSubSystem.\n"
+	"The flags tells sdl.QuitSubSystem which subsystems to shut down, it uses the same values that are passed to sdl.Init.\n"
+	);
 }
 
 Gura_ImplementFunction(QuitSubSystem)
@@ -1978,6 +2141,10 @@ Gura_ImplementFunction(QuitSubSystem)
 Gura_DeclareFunction(Quit)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"sdl.Quit shuts down all SDL subsystems and frees the resources allocated to them.\n"
+	"This should always be called before you exit.\n"
+	);
 }
 
 Gura_ImplementFunction(Quit)
@@ -1991,6 +2158,12 @@ Gura_DeclareFunction(WasInit)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	"sdl.WasInit allows you to see which SDL subsytems have been initialized.\n"
+	"flags is a bitwise OR'd combination of the subsystems you wish to check (see sdl.Init for a list of subsystem flags).\n"
+	"\n"
+	"*Return Value* sdl.WasInit returns a bitwised OR'd combination of the initialized subsystems.\n"
+	);
 }
 
 Gura_ImplementFunction(WasInit)
@@ -2002,6 +2175,11 @@ Gura_ImplementFunction(WasInit)
 Gura_DeclareFunction(GetError)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	"sdl.GetError returns a string containing information about the last internal SDL error.\n"
+	"\n"
+	"*Return Value* sdl.GetError returns a string containing the last error.\n"
+	);
 }
 
 Gura_ImplementFunction(GetError)
@@ -2018,6 +2196,9 @@ Gura_DeclareFunction(GetVideoSurface)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(GetVideoSurface)
@@ -2031,6 +2212,9 @@ Gura_ImplementFunction(GetVideoSurface)
 Gura_DeclareFunction(GetVideoInfo)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(GetVideoInfo)
@@ -2044,6 +2228,9 @@ Gura_ImplementFunction(GetVideoInfo)
 Gura_DeclareFunction(VideoDriverName)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(VideoDriverName)
@@ -2060,6 +2247,9 @@ Gura_DeclareFunction(ListModes)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_PixelFormat, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "flags", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(ListModes)
@@ -2089,6 +2279,9 @@ Gura_DeclareFunction(VideoModeOK)
 	DeclareArg(env, "height", VTYPE_number);
 	DeclareArg(env, "bpp", VTYPE_number);
 	DeclareArg(env, "flags", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(VideoModeOK)
@@ -2106,6 +2299,9 @@ Gura_DeclareFunction(SetVideoMode)
 	DeclareArg(env, "bpp", VTYPE_number);
 	DeclareArg(env, "flags", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(SetVideoMode)
@@ -2123,6 +2319,9 @@ Gura_DeclareFunction(SetGamma)
 	DeclareArg(env, "redgamma", VTYPE_number);
 	DeclareArg(env, "greengamma", VTYPE_number);
 	DeclareArg(env, "bluegamma", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(SetGamma)
@@ -2135,6 +2334,9 @@ Gura_ImplementFunction(SetGamma)
 Gura_DeclareFunction(GetGammaRamp)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(GetGammaRamp)
@@ -2178,6 +2380,9 @@ Gura_DeclareFunction(SetGammaRamp)
 	DeclareArg(env, "redtable", VTYPE_number, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "greentable", VTYPE_number, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "bluetable", VTYPE_number, OCCUR_Once, FLAG_List);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(SetGammaRamp)
@@ -2225,6 +2430,9 @@ Gura_DeclareFunction(CreateRGBSurface)
 	DeclareArg(env, "Bmask", VTYPE_number);
 	DeclareArg(env, "Amask", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(CreateRGBSurface)
@@ -2242,6 +2450,9 @@ Gura_DeclareFunction(CreateRGBSurfaceFrom)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "image", VTYPE_image);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(CreateRGBSurfaceFrom)
@@ -2258,6 +2469,9 @@ Gura_DeclareFunction(LoadBMP)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "file", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(LoadBMP)
@@ -2279,6 +2493,9 @@ Gura_DeclareFunction(BlitSurface)
 	DeclareArg(env, "srcrect",	VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "dst",		VTYPE_Surface);
 	DeclareArg(env, "dstrect",	VTYPE_Rect, OCCUR_Once, FLAG_Nil);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(BlitSurface)
@@ -2303,6 +2520,9 @@ Gura_DeclareFunction(WarpMouse)
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(WarpMouse)
@@ -2322,6 +2542,9 @@ Gura_DeclareFunction(CreateCursor)
 	DeclareArg(env, "h", VTYPE_number);
 	DeclareArg(env, "hot_x", VTYPE_number);
 	DeclareArg(env, "hot_y", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(CreateCursor)
@@ -2341,6 +2564,9 @@ Gura_DeclareFunction(SetCursor)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "cursor", VTYPE_Cursor);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(SetCursor)
@@ -2359,6 +2585,9 @@ Gura_ImplementFunction(SetCursor)
 Gura_DeclareFunction(GetCursor)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(GetCursor)
@@ -2372,6 +2601,9 @@ Gura_DeclareFunction(ShowCursor)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "toggle", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(ShowCursor)
@@ -2384,6 +2616,9 @@ Gura_DeclareFunction(GL_GetAttribute)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "attr", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(GL_GetAttribute)
@@ -2401,6 +2636,9 @@ Gura_DeclareFunction(GL_SetAttribute)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "attr", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(GL_SetAttribute)
@@ -2414,6 +2652,9 @@ Gura_ImplementFunction(GL_SetAttribute)
 Gura_DeclareFunction(GL_SwapBuffers)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(GL_SwapBuffers)
@@ -2430,6 +2671,9 @@ Gura_DeclareFunction(CreateYUVOverlay)
 	DeclareArg(env, "height", VTYPE_number);
 	DeclareArg(env, "format", VTYPE_number);
 	DeclareArg(env, "display", VTYPE_Surface);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(CreateYUVOverlay)
@@ -2451,6 +2695,9 @@ Gura_DeclareFunction(WM_SetCaption)
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "title", VTYPE_string);
 	DeclareArg(env, "icon", VTYPE_string);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(WM_SetCaption)
@@ -2463,6 +2710,9 @@ Gura_ImplementFunction(WM_SetCaption)
 Gura_DeclareFunction(WM_GetCaption)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(WM_GetCaption)
@@ -2481,6 +2731,9 @@ Gura_DeclareFunction(WM_SetIcon)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "surface", VTYPE_Surface);
 	DeclareArg(env, "mask", VTYPE_binary, OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(WM_SetIcon)
@@ -2496,6 +2749,9 @@ Gura_ImplementFunction(WM_SetIcon)
 Gura_DeclareFunction(WM_IconifyWindow)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(WM_IconifyWindow)
@@ -2508,6 +2764,9 @@ Gura_DeclareFunction(WM_ToggleFullScreen)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "surface", VTYPE_Surface);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(WM_ToggleFullScreen)
@@ -2521,6 +2780,9 @@ Gura_DeclareFunction(WM_GrabInput)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "mode", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(WM_GrabInput)
@@ -2536,6 +2798,9 @@ Gura_ImplementFunction(WM_GrabInput)
 Gura_DeclareFunction(PumpEvents)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(PumpEvents)
@@ -2550,6 +2815,9 @@ Gura_DeclareFunction(AddEvents)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "events", VTYPE_Event, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "mask", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(AddEvents)
@@ -2573,6 +2841,9 @@ Gura_DeclareFunction(PeekEvents)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "numevents", VTYPE_number);
 	DeclareArg(env, "mask", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(PeekEvents)
@@ -2600,6 +2871,9 @@ Gura_DeclareFunction(GetEvents)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "numevents", VTYPE_number);
 	DeclareArg(env, "mask", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(GetEvents)
@@ -2625,6 +2899,9 @@ Gura_ImplementFunction(GetEvents)
 Gura_DeclareFunction(PollEvent)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(PollEvent)
@@ -2644,6 +2921,9 @@ Gura_ImplementFunction(PollEvent)
 Gura_DeclareFunction(WaitEvent)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(WaitEvent)
@@ -2667,6 +2947,9 @@ Gura_DeclareFunction(PushEvent)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "event", VTYPE_Event);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(PushEvent)
@@ -2694,6 +2977,9 @@ Gura_DeclareFunction(SetEventFilter)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "filter", VTYPE_function);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(SetEventFilter)
@@ -2708,6 +2994,9 @@ Gura_ImplementFunction(SetEventFilter)
 Gura_DeclareFunction(GetEventFilter)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(GetEventFilter)
@@ -2722,6 +3011,9 @@ Gura_DeclareFunction(EventState)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "type", VTYPE_number);
 	DeclareArg(env, "state", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(EventState)
@@ -2734,6 +3026,9 @@ Gura_DeclareFunction(CheckKeyState)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "key", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(CheckKeyState)
@@ -2748,6 +3043,9 @@ Gura_ImplementFunction(CheckKeyState)
 Gura_DeclareFunction(GetModState)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(GetModState)
@@ -2760,6 +3058,9 @@ Gura_DeclareFunction(SetModState)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "modstate", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(SetModState)
@@ -2773,6 +3074,9 @@ Gura_DeclareFunction(GetKeyName)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "key", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(GetKeyName)
@@ -2785,6 +3089,9 @@ Gura_DeclareFunction(EnableUNICODE)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "enable", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(EnableUNICODE)
@@ -2798,6 +3105,9 @@ Gura_DeclareFunction(EnableKeyRepeat)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "delay", VTYPE_number);
 	DeclareArg(env, "interval", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(EnableKeyRepeat)
@@ -2809,6 +3119,9 @@ Gura_ImplementFunction(EnableKeyRepeat)
 Gura_DeclareFunction(GetMouseState)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(GetMouseState)
@@ -2822,6 +3135,9 @@ Gura_ImplementFunction(GetMouseState)
 Gura_DeclareFunction(GetRelativeMouseState)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(GetRelativeMouseState)
@@ -2835,6 +3151,9 @@ Gura_ImplementFunction(GetRelativeMouseState)
 Gura_DeclareFunction(GetAppState)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(GetAppState)
@@ -2847,6 +3166,9 @@ Gura_DeclareFunction(JoystickEventState)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "state", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(JoystickEventState)
@@ -2861,6 +3183,9 @@ Gura_ImplementFunction(JoystickEventState)
 Gura_DeclareFunction(NumJoysticks)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(NumJoysticks)
@@ -2873,6 +3198,9 @@ Gura_DeclareFunction(JoystickName)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(JoystickName)
@@ -2885,6 +3213,9 @@ Gura_DeclareFunction(JoystickOpen)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(JoystickOpen)
@@ -2899,6 +3230,9 @@ Gura_DeclareFunction(JoystickOpened)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(JoystickOpened)
@@ -2910,6 +3244,9 @@ Gura_ImplementFunction(JoystickOpened)
 Gura_DeclareFunction(JoystickUpdate)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(JoystickUpdate)
@@ -2926,6 +3263,9 @@ Gura_DeclareFunction(OpenAudio)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "desired", VTYPE_AudioSpec);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(OpenAudio)
@@ -2947,6 +3287,9 @@ Gura_DeclareFunction(PauseAudio)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "pause_on", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(PauseAudio)
@@ -2959,6 +3302,9 @@ Gura_ImplementFunction(PauseAudio)
 Gura_DeclareFunction(GetAudioStatus)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(GetAudioStatus)
@@ -2971,6 +3317,9 @@ Gura_DeclareFunction(LoadWAV)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "file", VTYPE_string);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(LoadWAV)
@@ -2999,6 +3348,9 @@ Gura_DeclareFunction(BuildAudioCVT)
 	DeclareArg(env, "dst_format", VTYPE_number);
 	DeclareArg(env, "dst_channels", VTYPE_number);
 	DeclareArg(env, "dst_rate", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(BuildAudioCVT)
@@ -3021,6 +3373,9 @@ Gura_ImplementFunction(BuildAudioCVT)
 Gura_DeclareFunction(LockAudio)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(LockAudio)
@@ -3033,6 +3388,9 @@ Gura_ImplementFunction(LockAudio)
 Gura_DeclareFunction(UnlockAudio)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(UnlockAudio)
@@ -3045,6 +3403,9 @@ Gura_ImplementFunction(UnlockAudio)
 Gura_DeclareFunction(CloseAudio)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(CloseAudio)
@@ -3060,6 +3421,9 @@ Gura_ImplementFunction(CloseAudio)
 Gura_DeclareFunction(CDNumDrives)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(CDNumDrives)
@@ -3072,6 +3436,9 @@ Gura_DeclareFunction(CDName)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "drive", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(CDName)
@@ -3084,6 +3451,9 @@ Gura_DeclareFunction(CDOpen)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "drive", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(CDOpen)
@@ -3107,6 +3477,9 @@ Gura_ImplementFunction(CDOpen)
 Gura_DeclareFunction(GetTicks)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(GetTicks)
@@ -3119,6 +3492,9 @@ Gura_DeclareFunction(Delay)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "ms", VTYPE_number);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(Delay)
@@ -3135,6 +3511,9 @@ Gura_DeclareFunction(AddTimer)
 	DeclareArg(env, "callback", VTYPE_function, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_UserSymbol(thread_));
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(AddTimer)
@@ -3169,6 +3548,9 @@ Gura_DeclareFunction(Rect)
 	DeclareArg(env, "h", VTYPE_number);
 	SetClassToConstruct(Gura_UserClass(Rect));
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(Rect)
@@ -3190,6 +3572,9 @@ Gura_DeclareFunction(Color)
 	DeclareArg(env, "b", VTYPE_number);
 	SetClassToConstruct(Gura_UserClass(Color));
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(Color)
@@ -3221,6 +3606,9 @@ Gura_DeclareFunction(AudioSpec)
 	"with audio data.");
 	SetClassToConstruct(Gura_UserClass(AudioSpec));
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(AudioSpec)
@@ -3263,6 +3651,9 @@ void callback(void *userdata, Uint8 *stream, int len)
 Gura_DeclareFunction(test)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(test)
