@@ -1,0 +1,50 @@
+#!/usr/bin/env gura
+import(re)
+import(sdl)
+
+pattern = [
+'X               ',
+'XX      X       ',
+'X@X     X       ',
+'XXXX  XXXXX     ',
+'X@@@X   X       ',
+'XXXXXX  X       ',
+'X@@@@@X         ',
+'XXXXXXXX        ',
+'X@@@@@@@X       ',
+'XXXXXXXXXX      ',
+'X@@@@@XXXXX     ',
+'XXXXXXX         ',
+'X@X X@@X        ',
+'XX  XXXX        ',
+'X    X@@X       ',
+'     XXXX       ',
+'      X@@X      ',
+'      XXXX      ',
+'       XX       ',
+]
+
+SetCursor(pattern[]:string) = {
+	data = b''
+	mask = b''
+	w = pattern:*len().max(), h = pattern.len()
+	pattern.each {|line|
+		numData = 0
+		numMask = 0
+		line.each {|ch|
+			numData = (numData << 1) + cond(ch == '@', 1, 0)
+			numMask = (numMask << 1) + cond(ch in ['X', '@'], 1, 0)
+		}
+		data += binary.pack('>H', numData)
+		mask += binary.pack('>H', numMask)
+	}
+	sdl.SetCursor(sdl.CreateCursor(data, mask, w, h, 0, 0))
+}
+
+sdl.Init(sdl.INIT_EVERYTHING)
+screen = sdl.SetVideoMode(640, 480, 16, sdl.SWSURFACE)
+SetCursor(pattern)
+repeat {
+	event = sdl.WaitEvent()
+	(event.type == sdl.QUIT) && break
+}
