@@ -37,7 +37,7 @@ Gura_DeclareMethod(Cursor, FreeCursor)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Frees a sdl.Cursor that was created using sdl.CreateCursor.\n"
 	);
 }
 
@@ -2543,19 +2543,41 @@ Gura_DeclareFunction(CreateCursor)
 	DeclareArg(env, "hot_x", VTYPE_number);
 	DeclareArg(env, "hot_y", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Create a cursor using the specified data and mask (in MSB format). The cursor width must be a multiple of 8 bits.\n"
+	"\n"
+	"The cursor is created in black and white according to the following:\n"
+	"\n"
+	"  Data / Mask Resulting pixel on screen\n"
+	"  0 / 1       White\n"
+	"  1 / 1       Black\n"
+	"  0 / 0       Transparent\n"
+	"  1 / 0       Inverted color if possible, black if not.\n"
 	);
 }
 
 Gura_ImplementFunction(CreateCursor)
 {
-	Uint8 *data = const_cast<Uint8 *>(
-				reinterpret_cast<const Uint8 *>(args.GetBinary(0).data()));
-	Uint8 *mask = const_cast<Uint8 *>(
-				reinterpret_cast<const Uint8 *>(args.GetBinary(1).data()));
+	const Binary &data = args.GetBinary(0);
+	const Binary &mask = args.GetBinary(1);
 	int w = args.GetInt(2), h = args.GetInt(3);
 	int hot_x = args.GetInt(4), hot_y = args.GetInt(5);
-	SDL_Cursor *pCursor = ::SDL_CreateCursor(data, mask, w, h, hot_x, hot_y);
+	int bytesExpect = w / 8 * h;
+	if (w <= 0 || w % 8 != 0) {
+		sig.SetError(ERR_ValueError, "width must be a multiple of eight");
+		return Value::Null;
+	}
+	if (data.size() < bytesExpect) {
+		sig.SetError(ERR_ValueError, "size of data is too small");
+		return Value::Null;
+	}
+	if (mask.size() < bytesExpect) {
+		sig.SetError(ERR_ValueError, "size of mask is too small");
+		return Value::Null;
+	}
+	SDL_Cursor *pCursor = ::SDL_CreateCursor(
+			const_cast<Uint8 *>(reinterpret_cast<const Uint8 *>(data.data())),
+			const_cast<Uint8 *>(reinterpret_cast<const Uint8 *>(mask.data())),
+			w, h, hot_x, hot_y);
 	return Object_Cursor::CreateValue(pCursor);
 }
 
