@@ -2561,11 +2561,11 @@ Gura_ImplementFunction(CreateCursor)
 	const Binary &mask = args.GetBinary(1);
 	int w = args.GetInt(2), h = args.GetInt(3);
 	int hot_x = args.GetInt(4), hot_y = args.GetInt(5);
-	int bytesExpect = w / 8 * h;
 	if (w <= 0 || w % 8 != 0) {
 		sig.SetError(ERR_ValueError, "width must be a multiple of eight");
 		return Value::Null;
 	}
+	int bytesExpect = w / 8 * h;
 	if (data.size() < bytesExpect) {
 		sig.SetError(ERR_ValueError, "size of data is too small");
 		return Value::Null;
@@ -2587,7 +2587,8 @@ Gura_DeclareFunction(SetCursor)
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "cursor", VTYPE_Cursor);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Sets the currently active cursor to the specified one.\n"
+	"If the cursor is currently visible, the change will be immediately represented on the display.\n"
 	);
 }
 
@@ -2608,7 +2609,7 @@ Gura_DeclareFunction(GetCursor)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Returns the currently active mouse cursor.\n"
 	);
 }
 
@@ -2624,7 +2625,12 @@ Gura_DeclareFunction(ShowCursor)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "toggle", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Toggle whether or not the cursor is shown on the screen.\n"
+	"Passing sdl.ENABLE displays the cursor and passing sdl.DISABLE hides it.\n"
+	"The current state of the mouse cursor can be queried by passing sdl.QUERY, either sdl.DISABLE or sdl.ENABLE will be returned.\n"
+	"The cursor starts off displayed, but can be turned off.\n"
+	"\n"
+	"*Return Value* Returns the current state of the cursor.\n"
 	);
 }
 
