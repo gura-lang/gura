@@ -1,0 +1,155 @@
+#!/usr/bin/env gura
+import(tk)
+import(yaml)
+import(msico)
+
+patternImgList = ['*.jpg']
+patternAviList = ['*.avi', '*.mov']
+fileNameCfg = path.join(sys.localdir, 'getterphoto.yml')
+//fileNameCfg = path.join(path.dirname(sys.argv[0]), 'getterphoto.yml')
+charsAtoZ = chr(ord('A')..ord('Z'))
+try { cfg = yaml.read(fileNameCfg) } except { cfg = %{} }
+cfg.store():default {
+	'width' => 480
+	'height' => 600
+	'dirnameDst' => path.dirname(sys.argv[0])
+}
+tk.mainwindow {|mw|
+	items = []
+	comboSourceDirnames = nil
+	btnGetPhoto = nil
+	var_progress = tk.variable(0)
+	var_dirnameDst = tk.variable(cfg['dirnameDst'])
+	updateSourceDirnames() = {
+		dirnames = path.join(chr(ord('A')..ord('K')) + ':', 'DCIM')
+		dirnames = path.dir(dirnames.filter(path.exists(dirnames))):dir:list
+		if (dirnames.len() == 0) {
+			comboSourceDirnames.configure(values => [])
+			comboSourceDirnames.set('')
+		} else {
+			comboSourceDirnames.configure(values => dirnames)
+			comboSourceDirnames.current(0)
+		}
+		updateList()
+	}
+	updateList() = {
+		dirname = comboSourceDirnames.get()
+		tv.delete(items)
+		if (dirname == '') {
+			items:extern = []
+		} else {
+			items:extern = path.dir(dirname,
+					patternImgList*, patternAviList*):icase:list:file {|filename|
+				item = tv.Item(values => [path.filename(filename)])
+				item.filename:public = filename
+				item
+			}
+		}
+		btnGetPhoto.configure(state => \
+					if (items.isempty()) {`disabled} else {`normal})
+	}
+	getPhoto(item):map = {
+		stat = path.stat(item.filename)
+		mtime = stat.mtime
+		extName = path.splitext(item.filename)[1]
+		dirnameDst = path.join(var_dirnameDst.string,
+					'%04d%02d%02d xxx' % [mtime.year, mtime.month, mtime.day])
+		!path.exists(dirnameDst) && fs.mkdir(dirnameDst)
+		if ((path.match(patternAviList, item.filename):icase).or()) {
+			dirnameDst = path.join(dirnameDst, 'AVI')
+			!path.exists(dirnameDst) && fs.mkdir(dirnameDst)
+		}
+		cross (upper in charsAtoZ, lower in charsAtoZ) {
+			filenameDst = format('%04d_%02d%02d_%02d%02d%02d%s%s.%s',
+				mtime.year, mtime.month, mtime.day, mtime.hour, mtime.min, mtime.sec,
+				upper, lower, extName)
+			pathnameDst = path.join(dirnameDst, filenameDst)
+			!path.exists(pathnameDst) && break
+			pathnameDst = nil
+		}
+		tv.set(item, 'Destination', path.filename(pathnameDst))
+		tv.selection$set(item)
+		tv.see(item)
+		tk.update()
+		bytesProgress = 0
+		copy(item.filename, pathnameDst) {|buff|
+			if (stat.size > 0) {
+				var_progress.number = bytesProgress * 100 / stat.size
+				bytesProgress += buff.len()
+			}
+			tk.update()
+		}
+		var_progress.number = 0
+	}
+	mw.wm$geometry('%sx%s' % [cfg['width'], cfg['height']])
+	mw.wm$title('Getter Photo')
+	mw.wm$iconphoto(image(path.join(path.dirname(sys.argv[0]), 'getterphoto.ico')).to_tk())
+	mw.bind('<Configure>') {|widget:string, width:number, height:number|
+		(widget == '.') && (cfg['width', 'height'] = [width, height])
+	}
+	mw.Frame {|f|
+		f.pack(fill => 'x', pady => [2, 0])
+		f.Label(text => 'Source', width => 10, anchor => 'w') {|w|
+			w.pack(anchor => 'w', side => 'left')
+		}
+		comboSourceDirnames:extern = f.ttk$Combobox(state => `readonly) {|w|
+			w.pack(anchor => 'w', side => 'left',
+						fill => 'both', expand => true)
+			w.bind('<<ComboboxSelected>>') {
+				updateList()
+			}
+		}
+		f.Button(text => 'Refresh', padx => 4) {|w|
+			w.pack(anchor => 'w', side => 'left', padx => [2, 0])
+			w.bind(`command) {
+				updateSourceDirnames()
+			}
+		}
+	}
+	mw.Frame {|f|
+		f.pack(fill => 'x', pady => [2, 0])
+		f.Label(text => 'Destination', width => 10, anchor => 'w') {|w|
+			w.pack(anchor => 'w', side => 'left')
+		}
+		f.Entry(textvariable => var_dirnameDst, borderwidth => 2, state => `readonly) {|w|
+			w.pack(anchor => 'w', side => 'left',
+						fill => 'both', expand => true)
+		}
+		f.Button(text => '...') {|w|
+			w.pack(anchor => 'w', side => 'left', padx => [2, 0])
+			w.bind(`command) {
+				rtn = w.tk$ChooseDirectory(title => 'Choose Directory',
+										initialdir => var_dirnameDst.string)
+				if (rtn != '') {
+					var_dirnameDst.string = rtn.replace('/', path.sep_file)
+					cfg['dirnameDst'] = var_dirnameDst.string
+				}
+			}
+		}
+	}
+	tv = mw.ttk$Treeview(columns => ['Source', 'Destination'], show => [`headings], ) {|w|
+		w.pack(fill => 'both', expand => true, pady => [2, 0])
+		w.heading('Source', text => 'Source')
+		w.heading('Destination', text => 'Destination')
+	}
+	mw.Frame {|f|
+		f.pack(fill => 'x', pady => [2, 0])
+		btnGetPhoto:extern = f.Button(text => 'Get Photo', padx => 8) {|w|
+			w.pack(anchor => 'w', side => 'left')
+			w.bind(`command) {
+				tv.set(items, 'Destination', '')
+				w[`state] = `disabled
+				getPhoto(items)
+				w[`state] = `normal
+			}
+		}
+		f.ttk$Progressbar(orient => 'horizontal', mode => 'determinate') {|w|
+			w.pack(anchor => 'w', side => 'left',
+							fill => 'both', expand => true, padx => [4, 0])
+			w.configure(variable => var_progress)
+		}
+	}
+	updateSourceDirnames()
+}
+tk.mainloop()
+yaml.write(open(fileNameCfg, 'w'), cfg)
