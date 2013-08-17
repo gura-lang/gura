@@ -38,12 +38,12 @@ srcs = [
 ]
 builder = modbuild.Builder()
 if (sys.build == `msc) {
-	builder.libs.append(path.join(modbuild.guestDir,
-		'cairo-1.12.12/src/release/cairo-static.lib'))
-	builder.libs.append(path.join(modbuild.guestDir,
-		'lpng1510/projects/vstudio/Release Library', ['libpng15.lib', 'zlib.lib']))
+	dirCairo = path.join(modbuild.guestDir, 'cairo-1.12.12/src')
+	dirPNG = path.join(modbuild.guestDir, 'lpng1510/projects/vstudio/Release Library')
+	builder.libs.append(path.join(dirCairo, 'release/cairo-static.lib'))
+	builder.libs.append(path.join(dirPNG, ['libpng15.lib', 'zlib.lib']))
 	builder.libs.append('msimg32.lib')
-	builder.incDirs.append(path.join(modbuild.guestDir, 'cairo-1.12.12/src'))
+	builder.incDirs.append(dirCairo)
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('cairo')
 	builder.incDirs.append('/usr/local/include/cairo', '/usr/include/cairo')
