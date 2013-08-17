@@ -912,7 +912,12 @@ Gura_DeclareMethod(Surface, UpdateRect)
 	DeclareArg(env, "w", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareArg(env, "h", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	AddHelp(Gura_Symbol(en),
-	""
+	"Makes sure the given area is updated on the given screen.\n"
+	"The rectangle must be confined within the screen boundaries (no clipping is done).\n"
+	"\n"
+	"If 'x', 'y', 'w' and 'h' are all 0, sdl.Surface#UpdateRect will update the entire screen.\n"
+	"\n"
+	"This function should not be called while the sdl.Surface instance is locked.\n"
 	);
 }
 
@@ -930,7 +935,16 @@ Gura_DeclareMethod(Surface, UpdateRects)
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Makes sure the given list of rectangles is updated on the given screen.\n"
+	"The rectangles must all be confined within the screen boundaries (no clipping is done).\n"
+	"\n"
+	"This function should not be called while the sdl.Surface instance is locked.\n"
+	"\n"
+	"*Note:* It is adviced to call this function only once per frame, since each call has some processing overhead.\n"
+	"This is no restriction since you can pass any number of rectangles each time.\n"
+	"\n"
+    "The rectangles are not automatically merged or checked for overlap.\n"
+    "In general, the programmer can use his knowledge about his particular rectangles to merge them in an efficient way, to avoid overdraw.\n"
 	);
 }
 
@@ -957,7 +971,13 @@ Gura_DeclareMethod(Surface, Flip)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"On hardware that supports double-buffering, this function sets up a flip and returns.\n"
+	"The hardware will wait for vertical retrace, and then swap video buffers before the next video surface blit or lock will return.\n"
+	"On hardware that doesn't support double-buffering, this is equivalent to calling screen.UpdateRect(0, 0, 0, 0)\n"
+	"\n"
+	"The sdl.DOUBLEBUF flag must have been passed to sdl.SetVideoMode, when setting the video mode for this function to perform hardware flipping.\n"
+	"\n"
+	"*Return Value* This function returns 0 if successful, or -1 if there was an error.\n"
 	);
 }
 
