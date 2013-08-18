@@ -3,6 +3,7 @@ import(mswin)
 
 println('converting DOC to PDF by using MS-Word...')
 fileNamesDOC = path.glob('*.docx')
+fileNamesDOC = fileNamesDOC.filter(!fileNamesDOC:*startswith('~'))
 mswin.ole('Word.Application') {|app|
 	app.Visible = 0
 	fileNamesDOC.each {|fileNameDOC|
@@ -22,7 +23,7 @@ mswin.ole('Word.Application') {|app|
 			Item				=> app.wdExportDocumentContent
 			IncludeDocProps		=> true
 			KeepIRM				=> true
-			CreateBookmarks		=> app.wdExportCreateNoBookmarks
+			CreateBookmarks		=> app.wdExportCreateHeadingBookmarks
 			DocStructureTags	=> true
 			BitmapMissingFonts	=> true
 			UseISO19005_1		=> false)
