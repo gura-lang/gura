@@ -735,7 +735,15 @@ Gura_DeclareMethod(PixelFormat, MapRGB)
 	DeclareArg(env, "g", VTYPE_number);
 	DeclareArg(env, "b", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Maps the RGB color value to the specified pixel format and returns the pixel value as a 32-bit int.\n"
+	"\n"
+	"If the format has a palette (8-bit) the index of the closest matching color in the palette will be returned.\n"
+	"\n"
+	"If the specified pixel format has an alpha component it will be returned as all 1 bits (fully opaque).\n"
+	"\n"
+	"*Return Value* A pixel value best approximating the given RGB color value for a given pixel format.\n"
+	"If the pixel format bpp (color depth) is less than 32-bpp then the unused upper bits of the return value can safely be ignored\n"
+	"(e.g., with a 16-bpp format the return value can be assigned to a Uint16, and similarly a Uint8 for an 8-bpp format).\n"
 	);
 }
 
@@ -755,7 +763,15 @@ Gura_DeclareMethod(PixelFormat, MapRGBA)
 	DeclareArg(env, "b", VTYPE_number);
 	DeclareArg(env, "a", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Maps the RGBA color value to the specified pixel format and returns the pixel value as a 32-bit int.\n"
+	"\n"
+	"If the format has a palette (8-bit) the index of the closest matching color in the palette will be returned.\n"
+	"\n"
+	"If the specified pixel format has no alpha component the alpha value will be ignored (as it will be in formats with a palette).\n"
+	"\n"
+	"*Return Value* A pixel value best approximating the given RGBA color value for a given pixel format.\n"
+	"If the pixel format bpp (color depth) is less than 32-bpp then the unused upper bits of the return value can safely be ignored\n"
+	"(e.g., with a 16-bpp format the return value can be assigned to a Uint16, and similarly a Uint8 for an 8-bpp format).\n"
 	);
 }
 
@@ -773,7 +789,10 @@ Gura_DeclareMethod(PixelFormat, GetRGB)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "pixel", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Get RGB component values from a pixel stored in the specified pixel format.\n"
+	"\n"
+	"This function uses the entire 8-bit [0..255] range when converting color components from pixel formats with less than 8-bits per RGB component\n"
+	"(e.g., a completely white pixel in 16-bit RGB565 format would return [0xff, 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).\n"
 	);
 }
 
@@ -791,7 +810,12 @@ Gura_DeclareMethod(PixelFormat, GetRGBA)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "pixel", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Get RGBA component values from a pixel stored in the specified pixel format.\n"
+	"\n"
+	"This function uses the entire 8-bit [0..255] range when converting color components from pixel formats with less than 8-bits per RGB component\n"
+	"(e.g., a completely white pixel in 16-bit RGB565 format would return [0xff, 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).\n"
+	"\n"
+	"If the surface has no alpha component, the alpha will be returned as 0xff (100% opaque).\n"
 	);
 }
 
@@ -2451,7 +2475,32 @@ Gura_DeclareFunction(CreateRGBSurface)
 	DeclareArg(env, "Amask", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Allocate an empty surface (must be called after sdl.SetVideoMode)\n"
+	"\n"
+	"If depth is 8 bits an empty palette is allocated for the surface, otherwise a 'packed-pixel' sdl.PixelFormat is created using the [RGBA]mask's provided (see sdl.PixelFormat).\n"
+	"The flags specifies the type of surface that should be created, it is an OR'd combination of the following possible values.\n"
+	"\n"
+	"  sdl.SWSURFACE   SDL will create the surface in system memory. This improves\n"
+	"                  the performance of pixel level access, however you may not be\n"
+	"                  able to take advantage of some types of hardware blitting.\n"
+	"  sdl.HWSURFACE   SDL will attempt to create the surface in video memory. This\n"
+	"                  will allow SDL to take advantage of Video->Video blits (which\n"
+	"                  are often accelerated).\n"
+	"  sdl.SRCCOLORKEY This flag turns on colourkeying for blits from this surface.\n"
+	"                  If sdl.HWSURFACE is also specified and colourkeyed blits are\n"
+	"                  hardware-accelerated, then SDL will attempt to place the\n"
+	"                  surface in video memory. Use sdl.SetColorKey to set or clear\n"
+	"                  this flag after surface creation.\n"
+	"  sdl.SRCALPHA    This flag turns on alpha-blending for blits from this surface.\n"
+	"                  If sdl.HWSURFACE is also specified and alpha-blending blits\n"
+	"                  are hardware-accelerated, then the surface will be placed in\n"
+	"                  video memory if possible. Use sdl.Surface#SetAlpha to set or\n"
+	"                  clear this flag after surface creation.\n"
+	"\n"
+	"*Note:* If an alpha-channel is specified (that is, if Amask is nonzero), then the sdl.SRCALPHA flag is automatically set.\n"
+	"You may remove this flag by calling sdl.Surface#SetAlpha after surface creation.\n"
+	"\n"
+	"*Return Value* Returns the created surface, or nil upon error.\n"
 	);
 }
 
@@ -2471,7 +2520,13 @@ Gura_DeclareFunction(CreateRGBSurfaceFrom)
 	DeclareArg(env, "image", VTYPE_image);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Creates an sdl.Surface from the provided image instance."
+	"\n"
+	"Reference to the image instance is kept in the created sdl.Surface instance.\n"
+	"\n"
+	"See sdl.CreateRGBSurface for a more detailed description of the other parameters.\n"
+	"\n"
+	"*Return Value* Return the created surface, or nil upon error.\n"
 	);
 }
 
@@ -2490,7 +2545,9 @@ Gura_DeclareFunction(LoadBMP)
 	DeclareArg(env, "file", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Loads a surface from a named Windows BMP file."
+	"\n"
+	"*Return Value* Returns the new surface, or nil if there was an error.\n"
 	);
 }
 
@@ -2505,7 +2562,7 @@ Gura_ImplementFunction(LoadBMP)
 	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurface, NULL));
 }
 
-// sdl.BlitSurface(src:sdl.Surface, srcrect, dst:sdl.Surface, dstrect)
+// sdl.BlitSurface(src:sdl.Surface, srcrect:sdl.Rect:nil, dst:sdl.Surface, dstrect:sdl.Rect:nil)
 Gura_DeclareFunction(BlitSurface)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -2514,7 +2571,38 @@ Gura_DeclareFunction(BlitSurface)
 	DeclareArg(env, "dst",		VTYPE_Surface);
 	DeclareArg(env, "dstrect",	VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	AddHelp(Gura_Symbol(en),
-	""
+	"This performs a fast blit from the source surface to the destination surface.\n"
+	"\n"
+	"The width and height in srcrect determine the size of the copied rectangle.\n"
+	"Only the position is used in the dstrect (the width and height are ignored).\n"
+	"\n"
+	"If srcrect is nil, the entire surface is copied.\n"
+	"If dstrect is nil, then the destination position (upper left corner) is (0, 0).\n"
+	"\n"
+	"The final blit rectangle is saved in dstrect after all clipping is performed (srcrect is not modified).\n"
+	"\n"
+	"The blit function should not be called on a locked surface.\n"
+	"\n"
+	"The results of blitting operations vary greatly depending on whether sdl.SRCAPLHA is set or not.\n"
+	"See sdl.Surface#SetAlpha for an explaination of how this affects your results.\n"
+	"Colorkeying and alpha attributes also interact with surface blitting, as the following pseudo-code should hopefully explain.\n"
+	"  if (source surface has SDL_SRCALPHA set) {\n"
+	"      if (source surface has alpha channel (that is, format->Amask != 0))\n"
+	"          blit using per-pixel alpha, ignoring any colour key\n"
+	"      else {\n"
+	"          if (source surface has SDL_SRCCOLORKEY set)\n"
+	"              blit using the colour key AND the per-surface alpha value\n"
+	"          else\n"
+	"              blit using the per-surface alpha value\n"
+	"      }\n"
+	"  } else {\n"
+	"      if (source surface has SDL_SRCCOLORKEY set)\n"
+	"          blit using the colour key\n"
+	"      else\n"
+	"          ordinary opaque rectangular blit\n"
+	"  }\n"
+	"\n"
+	"*Return Value* If the blit is successful, it returns 0, otherwise it returns -1."
 	);
 }
 
@@ -2541,7 +2629,7 @@ Gura_DeclareFunction(WarpMouse)
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Set the position of the mouse cursor (generates a mouse motion event).\n"
 	);
 }
 
@@ -2665,7 +2753,10 @@ Gura_DeclareFunction(GL_GetAttribute)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "attr", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Returns the value of the SDL/OpenGL attribute value.\n"
+	"This is useful after a call to sdl.SetVideoMode to check whether your attributes have been set as you expected.\n"
+	"\n"
+	"*Return Value* Returns the attribute value on success, or nil on an error.\n"
 	);
 }
 
@@ -2685,7 +2776,11 @@ Gura_DeclareFunction(GL_SetAttribute)
 	DeclareArg(env, "attr", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Sets the OpenGL attribute attr to value.\n"
+	"The attributes you set don't take effect until after a call to sdl.SetVideoMode.\n"
+	"You should use sdl.GL_GetAttribute to check the values after a sdl.SetVideoMode call.\n"
+	"\n"
+	"*Return Value* Returns 0 on success, or -1 on error.\n"
 	);
 }
 
@@ -2701,7 +2796,7 @@ Gura_DeclareFunction(GL_SwapBuffers)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Swap the OpenGL buffers, if double-buffering is supported.\n"
 	);
 }
 
@@ -2720,7 +2815,12 @@ Gura_DeclareFunction(CreateYUVOverlay)
 	DeclareArg(env, "format", VTYPE_number);
 	DeclareArg(env, "display", VTYPE_Surface);
 	AddHelp(Gura_Symbol(en),
-	""
+	"sdl.CreateYUVOverlay creates a YUV overlay of the specified width, height and format\n"
+	"(see sdl.Overlay for a list of available formats), for the provided display.\n"
+	"A sdl.Overlay structure is returned.\n"
+	"\n"
+	"The term 'overlay' is a misnomer since, unless the overlay is created in hardware,\n"
+	"the contents for the display surface underneath the area where the overlay is shown will be overwritten when the overlay is displayed.\n"
 	);
 }
 
@@ -2744,7 +2844,7 @@ Gura_DeclareFunction(WM_SetCaption)
 	DeclareArg(env, "title", VTYPE_string);
 	DeclareArg(env, "icon", VTYPE_string);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Sets the title-bar and icon name of the display window.\n"
 	);
 }
 
@@ -2759,7 +2859,7 @@ Gura_DeclareFunction(WM_GetCaption)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Returns a list of strings of title-bar and icon name\n"
 	);
 }
 
@@ -2780,7 +2880,17 @@ Gura_DeclareFunction(WM_SetIcon)
 	DeclareArg(env, "surface", VTYPE_Surface);
 	DeclareArg(env, "mask", VTYPE_binary, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Sets the icon for the display window. Win32 icons must be 32x32.\n"
+	"\n"
+	"This function must be called before the first call to sdl.SetVideoMode.\n"
+	"\n"
+	"The mask is a bitmask that describes the shape of the icon.\n"
+	"If mask is omitted, then the shape is determined by the colorkey of icon, if any, or makes the icon rectangular (no transparency) otherwise.\n"
+	"\n"
+	"If mask is specified, it points to a bitmap with bits set where the corresponding pixel should be visible.\n"
+	"The format of the bitmap is as follows: Scanlines come in the usual top-down order.\n"
+	"Each scanline consists of (width / 8) bytes, rounded up.\n"
+	"The most significant bit of each byte represents the leftmost pixel.\n"
 	);
 }
 
@@ -2798,7 +2908,10 @@ Gura_DeclareFunction(WM_IconifyWindow)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"If the application is running in a window managed environment SDL attempts to iconify/minimise it.\n"
+	"If sdl.WM_IconifyWindow is successful, the application will receive a sdl.APPACTIVE loss event.\n"
+	"\n"
+	"*Return Value* Returns non-zero on success or 0 if iconification is not support or was refused by the window manager.\n"
 	);
 }
 
@@ -2813,7 +2926,10 @@ Gura_DeclareFunction(WM_ToggleFullScreen)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "surface", VTYPE_Surface);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Toggles the application between windowed and fullscreen mode, if supported.\n"
+	"(X11 is the only target currently supported, BeOS support is experimental).\n"
+	"\n"
+	"*Return Value* Returns 0 on failure or 1 on success.\n"
 	);
 }
 
@@ -2829,7 +2945,17 @@ Gura_DeclareFunction(WM_GrabInput)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "mode", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Grabbing means that the mouse is confined to the application window,\n"
+	"and nearly all keyboard input is passed directly to the application, and not interpreted by a window manager, if any.\n"
+	"\n"
+	"When mode is sdl.GRAB_QUERY the grab mode is not changed, but the current grab mode is returned.\n"
+	"\n"
+	"Available values for mode are:\n"
+	"  sdl.GRAB_QUERY\n"
+	"  sdl.GRAB_OFF\n"
+	"  sdl.GRAB_ON\n"
+	"\n"
+	"*Return Value* The current/new mode value.\n"
 	);
 }
 
