@@ -133,7 +133,9 @@ Gura_DeclareMethod(Timer, RemoveTimer)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Removes a timer callback previously added with sdl.AddTimer.\n"
+	"\n"
+	"*Return Value* Returns a boolean value indicating success.\n"
 	);
 }
 
@@ -1111,7 +1113,15 @@ Gura_DeclareMethod(Surface, LockSurface)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"sdl.Surface#LockSurface sets up a surface for directly accessing the pixels.\n"
+	"Between calls to sdl.Surface#LockSurface and sdl.Surface#UnlockSurface, you can write to and read from surface.pixels, using the pixel format stored in surface.format.\n"
+	"Once you are done accessing the surface, you should use sdl.Surface#UnlockSurface to release it.\n"
+	"\n"
+	"Not all surfaces require locking. If sdl.MUSTLOCK(surface) evaluates to 0, then you can read and write to the surface at any time, and the pixel format of the surface will not change.\n"
+	"\n"
+	"No operating system or library calls should be made between lock/unlock pairs, as critical system locks may be held during this time.\n"
+	"\n"
+	"It should be noted, that since SDL 1.1.8 surface locks are recursive. This means that you can lock a surface multiple times, but each lock must have a match unlock.\n"
 	);
 }
 
@@ -1126,7 +1136,11 @@ Gura_DeclareMethod(Surface, UnlockSurface)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Surfaces that were previously locked using sdl.Surface#LockSurface must be unlocked with sdl.Surface#UnlockSurface.\n"
+	"Surfaces should be unlocked as soon as possible.\n"
+	"\n"
+	"It should be noted that since 1.1.8, surface locks are recursive.\n"
+	"See sdl.Surface#LockSurface.\n"
 	);
 }
 
@@ -1143,7 +1157,9 @@ Gura_DeclareMethod(Surface, SaveBMP)
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "file", VTYPE_string);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Saves the sdl.Surface surface as a Windows BMP file named file.\n"
+	"\n"
+	"*Return Value* Returns 0 if successful or -1 if there was an error.\n"
 	);
 }
 
@@ -1160,7 +1176,19 @@ Gura_DeclareMethod(Surface, SetColorKey)
 	DeclareArg(env, "flag", VTYPE_number);
 	DeclareArg(env, "key", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Sets the color key (transparent pixel) in a blittable surface and enables or disables RLE blit acceleration.\n"
+	"\n"
+	"RLE acceleration can substantially speed up blitting of images with large horizontal runs of transparent pixels (i.e., pixels that match the key value).\n"
+	"The key must be of the same pixel format as the surface, sdl.Surface#MapRGB is often useful for obtaining an acceptable value.\n"
+	"\n"
+	"If flag is sdl.SRCCOLORKEY then key is the transparent pixel value in the source image of a blit.\n"
+	"\n"
+	"If flag is OR'd with sdl.RLEACCEL then the surface will be draw using RLE acceleration when drawn with sdl.BlitSurface.\n"
+	"The surface will actually be encoded for RLE acceleration the first time sdl.BlitSurface or sdl.Surface#DisplayFormat is called on the surface.\n"
+	"\n"
+	"If flag is 0, this function clears any current color key.\n"
+	"\n"
+	"*Return Value* This function returns 0, or -1 if there was an error.\n"
 	);
 }
 
@@ -1187,21 +1215,27 @@ Gura_ImplementMethod(Surface, SetAlpha)
 	return Value(::SDL_SetAlpha(pSurface, args.GetULong(0), args.GetUChar(1)));
 }
 
-// sdl.Surface#SetClipRect(rect:sdl.Rect):map:void
+// sdl.Surface#SetClipRect(rect:sdl.Rect:nil):map:void
 Gura_DeclareMethod(Surface, SetClipRect)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "rect", VTYPE_Rect);
+	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Sets the clipping rectangle for a surface.\n"
+	"When this surface is the destination of a blit, only the area within the clip rectangle will be drawn into.\n"
+	"\n"
+	"The rectangle pointed to by rect will be clipped to the edges of the surface so that the clip rectangle for a surface can never fall outside the edges of the surface.\n"
+	"\n"
+	"If rect is nil the clipping rectangle will be set to the full size of the surface.\n"
 	);
 }
 
 Gura_ImplementMethod(Surface, SetClipRect)
 {
 	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
-	SDL_Rect &rect = dynamic_cast<Object_Rect *>(args.GetObject(0))->GetRect();
-	::SDL_SetClipRect(pSurface, &rect);
+	SDL_Rect *rect = NULL;
+	if (args.IsValid(0)) rect = &dynamic_cast<Object_Rect *>(args.GetObject(0))->GetRect();
+	::SDL_SetClipRect(pSurface, rect);
 	return Value::Null;
 }
 
@@ -1210,7 +1244,9 @@ Gura_DeclareMethod(Surface, GetClipRect)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Gets the clipping rectangle for a surface. When this surface is the destination of a blit, only the area within the clip rectangle is drawn into.\n"
+	"\n"
+	"This returns sdl.Rect instance filled with the clipping rectangle of the surface.\n"
 	);
 }
 
@@ -1230,7 +1266,16 @@ Gura_DeclareMethod(Surface, ConvertSurface)
 	DeclareArg(env, "flag", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Creates a new surface of the specified format, and then copies and maps the given surface to it.\n"
+	"If this function fails, it returns nil.\n"
+	"\n"
+	"The flags parameter is passed to sdl.CreateRGBSurface and has those semantics.\n"
+	"\n"
+	"This function is used internally by sdl.Surface#DisplayFormat.\n"
+	"\n"
+	"This function can only be called after sdl.Init.\n"
+	"\n"
+	"*Return Value* Returns either sdl.Surface instance of the new surface, or nil on error.\n"
 	);
 }
 
@@ -1246,24 +1291,35 @@ Gura_ImplementMethod(Surface, ConvertSurface)
 	return ReturnValue(env, sig, args, Object_Surface::CreateValue(pSurfaceConv, NULL));
 }
 
-// sdl.Surface#FillRect(dstrect:sdl.Rect, color:Color):map:void
+// sdl.Surface#FillRect(dstrect:sdl.Rect:nil, color:Color):map:void
 Gura_DeclareMethod(Surface, FillRect)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "rect", VTYPE_Rect);
+	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "color", VTYPE_Color);
 	AddHelp(Gura_Symbol(en),
-	""
+	"This function performs a fast fill of the given rectangle with color.\n"
+	"If dstrect is nil, the whole surface will be filled with color.\n"
+	"\n"
+	"The color should be a pixel of the format used by the surface, and can be generated by the sdl.Surface#MapRGB or sdl.Surface#MapRGBA functions.\n"
+	"If the color value contains an alpha value then the destination is simply \"filled\" with that alpha information, no blending takes place.\n"
+	"\n"
+	"If there is a clip rectangle set on the destination (set via sdl.Surface#SetClipRect)\n"
+	"then this function will clip based on the intersection of the clip rectangle and the dstrect rectangle\n"
+	"and the dstrect rectangle will be modified to represent the area actually filled.\n"
+	"\n"
+	"*Return Value* This function returns 0 on success, or -1 on error.\n"
 	);
 }
 
 Gura_ImplementMethod(Surface, FillRect)
 {
 	SDL_Surface *pSurface = Object_Surface::GetThisObj(args)->GetSurface();
-	SDL_Rect &dstrect = dynamic_cast<Object_Rect *>(args.GetObject(0))->GetRect();
+	SDL_Rect *dstrect = NULL;
+	if (args.IsValid(0)) dstrect = &dynamic_cast<Object_Rect *>(args.GetObject(0))->GetRect();
 	SDL_Color &color = dynamic_cast<Object_Color *>(args.GetObject(1))->GetColor();
 	Uint32 colorIdx = ::SDL_MapRGB(pSurface->format, color.r, color.g, color.b);
-	return Value(::SDL_FillRect(pSurface, &dstrect, colorIdx));
+	return Value(::SDL_FillRect(pSurface, dstrect, colorIdx));
 }
 
 // sdl.Surface#DisplayFormat() {block?}
@@ -1272,7 +1328,15 @@ Gura_DeclareMethod(Surface, DisplayFormat)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
-	""
+	"This function takes a surface and copies it to a new surface of the pixel format and colors of the video framebuffer, suitable for fast blitting onto the display surface.\n"
+	"It calls SDL_ConvertSurface.\n"
+	"\n"
+	"If you want to take advantage of hardware colorkey or alpha blit acceleration, you should set the colorkey and alpha value before calling this function.\n"
+	"\n"
+	"If you want an alpha channel, see sdl.Surface#DisplayFormatAlpha.\n"
+	"\n"
+	"*Return Value* It returns sdl.Surface instance on success.\n"
+	"If the conversion fails or runs out of memory, it returns nil.\n"
 	);
 }
 
@@ -1290,7 +1354,16 @@ Gura_DeclareMethod(Surface, DisplayFormatAlpha)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
-	""
+	"This function takes a surface and copies it to a new surface of the pixel format and colors of the video framebuffer plus an alpha channel, suitable for fast blitting onto the display surface.\n"
+	"It calls SDL_ConvertSurface.\n"
+	"\n"
+	"If you want to take advantage of hardware colorkey or alpha blit acceleration, you should set the colorkey and alpha value before calling this function.\n"
+	"\n"
+	"This function can be used to convert a colourkey to an alpha channel, if the sdl.SRCCOLORKEY flag is set on the surface.\n"
+	"The generated surface will then be transparent (alpha=0) where the pixels match the colourkey, and opaque (alpha=255) elsewhere.\n"
+	"\n"
+	"*Return Value* It returns sdl.Surface instance on success.\n"
+	"If the conversion fails or runs out of memory, it returns nil.\n"
 	);
 }
 
@@ -1369,7 +1442,9 @@ Gura_DeclareMethod(Overlay, LockYUVOverlay)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Much the same as sdl.Surface#LockSurface, sdl.Overlay#LockYUVOverlay locks the overlay for direct access to pixel data.\n"
+	"\n"
+	"*Return Value* Returns 0 on success, or -1 on an error.\n"
 	);
 }
 
@@ -1384,7 +1459,9 @@ Gura_DeclareMethod(Overlay, UnlockYUVOverlay)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"The opposite to sdl.Overlay#LockYUVOverlay.\n"
+	"Unlocks a previously locked overlay.\n"
+	"An overlay must be unlocked before it can be displayed.\n"
 	);
 }
 
@@ -1401,7 +1478,11 @@ Gura_DeclareMethod(Overlay, DisplayYUVOverlay)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "dstrect", VTYPE_Rect);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Blit the overlay to the surface specified when it was created.\n"
+	"The sdl.Rect structure, dstrect, specifies the position and size of the destination.\n"
+	"If the dstrect is a larger or smaller than the overlay then the overlay will be scaled, this is optimized for 2x scaling.\n"
+	"\n"
+	"*Return Value* Returns 0 on success."
 	);
 }
 
@@ -1521,7 +1602,9 @@ Gura_DeclareMethod(Joystick, JoystickIndex)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Returns the index of a given sdl.Joystick instance.\n"
+	"\n"
+	"*Return Value* Index number of the joystick.\n"
 	);
 }
 
@@ -1536,7 +1619,9 @@ Gura_DeclareMethod(Joystick, JoystickNumAxes)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Return the number of axes available from a previously opened sdl.Joystick.\n"
+	"\n"
+	"*Return Value* Number of axes.\n"
 	);
 }
 
@@ -1551,7 +1636,9 @@ Gura_DeclareMethod(Joystick, JoystickNumBalls)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Return the number of trackballs available from a previously opened sdl.Joystick.\m"
+	"\n"
+	"*Return Value* Number of trackballs.\n"
 	);
 }
 
@@ -1566,7 +1653,9 @@ Gura_DeclareMethod(Joystick, JoystickNumHats)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Return the number of hats available from a previously opened sdl.Joystick.\n"
+	"\n"
+	"*Return Value* Number of hats.\n"
 	);
 }
 
@@ -1581,7 +1670,9 @@ Gura_DeclareMethod(Joystick, JoystickNumButtons)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Return the number of buttons available from a previously opened sdl.Joystick.\n"
+	"\n"
+	"*Return Value* Number of buttons.\n"
 	);
 }
 
@@ -1597,7 +1688,14 @@ Gura_DeclareMethod(Joystick, JoystickGetAxis)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "axis", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"sdl.Joystick#JoystickGetAxis returns the current state of the given axis on the given joystick.\n"
+	"\n"
+	"On most modern joysticks the X axis is usually represented by axis 0 and the Y axis by axis 1.\n"
+	"The value returned by sdl.Joystick#JoystickGetAxis is a signed integer (-32768 to 32768) representing the current position of the axis,\n"
+	"it maybe necessary to impose certain tolerances on these values to account for jitter.\n"
+	"It is worth noting that some joysticks use axes 2 and 3 for extra buttons.\n"
+	"\n"
+	"*Return Value* Returns a 16-bit signed integer representing the current position of the axis.\n"
 	);
 }
 
@@ -1613,7 +1711,18 @@ Gura_DeclareMethod(Joystick, JoystickGetHat)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "hat", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"sdl.Joystick#JoystickGetHat returns the current state of the given hat on the given joystick.\n"
+	"\n"
+	"*Return Value* The current state is returned as a Uint8 which is defined as an OR'd combination of one or more of the following\n\n"
+	"  SDL_HAT_CENTERED\n"
+	"  SDL_HAT_UP\n"
+	"  SDL_HAT_RIGHT\n"
+	"  SDL_HAT_DOWN\n"
+	"  SDL_HAT_LEFT\n"
+	"  SDL_HAT_RIGHTUP\n"
+	"  SDL_HAT_RIGHTDOWN\n"
+	"  SDL_HAT_LEFTUP\n"
+	"  SDL_HAT_LEFTDOWN\n"
 	);
 }
 
@@ -1629,14 +1738,16 @@ Gura_DeclareMethod(Joystick, JoystickGetButton)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "button", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"sdl.Joystick#JoystickGetButton returns the current state of the given button on the given joystick.\n"
+	"\n"
+	"*Return Value* true if the button is pressed. Otherwise, false.\n"
 	);
 }
 
 Gura_ImplementMethod(Joystick, JoystickGetButton)
 {
 	SDL_Joystick *pJoystick = Object_Joystick::GetThisObj(args)->GetJoystick();
-	return Value(::SDL_JoystickGetButton(pJoystick, args.GetInt(0)));
+	return Value(::SDL_JoystickGetButton(pJoystick, args.GetInt(0))? true : false);
 }
 
 // sdl.Joystick#JoystickGetBall(ball:number)
@@ -1645,7 +1756,11 @@ Gura_DeclareMethod(Joystick, JoystickGetBall)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "ball", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Get the ball axis change.\n"
+	"\n"
+	"Trackballs can only return relative motion since the last call to sdl.Joystick#JoystickGetBall, these motion deltas a placed into dx and dy.\n"
+	"\n"
+	"*Return Value* Returns [dx,dy] on success or nil on failure.\n"
 	);
 }
 
@@ -1664,7 +1779,7 @@ Gura_DeclareMethod(Joystick, JoystickClose)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Close a joystick that was previously opened with sdl.JoystickOpen.\n"
 	);
 }
 
@@ -3431,7 +3546,9 @@ Gura_DeclareFunction(NumJoysticks)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Counts the number of joysticks attached to the system.\n"
+	"\n"
+	"*Return Value* Returns the number of attached joysticks.\n"
 	);
 }
 
@@ -3446,7 +3563,10 @@ Gura_DeclareFunction(JoystickName)
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Get the implementation dependent name of joystick.\n"
+	"The index parameter refers to the N'th joystick on the system.\n"
+	"\n"
+	"*Return Value* Returns a string of the joystick name.\n"
 	);
 }
 
@@ -3461,7 +3581,11 @@ Gura_DeclareFunction(JoystickOpen)
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Opens a joystick for use within SDL.\n"
+	"The index refers to the N'th joystick in the system.\n"
+	"A joystick must be opened before it game be used.\n"
+	"\n"
+	"*Return Value* Returns a sdl.Joystick instance on success. nil on failure.\n"
 	);
 }
 
@@ -3478,7 +3602,10 @@ Gura_DeclareFunction(JoystickOpened)
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Determines whether a joystick has already been opened within the application.\n"
+	"index refers to the N'th joystick on the system.\n"
+	"\n"
+	"*Return Value* Returns true if the joystick has been opened, or false if it has not.\n"
 	);
 }
 
@@ -3759,7 +3886,24 @@ Gura_DeclareFunction(AddTimer)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_UserSymbol(thread_));
 	AddHelp(Gura_Symbol(en),
-	""
+	"Adds a callback function to be run after the specified number of milliseconds has elapsed.\n"
+	"The callback function is passed the current timer interval and the user supplied parameter from the sdl.AddTimer call and returns the next timer interval.\n"
+	"If the returned value from the callback is the same as the one passed in, the periodic alarm continues, otherwise a new alarm is scheduled.\n"
+	"\n"
+	"To cancel a currently running timer call sdl.Timer#RemoveTimer with the sdl.Timer instance returned from sdl.AddTimer.\n"
+	//"\n"
+	//"The timer callback function may run in a different thread than your main program, and so shouldn't call any functions from within itself.\n"
+	//"You may always call sdl.PushEvent, however.\n"
+	"\n"
+	"The granularity of the timer is platform-dependent, but you should count on it being at least 10 ms as this is the most common number.\n"
+	"This means that if you request a 16 ms timer, your callback will run approximately 20 ms later on an unloaded system.\n"
+	"If you wanted to set a flag signaling a frame update at 30 frames per second (every 33 ms), you might set a timer for 30 ms (see example below).\n"
+	"If you use this function, you need to pass sdl.INIT_TIMER to sdl.Init.\n"
+	"\n"
+	"*Gura* You can register the timer callback function by specifying callback function in the argument or declaring block\n"
+	"It will be called in the same thread of event dispatching loop while you can also run it in a different thread by specying :thread attribute.\n"
+	"\n"
+	"*Return Value* Returns a sdl.Timer instance for the added timer.\n"
 	);
 }
 
@@ -3796,7 +3940,7 @@ Gura_DeclareFunction(Rect)
 	SetClassToConstruct(Gura_UserClass(Rect));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Returns an instance of sdl.Rect structure."
 	);
 }
 
@@ -3820,7 +3964,7 @@ Gura_DeclareFunction(Color)
 	SetClassToConstruct(Gura_UserClass(Color));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Returns an instance of sdl.Color structure."
 	);
 }
 
@@ -3854,7 +3998,7 @@ Gura_DeclareFunction(AudioSpec)
 	SetClassToConstruct(Gura_UserClass(AudioSpec));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Returns an instance of sdl.AudioSpec structure."
 	);
 }
 
