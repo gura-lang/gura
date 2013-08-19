@@ -1019,7 +1019,21 @@ Gura_DeclareMethod(Surface, SetColors)
 	DeclareArg(env, "firstcolor", VTYPE_number, OCCUR_Once, FLAG_None,
 															new Expr_Value(0));
 	AddHelp(Gura_Symbol(en),
-	""
+	"Sets a portion of the colormap for the given 8-bit surface.\n"
+	"\n"
+	"When surface is the surface associated with the current display, the display colormap will be updated with the requested colors.\n"
+	"If sdl.HWPALETTE was set in sdl.SetVideoMode flags, sdl.Surface#SetColors will always return 1,\n"
+	"and the palette is guaranteed to be set the way you desire, even if the window colormap has to be warped or run under emulation.\n"
+	"\n"
+	"The color components of a sdl.Color structure are 8-bits in size, giving you a total of 2563 =16777216 colors.\n"
+	"\n"
+	"Palettized (8-bit) screen surfaces with the sdl.HWPALETTE flag have two palettes, a logical palette that is used for mapping blits to/from the surface and a physical palette\n"
+	"(that determines how the hardware will map the colors to the display).\n"
+	"sdl.Surface#SetColors modifies both palettes (if present), and is equivalent to calling sdl.Surface#SetPalette with the flags set to (sdl.LOGPAL | sdl.PHYSPAL).\n"
+	"\n"
+	"*Return Value* If surface is not a palettized surface, this function does nothing, returning 0.\n"
+	"If all of the colors were set as passed to sdl.Surface#SetColors, it will return 1.\n"
+	"If not all the color entries were set exactly as given, it will return 0, and you should look at the surface palette to determine the actual color palette.\n"
 	);
 }
 
@@ -1051,7 +1065,24 @@ Gura_DeclareMethod(Surface, SetPalette)
 	DeclareArg(env, "firstcolor", VTYPE_number, OCCUR_Once, FLAG_None,
 															new Expr_Value(0));
 	AddHelp(Gura_Symbol(en),
-	""
+	"Sets a portion of the palette for the given 8-bit surface.\n"
+	"\n"
+	"Palettized (8-bit) screen surfaces with the sdl.HWPALETTE flag have two palettes,\n"
+	"a logical palette that is used for mapping blits to/from the surface and a physical palette (that determines how the hardware will map the colors to the display).\n"
+	"sdl.BlitSurface always uses the logical palette when blitting surfaces (if it has to convert between surface pixel formats).\n"
+	"Because of this, it is often useful to modify only one or the other palette to achieve various special color effects (e.g., screen fading, color flashes, screen dimming).\n"
+	"\n"
+	"This function can modify either the logical or physical palette by specifing sdl.LOGPAL or sdl.PHYSPAL in the flags parameter.\n"
+	"\n"
+	"When surface is the surface associated with the current display, the display colormap will be updated with the requested colors.\n"
+	"If sdl.HWPALETTE was set in sdl.SetVideoMode flags, sdl.Surface#SetPalette will always return 1,\n"
+	"and the palette is guaranteed to be set the way you desire, even if the window colormap has to be warped or run under emulation.\n"
+	"\n"
+	"The color components of a sdl.Color structure are 8-bits in size, giving you a total of 2563=16777216 colors.\n"
+	"\n"
+	"*Return Value* If surface is not a palettized surface, this function does nothing, returning 0.\n"
+	"If all of the colors were set as passed to sdl.Surface#SetPalette, it will return 1.\n"
+	"If not all the color entries were set exactly as given, it will return 0, and you should look at the surface palette to determine the actual color palette.\n"
 	);
 }
 
@@ -2364,7 +2395,13 @@ Gura_DeclareFunction(SetGamma)
 	DeclareArg(env, "greengamma", VTYPE_number);
 	DeclareArg(env, "bluegamma", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Sets the \"gamma function\" for the display of each color component.\n"
+	"Gamma controls the brightness/contrast of colors displayed on the screen.\n"
+	"A gamma value of 1.0 is identity (i.e., no adjustment is made).\n"
+	"\n"
+	"This function adjusts the gamma based on the \"gamma function\" parameter, you can directly specify lookup tables for gamma adjustment with sdl.SetGammaRamp.\n"
+	"\n"
+	"Not all display hardware is able to change gamma.\n"
 	);
 }
 
@@ -2379,7 +2416,11 @@ Gura_DeclareFunction(GetGammaRamp)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Gets the gamma translation lookup tables currently used by the display. Each table is an array of 256 Uint16 values.\n"
+	"\n"
+	"Not all display hardware is able to change gamma.\n"
+	"\n"
+	"*Return Value* Returns -1 on error."
 	);
 }
 
@@ -2425,7 +2466,16 @@ Gura_DeclareFunction(SetGammaRamp)
 	DeclareArg(env, "greentable", VTYPE_number, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "bluetable", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Sets the gamma lookup tables for the display for each color component.\n"
+	"Each table is an array of 256 Uint16 values, representing a mapping between the input and output for that channel.\n"
+	"The input is the index into the array, and the output is the 16-bit gamma value at that index, scaled to the output color precision.\n"
+	"You may pass NULL to any of the channels to leave them unchanged.\n"
+	"\n"
+	"This function adjusts the gamma based on lookup tables, you can also have the gamma calculated based on a \"gamma function\" parameter with sdl.Surface#SetGamma.\n"
+	"\n"
+	"Not all display hardware is able to change gamma.\n"
+	"\n"
+	"*Return Value* Returns -1 on error (or if gamma adjustment is not supported)."
 	);
 }
 
@@ -2973,7 +3023,14 @@ Gura_DeclareFunction(PumpEvents)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Pumps the event loop, gathering events from the input devices.\n"
+	"\n"
+	"sdl.PumpEvents gathers all the pending input information from devices and places it on the event queue.\n"
+	"Without calls to sdl.PumpEvents no events would ever be placed on the queue.\n"
+	"Often calls the need for sdl.PumpEvents is hidden from the user since sdl.PollEvent and sdl.WaitEvent implicitly call sdl.PumpEvents.\n"
+	"However, if you are not polling or waiting for events (e.g. you are filtering them), then you must call sdl.PumpEvents to force an event queue update.\n"
+	"\n"
+	"*Note:* You can only call this function in the thread that set the video mode.\n"
 	);
 }
 
@@ -2990,7 +3047,11 @@ Gura_DeclareFunction(AddEvents)
 	DeclareArg(env, "events", VTYPE_Event, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "mask", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"This calles a function SDL_PeepEvents with specifying SDL_ADDEVENT.\n"
+	"\n"
+	"sdl.Event instances, events, will be added to the back of the event queue.\n"
+	"\n"
+	"This function is thread-safe.\n"
 	);
 }
 
@@ -3016,7 +3077,13 @@ Gura_DeclareFunction(PeekEvents)
 	DeclareArg(env, "numevents", VTYPE_number);
 	DeclareArg(env, "mask", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"This calles a function SDL_PeepEvents with specifying SDL_PEEKEVENT.\n"
+	"\n"
+	"Up to numevents events at the front of the event queue, matching mask, will be returned and will not be removed from the queue.\n"
+	"\n"
+	"The mask parameter is an bitwise OR of sdl.EVENTMASK(event_type), for all event types you are interested in.\n"
+	"\n"
+	"This function is thread-safe.\n"
 	);
 }
 
@@ -3046,7 +3113,13 @@ Gura_DeclareFunction(GetEvents)
 	DeclareArg(env, "numevents", VTYPE_number);
 	DeclareArg(env, "mask", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"This calles a function SDL_PeepEvents with specifying SDL_GETEVENT.\n"
+	"\n"
+	"Up to numevents events at the front of the event queue, matching mask, will be returned and will be removed from the queue.\n"
+	"\n"
+	"The mask parameter is an bitwise OR of sdl.EVENTMASK(event_type), for all event types you are interested in.\n"
+	"\n"
+	"This function is thread-safe.\n"
 	);
 }
 
@@ -3074,7 +3147,7 @@ Gura_DeclareFunction(PollEvent)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Polls for currently pending events, and returns sdl.Event instance if there are any pending events, or nil if there are none available.\n"
 	);
 }
 
@@ -3096,7 +3169,7 @@ Gura_DeclareFunction(WaitEvent)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Waits indefinitely for the next available event, returning sdl.Event instance, or nil if there was an error while waiting for events.\n"
 	);
 }
 
