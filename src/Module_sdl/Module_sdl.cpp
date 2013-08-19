@@ -2099,7 +2099,13 @@ Gura_DeclareMethod(CD, CDStatus)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"This function returns the current status of the given drive. Status is described like so:\n"
+	"\n"
+	"  sdl.CD_TRAYEMPTY\n"
+	"  sdl.CD_STOPPED\n"
+	"  sdl.CD_PLAYING\n"
+	"  sdl.CD_PAUSED\n"
+	"  sdl.CD_ERROR\n"
 	);
 }
 
@@ -2116,7 +2122,9 @@ Gura_DeclareMethod(CD, CDPlay)
 	DeclareArg(env, "start", VTYPE_number);
 	DeclareArg(env, "length", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Plays the given cdrom, starting a frame start for length frames.\n"
+	"\n"
+	"*Return Value* Returns 0 on success, or -1 on an error.\n"
 	);
 }
 
@@ -2136,7 +2144,16 @@ Gura_DeclareMethod(CD, CDPlayTracks)
 	DeclareArg(env, "ntracks", VTYPE_number);
 	DeclareArg(env, "nframes", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"sdl.CD#CDPlayTracks plays the given CD starting at track start_track, for ntracks tracks.\n"
+	"\n"
+	"start_frame is the frame offset, from the beginning of the start_track, at which to start.\n"
+	"nframes is the frame offset, from the beginning of the last track (start_track+ntracks), at which to end playing.\n"
+	"\n"
+	"sdl.CD#CDPlayTracks should only be called after calling sdl.CD#CDStatus to get track information about the CD.\n"
+	"\n"
+	"*Note:* Data tracks are ignored.\n"
+	"\n"
+	"*Return Value* Returns 0, or -1 if there was an error.\n"
 	);
 }
 
@@ -2152,7 +2169,9 @@ Gura_DeclareMethod(CD, CDPause)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Pauses play on the given cdrom.\n"
+	"\n"
+	"*Return Value* Returns 0 on success, or -1 on an error.\n"
 	);
 }
 
@@ -2167,7 +2186,9 @@ Gura_DeclareMethod(CD, CDResume)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Resumes play on the given cdrom.\n"
+	"\n"
+	"*Return Value* Returns 0 on success, or -1 on an error.\n"
 	);
 }
 
@@ -2182,7 +2203,9 @@ Gura_DeclareMethod(CD, CDStop)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Stops play on the given cdrom.\n"
+	"\n"
+	"*Return Value* Returns 0 on success, or -1 on an error.\n"
 	);
 }
 
@@ -2197,7 +2220,9 @@ Gura_DeclareMethod(CD, CDEject)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Ejects the given cdrom.\n"
+	"\n"
+	"*Return Value* Returns 0 on success, or -1 on an error.\n"
 	);
 }
 
@@ -2212,7 +2237,7 @@ Gura_DeclareMethod(CD, CDClose)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Closes the given cdrom handle.\n"
 	);
 }
 
@@ -2387,7 +2412,8 @@ Gura_DeclareFunction(GetVideoSurface)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
-	""
+	"This function returns a sdl.Surface instance of the current display surface.\n"
+	"If SDL is doing format conversion on the display surface, this function returns the publicly visible surface, not the real video surface.\n"
 	);
 }
 
@@ -2403,7 +2429,8 @@ Gura_DeclareFunction(GetVideoInfo)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"This function returns a sdl.VideoInfo instance that contains information about the video hardware.\n"
+	"If this is called before sdl.SetVideoMode, the vfmt member of the returned structure will contain the pixel format of the \"best\" video mode.\n"
 	);
 }
 
@@ -2419,7 +2446,10 @@ Gura_DeclareFunction(VideoDriverName)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Returns a string of the name of the initialised video driver.\n"
+	"The driver name is a simple one word identifier like \"x11\" or \"windib\".\n"
+	"\n"
+	"*Return Value* Returns nil if video has not been initialised with sdl.Init or a string of the driver name otherwise.\n"
 	);
 }
 
@@ -2438,7 +2468,8 @@ Gura_DeclareFunction(ListModes)
 	DeclareArg(env, "format", VTYPE_PixelFormat, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "flags", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Return a list of available screen dimensions for the given format and video flags, sorted largest to smallest.\n"
+	"Returns nil if there are no dimensions available for a particular format or an empty list if any dimension is okay for the given format.\n"
 	);
 }
 
@@ -2470,7 +2501,13 @@ Gura_DeclareFunction(VideoModeOK)
 	DeclareArg(env, "bpp", VTYPE_number);
 	DeclareArg(env, "flags", VTYPE_number);
 	AddHelp(Gura_Symbol(en),
-	""
+	"sdl.VideoModeOK returns 0 if the requested mode is not supported under any bit depth,\n"
+	"or returns the bits-per-pixel of the closest available mode with the given width, height and requested surface flags (see sdl.SetVideoMode).\n"
+	"\n"
+	"The bits-per-pixel value returned is only a suggested mode.\n"
+	"You can usually request and bpp you want when setting the video mode and SDL will emulate that color depth with a shadow video surface.\n"
+	"\n"
+	"The arguments to sdl.VideoModeOK are the same ones you would pass to sdl.SetVideoMode.\n"
 	);
 }
 
@@ -2490,7 +2527,32 @@ Gura_DeclareFunction(SetVideoMode)
 	DeclareArg(env, "flags", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en),
-	""
+	"Set up a video mode with the specified width, height and bits-per-pixel.\n"
+	"\n"
+	"If bpp is 0, it is treated as the current display bits per pixel.\n"
+	"\n"
+	"The flags parameter is the same as the flags field of the sdl.Surface structure.\n"
+	"OR'd combinations of the following values are valid.\n"
+	"\n"
+	"  sdl.SWSURFACE\n"
+	"  sdl.HWSURFACE\n"
+	"  sdl.ASYNCBLIT\n"
+	"  sdl.ANYFORMAT\n"
+	"  sdl.HWPALETTE\n"
+	"  sdl.DOUBLEBUF\n"
+	"  sdl.FULLSCREEN\n"
+	"  sdl.OPENGL\n"
+	"  sdl.OPENGLBLIT\n"
+	"  sdl.RESIZABLE\n"
+	"  sdl.NOFRAME\n"
+	"\n"
+	"*Note:* Whatever flags sdl.SetVideoMode could satisfy are set in the flags member of the returned surface.\n"
+	"\n"
+	"*Note:* The bpp parameter is the number of bits per pixel, so a bpp of 24 uses the packed representation of 3 bytes/pixel.\n"
+	"For the more common 4 bytes/pixel mode, use a bpp of 32. Somewhat oddly, both 15 and 16 will request a 2 bytes/pixel mode, but different pixel formats.\n"
+	"\n"
+	"*Return Value* The framebuffer surface, or nil if it fails.\n"
+	"The surface returned is freed by sdl.Quit() and should not be freed by the caller.\n"
 	);
 }
 
