@@ -172,10 +172,13 @@ String Object_function::MakePrefix(Signal sig) const
 		str += dynamic_cast<const Module *>(pFund)->GetName();
 		str += ".";
 	} else if (pFund->IsClass()) {
-		str += dynamic_cast<const Class *>(pFund)->GetName();
+		const Class *pClass = dynamic_cast<const Class *>(pFund);
+		str += pClass->GetName();
 		str += (_pFunc->GetType() == FUNCTYPE_Instance)? "#" : ".";
 	} else if (pFund->IsObject()) {
-		str += dynamic_cast<const Object *>(pFund)->GetClass()->GetName();
+		const Object *pObject = dynamic_cast<const Object *>(pFund);
+		const Class *pClass = pObject->GetClass();
+		str += pClass->GetName();
 		str += "#";
 	}
 	return str;
