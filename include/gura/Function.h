@@ -165,8 +165,17 @@ public:
 		Environment &GetEnv() { return _env; }
 		void Store(const Value &value);
 	};
+	class GURA_DLLDECLARE Help {
+	private:
+		const Symbol *_pSymbol;
+		String _text;
+	public:
+		inline Help(const Symbol *pSymbol, const String &text) : _pSymbol(pSymbol), _text(text) {}
+		inline const Symbol *GetSymbol() const { return _pSymbol; }
+		inline const char *GetText() const { return _text.c_str(); }
+	};
 	typedef std::map<const Symbol *, const Expr *, Symbol::KeyCompare_UniqNumber> ExprMap;
-	typedef std::map<const Symbol *, String> HelpMap;
+	typedef std::vector<Help> HelpList;
 protected:
 	int _cntRef;
 	const Symbol *_pSymbol;
@@ -178,7 +187,7 @@ protected:
 	ResultMode _resultMode;
 	ULong _flags;
 	SymbolSet _attrsOpt;
-	HelpMap _helpMap;
+	HelpList _helpList;
 	struct {
 		OccurPattern occurPattern;
 		BlockScope blockScope;
@@ -264,14 +273,11 @@ public:
 		return _declOwner.size() == 1 && !_declOwner.front()->IsVariableLength();
 	}
 	inline bool IsUnaryable() const { return _declOwner.size() == 1; }
-	inline const char *GetHelp(const Symbol *pSymbol) const {
-		HelpMap::const_iterator iter = _helpMap.find(pSymbol);
-		return (iter == _helpMap.end())? NULL : iter->second.c_str();
-	}
-	inline bool IsHelpExist() const { return !_helpMap.empty(); }
+	inline bool IsHelpExist() const { return !_helpList.empty(); }
 	void DeclareBlock(OccurPattern occurPattern, const Symbol *pSymbol = NULL,
 			BlockScope blockScope = BLKSCOPE_Through, bool quoteFlag = false);
-	void AddHelp(const Symbol *pSymbol, const char *help);
+	void AddHelp(const Symbol *pSymbol, const char *text);
+	const char *GetHelp(const Symbol *pSymbol) const;
 	String ToString() const;
 	void SetError_DivideByZero(Signal sig) const;
 	void SetError_UnsupportedAttr(Signal sig, const SymbolSet &attrs) const;

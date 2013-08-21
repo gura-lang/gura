@@ -1,4 +1,4 @@
-//-----------------------------------------------------------------------------
+﻿//-----------------------------------------------------------------------------
 // Gura basement module
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
@@ -1146,6 +1146,9 @@ Gura_DeclareFunction(println)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrMore);
+	AddHelp(Gura_Symbol(ja),
+	""
+	);
 }
 
 Gura_ImplementFunction(println)
@@ -1265,18 +1268,19 @@ Gura_ImplementFunction(dirtype)
 	return result;
 }
 
-// help(func:function):map:void
+// help(func:function, lang?:symbol):map:void
 Gura_DeclareFunction(help)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "func", VTYPE_function);
+	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), "Print a help message for the specified function object.");
 }
 
 Gura_ImplementFunction(help)
 {
 	Object_function *pFuncObj = Object_function::GetObject(args, 0);
-	const Symbol *pSymbol = Gura_Symbol(en);
+	const Symbol *pSymbol = args.IsSymbol(1)? args.GetSymbol(1) : NULL;
 	Stream *pConsole = env.GetConsole();
 	pConsole->Println(sig, pFuncObj->ToString(sig, true).c_str());
 	if (sig.IsSignalled()) return Value::Null;

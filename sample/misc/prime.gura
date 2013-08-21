@@ -1,0 +1,10 @@
+prime() = {
+	p = []
+	for (n in 2..):xiter {
+		if (!(n % p == 0).or()) {
+			p.add(n)
+			n
+		}
+	}
+}
+println(prime())

@@ -52,11 +52,6 @@ Value Object_function::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 		const CustomFunction *pFuncCustom =
 						dynamic_cast<const CustomFunction *>(GetFunction());
 		return Value(env, Expr::Reference(pFuncCustom->GetExprBody()));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(help))) {
-		const Symbol *pSymbol = Gura_Symbol(en);
-		const char *helpStr = GetFunction()->GetHelp(pSymbol);
-		if (helpStr == NULL) return Value::Null;
-		return Value(env, helpStr);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -251,10 +246,31 @@ Gura_DeclareMethod(function, gethelp)
 Gura_ImplementMethod(function, gethelp)
 {
 	Object_function *pThis = Object_function::GetThisObj(args);
-	const Symbol *pSymbol = args.IsSymbol(0)? args.GetSymbol(0) : Gura_Symbol(en);
+	const Symbol *pSymbol = args.IsSymbol(0)? args.GetSymbol(0) : NULL;
 	const char *helpStr = pThis->GetFunction()->GetHelp(pSymbol);
 	if (helpStr == NULL) return Value::Null;
 	return Value(env, helpStr);
+}
+
+// function#help(lang?:symbol):map:void
+Gura_DeclareMethod(function, help)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), "Print a help message for the specified function object.");
+}
+
+Gura_ImplementMethod(function, help)
+{
+	Object_function *pThis = Object_function::GetThisObj(args);
+	const Symbol *pSymbol = args.IsSymbol(0)? args.GetSymbol(0) : NULL;
+	Stream *pConsole = env.GetConsole();
+	pConsole->Println(sig, pThis->ToString(sig, true).c_str());
+	if (sig.IsSignalled()) return Value::Null;
+	const char *helpStr = pThis->GetFunction()->GetHelp(pSymbol);
+	if (helpStr == NULL) return Value::Null;
+	pConsole->Print(sig, FormatText(helpStr, "  ").c_str());
+	return Value::Null;
 }
 
 // function#diff(var?:symbol)
@@ -307,6 +323,7 @@ void Class_function::Prepare(Environment &env)
 	Gura_AssignFunctionEx(function, "&");
 	Gura_AssignMethod(function, addhelp);
 	Gura_AssignMethod(function, gethelp);
+	Gura_AssignMethod(function, help);
 	Gura_AssignMethod(function, diff);
 }
 

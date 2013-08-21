@@ -265,9 +265,19 @@ void Function::DeclareBlock(OccurPattern occurPattern,
 	_blockInfo.quoteFlag = quoteFlag;
 }
 
-void Function::AddHelp(const Symbol *pSymbol, const char *help)
+void Function::AddHelp(const Symbol *pSymbol, const char *text)
 {
-	_helpMap[pSymbol] = help;
+	_helpList.push_back(Help(pSymbol, text));
+}
+
+const char *Function::GetHelp(const Symbol *pSymbol) const
+{
+	if (_helpList.empty()) return NULL;
+	if (pSymbol == NULL) return _helpList.front().GetText();
+	foreach_const (HelpList, pHelp, _helpList) {
+		if (pHelp->GetSymbol() == pSymbol) return pHelp->GetText();
+	}
+	return NULL;
 }
 
 Value Function::EvalExpr(Environment &env, Signal sig, Args &args) const
