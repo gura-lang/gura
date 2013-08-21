@@ -124,6 +124,39 @@ funcs = [
 	sdl.Joystick.JoystickClose
 ]
 help(funcs)
+// 10. Audio
+funcs = [
+	sdl.AudioSpec
+	sdl.OpenAudio
+	sdl.PauseAudio
+	sdl.GetAudioStatus
+	sdl.LoadWAV
+	//sdl.Audio.FreeWAV
+	sdl.AudioCVT
+	sdl.BuildAudioCVT
+	//sdl.AudioCVT.ConvertAudio
+	//sdl.MixAudio
+	sdl.LockAudio
+	sdl.UnlockAudio
+	sdl.CloseAudio
+]
+help(funcs)
+// 11. CD-ROM
+funcs = [
+	sdl.CDNumDrives
+	sdl.CDName
+	sdl.CDOpen
+	sdl.CD.CDStatus
+	sdl.CD.CDPlay
+	sdl.CD.CDPlayTracks
+	sdl.CD.CDPause
+	sdl.CD.CDResume
+	sdl.CD.CDStop
+	sdl.CD.CDEject
+	sdl.CD.CDClose
+	//sdl.CDTrack
+]
+help(funcs)
 // 13. Time
 funcs = [
 	sdl.GetTicks
