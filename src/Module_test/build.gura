@@ -1,0 +1,5 @@
+#!/usr/bin/env gura
+import(modbuild)
+
+builder = modbuild.Builder()
+builder.build('test', ['Module_test.cpp'])
