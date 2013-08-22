@@ -1,4 +1,4 @@
 #!/usr/bin/env gura
 import(test)
 
-println(test.test(3, 4))
+test.test('test.txt')
