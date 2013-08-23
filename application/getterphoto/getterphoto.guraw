@@ -78,6 +78,7 @@ Panel = class(wx.Panel) {
 											this.textDirNameDstBase.GetValue())
 					if (dlg.ShowModal() == wx.ID_OK) {
 						this.textDirNameDstBase.SetValue(dlg.GetPath())
+						main.cfg['dirNameDstBase'] = dlg.GetPath()
 					}
 				}
 			}
@@ -104,6 +105,7 @@ Panel = class(wx.Panel) {
 				this.btnGetPhoto = ctrl
 				ctrl.Bind(wx.EVT_BUTTON) {
 					dirNameDstBase = this.textDirNameDstBase.GetValue()
+					main.cfg['dirNameDstBase'] = dirNameDstBase
 					indices = range(this.listFileNames.GetItemCount())
 					this.GetPhoto(dirNameDstBase:string, indices)
 				}
