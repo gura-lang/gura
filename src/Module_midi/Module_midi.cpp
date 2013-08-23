@@ -1275,7 +1275,7 @@ Gura_ImplementCastFrom(sequence)
 {
 	Value valueCast(value);
 	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, valueCast, pDecl);
-	if (value.IsStream()) {
+	if (valueCast.IsStream()) {
 		AutoPtr<Object_sequence> pObj(new Object_sequence(env));
 		pObj->GetSequence().Read(env, sig, valueCast.GetStream());
 		valueCast = Value::Null; // delete stream instance
