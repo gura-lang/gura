@@ -112,12 +112,13 @@ static bool ExpandWildCard(Environment &env, Signal sig,
 bool SetupValues(Module *pModule, Signal sig, int argc, const char *argv[])
 {
 	Environment &env = *pModule;
+	String fileNameScript = OAL::FromNativeString(argv[1]);
 	do {
 		Value value;
 		ValueList &valList = value.InitAsList(env);
 		if (argc >= 2 && argv != NULL) {
 			valList.push_back(Value(env,
-					OAL::MakeAbsPathName(OAL::FileSeparator, argv[1]).c_str()));
+					OAL::MakeAbsPathName(OAL::FileSeparator, fileNameScript.c_str()).c_str()));
 			for (int i = 2; i < argc; i++) {
 				const char *arg = argv[i];
 				//if (Directory::HasWildCard(arg)) {
@@ -125,7 +126,7 @@ bool SetupValues(Module *pModule, Signal sig, int argc, const char *argv[])
 				//} else {
 				//	valList.push_back(Value(env, arg));
 				//}
-				valList.push_back(Value(env, arg));
+				valList.push_back(Value(env, OAL::FromNativeString(arg)));
 			}
 		}
 		env.AssignValue(Symbol::Add("argv"), value, EXTRA_Public);
@@ -138,9 +139,9 @@ bool SetupValues(Module *pModule, Signal sig, int argc, const char *argv[])
 		foreach (StringList, pStr, strList) {
 			valList.push_back(Value(env, pStr->c_str()));
 		}
-		if (argc >= 2 && IsCompositeFile(argv[1])) {
+		if (argc >= 2 && IsCompositeFile(fileNameScript.c_str())) {
 			valList.push_back(Value(env,
-				OAL::MakeAbsPathName(OAL::FileSeparator, argv[1]).c_str()));
+				OAL::MakeAbsPathName(OAL::FileSeparator, fileNameScript.c_str()).c_str()));
 		}
 		env.AssignValue(Symbol::Add("path"), value, EXTRA_Public);
 	} while (0);
@@ -149,8 +150,8 @@ bool SetupValues(Module *pModule, Signal sig, int argc, const char *argv[])
 		if (argc < 2) {
 			str = OAL::GetCurDir();
 		} else {
-			str = OAL::MakeAbsPathName(OAL::FileSeparator, argv[1]);
-			if (!IsCompositeFile(argv[1])) {
+			str = OAL::MakeAbsPathName(OAL::FileSeparator, fileNameScript.c_str());
+			if (!IsCompositeFile(fileNameScript.c_str())) {
 				String dirName;
 				PathManager::SplitFileName(str.c_str(), &dirName, NULL);
 				str = dirName;
