@@ -1670,7 +1670,7 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig,
 	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
 	Value valueThis = pExprMember->GetLeft()->Exec(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
-	if (valueThis.IsInvalid()) return valueThis;
+	//if (valueThis.IsInvalid()) return valueThis;
 	Expr_Member::Mode mode = pExprMember->GetMode();
 	if (mode != Expr_Member::MODE_Normal) {
 		if (valueThis.IsList() && valueThis.GetList().empty()) {
@@ -2023,27 +2023,30 @@ Value Expr_BinaryOp::DoExec(Environment &env, Signal sig) const
 	OpType opType = _pOperator->GetOpType();
 	const Expr *pExprLeft = GetExprOwner()[0];
 	const Expr *pExprRight = GetExprOwner()[1];
+	Value valueLeft, valueRight;
 	if (opType == OPTYPE_OrOr) {
-		Value valueLeft = pExprLeft->Exec(env, sig);
+		valueLeft = pExprLeft->Exec(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		if (valueLeft.GetBoolean()) return valueLeft;
-		Value valueRight = pExprRight->Exec(env, sig);
+		if (!valueLeft.IsListOrIterator() && valueLeft.GetBoolean()) {
+			return valueLeft;
+		}
+		valueRight = pExprRight->Exec(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		return valueRight;
 	} else if (opType == OPTYPE_AndAnd) {
-		Value valueLeft = pExprLeft->Exec(env, sig);
+		valueLeft = pExprLeft->Exec(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		if (!valueLeft.GetBoolean()) return valueLeft;
-		Value valueRight = pExprRight->Exec(env, sig);
+		if (!valueLeft.IsListOrIterator() && !valueLeft.GetBoolean()) {
+			return valueLeft;
+		}
+		valueRight = pExprRight->Exec(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		return valueRight;
 	} else {
-		Value valueLeft = pExprLeft->Exec(env, sig);
+		valueLeft = pExprLeft->Exec(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		Value valueRight = pExprRight->Exec(env, sig);
+		valueRight = pExprRight->Exec(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		return _pOperator->EvalMapBinary(env, sig, valueLeft, valueRight);
 	}
+	return _pOperator->EvalMapBinary(env, sig, valueLeft, valueRight);
 }
 
 Expr *Expr_BinaryOp::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const

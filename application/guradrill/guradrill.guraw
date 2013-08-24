@@ -1315,7 +1315,7 @@ Panel = class(wx.Panel) {
 							itemData = this.treeCtrl.GetGuraData(item)
 							if (!itemData) {
 								// nothing to do
-							} elsif (isinstance(itemData, `ComposerAttr)) {
+							} elsif (itemData.isinstance(`ComposerAttr)) {
 								attr = itemData
 								if (attr.HasSameValues(composer.attrCur)) {
 									this.treeCtrl.Delete(item)
@@ -1497,16 +1497,16 @@ Panel = class(wx.Panel) {
 						composerSel = nil
 						if (!itemData) {
 							// nothing to do
-						} elsif (isinstance(itemData, `Composer)) {
+						} elsif (itemData.isinstance(`Composer)) {
 							composerSel = itemData
-						} elsif (isinstance(itemData, `ComposerAttr)) {
+						} elsif (itemData.isinstance(`ComposerAttr)) {
 							attr = itemData
 							itemParent = ctrl.GetItemParent(item)
 							if (itemParent) {
 								itemDataParent = ctrl.GetGuraData(itemParent)
 								if (!itemDataParent) {
 									// nothing to do
-								} elsif (isinstance(itemDataParent, `Composer)) {
+								} elsif (itemDataParent.isinstance(`Composer)) {
 									composerSel = itemDataParent
 									composerSel.attrCur = attr.Clone()
 								}
