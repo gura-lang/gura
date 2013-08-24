@@ -5,6 +5,17 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Class
 //-----------------------------------------------------------------------------
+// object#isnil()
+Gura_DeclareMethodPrimitive(Object, isnil)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+}
+
+Gura_ImplementMethod(Object, isnil)
+{
+	return Value(args.GetThis().IsInvalid());
+}
+
 // object#istype(type+:expr):map
 Gura_DeclareMethodPrimitive(Object, istype)
 {
@@ -268,6 +279,7 @@ String Class::ToString(Signal sig, bool exprFlag)
 // assignment
 void Class::Prepare(Environment &env)
 {
+	Gura_AssignMethod(Object, isnil);		// primitive method
 	Gura_AssignMethod(Object, istype);		// primitive method
 	Gura_AssignMethod(Object, isinstance);	// primitive method
 	Gura_AssignMethod(Object, tonumber);	// primitive method
