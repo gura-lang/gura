@@ -1742,31 +1742,21 @@ Gura_ImplementBinaryOperator(Shr, number, number)
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(OrOr, expr, expr)
+// BinaryOperator(OrOr, any, any)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(OrOr, expr, expr)
+Gura_ImplementBinaryOperator(OrOr, any, any)
 {
-	Value result;
-	result = valueLeft.GetExpr()->Exec(env, sig);
-	if (sig.IsSignalled()) return Value::Null;
-	if (result.GetBoolean()) return result;
-	result = valueRight.GetExpr()->Exec(env, sig);
-	if (sig.IsSignalled()) return Value::Null;
-	return result;
+	if (valueLeft.GetBoolean()) return valueLeft;
+	return valueRight;
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(AndAnd, expr, expr)
+// BinaryOperator(AndAnd, any, any)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(AndAnd, expr, expr)
+Gura_ImplementBinaryOperator(AndAnd, any, any)
 {
-	Value result;
-	result = valueLeft.GetExpr()->Exec(env, sig);
-	if (sig.IsSignalled()) return Value::Null;
-	if (!result.GetBoolean()) return result;
-	result = valueRight.GetExpr()->Exec(env, sig);
-	if (sig.IsSignalled()) return Value::Null;
-	return result;
+	if (!valueLeft.GetBoolean()) return valueLeft;
+	return valueRight;
 }
 
 //-----------------------------------------------------------------------------
@@ -1892,8 +1882,8 @@ void AssignBasicOperators(Environment &env)
 	Gura_AssignBinaryOperator(Xor, boolean, boolean);
 	Gura_AssignBinaryOperator(Shl, number, number);
 	Gura_AssignBinaryOperator(Shr, number, number);
-	Gura_AssignBinaryOperator(OrOr, expr, expr);
-	Gura_AssignBinaryOperator(AndAnd, expr, expr);
+	Gura_AssignBinaryOperator(OrOr, any, any);
+	Gura_AssignBinaryOperator(AndAnd, any, any);
 	Gura_AssignBinaryOperator(Seq, number, number);
 }
 

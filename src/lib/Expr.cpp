@@ -2021,16 +2021,29 @@ Expr *Expr_BinaryOp::Clone() const
 Value Expr_BinaryOp::DoExec(Environment &env, Signal sig) const
 {
 	OpType opType = _pOperator->GetOpType();
-	if (opType == OPTYPE_OrOr || opType == OPTYPE_AndAnd) {
-		return _pOperator->EvalBinary(env, sig,
-					Value(env, Expr::Reference(GetExprOwner()[0])),
-					Value(env, Expr::Reference(GetExprOwner()[1])));
+	const Expr *pExprLeft = GetExprOwner()[0];
+	const Expr *pExprRight = GetExprOwner()[1];
+	if (opType == OPTYPE_OrOr) {
+		Value valueLeft = pExprLeft->Exec(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		if (valueLeft.GetBoolean()) return valueLeft;
+		Value valueRight = pExprRight->Exec(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		return valueRight;
+	} else if (opType == OPTYPE_AndAnd) {
+		Value valueLeft = pExprLeft->Exec(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		if (!valueLeft.GetBoolean()) return valueLeft;
+		Value valueRight = pExprRight->Exec(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		return valueRight;
+	} else {
+		Value valueLeft = pExprLeft->Exec(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		Value valueRight = pExprRight->Exec(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		return _pOperator->EvalMapBinary(env, sig, valueLeft, valueRight);
 	}
-	Value valueLeft = GetExprOwner()[0]->Exec(env, sig);
-	if (sig.IsSignalled()) return Value::Null;
-	Value valueRight = GetExprOwner()[1]->Exec(env, sig);
-	if (sig.IsSignalled()) return Value::Null;
-	return _pOperator->EvalMapBinary(env, sig, valueLeft, valueRight);
 }
 
 Expr *Expr_BinaryOp::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const

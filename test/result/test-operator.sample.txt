@@ -22,8 +22,8 @@ in [[`any, `any]]
 ^ [[`boolean, `boolean], [`number, `number]]
 << [[`number, `number], [`stream, `any]]
 >> [[`number, `number]]
-|| [[`expr, `expr]]
-&& [[`expr, `expr]]
+|| [[`any, `any]]
+&& [[`any, `any]]
 .. [[`number, `number]]
 +A
 -A
