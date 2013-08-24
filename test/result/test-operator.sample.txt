@@ -146,9 +146,13 @@ y .. [true, false, false, true, false, false, false, false, true, true]
 z .. [false, false, false, true, false, false, false, true, true, false]
 x | y .. [true, false, false, true, false, true, false, false, true, true]
 x & y .. [true, false, false, true, false, false, false, false, true, true]
+x || y .. [true, false, false, true, false, true, false, false, true, true]
+x && y .. [true, false, false, true, false, false, false, false, true, true]
 x ^ y .. [false, false, false, false, false, true, false, false, false, false]
 x | y | z .. [true, false, false, true, false, true, false, true, true, true]
 x & y & z .. [false, false, false, true, false, false, false, false, true, false]
+x || y || z .. [true, false, false, true, false, true, false, true, true, true]
+x && y && z .. [false, false, false, true, false, false, false, false, true, false]
 x ^ y ^ z .. [false, false, false, true, false, true, false, true, true, false]
 f(a:number, b:number, c:number, d:number):map = format('%d-%d-%d-%d', a, b, c, d)
 f % [1, 2, 3, 4] .. 1-2-3-4

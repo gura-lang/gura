@@ -242,9 +242,13 @@ scope {
 	tester(`z)
 	tester(`(x | y))
 	tester(`(x & y))
+	tester(`(x || y))
+	tester(`(x && y))
 	tester(`(x ^ y))
 	tester(`(x | y | z))
 	tester(`(x & y & z))
+	tester(`(x || y || z))
+	tester(`(x && y && z))
 	tester(`(x ^ y ^ z))
 }
 scope {
