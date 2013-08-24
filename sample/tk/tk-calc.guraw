@@ -27,7 +27,8 @@ tk.mainwindow {|mw|
 			numRight:extern = nil
 		}
 	}
-	keys = struct(label:string, func:function) * @{
+	Key = struct(label:string, func:function)
+	keys = Key * @{
 		{'7', &{enterDigit('7')}}
 		{'8', &{enterDigit('8')}}
 		{'9', &{enterDigit('9')}}

@@ -40,14 +40,14 @@ tk.mainwindow {|mw|
 					opts[`value] = value
 					value += 1
 				}
-				f.call!(type, text => 'textonly', opts%) {|w|
+				f.__call__(type, text => 'textonly', opts%) {|w|
 					w.grid(sticky => 'we', pady => [4, 0])
 				}
 				if (type == `Radiobutton) {
 					opts[`value] = value
 					value += 1
 				}
-				f.call!(type, text => 'bold', opts%) {|w|
+				f.__call__(type, text => 'bold', opts%) {|w|
 					w[`font] = tk.Font(weight => 'bold')
 					w.grid(sticky => 'we', pady => [4, 0])
 				}
@@ -55,14 +55,14 @@ tk.mainwindow {|mw|
 					opts[`value] = value
 					value += 1
 				}
-				f.call!(type, text => 'red', foreground => 'red', opts%) {|w|
+				f.__call__(type, text => 'red', foreground => 'red', opts%) {|w|
 					w.grid(sticky => 'we', pady => [4, 0])
 				}
 				for ([imgName, place] in elems) {|i|
 					if (type == `Radiobutton) {
 						opts[`value] = i + value
 					}
-					f.call!(type, text => place, image => imgs[imgName],
+					f.__call__(type, text => place, image => imgs[imgName],
 													compound => place, opts%) {|w|
 						w.grid(sticky => 'we', pady => [4, 0])
 					}
