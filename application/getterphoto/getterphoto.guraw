@@ -26,6 +26,8 @@ main = module {
 	}
 	main() = {
 		cfg.store():default {
+			'xFrame'			=> -1
+			'yFrame'			=> -1
 			'wdFrame'			=> 480
 			'htFrame'			=> 680
 			'dirNamesSrc'		=> []
@@ -131,12 +133,12 @@ Panel = class(wx.Panel) {
 		this.UpdateFileNames()
 	}
 	UpdateFileNames() = {
+		this.listFileNames.DeleteAllItems()
 		dirName = this.comboSourceDirNames.GetValue()
 		if (dirName == '') {
 			this.btnGetPhoto.Enable(false)
 			return
 		}
-		this.listFileNames.DeleteAllItems()
 		pathNames = path.dir(dirName, main.patternImgList*,
 								main.patternAviList*):icase:file:list
 		this.listFileNames.pathNames:public = pathNames
@@ -184,10 +186,16 @@ Panel = class(wx.Panel) {
 // Frame
 //-----------------------------------------------------------------------------
 Frame = class(wx.Frame) {
-	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0]),
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, 'Getter Photo',
+							pos => wx.Point(main.cfg['xFrame', 'yFrame']*),
 							size => wx.Size(main.cfg['wdFrame', 'htFrame']*)|
 		this.SetIcon(wx.IconFromXPMData(mainicon_xpm))
 		Panel(this)
+		this.Bind(wx.EVT_MOVE) {|event|
+			pt = event.GetPosition()
+			main.cfg['xFrame', 'yFrame'] = [pt.x, pt.y]
+			event.Skip()
+		}
 		this.Bind(wx.EVT_SIZE) {|event|
 			size = event.GetSize()
 			main.cfg['wdFrame', 'htFrame'] = [size.GetWidth(), size.GetHeight()]
