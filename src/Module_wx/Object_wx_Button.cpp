@@ -72,6 +72,24 @@ Gura_DeclareFunction(Button)
 	DeclareArg(env, "validator", VTYPE_wx_Validator, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "name", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	"Constructor, creating and showing a button.\n"
+	"\n"
+	"The preferred way to create standard buttons is to use default value of label.\n"
+	"If no label is supplied and id is one of standard IDs from this list, standard label will be used.\n"
+	"In addition to that, the button will be decorated with stock icons under GTK+ 2.\n"
+	"\n"
+	"**Parameters**\n"
+	"\n"
+	"- parent - Parent window.\n"
+	"- id - Button identifier. A value of wxID_ANY indicates a default value.\n"
+	"- label - Text to be displayed on the button.\n"
+	"- pos - Button position.\n"
+	"- size - Button size. If the default size is specified then the button is sized appropriately for the text.\n"
+	"- style - Window style. See wxButton.\n"
+	"- validator - Window validator.\n"
+	"- name - Window name.\n"
+	);
 }
 
 Gura_ImplementFunction(Button)
@@ -143,6 +161,11 @@ Gura_DeclareMethod(wx_Button, GetLabel)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	"Returns the string label for the button.\n"
+	"\n"
+	"**Return value** The button's label.\n"
+	);
 }
 
 Gura_ImplementMethod(wx_Button, GetLabel)
@@ -157,6 +180,11 @@ Gura_DeclareMethod(wx_Button, GetDefaultSize)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	"Returns the default size for the buttons.\n"
+	"It is advised to make all the dialog buttons of the same size and this function allows to retrieve the\n"
+	"(platform and current font dependent size) which should be the best suited for this.\n"
+	);
 }
 
 Gura_ImplementMethod(wx_Button, GetDefaultSize)
@@ -184,6 +212,13 @@ Gura_DeclareMethod(wx_Button, SetLabel)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "label", VTYPE_string, OCCUR_Once);
+	AddHelp(Gura_Symbol(en),
+	"Sets the string label for the button.\n"
+	"\n"
+	"**Parameters**\n"
+	"\n"
+	"- label - The label to set.\n"
+	);
 }
 
 Gura_ImplementMethod(wx_Button, SetLabel)
