@@ -32,6 +32,7 @@ main = module {
 			'htFrame'			=> 680
 			'dirNamesSrc'		=> []
 			'dirNameDstBase'	=> path.join(sys.localdir, 'getterphoto')
+			'dirNameStamperTgt'	=> ''
 		}
 		wx.IMPLEMENT_APP(App)
 		yaml.write(fileNameCfg, cfg)
@@ -39,17 +40,19 @@ main = module {
 }
 
 //-----------------------------------------------------------------------------
-// Panel
+// Page_Getter
 //-----------------------------------------------------------------------------
-Panel = class(wx.Panel) {
+Page_Getter = class(wx.Panel) {
+	wdLabel = 80
 	__init__(parent:wx.Window) = {|parent|
 		outerBox = wx.BoxSizer(wx.VERTICAL)
 		this.SetSizer(outerBox)
-		wdLabel = 80
-		this.imageList = wx.ImageList(16, 16, true)
-		this.imageList.Add(wx.BitmapFromXPMData(imageicon_xpm))
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		outerBox.AddSpacer(4)
+		outerBox.Add(vbox, wx.SizerFlags(1).Expand().Border(wx.LEFT | wx.RIGHT, 2))
+		outerBox.AddSpacer(4)
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
-			outerBox.Add(hbox, wx.SizerFlags().Expand())
+			vbox.Add(hbox, wx.SizerFlags().Expand())
 			wx.StaticText(this, wx.ID_ANY, 'Source', size => wx.Size(wdLabel, -1)) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Align(wx.ALIGN_CENTER_VERTICAL))
 			}
@@ -65,7 +68,7 @@ Panel = class(wx.Panel) {
 			}
 		}
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
-			outerBox.Add(hbox, wx.SizerFlags().Expand().Border(wx.TOP, 2))
+			vbox.Add(hbox, wx.SizerFlags().Expand().Border(wx.TOP, 2))
 			wx.StaticText(this, wx.ID_ANY, 'Destination', size => wx.Size(wdLabel, -1)) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Align(wx.ALIGN_CENTER_VERTICAL))
 			}
@@ -75,19 +78,23 @@ Panel = class(wx.Panel) {
 			}
 			wx.Button(this, wx.ID_ANY, '...', size => wx.Size(20, -1)) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.LEFT, 2))
-				this.Bind(wx.EVT_BUTTON) {
-					dlg = wx.DirDialog(this, 'Choose a destination directory'
-											this.textDirNameDstBase.GetValue())
+				ctrl.Bind(wx.EVT_BUTTON) {
+					dirName = this.textDirNameDstBase.GetValue()
+					style = wx.DD_DEFAULT_STYLE | wx.DD_DIR_MUST_EXIST
+					dlg = wx.DirDialog(this,
+								'Choose a destination directory'
+								dirName, style)
 					if (dlg.ShowModal() == wx.ID_OK) {
-						this.textDirNameDstBase.SetValue(dlg.GetPath())
-						main.cfg['dirNameDstBase'] = dlg.GetPath()
+						dirName = dlg.GetPath()
+						this.textDirNameDstBase.SetValue(dirName)
+						main.cfg['dirNameDstBase'] = dirName
 					}
 				}
 			}
 		}
 		wx.ListCtrl(this, wx.ID_ANY, style => wx.LC_REPORT | wx.LC_HRULES) {|ctrl|
-			outerBox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
-			ctrl.SetImageList(this.imageList, wx.IMAGE_LIST_SMALL)
+			vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
+			ctrl.SetImageList(App.imageList, wx.IMAGE_LIST_SMALL)
 			ctrl.InsertColumn(0.., ['Source', 'Destination'])
 			ctrl.Bind(wx.EVT_SIZE) {|event|
 				size = event.GetSize()
@@ -101,7 +108,7 @@ Panel = class(wx.Panel) {
 			this.listFileNames = ctrl
 		}
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
-			outerBox.Add(hbox, wx.SizerFlags().Expand().Border(wx.TOP, 2))
+			vbox.Add(hbox, wx.SizerFlags().Expand().Border(wx.TOP, 2))
 			wx.Button(this, wx.ID_ANY, 'Get Photo') {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Expand())
 				this.btnGetPhoto = ctrl
@@ -117,8 +124,8 @@ Panel = class(wx.Panel) {
 				this.gauge = ctrl
 			}
 		}
-		this.UpdateSourceDirNames()
 		this.textDirNameDstBase.SetValue(main.cfg['dirNameDstBase'])
+		this.UpdateSourceDirNames()
 	}
 	UpdateSourceDirNames() = {
 		dirNames = path.join(chr(ord('A')..ord('K')) + ':', 'DCIM')
@@ -154,7 +161,7 @@ Panel = class(wx.Panel) {
 	}
 	GetPhoto(dirNameDstBase:string, index:number):map = {
 		pathName = this.listFileNames.pathNames[index]
-		pathNameDst = MakeUniqPathName(pathName, dirNameDstBase)
+		pathNameDst = MakeUniqPathName(pathName, dirNameDstBase, true)
 		!pathNameDst && return
 		item = wx.ListItem()
 		item.SetMask(wx.LIST_MASK_TEXT | wx.LIST_MASK_STATE)
@@ -183,6 +190,115 @@ Panel = class(wx.Panel) {
 }
 
 //-----------------------------------------------------------------------------
+// Page_Stamper
+//-----------------------------------------------------------------------------
+Page_Stamper = class(wx.Panel) {
+	__init__(parent:wx.Window) = {|parent|
+		outerBox = wx.BoxSizer(wx.VERTICAL)
+		this.SetSizer(outerBox)
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		outerBox.AddSpacer(4)
+		outerBox.Add(vbox, wx.SizerFlags(1).Expand().Border(wx.LEFT | wx.RIGHT, 2))
+		outerBox.AddSpacer(4)
+		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
+			vbox.Add(hbox, wx.SizerFlags().Expand())
+			wx.StaticText(this, wx.ID_ANY, 'Target') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Align(wx.ALIGN_CENTER_VERTICAL))
+			}
+			wx.TextCtrl(this, wx.ID_ANY, '') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.LEFT, 8))
+				this.textTargetDirName = ctrl
+			}
+			wx.Button(this, wx.ID_ANY, '..', size => wx.Size(20, -1)) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.LEFT, 2))
+				ctrl.Bind(wx.EVT_BUTTON) {
+					dirName = this.textTargetDirName.GetValue()
+					style = wx.DD_DEFAULT_STYLE | wx.DD_DIR_MUST_EXIST
+					dlg = wx.DirDialog(this,
+								'Choose a directory containing image files',
+								dirName, style)
+					if (dlg.ShowModal() == wx.ID_OK) {
+						dirName = dlg.GetPath()
+						this.textTargetDirName.SetValue(dirName)
+						main.cfg['dirNameStamperTgt'] = dirName
+					}
+					this.UpdateFileNames()
+				}
+			}
+		}
+		wx.ListCtrl(this, wx.ID_ANY, style => wx.LC_REPORT | wx.LC_HRULES) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
+			ctrl.SetImageList(App.imageList, wx.IMAGE_LIST_SMALL)
+			ctrl.InsertColumn(0.., ['Original', 'Renamed'])
+			ctrl.Bind(wx.EVT_SIZE) {|event|
+				size = event.GetSize()
+				width = size.GetWidth() - 20
+				wdColumn = width / 2
+				ctrl.SetColumnWidth(0, wdColumn)
+				width -= wdColumn
+				ctrl.SetColumnWidth(1, width)
+				event.Skip()
+			}
+			this.listFileNames = ctrl
+		}
+		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
+			vbox.Add(hbox, wx.SizerFlags().Expand().Border(wx.TOP, 4))
+			wx.Button(this, wx.ID_ANY, 'Do Rename') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Centre())
+				ctrl.Bind(wx.EVT_BUTTON) {
+					//this.UpdateSourceDirNames()
+				}
+			}
+		}
+		this.textTargetDirName.SetValue(main.cfg['dirNameStamperTgt'])
+		this.UpdateFileNames()
+	}
+	UpdateFileNames() = {
+		this.listFileNames.DeleteAllItems()
+		dirName = this.textTargetDirName.GetValue()
+		if (dirName == '') {
+			//this.btnGetPhoto.Enable(false)
+			return
+		}
+		pathNames = path.dir(dirName, main.patternImgList*,
+								main.patternAviList*):icase:file:list
+		this.listFileNames.pathNames:public = pathNames
+		pathNames.each {|pathName, idx|
+			pathNameDst = MakeUniqPathName(pathName, dirName, false)
+			wx.ListItem {|item|
+				item.SetId(idx)
+				item.SetText(path.filename(pathName))
+				item.SetImage(0)
+				this.listFileNames.InsertItem(item)
+			}
+			wx.ListItem {|item|
+				item.SetId(idx)
+				item.SetColumn(1)
+				item.SetText(path.filename(pathNameDst))
+				this.listFileNames.SetItem(item)
+			}
+		}
+		//this.btnGetPhoto.Enable(!pathNames.isempty())
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Panel
+//-----------------------------------------------------------------------------
+Panel = class(wx.Panel) {
+	__init__(parent:wx.Window) = {|parent|
+		outerBox = wx.BoxSizer(wx.VERTICAL)
+		this.SetSizer(outerBox)
+		wx.Notebook(this, wx.ID_ANY) {|note|
+			note.SetPadding(wx.Size(8, 4))
+			outerBox.Add(note, wx.SizerFlags(1).Expand())
+			note.AddPage(Page_Stamper(note), 'Stamper', false, -1)
+			note.AddPage(Page_Getter(note), 'Getter', false, -1)
+		}
+	}
+}
+
+//-----------------------------------------------------------------------------
 // Frame
 //-----------------------------------------------------------------------------
 Frame = class(wx.Frame) {
@@ -192,7 +308,7 @@ Frame = class(wx.Frame) {
 		this.SetIcon(wx.IconFromXPMData(mainicon_xpm))
 		Panel(this)
 		this.Bind(wx.EVT_MOVE) {|event|
-			pt = event.GetPosition()
+			pt = this.GetPosition()
 			main.cfg['xFrame', 'yFrame'] = [pt.x, pt.y]
 			event.Skip()
 		}
@@ -209,6 +325,8 @@ Frame = class(wx.Frame) {
 //-----------------------------------------------------------------------------
 App = class(wx.App) {
 	OnInit() = {
+		App.imageList:public = wx.ImageList(16, 16, true)
+		App.imageList.Add(wx.BitmapFromXPMData(imageicon_xpm))
 		frame = Frame(nil)
 		//wx.StatusBar(frame)
 		frame.Show()
@@ -799,7 +917,7 @@ imageicon_xpm = @{
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-MakeUniqPathName(pathName:string, dirNameDstBase:string):map = {
+MakeUniqPathName(pathName:string, dirNameDstBase:string, makeDirFlag:boolean):map = {
 	try {
 		stat = path.stat(pathName)
 	} except { stat = nil }
@@ -818,8 +936,12 @@ MakeUniqPathName(pathName:string, dirNameDstBase:string):map = {
 		[year, month, day, hour, min, sec] = \
 			[mtime.year, mtime.month, mtime.day, mtime.hour, mtime.min, mtime.sec]
 	}
-	dirNameDst = path.join(dirNameDstBase, '%04d%02d%02d xxxx' % [year, month, day])
-	!path.exists(dirNameDst) && fs.mkdir(dirNameDst):tree
+	if (makeDirFlag) {
+		dirNameDst = path.join(dirNameDstBase, '%04d%02d%02d xxxx' % [year, month, day])
+		!path.exists(dirNameDst) && fs.mkdir(dirNameDst):tree
+	} else {
+		dirNameDst = dirNameDstBase
+	}
 	[dirName, fileName] = path.split(pathName)
 	[baseName, extName] = path.splitext(fileName)
 	cross (upper in charsAtoZ, lower in charsAtoZ) {
