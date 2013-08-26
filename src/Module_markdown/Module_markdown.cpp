@@ -5,13 +5,13 @@
 
 Gura_BeginModule(test)
 
-class MarkdownParser {
+class Parser {
 public:
 	class Dispatcher {
 	public:
-		virtual void OnSpan(MarkdownParser *pParser) = 0;
-		virtual void OnEmphasis(MarkdownParser *pParser) = 0;
-		virtual void OnStrong(MarkdownParser *pParser) = 0;
+		virtual void OnSpan(Parser *pParser) = 0;
+		virtual void OnEmphasis(Parser *pParser) = 0;
+		virtual void OnStrong(Parser *pParser) = 0;
 	};
 private:
 	enum Stat {
@@ -27,38 +27,38 @@ private:
 	Stat _stat;
 	String _str;
 public:
-	MarkdownParser(Dispatcher *pDispatcher);
+	Parser(Dispatcher *pDispatcher);
 	bool ParseChar(Environment &env, Signal sig, char ch);
 	inline const char *GetString() const { return _str.c_str(); }
 };
 
-class Dispatcher : public MarkdownParser::Dispatcher {
+class Dispatcher : public Parser::Dispatcher {
 public:
-	virtual void OnSpan(MarkdownParser *pParser);
-	virtual void OnEmphasis(MarkdownParser *pParser);
-	virtual void OnStrong(MarkdownParser *pParser);
+	virtual void OnSpan(Parser *pParser);
+	virtual void OnEmphasis(Parser *pParser);
+	virtual void OnStrong(Parser *pParser);
 };
 
-void Dispatcher::OnSpan(MarkdownParser *pParser)
+void Dispatcher::OnSpan(Parser *pParser)
 {
 	::printf("[Span]%s\n", pParser->GetString());
 }
 
-void Dispatcher::OnEmphasis(MarkdownParser *pParser)
+void Dispatcher::OnEmphasis(Parser *pParser)
 {
 	::printf("[Emphasis]%s\n", pParser->GetString());
 }
 
-void Dispatcher::OnStrong(MarkdownParser *pParser)
+void Dispatcher::OnStrong(Parser *pParser)
 {
 	::printf("[Strong]%s\n", pParser->GetString());
 }
 
-MarkdownParser::MarkdownParser(Dispatcher *pDispatcher) : _pDispatcher(pDispatcher), _stat(STAT_LineTop)
+Parser::Parser(Dispatcher *pDispatcher) : _pDispatcher(pDispatcher), _stat(STAT_LineTop)
 {
 }
 
-bool MarkdownParser::ParseChar(Environment &env, Signal sig, char ch)
+bool Parser::ParseChar(Environment &env, Signal sig, char ch)
 {
 	bool continueFlag = false;
 	do 	{
@@ -201,7 +201,7 @@ Gura_DeclareFunction(test)
 Gura_ImplementFunction(test)
 {
 	Dispatcher dispatcher;
-	MarkdownParser parser(&dispatcher);
+	Parser parser(&dispatcher);
 	Stream &stream = args.GetStream(0);
 	for (;;) {
 		int chRaw = stream.GetChar(sig);
