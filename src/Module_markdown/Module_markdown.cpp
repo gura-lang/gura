@@ -5,63 +5,149 @@
 
 Gura_BeginModule(test)
 
+class ItemOwner;
+
 //-----------------------------------------------------------------------------
-// Element
+// Item
 //-----------------------------------------------------------------------------
-class Element {
+class Item {
+public:
+	enum Type {
+		TYPE_Root,
+		TYPE_Paragraph,
+		TYPE_Normal,
+		TYPE_Emphasis,
+		TYPE_Strong,
+		TYPE_InlineCode,
+		TYPE_BlockCode,
+	};
 private:
 	int _cntRef;
+	Type _type;
+	AutoPtr<ItemOwner> _pItemOwner;
+	std::auto_ptr<String> _pText;
 public:
-	Gura_DeclareReferenceAccessor(Element);
+	Gura_DeclareReferenceAccessor(Item);
 public:
-	Element();
+	Item(Type type, ItemOwner *pItemOwner);
+	Item(Type type, const String &text);
 private:
-	inline ~Element() {}
+	inline ~Item() {}
 public:
-	
+	inline const Type GetType() const { return _type; }
+	inline bool IsOwner() const { return !_pItemOwner.IsNull(); }
+	inline ItemOwner *GetItemOwner() { return _pItemOwner.get(); }
+	inline const ItemOwner *GetItemOwner() const { return _pItemOwner.get(); }
+	inline const char *GetText() const {
+		return (_pText.get() == NULL)? NULL : _pText->c_str();
+	}
+	const char *GetTypeName() const;
+	void Print(int indentLevel) const;
 };
 
 //-----------------------------------------------------------------------------
-// ElementList
+// ItemList
 //-----------------------------------------------------------------------------
-class ElementList : public std::vector<Element *> {
+class ItemList : public std::vector<Item *> {
+public:
+	void Print(int indentLevel) const;
 };
 
 //-----------------------------------------------------------------------------
-// ElementOwner
+// ItemOwner
 //-----------------------------------------------------------------------------
-class ElementOwner : public ElementList {
+class ItemOwner : public ItemList {
 public:
-	~ElementOwner();
+	int _cntRef;
+public:
+	Gura_DeclareReferenceAccessor(ItemOwner);
+public:
+	inline ItemOwner() : _cntRef(1) {}
+private:
+	~ItemOwner();
+public:
 	void Clear();
+	void Store(const ItemList &itemList);
 };
 
 //-----------------------------------------------------------------------------
-// Element
+// Item
 //-----------------------------------------------------------------------------
-Element::Element() : _cntRef(1)
+Item::Item(Type type, ItemOwner *pItemOwner) : _cntRef(1),
+							_type(type), _pItemOwner(pItemOwner)
 {
 }
 
-//-----------------------------------------------------------------------------
-// ElementList
-//-----------------------------------------------------------------------------
+Item::Item(Type type, const String &text) : _cntRef(1),
+							_type(type), _pText(new String(text))
+{
+}
+
+const char *Item::GetTypeName() const
+{
+	static const struct {
+		Type type;
+		const char *name;
+	} tbl[] = {
+		{ TYPE_Root,			"Root",			},
+		{ TYPE_Paragraph,		"Paragraph",	},
+		{ TYPE_Normal,			"Normal",		},
+		{ TYPE_Emphasis,		"Emphasis",		},
+		{ TYPE_Strong,			"Strong",		},
+		{ TYPE_InlineCode,		"InlineCode",	},
+		{ TYPE_BlockCode,		"BlockCode",	},
+	};
+	for (int i = 0; i < ArraySizeOf(tbl); i++) {
+		if (tbl[i].type == _type) return tbl[i].name;
+	}
+	return "";
+}
+
+void Item::Print(int indentLevel) const
+{
+	if (!_pItemOwner.IsNull()) {
+		::printf("%*s[%s]\n", indentLevel * 2, "", GetTypeName());
+		_pItemOwner->Print(indentLevel + 1);
+	}
+	if (_pText.get() != NULL) {
+		::printf("%*s[%s]%s\n", indentLevel * 2, "", GetTypeName(), GetText());
+	}
+}
 
 //-----------------------------------------------------------------------------
-// ElementOwner
+// ItemList
 //-----------------------------------------------------------------------------
-ElementOwner::~ElementOwner()
+void ItemList::Print(int indentLevel) const
+{
+	foreach_const (ItemList, ppItem, *this) {
+		const Item *pItem = *ppItem;
+		pItem->Print(indentLevel);
+	}
+}
+
+//-----------------------------------------------------------------------------
+// ItemOwner
+//-----------------------------------------------------------------------------
+ItemOwner::~ItemOwner()
 {
 	Clear();
 }
 
-void ElementOwner::Clear()
+void ItemOwner::Clear()
 {
-	foreach (ElementOwner, ppElement, *this) {
-		Element *pElement = *ppElement;
-		Element::Delete(pElement);
+	foreach (ItemOwner, ppItem, *this) {
+		Item *pItem = *ppItem;
+		Item::Delete(pItem);
 	}
 	clear();
+}
+
+void ItemOwner::Store(const ItemList &itemList)
+{
+	foreach_const (ItemList, ppItem, itemList) {
+		const Item *pItem = *ppItem;
+		push_back(pItem->Reference());
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -79,16 +165,23 @@ private:
 	};
 private:
 	Stat _stat;
-	String _str;
-	ElementOwner _elemOwner;
+	String _text;
+	AutoPtr<Item> _pItemRoot;
+	ItemOwner *_pItemOwner;
 public:
 	Document();
 	bool ParseChar(Environment &env, Signal sig, char ch);
-	inline const char *GetString() const { return _str.c_str(); }
+	inline Item *GetItemRoot() { return _pItemRoot.get(); }
+	inline const Item *GetItemRoot() const { return _pItemRoot.get(); }
 };
 
-Document::Document() : _stat(STAT_LineTop)
+//-----------------------------------------------------------------------------
+// Document
+//-----------------------------------------------------------------------------
+Document::Document() : _stat(STAT_LineTop), _pItemOwner(NULL)
 {
+	_pItemOwner = new ItemOwner();
+	_pItemRoot.reset(new Item(Item::TYPE_Root, _pItemOwner));
 }
 
 bool Document::ParseChar(Environment &env, Signal sig, char ch)
@@ -101,23 +194,23 @@ bool Document::ParseChar(Environment &env, Signal sig, char ch)
 		if (ch == ' ' || ch == '\t') {
 			
 		} else if (ch == '-') {
-			if (!_str.empty()) {
-				//_pDispatcher->OnSpan(this);
-				_str.clear();
+			if (!_text.empty()) {
+				_pItemOwner->push_back(new Item(Item::TYPE_Normal, _text));
+				_text.clear();
 			}
 			_stat = STAT_HyphenFirst;
 		} else if (ch == '\n') {
-			if (!_str.empty()) {
-				//_pDispatcher->OnSpan(this);
-				_str.clear();
+			if (!_text.empty()) {
+				_pItemOwner->push_back(new Item(Item::TYPE_Normal, _text));
+				_text.clear();
 			}
 		} else if (ch == '\0') {
-			if (!_str.empty()) {
-				//_pDispatcher->OnSpan(this);
-				_str.clear();
+			if (!_text.empty()) {
+				_pItemOwner->push_back(new Item(Item::TYPE_Normal, _text));
+				_text.clear();
 			}
 		} else {
-			if (!_str.empty()) _str += ' ';
+			if (!_text.empty()) _text += ' ';
 			continueFlag = true;
 			_stat = STAT_Line;
 		}
@@ -145,9 +238,9 @@ bool Document::ParseChar(Environment &env, Signal sig, char ch)
 	}
 	case STAT_Line: {
 		if (ch == '*') {
-			if (!_str.empty()) {
-				//_pDispatcher->OnSpan(this);
-				_str.clear();
+			if (!_text.empty()) {
+				_pItemOwner->push_back(new Item(Item::TYPE_Normal, _text));
+				_text.clear();
 			}
 			_stat = STAT_EmphasisPre;
 		} else if (ch == '\n') {
@@ -156,7 +249,7 @@ bool Document::ParseChar(Environment &env, Signal sig, char ch)
 			continueFlag = true;
 			_stat = STAT_LineTop;
 		} else {
-			_str += ch;
+			_text += ch;
 		}
 		break;
 	}
@@ -173,37 +266,37 @@ bool Document::ParseChar(Environment &env, Signal sig, char ch)
 	}
 	case STAT_Emphasis: {
 		if (ch == '*') {
-			if (!_str.empty()) {
-				//_pDispatcher->OnEmphasis(this);
-				_str.clear();
+			if (!_text.empty()) {
+				_pItemOwner->push_back(new Item(Item::TYPE_Emphasis, _text));
+				_text.clear();
 			}
 			_stat = STAT_Line;
 		} else if (ch == '\n' || ch == '\0') {
-			if (!_str.empty()) {
-				//_pDispatcher->OnEmphasis(this);
-				_str.clear();
+			if (!_text.empty()) {
+				_pItemOwner->push_back(new Item(Item::TYPE_Emphasis, _text));
+				_text.clear();
 			}
 			_stat = STAT_LineTop;
 		} else {
-			_str += ch;
+			_text += ch;
 		}
 		break;
 	}
 	case STAT_Strong: {
 		if (ch == '*') {
-			if (!_str.empty()) {
-				//_pDispatcher->OnStrong(this);
-				_str.clear();
+			if (!_text.empty()) {
+				_pItemOwner->push_back(new Item(Item::TYPE_Strong, _text));
+				_text.clear();
 			}
 			_stat = STAT_StrongEnd;
 		} else if (ch == '\n' || ch == '\0') {
-			if (!_str.empty()) {
-				//_pDispatcher->OnStrong(this);
-				_str.clear();
+			if (!_text.empty()) {
+				_pItemOwner->push_back(new Item(Item::TYPE_Strong, _text));
+				_text.clear();
 			}
 			_stat = STAT_LineTop;
 		} else {
-			_str += ch;
+			_text += ch;
 		}
 		break;
 	}
@@ -241,6 +334,7 @@ Gura_ImplementFunction(test)
 		if (!doc.ParseChar(env, sig, ch)) return false;
 		if (chRaw < 0) break;
 	}
+	doc.GetItemRoot()->Print(0);
 	return Value::Null;
 }
 
