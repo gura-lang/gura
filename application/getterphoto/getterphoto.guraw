@@ -148,19 +148,19 @@ Page_Getter = class(wx.Panel) {
 		}
 		pathNames = path.dir(dirName, main.patternImgList*,
 								main.patternAviList*):icase:file:list
-		this.listFileNames.pathNames:public = pathNames
+		this.pathNames = pathNames
 		pathNames.each {|pathName, idx|
 			wx.ListItem {|item|
 				item.SetId(idx)
 				item.SetText(path.filename(pathName))
-				item.SetImage(0)
+				item.SetImage(App.IMG_Image)
 				this.listFileNames.InsertItem(item)
 			}
 		}
 		this.btnGetPhoto.Enable(!pathNames.isempty())
 	}
 	GetPhoto(dirNameDstBase:string, index:number):map = {
-		pathName = this.listFileNames.pathNames[index]
+		pathName = this.pathNames[index]
 		pathNameDst = MakeUniqPathName(pathName, dirNameDstBase, true)
 		!pathNameDst && return
 		item = wx.ListItem()
@@ -239,6 +239,24 @@ Page_Stamper = class(wx.Panel) {
 				ctrl.SetColumnWidth(1, width)
 				event.Skip()
 			}
+			ctrl.Bind(wx.EVT_LEFT_DOWN) {|event|
+				[idx, flags, subitem] = ctrl.HitTest(event.GetPosition())
+				if (flags == wx.LIST_HITTEST_ONITEMICON) {
+					checkSymbol = this.checkSymbolTbl[idx]
+					if (checkSymbol != `disabled) {
+						checkSymbol = cond(checkSymbol == `checked,
+														`unchecked, `checked)
+						this.checkSymbolTbl[idx] = checkSymbol
+						wx.ListItem {|item|
+							item.SetId(idx)
+							item.SetImage(cond(checkSymbol == `checked,
+										App.IMG_BoxChecked, App.IMG_BoxUnckecked))
+							this.listFileNames.SetItem(item)
+						}
+					}
+				}
+				event.Skip()
+			}
 			this.listFileNames = ctrl
 		}
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
@@ -246,8 +264,10 @@ Page_Stamper = class(wx.Panel) {
 			wx.Button(this, wx.ID_ANY, 'Do Rename') {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Centre())
 				ctrl.Bind(wx.EVT_BUTTON) {
-					//this.UpdateSourceDirNames()
+					this.DoRename()
+					this.UpdateFileNames()
 				}
+				this.btnDoRename = ctrl
 			}
 		}
 		this.textTargetDirName.SetValue(main.cfg['dirNameStamperTgt'])
@@ -255,30 +275,46 @@ Page_Stamper = class(wx.Panel) {
 	}
 	UpdateFileNames() = {
 		this.listFileNames.DeleteAllItems()
+		this.checkSymbolTbl = []
 		dirName = this.textTargetDirName.GetValue()
 		if (dirName == '') {
-			//this.btnGetPhoto.Enable(false)
+			this.btnDoRename.Enable(false)
 			return
 		}
 		pathNames = path.dir(dirName, main.patternImgList*,
 								main.patternAviList*):icase:file:list
-		this.listFileNames.pathNames:public = pathNames
+		this.pathNames = pathNames
 		pathNames.each {|pathName, idx|
-			pathNameDst = MakeUniqPathName(pathName, dirName, false)
+			fileName = path.filename(pathName)
+			renameFlag = !fileName.match(r'\d{4}_\d{2}\d{2}_\d{2}\d{2}\d{2}[A-Z][A-Z]')
+			this.checkSymbolTbl.add(cond(renameFlag, `checked, `disabled))
 			wx.ListItem {|item|
 				item.SetId(idx)
-				item.SetText(path.filename(pathName))
-				item.SetImage(0)
+				item.SetText(fileName)
+				item.SetImage(cond(renameFlag,
+							App.IMG_BoxChecked, App.IMG_BoxDisabled))
 				this.listFileNames.InsertItem(item)
 			}
+			!renameFlag && continue
+			pathNameDst = MakeUniqPathName(pathName, dirName, false)
+			fileNameDst = path.filename(pathNameDst)
 			wx.ListItem {|item|
 				item.SetId(idx)
 				item.SetColumn(1)
-				item.SetText(path.filename(pathNameDst))
+				item.SetText(fileNameDst)
 				this.listFileNames.SetItem(item)
 			}
 		}
-		//this.btnGetPhoto.Enable(!pathNames.isempty())
+		this.btnDoRename.Enable(!this.checkSymbolTbl.isempty() && \
+								(this.checkSymbolTbl == `checked).or())
+	}
+	DoRename() = {
+		this.pathNames.each {|pathName, idx|
+			(this.checkSymbolTbl[idx] != `checked) && continue
+			[dirName, fileName] = path.split(pathName)
+			pathNameDst = MakeUniqPathName(pathName, dirName, false)
+			fs.rename(pathName, pathNameDst)
+		}
 	}
 }
 
@@ -292,8 +328,8 @@ Panel = class(wx.Panel) {
 		wx.Notebook(this, wx.ID_ANY) {|note|
 			note.SetPadding(wx.Size(8, 4))
 			outerBox.Add(note, wx.SizerFlags(1).Expand())
-			note.AddPage(Page_Stamper(note), 'Stamper', false, -1)
 			note.AddPage(Page_Getter(note), 'Getter', false, -1)
+			note.AddPage(Page_Stamper(note), 'Stamper', false, -1)
 		}
 	}
 }
@@ -326,7 +362,10 @@ Frame = class(wx.Frame) {
 App = class(wx.App) {
 	OnInit() = {
 		App.imageList:public = wx.ImageList(16, 16, true)
-		App.imageList.Add(wx.BitmapFromXPMData(imageicon_xpm))
+		App.IMG_Image:public = App.imageList.Add(wx.BitmapFromXPMData(Image_xpm))
+		App.IMG_BoxChecked:public = App.imageList.Add(wx.BitmapFromXPMData(BoxChecked_xpm))
+		App.IMG_BoxUnckecked:public = App.imageList.Add(wx.BitmapFromXPMData(BoxUnchecked_xpm))
+		App.IMG_BoxDisabled:public = App.imageList.Add(wx.BitmapFromXPMData(BoxDisabled_xpm))
 		frame = Frame(nil)
 		//wx.StatusBar(frame)
 		frame.Show()
@@ -866,7 +905,7 @@ mainicon_xpm = @{
 "                                                                ",
 };
 
-imageicon_xpm = @{
+Image_xpm = @{
 "16 16 28 2 0 0",
 "   c None",
 "!  c #000000",
@@ -911,6 +950,78 @@ imageicon_xpm = @{
 "% & & & & & & & & & & & & & & ' ",
 "$ ' ' ' ' ' ' ' ' ' ' ' ' ' ' $ ",
 "                                ",
+"                                ",
+}
+
+BoxChecked_xpm = @{
+"16 16 4 2 0 0",
+"   c None",
+"!  c #000000",
+"#  c #ff0000",
+"$  c #ffffff",
+"                                ",
+"  ! ! ! ! ! ! ! ! ! ! ! ! ! !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ ! $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ ! ! $ $ !   ",
+"  ! $ $ $ ! $ $ $ ! ! ! $ $ !   ",
+"  ! $ $ $ ! ! $ ! ! ! $ $ $ !   ",
+"  ! $ $ $ ! ! ! ! ! $ $ $ $ !   ",
+"  ! $ $ $ $ ! ! ! $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ ! $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! ! ! ! ! ! ! ! ! ! ! ! ! !   ",
+"                                ",
+}
+
+BoxUnchecked_xpm = @{
+"16 16 4 2 0 0",
+"   c None",
+"!  c #000000",
+"#  c #ff0000",
+"$  c #ffffff",
+"                                ",
+"  ! ! ! ! ! ! ! ! ! ! ! ! ! !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! ! ! ! ! ! ! ! ! ! ! ! ! !   ",
+"                                ",
+}
+
+BoxDisabled_xpm = @{
+"16 16 4 2 0 0",
+"   c None",
+"!  c #000000",
+"#  c #ff0000",
+"$  c #c0c0c0",
+"                                ",
+"  ! ! ! ! ! ! ! ! ! ! ! ! ! !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! $ $ $ $ $ $ $ $ $ $ $ $ !   ",
+"  ! ! ! ! ! ! ! ! ! ! ! ! ! !   ",
 "                                ",
 }
 

@@ -1,0 +1,8 @@
+#!/usr/bin/gura
+import(png)
+import(xpm)
+
+path.glob('*.png') {|fileName|
+	[baseName, extName] = path.splitext(fileName)
+	image(fileName).reducecolor(`win256).setalpha(0, `red).xpmwrite(baseName + '.xpm')
+}
