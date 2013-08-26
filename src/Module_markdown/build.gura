@@ -2,4 +2,4 @@
 import(modbuild)
 
 builder = modbuild.Builder()
-builder.build('test', ['Module_test.cpp'])
+builder.build('markdown', ['Module_markdown.cpp'])
