@@ -5,14 +5,69 @@
 
 Gura_BeginModule(test)
 
-class Parser {
+//-----------------------------------------------------------------------------
+// Element
+//-----------------------------------------------------------------------------
+class Element {
+private:
+	int _cntRef;
 public:
-	class Dispatcher {
-	public:
-		virtual void OnSpan(Parser *pParser) = 0;
-		virtual void OnEmphasis(Parser *pParser) = 0;
-		virtual void OnStrong(Parser *pParser) = 0;
-	};
+	Gura_DeclareReferenceAccessor(Element);
+public:
+	Element();
+private:
+	inline ~Element() {}
+public:
+	
+};
+
+//-----------------------------------------------------------------------------
+// ElementList
+//-----------------------------------------------------------------------------
+class ElementList : public std::vector<Element *> {
+};
+
+//-----------------------------------------------------------------------------
+// ElementOwner
+//-----------------------------------------------------------------------------
+class ElementOwner : public ElementList {
+public:
+	~ElementOwner();
+	void Clear();
+};
+
+//-----------------------------------------------------------------------------
+// Element
+//-----------------------------------------------------------------------------
+Element::Element() : _cntRef(1)
+{
+}
+
+//-----------------------------------------------------------------------------
+// ElementList
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// ElementOwner
+//-----------------------------------------------------------------------------
+ElementOwner::~ElementOwner()
+{
+	Clear();
+}
+
+void ElementOwner::Clear()
+{
+	foreach (ElementOwner, ppElement, *this) {
+		Element *pElement = *ppElement;
+		Element::Delete(pElement);
+	}
+	clear();
+}
+
+//-----------------------------------------------------------------------------
+// Document
+//-----------------------------------------------------------------------------
+class Document {
 private:
 	enum Stat {
 		STAT_LineTop,
@@ -23,42 +78,20 @@ private:
 		STAT_Strong, STAT_StrongEnd,
 	};
 private:
-	Dispatcher *_pDispatcher;
 	Stat _stat;
 	String _str;
+	ElementOwner _elemOwner;
 public:
-	Parser(Dispatcher *pDispatcher);
+	Document();
 	bool ParseChar(Environment &env, Signal sig, char ch);
 	inline const char *GetString() const { return _str.c_str(); }
 };
 
-class Dispatcher : public Parser::Dispatcher {
-public:
-	virtual void OnSpan(Parser *pParser);
-	virtual void OnEmphasis(Parser *pParser);
-	virtual void OnStrong(Parser *pParser);
-};
-
-void Dispatcher::OnSpan(Parser *pParser)
-{
-	::printf("[Span]%s\n", pParser->GetString());
-}
-
-void Dispatcher::OnEmphasis(Parser *pParser)
-{
-	::printf("[Emphasis]%s\n", pParser->GetString());
-}
-
-void Dispatcher::OnStrong(Parser *pParser)
-{
-	::printf("[Strong]%s\n", pParser->GetString());
-}
-
-Parser::Parser(Dispatcher *pDispatcher) : _pDispatcher(pDispatcher), _stat(STAT_LineTop)
+Document::Document() : _stat(STAT_LineTop)
 {
 }
 
-bool Parser::ParseChar(Environment &env, Signal sig, char ch)
+bool Document::ParseChar(Environment &env, Signal sig, char ch)
 {
 	bool continueFlag = false;
 	do 	{
@@ -69,18 +102,18 @@ bool Parser::ParseChar(Environment &env, Signal sig, char ch)
 			
 		} else if (ch == '-') {
 			if (!_str.empty()) {
-				_pDispatcher->OnSpan(this);
+				//_pDispatcher->OnSpan(this);
 				_str.clear();
 			}
 			_stat = STAT_HyphenFirst;
 		} else if (ch == '\n') {
 			if (!_str.empty()) {
-				_pDispatcher->OnSpan(this);
+				//_pDispatcher->OnSpan(this);
 				_str.clear();
 			}
 		} else if (ch == '\0') {
 			if (!_str.empty()) {
-				_pDispatcher->OnSpan(this);
+				//_pDispatcher->OnSpan(this);
 				_str.clear();
 			}
 		} else {
@@ -113,7 +146,7 @@ bool Parser::ParseChar(Environment &env, Signal sig, char ch)
 	case STAT_Line: {
 		if (ch == '*') {
 			if (!_str.empty()) {
-				_pDispatcher->OnSpan(this);
+				//_pDispatcher->OnSpan(this);
 				_str.clear();
 			}
 			_stat = STAT_EmphasisPre;
@@ -141,13 +174,13 @@ bool Parser::ParseChar(Environment &env, Signal sig, char ch)
 	case STAT_Emphasis: {
 		if (ch == '*') {
 			if (!_str.empty()) {
-				_pDispatcher->OnEmphasis(this);
+				//_pDispatcher->OnEmphasis(this);
 				_str.clear();
 			}
 			_stat = STAT_Line;
 		} else if (ch == '\n' || ch == '\0') {
 			if (!_str.empty()) {
-				_pDispatcher->OnEmphasis(this);
+				//_pDispatcher->OnEmphasis(this);
 				_str.clear();
 			}
 			_stat = STAT_LineTop;
@@ -159,13 +192,13 @@ bool Parser::ParseChar(Environment &env, Signal sig, char ch)
 	case STAT_Strong: {
 		if (ch == '*') {
 			if (!_str.empty()) {
-				_pDispatcher->OnStrong(this);
+				//_pDispatcher->OnStrong(this);
 				_str.clear();
 			}
 			_stat = STAT_StrongEnd;
 		} else if (ch == '\n' || ch == '\0') {
 			if (!_str.empty()) {
-				_pDispatcher->OnStrong(this);
+				//_pDispatcher->OnStrong(this);
 				_str.clear();
 			}
 			_stat = STAT_LineTop;
@@ -189,9 +222,9 @@ bool Parser::ParseChar(Environment &env, Signal sig, char ch)
 }
 
 //-----------------------------------------------------------------------------
-// Gura module functions: test
+// Gura module functions: markdown
 //-----------------------------------------------------------------------------
-// test.test(stream:stream)
+// markdown.test(stream:stream)
 Gura_DeclareFunction(test)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -200,13 +233,12 @@ Gura_DeclareFunction(test)
 
 Gura_ImplementFunction(test)
 {
-	Dispatcher dispatcher;
-	Parser parser(&dispatcher);
+	Document doc;
 	Stream &stream = args.GetStream(0);
 	for (;;) {
 		int chRaw = stream.GetChar(sig);
 		char ch = (chRaw < 0)? '\0' : static_cast<UChar>(chRaw);
-		if (!parser.ParseChar(env, sig, ch)) return false;
+		if (!doc.ParseChar(env, sig, ch)) return false;
 		if (chRaw < 0) break;
 	}
 	return Value::Null;
