@@ -524,13 +524,77 @@ bool Parser::ParseChar(Signal sig, char ch)
 }
 
 //-----------------------------------------------------------------------------
+// Object_item
+//-----------------------------------------------------------------------------
+Object *Object_item::Clone() const
+{
+	return NULL;
+}
+
+bool Object_item::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	return true;
+}
+
+Value Object_item::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Value::Null;
+}
+
+Value Object_item::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Value::Null;
+}
+
+String Object_item::ToString(Signal sig, bool exprFlag)
+{
+	String rtn;
+	rtn += "<markdown.item";
+	rtn += ">";
+	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for markdown.item
+//-----------------------------------------------------------------------------
+// markdown.item#print():void
+Gura_DeclareMethod(item, print)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
+}
+
+Gura_ImplementMethod(item, print)
+{
+	Item *pItem = Object_item::GetThisObj(args)->GetItem();
+	pItem->Print(0);
+	return Value::Null;
+}
+
+//-----------------------------------------------------------------------------
+// Class implementation for markdown.item
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(item)
+{
+	Gura_AssignMethod(item, print);
+}
+
+//-----------------------------------------------------------------------------
 // Gura module functions: markdown
 //-----------------------------------------------------------------------------
-// markdown.parse(stream:stream)
+// markdown.parse(stream:stream) {block?}
 Gura_DeclareFunction(parse)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en),
+	""
+	);
 }
 
 Gura_ImplementFunction(parse)
@@ -538,8 +602,8 @@ Gura_ImplementFunction(parse)
 	Parser parser;
 	Stream &stream = args.GetStream(0);
 	parser.ParseStream(sig, stream);
-	parser.GetItemRoot()->Print(0);
-	return Value::Null;
+	Object_item *pObj = new Object_item(parser.GetItemRoot()->Reference());
+	return ReturnValue(env, sig, args, Value(pObj));
 }
 
 //-----------------------------------------------------------------------------
@@ -547,6 +611,9 @@ Gura_ImplementFunction(parse)
 //-----------------------------------------------------------------------------
 Gura_ModuleEntry()
 {
+	// class realization
+	Gura_RealizeUserClassWithoutPrepare(item, env.LookupClass(VTYPE_object));
+	Gura_UserClass(item)->Prepare(env);
 	// function assignment
 	Gura_AssignFunction(parse);
 }

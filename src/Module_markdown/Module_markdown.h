@@ -134,7 +134,6 @@ public:
 	inline static bool IsDigit(char ch) { return '0' <= ch && ch <= '9'; }
 };
 
-#if 0
 //-----------------------------------------------------------------------------
 // Class declaration for markdown.item
 //-----------------------------------------------------------------------------
@@ -146,8 +145,8 @@ private:
 public:
 	Gura_DeclareObjectAccessor(item)
 public:
-	inline Object_event(Environment &env, Event *pEvent) : Object(Gura_UserClass(event)), _pEvent(pEvent) {}
-	inline Event *GetEvent() { return _pEvent.get(); }
+	inline Object_item(Item *pItem) : Object(Gura_UserClass(item)), _pItem(pItem) {}
+	inline Item *GetItem() { return _pItem.get(); }
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
@@ -156,7 +155,6 @@ public:
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 };
-#endif
 
 }}
 
