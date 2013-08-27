@@ -1,7 +1,14 @@
 No Header
+===hoge
+
+No Header
 ---hoge
 
 -3 is less than zero
+
+No Header
+=
+=
 
 No Header
 -
@@ -19,17 +26,35 @@ No Header
   - item 4-3
 - item 5
 
+Header1
+==
+
+Header1
+===
+
+Header1
+=======
+
 Header2
 --
 
 Header2
 ---
 
+Header2
+-------
+
 Build for Windows
 -----
 Build for Windows
 
 - hoge
+
+1. first
+2. second
+33. third
+444. fourth
+5555. fifth
 
 1. Check if Visual Studio 2010 has been installed. You can use Express version as well.
 2. Run a batch file gura\src\setup-gura-guest.bat, which downloads necessary packages

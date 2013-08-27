@@ -124,7 +124,6 @@ public:
 	Document();
 	bool ParseStream(Signal sig, Stream &stream);
 	bool ParseChar(Signal sig, char ch);
-	inline ItemOwner *GetItemOwnerCur() { return _itemStack.back()->GetItemOwner(); }
 	inline Item *GetItemRoot() { return _pItemRoot.get(); }
 	inline const Item *GetItemRoot() const { return _pItemRoot.get(); }
 	inline static bool IsEOL(char ch) { return ch == '\n'; }
@@ -267,6 +266,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			_stat = STAT_Digit;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
+			Item *pItemParent = _itemStack.back();
 			if (!_text.empty()) {
 				Item *pItem = new Item(Item::TYPE_Normal, _text);
 				_pItemOwner->push_back(pItem);
@@ -274,7 +274,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			}
 			if (!_pItemOwner->empty()) {
 				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner);
-				_itemStack.back()->GetItemOwner()->push_back(pItem);
+				pItemParent->GetItemOwner()->push_back(pItem);
 				_pItemOwner = NULL;
 				if (IsEOL(ch)) _pItemOwner = new ItemOwner();
 			}
@@ -312,6 +312,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = IsEOF(ch);
 			_stat = STAT_LineTop;
 		} else if (ch == ' ' || ch == '\t') {
+			Item *pItemParent = _itemStack.back();
 			if (!_text.empty()) {
 				Item *pItem = new Item(Item::TYPE_Normal, _text);
 				_pItemOwner->push_back(pItem);
@@ -319,7 +320,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			}
 			if (!_pItemOwner->empty()) {
 				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner);
-				_itemStack.back()->GetItemOwner()->push_back(pItem);
+				pItemParent->GetItemOwner()->push_back(pItem);
 				_pItemOwner = new ItemOwner();
 			}
 			continueFlag = true;
@@ -336,6 +337,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == '=') {
 			_textAdd += ch;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
+			Item *pItemParent = _itemStack.back();
 			if (!_text.empty()) {
 				Item *pItem = new Item(Item::TYPE_Normal, _text);
 				_pItemOwner->push_back(pItem);
@@ -343,7 +345,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			}
 			if (!_pItemOwner->empty()) {
 				Item *pItem = new Item(Item::TYPE_Header1, _pItemOwner);
-				_itemStack.back()->GetItemOwner()->push_back(pItem);
+				pItemParent->GetItemOwner()->push_back(pItem);
 				_pItemOwner = new ItemOwner();
 			}
 			continueFlag = IsEOF(ch);
@@ -360,6 +362,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == '-') {
 			_textAdd += ch;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
+			Item *pItemParent = _itemStack.back();
 			if (!_text.empty()) {
 				Item *pItem = new Item(Item::TYPE_Normal, _text);
 				_pItemOwner->push_back(pItem);
@@ -367,7 +370,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			}
 			if (!_pItemOwner->empty()) {
 				Item *pItem = new Item(Item::TYPE_Header2, _pItemOwner);
-				_itemStack.back()->GetItemOwner()->push_back(pItem);
+				pItemParent->GetItemOwner()->push_back(pItem);
 				_pItemOwner = new ItemOwner();
 			}
 			continueFlag = IsEOF(ch);
@@ -395,11 +398,12 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == ' ' || ch == '\t') {
 			// nothing to do
 		} else {
-			if (_itemStack.back()->GetType() == Item::TYPE_UList) {
+			Item *pItemParent = _itemStack.back();
+			if (pItemParent->GetType() == Item::TYPE_UList) {
 				// nothing to do
 			} else {
 				Item *pItem = new Item(Item::TYPE_UList, new ItemOwner(), _indentLevel);
-				_itemStack.back()->GetItemOwner()->push_back(pItem);
+				pItemParent->GetItemOwner()->push_back(pItem);
 				_itemStack.push_back(pItem);
 			}
 			continueFlag = true;
@@ -431,6 +435,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '\t') {
 			_indentLevel += 4;
 		} else if (ch == '-' || IsEOL(ch) || IsEOF(ch)) {
+			Item *pItemParent = _itemStack.back();
 			if (!_text.empty()) {
 				Item *pItem = new Item(Item::TYPE_Normal, _text);
 				_pItemOwner->push_back(pItem);
@@ -438,7 +443,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			}
 			if (!_pItemOwner->empty()) {
 				Item *pItem = new Item(Item::TYPE_ListItem, _pItemOwner);
-				_itemStack.back()->GetItemOwner()->push_back(pItem);
+				pItemParent->GetItemOwner()->push_back(pItem);
 				_pItemOwner = new ItemOwner();
 			}
 			if (ch == '-') {
@@ -459,11 +464,12 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == ' ' || ch == '\t') {
 			// nothing to do
 		} else {
-			if (_itemStack.back()->GetType() == Item::TYPE_OList) {
+			Item *pItemParent = _itemStack.back();
+			if (pItemParent->GetType() == Item::TYPE_OList) {
 				// nothing to do
 			} else {
 				Item *pItem = new Item(Item::TYPE_OList, new ItemOwner(), _indentLevel);
-				_itemStack.back()->GetItemOwner()->push_back(pItem);
+				pItemParent->GetItemOwner()->push_back(pItem);
 				_itemStack.push_back(pItem);
 			}
 			continueFlag = true;
@@ -499,6 +505,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			_stat = STAT_OListItemPost_Digit;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
+			Item *pItemParent = _itemStack.back();
 			if (!_text.empty()) {
 				Item *pItem = new Item(Item::TYPE_Normal, _text);
 				_pItemOwner->push_back(pItem);
@@ -506,7 +513,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			}
 			if (!_pItemOwner->empty()) {
 				Item *pItem = new Item(Item::TYPE_ListItem, _pItemOwner);
-				_itemStack.back()->GetItemOwner()->push_back(pItem);
+				pItemParent->GetItemOwner()->push_back(pItem);
 				_pItemOwner = new ItemOwner();
 			}
 			_itemStack.pop_back();
@@ -523,6 +530,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (IsDigit(ch)) {
 			_textAdd += ch;
 		} else if (ch == '.') {
+			Item *pItemParent = _itemStack.back();
 			if (!_text.empty()) {
 				Item *pItem = new Item(Item::TYPE_Normal, _text);
 				_pItemOwner->push_back(pItem);
@@ -530,7 +538,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			}
 			if (!_pItemOwner->empty()) {
 				Item *pItem = new Item(Item::TYPE_ListItem, _pItemOwner);
-				_itemStack.back()->GetItemOwner()->push_back(pItem);
+				pItemParent->GetItemOwner()->push_back(pItem);
 				_pItemOwner = new ItemOwner();
 			}
 			_stat = STAT_OListItemPre;
