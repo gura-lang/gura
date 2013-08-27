@@ -296,7 +296,15 @@ bool Parser::ParseChar(Signal sig, char ch)
 		break;
 	}
 	case STAT_UListItem: {
-		if (ch == '*') {
+		if (ch == '`') {
+			if (!_text.empty()) {
+				Item *pItem = new Item(Item::TYPE_Normal, _text);
+				_pItemOwner->push_back(pItem);
+				_text.clear();
+			}
+			_statRtn = _stat;
+			_stat = STAT_InlineCode;
+		} else if (ch == '*') {
 			if (!_text.empty()) {
 				Item *pItem = new Item(Item::TYPE_Normal, _text);
 				_pItemOwner->push_back(pItem);
@@ -369,7 +377,15 @@ bool Parser::ParseChar(Signal sig, char ch)
 		break;
 	}
 	case STAT_OListItem: {
-		if (ch == '*') {
+		if (ch == '`') {
+			if (!_text.empty()) {
+				Item *pItem = new Item(Item::TYPE_Normal, _text);
+				_pItemOwner->push_back(pItem);
+				_text.clear();
+			}
+			_statRtn = _stat;
+			_stat = STAT_InlineCode;
+		} else if (ch == '*') {
 			if (!_text.empty()) {
 				Item *pItem = new Item(Item::TYPE_Normal, _text);
 				_pItemOwner->push_back(pItem);
@@ -441,7 +457,15 @@ bool Parser::ParseChar(Signal sig, char ch)
 		break;
 	}
 	case STAT_Normal: {
-		if (ch == '*') {
+		if (ch == '`') {
+			if (!_text.empty()) {
+				Item *pItem = new Item(Item::TYPE_Normal, _text);
+				_pItemOwner->push_back(pItem);
+				_text.clear();
+			}
+			_statRtn = _stat;
+			_stat = STAT_InlineCode;
+		} else if (ch == '*') {
 			if (!_text.empty()) {
 				Item *pItem = new Item(Item::TYPE_Normal, _text);
 				_pItemOwner->push_back(pItem);
@@ -452,6 +476,27 @@ bool Parser::ParseChar(Signal sig, char ch)
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			continueFlag = IsEOF(ch);
 			_stat = STAT_LineTop;
+		} else {
+			_text += ch;
+		}
+		break;
+	}
+	case STAT_InlineCode: {
+		if (ch == '`') {
+			if (!_text.empty()) {
+				Item *pItem = new Item(Item::TYPE_InlineCode, _text);
+				_pItemOwner->push_back(pItem);
+				_text.clear();
+			}
+			_stat = _statRtn;
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			if (!_text.empty()) {
+				Item *pItem = new Item(Item::TYPE_InlineCode, _text);
+				_pItemOwner->push_back(pItem);
+				_text.clear();
+			}
+			continueFlag = true;
+			_stat = _statRtn;
 		} else {
 			_text += ch;
 		}

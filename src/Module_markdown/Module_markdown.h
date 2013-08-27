@@ -116,6 +116,7 @@ private:
 		STAT_OListItemPost,
 		STAT_OListItemPost_Digit,
 		STAT_Normal,
+		STAT_InlineCode,
 		STAT_EmphasisPre,
 		STAT_Emphasis,
 		STAT_Strong,
