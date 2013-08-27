@@ -13,13 +13,16 @@ class ItemOwner;
 class Item {
 public:
 	enum Type {
-		TYPE_Root,
-		TYPE_Paragraph,
-		TYPE_Normal,
-		TYPE_Emphasis,
-		TYPE_Strong,
-		TYPE_InlineCode,
-		TYPE_BlockCode,
+		TYPE_Root,			// container
+		TYPE_Paragraph,		// container
+		TYPE_Normal,		// text
+		TYPE_Emphasis,		// text
+		TYPE_Strong,		// text
+		TYPE_InlineCode,	// text
+		TYPE_BlockCode,		// container
+		TYPE_OrderedList,	// container
+		TYPE_UnorderedList,	// container
+		TYPE_ListItem,		// text
 	};
 private:
 	int _cntRef;
@@ -36,6 +39,7 @@ private:
 public:
 	inline const Type GetType() const { return _type; }
 	inline bool IsOwner() const { return !_pItemOwner.IsNull(); }
+	inline void SetItemOwner(ItemOwner *pItemOwner) { _pItemOwner.reset(pItemOwner); }
 	inline ItemOwner *GetItemOwner() { return _pItemOwner.get(); }
 	inline const ItemOwner *GetItemOwner() const { return _pItemOwner.get(); }
 	inline const char *GetText() const {
@@ -68,6 +72,43 @@ private:
 public:
 	void Clear();
 	void Store(const ItemList &itemList);
+};
+
+//-----------------------------------------------------------------------------
+// ItemStack
+//-----------------------------------------------------------------------------
+class ItemStack : public ItemList {
+};
+
+//-----------------------------------------------------------------------------
+// Document
+//-----------------------------------------------------------------------------
+class Document {
+private:
+	enum Stat {
+		STAT_LineTop,
+		STAT_LineHead,
+		STAT_HyphenFirst,
+		STAT_ItemPre,
+		STAT_Line,
+		STAT_EmphasisPre, STAT_Emphasis,
+		STAT_Strong, STAT_StrongEnd,
+	};
+private:
+	Stat _stat;
+	int _cntHeadSpace;
+	String _text;
+	AutoPtr<Item> _pItemRoot;
+	ItemOwner *_pItemOwner;
+	ItemStack _itemStack;
+public:
+	Document();
+	bool ParseStream(Signal sig, Stream &stream);
+	bool ParseChar(Signal sig, char ch);
+	inline Item *GetItemRoot() { return _pItemRoot.get(); }
+	inline const Item *GetItemRoot() const { return _pItemRoot.get(); }
+	inline static bool IsEOL(char ch) { return ch == '\n'; }
+	inline static bool IsEOF(char ch) { return ch == '\0'; }
 };
 
 //-----------------------------------------------------------------------------
@@ -153,62 +194,65 @@ void ItemOwner::Store(const ItemList &itemList)
 //-----------------------------------------------------------------------------
 // Document
 //-----------------------------------------------------------------------------
-class Document {
-private:
-	enum Stat {
-		STAT_LineTop,
-		STAT_HyphenFirst,
-		STAT_ItemPre,
-		STAT_Line,
-		STAT_EmphasisPre, STAT_Emphasis,
-		STAT_Strong, STAT_StrongEnd,
-	};
-private:
-	Stat _stat;
-	String _text;
-	AutoPtr<Item> _pItemRoot;
-	ItemOwner *_pItemOwner;
-public:
-	Document();
-	bool ParseChar(Environment &env, Signal sig, char ch);
-	inline Item *GetItemRoot() { return _pItemRoot.get(); }
-	inline const Item *GetItemRoot() const { return _pItemRoot.get(); }
-};
-
-//-----------------------------------------------------------------------------
-// Document
-//-----------------------------------------------------------------------------
-Document::Document() : _stat(STAT_LineTop), _pItemOwner(NULL)
+Document::Document() : _stat(STAT_LineTop), _cntHeadSpace(0), _pItemOwner(NULL)
 {
+	_pItemRoot.reset(new Item(Item::TYPE_Root, new ItemOwner()));
 	_pItemOwner = new ItemOwner();
-	_pItemRoot.reset(new Item(Item::TYPE_Root, _pItemOwner));
+	_itemStack.push_back(_pItemRoot.get());
 }
 
-bool Document::ParseChar(Environment &env, Signal sig, char ch)
+bool Document::ParseStream(Signal sig, Stream &stream)
+{
+	for (;;) {
+		int chRaw = stream.GetChar(sig);
+		char ch = (chRaw < 0)? '\0' : static_cast<UChar>(chRaw);
+		if (!ParseChar(sig, ch)) return false;
+		if (chRaw < 0) break;
+	}
+}
+
+bool Document::ParseChar(Signal sig, char ch)
 {
 	bool continueFlag = false;
 	do 	{
 	continueFlag = false;
 	switch (_stat) {
 	case STAT_LineTop: {
-		if (ch == ' ' || ch == '\t') {
-			
+		_cntHeadSpace = 0;
+		continueFlag = true;
+		_stat = STAT_LineHead;
+		break;
+	}
+	case STAT_LineHead: {
+		if (ch == ' ' ) {
+			_cntHeadSpace += 1;
+		} else if (ch == '\t') {
+			_cntHeadSpace += 4;
 		} else if (ch == '-') {
 			if (!_text.empty()) {
-				_pItemOwner->push_back(new Item(Item::TYPE_Normal, _text));
+				Item *pItem = new Item(Item::TYPE_Normal, _text);
+				_pItemOwner->push_back(pItem);
 				_text.clear();
 			}
 			_stat = STAT_HyphenFirst;
-		} else if (ch == '\n') {
+		} else if (IsEOL(ch)) {
 			if (!_text.empty()) {
-				_pItemOwner->push_back(new Item(Item::TYPE_Normal, _text));
+				Item *pItem = new Item(Item::TYPE_Normal, _text);
+				_pItemOwner->push_back(pItem);
 				_text.clear();
 			}
-		} else if (ch == '\0') {
+			if (!_pItemOwner->empty()) {
+				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner);
+				_pItemOwner = new ItemOwner();
+				_pItemOwner->push_back(pItem);
+			}
+		} else if (IsEOF(ch)) {
 			if (!_text.empty()) {
-				_pItemOwner->push_back(new Item(Item::TYPE_Normal, _text));
+				Item *pItem = new Item(Item::TYPE_Normal, _text);
+				_pItemOwner->push_back(pItem);
 				_text.clear();
 			}
+			_pItemRoot->SetItemOwner(_pItemOwner);
 		} else {
 			if (!_text.empty()) _text += ' ';
 			continueFlag = true;
@@ -219,7 +263,7 @@ bool Document::ParseChar(Environment &env, Signal sig, char ch)
 	case STAT_HyphenFirst: {
 		if (ch == '-') {
 			
-		} else if (ch == '\n' || ch == '\0') {
+		} else if (IsEOL(ch) || IsEOF(ch)) {
 			_stat = STAT_LineTop;
 		} else {
 			continueFlag = true;
@@ -239,13 +283,14 @@ bool Document::ParseChar(Environment &env, Signal sig, char ch)
 	case STAT_Line: {
 		if (ch == '*') {
 			if (!_text.empty()) {
-				_pItemOwner->push_back(new Item(Item::TYPE_Normal, _text));
+				Item *pItem = new Item(Item::TYPE_Normal, _text);
+				_pItemOwner->push_back(pItem);
 				_text.clear();
 			}
 			_stat = STAT_EmphasisPre;
-		} else if (ch == '\n') {
+		} else if (IsEOL(ch)) {
 			_stat = STAT_LineTop;
-		} else if (ch == '\0') {
+		} else if (IsEOF(ch)) {
 			continueFlag = true;
 			_stat = STAT_LineTop;
 		} else {
@@ -256,7 +301,7 @@ bool Document::ParseChar(Environment &env, Signal sig, char ch)
 	case STAT_EmphasisPre: {
 		if (ch == '*') {
 			_stat = STAT_Strong;
-		} else if (ch == '\n' || ch == '\0') {
+		} else if (IsEOL(ch) || IsEOF(ch)) {
 			_stat = STAT_LineTop;
 		} else {
 			continueFlag = true;
@@ -267,13 +312,15 @@ bool Document::ParseChar(Environment &env, Signal sig, char ch)
 	case STAT_Emphasis: {
 		if (ch == '*') {
 			if (!_text.empty()) {
-				_pItemOwner->push_back(new Item(Item::TYPE_Emphasis, _text));
+				Item *pItem = new Item(Item::TYPE_Emphasis, _text);
+				_pItemOwner->push_back(pItem);
 				_text.clear();
 			}
 			_stat = STAT_Line;
-		} else if (ch == '\n' || ch == '\0') {
+		} else if (IsEOL(ch) || IsEOF(ch)) {
 			if (!_text.empty()) {
-				_pItemOwner->push_back(new Item(Item::TYPE_Emphasis, _text));
+				Item *pItem = new Item(Item::TYPE_Emphasis, _text);
+				_pItemOwner->push_back(pItem);
 				_text.clear();
 			}
 			_stat = STAT_LineTop;
@@ -285,13 +332,15 @@ bool Document::ParseChar(Environment &env, Signal sig, char ch)
 	case STAT_Strong: {
 		if (ch == '*') {
 			if (!_text.empty()) {
-				_pItemOwner->push_back(new Item(Item::TYPE_Strong, _text));
+				Item *pItem = new Item(Item::TYPE_Strong, _text);
+				_pItemOwner->push_back(pItem);
 				_text.clear();
 			}
 			_stat = STAT_StrongEnd;
-		} else if (ch == '\n' || ch == '\0') {
+		} else if (IsEOL(ch) || IsEOF(ch)) {
 			if (!_text.empty()) {
-				_pItemOwner->push_back(new Item(Item::TYPE_Strong, _text));
+				Item *pItem = new Item(Item::TYPE_Strong, _text);
+				_pItemOwner->push_back(pItem);
 				_text.clear();
 			}
 			_stat = STAT_LineTop;
@@ -328,12 +377,7 @@ Gura_ImplementFunction(test)
 {
 	Document doc;
 	Stream &stream = args.GetStream(0);
-	for (;;) {
-		int chRaw = stream.GetChar(sig);
-		char ch = (chRaw < 0)? '\0' : static_cast<UChar>(chRaw);
-		if (!doc.ParseChar(env, sig, ch)) return false;
-		if (chRaw < 0) break;
-	}
+	doc.ParseStream(sig, stream);
 	doc.GetItemRoot()->Print(0);
 	return Value::Null;
 }
