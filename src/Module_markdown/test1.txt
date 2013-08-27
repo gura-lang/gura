@@ -1,4 +1,4 @@
-Initializes SDL. This should be called before all other SDL functions.
+Initializes *SDL*. This **should** be called before all other SDL functions.
 The flags parameter specifies what part(s) of SDL to initialize.
 
 Check if Visual Studio 2010 has been installed. You can use Express version as well.

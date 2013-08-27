@@ -22,13 +22,14 @@ public:
 		TYPE_BlockCode,		// container
 		TYPE_OrderedList,	// container
 		TYPE_UnorderedList,	// container
-		TYPE_ListItem,		// text
+		TYPE_ListItem,		// container
 	};
 private:
 	int _cntRef;
 	Type _type;
 	AutoPtr<ItemOwner> _pItemOwner;
 	std::auto_ptr<String> _pText;
+	int _indentLevel;
 public:
 	Gura_DeclareReferenceAccessor(Item);
 public:
@@ -45,6 +46,8 @@ public:
 	inline const char *GetText() const {
 		return (_pText.get() == NULL)? NULL : _pText->c_str();
 	}
+	inline void SetIndentLevel(int indentLevel) { _indentLevel = indentLevel; }
+	inline int GetIndentLeve() const { return _indentLevel; }
 	const char *GetTypeName() const;
 	void Print(int indentLevel) const;
 };
@@ -89,14 +92,16 @@ private:
 		STAT_LineTop,
 		STAT_LineHead,
 		STAT_HyphenFirst,
-		STAT_ItemPre,
-		STAT_Line,
+		STAT_ListItemPre,
+		STAT_ListItem,
+		STAT_Normal,
 		STAT_EmphasisPre, STAT_Emphasis,
 		STAT_Strong, STAT_StrongEnd,
 	};
 private:
 	Stat _stat;
-	int _cntHeadSpace;
+	Stat _statRtn;
+	int _indentLevel;
 	String _text;
 	AutoPtr<Item> _pItemRoot;
 	ItemOwner *_pItemOwner;
@@ -105,6 +110,7 @@ public:
 	Document();
 	bool ParseStream(Signal sig, Stream &stream);
 	bool ParseChar(Signal sig, char ch);
+	inline ItemOwner *GetItemOwnerCur() { return _itemStack.back()->GetItemOwner(); }
 	inline Item *GetItemRoot() { return _pItemRoot.get(); }
 	inline const Item *GetItemRoot() const { return _pItemRoot.get(); }
 	inline static bool IsEOL(char ch) { return ch == '\n'; }
@@ -115,12 +121,12 @@ public:
 // Item
 //-----------------------------------------------------------------------------
 Item::Item(Type type, ItemOwner *pItemOwner) : _cntRef(1),
-							_type(type), _pItemOwner(pItemOwner)
+					_type(type), _pItemOwner(pItemOwner), _indentLevel(0)
 {
 }
 
 Item::Item(Type type, const String &text) : _cntRef(1),
-							_type(type), _pText(new String(text))
+					_type(type), _pText(new String(text)), _indentLevel(0)
 {
 }
 
@@ -151,7 +157,7 @@ void Item::Print(int indentLevel) const
 		_pItemOwner->Print(indentLevel + 1);
 	}
 	if (_pText.get() != NULL) {
-		::printf("%*s[%s]%s\n", indentLevel * 2, "", GetTypeName(), GetText());
+		::printf("%*s[%s]'%s'\n", indentLevel * 2, "", GetTypeName(), GetText());
 	}
 }
 
@@ -194,7 +200,8 @@ void ItemOwner::Store(const ItemList &itemList)
 //-----------------------------------------------------------------------------
 // Document
 //-----------------------------------------------------------------------------
-Document::Document() : _stat(STAT_LineTop), _cntHeadSpace(0), _pItemOwner(NULL)
+Document::Document() : _stat(STAT_LineTop), _statRtn(STAT_LineTop),
+											_indentLevel(0), _pItemOwner(NULL)
 {
 	_pItemRoot.reset(new Item(Item::TYPE_Root, new ItemOwner()));
 	_pItemOwner = new ItemOwner();
@@ -218,16 +225,16 @@ bool Document::ParseChar(Signal sig, char ch)
 	continueFlag = false;
 	switch (_stat) {
 	case STAT_LineTop: {
-		_cntHeadSpace = 0;
+		_indentLevel = 0;
 		continueFlag = true;
 		_stat = STAT_LineHead;
 		break;
 	}
 	case STAT_LineHead: {
 		if (ch == ' ' ) {
-			_cntHeadSpace += 1;
+			_indentLevel += 1;
 		} else if (ch == '\t') {
-			_cntHeadSpace += 4;
+			_indentLevel += 4;
 		} else if (ch == '-') {
 			if (!_text.empty()) {
 				Item *pItem = new Item(Item::TYPE_Normal, _text);
@@ -243,8 +250,8 @@ bool Document::ParseChar(Signal sig, char ch)
 			}
 			if (!_pItemOwner->empty()) {
 				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner);
+				_itemStack.back()->GetItemOwner()->push_back(pItem);
 				_pItemOwner = new ItemOwner();
-				_pItemOwner->push_back(pItem);
 			}
 		} else if (IsEOF(ch)) {
 			if (!_text.empty()) {
@@ -252,11 +259,15 @@ bool Document::ParseChar(Signal sig, char ch)
 				_pItemOwner->push_back(pItem);
 				_text.clear();
 			}
-			_pItemRoot->SetItemOwner(_pItemOwner);
+			if (!_pItemOwner->empty()) {
+				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner);
+				_itemStack.back()->GetItemOwner()->push_back(pItem);
+				_pItemOwner = NULL;
+			}
 		} else {
 			if (!_text.empty()) _text += ' ';
 			continueFlag = true;
-			_stat = STAT_Line;
+			_stat = STAT_Normal;
 		}
 		break;
 	}
@@ -267,26 +278,53 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_LineTop;
 		} else {
 			continueFlag = true;
-			_stat = STAT_ItemPre;
+			_stat = STAT_ListItemPre;
 		}
 		break;
 	}
-	case STAT_ItemPre: {
+	case STAT_ListItemPre: {
 		if (ch == ' ' || ch == '\t') {
 			// nothing to do
 		} else {
 			continueFlag = true;
-			_stat = STAT_Line;
+			_stat = STAT_ListItem;
 		}
 		break;
 	}
-	case STAT_Line: {
+	case STAT_ListItem: {
 		if (ch == '*') {
 			if (!_text.empty()) {
 				Item *pItem = new Item(Item::TYPE_Normal, _text);
 				_pItemOwner->push_back(pItem);
 				_text.clear();
 			}
+			_statRtn = _stat;
+			_stat = STAT_EmphasisPre;
+		} else if (IsEOL(ch)) {
+			_stat = STAT_LineTop;
+		} else if (IsEOF(ch)) {
+			if (!_text.empty()) {
+				Item *pItem = new Item(Item::TYPE_Normal, _text);
+				_pItemOwner->push_back(pItem);
+				_text.clear();
+			}
+			
+			
+			continueFlag = true;
+			_stat = STAT_LineTop;
+		} else {
+			_text += ch;
+		}
+		break;
+	}
+	case STAT_Normal: {
+		if (ch == '*') {
+			if (!_text.empty()) {
+				Item *pItem = new Item(Item::TYPE_Normal, _text);
+				_pItemOwner->push_back(pItem);
+				_text.clear();
+			}
+			_statRtn = _stat;
 			_stat = STAT_EmphasisPre;
 		} else if (IsEOL(ch)) {
 			_stat = STAT_LineTop;
@@ -302,7 +340,8 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == '*') {
 			_stat = STAT_Strong;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			_stat = STAT_LineTop;
+			continueFlag = true;
+			_stat = _statRtn;
 		} else {
 			continueFlag = true;
 			_stat = STAT_Emphasis;
@@ -316,14 +355,15 @@ bool Document::ParseChar(Signal sig, char ch)
 				_pItemOwner->push_back(pItem);
 				_text.clear();
 			}
-			_stat = STAT_Line;
+			_stat = _statRtn;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			if (!_text.empty()) {
 				Item *pItem = new Item(Item::TYPE_Emphasis, _text);
 				_pItemOwner->push_back(pItem);
 				_text.clear();
 			}
-			_stat = STAT_LineTop;
+			continueFlag = true;
+			_stat = _statRtn;
 		} else {
 			_text += ch;
 		}
@@ -343,7 +383,8 @@ bool Document::ParseChar(Signal sig, char ch)
 				_pItemOwner->push_back(pItem);
 				_text.clear();
 			}
-			_stat = STAT_LineTop;
+			continueFlag = true;
+			_stat = _statRtn;
 		} else {
 			_text += ch;
 		}
@@ -351,10 +392,10 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_StrongEnd: {
 		if (ch == '*') {
-			_stat = STAT_Line;
+			_stat = _statRtn;
 		} else {
 			continueFlag = true;
-			_stat = STAT_Line;
+			_stat = _statRtn;
 		}
 		break;
 	}
