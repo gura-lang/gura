@@ -89,9 +89,9 @@ class ItemStack : public ItemList {
 };
 
 //-----------------------------------------------------------------------------
-// Document
+// Parser
 //-----------------------------------------------------------------------------
-class Document {
+class Parser {
 private:
 	enum Stat {
 		STAT_LineTop,
@@ -124,7 +124,7 @@ private:
 	ItemOwner *_pItemOwner;
 	ItemStack _itemStack;
 public:
-	Document();
+	Parser();
 	bool ParseStream(Signal sig, Stream &stream);
 	bool ParseChar(Signal sig, char ch);
 	inline Item *GetItemRoot() { return _pItemRoot.get(); }

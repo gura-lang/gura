@@ -91,9 +91,9 @@ void ItemOwner::Store(const ItemList &itemList)
 }
 
 //-----------------------------------------------------------------------------
-// Document
+// Parser
 //-----------------------------------------------------------------------------
-Document::Document() : _stat(STAT_LineTop), _statRtn(STAT_LineTop),
+Parser::Parser() : _stat(STAT_LineTop), _statRtn(STAT_LineTop),
 											_indentLevel(0), _pItemOwner(NULL)
 {
 	_pItemRoot.reset(new Item(Item::TYPE_Root, new ItemOwner()));
@@ -101,7 +101,7 @@ Document::Document() : _stat(STAT_LineTop), _statRtn(STAT_LineTop),
 	_itemStack.push_back(_pItemRoot.get());
 }
 
-bool Document::ParseStream(Signal sig, Stream &stream)
+bool Parser::ParseStream(Signal sig, Stream &stream)
 {
 	for (;;) {
 		int chRaw = stream.GetChar(sig);
@@ -111,7 +111,7 @@ bool Document::ParseStream(Signal sig, Stream &stream)
 	}
 }
 
-bool Document::ParseChar(Signal sig, char ch)
+bool Parser::ParseChar(Signal sig, char ch)
 {
 	bool continueFlag = false;
 	do 	{
@@ -526,19 +526,19 @@ bool Document::ParseChar(Signal sig, char ch)
 //-----------------------------------------------------------------------------
 // Gura module functions: markdown
 //-----------------------------------------------------------------------------
-// markdown.test(stream:stream)
-Gura_DeclareFunction(test)
+// markdown.parse(stream:stream)
+Gura_DeclareFunction(parse)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream);
 }
 
-Gura_ImplementFunction(test)
+Gura_ImplementFunction(parse)
 {
-	Document doc;
+	Parser parser;
 	Stream &stream = args.GetStream(0);
-	doc.ParseStream(sig, stream);
-	doc.GetItemRoot()->Print(0);
+	parser.ParseStream(sig, stream);
+	parser.GetItemRoot()->Print(0);
 	return Value::Null;
 }
 
@@ -548,7 +548,7 @@ Gura_ImplementFunction(test)
 Gura_ModuleEntry()
 {
 	// function assignment
-	Gura_AssignFunction(test);
+	Gura_AssignFunction(parse);
 }
 
 Gura_ModuleTerminate()
