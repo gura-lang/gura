@@ -41,6 +41,7 @@ private:
 	inline ~Item() {}
 public:
 	inline const Type GetType() const { return _type; }
+	inline bool IsList() const { return _type == TYPE_UList || _type == TYPE_OList; }
 	inline bool IsOwner() const { return !_pItemOwner.IsNull(); }
 	inline void SetItemOwner(ItemOwner *pItemOwner) { _pItemOwner.reset(pItemOwner); }
 	inline ItemOwner *GetItemOwner() { return _pItemOwner.get(); }
@@ -49,7 +50,7 @@ public:
 		return (_pText.get() == NULL)? NULL : _pText->c_str();
 	}
 	inline void SetIndentLevel(int indentLevel) { _indentLevel = indentLevel; }
-	inline int GetIndentLeve() const { return _indentLevel; }
+	inline int GetIndentLevel() const { return _indentLevel; }
 	const char *GetTypeName() const;
 	void Print(int indentLevel) const;
 };
@@ -400,7 +401,15 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else {
 			Item *pItemParent = _itemStack.back();
 			if (pItemParent->GetType() == Item::TYPE_UList) {
-				// nothing to do
+				while (_indentLevel < pItemParent->GetIndentLevel()) {
+					_itemStack.pop_back();
+					pItemParent = _itemStack.back();
+				}
+				if (_indentLevel > pItemParent->GetIndentLevel()) {
+					Item *pItem = new Item(Item::TYPE_UList, new ItemOwner(), _indentLevel);
+					pItemParent->GetItemOwner()->push_back(pItem);
+					_itemStack.push_back(pItem);
+				}
 			} else {
 				Item *pItem = new Item(Item::TYPE_UList, new ItemOwner(), _indentLevel);
 				pItemParent->GetItemOwner()->push_back(pItem);
@@ -449,7 +458,14 @@ bool Document::ParseChar(Signal sig, char ch)
 			if (ch == '-') {
 				_stat = STAT_UListItemPre;
 			} else {
-				_itemStack.pop_back();
+				ItemStack::iterator ppItem = _itemStack.begin();
+				foreach (ItemStack, ppItem, _itemStack) {
+					Item *pItem = *ppItem;
+					if (pItem->IsList()) {
+						_itemStack.erase(ppItem, _itemStack.end());
+						break;
+					}
+				}
 				continueFlag = IsEOF(ch);
 				_stat = STAT_LineTop;
 			}
