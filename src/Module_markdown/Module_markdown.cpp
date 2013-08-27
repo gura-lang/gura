@@ -1,136 +1,9 @@
 //-----------------------------------------------------------------------------
-// Gura test module
+// Gura markdown module
 //-----------------------------------------------------------------------------
 #include "Module_markdown.h"
 
-Gura_BeginModule(test)
-
-class ItemOwner;
-
-//-----------------------------------------------------------------------------
-// Item
-//-----------------------------------------------------------------------------
-class Item {
-public:
-	enum Type {
-		TYPE_Root,			// container
-		TYPE_Header1,		// container
-		TYPE_Header2,		// container
-		TYPE_Paragraph,		// container
-		TYPE_Normal,		// text
-		TYPE_Emphasis,		// text
-		TYPE_Strong,		// text
-		TYPE_InlineCode,	// text
-		TYPE_BlockCode,		// container
-		TYPE_OList,			// container
-		TYPE_UList,			// container
-		TYPE_ListItem,		// container
-	};
-private:
-	int _cntRef;
-	Type _type;
-	AutoPtr<ItemOwner> _pItemOwner;
-	std::auto_ptr<String> _pText;
-	int _indentLevel;
-public:
-	Gura_DeclareReferenceAccessor(Item);
-public:
-	Item(Type type, ItemOwner *pItemOwner, int indentLevel = 0);
-	Item(Type type, const String &text, int indentLevel = 0);
-private:
-	inline ~Item() {}
-public:
-	inline const Type GetType() const { return _type; }
-	inline bool IsList() const { return _type == TYPE_UList || _type == TYPE_OList; }
-	inline bool IsOwner() const { return !_pItemOwner.IsNull(); }
-	inline void SetItemOwner(ItemOwner *pItemOwner) { _pItemOwner.reset(pItemOwner); }
-	inline ItemOwner *GetItemOwner() { return _pItemOwner.get(); }
-	inline const ItemOwner *GetItemOwner() const { return _pItemOwner.get(); }
-	inline const char *GetText() const {
-		return (_pText.get() == NULL)? NULL : _pText->c_str();
-	}
-	inline void SetIndentLevel(int indentLevel) { _indentLevel = indentLevel; }
-	inline int GetIndentLevel() const { return _indentLevel; }
-	const char *GetTypeName() const;
-	void Print(int indentLevel) const;
-};
-
-//-----------------------------------------------------------------------------
-// ItemList
-//-----------------------------------------------------------------------------
-class ItemList : public std::vector<Item *> {
-public:
-	void Print(int indentLevel) const;
-};
-
-//-----------------------------------------------------------------------------
-// ItemOwner
-//-----------------------------------------------------------------------------
-class ItemOwner : public ItemList {
-public:
-	int _cntRef;
-public:
-	Gura_DeclareReferenceAccessor(ItemOwner);
-public:
-	inline ItemOwner() : _cntRef(1) {}
-private:
-	~ItemOwner();
-public:
-	void Clear();
-	void Store(const ItemList &itemList);
-};
-
-//-----------------------------------------------------------------------------
-// ItemStack
-//-----------------------------------------------------------------------------
-class ItemStack : public ItemList {
-};
-
-//-----------------------------------------------------------------------------
-// Document
-//-----------------------------------------------------------------------------
-class Document {
-private:
-	enum Stat {
-		STAT_LineTop,
-		STAT_LineHead,
-		STAT_EqualFirst,
-		STAT_HyphenFirst,
-		STAT_Header1,
-		STAT_Header2,
-		STAT_Digit,
-		STAT_UListItemPre,
-		STAT_UListItem,
-		STAT_UListItemPost,
-		STAT_OListItemPre,
-		STAT_OListItem,
-		STAT_OListItemPost,
-		STAT_OListItemPost_Digit,
-		STAT_Normal,
-		STAT_EmphasisPre,
-		STAT_Emphasis,
-		STAT_Strong,
-		STAT_StrongEnd,
-	};
-private:
-	Stat _stat;
-	Stat _statRtn;
-	int _indentLevel;
-	String _text;
-	String _textAdd;
-	AutoPtr<Item> _pItemRoot;
-	ItemOwner *_pItemOwner;
-	ItemStack _itemStack;
-public:
-	Document();
-	bool ParseStream(Signal sig, Stream &stream);
-	bool ParseChar(Signal sig, char ch);
-	inline Item *GetItemRoot() { return _pItemRoot.get(); }
-	inline const Item *GetItemRoot() const { return _pItemRoot.get(); }
-	inline static bool IsEOL(char ch) { return ch == '\n'; }
-	inline static bool IsEOF(char ch) { return ch == '\0'; }
-	inline static bool IsDigit(char ch) { return '0' <= ch && ch <= '9'; }
-};
+Gura_BeginModule(markdown)
 
 //-----------------------------------------------------------------------------
 // Item
@@ -682,6 +555,6 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModule(test, test)
+Gura_EndModule(markdown, markdown)
 
-Gura_RegisterModule(test)
+Gura_RegisterModule(markdown)
