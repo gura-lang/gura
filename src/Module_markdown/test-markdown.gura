@@ -1,4 +1,4 @@
 #!/usr/bin/env gura
 import(markdown)
 
-markdown.test('test2.txt')
+markdown.test('test3.txt')
