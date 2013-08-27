@@ -24,33 +24,35 @@ const char *Item::GetTypeName() const
 		Type type;
 		const char *name;
 	} tbl[] = {
-		{ TYPE_Root,			"Root",				},	// container
-		{ TYPE_Header1,			"Header1",			},	// container
-		{ TYPE_Header2,			"Header2",			},	// container
-		{ TYPE_Paragraph,		"Paragraph",		},	// container
-		{ TYPE_Normal,			"Normal",			},	// text
-		{ TYPE_Emphasis,		"Emphasis",			},	// text
-		{ TYPE_Strong,			"Strong",			},	// text
-		{ TYPE_InlineCode,		"InlineCode",		},	// text
-		{ TYPE_BlockCode,		"BlockCode",		},	// container
-		{ TYPE_OList,			"OList",			},	// container
-		{ TYPE_UList,			"UList",			},	// container
-		{ TYPE_ListItem,		"ListItem",			},	// container
+		{ TYPE_Root,			"root",		},	// container
+		{ TYPE_Header1,			"h1",		},	// container
+		{ TYPE_Header2,			"h2",		},	// container
+		{ TYPE_Paragraph,		"p",		},	// container
+		{ TYPE_Normal,			"normal",	},	// text
+		{ TYPE_Emphasis,		"em",		},	// text
+		{ TYPE_Strong,			"strong",	},	// text
+		{ TYPE_InlineCode,		"code",		},	// text
+		{ TYPE_BlockCode,		"pre",		},	// container
+		{ TYPE_OList,			"ol",		},	// container
+		{ TYPE_UList,			"ul",		},	// container
+		{ TYPE_ListItem,		"li",		},	// container
 	};
 	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].type == _type) return tbl[i].name;
 	}
-	return "";
+	return "?";
 }
 
 void Item::Print(int indentLevel) const
 {
-	if (!_pItemOwner.IsNull()) {
-		::printf("%*s[%s]\n", indentLevel * 2, "", GetTypeName());
-		_pItemOwner->Print(indentLevel + 1);
+	const char *typeName = GetTypeName();
+	if (_pText.get() == NULL) {
+		::printf("%*s<%s>\n", indentLevel * 2, "", typeName);
+	} else {
+		::printf("%*s<%s>'%s'\n", indentLevel * 2, "", typeName, GetText());
 	}
-	if (_pText.get() != NULL) {
-		::printf("%*s[%s]'%s'\n", indentLevel * 2, "", GetTypeName(), GetText());
+	if (!_pItemOwner.IsNull()) {
+		_pItemOwner->Print(indentLevel + 1);
 	}
 }
 
@@ -533,12 +535,30 @@ Object *Object_item::Clone() const
 
 bool Object_item::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(type));
+	symbols.insert(Gura_UserSymbol(text));
+	symbols.insert(Gura_UserSymbol(children));
 	return true;
 }
 
 Value Object_item::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {
+		return Value(Symbol::Add(_pItem->GetTypeName()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
+		const char *text = _pItem->GetText();
+		if (text == NULL) return Value::Null;
+		return Value(env, text);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(children))) {
+		const ItemOwner *pItemOwner = _pItem->GetItemOwner();
+		if (pItemOwner == NULL) return Value::Null;
+		Iterator *pIterator = new Iterator_item(pItemOwner->Reference());
+		return Value(env, pIterator);
+	}
+	evaluatedFlag = false;
 	return Value::Null;
 }
 
@@ -551,7 +571,8 @@ Value Object_item::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol
 String Object_item::ToString(Signal sig, bool exprFlag)
 {
 	String rtn;
-	rtn += "<markdown.item";
+	rtn += "<markdown.item:";
+	rtn += _pItem->GetTypeName();
 	rtn += ">";
 	return rtn;
 }
@@ -607,10 +628,49 @@ Gura_ImplementFunction(parse)
 }
 
 //-----------------------------------------------------------------------------
+// Iterator_item
+//-----------------------------------------------------------------------------
+Iterator_item::Iterator_item(ItemOwner *pItemOwner) :
+						Iterator(false), _idxItem(0), _pItemOwner(pItemOwner)
+{
+}
+
+Iterator *Iterator_item::GetSource()
+{
+	return NULL;
+}
+
+bool Iterator_item::DoNext(Environment &env, Signal sig, Value &value)
+{
+	if (_idxItem < _pItemOwner->size()) {
+		Item *pItem = (*_pItemOwner)[_idxItem++];
+		value = Value(new Object_item(pItem->Reference()));
+		return true;
+	}
+	return false;
+}
+
+String Iterator_item::ToString(Signal sig) const
+{
+	String rtn;
+	rtn += "<iterator:markdown.item";
+	rtn += ">";
+	return rtn;
+}
+
+void Iterator_item::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+}
+
+//-----------------------------------------------------------------------------
 // Module entry
 //-----------------------------------------------------------------------------
 Gura_ModuleEntry()
 {
+	// symbol realization
+	Gura_RealizeUserSymbol(type);
+	Gura_RealizeUserSymbol(text);
+	Gura_RealizeUserSymbol(children);
 	// class realization
 	Gura_RealizeUserClassWithoutPrepare(item, env.LookupClass(VTYPE_object));
 	Gura_UserClass(item)->Prepare(env);

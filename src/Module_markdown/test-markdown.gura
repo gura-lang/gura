@@ -1,6 +1,54 @@
 #!/usr/bin/env gura
 import(markdown)
 
+GenerateHTML(item:markdown.item):map:void = {
+	if (item.type == `root) {
+		print('<html>\n')
+		print('<body>\n')
+		GenerateHTML(item.children)
+		print('</body>\n')
+		print('</html>\n')
+	} elsif (item.type == `h1) {
+		print('<h1>')
+		GenerateHTML(item.children)
+		print('</h1>\n')
+	} elsif (item.type == `h2) {
+		print('<h2>')
+		GenerateHTML(item.children)
+		print('</h2>\n')
+	} elsif (item.type == `p) {
+		print('<p>\n')
+		GenerateHTML(item.children)
+		println()
+		print('</p>\n')
+	} elsif (item.type == `normal) {
+		print(item.text)
+	} elsif (item.type == `em) {
+		print('<em>', item.text, '</em>')
+	} elsif (item.type == `strong) {
+		print('<strong>', item.text, '</strong>')
+	} elsif (item.type == `code) {
+		print('<code>', item.text, '</code>')
+	} elsif (item.type == `pre) {
+		print('<pre>')
+		GenerateHTML(item.children)
+		print('</pre>\n')
+	} elsif (item.type == `ol) {
+		print('<ol>\n')
+		GenerateHTML(item.children)
+		print('</ol>\n')
+	} elsif (item.type == `ul) {
+		print('<ul>\n')
+		GenerateHTML(item.children)
+		print('</ul>\n')
+	} elsif (item.type == `li) {
+		print('<li>')
+		GenerateHTML(item.children)
+		print('</li>\n')
+	}
+}
+
 markdown.parse('test3.txt') {|item|
-	item.print()
+	GenerateHTML(item)
+	//item.print()
 }

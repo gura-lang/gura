@@ -7,6 +7,13 @@
 
 Gura_BeginModule(markdown)
 
+//-----------------------------------------------------------------------------
+// symbols
+//-----------------------------------------------------------------------------
+Gura_DeclareUserSymbol(type);
+Gura_DeclareUserSymbol(text);
+Gura_DeclareUserSymbol(children);
+
 class ItemOwner;
 
 //-----------------------------------------------------------------------------
@@ -154,6 +161,21 @@ public:
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
+};
+
+//-----------------------------------------------------------------------------
+// Iterator_item
+//-----------------------------------------------------------------------------
+class Iterator_item : public Iterator {
+private:
+	size_t _idxItem;
+	AutoPtr<ItemOwner> _pItemOwner;
+public:
+	Iterator_item(ItemOwner *pItemOwner);
+	virtual Iterator *GetSource();
+	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual String ToString(Signal sig) const;
+	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 
 }}
