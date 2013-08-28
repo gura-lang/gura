@@ -45,6 +45,9 @@ GenerateHTML(item:markdown.item):map:void = {
 		print('<li>')
 		GenerateHTML(item.children)
 		print('</li>\n')
+	} elsif (item.type == `line) {
+		GenerateHTML(item.children)
+		print('\n')
 	}
 }
 

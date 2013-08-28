@@ -34,6 +34,7 @@ public:
 		TYPE_OList,			// container
 		TYPE_UList,			// container
 		TYPE_ListItem,		// container
+		TYPE_Line,			// container
 	};
 private:
 	int _cntRef;
@@ -116,6 +117,8 @@ private:
 		STAT_OListItemPost,
 		STAT_OListItemPost_Digit,
 		STAT_Normal,
+		STAT_BlockCode,
+		STAT_BlockCode_LineTop,
 		STAT_InlineCode,
 		STAT_EmphasisPre,
 		STAT_Emphasis,

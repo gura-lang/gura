@@ -36,6 +36,7 @@ const char *Item::GetTypeName() const
 		{ TYPE_OList,			"ol",		},	// container
 		{ TYPE_UList,			"ul",		},	// container
 		{ TYPE_ListItem,		"li",		},	// container
+		{ TYPE_Line,			"line",		},	// container
 	};
 	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].type == _type) return tbl[i].name;
@@ -154,10 +155,30 @@ bool Parser::ParseChar(Signal sig, char ch)
 				_pItemOwner = NULL;
 				if (IsEOL(ch)) _pItemOwner = new ItemOwner();
 			}
-		} else {
+		} else if (_indentLevel < 4) {
 			if (!_text.empty()) _text += ' ';
 			continueFlag = true;
 			_stat = STAT_Normal;
+		} else {
+			Item *pItemParent = _itemStack.back();
+			if (!_text.empty()) {
+				Item *pItem = new Item(Item::TYPE_Normal, _text);
+				_pItemOwner->push_back(pItem);
+				_text.clear();
+			}
+			if (!_pItemOwner->empty()) {
+				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner);
+				pItemParent->GetItemOwner()->push_back(pItem);
+				_pItemOwner = NULL;
+				if (IsEOL(ch)) _pItemOwner = new ItemOwner();
+			}
+			do {
+				Item *pItem = new Item(Item::TYPE_BlockCode, new ItemOwner(), _indentLevel);
+				pItemParent->GetItemOwner()->push_back(pItem);
+				_itemStack.push_back(pItem);
+			} while (0);
+			_text += ch;
+			_stat = STAT_BlockCode;
 		}
 		break;
 	}
@@ -170,11 +191,32 @@ bool Parser::ParseChar(Signal sig, char ch)
 			_text += _textAdd;
 			continueFlag = IsEOF(ch);
 			_stat = STAT_LineTop;
-		} else {
+		} else if (_indentLevel < 4) {
 			if (!_text.empty()) _text += ' ';
 			_text += _textAdd;
 			_text += ch;
 			_stat = STAT_Normal;
+		} else {
+			Item *pItemParent = _itemStack.back();
+			if (!_text.empty()) {
+				Item *pItem = new Item(Item::TYPE_Normal, _text);
+				_pItemOwner->push_back(pItem);
+				_text.clear();
+			}
+			if (!_pItemOwner->empty()) {
+				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner);
+				pItemParent->GetItemOwner()->push_back(pItem);
+				_pItemOwner = NULL;
+				if (IsEOL(ch)) _pItemOwner = new ItemOwner();
+			}
+			_text = _textAdd;
+			_text += ch;
+			do {
+				Item *pItem = new Item(Item::TYPE_BlockCode, new ItemOwner(), _indentLevel);
+				pItemParent->GetItemOwner()->push_back(pItem);
+				_itemStack.push_back(pItem);
+			} while (0);
+			_stat = STAT_BlockCode;
 		}
 		break;
 	}
@@ -201,11 +243,32 @@ bool Parser::ParseChar(Signal sig, char ch)
 			}
 			continueFlag = true;
 			_stat = STAT_UListItemPre;
-		} else {
+		} else if (_indentLevel < 4) {
 			if (!_text.empty()) _text += ' ';
 			_text += _textAdd;
 			_text += ch;
 			_stat = STAT_Normal;
+		} else {
+			Item *pItemParent = _itemStack.back();
+			if (!_text.empty()) {
+				Item *pItem = new Item(Item::TYPE_Normal, _text);
+				_pItemOwner->push_back(pItem);
+				_text.clear();
+			}
+			if (!_pItemOwner->empty()) {
+				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner);
+				pItemParent->GetItemOwner()->push_back(pItem);
+				_pItemOwner = NULL;
+				if (IsEOL(ch)) _pItemOwner = new ItemOwner();
+			}
+			_text = _textAdd;
+			_text += ch;
+			do {
+				Item *pItem = new Item(Item::TYPE_BlockCode, new ItemOwner(), _indentLevel);
+				pItemParent->GetItemOwner()->push_back(pItem);
+				_itemStack.push_back(pItem);
+			} while (0);
+			_stat = STAT_BlockCode;
 		}
 		break;
 	}
@@ -478,6 +541,56 @@ bool Parser::ParseChar(Signal sig, char ch)
 			_stat = STAT_LineTop;
 		} else {
 			_text += ch;
+		}
+		break;
+	}
+	case STAT_BlockCode: {
+		if (ch == '`') {
+			if (!_text.empty()) {
+				Item *pItem = new Item(Item::TYPE_Normal, _text);
+				_pItemOwner->push_back(pItem);
+				_text.clear();
+			}
+			_statRtn = _stat;
+			_stat = STAT_InlineCode;
+		} else if (ch == '*') {
+			if (!_text.empty()) {
+				Item *pItem = new Item(Item::TYPE_Normal, _text);
+				_pItemOwner->push_back(pItem);
+				_text.clear();
+			}
+			_statRtn = _stat;
+			_stat = STAT_EmphasisPre;
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			Item *pItemParent = _itemStack.back();
+			do {
+				Item *pItem = new Item(Item::TYPE_Normal, _text);
+				_pItemOwner->push_back(pItem);
+				_text.clear();
+			} while (0);
+			do {
+				Item *pItem = new Item(Item::TYPE_Line, _pItemOwner);
+				pItemParent->GetItemOwner()->push_back(pItem);
+				_pItemOwner = new ItemOwner();
+			} while (0);
+			_indentLevel = 0;
+			continueFlag = IsEOF(ch);
+			_stat = STAT_BlockCode_LineTop;
+		} else {
+			_text += ch;
+		}
+		break;
+	}
+	case STAT_BlockCode_LineTop: {
+		if (ch == ' ' || ch == '\t') {
+			_indentLevel += (ch == ' ')? 1 : 4;
+			if (_indentLevel >= 4) {
+				_stat = STAT_BlockCode;
+			}
+		} else {
+			_itemStack.pop_back();
+			continueFlag = true;
+			_stat = STAT_LineTop;
 		}
 		break;
 	}
