@@ -28,6 +28,29 @@ No Header
         ------
     }
 
+paragraph
+    // just after paragraph with no space between
+    #include <stdio.h>
+    int main()
+    {
+        -3;
+        =a+2
+        return 0;
+        ======
+        hoge
+        for (int i = 0; i < 10; i++) {
+            printf("hello\n");
+        }
+        ------
+    }
+  normal text
+    void sub1()
+    {
+    }
+  
+    void sub2()
+    {
+    }
 - item 1
 - item 2
 - item 3

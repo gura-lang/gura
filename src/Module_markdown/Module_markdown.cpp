@@ -127,7 +127,7 @@ bool Parser::ParseChar(Signal sig, char ch)
 		break;
 	}
 	case STAT_LineHead: {
-		if (ch == ' ' ) {
+		if (ch == ' ') {
 			_indentLevel += 1;
 		} else if (ch == '\t') {
 			_indentLevel += 4;
@@ -169,8 +169,7 @@ bool Parser::ParseChar(Signal sig, char ch)
 			if (!_pItemOwner->empty()) {
 				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner);
 				pItemParent->GetItemOwner()->push_back(pItem);
-				_pItemOwner = NULL;
-				if (IsEOL(ch)) _pItemOwner = new ItemOwner();
+				_pItemOwner = new ItemOwner();
 			}
 			do {
 				Item *pItem = new Item(Item::TYPE_BlockCode, new ItemOwner(), _indentLevel);
@@ -206,8 +205,7 @@ bool Parser::ParseChar(Signal sig, char ch)
 			if (!_pItemOwner->empty()) {
 				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner);
 				pItemParent->GetItemOwner()->push_back(pItem);
-				_pItemOwner = NULL;
-				if (IsEOL(ch)) _pItemOwner = new ItemOwner();
+				_pItemOwner = new ItemOwner();
 			}
 			_text = _textAdd;
 			_text += ch;
@@ -258,8 +256,7 @@ bool Parser::ParseChar(Signal sig, char ch)
 			if (!_pItemOwner->empty()) {
 				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner);
 				pItemParent->GetItemOwner()->push_back(pItem);
-				_pItemOwner = NULL;
-				if (IsEOL(ch)) _pItemOwner = new ItemOwner();
+				_pItemOwner = new ItemOwner();
 			}
 			_text = _textAdd;
 			_text += ch;
