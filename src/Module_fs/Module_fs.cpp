@@ -669,7 +669,7 @@ Gura_DeclareFunction(rename)
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "src", VTYPE_string);
 	DeclareArg(env, "dst", VTYPE_string);
-	AddHelp(Gura_Symbol(en), SYN_markdown, "Renames a file or directory.");
+	AddHelp(Gura_Symbol(en), FMT_markdown, "Renames a file or directory.");
 }
 
 Gura_ImplementFunction(rename)
@@ -685,7 +685,7 @@ Gura_DeclareFunction(remove)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
-	AddHelp(Gura_Symbol(en), SYN_markdown, "Removes a file from the file system.");
+	AddHelp(Gura_Symbol(en), FMT_markdown, "Removes a file from the file system.");
 }
 
 Gura_ImplementFunction(remove)
@@ -702,7 +702,7 @@ Gura_DeclareFunction(mkdir)
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	DeclareAttr(Gura_UserSymbol(tree));
-	AddHelp(Gura_Symbol(en), SYN_markdown, "Creates a directory.");
+	AddHelp(Gura_Symbol(en), FMT_markdown, "Creates a directory.");
 }
 
 Gura_ImplementFunction(mkdir)
@@ -723,7 +723,7 @@ Gura_DeclareFunction(rmdir)
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "pathname", VTYPE_string);
 	DeclareAttr(Gura_UserSymbol(tree));
-	AddHelp(Gura_Symbol(en), SYN_markdown, "Removes a directory.");
+	AddHelp(Gura_Symbol(en), FMT_markdown, "Removes a directory.");
 }
 
 Gura_ImplementFunction(rmdir)
@@ -743,7 +743,7 @@ Gura_DeclareFunction(chdir)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "pathname", VTYPE_string);
-	AddHelp(Gura_Symbol(en), SYN_markdown, "Changes the current working directory.");
+	AddHelp(Gura_Symbol(en), FMT_markdown, "Changes the current working directory.");
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -771,7 +771,7 @@ Gura_ImplementFunction(chdir)
 Gura_DeclareFunction(getcwd)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), SYN_markdown, "Returns the current working directory.");
+	AddHelp(Gura_Symbol(en), FMT_markdown, "Returns the current working directory.");
 }
 
 Gura_ImplementFunction(getcwd)
@@ -786,7 +786,7 @@ Gura_DeclareFunction(chmod)
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_any);
 	DeclareArg(env, "pathname", VTYPE_string);
-	AddHelp(Gura_Symbol(en), SYN_markdown, "Changes the access mode of a file.");
+	AddHelp(Gura_Symbol(en), FMT_markdown, "Changes the access mode of a file.");
 }
 
 Gura_ImplementFunction(chmod)

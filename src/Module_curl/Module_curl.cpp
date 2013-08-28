@@ -156,7 +156,7 @@ Gura_DeclareFunction(version)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), SYN_markdown, "Returns a string of the libcurl version.");
+	AddHelp(Gura_Symbol(en), FMT_markdown, "Returns a string of the libcurl version.");
 }
 
 Gura_ImplementFunction(version)
@@ -170,7 +170,7 @@ Gura_DeclareFunction(easy_init)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), SYN_markdown, "Initializes cURL and returns a easy_handle object.");
+	AddHelp(Gura_Symbol(en), FMT_markdown, "Initializes cURL and returns a easy_handle object.");
 }
 
 Gura_ImplementFunction(easy_init)
@@ -183,7 +183,7 @@ Gura_ImplementFunction(easy_init)
 Gura_DeclareFunction(test)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), SYN_markdown, "");
+	AddHelp(Gura_Symbol(en), FMT_markdown, "");
 }
 
 Gura_ImplementFunction(test)

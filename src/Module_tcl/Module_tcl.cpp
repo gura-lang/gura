@@ -686,7 +686,7 @@ Gura_DeclareMethod(image, readtcl)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "interp", VTYPE_interp);
 	DeclareArg(env, "imageName", VTYPE_string);
-	AddHelp(Gura_Symbol(en), SYN_markdown, "Reads an image data from TCL image object.");
+	AddHelp(Gura_Symbol(en), FMT_markdown, "Reads an image data from TCL image object.");
 }
 
 Gura_ImplementMethod(image, readtcl)
@@ -725,7 +725,7 @@ Gura_DeclareMethod(image, writetcl)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "interp", VTYPE_interp);
 	DeclareArg(env, "imageName", VTYPE_string);
-	AddHelp(Gura_Symbol(en), SYN_markdown, "Writes an image data to TCL image object.");
+	AddHelp(Gura_Symbol(en), FMT_markdown, "Writes an image data to TCL image object.");
 }
 
 Gura_ImplementMethod(image, writetcl)

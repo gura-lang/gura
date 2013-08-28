@@ -30,9 +30,9 @@ generate_html(out:stream:w, item:markdown.item):map:void = {
 	} elsif (item.type == `code) {
 		out.print('<code>', item.text, '</code>')
 	} elsif (item.type == `pre) {
-		out.print('<pre>')
+		out.print('<pre><code>')
 		generate_html(out, item.children)
-		out.print('</pre>\n')
+		out.print('</code></pre>\n')
 	} elsif (item.type == `ol) {
 		out.print('<ol>\n')
 		generate_html(out, item.children)

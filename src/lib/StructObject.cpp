@@ -65,7 +65,7 @@ const DeclarationList &StructObject::GetDeclList() const
 Gura_DeclareMethod(Struct, tolist)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), SYN_markdown, 
+	AddHelp(Gura_Symbol(en), FMT_markdown, 
 	"Returns a list of values extracted from the struct object in an order\n"
 	"declared by struct() function.");
 }

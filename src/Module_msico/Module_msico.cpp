@@ -183,7 +183,7 @@ Gura_DeclareMethod(content, write)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
-	AddHelp(Gura_Symbol(en), SYN_markdown, "Writes a ICO image to a stream.");
+	AddHelp(Gura_Symbol(en), FMT_markdown, "Writes a ICO image to a stream.");
 }
 
 Gura_ImplementMethod(content, write)
@@ -226,7 +226,7 @@ Gura_DeclareMethod(image, msicoread)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareArg(env, "idx", VTYPE_number, OCCUR_Once,
 								FLAG_None, new Expr_Value(Value(0)));
-	AddHelp(Gura_Symbol(en), SYN_markdown, "Reads an ICO image from a stream.");
+	AddHelp(Gura_Symbol(en), FMT_markdown, "Reads an ICO image from a stream.");
 }
 
 Gura_ImplementMethod(image, msicoread)

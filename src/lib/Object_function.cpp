@@ -224,12 +224,12 @@ Gura_ImplementFunction(function)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_function
 //-----------------------------------------------------------------------------
-// function#addhelp(lang:symbol, syntax:string, help:string):map
+// function#addhelp(lang:symbol, format:string, help:string):map
 Gura_DeclareMethod(function, addhelp)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "lang", VTYPE_symbol);
-	DeclareArg(env, "syntax", VTYPE_string);
+	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "help", VTYPE_string);
 }
 
@@ -261,7 +261,7 @@ Gura_DeclareMethod(function, help)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), SYN_markdown,
+	AddHelp(Gura_Symbol(en), FMT_markdown,
 	"Print a help message for the specified function object.");
 }
 

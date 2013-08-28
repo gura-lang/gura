@@ -738,7 +738,7 @@ String Object_item::ToString(Signal sig, bool exprFlag)
 Gura_DeclareMethod(item, print)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
-	AddHelp(Gura_Symbol(en), SYN_markdown,
+	AddHelp(Gura_Symbol(en), FMT_markdown,
 	""
 	);
 }
@@ -767,7 +767,7 @@ Gura_DeclareFunction(parse)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), SYN_markdown,
+	AddHelp(Gura_Symbol(en), FMT_markdown,
 	""
 	);
 }

@@ -66,6 +66,7 @@ dirInfos = @(DirInfo) {
 	['Module_guri',			[`mswin, `linux]]
 	['Module_midi',			[`mswin, `linux]]
 	['Module_wav',			[`mswin, `linux]]
+	['Module_markdown',		[`mswin, `linux]]
 	['Module_uuid',			[`mswin]]
 	['Module_canvas',		[`mswin]]
 	['Module_mswin',		[`mswin]]

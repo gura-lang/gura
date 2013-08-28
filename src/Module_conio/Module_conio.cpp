@@ -46,14 +46,14 @@ Gura_DeclareFunction(clear)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "region", VTYPE_symbol, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), SYN_markdown, "clear screen");
+	AddHelp(Gura_Symbol(en), FMT_markdown, "clear screen");
 }
 
 // conio.getwinsize()
 Gura_DeclareFunction(getwinsize)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), SYN_markdown, "get window size");
+	AddHelp(Gura_Symbol(en), FMT_markdown, "get window size");
 }
 
 // conio.setcolor(fg:symbol:nil, bg?:symbol):map:void {block?}
@@ -63,7 +63,7 @@ Gura_DeclareFunction(setcolor)
 	DeclareArg(env, "fg", VTYPE_symbol, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "bg", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), SYN_markdown, "set text color");
+	AddHelp(Gura_Symbol(en), FMT_markdown, "set text color");
 }
 
 // conio.moveto(x:number, y:number):map:void {block?}
@@ -73,7 +73,7 @@ Gura_DeclareFunction(moveto)
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), SYN_markdown, "move cursor to specified position");
+	AddHelp(Gura_Symbol(en), FMT_markdown, "move cursor to specified position");
 }
 
 // conio.waitkey():[raise]
@@ -81,7 +81,7 @@ Gura_DeclareFunction(waitkey)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(raise));
-	AddHelp(Gura_Symbol(en), SYN_markdown, "get one character from keyboard");
+	AddHelp(Gura_Symbol(en), FMT_markdown, "get one character from keyboard");
 }
 
 #if defined(GURA_ON_MSWIN)

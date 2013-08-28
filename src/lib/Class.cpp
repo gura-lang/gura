@@ -721,7 +721,7 @@ Gura_DeclareFunction(fraction)
 	DeclareArg(env, "denominator", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_fraction));
-	AddHelp(Gura_Symbol(en), SYN_markdown, "Creates a fraction value.");
+	AddHelp(Gura_Symbol(en), FMT_markdown, "Creates a fraction value.");
 }
 
 Gura_ImplementFunction(fraction)

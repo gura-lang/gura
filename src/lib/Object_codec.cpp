@@ -60,7 +60,7 @@ Gura_ImplementFunction(codec)
 Gura_DeclareClassMethod(codec, dir)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), SYN_markdown, 
+	AddHelp(Gura_Symbol(en), FMT_markdown, 
 	"Returns a list of character codecs that are registered.");
 }
 
@@ -110,7 +110,7 @@ Gura_DeclareMethod(codec, encode)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "string", VTYPE_string);
-	AddHelp(Gura_Symbol(en), SYN_markdown, "");
+	AddHelp(Gura_Symbol(en), FMT_markdown, "");
 }
 
 Gura_ImplementMethod(codec, encode)
@@ -128,7 +128,7 @@ Gura_DeclareMethod(codec, decode)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "buff", VTYPE_binary);
-	AddHelp(Gura_Symbol(en), SYN_markdown, "");
+	AddHelp(Gura_Symbol(en), FMT_markdown, "");
 }
 
 Gura_ImplementMethod(codec, decode)

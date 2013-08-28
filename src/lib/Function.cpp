@@ -94,7 +94,7 @@ const Function *Args::GetBlockFunc(Environment &env, Signal sig, const Symbol *p
 //-----------------------------------------------------------------------------
 // Function
 //-----------------------------------------------------------------------------
-const String Function::SYN_markdown("markdown");
+const String Function::FMT_markdown("markdown");
 
 bool Function::IsCustom() const { return false; }
 bool Function::IsConstructorOfStruct() const { return false; }
@@ -267,9 +267,9 @@ void Function::DeclareBlock(OccurPattern occurPattern,
 	_blockInfo.quoteFlag = quoteFlag;
 }
 
-void Function::AddHelp(const Symbol *pSymbol, const String &syntax, const String &text)
+void Function::AddHelp(const Symbol *pSymbol, const String &format, const String &text)
 {
-	_helpList.push_back(Help(pSymbol, syntax, text));
+	_helpList.push_back(Help(pSymbol, format, text));
 }
 
 const char *Function::GetHelp(const Symbol *pSymbol) const
