@@ -100,7 +100,7 @@ Parser::Parser() : _stat(STAT_LineTop), _statRtn(STAT_LineTop),
 											_indentLevel(0), _pItemOwner(NULL)
 {
 	_pItemRoot.reset(new Item(Item::TYPE_Root, new ItemOwner()));
-	_pItemOwner = new ItemOwner();
+	_pItemOwner.reset(new ItemOwner());
 	_itemStack.push_back(_pItemRoot.get());
 }
 
@@ -150,10 +150,9 @@ bool Parser::ParseChar(Signal sig, char ch)
 				_text.clear();
 			}
 			if (!_pItemOwner->empty()) {
-				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner);
+				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner.release());
 				pItemParent->GetItemOwner()->push_back(pItem);
-				_pItemOwner = NULL;
-				if (IsEOL(ch)) _pItemOwner = new ItemOwner();
+				if (IsEOL(ch)) _pItemOwner.reset(new ItemOwner());
 			}
 		} else if (_indentLevel < 4) {
 			if (!_text.empty()) _text += ' ';
@@ -167,9 +166,9 @@ bool Parser::ParseChar(Signal sig, char ch)
 				_text.clear();
 			}
 			if (!_pItemOwner->empty()) {
-				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner);
+				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner.release());
 				pItemParent->GetItemOwner()->push_back(pItem);
-				_pItemOwner = new ItemOwner();
+				_pItemOwner.reset(new ItemOwner());
 			}
 			do {
 				Item *pItem = new Item(Item::TYPE_BlockCode, new ItemOwner(), _indentLevel);
@@ -203,9 +202,9 @@ bool Parser::ParseChar(Signal sig, char ch)
 				_text.clear();
 			}
 			if (!_pItemOwner->empty()) {
-				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner);
+				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner.release());
 				pItemParent->GetItemOwner()->push_back(pItem);
-				_pItemOwner = new ItemOwner();
+				_pItemOwner.reset(new ItemOwner());
 			}
 			_text = _textAdd;
 			_text += ch;
@@ -235,9 +234,9 @@ bool Parser::ParseChar(Signal sig, char ch)
 				_text.clear();
 			}
 			if (!_pItemOwner->empty()) {
-				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner);
+				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner.release());
 				pItemParent->GetItemOwner()->push_back(pItem);
-				_pItemOwner = new ItemOwner();
+				_pItemOwner.reset(new ItemOwner());
 			}
 			continueFlag = true;
 			_stat = STAT_UListItemPre;
@@ -254,9 +253,9 @@ bool Parser::ParseChar(Signal sig, char ch)
 				_text.clear();
 			}
 			if (!_pItemOwner->empty()) {
-				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner);
+				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner.release());
 				pItemParent->GetItemOwner()->push_back(pItem);
-				_pItemOwner = new ItemOwner();
+				_pItemOwner.reset(new ItemOwner());
 			}
 			_text = _textAdd;
 			_text += ch;
@@ -280,9 +279,9 @@ bool Parser::ParseChar(Signal sig, char ch)
 				_text.clear();
 			}
 			if (!_pItemOwner->empty()) {
-				Item *pItem = new Item(Item::TYPE_Header1, _pItemOwner);
+				Item *pItem = new Item(Item::TYPE_Header1, _pItemOwner.release());
 				pItemParent->GetItemOwner()->push_back(pItem);
-				_pItemOwner = new ItemOwner();
+				_pItemOwner.reset(new ItemOwner());
 			}
 			continueFlag = IsEOF(ch);
 			_stat = STAT_LineTop;
@@ -305,9 +304,9 @@ bool Parser::ParseChar(Signal sig, char ch)
 				_text.clear();
 			}
 			if (!_pItemOwner->empty()) {
-				Item *pItem = new Item(Item::TYPE_Header2, _pItemOwner);
+				Item *pItem = new Item(Item::TYPE_Header2, _pItemOwner.release());
 				pItemParent->GetItemOwner()->push_back(pItem);
-				_pItemOwner = new ItemOwner();
+				_pItemOwner.reset(new ItemOwner());
 			}
 			continueFlag = IsEOF(ch);
 			_stat = STAT_LineTop;
@@ -394,9 +393,9 @@ bool Parser::ParseChar(Signal sig, char ch)
 				_text.clear();
 			}
 			if (!_pItemOwner->empty()) {
-				Item *pItem = new Item(Item::TYPE_ListItem, _pItemOwner);
+				Item *pItem = new Item(Item::TYPE_ListItem, _pItemOwner.release());
 				pItemParent->GetItemOwner()->push_back(pItem);
-				_pItemOwner = new ItemOwner();
+				_pItemOwner.reset(new ItemOwner());
 			}
 			if (ch == '-') {
 				_stat = STAT_UListItemPre;
@@ -479,9 +478,9 @@ bool Parser::ParseChar(Signal sig, char ch)
 				_text.clear();
 			}
 			if (!_pItemOwner->empty()) {
-				Item *pItem = new Item(Item::TYPE_ListItem, _pItemOwner);
+				Item *pItem = new Item(Item::TYPE_ListItem, _pItemOwner.release());
 				pItemParent->GetItemOwner()->push_back(pItem);
-				_pItemOwner = new ItemOwner();
+				_pItemOwner.reset(new ItemOwner());
 			}
 			_itemStack.pop_back();
 			continueFlag = IsEOF(ch);
@@ -504,9 +503,9 @@ bool Parser::ParseChar(Signal sig, char ch)
 				_text.clear();
 			}
 			if (!_pItemOwner->empty()) {
-				Item *pItem = new Item(Item::TYPE_ListItem, _pItemOwner);
+				Item *pItem = new Item(Item::TYPE_ListItem, _pItemOwner.release());
 				pItemParent->GetItemOwner()->push_back(pItem);
-				_pItemOwner = new ItemOwner();
+				_pItemOwner.reset(new ItemOwner());
 			}
 			_stat = STAT_OListItemPre;
 		} else {
@@ -566,9 +565,9 @@ bool Parser::ParseChar(Signal sig, char ch)
 				_text.clear();
 			} while (0);
 			do {
-				Item *pItem = new Item(Item::TYPE_Line, _pItemOwner);
+				Item *pItem = new Item(Item::TYPE_Line, _pItemOwner.release());
 				pItemParent->GetItemOwner()->push_back(pItem);
-				_pItemOwner = new ItemOwner();
+				_pItemOwner.reset(new ItemOwner());
 			} while (0);
 			_indentLevel = 0;
 			continueFlag = IsEOF(ch);

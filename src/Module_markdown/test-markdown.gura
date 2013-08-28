@@ -53,5 +53,6 @@ GenerateHTML(out:stream:w, item:markdown.item):map:void = {
 
 markdown.parse('test3.txt') {|item|
 	//item.print()
-	GenerateHTML('test3.html', item)
+	//GenerateHTML('test3.html', item)
+	GenerateHTML(sys.stdout, item)
 }

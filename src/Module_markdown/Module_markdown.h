@@ -132,7 +132,7 @@ private:
 	String _text;
 	String _textAdd;
 	AutoPtr<Item> _pItemRoot;
-	ItemOwner *_pItemOwner;
+	AutoPtr<ItemOwner> _pItemOwner;
 	ItemStack _itemStack;
 public:
 	Parser();
