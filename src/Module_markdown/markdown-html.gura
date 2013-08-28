@@ -51,8 +51,11 @@ generate_html(out:stream:w, item:markdown.item):map:void = {
 	}
 }
 
-markdown.parse('test3.txt') {|item|
+if (sys.argv.len() < 2) {
+	sys.stderr.println('usage: markdown-html file')
+	sys.exit(1)
+}
+markdown.parse(sys.argv[1]) {|item|
 	//item.print()
-	//generate_html('test3.html', item)
 	generate_html(sys.stdout, item)
 }

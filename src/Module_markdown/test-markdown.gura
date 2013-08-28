@@ -18,6 +18,17 @@ No Header
 -
 -
 
+`code`
+*emphasis*
+**strong**
+text
+`not terminated code
+text
+*not terminated emphasis
+text
+**not terminated strong
+text
+
     #include <stdio.h>
     int main()
     {
