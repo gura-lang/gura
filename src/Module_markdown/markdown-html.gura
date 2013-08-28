@@ -1,24 +1,24 @@
 #!/usr/bin/env gura
 import(markdown)
 
-GenerateHTML(out:stream:w, item:markdown.item):map:void = {
+generate_html(out:stream:w, item:markdown.item):map:void = {
 	if (item.type == `root) {
 		out.print('<html>\n')
 		out.print('<body>\n')
-		GenerateHTML(out, item.children)
+		generate_html(out, item.children)
 		out.print('</body>\n')
 		out.print('</html>\n')
 	} elsif (item.type == `h1) {
 		out.print('<h1>')
-		GenerateHTML(out, item.children)
+		generate_html(out, item.children)
 		out.print('</h1>\n')
 	} elsif (item.type == `h2) {
 		out.print('<h2>')
-		GenerateHTML(out, item.children)
+		generate_html(out, item.children)
 		out.print('</h2>\n')
 	} elsif (item.type == `p) {
 		out.print('<p>\n')
-		GenerateHTML(out, item.children)
+		generate_html(out, item.children)
 		out.println()
 		out.print('</p>\n')
 	} elsif (item.type == `normal) {
@@ -31,28 +31,28 @@ GenerateHTML(out:stream:w, item:markdown.item):map:void = {
 		out.print('<code>', item.text, '</code>')
 	} elsif (item.type == `pre) {
 		out.print('<pre>')
-		GenerateHTML(out, item.children)
+		generate_html(out, item.children)
 		out.print('</pre>\n')
 	} elsif (item.type == `ol) {
 		out.print('<ol>\n')
-		GenerateHTML(out, item.children)
+		generate_html(out, item.children)
 		out.print('</ol>\n')
 	} elsif (item.type == `ul) {
 		out.print('<ul>\n')
-		GenerateHTML(out, item.children)
+		generate_html(out, item.children)
 		out.print('</ul>\n')
 	} elsif (item.type == `li) {
 		out.print('<li>')
-		GenerateHTML(out, item.children)
+		generate_html(out, item.children)
 		out.print('</li>\n')
 	} elsif (item.type == `line) {
-		GenerateHTML(out, item.children)
+		generate_html(out, item.children)
 		out.print('\n')
 	}
 }
 
 markdown.parse('test3.txt') {|item|
 	//item.print()
-	//GenerateHTML('test3.html', item)
-	GenerateHTML(sys.stdout, item)
+	//generate_html('test3.html', item)
+	generate_html(sys.stdout, item)
 }
