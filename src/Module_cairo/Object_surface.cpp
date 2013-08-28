@@ -604,6 +604,7 @@ Gura_DeclareMethod(surface, map_to_image)
 
 Gura_ImplementMethod(surface, map_to_image)
 {
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 12, 0)
 	Object_surface *pThis = Object_surface::GetThisObj(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	cairo_rectangle_int_t &extents = Object_rectangle_int::GetObject(args, 0)->GetEntity();
@@ -612,6 +613,10 @@ Gura_ImplementMethod(surface, map_to_image)
 	sig.SetError(ERR_SystemError, "not implemented yet");
 	
 	return Value::Null;
+#else
+	sig.SetError(ERR_NotImplementedError, "only supported with cairo v1.12 or later");
+	return Value::Null;
+#endif
 }
 
 // cairo.surface#unmap_image()
