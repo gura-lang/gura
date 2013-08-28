@@ -224,18 +224,19 @@ Gura_ImplementFunction(function)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_function
 //-----------------------------------------------------------------------------
-// function#addhelp(lang:symbol, help:string):map
+// function#addhelp(lang:symbol, syntax:string, help:string):map
 Gura_DeclareMethod(function, addhelp)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "lang", VTYPE_symbol);
+	DeclareArg(env, "syntax", VTYPE_string);
 	DeclareArg(env, "help", VTYPE_string);
 }
 
 Gura_ImplementMethod(function, addhelp)
 {
 	Object_function *pThis = Object_function::GetThisObj(args);
-	pThis->GetFunction()->AddHelp(args.GetSymbol(0), args.GetString(1));
+	pThis->GetFunction()->AddHelp(args.GetSymbol(0), args.GetString(1), args.GetString(2));
 	return Value::Null;
 }
 
@@ -260,7 +261,8 @@ Gura_DeclareMethod(function, help)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), "Print a help message for the specified function object.");
+	AddHelp(Gura_Symbol(en), SYN_markdown,
+	"Print a help message for the specified function object.");
 }
 
 Gura_ImplementMethod(function, help)

@@ -45,7 +45,7 @@ void Thread1::Run()
 Gura_DeclareFunction(run)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
-	AddHelp(Gura_Symbol(en), "run tester.");
+	AddHelp(Gura_Symbol(en), SYN_markdown, "run tester.");
 }
 
 Gura_ImplementFunction(run)

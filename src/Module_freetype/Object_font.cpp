@@ -433,7 +433,7 @@ Gura_DeclareMethod(font, drawtext)
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "str", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), "Draws a text on the image.");
+	AddHelp(Gura_Symbol(en), SYN_markdown, "Draws a text on the image.");
 }
 
 Gura_ImplementMethod(font, drawtext)

@@ -65,8 +65,8 @@ writer = class {
 		this.app.Quit()
 	}
 }
-writer.start.addhelp(`en, 'Set start point to write values.')
-writer.write.addhelp(`en, 'Append value of fields into Excel sheet.')
-writer.clear.addhelp(`en, 'Clear contents of Excel sheet.')
-writer.autofit.addhelp(`en, 'Fits column width by calculating maximum width of each column.')
-writer.close.addhelp(`en, 'Save file and exit Excel application.')
+writer.start.addhelp(`en, 'markdown', 'Set start point to write values.')
+writer.write.addhelp(`en, 'markdown', 'Append value of fields into Excel sheet.')
+writer.clear.addhelp(`en, 'markdown', 'Clear contents of Excel sheet.')
+writer.autofit.addhelp(`en, 'markdown', 'Fits column width by calculating maximum width of each column.')
+writer.close.addhelp(`en, 'markdown', 'Save file and exit Excel application.')

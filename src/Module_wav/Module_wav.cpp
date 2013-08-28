@@ -14,7 +14,7 @@ Gura_DeclareMethod(audio, wavread)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
-	AddHelp(Gura_Symbol(en), "Reads WAV audio from a stream.");
+	AddHelp(Gura_Symbol(en), SYN_markdown, "Reads WAV audio from a stream.");
 }
 
 Gura_ImplementMethod(audio, wavread)
@@ -29,7 +29,7 @@ Gura_DeclareMethod(audio, wavwrite)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
-	AddHelp(Gura_Symbol(en), "Writes WAV audio to a stream.");
+	AddHelp(Gura_Symbol(en), SYN_markdown, "Writes WAV audio to a stream.");
 }
 
 Gura_ImplementMethod(audio, wavwrite)

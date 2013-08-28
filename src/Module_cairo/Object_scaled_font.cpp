@@ -34,7 +34,7 @@ Gura_DeclareClassMethod(scaled_font, create)
 	DeclareArg(env, "ctm", VTYPE_matrix);
 	DeclareArg(env, "options", VTYPE_font_options);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en),
+	AddHelp(Gura_Symbol(en), SYN_markdown,
 	""
 	);
 }

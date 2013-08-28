@@ -1132,7 +1132,7 @@ Gura_DeclareMethod(content, write)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
-	AddHelp(Gura_Symbol(en), "Writes a GIF image to a stream.");
+	AddHelp(Gura_Symbol(en), SYN_markdown, "Writes a GIF image to a stream.");
 }
 
 Gura_ImplementMethod(content, write)
@@ -1160,7 +1160,7 @@ Gura_DeclareMethod(content, addimage)
 						FLAG_None, new Expr_Value(0));
 	DeclareArg(env, "disposalMethod", VTYPE_symbol, OCCUR_Once,
 						FLAG_None, new Expr_Symbol(Gura_UserSymbol(none)));
-	AddHelp(Gura_Symbol(en), 
+	AddHelp(Gura_Symbol(en), SYN_markdown, 
 	"Adds an image to GIF information. If you add multiple images, they are to be\n"
 	"rendered in sequence like an animation. You can specify the delay time to\n"
 	"switch to the next image by delayTime argument in 10 msec step.\n"
@@ -1360,7 +1360,7 @@ Gura_DeclareMethod(image, gifread)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
-	AddHelp(Gura_Symbol(en), "Reads a GIF image from a stream.");
+	AddHelp(Gura_Symbol(en), SYN_markdown, "Reads a GIF image from a stream.");
 }
 
 Gura_ImplementMethod(image, gifread)
@@ -1380,7 +1380,7 @@ Gura_DeclareMethod(image, gifwrite)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
-	AddHelp(Gura_Symbol(en), "Writes a GIF image to a stream.");
+	AddHelp(Gura_Symbol(en), SYN_markdown, "Writes a GIF image to a stream.");
 }
 
 Gura_ImplementMethod(image, gifwrite)
@@ -1409,7 +1409,7 @@ Gura_DeclareFunction(content)
 	DeclareArg(env, "format", VTYPE_symbol, OCCUR_Once,
 						FLAG_None, new Expr_Symbol(Gura_Symbol(rgba)));
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), 
+	AddHelp(Gura_Symbol(en), SYN_markdown, 
 	"Reads a GIF data from a stream and returns an object that contains\n"
 	"GIF related information and images of a specified format. format is\n"
 	"is `rgb, `rgba or `noimage. If `noimage is specified, only the\n"

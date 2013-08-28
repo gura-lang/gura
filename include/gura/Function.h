@@ -168,10 +168,13 @@ public:
 	class GURA_DLLDECLARE Help {
 	private:
 		const Symbol *_pSymbol;
+		String _syntax;
 		String _text;
 	public:
-		inline Help(const Symbol *pSymbol, const String &text) : _pSymbol(pSymbol), _text(text) {}
+		inline Help(const Symbol *pSymbol, const String &syntax, const String &text) :
+								_pSymbol(pSymbol), _syntax(syntax), _text(text) {}
 		inline const Symbol *GetSymbol() const { return _pSymbol; }
+		inline const char *GetSyntax() const { return _syntax.c_str(); }
 		inline const char *GetText() const { return _text.c_str(); }
 	};
 	typedef std::map<const Symbol *, const Expr *, Symbol::KeyCompare_UniqNumber> ExprMap;
@@ -194,6 +197,8 @@ protected:
 		bool quoteFlag;	// don't create function object from block
 		const Symbol *pSymbol;
 	} _blockInfo;
+public:
+	static const String SYN_markdown;
 public:
 	Gura_DeclareReferenceAccessor(Function);
 public:
@@ -276,7 +281,7 @@ public:
 	inline bool IsHelpExist() const { return !_helpList.empty(); }
 	void DeclareBlock(OccurPattern occurPattern, const Symbol *pSymbol = NULL,
 			BlockScope blockScope = BLKSCOPE_Through, bool quoteFlag = false);
-	void AddHelp(const Symbol *pSymbol, const char *text);
+	void AddHelp(const Symbol *pSymbol, const String &syntax, const String &text);
 	const char *GetHelp(const Symbol *pSymbol) const;
 	String ToString() const;
 	void SetError_DivideByZero(Signal sig) const;

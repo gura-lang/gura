@@ -66,7 +66,7 @@ Gura_DeclareMethod(image, tiffread)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
-	AddHelp(Gura_Symbol(en), "Reads a TIFF image from a stream.");
+	AddHelp(Gura_Symbol(en), SYN_markdown, "Reads a TIFF image from a stream.");
 }
 
 Gura_ImplementMethod(image, tiffread)

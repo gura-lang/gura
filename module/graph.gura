@@ -78,7 +78,7 @@ draw(c:canvas.canvas, items+:item) {block?:inside_scope} = {
 	if (block != nil) { block(c) }
 	c.close()
 }
-draw.addhelp(`en, """\
+draw.addhelp(`en, 'markdown', """\
 Draw dots or lines on a canvas for specified items. Each item contains
 x and y coordinates, style and color. style takes one of: `circle, `box,
 `solid, `dot, `dash and `dot_dash. color takes a list of RGB values, a string
