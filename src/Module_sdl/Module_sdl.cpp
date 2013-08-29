@@ -37,7 +37,7 @@ Gura_DeclareMethod(Cursor, FreeCursor)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"Frees a sdl.Cursor that was created using sdl.CreateCursor.\n"
+	"Frees a `sdl.Cursor` that was created using `sdl.CreateCursor`.\n"
 	);
 }
 
@@ -133,7 +133,7 @@ Gura_DeclareMethod(Timer, RemoveTimer)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"Removes a timer callback previously added with sdl.AddTimer.\n"
+	"Removes a timer callback previously added with `sdl.AddTimer`.\n"
 	"\n"
 	"**Return Value:** Returns a boolean value indicating success.\n"
 	);
@@ -794,7 +794,7 @@ Gura_DeclareMethod(PixelFormat, GetRGB)
 	"Get RGB component values from a pixel stored in the specified pixel format.\n"
 	"\n"
 	"This function uses the entire 8-bit [0..255] range when converting color components from pixel formats with less than 8-bits per RGB component\n"
-	"(e.g., a completely white pixel in 16-bit RGB565 format would return [0xff, 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).\n"
+	"(e.g., a completely white pixel in 16-bit RGB565 format would return `[0xff, 0xff, 0xff]` not `[0xf8, 0xfc, 0xf8]`).\n"
 	);
 }
 
@@ -815,7 +815,7 @@ Gura_DeclareMethod(PixelFormat, GetRGBA)
 	"Get RGBA component values from a pixel stored in the specified pixel format.\n"
 	"\n"
 	"This function uses the entire 8-bit [0..255] range when converting color components from pixel formats with less than 8-bits per RGB component\n"
-	"(e.g., a completely white pixel in 16-bit RGB565 format would return [0xff, 0xff, 0xff] not [0xf8, 0xfc, 0xf8]).\n"
+	"(e.g., a completely white pixel in 16-bit RGB565 format would return `[0xff, 0xff, 0xff]` not `[0xf8, 0xfc, 0xf8]`).\n"
 	"\n"
 	"If the surface has no alpha component, the alpha will be returned as 0xff (100% opaque).\n"
 	);
@@ -941,7 +941,7 @@ Gura_DeclareMethod(Surface, UpdateRect)
 	"Makes sure the given area is updated on the given screen.\n"
 	"The rectangle must be confined within the screen boundaries (no clipping is done).\n"
 	"\n"
-	"If 'x', 'y', 'w' and 'h' are all 0, sdl.Surface#UpdateRect will update the entire screen.\n"
+	"If `x`, `y`, `w` and `h` are all 0, `sdl.Surface#UpdateRect` will update the entire screen.\n"
 	"\n"
 	"This function should not be called while the sdl.Surface instance is locked.\n"
 	);
@@ -964,7 +964,7 @@ Gura_DeclareMethod(Surface, UpdateRects)
 	"Makes sure the given list of rectangles is updated on the given screen.\n"
 	"The rectangles must all be confined within the screen boundaries (no clipping is done).\n"
 	"\n"
-	"This function should not be called while the sdl.Surface instance is locked.\n"
+	"This function should not be called while the `sdl.Surface` instance is locked.\n"
 	"\n"
 	"**Note:** It is adviced to call this function only once per frame, since each call has some processing overhead.\n"
 	"This is no restriction since you can pass any number of rectangles each time.\n"
@@ -999,9 +999,9 @@ Gura_DeclareMethod(Surface, Flip)
 	AddHelp(Gura_Symbol(en), FMT_markdown,
 	"On hardware that supports double-buffering, this function sets up a flip and returns.\n"
 	"The hardware will wait for vertical retrace, and then swap video buffers before the next video surface blit or lock will return.\n"
-	"On hardware that doesn't support double-buffering, this is equivalent to calling screen.UpdateRect(0, 0, 0, 0)\n"
+	"On hardware that doesn't support double-buffering, this is equivalent to calling `screen.UpdateRect(0, 0, 0, 0)`\n"
 	"\n"
-	"The sdl.DOUBLEBUF flag must have been passed to sdl.SetVideoMode, when setting the video mode for this function to perform hardware flipping.\n"
+	"The `sdl.DOUBLEBUF` flag must have been passed to `sdl.SetVideoMode`, when setting the video mode for this function to perform hardware flipping.\n"
 	"\n"
 	"**Return Value:** This function returns 0 if successful, or -1 if there was an error.\n"
 	);
@@ -1024,17 +1024,17 @@ Gura_DeclareMethod(Surface, SetColors)
 	"Sets a portion of the colormap for the given 8-bit surface.\n"
 	"\n"
 	"When surface is the surface associated with the current display, the display colormap will be updated with the requested colors.\n"
-	"If sdl.HWPALETTE was set in sdl.SetVideoMode flags, sdl.Surface#SetColors will always return 1,\n"
+	"If `sdl.HWPALETTE` was set in `sdl.SetVideoMode` flags, `sdl.Surface#SetColors` will always return 1,\n"
 	"and the palette is guaranteed to be set the way you desire, even if the window colormap has to be warped or run under emulation.\n"
 	"\n"
 	"The color components of a sdl.Color structure are 8-bits in size, giving you a total of 2563 =16777216 colors.\n"
 	"\n"
-	"Palettized (8-bit) screen surfaces with the sdl.HWPALETTE flag have two palettes, a logical palette that is used for mapping blits to/from the surface and a physical palette\n"
+	"Palettized (8-bit) screen surfaces with the `sdl.HWPALETTE` flag have two palettes, a logical palette that is used for mapping blits to/from the surface and a physical palette\n"
 	"(that determines how the hardware will map the colors to the display).\n"
-	"sdl.Surface#SetColors modifies both palettes (if present), and is equivalent to calling sdl.Surface#SetPalette with the flags set to (sdl.LOGPAL | sdl.PHYSPAL).\n"
+	"`sdl.Surface#SetColors` modifies both palettes (if present), and is equivalent to calling `sdl.Surface#SetPalette` with the flags set to `(sdl.LOGPAL | sdl.PHYSPAL)`.\n"
 	"\n"
 	"**Return Value:** If surface is not a palettized surface, this function does nothing, returning 0.\n"
-	"If all of the colors were set as passed to sdl.Surface#SetColors, it will return 1.\n"
+	"If all of the colors were set as passed to `sdl.Surface#SetColors`, it will return 1.\n"
 	"If not all the color entries were set exactly as given, it will return 0, and you should look at the surface palette to determine the actual color palette.\n"
 	);
 }
@@ -1069,21 +1069,21 @@ Gura_DeclareMethod(Surface, SetPalette)
 	AddHelp(Gura_Symbol(en), FMT_markdown,
 	"Sets a portion of the palette for the given 8-bit surface.\n"
 	"\n"
-	"Palettized (8-bit) screen surfaces with the sdl.HWPALETTE flag have two palettes,\n"
+	"Palettized (8-bit) screen surfaces with the `sdl.HWPALETTE` flag have two palettes,\n"
 	"a logical palette that is used for mapping blits to/from the surface and a physical palette (that determines how the hardware will map the colors to the display).\n"
-	"sdl.BlitSurface always uses the logical palette when blitting surfaces (if it has to convert between surface pixel formats).\n"
+	"`sdl.BlitSurface` always uses the logical palette when blitting surfaces (if it has to convert between surface pixel formats).\n"
 	"Because of this, it is often useful to modify only one or the other palette to achieve various special color effects (e.g., screen fading, color flashes, screen dimming).\n"
 	"\n"
-	"This function can modify either the logical or physical palette by specifing sdl.LOGPAL or sdl.PHYSPAL in the flags parameter.\n"
+	"This function can modify either the logical or physical palette by specifing `sdl.LOGPAL` or `sdl.PHYSPAL` in the flags parameter.\n"
 	"\n"
 	"When surface is the surface associated with the current display, the display colormap will be updated with the requested colors.\n"
-	"If sdl.HWPALETTE was set in sdl.SetVideoMode flags, sdl.Surface#SetPalette will always return 1,\n"
+	"If `sdl.HWPALETTE` was set in `sdl.SetVideoMode` flags, `sdl.Surface#SetPalette` will always return 1,\n"
 	"and the palette is guaranteed to be set the way you desire, even if the window colormap has to be warped or run under emulation.\n"
 	"\n"
 	"The color components of a sdl.Color structure are 8-bits in size, giving you a total of 2563=16777216 colors.\n"
 	"\n"
 	"**Return Value:** If surface is not a palettized surface, this function does nothing, returning 0.\n"
-	"If all of the colors were set as passed to sdl.Surface#SetPalette, it will return 1.\n"
+	"If all of the colors were set as passed to `sdl.Surface#SetPalette`, it will return 1.\n"
 	"If not all the color entries were set exactly as given, it will return 0, and you should look at the surface palette to determine the actual color palette.\n"
 	);
 }
@@ -1113,11 +1113,11 @@ Gura_DeclareMethod(Surface, LockSurface)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"sdl.Surface#LockSurface sets up a surface for directly accessing the pixels.\n"
-	"Between calls to sdl.Surface#LockSurface and sdl.Surface#UnlockSurface, you can write to and read from surface.pixels, using the pixel format stored in surface.format.\n"
-	"Once you are done accessing the surface, you should use sdl.Surface#UnlockSurface to release it.\n"
+	"`sdl.Surface#LockSurface` sets up a surface for directly accessing the pixels.\n"
+	"Between calls to `sdl.Surface#LockSurface` and `sdl.Surface#UnlockSurface`, you can write to and read from surface.pixels, using the pixel format stored in surface.format.\n"
+	"Once you are done accessing the surface, you should use `sdl.Surface#UnlockSurface` to release it.\n"
 	"\n"
-	"Not all surfaces require locking. If sdl.MUSTLOCK(surface) evaluates to 0, then you can read and write to the surface at any time, and the pixel format of the surface will not change.\n"
+	"Not all surfaces require locking. If `sdl.MUSTLOCK(surface)` evaluates to 0, then you can read and write to the surface at any time, and the pixel format of the surface will not change.\n"
 	"\n"
 	"No operating system or library calls should be made between lock/unlock pairs, as critical system locks may be held during this time.\n"
 	"\n"
@@ -1136,11 +1136,11 @@ Gura_DeclareMethod(Surface, UnlockSurface)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"Surfaces that were previously locked using sdl.Surface#LockSurface must be unlocked with sdl.Surface#UnlockSurface.\n"
+	"Surfaces that were previously locked using `sdl.Surface#LockSurface` must be unlocked with `sdl.Surface#UnlockSurface`.\n"
 	"Surfaces should be unlocked as soon as possible.\n"
 	"\n"
 	"It should be noted that since 1.1.8, surface locks are recursive.\n"
-	"See sdl.Surface#LockSurface.\n"
+	"See `sdl.Surface#LockSurface`.\n"
 	);
 }
 
@@ -1179,12 +1179,12 @@ Gura_DeclareMethod(Surface, SetColorKey)
 	"Sets the color key (transparent pixel) in a blittable surface and enables or disables RLE blit acceleration.\n"
 	"\n"
 	"RLE acceleration can substantially speed up blitting of images with large horizontal runs of transparent pixels (i.e., pixels that match the key value).\n"
-	"The key must be of the same pixel format as the surface, sdl.Surface#MapRGB is often useful for obtaining an acceptable value.\n"
+	"The key must be of the same pixel format as the surface, `sdl.Surface#MapRGB` is often useful for obtaining an acceptable value.\n"
 	"\n"
-	"If flag is sdl.SRCCOLORKEY then key is the transparent pixel value in the source image of a blit.\n"
+	"If flag is `sdl.SRCCOLORKEY` then key is the transparent pixel value in the source image of a blit.\n"
 	"\n"
-	"If flag is OR'd with sdl.RLEACCEL then the surface will be draw using RLE acceleration when drawn with sdl.BlitSurface.\n"
-	"The surface will actually be encoded for RLE acceleration the first time sdl.BlitSurface or sdl.Surface#DisplayFormat is called on the surface.\n"
+	"If flag is OR'd with `sdl.RLEACCEL` then the surface will be draw using RLE acceleration when drawn with `sdl.BlitSurface`.\n"
+	"The surface will actually be encoded for RLE acceleration the first time sdl.BlitSurface or `sdl.Surface#DisplayFormat` is called on the surface.\n"
 	"\n"
 	"If flag is 0, this function clears any current color key.\n"
 	"\n"
@@ -1269,13 +1269,13 @@ Gura_DeclareMethod(Surface, ConvertSurface)
 	"Creates a new surface of the specified format, and then copies and maps the given surface to it.\n"
 	"If this function fails, it returns nil.\n"
 	"\n"
-	"The flags parameter is passed to sdl.CreateRGBSurface and has those semantics.\n"
+	"The flags parameter is passed to `sdl.CreateRGBSurface` and has those semantics.\n"
 	"\n"
-	"This function is used internally by sdl.Surface#DisplayFormat.\n"
+	"This function is used internally by `sdl.Surface#DisplayFormat`.\n"
 	"\n"
-	"This function can only be called after sdl.Init.\n"
+	"This function can only be called after `sdl.Init`.\n"
 	"\n"
-	"**Return Value:** Returns either sdl.Surface instance of the new surface, or nil on error.\n"
+	"**Return Value:** Returns either `sdl.Surface` instance of the new surface, or `nil` on error.\n"
 	);
 }
 
@@ -1301,10 +1301,10 @@ Gura_DeclareMethod(Surface, FillRect)
 	"This function performs a fast fill of the given rectangle with color.\n"
 	"If dstrect is nil, the whole surface will be filled with color.\n"
 	"\n"
-	"The color should be a pixel of the format used by the surface, and can be generated by the sdl.Surface#MapRGB or sdl.Surface#MapRGBA functions.\n"
+	"The color should be a pixel of the format used by the surface, and can be generated by the `sdl.Surface#MapRGB` or `sdl.Surface#MapRGBA` functions.\n"
 	"If the color value contains an alpha value then the destination is simply \"filled\" with that alpha information, no blending takes place.\n"
 	"\n"
-	"If there is a clip rectangle set on the destination (set via sdl.Surface#SetClipRect)\n"
+	"If there is a clip rectangle set on the destination (set via `sdl.Surface#SetClipRect`)\n"
 	"then this function will clip based on the intersection of the clip rectangle and the dstrect rectangle\n"
 	"and the dstrect rectangle will be modified to represent the area actually filled.\n"
 	"\n"
@@ -1333,10 +1333,10 @@ Gura_DeclareMethod(Surface, DisplayFormat)
 	"\n"
 	"If you want to take advantage of hardware colorkey or alpha blit acceleration, you should set the colorkey and alpha value before calling this function.\n"
 	"\n"
-	"If you want an alpha channel, see sdl.Surface#DisplayFormatAlpha.\n"
+	"If you want an alpha channel, see `sdl.Surface#DisplayFormatAlpha`.\n"
 	"\n"
 	"**Return Value:** It returns sdl.Surface instance on success.\n"
-	"If the conversion fails or runs out of memory, it returns nil.\n"
+	"If the conversion fails or runs out of memory, it returns `nil`.\n"
 	);
 }
 
@@ -1355,15 +1355,15 @@ Gura_DeclareMethod(Surface, DisplayFormatAlpha)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
 	"This function takes a surface and copies it to a new surface of the pixel format and colors of the video framebuffer plus an alpha channel, suitable for fast blitting onto the display surface.\n"
-	"It calls SDL_ConvertSurface.\n"
+	"It calls `SDL_ConvertSurface`.\n"
 	"\n"
 	"If you want to take advantage of hardware colorkey or alpha blit acceleration, you should set the colorkey and alpha value before calling this function.\n"
 	"\n"
-	"This function can be used to convert a colourkey to an alpha channel, if the sdl.SRCCOLORKEY flag is set on the surface.\n"
+	"This function can be used to convert a colourkey to an alpha channel, if the `sdl.SRCCOLORKEY` flag is set on the surface.\n"
 	"The generated surface will then be transparent (alpha=0) where the pixels match the colourkey, and opaque (alpha=255) elsewhere.\n"
 	"\n"
-	"**Return Value:** It returns sdl.Surface instance on success.\n"
-	"If the conversion fails or runs out of memory, it returns nil.\n"
+	"**Return Value:** It returns `sdl.Surface` instance on success.\n"
+	"If the conversion fails or runs out of memory, it returns `nil`.\n"
 	);
 }
 
@@ -1442,7 +1442,7 @@ Gura_DeclareMethod(Overlay, LockYUVOverlay)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"Much the same as sdl.Surface#LockSurface, sdl.Overlay#LockYUVOverlay locks the overlay for direct access to pixel data.\n"
+	"Much the same as `sdl.Surface#LockSurface`, `sdl.Overlay#LockYUVOverlay` locks the overlay for direct access to pixel data.\n"
 	"\n"
 	"**Return Value:** Returns 0 on success, or -1 on an error.\n"
 	);
@@ -1459,7 +1459,7 @@ Gura_DeclareMethod(Overlay, UnlockYUVOverlay)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"The opposite to sdl.Overlay#LockYUVOverlay.\n"
+	"The opposite to `sdl.Overlay#LockYUVOverlay`.\n"
 	"Unlocks a previously locked overlay.\n"
 	"An overlay must be unlocked before it can be displayed.\n"
 	);
@@ -1602,7 +1602,7 @@ Gura_DeclareMethod(Joystick, JoystickIndex)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"Returns the index of a given sdl.Joystick instance.\n"
+	"Returns the index of a given `sdl.Joystick` instance.\n"
 	"\n"
 	"**Return Value:** Index number of the joystick.\n"
 	);
@@ -1619,7 +1619,7 @@ Gura_DeclareMethod(Joystick, JoystickNumAxes)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"Return the number of axes available from a previously opened sdl.Joystick.\n"
+	"Return the number of axes available from a previously opened `sdl.Joystick`.\n"
 	"\n"
 	"**Return Value:** Number of axes.\n"
 	);
@@ -1636,7 +1636,7 @@ Gura_DeclareMethod(Joystick, JoystickNumBalls)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"Return the number of trackballs available from a previously opened sdl.Joystick.\n"
+	"Return the number of trackballs available from a previously opened `sdl.Joystick`.\n"
 	"\n"
 	"**Return Value:** Number of trackballs.\n"
 	);
@@ -1653,7 +1653,7 @@ Gura_DeclareMethod(Joystick, JoystickNumHats)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"Return the number of hats available from a previously opened sdl.Joystick.\n"
+	"Return the number of hats available from a previously opened `sdl.Joystick`.\n"
 	"\n"
 	"**Return Value:** Number of hats.\n"
 	);
@@ -1670,7 +1670,7 @@ Gura_DeclareMethod(Joystick, JoystickNumButtons)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"Return the number of buttons available from a previously opened sdl.Joystick.\n"
+	"Return the number of buttons available from a previously opened `sdl.Joystick`.\n"
 	"\n"
 	"**Return Value:** Number of buttons.\n"
 	);
@@ -1688,7 +1688,7 @@ Gura_DeclareMethod(Joystick, JoystickGetAxis)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "axis", VTYPE_number);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"sdl.Joystick#JoystickGetAxis returns the current state of the given axis on the given joystick.\n"
+	"`sdl.Joystick#JoystickGetAxis` returns the current state of the given axis on the given joystick.\n"
 	"\n"
 	"On most modern joysticks the X axis is usually represented by axis 0 and the Y axis by axis 1.\n"
 	"The value returned by sdl.Joystick#JoystickGetAxis is a signed integer (-32768 to 32768) representing the current position of the axis,\n"
@@ -1711,18 +1711,18 @@ Gura_DeclareMethod(Joystick, JoystickGetHat)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "hat", VTYPE_number);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"sdl.Joystick#JoystickGetHat returns the current state of the given hat on the given joystick.\n"
+	"`sdl.Joystick#JoystickGetHat` returns the current state of the given hat on the given joystick.\n"
 	"\n"
 	"**Return Value:** The current state is returned as a Uint8 which is defined as an OR'd combination of one or more of the following\n\n"
-	"- SDL_HAT_CENTERED\n"
-	"- SDL_HAT_UP\n"
-	"- SDL_HAT_RIGHT\n"
-	"- SDL_HAT_DOWN\n"
-	"- SDL_HAT_LEFT\n"
-	"- SDL_HAT_RIGHTUP\n"
-	"- SDL_HAT_RIGHTDOWN\n"
-	"- SDL_HAT_LEFTUP\n"
-	"- SDL_HAT_LEFTDOWN\n"
+	"- `SDL_HAT_CENTERED`\n"
+	"- `SDL_HAT_UP`\n"
+	"- `SDL_HAT_RIGHT`\n"
+	"- `SDL_HAT_DOWN`\n"
+	"- `SDL_HAT_LEFT`\n"
+	"- `SDL_HAT_RIGHTUP`\n"
+	"- `SDL_HAT_RIGHTDOWN`\n"
+	"- `SDL_HAT_LEFTUP`\n"
+	"- `SDL_HAT_LEFTDOWN`\n"
 	);
 }
 
@@ -1738,7 +1738,7 @@ Gura_DeclareMethod(Joystick, JoystickGetButton)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "button", VTYPE_number);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"sdl.Joystick#JoystickGetButton returns the current state of the given button on the given joystick.\n"
+	"`sdl.Joystick#JoystickGetButton` returns the current state of the given button on the given joystick.\n"
 	"\n"
 	"**Return Value:** true if the button is pressed. Otherwise, false.\n"
 	);
@@ -1758,9 +1758,9 @@ Gura_DeclareMethod(Joystick, JoystickGetBall)
 	AddHelp(Gura_Symbol(en), FMT_markdown,
 	"Get the ball axis change.\n"
 	"\n"
-	"Trackballs can only return relative motion since the last call to sdl.Joystick#JoystickGetBall, these motion deltas a placed into dx and dy.\n"
+	"Trackballs can only return relative motion since the last call to `sdl.Joystick#JoystickGetBall`, these motion deltas a placed into dx and dy.\n"
 	"\n"
-	"**Return Value:** Returns [dx,dy] on success or nil on failure.\n"
+	"**Return Value:** Returns `[dx,dy]` on success or `nil` on failure.\n"
 	);
 }
 
@@ -1779,7 +1779,7 @@ Gura_DeclareMethod(Joystick, JoystickClose)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"Close a joystick that was previously opened with sdl.JoystickOpen.\n"
+	"Close a joystick that was previously opened with `sdl.JoystickOpen`.\n"
 	);
 }
 
@@ -2101,11 +2101,11 @@ Gura_DeclareMethod(CD, CDStatus)
 	AddHelp(Gura_Symbol(en), FMT_markdown,
 	"This function returns the current status of the given drive. Status is described like so:\n"
 	"\n"
-	"- sdl.CD_TRAYEMPTY\n"
-	"- sdl.CD_STOPPED\n"
-	"- sdl.CD_PLAYING\n"
-	"- sdl.CD_PAUSED\n"
-	"- sdl.CD_ERROR\n"
+	"- `sdl.CD_TRAYEMPTY`\n"
+	"- `sdl.CD_STOPPED`\n"
+	"- `sdl.CD_PLAYING`\n"
+	"- `sdl.CD_PAUSED`\n"
+	"- `sdl.CD_ERROR`\n"
 	);
 }
 
@@ -2144,12 +2144,12 @@ Gura_DeclareMethod(CD, CDPlayTracks)
 	DeclareArg(env, "ntracks", VTYPE_number);
 	DeclareArg(env, "nframes", VTYPE_number);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"sdl.CD#CDPlayTracks plays the given CD starting at track start_track, for ntracks tracks.\n"
+	"sdl.CD#CDPlayTracks plays the given CD starting at track `start_track`, for `ntracks` tracks.\n"
 	"\n"
-	"start_frame is the frame offset, from the beginning of the start_track, at which to start.\n"
-	"nframes is the frame offset, from the beginning of the last track (start_track+ntracks), at which to end playing.\n"
+	"`start_frame` is the frame offset, from the beginning of the `start_track`, at which to start.\n"
+	"`nframes` is the frame offset, from the beginning of the last track (`start_track`+`ntracks`), at which to end playing.\n"
 	"\n"
-	"sdl.CD#CDPlayTracks should only be called after calling sdl.CD#CDStatus to get track information about the CD.\n"
+	"`sdl.CD#CDPlayTracks` should only be called after calling `sdl.CD#CDStatus` to get track information about the CD.\n"
 	"\n"
 	"**Note:** Data tracks are ignored.\n"
 	"\n"
@@ -2297,14 +2297,14 @@ Gura_DeclareFunction(Init)
 	"Initializes SDL. This should be called before all other SDL functions.\n"
 	"The flags parameter specifies what part(s) of SDL to initialize.\n"
 	"\n"
-	"- sdl.INIT_TIMER - Initializes the timer subsystem.\n"
-	"- sdl.INIT_AUDIO - Initializes the audio subsystem.\n"
-	"- sdl.INIT_VIDEO - Initializes the video subsystem.\n"
-	"- sdl.INIT_CDROM - Initializes the cdrom subsystem.\n"
-	"- sdl.INIT_JOYSTICK - Initializes the joystick subsystem.\n"
-	"- sdl.INIT_EVERYTHING - Initialize all of the above.\n"
-	"- sdl.INIT_NOPARACHUTE - Prevents SDL from catching fatal signals.\n"
-	"- sdl.INIT_EVENTTHREAD\n"
+	"- `sdl.INIT_TIMER` - Initializes the timer subsystem.\n"
+	"- `sdl.INIT_AUDIO` - Initializes the audio subsystem.\n"
+	"- `sdl.INIT_VIDEO` - Initializes the video subsystem.\n"
+	"- `sdl.INIT_CDROM` - Initializes the cdrom subsystem.\n"
+	"- `sdl.INIT_JOYSTICK` - Initializes the joystick subsystem.\n"
+	"- `sdl.INIT_EVERYTHING` - Initialize all of the above.\n"
+	"- `sdl.INIT_NOPARACHUTE` - Prevents SDL from catching fatal signals.\n"
+	"- `sdl.INIT_EVENTTHREAD`\n"
 	"\n"
 	"**Return Value:** Returns -1 on an error or 0 on success.\n"
 	);
@@ -2323,8 +2323,8 @@ Gura_DeclareFunction(InitSubSystem)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"After SDL has been initialized with sdl.Init you may initialize uninitialized subsystems with sdl.InitSubSystem.\n"
-	"The flags parameter is the same as that used in sdl.Init.\n"
+	"After SDL has been initialized with sdl.Init you may initialize uninitialized subsystems with `sdl.InitSubSystem`.\n"
+	"The flags parameter is the same as that used in `sdl.Init`.\n"
 	"\n"
 	"**Return Value:** Returns -1 on an error or 0 on success.\n"
 	);
@@ -2341,8 +2341,8 @@ Gura_DeclareFunction(QuitSubSystem)
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"sdl.QuitSubSystem allows you to shut down a subsystem that has been previously initialized by sdl.Init or sdl.InitSubSystem.\n"
-	"The flags tells sdl.QuitSubSystem which subsystems to shut down, it uses the same values that are passed to sdl.Init.\n"
+	"`sdl.QuitSubSystem` allows you to shut down a subsystem that has been previously initialized by sdl.Init or `sdl.InitSubSystem`.\n"
+	"The flags tells `sdl.QuitSubSystem` which subsystems to shut down, it uses the same values that are passed to `sdl.Init`.\n"
 	);
 }
 
@@ -2357,7 +2357,7 @@ Gura_DeclareFunction(Quit)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"sdl.Quit shuts down all SDL subsystems and frees the resources allocated to them.\n"
+	"`sdl.Quit` shuts down all SDL subsystems and frees the resources allocated to them.\n"
 	"This should always be called before you exit.\n"
 	);
 }
@@ -2374,10 +2374,10 @@ Gura_DeclareFunction(WasInit)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"sdl.WasInit allows you to see which SDL subsytems have been initialized.\n"
+	"`sdl.WasInit` allows you to see which SDL subsytems have been initialized.\n"
 	"flags is a bitwise OR'd combination of the subsystems you wish to check (see sdl.Init for a list of subsystem flags).\n"
 	"\n"
-	"**Return Value:** sdl.WasInit returns a bitwised OR'd combination of the initialized subsystems.\n"
+	"**Return Value:** `sdl.WasInit` returns a bitwised OR'd combination of the initialized subsystems.\n"
 	);
 }
 
@@ -2391,9 +2391,9 @@ Gura_DeclareFunction(GetError)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"sdl.GetError returns a string containing information about the last internal SDL error.\n"
+	"`sdl.GetError` returns a string containing information about the last internal SDL error.\n"
 	"\n"
-	"**Return Value:** sdl.GetError returns a string containing the last error.\n"
+	"**Return Value:** `sdl.GetError` returns a string containing the last error.\n"
 	);
 }
 
@@ -2412,7 +2412,7 @@ Gura_DeclareFunction(GetVideoSurface)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"This function returns a sdl.Surface instance of the current display surface.\n"
+	"This function returns a `sdl.Surface` instance of the current display surface.\n"
 	"If SDL is doing format conversion on the display surface, this function returns the publicly visible surface, not the real video surface.\n"
 	);
 }
@@ -2429,8 +2429,8 @@ Gura_DeclareFunction(GetVideoInfo)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"This function returns a sdl.VideoInfo instance that contains information about the video hardware.\n"
-	"If this is called before sdl.SetVideoMode, the vfmt member of the returned structure will contain the pixel format of the \"best\" video mode.\n"
+	"This function returns a `sdl.VideoInfo` instance that contains information about the video hardware.\n"
+	"If this is called before `sdl.SetVideoMode`, the vfmt member of the returned structure will contain the pixel format of the \"best\" video mode.\n"
 	);
 }
 
@@ -2449,7 +2449,7 @@ Gura_DeclareFunction(VideoDriverName)
 	"Returns a string of the name of the initialised video driver.\n"
 	"The driver name is a simple one word identifier like \"x11\" or \"windib\".\n"
 	"\n"
-	"**Return Value:** Returns nil if video has not been initialised with sdl.Init or a string of the driver name otherwise.\n"
+	"**Return Value:** Returns `nil` if video has not been initialised with `sdl.Init` or a string of the driver name otherwise.\n"
 	);
 }
 
@@ -2501,13 +2501,13 @@ Gura_DeclareFunction(VideoModeOK)
 	DeclareArg(env, "bpp", VTYPE_number);
 	DeclareArg(env, "flags", VTYPE_number);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"sdl.VideoModeOK returns 0 if the requested mode is not supported under any bit depth,\n"
-	"or returns the bits-per-pixel of the closest available mode with the given width, height and requested surface flags (see sdl.SetVideoMode).\n"
+	"`sdl.VideoModeOK` returns 0 if the requested mode is not supported under any bit depth,\n"
+	"or returns the bits-per-pixel of the closest available mode with the given width, height and requested surface flags (see `sdl.SetVideoMode`).\n"
 	"\n"
 	"The bits-per-pixel value returned is only a suggested mode.\n"
 	"You can usually request and bpp you want when setting the video mode and SDL will emulate that color depth with a shadow video surface.\n"
 	"\n"
-	"The arguments to sdl.VideoModeOK are the same ones you would pass to sdl.SetVideoMode.\n"
+	"The arguments to `sdl.VideoModeOK` are the same ones you would pass to `sdl.SetVideoMode`.\n"
 	);
 }
 
@@ -2531,28 +2531,28 @@ Gura_DeclareFunction(SetVideoMode)
 	"\n"
 	"If bpp is 0, it is treated as the current display bits per pixel.\n"
 	"\n"
-	"The flags parameter is the same as the flags field of the sdl.Surface structure.\n"
+	"The flags parameter is the same as the flags field of the `sdl.Surface` structure.\n"
 	"OR'd combinations of the following values are valid.\n"
 	"\n"
-	"- sdl.SWSURFACE\n"
-	"- sdl.HWSURFACE\n"
-	"- sdl.ASYNCBLIT\n"
-	"- sdl.ANYFORMAT\n"
-	"- sdl.HWPALETTE\n"
-	"- sdl.DOUBLEBUF\n"
-	"- sdl.FULLSCREEN\n"
-	"- sdl.OPENGL\n"
-	"- sdl.OPENGLBLIT\n"
-	"- sdl.RESIZABLE\n"
-	"- sdl.NOFRAME\n"
+	"- `sdl.SWSURFACE`\n"
+	"- `sdl.HWSURFACE`\n"
+	"- `sdl.ASYNCBLIT`\n"
+	"- `sdl.ANYFORMAT`\n"
+	"- `sdl.HWPALETTE`\n"
+	"- `sdl.DOUBLEBUF`\n"
+	"- `sdl.FULLSCREEN`\n"
+	"- `sdl.OPENGL`\n"
+	"- `sdl.OPENGLBLIT`\n"
+	"- `sdl.RESIZABLE`\n"
+	"- `sdl.NOFRAME`\n"
 	"\n"
-	"**Note:** Whatever flags sdl.SetVideoMode could satisfy are set in the flags member of the returned surface.\n"
+	"**Note:** Whatever flags `sdl.SetVideoMode` could satisfy are set in the flags member of the returned surface.\n"
 	"\n"
 	"**Note:** The bpp parameter is the number of bits per pixel, so a bpp of 24 uses the packed representation of 3 bytes/pixel.\n"
 	"For the more common 4 bytes/pixel mode, use a bpp of 32. Somewhat oddly, both 15 and 16 will request a 2 bytes/pixel mode, but different pixel formats.\n"
 	"\n"
 	"**Return Value:** The framebuffer surface, or nil if it fails.\n"
-	"The surface returned is freed by sdl.Quit() and should not be freed by the caller.\n"
+	"The surface returned is freed by `sdl.Quit()` and should not be freed by the caller.\n"
 	);
 }
 
@@ -2576,7 +2576,7 @@ Gura_DeclareFunction(SetGamma)
 	"Gamma controls the brightness/contrast of colors displayed on the screen.\n"
 	"A gamma value of 1.0 is identity (i.e., no adjustment is made).\n"
 	"\n"
-	"This function adjusts the gamma based on the \"gamma function\" parameter, you can directly specify lookup tables for gamma adjustment with sdl.SetGammaRamp.\n"
+	"This function adjusts the gamma based on the \"gamma function\" parameter, you can directly specify lookup tables for gamma adjustment with `sdl.SetGammaRamp`.\n"
 	"\n"
 	"Not all display hardware is able to change gamma.\n"
 	);
@@ -2702,32 +2702,32 @@ Gura_DeclareFunction(CreateRGBSurface)
 	DeclareArg(env, "Amask", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"Allocate an empty surface (must be called after sdl.SetVideoMode)\n"
+	"Allocate an empty surface (must be called after `sdl.SetVideoMode`)\n"
 	"\n"
-	"If depth is 8 bits an empty palette is allocated for the surface, otherwise a 'packed-pixel' sdl.PixelFormat is created using the [RGBA]mask's provided (see sdl.PixelFormat).\n"
+	"If depth is 8 bits an empty palette is allocated for the surface, otherwise a 'packed-pixel' `sdl.PixelFormat` is created using the [RGBA]mask's provided (see sdl.PixelFormat).\n"
 	"The flags specifies the type of surface that should be created, it is an OR'd combination of the following possible values.\n"
 	"\n"
-	"- sdl.SWSURFACE - SDL will create the surface in system memory. This improves\n"
+	"- `sdl.SWSURFACE` - SDL will create the surface in system memory. This improves\n"
 	"                  the performance of pixel level access, however you may not be\n"
 	"                  able to take advantage of some types of hardware blitting.\n"
-	"- sdl.HWSURFACE - SDL will attempt to create the surface in video memory. This\n"
+	"- `sdl.HWSURFACE` - SDL will attempt to create the surface in video memory. This\n"
 	"                  will allow SDL to take advantage of Video->Video blits (which\n"
 	"                  are often accelerated).\n"
-	"- sdl.SRCCOLORKEY - This flag turns on colourkeying for blits from this surface.\n"
-	"                  If sdl.HWSURFACE is also specified and colourkeyed blits are\n"
+	"- `sdl.SRCCOLORKEY` - This flag turns on colourkeying for blits from this surface.\n"
+	"                  If `sdl.HWSURFACE` is also specified and colourkeyed blits are\n"
 	"                  hardware-accelerated, then SDL will attempt to place the\n"
 	"                  surface in video memory. Use sdl.SetColorKey to set or clear\n"
 	"                  this flag after surface creation.\n"
-	"- sdl.SRCALPHA - This flag turns on alpha-blending for blits from this surface.\n"
-	"                  If sdl.HWSURFACE is also specified and alpha-blending blits\n"
+	"- `sdl.SRCALPHA` - This flag turns on alpha-blending for blits from this surface.\n"
+	"                  If `sdl.HWSURFACE` is also specified and alpha-blending blits\n"
 	"                  are hardware-accelerated, then the surface will be placed in\n"
-	"                  video memory if possible. Use sdl.Surface#SetAlpha to set or\n"
+	"                  video memory if possible. Use `sdl.Surface#SetAlpha` to set or\n"
 	"                  clear this flag after surface creation.\n"
 	"\n"
-	"**Note:** If an alpha-channel is specified (that is, if Amask is nonzero), then the sdl.SRCALPHA flag is automatically set.\n"
-	"You may remove this flag by calling sdl.Surface#SetAlpha after surface creation.\n"
+	"**Note:** If an alpha-channel is specified (that is, if `Amask` is nonzero), then the `sdl.SRCALPHA` flag is automatically set.\n"
+	"You may remove this flag by calling `sdl.Surface#SetAlpha` after surface creation.\n"
 	"\n"
-	"**Return Value:** Returns the created surface, or nil upon error.\n"
+	"**Return Value:** Returns the created surface, or `nil` upon error.\n"
 	);
 }
 
@@ -2747,13 +2747,13 @@ Gura_DeclareFunction(CreateRGBSurfaceFrom)
 	DeclareArg(env, "image", VTYPE_image);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"Creates an sdl.Surface from the provided image instance."
+	"Creates an `sdl.Surface` from the provided image instance."
 	"\n"
-	"Reference to the image instance is kept in the created sdl.Surface instance.\n"
+	"Reference to the image instance is kept in the created `sdl.Surface` instance.\n"
 	"\n"
-	"See sdl.CreateRGBSurface for a more detailed description of the other parameters.\n"
+	"See `sdl.CreateRGBSurface` for a more detailed description of the other parameters.\n"
 	"\n"
-	"**Return Value:** Return the created surface, or nil upon error.\n"
+	"**Return Value:** Return the created surface, or `nil` upon error.\n"
 	);
 }
 
@@ -2774,7 +2774,7 @@ Gura_DeclareFunction(LoadBMP)
 	AddHelp(Gura_Symbol(en), FMT_markdown,
 	"Loads a surface from a named Windows BMP file."
 	"\n"
-	"**Return Value:** Returns the new surface, or nil if there was an error.\n"
+	"**Return Value:** Returns the new surface, or `nil` if there was an error.\n"
 	);
 }
 
@@ -2803,15 +2803,15 @@ Gura_DeclareFunction(BlitSurface)
 	"The width and height in srcrect determine the size of the copied rectangle.\n"
 	"Only the position is used in the dstrect (the width and height are ignored).\n"
 	"\n"
-	"If srcrect is nil, the entire surface is copied.\n"
-	"If dstrect is nil, then the destination position (upper left corner) is (0, 0).\n"
+	"If srcrect is `nil`, the entire surface is copied.\n"
+	"If dstrect is `nil`, then the destination position (upper left corner) is (0, 0).\n"
 	"\n"
 	"The final blit rectangle is saved in dstrect after all clipping is performed (srcrect is not modified).\n"
 	"\n"
 	"The blit function should not be called on a locked surface.\n"
 	"\n"
-	"The results of blitting operations vary greatly depending on whether sdl.SRCAPLHA is set or not.\n"
-	"See sdl.Surface#SetAlpha for an explaination of how this affects your results.\n"
+	"The results of blitting operations vary greatly depending on whether `sdl.SRCAPLHA` is set or not.\n"
+	"See `sdl.Surface#SetAlpha` for an explaination of how this affects your results.\n"
 	"Colorkeying and alpha attributes also interact with surface blitting, as the following pseudo-code should hopefully explain.\n"
 	"    if (source surface has SDL_SRCALPHA set) {\n"
 	"        if (source surface has alpha channel (that is, format->Amask != 0))\n"
@@ -2961,8 +2961,8 @@ Gura_DeclareFunction(ShowCursor)
 	DeclareArg(env, "toggle", VTYPE_number);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
 	"Toggle whether or not the cursor is shown on the screen.\n"
-	"Passing sdl.ENABLE displays the cursor and passing sdl.DISABLE hides it.\n"
-	"The current state of the mouse cursor can be queried by passing sdl.QUERY, either sdl.DISABLE or sdl.ENABLE will be returned.\n"
+	"Passing `sdl.ENABLE` displays the cursor and passing `sdl.DISABLE` hides it.\n"
+	"The current state of the mouse cursor can be queried by passing `sdl.QUERY`, either `sdl.DISABLE` or `sdl.ENABLE` will be returned.\n"
 	"The cursor starts off displayed, but can be turned off.\n"
 	"\n"
 	"**Return Value:** Returns the current state of the cursor.\n"
@@ -2981,9 +2981,9 @@ Gura_DeclareFunction(GL_GetAttribute)
 	DeclareArg(env, "attr", VTYPE_number);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
 	"Returns the value of the SDL/OpenGL attribute value.\n"
-	"This is useful after a call to sdl.SetVideoMode to check whether your attributes have been set as you expected.\n"
+	"This is useful after a call to `sdl.SetVideoMode` to check whether your attributes have been set as you expected.\n"
 	"\n"
-	"**Return Value:** Returns the attribute value on success, or nil on an error.\n"
+	"**Return Value:** Returns the attribute value on success, or `nil` on an error.\n"
 	);
 }
 
@@ -3004,8 +3004,8 @@ Gura_DeclareFunction(GL_SetAttribute)
 	DeclareArg(env, "value", VTYPE_number);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
 	"Sets the OpenGL attribute attr to value.\n"
-	"The attributes you set don't take effect until after a call to sdl.SetVideoMode.\n"
-	"You should use sdl.GL_GetAttribute to check the values after a sdl.SetVideoMode call.\n"
+	"The attributes you set don't take effect until after a call to `sdl.SetVideoMode`.\n"
+	"You should use `sdl.GL_GetAttribute` to check the values after a `sdl.SetVideoMode` call.\n"
 	"\n"
 	"**Return Value:** Returns 0 on success, or -1 on error.\n"
 	);
@@ -3042,8 +3042,8 @@ Gura_DeclareFunction(CreateYUVOverlay)
 	DeclareArg(env, "format", VTYPE_number);
 	DeclareArg(env, "display", VTYPE_Surface);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"sdl.CreateYUVOverlay creates a YUV overlay of the specified width, height and format\n"
-	"(see sdl.Overlay for a list of available formats), for the provided display.\n"
+	"`sdl.CreateYUVOverlay` creates a YUV overlay of the specified width, height and format\n"
+	"(see `sdl.Overlay` for a list of available formats), for the provided display.\n"
 	"A sdl.Overlay structure is returned.\n"
 	"\n"
 	"The term 'overlay' is a misnomer since, unless the overlay is created in hardware,\n"
@@ -3109,7 +3109,7 @@ Gura_DeclareFunction(WM_SetIcon)
 	AddHelp(Gura_Symbol(en), FMT_markdown,
 	"Sets the icon for the display window. Win32 icons must be 32x32.\n"
 	"\n"
-	"This function must be called before the first call to sdl.SetVideoMode.\n"
+	"This function must be called before the first call to `sdl.SetVideoMode`.\n"
 	"\n"
 	"The mask is a bitmask that describes the shape of the icon.\n"
 	"If mask is omitted, then the shape is determined by the colorkey of icon, if any, or makes the icon rectangular (no transparency) otherwise.\n"
@@ -3136,7 +3136,7 @@ Gura_DeclareFunction(WM_IconifyWindow)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
 	"If the application is running in a window managed environment SDL attempts to iconify/minimise it.\n"
-	"If sdl.WM_IconifyWindow is successful, the application will receive a sdl.APPACTIVE loss event.\n"
+	"If `sdl.WM_IconifyWindow` is successful, the application will receive a `sdl.APPACTIVE` loss event.\n"
 	"\n"
 	"**Return Value:** Returns non-zero on success or 0 if iconification is not support or was refused by the window manager.\n"
 	);
@@ -3175,12 +3175,12 @@ Gura_DeclareFunction(WM_GrabInput)
 	"Grabbing means that the mouse is confined to the application window,\n"
 	"and nearly all keyboard input is passed directly to the application, and not interpreted by a window manager, if any.\n"
 	"\n"
-	"When mode is sdl.GRAB_QUERY the grab mode is not changed, but the current grab mode is returned.\n"
+	"When mode is `sdl.GRAB_QUERY` the grab mode is not changed, but the current grab mode is returned.\n"
 	"\n"
 	"Available values for mode are:\n"
-	"- sdl.GRAB_QUERY\n"
-	"- sdl.GRAB_OFF\n"
-	"- sdl.GRAB_ON\n"
+	"- `sdl.GRAB_QUERY`\n"
+	"- `sdl.GRAB_OFF`\n"
+	"- `sdl.GRAB_ON`\n"
 	"\n"
 	"**Return Value:** The current/new mode value.\n"
 	);
@@ -3202,10 +3202,10 @@ Gura_DeclareFunction(PumpEvents)
 	AddHelp(Gura_Symbol(en), FMT_markdown,
 	"Pumps the event loop, gathering events from the input devices.\n"
 	"\n"
-	"sdl.PumpEvents gathers all the pending input information from devices and places it on the event queue.\n"
-	"Without calls to sdl.PumpEvents no events would ever be placed on the queue.\n"
-	"Often calls the need for sdl.PumpEvents is hidden from the user since sdl.PollEvent and sdl.WaitEvent implicitly call sdl.PumpEvents.\n"
-	"However, if you are not polling or waiting for events (e.g. you are filtering them), then you must call sdl.PumpEvents to force an event queue update.\n"
+	"`sdl.PumpEvents` gathers all the pending input information from devices and places it on the event queue.\n"
+	"Without calls to `sdl.PumpEvents` no events would ever be placed on the queue.\n"
+	"Often calls the need for `sdl.PumpEvents` is hidden from the user since `sdl.PollEvent` and `sdl.WaitEvent` implicitly call `sdl.PumpEvents`.\n"
+	"However, if you are not polling or waiting for events (e.g. you are filtering them), then you must call `sdl.PumpEvents` to force an event queue update.\n"
 	"\n"
 	"**Note:** You can only call this function in the thread that set the video mode.\n"
 	);
@@ -3224,9 +3224,9 @@ Gura_DeclareFunction(AddEvents)
 	DeclareArg(env, "events", VTYPE_Event, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "mask", VTYPE_number);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"This calles a function SDL_PeepEvents with specifying SDL_ADDEVENT.\n"
+	"This calles a function `SDL_PeepEvents` with `SDL_ADDEVENT`.\n"
 	"\n"
-	"sdl.Event instances, events, will be added to the back of the event queue.\n"
+	"`sdl.Event` instances, events, will be added to the back of the event queue.\n"
 	"\n"
 	"This function is thread-safe.\n"
 	);
@@ -3254,11 +3254,11 @@ Gura_DeclareFunction(PeekEvents)
 	DeclareArg(env, "numevents", VTYPE_number);
 	DeclareArg(env, "mask", VTYPE_number);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"This calles a function SDL_PeepEvents with specifying SDL_PEEKEVENT.\n"
+	"This calles a function `SDL_PeepEvents` with `SDL_PEEKEVENT`.\n"
 	"\n"
 	"Up to numevents events at the front of the event queue, matching mask, will be returned and will not be removed from the queue.\n"
 	"\n"
-	"The mask parameter is an bitwise OR of sdl.EVENTMASK(event_type), for all event types you are interested in.\n"
+	"The mask parameter is an bitwise OR of `sdl.EVENTMASK(event_type)`, for all event types you are interested in.\n"
 	"\n"
 	"This function is thread-safe.\n"
 	);
@@ -3290,11 +3290,11 @@ Gura_DeclareFunction(GetEvents)
 	DeclareArg(env, "numevents", VTYPE_number);
 	DeclareArg(env, "mask", VTYPE_number);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"This calles a function SDL_PeepEvents with specifying SDL_GETEVENT.\n"
+	"This calles a function `SDL_PeepEvents` with `SDL_GETEVENT`.\n"
 	"\n"
 	"Up to numevents events at the front of the event queue, matching mask, will be returned and will be removed from the queue.\n"
 	"\n"
-	"The mask parameter is an bitwise OR of sdl.EVENTMASK(event_type), for all event types you are interested in.\n"
+	"The mask parameter is an bitwise OR of `sdl.EVENTMASK(event_type)`, for all event types you are interested in.\n"
 	"\n"
 	"This function is thread-safe.\n"
 	);
@@ -3324,7 +3324,7 @@ Gura_DeclareFunction(PollEvent)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"Polls for currently pending events, and returns sdl.Event instance if there are any pending events, or nil if there are none available.\n"
+	"Polls for currently pending events, and returns `sdl.Event` instance if there are any pending events, or nil if there are none available.\n"
 	);
 }
 
@@ -3346,7 +3346,7 @@ Gura_DeclareFunction(WaitEvent)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"Waits indefinitely for the next available event, returning sdl.Event instance, or nil if there was an error while waiting for events.\n"
+	"Waits indefinitely for the next available event, returning `sdl.Event` instance, or nil if there was an error while waiting for events.\n"
 	);
 }
 
@@ -3417,7 +3417,7 @@ Gura_DeclareFunction(SetEventFilter)
 	"If it returns false, then the event will be dropped from the queue.\n"
 	"This allows selective filtering of dynamically.\n"
 	"\n"
-	"There is one caveat when dealing with the sdl.QUITEVENT event type.\n"
+	"There is one caveat when dealing with the `sdl.QUITEVENT` event type.\n"
 	"The event filter is only called when the window manager desires to close the application window.\n"
 	"If the event filter returns true, then the window will be closed, otherwise the window will remain open if possible.\n"
 	"If the quit event is generated by an interrupt signal, it will bypass the internal queue and be delivered to the application at the next event poll.\n"
@@ -3441,7 +3441,7 @@ Gura_DeclareFunction(GetEventFilter)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"This function retrieces a pointer to the event filter that was previously set using sdl.SetEventFilter.\n"
+	"This function retrieces a pointer to the event filter that was previously set using `sdl.SetEventFilter`.\n"
 	"A filter function is defined as:\n"
 	"\n"
 	"    filter(event:sdl.Event)\n"
@@ -3465,13 +3465,13 @@ Gura_DeclareFunction(EventState)
 	AddHelp(Gura_Symbol(en), FMT_markdown,
 	"This function allows you to set the state of processing certain event type's.\n"
 	"\n"
-	"If state is set to sdl.IGNORE, that event type will be automatically dropped from the event queue and will not be filtered.\n"
+	"If state is set to `sdl.IGNORE`, that event type will be automatically dropped from the event queue and will not be filtered.\n"
 	"\n"
-	"If state is set to sdl.ENABLE, that event type will be processed normally.\n"
+	"If state is set to `sdl.ENABLE`, that event type will be processed normally.\n"
 	"\n"
-	"If state is set to sdl.QUERY, sdl.EventState will return the current processing state of the specified event type.\n"
+	"If state is set to `sdl.QUERY`, sdl.EventState will return the current processing state of the specified event type.\n"
 	"\n"
-	"A list of event type's can be found in the SDL_Event section.\n"
+	"A list of event type's can be found in the `SDL_Event` section.\n"
 	);
 }
 
@@ -3487,9 +3487,9 @@ Gura_DeclareFunction(CheckKeyState)
 	DeclareArg(env, "key", VTYPE_number);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
 	"Check if the specified key is being pushed down.\n"
-	"key is one of sdl.K_* value. It returns true if the key is down, or false otherwise.\n"
+	"key is one of `sdl.K_*` value. It returns true if the key is down, or false otherwise.\n"
 	"\n"
-	"This functions calls SDL_GetKeyState internally.\n"
+	"This functions calls `SDL_GetKeyState` internally.\n"
 	);
 }
 
@@ -3509,24 +3509,24 @@ Gura_DeclareFunction(GetModState)
 	"Returns the current state of the modifier keys (CTRL, ALT, etc.).\n"
 	"\n"
 	"**Return Value:** The return value can be an OR'd combination of the following value.\n"
-	"- sdl.KMOD_NONE\n"
-	"- sdl.KMOD_LSHIFT\n"
-	"- sdl.KMOD_RSHIFT\n"
-	"- sdl.KMOD_LCTRL\n"
-	"- sdl.KMOD_RCTRL\n"
-	"- sdl.KMOD_LALT\n"
-	"- sdl.KMOD_RALT\n"
-	"- sdl.KMOD_LMETA\n"
-	"- sdl.KMOD_RMETA\n"
-	"- sdl.KMOD_NUM\n"
-	"- sdl.KMOD_CAPS\n"
-	"- sdl.KMOD_MODE\n"
+	"- `sdl.KMOD_NONE`\n"
+	"- `sdl.KMOD_LSHIFT`\n"
+	"- `sdl.KMOD_RSHIFT`\n"
+	"- `sdl.KMOD_LCTRL`\n"
+	"- `sdl.KMOD_RCTRL`\n"
+	"- `sdl.KMOD_LALT`\n"
+	"- `sdl.KMOD_RALT`\n"
+	"- `sdl.KMOD_LMETA`\n"
+	"- `sdl.KMOD_RMETA`\n"
+	"- `sdl.KMOD_NUM`\n"
+	"- `sdl.KMOD_CAPS`\n"
+	"- `sdl.KMOD_MODE`\n"
 	"\n"
 	"SDL also defines the following symbols for convenience:\n"
-	"- sdl.KMOD_CTRL (= sdl.KMOD_LCTRL | sdl.KMOD_RCTRL)\n"
-	"- sdl.KMOD_SHIFT (= sdl.KMOD_LSHIFT | sdl.KMOD_RSHIFT)\n"
-	"- sdl.KMOD_ALT (= sdl.KMOD_LALT | sdl.KMOD_RALT)\n"
-	"- sdl.KMOD_META (= sdl.KMOD_LMETA | sdl.KMOD_RMETA)\n"
+	"- `sdl.KMOD_CTRL` (= `sdl.KMOD_LCTRL | sdl.KMOD_RCTRL`)\n"
+	"- `sdl.KMOD_SHIFT` (= `sdl.KMOD_LSHIFT | sdl.KMOD_RSHIFT`)\n"
+	"- `sdl.KMOD_ALT` (= `sdl.KMOD_LALT | sdl.KMOD_RALT`)\n"
+	"- `sdl.KMOD_META` (= `sdl.KMOD_LMETA | sdl.KMOD_RMETA`)\n"
 	);
 }
 
@@ -3545,18 +3545,18 @@ Gura_DeclareFunction(SetModState)
 	"\n"
 	"Simply pass your desired modifier states into modstate.\n"
 	"This value my be a logical OR'd combination of the following:\n"
-	"- sdl.KMOD_NONE\n"
-	"- sdl.KMOD_LSHIFT\n"
-	"- sdl.KMOD_RSHIFT\n"
-	"- sdl.KMOD_LCTRL\n"
-	"- sdl.KMOD_RCTRL\n"
-	"- sdl.KMOD_LALT\n"
-	"- sdl.KMOD_RALT\n"
-	"- sdl.KMOD_LMETA\n"
-	"- sdl.KMOD_RMETA\n"
-	"- sdl.KMOD_NUM\n"
-	"- sdl.KMOD_CAPS\n"
-	"- sdl.KMOD_MODE\n"
+	"- `sdl.KMOD_NONE`\n"
+	"- `sdl.KMOD_LSHIFT`\n"
+	"- `sdl.KMOD_RSHIFT`\n"
+	"- `sdl.KMOD_LCTRL`\n"
+	"- `sdl.KMOD_RCTRL`\n"
+	"- `sdl.KMOD_LALT`\n"
+	"- `sdl.KMOD_RALT`\n"
+	"- `sdl.KMOD_LMETA`\n"
+	"- `sdl.KMOD_RMETA`\n"
+	"- `sdl.KMOD_NUM`\n"
+	"- `sdl.KMOD_CAPS`\n"
+	"- `sdl.KMOD_MODE`\n"
 	);
 }
 
@@ -3591,7 +3591,7 @@ Gura_DeclareFunction(EnableUNICODE)
 	"\n"
 	"To obtain the character codes corresponding to received keyboard events, Unicode translation must first be turned on using this function.\n"
 	"The translation incurs a slight overhead for each keyboard event and is therefore disabled by default.\n"
-	"For each subsequently received key down event, the unicode member of the SDL_keysym structure will then contain the corresponding character code, or zero for keysyms that do not correspond to any character code.\n"
+	"For each subsequently received key down event, the unicode member of the `SDL_keysym` structure will then contain the corresponding character code, or zero for keysyms that do not correspond to any character code.\n"
 	"\n"
 	"A value of 1 for enable enables Unicode translation; 0 disables it, and -1 leaves it unchanged (useful for querying the current translation mode).\n"
 	"\n"
@@ -3618,7 +3618,7 @@ Gura_DeclareFunction(EnableKeyRepeat)
 	"Both delay and interval are expressed in milliseconds.\n"
 	"\n"
 	"Setting delay to 0 disables key repeating completely.\n"
-	"Good default values are sdl.DEFAULT_REPEAT_DELAY and sdl.DEFAULT_REPEAT_INTERVAL.\n"
+	"Good default values are `sdl.DEFAULT_REPEAT_DELAY` and `sdl.DEFAULT_REPEAT_INTERVAL`.\n"
 	"\n"
 	"**Return Value:** Returns 0 on success and -1 on failure.\n"
 	);
@@ -3634,8 +3634,8 @@ Gura_DeclareFunction(GetMouseState)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"It returns a list [button, x, y].\n"
-	"button is a current button state as a bitmask, which can be tested using the sdl.BUTTON(button) function, and x and y are set to the current mouse cursor position.\n"
+	"It returns a list `[button, x, y]`.\n"
+	"`button` is a current button state as a bitmask, which can be tested using the `sdl.BUTTON(button)` function, and `x` and `y` are set to the current mouse cursor position.\n"
 	);
 }
 
@@ -3651,9 +3651,9 @@ Gura_DeclareFunction(GetRelativeMouseState)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"It returns a list [button, x, y].\n"
-	"button is a current button state as a bitmask, which can be tested using the sdl.BUTTON(button) function,\n"
-	"and x and y are set to the change in the mouse position since the last call to sdl.GetRelativeMouseState or since event initialization.\n"
+	"It returns a list `[button, x, y]`.\n"
+	"`button` is a current button state as a bitmask, which can be tested using the `sdl.BUTTON(button)` function,\n"
+	"and `x` and `y` are set to the change in the mouse position since the last call to `sdl.GetRelativeMouseState` or since event initialization.\n"
 	);
 }
 
@@ -3670,9 +3670,9 @@ Gura_DeclareFunction(GetAppState)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
 	"This function returns the current state of the application. The value returned is a bitwise combination of:\n"
-	"- sdl.APPMOUSEFOCUS - The application has mouse focus.\n"
-	"- sdl.APPINPUTFOCUS - The application has keyboard focus\n"
-	"- sdl.APPACTIVE - The application is visible\n"
+	"- `sdl.APPMOUSEFOCUS` - The application has mouse focus.\n"
+	"- `sdl.APPINPUTFOCUS` - The application has keyboard focus\n"
+	"- `sdl.APPACTIVE` - The application is visible\n"
 	);
 }
 
@@ -3688,12 +3688,12 @@ Gura_DeclareFunction(JoystickEventState)
 	DeclareArg(env, "state", VTYPE_number);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
 	"This function is used to enable or disable joystick event processing.\n"
-	"With joystick event processing disabled you will have to update joystick states with sdl.JoystickUpdate and read the joystick information manually.\n"
-	"state is either sdl.QUERY, sdl.ENABLE or sdl.IGNORE.\n"
+	"With joystick event processing disabled you will have to update joystick states with `sdl.JoystickUpdate` and read the joystick information manually.\n"
+	"state is either `sdl.QUERY`, `sdl.ENABLE` or `sdl.IGNORE`.\n"
 	"\n"
 	"**Note:** Joystick event handling is prefered\n"
 	"\n"
-	"**Return Value:** If state is sdl.QUERY then the current state is returned, otherwise the new processing state is returned.\n"
+	"**Return Value:** If state is `sdl.QUERY` then the current state is returned, otherwise the new processing state is returned.\n"
 	);
 }
 
@@ -3749,7 +3749,7 @@ Gura_DeclareFunction(JoystickOpen)
 	"The index refers to the N'th joystick in the system.\n"
 	"A joystick must be opened before it game be used.\n"
 	"\n"
-	"**Return Value:** Returns a sdl.Joystick instance on success. nil on failure.\n"
+	"**Return Value:** Returns a `sdl.Joystick` instance on success. `nil` on failure.\n"
 	);
 }
 
@@ -3769,7 +3769,7 @@ Gura_DeclareFunction(JoystickOpened)
 	"Determines whether a joystick has already been opened within the application.\n"
 	"index refers to the N'th joystick on the system.\n"
 	"\n"
-	"**Return Value:** Returns true if the joystick has been opened, or false if it has not.\n"
+	"**Return Value:** Returns `true` if the joystick has been opened, or `false` if it has not.\n"
 	);
 }
 
@@ -3784,7 +3784,7 @@ Gura_DeclareFunction(JoystickUpdate)
 	SetMode(RSLTMODE_Void, FLAG_None);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
 	"Updates the state(position, buttons, etc.) of all open joysticks.\n"
-	"If joystick events have been enabled with sdl.JoystickEventState then this is called automatically in the event loop.\n"
+	"If joystick events have been enabled with `sdl.JoystickEventState` then this is called automatically in the event loop.\n"
 	);
 }
 
@@ -4034,7 +4034,7 @@ Gura_DeclareFunction(Delay)
 	DeclareArg(env, "ms", VTYPE_number);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
 	"Wait a specified number of milliseconds before returning.\n"
-	"sdl.Delay will wait at least the specified time, but possible longer due to OS scheduling.\n"
+	"`sdl.Delay` will wait at least the specified time, but possible longer due to OS scheduling.\n"
 	"\n"
 	"**Note:** Count on a delay granularity of at least 10 ms. Some platforms have shorter clock ticks but this is the most common.\n"
 	);
@@ -4056,10 +4056,10 @@ Gura_DeclareFunction(AddTimer)
 	DeclareAttr(Gura_UserSymbol(thread_));
 	AddHelp(Gura_Symbol(en), FMT_markdown,
 	"Adds a callback function to be run after the specified number of milliseconds has elapsed.\n"
-	"The callback function is passed the current timer interval and the user supplied parameter from the sdl.AddTimer call and returns the next timer interval.\n"
+	"The callback function is passed the current timer interval and the user supplied parameter from the `sdl.AddTimer` call and returns the next timer interval.\n"
 	"If the returned value from the callback is the same as the one passed in, the periodic alarm continues, otherwise a new alarm is scheduled.\n"
 	"\n"
-	"To cancel a currently running timer call sdl.Timer#RemoveTimer with the sdl.Timer instance returned from sdl.AddTimer.\n"
+	"To cancel a currently running timer call `sdl.Timer#RemoveTimer` with the `sdl.Timer` instance returned from `sdl.AddTimer`.\n"
 	//"\n"
 	//"The timer callback function may run in a different thread than your main program, and so shouldn't call any functions from within itself.\n"
 	//"You may always call sdl.PushEvent, however.\n"
@@ -4067,12 +4067,12 @@ Gura_DeclareFunction(AddTimer)
 	"The granularity of the timer is platform-dependent, but you should count on it being at least 10 ms as this is the most common number.\n"
 	"This means that if you request a 16 ms timer, your callback will run approximately 20 ms later on an unloaded system.\n"
 	"If you wanted to set a flag signaling a frame update at 30 frames per second (every 33 ms), you might set a timer for 30 ms (see example below).\n"
-	"If you use this function, you need to pass sdl.INIT_TIMER to sdl.Init.\n"
+	"If you use this function, you need to pass `sdl.INIT_TIMER` to `sdl.Init`.\n"
 	"\n"
 	"**Gura:** You can register the timer callback function by specifying callback function in the argument or declaring block\n"
-	"It will be called in the same thread of event dispatching loop while you can also run it in a different thread by specying :thread attribute.\n"
+	"It will be called in the same thread of event dispatching loop while you can also run it in a different thread by specying `:thread` attribute.\n"
 	"\n"
-	"**Return Value:** Returns a sdl.Timer instance for the added timer.\n"
+	"**Return Value:** Returns a `sdl.Timer` instance for the added timer.\n"
 	);
 }
 
@@ -4167,7 +4167,7 @@ Gura_DeclareFunction(AudioSpec)
 	SetClassToConstruct(Gura_UserClass(AudioSpec));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"Returns an instance of sdl.AudioSpec structure."
+	"Returns an instance of `sdl.AudioSpec` structure."
 	);
 }
 
@@ -4217,13 +4217,13 @@ Gura_DeclareFunction(BUTTON)
 	DeclareArg(env, "X", VTYPE_number);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
 	"Returns a bit mask to check button status. X is one of the following:\n"
-	"- sdl.BUTTON_LEFT\n"
-	"- sdl.BUTTON_MIDDLE\n"
-	"- sdl.BUTTON_RIGHT\n"
-	"- sdl.BUTTON_WHEELUP\n"
-	"- sdl.BUTTON_WHEELDOWN\n"
-	"- sdl.BUTTON_X1\n"
-	"- sdl.BUTTON_X2\n"
+	"- `sdl.BUTTON_LEFT`\n"
+	"- `sdl.BUTTON_MIDDLE`\n"
+	"- `sdl.BUTTON_RIGHT`\n"
+	"- `sdl.BUTTON_WHEELUP`\n"
+	"- `sdl.BUTTON_WHEELDOWN`\n"
+	"- `sdl.BUTTON_X1`\n"
+	"- `sdl.BUTTON_X2`\n"
 	);
 }
 
