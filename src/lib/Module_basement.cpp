@@ -8,14 +8,14 @@ Gura_BeginModule(basement)
 
 #define REPEATER_HELP \
 "It returns the last evaluated value in the block as its own result,\n" \
-"but, if one of :list, :xlist, :set, :xset or :iter is specified,\n" \
+"but, if one of `:list`, `:xlist`, `:set`, `:xset` or `:iter` is specified,\n" \
 "it returns a list or evaluated value or an iterator. The rule is as follows.\n" \
-"  :list  returns a list of result values\n" \
-"  :xlist returns a list of result values eliminating nil\n" \
-"  :set   returns a list of unique values of results\n" \
-"  :xset  returns a list of unique values of results eliminating nil\n" \
-"  :iter  returns an iterator that executes the block\n" \
-"  :xiter returns an iterator that executes the block, skipping nil\n"
+"- `:list` - returns a list of result values\n" \
+"- `:xlist` - returns a list of result values eliminating `nil`\n" \
+"- `:set` - returns a list of unique values of results\n" \
+"- `:xset` - returns a list of unique values of results eliminating `nil`\n" \
+"- `:iter` - returns an iterator that executes the block\n" \
+"- `:xiter` - returns an iterator that executes the block, skipping `nil`\n"
 
 //-----------------------------------------------------------------------------
 // Gura module functions: basement
@@ -148,9 +148,9 @@ Gura_DeclareFunctionAlias(import_, "import")
 	"Imports a module stored in directories specified by a variable sys.path.\n"
 	"There are three ways of calling this function like follow:\n"
 	"\n"
-	"  1. import(foo)\n"
-	"  2. import(foo, bar)\n"
-	"  3. import(foo) {symbol1, symbol2, symbol3}\n"
+	"1. import(foo)\n"
+	"2. import(foo, bar)\n"
+	"3. import(foo) {symbol1, symbol2, symbol3}\n"
 	"\n"
 	"In the first format, it creates a module object named foo.\n"
 	"In the second, it names the module object as bar instead of foo.\n"
@@ -161,7 +161,7 @@ Gura_DeclareFunctionAlias(import_, "import")
 	"detection and allow overwriting of symbols. You can specify an asterisk\n"
 	"character to include all the registered symbols like follows.\n"
 	"\n"
-	"  import(foo) {*}");
+	"    import(foo) {*}");
 }
 
 Gura_ImplementFunction(import_)
@@ -650,7 +650,9 @@ Gura_DeclareFunction(repeat)
 	AddHelp(Gura_Symbol(en), FMT_markdown,
 	"Executes the block for n times. If n is omitted, it repeats the block\n"
 	"execution forever.\n"
+	"\n"
 	REPEATER_HELP
+	"\n"
 	"Block parameter format: |idx:number|");
 }
 
@@ -675,7 +677,9 @@ Gura_DeclareFunctionAlias(while_, "while")
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
 	"Executes the block while the evaluation result of cond is true.\n"
+	"\n"
 	REPEATER_HELP
+	"\n"
 	"Block parameter format: |idx:number|");
 }
 
@@ -701,7 +705,9 @@ Gura_DeclareFunctionAlias(for_, "for")
 	"their ends. You can specify one or more such exprs as arguments.\n"
 	"Iterators and lists are the most popular iteratables, but even any objects that\n"
 	"are cable of generating iterators can be specified as such.\n"
+	"\n"
 	REPEATER_HELP
+	"\n"
 	"Block parameter format: |idx:number|");
 }
 
@@ -729,7 +735,9 @@ Gura_DeclareFunction(cross)
 	"they are counted up from the one on the right side.\n"
 	"Iterators and lists are the most popular iteratables, but even any objects that\n"
 	"are cable of generating iterators can be specified as such.\n"
+	"\n"
 	REPEATER_HELP
+	"\n"
 	"Block parameter format: |idx:number, i0:number, i1:number, ..|");
 }
 
