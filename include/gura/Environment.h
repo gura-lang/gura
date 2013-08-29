@@ -161,6 +161,33 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// TextFormatter
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE TextFormatter {
+private:
+	String _formatName;
+public:
+	TextFormatter(const String &formatName);
+	const char *GetFormatName() const { return _formatName.c_str(); }
+	virtual bool DoFormat(Environment &env, Signal sig,
+		SimpleStream &streamSrc, Stream &streamDst, const char *outputType) const = 0;
+public:
+	static void Register(Environment &env, TextFormatter *pTextFormatter);
+	static bool Format(Environment &env, Signal sig, const char *formatName,
+		SimpleStream &streamSrc, Stream &streamDst, const char *outputType);
+};
+
+//-----------------------------------------------------------------------------
+// TextFormatterOwner
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE TextFormatterOwner : public std::vector<TextFormatter *> {
+public:
+	~TextFormatterOwner();
+	void Clear();
+	const TextFormatter *FindByFormatName(const char *formatName) const;
+};
+
+//-----------------------------------------------------------------------------
 // Environment
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Environment {
@@ -171,6 +198,7 @@ public:
 		SeparatedModuleMap	_separatedModuleMap;
 		StringList			_workingDirList;
 		PathManagerOwner	_pathManagerOwner;
+		TextFormatterOwner	_textFormatterOwner;
 		Operator			*_operatorTbl[OPTYPE_max];
 		SymbolPool			*_pSymbolPool;
 		ValueTypePool		*_pValueTypePool;
@@ -192,6 +220,8 @@ public:
 		void UnregisterSeparatedModule(const char *pathName);
 		inline PathManagerOwner &GetPathManagerOwner() { return _pathManagerOwner; }
 		inline const PathManagerOwner &GetPathManagerOwner() const { return _pathManagerOwner; }
+		inline TextFormatterOwner &GetTextFormatterOwner() { return _textFormatterOwner; }
+		inline const TextFormatterOwner &GetTextFormatterOwner() const { return _textFormatterOwner; }
 		inline void SetOperator(OpType opType, Operator *pOperator) { _operatorTbl[opType] = pOperator; }
 		inline Operator *GetOperator(OpType opType) { return _operatorTbl[opType]; }
 		inline const Operator *GetOperator(OpType opType) const { return _operatorTbl[opType]; }

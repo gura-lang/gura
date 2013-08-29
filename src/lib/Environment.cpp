@@ -86,6 +86,61 @@ void PathManagerOwner::Clear()
 }
 
 //-----------------------------------------------------------------------------
+// TextFormatter
+//-----------------------------------------------------------------------------
+TextFormatter::TextFormatter(const String &formatName) : _formatName(formatName)
+{
+}
+
+void TextFormatter::Register(Environment &env, TextFormatter *pTextFormatter)
+{
+	env.GetGlobal()->GetTextFormatterOwner().push_back(pTextFormatter);
+}
+
+bool TextFormatter::Format(Environment &env, Signal sig, const char *formatName,
+			SimpleStream &streamSrc, Stream &streamDst, const char *outputType)
+{
+	const TextFormatter *pTextFormatter = env.GetGlobal()->
+						GetTextFormatterOwner().FindByFormatName(formatName);
+	if (pTextFormatter != NULL) {
+		return pTextFormatter->DoFormat(env, sig, streamSrc, streamDst, outputType);
+	}
+	if (!env.ImportModules(sig, formatName, false, false)) return false;
+	if (pTextFormatter != NULL) {
+		return pTextFormatter->DoFormat(env, sig, streamSrc, streamDst, outputType);
+	}
+	sig.SetError(ERR_FormatError, "unsupported format: %s", formatName);
+	return false;
+}
+
+//-----------------------------------------------------------------------------
+// TextFormatterOwner
+//-----------------------------------------------------------------------------
+TextFormatterOwner::~TextFormatterOwner()
+{
+	Clear();
+}
+
+void TextFormatterOwner::Clear()
+{
+	foreach (TextFormatterOwner, ppTextFormatter, *this) {
+		delete *ppTextFormatter;
+	}
+	clear();
+}
+
+const TextFormatter *TextFormatterOwner::FindByFormatName(const char *formatName) const
+{
+	foreach_const (TextFormatterOwner, ppTextFormatter, *this) {
+		const TextFormatter *pTextFormatter = *ppTextFormatter;
+		if (::strcmp(pTextFormatter->GetFormatName(), formatName) == 0) {
+			return pTextFormatter;
+		}
+	}
+	return NULL;
+}
+
+//-----------------------------------------------------------------------------
 // ModuleIntegrator
 //-----------------------------------------------------------------------------
 ModuleIntegrator::ModuleIntegrator(const char *name,
@@ -759,23 +814,6 @@ bool Environment::SearchSeparatedModuleFile(Signal sig, String &pathName,
 				if (sig.IsSignalled()) return false;
 			}
 		} while (0);
-#if 0
-		do {
-			String pathNameBase = pValue->GetString();
-			pathNameBase += OAL::FileSeparator;
-			pathNameBase += baseName;
-			if (PathManager::IsContainer(env, sig, pathNameBase.c_str())) {
-				pathNameBase += OAL::FileSeparator;
-				pathNameBase += "__init__.";
-				foreach_const (StringList, pExtName, extNameList) {
-					pathName = pathNameBase + *pExtName;
-					if (PathManager::DoesExist(env, sig, pathName.c_str())) return true;
-					if (sig.IsSignalled()) return false;
-				}
-			}
-			if (sig.IsSignalled()) return false;
-		} while (0);
-#endif
 	}
 	sig.SetError(ERR_ImportError, "can't find a module named '%s'",
 		SymbolList::Join(ppSymbolOfModule, ppSymbolOfModuleEnd, '.').c_str());
