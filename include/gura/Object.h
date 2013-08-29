@@ -15,7 +15,8 @@ inline static T *GetThisObj(Args &args) { \
 } \
 inline static T *Reference(const T *pObj) { \
 	return dynamic_cast<T *>(Object::Reference(pObj)); \
-}
+} \
+inline T *Reference() const { return Reference(this); } \
 
 #define Gura_DeclareObjectAccessor(name) \
 Gura_DeclareObjectAccessorEx(Object_##name)

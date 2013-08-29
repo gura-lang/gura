@@ -184,6 +184,52 @@ public:
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 
+//-----------------------------------------------------------------------------
+// TextFormatter_markdown
+//-----------------------------------------------------------------------------
+class TextFormatter_markdown : public TextFormatter {
+public:
+	inline TextFormatter_markdown() : TextFormatter("markdown") {}
+	virtual bool DoFormat(Environment &env, Signal sig,
+		SimpleStream &streamSrc, Stream &streamDst, const char *outputType) const;
+private:
+	static bool OutputText(Signal sig, Stream &streamDst, const Item *pItem);
+	static bool OutputText(Signal sig, Stream &streamDst, const ItemList *pItemList);
+};
+
+//-----------------------------------------------------------------------------
+// Generator
+//-----------------------------------------------------------------------------
+class Generator {
+private:
+	String _outputType;
+	AutoPtr<Object_function> _pObjFunc;
+public:
+	inline Generator(const String &outputType, Object_function *pObjFunc) :
+				_outputType(outputType), _pObjFunc(pObjFunc) {}
+	inline const char *GetOutputType() const { return _outputType.c_str(); }
+	inline Value Eval(Environment &env, Signal sig, ValueList &valListArg) const {
+		return _pObjFunc->Eval(env, sig, valListArg);
+	}
+};
+
+//-----------------------------------------------------------------------------
+// GeneratorList
+//-----------------------------------------------------------------------------
+class GeneratorList : public std::vector<Generator *> {
+public:
+	Generator *FindByOutputType(const char *outputType) const;
+};
+
+//-----------------------------------------------------------------------------
+// GeneratorOwner
+//-----------------------------------------------------------------------------
+class GeneratorOwner : public GeneratorList {
+public:
+	~GeneratorOwner();
+	void Clear();
+};
+
 }}
 
 #endif
