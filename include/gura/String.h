@@ -65,7 +65,6 @@ GURA_DLLDECLARE String Join(const ValueList &valList, const char *str);
 GURA_DLLDECLARE String Replace(const char *str, const char *sub, const char *replace,
 									int nMaxReplace, const SymbolSet &attrs);
 GURA_DLLDECLARE void SplitPathList(const char *str, StringList &strList);
-GURA_DLLDECLARE String FormatText(const char *text, const char *lineTop);
 GURA_DLLDECLARE Value FindString(Environment &env, Signal sig,
 		const char *str, const char *sub, int start, const SymbolSet &attrs);
 
@@ -75,53 +74,40 @@ inline size_t CalcCharOffset(const char *str, size_t pos) {
 	return Forward(str, pos) - str;
 }
 
+enum {
+	CTYPE_Alpha				= (1 << 0),
+	CTYPE_Digit				= (1 << 1),
+	CTYPE_HexDigit			= (1 << 2),
+	CTYPE_OctDigit			= (1 << 3),
+	CTYPE_White				= (1 << 4),
+	CTYPE_Space				= (1 << 5),
+	CTYPE_SJISFirst			= (1 << 6),
+	CTYPE_SJISSecond		= (1 << 7),
+	CTYPE_UTF8First			= (1 << 8),
+	CTYPE_UTF8Follower		= (1 << 9),
+	CTYPE_SymbolExtra		= (1 << 10),
+	CTYPE_Lower				= (1 << 11),
+	CTYPE_Upper				= (1 << 12),
+	CTYPE_URIC				= (1 << 13),
+	CTYPE_SymbolFirstChar	= (CTYPE_Alpha | CTYPE_SymbolExtra | CTYPE_UTF8First),
+	CTYPE_SymbolChar		= (CTYPE_SymbolFirstChar | CTYPE_Digit | CTYPE_UTF8Follower),
+};
 
-#define CTYPE_Alpha (1 << 0)
 inline bool IsAlpha(char ch) { return (GetCType(ch) & CTYPE_Alpha) != 0; }
-
-#define CTYPE_Digit (1 << 1)
 inline bool IsDigit(char ch) { return (GetCType(ch) & CTYPE_Digit) != 0; }
-
-#define CTYPE_HexDigit (1 << 2)
 inline bool IsHexDigit(char ch) { return (GetCType(ch) & CTYPE_HexDigit) != 0; }
-
-#define CTYPE_OctDigit (1 << 3)
 inline bool IsOctDigit(char ch) { return (GetCType(ch) & CTYPE_OctDigit) != 0; }
-
-#define CTYPE_White (1 << 4)
 inline bool IsWhite(char ch) { return (GetCType(ch) & CTYPE_White) != 0; }
-
-#define CTYPE_Space (1 << 5)
 inline bool IsSpace(char ch) { return (GetCType(ch) & CTYPE_Space) != 0; }
-
-#define CTYPE_SJISFirst (1 << 6)
 inline bool IsSJISFirst(char ch) { return (GetCType(ch) & CTYPE_SJISFirst) != 0; }
-
-#define CTYPE_SJISSecond (1 << 7)
 inline bool IsSJISSecond(char ch) { return (GetCType(ch) & CTYPE_SJISSecond) != 0; }
-
-#define CTYPE_UTF8First (1 << 8)
 inline bool IsUTF8First(char ch) { return (GetCType(ch) & CTYPE_UTF8First) != 0; }
-
-#define CTYPE_UTF8Follower (1 << 9)
 inline bool IsUTF8Follower(char ch) { return (GetCType(ch) & CTYPE_UTF8Follower) != 0; }
-
-#define CTYPE_SymbolExtra (1 << 10)
 inline bool IsSymbolExtra(char ch) { return (GetCType(ch) & CTYPE_SymbolExtra) != 0; }
-
-#define CTYPE_Lower (1 << 11)
 inline bool IsLower(char ch) { return (GetCType(ch) & CTYPE_Lower) != 0; }
-
-#define CTYPE_Upper (1 << 12)
 inline bool IsUpper(char ch) { return (GetCType(ch) & CTYPE_Upper) != 0; }
-
-#define CTYPE_URIC (1 << 13)
 inline bool IsURIC(char ch) { return (GetCType(ch) & CTYPE_URIC) != 0; }
-
-#define CTYPE_SymbolFirstChar (CTYPE_Alpha | CTYPE_SymbolExtra | CTYPE_UTF8First)
 inline bool IsSymbolFirstChar(char ch) { return (GetCType(ch) & CTYPE_SymbolFirstChar) != 0; }
-
-#define CTYPE_SymbolChar (CTYPE_SymbolFirstChar | CTYPE_Digit | CTYPE_UTF8Follower)
 inline bool IsSymbolChar(char ch) { return (GetCType(ch) & CTYPE_SymbolChar) != 0; }
 
 inline char ConvHexDigit(char ch) {
