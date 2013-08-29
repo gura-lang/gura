@@ -106,11 +106,20 @@ bool TextFormatter::Format(Environment &env, Signal sig, const char *formatName,
 		return pTextFormatter->DoFormat(env, sig, streamSrc, streamDst, outputType);
 	}
 	if (!env.ImportModules(sig, formatName, false, false)) return false;
+	pTextFormatter = env.GetGlobal()->
+						GetTextFormatterOwner().FindByFormatName(formatName);
 	if (pTextFormatter != NULL) {
 		return pTextFormatter->DoFormat(env, sig, streamSrc, streamDst, outputType);
 	}
 	sig.SetError(ERR_FormatError, "unsupported format: %s", formatName);
 	return false;
+}
+
+bool TextFormatter::Format(Environment &env, Signal sig, const char *formatName,
+			const char *text, Stream &streamDst, const char *outputType)
+{
+	SimpleStream_CString streamSrc(text);
+	return Format(env, sig, formatName, streamSrc, streamDst, outputType);
 }
 
 //-----------------------------------------------------------------------------

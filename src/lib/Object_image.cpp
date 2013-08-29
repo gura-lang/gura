@@ -105,9 +105,11 @@ Gura_DeclareFunction(image)
 	AddHelp(Gura_Symbol(en), FMT_markdown, 
 	"Returns an image object with specified characteristics. There are three patterns\n"
 	"to call the function as follows.\n"
+	"\n"
 	"- image(stream:stream, format?:symbol, imagetype?:string)\n"
 	"- image(format:symbol)\n"
 	"- image(format:symbol, width:number, height:number, color?:color)\n"
+	"\n"
 	"In the first pattern, it creates an empty image with a specified format.\n"
 	"The second reads image data from the stream and expand it in the buffer.\n"
 	"The last allocates an image buffer of specified size and fills it with the color.\n"

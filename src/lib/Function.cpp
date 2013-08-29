@@ -267,17 +267,17 @@ void Function::DeclareBlock(OccurPattern occurPattern,
 	_blockInfo.quoteFlag = quoteFlag;
 }
 
-void Function::AddHelp(const Symbol *pSymbol, const String &format, const String &text)
+void Function::AddHelp(const Symbol *pSymbol, const String &formatName, const String &text)
 {
-	_helpList.push_back(Help(pSymbol, format, text));
+	_helpList.push_back(Help(pSymbol, formatName, text));
 }
 
-const char *Function::GetHelp(const Symbol *pSymbol) const
+const Function::Help *Function::GetHelp(const Symbol *pSymbol) const
 {
 	if (_helpList.empty()) return NULL;
-	if (pSymbol == NULL) return _helpList.front().GetText();
+	if (pSymbol == NULL) return &_helpList.front();
 	foreach_const (HelpList, pHelp, _helpList) {
-		if (pHelp->GetSymbol() == pSymbol) return pHelp->GetText();
+		if (pHelp->GetSymbol() == pSymbol) return &*pHelp;
 	}
 	return NULL;
 }

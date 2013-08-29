@@ -175,6 +175,8 @@ public:
 	static void Register(Environment &env, TextFormatter *pTextFormatter);
 	static bool Format(Environment &env, Signal sig, const char *formatName,
 		SimpleStream &streamSrc, Stream &streamDst, const char *outputType);
+	static bool Format(Environment &env, Signal sig, const char *formatName,
+		const char *text, Stream &streamDst, const char *outputType);
 };
 
 //-----------------------------------------------------------------------------

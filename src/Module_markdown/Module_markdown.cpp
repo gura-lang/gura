@@ -99,19 +99,20 @@ void ItemOwner::Store(const ItemList &itemList)
 Parser::Parser() : _stat(STAT_LineTop), _statRtn(STAT_LineTop),
 											_indentLevel(0), _pItemOwner(NULL)
 {
-	_pItemRoot.reset(new Item(Item::TYPE_Root, new ItemOwner()));
 	_pItemOwner.reset(new ItemOwner());
-	_itemStack.push_back(_pItemRoot.get());
 }
 
-bool Parser::ParseStream(Signal sig, SimpleStream &stream)
+Item *Parser::Parse(Signal sig, SimpleStream &stream)
 {
+	AutoPtr<Item> pItemRoot(new Item(Item::TYPE_Root, new ItemOwner()));
+	_itemStack.push_back(pItemRoot.get());
 	for (;;) {
 		int chRaw = stream.GetChar(sig);
 		char ch = (chRaw < 0)? '\0' : static_cast<UChar>(chRaw);
-		if (!ParseChar(sig, ch)) return false;
+		if (!ParseChar(sig, ch)) return NULL;
 		if (chRaw < 0) break;
 	}
+	return pItemRoot.release();
 }
 
 bool Parser::ParseChar(Signal sig, char ch)
@@ -774,10 +775,10 @@ Gura_DeclareFunction(parse)
 
 Gura_ImplementFunction(parse)
 {
-	Parser parser;
 	Stream &stream = args.GetStream(0);
-	parser.ParseStream(sig, stream);
-	AutoPtr<Object_item> pObj(new Object_item(parser.GetItemRoot()->Reference()));
+	AutoPtr<Item> pItem(Parser().Parse(sig, stream));
+	if (pItem.IsNull()) return Value::Null;
+	AutoPtr<Object_item> pObj(new Object_item(pItem.release()));
 	return ReturnValue(env, sig, args, Value(pObj.release()));
 }
 
@@ -824,15 +825,102 @@ public:
 	inline TextFormatter_markdown() : TextFormatter("markdown") {}
 	virtual bool DoFormat(Environment &env, Signal sig,
 		SimpleStream &streamSrc, Stream &streamDst, const char *outputType) const;
+private:
+	static bool OutputText(Signal sig, Stream &streamDst, const Item *pItem);
+	static bool OutputText(Signal sig, Stream &streamDst, const ItemList *pItemList);
 };
 
 bool TextFormatter_markdown::DoFormat(Environment &env, Signal sig,
 		SimpleStream &streamSrc, Stream &streamDst, const char *outputType) const
 {
-	Parser parser;
-	parser.ParseStream(sig, streamSrc);
-	AutoPtr<Object_item> pObj(new Object_item(parser.GetItemRoot()->Reference()));
-	
+	AutoPtr<Item> pItem(Parser().Parse(sig, streamSrc));
+	if (pItem.IsNull()) return false;
+	if (outputType == NULL) {
+		OutputText(sig, streamDst, pItem.get());
+	} else {
+		AutoPtr<Object_item> pObj(new Object_item(pItem.release()));
+	}
+	return true;
+}
+
+bool TextFormatter_markdown::OutputText(Signal sig, Stream &streamDst, const Item *pItem)
+{
+	switch (pItem->GetType()) {
+	case Item::TYPE_Root: {			// container
+		OutputText(sig, streamDst, pItem->GetItemOwner());
+		break;
+	}
+	case Item::TYPE_Header1: {		// container
+		streamDst.Print(sig, "\n");
+		OutputText(sig, streamDst, pItem->GetItemOwner());
+		streamDst.Print(sig, "\n");
+		break;
+	}
+	case Item::TYPE_Header2: {		// container
+		streamDst.Print(sig, "\n");
+		OutputText(sig, streamDst, pItem->GetItemOwner());
+		streamDst.Print(sig, "\n");
+		break;
+	}
+	case Item::TYPE_Paragraph: {	// container
+		streamDst.Print(sig, "\n");
+		OutputText(sig, streamDst, pItem->GetItemOwner());
+		streamDst.Print(sig, "\n");
+		break;
+	}
+	case Item::TYPE_Normal: {		// text
+		streamDst.Print(sig, pItem->GetText());
+		break;
+	}
+	case Item::TYPE_Emphasis: {		// text
+		streamDst.Print(sig, pItem->GetText());
+		break;
+	}
+	case Item::TYPE_Strong: {		// text
+		streamDst.Print(sig, pItem->GetText());
+		break;
+	}
+	case Item::TYPE_InlineCode: {	// text
+		streamDst.Print(sig, pItem->GetText());
+		break;
+	}
+	case Item::TYPE_BlockCode: {	// container
+		streamDst.Print(sig, "\n");
+		OutputText(sig, streamDst, pItem->GetItemOwner());
+		break;
+	}
+	case Item::TYPE_OList: {		// container
+		streamDst.Print(sig, "\n");
+		OutputText(sig, streamDst, pItem->GetItemOwner());
+		break;
+	}
+	case Item::TYPE_UList: {		// container
+		streamDst.Print(sig, "\n");
+		OutputText(sig, streamDst, pItem->GetItemOwner());
+		break;
+	}
+	case Item::TYPE_ListItem: {		// container
+		streamDst.Print(sig, "- ");
+		OutputText(sig, streamDst, pItem->GetItemOwner());
+		streamDst.Print(sig, "\n");
+		break;
+	}
+	case Item::TYPE_Line: {			// container
+		OutputText(sig, streamDst, pItem->GetItemOwner());
+		streamDst.Print(sig, "\n");
+		break;
+	}
+	}
+	return !sig.IsSignalled();
+}
+
+bool TextFormatter_markdown::OutputText(Signal sig, Stream &streamDst, const ItemList *pItemList)
+{
+	if (pItemList == NULL) return true;
+	foreach_const (ItemList, ppItem, *pItemList) {
+		const Item *pItem = *ppItem;
+		if (!OutputText(sig, streamDst, pItem)) return false;
+	}
 	return true;
 }
 

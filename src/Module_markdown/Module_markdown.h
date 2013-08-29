@@ -131,15 +131,13 @@ private:
 	int _indentLevel;
 	String _text;
 	String _textAdd;
-	AutoPtr<Item> _pItemRoot;
 	AutoPtr<ItemOwner> _pItemOwner;
 	ItemStack _itemStack;
 public:
 	Parser();
-	bool ParseStream(Signal sig, SimpleStream &stream);
+	Item *Parse(Signal sig, SimpleStream &stream);
+private:
 	bool ParseChar(Signal sig, char ch);
-	inline Item *GetItemRoot() { return _pItemRoot.get(); }
-	inline const Item *GetItemRoot() const { return _pItemRoot.get(); }
 	inline static bool IsEOL(char ch) { return ch == '\n'; }
 	inline static bool IsEOF(char ch) { return ch == '\0'; }
 	inline static bool IsDigit(char ch) { return '0' <= ch && ch <= '9'; }

@@ -168,13 +168,13 @@ public:
 	class GURA_DLLDECLARE Help {
 	private:
 		const Symbol *_pSymbol;
-		String _format;
+		String _formatName;
 		String _text;
 	public:
-		inline Help(const Symbol *pSymbol, const String &format, const String &text) :
-								_pSymbol(pSymbol), _format(format), _text(text) {}
+		inline Help(const Symbol *pSymbol, const String &formatName, const String &text) :
+						_pSymbol(pSymbol), _formatName(formatName), _text(text) {}
 		inline const Symbol *GetSymbol() const { return _pSymbol; }
-		inline const char *GetFormat() const { return _format.c_str(); }
+		inline const char *GetFormatName() const { return _formatName.c_str(); }
 		inline const char *GetText() const { return _text.c_str(); }
 	};
 	typedef std::map<const Symbol *, const Expr *, Symbol::KeyCompare_UniqNumber> ExprMap;
@@ -281,8 +281,8 @@ public:
 	inline bool IsHelpExist() const { return !_helpList.empty(); }
 	void DeclareBlock(OccurPattern occurPattern, const Symbol *pSymbol = NULL,
 			BlockScope blockScope = BLKSCOPE_Through, bool quoteFlag = false);
-	void AddHelp(const Symbol *pSymbol, const String &format, const String &text);
-	const char *GetHelp(const Symbol *pSymbol) const;
+	void AddHelp(const Symbol *pSymbol, const String &formatName, const String &text);
+	const Help *GetHelp(const Symbol *pSymbol) const;
 	String ToString() const;
 	void SetError_DivideByZero(Signal sig) const;
 	void SetError_UnsupportedAttr(Signal sig, const SymbolSet &attrs) const;

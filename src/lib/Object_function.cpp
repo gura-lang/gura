@@ -251,15 +251,16 @@ Gura_ImplementMethod(function, gethelp)
 {
 	Object_function *pThis = Object_function::GetThisObj(args);
 	const Symbol *pSymbol = args.IsSymbol(0)? args.GetSymbol(0) : NULL;
-	const char *helpStr = pThis->GetFunction()->GetHelp(pSymbol);
-	if (helpStr == NULL) return Value::Null;
-	return Value(env, helpStr);
+	const Function::Help *pHelp = pThis->GetFunction()->GetHelp(pSymbol);
+	if (pHelp == NULL) return Value::Null;
+	return Value(env, pHelp->GetText());
 }
 
-// function#help(lang?:symbol):map:void
+// function#help(outputType?:string, lang?:symbol):map:void
 Gura_DeclareMethod(function, help)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "outputType", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
 	"Print a help message for the specified function object.");
@@ -268,13 +269,16 @@ Gura_DeclareMethod(function, help)
 Gura_ImplementMethod(function, help)
 {
 	Object_function *pThis = Object_function::GetThisObj(args);
-	const Symbol *pSymbol = args.IsSymbol(0)? args.GetSymbol(0) : NULL;
+	const char *outputType = args.IsString(0)? args.GetString(0) : NULL;
+	const Symbol *pSymbol = args.IsSymbol(1)? args.GetSymbol(1) : NULL;
 	Stream *pConsole = env.GetConsole();
 	pConsole->Println(sig, pThis->ToString(sig, true).c_str());
 	if (sig.IsSignalled()) return Value::Null;
-	const char *helpStr = pThis->GetFunction()->GetHelp(pSymbol);
-	if (helpStr == NULL) return Value::Null;
-	pConsole->Print(sig, FormatText(helpStr, "  ").c_str());
+	const Function::Help *pHelp = pThis->GetFunction()->GetHelp(pSymbol);
+	if (pHelp == NULL) return Value::Null;
+	TextFormatter::Format(env, sig, pHelp->GetFormatName(),
+								pHelp->GetText(), *pConsole, outputType);
+	//pConsole->Print(sig, FormatText(helpStr, "  ").c_str());
 	return Value::Null;
 }
 
