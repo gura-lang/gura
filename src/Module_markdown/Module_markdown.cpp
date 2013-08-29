@@ -934,7 +934,7 @@ bool TextFormatter_markdown::OutputText(Signal sig, Stream &streamDst, const Ite
 		break;
 	}
 	case Item::TYPE_Line: {			// container
-		streamDst.Print(sig, "| ");
+		streamDst.Print(sig, "|   ");
 		OutputText(sig, streamDst, pItem->GetItemOwner());
 		streamDst.Print(sig, "\n");
 		break;
