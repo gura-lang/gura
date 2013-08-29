@@ -104,7 +104,7 @@ Parser::Parser() : _stat(STAT_LineTop), _statRtn(STAT_LineTop),
 	_itemStack.push_back(_pItemRoot.get());
 }
 
-bool Parser::ParseStream(Signal sig, Stream &stream)
+bool Parser::ParseStream(Signal sig, SimpleStream &stream)
 {
 	for (;;) {
 		int chRaw = stream.GetChar(sig);
@@ -777,8 +777,8 @@ Gura_ImplementFunction(parse)
 	Parser parser;
 	Stream &stream = args.GetStream(0);
 	parser.ParseStream(sig, stream);
-	Object_item *pObj = new Object_item(parser.GetItemRoot()->Reference());
-	return ReturnValue(env, sig, args, Value(pObj));
+	AutoPtr<Object_item> pObj(new Object_item(parser.GetItemRoot()->Reference()));
+	return ReturnValue(env, sig, args, Value(pObj.release()));
 }
 
 //-----------------------------------------------------------------------------
@@ -817,6 +817,26 @@ void Iterator_item::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 }
 
 //-----------------------------------------------------------------------------
+// TextFormatter_markdown
+//-----------------------------------------------------------------------------
+class TextFormatter_markdown : public TextFormatter {
+public:
+	inline TextFormatter_markdown() : TextFormatter("markdown") {}
+	virtual bool DoFormat(Environment &env, Signal sig,
+		SimpleStream &streamSrc, Stream &streamDst, const char *outputType) const;
+};
+
+bool TextFormatter_markdown::DoFormat(Environment &env, Signal sig,
+		SimpleStream &streamSrc, Stream &streamDst, const char *outputType) const
+{
+	Parser parser;
+	parser.ParseStream(sig, streamSrc);
+	AutoPtr<Object_item> pObj(new Object_item(parser.GetItemRoot()->Reference()));
+	
+	return true;
+}
+
+//-----------------------------------------------------------------------------
 // Module entry
 //-----------------------------------------------------------------------------
 Gura_ModuleEntry()
@@ -830,6 +850,8 @@ Gura_ModuleEntry()
 	Gura_UserClass(item)->Prepare(env);
 	// function assignment
 	Gura_AssignFunction(parse);
+	// registoration of TextFormatter
+	TextFormatter::Register(env, new TextFormatter_markdown());
 }
 
 Gura_ModuleTerminate()

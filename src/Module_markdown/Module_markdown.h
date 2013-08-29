@@ -136,7 +136,7 @@ private:
 	ItemStack _itemStack;
 public:
 	Parser();
-	bool ParseStream(Signal sig, Stream &stream);
+	bool ParseStream(Signal sig, SimpleStream &stream);
 	bool ParseChar(Signal sig, char ch);
 	inline Item *GetItemRoot() { return _pItemRoot.get(); }
 	inline const Item *GetItemRoot() const { return _pItemRoot.get(); }
