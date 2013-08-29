@@ -202,7 +202,7 @@ Gura_DeclareUserClass(Color);
 
 class Object_Color : public Object {
 public:
-	Gura_DeclareObjectAccessor(color)
+	Gura_DeclareObjectAccessor(Color)
 private:
 	SDL_Color _color;
 public:

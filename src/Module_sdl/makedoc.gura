@@ -9,7 +9,7 @@ funcs = [
 	sdl.WasInit
 	sdl.GetError
 ]
-help(funcs)
+help(funcs, 'html')
 // 6. Video
 funcs = [
 	sdl.GetVideoSurface
@@ -70,7 +70,7 @@ funcs = [
 	//sdl.VideoInfo
 	//sdl.Overlay
 ]
-help(funcs)
+help(funcs, 'html')
 // 7. Window Management
 funcs = [
 	sdl.WM_SetCaption
@@ -80,7 +80,7 @@ funcs = [
 	sdl.WM_ToggleFullScreen
 	sdl.WM_GrabInput
 ]
-help(funcs)
+help(funcs, 'html')
 // 8. Events
 funcs = [
 	sdl.PumpEvents
@@ -104,7 +104,7 @@ funcs = [
 	sdl.GetAppState
 	sdl.JoystickEventState
 ]
-help(funcs)
+help(funcs, 'html')
 // 9. Joystick
 funcs = [
 	sdl.NumJoysticks
@@ -123,7 +123,7 @@ funcs = [
 	sdl.Joystick.JoystickGetBall
 	sdl.Joystick.JoystickClose
 ]
-help(funcs)
+help(funcs, 'html')
 // 10. Audio
 funcs = [
 	sdl.AudioSpec
@@ -140,7 +140,7 @@ funcs = [
 	sdl.UnlockAudio
 	sdl.CloseAudio
 ]
-help(funcs)
+help(funcs, 'html')
 // 11. CD-ROM
 funcs = [
 	sdl.CDNumDrives
@@ -156,7 +156,7 @@ funcs = [
 	sdl.CD.CDClose
 	//sdl.CDTrack
 ]
-help(funcs)
+help(funcs, 'html')
 // 13. Time
 funcs = [
 	sdl.GetTicks
@@ -165,4 +165,4 @@ funcs = [
 	sdl.Timer.RemoveTimer
 	//sdl.Timer.SetTimer
 ]
-help(funcs)
+help(funcs, 'html')
