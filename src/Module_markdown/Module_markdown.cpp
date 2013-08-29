@@ -27,6 +27,10 @@ const char *Item::GetTypeName() const
 		{ TYPE_Root,			"root",		},	// container
 		{ TYPE_Header1,			"h1",		},	// container
 		{ TYPE_Header2,			"h2",		},	// container
+		{ TYPE_Header3,			"h3",		},	// container
+		{ TYPE_Header4,			"h4",		},	// container
+		{ TYPE_Header5,			"h5",		},	// container
+		{ TYPE_Header6,			"h6",		},	// container
 		{ TYPE_Paragraph,		"p",		},	// container
 		{ TYPE_Normal,			"normal",	},	// text
 		{ TYPE_Emphasis,		"em",		},	// text
@@ -862,6 +866,30 @@ bool TextFormatter_markdown::OutputText(Signal sig, Stream &streamDst, const Ite
 		streamDst.Print(sig, "\n");
 		break;
 	}
+	case Item::TYPE_Header3: {		// container
+		streamDst.Print(sig, "\n");
+		OutputText(sig, streamDst, pItem->GetItemOwner());
+		streamDst.Print(sig, "\n");
+		break;
+	}
+	case Item::TYPE_Header4: {		// container
+		streamDst.Print(sig, "\n");
+		OutputText(sig, streamDst, pItem->GetItemOwner());
+		streamDst.Print(sig, "\n");
+		break;
+	}
+	case Item::TYPE_Header5: {		// container
+		streamDst.Print(sig, "\n");
+		OutputText(sig, streamDst, pItem->GetItemOwner());
+		streamDst.Print(sig, "\n");
+		break;
+	}
+	case Item::TYPE_Header6: {		// container
+		streamDst.Print(sig, "\n");
+		OutputText(sig, streamDst, pItem->GetItemOwner());
+		streamDst.Print(sig, "\n");
+		break;
+	}
 	case Item::TYPE_Paragraph: {	// container
 		streamDst.Print(sig, "\n");
 		OutputText(sig, streamDst, pItem->GetItemOwner());
@@ -906,6 +934,7 @@ bool TextFormatter_markdown::OutputText(Signal sig, Stream &streamDst, const Ite
 		break;
 	}
 	case Item::TYPE_Line: {			// container
+		streamDst.Print(sig, "| ");
 		OutputText(sig, streamDst, pItem->GetItemOwner());
 		streamDst.Print(sig, "\n");
 		break;

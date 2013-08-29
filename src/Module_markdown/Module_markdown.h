@@ -25,6 +25,10 @@ public:
 		TYPE_Root,			// container
 		TYPE_Header1,		// container
 		TYPE_Header2,		// container
+		TYPE_Header3,		// container
+		TYPE_Header4,		// container
+		TYPE_Header5,		// container
+		TYPE_Header6,		// container
 		TYPE_Paragraph,		// container
 		TYPE_Normal,		// text
 		TYPE_Emphasis,		// text

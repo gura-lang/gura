@@ -16,6 +16,22 @@ generate_html(out:stream:w, item:markdown.item):map:void = {
 		out.print('<h2>')
 		generate_html(out, item.children)
 		out.print('</h2>\n')
+	} elsif (item.type == `h3) {
+		out.print('<h3>')
+		generate_html(out, item.children)
+		out.print('</h3>\n')
+	} elsif (item.type == `h4) {
+		out.print('<h4>')
+		generate_html(out, item.children)
+		out.print('</h4>\n')
+	} elsif (item.type == `h5) {
+		out.print('<h5>')
+		generate_html(out, item.children)
+		out.print('</h5>\n')
+	} elsif (item.type == `h6) {
+		out.print('<h6>')
+		generate_html(out, item.children)
+		out.print('</h6>\n')
 	} elsif (item.type == `p) {
 		out.print('<p>\n')
 		generate_html(out, item.children)
