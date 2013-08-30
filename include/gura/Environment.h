@@ -170,13 +170,13 @@ public:
 	TextFormatter(const String &formatName);
 	const char *GetFormatName() const { return _formatName.c_str(); }
 	virtual bool DoFormat(Environment &env, Signal sig,
-		SimpleStream &streamSrc, Stream &streamDst, const char *outputType) const = 0;
+				SimpleStream &streamSrc, Stream &streamDst) const = 0;
 public:
 	static void Register(Environment &env, TextFormatter *pTextFormatter);
 	static bool Format(Environment &env, Signal sig, const char *formatName,
-		SimpleStream &streamSrc, Stream &streamDst, const char *outputType);
+						SimpleStream &streamSrc, Stream &streamDst);
 	static bool Format(Environment &env, Signal sig, const char *formatName,
-		const char *text, Stream &streamDst, const char *outputType);
+						const char *text, Stream &streamDst);
 };
 
 //-----------------------------------------------------------------------------

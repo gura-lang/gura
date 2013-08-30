@@ -5,8 +5,6 @@
 
 Gura_BeginModule(markdown)
 
-std::auto_ptr<GeneratorOwner> g_pGeneratorOwner;
-
 //-----------------------------------------------------------------------------
 // Item
 //-----------------------------------------------------------------------------
@@ -788,26 +786,6 @@ Gura_ImplementFunction(parse)
 	return ReturnValue(env, sig, args, Value(pObj.release()));
 }
 
-// markdown.addgenerator(outputType:string, generator:function):void
-Gura_DeclareFunction(addgenerator)
-{
-	SetMode(RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "outputType", VTYPE_string);
-	DeclareArg(env, "generator", VTYPE_function);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), FMT_markdown,
-	""
-	);
-}
-
-Gura_ImplementFunction(addgenerator)
-{
-	const char *outputType = args.GetString(0);
-	const Object_function *pObjFunc = Object_function::GetObject(args, 1);
-	g_pGeneratorOwner->push_back(new Generator(outputType, pObjFunc->Reference()));
-	return Value::Null;
-}
-
 //-----------------------------------------------------------------------------
 // Iterator_item
 //-----------------------------------------------------------------------------
@@ -847,24 +825,11 @@ void Iterator_item::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 // TextFormatter_markdown
 //-----------------------------------------------------------------------------
 bool TextFormatter_markdown::DoFormat(Environment &env, Signal sig,
-		SimpleStream &streamSrc, Stream &streamDst, const char *outputType) const
+							SimpleStream &streamSrc, Stream &streamDst) const
 {
 	AutoPtr<Item> pItem(Parser().Parse(sig, streamSrc));
 	if (pItem.IsNull()) return false;
-	if (outputType == NULL) {
-		OutputText(sig, streamDst, pItem.get());
-	} else {
-		Generator *pGenerator = g_pGeneratorOwner->FindByOutputType(outputType);
-		if (pGenerator == NULL) {
-			sig.SetError(ERR_FormatError, "unsupported output type: %s", outputType);
-			return false;
-		}
-		AutoPtr<Object_item> pObjItem(new Object_item(pItem.release()));
-		ValueList valListArg;
-		valListArg.push_back(Value(new Object_stream(env, streamDst.Reference())));
-		valListArg.push_back(Value(pObjItem.release()));
-		pGenerator->Eval(env, sig, valListArg);
-	}
+	OutputText(sig, streamDst, pItem.get());
 	return !sig.IsSignalled();
 }
 
@@ -975,42 +940,10 @@ bool TextFormatter_markdown::OutputText(Signal sig, Stream &streamDst, const Ite
 }
 
 //-----------------------------------------------------------------------------
-// GeneratorList
-//-----------------------------------------------------------------------------
-Generator *GeneratorList::FindByOutputType(const char *outputType) const
-{
-	foreach_const (GeneratorOwner, ppGenerator, *this) {
-		Generator *pGenerator = *ppGenerator;
-		if (::strcmp(pGenerator->GetOutputType(), outputType) == 0) {
-			return pGenerator;
-		}
-	}
-	return NULL;
-}
-
-//-----------------------------------------------------------------------------
-// GeneratorOwner
-//-----------------------------------------------------------------------------
-GeneratorOwner::~GeneratorOwner()
-{
-	Clear();
-}
-
-void GeneratorOwner::Clear()
-{
-	foreach (GeneratorOwner, ppGenerator, *this) {
-		Generator *pGenerator = *ppGenerator;
-		delete pGenerator;
-	}
-	clear();
-}
-
-//-----------------------------------------------------------------------------
 // Module entry
 //-----------------------------------------------------------------------------
 Gura_ModuleEntry()
 {
-	g_pGeneratorOwner.reset(new GeneratorOwner());
 	// symbol realization
 	Gura_RealizeUserSymbol(type);
 	Gura_RealizeUserSymbol(text);
@@ -1020,14 +953,12 @@ Gura_ModuleEntry()
 	Gura_UserClass(item)->Prepare(env);
 	// function assignment
 	Gura_AssignFunction(parse);
-	Gura_AssignFunction(addgenerator);
 	// registoration of TextFormatter
 	TextFormatter::Register(env, new TextFormatter_markdown());
 }
 
 Gura_ModuleTerminate()
 {
-	g_pGeneratorOwner.reset(NULL);
 }
 
 Gura_EndModule(markdown, markdown)
