@@ -1,4 +1,7 @@
 import(sdl)
+import(markdown)
+
+doc = markdown.document()
 
 // 5. General
 funcs = [
@@ -9,7 +12,7 @@ funcs = [
 	sdl.WasInit
 	sdl.GetError
 ]
-help(funcs, 'html')
+doc << funcs
 // 6. Video
 funcs = [
 	sdl.GetVideoSurface
@@ -62,15 +65,15 @@ funcs = [
 	sdl.Overlay.UnlockYUVOverlay
 	sdl.Overlay.DisplayYUVOverlay
 	//sdl.Overlay.FreeYUVOverlay
-	sdl.Rect
-	sdl.Color
+	//sdl.Rect
+	//sdl.Color
 	//sdl.Palette
 	//sdl.PixelFormat
 	//sdl.Surface
 	//sdl.VideoInfo
 	//sdl.Overlay
 ]
-help(funcs, 'html')
+doc << funcs
 // 7. Window Management
 funcs = [
 	sdl.WM_SetCaption
@@ -80,7 +83,7 @@ funcs = [
 	sdl.WM_ToggleFullScreen
 	sdl.WM_GrabInput
 ]
-help(funcs, 'html')
+doc << funcs
 // 8. Events
 funcs = [
 	sdl.PumpEvents
@@ -104,7 +107,7 @@ funcs = [
 	sdl.GetAppState
 	sdl.JoystickEventState
 ]
-help(funcs, 'html')
+doc << funcs
 // 9. Joystick
 funcs = [
 	sdl.NumJoysticks
@@ -123,10 +126,10 @@ funcs = [
 	sdl.Joystick.JoystickGetBall
 	sdl.Joystick.JoystickClose
 ]
-help(funcs, 'html')
+doc << funcs
 // 10. Audio
 funcs = [
-	sdl.AudioSpec
+	//sdl.AudioSpec
 	sdl.OpenAudio
 	sdl.PauseAudio
 	sdl.GetAudioStatus
@@ -140,7 +143,7 @@ funcs = [
 	sdl.UnlockAudio
 	sdl.CloseAudio
 ]
-help(funcs, 'html')
+doc << funcs
 // 11. CD-ROM
 funcs = [
 	sdl.CDNumDrives
@@ -156,7 +159,7 @@ funcs = [
 	sdl.CD.CDClose
 	//sdl.CDTrack
 ]
-help(funcs, 'html')
+doc << funcs
 // 13. Time
 funcs = [
 	sdl.GetTicks
@@ -165,4 +168,6 @@ funcs = [
 	sdl.Timer.RemoveTimer
 	//sdl.Timer.SetTimer
 ]
-help(funcs, 'html')
+doc << funcs
+
+doc.output_html()

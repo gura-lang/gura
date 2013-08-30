@@ -70,3 +70,8 @@ output_html(out:stream:w, item:item):map:void = {
 classref(`document).output_html(out?:stream:w) = {
 	output_html(out || sys.stdout, this.root)
 }
+
+operator(`<<).assign(`document, `function) {|doc, func|
+	doc << '**' + func.format + '**'
+	doc << func.gethelp().text
+}
