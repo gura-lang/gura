@@ -185,11 +185,11 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// TextFormatter_markdown
+// HelpFormatter_markdown
 //-----------------------------------------------------------------------------
-class TextFormatter_markdown : public TextFormatter {
+class HelpFormatter_markdown : public HelpFormatter {
 public:
-	inline TextFormatter_markdown() : TextFormatter("markdown") {}
+	inline HelpFormatter_markdown() : HelpFormatter("markdown") {}
 	virtual bool DoFormat(Environment &env, Signal sig,
 						SimpleStream &streamSrc, Stream &streamDst) const;
 private:

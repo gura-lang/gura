@@ -161,18 +161,18 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// TextFormatter
+// HelpFormatter
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE TextFormatter {
+class GURA_DLLDECLARE HelpFormatter {
 private:
 	String _formatName;
 public:
-	TextFormatter(const String &formatName);
+	HelpFormatter(const String &formatName);
 	const char *GetFormatName() const { return _formatName.c_str(); }
 	virtual bool DoFormat(Environment &env, Signal sig,
 				SimpleStream &streamSrc, Stream &streamDst) const = 0;
 public:
-	static void Register(Environment &env, TextFormatter *pTextFormatter);
+	static void Register(Environment &env, HelpFormatter *pHelpFormatter);
 	static bool Format(Environment &env, Signal sig, const char *formatName,
 						SimpleStream &streamSrc, Stream &streamDst);
 	static bool Format(Environment &env, Signal sig, const char *formatName,
@@ -180,13 +180,20 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// TextFormatterOwner
+// HelpFormatterList
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE TextFormatterOwner : public std::vector<TextFormatter *> {
+class GURA_DLLDECLARE HelpFormatterList : public std::vector<HelpFormatter *> {
 public:
-	~TextFormatterOwner();
+	const HelpFormatter *FindByFormatName(const char *formatName) const;
+};
+
+//-----------------------------------------------------------------------------
+// HelpFormatterOwner
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE HelpFormatterOwner : public HelpFormatterList {
+public:
+	~HelpFormatterOwner();
 	void Clear();
-	const TextFormatter *FindByFormatName(const char *formatName) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -200,7 +207,7 @@ public:
 		SeparatedModuleMap	_separatedModuleMap;
 		StringList			_workingDirList;
 		PathManagerOwner	_pathManagerOwner;
-		TextFormatterOwner	_textFormatterOwner;
+		HelpFormatterOwner	_helpFormatterOwner;
 		Operator			*_operatorTbl[OPTYPE_max];
 		SymbolPool			*_pSymbolPool;
 		ValueTypePool		*_pValueTypePool;
@@ -222,8 +229,8 @@ public:
 		void UnregisterSeparatedModule(const char *pathName);
 		inline PathManagerOwner &GetPathManagerOwner() { return _pathManagerOwner; }
 		inline const PathManagerOwner &GetPathManagerOwner() const { return _pathManagerOwner; }
-		inline TextFormatterOwner &GetTextFormatterOwner() { return _textFormatterOwner; }
-		inline const TextFormatterOwner &GetTextFormatterOwner() const { return _textFormatterOwner; }
+		inline HelpFormatterOwner &GetHelpFormatterOwner() { return _helpFormatterOwner; }
+		inline const HelpFormatterOwner &GetHelpFormatterOwner() const { return _helpFormatterOwner; }
 		inline void SetOperator(OpType opType, Operator *pOperator) { _operatorTbl[opType] = pOperator; }
 		inline Operator *GetOperator(OpType opType) { return _operatorTbl[opType]; }
 		inline const Operator *GetOperator(OpType opType) const { return _operatorTbl[opType]; }

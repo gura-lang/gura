@@ -274,7 +274,7 @@ Gura_ImplementMethod(function, help)
 	if (sig.IsSignalled()) return Value::Null;
 	const Function::Help *pHelp = pThis->GetFunction()->GetHelp(pSymbol);
 	if (pHelp == NULL) return Value::Null;
-	TextFormatter::Format(env, sig,
+	HelpFormatter::Format(env, sig,
 					pHelp->GetFormatName(), pHelp->GetText(), *pConsole);
 	return Value::Null;
 }

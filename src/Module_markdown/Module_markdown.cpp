@@ -822,9 +822,9 @@ void Iterator_item::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 }
 
 //-----------------------------------------------------------------------------
-// TextFormatter_markdown
+// HelpFormatter_markdown
 //-----------------------------------------------------------------------------
-bool TextFormatter_markdown::DoFormat(Environment &env, Signal sig,
+bool HelpFormatter_markdown::DoFormat(Environment &env, Signal sig,
 							SimpleStream &streamSrc, Stream &streamDst) const
 {
 	AutoPtr<Item> pItem(Parser().Parse(sig, streamSrc));
@@ -833,7 +833,7 @@ bool TextFormatter_markdown::DoFormat(Environment &env, Signal sig,
 	return !sig.IsSignalled();
 }
 
-bool TextFormatter_markdown::OutputText(Signal sig, Stream &streamDst, const Item *pItem)
+bool HelpFormatter_markdown::OutputText(Signal sig, Stream &streamDst, const Item *pItem)
 {
 	switch (pItem->GetType()) {
 	case Item::TYPE_Root: {			// container
@@ -929,7 +929,7 @@ bool TextFormatter_markdown::OutputText(Signal sig, Stream &streamDst, const Ite
 	return !sig.IsSignalled();
 }
 
-bool TextFormatter_markdown::OutputText(Signal sig, Stream &streamDst, const ItemList *pItemList)
+bool HelpFormatter_markdown::OutputText(Signal sig, Stream &streamDst, const ItemList *pItemList)
 {
 	if (pItemList == NULL) return true;
 	foreach_const (ItemList, ppItem, *pItemList) {
@@ -953,8 +953,8 @@ Gura_ModuleEntry()
 	Gura_UserClass(item)->Prepare(env);
 	// function assignment
 	Gura_AssignFunction(parse);
-	// registoration of TextFormatter
-	TextFormatter::Register(env, new TextFormatter_markdown());
+	// registoration of HelpFormatter
+	HelpFormatter::Register(env, new HelpFormatter_markdown());
 }
 
 Gura_ModuleTerminate()

@@ -86,36 +86,36 @@ void PathManagerOwner::Clear()
 }
 
 //-----------------------------------------------------------------------------
-// TextFormatter
+// HelpFormatter
 //-----------------------------------------------------------------------------
-TextFormatter::TextFormatter(const String &formatName) : _formatName(formatName)
+HelpFormatter::HelpFormatter(const String &formatName) : _formatName(formatName)
 {
 }
 
-void TextFormatter::Register(Environment &env, TextFormatter *pTextFormatter)
+void HelpFormatter::Register(Environment &env, HelpFormatter *pHelpFormatter)
 {
-	env.GetGlobal()->GetTextFormatterOwner().push_back(pTextFormatter);
+	env.GetGlobal()->GetHelpFormatterOwner().push_back(pHelpFormatter);
 }
 
-bool TextFormatter::Format(Environment &env, Signal sig, const char *formatName,
+bool HelpFormatter::Format(Environment &env, Signal sig, const char *formatName,
 									SimpleStream &streamSrc, Stream &streamDst)
 {
-	const TextFormatter *pTextFormatter = env.GetGlobal()->
-						GetTextFormatterOwner().FindByFormatName(formatName);
-	if (pTextFormatter != NULL) {
-		return pTextFormatter->DoFormat(env, sig, streamSrc, streamDst);
+	const HelpFormatter *pHelpFormatter = env.GetGlobal()->
+						GetHelpFormatterOwner().FindByFormatName(formatName);
+	if (pHelpFormatter != NULL) {
+		return pHelpFormatter->DoFormat(env, sig, streamSrc, streamDst);
 	}
 	if (!env.ImportModules(sig, formatName, false, false)) return false;
-	pTextFormatter = env.GetGlobal()->
-						GetTextFormatterOwner().FindByFormatName(formatName);
-	if (pTextFormatter != NULL) {
-		return pTextFormatter->DoFormat(env, sig, streamSrc, streamDst);
+	pHelpFormatter = env.GetGlobal()->
+						GetHelpFormatterOwner().FindByFormatName(formatName);
+	if (pHelpFormatter != NULL) {
+		return pHelpFormatter->DoFormat(env, sig, streamSrc, streamDst);
 	}
 	sig.SetError(ERR_FormatError, "unsupported format: %s", formatName);
 	return false;
 }
 
-bool TextFormatter::Format(Environment &env, Signal sig, const char *formatName,
+bool HelpFormatter::Format(Environment &env, Signal sig, const char *formatName,
 									const char *text, Stream &streamDst)
 {
 	SimpleStream_CString streamSrc(text);
@@ -123,30 +123,33 @@ bool TextFormatter::Format(Environment &env, Signal sig, const char *formatName,
 }
 
 //-----------------------------------------------------------------------------
-// TextFormatterOwner
+// HelpFormatterList
 //-----------------------------------------------------------------------------
-TextFormatterOwner::~TextFormatterOwner()
+const HelpFormatter *HelpFormatterList::FindByFormatName(const char *formatName) const
+{
+	foreach_const (HelpFormatterList, ppHelpFormatter, *this) {
+		const HelpFormatter *pHelpFormatter = *ppHelpFormatter;
+		if (::strcmp(pHelpFormatter->GetFormatName(), formatName) == 0) {
+			return pHelpFormatter;
+		}
+	}
+	return NULL;
+}
+
+//-----------------------------------------------------------------------------
+// HelpFormatterOwner
+//-----------------------------------------------------------------------------
+HelpFormatterOwner::~HelpFormatterOwner()
 {
 	Clear();
 }
 
-void TextFormatterOwner::Clear()
+void HelpFormatterOwner::Clear()
 {
-	foreach (TextFormatterOwner, ppTextFormatter, *this) {
-		delete *ppTextFormatter;
+	foreach (HelpFormatterOwner, ppHelpFormatter, *this) {
+		delete *ppHelpFormatter;
 	}
 	clear();
-}
-
-const TextFormatter *TextFormatterOwner::FindByFormatName(const char *formatName) const
-{
-	foreach_const (TextFormatterOwner, ppTextFormatter, *this) {
-		const TextFormatter *pTextFormatter = *ppTextFormatter;
-		if (::strcmp(pTextFormatter->GetFormatName(), formatName) == 0) {
-			return pTextFormatter;
-		}
-	}
-	return NULL;
 }
 
 //-----------------------------------------------------------------------------
