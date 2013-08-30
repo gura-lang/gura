@@ -3,11 +3,11 @@ import(markdown):binary:mixin_type
 
 generate_html(out:stream:w, item:markdown.item):map:void = {
 	if (item.type == `root) {
-		//out.print('<html>\n')
-		//out.print('<body>\n')
+		out.print('<html>\n')
+		out.print('<body>\n')
 		generate_html(out, item.children)
-		//out.print('</body>\n')
-		//out.print('</html>\n')
+		out.print('</body>\n')
+		out.print('</html>\n')
 	} elsif (item.type == `h1) {
 		out.print('<h1>')
 		generate_html(out, item.children)

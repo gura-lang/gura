@@ -101,22 +101,21 @@ void ItemOwner::Store(const ItemList &itemList)
 // Parser
 //-----------------------------------------------------------------------------
 Parser::Parser() : _stat(STAT_LineTop), _statRtn(STAT_LineTop),
-											_indentLevel(0), _pItemOwner(NULL)
+								_indentLevel(0), _pItemOwner(new ItemOwner())
 {
-	_pItemOwner.reset(new ItemOwner());
+	_pItemRoot.reset(new Item(Item::TYPE_Root, new ItemOwner()));
+	_itemStack.push_back(_pItemRoot.get());
 }
 
-Item *Parser::Parse(Signal sig, SimpleStream &stream)
+bool Parser::ParseStream(Signal sig, SimpleStream &stream)
 {
-	AutoPtr<Item> pItemRoot(new Item(Item::TYPE_Root, new ItemOwner()));
-	_itemStack.push_back(pItemRoot.get());
 	for (;;) {
 		int chRaw = stream.GetChar(sig);
 		char ch = (chRaw < 0)? '\0' : static_cast<UChar>(chRaw);
-		if (!ParseChar(sig, ch)) return NULL;
+		if (!ParseChar(sig, ch)) return false;
 		if (chRaw < 0) break;
 	}
-	return pItemRoot.release();
+	return true;
 }
 
 bool Parser::ParseChar(Signal sig, char ch)
@@ -780,9 +779,9 @@ Gura_DeclareFunction(parse)
 Gura_ImplementFunction(parse)
 {
 	Stream &stream = args.GetStream(0);
-	AutoPtr<Item> pItem(Parser().Parse(sig, stream));
-	if (pItem.IsNull()) return Value::Null;
-	AutoPtr<Object_item> pObj(new Object_item(pItem.release()));
+	Parser parser;
+	if (!parser.ParseStream(sig, stream)) return Value::Null;
+	AutoPtr<Object_item> pObj(new Object_item(parser.GetItemRoot()->Reference()));
 	return ReturnValue(env, sig, args, Value(pObj.release()));
 }
 
@@ -827,9 +826,9 @@ void Iterator_item::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 bool HelpFormatter_markdown::DoFormat(Environment &env, Signal sig,
 							SimpleStream &streamSrc, Stream &streamDst) const
 {
-	AutoPtr<Item> pItem(Parser().Parse(sig, streamSrc));
-	if (pItem.IsNull()) return false;
-	OutputText(sig, streamDst, pItem.get());
+	Parser parser;
+	if (!parser.ParseStream(sig, streamSrc)) return false;
+	OutputText(sig, streamDst, parser.GetItemRoot());
 	return !sig.IsSignalled();
 }
 

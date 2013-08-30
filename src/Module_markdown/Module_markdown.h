@@ -136,10 +136,12 @@ private:
 	String _text;
 	String _textAdd;
 	AutoPtr<ItemOwner> _pItemOwner;
+	AutoPtr<Item> _pItemRoot;
 	ItemStack _itemStack;
 public:
 	Parser();
-	Item *Parse(Signal sig, SimpleStream &stream);
+	bool ParseStream(Signal sig, SimpleStream &stream);
+	inline const Item *GetItemRoot() { return _pItemRoot.get(); }
 private:
 	bool ParseChar(Signal sig, char ch);
 	inline static bool IsEOL(char ch) { return ch == '\n'; }
