@@ -73,6 +73,7 @@ install(FILES
   ${GURA_MODULE_DIR}/tk.gura
   ${GURA_MODULE_DIR}/tokenizer.gura
   ${GURA_MODULE_DIR}/units.gura
+  ${GURA_MODULE_DIR}/markdown.gura
   DESTINATION lib/gura)
 
 install(FILES
