@@ -67,4 +67,4 @@ generate_html(out:stream:w, item:item):map:void = {
 	}
 }
 
-addgenerator('html', generate_html)
+//addgenerator('html', generate_html)

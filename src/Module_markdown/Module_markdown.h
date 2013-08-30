@@ -10,6 +10,7 @@ Gura_BeginModule(markdown)
 //-----------------------------------------------------------------------------
 // symbols
 //-----------------------------------------------------------------------------
+Gura_DeclareUserSymbol(root);
 Gura_DeclareUserSymbol(type);
 Gura_DeclareUserSymbol(text);
 Gura_DeclareUserSymbol(children);
@@ -147,12 +148,35 @@ private:
 	inline ~Document() {}
 public:
 	bool ParseStream(Signal sig, SimpleStream &stream);
+	bool ParseString(Signal sig, const char *text);
 	inline const Item *GetItemRoot() { return _pItemRoot.get(); }
 private:
 	bool ParseChar(Signal sig, char ch);
 	inline static bool IsEOL(char ch) { return ch == '\n'; }
 	inline static bool IsEOF(char ch) { return ch == '\0'; }
 	inline static bool IsDigit(char ch) { return '0' <= ch && ch <= '9'; }
+};
+
+//-----------------------------------------------------------------------------
+// Class declaration for markdown.document
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(document);
+
+class Object_document : public Object {
+private:
+	AutoPtr<Document> _pDocument;
+public:
+	Gura_DeclareObjectAccessor(document)
+public:
+	inline Object_document(Document *pDocument) : Object(Gura_UserClass(document)), _pDocument(pDocument) {}
+	inline Document *GetDocument() { return _pDocument.get(); }
+	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(Signal sig, bool exprFlag);
 };
 
 //-----------------------------------------------------------------------------

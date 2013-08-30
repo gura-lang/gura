@@ -118,6 +118,12 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 	return true;
 }
 
+bool Document::ParseString(Signal sig, const char *text)
+{
+	SimpleStream_CString stream(text);
+	return ParseStream(sig, stream);
+}
+
 bool Document::ParseChar(Signal sig, char ch)
 {
 	bool continueFlag = false;
@@ -156,7 +162,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			if (!_pItemOwner->empty()) {
 				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner.release());
 				pItemParent->GetItemOwner()->push_back(pItem);
-				if (IsEOL(ch)) _pItemOwner.reset(new ItemOwner());
+				_pItemOwner.reset(new ItemOwner());
 			}
 		} else if (_indentLevel < 4) {
 			if (!_text.empty()) _text += ' ';
@@ -684,6 +690,73 @@ bool Document::ParseChar(Signal sig, char ch)
 }
 
 //-----------------------------------------------------------------------------
+// Object_document
+//-----------------------------------------------------------------------------
+Object *Object_document::Clone() const
+{
+	return NULL;
+}
+
+bool Object_document::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(root));
+	return true;
+}
+
+Value Object_document::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(root))) {
+		return Value(new Object_item(_pDocument->GetItemRoot()->Reference()));
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+Value Object_document::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	return Value::Null;
+}
+
+String Object_document::ToString(Signal sig, bool exprFlag)
+{
+	String rtn;
+	rtn += "<markdown.document";
+	rtn += ">";
+	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for markdown.document
+//-----------------------------------------------------------------------------
+// markdown.document#print():void
+Gura_DeclareMethod(document, print)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	AddHelp(Gura_Symbol(en), FMT_markdown,
+	""
+	);
+}
+
+Gura_ImplementMethod(document, print)
+{
+	const Item *pItem = Object_document::GetThisObj(args)->GetDocument()->GetItemRoot();
+	pItem->Print(0);
+	return Value::Null;
+}
+
+//-----------------------------------------------------------------------------
+// Class implementation for markdown.document
+//-----------------------------------------------------------------------------
+Gura_ImplementUserClass(document)
+{
+	Gura_AssignMethod(document, print);
+}
+
+//-----------------------------------------------------------------------------
 // Object_item
 //-----------------------------------------------------------------------------
 Object *Object_item::Clone() const
@@ -765,24 +838,35 @@ Gura_ImplementUserClass(item)
 //-----------------------------------------------------------------------------
 // Gura module functions: markdown
 //-----------------------------------------------------------------------------
-// markdown.parse(stream:stream) {block?}
-Gura_DeclareFunction(parse)
+// markdown.document(stream?:stream) {block?}
+Gura_DeclareFunction(document)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "stream", VTYPE_stream);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce);
+	SetClassToConstruct(Gura_UserClass(document));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
 	""
 	);
 }
 
-Gura_ImplementFunction(parse)
+Gura_ImplementFunction(document)
 {
-	Stream &stream = args.GetStream(0);
 	AutoPtr<Document> pDocument(new Document());
-	if (!pDocument->ParseStream(sig, stream)) return Value::Null;
-	AutoPtr<Object_item> pObj(new Object_item(pDocument->GetItemRoot()->Reference()));
+	if (args.IsStream(0)) {
+		if (!pDocument->ParseStream(sig, args.GetStream(0))) return Value::Null;
+	}
+	AutoPtr<Object_document> pObj(new Object_document(pDocument.release()));
 	return ReturnValue(env, sig, args, Value(pObj.release()));
+}
+
+// operator <<
+Gura_ImplementBinaryOperator(Shl, document, string)
+{
+	Document *pDocument = Object_document::GetObject(valueLeft)->GetDocument();
+	const char *text = valueRight.GetString();
+	if (!pDocument->ParseString(sig, text)) return Value::Null;
+	return valueLeft;
 }
 
 //-----------------------------------------------------------------------------
@@ -944,14 +1028,19 @@ bool HelpFormatter_markdown::OutputText(Signal sig, Stream &streamDst, const Ite
 Gura_ModuleEntry()
 {
 	// symbol realization
+	Gura_RealizeUserSymbol(root);
 	Gura_RealizeUserSymbol(type);
 	Gura_RealizeUserSymbol(text);
 	Gura_RealizeUserSymbol(children);
 	// class realization
+	Gura_RealizeUserClassWithoutPrepare(document, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(item, env.LookupClass(VTYPE_object));
+	Gura_UserClass(document)->Prepare(env);
 	Gura_UserClass(item)->Prepare(env);
 	// function assignment
-	Gura_AssignFunction(parse);
+	Gura_AssignFunction(document);
+	// operator assignment
+	Gura_AssignBinaryOperator(Shl, document, string);
 	// registoration of HelpFormatter
 	HelpFormatter::Register(env, new HelpFormatter_markdown());
 }
