@@ -140,6 +140,7 @@ public:
 	Gura_DeclareSymbol(break_);
 	Gura_DeclareSymbol(continue_);
 	Gura_DeclareSymbol(except_);
+	Gura_DeclareSymbol(lang);
 	Gura_DeclareSymbol(text);
 	Gura_DeclareSymbol(binary);
 	Gura_DeclareSymbol(unary);

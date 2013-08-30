@@ -21,6 +21,7 @@ ValueType VTYPE_Module			= static_cast<ValueType>(0);
 ValueType VTYPE_Class			= static_cast<ValueType>(0);
 // object types
 ValueType VTYPE_object			= static_cast<ValueType>(0);
+ValueType VTYPE_help			= static_cast<ValueType>(0);
 ValueType VTYPE_function		= static_cast<ValueType>(0);
 ValueType VTYPE_string			= static_cast<ValueType>(0);
 ValueType VTYPE_binary			= static_cast<ValueType>(0);
@@ -141,6 +142,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPEEx(Class,		"class");
 	// object types
 	Gura_RealizeVTYPE(object);
+	Gura_RealizeVTYPE(help);
 	Gura_RealizeVTYPE(function);
 	Gura_RealizeVTYPE(string);
 	Gura_RealizeVTYPE(binary);
@@ -180,6 +182,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(quote	)->SetClass(new Class_quote(pClass));
 	Gura_VTYPEInfo(any		)->SetClass(new Class_any(pClass));
 	// other built-in object classes
+	Gura_VTYPEInfo(help		)->SetClass(new Class_help(pClass));
 	Gura_VTYPEInfo(function	)->SetClass(new Class_function(pClass));
 	Gura_VTYPEInfo(string	)->SetClass(new Class_string(pClass));
 	Gura_VTYPEInfo(binary	)->SetClass(new Class_binary(pClass));
@@ -219,6 +222,7 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_fraction)->Prepare(env);
 	env.LookupClass(VTYPE_quote)->Prepare(env);
 	env.LookupClass(VTYPE_any)->Prepare(env);
+	env.LookupClass(VTYPE_help)->Prepare(env);
 	env.LookupClass(VTYPE_function)->Prepare(env);
 	env.LookupClass(VTYPE_string)->Prepare(env);
 	env.LookupClass(VTYPE_binary)->Prepare(env);

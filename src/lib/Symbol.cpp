@@ -153,6 +153,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbolAlias(break_,			"break");
 	Gura_RealizeSymbolAlias(continue_,		"continue");
 	Gura_RealizeSymbolAlias(except_,		"except");
+	Gura_RealizeSymbol(lang);
 	Gura_RealizeSymbol(text);
 	Gura_RealizeSymbol(binary);
 	Gura_RealizeSymbol(unary);

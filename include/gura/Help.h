@@ -18,9 +18,14 @@ public:
 	Gura_DeclareReferenceAccessor(Help);
 public:
 	Help(const Symbol *pSymbol, const String &formatName, const String &text);
+private:
+	inline ~Help() {}
+public:
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline const char *GetFormatName() const { return _formatName.c_str(); }
+	inline const String &GetFormatNameSTL() const { return _formatName; }
 	inline const char *GetText() const { return _text.c_str(); }
+	inline const String &GetTextSTL() const { return _text; }
 };
 
 //-----------------------------------------------------------------------------

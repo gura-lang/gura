@@ -42,6 +42,7 @@
 #include "gura/Audio.h"
 #include "gura/Matrix.h"
 
+#include "gura/Object_help.h"
 #include "gura/Object_function.h"
 #include "gura/Object_string.h"
 #include "gura/Object_binary.h"

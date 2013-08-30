@@ -71,6 +71,7 @@ GURA_DLLDECLARE extern ValueType VTYPE_Module;
 GURA_DLLDECLARE extern ValueType VTYPE_Class;
 // object types
 GURA_DLLDECLARE extern ValueType VTYPE_object;
+GURA_DLLDECLARE extern ValueType VTYPE_help;
 GURA_DLLDECLARE extern ValueType VTYPE_function;
 GURA_DLLDECLARE extern ValueType VTYPE_string;
 GURA_DLLDECLARE extern ValueType VTYPE_binary;
@@ -156,6 +157,7 @@ public:
 	Gura_DeclareVTYPE(Class);
 	// object types
 	Gura_DeclareVTYPE(object);
+	Gura_DeclareVTYPE(help);
 	Gura_DeclareVTYPE(function);
 	Gura_DeclareVTYPE(string);
 	Gura_DeclareVTYPE(binary);
@@ -369,6 +371,7 @@ public:
 	inline bool IsModule() const			{ return IsType(VTYPE_Module);		}
 	inline bool IsClass() const				{ return IsType(VTYPE_Class);		}
 	inline bool IsGenericObject() const		{ return IsType(VTYPE_object);		}
+	inline bool IsHelp() const				{ return IsType(VTYPE_help);		}
 	inline bool IsFunction() const			{ return IsType(VTYPE_function);	}
 	inline bool IsString() const			{ return IsType(VTYPE_string);		}
 	inline bool IsBinary() const			{ return IsType(VTYPE_binary);		}
@@ -409,6 +412,7 @@ public:
 	inline bool MustBeModule(Signal &sig) const		{ return MustBe(sig, IsModule(), 	"module");		}
 	inline bool MustBeClass(Signal &sig) const		{ return MustBe(sig, IsClass(), 	"class");		}
 	inline bool MustBeGenericObject(Signal &sig) const { return MustBe(sig, IsGenericObject(), 	"generic object");		}
+	inline bool MustBeHelp(Signal &sig) const		{ return MustBe(sig, IsHelp(), 		"help");		}
 	inline bool MustBeFunction(Signal &sig) const	{ return MustBe(sig, IsFunction(), 	"function");	}
 	inline bool MustBeString(Signal &sig) const		{ return MustBe(sig, IsString(), 	"string");		}
 	inline bool MustBeBinary(Signal &sig) const		{ return MustBe(sig, IsBinary(), 	"binary");		}

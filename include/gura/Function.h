@@ -453,6 +453,7 @@ public:
 	inline bool IsModule(size_t idxArg) const			{ return GetValue(idxArg).IsModule();	}
 	inline bool IsClass(size_t idxArg) const			{ return GetValue(idxArg).IsClass();	}
 	inline bool IsGenericObject(size_t idxArg) const	{ return GetValue(idxArg).IsGenericObject(); }
+	inline bool IsHelp(size_t idxArg) const				{ return GetValue(idxArg).IsHelp();		}
 	inline bool IsFunction(size_t idxArg) const			{ return GetValue(idxArg).IsFunction();	}
 	inline bool IsIterator(size_t idxArg) const			{ return GetValue(idxArg).IsIterator();	}
 	inline bool IsList(size_t idxArg) const				{ return GetValue(idxArg).IsList();		}
