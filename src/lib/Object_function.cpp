@@ -24,6 +24,7 @@ bool Object_function::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols
 	symbols.insert(Gura_Symbol(name));
 	symbols.insert(Gura_Symbol(fullname));
 	symbols.insert(Gura_Symbol(args));
+	symbols.insert(Gura_Symbol(format));
 	symbols.insert(Gura_Symbol(expr));
 	return true;
 }
@@ -47,6 +48,11 @@ Value Object_function::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 			valList.push_back(Value((*ppDecl)->GetSymbol()));
 		}
 		return result;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(format))) {
+		String str = MakePrefix(sig);
+		if (sig.IsSignalled()) return Value::Null;
+		str += _pFunc->ToString();
+		return Value(env, str.c_str());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(expr))) {
 		if (!GetFunction()->IsCustom()) return Value::Null;
 		const CustomFunction *pFuncCustom =
@@ -245,6 +251,11 @@ Gura_DeclareMethod(function, gethelp)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), FMT_markdown,
+	"Gets a help object of the specified function object.\n"
+	"`lang` is a symbol that indicates a language in which the help is written.\n"
+	"If help doesn't exist, it returns nil.\n"
+	);
 }
 
 Gura_ImplementMethod(function, gethelp)
@@ -253,7 +264,7 @@ Gura_ImplementMethod(function, gethelp)
 	const Symbol *pSymbol = args.IsSymbol(0)? args.GetSymbol(0) : NULL;
 	const Help *pHelp = pThis->GetFunction()->GetHelp(pSymbol);
 	if (pHelp == NULL) return Value::Null;
-	return Value(env, pHelp->GetText());
+	return Value(new Object_help(env, pHelp->Reference()));
 }
 
 // function#help(lang?:symbol):map:void
@@ -262,7 +273,10 @@ Gura_DeclareMethod(function, help)
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), FMT_markdown,
-	"Print a help message for the specified function object.");
+	"Print a help message for the specified function object.\n"
+	"`lang` is a symbol that indicates a language in which the help is written.\n"
+	"If help message doesn't exist, it only prints the function's format.\n"
+	);
 }
 
 Gura_ImplementMethod(function, help)
