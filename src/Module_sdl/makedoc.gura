@@ -5,7 +5,8 @@ import(markdown)
 doc = markdown.document()
 
 // 5. General
-funcs = [
+doc << 'General\n--'
+doc << [
 	sdl.Init
 	sdl.InitSubSystem
 	sdl.QuitSubSystem
@@ -13,9 +14,9 @@ funcs = [
 	sdl.WasInit
 	sdl.GetError
 ]
-doc << funcs
 // 6. Video
-funcs = [
+doc << 'Video\n--'
+doc << [
 	sdl.GetVideoSurface
 	sdl.GetVideoInfo
 	sdl.VideoDriverName
@@ -74,9 +75,9 @@ funcs = [
 	//sdl.VideoInfo
 	//sdl.Overlay
 ]
-doc << funcs
 // 7. Window Management
-funcs = [
+doc << 'Window Management\n--'
+doc << [
 	sdl.WM_SetCaption
 	sdl.WM_GetCaption
 	sdl.WM_SetIcon
@@ -84,9 +85,9 @@ funcs = [
 	sdl.WM_ToggleFullScreen
 	sdl.WM_GrabInput
 ]
-doc << funcs
 // 8. Events
-funcs = [
+doc << 'Events\n--'
+doc << [
 	sdl.PumpEvents
 	sdl.AddEvents
 	sdl.PeekEvents
@@ -108,9 +109,9 @@ funcs = [
 	sdl.GetAppState
 	sdl.JoystickEventState
 ]
-doc << funcs
 // 9. Joystick
-funcs = [
+doc << 'Joystick\n--'
+doc << [
 	sdl.NumJoysticks
 	sdl.JoystickName
 	sdl.JoystickOpen
@@ -127,9 +128,9 @@ funcs = [
 	sdl.Joystick.JoystickGetBall
 	sdl.Joystick.JoystickClose
 ]
-doc << funcs
 // 10. Audio
-funcs = [
+doc << 'Audio\n--'
+doc << [
 	//sdl.AudioSpec
 	sdl.OpenAudio
 	sdl.PauseAudio
@@ -144,9 +145,9 @@ funcs = [
 	sdl.UnlockAudio
 	sdl.CloseAudio
 ]
-doc << funcs
 // 11. CD-ROM
-funcs = [
+doc << 'CD-ROM\n--'
+doc << [
 	sdl.CDNumDrives
 	sdl.CDName
 	sdl.CDOpen
@@ -160,15 +161,14 @@ funcs = [
 	sdl.CD.CDClose
 	//sdl.CDTrack
 ]
-doc << funcs
 // 13. Time
-funcs = [
+doc << 'Time\n--'
+doc << [
 	sdl.GetTicks
 	sdl.Delay
 	sdl.AddTimer
 	sdl.Timer.RemoveTimer
 	//sdl.Timer.SetTimer
 ]
-doc << funcs
 
 doc.output_html()
