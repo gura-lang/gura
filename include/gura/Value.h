@@ -46,6 +46,7 @@ enum {
 	VFLAG_Owner			= (1 << 0),
 	VFLAG_TinyBuff		= (1 << 1),
 	VFLAG_Privileged	= (1 << 2),
+	VFLAG_NoMap			= (1 << 3),
 	// b15-b8 are reserved for super-skip count
 };
 
@@ -345,6 +346,7 @@ public:
 	inline bool IsOwner() const { return (_valFlags & VFLAG_Owner)? true : false; }
 	inline bool IsPrivileged() const { return (_valFlags & VFLAG_Privileged)? true : false; }
 	inline bool GetTinyBuffFlag() const { return (_valFlags & VFLAG_TinyBuff)? true : false; }
+	inline bool GetNoMapFlag() const { return (_valFlags & VFLAG_NoMap)? true : false; }
 	inline int GetSuperSkipCount() const { return (_valFlags >> 8) & 0xff; }
 	inline void SetSuperSkipCount(int cntSuperSkip) {
 		_valFlags = (_valFlags & 0x00ff) | (static_cast<UShort>(cntSuperSkip & 0xff) << 8);
