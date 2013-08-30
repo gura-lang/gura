@@ -124,4 +124,7 @@ Build for Windows
    and build it.
 '''
 
-markdown.parse(text.reader()).print()
+markdown.document {|doc|
+	doc << text
+	doc.print()
+}
