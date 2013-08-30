@@ -13,6 +13,7 @@ Directory.cpp
 Environment.cpp
 Expr.cpp
 Formatter.cpp
+Help.cpp
 Function.cpp
 Image.cpp
 Iterator.cpp

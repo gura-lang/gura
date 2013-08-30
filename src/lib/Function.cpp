@@ -269,15 +269,16 @@ void Function::DeclareBlock(OccurPattern occurPattern,
 
 void Function::AddHelp(const Symbol *pSymbol, const String &formatName, const String &text)
 {
-	_helpList.push_back(Help(pSymbol, formatName, text));
+	_helpOwner.push_back(new Help(pSymbol, formatName, text));
 }
 
-const Function::Help *Function::GetHelp(const Symbol *pSymbol) const
+const Help *Function::GetHelp(const Symbol *pSymbol) const
 {
-	if (_helpList.empty()) return NULL;
-	if (pSymbol == NULL) return &_helpList.front();
-	foreach_const (HelpList, pHelp, _helpList) {
-		if (pHelp->GetSymbol() == pSymbol) return &*pHelp;
+	if (_helpOwner.empty()) return NULL;
+	if (pSymbol == NULL) return _helpOwner.front();
+	foreach_const (HelpOwner, ppHelp, _helpOwner) {
+		Help *pHelp = *ppHelp;
+		if (pHelp->GetSymbol() == pSymbol) return pHelp;
 	}
 	return NULL;
 }

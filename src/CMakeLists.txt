@@ -93,6 +93,7 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Environment.h
   ${GURA_INCLUDE_DIR}/gura/Expr.h
   ${GURA_INCLUDE_DIR}/gura/Formatter.h
+  ${GURA_INCLUDE_DIR}/gura/Help.h
   ${GURA_INCLUDE_DIR}/gura/Function.h
   ${GURA_INCLUDE_DIR}/gura/Image.h
   ${GURA_INCLUDE_DIR}/gura/Palette.h

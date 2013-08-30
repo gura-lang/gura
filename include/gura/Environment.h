@@ -4,6 +4,7 @@
 #include "Value.h"
 #include "String.h"
 #include "Operator.h"
+#include "Help.h"
 
 //-----------------------------------------------------------------------------
 // macros
@@ -157,42 +158,6 @@ public:
 class GURA_DLLDECLARE PathManagerOwner : public std::vector<PathManager *> {
 public:
 	~PathManagerOwner();
-	void Clear();
-};
-
-//-----------------------------------------------------------------------------
-// HelpFormatter
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE HelpFormatter {
-private:
-	String _formatName;
-public:
-	HelpFormatter(const String &formatName);
-	const char *GetFormatName() const { return _formatName.c_str(); }
-	virtual bool DoFormat(Environment &env, Signal sig,
-				SimpleStream &streamSrc, Stream &streamDst) const = 0;
-public:
-	static void Register(Environment &env, HelpFormatter *pHelpFormatter);
-	static bool Format(Environment &env, Signal sig, const char *formatName,
-						SimpleStream &streamSrc, Stream &streamDst);
-	static bool Format(Environment &env, Signal sig, const char *formatName,
-						const char *text, Stream &streamDst);
-};
-
-//-----------------------------------------------------------------------------
-// HelpFormatterList
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE HelpFormatterList : public std::vector<HelpFormatter *> {
-public:
-	const HelpFormatter *FindByFormatName(const char *formatName) const;
-};
-
-//-----------------------------------------------------------------------------
-// HelpFormatterOwner
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE HelpFormatterOwner : public HelpFormatterList {
-public:
-	~HelpFormatterOwner();
 	void Clear();
 };
 

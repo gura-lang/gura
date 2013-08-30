@@ -251,7 +251,7 @@ Gura_ImplementMethod(function, gethelp)
 {
 	Object_function *pThis = Object_function::GetThisObj(args);
 	const Symbol *pSymbol = args.IsSymbol(0)? args.GetSymbol(0) : NULL;
-	const Function::Help *pHelp = pThis->GetFunction()->GetHelp(pSymbol);
+	const Help *pHelp = pThis->GetFunction()->GetHelp(pSymbol);
 	if (pHelp == NULL) return Value::Null;
 	return Value(env, pHelp->GetText());
 }
@@ -272,7 +272,7 @@ Gura_ImplementMethod(function, help)
 	Stream *pConsole = env.GetConsole();
 	pConsole->Println(sig, pThis->ToString(sig, true).c_str());
 	if (sig.IsSignalled()) return Value::Null;
-	const Function::Help *pHelp = pThis->GetFunction()->GetHelp(pSymbol);
+	const Help *pHelp = pThis->GetFunction()->GetHelp(pSymbol);
 	if (pHelp == NULL) return Value::Null;
 	HelpFormatter::Format(env, sig,
 					pHelp->GetFormatName(), pHelp->GetText(), *pConsole);

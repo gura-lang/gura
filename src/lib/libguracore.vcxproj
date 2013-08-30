@@ -188,6 +188,7 @@
     <ClCompile Include="Environment.cpp" />
     <ClCompile Include="Expr.cpp" />
     <ClCompile Include="Formatter.cpp" />
+    <ClCompile Include="Help.cpp" />
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="Fundamental.cpp" />
     <ClCompile Include="Iterator.cpp" />
@@ -274,6 +275,7 @@
     <ClInclude Include="..\..\include\gura\Environment.h" />
     <ClInclude Include="..\..\include\gura\Expr.h" />
     <ClInclude Include="..\..\include\gura\Formatter.h" />
+    <ClInclude Include="..\..\include\gura\Help.h" />
     <ClInclude Include="..\..\include\gura\Function.h" />
     <ClInclude Include="..\..\include\gura\Fundamental.h" />
     <ClInclude Include="..\..\include\gura\Iterator.h" />

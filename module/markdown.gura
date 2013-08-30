@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(markdown):binary
+import(markdown):binary:mixin_type
 
 generate_html(out:stream:w, item:markdown.item):map:void = {
 	if (item.type == `root) {
@@ -67,4 +67,4 @@ generate_html(out:stream:w, item:markdown.item):map:void = {
 	}
 }
 
-markdown.addgenerator('html', generate_html)
+//markdown.addgenerator('html', generate_html)

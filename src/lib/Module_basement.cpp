@@ -1301,7 +1301,7 @@ Gura_ImplementFunction(help)
 	Stream *pConsole = env.GetConsole();
 	pConsole->Println(sig, pFuncObj->ToString(sig, true).c_str());
 	if (sig.IsSignalled()) return Value::Null;
-	const Function::Help *pHelp = pFuncObj->GetFunction()->GetHelp(pSymbol);
+	const Help *pHelp = pFuncObj->GetFunction()->GetHelp(pSymbol);
 	if (pHelp == NULL) return Value::Null;
 	HelpFormatter::Format(env, sig,
 				pHelp->GetFormatName(), pHelp->GetText(), *pConsole);
