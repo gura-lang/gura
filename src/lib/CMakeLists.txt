@@ -45,6 +45,7 @@ Object_dict.cpp
 Object_environment.cpp
 Object_error.cpp
 Object_expr.cpp
+Object_help.cpp
 Object_function.cpp
 Object_operator.cpp
 Object_image.cpp

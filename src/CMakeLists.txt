@@ -117,6 +117,7 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Object_environment.h
   ${GURA_INCLUDE_DIR}/gura/Object_error.h
   ${GURA_INCLUDE_DIR}/gura/Object_expr.h
+  ${GURA_INCLUDE_DIR}/gura/Object_help.h
   ${GURA_INCLUDE_DIR}/gura/Object_function.h
   ${GURA_INCLUDE_DIR}/gura/Object_operator.h
   ${GURA_INCLUDE_DIR}/gura/Object_image.h

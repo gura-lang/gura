@@ -14,7 +14,7 @@ PathManager.cpp Directory.cpp Stream.cpp DateTime.cpp Image.cpp Palette.cpp Audi
 OAL.cpp DllMain.cpp Fundamental.cpp
 
 SRCS = $(SRCS) Class.cpp Object.cpp \
-Object_function.cpp Object_string.cpp Object_binary.cpp Object_pointer.cpp \
+Object_help.cpp Object_function.cpp Object_string.cpp Object_binary.cpp Object_pointer.cpp \
 Object_list.cpp Object_matrix.cpp Object_dict.cpp Object_stream.cpp Object_directory.cpp \
 Object_datetime.cpp Object_timedelta.cpp \
 Object_expr.cpp Object_environment.cpp Object_error.cpp Object_uri.cpp \
