@@ -98,16 +98,16 @@ void ItemOwner::Store(const ItemList &itemList)
 }
 
 //-----------------------------------------------------------------------------
-// Parser
+// Document
 //-----------------------------------------------------------------------------
-Parser::Parser() : _stat(STAT_LineTop), _statRtn(STAT_LineTop),
+Document::Document() : _cntRef(1), _stat(STAT_LineTop), _statRtn(STAT_LineTop),
 								_indentLevel(0), _pItemOwner(new ItemOwner())
 {
 	_pItemRoot.reset(new Item(Item::TYPE_Root, new ItemOwner()));
 	_itemStack.push_back(_pItemRoot.get());
 }
 
-bool Parser::ParseStream(Signal sig, SimpleStream &stream)
+bool Document::ParseStream(Signal sig, SimpleStream &stream)
 {
 	for (;;) {
 		int chRaw = stream.GetChar(sig);
@@ -118,7 +118,7 @@ bool Parser::ParseStream(Signal sig, SimpleStream &stream)
 	return true;
 }
 
-bool Parser::ParseChar(Signal sig, char ch)
+bool Document::ParseChar(Signal sig, char ch)
 {
 	bool continueFlag = false;
 	do 	{
@@ -779,9 +779,9 @@ Gura_DeclareFunction(parse)
 Gura_ImplementFunction(parse)
 {
 	Stream &stream = args.GetStream(0);
-	Parser parser;
-	if (!parser.ParseStream(sig, stream)) return Value::Null;
-	AutoPtr<Object_item> pObj(new Object_item(parser.GetItemRoot()->Reference()));
+	AutoPtr<Document> pDocument(new Document());
+	if (!pDocument->ParseStream(sig, stream)) return Value::Null;
+	AutoPtr<Object_item> pObj(new Object_item(pDocument->GetItemRoot()->Reference()));
 	return ReturnValue(env, sig, args, Value(pObj.release()));
 }
 
@@ -826,9 +826,9 @@ void Iterator_item::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 bool HelpFormatter_markdown::DoFormat(Environment &env, Signal sig,
 							SimpleStream &streamSrc, Stream &streamDst) const
 {
-	Parser parser;
-	if (!parser.ParseStream(sig, streamSrc)) return false;
-	OutputText(sig, streamDst, parser.GetItemRoot());
+	AutoPtr<Document> pDocument(new Document());
+	if (!pDocument->ParseStream(sig, streamSrc)) return false;
+	OutputText(sig, streamDst, pDocument->GetItemRoot());
 	return !sig.IsSignalled();
 }
 

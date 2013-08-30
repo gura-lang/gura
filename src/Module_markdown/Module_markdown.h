@@ -101,9 +101,9 @@ class ItemStack : public ItemList {
 };
 
 //-----------------------------------------------------------------------------
-// Parser
+// Document
 //-----------------------------------------------------------------------------
-class Parser {
+class Document {
 private:
 	enum Stat {
 		STAT_LineTop,
@@ -130,6 +130,7 @@ private:
 		STAT_StrongEnd,
 	};
 private:
+	int _cntRef;
 	Stat _stat;
 	Stat _statRtn;
 	int _indentLevel;
@@ -139,7 +140,12 @@ private:
 	AutoPtr<Item> _pItemRoot;
 	ItemStack _itemStack;
 public:
-	Parser();
+	Gura_DeclareReferenceAccessor(Document);
+public:
+	Document();
+private:
+	inline ~Document() {}
+public:
 	bool ParseStream(Signal sig, SimpleStream &stream);
 	inline const Item *GetItemRoot() { return _pItemRoot.get(); }
 private:
