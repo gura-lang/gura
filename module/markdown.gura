@@ -67,11 +67,76 @@ output_html(out:stream:w, item:item):map:void = {
 	}
 }
 
+output_help(item:item):map:void = {
+	if (item.type == `root) {
+		output_help(item.children)
+	} elsif (item.type == `h1) {
+		println()
+		output_help(item.children)
+		println()
+	} elsif (item.type == `h2) {
+		println()
+		output_help(item.children)
+		println()
+	} elsif (item.type == `h3) {
+		println()
+		output_help(item.children)
+		println()
+	} elsif (item.type == `h4) {
+		println()
+		output_help(item.children)
+		println()
+	} elsif (item.type == `h5) {
+		println()
+		output_help(item.children)
+		println()
+	} elsif (item.type == `h6) {
+		println()
+		output_help(item.children)
+		println()
+	} elsif (item.type == `p) {
+		println()
+		output_help(item.children)
+		println()
+	} elsif (item.type == `normal) {
+		print(item.text)
+	} elsif (item.type == `em) {
+		print(item.text)
+	} elsif (item.type == `strong) {
+		print(item.text)
+	} elsif (item.type == `code) {
+		print(item.text)
+	} elsif (item.type == `pre) {
+		output_help(item.children)
+		println()
+	} elsif (item.type == `ol) {
+		println()
+		output_help(item.children)
+		println()
+	} elsif (item.type == `ul) {
+		println()
+		output_help(item.children)
+		println()
+	} elsif (item.type == `li) {
+		print('- ')
+		output_help(item.children)
+		println()
+	} elsif (item.type == `line) {
+		print('|   ')
+		output_help(item.children)
+		println()
+	}
+}
+
 classref(`document).output_html(out?:stream:w) = {
 	output_html(out || sys.stdout, this.root)
 }
 
-operator(`<<).assign(`document, `function) {|doc, func|
-	doc << '**' + func.format + '**'
-	doc << func.gethelp().text
+setpresenter {|title:string:nil, item:item:nil|
+	if (title) {
+		conio.setcolor(`green) {
+			println(title)
+		}
+	}
+	item && output_help(item)
 }
