@@ -69,7 +69,7 @@ paragraph
   - item 4-2
   - item 4-3
 
-Header1
+Header1 `code`
 ==
 
 Header1
