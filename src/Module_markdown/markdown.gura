@@ -148,6 +148,11 @@ output_console(item:item):map:void = {
 	}
 }
 
+operator(`<<).assign(`document, `function) {|doc, func|
+	doc << '**' + func.format + '**'
+	doc << func.gethelp().text
+}
+
 classref(`document).output_html(out?:stream:w) = {
 	output_html(this.root, out || sys.stdout)
 }
