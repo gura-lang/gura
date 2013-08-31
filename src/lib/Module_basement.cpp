@@ -1143,7 +1143,10 @@ Gura_ImplementFunction(hex)
 Gura_DeclareFunction(print)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrMore);
+	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"Converts `values` into string and outputs the results to standard output."
+	);
 }
 
 Gura_ImplementFunction(print)
@@ -1161,9 +1164,9 @@ Gura_ImplementFunction(print)
 Gura_DeclareFunction(println)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrMore);
-	AddHelp(Gura_Symbol(ja), Help::FMT_markdown,
-	""
+	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"Converts `values` into string and outputs the results to standard output before a carriage return."
 	);
 }
 
@@ -1185,6 +1188,35 @@ Gura_DeclareFunction(printf)
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"Converts `values` into string depending on formatter specification in `format` and outputs the result to standard output.\n"
+	"The format specifier comes like `%[flags][width][.precision]specifier`.\n"
+	"\n"
+	"`specifier` is one of the following.\n"
+	"\n"
+	"- `d`, `i` .. decimal integer number with a sign mark\n"
+	"- `u` .. decimal integer number wihout a sign mark\n"
+	"- `b` .. binary integer number without a sign mark\n"
+	"- `o` .. octal integer number without a sign mark\n"
+	"- `x` .. hexadecimal integer number in lower character without a sign mark\n"
+	"- `X` .. hexadecimal integer number in upper character without a sign mark\n"
+	"- `e` .. floating number in exponential form\n"
+	"- `E` .. floating number in exponential form (in upper character)\n"
+	"- `f` .. floating number in decimal form\n"
+	"- `F` .. floating number in decimal form (in upper character)\n"
+	"- `g` .. better form between `e` and `f`\n"
+	"- `G` .. better form between `E` and `F`\n"
+	"- `s` .. string\n"
+	"- `c` .. character\n"
+	"\n"
+	"`flags` is one of the following.\n"
+	"\n"
+	"- `+` .. `+` precedes for positive numbers\n"
+	"- `-` .. adjust a string to left\n"
+	"- `(space)` .. space character precedes for positive numbers\n"
+	"- `#` .. converted results of binary, octdecimal and hexadecimal are preceded by `'0b'`, `'0'` and `'0x'` respectively\n"
+	"- `0` .. fill lacking columns with `'0'`\n"
+	);
 }
 
 Gura_ImplementFunction(printf)
