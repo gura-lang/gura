@@ -1,5 +1,4 @@
 #!/usr/bin/env gura
-import(conio)
 import(markdown):binary:mixin_type {*}
 
 output_html(out:stream:w, item:item):map:void = {
@@ -96,6 +95,7 @@ output_help(item:item):map:void = {
 		output_help(item.children)
 		println()
 	} elsif (item.type == `p) {
+		println()
 		output_help(item.children)
 		println()
 	} elsif (item.type == `normal) {
@@ -133,6 +133,10 @@ classref(`document).output_html(out?:stream:w) = {
 }
 
 setpresenter {|title:string:nil, item:item:nil|
-	title && println(title)
+	if (title) {
+		conio.setcolor(`green) {
+			println(title)
+		}
+	}
 	item && output_help(item)
 }
