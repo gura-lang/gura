@@ -848,7 +848,8 @@ Gura_DeclareFunction(document)
 	SetClassToConstruct(Gura_UserClass(document));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	""
+	"Returns a markdown.document instance.\n"
+	"If `stream` is specified, the content of the instance shall be initialized with the result of parsing the stream.\n"
 	);
 }
 
@@ -868,7 +869,8 @@ Gura_DeclareFunction(setpresenter)
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	""
+	"Sets a presentation function that shows helps written in Markdown format.\n"
+	"The function is specified as a block that takes block parameters `|title:string, item:markdown.item|`.\n"
 	);
 }
 
