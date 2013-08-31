@@ -49,7 +49,7 @@ Gura_ImplementFunction(semaphore)
 Gura_DeclareMethod(semaphore, wait)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), FMT_markdown, 
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Watis for the semaphore being released by other threads, and ghen grabs\n"
 	"that ownership.");
 }
@@ -65,7 +65,7 @@ Gura_ImplementMethod(semaphore, wait)
 Gura_DeclareMethod(semaphore, release)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), FMT_markdown, "Releases the owership of the semaphore that is grabbed by semaphore#wait().");
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Releases the owership of the semaphore that is grabbed by semaphore#wait().");
 }
 
 Gura_ImplementMethod(semaphore, release)
@@ -80,7 +80,7 @@ Gura_DeclareMethod(semaphore, session)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), FMT_markdown, 
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Forms a critical session by grabbing the semaphore's ownership, executing\n"
 	"the block and releasing that ownership. It internally proccesses the same\n"
 	"job as semaphore#wait() and semaphore#release() before and after the block\n"

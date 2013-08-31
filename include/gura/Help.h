@@ -15,6 +15,8 @@ private:
 	String _formatName;
 	String _text;
 public:
+	static const String FMT_markdown;
+public:
 	Gura_DeclareReferenceAccessor(Help);
 public:
 	Help(const Symbol *pSymbol, const String &formatName, const String &text);
@@ -44,38 +46,34 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// HelpFormatter
+// HelpPresenter
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE HelpFormatter {
+class GURA_DLLDECLARE HelpPresenter {
 private:
 	String _formatName;
 public:
-	HelpFormatter(const String &formatName);
+	HelpPresenter(const String &formatName);
 	const char *GetFormatName() const { return _formatName.c_str(); }
-	virtual bool DoFormat(Environment &env, Signal sig,
-				SimpleStream &streamSrc, Stream &streamDst) const = 0;
+	virtual bool DoPresent(Environment &env, Signal sig, const char *title, const Help *pHelp) const = 0;
 public:
-	static void Register(Environment &env, HelpFormatter *pHelpFormatter);
-	static bool Format(Environment &env, Signal sig, const char *formatName,
-						SimpleStream &streamSrc, Stream &streamDst);
-	static bool Format(Environment &env, Signal sig, const char *formatName,
-						const char *text, Stream &streamDst);
+	static void Register(Environment &env, HelpPresenter *pHelpPresenter);
+	static bool Present(Environment &env, Signal sig, const char *title, const Help *pHelp);
 };
 
 //-----------------------------------------------------------------------------
-// HelpFormatterList
+// HelpPresenterList
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE HelpFormatterList : public std::vector<HelpFormatter *> {
+class GURA_DLLDECLARE HelpPresenterList : public std::vector<HelpPresenter *> {
 public:
-	const HelpFormatter *FindByFormatName(const char *formatName) const;
+	const HelpPresenter *FindByFormatName(const char *formatName) const;
 };
 
 //-----------------------------------------------------------------------------
-// HelpFormatterOwner
+// HelpPresenterOwner
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE HelpFormatterOwner : public HelpFormatterList {
+class GURA_DLLDECLARE HelpPresenterOwner : public HelpPresenterList {
 public:
-	~HelpFormatterOwner();
+	~HelpPresenterOwner();
 	void Clear();
 };
 

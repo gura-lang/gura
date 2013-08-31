@@ -224,7 +224,7 @@ Gura_DeclareMethod(pattern, match)
 	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareArg(env, "endpos", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), FMT_markdown, 
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Applies a pattern matching to a string and returns a match object.");
 }
 

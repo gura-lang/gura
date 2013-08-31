@@ -94,7 +94,7 @@ Gura_DeclareFunctionAlias(operator_, "operator")
 	DeclareArg(env, "op", VTYPE_symbol);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_operator));
-	AddHelp(Gura_Symbol(en), FMT_markdown, 
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Returns an operator object");
 }
 

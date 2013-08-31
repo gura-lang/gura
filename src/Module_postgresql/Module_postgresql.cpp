@@ -103,7 +103,7 @@ String Object_postgresql::IteratorTuple::ToString(Signal sig) const
 Gura_DeclareMethod(postgresql, close)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), FMT_markdown, "Shuts down the connection with an PostgreSQL server.");
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Shuts down the connection with an PostgreSQL server.");
 }
 
 Gura_ImplementMethod(postgresql, close)

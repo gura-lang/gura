@@ -197,7 +197,7 @@ Gura_DeclareMethod(db, exec)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "sql", VTYPE_string);
-	AddHelp(Gura_Symbol(en), FMT_markdown, 
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Executes an SQL statement and returns the result as a list.");
 }
 
@@ -213,7 +213,7 @@ Gura_DeclareMethod(db, query)
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "sql", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), FMT_markdown, 
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Executes an SQL statement and returns the result as an iterator.\n"
 	"You should use query() instead of exec() when it's likely that you get a large\n"
 	"size of data as the result\n");
@@ -246,7 +246,7 @@ Gura_DeclareMethod(db, transaction)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), FMT_markdown, 
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Executes the block within a transaction. The process is like follows:\n"
 	"1.Executes a sqlit3 command 'BEGIN TRANSACTION'\n"
 	"2.Executes code in the block\n"
@@ -272,7 +272,7 @@ Gura_ImplementMethod(db, transaction)
 Gura_DeclareMethod(db, close)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), FMT_markdown, "Shuts down the connection with an sqlite3 server.");
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Shuts down the connection with an sqlite3 server.");
 }
 
 Gura_ImplementMethod(db, close)
@@ -302,7 +302,7 @@ Gura_DeclareFunction(db)
 	DeclareArg(env, "filename", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(db));
-	AddHelp(Gura_Symbol(en), FMT_markdown, 
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Opens an sqlite3 database file.\n"
 	"If block is not specified, it returns a connection handle with an sqlite3 server.\n"
 	"If block is specified, it executes the program in the block with a connection\n"

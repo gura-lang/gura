@@ -237,7 +237,7 @@ Gura_ImplementFunction(binary)
 Gura_DeclareMethod(binary, len)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), FMT_markdown, "Returns the length of the buffer in binary.");
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the length of the buffer in binary.");
 }
 
 Gura_ImplementMethod(binary, len)
@@ -251,7 +251,7 @@ Gura_DeclareMethod(binary, each)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), FMT_markdown, "Returns an iterator picking up each byte in the buffer");
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns an iterator picking up each byte in the buffer");
 }
 
 Gura_ImplementMethod(binary, each)
@@ -267,7 +267,7 @@ Gura_DeclareMethod(binary, pointer)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "offset", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	AddHelp(Gura_Symbol(en), FMT_markdown,
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Returns a pointer instance that has an initial offset specified\n"
 	"by the argument.");
 }
@@ -484,7 +484,7 @@ Gura_ImplementMethod(binary, decode)
 Gura_DeclareMethod(binary, escapeuri)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), FMT_markdown, 
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Returns a string that converts characters into escape sequences.");
 }
 

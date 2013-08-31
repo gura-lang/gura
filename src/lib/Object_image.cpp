@@ -102,7 +102,7 @@ Gura_DeclareFunction(image)
 	DeclareArg(env, "args", VTYPE_any, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_image));
-	AddHelp(Gura_Symbol(en), FMT_markdown, 
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Returns an image object with specified characteristics. There are three patterns\n"
 	"to call the function as follows.\n"
 	"\n"
@@ -718,7 +718,7 @@ Gura_DeclareMethod(image, read)
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareArg(env, "imagetype", VTYPE_string, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), FMT_markdown, "Reads image data from a stream.");
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Reads image data from a stream.");
 }
 
 Gura_ImplementMethod(image, read)
@@ -735,7 +735,7 @@ Gura_DeclareMethod(image, write)
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "imagetype", VTYPE_string, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), FMT_markdown, "Writes image data to a stream.");
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Writes image data to a stream.");
 }
 
 Gura_ImplementMethod(image, write)
@@ -756,7 +756,7 @@ Gura_DeclareMethod(image, each)
 	DeclareArg(env, "height", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "scandir", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), FMT_markdown, "Returns an iterator that scans pixels in the image.");
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns an iterator that scans pixels in the image.");
 }
 
 Gura_ImplementMethod(image, each)

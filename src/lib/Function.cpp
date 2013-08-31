@@ -94,8 +94,6 @@ const Function *Args::GetBlockFunc(Environment &env, Signal sig, const Symbol *p
 //-----------------------------------------------------------------------------
 // Function
 //-----------------------------------------------------------------------------
-const String Function::FMT_markdown("markdown");
-
 bool Function::IsCustom() const { return false; }
 bool Function::IsConstructorOfStruct() const { return false; }
 

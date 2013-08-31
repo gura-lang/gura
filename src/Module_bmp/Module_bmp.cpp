@@ -14,7 +14,7 @@ Gura_DeclareMethod(image, bmpread)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
-	AddHelp(Gura_Symbol(en), FMT_markdown, "Reads an BMP image from a stream.");
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Reads an BMP image from a stream.");
 }
 
 Gura_ImplementMethod(image, bmpread)
@@ -29,7 +29,7 @@ Gura_DeclareMethod(image, bmpwrite)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
-	AddHelp(Gura_Symbol(en), FMT_markdown, "Writes a BMP image to a stream.");
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Writes a BMP image to a stream.");
 }
 
 Gura_ImplementMethod(image, bmpwrite)

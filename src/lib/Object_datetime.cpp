@@ -164,7 +164,7 @@ Gura_DeclareMethod(datetime, format)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_any, OCCUR_Once,
 								FLAG_None, new Expr_Value(Gura_Symbol(w3c)));
-	AddHelp(Gura_Symbol(en), FMT_markdown, 
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Returns a string after converting datetime properties with the specified format.\n"
 	"The format can either be a string to specify a user-specific format or a symbol of\n"
 	"custom-defined one. A user-specific format contains following specifiers.\n"

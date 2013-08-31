@@ -308,7 +308,7 @@ Gura_ImplementMethod(expr, tofunction)
 Gura_DeclareMethod(expr, eval)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), FMT_markdown, "Evaluate an expr object.");
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Evaluate an expr object.");
 }
 
 Gura_ImplementMethod(expr, eval)

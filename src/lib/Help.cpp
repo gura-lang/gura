@@ -5,6 +5,8 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Help
 //-----------------------------------------------------------------------------
+const String Help::FMT_markdown("markdown");
+
 Help::Help(const Symbol *pSymbol, const String &formatName, const String &text) :
 		_cntRef(1), _pSymbol(pSymbol), _formatName(formatName), _text(text)
 {
@@ -32,68 +34,63 @@ void HelpOwner::Clear()
 }
 
 //-----------------------------------------------------------------------------
-// HelpFormatter
+// HelpPresenter
 //-----------------------------------------------------------------------------
-HelpFormatter::HelpFormatter(const String &formatName) : _formatName(formatName)
+HelpPresenter::HelpPresenter(const String &formatName) : _formatName(formatName)
 {
 }
 
-void HelpFormatter::Register(Environment &env, HelpFormatter *pHelpFormatter)
+void HelpPresenter::Register(Environment &env, HelpPresenter *pHelpPresenter)
 {
-	env.GetGlobal()->GetHelpFormatterOwner().push_back(pHelpFormatter);
+	env.GetGlobal()->GetHelpPresenterOwner().push_back(pHelpPresenter);
 }
 
-bool HelpFormatter::Format(Environment &env, Signal sig, const char *formatName,
-									SimpleStream &streamSrc, Stream &streamDst)
+bool HelpPresenter::Present(Environment &env, Signal sig,
+										const char *title, const Help *pHelp)
 {
-	const HelpFormatter *pHelpFormatter = env.GetGlobal()->
-						GetHelpFormatterOwner().FindByFormatName(formatName);
-	if (pHelpFormatter != NULL) {
-		return pHelpFormatter->DoFormat(env, sig, streamSrc, streamDst);
+	const char *formatName = (pHelp == NULL)?
+						Help::FMT_markdown.c_str() : pHelp->GetFormatName();
+	const HelpPresenter *pHelpPresenter = env.GetGlobal()->
+						GetHelpPresenterOwner().FindByFormatName(formatName);
+	if (pHelpPresenter != NULL) {
+		return pHelpPresenter->DoPresent(env, sig, title, pHelp);
 	}
 	if (!env.ImportModules(sig, formatName, false, false)) return false;
-	pHelpFormatter = env.GetGlobal()->
-						GetHelpFormatterOwner().FindByFormatName(formatName);
-	if (pHelpFormatter != NULL) {
-		return pHelpFormatter->DoFormat(env, sig, streamSrc, streamDst);
+	pHelpPresenter = env.GetGlobal()->
+						GetHelpPresenterOwner().FindByFormatName(formatName);
+	if (pHelpPresenter != NULL) {
+		return pHelpPresenter->DoPresent(env, sig, title, pHelp);
 	}
 	sig.SetError(ERR_FormatError, "unsupported format: %s", formatName);
 	return false;
 }
 
-bool HelpFormatter::Format(Environment &env, Signal sig, const char *formatName,
-									const char *text, Stream &streamDst)
-{
-	SimpleStream_CString streamSrc(text);
-	return Format(env, sig, formatName, streamSrc, streamDst);
-}
-
 //-----------------------------------------------------------------------------
-// HelpFormatterList
+// HelpPresenterList
 //-----------------------------------------------------------------------------
-const HelpFormatter *HelpFormatterList::FindByFormatName(const char *formatName) const
+const HelpPresenter *HelpPresenterList::FindByFormatName(const char *formatName) const
 {
-	foreach_const (HelpFormatterList, ppHelpFormatter, *this) {
-		const HelpFormatter *pHelpFormatter = *ppHelpFormatter;
-		if (::strcmp(pHelpFormatter->GetFormatName(), formatName) == 0) {
-			return pHelpFormatter;
+	foreach_const (HelpPresenterList, ppHelpPresenter, *this) {
+		const HelpPresenter *pHelpPresenter = *ppHelpPresenter;
+		if (::strcmp(pHelpPresenter->GetFormatName(), formatName) == 0) {
+			return pHelpPresenter;
 		}
 	}
 	return NULL;
 }
 
 //-----------------------------------------------------------------------------
-// HelpFormatterOwner
+// HelpPresenterOwner
 //-----------------------------------------------------------------------------
-HelpFormatterOwner::~HelpFormatterOwner()
+HelpPresenterOwner::~HelpPresenterOwner()
 {
 	Clear();
 }
 
-void HelpFormatterOwner::Clear()
+void HelpPresenterOwner::Clear()
 {
-	foreach (HelpFormatterOwner, ppHelpFormatter, *this) {
-		delete *ppHelpFormatter;
+	foreach (HelpPresenterOwner, ppHelpPresenter, *this) {
+		delete *ppHelpPresenter;
 	}
 	clear();
 }

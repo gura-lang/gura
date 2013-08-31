@@ -186,8 +186,6 @@ protected:
 		const Symbol *pSymbol;
 	} _blockInfo;
 public:
-	static const String FMT_markdown;
-public:
 	Gura_DeclareReferenceAccessor(Function);
 public:
 	Function(const Function &func);

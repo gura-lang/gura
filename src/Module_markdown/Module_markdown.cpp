@@ -736,7 +736,7 @@ String Object_document::ToString(Signal sig, bool exprFlag)
 Gura_DeclareMethod(document, print)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
-	AddHelp(Gura_Symbol(en), FMT_markdown,
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	""
 	);
 }
@@ -815,7 +815,7 @@ String Object_item::ToString(Signal sig, bool exprFlag)
 Gura_DeclareMethod(item, print)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
-	AddHelp(Gura_Symbol(en), FMT_markdown,
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	""
 	);
 }
@@ -845,7 +845,7 @@ Gura_DeclareFunction(document)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce);
 	SetClassToConstruct(Gura_UserClass(document));
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), FMT_markdown,
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	""
 	);
 }
@@ -905,119 +905,125 @@ void Iterator_item::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 }
 
 //-----------------------------------------------------------------------------
-// HelpFormatter_markdown
+// HelpPresenter_markdown
 //-----------------------------------------------------------------------------
-bool HelpFormatter_markdown::DoFormat(Environment &env, Signal sig,
-							SimpleStream &streamSrc, Stream &streamDst) const
+bool HelpPresenter_markdown::DoPresent(Environment &env, Signal sig,
+									const char *title, const Help *pHelp) const
 {
 	AutoPtr<Document> pDocument(new Document());
-	if (!pDocument->ParseStream(sig, streamSrc)) return false;
-	OutputText(sig, streamDst, pDocument->GetItemRoot());
+	if (pHelp != NULL) {
+		SimpleStream_CString streamSrc(pHelp->GetText());
+		if (!pDocument->ParseStream(sig, streamSrc)) return false;
+	}
+	if (title != NULL) {
+		::printf("%s\n", title);
+	}
+	OutputText(sig, pDocument->GetItemRoot());
 	return !sig.IsSignalled();
 }
 
-bool HelpFormatter_markdown::OutputText(Signal sig, Stream &streamDst, const Item *pItem)
+bool HelpPresenter_markdown::OutputText(Signal sig, const Item *pItem)
 {
 	switch (pItem->GetType()) {
 	case Item::TYPE_Root: {			// container
-		OutputText(sig, streamDst, pItem->GetItemOwner());
+		OutputText(sig, pItem->GetItemOwner());
 		break;
 	}
 	case Item::TYPE_Header1: {		// container
-		streamDst.Print(sig, "\n");
-		OutputText(sig, streamDst, pItem->GetItemOwner());
-		streamDst.Print(sig, "\n");
+		::printf("\n");
+		OutputText(sig, pItem->GetItemOwner());
+		::printf("\n");
 		break;
 	}
 	case Item::TYPE_Header2: {		// container
-		streamDst.Print(sig, "\n");
-		OutputText(sig, streamDst, pItem->GetItemOwner());
-		streamDst.Print(sig, "\n");
+		::printf("\n");
+		OutputText(sig, pItem->GetItemOwner());
+		::printf("\n");
 		break;
 	}
 	case Item::TYPE_Header3: {		// container
-		streamDst.Print(sig, "\n");
-		OutputText(sig, streamDst, pItem->GetItemOwner());
-		streamDst.Print(sig, "\n");
+		::printf("\n");
+		OutputText(sig, pItem->GetItemOwner());
+		::printf("\n");
 		break;
 	}
 	case Item::TYPE_Header4: {		// container
-		streamDst.Print(sig, "\n");
-		OutputText(sig, streamDst, pItem->GetItemOwner());
-		streamDst.Print(sig, "\n");
+		::printf("\n");
+		OutputText(sig, pItem->GetItemOwner());
+		::printf("\n");
 		break;
 	}
 	case Item::TYPE_Header5: {		// container
-		streamDst.Print(sig, "\n");
-		OutputText(sig, streamDst, pItem->GetItemOwner());
-		streamDst.Print(sig, "\n");
+		::printf("\n");
+		OutputText(sig, pItem->GetItemOwner());
+		::printf("\n");
 		break;
 	}
 	case Item::TYPE_Header6: {		// container
-		streamDst.Print(sig, "\n");
-		OutputText(sig, streamDst, pItem->GetItemOwner());
-		streamDst.Print(sig, "\n");
+		::printf("\n");
+		OutputText(sig, pItem->GetItemOwner());
+		::printf("\n");
 		break;
 	}
 	case Item::TYPE_Paragraph: {	// container
-		streamDst.Print(sig, "\n");
-		OutputText(sig, streamDst, pItem->GetItemOwner());
-		streamDst.Print(sig, "\n");
+		::printf("\n");
+		OutputText(sig, pItem->GetItemOwner());
+		::printf("\n");
 		break;
 	}
 	case Item::TYPE_Normal: {		// text
-		streamDst.Print(sig, pItem->GetText());
+		::printf("%s", pItem->GetText());
 		break;
 	}
 	case Item::TYPE_Emphasis: {		// text
-		streamDst.Print(sig, pItem->GetText());
+		::printf("%s", pItem->GetText());
 		break;
 	}
 	case Item::TYPE_Strong: {		// text
-		streamDst.Print(sig, pItem->GetText());
+		::printf("%s", pItem->GetText());
 		break;
 	}
 	case Item::TYPE_InlineCode: {	// text
-		streamDst.Print(sig, pItem->GetText());
+		::printf("%s", pItem->GetText());
 		break;
 	}
 	case Item::TYPE_BlockCode: {	// container
-		streamDst.Print(sig, "\n");
-		OutputText(sig, streamDst, pItem->GetItemOwner());
+		::printf("\n");
+		OutputText(sig, pItem->GetItemOwner());
 		break;
 	}
 	case Item::TYPE_OList: {		// container
-		streamDst.Print(sig, "\n");
-		OutputText(sig, streamDst, pItem->GetItemOwner());
+		::printf("\n");
+		OutputText(sig, pItem->GetItemOwner());
 		break;
 	}
 	case Item::TYPE_UList: {		// container
-		streamDst.Print(sig, "\n");
-		OutputText(sig, streamDst, pItem->GetItemOwner());
+		::printf("\n");
+		OutputText(sig, pItem->GetItemOwner());
 		break;
 	}
 	case Item::TYPE_ListItem: {		// container
-		streamDst.Print(sig, "- ");
-		OutputText(sig, streamDst, pItem->GetItemOwner());
-		streamDst.Print(sig, "\n");
+		::printf("- ");
+		OutputText(sig, pItem->GetItemOwner());
+		::printf("\n");
 		break;
 	}
 	case Item::TYPE_Line: {			// container
-		streamDst.Print(sig, "|   ");
-		OutputText(sig, streamDst, pItem->GetItemOwner());
-		streamDst.Print(sig, "\n");
+		::printf("|   ");
+		OutputText(sig, pItem->GetItemOwner());
+		::printf("\n");
 		break;
 	}
 	}
 	return !sig.IsSignalled();
 }
 
-bool HelpFormatter_markdown::OutputText(Signal sig, Stream &streamDst, const ItemList *pItemList)
+bool HelpPresenter_markdown::OutputText(Signal sig, const ItemList *pItemList)
 {
 	if (pItemList == NULL) return true;
 	foreach_const (ItemList, ppItem, *pItemList) {
 		const Item *pItem = *ppItem;
-		if (!OutputText(sig, streamDst, pItem)) return false;
+		if (!OutputText(sig, pItem)) return false;
 	}
 	return true;
 }
@@ -1041,8 +1047,8 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(document);
 	// operator assignment
 	Gura_AssignBinaryOperator(Shl, document, string);
-	// registoration of HelpFormatter
-	HelpFormatter::Register(env, new HelpFormatter_markdown());
+	// registoration of HelpPresenter
+	HelpPresenter::Register(env, new HelpPresenter_markdown());
 }
 
 Gura_ModuleTerminate()

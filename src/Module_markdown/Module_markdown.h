@@ -217,16 +217,15 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// HelpFormatter_markdown
+// HelpPresenter_markdown
 //-----------------------------------------------------------------------------
-class HelpFormatter_markdown : public HelpFormatter {
+class HelpPresenter_markdown : public HelpPresenter {
 public:
-	inline HelpFormatter_markdown() : HelpFormatter("markdown") {}
-	virtual bool DoFormat(Environment &env, Signal sig,
-						SimpleStream &streamSrc, Stream &streamDst) const;
+	inline HelpPresenter_markdown() : HelpPresenter("markdown") {}
+	virtual bool DoPresent(Environment &env, Signal sig, const char *title, const Help *pHelp) const;
 private:
-	static bool OutputText(Signal sig, Stream &streamDst, const Item *pItem);
-	static bool OutputText(Signal sig, Stream &streamDst, const ItemList *pItemList);
+	static bool OutputText(Signal sig, const Item *pItem);
+	static bool OutputText(Signal sig, const ItemList *pItemList);
 };
 
 }}

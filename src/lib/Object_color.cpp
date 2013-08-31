@@ -932,7 +932,7 @@ Gura_DeclareFunction(color)
 	DeclareArg(env, "args", VTYPE_any, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_color));
-	AddHelp(Gura_Symbol(en), FMT_markdown,
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets either of a color symbol or a list of elements of red, green, blue and alpha,\n"
 	"and returns an color object.");
 }

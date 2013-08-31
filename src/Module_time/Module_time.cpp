@@ -173,7 +173,7 @@ Gura_DeclareFunction(delta)
 	DeclareArg(env, "days", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareArg(env, "secs", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareArg(env, "usecs", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	AddHelp(Gura_Symbol(en), FMT_markdown, 
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Returns a timedelta instance with specified values. The instance actually\n"
 	"holds properties of days, secs and usecs.\n");
 }

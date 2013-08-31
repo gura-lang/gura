@@ -251,7 +251,7 @@ Gura_DeclareMethod(function, gethelp)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), FMT_markdown,
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Gets a help object of the specified function object.\n"
 	"`lang` is a symbol that indicates a language in which the help is written.\n"
 	"If help doesn't exist, it returns nil.\n"
@@ -272,7 +272,7 @@ Gura_DeclareMethod(function, help)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "lang", VTYPE_symbol, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), FMT_markdown,
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Print a help message for the specified function object.\n"
 	"`lang` is a symbol that indicates a language in which the help is written.\n"
 	"If help message doesn't exist, it only prints the function's format.\n"
@@ -283,13 +283,8 @@ Gura_ImplementMethod(function, help)
 {
 	Object_function *pThis = Object_function::GetThisObj(args);
 	const Symbol *pSymbol = args.IsSymbol(0)? args.GetSymbol(0) : NULL;
-	Stream *pConsole = env.GetConsole();
-	pConsole->Println(sig, pThis->ToString(sig, true).c_str());
-	if (sig.IsSignalled()) return Value::Null;
-	const Help *pHelp = pThis->GetFunction()->GetHelp(pSymbol);
-	if (pHelp == NULL) return Value::Null;
-	HelpFormatter::Format(env, sig,
-					pHelp->GetFormatName(), pHelp->GetText(), *pConsole);
+	HelpPresenter::Present(env, sig, pThis->ToString(sig, true).c_str(),
+									pThis->GetFunction()->GetHelp(pSymbol));
 	return Value::Null;
 }
 

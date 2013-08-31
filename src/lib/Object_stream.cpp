@@ -569,7 +569,7 @@ Gura_DeclareMethod(stream, parse)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), FMT_markdown, "Parse a content of a script stream and returns an expr object.");
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Parse a content of a script stream and returns an expr object.");
 }
 
 Gura_ImplementMethod(stream, parse)

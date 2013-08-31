@@ -172,7 +172,7 @@ public:
 		SeparatedModuleMap	_separatedModuleMap;
 		StringList			_workingDirList;
 		PathManagerOwner	_pathManagerOwner;
-		HelpFormatterOwner	_helpFormatterOwner;
+		HelpPresenterOwner	_helpPresenterOwner;
 		Operator			*_operatorTbl[OPTYPE_max];
 		SymbolPool			*_pSymbolPool;
 		ValueTypePool		*_pValueTypePool;
@@ -194,8 +194,8 @@ public:
 		void UnregisterSeparatedModule(const char *pathName);
 		inline PathManagerOwner &GetPathManagerOwner() { return _pathManagerOwner; }
 		inline const PathManagerOwner &GetPathManagerOwner() const { return _pathManagerOwner; }
-		inline HelpFormatterOwner &GetHelpFormatterOwner() { return _helpFormatterOwner; }
-		inline const HelpFormatterOwner &GetHelpFormatterOwner() const { return _helpFormatterOwner; }
+		inline HelpPresenterOwner &GetHelpPresenterOwner() { return _helpPresenterOwner; }
+		inline const HelpPresenterOwner &GetHelpPresenterOwner() const { return _helpPresenterOwner; }
 		inline void SetOperator(OpType opType, Operator *pOperator) { _operatorTbl[opType] = pOperator; }
 		inline Operator *GetOperator(OpType opType) { return _operatorTbl[opType]; }
 		inline const Operator *GetOperator(OpType opType) const { return _operatorTbl[opType]; }
