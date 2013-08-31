@@ -223,9 +223,6 @@ class HelpPresenter_markdown : public HelpPresenter {
 public:
 	inline HelpPresenter_markdown() : HelpPresenter("markdown") {}
 	virtual bool DoPresent(Environment &env, Signal sig, const char *title, const Help *pHelp) const;
-private:
-	static bool OutputText(Signal sig, const Item *pItem);
-	static bool OutputText(Signal sig, const ItemList *pItemList);
 };
 
 }}

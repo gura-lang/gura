@@ -5,6 +5,8 @@
 
 Gura_BeginModule(markdown)
 
+AutoPtr<Function> _pFunc_Presenter;
+
 //-----------------------------------------------------------------------------
 // Item
 //-----------------------------------------------------------------------------
@@ -860,6 +862,25 @@ Gura_ImplementFunction(document)
 	return ReturnValue(env, sig, args, Value(pObj.release()));
 }
 
+// markdown.setpresenter():void {block}
+Gura_DeclareFunction(setpresenter)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareBlock(OCCUR_Once);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	""
+	);
+}
+
+Gura_ImplementFunction(setpresenter)
+{
+	const Function *pFuncBlock =
+						args.GetBlockFunc(env, sig, GetSymbolForBlock());
+	if (sig.IsSignalled()) return Value::Null;
+	_pFunc_Presenter.reset(pFuncBlock->Reference());
+	return Value::Null;
+}
+
 // operator <<
 Gura_ImplementBinaryOperator(Shl, document, string)
 {
@@ -910,122 +931,27 @@ void Iterator_item::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 bool HelpPresenter_markdown::DoPresent(Environment &env, Signal sig,
 									const char *title, const Help *pHelp) const
 {
-	AutoPtr<Document> pDocument(new Document());
-	if (pHelp != NULL) {
+	if (_pFunc_Presenter.IsNull()) {
+		sig.SetError(ERR_FormatError, "presenter function is not registered");
+		return false;
+	}
+	ValueList valListArg;
+	if (title == NULL) {
+		valListArg.push_back(Value::Null);
+	} else {
+		valListArg.push_back(Value(env, title));
+	}
+	if (pHelp == NULL) {
+		valListArg.push_back(Value::Null);
+	} else {
+		AutoPtr<Document> pDocument(new Document());
 		SimpleStream_CString streamSrc(pHelp->GetText());
 		if (!pDocument->ParseStream(sig, streamSrc)) return false;
+		valListArg.push_back(Value(new Object_item(pDocument->GetItemRoot()->Reference())));
 	}
-	if (title != NULL) {
-		::printf("%s\n", title);
-	}
-	OutputText(sig, pDocument->GetItemRoot());
+	Args args(valListArg);
+	_pFunc_Presenter->Eval(env, sig, args);
 	return !sig.IsSignalled();
-}
-
-bool HelpPresenter_markdown::OutputText(Signal sig, const Item *pItem)
-{
-	switch (pItem->GetType()) {
-	case Item::TYPE_Root: {			// container
-		OutputText(sig, pItem->GetItemOwner());
-		break;
-	}
-	case Item::TYPE_Header1: {		// container
-		::printf("\n");
-		OutputText(sig, pItem->GetItemOwner());
-		::printf("\n");
-		break;
-	}
-	case Item::TYPE_Header2: {		// container
-		::printf("\n");
-		OutputText(sig, pItem->GetItemOwner());
-		::printf("\n");
-		break;
-	}
-	case Item::TYPE_Header3: {		// container
-		::printf("\n");
-		OutputText(sig, pItem->GetItemOwner());
-		::printf("\n");
-		break;
-	}
-	case Item::TYPE_Header4: {		// container
-		::printf("\n");
-		OutputText(sig, pItem->GetItemOwner());
-		::printf("\n");
-		break;
-	}
-	case Item::TYPE_Header5: {		// container
-		::printf("\n");
-		OutputText(sig, pItem->GetItemOwner());
-		::printf("\n");
-		break;
-	}
-	case Item::TYPE_Header6: {		// container
-		::printf("\n");
-		OutputText(sig, pItem->GetItemOwner());
-		::printf("\n");
-		break;
-	}
-	case Item::TYPE_Paragraph: {	// container
-		::printf("\n");
-		OutputText(sig, pItem->GetItemOwner());
-		::printf("\n");
-		break;
-	}
-	case Item::TYPE_Normal: {		// text
-		::printf("%s", pItem->GetText());
-		break;
-	}
-	case Item::TYPE_Emphasis: {		// text
-		::printf("%s", pItem->GetText());
-		break;
-	}
-	case Item::TYPE_Strong: {		// text
-		::printf("%s", pItem->GetText());
-		break;
-	}
-	case Item::TYPE_InlineCode: {	// text
-		::printf("%s", pItem->GetText());
-		break;
-	}
-	case Item::TYPE_BlockCode: {	// container
-		::printf("\n");
-		OutputText(sig, pItem->GetItemOwner());
-		break;
-	}
-	case Item::TYPE_OList: {		// container
-		::printf("\n");
-		OutputText(sig, pItem->GetItemOwner());
-		break;
-	}
-	case Item::TYPE_UList: {		// container
-		::printf("\n");
-		OutputText(sig, pItem->GetItemOwner());
-		break;
-	}
-	case Item::TYPE_ListItem: {		// container
-		::printf("- ");
-		OutputText(sig, pItem->GetItemOwner());
-		::printf("\n");
-		break;
-	}
-	case Item::TYPE_Line: {			// container
-		::printf("|   ");
-		OutputText(sig, pItem->GetItemOwner());
-		::printf("\n");
-		break;
-	}
-	}
-	return !sig.IsSignalled();
-}
-
-bool HelpPresenter_markdown::OutputText(Signal sig, const ItemList *pItemList)
-{
-	if (pItemList == NULL) return true;
-	foreach_const (ItemList, ppItem, *pItemList) {
-		const Item *pItem = *ppItem;
-		if (!OutputText(sig, pItem)) return false;
-	}
-	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -1045,6 +971,7 @@ Gura_ModuleEntry()
 	Gura_UserClass(item)->Prepare(env);
 	// function assignment
 	Gura_AssignFunction(document);
+	Gura_AssignFunction(setpresenter);
 	// operator assignment
 	Gura_AssignBinaryOperator(Shl, document, string);
 	// registoration of HelpPresenter
@@ -1053,6 +980,7 @@ Gura_ModuleEntry()
 
 Gura_ModuleTerminate()
 {
+	_pFunc_Presenter.reset(NULL);
 }
 
 Gura_EndModule(markdown, markdown)
