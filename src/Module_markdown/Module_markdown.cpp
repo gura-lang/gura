@@ -301,19 +301,11 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_UListItem: {
 		if (ch == '`') {
-			if (!_text.empty()) {
-				Item *pItem = new Item(Item::TYPE_Normal, _text);
-				_pItemOwner->push_back(pItem);
-				_text.clear();
-			}
+			FlushText(Item::TYPE_Normal);
 			_statRtn = _stat;
 			_stat = STAT_InlineCode;
 		} else if (ch == '*') {
-			if (!_text.empty()) {
-				Item *pItem = new Item(Item::TYPE_Normal, _text);
-				_pItemOwner->push_back(pItem);
-				_text.clear();
-			}
+			FlushText(Item::TYPE_Normal);
 			_statRtn = _stat;
 			_stat = STAT_EmphasisPre;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
@@ -372,19 +364,11 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_OListItem: {
 		if (ch == '`') {
-			if (!_text.empty()) {
-				Item *pItem = new Item(Item::TYPE_Normal, _text);
-				_pItemOwner->push_back(pItem);
-				_text.clear();
-			}
+			FlushText(Item::TYPE_Normal);
 			_statRtn = _stat;
 			_stat = STAT_InlineCode;
 		} else if (ch == '*') {
-			if (!_text.empty()) {
-				Item *pItem = new Item(Item::TYPE_Normal, _text);
-				_pItemOwner->push_back(pItem);
-				_text.clear();
-			}
+			FlushText(Item::TYPE_Normal);
 			_statRtn = _stat;
 			_stat = STAT_EmphasisPre;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
@@ -432,19 +416,11 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_Normal: {
 		if (ch == '`') {
-			if (!_text.empty()) {
-				Item *pItem = new Item(Item::TYPE_Normal, _text);
-				_pItemOwner->push_back(pItem);
-				_text.clear();
-			}
+			FlushText(Item::TYPE_Normal);
 			_statRtn = _stat;
 			_stat = STAT_InlineCode;
 		} else if (ch == '*') {
-			if (!_text.empty()) {
-				Item *pItem = new Item(Item::TYPE_Normal, _text);
-				_pItemOwner->push_back(pItem);
-				_text.clear();
-			}
+			FlushText(Item::TYPE_Normal);
 			_statRtn = _stat;
 			_stat = STAT_EmphasisPre;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
@@ -457,19 +433,11 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_BlockCode: {
 		if (ch == '`') {
-			if (!_text.empty()) {
-				Item *pItem = new Item(Item::TYPE_Normal, _text);
-				_pItemOwner->push_back(pItem);
-				_text.clear();
-			}
+			FlushText(Item::TYPE_Normal);
 			_statRtn = _stat;
 			_stat = STAT_InlineCode;
 		} else if (ch == '*') {
-			if (!_text.empty()) {
-				Item *pItem = new Item(Item::TYPE_Normal, _text);
-				_pItemOwner->push_back(pItem);
-				_text.clear();
-			}
+			FlushText(Item::TYPE_Normal);
 			_statRtn = _stat;
 			_stat = STAT_EmphasisPre;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
@@ -507,18 +475,10 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_InlineCode: {
 		if (ch == '`') {
-			if (!_text.empty()) {
-				Item *pItem = new Item(Item::TYPE_InlineCode, _text);
-				_pItemOwner->push_back(pItem);
-				_text.clear();
-			}
+			FlushText(Item::TYPE_InlineCode);
 			_stat = _statRtn;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			if (!_text.empty()) {
-				Item *pItem = new Item(Item::TYPE_InlineCode, _text);
-				_pItemOwner->push_back(pItem);
-				_text.clear();
-			}
+			FlushText(Item::TYPE_InlineCode);
 			continueFlag = true;
 			_stat = _statRtn;
 		} else {
@@ -540,18 +500,10 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_Emphasis: {
 		if (ch == '*') {
-			if (!_text.empty()) {
-				Item *pItem = new Item(Item::TYPE_Emphasis, _text);
-				_pItemOwner->push_back(pItem);
-				_text.clear();
-			}
+			FlushText(Item::TYPE_Emphasis);
 			_stat = _statRtn;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			if (!_text.empty()) {
-				Item *pItem = new Item(Item::TYPE_Emphasis, _text);
-				_pItemOwner->push_back(pItem);
-				_text.clear();
-			}
+			FlushText(Item::TYPE_Emphasis);
 			continueFlag = true;
 			_stat = _statRtn;
 		} else {
@@ -561,18 +513,10 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_Strong: {
 		if (ch == '*') {
-			if (!_text.empty()) {
-				Item *pItem = new Item(Item::TYPE_Strong, _text);
-				_pItemOwner->push_back(pItem);
-				_text.clear();
-			}
+			FlushText(Item::TYPE_Strong);
 			_stat = STAT_StrongEnd;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			if (!_text.empty()) {
-				Item *pItem = new Item(Item::TYPE_Strong, _text);
-				_pItemOwner->push_back(pItem);
-				_text.clear();
-			}
+			FlushText(Item::TYPE_Strong);
 			continueFlag = true;
 			_stat = _statRtn;
 		} else {
@@ -594,14 +538,19 @@ bool Document::ParseChar(Signal sig, char ch)
 	return true;
 }
 
-void Document::FlushItem(Item::Type type)
+void Document::FlushText(Item::Type type)
 {
-	Item *pItemParent = _itemStack.back();
 	if (!_text.empty()) {
-		Item *pItem = new Item(Item::TYPE_Normal, _text);
+		Item *pItem = new Item(type, _text);
 		_pItemOwner->push_back(pItem);
 		_text.clear();
 	}
+}
+
+void Document::FlushItem(Item::Type type)
+{
+	Item *pItemParent = _itemStack.back();
+	FlushText(Item::TYPE_Normal);
 	if (!_pItemOwner->empty()) {
 		Item *pItem = new Item(type, _pItemOwner.release());
 		pItemParent->GetItemOwner()->push_back(pItem);
