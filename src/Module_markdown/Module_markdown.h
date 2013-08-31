@@ -152,6 +152,7 @@ public:
 	inline const Item *GetItemRoot() { return _pItemRoot.get(); }
 private:
 	bool ParseChar(Signal sig, char ch);
+	void FlushItem(Item::Type type);
 	inline static bool IsEOL(char ch) { return ch == '\n'; }
 	inline static bool IsEOF(char ch) { return ch == '\0'; }
 	inline static bool IsDigit(char ch) { return '0' <= ch && ch <= '9'; }

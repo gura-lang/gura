@@ -155,33 +155,14 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			_stat = STAT_Digit;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			Item *pItemParent = _itemStack.back();
-			if (!_text.empty()) {
-				Item *pItem = new Item(Item::TYPE_Normal, _text);
-				_pItemOwner->push_back(pItem);
-				_text.clear();
-			}
-			if (!_pItemOwner->empty()) {
-				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner.release());
-				pItemParent->GetItemOwner()->push_back(pItem);
-				_pItemOwner.reset(new ItemOwner());
-			}
+			FlushItem(Item::TYPE_Paragraph);
 		} else if (_indentLevel < 4) {
 			if (!_text.empty()) _text += ' ';
 			continueFlag = true;
 			_stat = STAT_Normal;
 		} else {
 			Item *pItemParent = _itemStack.back();
-			if (!_text.empty()) {
-				Item *pItem = new Item(Item::TYPE_Normal, _text);
-				_pItemOwner->push_back(pItem);
-				_text.clear();
-			}
-			if (!_pItemOwner->empty()) {
-				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner.release());
-				pItemParent->GetItemOwner()->push_back(pItem);
-				_pItemOwner.reset(new ItemOwner());
-			}
+			FlushItem(Item::TYPE_Paragraph);
 			do {
 				Item *pItem = new Item(Item::TYPE_BlockCode, new ItemOwner(), _indentLevel);
 				pItemParent->GetItemOwner()->push_back(pItem);
@@ -208,16 +189,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_Normal;
 		} else {
 			Item *pItemParent = _itemStack.back();
-			if (!_text.empty()) {
-				Item *pItem = new Item(Item::TYPE_Normal, _text);
-				_pItemOwner->push_back(pItem);
-				_text.clear();
-			}
-			if (!_pItemOwner->empty()) {
-				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner.release());
-				pItemParent->GetItemOwner()->push_back(pItem);
-				_pItemOwner.reset(new ItemOwner());
-			}
+			FlushItem(Item::TYPE_Paragraph);
 			_text = _textAdd;
 			_text += ch;
 			do {
@@ -240,16 +212,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_LineTop;
 		} else if (ch == ' ' || ch == '\t') {
 			Item *pItemParent = _itemStack.back();
-			if (!_text.empty()) {
-				Item *pItem = new Item(Item::TYPE_Normal, _text);
-				_pItemOwner->push_back(pItem);
-				_text.clear();
-			}
-			if (!_pItemOwner->empty()) {
-				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner.release());
-				pItemParent->GetItemOwner()->push_back(pItem);
-				_pItemOwner.reset(new ItemOwner());
-			}
+			FlushItem(Item::TYPE_Paragraph);
 			continueFlag = true;
 			_stat = STAT_UListItemPre;
 		} else if (_indentLevel < 4) {
@@ -259,16 +222,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_Normal;
 		} else {
 			Item *pItemParent = _itemStack.back();
-			if (!_text.empty()) {
-				Item *pItem = new Item(Item::TYPE_Normal, _text);
-				_pItemOwner->push_back(pItem);
-				_text.clear();
-			}
-			if (!_pItemOwner->empty()) {
-				Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner.release());
-				pItemParent->GetItemOwner()->push_back(pItem);
-				_pItemOwner.reset(new ItemOwner());
-			}
+			FlushItem(Item::TYPE_Paragraph);
 			_text = _textAdd;
 			_text += ch;
 			do {
@@ -284,17 +238,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == '=') {
 			_textAdd += ch;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			Item *pItemParent = _itemStack.back();
-			if (!_text.empty()) {
-				Item *pItem = new Item(Item::TYPE_Normal, _text);
-				_pItemOwner->push_back(pItem);
-				_text.clear();
-			}
-			if (!_pItemOwner->empty()) {
-				Item *pItem = new Item(Item::TYPE_Header1, _pItemOwner.release());
-				pItemParent->GetItemOwner()->push_back(pItem);
-				_pItemOwner.reset(new ItemOwner());
-			}
+			FlushItem(Item::TYPE_Header1);
 			continueFlag = IsEOF(ch);
 			_stat = STAT_LineTop;
 		} else {
@@ -309,17 +253,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == '-') {
 			_textAdd += ch;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			Item *pItemParent = _itemStack.back();
-			if (!_text.empty()) {
-				Item *pItem = new Item(Item::TYPE_Normal, _text);
-				_pItemOwner->push_back(pItem);
-				_text.clear();
-			}
-			if (!_pItemOwner->empty()) {
-				Item *pItem = new Item(Item::TYPE_Header2, _pItemOwner.release());
-				pItemParent->GetItemOwner()->push_back(pItem);
-				_pItemOwner.reset(new ItemOwner());
-			}
+			FlushItem(Item::TYPE_Header2);
 			continueFlag = IsEOF(ch);
 			_stat = STAT_LineTop;
 		} else {
@@ -398,17 +332,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '\t') {
 			_indentLevel += 4;
 		} else if (ch == '-' || IsEOL(ch) || IsEOF(ch)) {
-			Item *pItemParent = _itemStack.back();
-			if (!_text.empty()) {
-				Item *pItem = new Item(Item::TYPE_Normal, _text);
-				_pItemOwner->push_back(pItem);
-				_text.clear();
-			}
-			if (!_pItemOwner->empty()) {
-				Item *pItem = new Item(Item::TYPE_ListItem, _pItemOwner.release());
-				pItemParent->GetItemOwner()->push_back(pItem);
-				_pItemOwner.reset(new ItemOwner());
-			}
+			FlushItem(Item::TYPE_ListItem);
 			if (ch == '-') {
 				_stat = STAT_UListItemPre;
 			} else {
@@ -483,17 +407,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			_stat = STAT_OListItemPost_Digit;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			Item *pItemParent = _itemStack.back();
-			if (!_text.empty()) {
-				Item *pItem = new Item(Item::TYPE_Normal, _text);
-				_pItemOwner->push_back(pItem);
-				_text.clear();
-			}
-			if (!_pItemOwner->empty()) {
-				Item *pItem = new Item(Item::TYPE_ListItem, _pItemOwner.release());
-				pItemParent->GetItemOwner()->push_back(pItem);
-				_pItemOwner.reset(new ItemOwner());
-			}
+			FlushItem(Item::TYPE_ListItem);
 			_itemStack.pop_back();
 			continueFlag = IsEOF(ch);
 			_stat = STAT_LineTop;
@@ -508,17 +422,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (IsDigit(ch)) {
 			_textAdd += ch;
 		} else if (ch == '.') {
-			Item *pItemParent = _itemStack.back();
-			if (!_text.empty()) {
-				Item *pItem = new Item(Item::TYPE_Normal, _text);
-				_pItemOwner->push_back(pItem);
-				_text.clear();
-			}
-			if (!_pItemOwner->empty()) {
-				Item *pItem = new Item(Item::TYPE_ListItem, _pItemOwner.release());
-				pItemParent->GetItemOwner()->push_back(pItem);
-				_pItemOwner.reset(new ItemOwner());
-			}
+			FlushItem(Item::TYPE_ListItem);
 			_stat = STAT_OListItemPre;
 		} else {
 			_text += ' ';
@@ -689,6 +593,21 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	} while (continueFlag);
 	return true;
+}
+
+void Document::FlushItem(Item::Type type)
+{
+	Item *pItemParent = _itemStack.back();
+	if (!_text.empty()) {
+		Item *pItem = new Item(Item::TYPE_Normal, _text);
+		_pItemOwner->push_back(pItem);
+		_text.clear();
+	}
+	if (!_pItemOwner->empty()) {
+		Item *pItem = new Item(type, _pItemOwner.release());
+		pItemParent->GetItemOwner()->push_back(pItem);
+		_pItemOwner.reset(new ItemOwner());
+	}
 }
 
 //-----------------------------------------------------------------------------
