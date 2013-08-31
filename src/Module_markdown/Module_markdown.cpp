@@ -178,10 +178,8 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAdd += ch;
 			_stat = STAT_Header1;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			if (!_text.empty()) _text += ' ';
-			_text += _textAdd;
-			continueFlag = IsEOF(ch);
-			_stat = STAT_LineTop;
+			continueFlag = true;
+			_stat = STAT_Header1;
 		} else if (_indentLevel < 4) {
 			if (!_text.empty()) _text += ' ';
 			_text += _textAdd;
@@ -206,10 +204,8 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAdd += ch;
 			_stat = STAT_Header2;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			if (!_text.empty()) _text += ' ';
-			_text += _textAdd;
-			continueFlag = IsEOF(ch);
-			_stat = STAT_LineTop;
+			continueFlag = true;
+			_stat = STAT_Header2;
 		} else if (ch == ' ' || ch == '\t') {
 			FlushItem(Item::TYPE_Paragraph);
 			continueFlag = true;
