@@ -161,9 +161,9 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			_stat = STAT_Normal;
 		} else {
-			Item *pItemParent = _itemStack.back();
 			FlushItem(Item::TYPE_Paragraph);
 			do {
+				Item *pItemParent = _itemStack.back();
 				Item *pItem = new Item(Item::TYPE_BlockCode, new ItemOwner(), _indentLevel);
 				pItemParent->GetItemOwner()->push_back(pItem);
 				_itemStack.push_back(pItem);
@@ -188,11 +188,11 @@ bool Document::ParseChar(Signal sig, char ch)
 			_text += ch;
 			_stat = STAT_Normal;
 		} else {
-			Item *pItemParent = _itemStack.back();
 			FlushItem(Item::TYPE_Paragraph);
 			_text = _textAdd;
 			_text += ch;
 			do {
+				Item *pItemParent = _itemStack.back();
 				Item *pItem = new Item(Item::TYPE_BlockCode, new ItemOwner(), _indentLevel);
 				pItemParent->GetItemOwner()->push_back(pItem);
 				_itemStack.push_back(pItem);
@@ -211,7 +211,6 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = IsEOF(ch);
 			_stat = STAT_LineTop;
 		} else if (ch == ' ' || ch == '\t') {
-			Item *pItemParent = _itemStack.back();
 			FlushItem(Item::TYPE_Paragraph);
 			continueFlag = true;
 			_stat = STAT_UListItemPre;
@@ -221,11 +220,11 @@ bool Document::ParseChar(Signal sig, char ch)
 			_text += ch;
 			_stat = STAT_Normal;
 		} else {
-			Item *pItemParent = _itemStack.back();
 			FlushItem(Item::TYPE_Paragraph);
 			_text = _textAdd;
 			_text += ch;
 			do {
+				Item *pItemParent = _itemStack.back();
 				Item *pItem = new Item(Item::TYPE_BlockCode, new ItemOwner(), _indentLevel);
 				pItemParent->GetItemOwner()->push_back(pItem);
 				_itemStack.push_back(pItem);

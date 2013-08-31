@@ -5,36 +5,36 @@ output_html(item:item, out:stream:w):map:void = {
 	if (item.type == `root) {
 		out.print('<html>\n')
 		out.print('<body>\n')
-		output_html(out, item.children)
+		output_html(item.children, out)
 		out.print('</body>\n')
 		out.print('</html>\n')
 	} elsif (item.type == `h1) {
 		out.print('<h1>')
-		output_html(out, item.children)
+		output_html(item.children, out)
 		out.print('</h1>\n')
 	} elsif (item.type == `h2) {
 		out.print('<h2>')
-		output_html(out, item.children)
+		output_html(item.children, out)
 		out.print('</h2>\n')
 	} elsif (item.type == `h3) {
 		out.print('<h3>')
-		output_html(out, item.children)
+		output_html(item.children, out)
 		out.print('</h3>\n')
 	} elsif (item.type == `h4) {
 		out.print('<h4>')
-		output_html(out, item.children)
+		output_html(item.children, out)
 		out.print('</h4>\n')
 	} elsif (item.type == `h5) {
 		out.print('<h5>')
-		output_html(out, item.children)
+		output_html(item.children, out)
 		out.print('</h5>\n')
 	} elsif (item.type == `h6) {
 		out.print('<h6>')
-		output_html(out, item.children)
+		output_html(item.children, out)
 		out.print('</h6>\n')
 	} elsif (item.type == `p) {
 		out.print('<p>\n')
-		output_html(out, item.children)
+		output_html(item.children, out)
 		out.println()
 		out.print('</p>\n')
 	} elsif (item.type == `normal) {
@@ -47,22 +47,22 @@ output_html(item:item, out:stream:w):map:void = {
 		out.print('<code>', item.text, '</code>')
 	} elsif (item.type == `pre) {
 		out.print('<pre><code>')
-		output_html(out, item.children)
+		output_html(item.children, out)
 		out.print('</code></pre>\n')
 	} elsif (item.type == `ol) {
 		out.print('<ol>\n')
-		output_html(out, item.children)
+		output_html(item.children, out)
 		out.print('</ol>\n')
 	} elsif (item.type == `ul) {
 		out.print('<ul>\n')
-		output_html(out, item.children)
+		output_html(item.children, out)
 		out.print('</ul>\n')
 	} elsif (item.type == `li) {
 		out.print('<li>')
-		output_html(out, item.children)
+		output_html(item.children, out)
 		out.print('</li>\n')
 	} elsif (item.type == `line) {
-		output_html(out, item.children)
+		output_html(item.children, out)
 		out.print('\n')
 	}
 }
