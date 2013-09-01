@@ -151,6 +151,8 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAdd.clear();
 			_textAdd += ch;
 			_stat = STAT_HyphenFirst;
+		} else if (ch == '*') {
+			_stat = STAT_AsteriskFirst;
 		} else if (IsDigit(ch)) {
 			continueFlag = true;
 			_stat = STAT_Digit;
@@ -215,6 +217,30 @@ bool Document::ParseChar(Signal sig, char ch)
 			_text += _textAdd;
 			_text += ch;
 			_stat = STAT_Normal;
+		} else {
+			FlushItem(Item::TYPE_Paragraph);
+			_text = _textAdd;
+			_text += ch;
+			do {
+				Item *pItemParent = _itemStack.back();
+				Item *pItem = new Item(Item::TYPE_BlockCode, new ItemOwner(), _indentLevel);
+				pItemParent->GetItemOwner()->push_back(pItem);
+				_itemStack.push_back(pItem);
+			} while (0);
+			_stat = STAT_BlockCode;
+		}
+		break;
+	}
+	case STAT_AsteriskFirst: {
+		if (ch == ' ' || ch == '\t') {
+			FlushItem(Item::TYPE_Paragraph);
+			continueFlag = true;
+			_stat = STAT_UListItemPre;
+		} else if (_indentLevel < 4) {
+			FlushText(Item::TYPE_Normal);
+			_statRtn = STAT_Normal;
+			continueFlag = true;
+			_stat = STAT_EmphasisPre;
 		} else {
 			FlushItem(Item::TYPE_Paragraph);
 			_text = _textAdd;
@@ -318,26 +344,39 @@ bool Document::ParseChar(Signal sig, char ch)
 			_indentLevel += 1;
 		} else if (ch == '\t') {
 			_indentLevel += 4;
-		} else if (ch == '-' || IsEOL(ch) || IsEOF(ch)) {
+		} else if (ch == '-') {
 			FlushItem(Item::TYPE_ListItem);
-			if (ch == '-') {
-				_stat = STAT_UListItemPre;
-			} else {
-				ItemStack::iterator ppItem = _itemStack.begin();
-				foreach (ItemStack, ppItem, _itemStack) {
-					Item *pItem = *ppItem;
-					if (pItem->IsList()) {
-						_itemStack.erase(ppItem, _itemStack.end());
-						break;
-					}
+			_stat = STAT_UListItemPre;
+		} else if (ch == '*') {
+			_stat = STAT_UListItemPost_Asterisk;
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			FlushItem(Item::TYPE_ListItem);
+			ItemStack::iterator ppItem = _itemStack.begin();
+			foreach (ItemStack, ppItem, _itemStack) {
+				Item *pItem = *ppItem;
+				if (pItem->IsList()) {
+					_itemStack.erase(ppItem, _itemStack.end());
+					break;
 				}
-				continueFlag = IsEOF(ch);
-				_stat = STAT_LineTop;
 			}
+			continueFlag = IsEOF(ch);
+			_stat = STAT_LineTop;
 		} else {
 			_text += ' ';
 			_text += ch;
 			_stat = STAT_UListItem;
+		}
+		break;
+	}
+	case STAT_UListItemPost_Asterisk: {
+		if (ch == ' ' || ch == '\t') {
+			FlushItem(Item::TYPE_ListItem);
+			_stat = STAT_UListItemPre;
+		} else {
+			FlushText(Item::TYPE_Normal);
+			_statRtn = STAT_UListItem;
+			continueFlag = true;
+			_stat = STAT_EmphasisPre;
 		}
 		break;
 	}
