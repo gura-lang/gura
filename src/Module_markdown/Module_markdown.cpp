@@ -678,6 +678,23 @@ String Object_document::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for markdown.document
 //-----------------------------------------------------------------------------
+// markdown.document#read(stream:stream:w):void
+Gura_DeclareMethod(document, read)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	""
+	);
+}
+
+Gura_ImplementMethod(document, read)
+{
+	Document *pDocument = Object_document::GetThisObj(args)->GetDocument();
+	pDocument->ParseStream(sig, args.GetStream(0));
+	return Value::Null;
+}
+
 // markdown.document#print():void
 Gura_DeclareMethod(document, print)
 {
@@ -689,7 +706,8 @@ Gura_DeclareMethod(document, print)
 
 Gura_ImplementMethod(document, print)
 {
-	const Item *pItem = Object_document::GetThisObj(args)->GetDocument()->GetItemRoot();
+	Document *pDocument = Object_document::GetThisObj(args)->GetDocument();
+	const Item *pItem = pDocument->GetItemRoot();
 	pItem->Print(0);
 	return Value::Null;
 }
@@ -699,6 +717,7 @@ Gura_ImplementMethod(document, print)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(document)
 {
+	Gura_AssignMethod(document, read);
 	Gura_AssignMethod(document, print);
 }
 
