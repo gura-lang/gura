@@ -22,6 +22,13 @@ Header2
 * item2
 *emphasis*
 
++ item1
++ item2
++100 yen
++ item3
+  +100 yen
++ item4
+
 `code`
 *emphasis*
 **strong**
