@@ -87,7 +87,9 @@ paragraph
 - item 1
 - item 2
 - item 3
+  *strong*
   - item 3-1
+    *strong*
   - item 3-2
   - item 3-3
     - item 3-3-1

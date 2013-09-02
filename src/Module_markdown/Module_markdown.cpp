@@ -407,10 +407,20 @@ bool Document::ParseChar(Signal sig, char ch)
 			_itemStack.ClearListItem();
 			continueFlag = true;
 			_stat = STAT_LineTop;
-		} else {
+		} else if (_indentLevel < 4) {
 			_text += ' ';
-			_text += ch;
+			continueFlag = true;
 			_stat = STAT_UListItem;
+		} else {
+			FlushItem(Item::TYPE_Paragraph);
+			do {
+				Item *pItemParent = _itemStack.back();
+				Item *pItem = new Item(Item::TYPE_BlockCode, new ItemOwner(), _indentLevel);
+				pItemParent->GetItemOwner()->push_back(pItem);
+				_itemStack.push_back(pItem);
+			} while (0);
+			_text += ch;
+			_stat = STAT_BlockCode;
 		}
 		break;
 	}
@@ -557,15 +567,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		break;
 	}
 	case STAT_BlockCode: {
-		if (ch == '`') {
-			FlushText(Item::TYPE_Normal);
-			_statRtn = _stat;
-			_stat = STAT_InlineCode;
-		} else if (ch == '*') {
-			FlushText(Item::TYPE_Normal);
-			_statRtn = _stat;
-			_stat = STAT_EmphasisPre;
-		} else if (IsEOL(ch) || IsEOF(ch)) {
+		if (IsEOL(ch) || IsEOF(ch)) {
 			Item *pItemParent = _itemStack.back();
 			do {
 				Item *pItem = new Item(Item::TYPE_Normal, _text);
