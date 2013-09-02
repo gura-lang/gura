@@ -153,9 +153,15 @@ bool Document::ParseChar(Signal sig, char ch)
 	continueFlag = false;
 	switch (_stat) {
 	case STAT_LineTop: {
-		_indentLevel = 0;
-		continueFlag = true;
-		_stat = STAT_LineHead;
+		if (ch == '#') {
+			FlushItem(Item::TYPE_Paragraph);
+			_indentLevel = 1;
+			_stat = STAT_HeaderAnyHead;
+		} else {
+			_indentLevel = 0;
+			continueFlag = true;
+			_stat = STAT_LineHead;
+		}
 		break;
 	}
 	case STAT_LineHead: {
@@ -300,6 +306,63 @@ bool Document::ParseChar(Signal sig, char ch)
 				_itemStack.push_back(pItem);
 			} while (0);
 			_stat = STAT_BlockCode;
+		}
+		break;
+	}
+	case STAT_HeaderAnyHead: {
+		if (ch == '#') {
+			_indentLevel++;
+		} else if (ch == ' ' || ch == '\t') {
+			_stat = STAT_HeaderAnyPre;
+		} else {
+			_text.clear();
+			continueFlag = true;
+			_stat = STAT_HeaderAny;
+		}
+		break;
+	}
+	case STAT_HeaderAnyPre: {
+		if (ch == ' ' || ch == '\t') {
+			// nothing to do
+		} else {
+			_text.clear();
+			continueFlag = true;
+			_stat = STAT_HeaderAny;
+		}
+		break;
+	}
+	case STAT_HeaderAny: {
+		if (ch == '#') {
+			_textAdd.clear();
+			_textAdd += ch;
+			_stat = STAT_HeaderAnyPost;
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			Item::Type type =
+				(_indentLevel == 1)? Item::TYPE_Header1 :
+				(_indentLevel == 2)? Item::TYPE_Header2 :
+				(_indentLevel == 3)? Item::TYPE_Header3 :
+				(_indentLevel == 4)? Item::TYPE_Header4 :
+				(_indentLevel == 5)? Item::TYPE_Header5 :
+				(_indentLevel == 6)? Item::TYPE_Header6 :
+				Item::TYPE_Header6;
+			FlushItem(type);
+			continueFlag = IsEOF(ch);
+			_stat = STAT_LineTop;
+		} else {
+			_text += ch;
+		}
+		break;
+	}
+	case STAT_HeaderAnyPost: {
+		if (ch == '#') {
+			_textAdd += ch;
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			continueFlag = true;
+			_stat = STAT_HeaderAny;
+		} else {
+			_text += _textAdd;
+			_text += ch;
+			_stat = STAT_HeaderAny;
 		}
 		break;
 	}
