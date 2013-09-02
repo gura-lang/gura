@@ -126,11 +126,16 @@
       <normal>'item 2'
     <li>
       <normal>'item 3'
+      <em>'strong'
     <ul>
       <li>
         <normal>'item 3-1'
+        <em>'strong'
       <li>
-        <normal>'item 3-2'
+        <normal>'item 3-2 '
+        <em>'strong'
+        <normal>' '
+        <code>'code'
       <li>
         <normal>'item 3-3'
       <ul>
