@@ -99,6 +99,8 @@ public:
 // ItemStack
 //-----------------------------------------------------------------------------
 class ItemStack : public ItemList {
+public:
+	void ClearListItem();
 };
 
 //-----------------------------------------------------------------------------
@@ -119,11 +121,13 @@ private:
 		STAT_UListItemPre,
 		STAT_UListItem,
 		STAT_UListItemPost,
+		STAT_UListItemPost_EOL,
 		STAT_UListItemPost_Plus,
 		STAT_UListItemPost_Asterisk,
 		STAT_OListItemPre,
 		STAT_OListItem,
 		STAT_OListItemPost,
+		STAT_OListItemPost_EOL,
 		STAT_OListItemPost_Digit,
 		STAT_Normal,
 		STAT_BlockCode,

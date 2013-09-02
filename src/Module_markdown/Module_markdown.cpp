@@ -100,6 +100,21 @@ void ItemOwner::Store(const ItemList &itemList)
 }
 
 //-----------------------------------------------------------------------------
+// ItemStack
+//-----------------------------------------------------------------------------
+void ItemStack::ClearListItem()
+{
+	iterator ppItem = begin();
+	foreach (ItemStack, ppItem, *this) {
+		Item *pItem = *ppItem;
+		if (pItem->IsList()) {
+			erase(ppItem, end());
+			break;
+		}
+	}
+}
+
+//-----------------------------------------------------------------------------
 // Document
 //-----------------------------------------------------------------------------
 Document::Document() : _cntRef(1), _stat(STAT_LineTop), _statRtn(STAT_LineTop),
@@ -379,22 +394,33 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_UListItemPost_Plus;
 		} else if (ch == '*') {
 			_stat = STAT_UListItemPost_Asterisk;
-		} else if (IsEOL(ch) || IsEOF(ch)) {
+		} else if (IsEOL(ch)) {
+			_indentLevel = 0;
+			_stat = STAT_UListItemPost_EOL;
+		} else if (IsEOF(ch)) {
 			FlushItem(Item::TYPE_ListItem);
-			ItemStack::iterator ppItem = _itemStack.begin();
-			foreach (ItemStack, ppItem, _itemStack) {
-				Item *pItem = *ppItem;
-				if (pItem->IsList()) {
-					_itemStack.erase(ppItem, _itemStack.end());
-					break;
-				}
-			}
-			continueFlag = IsEOF(ch);
+			_itemStack.ClearListItem();
+			continueFlag = true;
 			_stat = STAT_LineTop;
 		} else {
 			_text += ' ';
 			_text += ch;
 			_stat = STAT_UListItem;
+		}
+		break;
+	}
+	case STAT_UListItemPost_EOL: {
+		if (ch == ' ') {
+			_indentLevel += 1;
+		} else if (ch == '\t') {
+			_indentLevel += 4;
+		} else if (IsEOL(ch)) {
+			FlushItem(Item::TYPE_ListItem);
+			_itemStack.ClearListItem();
+			_stat = STAT_LineTop;
+		} else {
+			continueFlag = true;
+			_stat = STAT_UListItemPost;
 		}
 		break;
 	}
@@ -466,15 +492,32 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAdd.clear();
 			continueFlag = true;
 			_stat = STAT_OListItemPost_Digit;
-		} else if (IsEOL(ch) || IsEOF(ch)) {
+		} else if (IsEOL(ch)) {
+			_stat = STAT_OListItemPost_EOL;
+		} else if (IsEOF(ch)) {
 			FlushItem(Item::TYPE_ListItem);
-			_itemStack.pop_back();
-			continueFlag = IsEOF(ch);
+			_itemStack.ClearListItem();
+			continueFlag = true;
 			_stat = STAT_LineTop;
 		} else {
 			_text += ' ';
 			_text += ch;
 			_stat = STAT_OListItem;
+		}
+		break;
+	}
+	case STAT_OListItemPost_EOL: {
+		if (ch == ' ') {
+			_indentLevel += 1;
+		} else if (ch == '\t') {
+			_indentLevel += 4;
+		} else if (IsEOL(ch)) {
+			FlushItem(Item::TYPE_ListItem);
+			_itemStack.ClearListItem();
+			_stat = STAT_LineTop;
+		} else {
+			continueFlag = true;
+			_stat = STAT_OListItemPost;
 		}
 		break;
 	}
