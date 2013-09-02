@@ -138,6 +138,8 @@ private:
 		STAT_Normal,
 		STAT_BlockCode,
 		STAT_BlockCode_LineTop,
+		STAT_ListItem_BlockCode,
+		STAT_ListItem_BlockCode_LineTop,
 		STAT_InlineCode,
 		STAT_EmphasisPre,
 		STAT_Emphasis,

@@ -482,20 +482,10 @@ bool Document::ParseChar(Signal sig, char ch)
 			_itemStack.ClearListItem();
 			continueFlag = true;
 			_stat = STAT_LineTop;
-		} else if (_indentLevel < 4) {
+		} else {
 			_text += ' ';
 			continueFlag = true;
 			_stat = STAT_UListItem;
-		} else {
-			FlushItem(Item::TYPE_Paragraph, false);
-			do {
-				Item *pItemParent = _itemStack.back();
-				Item *pItem = new Item(Item::TYPE_BlockCode, new ItemOwner(), _indentLevel);
-				pItemParent->GetItemOwner()->push_back(pItem);
-				_itemStack.push_back(pItem);
-			} while (0);
-			_text += ch;
-			_stat = STAT_BlockCode;
 		}
 		break;
 	}
@@ -509,9 +499,28 @@ bool Document::ParseChar(Signal sig, char ch)
 			_itemStack.ClearListItem();
 			_stat = STAT_LineTop;
 		} else {
+			_text += ' ';
 			continueFlag = true;
 			_stat = STAT_UListItemPost;
 		}
+#if 0
+		} else if (_indentLevel < 4) {
+			_text += ' ';
+			continueFlag = true;
+			_stat = STAT_UListItem;
+		} else {
+			FlushItem(Item::TYPE_Paragraph, false);
+			do {
+				Item *pItemParent = _itemStack.back();
+				Item *pItem = new Item(Item::TYPE_BlockCode, new ItemOwner(), _indentLevel);
+				pItemParent->GetItemOwner()->push_back(pItem);
+				_itemStack.push_back(pItem);
+			} while (0);
+			_text += ch;
+			//_stat = STAT_ListItem_BlockCode;
+			_stat = STAT_UListItem;
+		}
+#endif
 		break;
 	}
 	case STAT_UListItemPost_Plus: {
@@ -606,9 +615,28 @@ bool Document::ParseChar(Signal sig, char ch)
 			_itemStack.ClearListItem();
 			_stat = STAT_LineTop;
 		} else {
+			_text += ' ';
 			continueFlag = true;
 			_stat = STAT_OListItemPost;
 		}
+#if 0
+		} else if (_indentLevel < 4) {
+			_text += ' ';
+			continueFlag = true;
+			_stat = STAT_OListItem;
+		} else {
+			FlushItem(Item::TYPE_Paragraph, false);
+			do {
+				Item *pItemParent = _itemStack.back();
+				Item *pItem = new Item(Item::TYPE_BlockCode, new ItemOwner(), _indentLevel);
+				pItemParent->GetItemOwner()->push_back(pItem);
+				_itemStack.push_back(pItem);
+			} while (0);
+			_text += ch;
+			//_stat = STAT_ListItem_BlockCode;
+			_stat = STAT_OListItem;
+		}
+#endif
 		break;
 	}
 	case STAT_OListItemPost_Digit: {
