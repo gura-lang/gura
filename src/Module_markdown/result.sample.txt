@@ -199,3 +199,31 @@
       <normal>'Open '
       <code>'gura\src\gura.sln'
       <normal>' with Visual Studio 2010, switch the configuration to Release and build it.'
+  <h1>
+    <normal>'header1'
+  <h2>
+    <normal>'header2'
+  <h3>
+    <normal>'header3'
+  <h4>
+    <normal>'header4'
+  <h5>
+    <normal>'header5'
+  <h6>
+    <normal>'header6'
+  <h6>
+    <normal>'header6'
+  <h1>
+    <normal>'header1'
+  <h1>
+    <normal>'header1'
+  <h1>
+    <normal>'header1'
+  <h1>
+    <normal>'header1'
+  <h1>
+    <normal>'header1'
+  <h1>
+    <normal>'header1'
+  <h1>
+    <normal>'header1  #'

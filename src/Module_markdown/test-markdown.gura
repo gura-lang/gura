@@ -140,6 +140,24 @@ Build for Windows
    and modify `VCVARSALL` variable so that it points to a right directory of Visual Studio.
 3. Open `gura\src\gura.sln` with Visual Studio 2010, switch the configuration to Release
    and build it.
+
+
+# header1
+## header2
+### header3
+#### header4
+##### header5
+###### header6
+####### header6
+
+# header1
+
+#header1
+#header1 
+#header1  
+#header1 #
+#header1 ##
+#header1  # 
 '''
 
 sys.stdout.addcr(false)

@@ -346,7 +346,7 @@ bool Document::ParseChar(Signal sig, char ch)
 				(_indentLevel == 5)? Item::TYPE_Header5 :
 				(_indentLevel == 6)? Item::TYPE_Header6 :
 				Item::TYPE_Header6;
-			FlushItem(type, false);
+			FlushItem(type, true);
 			continueFlag = IsEOF(ch);
 			_stat = STAT_LineTop;
 		} else {
@@ -732,7 +732,7 @@ bool Document::ParseChar(Signal sig, char ch)
 void Document::FlushText(Item::Type type, bool stripFlag)
 {
 	if (!_text.empty()) {
-		Item *pItem = new Item(type, _text);
+		Item *pItem = new Item(type, Strip(_text.c_str(), stripFlag, stripFlag));
 		_pItemOwner->push_back(pItem);
 		_text.clear();
 	}
