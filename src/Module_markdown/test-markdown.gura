@@ -22,12 +22,14 @@ Header2
 * item2
 *emphasis*
 
+
 + item1
 + item2
 +100 yen
 + item3
   +100 yen
 + item4
+
 
 `code`
 *emphasis*
@@ -95,6 +97,7 @@ paragraph
   - item 4-2
   - item 4-3
 
+
 Header1
 ==
 
@@ -119,11 +122,13 @@ Build for Windows
 
 - hoge
 
+
 1. first
 2. second
 33. third
 444. fourth
 5555. fifth
+
 
 1. Check if Visual Studio 2010 has been installed. You can use Express version as well.
 2. Run a batch file `gura\src\setup-gura-guest.bat`, which downloads necessary packages
@@ -135,6 +140,7 @@ Build for Windows
    and build it.
 '''
 
+sys.stdout.addcr(false)
 markdown.document {|doc|
 	doc << text
 	doc.print()

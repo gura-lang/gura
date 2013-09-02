@@ -50,27 +50,32 @@ const char *Item::GetTypeName() const
 	return "?";
 }
 
-void Item::Print(int indentLevel) const
+void Item::Print(Signal sig, Stream &stream, int indentLevel) const
 {
-	const char *typeName = GetTypeName();
-	if (_pText.get() == NULL) {
-		::printf("%*s<%s>\n", indentLevel * 2, "", typeName);
-	} else {
-		::printf("%*s<%s>'%s'\n", indentLevel * 2, "", typeName, GetText());
+	for (int i = 0; i < indentLevel; i++) stream.Print(sig, "  ");
+	stream.Print(sig, "<");
+	stream.Print(sig, GetTypeName());
+	stream.Print(sig, ">");
+	if (_pText.get() != NULL) {
+		stream.Print(sig, "'");
+		stream.Print(sig, _pText->c_str());
+		stream.Print(sig, "'");
 	}
+	stream.Print(sig, "\n");
+	
 	if (!_pItemOwner.IsNull()) {
-		_pItemOwner->Print(indentLevel + 1);
+		_pItemOwner->Print(sig, stream, indentLevel + 1);
 	}
 }
 
 //-----------------------------------------------------------------------------
 // ItemList
 //-----------------------------------------------------------------------------
-void ItemList::Print(int indentLevel) const
+void ItemList::Print(Signal sig, Stream &stream, int indentLevel) const
 {
 	foreach_const (ItemList, ppItem, *this) {
 		const Item *pItem = *ppItem;
-		pItem->Print(indentLevel);
+		pItem->Print(sig, stream, indentLevel);
 	}
 }
 
@@ -751,7 +756,7 @@ Gura_ImplementMethod(document, print)
 {
 	Document *pDocument = Object_document::GetThisObj(args)->GetDocument();
 	const Item *pItem = pDocument->GetItemRoot();
-	pItem->Print(0);
+	pItem->Print(sig, *env.GetConsole(), 0);
 	return Value::Null;
 }
 
@@ -831,7 +836,7 @@ Gura_DeclareMethod(item, print)
 Gura_ImplementMethod(item, print)
 {
 	Item *pItem = Object_item::GetThisObj(args)->GetItem();
-	pItem->Print(0);
+	pItem->Print(sig, *env.GetConsole(), 0);
 	return Value::Null;
 }
 

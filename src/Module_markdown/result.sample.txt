@@ -1,0 +1,196 @@
+<root>
+  <p>
+    <normal>'No Header ===hoge'
+  <p>
+    <normal>'No Header ---hoge'
+  <p>
+    <normal>'-3 is less than zero'
+  <h1>
+    <normal>'Header1'
+  <h2>
+    <normal>'Header2'
+  <ul>
+    <li>
+      <normal>'item1'
+    <li>
+      <normal>'item2'
+      <em>'emphasis'
+  <ul>
+    <li>
+      <normal>'item1'
+    <li>
+      <normal>'item2 +100 yen'
+    <li>
+      <normal>'item3 +100 yen'
+    <li>
+      <normal>'item4'
+  <p>
+    <code>'code'
+    <em>'emphasis'
+    <strong>'strong'
+    <normal>'text '
+    <code>'not terminated code'
+    <normal>'text'
+    <em>'not terminated emphasis'
+    <normal>'text'
+    <strong>'not terminated strong'
+    <normal>'text'
+  <pre>
+    <line>
+      <normal>'#include <stdio.h>'
+    <line>
+      <normal>'int main()'
+    <line>
+      <normal>'{'
+    <line>
+      <normal>'    -3;'
+    <line>
+      <normal>'    =a+2'
+    <line>
+      <normal>'    return 0;'
+    <line>
+      <normal>'    ======'
+    <line>
+      <normal>'    hoge'
+    <line>
+      <normal>'    for (int i = 0; i < 10; i++) {'
+    <line>
+      <normal>'        printf("hello\n");'
+    <line>
+      <normal>'    }'
+    <line>
+      <normal>'    ------'
+    <line>
+      <normal>'}'
+  <p>
+    <normal>'paragraph'
+  <pre>
+    <line>
+      <normal>'// just after paragraph with no space between'
+    <line>
+      <normal>'#include <stdio.h>'
+    <line>
+      <normal>'int main()'
+    <line>
+      <normal>'{'
+    <line>
+      <normal>'    -3;'
+    <line>
+      <normal>'    =a+2'
+    <line>
+      <normal>'    return 0;'
+    <line>
+      <normal>'    ======'
+    <line>
+      <normal>'    hoge'
+    <line>
+      <normal>'    for (int i = 0; i < 10; i++) {'
+    <line>
+      <normal>'        printf("hello\n");'
+    <line>
+      <normal>'    }'
+    <line>
+      <normal>'    ------'
+    <line>
+      <normal>'}'
+  <p>
+    <normal>'normal text'
+  <pre>
+    <line>
+      <normal>'void sub1()'
+    <line>
+      <normal>'{'
+    <line>
+      <normal>'}'
+  <pre>
+    <line>
+      <normal>'void sub2()'
+    <line>
+      <normal>'{'
+    <line>
+      <normal>'// 3 blank lines below'
+    <line>
+      <normal>''
+    <line>
+      <normal>''
+    <line>
+      <normal>''
+    <line>
+      <normal>'// 3 blank lines above'
+    <line>
+      <normal>'}'
+  <ul>
+    <li>
+      <normal>'item 1'
+    <li>
+      <normal>'item 2'
+    <li>
+      <normal>'item 3'
+    <ul>
+      <li>
+        <normal>'item 3-1'
+      <li>
+        <normal>'item 3-2'
+      <li>
+        <normal>'item 3-3'
+      <ul>
+        <li>
+          <normal>'item 3-3-1'
+        <li>
+          <normal>'item 3-3-2'
+    <li>
+      <normal>'item 4'
+    <ul>
+      <li>
+        <normal>'item 4-1'
+      <li>
+        <normal>'item 4-2'
+      <li>
+        <normal>'item 4-3'
+  <h1>
+    <normal>'Header1'
+  <h1>
+    <normal>'Header1'
+  <h1>
+    <normal>'Header1'
+  <h2>
+    <normal>'Header2'
+  <h2>
+    <normal>'Header2'
+  <h2>
+    <normal>'Header2'
+  <h2>
+    <normal>'Build for Windows'
+  <p>
+    <normal>'Build for Windows'
+  <ul>
+    <li>
+      <normal>'hoge'
+  <ol>
+    <li>
+      <normal>'first'
+    <li>
+      <normal>'second'
+    <li>
+      <normal>'third'
+    <li>
+      <normal>'fourth'
+    <li>
+      <normal>'fifth'
+  <ol>
+    <li>
+      <normal>'Check if Visual Studio 2010 has been installed. You can use Express version as well.'
+    <li>
+      <normal>'Run a batch file '
+      <code>'gura\src\setup-gura-guest.bat'
+      <normal>', which downloads necessary packages from Git repository (https://github.com/ypsitau/gura-guest.git) and build them. The batch file may occur an error that says it cannot find '
+      <code>'vcvarsall.bat'
+      <normal>'. In such a case, you have to edit '
+      <code>'gura\gura-guest\setup.bat'
+      <normal>' and modify '
+      <code>'VCVARSALL'
+      <normal>' variable so that it points to a right directory of Visual Studio.'
+    <li>
+      <normal>'Open '
+      <code>'gura\src\gura.sln'
+      <normal>' with Visual Studio 2010, switch the configuration to Release and build it.'

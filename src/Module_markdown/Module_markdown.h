@@ -67,7 +67,7 @@ public:
 	inline void SetIndentLevel(int indentLevel) { _indentLevel = indentLevel; }
 	inline int GetIndentLevel() const { return _indentLevel; }
 	const char *GetTypeName() const;
-	void Print(int indentLevel) const;
+	void Print(Signal sig, Stream &stream, int indentLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -75,7 +75,7 @@ public:
 //-----------------------------------------------------------------------------
 class ItemList : public std::vector<Item *> {
 public:
-	void Print(int indentLevel) const;
+	void Print(Signal sig, Stream &stream, int indentLevel) const;
 };
 
 //-----------------------------------------------------------------------------
