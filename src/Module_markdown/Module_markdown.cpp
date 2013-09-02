@@ -401,9 +401,20 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (IsDigit(ch)) {
 			_text += ch;
 		} else if (ch == '.') {
+			_text += ch;
+			_stat = STAT_DigitDot;
+		} else {
+			continueFlag = true;
+			_stat = STAT_Normal;
+		}
+		break;
+	}
+	case STAT_DigitDot: {
+		if (ch == ' ' || ch == '\t') {
 			_text.clear();
 			_stat = STAT_OListItemPre;
 		} else {
+			continueFlag = true;
 			_stat = STAT_Normal;
 		}
 		break;
@@ -605,8 +616,21 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAdd += ch;
 		} else if (ch == '.') {
 			FlushItem(Item::TYPE_ListItem, false);
+			_textAdd += ch;
+			_stat = STAT_OListItemPost_DigitDot;
+		} else {
+			continueFlag = true;
+			_text += ' ';
+			_text += _textAdd;
+			_stat = STAT_OListItem;
+		}
+		break;
+	}
+	case STAT_OListItemPost_DigitDot: {
+		if (ch == ' ' || ch == '\t') {
 			_stat = STAT_OListItemPre;
 		} else {
+			continueFlag = true;
 			_text += ' ';
 			_text += _textAdd;
 			_stat = STAT_OListItem;

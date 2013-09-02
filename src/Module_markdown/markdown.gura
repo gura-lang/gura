@@ -38,13 +38,13 @@ output_html(item:item, out:stream:w):map:void = {
 		out.println()
 		out.print('</p>\n')
 	} elsif (item.type == `normal) {
-		out.print(item.text)
+		out.print(item.text.escapehtml())
 	} elsif (item.type == `em) {
-		out.print('<em>', item.text, '</em>')
+		out.print('<em>', item.text.escapehtml(), '</em>')
 	} elsif (item.type == `strong) {
-		out.print('<strong>', item.text, '</strong>')
+		out.print('<strong>', item.text.escapehtml(), '</strong>')
 	} elsif (item.type == `code) {
-		out.print('<code>', item.text, '</code>')
+		out.print('<code>', item.text.escapehtml(), '</code>')
 	} elsif (item.type == `pre) {
 		out.print('<pre><code>')
 		output_html(item.children, out)
