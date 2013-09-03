@@ -112,7 +112,10 @@ static bool ExpandWildCard(Environment &env, Signal sig,
 bool SetupValues(Module *pModule, Signal sig, int argc, const char *argv[])
 {
 	Environment &env = *pModule;
-	String fileNameScript = OAL::FromNativeString(argv[1]);
+	String fileNameScript;
+	if (argc >= 2) {
+		fileNameScript = OAL::FromNativeString(argv[1]);
+	}
 	do {
 		Value value;
 		ValueList &valList = value.InitAsList(env);
