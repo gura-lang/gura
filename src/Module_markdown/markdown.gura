@@ -46,7 +46,7 @@ output_html(item:item, out:stream:w):map:void = {
 	} elsif (item.type == `code) {
 		out.print('<code>', item.text.escapehtml(), '</code>')
 	} elsif (item.type == `pre) {
-		out.print('<pre><code>')
+		out.print('<pre style="background: #cccccc"><code>')
 		output_html(item.children, out)
 		out.print('</code></pre>\n')
 	} elsif (item.type == `ol) {

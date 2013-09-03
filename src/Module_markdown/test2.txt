@@ -11,7 +11,8 @@ The flags parameter specifies what part(s) of SDL to initialize.
 - `sdl.INIT_EVERYTHING` - Initialize all of the above.
 - `sdl.INIT_NOPARACHUTE` - Prevents SDL from catching fatal signals.
 - `sdl.INIT_EVENTTHREAD`
-  
+
+
 **Return Value** Returns -1 on an error or 0 on success. 
 
 Build for Windows
