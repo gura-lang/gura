@@ -227,3 +227,93 @@
     <normal>'header1'
   <h1>
     <normal>'header1  #'
+  <ul>
+    <li>
+      <p>
+        <normal>'para1 hoge'
+      <p>
+        <normal>'para2'
+      <p>
+        <normal>'para3'
+    <li>
+      <normal>'single para '
+      <strong>'strong'
+      <normal>' hoge'
+    <li>
+      <normal>'single para again '
+      <strong>'strong'
+      <normal>' foo'
+  <ol>
+    <li>
+      <p>
+        <normal>'para1 hoge'
+      <p>
+        <normal>'para2'
+      <p>
+        <normal>'para3'
+    <li>
+      <normal>'single para '
+      <strong>'strong'
+      <normal>' hoge'
+    <li>
+      <normal>'single para again '
+      <strong>'strong'
+      <normal>' foo'
+  <ul>
+    <li>
+      <p>
+        <normal>'para1 hoge'
+      <pre>
+        <line>
+          <normal>'#include <stdio.h>'
+        <line>
+          <normal>'main()'
+        <line>
+          <normal>'{'
+        <line>
+          <normal>'}'
+      <p>
+        <normal>'foo bar'
+    <li>
+      <p>
+        <normal>'para1 hoge'
+      <pre>
+        <line>
+          <normal>'#include <stdio.h>'
+        <line>
+          <normal>'main()'
+        <line>
+          <normal>'{'
+        <line>
+          <normal>'}'
+      <p>
+        <normal>'foo bar'
+  <ol>
+    <li>
+      <p>
+        <normal>'para1 hoge'
+      <pre>
+        <line>
+          <normal>'#include <stdio.h>'
+        <line>
+          <normal>'main()'
+        <line>
+          <normal>'{'
+        <line>
+          <normal>'}'
+      <p>
+        <normal>'foo bar'
+    <li>
+      <p>
+        <normal>'para1 hoge'
+      <pre>
+        <line>
+          <normal>'#include <stdio.h>'
+        <line>
+          <normal>'main()'
+        <line>
+          <normal>'{'
+        <line>
+          <normal>'}'
+      <p>
+        <normal>'foo bar'

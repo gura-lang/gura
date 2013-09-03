@@ -155,6 +155,66 @@ Build for Windows
 #header1 #
 #header1 ##
 #header1  # 
+
+- para1
+  hoge
+  
+  para2
+  
+  para3
+- single para **strong** hoge
+- single para again **strong** foo
+
+1. para1
+  hoge
+  
+  para2
+  
+  para3
+2. single para **strong** hoge
+3. single para again **strong** foo
+
+- para1
+  hoge
+
+        #include <stdio.h>
+        main()
+        {
+        }
+
+  foo
+  bar
+- para1
+  hoge
+
+        #include <stdio.h>
+        main()
+        {
+        }
+
+  foo
+  bar
+
+1. para1
+  hoge
+
+        #include <stdio.h>
+        main()
+        {
+        }
+
+  foo
+  bar
+2. para1
+  hoge
+
+        #include <stdio.h>
+        main()
+        {
+        }
+
+  foo
+  bar
 '''
 
 sys.stdout.addcr(false)
