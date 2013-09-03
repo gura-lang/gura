@@ -127,6 +127,7 @@ private:
 		STAT_UListItem,
 		STAT_UListItemPost,
 		STAT_UListItemPost_EOL,
+		STAT_UListItemPost_Hyphen,
 		STAT_UListItemPost_Plus,
 		STAT_UListItemPost_Asterisk,
 		STAT_OListItemPre,

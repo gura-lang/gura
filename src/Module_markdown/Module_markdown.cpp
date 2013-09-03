@@ -469,8 +469,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '\t') {
 			_indentLevel += 4;
 		} else if (ch == '-') {
-			EndListItem();
-			_stat = STAT_UListItemPre;
+			_stat = STAT_UListItemPost_Hyphen;
 		} else if (ch == '+') {
 			_stat = STAT_UListItemPost_Plus;
 		} else if (ch == '*') {
@@ -520,6 +519,18 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			_statRtn = STAT_UListItemPost;
 			_stat = STAT_ListItem_BlockCode;
+		}
+		break;
+	}
+	case STAT_UListItemPost_Hyphen: {
+		if (ch == ' ' || ch == '\t') {
+			EndListItem();
+			_stat = STAT_UListItemPre;
+		} else {
+			_text += ' ';
+			_text += '-';
+			continueFlag = true;
+			_stat = STAT_UListItem;
 		}
 		break;
 	}

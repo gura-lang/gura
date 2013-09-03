@@ -317,3 +317,12 @@
           <normal>'}'
       <p>
         <normal>'foo bar'
+  <ul>
+    <li>
+      <normal>'item-1 -300 +200'
+    <li>
+      <normal>'item-2'
+    <li>
+      <normal>'item-3'
+    <li>
+      <normal>'item-4'

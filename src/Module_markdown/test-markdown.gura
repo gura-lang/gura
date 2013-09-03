@@ -215,6 +215,13 @@ Build for Windows
 
   foo
   bar
+
+- item-1
+-300
++200
++ item-2
+- item-3
+- item-4
 '''
 
 sys.stdout.addcr(false)
