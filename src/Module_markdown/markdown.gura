@@ -67,6 +67,8 @@ output_html(item:item, out:stream:w):map:void = {
 	}
 }
 
+g_typePrev = nil
+
 output_console(item:item):map:void = {
 	if (item.type == `root) {
 		output_console(item.children)
@@ -125,18 +127,16 @@ output_console(item:item):map:void = {
 			print(item.text)
 		}
 	} elsif (item.type == `pre) {
+		println()
 		conio.setcolor(`blue) {
 			output_console(item.children)
 		}
-		println()
 	} elsif (item.type == `ol) {
 		println()
 		output_console(item.children)
-		println()
 	} elsif (item.type == `ul) {
 		println()
 		output_console(item.children)
-		println()
 	} elsif (item.type == `li) {
 		print('- ')
 		output_console(item.children)
@@ -146,6 +146,7 @@ output_console(item:item):map:void = {
 		output_console(item.children)
 		println()
 	}
+	g_typePrev = item.type
 }
 
 operator(`<<).assign(`document, `function) {|doc, func|
