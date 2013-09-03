@@ -499,6 +499,11 @@ bool Document::ParseChar(Signal sig, char ch)
 			_itemStack.ClearListItem();
 			continueFlag = IsEOF(ch);
 			_stat = STAT_LineTop;
+		} else if (_indentLevel == 0) {
+			FlushItem(Item::TYPE_ListItem, false);
+			_itemStack.ClearListItem();
+			continueFlag = true;
+			_stat = STAT_LineTop;
 		} else if (_indentLevel < 8) {
 			FlushItem(Item::TYPE_Paragraph, false);
  			continueFlag = true;
@@ -608,6 +613,11 @@ bool Document::ParseChar(Signal sig, char ch)
 			FlushItem(Item::TYPE_ListItem, false);
 			_itemStack.ClearListItem();
 			continueFlag = IsEOF(ch);
+			_stat = STAT_LineTop;
+		} else if (_indentLevel == 0) {
+			FlushItem(Item::TYPE_ListItem, false);
+			_itemStack.ClearListItem();
+			continueFlag = true;
 			_stat = STAT_LineTop;
 		} else if (_indentLevel < 8) {
 			FlushItem(Item::TYPE_Paragraph, false);

@@ -30,7 +30,6 @@ Header2
   +100 yen
 + item4
 
-
 `code`
 *emphasis*
 **strong**
@@ -99,7 +98,6 @@ paragraph
   - item 4-2
   - item 4-3
 
-
 Header1
 ==
 
@@ -140,7 +138,6 @@ Build for Windows
    and modify `VCVARSALL` variable so that it points to a right directory of Visual Studio.
 3. Open `gura\src\gura.sln` with Visual Studio 2010, switch the configuration to Release
    and build it.
-
 
 # header1
 ## header2
