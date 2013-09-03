@@ -326,3 +326,21 @@
       <normal>'item-3'
     <li>
       <normal>'item-4'
+  <ul>
+    <li>
+      <normal>'item-1'
+    <li>
+      <normal>'item-2'
+    <li>
+      <normal>'item-3'
+  <p>
+    <normal>'hoge'
+  <ol>
+    <li>
+      <normal>'item-1'
+    <li>
+      <normal>'item-2'
+    <li>
+      <normal>'item-3'
+  <p>
+    <normal>'hoge'

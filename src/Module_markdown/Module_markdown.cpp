@@ -182,6 +182,8 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAdd += ch;
 			_stat = STAT_PlusFirst;
 		} else if (ch == '*') {
+			_textAdd.clear();
+			_textAdd += ch;
 			_stat = STAT_AsteriskFirst;
 		} else if (IsDigit(ch)) {
 			continueFlag = true;
@@ -494,6 +496,12 @@ bool Document::ParseChar(Signal sig, char ch)
 			_indentLevel += 1;
 		} else if (ch == '\t') {
 			_indentLevel += 4;
+		} else if (ch == '-') {
+			_stat = STAT_UListItemPost_EOL_Hyphen;
+		} else if (ch == '+') {
+			_stat = STAT_UListItemPost_EOL_Plus;
+		} else if (ch == '*') {
+			_stat = STAT_UListItemPost_EOL_Asterisk;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			EndListItem();
 			_itemStack.ClearListItem();
@@ -555,6 +563,42 @@ bool Document::ParseChar(Signal sig, char ch)
 			_statRtn = STAT_UListItem;
 			continueFlag = true;
 			_stat = STAT_EmphasisPre;
+		}
+		break;
+	}
+	case STAT_UListItemPost_EOL_Hyphen: {
+		if (ch == ' ' || ch == '\t') {
+			EndListItem();
+			_stat = STAT_UListItemPre;
+		} else {
+			_textAdd.clear();
+			_textAdd += '-';
+			continueFlag = true;
+			_stat = STAT_HyphenFirst;
+		}
+		break;
+	}
+	case STAT_UListItemPost_EOL_Plus: {
+		if (ch == ' ' || ch == '\t') {
+			EndListItem();
+			_stat = STAT_UListItemPre;
+		} else {
+			_textAdd.clear();
+			_textAdd += '+';
+			continueFlag = true;
+			_stat = STAT_PlusFirst;
+		}
+		break;
+	}
+	case STAT_UListItemPost_EOL_Asterisk: {
+		if (ch == ' ' || ch == '\t') {
+			EndListItem();
+			_stat = STAT_UListItemPre;
+		} else {
+			_textAdd.clear();
+			_textAdd += '*';
+			continueFlag = true;
+			_stat = STAT_AsteriskFirst;
 		}
 		break;
 	}
@@ -622,6 +666,10 @@ bool Document::ParseChar(Signal sig, char ch)
 			_indentLevel += 1;
 		} else if (ch == '\t') {
 			_indentLevel += 4;
+		} else if (IsDigit(ch)) {
+			_textAdd.clear();
+			continueFlag = true;
+			_stat = STAT_OListItemPost_EOL_Digit;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			EndListItem();
 			_itemStack.ClearListItem();
@@ -673,6 +721,34 @@ bool Document::ParseChar(Signal sig, char ch)
 			_text += ' ';
 			_text += _textAdd;
 			_stat = STAT_OListItem;
+		}
+		break;
+	}
+	case STAT_OListItemPost_EOL_Digit: {
+		if (IsDigit(ch)) {
+			_textAdd += ch;
+		} else if (ch == '.') {
+			EndListItem();
+			_textAdd += ch;
+			_stat = STAT_OListItemPost_EOL_DigitDot;
+		} else {
+			EndListItem();
+			_itemStack.ClearListItem();
+			_text = _textAdd;
+			continueFlag = true;
+			_stat = STAT_LineTop;
+		}
+		break;
+	}
+	case STAT_OListItemPost_EOL_DigitDot: {
+		if (ch == ' ' || ch == '\t') {
+			_stat = STAT_OListItemPre;
+		} else {
+			EndListItem();
+			_itemStack.ClearListItem();
+			_text = _textAdd;
+			continueFlag = true;
+			_stat = STAT_LineTop;
 		}
 		break;
 	}
