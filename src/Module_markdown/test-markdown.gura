@@ -239,6 +239,30 @@ hoge
 3. item-3
 
 hoge
+
+- item-1
+- item-2
+- item-3
+
+*Emphasis*
+
+- item-1
+- item-2
+- item-3
+
+**Strong**
+
+- item-1
+- item-2
+- item-3
+
++Plus at beginning
+
+- item-1
+- item-2
+- item-3
+
+-Hyphen at beginning
 '''
 
 sys.stdout.addcr(false)

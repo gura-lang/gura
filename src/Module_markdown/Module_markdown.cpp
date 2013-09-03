@@ -571,6 +571,8 @@ bool Document::ParseChar(Signal sig, char ch)
 			EndListItem();
 			_stat = STAT_UListItemPre;
 		} else {
+			EndListItem();
+			_itemStack.ClearListItem();
 			_textAdd.clear();
 			_textAdd += '-';
 			continueFlag = true;
@@ -583,6 +585,8 @@ bool Document::ParseChar(Signal sig, char ch)
 			EndListItem();
 			_stat = STAT_UListItemPre;
 		} else {
+			EndListItem();
+			_itemStack.ClearListItem();
 			_textAdd.clear();
 			_textAdd += '+';
 			continueFlag = true;
@@ -595,6 +599,8 @@ bool Document::ParseChar(Signal sig, char ch)
 			EndListItem();
 			_stat = STAT_UListItemPre;
 		} else {
+			EndListItem();
+			_itemStack.ClearListItem();
 			_textAdd.clear();
 			_textAdd += '*';
 			continueFlag = true;

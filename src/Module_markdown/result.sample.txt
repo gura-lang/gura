@@ -344,3 +344,39 @@
       <normal>'item-3'
   <p>
     <normal>'hoge'
+  <ul>
+    <li>
+      <normal>'item-1'
+    <li>
+      <normal>'item-2'
+    <li>
+      <normal>'item-3'
+  <p>
+    <em>'Emphasis'
+  <ul>
+    <li>
+      <normal>'item-1'
+    <li>
+      <normal>'item-2'
+    <li>
+      <normal>'item-3'
+  <p>
+    <strong>'Strong'
+  <ul>
+    <li>
+      <normal>'item-1'
+    <li>
+      <normal>'item-2'
+    <li>
+      <normal>'item-3'
+  <p>
+    <normal>'+Plus at beginning'
+  <ul>
+    <li>
+      <normal>'item-1'
+    <li>
+      <normal>'item-2'
+    <li>
+      <normal>'item-3'
+  <p>
+    <normal>'-Hyphen at beginning'

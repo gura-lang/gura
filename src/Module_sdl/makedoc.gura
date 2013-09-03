@@ -5,7 +5,7 @@ import(markdown)
 doc = markdown.document()
 
 // 5. General
-doc << 'General\n--'
+doc << '## General'
 doc << [
 	sdl.Init
 	sdl.InitSubSystem
@@ -15,7 +15,7 @@ doc << [
 	sdl.GetError
 ]
 // 6. Video
-doc << 'Video\n--'
+doc << '## Video'
 doc << [
 	sdl.GetVideoSurface
 	sdl.GetVideoInfo
@@ -76,7 +76,7 @@ doc << [
 	//sdl.Overlay
 ]
 // 7. Window Management
-doc << 'Window Management\n--'
+doc << '## Window Management'
 doc << [
 	sdl.WM_SetCaption
 	sdl.WM_GetCaption
@@ -86,7 +86,7 @@ doc << [
 	sdl.WM_GrabInput
 ]
 // 8. Events
-doc << 'Events\n--'
+doc << '## Events'
 doc << [
 	sdl.PumpEvents
 	sdl.AddEvents
@@ -110,7 +110,7 @@ doc << [
 	sdl.JoystickEventState
 ]
 // 9. Joystick
-doc << 'Joystick\n--'
+doc << '## Joystick'
 doc << [
 	sdl.NumJoysticks
 	sdl.JoystickName
@@ -129,7 +129,7 @@ doc << [
 	sdl.Joystick.JoystickClose
 ]
 // 10. Audio
-doc << 'Audio\n--'
+doc << '## Audio'
 doc << [
 	//sdl.AudioSpec
 	sdl.OpenAudio
@@ -146,7 +146,7 @@ doc << [
 	sdl.CloseAudio
 ]
 // 11. CD-ROM
-doc << 'CD-ROM\n--'
+doc << '## CD-ROM'
 doc << [
 	sdl.CDNumDrives
 	sdl.CDName
@@ -162,7 +162,7 @@ doc << [
 	//sdl.CDTrack
 ]
 // 13. Time
-doc << 'Time\n--'
+doc << '## Time'
 doc << [
 	sdl.GetTicks
 	sdl.Delay
