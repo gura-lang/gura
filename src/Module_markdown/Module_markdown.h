@@ -1,5 +1,6 @@
 //-----------------------------------------------------------------------------
 // Gura markdown module
+// Specification: http://daringfireball.net/projects/markdown/
 //-----------------------------------------------------------------------------
 #ifndef __MODULE_MARKDOWN_H__
 #define __MODULE_MARKDOWN_H__
