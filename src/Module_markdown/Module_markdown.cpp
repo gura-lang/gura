@@ -1148,6 +1148,7 @@ bool Document::IsLink(const char *text)
 		STATL_Head,
 		STATL_EMail,
 		STATL_EMailDot,
+		STATL_EMailAfterDot,
 		STATL_URL,
 	} statL = STATL_Begin;
 	String head;
@@ -1180,8 +1181,6 @@ bool Document::IsLink(const char *text)
 				// nothing to do
 			} else if (ch == '.') {
 				statL = STATL_EMailDot;
-			} else if (ch == '\0') {
-				// nothing to do
 			} else {
 				return false;
 			}
@@ -1189,7 +1188,19 @@ bool Document::IsLink(const char *text)
 		}
 		case STATL_EMailDot: {
 			if (IsAlpha(ch)) {
-				statL = STATL_EMail;
+				statL = STATL_EMailAfterDot;
+			} else {
+				return false;
+			}
+			break;
+		}
+		case STATL_EMailAfterDot: {
+			if (IsAlpha(ch)) {
+				// nothing to do
+			} else if (ch == '.') {
+				statL = STATL_EMailDot;
+			} else if (ch == '\0') {
+				// nothing to do
 			} else {
 				return false;
 			}
