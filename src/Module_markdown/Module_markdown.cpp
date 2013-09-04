@@ -34,15 +34,16 @@ const char *Item::GetTypeName() const
 		{ TYPE_Header5,			"h5",		},	// container
 		{ TYPE_Header6,			"h6",		},	// container
 		{ TYPE_Paragraph,		"p",		},	// container
-		{ TYPE_Normal,			"normal",	},	// text
 		{ TYPE_Emphasis,		"em",		},	// container
 		{ TYPE_Strong,			"strong",	},	// container
-		{ TYPE_InlineCode,		"code",		},	// text
 		{ TYPE_BlockCode,		"pre",		},	// container
 		{ TYPE_OList,			"ol",		},	// container
 		{ TYPE_UList,			"ul",		},	// container
 		{ TYPE_ListItem,		"li",		},	// container
 		{ TYPE_Line,			"line",		},	// container
+		{ TYPE_Link,			"link",		},	// container
+		{ TYPE_Text,			"text",		},	// text
+		{ TYPE_InlineCode,		"code",		},	// text
 	};
 	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].type == _type) return tbl[i].name;
@@ -212,7 +213,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (_indentLevel < 4) {
 			if (!_text.empty()) _text += ' ';
 			continueFlag = true;
-			_stat = STAT_Normal;
+			_stat = STAT_Text;
 		} else {
 			FlushItem(Item::TYPE_Paragraph, false);
 			do {
@@ -237,7 +238,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			if (!_text.empty()) _text += ' ';
 			_text += _textAdd;
 			continueFlag = true;
-			_stat = STAT_Normal;
+			_stat = STAT_Text;
 		} else {
 			FlushItem(Item::TYPE_Paragraph, false);
 			_text = _textAdd;
@@ -267,7 +268,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			if (!_text.empty()) _text += ' ';
 			_text += _textAdd;
 			continueFlag = true;
-			_stat = STAT_Normal;
+			_stat = STAT_Text;
 		} else {
 			FlushItem(Item::TYPE_Paragraph, false);
 			_text = _textAdd;
@@ -291,7 +292,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			if (!_text.empty()) _text += ' ';
 			_text += _textAdd;
 			continueFlag = true;
-			_stat = STAT_Normal;
+			_stat = STAT_Text;
 		} else {
 			FlushItem(Item::TYPE_Paragraph, false);
 			_text = _textAdd;
@@ -312,8 +313,8 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			_stat = STAT_UListItemPre;
 		} else if (_indentLevel < 4) {
-			FlushText(Item::TYPE_Normal, false);
-			_statStack.Push(STAT_Normal);
+			FlushText(Item::TYPE_Text, false);
+			_statStack.Push(STAT_Text);
 			continueFlag = true;
 			_stat = STAT_StarEmphasisPre;
 		} else {
@@ -400,7 +401,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			if (!_text.empty()) _text += ' ';
 			_text += _textAdd;
 			continueFlag = true;
-			_stat = STAT_Normal;
+			_stat = STAT_Text;
 		}
 		break;
 	}
@@ -415,7 +416,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			if (!_text.empty()) _text += ' ';
 			_text += _textAdd;
 			continueFlag = true;
-			_stat = STAT_Normal;
+			_stat = STAT_Text;
 		}
 		break;
 	}
@@ -427,7 +428,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_DigitDot;
 		} else {
 			continueFlag = true;
-			_stat = STAT_Normal;
+			_stat = STAT_Text;
 		}
 		break;
 	}
@@ -437,7 +438,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_OListItemPre;
 		} else {
 			continueFlag = true;
-			_stat = STAT_Normal;
+			_stat = STAT_Text;
 		}
 		break;
 	}
@@ -574,7 +575,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_UListItemPre;
 		} else {
 			_text += ' ';
-			FlushText(Item::TYPE_Normal, false);
+			FlushText(Item::TYPE_Text, false);
 			_statStack.Push(STAT_UListItem);
 			continueFlag = true;
 			_stat = STAT_StarEmphasisPre;
@@ -771,7 +772,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (IsEOL(ch) || IsEOF(ch)) {
 			Item *pItemParent = _itemStack.back();
 			do {
-				Item *pItem = new Item(Item::TYPE_Normal, _text);
+				Item *pItem = new Item(Item::TYPE_Text, _text);
 				_pItemOwner->push_back(pItem);
 				_text.clear();
 			} while (0);
@@ -805,7 +806,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (IsEOL(ch) || IsEOF(ch)) {
 			Item *pItemParent = _itemStack.back();
 			do {
-				Item *pItem = new Item(Item::TYPE_Normal, _text);
+				Item *pItem = new Item(Item::TYPE_Text, _text);
 				_pItemOwner->push_back(pItem);
 				_text.clear();
 			} while (0);
@@ -880,7 +881,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_Normal: {
+	case STAT_Text: {
 		if (CheckDecoration(ch)) {
 			// nothing to do
 		} else if (IsEOL(ch) || IsEOF(ch)) {
@@ -910,7 +911,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_statStack.Push(_stat);
 			_stat = STAT_Escape;
 		} else if (ch == '`') {
-			FlushText(Item::TYPE_Normal, false);
+			FlushText(Item::TYPE_Text, false);
 			_statStack.Push(_stat);
 			_stat = STAT_BackquoteFirst;
 		} else if (ch == '*') {
@@ -930,7 +931,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_statStack.Push(_stat);
 			_stat = STAT_Escape;
 		} else if (ch == '`') {
-			FlushText(Item::TYPE_Normal, false);
+			FlushText(Item::TYPE_Text, false);
 			_statStack.Push(_stat);
 			_stat = STAT_BackquoteFirst;
 		} else if (ch == '*') {
@@ -953,7 +954,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			_stat = _statStack.Pop();
 		} else {
-			FlushText(Item::TYPE_Normal, true);
+			FlushText(Item::TYPE_Text, true);
 			BeginDecoration(Item::TYPE_Emphasis);
 			_statStack.Push(STAT_StarStrong);
 			continueFlag = true;
@@ -980,7 +981,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_statStack.Push(_stat);
 			_stat = STAT_Escape;
 		} else if (ch == '`') {
-			FlushText(Item::TYPE_Normal, false);
+			FlushText(Item::TYPE_Text, false);
 			_statStack.Push(_stat);
 			_stat = STAT_BackquoteFirst;
 		} else if (ch == '_') {
@@ -1000,7 +1001,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_statStack.Push(_stat);
 			_stat = STAT_Escape;
 		} else if (ch == '`') {
-			FlushText(Item::TYPE_Normal, false);
+			FlushText(Item::TYPE_Text, false);
 			_statStack.Push(_stat);
 			_stat = STAT_BackquoteFirst;
 		} else if (ch == '_') {
@@ -1023,7 +1024,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			_stat = _statStack.Pop();
 		} else {
-			FlushText(Item::TYPE_Normal, true);
+			FlushText(Item::TYPE_Text, true);
 			BeginDecoration(Item::TYPE_Emphasis);
 			_statStack.Push(STAT_UBarStrong);
 			continueFlag = true;
@@ -1048,17 +1049,17 @@ bool Document::CheckDecoration(char ch)
 		_stat = STAT_Escape;
 		return true;
 	} else if (ch == '`') {
-		FlushText(Item::TYPE_Normal, false);
+		FlushText(Item::TYPE_Text, false);
 		_statStack.Push(_stat);
 		_stat = STAT_BackquoteFirst;
 		return true;
 	} else if (ch == '*') {
-		FlushText(Item::TYPE_Normal, false);
+		FlushText(Item::TYPE_Text, false);
 		_statStack.Push(_stat);
 		_stat = STAT_StarEmphasisPre;
 		return true;
 	} else if (ch == '_') {
-		FlushText(Item::TYPE_Normal, false);
+		FlushText(Item::TYPE_Text, false);
 		_statStack.Push(_stat);
 		_stat = STAT_UBarEmphasisPre;
 		return true;
@@ -1078,7 +1079,7 @@ void Document::FlushText(Item::Type type, bool stripFlag)
 void Document::FlushItem(Item::Type type, bool stripFlag)
 {
 	Item *pItemParent = _itemStack.back();
-	FlushText(Item::TYPE_Normal, stripFlag);
+	FlushText(Item::TYPE_Text, stripFlag);
 	if (!_pItemOwner->empty()) {
 		Item *pItem = new Item(type, _pItemOwner.release());
 		pItemParent->GetItemOwner()->push_back(pItem);
@@ -1097,7 +1098,7 @@ void Document::BeginListItem()
 void Document::EndListItem()
 {
 	Item *pItemParent = _itemStack.back();
-	FlushText(Item::TYPE_Normal, false);
+	FlushText(Item::TYPE_Text, false);
 	if (pItemParent->GetItemOwner()->empty()) {
 		pItemParent->GetItemOwner()->Store(*_pItemOwner);
 		_pItemOwner.reset(new ItemOwner());
@@ -1119,7 +1120,7 @@ void Document::BeginDecoration(Item::Type type)
 
 void Document::EndDecoration()
 {
-	FlushText(Item::TYPE_Normal, false);
+	FlushText(Item::TYPE_Text, false);
 	_pItemOwner.reset(_itemOwnerStack.Pop());
 }
 

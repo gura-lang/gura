@@ -32,21 +32,24 @@ public:
 		TYPE_Header5,		// container
 		TYPE_Header6,		// container
 		TYPE_Paragraph,		// container
-		TYPE_Normal,		// text
 		TYPE_Emphasis,		// container
 		TYPE_Strong,		// container
-		TYPE_InlineCode,	// text
 		TYPE_BlockCode,		// container
 		TYPE_OList,			// container
 		TYPE_UList,			// container
 		TYPE_ListItem,		// container
 		TYPE_Line,			// container
+		TYPE_Link,			// container
+		TYPE_Text,			// text
+		TYPE_InlineCode,	// text
 	};
 private:
 	int _cntRef;
 	Type _type;
 	AutoPtr<ItemOwner> _pItemOwner;
 	std::auto_ptr<String> _pText;
+	std::auto_ptr<String> _pURL;		// valid when type is TYPE_Link
+	std::auto_ptr<String> _pTitle;		// valid when type is TYPE_Link
 	int _indentLevel;
 public:
 	Gura_DeclareReferenceAccessor(Item);
@@ -65,6 +68,14 @@ public:
 	inline const char *GetText() const {
 		return (_pText.get() == NULL)? NULL : _pText->c_str();
 	}
+	inline const char *GetURL() const {
+		return (_pURL.get() == NULL)? NULL : _pURL->c_str();
+	}
+	inline const char *GetTitle() const {
+		return (_pTitle.get() == NULL)? NULL : _pTitle->c_str();
+	}
+	inline void SetURL(const String &url) { _pURL.reset(new String(url)); }
+	inline void SetTitle(const String &title) { _pURL.reset(new String(title)); }
 	inline void SetIndentLevel(int indentLevel) { _indentLevel = indentLevel; }
 	inline int GetIndentLevel() const { return _indentLevel; }
 	const char *GetTypeName() const;
@@ -165,7 +176,7 @@ private:
 		STAT_InlineCode,
 		STAT_InlineCodeEsc,
 		STAT_InlineCodeEsc_Backquote,
-		STAT_Normal,
+		STAT_Text,
 		STAT_StarEmphasisPre,
 		STAT_StarEmphasis,
 		STAT_StarStrong,

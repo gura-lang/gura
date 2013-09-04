@@ -37,8 +37,6 @@ output_html(item:item, out:stream:w):map:void = {
 		output_html(item.children, out)
 		out.println()
 		out.print('</p>\n')
-	} elsif (item.type == `normal) {
-		out.print(item.text.escapehtml())
 	} elsif (item.type == `em) {
 		out.print('<em>')
 		output_html(item.children, out)
@@ -47,8 +45,6 @@ output_html(item:item, out:stream:w):map:void = {
 		out.print('<strong>')
 		output_html(item.children, out)
 		out.print('</strong>')
-	} elsif (item.type == `code) {
-		out.print('<code>', item.text.escapehtml(), '</code>')
 	} elsif (item.type == `pre) {
 		out.print('<pre style="background: #cccccc"><code>')
 		output_html(item.children, out)
@@ -68,6 +64,14 @@ output_html(item:item, out:stream:w):map:void = {
 	} elsif (item.type == `line) {
 		output_html(item.children, out)
 		out.print('\n')
+	} elsif (item.type == `link) {
+		out.print('<a>')
+		output_html(item.children, out)
+		out.print('</a>')
+	} elsif (item.type == `text) {
+		out.print(item.text.escapehtml())
+	} elsif (item.type == `code) {
+		out.print('<code>', item.text.escapehtml(), '</code>')
 	}
 }
 
@@ -116,8 +120,6 @@ output_console(item:item):map:void = {
 		println()
 		output_console(item.children)
 		println()
-	} elsif (item.type == `normal) {
-		print(item.text)
 	} elsif (item.type == `em) {
 		conio.setcolor(`red) {
 			output_console(item.children)
@@ -125,10 +127,6 @@ output_console(item:item):map:void = {
 	} elsif (item.type == `strong) {
 		conio.setcolor(`red) {
 			output_console(item.children)
-		}
-	} elsif (item.type == `code) {
-		conio.setcolor(`blue) {
-			print(item.text)
 		}
 	} elsif (item.type == `pre) {
 		println()
@@ -149,6 +147,14 @@ output_console(item:item):map:void = {
 		print('|   ')
 		output_console(item.children)
 		println()
+	} elsif (item.type == `link) {
+		output_console(item.children)
+	} elsif (item.type == `text) {
+		print(item.text)
+	} elsif (item.type == `code) {
+		conio.setcolor(`blue) {
+			print(item.text)
+		}
 	}
 	g_typePrev = item.type
 }

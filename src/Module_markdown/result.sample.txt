@@ -1,600 +1,600 @@
 <root>
   <p>
-    <normal>'No Header ===hoge'
+    <text>'No Header ===hoge'
   <p>
-    <normal>'No Header ---hoge'
+    <text>'No Header ---hoge'
   <p>
-    <normal>'-3 is less than zero'
+    <text>'-3 is less than zero'
   <h1>
-    <normal>'Header1'
+    <text>'Header1'
   <h2>
-    <normal>'Header2'
+    <text>'Header2'
   <ul>
     <li>
-      <normal>'item1'
+      <text>'item1'
     <li>
-      <normal>'item2 '
+      <text>'item2 '
       <em>
-        <normal>'emphasis'
+        <text>'emphasis'
   <ul>
     <li>
-      <normal>'item1'
+      <text>'item1'
     <li>
-      <normal>'item2 +100 yen'
+      <text>'item2 +100 yen'
     <li>
-      <normal>'item3 +100 yen'
+      <text>'item3 +100 yen'
     <li>
-      <normal>'item4'
+      <text>'item4'
   <p>
     <code>'code'
     <em>
-      <normal>'emphasis'
+      <text>'emphasis'
     <strong>
-      <normal>'strong'
-    <normal>'text '
+      <text>'strong'
+    <text>'text '
     <code>'not terminated code'
-    <normal>'text'
+    <text>'text'
     <em>
-      <normal>'not terminated emphasis'
-    <normal>'text'
+      <text>'not terminated emphasis'
+    <text>'text'
     <strong>
-      <normal>'not terminated strong'
-    <normal>'text'
+      <text>'not terminated strong'
+    <text>'text'
   <pre>
     <line>
-      <normal>'#include <stdio.h>'
+      <text>'#include <stdio.h>'
     <line>
-      <normal>'int main()'
+      <text>'int main()'
     <line>
-      <normal>'{'
+      <text>'{'
     <line>
-      <normal>'    -3;'
+      <text>'    -3;'
     <line>
-      <normal>'    =a+2'
+      <text>'    =a+2'
     <line>
-      <normal>'    return 0;'
+      <text>'    return 0;'
     <line>
-      <normal>'    ======'
+      <text>'    ======'
     <line>
-      <normal>'    hoge'
+      <text>'    hoge'
     <line>
-      <normal>'    for (int i = 0; i < 10; i++) {'
+      <text>'    for (int i = 0; i < 10; i++) {'
     <line>
-      <normal>'        printf("hello\n");'
+      <text>'        printf("hello\n");'
     <line>
-      <normal>'    }'
+      <text>'    }'
     <line>
-      <normal>'    ------'
+      <text>'    ------'
     <line>
-      <normal>'}'
+      <text>'}'
   <p>
-    <normal>'paragraph'
+    <text>'paragraph'
   <pre>
     <line>
-      <normal>'// just after paragraph with no space between'
+      <text>'// just after paragraph with no space between'
     <line>
-      <normal>'#include <stdio.h>'
+      <text>'#include <stdio.h>'
     <line>
-      <normal>'int main()'
+      <text>'int main()'
     <line>
-      <normal>'{'
+      <text>'{'
     <line>
-      <normal>'    -3;'
+      <text>'    -3;'
     <line>
-      <normal>'    =a+2'
+      <text>'    =a+2'
     <line>
-      <normal>'    return 0;'
+      <text>'    return 0;'
     <line>
-      <normal>'    ======'
+      <text>'    ======'
     <line>
-      <normal>'    hoge'
+      <text>'    hoge'
     <line>
-      <normal>'    for (int i = 0; i < 10; i++) {'
+      <text>'    for (int i = 0; i < 10; i++) {'
     <line>
-      <normal>'        printf("hello\n");'
+      <text>'        printf("hello\n");'
     <line>
-      <normal>'    }'
+      <text>'    }'
     <line>
-      <normal>'    ------'
+      <text>'    ------'
     <line>
-      <normal>'}'
+      <text>'}'
   <p>
-    <normal>'normal text'
+    <text>'normal text'
   <pre>
     <line>
-      <normal>'void sub1()'
+      <text>'void sub1()'
     <line>
-      <normal>'{'
+      <text>'{'
     <line>
-      <normal>'}'
+      <text>'}'
   <pre>
     <line>
-      <normal>'void sub2()'
+      <text>'void sub2()'
     <line>
-      <normal>'{'
+      <text>'{'
     <line>
-      <normal>'// 3 blank lines below'
+      <text>'// 3 blank lines below'
     <line>
-      <normal>''
+      <text>''
     <line>
-      <normal>''
+      <text>''
     <line>
-      <normal>''
+      <text>''
     <line>
-      <normal>'// 3 blank lines above'
+      <text>'// 3 blank lines above'
     <line>
-      <normal>'}'
+      <text>'}'
   <ul>
     <li>
-      <normal>'item 1'
+      <text>'item 1'
     <li>
-      <normal>'item 2'
+      <text>'item 2'
     <li>
-      <normal>'item 3 '
+      <text>'item 3 '
       <em>
-        <normal>'strong'
+        <text>'strong'
     <ul>
       <li>
-        <normal>'item 3-1 '
+        <text>'item 3-1 '
         <em>
-          <normal>'strong'
+          <text>'strong'
       <li>
-        <normal>'item 3-2 '
+        <text>'item 3-2 '
         <em>
-          <normal>'strong'
-        <normal>' '
+          <text>'strong'
+        <text>' '
         <code>'code'
       <li>
-        <normal>'item 3-3'
+        <text>'item 3-3'
       <ul>
         <li>
-          <normal>'item 3-3-1'
+          <text>'item 3-3-1'
         <li>
-          <normal>'item 3-3-2'
+          <text>'item 3-3-2'
     <li>
-      <normal>'item 4'
+      <text>'item 4'
     <ul>
       <li>
-        <normal>'item 4-1'
+        <text>'item 4-1'
       <li>
-        <normal>'item 4-2'
+        <text>'item 4-2'
       <li>
-        <normal>'item 4-3'
+        <text>'item 4-3'
   <h1>
-    <normal>'Header1'
+    <text>'Header1'
   <h1>
-    <normal>'Header1'
+    <text>'Header1'
   <h1>
-    <normal>'Header1'
+    <text>'Header1'
   <h2>
-    <normal>'Header2'
+    <text>'Header2'
   <h2>
-    <normal>'Header2'
+    <text>'Header2'
   <h2>
-    <normal>'Header2'
+    <text>'Header2'
   <h2>
-    <normal>'Build for Windows'
+    <text>'Build for Windows'
   <p>
-    <normal>'Build for Windows'
+    <text>'Build for Windows'
   <ul>
     <li>
-      <normal>'hoge'
+      <text>'hoge'
   <ol>
     <li>
-      <normal>'first'
+      <text>'first'
     <li>
-      <normal>'second'
+      <text>'second'
     <li>
-      <normal>'third'
+      <text>'third'
     <li>
-      <normal>'fourth'
+      <text>'fourth'
     <li>
-      <normal>'fifth'
+      <text>'fifth'
   <ol>
     <li>
-      <normal>'Check if Visual Studio 2010 has been installed. You can use Express version as well.'
+      <text>'Check if Visual Studio 2010 has been installed. You can use Express version as well.'
     <li>
-      <normal>'Run a batch file '
+      <text>'Run a batch file '
       <code>'gura\src\setup-gura-guest.bat'
-      <normal>', which downloads necessary packages from Git repository (https://github.com/ypsitau/gura-guest.git) and build them. The batch file may occur an error that says it cannot find '
+      <text>', which downloads necessary packages from Git repository (https://github.com/ypsitau/gura-guest.git) and build them. The batch file may occur an error that says it cannot find '
       <code>'vcvarsall.bat'
-      <normal>'. In such a case, you have to edit '
+      <text>'. In such a case, you have to edit '
       <code>'gura\gura-guest\setup.bat'
-      <normal>' and modify '
+      <text>' and modify '
       <code>'VCVARSALL'
-      <normal>' variable so that it points to a right directory of Visual Studio.'
+      <text>' variable so that it points to a right directory of Visual Studio.'
     <li>
-      <normal>'Open '
+      <text>'Open '
       <code>'gura\src\gura.sln'
-      <normal>' with Visual Studio 2010, switch the configuration to Release and build it.'
+      <text>' with Visual Studio 2010, switch the configuration to Release and build it.'
   <h1>
-    <normal>'header1'
+    <text>'header1'
   <h2>
-    <normal>'header2'
+    <text>'header2'
   <h3>
-    <normal>'header3'
+    <text>'header3'
   <h4>
-    <normal>'header4'
+    <text>'header4'
   <h5>
-    <normal>'header5'
+    <text>'header5'
   <h6>
-    <normal>'header6'
+    <text>'header6'
   <h6>
-    <normal>'header6'
+    <text>'header6'
   <h1>
-    <normal>'header1'
+    <text>'header1'
   <h1>
-    <normal>'header1'
+    <text>'header1'
   <h1>
-    <normal>'header1'
+    <text>'header1'
   <h1>
-    <normal>'header1'
+    <text>'header1'
   <h1>
-    <normal>'header1'
+    <text>'header1'
   <h1>
-    <normal>'header1'
+    <text>'header1'
   <h1>
-    <normal>'header1  #'
+    <text>'header1  #'
   <ul>
     <li>
       <p>
-        <normal>'para1 hoge'
+        <text>'para1 hoge'
       <p>
-        <normal>'para2'
+        <text>'para2'
       <p>
-        <normal>'para3'
+        <text>'para3'
     <li>
-      <normal>'single para '
+      <text>'single para '
       <strong>
-        <normal>'strong'
-      <normal>' hoge'
+        <text>'strong'
+      <text>' hoge'
     <li>
-      <normal>'single para again '
+      <text>'single para again '
       <strong>
-        <normal>'strong'
-      <normal>' foo'
+        <text>'strong'
+      <text>' foo'
   <ol>
     <li>
       <p>
-        <normal>'para1 hoge'
+        <text>'para1 hoge'
       <p>
-        <normal>'para2'
+        <text>'para2'
       <p>
-        <normal>'para3'
+        <text>'para3'
     <li>
-      <normal>'single para '
+      <text>'single para '
       <strong>
-        <normal>'strong'
-      <normal>' hoge'
+        <text>'strong'
+      <text>' hoge'
     <li>
-      <normal>'single para again '
+      <text>'single para again '
       <strong>
-        <normal>'strong'
-      <normal>' foo'
+        <text>'strong'
+      <text>' foo'
   <ul>
     <li>
       <p>
-        <normal>'para1 hoge'
+        <text>'para1 hoge'
       <pre>
         <line>
-          <normal>'#include <stdio.h>'
+          <text>'#include <stdio.h>'
         <line>
-          <normal>'main()'
+          <text>'main()'
         <line>
-          <normal>'{'
+          <text>'{'
         <line>
-          <normal>'}'
+          <text>'}'
       <p>
-        <normal>'foo bar'
+        <text>'foo bar'
     <li>
       <p>
-        <normal>'para1 hoge'
+        <text>'para1 hoge'
       <pre>
         <line>
-          <normal>'#include <stdio.h>'
+          <text>'#include <stdio.h>'
         <line>
-          <normal>'main()'
+          <text>'main()'
         <line>
-          <normal>'{'
+          <text>'{'
         <line>
-          <normal>'}'
+          <text>'}'
       <p>
-        <normal>'foo bar'
+        <text>'foo bar'
   <ol>
     <li>
       <p>
-        <normal>'para1 hoge'
+        <text>'para1 hoge'
       <pre>
         <line>
-          <normal>'#include <stdio.h>'
+          <text>'#include <stdio.h>'
         <line>
-          <normal>'main()'
+          <text>'main()'
         <line>
-          <normal>'{'
+          <text>'{'
         <line>
-          <normal>'}'
+          <text>'}'
       <p>
-        <normal>'foo bar'
+        <text>'foo bar'
     <li>
       <p>
-        <normal>'para1 hoge'
+        <text>'para1 hoge'
       <pre>
         <line>
-          <normal>'#include <stdio.h>'
+          <text>'#include <stdio.h>'
         <line>
-          <normal>'main()'
+          <text>'main()'
         <line>
-          <normal>'{'
+          <text>'{'
         <line>
-          <normal>'}'
+          <text>'}'
       <p>
-        <normal>'foo bar'
+        <text>'foo bar'
   <ul>
     <li>
-      <normal>'item-1 -300 +200'
+      <text>'item-1 -300 +200'
     <li>
-      <normal>'item-2'
+      <text>'item-2'
     <li>
-      <normal>'item-3'
+      <text>'item-3'
     <li>
-      <normal>'item-4'
+      <text>'item-4'
   <ul>
     <li>
-      <normal>'item-1'
+      <text>'item-1'
     <li>
-      <normal>'item-2'
+      <text>'item-2'
     <li>
-      <normal>'item-3'
+      <text>'item-3'
   <p>
-    <normal>'hoge'
+    <text>'hoge'
   <ol>
     <li>
-      <normal>'item-1'
+      <text>'item-1'
     <li>
-      <normal>'item-2'
+      <text>'item-2'
     <li>
-      <normal>'item-3'
+      <text>'item-3'
   <p>
-    <normal>'hoge'
+    <text>'hoge'
   <ul>
     <li>
-      <normal>'item-1'
+      <text>'item-1'
     <li>
-      <normal>'item-2'
+      <text>'item-2'
     <li>
-      <normal>'item-3'
+      <text>'item-3'
   <p>
     <em>
-      <normal>'Emphasis'
+      <text>'Emphasis'
   <ul>
     <li>
-      <normal>'item-1'
+      <text>'item-1'
     <li>
-      <normal>'item-2'
+      <text>'item-2'
     <li>
-      <normal>'item-3'
+      <text>'item-3'
   <p>
     <strong>
-      <normal>'Strong'
+      <text>'Strong'
   <ul>
     <li>
-      <normal>'item-1'
+      <text>'item-1'
     <li>
-      <normal>'item-2'
+      <text>'item-2'
     <li>
-      <normal>'item-3'
+      <text>'item-3'
   <p>
-    <normal>'+Plus at beginning'
+    <text>'+Plus at beginning'
   <ul>
     <li>
-      <normal>'item-1'
+      <text>'item-1'
     <li>
-      <normal>'item-2'
+      <text>'item-2'
     <li>
-      <normal>'item-3'
+      <text>'item-3'
   <p>
-    <normal>'-Hyphen at beginning'
+    <text>'-Hyphen at beginning'
   <p>
     <code>'<code>'
-    <normal>' spans are delimited by backticks.'
+    <text>' spans are delimited by backticks.'
   <p>
-    <normal>'You can include literal backticks like '
+    <text>'You can include literal backticks like '
     <code>'`this`'
-    <normal>'.'
+    <text>'.'
   <p>
     <code>'test` hoge'
   <p>
     <code>'`this`'
   <p>
     <em>
-      <normal>'strong'
+      <text>'strong'
     <em>
       <code>'strong code'
     <em>
-      <normal>'normal and '
+      <text>'normal and '
       <code>'code'
-      <normal>' in composition'
+      <text>' in composition'
   <p>
     <strong>
-      <normal>''
+      <text>''
       <em>
-        <normal>'strong-em'
-      <normal>' '
+        <text>'strong-em'
+      <text>' '
     <strong>
       <em>
-        <normal>'strong-em'
+        <text>'strong-em'
     <strong>
-      <normal>'head'
+      <text>'head'
       <em>
-        <normal>'strong-em'
-      <normal>'tail'
-  <p>
-    <em>
-      <normal>'emphasis in paragraph'
-  <ul>
-    <li>
-      <em>
-        <normal>'emphasis in ul item'
-      <normal>' '
-      <em>
-        <normal>'emphasis again'
-      <normal>' '
-      <em>
-        <normal>'emphasis again'
-  <ol>
-    <li>
-      <em>
-        <normal>'emphasis in ol item'
-      <normal>' '
-      <em>
-        <normal>'emphasis again'
-      <normal>' '
-      <em>
-        <normal>'emphasis again'
+        <text>'strong-em'
+      <text>'tail'
   <p>
     <em>
-      <normal>'emphasis in paragraph'
+      <text>'emphasis in paragraph'
   <ul>
     <li>
       <em>
-        <normal>'emphasis in ul item'
-      <normal>' '
+        <text>'emphasis in ul item'
+      <text>' '
       <em>
-        <normal>'emphasis again'
-      <normal>' '
+        <text>'emphasis again'
+      <text>' '
       <em>
-        <normal>'emphasis again'
+        <text>'emphasis again'
   <ol>
     <li>
       <em>
-        <normal>'emphasis in ol item'
-      <normal>' '
+        <text>'emphasis in ol item'
+      <text>' '
       <em>
-        <normal>'emphasis again'
-      <normal>' '
+        <text>'emphasis again'
+      <text>' '
       <em>
-        <normal>'emphasis again'
+        <text>'emphasis again'
+  <p>
+    <em>
+      <text>'emphasis in paragraph'
+  <ul>
+    <li>
+      <em>
+        <text>'emphasis in ul item'
+      <text>' '
+      <em>
+        <text>'emphasis again'
+      <text>' '
+      <em>
+        <text>'emphasis again'
+  <ol>
+    <li>
+      <em>
+        <text>'emphasis in ol item'
+      <text>' '
+      <em>
+        <text>'emphasis again'
+      <text>' '
+      <em>
+        <text>'emphasis again'
   <p>
     <strong>
-      <normal>'strong in paragraph'
+      <text>'strong in paragraph'
   <ul>
     <li>
       <strong>
-        <normal>'strong in ul item'
-      <normal>' '
+        <text>'strong in ul item'
+      <text>' '
       <strong>
-        <normal>'strong again'
-      <normal>' '
+        <text>'strong again'
+      <text>' '
       <strong>
-        <normal>'strong again'
+        <text>'strong again'
   <ol>
     <li>
       <strong>
-        <normal>'strong in ol item'
-      <normal>' '
+        <text>'strong in ol item'
+      <text>' '
       <strong>
-        <normal>'strong again'
-      <normal>' '
+        <text>'strong again'
+      <text>' '
       <strong>
-        <normal>'strong again'
+        <text>'strong again'
   <p>
     <strong>
-      <normal>'strong in paragraph'
+      <text>'strong in paragraph'
   <ul>
     <li>
       <strong>
-        <normal>'strong in ul item'
-      <normal>' '
+        <text>'strong in ul item'
+      <text>' '
       <strong>
-        <normal>'strong again'
-      <normal>' '
+        <text>'strong again'
+      <text>' '
       <strong>
-        <normal>'strong again'
+        <text>'strong again'
   <ol>
     <li>
       <strong>
-        <normal>'strong in ol item'
-      <normal>' '
+        <text>'strong in ol item'
+      <text>' '
       <strong>
-        <normal>'strong again'
-      <normal>' '
+        <text>'strong again'
+      <text>' '
       <strong>
-        <normal>'strong again'
+        <text>'strong again'
   <h1>
     <code>'code'
-    <normal>'in header'
+    <text>'in header'
   <h1>
     <em>
-      <normal>'emphasis'
-    <normal>'in header'
+      <text>'emphasis'
+    <text>'in header'
   <h1>
     <em>
-      <normal>'emphasis'
-    <normal>'in header'
+      <text>'emphasis'
+    <text>'in header'
   <h1>
     <strong>
-      <normal>'strong'
-    <normal>'in header'
+      <text>'strong'
+    <text>'in header'
   <h1>
     <strong>
-      <normal>'strong'
-    <normal>'in header'
-  <h1>
-    <code>'code'
-    <normal>' '
-    <em>
-      <normal>'emphasis'
-    <normal>' '
-    <em>
-      <normal>'emphasis'
-    <normal>' '
-    <strong>
-      <normal>'strong'
-    <normal>' '
-    <strong>
-      <normal>'strong'
+      <text>'strong'
+    <text>'in header'
   <h1>
     <code>'code'
-    <normal>' '
+    <text>' '
     <em>
-      <normal>'emphasis'
-    <normal>' '
+      <text>'emphasis'
+    <text>' '
     <em>
-      <normal>'emphasis'
-    <normal>' '
+      <text>'emphasis'
+    <text>' '
     <strong>
-      <normal>'strong'
-    <normal>' '
+      <text>'strong'
+    <text>' '
     <strong>
-      <normal>'strong'
+      <text>'strong'
+  <h1>
+    <code>'code'
+    <text>' '
+    <em>
+      <text>'emphasis'
+    <text>' '
+    <em>
+      <text>'emphasis'
+    <text>' '
+    <strong>
+      <text>'strong'
+    <text>' '
+    <strong>
+      <text>'strong'
   <h2>
     <code>'code'
-    <normal>' '
+    <text>' '
     <em>
-      <normal>'emphasis'
-    <normal>' '
+      <text>'emphasis'
+    <text>' '
     <em>
-      <normal>'emphasis'
-    <normal>' '
+      <text>'emphasis'
+    <text>' '
     <strong>
-      <normal>'strong'
-    <normal>' '
+      <text>'strong'
+    <text>' '
     <strong>
-      <normal>'strong'
+      <text>'strong'
   <p>
     <em>
-      <normal>'*star'
+      <text>'*star'
     <strong>
-      <normal>'*star'
+      <text>'*star'
     <em>
-      <normal>'A*star'
+      <text>'A*star'
     <strong>
-      <normal>'A*star'
+      <text>'A*star'
     <em>
-      <normal>'_ubar'
+      <text>'_ubar'
     <strong>
-      <normal>'_ubar'
+      <text>'_ubar'
     <em>
-      <normal>'A_ubar'
+      <text>'A_ubar'
     <strong>
-      <normal>'A_ubar'
+      <text>'A_ubar'
