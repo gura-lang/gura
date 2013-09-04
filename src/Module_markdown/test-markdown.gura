@@ -339,6 +339,10 @@ _\_ubar_
 __\_ubar__
 _A\_ubar_
 __A\_ubar__
+
+<http://www.google.com/>
+<abcde@bbb.ccc>
+<abcde@bbb>
 '''
 
 sys.stdout.addcr(false)

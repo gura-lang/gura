@@ -598,3 +598,9 @@
       <text>'A_ubar'
     <strong>
       <text>'A_ubar'
+  <p>
+    <a url='http://www.google.com/'>
+      <text>'http://www.google.com/'
+    <a url='abcde@bbb.ccc'>
+      <text>'abcde@bbb.ccc'
+    <text>'<abcde@bbb>'
