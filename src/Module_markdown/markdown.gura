@@ -45,7 +45,7 @@ output_html(item:item, out:stream:w):map:void = {
 		out.print('<strong>')
 		output_html(item.children, out)
 		out.print('</strong>')
-	} elsif (item.type == `pre) {
+	} elsif (item.type == `block) {
 		out.print('<pre style="background: #cccccc"><code>')
 		output_html(item.children, out)
 		out.print('</code></pre>\n')
@@ -128,7 +128,7 @@ output_console(item:item):map:void = {
 		conio.setcolor(`red) {
 			output_console(item.children)
 		}
-	} elsif (item.type == `pre) {
+	} elsif (item.type == `block) {
 		println()
 		conio.setcolor(`blue) {
 			output_console(item.children)

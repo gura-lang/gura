@@ -36,7 +36,7 @@ const char *Item::GetTypeName() const
 		{ TYPE_Paragraph,		"p",		},	// container
 		{ TYPE_Emphasis,		"em",		},	// container
 		{ TYPE_Strong,			"strong",	},	// container
-		{ TYPE_BlockCode,		"pre",		},	// container
+		{ TYPE_Block,			"block",	},	// container
 		{ TYPE_OList,			"ol",		},	// container
 		{ TYPE_UList,			"ul",		},	// container
 		{ TYPE_ListItem,		"li",		},	// container
@@ -218,12 +218,12 @@ bool Document::ParseChar(Signal sig, char ch)
 			FlushItem(Item::TYPE_Paragraph, false);
 			do {
 				Item *pItemParent = _itemStack.back();
-				Item *pItem = new Item(Item::TYPE_BlockCode, new ItemOwner(), _indentLevel);
+				Item *pItem = new Item(Item::TYPE_Block, new ItemOwner(), _indentLevel);
 				pItemParent->GetItemOwner()->push_back(pItem);
 				_itemStack.push_back(pItem);
 			} while (0);
 			continueFlag = true;
-			_stat = STAT_BlockCode;
+			_stat = STAT_Block;
 		}
 		break;
 	}
@@ -245,11 +245,11 @@ bool Document::ParseChar(Signal sig, char ch)
 			_text += ch;
 			do {
 				Item *pItemParent = _itemStack.back();
-				Item *pItem = new Item(Item::TYPE_BlockCode, new ItemOwner(), _indentLevel);
+				Item *pItem = new Item(Item::TYPE_Block, new ItemOwner(), _indentLevel);
 				pItemParent->GetItemOwner()->push_back(pItem);
 				_itemStack.push_back(pItem);
 			} while (0);
-			_stat = STAT_BlockCode;
+			_stat = STAT_Block;
 		}
 		break;
 	}
@@ -275,11 +275,11 @@ bool Document::ParseChar(Signal sig, char ch)
 			_text += ch;
 			do {
 				Item *pItemParent = _itemStack.back();
-				Item *pItem = new Item(Item::TYPE_BlockCode, new ItemOwner(), _indentLevel);
+				Item *pItem = new Item(Item::TYPE_Block, new ItemOwner(), _indentLevel);
 				pItemParent->GetItemOwner()->push_back(pItem);
 				_itemStack.push_back(pItem);
 			} while (0);
-			_stat = STAT_BlockCode;
+			_stat = STAT_Block;
 		}
 		break;
 	}
@@ -299,11 +299,11 @@ bool Document::ParseChar(Signal sig, char ch)
 			_text += ch;
 			do {
 				Item *pItemParent = _itemStack.back();
-				Item *pItem = new Item(Item::TYPE_BlockCode, new ItemOwner(), _indentLevel);
+				Item *pItem = new Item(Item::TYPE_Block, new ItemOwner(), _indentLevel);
 				pItemParent->GetItemOwner()->push_back(pItem);
 				_itemStack.push_back(pItem);
 			} while (0);
-			_stat = STAT_BlockCode;
+			_stat = STAT_Block;
 		}
 		break;
 	}
@@ -323,11 +323,11 @@ bool Document::ParseChar(Signal sig, char ch)
 			_text += ch;
 			do {
 				Item *pItemParent = _itemStack.back();
-				Item *pItem = new Item(Item::TYPE_BlockCode, new ItemOwner(), _indentLevel);
+				Item *pItem = new Item(Item::TYPE_Block, new ItemOwner(), _indentLevel);
 				pItemParent->GetItemOwner()->push_back(pItem);
 				_itemStack.push_back(pItem);
 			} while (0);
-			_stat = STAT_BlockCode;
+			_stat = STAT_Block;
 		}
 		break;
 	}
@@ -535,13 +535,13 @@ bool Document::ParseChar(Signal sig, char ch)
 			FlushItem(Item::TYPE_Paragraph, false);
 			do {
 				Item *pItemParent = _itemStack.back();
-				Item *pItem = new Item(Item::TYPE_BlockCode, new ItemOwner(), _indentLevel);
+				Item *pItem = new Item(Item::TYPE_Block, new ItemOwner(), _indentLevel);
 				pItemParent->GetItemOwner()->push_back(pItem);
 				_itemStack.push_back(pItem);
 			} while (0);
 			continueFlag = true;
 			_statStack.Push(STAT_UListItemPost);
-			_stat = STAT_ListItem_BlockCode;
+			_stat = STAT_ListItem_Block;
 		}
 		break;
 	}
@@ -704,13 +704,13 @@ bool Document::ParseChar(Signal sig, char ch)
 			FlushItem(Item::TYPE_Paragraph, false);
 			do {
 				Item *pItemParent = _itemStack.back();
-				Item *pItem = new Item(Item::TYPE_BlockCode, new ItemOwner(), _indentLevel);
+				Item *pItem = new Item(Item::TYPE_Block, new ItemOwner(), _indentLevel);
 				pItemParent->GetItemOwner()->push_back(pItem);
 				_itemStack.push_back(pItem);
 			} while (0);
 			continueFlag = true;
 			_statStack.Push(STAT_OListItemPost);
-			_stat = STAT_ListItem_BlockCode;
+			_stat = STAT_ListItem_Block;
 		}
 		break;
 	}
@@ -768,7 +768,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_BlockCode: {
+	case STAT_Block: {
 		if (IsEOL(ch) || IsEOF(ch)) {
 			Item *pItemParent = _itemStack.back();
 			do {
@@ -783,17 +783,17 @@ bool Document::ParseChar(Signal sig, char ch)
 			} while (0);
 			_indentLevel = 0;
 			continueFlag = IsEOF(ch);
-			_stat = STAT_BlockCode_LineTop;
+			_stat = STAT_Block_LineTop;
 		} else {
 			_text += ch;
 		}
 		break;
 	}
-	case STAT_BlockCode_LineTop: {
+	case STAT_Block_LineTop: {
 		if (ch == ' ' || ch == '\t') {
 			_indentLevel += (ch == ' ')? 1 : 4;
 			if (_indentLevel >= 4) {
-				_stat = STAT_BlockCode;
+				_stat = STAT_Block;
 			}
 		} else {
 			_itemStack.pop_back();
@@ -802,7 +802,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_ListItem_BlockCode: {
+	case STAT_ListItem_Block: {
 		if (IsEOL(ch) || IsEOF(ch)) {
 			Item *pItemParent = _itemStack.back();
 			do {
@@ -817,17 +817,17 @@ bool Document::ParseChar(Signal sig, char ch)
 			} while (0);
 			_indentLevel = 0;
 			continueFlag = IsEOF(ch);
-			_stat = STAT_ListItem_BlockCode_LineTop;
+			_stat = STAT_ListItem_Block_LineTop;
 		} else {
 			_text += ch;
 		}
 		break;
 	}
-	case STAT_ListItem_BlockCode_LineTop: {
+	case STAT_ListItem_Block_LineTop: {
 		if (ch == ' ' || ch == '\t') {
 			_indentLevel += (ch == ' ')? 1 : 4;
 			if (_indentLevel >= 8) {
-				_stat = STAT_ListItem_BlockCode;
+				_stat = STAT_ListItem_Block;
 			}
 		} else {
 			_itemStack.pop_back();

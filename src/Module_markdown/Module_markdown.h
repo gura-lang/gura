@@ -34,7 +34,7 @@ public:
 		TYPE_Paragraph,		// container
 		TYPE_Emphasis,		// container
 		TYPE_Strong,		// container
-		TYPE_BlockCode,		// container
+		TYPE_Block,			// container
 		TYPE_OList,			// container
 		TYPE_UList,			// container
 		TYPE_ListItem,		// container
@@ -168,10 +168,10 @@ private:
 		STAT_OListItemPost_DigitDot,
 		STAT_OListItemPost_EOL_Digit,
 		STAT_OListItemPost_EOL_DigitDot,
-		STAT_BlockCode,
-		STAT_BlockCode_LineTop,
-		STAT_ListItem_BlockCode,
-		STAT_ListItem_BlockCode_LineTop,
+		STAT_Block,
+		STAT_Block_LineTop,
+		STAT_ListItem_Block,
+		STAT_ListItem_Block_LineTop,
 		STAT_BackquoteFirst,
 		STAT_Code,
 		STAT_CodeEsc,
