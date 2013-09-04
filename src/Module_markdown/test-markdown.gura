@@ -271,6 +271,10 @@ You can include literal backticks like `` `this` ``.
 ``test` hoge
 
 ```this` ``
+
+*strong*
+*`strong code`*
+*normal and `code` in composition*
 '''
 
 sys.stdout.addcr(false)

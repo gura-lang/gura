@@ -142,7 +142,6 @@ private:
 		STAT_OListItemPost_DigitDot,
 		STAT_OListItemPost_EOL_Digit,
 		STAT_OListItemPost_EOL_DigitDot,
-		STAT_Normal,
 		STAT_BlockCode,
 		STAT_BlockCode_LineTop,
 		STAT_ListItem_BlockCode,
@@ -151,15 +150,25 @@ private:
 		STAT_InlineCode,
 		STAT_InlineCodeEsc,
 		STAT_InlineCodeEsc_Backquote,
+		STAT_Normal,
 		STAT_EmphasisPre,
 		STAT_Emphasis,
 		STAT_Strong,
 		STAT_StrongEnd,
 	};
+	class StatStack : public std::vector<Stat> {
+	public:
+		inline void Push(Stat stat) { push_back(stat); }
+		inline Stat Pop() {
+			Stat stat = back();
+			pop_back();
+			return stat;
+		}
+	};
 private:
 	int _cntRef;
 	Stat _stat;
-	Stat _statRtn;
+	StatStack _statStack;
 	int _indentLevel;
 	String _text;
 	String _textAdd;

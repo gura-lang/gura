@@ -14,7 +14,8 @@
       <normal>'item1'
     <li>
       <normal>'item2'
-      <em>'emphasis'
+      <em>
+        <normal>'emphasis'
   <ul>
     <li>
       <normal>'item1'
@@ -26,14 +27,18 @@
       <normal>'item4'
   <p>
     <code>'code'
-    <em>'emphasis'
-    <strong>'strong'
+    <em>
+      <normal>'emphasis'
+    <strong>
+      <normal>'strong'
     <normal>'text '
     <code>'not terminated code'
     <normal>'text'
-    <em>'not terminated emphasis'
+    <em>
+      <normal>'not terminated emphasis'
     <normal>'text'
-    <strong>'not terminated strong'
+    <strong>
+      <normal>'not terminated strong'
     <normal>'text'
   <pre>
     <line>
@@ -126,14 +131,17 @@
       <normal>'item 2'
     <li>
       <normal>'item 3'
-      <em>'strong'
+      <em>
+        <normal>'strong'
     <ul>
       <li>
         <normal>'item 3-1'
-        <em>'strong'
+        <em>
+          <normal>'strong'
       <li>
         <normal>'item 3-2 '
-        <em>'strong'
+        <em>
+          <normal>'strong'
         <normal>' '
         <code>'code'
       <li>
@@ -237,11 +245,13 @@
         <normal>'para3'
     <li>
       <normal>'single para '
-      <strong>'strong'
+      <strong>
+        <normal>'strong'
       <normal>' hoge'
     <li>
       <normal>'single para again '
-      <strong>'strong'
+      <strong>
+        <normal>'strong'
       <normal>' foo'
   <ol>
     <li>
@@ -253,11 +263,13 @@
         <normal>'para3'
     <li>
       <normal>'single para '
-      <strong>'strong'
+      <strong>
+        <normal>'strong'
       <normal>' hoge'
     <li>
       <normal>'single para again '
-      <strong>'strong'
+      <strong>
+        <normal>'strong'
       <normal>' foo'
   <ul>
     <li>
@@ -352,7 +364,8 @@
     <li>
       <normal>'item-3'
   <p>
-    <em>'Emphasis'
+    <em>
+      <normal>'Emphasis'
   <ul>
     <li>
       <normal>'item-1'
@@ -361,7 +374,8 @@
     <li>
       <normal>'item-3'
   <p>
-    <strong>'Strong'
+    <strong>
+      <normal>'Strong'
   <ul>
     <li>
       <normal>'item-1'
@@ -391,3 +405,12 @@
     <code>'test` hoge'
   <p>
     <code>'`this`'
+  <p>
+    <em>
+      <normal>'strong'
+    <em>
+      <code>'strong code'
+    <em>
+      <normal>'normal and '
+      <code>'code'
+      <normal>' in composition'

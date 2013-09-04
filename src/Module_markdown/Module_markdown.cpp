@@ -122,9 +122,10 @@ void ItemStack::ClearListItem()
 //-----------------------------------------------------------------------------
 // Document
 //-----------------------------------------------------------------------------
-Document::Document() : _cntRef(1), _stat(STAT_LineTop), _statRtn(STAT_LineTop),
+Document::Document() : _cntRef(1), _stat(STAT_LineTop),
 								_indentLevel(0), _pItemOwner(new ItemOwner())
 {
+	_statStack.Push(STAT_LineTop);
 	_pItemRoot.reset(new Item(Item::TYPE_Root, new ItemOwner()));
 	_itemStack.push_back(_pItemRoot.get());
 }
@@ -295,7 +296,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_UListItemPre;
 		} else if (_indentLevel < 4) {
 			FlushText(Item::TYPE_Normal, false);
-			_statRtn = STAT_Normal;
+			_statStack.Push(STAT_Normal);
 			continueFlag = true;
 			_stat = STAT_EmphasisPre;
 		} else {
@@ -450,11 +451,11 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_UListItem: {
 		if (ch == '`') {
 			FlushText(Item::TYPE_Normal, false);
-			_statRtn = _stat;
+			_statStack.Push(_stat);
 			_stat = STAT_BackquoteFirst;
 		} else if (ch == '*') {
 			FlushText(Item::TYPE_Normal, false);
-			_statRtn = _stat;
+			_statStack.Push(_stat);
 			_stat = STAT_EmphasisPre;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			_indentLevel = 0;
@@ -525,7 +526,7 @@ bool Document::ParseChar(Signal sig, char ch)
 				_itemStack.push_back(pItem);
 			} while (0);
 			continueFlag = true;
-			_statRtn = STAT_UListItemPost;
+			_statStack.Push(STAT_UListItemPost);
 			_stat = STAT_ListItem_BlockCode;
 		}
 		break;
@@ -560,7 +561,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_UListItemPre;
 		} else {
 			FlushText(Item::TYPE_Normal, false);
-			_statRtn = STAT_UListItem;
+			_statStack.Push(STAT_UListItem);
 			continueFlag = true;
 			_stat = STAT_EmphasisPre;
 		}
@@ -629,11 +630,11 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_OListItem: {
 		if (ch == '`') {
 			FlushText(Item::TYPE_Normal, false);
-			_statRtn = _stat;
+			_statStack.Push(_stat);
 			_stat = STAT_BackquoteFirst;
 		} else if (ch == '*') {
 			FlushText(Item::TYPE_Normal, false);
-			_statRtn = _stat;
+			_statStack.Push(_stat);
 			_stat = STAT_EmphasisPre;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			_indentLevel = 0;
@@ -699,7 +700,7 @@ bool Document::ParseChar(Signal sig, char ch)
 				_itemStack.push_back(pItem);
 			} while (0);
 			continueFlag = true;
-			_statRtn = STAT_OListItemPost;
+			_statStack.Push(STAT_OListItemPost);
 			_stat = STAT_ListItem_BlockCode;
 		}
 		break;
@@ -755,23 +756,6 @@ bool Document::ParseChar(Signal sig, char ch)
 			_text = _textAdd;
 			continueFlag = true;
 			_stat = STAT_LineTop;
-		}
-		break;
-	}
-	case STAT_Normal: {
-		if (ch == '`') {
-			FlushText(Item::TYPE_Normal, false);
-			_statRtn = _stat;
-			_stat = STAT_BackquoteFirst;
-		} else if (ch == '*') {
-			FlushText(Item::TYPE_Normal, false);
-			_statRtn = _stat;
-			_stat = STAT_EmphasisPre;
-		} else if (IsEOL(ch) || IsEOF(ch)) {
-			continueFlag = IsEOF(ch);
-			_stat = STAT_LineTop;
-		} else {
-			_text += ch;
 		}
 		break;
 	}
@@ -839,7 +823,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else {
 			_itemStack.pop_back();
 			continueFlag = true;
-			_stat = _statRtn;
+			_stat = _statStack.Pop();
 		}
 		break;
 	}
@@ -855,11 +839,11 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_InlineCode: {
 		if (ch == '`') {
 			FlushText(Item::TYPE_InlineCode, true);
-			_stat = _statRtn;
+			_stat = _statStack.Pop();
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			FlushText(Item::TYPE_InlineCode, true);
 			continueFlag = true;
-			_stat = _statRtn;
+			_stat = _statStack.Pop();
 		} else {
 			_text += ch;
 		}
@@ -871,7 +855,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			FlushText(Item::TYPE_InlineCode, true);
 			continueFlag = true;
-			_stat = _statRtn;
+			_stat = _statStack.Pop();
 		} else {
 			_text += ch;
 		}
@@ -880,11 +864,28 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_InlineCodeEsc_Backquote: {
 		if (ch == '`') {
 			FlushText(Item::TYPE_InlineCode, true);
-			_stat = _statRtn;
+			_stat = _statStack.Pop();
 		} else {
 			_text += '`';
 			_text += ch;
 			_stat = STAT_InlineCodeEsc;
+		}
+		break;
+	}
+	case STAT_Normal: {
+		if (ch == '`') {
+			FlushText(Item::TYPE_Normal, false);
+			_statStack.Push(_stat);
+			_stat = STAT_BackquoteFirst;
+		} else if (ch == '*') {
+			FlushText(Item::TYPE_Normal, false);
+			_statStack.Push(_stat);
+			_stat = STAT_EmphasisPre;
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			continueFlag = IsEOF(ch);
+			_stat = STAT_LineTop;
+		} else {
+			_text += ch;
 		}
 		break;
 	}
@@ -894,7 +895,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_Strong;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			continueFlag = true;
-			_stat = _statRtn;
+			_stat = _statStack.Pop();
 		} else {
 			BeginDecoration(Item::TYPE_Emphasis);
 			continueFlag = true;
@@ -903,25 +904,33 @@ bool Document::ParseChar(Signal sig, char ch)
 		break;
 	}
 	case STAT_Emphasis: {
-		if (ch == '*') {
+		if (ch == '`') {
+			FlushText(Item::TYPE_Normal, false);
+			_statStack.Push(_stat);
+			_stat = STAT_BackquoteFirst;
+		} else if (ch == '*') {
 			EndDecoration();
-			_stat = _statRtn;
+			_stat = _statStack.Pop();
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			EndDecoration();
 			continueFlag = true;
-			_stat = _statRtn;
+			_stat = _statStack.Pop();
 		} else {
 			_text += ch;
 		}
 		break;
 	}
 	case STAT_Strong: {
-		if (ch == '*') {
+		if (ch == '`') {
+			FlushText(Item::TYPE_Normal, false);
+			_statStack.Push(_stat);
+			_stat = STAT_BackquoteFirst;
+		} else if (ch == '*') {
 			_stat = STAT_StrongEnd;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			EndDecoration();
 			continueFlag = true;
-			_stat = _statRtn;
+			_stat = _statStack.Pop();
 		} else {
 			_text += ch;
 		}
@@ -930,11 +939,11 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_StrongEnd: {
 		if (ch == '*') {
 			EndDecoration();
-			_stat = _statRtn;
+			_stat = _statStack.Pop();
 		} else {
 			EndDecoration();
 			continueFlag = true;
-			_stat = _statRtn;
+			_stat = _statStack.Pop();
 		}
 		break;
 	}
