@@ -55,6 +55,16 @@ text
         ------
     }
 
+fsafdsasa
+
+    1 is the first character in code block
+    beginning of code block
+    hoge hoge
+
+fadsfdsafdsa
+
+        four spaces ahead
+
 paragraph
     // just after paragraph with no space between
     #include <stdio.h>

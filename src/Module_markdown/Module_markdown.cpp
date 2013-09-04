@@ -216,7 +216,8 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAdd += ch;
 			_stat = STAT_StarFirst;
 		} else if (IsDigit(ch)) {
-			continueFlag = true;
+			_textAdd.clear();
+			_textAdd += ch;
 			_stat = STAT_Digit;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			FlushItem(Item::TYPE_Paragraph, false);
@@ -394,23 +395,32 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_Digit: {
 		if (IsDigit(ch)) {
-			_text += ch;
+			_textAdd += ch;
 		} else if (ch == '.') {
-			_text += ch;
+			_textAdd += ch;
 			_stat = STAT_DigitDot;
-		} else {
+		} else if (_indentLevel < 4) {
+			if (!_text.empty()) _text += ' ';
+			_text += _textAdd;
 			continueFlag = true;
 			_stat = STAT_Text;
+		} else {
+			continueFlag = true;
+			BeginBlock(_textAdd.c_str());
 		}
 		break;
 	}
 	case STAT_DigitDot: {
 		if (ch == ' ' || ch == '\t') {
-			_text.clear();
 			_stat = STAT_OListItemPre;
-		} else {
+		} else if (_indentLevel < 4) {
+			if (!_text.empty()) _text += ' ';
+			_text += _textAdd;
 			continueFlag = true;
 			_stat = STAT_Text;
+		} else {
+			continueFlag = true;
+			BeginBlock(_textAdd.c_str());
 		}
 		break;
 	}
@@ -1044,7 +1054,8 @@ bool Document::ParseChar(Signal sig, char ch)
 void Document::BeginBlock(const char *textInit)
 {
 	FlushItem(Item::TYPE_Paragraph, false);
-	if (textInit != NULL) _text = textInit;
+	for (int i = 0; i < _indentLevel - 4; i++) _text += ' ';
+	if (textInit != NULL) _text += textInit;
 	do {
 		Item *pItemParent = _itemStack.back();
 		Item *pItem = new Item(Item::TYPE_Block, new ItemOwner(), _indentLevel);
