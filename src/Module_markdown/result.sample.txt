@@ -414,3 +414,17 @@
       <normal>'normal and '
       <code>'code'
       <normal>' in composition'
+  <p>
+    <strong>
+      <normal>''
+      <em>
+        <normal>'strong-em'
+      <normal>' '
+    <strong>
+      <em>
+        <normal>'strong-em'
+    <strong>
+      <normal>'head'
+      <em>
+        <normal>'strong-em'
+      <normal>'tail'

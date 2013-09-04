@@ -275,6 +275,10 @@ You can include literal backticks like `` `this` ``.
 *strong*
 *`strong code`*
 *normal and `code` in composition*
+
+** *strong-em* **
+***strong-em***
+**head*strong-em*tail**
 '''
 
 sys.stdout.addcr(false)

@@ -105,6 +105,23 @@ void ItemOwner::Store(const ItemList &itemList)
 }
 
 //-----------------------------------------------------------------------------
+// ItemOwner
+//-----------------------------------------------------------------------------
+ItemOwnerStack::~ItemOwnerStack()
+{
+	Clear();
+}
+
+void ItemOwnerStack::Clear()
+{
+	foreach (ItemOwnerStack, ppItemOwner, *this) {
+		ItemOwner *pItemOwner = *ppItemOwner;
+		ItemOwner::Delete(pItemOwner);
+	}
+	clear();
+}
+
+//-----------------------------------------------------------------------------
 // ItemStack
 //-----------------------------------------------------------------------------
 void ItemStack::ClearListItem()
@@ -940,10 +957,16 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == '*') {
 			EndDecoration();
 			_stat = _statStack.Pop();
-		} else {
+		} else if (IsEOL(ch) || IsEOF(ch)) {
 			EndDecoration();
 			continueFlag = true;
 			_stat = _statStack.Pop();
+		} else {
+			FlushText(Item::TYPE_Normal, true);
+			BeginDecoration(Item::TYPE_Emphasis);
+			_statStack.Push(STAT_Strong);
+			continueFlag = true;
+			_stat = STAT_Emphasis;
 		}
 		break;
 	}
@@ -999,14 +1022,14 @@ void Document::BeginDecoration(Item::Type type)
 {
 	Item *pItem = new Item(type, new ItemOwner());
 	_pItemOwner->push_back(pItem);
-	_pItemOwnerSaved.reset(_pItemOwner.release());
+	_itemOwnerStack.Push(_pItemOwner.release());
 	_pItemOwner.reset(pItem->GetItemOwner()->Reference());
 }
 
 void Document::EndDecoration()
 {
 	FlushText(Item::TYPE_Normal, false);
-	_pItemOwner.reset(_pItemOwnerSaved.release());
+	_pItemOwner.reset(_itemOwnerStack.Pop());
 }
 
 //-----------------------------------------------------------------------------

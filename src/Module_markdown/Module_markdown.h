@@ -97,6 +97,21 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// ItemOwnerStack
+//-----------------------------------------------------------------------------
+class ItemOwnerStack : public std::vector<ItemOwner *> {
+public:
+	~ItemOwnerStack();
+	void Clear();
+	inline void Push(ItemOwner *pItemOwner) { push_back(pItemOwner); }
+	inline ItemOwner *Pop() {
+		ItemOwner *pItemOwner = back();
+		pop_back();
+		return pItemOwner;
+	}
+};
+
+//-----------------------------------------------------------------------------
 // ItemStack
 //-----------------------------------------------------------------------------
 class ItemStack : public ItemList {
@@ -173,9 +188,9 @@ private:
 	String _text;
 	String _textAdd;
 	AutoPtr<ItemOwner> _pItemOwner;
-	AutoPtr<ItemOwner> _pItemOwnerSaved;
 	AutoPtr<Item> _pItemRoot;
 	ItemStack _itemStack;
+	ItemOwnerStack _itemOwnerStack;
 public:
 	Gura_DeclareReferenceAccessor(Document);
 public:
