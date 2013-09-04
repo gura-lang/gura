@@ -57,6 +57,16 @@ void Item::Print(Signal sig, Stream &stream, int indentLevel) const
 	for (int i = 0; i < indentLevel; i++) stream.Print(sig, "  ");
 	stream.Print(sig, "<");
 	stream.Print(sig, GetTypeName());
+	if (_pURL.get() != NULL) {
+		stream.Print(sig, " url='");
+		stream.Print(sig, _pURL->c_str());
+		stream.Print(sig, "'");
+	}
+	if (_pTitle.get() != NULL) {
+		stream.Print(sig, " title='");
+		stream.Print(sig, _pTitle->c_str());
+		stream.Print(sig, "'");
+	}
 	stream.Print(sig, ">");
 	if (_pText.get() != NULL) {
 		stream.Print(sig, "'");
@@ -994,6 +1004,33 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
+	case STAT_AutoLink: {
+		if (ch == '>') {
+			if (IsLink(_textAdd.c_str())) {
+				FlushText(Item::TYPE_Text, false);
+				Item *pItemLink = new Item(Item::TYPE_Link, new ItemOwner());
+				pItemLink->SetURL(_textAdd);
+				_pItemOwner->push_back(pItemLink);
+				do {
+					Item *pItem = new Item(Item::TYPE_Text, _textAdd);
+					pItemLink->GetItemOwner()->push_back(pItem);
+				} while (0);
+			} else {
+				_text += '<';
+				_text += _textAdd;
+				_text += ch;
+			}
+			_stat = _statStack.Pop();
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			_text += '<';
+			_text += _textAdd;
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		} else {
+			_textAdd += ch;
+		}
+		break;
+	}
 	case STAT_Escape: {
 		_text += ch;
 		_stat = _statStack.Pop();
@@ -1038,13 +1075,11 @@ bool Document::CheckDecoration(char ch)
 		_statStack.Push(_stat);
 		_stat = STAT_UBarEmphasisPre;
 		return true;
-#if 0
 	} else if (ch == '<') {
-		FlushText(Item::TYPE_Text, false);
+		_textAdd.clear();
 		_statStack.Push(_stat);
-		_stat = STAT_Link;
+		_stat = STAT_AutoLink;
 		return true;
-#endif
 	}
 	return false;
 }
@@ -1104,6 +1139,76 @@ void Document::EndDecoration()
 {
 	FlushText(Item::TYPE_Text, false);
 	_pItemOwner.reset(_itemOwnerStack.Pop());
+}
+
+bool Document::IsLink(const char *text)
+{
+	enum StatL {
+		STATL_Begin,
+		STATL_Head,
+		STATL_EMail,
+		STATL_EMailDot,
+		STATL_URL,
+	} statL = STATL_Begin;
+	String head;
+	for (const char *p = text; ; p++) {
+		char ch = *p;
+		switch (statL) {
+		case STATL_Begin: {
+			if (IsAlpha(ch)) {
+				head += ch;
+				statL = STATL_Head;
+			} else {
+				return false;
+			}
+			break;
+		}
+		case STATL_Head: {
+			if (IsAlpha(ch)) {
+				head += ch;
+			} else if (ch == '@') {
+				statL = STATL_EMail;
+			} else if (ch == ':') {
+				statL = STATL_URL;
+			} else {
+				return false;
+			}
+			break;
+		}
+		case STATL_EMail: {
+			if (IsAlpha(ch)) {
+				// nothing to do
+			} else if (ch == '.') {
+				statL = STATL_EMailDot;
+			} else if (ch == '\0') {
+				// nothing to do
+			} else {
+				return false;
+			}
+			break;
+		}
+		case STATL_EMailDot: {
+			if (IsAlpha(ch)) {
+				statL = STATL_EMail;
+			} else {
+				return false;
+			}
+			break;
+		}
+		case STATL_URL: {
+			if (IsURIC(ch)) {
+				// nothing to do
+			} else if (ch == '\0') {
+				// nothing to do
+			} else {
+				return false;
+			}
+			break;
+		}
+		}
+		if (ch == '\0') break;
+	}
+	return true;
 }
 
 //-----------------------------------------------------------------------------

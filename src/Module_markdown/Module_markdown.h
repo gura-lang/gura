@@ -188,6 +188,7 @@ private:
 		STAT_UBarEmphasis,
 		STAT_UBarStrong,
 		STAT_UBarStrongEnd,
+		STAT_AutoLink,
 		STAT_Escape,
 	};
 	class StatStack : public std::vector<Stat> {
@@ -230,6 +231,7 @@ private:
 	void EndListItem();
 	void BeginDecoration(Item::Type type);
 	void EndDecoration();
+	static bool IsLink(const char *text);
 	inline static bool IsEOL(char ch) { return ch == '\n'; }
 	inline static bool IsEOF(char ch) { return ch == '\0'; }
 	inline static bool IsDigit(char ch) { return '0' <= ch && ch <= '9'; }
