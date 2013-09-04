@@ -174,6 +174,7 @@ private:
 		STAT_UBarEmphasis,
 		STAT_UBarStrong,
 		STAT_UBarStrongEnd,
+		STAT_Escape,
 	};
 	class StatStack : public std::vector<Stat> {
 	public:
@@ -207,6 +208,7 @@ public:
 	inline const Item *GetItemRoot() { return _pItemRoot.get(); }
 private:
 	bool ParseChar(Signal sig, char ch);
+	bool CheckDecoration(char ch);
 	void FlushText(Item::Type type, bool stripFlag);
 	void FlushItem(Item::Type type, bool stripFlag);
 	void BeginListItem();

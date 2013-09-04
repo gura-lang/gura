@@ -520,3 +520,81 @@
       <normal>' '
       <strong>
         <normal>'strong again'
+  <h1>
+    <code>'code'
+    <normal>'in header'
+  <h1>
+    <em>
+      <normal>'emphasis'
+    <normal>'in header'
+  <h1>
+    <em>
+      <normal>'emphasis'
+    <normal>'in header'
+  <h1>
+    <strong>
+      <normal>'strong'
+    <normal>'in header'
+  <h1>
+    <strong>
+      <normal>'strong'
+    <normal>'in header'
+  <h1>
+    <code>'code'
+    <normal>' '
+    <em>
+      <normal>'emphasis'
+    <normal>' '
+    <em>
+      <normal>'emphasis'
+    <normal>' '
+    <strong>
+      <normal>'strong'
+    <normal>' '
+    <strong>
+      <normal>'strong'
+  <h1>
+    <code>'code'
+    <normal>' '
+    <em>
+      <normal>'emphasis'
+    <normal>' '
+    <em>
+      <normal>'emphasis'
+    <normal>' '
+    <strong>
+      <normal>'strong'
+    <normal>' '
+    <strong>
+      <normal>'strong'
+  <h2>
+    <code>'code'
+    <normal>' '
+    <em>
+      <normal>'emphasis'
+    <normal>' '
+    <em>
+      <normal>'emphasis'
+    <normal>' '
+    <strong>
+      <normal>'strong'
+    <normal>' '
+    <strong>
+      <normal>'strong'
+  <p>
+    <em>
+      <normal>'*star'
+    <strong>
+      <normal>'*star'
+    <em>
+      <normal>'A*star'
+    <strong>
+      <normal>'A*star'
+    <em>
+      <normal>'_ubar'
+    <strong>
+      <normal>'_ubar'
+    <em>
+      <normal>'A_ubar'
+    <strong>
+      <normal>'A_ubar'

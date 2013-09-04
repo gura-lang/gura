@@ -319,6 +319,26 @@ __strong in paragraph__
 1. __strong in ol item__
  __strong again__
  __strong again__
+
+# `code` in header
+# *emphasis* in header
+# _emphasis_ in header
+# **strong** in header
+# __strong__ in header
+# `code` *emphasis* _emphasis_ **strong** __strong__
+`code` *emphasis* _emphasis_ **strong** __strong__
+====
+`code` *emphasis* _emphasis_ **strong** __strong__
+----
+
+*\*star*
+**\*star**
+*A\*star*
+**A\*star**
+_\_ubar_
+__\_ubar__
+_A\_ubar_
+__A\_ubar__
 '''
 
 sys.stdout.addcr(false)
