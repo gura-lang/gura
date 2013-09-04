@@ -15,6 +15,8 @@ Gura_DeclareUserSymbol(root);
 Gura_DeclareUserSymbol(type);
 Gura_DeclareUserSymbol(text);
 Gura_DeclareUserSymbol(children);
+Gura_DeclareUserSymbol(url);
+Gura_DeclareUserSymbol(title);
 
 class ItemOwner;
 
@@ -40,6 +42,7 @@ public:
 		TYPE_ListItem,		// container
 		TYPE_Line,			// container
 		TYPE_Link,			// container
+		TYPE_Image,			// container
 		TYPE_Text,			// text
 		TYPE_Code,			// text
 	};
@@ -48,8 +51,8 @@ private:
 	Type _type;
 	AutoPtr<ItemOwner> _pItemOwner;
 	std::auto_ptr<String> _pText;
-	std::auto_ptr<String> _pURL;		// valid when type is TYPE_Link
-	std::auto_ptr<String> _pTitle;		// valid when type is TYPE_Link
+	std::auto_ptr<String> _pURL;	// valid when type is Link or Image
+	std::auto_ptr<String> _pTitle;	// valid when type is Link or Image
 	int _indentLevel;
 public:
 	Gura_DeclareReferenceAccessor(Item);

@@ -64,10 +64,17 @@ output_html(item:item, out:stream:w):map:void = {
 	} elsif (item.type == `line) {
 		output_html(item.children, out)
 		out.print('\n')
-	} elsif (item.type == `link) {
-		out.print('<a>')
+	} elsif (item.type == `a) {
+		out.print('<a')
+		item.url && out.print(' href="', item.url.escapehtml(), '"')
+		item.title && out.print(' title="', item.title.escapehtml(), '"')
+		out.print('>')
 		output_html(item.children, out)
 		out.print('</a>')
+	} elsif (item.type == `img) {
+		out.print('<img>')
+		output_html(item.children, out)
+		out.print('</img>')
 	} elsif (item.type == `text) {
 		out.print(item.text.escapehtml())
 	} elsif (item.type == `code) {
@@ -147,8 +154,10 @@ output_console(item:item):map:void = {
 		print('|   ')
 		output_console(item.children)
 		println()
-	} elsif (item.type == `link) {
+	} elsif (item.type == `a) {
 		output_console(item.children)
+	} elsif (item.type == `img) {
+		
 	} elsif (item.type == `text) {
 		print(item.text)
 	} elsif (item.type == `code) {

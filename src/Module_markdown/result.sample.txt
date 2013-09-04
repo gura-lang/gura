@@ -40,7 +40,7 @@
     <strong>
       <text>'not terminated strong'
     <text>'text'
-  <pre>
+  <block>
     <line>
       <text>'#include <stdio.h>'
     <line>
@@ -69,7 +69,7 @@
       <text>'}'
   <p>
     <text>'paragraph'
-  <pre>
+  <block>
     <line>
       <text>'// just after paragraph with no space between'
     <line>
@@ -100,14 +100,14 @@
       <text>'}'
   <p>
     <text>'normal text'
-  <pre>
+  <block>
     <line>
       <text>'void sub1()'
     <line>
       <text>'{'
     <line>
       <text>'}'
-  <pre>
+  <block>
     <line>
       <text>'void sub2()'
     <line>
@@ -275,7 +275,7 @@
     <li>
       <p>
         <text>'para1 hoge'
-      <pre>
+      <block>
         <line>
           <text>'#include <stdio.h>'
         <line>
@@ -289,7 +289,7 @@
     <li>
       <p>
         <text>'para1 hoge'
-      <pre>
+      <block>
         <line>
           <text>'#include <stdio.h>'
         <line>
@@ -304,7 +304,7 @@
     <li>
       <p>
         <text>'para1 hoge'
-      <pre>
+      <block>
         <line>
           <text>'#include <stdio.h>'
         <line>
@@ -318,7 +318,7 @@
     <li>
       <p>
         <text>'para1 hoge'
-      <pre>
+      <block>
         <line>
           <text>'#include <stdio.h>'
         <line>

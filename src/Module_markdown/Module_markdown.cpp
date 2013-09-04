@@ -41,7 +41,8 @@ const char *Item::GetTypeName() const
 		{ TYPE_UList,			"ul",		},	// container
 		{ TYPE_ListItem,		"li",		},	// container
 		{ TYPE_Line,			"line",		},	// container
-		{ TYPE_Link,			"link",		},	// container
+		{ TYPE_Link,			"a",		},	// container
+		{ TYPE_Image,			"img",		},	// container
 		{ TYPE_Text,			"text",		},	// text
 		{ TYPE_Code,			"code",		},	// text
 	};
@@ -1224,6 +1225,8 @@ bool Object_item::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	symbols.insert(Gura_UserSymbol(type));
 	symbols.insert(Gura_UserSymbol(text));
 	symbols.insert(Gura_UserSymbol(children));
+	symbols.insert(Gura_UserSymbol(url));
+	symbols.insert(Gura_UserSymbol(title));
 	return true;
 }
 
@@ -1242,6 +1245,14 @@ Value Object_item::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		if (pItemOwner == NULL) return Value::Null;
 		Iterator *pIterator = new Iterator_item(pItemOwner->Reference());
 		return Value(env, pIterator);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(url))) {
+		const char *url = _pItem->GetURL();
+		if (url == NULL) return Value::Null;
+		return Value(env, url);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(title))) {
+		const char *title = _pItem->GetTitle();
+		if (title == NULL) return Value::Null;
+		return Value(env, title);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -1418,6 +1429,8 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(type);
 	Gura_RealizeUserSymbol(text);
 	Gura_RealizeUserSymbol(children);
+	Gura_RealizeUserSymbol(url);
+	Gura_RealizeUserSymbol(title);
 	// class realization
 	Gura_RealizeUserClassWithoutPrepare(document, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(item, env.LookupClass(VTYPE_object));
