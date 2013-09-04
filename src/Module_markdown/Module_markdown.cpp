@@ -216,15 +216,8 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			_stat = STAT_Text;
 		} else {
-			FlushItem(Item::TYPE_Paragraph, false);
-			do {
-				Item *pItemParent = _itemStack.back();
-				Item *pItem = new Item(Item::TYPE_Block, new ItemOwner(), _indentLevel);
-				pItemParent->GetItemOwner()->push_back(pItem);
-				_itemStack.push_back(pItem);
-			} while (0);
 			continueFlag = true;
-			_stat = STAT_Block;
+			BeginBlock(NULL);
 		}
 		break;
 	}
@@ -241,16 +234,8 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			_stat = STAT_Text;
 		} else {
-			FlushItem(Item::TYPE_Paragraph, false);
-			_text = _textAdd;
-			do {
-				Item *pItemParent = _itemStack.back();
-				Item *pItem = new Item(Item::TYPE_Block, new ItemOwner(), _indentLevel);
-				pItemParent->GetItemOwner()->push_back(pItem);
-				_itemStack.push_back(pItem);
-			} while (0);
 			continueFlag = true;
-			_stat = STAT_Block;
+			BeginBlock(_textAdd.c_str());
 		}
 		break;
 	}
@@ -271,16 +256,8 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			_stat = STAT_Text;
 		} else {
-			FlushItem(Item::TYPE_Paragraph, false);
-			_text = _textAdd;
-			do {
-				Item *pItemParent = _itemStack.back();
-				Item *pItem = new Item(Item::TYPE_Block, new ItemOwner(), _indentLevel);
-				pItemParent->GetItemOwner()->push_back(pItem);
-				_itemStack.push_back(pItem);
-			} while (0);
 			continueFlag = true;
-			_stat = STAT_Block;
+			BeginBlock(_textAdd.c_str());
 		}
 		break;
 	}
@@ -295,16 +272,8 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			_stat = STAT_Text;
 		} else {
-			FlushItem(Item::TYPE_Paragraph, false);
-			_text = _textAdd;
-			do {
-				Item *pItemParent = _itemStack.back();
-				Item *pItem = new Item(Item::TYPE_Block, new ItemOwner(), _indentLevel);
-				pItemParent->GetItemOwner()->push_back(pItem);
-				_itemStack.push_back(pItem);
-			} while (0);
 			continueFlag = true;
-			_stat = STAT_Block;
+			BeginBlock(_textAdd.c_str());
 		}
 		break;
 	}
@@ -319,16 +288,8 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			_stat = STAT_StarEmphasisPre;
 		} else {
-			FlushItem(Item::TYPE_Paragraph, false);
-			_text = _textAdd;
-			do {
-				Item *pItemParent = _itemStack.back();
-				Item *pItem = new Item(Item::TYPE_Block, new ItemOwner(), _indentLevel);
-				pItemParent->GetItemOwner()->push_back(pItem);
-				_itemStack.push_back(pItem);
-			} while (0);
 			continueFlag = true;
-			_stat = STAT_Block;
+			BeginBlock(_textAdd.c_str());
 		}
 		break;
 	}
