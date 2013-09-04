@@ -202,7 +202,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '*') {
 			_textAdd.clear();
 			_textAdd += ch;
-			_stat = STAT_AsteriskFirst;
+			_stat = STAT_StarFirst;
 		} else if (IsDigit(ch)) {
 			continueFlag = true;
 			_stat = STAT_Digit;
@@ -306,7 +306,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_AsteriskFirst: {
+	case STAT_StarFirst: {
 		if (ch == ' ' || ch == '\t') {
 			FlushItem(Item::TYPE_Paragraph, false);
 			continueFlag = true;
@@ -493,7 +493,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '+') {
 			_stat = STAT_UListItemPost_Plus;
 		} else if (ch == '*') {
-			_stat = STAT_UListItemPost_Asterisk;
+			_stat = STAT_UListItemPost_Star;
 		} else if (IsEOL(ch)) {
 			_indentLevel = 0;
 			_stat = STAT_UListItemPost_EOL;
@@ -519,7 +519,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '+') {
 			_stat = STAT_UListItemPost_EOL_Plus;
 		} else if (ch == '*') {
-			_stat = STAT_UListItemPost_EOL_Asterisk;
+			_stat = STAT_UListItemPost_EOL_Star;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			EndListItem();
 			_itemStack.ClearListItem();
@@ -572,7 +572,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_UListItemPost_Asterisk: {
+	case STAT_UListItemPost_Star: {
 		if (ch == ' ' || ch == '\t') {
 			EndListItem();
 			_stat = STAT_UListItemPre;
@@ -612,7 +612,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_UListItemPost_EOL_Asterisk: {
+	case STAT_UListItemPost_EOL_Star: {
 		if (ch == ' ' || ch == '\t') {
 			EndListItem();
 			_stat = STAT_UListItemPre;
@@ -622,7 +622,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAdd.clear();
 			_textAdd += '*';
 			continueFlag = true;
-			_stat = STAT_AsteriskFirst;
+			_stat = STAT_StarFirst;
 		}
 		break;
 	}
