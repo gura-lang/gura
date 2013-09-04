@@ -35,8 +35,8 @@ const char *Item::GetTypeName() const
 		{ TYPE_Header6,			"h6",		},	// container
 		{ TYPE_Paragraph,		"p",		},	// container
 		{ TYPE_Normal,			"normal",	},	// text
-		{ TYPE_Emphasis,		"em",		},	// text
-		{ TYPE_Strong,			"strong",	},	// text
+		{ TYPE_Emphasis,		"em",		},	// container
+		{ TYPE_Strong,			"strong",	},	// container
 		{ TYPE_InlineCode,		"code",		},	// text
 		{ TYPE_BlockCode,		"pre",		},	// container
 		{ TYPE_OList,			"ol",		},	// container
@@ -890,6 +890,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_EmphasisPre: {
 		if (ch == '*') {
+			BeginDecoration(Item::TYPE_Strong);
 			_stat = STAT_Strong;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			continueFlag = true;
@@ -916,10 +917,9 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_Strong: {
 		if (ch == '*') {
-			FlushText(Item::TYPE_Strong, false);
 			_stat = STAT_StrongEnd;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			FlushText(Item::TYPE_Strong, false);
+			EndDecoration();
 			continueFlag = true;
 			_stat = _statRtn;
 		} else {
@@ -929,8 +929,10 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_StrongEnd: {
 		if (ch == '*') {
+			EndDecoration();
 			_stat = _statRtn;
 		} else {
+			EndDecoration();
 			continueFlag = true;
 			_stat = _statRtn;
 		}

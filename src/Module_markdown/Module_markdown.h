@@ -33,8 +33,8 @@ public:
 		TYPE_Header6,		// container
 		TYPE_Paragraph,		// container
 		TYPE_Normal,		// text
-		TYPE_Emphasis,		// text
-		TYPE_Strong,		// text
+		TYPE_Emphasis,		// container
+		TYPE_Strong,		// container
 		TYPE_InlineCode,	// text
 		TYPE_BlockCode,		// container
 		TYPE_OList,			// container
