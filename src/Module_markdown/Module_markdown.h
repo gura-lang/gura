@@ -222,6 +222,7 @@ public:
 	inline const Item *GetItemRoot() { return _pItemRoot.get(); }
 private:
 	bool ParseChar(Signal sig, char ch);
+	void BeginBlock(const char *textInit);
 	bool CheckDecoration(char ch);
 	void FlushText(Item::Type type, bool stripFlag);
 	void FlushItem(Item::Type type, bool stripFlag);

@@ -243,13 +243,13 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else {
 			FlushItem(Item::TYPE_Paragraph, false);
 			_text = _textAdd;
-			_text += ch;
 			do {
 				Item *pItemParent = _itemStack.back();
 				Item *pItem = new Item(Item::TYPE_Block, new ItemOwner(), _indentLevel);
 				pItemParent->GetItemOwner()->push_back(pItem);
 				_itemStack.push_back(pItem);
 			} while (0);
+			continueFlag = true;
 			_stat = STAT_Block;
 		}
 		break;
@@ -273,13 +273,13 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else {
 			FlushItem(Item::TYPE_Paragraph, false);
 			_text = _textAdd;
-			_text += ch;
 			do {
 				Item *pItemParent = _itemStack.back();
 				Item *pItem = new Item(Item::TYPE_Block, new ItemOwner(), _indentLevel);
 				pItemParent->GetItemOwner()->push_back(pItem);
 				_itemStack.push_back(pItem);
 			} while (0);
+			continueFlag = true;
 			_stat = STAT_Block;
 		}
 		break;
@@ -297,13 +297,13 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else {
 			FlushItem(Item::TYPE_Paragraph, false);
 			_text = _textAdd;
-			_text += ch;
 			do {
 				Item *pItemParent = _itemStack.back();
 				Item *pItem = new Item(Item::TYPE_Block, new ItemOwner(), _indentLevel);
 				pItemParent->GetItemOwner()->push_back(pItem);
 				_itemStack.push_back(pItem);
 			} while (0);
+			continueFlag = true;
 			_stat = STAT_Block;
 		}
 		break;
@@ -321,13 +321,13 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else {
 			FlushItem(Item::TYPE_Paragraph, false);
 			_text = _textAdd;
-			_text += ch;
 			do {
 				Item *pItemParent = _itemStack.back();
 				Item *pItem = new Item(Item::TYPE_Block, new ItemOwner(), _indentLevel);
 				pItemParent->GetItemOwner()->push_back(pItem);
 				_itemStack.push_back(pItem);
 			} while (0);
+			continueFlag = true;
 			_stat = STAT_Block;
 		}
 		break;
@@ -1043,6 +1043,19 @@ bool Document::ParseChar(Signal sig, char ch)
 	return true;
 }
 
+void Document::BeginBlock(const char *textInit)
+{
+	FlushItem(Item::TYPE_Paragraph, false);
+	if (textInit != NULL) _text = textInit;
+	do {
+		Item *pItemParent = _itemStack.back();
+		Item *pItem = new Item(Item::TYPE_Block, new ItemOwner(), _indentLevel);
+		pItemParent->GetItemOwner()->push_back(pItem);
+		_itemStack.push_back(pItem);
+	} while (0);
+	_stat = STAT_Block;
+}
+
 bool Document::CheckDecoration(char ch)
 {
 	if (ch == '\\') {
@@ -1064,6 +1077,13 @@ bool Document::CheckDecoration(char ch)
 		_statStack.Push(_stat);
 		_stat = STAT_UBarEmphasisPre;
 		return true;
+#if 0
+	} else if (ch == '<') {
+		FlushText(Item::TYPE_Text, false);
+		_statStack.Push(_stat);
+		_stat = STAT_Link;
+		return true;
+#endif
 	}
 	return false;
 }
