@@ -13,7 +13,7 @@
     <li>
       <normal>'item1'
     <li>
-      <normal>'item2'
+      <normal>'item2 '
       <em>
         <normal>'emphasis'
   <ul>
@@ -130,12 +130,12 @@
     <li>
       <normal>'item 2'
     <li>
-      <normal>'item 3'
+      <normal>'item 3 '
       <em>
         <normal>'strong'
     <ul>
       <li>
-        <normal>'item 3-1'
+        <normal>'item 3-1 '
         <em>
           <normal>'strong'
       <li>
@@ -428,3 +428,95 @@
       <em>
         <normal>'strong-em'
       <normal>'tail'
+  <p>
+    <em>
+      <normal>'emphasis in paragraph'
+  <ul>
+    <li>
+      <em>
+        <normal>'emphasis in ul item'
+      <normal>' '
+      <em>
+        <normal>'emphasis again'
+      <normal>' '
+      <em>
+        <normal>'emphasis again'
+  <ol>
+    <li>
+      <em>
+        <normal>'emphasis in ol item'
+      <normal>' '
+      <em>
+        <normal>'emphasis again'
+      <normal>' '
+      <em>
+        <normal>'emphasis again'
+  <p>
+    <em>
+      <normal>'emphasis in paragraph'
+  <ul>
+    <li>
+      <em>
+        <normal>'emphasis in ul item'
+      <normal>' '
+      <em>
+        <normal>'emphasis again'
+      <normal>' '
+      <em>
+        <normal>'emphasis again'
+  <ol>
+    <li>
+      <em>
+        <normal>'emphasis in ol item'
+      <normal>' '
+      <em>
+        <normal>'emphasis again'
+      <normal>' '
+      <em>
+        <normal>'emphasis again'
+  <p>
+    <strong>
+      <normal>'strong in paragraph'
+  <ul>
+    <li>
+      <strong>
+        <normal>'strong in ul item'
+      <normal>' '
+      <strong>
+        <normal>'strong again'
+      <normal>' '
+      <strong>
+        <normal>'strong again'
+  <ol>
+    <li>
+      <strong>
+        <normal>'strong in ol item'
+      <normal>' '
+      <strong>
+        <normal>'strong again'
+      <normal>' '
+      <strong>
+        <normal>'strong again'
+  <p>
+    <strong>
+      <normal>'strong in paragraph'
+  <ul>
+    <li>
+      <strong>
+        <normal>'strong in ul item'
+      <normal>' '
+      <strong>
+        <normal>'strong again'
+      <normal>' '
+      <strong>
+        <normal>'strong again'
+  <ol>
+    <li>
+      <strong>
+        <normal>'strong in ol item'
+      <normal>' '
+      <strong>
+        <normal>'strong again'
+      <normal>' '
+      <strong>
+        <normal>'strong again'

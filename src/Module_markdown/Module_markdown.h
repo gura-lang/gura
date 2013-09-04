@@ -166,10 +166,14 @@ private:
 		STAT_InlineCodeEsc,
 		STAT_InlineCodeEsc_Backquote,
 		STAT_Normal,
-		STAT_EmphasisPre,
-		STAT_Emphasis,
-		STAT_Strong,
-		STAT_StrongEnd,
+		STAT_StarEmphasisPre,
+		STAT_StarEmphasis,
+		STAT_StarStrong,
+		STAT_StarStrongEnd,
+		STAT_UBarEmphasisPre,
+		STAT_UBarEmphasis,
+		STAT_UBarStrong,
+		STAT_UBarStrongEnd,
 	};
 	class StatStack : public std::vector<Stat> {
 	public:

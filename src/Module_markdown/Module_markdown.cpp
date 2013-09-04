@@ -221,7 +221,7 @@ bool Document::ParseChar(Signal sig, char ch)
 				pItemParent->GetItemOwner()->push_back(pItem);
 				_itemStack.push_back(pItem);
 			} while (0);
-			_text += ch;
+			continueFlag = true;
 			_stat = STAT_BlockCode;
 		}
 		break;
@@ -236,7 +236,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (_indentLevel < 4) {
 			if (!_text.empty()) _text += ' ';
 			_text += _textAdd;
-			_text += ch;
+			continueFlag = true;
 			_stat = STAT_Normal;
 		} else {
 			FlushItem(Item::TYPE_Paragraph, false);
@@ -266,7 +266,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (_indentLevel < 4) {
 			if (!_text.empty()) _text += ' ';
 			_text += _textAdd;
-			_text += ch;
+			continueFlag = true;
 			_stat = STAT_Normal;
 		} else {
 			FlushItem(Item::TYPE_Paragraph, false);
@@ -290,7 +290,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (_indentLevel < 4) {
 			if (!_text.empty()) _text += ' ';
 			_text += _textAdd;
-			_text += ch;
+			continueFlag = true;
 			_stat = STAT_Normal;
 		} else {
 			FlushItem(Item::TYPE_Paragraph, false);
@@ -315,7 +315,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			FlushText(Item::TYPE_Normal, false);
 			_statStack.Push(STAT_Normal);
 			continueFlag = true;
-			_stat = STAT_EmphasisPre;
+			_stat = STAT_StarEmphasisPre;
 		} else {
 			FlushItem(Item::TYPE_Paragraph, false);
 			_text = _textAdd;
@@ -382,7 +382,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_SetextHeader;
 		} else {
 			_text += _textAdd;
-			_text += ch;
+			continueFlag = true;
 			_stat = STAT_SetextHeader;
 		}
 		break;
@@ -397,7 +397,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else {
 			if (!_text.empty()) _text += ' ';
 			_text += _textAdd;
-			_text += ch;
+			continueFlag = true;
 			_stat = STAT_Normal;
 		}
 		break;
@@ -412,7 +412,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else {
 			if (!_text.empty()) _text += ' ';
 			_text += _textAdd;
-			_text += ch;
+			continueFlag = true;
 			_stat = STAT_Normal;
 		}
 		break;
@@ -473,7 +473,11 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '*') {
 			FlushText(Item::TYPE_Normal, false);
 			_statStack.Push(_stat);
-			_stat = STAT_EmphasisPre;
+			_stat = STAT_StarEmphasisPre;
+		} else if (ch == '_') {
+			FlushText(Item::TYPE_Normal, false);
+			_statStack.Push(_stat);
+			_stat = STAT_UBarEmphasisPre;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			_indentLevel = 0;
 			continueFlag = IsEOF(ch);
@@ -577,10 +581,11 @@ bool Document::ParseChar(Signal sig, char ch)
 			EndListItem();
 			_stat = STAT_UListItemPre;
 		} else {
+			_text += ' ';
 			FlushText(Item::TYPE_Normal, false);
 			_statStack.Push(STAT_UListItem);
 			continueFlag = true;
-			_stat = STAT_EmphasisPre;
+			_stat = STAT_StarEmphasisPre;
 		}
 		break;
 	}
@@ -652,7 +657,11 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '*') {
 			FlushText(Item::TYPE_Normal, false);
 			_statStack.Push(_stat);
-			_stat = STAT_EmphasisPre;
+			_stat = STAT_StarEmphasisPre;
+		} else if (ch == '_') {
+			FlushText(Item::TYPE_Normal, false);
+			_statStack.Push(_stat);
+			_stat = STAT_UBarEmphasisPre;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			_indentLevel = 0;
 			continueFlag = IsEOF(ch);
@@ -680,7 +689,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_LineTop;
 		} else {
 			_text += ' ';
-			_text += ch;
+			continueFlag = true;
 			_stat = STAT_OListItem;
 		}
 		break;
@@ -884,7 +893,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = _statStack.Pop();
 		} else {
 			_text += '`';
-			_text += ch;
+			continueFlag = true;
 			_stat = STAT_InlineCodeEsc;
 		}
 		break;
@@ -897,7 +906,11 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '*') {
 			FlushText(Item::TYPE_Normal, false);
 			_statStack.Push(_stat);
-			_stat = STAT_EmphasisPre;
+			_stat = STAT_StarEmphasisPre;
+		} else if (ch == '_') {
+			FlushText(Item::TYPE_Normal, false);
+			_statStack.Push(_stat);
+			_stat = STAT_UBarEmphasisPre;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			continueFlag = IsEOF(ch);
 			_stat = STAT_LineTop;
@@ -906,21 +919,21 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_EmphasisPre: {
+	case STAT_StarEmphasisPre: {
 		if (ch == '*') {
 			BeginDecoration(Item::TYPE_Strong);
-			_stat = STAT_Strong;
+			_stat = STAT_StarStrong;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			continueFlag = true;
 			_stat = _statStack.Pop();
 		} else {
 			BeginDecoration(Item::TYPE_Emphasis);
 			continueFlag = true;
-			_stat = STAT_Emphasis;
+			_stat = STAT_StarEmphasis;
 		}
 		break;
 	}
-	case STAT_Emphasis: {
+	case STAT_StarEmphasis: {
 		if (ch == '`') {
 			FlushText(Item::TYPE_Normal, false);
 			_statStack.Push(_stat);
@@ -937,13 +950,13 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_Strong: {
+	case STAT_StarStrong: {
 		if (ch == '`') {
 			FlushText(Item::TYPE_Normal, false);
 			_statStack.Push(_stat);
 			_stat = STAT_BackquoteFirst;
 		} else if (ch == '*') {
-			_stat = STAT_StrongEnd;
+			_stat = STAT_StarStrongEnd;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			EndDecoration();
 			continueFlag = true;
@@ -953,7 +966,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_StrongEnd: {
+	case STAT_StarStrongEnd: {
 		if (ch == '*') {
 			EndDecoration();
 			_stat = _statStack.Pop();
@@ -964,9 +977,73 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else {
 			FlushText(Item::TYPE_Normal, true);
 			BeginDecoration(Item::TYPE_Emphasis);
-			_statStack.Push(STAT_Strong);
+			_statStack.Push(STAT_StarStrong);
 			continueFlag = true;
-			_stat = STAT_Emphasis;
+			_stat = STAT_StarEmphasis;
+		}
+		break;
+	}
+	case STAT_UBarEmphasisPre: {
+		if (ch == '_') {
+			BeginDecoration(Item::TYPE_Strong);
+			_stat = STAT_UBarStrong;
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		} else {
+			BeginDecoration(Item::TYPE_Emphasis);
+			continueFlag = true;
+			_stat = STAT_UBarEmphasis;
+		}
+		break;
+	}
+	case STAT_UBarEmphasis: {
+		if (ch == '`') {
+			FlushText(Item::TYPE_Normal, false);
+			_statStack.Push(_stat);
+			_stat = STAT_BackquoteFirst;
+		} else if (ch == '_') {
+			EndDecoration();
+			_stat = _statStack.Pop();
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			EndDecoration();
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		} else {
+			_text += ch;
+		}
+		break;
+	}
+	case STAT_UBarStrong: {
+		if (ch == '`') {
+			FlushText(Item::TYPE_Normal, false);
+			_statStack.Push(_stat);
+			_stat = STAT_BackquoteFirst;
+		} else if (ch == '_') {
+			_stat = STAT_UBarStrongEnd;
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			EndDecoration();
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		} else {
+			_text += ch;
+		}
+		break;
+	}
+	case STAT_UBarStrongEnd: {
+		if (ch == '_') {
+			EndDecoration();
+			_stat = _statStack.Pop();
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			EndDecoration();
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		} else {
+			FlushText(Item::TYPE_Normal, true);
+			BeginDecoration(Item::TYPE_Emphasis);
+			_statStack.Push(STAT_UBarStrong);
+			continueFlag = true;
+			_stat = STAT_UBarEmphasis;
 		}
 		break;
 	}

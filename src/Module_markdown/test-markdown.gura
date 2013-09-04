@@ -279,6 +279,46 @@ You can include literal backticks like `` `this` ``.
 ** *strong-em* **
 ***strong-em***
 **head*strong-em*tail**
+
+*emphasis in paragraph*
+
+- *emphasis in ul item*
+ *emphasis again*
+ *emphasis again*
+
+1. *emphasis in ol item*
+ *emphasis again*
+ *emphasis again*
+
+_emphasis in paragraph_
+
+- _emphasis in ul item_
+ _emphasis again_
+ _emphasis again_
+
+1. _emphasis in ol item_
+ _emphasis again_
+ _emphasis again_
+
+**strong in paragraph**
+
+- **strong in ul item**
+ **strong again**
+ **strong again**
+
+1. **strong in ol item**
+ **strong again**
+ **strong again**
+
+__strong in paragraph__
+
+- __strong in ul item__
+ __strong again__
+ __strong again__
+
+1. __strong in ol item__
+ __strong again__
+ __strong again__
 '''
 
 sys.stdout.addcr(false)
