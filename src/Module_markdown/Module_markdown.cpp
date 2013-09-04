@@ -895,6 +895,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			_stat = _statRtn;
 		} else {
+			BeginDecoration(Item::TYPE_Emphasis);
 			continueFlag = true;
 			_stat = STAT_Emphasis;
 		}
@@ -902,10 +903,10 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_Emphasis: {
 		if (ch == '*') {
-			FlushText(Item::TYPE_Emphasis, false);
+			EndDecoration();
 			_stat = _statRtn;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			FlushText(Item::TYPE_Emphasis, false);
+			EndDecoration();
 			continueFlag = true;
 			_stat = _statRtn;
 		} else {
@@ -981,6 +982,20 @@ void Document::EndListItem()
 		_pItemOwner.reset(new ItemOwner());
 	}
 	_itemStack.pop_back();
+}
+
+void Document::BeginDecoration(Item::Type type)
+{
+	Item *pItem = new Item(type, new ItemOwner());
+	_pItemOwner->push_back(pItem);
+	_pItemOwnerSaved.reset(_pItemOwner.release());
+	_pItemOwner.reset(pItem->GetItemOwner()->Reference());
+}
+
+void Document::EndDecoration()
+{
+	FlushText(Item::TYPE_Normal, false);
+	_pItemOwner.reset(_pItemOwnerSaved.release());
 }
 
 //-----------------------------------------------------------------------------

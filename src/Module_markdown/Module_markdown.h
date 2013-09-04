@@ -164,6 +164,7 @@ private:
 	String _text;
 	String _textAdd;
 	AutoPtr<ItemOwner> _pItemOwner;
+	AutoPtr<ItemOwner> _pItemOwnerSaved;
 	AutoPtr<Item> _pItemRoot;
 	ItemStack _itemStack;
 public:
@@ -182,6 +183,8 @@ private:
 	void FlushItem(Item::Type type, bool stripFlag);
 	void BeginListItem();
 	void EndListItem();
+	void BeginDecoration(Item::Type type);
+	void EndDecoration();
 	inline static bool IsEOL(char ch) { return ch == '\n'; }
 	inline static bool IsEOF(char ch) { return ch == '\0'; }
 	inline static bool IsDigit(char ch) { return '0' <= ch && ch <= '9'; }
