@@ -156,7 +156,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == '#') {
 			FlushItem(Item::TYPE_Paragraph, false);
 			_indentLevel = 1;
-			_stat = STAT_HeaderAnyHead;
+			_stat = STAT_SetextHeaderHead;
 		} else {
 			_indentLevel = 0;
 			continueFlag = true;
@@ -211,10 +211,10 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_EqualFirst: {
 		if (ch == '=') {
 			_textAdd += ch;
-			_stat = STAT_Header1;
+			_stat = STAT_AtxHeader1;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			continueFlag = true;
-			_stat = STAT_Header1;
+			_stat = STAT_AtxHeader1;
 		} else if (_indentLevel < 4) {
 			if (!_text.empty()) _text += ' ';
 			_text += _textAdd;
@@ -237,10 +237,10 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_HyphenFirst: {
 		if (ch == '-') {
 			_textAdd += ch;
-			_stat = STAT_Header2;
+			_stat = STAT_AtxHeader2;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			continueFlag = true;
-			_stat = STAT_Header2;
+			_stat = STAT_AtxHeader2;
 		} else if (ch == ' ' || ch == '\t') {
 			FlushItem(Item::TYPE_Paragraph, false);
 			continueFlag = true;
@@ -312,33 +312,33 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_HeaderAnyHead: {
+	case STAT_SetextHeaderHead: {
 		if (ch == '#') {
 			_indentLevel++;
 		} else if (ch == ' ' || ch == '\t') {
-			_stat = STAT_HeaderAnyPre;
+			_stat = STAT_SetextHeaderPre;
 		} else {
 			_text.clear();
 			continueFlag = true;
-			_stat = STAT_HeaderAny;
+			_stat = STAT_SetextHeader;
 		}
 		break;
 	}
-	case STAT_HeaderAnyPre: {
+	case STAT_SetextHeaderPre: {
 		if (ch == ' ' || ch == '\t') {
 			// nothing to do
 		} else {
 			_text.clear();
 			continueFlag = true;
-			_stat = STAT_HeaderAny;
+			_stat = STAT_SetextHeader;
 		}
 		break;
 	}
-	case STAT_HeaderAny: {
+	case STAT_SetextHeader: {
 		if (ch == '#') {
 			_textAdd.clear();
 			_textAdd += ch;
-			_stat = STAT_HeaderAnyPost;
+			_stat = STAT_SetextHeaderPost;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			Item::Type type =
 				(_indentLevel == 1)? Item::TYPE_Header1 :
@@ -356,20 +356,20 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_HeaderAnyPost: {
+	case STAT_SetextHeaderPost: {
 		if (ch == '#') {
 			_textAdd += ch;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			continueFlag = true;
-			_stat = STAT_HeaderAny;
+			_stat = STAT_SetextHeader;
 		} else {
 			_text += _textAdd;
 			_text += ch;
-			_stat = STAT_HeaderAny;
+			_stat = STAT_SetextHeader;
 		}
 		break;
 	}
-	case STAT_Header1: {
+	case STAT_AtxHeader1: {
 		if (ch == '=') {
 			_textAdd += ch;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
@@ -384,7 +384,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_Header2: {
+	case STAT_AtxHeader2: {
 		if (ch == '-') {
 			_textAdd += ch;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
