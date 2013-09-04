@@ -43,7 +43,7 @@ const char *Item::GetTypeName() const
 		{ TYPE_Line,			"line",		},	// container
 		{ TYPE_Link,			"link",		},	// container
 		{ TYPE_Text,			"text",		},	// text
-		{ TYPE_InlineCode,		"code",		},	// text
+		{ TYPE_Code,			"code",		},	// text
 	};
 	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].type == _type) return tbl[i].name;
@@ -838,19 +838,19 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_BackquoteFirst: {
 		if (ch == '`') {
-			_stat = STAT_InlineCodeEsc;
+			_stat = STAT_CodeEsc;
 		} else {
 			continueFlag = true;
-			_stat = STAT_InlineCode;
+			_stat = STAT_Code;
 		}
 		break;
 	}
-	case STAT_InlineCode: {
+	case STAT_Code: {
 		if (ch == '`') {
-			FlushText(Item::TYPE_InlineCode, true);
+			FlushText(Item::TYPE_Code, true);
 			_stat = _statStack.Pop();
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			FlushText(Item::TYPE_InlineCode, true);
+			FlushText(Item::TYPE_Code, true);
 			continueFlag = true;
 			_stat = _statStack.Pop();
 		} else {
@@ -858,11 +858,11 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_InlineCodeEsc: {
+	case STAT_CodeEsc: {
 		if (ch == '`') {
-			_stat = STAT_InlineCodeEsc_Backquote;
+			_stat = STAT_CodeEsc_Backquote;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			FlushText(Item::TYPE_InlineCode, true);
+			FlushText(Item::TYPE_Code, true);
 			continueFlag = true;
 			_stat = _statStack.Pop();
 		} else {
@@ -870,14 +870,14 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_InlineCodeEsc_Backquote: {
+	case STAT_CodeEsc_Backquote: {
 		if (ch == '`') {
-			FlushText(Item::TYPE_InlineCode, true);
+			FlushText(Item::TYPE_Code, true);
 			_stat = _statStack.Pop();
 		} else {
 			_text += '`';
 			continueFlag = true;
-			_stat = STAT_InlineCodeEsc;
+			_stat = STAT_CodeEsc;
 		}
 		break;
 	}

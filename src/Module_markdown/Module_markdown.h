@@ -41,7 +41,7 @@ public:
 		TYPE_Line,			// container
 		TYPE_Link,			// container
 		TYPE_Text,			// text
-		TYPE_InlineCode,	// text
+		TYPE_Code,			// text
 	};
 private:
 	int _cntRef;
@@ -173,9 +173,9 @@ private:
 		STAT_ListItem_BlockCode,
 		STAT_ListItem_BlockCode_LineTop,
 		STAT_BackquoteFirst,
-		STAT_InlineCode,
-		STAT_InlineCodeEsc,
-		STAT_InlineCodeEsc_Backquote,
+		STAT_Code,
+		STAT_CodeEsc,
+		STAT_CodeEsc_Backquote,
 		STAT_Text,
 		STAT_StarEmphasisPre,
 		STAT_StarEmphasis,
