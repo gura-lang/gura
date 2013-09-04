@@ -263,6 +263,14 @@ hoge
 - item-3
 
 -Hyphen at beginning
+
+`<code>` spans are delimited by backticks.
+
+You can include literal backticks like `` `this` ``.
+
+``test` hoge
+
+```this` ``
 '''
 
 sys.stdout.addcr(false)

@@ -451,7 +451,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == '`') {
 			FlushText(Item::TYPE_Normal, false);
 			_statRtn = _stat;
-			_stat = STAT_InlineCode;
+			_stat = STAT_BackquoteFirst;
 		} else if (ch == '*') {
 			FlushText(Item::TYPE_Normal, false);
 			_statRtn = _stat;
@@ -630,7 +630,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == '`') {
 			FlushText(Item::TYPE_Normal, false);
 			_statRtn = _stat;
-			_stat = STAT_InlineCode;
+			_stat = STAT_BackquoteFirst;
 		} else if (ch == '*') {
 			FlushText(Item::TYPE_Normal, false);
 			_statRtn = _stat;
@@ -762,7 +762,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == '`') {
 			FlushText(Item::TYPE_Normal, false);
 			_statRtn = _stat;
-			_stat = STAT_InlineCode;
+			_stat = STAT_BackquoteFirst;
 		} else if (ch == '*') {
 			FlushText(Item::TYPE_Normal, false);
 			_statRtn = _stat;
@@ -843,16 +843,48 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
+	case STAT_BackquoteFirst: {
+		if (ch == '`') {
+			_stat = STAT_InlineCodeEsc;
+		} else {
+			continueFlag = true;
+			_stat = STAT_InlineCode;
+		}
+		break;
+	}
 	case STAT_InlineCode: {
 		if (ch == '`') {
-			FlushText(Item::TYPE_InlineCode, false);
+			FlushText(Item::TYPE_InlineCode, true);
 			_stat = _statRtn;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			FlushText(Item::TYPE_InlineCode, false);
+			FlushText(Item::TYPE_InlineCode, true);
 			continueFlag = true;
 			_stat = _statRtn;
 		} else {
 			_text += ch;
+		}
+		break;
+	}
+	case STAT_InlineCodeEsc: {
+		if (ch == '`') {
+			_stat = STAT_InlineCodeEsc_Backquote;
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			FlushText(Item::TYPE_InlineCode, true);
+			continueFlag = true;
+			_stat = _statRtn;
+		} else {
+			_text += ch;
+		}
+		break;
+	}
+	case STAT_InlineCodeEsc_Backquote: {
+		if (ch == '`') {
+			FlushText(Item::TYPE_InlineCode, true);
+			_stat = _statRtn;
+		} else {
+			_text += '`';
+			_text += ch;
+			_stat = STAT_InlineCodeEsc;
 		}
 		break;
 	}

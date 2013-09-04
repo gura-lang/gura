@@ -380,3 +380,14 @@
       <normal>'item-3'
   <p>
     <normal>'-Hyphen at beginning'
+  <p>
+    <code>'<code>'
+    <normal>' spans are delimited by backticks.'
+  <p>
+    <normal>'You can include literal backticks like '
+    <code>'`this`'
+    <normal>'.'
+  <p>
+    <code>'test` hoge'
+  <p>
+    <code>'`this`'
