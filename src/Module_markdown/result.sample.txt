@@ -68,6 +68,20 @@
     <line>
       <text>'}'
   <p>
+    <text>'fsafdsasa'
+  <block>
+    <line>
+      <text>'1 is the first character in code block'
+    <line>
+      <text>'beginning of code block'
+    <line>
+      <text>'hoge hoge'
+  <p>
+    <text>'fadsfdsafdsa'
+  <block>
+    <line>
+      <text>'    four spaces ahead'
+  <p>
     <text>'paragraph'
   <block>
     <line>

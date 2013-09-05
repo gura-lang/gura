@@ -191,6 +191,10 @@ private:
 		STAT_AutoLink,
 		STAT_Escape,
 	};
+	enum {
+		INDENT_Block			= 4,
+		INDENT_BlockInListItem	= 8,
+	};
 	class StatStack : public std::vector<Stat> {
 	public:
 		inline void Push(Stat stat) { push_back(stat); }
@@ -206,7 +210,7 @@ private:
 	StatStack _statStack;
 	int _indentLevel;
 	String _text;
-	String _textAdd;
+	String _textAhead;
 	AutoPtr<ItemOwner> _pItemOwner;
 	AutoPtr<Item> _pItemRoot;
 	ItemStack _itemStack;
@@ -224,6 +228,7 @@ public:
 private:
 	bool ParseChar(Signal sig, char ch);
 	void BeginBlock(const char *textInit);
+	void BeginBlockInListItem();
 	bool CheckDecoration(char ch);
 	void FlushText(Item::Type type, bool stripFlag);
 	void FlushItem(Item::Type type, bool stripFlag);
