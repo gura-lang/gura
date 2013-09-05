@@ -480,19 +480,19 @@ Gura_ImplementMethod(binary, decode)
 	return Value(env, str.c_str());
 }
 
-// binary#escapeuri()
-Gura_DeclareMethod(binary, escapeuri)
+// binary#encodeuri()
+Gura_DeclareMethod(binary, encodeuri)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a string that converts characters into escape sequences.");
+	"Returns a string in which non-URIC characters are percent-encoded.");
 }
 
-Gura_ImplementMethod(binary, escapeuri)
+Gura_ImplementMethod(binary, encodeuri)
 {
 	Object_binary *pThis = Object_binary::GetThisObj(args);
 	const Binary &binary = pThis->GetBinary();
-	return Value(env, EscapeURI(binary.data(), binary.size()).c_str());
+	return Value(env, EncodeURI(binary.data(), binary.size()));
 }
 
 //-----------------------------------------------------------------------------
@@ -518,7 +518,7 @@ void Class_binary::Prepare(Environment &env)
 	Gura_AssignMethod(binary, reader);
 	Gura_AssignMethod(binary, writer);
 	Gura_AssignMethod(binary, decode);
-	Gura_AssignMethod(binary, escapeuri);
+	Gura_AssignMethod(binary, encodeuri);
 }
 
 bool Class_binary::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)

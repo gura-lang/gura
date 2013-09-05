@@ -34,7 +34,7 @@ scope {
 	buff.dump()
 }
 scope {
-	println([0..0xff].fold(16):*pack('16B'):*escapeuri())
+	println([0..0xff].fold(16):*pack('16B'):*encodeuri())
 }
 scope {
 	buff = binary.pack('8i', 1, 2, 3, 4, 5, 6, 7, 8)

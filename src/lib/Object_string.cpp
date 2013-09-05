@@ -703,30 +703,30 @@ Gura_ImplementMethod(string, format)
 					args.GetThis().GetString(), args.GetList(0)).c_str());
 }
 
-// string#escapeuri()
-Gura_DeclareMethod(string, escapeuri)
+// string#encodeuri()
+Gura_DeclareMethod(string, encodeuri)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a string that converts characters into escape sequences.");
+	"Returns a string in which non-URIC characters are percent-encoded.");
 }
 
-Gura_ImplementMethod(string, escapeuri)
+Gura_ImplementMethod(string, encodeuri)
 {
-	return Value(env, EscapeURI(args.GetThis().GetString()).c_str());
+	return Value(env, EncodeURI(args.GetThis().GetString()));
 }
 
-// string#unescapeuri()
-Gura_DeclareMethod(string, unescapeuri)
+// string#decodeuri()
+Gura_DeclareMethod(string, decodeuri)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a string that reverts escaped sequences into characters.");
+	"Returns a string in which percent-encoded characters are decoded.");
 }
 
-Gura_ImplementMethod(string, unescapeuri)
+Gura_ImplementMethod(string, decodeuri)
 {
-	return Value(env, UnescapeURI(args.GetThis().GetString()).c_str());
+	return Value(env, DecodeURI(args.GetThis().GetString()).c_str());
 }
 
 // string#escapehtml()
@@ -907,8 +907,8 @@ void Class_string::Prepare(Environment &env)
 	Gura_AssignMethod(string, each);
 	Gura_AssignMethod(string, eachline);
 	Gura_AssignMethod(string, format);
-	Gura_AssignMethod(string, escapeuri);
-	Gura_AssignMethod(string, unescapeuri);
+	Gura_AssignMethod(string, encodeuri);
+	Gura_AssignMethod(string, decodeuri);
 	Gura_AssignMethod(string, escapehtml);
 	Gura_AssignMethod(string, unescapehtml);
 	Gura_AssignMethod(string, print);

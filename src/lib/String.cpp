@@ -265,7 +265,7 @@ String MakeQuotedString(const char *str)
 	return strDst;
 }
 
-void EscapeURI(String &strDst, const char *str)
+void EncodeURI(String &strDst, const char *str)
 {
 	for (const char *p = str; *p != '\0'; p++) {
 		char ch = *p;
@@ -279,14 +279,14 @@ void EscapeURI(String &strDst, const char *str)
 	}
 }
 
-String EscapeURI(const char *str)
+String EncodeURI(const char *str)
 {
 	String rtn;
-	EscapeURI(rtn, str);
+	EncodeURI(rtn, str);
 	return rtn;
 }
 
-void EscapeURI(String &strDst, const char *str, size_t len)
+void EncodeURI(String &strDst, const char *str, size_t len)
 {
 	for (const char *p = str; len > 0; p++, len--) {
 		char ch = *p;
@@ -300,17 +300,17 @@ void EscapeURI(String &strDst, const char *str, size_t len)
 	}
 }
 
-String EscapeURI(const char *str, size_t len)
+String EncodeURI(const char *str, size_t len)
 {
 	String rtn;
-	EscapeURI(rtn, str, len);
+	EncodeURI(rtn, str, len);
 	return rtn;
 }
 
-void UnescapeURI(String &strDst, const char *str)
+void DecodeURI(String &strDst, const char *str)
 {
 	enum {
-		STAT_Normal, STAT_Escape,
+		STAT_Normal, STAT_Percent,
 	} stat = STAT_Normal;
 	int nNibbles = 0;
 	UChar data = 0x00;
@@ -320,11 +320,11 @@ void UnescapeURI(String &strDst, const char *str)
 			if (ch == '%') {
 				nNibbles = 0;
 				data = 0x00;
-				stat = STAT_Escape;
+				stat = STAT_Percent;
 			} else {
 				strDst += ch;
 			}
-		} else if (stat == STAT_Escape) {
+		} else if (stat == STAT_Percent) {
 			if ('0' <= ch && ch <= '9') {
 				data = (data << 4) + (ch - '0');
 			} else if ('A' <= ch && ch <= 'F') {
@@ -341,10 +341,10 @@ void UnescapeURI(String &strDst, const char *str)
 	}
 }
 
-String UnescapeURI(const char *str)
+String DecodeURI(const char *str)
 {
 	String rtn;
-	UnescapeURI(rtn, str);
+	DecodeURI(rtn, str);
 	return rtn;
 }
 

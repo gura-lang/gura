@@ -40,8 +40,8 @@ scope {
 	tester(`'abcdeh'.chop('f', 'g', 'h'))
 }
 scope {
-	println(chr(iterator(1, 1..0xff)).join().fold(16):*escapeuri())
-	println(chr(0x20..0x7e).join().fold(16):*escapeuri():*unescapeuri())
+	println(chr(iterator(1, 1..0xff)).join().fold(16):*encodeuri())
+	println(chr(0x20..0x7e).join().fold(16):*encodeuri():*decodeuri())
 }
 scope {
 	r'''

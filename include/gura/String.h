@@ -31,12 +31,12 @@ GURA_DLLDECLARE String::const_iterator NextUTF32(const String &str, String::cons
 
 GURA_DLLDECLARE String MakeQuotedString(const char *str);
 
-GURA_DLLDECLARE void EscapeURI(String &strDst, const char *str);
-GURA_DLLDECLARE String EscapeURI(const char *str);
-GURA_DLLDECLARE void EscapeURI(String &strDst, const char *str, size_t len);
-GURA_DLLDECLARE String EscapeURI(const char *str, size_t len);
-GURA_DLLDECLARE void UnescapeURI(String &strDst, const char *str);
-GURA_DLLDECLARE String UnescapeURI(const char *str);
+GURA_DLLDECLARE void EncodeURI(String &strDst, const char *str);
+GURA_DLLDECLARE String EncodeURI(const char *str);
+GURA_DLLDECLARE void EncodeURI(String &strDst, const char *str, size_t len);
+GURA_DLLDECLARE String EncodeURI(const char *str, size_t len);
+GURA_DLLDECLARE void DecodeURI(String &strDst, const char *str);
+GURA_DLLDECLARE String DecodeURI(const char *str);
 GURA_DLLDECLARE void EscapeHtml(String &strDst, const char *str, bool quoteFlag);
 GURA_DLLDECLARE String EscapeHtml(const char *str, bool quoteFlag);
 GURA_DLLDECLARE void UnescapeHtml(String &strDst, const char *str);
