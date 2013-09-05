@@ -758,19 +758,22 @@ bool Document::ParseChar(Signal sig, char ch)
 		break;
 	}
 	case STAT_Block_LineTop: {
-		if (ch == ' ' || ch == '\t') {
-			_indentLevel += (ch == ' ')? 1 : 4;
-			if (_indentLevel >= INDENT_Block) {
-				_stat = STAT_Block;
-			}
-		} else {
+		if (ch == ' ') {
+			_indentLevel += 1;
+		} else if (ch == '\t') {
+			_indentLevel += 4;
+		} else if (_indentLevel < INDENT_Block) {
 			_itemStack.pop_back();
 			continueFlag = true;
 			_stat = STAT_LineTop;
+		} else {
+			for (int i = 0; i < _indentLevel - INDENT_Block; i++) _text += ' ';
+			continueFlag = true;
+			_stat = STAT_Block;
 		}
 		break;
 	}
-	case STAT_ListItem_Block: {
+	case STAT_BlockInListItem: {
 		if (IsEOL(ch) || IsEOF(ch)) {
 			Item *pItemParent = _itemStack.back();
 			do {
@@ -785,22 +788,25 @@ bool Document::ParseChar(Signal sig, char ch)
 			} while (0);
 			_indentLevel = 0;
 			continueFlag = IsEOF(ch);
-			_stat = STAT_ListItem_Block_LineTop;
+			_stat = STAT_BlockInListItem_LineTop;
 		} else {
 			_text += ch;
 		}
 		break;
 	}
-	case STAT_ListItem_Block_LineTop: {
+	case STAT_BlockInListItem_LineTop: {
 		if (ch == ' ' || ch == '\t') {
-			_indentLevel += (ch == ' ')? 1 : 4;
-			if (_indentLevel >= INDENT_BlockInListItem) {
-				_stat = STAT_ListItem_Block;
-			}
-		} else {
+			_indentLevel += 1;
+		} else if (ch == '\t') {
+			_indentLevel += 4;
+		} else if (_indentLevel < INDENT_BlockInListItem) {
 			_itemStack.pop_back();
 			continueFlag = true;
 			_stat = _statStack.Pop();
+		} else {
+			for (int i = 0; i < _indentLevel - INDENT_BlockInListItem; i++) _text += ' ';
+			continueFlag = true;
+			_stat = STAT_BlockInListItem;
 		}
 		break;
 	}
@@ -1054,13 +1060,14 @@ void Document::BeginBlock(const char *textInit)
 void Document::BeginBlockInListItem()
 {
 	FlushItem(Item::TYPE_Paragraph, false);
+	for (int i = 0; i < _indentLevel - INDENT_BlockInListItem; i++) _text += ' ';
 	do {
 		Item *pItemParent = _itemStack.back();
 		Item *pItem = new Item(Item::TYPE_Block, new ItemOwner(), _indentLevel);
 		pItemParent->GetItemOwner()->push_back(pItem);
 		_itemStack.push_back(pItem);
 	} while (0);
-	_stat = STAT_ListItem_Block;
+	_stat = STAT_BlockInListItem;
 }
 
 bool Document::CheckDecoration(char ch)
