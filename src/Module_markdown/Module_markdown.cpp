@@ -428,25 +428,8 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == ' ' || ch == '\t') {
 			// nothing to do
 		} else {
-			Item *pItemParent = _itemStack.back();
-			if (pItemParent->GetType() == Item::TYPE_UList) {
-				while (_indentLevel < pItemParent->GetIndentLevel()) {
-					_itemStack.pop_back();
-					pItemParent = _itemStack.back();
-				}
-				if (_indentLevel > pItemParent->GetIndentLevel()) {
-					Item *pItem = new Item(Item::TYPE_UList, new ItemOwner(), _indentLevel);
-					pItemParent->GetItemOwner()->push_back(pItem);
-					_itemStack.push_back(pItem);
-				}
-			} else {
-				Item *pItem = new Item(Item::TYPE_UList, new ItemOwner(), _indentLevel);
-				pItemParent->GetItemOwner()->push_back(pItem);
-				_itemStack.push_back(pItem);
-			}
-			BeginListItem();
 			continueFlag = true;
-			_stat = STAT_UListItem;
+			BeginUListItem();
 		}
 		break;
 	}
@@ -609,17 +592,8 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == ' ' || ch == '\t') {
 			// nothing to do
 		} else {
-			Item *pItemParent = _itemStack.back();
-			if (pItemParent->GetType() == Item::TYPE_OList) {
-				// nothing to do
-			} else {
-				Item *pItem = new Item(Item::TYPE_OList, new ItemOwner(), _indentLevel);
-				pItemParent->GetItemOwner()->push_back(pItem);
-				_itemStack.push_back(pItem);
-			}
-			BeginListItem();
 			continueFlag = true;
-			_stat = STAT_OListItem;
+			BeginOListItem();
 		}
 		break;
 	}
@@ -1127,12 +1101,50 @@ void Document::FlushItem(Item::Type type, bool stripFlag)
 	}
 }
 
-void Document::BeginListItem()
+void Document::BeginUListItem()
 {
 	Item *pItemParent = _itemStack.back();
-	Item *pItem = new Item(Item::TYPE_ListItem, new ItemOwner());
-	pItemParent->GetItemOwner()->push_back(pItem);
-	_itemStack.push_back(pItem);
+	if (pItemParent->GetType() == Item::TYPE_UList) {
+		while (_indentLevel < pItemParent->GetIndentLevel()) {
+			_itemStack.pop_back();
+			pItemParent = _itemStack.back();
+		}
+		if (_indentLevel > pItemParent->GetIndentLevel()) {
+			Item *pItem = new Item(Item::TYPE_UList, new ItemOwner(), _indentLevel);
+			pItemParent->GetItemOwner()->push_back(pItem);
+			_itemStack.push_back(pItem);
+		}
+	} else {
+		Item *pItem = new Item(Item::TYPE_UList, new ItemOwner(), _indentLevel);
+		pItemParent->GetItemOwner()->push_back(pItem);
+		_itemStack.push_back(pItem);
+	}
+	do {
+		Item *pItemParent = _itemStack.back();
+		Item *pItem = new Item(Item::TYPE_ListItem, new ItemOwner());
+		pItemParent->GetItemOwner()->push_back(pItem);
+		_itemStack.push_back(pItem);
+	} while (0);
+	_stat = STAT_UListItem;
+}
+
+void Document::BeginOListItem()
+{
+	Item *pItemParent = _itemStack.back();
+	if (pItemParent->GetType() == Item::TYPE_OList) {
+		// nothing to do
+	} else {
+		Item *pItem = new Item(Item::TYPE_OList, new ItemOwner(), _indentLevel);
+		pItemParent->GetItemOwner()->push_back(pItem);
+		_itemStack.push_back(pItem);
+	}
+	do {
+		Item *pItemParent = _itemStack.back();
+		Item *pItem = new Item(Item::TYPE_ListItem, new ItemOwner());
+		pItemParent->GetItemOwner()->push_back(pItem);
+		_itemStack.push_back(pItem);
+	} while (0);
+	_stat = STAT_OListItem;
 }
 
 void Document::EndListItem()
