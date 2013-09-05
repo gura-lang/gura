@@ -376,38 +376,39 @@
     <li>
       <text>'item-2'
     <li>
-      <text>'item-3'
-  <p>
-    <em>
-      <text>'Emphasis'
-  <ul>
+      <p>
+        <text>'item-3'
+      <p>
+        <em>
+          <text>'Emphasis'
     <li>
       <text>'item-1'
     <li>
       <text>'item-2'
     <li>
-      <text>'item-3'
-  <p>
-    <strong>
-      <text>'Strong'
-  <ul>
+      <p>
+        <text>'item-3'
+      <p>
+        <strong>
+          <text>'Strong'
     <li>
       <text>'item-1'
     <li>
       <text>'item-2'
     <li>
-      <text>'item-3'
-  <p>
-    <text>'+Plus at beginning'
-  <ul>
+      <p>
+        <text>'item-3'
+      <p>
+        <text>'+Plus at beginning'
     <li>
       <text>'item-1'
     <li>
       <text>'item-2'
     <li>
-      <text>'item-3'
-  <p>
-    <text>'-Hyphen at beginning'
+      <p>
+        <text>'item-3'
+      <p>
+        <text>'-Hyphen at beginning'
   <p>
     <code>'<code>'
     <text>' spans are delimited by backticks.'
@@ -615,6 +616,64 @@
   <p>
     <a url='http://www.google.com/'>
       <text>'http://www.google.com/'
+    <a url='https://www.google.com/'>
+      <text>'https://www.google.com/'
+    <a url='ftp://www.google.com/'>
+      <text>'ftp://www.google.com/'
     <a url='abcde@bbb.ccc'>
       <text>'abcde@bbb.ccc'
     <text>'<abcde@bbb>'
+  <ul>
+    <li>
+      <p>
+        <text>'list item'
+      <block>
+        <line>
+          <text>'block under list item'
+        <line>
+          <text>'2nd line'
+        <line>
+          <text>'3rd line'
+    <li>
+      <p>
+        <text>'list item'
+      <block>
+        <line>
+          <text>'  block under list item (2 spaces ahead)'
+        <line>
+          <text>'   2nd line (3 spaces ahead)'
+        <line>
+          <text>'    3rd line (4 spaces ahead)'
+  <ul>
+    <li>
+      <text>'item -hyphen +plus '
+      <em>
+        <text>'emphasis'
+    <li>
+      <text>'item -hyphen +plus '
+      <em>
+        <text>'emphasis'
+  <ul>
+    <li>
+      <p>
+        <text>'item'
+      <p>
+        <text>'-hyphen at beginning'
+      <p>
+        <text>'-hyphen at beginning'
+      <p>
+        <text>'+plus at beginning'
+      <p>
+        <em>
+          <text>'emphasis'
+        <text>' at beginning'
+    <li>
+      <p>
+        <text>'item'
+      <block>
+        <line>
+          <text>'-hyphen at beginning in block'
+        <line>
+          <text>'+plus at beginning in block'
+        <line>
+          <text>'*star at beginning in block'

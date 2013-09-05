@@ -228,7 +228,7 @@ public:
 private:
 	bool ParseChar(Signal sig, char ch);
 	void BeginBlock(const char *textInit);
-	void BeginBlockInListItem();
+	void BeginBlockInListItem(const char *textInit);
 	bool CheckDecoration(char ch);
 	void FlushText(Item::Type type, bool stripFlag);
 	void FlushItem(Item::Type type, bool stripFlag);

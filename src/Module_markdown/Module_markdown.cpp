@@ -516,7 +516,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else {
 			continueFlag = true;
 			_statStack.Push(STAT_UListItemPost);
-			BeginBlockInListItem();
+			BeginBlockInListItem(NULL);
 		}
 		break;
 	}
@@ -561,13 +561,15 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == ' ' || ch == '\t') {
 			EndListItem();
 			_stat = STAT_UListItemPre;
-		} else {
-			EndListItem();
-			_itemStack.ClearListItem();
-			_textAhead.clear();
-			_textAhead += '-';
+		} else if (_indentLevel < INDENT_BlockInListItem) {
+ 			FlushItem(Item::TYPE_Paragraph, false);
+			_text += '-';
 			continueFlag = true;
-			_stat = STAT_HyphenFirst;
+			_stat = STAT_UListItem;
+		} else {
+			continueFlag = true;
+			_statStack.Push(STAT_UListItemPost);
+			BeginBlockInListItem("-");
 		}
 		break;
 	}
@@ -575,13 +577,15 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == ' ' || ch == '\t') {
 			EndListItem();
 			_stat = STAT_UListItemPre;
-		} else {
-			EndListItem();
-			_itemStack.ClearListItem();
-			_textAhead.clear();
-			_textAhead += '+';
+		} else if (_indentLevel < INDENT_BlockInListItem) {
+ 			FlushItem(Item::TYPE_Paragraph, false);
+			_text += '+';
 			continueFlag = true;
-			_stat = STAT_PlusFirst;
+			_stat = STAT_UListItem;
+		} else {
+			continueFlag = true;
+			_statStack.Push(STAT_UListItemPost);
+			BeginBlockInListItem("+");
 		}
 		break;
 	}
@@ -589,13 +593,15 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == ' ' || ch == '\t') {
 			EndListItem();
 			_stat = STAT_UListItemPre;
-		} else {
-			EndListItem();
-			_itemStack.ClearListItem();
-			_textAhead.clear();
-			_textAhead += '*';
+		} else if (_indentLevel < INDENT_BlockInListItem) {
+ 			FlushItem(Item::TYPE_Paragraph, false);
 			continueFlag = true;
-			_stat = STAT_StarFirst;
+			_statStack.Push(STAT_UListItem);
+			_stat = STAT_StarEmphasisPre;
+		} else {
+			continueFlag = true;
+			_statStack.Push(STAT_UListItemPost);
+			BeginBlockInListItem("*");
 		}
 		break;
 	}
@@ -678,7 +684,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else {
 			continueFlag = true;
 			_statStack.Push(STAT_OListItemPost);
-			BeginBlockInListItem();
+			BeginBlockInListItem(NULL);
 		}
 		break;
 	}
@@ -1057,10 +1063,11 @@ void Document::BeginBlock(const char *textInit)
 	_stat = STAT_Block;
 }
 
-void Document::BeginBlockInListItem()
+void Document::BeginBlockInListItem(const char *textInit)
 {
 	FlushItem(Item::TYPE_Paragraph, false);
 	for (int i = 0; i < _indentLevel - INDENT_BlockInListItem; i++) _text += ' ';
+	if (textInit != NULL) _text += textInit;
 	do {
 		Item *pItemParent = _itemStack.back();
 		Item *pItem = new Item(Item::TYPE_Block, new ItemOwner(), _indentLevel);
@@ -1226,7 +1233,9 @@ bool Document::IsLink(const char *text)
 			if (IsURIC(ch)) {
 				// nothing to do
 			} else if (ch == '\0') {
-				// nothing to do
+				if (!(head == "http" || head == "https" || head == "ftp")) {
+					return false;
+				}
 			} else {
 				return false;
 			}

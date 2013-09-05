@@ -351,8 +351,50 @@ _A\_ubar_
 __A\_ubar__
 
 <http://www.google.com/>
+<https://www.google.com/>
+<ftp://www.google.com/>
 <abcde@bbb.ccc>
 <abcde@bbb>
+
+- list item
+
+        block under list item
+        2nd line
+        3rd line
+
+- list item
+
+          block under list item (2 spaces ahead)
+           2nd line (3 spaces ahead)
+            3rd line (4 spaces ahead)
+
+
+- item
+-hyphen
++plus
+*emphasis*
+
+- item
+  -hyphen
+  +plus
+  *emphasis*
+
+
+- item
+
+  -hyphen at beginning
+
+  -hyphen at beginning
+
+  +plus at beginning
+
+  *emphasis* at beginning
+
+- item
+
+        -hyphen at beginning in block
+        +plus at beginning in block
+        *star at beginning in block
 '''
 
 sys.stdout.addcr(false)
