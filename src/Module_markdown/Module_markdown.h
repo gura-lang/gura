@@ -232,8 +232,7 @@ private:
 	bool CheckDecoration(char ch);
 	void FlushText(Item::Type type, bool stripFlag);
 	void FlushItem(Item::Type type, bool stripFlag);
-	void BeginUListItem();
-	void BeginOListItem();
+	void BeginListItem(Item::Type type);
 	void EndListItem();
 	void BeginDecoration(Item::Type type);
 	void EndDecoration();
