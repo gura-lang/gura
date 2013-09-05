@@ -158,7 +158,7 @@ Gura_DeclareFunction(fill)
 
 Gura_ImplementFunction(fill)
 {
-	Iterator *pIterator = new Iterator_Fill(args.GetValue(1), args.GetInt(0));
+	Iterator *pIterator = new Iterator_ConstantN(args.GetValue(1), args.GetInt(0));
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -331,7 +331,7 @@ Gura_ImplementClassMethod(iterator, constant)
 {
 	Iterator *pIterator = NULL;
 	if (args.IsNumber(1)) {
-		pIterator = new Iterator_Fill(args.GetValue(0), args.GetInt(1));
+		pIterator = new Iterator_ConstantN(args.GetValue(0), args.GetInt(1));
 	} else {
 		pIterator = new Iterator_Constant(args.GetValue(0));
 	}

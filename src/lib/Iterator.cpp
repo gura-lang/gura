@@ -739,12 +739,47 @@ bool Iterator_Constant::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_Constant::ToString(Signal sig) const
 {
 	String rtn = "<iterator:constant:";
-	rtn += _value.ToString(sig);
+	rtn += _value.ToString(sig, true);
 	rtn += ">";
 	return rtn;
 }
 
 void Iterator_Constant::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Iterator_ConstantN
+//-----------------------------------------------------------------------------
+Iterator *Iterator_ConstantN::Clone() const
+{
+	return new Iterator_ConstantN(*this);
+}
+
+Iterator *Iterator_ConstantN::GetSource()
+{
+	return NULL;
+}
+
+bool Iterator_ConstantN::DoNext(Environment &env, Signal sig, Value &value)
+{
+	if (_idx >= _cnt) return false;
+	if (_cnt > 0) _idx++;
+	value = _value;
+	return true;
+}
+
+String Iterator_ConstantN::ToString(Signal sig) const
+{
+	String rtn = "<iterator:constant:";
+	rtn += _value.ToString(sig, true);
+	rtn += ":";
+	rtn += NumberToString(_cnt);
+	rtn += ")>";
+	return rtn;
+}
+
+void Iterator_ConstantN::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 }
 
@@ -778,41 +813,6 @@ String Iterator_OneShot::ToString(Signal sig) const
 }
 
 void Iterator_OneShot::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
-{
-}
-
-//-----------------------------------------------------------------------------
-// Iterator_Fill
-//-----------------------------------------------------------------------------
-Iterator *Iterator_Fill::Clone() const
-{
-	return new Iterator_Fill(*this);
-}
-
-Iterator *Iterator_Fill::GetSource()
-{
-	return NULL;
-}
-
-bool Iterator_Fill::DoNext(Environment &env, Signal sig, Value &value)
-{
-	if (_idx >= _cnt) return false;
-	if (_cnt > 0) _idx++;
-	value = _value;
-	return true;
-}
-
-String Iterator_Fill::ToString(Signal sig) const
-{
-	String rtn = "<iterator:constant:";
-	rtn += _value.ToString(sig, true);
-	rtn += ":";
-	rtn += NumberToString(_cnt);
-	rtn += ")>";
-	return rtn;
-}
-
-void Iterator_Fill::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 }
 

@@ -156,12 +156,31 @@ public:
 class GURA_DLLDECLARE Iterator_Constant : public Iterator {
 private:
 	Value _value;
-	int _cnt;
-	int _idx;
 public:
 	inline Iterator_Constant(const Value &value) : Iterator(true), _value(value) {}
 	inline Iterator_Constant(const Iterator_Constant &iter) :
 										Iterator(true), _value(iter._value) {}
+	virtual Iterator *Clone() const;
+	virtual Iterator *GetSource();
+	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual String ToString(Signal sig) const;
+	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+};
+
+//-----------------------------------------------------------------------------
+// Iterator_ConstantN
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Iterator_ConstantN : public Iterator {
+private:
+	Value _value;
+	int _cnt;
+	int _idx;
+public:
+	inline Iterator_ConstantN(const Value &value, int cnt) :
+				Iterator(false), _value(value), _cnt(cnt), _idx(0) {}
+	inline Iterator_ConstantN(const Iterator_ConstantN &iter) :
+				Iterator(false), _value(iter._value), _cnt(iter._cnt),
+				_idx(iter._idx) {}
 	virtual Iterator *Clone() const;
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
@@ -181,27 +200,6 @@ public:
 				Iterator(false), _value(value), _doneFlag(false) {}
 	inline Iterator_OneShot(const Iterator_OneShot &iter) :
 				Iterator(false), _value(iter._value), _doneFlag(iter._doneFlag) {}
-	virtual Iterator *Clone() const;
-	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal sig, Value &value);
-	virtual String ToString(Signal sig) const;
-	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
-};
-
-//-----------------------------------------------------------------------------
-// Iterator_Fill
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Iterator_Fill : public Iterator {
-private:
-	Value _value;
-	int _cnt;
-	int _idx;
-public:
-	inline Iterator_Fill(const Value &value, int cnt) :
-				Iterator(false), _value(value), _cnt(cnt), _idx(0) {}
-	inline Iterator_Fill(const Iterator_Fill &iter) :
-				Iterator(false), _value(iter._value), _cnt(iter._cnt),
-				_idx(iter._idx) {}
 	virtual Iterator *Clone() const;
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
