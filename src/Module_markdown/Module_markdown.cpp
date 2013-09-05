@@ -1104,17 +1104,12 @@ void Document::FlushItem(Item::Type type, bool stripFlag)
 void Document::BeginUListItem()
 {
 	Item *pItemParent = _itemStack.back();
-	if (pItemParent->GetType() == Item::TYPE_UList) {
-		while (_indentLevel < pItemParent->GetIndentLevel()) {
-			_itemStack.pop_back();
-			pItemParent = _itemStack.back();
-		}
-		if (_indentLevel > pItemParent->GetIndentLevel()) {
-			Item *pItem = new Item(Item::TYPE_UList, new ItemOwner(), _indentLevel);
-			pItemParent->GetItemOwner()->push_back(pItem);
-			_itemStack.push_back(pItem);
-		}
-	} else {
+	while (_indentLevel < pItemParent->GetIndentLevel()) {
+		_itemStack.pop_back();
+		pItemParent = _itemStack.back();
+	}
+	if (pItemParent->GetType() == Item::TYPE_Root ||
+						_indentLevel > pItemParent->GetIndentLevel()) {
 		Item *pItem = new Item(Item::TYPE_UList, new ItemOwner(), _indentLevel);
 		pItemParent->GetItemOwner()->push_back(pItem);
 		_itemStack.push_back(pItem);
