@@ -259,8 +259,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_AtxHeader2;
 		} else if (ch == ' ' || ch == '\t') {
 			FlushItem(Item::TYPE_Paragraph, false);
-			continueFlag = true;
-			_stat = STAT_UListItemPre;
+			BeginUListItem();
 		} else if (_indentLevel < INDENT_Block) {
 			if (!_text.empty()) _text += ' ';
 			_text += _textAhead;
@@ -275,8 +274,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_PlusFirst: {
 		if (ch == ' ' || ch == '\t') {
 			FlushItem(Item::TYPE_Paragraph, false);
-			continueFlag = true;
-			_stat = STAT_UListItemPre;
+			BeginUListItem();
 		} else if (_indentLevel < INDENT_Block) {
 			if (!_text.empty()) _text += ' ';
 			_text += _textAhead;
@@ -291,8 +289,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_StarFirst: {
 		if (ch == ' ' || ch == '\t') {
 			FlushItem(Item::TYPE_Paragraph, false);
-			continueFlag = true;
-			_stat = STAT_UListItemPre;
+			BeginUListItem();
 		} else if (_indentLevel < INDENT_Block) {
 			FlushText(Item::TYPE_Text, false);
 			_statStack.Push(STAT_Text);
@@ -429,7 +426,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			// nothing to do
 		} else {
 			continueFlag = true;
-			BeginUListItem();
+			_stat = STAT_UListItem;
 		}
 		break;
 	}
@@ -506,7 +503,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_UListItemPost_Hyphen: {
 		if (ch == ' ' || ch == '\t') {
 			EndListItem();
-			_stat = STAT_UListItemPre;
+			BeginUListItem();
 		} else {
 			_text += ' ';
 			_text += '-';
@@ -518,7 +515,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_UListItemPost_Plus: {
 		if (ch == ' ' || ch == '\t') {
 			EndListItem();
-			_stat = STAT_UListItemPre;
+			BeginUListItem();
 		} else {
 			_text += ' ';
 			_text += '+';
@@ -530,7 +527,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_UListItemPost_Star: {
 		if (ch == ' ' || ch == '\t') {
 			EndListItem();
-			_stat = STAT_UListItemPre;
+			BeginUListItem();
 		} else {
 			_text += ' ';
 			FlushText(Item::TYPE_Text, false);
@@ -543,7 +540,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_UListItemPost_EOL_Hyphen: {
 		if (ch == ' ' || ch == '\t') {
 			EndListItem();
-			_stat = STAT_UListItemPre;
+			BeginUListItem();
 		} else if (_indentLevel < INDENT_BlockInListItem) {
  			FlushItem(Item::TYPE_Paragraph, false);
 			_text += '-';
@@ -559,7 +556,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_UListItemPost_EOL_Plus: {
 		if (ch == ' ' || ch == '\t') {
 			EndListItem();
-			_stat = STAT_UListItemPre;
+			BeginUListItem();
 		} else if (_indentLevel < INDENT_BlockInListItem) {
  			FlushItem(Item::TYPE_Paragraph, false);
 			_text += '+';
@@ -575,7 +572,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_UListItemPost_EOL_Star: {
 		if (ch == ' ' || ch == '\t') {
 			EndListItem();
-			_stat = STAT_UListItemPre;
+			BeginUListItem();
 		} else if (_indentLevel < INDENT_BlockInListItem) {
  			FlushItem(Item::TYPE_Paragraph, false);
 			continueFlag = true;
@@ -1120,7 +1117,7 @@ void Document::BeginUListItem()
 		pItemParent->GetItemOwner()->push_back(pItem);
 		_itemStack.push_back(pItem);
 	} while (0);
-	_stat = STAT_UListItem;
+	_stat = STAT_UListItemPre;
 }
 
 void Document::BeginOListItem()
