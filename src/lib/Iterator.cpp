@@ -804,12 +804,10 @@ bool Iterator_Fill::DoNext(Environment &env, Signal sig, Value &value)
 
 String Iterator_Fill::ToString(Signal sig) const
 {
-	String rtn = "<iterator:fill(";
+	String rtn = "<iterator:constant:";
+	rtn += _value.ToString(sig, true);
+	rtn += ":";
 	rtn += NumberToString(_cnt);
-	if (_value.IsValid()) {
-		rtn += ", ";
-		rtn += _value.ToString(sig, true);
-	}
 	rtn += ")>";
 	return rtn;
 }

@@ -156,6 +156,8 @@ public:
 class GURA_DLLDECLARE Iterator_Constant : public Iterator {
 private:
 	Value _value;
+	int _cnt;
+	int _idx;
 public:
 	inline Iterator_Constant(const Value &value) : Iterator(true), _value(value) {}
 	inline Iterator_Constant(const Iterator_Constant &iter) :
@@ -191,14 +193,14 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Iterator_Fill : public Iterator {
 private:
-	int _cnt;
 	Value _value;
+	int _cnt;
 	int _idx;
 public:
-	inline Iterator_Fill(int cnt, const Value &value) :
-				Iterator(false), _cnt(cnt), _value(value), _idx(0) {}
+	inline Iterator_Fill(const Value &value, int cnt) :
+				Iterator(false), _value(value), _cnt(cnt), _idx(0) {}
 	inline Iterator_Fill(const Iterator_Fill &iter) :
-				Iterator(false), _cnt(iter._cnt), _value(iter._value),
+				Iterator(false), _value(iter._value), _cnt(iter._cnt),
 				_idx(iter._idx) {}
 	virtual Iterator *Clone() const;
 	virtual Iterator *GetSource();

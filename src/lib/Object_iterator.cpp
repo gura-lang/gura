@@ -158,7 +158,7 @@ Gura_DeclareFunction(fill)
 
 Gura_ImplementFunction(fill)
 {
-	Iterator *pIterator = new Iterator_Fill(args.GetInt(0), args.GetValue(1));
+	Iterator *pIterator = new Iterator_Fill(args.GetValue(1), args.GetInt(0));
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -315,6 +315,26 @@ Gura_ImplementMethod(iterator, delay)
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	Iterator *pIterator =
 		new Iterator_Delay(pThis->GetIterator()->Clone(), args.GetNumber(0));
+	return ReturnIterator(env, sig, args, pIterator);
+}
+
+// iterator.constant(value, n?:number) {block?}
+Gura_DeclareClassMethod(iterator, constant)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "value", VTYPE_any);
+	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(iterator, constant)
+{
+	Iterator *pIterator = NULL;
+	if (args.IsNumber(1)) {
+		pIterator = new Iterator_Fill(args.GetValue(0), args.GetInt(1));
+	} else {
+		pIterator = new Iterator_Constant(args.GetValue(0));
+	}
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -1140,6 +1160,7 @@ void Class_iterator::Prepare(Environment &env)
 	Gura_AssignFunction(zipv);
 	Gura_AssignFunction(fill);
 	Gura_AssignFunction(rands);
+	Gura_AssignMethod(iterator, constant);
 	Gura_AssignMethod(iterator, isinfinite);
 	Gura_AssignMethod(iterator, next);
 	Gura_AssignMethod(iterator, print);
