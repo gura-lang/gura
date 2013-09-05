@@ -1,0 +1,26 @@
+#!/usr/bin/env gura
+import(mswin)
+
+mswin.ole('Word.Application') {|app|
+	app.Visible = 1
+	app.Documents.Add(Template => 'Normal', NewTemplate => false, DocumentType => 0)
+	repeat (100) {
+		app.Selection.TypeText(Text => 'hello world')
+		app.Selection.TypeParagraph()
+	}
+	app.ActiveDocument.SaveAs(
+		FileName				=> path.absname("b.docx")
+		FileFormat				=> app.wdFormatXMLDocument
+		LockComments			=> false
+		Password				=> ""
+		AddToRecentFiles		=> true
+		WritePassword			=> ""
+		ReadOnlyRecommended		=> false
+		EmbedTrueTypeFonts		=> false
+		SaveNativePictureFormat	=> false
+		SaveFormsData			=> false
+		SaveAsAOCELetter		=> false
+	)
+	//app.ActiveDocument.Close()
+	//app.Quit()
+}
