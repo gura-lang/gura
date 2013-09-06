@@ -38,7 +38,7 @@ scope {
 }
 scope {
 	calOfMonth(year:number, month:number) = {
-		days = [fill(time.weekday(year, month, 1), '  '),
+		days = [consts('  ', time.weekday(year, month, 1)),
 		         (1..time.monthdays(year, month)).format('%2d')]
 		days.fold(7).align(6, []):*align(7, '  '):*join(' ')
 	}

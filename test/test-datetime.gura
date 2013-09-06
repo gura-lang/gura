@@ -77,8 +77,8 @@ scope {
 }
 scope {
 	tdOrg = time.datetime(1900, 1, 1, minsoff => 0)
-	dayOffsets1 = rands(1000, 365 * 200)
-	dayOffsets2 = rands(1000, 365 * 200)
+	dayOffsets1 = rands(365 * 200, 1000)
+	dayOffsets2 = rands(365 * 200, 1000)
 	td1 = tdOrg + time.delta(dayOffsets1)
 	td2 = tdOrg + time.delta(dayOffsets2)
 	println('operation of datetime .. ',

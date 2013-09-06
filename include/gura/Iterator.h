@@ -212,12 +212,12 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Iterator_Rand : public Iterator {
 private:
-	int _cnt;
 	int _range;
+	int _cnt;
 	int _idx;
 public:
-	inline Iterator_Rand(int cnt, int range) :
-						Iterator(false), _cnt(cnt), _range(range), _idx(0) {}
+	inline Iterator_Rand(int range, int cnt) :
+					Iterator(false), _range(range), _cnt(cnt), _idx(0) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;

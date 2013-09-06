@@ -309,10 +309,10 @@ scope {
 }
 scope {
 	tester(`[0..10])
-	tester(`[fill(10, 2)])
+	tester(`[consts(2, 10)])
 	tester(`[range(10)])
 	tester(`[interval(0, 1, 11)])
-	tester(`[0, 3..6, fill(3, 0), range(5), 4..0])
+	tester(`[0, 3..6, consts(0, 3), range(5), 4..0])
 }
 scope {
 	tbl = [0..255]

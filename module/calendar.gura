@@ -3,7 +3,7 @@
 calendar(year:number, weekoffset:number => 0, ncols:number => 3) = {
 	calOfMonth(year:number, month:number) = {
 		offsetFirst = (time.weekday(year, month, 1) + 7 - weekoffset) % 7
-		days = [fill(offsetFirst, '  '),
+		days = [consts('  ', offsetFirst),
 				(1..time.monthdays(year, month)).format('%2d')]
 		days.fold(7).align(6, []):*align(7, '  '):*join(' ')
 	}

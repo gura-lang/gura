@@ -157,7 +157,7 @@ scope {
 	tester(`cond((re.pattern(r'hello'):icase).match('HELLO WORLD'), 'match', 'not match'))
 }
 scope {
-	lines = format('%08d', rands(10, 100000000))
+	lines = format('%08d', rands(100000000, 10))
 	println(lines, ' ', lines:*sub(r'(\d)(\d)(\d)(\d)',
 				&{chr(ord('A') + int($m[1..4])).join()}))
 }

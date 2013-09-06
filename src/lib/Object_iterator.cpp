@@ -147,21 +147,6 @@ Gura_ImplementFunction(interval)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// fill(n:number, value?) {block?}
-Gura_DeclareFunction(fill)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "n", VTYPE_number);
-	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementFunction(fill)
-{
-	Iterator *pIterator = new Iterator_ConstantN(args.GetValue(1), args.GetInt(0));
-	return ReturnIterator(env, sig, args, pIterator);
-}
-
 // zipv(values+) {block?}
 Gura_DeclareFunction(zipv)
 {
@@ -206,20 +191,40 @@ Gura_ImplementFunction(zipv)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// rands(num?:number, range?:number) {block?}
+// consts(value, num?:number) {block?}
+Gura_DeclareFunction(consts)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "value", VTYPE_any);
+	DeclareArg(env, "num", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(consts)
+{
+	Iterator *pIterator = NULL;
+	if (args.IsNumber(1)) {
+		pIterator = new Iterator_ConstantN(args.GetValue(0), args.GetInt(1));
+	} else {
+		pIterator = new Iterator_Constant(args.GetValue(0));
+	}
+	return ReturnIterator(env, sig, args, pIterator);
+}
+
+// rands(range?:number, num?:number) {block?}
 Gura_DeclareFunction(rands)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "num", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "range", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "num", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(rands)
 {
 	Iterator *pIterator = new Iterator_Rand(
-				args.IsNumber(0)? args.GetInt(0) : -1,
-				args.IsNumber(1)? args.GetInt(1) : 0);
+				args.IsNumber(0)? args.GetInt(0) : 0,
+				args.IsNumber(1)? args.GetInt(1) : -1);
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -315,26 +320,6 @@ Gura_ImplementMethod(iterator, delay)
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	Iterator *pIterator =
 		new Iterator_Delay(pThis->GetIterator()->Clone(), args.GetNumber(0));
-	return ReturnIterator(env, sig, args, pIterator);
-}
-
-// iterator.constant(value, n?:number) {block?}
-Gura_DeclareClassMethod(iterator, constant)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "value", VTYPE_any);
-	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementClassMethod(iterator, constant)
-{
-	Iterator *pIterator = NULL;
-	if (args.IsNumber(1)) {
-		pIterator = new Iterator_ConstantN(args.GetValue(0), args.GetInt(1));
-	} else {
-		pIterator = new Iterator_Constant(args.GetValue(0));
-	}
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -1158,9 +1143,8 @@ void Class_iterator::Prepare(Environment &env)
 	Gura_AssignFunction(range);
 	Gura_AssignFunction(interval);
 	Gura_AssignFunction(zipv);
-	Gura_AssignFunction(fill);
+	Gura_AssignFunction(consts);
 	Gura_AssignFunction(rands);
-	Gura_AssignMethod(iterator, constant);
 	Gura_AssignMethod(iterator, isinfinite);
 	Gura_AssignMethod(iterator, next);
 	Gura_AssignMethod(iterator, print);

@@ -234,9 +234,9 @@ scope {
 	x = [true, false, false, true, false, true, false, false, true, true]
 	y = [true, false, false, true, false, false, false, false, true, true]
 	z = [false, false, false, true, false, false, false, true, true, false]
-	//x = choose(rands(10, 2), false, true):list
-	//y = choose(rands(10, 2), false, true):list
-	//z = choose(rands(10, 2), false, true):list
+	//x = choose(rands(2, 10), false, true):list
+	//y = choose(rands(2, 10), false, true):list
+	//z = choose(rands(2, 10), false, true):list
 	tester(`x)
 	tester(`y)
 	tester(`z)

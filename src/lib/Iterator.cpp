@@ -772,9 +772,9 @@ bool Iterator_ConstantN::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_ConstantN::ToString(Signal sig) const
 {
 	String rtn = "<iterator:constant:";
-	rtn += _value.ToString(sig, true);
-	rtn += ":";
 	rtn += NumberToString(_cnt);
+	rtn += ":";
+	rtn += _value.ToString(sig, true);
 	rtn += ")>";
 	return rtn;
 }
@@ -838,15 +838,17 @@ bool Iterator_Rand::DoNext(Environment &env, Signal sig, Value &value)
 
 String Iterator_Rand::ToString(Signal sig) const
 {
-	String rtn = "<iterator:rands(";
+	String rtn = "<iterator:rands:";
+	if (_range > 0) {
+		rtn += NumberToString(_range);
+	} else {
+		rtn += "(floating)";
+	}
+	rtn += ":";
 	if (_cnt > 0) {
 		rtn += NumberToString(_cnt);
 	} else {
 		rtn += "infinite";
-	}
-	if (_range > 0) {
-		rtn += ", ";
-		rtn += NumberToString(_range);
 	}
 	rtn += ")>";
 	return rtn;
