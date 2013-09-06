@@ -199,6 +199,10 @@ bool Document::ParseChar(Signal sig, char ch)
 			_indentLevel += 1;
 		} else if (ch == '\t') {
 			_indentLevel += 4;
+		} else if (IsDigit(ch)) {
+			_textAhead.clear();
+			_textAhead += ch;
+			_stat = STAT_Digit;
 		} else if (ch == '=') {
 			_textAhead.clear();
 			_textAhead += ch;
@@ -215,10 +219,6 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAhead.clear();
 			_textAhead += ch;
 			_stat = STAT_Star;
-		} else if (IsDigit(ch)) {
-			_textAhead.clear();
-			_textAhead += ch;
-			_stat = STAT_Digit;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			FlushItem(Item::TYPE_Paragraph, false);
 			_stat = STAT_LineTop;
@@ -229,6 +229,37 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else {
 			continueFlag = true;
 			BeginBlock(NULL);
+		}
+		break;
+	}
+	case STAT_Digit: {
+		if (IsDigit(ch)) {
+			_textAhead += ch;
+		} else if (ch == '.') {
+			_textAhead += ch;
+			_stat = STAT_DigitDot;
+		} else if (_indentLevel < INDENT_Block) {
+			if (!_text.empty()) _text += ' ';
+			_text += _textAhead;
+			continueFlag = true;
+			_stat = STAT_Text;
+		} else {
+			continueFlag = true;
+			BeginBlock(_textAhead.c_str());
+		}
+		break;
+	}
+	case STAT_DigitDot: {
+		if (ch == ' ' || ch == '\t') {
+			BeginListItem(Item::TYPE_OList);
+		} else if (_indentLevel < INDENT_Block) {
+			if (!_text.empty()) _text += ' ';
+			_text += _textAhead;
+			continueFlag = true;
+			_stat = STAT_Text;
+		} else {
+			continueFlag = true;
+			BeginBlock(_textAhead.c_str());
 		}
 		break;
 	}
@@ -387,37 +418,6 @@ bool Document::ParseChar(Signal sig, char ch)
 			_text += _textAhead;
 			continueFlag = true;
 			_stat = STAT_Text;
-		}
-		break;
-	}
-	case STAT_Digit: {
-		if (IsDigit(ch)) {
-			_textAhead += ch;
-		} else if (ch == '.') {
-			_textAhead += ch;
-			_stat = STAT_DigitDot;
-		} else if (_indentLevel < INDENT_Block) {
-			if (!_text.empty()) _text += ' ';
-			_text += _textAhead;
-			continueFlag = true;
-			_stat = STAT_Text;
-		} else {
-			continueFlag = true;
-			BeginBlock(_textAhead.c_str());
-		}
-		break;
-	}
-	case STAT_DigitDot: {
-		if (ch == ' ' || ch == '\t') {
-			BeginListItem(Item::TYPE_OList);
-		} else if (_indentLevel < INDENT_Block) {
-			if (!_text.empty()) _text += ' ';
-			_text += _textAhead;
-			continueFlag = true;
-			_stat = STAT_Text;
-		} else {
-			continueFlag = true;
-			BeginBlock(_textAhead.c_str());
 		}
 		break;
 	}

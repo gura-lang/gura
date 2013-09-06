@@ -481,17 +481,18 @@
         <text>'emphasis again'
   <ol>
     <li>
-      <em>
-        <text>'emphasis in ol item'
-      <text>' '
-      <em>
-        <text>'emphasis again'
-      <text>' '
-      <em>
-        <text>'emphasis again'
-  <p>
-    <strong>
-      <text>'strong in paragraph'
+      <p>
+        <em>
+          <text>'emphasis in ol item'
+        <text>' '
+        <em>
+          <text>'emphasis again'
+        <text>' '
+        <em>
+          <text>'emphasis again'
+      <p>
+        <strong>
+          <text>'strong in paragraph'
   <ul>
     <li>
       <strong>
@@ -677,3 +678,22 @@
           <text>'+plus at beginning in block'
         <line>
           <text>'*star at beginning in block'
+    <li>
+      <text>'Abacus'
+      <ul>
+        <li>
+          <text>'answer'
+    <li>
+      <text>'Bubbles'
+      <ol>
+        <li>
+          <text>'bunk'
+        <li>
+          <text>'bupkis'
+          <ul>
+            <li>
+              <text>'BELITTLER'
+        <li>
+          <text>'burper'
+    <li>
+      <text>'Cunning'

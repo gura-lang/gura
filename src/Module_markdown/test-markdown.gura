@@ -395,6 +395,15 @@ __A\_ubar__
         -hyphen at beginning in block
         +plus at beginning in block
         *star at beginning in block
+
+*   Abacus
+    * answer
+*   Bubbles
+    1.  bunk
+    2.  bupkis
+        * BELITTLER
+    3. burper
+*   Cunning
 '''
 
 sys.stdout.addcr(false)

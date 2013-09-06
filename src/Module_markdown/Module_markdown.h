@@ -141,6 +141,8 @@ private:
 	enum Stat {
 		STAT_LineTop,
 		STAT_LineHead,
+		STAT_Digit,
+		STAT_DigitDot,
 		STAT_Equal,
 		STAT_Hyphen,
 		STAT_Plus,
@@ -151,8 +153,6 @@ private:
 		STAT_SetextHeaderPost,
 		STAT_AtxHeader1,
 		STAT_AtxHeader2,
-		STAT_Digit,
-		STAT_DigitDot,
 		STAT_ListItemPre,
 		STAT_ListItem,
 		STAT_ListItemPost,
