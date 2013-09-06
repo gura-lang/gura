@@ -202,19 +202,19 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '=') {
 			_textAhead.clear();
 			_textAhead += ch;
-			_stat = STAT_EqualFirst;
+			_stat = STAT_Equal;
 		} else if (ch == '-') {
 			_textAhead.clear();
 			_textAhead += ch;
-			_stat = STAT_HyphenFirst;
+			_stat = STAT_Hyphen;
 		} else if (ch == '+') {
 			_textAhead.clear();
 			_textAhead += ch;
-			_stat = STAT_PlusFirst;
+			_stat = STAT_Plus;
 		} else if (ch == '*') {
 			_textAhead.clear();
 			_textAhead += ch;
-			_stat = STAT_StarFirst;
+			_stat = STAT_Star;
 		} else if (IsDigit(ch)) {
 			_textAhead.clear();
 			_textAhead += ch;
@@ -232,7 +232,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_EqualFirst: {
+	case STAT_Equal: {
 		if (ch == '=') {
 			_textAhead += ch;
 			_stat = STAT_AtxHeader1;
@@ -250,7 +250,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_HyphenFirst: {
+	case STAT_Hyphen: {
 		if (ch == '-') {
 			_textAhead += ch;
 			_stat = STAT_AtxHeader2;
@@ -271,7 +271,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_PlusFirst: {
+	case STAT_Plus: {
 		if (ch == ' ' || ch == '\t') {
 			FlushItem(Item::TYPE_Paragraph, false);
 			BeginListItem(Item::TYPE_UList);
@@ -286,7 +286,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_StarFirst: {
+	case STAT_Star: {
 		if (ch == ' ' || ch == '\t') {
 			FlushItem(Item::TYPE_Paragraph, false);
 			BeginListItem(Item::TYPE_UList);
@@ -723,7 +723,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_BackquoteFirst: {
+	case STAT_Backquote: {
 		if (ch == '`') {
 			_stat = STAT_CodeEsc;
 		} else {
@@ -800,7 +800,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '`') {
 			FlushText(Item::TYPE_Text, false);
 			_statStack.Push(_stat);
-			_stat = STAT_BackquoteFirst;
+			_stat = STAT_Backquote;
 		} else if (ch == '*') {
 			EndDecoration();
 			_stat = _statStack.Pop();
@@ -820,7 +820,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '`') {
 			FlushText(Item::TYPE_Text, false);
 			_statStack.Push(_stat);
-			_stat = STAT_BackquoteFirst;
+			_stat = STAT_Backquote;
 		} else if (ch == '*') {
 			_stat = STAT_StarStrongEnd;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
@@ -870,7 +870,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '`') {
 			FlushText(Item::TYPE_Text, false);
 			_statStack.Push(_stat);
-			_stat = STAT_BackquoteFirst;
+			_stat = STAT_Backquote;
 		} else if (ch == '_') {
 			EndDecoration();
 			_stat = _statStack.Pop();
@@ -890,7 +890,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '`') {
 			FlushText(Item::TYPE_Text, false);
 			_statStack.Push(_stat);
-			_stat = STAT_BackquoteFirst;
+			_stat = STAT_Backquote;
 		} else if (ch == '_') {
 			_stat = STAT_UBarStrongEnd;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
@@ -964,7 +964,7 @@ bool Document::CheckDecoration(char ch)
 	} else if (ch == '`') {
 		FlushText(Item::TYPE_Text, false);
 		_statStack.Push(_stat);
-		_stat = STAT_BackquoteFirst;
+		_stat = STAT_Backquote;
 		return true;
 	} else if (ch == '*') {
 		FlushText(Item::TYPE_Text, false);
