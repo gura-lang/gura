@@ -235,6 +235,7 @@ private:
 	void BeginBlockInListItem(const char *textInit, Stat statRtn);
 	void EndBlockInListItem();
 	void BeginListItem(Item::Type type);
+	void FlushListItem();
 	void EndListItem();
 	void BeginDecoration(Item::Type type);
 	void EndDecoration();

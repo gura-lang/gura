@@ -501,7 +501,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_UListItemPost_Hyphen: {
 		if (ch == ' ' || ch == '\t') {
-			EndListItem();
+			//EndListItem();
 			BeginListItem(Item::TYPE_UList);
 		} else {
 			_text += ' ';
@@ -513,7 +513,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_UListItemPost_Plus: {
 		if (ch == ' ' || ch == '\t') {
-			EndListItem();
+			//EndListItem();
 			BeginListItem(Item::TYPE_UList);
 		} else {
 			_text += ' ';
@@ -525,7 +525,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_UListItemPost_Star: {
 		if (ch == ' ' || ch == '\t') {
-			EndListItem();
+			//EndListItem();
 			BeginListItem(Item::TYPE_UList);
 		} else {
 			_text += ' ';
@@ -538,7 +538,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_UListItemPost_EOL_Hyphen: {
 		if (ch == ' ' || ch == '\t') {
-			EndListItem();
+			//EndListItem();
 			BeginListItem(Item::TYPE_UList);
 		} else if (_indentLevel < INDENT_BlockInListItem) {
  			FlushItem(Item::TYPE_Paragraph, false);
@@ -553,7 +553,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_UListItemPost_EOL_Plus: {
 		if (ch == ' ' || ch == '\t') {
-			EndListItem();
+			//EndListItem();
 			BeginListItem(Item::TYPE_UList);
 		} else if (_indentLevel < INDENT_BlockInListItem) {
  			FlushItem(Item::TYPE_Paragraph, false);
@@ -568,7 +568,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_UListItemPost_EOL_Star: {
 		if (ch == ' ' || ch == '\t') {
-			EndListItem();
+			//EndListItem();
 			BeginListItem(Item::TYPE_UList);
 		} else if (_indentLevel < INDENT_BlockInListItem) {
  			FlushItem(Item::TYPE_Paragraph, false);
@@ -1108,8 +1108,20 @@ void Document::BeginListItem(Item::Type type)
 {
 	Item *pItemParent = _itemStack.back();
 	while (_indentLevel < pItemParent->GetIndentLevel()) {
-		_itemStack.pop_back();
+		if (pItemParent->GetType() == Item::TYPE_ListItem) {
+			EndListItem();
+		} else {
+			_itemStack.pop_back();
+		}
 		pItemParent = _itemStack.back();
+	}
+	if (pItemParent->GetType() == Item::TYPE_ListItem) {
+		if (_indentLevel == pItemParent->GetIndentLevel()) {
+			EndListItem();
+			pItemParent = _itemStack.back();
+		} else {
+			FlushListItem();
+		}
 	}
 	if (pItemParent->GetType() == Item::TYPE_Root ||
 						_indentLevel > pItemParent->GetIndentLevel()) {
@@ -1120,13 +1132,14 @@ void Document::BeginListItem(Item::Type type)
 	do {
 		Item *pItemParent = _itemStack.back();
 		Item *pItem = new Item(Item::TYPE_ListItem, new ItemOwner());
+		pItem->SetIndentLevel(_indentLevel);
 		pItemParent->GetItemOwner()->push_back(pItem);
 		_itemStack.push_back(pItem);
 	} while (0);
 	_stat = (type == Item::TYPE_UList)? STAT_UListItemPre : STAT_OListItemPre;
 }
 
-void Document::EndListItem()
+void Document::FlushListItem()
 {
 	Item *pItemParent = _itemStack.back();
 	FlushText(Item::TYPE_Text, false);
@@ -1138,6 +1151,11 @@ void Document::EndListItem()
 		pItemParent->GetItemOwner()->push_back(pItem);
 		_pItemOwner.reset(new ItemOwner());
 	}
+}
+
+void Document::EndListItem()
+{
+	FlushListItem();
 	_itemStack.pop_back();
 }
 
