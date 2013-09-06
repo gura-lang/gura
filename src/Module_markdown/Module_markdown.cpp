@@ -465,7 +465,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_ListItemPost_Star;
 		} else if (IsEOL(ch)) {
 			_indentLevel = 0;
-			_stat = STAT_ListItemPost_EOL;
+			_stat = STAT_ListItemPostNL;
 		} else if (IsEOF(ch)) {
 			EndListItem();
 			_itemStack.ClearListItem();
@@ -537,7 +537,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_ListItemPost_EOL: {
+	case STAT_ListItemPostNL: {
 		if (ch == ' ') {
 			_indentLevel += 1;
 		} else if (ch == '\t') {
@@ -545,19 +545,19 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (IsDigit(ch)) {
 			_textAhead.clear();
 			_textAhead += ch;
-			_stat = STAT_ListItemPost_EOL_Digit;
+			_stat = STAT_ListItemPostNL_Digit;
 		} else if (ch == '-') {
 			_textAhead.clear();
 			_textAhead += ch;
-			_stat = STAT_ListItemPost_EOL_Hyphen;
+			_stat = STAT_ListItemPostNL_Hyphen;
 		} else if (ch == '+') {
 			_textAhead.clear();
 			_textAhead += ch;
-			_stat = STAT_ListItemPost_EOL_Plus;
+			_stat = STAT_ListItemPostNL_Plus;
 		} else if (ch == '*') {
 			_textAhead.clear();
 			_textAhead += ch;
-			_stat = STAT_ListItemPost_EOL_Star;
+			_stat = STAT_ListItemPostNL_Star;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			EndListItem();
 			_itemStack.ClearListItem();
@@ -578,7 +578,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_ListItemPost_EOL_Digit: {
+	case STAT_ListItemPostNL_Digit: {
 		if (IsDigit(ch)) {
 			_textAhead += ch;
 		} else if (ch == '.') {
@@ -595,7 +595,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_ListItemPost_EOL_DigitDot: {
+	case STAT_ListItemPostNL_DigitDot: {
 		if (ch == ' ' || ch == '\t') {
 			BeginListItem(Item::TYPE_OList);
 		} else if (_indentLevel < INDENT_BlockInListItem) {
@@ -609,7 +609,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_ListItemPost_EOL_Hyphen: {
+	case STAT_ListItemPostNL_Hyphen: {
 		if (ch == ' ' || ch == '\t') {
 			BeginListItem(Item::TYPE_UList);
 		} else if (_indentLevel < INDENT_BlockInListItem) {
@@ -623,7 +623,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_ListItemPost_EOL_Plus: {
+	case STAT_ListItemPostNL_Plus: {
 		if (ch == ' ' || ch == '\t') {
 			BeginListItem(Item::TYPE_UList);
 		} else if (_indentLevel < INDENT_BlockInListItem) {
@@ -637,7 +637,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_ListItemPost_EOL_Star: {
+	case STAT_ListItemPostNL_Star: {
 		if (ch == ' ' || ch == '\t') {
 			BeginListItem(Item::TYPE_UList);
 		} else if (_indentLevel < INDENT_BlockInListItem) {
