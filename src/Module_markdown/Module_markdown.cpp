@@ -447,6 +447,10 @@ bool Document::ParseChar(Signal sig, char ch)
 			_indentLevel += 1;
 		} else if (ch == '\t') {
 			_indentLevel += 4;
+		} else if (IsDigit(ch)) {
+			_textAhead.clear();
+			_textAhead += ch;
+			_stat = STAT_UListItemPost_Digit;
 		} else if (ch == '-') {
 			_textAhead.clear();
 			_textAhead += ch;
@@ -457,10 +461,6 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_UListItemPost_Plus;
 		} else if (ch == '*') {
 			_stat = STAT_UListItemPost_Star;
-		} else if (IsDigit(ch)) {
-			_textAhead.clear();
-			_textAhead += ch;
-			_stat = STAT_UListItemPost_Digit;
 		} else if (IsEOL(ch)) {
 			_indentLevel = 0;
 			_stat = STAT_UListItemPost_EOL;
@@ -476,44 +476,28 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_UListItemPost_EOL: {
-		if (ch == ' ') {
-			_indentLevel += 1;
-		} else if (ch == '\t') {
-			_indentLevel += 4;
-		} else if (ch == '-') {
-			_textAhead.clear();
+	case STAT_UListItemPost_Digit: {
+		if (IsDigit(ch)) {
 			_textAhead += ch;
-			_stat = STAT_UListItemPost_EOL_Hyphen;
-		} else if (ch == '+') {
-			_textAhead.clear();
+		} else if (ch == '.') {
 			_textAhead += ch;
-			_stat = STAT_UListItemPost_EOL_Plus;
-		} else if (ch == '*') {
-			_textAhead.clear();
-			_textAhead += ch;
-			_stat = STAT_UListItemPost_EOL_Star;
-		} else if (IsDigit(ch)) {
-			_textAhead.clear();
-			_textAhead += ch;
-			_stat = STAT_UListItemPost_EOL_Digit;
-		} else if (IsEOL(ch) || IsEOF(ch)) {
-			EndListItem();
-			_itemStack.ClearListItem();
-			continueFlag = IsEOF(ch);
-			_stat = STAT_LineTop;
-		} else if (_indentLevel == 0) {
-			EndListItem();
-			_itemStack.ClearListItem();
-			continueFlag = true;
-			_stat = STAT_LineTop;
-		} else if (_indentLevel < INDENT_BlockInListItem) {
- 			FlushItem(Item::TYPE_Paragraph, false);
+			_stat = STAT_UListItemPost_DigitDot;
+		} else {
+			_text += ' ';
+			_text += _textAhead;
 			continueFlag = true;
 			_stat = STAT_UListItem;
+		}
+		break;
+	}
+	case STAT_UListItemPost_DigitDot: {
+		if (ch == ' ' || ch == '\t') {
+			BeginListItem(Item::TYPE_OList);
 		} else {
+			_text += ' ';
+			_text += _textAhead;
 			continueFlag = true;
-			BeginBlockInListItem(NULL, STAT_UListItemPost);
+			_stat = STAT_UListItem;
 		}
 		break;
 	}
@@ -551,28 +535,75 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_UListItemPost_Digit: {
+	case STAT_UListItemPost_EOL: {
+		if (ch == ' ') {
+			_indentLevel += 1;
+		} else if (ch == '\t') {
+			_indentLevel += 4;
+		} else if (IsDigit(ch)) {
+			_textAhead.clear();
+			_textAhead += ch;
+			_stat = STAT_UListItemPost_EOL_Digit;
+		} else if (ch == '-') {
+			_textAhead.clear();
+			_textAhead += ch;
+			_stat = STAT_UListItemPost_EOL_Hyphen;
+		} else if (ch == '+') {
+			_textAhead.clear();
+			_textAhead += ch;
+			_stat = STAT_UListItemPost_EOL_Plus;
+		} else if (ch == '*') {
+			_textAhead.clear();
+			_textAhead += ch;
+			_stat = STAT_UListItemPost_EOL_Star;
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			EndListItem();
+			_itemStack.ClearListItem();
+			continueFlag = IsEOF(ch);
+			_stat = STAT_LineTop;
+		} else if (_indentLevel == 0) {
+			EndListItem();
+			_itemStack.ClearListItem();
+			continueFlag = true;
+			_stat = STAT_LineTop;
+		} else if (_indentLevel < INDENT_BlockInListItem) {
+ 			FlushItem(Item::TYPE_Paragraph, false);
+			continueFlag = true;
+			_stat = STAT_UListItem;
+		} else {
+			continueFlag = true;
+			BeginBlockInListItem(NULL, STAT_UListItemPost);
+		}
+		break;
+	}
+	case STAT_UListItemPost_EOL_Digit: {
 		if (IsDigit(ch)) {
 			_textAhead += ch;
 		} else if (ch == '.') {
 			_textAhead += ch;
 			_stat = STAT_UListItemPost_DigitDot;
-		} else {
+		} else if (_indentLevel < INDENT_BlockInListItem) {
 			_text += ' ';
 			_text += _textAhead;
 			continueFlag = true;
 			_stat = STAT_UListItem;
+		} else {
+			continueFlag = true;
+			BeginBlockInListItem(_textAhead.c_str(), STAT_UListItemPost);
 		}
 		break;
 	}
-	case STAT_UListItemPost_DigitDot: {
+	case STAT_UListItemPost_EOL_DigitDot: {
 		if (ch == ' ' || ch == '\t') {
 			BeginListItem(Item::TYPE_OList);
-		} else {
-			_text += ' ';
+		} else if (_indentLevel < INDENT_BlockInListItem) {
+ 			FlushItem(Item::TYPE_Paragraph, false);
 			_text += _textAhead;
 			continueFlag = true;
 			_stat = STAT_UListItem;
+		} else {
+			continueFlag = true;
+			BeginBlockInListItem(_textAhead.c_str(), STAT_UListItemPost);
 		}
 		break;
 	}
@@ -612,37 +643,6 @@ bool Document::ParseChar(Signal sig, char ch)
 			continueFlag = true;
 			_statStack.Push(STAT_UListItem);
 			_stat = STAT_StarEmphasisPre;
-		} else {
-			continueFlag = true;
-			BeginBlockInListItem(_textAhead.c_str(), STAT_UListItemPost);
-		}
-		break;
-	}
-	case STAT_UListItemPost_EOL_Digit: {
-		if (IsDigit(ch)) {
-			_textAhead += ch;
-		} else if (ch == '.') {
-			_textAhead += ch;
-			_stat = STAT_UListItemPost_DigitDot;
-		} else if (_indentLevel < INDENT_BlockInListItem) {
-			_text += ' ';
-			_text += _textAhead;
-			continueFlag = true;
-			_stat = STAT_UListItem;
-		} else {
-			continueFlag = true;
-			BeginBlockInListItem(_textAhead.c_str(), STAT_UListItemPost);
-		}
-		break;
-	}
-	case STAT_UListItemPost_EOL_DigitDot: {
-		if (ch == ' ' || ch == '\t') {
-			BeginListItem(Item::TYPE_OList);
-		} else if (_indentLevel < INDENT_BlockInListItem) {
- 			FlushItem(Item::TYPE_Paragraph, false);
-			_text += _textAhead;
-			continueFlag = true;
-			_stat = STAT_UListItem;
 		} else {
 			continueFlag = true;
 			BeginBlockInListItem(_textAhead.c_str(), STAT_UListItemPost);
@@ -693,6 +693,32 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
+	case STAT_OListItemPost_Digit: {
+		if (IsDigit(ch)) {
+			_textAhead += ch;
+		} else if (ch == '.') {
+			EndListItem();
+			_textAhead += ch;
+			_stat = STAT_OListItemPost_DigitDot;
+		} else {
+			continueFlag = true;
+			_text += ' ';
+			_text += _textAhead;
+			_stat = STAT_OListItem;
+		}
+		break;
+	}
+	case STAT_OListItemPost_DigitDot: {
+		if (ch == ' ' || ch == '\t') {
+			BeginListItem(Item::TYPE_OList);
+		} else {
+			continueFlag = true;
+			_text += ' ';
+			_text += _textAhead;
+			_stat = STAT_OListItem;
+		}
+		break;
+	}
 	case STAT_OListItemPost_EOL: {
 		if (ch == ' ') {
 			_indentLevel += 1;
@@ -719,32 +745,6 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else {
 			continueFlag = true;
 			BeginBlockInListItem(NULL, STAT_OListItemPost);
-		}
-		break;
-	}
-	case STAT_OListItemPost_Digit: {
-		if (IsDigit(ch)) {
-			_textAhead += ch;
-		} else if (ch == '.') {
-			EndListItem();
-			_textAhead += ch;
-			_stat = STAT_OListItemPost_DigitDot;
-		} else {
-			continueFlag = true;
-			_text += ' ';
-			_text += _textAhead;
-			_stat = STAT_OListItem;
-		}
-		break;
-	}
-	case STAT_OListItemPost_DigitDot: {
-		if (ch == ' ' || ch == '\t') {
-			BeginListItem(Item::TYPE_OList);
-		} else {
-			continueFlag = true;
-			_text += ' ';
-			_text += _textAhead;
-			_stat = STAT_OListItem;
 		}
 		break;
 	}
