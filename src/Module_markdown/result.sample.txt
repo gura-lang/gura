@@ -697,3 +697,9 @@
           <text>'burper'
     <li>
       <text>'Cunning'
+  <p>
+    <em>
+      <text>'strong'
+    <text>' in paragraph'
+  <p>
+    <text>'1986. What a great season.'

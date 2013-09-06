@@ -206,7 +206,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '*') {
 			_textAhead.clear();
 			_textAhead += ch;
-			_stat = STAT_Star;
+			_stat = STAT_Asterisk;
 		} else if (ch == '+') {
 			_textAhead.clear();
 			_textAhead += ch;
@@ -250,7 +250,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_Star: {
+	case STAT_Asterisk: {
 		if (ch == ' ' || ch == '\t') {
 			FlushItem(Item::TYPE_Paragraph, false);
 			BeginListItem(Item::TYPE_UList);
@@ -258,7 +258,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			FlushText(Item::TYPE_Text, false);
 			_statStack.Push(STAT_Text);
 			continueFlag = true;
-			_stat = STAT_StarEmphasisPre;
+			_stat = STAT_AsteriskEmphasisPre;
 		} else {
 			continueFlag = true;
 			BeginBlock(_textAhead.c_str());
@@ -450,7 +450,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '*') {
 			_textAhead.clear();
 			_textAhead += ch;
-			_stat = STAT_ListItemPost_Star;
+			_stat = STAT_ListItemPost_Asterisk;
 		} else if (ch == '+') {
 			_textAhead.clear();
 			_textAhead += ch;
@@ -478,7 +478,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_ListItemPost_Star: {
+	case STAT_ListItemPost_Asterisk: {
 		if (ch == ' ' || ch == '\t') {
 			BeginListItem(Item::TYPE_UList);
 		} else {
@@ -486,7 +486,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			FlushText(Item::TYPE_Text, false);
 			_statStack.Push(STAT_ListItem);
 			continueFlag = true;
-			_stat = STAT_StarEmphasisPre;
+			_stat = STAT_AsteriskEmphasisPre;
 		}
 		break;
 	}
@@ -545,7 +545,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '*') {
 			_textAhead.clear();
 			_textAhead += ch;
-			_stat = STAT_ListItemPostNL_Star;
+			_stat = STAT_ListItemPostNL_Asterisk;
 		} else if (ch == '+') {
 			_textAhead.clear();
 			_textAhead += ch;
@@ -578,14 +578,14 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_ListItemPostNL_Star: {
+	case STAT_ListItemPostNL_Asterisk: {
 		if (ch == ' ' || ch == '\t') {
 			BeginListItem(Item::TYPE_UList);
 		} else if (_indentLevel < INDENT_BlockInListItem) {
- 			FlushItem(Item::TYPE_Paragraph, false);
+			FlushItem(Item::TYPE_Paragraph, false);
 			continueFlag = true;
 			_statStack.Push(STAT_ListItem);
-			_stat = STAT_StarEmphasisPre;
+			_stat = STAT_AsteriskEmphasisPre;
 		} else {
 			continueFlag = true;
 			BeginBlockInListItem(_textAhead.c_str());
@@ -779,21 +779,21 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_StarEmphasisPre: {
+	case STAT_AsteriskEmphasisPre: {
 		if (ch == '*') {
 			BeginDecoration(Item::TYPE_Strong);
-			_stat = STAT_StarStrong;
+			_stat = STAT_AsteriskStrong;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			continueFlag = true;
 			_stat = _statStack.Pop();
 		} else {
 			BeginDecoration(Item::TYPE_Emphasis);
 			continueFlag = true;
-			_stat = STAT_StarEmphasis;
+			_stat = STAT_AsteriskEmphasis;
 		}
 		break;
 	}
-	case STAT_StarEmphasis: {
+	case STAT_AsteriskEmphasis: {
 		if (ch == '\\') {
 			_statStack.Push(_stat);
 			_stat = STAT_Escape;
@@ -813,7 +813,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_StarStrong: {
+	case STAT_AsteriskStrong: {
 		if (ch == '\\') {
 			_statStack.Push(_stat);
 			_stat = STAT_Escape;
@@ -822,7 +822,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_statStack.Push(_stat);
 			_stat = STAT_Backquote;
 		} else if (ch == '*') {
-			_stat = STAT_StarStrongEnd;
+			_stat = STAT_AsteriskStrongEnd;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			EndDecoration();
 			continueFlag = true;
@@ -832,7 +832,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_StarStrongEnd: {
+	case STAT_AsteriskStrongEnd: {
 		if (ch == '*') {
 			EndDecoration();
 			_stat = _statStack.Pop();
@@ -843,27 +843,27 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else {
 			FlushText(Item::TYPE_Text, true);
 			BeginDecoration(Item::TYPE_Emphasis);
-			_statStack.Push(STAT_StarStrong);
+			_statStack.Push(STAT_AsteriskStrong);
 			continueFlag = true;
-			_stat = STAT_StarEmphasis;
+			_stat = STAT_AsteriskEmphasis;
 		}
 		break;
 	}
-	case STAT_UBarEmphasisPre: {
+	case STAT_UnderscoreEmphasisPre: {
 		if (ch == '_') {
 			BeginDecoration(Item::TYPE_Strong);
-			_stat = STAT_UBarStrong;
+			_stat = STAT_UnderscoreStrong;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			continueFlag = true;
 			_stat = _statStack.Pop();
 		} else {
 			BeginDecoration(Item::TYPE_Emphasis);
 			continueFlag = true;
-			_stat = STAT_UBarEmphasis;
+			_stat = STAT_UnderscoreEmphasis;
 		}
 		break;
 	}
-	case STAT_UBarEmphasis: {
+	case STAT_UnderscoreEmphasis: {
 		if (ch == '\\') {
 			_statStack.Push(_stat);
 			_stat = STAT_Escape;
@@ -883,7 +883,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_UBarStrong: {
+	case STAT_UnderscoreStrong: {
 		if (ch == '\\') {
 			_statStack.Push(_stat);
 			_stat = STAT_Escape;
@@ -892,7 +892,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_statStack.Push(_stat);
 			_stat = STAT_Backquote;
 		} else if (ch == '_') {
-			_stat = STAT_UBarStrongEnd;
+			_stat = STAT_UnderscoreStrongEnd;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			EndDecoration();
 			continueFlag = true;
@@ -902,7 +902,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_UBarStrongEnd: {
+	case STAT_UnderscoreStrongEnd: {
 		if (ch == '_') {
 			EndDecoration();
 			_stat = _statStack.Pop();
@@ -913,9 +913,9 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else {
 			FlushText(Item::TYPE_Text, true);
 			BeginDecoration(Item::TYPE_Emphasis);
-			_statStack.Push(STAT_UBarStrong);
+			_statStack.Push(STAT_UnderscoreStrong);
 			continueFlag = true;
-			_stat = STAT_UBarEmphasis;
+			_stat = STAT_UnderscoreEmphasis;
 		}
 		break;
 	}
@@ -969,12 +969,12 @@ bool Document::CheckDecoration(char ch)
 	} else if (ch == '*') {
 		FlushText(Item::TYPE_Text, false);
 		_statStack.Push(_stat);
-		_stat = STAT_StarEmphasisPre;
+		_stat = STAT_AsteriskEmphasisPre;
 		return true;
 	} else if (ch == '_') {
 		FlushText(Item::TYPE_Text, false);
 		_statStack.Push(_stat);
-		_stat = STAT_UBarEmphasisPre;
+		_stat = STAT_UnderscoreEmphasisPre;
 		return true;
 	} else if (ch == '<') {
 		_textAhead.clear();

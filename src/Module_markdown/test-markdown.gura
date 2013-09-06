@@ -404,6 +404,11 @@ __A\_ubar__
         * BELITTLER
     3. burper
 *   Cunning
+
+
+*strong* in paragraph
+
+1986\. What a great season.
 '''
 
 sys.stdout.addcr(false)
