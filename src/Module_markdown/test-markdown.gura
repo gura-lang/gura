@@ -266,13 +266,13 @@ hoge
 - item-2
 - item-3
 
-+Plus at beginning
++Plus at beginning of line
 
 - item-1
 - item-2
 - item-3
 
--Hyphen at beginning
+-Hyphen at beginning of line
 
 `<code>` spans are delimited by backticks.
 

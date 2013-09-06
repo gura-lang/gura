@@ -188,6 +188,7 @@ private:
 		STAT_Escape,
 	};
 	enum {
+		INDENT_ListItemCont		= 4,
 		INDENT_Block			= 4,
 		INDENT_BlockInListItem	= 8,
 	};
@@ -198,6 +199,12 @@ private:
 			Stat stat = back();
 			pop_back();
 			return stat;
+		}
+	};
+	class FeedList : public std::list<char> {
+	public:
+		inline void PushString(const String &text) {
+			foreach_const (String, p, text) { push_back(*p); }
 		}
 	};
 private:

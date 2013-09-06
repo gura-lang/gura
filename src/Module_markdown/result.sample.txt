@@ -376,39 +376,38 @@
     <li>
       <text>'item-2'
     <li>
-      <p>
-        <text>'item-3'
-      <p>
-        <em>
-          <text>'Emphasis'
+      <text>'item-3'
+  <p>
+    <em>
+      <text>'Emphasis'
+  <ul>
     <li>
       <text>'item-1'
     <li>
       <text>'item-2'
     <li>
-      <p>
-        <text>'item-3'
-      <p>
-        <strong>
-          <text>'Strong'
+      <text>'item-3'
+  <p>
+    <strong>
+      <text>'Strong'
+  <ul>
     <li>
       <text>'item-1'
     <li>
       <text>'item-2'
     <li>
-      <p>
-        <text>'item-3'
-      <p>
-        <text>'+Plus at beginning'
+      <text>'item-3'
+  <p>
+    <text>'+Plus at beginning of line'
+  <ul>
     <li>
       <text>'item-1'
     <li>
       <text>'item-2'
     <li>
-      <p>
-        <text>'item-3'
-      <p>
-        <text>'-Hyphen at beginning'
+      <text>'item-3'
+  <p>
+    <text>'-Hyphen at beginning of line'
   <p>
     <code>'<code>'
     <text>' spans are delimited by backticks.'
@@ -481,18 +480,17 @@
         <text>'emphasis again'
   <ol>
     <li>
-      <p>
-        <em>
-          <text>'emphasis in ol item'
-        <text>' '
-        <em>
-          <text>'emphasis again'
-        <text>' '
-        <em>
-          <text>'emphasis again'
-      <p>
-        <strong>
-          <text>'strong in paragraph'
+      <em>
+        <text>'emphasis in ol item'
+      <text>' '
+      <em>
+        <text>'emphasis again'
+      <text>' '
+      <em>
+        <text>'emphasis again'
+  <p>
+    <strong>
+      <text>'strong in paragraph'
   <ul>
     <li>
       <strong>

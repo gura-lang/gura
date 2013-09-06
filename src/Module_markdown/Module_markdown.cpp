@@ -178,7 +178,6 @@ bool Document::ParseString(Signal sig, const char *text)
 
 bool Document::ParseChar(Signal sig, char ch)
 {
-	typedef std::list<char> FeedList;
 	FeedList feedList;
 	feedList.push_back(ch);
 	for (FeedList::iterator p = feedList.begin(); p != feedList.end(); p++) {
@@ -583,6 +582,12 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_ListItemPostNL_Asterisk: {
 		if (ch == ' ' || ch == '\t') {
 			BeginListItem(Item::TYPE_UList);
+		} else if (_indentLevel == 0) {
+			EndListItem();
+			_itemStack.ClearListItem();
+			feedList.PushString(_textAhead);
+			feedList.push_back(ch);
+			_stat = STAT_LineTop;
 		} else if (_indentLevel < INDENT_BlockInListItem) {
 			FlushItem(Item::TYPE_Paragraph, false);
 			feedList.push_back(ch);
@@ -597,6 +602,12 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_ListItemPostNL_Plus: {
 		if (ch == ' ' || ch == '\t') {
 			BeginListItem(Item::TYPE_UList);
+		} else if (_indentLevel == 0) {
+			EndListItem();
+			_itemStack.ClearListItem();
+			feedList.PushString(_textAhead);
+			feedList.push_back(ch);
+			_stat = STAT_LineTop;
 		} else if (_indentLevel < INDENT_BlockInListItem) {
  			FlushItem(Item::TYPE_Paragraph, false);
 			_text += _textAhead;
@@ -611,6 +622,12 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_ListItemPostNL_Hyphen: {
 		if (ch == ' ' || ch == '\t') {
 			BeginListItem(Item::TYPE_UList);
+		} else if (_indentLevel == 0) {
+			EndListItem();
+			_itemStack.ClearListItem();
+			feedList.PushString(_textAhead);
+			feedList.push_back(ch);
+			_stat = STAT_LineTop;
 		} else if (_indentLevel < INDENT_BlockInListItem) {
  			FlushItem(Item::TYPE_Paragraph, false);
 			_text += _textAhead;
