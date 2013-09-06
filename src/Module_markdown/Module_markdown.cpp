@@ -448,8 +448,12 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '\t') {
 			_indentLevel += 4;
 		} else if (ch == '-') {
+			_textAhead.clear();
+			_textAhead += ch;
 			_stat = STAT_UListItemPost_Hyphen;
 		} else if (ch == '+') {
+			_textAhead.clear();
+			_textAhead += ch;
 			_stat = STAT_UListItemPost_Plus;
 		} else if (ch == '*') {
 			_stat = STAT_UListItemPost_Star;
@@ -474,8 +478,12 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '\t') {
 			_indentLevel += 4;
 		} else if (ch == '-') {
+			_textAhead.clear();
+			_textAhead += ch;
 			_stat = STAT_UListItemPost_EOL_Hyphen;
 		} else if (ch == '+') {
+			_textAhead.clear();
+			_textAhead += ch;
 			_stat = STAT_UListItemPost_EOL_Plus;
 		} else if (ch == '*') {
 			_stat = STAT_UListItemPost_EOL_Star;
@@ -501,11 +509,10 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_UListItemPost_Hyphen: {
 		if (ch == ' ' || ch == '\t') {
-			//EndListItem();
 			BeginListItem(Item::TYPE_UList);
 		} else {
 			_text += ' ';
-			_text += '-';
+			_text += _textAhead;
 			continueFlag = true;
 			_stat = STAT_UListItem;
 		}
@@ -513,11 +520,10 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_UListItemPost_Plus: {
 		if (ch == ' ' || ch == '\t') {
-			//EndListItem();
 			BeginListItem(Item::TYPE_UList);
 		} else {
 			_text += ' ';
-			_text += '+';
+			_text += _textAhead;
 			continueFlag = true;
 			_stat = STAT_UListItem;
 		}
@@ -525,7 +531,6 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_UListItemPost_Star: {
 		if (ch == ' ' || ch == '\t') {
-			//EndListItem();
 			BeginListItem(Item::TYPE_UList);
 		} else {
 			_text += ' ';
@@ -538,11 +543,10 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_UListItemPost_EOL_Hyphen: {
 		if (ch == ' ' || ch == '\t') {
-			//EndListItem();
 			BeginListItem(Item::TYPE_UList);
 		} else if (_indentLevel < INDENT_BlockInListItem) {
  			FlushItem(Item::TYPE_Paragraph, false);
-			_text += '-';
+			_text += _textAhead;
 			continueFlag = true;
 			_stat = STAT_UListItem;
 		} else {
@@ -553,11 +557,10 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_UListItemPost_EOL_Plus: {
 		if (ch == ' ' || ch == '\t') {
-			//EndListItem();
 			BeginListItem(Item::TYPE_UList);
 		} else if (_indentLevel < INDENT_BlockInListItem) {
  			FlushItem(Item::TYPE_Paragraph, false);
-			_text += '+';
+			_text += _textAhead;
 			continueFlag = true;
 			_stat = STAT_UListItem;
 		} else {
@@ -568,7 +571,6 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_UListItemPost_EOL_Star: {
 		if (ch == ' ' || ch == '\t') {
-			//EndListItem();
 			BeginListItem(Item::TYPE_UList);
 		} else if (_indentLevel < INDENT_BlockInListItem) {
  			FlushItem(Item::TYPE_Paragraph, false);
