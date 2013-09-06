@@ -826,7 +826,7 @@ Iterator *Iterator_Rand::GetSource()
 
 bool Iterator_Rand::DoNext(Environment &env, Signal sig, Value &value)
 {
-	if (_cnt > 0) {
+	if (_cnt >= 0) {
 		if (_idx >= _cnt) return false;
 		_idx++;
 	}
@@ -845,7 +845,7 @@ String Iterator_Rand::ToString(Signal sig) const
 		rtn += "(floating)";
 	}
 	rtn += ":";
-	if (_cnt > 0) {
+	if (_cnt >= 0) {
 		rtn += NumberToString(_cnt);
 	} else {
 		rtn += "infinite";

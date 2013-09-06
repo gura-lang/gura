@@ -217,7 +217,7 @@ private:
 	int _idx;
 public:
 	inline Iterator_Rand(int range, int cnt) :
-					Iterator(false), _range(range), _cnt(cnt), _idx(0) {}
+					Iterator(cnt < 0), _range(range), _cnt(cnt), _idx(0) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;

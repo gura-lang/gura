@@ -89,6 +89,7 @@ conio:module = <module:conio:<integrated>>
   moveto:function = moveto(x:number, y:number):map:void {block?}
   setcolor:function = setcolor(fg:symbol:nil, bg?:symbol):map:void {block?}
   waitkey:function = waitkey():[raise]
+consts:function = consts(value, num?:number) {block?}
 copy:function = copy(src:stream:r, dst:stream:w, bytesunit:number => 65536):map:void {block?}
 cross:function = cross (`expr+) {block}
 default:function = default() {block}
@@ -103,7 +104,6 @@ eval:function = eval(expr:expr):map
 except:function = except(errors*:error):leader:trailer {block}
 extern:function = extern(`syms+)
 false:boolean = false
-fill:function = fill(n:number, value?) {block?}
 finally:function = finally():trailer {block}
 for:function = for (`expr+) {block}
 format:function = format(format:string, values*):map
@@ -243,7 +243,7 @@ println:function = println(values*):map:void
 public:function = public():void {block}
 raise:function = raise(error:error, msg:string => 'error', value?)
 rand:function = rand(range?:number) {block?}
-rands:function = rands(num?:number, range?:number) {block?}
+rands:function = rands(range?:number, num?:number) {block?}
 randseed:function = randseed(seed:number)
 range:function = range(num:number, num_end?:number, step?:number):map {block?}
 readlines:function = readlines(stream?:stream:r):[chop] {block?}
