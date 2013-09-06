@@ -147,33 +147,33 @@
       <text>'item 3 '
       <em>
         <text>'strong'
-    <ul>
-      <li>
-        <text>'item 3-1 '
-        <em>
-          <text>'strong'
-      <li>
-        <text>'item 3-2 '
-        <em>
-          <text>'strong'
-        <text>' '
-        <code>'code'
-      <li>
-        <text>'item 3-3'
       <ul>
         <li>
-          <text>'item 3-3-1'
+          <text>'item 3-1 '
+          <em>
+            <text>'strong'
         <li>
-          <text>'item 3-3-2'
+          <text>'item 3-2 '
+          <em>
+            <text>'strong'
+          <text>' '
+          <code>'code'
+        <li>
+          <text>'item 3-3'
+          <ul>
+            <li>
+              <text>'item 3-3-1'
+            <li>
+              <text>'item 3-3-2'
     <li>
       <text>'item 4'
-    <ul>
-      <li>
-        <text>'item 4-1'
-      <li>
-        <text>'item 4-2'
-      <li>
-        <text>'item 4-3'
+      <ul>
+        <li>
+          <text>'item 4-1'
+        <li>
+          <text>'item 4-2'
+        <li>
+          <text>'item 4-3'
   <h1>
     <text>'Header1'
   <h1>
