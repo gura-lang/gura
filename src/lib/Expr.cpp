@@ -1443,6 +1443,10 @@ Value Expr_Indexer::DoExec(Environment &env, Signal sig) const
 			if (pValueIdx->IsList() || pValueIdx->IsIterator()) {
 				AutoPtr<Iterator> pIteratorIdx(pValueIdx->CreateIterator(sig));
 				if (sig.IsSignalled()) break;
+				//if (pIteratorIdx->IsInfinite() && !pIteratorIdx->IsSequenceInf()) {
+				//	Iterator::SetError_InfiniteNotAllowed(sig);
+				//	return Value::Null;
+				//}
 				Value valueIdxEach;
 				while (pIteratorIdx->Next(env, sig, valueIdxEach)) {
 					Value value = objCar.IndexGet(env, sig, valueIdxEach);
