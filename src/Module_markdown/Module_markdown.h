@@ -227,11 +227,13 @@ public:
 	inline const Item *GetItemRoot() { return _pItemRoot.get(); }
 private:
 	bool ParseChar(Signal sig, char ch);
-	void BeginBlock(const char *textInit);
-	void BeginBlockInListItem(const char *textInit);
 	bool CheckDecoration(char ch);
 	void FlushText(Item::Type type, bool stripFlag);
 	void FlushItem(Item::Type type, bool stripFlag);
+	void BeginBlock(const char *textInit);
+	void EndBlock();
+	void BeginBlockInListItem(const char *textInit, Stat statRtn);
+	void EndBlockInListItem();
 	void BeginListItem(Item::Type type);
 	void EndListItem();
 	void BeginDecoration(Item::Type type);

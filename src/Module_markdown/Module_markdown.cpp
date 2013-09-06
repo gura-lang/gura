@@ -495,8 +495,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_UListItem;
 		} else {
 			continueFlag = true;
-			_statStack.Push(STAT_UListItemPost);
-			BeginBlockInListItem(NULL);
+			BeginBlockInListItem(NULL, STAT_UListItemPost);
 		}
 		break;
 	}
@@ -548,8 +547,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_UListItem;
 		} else {
 			continueFlag = true;
-			_statStack.Push(STAT_UListItemPost);
-			BeginBlockInListItem("-");
+			BeginBlockInListItem("-", STAT_UListItemPost);
 		}
 		break;
 	}
@@ -564,8 +562,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_UListItem;
 		} else {
 			continueFlag = true;
-			_statStack.Push(STAT_UListItemPost);
-			BeginBlockInListItem("+");
+			BeginBlockInListItem("+", STAT_UListItemPost);
 		}
 		break;
 	}
@@ -580,8 +577,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_StarEmphasisPre;
 		} else {
 			continueFlag = true;
-			_statStack.Push(STAT_UListItemPost);
-			BeginBlockInListItem("*");
+			BeginBlockInListItem("*", STAT_UListItemPost);
 		}
 		break;
 	}
@@ -654,8 +650,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_OListItem;
 		} else {
 			continueFlag = true;
-			_statStack.Push(STAT_OListItemPost);
-			BeginBlockInListItem(NULL);
+			BeginBlockInListItem(NULL, STAT_OListItemPost);
 		}
 		break;
 	}
@@ -740,9 +735,8 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '\t') {
 			_indentLevel += 4;
 		} else if (_indentLevel < INDENT_Block) {
-			_itemStack.pop_back();
 			continueFlag = true;
-			_stat = STAT_LineTop;
+			EndBlock();
 		} else {
 			for (int i = 0; i < _indentLevel - INDENT_Block; i++) _text += ' ';
 			continueFlag = true;
@@ -777,9 +771,8 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '\t') {
 			_indentLevel += 4;
 		} else if (_indentLevel < INDENT_BlockInListItem) {
-			_itemStack.pop_back();
 			continueFlag = true;
-			_stat = _statStack.Pop();
+			EndBlockInListItem();
 		} else {
 			for (int i = 0; i < _indentLevel - INDENT_BlockInListItem; i++) _text += ' ';
 			continueFlag = true;
@@ -1020,34 +1013,6 @@ bool Document::ParseChar(Signal sig, char ch)
 	return true;
 }
 
-void Document::BeginBlock(const char *textInit)
-{
-	FlushItem(Item::TYPE_Paragraph, false);
-	for (int i = 0; i < _indentLevel - INDENT_Block; i++) _text += ' ';
-	if (textInit != NULL) _text += textInit;
-	do {
-		Item *pItemParent = _itemStack.back();
-		Item *pItem = new Item(Item::TYPE_Block, new ItemOwner(), _indentLevel);
-		pItemParent->GetItemOwner()->push_back(pItem);
-		_itemStack.push_back(pItem);
-	} while (0);
-	_stat = STAT_Block;
-}
-
-void Document::BeginBlockInListItem(const char *textInit)
-{
-	FlushItem(Item::TYPE_Paragraph, false);
-	for (int i = 0; i < _indentLevel - INDENT_BlockInListItem; i++) _text += ' ';
-	if (textInit != NULL) _text += textInit;
-	do {
-		Item *pItemParent = _itemStack.back();
-		Item *pItem = new Item(Item::TYPE_Block, new ItemOwner(), _indentLevel);
-		pItemParent->GetItemOwner()->push_back(pItem);
-		_itemStack.push_back(pItem);
-	} while (0);
-	_stat = STAT_BlockInListItem;
-}
-
 bool Document::CheckDecoration(char ch)
 {
 	if (ch == '\\') {
@@ -1096,6 +1061,47 @@ void Document::FlushItem(Item::Type type, bool stripFlag)
 		pItemParent->GetItemOwner()->push_back(pItem);
 		_pItemOwner.reset(new ItemOwner());
 	}
+}
+
+void Document::BeginBlock(const char *textInit)
+{
+	FlushItem(Item::TYPE_Paragraph, false);
+	for (int i = 0; i < _indentLevel - INDENT_Block; i++) _text += ' ';
+	if (textInit != NULL) _text += textInit;
+	do {
+		Item *pItemParent = _itemStack.back();
+		Item *pItem = new Item(Item::TYPE_Block, new ItemOwner(), _indentLevel);
+		pItemParent->GetItemOwner()->push_back(pItem);
+		_itemStack.push_back(pItem);
+	} while (0);
+	_stat = STAT_Block;
+}
+
+void Document::EndBlock()
+{
+	_itemStack.pop_back();
+	_stat = STAT_LineTop;
+}
+
+void Document::BeginBlockInListItem(const char *textInit, Stat statRtn)
+{
+	FlushItem(Item::TYPE_Paragraph, false);
+	for (int i = 0; i < _indentLevel - INDENT_BlockInListItem; i++) _text += ' ';
+	if (textInit != NULL) _text += textInit;
+	do {
+		Item *pItemParent = _itemStack.back();
+		Item *pItem = new Item(Item::TYPE_Block, new ItemOwner(), _indentLevel);
+		pItemParent->GetItemOwner()->push_back(pItem);
+		_itemStack.push_back(pItem);
+	} while (0);
+	_statStack.Push(statRtn);
+	_stat = STAT_BlockInListItem;
+}
+
+void Document::EndBlockInListItem()
+{
+	_itemStack.pop_back();
+	_stat = _statStack.Pop();
 }
 
 void Document::BeginListItem(Item::Type type)
