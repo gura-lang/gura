@@ -980,28 +980,27 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_AutoLink: {
 		if (ch == '>') {
-			if (IsLink(_textAhead.c_str())) {
+			if (IsLink(_field.c_str())) {
 				FlushText(Item::TYPE_Text, false);
 				Item *pItemLink = new Item(Item::TYPE_Link, new ItemOwner());
-				pItemLink->SetURL(_textAhead);
+				pItemLink->SetURL(_field);
 				_pItemOwner->push_back(pItemLink);
 				do {
-					Item *pItem = new Item(Item::TYPE_Text, _textAhead);
+					Item *pItem = new Item(Item::TYPE_Text, _field);
 					pItemLink->GetItemOwner()->push_back(pItem);
 				} while (0);
 			} else {
-				_text += '<';
 				_text += _textAhead;
 				_text += ch;
 			}
 			_stat = _statStack.Pop();
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			_text += '<';
 			_text += _textAhead;
 			continueFlag = true;
 			_stat = _statStack.Pop();
 		} else {
 			_textAhead += ch;
+			_field += ch;
 		}
 		break;
 	}
@@ -1038,6 +1037,8 @@ bool Document::CheckDecoration(char ch)
 		return true;
 	} else if (ch == '<') {
 		_textAhead.clear();
+		_field.clear();
+		_textAhead += ch;
 		_statStack.Push(_stat);
 		_stat = STAT_AutoLink;
 		return true;

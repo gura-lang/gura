@@ -211,6 +211,7 @@ private:
 	int _indentLevel;
 	String _text;
 	String _textAhead;
+	String _field;
 	AutoPtr<ItemOwner> _pItemOwner;
 	AutoPtr<Item> _pItemRoot;
 	ItemStack _itemStack;
