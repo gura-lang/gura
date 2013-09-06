@@ -153,28 +153,20 @@ private:
 		STAT_AtxHeader2,
 		STAT_Digit,
 		STAT_DigitDot,
-		STAT_UListItemPre,
-		STAT_UListItem,
-		STAT_UListItemPost,
-		STAT_UListItemPost_Digit,
-		STAT_UListItemPost_DigitDot,
-		STAT_UListItemPost_Hyphen,
-		STAT_UListItemPost_Plus,
-		STAT_UListItemPost_Star,
-		STAT_UListItemPost_EOL,
-		STAT_UListItemPost_EOL_Digit,
-		STAT_UListItemPost_EOL_DigitDot,
-		STAT_UListItemPost_EOL_Hyphen,
-		STAT_UListItemPost_EOL_Plus,
-		STAT_UListItemPost_EOL_Star,
-		STAT_OListItemPre,
-		STAT_OListItem,
-		STAT_OListItemPost,
-		STAT_OListItemPost_Digit,
-		STAT_OListItemPost_DigitDot,
-		STAT_OListItemPost_EOL,
-		STAT_OListItemPost_EOL_Digit,
-		STAT_OListItemPost_EOL_DigitDot,
+		STAT_ListItemPre,
+		STAT_ListItem,
+		STAT_ListItemPost,
+		STAT_ListItemPost_Digit,
+		STAT_ListItemPost_DigitDot,
+		STAT_ListItemPost_Hyphen,
+		STAT_ListItemPost_Plus,
+		STAT_ListItemPost_Star,
+		STAT_ListItemPost_EOL,
+		STAT_ListItemPost_EOL_Digit,
+		STAT_ListItemPost_EOL_DigitDot,
+		STAT_ListItemPost_EOL_Hyphen,
+		STAT_ListItemPost_EOL_Plus,
+		STAT_ListItemPost_EOL_Star,
 		STAT_Block,
 		STAT_Block_LineTop,
 		STAT_BlockInListItem,
@@ -237,7 +229,7 @@ private:
 	void FlushItem(Item::Type type, bool stripFlag);
 	void BeginBlock(const char *textInit);
 	void EndBlock();
-	void BeginBlockInListItem(const char *textInit, Stat statRtn);
+	void BeginBlockInListItem(const char *textInit);
 	void EndBlockInListItem();
 	void BeginListItem(Item::Type type);
 	void FlushListItem();
