@@ -176,12 +176,19 @@ bool Document::ParseString(Signal sig, const char *text)
 	return ParseStream(sig, stream);
 }
 
+bool Document::_ParseString(Signal sig, String text)
+{
+	foreach (String, p, text) {
+		if (!ParseChar(sig, *p)) return false;
+	}
+	return true;
+}
+
 bool Document::ParseChar(Signal sig, char ch)
 {
-	FeedList feedList;
-	feedList.push_back(ch);
-	for (FeedList::iterator p = feedList.begin(); p != feedList.end(); p++) {
-	char ch = *p;
+	bool continueFlag = true;
+	do {
+	continueFlag = false;
 	switch (_stat) {
 	case STAT_LineTop: {
 		if (ch == '#') {
@@ -190,7 +197,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_SetextHeaderHead;
 		} else {
 			_indentLevel = 0;
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_LineHead;
 		}
 		break;
@@ -225,10 +232,10 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_LineTop;
 		} else if (_indentLevel < INDENT_Block) {
 			if (!_text.empty()) _text += ' ';
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_Text;
 		} else {
-			feedList.push_back(ch);
+			continueFlag = true;
 			BeginBlock(NULL);
 		}
 		break;
@@ -238,15 +245,15 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAhead += ch;
 			_stat = STAT_AtxHeader1;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_AtxHeader1;
 		} else if (_indentLevel < INDENT_Block) {
 			if (!_text.empty()) _text += ' ';
 			_text += _textAhead;
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_Text;
 		} else {
-			feedList.push_back(ch);
+			continueFlag = true;
 			BeginBlock(_textAhead.c_str());
 		}
 		break;
@@ -258,10 +265,10 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (_indentLevel < INDENT_Block) {
 			FlushText(Item::TYPE_Text, false);
 			_statStack.Push(STAT_Text);
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_AsteriskEmphasisPre;
 		} else {
-			feedList.push_back(ch);
+			continueFlag = true;
 			BeginBlock(_textAhead.c_str());
 		}
 		break;
@@ -273,10 +280,10 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (_indentLevel < INDENT_Block) {
 			if (!_text.empty()) _text += ' ';
 			_text += _textAhead;
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_Text;
 		} else {
-			feedList.push_back(ch);
+			continueFlag = true;
 			BeginBlock(_textAhead.c_str());
 		}
 		break;
@@ -286,7 +293,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAhead += ch;
 			_stat = STAT_AtxHeader2;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_AtxHeader2;
 		} else if (ch == ' ' || ch == '\t') {
 			FlushItem(Item::TYPE_Paragraph, false);
@@ -294,10 +301,10 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (_indentLevel < INDENT_Block) {
 			if (!_text.empty()) _text += ' ';
 			_text += _textAhead;
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_Text;
 		} else {
-			feedList.push_back(ch);
+			continueFlag = true;
 			BeginBlock(_textAhead.c_str());
 		}
 		break;
@@ -311,10 +318,10 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (_indentLevel < INDENT_Block) {
 			if (!_text.empty()) _text += ' ';
 			_text += _textAhead;
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_Text;
 		} else {
-			feedList.push_back(ch);
+			continueFlag = true;
 			BeginBlock(_textAhead.c_str());
 		}
 		break;
@@ -325,10 +332,10 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (_indentLevel < INDENT_Block) {
 			if (!_text.empty()) _text += ' ';
 			_text += _textAhead;
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_Text;
 		} else {
-			feedList.push_back(ch);
+			continueFlag = true;
 			BeginBlock(_textAhead.c_str());
 		}
 		break;
@@ -340,7 +347,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_SetextHeaderPre;
 		} else {
 			_text.clear();
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_SetextHeader;
 		}
 		break;
@@ -350,7 +357,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			// nothing to do
 		} else {
 			_text.clear();
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_SetextHeader;
 		}
 		break;
@@ -372,7 +379,7 @@ bool Document::ParseChar(Signal sig, char ch)
 				(_indentLevel == 6)? Item::TYPE_Header6 :
 				Item::TYPE_Header6;
 			FlushItem(type, true);
-			if (IsEOF(ch)) feedList.push_back(ch);
+			if (IsEOF(ch)) continueFlag = true;
 			_stat = STAT_LineTop;
 		} else {
 			_text += ch;
@@ -383,11 +390,11 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == '#') {
 			_textAhead += ch;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_SetextHeader;
 		} else {
 			_text += _textAhead;
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_SetextHeader;
 		}
 		break;
@@ -397,12 +404,12 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAhead += ch;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			FlushItem(Item::TYPE_Header1, false);
-			if (IsEOF(ch)) feedList.push_back(ch);
+			if (IsEOF(ch)) continueFlag = true;
 			_stat = STAT_LineTop;
 		} else {
 			if (!_text.empty()) _text += ' ';
 			_text += _textAhead;
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_Text;
 		}
 		break;
@@ -412,12 +419,12 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAhead += ch;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			FlushItem(Item::TYPE_Header2, false);
-			if (IsEOF(ch)) feedList.push_back(ch);
+			if (IsEOF(ch)) continueFlag = true;
 			_stat = STAT_LineTop;
 		} else {
 			if (!_text.empty()) _text += ' ';
 			_text += _textAhead;
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_Text;
 		}
 		break;
@@ -426,7 +433,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == ' ' || ch == '\t') {
 			// nothing to do
 		} else {
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_ListItem;
 		}
 		break;
@@ -436,7 +443,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			// nothing to do
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			_indentLevel = 0;
-			if (IsEOF(ch)) feedList.push_back(ch);
+			if (IsEOF(ch)) continueFlag = true;
 			_stat = STAT_ListItemPost;
 		} else {
 			_text += ch;
@@ -470,11 +477,11 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (IsEOF(ch)) {
 			EndListItem();
 			_itemStack.ClearListItem();
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_LineTop;
 		} else {
 			_text += ' ';
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_ListItem;
 		}
 		break;
@@ -486,7 +493,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_text += ' ';
 			FlushText(Item::TYPE_Text, false);
 			_statStack.Push(STAT_ListItem);
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_AsteriskEmphasisPre;
 		}
 		break;
@@ -497,7 +504,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else {
 			_text += ' ';
 			_text += _textAhead;
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_ListItem;
 		}
 		break;
@@ -508,7 +515,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else {
 			_text += ' ';
 			_text += _textAhead;
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_ListItem;
 		}
 		break;
@@ -522,7 +529,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else {
 			_text += ' ';
 			_text += _textAhead;
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_ListItem;
 		}
 		break;
@@ -533,7 +540,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else {
 			_text += ' ';
 			_text += _textAhead;
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_ListItem;
 		}
 		break;
@@ -562,19 +569,19 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			EndListItem();
 			_itemStack.ClearListItem();
-			if (IsEOF(ch)) feedList.push_back(ch);
+			if (IsEOF(ch)) continueFlag = true;
 			_stat = STAT_LineTop;
 		} else if (_indentLevel == 0) {
 			EndListItem();
 			_itemStack.ClearListItem();
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_LineTop;
 		} else if (_indentLevel < INDENT_BlockInListItem) {
  			FlushItem(Item::TYPE_Paragraph, false);
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_ListItem;
 		} else {
-			feedList.push_back(ch);
+			continueFlag = true;
 			BeginBlockInListItem(NULL);
 		}
 		break;
@@ -585,16 +592,16 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (_indentLevel == 0) {
 			EndListItem();
 			_itemStack.ClearListItem();
-			feedList.PushString(_textAhead);
-			feedList.push_back(ch);
 			_stat = STAT_LineTop;
+			if (!_ParseString(sig, _textAhead)) return false;
+			continueFlag = true;
 		} else if (_indentLevel < INDENT_BlockInListItem) {
 			FlushItem(Item::TYPE_Paragraph, false);
-			feedList.push_back(ch);
+			continueFlag = true;
 			_statStack.Push(STAT_ListItem);
 			_stat = STAT_AsteriskEmphasisPre;
 		} else {
-			feedList.push_back(ch);
+			continueFlag = true;
 			BeginBlockInListItem(_textAhead.c_str());
 		}
 		break;
@@ -605,16 +612,16 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (_indentLevel == 0) {
 			EndListItem();
 			_itemStack.ClearListItem();
-			feedList.PushString(_textAhead);
-			feedList.push_back(ch);
 			_stat = STAT_LineTop;
+			if (!_ParseString(sig, _textAhead)) return false;
+			continueFlag = true;
 		} else if (_indentLevel < INDENT_BlockInListItem) {
  			FlushItem(Item::TYPE_Paragraph, false);
 			_text += _textAhead;
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_ListItem;
 		} else {
-			feedList.push_back(ch);
+			continueFlag = true;
 			BeginBlockInListItem(_textAhead.c_str());
 		}
 		break;
@@ -625,16 +632,16 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (_indentLevel == 0) {
 			EndListItem();
 			_itemStack.ClearListItem();
-			feedList.PushString(_textAhead);
-			feedList.push_back(ch);
 			_stat = STAT_LineTop;
+			if (!_ParseString(sig, _textAhead)) return false;
+			continueFlag = true;
 		} else if (_indentLevel < INDENT_BlockInListItem) {
  			FlushItem(Item::TYPE_Paragraph, false);
 			_text += _textAhead;
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_ListItem;
 		} else {
-			feedList.push_back(ch);
+			continueFlag = true;
 			BeginBlockInListItem(_textAhead.c_str());
 		}
 		break;
@@ -644,14 +651,20 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAhead += ch;
 		} else if (ch == '.') {
 			_textAhead += ch;
-			_stat = STAT_ListItemPost_DigitDot;
+			_stat = STAT_ListItemPostNL_DigitDot;
+		} else if (_indentLevel == 0) {
+			EndListItem();
+			_itemStack.ClearListItem();
+			_stat = STAT_LineTop;
+			if (!_ParseString(sig, _textAhead)) return false;
+			continueFlag = true;
 		} else if (_indentLevel < INDENT_BlockInListItem) {
 			_text += ' ';
 			_text += _textAhead;
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_ListItem;
 		} else {
-			feedList.push_back(ch);
+			continueFlag = true;
 			BeginBlockInListItem(_textAhead.c_str());
 		}
 		break;
@@ -659,13 +672,19 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_ListItemPostNL_DigitDot: {
 		if (ch == ' ' || ch == '\t') {
 			BeginListItem(Item::TYPE_OList);
+		} else if (_indentLevel == 0) {
+			EndListItem();
+			_itemStack.ClearListItem();
+			_stat = STAT_LineTop;
+			if (!_ParseString(sig, _textAhead)) return false;
+			continueFlag = true;
 		} else if (_indentLevel < INDENT_BlockInListItem) {
  			FlushItem(Item::TYPE_Paragraph, false);
 			_text += _textAhead;
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_ListItem;
 		} else {
-			feedList.push_back(ch);
+			continueFlag = true;
 			BeginBlockInListItem(_textAhead.c_str());
 		}
 		break;
@@ -684,7 +703,7 @@ bool Document::ParseChar(Signal sig, char ch)
 				_pItemOwner.reset(new ItemOwner());
 			} while (0);
 			_indentLevel = 0;
-			if (IsEOF(ch)) feedList.push_back(ch);
+			if (IsEOF(ch)) continueFlag = true;
 			_stat = STAT_Block_LineTop;
 		} else {
 			_text += ch;
@@ -697,11 +716,11 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '\t') {
 			_indentLevel += 4;
 		} else if (_indentLevel < INDENT_Block) {
-			feedList.push_back(ch);
+			continueFlag = true;
 			EndBlock();
 		} else {
 			for (int i = 0; i < _indentLevel - INDENT_Block; i++) _text += ' ';
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_Block;
 		}
 		break;
@@ -720,7 +739,7 @@ bool Document::ParseChar(Signal sig, char ch)
 				_pItemOwner.reset(new ItemOwner());
 			} while (0);
 			_indentLevel = 0;
-			if (IsEOF(ch)) feedList.push_back(ch);
+			if (IsEOF(ch)) continueFlag = true;
 			_stat = STAT_BlockInListItem_LineTop;
 		} else {
 			_text += ch;
@@ -733,11 +752,11 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '\t') {
 			_indentLevel += 4;
 		} else if (_indentLevel < INDENT_BlockInListItem) {
-			feedList.push_back(ch);
+			continueFlag = true;
 			EndBlockInListItem();
 		} else {
 			for (int i = 0; i < _indentLevel - INDENT_BlockInListItem; i++) _text += ' ';
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_BlockInListItem;
 		}
 		break;
@@ -746,7 +765,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == '`') {
 			_stat = STAT_CodeEsc;
 		} else {
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_Code;
 		}
 		break;
@@ -757,7 +776,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = _statStack.Pop();
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			FlushText(Item::TYPE_Code, true);
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = _statStack.Pop();
 		} else {
 			_text += ch;
@@ -769,7 +788,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_CodeEsc_Backquote;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			FlushText(Item::TYPE_Code, true);
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = _statStack.Pop();
 		} else {
 			_text += ch;
@@ -782,7 +801,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = _statStack.Pop();
 		} else {
 			_text += '`';
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_CodeEsc;
 		}
 		break;
@@ -791,7 +810,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (CheckDecoration(ch)) {
 			// nothing to do
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			if (IsEOF(ch)) feedList.push_back(ch);
+			if (IsEOF(ch)) continueFlag = true;
 			_stat = STAT_LineTop;
 		} else {
 			_text += ch;
@@ -803,11 +822,11 @@ bool Document::ParseChar(Signal sig, char ch)
 			BeginDecoration(Item::TYPE_Strong);
 			_stat = STAT_AsteriskStrong;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = _statStack.Pop();
 		} else {
 			BeginDecoration(Item::TYPE_Emphasis);
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_AsteriskEmphasis;
 		}
 		break;
@@ -825,7 +844,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = _statStack.Pop();
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			EndDecoration();
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = _statStack.Pop();
 		} else {
 			_text += ch;
@@ -844,7 +863,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_AsteriskStrongEnd;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			EndDecoration();
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = _statStack.Pop();
 		} else {
 			_text += ch;
@@ -857,13 +876,13 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = _statStack.Pop();
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			EndDecoration();
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = _statStack.Pop();
 		} else {
 			FlushText(Item::TYPE_Text, true);
 			BeginDecoration(Item::TYPE_Emphasis);
 			_statStack.Push(STAT_AsteriskStrong);
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_AsteriskEmphasis;
 		}
 		break;
@@ -873,11 +892,11 @@ bool Document::ParseChar(Signal sig, char ch)
 			BeginDecoration(Item::TYPE_Strong);
 			_stat = STAT_UnderscoreStrong;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = _statStack.Pop();
 		} else {
 			BeginDecoration(Item::TYPE_Emphasis);
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_UnderscoreEmphasis;
 		}
 		break;
@@ -895,7 +914,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = _statStack.Pop();
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			EndDecoration();
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = _statStack.Pop();
 		} else {
 			_text += ch;
@@ -914,7 +933,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_UnderscoreStrongEnd;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			EndDecoration();
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = _statStack.Pop();
 		} else {
 			_text += ch;
@@ -927,13 +946,13 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = _statStack.Pop();
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			EndDecoration();
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = _statStack.Pop();
 		} else {
 			FlushText(Item::TYPE_Text, true);
 			BeginDecoration(Item::TYPE_Emphasis);
 			_statStack.Push(STAT_UnderscoreStrong);
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = STAT_UnderscoreEmphasis;
 		}
 		break;
@@ -956,7 +975,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = _statStack.Pop();
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			_text += _textAhead;
-			feedList.push_back(ch);
+			continueFlag = true;
 			_stat = _statStack.Pop();
 		} else {
 			_textAhead += ch;
@@ -970,7 +989,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		break;
 	}
 	}
-	}
+	} while (continueFlag);
 	return true;
 }
 

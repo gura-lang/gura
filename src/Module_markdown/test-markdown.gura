@@ -274,6 +274,12 @@ hoge
 
 -Hyphen at beginning of line
 
+- item-1
+- item-2
+- item-3
+
+3.1415 at beginning of line
+
 `<code>` spans are delimited by backticks.
 
 You can include literal backticks like `` `this` ``.

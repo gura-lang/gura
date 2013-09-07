@@ -408,6 +408,15 @@
       <text>'item-3'
   <p>
     <text>'-Hyphen at beginning of line'
+  <ul>
+    <li>
+      <text>'item-1'
+    <li>
+      <text>'item-2'
+    <li>
+      <text>'item-3'
+  <p>
+    <text>'3.1415 at beginning of line'
   <p>
     <code>'<code>'
     <text>' spans are delimited by backticks.'

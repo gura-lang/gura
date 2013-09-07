@@ -201,12 +201,6 @@ private:
 			return stat;
 		}
 	};
-	class FeedList : public std::list<char> {
-	public:
-		inline void PushString(const String &text) {
-			foreach_const (String, p, text) { push_back(*p); }
-		}
-	};
 private:
 	int _cntRef;
 	Stat _stat;
@@ -228,6 +222,7 @@ private:
 public:
 	bool ParseStream(Signal sig, SimpleStream &stream);
 	bool ParseString(Signal sig, const char *text);
+	bool _ParseString(Signal sig, String text);
 	inline const Item *GetItemRoot() { return _pItemRoot.get(); }
 private:
 	bool ParseChar(Signal sig, char ch);
