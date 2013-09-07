@@ -45,6 +45,8 @@ const char *Item::GetTypeName() const
 		{ TYPE_Image,			"img",		},	// container
 		{ TYPE_Text,			"text",		},	// text
 		{ TYPE_Code,			"code",		},	// text
+		{ TYPE_HorzRule,		"hr",		},	// no-content
+		{ TYPE_LineBreak,		"br",		},	// no-content
 	};
 	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].type == _type) return tbl[i].name;

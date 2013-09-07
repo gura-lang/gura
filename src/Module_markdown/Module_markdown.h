@@ -45,6 +45,8 @@ public:
 		TYPE_Image,			// container
 		TYPE_Text,			// text
 		TYPE_Code,			// text
+		TYPE_HorzRule,		// no-content
+		TYPE_LineBreak,		// no-content
 	};
 private:
 	int _cntRef;
