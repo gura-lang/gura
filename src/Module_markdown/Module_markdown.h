@@ -202,6 +202,8 @@ private:
 		STAT_LinkReferrer,
 		STAT_LinkURLPre,
 		STAT_LinkURL,
+		STAT_LinkURLBracket,
+		STAT_LinkURLBracketPost,
 		STAT_LinkTitle,
 		STAT_LinkTitlePost,
 		STAT_Escape,

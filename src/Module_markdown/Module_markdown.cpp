@@ -1034,7 +1034,10 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_LinkText: {
 		if (ch == ']') {
 			_textAhead += ch;
-			_pItemLink->SetText(Strip(_field.c_str()));
+			do {
+				Item *pItem = new Item(Item::TYPE_Text, Strip(_field.c_str()));
+				_pItemLink->GetItemOwner()->push_back(pItem);
+			} while (0);
 			_stat = STAT_LinkTextPost;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			_text += _textAhead;
@@ -1089,6 +1092,10 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_LinkURLPre: {
 		if (ch == ' ' || ch == '\t') {
 			_textAhead += ch;
+		} else if (ch == '<') {
+			_field.clear();
+			_textAhead += ch;
+			_stat = STAT_LinkURLBracket;
 		} else {
 			_field.clear();
 			continueFlag = true;
@@ -1114,6 +1121,39 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else {
 			_textAhead += ch;
 			_field += ch;
+		}
+		break;
+	}
+	case STAT_LinkURLBracket: {
+		if (ch == '>') {
+			_pItemLink->SetURL(Strip(_field.c_str()));
+			_textAhead += ch;
+			_stat = STAT_LinkURLBracketPost;
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			_text += _textAhead;
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		} else {
+			_textAhead += ch;
+			_field += ch;
+		}
+		break;
+	}
+	case STAT_LinkURLBracketPost: {
+		if (ch == '"') {
+			_textAhead += ch;
+			_field.clear();
+			_stat = STAT_LinkTitle;
+		} else if (ch == ')') {
+			FlushText(Item::TYPE_Text, false);
+			_pItemOwner->push_back(_pItemLink.release());
+			_stat = _statStack.Pop();
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			_text += _textAhead;
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		} else {
+			_textAhead += ch;
 		}
 		break;
 	}
@@ -1185,7 +1225,7 @@ bool Document::CheckSpecialChar(char ch)
 		_stat = STAT_AutoLink;
 		return true;
 	} else if (ch == '[') {
-		_pItemLink.reset(new Item(Item::TYPE_Link));
+		_pItemLink.reset(new Item(Item::TYPE_Link, new ItemOwner()));
 		_textAhead.clear();
 		_field.clear();
 		_textAhead += ch;

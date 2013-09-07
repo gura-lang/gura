@@ -638,12 +638,47 @@
     <text>'<abcde@bbb>'
   <p>
     <text>'Link: '
-    <a url='http://url.com/' title='Title'>'example'
-    <text>' .. test'
+    <a url='http://url.com/'>
+      <text>'example'
+    <text>' .. without title'
+  <p>
+    <text>'Link: '
+    <a url='http://url.com/' title='Title'>
+      <text>'example'
+    <text>' .. with title'
+  <p>
+    <text>'Image: '
+    <img url='/path/img.jpg'>'alt text'
+    <text>' .. without title'
   <p>
     <text>'Image: '
     <img url='/path/img.jpg' title='Title'>'alt text'
-    <text>' .. test'
+    <text>' .. with title'
+  <p>
+    <a url=''>
+      <text>'like this'
+    <text>' .. without url nor title'
+  <p>
+    <img url=''>'like this'
+    <text>' .. without url nor title'
+  <p>
+    <text>'Link: '
+    <a url='http://example.com/'>
+      <text>'this'
+    <text>' .. without title'
+  <p>
+    <text>'Link: '
+    <a url='http://example.com/' title='title'>
+      <text>'this'
+    <text>' .. with title'
+  <p>
+    <text>'Image: '
+    <img url='/path/img.jpg'>'alt text'
+    <text>' .. without title'
+  <p>
+    <text>'Image: '
+    <img url='/path/img.jpg' title='Title'>'alt text'
+    <text>' .. with title'
   <ul>
     <li>
       <p>

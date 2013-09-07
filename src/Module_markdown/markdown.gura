@@ -72,9 +72,11 @@ output_html(item:item, out:stream:w):map:void = {
 		output_html(item.children, out)
 		out.print('</a>')
 	} elsif (item.type == `img) {
-		out.print('<img>')
-		output_html(item.children, out)
-		out.print('</img>')
+		out.print('<img')
+		item.url && out.print(' src="', item.url.encodeuri(), '"')
+		item.text && out.print(' alt="', item.text.escapehtml(), '"')
+		item.title && out.print(' title="', item.title.escapehtml(), '"')
+		out.print('>')
 	} elsif (item.type == `text) {
 		out.print(item.text.escapehtml())
 	} elsif (item.type == `code) {

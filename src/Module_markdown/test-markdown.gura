@@ -366,9 +366,25 @@ __A\_ubar__
 <abcde@bbb.ccc>
 <abcde@bbb>
 
-Link: [example](http://url.com/ "Title") .. test
+Link: [example](http://url.com/) .. without title
 
-Image: ![alt text](/path/img.jpg "Title") .. test
+Link: [example](http://url.com/ "Title") .. with title
+
+Image: ![alt text](/path/img.jpg) .. without title
+
+Image: ![alt text](/path/img.jpg "Title") .. with title
+
+[like this]() .. without url nor title
+
+![like this]() .. without url nor title
+
+Link: [this](<http://example.com/>) .. without title
+
+Link: [this](<http://example.com/> "title") .. with title
+
+Image: ![alt text](</path/img.jpg>) .. without title
+
+Image: ![alt text](</path/img.jpg> "Title") .. with title
 
 - list item
 
