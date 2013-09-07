@@ -163,7 +163,7 @@ output_console(item:item):map:void = {
 	} elsif (item.type == `a) {
 		output_console(item.children)
 	} elsif (item.type == `img) {
-		
+		out.print('[', item.text, ']')
 	} elsif (item.type == `text) {
 		print(item.text)
 	} elsif (item.type == `code) {
