@@ -209,7 +209,6 @@ private:
 		STAT_Escape,
 	};
 	enum {
-		INDENT_ListItemCont		= 4,
 		INDENT_Block			= 4,
 		INDENT_BlockInListItem	= 8,
 	};
