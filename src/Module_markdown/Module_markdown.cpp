@@ -73,6 +73,11 @@ void Item::Print(Signal sig, Stream &stream, int indentLevel) const
 		stream.Print(sig, _pTitle->c_str());
 		stream.Print(sig, "'");
 	}
+	if (_pRefId.get() != NULL) {
+		stream.Print(sig, " refid='");
+		stream.Print(sig, _pRefId->c_str());
+		stream.Print(sig, "'");
+	}
 	stream.Print(sig, ">");
 	if (_pText.get() != NULL) {
 		stream.Print(sig, "'");
@@ -158,7 +163,7 @@ void ItemStack::ClearListItem()
 // Document
 //-----------------------------------------------------------------------------
 Document::Document() : _cntRef(1), _stat(STAT_LineTop),
-								_indentLevel(0), _pItemOwner(new ItemOwner())
+							_indentLevel(0), _pItemOwner(new ItemOwner())
 {
 	_statStack.Push(STAT_LineTop);
 	_pItemRoot.reset(new Item(Item::TYPE_Root, new ItemOwner()));
@@ -369,7 +374,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		break;
 	}
 	case STAT_SetextHeader: {
-		if (CheckDecoration(ch)) {
+		if (CheckSpecialChar(ch)) {
 			// nothing to do
 		} else if (ch == '#') {
 			_textAhead.clear();
@@ -456,7 +461,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		break;
 	}
 	case STAT_ListItem: {
-		if (CheckDecoration(ch)) {
+		if (CheckSpecialChar(ch)) {
 			// nothing to do
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			_indentLevel = 0;
@@ -824,7 +829,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		break;
 	}
 	case STAT_Text: {
-		if (CheckDecoration(ch)) {
+		if (CheckSpecialChar(ch)) {
 			// nothing to do
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			if (IsEOF(ch)) continueFlag = true;
@@ -1000,6 +1005,147 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
+	case STAT_LinkAltTextPre: {
+		if (ch == '[') {
+			_textAhead += ch;
+			_stat = STAT_LinkAltText;
+		} else {
+			_text += _textAhead;
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		}
+		break;
+	}
+	case STAT_LinkAltText: {
+		if (ch == ']') {
+			_textAhead += ch;
+			_pItemLink->SetText(Strip(_field.c_str()));
+			_stat = STAT_LinkTextPost;
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			_text += _textAhead;
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		} else {
+			_textAhead += ch;
+			_field += ch;
+		}
+		break;
+	}
+	case STAT_LinkText: {
+		if (ch == ']') {
+			_textAhead += ch;
+			_pItemLink->SetText(Strip(_field.c_str()));
+			_stat = STAT_LinkTextPost;
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			_text += _textAhead;
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		} else {
+			_textAhead += ch;
+			_field += ch;
+		}
+		break;
+	}
+	case STAT_LinkTextPost: {
+		if (ch == '[') {
+			_stat = STAT_LinkReferrerPre;
+		} else if (ch == '(') {
+			_textAhead += ch;
+			_stat = STAT_LinkURLPre;
+		} else {
+			_text += _textAhead;
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		}
+		break;
+	}
+	case STAT_LinkReferrerPre: {
+		if (ch == ' ' || ch == '\t') {
+			_textAhead += ch;
+		} else {
+			_field.clear();
+			continueFlag = true;
+			_stat = STAT_LinkReferrer;
+		}
+		break;
+	}
+	case STAT_LinkReferrer: {
+		if (ch == ']') {
+			FlushText(Item::TYPE_Text, false);
+			_pItemLink->SetRefId(Strip(_field.c_str()));
+			_itemsLinkReferrer.push_back(_pItemLink.get());
+			_pItemOwner->push_back(_pItemLink.release());
+			_stat = _statStack.Pop();
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			_text += _textAhead;
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		} else {
+			_textAhead += ch;
+			_field += ch;
+		}
+		break;
+	}
+	case STAT_LinkURLPre: {
+		if (ch == ' ' || ch == '\t') {
+			_textAhead += ch;
+		} else {
+			_field.clear();
+			continueFlag = true;
+			_stat = STAT_LinkURL;
+		}
+		break;
+	}
+	case STAT_LinkURL: {
+		if (ch == '"') {
+			_pItemLink->SetURL(Strip(_field.c_str()));
+			_textAhead += ch;
+			_field.clear();
+			_stat = STAT_LinkTitle;
+		} else if (ch == ')') {
+			FlushText(Item::TYPE_Text, false);
+			_pItemLink->SetURL(Strip(_field.c_str()));
+			_pItemOwner->push_back(_pItemLink.release());
+			_stat = _statStack.Pop();
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			_text += _textAhead;
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		} else {
+			_textAhead += ch;
+			_field += ch;
+		}
+		break;
+	}
+	case STAT_LinkTitle: {
+		if (ch == '"') {
+			_pItemLink->SetTitle(_field.c_str());
+			_textAhead += ch;
+			_stat = STAT_LinkTitlePost;
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			_text += _textAhead;
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		} else {
+			_textAhead += ch;
+			_field += ch;
+		}
+		break;
+	}
+	case STAT_LinkTitlePost: {
+		if (ch == ' ' || ch == '\t') {
+			_textAhead += ch;
+		} else if (ch == ')') {
+			FlushText(Item::TYPE_Text, false);
+			_pItemOwner->push_back(_pItemLink.release());
+			_stat = _statStack.Pop();
+		} else {
+			_text += _textAhead;
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		}
+		break;
+	}
 	case STAT_Escape: {
 		_text += ch;
 		_stat = _statStack.Pop();
@@ -1010,7 +1156,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	return true;
 }
 
-bool Document::CheckDecoration(char ch)
+bool Document::CheckSpecialChar(char ch)
 {
 	if (ch == '\\') {
 		_statStack.Push(_stat);
@@ -1037,6 +1183,22 @@ bool Document::CheckDecoration(char ch)
 		_textAhead += ch;
 		_statStack.Push(_stat);
 		_stat = STAT_AutoLink;
+		return true;
+	} else if (ch == '[') {
+		_pItemLink.reset(new Item(Item::TYPE_Link));
+		_textAhead.clear();
+		_field.clear();
+		_textAhead += ch;
+		_statStack.Push(_stat);
+		_stat = STAT_LinkText;
+		return true;
+	} else if (ch == '!') {
+		_pItemLink.reset(new Item(Item::TYPE_Image));
+		_textAhead.clear();
+		_field.clear();
+		_textAhead += ch;
+		_statStack.Push(_stat);
+		_stat = STAT_LinkAltTextPre;
 		return true;
 	}
 	return false;

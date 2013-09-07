@@ -42,7 +42,7 @@ public:
 		TYPE_ListItem,		// container
 		TYPE_Line,			// container
 		TYPE_Link,			// container
-		TYPE_Image,			// container
+		TYPE_Image,			// text
 		TYPE_Text,			// text
 		TYPE_Code,			// text
 		TYPE_HorzRule,		// no-content
@@ -55,6 +55,7 @@ private:
 	std::auto_ptr<String> _pText;
 	std::auto_ptr<String> _pURL;	// valid when type is Link or Image
 	std::auto_ptr<String> _pTitle;	// valid when type is Link or Image
+	std::auto_ptr<String> _pRefId;	// valid when type is Link or Image
 	int _indentLevel;
 public:
 	Gura_DeclareReferenceAccessor(Item);
@@ -80,8 +81,13 @@ public:
 	inline const char *GetTitle() const {
 		return (_pTitle.get() == NULL)? NULL : _pTitle->c_str();
 	}
+	inline const char *GetRefId() const {
+		return (_pRefId.get() == NULL)? NULL : _pRefId->c_str();
+	}
+	inline void SetText(const String &text) { _pText.reset(new String(text)); }
 	inline void SetURL(const String &url) { _pURL.reset(new String(url)); }
-	inline void SetTitle(const String &title) { _pURL.reset(new String(title)); }
+	inline void SetTitle(const String &title) { _pTitle.reset(new String(title)); }
+	inline void SetRefId(const String &refId) { _pRefId.reset(new String(refId)); }
 	inline void SetIndentLevel(int indentLevel) { _indentLevel = indentLevel; }
 	inline int GetIndentLevel() const { return _indentLevel; }
 	const char *GetTypeName() const;
@@ -188,6 +194,16 @@ private:
 		STAT_UnderscoreStrong,
 		STAT_UnderscoreStrongEnd,
 		STAT_AutoLink,
+		STAT_LinkAltTextPre,
+		STAT_LinkAltText,
+		STAT_LinkText,
+		STAT_LinkTextPost,
+		STAT_LinkReferrerPre,
+		STAT_LinkReferrer,
+		STAT_LinkURLPre,
+		STAT_LinkURL,
+		STAT_LinkTitle,
+		STAT_LinkTitlePost,
 		STAT_Escape,
 	};
 	enum {
@@ -214,6 +230,8 @@ private:
 	String _field;
 	AutoPtr<ItemOwner> _pItemOwner;
 	AutoPtr<Item> _pItemRoot;
+	AutoPtr<Item> _pItemLink;
+	ItemList _itemsLinkReferrer;
 	ItemStack _itemStack;
 	ItemOwnerStack _itemOwnerStack;
 public:
@@ -229,7 +247,7 @@ public:
 	inline const Item *GetItemRoot() { return _pItemRoot.get(); }
 private:
 	bool ParseChar(Signal sig, char ch);
-	bool CheckDecoration(char ch);
+	bool CheckSpecialChar(char ch);
 	void FlushText(Item::Type type, bool stripFlag);
 	void FlushItem(Item::Type type, bool stripFlag);
 	void BeginBlock(const char *textInit);

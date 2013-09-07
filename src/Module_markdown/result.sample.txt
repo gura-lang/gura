@@ -636,6 +636,14 @@
     <a url='abcde@bbb.ccc'>
       <text>'abcde@bbb.ccc'
     <text>'<abcde@bbb>'
+  <p>
+    <text>'Link: '
+    <a url='http://url.com/' title='Title'>'example'
+    <text>' .. test'
+  <p>
+    <text>'Image: '
+    <img url='/path/img.jpg' title='Title'>'alt text'
+    <text>' .. test'
   <ul>
     <li>
       <p>

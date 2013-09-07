@@ -366,6 +366,10 @@ __A\_ubar__
 <abcde@bbb.ccc>
 <abcde@bbb>
 
+Link: [example](http://url.com/ "Title") .. test
+
+Image: ![alt text](/path/img.jpg "Title") .. test
+
 - list item
 
         block under list item
