@@ -9,6 +9,11 @@
     <text>'Header1'
   <h2>
     <text>'Header2'
+  <p>
+    <text>'-'
+  <p>
+    <text>'--'
+  <hr>
   <ul>
     <li>
       <text>'item1'

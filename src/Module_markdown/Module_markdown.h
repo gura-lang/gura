@@ -59,6 +59,7 @@ private:
 public:
 	Gura_DeclareReferenceAccessor(Item);
 public:
+	Item(Type type, int indentLevel = 0);
 	Item(Type type, ItemOwner *pItemOwner, int indentLevel = 0);
 	Item(Type type, const String &text, int indentLevel = 0);
 private:
@@ -240,6 +241,8 @@ private:
 	void EndListItem();
 	void BeginDecoration(Item::Type type);
 	void EndDecoration();
+	static bool IsAtxHeader2(const char *text);
+	static bool IsHorzRule(const char *text);
 	static bool IsLink(const char *text);
 	inline static bool IsEOL(char ch) { return ch == '\n'; }
 	inline static bool IsEOF(char ch) { return ch == '\0'; }

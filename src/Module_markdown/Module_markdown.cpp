@@ -10,6 +10,10 @@ AutoPtr<Function> _pFunc_Presenter;
 //-----------------------------------------------------------------------------
 // Item
 //-----------------------------------------------------------------------------
+Item::Item(Type type, int indentLevel) : _cntRef(1), _type(type), _indentLevel(indentLevel)
+{
+}
+
 Item::Item(Type type, ItemOwner *pItemOwner, int indentLevel) : _cntRef(1),
 			_type(type), _pItemOwner(pItemOwner), _indentLevel(indentLevel)
 {
@@ -420,7 +424,18 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == '-') {
 			_textAhead += ch;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			FlushItem(Item::TYPE_Header2, false);
+			Item *pItemParent = _itemStack.back();
+			FlushText(Item::TYPE_Text, false);
+			if (!_pItemOwner->empty()) {
+				Item *pItem = new Item(Item::TYPE_Header2, _pItemOwner.release());
+				pItemParent->GetItemOwner()->push_back(pItem);
+				_pItemOwner.reset(new ItemOwner());
+			} else if (IsHorzRule(_textAhead.c_str())) {
+				Item *pItem = new Item(Item::TYPE_HorzRule);
+				pItemParent->GetItemOwner()->push_back(pItem);
+			} else {
+				_text += _textAhead;
+			}
 			if (IsEOF(ch)) continueFlag = true;
 			_stat = STAT_LineTop;
 		} else {
@@ -1161,6 +1176,21 @@ void Document::EndDecoration()
 {
 	FlushText(Item::TYPE_Text, false);
 	_pItemOwner.reset(_itemOwnerStack.Pop());
+}
+
+bool Document::IsAtxHeader2(const char *text)
+{
+	for (const char *p = text; ; p++) {
+		char ch = *p;
+		::printf("[%c]\n", ch);
+		if (ch != '-') return false;
+	}
+	return true;
+}
+
+bool Document::IsHorzRule(const char *text)
+{
+	return ::strlen(text) >= 3;
 }
 
 bool Document::IsLink(const char *text)

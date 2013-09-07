@@ -79,6 +79,10 @@ output_html(item:item, out:stream:w):map:void = {
 		out.print(item.text.escapehtml())
 	} elsif (item.type == `code) {
 		out.print('<code>', item.text.escapehtml(), '</code>')
+	} elsif (item.type == `hr) {
+		out.print('<hr />\n')
+	} elsif (item.type == `br) {
+		out.print('<br />\n')
 	}
 }
 
@@ -164,6 +168,10 @@ output_console(item:item):map:void = {
 		conio.setcolor(`blue) {
 			print(item.text)
 		}
+	} elsif (item.type == `hr) {
+		out.print('--------\n')
+	} elsif (item.type == `br) {
+		out.print('\n')
 	}
 	g_typePrev = item.type
 }
