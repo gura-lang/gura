@@ -12,6 +12,7 @@ Gura_BeginModule(markdown)
 // symbols
 //-----------------------------------------------------------------------------
 Gura_DeclareUserSymbol(root);
+Gura_DeclareUserSymbol(refs);
 Gura_DeclareUserSymbol(type);
 Gura_DeclareUserSymbol(text);
 Gura_DeclareUserSymbol(children);
@@ -47,6 +48,7 @@ public:
 		TYPE_Code,			// text
 		TYPE_HorzRule,		// no-content
 		TYPE_LineBreak,		// no-content
+		TYPE_Referee,		// no-content
 	};
 private:
 	int _cntRef;
@@ -198,15 +200,29 @@ private:
 		STAT_LinkAltText,
 		STAT_LinkText,
 		STAT_LinkTextPost,
-		STAT_LinkReferrerPre,
-		STAT_LinkReferrer,
+		STAT_LinkRefIdPre,
+		STAT_LinkRefId,
 		STAT_LinkURLPre,
 		STAT_LinkURL,
 		STAT_LinkURLBracket,
 		STAT_LinkURLBracketPost,
-		STAT_LinkTitle,
+		STAT_LinkTitleDoubleQuote,
+		STAT_LinkTitleSingleQuote,
 		STAT_LinkTitlePost,
+		STAT_RefereeRefIdPre,
+		STAT_RefereeRefId,
+		STAT_RefereeRefIdPost,
+		STAT_RefereeURLPreWhite,
+		STAT_RefereeURLPre,
+		STAT_RefereeURL,
+		STAT_RefereeURLBracket,
+		STAT_RefereeURLBracketPost,
+		STAT_RefereeTitleDoubleQuote,
+		STAT_RefereeTitleSingleQuote,
+		STAT_RefereeTitleParenthesis,
+		STAT_RefereeTitlePost,
 		STAT_Escape,
+		STAT_EscapeInLink,
 	};
 	enum {
 		INDENT_Block			= 4,
@@ -230,6 +246,7 @@ private:
 	String _textAhead;
 	String _field;
 	AutoPtr<ItemOwner> _pItemOwner;
+	AutoPtr<ItemOwner> _pItemRefereeOwner;
 	AutoPtr<Item> _pItemRoot;
 	AutoPtr<Item> _pItemLink;
 	ItemList _itemsLinkReferrer;
@@ -246,6 +263,9 @@ public:
 	bool ParseString(Signal sig, const char *text);
 	bool _ParseString(Signal sig, String text);
 	inline const Item *GetItemRoot() { return _pItemRoot.get(); }
+	inline const ItemOwner *GetItemRefereeOwner() const {
+		return _pItemRefereeOwner.get();
+	}
 private:
 	bool ParseChar(Signal sig, char ch);
 	bool CheckSpecialChar(char ch);

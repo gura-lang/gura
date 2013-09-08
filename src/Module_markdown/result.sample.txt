@@ -643,17 +643,36 @@
     <text>' .. without title'
   <p>
     <text>'Link: '
-    <a url='http://url.com/' title='Title'>
+    <a url='http://url.com/' title='Title 'hoge''>
       <text>'example'
-    <text>' .. with title'
+    <text>' .. with title (double quote)'
+  <p>
+    <text>'Link: '
+    <a url='http://url.com/' title='Title "hoge"'>
+      <text>'example'
+    <text>' .. with title (single quote)'
+  <p>
+    <text>'Link: '
+    <a url='http://url.com/' title='Title "hoge"'>
+      <text>'example'
+    <text>' .. with title (double quote)'
+  <p>
+    <text>'Link: '
+    <a url='http://url.com/' title='Title 'hoge''>
+      <text>'example'
+    <text>' .. with title (single quote)'
   <p>
     <text>'Image: '
     <img url='/path/img.jpg'>'alt text'
     <text>' .. without title'
   <p>
     <text>'Image: '
-    <img url='/path/img.jpg' title='Title'>'alt text'
-    <text>' .. with title'
+    <img url='/path/img.jpg' title='Title 'hoge''>'alt text'
+    <text>' .. with title (double quote)'
+  <p>
+    <text>'Image: '
+    <img url='/path/img.jpg' title='Title "hoge"'>'alt text'
+    <text>' .. with title (single quote)'
   <p>
     <a url=''>
       <text>'like this'

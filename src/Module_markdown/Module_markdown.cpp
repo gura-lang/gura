@@ -51,6 +51,7 @@ const char *Item::GetTypeName() const
 		{ TYPE_Code,			"code",		},	// text
 		{ TYPE_HorzRule,		"hr",		},	// no-content
 		{ TYPE_LineBreak,		"br",		},	// no-content
+		{ TYPE_Referee,			"referee",	},	// no-content
 	};
 	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].type == _type) return tbl[i].name;
@@ -163,7 +164,7 @@ void ItemStack::ClearListItem()
 // Document
 //-----------------------------------------------------------------------------
 Document::Document() : _cntRef(1), _stat(STAT_LineTop),
-							_indentLevel(0), _pItemOwner(new ItemOwner())
+	_indentLevel(0), _pItemOwner(new ItemOwner()), _pItemRefereeOwner(new ItemOwner())
 {
 	_statStack.Push(STAT_LineTop);
 	_pItemRoot.reset(new Item(Item::TYPE_Root, new ItemOwner()));
@@ -242,9 +243,16 @@ bool Document::ParseChar(Signal sig, char ch)
 			FlushItem(Item::TYPE_Paragraph, false);
 			_stat = STAT_LineTop;
 		} else if (_indentLevel < INDENT_Block) {
-			if (!_text.empty()) _text += ' ';
-			continueFlag = true;
-			_stat = STAT_Text;
+			if (ch == '[') {
+				_pItemLink.reset(new Item(Item::TYPE_Referee));
+				_textAhead.clear();
+				_textAhead += ch;
+				_stat = STAT_RefereeRefIdPre;
+			} else {
+				if (!_text.empty()) _text += ' ';
+				continueFlag = true;
+				_stat = STAT_Text;
+			}
 		} else {
 			continueFlag = true;
 			BeginBlock(NULL);
@@ -1051,28 +1059,29 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_LinkTextPost: {
 		if (ch == '[') {
-			_stat = STAT_LinkReferrerPre;
+			_stat = STAT_LinkRefIdPre;
 		} else if (ch == '(') {
 			_textAhead += ch;
 			_stat = STAT_LinkURLPre;
 		} else {
+			if (!_text.empty()) _text += ' ';
 			_text += _textAhead;
 			continueFlag = true;
 			_stat = _statStack.Pop();
 		}
 		break;
 	}
-	case STAT_LinkReferrerPre: {
+	case STAT_LinkRefIdPre: {
 		if (ch == ' ' || ch == '\t') {
 			_textAhead += ch;
 		} else {
 			_field.clear();
 			continueFlag = true;
-			_stat = STAT_LinkReferrer;
+			_stat = STAT_LinkRefId;
 		}
 		break;
 	}
-	case STAT_LinkReferrer: {
+	case STAT_LinkRefId: {
 		if (ch == ']') {
 			FlushText(Item::TYPE_Text, false);
 			_pItemLink->SetRefId(Strip(_field.c_str()));
@@ -1108,7 +1117,12 @@ bool Document::ParseChar(Signal sig, char ch)
 			_pItemLink->SetURL(Strip(_field.c_str()));
 			_textAhead += ch;
 			_field.clear();
-			_stat = STAT_LinkTitle;
+			_stat = STAT_LinkTitleDoubleQuote;
+		} else if (ch == '\'') {
+			_pItemLink->SetURL(Strip(_field.c_str()));
+			_textAhead += ch;
+			_field.clear();
+			_stat = STAT_LinkTitleSingleQuote;
 		} else if (ch == ')') {
 			FlushText(Item::TYPE_Text, false);
 			_pItemLink->SetURL(Strip(_field.c_str()));
@@ -1143,7 +1157,11 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (ch == '"') {
 			_textAhead += ch;
 			_field.clear();
-			_stat = STAT_LinkTitle;
+			_stat = STAT_LinkTitleDoubleQuote;
+		} else if (ch == '\'') {
+			_textAhead += ch;
+			_field.clear();
+			_stat = STAT_LinkTitleSingleQuote;
 		} else if (ch == ')') {
 			FlushText(Item::TYPE_Text, false);
 			_pItemOwner->push_back(_pItemLink.release());
@@ -1157,8 +1175,29 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_LinkTitle: {
-		if (ch == '"') {
+	case STAT_LinkTitleDoubleQuote: {
+		if (ch == '\\') {
+			_statStack.Push(_stat);
+			_stat = STAT_EscapeInLink;
+		} else if (ch == '"') {
+			_pItemLink->SetTitle(_field.c_str());
+			_textAhead += ch;
+			_stat = STAT_LinkTitlePost;
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			_text += _textAhead;
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		} else {
+			_textAhead += ch;
+			_field += ch;
+		}
+		break;
+	}
+	case STAT_LinkTitleSingleQuote: {
+		if (ch == '\\') {
+			_statStack.Push(_stat);
+			_stat = STAT_EscapeInLink;
+		} else if (ch == '\'') {
 			_pItemLink->SetTitle(_field.c_str());
 			_textAhead += ch;
 			_stat = STAT_LinkTitlePost;
@@ -1186,8 +1225,204 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
+	case STAT_RefereeRefIdPre: {
+		if (ch == ' ' || ch == '\t') {
+			_textAhead += ch;
+		} else {
+			_field.clear();
+			continueFlag = true;
+			_stat = STAT_RefereeRefId;
+		}
+		break;
+	}
+	case STAT_RefereeRefId: {
+		if (ch == ']') {
+			_pItemLink->SetRefId(Strip(_field.c_str()));
+			_textAhead += ch;
+			_stat = STAT_RefereeRefIdPost;
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			_text += _textAhead;
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		} else {
+			_textAhead += ch;
+			_field += ch;
+		}
+		break;
+	}
+	case STAT_RefereeRefIdPost: {
+		if (ch == ':') {
+			_textAhead += ch;
+			_stat = STAT_RefereeURLPreWhite;
+		} else {
+			continueFlag = true;
+			_statStack.Pop(); // discard original stat
+			_stat = STAT_Text;
+			if (!_ParseString(sig, _textAhead)) return false;
+		}
+		break;
+	}
+	case STAT_RefereeURLPreWhite: {
+		if (ch == ' ' || ch == '\t') {
+			_textAhead += ch;
+			_stat = STAT_RefereeURLPre;
+		} else {
+			if (!_text.empty()) _text += ' ';
+			_text += _textAhead;
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		}
+		break;
+	}
+	case STAT_RefereeURLPre: {
+		if (ch == ' ' || ch == '\t') {
+			_textAhead += ch;
+		} else {
+			_field.clear();
+			continueFlag = true;
+			_stat = STAT_RefereeURL;
+		}
+		break;
+	}
+	case STAT_RefereeURL: {
+		if (ch == '"') {
+			_pItemLink->SetURL(Strip(_field.c_str()));
+			_textAhead += ch;
+			_field.clear();
+			_stat = STAT_RefereeTitleDoubleQuote;
+		} else if (ch == '\'') {
+			_pItemLink->SetURL(Strip(_field.c_str()));
+			_textAhead += ch;
+			_field.clear();
+			_stat = STAT_RefereeTitleSingleQuote;
+		} else if (ch == '(') {
+			_pItemLink->SetURL(Strip(_field.c_str()));
+			_textAhead += ch;
+			_field.clear();
+			_stat = STAT_RefereeTitleParenthesis;
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			FlushText(Item::TYPE_Text, false);
+			_pItemLink->SetURL(Strip(_field.c_str()));
+			_pItemRefereeOwner->push_back(_pItemLink.release());
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		} else {
+			_textAhead += ch;
+			_field += ch;
+		}
+		break;
+	}
+	case STAT_RefereeURLBracket: {
+		if (ch == '>') {
+			_pItemLink->SetURL(Strip(_field.c_str()));
+			_textAhead += ch;
+			_stat = STAT_RefereeURLBracketPost;
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			_text += _textAhead;
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		} else {
+			_textAhead += ch;
+			_field += ch;
+		}
+		break;
+	}
+	case STAT_RefereeURLBracketPost: {
+		if (ch == '"') {
+			_textAhead += ch;
+			_field.clear();
+			_stat = STAT_RefereeTitleDoubleQuote;
+		} else if (ch == '\'') {
+			_textAhead += ch;
+			_field.clear();
+			_stat = STAT_RefereeTitleSingleQuote;
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			FlushText(Item::TYPE_Text, false);
+			_pItemRefereeOwner->push_back(_pItemLink.release());
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		} else {
+			_textAhead += ch;
+		}
+		break;
+	}
+	case STAT_RefereeTitleDoubleQuote: {
+		if (ch == '\\') {
+			_statStack.Push(_stat);
+			_stat = STAT_EscapeInLink;
+		} else if (ch == '"') {
+			_pItemLink->SetTitle(_field.c_str());
+			_textAhead += ch;
+			_stat = STAT_RefereeTitlePost;
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			_text += _textAhead;
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		} else {
+			_textAhead += ch;
+			_field += ch;
+		}
+		break;
+	}
+	case STAT_RefereeTitleSingleQuote: {
+		if (ch == '\\') {
+			_statStack.Push(_stat);
+			_stat = STAT_EscapeInLink;
+		} else if (ch == '\'') {
+			_pItemLink->SetTitle(_field.c_str());
+			_textAhead += ch;
+			_stat = STAT_RefereeTitlePost;
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			_text += _textAhead;
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		} else {
+			_textAhead += ch;
+			_field += ch;
+		}
+		break;
+	}
+	case STAT_RefereeTitleParenthesis: {
+		if (ch == '\\') {
+			_statStack.Push(_stat);
+			_stat = STAT_EscapeInLink;
+		} else if (ch == ')') {
+			_pItemLink->SetTitle(_field.c_str());
+			_textAhead += ch;
+			_stat = STAT_RefereeTitlePost;
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			_text += _textAhead;
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		} else {
+			_textAhead += ch;
+			_field += ch;
+		}
+		break;
+	}
+	case STAT_RefereeTitlePost: {
+		if (ch == ' ' || ch == '\t') {
+			_textAhead += ch;
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			FlushText(Item::TYPE_Text, false);
+			_pItemRefereeOwner->push_back(_pItemLink.release());
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		} else {
+			_text += _textAhead;
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		}
+		break;
+	}
 	case STAT_Escape: {
 		_text += ch;
+		_stat = _statStack.Pop();
+		break;
+	}
+	case STAT_EscapeInLink: {
+		_textAhead += ch;
+		_field += ch;
 		_stat = _statStack.Pop();
 		break;
 	}
@@ -1490,6 +1725,7 @@ bool Object_document::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(root));
+	symbols.insert(Gura_UserSymbol(refs));
 	return true;
 }
 
@@ -1499,6 +1735,10 @@ Value Object_document::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(root))) {
 		return Value(new Object_item(_pDocument->GetItemRoot()->Reference()));
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(refs))) {
+		const ItemOwner *pItemOwner = _pDocument->GetItemRefereeOwner();
+		Iterator *pIterator = new Iterator_item(pItemOwner->Reference());
+		return Value(env, pIterator);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -1779,6 +2019,7 @@ Gura_ModuleEntry()
 {
 	// symbol realization
 	Gura_RealizeUserSymbol(root);
+	Gura_RealizeUserSymbol(refs);
 	Gura_RealizeUserSymbol(type);
 	Gura_RealizeUserSymbol(text);
 	Gura_RealizeUserSymbol(children);

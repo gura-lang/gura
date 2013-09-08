@@ -368,11 +368,19 @@ __A\_ubar__
 
 Link: [example](http://url.com/) .. without title
 
-Link: [example](http://url.com/ "Title") .. with title
+Link: [example](http://url.com/ "Title 'hoge'") .. with title (double quote)
+
+Link: [example](http://url.com/ 'Title "hoge"') .. with title (single quote)
+
+Link: [example](http://url.com/ "Title \"hoge\"") .. with title (double quote)
+
+Link: [example](http://url.com/ 'Title \'hoge\'') .. with title (single quote)
 
 Image: ![alt text](/path/img.jpg) .. without title
 
-Image: ![alt text](/path/img.jpg "Title") .. with title
+Image: ![alt text](/path/img.jpg "Title 'hoge'") .. with title (double quote)
+
+Image: ![alt text](/path/img.jpg 'Title "hoge"') .. with title (single quote)
 
 [like this]() .. without url nor title
 
