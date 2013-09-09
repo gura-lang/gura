@@ -247,7 +247,8 @@ bool Document::ParseChar(Signal sig, char ch)
 				_pItemLink.reset(new Item(Item::TYPE_Referee));
 				_textAhead.clear();
 				_textAhead += ch;
-				_stat = STAT_RefereeRefIdPre;
+				_field.clear();
+				_stat = STAT_RefereeRefId;
 			} else {
 				if (!_text.empty()) _text += ' ';
 				continueFlag = true;
@@ -1059,7 +1060,8 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_LinkTextPost: {
 		if (ch == '[') {
-			_stat = STAT_LinkRefIdPre;
+			_field.clear();
+			_stat = STAT_LinkRefId;
 		} else if (ch == '(') {
 			_textAhead += ch;
 			_stat = STAT_LinkURLPre;
@@ -1071,20 +1073,10 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_LinkRefIdPre: {
-		if (ch == ' ' || ch == '\t') {
-			_textAhead += ch;
-		} else {
-			_field.clear();
-			continueFlag = true;
-			_stat = STAT_LinkRefId;
-		}
-		break;
-	}
 	case STAT_LinkRefId: {
 		if (ch == ']') {
 			FlushText(Item::TYPE_Text, false);
-			_pItemLink->SetRefId(Lower(Strip(_field.c_str()).c_str()));
+			_pItemLink->SetRefId(_field);
 			_itemsLinkReferrer.push_back(_pItemLink.get());
 			_pItemOwner->push_back(_pItemLink.release());
 			_stat = _statStack.Pop();
@@ -1225,19 +1217,9 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_RefereeRefIdPre: {
-		if (ch == ' ' || ch == '\t') {
-			_textAhead += ch;
-		} else {
-			_field.clear();
-			continueFlag = true;
-			_stat = STAT_RefereeRefId;
-		}
-		break;
-	}
 	case STAT_RefereeRefId: {
 		if (ch == ']') {
-			_pItemLink->SetRefId(Lower(Strip(_field.c_str()).c_str()));
+			_pItemLink->SetRefId(_field);
 			_textAhead += ch;
 			_stat = STAT_RefereeRefIdPost;
 		} else if (IsEOL(ch) || IsEOF(ch)) {

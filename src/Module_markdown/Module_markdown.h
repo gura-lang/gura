@@ -200,7 +200,6 @@ private:
 		STAT_LinkAltText,
 		STAT_LinkText,
 		STAT_LinkTextPost,
-		STAT_LinkRefIdPre,
 		STAT_LinkRefId,
 		STAT_LinkURLPre,
 		STAT_LinkURL,
