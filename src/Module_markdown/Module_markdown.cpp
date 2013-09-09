@@ -1084,7 +1084,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_LinkRefId: {
 		if (ch == ']') {
 			FlushText(Item::TYPE_Text, false);
-			_pItemLink->SetRefId(Strip(_field.c_str()));
+			_pItemLink->SetRefId(Lower(Strip(_field.c_str()).c_str()));
 			_itemsLinkReferrer.push_back(_pItemLink.get());
 			_pItemOwner->push_back(_pItemLink.release());
 			_stat = _statStack.Pop();
@@ -1104,7 +1104,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '<') {
 			_field.clear();
 			_textAhead += ch;
-			_stat = STAT_LinkURLBracket;
+			_stat = STAT_LinkURLAngle;
 		} else {
 			_field.clear();
 			continueFlag = true;
@@ -1138,11 +1138,11 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_LinkURLBracket: {
+	case STAT_LinkURLAngle: {
 		if (ch == '>') {
 			_pItemLink->SetURL(Strip(_field.c_str()));
 			_textAhead += ch;
-			_stat = STAT_LinkURLBracketPost;
+			_stat = STAT_LinkURLAnglePost;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			_text += _textAhead;
 			continueFlag = true;
@@ -1153,7 +1153,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_LinkURLBracketPost: {
+	case STAT_LinkURLAnglePost: {
 		if (ch == '"') {
 			_textAhead += ch;
 			_field.clear();
@@ -1237,13 +1237,13 @@ bool Document::ParseChar(Signal sig, char ch)
 	}
 	case STAT_RefereeRefId: {
 		if (ch == ']') {
-			_pItemLink->SetRefId(Strip(_field.c_str()));
+			_pItemLink->SetRefId(Lower(Strip(_field.c_str()).c_str()));
 			_textAhead += ch;
 			_stat = STAT_RefereeRefIdPost;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			_text += _textAhead;
 			continueFlag = true;
-			_stat = _statStack.Pop();
+			_stat = STAT_LineTop;
 		} else {
 			_textAhead += ch;
 			_field += ch;
@@ -1256,7 +1256,6 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_RefereeURLPreWhite;
 		} else {
 			continueFlag = true;
-			_statStack.Pop(); // discard original stat
 			_stat = STAT_Text;
 			if (!_ParseString(sig, _textAhead)) return false;
 		}
@@ -1270,13 +1269,16 @@ bool Document::ParseChar(Signal sig, char ch)
 			if (!_text.empty()) _text += ' ';
 			_text += _textAhead;
 			continueFlag = true;
-			_stat = _statStack.Pop();
+			_stat = STAT_Text;
 		}
 		break;
 	}
 	case STAT_RefereeURLPre: {
 		if (ch == ' ' || ch == '\t') {
 			_textAhead += ch;
+		} else if (ch == '<') {
+			_field.clear();
+			_stat = STAT_RefereeURLAngle;
 		} else {
 			_field.clear();
 			continueFlag = true;
@@ -1305,29 +1307,29 @@ bool Document::ParseChar(Signal sig, char ch)
 			_pItemLink->SetURL(Strip(_field.c_str()));
 			_pItemRefereeOwner->push_back(_pItemLink.release());
 			continueFlag = true;
-			_stat = _statStack.Pop();
+			_stat = STAT_LineTop;
 		} else {
 			_textAhead += ch;
 			_field += ch;
 		}
 		break;
 	}
-	case STAT_RefereeURLBracket: {
+	case STAT_RefereeURLAngle: {
 		if (ch == '>') {
 			_pItemLink->SetURL(Strip(_field.c_str()));
 			_textAhead += ch;
-			_stat = STAT_RefereeURLBracketPost;
+			_stat = STAT_RefereeURLAnglePost;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			_text += _textAhead;
 			continueFlag = true;
-			_stat = _statStack.Pop();
+			_stat = STAT_LineTop;
 		} else {
 			_textAhead += ch;
 			_field += ch;
 		}
 		break;
 	}
-	case STAT_RefereeURLBracketPost: {
+	case STAT_RefereeURLAnglePost: {
 		if (ch == '"') {
 			_textAhead += ch;
 			_field.clear();
@@ -1340,7 +1342,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			FlushText(Item::TYPE_Text, false);
 			_pItemRefereeOwner->push_back(_pItemLink.release());
 			continueFlag = true;
-			_stat = _statStack.Pop();
+			_stat = STAT_LineTop;
 		} else {
 			_textAhead += ch;
 		}
@@ -1357,7 +1359,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			_text += _textAhead;
 			continueFlag = true;
-			_stat = _statStack.Pop();
+			_stat = STAT_LineTop;
 		} else {
 			_textAhead += ch;
 			_field += ch;
@@ -1375,7 +1377,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			_text += _textAhead;
 			continueFlag = true;
-			_stat = _statStack.Pop();
+			_stat = STAT_LineTop;
 		} else {
 			_textAhead += ch;
 			_field += ch;
@@ -1393,7 +1395,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			_text += _textAhead;
 			continueFlag = true;
-			_stat = _statStack.Pop();
+			_stat = STAT_LineTop;
 		} else {
 			_textAhead += ch;
 			_field += ch;
@@ -1407,11 +1409,11 @@ bool Document::ParseChar(Signal sig, char ch)
 			FlushText(Item::TYPE_Text, false);
 			_pItemRefereeOwner->push_back(_pItemLink.release());
 			continueFlag = true;
-			_stat = _statStack.Pop();
+			_stat = STAT_LineTop;
 		} else {
 			_text += _textAhead;
 			continueFlag = true;
-			_stat = _statStack.Pop();
+			_stat = STAT_Text;
 		}
 		break;
 	}
