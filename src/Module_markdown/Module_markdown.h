@@ -68,6 +68,7 @@ public:
 private:
 	inline ~Item() {}
 public:
+	inline void SetType(Item::Type type) { _type = type; }
 	inline const Type GetType() const { return _type; }
 	inline bool IsList() const { return _type == TYPE_UList || _type == TYPE_OList; }
 	inline bool IsOwner() const { return !_pItemOwner.IsNull(); }
@@ -90,6 +91,9 @@ public:
 	inline void SetURL(const String &url) { _pURL.reset(new String(url)); }
 	inline void SetTitle(const String &title) { _pTitle.reset(new String(title)); }
 	inline void SetRefId(const String &refId) { _pRefId.reset(new String(refId)); }
+	inline void ClearURL() { _pURL.reset(NULL); }
+	inline void ClearTitle() { _pTitle.reset(NULL); }
+	inline void ClearRefId() { _pRefId.reset(NULL); }
 	inline void SetIndentLevel(int indentLevel) { _indentLevel = indentLevel; }
 	inline int GetIndentLevel() const { return _indentLevel; }
 	const char *GetTypeName() const;
@@ -101,6 +105,7 @@ public:
 //-----------------------------------------------------------------------------
 class ItemList : public std::vector<Item *> {
 public:
+	Item *FindByRefId(const char *refId) const;
 	void Print(Signal sig, Stream &stream, int indentLevel) const;
 };
 
@@ -260,12 +265,13 @@ private:
 public:
 	bool ParseStream(Signal sig, SimpleStream &stream);
 	bool ParseString(Signal sig, const char *text);
-	bool _ParseString(Signal sig, String text);
+	void ResolveReference();
 	inline const Item *GetItemRoot() { return _pItemRoot.get(); }
 	inline const ItemOwner *GetItemRefereeOwner() const {
 		return _pItemRefereeOwner.get();
 	}
 private:
+	bool _ParseString(Signal sig, String text);
 	bool ParseChar(Signal sig, char ch);
 	bool CheckSpecialChar(char ch);
 	void FlushText(Item::Type type, bool stripFlag);

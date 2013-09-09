@@ -95,6 +95,19 @@ void Item::Print(Signal sig, Stream &stream, int indentLevel) const
 //-----------------------------------------------------------------------------
 // ItemList
 //-----------------------------------------------------------------------------
+Item *ItemList::FindByRefId(const char *refId) const
+{
+	if (refId == NULL) return NULL;
+	foreach_const (ItemList, ppItem, *this) {
+		Item *pItem = *ppItem;
+		if (pItem->GetRefId() != NULL &&
+						::strcmp(pItem->GetRefId(), refId) == 0) {
+			return pItem;
+		}
+	}
+	return NULL;
+}
+
 void ItemList::Print(Signal sig, Stream &stream, int indentLevel) const
 {
 	foreach_const (ItemList, ppItem, *this) {
@@ -194,6 +207,32 @@ bool Document::_ParseString(Signal sig, String text)
 		if (!ParseChar(sig, *p)) return false;
 	}
 	return true;
+}
+
+void Document::ResolveReference()
+{
+	foreach (ItemList, ppItemLink, _itemsLinkReferrer) {
+		Item *pItemLink = *ppItemLink;
+		const char *refId = pItemLink->GetRefId();
+		Item *pItemRef = _pItemRefereeOwner->FindByRefId(refId);
+		if (pItemRef == NULL) {
+			String text;
+			text += "[";
+			text += pItemLink->GetText();
+			text += "][";
+			if (refId != NULL) text += refId;
+			text += "]";
+			pItemRef->SetText(text);
+			pItemRef->ClearURL();
+			pItemRef->ClearTitle();
+			pItemRef->ClearRefId();
+		} else {
+			const char *url = pItemRef->GetURL();
+			const char *title = pItemRef->GetTitle();
+			if (url != NULL) pItemLink->SetURL(url);
+			if (title != NULL) pItemLink->SetTitle(title);
+		}
+	}
 }
 
 bool Document::ParseChar(Signal sig, char ch)
