@@ -777,3 +777,80 @@
     <text>' in paragraph'
   <p>
     <text>'1986. What a great season.'
+  <p>
+    <text>'Link: '
+    <a url='http://example-1.com' refid='1'>
+      <text>'example'
+    <text>' .. reference'
+  <p>
+    <text>'Link: '
+    <a url='http://example-2.com' title='title-2' refid='2'>
+      <text>'example'
+    <text>' .. reference'
+  <p>
+    <text>'Link: '
+    <a url='http://example-3.com' title='title-3' refid='3'>
+      <text>'example'
+    <text>' .. reference'
+  <p>
+    <text>'Link: '
+    <a url='http://example-4.com' title='title-4' refid='4'>
+      <text>'example'
+    <text>' .. reference'
+  <p>
+    <text>'Link: '
+    <a url='http://example-5.com' title='title-5' refid='  5  '>
+      <text>'example'
+    <text>' .. reference'
+  <p>
+    <text>'Link: '
+    <a url='http://example-6.com' title='title-6 "quoted"' refid='6'>
+      <text>'example'
+    <text>' .. reference'
+  <p>
+    <text>'Link: '
+    <a url='http://example-7.com' title='title-7 'quoted'' refid='7'>
+      <text>'example'
+    <text>' .. reference'
+  <p>
+    <text>'Link: '
+    <a url='http://example-8.com' title='title-8 (quoted)' refid='8'>
+      <text>'example'
+    <text>' .. reference'
+  <p>
+    <text>'Link: '
+    <a url='http://example-9.com' refid='9'>
+      <text>'example'
+    <text>' .. reference'
+  <p>
+    <text>'Link: '
+    <a url='http://example-ABCDEF.com' title='title-ABCDEF' refid='ABCDEF'>
+      <text>'example'
+    <text>' .. reference'
+  <p>
+    <text>'Link: '
+    <a url='http://example-ABCDEF.com' title='title-ABCDEF' refid='abcdef'>
+      <text>'example'
+    <text>' .. reference'
+  <p>
+    <text>'Link: '
+    <a url='http://example-sABCDEFs.com' title='title-sABCDEFs' refid='   ABCDEF  '>
+      <text>'example'
+    <text>' .. reference'
+  <p>
+    <text>'[NG]:http://example-NG.com "title-NG" .. should be normal text'
+  <p>
+    <text>'[NG]:http://example-NG.com "title-NG .. should be normal text'
+  <p>
+    <text>'[NG]:http://example-NG.com [title-NG .. should be normal text'
+  <block>
+    <line>
+      <text>'[NG]:http://example-NG.com [title-NG] .. should be block'
+  <p>
+    <text>'An '
+    <a url='http://example.com/' title='Title' refid='id1'>
+      <text>'example'
+    <text>'. Then, anywhere else in the doc, define the link:'
+  <p>
+    <text>'Reference-style image: '
+    <img url='/url/to/img.jpg' title='Title' refid='id2'>'alt text'

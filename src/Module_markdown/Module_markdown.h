@@ -243,6 +243,7 @@ private:
 	};
 private:
 	int _cntRef;
+	bool _resolvedFlag;
 	Stat _stat;
 	StatStack _statStack;
 	int _indentLevel;
@@ -265,6 +266,7 @@ private:
 public:
 	bool ParseStream(Signal sig, SimpleStream &stream);
 	bool ParseString(Signal sig, const char *text);
+	void AddItemReferee(Item *pItem);
 	void ResolveReference();
 	inline const Item *GetItemRoot() { return _pItemRoot.get(); }
 	inline const ItemOwner *GetItemRefereeOwner() const {

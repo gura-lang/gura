@@ -101,7 +101,7 @@ Item *ItemList::FindByRefId(const char *refId) const
 	foreach_const (ItemList, ppItem, *this) {
 		Item *pItem = *ppItem;
 		if (pItem->GetRefId() != NULL &&
-						::strcmp(pItem->GetRefId(), refId) == 0) {
+					::strcasecmp(pItem->GetRefId(), refId) == 0) {
 			return pItem;
 		}
 	}
@@ -176,7 +176,7 @@ void ItemStack::ClearListItem()
 //-----------------------------------------------------------------------------
 // Document
 //-----------------------------------------------------------------------------
-Document::Document() : _cntRef(1), _stat(STAT_LineTop),
+Document::Document() : _cntRef(1), _resolvedFlag(false), _stat(STAT_LineTop),
 	_indentLevel(0), _pItemOwner(new ItemOwner()), _pItemRefereeOwner(new ItemOwner())
 {
 	_statStack.Push(STAT_LineTop);
@@ -209,30 +209,27 @@ bool Document::_ParseString(Signal sig, String text)
 	return true;
 }
 
+void Document::AddItemReferee(Item *pItem)
+{
+	_pItemRefereeOwner->push_back(pItem);
+	_resolvedFlag = false;
+}
+
 void Document::ResolveReference()
 {
+	if (_resolvedFlag) return;
 	foreach (ItemList, ppItemLink, _itemsLinkReferrer) {
 		Item *pItemLink = *ppItemLink;
 		const char *refId = pItemLink->GetRefId();
 		Item *pItemRef = _pItemRefereeOwner->FindByRefId(refId);
-		if (pItemRef == NULL) {
-			String text;
-			text += "[";
-			text += pItemLink->GetText();
-			text += "][";
-			if (refId != NULL) text += refId;
-			text += "]";
-			pItemRef->SetText(text);
-			pItemRef->ClearURL();
-			pItemRef->ClearTitle();
-			pItemRef->ClearRefId();
-		} else {
+		if (pItemRef != NULL) {
 			const char *url = pItemRef->GetURL();
 			const char *title = pItemRef->GetTitle();
 			if (url != NULL) pItemLink->SetURL(url);
 			if (title != NULL) pItemLink->SetTitle(title);
 		}
 	}
+	_resolvedFlag = true;
 }
 
 bool Document::ParseChar(Signal sig, char ch)
@@ -1326,7 +1323,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			FlushText(Item::TYPE_Text, false);
 			_pItemLink->SetURL(Strip(_field.c_str()));
-			_pItemRefereeOwner->push_back(_pItemLink.release());
+			AddItemReferee(_pItemLink.release());
 			continueFlag = true;
 			_stat = STAT_LineTop;
 		} else {
@@ -1361,7 +1358,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_RefereeTitleSingleQuote;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			FlushText(Item::TYPE_Text, false);
-			_pItemRefereeOwner->push_back(_pItemLink.release());
+			AddItemReferee(_pItemLink.release());
 			continueFlag = true;
 			_stat = STAT_LineTop;
 		} else {
@@ -1428,7 +1425,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAhead += ch;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			FlushText(Item::TYPE_Text, false);
-			_pItemRefereeOwner->push_back(_pItemLink.release());
+			AddItemReferee(_pItemLink.release());
 			continueFlag = true;
 			_stat = STAT_LineTop;
 		} else {
@@ -1757,6 +1754,7 @@ Value Object_document::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(root))) {
+		_pDocument->ResolveReference();
 		return Value(new Object_item(_pDocument->GetItemRoot()->Reference()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(refs))) {
 		const ItemOwner *pItemOwner = _pDocument->GetItemRefereeOwner();
@@ -1813,6 +1811,7 @@ Gura_DeclareMethod(document, print)
 Gura_ImplementMethod(document, print)
 {
 	Document *pDocument = Object_document::GetThisObj(args)->GetDocument();
+	pDocument->ResolveReference();
 	const Item *pItem = pDocument->GetItemRoot();
 	pItem->Print(sig, *env.GetConsole(), 0);
 	return Value::Null;
