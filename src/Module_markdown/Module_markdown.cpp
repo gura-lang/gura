@@ -240,15 +240,9 @@ bool Document::ParseChar(Signal sig, char ch)
 	continueFlag = false;
 	switch (_stat) {
 	case STAT_LineTop: {
-		if (ch == '#') {
-			FlushItem(Item::TYPE_Paragraph, false);
-			_indentLevel = 1;
-			_stat = STAT_SetextHeaderHead;
-		} else {
-			_indentLevel = 0;
-			continueFlag = true;
-			_stat = STAT_LineHead;
-		}
+		_indentLevel = 0;
+		continueFlag = true;
+		_stat = STAT_LineHead;
 		break;
 	}
 	case STAT_LineHead: {
@@ -260,6 +254,10 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAhead.clear();
 			_textAhead += ch;
 			_stat = STAT_Equal;
+		} else if (ch == '#' && _indentLevel == 0) {
+			FlushItem(Item::TYPE_Paragraph, false);
+			_indentLevel = 1;
+			_stat = STAT_SetextHeaderHead;
 		} else if (ch == '*') {
 			_textAhead.clear();
 			_textAhead += ch;

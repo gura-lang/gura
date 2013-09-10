@@ -170,6 +170,12 @@ Build for Windows
 #header1 ##
 #header1  # 
 
+ # not a header
+
+  # not a header
+
+   # not a header
+
 - para1
   hoge
   

@@ -254,6 +254,12 @@
     <text>'header1'
   <h1>
     <text>'header1  #'
+  <p>
+    <text>'# not a header'
+  <p>
+    <text>'# not a header'
+  <p>
+    <text>'# not a header'
   <ul>
     <li>
       <p>
