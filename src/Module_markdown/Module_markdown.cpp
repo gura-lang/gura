@@ -320,7 +320,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_LineHead;
 		} else {
 			_quoteLevel = 0;
-			AdjustBlockQuote(_quoteLevel);
+			AdjustBlockQuote();
 			continueFlag = true;
 			_stat = STAT_LineHead;
 		}
@@ -438,7 +438,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_indentLevel = -1;
 			_quoteLevel++;
 		} else {
-			AdjustBlockQuote(_quoteLevel);
+			AdjustBlockQuote();
 			continueFlag = true;
 			_stat = STAT_LineHead;
 		}
@@ -1547,20 +1547,20 @@ bool Document::CheckSpecialChar(char ch)
 	return false;
 }
 
-void Document::AdjustBlockQuote(int quoteLevelToSet)
+void Document::AdjustBlockQuote()
 {
 	int quoteLevel = _itemStack.CountQuoteLevel();
-	if (quoteLevel < quoteLevelToSet) {
+	if (quoteLevel < _quoteLevel) {
  			FlushItem(Item::TYPE_Paragraph, false);
-		for ( ; quoteLevel < quoteLevelToSet; quoteLevel++) {
+		for ( ; quoteLevel < _quoteLevel; quoteLevel++) {
 			Item *pItemParent = _itemStack.back();
 			Item *pItem = new Item(Item::TYPE_BlockQuote, new ItemOwner());
 			pItemParent->GetItemOwner()->push_back(pItem);
 			_itemStack.push_back(pItem);
 		}
-	} else if (quoteLevel > quoteLevelToSet) {
+	} else if (quoteLevel > _quoteLevel) {
  			FlushItem(Item::TYPE_Paragraph, false);
-		while (quoteLevel > quoteLevelToSet) {
+		while (quoteLevel > _quoteLevel) {
 			Item *pItem = _itemStack.back();
 			if (pItem->IsBlockQuote()) quoteLevel--;
 			_itemStack.pop_back();

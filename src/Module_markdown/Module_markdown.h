@@ -284,7 +284,7 @@ private:
 	bool _ParseString(Signal sig, String text);
 	bool ParseChar(Signal sig, char ch);
 	bool CheckSpecialChar(char ch);
-	void AdjustBlockQuote(int quoteLevelToSet);
+	void AdjustBlockQuote();
 	void FlushText(Item::Type type, bool stripFlag);
 	void FlushItem(Item::Type type, bool stripFlag);
 	void BeginCodeBlock(const char *textInit);
