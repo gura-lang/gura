@@ -279,6 +279,52 @@ Element::Element() : _cntRef(1), _pChildren(new ElementOwner())
 {
 }
 
+void Element::SetAttributes(const char **atts)
+{
+	if (atts == NULL) return;
+	for (const char **p = atts; *p != NULL && *(p + 1) != NULL; p += 2) {
+		const char *name = *p, *value = *(p + 1);
+		_attributes.push_back(new Attribute(name, value));
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Element::Attribute
+//-----------------------------------------------------------------------------
+Element::Attribute::Attribute(const String &name, const String &value) :
+												_name(name), _value(value)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Element::AttributeList
+//-----------------------------------------------------------------------------
+Element::Attribute *Element::AttributeList::FindByName(const char *name)
+{
+	foreach (AttributeList, ppAttribute, *this) {
+		Attribute *pAttribute = *ppAttribute;
+		if (::strcmp(pAttribute->GetName(), name) == 0) return pAttribute;
+	}
+	return NULL;
+}
+
+//-----------------------------------------------------------------------------
+// Element::AttributeOwner
+//-----------------------------------------------------------------------------
+Element::AttributeOwner::~AttributeOwner()
+{
+	Clear();
+}
+
+void Element::AttributeOwner::Clear()
+{
+	foreach (AttributeOwner, ppAttribute, *this) {
+		Attribute *pAttribute = *ppAttribute;
+		delete pAttribute;
+	}
+	clear();
+}
+
 //-----------------------------------------------------------------------------
 // ElementList
 //-----------------------------------------------------------------------------

@@ -96,17 +96,40 @@ class ElementOwner;
 // Element
 //-----------------------------------------------------------------------------
 class Element {
+public:
+	class Attribute {
+	private:
+		String _name;
+		String _value;
+	public:
+		Attribute(const String &name, const String &value);
+		inline const char *GetName() const { return _name.c_str(); }
+		inline const char *GetValue() const { return _value.c_str(); }
+	};
+	class AttributeList : public std::vector<Attribute *> {
+	public:
+		Attribute *FindByName(const char *name);
+	};
+	class AttributeOwner : public AttributeList {
+	public:
+		~AttributeOwner();
+		void Clear();
+	};
 private:
 	int _cntRef;
 	String _name;
+	AttributeOwner _attributes;
 	std::auto_ptr<ElementOwner> _pChildren;
 public:
 	Gura_DeclareReferenceAccessor(Element);
 public:
 	Element();
-	const char *GetName() const { return _name.c_str(); }
-	ElementOwner &GetChildren() { return *_pChildren; }
-	const ElementOwner &GetChildren() const { return *_pChildren; }
+	void SetAttributes(const char **atts);
+	inline const char *GetName() const { return _name.c_str(); }
+	inline AttributeOwner &GetAttributes() { return _attributes; }
+	inline const AttributeOwner &GetAttributes() const { return _attributes; }
+	inline ElementOwner &GetChildren() { return *_pChildren; }
+	inline const ElementOwner &GetChildren() const { return *_pChildren; }
 private:
 	inline ~Element() {}
 };
@@ -134,10 +157,13 @@ Gura_DeclareUserClass(element);
 class Object_element : public Object_dict {
 private:
 	ValueList *_pValList;
+	//AutoPtr<Element> _pElement;
 public:
 	Gura_DeclareObjectAccessor(element)
 public:
 	Object_element(Environment &env, const char *name, const char **atts);
+	//inline Element *GetElement() { return _pElement.get(); }
+	//inline const Element *GetElement() const { return _pElement.get(); }
 	void AddChild(const Value &value);
 	String Format(Signal sig, int indentLevel) const;
 	String GetText(Signal sig) const;
