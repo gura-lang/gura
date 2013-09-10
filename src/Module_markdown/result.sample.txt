@@ -918,3 +918,34 @@
   <quote>
     <p>
       <text>'1st-1'
+  <p>
+    <text>'normal paragraph'
+  <quote>
+    <p>
+      <text>'Email-style angle brackets are used for blockquotes.'
+    <quote>
+      <p>
+        <text>'And, they can be nested.'
+    <h4>
+      <text>'Headers in blockquotes'
+    <ul>
+      <li>
+        <text>'You can quote a list.'
+      <li>
+        <text>'Etc.'
+    <p>
+      <text>'paragraph in quote'
+    <ul>
+      <li>
+        <text>'list item-1'
+      <li>
+        <text>'list item-2'
+    <ol>
+      <li>
+        <text>'list item-1'
+      <li>
+        <text>'list item-2'
+    <p>
+      <text>'paragraph in quote'
+  <p>
+    <text>'normal paragraph'

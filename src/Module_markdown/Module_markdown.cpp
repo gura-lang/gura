@@ -711,6 +711,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (_indentLevel <= 0) {
 			EndListItem();
 			_itemStack.ClearListItem();
+			AdjustBlockQuote();
 			continueFlag = true;
 			_stat = STAT_LineTop;
 		} else if (_indentLevel >= INDENT_CodeBlockInList) {

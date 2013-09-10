@@ -564,6 +564,29 @@ normal
 
 > 1st-1
 
+normal paragraph
+
+> Email-style angle brackets
+> are used for blockquotes.
+
+> > And, they can be nested.
+
+> #### Headers in blockquotes
+> 
+> * You can quote a list.
+> * Etc.
+>
+> paragraph in quote
+>
+> - list item-1
+> - list item-2
+>
+> 1. list item-1
+> 2. list item-2
+>
+> paragraph in quote
+
+normal paragraph
 '''
 
 sys.stdout.addcr(false)
