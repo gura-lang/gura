@@ -178,9 +178,7 @@ int ItemStack::CountQuoteLevel() const
 	int quoteLevel = 0;
 	foreach_const (ItemStack, ppItem, *this) {
 		Item *pItem = *ppItem;
-		if (pItem->GetType() == Item::TYPE_BlockQuote) {
-			quoteLevel++;
-		}
+		if (pItem->IsBlockQuote()) quoteLevel++;
 	}
 	return quoteLevel;
 }
@@ -1564,7 +1562,7 @@ void Document::AdjustBlockQuote(int quoteLevelToSet)
  			FlushItem(Item::TYPE_Paragraph, false);
 		while (quoteLevel > quoteLevelToSet) {
 			Item *pItem = _itemStack.back();
-			if (pItem->GetType() == Item::TYPE_BlockQuote) quoteLevel--;
+			if (pItem->IsBlockQuote()) quoteLevel--;
 			_itemStack.pop_back();
 		}
 	}
@@ -1635,14 +1633,14 @@ void Document::BeginListItem(Item::Type type)
 {
 	Item *pItemParent = _itemStack.back();
 	while (_indentLevel < pItemParent->GetIndentLevel()) {
-		if (pItemParent->GetType() == Item::TYPE_ListItem) {
+		if (pItemParent->IsListItem()) {
 			EndListItem();
 		} else {
 			_itemStack.pop_back();
 		}
 		pItemParent = _itemStack.back();
 	}
-	if (pItemParent->GetType() == Item::TYPE_ListItem) {
+	if (pItemParent->IsListItem()) {
 		if (_indentLevel == pItemParent->GetIndentLevel()) {
 			EndListItem();
 			pItemParent = _itemStack.back();
@@ -1650,8 +1648,8 @@ void Document::BeginListItem(Item::Type type)
 			FlushListItem();
 		}
 	}
-	if (pItemParent->GetType() == Item::TYPE_Root ||
-						pItemParent->GetIndentLevel() < _indentLevel) {
+	if (pItemParent->IsRoot() || pItemParent->IsBlockQuote() ||
+							pItemParent->GetIndentLevel() < _indentLevel) {
 		Item *pItem = new Item(type, new ItemOwner(), _indentLevel);
 		pItemParent->GetItemOwner()->push_back(pItem);
 		_itemStack.push_back(pItem);
