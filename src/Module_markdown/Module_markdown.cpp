@@ -260,7 +260,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAhead.clear();
 			_textAhead += ch;
 			_stat = STAT_Equal;
-		} else if (ch == '#' && _indentLevel == 0) {
+		} else if (ch == '#' && _indentLevel <= 0) {
 			FlushItem(Item::TYPE_Paragraph, false);
 			_indentLevel = 1;
 			_stat = STAT_SetextHeaderHead;
@@ -406,8 +406,15 @@ bool Document::ParseChar(Signal sig, char ch)
 			_indentLevel += 1;
 		} else if (ch == '\t') {
 			_indentLevel += 4;
+		} else if (_indentLevel >= INDENT_CodeBlock) {
+			continueFlag = true;
+			BeginCodeBlock(_textAhead.c_str());
 		} else if (ch == '>') {
+			_indentLevel = -1;
 			_quoteLevel++;
+		} else {
+			continueFlag = true;
+			_stat = STAT_LineHead;
 		}
 		break;
 	}
@@ -653,7 +660,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_itemStack.ClearListItem();
 			if (IsEOF(ch)) continueFlag = true;
 			_stat = STAT_LineTop;
-		} else if (_indentLevel == 0) {
+		} else if (_indentLevel <= 0) {
 			EndListItem();
 			_itemStack.ClearListItem();
 			continueFlag = true;
@@ -671,7 +678,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_ListItemPostNL_Asterisk: {
 		if (ch == ' ' || ch == '\t') {
 			BeginListItem(Item::TYPE_UList);
-		} else if (_indentLevel == 0) {
+		} else if (_indentLevel <= 0) {
 			EndListItem();
 			_itemStack.ClearListItem();
 			_stat = STAT_LineTop;
@@ -691,7 +698,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_ListItemPostNL_Plus: {
 		if (ch == ' ' || ch == '\t') {
 			BeginListItem(Item::TYPE_UList);
-		} else if (_indentLevel == 0) {
+		} else if (_indentLevel <= 0) {
 			EndListItem();
 			_itemStack.ClearListItem();
 			_stat = STAT_LineTop;
@@ -711,7 +718,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_ListItemPostNL_Hyphen: {
 		if (ch == ' ' || ch == '\t') {
 			BeginListItem(Item::TYPE_UList);
-		} else if (_indentLevel == 0) {
+		} else if (_indentLevel <= 0) {
 			EndListItem();
 			_itemStack.ClearListItem();
 			_stat = STAT_LineTop;
@@ -734,7 +741,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '.') {
 			_textAhead += ch;
 			_stat = STAT_ListItemPostNL_DigitDot;
-		} else if (_indentLevel == 0) {
+		} else if (_indentLevel <= 0) {
 			EndListItem();
 			_itemStack.ClearListItem();
 			_stat = STAT_LineTop;
@@ -754,7 +761,7 @@ bool Document::ParseChar(Signal sig, char ch)
 	case STAT_ListItemPostNL_DigitDot: {
 		if (ch == ' ' || ch == '\t') {
 			BeginListItem(Item::TYPE_OList);
-		} else if (_indentLevel == 0) {
+		} else if (_indentLevel <= 0) {
 			EndListItem();
 			_itemStack.ClearListItem();
 			_stat = STAT_LineTop;
