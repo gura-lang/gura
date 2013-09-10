@@ -37,6 +37,11 @@ output_html(item:item, out:stream:w):map:void = {
 		output_html(item.children, out)
 		out.println()
 		out.print('</p>\n')
+	} elsif (item.type == `blockquote) {
+		out.print('<blockquote>\n')
+		output_html(item.children, out)
+		out.println()
+		out.print('</blockquote>\n')
 	} elsif (item.type == `em) {
 		out.print('<em>')
 		output_html(item.children, out)
@@ -45,7 +50,7 @@ output_html(item:item, out:stream:w):map:void = {
 		out.print('<strong>')
 		output_html(item.children, out)
 		out.print('</strong>')
-	} elsif (item.type == `block) {
+	} elsif (item.type == `codeblock) {
 		out.print('<pre style="background: #cccccc"><code>')
 		output_html(item.children, out)
 		out.print('</code></pre>\n')
@@ -133,6 +138,10 @@ output_console(item:item):map:void = {
 		println()
 		output_console(item.children)
 		println()
+	} elsif (item.type == `blockquote) {
+		println()
+		output_console(item.children)
+		out.println()
 	} elsif (item.type == `em) {
 		conio.setcolor(`red) {
 			output_console(item.children)
@@ -141,7 +150,7 @@ output_console(item:item):map:void = {
 		conio.setcolor(`red) {
 			output_console(item.children)
 		}
-	} elsif (item.type == `block) {
+	} elsif (item.type == `codeblock) {
 		println()
 		conio.setcolor(`blue) {
 			output_console(item.children)

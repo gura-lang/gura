@@ -30,29 +30,29 @@ const char *Item::GetTypeName() const
 		Type type;
 		const char *name;
 	} tbl[] = {
-		{ TYPE_Root,			"root",		},	// container
-		{ TYPE_Header1,			"h1",		},	// container
-		{ TYPE_Header2,			"h2",		},	// container
-		{ TYPE_Header3,			"h3",		},	// container
-		{ TYPE_Header4,			"h4",		},	// container
-		{ TYPE_Header5,			"h5",		},	// container
-		{ TYPE_Header6,			"h6",		},	// container
-		{ TYPE_Paragraph,		"p",		},	// container
-		{ TYPE_BlockQuote,		"quote",	},	// container
-		{ TYPE_Emphasis,		"em",		},	// container
-		{ TYPE_Strong,			"strong",	},	// container
-		{ TYPE_CodeBlock,		"block",	},	// container
-		{ TYPE_OList,			"ol",		},	// container
-		{ TYPE_UList,			"ul",		},	// container
-		{ TYPE_ListItem,		"li",		},	// container
-		{ TYPE_Line,			"line",		},	// container
-		{ TYPE_Link,			"a",		},	// container
-		{ TYPE_Image,			"img",		},	// container
-		{ TYPE_Text,			"text",		},	// text
-		{ TYPE_Code,			"code",		},	// text
-		{ TYPE_HorzRule,		"hr",		},	// no-content
-		{ TYPE_LineBreak,		"br",		},	// no-content
-		{ TYPE_Referee,			"referee",	},	// no-content
+		{ TYPE_Root,			"root",			},	// container
+		{ TYPE_Header1,			"h1",			},	// container
+		{ TYPE_Header2,			"h2",			},	// container
+		{ TYPE_Header3,			"h3",			},	// container
+		{ TYPE_Header4,			"h4",			},	// container
+		{ TYPE_Header5,			"h5",			},	// container
+		{ TYPE_Header6,			"h6",			},	// container
+		{ TYPE_Paragraph,		"p",			},	// container
+		{ TYPE_BlockQuote,		"blockquote",	},	// container
+		{ TYPE_Emphasis,		"em",			},	// container
+		{ TYPE_Strong,			"strong",		},	// container
+		{ TYPE_CodeBlock,		"codeblock",	},	// container
+		{ TYPE_OList,			"ol",			},	// container
+		{ TYPE_UList,			"ul",			},	// container
+		{ TYPE_ListItem,		"li",			},	// container
+		{ TYPE_Line,			"line",			},	// container
+		{ TYPE_Link,			"a",			},	// container
+		{ TYPE_Image,			"img",			},	// container
+		{ TYPE_Text,			"text",			},	// text
+		{ TYPE_Code,			"code",			},	// text
+		{ TYPE_HorzRule,		"hr",			},	// no-content
+		{ TYPE_LineBreak,		"br",			},	// no-content
+		{ TYPE_Referee,			"referee",		},	// no-content
 	};
 	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].type == _type) return tbl[i].name;
