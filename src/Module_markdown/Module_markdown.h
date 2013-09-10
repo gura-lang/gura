@@ -35,9 +35,10 @@ public:
 		TYPE_Header5,		// container
 		TYPE_Header6,		// container
 		TYPE_Paragraph,		// container
+		TYPE_BlockQuote,	// container
 		TYPE_Emphasis,		// container
 		TYPE_Strong,		// container
-		TYPE_Block,			// container
+		TYPE_CodeBlock,		// container
 		TYPE_OList,			// container
 		TYPE_UList,			// container
 		TYPE_ListItem,		// container
@@ -183,10 +184,10 @@ private:
 		STAT_ListItemPostNL_Hyphen,
 		STAT_ListItemPostNL_Digit,
 		STAT_ListItemPostNL_DigitDot,
-		STAT_Block,
-		STAT_Block_LineTop,
-		STAT_BlockInListItem,
-		STAT_BlockInListItem_LineTop,
+		STAT_CodeBlock,
+		STAT_CodeBlock_LineTop,
+		STAT_CodeBlockInListItem,
+		STAT_CodeBlockInListItem_LineTop,
 		STAT_Backquote,
 		STAT_Code,
 		STAT_CodeEsc,
@@ -229,8 +230,8 @@ private:
 		STAT_EscapeInLink,
 	};
 	enum {
-		INDENT_Block			= 4,
-		INDENT_BlockInListItem	= 8,
+		INDENT_CodeBlock			= 4,
+		INDENT_CodeBlockInListItem	= 8,
 	};
 	class StatStack : public std::vector<Stat> {
 	public:
@@ -278,10 +279,10 @@ private:
 	bool CheckSpecialChar(char ch);
 	void FlushText(Item::Type type, bool stripFlag);
 	void FlushItem(Item::Type type, bool stripFlag);
-	void BeginBlock(const char *textInit);
-	void EndBlock();
-	void BeginBlockInListItem(const char *textInit);
-	void EndBlockInListItem();
+	void BeginCodeBlock(const char *textInit);
+	void EndCodeBlock();
+	void BeginCodeBlockInListItem(const char *textInit);
+	void EndCodeBlockInListItem();
 	void BeginListItem(Item::Type type);
 	void FlushListItem();
 	void EndListItem();
