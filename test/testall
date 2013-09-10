@@ -32,6 +32,7 @@ files="$files test-datetime.gura"
 files="$files test-path.gura"
 files="$files test-yaml.gura"
 files="$files test-stream.gura"
+files="$files test-markdown.gura"
 #files="$files test-module.gura"
 #files="$files test-file.gura"
 

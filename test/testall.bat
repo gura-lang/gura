@@ -34,6 +34,7 @@ set files=%files% test-datetime.gura
 set files=%files% test-path.gura
 set files=%files% test-yaml.gura
 set files=%files% test-stream.gura
+set files=%files% test-markdown.gura
 rem set files=%files% test-module.gura
 rem set files=%files% test-canvas.gura
 rem set files=%files% test-file.gura
