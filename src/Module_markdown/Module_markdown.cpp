@@ -164,7 +164,6 @@ void ItemOwnerStack::Clear()
 //-----------------------------------------------------------------------------
 void ItemStack::ClearListItem()
 {
-	iterator ppItem = begin();
 	foreach (ItemStack, ppItem, *this) {
 		Item *pItem = *ppItem;
 		if (pItem->IsList()) {
@@ -172,6 +171,18 @@ void ItemStack::ClearListItem()
 			break;
 		}
 	}
+}
+
+int ItemStack::CountQuoteLevel() const
+{
+	int quoteLevel = 0;
+	foreach_const (ItemStack, ppItem, *this) {
+		Item *pItem = *ppItem;
+		if (pItem->GetType() == Item::TYPE_BlockQuote) {
+			quoteLevel++;
+		}
+	}
+	return quoteLevel;
 }
 
 //-----------------------------------------------------------------------------
@@ -281,7 +292,8 @@ bool Document::ParseChar(Signal sig, char ch)
 			_stat = STAT_Digit;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			FlushItem(Item::TYPE_Paragraph, false);
-			_stat = STAT_LineTop;
+			_indentLevel = 0;
+			_stat = STAT_LineHeadNL;
 		} else if (_indentLevel >= INDENT_CodeBlock) {
 			continueFlag = true;
 			BeginCodeBlock(NULL);
@@ -297,6 +309,22 @@ bool Document::ParseChar(Signal sig, char ch)
 				continueFlag = true;
 				_stat = STAT_Text;
 			}
+		}
+		break;
+	}
+	case STAT_LineHeadNL: {
+		if (ch == ' ') {
+			_indentLevel += 1;
+		} else if (ch == '\t') {
+			_indentLevel += 4;
+		} else if (ch == '>') {
+			continueFlag = true;
+			_stat = STAT_LineHead;
+		} else {
+			_quoteLevel = 0;
+			AdjustBlockQuote(_quoteLevel);
+			continueFlag = true;
+			_stat = STAT_LineHead;
 		}
 		break;
 	}
@@ -412,6 +440,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_indentLevel = -1;
 			_quoteLevel++;
 		} else {
+			AdjustBlockQuote(_quoteLevel);
 			continueFlag = true;
 			_stat = STAT_LineHead;
 		}
@@ -1518,6 +1547,27 @@ bool Document::CheckSpecialChar(char ch)
 		return true;
 	}
 	return false;
+}
+
+void Document::AdjustBlockQuote(int quoteLevelToSet)
+{
+	int quoteLevel = _itemStack.CountQuoteLevel();
+	if (quoteLevel < quoteLevelToSet) {
+ 			FlushItem(Item::TYPE_Paragraph, false);
+		for ( ; quoteLevel < quoteLevelToSet; quoteLevel++) {
+			Item *pItemParent = _itemStack.back();
+			Item *pItem = new Item(Item::TYPE_BlockQuote, new ItemOwner());
+			pItemParent->GetItemOwner()->push_back(pItem);
+			_itemStack.push_back(pItem);
+		}
+	} else if (quoteLevel > quoteLevelToSet) {
+ 			FlushItem(Item::TYPE_Paragraph, false);
+		while (quoteLevel > quoteLevelToSet) {
+			Item *pItem = _itemStack.back();
+			if (pItem->GetType() == Item::TYPE_BlockQuote) quoteLevel--;
+			_itemStack.pop_back();
+		}
+	}
 }
 
 void Document::FlushText(Item::Type type, bool stripFlag)

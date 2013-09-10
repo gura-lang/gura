@@ -148,6 +148,7 @@ public:
 class ItemStack : public ItemList {
 public:
 	void ClearListItem();
+	int CountQuoteLevel() const;
 };
 
 //-----------------------------------------------------------------------------
@@ -158,6 +159,7 @@ private:
 	enum Stat {
 		STAT_LineTop,
 		STAT_LineHead,
+		STAT_LineHeadNL,
 		STAT_Equal,
 		STAT_Asterisk,
 		STAT_Plus,
@@ -279,6 +281,7 @@ private:
 	bool _ParseString(Signal sig, String text);
 	bool ParseChar(Signal sig, char ch);
 	bool CheckSpecialChar(char ch);
+	void AdjustBlockQuote(int quoteLevelToSet);
 	void FlushText(Item::Type type, bool stripFlag);
 	void FlushItem(Item::Type type, bool stripFlag);
 	void BeginCodeBlock(const char *textInit);
