@@ -164,6 +164,7 @@ private:
 		STAT_Hyphen,
 		STAT_Digit,
 		STAT_DigitDot,
+		STAT_BlockQuote,
 		STAT_SetextHeaderHead,
 		STAT_SetextHeaderPre,
 		STAT_SetextHeader,
@@ -248,6 +249,7 @@ private:
 	Stat _stat;
 	StatStack _statStack;
 	int _indentLevel;
+	int _quoteLevel;
 	String _text;
 	String _textAhead;
 	String _field;
