@@ -252,7 +252,6 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (ch == '\t') {
 			_indentLevel += 4;
 		} else if (ch == '>') {
-			FlushItem(Item::TYPE_Paragraph, false);
 			_indentLevel = -1;
 			_quoteLevel = 1;
 			_stat = STAT_BlockQuote;
