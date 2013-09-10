@@ -90,6 +90,42 @@ private:
 	virtual int  OnNotStandalone() = 0;
 };
 
+class ElementOwner;
+
+//-----------------------------------------------------------------------------
+// Element
+//-----------------------------------------------------------------------------
+class Element {
+private:
+	int _cntRef;
+	String _name;
+	std::auto_ptr<ElementOwner> _pChildren;
+public:
+	Gura_DeclareReferenceAccessor(Element);
+public:
+	Element();
+	const char *GetName() const { return _name.c_str(); }
+	ElementOwner &GetChildren() { return *_pChildren; }
+	const ElementOwner &GetChildren() const { return *_pChildren; }
+private:
+	inline ~Element() {}
+};
+
+//-----------------------------------------------------------------------------
+// ElementList
+//-----------------------------------------------------------------------------
+class ElementList : public std::vector<Element *> {
+};
+
+//-----------------------------------------------------------------------------
+// ElementOwner
+//-----------------------------------------------------------------------------
+class ElementOwner : public ElementList {
+public:
+	~ElementOwner();
+	void Clear();
+};
+
 //-----------------------------------------------------------------------------
 // Object_element
 //-----------------------------------------------------------------------------
