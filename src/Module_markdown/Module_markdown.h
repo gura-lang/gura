@@ -193,8 +193,10 @@ private:
 		STAT_ListItemNL_DigitDot,
 		STAT_CodeBlock,
 		STAT_CodeBlock_LineTop,
+		STAT_CodeBlock_BlockQuote,
 		STAT_CodeBlockInList,
 		STAT_CodeBlockInList_LineTop,
+		STAT_CodeBlockInList_BlockQuote,
 		STAT_Backquote,
 		STAT_Code,
 		STAT_CodeEsc,
@@ -285,7 +287,7 @@ private:
 	bool _ParseString(Signal sig, String text);
 	bool ParseChar(Signal sig, char ch);
 	bool CheckSpecialChar(char ch);
-	void AdjustBlockQuote();
+	bool AdjustBlockQuote();
 	void FlushText(Item::Type type, bool stripFlag);
 	void FlushItem(Item::Type type, bool stripFlag);
 	void BeginCodeBlock(const char *textInit);

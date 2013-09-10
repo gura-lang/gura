@@ -333,6 +333,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_indentLevel += 4;
 		} else if (_indentLevel >= INDENT_CodeBlock) {
 			continueFlag = true;
+			AdjustBlockQuote();
 			BeginCodeBlock(_textAhead.c_str());
 		} else if (ch == '>') {
 			_indentLevel = -1;
@@ -853,6 +854,10 @@ bool Document::ParseChar(Signal sig, char ch)
 			_indentLevel += 1;
 		} else if (ch == '\t') {
 			_indentLevel += 4;
+		} else if (ch == '>') {
+			_indentLevel = -1;
+			_quoteLevel = 1;
+			_stat = STAT_CodeBlock_BlockQuote;
 		} else if (_indentLevel >= INDENT_CodeBlock) {
 			for (int i = 0; i < _indentLevel - INDENT_CodeBlock; i++) _text += ' ';
 			continueFlag = true;
@@ -860,6 +865,30 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else {
 			continueFlag = true;
 			EndCodeBlock();
+		}
+		break;
+	}
+	case STAT_CodeBlock_BlockQuote: {
+		if (ch == ' ') {
+			_indentLevel += 1;
+		} else if (ch == '\t') {
+			_indentLevel += 4;
+		} else if (_indentLevel >= INDENT_CodeBlock) {
+			continueFlag = true;
+			if (AdjustBlockQuote()) {
+				EndCodeBlock();
+				BeginCodeBlock(_textAhead.c_str());
+			} else {
+				for (int i = 0; i < _indentLevel - INDENT_CodeBlock; i++) _text += ' ';
+				_stat = STAT_CodeBlock;
+			}
+		} else if (ch == '>') {
+			_indentLevel = -1;
+			_quoteLevel++;
+		} else {
+			continueFlag = true;
+			EndCodeBlock();
+			AdjustBlockQuote();
 		}
 		break;
 	}
@@ -885,7 +914,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		break;
 	}
 	case STAT_CodeBlockInList_LineTop: {
-		if (ch == ' ' || ch == '\t') {
+		if (ch == ' ') {
 			_indentLevel += 1;
 		} else if (ch == '\t') {
 			_indentLevel += 4;
@@ -1570,8 +1599,9 @@ bool Document::CheckSpecialChar(char ch)
 	return false;
 }
 
-void Document::AdjustBlockQuote()
+bool Document::AdjustBlockQuote()
 {
+	bool adjustFlag = false;
 	int quoteLevel = _itemStack.CountQuoteLevel();
 	if (quoteLevel < _quoteLevel) {
  			FlushItem(Item::TYPE_Paragraph, false);
@@ -1581,6 +1611,7 @@ void Document::AdjustBlockQuote()
 			pItemParent->GetItemOwner()->push_back(pItem);
 			_itemStack.push_back(pItem);
 		}
+		adjustFlag = true;
 	} else if (quoteLevel > _quoteLevel) {
  			FlushItem(Item::TYPE_Paragraph, false);
 		while (quoteLevel > _quoteLevel) {
@@ -1588,7 +1619,9 @@ void Document::AdjustBlockQuote()
 			if (pItem->IsBlockQuote()) quoteLevel--;
 			_itemStack.pop_back();
 		}
+		adjustFlag = true;
 	}
+	return adjustFlag;
 }
 
 void Document::FlushText(Item::Type type, bool stripFlag)
