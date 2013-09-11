@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(markdown):binary
+import(markdown)
 
 text = R'''
 No Header
@@ -235,6 +235,18 @@ Build for Windows
 
   foo
   bar
+
+Here is an example of AppleScript:
+
+    tell application "Foo"
+        beep
+    end tell
+
+entity test
+
+    <div class="footer">
+        &copy; 2004 Foo Corporation
+    </div>
 
 - item-1
 -300
@@ -587,10 +599,30 @@ normal paragraph
 > paragraph in quote
 
 normal paragraph
+
+>     #include <stdio.h>
+>     int main() {
+>         int i;
+>         for (i = 0; i < 10; i++) {
+>             printf("hello world\n");
+>         }
+>     }
+
+paragraph
+
+3 < 4 > 2
+
+out << hogehoge
+
+&copy; &amp; AT&T &gt; &lt;
+
+&copy;&amp;AT&T&gt;&lt;
 '''
 
 sys.stdout.addcr(false)
 markdown.document {|doc|
 	doc << text
 	doc.print()
+	//doc.output_console()
+	//doc.output_html()
 }

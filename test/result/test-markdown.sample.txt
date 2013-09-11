@@ -9,6 +9,11 @@
     <text>'Header1'
   <h2>
     <text>'Header2'
+  <p>
+    <text>'-'
+  <p>
+    <text>'--'
+  <hr>
   <ul>
     <li>
       <text>'item1'
@@ -40,7 +45,7 @@
     <strong>
       <text>'not terminated strong'
     <text>'text'
-  <block>
+  <codeblock>
     <line>
       <text>'#include <stdio.h>'
     <line>
@@ -69,7 +74,7 @@
       <text>'}'
   <p>
     <text>'fsafdsasa'
-  <block>
+  <codeblock>
     <line>
       <text>'1 is the first character in code block'
     <line>
@@ -78,12 +83,12 @@
       <text>'hoge hoge'
   <p>
     <text>'fadsfdsafdsa'
-  <block>
+  <codeblock>
     <line>
       <text>'    four spaces ahead'
   <p>
     <text>'paragraph'
-  <block>
+  <codeblock>
     <line>
       <text>'// just after paragraph with no space between'
     <line>
@@ -114,14 +119,14 @@
       <text>'}'
   <p>
     <text>'normal text'
-  <block>
+  <codeblock>
     <line>
       <text>'void sub1()'
     <line>
       <text>'{'
     <line>
       <text>'}'
-  <block>
+  <codeblock>
     <line>
       <text>'void sub2()'
     <line>
@@ -295,7 +300,7 @@
     <li>
       <p>
         <text>'para1 hoge'
-      <block>
+      <codeblock>
         <line>
           <text>'#include <stdio.h>'
         <line>
@@ -309,7 +314,7 @@
     <li>
       <p>
         <text>'para1 hoge'
-      <block>
+      <codeblock>
         <line>
           <text>'#include <stdio.h>'
         <line>
@@ -324,7 +329,7 @@
     <li>
       <p>
         <text>'para1 hoge'
-      <block>
+      <codeblock>
         <line>
           <text>'#include <stdio.h>'
         <line>
@@ -338,7 +343,7 @@
     <li>
       <p>
         <text>'para1 hoge'
-      <block>
+      <codeblock>
         <line>
           <text>'#include <stdio.h>'
         <line>
@@ -349,6 +354,24 @@
           <text>'}'
       <p>
         <text>'foo bar'
+  <p>
+    <text>'Here is an example of AppleScript:'
+  <codeblock>
+    <line>
+      <text>'tell application "Foo"'
+    <line>
+      <text>'    beep'
+    <line>
+      <text>'end tell'
+  <p>
+    <text>'entity test'
+  <codeblock>
+    <line>
+      <text>'<div class="footer">'
+    <line>
+      <text>'    &copy; 2004 Foo Corporation'
+    <line>
+      <text>'</div>'
   <ul>
     <li>
       <text>'item-1 -300 +200'
@@ -382,45 +405,47 @@
     <li>
       <text>'item-2'
     <li>
-      <p>
-        <text>'item-3'
-      <p>
-        <em>
-          <text>'Emphasis'
+      <text>'item-3'
+  <p>
+    <em>
+      <text>'Emphasis'
+  <ul>
     <li>
       <text>'item-1'
     <li>
       <text>'item-2'
     <li>
-      <p>
-        <text>'item-3'
-      <p>
-        <strong>
-          <text>'Strong'
+      <text>'item-3'
+  <p>
+    <strong>
+      <text>'Strong'
+  <ul>
     <li>
       <text>'item-1'
     <li>
       <text>'item-2'
     <li>
-      <p>
-        <text>'item-3'
-      <p>
-        <text>'+Plus at beginning of line'
+      <text>'item-3'
+  <p>
+    <text>'+Plus at beginning of line'
+  <ul>
     <li>
       <text>'item-1'
     <li>
       <text>'item-2'
     <li>
-      <p>
-        <text>'item-3'
-      <p>
-        <text>'-Hyphen at beginning of line'
+      <text>'item-3'
+  <p>
+    <text>'-Hyphen at beginning of line'
+  <ul>
     <li>
       <text>'item-1'
     <li>
       <text>'item-2'
     <li>
-      <text>'item-3 3.1415 at beginning of line'
+      <text>'item-3'
+  <p>
+    <text>'3.1415 at beginning of line'
   <p>
     <code>'<code>'
     <text>' spans are delimited by backticks.'
@@ -493,18 +518,17 @@
         <text>'emphasis again'
   <ol>
     <li>
-      <p>
-        <em>
-          <text>'emphasis in ol item'
-        <text>' '
-        <em>
-          <text>'emphasis again'
-        <text>' '
-        <em>
-          <text>'emphasis again'
-      <p>
-        <strong>
-          <text>'strong in paragraph'
+      <em>
+        <text>'emphasis in ol item'
+      <text>' '
+      <em>
+        <text>'emphasis again'
+      <text>' '
+      <em>
+        <text>'emphasis again'
+  <p>
+    <strong>
+      <text>'strong in paragraph'
   <ul>
     <li>
       <strong>
@@ -637,44 +661,72 @@
       <text>'abcde@bbb.ccc'
     <text>'<abcde@bbb>'
   <p>
-    <text>'Link: [example](http://url.com/) .. without title'
+    <text>'Link: '
+    <a url='http://url.com/'>
+      <text>'example'
+    <text>' .. without title'
   <p>
-    <text>'Link: [example](http://url.com/ "Title 'hoge'") .. with title (double quote)'
+    <text>'Link: '
+    <a url='http://url.com/' title='Title 'hoge''>
+      <text>'example'
+    <text>' .. with title (double quote)'
   <p>
-    <text>'Link: [example](http://url.com/ 'Title "hoge"') .. with title (single quote)'
+    <text>'Link: '
+    <a url='http://url.com/' title='Title "hoge"'>
+      <text>'example'
+    <text>' .. with title (single quote)'
   <p>
-    <text>'Link: [example](http://url.com/ "Title "hoge"") .. with title (double quote)'
+    <text>'Link: '
+    <a url='http://url.com/' title='Title "hoge"'>
+      <text>'example'
+    <text>' .. with title (double quote)'
   <p>
-    <text>'Link: [example](http://url.com/ 'Title 'hoge'') .. with title (single quote)'
+    <text>'Link: '
+    <a url='http://url.com/' title='Title 'hoge''>
+      <text>'example'
+    <text>' .. with title (single quote)'
   <p>
-    <text>'Image: ![alt text](/path/img.jpg) .. without title'
+    <text>'Image: '
+    <img url='/path/img.jpg'>'alt text'
+    <text>' .. without title'
   <p>
-    <text>'Image: ![alt text](/path/img.jpg "Title 'hoge'") .. with title (double quote)'
+    <text>'Image: '
+    <img url='/path/img.jpg' title='Title 'hoge''>'alt text'
+    <text>' .. with title (double quote)'
   <p>
-    <text>'Image: ![alt text](/path/img.jpg 'Title "hoge"') .. with title (single quote)'
+    <text>'Image: '
+    <img url='/path/img.jpg' title='Title "hoge"'>'alt text'
+    <text>' .. with title (single quote)'
   <p>
-    <text>'[like this]() .. without url nor title'
+    <a url=''>
+      <text>'like this'
+    <text>' .. without url nor title'
   <p>
-    <text>'![like this]() .. without url nor title'
+    <img url=''>'like this'
+    <text>' .. without url nor title'
   <p>
-    <text>'Link: [this]('
+    <text>'Link: '
     <a url='http://example.com/'>
-      <text>'http://example.com/'
-    <text>') .. without title'
+      <text>'this'
+    <text>' .. without title'
   <p>
-    <text>'Link: [this]('
-    <a url='http://example.com/'>
-      <text>'http://example.com/'
-    <text>' "title") .. with title'
+    <text>'Link: '
+    <a url='http://example.com/' title='title'>
+      <text>'this'
+    <text>' .. with title'
   <p>
-    <text>'Image: ![alt text](</path/img.jpg>) .. without title'
+    <text>'Image: '
+    <img url='/path/img.jpg'>'alt text'
+    <text>' .. without title'
   <p>
-    <text>'Image: ![alt text](</path/img.jpg> "Title") .. with title'
+    <text>'Image: '
+    <img url='/path/img.jpg' title='Title'>'alt text'
+    <text>' .. with title'
   <ul>
     <li>
       <p>
         <text>'list item'
-      <block>
+      <codeblock>
         <line>
           <text>'block under list item'
         <line>
@@ -684,7 +736,7 @@
     <li>
       <p>
         <text>'list item'
-      <block>
+      <codeblock>
         <line>
           <text>'  block under list item (2 spaces ahead)'
         <line>
@@ -717,7 +769,7 @@
     <li>
       <p>
         <text>'item'
-      <block>
+      <codeblock>
         <line>
           <text>'-hyphen at beginning in block'
         <line>
@@ -750,114 +802,204 @@
   <p>
     <text>'1986. What a great season.'
   <p>
-    <text>'Link: [example][1] .. reference'
+    <text>'Link: '
+    <a url='http://example-1.com' refid='1'>
+      <text>'example'
+    <text>' .. reference'
   <p>
-    <text>'Link: [example][2] .. reference'
+    <text>'Link: '
+    <a url='http://example-2.com' title='title-2' refid='2'>
+      <text>'example'
+    <text>' .. reference'
   <p>
-    <text>'Link: [example][3] .. reference'
+    <text>'Link: '
+    <a url='http://example-3.com' title='title-3' refid='3'>
+      <text>'example'
+    <text>' .. reference'
   <p>
-    <text>'Link: [example][4] .. reference'
+    <text>'Link: '
+    <a url='http://example-4.com' title='title-4' refid='4'>
+      <text>'example'
+    <text>' .. reference'
   <p>
-    <text>'Link: [example][  5  ] .. reference'
+    <text>'Link: '
+    <a url='http://example-5.com' title='title-5' refid='  5  '>
+      <text>'example'
+    <text>' .. reference'
   <p>
-    <text>'Link: [example][6] .. reference'
+    <text>'Link: '
+    <a url='http://example-6.com' title='title-6 "quoted"' refid='6'>
+      <text>'example'
+    <text>' .. reference'
   <p>
-    <text>'Link: [example][7] .. reference'
+    <text>'Link: '
+    <a url='http://example-7.com' title='title-7 'quoted'' refid='7'>
+      <text>'example'
+    <text>' .. reference'
   <p>
-    <text>'Link: [example][8] .. reference'
+    <text>'Link: '
+    <a url='http://example-8.com' title='title-8 (quoted)' refid='8'>
+      <text>'example'
+    <text>' .. reference'
   <p>
-    <text>'Link: [example][9] .. reference'
+    <text>'Link: '
+    <a url='http://example-9.com' refid='9'>
+      <text>'example'
+    <text>' .. reference'
   <p>
-    <text>'Link: [example][ABCDEF] .. reference'
+    <text>'Link: '
+    <a url='http://example-ABCDEF.com' title='title-ABCDEF' refid='ABCDEF'>
+      <text>'example'
+    <text>' .. reference'
   <p>
-    <text>'Link: [example][abcdef] .. reference'
+    <text>'Link: '
+    <a url='http://example-ABCDEF.com' title='title-ABCDEF' refid='abcdef'>
+      <text>'example'
+    <text>' .. reference'
   <p>
-    <text>'Link: [example][   ABCDEF  ] .. reference'
-  <p>
-    <text>'[1]: http://example-1.com'
-  <p>
-    <text>'[2]: http://example-2.com "title-2"'
-  <p>
-    <text>'[3]: http://example-3.com 'title-3''
-  <p>
-    <text>'[4]: http://example-4.com (title-4)'
-  <p>
-    <text>'[  5  ]: http://example-5.com "title-5"'
-  <p>
-    <text>'[6]: http://example-6.com "title-6 "quoted""'
-  <p>
-    <text>'[7]: http://example-7.com 'title-7 'quoted'''
-  <p>
-    <text>'[8]: http://example-8.com (title-8 (quoted))'
-  <p>
-    <text>'[9]: '
-    <a url='http://example-9.com'>
-      <text>'http://example-9.com'
-  <p>
-    <text>'[ABCDEF]: '
-    <a url='http://example-ABCDEF.com'>
-      <text>'http://example-ABCDEF.com'
-    <text>' "title-ABCDEF"'
-  <p>
-    <text>'[   ABCDEF  ]: '
-    <a url='http://example-sABCDEFs.com'>
-      <text>'http://example-sABCDEFs.com'
-    <text>' "title-sABCDEFs"'
+    <text>'Link: '
+    <a url='http://example-sABCDEFs.com' title='title-sABCDEFs' refid='   ABCDEF  '>
+      <text>'example'
+    <text>' .. reference'
   <p>
     <text>'[NG]:http://example-NG.com "title-NG" .. should be normal text'
   <p>
     <text>'[NG]:http://example-NG.com "title-NG .. should be normal text'
   <p>
     <text>'[NG]:http://example-NG.com [title-NG .. should be normal text'
-  <block>
+  <codeblock>
     <line>
       <text>'[NG]:http://example-NG.com [title-NG] .. should be block'
   <p>
-    <text>'An [example][id1]. Then, anywhere else in the doc, define the link:'
+    <text>'An '
+    <a url='http://example.com/' title='Title' refid='id1'>
+      <text>'example'
+    <text>'. Then, anywhere else in the doc, define the link:'
   <p>
-    <text>'[id1]: http://example.com/  "Title"'
-  <p>
-    <text>'Reference-style image: ![alt text][id2]'
-  <p>
-    <text>'[id2]: /url/to/img.jpg "Title"'
-  <p>
-    <text>'> 1st-1 > 1st-2 > 1st-3 >> 2nd-1 >> 2nd-2 >> 2nd-3 > 1st-4 > 1st-5 >> 2nd-4 >> 2nd-5 >>> 3rd-1 >>> 3rd-2 > 1st-6 >>> 3rd-3 >>> 3rd-4 >>>>>> 6th-1 >>>>>> 6th-2 >>>>>> 6th-3 > 1st-7'
+    <text>'Reference-style image: '
+    <img url='/url/to/img.jpg' title='Title' refid='id2'>'alt text'
+  <blockquote>
+    <p>
+      <text>'1st-1 1st-2 1st-3'
+    <blockquote>
+      <p>
+        <text>'2nd-1 2nd-2 2nd-3'
+    <p>
+      <text>'1st-4 1st-5'
+    <blockquote>
+      <p>
+        <text>'2nd-4 2nd-5'
+      <blockquote>
+        <p>
+          <text>'3rd-1 3rd-2'
+    <p>
+      <text>'1st-6'
+    <blockquote>
+      <blockquote>
+        <p>
+          <text>'3rd-3 3rd-4'
+        <blockquote>
+          <blockquote>
+            <blockquote>
+              <p>
+                <text>'6th-1 6th-2 6th-3'
+    <p>
+      <text>'1st-7'
   <p>
     <text>'normal'
-  <p>
-    <text>'> 1st-1'
-  <p>
-    <text>'> 1st-2'
-  <p>
-    <text>'> 1st-3 continue continue-2'
-  <p>
-    <text>'normal'
-  <p>
-    <text>'> 1st-1 > > 1st-2 > > 1st-3'
+  <blockquote>
+    <p>
+      <text>'1st-1'
+    <p>
+      <text>'1st-2'
+    <p>
+      <text>'1st-3 continue continue-2'
   <p>
     <text>'normal'
+  <blockquote>
+    <p>
+      <text>'1st-1'
+    <p>
+      <text>'1st-2'
+    <p>
+      <text>'1st-3'
   <p>
-    <text>'> 1st-1'
-  <block>
+    <text>'normal'
+  <blockquote>
+    <p>
+      <text>'1st-1'
+  <codeblock>
     <line>
       <text>'block after quote'
     <line>
       <text>'block after quote'
-  <p>
-    <text>'> 1st-1'
-  <p>
-    <text>'normal paragraph'
-  <p>
-    <text>'> Email-style angle brackets > are used for blockquotes.'
-  <p>
-    <text>'> > And, they can be nested.'
-  <p>
-    <text>'> #### Headers in blockquotes >  > '
-    <em>
-      <text>' You can quote a list.'
-    <text>'> '
-    <em>
-      <text>' Etc.'
-    <text>'> > paragraph in quote > > - list item-1 > - list item-2 > > 1. list item-1 > 2. list item-2 > > paragraph in quote'
+  <blockquote>
+    <p>
+      <text>'1st-1'
   <p>
     <text>'normal paragraph'
+  <blockquote>
+    <p>
+      <text>'Email-style angle brackets are used for blockquotes.'
+    <blockquote>
+      <p>
+        <text>'And, they can be nested.'
+    <h4>
+      <text>'Headers in blockquotes'
+    <ul>
+      <li>
+        <text>'You can quote a list.'
+      <li>
+        <text>'Etc.'
+    <p>
+      <text>'paragraph in quote'
+    <ul>
+      <li>
+        <text>'list item-1'
+      <li>
+        <text>'list item-2'
+    <ol>
+      <li>
+        <text>'list item-1'
+      <li>
+        <text>'list item-2'
+    <p>
+      <text>'paragraph in quote'
+  <p>
+    <text>'normal paragraph'
+  <blockquote>
+    <codeblock>
+      <line>
+        <text>'2.#include <stdio.h>'
+      <line>
+        <text>'int main() {'
+      <line>
+        <text>'    int i;'
+      <line>
+        <text>'    for (i = 0; i < 10; i++) {'
+      <line>
+        <text>'        printf("hello world\n");'
+      <line>
+        <text>'    }'
+      <line>
+        <text>'}'
+  <p>
+    <text>'paragraph'
+  <p>
+    <text>'3 < 4 > 2'
+  <p>
+    <text>'out << hogehoge'
+  <p>
+    <entity>'copy'
+    <text>' '
+    <entity>'amp'
+    <text>' AT&T '
+    <entity>'gt'
+    <text>' '
+    <entity>'lt'
+  <p>
+    <entity>'copy'
+    <entity>'amp'
+    <text>'AT&T'
+    <entity>'gt'
+    <entity>'lt'
