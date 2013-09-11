@@ -2,33 +2,27 @@
 import(markdown)
 
 text = R'''
-normal paragraph
+- item-1
+- item-2
+  - item-2-1
+  - item-2-2
+- item-3
+  - item-3-1
+    - item-3-1-1
+    - item-3-1-2
+    - item-3-1-3
 
-> Email-style angle brackets
-> are used for blockquotes.
-
-> > And, they can be nested.
-
-> #### Headers in blockquotes
-> 
-> * You can quote a list.
-> * Etc.
->
-> paragraph in quote
->
-> - list item-1
-> - list item-2
->
-> 1. list item-1
-> 2. list item-2
->
-> paragraph in quote
-
-normal paragraph
 '''
+
+text = R'''
+- item-1
+- item-2
+- item-3
+'''
+
 markdown.document {|doc|
 	doc << text
-	//doc.print()
+	doc.print()
 	//doc.output_html()
 	doc.output_rtf()
 	//doc.output_console()
