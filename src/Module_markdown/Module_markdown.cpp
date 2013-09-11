@@ -47,9 +47,10 @@ const char *Item::GetTypeName() const
 		{ TYPE_ListItem,		"li",			},	// container
 		{ TYPE_Line,			"line",			},	// container
 		{ TYPE_Link,			"a",			},	// container
-		{ TYPE_Image,			"img",			},	// container
+		{ TYPE_Image,			"img",			},	// text
 		{ TYPE_Text,			"text",			},	// text
 		{ TYPE_Code,			"code",			},	// text
+		{ TYPE_Entity,			"entity",		},	// text
 		{ TYPE_HorzRule,		"hr",			},	// no-content
 		{ TYPE_LineBreak,		"br",			},	// no-content
 		{ TYPE_Referee,			"referee",		},	// no-content

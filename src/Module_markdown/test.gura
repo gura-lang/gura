@@ -27,6 +27,7 @@ normal paragraph
 normal paragraph
 '''
 text = R'''
+3 < 4
 '''
 
 markdown.document {|doc|

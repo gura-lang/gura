@@ -47,6 +47,7 @@ public:
 		TYPE_Image,			// text
 		TYPE_Text,			// text
 		TYPE_Code,			// text
+		TYPE_Entity,		// text
 		TYPE_HorzRule,		// no-content
 		TYPE_LineBreak,		// no-content
 		TYPE_Referee,		// no-content
