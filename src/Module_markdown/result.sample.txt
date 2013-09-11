@@ -45,7 +45,7 @@
     <strong>
       <text>'not terminated strong'
     <text>'text'
-  <block>
+  <codeblock>
     <line>
       <text>'#include <stdio.h>'
     <line>
@@ -74,7 +74,7 @@
       <text>'}'
   <p>
     <text>'fsafdsasa'
-  <block>
+  <codeblock>
     <line>
       <text>'1 is the first character in code block'
     <line>
@@ -83,12 +83,12 @@
       <text>'hoge hoge'
   <p>
     <text>'fadsfdsafdsa'
-  <block>
+  <codeblock>
     <line>
       <text>'    four spaces ahead'
   <p>
     <text>'paragraph'
-  <block>
+  <codeblock>
     <line>
       <text>'// just after paragraph with no space between'
     <line>
@@ -119,14 +119,14 @@
       <text>'}'
   <p>
     <text>'normal text'
-  <block>
+  <codeblock>
     <line>
       <text>'void sub1()'
     <line>
       <text>'{'
     <line>
       <text>'}'
-  <block>
+  <codeblock>
     <line>
       <text>'void sub2()'
     <line>
@@ -300,7 +300,7 @@
     <li>
       <p>
         <text>'para1 hoge'
-      <block>
+      <codeblock>
         <line>
           <text>'#include <stdio.h>'
         <line>
@@ -314,7 +314,7 @@
     <li>
       <p>
         <text>'para1 hoge'
-      <block>
+      <codeblock>
         <line>
           <text>'#include <stdio.h>'
         <line>
@@ -329,7 +329,7 @@
     <li>
       <p>
         <text>'para1 hoge'
-      <block>
+      <codeblock>
         <line>
           <text>'#include <stdio.h>'
         <line>
@@ -343,7 +343,7 @@
     <li>
       <p>
         <text>'para1 hoge'
-      <block>
+      <codeblock>
         <line>
           <text>'#include <stdio.h>'
         <line>
@@ -708,7 +708,7 @@
     <li>
       <p>
         <text>'list item'
-      <block>
+      <codeblock>
         <line>
           <text>'block under list item'
         <line>
@@ -718,7 +718,7 @@
     <li>
       <p>
         <text>'list item'
-      <block>
+      <codeblock>
         <line>
           <text>'  block under list item (2 spaces ahead)'
         <line>
@@ -751,7 +751,7 @@
     <li>
       <p>
         <text>'item'
-      <block>
+      <codeblock>
         <line>
           <text>'-hyphen at beginning in block'
         <line>
@@ -849,7 +849,7 @@
     <text>'[NG]:http://example-NG.com "title-NG .. should be normal text'
   <p>
     <text>'[NG]:http://example-NG.com [title-NG .. should be normal text'
-  <block>
+  <codeblock>
     <line>
       <text>'[NG]:http://example-NG.com [title-NG] .. should be block'
   <p>
@@ -860,36 +860,36 @@
   <p>
     <text>'Reference-style image: '
     <img url='/url/to/img.jpg' title='Title' refid='id2'>'alt text'
-  <quote>
+  <blockquote>
     <p>
       <text>'1st-1 1st-2 1st-3'
-    <quote>
+    <blockquote>
       <p>
         <text>'2nd-1 2nd-2 2nd-3'
     <p>
       <text>'1st-4 1st-5'
-    <quote>
+    <blockquote>
       <p>
         <text>'2nd-4 2nd-5'
-      <quote>
+      <blockquote>
         <p>
           <text>'3rd-1 3rd-2'
     <p>
       <text>'1st-6'
-    <quote>
-      <quote>
+    <blockquote>
+      <blockquote>
         <p>
           <text>'3rd-3 3rd-4'
-        <quote>
-          <quote>
-            <quote>
+        <blockquote>
+          <blockquote>
+            <blockquote>
               <p>
                 <text>'6th-1 6th-2 6th-3'
     <p>
       <text>'1st-7'
   <p>
     <text>'normal'
-  <quote>
+  <blockquote>
     <p>
       <text>'1st-1'
     <p>
@@ -898,7 +898,7 @@
       <text>'1st-3 continue continue-2'
   <p>
     <text>'normal'
-  <quote>
+  <blockquote>
     <p>
       <text>'1st-1'
     <p>
@@ -907,23 +907,23 @@
       <text>'1st-3'
   <p>
     <text>'normal'
-  <quote>
+  <blockquote>
     <p>
       <text>'1st-1'
-  <block>
+  <codeblock>
     <line>
       <text>'block after quote'
     <line>
       <text>'block after quote'
-  <quote>
+  <blockquote>
     <p>
       <text>'1st-1'
   <p>
     <text>'normal paragraph'
-  <quote>
+  <blockquote>
     <p>
       <text>'Email-style angle brackets are used for blockquotes.'
-    <quote>
+    <blockquote>
       <p>
         <text>'And, they can be nested.'
     <h4>
@@ -949,3 +949,21 @@
       <text>'paragraph in quote'
   <p>
     <text>'normal paragraph'
+  <blockquote>
+    <codeblock>
+      <line>
+        <text>'2.#include <stdio.h>'
+      <line>
+        <text>'int main() {'
+      <line>
+        <text>'    int i;'
+      <line>
+        <text>'    for (i = 0; i < 10; i++) {'
+      <line>
+        <text>'        printf("hello world\n");'
+      <line>
+        <text>'    }'
+      <line>
+        <text>'}'
+  <p>
+    <text>'paragraph'
