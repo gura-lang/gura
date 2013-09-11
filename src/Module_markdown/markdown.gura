@@ -58,7 +58,7 @@ Renderer_html = class {
 			this.OutputItem(item.children)
 			this.out.print('</strong>')
 		} elsif (item.type == `codeblock) {
-			this.out.print('<pre style="background: #cccccc"><code>')
+			this.out.print('<pre><code>')
 			this.OutputItem(item.children)
 			this.out.print('</code></pre>\n')
 		} elsif (item.type == `ol) {
