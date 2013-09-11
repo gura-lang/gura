@@ -27,12 +27,17 @@ normal paragraph
 normal paragraph
 '''
 text = R'''
+    hoge hoge
+
+    foo foo
+
+fadsfdsafdsa
 '''
 
 markdown.document {|doc|
 	doc << text
-	//doc.print()
-	doc.output_html()
+	doc.print()
+	//doc.output_html()
 	refs = [doc.refs]
 	if (!refs.isempty()) {
 		println('** reference list **')

@@ -188,7 +188,7 @@ int ItemStack::CountQuoteLevel() const
 // Document
 //-----------------------------------------------------------------------------
 Document::Document() : _cntRef(1), _resolvedFlag(false), _stat(STAT_LineTop),
-		_indentLevel(0), _quoteLevel(0),
+		_indentLevel(0), _quoteLevel(0), _cntEmptyLine(0),
 		_pItemOwner(new ItemOwner()), _pItemRefereeOwner(new ItemOwner())
 {
 	_statStack.Push(STAT_LineTop);
@@ -485,7 +485,7 @@ bool Document::ParseChar(Signal sig, char ch)
 				(_indentLevel == 6)? Item::TYPE_Header6 :
 				Item::TYPE_Header6;
 			FlushItem(type, true);
-			if (IsEOF(ch)) continueFlag = true;
+			continueFlag = IsEOF(ch);
 			_stat = STAT_LineTop;
 		} else {
 			_text += ch;
@@ -510,7 +510,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			_textAhead += ch;
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			FlushItem(Item::TYPE_Header1, false);
-			if (IsEOF(ch)) continueFlag = true;
+			continueFlag = IsEOF(ch);
 			_stat = STAT_LineTop;
 		} else {
 			if (!_text.empty()) _text += ' ';
@@ -536,7 +536,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			} else {
 				_text += _textAhead;
 			}
-			if (IsEOF(ch)) continueFlag = true;
+			continueFlag = IsEOF(ch);
 			_stat = STAT_LineTop;
 		} else {
 			if (!_text.empty()) _text += ' ';
@@ -560,7 +560,7 @@ bool Document::ParseChar(Signal sig, char ch)
 			// nothing to do
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			_indentLevel = 0;
-			if (IsEOF(ch)) continueFlag = true;
+			continueFlag = IsEOF(ch);
 			_stat = STAT_ListItem_LineHead;
 		} else {
 			_text += ch;
@@ -708,7 +708,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		} else if (IsEOL(ch) || IsEOF(ch)) {
 			EndListItem();
 			_itemStack.ClearListItem();
-			if (IsEOF(ch)) continueFlag = true;
+			continueFlag = IsEOF(ch);
 			_stat = STAT_LineTop;
 		} else if (_indentLevel <= 0) {
 			EndListItem();
@@ -842,8 +842,8 @@ bool Document::ParseChar(Signal sig, char ch)
 				pItemParent->GetItemOwner()->push_back(pItem);
 				_pItemOwner.reset(new ItemOwner());
 			} while (0);
+			_cntEmptyLine = 0;
 			_indentLevel = 0;
-			if (IsEOF(ch)) continueFlag = true;
 			_stat = STAT_CodeBlock_LineHead;
 		} else {
 			_text += ch;
@@ -859,7 +859,26 @@ bool Document::ParseChar(Signal sig, char ch)
 			_indentLevel = -1;
 			_quoteLevel = 1;
 			_stat = STAT_CodeBlock_BlockQuote;
+#if 0
+		} else if (IsEOL(ch) || IsEOF(ch)) {
+			_cntEmptyLine++;
+			_indentLevel = 0;
+#endif
 		} else if (_indentLevel >= INDENT_CodeBlock) {
+			Item *pItemParent = _itemStack.back();
+			for (int i = 0; i < _cntEmptyLine; i++) {
+				do {
+					Item *pItem = new Item(Item::TYPE_Text, _text);
+					_pItemOwner->push_back(pItem);
+					_text.clear();
+				} while (0);
+				do {
+					Item *pItem = new Item(Item::TYPE_Line, _pItemOwner.release());
+					pItemParent->GetItemOwner()->push_back(pItem);
+					_pItemOwner.reset(new ItemOwner());
+				} while (0);
+			}
+			_text.clear();
 			for (int i = 0; i < _indentLevel - INDENT_CodeBlock; i++) _text += ' ';
 			continueFlag = true;
 			_stat = STAT_CodeBlock;
@@ -907,7 +926,7 @@ bool Document::ParseChar(Signal sig, char ch)
 				_pItemOwner.reset(new ItemOwner());
 			} while (0);
 			_indentLevel = 0;
-			if (IsEOF(ch)) continueFlag = true;
+			continueFlag = IsEOF(ch);
 			_stat = STAT_CodeBlockInList_LineHead;
 		} else {
 			_text += ch;
@@ -978,7 +997,7 @@ bool Document::ParseChar(Signal sig, char ch)
 		if (CheckSpecialChar(ch)) {
 			// nothing to do
 		} else if (IsEOL(ch) || IsEOF(ch)) {
-			if (IsEOF(ch)) continueFlag = true;
+			continueFlag = IsEOF(ch);
 			_stat = STAT_LineTop;
 		} else {
 			_text += ch;

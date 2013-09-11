@@ -260,6 +260,7 @@ private:
 	StatStack _statStack;
 	int _indentLevel;
 	int _quoteLevel;
+	int _cntEmptyLine;
 	String _text;
 	String _textAhead;
 	String _field;
