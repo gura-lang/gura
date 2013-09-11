@@ -92,7 +92,9 @@ Renderer_html = class {
 		} elsif (item.type == `text) {
 			this.out.print(item.text.escapehtml())
 		} elsif (item.type == `code) {
-			this.out.print('<code>', item.text.escapehtml(), '</code>')
+			this.out.print('<code>')
+			this.out.print(item.text.escapehtml())
+			this.out.print('</code>')
 		} elsif (item.type == `entity) {
 			this.out.print('&', item.text.escapehtml(), ';')
 		} elsif (item.type == `hr) {
@@ -100,6 +102,110 @@ Renderer_html = class {
 		} elsif (item.type == `br) {
 			this.out.print('<br />\n')
 		}
+	}
+}
+
+Renderer_rtf = class {
+	__init__(out?:stream:w) = {
+		this.out = out || sys.stdout
+		this.quoteLevel = 0
+		this.indentPerQuote = 720
+	}
+	Output(doc:document):void = {
+		this.OutputItem(doc.root)
+	}
+	OutputItem(item:item):map:void = {
+		if (item.type == `root) {
+			this.out.println(r'{\rtf')
+			this.OutputItem(item.children)
+			this.out.println('}')
+		} elsif (item.type == `h1) {
+			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs36 ')
+			this.OutputItem(item.children)
+			this.out.println(r'\par}')
+		} elsif (item.type == `h2) {
+			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 ')
+			this.OutputItem(item.children)
+			this.out.println(r'\par}')
+		} elsif (item.type == `h3) {
+			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs28 ')
+			this.OutputItem(item.children)
+			this.out.println(r'\par}')
+		} elsif (item.type == `h4) {
+			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs24 ')
+			this.OutputItem(item.children)
+			this.out.println(r'\par}')
+		} elsif (item.type == `h5) {
+			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs20 ')
+			this.OutputItem(item.children)
+			this.out.println(r'\par}')
+		} elsif (item.type == `h6) {
+			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs16 ')
+			this.OutputItem(item.children)
+			this.out.println(r'\par}')
+		} elsif (item.type == `p) {
+			this.out.printf(r'{\pard \ql \f0 \sa180 \li%d \fi0 ',
+									this.quoteLevel * this.indentPerQuote)
+			this.OutputItem(item.children)
+			this.out.println()
+			this.out.println(r'\par}')
+		} elsif (item.type == `blockquote) {
+			this.quoteLevel += 1
+			this.OutputItem(item.children)
+			this.out.println()
+			this.quoteLevel -= 1
+		} elsif (item.type == `em) {
+			this.out.print(r'{\i ')
+			this.OutputItem(item.children)
+			this.out.print(r'}')
+		} elsif (item.type == `strong) {
+			this.out.print(r'{\b ')
+			this.OutputItem(item.children)
+			this.out.print(r'}')
+		} elsif (item.type == `codeblock) {
+			this.out.print(r'{\pard \ql \f0 \sa180 \li0 \fi0 \f1 ')
+			item.children.each {|itemChild, i|
+				(i > 0) && this.out.println(r'\line')
+				this.OutputItem(itemChild.children)
+			}
+			this.out.println(r'\par}')
+		} elsif (item.type == `ol) {
+			this.OutputItem(item.children)
+		} elsif (item.type == `ul) {
+			this.OutputItem(item.children)
+		} elsif (item.type == `li) {
+			this.out.print(r'{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab ')
+			this.OutputItem(item.children)
+			this.out.println(r'\par}')
+		} elsif (item.type == `line) {
+			this.OutputItem(item.children)
+			this.out.println(r'\line')
+		} elsif (item.type == `a) {
+			this.out.println(r'{\field{\*\fldinst{HYPERLINK "%s"}}{\fldrslt{\ul' % this.EscapeText(item.url))
+			this.OutputItem(item.children)
+			this.out.println(r'}}}')
+		} elsif (item.type == `img) {
+			//this.out.print('<img')
+			//item.url && this.out.print(' src="', item.url.encodeuri(), '"')
+			//item.text && this.out.print(' alt="', item.text.escapehtml(), '"')
+			//item.title && this.out.print(' title="', item.title.escapehtml(), '"')
+			//this.out.print('>')
+		} elsif (item.type == `text) {
+			this.out.print(this.EscapeText(item.text))
+		} elsif (item.type == `code) {
+			this.out.print(r'{\f1 ')
+			this.out.print(this.EscapeText(item.text))
+			this.out.print(r'}')
+		} elsif (item.type == `entity) {
+			this.out.print(r'\u%d?', 169)
+		} elsif (item.type == `hr) {
+			this.out.println(r'{\pard \qc \f0 \sa180 \li0 \fi0 \emdash\emdash\emdash\emdash\emdash\par}')
+		} elsif (item.type == `br) {
+			this.out.println(r'\line')
+		}
+	}
+	EscapeText(text:string):static = {
+		text.replace('\\', '\\\\').replace('{', r'\{').replace('}', r'\}')
 	}
 }
 
@@ -212,6 +318,10 @@ operator(`<<).assign(`document, `function) {|doc, func|
 
 classref(`document).output_html(out?:stream:w) = {
 	Renderer_html(out).Output(this)
+}
+
+classref(`document).output_rtf(out?:stream:w) = {
+	Renderer_rtf(out).Output(this)
 }
 
 classref(`document).output_console() = {

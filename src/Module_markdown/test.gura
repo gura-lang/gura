@@ -26,18 +26,11 @@ normal paragraph
 
 normal paragraph
 '''
-text = R'''
-    hoge hoge
-
-    foo foo
-
-fadsfdsafdsa
-'''
-
 markdown.document {|doc|
 	doc << text
 	//doc.print()
-	doc.output_html()
+	//doc.output_html()
+	doc.output_rtf()
 	//doc.output_console()
 	refs = [doc.refs]
 	if (!refs.isempty()) {

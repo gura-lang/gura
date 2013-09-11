@@ -171,4 +171,4 @@ doc << [
 	//sdl.Timer.SetTimer
 ]
 
-doc.output_html()
+doc.output_rtf()
