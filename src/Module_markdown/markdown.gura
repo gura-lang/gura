@@ -1,196 +1,208 @@
 #!/usr/bin/env gura
 import(markdown):binary:mixin_type {*}
 
-output_html(item:item, out:stream:w):map:void = {
-	if (item.type == `root) {
-		out.print('<html>\n')
-		out.print('<body>\n')
-		output_html(item.children, out)
-		out.print('</body>\n')
-		out.print('</html>\n')
-	} elsif (item.type == `h1) {
-		out.print('<h1>')
-		output_html(item.children, out)
-		out.print('</h1>\n')
-	} elsif (item.type == `h2) {
-		out.print('<h2>')
-		output_html(item.children, out)
-		out.print('</h2>\n')
-	} elsif (item.type == `h3) {
-		out.print('<h3>')
-		output_html(item.children, out)
-		out.print('</h3>\n')
-	} elsif (item.type == `h4) {
-		out.print('<h4>')
-		output_html(item.children, out)
-		out.print('</h4>\n')
-	} elsif (item.type == `h5) {
-		out.print('<h5>')
-		output_html(item.children, out)
-		out.print('</h5>\n')
-	} elsif (item.type == `h6) {
-		out.print('<h6>')
-		output_html(item.children, out)
-		out.print('</h6>\n')
-	} elsif (item.type == `p) {
-		out.print('<p>\n')
-		output_html(item.children, out)
-		out.println()
-		out.print('</p>\n')
-	} elsif (item.type == `blockquote) {
-		out.print('<blockquote>\n')
-		output_html(item.children, out)
-		out.println()
-		out.print('</blockquote>\n')
-	} elsif (item.type == `em) {
-		out.print('<em>')
-		output_html(item.children, out)
-		out.print('</em>')
-	} elsif (item.type == `strong) {
-		out.print('<strong>')
-		output_html(item.children, out)
-		out.print('</strong>')
-	} elsif (item.type == `codeblock) {
-		out.print('<pre style="background: #cccccc"><code>')
-		output_html(item.children, out)
-		out.print('</code></pre>\n')
-	} elsif (item.type == `ol) {
-		out.print('<ol>\n')
-		output_html(item.children, out)
-		out.print('</ol>\n')
-	} elsif (item.type == `ul) {
-		out.print('<ul>\n')
-		output_html(item.children, out)
-		out.print('</ul>\n')
-	} elsif (item.type == `li) {
-		out.print('<li>')
-		output_html(item.children, out)
-		out.print('</li>\n')
-	} elsif (item.type == `line) {
-		output_html(item.children, out)
-		out.print('\n')
-	} elsif (item.type == `a) {
-		out.print('<a')
-		item.url && out.print(' href="', item.url.encodeuri(), '"')
-		item.title && out.print(' title="', item.title.escapehtml(), '"')
-		out.print('>')
-		output_html(item.children, out)
-		out.print('</a>')
-	} elsif (item.type == `img) {
-		out.print('<img')
-		item.url && out.print(' src="', item.url.encodeuri(), '"')
-		item.text && out.print(' alt="', item.text.escapehtml(), '"')
-		item.title && out.print(' title="', item.title.escapehtml(), '"')
-		out.print('>')
-	} elsif (item.type == `text) {
-		out.print(item.text.escapehtml())
-	} elsif (item.type == `code) {
-		out.print('<code>', item.text.escapehtml(), '</code>')
-	} elsif (item.type == `entity) {
-		out.print('&', item.text.escapehtml(), ';')
-	} elsif (item.type == `hr) {
-		out.print('<hr />\n')
-	} elsif (item.type == `br) {
-		out.print('<br />\n')
+Renderer_html = class {
+	__init__(out?:stream:w) = {
+		this.out = out || sys.stdout
+	}
+	Output(doc:document):void = {
+		this.OutputItem(doc.root)
+	}
+	OutputItem(item:item):map:void = {
+		if (item.type == `root) {
+			this.out.print('<html>\n')
+			this.out.print('<body>\n')
+			this.OutputItem(item.children)
+			this.out.print('</body>\n')
+			this.out.print('</html>\n')
+		} elsif (item.type == `h1) {
+			this.out.print('<h1>')
+			this.OutputItem(item.children)
+			this.out.print('</h1>\n')
+		} elsif (item.type == `h2) {
+			this.out.print('<h2>')
+			this.OutputItem(item.children)
+			this.out.print('</h2>\n')
+		} elsif (item.type == `h3) {
+			this.out.print('<h3>')
+			this.OutputItem(item.children)
+			this.out.print('</h3>\n')
+		} elsif (item.type == `h4) {
+			this.out.print('<h4>')
+			this.OutputItem(item.children)
+			this.out.print('</h4>\n')
+		} elsif (item.type == `h5) {
+			this.out.print('<h5>')
+			this.OutputItem(item.children)
+			this.out.print('</h5>\n')
+		} elsif (item.type == `h6) {
+			this.out.print('<h6>')
+			this.OutputItem(item.children)
+			this.out.print('</h6>\n')
+		} elsif (item.type == `p) {
+			this.out.print('<p>\n')
+			this.OutputItem(item.children)
+			this.out.println()
+			this.out.print('</p>\n')
+		} elsif (item.type == `blockquote) {
+			this.out.print('<blockquote>\n')
+			this.OutputItem(item.children)
+			this.out.println()
+			this.out.print('</blockquote>\n')
+		} elsif (item.type == `em) {
+			this.out.print('<em>')
+			this.OutputItem(item.children)
+			this.out.print('</em>')
+		} elsif (item.type == `strong) {
+			this.out.print('<strong>')
+			this.OutputItem(item.children)
+			this.out.print('</strong>')
+		} elsif (item.type == `codeblock) {
+			this.out.print('<pre style="background: #cccccc"><code>')
+			this.OutputItem(item.children)
+			this.out.print('</code></pre>\n')
+		} elsif (item.type == `ol) {
+			this.out.print('<ol>\n')
+			this.OutputItem(item.children)
+			this.out.print('</ol>\n')
+		} elsif (item.type == `ul) {
+			this.out.print('<ul>\n')
+			this.OutputItem(item.children)
+			this.out.print('</ul>\n')
+		} elsif (item.type == `li) {
+			this.out.print('<li>')
+			this.OutputItem(item.children)
+			this.out.print('</li>\n')
+		} elsif (item.type == `line) {
+			this.OutputItem(item.children)
+			this.out.print('\n')
+		} elsif (item.type == `a) {
+			this.out.print('<a')
+			item.url && this.out.print(' href="', item.url.encodeuri(), '"')
+			item.title && this.out.print(' title="', item.title.escapehtml(), '"')
+			this.out.print('>')
+			this.OutputItem(item.children)
+			this.out.print('</a>')
+		} elsif (item.type == `img) {
+			this.out.print('<img')
+			item.url && this.out.print(' src="', item.url.encodeuri(), '"')
+			item.text && this.out.print(' alt="', item.text.escapehtml(), '"')
+			item.title && this.out.print(' title="', item.title.escapehtml(), '"')
+			this.out.print('>')
+		} elsif (item.type == `text) {
+			this.out.print(item.text.escapehtml())
+		} elsif (item.type == `code) {
+			this.out.print('<code>', item.text.escapehtml(), '</code>')
+		} elsif (item.type == `entity) {
+			this.out.print('&', item.text.escapehtml(), ';')
+		} elsif (item.type == `hr) {
+			this.out.print('<hr />\n')
+		} elsif (item.type == `br) {
+			this.out.print('<br />\n')
+		}
 	}
 }
 
-g_typePrev = nil
-
-output_console(item:item):map:void = {
-	if (item.type == `root) {
-		output_console(item.children)
-	} elsif (item.type == `h1) {
-		println()
-		conio.setcolor(`green) {
-			output_console(item.children)
-		}
-		println()
-	} elsif (item.type == `h2) {
-		println()
-		conio.setcolor(`green) {
-			output_console(item.children)
-		}
-		println()
-	} elsif (item.type == `h3) {
-		println()
-		conio.setcolor(`green) {
-			output_console(item.children)
-		}
-		println()
-	} elsif (item.type == `h4) {
-		println()
-		conio.setcolor(`green) {
-			output_console(item.children)
-		}
-		println()
-	} elsif (item.type == `h5) {
-		println()
-		conio.setcolor(`green) {
-			output_console(item.children)
-		}
-		println()
-	} elsif (item.type == `h6) {
-		println()
-		conio.setcolor(`green) {
-			output_console(item.children)
-		}
-		println()
-	} elsif (item.type == `p) {
-		println()
-		output_console(item.children)
-		println()
-	} elsif (item.type == `blockquote) {
-		println()
-		output_console(item.children)
-		out.println()
-	} elsif (item.type == `em) {
-		conio.setcolor(`red) {
-			output_console(item.children)
-		}
-	} elsif (item.type == `strong) {
-		conio.setcolor(`red) {
-			output_console(item.children)
-		}
-	} elsif (item.type == `codeblock) {
-		println()
-		conio.setcolor(`blue) {
-			output_console(item.children)
-		}
-	} elsif (item.type == `ol) {
-		println()
-		output_console(item.children)
-	} elsif (item.type == `ul) {
-		println()
-		output_console(item.children)
-	} elsif (item.type == `li) {
-		print('- ')
-		output_console(item.children)
-		println()
-	} elsif (item.type == `line) {
-		print('|   ')
-		output_console(item.children)
-		println()
-	} elsif (item.type == `a) {
-		output_console(item.children)
-	} elsif (item.type == `img) {
-		out.print('[', item.text, ']')
-	} elsif (item.type == `text) {
-		print(item.text)
-	} elsif (item.type == `code) {
-		conio.setcolor(`blue) {
-			print(item.text)
-		}
-	} elsif (item.type == `entity) {
-		conio.setcolor(`black, `white) {
-			out.print(item.text.escapehtml())
-		}
-	} elsif (item.type == `hr) {
-		out.print('--------\n')
-	} elsif (item.type == `br) {
-		out.print('\n')
+Renderer_console = class {
+	__init__() = {
 	}
-	g_typePrev = item.type
+	Output(doc:document):void = {
+		this.OutputItem(doc.root)
+	}
+	OutputItem(item:item):map:void = {
+		if (item.type == `root) {
+			this.OutputItem(item.children)
+		} elsif (item.type == `h1) {
+			println()
+			conio.setcolor(`green) {
+				this.OutputItem(item.children)
+			}
+			println()
+		} elsif (item.type == `h2) {
+			println()
+			conio.setcolor(`green) {
+				this.OutputItem(item.children)
+			}
+			println()
+		} elsif (item.type == `h3) {
+			println()
+			conio.setcolor(`green) {
+				this.OutputItem(item.children)
+			}
+			println()
+		} elsif (item.type == `h4) {
+			println()
+			conio.setcolor(`green) {
+				this.OutputItem(item.children)
+			}
+			println()
+		} elsif (item.type == `h5) {
+			println()
+			conio.setcolor(`green) {
+				this.OutputItem(item.children)
+			}
+			println()
+		} elsif (item.type == `h6) {
+			println()
+			conio.setcolor(`green) {
+				this.OutputItem(item.children)
+			}
+			println()
+		} elsif (item.type == `p) {
+			println()
+			this.OutputItem(item.children)
+			println()
+		} elsif (item.type == `blockquote) {
+			println()
+			this.OutputItem(item.children)
+			println()
+		} elsif (item.type == `em) {
+			conio.setcolor(`red) {
+				this.OutputItem(item.children)
+			}
+		} elsif (item.type == `strong) {
+			conio.setcolor(`red) {
+				this.OutputItem(item.children)
+			}
+		} elsif (item.type == `codeblock) {
+			println()
+			conio.setcolor(`blue) {
+				this.OutputItem(item.children)
+			}
+		} elsif (item.type == `ol) {
+			println()
+			this.OutputItem(item.children)
+		} elsif (item.type == `ul) {
+			println()
+			this.OutputItem(item.children)
+		} elsif (item.type == `li) {
+			print('- ')
+			this.OutputItem(item.children)
+			println()
+		} elsif (item.type == `line) {
+			print('|   ')
+			this.OutputItem(item.children)
+			println()
+		} elsif (item.type == `a) {
+			this.OutputItem(item.children)
+		} elsif (item.type == `img) {
+			out.print('[', item.text, ']')
+		} elsif (item.type == `text) {
+			print(item.text)
+		} elsif (item.type == `code) {
+			conio.setcolor(`blue) {
+				print(item.text)
+			}
+		} elsif (item.type == `entity) {
+			conio.setcolor(`black, `white) {
+				out.print(item.text.escapehtml())
+			}
+		} elsif (item.type == `hr) {
+			out.print('--------\n')
+		} elsif (item.type == `br) {
+			out.print('\n')
+		}
+	}
 }
 
 operator(`<<).assign(`document, `function) {|doc, func|
@@ -199,16 +211,16 @@ operator(`<<).assign(`document, `function) {|doc, func|
 }
 
 classref(`document).output_html(out?:stream:w) = {
-	output_html(this.root, out || sys.stdout)
+	Renderer_html(out).Output(this)
 }
 
 classref(`document).output_console() = {
-	output_console(this.root)
+	Renderer_console().Output(this)
 }
 
-setpresenter {|title:string:nil, item:item:nil|
+setpresenter {|title:string:nil, doc:document:nil|
 	title && conio.setcolor(`green) {
 		println(title)
 	}
-	item && output_console(item)
+	doc && Renderer_console().Output(doc)
 }

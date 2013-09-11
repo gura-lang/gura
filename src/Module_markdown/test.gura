@@ -36,8 +36,9 @@ fadsfdsafdsa
 
 markdown.document {|doc|
 	doc << text
-	doc.print()
+	//doc.print()
 	//doc.output_html()
+	doc.output_console()
 	refs = [doc.refs]
 	if (!refs.isempty()) {
 		println('** reference list **')

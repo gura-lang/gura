@@ -5,7 +5,7 @@
 
 Gura_BeginModule(markdown)
 
-AutoPtr<Function> _pFunc_Presenter;
+AutoPtr<Function> g_pFunc_Presenter;
 
 //-----------------------------------------------------------------------------
 // Item
@@ -2116,7 +2116,7 @@ Gura_DeclareFunction(setpresenter)
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Sets a presentation function that shows helps written in Markdown format.\n"
-	"The function is specified as a block that takes block parameters `|title:string, item:markdown.item|`.\n"
+	"The function is specified as a block that takes block parameters `|title:string, doc:markdown.document|`.\n"
 	);
 }
 
@@ -2125,7 +2125,7 @@ Gura_ImplementFunction(setpresenter)
 	const Function *pFuncBlock =
 						args.GetBlockFunc(env, sig, GetSymbolForBlock());
 	if (sig.IsSignalled()) return Value::Null;
-	_pFunc_Presenter.reset(pFuncBlock->Reference());
+	g_pFunc_Presenter.reset(pFuncBlock->Reference());
 	return Value::Null;
 }
 
@@ -2179,7 +2179,7 @@ void Iterator_item::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &e
 bool HelpPresenter_markdown::DoPresent(Environment &env, Signal sig,
 									const char *title, const Help *pHelp) const
 {
-	if (_pFunc_Presenter.IsNull()) {
+	if (g_pFunc_Presenter.IsNull()) {
 		sig.SetError(ERR_FormatError, "presenter function is not registered");
 		return false;
 	}
@@ -2195,10 +2195,10 @@ bool HelpPresenter_markdown::DoPresent(Environment &env, Signal sig,
 		AutoPtr<Document> pDocument(new Document());
 		SimpleStream_CString streamSrc(pHelp->GetText());
 		if (!pDocument->ParseStream(sig, streamSrc)) return false;
-		valListArg.push_back(Value(new Object_item(pDocument->GetItemRoot()->Reference())));
+		valListArg.push_back(Value(new Object_document(pDocument->Reference())));
 	}
 	Args args(valListArg);
-	_pFunc_Presenter->Eval(env, sig, args);
+	g_pFunc_Presenter->Eval(env, sig, args);
 	return !sig.IsSignalled();
 }
 
@@ -2231,7 +2231,7 @@ Gura_ModuleEntry()
 
 Gura_ModuleTerminate()
 {
-	_pFunc_Presenter.reset(NULL);
+	g_pFunc_Presenter.reset(NULL);
 }
 
 Gura_EndModule(markdown, markdown)
