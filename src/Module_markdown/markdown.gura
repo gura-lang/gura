@@ -186,7 +186,7 @@ Renderer_console = class {
 		} elsif (item.type == `a) {
 			this.OutputItem(item.children)
 		} elsif (item.type == `img) {
-			out.print('[', item.text, ']')
+			print('[', item.text, ']')
 		} elsif (item.type == `text) {
 			print(item.text)
 		} elsif (item.type == `code) {
@@ -195,12 +195,12 @@ Renderer_console = class {
 			}
 		} elsif (item.type == `entity) {
 			conio.setcolor(`black, `white) {
-				out.print(item.text.escapehtml())
+				print(item.text.escapehtml())
 			}
 		} elsif (item.type == `hr) {
-			out.print('--------\n')
+			println('--------')
 		} elsif (item.type == `br) {
-			out.print('\n')
+			println()
 		}
 	}
 }

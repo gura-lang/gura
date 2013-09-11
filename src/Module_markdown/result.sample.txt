@@ -997,6 +997,7 @@
     <entity>'gt'
     <text>' '
     <entity>'lt'
+  <p>
     <entity>'copy'
     <entity>'amp'
     <text>'AT&T'

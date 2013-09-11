@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(markdown):binary
+import(markdown)
 
 text = R'''
 No Header
@@ -615,6 +615,7 @@ paragraph
 out << hogehoge
 
 &copy; &amp; AT&T &gt; &lt;
+
 &copy;&amp;AT&T&gt;&lt;
 '''
 
@@ -622,4 +623,6 @@ sys.stdout.addcr(false)
 markdown.document {|doc|
 	doc << text
 	doc.print()
+	//doc.output_console()
+	//doc.output_html()
 }
