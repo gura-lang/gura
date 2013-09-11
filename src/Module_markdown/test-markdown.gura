@@ -236,6 +236,18 @@ Build for Windows
   foo
   bar
 
+Here is an example of AppleScript:
+
+    tell application "Foo"
+        beep
+    end tell
+
+entity test
+
+    <div class="footer">
+        &copy; 2004 Foo Corporation
+    </div>
+
 - item-1
 -300
 +200

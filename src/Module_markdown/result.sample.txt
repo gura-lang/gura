@@ -354,6 +354,24 @@
           <text>'}'
       <p>
         <text>'foo bar'
+  <p>
+    <text>'Here is an example of AppleScript:'
+  <codeblock>
+    <line>
+      <text>'tell application "Foo"'
+    <line>
+      <text>'    beep'
+    <line>
+      <text>'end tell'
+  <p>
+    <text>'entity test'
+  <codeblock>
+    <line>
+      <text>'<div class="footer">'
+    <line>
+      <text>'    &copy; 2004 Foo Corporation'
+    <line>
+      <text>'</div>'
   <ul>
     <li>
       <text>'item-1 -300 +200'

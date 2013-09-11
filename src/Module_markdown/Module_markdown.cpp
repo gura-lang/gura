@@ -844,13 +844,13 @@ bool Document::ParseChar(Signal sig, char ch)
 			} while (0);
 			_indentLevel = 0;
 			if (IsEOF(ch)) continueFlag = true;
-			_stat = STAT_CodeBlock_LineTop;
+			_stat = STAT_CodeBlock_LineHead;
 		} else {
 			_text += ch;
 		}
 		break;
 	}
-	case STAT_CodeBlock_LineTop: {
+	case STAT_CodeBlock_LineHead: {
 		if (ch == ' ') {
 			_indentLevel += 1;
 		} else if (ch == '\t') {
@@ -908,13 +908,13 @@ bool Document::ParseChar(Signal sig, char ch)
 			} while (0);
 			_indentLevel = 0;
 			if (IsEOF(ch)) continueFlag = true;
-			_stat = STAT_CodeBlockInList_LineTop;
+			_stat = STAT_CodeBlockInList_LineHead;
 		} else {
 			_text += ch;
 		}
 		break;
 	}
-	case STAT_CodeBlockInList_LineTop: {
+	case STAT_CodeBlockInList_LineHead: {
 		if (ch == ' ') {
 			_indentLevel += 1;
 		} else if (ch == '\t') {
