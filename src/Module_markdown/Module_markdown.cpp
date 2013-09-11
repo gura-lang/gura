@@ -1125,6 +1125,22 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
+	case STAT_Ampersand: {
+		if (ch == ';') {
+			FlushText(Item::TYPE_Text, false);
+			Item *pItem = new Item(Item::TYPE_Entity, _field);
+			_pItemOwner->push_back(pItem);
+			_stat = _statStack.Pop();
+ 		} else if (IsAlpha(ch)) {
+			_textAhead += ch;
+			_field += ch;
+		} else {
+			_text += _textAhead;
+			continueFlag = true;
+			_stat = _statStack.Pop();
+		}
+		break;
+	}
 	case STAT_AutoLink: {
 		if (ch == '>') {
 			if (IsLink(_field.c_str())) {
@@ -1573,6 +1589,13 @@ bool Document::CheckSpecialChar(char ch)
 		_statStack.Push(_stat);
 		_stat = STAT_UnderscoreEmphasisPre;
 		return true;
+	} else if (ch == '&') {
+		_textAhead.clear();
+		_field.clear();
+		_textAhead += ch;
+		_statStack.Push(_stat);
+		_stat = STAT_Ampersand;
+		return true;
 	} else if (ch == '<') {
 		_textAhead.clear();
 		_field.clear();
@@ -1778,62 +1801,62 @@ bool Document::IsHorzRule(const char *text)
 
 bool Document::IsLink(const char *text)
 {
-	enum StatL {
-		STATL_Begin,
-		STATL_Head,
-		STATL_EMail,
-		STATL_EMailDot,
-		STATL_EMailAfterDot,
-		STATL_URL,
-	} statL = STATL_Begin;
+	enum Stat {
+		STAT_Begin,
+		STAT_Head,
+		STAT_EMail,
+		STAT_EMailDot,
+		STAT_EMailAfterDot,
+		STAT_URL,
+	} stat = STAT_Begin;
 	String head;
 	for (const char *p = text; ; p++) {
 		char ch = *p;
-		switch (statL) {
-		case STATL_Begin: {
+		switch (stat) {
+		case STAT_Begin: {
 			if (IsAlpha(ch)) {
 				head += ch;
-				statL = STATL_Head;
+				stat = STAT_Head;
 			} else {
 				return false;
 			}
 			break;
 		}
-		case STATL_Head: {
+		case STAT_Head: {
 			if (IsAlpha(ch)) {
 				head += ch;
 			} else if (ch == '@') {
-				statL = STATL_EMail;
+				stat = STAT_EMail;
 			} else if (ch == ':') {
-				statL = STATL_URL;
+				stat = STAT_URL;
 			} else {
 				return false;
 			}
 			break;
 		}
-		case STATL_EMail: {
+		case STAT_EMail: {
 			if (IsAlpha(ch)) {
 				// nothing to do
 			} else if (ch == '.') {
-				statL = STATL_EMailDot;
+				stat = STAT_EMailDot;
 			} else {
 				return false;
 			}
 			break;
 		}
-		case STATL_EMailDot: {
+		case STAT_EMailDot: {
 			if (IsAlpha(ch)) {
-				statL = STATL_EMailAfterDot;
+				stat = STAT_EMailAfterDot;
 			} else {
 				return false;
 			}
 			break;
 		}
-		case STATL_EMailAfterDot: {
+		case STAT_EMailAfterDot: {
 			if (IsAlpha(ch)) {
 				// nothing to do
 			} else if (ch == '.') {
-				statL = STATL_EMailDot;
+				stat = STAT_EMailDot;
 			} else if (ch == '\0') {
 				// nothing to do
 			} else {
@@ -1841,7 +1864,7 @@ bool Document::IsLink(const char *text)
 			}
 			break;
 		}
-		case STATL_URL: {
+		case STAT_URL: {
 			if (IsURIC(ch)) {
 				// nothing to do
 			} else if (ch == '\0') {

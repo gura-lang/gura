@@ -27,13 +27,12 @@ normal paragraph
 normal paragraph
 '''
 text = R'''
-3 < 4
 '''
 
 markdown.document {|doc|
 	doc << text
-	doc.print()
-	//doc.output_html()
+	//doc.print()
+	doc.output_html()
 	refs = [doc.refs]
 	if (!refs.isempty()) {
 		println('** reference list **')

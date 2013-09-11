@@ -211,6 +211,7 @@ private:
 		STAT_UnderscoreEmphasis,
 		STAT_UnderscoreStrong,
 		STAT_UnderscoreStrongEnd,
+		STAT_Ampersand,
 		STAT_AutoLink,
 		STAT_LinkAltTextPre,
 		STAT_LinkAltText,

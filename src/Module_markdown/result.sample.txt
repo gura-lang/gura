@@ -967,3 +967,20 @@
         <text>'}'
   <p>
     <text>'paragraph'
+  <p>
+    <text>'3 < 4 > 2'
+  <p>
+    <text>'out << hogehoge'
+  <p>
+    <entity>'copy'
+    <text>' '
+    <entity>'amp'
+    <text>' AT&T '
+    <entity>'gt'
+    <text>' '
+    <entity>'lt'
+    <entity>'copy'
+    <entity>'amp'
+    <text>'AT&T'
+    <entity>'gt'
+    <entity>'lt'

@@ -597,6 +597,13 @@ normal paragraph
 >     }
 
 paragraph
+
+3 < 4 > 2
+
+out << hogehoge
+
+&copy; &amp; AT&T &gt; &lt;
+&copy;&amp;AT&T&gt;&lt;
 '''
 
 sys.stdout.addcr(false)
