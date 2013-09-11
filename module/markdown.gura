@@ -86,6 +86,8 @@ output_html(item:item, out:stream:w):map:void = {
 		out.print(item.text.escapehtml())
 	} elsif (item.type == `code) {
 		out.print('<code>', item.text.escapehtml(), '</code>')
+	} elsif (item.type == `entity) {
+		out.print('&', item.text.escapehtml(), ';')
 	} elsif (item.type == `hr) {
 		out.print('<hr />\n')
 	} elsif (item.type == `br) {
@@ -178,6 +180,10 @@ output_console(item:item):map:void = {
 	} elsif (item.type == `code) {
 		conio.setcolor(`blue) {
 			print(item.text)
+		}
+	} elsif (item.type == `entity) {
+		conio.setcolor(`black, `white) {
+			out.print(item.text.escapehtml())
 		}
 	} elsif (item.type == `hr) {
 		out.print('--------\n')
