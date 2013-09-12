@@ -209,11 +209,29 @@ scope {
 }
 scope {
 	x = 1..9
+	i = (x, 0..-5, x, interval(0, 1, 5))
+	tester(`i.each():list)
+	tester(`x.each():list)
+	tester(`(x, 0..-5, x, interval(0, 1, 5)).each():list {|m| m})
+	i = ('first', 'second', 'third', range(4), repeat(3):iter {|i| i * 3})
+	tester(`i.each():list)
+}
+scope {
+	x = 1..9
 	i = list(x, 0..-5, 99, 99, x, interval(0, 1, 5), 99)
 	tester(`i)
 	tester(`x.each():list)
 	tester(`list(x, 0..-5, x, interval(0, 1, 5)))
 	i = list('first', 'second', 'third', range(4), repeat(3):iter {|i| i * 3})
+	tester(`i)
+}
+scope {
+	x = 1..9
+	i = [x, 0..-5, 99, 99, x, interval(0, 1, 5), 99]
+	tester(`i)
+	tester(`x.each():list)
+	tester(`[x, 0..-5, x, interval(0, 1, 5)])
+	i = ['first', 'second', 'third', range(4), repeat(3):iter {|i| i * 3}]
 	tester(`i)
 }
 scope {
