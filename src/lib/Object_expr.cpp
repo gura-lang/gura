@@ -397,19 +397,6 @@ bool Class_expr::CastFrom(Environment &env, Signal sig, Value &value, const Decl
 	return false;
 }
 
-bool Class_expr::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
-{
-	return Expr::Serialize(env, sig, stream, value.GetExpr());
-}
-
-bool Class_expr::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
-{
-	Expr *pExpr = NULL;
-	if (!Expr::Deserialize(env, sig, stream, &pExpr, true)) return false;
-	value = Value(env, pExpr);
-	return true;
-}
-
 Object *Class_expr::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	GURA_ERROREND(env, "this function must not be called");

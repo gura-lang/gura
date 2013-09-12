@@ -324,99 +324,8 @@ bool Expr::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return false;
 }
 
-bool Expr::Serialize(Environment &env, Signal sig, Stream &stream, const Expr *pExpr)
+bool Expr::GenerateScript(Environment &env, Signal sig, Stream &stream)
 {
-	if (pExpr == NULL) {
-		UChar exprType = static_cast<UChar>(EXPRTYPE_None);
-		return stream.Write(sig, &exprType, 1) == 1;
-	}
-	UChar exprType = static_cast<UChar>(pExpr->GetType());
-	if (stream.Write(sig, &exprType, 1) < 1) return false;
-	return pExpr->DoSerialize(env, sig, stream);
-}
-
-bool Expr::Deserialize(Environment &env, Signal sig, Stream &stream, Expr **ppExpr, bool mustBeValidFlag)
-{
-	*ppExpr = NULL;
-	UChar exprType = 0x00;
-	if (stream.Read(sig, &exprType, 1) < 1) return false;
-	AutoPtr<Expr> pExpr;
-	//::printf("exprType = 0x%02x\n", exprType);
-	switch (exprType) {
-	case EXPRTYPE_None:
-		if (mustBeValidFlag) {
-			sig.SetError(ERR_IOError, "invalid expr in the stream");
-			return false;
-		}
-		return true;
-	case EXPRTYPE_UnaryOp:
-		pExpr.reset(new Expr_UnaryOp(NULL, NULL, false));
-		break;
-	case EXPRTYPE_Quote:
-		pExpr.reset(new Expr_Quote(NULL));
-		break;
-	case EXPRTYPE_Force:
-		pExpr.reset(new Expr_Force(NULL));
-		break;
-	case EXPRTYPE_Prefix:
-		pExpr.reset(new Expr_Prefix(NULL, NULL));
-		break;
-	case EXPRTYPE_Suffix:
-		pExpr.reset(new Expr_Suffix(NULL, NULL));
-		break;
-	case EXPRTYPE_BinaryOp:
-		pExpr.reset(new Expr_BinaryOp(NULL, NULL, NULL));
-		break;
-	case EXPRTYPE_Assign:
-		pExpr.reset(new Expr_Assign(NULL, NULL, NULL));
-		break;
-	case EXPRTYPE_DictAssign:
-		pExpr.reset(new Expr_DictAssign(NULL, NULL));
-		break;
-	case EXPRTYPE_Member:
-		pExpr.reset(new Expr_Member(NULL, NULL));
-		break;
-	case EXPRTYPE_Root:
-		pExpr.reset(new Expr_Root(""));
-		break;
-	case EXPRTYPE_BlockParam:
-		pExpr.reset(new Expr_BlockParam());
-		break;
-	case EXPRTYPE_Block:
-		pExpr.reset(new Expr_Block());
-		break;
-	case EXPRTYPE_Lister:
-		pExpr.reset(new Expr_Lister());
-		break;
-	case EXPRTYPE_TemplateScript:
-		sig.SetError(ERR_IOError, "can't serialize template block");
-		return false;
-	case EXPRTYPE_Indexer:
-		pExpr.reset(new Expr_Indexer(NULL, NULL));
-		break;
-	case EXPRTYPE_Caller:
-		pExpr.reset(new Expr_Caller(NULL, NULL, NULL));
-		break;
-	case EXPRTYPE_Value:
-		pExpr.reset(new Expr_Value(Value::Null));
-		break;
-	case EXPRTYPE_Symbol:
-		pExpr.reset(new Expr_Symbol(Gura_Symbol(nil)));
-		break;
-	case EXPRTYPE_String:
-		pExpr.reset(new Expr_String(""));
-		break;
-	case EXPRTYPE_TemplateString:
-		sig.SetError(ERR_IOError, "can't serialize template string");
-		return false;
-	default:
-		sig.SetError(ERR_IOError, "unknown expr type %d", exprType);
-		return false;
-	}
-	if (pExpr->DoDeserialize(env, sig, stream)) {
-		*ppExpr = pExpr.release();
-		return true;
-	}
 	return false;
 }
 
@@ -493,18 +402,6 @@ bool Expr_Unary::IsParentOf(const Expr *pExpr) const
 	return _exprOwner.IsContained(pExpr);
 }
 
-bool Expr_Unary::DoSerialize(Environment &env, Signal sig, Stream &stream) const
-{
-	return _exprOwner.Serialize(env, sig, stream);
-}
-
-bool Expr_Unary::DoDeserialize(Environment &env, Signal sig, Stream &stream)
-{
-	if (!_exprOwner.Deserialize(env, sig, stream)) return false;
-	_exprOwner.SetParent(this);
-	return true;
-}
-
 //-----------------------------------------------------------------------------
 // Expr_Binary
 //-----------------------------------------------------------------------------
@@ -540,18 +437,6 @@ bool Expr_Binary::IsParentOf(const Expr *pExpr) const
 	return _exprOwner.IsContained(pExpr);
 }
 
-bool Expr_Binary::DoSerialize(Environment &env, Signal sig, Stream &stream) const
-{
-	return _exprOwner.Serialize(env, sig, stream);
-}
-
-bool Expr_Binary::DoDeserialize(Environment &env, Signal sig, Stream &stream)
-{
-	if (!_exprOwner.Deserialize(env, sig, stream)) return false;
-	_exprOwner.SetParent(this);
-	return true;
-}
-
 //-----------------------------------------------------------------------------
 // Expr_Container
 //-----------------------------------------------------------------------------
@@ -577,16 +462,6 @@ void Expr_Container::Accept(ExprVisitor &visitor) const
 bool Expr_Container::IsParentOf(const Expr *pExpr) const
 {
 	return _exprOwner.IsContained(pExpr);
-}
-
-bool Expr_Container::DoSerialize(Environment &env, Signal sig, Stream &stream) const
-{
-	return _exprOwner.Serialize(env, sig, stream);
-}
-
-bool Expr_Container::DoDeserialize(Environment &env, Signal sig, Stream &stream)
-{
-	return _exprOwner.Deserialize(env, sig, stream);
 }
 
 //-----------------------------------------------------------------------------
@@ -633,14 +508,9 @@ bool Expr_Value::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Value::DoSerialize(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Value::GenerateScript(Environment &env, Signal sig, Stream &stream)
 {
-	return Value::Serialize(env, sig, stream, _value);
-}
-
-bool Expr_Value::DoDeserialize(Environment &env, Signal sig, Stream &stream)
-{
-	return Value::Deserialize(env, sig, stream, _value, false);
+	return false;
 }
 
 String Expr_Value::ToString() const
@@ -683,14 +553,9 @@ bool Expr_String::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_String::DoSerialize(Environment &env, Signal sig, Stream &stream) const
+bool Expr_String::GenerateScript(Environment &env, Signal sig, Stream &stream)
 {
-	return stream.SerializeString(sig, _str.c_str());
-}
-
-bool Expr_String::DoDeserialize(Environment &env, Signal sig, Stream &stream)
-{
-	return stream.DeserializeString(sig, _str);
+	return false;
 }
 
 String Expr_String::ToString() const
@@ -729,15 +594,8 @@ bool Expr_TemplateString::GenerateCode(Environment &env, Signal sig, Stream &str
 	return true;
 }
 
-bool Expr_TemplateString::DoSerialize(Environment &env, Signal sig, Stream &stream) const
+bool Expr_TemplateString::GenerateScript(Environment &env, Signal sig, Stream &stream)
 {
-	sig.SetError(ERR_IOError, "can't serialize template string");
-	return false;
-}
-
-bool Expr_TemplateString::DoDeserialize(Environment &env, Signal sig, Stream &stream)
-{
-	sig.SetError(ERR_IOError, "can't deserialize template string");
 	return false;
 }
 
@@ -903,22 +761,9 @@ bool Expr_Symbol::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Symbol::DoSerialize(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Symbol::GenerateScript(Environment &env, Signal sig, Stream &stream)
 {
-	if (!stream.SerializeSymbol(sig, _pSymbol)) return false;
-	if (!stream.SerializeSymbolSet(sig, _attrs)) return false;
-	if (!stream.SerializeSymbolSet(sig, _attrsOpt)) return false;
-	if (!stream.SerializeSymbolList(sig, _attrFront)) return false;
-	return true;
-}
-
-bool Expr_Symbol::DoDeserialize(Environment &env, Signal sig, Stream &stream)
-{
-	if (!stream.DeserializeSymbol(sig, &_pSymbol)) return false;
-	if (!stream.DeserializeSymbolSet(sig, _attrs)) return false;
-	if (!stream.DeserializeSymbolSet(sig, _attrsOpt)) return false;
-	if (!stream.DeserializeSymbolList(sig, _attrFront)) return false;
-	return true;
+	return false;
 }
 
 String Expr_Symbol::ToString() const
@@ -955,18 +800,9 @@ bool Expr_Root::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return _exprOwner.GenerateCode(env, sig, stream);
 }
 
-bool Expr_Root::DoSerialize(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Root::GenerateScript(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Container::DoSerialize(env, sig, stream)) return false;
-	if (!stream.SerializeString(sig, _pathName.c_str())) return false;
-	return true;
-}
-
-bool Expr_Root::DoDeserialize(Environment &env, Signal sig, Stream &stream)
-{
-	if (!Expr_Container::DoDeserialize(env, sig, stream)) return false;
-	if (!stream.DeserializeString(sig, _pathName)) return false;
-	return true;
+	return false;
 }
 
 String Expr_Root::ToString() const
@@ -1026,24 +862,9 @@ bool Expr_Block::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Block::DoSerialize(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Block::GenerateScript(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Container::DoSerialize(env, sig, stream)) return false;
-	if (!Expr::Serialize(env, sig, stream, _pExprBlockParam.get())) return false;
-	return true;
-}
-
-bool Expr_Block::DoDeserialize(Environment &env, Signal sig, Stream &stream)
-{
-	if (!Expr_Container::DoDeserialize(env, sig, stream)) return false;
-	Expr *pExprBlockParam = NULL;
-	if (!Expr::Deserialize(env, sig, stream, &pExprBlockParam, false)) return false;
-	if (pExprBlockParam != NULL && !pExprBlockParam->IsBlockParam()) {
-		sig.SetError(ERR_IOError, "block parameter is expected in the stream");
-		return false;
-	}
-	_pExprBlockParam.reset(dynamic_cast<Expr_BlockParam *>(pExprBlockParam));
-	return true;
+	return false;
 }
 
 String Expr_Block::ToString() const
@@ -1085,16 +906,9 @@ bool Expr_BlockParam::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_BlockParam::DoSerialize(Environment &env, Signal sig, Stream &stream) const
+bool Expr_BlockParam::GenerateScript(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Container::DoSerialize(env, sig, stream)) return false;
-	return true;
-}
-
-bool Expr_BlockParam::DoDeserialize(Environment &env, Signal sig, Stream &stream)
-{
-	if (!Expr_Container::DoDeserialize(env, sig, stream)) return false;
-	return true;
+	return false;
 }
 
 String Expr_BlockParam::ToString() const
@@ -1224,16 +1038,9 @@ bool Expr_Lister::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Lister::DoSerialize(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Lister::GenerateScript(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Container::DoSerialize(env, sig, stream)) return false;
-	return true;
-}
-
-bool Expr_Lister::DoDeserialize(Environment &env, Signal sig, Stream &stream)
-{
-	if (!Expr_Container::DoDeserialize(env, sig, stream)) return false;
-	return true;
+	return false;
 }
 
 String Expr_Lister::ToString() const
@@ -1324,15 +1131,8 @@ bool Expr_TemplateScript::GenerateCode(Environment &env, Signal sig, Stream &str
 	return true;
 }
 
-bool Expr_TemplateScript::DoSerialize(Environment &env, Signal sig, Stream &stream) const
+bool Expr_TemplateScript::GenerateScript(Environment &env, Signal sig, Stream &stream)
 {
-	sig.SetError(ERR_IOError, "can't serialize template script");
-	return false;
-}
-
-bool Expr_TemplateScript::DoDeserialize(Environment &env, Signal sig, Stream &stream)
-{
-	sig.SetError(ERR_IOError, "can't deserialize template script");
 	return false;
 }
 
@@ -1376,29 +1176,6 @@ bool Expr_Compound::IsParentOf(const Expr *pExpr) const
 	return _pExprCar.get() == pExpr || _pExprLister.get() == pExpr ||
 			(!_pExprCar.IsNull() && _pExprCar->IsParentOf(pExpr)) ||
 			(!_pExprLister.IsNull() && _pExprLister->IsParentOf(pExpr));
-}
-
-bool Expr_Compound::DoSerialize(Environment &env, Signal sig, Stream &stream) const
-{
-	if (!Expr::Serialize(env, sig, stream, _pExprCar.get())) return false;
-	if (!Expr::Serialize(env, sig, stream, _pExprLister.get())) return false;
-	return true;
-}
-
-bool Expr_Compound::DoDeserialize(Environment &env, Signal sig, Stream &stream)
-{
-	Expr *pExprCar = NULL, *pExprLister = NULL;
-	if (!Expr::Deserialize(env, sig, stream, &pExprCar, true)) return false;
-	if (!Expr::Deserialize(env, sig, stream, &pExprLister, true)) return false;
-	if (!pExprLister->IsLister()) {
-		sig.SetError(ERR_IOError, "lister is expected in the stream");
-		return false;
-	}
-	_pExprCar.reset(pExprCar);
-	_pExprLister.reset(dynamic_cast<Expr_Lister *>(pExprLister));
-	_pExprCar->SetParent(this);
-	_pExprLister->SetParent(this);
-	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -1571,16 +1348,9 @@ bool Expr_Indexer::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Indexer::DoSerialize(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Indexer::GenerateScript(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Compound::DoSerialize(env, sig, stream)) return false;
-	return true;
-}
-
-bool Expr_Indexer::DoDeserialize(Environment &env, Signal sig, Stream &stream)
-{
-	if (!Expr_Compound::DoDeserialize(env, sig, stream)) return false;
-	return true;
+	return false;
 }
 
 String Expr_Indexer::ToString() const
@@ -1860,37 +1630,9 @@ bool Expr_Caller::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Caller::DoSerialize(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Caller::GenerateScript(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Compound::DoSerialize(env, sig, stream)) return false;
-	if (!Expr::Serialize(env, sig, stream, _pExprBlock.get())) return false;
-	if (!Expr::Serialize(env, sig, stream, _pExprTrailer.get())) return false;
-	if (!stream.SerializeSymbolSet(sig, _attrs)) return false;
-	if (!stream.SerializeSymbolSet(sig, _attrsOpt)) return false;
-	if (!stream.SerializeSymbolList(sig, _attrFront)) return false;
-	return true;
-}
-
-bool Expr_Caller::DoDeserialize(Environment &env, Signal sig, Stream &stream)
-{
-	if (!Expr_Compound::DoDeserialize(env, sig, stream)) return false;
-	Expr *pExprBlock = NULL, *pExprTrailer = NULL;
-	if (!Expr::Deserialize(env, sig, stream, &pExprBlock, false)) return false;
-	if (!Expr::Deserialize(env, sig, stream, &pExprTrailer, false)) return false;
-	if (pExprBlock != NULL && !pExprBlock->IsBlock()) {
-		sig.SetError(ERR_IOError, "block is expected in the stream");
-		return false;
-	}
-	if (pExprTrailer != NULL && !pExprTrailer->IsCaller()) {
-		sig.SetError(ERR_IOError, "caller is expected in the stream");
-		return false;
-	}
-	_pExprBlock.reset(dynamic_cast<Expr_Block *>(pExprBlock));
-	_pExprTrailer.reset(dynamic_cast<Expr_Caller *>(pExprTrailer));
-	if (!stream.DeserializeSymbolSet(sig, _attrs)) return false;
-	if (!stream.DeserializeSymbolSet(sig, _attrsOpt)) return false;
-	if (!stream.DeserializeSymbolList(sig, _attrFront)) return false;
-	return true;
+	return false;
 }
 
 String Expr_Caller::ToString() const
@@ -1970,26 +1712,9 @@ bool Expr_UnaryOp::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_UnaryOp::DoSerialize(Environment &env, Signal sig, Stream &stream) const
+bool Expr_UnaryOp::GenerateScript(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Unary::DoSerialize(env, sig, stream)) return false;
-	UChar opType = static_cast<UChar>(_pOperator->GetOpType());
-	if (!stream.SerializeUChar(sig, opType)) return false;
-	return true;
-}
-
-bool Expr_UnaryOp::DoDeserialize(Environment &env, Signal sig, Stream &stream)
-{
-	if (!Expr_Unary::DoDeserialize(env, sig, stream)) return false;
-	UChar opTypeRaw = 0x00;
-	if (!stream.DeserializeUChar(sig, opTypeRaw)) return false;
-	if (opTypeRaw >= OPTYPE_max) {
-		sig.SetError(ERR_IOError, "invalid binary operator in the stream");
-		return false;
-	}
-	OpType opType = static_cast<OpType>(opTypeRaw);
-	_pOperator = env.GetOperator(opType);
-	return true;
+	return false;
 }
 
 String Expr_UnaryOp::ToString() const
@@ -2079,26 +1804,9 @@ bool Expr_BinaryOp::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_BinaryOp::DoSerialize(Environment &env, Signal sig, Stream &stream) const
+bool Expr_BinaryOp::GenerateScript(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Binary::DoSerialize(env, sig, stream)) return false;
-	UChar opType = static_cast<UChar>(_pOperator->GetOpType());
-	if (!stream.SerializeUChar(sig, opType)) return false;
-	return true;
-}
-
-bool Expr_BinaryOp::DoDeserialize(Environment &env, Signal sig, Stream &stream)
-{
-	if (!Expr_Binary::DoDeserialize(env, sig, stream)) return false;
-	UChar opTypeRaw = 0x00;
-	if (!stream.DeserializeUChar(sig, opTypeRaw)) return false;
-	if (opTypeRaw >= OPTYPE_max) {
-		sig.SetError(ERR_IOError, "invalid binary operator in the stream");
-		return false;
-	}
-	OpType opType = static_cast<OpType>(opTypeRaw);
-	_pOperator = env.GetOperator(opType);
-	return true;
+	return false;
 }
 
 String Expr_BinaryOp::ToString() const
@@ -2168,16 +1876,9 @@ bool Expr_Quote::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Quote::DoSerialize(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Quote::GenerateScript(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Unary::DoSerialize(env, sig, stream)) return false;
-	return true;
-}
-
-bool Expr_Quote::DoDeserialize(Environment &env, Signal sig, Stream &stream)
-{
-	if (!Expr_Unary::DoDeserialize(env, sig, stream)) return false;
-	return true;
+	return false;
 }
 
 String Expr_Quote::ToString() const
@@ -2214,16 +1915,9 @@ bool Expr_Force::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Force::DoSerialize(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Force::GenerateScript(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Unary::DoSerialize(env, sig, stream)) return false;
-	return true;
-}
-
-bool Expr_Force::DoDeserialize(Environment &env, Signal sig, Stream &stream)
-{
-	if (!Expr_Unary::DoDeserialize(env, sig, stream)) return false;
-	return true;
+	return false;
 }
 
 String Expr_Force::ToString() const
@@ -2260,18 +1954,9 @@ bool Expr_Prefix::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Prefix::DoSerialize(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Prefix::GenerateScript(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Unary::DoSerialize(env, sig, stream)) return false;
-	if (stream.SerializeSymbol(sig, _pSymbol)) return false;
-	return true;
-}
-
-bool Expr_Prefix::DoDeserialize(Environment &env, Signal sig, Stream &stream)
-{
-	if (!Expr_Unary::DoDeserialize(env, sig, stream)) return false;
-	if (stream.DeserializeSymbol(sig, &_pSymbol)) return false;
-	return true;
+	return false;
 }
 
 String Expr_Prefix::ToString() const
@@ -2317,18 +2002,9 @@ bool Expr_Suffix::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Suffix::DoSerialize(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Suffix::GenerateScript(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Unary::DoSerialize(env, sig, stream)) return false;
-	if (stream.SerializeSymbol(sig, _pSymbol)) return false;
-	return true;
-}
-
-bool Expr_Suffix::DoDeserialize(Environment &env, Signal sig, Stream &stream)
-{
-	if (!Expr_Unary::DoDeserialize(env, sig, stream)) return false;
-	if (stream.DeserializeSymbol(sig, &_pSymbol)) return false;
-	return true;
+	return false;
 }
 
 String Expr_Suffix::ToString() const
@@ -2395,28 +2071,9 @@ bool Expr_Assign::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Assign::DoSerialize(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Assign::GenerateScript(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Binary::DoSerialize(env, sig, stream)) return false;
-	OpType opType = (_pOperatorToApply == NULL)? OPTYPE_None : _pOperatorToApply->GetOpType();
-	UChar opTypeRaw = static_cast<UChar>(opType);
-	if (!stream.SerializeUChar(sig, opTypeRaw)) return false;
-	return true;
-}
-
-bool Expr_Assign::DoDeserialize(Environment &env, Signal sig, Stream &stream)
-{
-	if (!Expr_Binary::DoDeserialize(env, sig, stream)) return false;
-	UChar opTypeRaw = 0x00;
-	if (!stream.DeserializeUChar(sig, opTypeRaw)) return false;
-	if (opTypeRaw >= OPTYPE_max) {
-		sig.SetError(ERR_IOError, "invalid binary operator in the stream");
-		return false;
-	}
-	OpType opType = static_cast<OpType>(opTypeRaw);
-	_pOperatorToApply = (opType == OPTYPE_None)?
-							NULL : env.GetOperator(opType);
-	return true;
+	return false;
 }
 
 String Expr_Assign::ToString() const
@@ -2464,16 +2121,9 @@ bool Expr_DictAssign::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_DictAssign::DoSerialize(Environment &env, Signal sig, Stream &stream) const
+bool Expr_DictAssign::GenerateScript(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Binary::DoSerialize(env, sig, stream)) return false;
-	return true;
-}
-
-bool Expr_DictAssign::DoDeserialize(Environment &env, Signal sig, Stream &stream)
-{
-	if (!Expr_Binary::DoDeserialize(env, sig, stream)) return false;
-	return true;
+	return false;
 }
 
 String Expr_DictAssign::ToString() const
@@ -2616,25 +2266,9 @@ bool Expr_Member::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Member::DoSerialize(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Member::GenerateScript(Environment &env, Signal sig, Stream &stream)
 {
-	if (!Expr_Binary::DoSerialize(env, sig, stream)) return false;
-	UChar mode = static_cast<UChar>(_mode);
-	if (!stream.SerializeUChar(sig, mode)) return false;
-	return true;
-}
-
-bool Expr_Member::DoDeserialize(Environment &env, Signal sig, Stream &stream)
-{
-	if (!Expr_Binary::DoDeserialize(env, sig, stream)) return false;
-	UChar mode = 0;
-	if (!stream.DeserializeUChar(sig, mode)) return false;
-	if (mode >= MODE_max) {
-		sig.SetError(ERR_IOError, "invalid mode number");
-		return false;
-	}
-	_mode = static_cast<Mode>(mode);
-	return true;
+	return false;
 }
 
 String Expr_Member::ToString() const
@@ -2757,15 +2391,9 @@ bool ExprList::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool ExprList::Serialize(Environment &env, Signal sig, Stream &stream) const
+bool ExprList::GenerateScript(Environment &env, Signal sig, Stream &stream)
 {
-	ULong num = static_cast<ULong>(size());
-	if (!stream.SerializePackedULong(sig, num)) return false;
-	foreach_const (ExprList, ppExpr, *this) {
-		const Expr *pExpr = *ppExpr;
-		if (!Expr::Serialize(env, sig, stream, pExpr)) return false;
-	}
-	return true;
+	return false;
 }
 
 String ExprList::ToString(const char *sep) const
@@ -2818,20 +2446,6 @@ void ExprOwner::Clear()
 		Expr::Delete(const_cast<Expr *>(*ppExpr));
 	}
 	clear();
-}
-
-bool ExprOwner::Deserialize(Environment &env, Signal sig, Stream &stream)
-{
-	ULong num = 0;
-	if (!stream.DeserializePackedULong(sig, num)) return false;
-	Clear();
-	reserve(num);
-	while (num-- > 0) {
-		Expr *pExpr = NULL;
-		if (!Expr::Deserialize(env, sig, stream, &pExpr, true)) return false;
-		push_back(pExpr);
-	}
-	return true;
 }
 
 }
