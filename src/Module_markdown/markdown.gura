@@ -105,14 +105,13 @@ Renderer_html = class {
 	}
 }
 
-ListInfo = struct(type:symbol, idxItem:number => 0)
-
 Renderer_rtf = class {
 	__init__(out?:stream:w) = {
 		this.out = out || sys.stdout
 		this.quoteLevel = 0
+		this.listLevel = 0
 		this.indentPerQuote = 720
-		this.listInfoStack = []
+		this.indentPerList = 360
 	}
 	Output(doc:document):void = {
 		this.OutputItem(doc.root)
@@ -173,26 +172,11 @@ Renderer_rtf = class {
 			}
 			this.out.println(r'\par}')
 		} elsif (item.type == `ol) {
-			!this.listInfoStack.isempty() && this.out.println(r'\par}')
-			this.listInfoStack.add(ListInfo(`ol))
-			this.OutputItem(item.children)
-			this.listInfoStack.erase(-1)
+			this.OutputListItem(item)
 		} elsif (item.type == `ul) {
-			!this.listInfoStack.isempty() && this.out.println(r'\par}')
-			this.listInfoStack.add(ListInfo(`ul))
-			this.OutputItem(item.children)
-			this.listInfoStack.erase(-1)
+			this.OutputListItem(item)
 		} elsif (item.type == `li) {
-			listInfo = this.listInfoStack.last()
-			indent = 360 * this.listInfoStack.len()
-			if (listInfo.type == `ol) {
-				this.out.print(r'{\pard \ql \f0 \sa0 \li%d \fi-360 \bullet \tx360\tab ' % indent)
-			} else {
-				this.out.print(r'{\pard \ql \f0 \sa0 \li%d \fi-360 %d. \tx360\tab ' % [indent, listInfo.idxItem + 1])
-			}
-			listInfo.idxItem += 1
-			this.OutputItem(item.children)
-			this.out.println(r'\par}')
+			// nothing to do here
 		} elsif (item.type == `line) {
 			this.OutputItem(item.children)
 			this.out.println(r'\line')
@@ -222,6 +206,31 @@ Renderer_rtf = class {
 	}
 	EscapeText(text:string):static = {
 		text.replace('\\', '\\\\').replace('{', r'\{').replace('}', r'\}')
+	}
+	OutputListItem(item:item) = {
+		parOutputFlag = false
+		this.listLevel += 1
+		item.children.each {|itemChild, i|
+			(i > 0 && !parOutputFlag) && this.out.println(r'\par}')
+			if (item.type == `ul) {
+				this.out.print(r'{\pard \ql \f0 \sa0 \li%d \fi-360 \bullet \tx360\tab ' % \
+							[this.indentPerList * this.listLevel])
+			} else { // item.type == `ol
+				this.out.print(r'{\pard \ql \f0 \sa0 \li%d \fi-360 %d. \tx360\tab ' % \
+							[this.indentPerList * this.listLevel, i + 1])
+			}
+			parOutputFlag = false
+			itemChild.children.each {|itemDescend, i|
+				if (itemDescend.type == `ol || itemDescend.type == `ul) {
+					this.out.println(r'\sa180\par}')
+					parOutputFlag = true
+				}
+				this.OutputItem(itemDescend)
+			}
+			
+		}
+		!parOutputFlag && this.out.println(r'\sa180\par}')
+		this.listLevel -= 1
 	}
 }
 
