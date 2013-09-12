@@ -24,6 +24,7 @@ const char *GetExprTypeName(ExprType exprType)
 		{ EXPRTYPE_BlockParam,		"blockparam",		},
 		{ EXPRTYPE_Block,			"block",			},
 		{ EXPRTYPE_Lister,			"lister",			},
+		{ EXPRTYPE_IteratorLink,	"iteratorlink",		},
 		{ EXPRTYPE_TemplateScript,	"templatescript",	},
 		{ EXPRTYPE_Indexer,			"indexer",			},
 		{ EXPRTYPE_Caller,			"caller",			},
@@ -54,6 +55,7 @@ const char *GetExprTypeName(ExprType exprType)
 //        |                   +- Expr_BlockParam
 //        |                   +- Expr_Block
 //        |                   +- Expr_Lister
+//        |                   +- Expr_IteratorLink
 //        |                   `- Expr_TemplateScript
 //        +- Expr_Compound <--+- Expr_Indexer
 //        |                   `- Expr_Caller
@@ -283,6 +285,7 @@ bool Expr::IsRoot() const			{ return false; }
 bool Expr::IsBlockParam() const		{ return false; }
 bool Expr::IsBlock() const			{ return false; }
 bool Expr::IsLister() const			{ return false; }
+bool Expr::IsIteratorLink() const	{ return false; }
 bool Expr::IsTemplateScript() const	{ return false; }
 
 bool Expr::IsCompound() const		{ return false; }
@@ -1049,6 +1052,138 @@ String Expr_Lister::ToString() const
 	str += "[";
 	str += GetExprOwner().ToString();
 	str += "]";
+	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Expr_IteratorLink
+//-----------------------------------------------------------------------------
+bool Expr_IteratorLink::IsIteratorLink() const { return true; }
+
+Expr_IteratorLink::~Expr_IteratorLink()
+{
+}
+
+Expr *Expr_IteratorLink::Clone() const
+{
+	return new Expr_IteratorLink(*this);
+}
+
+Value Expr_IteratorLink::DoExec(Environment &env, Signal sig) const
+{
+	Value result;
+	ValueList &valList = result.InitAsList(env);
+	foreach_const (ExprOwner, ppExpr, _exprOwner) {
+		const Expr *pExpr = *ppExpr;
+		Value value = pExpr->Exec(env, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		if (value.IsIterator()) {
+			AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
+			if (sig.IsSignalled()) return Value::Null;
+			if (pIterator->IsInfinite()) {
+				Iterator::SetError_InfiniteNotAllowed(sig);
+				return Value::Null;
+			}
+			Value value;
+			while (pIterator->Next(env, sig, value)) {
+				valList.push_back(value);
+			}
+			if (sig.IsSignalled()) return Value::Null;
+		} else {
+			valList.push_back(value);
+		}
+	}
+	return result;
+}
+
+Value Expr_IteratorLink::DoAssign(Environment &env, Signal sig, Value &value,
+					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
+{
+	const ExprList &exprList = GetExprOwner();
+	if (value.IsList() || value.IsIterator()) {
+		ValueList *pValList = NULL;
+		ExprList::const_iterator ppExpr = exprList.begin();
+		AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
+		if (pIterator.IsNull()) return Value::Null;
+		Value valueElem;
+		while (pIterator->Next(env, sig, valueElem)) {
+			if (pValList != NULL) {
+				pValList->push_back(valueElem);
+				continue;
+			}
+			if (ppExpr == exprList.end()) break;
+			const Expr *pExpr = *ppExpr;
+			OccurPattern occurPattern = OCCUR_Once;
+			if (pExpr->IsSuffix()) {
+				const Expr_Suffix *pExprSuffix =
+								dynamic_cast<const Expr_Suffix *>(pExpr);
+				pExpr = pExprSuffix->GetChild();
+				occurPattern = pExprSuffix->GetOccurPattern();
+				if (occurPattern == OCCUR_Invalid) {
+					SetError(sig, ERR_SyntaxError,
+								"invalid expression of array assignment");
+					return Value::Null;
+				}
+			}
+			if (occurPattern == OCCUR_ZeroOrMore || occurPattern == OCCUR_OnceOrMore) {
+				Value value;
+				pValList = &value.InitAsList(env);
+				pExpr->Assign(env, sig, value, pSymbolsAssignable, escalateFlag);
+				if (sig.IsSignalled()) return Value::Null;
+				pValList->push_back(valueElem);
+			} else {
+				pExpr->Assign(env, sig, valueElem, pSymbolsAssignable, escalateFlag);
+				if (sig.IsSignalled()) return Value::Null;
+			}
+			ppExpr++;
+		}
+		for ( ; ppExpr != exprList.end(); ppExpr++) {
+			const Expr *pExpr = *ppExpr;
+			OccurPattern occurPattern = OCCUR_Once;
+			if (pExpr->IsSuffix()) {
+				const Expr_Suffix *pExprSuffix =
+								dynamic_cast<const Expr_Suffix *>(pExpr);
+				pExpr = pExprSuffix->GetChild();
+				occurPattern = pExprSuffix->GetOccurPattern();
+			}
+			if (occurPattern == OCCUR_ZeroOrMore) {
+				Value value;
+				pValList = &value.InitAsList(env);
+				pExpr->Assign(env, sig, value, pSymbolsAssignable, escalateFlag);
+				if (sig.IsSignalled()) return Value::Null;
+			} else if (occurPattern == OCCUR_Once || occurPattern == OCCUR_OnceOrMore) {
+				SetError(sig, ERR_ValueError,
+						"not enough value to initialize arrayed variables");
+				return Value::Null;
+			}
+		}
+	} else {
+		foreach_const (ExprList, ppExpr, exprList) {
+			const Expr *pExpr = *ppExpr;
+			pExpr->Assign(env, sig, value, pSymbolsAssignable, escalateFlag);
+			if (sig.IsSignalled()) return Value::Null;
+		}
+	}
+	return value;
+}
+
+bool Expr_IteratorLink::GenerateCode(Environment &env, Signal sig, Stream &stream)
+{
+	stream.Println(sig, "IteratorLink");
+	return true;
+}
+
+bool Expr_IteratorLink::GenerateScript(Environment &env, Signal sig, Stream &stream)
+{
+	return false;
+}
+
+String Expr_IteratorLink::ToString() const
+{
+	String str;
+	str += "(";
+	str += GetExprOwner().ToString();
+	str += ")";
 	return str;
 }
 

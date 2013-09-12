@@ -31,6 +31,7 @@ enum ExprType {
 	EXPRTYPE_BlockParam,
 	EXPRTYPE_Block,
 	EXPRTYPE_Lister,
+	EXPRTYPE_IteratorLink,
 	EXPRTYPE_TemplateScript,
 	EXPRTYPE_Indexer,
 	EXPRTYPE_Caller,
@@ -66,6 +67,7 @@ public:
 //        |                   +- Expr_BlockParam
 //        |                   +- Expr_Block
 //        |                   +- Expr_Lister
+//        |                   +- Expr_IteratorLink
 //        |                   `- Expr_TemplateScript
 //        +- Expr_Compound <--+- Expr_Indexer
 //        |                   `- Expr_Caller
@@ -174,6 +176,7 @@ public:
 	virtual bool IsBlockParam() const;
 	virtual bool IsBlock() const;
 	virtual bool IsLister() const;
+	virtual bool IsIteratorLink() const;
 	virtual bool IsTemplateScript() const;
 	virtual bool IsCompound() const;
 	virtual bool IsIndexer() const;
@@ -511,6 +514,30 @@ public:
 	}
 	virtual ~Expr_Lister();
 	virtual bool IsLister() const;
+	virtual Expr *Clone() const;
+	virtual Value DoExec(Environment &env, Signal sig) const;
+	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
+					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
+	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
+	virtual bool GenerateScript(Environment &env, Signal sig, Stream &stream);
+	virtual String ToString() const;
+};
+
+//-----------------------------------------------------------------------------
+// Expr_IteratorLink
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Expr_IteratorLink : public Expr_Container {
+public:
+	inline Expr_IteratorLink() : Expr_Container(EXPRTYPE_IteratorLink) {}
+	inline Expr_IteratorLink(Expr *pExpr) : Expr_Container(EXPRTYPE_IteratorLink) {
+		AddExpr(pExpr);
+	}
+	inline Expr_IteratorLink(const Expr_IteratorLink &expr) : Expr_Container(expr) {}
+	inline static Expr_IteratorLink *Reference(const Expr_IteratorLink *pExpr) {
+		return dynamic_cast<Expr_IteratorLink *>(Expr::Reference(pExpr));
+	}
+	virtual ~Expr_IteratorLink();
+	virtual bool IsIteratorLink() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
