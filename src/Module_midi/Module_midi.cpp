@@ -425,9 +425,9 @@ Gura_DeclareMethod(track, seek)
 	DeclareArg(env, "offset", VTYPE_number);
 	DeclareArg(env, "origin", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"It moves a point in which next event is inserted to a specified offset\n"
-	"If origin is omitted or set to `set, the insertion point will be set to absolute offset from the beginning.\n"
-	"If origin is set to `cur, the insertion point will be moved by offset from the current position.\n"
+	"Moves the insertion point in the track at which the next event is inserted.\n"
+	"If `origin` is omitted or set to `` `set``, the insertion point will be set to absolute offset from the beginning.\n"
+	"If `origin` is set to `` `cur``, the insertion point will be moved by offset from the current position.\n"
 	);
 }
 
@@ -452,7 +452,7 @@ Gura_DeclareMethod(track, tell)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Returns the current insertion point in the event list.\n"
+	"Returns the current insertion point in the track.\n"
 	);
 }
 
@@ -468,7 +468,9 @@ Gura_DeclareMethod(track, erase)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	""
+	"Deletes an event at the current insertion point in the track.\n"
+	"The argument `n` specifies the number of events to be deleted.\n"
+	"If `n` is omitted, one event will be deleted.\n"
 	);
 }
 
@@ -487,7 +489,10 @@ Gura_DeclareMethod(track, mml)
 	DeclareArg(env, "str", VTYPE_string);
 	DeclareArg(env, "max_velocity", VTYPE_number, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	""
+	"Parses MML in the string `str` and inserts resulted MIDI events at the current insertion point in the track.\n"
+	"\n"
+	"The argument `max_velocity` specifies the maximum number of velocity in the MML.\n"
+	"If omitted, it will be set to 127.\n"
 	);
 }
 
