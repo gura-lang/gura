@@ -58,7 +58,7 @@ Gura_ImplementFunction(iterator)
 	Iterator_Concat *pIterator = new Iterator_Concat();
 	foreach_const (ValueList, pValue, args.GetList(0)) {
 		Iterator *pIteratorArg = NULL;
-		if (pValue->IsList() || pValue->IsIterator()) {
+		if (pValue->IsIterator()) {
 			pIteratorArg = pValue->CreateIterator(sig);
 			if (sig.IsSignalled()) return Value::Null;
 		} else {

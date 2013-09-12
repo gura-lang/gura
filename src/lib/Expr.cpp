@@ -1071,29 +1071,21 @@ Expr *Expr_IteratorLink::Clone() const
 
 Value Expr_IteratorLink::DoExec(Environment &env, Signal sig) const
 {
-	Value result;
-	ValueList &valList = result.InitAsList(env);
+	AutoPtr<Iterator_Concat> pIterator(new Iterator_Concat());
 	foreach_const (ExprOwner, ppExpr, _exprOwner) {
 		const Expr *pExpr = *ppExpr;
 		Value value = pExpr->Exec(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
+		Iterator *pIteratorArg = NULL;
 		if (value.IsIterator()) {
-			AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
-			if (sig.IsSignalled()) return Value::Null;
-			if (pIterator->IsInfinite()) {
-				Iterator::SetError_InfiniteNotAllowed(sig);
-				return Value::Null;
-			}
-			Value value;
-			while (pIterator->Next(env, sig, value)) {
-				valList.push_back(value);
-			}
+			pIteratorArg = value.CreateIterator(sig);
 			if (sig.IsSignalled()) return Value::Null;
 		} else {
-			valList.push_back(value);
+			pIteratorArg = new Iterator_OneShot(value);
 		}
+		pIterator->Add(pIteratorArg);
 	}
-	return result;
+	return Value(env, pIterator.release());
 }
 
 bool Expr_IteratorLink::GenerateCode(Environment &env, Signal sig, Stream &stream)

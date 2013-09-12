@@ -583,7 +583,7 @@ scope {
 	c.len()
 	c.clear()
 	println(dict({x = [0..90], zipv(x, math.sin(x * math.pi / 180)):list})):nomap
-	println(dict(for (x in 0..90):list { (x, math.sin(x * math.pi / 180)) })):nomap
+	println(dict(for (x in 0..90):list { [x, math.sin(x * math.pi / 180)] })):nomap
 }
 scope {
 	println('==== Test of list operation (2) ====')
