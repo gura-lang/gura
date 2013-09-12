@@ -201,6 +201,7 @@ max:function = max(values+):map
 min:function = min(values+):map
 module:function = module() {block}
 nil:nil = nil
+nomap:function = nomap(obj) {block?}
 object:function = object()
 open:function = open(name:string, mode?:string, codec?:codec):map {block?}
 operator:function = operator(op:symbol):map {block?}

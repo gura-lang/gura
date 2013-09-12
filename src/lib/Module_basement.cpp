@@ -115,6 +115,21 @@ Gura_ImplementFunction(super)
 	return ReturnValue(env, sig, args, rtn);
 }
 
+// nomap(obj) {block?}
+Gura_DeclareFunction(nomap)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "obj", VTYPE_any, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(nomap)
+{
+	Value rtn(args.GetValue(0));
+	rtn.AddFlags(VFLAG_NoMap);
+	return ReturnValue(env, sig, args, rtn);
+}
+
 // module {block}
 Gura_DeclareFunction(module)
 {
@@ -1586,6 +1601,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(class_);
 	Gura_AssignFunction(struct_);
 	Gura_AssignFunction(super);
+	Gura_AssignFunction(nomap);
 	Gura_AssignFunction(module);
 	Gura_AssignFunction(public_);
 	Gura_AssignFunction(try_);
