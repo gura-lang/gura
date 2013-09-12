@@ -1175,12 +1175,12 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 	if (elem1.IsType(ETYPE_LParenthesis)) {
 		if (elem2.IsType(ETYPE_RParenthesis)) {
 			DBGPARSER(::printf("Reduce: Expr -> '(' ')'\n"));
-			Expr_Lister *pExprLister =
-						dynamic_cast<Expr_Lister *>(elem1.GetExpr());
-			if (pExprLister == NULL) {
-				pExprLister = new Expr_Lister();
+			Expr_IteratorLink *pExprIteratorLink =
+						dynamic_cast<Expr_IteratorLink *>(elem1.GetExpr());
+			if (pExprIteratorLink == NULL) {
+				pExprIteratorLink = new Expr_IteratorLink();
 			}
-			pExpr = pExprLister;
+			pExpr = pExprIteratorLink;
 		} else if (elem2.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '(' -> '(' EOL\n"));
@@ -1375,23 +1375,23 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 	Element &elem2 = _elemStack.Peek(1);
 	Element &elem3 = _elemStack.Peek(0);
 	if (elem1.IsType(ETYPE_LParenthesis) && elem2.IsType(ETYPE_Expr)) {
-		Expr_Lister *pExprLister = dynamic_cast<Expr_Lister *>(elem1.GetExpr());
+		Expr_IteratorLink *pExprIteratorLink = dynamic_cast<Expr_IteratorLink *>(elem1.GetExpr());
 		if (elem3.IsType(ETYPE_RParenthesis)) {
 			DBGPARSER(::printf("Reduce: Expr -> '(' Expr ')'\n"));
-			if (pExprLister == NULL) {
+			if (pExprIteratorLink == NULL) {
 				pExpr = elem2.GetExpr();	// treat expr as non-list
 			} else {
-				pExprLister->AddExpr(elem2.GetExpr());
-				pExpr = pExprLister;
+				pExprIteratorLink->AddExpr(elem2.GetExpr());
+				pExpr = pExprIteratorLink;
 			}
 		} else if (elem3.IsType(ETYPE_Comma) || elem3.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '(' -> '(' Expr ','\n"));
-			if (pExprLister == NULL) {
-				pExprLister = new Expr_Lister();
-				elem1.SetExpr(pExprLister);
+			if (pExprIteratorLink == NULL) {
+				pExprIteratorLink = new Expr_IteratorLink();
+				elem1.SetExpr(pExprIteratorLink);
 			}
-			pExprLister->AddExpr(elem2.GetExpr());
+			pExprIteratorLink->AddExpr(elem2.GetExpr());
 			_elemStack.pop_back();
 			_elemStack.pop_back();
 			return true;
