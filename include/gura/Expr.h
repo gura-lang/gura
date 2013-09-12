@@ -540,8 +540,6 @@ public:
 	virtual bool IsIteratorLink() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
-	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
-					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Environment &env, Signal sig, Stream &stream);
 	virtual String ToString() const;
