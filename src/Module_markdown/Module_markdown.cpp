@@ -51,6 +51,7 @@ const char *Item::GetTypeName() const
 		{ TYPE_Text,			"text",			},	// text
 		{ TYPE_Code,			"code",			},	// text
 		{ TYPE_Entity,			"entity",		},	// text
+		{ TYPE_Tag,				"tag",			},	// container and text (attributes)
 		{ TYPE_HorzRule,		"hr",			},	// no-content
 		{ TYPE_LineBreak,		"br",			},	// no-content
 		{ TYPE_Referee,			"referee",		},	// no-content
@@ -79,6 +80,11 @@ void Item::Print(Signal sig, Stream &stream, int indentLevel) const
 	if (_pRefId.get() != NULL) {
 		stream.Print(sig, " refid='");
 		stream.Print(sig, _pRefId->c_str());
+		stream.Print(sig, "'");
+	}
+	if (_pAttrs.get() != NULL) {
+		stream.Print(sig, " attrs='");
+		stream.Print(sig, _pAttrs->c_str());
 		stream.Print(sig, "'");
 	}
 	stream.Print(sig, ">");
@@ -1160,8 +1166,10 @@ bool Document::ParseChar(Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_AutoLink: {
+	case STAT_AngleBracket: {
 		if (ch == '>') {
+			String tagName, attrs;
+			bool endFlag = false;
 			if (IsLink(_field.c_str())) {
 				FlushText(Item::TYPE_Text, false);
 				Item *pItemLink = new Item(Item::TYPE_Link, new ItemOwner());
@@ -1171,6 +1179,11 @@ bool Document::ParseChar(Signal sig, char ch)
 					Item *pItem = new Item(Item::TYPE_Text, _field);
 					pItemLink->GetItemOwner()->push_back(pItem);
 				} while (0);
+			} else if (IsBeginTag(_field.c_str(), tagName, attrs, endFlag)) {
+				FlushText(Item::TYPE_Text, false);
+				BeginTag(tagName.c_str(), attrs.c_str(), endFlag);
+			} else if (IsEndTag(_field.c_str(), tagName)) {
+				EndTag(tagName.c_str());
 			} else {
 				_text += _textAhead;
 				_text += ch;
@@ -1620,7 +1633,7 @@ bool Document::CheckSpecialChar(char ch)
 		_field.clear();
 		_textAhead += ch;
 		_statStack.Push(_stat);
-		_stat = STAT_AutoLink;
+		_stat = STAT_AngleBracket;
 		return true;
 	} else if (ch == '[') {
 		_pItemLink.reset(new Item(Item::TYPE_Link, new ItemOwner()));
@@ -1803,6 +1816,23 @@ void Document::EndDecoration()
 	_pItemOwner.reset(_itemOwnerStack.Pop());
 }
 
+void Document::BeginTag(const char *tagName, const char *attrs, bool endFlag)
+{
+	Item *pItem = new Item(Item::TYPE_Tag);
+	pItem->SetText(tagName);
+	if (*attrs != '\0') pItem->SetAttrs(attrs);
+	_pItemOwner->push_back(pItem);
+	if (!endFlag) {
+		pItem->SetItemOwner(new ItemOwner());
+		_itemOwnerStack.Push(_pItemOwner.release());
+		_pItemOwner.reset(pItem->GetItemOwner()->Reference());
+	}
+}
+
+void Document::EndTag(const char *tagName)
+{
+}
+
 bool Document::IsAtxHeader2(const char *text)
 {
 	for (const char *p = text; ; p++) {
@@ -1899,6 +1929,133 @@ bool Document::IsLink(const char *text)
 		if (ch == '\0') break;
 	}
 	return true;
+}
+
+bool Document::IsBeginTag(const char *text,
+						String &tagName, String &attrs, bool &endFlag)
+{
+	return false;
+#if 0
+	enum Stat {
+		STAT_Begin,
+		STAT_TagName,
+		STAT_AttrsPre,
+		STAT_Attrs,
+		STAT_Slash,
+	} stat = STAT_Begin;
+	tagName.clear();
+	attrs.clear();
+	endFlag = false;
+	for (const char *p = text; ; p++) {
+		char ch = *p;
+		switch (stat) {
+		case STAT_Begin: {
+			if (IsAlpha(ch)) {
+				tagName += ch;
+				stat = STAT_TagName;
+			} else {
+				return false;
+			}
+			break;
+		}
+		case STAT_TagName: {
+			if (IsAlpha(ch)) {
+				tagName += ch;
+			} else if (ch == '\0') {
+				// nothing to do
+			} else if (ch == ' ' || ch == '\t') {
+				stat = STAT_AttrsPre;
+			} else {
+				return false;
+			}
+			break;
+		}
+		case STAT_AttrsPre: {
+			if (ch == ' ' || ch == '\t') {
+				// nothing to do
+			} else if (IsAlpha(ch)) {
+				attrs += ch;
+				stat = STAT_Attrs;
+			} else if (ch == '\0') {
+				return false;	// not allow "<hoge  >"
+			} else {
+				return false;
+			}
+			break;
+		}
+		case STAT_Attrs: {
+			if (ch == '\0') {
+				// nothing to do
+			} else if (ch == '/') {
+				stat = STAT_Slash;
+			} else {
+				attrs += ch;
+			}
+			break;
+		}
+		case STAT_Slash: {
+			if (ch == '\0') {
+				endFlag = true;
+			} else {
+				attrs += '/';
+				attrs += ch;
+				stat = STAT_Attrs;
+			}
+			break;
+		}
+		}
+		if (ch == '\0') break;
+	}
+	return true;
+#endif
+}
+
+bool Document::IsEndTag(const char *text, String &tagName)
+{
+	return false;
+#if 0
+	enum Stat {
+		STAT_Begin,
+		STAT_TagNameFirst,
+		STAT_TagName,
+	} stat = STAT_Begin;
+	tagName.clear();
+	for (const char *p = text; ; p++) {
+		char ch = *p;
+		switch (stat) {
+		case STAT_Begin: {
+			if (ch == '/') {
+				tagName += ch;
+				stat = STAT_TagNameFirst;
+			} else {
+				return false;
+			}
+			break;
+		}
+		case STAT_TagNameFirst: {
+			if (IsAlpha(ch)) {
+				tagName += ch;
+				stat = STAT_TagName;
+			} else {
+				return false;
+			}
+			break;
+		}
+		case STAT_TagName: {
+			if (IsAlpha(ch)) {
+				tagName += ch;
+			} else if (ch == '\0') {
+				// nothing to do
+			} else {
+				return false;
+			}
+			break;
+		}
+		}
+		if (ch == '\0') break;
+	}
+	return true;
+#endif
 }
 
 //-----------------------------------------------------------------------------

@@ -48,6 +48,7 @@ public:
 		TYPE_Text,			// text
 		TYPE_Code,			// text
 		TYPE_Entity,		// text
+		TYPE_Tag,			// container and text (attributes)
 		TYPE_HorzRule,		// no-content
 		TYPE_LineBreak,		// no-content
 		TYPE_Referee,		// no-content
@@ -60,6 +61,7 @@ private:
 	std::auto_ptr<String> _pURL;	// valid when type is Link or Image
 	std::auto_ptr<String> _pTitle;	// valid when type is Link or Image
 	std::auto_ptr<String> _pRefId;	// valid when type is Link or Image
+	std::auto_ptr<String> _pAttrs;	// valid when type is Tag
 	int _indentLevel;
 public:
 	Gura_DeclareReferenceAccessor(Item);
@@ -92,10 +94,14 @@ public:
 	inline const char *GetRefId() const {
 		return (_pRefId.get() == NULL)? NULL : _pRefId->c_str();
 	}
+	inline const char *GetAttrs() const {
+		return (_pAttrs.get() == NULL)? NULL : _pAttrs->c_str();
+	}
 	inline void SetText(const String &text) { _pText.reset(new String(text)); }
 	inline void SetURL(const String &url) { _pURL.reset(new String(url)); }
 	inline void SetTitle(const String &title) { _pTitle.reset(new String(title)); }
 	inline void SetRefId(const String &refId) { _pRefId.reset(new String(refId)); }
+	inline void SetAttrs(const String &attrs) { _pAttrs.reset(new String(attrs)); }
 	inline void ClearURL() { _pURL.reset(NULL); }
 	inline void ClearTitle() { _pTitle.reset(NULL); }
 	inline void ClearRefId() { _pRefId.reset(NULL); }
@@ -212,7 +218,7 @@ private:
 		STAT_UnderscoreStrong,
 		STAT_UnderscoreStrongEnd,
 		STAT_Ampersand,
-		STAT_AutoLink,
+		STAT_AngleBracket,
 		STAT_LinkAltTextPre,
 		STAT_LinkAltText,
 		STAT_LinkText,
@@ -302,9 +308,13 @@ private:
 	void EndListItem();
 	void BeginDecoration(Item::Type type);
 	void EndDecoration();
+	void BeginTag(const char *tagName, const char *attrs, bool endFlag);
+	void EndTag(const char *tagName);
 	static bool IsAtxHeader2(const char *text);
 	static bool IsHorzRule(const char *text);
 	static bool IsLink(const char *text);
+	static bool IsBeginTag(const char *text, String &tagName, String &attrs, bool &endFlag);
+	static bool IsEndTag(const char *text, String &tagName);
 	inline static bool IsEOL(char ch) { return ch == '\n'; }
 	inline static bool IsEOF(char ch) { return ch == '\0'; }
 	inline static bool IsDigit(char ch) { return '0' <= ch && ch <= '9'; }

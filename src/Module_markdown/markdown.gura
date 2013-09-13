@@ -97,6 +97,19 @@ Renderer_html = class {
 			this.out.print('</code>')
 		} elsif (item.type == `entity) {
 			this.out.print('&', item.text.escapehtml(), ';')
+		} elsif (item.type == `tag) {
+			this.out.print('<')
+			this.out.print(item.text)
+			item.attrs && this.out.print(' ', item.attrs)
+			if (item.children) {
+				this.out.println('>')
+				item.children && this.OutputItem(item.children)
+				this.out.print('</')
+				this.out.print(item.text)
+				this.out.println('>')
+			} else {
+				this.out.println(' />')
+			}
 		} elsif (item.type == `hr) {
 			this.out.print('<hr />\n')
 		} elsif (item.type == `br) {
@@ -198,6 +211,8 @@ Renderer_rtf = class {
 			this.out.print(r'}')
 		} elsif (item.type == `entity) {
 			this.out.print(r'\u%d?', 169)
+		} elsif (item.type == `tag) {
+			
 		} elsif (item.type == `hr) {
 			this.out.println(r'{\pard \qc \f0 \sa180 \li0 \fi0 \emdash\emdash\emdash\emdash\emdash\par}')
 		} elsif (item.type == `br) {
@@ -328,6 +343,8 @@ Renderer_console = class {
 			conio.setcolor(`black, `white) {
 				print(item.text.escapehtml())
 			}
+		} elsif (item.type == `tag) {
+			item.children && this.OutputItem(item.children)
 		} elsif (item.type == `hr) {
 			println('--------')
 		} elsif (item.type == `br) {
