@@ -327,7 +327,7 @@ bool Expr::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return false;
 }
 
-bool Expr::GenerateScript(Environment &env, Signal sig, Stream &stream) const
+bool Expr::GenerateScript(Environment &env, Signal sig, SimpleStream &stream) const
 {
 	return false;
 }
@@ -511,7 +511,7 @@ bool Expr_Value::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Value::GenerateScript(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Value::GenerateScript(Environment &env, Signal sig, SimpleStream &stream) const
 {
 	String str = _value.ToString(sig);
 	if (sig.IsSignalled()) return false;
@@ -562,7 +562,7 @@ bool Expr_String::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_String::GenerateScript(Environment &env, Signal sig, Stream &stream) const
+bool Expr_String::GenerateScript(Environment &env, Signal sig, SimpleStream &stream) const
 {
 	//stream.PutChar(sig, '\'');
 	//if (sig.IsSignalled()) return false;
@@ -608,7 +608,7 @@ bool Expr_TemplateString::GenerateCode(Environment &env, Signal sig, Stream &str
 	return true;
 }
 
-bool Expr_TemplateString::GenerateScript(Environment &env, Signal sig, Stream &stream) const
+bool Expr_TemplateString::GenerateScript(Environment &env, Signal sig, SimpleStream &stream) const
 {
 	return false;
 }
@@ -775,7 +775,7 @@ bool Expr_Symbol::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Symbol::GenerateScript(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Symbol::GenerateScript(Environment &env, Signal sig, SimpleStream &stream) const
 {
 	stream.Print(sig, GetSymbol()->GetName());
 	if (sig.IsSignalled()) return false;
@@ -853,7 +853,7 @@ bool Expr_Root::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return _exprOwner.GenerateCode(env, sig, stream);
 }
 
-bool Expr_Root::GenerateScript(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Root::GenerateScript(Environment &env, Signal sig, SimpleStream &stream) const
 {
 	return GetExprOwner().GenerateScript(env, sig, stream);
 }
@@ -915,7 +915,7 @@ bool Expr_Block::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Block::GenerateScript(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Block::GenerateScript(Environment &env, Signal sig, SimpleStream &stream) const
 {
 	stream.PutChar(sig, '{');
 	if (sig.IsSignalled()) return false;
@@ -966,7 +966,7 @@ bool Expr_BlockParam::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_BlockParam::GenerateScript(Environment &env, Signal sig, Stream &stream) const
+bool Expr_BlockParam::GenerateScript(Environment &env, Signal sig, SimpleStream &stream) const
 {
 	stream.PutChar(sig, '|');
 	if (sig.IsSignalled()) return false;
@@ -1102,7 +1102,7 @@ bool Expr_Lister::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Lister::GenerateScript(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Lister::GenerateScript(Environment &env, Signal sig, SimpleStream &stream) const
 {
 	stream.PutChar(sig, '[');
 	if (sig.IsSignalled()) return false;
@@ -1159,7 +1159,7 @@ bool Expr_IteratorLink::GenerateCode(Environment &env, Signal sig, Stream &strea
 	return true;
 }
 
-bool Expr_IteratorLink::GenerateScript(Environment &env, Signal sig, Stream &stream) const
+bool Expr_IteratorLink::GenerateScript(Environment &env, Signal sig, SimpleStream &stream) const
 {
 	stream.PutChar(sig, '(');
 	if (sig.IsSignalled()) return false;
@@ -1260,7 +1260,7 @@ bool Expr_TemplateScript::GenerateCode(Environment &env, Signal sig, Stream &str
 	return true;
 }
 
-bool Expr_TemplateScript::GenerateScript(Environment &env, Signal sig, Stream &stream) const
+bool Expr_TemplateScript::GenerateScript(Environment &env, Signal sig, SimpleStream &stream) const
 {
 	return false;
 }
@@ -1477,7 +1477,7 @@ bool Expr_Indexer::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Indexer::GenerateScript(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Indexer::GenerateScript(Environment &env, Signal sig, SimpleStream &stream) const
 {
 	if (!GetCar()->GenerateScript(env, sig, stream)) return false;
 	stream.PutChar(sig, '[');
@@ -1764,7 +1764,7 @@ bool Expr_Caller::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Caller::GenerateScript(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Caller::GenerateScript(Environment &env, Signal sig, SimpleStream &stream) const
 {
 	if (!_pExprCar->GenerateScript(env, sig, stream)) return false;
 	bool argListFlag = !GetExprOwner().empty() ||
@@ -1906,7 +1906,7 @@ bool Expr_UnaryOp::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_UnaryOp::GenerateScript(Environment &env, Signal sig, Stream &stream) const
+bool Expr_UnaryOp::GenerateScript(Environment &env, Signal sig, SimpleStream &stream) const
 {
 	bool needParenthesisFlag = false;
 	if (GetParent() != NULL) {
@@ -2020,7 +2020,7 @@ bool Expr_BinaryOp::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_BinaryOp::GenerateScript(Environment &env, Signal sig, Stream &stream) const
+bool Expr_BinaryOp::GenerateScript(Environment &env, Signal sig, SimpleStream &stream) const
 {
 	bool needParenthesisFlag = false;
 	if (GetParent() == NULL) {
@@ -2120,7 +2120,7 @@ bool Expr_Quote::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Quote::GenerateScript(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Quote::GenerateScript(Environment &env, Signal sig, SimpleStream &stream) const
 {
 	stream.PutChar(sig, '`');
 	if (sig.IsSignalled()) return false;
@@ -2162,7 +2162,7 @@ bool Expr_Force::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Force::GenerateScript(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Force::GenerateScript(Environment &env, Signal sig, SimpleStream &stream) const
 {
 	stream.Print(sig, "!!");
 	if (sig.IsSignalled()) return false;
@@ -2204,7 +2204,7 @@ bool Expr_Prefix::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Prefix::GenerateScript(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Prefix::GenerateScript(Environment &env, Signal sig, SimpleStream &stream) const
 {
 	stream.Print(sig, _pSymbol->GetName());
 	if (sig.IsSignalled()) return false;
@@ -2255,7 +2255,7 @@ bool Expr_Suffix::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Suffix::GenerateScript(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Suffix::GenerateScript(Environment &env, Signal sig, SimpleStream &stream) const
 {
 	if (!GetChild()->GenerateScript(env, sig, stream)) return false;
 	stream.Print(sig, _pSymbol->GetName());
@@ -2327,7 +2327,7 @@ bool Expr_Assign::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Assign::GenerateScript(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Assign::GenerateScript(Environment &env, Signal sig, SimpleStream &stream) const
 {
 	if (!GetLeft()->GenerateScript(env, sig, stream)) return false;
 	if (_pOperatorToApply != NULL) {
@@ -2385,7 +2385,7 @@ bool Expr_DictAssign::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_DictAssign::GenerateScript(Environment &env, Signal sig, Stream &stream) const
+bool Expr_DictAssign::GenerateScript(Environment &env, Signal sig, SimpleStream &stream) const
 {
 	if (!GetLeft()->Unquote()->GenerateScript(env, sig, stream)) return false;
 	stream.Print(sig, "=>");
@@ -2534,7 +2534,7 @@ bool Expr_Member::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool Expr_Member::GenerateScript(Environment &env, Signal sig, Stream &stream) const
+bool Expr_Member::GenerateScript(Environment &env, Signal sig, SimpleStream &stream) const
 {
 	if (!GetLeft()->GenerateScript(env, sig, stream)) return false;
 	const char *str =
@@ -2671,7 +2671,7 @@ bool ExprList::GenerateCode(Environment &env, Signal sig, Stream &stream)
 	return true;
 }
 
-bool ExprList::GenerateScript(Environment &env, Signal sig, Stream &stream) const
+bool ExprList::GenerateScript(Environment &env, Signal sig, SimpleStream &stream) const
 {
 	foreach_const (ExprList, ppExpr, *this) {
 		if (ppExpr != begin()) {
