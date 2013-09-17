@@ -232,7 +232,7 @@ void Signal::PutTraceInfo(String &str, const Expr *pExpr)
 	}
 	str += buff;
 	str += ":\n  ";
-	str += pExpr->ToString();
+	str += pExpr->ToString2();
 	str += "\n";
 }
 

@@ -410,7 +410,7 @@ const ValueTypeInfo *Environment::LookupValueType(Signal sig, const ValueList &v
 		}
 		if (!pValue->GetExpr()->GetChainedSymbolList(symbolList)) {
 			sig.SetError(ERR_TypeError, "invalid element for type name: '%s'",
-									pValue->GetExpr()->ToString().c_str());
+									pValue->GetExpr()->ToString2().c_str());
 			return NULL;
 		}
 	}
@@ -428,7 +428,7 @@ const ValueTypeInfo *Environment::LookupValueType(Signal sig, const Expr *pExpr)
 	SymbolList symbolList;
 	if (!pExpr->GetChainedSymbolList(symbolList)) {
 		sig.SetError(ERR_TypeError, "invalid element for type name: '%s'",
-												pExpr->ToString().c_str());
+												pExpr->ToString2().c_str());
 		return NULL;
 	}
 	const ValueTypeInfo *pValueTypeInfo = LookupValueType(symbolList);

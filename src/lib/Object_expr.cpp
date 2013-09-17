@@ -35,18 +35,18 @@ String Object_expr::ToString(Signal sig, bool exprFlag)
 	String str;
 	if (_pExpr->IsValue() || _pExpr->IsSymbol() || _pExpr->IsCaller()) {
 		if (exprFlag) str += '`';
-		str += _pExpr->ToString();
+		str += _pExpr->ToString2();
 	} else if (exprFlag) {
 		if (_pExpr->IsUnary() || _pExpr->IsBinary()) {
 			str += "`(";
-			str += _pExpr->ToString();
+			str += _pExpr->ToString2();
 			str += ")";
 		} else {
 			str += "`";
-			str += _pExpr->ToString();
+			str += _pExpr->ToString2();
 		}
 	} else {
-		str += _pExpr->ToString();
+		str += _pExpr->ToString2();
 	}
 	return str;
 }
@@ -331,7 +331,7 @@ Gura_ImplementMethod(expr, genscript)
 {
 	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
 	Stream *pStream = args.IsStream(0)? &args.GetStream(0) : env.GetConsole();
-	pExpr->GenerateScript(env, sig, *pStream);
+	pExpr->GenerateScript(sig, *pStream);
 	return Value::Null;
 }
 
