@@ -564,11 +564,11 @@ bool Expr_String::GenerateCode(Environment &env, Signal sig, Stream &stream)
 
 bool Expr_String::GenerateScript(Environment &env, Signal sig, Stream &stream) const
 {
-	stream.PutChar(sig, '\'');
-	if (sig.IsSignalled()) return false;
+	//stream.PutChar(sig, '\'');
+	//if (sig.IsSignalled()) return false;
 	stream.Print(sig, MakeQuotedString(_str.c_str()).c_str());
-	if (sig.IsSignalled()) return false;
-	stream.PutChar(sig, '\'');
+	//if (sig.IsSignalled()) return false;
+	//stream.PutChar(sig, '\'');
 	return !sig.IsSignalled();
 }
 

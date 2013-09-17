@@ -317,6 +317,24 @@ Gura_ImplementMethod(expr, eval)
 	return Object_expr::GetThisObj(args)->GetExpr()->Exec(envBlock, sig);
 }
 
+// expr#genscript(stream?:stream:w):void
+Gura_DeclareMethod(expr, genscript)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"Outputs a script that describes the expression to the specified `stream`.\n"
+	"If `stream` is omitted, script shall be written into standard output.\n");
+}
+
+Gura_ImplementMethod(expr, genscript)
+{
+	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
+	Stream *pStream = args.IsStream(0)? &args.GetStream(0) : env.GetConsole();
+	pExpr->GenerateScript(env, sig, *pStream);
+	return Value::Null;
+}
+
 // type chekers
 ImplementTypeChecker(isunary,		IsUnary)
 ImplementTypeChecker(isunaryop,		IsUnaryOp)
@@ -365,6 +383,7 @@ void Class_expr::Prepare(Environment &env)
 	Gura_AssignMethod(expr, getsymbol);
 	Gura_AssignMethod(expr, tofunction);
 	Gura_AssignMethod(expr, eval);
+	Gura_AssignMethod(expr, genscript);
 	Gura_AssignMethod(expr, isunary);
 	Gura_AssignMethod(expr, isunaryop);
 	Gura_AssignMethod(expr, isquote);
