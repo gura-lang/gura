@@ -194,7 +194,7 @@ public:
 	bool IsOperatorSeq() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream) const;
-	virtual String ToString2() const;
+	virtual String ToString() const;
 };
 
 //-----------------------------------------------------------------------------
@@ -225,7 +225,7 @@ public:
 							bool flattenFlag, bool evalSymFuncFlag) const;
 	bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	bool GenerateScript(Signal sig, SimpleStream &stream) const;
-	String ToString2(const char *sep = ", ") const;
+	String ToString(const char *sep = ", ") const;
 	void Accept(ExprVisitor &visitor) const;
 	bool IsContained(const Expr *pExpr) const;
 	void SetParent(const Expr *pExpr);

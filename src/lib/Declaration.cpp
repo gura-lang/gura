@@ -237,7 +237,7 @@ String Declaration::ToString() const
 		str += " ";
 		str += "=>";
 		str += " ";
-		str += _pExprDefault->ToString2();
+		str += _pExprDefault->ToString();
 	}
 	return str;
 }

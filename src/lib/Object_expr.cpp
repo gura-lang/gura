@@ -35,18 +35,18 @@ String Object_expr::ToString(Signal sig, bool exprFlag)
 	String str;
 	if (_pExpr->IsValue() || _pExpr->IsSymbol() || _pExpr->IsCaller()) {
 		if (exprFlag) str += '`';
-		str += _pExpr->ToString2();
+		str += _pExpr->ToString();
 	} else if (exprFlag) {
 		if (_pExpr->IsUnary() || _pExpr->IsBinary()) {
 			str += "`(";
-			str += _pExpr->ToString2();
+			str += _pExpr->ToString();
 			str += ")";
 		} else {
 			str += "`";
-			str += _pExpr->ToString2();
+			str += _pExpr->ToString();
 		}
 	} else {
-		str += _pExpr->ToString2();
+		str += _pExpr->ToString();
 	}
 	return str;
 }

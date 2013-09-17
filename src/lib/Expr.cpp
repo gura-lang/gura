@@ -332,7 +332,7 @@ bool Expr::GenerateScript(Signal sig, SimpleStream &stream) const
 	return false;
 }
 
-String Expr::ToString2() const
+String Expr::ToString() const
 {
 	Signal sig;
 	String str;
@@ -788,6 +788,7 @@ bool Expr_Symbol::GenerateScript(Signal sig, SimpleStream &stream) const
 {
 	stream.Print(sig, GetSymbol()->GetName());
 	if (sig.IsSignalled()) return false;
+#if 0
 	if (!_attrFront.empty()) {
 		stream.PutChar(sig, ':');
 		if (sig.IsSignalled()) return false;
@@ -801,6 +802,7 @@ bool Expr_Symbol::GenerateScript(Signal sig, SimpleStream &stream) const
 			if (sig.IsSignalled()) return false;
 		}
 	}
+#endif
 	foreach_const (SymbolSet, ppSymbol, _attrs) {
 		const Symbol *pSymbol = *ppSymbol;
 		stream.PutChar(sig, ':');
@@ -869,7 +871,7 @@ bool Expr_Root::GenerateScript(Signal sig, SimpleStream &stream) const
 
 String Expr_Root::ToString2() const
 {
-	return GetExprOwner().ToString2();
+	return GetExprOwner().ToString();
 }
 
 //-----------------------------------------------------------------------------
@@ -947,10 +949,10 @@ String Expr_Block::ToString2() const
 	String str;
 	str += "{";
 	if (!_pExprBlockParam.IsNull()) {
-		str += _pExprBlockParam->ToString2();
+		str += _pExprBlockParam->ToString();
 	}
 	str += " ";
-	str += GetExprOwner().ToString2();
+	str += GetExprOwner().ToString();
 	if (!GetExprOwner().empty()) str += " ";
 	str += "}";
 	return str;
@@ -994,7 +996,7 @@ String Expr_BlockParam::ToString2() const
 {
 	String str;
 	str += "|";
-	str += GetExprOwner().ToString2();
+	str += GetExprOwner().ToString();
 	str += "|";
 	return str;
 }
@@ -1130,7 +1132,7 @@ String Expr_Lister::ToString2() const
 {
 	String str;
 	str += "[";
-	str += GetExprOwner().ToString2();
+	str += GetExprOwner().ToString();
 	str += "]";
 	return str;
 }
@@ -1191,7 +1193,7 @@ String Expr_IteratorLink::ToString2() const
 {
 	String str;
 	str += "(";
-	str += GetExprOwner().ToString2();
+	str += GetExprOwner().ToString();
 	str += ")";
 	return str;
 }
@@ -1284,7 +1286,7 @@ String Expr_TemplateScript::ToString2() const
 {
 	String str;
 	str += "[";
-	str += GetExprOwner().ToString2();
+	str += GetExprOwner().ToString();
 	str += "]";
 	return str;
 }
@@ -1505,9 +1507,9 @@ bool Expr_Indexer::GenerateScript(Signal sig, SimpleStream &stream) const
 String Expr_Indexer::ToString2() const
 {
 	String str;
-	str += GetCar()->ToString2();
+	str += GetCar()->ToString();
 	str += "[";
-	str += GetLister()->GetExprOwner().ToString2();
+	str += GetLister()->GetExprOwner().ToString();
 	str += "]";
 	return str;
 }
@@ -1798,6 +1800,7 @@ bool Expr_Caller::GenerateScript(Signal sig, SimpleStream &stream) const
 		stream.PutChar(sig, ')');
 		if (sig.IsSignalled()) return false;
 	}
+#if 0
 	if (!_attrFront.empty()) {
 		stream.PutChar(sig, ':');
 		if (sig.IsSignalled()) return false;
@@ -1811,6 +1814,7 @@ bool Expr_Caller::GenerateScript(Signal sig, SimpleStream &stream) const
 			if (sig.IsSignalled()) return false;
 		}
 	}
+#endif
 	foreach_const (SymbolSet, ppSymbol, _attrs) {
 		const Symbol *pSymbol = *ppSymbol;
 		stream.PutChar(sig, ':');
@@ -1851,7 +1855,7 @@ bool Expr_Caller::GenerateScript(Signal sig, SimpleStream &stream) const
 String Expr_Caller::ToString2() const
 {
 	String str;
-	str += _pExprCar->ToString2();
+	str += _pExprCar->ToString();
 	bool argListFlag = !GetExprOwner().empty() ||
 									!_attrs.empty() || _pExprBlock.IsNull();
 	if (_pExprCar->IsSymbol()) {
@@ -1862,7 +1866,7 @@ String Expr_Caller::ToString2() const
 	}
 	if (argListFlag) {
 		str += "(";
-		str += GetExprOwner().ToString2();
+		str += GetExprOwner().ToString();
 		str += ")";
 	}
 	foreach_const (SymbolSet, ppSymbol, _attrs) {
@@ -1872,11 +1876,11 @@ String Expr_Caller::ToString2() const
 	}
 	if (!_pExprBlock.IsNull()) {
 		str += " ";
-		str += _pExprBlock->ToString2();
+		str += _pExprBlock->ToString();
 	}
 	if (!_pExprTrailer.IsNull()) {
 		str += " ";
-		str += _pExprTrailer->ToString2();
+		str += _pExprTrailer->ToString();
 	}
 	return str;
 }
@@ -1962,7 +1966,7 @@ String Expr_UnaryOp::ToString2() const
 	String str;
 	if (needParenthesisFlag) str += "(";
 	if (!_suffixSymbolFlag) str += _pOperator->GetMathSymbol();
-	str += GetChild()->ToString2();
+	str += GetChild()->ToString();
 	if (_suffixSymbolFlag) str += _pOperator->GetMathSymbol();
 	if (needParenthesisFlag) str += ")";
 	return str;
@@ -2062,11 +2066,11 @@ bool Expr_BinaryOp::GenerateScript(Signal sig, SimpleStream &stream) const
 		if (sig.IsSignalled()) return false;
 	}
 	if (!GetLeft()->GenerateScript(sig, stream)) return false;
-	stream.PutChar(sig, '(');
+	stream.PutChar(sig, ' ');
 	if (sig.IsSignalled()) return false;
 	stream.Print(sig, _pOperator->GetMathSymbol());
 	if (sig.IsSignalled()) return false;
-	stream.PutChar(sig, '(');
+	stream.PutChar(sig, ' ');
 	if (sig.IsSignalled()) return false;
 	if (!GetRight()->GenerateScript(sig, stream)) return false;
 	if (needParenthesisFlag) {
@@ -2096,11 +2100,11 @@ String Expr_BinaryOp::ToString2() const
 	}
 	String str;
 	if (needParenthesisFlag) str += "(";
-	str += GetLeft()->ToString2();
+	str += GetLeft()->ToString();
 	str += " ";
 	str += _pOperator->GetMathSymbol();
 	str += " ";
-	str += GetRight()->ToString2();
+	str += GetRight()->ToString();
 	if (needParenthesisFlag) str += ")";
 	return str;
 }
@@ -2155,7 +2159,7 @@ String Expr_Quote::ToString2() const
 {
 	String str;
 	str += "`";
-	str += GetChild()->ToString2();
+	str += GetChild()->ToString();
 	return str;
 }
 
@@ -2197,7 +2201,7 @@ String Expr_Force::ToString2() const
 {
 	String str;
 	str += "!!";
-	str += GetChild()->ToString2();
+	str += GetChild()->ToString();
 	return str;
 }
 
@@ -2239,7 +2243,7 @@ String Expr_Prefix::ToString2() const
 {
 	String str;
 	str += _pSymbol->GetName();
-	str += GetChild()->ToString2();
+	str += GetChild()->ToString();
 	return str;
 }
 
@@ -2289,7 +2293,7 @@ bool Expr_Suffix::GenerateScript(Signal sig, SimpleStream &stream) const
 String Expr_Suffix::ToString2() const
 {
 	String str;
-	str += GetChild()->ToString2();
+	str += GetChild()->ToString();
 	str += _pSymbol->GetName();
 	return str;
 }
@@ -2370,11 +2374,11 @@ bool Expr_Assign::GenerateScript(Signal sig, SimpleStream &stream) const
 String Expr_Assign::ToString2() const
 {
 	String str;
-	str += GetLeft()->ToString2();
+	str += GetLeft()->ToString();
 	str += " ";
 	if (_pOperatorToApply != NULL) str += _pOperatorToApply->GetMathSymbol();
 	str += "= ";
-	str += GetRight()->ToString2();
+	str += GetRight()->ToString();
 	return str;
 }
 
@@ -2428,9 +2432,9 @@ bool Expr_DictAssign::GenerateScript(Signal sig, SimpleStream &stream) const
 String Expr_DictAssign::ToString2() const
 {
 	String str;
-	str += GetLeft()->Unquote()->ToString2();
+	str += GetLeft()->Unquote()->ToString();
 	str += " => ";
-	str += GetRight()->ToString2();
+	str += GetRight()->ToString();
 	return str;
 }
 
@@ -2585,13 +2589,13 @@ bool Expr_Member::GenerateScript(Signal sig, SimpleStream &stream) const
 String Expr_Member::ToString2() const
 {
 	String str;
-	str += GetLeft()->ToString2();
+	str += GetLeft()->ToString();
 	str +=
 		(_mode == MODE_Normal)? "." :
 		(_mode == MODE_MapToList)? "::" :
 		(_mode == MODE_MapToIter)? ":*" :
 		(_mode == MODE_MapAlong)? ":&" : "????";
-	str += GetRight()->ToString2();
+	str += GetRight()->ToString();
 	return str;
 }
 
@@ -2716,12 +2720,12 @@ bool ExprList::GenerateScript(Signal sig, SimpleStream &stream) const
 	return true;
 }
 
-String ExprList::ToString2(const char *sep) const
+String ExprList::ToString(const char *sep) const
 {
 	String str;
 	foreach_const (ExprList, ppExpr, *this) {
 		if (ppExpr != begin()) str += sep;
-		str += (*ppExpr)->ToString2();
+		str += (*ppExpr)->ToString();
 	}
 	return str;
 }
