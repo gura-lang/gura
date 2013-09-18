@@ -205,7 +205,7 @@ public:
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
-	virtual String ToString() const;
+	virtual String ToString(ScriptStyle scriptStyle) const;
 };
 
 //-----------------------------------------------------------------------------

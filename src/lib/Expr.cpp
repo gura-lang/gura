@@ -333,12 +333,12 @@ bool Expr::GenerateScript(Signal sig, SimpleStream &stream,
 	return false;
 }
 
-String Expr::ToString() const
+String Expr::ToString(ScriptStyle scriptStyle) const
 {
 	Signal sig;
 	String str;
 	SimpleStream_StringWrite stream(str);
-	GenerateScript(sig, stream, SCRSTYLE_OneLine, 0);
+	GenerateScript(sig, stream, scriptStyle, 0);
 	return str;
 }
 
