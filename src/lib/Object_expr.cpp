@@ -329,9 +329,10 @@ Gura_DeclareMethod(expr, genscript)
 
 Gura_ImplementMethod(expr, genscript)
 {
+	bool oneLineFlag = false;
 	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
 	Stream *pStream = args.IsStream(0)? &args.GetStream(0) : env.GetConsole();
-	pExpr->GenerateScript(sig, *pStream);
+	pExpr->GenerateScript(sig, *pStream, oneLineFlag);
 	return Value::Null;
 }
 
