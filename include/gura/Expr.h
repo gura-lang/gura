@@ -83,6 +83,10 @@ public:
 		SCRSTYLE_OneLine,
 		SCRSTYLE_Fancy,
 	};
+	enum Separator {
+		SEP_Comma,
+		SEP_NewLine,
+	};
 public:
 	class ExprVisitor_GatherSymbol : public ExprVisitor {
 	private:
@@ -232,8 +236,7 @@ public:
 							bool flattenFlag, bool evalSymFuncFlag) const;
 	bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	bool GenerateScript(Signal sig, SimpleStream &stream,
-			Expr::ScriptStyle scriptStyle, int nestLevel, const char *sep) const;
-	String ToString(const char *sep = ", ") const;
+		Expr::ScriptStyle scriptStyle, int nestLevel, Expr::Separator sep) const;
 	void Accept(ExprVisitor &visitor) const;
 	bool IsContained(const Expr *pExpr) const;
 	void SetParent(const Expr *pExpr);
