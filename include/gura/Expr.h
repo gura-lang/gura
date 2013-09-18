@@ -78,6 +78,12 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr {
 public:
+	enum ScriptStyle {
+		SCRSTYLE_Crammed,
+		SCRSTYLE_OneLine,
+		SCRSTYLE_Fancy,
+	};
+public:
 	class ExprVisitor_GatherSymbol : public ExprVisitor {
 	private:
 		SymbolSet &_symbolSet;
@@ -193,7 +199,8 @@ public:
 	bool IsOperatorPow() const;
 	bool IsOperatorSeq() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream, bool oneLineFlag) const;
+	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
 	virtual String ToString() const;
 };
 
@@ -224,7 +231,8 @@ public:
 	Value ExecForList(Environment &env, Signal sig,
 							bool flattenFlag, bool evalSymFuncFlag) const;
 	bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	bool GenerateScript(Signal sig, SimpleStream &stream, bool oneLineFlag, const char *sep) const;
+	bool GenerateScript(Signal sig, SimpleStream &stream,
+			Expr::ScriptStyle scriptStyle, int nestLevel, const char *sep) const;
 	String ToString(const char *sep = ", ") const;
 	void Accept(ExprVisitor &visitor) const;
 	bool IsContained(const Expr *pExpr) const;
@@ -336,8 +344,8 @@ public:
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream, bool oneLineFlag) const;
-	virtual String ToString2() const;
+	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -359,8 +367,8 @@ public:
 	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream, bool oneLineFlag) const;
-	virtual String ToString2() const;
+	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -386,8 +394,8 @@ public:
 	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream, bool oneLineFlag) const;
-	virtual String ToString2() const;
+	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -425,8 +433,8 @@ public:
 	inline SymbolList &GetAttrFront() { return _attrFront; }
 	inline const SymbolList &GetAttrFront() const { return _attrFront; }
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream, bool oneLineFlag) const;
-	virtual String ToString2() const;
+	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -449,8 +457,8 @@ public:
 	virtual const char *GetPathName() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream, bool oneLineFlag) const;
-	virtual String ToString2() const;
+	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -468,8 +476,8 @@ public:
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream, bool oneLineFlag) const;
-	virtual String ToString2() const;
+	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -491,8 +499,8 @@ public:
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream, bool oneLineFlag) const;
-	virtual String ToString2() const;
+	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
 	inline void SetParam(Expr_BlockParam *pExprBlockParam) {
 		_pExprBlockParam.reset(pExprBlockParam);
 	}
@@ -519,8 +527,8 @@ public:
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream, bool oneLineFlag) const;
-	virtual String ToString2() const;
+	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -541,8 +549,8 @@ public:
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream, bool oneLineFlag) const;
-	virtual String ToString2() const;
+	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -577,8 +585,8 @@ public:
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream, bool oneLineFlag) const;
-	virtual String ToString2() const;
+	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -624,8 +632,8 @@ public:
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream, bool oneLineFlag) const;
-	virtual String ToString2() const;
+	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -656,8 +664,8 @@ public:
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream, bool oneLineFlag) const;
-	virtual String ToString2() const;
+	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
 	Value EvalEach(Environment &env, Signal sig, const Value &valueThis,
 		Iterator *pIteratorThis, bool listThisFlag, const Function **ppFuncLeader) const;
 	inline void AddAttr(const Symbol *pSymbol) { _attrs.Insert(pSymbol); }
@@ -709,8 +717,8 @@ public:
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
 	virtual bool IsUnaryOp() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream, bool oneLineFlag) const;
-	virtual String ToString2() const;
+	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -735,8 +743,8 @@ public:
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
 	virtual bool IsBinaryOp() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream, bool oneLineFlag) const;
-	virtual String ToString2() const;
+	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -755,8 +763,8 @@ public:
 	virtual const Expr *Unquote() const;
 	virtual bool IsQuote() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream, bool oneLineFlag) const;
-	virtual String ToString2() const;
+	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -774,8 +782,8 @@ public:
 	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual bool IsForce() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream, bool oneLineFlag) const;
-	virtual String ToString2() const;
+	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -798,8 +806,8 @@ public:
 	virtual bool IsPrefix() const;
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream, bool oneLineFlag) const;
-	virtual String ToString2() const;
+	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -823,8 +831,8 @@ public:
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	OccurPattern GetOccurPattern() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream, bool oneLineFlag) const;
-	virtual String ToString2() const;
+	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -848,8 +856,8 @@ public:
 	virtual Expr *Clone() const;
 	virtual bool IsAssign() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream, bool oneLineFlag) const;
-	virtual String ToString2() const;
+	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -868,8 +876,8 @@ public:
 	virtual Expr *Clone() const;
 	virtual bool IsDictAssign() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream, bool oneLineFlag) const;
-	virtual String ToString2() const;
+	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
 	Value GetKey(Environment &env, Signal sig) const;
 };
 
@@ -902,8 +910,8 @@ public:
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual bool IsMember() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream, bool oneLineFlag) const;
-	virtual String ToString2() const;
+	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
 };
 
 }
