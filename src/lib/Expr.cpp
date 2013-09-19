@@ -765,10 +765,11 @@ bool Expr_Symbol::GenerateScript(Signal sig, SimpleStream &stream,
 {
 	stream.Print(sig, GetSymbol()->GetName());
 	if (sig.IsSignalled()) return false;
-#if 0
+	const Symbol *pSymbolFront = Gura_Symbol(Str_Empty);
 	if (!_attrFront.empty()) {
 		stream.PutChar(sig, ':');
 		if (sig.IsSignalled()) return false;
+		pSymbolFront = _attrFront.front();
 		foreach_const (SymbolList, ppSymbol, _attrFront) {
 			const Symbol *pSymbol = *ppSymbol;
 			if (ppSymbol != _attrFront.begin()) {
@@ -779,13 +780,14 @@ bool Expr_Symbol::GenerateScript(Signal sig, SimpleStream &stream,
 			if (sig.IsSignalled()) return false;
 		}
 	}
-#endif
 	foreach_const (SymbolSet, ppSymbol, _attrs) {
 		const Symbol *pSymbol = *ppSymbol;
-		stream.PutChar(sig, ':');
-		if (sig.IsSignalled()) return false;
-		stream.Print(sig, pSymbol->GetName());
-		if (sig.IsSignalled()) return false;
+		if (!pSymbol->IsIdentical(pSymbolFront)) {
+			stream.PutChar(sig, ':');
+			if (sig.IsSignalled()) return false;
+			stream.Print(sig, pSymbol->GetName());
+			if (sig.IsSignalled()) return false;
+		}
 	}
 	if (!_attrsOpt.empty()) {
 		stream.PutChar(sig, ':');
@@ -1724,10 +1726,11 @@ bool Expr_Caller::GenerateScript(Signal sig, SimpleStream &stream,
 		stream.PutChar(sig, ')');
 		if (sig.IsSignalled()) return false;
 	}
-#if 0
+	const Symbol *pSymbolFront = Gura_Symbol(Str_Empty);
 	if (!_attrFront.empty()) {
 		stream.PutChar(sig, ':');
 		if (sig.IsSignalled()) return false;
+		pSymbolFront = _attrFront.front();
 		foreach_const (SymbolList, ppSymbol, _attrFront) {
 			const Symbol *pSymbol = *ppSymbol;
 			if (ppSymbol != _attrFront.begin()) {
@@ -1738,13 +1741,14 @@ bool Expr_Caller::GenerateScript(Signal sig, SimpleStream &stream,
 			if (sig.IsSignalled()) return false;
 		}
 	}
-#endif
 	foreach_const (SymbolSet, ppSymbol, _attrs) {
 		const Symbol *pSymbol = *ppSymbol;
-		stream.PutChar(sig, ':');
-		if (sig.IsSignalled()) return false;
-		stream.Print(sig, pSymbol->GetName());
-		if (sig.IsSignalled()) return false;
+		if (!pSymbol->IsIdentical(pSymbolFront)) {
+			stream.PutChar(sig, ':');
+			if (sig.IsSignalled()) return false;
+			stream.Print(sig, pSymbol->GetName());
+			if (sig.IsSignalled()) return false;
+		}
 	}
 	if (!_attrsOpt.empty()) {
 		stream.PutChar(sig, ':');
