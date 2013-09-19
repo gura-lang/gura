@@ -14,7 +14,7 @@ x + y    n n n n n y n n n n n n n n n n
 x = y    n n n n n n y n n n n n n n n n
 x => y   n n n n n n n y n n n n n n n n
 x::y     n n n n n n n n y n n n n n n n
-{ }      n n n n n n n n n n y n n n n n
+{}       n n n n n n n n n n y n n n n n
 3        n n n n n n n n n n n n y n n n
 []       n n n n n n n n n n n y n n n n
 x[y]     n n n n n n n n n n n n n n y n

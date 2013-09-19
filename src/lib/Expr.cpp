@@ -905,16 +905,18 @@ bool Expr_Block::GenerateScript(Signal sig, SimpleStream &stream,
 	if (!_pExprBlockParam.IsNull()) {
 		if (!_pExprBlockParam->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
 	}
-	stream.Print(sig,
-			(scriptStyle == SCRSTYLE_Crammed)? "" :
-			(scriptStyle == SCRSTYLE_OneLine)? " " :
-			(scriptStyle == SCRSTYLE_Fancy)? "\n" : "");
-	if (sig.IsSignalled()) return false;
-	if (!GetExprOwner().GenerateScript(sig, stream, scriptStyle, nestLevel,
-		(scriptStyle == SCRSTYLE_Fancy)? SEP_NewLine : SEP_Comma)) return false;
-	if (!GetExprOwner().empty() && scriptStyle != SCRSTYLE_Crammed) {
-		stream.PutChar(sig, ' ');
+	if (!GetExprOwner().empty()) {
+		stream.Print(sig,
+				(scriptStyle == SCRSTYLE_Crammed)? "" :
+				(scriptStyle == SCRSTYLE_OneLine)? " " :
+				(scriptStyle == SCRSTYLE_Fancy)? "\n" : "");
 		if (sig.IsSignalled()) return false;
+		if (!GetExprOwner().GenerateScript(sig, stream, scriptStyle, nestLevel,
+			(scriptStyle == SCRSTYLE_Fancy)? SEP_NewLine : SEP_Comma)) return false;
+		if (scriptStyle != SCRSTYLE_Crammed) {
+			stream.PutChar(sig, ' ');
+			if (sig.IsSignalled()) return false;
+		}
 	}
 	stream.PutChar(sig, '}');
 	return !sig.IsSignalled();
