@@ -2567,13 +2567,14 @@ bool ExprList::GenerateScript(Signal sig, SimpleStream &stream,
 		(sep == Expr::SEP_Comma)? ((scriptStyle == Expr::SCRSTYLE_Crammed)? "," : ", ") :
 		(sep == Expr::SEP_NewLine)? "\n" : ",";
 	foreach_const (ExprList, ppExpr, *this) {
+		const Expr *pExpr = *ppExpr;
 		if (ppExpr != begin()) {
 			stream.Print(sig, sepText);
 			if (sig.IsSignalled()) return false;
 		}
 		if (sep == Expr::SEP_NewLine &&
 					!Expr::PutNestIndent(sig, stream, nestLevel)) return false;
-		if (!(*ppExpr)->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+		if (!pExpr->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
 	}
 	return true;
 }
