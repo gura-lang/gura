@@ -2093,7 +2093,7 @@ bool Expr_Quote::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr_Quote::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
-	if (GetChild()->IsBinaryOp()) {
+	if (GetChild()->IsUnary() || GetChild()->IsBinary()) {
 		stream.Print(sig, "`(");
 		if (sig.IsSignalled()) return false;
 		if (!GetChild()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
