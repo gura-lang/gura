@@ -1600,7 +1600,6 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig,
 	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
 	Value valueThis = pExprMember->GetLeft()->Exec(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
-	//if (valueThis.IsInvalid()) return valueThis;
 	Expr_Member::Mode mode = pExprMember->GetMode();
 	if (mode != Expr_Member::MODE_Normal) {
 		if (valueThis.IsList() && valueThis.GetList().empty()) {
@@ -1789,15 +1788,23 @@ bool Expr_Caller::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr_Caller::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
-	if (!_pExprCar->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
 	bool argListFlag = !GetExprOwner().empty() ||
 									!_attrs.empty() || _pExprBlock.IsNull();
 	if (_pExprCar->IsSymbol()) {
 		const Symbol *pSymbol = dynamic_cast<const Expr_Symbol *>(GetCar())->GetSymbol();
+		if (!_pExprCar->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
 		if (pSymbol->IsFlowControlSymbol() && argListFlag) {
 			stream.PutChar(sig, ' ');
 			if (sig.IsSignalled()) return false;
 		}
+	} else if (_pExprCar->IsCaller()) {
+		stream.PutChar(sig, '(');
+		if (sig.IsSignalled()) return false;
+		if (!_pExprCar->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+		stream.PutChar(sig, ')');
+		if (sig.IsSignalled()) return false;
+	} else {
+		if (!_pExprCar->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
 	}
 	if (argListFlag) {
 		stream.PutChar(sig, '(');
