@@ -351,6 +351,19 @@ bool Expr::PutNestIndent(Signal sig, SimpleStream &stream, int nestLevel)
 	return true;
 }
 
+Expr::ScriptStyle Expr::SymbolToScriptStyle(const Symbol *pSymbol)
+{
+	if (pSymbol->IsIdentical(Gura_Symbol(crammed))) {
+		return SCRSTYLE_Crammed;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(oneline))) {
+		return SCRSTYLE_OneLine;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(fancy))) {
+		return SCRSTYLE_Fancy;
+	} else {
+		return SCRSTYLE_None;
+	}
+}
+
 //-----------------------------------------------------------------------------
 // Expr::ExprVisitor_GatherSymbol
 //-----------------------------------------------------------------------------

@@ -317,11 +317,12 @@ Gura_ImplementMethod(expr, eval)
 	return Object_expr::GetThisObj(args)->GetExpr()->Exec(envBlock, sig);
 }
 
-// expr#genscript(stream?:stream:w):void
+// expr#genscript(stream?:stream:w, style?:symbol):void
 Gura_DeclareMethod(expr, genscript)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	DeclareArg(env, "style", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Outputs a script that describes the expression to the specified `stream`.\n"
 	"If `stream` is omitted, script shall be written into standard output.\n");
@@ -329,9 +330,18 @@ Gura_DeclareMethod(expr, genscript)
 
 Gura_ImplementMethod(expr, genscript)
 {
-	Expr::ScriptStyle scriptStyle = Expr::SCRSTYLE_Fancy;
 	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
 	Stream *pStream = args.IsStream(0)? &args.GetStream(0) : env.GetConsole();
+	Expr::ScriptStyle scriptStyle = Expr::SCRSTYLE_Fancy;
+	if (args.IsSymbol(1)) {
+		const Symbol *pSymbol = args.GetSymbol(1);
+		scriptStyle = Expr::SymbolToScriptStyle(pSymbol);
+		if (scriptStyle == Expr::SCRSTYLE_None) {
+			sig.SetError(ERR_ValueError,
+					"invalid symbol for script style: %s", pSymbol->GetName());
+			return Value::Null;
+		}
+	}
 	pExpr->GenerateScript(sig, *pStream, scriptStyle, 0);
 	return Value::Null;
 }

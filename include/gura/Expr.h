@@ -79,6 +79,7 @@ public:
 class GURA_DLLDECLARE Expr {
 public:
 	enum ScriptStyle {
+		SCRSTYLE_None,
 		SCRSTYLE_Crammed,
 		SCRSTYLE_OneLine,
 		SCRSTYLE_Fancy,
@@ -207,6 +208,7 @@ public:
 							ScriptStyle scriptStyle, int nestLevel) const;
 	virtual String ToString(ScriptStyle scriptStyle) const;
 	static bool PutNestIndent(Signal sig, SimpleStream &stream, int nestLevel);
+	static ScriptStyle SymbolToScriptStyle(const Symbol *pSymbol);
 };
 
 //-----------------------------------------------------------------------------

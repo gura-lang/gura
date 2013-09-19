@@ -409,6 +409,9 @@ public:
 	Gura_DeclareSymbol(urlpath);
 	Gura_DeclareSymbol(misc);
 	Gura_DeclareSymbol(line);
+	Gura_DeclareSymbol(crammed);
+	Gura_DeclareSymbol(oneline);
+	Gura_DeclareSymbol(fancy);
 private:
 	typedef std::set<Symbol *, Symbol::KeyCompare_Name> Content;
 private:
