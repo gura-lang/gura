@@ -41,6 +41,7 @@ rem set files=%files% test-file.gura
 
 if "%1" == "clean" goto clean
 for %%F in (%files%) do %PROGRAM_GURA% --printcmdline %%F > result\%%~nF.result.txt
+rem for %%F in (%files%) do %PROGRAM_GURA% --printcmdline genscript.gura --eval %%F > result\%%~nF.result.txt
 if "%1" == "print" goto print
 if "%1" == "update" goto update
 for %%F in (%files%) do diff -u result\%%~nF.sample.txt result\%%~nF.result.txt

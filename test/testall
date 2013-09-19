@@ -40,6 +40,7 @@ for file in $files
 do
   echo $file
   gura $file > result/${file%.gura}.result.txt
+  #gura genscript.gura --eval $file > result/${file%.gura}.result.txt
   diff -u --strip-trailing-cr result/${file%.gura}.sample.txt result/${file%.gura}.result.txt
 done
 
