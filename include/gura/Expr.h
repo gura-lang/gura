@@ -441,6 +441,10 @@ public:
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
+	bool GenerateScriptHead(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
+	bool GenerateScriptTail(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
 };
 
 //-----------------------------------------------------------------------------

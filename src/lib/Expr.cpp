@@ -803,8 +803,22 @@ bool Expr_Symbol::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr_Symbol::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
+	if (!GenerateScriptHead(sig, stream, scriptStyle, nestLevel)) return false;
+	if (!GenerateScriptTail(sig, stream, scriptStyle, nestLevel)) return false;
+	return true;
+}
+
+bool Expr_Symbol::GenerateScriptHead(Signal sig, SimpleStream &stream,
+								ScriptStyle scriptStyle, int nestLevel) const
+{
 	stream.Print(sig, GetSymbol()->GetName());
 	if (sig.IsSignalled()) return false;
+	return true;
+}
+
+bool Expr_Symbol::GenerateScriptTail(Signal sig, SimpleStream &stream,
+								ScriptStyle scriptStyle, int nestLevel) const
+{
 	const Symbol *pSymbolFront = Gura_Symbol(Str_Empty);
 	if (!_attrFront.empty()) {
 		stream.PutChar(sig, ':');
@@ -1482,14 +1496,27 @@ bool Expr_Indexer::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr_Indexer::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
-	if (!GetCar()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
-	stream.PutChar(sig, '[');
-	if (sig.IsSignalled()) return false;
-	if (!GetLister()->GetExprOwner().GenerateScript(sig, stream,
-							scriptStyle, nestLevel, SEP_Comma)) return false;
-	stream.PutChar(sig, ']');
-	if (sig.IsSignalled()) return false;
-	return true;
+	if (GetCar()->IsSymbol()) {
+		const Expr_Symbol *pExprSymbol = dynamic_cast<const Expr_Symbol *>(GetCar());
+		if (!pExprSymbol->GenerateScriptHead(sig, stream, scriptStyle, nestLevel)) return false;
+		stream.PutChar(sig, '[');
+		if (sig.IsSignalled()) return false;
+		if (!GetLister()->GetExprOwner().GenerateScript(sig, stream,
+								scriptStyle, nestLevel, SEP_Comma)) return false;
+		stream.PutChar(sig, ']');
+		if (sig.IsSignalled()) return false;
+		if (!pExprSymbol->GenerateScriptTail(sig, stream, scriptStyle, nestLevel)) return false;
+		return true;
+	} else {
+		if (!GetCar()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+		stream.PutChar(sig, '[');
+		if (sig.IsSignalled()) return false;
+		if (!GetLister()->GetExprOwner().GenerateScript(sig, stream,
+								scriptStyle, nestLevel, SEP_Comma)) return false;
+		stream.PutChar(sig, ']');
+		if (sig.IsSignalled()) return false;
+		return true;
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -2297,7 +2324,7 @@ bool Expr_DictAssign::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr_DictAssign::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
-	if (!GetLeft()->Unquote()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+	if (!GetLeft()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
 	stream.Print(sig, (scriptStyle == SCRSTYLE_Crammed)? "=>" : " => ");
 	if (sig.IsSignalled()) return false;
 	if (!GetRight()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
