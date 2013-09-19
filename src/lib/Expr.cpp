@@ -863,8 +863,13 @@ bool Expr_Root::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr_Root::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
-	return GetExprOwner().GenerateScript(sig, stream, scriptStyle, nestLevel,
-			(scriptStyle == SCRSTYLE_Fancy)? SEP_NewLine : SEP_Comma);
+	if (!GetExprOwner().GenerateScript(sig, stream, scriptStyle, nestLevel,
+		(scriptStyle == SCRSTYLE_Fancy)? SEP_NewLine : SEP_Comma)) return false;
+	if (scriptStyle == SCRSTYLE_Fancy) {
+		stream.PutChar(sig, '\n');
+		if (sig.IsSignalled()) return false;
+	}
+	return true;
 }
 
 //-----------------------------------------------------------------------------
