@@ -2472,7 +2472,23 @@ bool Expr_Member::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr_Member::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
-	if (!GetLeft()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+	bool needParenthesisFlag = false;
+	if (GetLeft()->IsSymbol()) {
+		const Expr_Symbol *pExprSymbol = dynamic_cast<const Expr_Symbol *>(GetLeft());
+		needParenthesisFlag = !pExprSymbol->GetAttrs().empty();
+	} else if (GetLeft()->IsCaller()) {
+		const Expr_Caller *pExprCaller = dynamic_cast<const Expr_Caller *>(GetLeft());
+		needParenthesisFlag = !pExprCaller->GetAttrs().empty();
+	}
+	if (needParenthesisFlag) {
+		stream.PutChar(sig, '(');
+		if (sig.IsSignalled()) return false;
+		if (!GetLeft()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+		stream.PutChar(sig, ')');
+		if (sig.IsSignalled()) return false;
+	} else {
+		if (!GetLeft()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+	}
 	const char *str =
 		(_mode == MODE_Normal)? "." :
 		(_mode == MODE_MapToList)? "::" :

@@ -76,7 +76,7 @@ m.string .. 3.14
 m[1] .. 3
 m['second'] .. 14
 cond(re.pattern('hello').match('HELLO WORLD'), 'match', 'not match') .. not match
-cond(re.pattern('hello'):icase.match('HELLO WORLD'), 'match', 'not match') .. match
+cond((re.pattern('hello'):icase).match('HELLO WORLD'), 'match', 'not match') .. match
 68124416 GIBCEEBG
 79852197 HJIFCBJH
 68230449 GICDAEEJ

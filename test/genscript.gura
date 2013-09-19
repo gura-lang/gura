@@ -1,0 +1,24 @@
+#!/usr/bin/env gura
+import(argopt)
+
+argopt.Parser {|p|
+	p.addFlag('eval', 'e', 'eval generated script')
+	try {
+		[cfg, argv] = p.parse(sys.argv)
+	} except {|e|
+		sys.stderr.println(e.text)
+		sys.exit(1)
+	}
+}
+if (argv.len() == 0) {
+	sys.stderr.println('usage: genscript.gura [--eval] script')
+	sys.exit(1)
+}
+fileName = argv[0]
+if (cfg['eval']) {
+	buff = binary()
+	open(fileName).parse().genscript(buff)
+	buff.reader().parse().eval()
+} else {
+	open(fileName).parse().genscript(sys.stdout)
+}
