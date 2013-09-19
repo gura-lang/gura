@@ -78,7 +78,7 @@ Gura_ImplementFunction(encode)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_stream
+// Gura interfaces for stream class
 //-----------------------------------------------------------------------------
 // stream#base64reader()
 Gura_DeclareMethod(stream, base64reader)
