@@ -546,13 +546,30 @@ bool Expr_Value::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr_Value::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
-	String str = _value.ToString(sig);
-	if (sig.IsSignalled()) return false;
-	if (_value.IsNumberOrComplex() && str[0] == '-') {
-		str = "(" + str + ")";
+	if (_value.IsBinary()) {
+		char buff[32];
+		const Binary &binary = _value.GetBinary();
+		stream.Print(sig, "b'");
+		if (sig.IsSignalled()) return false;
+		foreach_const (Binary, p, binary) {
+			unsigned char ch = static_cast<unsigned char>(*p);
+			::sprintf(buff, "\\x%02x", ch);
+			stream.Print(sig, buff);
+			if (sig.IsSignalled()) return false;
+		}
+		stream.Print(sig, "'");
+		if (sig.IsSignalled()) return false;
+		return true;
+	} else {
+		String str = _value.ToString(sig);
+		if (sig.IsSignalled()) return false;
+		if (_value.IsNumberOrComplex() && str[0] == '-') {
+			str = "(" + str + ")";
+		}
+		stream.Print(sig, str.c_str());
+		if (sig.IsSignalled()) return false;
+		return true;
 	}
-	stream.Print(sig, str.c_str());
-	return !sig.IsSignalled();
 }
 
 //-----------------------------------------------------------------------------
@@ -589,7 +606,8 @@ bool Expr_String::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
 	stream.Print(sig, MakeQuotedString(_str.c_str()).c_str());
-	return !sig.IsSignalled();
+	if (sig.IsSignalled()) return false;
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -947,7 +965,8 @@ bool Expr_Block::GenerateScript(Signal sig, SimpleStream &stream,
 					!PutNestIndent(sig, stream, nestLevel)) return false;
 	}
 	stream.PutChar(sig, '}');
-	return !sig.IsSignalled();
+	if (sig.IsSignalled()) return false;
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -983,7 +1002,8 @@ bool Expr_BlockParam::GenerateScript(Signal sig, SimpleStream &stream,
 	if (!GetExprOwner().GenerateScript(sig, stream,
 							scriptStyle, nestLevel, SEP_Comma)) return false;
 	stream.PutChar(sig, '|');
-	return !sig.IsSignalled();
+	if (sig.IsSignalled()) return false;
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -1112,7 +1132,8 @@ bool Expr_Lister::GenerateScript(Signal sig, SimpleStream &stream,
 	if (!GetExprOwner().GenerateScript(sig, stream,
 							scriptStyle, nestLevel, SEP_Comma)) return false;
 	stream.PutChar(sig, ']');
-	return !sig.IsSignalled();
+	if (sig.IsSignalled()) return false;
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -1166,7 +1187,8 @@ bool Expr_IteratorLink::GenerateScript(Signal sig, SimpleStream &stream,
 		if (sig.IsSignalled()) return false;
 	}
 	stream.PutChar(sig, ')');
-	return !sig.IsSignalled();
+	if (sig.IsSignalled()) return false;
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -1466,7 +1488,8 @@ bool Expr_Indexer::GenerateScript(Signal sig, SimpleStream &stream,
 	if (!GetLister()->GetExprOwner().GenerateScript(sig, stream,
 							scriptStyle, nestLevel, SEP_Comma)) return false;
 	stream.PutChar(sig, ']');
-	return !sig.IsSignalled();
+	if (sig.IsSignalled()) return false;
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -2036,9 +2059,12 @@ bool Expr_Quote::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr_Quote::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
-	stream.PutChar(sig, '`');
+	//stream.Print(sig, "`(");
+	stream.Print(sig, "`");
 	if (sig.IsSignalled()) return false;
 	if (!GetChild()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+	//stream.Print(sig, ")");
+	//if (sig.IsSignalled()) return false;
 	return true;
 }
 
