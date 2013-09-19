@@ -342,6 +342,15 @@ String Expr::ToString(ScriptStyle scriptStyle) const
 	return str;
 }
 
+bool Expr::PutNestIndent(Signal sig, SimpleStream &stream, int nestLevel)
+{
+	for (int i = 0; i < nestLevel; i++) {
+		stream.Print(sig, "    ");
+		if (sig.IsSignalled()) return false;
+	}
+	return true;
+}
+
 //-----------------------------------------------------------------------------
 // Expr::ExprVisitor_GatherSymbol
 //-----------------------------------------------------------------------------
@@ -906,17 +915,18 @@ bool Expr_Block::GenerateScript(Signal sig, SimpleStream &stream,
 		if (!_pExprBlockParam->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
 	}
 	if (!GetExprOwner().empty()) {
-		stream.Print(sig,
-				(scriptStyle == SCRSTYLE_Crammed)? "" :
-				(scriptStyle == SCRSTYLE_OneLine)? " " :
-				(scriptStyle == SCRSTYLE_Fancy)? "\n" : "");
+		const char *sepText =
+			(scriptStyle == SCRSTYLE_Crammed)? "" :
+			(scriptStyle == SCRSTYLE_OneLine)? " " :
+			(scriptStyle == SCRSTYLE_Fancy)? "\n" : "";
+		stream.Print(sig, sepText);
 		if (sig.IsSignalled()) return false;
-		if (!GetExprOwner().GenerateScript(sig, stream, scriptStyle, nestLevel,
+		if (!GetExprOwner().GenerateScript(sig, stream, scriptStyle, nestLevel + 1,
 			(scriptStyle == SCRSTYLE_Fancy)? SEP_NewLine : SEP_Comma)) return false;
-		if (scriptStyle != SCRSTYLE_Crammed) {
-			stream.PutChar(sig, ' ');
-			if (sig.IsSignalled()) return false;
-		}
+		stream.Print(sig, sepText);
+		if (sig.IsSignalled()) return false;
+		if (scriptStyle == SCRSTYLE_Fancy &&
+					!PutNestIndent(sig, stream, nestLevel)) return false;
 	}
 	stream.PutChar(sig, '}');
 	return !sig.IsSignalled();
@@ -2511,6 +2521,8 @@ bool ExprList::GenerateScript(Signal sig, SimpleStream &stream,
 		if (ppExpr != begin()) {
 			stream.Print(sig, sepText);
 			if (sig.IsSignalled()) return false;
+			if (sep == Expr::SEP_NewLine &&
+						!Expr::PutNestIndent(sig, stream, nestLevel)) return false;
 		}
 		if (!(*ppExpr)->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
 	}

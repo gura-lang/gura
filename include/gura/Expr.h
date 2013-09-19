@@ -206,6 +206,7 @@ public:
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
 	virtual String ToString(ScriptStyle scriptStyle) const;
+	static bool PutNestIndent(Signal sig, SimpleStream &stream, int nestLevel);
 };
 
 //-----------------------------------------------------------------------------
