@@ -2059,12 +2059,17 @@ bool Expr_Quote::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr_Quote::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
-	//stream.Print(sig, "`(");
-	stream.Print(sig, "`");
-	if (sig.IsSignalled()) return false;
-	if (!GetChild()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
-	//stream.Print(sig, ")");
-	//if (sig.IsSignalled()) return false;
+	if (GetChild()->IsBinaryOp()) {
+		stream.Print(sig, "`(");
+		if (sig.IsSignalled()) return false;
+		if (!GetChild()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+		stream.Print(sig, ")");
+		if (sig.IsSignalled()) return false;
+	} else {
+		stream.Print(sig, "`");
+		if (sig.IsSignalled()) return false;
+		if (!GetChild()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+	}
 	return true;
 }
 
