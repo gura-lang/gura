@@ -2060,10 +2060,11 @@ bool Expr_BinaryOp::GenerateScript(Signal sig, SimpleStream &stream,
 	if (GetParent() == NULL) {
 		// nothing to do
 	} else if (GetParent()->IsUnaryOp()) {
-		const Expr_UnaryOp *pExprOuter =
-								dynamic_cast<const Expr_UnaryOp *>(GetParent());
-		needParenthesisFlag = NeedParenthesis(pExprOuter->GetOperator(),
-							GetOperator(), false);
+		//const Expr_UnaryOp *pExprOuter =
+		//						dynamic_cast<const Expr_UnaryOp *>(GetParent());
+		//needParenthesisFlag = NeedParenthesis(pExprOuter->GetOperator(),
+		//					GetOperator(), false);
+		needParenthesisFlag = true;
 	} else if (GetParent()->IsBinaryOp()) {
 		const Expr_BinaryOp *pExprOuter =
 								dynamic_cast<const Expr_BinaryOp *>(GetParent());

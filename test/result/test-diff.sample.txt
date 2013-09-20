@@ -31,7 +31,7 @@ math.sqrt(num):map -> 1 / (2 * math.sqrt(num))
 { math.log((x ** 2 + 1)) } -> 1 / (x ** 2 + 1) * (2 * x)
 { (x - 1) ** 2 * (x - 2) ** 3 / (x - 5) ** 2 } -> ((2 * (x - 1) * (x - 2) ** 3 + (x - 1) ** 2 * (3 * (x - 2) ** 2)) * (x - 5) ** 2 - (x - 1) ** 2 * (x - 2) ** 3 * (2 * (x - 5))) / (x - 5) ** 2 ** 2
 { math.sin(2 * x - 3) } -> math.cos(2 * x - 3) * 2
-{ math.cos(x) ** 2 } -> -math.sin(x) * 2 * math.cos(x)
+{ math.cos(x) ** 2 } -> -(math.sin(x) * 2 * math.cos(x))
 { (2 * x - 1) ** 3 } -> 6 * (2 * x - 1) ** 2
 { math.sqrt(x ** 2 + 2 * x + 3) } -> 1 / (2 * math.sqrt(x ** 2 + 2 * x + 3)) * (2 * x + 2)
 { 1 / x } -> (-1) / x ** 2

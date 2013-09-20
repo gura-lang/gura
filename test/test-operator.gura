@@ -4,6 +4,8 @@ import(testutil) {*}
 scope {
 	println('script generation test')
 	x = [
+		`(-(a + b))
+		`(-(a <=> b))
 		`(-4)
 		`(-4 + 3 * 4)
 		`((-4 + 3) * 4)
