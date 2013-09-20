@@ -2,6 +2,37 @@
 import(testutil) {*}
 
 scope {
+	println('script generation test')
+	x = [
+		`(-4)
+		`(-4 + 3 * 4)
+		`((-4 + 3) * 4)
+		`(-4 * (3 + 4))
+		`(-a)
+		`(`a)
+		`(func(a) = {})
+		`(func(a) {block?} = {})
+		`(func(a) {|a, b, c|})
+		`(func(a) {|(3 | 4 | 5), b, c|})
+		`(func(a) {|((3 | 4 | 5)), b, c|})
+		`(func(a) {|((3 * 4) | 5), b, c|})
+		`(func(a) {|(3 | 4 | 5), b, (a | b | c)|})
+		`(func(a, b, c, d, e%, f*) = {})
+		`(`(3 + 4))
+		`(`(3 * 4))
+		`(`(-3 * 4))
+		`(`(3 + 4 + 5 + 6))
+		`(`(-3 + 4 + 5 + 6))
+		`(`(-3 - (-4) + 5 + 6))
+		`(`(3 * 4 * 5 * 6))
+		`(`(3 * (-4) * 5 * 6))
+		`(`(a(3, 4, 5):hoge).func())
+		`(`(a:hoge).func())
+		`(`(a[0]:hoge).func())
+	]
+	println(x)
+}
+scope {
 	[`+, `-, `~, `!, `..].each {|op|
 		printf('%s %s\n', op, operator(op).entries(`unary)):nomap
 	}

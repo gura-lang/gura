@@ -105,6 +105,14 @@ public:
 		inline ExprVisitor_GatherSimpleLambdaArgs(ExprList &exprListArg) : _exprListArg(exprListArg) {}
 		virtual bool Visit(const Expr *pExpr);
 	};
+	class ExprVisitor_SearchBar : public ExprVisitor {
+	private:
+		bool _foundFlag;
+	public:
+		inline ExprVisitor_SearchBar() : _foundFlag(false) {}
+		virtual bool Visit(const Expr *pExpr);
+		inline bool GetFoundFlag() const { return _foundFlag; }
+	};
 private:
 	ExprType _exprType;
 	int _cntRef;	// const_cast is used to update this value
@@ -850,7 +858,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Assign : public Expr_Binary {
 private:
-	const Operator *_pOperatorToApply;
+	const Operator *_pOperatorToApply;	// this may be NULL
 public:
 	inline Expr_Assign(Expr *pExprLeft, Expr *pExprRight, const Operator *pOperatorToApply) :
 				Expr_Binary(EXPRTYPE_Assign, pExprLeft, pExprRight), _pOperatorToApply(pOperatorToApply) {}
@@ -859,6 +867,7 @@ public:
 	inline static Expr_Assign *Reference(const Expr_Assign *pExpr) {
 		return dynamic_cast<Expr_Assign *>(Expr::Reference(pExpr));
 	}
+	inline const Operator *GetOperatorToApply() const { return _pOperatorToApply; }
 	virtual ~Expr_Assign();
 	virtual Value DoExec(Environment &env, Signal sig) const;
 	Value Exec(Environment &env, Signal sig,

@@ -404,6 +404,28 @@ bool Expr::ExprVisitor_GatherSimpleLambdaArgs::Visit(const Expr *pExpr)
 }
 
 //-----------------------------------------------------------------------------
+// Expr::ExprVisitor_SearchBar
+//-----------------------------------------------------------------------------
+bool Expr::ExprVisitor_SearchBar::Visit(const Expr *pExpr)
+{
+	OpType opType = OPTYPE_None;
+	if (pExpr->IsBinaryOp()) {
+		const Operator *pOperator =
+				dynamic_cast<const Expr_BinaryOp *>(pExpr)->GetOperator();
+		opType = pOperator->GetOpType();
+	} else if (pExpr->IsAssign()) {
+		const Operator *pOperator =
+				dynamic_cast<const Expr_Assign *>(pExpr)->GetOperatorToApply();
+		if (pOperator != NULL) opType = pOperator->GetOpType();
+	}
+	if (opType == OPTYPE_Or || opType == OPTYPE_OrOr) {
+		_foundFlag = true;
+		return false;
+	}
+	return true;
+}
+
+//-----------------------------------------------------------------------------
 // Expr_Unary
 //-----------------------------------------------------------------------------
 bool Expr_Unary::IsUnary() const { return true; }
@@ -1013,8 +1035,25 @@ bool Expr_BlockParam::GenerateScript(Signal sig, SimpleStream &stream,
 {
 	stream.PutChar(sig, '|');
 	if (sig.IsSignalled()) return false;
-	if (!GetExprOwner().GenerateScript(sig, stream,
-							scriptStyle, nestLevel, SEP_Comma)) return false;
+	const char *sepText = (scriptStyle == Expr::SCRSTYLE_Crammed)? "," : ", ";
+	foreach_const (ExprList, ppExpr, GetExprOwner()) {
+		const Expr *pExpr = *ppExpr;
+		if (ppExpr != GetExprOwner().begin()) {
+			stream.Print(sig, sepText);
+			if (sig.IsSignalled()) return false;
+		}
+		ExprVisitor_SearchBar visitor;
+		pExpr->Accept(visitor);
+		if (visitor.GetFoundFlag()) {
+			stream.PutChar(sig, '(');
+			if (sig.IsSignalled()) return false;
+			if (!pExpr->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+			stream.PutChar(sig, ')');
+			if (sig.IsSignalled()) return false;
+		} else {
+			if (!pExpr->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+		}
+	}
 	stream.PutChar(sig, '|');
 	if (sig.IsSignalled()) return false;
 	return true;
@@ -2473,11 +2512,16 @@ bool Expr_Member::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
 	bool needParenthesisFlag = false;
-	if (GetLeft()->IsSymbol()) {
-		const Expr_Symbol *pExprSymbol = dynamic_cast<const Expr_Symbol *>(GetLeft());
+	const Expr *pExprLeft = GetLeft();
+	if (pExprLeft->IsIndexer()) {
+		const Expr_Indexer *pExprIndexer = dynamic_cast<const Expr_Indexer *>(pExprLeft);
+		pExprLeft = pExprIndexer->GetCar();
+	}
+	if (pExprLeft->IsSymbol()) {
+		const Expr_Symbol *pExprSymbol = dynamic_cast<const Expr_Symbol *>(pExprLeft);
 		needParenthesisFlag = !pExprSymbol->GetAttrs().empty();
-	} else if (GetLeft()->IsCaller()) {
-		const Expr_Caller *pExprCaller = dynamic_cast<const Expr_Caller *>(GetLeft());
+	} else if (pExprLeft->IsCaller()) {
+		const Expr_Caller *pExprCaller = dynamic_cast<const Expr_Caller *>(pExprLeft);
 		needParenthesisFlag = !pExprCaller->GetAttrs().empty();
 	}
 	if (needParenthesisFlag) {
