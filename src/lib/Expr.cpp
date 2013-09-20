@@ -583,8 +583,13 @@ bool Expr_Value::GenerateScript(Signal sig, SimpleStream &stream,
 		if (sig.IsSignalled()) return false;
 		return true;
 	} else {
-		String str = _value.ToString(sig);
-		if (sig.IsSignalled()) return false;
+		String str;
+		if (_pScript.get() == NULL) {
+			str = _value.ToString(sig);
+			if (sig.IsSignalled()) return false;
+		} else {
+			str = *_pScript;
+		}
 		if (_value.IsNumberOrComplex() && str[0] == '-') {
 			str = "(" + str + ")";
 		}

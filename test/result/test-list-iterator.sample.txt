@@ -22,8 +22,8 @@ orange
 grape
 x.roundoff():list .. [1e-06, 1e-07, 1e-08, 1e-09, 1e-10, 0, 0, 0]
 x.each().roundoff():list .. [1e-06, 1e-07, 1e-08, 1e-09, 1e-10, 0, 0, 0]
-x.roundoff(1e-08):list .. [1e-06, 1e-07, 1e-08, 0, 0, 0, 0, 0]
-x.each().roundoff(1e-08):list .. [1e-06, 1e-07, 1e-08, 0, 0, 0, 0, 0]
+x.roundoff(1e-8):list .. [1e-06, 1e-07, 1e-08, 0, 0, 0, 0, 0]
+x.each().roundoff(1e-8):list .. [1e-06, 1e-07, 1e-08, 0, 0, 0, 0, 0]
 [].each().sort() .. <iterator:list#each>
 [].find(2):index .. nil
 [].find():index .. nil

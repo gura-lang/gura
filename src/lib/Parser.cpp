@@ -1134,13 +1134,17 @@ bool Parser::ReduceOneElem(Environment &env, Signal sig)
 	Element &elem1 = _elemStack.Peek(0);
 	if (elem1.IsType(ETYPE_Number)) {
 		DBGPARSER(::printf("Reduce: Expr -> Number\n"));
-		pExpr = new Expr_Value(elem1.GetNumber());
+		Expr_Value *pExprEx = new Expr_Value(elem1.GetNumber());
+		pExprEx->SetScript(elem1.GetStringSTL());
+		pExpr = pExprEx;
 	} else if (elem1.IsType(ETYPE_ImagNumber)) {
 		DBGPARSER(::printf("Reduce: Expr -> ImagNumber\n"));
-		pExpr = new Expr_Value(Complex(0, elem1.GetNumber()));
+		Expr_Value *pExprEx = new Expr_Value(Complex(0, elem1.GetNumber()));
+		pExprEx->SetScript(elem1.GetStringSTL() + "j");
+		pExpr = pExprEx;
 	} else if (elem1.IsType(ETYPE_String)) {
 		DBGPARSER(::printf("Reduce: Expr -> String\n"));
-		pExpr = new Expr_String(elem1.GetString());
+		pExpr = new Expr_String(elem1.GetStringSTL());
 	} else if (elem1.IsType(ETYPE_Binary)) {
 		DBGPARSER(::printf("Reduce: Expr -> Binary\n"));
 		Value value(new Object_binary(env,

@@ -146,8 +146,7 @@ public:
 		ElemType _elemType;
 		int _lineNo;
 		String _str;
-		int _num;	// _num is only available for 
-		// _pExpr is only available for the following eleement types.
+		// _pExpr is only available for the following element types.
 		// ETYPE_Expr          (Expr)
 		// ETYPE_LParenthesis  (Expr_Lister)
 		// ETYPE_LBrace        (Expr_Block)
@@ -155,21 +154,19 @@ public:
 		// ETYPE_LBlockParam   (Expr_BlockParam)
 		Expr *_pExpr;
 	public:
-		inline Element() : _elemType(ETYPE_Unknown), _lineNo(0), _pExpr(NULL), _num(0) {}
+		inline Element() : _elemType(ETYPE_Unknown), _lineNo(0), _pExpr(NULL) {}
 		inline Element(const Element &elem) :
 					_elemType(elem._elemType), _lineNo(elem._lineNo), _pExpr(elem._pExpr),
-					_str(elem._str), _num(elem._num) {}
+					_str(elem._str) {}
 		inline Element(ElemType elemType, int lineNo) :
-					_elemType(elemType), _lineNo(lineNo), _pExpr(NULL), _num(0) {}
+					_elemType(elemType), _lineNo(lineNo), _pExpr(NULL) {}
 		inline Element(ElemType elemType, int lineNo, const String &str) :
-					_elemType(elemType), _lineNo(lineNo), _pExpr(NULL), _str(str), _num(0) {}
-		inline Element(ElemType elemType, int lineNo, int num) :
-					_elemType(elemType), _lineNo(lineNo), _pExpr(NULL), _num(num) {}
+					_elemType(elemType), _lineNo(lineNo), _pExpr(NULL), _str(str) {}
 		inline Element(ElemType elemType, Expr *pExpr) :
-					_elemType(elemType), _lineNo(pExpr->GetLineNoTop()), _pExpr(pExpr), _num(0) {}
+					_elemType(elemType), _lineNo(pExpr->GetLineNoTop()), _pExpr(pExpr) {}
 		inline Element &operator=(const Element &elem) {
 			_elemType = elem._elemType, _lineNo = elem._lineNo, _pExpr = elem._pExpr;
-			_str = elem._str, _num = elem._num;
+			_str = elem._str;
 			return *this;
 		}
 		~Element();
@@ -197,7 +194,6 @@ public:
 		inline const String &GetStringSTL() const { return _str; }
 		inline const char *GetString() const { return _str.c_str(); }
 		inline size_t GetStringSize() const { return _str.size(); }
-		inline int GetNum() const { return _num; }
 		inline void AddString(const String &str) { _str.append(str); }
 		Number GetNumber() const;
 		const char *GetTypeSymbol() const;

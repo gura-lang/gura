@@ -341,12 +341,15 @@ public:
 class GURA_DLLDECLARE Expr_Value : public Expr {
 protected:
 	Value _value;
+	std::auto_ptr<String> _pScript;
 public:
 	inline Expr_Value(Number num) : Expr(EXPRTYPE_Value), _value(num) {}
 	inline Expr_Value(const Complex &comp) : Expr(EXPRTYPE_Value), _value(comp) {}
 	inline Expr_Value(const Value &value) : Expr(EXPRTYPE_Value), _value(value) {}
 	inline Expr_Value(const Expr_Value &expr) : Expr(expr), _value(expr._value) {}
 	inline const Value &GetValue() const { return _value; }
+	inline void SetScript(const String &script) { _pScript.reset(new String(script)); }
+	inline const String *GetScript() const { return _pScript.get(); }
 	inline static Expr_Value *Reference(const Expr_Value *pExpr) {
 		return dynamic_cast<Expr_Value *>(Expr::Reference(pExpr));
 	}
