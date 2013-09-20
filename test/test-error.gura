@@ -135,5 +135,7 @@ scope {
 }
 try {
 	raise(ValueError, 'unhandled error')
+} except(ValueError) {|e|
+	println('ValueError detected: ', e.text)
 }
 sys.stderr = stderrOrg

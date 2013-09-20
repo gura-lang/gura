@@ -21,7 +21,4 @@ except(SystemError, CodecError) .. SystemError: intentional error for handling t
 except(SystemError, CodecError) .. CodecError: intentional error for handling test
 except() .. AttributeError: intentional error for handling test
 else()
-ValueError at test-error.gura:137: unhandled error
-Traceback:
-test-error.gura:137:
-  raise(ValueError, 'unhandled error')
+ValueError detected: ValueError: unhandled error
