@@ -40,19 +40,24 @@ rem set files=%files% test-canvas.gura
 rem set files=%files% test-file.gura
 
 if "%1" == "clean" goto clean
+if "%1" == "genscript" goto genscript
 for %%F in (%files%) do %PROGRAM_GURA% --printcmdline %%F > result\%%~nF.result.txt
-rem for %%F in (%files%) do %PROGRAM_GURA% --printcmdline genscript.gura --eval %%F > result\%%~nF.result.txt
 if "%1" == "print" goto print
 if "%1" == "update" goto update
-for %%F in (%files%) do diff -u result\%%~nF.sample.txt result\%%~nF.result.txt
-goto done
+goto diff
 :print
 for %%F in (%files%) do type result\%%~nF.result.txt
 goto done
 :update
 for %%F in (%files%) do copy result\%%~nF.result.txt result\%%~nF.sample.txt >NUL
 goto done
+:genscript
+for %%F in (%files%) do %PROGRAM_GURA% --printcmdline genscript.gura --eval %%F > result\%%~nF.result.txt
+goto diff
 :clean
 for %%F in (%files%) do del result\%%~nF.result.txt
+goto done
+:diff
+for %%F in (%files%) do diff -u result\%%~nF.sample.txt result\%%~nF.result.txt
 goto done
 :done
