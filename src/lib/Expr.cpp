@@ -2319,6 +2319,12 @@ bool Expr_Assign::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr_Assign::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
+	bool needParenthesisFlag = (GetParent()->IsUnary() || GetParent()->IsBinary()) &&
+														!GetParent()->IsQuote();
+	if (needParenthesisFlag) {
+		stream.PutChar(sig, '(');
+		if (sig.IsSignalled()) return false;
+	}
 	if (!GetLeft()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
 	String text;
 	if (scriptStyle != SCRSTYLE_Crammed) text += ' ';
@@ -2330,6 +2336,10 @@ bool Expr_Assign::GenerateScript(Signal sig, SimpleStream &stream,
 	stream.Print(sig, text.c_str());
 	if (sig.IsSignalled()) return false;
 	if (!GetRight()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+	if (needParenthesisFlag) {
+		stream.PutChar(sig, ')');
+		if (sig.IsSignalled()) return false;
+	}
 	return true;
 }
 

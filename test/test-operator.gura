@@ -10,6 +10,7 @@ scope {
 		`(-4 * (3 + 4))
 		`(-a)
 		`(`a)
+		`((m = func()) && m)
 		`(func(a) = {})
 		`(func(a) {block?} = {})
 		`(func(a) {|a, b, c|})
