@@ -2772,7 +2772,7 @@ Gura_DeclareFunction(LoadBMP)
 	DeclareArg(env, "file", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Loads a surface from a named Windows BMP file."
+	"Loads a surface from a named Windows BMP file.\n"
 	"\n"
 	"**Return Value:** Returns the new surface, or `nil` if there was an error.\n"
 	);

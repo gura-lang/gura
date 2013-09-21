@@ -2,7 +2,20 @@
 import(sdl)
 import(markdown)
 
+fileName = 'gura-sdl-e.html'
+
 doc = markdown.document()
+
+doc << R'''
+# About This Document
+
+This reference explains about specification of functions and classes defined in **Gura**'s `sdl` module.
+Official site of SDL is <http://www.libsdl.org/>.
+'''
+
+doc << R'''
+# Reference
+'''
 
 // 5. General
 doc << '## General'
@@ -171,4 +184,5 @@ doc << [
 	//sdl.Timer.SetTimer
 ]
 
-doc.output_rtf()
+doc.output_html(fileName)
+println(fileName, ' was created.')
