@@ -18,6 +18,7 @@ Gura_DeclareUserSymbol(text);
 Gura_DeclareUserSymbol(children);
 Gura_DeclareUserSymbol(url);
 Gura_DeclareUserSymbol(title);
+Gura_DeclareUserSymbol(attrs);
 
 class ItemOwner;
 
@@ -78,6 +79,7 @@ public:
 	inline bool IsBlockQuote() const { return _type == TYPE_BlockQuote; }
 	inline bool IsList() const { return _type == TYPE_UList || _type == TYPE_OList; }
 	inline bool IsListItem() const { return _type == TYPE_ListItem; }
+	inline bool IsTag() const { return _type == TYPE_Tag; }
 	inline bool IsOwner() const { return !_pItemOwner.IsNull(); }
 	inline void SetItemOwner(ItemOwner *pItemOwner) { _pItemOwner.reset(pItemOwner); }
 	inline ItemOwner *GetItemOwner() { return _pItemOwner.get(); }
@@ -299,12 +301,12 @@ private:
 	bool AdjustBlockQuote();
 	void FlushText(Item::Type type, bool stripFlag);
 	void FlushItem(Item::Type type, bool stripFlag);
+	void FlushElement();
 	void BeginCodeBlock(const char *textInit);
 	void EndCodeBlock();
 	void BeginCodeBlockInList(const char *textInit);
 	void EndCodeBlockInList();
 	void BeginListItem(Item::Type type);
-	void FlushListItem();
 	void EndListItem();
 	void BeginDecoration(Item::Type type);
 	void EndDecoration();

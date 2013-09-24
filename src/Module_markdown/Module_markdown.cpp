@@ -1700,6 +1700,20 @@ void Document::FlushItem(Item::Type type, bool stripFlag)
 	}
 }
 
+void Document::FlushElement()
+{
+	Item *pItemParent = _itemStack.back();
+	FlushText(Item::TYPE_Text, false);
+	if (pItemParent->GetItemOwner()->empty()) {
+		pItemParent->GetItemOwner()->Store(*_pItemOwner);
+		_pItemOwner.reset(new ItemOwner());
+	} else if (!_pItemOwner->empty()) {
+		Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner.release());
+		pItemParent->GetItemOwner()->push_back(pItem);
+		_pItemOwner.reset(new ItemOwner());
+	}
+}
+
 void Document::BeginCodeBlock(const char *textInit)
 {
 	FlushItem(Item::TYPE_Paragraph, false);
@@ -1757,7 +1771,7 @@ void Document::BeginListItem(Item::Type type)
 			EndListItem();
 			pItemParent = _itemStack.back();
 		} else {
-			FlushListItem();
+			FlushElement();
 		}
 	}
 	if (pItemParent->IsRoot() || pItemParent->IsBlockQuote() ||
@@ -1782,23 +1796,9 @@ void Document::BeginListItem(Item::Type type)
 	_stat = STAT_ListItemPre;
 }
 
-void Document::FlushListItem()
-{
-	Item *pItemParent = _itemStack.back();
-	FlushText(Item::TYPE_Text, false);
-	if (pItemParent->GetItemOwner()->empty()) {
-		pItemParent->GetItemOwner()->Store(*_pItemOwner);
-		_pItemOwner.reset(new ItemOwner());
-	} else if (!_pItemOwner->empty()) {
-		Item *pItem = new Item(Item::TYPE_Paragraph, _pItemOwner.release());
-		pItemParent->GetItemOwner()->push_back(pItem);
-		_pItemOwner.reset(new ItemOwner());
-	}
-}
-
 void Document::EndListItem()
 {
-	FlushListItem();
+	FlushElement();
 	_itemStack.pop_back();
 }
 
@@ -1818,19 +1818,25 @@ void Document::EndDecoration()
 
 void Document::BeginTag(const char *tagName, const char *attrs, bool endFlag)
 {
-	Item *pItem = new Item(Item::TYPE_Tag);
-	pItem->SetText(tagName);
-	if (*attrs != '\0') pItem->SetAttrs(attrs);
-	_pItemOwner->push_back(pItem);
-	if (!endFlag) {
-		pItem->SetItemOwner(new ItemOwner());
-		_itemOwnerStack.Push(_pItemOwner.release());
-		_pItemOwner.reset(pItem->GetItemOwner()->Reference());
-	}
+	FlushItem(Item::TYPE_Paragraph, false);
+	do {
+		Item *pItemParent = _itemStack.back();
+		Item *pItem = new Item(Item::TYPE_Tag);
+		pItem->SetText(tagName);
+		if (*attrs != '\0') pItem->SetAttrs(attrs);
+		pItemParent->GetItemOwner()->push_back(pItem);
+		if (!endFlag) {
+			pItem->SetItemOwner(new ItemOwner());
+			_itemStack.push_back(pItem);
+		}
+	} while (0);
 }
 
 void Document::EndTag(const char *tagName)
 {
+	FlushElement();
+	Item *pItem = _itemStack.back();
+	if (pItem->IsTag()) _itemStack.pop_back();
 }
 
 bool Document::IsAtxHeader2(const char *text)
@@ -1934,8 +1940,6 @@ bool Document::IsLink(const char *text)
 bool Document::IsBeginTag(const char *text,
 						String &tagName, String &attrs, bool &endFlag)
 {
-	return false;
-#if 0
 	enum Stat {
 		STAT_Begin,
 		STAT_TagName,
@@ -1959,8 +1963,10 @@ bool Document::IsBeginTag(const char *text,
 			break;
 		}
 		case STAT_TagName: {
-			if (IsAlpha(ch)) {
+			if (IsAlpha(ch) || IsDigit(ch)) {
 				tagName += ch;
+			} else if (ch == '/') {
+				stat = STAT_Slash;
 			} else if (ch == '\0') {
 				// nothing to do
 			} else if (ch == ' ' || ch == '\t') {
@@ -1976,6 +1982,8 @@ bool Document::IsBeginTag(const char *text,
 			} else if (IsAlpha(ch)) {
 				attrs += ch;
 				stat = STAT_Attrs;
+			} else if (ch == '/') {
+				stat = STAT_Slash;
 			} else if (ch == '\0') {
 				return false;	// not allow "<hoge  >"
 			} else {
@@ -2007,13 +2015,10 @@ bool Document::IsBeginTag(const char *text,
 		if (ch == '\0') break;
 	}
 	return true;
-#endif
 }
 
 bool Document::IsEndTag(const char *text, String &tagName)
 {
-	return false;
-#if 0
 	enum Stat {
 		STAT_Begin,
 		STAT_TagNameFirst,
@@ -2042,7 +2047,7 @@ bool Document::IsEndTag(const char *text, String &tagName)
 			break;
 		}
 		case STAT_TagName: {
-			if (IsAlpha(ch)) {
+			if (IsAlpha(ch) || IsDigit(ch)) {
 				tagName += ch;
 			} else if (ch == '\0') {
 				// nothing to do
@@ -2055,7 +2060,6 @@ bool Document::IsEndTag(const char *text, String &tagName)
 		if (ch == '\0') break;
 	}
 	return true;
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -2167,6 +2171,7 @@ bool Object_item::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	symbols.insert(Gura_UserSymbol(children));
 	symbols.insert(Gura_UserSymbol(url));
 	symbols.insert(Gura_UserSymbol(title));
+	symbols.insert(Gura_UserSymbol(attrs));
 	return true;
 }
 
@@ -2193,6 +2198,10 @@ Value Object_item::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		const char *title = _pItem->GetTitle();
 		if (title == NULL) return Value::Null;
 		return Value(env, title);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(attrs))) {
+		const char *attrs = _pItem->GetAttrs();
+		if (attrs == NULL) return Value::Null;
+		return Value(env, attrs);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -2372,6 +2381,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(children);
 	Gura_RealizeUserSymbol(url);
 	Gura_RealizeUserSymbol(title);
+	Gura_RealizeUserSymbol(attrs);
 	// class realization
 	Gura_RealizeUserClassWithoutPrepare(document, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClassWithoutPrepare(item, env.LookupClass(VTYPE_object));
