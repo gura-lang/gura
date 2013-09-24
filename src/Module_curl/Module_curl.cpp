@@ -156,7 +156,9 @@ Gura_DeclareFunction(version)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a string of the libcurl version.");
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"Returns a string of the libcurl version."
+	);
 }
 
 Gura_ImplementFunction(version)
@@ -170,7 +172,9 @@ Gura_DeclareFunction(easy_init)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Initializes cURL and returns a easy_handle object.");
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"Initializes cURL and returns a easy_handle object."
+	);
 }
 
 Gura_ImplementFunction(easy_init)
@@ -183,7 +187,9 @@ Gura_ImplementFunction(easy_init)
 Gura_DeclareFunction(test)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "");
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	""
+	);
 }
 
 Gura_ImplementFunction(test)
@@ -808,6 +814,9 @@ Gura_DeclareMethod(easy_handle, escape)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "string", VTYPE_string);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	""
+	);
 }
 
 Gura_ImplementMethod(easy_handle, escape)
@@ -824,6 +833,9 @@ Gura_DeclareMethod(easy_handle, unescape)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "string", VTYPE_string);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	""
+	);
 }
 
 Gura_ImplementMethod(easy_handle, unescape)
@@ -840,6 +852,9 @@ Gura_ImplementMethod(easy_handle, unescape)
 Gura_DeclareMethod(easy_handle, reset)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	""
+	);
 }
 
 Gura_ImplementMethod(easy_handle, reset)
@@ -854,6 +869,9 @@ Gura_DeclareMethod(easy_handle, pause)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "bitmask", VTYPE_number);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	""
+	);
 }
 
 Gura_ImplementMethod(easy_handle, pause)
@@ -870,6 +888,9 @@ Gura_DeclareMethod(easy_handle, recv)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "buflen", VTYPE_number);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	""
+	);
 }
 
 Gura_ImplementMethod(easy_handle, recv)
@@ -892,6 +913,9 @@ Gura_DeclareMethod(easy_handle, send)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "buffer", VTYPE_binary);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	""
+	);
 }
 
 Gura_ImplementMethod(easy_handle, send)
@@ -913,6 +937,9 @@ Gura_DeclareMethod(easy_handle, setopt)
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "option", VTYPE_number);
 	DeclareArg(env, "arg", VTYPE_any);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	""
+	);
 }
 
 Gura_ImplementMethod(easy_handle, setopt)
@@ -945,6 +972,9 @@ Gura_DeclareMethod(easy_handle, getinfo)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "info", VTYPE_number);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	""
+	);
 }
 
 Gura_ImplementMethod(easy_handle, getinfo)
@@ -989,6 +1019,9 @@ Gura_DeclareMethod(easy_handle, perform)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	""
+	);
 }
 
 Gura_ImplementMethod(easy_handle, perform)
