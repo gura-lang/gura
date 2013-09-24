@@ -97,6 +97,19 @@ Renderer_html = class {
 			this.out.print('</code>')
 		} elsif (item.type == `entity) {
 			this.out.print('&', item.text.escapehtml(), ';')
+		} elsif (item.type == `tag) {
+			this.out.print('<')
+			this.out.print(item.text)
+			item.attrs && this.out.print(' ', item.attrs)
+			if (item.children) {
+				this.out.println('>')
+				item.children && this.OutputItem(item.children)
+				this.out.print('</')
+				this.out.print(item.text)
+				this.out.println('>')
+			} else {
+				this.out.println(' />')
+			}
 		} elsif (item.type == `hr) {
 			this.out.print('<hr />\n')
 		} elsif (item.type == `br) {
@@ -109,7 +122,9 @@ Renderer_rtf = class {
 	__init__(out?:stream:w) = {
 		this.out = out || sys.stdout
 		this.quoteLevel = 0
+		this.listLevel = 0
 		this.indentPerQuote = 720
+		this.indentPerList = 360
 	}
 	Output(doc:document):void = {
 		this.OutputItem(doc.root)
@@ -170,13 +185,11 @@ Renderer_rtf = class {
 			}
 			this.out.println(r'\par}')
 		} elsif (item.type == `ol) {
-			this.OutputItem(item.children)
+			this.OutputListItem(item)
 		} elsif (item.type == `ul) {
-			this.OutputItem(item.children)
+			this.OutputListItem(item)
 		} elsif (item.type == `li) {
-			this.out.print(r'{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab ')
-			this.OutputItem(item.children)
-			this.out.println(r'\par}')
+			// nothing to do here
 		} elsif (item.type == `line) {
 			this.OutputItem(item.children)
 			this.out.println(r'\line')
@@ -198,6 +211,8 @@ Renderer_rtf = class {
 			this.out.print(r'}')
 		} elsif (item.type == `entity) {
 			this.out.print(r'\u%d?', 169)
+		} elsif (item.type == `tag) {
+			
 		} elsif (item.type == `hr) {
 			this.out.println(r'{\pard \qc \f0 \sa180 \li0 \fi0 \emdash\emdash\emdash\emdash\emdash\par}')
 		} elsif (item.type == `br) {
@@ -206,6 +221,31 @@ Renderer_rtf = class {
 	}
 	EscapeText(text:string):static = {
 		text.replace('\\', '\\\\').replace('{', r'\{').replace('}', r'\}')
+	}
+	OutputListItem(item:item) = {
+		parOutputFlag = false
+		this.listLevel += 1
+		item.children.each {|itemChild, i|
+			(i > 0 && !parOutputFlag) && this.out.println(r'\par}')
+			if (item.type == `ul) {
+				this.out.print(r'{\pard \ql \f0 \sa0 \li%d \fi-360 \bullet \tx360\tab ' % \
+							[this.indentPerList * this.listLevel])
+			} else { // item.type == `ol
+				this.out.print(r'{\pard \ql \f0 \sa0 \li%d \fi-360 %d. \tx360\tab ' % \
+							[this.indentPerList * this.listLevel, i + 1])
+			}
+			parOutputFlag = false
+			itemChild.children.each {|itemDescend, i|
+				if (itemDescend.type == `ol || itemDescend.type == `ul) {
+					this.out.println(r'\sa180\par}')
+					parOutputFlag = true
+				}
+				this.OutputItem(itemDescend)
+			}
+			
+		}
+		!parOutputFlag && this.out.println(r'\sa180\par}')
+		this.listLevel -= 1
 	}
 }
 
@@ -303,6 +343,8 @@ Renderer_console = class {
 			conio.setcolor(`black, `white) {
 				print(item.text.escapehtml())
 			}
+		} elsif (item.type == `tag) {
+			item.children && this.OutputItem(item.children)
 		} elsif (item.type == `hr) {
 			println('--------')
 		} elsif (item.type == `br) {
