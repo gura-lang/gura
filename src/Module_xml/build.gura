@@ -12,4 +12,4 @@ if (sys.build == `msc) {
 	builder.debFiles = ['libexpat1-dev']
 	builder.rpmFiles = ['expat-devel']
 }
-builder.build('xml', ['Module_xml.cpp', 'Conv_Japanese.cpp'])
+builder.build('xml', ['Module_xml.cpp'])

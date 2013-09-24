@@ -5,7 +5,6 @@
 #define __MODULE_CODECS_JAPANESE_H__
 
 #include <gura.h>
-#include "Conv_Japanese.h"
 
 Gura_BeginModule(codecs_japanese)
 

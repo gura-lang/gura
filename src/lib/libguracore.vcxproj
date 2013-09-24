@@ -179,7 +179,7 @@
     <ClCompile Include="Class.cpp" />
     <ClCompile Include="Codec.cpp" />
     <ClCompile Include="Common.cpp" />
-    <ClCompile Include="..\Module_codecs_japanese\Conv_Japanese.cpp" />
+    <ClCompile Include="Conv_Japanese.cpp" />
     <ClCompile Include="DateTime.cpp" />
     <ClCompile Include="Declaration.cpp" />
     <ClCompile Include="PathManager.cpp" />

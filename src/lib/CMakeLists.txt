@@ -6,6 +6,7 @@ Audio.cpp
 Binary.cpp
 Codec.cpp
 Common.cpp
+Conv_Japanese.cpp
 CustomClass.cpp
 DateTime.cpp
 Declaration.cpp
@@ -65,7 +66,6 @@ Module_sys.cpp
 ../Module_codecs_basic/Module_codecs_basic.cpp
 ../Module_codecs_iso8859/Module_codecs_iso8859.cpp
 ../Module_codecs_japanese/Module_codecs_japanese.cpp
-../Module_codecs_japanese/Conv_Japanese.cpp
 ../Module_base64/Module_base64.cpp
 ../Module_fs/Module_fs.cpp
 ../Module_math/Module_math.cpp

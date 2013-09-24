@@ -41,6 +41,7 @@
 #include "gura/Palette.h"
 #include "gura/Audio.h"
 #include "gura/Matrix.h"
+#include "gura/Conv_Japanese.h"
 
 #include "gura/Object_help.h"
 #include "gura/Object_function.h"

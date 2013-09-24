@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include "Conv_Japanese.h"
 
 namespace Gura {
 
