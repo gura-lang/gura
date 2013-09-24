@@ -7,7 +7,10 @@ fileName = 'gura-sdl-e.html'
 doc = markdown.document()
 
 operator(`<<).assign(`markdown.document, `function) {|doc, func|
-	doc << '### `' + func.format + '`'
+	doc << '### ' + func.fullname
+	doc << '\n'
+	doc << '`' +  func.format + '`'
+	doc << '\n'
 	doc << func.gethelp().text
 }
 
