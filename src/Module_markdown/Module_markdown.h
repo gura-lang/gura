@@ -28,7 +28,7 @@ class ItemOwner;
 class Item {
 public:
 	enum Type {
-		TYPE_Root,			// container
+		TYPE_Root,			// container, can be a parent
 		TYPE_Header1,		// container
 		TYPE_Header2,		// container
 		TYPE_Header3,		// container
@@ -36,20 +36,20 @@ public:
 		TYPE_Header5,		// container
 		TYPE_Header6,		// container
 		TYPE_Paragraph,		// container
-		TYPE_BlockQuote,	// container
+		TYPE_BlockQuote,	// container, can be a parent
 		TYPE_Emphasis,		// container
 		TYPE_Strong,		// container
-		TYPE_CodeBlock,		// container
-		TYPE_OList,			// container
-		TYPE_UList,			// container
-		TYPE_ListItem,		// container
+		TYPE_CodeBlock,		// container, can be a parent
+		TYPE_OList,			// container, can be a parent
+		TYPE_UList,			// container, can be a parent
+		TYPE_ListItem,		// container, can be a parent
 		TYPE_Line,			// container
 		TYPE_Link,			// container
 		TYPE_Image,			// text
 		TYPE_Text,			// text
 		TYPE_Code,			// text
 		TYPE_Entity,		// text
-		TYPE_Tag,			// container and text (attributes)
+		TYPE_Tag,			// container and text (attributes), can be a parent
 		TYPE_HorzRule,		// no-content
 		TYPE_LineBreak,		// no-content
 		TYPE_Referee,		// no-content

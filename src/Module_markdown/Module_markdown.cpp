@@ -1755,6 +1755,7 @@ void Document::EndCodeBlockInList()
 	_stat = _statStack.Pop();
 }
 
+// type must be TYPE_UList or TYPE_OList
 void Document::BeginListItem(Item::Type type)
 {
 	Item *pItemParent = _itemStack.back();
