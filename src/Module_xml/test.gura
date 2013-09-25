@@ -56,4 +56,4 @@ MyParser = class(xml.parser) {
 	}
 }
 //MyParser().parse('test.xml');
-print(xml.read('test.xml').format())
+xml.read('test.xml').format()

@@ -294,44 +294,58 @@ void Element::InitAsText(const String &text)
 	_pText.reset(new String(text));
 }
 
-String Element::Format(int indentLevel) const
+bool Element::Format(Signal sig, Stream &stream, int indentLevel) const
 {
 	const char *indentUnit = "  ";
-	String str;
 	String indent;
 	for (int i = 0; i < indentLevel; i++) indent += indentUnit;
-	str += indent;
+	stream.Print(sig, indent.c_str());
+	if (sig.IsSignalled()) return false;
 	if (IsText()) {
-		str += '"';
-		str += *GetText();
-		str += '"';
-		return str;
+		stream.PutChar(sig, '"');
+		if (sig.IsSignalled()) return false;
+		stream.Print(sig, GetText()->c_str());
+		if (sig.IsSignalled()) return false;
+		stream.Print(sig, "\"\n");
+		if (sig.IsSignalled()) return false;
+		return true;
 	}
-	str += "<";
-	str += GetName();
+	stream.PutChar(sig, '<');
+	if (sig.IsSignalled()) return false;
+	stream.Print(sig, GetName());
+	if (sig.IsSignalled()) return false;
 	foreach_const (AttributeOwner, ppAttribute, GetAttributes()) {
 		const Attribute *pAttribute = *ppAttribute;
-		str += " ";
-		str += pAttribute->GetName();
-		str += "=\"";
-		str += pAttribute->GetValue();
-		str += "\"";
+		stream.PutChar(sig, ' ');
+		if (sig.IsSignalled()) return false;
+		stream.Print(sig, pAttribute->GetName());
+		if (sig.IsSignalled()) return false;
+		stream.Print(sig, "=\"");
+		if (sig.IsSignalled()) return false;
+		stream.Print(sig, pAttribute->GetValue());
+		if (sig.IsSignalled()) return false;
+		stream.PutChar(sig, '"');
+		if (sig.IsSignalled()) return false;
 	}
 	if (GetChildren() == NULL || GetChildren()->empty()) {
-		str += " />";
+		stream.Print(sig, " />\n");
+		if (sig.IsSignalled()) return false;
 	} else {
-		str += ">\n";
+		stream.Print(sig, ">\n");
+		if (sig.IsSignalled()) return false;
 		foreach_const (ElementOwner, ppChild, *GetChildren()) {
 			const Element *pChild = *ppChild;
-			str += pChild->Format(indentLevel + 1);
-			str += "\n";
+			if (!pChild->Format(sig, stream, indentLevel + 1)) return false;
 		}
-		str += indent;
-		str += "</";
-		str += GetName();
-		str += ">";
+		stream.Print(sig, indent.c_str());
+		if (sig.IsSignalled()) return false;
+		stream.Print(sig, "</");
+		if (sig.IsSignalled()) return false;
+		stream.Print(sig, GetName());
+		if (sig.IsSignalled()) return false;
+		stream.Print(sig, ">\n");
 	}
-	return str;
+	return true;
 }
 
 String Element::GatherText() const
@@ -687,18 +701,20 @@ String Object_element::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_element
 //-----------------------------------------------------------------------------
-// xml.element#format()
+// xml.element#format(stream?:stream:w):void
 Gura_DeclareMethod(element, format)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 }
 
 Gura_ImplementMethod(element, format)
 {
 	Object_element *pObj = Object_element::GetThisObj(args);
-	String str = pObj->GetElement()->Format(0);
-	if (sig.IsSignalled()) return Value::Null;
-	return Value(env, str.c_str());
+	Stream *pStream = env.GetConsole();
+	if (args.IsStream(0)) pStream = &args.GetStream(0);
+	pObj->GetElement()->Format(sig, *pStream, 0);
+	return Value::Null;
 }
 
 // xml.element#text()

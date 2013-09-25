@@ -126,7 +126,7 @@ public:
 	Element();
 	void InitAsTag(const String &name, const char **atts);
 	void InitAsText(const String &text);
-	String Format(int indentLevel) const;
+	bool Format(Signal sig, Stream &stream, int indentLevel) const;
 	String GatherText() const;
 	void AddChild(Element *pChild);
 	inline bool IsText() const { return _pText.get() != NULL; }
