@@ -275,20 +275,74 @@ int Parser::Convert_euc_jp(void *data, const char *s)
 //-----------------------------------------------------------------------------
 // Element
 //-----------------------------------------------------------------------------
-Element::Element(ElementOwner *pChildren) : _cntRef(1), _pChildren(pChildren)
+Element::Element() : _cntRef(1)
 {
 }
 
-Element::Element(const String &text) : _cntRef(1), _pText(new String(text))
+void Element::InitAsTag(const String &name, const char **atts)
 {
-}
-
-void Element::SetAttributes(const char **atts)
-{
+	_name = name;
 	if (atts == NULL) return;
 	for (const char **p = atts; *p != NULL && *(p + 1) != NULL; p += 2) {
 		const char *name = *p, *value = *(p + 1);
 		_attributes.push_back(new Attribute(name, value));
+	}
+}
+
+void Element::InitAsText(const String &text)
+{
+	_pText.reset(new String(text));
+}
+
+String Element::Format(int indentLevel) const
+{
+	const char *indentUnit = "  ";
+	String str;
+	String indent;
+	for (int i = 0; i < indentLevel; i++) indent += indentUnit;
+	str += indent;
+	if (IsText()) {
+		str += '"';
+		str += *GetText();
+		str += '"';
+		return str;
+	}
+	str += "<";
+	str += GetName();
+	foreach_const (AttributeOwner, ppAttribute, GetAttributes()) {
+		const Attribute *pAttribute = *ppAttribute;
+		str += " ";
+		str += pAttribute->GetName();
+		str += "=\"";
+		str += pAttribute->GetValue();
+		str += "\"";
+	}
+	if (GetChildren() || GetChildren()->empty()) {
+		str += " />";
+	} else {
+		str += ">\n";
+		foreach_const (ElementOwner, ppChild, *GetChildren()) {
+			const Element *pChild = *ppChild;
+			str += pChild->Format(indentLevel + 1);
+			str += "\n";
+		}
+		str += indent;
+		str += "</";
+		str += GetName();
+		str += ">";
+	}
+	return str;
+}
+
+String Element::GatherText() const
+{
+	if (IsText()) return *GetText();
+	String str;
+	if (GetChildren() || GetChildren()->empty()) {
+		foreach_const (ElementOwner, ppChild, *GetChildren()) {
+			const Element *pChild = *ppChild;
+			str += pChild->GatherText();
+		}
 	}
 }
 

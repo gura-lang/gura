@@ -123,12 +123,16 @@ private:
 public:
 	Gura_DeclareReferenceAccessor(Element);
 public:
-	Element(ElementOwner *pChildren);
-	Element(const String &text);
-	void SetAttributes(const char **atts);
+	Element();
+	void InitAsTag(const String &name, const char **atts);
+	void InitAsText(const String &text);
+	String Format(int indentLevel) const;
+	String GatherText() const;
+	inline bool IsText() const { return _pText.get() != NULL; }
 	inline const char *GetName() const { return _name.c_str(); }
 	inline AttributeOwner &GetAttributes() { return _attributes; }
 	inline const AttributeOwner &GetAttributes() const { return _attributes; }
+	inline void SetChildren(ElementOwner *pChildren) { _pChildren.reset(pChildren); }
 	inline ElementOwner *GetChildren() { return _pChildren.get(); }
 	inline const ElementOwner *GetChildren() const { return _pChildren.get(); }
 	inline const String *GetText() const { return _pText.get(); }
