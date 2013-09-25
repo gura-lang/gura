@@ -1,6 +1,6 @@
-msgothic 16pix        32x 32 6aa748f92f68768b5656d6eb2c682293
-arial 16pix           32x 32 17baea59b0b0f5cbcef0058aad60c89e
-arial 320pix         320x320 cb43efeb7d4ad5d16bec45af866b477e
+msgothic 16pix        32x 32 true
+arial 16pix           32x 32 true
+arial 320pix         320x320 true
        ******             ******             ******             ******      
      **      **         **      **         **      **         **      **    
     *    @     *       *          *       *          *       *          *   
@@ -19,52 +19,52 @@ arial 320pix         320x320 cb43efeb7d4ad5d16bec45af866b477e
     *          *       *          *       *     @    *       *          *   
      **      **         **      **         **      **         **      **    
        ******             ******             ******             ******      
-msnms #0              48x 48 aace9f35d873a4cc1cfae1103bd4974c
-msnms #1              32x 32 cbfb14ff7fb82963623f3b0277534497
-msnms #2              16x 16 d3c561201deb9ca0e10102b8d4c588a8
-msnms #3              48x 48 06e4ecbfb5f979a65522a473ecfd923d
-msnms #4              32x 32 6de331ca32438f103905a45e51bb25c7
-msnms #5              16x 16 f475425f60a5c06ff64099509b183535
-msnms #6              48x 48 998776220e6c0aafaeb4d375fa9bcf7d
-msnms #7              32x 32 d2a4aea5b5012f32f95d002008983f66
-msnms #8              16x 16 ad0f8518aded94095c2f07db2c020a1d
-icon output: f8189920672cdde0d5fd5a141d7f7d23
-chicken #0            51x 62 1872079fdec22dccdc1202092a10f7d6
-chicken #1            53x 60 5c82e6b72ddaf9945d79e3630f461080
-chicken #2            51x 60 0c70fc6a0c89ef85b4e42bc1533dfc47
-chicken #3            51x 62 d49c97df970da1c820292142d0d08d3f
-chicken #4            53x 60 569b7f051a9d2fb0408cd618efb77426
-chicken #5            51x 60 603940e448ba6278a3c0c7a474eea50e
-reducecolor          800x600 2309d5011098eb2253ea7c8336c60769
-normal kangaroo       97x 52 4710c4ce4b37c7de6426ed6067d9ac2d
-flip horizontal       97x 52 fe02358ec3635a0d6f16ed5ae44425f3
-flip vertical         97x 52 83c7ab596abf8bae352319ee6326b9ab
-flip both             97x 52 34d45877e4ff503f92def52274e0988c
-rotate 90             52x 97 d6c552a3eea5d0dae6e85dca99dd23c6
-rotate -90            52x 97 1489559c319d1c3fcc6b8766b2f2751a
-rotate 0              97x 52 4710c4ce4b37c7de6426ed6067d9ac2d
-rotate 30            110x 93 8c831acf6a14041c96143b59e8d71e96
-rotate 60             93x110 fd1e49195948257786387bb3c7cec0df
-rotate 90             52x 97 d6c552a3eea5d0dae6e85dca99dd23c6
-rotate 120            93x110 013deb8ce58671c0f9b13ceb654bea7b
-rotate 150           110x 93 e9b381be1b4bfaa6e6a349a2e147725c
-rotate 180            97x 52 34d45877e4ff503f92def52274e0988c
-rotate 210           110x 93 8b134ce77644f5ade9d6310a8c04d5e0
-rotate 240            93x110 ba827a85fad6591724a7741dbdcea660
-rotate 270            52x 97 1489559c319d1c3fcc6b8766b2f2751a
-rotate 300            93x110 0e7f247eca23acd79238303cc19c3cac
-rotate 330           110x 93 1e2611222ea534bbd21a2ab303ac7c69
-image written in script binary: d8e123ea43ac83a77e489f9da0256951
-chicken256.bmp to BMP: 3224bf2c42fdb023ff99e30ba5b08544
-chicken16.bmp to BMP: 8712312fbe16655082a66fced12c525a
-Winter.jpg to BMP: 48a79ea74da499f00aa9a212024c49be
-kangaroo.png to BMP: 2ec680a08f0303d449d0888158aeb529
-kangaroo.gif to BMP: bf9664470d42a077fdca8afce5394f76
-kangaroo.png to GIF: 9a78d811875c996748f1b317c2bf8e97
-kangaroo.png to GIF (alpha): 66d0bf310167e78ba4162ba64c8166ec
-kangaroo.png to GIF (cast): 66d0bf310167e78ba4162ba64c8166ec
-Winter.jpg to JPEG: a2251d539c1e46aa6418ec83584bb6a7
-Winter.jpg to PNG: f6a1550a12459ae6887cba27a8d9c17e
+msnms #0              48x 48 true
+msnms #1              32x 32 true
+msnms #2              16x 16 true
+msnms #3              48x 48 true
+msnms #4              32x 32 true
+msnms #5              16x 16 true
+msnms #6              48x 48 true
+msnms #7              32x 32 true
+msnms #8              16x 16 true
+icon output: true
+chicken #0            51x 62 true
+chicken #1            53x 60 true
+chicken #2            51x 60 true
+chicken #3            51x 62 true
+chicken #4            53x 60 true
+chicken #5            51x 60 true
+reducecolor          800x600 true
+normal kangaroo       97x 52 true
+flip horizontal       97x 52 true
+flip vertical         97x 52 true
+flip both             97x 52 true
+rotate 90             52x 97 true
+rotate -90            52x 97 true
+rotate 0              97x 52 true
+rotate 30            110x 93 true
+rotate 60             93x110 true
+rotate 90             52x 97 true
+rotate 120            93x110 true
+rotate 150           110x 93 true
+rotate 180            97x 52 true
+rotate 210           110x 93 true
+rotate 240            93x110 true
+rotate 270            52x 97 true
+rotate 300            93x110 true
+rotate 330           110x 93 true
+image written in script binary: true
+chicken256.bmp to BMP: true
+chicken16.bmp to BMP: true
+Winter.jpg to BMP: true
+kangaroo.png to BMP: true
+kangaroo.gif to BMP: true
+kangaroo.png to GIF: true
+kangaroo.png to GIF (alpha): true
+kangaroo.png to GIF (cast): true
+Winter.jpg to JPEG: true
+Winter.jpg to PNG: true
 expected error occurs: FormatError: Not a PNG file
 expected error occurs: FormatError: Not a JPEG file: starts with 0x89 0x50
 expected error occurs: FormatError: Not a GIF file
@@ -99,4 +99,4 @@ gif.ImageDescriptor.SizeOfLocalColorTable 0
 4e 45 54 53 43 41 50 45                          NETSCAPE
 32 2e 30                                         2.0
 01 00 00                                         ...
-zebra_xpm to BMP: fe037ea0192322824afae5c22b6cdb81
+zebra_xpm to BMP: true
