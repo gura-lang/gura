@@ -115,6 +115,14 @@ public:
 	static void Initialize();
 public:
 	static const char *EncodingFromLANG();
+public:
+	// Code converter for Japanese characters
+	static UShort CP932ToUTF16(UShort codeCP932);
+	static UShort UTF16ToCP932(UShort codeUTF16);
+	static UShort CP932ToJIS(UShort codeCP932);
+	static UShort JISToCP932(UShort codeJIS);
+	static UShort CP932ToEUCJP(UShort codeCP932);
+	static UShort EUCJPToCP932(UShort codeEUCJP);
 };
 
 //-----------------------------------------------------------------------------

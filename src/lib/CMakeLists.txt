@@ -5,8 +5,8 @@ Algorithm.cpp
 Audio.cpp
 Binary.cpp
 Codec.cpp
+Codec_Japanese.cpp
 Common.cpp
-Conv_Japanese.cpp
 CustomClass.cpp
 DateTime.cpp
 Declaration.cpp

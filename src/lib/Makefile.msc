@@ -9,7 +9,7 @@ SRCS = \
 Common.cpp Parser.cpp TemplateEngine.cpp Expr.cpp Value.cpp Iterator.cpp \
 Symbol.cpp String.cpp Memory.cpp Binary.cpp Environment.cpp Signal.cpp Formatter.cpp Option.cpp \
 Help.cpp Function.cpp Operator.cpp Declaration.cpp \
-Algorithm.cpp Codec.cpp Conv_Japanese.cpp \
+Algorithm.cpp Codec.cpp Codec_Japanese.cpp \
 PathManager.cpp Directory.cpp Stream.cpp DateTime.cpp Image.cpp Palette.cpp Audio.cpp Matrix.cpp \
 OAL.cpp DllMain.cpp Fundamental.cpp
 

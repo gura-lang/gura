@@ -86,7 +86,6 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Binary.h
   ${GURA_INCLUDE_DIR}/gura/Codec.h
   ${GURA_INCLUDE_DIR}/gura/Common.h
-  ${GURA_INCLUDE_DIR}/gura/Conv_Japanese.h
   ${GURA_INCLUDE_DIR}/gura/CustomClass.h
   ${GURA_INCLUDE_DIR}/gura/DateTime.h
   ${GURA_INCLUDE_DIR}/gura/Declaration.h

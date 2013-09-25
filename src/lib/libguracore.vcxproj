@@ -178,8 +178,8 @@
     <ClCompile Include="Algorithm.cpp" />
     <ClCompile Include="Class.cpp" />
     <ClCompile Include="Codec.cpp" />
+    <ClCompile Include="Codec_Japanese.cpp" />
     <ClCompile Include="Common.cpp" />
-    <ClCompile Include="Conv_Japanese.cpp" />
     <ClCompile Include="DateTime.cpp" />
     <ClCompile Include="Declaration.cpp" />
     <ClCompile Include="PathManager.cpp" />
