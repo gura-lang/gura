@@ -979,20 +979,25 @@ Gura_ImplementFunction(element)
 	}
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
-#if 0
 	if (pExprBlock != NULL) {
 		Environment envLister(&env, ENVTYPE_lister);
 		Value valueRaw =
 			pExprBlock->GetExprOwner().ExecForList(envLister, sig, false, false);
 		if (sig.IsSignalled() || !valueRaw.IsList()) return Value::Null;
-		Value result;
-		ValueList &valList = result.InitAsList(env);
 		foreach_const (ValueList, pValue, valueRaw.GetList()) {
-			valList.push_back(*pValue);
+			if (pValue->IsString()) {
+				AutoPtr<Element> pChild(new Element());
+				pChild->InitAsText(pValue->GetStringSTL());
+				pElement->AddChild(pChild.release());
+			} else if (pValue->IsInstanceOf(VTYPE_element)) {
+				Object_element *pObj = Object_element::GetObject(*pValue);
+				pElement->AddChild(pObj->GetElement()->Reference());
+			} else {
+				sig.SetError(ERR_ValueError, "invalid value type");
+				return Value::Null;
+			}
 		}
-		pObjElem->AssignValue(Gura_Symbol(children), result, EXTRA_Public);
 	}
-#endif
 	return Value(new Object_element(pElement));
 }
 
