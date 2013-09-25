@@ -273,6 +273,43 @@ int Parser::Convert_euc_jp(void *data, const char *s)
 }
 
 //-----------------------------------------------------------------------------
+// Attribute
+//-----------------------------------------------------------------------------
+Attribute::Attribute(const String &name, const String &value) :
+									_cntRef(1), _name(name), _value(value)
+{
+}
+
+//-----------------------------------------------------------------------------
+// AttributeList
+//-----------------------------------------------------------------------------
+Attribute *AttributeList::FindByName(const char *name)
+{
+	foreach (AttributeList, ppAttribute, *this) {
+		Attribute *pAttribute = *ppAttribute;
+		if (::strcmp(pAttribute->GetName(), name) == 0) return pAttribute;
+	}
+	return NULL;
+}
+
+//-----------------------------------------------------------------------------
+// AttributeOwner
+//-----------------------------------------------------------------------------
+AttributeOwner::~AttributeOwner()
+{
+	Clear();
+}
+
+void AttributeOwner::Clear()
+{
+	foreach (AttributeOwner, ppAttribute, *this) {
+		Attribute *pAttribute = *ppAttribute;
+		Attribute::Delete(pAttribute);
+	}
+	clear();
+}
+
+//-----------------------------------------------------------------------------
 // Element
 //-----------------------------------------------------------------------------
 Element::Element() : _cntRef(1)
@@ -368,43 +405,6 @@ void Element::AddChild(Element *pChild)
 }
 
 //-----------------------------------------------------------------------------
-// Element::Attribute
-//-----------------------------------------------------------------------------
-Element::Attribute::Attribute(const String &name, const String &value) :
-												_name(name), _value(value)
-{
-}
-
-//-----------------------------------------------------------------------------
-// Element::AttributeList
-//-----------------------------------------------------------------------------
-Element::Attribute *Element::AttributeList::FindByName(const char *name)
-{
-	foreach (AttributeList, ppAttribute, *this) {
-		Attribute *pAttribute = *ppAttribute;
-		if (::strcmp(pAttribute->GetName(), name) == 0) return pAttribute;
-	}
-	return NULL;
-}
-
-//-----------------------------------------------------------------------------
-// Element::AttributeOwner
-//-----------------------------------------------------------------------------
-Element::AttributeOwner::~AttributeOwner()
-{
-	Clear();
-}
-
-void Element::AttributeOwner::Clear()
-{
-	foreach (AttributeOwner, ppAttribute, *this) {
-		Attribute *pAttribute = *ppAttribute;
-		delete pAttribute;
-	}
-	clear();
-}
-
-//-----------------------------------------------------------------------------
 // ElementList
 //-----------------------------------------------------------------------------
 
@@ -428,14 +428,8 @@ void ElementOwner::Clear()
 //-----------------------------------------------------------------------------
 // Object_parser
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(parser);
-
 Object_parser::Object_parser(Class *pClass) :
 						Object(pClass), _parser(this), _pSig(NULL)
-{
-}
-
-Object_parser::~Object_parser()
 {
 }
 
@@ -684,17 +678,111 @@ Gura_ImplementDescendantCreator(parser)
 }
 
 //-----------------------------------------------------------------------------
+// Object_attribute
+//-----------------------------------------------------------------------------
+Object_attribute::Object_attribute(Attribute *pAttribute) :
+					Object(Gura_UserClass(attribute)), _pAttribute(pAttribute)
+{
+}
+
+bool Object_attribute::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(name));
+	symbols.insert(Gura_UserSymbol(value));
+	return true;
+}
+
+Value Object_attribute::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
+		return Value(env, _pAttribute->GetName());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(value))) {
+		return Value(env, _pAttribute->GetValue());
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+String Object_attribute::ToString(Signal sig, bool exprFlag)
+{
+	String str;
+	str = "<xml.attribute:";
+	str += _pAttribute->GetName();
+	str += "=";
+	str += _pAttribute->GetValue();
+	str += ">";
+	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for Object_attribute
+//-----------------------------------------------------------------------------
+// implementation of class attribute
+Gura_ImplementUserClass(attribute)
+{
+}
+
+//-----------------------------------------------------------------------------
 // Object_element
 //-----------------------------------------------------------------------------
 Object_element::Object_element(Element *pElement) :
-			Object_dict(Gura_UserClass(element), false), _pElement(pElement)
+					Object(Gura_UserClass(element)), _pElement(pElement)
 {
+}
+
+Value Object_element::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
+{
+	if (!valueIdx.IsString()) {
+		sig.SetError(ERR_ValueError, "index must be a string");
+		return Value::Null;
+	}
+	Attribute *pAttribute = _pElement->GetAttributes().FindByName(valueIdx.GetString());
+	if (pAttribute == NULL) {
+		sig.SetError(ERR_IndexError, "specified attribute doesn't exist");
+		return Value::Null;
+	}
+	return Value(env, pAttribute->GetValue());
+}
+
+bool Object_element::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(text));
+	symbols.insert(Gura_UserSymbol(children));
+	return true;
+}
+
+Value Object_element::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
+		const String *pText = _pElement->GetText();
+		if (pText == NULL) return Value::Null;
+		return Value(env, *pText);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(children))) {
+		const ElementOwner *pChildren = _pElement->GetChildren();
+		if (pChildren == NULL) return Value::Null;
+		Iterator *pIterator = new Iterator_element(pChildren->Reference());
+		return Value(env, pIterator);
+	}
+	evaluatedFlag = false;
+	return Value::Null;
 }
 
 String Object_element::ToString(Signal sig, bool exprFlag)
 {
 	String str;
-	str = "<xml.element>";
+	str = "<xml.element:";
+	if (_pElement->IsText()) {
+		str += "*text*";
+	} else {
+		str += _pElement->GetName();
+	}
+	str += ">";
 	return str;
 }
 
@@ -717,13 +805,13 @@ Gura_ImplementMethod(element, format)
 	return Value::Null;
 }
 
-// xml.element#text()
-Gura_DeclareMethod(element, text)
+// xml.element#gettext()
+Gura_DeclareMethod(element, gettext)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 }
 
-Gura_ImplementMethod(element, text)
+Gura_ImplementMethod(element, gettext)
 {
 	Object_element *pObj = Object_element::GetThisObj(args);
 	String str = pObj->GetElement()->GatherText();
@@ -735,7 +823,42 @@ Gura_ImplementMethod(element, text)
 Gura_ImplementUserClass(element)
 {
 	Gura_AssignMethod(element, format);
-	Gura_AssignMethod(element, text);
+	Gura_AssignMethod(element, gettext);
+}
+
+//-----------------------------------------------------------------------------
+// Iterator_element
+//-----------------------------------------------------------------------------
+Iterator_element::Iterator_element(ElementOwner *pElementOwner) :
+						Iterator(false), _idxElement(0), _pElementOwner(pElementOwner)
+{
+}
+
+Iterator *Iterator_element::GetSource()
+{
+	return NULL;
+}
+
+bool Iterator_element::DoNext(Environment &env, Signal sig, Value &value)
+{
+	if (_idxElement < _pElementOwner->size()) {
+		Element *pElement = (*_pElementOwner)[_idxElement++];
+		value = Value(new Object_element(pElement->Reference()));
+		return true;
+	}
+	return false;
+}
+
+String Iterator_element::ToString(Signal sig) const
+{
+	String rtn;
+	rtn += "<iterator:xml.element";
+	rtn += ">";
+	return rtn;
+}
+
+void Iterator_element::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
 }
 
 //-----------------------------------------------------------------------------
@@ -901,7 +1024,7 @@ Gura_ImplementFunction(element)
 		if (sig.IsSignalled()) return Value::Null;
 		String value = iter->second.ToString(sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pElement->GetAttributes().push_back(new Element::Attribute(key, value));
+		pElement->GetAttributes().push_back(new Attribute(key, value));
 	}
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
@@ -927,19 +1050,19 @@ Gura_ImplementFunction(element)
 	return Value(new Object_element(pElement));
 }
 
-// obj = xml.read(stream:stream:r)
+// obj = xml.read(stream:stream:r) {block?}
 Gura_DeclareFunction(read)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(read)
 {
-	Value result;
-	Element *pElement = Reader().Parse(env, sig, args.GetStream(0));
+	AutoPtr<Element> pElement(Reader().Parse(env, sig, args.GetStream(0)));
 	if (sig.IsError()) return Value::Null;
-	return Value(new Object_element(pElement));
+	return ReturnValue(env, sig, args, Value(new Object_element(pElement.release())));
 }
 
 //-----------------------------------------------------------------------------
@@ -964,6 +1087,10 @@ Gura_ImplementMethod(stream, xmlread)
 Gura_ModuleEntry()
 {
 	// symbol realization
+	Gura_RealizeUserSymbol(name);
+	Gura_RealizeUserSymbol(value);
+	Gura_RealizeUserSymbol(text);
+	Gura_RealizeUserSymbol(children);
 	Gura_RealizeUserSymbol(StartElement);
 	Gura_RealizeUserSymbol(EndElement);
 	Gura_RealizeUserSymbol(CharacterData);
@@ -986,6 +1113,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(NotationDecl);
 	Gura_RealizeUserSymbol(NotStandalone);
 	// class realization
+	Gura_RealizeUserClass(attribute, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(element, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(parser, env.LookupClass(VTYPE_object));
 	// function assignment

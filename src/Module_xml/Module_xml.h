@@ -8,6 +8,11 @@
 
 Gura_BeginModule(xml)
 
+Gura_DeclareUserSymbol(name);
+Gura_DeclareUserSymbol(value);
+Gura_DeclareUserSymbol(text);
+Gura_DeclareUserSymbol(children);
+
 Gura_DeclareUserSymbol(StartElement);
 Gura_DeclareUserSymbol(EndElement);
 Gura_DeclareUserSymbol(CharacterData);
@@ -92,33 +97,51 @@ private:
 class ElementOwner;
 
 //-----------------------------------------------------------------------------
+// Attribute
+//-----------------------------------------------------------------------------
+class Attribute {
+private:
+	String _name;
+	String _value;
+private:
+	int _cntRef;
+public:
+	Gura_DeclareReferenceAccessor(Attribute);
+public:
+	Attribute(const String &name, const String &value);
+private:
+	inline ~Attribute() {}
+public:
+	inline const char *GetName() const { return _name.c_str(); }
+	inline const char *GetValue() const { return _value.c_str(); }
+};
+
+//-----------------------------------------------------------------------------
+// AttributeList
+//-----------------------------------------------------------------------------
+class AttributeList : public std::vector<Attribute *> {
+public:
+	Attribute *FindByName(const char *name);
+};
+
+//-----------------------------------------------------------------------------
+// AttributeOwner
+//-----------------------------------------------------------------------------
+class AttributeOwner : public AttributeList {
+public:
+	~AttributeOwner();
+	void Clear();
+};
+
+//-----------------------------------------------------------------------------
 // Element
 //-----------------------------------------------------------------------------
 class Element {
-public:
-	class Attribute {
-	private:
-		String _name;
-		String _value;
-	public:
-		Attribute(const String &name, const String &value);
-		inline const char *GetName() const { return _name.c_str(); }
-		inline const char *GetValue() const { return _value.c_str(); }
-	};
-	class AttributeList : public std::vector<Attribute *> {
-	public:
-		Attribute *FindByName(const char *name);
-	};
-	class AttributeOwner : public AttributeList {
-	public:
-		~AttributeOwner();
-		void Clear();
-	};
 private:
 	int _cntRef;
 	String _name;
 	AttributeOwner _attributes;
-	std::auto_ptr<ElementOwner> _pChildren;
+	AutoPtr<ElementOwner> _pChildren;
 	std::auto_ptr<String> _pText;
 public:
 	Gura_DeclareReferenceAccessor(Element);
@@ -151,9 +174,36 @@ class ElementList : public std::vector<Element *> {
 // ElementOwner
 //-----------------------------------------------------------------------------
 class ElementOwner : public ElementList {
+private:
+	int _cntRef;
 public:
+	Gura_DeclareReferenceAccessor(ElementOwner);
+public:
+	inline ElementOwner() : _cntRef(1) {}
+private:
 	~ElementOwner();
+public:
 	void Clear();
+};
+
+//-----------------------------------------------------------------------------
+// Object_attribute
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(attribute);
+
+class Object_attribute : public Object {
+private:
+	AutoPtr<Attribute> _pAttribute;
+public:
+	Gura_DeclareObjectAccessor(attribute)
+public:
+	Object_attribute(Attribute *pAttribute);
+	inline Attribute *GetAttribute() { return _pAttribute.get(); }
+	inline const Attribute *GetAttribute() const { return _pAttribute.get(); }
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(Signal sig, bool exprFlag);
 };
 
 //-----------------------------------------------------------------------------
@@ -161,7 +211,7 @@ public:
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClass(element);
 
-class Object_element : public Object_dict {
+class Object_element : public Object {
 private:
 	AutoPtr<Element> _pElement;
 public:
@@ -170,12 +220,18 @@ public:
 	Object_element(Element *pElement);
 	inline Element *GetElement() { return _pElement.get(); }
 	inline const Element *GetElement() const { return _pElement.get(); }
+	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 };
 
 //-----------------------------------------------------------------------------
 // Object_parser
 //-----------------------------------------------------------------------------
+Gura_DeclareUserClass(parser);
+
 class Object_parser : public Object {
 public:
 	class ParserEx : public Parser {
@@ -213,9 +269,23 @@ public:
 	Gura_DeclareObjectAccessor(parser)
 public:
 	Object_parser(Class *pClass);
-	virtual ~Object_parser();
 	void Parse(Environment &env, Signal &sig, Stream &stream);
 	void CallHandler(const Symbol *pSymbol, const ValueList argList);
+};
+
+//-----------------------------------------------------------------------------
+// Iterator_element
+//-----------------------------------------------------------------------------
+class Iterator_element : public Iterator {
+private:
+	size_t _idxElement;
+	AutoPtr<ElementOwner> _pElementOwner;
+public:
+	Iterator_element(ElementOwner *pElementOwner);
+	virtual Iterator *GetSource();
+	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual String ToString(Signal sig) const;
+	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 
 //-----------------------------------------------------------------------------
