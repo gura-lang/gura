@@ -6,7 +6,7 @@ import(opengl) {*}
 import(glu) {*}
 import(testutil) {*}
 
-tester_image(image:image, comment:string):map:void = {
+tester_image(image:image, comment:string, hexdigestExpect:string):map:void = {
 	printf('%-20s %3dx%3d\n', comment, image.width, image.height)
 	sdl.Init(sdl.INIT_EVERYTHING)
 	screen = sdl.SetVideoMode(image.width, image.height, 16, sdl.SWSURFACE)
@@ -18,12 +18,12 @@ tester_image(image:image, comment:string):map:void = {
 		if (event.type == sdl.KEYDOWN && event.sym == sdl.K_SPACE) { break }
 	}
 }
-tester_image(image:image, comment:string):map:void = {
+tester_image(image:image, comment:string, hexdigestExpect:string):map:void = {
 	md5 = hash.md5()
 	image.bmpwrite(md5)
-	printf('%-20s %3dx%3d %s\n', comment, image.width, image.height, md5.hexdigest)
+	printf('%-20s %3dx%3d %s\n', comment, image.width, image.height,
+		   md5.hexdigest in hexdigestExpect.split(';') || md5.hexdigest)
 }
-
 scope {
 	img = image(`rgb, 320, 320).opengl {
 		w = 320, h = 320
@@ -56,5 +56,6 @@ scope {
 			glNormal3dv([ 0,  1,  0]), glVertex3dv(vertex[3, 2, 6, 7])
 		}
 	}
-	tester_image(img, 'cube')
+	tester_image(img, 'cube',
+			'0d47f63c5fab55d2a91e4b15774b8be6;380e57a3f41006dc2028d8a57fd91d7b')
 }
