@@ -275,7 +275,11 @@ int Parser::Convert_euc_jp(void *data, const char *s)
 //-----------------------------------------------------------------------------
 // Element
 //-----------------------------------------------------------------------------
-Element::Element() : _cntRef(1), _pChildren(new ElementOwner())
+Element::Element(ElementOwner *pChildren) : _cntRef(1), _pChildren(pChildren)
+{
+}
+
+Element::Element(const String &text) : _cntRef(1), _pText(new String(text))
 {
 }
 

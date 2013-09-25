@@ -119,16 +119,19 @@ private:
 	String _name;
 	AttributeOwner _attributes;
 	std::auto_ptr<ElementOwner> _pChildren;
+	std::auto_ptr<String> _pText;
 public:
 	Gura_DeclareReferenceAccessor(Element);
 public:
-	Element();
+	Element(ElementOwner *pChildren);
+	Element(const String &text);
 	void SetAttributes(const char **atts);
 	inline const char *GetName() const { return _name.c_str(); }
 	inline AttributeOwner &GetAttributes() { return _attributes; }
 	inline const AttributeOwner &GetAttributes() const { return _attributes; }
-	inline ElementOwner &GetChildren() { return *_pChildren; }
-	inline const ElementOwner &GetChildren() const { return *_pChildren; }
+	inline ElementOwner *GetChildren() { return _pChildren.get(); }
+	inline const ElementOwner *GetChildren() const { return _pChildren.get(); }
+	inline const String *GetText() const { return _pText.get(); }
 private:
 	inline ~Element() {}
 };
