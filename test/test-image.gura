@@ -10,7 +10,7 @@ import(hash)
 import(freetype, ft)
 import(testutil) {*}
 
-tester_image(image:image, comment:string):map:void = {
+tester_image(image:image, comment:string, hexdigestExpect:string):map:void = {
 	printf('%-20s %3dx%3d\n', comment, image.width, image.height)
 	sdl.Init(sdl.INIT_EVERYTHING)
 	screen = sdl.SetVideoMode(image.width, image.height, 16, sdl.SWSURFACE)
@@ -22,10 +22,11 @@ tester_image(image:image, comment:string):map:void = {
 		(event.type == sdl.KEYDOWN && event.sym == sdl.K_SPACE) && break
 	}
 }
-tester_image(image:image, comment:string):map:void = {
+tester_image(image:image, comment:string, hexdigestExpect:string):map:void = {
 	md5 = hash.md5()
 	image.bmpwrite(md5)
-	printf('%-20s %3dx%3d %s\n', comment, image.width, image.height, md5.hexdigest)
+	printf('%-20s %3dx%3d %s\n', comment, image.width, image.height,
+						md5.hexdigest == hexdigestExpect || md5.hexdigest)
 }
 
 if (sys.build != `gnuc) {
@@ -38,7 +39,7 @@ if (sys.build != `gnuc) {
 		img.drawtext(font, 24, 12, str)
 		img.drawtext(font, -4, 36, str)
 		img.drawtext(font, 24, 36, str)
-		tester_image(img, 'msgothic 16pix')
+		tester_image(img, 'msgothic 16pix', '6aa748f92f68768b5656d6eb2c682293')
 	}
 	scope {
 		img = image(`rgb, 32, 32, `black)
@@ -48,14 +49,14 @@ if (sys.build != `gnuc) {
 		img.drawtext(font, 24, 8, '@')
 		img.drawtext(font, -8, 36, '@')
 		img.drawtext(font, 24, 36, '@')
-		tester_image(img, 'arial 16pix')
+		tester_image(img, 'arial 16pix', '17baea59b0b0f5cbcef0058aad60c89e')
 	}
 	scope {
 		img = image(`rgb, 320, 320, `black)
 		font = ft.font(ft.sysfontpath('arial.ttf'))
 		font.height = 320, font.color = `white
 		img.drawtext(font, 0, 240, '@')
-		tester_image(img, 'arial 320pix')
+		tester_image(img, 'arial 320pix', 'cb43efeb7d4ad5d16bec45af866b477e')
 	}
 }
 scope {
@@ -73,27 +74,57 @@ scope {
 }
 scope {
 	imgs = msico.content(I('msnms.ico'), `rgba).images
-	tester_image(imgs:*delpalette(), format('msnms #%d', 0..))
+	tester_image(imgs:*delpalette(), format('msnms #%d', 0..), [
+		'aace9f35d873a4cc1cfae1103bd4974c'
+		'cbfb14ff7fb82963623f3b0277534497'
+		'd3c561201deb9ca0e10102b8d4c588a8'
+		'06e4ecbfb5f979a65522a473ecfd923d'
+		'6de331ca32438f103905a45e51bb25c7'
+		'f475425f60a5c06ff64099509b183535'
+		'998776220e6c0aafaeb4d375fa9bcf7d'
+		'd2a4aea5b5012f32f95d002008983f66'
+		'ad0f8518aded94095c2f07db2c020a1d'
+	])
 	md5 = hash.md5()
 	msico.content().addimage(imgs).write(md5)
-	printf('icon output: %s\n', md5.hexdigest)
+	printf('icon output: %s\n', md5.hexdigest == 'f8189920672cdde0d5fd5a141d7f7d23' || md5.hexdigest)
 }
 scope {
 	tester_image(gif.content(I('chicken-anim.gif'), `rgba).images:*delpalette(),
-													format('chicken #%d', 0..))
+													format('chicken #%d', 0..), [
+		'1872079fdec22dccdc1202092a10f7d6'
+		'5c82e6b72ddaf9945d79e3630f461080'
+		'0c70fc6a0c89ef85b4e42bc1533dfc47'
+		'd49c97df970da1c820292142d0d08d3f'
+		'569b7f051a9d2fb0408cd618efb77426'
+		'603940e448ba6278a3c0c7a474eea50e'
+	])
 }
 scope {
 	img = image(I('Water_lilies.jpg'), `rgb)
-	tester_image(img.reducecolor(palette(`win256)).delpalette(), 'reducecolor')
+	tester_image(img.reducecolor(palette(`win256)).delpalette(), 'reducecolor', '2309d5011098eb2253ea7c8336c60769')
 	img = image(I('kangaroo.png'), `rgba)
-	tester_image(img, 'normal kangaroo')
-	tester_image(img.flip(`horz), 'flip horizontal')
-	tester_image(img.flip(`vert), 'flip vertical')
-	tester_image(img.flip(`both), 'flip both')
-	tester_image(img.rotate(90), 'rotate 90')
-	tester_image(img.rotate(-90), 'rotate -90')
+	tester_image(img, 'normal kangaroo', '4710c4ce4b37c7de6426ed6067d9ac2d')
+	tester_image(img.flip(`horz), 'flip horizontal', 'fe02358ec3635a0d6f16ed5ae44425f3')
+	tester_image(img.flip(`vert), 'flip vertical', '83c7ab596abf8bae352319ee6326b9ab')
+	tester_image(img.flip(`both), 'flip both', '34d45877e4ff503f92def52274e0988c')
+	tester_image(img.rotate(90), 'rotate 90', 'd6c552a3eea5d0dae6e85dca99dd23c6')
+	tester_image(img.rotate(-90), 'rotate -90', '1489559c319d1c3fcc6b8766b2f2751a')
 	degrees = range(0, 360, 30)
-	tester_image(img.rotate(degrees), format('rotate %d', degrees))
+	tester_image(img.rotate(degrees), format('rotate %d', degrees), [
+		'4710c4ce4b37c7de6426ed6067d9ac2d'
+		'8c831acf6a14041c96143b59e8d71e96'
+		'fd1e49195948257786387bb3c7cec0df'
+		'd6c552a3eea5d0dae6e85dca99dd23c6'
+		'013deb8ce58671c0f9b13ceb654bea7b'
+		'e9b381be1b4bfaa6e6a349a2e147725c'
+		'34d45877e4ff503f92def52274e0988c'
+		'8b134ce77644f5ade9d6310a8c04d5e0'
+		'ba827a85fad6591724a7741dbdcea660'
+		'1489559c319d1c3fcc6b8766b2f2751a'
+		'0e7f247eca23acd79238303cc19c3cac'
+		'1e2611222ea534bbd21a2ab303ac7c69'
+	])
 }
 scope {
 	img = image(\
@@ -148,30 +179,30 @@ scope {
 	)
 	md5 = hash.md5()
 	img.bmpwrite(md5.init())
-	println('image written in script binary: ', md5.hexdigest)
+	println('image written in script binary: ', md5.hexdigest == 'd8e123ea43ac83a77e489f9da0256951' || md5.hexdigest)
 }
 scope {
 	md5 = hash.md5()
 	image(I('chicken256.bmp'), `rgb).delpalette().bmpwrite(md5.init())
-	println('chicken256.bmp to BMP: ', md5.hexdigest)
+	println('chicken256.bmp to BMP: ', md5.hexdigest == '3224bf2c42fdb023ff99e30ba5b08544' || md5.hexdigest)
 	image(I('chicken16.bmp'), `rgb).delpalette().bmpwrite(md5.init())
-	println('chicken16.bmp to BMP: ', md5.hexdigest)
+	println('chicken16.bmp to BMP: ', md5.hexdigest == '8712312fbe16655082a66fced12c525a' || md5.hexdigest)
 	image(I('Winter.jpg'), `rgb).bmpwrite(md5.init())
-	println('Winter.jpg to BMP: ', md5.hexdigest)
+	println('Winter.jpg to BMP: ', md5.hexdigest == '48a79ea74da499f00aa9a212024c49be' || md5.hexdigest)
 	image(I('kangaroo.png'), `rgb).bmpwrite(md5.init())
-	println('kangaroo.png to BMP: ', md5.hexdigest)
+	println('kangaroo.png to BMP: ', md5.hexdigest == '2ec680a08f0303d449d0888158aeb529' || md5.hexdigest)
 	image(I('kangaroo.gif'), `rgb).delpalette().bmpwrite(md5.init())
-	println('kangaroo.gif to BMP: ', md5.hexdigest)
+	println('kangaroo.gif to BMP: ', md5.hexdigest == 'bf9664470d42a077fdca8afce5394f76' || md5.hexdigest)
 	image(I('kangaroo.png'), `rgb).gifwrite(md5.init())
-	println('kangaroo.png to GIF: ', md5.hexdigest)
+	println('kangaroo.png to GIF: ', md5.hexdigest == '9a78d811875c996748f1b317c2bf8e97' || md5.hexdigest)
 	image(I('kangaroo.png'), `rgba).gifwrite(md5.init())
-	println('kangaroo.png to GIF (alpha): ', md5.hexdigest)
+	println('kangaroo.png to GIF (alpha): ', md5.hexdigest == '66d0bf310167e78ba4162ba64c8166ec' || md5.hexdigest)
 	img:image = I('kangaroo.png'), img.gifwrite(md5.init())
-	println('kangaroo.png to GIF (cast): ', md5.hexdigest)
+	println('kangaroo.png to GIF (cast): ', md5.hexdigest == '66d0bf310167e78ba4162ba64c8166ec' || md5.hexdigest)
 	image(I('Winter.jpg'), `rgb).jpegwrite(md5.init())
-	println('Winter.jpg to JPEG: ', md5.hexdigest)
+	println('Winter.jpg to JPEG: ', md5.hexdigest == 'a2251d539c1e46aa6418ec83584bb6a7' || md5.hexdigest)
 	image(I('Winter.jpg'), `rgb).pngwrite(md5.init())
-	println('Winter.jpg to PNG: ', md5.hexdigest)
+	println('Winter.jpg to PNG: ', md5.hexdigest == 'f6a1550a12459ae6887cba27a8d9c17e' || md5.hexdigest)
 	try {
 		image(I('Winter.jpg'), `rgb, 'png')
 	} except {|e|
@@ -677,6 +708,6 @@ zebra_xpm = @{
 	md5 = hash.md5()
 	img = image(`rgba).xpmdata(zebra_xpm)
 	img.bmpwrite(md5.init())
-	println('zebra_xpm to BMP: ', md5.hexdigest)
+	println('zebra_xpm to BMP: ', md5.hexdigest == 'fe037ea0192322824afae5c22b6cdb81' || md5.hexdigest)
 	sys.exit()
 }
