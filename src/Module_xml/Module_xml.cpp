@@ -629,6 +629,12 @@ void Object_element::AddChild(const Value &value)
 	_pValList->push_back(value);
 }
 
+void Object_element::AddChild(Element *pChild)
+{
+	ElementOwner *pChildren = _pElement->GetChildren();
+	if (pChildren != NULL) pChildren->push_back(pChild);
+}
+
 String Object_element::Format(Signal sig, int indentLevel) const
 {
 	const char *indentUnit = "  ";

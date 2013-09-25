@@ -159,14 +159,15 @@ Gura_DeclareUserClass(element);
 class Object_element : public Object_dict {
 private:
 	ValueList *_pValList;
-	//AutoPtr<Element> _pElement;
+	AutoPtr<Element> _pElement;
 public:
 	Gura_DeclareObjectAccessor(element)
 public:
 	Object_element(Environment &env, const char *name, const char **atts);
-	//inline Element *GetElement() { return _pElement.get(); }
-	//inline const Element *GetElement() const { return _pElement.get(); }
+	inline Element *GetElement() { return _pElement.get(); }
+	inline const Element *GetElement() const { return _pElement.get(); }
 	void AddChild(const Value &value);
+	void AddChild(Element *pChild);
 	String Format(Signal sig, int indentLevel) const;
 	String GetText(Signal sig) const;
 	virtual String ToString(Signal sig, bool exprFlag);
