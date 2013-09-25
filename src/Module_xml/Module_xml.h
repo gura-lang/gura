@@ -128,6 +128,7 @@ public:
 	void InitAsText(const String &text);
 	String Format(int indentLevel) const;
 	String GatherText() const;
+	void AddChild(Element *pChild);
 	inline bool IsText() const { return _pText.get() != NULL; }
 	inline const char *GetName() const { return _name.c_str(); }
 	inline AttributeOwner &GetAttributes() { return _attributes; }
@@ -162,18 +163,19 @@ Gura_DeclareUserClass(element);
 
 class Object_element : public Object_dict {
 private:
-	ValueList *_pValList;
+	//ValueList *_pValList;
 	AutoPtr<Element> _pElement;
 public:
 	Gura_DeclareObjectAccessor(element)
 public:
-	Object_element(Environment &env, const char *name, const char **atts);
+	Object_element(const char *name, const char **atts);
+	Object_element(Element *pElement);
 	inline Element *GetElement() { return _pElement.get(); }
 	inline const Element *GetElement() const { return _pElement.get(); }
-	void AddChild(const Value &value);
-	void AddChild(Element *pChild);
-	String Format(Signal sig, int indentLevel) const;
-	String GetText(Signal sig) const;
+	//void AddChild(const Value &value);
+	//void AddChild(Element *pChild);
+	//String Format(Signal sig, int indentLevel) const;
+	//String GetText(Signal sig) const;
 	virtual String ToString(Signal sig, bool exprFlag);
 };
 
@@ -227,15 +229,15 @@ public:
 //-----------------------------------------------------------------------------
 class Reader : public Parser {
 private:
-	typedef std::vector<Object_element *> Stack;
+	typedef std::vector<Element *> Stack;
 private:
 	Stack _stack;
-	Object_element *_pObjElemRoot;
+	Element *_pElementRoot;
 	Environment *_pEnv;
 	Signal *_pSig;
 public:
-	inline Reader() : _pEnv(NULL), _pSig(NULL), _pObjElemRoot(NULL) {}
-	Object_element *Parse(Environment &env, Signal &sig, Stream &stream);
+	inline Reader() : _pEnv(NULL), _pSig(NULL), _pElementRoot(NULL) {}
+	Element *Parse(Environment &env, Signal &sig, Stream &stream);
 private:
 	virtual void OnStartElement(const XML_Char *name, const XML_Char **atts);
 	virtual void OnEndElement(const XML_Char *name);

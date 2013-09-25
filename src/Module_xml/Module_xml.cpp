@@ -346,6 +346,11 @@ String Element::GatherText() const
 	}
 }
 
+void Element::AddChild(Element *pChild)
+{
+	if (_pChildren.get() != NULL) _pChildren->push_back(pChild);
+}
+
 //-----------------------------------------------------------------------------
 // Element::Attribute
 //-----------------------------------------------------------------------------
@@ -438,7 +443,7 @@ void Object_parser::ParserEx::OnStartElement(const XML_Char *name, const XML_Cha
 {
 	Environment &env = *_pObj;
 	ValueList valListArg;
-	valListArg.push_back(Value(new Object_element(env, name, atts)));
+	valListArg.push_back(Value(new Object_element(name, atts)));
 	_pObj->CallHandler(Gura_UserSymbol(StartElement), valListArg);
 }
 
@@ -663,9 +668,10 @@ Gura_ImplementDescendantCreator(parser)
 //-----------------------------------------------------------------------------
 // Object_element
 //-----------------------------------------------------------------------------
-Object_element::Object_element(Environment &env, const char *name, const char **atts) :
-					Object_dict(env.LookupClass(VTYPE_element), false)
+Object_element::Object_element(const char *name, const char **atts) :
+								Object_dict(Gura_UserClass(element), false)
 {
+#if 0
 	AssignValue(Gura_Symbol(name), Value(env, name), EXTRA_Public);
 	if (atts != NULL) {
 		ValueDict &valDict = GetDict();
@@ -676,19 +682,24 @@ Object_element::Object_element(Environment &env, const char *name, const char **
 	Value valueOfList;
 	_pValList = &valueOfList.InitAsList(env);
 	AssignValue(Gura_Symbol(children), valueOfList, EXTRA_Public);
+#endif
+	_pElement.reset(new Element());
+	_pElement->InitAsTag(name, atts);
 }
 
+Object_element::Object_element(Element *pElement) :
+			Object_dict(Gura_UserClass(element), false), _pElement(pElement)
+{
+}
+
+#if 0
 void Object_element::AddChild(const Value &value)
 {
 	_pValList->push_back(value);
 }
+#endif
 
-void Object_element::AddChild(Element *pChild)
-{
-	ElementOwner *pChildren = _pElement->GetChildren();
-	if (pChildren != NULL) pChildren->push_back(pChild);
-}
-
+#if 0
 String Object_element::Format(Signal sig, int indentLevel) const
 {
 	const char *indentUnit = "  ";
@@ -754,18 +765,12 @@ String Object_element::GetText(Signal sig) const
 	}
 	return str;
 }
+#endif
 
 String Object_element::ToString(Signal sig, bool exprFlag)
 {
 	String str;
-	const Value *pValue = LookupValue(Gura_Symbol(name), ENVREF_NoEscalate);
-	if (pValue == NULL) {
-		str = "<xml.element>";
-	} else {
-		str = "<xml.element:";
-		str += pValue->ToString(sig, false);
-		str += ">";
-	}
+	str = "<xml.element>";
 	return str;
 }
 
@@ -781,7 +786,7 @@ Gura_DeclareMethod(element, format)
 Gura_ImplementMethod(element, format)
 {
 	Object_element *pObj = Object_element::GetThisObj(args);
-	String str = pObj->Format(sig, 0);
+	String str = pObj->GetElement()->Format(0);
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(env, str.c_str());
 }
@@ -795,7 +800,7 @@ Gura_DeclareMethod(element, text)
 Gura_ImplementMethod(element, text)
 {
 	Object_element *pObj = Object_element::GetThisObj(args);
-	String str = pObj->GetText(sig);
+	String str = pObj->GetElement()->GatherText();
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(env, str.c_str());
 }
@@ -810,23 +815,24 @@ Gura_ImplementUserClass(element)
 //-----------------------------------------------------------------------------
 // Reader
 //-----------------------------------------------------------------------------
-Object_element *Reader::Parse(Environment &env, Signal &sig, Stream &stream)
+Element *Reader::Parse(Environment &env, Signal &sig, Stream &stream)
 {
-	_pObjElemRoot = NULL, _pEnv = &env, _pSig = &sig;
+	_pElementRoot = NULL, _pEnv = &env, _pSig = &sig;
 	Parser::Parse(sig, stream);
 	_pEnv = NULL, _pSig = NULL;
-	return _pObjElemRoot;
+	return _pElementRoot;
 }
 
 void Reader::OnStartElement(const XML_Char *name, const XML_Char **atts)
 {
-	Object_element *pObjElem = new Object_element(*_pEnv, name, atts);
+	Element *pElement = new Element();
+	pElement->InitAsTag(name, atts);
 	if (_stack.empty()) {
-		_pObjElemRoot = pObjElem;
+		_pElementRoot = pElement;
 	} else {
-		_stack.back()->AddChild(Value(pObjElem));
+		_stack.back()->AddChild(pElement);
 	}
-	_stack.push_back(pObjElem);
+	_stack.push_back(pElement);
 }
 
 void Reader::OnEndElement(const XML_Char *name)
@@ -837,8 +843,9 @@ void Reader::OnEndElement(const XML_Char *name)
 void Reader::OnCharacterData(const XML_Char *text, int len)
 {
 	if (!_stack.empty()) {
-		_stack.back()->AddChild(Value(*_pEnv,
-							reinterpret_cast<const char *>(text), len));
+		Element *pElement = new Element();
+		pElement->InitAsText(String(text, len));
+		_stack.back()->AddChild(pElement);
 	}
 }
 
@@ -961,12 +968,18 @@ Gura_DeclareFunction(element)
 
 Gura_ImplementFunction(element)
 {
-	Object_element *pObjElem = new Object_element(env, args.GetString(0), NULL);
+	Element *pElement = new Element();
+	pElement->InitAsTag(args.GetString(0), NULL);
 	foreach_const (ValueDict, iter, args.GetDictArg()) {
-		pObjElem->GetDict()[iter->first] = iter->second;
+		String key = iter->first.ToString(sig);
+		if (sig.IsSignalled()) return Value::Null;
+		String value = iter->second.ToString(sig);
+		if (sig.IsSignalled()) return Value::Null;
+		pElement->GetAttributes().push_back(new Element::Attribute(key, value));
 	}
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
+#if 0
 	if (pExprBlock != NULL) {
 		Environment envLister(&env, ENVTYPE_lister);
 		Value valueRaw =
@@ -979,7 +992,8 @@ Gura_ImplementFunction(element)
 		}
 		pObjElem->AssignValue(Gura_Symbol(children), result, EXTRA_Public);
 	}
-	return Value(pObjElem);
+#endif
+	return Value(new Object_element(pElement));
 }
 
 // obj = xml.read(stream:stream:r)
@@ -992,9 +1006,9 @@ Gura_DeclareFunction(read)
 Gura_ImplementFunction(read)
 {
 	Value result;
-	Object_element *pObjElem = Reader().Parse(env, sig, args.GetStream(0));
+	Element *pElement = Reader().Parse(env, sig, args.GetStream(0));
 	if (sig.IsError()) return Value::Null;
-	return Value(pObjElem);
+	return Value(new Object_element(pElement));
 }
 
 //-----------------------------------------------------------------------------
@@ -1010,9 +1024,9 @@ Gura_ImplementMethod(stream, xmlread)
 {
 	Object_stream *pThis = Object_stream::GetThisObj(args);
 	Value result;
-	Object_element *pObjElem = Reader().Parse(env, sig, pThis->GetStream());
+	Element *pElement = Reader().Parse(env, sig, pThis->GetStream());
 	if (sig.IsError()) return Value::Null;
-	return Value(pObjElem);
+	return Value(new Object_element(pElement));
 }
 
 // Module entry
