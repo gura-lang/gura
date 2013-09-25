@@ -1,6 +1,3 @@
-msgothic 16pix        32x 32 true
-arial 16pix           32x 32 true
-arial 320pix         320x320 true
        ******             ******             ******             ******      
      **      **         **      **         **      **         **      **    
     *    @     *       *          *       *          *       *          *   
