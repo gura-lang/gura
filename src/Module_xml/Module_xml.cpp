@@ -317,7 +317,7 @@ String Element::Format(int indentLevel) const
 		str += pAttribute->GetValue();
 		str += "\"";
 	}
-	if (GetChildren() || GetChildren()->empty()) {
+	if (GetChildren() == NULL || GetChildren()->empty()) {
 		str += " />";
 	} else {
 		str += ">\n";
@@ -338,17 +338,19 @@ String Element::GatherText() const
 {
 	if (IsText()) return *GetText();
 	String str;
-	if (GetChildren() || GetChildren()->empty()) {
+	if (GetChildren() != NULL) {
 		foreach_const (ElementOwner, ppChild, *GetChildren()) {
 			const Element *pChild = *ppChild;
 			str += pChild->GatherText();
 		}
 	}
+	return str;
 }
 
 void Element::AddChild(Element *pChild)
 {
-	if (_pChildren.get() != NULL) _pChildren->push_back(pChild);
+	if (_pChildren.get() == NULL) _pChildren.reset(new ElementOwner());
+	_pChildren->push_back(pChild);
 }
 
 //-----------------------------------------------------------------------------
@@ -442,8 +444,10 @@ void Object_parser::CallHandler(const Symbol *pSymbol, const ValueList argList)
 void Object_parser::ParserEx::OnStartElement(const XML_Char *name, const XML_Char **atts)
 {
 	Environment &env = *_pObj;
+	Element *pElement = new Element();
+	pElement->InitAsTag(name, atts);
 	ValueList valListArg;
-	valListArg.push_back(Value(new Object_element(name, atts)));
+	valListArg.push_back(Value(new Object_element(pElement)));
 	_pObj->CallHandler(Gura_UserSymbol(StartElement), valListArg);
 }
 
@@ -668,104 +672,10 @@ Gura_ImplementDescendantCreator(parser)
 //-----------------------------------------------------------------------------
 // Object_element
 //-----------------------------------------------------------------------------
-Object_element::Object_element(const char *name, const char **atts) :
-								Object_dict(Gura_UserClass(element), false)
-{
-#if 0
-	AssignValue(Gura_Symbol(name), Value(env, name), EXTRA_Public);
-	if (atts != NULL) {
-		ValueDict &valDict = GetDict();
-		for (const char **p = atts; *p != NULL && *(p + 1) != NULL; p += 2) {
-			valDict[Value(env, *p)] = Value(env, *(p + 1));
-		}
-	}
-	Value valueOfList;
-	_pValList = &valueOfList.InitAsList(env);
-	AssignValue(Gura_Symbol(children), valueOfList, EXTRA_Public);
-#endif
-	_pElement.reset(new Element());
-	_pElement->InitAsTag(name, atts);
-}
-
 Object_element::Object_element(Element *pElement) :
 			Object_dict(Gura_UserClass(element), false), _pElement(pElement)
 {
 }
-
-#if 0
-void Object_element::AddChild(const Value &value)
-{
-	_pValList->push_back(value);
-}
-#endif
-
-#if 0
-String Object_element::Format(Signal sig, int indentLevel) const
-{
-	const char *indentUnit = "  ";
-	String str;
-	String name = "";
-	String indent;
-	for (int i = 0; i < indentLevel; i++) indent += indentUnit;
-	do {
-		const Value *pValue = LookupValue(Gura_Symbol(name), ENVREF_NoEscalate);
-		if (pValue != NULL) name = pValue->ToString(sig, false);
-	} while (0);
-	str += indent;
-	str += "<";
-	str += name;
-	foreach_const (ValueDict, iter, GetDict()) {
-		str += " ";
-		str += iter->first.ToString(sig, false);
-		str += "=\"";
-		str += iter->second.ToString(sig, false);
-		str += "\"";
-	}
-	const Value *pValChildren = LookupValue(Gura_Symbol(children), ENVREF_NoEscalate);
-	if (pValChildren == NULL || !pValChildren->IsList() ||
-									pValChildren->GetList().empty()) {
-		str += " />";
-	} else {
-		str += ">\n";
-		foreach_const (ValueList, pValue, pValChildren->GetList()) {
-			if (pValue->IsString()) {
-				str += indent;
-				str += indentUnit;
-				str += pValue->GetString();
-				str += "\n";
-			} else if (pValue->IsType(VTYPE_element)) {
-				const Object *pObj = pValue->GetObject();
-				str += dynamic_cast<const Object_element *>(pObj)->
-													Format(sig, indentLevel + 1);
-				str += "\n";
-			}
-		}
-		str += indent;
-		str += "</";
-		str += name;
-		str += ">";
-	}
-	return str;
-}
-
-String Object_element::GetText(Signal sig) const
-{
-	String str;
-	const Value *pValChildren = LookupValue(Gura_Symbol(children), ENVREF_NoEscalate);
-	if (pValChildren != NULL && pValChildren->IsList() &&
-									!pValChildren->GetList().empty()) {
-		foreach_const (ValueList, pValue, pValChildren->GetList()) {
-			if (pValue->IsString()) {
-				str += pValue->GetString();
-			} else if (pValue->IsType(VTYPE_element)) {
-				const Object *pObj = pValue->GetObject();
-				str += dynamic_cast<const Object_element *>(pObj)->GetText(sig);
-			}
-		}
-	}
-	return str;
-}
-#endif
 
 String Object_element::ToString(Signal sig, bool exprFlag)
 {

@@ -55,4 +55,5 @@ MyParser = class(xml.parser) {
 	NotStandalone() = {
 	}
 }
-MyParser().parse('test.xml');
+//MyParser().parse('test.xml');
+print(xml.read('test.xml').format())
