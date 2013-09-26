@@ -283,10 +283,10 @@ Attribute::Attribute(const String &name, const String &value) :
 //-----------------------------------------------------------------------------
 // AttributeList
 //-----------------------------------------------------------------------------
-Attribute *AttributeList::FindByName(const char *name)
+const Attribute *AttributeList::FindByName(const char *name) const
 {
-	foreach (AttributeList, ppAttribute, *this) {
-		Attribute *pAttribute = *ppAttribute;
+	foreach_const (AttributeList, ppAttribute, *this) {
+		const Attribute *pAttribute = *ppAttribute;
 		if (::strcmp(pAttribute->GetName(), name) == 0) return pAttribute;
 	}
 	return NULL;
@@ -315,10 +315,11 @@ void AttributeOwner::Clear()
 Element::Element(Type type, const String &str, const char **atts) :
 										_cntRef(1), _type(type), _str(str)
 {
+	if (type == TYPE_Tag) _pAttributes.reset(new AttributeOwner());
 	if (atts != NULL) {
 		for (const char **p = atts; *p != NULL && *(p + 1) != NULL; p += 2) {
 			const char *name = *p, *value = *(p + 1);
-			_attributes.push_back(new Attribute(name, value));
+			GetAttributes()->push_back(new Attribute(name, value));
 		}
 	}
 }
@@ -335,7 +336,7 @@ bool Element::Format(Signal sig, Stream &stream, int indentLevel) const
 		if (sig.IsSignalled()) return false;
 		stream.Print(sig, GetTagName());
 		if (sig.IsSignalled()) return false;
-		foreach_const (AttributeOwner, ppAttribute, GetAttributes()) {
+		foreach_const (AttributeOwner, ppAttribute, *GetAttributes()) {
 			const Attribute *pAttribute = *ppAttribute;
 			stream.PutChar(sig, ' ');
 			if (sig.IsSignalled()) return false;
@@ -762,7 +763,9 @@ Value Object_element::IndexGet(Environment &env, Signal sig, const Value &valueI
 		sig.SetError(ERR_ValueError, "index must be a string");
 		return Value::Null;
 	}
-	Attribute *pAttribute = _pElement->GetAttributes().FindByName(valueIdx.GetString());
+	const AttributeOwner *pAttributes = _pElement->GetAttributes();
+	const Attribute *pAttribute = (pAttributes == NULL)?
+					NULL : pAttributes->FindByName(valueIdx.GetString());
 	if (pAttribute == NULL) {
 		sig.SetError(ERR_IndexError, "specified attribute doesn't exist");
 		return Value::Null;
@@ -800,6 +803,10 @@ Value Object_element::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 		Iterator *pIterator = new Iterator_element(pChildren->Reference());
 		return Value(env, pIterator);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(attrs))) {
+		const AttributeOwner *pAttrs = _pElement->GetAttributes();
+		if (pAttrs == NULL) return Value::Null;
+		Iterator *pIterator = new Iterator_attribute(pAttrs->Reference());
+		return Value(env, pIterator);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -873,6 +880,41 @@ Gura_ImplementUserClass(element)
 	Gura_AssignMethod(element, format);
 	Gura_AssignMethod(element, gettext);
 	Gura_AssignMethod(element, addchild);
+}
+
+//-----------------------------------------------------------------------------
+// Iterator_attribute
+//-----------------------------------------------------------------------------
+Iterator_attribute::Iterator_attribute(AttributeOwner *pAttributeOwner) :
+						Iterator(false), _idxAttribute(0), _pAttributeOwner(pAttributeOwner)
+{
+}
+
+Iterator *Iterator_attribute::GetSource()
+{
+	return NULL;
+}
+
+bool Iterator_attribute::DoNext(Environment &env, Signal sig, Value &value)
+{
+	if (_idxAttribute < _pAttributeOwner->size()) {
+		Attribute *pAttribute = (*_pAttributeOwner)[_idxAttribute++];
+		value = Value(new Object_attribute(pAttribute->Reference()));
+		return true;
+	}
+	return false;
+}
+
+String Iterator_attribute::ToString(Signal sig) const
+{
+	String rtn;
+	rtn += "<iterator:xml.attribute";
+	rtn += ">";
+	return rtn;
+}
+
+void Iterator_attribute::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
 }
 
 //-----------------------------------------------------------------------------
@@ -1074,7 +1116,7 @@ Gura_ImplementFunction(element)
 		if (sig.IsSignalled()) return Value::Null;
 		String value = iter->second.ToString(sig, false);
 		if (sig.IsSignalled()) return Value::Null;
-		pElement->GetAttributes().push_back(new Attribute(key, value));
+		pElement->GetAttributes()->push_back(new Attribute(key, value));
 	}
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (sig.IsSignalled()) return Value::Null;

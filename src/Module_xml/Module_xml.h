@@ -124,15 +124,22 @@ public:
 //-----------------------------------------------------------------------------
 class AttributeList : public std::vector<Attribute *> {
 public:
-	Attribute *FindByName(const char *name);
+	const Attribute *FindByName(const char *name) const;
 };
 
 //-----------------------------------------------------------------------------
 // AttributeOwner
 //-----------------------------------------------------------------------------
 class AttributeOwner : public AttributeList {
+private:
+	int _cntRef;
 public:
+	Gura_DeclareReferenceAccessor(AttributeOwner);
+public:
+	inline AttributeOwner() : _cntRef(1) {}
+private:
 	~AttributeOwner();
+public:
 	void Clear();
 };
 
@@ -151,7 +158,7 @@ private:
 	int _cntRef;
 	Type _type;
 	String _str;
-	AttributeOwner _attributes;
+	AutoPtr<AttributeOwner> _pAttributes;
 	AutoPtr<ElementOwner> _pChildren;
 public:
 	Gura_DeclareReferenceAccessor(Element);
@@ -167,8 +174,8 @@ public:
 	inline const char *GetTagName() const { return _str.c_str(); }
 	inline const char *GetText() const { return _str.c_str(); }
 	inline const char *GetComment() const { return _str.c_str(); }
-	inline AttributeOwner &GetAttributes() { return _attributes; }
-	inline const AttributeOwner &GetAttributes() const { return _attributes; }
+	inline AttributeOwner *GetAttributes() { return _pAttributes.get(); }
+	inline const AttributeOwner *GetAttributes() const { return _pAttributes.get(); }
 	inline void SetChildren(ElementOwner *pChildren) { _pChildren.reset(pChildren); }
 	inline ElementOwner *GetChildren() { return _pChildren.get(); }
 	inline const ElementOwner *GetChildren() const { return _pChildren.get(); }
@@ -283,6 +290,21 @@ public:
 	Object_parser(Class *pClass);
 	void Parse(Environment &env, Signal &sig, Stream &stream);
 	void CallHandler(const Symbol *pSymbol, const ValueList argList);
+};
+
+//-----------------------------------------------------------------------------
+// Iterator_attribute
+//-----------------------------------------------------------------------------
+class Iterator_attribute : public Iterator {
+private:
+	size_t _idxAttribute;
+	AutoPtr<AttributeOwner> _pAttributeOwner;
+public:
+	Iterator_attribute(AttributeOwner *pAttributeOwner);
+	virtual Iterator *GetSource();
+	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual String ToString(Signal sig) const;
+	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 
 //-----------------------------------------------------------------------------
