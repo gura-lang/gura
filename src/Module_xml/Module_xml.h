@@ -14,6 +14,7 @@ Gura_DeclareUserSymbol(tagname);
 Gura_DeclareUserSymbol(text);
 Gura_DeclareUserSymbol(comment);
 Gura_DeclareUserSymbol(children);
+Gura_DeclareUserSymbol(attrs);
 
 Gura_DeclareUserSymbol(StartElement);
 Gura_DeclareUserSymbol(EndElement);
@@ -159,6 +160,7 @@ public:
 	bool Format(Signal sig, Stream &stream, int indentLevel) const;
 	String GatherText() const;
 	void AddChild(Element *pChild);
+	bool AddChild(Environment &env, Signal sig, const Value &value);
 	inline bool IsTag() const { return _type == TYPE_Tag; }
 	inline bool IsText() const { return _type == TYPE_Text; }
 	inline bool IsComment() const { return _type == TYPE_Comment; }

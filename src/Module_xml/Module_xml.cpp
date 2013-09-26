@@ -372,7 +372,7 @@ bool Element::Format(Signal sig, Stream &stream, int indentLevel) const
 		stream.Print(sig, "\n");
 		if (sig.IsSignalled()) return false;
 	} else if (IsComment()) {
-		stream.PutChar(sig, '<!--');
+		stream.Print(sig, "<!--");
 		if (sig.IsSignalled()) return false;
 		stream.Print(sig, GetComment());
 		if (sig.IsSignalled()) return false;
@@ -399,6 +399,33 @@ void Element::AddChild(Element *pChild)
 {
 	if (_pChildren.get() == NULL) _pChildren.reset(new ElementOwner());
 	_pChildren->push_back(pChild);
+}
+
+bool Element::AddChild(Environment &env, Signal sig, const Value &value)
+{
+	if (value.IsString()) {
+		AutoPtr<Element> pChild(new Element(Element::TYPE_Text, value.GetStringSTL()));
+		AddChild(pChild.release());
+	} else if (value.IsInstanceOf(VTYPE_element)) {
+		Object_element *pObj = Object_element::GetObject(value);
+		AddChild(pObj->GetElement()->Reference());
+	} else if (value.IsListOrIterator()) {
+		AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
+		if (sig.IsSignalled()) return false;
+		if (pIterator->IsInfinite()) {
+			Iterator::SetError_InfiniteNotAllowed(sig);
+			return false;
+		}
+		Value valueIter;
+		while (pIterator->Next(env, sig, valueIter)) {
+			if (!AddChild(env, sig, valueIter)) return false;
+		}
+		if (sig.IsSignalled()) return false;
+	} else {
+		sig.SetError(ERR_ValueError, "invalid value type");
+		return false;
+	}
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -750,6 +777,7 @@ bool Object_element::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	symbols.insert(Gura_UserSymbol(text));
 	symbols.insert(Gura_UserSymbol(comment));
 	symbols.insert(Gura_UserSymbol(children));
+	symbols.insert(Gura_UserSymbol(attrs));
 	return true;
 }
 
@@ -771,6 +799,7 @@ Value Object_element::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 		if (pChildren == NULL) return Value::Null;
 		Iterator *pIterator = new Iterator_element(pChildren->Reference());
 		return Value(env, pIterator);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(attrs))) {
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -824,11 +853,26 @@ Gura_ImplementMethod(element, gettext)
 	return Value(env, str.c_str());
 }
 
+// xml.element#addchild(value):void:map
+Gura_DeclareMethod(element, addchild)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "value", VTYPE_any);
+}
+
+Gura_ImplementMethod(element, addchild)
+{
+	Object_element *pObj = Object_element::GetThisObj(args);
+	pObj->GetElement()->AddChild(env, sig, args.GetValue(0));
+	return Value::Null;
+}
+
 // implementation of class Element
 Gura_ImplementUserClass(element)
 {
 	Gura_AssignMethod(element, format);
 	Gura_AssignMethod(element, gettext);
+	Gura_AssignMethod(element, addchild);
 }
 
 //-----------------------------------------------------------------------------
@@ -907,6 +951,10 @@ void Reader::OnProcessingInstruction(const XML_Char *target, const XML_Char *dat
 
 void Reader::OnComment(const XML_Char *data)
 {
+	if (!_stack.empty()) {
+		Element *pElement = new Element(Element::TYPE_Comment, data);
+		_stack.back()->AddChild(pElement);
+	}
 }
 
 void Reader::OnStartCdataSection()
@@ -1009,18 +1057,18 @@ Gura_ImplementFunction(parser)
 	return ReturnValue(env, sig, args, args.GetThis());
 }
 
-// p = xml.element(@name:string, %attrs) {block?}
+// xml.element(_tagname_:string, %attrs):map {block?}
 Gura_DeclareFunction(element)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "@name", VTYPE_string);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "_tagname_", VTYPE_string);
 	DeclareDictArg("attrs");
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(element)
 {
-	Element *pElement = new Element(Element::TYPE_Tag, args.GetStringSTL(0), NULL);
+	Element *pElement = new Element(Element::TYPE_Tag, args.GetStringSTL(0));
 	foreach_const (ValueDict, iter, args.GetDictArg()) {
 		String key = iter->first.ToString(sig, false);
 		if (sig.IsSignalled()) return Value::Null;
@@ -1036,18 +1084,22 @@ Gura_ImplementFunction(element)
 			pExprBlock->GetExprOwner().ExecForList(envLister, sig, false, false);
 		if (sig.IsSignalled() || !valueRaw.IsList()) return Value::Null;
 		foreach_const (ValueList, pValue, valueRaw.GetList()) {
-			if (pValue->IsString()) {
-				AutoPtr<Element> pChild(new Element(Element::TYPE_Text, pValue->GetStringSTL()));
-				pElement->AddChild(pChild.release());
-			} else if (pValue->IsInstanceOf(VTYPE_element)) {
-				Object_element *pObj = Object_element::GetObject(*pValue);
-				pElement->AddChild(pObj->GetElement()->Reference());
-			} else {
-				sig.SetError(ERR_ValueError, "invalid value type");
-				return Value::Null;
-			}
+			if (!pElement->AddChild(env, sig, *pValue)) return Value::Null;
 		}
 	}
+	return Value(new Object_element(pElement));
+}
+
+// xml.comment(comment:string)
+Gura_DeclareFunction(comment)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "comment", VTYPE_string);
+}
+
+Gura_ImplementFunction(comment)
+{
+	Element *pElement = new Element(Element::TYPE_Comment, args.GetStringSTL(0));
 	return Value(new Object_element(pElement));
 }
 
@@ -1094,6 +1146,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(text);
 	Gura_RealizeUserSymbol(comment);
 	Gura_RealizeUserSymbol(children);
+	Gura_RealizeUserSymbol(attrs);
 	Gura_RealizeUserSymbol(StartElement);
 	Gura_RealizeUserSymbol(EndElement);
 	Gura_RealizeUserSymbol(CharacterData);
@@ -1122,6 +1175,7 @@ Gura_ModuleEntry()
 	// function assignment
 	Gura_AssignFunction(parser);
 	Gura_AssignFunction(element);
+	Gura_AssignFunction(comment);
 	Gura_AssignFunction(read);
 	// method assignment to stream type
 	Gura_AssignMethodTo(VTYPE_stream, stream, xmlread);

@@ -58,6 +58,7 @@ MyParser = class(xml.parser) {
 //MyParser().parse('test.xml');
 
 xml.read('test.xml') {|root|
-	println(root)
-	println(root.children)
+	//println(root)
+	//println(root.children)
+	root.format()
 }

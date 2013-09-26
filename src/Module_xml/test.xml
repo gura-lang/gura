@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document xmlns="http://schemas.vtech-inc.co.jp/waver/document">
+  <!-- comment -->
   <ChartOwner>
     <Chart label="Chart1" label-area-width="100" wave-area-width="1000"
            time-whole-min="0" time-whole-max="3000000000"
