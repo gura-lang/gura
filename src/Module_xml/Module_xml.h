@@ -165,7 +165,7 @@ public:
 	Gura_DeclareReferenceAccessor(Element);
 public:
 	Element(Type type, const String &str, const char **atts = NULL);
-	bool Format(Signal sig, Stream &stream, int indentLevel) const;
+	bool Write(Signal sig, Stream &stream, int indentLevel) const;
 	String GatherText() const;
 	void AddChild(Element *pChild);
 	bool AddChild(Environment &env, Signal sig, const Value &value);
@@ -223,6 +223,8 @@ public:
 private:
 	inline ~Document() {}
 public:
+	bool Write(Signal sig, Stream &stream) const;
+	inline void SetRoot(Element *pRoot) { _pRoot.reset(pRoot); }
 	inline Element *GetRoot() { return _pRoot.get(); }
 	inline const Element *GetRoot() const { return _pRoot.get(); }
 private:
@@ -352,6 +354,8 @@ public:
 	inline const Document *GetDocument() const { return _pDocument.get(); }
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 };

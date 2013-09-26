@@ -69,5 +69,6 @@ xml.document('test.xml') {|doc|
 	//println(root)
 	//println(root.children)
 	//root.format()
-	doc.root.print()
+	//doc.root.print()
+	doc.write()
 }

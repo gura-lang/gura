@@ -325,7 +325,7 @@ Element::Element(Type type, const String &str, const char **atts) :
 	}
 }
 
-bool Element::Format(Signal sig, Stream &stream, int indentLevel) const
+bool Element::Write(Signal sig, Stream &stream, int indentLevel) const
 {
 	const char *indentUnit = "  ";
 	String indent;
@@ -341,11 +341,11 @@ bool Element::Format(Signal sig, Stream &stream, int indentLevel) const
 			const Attribute *pAttribute = *ppAttribute;
 			stream.PutChar(sig, ' ');
 			if (sig.IsSignalled()) return false;
-			stream.Print(sig, pAttribute->GetName());
+			stream.Print(sig, EscapeHtml(pAttribute->GetName(), true).c_str());
 			if (sig.IsSignalled()) return false;
 			stream.Print(sig, "=\"");
 			if (sig.IsSignalled()) return false;
-			stream.Print(sig, pAttribute->GetValue());
+			stream.Print(sig, EscapeHtml(pAttribute->GetValue(), true).c_str());
 			if (sig.IsSignalled()) return false;
 			stream.PutChar(sig, '"');
 			if (sig.IsSignalled()) return false;
@@ -358,7 +358,7 @@ bool Element::Format(Signal sig, Stream &stream, int indentLevel) const
 			if (sig.IsSignalled()) return false;
 			foreach_const (ElementOwner, ppChild, *GetChildren()) {
 				const Element *pChild = *ppChild;
-				if (!pChild->Format(sig, stream, indentLevel + 1)) return false;
+				if (!pChild->Write(sig, stream, indentLevel + 1)) return false;
 			}
 			stream.Print(sig, indent.c_str());
 			if (sig.IsSignalled()) return false;
@@ -369,14 +369,14 @@ bool Element::Format(Signal sig, Stream &stream, int indentLevel) const
 			stream.Print(sig, ">\n");
 		}
 	} else if (IsText()) {
-		stream.Print(sig, GetText());
+		stream.Print(sig, EscapeHtml(GetText(), true).c_str());
 		if (sig.IsSignalled()) return false;
 		stream.Print(sig, "\n");
 		if (sig.IsSignalled()) return false;
 	} else if (IsComment()) {
 		stream.Print(sig, "<!--");
 		if (sig.IsSignalled()) return false;
-		stream.Print(sig, GetComment());
+		stream.Print(sig, EscapeHtml(GetComment(), true).c_str());
 		if (sig.IsSignalled()) return false;
 		stream.Print(sig, "-->\n");
 		if (sig.IsSignalled()) return false;
@@ -456,6 +456,16 @@ void ElementOwner::Clear()
 //-----------------------------------------------------------------------------
 Document::Document() : _cntRef(1)
 {
+}
+
+bool Document::Write(Signal sig, Stream &stream) const
+{
+	stream.Print(sig, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+	if (sig.IsSignalled()) return false;
+	if (!_pRoot.IsNull()) {
+		if (!_pRoot->Write(sig, stream, 0)) return false;
+	}
+	return true;
 }
 
 void Document::OnStartElement(const XML_Char *name, const XML_Char **atts)
@@ -952,19 +962,21 @@ String Object_element::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_element
 //-----------------------------------------------------------------------------
-// xml.element#format(stream?:stream:w):void
-Gura_DeclareMethod(element, format)
+// xml.element#write(stream?:stream:w, indentLevel?:number):void
+Gura_DeclareMethod(element, write)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	DeclareArg(env, "indentLevel", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(element, format)
+Gura_ImplementMethod(element, write)
 {
 	Object_element *pObj = Object_element::GetThisObj(args);
 	Stream *pStream = env.GetConsole();
 	if (args.IsStream(0)) pStream = &args.GetStream(0);
-	pObj->GetElement()->Format(sig, *pStream, 0);
+	int indentLevel = args.IsNumber(1)? args.GetInt(1) : 0;
+	pObj->GetElement()->Write(sig, *pStream, indentLevel);
 	return Value::Null;
 }
 
@@ -999,7 +1011,7 @@ Gura_ImplementMethod(element, addchild)
 // implementation of class Element
 Gura_ImplementUserClass(element)
 {
-	Gura_AssignMethod(element, format);
+	Gura_AssignMethod(element, write);
 	Gura_AssignMethod(element, gettext);
 	Gura_AssignMethod(element, addchild);
 }
@@ -1031,6 +1043,22 @@ Value Object_document::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 	return Value::Null;
 }
 
+Value Object_document::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(root))) {
+		if (!value.IsInstanceOf(VTYPE_element)) {
+			sig.SetError(ERR_TypeError, "must specify an instance of xml.element");
+			return Value::Null;
+		}
+		_pDocument->SetRoot(Object_element::GetObject(value)->GetElement()->Reference());
+		return value;
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
 String Object_document::ToString(Signal sig, bool exprFlag)
 {
 	String str;
@@ -1042,9 +1070,26 @@ String Object_document::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_document
 //-----------------------------------------------------------------------------
+// xml.document#write(stream?:stream:w):void
+Gura_DeclareMethod(document, write)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+}
+
+Gura_ImplementMethod(document, write)
+{
+	Object_document *pObj = Object_document::GetThisObj(args);
+	Stream *pStream = env.GetConsole();
+	if (args.IsStream(0)) pStream = &args.GetStream(0);
+	pObj->GetDocument()->Write(sig, *pStream);
+	return Value::Null;
+}
+
 // implementation of class document
 Gura_ImplementUserClass(document)
 {
+	Gura_AssignMethod(document, write);
 }
 
 //-----------------------------------------------------------------------------
