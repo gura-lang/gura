@@ -1175,7 +1175,6 @@ Gura_DeclareMethod(stream, xmlread)
 Gura_ImplementMethod(stream, xmlread)
 {
 	Object_stream *pThis = Object_stream::GetThisObj(args);
-	Value result;
 	AutoPtr<Document> pDocument(new Document());
 	AutoPtr<Element> pElement(pDocument->Parse(sig, pThis->GetStream()));
 	if (sig.IsError()) return Value::Null;
