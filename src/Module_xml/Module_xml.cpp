@@ -325,12 +325,12 @@ Element::Element(Type type, const String &str, const char **atts) :
 	}
 }
 
-bool Element::Write(Signal sig, Stream &stream, int indentLevel) const
+bool Element::Write(Signal sig, Stream &stream, bool fancyFlag, int indentLevel) const
 {
 	const char *indentUnit = "  ";
 	String indent;
 	for (int i = 0; i < indentLevel; i++) indent += indentUnit;
-	stream.Print(sig, indent.c_str());
+	if (fancyFlag) stream.Print(sig, indent.c_str());
 	if (sig.IsSignalled()) return false;
 	if (IsTag()) {
 		stream.PutChar(sig, '<');
@@ -351,35 +351,56 @@ bool Element::Write(Signal sig, Stream &stream, int indentLevel) const
 			if (sig.IsSignalled()) return false;
 		}
 		if (GetChildren() == NULL || GetChildren()->empty()) {
-			stream.Print(sig, " />\n");
+			stream.Print(sig, " />");
 			if (sig.IsSignalled()) return false;
+			if (fancyFlag) {
+				stream.PutChar(sig, '\n');
+				if (sig.IsSignalled()) return false;
+			}
 		} else {
-			stream.Print(sig, ">\n");
+			stream.PutChar(sig, '>');
 			if (sig.IsSignalled()) return false;
+			if (fancyFlag) {
+				stream.PutChar(sig, '\n');
+				if (sig.IsSignalled()) return false;
+			}
 			foreach_const (ElementOwner, ppChild, *GetChildren()) {
 				const Element *pChild = *ppChild;
-				if (!pChild->Write(sig, stream, indentLevel + 1)) return false;
+				if (!pChild->Write(sig, stream, fancyFlag, indentLevel + 1)) return false;
 			}
-			stream.Print(sig, indent.c_str());
-			if (sig.IsSignalled()) return false;
+			if (fancyFlag) {
+				stream.Print(sig, indent.c_str());
+				if (sig.IsSignalled()) return false;
+			}
 			stream.Print(sig, "</");
 			if (sig.IsSignalled()) return false;
 			stream.Print(sig, GetTagName());
 			if (sig.IsSignalled()) return false;
-			stream.Print(sig, ">\n");
+			stream.PutChar(sig, '>');
+			if (sig.IsSignalled()) return false;
+			if (fancyFlag) {
+				stream.PutChar(sig, '\n');
+				if (sig.IsSignalled()) return false;
+			}
 		}
 	} else if (IsText()) {
 		stream.Print(sig, EscapeHtml(GetText(), true).c_str());
 		if (sig.IsSignalled()) return false;
-		stream.Print(sig, "\n");
-		if (sig.IsSignalled()) return false;
+		if (fancyFlag) {
+			stream.PutChar(sig, '\n');
+			if (sig.IsSignalled()) return false;
+		}
 	} else if (IsComment()) {
 		stream.Print(sig, "<!--");
 		if (sig.IsSignalled()) return false;
 		stream.Print(sig, EscapeHtml(GetComment(), true).c_str());
 		if (sig.IsSignalled()) return false;
-		stream.Print(sig, "-->\n");
+		stream.Print(sig, "-->");
 		if (sig.IsSignalled()) return false;
+		if (fancyFlag) {
+			stream.PutChar(sig, '\n');
+			if (sig.IsSignalled()) return false;
+		}
 	}
 	return true;
 }
@@ -458,12 +479,12 @@ Document::Document() : _cntRef(1)
 {
 }
 
-bool Document::Write(Signal sig, Stream &stream) const
+bool Document::Write(Signal sig, Stream &stream, bool fancyFlag) const
 {
 	stream.Print(sig, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
 	if (sig.IsSignalled()) return false;
 	if (!_pRoot.IsNull()) {
-		if (!_pRoot->Write(sig, stream, 0)) return false;
+		if (!_pRoot->Write(sig, stream, fancyFlag, 0)) return false;
 	}
 	return true;
 }
@@ -972,11 +993,12 @@ Gura_DeclareMethod(element, write)
 
 Gura_ImplementMethod(element, write)
 {
+	bool fancyFlag = false;
 	Object_element *pObj = Object_element::GetThisObj(args);
 	Stream *pStream = env.GetConsole();
 	if (args.IsStream(0)) pStream = &args.GetStream(0);
 	int indentLevel = args.IsNumber(1)? args.GetInt(1) : 0;
-	pObj->GetElement()->Write(sig, *pStream, indentLevel);
+	pObj->GetElement()->Write(sig, *pStream, fancyFlag, indentLevel);
 	return Value::Null;
 }
 
@@ -1079,10 +1101,11 @@ Gura_DeclareMethod(document, write)
 
 Gura_ImplementMethod(document, write)
 {
+	bool fancyFlag = false;
 	Object_document *pObj = Object_document::GetThisObj(args);
 	Stream *pStream = env.GetConsole();
 	if (args.IsStream(0)) pStream = &args.GetStream(0);
-	pObj->GetDocument()->Write(sig, *pStream);
+	pObj->GetDocument()->Write(sig, *pStream, fancyFlag);
 	return Value::Null;
 }
 
