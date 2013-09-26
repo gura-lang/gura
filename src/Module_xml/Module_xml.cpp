@@ -475,13 +475,27 @@ void ElementOwner::Clear()
 //-----------------------------------------------------------------------------
 // Document
 //-----------------------------------------------------------------------------
-Document::Document() : _cntRef(1)
+Document::Document() : _cntRef(1), _version("1.0"), _encoding("utf-8"), _standalone(0)
 {
 }
 
 bool Document::Write(Signal sig, Stream &stream, bool fancyFlag) const
 {
-	stream.Print(sig, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+	stream.Print(sig, "<?xml version=\"");
+	if (sig.IsSignalled()) return false;
+	stream.Print(sig, GetVersion());
+	if (sig.IsSignalled()) return false;
+	stream.Print(sig, "\" encoding=\"");
+	if (sig.IsSignalled()) return false;
+	stream.Print(sig, GetEncoding());
+	if (sig.IsSignalled()) return false;
+	if (_standalone != 0) {
+		char buff[64];
+		::sprintf(buff, "standalone=\"%d\"");
+		stream.Print(sig, buff);
+		if (sig.IsSignalled()) return false;
+	}
+	stream.Print(sig, "\"?>\n");
 	if (sig.IsSignalled()) return false;
 	if (!_pRoot.IsNull()) {
 		if (!_pRoot->Write(sig, stream, fancyFlag, 0)) return false;
@@ -562,6 +576,9 @@ void Document::OnEndNamespaceDecl(const XML_Char *prefix)
 
 void Document::OnXmlDecl(const XML_Char *version, const XML_Char *encoding, int standalone)
 {
+	_version = version;
+	_encoding = encoding;
+	_standalone = standalone;
 }
 
 void Document::OnStartDoctypeDecl(
@@ -1050,6 +1067,8 @@ Object_document::Object_document(Document *pDocument) :
 bool Object_document::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(version));
+	symbols.insert(Gura_UserSymbol(encoding));
 	symbols.insert(Gura_UserSymbol(root));
 	return true;
 }
@@ -1058,7 +1077,11 @@ Value Object_document::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(root))) {
+	if (pSymbol->IsIdentical(Gura_UserSymbol(version))) {
+		return Value(env, _pDocument->GetVersion());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(encoding))) {
+		return Value(env, _pDocument->GetEncoding());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(root))) {
 		if (_pDocument->GetRoot() == NULL) return Value::Null;
 		return Value(new Object_element(_pDocument->GetRoot()->Reference()));
 	}
@@ -1300,6 +1323,8 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(comment);
 	Gura_RealizeUserSymbol(children);
 	Gura_RealizeUserSymbol(attrs);
+	Gura_RealizeUserSymbol(version);
+	Gura_RealizeUserSymbol(encoding);
 	Gura_RealizeUserSymbol(root);
 	Gura_RealizeUserSymbol(StartElement);
 	Gura_RealizeUserSymbol(EndElement);

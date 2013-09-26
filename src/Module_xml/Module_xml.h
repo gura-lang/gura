@@ -15,6 +15,8 @@ Gura_DeclareUserSymbol(text);
 Gura_DeclareUserSymbol(comment);
 Gura_DeclareUserSymbol(children);
 Gura_DeclareUserSymbol(attrs);
+Gura_DeclareUserSymbol(version);
+Gura_DeclareUserSymbol(encoding);
 Gura_DeclareUserSymbol(root);
 
 Gura_DeclareUserSymbol(StartElement);
@@ -215,6 +217,9 @@ private:
 private:
 	int _cntRef;
 	Stack _stack;
+	String _version;
+	String _encoding;
+	int _standalone;
 	AutoPtr<Element> _pRoot;
 public:
 	Gura_DeclareReferenceAccessor(Document);
@@ -224,6 +229,10 @@ private:
 	inline ~Document() {}
 public:
 	bool Write(Signal sig, Stream &stream, bool fancyFlag) const;
+	inline void SetVersion(const String &version) { _version = version; }
+	inline void SetEncoding(const String &encoding) { _encoding = encoding; }
+	inline const char *GetVersion() const { return _version.c_str(); }
+	inline const char *GetEncoding() const { return _encoding.c_str(); }
 	inline void SetRoot(Element *pRoot) { _pRoot.reset(pRoot); }
 	inline Element *GetRoot() { return _pRoot.get(); }
 	inline const Element *GetRoot() const { return _pRoot.get(); }
