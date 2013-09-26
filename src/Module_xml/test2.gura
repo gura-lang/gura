@@ -1,0 +1,32 @@
+#!/usr/bin/env gura
+import(xml)
+
+scope {
+	e = xml.element
+	c = xml.comment
+	elem = e('hoge', attr => 'aaa', attr_2 => 'bbb') {
+		e('foo') {
+			'text'
+			e('bar')
+			'fjdkfjdsjfkldsj fjdkjfdsa fjdskfjds fjkfdsjfkds'
+			e('bar')
+			e('bar')
+			e('bar')
+			e('bar')
+			c('This is a comment text')
+			e('bar') {
+				e('hoge')
+				e('hoge')
+				e('hoge')
+				e('hoge')
+				e('hoge')
+			}
+			e('bar')
+			e('bar' + (1..10))
+		}
+		e('foo')
+	}
+	elem.addchild(e('foo2'))
+	elem.addchild([e('foo3'), e('foo4'), e('foo5'), 'text-added'])
+	elem.format()
+}
