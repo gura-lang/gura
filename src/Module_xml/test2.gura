@@ -4,7 +4,8 @@ import(xml)
 scope {
 	e = xml.element
 	c = xml.comment
-	elem = e('hoge', attr => 'aaa', attr_2 => 'bbb') {
+	doc = xml.document()
+	doc.root = e('hoge', attr => 'aaa', attr_2 => 'bbb') {
 		e('foo') {
 			'text'
 			e('bar')
@@ -26,7 +27,7 @@ scope {
 		}
 		e('foo')
 	}
-	elem.addchild(e('foo2'))
-	elem.addchild([e('foo3'), e('foo4'), e('foo5'), 'text-added'])
-	elem.format()
+	doc.root.addchild(e('foo2'))
+	doc.root.addchild([e('foo3'), e('foo4'), e('foo5'), 'text-added'])
+	doc.write(fancy => true)
 }

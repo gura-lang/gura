@@ -983,21 +983,22 @@ String Object_element::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_element
 //-----------------------------------------------------------------------------
-// xml.element#write(stream?:stream:w, indentLevel?:number):void
+// xml.element#write(stream?:stream:w, fancy?:boolean, indentLevel?:number):void
 Gura_DeclareMethod(element, write)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	DeclareArg(env, "fancy", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "indentLevel", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(element, write)
 {
-	bool fancyFlag = false;
 	Object_element *pObj = Object_element::GetThisObj(args);
 	Stream *pStream = env.GetConsole();
 	if (args.IsStream(0)) pStream = &args.GetStream(0);
-	int indentLevel = args.IsNumber(1)? args.GetInt(1) : 0;
+	bool fancyFlag = args.GetBoolean(1);
+	int indentLevel = args.IsNumber(2)? args.GetInt(2) : 0;
 	pObj->GetElement()->Write(sig, *pStream, fancyFlag, indentLevel);
 	return Value::Null;
 }
@@ -1092,19 +1093,20 @@ String Object_document::ToString(Signal sig, bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_document
 //-----------------------------------------------------------------------------
-// xml.document#write(stream?:stream:w):void
+// xml.document#write(stream?:stream:w, fancy?:boolean):void
 Gura_DeclareMethod(document, write)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	DeclareArg(env, "fancy", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(document, write)
 {
-	bool fancyFlag = false;
 	Object_document *pObj = Object_document::GetThisObj(args);
 	Stream *pStream = env.GetConsole();
 	if (args.IsStream(0)) pStream = &args.GetStream(0);
+	bool fancyFlag = args.GetBoolean(1);
 	pObj->GetDocument()->Write(sig, *pStream, fancyFlag);
 	return Value::Null;
 }
