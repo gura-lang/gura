@@ -10,7 +10,9 @@ Gura_BeginModule(xml)
 
 Gura_DeclareUserSymbol(name);
 Gura_DeclareUserSymbol(value);
+Gura_DeclareUserSymbol(tagname);
 Gura_DeclareUserSymbol(text);
+Gura_DeclareUserSymbol(comment);
 Gura_DeclareUserSymbol(children);
 
 Gura_DeclareUserSymbol(StartElement);
@@ -137,29 +139,37 @@ public:
 // Element
 //-----------------------------------------------------------------------------
 class Element {
+public:
+	enum Type {
+		TYPE_None,
+		TYPE_Tag,
+		TYPE_Text,
+		TYPE_Comment,
+	};
 private:
 	int _cntRef;
-	String _name;
+	Type _type;
+	String _str;
 	AttributeOwner _attributes;
 	AutoPtr<ElementOwner> _pChildren;
-	std::auto_ptr<String> _pText;
 public:
 	Gura_DeclareReferenceAccessor(Element);
 public:
-	Element();
-	void InitAsTag(const String &name, const char **atts);
-	void InitAsText(const String &text);
+	Element(Type type, const String &str, const char **atts = NULL);
 	bool Format(Signal sig, Stream &stream, int indentLevel) const;
 	String GatherText() const;
 	void AddChild(Element *pChild);
-	inline bool IsText() const { return _pText.get() != NULL; }
-	inline const char *GetName() const { return _name.c_str(); }
+	inline bool IsTag() const { return _type == TYPE_Tag; }
+	inline bool IsText() const { return _type == TYPE_Text; }
+	inline bool IsComment() const { return _type == TYPE_Comment; }
+	inline const char *GetTagName() const { return _str.c_str(); }
+	inline const char *GetText() const { return _str.c_str(); }
+	inline const char *GetComment() const { return _str.c_str(); }
 	inline AttributeOwner &GetAttributes() { return _attributes; }
 	inline const AttributeOwner &GetAttributes() const { return _attributes; }
 	inline void SetChildren(ElementOwner *pChildren) { _pChildren.reset(pChildren); }
 	inline ElementOwner *GetChildren() { return _pChildren.get(); }
 	inline const ElementOwner *GetChildren() const { return _pChildren.get(); }
-	inline const String *GetText() const { return _pText.get(); }
 private:
 	inline ~Element() {}
 };

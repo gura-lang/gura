@@ -3,6 +3,12 @@ import(testutil) {*}
 sys.echo(false)
 
 scope {
+	@var = 3
+	@var@ = 2
+	println('@var = ', @var)
+	println('@var@ = ', @var@)
+}
+scope {
 	tester(`(1e-12j).roundoff())
 }
 scope {

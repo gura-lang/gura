@@ -312,23 +312,15 @@ void AttributeOwner::Clear()
 //-----------------------------------------------------------------------------
 // Element
 //-----------------------------------------------------------------------------
-Element::Element() : _cntRef(1)
+Element::Element(Type type, const String &str, const char **atts) :
+										_cntRef(1), _type(type), _str(str)
 {
-}
-
-void Element::InitAsTag(const String &name, const char **atts)
-{
-	_name = name;
-	if (atts == NULL) return;
-	for (const char **p = atts; *p != NULL && *(p + 1) != NULL; p += 2) {
-		const char *name = *p, *value = *(p + 1);
-		_attributes.push_back(new Attribute(name, value));
+	if (atts != NULL) {
+		for (const char **p = atts; *p != NULL && *(p + 1) != NULL; p += 2) {
+			const char *name = *p, *value = *(p + 1);
+			_attributes.push_back(new Attribute(name, value));
+		}
 	}
-}
-
-void Element::InitAsText(const String &text)
-{
-	_pText.reset(new String(text));
 }
 
 bool Element::Format(Signal sig, Stream &stream, int indentLevel) const
@@ -338,56 +330,61 @@ bool Element::Format(Signal sig, Stream &stream, int indentLevel) const
 	for (int i = 0; i < indentLevel; i++) indent += indentUnit;
 	stream.Print(sig, indent.c_str());
 	if (sig.IsSignalled()) return false;
-	if (IsText()) {
-		stream.PutChar(sig, '"');
+	if (IsTag()) {
+		stream.PutChar(sig, '<');
 		if (sig.IsSignalled()) return false;
-		stream.Print(sig, GetText()->c_str());
+		stream.Print(sig, GetTagName());
 		if (sig.IsSignalled()) return false;
-		stream.Print(sig, "\"\n");
-		if (sig.IsSignalled()) return false;
-		return true;
-	}
-	stream.PutChar(sig, '<');
-	if (sig.IsSignalled()) return false;
-	stream.Print(sig, GetName());
-	if (sig.IsSignalled()) return false;
-	foreach_const (AttributeOwner, ppAttribute, GetAttributes()) {
-		const Attribute *pAttribute = *ppAttribute;
-		stream.PutChar(sig, ' ');
-		if (sig.IsSignalled()) return false;
-		stream.Print(sig, pAttribute->GetName());
-		if (sig.IsSignalled()) return false;
-		stream.Print(sig, "=\"");
-		if (sig.IsSignalled()) return false;
-		stream.Print(sig, pAttribute->GetValue());
-		if (sig.IsSignalled()) return false;
-		stream.PutChar(sig, '"');
-		if (sig.IsSignalled()) return false;
-	}
-	if (GetChildren() == NULL || GetChildren()->empty()) {
-		stream.Print(sig, " />\n");
-		if (sig.IsSignalled()) return false;
-	} else {
-		stream.Print(sig, ">\n");
-		if (sig.IsSignalled()) return false;
-		foreach_const (ElementOwner, ppChild, *GetChildren()) {
-			const Element *pChild = *ppChild;
-			if (!pChild->Format(sig, stream, indentLevel + 1)) return false;
+		foreach_const (AttributeOwner, ppAttribute, GetAttributes()) {
+			const Attribute *pAttribute = *ppAttribute;
+			stream.PutChar(sig, ' ');
+			if (sig.IsSignalled()) return false;
+			stream.Print(sig, pAttribute->GetName());
+			if (sig.IsSignalled()) return false;
+			stream.Print(sig, "=\"");
+			if (sig.IsSignalled()) return false;
+			stream.Print(sig, pAttribute->GetValue());
+			if (sig.IsSignalled()) return false;
+			stream.PutChar(sig, '"');
+			if (sig.IsSignalled()) return false;
 		}
-		stream.Print(sig, indent.c_str());
+		if (GetChildren() == NULL || GetChildren()->empty()) {
+			stream.Print(sig, " />\n");
+			if (sig.IsSignalled()) return false;
+		} else {
+			stream.Print(sig, ">\n");
+			if (sig.IsSignalled()) return false;
+			foreach_const (ElementOwner, ppChild, *GetChildren()) {
+				const Element *pChild = *ppChild;
+				if (!pChild->Format(sig, stream, indentLevel + 1)) return false;
+			}
+			stream.Print(sig, indent.c_str());
+			if (sig.IsSignalled()) return false;
+			stream.Print(sig, "</");
+			if (sig.IsSignalled()) return false;
+			stream.Print(sig, GetTagName());
+			if (sig.IsSignalled()) return false;
+			stream.Print(sig, ">\n");
+		}
+	} else if (IsText()) {
+		stream.Print(sig, GetText());
 		if (sig.IsSignalled()) return false;
-		stream.Print(sig, "</");
+		stream.Print(sig, "\n");
 		if (sig.IsSignalled()) return false;
-		stream.Print(sig, GetName());
+	} else if (IsComment()) {
+		stream.PutChar(sig, '<!--');
 		if (sig.IsSignalled()) return false;
-		stream.Print(sig, ">\n");
+		stream.Print(sig, GetComment());
+		if (sig.IsSignalled()) return false;
+		stream.Print(sig, "-->\n");
+		if (sig.IsSignalled()) return false;
 	}
 	return true;
 }
 
 String Element::GatherText() const
 {
-	if (IsText()) return *GetText();
+	if (IsText()) return GetText();
 	String str;
 	if (GetChildren() != NULL) {
 		foreach_const (ElementOwner, ppChild, *GetChildren()) {
@@ -452,8 +449,7 @@ void Object_parser::CallHandler(const Symbol *pSymbol, const ValueList argList)
 void Object_parser::ParserEx::OnStartElement(const XML_Char *name, const XML_Char **atts)
 {
 	Environment &env = *_pObj;
-	Element *pElement = new Element();
-	pElement->InitAsTag(name, atts);
+	Element *pElement = new Element(Element::TYPE_Tag, name, atts);
 	ValueList valListArg;
 	valListArg.push_back(Value(new Object_element(pElement)));
 	_pObj->CallHandler(Gura_UserSymbol(StartElement), valListArg);
@@ -750,7 +746,9 @@ Value Object_element::IndexGet(Environment &env, Signal sig, const Value &valueI
 bool Object_element::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(tagname));
 	symbols.insert(Gura_UserSymbol(text));
+	symbols.insert(Gura_UserSymbol(comment));
 	symbols.insert(Gura_UserSymbol(children));
 	return true;
 }
@@ -759,10 +757,15 @@ Value Object_element::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
-		const String *pText = _pElement->GetText();
-		if (pText == NULL) return Value::Null;
-		return Value(env, *pText);
+	if (pSymbol->IsIdentical(Gura_UserSymbol(tagname))) {
+		if (!_pElement->IsTag()) return Value::Null;
+		return Value(env, _pElement->GetTagName());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
+		if (!_pElement->IsText()) return Value::Null;
+		return Value(env, _pElement->GetText());
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(comment))) {
+		if (!_pElement->IsComment()) return Value::Null;
+		return Value(env, _pElement->GetComment());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(children))) {
 		const ElementOwner *pChildren = _pElement->GetChildren();
 		if (pChildren == NULL) return Value::Null;
@@ -779,8 +782,10 @@ String Object_element::ToString(Signal sig, bool exprFlag)
 	str = "<xml.element:";
 	if (_pElement->IsText()) {
 		str += "*text*";
+	} else if (_pElement->IsComment()) {
+		str += "*comment*";
 	} else {
-		str += _pElement->GetName();
+		str += _pElement->GetTagName();
 	}
 	str += ">";
 	return str;
@@ -874,8 +879,7 @@ Element *Reader::Parse(Environment &env, Signal &sig, Stream &stream)
 
 void Reader::OnStartElement(const XML_Char *name, const XML_Char **atts)
 {
-	Element *pElement = new Element();
-	pElement->InitAsTag(name, atts);
+	Element *pElement = new Element(Element::TYPE_Tag, name, atts);
 	if (_stack.empty()) {
 		_pElementRoot = pElement;
 	} else {
@@ -892,8 +896,7 @@ void Reader::OnEndElement(const XML_Char *name)
 void Reader::OnCharacterData(const XML_Char *text, int len)
 {
 	if (!_stack.empty()) {
-		Element *pElement = new Element();
-		pElement->InitAsText(String(text, len));
+		Element *pElement = new Element(Element::TYPE_Text, String(text, len));
 		_stack.back()->AddChild(pElement);
 	}
 }
@@ -1006,23 +1009,22 @@ Gura_ImplementFunction(parser)
 	return ReturnValue(env, sig, args, args.GetThis());
 }
 
-// p = xml.element(name:string, %attrs) {block?}
+// p = xml.element(@name:string, %attrs) {block?}
 Gura_DeclareFunction(element)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "name", VTYPE_string);
+	DeclareArg(env, "@name", VTYPE_string);
 	DeclareDictArg("attrs");
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(element)
 {
-	Element *pElement = new Element();
-	pElement->InitAsTag(args.GetString(0), NULL);
+	Element *pElement = new Element(Element::TYPE_Tag, args.GetStringSTL(0), NULL);
 	foreach_const (ValueDict, iter, args.GetDictArg()) {
-		String key = iter->first.ToString(sig);
+		String key = iter->first.ToString(sig, false);
 		if (sig.IsSignalled()) return Value::Null;
-		String value = iter->second.ToString(sig);
+		String value = iter->second.ToString(sig, false);
 		if (sig.IsSignalled()) return Value::Null;
 		pElement->GetAttributes().push_back(new Attribute(key, value));
 	}
@@ -1035,8 +1037,7 @@ Gura_ImplementFunction(element)
 		if (sig.IsSignalled() || !valueRaw.IsList()) return Value::Null;
 		foreach_const (ValueList, pValue, valueRaw.GetList()) {
 			if (pValue->IsString()) {
-				AutoPtr<Element> pChild(new Element());
-				pChild->InitAsText(pValue->GetStringSTL());
+				AutoPtr<Element> pChild(new Element(Element::TYPE_Text, pValue->GetStringSTL()));
 				pElement->AddChild(pChild.release());
 			} else if (pValue->IsInstanceOf(VTYPE_element)) {
 				Object_element *pObj = Object_element::GetObject(*pValue);
@@ -1089,7 +1090,9 @@ Gura_ModuleEntry()
 	// symbol realization
 	Gura_RealizeUserSymbol(name);
 	Gura_RealizeUserSymbol(value);
+	Gura_RealizeUserSymbol(tagname);
 	Gura_RealizeUserSymbol(text);
+	Gura_RealizeUserSymbol(comment);
 	Gura_RealizeUserSymbol(children);
 	Gura_RealizeUserSymbol(StartElement);
 	Gura_RealizeUserSymbol(EndElement);
