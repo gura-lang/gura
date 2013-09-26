@@ -57,8 +57,17 @@ MyParser = class(xml.parser) {
 }
 //MyParser().parse('test.xml');
 
+classref(`xml.element).print() = {
+	if (this.tagname) {
+		print(this.tagname)
+		println((' ' + this.attrs:*name + '=' + this.attrs:*value).join())
+	}
+	this.children && this.children::print()
+}
+
 xml.read('test.xml') {|root|
 	//println(root)
 	//println(root.children)
-	root.format()
+	//root.format()
+	root.print()
 }
