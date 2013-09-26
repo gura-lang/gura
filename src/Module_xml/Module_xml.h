@@ -231,10 +231,16 @@ class Document : public Parser {
 private:
 	typedef std::vector<Element *> Stack;
 private:
+	int _cntRef;
 	Stack _stack;
 	AutoPtr<Element> _pElementRoot;
 public:
+	Gura_DeclareReferenceAccessor(Document);
+public:
 	Document();
+private:
+	inline ~Document() {}
+public:
 	Element *Parse(Signal &sig, Stream &stream);
 private:
 	virtual void OnStartElement(const XML_Char *name, const XML_Char **atts);

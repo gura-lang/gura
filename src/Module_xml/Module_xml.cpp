@@ -453,7 +453,7 @@ void ElementOwner::Clear()
 //-----------------------------------------------------------------------------
 // Document
 //-----------------------------------------------------------------------------
-Document::Document()
+Document::Document() : _cntRef(1)
 {
 }
 
@@ -1157,7 +1157,8 @@ Gura_DeclareFunction(read)
 
 Gura_ImplementFunction(read)
 {
-	AutoPtr<Element> pElement(Document().Parse(sig, args.GetStream(0)));
+	AutoPtr<Document> pDocument(new Document());
+	AutoPtr<Element> pElement(pDocument->Parse(sig, args.GetStream(0)));
 	if (sig.IsError()) return Value::Null;
 	return ReturnValue(env, sig, args, Value(new Object_element(pElement.release())));
 }
@@ -1175,9 +1176,10 @@ Gura_ImplementMethod(stream, xmlread)
 {
 	Object_stream *pThis = Object_stream::GetThisObj(args);
 	Value result;
-	Element *pElement = Document().Parse(sig, pThis->GetStream());
+	AutoPtr<Document> pDocument(new Document());
+	AutoPtr<Element> pElement(pDocument->Parse(sig, pThis->GetStream()));
 	if (sig.IsError()) return Value::Null;
-	return Value(new Object_element(pElement));
+	return Value(new Object_element(pElement.release()));
 }
 
 // Module entry
