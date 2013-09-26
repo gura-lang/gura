@@ -205,45 +205,59 @@ public:
 	void Clear();
 };
 
+#if 0
 //-----------------------------------------------------------------------------
-// Object_attribute
+// Document
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(attribute);
-
-class Object_attribute : public Object {
+class Document {
 private:
-	AutoPtr<Attribute> _pAttribute;
+	int _cntRef;
+	AutoPtr<Element> _pRoot;
 public:
-	Gura_DeclareObjectAccessor(attribute)
+	Gura_DeclareReferencerAccessor(Document);
 public:
-	Object_attribute(Attribute *pAttribute);
-	inline Attribute *GetAttribute() { return _pAttribute.get(); }
-	inline const Attribute *GetAttribute() const { return _pAttribute.get(); }
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual String ToString(Signal sig, bool exprFlag);
+	Document();
+private:
+	inline ~Document() {}
+public:
+	
 };
+#endif
 
 //-----------------------------------------------------------------------------
-// Object_element
+// Document
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(element);
-
-class Object_element : public Object {
+class Document : public Parser {
 private:
-	AutoPtr<Element> _pElement;
+	typedef std::vector<Element *> Stack;
+private:
+	Stack _stack;
+	Element *_pElementRoot;
 public:
-	Gura_DeclareObjectAccessor(element)
-public:
-	Object_element(Element *pElement);
-	inline Element *GetElement() { return _pElement.get(); }
-	inline const Element *GetElement() const { return _pElement.get(); }
-	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
-	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
-	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual String ToString(Signal sig, bool exprFlag);
+	inline Document() : _pElementRoot(NULL) {}
+	Element *Parse(Signal &sig, Stream &stream);
+private:
+	virtual void OnStartElement(const XML_Char *name, const XML_Char **atts);
+	virtual void OnEndElement(const XML_Char *name);
+	virtual void OnCharacterData(const XML_Char *s, int len);
+	virtual void OnProcessingInstruction(const XML_Char *target, const XML_Char *data);
+	virtual void OnComment(const XML_Char *data);
+	virtual void OnStartCdataSection();
+	virtual void OnEndCdataSection();
+	virtual void OnDefault(const XML_Char *s, int len);
+	virtual void OnDefaultExpand(const XML_Char *s, int len);
+	virtual int  OnExternalEntityRef(XML_Parser p, const XML_Char *args, const XML_Char *base, const XML_Char *systemId, const XML_Char *publicId);
+	virtual void OnSkippedEntity(const XML_Char *entityName, int isParameterEntity);
+	virtual void OnStartNamespaceDecl(const XML_Char *prefix, const XML_Char *uri);
+	virtual void OnEndNamespaceDecl(const XML_Char *prefix);
+	virtual void OnXmlDecl(const XML_Char *version, const XML_Char *encoding, int standalone);
+	virtual void OnStartDoctypeDecl(const XML_Char *doctypeName, const XML_Char *systemId, const XML_Char *publicId, int hasInternalSubset);
+	virtual void OnEndDoctypeDecl();
+	virtual void OnElementDecl(const XML_Char *name, XML_Content *model);
+	virtual void OnAttlistDecl(const XML_Char *elname, const XML_Char *attname, const XML_Char *attType, const XML_Char *dflt, int isRequired);
+	virtual void OnEntityDecl(const XML_Char *entityName, int isParameterEntity, const XML_Char *value, int valueLength, const XML_Char *base, const XML_Char *systemId, const XML_Char *publicId, const XML_Char *notationName);
+	virtual void OnNotationDecl(const XML_Char *notationName, const XML_Char *base, const XML_Char *systemId, const XML_Char *publicId);
+	virtual int  OnNotStandalone();
 };
 
 //-----------------------------------------------------------------------------
@@ -293,6 +307,47 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// Object_attribute
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(attribute);
+
+class Object_attribute : public Object {
+private:
+	AutoPtr<Attribute> _pAttribute;
+public:
+	Gura_DeclareObjectAccessor(attribute)
+public:
+	Object_attribute(Attribute *pAttribute);
+	inline Attribute *GetAttribute() { return _pAttribute.get(); }
+	inline const Attribute *GetAttribute() const { return _pAttribute.get(); }
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(Signal sig, bool exprFlag);
+};
+
+//-----------------------------------------------------------------------------
+// Object_element
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(element);
+
+class Object_element : public Object {
+private:
+	AutoPtr<Element> _pElement;
+public:
+	Gura_DeclareObjectAccessor(element)
+public:
+	Object_element(Element *pElement);
+	inline Element *GetElement() { return _pElement.get(); }
+	inline const Element *GetElement() const { return _pElement.get(); }
+	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(Signal sig, bool exprFlag);
+};
+
+//-----------------------------------------------------------------------------
 // Iterator_attribute
 //-----------------------------------------------------------------------------
 class Iterator_attribute : public Iterator {
@@ -320,44 +375,6 @@ public:
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
-};
-
-//-----------------------------------------------------------------------------
-// Reader
-//-----------------------------------------------------------------------------
-class Reader : public Parser {
-private:
-	typedef std::vector<Element *> Stack;
-private:
-	Stack _stack;
-	Element *_pElementRoot;
-	Environment *_pEnv;
-	Signal *_pSig;
-public:
-	inline Reader() : _pEnv(NULL), _pSig(NULL), _pElementRoot(NULL) {}
-	Element *Parse(Environment &env, Signal &sig, Stream &stream);
-private:
-	virtual void OnStartElement(const XML_Char *name, const XML_Char **atts);
-	virtual void OnEndElement(const XML_Char *name);
-	virtual void OnCharacterData(const XML_Char *s, int len);
-	virtual void OnProcessingInstruction(const XML_Char *target, const XML_Char *data);
-	virtual void OnComment(const XML_Char *data);
-	virtual void OnStartCdataSection();
-	virtual void OnEndCdataSection();
-	virtual void OnDefault(const XML_Char *s, int len);
-	virtual void OnDefaultExpand(const XML_Char *s, int len);
-	virtual int  OnExternalEntityRef(XML_Parser p, const XML_Char *args, const XML_Char *base, const XML_Char *systemId, const XML_Char *publicId);
-	virtual void OnSkippedEntity(const XML_Char *entityName, int isParameterEntity);
-	virtual void OnStartNamespaceDecl(const XML_Char *prefix, const XML_Char *uri);
-	virtual void OnEndNamespaceDecl(const XML_Char *prefix);
-	virtual void OnXmlDecl(const XML_Char *version, const XML_Char *encoding, int standalone);
-	virtual void OnStartDoctypeDecl(const XML_Char *doctypeName, const XML_Char *systemId, const XML_Char *publicId, int hasInternalSubset);
-	virtual void OnEndDoctypeDecl();
-	virtual void OnElementDecl(const XML_Char *name, XML_Content *model);
-	virtual void OnAttlistDecl(const XML_Char *elname, const XML_Char *attname, const XML_Char *attType, const XML_Char *dflt, int isRequired);
-	virtual void OnEntityDecl(const XML_Char *entityName, int isParameterEntity, const XML_Char *value, int valueLength, const XML_Char *base, const XML_Char *systemId, const XML_Char *publicId, const XML_Char *notationName);
-	virtual void OnNotationDecl(const XML_Char *notationName, const XML_Char *base, const XML_Char *systemId, const XML_Char *publicId);
-	virtual int  OnNotStandalone();
 };
 
 }}

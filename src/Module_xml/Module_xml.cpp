@@ -451,6 +451,130 @@ void ElementOwner::Clear()
 }
 
 //-----------------------------------------------------------------------------
+// Document
+//-----------------------------------------------------------------------------
+Element *Document::Parse(Signal &sig, Stream &stream)
+{
+	_pElementRoot = NULL;
+	Parser::Parse(sig, stream);
+	return _pElementRoot;
+}
+
+void Document::OnStartElement(const XML_Char *name, const XML_Char **atts)
+{
+	Element *pElement = new Element(Element::TYPE_Tag, name, atts);
+	if (_stack.empty()) {
+		_pElementRoot = pElement;
+	} else {
+		_stack.back()->AddChild(pElement);
+	}
+	_stack.push_back(pElement);
+}
+
+void Document::OnEndElement(const XML_Char *name)
+{
+	_stack.pop_back();
+}
+
+void Document::OnCharacterData(const XML_Char *text, int len)
+{
+	if (!_stack.empty()) {
+		Element *pElement = new Element(Element::TYPE_Text, String(text, len));
+		_stack.back()->AddChild(pElement);
+	}
+}
+
+void Document::OnProcessingInstruction(const XML_Char *target, const XML_Char *data)
+{
+}
+
+void Document::OnComment(const XML_Char *data)
+{
+	if (!_stack.empty()) {
+		Element *pElement = new Element(Element::TYPE_Comment, data);
+		_stack.back()->AddChild(pElement);
+	}
+}
+
+void Document::OnStartCdataSection()
+{
+}
+
+void Document::OnEndCdataSection()
+{
+}
+
+void Document::OnDefault(const XML_Char *text, int len)
+{
+}
+
+void Document::OnDefaultExpand(const XML_Char *text, int len)
+{
+}
+
+int Document::OnExternalEntityRef(XML_Parser parser,
+							const XML_Char *args, const XML_Char *base,
+							const XML_Char *systemId, const XML_Char *publicId)
+{
+	return 0;
+}
+
+void Document::OnSkippedEntity(const XML_Char *entityName, int isParameterEntity)
+{
+}
+
+void Document::OnStartNamespaceDecl(const XML_Char *prefix, const XML_Char *uri)
+{
+}
+
+void Document::OnEndNamespaceDecl(const XML_Char *prefix)
+{
+}
+
+void Document::OnXmlDecl(const XML_Char *version, const XML_Char *encoding, int standalone)
+{
+}
+
+void Document::OnStartDoctypeDecl(
+				const XML_Char *doctypeName, const XML_Char *systemId,
+				const XML_Char *publicId, int hasInternalSubset)
+{
+}
+
+void Document::OnEndDoctypeDecl()
+{
+}
+
+void Document::OnElementDecl(const XML_Char *name, XML_Content *model)
+{
+}
+
+void Document::OnAttlistDecl(
+			const XML_Char *elemName, const XML_Char *attName,
+			const XML_Char *attType, const XML_Char *defaultValue, int isRequired)
+{
+}
+
+void Document::OnEntityDecl(
+			const XML_Char *entityName, int isParameterEntity,
+			const XML_Char *value, int valueLength, const XML_Char *base,
+			const XML_Char *systemId, const XML_Char *publicId,
+			const XML_Char *notationName)
+{
+}
+
+void Document::OnNotationDecl(
+			const XML_Char *notationName, const XML_Char *base,
+			const XML_Char *systemId, const XML_Char *publicId)
+{
+}
+
+int Document::OnNotStandalone()
+{
+	return 0;
+}
+
+//-----------------------------------------------------------------------------
 // Object_parser
 //-----------------------------------------------------------------------------
 Object_parser::Object_parser(Class *pClass) :
@@ -953,131 +1077,6 @@ void Iterator_element::GatherFollower(Environment::Frame *pFrame, EnvironmentSet
 }
 
 //-----------------------------------------------------------------------------
-// Reader
-//-----------------------------------------------------------------------------
-Element *Reader::Parse(Environment &env, Signal &sig, Stream &stream)
-{
-	_pElementRoot = NULL, _pEnv = &env, _pSig = &sig;
-	Parser::Parse(sig, stream);
-	_pEnv = NULL, _pSig = NULL;
-	return _pElementRoot;
-}
-
-void Reader::OnStartElement(const XML_Char *name, const XML_Char **atts)
-{
-	Element *pElement = new Element(Element::TYPE_Tag, name, atts);
-	if (_stack.empty()) {
-		_pElementRoot = pElement;
-	} else {
-		_stack.back()->AddChild(pElement);
-	}
-	_stack.push_back(pElement);
-}
-
-void Reader::OnEndElement(const XML_Char *name)
-{
-	_stack.pop_back();
-}
-
-void Reader::OnCharacterData(const XML_Char *text, int len)
-{
-	if (!_stack.empty()) {
-		Element *pElement = new Element(Element::TYPE_Text, String(text, len));
-		_stack.back()->AddChild(pElement);
-	}
-}
-
-void Reader::OnProcessingInstruction(const XML_Char *target, const XML_Char *data)
-{
-}
-
-void Reader::OnComment(const XML_Char *data)
-{
-	if (!_stack.empty()) {
-		Element *pElement = new Element(Element::TYPE_Comment, data);
-		_stack.back()->AddChild(pElement);
-	}
-}
-
-void Reader::OnStartCdataSection()
-{
-}
-
-void Reader::OnEndCdataSection()
-{
-}
-
-void Reader::OnDefault(const XML_Char *text, int len)
-{
-}
-
-void Reader::OnDefaultExpand(const XML_Char *text, int len)
-{
-}
-
-int Reader::OnExternalEntityRef(XML_Parser parser,
-							const XML_Char *args, const XML_Char *base,
-							const XML_Char *systemId, const XML_Char *publicId)
-{
-	return 0;
-}
-
-void Reader::OnSkippedEntity(const XML_Char *entityName, int isParameterEntity)
-{
-}
-
-void Reader::OnStartNamespaceDecl(const XML_Char *prefix, const XML_Char *uri)
-{
-}
-
-void Reader::OnEndNamespaceDecl(const XML_Char *prefix)
-{
-}
-
-void Reader::OnXmlDecl(const XML_Char *version, const XML_Char *encoding, int standalone)
-{
-}
-
-void Reader::OnStartDoctypeDecl(
-				const XML_Char *doctypeName, const XML_Char *systemId,
-				const XML_Char *publicId, int hasInternalSubset)
-{
-}
-
-void Reader::OnEndDoctypeDecl()
-{
-}
-
-void Reader::OnElementDecl(const XML_Char *name, XML_Content *model)
-{
-}
-
-void Reader::OnAttlistDecl(
-			const XML_Char *elemName, const XML_Char *attName,
-			const XML_Char *attType, const XML_Char *defaultValue, int isRequired)
-{
-}
-
-void Reader::OnEntityDecl(
-			const XML_Char *entityName, int isParameterEntity,
-			const XML_Char *value, int valueLength, const XML_Char *base,
-			const XML_Char *systemId, const XML_Char *publicId,
-			const XML_Char *notationName)
-{
-}
-
-void Reader::OnNotationDecl(
-			const XML_Char *notationName, const XML_Char *base,
-			const XML_Char *systemId, const XML_Char *publicId)
-{
-}
-
-int Reader::OnNotStandalone()
-{
-	return 0;
-}
-
-//-----------------------------------------------------------------------------
 // Gura module functions: xml
 //-----------------------------------------------------------------------------
 // xml.parser()
@@ -1145,7 +1144,7 @@ Gura_ImplementFunction(comment)
 	return Value(new Object_element(pElement));
 }
 
-// obj = xml.read(stream:stream:r) {block?}
+// xml.read(stream:stream:r) {block?}
 Gura_DeclareFunction(read)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1155,7 +1154,7 @@ Gura_DeclareFunction(read)
 
 Gura_ImplementFunction(read)
 {
-	AutoPtr<Element> pElement(Reader().Parse(env, sig, args.GetStream(0)));
+	AutoPtr<Element> pElement(Document().Parse(sig, args.GetStream(0)));
 	if (sig.IsError()) return Value::Null;
 	return ReturnValue(env, sig, args, Value(new Object_element(pElement.release())));
 }
@@ -1173,7 +1172,7 @@ Gura_ImplementMethod(stream, xmlread)
 {
 	Object_stream *pThis = Object_stream::GetThisObj(args);
 	Value result;
-	Element *pElement = Reader().Parse(env, sig, pThis->GetStream());
+	Element *pElement = Document().Parse(sig, pThis->GetStream());
 	if (sig.IsError()) return Value::Null;
 	return Value(new Object_element(pElement));
 }
