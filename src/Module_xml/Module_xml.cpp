@@ -453,18 +453,21 @@ void ElementOwner::Clear()
 //-----------------------------------------------------------------------------
 // Document
 //-----------------------------------------------------------------------------
+Document::Document()
+{
+}
+
 Element *Document::Parse(Signal &sig, Stream &stream)
 {
-	_pElementRoot = NULL;
 	Parser::Parse(sig, stream);
-	return _pElementRoot;
+	return _pElementRoot.release();
 }
 
 void Document::OnStartElement(const XML_Char *name, const XML_Char **atts)
 {
 	Element *pElement = new Element(Element::TYPE_Tag, name, atts);
 	if (_stack.empty()) {
-		_pElementRoot = pElement;
+		_pElementRoot.reset(pElement);
 	} else {
 		_stack.back()->AddChild(pElement);
 	}

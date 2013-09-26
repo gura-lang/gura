@@ -232,9 +232,9 @@ private:
 	typedef std::vector<Element *> Stack;
 private:
 	Stack _stack;
-	Element *_pElementRoot;
+	AutoPtr<Element> _pElementRoot;
 public:
-	inline Document() : _pElementRoot(NULL) {}
+	Document();
 	Element *Parse(Signal &sig, Stream &stream);
 private:
 	virtual void OnStartElement(const XML_Char *name, const XML_Char **atts);
