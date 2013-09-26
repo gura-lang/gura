@@ -41,7 +41,7 @@ Parser::~Parser()
 	::XML_ParserFree(_parser);
 }
 
-void Parser::Parse(Signal sig, Stream &stream)
+bool Parser::Parse(Signal sig, Stream &stream)
 {
 	const size_t bytesToRead = 1024 * 8;
 	for (;;) {
@@ -62,6 +62,7 @@ void Parser::Parse(Signal sig, Stream &stream)
 		}
 		if (doneFlag) break;
 	}
+	return !sig.IsSignalled();
 }
 
 void Parser::StartElementHandler(void *userData,
@@ -457,17 +458,11 @@ Document::Document() : _cntRef(1)
 {
 }
 
-Element *Document::Parse(Signal &sig, Stream &stream)
-{
-	Parser::Parse(sig, stream);
-	return _pElementRoot.release();
-}
-
 void Document::OnStartElement(const XML_Char *name, const XML_Char **atts)
 {
 	Element *pElement = new Element(Element::TYPE_Tag, name, atts);
 	if (_stack.empty()) {
-		_pElementRoot.reset(pElement);
+		_pRoot.reset(pElement);
 	} else {
 		_stack.back()->AddChild(pElement);
 	}
@@ -803,7 +798,7 @@ int Object_parser::ParserEx::OnNotStandalone()
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_parser
 //-----------------------------------------------------------------------------
-// str = xml.parser#parse(stream:stream:r)
+// xml.parser#parse(stream:stream:r)
 Gura_DeclareMethod(parser, parse)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1010,6 +1005,49 @@ Gura_ImplementUserClass(element)
 }
 
 //-----------------------------------------------------------------------------
+// Object_document
+//-----------------------------------------------------------------------------
+Object_document::Object_document(Document *pDocument) :
+					Object(Gura_UserClass(document)), _pDocument(pDocument)
+{
+}
+
+bool Object_document::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(root));
+	return true;
+}
+
+Value Object_document::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(root))) {
+		if (_pDocument->GetRoot() == NULL) return Value::Null;
+		return Value(new Object_element(_pDocument->GetRoot()->Reference()));
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+String Object_document::ToString(Signal sig, bool exprFlag)
+{
+	String str;
+	str = "<xml.document:";
+	str += ">";
+	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Gura interfaces for Object_document
+//-----------------------------------------------------------------------------
+// implementation of class document
+Gura_ImplementUserClass(document)
+{
+}
+
+//-----------------------------------------------------------------------------
 // Iterator_attribute
 //-----------------------------------------------------------------------------
 Iterator_attribute::Iterator_attribute(AttributeOwner *pAttributeOwner) :
@@ -1083,8 +1121,7 @@ void Iterator_element::GatherFollower(Environment::Frame *pFrame, EnvironmentSet
 // Gura module functions: xml
 //-----------------------------------------------------------------------------
 // xml.parser()
-Gura_DeclareFunctionBegin(parser)
-Gura_DeclareFunctionEnd(parser)
+Gura_DeclareFunction(parser)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	SetClassToConstruct(Gura_UserClass(parser));
@@ -1147,38 +1184,39 @@ Gura_ImplementFunction(comment)
 	return Value(new Object_element(pElement));
 }
 
-// xml.read(stream:stream:r) {block?}
-Gura_DeclareFunction(read)
+// xml.document(stream?:stream:r) {block?}
+Gura_DeclareFunction(document)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(read)
+Gura_ImplementFunction(document)
 {
 	AutoPtr<Document> pDocument(new Document());
-	AutoPtr<Element> pElement(pDocument->Parse(sig, args.GetStream(0)));
-	if (sig.IsError()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_element(pElement.release())));
+	if (args.IsStream(0)) {
+		if (!pDocument->Parse(sig, args.GetStream(0))) return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_document(pDocument.release())));
 }
 
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_stream
 //-----------------------------------------------------------------------------
-// stream#xmlread()
+// stream#xmlread() {block?}
 Gura_DeclareMethod(stream, xmlread)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(stream, xmlread)
 {
 	Object_stream *pThis = Object_stream::GetThisObj(args);
 	AutoPtr<Document> pDocument(new Document());
-	AutoPtr<Element> pElement(pDocument->Parse(sig, pThis->GetStream()));
-	if (sig.IsError()) return Value::Null;
-	return Value(new Object_element(pElement.release()));
+	if (!pDocument->Parse(sig, pThis->GetStream())) return Value::Null;
+	return ReturnValue(env, sig, args, Value(new Object_document(pDocument.release())));
 }
 
 // Module entry
@@ -1192,6 +1230,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(comment);
 	Gura_RealizeUserSymbol(children);
 	Gura_RealizeUserSymbol(attrs);
+	Gura_RealizeUserSymbol(root);
 	Gura_RealizeUserSymbol(StartElement);
 	Gura_RealizeUserSymbol(EndElement);
 	Gura_RealizeUserSymbol(CharacterData);
@@ -1217,11 +1256,12 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(attribute, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(element, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(parser, env.LookupClass(VTYPE_object));
+	Gura_RealizeUserClass(document, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(parser);
 	Gura_AssignFunction(element);
 	Gura_AssignFunction(comment);
-	Gura_AssignFunction(read);
+	Gura_AssignFunction(document);
 	// method assignment to stream type
 	Gura_AssignMethodTo(VTYPE_stream, stream, xmlread);
 }

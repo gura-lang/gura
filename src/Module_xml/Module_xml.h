@@ -15,6 +15,7 @@ Gura_DeclareUserSymbol(text);
 Gura_DeclareUserSymbol(comment);
 Gura_DeclareUserSymbol(children);
 Gura_DeclareUserSymbol(attrs);
+Gura_DeclareUserSymbol(root);
 
 Gura_DeclareUserSymbol(StartElement);
 Gura_DeclareUserSymbol(EndElement);
@@ -47,7 +48,7 @@ private:
 public:
 	Parser();
 	virtual ~Parser();
-	void Parse(Signal sig, Stream &stream);
+	bool Parse(Signal sig, Stream &stream);
 	inline void StopParser() { ::XML_StopParser(_parser, XML_FALSE); }
 private:
 	static void XMLCALL StartElementHandler(void *userData, const XML_Char *name, const XML_Char **atts);
@@ -205,25 +206,6 @@ public:
 	void Clear();
 };
 
-#if 0
-//-----------------------------------------------------------------------------
-// Document
-//-----------------------------------------------------------------------------
-class Document {
-private:
-	int _cntRef;
-	AutoPtr<Element> _pRoot;
-public:
-	Gura_DeclareReferencerAccessor(Document);
-public:
-	Document();
-private:
-	inline ~Document() {}
-public:
-	
-};
-#endif
-
 //-----------------------------------------------------------------------------
 // Document
 //-----------------------------------------------------------------------------
@@ -233,7 +215,7 @@ private:
 private:
 	int _cntRef;
 	Stack _stack;
-	AutoPtr<Element> _pElementRoot;
+	AutoPtr<Element> _pRoot;
 public:
 	Gura_DeclareReferenceAccessor(Document);
 public:
@@ -241,7 +223,8 @@ public:
 private:
 	inline ~Document() {}
 public:
-	Element *Parse(Signal &sig, Stream &stream);
+	inline Element *GetRoot() { return _pRoot.get(); }
+	inline const Element *GetRoot() const { return _pRoot.get(); }
 private:
 	virtual void OnStartElement(const XML_Char *name, const XML_Char **atts);
 	virtual void OnEndElement(const XML_Char *name);
@@ -347,6 +330,26 @@ public:
 	inline Element *GetElement() { return _pElement.get(); }
 	inline const Element *GetElement() const { return _pElement.get(); }
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(Signal sig, bool exprFlag);
+};
+
+//-----------------------------------------------------------------------------
+// Object_document
+//-----------------------------------------------------------------------------
+Gura_DeclareUserClass(document);
+
+class Object_document : public Object {
+private:
+	AutoPtr<Document> _pDocument;
+public:
+	Gura_DeclareObjectAccessor(document)
+public:
+	Object_document(Document *pDocument);
+	inline Document *GetDocument() { return _pDocument.get(); }
+	inline const Document *GetDocument() const { return _pDocument.get(); }
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);

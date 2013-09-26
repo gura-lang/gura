@@ -65,9 +65,9 @@ classref(`xml.element).print() = {
 	this.children && this.children::print()
 }
 
-xml.read('test.xml') {|root|
+xml.document('test.xml') {|doc|
 	//println(root)
 	//println(root.children)
 	//root.format()
-	root.print()
+	doc.root.print()
 }
