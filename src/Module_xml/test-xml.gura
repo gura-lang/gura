@@ -62,7 +62,9 @@ scope {
 }
 scope {
 	e = xml.element
-	elem = e('hoge', attr => 'aaa', attr_2 => 'bbb') {
+	c = xml.comment
+	doc = xml.document()
+	doc.root = e('hoge', attr => 'aaa', attr_2 => 'bbb') {
 		e('foo') {
 			'text'
 			e('bar')
@@ -71,15 +73,33 @@ scope {
 			e('bar')
 			e('bar')
 			e('bar')
+			c('This is a comment text')
+			e('bar') {
+				e('hoge')
+				e('hoge')
+				e('hoge')
+				e('hoge')
+				e('hoge')
+			}
 			e('bar')
-			e('bar')
+			e('bar' + (1..10))
 		}
 		e('foo')
 	}
-	println(elem.format())
-}
-scope {
-	e = xml.read('test.xml')
-	println(e.name)
-	#println(e.children::name, ' ', e.children::get('match'))
+	doc.root.addchild(e('foo2'))
+	doc.root.addchild([e('foo3'), e('foo4'), e('foo5'), 'text-added'])
+	doc.root << e('foo2')
+	doc.root << [e('foo3'), e('foo4'), e('foo5'), 'text-added']
+	try {
+		doc.root.addchild(2)
+	} except {|e|
+		println('expected error occurs: ', e.text)
+	}
+	try {
+		doc.root << 3
+	} except {|e|
+		println('expected error occurs: ', e.text)
+	}
+	println('== result output ==')
+	doc.write(sys.stdout, fancy => true)
 }

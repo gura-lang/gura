@@ -846,10 +846,10 @@ int Object_parser::ParserEx::OnNotStandalone()
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_parser
 //-----------------------------------------------------------------------------
-// xml.parser#parse(stream:stream:r)
+// xml.parser#parse(stream:stream:r):void
 Gura_DeclareMethod(parser, parse)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 }
 
@@ -1048,12 +1048,22 @@ Gura_ImplementMethod(element, addchild)
 	return Value::Null;
 }
 
+// operator <<
+Gura_ImplementBinaryOperator(Shl, element, any)
+{
+	Object_element *pObj = Object_element::GetObject(valueLeft);
+	if (!pObj->GetElement()->AddChild(env, sig, valueRight)) return Value::Null;
+	return valueLeft;
+}
+
 // implementation of class Element
 Gura_ImplementUserClass(element)
 {
 	Gura_AssignMethod(element, write);
 	Gura_AssignMethod(element, gettext);
 	Gura_AssignMethod(element, addchild);
+	// operator assignment
+	Gura_AssignBinaryOperator(Shl, element, any);
 }
 
 //-----------------------------------------------------------------------------

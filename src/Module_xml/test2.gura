@@ -29,5 +29,18 @@ scope {
 	}
 	doc.root.addchild(e('foo2'))
 	doc.root.addchild([e('foo3'), e('foo4'), e('foo5'), 'text-added'])
-	doc.write(fancy => true)
+	doc.root << e('foo2')
+	doc.root << [e('foo3'), e('foo4'), e('foo5'), 'text-added']
+	try {
+		doc.root.addchild(2)
+	} except {|e|
+		println('expected error occurs: ', e.text)
+	}
+	try {
+		doc.root << 3
+	} except {|e|
+		println('expected error occurs: ', e.text)
+	}
+	println('== result output ==')
+	doc.write(sys.stdout, fancy => true)
 }
