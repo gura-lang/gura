@@ -26,6 +26,7 @@ Palette.cpp
 Parser.cpp
 PathManager.cpp
 TemplateEngine.cpp
+Error.cpp
 Signal.cpp
 Stream.cpp
 String.cpp
