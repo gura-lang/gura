@@ -993,10 +993,12 @@ bool Expr_Block::GenerateScript(Signal sig, SimpleStream &stream,
 	if (!_pExprBlockParam.IsNull()) {
 		if (!_pExprBlockParam->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
 	}
-	if (scriptStyle == SCRSTYLE_Digest) {
+	if (GetExprOwner().empty()) {
+		// nothing to do
+	} else if (scriptStyle == SCRSTYLE_Digest && !GetExprOwner().IsAtSameLine()) {
 		stream.Print(sig, " .. ");
 		if (sig.IsSignalled()) return false;
-	} else if (!GetExprOwner().empty()) {
+	} else {
 		const char *sepText =
 			(scriptStyle == SCRSTYLE_Crammed)? "" :
 			(scriptStyle == SCRSTYLE_OneLine)? " " :
@@ -1192,7 +1194,9 @@ bool Expr_Lister::GenerateScript(Signal sig, SimpleStream &stream,
 {
 	stream.PutChar(sig, '[');
 	if (sig.IsSignalled()) return false;
-	if (scriptStyle == SCRSTYLE_Digest) {
+	if (GetExprOwner().empty()) {
+		// nothing to do
+	} else if (scriptStyle == SCRSTYLE_Digest && !GetExprOwner().IsAtSameLine()) {
 		stream.Print(sig, " .. ");
 		if (sig.IsSignalled()) return false;
 	} else {
@@ -1248,7 +1252,9 @@ bool Expr_IteratorLink::GenerateScript(Signal sig, SimpleStream &stream,
 {
 	stream.PutChar(sig, '(');
 	if (sig.IsSignalled()) return false;
-	if (scriptStyle == SCRSTYLE_Digest) {
+	if (GetExprOwner().empty()) {
+		// nothing to do
+	} else if (scriptStyle == SCRSTYLE_Digest && !GetExprOwner().IsAtSameLine()) {
 		stream.Print(sig, " .. ");
 		if (sig.IsSignalled()) return false;
 	} else {
@@ -1560,7 +1566,9 @@ bool Expr_Indexer::GenerateScript(Signal sig, SimpleStream &stream,
 		if (!pExprSymbol->GenerateScriptHead(sig, stream, scriptStyle, nestLevel)) return false;
 		stream.PutChar(sig, '[');
 		if (sig.IsSignalled()) return false;
-		if (scriptStyle == SCRSTYLE_Digest) {
+		if (GetExprOwner().empty()) {
+			// nothing to do
+		} else if (scriptStyle == SCRSTYLE_Digest && !GetExprOwner().IsAtSameLine()) {
 			stream.Print(sig, " .. ");
 			if (sig.IsSignalled()) return false;
 		} else {
@@ -1575,7 +1583,9 @@ bool Expr_Indexer::GenerateScript(Signal sig, SimpleStream &stream,
 		if (!GetCar()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
 		stream.PutChar(sig, '[');
 		if (sig.IsSignalled()) return false;
-		if (scriptStyle == SCRSTYLE_Digest) {
+		if (GetExprOwner().empty()) {
+			// nothing to do
+		} else if (scriptStyle == SCRSTYLE_Digest && !GetExprOwner().IsAtSameLine()) {
 			stream.Print(sig, " .. ");
 			if (sig.IsSignalled()) return false;
 		} else {
@@ -2727,6 +2737,18 @@ void ExprList::SetParent(const Expr *pExpr)
 	foreach_const (ExprList, ppExpr, *this) {
 		(*ppExpr)->SetParent(pExpr);
 	}
+}
+
+bool ExprList::IsAtSameLine() const
+{
+	if (empty()) return false;
+	ExprList::const_iterator ppExpr = begin();
+	const Expr *pExprTop = *ppExpr++;
+	for ( ; ppExpr != end(); ppExpr++) {
+		const Expr *pExpr = *ppExpr;
+		if (pExprTop->GetLineNoTop() != pExpr->GetLineNoTop()) return false;
+	}
+	return true;
 }
 
 //-----------------------------------------------------------------------------

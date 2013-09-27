@@ -90,6 +90,7 @@ String Error::MakeTrace() const
 	foreach_const (ExprOwner, ppExpr, exprCauseOwner) {
 		const Expr *pExpr = *ppExpr;
 		if (pExpr->IsRoot() || pExpr->IsBlock()) continue;
+		if (!pExpr->GetParent()->IsRoot() && !pExpr->GetParent()->IsBlock()) continue;
 		bool multilineFlag = (pExpr->GetLineNoTop() != pExpr->GetLineNoBtm());
 		const char *pathName = pExpr->GetPathName();
 		if (pathName != NULL) {

@@ -252,6 +252,7 @@ public:
 	void Accept(ExprVisitor &visitor) const;
 	bool IsContained(const Expr *pExpr) const;
 	void SetParent(const Expr *pExpr);
+	bool IsAtSameLine() const;
 private:
 	inline ExprList(const ExprList &exprList) {}; // not supported
 };
