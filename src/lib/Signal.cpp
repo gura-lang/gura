@@ -217,7 +217,7 @@ void Signal::SetErrorV(ErrorType errType,
 void Signal::PutTraceInfo(String &str, const Expr *pExpr)
 {
 	bool multilineFlag = (pExpr->GetLineNoTop() != pExpr->GetLineNoBtm());
-	if (multilineFlag) return;
+	//if (multilineFlag) return;
 	const char *pathName = pExpr->GetPathName();
 	if (pathName != NULL) {
 		String fileName;
@@ -232,7 +232,7 @@ void Signal::PutTraceInfo(String &str, const Expr *pExpr)
 	}
 	str += buff;
 	str += ":\n  ";
-	str += pExpr->ToString(Expr::SCRSTYLE_OneLine);
+	str += pExpr->ToString(Expr::SCRSTYLE_Digest);
 	str += "\n";
 }
 

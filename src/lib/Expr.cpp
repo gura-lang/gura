@@ -359,6 +359,8 @@ Expr::ScriptStyle Expr::SymbolToScriptStyle(const Symbol *pSymbol)
 		return SCRSTYLE_OneLine;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(fancy))) {
 		return SCRSTYLE_Fancy;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(digest))) {
+		return SCRSTYLE_Digest;
 	} else {
 		return SCRSTYLE_None;
 	}
@@ -991,7 +993,10 @@ bool Expr_Block::GenerateScript(Signal sig, SimpleStream &stream,
 	if (!_pExprBlockParam.IsNull()) {
 		if (!_pExprBlockParam->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
 	}
-	if (!GetExprOwner().empty()) {
+	if (scriptStyle == SCRSTYLE_Digest) {
+		stream.Print(sig, " .. ");
+		if (sig.IsSignalled()) return false;
+	} else if (!GetExprOwner().empty()) {
 		const char *sepText =
 			(scriptStyle == SCRSTYLE_Crammed)? "" :
 			(scriptStyle == SCRSTYLE_OneLine)? " " :
@@ -1187,8 +1192,13 @@ bool Expr_Lister::GenerateScript(Signal sig, SimpleStream &stream,
 {
 	stream.PutChar(sig, '[');
 	if (sig.IsSignalled()) return false;
-	if (!GetExprOwner().GenerateScript(sig, stream,
+	if (scriptStyle == SCRSTYLE_Digest) {
+		stream.Print(sig, " .. ");
+		if (sig.IsSignalled()) return false;
+	} else {
+		if (!GetExprOwner().GenerateScript(sig, stream,
 							scriptStyle, nestLevel, SEP_Comma)) return false;
+	}
 	stream.PutChar(sig, ']');
 	if (sig.IsSignalled()) return false;
 	return true;
@@ -1238,11 +1248,16 @@ bool Expr_IteratorLink::GenerateScript(Signal sig, SimpleStream &stream,
 {
 	stream.PutChar(sig, '(');
 	if (sig.IsSignalled()) return false;
-	if (!GetExprOwner().GenerateScript(sig, stream,
-						scriptStyle, nestLevel, SEP_Comma)) return false;
-	if (GetExprOwner().size() == 1) {
-		stream.PutChar(sig, ',');
+	if (scriptStyle == SCRSTYLE_Digest) {
+		stream.Print(sig, " .. ");
 		if (sig.IsSignalled()) return false;
+	} else {
+		if (!GetExprOwner().GenerateScript(sig, stream,
+						scriptStyle, nestLevel, SEP_Comma)) return false;
+		if (GetExprOwner().size() == 1) {
+			stream.PutChar(sig, ',');
+			if (sig.IsSignalled()) return false;
+		}
 	}
 	stream.PutChar(sig, ')');
 	if (sig.IsSignalled()) return false;
@@ -1545,8 +1560,13 @@ bool Expr_Indexer::GenerateScript(Signal sig, SimpleStream &stream,
 		if (!pExprSymbol->GenerateScriptHead(sig, stream, scriptStyle, nestLevel)) return false;
 		stream.PutChar(sig, '[');
 		if (sig.IsSignalled()) return false;
-		if (!GetLister()->GetExprOwner().GenerateScript(sig, stream,
+		if (scriptStyle == SCRSTYLE_Digest) {
+			stream.Print(sig, " .. ");
+			if (sig.IsSignalled()) return false;
+		} else {
+			if (!GetLister()->GetExprOwner().GenerateScript(sig, stream,
 								scriptStyle, nestLevel, SEP_Comma)) return false;
+		}
 		stream.PutChar(sig, ']');
 		if (sig.IsSignalled()) return false;
 		if (!pExprSymbol->GenerateScriptTail(sig, stream, scriptStyle, nestLevel)) return false;
@@ -1555,8 +1575,13 @@ bool Expr_Indexer::GenerateScript(Signal sig, SimpleStream &stream,
 		if (!GetCar()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
 		stream.PutChar(sig, '[');
 		if (sig.IsSignalled()) return false;
-		if (!GetLister()->GetExprOwner().GenerateScript(sig, stream,
+		if (scriptStyle == SCRSTYLE_Digest) {
+			stream.Print(sig, " .. ");
+			if (sig.IsSignalled()) return false;
+		} else {
+			if (!GetLister()->GetExprOwner().GenerateScript(sig, stream,
 								scriptStyle, nestLevel, SEP_Comma)) return false;
+		}
 		stream.PutChar(sig, ']');
 		if (sig.IsSignalled()) return false;
 		return true;

@@ -424,6 +424,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(line);
 	Gura_RealizeSymbol(crammed);
 	Gura_RealizeSymbol(oneline);
+	Gura_RealizeSymbol(digest);
 	Gura_RealizeSymbol(fancy);
 }
 

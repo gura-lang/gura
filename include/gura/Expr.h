@@ -82,6 +82,7 @@ public:
 		SCRSTYLE_None,
 		SCRSTYLE_Crammed,
 		SCRSTYLE_OneLine,
+		SCRSTYLE_Digest,
 		SCRSTYLE_Fancy,
 	};
 	enum Separator {
