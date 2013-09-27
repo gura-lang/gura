@@ -34,11 +34,11 @@ const Error::TypeInfo Error::_typeInfoTbl[] = {
 	{ ERR_None,					NULL					},
 };
 
-Error::Error() : _errType(ERR_None), _pExprCauseOwner(new ExprOwner())
+Error::Error(ErrorType errType) : _errType(errType), _pExprCauseOwner(new ExprOwner())
 {
 }
 
-Error::Error(const Error &err) : _errType(err._errType), _str(err._str),
+Error::Error(const Error &err) : _errType(err._errType), _text(err._text),
 					_pExprCauseOwner(new ExprOwner(*err._pExprCauseOwner))
 {
 }
@@ -46,14 +46,14 @@ Error::Error(const Error &err) : _errType(err._errType), _str(err._str),
 void Error::Clear()
 {
 	_errType = ERR_None;
-	_str.clear();
+	_text.clear();
 	GetExprCauseOwner().Clear();
 }
 
-void Error::Set(ErrorType errType, const String &str)
+void Error::Set(ErrorType errType, const String &text)
 {
 	_errType = errType;
-	_str = str;
+	_text = text;
 }
 
 String Error::MakeMessage(bool lineInfoFlag) const
@@ -77,7 +77,7 @@ String Error::MakeMessage(bool lineInfoFlag) const
 			str += buff;
 		} while (0);
 	}
-	str += _str.c_str();
+	str += _text;
 	return str;
 }
 
@@ -86,61 +86,29 @@ String Error::MakeTrace() const
 	String str;
 	const ExprOwner &exprCauseOwner = GetExprCauseOwner();
 	if (exprCauseOwner.empty()) return str;
-#if 1
 	str += "Traceback:\n";
 	foreach_const (ExprOwner, ppExpr, exprCauseOwner) {
 		const Expr *pExpr = *ppExpr;
-		if (!pExpr->IsRoot() && !pExpr->IsBlock()) {
-			PutTraceInfo(str, pExpr);
+		if (pExpr->IsRoot() || pExpr->IsBlock()) continue;
+		bool multilineFlag = (pExpr->GetLineNoTop() != pExpr->GetLineNoBtm());
+		const char *pathName = pExpr->GetPathName();
+		if (pathName != NULL) {
+			String fileName;
+			PathManager::SplitFileName(pathName, NULL, &fileName);
+			str += fileName;
 		}
-	}
-#else
-	const Expr *pExprInner = NULL;
-	const Expr *pExprPrev = NULL;
-	bool putTraceFlag = true;
-	str += "Traceback:\n";
-	foreach_const (ExprOwner, ppExpr, exprCauseOwner) {
-		const Expr *pExpr = *ppExpr;
-		if (pExpr->IsRoot()) break;
-		if (pExprInner == NULL) {
-			pExprPrev = pExpr;
-		} else if (pExpr->IsAtSameLine(pExprInner)) {
-			pExprPrev = pExpr;
-		} else if (pExprPrev != NULL) {
-			if (putTraceFlag) {
-				PutTraceInfo(str, pExprPrev);
-			}
-			putTraceFlag = !pExpr->IsParentOf(pExprPrev);
-			pExprPrev = pExpr;
+		char buff[64];
+		if (multilineFlag) {
+			::sprintf(buff, ":%d-%d", pExpr->GetLineNoTop(), pExpr->GetLineNoBtm());
+		} else {
+			::sprintf(buff, ":%d", pExpr->GetLineNoTop());
 		}
-		pExprInner = pExpr;
+		str += buff;
+		str += ":\n  ";
+		str += pExpr->ToString(Expr::SCRSTYLE_Digest);
+		str += "\n";
 	}
-	if (pExprPrev != NULL) {
-		PutTraceInfo(str, pExprPrev);
-	}
-#endif
 	return str;
-}
-
-void Error::PutTraceInfo(String &str, const Expr *pExpr)
-{
-	bool multilineFlag = (pExpr->GetLineNoTop() != pExpr->GetLineNoBtm());
-	const char *pathName = pExpr->GetPathName();
-	if (pathName != NULL) {
-		String fileName;
-		PathManager::SplitFileName(pathName, NULL, &fileName);
-		str += fileName;
-	}
-	char buff[64];
-	if (multilineFlag) {
-		::sprintf(buff, ":%d-%d", pExpr->GetLineNoTop(), pExpr->GetLineNoBtm());
-	} else {
-		::sprintf(buff, ":%d", pExpr->GetLineNoTop());
-	}
-	str += buff;
-	str += ":\n  ";
-	str += pExpr->ToString(Expr::SCRSTYLE_Digest);
-	str += "\n";
 }
 
 const char *Error::GetTypeName(ErrorType errType)
@@ -154,7 +122,7 @@ const char *Error::GetTypeName(ErrorType errType)
 void Error::AssignErrorTypes(Environment &env)
 {
 	for (const TypeInfo *p = _typeInfoTbl; p->name != NULL; p++) {
-		Object *pObj = new Object_error(env, p->errType);
+		Object *pObj = new Object_error(env, Error(p->errType));
 		env.AssignValue(Symbol::Add(p->name), Value(pObj), EXTRA_Public);
 	}
 }

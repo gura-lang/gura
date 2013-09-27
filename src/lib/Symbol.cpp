@@ -422,10 +422,12 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(urlpath);
 	Gura_RealizeSymbol(misc);
 	Gura_RealizeSymbol(line);
+	Gura_RealizeSymbol(lineno);
 	Gura_RealizeSymbol(crammed);
 	Gura_RealizeSymbol(oneline);
 	Gura_RealizeSymbol(digest);
 	Gura_RealizeSymbol(fancy);
+	Gura_RealizeSymbol(trace);
 }
 
 const Symbol *SymbolPool::Add(const char *name)

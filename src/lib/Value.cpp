@@ -567,7 +567,7 @@ void Value::DirValueType(SymbolSet &symbols, bool escalateFlag)
 
 ErrorType Value::GetErrorType() const
 {
-	return dynamic_cast<Object_error *>(_u.pObj)->GetErrorType();
+	return dynamic_cast<Object_error *>(_u.pObj)->GetError().GetType();
 }
 
 ValueList &Value::GetList()

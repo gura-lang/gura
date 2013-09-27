@@ -51,22 +51,22 @@ public:
 	};
 private:
 	ErrorType _errType;
-	String _str;
+	String _text;
 	std::auto_ptr<ExprOwner> _pExprCauseOwner;
 	static const TypeInfo _typeInfoTbl[];
 public:
-	Error();
+	Error(ErrorType errType = ERR_None);
 	Error(const Error &err);
 	void Clear();
-	void Set(ErrorType errType, const String &str);
+	void Set(ErrorType errType, const String &text);
 	String MakeMessage(bool lineInfoFlag = true) const;
 	String MakeTrace() const;
 	inline ErrorType GetType() const { return _errType; }
 	inline const char *GetTypeName() const { return GetTypeName(_errType); }
-	inline const String &GetStringSTL() const { return _str; }
+	inline const char *GetText() const { return _text.c_str(); }
+	inline const String &GetTextSTL() const { return _text; }
 	inline ExprOwner &GetExprCauseOwner() { return *_pExprCauseOwner; }
 	inline const ExprOwner &GetExprCauseOwner() const { return *_pExprCauseOwner; }
-	static void PutTraceInfo(String &str, const Expr *pExpr);
 	static const char *GetTypeName(ErrorType errType);
 	static void AssignErrorTypes(Environment &env);
 };

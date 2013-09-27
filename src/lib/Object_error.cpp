@@ -9,12 +9,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Object_error
 //-----------------------------------------------------------------------------
-Object_error::Object_error(const Object_error &obj) :
-										Object(obj), _errType(obj._errType)
-{
-}
-
-Object_error::~Object_error()
+Object_error::Object_error(const Object_error &obj) : Object(obj), _err(obj._err)
 {
 }
 
@@ -28,7 +23,6 @@ bool Object_error::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(text));
 	symbols.insert(Gura_Symbol(message));
-	symbols.insert(Gura_Symbol(value));
 	return true;
 }
 
@@ -37,8 +31,13 @@ Value Object_error::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(text))) {
+		//return Value(env, _err.GetTextSTL());
+		return Value(env, _err.MakeMessage(false));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(message))) {
-	} else if (pSymbol->IsIdentical(Gura_Symbol(value))) {
+		//bool lineInfoFlag = attrs.IsSet(Gura_Symbol(lineno));
+		return Value(env, _err.MakeMessage(true));
+	} else if (pSymbol->IsIdentical(Gura_Symbol(trace))) {
+		return Value(env, _err.MakeTrace());
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -48,15 +47,9 @@ String Object_error::ToString(Signal sig, bool exprFlag)
 {
 	String rtn;
 	rtn += "<error:";
-	rtn += Error::GetTypeName(_errType);
+	rtn += _err.GetTypeName();
 	rtn += ">";
 	return rtn;
-}
-
-void Object_error::SetSnapshot(const Signal &sig)
-{
-	_str = sig.GetError().GetStringSTL();
-	_pExprCauseOwner.reset(new ExprOwner(sig.GetError().GetExprCauseOwner()));
 }
 
 //-----------------------------------------------------------------------------

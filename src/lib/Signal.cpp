@@ -66,16 +66,16 @@ void Signal::SetError(ErrorType errType, const char *format, ...)
 void Signal::SetErrorV(ErrorType errType,
 					const char *format, va_list list, const char *textPre)
 {
-	String str(textPre);
+	String text(textPre);
 	do {
 		char *buff = new char [2048];
 		::vsprintf(buff, format, list);
-		str += buff;
+		text += buff;
 		delete [] buff;
 	} while (0);
 	_pShared->sigType = SIGTYPE_Error;
 	*_pShared->pValue = Value::Null;
-	_pShared->err.Set(errType, str);
+	_pShared->err.Set(errType, text);
 }
 
 const char *Signal::GetTypeName(SignalType sigType)
