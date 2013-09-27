@@ -20,6 +20,9 @@ public:
 	Gura_DeclareObjectAccessor(error)
 private:
 	ErrorType _errType;
+	String _str;
+	std::auto_ptr<Value> _pValue;
+	std::auto_ptr<ExprOwner> _pExprCauseOwner;
 public:
 	inline Object_error(Environment &env, ErrorType errType) :
 					Object(env.LookupClass(VTYPE_error)), _errType(errType) {}
@@ -29,6 +32,10 @@ public:
 	virtual ~Object_error();
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
+	void SetSnapshot(const Signal &sig);
 	inline ErrorType GetErrorType() const { return _errType; }
 };
 

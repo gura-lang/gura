@@ -444,7 +444,7 @@ Gura_ImplementFunction(except_)
 		handleFlag = true;
 	} else {
 		foreach_const (ValueList, pValue, args.GetList(0)) {
-			if (pValue->GetErrorType() == sig.GetErrorType()) {
+			if (pValue->GetErrorType() == sig.GetError().GetErrorType()) {
 				handleFlag = true;
 				break;
 			}
@@ -454,11 +454,12 @@ Gura_ImplementFunction(except_)
 		args.RequestTrailer(this);
 		return Value::Null;
 	}
-	Object_error *pObj = new Object_error(env, sig.GetErrorType());
+	Object_error *pObj = new Object_error(env, sig.GetError().GetErrorType());
+	//pObj->SetSnapshot(sig);
 	pObj->AssignValue(Gura_Symbol(text),
-				Value(env, sig.GetErrString(false).c_str()), EXTRA_Public);
+			Value(env, sig.GetError().MakeMessage(false).c_str()), EXTRA_Public);
 	pObj->AssignValue(Gura_Symbol(message),
-				Value(env, sig.GetErrString(true).c_str()), EXTRA_Public);
+			Value(env, sig.GetError().MakeMessage(true).c_str()), EXTRA_Public);
 	pObj->AssignValue(Gura_Symbol(value), sig.GetValue(), EXTRA_Public);
 	Value value(pObj);
 	ValueList valListArg(value);

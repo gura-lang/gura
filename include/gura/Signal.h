@@ -64,16 +64,37 @@ enum SignalType {
 const char *GetSignalTypeName(SignalType sigType);
 
 //-----------------------------------------------------------------------------
+// Error
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Error {
+private:
+	ErrorType _errType;
+	String _str;
+	std::auto_ptr<ExprOwner> _pExprCauseOwner;
+public:
+	Error();
+	Error(const Error &err);
+	void Clear();
+	void Set(ErrorType errType, const String &str);
+	String MakeMessage(bool lineInfoFlag = true) const;
+	String MakeTrace() const;
+	inline ErrorType GetErrorType() const { return _errType; }
+	inline const char *GetErrorName() const { return GetErrorTypeName(_errType); }
+	inline const String &GetStringSTL() const { return _str; }
+	inline ExprOwner &GetExprCauseOwner() { return *_pExprCauseOwner; }
+	inline const ExprOwner &GetExprCauseOwner() const { return *_pExprCauseOwner; }
+	static void PutTraceInfo(String &str, const Expr *pExpr);
+};
+
+//-----------------------------------------------------------------------------
 // Signal
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Signal {
 private:
 	struct Message {
 		SignalType sigType;
-		ErrorType errType;
-		String str;
 		std::auto_ptr<Value> pValue;
-		std::auto_ptr<ExprOwner> pExprCauseOwner;
+		Error err;
 		Message();
 	};
 private:
@@ -100,8 +121,6 @@ public:
 	inline bool IsReqClearHistory() const	{ return _pMsg->sigType == SIGTYPE_ReqClearHistory; }
 	inline SignalType GetSignalType() const { return _pMsg->sigType; }
 	inline const char *GetSignalName() const { return GetSignalTypeName(_pMsg->sigType); }
-	inline ErrorType GetErrorType() const { return _pMsg->errType; }
-	inline const char *GetErrorName() const { return GetErrorTypeName(_pMsg->errType); }
 	inline Value &GetValue() const { return *_pMsg->pValue; }
 	void SetValue(const Value &value) const;
 	inline void SuspendError() {
@@ -110,18 +129,14 @@ public:
 	inline void ResumeError() {
 		if (_pMsg->sigType == SIGTYPE_ErrorSuspended) _pMsg->sigType = SIGTYPE_Error;
 	}
+	inline Error &GetError() { return _pMsg->err; }
+	inline const Error &GetError() const { return _pMsg->err; }
 	void ClearSignal();
 	void SetSignal(SignalType sigType, const Value &value);
 	void AddExprCause(const Expr *pExpr);
-	inline const ExprOwner &GetExprCauseOwner() const {
-		return *_pMsg->pExprCauseOwner;
-	}
-	String GetErrString(bool lineInfoFlag = true) const;
-	String GetErrTrace() const;
 	void SetError(ErrorType errType, const char *format, ...);
 	void SetErrorV(ErrorType errType,
 			const char *format, va_list list, const char *textPre = ": ");
-	static void PutTraceInfo(String &str, const Expr *pExpr);
 };
 
 }
