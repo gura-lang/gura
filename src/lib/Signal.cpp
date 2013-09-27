@@ -5,16 +5,15 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Signal
 //-----------------------------------------------------------------------------
-Signal::Signal() : _pMsg(new Message()), _stackLevel(0)
+Signal::Signal() : _pShared(new Shared()), _stackLevel(0)
 {
 }
 
-Signal::Signal(Message *pMsg) : _pMsg(pMsg), _stackLevel(0)
+Signal::Signal(Shared *pShared) : _pShared(pShared), _stackLevel(0)
 {
 }
 
-Signal::Signal(const Signal &sig) :
-						_pMsg(sig._pMsg), _stackLevel(sig._stackLevel + 1)
+Signal::Signal(const Signal &sig) : _pShared(sig._pShared), _stackLevel(sig._stackLevel + 1)
 {
 	if (_stackLevel > MAX_STACK_LEVEL) {
 		SetError(ERR_SystemError, "stack level exceeds maximum (%d)", MAX_STACK_LEVEL);
@@ -23,35 +22,36 @@ Signal::Signal(const Signal &sig) :
 
 Signal &Signal::operator=(const Signal &sig)
 {
-	_pMsg = sig._pMsg, _stackLevel = sig._stackLevel;
+	_pShared = sig._pShared, _stackLevel = sig._stackLevel;
 	return *this;
 }
 
 void Signal::SetValue(const Value &value) const
 {
-	*_pMsg->pValue = value;
+	*_pShared->pValue = value;
 }
 
 void Signal::ClearSignal()
 {
-	_pMsg->sigType = SIGTYPE_None;
-	_pMsg->err.Clear();
+	_pShared->sigType = SIGTYPE_None;
+	_pShared->err.Clear();
 }
 
 void Signal::SetSignal(SignalType sigType, const Value &value)
 {
-	_pMsg->sigType = sigType, *_pMsg->pValue = value;
+	_pShared->sigType = sigType;
+	*_pShared->pValue = value;
 }
 
 void Signal::AddExprCause(const Expr *pExpr)
 {
-	ExprOwner &exprOwner = _pMsg->err.GetExprCauseOwner();
+	ExprOwner &exprOwner = _pShared->err.GetExprCauseOwner();
 	if (std::find(exprOwner.begin(), exprOwner.end(), pExpr) == exprOwner.end()) {
 		exprOwner.push_back(Expr::Reference(pExpr));
 	}
 }
 
-Signal::Message::Message() : sigType(SIGTYPE_None), pValue(new Value())
+Signal::Shared::Shared() : sigType(SIGTYPE_None), pValue(new Value())
 {
 }
 
@@ -73,9 +73,9 @@ void Signal::SetErrorV(ErrorType errType,
 		str += buff;
 		delete [] buff;
 	} while (0);
-	_pMsg->sigType = SIGTYPE_Error;
-	*_pMsg->pValue = Value::Null;
-	_pMsg->err.Set(errType, str);
+	_pShared->sigType = SIGTYPE_Error;
+	*_pShared->pValue = Value::Null;
+	_pShared->err.Set(errType, str);
 }
 
 const char *Signal::GetTypeName(SignalType sigType)

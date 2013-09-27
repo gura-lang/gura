@@ -32,46 +32,48 @@ enum SignalType {
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Signal {
 private:
-	struct Message {
+	class Shared {
+	public:
 		SignalType sigType;
 		std::auto_ptr<Value> pValue;
 		Error err;
-		Message();
+	public:
+		Shared();
 	};
 private:
-	Message *_pMsg;
+	Shared *_pShared;
 	int _stackLevel;
 public:
 	Signal();
-	Signal(Message *pMsg);
+	Signal(Shared *pShared);
 	Signal(const Signal &sig);
 	Signal &operator=(const Signal &sig);
 	inline bool IsSignalled() const	{
-		return _pMsg->sigType != SIGTYPE_None &&
-									_pMsg->sigType != SIGTYPE_ErrorSuspended;
+		return _pShared->sigType != SIGTYPE_None &&
+									_pShared->sigType != SIGTYPE_ErrorSuspended;
 	}
-	inline bool IsErrorSuspended() const{ return _pMsg->sigType == SIGTYPE_ErrorSuspended; }
-	inline bool IsError() const			{ return _pMsg->sigType == SIGTYPE_Error; }
-	inline bool IsTerminate() const		{ return _pMsg->sigType == SIGTYPE_Terminate; }
-	inline bool IsBreak() const			{ return _pMsg->sigType == SIGTYPE_Break; }
-	inline bool IsContinue() const		{ return _pMsg->sigType == SIGTYPE_Continue; }
-	inline bool IsReturn() const		{ return _pMsg->sigType == SIGTYPE_Return; }
-	inline bool IsSwitchDone() const	{ return _pMsg->sigType == SIGTYPE_SwitchDone; }
-	inline bool IsDetectEncoding() const{ return _pMsg->sigType == SIGTYPE_DetectEncoding; }
-	inline bool IsReqSaveHistory() const	{ return _pMsg->sigType == SIGTYPE_ReqSaveHistory; }
-	inline bool IsReqClearHistory() const	{ return _pMsg->sigType == SIGTYPE_ReqClearHistory; }
-	inline SignalType GetType() const { return _pMsg->sigType; }
-	inline const char *GetTypeName() const { return GetTypeName(_pMsg->sigType); }
-	inline Value &GetValue() const { return *_pMsg->pValue; }
+	inline bool IsErrorSuspended() const{ return _pShared->sigType == SIGTYPE_ErrorSuspended; }
+	inline bool IsError() const			{ return _pShared->sigType == SIGTYPE_Error; }
+	inline bool IsTerminate() const		{ return _pShared->sigType == SIGTYPE_Terminate; }
+	inline bool IsBreak() const			{ return _pShared->sigType == SIGTYPE_Break; }
+	inline bool IsContinue() const		{ return _pShared->sigType == SIGTYPE_Continue; }
+	inline bool IsReturn() const		{ return _pShared->sigType == SIGTYPE_Return; }
+	inline bool IsSwitchDone() const	{ return _pShared->sigType == SIGTYPE_SwitchDone; }
+	inline bool IsDetectEncoding() const{ return _pShared->sigType == SIGTYPE_DetectEncoding; }
+	inline bool IsReqSaveHistory() const	{ return _pShared->sigType == SIGTYPE_ReqSaveHistory; }
+	inline bool IsReqClearHistory() const	{ return _pShared->sigType == SIGTYPE_ReqClearHistory; }
+	inline SignalType GetType() const { return _pShared->sigType; }
+	inline const char *GetTypeName() const { return GetTypeName(_pShared->sigType); }
+	inline Value &GetValue() const { return *_pShared->pValue; }
 	void SetValue(const Value &value) const;
 	inline void SuspendError() {
-		if (_pMsg->sigType == SIGTYPE_Error) _pMsg->sigType = SIGTYPE_ErrorSuspended;
+		if (_pShared->sigType == SIGTYPE_Error) _pShared->sigType = SIGTYPE_ErrorSuspended;
 	}
 	inline void ResumeError() {
-		if (_pMsg->sigType == SIGTYPE_ErrorSuspended) _pMsg->sigType = SIGTYPE_Error;
+		if (_pShared->sigType == SIGTYPE_ErrorSuspended) _pShared->sigType = SIGTYPE_Error;
 	}
-	inline Error &GetError() { return _pMsg->err; }
-	inline const Error &GetError() const { return _pMsg->err; }
+	inline Error &GetError() { return _pShared->err; }
+	inline const Error &GetError() const { return _pShared->err; }
 	void ClearSignal();
 	void SetSignal(SignalType sigType, const Value &value);
 	void AddExprCause(const Expr *pExpr);
