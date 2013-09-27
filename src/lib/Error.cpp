@@ -56,7 +56,7 @@ void Error::Set(ErrorType errType, const String &text)
 	_text = text;
 }
 
-String Error::MakeMessage(bool lineInfoFlag) const
+String Error::MakeText(bool lineInfoFlag) const
 {
 	String str;
 	const ExprOwner &exprCauseOwner = GetExprCauseOwner();

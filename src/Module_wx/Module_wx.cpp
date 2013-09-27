@@ -3309,7 +3309,7 @@ void SetError_InvalidWxObject(Signal sig, const char *name)
 
 void SetLogError(const Signal &sig)
 {
-	::wxLogError(wxString::FromUTF8(sig.GetError().MakeMessage(true).c_str()));
+	::wxLogError(wxString::FromUTF8(sig.GetError().MakeText(true).c_str()));
 }
 
 wxArrayString *CreateArrayString(const ValueList &valList)

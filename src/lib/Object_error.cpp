@@ -22,7 +22,7 @@ bool Object_error::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(text));
-	symbols.insert(Gura_Symbol(message));
+	symbols.insert(Gura_Symbol(trace));
 	return true;
 }
 
@@ -31,11 +31,8 @@ Value Object_error::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(text))) {
-		//return Value(env, _err.GetTextSTL());
-		return Value(env, _err.MakeMessage(false));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(message))) {
-		//bool lineInfoFlag = attrs.IsSet(Gura_Symbol(lineno));
-		return Value(env, _err.MakeMessage(true));
+		bool lineInfoFlag = attrs.IsSet(Gura_Symbol(lineno));
+		return Value(env, _err.MakeText(lineInfoFlag));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(trace))) {
 		return Value(env, _err.MakeTrace());
 	}

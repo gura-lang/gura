@@ -59,12 +59,10 @@ public:
 	Error(const Error &err);
 	void Clear();
 	void Set(ErrorType errType, const String &text);
-	String MakeMessage(bool lineInfoFlag = true) const;
+	String MakeText(bool lineInfoFlag = true) const;
 	String MakeTrace() const;
 	inline ErrorType GetType() const { return _errType; }
 	inline const char *GetTypeName() const { return GetTypeName(_errType); }
-	inline const char *GetText() const { return _text.c_str(); }
-	inline const String &GetTextSTL() const { return _text; }
 	inline ExprOwner &GetExprCauseOwner() { return *_pExprCauseOwner; }
 	inline const ExprOwner &GetExprCauseOwner() const { return *_pExprCauseOwner; }
 	static const char *GetTypeName(ErrorType errType);

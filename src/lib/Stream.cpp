@@ -26,7 +26,7 @@ void SimpleStream::Printf(Signal sig, const char *format, const ValueList &valLi
 void SimpleStream::PrintSignal(Signal sig, const Signal &sigToPrint)
 {
 	if (sig.IsError()) {
-		Println(sig, sigToPrint.GetError().MakeMessage().c_str());
+		Println(sig, sigToPrint.GetError().MakeText().c_str());
 		Print(sig, sigToPrint.GetError().MakeTrace().c_str());
 	} else {
 		Value value = sigToPrint.GetValue();
