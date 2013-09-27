@@ -1264,11 +1264,14 @@ Gura_ImplementFunction(element)
 	if (sig.IsSignalled()) return Value::Null;
 	if (pExprBlock != NULL) {
 		Environment envLister(&env, ENVTYPE_lister);
-		Value valueRaw =
-			pExprBlock->GetExprOwner().ExecForList(envLister, sig, false, false);
-		if (sig.IsSignalled() || !valueRaw.IsList()) return Value::Null;
-		foreach_const (ValueList, pValue, valueRaw.GetList()) {
-			if (!pElement->AddChild(env, sig, *pValue)) return Value::Null;
+		foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {
+			const Expr *pExpr = *ppExpr;
+			Value value = pExpr->Exec(env, sig);
+			if (sig.IsSignalled()) return Value::Null;
+			if (!pElement->AddChild(env, sig, value)) {
+				sig.AddExprCause(pExpr);
+				return Value::Null;
+			}
 		}
 	}
 	return Value(new Object_element(pElement));

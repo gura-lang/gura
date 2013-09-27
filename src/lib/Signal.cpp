@@ -126,7 +126,10 @@ void Signal::SetSignal(SignalType sigType, const Value &value)
 
 void Signal::AddExprCause(const Expr *pExpr)
 {
-	_pMsg->pExprCauseOwner->push_back(Expr::Reference(pExpr));
+	ExprOwner &exprOwner = *_pMsg->pExprCauseOwner;
+	if (std::find(exprOwner.begin(), exprOwner.end(), pExpr) == exprOwner.end()) {
+		exprOwner.push_back(Expr::Reference(pExpr));
+	}
 }
 
 Signal::Message::Message() : sigType(SIGTYPE_None),
