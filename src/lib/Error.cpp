@@ -65,7 +65,10 @@ String Error::MakeText(bool lineInfoFlag) const
 		const Expr *pExprCause = exprCauseOwner.front();
 		str += " at";
 		const char *pathName = pExprCause->GetPathName();
-		if (pathName != NULL) {
+		if (pathName == NULL) {
+			str += " ";
+			str += "<console>";
+		} else {
 			str += " ";
 			String fileName;
 			PathManager::SplitFileName(pathName, NULL, &fileName);
@@ -90,10 +93,13 @@ String Error::MakeTrace() const
 	foreach_const (ExprOwner, ppExpr, exprCauseOwner) {
 		const Expr *pExpr = *ppExpr;
 		if (pExpr->IsRoot() || pExpr->IsBlock()) continue;
-		if (!pExpr->GetParent()->IsRoot() && !pExpr->GetParent()->IsBlock()) continue;
+		const Expr *pExprParent = pExpr->GetParent();
+		if (pExprParent != NULL && !pExprParent->IsRoot() && !pExprParent->IsBlock()) continue;
 		bool multilineFlag = (pExpr->GetLineNoTop() != pExpr->GetLineNoBtm());
 		const char *pathName = pExpr->GetPathName();
-		if (pathName != NULL) {
+		if (pathName == NULL) {
+			str += "<console>";
+		} else {
 			String fileName;
 			PathManager::SplitFileName(pathName, NULL, &fileName);
 			str += fileName;

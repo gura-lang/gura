@@ -151,7 +151,6 @@ public:
 										const Operator *pOperator, bool rightFlag);
 	virtual Expr *Clone() const = 0;
 	virtual const char *GetPathName() const;
-	
 	virtual ICallable *LookupCallable(Environment &env, Signal sig) const;
 	inline Value Exec(Environment &env, Signal sig) const {
 		Value result = DoExec(env, sig);
