@@ -182,7 +182,7 @@ String Signal::GetErrTrace() const
 			if (putTraceFlag) {
 				PutTraceInfo(str, pExprPrev);
 			}
-			putTraceFlag = !pExpr->IsParentOf(pExprPrev);
+			putTraceFlag = !pExpr->IsParentOf(pExprPrev):
 			pExprPrev = pExpr;
 		}
 		pExprInner = pExpr;
@@ -220,7 +220,6 @@ void Signal::SetErrorV(ErrorType errType,
 void Signal::PutTraceInfo(String &str, const Expr *pExpr)
 {
 	bool multilineFlag = (pExpr->GetLineNoTop() != pExpr->GetLineNoBtm());
-	//if (multilineFlag) return;
 	const char *pathName = pExpr->GetPathName();
 	if (pathName != NULL) {
 		String fileName;

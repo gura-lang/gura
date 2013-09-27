@@ -2599,6 +2599,7 @@ Value ExprList::Exec(Environment &env, Signal sig, bool evalSymFuncFlag) const
 	foreach_const (ExprList, ppExpr, *this) {
 		result = (*ppExpr)->Exec(env, sig);
 		if (sig.IsSignalled()) {
+			sig.AddExprCause(*ppExpr);
 			break;
 		}
 		if (evalSymFuncFlag && result.IsFunction() &&
@@ -2628,6 +2629,7 @@ Value ExprList::ExecInRoot(Environment &env, Signal sig) const
 	foreach_const (ExprList, ppExpr, *this) {
 		result = (*ppExpr)->Exec(env, sig);
 		if (sig.IsError()) {
+			sig.AddExprCause(*ppExpr);
 			return Value::Null;
 		} else if (sig.IsTerminate()) {
 			env.GetConsoleErr()->PrintSignal(sig, sig);
@@ -2654,6 +2656,7 @@ Value ExprList::ExecForList(Environment &env, Signal sig,
 	foreach_const (ExprList, ppExpr, *this) {
 		Value value = (*ppExpr)->Exec(env, sig);
 		if (sig.IsSignalled()) {
+			sig.AddExprCause(*ppExpr);
 			return Value::Null;
 		}
 		if (evalSymFuncFlag && value.IsFunction() &&
