@@ -212,6 +212,7 @@ private:
 	bool _appearShebangFlag;
 	bool _blockParamFlag;
 	int _cntLine;
+	int _cntCol;
 	int _commentNestLevel;
 	String _sourceName;
 	String _token;
@@ -240,6 +241,7 @@ public:
 	inline bool IsStackEmpty() const { return _elemStack.size() <= 1; }
 	inline bool IsContinued() const { return !IsStackEmpty() || _stat != STAT_Start; }
 	inline int GetLineNo() const { return _cntLine + 1; }
+	inline int GetColPos() const { return _cntCol; }
 	inline int ElemTypeToIndex(ElemType elemType) {
 		return _elemTypeToIndexMap[elemType];
 	}
@@ -258,7 +260,7 @@ private:
 	inline  Precedence LookupPrecFast(ElemType elemTypeLeft, ElemType elemTypeRight) {
 		return _LookupPrec(ElemTypeToIndex(elemTypeLeft), ElemTypeToIndex(elemTypeRight));
 	}
-	Expr *FeedElement(Environment &env, Signal sig, const Element &elem);
+	virtual Expr *FeedElement(Environment &env, Signal sig, const Element &elem);
 	bool ReduceOneElem(Environment &env, Signal sig);
 	bool ReduceTwoElems(Environment &env, Signal sig);
 	bool ReduceThreeElems(Environment &env, Signal sig);

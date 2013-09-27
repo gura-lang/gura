@@ -9,7 +9,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 Parser::Parser() : _stat(STAT_Start),
 		_appearShebangFlag(false), _blockParamFlag(false),
-		_cntLine(0), _commentNestLevel(0)
+		_cntLine(0), _cntCol(0), _commentNestLevel(0)
 {
 	InitStack();
 	for (const ElemTypeInfo *p = _elemTypeInfoTbl;
@@ -760,7 +760,12 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 		break;
 	}
 	} } while (continueFlag);
-	if (ch == '\n') _cntLine++;
+	if (ch == '\n') {
+		_cntLine++;
+		_cntCol = 0;
+	} else {
+		_cntCol++;
+	}
 	return pExpr;
 }
 
