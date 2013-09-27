@@ -182,7 +182,7 @@ String Signal::GetErrTrace() const
 			if (putTraceFlag) {
 				PutTraceInfo(str, pExprPrev);
 			}
-			putTraceFlag = !pExpr->IsParentOf(pExprPrev):
+			putTraceFlag = !pExpr->IsParentOf(pExprPrev);
 			pExprPrev = pExpr;
 		}
 		pExprInner = pExpr;
