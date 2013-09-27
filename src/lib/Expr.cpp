@@ -1432,7 +1432,7 @@ Value Expr_Indexer::DoExec(Environment &env, Signal sig) const
 				while (pIteratorIdx->Next(env, sig, valueIdxEach)) {
 					Value value = objCar.IndexGet(env, sig, valueIdxEach);
 					if (sig.IsSignalled()) {
-						if (sig.GetError().GetErrorType() == ERR_IndexError &&
+						if (sig.GetError().GetType() == ERR_IndexError &&
 												pIteratorIdx->IsInfinite()) {
 							sig.ClearSignal();
 						}

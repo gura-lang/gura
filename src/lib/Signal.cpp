@@ -3,41 +3,9 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// SignalType
+// Error
 //-----------------------------------------------------------------------------
-const char *GetSignalTypeName(SignalType sigType)
-{
-	static const struct {
-		SignalType sigType;
-		const char *name;
-	} tbl[] = {
-		{ SIGTYPE_None,				"none",					},
-		{ SIGTYPE_ErrorSuspended,	"error_suspended",		},
-		{ SIGTYPE_Error,			"error",				},
-		{ SIGTYPE_Terminate,		"terminate",			},
-		{ SIGTYPE_Break,			"break",				},
-		{ SIGTYPE_Continue,			"continue",				},
-		{ SIGTYPE_Return,			"return",				},
-		{ SIGTYPE_SwitchDone,		"switch_done",			},
-		{ SIGTYPE_DetectEncoding,	"detect_encoding",		},
-		{ SIGTYPE_ReqSaveHistory,	"req_save_history",		},
-		{ SIGTYPE_ReqClearHistory,	"req_clear_history",	},
-	};
-	for (int i = 0; i < ArraySizeOf(tbl); i++) {
-		if (tbl[i].sigType == sigType) return tbl[i].name;
-	}
-	return "unknown";
-}
-
-//-----------------------------------------------------------------------------
-// ErrorType
-//-----------------------------------------------------------------------------
-struct ErrorTypeInfo {
-	ErrorType errType;
-	const char *name;
-};
-
-static const ErrorTypeInfo _errorTypeInfoTbl[] = {
+const Error::TypeInfo Error::_typeInfoTbl[] = {
 	{ ERR_None,					"None"					},
 	{ ERR_SyntaxError,			"SyntaxError"			},
 	{ ERR_ArithmeticError,		"ArithmeticError"		},
@@ -66,25 +34,6 @@ static const ErrorTypeInfo _errorTypeInfoTbl[] = {
 	{ ERR_None,					NULL					},
 };
 
-const char *GetErrorTypeName(ErrorType errType)
-{
-	for (const ErrorTypeInfo *p = _errorTypeInfoTbl; p->name != NULL; p++) {
-		if (p->errType == errType) return p->name;
-	}
-	return "unknown";
-}
-
-void AssignErrorTypes(Environment &env)
-{
-	for (const ErrorTypeInfo *p = _errorTypeInfoTbl; p->name != NULL; p++) {
-		Object *pObj = new Object_error(env, p->errType);
-		env.AssignValue(Symbol::Add(p->name), Value(pObj), EXTRA_Public);
-	}
-}
-
-//-----------------------------------------------------------------------------
-// Error
-//-----------------------------------------------------------------------------
 Error::Error() : _errType(ERR_None), _pExprCauseOwner(new ExprOwner())
 {
 }
@@ -111,7 +60,7 @@ String Error::MakeMessage(bool lineInfoFlag) const
 {
 	String str;
 	const ExprOwner &exprCauseOwner = GetExprCauseOwner();
-	str += GetErrorName();
+	str += GetTypeName();
 	if (lineInfoFlag && !exprCauseOwner.empty()) {
 		const Expr *pExprCause = exprCauseOwner.front();
 		str += " at";
@@ -194,6 +143,22 @@ void Error::PutTraceInfo(String &str, const Expr *pExpr)
 	str += "\n";
 }
 
+const char *Error::GetTypeName(ErrorType errType)
+{
+	for (const TypeInfo *p = _typeInfoTbl; p->name != NULL; p++) {
+		if (p->errType == errType) return p->name;
+	}
+	return "unknown";
+}
+
+void Error::AssignErrorTypes(Environment &env)
+{
+	for (const TypeInfo *p = _typeInfoTbl; p->name != NULL; p++) {
+		Object *pObj = new Object_error(env, p->errType);
+		env.AssignValue(Symbol::Add(p->name), Value(pObj), EXTRA_Public);
+	}
+}
+
 //-----------------------------------------------------------------------------
 // Signal
 //-----------------------------------------------------------------------------
@@ -227,8 +192,6 @@ void Signal::SetValue(const Value &value) const
 void Signal::ClearSignal()
 {
 	_pMsg->sigType = SIGTYPE_None;
-	//_pMsg->errType = ERR_None;
-	//_pMsg->pExprCauseOwner->Clear();
 	_pMsg->err.Clear();
 }
 
@@ -245,79 +208,9 @@ void Signal::AddExprCause(const Expr *pExpr)
 	}
 }
 
-//Signal::Message::Message() : sigType(SIGTYPE_None),
-//	errType(ERR_None), pValue(new Value()), pExprCauseOwner(new ExprOwner())
 Signal::Message::Message() : sigType(SIGTYPE_None), pValue(new Value())
 {
 }
-
-#if 0
-String Signal::GetErrString(bool lineInfoFlag) const
-{
-	String str;
-	const ExprOwner &exprCauseOwner = GetExprCauseOwner();
-	str += GetErrorName();
-	if (lineInfoFlag && !exprCauseOwner.empty()) {
-		const Expr *pExprCause = exprCauseOwner.front();
-		str += " at";
-		const char *pathName = pExprCause->GetPathName();
-		if (pathName != NULL) {
-			str += " ";
-			String fileName;
-			PathManager::SplitFileName(pathName, NULL, &fileName);
-			str += fileName;
-		}
-		do {
-			char buff[32];
-			::sprintf(buff, ":%d", pExprCause->GetLineNoTop());
-			str += buff;
-		} while (0);
-	}
-	str += _pMsg->str.c_str();
-	return str;
-}
-
-String Signal::GetErrTrace() const
-{
-	String str;
-	const ExprOwner &exprCauseOwner = GetExprCauseOwner();
-	if (exprCauseOwner.empty()) return str;
-#if 1
-	str += "Traceback:\n";
-	foreach_const (ExprOwner, ppExpr, exprCauseOwner) {
-		const Expr *pExpr = *ppExpr;
-		if (!pExpr->IsRoot() && !pExpr->IsBlock()) {
-			PutTraceInfo(str, pExpr);
-		}
-	}
-#else
-	const Expr *pExprInner = NULL;
-	const Expr *pExprPrev = NULL;
-	bool putTraceFlag = true;
-	str += "Traceback:\n";
-	foreach_const (ExprOwner, ppExpr, exprCauseOwner) {
-		const Expr *pExpr = *ppExpr;
-		if (pExpr->IsRoot()) break;
-		if (pExprInner == NULL) {
-			pExprPrev = pExpr;
-		} else if (pExpr->IsAtSameLine(pExprInner)) {
-			pExprPrev = pExpr;
-		} else if (pExprPrev != NULL) {
-			if (putTraceFlag) {
-				PutTraceInfo(str, pExprPrev);
-			}
-			putTraceFlag = !pExpr->IsParentOf(pExprPrev);
-			pExprPrev = pExpr;
-		}
-		pExprInner = pExpr;
-	}
-	if (pExprPrev != NULL) {
-		PutTraceInfo(str, pExprPrev);
-	}
-#endif
-	return str;
-}
-#endif
 
 void Signal::SetError(ErrorType errType, const char *format, ...)
 {
@@ -339,32 +232,31 @@ void Signal::SetErrorV(ErrorType errType,
 	} while (0);
 	_pMsg->sigType = SIGTYPE_Error;
 	*_pMsg->pValue = Value::Null;
-	//_pMsg->errType = errType;
-	//_pMsg->str = str;
 	_pMsg->err.Set(errType, str);
 }
 
-#if 0
-void Signal::PutTraceInfo(String &str, const Expr *pExpr)
+const char *Signal::GetTypeName(SignalType sigType)
 {
-	bool multilineFlag = (pExpr->GetLineNoTop() != pExpr->GetLineNoBtm());
-	const char *pathName = pExpr->GetPathName();
-	if (pathName != NULL) {
-		String fileName;
-		PathManager::SplitFileName(pathName, NULL, &fileName);
-		str += fileName;
+	static const struct {
+		SignalType sigType;
+		const char *name;
+	} tbl[] = {
+		{ SIGTYPE_None,				"none",					},
+		{ SIGTYPE_ErrorSuspended,	"error_suspended",		},
+		{ SIGTYPE_Error,			"error",				},
+		{ SIGTYPE_Terminate,		"terminate",			},
+		{ SIGTYPE_Break,			"break",				},
+		{ SIGTYPE_Continue,			"continue",				},
+		{ SIGTYPE_Return,			"return",				},
+		{ SIGTYPE_SwitchDone,		"switch_done",			},
+		{ SIGTYPE_DetectEncoding,	"detect_encoding",		},
+		{ SIGTYPE_ReqSaveHistory,	"req_save_history",		},
+		{ SIGTYPE_ReqClearHistory,	"req_clear_history",	},
+	};
+	for (int i = 0; i < ArraySizeOf(tbl); i++) {
+		if (tbl[i].sigType == sigType) return tbl[i].name;
 	}
-	char buff[64];
-	if (multilineFlag) {
-		::sprintf(buff, ":%d-%d", pExpr->GetLineNoTop(), pExpr->GetLineNoBtm());
-	} else {
-		::sprintf(buff, ":%d", pExpr->GetLineNoTop());
-	}
-	str += buff;
-	str += ":\n  ";
-	str += pExpr->ToString(Expr::SCRSTYLE_Digest);
-	str += "\n";
+	return "unknown";
 }
-#endif
 
 }

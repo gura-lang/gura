@@ -48,7 +48,7 @@ String Object_error::ToString(Signal sig, bool exprFlag)
 {
 	String rtn;
 	rtn += "<error:";
-	rtn += GetErrorTypeName(_errType);
+	rtn += Error::GetTypeName(_errType);
 	rtn += ">";
 	return rtn;
 }
