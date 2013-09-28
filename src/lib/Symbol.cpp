@@ -428,6 +428,10 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(digest);
 	Gura_RealizeSymbol(fancy);
 	Gura_RealizeSymbol(trace);
+	Gura_RealizeSymbol(postext);
+	Gura_RealizeSymbol(car);
+	Gura_RealizeSymbol(cdr);
+	Gura_RealizeSymbol(type);
 }
 
 const Symbol *SymbolPool::Add(const char *name)

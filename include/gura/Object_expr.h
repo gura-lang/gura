@@ -47,9 +47,12 @@ public:
 	Object_expr(const Object_expr &obj);
 	virtual ~Object_expr();
 	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual String ToString(Signal sig, bool exprFlag);
 	inline Expr *GetExpr() { return _pExpr; }
 	inline const Expr *GetExpr() const { return _pExpr; }
-	virtual String ToString(Signal sig, bool exprFlag);
 };
 
 }

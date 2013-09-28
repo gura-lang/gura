@@ -30,6 +30,27 @@ Object *Object_expr::Clone() const
 	return new Object_expr(*this);
 }
 
+bool Object_expr::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_Symbol(child));
+	symbols.insert(Gura_Symbol(left));
+	symbols.insert(Gura_Symbol(right));
+	symbols.insert(Gura_Symbol(car));
+	symbols.insert(Gura_Symbol(cdr));
+	return true;
+}
+
+Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+						const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_Symbol(red))) {
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
 String Object_expr::ToString(Signal sig, bool exprFlag)
 {
 	String str;

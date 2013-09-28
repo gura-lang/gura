@@ -415,6 +415,10 @@ public:
 	Gura_DeclareSymbol(digest);
 	Gura_DeclareSymbol(fancy);
 	Gura_DeclareSymbol(trace);
+	Gura_DeclareSymbol(postext);
+	Gura_DeclareSymbol(car);
+	Gura_DeclareSymbol(cdr);
+	Gura_DeclareSymbol(type);
 private:
 	typedef std::set<Symbol *, Symbol::KeyCompare_Name> Content;
 private:
