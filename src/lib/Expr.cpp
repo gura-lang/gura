@@ -342,6 +342,27 @@ String Expr::ToString(ScriptStyle scriptStyle) const
 	return str;
 }
 
+String Expr::MakePosText() const
+{
+	String str;
+	const char *pathName = GetPathName();
+	if (pathName == NULL) {
+		str += "<console>";
+	} else {
+		String fileName;
+		PathManager::SplitFileName(pathName, NULL, &fileName);
+		str += fileName;
+	}
+	char buff[64];
+	if (GetLineNoTop() == GetLineNoBtm()) {
+		::sprintf(buff, ":%d", GetLineNoTop());
+	} else {
+		::sprintf(buff, ":%d-%d", GetLineNoTop(), GetLineNoBtm());
+	}
+	str += buff;
+	return str;
+}
+
 bool Expr::PutNestIndent(Signal sig, SimpleStream &stream, int nestLevel)
 {
 	for (int i = 0; i < nestLevel; i++) {
@@ -2602,6 +2623,17 @@ bool Expr_Member::GenerateScript(Signal sig, SimpleStream &stream,
 // ExprList
 //-----------------------------------------------------------------------------
 const ExprList ExprList::Null;
+
+void ExprList::ExtractTrace(ExprOwner &exprOwner) const
+{
+	foreach_const (ExprOwner, ppExpr, *this) {
+		const Expr *pExpr = *ppExpr;
+		if (pExpr->IsRoot() || pExpr->IsBlock()) continue;
+		const Expr *pExprParent = pExpr->GetParent();
+		if (pExprParent != NULL && !pExprParent->IsRoot() && !pExprParent->IsBlock()) continue;
+		exprOwner.push_back(pExpr->Reference());
+	}
+}
 
 Value ExprList::Exec(Environment &env, Signal sig, bool evalSymFuncFlag) const
 {

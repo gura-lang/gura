@@ -27,7 +27,19 @@ void SimpleStream::PrintSignal(Signal sig, const Signal &sigToPrint)
 {
 	if (sig.IsError()) {
 		Println(sig, sigToPrint.GetError().MakeText().c_str());
-		Print(sig, sigToPrint.GetError().MakeTrace().c_str());
+		Println(sig, "Traceback:");
+		ExprOwner exprOwner;
+		sigToPrint.GetError().GetExprCauseOwner().ExtractTrace(exprOwner);
+		foreach_const (ExprOwner, ppExpr, exprOwner) {
+			Expr *pExpr = *ppExpr;
+			String str;
+			str += pExpr->MakePosText();
+			str += ":\n";
+			str += "  ";
+			str += pExpr->ToString(Expr::SCRSTYLE_Digest);
+			str += "\n";
+			Print(sig, str.c_str());
+		}
 	} else {
 		Value value = sigToPrint.GetValue();
 		if (value.IsValid()) Println(sig, value.ToString(sig).c_str());

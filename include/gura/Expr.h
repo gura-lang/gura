@@ -215,6 +215,7 @@ public:
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
 	virtual String ToString(ScriptStyle scriptStyle) const;
+	String MakePosText() const;
 	static bool PutNestIndent(Signal sig, SimpleStream &stream, int nestLevel);
 	static ScriptStyle SymbolToScriptStyle(const Symbol *pSymbol);
 };
@@ -241,6 +242,7 @@ public:
 	inline ExprList(Expr *pExpr1, Expr *pExpr2) : std::vector<Expr *>(2) {
 		(*this)[0] = pExpr1, (*this)[1] = pExpr2;
 	}
+	void ExtractTrace(ExprOwner &exprOwner) const;
 	Value Exec(Environment &env, Signal sig, bool evalSymFuncFlag) const;
 	Value ExecInRoot(Environment &env, Signal sig) const;
 	Value ExecForList(Environment &env, Signal sig,

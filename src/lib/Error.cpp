@@ -63,58 +63,10 @@ String Error::MakeText(bool lineInfoFlag) const
 	str += GetTypeName();
 	if (lineInfoFlag && !exprCauseOwner.empty()) {
 		const Expr *pExprCause = exprCauseOwner.front();
-		str += " at";
-		const char *pathName = pExprCause->GetPathName();
-		if (pathName == NULL) {
-			str += " ";
-			str += "<console>";
-		} else {
-			str += " ";
-			String fileName;
-			PathManager::SplitFileName(pathName, NULL, &fileName);
-			str += fileName;
-		}
-		do {
-			char buff[32];
-			::sprintf(buff, ":%d", pExprCause->GetLineNoTop());
-			str += buff;
-		} while (0);
+		str += " at ";
+		str += pExprCause->MakePosText();
 	}
 	str += _text;
-	return str;
-}
-
-String Error::MakeTrace() const
-{
-	String str;
-	const ExprOwner &exprCauseOwner = GetExprCauseOwner();
-	if (exprCauseOwner.empty()) return str;
-	str += "Traceback:\n";
-	foreach_const (ExprOwner, ppExpr, exprCauseOwner) {
-		const Expr *pExpr = *ppExpr;
-		if (pExpr->IsRoot() || pExpr->IsBlock()) continue;
-		const Expr *pExprParent = pExpr->GetParent();
-		if (pExprParent != NULL && !pExprParent->IsRoot() && !pExprParent->IsBlock()) continue;
-		bool multilineFlag = (pExpr->GetLineNoTop() != pExpr->GetLineNoBtm());
-		const char *pathName = pExpr->GetPathName();
-		if (pathName == NULL) {
-			str += "<console>";
-		} else {
-			String fileName;
-			PathManager::SplitFileName(pathName, NULL, &fileName);
-			str += fileName;
-		}
-		char buff[64];
-		if (multilineFlag) {
-			::sprintf(buff, ":%d-%d", pExpr->GetLineNoTop(), pExpr->GetLineNoBtm());
-		} else {
-			::sprintf(buff, ":%d", pExpr->GetLineNoTop());
-		}
-		str += buff;
-		str += ":\n  ";
-		str += pExpr->ToString(Expr::SCRSTYLE_Digest);
-		str += "\n";
-	}
 	return str;
 }
 
