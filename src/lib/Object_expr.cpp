@@ -60,10 +60,51 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		Object_expr *pObj = new Object_expr(env, Expr::Reference(pExpr->GetChild()));
 		return Value(pObj);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(children))) {
+		if (!GetExpr()->IsContainer()) {
+			sig.SetError(ERR_ValueError, "not a container expression");
+			return Value::Null;
+		}
+		const Expr_Container *pExpr = dynamic_cast<const Expr_Container *>(GetExpr());
+		Iterator *pIterator = new Object_expr::IteratorChildren(env, Expr_Container::Reference(pExpr));
+		return Value(env, pIterator);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(left))) {
+		if (!GetExpr()->IsBinary()) {
+			sig.SetError(ERR_ValueError, "not a binary expression");
+			return Value::Null;
+		}
+		const Expr_Binary *pExpr = dynamic_cast<const Expr_Binary *>(GetExpr());
+		Object_expr *pObj = new Object_expr(env, Expr::Reference(pExpr->GetLeft()));
+		return Value(pObj);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(right))) {
+		if (!GetExpr()->IsBinary()) {
+			sig.SetError(ERR_ValueError, "not a binary expression");
+			return Value::Null;
+		}
+		const Expr_Binary *pExpr = dynamic_cast<const Expr_Binary *>(GetExpr());
+		Object_expr *pObj = new Object_expr(env, Expr::Reference(pExpr->GetRight()));
+		return Value(pObj);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(car))) {
+		if (!GetExpr()->IsCompound()) {
+			sig.SetError(ERR_ValueError, "not a compound expression");
+			return Value::Null;
+		}
+		const Expr_Compound *pExpr = dynamic_cast<const Expr_Compound *>(GetExpr());
+		Object_expr *pObj = new Object_expr(env, Expr::Reference(pExpr->GetCar()));
+		return Value(pObj);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(cdr))) {
+		if (!GetExpr()->IsCompound()) {
+			sig.SetError(ERR_ValueError, "not a compound expression");
+			return Value::Null;
+		}
+		const Expr_Compound *pExpr = dynamic_cast<const Expr_Compound *>(GetExpr());
+		Value result;
+		ValueList &valList = result.InitAsList(env);
+		foreach_const (ExprList, ppExpr, pExpr->GetExprOwner()) {
+			const Expr *pExpr = *ppExpr;
+			Object_expr *pObj = new Object_expr(env, Expr::Reference(pExpr));
+			valList.push_back(Value(pObj));
+		}
+		return result;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(block))) {
 	} else if (pSymbol->IsIdentical(Gura_Symbol(name))) {
 	} else if (pSymbol->IsIdentical(Gura_Symbol(value))) {
@@ -96,14 +137,14 @@ String Object_expr::ToString(Signal sig, bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Object_expr::Iterator_Each
+// Object_expr::IteratorChildren
 //-----------------------------------------------------------------------------
-Iterator *Object_expr::Iterator_Each::GetSource()
+Iterator *Object_expr::IteratorChildren::GetSource()
 {
 	return NULL;
 }
 
-bool Object_expr::Iterator_Each::DoNext(Environment &env, Signal sig, Value &value)
+bool Object_expr::IteratorChildren::DoNext(Environment &env, Signal sig, Value &value)
 {
 	if (_ppExpr == _pExprContainer->GetExprOwner().end()) return false;
 	Object_expr *pObj = new Object_expr(_env, Expr::Reference(*_ppExpr));
@@ -112,116 +153,19 @@ bool Object_expr::Iterator_Each::DoNext(Environment &env, Signal sig, Value &val
 	return true;
 }
 
-String Object_expr::Iterator_Each::ToString(Signal sig) const
+String Object_expr::IteratorChildren::ToString(Signal sig) const
 {
-	String rtn = "<iterator:expr:each>";
+	String rtn = "<iterator:expr:children>";
 	return rtn;
 }
 
-void Object_expr::Iterator_Each::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+void Object_expr::IteratorChildren::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 }
 
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_expr
 //-----------------------------------------------------------------------------
-// expr#left()
-Gura_DeclareMethod(expr, left)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(expr, left)
-{
-	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
-	if (!pExpr->IsBinary()) {
-		sig.SetError(ERR_ValueError, "not a binary expression");
-		return Value::Null;
-	}
-	Object_expr *pObj = new Object_expr(env,
-		Expr::Reference(dynamic_cast<const Expr_Binary *>(pExpr)->GetLeft()));
-	return Value(pObj);
-}
-
-// expr#right()
-Gura_DeclareMethod(expr, right)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(expr, right)
-{
-	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
-	if (!pExpr->IsBinary()) {
-		sig.SetError(ERR_ValueError, "not a binary expression");
-		return Value::Null;
-	}
-	Object_expr *pObj = new Object_expr(env,
-		Expr::Reference(dynamic_cast<const Expr_Binary *>(pExpr)->GetRight()));
-	return Value(pObj);
-}
-
-// expr#each() {block?}
-Gura_DeclareMethod(expr, each)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(expr, each)
-{
-	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
-	if (!pExpr->IsContainer()) {
-		sig.SetError(ERR_ValueError, "not a container expression");
-		return Value::Null;
-	}
-	Iterator *pIterator = new Object_expr::Iterator_Each(env, 
-		Expr_Container::Reference(dynamic_cast<const Expr_Container *>(pExpr)));
-	return ReturnIterator(env, sig, args, pIterator);
-}
-
-// expr#car()
-Gura_DeclareMethod(expr, car)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(expr, car)
-{
-	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
-	if (!pExpr->IsCompound()) {
-		sig.SetError(ERR_ValueError, "not a compound expression");
-		return Value::Null;
-	}
-	Object_expr *pObj = new Object_expr(env,
-			Expr::Reference(dynamic_cast<const Expr_Compound *>(pExpr)->GetCar()));
-	return Value(pObj);
-}
-
-// expr#cdr()
-Gura_DeclareMethod(expr, cdr)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(expr, cdr)
-{
-	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
-	if (!pExpr->IsCompound()) {
-		sig.SetError(ERR_ValueError, "not a compound expression");
-		return Value::Null;
-	}
-	Value result;
-	ValueList &valList = result.InitAsList(env);
-	foreach_const (ExprList, ppExpr,
-					dynamic_cast<const Expr_Compound *>(pExpr)->GetExprOwner()) {
-		const Expr *pExpr = *ppExpr;
-		Object_expr *pObj = new Object_expr(env, Expr::Reference(pExpr));
-		valList.push_back(Value(pObj));
-	}
-	return result;
-}
-
 // expr#unquote()
 Gura_DeclareMethod(expr, unquote)
 {
@@ -406,11 +350,6 @@ Class_expr::Class_expr(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_expr)
 
 void Class_expr::Prepare(Environment &env)
 {
-	Gura_AssignMethod(expr, left);
-	Gura_AssignMethod(expr, right);
-	Gura_AssignMethod(expr, each);
-	Gura_AssignMethod(expr, car);
-	Gura_AssignMethod(expr, cdr);
 	Gura_AssignMethod(expr, unquote);
 	Gura_AssignMethod(expr, block);
 	Gura_AssignMethod(expr, exprname);
