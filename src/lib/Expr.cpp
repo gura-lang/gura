@@ -453,33 +453,35 @@ bool Expr::ExprVisitor_SearchBar::Visit(const Expr *pExpr)
 //-----------------------------------------------------------------------------
 bool Expr_Unary::IsUnary() const { return true; }
 
-Expr_Unary::Expr_Unary(ExprType exprType, Expr *pExprChild) : Expr(exprType)
+Expr_Unary::Expr_Unary(ExprType exprType, Expr *pExprChild) :
+								Expr(exprType), _pExprChild(pExprChild)
 {
-	_exprOwner.reserve(1);
-	_exprOwner.push_back(pExprChild);
-	if (pExprChild != NULL) _exprOwner.SetParent(this);
+	if (pExprChild != NULL) pExprChild->SetParent(this);
 }
 
-Expr_Unary::Expr_Unary(const Expr_Unary &expr) : Expr(expr), _exprOwner(expr._exprOwner)
+Expr_Unary::Expr_Unary(const Expr_Unary &expr) : Expr(expr)
 {
-	_exprOwner.SetParent(this);
+	if (expr.GetChild() != NULL) {
+		_pExprChild.reset(expr.GetChild()->Clone());
+		_pExprChild->SetParent(this);
+	}
 }
 
 Expr_Unary::~Expr_Unary()
 {
-	_exprOwner.SetParent(GetParent());
+	if (!_pExprChild.IsNull()) _pExprChild->SetParent(GetParent());
 }
 
 void Expr_Unary::Accept(ExprVisitor &visitor) const
 {
-	if (visitor.Visit(this)) {
-		GetChild()->Accept(visitor);
+	if (visitor.Visit(this) && !_pExprChild.IsNull()) {
+		_pExprChild->Accept(visitor);
 	}
 }
 
 bool Expr_Unary::IsParentOf(const Expr *pExpr) const
 {
-	return _exprOwner.IsContained(pExpr);
+	return GetChild() == pExpr;
 }
 
 //-----------------------------------------------------------------------------
@@ -487,34 +489,42 @@ bool Expr_Unary::IsParentOf(const Expr *pExpr) const
 //-----------------------------------------------------------------------------
 bool Expr_Binary::IsBinary() const { return true; }
 
-Expr_Binary::Expr_Binary(ExprType exprType, Expr *pExprLeft, Expr *pExprRight) : Expr(exprType)
+Expr_Binary::Expr_Binary(ExprType exprType, Expr *pExprLeft, Expr *pExprRight) :
+				Expr(exprType), _pExprLeft(pExprLeft), _pExprRight(pExprRight)
 {
-	_exprOwner.reserve(2);
-	_exprOwner.push_back(pExprLeft); _exprOwner.push_back(pExprRight);
-	if (pExprLeft != NULL && pExprRight != NULL) _exprOwner.SetParent(this);
+	if (!_pExprLeft.IsNull()) _pExprLeft->SetParent(this);
+	if (!_pExprRight.IsNull()) _pExprRight->SetParent(this);
 }
 
-Expr_Binary::Expr_Binary(const Expr_Binary &expr) : Expr(expr), _exprOwner(expr._exprOwner)
+Expr_Binary::Expr_Binary(const Expr_Binary &expr) : Expr(expr)
 {
-	_exprOwner.SetParent(this);
+	if (expr.GetLeft() != NULL) {
+		_pExprLeft.reset(expr.GetLeft()->Clone());
+		_pExprLeft->SetParent(this);
+	}
+	if (expr.GetRight() != NULL) {
+		_pExprRight.reset(expr.GetRight()->Clone());
+		_pExprRight->SetParent(this);
+	}
 }
 
 Expr_Binary::~Expr_Binary()
 {
-	_exprOwner.SetParent(GetParent());
+	if (!_pExprLeft.IsNull()) _pExprLeft->SetParent(GetParent());
+	if (!_pExprRight.IsNull()) _pExprRight->SetParent(GetParent());
 }
 
 void Expr_Binary::Accept(ExprVisitor &visitor) const
 {
 	if (visitor.Visit(this)) {
-		GetLeft()->Accept(visitor);
-		GetRight()->Accept(visitor);
+		if (!_pExprLeft.IsNull()) _pExprLeft->Accept(visitor);
+		if (!_pExprRight.IsNull()) _pExprRight->Accept(visitor);
 	}
 }
 
 bool Expr_Binary::IsParentOf(const Expr *pExpr) const
 {
-	return _exprOwner.IsContained(pExpr);
+	return GetLeft() == pExpr || GetRight() == pExpr;
 }
 
 //-----------------------------------------------------------------------------
@@ -1987,7 +1997,7 @@ Expr *Expr_UnaryOp::Clone() const
 
 Value Expr_UnaryOp::DoExec(Environment &env, Signal sig) const
 {
-	Value value = GetExprOwner()[0]->Exec(env, sig);
+	Value value = GetChild()->Exec(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
 	Value result = _pOperator->EvalMapUnary(env, sig, value);
 	if (sig.IsSignalled()) return Value::Null;
@@ -2060,8 +2070,8 @@ Expr *Expr_BinaryOp::Clone() const
 Value Expr_BinaryOp::DoExec(Environment &env, Signal sig) const
 {
 	OpType opType = _pOperator->GetOpType();
-	const Expr *pExprLeft = GetExprOwner()[0];
-	const Expr *pExprRight = GetExprOwner()[1];
+	const Expr *pExprLeft = GetLeft();
+	const Expr *pExprRight = GetRight();
 	Value valueLeft, valueRight;
 	if (opType == OPTYPE_OrOr) {
 		valueLeft = pExprLeft->Exec(env, sig);

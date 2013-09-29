@@ -275,7 +275,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Unary : public Expr {
 private:
-	ExprOwner _exprOwner;
+	AutoPtr<Expr> _pExprChild;
 public:
 	Expr_Unary(ExprType exprType, Expr *pExprChild);
 	Expr_Unary(const Expr_Unary &expr);
@@ -286,9 +286,8 @@ public:
 	virtual bool IsUnary() const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool IsParentOf(const Expr *pExpr) const;
-	inline Expr *GetChild() { return const_cast<Expr *>(_exprOwner[0]); }
-	inline const Expr *GetChild() const { return _exprOwner[0]; }
-	inline const ExprOwner &GetExprOwner() const { return _exprOwner; }
+	inline Expr *GetChild() { return _pExprChild.get(); }
+	inline const Expr *GetChild() const { return _pExprChild.get(); }
 };
 
 //-----------------------------------------------------------------------------
@@ -296,7 +295,8 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Binary : public Expr {
 private:
-	ExprOwner _exprOwner;
+	AutoPtr<Expr> _pExprLeft;
+	AutoPtr<Expr> _pExprRight;
 public:
 	Expr_Binary(ExprType exprType, Expr *pExprLeft, Expr *pExprRight);
 	Expr_Binary(const Expr_Binary &expr);
@@ -307,11 +307,10 @@ public:
 	virtual bool IsBinary() const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool IsParentOf(const Expr *pExpr) const;
-	inline Expr *GetLeft() { return const_cast<Expr *>(_exprOwner[0]); }
-	inline Expr *GetRight() { return const_cast<Expr *>(_exprOwner[1]); }
-	inline const Expr *GetLeft() const { return _exprOwner[0]; }
-	inline const Expr *GetRight() const { return _exprOwner[1]; }
-	inline const ExprOwner &GetExprOwner() const { return _exprOwner; }
+	inline Expr *GetLeft() { return _pExprLeft.get(); }
+	inline Expr *GetRight() { return _pExprRight.get(); }
+	inline const Expr *GetLeft() const { return _pExprLeft.get(); }
+	inline const Expr *GetRight() const { return _pExprRight.get(); }
 };
 
 //-----------------------------------------------------------------------------
