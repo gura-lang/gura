@@ -244,8 +244,8 @@ HRESULT CMain::ParseScriptText(
 	DBGPRINTF(("dwFlags               %08x\n", dwFlags));
 	Gura::Gura_Module(mswin)::Import(_env, _sig);
 	Gura::Stream *pConsole = _env.GetConsole();
-	Gura::ExprOwner exprOwner;
-	if (!Gura::Parser().ParseString(_env, _sig, exprOwner, "OLE",
+	Gura::AutoPtr<Gura::ExprOwner> pExprOwner(new Gura::ExprOwner());
+	if (!Gura::Parser().ParseString(_env, _sig, *pExprOwner, "OLE",
 					Gura::Gura_Module(mswin)::BSTRToString(pstrCode).c_str())) {
 		pexcepinfo->bstrDescription = L"*************";
 		pexcepinfo->bstrHelpFile = L"";
@@ -259,10 +259,10 @@ HRESULT CMain::ParseScriptText(
 		NotifyScriptError();
 		return DISP_E_EXCEPTION;
 	}
-	if (exprOwner.empty()) {
+	if (pExprOwner->empty()) {
 		pConsole->Println(_sig, "incomplete command");
 	} else {
-		Gura::Value result = exprOwner.Exec(_env, _sig, true);
+		Gura::Value result = pExprOwner->Exec(_env, _sig, true);
 		if (_sig.IsSignalled()) {
 			pConsole->PrintSignal(_sig, _sig);
 			NotifyScriptError();

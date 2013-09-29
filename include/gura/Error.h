@@ -52,7 +52,7 @@ public:
 private:
 	ErrorType _errType;
 	String _text;
-	std::auto_ptr<ExprOwner> _pExprCauseOwner;
+	AutoPtr<ExprOwner> _pExprCauseOwner;
 	static const TypeInfo _typeInfoTbl[];
 public:
 	Error(ErrorType errType = ERR_None);

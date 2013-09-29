@@ -79,15 +79,15 @@ int Main(int argc, const char *argv[])
 		foreach_const (StringList, pCmd, opt.GetStringList("command")) {
 			const char *cmd = pCmd->c_str();
 			if (::strcmp(cmd, "") == 0) continue;
-			ExprOwner exprOwner;
-			if (!Parser().ParseString(env, sig, exprOwner, "<command line>", cmd)) {
+			AutoPtr<ExprOwner> pExprOwner(new ExprOwner());
+			if (!Parser().ParseString(env, sig, *pExprOwner, "<command line>", cmd)) {
 				env.GetConsoleErr()->PrintSignal(sig, sig);
 				return 1;
 			}
-			if (exprOwner.empty()) {
+			if (pExprOwner->empty()) {
 				env.GetConsoleErr()->Println(sig, "incomplete command");
 			} else {
-				Value result = exprOwner.Exec(env, sig, true);
+				Value result = pExprOwner->Exec(env, sig, true);
 				if (sig.IsSignalled()) {
 					env.GetConsoleErr()->PrintSignal(sig, sig);
 					return 1;
@@ -171,12 +171,12 @@ void PrintHelp(FILE *fp)
 void ReadEvalPrintLoop(Environment &env, Signal sig)
 {
 	Parser parser;
-	ExprOwner exprOwner;
+	AutoPtr<ExprOwner> pExprOwner(new ExprOwner());
 	Stream *pConsole = env.GetConsole();
 	pConsole->Print(sig, env.GetPrompt(parser.IsContinued()));
 	for (;;) {
 		int ch = ::fgetc(stdin);
-		parser.EvalConsoleChar(env, sig, exprOwner,
+		parser.EvalConsoleChar(env, sig, *pExprOwner,
 								pConsole, static_cast<unsigned char>(ch));
 		if (ch < 0) break;
 		if (ch == '\n') {
@@ -188,13 +188,13 @@ void ReadEvalPrintLoop(Environment &env, Signal sig)
 void ReadEvalPrintLoop(Environment &env, Signal sig)
 {
 	Parser parser;
-	ExprOwner exprOwner;
+	AutoPtr<ExprOwner> pExprOwner(new ExprOwner());
 	char *lineBuff = NULL;
 	Stream *pConsole = env.GetConsole();
 	while (lineBuff = readline(env.GetPrompt(parser.IsContinued()))) {
 		for (char *p = lineBuff; ; p++) {
 			char ch = (*p == '\0')? '\n' : *p;
-			parser.EvalConsoleChar(env, sig, exprOwner, pConsole, ch);
+			parser.EvalConsoleChar(env, sig, *pExprOwner, pConsole, ch);
 			if (ch == '\n') break;
 		}
 		if (lineBuff[0] != '\0') {

@@ -83,7 +83,6 @@ private:
 	IActiveScriptSite *_pActiveScriptSite;
 	Gura::Signal _sig;
 	Gura::EnvironmentRoot _env;
-	Gura::ExprOwner _exprOwner;
 	Gura::ValueList _valListDispatched;
 public:
 	static const CLSID ClsId;

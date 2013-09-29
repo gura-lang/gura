@@ -36,9 +36,9 @@ Value Object_error::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	} else if (pSymbol->IsIdentical(Gura_Symbol(trace))) {
 		Value value;
 		ValueList &valList = value.InitAsList(env);
-		ExprOwner exprOwner;
-		_err.GetExprCauseOwner().ExtractTrace(exprOwner);
-		foreach_const (ExprOwner, ppExpr, exprOwner) {
+		AutoPtr<ExprOwner> pExprOwner(new ExprOwner());
+		_err.GetExprCauseOwner().ExtractTrace(*pExprOwner);
+		foreach_const (ExprOwner, ppExpr, *pExprOwner) {
 			const Expr *pExpr = *ppExpr;
 			valList.push_back(Value(new Object_expr(env, pExpr->Reference())));
 		}

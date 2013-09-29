@@ -450,7 +450,7 @@ bool DeclarationOwner::PrepareArgs(Environment &env, Signal sig,
 	ValueDict &valDict = valueWithDict.GetDict();
 	DeclarationList::const_iterator ppDecl = begin();
 	bool stayDeclPointerFlag = false;
-	ExprOwner exprsToDelete; // store temporary Exprs that are to be deleted at the end
+	AutoPtr<ExprOwner> pExprsToDelete(new ExprOwner()); // store temporary Exprs that are to be deleted at the end
 	foreach_const (ExprList, ppExprArg, exprListArg) {
 		const Expr *pExprArg = *ppExprArg;
 		bool quoteFlag = ppDecl != end() && (*ppDecl)->IsQuote();
@@ -484,7 +484,7 @@ bool DeclarationOwner::PrepareArgs(Environment &env, Signal sig,
 					} else {
 						pExpr = new Expr_Value(value);
 					}
-					exprsToDelete.push_back(pExpr);
+					pExprsToDelete->push_back(pExpr);
 					exprMap[valueKey.GetSymbol()] = pExpr;
 				} else {
 					valDict.insert(*item);

@@ -145,8 +145,8 @@ Gura_Method(Object, __call__)::Gura_Method(Object, __call__)(Environment &env, c
 Value Gura_Method(Object, __call__)::EvalExpr(Environment &env, Signal sig, Args &args) const
 {
 	Fundamental *pThis = args.GetThisFundamental();
-	ExprOwner exprOwnerArgs(args.GetExprListArg());
-	const Expr *pExprArg = exprOwnerArgs.front();
+	AutoPtr<ExprOwner> pExprOwnerArgs(new ExprOwner(args.GetExprListArg()));
+	const Expr *pExprArg = pExprOwnerArgs->front();
 	size_t nElems = 0;
 	ValueList valListArg;
 	if (!pExprArg->ExecInArg(env, sig, valListArg, nElems, false)) return Value::Null;
@@ -174,8 +174,8 @@ Value Gura_Method(Object, __call__)::EvalExpr(Environment &env, Signal sig, Args
 		return Value::Null;
 	}
 	const Function *pFunc = valueFunc.GetFunction();
-	exprOwnerArgs.erase(exprOwnerArgs.begin());
-	Args argsSub(args, exprOwnerArgs);
+	pExprOwnerArgs->erase(pExprOwnerArgs->begin());
+	Args argsSub(args, *pExprOwnerArgs);
 	return pFunc->EvalExpr(env, sig, argsSub);
 }
 

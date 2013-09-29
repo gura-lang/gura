@@ -84,15 +84,15 @@ int MainW(int argc, const char *argv[])
 		foreach_const (StringList, pCmd, opt.GetStringList("command")) {
 			const char *cmd = pCmd->c_str();
 			if (::strcmp(cmd, "") == 0) continue;
-			ExprOwner exprOwner;
-			if (!Parser().ParseString(env, sig, exprOwner, "<command line>", cmd)) {
+			AutoPtr<ExprOwner> pExprOwner(new ExprOwner());
+			if (!Parser().ParseString(env, sig, *pExprOwner, "<command line>", cmd)) {
 				env.GetConsole()->PrintSignal(sig, sig);
 				return 1;
 			}
-			if (exprOwner.empty()) {
+			if (pExprOwner->empty()) {
 				env.GetConsole()->Println(sig, "incomplete command");
 			} else {
-				Value result = exprOwner.Exec(env, sig, true);
+				Value result = pExprOwner->Exec(env, sig, true);
 				if (sig.IsSignalled()) {
 					env.GetConsole()->PrintSignal(sig, sig);
 					return 1;

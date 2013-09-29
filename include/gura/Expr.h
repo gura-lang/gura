@@ -270,7 +270,9 @@ public:
 	ExprOwner();
 	ExprOwner(const ExprList &exprList);
 	ExprOwner(const ExprOwner &exprOwner);
+private:
 	~ExprOwner();
+public:
 	void Clear();
 };
 

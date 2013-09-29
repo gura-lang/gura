@@ -837,7 +837,6 @@ Gura_DeclareMethod(string, parse)
 
 Gura_ImplementMethod(string, parse)
 {
-	ExprOwner exprOwner;
 	AutoPtr<Expr_Block> pExpr(new Expr_Block());
 	if (!Parser().ParseString(env, sig, pExpr->GetExprOwner(),
 		"<parse function>", args.GetThis().GetString())) return Value::Null;
