@@ -2796,14 +2796,14 @@ bool ExprList::IsAtSameLine() const
 //-----------------------------------------------------------------------------
 // ExprOwner
 //-----------------------------------------------------------------------------
-ExprOwner::ExprOwner(const ExprList &exprList)
+ExprOwner::ExprOwner(const ExprList &exprList) : _cntRef(1)
 {
 	foreach_const (ExprList, ppExpr, exprList) {
 		push_back(Expr::Reference(*ppExpr));
 	}
 }
 
-ExprOwner::ExprOwner(const ExprOwner &exprOwner)
+ExprOwner::ExprOwner(const ExprOwner &exprOwner) : _cntRef(1)
 {
 	foreach_const (ExprOwner, ppExpr, exprOwner) {
 		push_back(Expr::Reference(*ppExpr));

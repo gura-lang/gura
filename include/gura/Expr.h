@@ -262,12 +262,16 @@ private:
 // ExprOwner
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE ExprOwner : public ExprList {
+private:
+	int _cntRef;
 public:
-	inline ExprOwner() {}
+	Gura_DeclareReferenceAccessor(ExprOwner);
+public:
+	inline ExprOwner() : _cntRef(1) {}
 	ExprOwner(const ExprList &exprList);
 	ExprOwner(const ExprOwner &exprOwner);
-	void Clear();
 	~ExprOwner();
+	void Clear();
 };
 
 //-----------------------------------------------------------------------------
