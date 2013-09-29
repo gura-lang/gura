@@ -2802,6 +2802,10 @@ bool ExprList::IsAtSameLine() const
 //-----------------------------------------------------------------------------
 // ExprOwner
 //-----------------------------------------------------------------------------
+ExprOwner::ExprOwner() : _cntRef(1)
+{
+}
+
 ExprOwner::ExprOwner(const ExprList &exprList) : _cntRef(1)
 {
 	foreach_const (ExprList, ppExpr, exprList) {
@@ -2824,7 +2828,7 @@ ExprOwner::~ExprOwner()
 void ExprOwner::Clear()
 {
 	foreach (ExprOwner, ppExpr, *this) {
-		Expr::Delete(const_cast<Expr *>(*ppExpr));
+		Expr::Delete(*ppExpr);
 	}
 	clear();
 }

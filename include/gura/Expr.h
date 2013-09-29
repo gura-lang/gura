@@ -267,7 +267,7 @@ private:
 public:
 	Gura_DeclareReferenceAccessor(ExprOwner);
 public:
-	inline ExprOwner() : _cntRef(1) {}
+	ExprOwner();
 	ExprOwner(const ExprList &exprList);
 	ExprOwner(const ExprOwner &exprOwner);
 	~ExprOwner();
