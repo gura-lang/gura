@@ -532,11 +532,11 @@ bool Expr_Binary::IsParentOf(const Expr *pExpr) const
 //-----------------------------------------------------------------------------
 bool Expr_Container::IsContainer() const { return true; }
 
-Expr_Container::Expr_Container(ExprType exprType) : Expr(exprType)
+Expr_Container::Expr_Container(ExprType exprType) : Expr(exprType), _pExprOwner(new ExprOwner())
 {
 }
 
-Expr_Container::Expr_Container(const Expr_Container &expr) : Expr(expr)
+Expr_Container::Expr_Container(const Expr_Container &expr) : Expr(expr), _pExprOwner(new ExprOwner())
 {
 	foreach_const (ExprOwner, ppExpr, expr.GetExprOwner()) {
 		AddExpr((*ppExpr)->Clone());

@@ -897,14 +897,15 @@ Expr *CustomFunction::DiffUnary(Environment &env, Signal sig,
 CustomFunction *CustomFunction::CreateBlockFunc(Environment &env, Signal sig,
 	const Symbol *pSymbol, const Expr_Block *pExprBlock, FunctionType funcType)
 {
-	const Expr_BlockParam *pExprBlockParam = pExprBlock->GetParam();
 	AutoPtr<CustomFunction> pFunc(new CustomFunction(env,
 							pSymbol, Expr::Reference(pExprBlock), funcType));
 	pFunc->_declOwner.AllowTooManyArgs(true);
-	Args args(pExprBlockParam->GetExprOwner());
-	if (pExprBlockParam != NULL &&
-			!pFunc->CustomDeclare(env, sig, SymbolSet::Null, args)) {
-		return NULL;
+	const Expr_BlockParam *pExprBlockParam = pExprBlock->GetParam();
+	if (pExprBlockParam != NULL) {
+		Args args(pExprBlockParam->GetExprOwner());
+		if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, args)) {
+			return NULL;
+		}
 	}
 	return pFunc.release();
 }

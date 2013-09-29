@@ -322,7 +322,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Container : public Expr {
 protected:
-	ExprOwner _exprOwner;
+	AutoPtr<ExprOwner> _pExprOwner;
 public:
 	Expr_Container(ExprType exprType);
 	Expr_Container(const Expr_Container &expr);
@@ -337,8 +337,8 @@ public:
 		GetExprOwner().push_back(pExpr);
 		pExpr->SetParent(this);
 	}
-	inline ExprOwner &GetExprOwner() { return _exprOwner; }
-	inline const ExprOwner &GetExprOwner() const { return _exprOwner; }
+	inline ExprOwner &GetExprOwner() { return *_pExprOwner; }
+	inline const ExprOwner &GetExprOwner() const { return *_pExprOwner; }
 };
 
 //-----------------------------------------------------------------------------
