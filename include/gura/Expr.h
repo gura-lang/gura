@@ -324,7 +324,7 @@ class GURA_DLLDECLARE Expr_Container : public Expr {
 protected:
 	ExprOwner _exprOwner;
 public:
-	inline Expr_Container(ExprType exprType) : Expr(exprType) {}
+	Expr_Container(ExprType exprType);
 	Expr_Container(const Expr_Container &expr);
 	inline static Expr_Container *Reference(const Expr_Container *pExpr) {
 		return dynamic_cast<Expr_Container *>(Expr::Reference(pExpr));

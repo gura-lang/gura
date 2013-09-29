@@ -532,26 +532,34 @@ bool Expr_Binary::IsParentOf(const Expr *pExpr) const
 //-----------------------------------------------------------------------------
 bool Expr_Container::IsContainer() const { return true; }
 
-Expr_Container::Expr_Container(const Expr_Container &expr) : Expr(expr), _exprOwner(expr._exprOwner)
+Expr_Container::Expr_Container(ExprType exprType) : Expr(exprType)
 {
-	foreach (ExprOwner, ppExpr, _exprOwner) (*ppExpr)->SetParent(this);
+}
+
+Expr_Container::Expr_Container(const Expr_Container &expr) : Expr(expr)
+{
+	foreach_const (ExprOwner, ppExpr, expr.GetExprOwner()) {
+		Expr *pExpr = (*ppExpr)->Clone();
+		GetExprOwner().push_back(pExpr);
+		pExpr->SetParent(this);
+	}
 }
 
 Expr_Container::~Expr_Container()
 {
-	_exprOwner.SetParent(GetParent());
+	GetExprOwner().SetParent(GetParent());
 }
 
 void Expr_Container::Accept(ExprVisitor &visitor) const
 {
 	if (visitor.Visit(this)) {
-		_exprOwner.Accept(visitor);
+		GetExprOwner().Accept(visitor);
 	}
 }
 
 bool Expr_Container::IsParentOf(const Expr *pExpr) const
 {
-	return _exprOwner.IsContained(pExpr);
+	return GetExprOwner().IsContained(pExpr);
 }
 
 //-----------------------------------------------------------------------------
@@ -944,12 +952,12 @@ const char *Expr_Root::GetPathName() const
 
 Value Expr_Root::DoExec(Environment &env, Signal sig) const
 {
-	return _exprOwner.ExecInRoot(env, sig);
+	return GetExprOwner().ExecInRoot(env, sig);
 }
 
 bool Expr_Root::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
-	return _exprOwner.GenerateCode(env, sig, stream);
+	return GetExprOwner().GenerateCode(env, sig, stream);
 }
 
 bool Expr_Root::GenerateScript(Signal sig, SimpleStream &stream,
@@ -992,15 +1000,15 @@ Value Expr_Block::DoExec(Environment &env, Signal sig) const
 {
 	if (!_pExprBlockParam.IsNull()) {} // needs to do something here?
 	if (env.IsType(ENVTYPE_lister)) {
-		return _exprOwner.ExecForList(env, sig, false, true);
+		return GetExprOwner().ExecForList(env, sig, false, true);
 	}
-	return _exprOwner.Exec(env, sig, true);
+	return GetExprOwner().Exec(env, sig, true);
 }
 
 Expr *Expr_Block::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
 {
-	return (_exprOwner.size() == 1)?
-			_exprOwner.front()->MathDiff(env, sig, pSymbol) :
+	return (GetExprOwner().size() == 1)?
+			GetExprOwner().front()->MathDiff(env, sig, pSymbol) :
 			Expr::MathDiff(env, sig, pSymbol);
 }
 
@@ -1064,7 +1072,7 @@ Expr *Expr_BlockParam::Clone() const
 
 Value Expr_BlockParam::DoExec(Environment &env, Signal sig) const
 {
-	return _exprOwner.Exec(env, sig, false);
+	return GetExprOwner().Exec(env, sig, false);
 }
 
 bool Expr_BlockParam::GenerateCode(Environment &env, Signal sig, Stream &stream)
@@ -1120,7 +1128,7 @@ Value Expr_Lister::DoExec(Environment &env, Signal sig) const
 {
 	Value result;
 	ValueList &valList = result.InitAsList(env);
-	foreach_const (ExprOwner, ppExpr, _exprOwner) {
+	foreach_const (ExprOwner, ppExpr, GetExprOwner()) {
 		const Expr *pExpr = *ppExpr;
 		Value value = pExpr->Exec(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
@@ -1256,7 +1264,7 @@ Expr *Expr_IteratorLink::Clone() const
 Value Expr_IteratorLink::DoExec(Environment &env, Signal sig) const
 {
 	AutoPtr<Iterator_Concat> pIterator(new Iterator_Concat());
-	foreach_const (ExprOwner, ppExpr, _exprOwner) {
+	foreach_const (ExprOwner, ppExpr, GetExprOwner()) {
 		const Expr *pExpr = *ppExpr;
 		Value value = pExpr->Exec(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
@@ -1317,8 +1325,8 @@ Expr *Expr_TemplateScript::Clone() const
 
 Value Expr_TemplateScript::DoExec(Environment &env, Signal sig) const
 {
-	if (_exprOwner.empty()) return Value::Null;
-	Value value = _exprOwner.Exec(env, sig, true);
+	if (GetExprOwner().empty()) return Value::Null;
+	Value value = GetExprOwner().Exec(env, sig, true);
 	if (sig.IsSignalled()) {
 		return Value::Null;
 	} else if (value.IsInvalid()) {
