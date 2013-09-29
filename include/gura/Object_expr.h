@@ -21,38 +21,37 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Object_expr : public Object {
 public:
-	class IteratorChildren : public Iterator {
-	private:
-		Environment _env;
-		AutoPtr<Expr_Container> _pExprContainer;
-		ExprList::iterator _ppExpr;
-	public:
-		inline IteratorChildren(Environment &env, Expr_Container *pExprContainer) :
-						Iterator(false), _env(env), _pExprContainer(pExprContainer),
-						_ppExpr(pExprContainer->GetExprOwner().begin()) {}
-		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString(Signal sig) const;
-		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
-	};
-public:
 	Gura_DeclareObjectAccessor(expr)
 private:
-	Expr *_pExpr;
+	AutoPtr<Expr> _pExpr;
 public:
 	inline Object_expr(Environment &env, Expr *pExpr) :
 						Object(env.LookupClass(VTYPE_expr)), _pExpr(pExpr) {}
 	inline Object_expr(Class *pClass, Expr *pExpr) :
 						Object(pClass), _pExpr(pExpr) {}
 	Object_expr(const Object_expr &obj);
-	virtual ~Object_expr();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
-	inline Expr *GetExpr() { return _pExpr; }
-	inline const Expr *GetExpr() const { return _pExpr; }
+	inline Expr *GetExpr() { return _pExpr.get(); }
+	inline const Expr *GetExpr() const { return _pExpr.get(); }
+};
+
+//-----------------------------------------------------------------------------
+// Iterator_expr
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Iterator_expr : public Iterator {
+private:
+	size_t _idxExpr;
+	AutoPtr<ExprOwner> _pExprOwner;
+public:
+	Iterator_expr(ExprOwner *pExprOwner);
+	virtual Iterator *GetSource();
+	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual String ToString(Signal sig) const;
+	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 
 }

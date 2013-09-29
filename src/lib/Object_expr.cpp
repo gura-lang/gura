@@ -16,13 +16,8 @@ namespace Gura {
 // Object_expr
 //-----------------------------------------------------------------------------
 Object_expr::Object_expr(const Object_expr &obj) :
-							Object(obj), _pExpr(Expr::Reference(obj._pExpr))
+							Object(obj), _pExpr(obj.GetExpr()->Reference())
 {
-}
-
-Object_expr::~Object_expr()
-{
-	Expr::Delete(_pExpr);
 }
 
 Object *Object_expr::Clone() const
@@ -65,7 +60,7 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 			return Value::Null;
 		}
 		const Expr_Container *pExpr = dynamic_cast<const Expr_Container *>(GetExpr());
-		Iterator *pIterator = new Object_expr::IteratorChildren(env, Expr_Container::Reference(pExpr));
+		Iterator *pIterator = new Iterator_expr(pExpr->GetExprOwner().Reference());
 		return Value(env, pIterator);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(left))) {
 		if (!GetExpr()->IsBinary()) {
@@ -134,33 +129,6 @@ String Object_expr::ToString(Signal sig, bool exprFlag)
 		str += _pExpr->ToString(Expr::SCRSTYLE_OneLine);
 	}
 	return str;
-}
-
-//-----------------------------------------------------------------------------
-// Object_expr::IteratorChildren
-//-----------------------------------------------------------------------------
-Iterator *Object_expr::IteratorChildren::GetSource()
-{
-	return NULL;
-}
-
-bool Object_expr::IteratorChildren::DoNext(Environment &env, Signal sig, Value &value)
-{
-	if (_ppExpr == _pExprContainer->GetExprOwner().end()) return false;
-	Object_expr *pObj = new Object_expr(_env, Expr::Reference(*_ppExpr));
-	value = Value(pObj);
-	_ppExpr++;
-	return true;
-}
-
-String Object_expr::IteratorChildren::ToString(Signal sig) const
-{
-	String rtn = "<iterator:expr:children>";
-	return rtn;
-}
-
-void Object_expr::IteratorChildren::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
-{
 }
 
 //-----------------------------------------------------------------------------
@@ -395,6 +363,41 @@ Object *Class_expr::CreateDescendant(Environment &env, Signal sig, Class *pClass
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
+}
+
+//-----------------------------------------------------------------------------
+// Iterator_expr
+//-----------------------------------------------------------------------------
+Iterator_expr::Iterator_expr(ExprOwner *pExprOwner) :
+						Iterator(false), _idxExpr(0), _pExprOwner(pExprOwner)
+{
+}
+
+Iterator *Iterator_expr::GetSource()
+{
+	return NULL;
+}
+
+bool Iterator_expr::DoNext(Environment &env, Signal sig, Value &value)
+{
+	if (_idxExpr < _pExprOwner->size()) {
+		Expr *pExpr = (*_pExprOwner)[_idxExpr++];
+		value = Value(new Object_expr(env, pExpr->Reference()));
+		return true;
+	}
+	return false;
+}
+
+String Iterator_expr::ToString(Signal sig) const
+{
+	String rtn;
+	rtn += "<iterator:expr";
+	rtn += ">";
+	return rtn;
+}
+
+void Iterator_expr::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
 }
 
 }
