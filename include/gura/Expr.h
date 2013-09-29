@@ -334,7 +334,7 @@ public:
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool IsParentOf(const Expr *pExpr) const;
 	inline void AddExpr(Expr *pExpr) {
-		_exprOwner.push_back(pExpr);
+		GetExprOwner().push_back(pExpr);
 		pExpr->SetParent(this);
 	}
 	inline ExprOwner &GetExprOwner() { return _exprOwner; }

@@ -539,9 +539,7 @@ Expr_Container::Expr_Container(ExprType exprType) : Expr(exprType)
 Expr_Container::Expr_Container(const Expr_Container &expr) : Expr(expr)
 {
 	foreach_const (ExprOwner, ppExpr, expr.GetExprOwner()) {
-		Expr *pExpr = (*ppExpr)->Clone();
-		GetExprOwner().push_back(pExpr);
-		pExpr->SetParent(this);
+		AddExpr((*ppExpr)->Clone());
 	}
 }
 
