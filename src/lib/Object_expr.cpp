@@ -34,10 +34,16 @@ bool Object_expr::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(child));
+	symbols.insert(Gura_Symbol(children));
 	symbols.insert(Gura_Symbol(left));
 	symbols.insert(Gura_Symbol(right));
 	symbols.insert(Gura_Symbol(car));
 	symbols.insert(Gura_Symbol(cdr));
+	symbols.insert(Gura_Symbol(block));
+	symbols.insert(Gura_Symbol(name));
+	symbols.insert(Gura_Symbol(value));
+	symbols.insert(Gura_Symbol(string));
+	symbols.insert(Gura_Symbol(symbol));
 	return true;
 }
 
@@ -45,7 +51,24 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(red))) {
+	if (pSymbol->IsIdentical(Gura_Symbol(child))) {
+		if (!GetExpr()->IsUnary()) {
+			sig.SetError(ERR_ValueError, "not a unary expression");
+			return Value::Null;
+		}
+		const Expr_Unary *pExpr = dynamic_cast<const Expr_Unary *>(GetExpr());
+		Object_expr *pObj = new Object_expr(env, Expr::Reference(pExpr->GetChild()));
+		return Value(pObj);
+	} else if (pSymbol->IsIdentical(Gura_Symbol(children))) {
+	} else if (pSymbol->IsIdentical(Gura_Symbol(left))) {
+	} else if (pSymbol->IsIdentical(Gura_Symbol(right))) {
+	} else if (pSymbol->IsIdentical(Gura_Symbol(car))) {
+	} else if (pSymbol->IsIdentical(Gura_Symbol(cdr))) {
+	} else if (pSymbol->IsIdentical(Gura_Symbol(block))) {
+	} else if (pSymbol->IsIdentical(Gura_Symbol(name))) {
+	} else if (pSymbol->IsIdentical(Gura_Symbol(value))) {
+	} else if (pSymbol->IsIdentical(Gura_Symbol(string))) {
+	} else if (pSymbol->IsIdentical(Gura_Symbol(symbol))) {
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -102,24 +125,6 @@ void Object_expr::Iterator_Each::GatherFollower(Environment::Frame *pFrame, Envi
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_expr
 //-----------------------------------------------------------------------------
-// expr#child()
-Gura_DeclareMethod(expr, child)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(expr, child)
-{
-	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
-	if (!pExpr->IsUnary()) {
-		sig.SetError(ERR_ValueError, "not a unary expression");
-		return Value::Null;
-	}
-	Object_expr *pObj = new Object_expr(env,
-		Expr::Reference(dynamic_cast<const Expr_Unary *>(pExpr)->GetChild()));
-	return Value(pObj);
-}
-
 // expr#left()
 Gura_DeclareMethod(expr, left)
 {
@@ -401,7 +406,6 @@ Class_expr::Class_expr(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_expr)
 
 void Class_expr::Prepare(Environment &env)
 {
-	Gura_AssignMethod(expr, child);
 	Gura_AssignMethod(expr, left);
 	Gura_AssignMethod(expr, right);
 	Gura_AssignMethod(expr, each);
