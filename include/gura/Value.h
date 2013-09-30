@@ -35,6 +35,7 @@ class Module;
 class Function;
 class Directory;
 class Class;
+class Sequence;
 class Object;
 class ValueList;
 class ValueDict;
@@ -64,12 +65,14 @@ GURA_DLLDECLARE extern ValueType VTYPE_boolean;
 GURA_DLLDECLARE extern ValueType VTYPE_number;
 GURA_DLLDECLARE extern ValueType VTYPE_complex;
 GURA_DLLDECLARE extern ValueType VTYPE_fraction;
-// for declaration
+// declaration
 GURA_DLLDECLARE extern ValueType VTYPE_quote;
 GURA_DLLDECLARE extern ValueType VTYPE_any;
 // container types
 GURA_DLLDECLARE extern ValueType VTYPE_Module;
 GURA_DLLDECLARE extern ValueType VTYPE_Class;
+// sequence
+GURA_DLLDECLARE extern ValueType VTYPE_Sequence;
 // object types
 GURA_DLLDECLARE extern ValueType VTYPE_object;
 GURA_DLLDECLARE extern ValueType VTYPE_help;
@@ -156,6 +159,8 @@ public:
 	// container types
 	Gura_DeclareVTYPE(Module);
 	Gura_DeclareVTYPE(Class);
+	// sequence
+	Gura_DeclareVTYPE(Sequence);
 	// object types
 	Gura_DeclareVTYPE(object);
 	Gura_DeclareVTYPE(help);
@@ -243,6 +248,7 @@ private:
 		Fraction *pFrac;		// VTYPE_fraction
 		Module *pModule;		// VTYPE_module
 		Class *pClass;			// VTYPE_class
+		Sequence *pSequence;	// VTYPE_Sequence
 		Object *pObj;			// objects
 		char tinyBuff[1];
 	} _u;
@@ -261,15 +267,20 @@ public:
 	// VTYPE_nil
 	inline Value() : _valType(VTYPE_nil), _valFlags(VFLAG_Owner) {}
 	inline Value(ValueType valType, UShort valFlags) : _valType(valType), _valFlags(valFlags) {}
-	// VTYPE_module
+	// VTYPE_Module
 	inline Value(Module *pModule, UShort valFlags = VFLAG_Owner) :
 								_valType(VTYPE_Module), _valFlags(valFlags) {
 		_u.pModule = pModule;
 	}
-	// VTYPE_class
+	// VTYPE_Class
 	inline Value(Class *pClass, UShort valFlags = VFLAG_Owner) :
 								_valType(VTYPE_Class), _valFlags(valFlags) {
 		_u.pClass = pClass;
+	}
+	// VTYPE_Sequence
+	inline Value(Sequence *pSequence, UShort valFlags = VFLAG_Owner) :
+								_valType(VTYPE_Sequence), _valFlags(valFlags) {
+		_u.pSequence = pSequence;
 	}
 	// VTYPE_object etc
 	Value(Object *pObj, UShort valFlags = VFLAG_Owner);
@@ -372,6 +383,7 @@ public:
 	inline bool IsFraction() const			{ return IsType(VTYPE_fraction);	}
 	inline bool IsModule() const			{ return IsType(VTYPE_Module);		}
 	inline bool IsClass() const				{ return IsType(VTYPE_Class);		}
+	inline bool IsSequence() const			{ return IsType(VTYPE_Sequence);	}
 	inline bool IsGenericObject() const		{ return IsType(VTYPE_object);		}
 	inline bool IsHelp() const				{ return IsType(VTYPE_help);		}
 	inline bool IsFunction() const			{ return IsType(VTYPE_function);	}
@@ -413,6 +425,7 @@ public:
 	inline bool MustBeFraction(Signal &sig) const	{ return MustBe(sig, IsFraction(), 	"fraction");	}
 	inline bool MustBeModule(Signal &sig) const		{ return MustBe(sig, IsModule(), 	"module");		}
 	inline bool MustBeClass(Signal &sig) const		{ return MustBe(sig, IsClass(), 	"class");		}
+	inline bool MustBeSequence(Signal &sig) const	{ return MustBe(sig, IsSequence(), 	"sequence");	}
 	inline bool MustBeGenericObject(Signal &sig) const { return MustBe(sig, IsGenericObject(), 	"generic object");		}
 	inline bool MustBeHelp(Signal &sig) const		{ return MustBe(sig, IsHelp(), 		"help");		}
 	inline bool MustBeFunction(Signal &sig) const	{ return MustBe(sig, IsFunction(), 	"function");	}
@@ -506,12 +519,15 @@ public:
 	inline const Fraction *GetFractionPtr() const {
 		return _u.pFrac;
 	}
-	// VTYPE_module
+	// VTYPE_Module
 	inline Module *GetModule() { return IsModule()? _u.pModule : NULL; }
 	inline const Module *GetModule() const { return IsModule()? _u.pModule : NULL; }
-	// VTYPE_class
+	// VTYPE_Class
 	inline Class *GetClass() { return IsClass()? _u.pClass : NULL; }
 	inline const Class *GetClass() const { return IsClass()? _u.pClass : NULL; }
+	// VTYPE_Sequence
+	inline Sequence *GetSequence() { return IsSequence()? _u.pSequence : NULL; }
+	inline const Sequence *GetSequence() const { return IsSequence()? _u.pSequence : NULL; }
 	// VTYPE_function
 	Function *GetFunction();
 	inline const Function *GetFunction() const {

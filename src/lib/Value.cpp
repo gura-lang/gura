@@ -19,6 +19,8 @@ ValueType VTYPE_any				= static_cast<ValueType>(0);
 // container types
 ValueType VTYPE_Module			= static_cast<ValueType>(0);
 ValueType VTYPE_Class			= static_cast<ValueType>(0);
+// sequence
+ValueType VTYPE_Sequence		= static_cast<ValueType>(0);
 // object types
 ValueType VTYPE_object			= static_cast<ValueType>(0);
 ValueType VTYPE_help			= static_cast<ValueType>(0);
@@ -140,6 +142,8 @@ void ValueTypePool::_Initialize(Environment &env)
 	// container types
 	Gura_RealizeVTYPEEx(Module,		"module");
 	Gura_RealizeVTYPEEx(Class,		"class");
+	// sequence
+	Gura_RealizeVTYPE(Sequence);
 	// object types
 	Gura_RealizeVTYPE(object);
 	Gura_RealizeVTYPE(help);
@@ -296,6 +300,8 @@ Value::Value(const Value &value) : _valType(value._valType), _valFlags(value._va
 		_u.pModule = Module::Reference(value._u.pModule);
 	} else if (value.IsClass()) {
 		_u.pClass = Class::Reference(value._u.pClass);
+	} else if (value.IsSequence()) {
+		_u.pSequence = Sequence::Reference(value._u.pSequence);
 	} else {
 		// nothing to do
 	}
@@ -416,6 +422,9 @@ void Value::FreeResource()
 	} else if (IsClass()) {
 		if (IsOwner()) Class::Delete(_u.pClass);
 		_u.pClass = NULL;
+	} else if (IsSequence()) {
+		if (IsOwner()) Sequence::Delete(_u.pSequence);
+		_u.pSequence = NULL;
 	} else if (IsObject()) {
 		if (IsOwner()) Object::Delete(_u.pObj);
 		_u.pObj = NULL;
@@ -446,6 +455,8 @@ Value &Value::operator=(const Value &value)
 		_u.pModule = Module::Reference(value._u.pModule);
 	} else if (value.IsClass()) {
 		_u.pClass = Class::Reference(value._u.pClass);
+	} else if (value.IsSequence()) {
+		_u.pSequence = Sequence::Reference(value._u.pSequence);
 	} else if (value.IsObject()) {
 		_u.pObj = Object::Reference(value._u.pObj);
 	} else {
@@ -703,6 +714,8 @@ String Value::ToString(Signal sig, bool exprFlag) const
 		return _u.pModule->ToString(sig, exprFlag);
 	} else if (IsClass()) {
 		return _u.pClass->ToString(sig, exprFlag);
+	} else if (IsSequence()) {
+		return _u.pSequence->ToString();
 	} else if (IsObject()) {
 		return _u.pObj->ToString(sig, exprFlag);
 	} else if (IsString() && GetTinyBuffFlag()) {
