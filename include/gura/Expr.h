@@ -31,14 +31,14 @@ enum ExprType {
 	EXPRTYPE_BlockParam,
 	EXPRTYPE_Block,
 	EXPRTYPE_Lister,
-	EXPRTYPE_IteratorLink,
-	EXPRTYPE_TemplateScript,
+	EXPRTYPE_IterLink,
+	EXPRTYPE_TmplScript,
 	EXPRTYPE_Indexer,
 	EXPRTYPE_Caller,
 	EXPRTYPE_Value,
 	EXPRTYPE_Symbol,
 	EXPRTYPE_String,
-	EXPRTYPE_TemplateString,
+	EXPRTYPE_TmplString,
 };
 
 GURA_DLLDECLARE const char *GetExprTypeName(ExprType exprType);
@@ -67,14 +67,14 @@ public:
 //        |                   +- Expr_BlockParam
 //        |                   +- Expr_Block
 //        |                   +- Expr_Lister
-//        |                   +- Expr_IteratorLink
-//        |                   `- Expr_TemplateScript
+//        |                   +- Expr_IterLink
+//        |                   `- Expr_TmplScript
 //        +- Expr_Compound <--+- Expr_Indexer
 //        |                   `- Expr_Caller
 //        +- Expr_Value
 //        +- Expr_Symbol
 //        +- Expr_String
-//        `- Expr_TemplateString
+//        `- Expr_TmplString
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr {
 public:
@@ -179,31 +179,36 @@ public:
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
 	virtual const Expr *Unquote() const;
+	// type chekers - Unary and descendants
 	virtual bool IsUnary() const;
+	virtual bool IsUnaryOp() const;
 	virtual bool IsQuote() const;
 	virtual bool IsForce() const;
 	virtual bool IsPrefix() const;
 	virtual bool IsSuffix() const;
-	virtual bool IsUnaryOp() const;
+	// type chekers - Binary and descendants
 	virtual bool IsBinary() const;
+	virtual bool IsBinaryOp() const;
 	virtual bool IsAssign() const;
 	virtual bool IsDictAssign() const;
-	virtual bool IsBinaryOp() const;
 	virtual bool IsMember() const;
+	// type chekers - Container and descendants
 	virtual bool IsContainer() const;
 	virtual bool IsRoot() const;
 	virtual bool IsBlockParam() const;
 	virtual bool IsBlock() const;
 	virtual bool IsLister() const;
-	virtual bool IsIteratorLink() const;
-	virtual bool IsTemplateScript() const;
+	virtual bool IsIterLink() const;
+	virtual bool IsTmplScript() const;
+	// type chekers - Compound and descendants
 	virtual bool IsCompound() const;
 	virtual bool IsIndexer() const;
 	virtual bool IsCaller() const;
+	// type chekers - others
 	virtual bool IsValue() const;
 	virtual bool IsSymbol() const;
 	virtual bool IsString() const;
-	virtual bool IsTemplateString() const;
+	virtual bool IsTmplString() const;
 	bool IsConstNumber(Number num) const;
 	bool IsConstEvenNumber() const;
 	bool IsConstNegNumber() const;
@@ -397,24 +402,24 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Expr_TemplateString
+// Expr_TmplString
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_TemplateString : public Expr {
+class GURA_DLLDECLARE Expr_TmplString : public Expr {
 protected:
 	SimpleStream &_streamDst;
 	String _str;
 public:
-	inline Expr_TemplateString(SimpleStream &streamDst, const String &str) :
-				Expr(EXPRTYPE_TemplateString), _streamDst(streamDst), _str(str) {}
-	inline Expr_TemplateString(const Expr_TemplateString &expr) :
+	inline Expr_TmplString(SimpleStream &streamDst, const String &str) :
+				Expr(EXPRTYPE_TmplString), _streamDst(streamDst), _str(str) {}
+	inline Expr_TmplString(const Expr_TmplString &expr) :
 				Expr(expr), _streamDst(expr._streamDst), _str(expr._str) {}
 	inline SimpleStream &GetStreamDst() { return _streamDst;; }
 	inline const char *GetString() const { return _str.c_str(); }
-	inline static Expr_TemplateString *Reference(const Expr_TemplateString *pExpr) {
-		return dynamic_cast<Expr_TemplateString *>(Expr::Reference(pExpr));
+	inline static Expr_TmplString *Reference(const Expr_TmplString *pExpr) {
+		return dynamic_cast<Expr_TmplString *>(Expr::Reference(pExpr));
 	}
-	virtual ~Expr_TemplateString();
-	virtual bool IsTemplateString() const;
+	virtual ~Expr_TmplString();
+	virtual bool IsTmplString() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual void Accept(ExprVisitor &visitor) const;
@@ -561,20 +566,20 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Expr_IteratorLink
+// Expr_IterLink
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_IteratorLink : public Expr_Container {
+class GURA_DLLDECLARE Expr_IterLink : public Expr_Container {
 public:
-	inline Expr_IteratorLink() : Expr_Container(EXPRTYPE_IteratorLink) {}
-	inline Expr_IteratorLink(Expr *pExpr) : Expr_Container(EXPRTYPE_IteratorLink) {
+	inline Expr_IterLink() : Expr_Container(EXPRTYPE_IterLink) {}
+	inline Expr_IterLink(Expr *pExpr) : Expr_Container(EXPRTYPE_IterLink) {
 		AddExpr(pExpr);
 	}
-	inline Expr_IteratorLink(const Expr_IteratorLink &expr) : Expr_Container(expr) {}
-	inline static Expr_IteratorLink *Reference(const Expr_IteratorLink *pExpr) {
-		return dynamic_cast<Expr_IteratorLink *>(Expr::Reference(pExpr));
+	inline Expr_IterLink(const Expr_IterLink &expr) : Expr_Container(expr) {}
+	inline static Expr_IterLink *Reference(const Expr_IterLink *pExpr) {
+		return dynamic_cast<Expr_IterLink *>(Expr::Reference(pExpr));
 	}
-	virtual ~Expr_IteratorLink();
-	virtual bool IsIteratorLink() const;
+	virtual ~Expr_IterLink();
+	virtual bool IsIterLink() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
@@ -583,9 +588,9 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Expr_TemplateScript
+// Expr_TmplScript
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_TemplateScript : public Expr_Container {
+class GURA_DLLDECLARE Expr_TmplScript : public Expr_Container {
 protected:
 	SimpleStream &_streamDst;
 	String _strIndent;
@@ -593,24 +598,24 @@ protected:
 	bool _autoIndentFlag;
 	bool _appendLastEOLFlag;
 public:
-	inline Expr_TemplateScript(SimpleStream &streamDst,
+	inline Expr_TmplScript(SimpleStream &streamDst,
 							const String &strIndent, const String &strPost,
 							bool autoIndentFlag, bool appendLastEOLFlag) :
-			Expr_Container(EXPRTYPE_TemplateScript), _streamDst(streamDst),
+			Expr_Container(EXPRTYPE_TmplScript), _streamDst(streamDst),
 			_strIndent(strIndent), _strPost(strPost),
 			_autoIndentFlag(autoIndentFlag), _appendLastEOLFlag(appendLastEOLFlag) {}
-	inline Expr_TemplateScript(const Expr_TemplateScript &expr) :
+	inline Expr_TmplScript(const Expr_TmplScript &expr) :
 			Expr_Container(expr), _streamDst(expr._streamDst),
 			_strIndent(expr._strIndent), _strPost(expr._strPost),
 			_autoIndentFlag(expr._autoIndentFlag), _appendLastEOLFlag(expr._appendLastEOLFlag) {}
 	inline SimpleStream &GetStreamDst() { return _streamDst;; }
 	inline void SetStringIndent(const String &strIndent) { _strIndent = strIndent; }
 	inline void SetStringPost(const String &strPost) { _strPost = strPost; }
-	inline static Expr_TemplateScript *Reference(const Expr_TemplateScript *pExpr) {
-		return dynamic_cast<Expr_TemplateScript *>(Expr::Reference(pExpr));
+	inline static Expr_TmplScript *Reference(const Expr_TmplScript *pExpr) {
+		return dynamic_cast<Expr_TmplScript *>(Expr::Reference(pExpr));
 	}
-	virtual ~Expr_TemplateScript();
-	virtual bool IsTemplateScript() const;
+	virtual ~Expr_TmplScript();
+	virtual bool IsTmplScript() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
@@ -921,7 +926,6 @@ public:
 		MODE_MapToList,		// foo::bar .. map-to-list
 		MODE_MapToIter,		// foo:*bar .. map-to-iterator
 		MODE_MapAlong,		// foo:&bar .. map-along
-		MODE_max,
 	};
 private:
 	Mode _mode;

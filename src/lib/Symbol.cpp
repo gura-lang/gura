@@ -207,6 +207,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(strict);
 	Gura_RealizeSymbol(loose);
 	Gura_RealizeSymbol(block);
+	Gura_RealizeSymbol(blockparam);
 	Gura_RealizeSymbol(list);
 	Gura_RealizeSymbol(xlist);
 	Gura_RealizeSymbol(set);
@@ -431,7 +432,10 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(postext);
 	Gura_RealizeSymbol(car);
 	Gura_RealizeSymbol(cdr);
-	Gura_RealizeSymbol(type);
+	Gura_RealizeSymbol(typename);
+	Gura_RealizeSymbol(typesym);
+	Gura_RealizeSymbol(operator);
+	Gura_RealizeSymbol(mode);
 }
 
 const Symbol *SymbolPool::Add(const char *name)

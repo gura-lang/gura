@@ -74,7 +74,7 @@ bool TemplateEngine::EvalStream(Environment &env, Signal sig,
 					if (!str.empty()) {
 						ExprOwner &exprOwner = exprCallerStack.empty()?
 							*pExprOwnerRoot : exprCallerStack.back()->GetBlock()->GetExprOwner();
-						exprOwner.push_back(new Expr_TemplateString(streamDst, str));
+						exprOwner.push_back(new Expr_TmplString(streamDst, str));
 						str.clear();
 					}
 					nDepth = 1;
@@ -140,7 +140,7 @@ bool TemplateEngine::EvalStream(Environment &env, Signal sig,
 		return false;
 	}
 	if (!str.empty()) {
-		pExprOwnerRoot->push_back(new Expr_TemplateString(streamDst, str));
+		pExprOwnerRoot->push_back(new Expr_TmplString(streamDst, str));
 		str.clear();
 	}
 	Environment envBlock(&env, ENVTYPE_local);
@@ -159,8 +159,8 @@ bool TemplateEngine::ParseScript(Environment &env, Signal sig,
 {
 	AutoPtr<ExprOwner> pExprOwnerPart(new ExprOwner());
 	if (!_parser.ParseString(env, sig, *pExprOwnerPart,
-						"<templatescript>", strScript)) return false;
-	Expr_TemplateScript *pExprTmplScript = new Expr_TemplateScript(
+						"<TmplScript>", strScript)) return false;
+	Expr_TmplScript *pExprTmplScript = new Expr_TmplScript(
 		streamDst, strIndent, strPost, _autoIndentFlag, _appendLastEOLFlag);
 	ExprOwner::iterator ppExpr = pExprOwnerPart->begin();
 	Expr *pExprLast = NULL;

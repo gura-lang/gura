@@ -194,6 +194,7 @@ public:
 	Gura_DeclareSymbol(strict);
 	Gura_DeclareSymbol(loose);
 	Gura_DeclareSymbol(block);
+	Gura_DeclareSymbol(blockparam);
 	Gura_DeclareSymbol(list);
 	Gura_DeclareSymbol(xlist);
 	Gura_DeclareSymbol(set);
@@ -418,7 +419,10 @@ public:
 	Gura_DeclareSymbol(postext);
 	Gura_DeclareSymbol(car);
 	Gura_DeclareSymbol(cdr);
-	Gura_DeclareSymbol(type);
+	Gura_DeclareSymbol(typename);
+	Gura_DeclareSymbol(typesym);
+	Gura_DeclareSymbol(operator);
+	Gura_DeclareSymbol(mode);
 private:
 	typedef std::set<Symbol *, Symbol::KeyCompare_Name> Content;
 private:

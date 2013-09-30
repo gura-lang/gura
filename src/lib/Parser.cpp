@@ -1184,12 +1184,12 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 	if (elem1.IsType(ETYPE_LParenthesis)) {
 		if (elem2.IsType(ETYPE_RParenthesis)) {
 			DBGPARSER(::printf("Reduce: Expr -> '(' ')'\n"));
-			Expr_IteratorLink *pExprIteratorLink =
-						dynamic_cast<Expr_IteratorLink *>(elem1.GetExpr());
-			if (pExprIteratorLink == NULL) {
-				pExprIteratorLink = new Expr_IteratorLink();
+			Expr_IterLink *pExprIterLink =
+						dynamic_cast<Expr_IterLink *>(elem1.GetExpr());
+			if (pExprIterLink == NULL) {
+				pExprIterLink = new Expr_IterLink();
 			}
-			pExpr = pExprIteratorLink;
+			pExpr = pExprIterLink;
 		} else if (elem2.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '(' -> '(' EOL\n"));
@@ -1384,23 +1384,23 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 	Element &elem2 = _elemStack.Peek(1);
 	Element &elem3 = _elemStack.Peek(0);
 	if (elem1.IsType(ETYPE_LParenthesis) && elem2.IsType(ETYPE_Expr)) {
-		Expr_IteratorLink *pExprIteratorLink = dynamic_cast<Expr_IteratorLink *>(elem1.GetExpr());
+		Expr_IterLink *pExprIterLink = dynamic_cast<Expr_IterLink *>(elem1.GetExpr());
 		if (elem3.IsType(ETYPE_RParenthesis)) {
 			DBGPARSER(::printf("Reduce: Expr -> '(' Expr ')'\n"));
-			if (pExprIteratorLink == NULL) {
+			if (pExprIterLink == NULL) {
 				pExpr = elem2.GetExpr();	// treat expr as non-list
 			} else {
-				pExprIteratorLink->AddExpr(elem2.GetExpr());
-				pExpr = pExprIteratorLink;
+				pExprIterLink->AddExpr(elem2.GetExpr());
+				pExpr = pExprIterLink;
 			}
 		} else if (elem3.IsType(ETYPE_Comma) || elem3.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '(' -> '(' Expr ','\n"));
-			if (pExprIteratorLink == NULL) {
-				pExprIteratorLink = new Expr_IteratorLink();
-				elem1.SetExpr(pExprIteratorLink);
+			if (pExprIterLink == NULL) {
+				pExprIterLink = new Expr_IterLink();
+				elem1.SetExpr(pExprIterLink);
 			}
-			pExprIteratorLink->AddExpr(elem2.GetExpr());
+			pExprIterLink->AddExpr(elem2.GetExpr());
 			_elemStack.pop_back();
 			_elemStack.pop_back();
 			return true;

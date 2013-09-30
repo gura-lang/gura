@@ -28,7 +28,8 @@ Object *Object_expr::Clone() const
 bool Object_expr::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
-	symbols.insert(Gura_Symbol(name));
+	symbols.insert(Gura_Symbol(typename));
+	symbols.insert(Gura_Symbol(typesym));
 	symbols.insert(Gura_Symbol(child));
 	symbols.insert(Gura_Symbol(children));
 	symbols.insert(Gura_Symbol(left));
@@ -39,6 +40,7 @@ bool Object_expr::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	symbols.insert(Gura_Symbol(value));
 	symbols.insert(Gura_Symbol(string));
 	symbols.insert(Gura_Symbol(symbol));
+	symbols.insert(Gura_Symbol(blockparam));
 	return true;
 }
 
@@ -46,56 +48,52 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(name))) {
+	if (pSymbol->IsIdentical(Gura_Symbol(typename))) {
 		return Value(env, GetExpr()->GetTypeName());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(typesym))) {
+		return Value(Symbol::Add(GetExpr()->GetTypeName()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(child))) {
 		if (!GetExpr()->IsUnary()) {
 			sig.SetError(ERR_ValueError, "not a unary expression");
 			return Value::Null;
 		}
 		const Expr_Unary *pExpr = dynamic_cast<const Expr_Unary *>(GetExpr());
-		Object_expr *pObj = new Object_expr(env, Expr::Reference(pExpr->GetChild()));
-		return Value(pObj);
+		return Value(new Object_expr(env, Expr::Reference(pExpr->GetChild())));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(children))) {
 		if (!GetExpr()->IsContainer()) {
 			sig.SetError(ERR_ValueError, "not a container expression");
 			return Value::Null;
 		}
 		const Expr_Container *pExpr = dynamic_cast<const Expr_Container *>(GetExpr());
-		Iterator *pIterator = new Iterator_expr(pExpr->GetExprOwner().Reference());
-		return Value(env, pIterator);
+		return Value(env, new Iterator_expr(pExpr->GetExprOwner().Reference()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(left))) {
 		if (!GetExpr()->IsBinary()) {
 			sig.SetError(ERR_ValueError, "not a binary expression");
 			return Value::Null;
 		}
 		const Expr_Binary *pExpr = dynamic_cast<const Expr_Binary *>(GetExpr());
-		Object_expr *pObj = new Object_expr(env, Expr::Reference(pExpr->GetLeft()));
-		return Value(pObj);
+		return Value(new Object_expr(env, Expr::Reference(pExpr->GetLeft())));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(right))) {
 		if (!GetExpr()->IsBinary()) {
 			sig.SetError(ERR_ValueError, "not a binary expression");
 			return Value::Null;
 		}
 		const Expr_Binary *pExpr = dynamic_cast<const Expr_Binary *>(GetExpr());
-		Object_expr *pObj = new Object_expr(env, Expr::Reference(pExpr->GetRight()));
-		return Value(pObj);
+		return Value(new Object_expr(env, Expr::Reference(pExpr->GetRight())));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(car))) {
 		if (!GetExpr()->IsCompound()) {
 			sig.SetError(ERR_ValueError, "not a compound expression");
 			return Value::Null;
 		}
 		const Expr_Compound *pExpr = dynamic_cast<const Expr_Compound *>(GetExpr());
-		Object_expr *pObj = new Object_expr(env, Expr::Reference(pExpr->GetCar()));
-		return Value(pObj);
+		return Value(new Object_expr(env, Expr::Reference(pExpr->GetCar())));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(cdr))) {
 		if (!GetExpr()->IsCompound()) {
 			sig.SetError(ERR_ValueError, "not a compound expression");
 			return Value::Null;
 		}
 		const Expr_Compound *pExpr = dynamic_cast<const Expr_Compound *>(GetExpr());
-		Iterator *pIterator = new Iterator_expr(pExpr->GetExprOwner().Reference());
-		return Value(env, pIterator);
+		return Value(env, new Iterator_expr(pExpr->GetExprOwner().Reference()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(block))) {
 		if (!GetExpr()->IsCaller()) {
 			sig.SetError(ERR_ValueError, "not a caller expression");
@@ -104,8 +102,7 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		const Expr_Caller *pExpr = dynamic_cast<const Expr_Caller *>(GetExpr());
 		const Expr_Block *pExprBlock = pExpr->GetBlock();
 		if (pExprBlock == NULL) return Value::Null;
-		Object_expr *pObj = new Object_expr(env, Expr::Reference(pExprBlock));
-		return Value(pObj);
+		return Value(new Object_expr(env, Expr::Reference(pExprBlock)));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(value))) {
 		if (!GetExpr()->IsValue()) {
 			sig.SetError(ERR_ValueError, "expression is not a value");
@@ -127,6 +124,15 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		}
 		const Expr_Symbol *pExpr = dynamic_cast<const Expr_Symbol *>(GetExpr());
 		return Value(pExpr->GetSymbol());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(blockparam))) {
+		if (!GetExpr()->IsBlock()) {
+			sig.SetError(ERR_ValueError, "expression is not a block");
+			return Value::Null;
+		}
+		const Expr_Block *pExpr = dynamic_cast<const Expr_Block *>(GetExpr());
+		const Expr_BlockParam *pExprParam = pExpr->GetParam();
+		if (pExprParam == NULL) return Value::Null;
+		return Value(new Object_expr(env, Expr::Reference(pExprParam)));
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -226,30 +232,36 @@ Gura_ImplementMethod(expr, genscript)
 	return Value::Null;
 }
 
-// type chekers
+// type chekers - Unary and descendants
 ImplementTypeChecker(isunary,		IsUnary)
 ImplementTypeChecker(isunaryop,		IsUnaryOp)
 ImplementTypeChecker(isquote,		IsQuote)
 ImplementTypeChecker(isforce,		IsForce)
 ImplementTypeChecker(isprefix,		IsPrefix)
 ImplementTypeChecker(issuffix,		IsSuffix)
-
+// type chekers - Binary and descendants
 ImplementTypeChecker(isbinary,		IsBinary)
 ImplementTypeChecker(isbinaryop,	IsBinaryOp)
 ImplementTypeChecker(isassign,		IsAssign)
 ImplementTypeChecker(isdictassign,	IsDictAssign)
 ImplementTypeChecker(ismember,		IsMember)
-
+// type chekers - Container and descendants
 ImplementTypeChecker(iscontainer,	IsContainer)
+ImplementTypeChecker(isroot,		IsRoot)
 ImplementTypeChecker(isblockparam,	IsBlockParam)
 ImplementTypeChecker(isblock,		IsBlock)
 ImplementTypeChecker(islister,		IsLister)
-
-ImplementTypeChecker(isvalue,		IsValue)
-ImplementTypeChecker(isstring,		IsString)
-ImplementTypeChecker(issymbol,		IsSymbol)
+ImplementTypeChecker(isiterlink,	IsIterLink)
+ImplementTypeChecker(istmplscript,	IsTmplScript)
+// type chekers - Compound and descendants
+ImplementTypeChecker(iscompound,	IsCompound)
 ImplementTypeChecker(isindexer,		IsIndexer)
 ImplementTypeChecker(iscaller,		IsCaller)
+// type chekers - others
+ImplementTypeChecker(isvalue,		IsValue)
+ImplementTypeChecker(issymbol,		IsSymbol)
+ImplementTypeChecker(isstring,		IsString)
+ImplementTypeChecker(istmplstring,	IsTmplString)
 
 //-----------------------------------------------------------------------------
 // Classs implementation
@@ -264,26 +276,36 @@ void Class_expr::Prepare(Environment &env)
 	Gura_AssignMethod(expr, tofunction);
 	Gura_AssignMethod(expr, eval);
 	Gura_AssignMethod(expr, genscript);
-	Gura_AssignMethod(expr, isunary);
-	Gura_AssignMethod(expr, isunaryop);
-	Gura_AssignMethod(expr, isquote);
-	Gura_AssignMethod(expr, isforce);
-	Gura_AssignMethod(expr, isprefix);
-	Gura_AssignMethod(expr, issuffix);
-	Gura_AssignMethod(expr, isbinary);
-	Gura_AssignMethod(expr, isbinaryop);
-	Gura_AssignMethod(expr, isassign);
-	Gura_AssignMethod(expr, isdictassign);
-	Gura_AssignMethod(expr, ismember);
-	Gura_AssignMethod(expr, iscontainer);
-	Gura_AssignMethod(expr, isblockparam);
-	Gura_AssignMethod(expr, isblock);
-	Gura_AssignMethod(expr, islister);
-	Gura_AssignMethod(expr, isvalue);
-	Gura_AssignMethod(expr, isstring);
-	Gura_AssignMethod(expr, issymbol);
-	Gura_AssignMethod(expr, isindexer);
-	Gura_AssignMethod(expr, iscaller);
+	// type chekers - Unary and descendants
+	Gura_AssignMethod(expr,	isunary);
+	Gura_AssignMethod(expr,	isunaryop);
+	Gura_AssignMethod(expr,	isquote);
+	Gura_AssignMethod(expr,	isforce);
+	Gura_AssignMethod(expr,	isprefix);
+	Gura_AssignMethod(expr,	issuffix);
+	// type chekers - Binary and descendants
+	Gura_AssignMethod(expr,	isbinary);
+	Gura_AssignMethod(expr,	isbinaryop);
+	Gura_AssignMethod(expr,	isassign);
+	Gura_AssignMethod(expr,	isdictassign);
+	Gura_AssignMethod(expr,	ismember);
+	// type chekers - Container and descendants
+	Gura_AssignMethod(expr,	iscontainer);
+	Gura_AssignMethod(expr,	isroot);
+	Gura_AssignMethod(expr,	isblockparam);
+	Gura_AssignMethod(expr,	isblock);
+	Gura_AssignMethod(expr,	islister);
+	Gura_AssignMethod(expr,	isiterlink);
+	Gura_AssignMethod(expr,	istmplscript);
+	// type chekers - Compound and descendants
+	Gura_AssignMethod(expr,	iscompound);
+	Gura_AssignMethod(expr,	isindexer);
+	Gura_AssignMethod(expr,	iscaller);
+	// type chekers - others
+	Gura_AssignMethod(expr,	isvalue);
+	Gura_AssignMethod(expr,	issymbol);
+	Gura_AssignMethod(expr,	isstring);
+	Gura_AssignMethod(expr,	istmplstring);
 }
 
 bool Class_expr::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)

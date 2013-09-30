@@ -11,27 +11,27 @@ const char *GetExprTypeName(ExprType exprType)
 		ExprType exprType;
 		const char *name;
 	} tbl[] = {
-		{ EXPRTYPE_UnaryOp,			"unaryop",			},
-		{ EXPRTYPE_Quote,			"quote",			},
-		{ EXPRTYPE_Force,			"force",			},
-		{ EXPRTYPE_Prefix,			"prefix",			},
-		{ EXPRTYPE_Suffix,			"suffix",			},
-		{ EXPRTYPE_BinaryOp,		"binaryop",			},
-		{ EXPRTYPE_Assign,			"assign",			},
-		{ EXPRTYPE_DictAssign,		"dictassign",		},
-		{ EXPRTYPE_Member,			"member",			},
-		{ EXPRTYPE_Root,			"root",				},
-		{ EXPRTYPE_BlockParam,		"blockparam",		},
-		{ EXPRTYPE_Block,			"block",			},
-		{ EXPRTYPE_Lister,			"lister",			},
-		{ EXPRTYPE_IteratorLink,	"iteratorlink",		},
-		{ EXPRTYPE_TemplateScript,	"templatescript",	},
-		{ EXPRTYPE_Indexer,			"indexer",			},
-		{ EXPRTYPE_Caller,			"caller",			},
-		{ EXPRTYPE_Value,			"value",			},
-		{ EXPRTYPE_Symbol,			"symbol",			},
-		{ EXPRTYPE_String,			"string",			},
-		{ EXPRTYPE_TemplateString,	"templatestring",	},
+		{ EXPRTYPE_UnaryOp,		"unaryop",		},
+		{ EXPRTYPE_Quote,		"quote",		},
+		{ EXPRTYPE_Force,		"force",		},
+		{ EXPRTYPE_Prefix,		"prefix",		},
+		{ EXPRTYPE_Suffix,		"suffix",		},
+		{ EXPRTYPE_BinaryOp,	"binaryop",		},
+		{ EXPRTYPE_Assign,		"assign",		},
+		{ EXPRTYPE_DictAssign,	"dictassign",	},
+		{ EXPRTYPE_Member,		"member",		},
+		{ EXPRTYPE_Root,		"root",			},
+		{ EXPRTYPE_BlockParam,	"blockparam",	},
+		{ EXPRTYPE_Block,		"block",		},
+		{ EXPRTYPE_Lister,		"lister",		},
+		{ EXPRTYPE_IterLink,	"iterlink",		},
+		{ EXPRTYPE_TmplScript,	"tmplscript",	},
+		{ EXPRTYPE_Indexer,		"indexer",		},
+		{ EXPRTYPE_Caller,		"caller",		},
+		{ EXPRTYPE_Value,		"value",		},
+		{ EXPRTYPE_Symbol,		"symbol",		},
+		{ EXPRTYPE_String,		"string",		},
+		{ EXPRTYPE_TmplString,	"tmplstring",	},
 	};
 	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].exprType == exprType) return tbl[i].name;
@@ -55,14 +55,14 @@ const char *GetExprTypeName(ExprType exprType)
 //        |                   +- Expr_BlockParam
 //        |                   +- Expr_Block
 //        |                   +- Expr_Lister
-//        |                   +- Expr_IteratorLink
-//        |                   `- Expr_TemplateScript
+//        |                   +- Expr_IterLink
+//        |                   `- Expr_TmplScript
 //        +- Expr_Compound <--+- Expr_Indexer
 //        |                   `- Expr_Caller
 //        +- Expr_Value
 //        +- Expr_Symbol
 //        +- Expr_String
-//        `- Expr_TemplateString
+//        `- Expr_TmplString
 //-----------------------------------------------------------------------------
 Expr::~Expr()
 {
@@ -267,35 +267,36 @@ bool Expr::IsOperatorSeq() const
 		dynamic_cast<const Expr_BinaryOp *>(this)->GetOperator()->GetOpType() == OPTYPE_Seq;
 }
 
-bool Expr::IsUnary() const			{ return false; }
-bool Expr::IsQuote() const			{ return false; }
-bool Expr::IsForce() const			{ return false; }
-bool Expr::IsPrefix() const			{ return false; }
-bool Expr::IsSuffix() const			{ return false; }
-bool Expr::IsUnaryOp() const		{ return false; }
-
-bool Expr::IsBinary() const			{ return false; }
-bool Expr::IsAssign() const			{ return false; }
-bool Expr::IsDictAssign() const		{ return false; }
-bool Expr::IsBinaryOp() const		{ return false; }
-bool Expr::IsMember() const			{ return false; }
-
-bool Expr::IsContainer() const		{ return false; }
-bool Expr::IsRoot() const			{ return false; }
-bool Expr::IsBlockParam() const		{ return false; }
-bool Expr::IsBlock() const			{ return false; }
-bool Expr::IsLister() const			{ return false; }
-bool Expr::IsIteratorLink() const	{ return false; }
-bool Expr::IsTemplateScript() const	{ return false; }
-
-bool Expr::IsCompound() const		{ return false; }
-bool Expr::IsIndexer() const		{ return false; }
-bool Expr::IsCaller() const			{ return false; }
-
-bool Expr::IsValue() const			{ return false; }
-bool Expr::IsSymbol() const			{ return false; }
-bool Expr::IsString() const			{ return false; }
-bool Expr::IsTemplateString() const	{ return false; }
+// type chekers - Unary and descendants
+bool Expr::IsUnary() const		{ return false; }
+bool Expr::IsUnaryOp() const	{ return false; }
+bool Expr::IsQuote() const		{ return false; }
+bool Expr::IsForce() const		{ return false; }
+bool Expr::IsPrefix() const		{ return false; }
+bool Expr::IsSuffix() const		{ return false; }
+	// type chekers - Binary and descendants
+bool Expr::IsBinary() const		{ return false; }
+bool Expr::IsBinaryOp() const	{ return false; }
+bool Expr::IsAssign() const		{ return false; }
+bool Expr::IsDictAssign() const	{ return false; }
+bool Expr::IsMember() const		{ return false; }
+// type chekers - Container and descendants
+bool Expr::IsContainer() const	{ return false; }
+bool Expr::IsRoot() const		{ return false; }
+bool Expr::IsBlockParam() const	{ return false; }
+bool Expr::IsBlock() const		{ return false; }
+bool Expr::IsLister() const		{ return false; }
+bool Expr::IsIterLink() const	{ return false; }
+bool Expr::IsTmplScript() const	{ return false; }
+// type chekers - Compound and descendants
+bool Expr::IsCompound() const	{ return false; }
+bool Expr::IsIndexer() const	{ return false; }
+bool Expr::IsCaller() const		{ return false; }
+// type chekers - others
+bool Expr::IsValue() const		{ return false; }
+bool Expr::IsSymbol() const		{ return false; }
+bool Expr::IsString() const		{ return false; }
+bool Expr::IsTmplString() const	{ return false; }
 
 bool Expr::IsParentOf(const Expr *pExpr) const
 {
@@ -677,37 +678,37 @@ bool Expr_String::GenerateScript(Signal sig, SimpleStream &stream,
 }
 
 //-----------------------------------------------------------------------------
-// Expr_TemplateString
+// Expr_TmplString
 //-----------------------------------------------------------------------------
-bool Expr_TemplateString::IsTemplateString() const { return true; }
+bool Expr_TmplString::IsTmplString() const { return true; }
 
-Expr_TemplateString::~Expr_TemplateString()
+Expr_TmplString::~Expr_TmplString()
 {
 }
 
-Expr *Expr_TemplateString::Clone() const
+Expr *Expr_TmplString::Clone() const
 {
-	return new Expr_TemplateString(*this);
+	return new Expr_TmplString(*this);
 }
 
-Value Expr_TemplateString::DoExec(Environment &env, Signal sig) const
+Value Expr_TmplString::DoExec(Environment &env, Signal sig) const
 {
 	_streamDst.Print(sig, _str.c_str());
 	return Value::Null;
 }
 
-void Expr_TemplateString::Accept(ExprVisitor &visitor) const
+void Expr_TmplString::Accept(ExprVisitor &visitor) const
 {
 	visitor.Visit(this);
 }
 
-bool Expr_TemplateString::GenerateCode(Environment &env, Signal sig, Stream &stream)
+bool Expr_TmplString::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
-	stream.Println(sig, "TemplateString");
+	stream.Println(sig, "TmplString");
 	return true;
 }
 
-bool Expr_TemplateString::GenerateScript(Signal sig, SimpleStream &stream,
+bool Expr_TmplString::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
 	return false;
@@ -1246,20 +1247,20 @@ bool Expr_Lister::GenerateScript(Signal sig, SimpleStream &stream,
 }
 
 //-----------------------------------------------------------------------------
-// Expr_IteratorLink
+// Expr_IterLink
 //-----------------------------------------------------------------------------
-bool Expr_IteratorLink::IsIteratorLink() const { return true; }
+bool Expr_IterLink::IsIterLink() const { return true; }
 
-Expr_IteratorLink::~Expr_IteratorLink()
+Expr_IterLink::~Expr_IterLink()
 {
 }
 
-Expr *Expr_IteratorLink::Clone() const
+Expr *Expr_IterLink::Clone() const
 {
-	return new Expr_IteratorLink(*this);
+	return new Expr_IterLink(*this);
 }
 
-Value Expr_IteratorLink::DoExec(Environment &env, Signal sig) const
+Value Expr_IterLink::DoExec(Environment &env, Signal sig) const
 {
 	AutoPtr<Iterator_Concat> pIterator(new Iterator_Concat());
 	foreach_const (ExprOwner, ppExpr, GetExprOwner()) {
@@ -1278,13 +1279,13 @@ Value Expr_IteratorLink::DoExec(Environment &env, Signal sig) const
 	return Value(env, pIterator.release());
 }
 
-bool Expr_IteratorLink::GenerateCode(Environment &env, Signal sig, Stream &stream)
+bool Expr_IterLink::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
-	stream.Println(sig, "IteratorLink");
+	stream.Println(sig, "IterLink");
 	return true;
 }
 
-bool Expr_IteratorLink::GenerateScript(Signal sig, SimpleStream &stream,
+bool Expr_IterLink::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
 	stream.PutChar(sig, '(');
@@ -1308,20 +1309,20 @@ bool Expr_IteratorLink::GenerateScript(Signal sig, SimpleStream &stream,
 }
 
 //-----------------------------------------------------------------------------
-// Expr_TemplateScript
+// Expr_TmplScript
 //-----------------------------------------------------------------------------
-bool Expr_TemplateScript::IsTemplateScript() const { return true; }
+bool Expr_TmplScript::IsTmplScript() const { return true; }
 
-Expr_TemplateScript::~Expr_TemplateScript()
+Expr_TmplScript::~Expr_TmplScript()
 {
 }
 
-Expr *Expr_TemplateScript::Clone() const
+Expr *Expr_TmplScript::Clone() const
 {
-	return new Expr_TemplateScript(*this);
+	return new Expr_TmplScript(*this);
 }
 
-Value Expr_TemplateScript::DoExec(Environment &env, Signal sig) const
+Value Expr_TmplScript::DoExec(Environment &env, Signal sig) const
 {
 	if (GetExprOwner().empty()) return Value::Null;
 	Value value = GetExprOwner().Exec(env, sig, true);
@@ -1380,13 +1381,13 @@ Value Expr_TemplateScript::DoExec(Environment &env, Signal sig) const
 	return Value::Null;
 }
 
-bool Expr_TemplateScript::GenerateCode(Environment &env, Signal sig, Stream &stream)
+bool Expr_TmplScript::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
-	stream.Println(sig, "TemplateScript");
+	stream.Println(sig, "TmplScript");
 	return true;
 }
 
-bool Expr_TemplateScript::GenerateScript(Signal sig, SimpleStream &stream,
+bool Expr_TmplScript::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
 	return false;
