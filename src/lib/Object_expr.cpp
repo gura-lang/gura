@@ -28,6 +28,7 @@ Object *Object_expr::Clone() const
 bool Object_expr::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_Symbol(name));
 	symbols.insert(Gura_Symbol(child));
 	symbols.insert(Gura_Symbol(children));
 	symbols.insert(Gura_Symbol(left));
@@ -35,7 +36,6 @@ bool Object_expr::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	symbols.insert(Gura_Symbol(car));
 	symbols.insert(Gura_Symbol(cdr));
 	symbols.insert(Gura_Symbol(block));
-	symbols.insert(Gura_Symbol(name));
 	symbols.insert(Gura_Symbol(value));
 	symbols.insert(Gura_Symbol(string));
 	symbols.insert(Gura_Symbol(symbol));
@@ -46,7 +46,9 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(child))) {
+	if (pSymbol->IsIdentical(Gura_Symbol(name))) {
+		return Value(env, GetExpr()->GetTypeName());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(child))) {
 		if (!GetExpr()->IsUnary()) {
 			sig.SetError(ERR_ValueError, "not a unary expression");
 			return Value::Null;
@@ -92,19 +94,39 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 			return Value::Null;
 		}
 		const Expr_Compound *pExpr = dynamic_cast<const Expr_Compound *>(GetExpr());
-		Value result;
-		ValueList &valList = result.InitAsList(env);
-		foreach_const (ExprList, ppExpr, pExpr->GetExprOwner()) {
-			const Expr *pExpr = *ppExpr;
-			Object_expr *pObj = new Object_expr(env, Expr::Reference(pExpr));
-			valList.push_back(Value(pObj));
-		}
-		return result;
+		Iterator *pIterator = new Iterator_expr(pExpr->GetExprOwner().Reference());
+		return Value(env, pIterator);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(block))) {
-	} else if (pSymbol->IsIdentical(Gura_Symbol(name))) {
+		if (!GetExpr()->IsCaller()) {
+			sig.SetError(ERR_ValueError, "not a caller expression");
+			return Value::Null;
+		}
+		const Expr_Caller *pExpr = dynamic_cast<const Expr_Caller *>(GetExpr());
+		const Expr_Block *pExprBlock = pExpr->GetBlock();
+		if (pExprBlock == NULL) return Value::Null;
+		Object_expr *pObj = new Object_expr(env, Expr::Reference(pExprBlock));
+		return Value(pObj);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(value))) {
+		if (!GetExpr()->IsValue()) {
+			sig.SetError(ERR_ValueError, "expression is not a value");
+			return Value::Null;
+		}
+		const Expr_Value *pExpr = dynamic_cast<const Expr_Value *>(GetExpr());
+		return pExpr->GetValue();
 	} else if (pSymbol->IsIdentical(Gura_Symbol(string))) {
+		if (!GetExpr()->IsString()) {
+			sig.SetError(ERR_ValueError, "expression is not a string");
+			return Value::Null;
+		}
+		const Expr_String *pExpr = dynamic_cast<const Expr_String *>(GetExpr());
+		return Value(env, pExpr->GetString());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(symbol))) {
+		if (!GetExpr()->IsSymbol()) {
+			sig.SetError(ERR_ValueError, "expression is not a symbol");
+			return Value::Null;
+		}
+		const Expr_Symbol *pExpr = dynamic_cast<const Expr_Symbol *>(GetExpr());
+		return Value(pExpr->GetSymbol());
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -145,86 +167,6 @@ Gura_ImplementMethod(expr, unquote)
 	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
 	Object_expr *pObj = new Object_expr(env, Expr::Reference(pExpr->Unquote()));
 	return Value(pObj);
-}
-
-// expr#block()
-Gura_DeclareMethod(expr, block)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(expr, block)
-{
-	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
-	if (!pExpr->IsCaller()) {
-		sig.SetError(ERR_ValueError, "not a caller expression");
-		return Value::Null;
-	}
-	const Expr_Block *pExprBlock =
-						dynamic_cast<const Expr_Caller *>(pExpr)->GetBlock();
-	if (pExprBlock == NULL) return Value::Null;
-	Object_expr *pObj = new Object_expr(env, Expr::Reference(pExprBlock));
-	return Value(pObj);
-}
-
-// expr#exprname()
-Gura_DeclareMethod(expr, exprname)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(expr, exprname)
-{
-	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
-	return Value(env, pExpr->GetTypeName());
-}
-
-// expr#getvalue()
-Gura_DeclareMethod(expr, getvalue)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(expr, getvalue)
-{
-	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
-	if (!pExpr->IsValue()) {
-		sig.SetError(ERR_ValueError, "expression is not a value");
-		return Value::Null;
-	}
-	return dynamic_cast<const Expr_Value *>(pExpr)->GetValue();
-}
-
-// expr#getstring()
-Gura_DeclareMethod(expr, getstring)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(expr, getstring)
-{
-	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
-	if (!pExpr->IsString()) {
-		sig.SetError(ERR_ValueError, "expression is not a string");
-		return Value::Null;
-	}
-	return Value(env, dynamic_cast<const Expr_String *>(pExpr)->GetString());
-}
-
-// expr#getsymbol()
-Gura_DeclareMethod(expr, getsymbol)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(expr, getsymbol)
-{
-	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
-	if (!pExpr->IsSymbol()) {
-		sig.SetError(ERR_ValueError, "expression is not a symbol");
-		return Value::Null;
-	}
-	return Value(dynamic_cast<const Expr_Symbol *>(pExpr)->GetSymbol());
 }
 
 // expr#tofunction(`args*)
@@ -319,11 +261,6 @@ Class_expr::Class_expr(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_expr)
 void Class_expr::Prepare(Environment &env)
 {
 	Gura_AssignMethod(expr, unquote);
-	Gura_AssignMethod(expr, block);
-	Gura_AssignMethod(expr, exprname);
-	Gura_AssignMethod(expr, getvalue);
-	Gura_AssignMethod(expr, getstring);
-	Gura_AssignMethod(expr, getsymbol);
 	Gura_AssignMethod(expr, tofunction);
 	Gura_AssignMethod(expr, eval);
 	Gura_AssignMethod(expr, genscript);
