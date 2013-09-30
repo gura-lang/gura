@@ -136,6 +136,7 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Option.h
   ${GURA_INCLUDE_DIR}/gura/PackedNumber.h
   ${GURA_INCLUDE_DIR}/gura/Parser.h
+  ${GURA_INCLUDE_DIR}/gura/Processor.h
   ${GURA_INCLUDE_DIR}/gura/TemplateEngine.h
   ${GURA_INCLUDE_DIR}/gura/Error.h
   ${GURA_INCLUDE_DIR}/gura/Signal.h

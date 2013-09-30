@@ -241,6 +241,7 @@
     <ClCompile Include="Operator.cpp" />
     <ClCompile Include="Option.cpp" />
     <ClCompile Include="Parser.cpp" />
+    <ClCompile Include="Processor.cpp" />
     <ClCompile Include="TemplateEngine.cpp" />
     <ClCompile Include="..\dSFMT-src-2.2.1\dSFMT.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>

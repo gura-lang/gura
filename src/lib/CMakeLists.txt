@@ -24,6 +24,7 @@ Operator.cpp
 Option.cpp
 Palette.cpp
 Parser.cpp
+Processor.cpp
 PathManager.cpp
 TemplateEngine.cpp
 Error.cpp

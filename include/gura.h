@@ -30,6 +30,7 @@
 #include "gura/PathManager.h"
 #include "gura/Directory.h"
 #include "gura/Parser.h"
+#include "gura/Processor.h"
 #include "gura/TemplateEngine.h"
 #include "gura/Option.h"
 #include "gura/Module.h"
