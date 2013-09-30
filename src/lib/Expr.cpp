@@ -951,7 +951,29 @@ const char *Expr_Root::GetPathName() const
 
 Value Expr_Root::DoExec(Environment &env, Signal sig) const
 {
-	return GetExprOwner().ExecInRoot(env, sig);
+	Value result;
+	foreach_const (ExprList, ppExpr, GetExprOwner()) {
+		result = (*ppExpr)->Exec(env, sig);
+		if (sig.IsError()) {
+			sig.AddExprCause(*ppExpr);
+			result = Value::Null;
+			break;
+		} else if (sig.IsTerminate()) {
+			env.GetConsoleErr()->PrintSignal(sig, sig);
+			sig.ClearSignal();
+			result = Value::Null;
+			break;
+		} else if (sig.IsSignalled()) {
+			env.GetConsoleErr()->PrintSignal(sig, sig);
+			sig.ClearSignal();
+		} else if (!env.GetGlobal()->GetEchoFlag()) {
+			// nothing to do
+		} else if (result.IsValid()) {
+			// pConsole must be retrieved here.
+			env.GetConsole()->Println(sig, result.ToString(sig).c_str());
+		}
+	}
+	return result;
 }
 
 bool Expr_Root::GenerateCode(Environment &env, Signal sig, Stream &stream)
@@ -2677,31 +2699,6 @@ Value ExprList::Exec(Environment &env, Signal sig, bool evalSymFuncFlag) const
 				sig.AddExprCause(*ppExpr);
 				return Value::Null;
 			}
-		}
-	}
-	return result;
-}
-
-Value ExprList::ExecInRoot(Environment &env, Signal sig) const
-{
-	Value result;
-	foreach_const (ExprList, ppExpr, *this) {
-		result = (*ppExpr)->Exec(env, sig);
-		if (sig.IsError()) {
-			sig.AddExprCause(*ppExpr);
-			return Value::Null;
-		} else if (sig.IsTerminate()) {
-			env.GetConsoleErr()->PrintSignal(sig, sig);
-			sig.ClearSignal();
-			return Value::Null;
-		} else if (sig.IsSignalled()) {
-			env.GetConsoleErr()->PrintSignal(sig, sig);
-			sig.ClearSignal();
-		} else if (!env.GetGlobal()->GetEchoFlag()) {
-			// nothing to do
-		} else if (result.IsValid()) {
-			// pConsole must be retrieved here.
-			env.GetConsole()->Println(sig, result.ToString(sig).c_str());
 		}
 	}
 	return result;

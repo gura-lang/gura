@@ -249,7 +249,6 @@ public:
 	}
 	void ExtractTrace(ExprOwner &exprOwner) const;
 	Value Exec(Environment &env, Signal sig, bool evalSymFuncFlag) const;
-	Value ExecInRoot(Environment &env, Signal sig) const;
 	Value ExecForList(Environment &env, Signal sig,
 							bool flattenFlag, bool evalSymFuncFlag) const;
 	bool GenerateCode(Environment &env, Signal sig, Stream &stream);
