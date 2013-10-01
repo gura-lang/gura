@@ -20,14 +20,14 @@ class GURA_DLLDECLARE Object_environment : public Object {
 public:
 	Gura_DeclareObjectAccessor(environment)
 private:
-	Environment _env;
+	AutoPtr<Environment> _pEnv;
 public:
 	inline Object_environment(Environment &env) :
-						Object(env.LookupClass(VTYPE_environment)), _env(env) {}
+			Object(env.LookupClass(VTYPE_environment)), _pEnv(new Environment(env)) {}
 	inline Object_environment(Class *pClass, Environment &env) :
-						Object(pClass), _env(env) {}
+						Object(pClass), _pEnv(new Environment(env)) {}
 	Object_environment(const Object_environment &obj);
-	inline Environment &GetEnv() { return _env; }
+	inline Environment &GetEnv() { return *_pEnv; }
 	virtual ~Object_environment();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);

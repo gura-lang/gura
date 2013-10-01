@@ -10,7 +10,7 @@ namespace Gura {
 // Object_environment
 //-----------------------------------------------------------------------------
 Object_environment::Object_environment(const Object_environment &obj) :
-													Object(obj), _env(obj._env)
+								Object(obj), _pEnv(new Environment(*obj._pEnv))
 {
 }
 
@@ -49,7 +49,7 @@ Value Object_environment::DoSetProp(Environment &env, Signal sig, const Symbol *
 String Object_environment::ToString(Signal sig, bool exprFlag)
 {
 	String str;
-	EnvType envType = _env.GetTopFrame()->GetEnvType();
+	EnvType envType = _pEnv->GetTopFrame()->GetEnvType();
 	str += "<environment:";
 	str += GetEnvTypeName(envType);
 	str += ">";
