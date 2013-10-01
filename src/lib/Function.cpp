@@ -321,9 +321,7 @@ Value Function::EvalMap(Environment &env, Signal sig, Args &args) const
 			Function::Reference(this),
 			args.GetThis(), Iterator::Reference(args.GetIteratorThis()),
 			args.GetArgs(), skipInvalidFlag));
-	if (sig.IsSignalled()) {
-		return Value::Null;
-	}
+	if (sig.IsSignalled()) return Value::Null;
 	return Value(env, pIterator.release());
 }
 
