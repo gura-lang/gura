@@ -463,6 +463,8 @@ Gura_ImplementFunction(except_)
 
 bool Gura_Function(except_)::CheckIfAcceptableLeader(const Function *pFuncLeader) const
 {
+	//const Symbol *pSymbol = pFuncLeader->GetSymbol();
+	//return pSymbol->IsIdentical(Gura_Symbol(try_))) || pSymbol->IsIdentical(Gura_Symbol(except_));
 	return true;
 }
 
@@ -483,6 +485,8 @@ Gura_ImplementFunction(finally_)
 
 bool Gura_Function(finally_)::CheckIfAcceptableLeader(const Function *pFuncLeader) const
 {
+	//const Symbol *pSymbol = pFuncLeader->GetSymbol();
+	//return pSymbol->IsIdentical(Gura_Symbol(try_))) || pSymbol->IsIdentical(Gura_Symbol(except_));
 	return true;
 }
 
@@ -538,6 +542,8 @@ Gura_ImplementFunction(elsif_)
 
 bool Gura_Function(elsif_)::CheckIfAcceptableLeader(const Function *pFuncLeader) const
 {
+	//const Symbol *pSymbol = pFuncLeader->GetSymbol();
+	//return pSymbol->IsIdentical(Gura_Symbol(if_))) || pSymbol->IsIdentical(Gura_Symbol(elsif_));
 	return true;
 }
 
@@ -562,6 +568,8 @@ Gura_ImplementFunction(else_)
 
 bool Gura_Function(else_)::CheckIfAcceptableLeader(const Function *pFuncLeader) const
 {
+	//const Symbol *pSymbol = pFuncLeader->GetSymbol();
+	//return pSymbol->IsIdentical(Gura_Symbol(if_))) || pSymbol->IsIdentical(Gura_Symbol(elsif_));
 	return true;
 }
 
