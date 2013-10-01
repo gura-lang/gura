@@ -2,6 +2,10 @@
 import(testutil) {*}
 
 scope {
+	f(x):map = println(x):nomap
+	f([1, 2, [3, 4, 5], 6, [7, 8, [9, 10]]])
+}
+scope {
 	f(name:string, price:number, color:string):map = printf('%-8s %3d %s\n', name, price, color)
 	names = ['apple', 'orange', 'grape']
 	prices = [100, 200, 300]
@@ -27,14 +31,15 @@ scope {
 	g(x, y) = println(x, ' ', y)
 	g(1..10, 1..10)
 	f(1..10)
-	//Fruit = struct(name:string, price:number) {
-	//	Print() = println(this.name, ' costs ', this.price)
-	//}
-	//fruits = Fruit * [
-	//	['apple', 100], ['orage', 80], ['grape', 120]
-	//]
-	//fruits::Print()
-	//fruits:*Print()
+	Fruit = struct(name:string, price:number) {
+		Print() = println(this.name, ' costs ', this.price)
+	}
+	fruits = Fruit * [
+		['apple', 100], ['orage', 80], ['grape', 120]
+	]
+	fruits::Print()
+	fruits:*Print()
+	nil
 }
 scope {
 	tester(`[]::x)

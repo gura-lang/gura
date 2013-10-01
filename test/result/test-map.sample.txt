@@ -1,3 +1,8 @@
+1
+2
+[3, 4, 5]
+6
+[7, 8, [9, 10]]
 apple    100 red
 orange   200 yellow
 grape    300 purple
@@ -41,6 +46,12 @@ tbl::g() .. nil
 8
 9
 10
+apple costs 100
+orage costs 80
+grape costs 120
+apple costs 100
+orage costs 80
+grape costs 120
 []::x .. []
 []::func() .. []
 abc 123
