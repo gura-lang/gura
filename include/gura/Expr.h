@@ -249,8 +249,7 @@ public:
 	}
 	void ExtractTrace(ExprOwner &exprOwner) const;
 	Value Exec2(Environment &env, Signal sig, bool evalSymFuncFlag) const;
-	Value Exec2ForList(Environment &env, Signal sig,
-							bool flattenFlag, bool evalSymFuncFlag) const;
+	Value Exec2ForList(Environment &env, Signal sig, bool flattenFlag) const;
 	bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	bool GenerateScript(Signal sig, SimpleStream &stream,
 		Expr::ScriptStyle scriptStyle, int nestLevel, Expr::Separator sep) const;

@@ -495,8 +495,7 @@ Value ExprList::Exec2(Environment &env, Signal sig, bool evalSymFuncFlag) const
 	return result;
 }
 
-Value ExprList::Exec2ForList(Environment &env, Signal sig,
-									bool flattenFlag, bool evalSymFuncFlag) const
+Value ExprList::Exec2ForList(Environment &env, Signal sig, bool flattenFlag) const
 {
 	Value result;
 	ValueList &valList = result.InitAsList(env);
@@ -506,16 +505,7 @@ Value ExprList::Exec2ForList(Environment &env, Signal sig,
 			sig.AddExprCause(*ppExpr);
 			return Value::Null;
 		}
-		if (evalSymFuncFlag && value.IsFunction() &&
-									value.GetFunction()->IsSymbolFunc()) {
-			const Function *pFunc = result.GetFunction();
-			Args args(ExprList::Null);
-			Value result = pFunc->EvalExpr(env, sig, args);
-			if (sig.IsSignalled()) {
-				sig.AddExprCause(*ppExpr);
-				return Value::Null;
-			}
-		} else if (flattenFlag && value.IsList()) {
+		if (flattenFlag && value.IsList()) {
 			ValueVisitorEx visitor(valList);
 			value.Accept(sig, visitor);
 		} else {
@@ -1194,7 +1184,7 @@ Value Expr_Block::DoExec(Environment &env, Signal sig) const
 {
 	if (!_pExprBlockParam.IsNull()) {} // needs to do something here?
 	if (env.IsType(ENVTYPE_lister)) {
-		return GetExprOwner().Exec2ForList(env, sig, false, true);
+		return GetExprOwner().Exec2ForList(env, sig, false);
 	}
 	return GetExprOwner().Exec2(env, sig, true);
 }
@@ -1644,7 +1634,7 @@ Value Expr_Indexer::DoExec(Environment &env, Signal sig) const
 	if (exprList.empty()) {
 		return objCar.EmptyIndexGet(env, sig);
 	}
-	Value valueIdx = exprList.Exec2ForList(env, sig, true, false);
+	Value valueIdx = exprList.Exec2ForList(env, sig, true);
 	if (sig.IsSignalled()) return Value::Null;
 	ValueList &valIdxList = valueIdx.GetList();
 	if (valIdxList.size() == 0) return Value::Null;
