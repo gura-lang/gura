@@ -119,14 +119,16 @@ function(fileNameEmf:string) {
 	printf('%s was generated\n', fileNameEmf)
 }('plot-parabola.emf')
 function(fileNameEmf:string) {
+	Table = struct(day, Site01, Site02, Site03)
 	read_table(filename:string, header:boolean => true) = {
 		lines = open(filename).readlines():chop
-		if (header) { lines.next() }
-		tonumber(re.split(r'\s+', lines)):list
+		if (header) { lines = lines.offset(1) }
+		lines.each():list {|line|
+			Table * tonumber(line.splitreg(r'\s+')):list
+		}
 	}
 	graph.create_emf(fileNameEmf, 150, 150) {|c|
-		Table = struct(day, Site01, Site02, Site03)
-		tbl = Table * read_table('temperature.txt', header => true)
+		tbl = read_table('temperature.txt', header => true)
 		graph.draw(c,
 				graph.item(tbl:*day, tbl:*Site01, `solid)
 				graph.item(tbl:*day, tbl:*Site02, `solid)

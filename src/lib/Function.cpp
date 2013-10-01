@@ -310,18 +310,33 @@ Value Function::Eval(Environment &env, Signal sig, Args &args) const
 
 Value Function::EvalMap(Environment &env, Signal sig, Args &args) const
 {
+#if 1
 	if (args.IsRsltIterator() || args.IsRsltXIterator()) {
 		// nothing to do
 	} else if (!args.IsRsltNormal() || !args.ShouldGenerateIterator(_declOwner)) {
 		// List, XList, Set, XSet, Void, Reduce, XReduce
 		return EvalMapRecursive(env, sig, NULL, args);
 	}
+#endif
 	bool skipInvalidFlag = args.IsRsltXIterator();
 	AutoPtr<Iterator_ImplicitMap> pIterator(new Iterator_ImplicitMap(env, sig,
 			Function::Reference(this),
 			args.GetThis(), Iterator::Reference(args.GetIteratorThis()),
 			args.GetArgs(), skipInvalidFlag));
 	if (sig.IsSignalled()) return Value::Null;
+#if 0
+	if (args.IsRsltIterator() || args.IsRsltXIterator()) {
+		// nothing to do
+	} else if (!args.IsRsltNormal() || !args.ShouldGenerateIterator(_declOwner)) {
+		Value result;
+		ResultComposer resultComposer(env, args, result);
+		Value value;
+		while (pIterator->Next(env, sig, value)) {
+			resultComposer.Store(value);
+		}
+		return result;
+	}
+#endif
 	return Value(env, pIterator.release());
 }
 
@@ -351,18 +366,9 @@ Value Function::EvalMapRecursive(Environment &env, Signal sig,
 		}
 		Args argsEach(args, valListArg, args.GetValueWithDict(),
 									args.GetResultMode(), args.GetFlatFlag());
-		if (!_declOwner.ShouldImplicitMap(valListArg)) {
-			Value valueEach = Eval(env, sig, argsEach);
-			if (sig.IsSignalled()) return Value::Null;
-			pResultComposer->Store(valueEach);
-		} else if (args.IsRsltFlat()) {
-			EvalMapRecursive(env, sig, pResultComposer, argsEach);
-			if (sig.IsSignalled()) return Value::Null;
-		} else {
-			Value valueEach = EvalMapRecursive(env, sig, NULL, argsEach);
-			if (sig.IsSignalled()) return Value::Null;
-			pResultComposer->Store(valueEach);
-		}
+		Value valueEach = Eval(env, sig, argsEach);
+		if (sig.IsSignalled()) return Value::Null;
+		pResultComposer->Store(valueEach);
 		if (pIteratorThis != NULL) {
 			Value valueThis;
 			doneThisFlag = !pIteratorThis->Next(env, sig, valueThis);

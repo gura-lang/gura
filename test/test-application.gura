@@ -162,7 +162,9 @@ scope {
 }
 scope {
 	convToNumber(str:string):map = if (str == ' ') { nil } else { str.tonumber():raise }
-	makeBoard(boardRaw:string) = convToNumber(boardRaw.split('\n')::split())
+	makeBoard(boardRaw:string) = boardRaw.split('\n').each():list {|line|
+		convToNumber(line.split()):list
+	}
 	getBox(board, iRow:number, iCol:number) = {
 		iRow = int(iRow / 3) * 3, iCol = int(iCol / 3) * 3
 		list % board[iRow..(iRow + 2)]::get([iCol..(iCol + 2)]):list

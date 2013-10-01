@@ -281,8 +281,12 @@ Page_Stamper = class(wx.Panel) {
 			this.btnDoRename.Enable(false)
 			return
 		}
-		pathNames = path.dir(dirName, main.patternImgList*,
+		try {
+			pathNames = path.dir(dirName, main.patternImgList*,
 								main.patternAviList*):icase:file:list
+		} except {
+			pathNames = []
+		}
 		this.pathNames = pathNames
 		pathNames.each {|pathName, idx|
 			fileName = path.filename(pathName)
