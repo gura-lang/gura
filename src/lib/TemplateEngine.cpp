@@ -146,7 +146,7 @@ bool TemplateEngine::EvalStream(Environment &env, Signal sig,
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
 	do {
 		Environment &env = *pEnvBlock;
-		pExprOwnerRoot->Exec(env, sig, true);
+		pExprOwnerRoot->Exec2(env, sig, true);
 		//::printf("%s\n", pExprOwnerRoot->ToString().c_str());
 	} while (0);
 	return !sig.IsSignalled();

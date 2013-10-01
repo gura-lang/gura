@@ -7,8 +7,8 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Sequence
 //-----------------------------------------------------------------------------
-Sequence::Sequence(const Environment &env, ExprOwner *pExprOwner, Mode mode) :
-		_cntRef(1), _pEnv(new Environment(env)), _pExprOwner(pExprOwner), _mode(mode), _idxExpr(0)
+Sequence::Sequence(Environment *pEnv, ExprOwner *pExprOwner, Mode mode) :
+		_cntRef(1), _pEnv(pEnv), _pExprOwner(pExprOwner), _mode(mode), _idxExpr(0)
 {
 }
 

@@ -93,7 +93,7 @@ int MainW(int argc, const char *argv[])
 			if (pExprOwner->empty()) {
 				env.GetConsole()->Println(sig, "incomplete command");
 			} else {
-				Value result = pExprOwner->Exec(env, sig, true);
+				Value result = pExprOwner->Exec2(env, sig, true);
 				if (sig.IsSignalled()) {
 					env.GetConsole()->PrintSignal(sig, sig);
 					return 1;

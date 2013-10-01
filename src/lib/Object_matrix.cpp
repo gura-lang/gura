@@ -185,7 +185,7 @@ Gura_ImplementFunction(MatrixInit)
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
-	Value valueInit = pExprBlock->GetExprOwner().ExecForList(*pEnvLister, sig, false, false);
+	Value valueInit = pExprBlock->GetExprOwner().Exec2ForList(*pEnvLister, sig, false, false);
 	if (sig.IsSignalled()) return Value::Null;
 	size_t nRows = 0, nCols = 0;
 	ValueList &valList = valueInit.GetList();

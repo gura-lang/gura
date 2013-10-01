@@ -88,7 +88,7 @@ int Main(int argc, const char *argv[])
 			if (pExprOwner->empty()) {
 				env.GetConsoleErr()->Println(sig, "incomplete command");
 			} else {
-				Value result = pExprOwner->Exec(env, sig, true);
+				Value result = pExprOwner->Exec2(env, sig, true);
 				if (sig.IsSignalled()) {
 					env.GetConsoleErr()->PrintSignal(sig, sig);
 					return 1;

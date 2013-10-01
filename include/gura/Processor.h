@@ -8,7 +8,9 @@ namespace Gura {
 class Sequence {
 public:
 	enum Mode {
+		MODE_Root,
 		MODE_Normal,
+		MODE_List,
 	};
 private:
 	int _cntRef;
@@ -19,7 +21,7 @@ private:
 public:
 	Gura_DeclareReferenceAccessor(Sequence)
 public:
-	Sequence(const Environment &env, ExprOwner *pExprOwner, Mode mode);
+	Sequence(Environment *pEnv, ExprOwner *pExprOwner, Mode mode);
 private:
 	inline ~Sequence() {}
 public:

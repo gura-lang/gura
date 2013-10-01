@@ -450,6 +450,179 @@ bool Expr::ExprVisitor_SearchBar::Visit(const Expr *pExpr)
 }
 
 //-----------------------------------------------------------------------------
+// ExprList
+//-----------------------------------------------------------------------------
+const ExprList ExprList::Null;
+
+void ExprList::ExtractTrace(ExprOwner &exprOwner) const
+{
+	foreach_const (ExprOwner, ppExpr, *this) {
+		const Expr *pExpr = *ppExpr;
+		if (pExpr->IsRoot() || pExpr->IsBlock()) continue;
+		const Expr *pExprParent = pExpr->GetParent();
+		if (pExprParent != NULL && !pExprParent->IsRoot() && !pExprParent->IsBlock()) continue;
+		exprOwner.push_back(pExpr->Reference());
+	}
+}
+
+Value ExprList::Exec2(Environment &env, Signal sig, bool evalSymFuncFlag) const
+{
+	Value result;
+	foreach_const (ExprList, ppExpr, *this) {
+		result = (*ppExpr)->Exec(env, sig);
+		if (sig.IsSignalled()) {
+			sig.AddExprCause(*ppExpr);
+			break;
+		}
+		if (evalSymFuncFlag && result.IsFunction() &&
+									result.GetFunction()->IsSymbolFunc()) {
+			// symbol functions are only evaluated by a sequence of block.
+			// in the folloiwng example, "return" shall be evaluated by a block
+			// of "if" function.
+			//   repeat { if (flag) { return } }
+			// in the following example, "&&" operator returns "return" function
+			// object as its result, and then the block of "repeat" shall evaluate it.
+			//   repeat { flag && return }
+			const Function *pFunc = result.GetFunction();
+			Args args(ExprList::Null);
+			Value result = pFunc->EvalExpr(env, sig, args);
+			if (sig.IsSignalled()) {
+				sig.AddExprCause(*ppExpr);
+				return Value::Null;
+			}
+		}
+	}
+	return result;
+}
+
+Value ExprList::Exec2ForList(Environment &env, Signal sig,
+									bool flattenFlag, bool evalSymFuncFlag) const
+{
+	Value result;
+	ValueList &valList = result.InitAsList(env);
+	foreach_const (ExprList, ppExpr, *this) {
+		Value value = (*ppExpr)->Exec(env, sig);
+		if (sig.IsSignalled()) {
+			sig.AddExprCause(*ppExpr);
+			return Value::Null;
+		}
+		if (evalSymFuncFlag && value.IsFunction() &&
+									value.GetFunction()->IsSymbolFunc()) {
+			const Function *pFunc = result.GetFunction();
+			Args args(ExprList::Null);
+			Value result = pFunc->EvalExpr(env, sig, args);
+			if (sig.IsSignalled()) {
+				sig.AddExprCause(*ppExpr);
+				return Value::Null;
+			}
+		} else if (flattenFlag && value.IsList()) {
+			ValueVisitorEx visitor(valList);
+			value.Accept(sig, visitor);
+		} else {
+			valList.push_back(value);
+		}
+	}
+	return result;
+}
+
+void ExprList::Accept(ExprVisitor &visitor) const
+{
+	foreach_const (ExprList, ppExpr, *this) {
+		(*ppExpr)->Accept(visitor);
+	}
+}
+
+bool ExprList::IsContained(const Expr *pExpr) const
+{
+	return std::find(begin(), end(), const_cast<Expr *>(pExpr)) != end();
+}
+
+bool ExprList::GenerateCode(Environment &env, Signal sig, Stream &stream)
+{
+	foreach_const (ExprList, ppExpr, *this) {
+		if (!(*ppExpr)->GenerateCode(env, sig, stream)) return false;
+	}
+	return true;
+}
+
+bool ExprList::GenerateScript(Signal sig, SimpleStream &stream,
+			Expr::ScriptStyle scriptStyle, int nestLevel, Expr::Separator sep) const
+{
+	const char *sepText =
+		(sep == Expr::SEP_Comma)? ((scriptStyle == Expr::SCRSTYLE_Crammed)? "," : ", ") :
+		(sep == Expr::SEP_NewLine)? "\n" : ",";
+	foreach_const (ExprList, ppExpr, *this) {
+		const Expr *pExpr = *ppExpr;
+		if (ppExpr != begin()) {
+			stream.Print(sig, sepText);
+			if (sig.IsSignalled()) return false;
+		}
+		if (sep == Expr::SEP_NewLine &&
+					!Expr::PutNestIndent(sig, stream, nestLevel)) return false;
+		if (!pExpr->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+	}
+	return true;
+}
+
+void ExprList::ValueVisitorEx::Visit(Signal sig, const Value &value)
+{
+	_valList.push_back(value);
+}
+
+void ExprList::SetParent(const Expr *pExpr)
+{
+	foreach_const (ExprList, ppExpr, *this) {
+		(*ppExpr)->SetParent(pExpr);
+	}
+}
+
+bool ExprList::IsAtSameLine() const
+{
+	if (empty()) return false;
+	ExprList::const_iterator ppExpr = begin();
+	const Expr *pExprTop = *ppExpr++;
+	for ( ; ppExpr != end(); ppExpr++) {
+		const Expr *pExpr = *ppExpr;
+		if (pExprTop->GetLineNoTop() != pExpr->GetLineNoTop()) return false;
+	}
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// ExprOwner
+//-----------------------------------------------------------------------------
+ExprOwner::ExprOwner() : _cntRef(1)
+{
+}
+
+ExprOwner::ExprOwner(const ExprList &exprList) : _cntRef(1)
+{
+	foreach_const (ExprList, ppExpr, exprList) {
+		push_back(Expr::Reference(*ppExpr));
+	}
+}
+
+ExprOwner::ExprOwner(const ExprOwner &exprOwner) : _cntRef(1)
+{
+	foreach_const (ExprOwner, ppExpr, exprOwner) {
+		push_back(Expr::Reference(*ppExpr));
+	}
+}
+
+ExprOwner::~ExprOwner()
+{
+	Clear();
+}
+
+void ExprOwner::Clear()
+{
+	foreach (ExprOwner, ppExpr, *this) {
+		Expr::Delete(*ppExpr);
+	}
+	clear();
+}
+
+//-----------------------------------------------------------------------------
 // Expr_Unary
 //-----------------------------------------------------------------------------
 bool Expr_Unary::IsUnary() const { return true; }
@@ -1021,9 +1194,9 @@ Value Expr_Block::DoExec(Environment &env, Signal sig) const
 {
 	if (!_pExprBlockParam.IsNull()) {} // needs to do something here?
 	if (env.IsType(ENVTYPE_lister)) {
-		return GetExprOwner().ExecForList(env, sig, false, true);
+		return GetExprOwner().Exec2ForList(env, sig, false, true);
 	}
-	return GetExprOwner().Exec(env, sig, true);
+	return GetExprOwner().Exec2(env, sig, true);
 }
 
 Expr *Expr_Block::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
@@ -1093,7 +1266,7 @@ Expr *Expr_BlockParam::Clone() const
 
 Value Expr_BlockParam::DoExec(Environment &env, Signal sig) const
 {
-	return GetExprOwner().Exec(env, sig, false);
+	return GetExprOwner().Exec2(env, sig, false);
 }
 
 bool Expr_BlockParam::GenerateCode(Environment &env, Signal sig, Stream &stream)
@@ -1347,7 +1520,7 @@ Expr *Expr_TmplScript::Clone() const
 Value Expr_TmplScript::DoExec(Environment &env, Signal sig) const
 {
 	if (GetExprOwner().empty()) return Value::Null;
-	Value value = GetExprOwner().Exec(env, sig, true);
+	Value value = GetExprOwner().Exec2(env, sig, true);
 	if (sig.IsSignalled()) {
 		return Value::Null;
 	} else if (value.IsInvalid()) {
@@ -1471,7 +1644,7 @@ Value Expr_Indexer::DoExec(Environment &env, Signal sig) const
 	if (exprList.empty()) {
 		return objCar.EmptyIndexGet(env, sig);
 	}
-	Value valueIdx = exprList.ExecForList(env, sig, true, false);
+	Value valueIdx = exprList.Exec2ForList(env, sig, true, false);
 	if (sig.IsSignalled()) return Value::Null;
 	ValueList &valIdxList = valueIdx.GetList();
 	if (valIdxList.size() == 0) return Value::Null;
@@ -2656,179 +2829,6 @@ bool Expr_Member::GenerateScript(Signal sig, SimpleStream &stream,
 	stream.Print(sig, str);
 	if (!GetRight()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
 	return true;
-}
-
-//-----------------------------------------------------------------------------
-// ExprList
-//-----------------------------------------------------------------------------
-const ExprList ExprList::Null;
-
-void ExprList::ExtractTrace(ExprOwner &exprOwner) const
-{
-	foreach_const (ExprOwner, ppExpr, *this) {
-		const Expr *pExpr = *ppExpr;
-		if (pExpr->IsRoot() || pExpr->IsBlock()) continue;
-		const Expr *pExprParent = pExpr->GetParent();
-		if (pExprParent != NULL && !pExprParent->IsRoot() && !pExprParent->IsBlock()) continue;
-		exprOwner.push_back(pExpr->Reference());
-	}
-}
-
-Value ExprList::Exec(Environment &env, Signal sig, bool evalSymFuncFlag) const
-{
-	Value result;
-	foreach_const (ExprList, ppExpr, *this) {
-		result = (*ppExpr)->Exec(env, sig);
-		if (sig.IsSignalled()) {
-			sig.AddExprCause(*ppExpr);
-			break;
-		}
-		if (evalSymFuncFlag && result.IsFunction() &&
-									result.GetFunction()->IsSymbolFunc()) {
-			// symbol functions are only evaluated by a sequence of block.
-			// in the folloiwng example, "return" shall be evaluated by a block
-			// of "if" function.
-			//   repeat { if (flag) { return } }
-			// in the following example, "&&" operator returns "return" function
-			// object as its result, and then the block of "repeat" shall evaluate it.
-			//   repeat { flag && return }
-			const Function *pFunc = result.GetFunction();
-			Args args(ExprList::Null);
-			Value result = pFunc->EvalExpr(env, sig, args);
-			if (sig.IsSignalled()) {
-				sig.AddExprCause(*ppExpr);
-				return Value::Null;
-			}
-		}
-	}
-	return result;
-}
-
-Value ExprList::ExecForList(Environment &env, Signal sig,
-									bool flattenFlag, bool evalSymFuncFlag) const
-{
-	Value result;
-	ValueList &valList = result.InitAsList(env);
-	foreach_const (ExprList, ppExpr, *this) {
-		Value value = (*ppExpr)->Exec(env, sig);
-		if (sig.IsSignalled()) {
-			sig.AddExprCause(*ppExpr);
-			return Value::Null;
-		}
-		if (evalSymFuncFlag && value.IsFunction() &&
-									value.GetFunction()->IsSymbolFunc()) {
-			const Function *pFunc = result.GetFunction();
-			Args args(ExprList::Null);
-			Value result = pFunc->EvalExpr(env, sig, args);
-			if (sig.IsSignalled()) {
-				sig.AddExprCause(*ppExpr);
-				return Value::Null;
-			}
-		} else if (flattenFlag && value.IsList()) {
-			ValueVisitorEx visitor(valList);
-			value.Accept(sig, visitor);
-		} else {
-			valList.push_back(value);
-		}
-	}
-	return result;
-}
-
-void ExprList::Accept(ExprVisitor &visitor) const
-{
-	foreach_const (ExprList, ppExpr, *this) {
-		(*ppExpr)->Accept(visitor);
-	}
-}
-
-bool ExprList::IsContained(const Expr *pExpr) const
-{
-	return std::find(begin(), end(), const_cast<Expr *>(pExpr)) != end();
-}
-
-bool ExprList::GenerateCode(Environment &env, Signal sig, Stream &stream)
-{
-	foreach_const (ExprList, ppExpr, *this) {
-		if (!(*ppExpr)->GenerateCode(env, sig, stream)) return false;
-	}
-	return true;
-}
-
-bool ExprList::GenerateScript(Signal sig, SimpleStream &stream,
-			Expr::ScriptStyle scriptStyle, int nestLevel, Expr::Separator sep) const
-{
-	const char *sepText =
-		(sep == Expr::SEP_Comma)? ((scriptStyle == Expr::SCRSTYLE_Crammed)? "," : ", ") :
-		(sep == Expr::SEP_NewLine)? "\n" : ",";
-	foreach_const (ExprList, ppExpr, *this) {
-		const Expr *pExpr = *ppExpr;
-		if (ppExpr != begin()) {
-			stream.Print(sig, sepText);
-			if (sig.IsSignalled()) return false;
-		}
-		if (sep == Expr::SEP_NewLine &&
-					!Expr::PutNestIndent(sig, stream, nestLevel)) return false;
-		if (!pExpr->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
-	}
-	return true;
-}
-
-void ExprList::ValueVisitorEx::Visit(Signal sig, const Value &value)
-{
-	_valList.push_back(value);
-}
-
-void ExprList::SetParent(const Expr *pExpr)
-{
-	foreach_const (ExprList, ppExpr, *this) {
-		(*ppExpr)->SetParent(pExpr);
-	}
-}
-
-bool ExprList::IsAtSameLine() const
-{
-	if (empty()) return false;
-	ExprList::const_iterator ppExpr = begin();
-	const Expr *pExprTop = *ppExpr++;
-	for ( ; ppExpr != end(); ppExpr++) {
-		const Expr *pExpr = *ppExpr;
-		if (pExprTop->GetLineNoTop() != pExpr->GetLineNoTop()) return false;
-	}
-	return true;
-}
-
-//-----------------------------------------------------------------------------
-// ExprOwner
-//-----------------------------------------------------------------------------
-ExprOwner::ExprOwner() : _cntRef(1)
-{
-}
-
-ExprOwner::ExprOwner(const ExprList &exprList) : _cntRef(1)
-{
-	foreach_const (ExprList, ppExpr, exprList) {
-		push_back(Expr::Reference(*ppExpr));
-	}
-}
-
-ExprOwner::ExprOwner(const ExprOwner &exprOwner) : _cntRef(1)
-{
-	foreach_const (ExprOwner, ppExpr, exprOwner) {
-		push_back(Expr::Reference(*ppExpr));
-	}
-}
-
-ExprOwner::~ExprOwner()
-{
-	Clear();
-}
-
-void ExprOwner::Clear()
-{
-	foreach (ExprOwner, ppExpr, *this) {
-		Expr::Delete(*ppExpr);
-	}
-	clear();
 }
 
 }

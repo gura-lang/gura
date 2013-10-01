@@ -248,8 +248,8 @@ public:
 		(*this)[0] = pExpr1, (*this)[1] = pExpr2;
 	}
 	void ExtractTrace(ExprOwner &exprOwner) const;
-	Value Exec(Environment &env, Signal sig, bool evalSymFuncFlag) const;
-	Value ExecForList(Environment &env, Signal sig,
+	Value Exec2(Environment &env, Signal sig, bool evalSymFuncFlag) const;
+	Value Exec2ForList(Environment &env, Signal sig,
 							bool flattenFlag, bool evalSymFuncFlag) const;
 	bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	bool GenerateScript(Signal sig, SimpleStream &stream,

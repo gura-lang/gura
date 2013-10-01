@@ -240,7 +240,7 @@ Gura_ImplementFunction(dict)
 		if (sig.IsSignalled()) return Value::Null;
 		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
 		Value valueList =
-				pExprBlock->GetExprOwner().ExecForList(*pEnvLister, sig, false, false);
+				pExprBlock->GetExprOwner().Exec2ForList(*pEnvLister, sig, false, false);
 		if (sig.IsSignalled() || !valueList.IsList()) return Value::Null;
 		if (!valDict.Store(sig, valueList.GetList(), storeMode)) return Value::Null;
 	}
@@ -398,7 +398,7 @@ Gura_ImplementMethod(dict, store)
 		if (sig.IsSignalled()) return Value::Null;
 		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
 		Value valueList =
-				pExprBlock->GetExprOwner().ExecForList(*pEnvLister, sig, false, false);
+				pExprBlock->GetExprOwner().Exec2ForList(*pEnvLister, sig, false, false);
 		if (sig.IsSignalled() || !valueList.IsList()) return Value::Null;
 		if (!valDict.Store(sig, valueList.GetList(), storeMode)) return Value::Null;
 	}
