@@ -266,9 +266,12 @@ public:
 	};
 	typedef std::map<const Symbol *, Frame *, Symbol::KeyCompare_UniqNumber> FrameCache;
 protected:
+	int _cntRef;
 	FrameOwner _frameOwner;
 	std::auto_ptr<FrameCache> _pFrameCache;
 	static IntegratedModuleOwner *_pIntegratedModuleOwner;
+public:
+	Gura_DeclareReferenceAccessor(Environment)
 public:
 	Environment();
 	Environment(const Environment &env);

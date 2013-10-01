@@ -99,11 +99,11 @@ ModuleIntegrator::ModuleIntegrator(const char *name,
 //-----------------------------------------------------------------------------
 IntegratedModuleOwner *Environment::_pIntegratedModuleOwner = NULL;
 
-Environment::Environment()
+Environment::Environment() : _cntRef(1)
 {
 }
 
-Environment::Environment(const Environment &env)
+Environment::Environment(const Environment &env) : _cntRef(1)
 {
 	// _pFrameCache will be initialized when the program reads some variable at first
 	foreach_const (FrameOwner, ppFrame, env.GetFrameOwner()) {
@@ -112,7 +112,7 @@ Environment::Environment(const Environment &env)
 	}
 }
 
-Environment::Environment(const Environment *pEnvOuter, EnvType envType)
+Environment::Environment(const Environment *pEnvOuter, EnvType envType) : _cntRef(1)
 {
 	// _pFrameCache will be initialized when the program reads some variable at first
 	_frameOwner.push_back(new Frame(envType, pEnvOuter->GetGlobal()));

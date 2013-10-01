@@ -13,8 +13,6 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Fundamental : public Environment, public Callable {
 protected:
-	int _cntRef;
-protected:
 	Fundamental(const Fundamental &fund);
 	Fundamental(Environment *pEnvOuter, EnvType envType);
 public:

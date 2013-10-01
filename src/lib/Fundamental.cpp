@@ -5,13 +5,12 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Fundamental
 //-----------------------------------------------------------------------------
-Fundamental::Fundamental(const Fundamental &fund) :
-								Environment(fund), _cntRef(1)
+Fundamental::Fundamental(const Fundamental &fund) : Environment(fund)
 {
 }
 
 Fundamental::Fundamental(Environment *pEnvOuter, EnvType envType) :
-								Environment(pEnvOuter, envType), _cntRef(1)
+											Environment(pEnvOuter, envType)
 {
 }
 
