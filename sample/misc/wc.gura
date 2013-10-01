@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 
 if (sys.argv.len() < 2) {
-	println('usage: gura wc.gura file [file..]')
+	println('usage: wc.gura file [file..]')
 	sys.exit(0)
 }
 fileNames = path.glob(sys.argv[1..]):list

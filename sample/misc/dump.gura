@@ -17,7 +17,7 @@ dump(fileName:string, nCols:number => 16) = {
 	}
 }
 if (sys.argv.len() < 2) {
-	sys.stderr.println('usage: gura dump.gura file')
+	sys.stderr.println('usage: dump.gura file')
 	sys.exit()
 }
 dump(sys.argv[1], 16)

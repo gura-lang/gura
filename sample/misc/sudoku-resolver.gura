@@ -4,7 +4,7 @@
 // problems have also been picked up there.
 // http://homepage1.nifty.com/~tetsu/ruby/puzzle/sudoku.html
 
-import(canvas)
+//import(canvas)
 
 convToNumber(str:string):map = if (str == ' ') { nil } else { tonumber(str):raise }
 makeBoard(boardRaw:string) = boardRaw.split('\n').each():list {|line|
