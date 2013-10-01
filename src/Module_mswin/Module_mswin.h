@@ -57,27 +57,27 @@ public:
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
 public:
-	class Callable : public ICallable {
+	class CallableOLE : public Callable {
 	private:
 		Object_ole *_pObj;
 		const Symbol *_pSymbol;
 		DISPID _dispid;
 	public:
-		inline Callable(Object_ole *pObj, const Symbol *pSymbol, DISPID dispid) :
+		inline CallableOLE(Object_ole *pObj, const Symbol *pSymbol, DISPID dispid) :
 								_pObj(pObj), _pSymbol(pSymbol), _dispid(dispid) {}
 		virtual Value DoCall(Environment &env, Signal sig, Args &argsExpr);
 		inline const Symbol *GetSymbol() const { return _pSymbol; }
 	};
-	class CallableList : public std::vector<Callable *> {
+	class CallableOLEList : public std::vector<CallableOLE *> {
 	};
-	class CallableOwner : public CallableList {
+	class CallableOLEOwner : public CallableOLEList {
 	public:
-		~CallableOwner();
+		~CallableOLEOwner();
 		void Clear();
 	};
 private:
 	IDispatch *_pDispatch;
-	CallableOwner _callableOwner;
+	CallableOLEOwner _callableOLEOwner;
 public:
 	Gura_DeclareObjectAccessor(ole)
 public:
@@ -100,7 +100,7 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual ICallable *GetCallable(Signal sig, const Symbol *pSymbol);
+	virtual Callable *GetCallable(Signal sig, const Symbol *pSymbol);
 	virtual String ToString(Signal sig, bool exprFlag);
 	static void SetError(Signal sig, HRESULT hr);
 };

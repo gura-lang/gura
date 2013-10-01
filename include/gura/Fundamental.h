@@ -9,31 +9,13 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// ICallable
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE ICallable {
-public:
-	Value Call(Environment &env, Signal sig,
-			const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
-			const Expr_Caller *pExprCaller, const ExprList &exprListArg,
-			const Function **ppFuncLeader);
-	virtual bool IsLeader() const;
-	virtual bool IsTrailer() const;
-	virtual bool IsEndMarker() const;
-	virtual OccurPattern GetBlockOccurPattern() const;
-protected:
-	virtual Value DoCall(Environment &env, Signal sig, Args &args) = 0;
-};
-
-//-----------------------------------------------------------------------------
 // Fundamental
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Fundamental : public Environment, public ICallable {
+class GURA_DLLDECLARE Fundamental : public Environment, public Callable {
 protected:
 	int _cntRef;
 protected:
-	inline Fundamental(const Fundamental &fund) :
-							Environment(fund), _cntRef(fund._cntRef) {}
+	Fundamental(const Fundamental &fund);
 	Fundamental(Environment *pEnvOuter, EnvType envType);
 public:
 	virtual ~Fundamental();

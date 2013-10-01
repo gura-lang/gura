@@ -34,19 +34,19 @@ Func_##name::Func_##name(Environment &env, const char *name) : \
 #define Gura_DeclareFunctionWithDiffUnary(name) \
 Gura_DeclareFunctionWithDiffUnaryAlias(name, #name)
 
-// DeclareFunctionLeader
-#define Gura_DeclareFunctionLeaderAlias(name, nameAlias) \
+// DeclareFunctionTrailer
+#define Gura_DeclareFunctionTrailerAlias(name, nameAlias) \
 class Func_##name : public Function { \
 public: \
 	Func_##name(Environment &env, const char *name = nameAlias); \
 	virtual Value DoEval(Environment &env, Signal sig, Args &args) const; \
-	virtual bool CheckIfTrailer(const ICallable *pCallable) const; \
+	virtual bool CheckIfAcceptableLeader(const Function *pFuncLeader) const; \
 }; \
 Func_##name::Func_##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
 
-#define Gura_DeclareFunctionLeader(name) \
-Gura_DeclareFunctionLeaderAlias(name, #name)
+#define Gura_DeclareFunctionTrailer(name) \
+Gura_DeclareFunctionTrailerAlias(name, #name)
 
 // DeclareMethod
 #define Gura_DeclareMethodAlias(className, name, nameAlias) \
@@ -120,7 +120,7 @@ class Expr_Caller;
 class CustomClass;
 class CustomFunction;
 class Object_dict;
-class ICallable;
+class Callable;
 class Iterator;
 class IteratorOwner;
 
@@ -217,7 +217,7 @@ public:
 	Value EvalMap(Environment &env, Signal sig, Args &args) const;
 	Value EvalMapRecursive(Environment &env, Signal sig,
 				ResultComposer *pResultComposer, Args &args) const;
-	virtual bool CheckIfTrailer(const ICallable *pCallable) const;
+	virtual bool CheckIfAcceptableLeader(const Function *pFuncLeader) const;
 	inline FunctionType GetType() const { return _funcType; }
 	inline const char *GetTypeName() const { return GetFuncTypeName(_funcType); }
 	inline void SetMode(ResultMode resultMode, ULong flags) {
@@ -514,6 +514,24 @@ public:
 	const Expr_Block *GetBlock(Environment &env, Signal sig) const;
 	bool ShouldGenerateIterator(const DeclarationList &declList) const;
 	const Function *GetBlockFunc(Environment &env, Signal sig, const Symbol *pSymbol);
+};
+
+//-----------------------------------------------------------------------------
+// Callable
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Callable {
+public:
+	Value Call(Environment &env, Signal sig,
+			const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
+			const Expr_Caller *pExprCaller, const ExprList &exprListArg,
+			const Function **ppFuncLeader);
+	virtual bool CheckIfAcceptableLeader(const Function *pFuncLeader) const;
+	virtual bool IsLeader() const;
+	virtual bool IsTrailer() const;
+	virtual bool IsEndMarker() const;
+	virtual OccurPattern GetBlockOccurPattern() const;
+protected:
+	virtual Value DoCall(Environment &env, Signal sig, Args &args) = 0;
 };
 
 }

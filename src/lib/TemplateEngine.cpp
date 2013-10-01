@@ -167,7 +167,7 @@ bool TemplateEngine::ParseScript(Environment &env, Signal sig,
 	//::printf("[%s], [%s], [%s]\n", strIndent, strScript, strPost);
 	if (ppExpr != pExprOwnerPart->end()) {
 		Expr *pExpr = *ppExpr;
-		ICallable *pCallable = pExpr->LookupCallable(env, sig);
+		Callable *pCallable = pExpr->LookupCallable(env, sig);
 		sig.ClearSignal();
 		if (pCallable != NULL && pCallable->IsTrailer()) {
 			pExprTmplScript->SetStringIndent("");
@@ -200,7 +200,7 @@ bool TemplateEngine::ParseScript(Environment &env, Signal sig,
 	if (pExprLast == NULL || !pExprLast->IsCaller()) return true;
 	Expr_Caller *pExprLastCaller = dynamic_cast<Expr_Caller *>(pExprLast);
 	if (pExprLastCaller->GetBlock() == NULL) {
-		ICallable *pCallable = pExprLastCaller->LookupCallable(env, sig);
+		Callable *pCallable = pExprLastCaller->LookupCallable(env, sig);
 		sig.ClearSignal();
 		if (pCallable != NULL &&
 						pCallable->GetBlockOccurPattern() == OCCUR_Once) {

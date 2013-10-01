@@ -318,7 +318,7 @@ void Expr::SetError_NotAssignableSymbol(Signal sig, const Symbol *pSymbol) const
 		"symbol '%s' cannot be assigned in this object", pSymbol->GetName());
 }
 
-ICallable *Expr::LookupCallable(Environment &env, Signal sig) const
+Callable *Expr::LookupCallable(Environment &env, Signal sig) const
 {
 	return NULL;
 }
@@ -728,7 +728,7 @@ Expr *Expr_Symbol::Clone() const
 	return new Expr_Symbol(*this);
 }
 
-ICallable *Expr_Symbol::LookupCallable(Environment &env, Signal sig) const
+Callable *Expr_Symbol::LookupCallable(Environment &env, Signal sig) const
 {
 	Value rtn = env.GetProp(env, sig, GetSymbol(), GetAttrs());
 	if (sig.IsSignalled()) {
@@ -1692,7 +1692,7 @@ Expr *Expr_Caller::Clone() const
 	return new Expr_Caller(*this);
 }
 
-ICallable *Expr_Caller::LookupCallable(Environment &env, Signal sig) const
+Callable *Expr_Caller::LookupCallable(Environment &env, Signal sig) const
 {
 	if (!_pExprCar->IsMember()) {
 		Value valueCar = _pExprCar->Exec(env, sig);
@@ -1728,7 +1728,7 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig,
 	if (!_pExprCar->IsMember()) {
 		Value valueCar = _pExprCar->Exec(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		ICallable *pCallable = valueCar.GetObject();
+		Callable *pCallable = valueCar.GetObject();
 		if (pCallable == NULL) {
 			SetError(sig, ERR_TypeError, "object is not callable");
 			return Value::Null;
@@ -1775,7 +1775,7 @@ Value Expr_Caller::EvalEach(Environment &env, Signal sig, const Value &valueThis
 	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
 	const Expr *pExprRight = pExprMember->GetRight();
 	Value valueCar;
-	ICallable *pCallable = NULL;
+	Callable *pCallable = NULL;
 	Fundamental *pFund = NULL;
 	if (valueThis.IsPrimitive() || valueThis.GetTinyBuffFlag()) {
 		pFund = env.LookupClass(valueThis.GetValueType());

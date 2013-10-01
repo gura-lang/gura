@@ -318,7 +318,7 @@ bool Class::BuildContent(Environment &env, Signal sig, const Value &valueThis,
 								dynamic_cast<const Expr_Caller *>(pExpr);
 			Value valueCar = pExprCaller->GetCar()->Exec(envLocal, sig);
 			if (sig.IsSignalled()) return false;
-			ICallable *pCallable = valueCar.GetObject();
+			Callable *pCallable = valueCar.GetObject();
 			if (pCallable == NULL) {
 				sig.SetError(ERR_TypeError, "object is not callable");
 			} else {

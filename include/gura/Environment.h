@@ -72,7 +72,7 @@ class Class_Struct;
 class Module;
 class PathManager;
 
-class ICallable;
+class Callable;
 class CustomFunction;
 
 //-----------------------------------------------------------------------------
@@ -319,7 +319,7 @@ public:
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 						const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual ICallable *GetCallable(Signal sig, const Symbol *pSymbol);
+	virtual Callable *GetCallable(Signal sig, const Symbol *pSymbol);
 	Value GetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, const Value *pValueDefault = NULL,
 						EnvRefMode envRefMode = ENVREF_Escalate, int cntSuperSkip = 0);

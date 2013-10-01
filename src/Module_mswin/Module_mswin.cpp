@@ -595,11 +595,11 @@ Value Object_ole::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	return value;
 }
 
-ICallable *Object_ole::GetCallable(Signal sig, const Symbol *pSymbol)
+Callable *Object_ole::GetCallable(Signal sig, const Symbol *pSymbol)
 {
-	foreach (CallableOwner, ppCallable, _callableOwner) {
-		Callable *pCallable = *ppCallable;
-		if (pCallable->GetSymbol() == pSymbol) return pCallable;
+	foreach (CallableOLEOwner, ppCallableOLE, _callableOLEOwner) {
+		CallableOLE *pCallableOLE = *ppCallableOLE;
+		if (pCallableOLE->GetSymbol() == pSymbol) return pCallableOLE;
 	}
 	DISPID dispid;
 	HRESULT hr = GetDispID(pSymbol->GetName(), dispid);
@@ -607,9 +607,9 @@ ICallable *Object_ole::GetCallable(Signal sig, const Symbol *pSymbol)
 		Object_ole::SetError(sig, hr);
 		return NULL;
 	}
-	Callable *pCallable = new Callable(this, pSymbol, dispid);
-	_callableOwner.push_back(pCallable);
-	return pCallable;
+	CallableOLE *pCallableOLE = new CallableOLE(this, pSymbol, dispid);
+	_callableOLEOwner.push_back(pCallableOLE);
+	return pCallableOLE;
 }
 
 String Object_ole::ToString(Signal sig, bool exprFlag)
@@ -686,9 +686,9 @@ void Object_ole::SetError(Signal sig, HRESULT hr)
 }
 
 //-----------------------------------------------------------------------------
-// Object_ole::Callable
+// Object_ole::CallableOLE
 //-----------------------------------------------------------------------------
-Value Object_ole::Callable::DoCall(Environment &env, Signal sig, Args &argsExpr)
+Value Object_ole::CallableOLE::DoCall(Environment &env, Signal sig, Args &argsExpr)
 {
 	Value result;
 	HRESULT hr;
@@ -792,18 +792,18 @@ error_done:
 }
 
 //-----------------------------------------------------------------------------
-// Object_ole::CallableOwner
+// Object_ole::CallableOLEOwner
 //-----------------------------------------------------------------------------
-Object_ole::CallableOwner::~CallableOwner()
+Object_ole::CallableOLEOwner::~CallableOLEOwner()
 {
 	Clear();
 }
 
-void Object_ole::CallableOwner::Clear()
+void Object_ole::CallableOLEOwner::Clear()
 {
-	foreach (CallableOwner, ppCallable, *this) {
-		Callable *pCallable = *ppCallable;
-		delete pCallable;
+	foreach (CallableOLEOwner, ppCallableOLE, *this) {
+		CallableOLE *pCallableOLE = *ppCallableOLE;
+		delete pCallableOLE;
 	}
 	clear();
 }

@@ -3,59 +3,15 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// ICallable
-//-----------------------------------------------------------------------------
-Value ICallable::Call(Environment &env, Signal sig,
-		const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
-		const Expr_Caller *pExprCaller, const ExprList &exprListArg,
-		const Function **ppFuncLeader)
-{
-	if (ppFuncLeader != NULL) {
-		const Function *pFuncLeader = *ppFuncLeader;
-		*ppFuncLeader = NULL;
-		if (pFuncLeader != NULL) {
-			if (!pFuncLeader->CheckIfTrailer(this)) {
-				pExprCaller->SetError(sig,
-						ERR_SyntaxError, "invalid trailing process");
-				return Value::Null;
-			}
-		}
-	}
-	Args args(exprListArg, valueThis, pIteratorThis, listThisFlag, ppFuncLeader,
-		pExprCaller->GetAttrs(), pExprCaller->GetAttrsOpt(), pExprCaller->GetBlock());
-	Value result = DoCall(env, sig, args);
-	if (sig.IsSignalled()) {
-		sig.AddExprCause(pExprCaller);
-		return Value::Null;
-	}
-	return result;
-}
-
-bool ICallable::IsLeader() const
-{
-	return false;
-}
-
-bool ICallable::IsTrailer() const
-{
-	return false;
-}
-
-bool ICallable::IsEndMarker() const
-{
-	return false;
-}
-
-OccurPattern ICallable::GetBlockOccurPattern() const
-{
-	return OCCUR_Zero;
-}
-
-//-----------------------------------------------------------------------------
 // Fundamental
 //-----------------------------------------------------------------------------
+Fundamental::Fundamental(const Fundamental &fund) :
+								Environment(fund), _cntRef(1)
+{
+}
+
 Fundamental::Fundamental(Environment *pEnvOuter, EnvType envType) :
-							Environment(pEnvOuter, envType), _cntRef(1)
+								Environment(pEnvOuter, envType), _cntRef(1)
 {
 }
 

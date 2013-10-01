@@ -23,75 +23,6 @@ const char *GetFuncTypeName(FunctionType funcType)
 }
 
 //-----------------------------------------------------------------------------
-// Args
-//-----------------------------------------------------------------------------
-Args::~Args()
-{
-}
-
-const Expr_Block *Args::GetBlock(Environment &env, Signal sig) const
-{
-	// check if the block parameter specifies a delegated block information
-	// like "g() {|block|}"
-	// scope problem remains: 2010.11.02
-	const Expr_Block *pExprBlock = _pExprBlock;
-	while (pExprBlock != NULL) {
-		const Expr_BlockParam *pExprBlockParam = pExprBlock->GetParam();
-		if (pExprBlockParam == NULL || !pExprBlock->GetExprOwner().empty()) {
-			break;
-		}
-		const ExprList &exprList = pExprBlockParam->GetExprOwner();
-		if (exprList.size() != 1 || !exprList.front()->IsSymbol()) {
-			break;
-		}
-		const Expr_Symbol *pExprSymbol =
-							dynamic_cast<const Expr_Symbol *>(exprList.front());
-		const Value *pValue = env.LookupValue(pExprSymbol->GetSymbol(), ENVREF_Escalate);
-		if (pValue == NULL) {
-			break;
-		} else if (pValue->IsExpr()) {
-			const Expr *pExpr = pValue->GetExpr();
-			if (!pExpr->IsBlock()) {
-				sig.SetError(ERR_ValueError, "invalid value for block delegation");
-				return NULL;
-			}
-			pExprBlock = dynamic_cast<const Expr_Block *>(pExpr);
-		} else if (pValue->IsInvalid()) {
-			return NULL;
-		} else {
-			break;
-		}
-	}
-	return pExprBlock;
-}
-
-bool Args::ShouldGenerateIterator(const DeclarationList &declList) const
-{
-	if (IsThisIterator()) return true;
-	ValueList::const_iterator pValue = _valListArg.begin();
-	DeclarationList::const_iterator ppDecl = declList.begin();
-	for ( ; pValue != _valListArg.end() && ppDecl != declList.end(); pValue++) {
-		const Declaration *pDecl = *ppDecl;
-		if (pValue->IsIterator() &&
-						pDecl->GetValueType() != VTYPE_iterator) return true;
-		if (!pDecl->IsVariableLength()) ppDecl++;
-	}
-	return false;
-}
-
-// return NULL without error if block is not specified
-const Function *Args::GetBlockFunc(Environment &env, Signal sig, const Symbol *pSymbol)
-{
-	const Expr_Block *pExprBlock = GetBlock(env, sig);
-	if (pExprBlock == NULL || pSymbol == NULL) return NULL;
-	if (_pFuncBlock.IsNull()) {
-		_pFuncBlock.reset(CustomFunction::CreateBlockFunc(env, sig,
-										pSymbol, pExprBlock, FUNCTYPE_Block));
-	}
-	return _pFuncBlock.get();
-}
-
-//-----------------------------------------------------------------------------
 // Function
 //-----------------------------------------------------------------------------
 bool Function::IsCustom() const { return false; }
@@ -487,7 +418,7 @@ Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &ar
 	return pEnvLocal.release();
 }
 
-bool Function::CheckIfTrailer(const ICallable *pCallable) const
+bool Function::CheckIfAcceptableLeader(const Function *pFuncLeader) const
 {
 	return false;
 }
@@ -908,6 +839,130 @@ CustomFunction *CustomFunction::CreateBlockFunc(Environment &env, Signal sig,
 		}
 	}
 	return pFunc.release();
+}
+
+//-----------------------------------------------------------------------------
+// Args
+//-----------------------------------------------------------------------------
+Args::~Args()
+{
+}
+
+const Expr_Block *Args::GetBlock(Environment &env, Signal sig) const
+{
+	// check if the block parameter specifies a delegated block information
+	// like "g() {|block|}"
+	// scope problem remains: 2010.11.02
+	const Expr_Block *pExprBlock = _pExprBlock;
+	while (pExprBlock != NULL) {
+		const Expr_BlockParam *pExprBlockParam = pExprBlock->GetParam();
+		if (pExprBlockParam == NULL || !pExprBlock->GetExprOwner().empty()) {
+			break;
+		}
+		const ExprList &exprList = pExprBlockParam->GetExprOwner();
+		if (exprList.size() != 1 || !exprList.front()->IsSymbol()) {
+			break;
+		}
+		const Expr_Symbol *pExprSymbol =
+							dynamic_cast<const Expr_Symbol *>(exprList.front());
+		const Value *pValue = env.LookupValue(pExprSymbol->GetSymbol(), ENVREF_Escalate);
+		if (pValue == NULL) {
+			break;
+		} else if (pValue->IsExpr()) {
+			const Expr *pExpr = pValue->GetExpr();
+			if (!pExpr->IsBlock()) {
+				sig.SetError(ERR_ValueError, "invalid value for block delegation");
+				return NULL;
+			}
+			pExprBlock = dynamic_cast<const Expr_Block *>(pExpr);
+		} else if (pValue->IsInvalid()) {
+			return NULL;
+		} else {
+			break;
+		}
+	}
+	return pExprBlock;
+}
+
+bool Args::ShouldGenerateIterator(const DeclarationList &declList) const
+{
+	if (IsThisIterator()) return true;
+	ValueList::const_iterator pValue = _valListArg.begin();
+	DeclarationList::const_iterator ppDecl = declList.begin();
+	for ( ; pValue != _valListArg.end() && ppDecl != declList.end(); pValue++) {
+		const Declaration *pDecl = *ppDecl;
+		if (pValue->IsIterator() &&
+						pDecl->GetValueType() != VTYPE_iterator) return true;
+		if (!pDecl->IsVariableLength()) ppDecl++;
+	}
+	return false;
+}
+
+// return NULL without error if block is not specified
+const Function *Args::GetBlockFunc(Environment &env, Signal sig, const Symbol *pSymbol)
+{
+	const Expr_Block *pExprBlock = GetBlock(env, sig);
+	if (pExprBlock == NULL || pSymbol == NULL) return NULL;
+	if (_pFuncBlock.IsNull()) {
+		_pFuncBlock.reset(CustomFunction::CreateBlockFunc(env, sig,
+										pSymbol, pExprBlock, FUNCTYPE_Block));
+	}
+	return _pFuncBlock.get();
+}
+
+//-----------------------------------------------------------------------------
+// Callable
+//-----------------------------------------------------------------------------
+Value Callable::Call(Environment &env, Signal sig,
+		const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
+		const Expr_Caller *pExprCaller, const ExprList &exprListArg,
+		const Function **ppFuncLeader)
+{
+	if (ppFuncLeader != NULL) {
+		const Function *pFuncLeader = *ppFuncLeader;
+		*ppFuncLeader = NULL;
+		if (pFuncLeader == NULL) {
+			// nothing to do
+		} else if (!CheckIfAcceptableLeader(pFuncLeader)) {
+			sig.AddExprCause(pExprCaller);
+			pExprCaller->SetError(sig,
+					ERR_SyntaxError, "invalid trailing process");
+			return Value::Null;
+		}
+	}
+	Args args(exprListArg, valueThis, pIteratorThis, listThisFlag, ppFuncLeader,
+		pExprCaller->GetAttrs(), pExprCaller->GetAttrsOpt(), pExprCaller->GetBlock());
+	Value result = DoCall(env, sig, args);
+	if (sig.IsSignalled()) {
+		sig.AddExprCause(pExprCaller);
+		return Value::Null;
+	}
+	return result;
+}
+
+bool Callable::CheckIfAcceptableLeader(const Function *pFuncLeader) const
+{
+	return false;
+}
+
+bool Callable::IsLeader() const
+{
+	return false;
+}
+
+bool Callable::IsTrailer() const
+{
+	return false;
+}
+
+bool Callable::IsEndMarker() const
+{
+	return false;
+}
+
+OccurPattern Callable::GetBlockOccurPattern() const
+{
+	return OCCUR_Zero;
 }
 
 }

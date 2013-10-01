@@ -452,7 +452,7 @@ Value Environment::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	return Value::Null;
 }
 
-ICallable *Environment::GetCallable(Signal sig, const Symbol *pSymbol)
+Callable *Environment::GetCallable(Signal sig, const Symbol *pSymbol)
 {
 	return NULL;
 }

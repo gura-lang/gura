@@ -394,7 +394,7 @@ Gura_ImplementFunction(public_)
 }
 
 // try ():leader {block}
-Gura_DeclareFunctionLeaderAlias(try_, "try")
+Gura_DeclareFunctionAlias(try_, "try")
 {
 	SetMode(RSLTMODE_Normal, FLAG_Leader);
 	DeclareBlock(OCCUR_Once);
@@ -415,13 +415,8 @@ Gura_ImplementFunction(try_)
 	return result;
 }
 
-bool Gura_Function(try_)::CheckIfTrailer(const ICallable *pCallable) const
-{
-	return true;
-}
-
 // except (errors*:error):leader:trailer {block}
-Gura_DeclareFunctionLeaderAlias(except_, "except")
+Gura_DeclareFunctionTrailerAlias(except_, "except")
 {
 	SetMode(RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
 	DeclareArg(env, "errors", VTYPE_error, OCCUR_ZeroOrMore);
@@ -466,13 +461,13 @@ Gura_ImplementFunction(except_)
 	return pFuncBlock->Eval(envBlock, sig, argsSub);
 }
 
-bool Gura_Function(except_)::CheckIfTrailer(const ICallable *pCallable) const
+bool Gura_Function(except_)::CheckIfAcceptableLeader(const Function *pFuncLeader) const
 {
 	return true;
 }
 
 // finally ():trailer {block}
-Gura_DeclareFunctionAlias(finally_, "finally")
+Gura_DeclareFunctionTrailerAlias(finally_, "finally")
 {
 	SetMode(RSLTMODE_Normal, FLAG_Trailer);
 	DeclareBlock(OCCUR_Once);
@@ -486,8 +481,13 @@ Gura_ImplementFunction(finally_)
 	return pExprBlock->Exec(envBlock, sig);
 }
 
+bool Gura_Function(finally_)::CheckIfAcceptableLeader(const Function *pFuncLeader) const
+{
+	return true;
+}
+
 // if (`cond):leader {block}
-Gura_DeclareFunctionLeaderAlias(if_, "if")
+Gura_DeclareFunctionAlias(if_, "if")
 {
 	SetMode(RSLTMODE_Normal, FLAG_Leader);
 	DeclareArg(env, "cond", VTYPE_quote);
@@ -511,13 +511,8 @@ Gura_ImplementFunction(if_)
 	return Value::Null;
 }
 
-bool Gura_Function(if_)::CheckIfTrailer(const ICallable *pCallable) const
-{
-	return true;
-}
-
 // elsif (`cond):leader:trailer {block}
-Gura_DeclareFunctionLeaderAlias(elsif_, "elsif")
+Gura_DeclareFunctionTrailerAlias(elsif_, "elsif")
 {
 	SetMode(RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
 	DeclareArg(env, "cond", VTYPE_quote);
@@ -541,13 +536,13 @@ Gura_ImplementFunction(elsif_)
 	return Value::Null;
 }
 
-bool Gura_Function(elsif_)::CheckIfTrailer(const ICallable *pCallable) const
+bool Gura_Function(elsif_)::CheckIfAcceptableLeader(const Function *pFuncLeader) const
 {
 	return true;
 }
 
 // else ():trailer {block}
-Gura_DeclareFunctionAlias(else_, "else")
+Gura_DeclareFunctionTrailerAlias(else_, "else")
 {
 	SetMode(RSLTMODE_Normal, FLAG_Trailer);
 	DeclareBlock(OCCUR_Once);
@@ -563,6 +558,11 @@ Gura_ImplementFunction(else_)
 	const Expr_Block *pExprBlock = args.GetBlock(envBlock, sig);
 	if (sig.IsSignalled()) return Value::Null;
 	return pExprBlock->Exec(envBlock, sig);
+}
+
+bool Gura_Function(else_)::CheckIfAcceptableLeader(const Function *pFuncLeader) const
+{
+	return true;
 }
 
 // end ():void:symbol_func:trailer:end_marker

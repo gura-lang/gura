@@ -11,7 +11,7 @@ namespace Gura {
 class Expr;
 class ExprList;
 class Expr_Member;
-class ICallable;
+class Callable;
 
 //-----------------------------------------------------------------------------
 // ExprType
@@ -151,7 +151,7 @@ public:
 										const Operator *pOperator, bool rightFlag);
 	virtual Expr *Clone() const = 0;
 	virtual const char *GetPathName() const;
-	virtual ICallable *LookupCallable(Environment &env, Signal sig) const;
+	virtual Callable *LookupCallable(Environment &env, Signal sig) const;
 	inline Value Exec(Environment &env, Signal sig) const {
 		Value result = DoExec(env, sig);
 		if (sig.IsSignalled()) {
@@ -446,7 +446,7 @@ public:
 	virtual ~Expr_Symbol();
 	virtual bool IsSymbol() const;
 	virtual Expr *Clone() const;
-	virtual ICallable *LookupCallable(Environment &env, Signal sig) const;
+	virtual Callable *LookupCallable(Environment &env, Signal sig) const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
 	Value Exec(Environment &env, Signal sig, const Value &valueThis) const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
@@ -688,7 +688,7 @@ public:
 	virtual ~Expr_Caller();
 	virtual bool IsCaller() const;
 	virtual Expr *Clone() const;
-	virtual ICallable *LookupCallable(Environment &env, Signal sig) const;
+	virtual Callable *LookupCallable(Environment &env, Signal sig) const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
