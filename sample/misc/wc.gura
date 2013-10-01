@@ -1,12 +1,14 @@
+#!/usr/bin/env gura
+
 if (sys.argv.len() < 2) {
 	println('usage: gura wc.gura file [file..]')
 	sys.exit(0)
 }
-fileNames = path.glob([sys.argv[1..]]):list
+fileNames = path.glob(sys.argv[1..]):list
 lenMax = fileNames:*len().max()
 nlinesSum = 0
-for (fileName in fileNames) {
-	nlines = open(fileName).readlines().len()
+fileNames.each {|fileName|
+	nlines = readlines(fileName).len()
 	printf('%-*s %d\n', lenMax, fileName, nlines)
 	nlinesSum += nlines
 }
