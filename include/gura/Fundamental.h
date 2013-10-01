@@ -16,7 +16,6 @@ protected:
 	Fundamental(const Fundamental &fund);
 	Fundamental(Environment *pEnvOuter, EnvType envType);
 public:
-	virtual ~Fundamental();
 	virtual bool IsFunction() const;
 	virtual Iterator *CreateIterator(Signal sig);
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);

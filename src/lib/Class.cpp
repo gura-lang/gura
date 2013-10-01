@@ -223,10 +223,6 @@ Class::Class(Environment *pEnvOuter, ValueType valType) :
 {
 }
 
-Class::~Class()
-{
-}
-
 Object *Class::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	return new Object((pClass == NULL)? this : pClass);

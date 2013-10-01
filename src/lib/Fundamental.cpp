@@ -14,10 +14,6 @@ Fundamental::Fundamental(Environment *pEnvOuter, EnvType envType) :
 {
 }
 
-Fundamental::~Fundamental()
-{
-}
-
 bool Fundamental::IsFunction() const { return false; }
 
 Iterator *Fundamental::CreateIterator(Signal sig)

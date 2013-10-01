@@ -108,7 +108,6 @@ protected:
 		_pSymbol(cls._pSymbol), _pConstructor(NULL) {}
 public:
 	Class(Environment *pEnvOuter, ValueType valType);
-	virtual ~Class();
 	virtual bool IsClass() const;
 	virtual bool IsCustom() const;
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
