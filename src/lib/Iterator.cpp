@@ -550,7 +550,7 @@ Iterator *Iterator::Filter(Environment &env, Signal sig, const Value &criteria)
 	if (criteria.IsFunction()) {
 		Object_function *pFuncObjCriteria =
 			Object_function::Reference(Object_function::GetObject(criteria));
-		return new Iterator_FilterWithFunc(env, this, pFuncObjCriteria);
+		return new Iterator_FilterWithFunc(new Environment(env), this, pFuncObjCriteria);
 	} else if (criteria.IsList() || criteria.IsIterator()) {
 		Iterator *pIteratorCriteria = criteria.CreateIterator(sig);
 		if (sig.IsSignalled()) return NULL;
@@ -566,7 +566,7 @@ Iterator *Iterator::While(Environment &env, Signal sig, const Value &criteria)
 	if (criteria.IsFunction()) {
 		Object_function *pFuncObjCriteria = 
 			Object_function::Reference(Object_function::GetObject(criteria));
-		return new Iterator_WhileWithFunc(env, this, pFuncObjCriteria);
+		return new Iterator_WhileWithFunc(new Environment(env), this, pFuncObjCriteria);
 	} else if (criteria.IsList() || criteria.IsIterator()) {
 		Iterator *pIteratorCriteria = criteria.CreateIterator(sig);
 		if (sig.IsSignalled()) return NULL;
@@ -583,7 +583,7 @@ Iterator *Iterator::Since(Environment &env, Signal sig,
 	if (criteria.IsFunction()) {
 		Object_function *pFuncObjCriteria = 
 			Object_function::Reference(Object_function::GetObject(criteria));
-		return new Iterator_SinceWithFunc(env, this, pFuncObjCriteria, containFirstFlag);
+		return new Iterator_SinceWithFunc(new Environment(env), this, pFuncObjCriteria, containFirstFlag);
 	} else if (criteria.IsList() || criteria.IsIterator()) {
 		Iterator *pIteratorCriteria = criteria.CreateIterator(sig);
 		if (sig.IsSignalled()) return NULL;
@@ -600,7 +600,7 @@ Iterator *Iterator::Until(Environment &env, Signal sig,
 	if (criteria.IsFunction()) {
 		Object_function *pFuncObjCriteria = 
 			Object_function::Reference(Object_function::GetObject(criteria));
-		return new Iterator_UntilWithFunc(env, this, pFuncObjCriteria, containLastFlag);
+		return new Iterator_UntilWithFunc(new Environment(env), this, pFuncObjCriteria, containLastFlag);
 	} else if (criteria.IsList() || criteria.IsIterator()) {
 		Iterator *pIteratorCriteria = criteria.CreateIterator(sig);
 		if (sig.IsSignalled()) return NULL;
@@ -1035,9 +1035,9 @@ void Iterator_Interval::GatherFollower(Environment::Frame *pFrame, EnvironmentSe
 //-----------------------------------------------------------------------------
 // Iterator_Fork
 //-----------------------------------------------------------------------------
-Iterator_Fork::Iterator_Fork(Environment &env, Signal sig,
+Iterator_Fork::Iterator_Fork(Environment *pEnv, Signal sig,
 		Function *pFunc, const Value &valueThis, const ValueList &valListArg) :
-	Iterator(false), _pEnv(new Environment(env)), _pFunc(pFunc), _valueThis(valueThis), _doneFlag(false)
+	Iterator(false), _pEnv(pEnv), _pFunc(pFunc), _valueThis(valueThis), _doneFlag(false)
 {
 	_iterOwner.PrepareForMap(sig, pFunc->GetDeclOwner(), valListArg);
 	_pValListToWrite = &_valListA;
@@ -1121,9 +1121,9 @@ void Iterator_Fork::Run()
 //-----------------------------------------------------------------------------
 // Iterator_ExplicitMap
 //-----------------------------------------------------------------------------
-Iterator_ExplicitMap::Iterator_ExplicitMap(Environment &env, Signal sig,
+Iterator_ExplicitMap::Iterator_ExplicitMap(Environment *pEnv, Signal sig,
 							Iterator *pIterator, Object_function *pObjFunc) :
-		Iterator(pIterator->IsInfinite()), _pEnv(new Environment(env)), _sig(sig),
+		Iterator(pIterator->IsInfinite()), _pEnv(pEnv), _sig(sig),
 		_pIterator(pIterator), _pObjFunc(pObjFunc)
 {
 }
@@ -1172,10 +1172,10 @@ void Iterator_ExplicitMap::GatherFollower(Environment::Frame *pFrame, Environmen
 //-----------------------------------------------------------------------------
 // Iterator_ImplicitMap
 //-----------------------------------------------------------------------------
-Iterator_ImplicitMap::Iterator_ImplicitMap(Environment &env, Signal sig, Function *pFunc,
+Iterator_ImplicitMap::Iterator_ImplicitMap(Environment *pEnv, Signal sig, Function *pFunc,
 			const Value &valueThis, Iterator *pIteratorThis,
 			const ValueList &valListArg, bool skipInvalidFlag) :
-	Iterator(false, skipInvalidFlag), _pEnv(new Environment(env)), _sig(sig), _pFunc(pFunc),
+	Iterator(false, skipInvalidFlag), _pEnv(pEnv), _sig(sig), _pFunc(pFunc),
 	_valueThis(valueThis), _pIteratorThis(Reference(pIteratorThis)), _doneThisFlag(false)
 {
 	_iterOwner.PrepareForMap(sig, pFunc->GetDeclOwner(), valListArg);
@@ -1233,9 +1233,9 @@ void Iterator_ImplicitMap::GatherFollower(Environment::Frame *pFrame, Environmen
 //-----------------------------------------------------------------------------
 // Iterator_UnaryOperatorMap
 //-----------------------------------------------------------------------------
-Iterator_UnaryOperatorMap::Iterator_UnaryOperatorMap(Environment &env, Signal sig,
+Iterator_UnaryOperatorMap::Iterator_UnaryOperatorMap(Environment *pEnv, Signal sig,
 								const Operator *pOperator, const Value &value) :
-	Iterator(false), _pEnv(new Environment(env)), _sig(sig), _pOperator(pOperator)
+	Iterator(false), _pEnv(pEnv), _sig(sig), _pOperator(pOperator)
 {
 	if (value.IsListOrIterator()) {
 		_pIterator.reset(value.CreateIterator(sig));
@@ -1284,9 +1284,9 @@ void Iterator_UnaryOperatorMap::GatherFollower(Environment::Frame *pFrame, Envir
 //-----------------------------------------------------------------------------
 // Iterator_BinaryOperatorMap
 //-----------------------------------------------------------------------------
-Iterator_BinaryOperatorMap::Iterator_BinaryOperatorMap(Environment &env, Signal sig,
+Iterator_BinaryOperatorMap::Iterator_BinaryOperatorMap(Environment *pEnv, Signal sig,
 		const Operator *pOperator, const Value &valueLeft, const Value &valueRight) :
-	Iterator(false), _pEnv(new Environment(env)), _sig(sig), _pOperator(pOperator)
+	Iterator(false), _pEnv(pEnv), _sig(sig), _pOperator(pOperator)
 {
 	if (valueLeft.IsListOrIterator()) {
 		_pIteratorLeft.reset(valueLeft.CreateIterator(sig));
@@ -1343,8 +1343,8 @@ void Iterator_BinaryOperatorMap::GatherFollower(Environment::Frame *pFrame, Envi
 //-----------------------------------------------------------------------------
 // Iterator_MemberMap
 //-----------------------------------------------------------------------------
-Iterator_MemberMap::Iterator_MemberMap(Environment &env, Signal sig, Iterator *pIterator, Expr *pExpr) :
-		Iterator(pIterator->IsInfinite()), _pEnv(new Environment(env)), _sig(sig), _pIterator(pIterator), _pExpr(pExpr)
+Iterator_MemberMap::Iterator_MemberMap(Environment *pEnv, Signal sig, Iterator *pIterator, Expr *pExpr) :
+		Iterator(pIterator->IsInfinite()), _pEnv(pEnv), _sig(sig), _pIterator(pIterator), _pExpr(pExpr)
 {
 }
 
@@ -1390,8 +1390,8 @@ void Iterator_MemberMap::GatherFollower(Environment::Frame *pFrame, EnvironmentS
 //-----------------------------------------------------------------------------
 // Iterator_MethodMap
 //-----------------------------------------------------------------------------
-Iterator_MethodMap::Iterator_MethodMap(Environment &env, Signal sig, Iterator *pIteratorThis, Expr_Caller *pExprCaller) :
-		Iterator(pIteratorThis->IsInfinite()), _pEnv(new Environment(env)), _sig(sig),
+Iterator_MethodMap::Iterator_MethodMap(Environment *pEnv, Signal sig, Iterator *pIteratorThis, Expr_Caller *pExprCaller) :
+		Iterator(pIteratorThis->IsInfinite()), _pEnv(pEnv), _sig(sig),
 		_pIteratorThis(pIteratorThis), _pExprCaller(pExprCaller)
 {
 }
@@ -1432,9 +1432,9 @@ void Iterator_MethodMap::GatherFollower(Environment::Frame *pFrame, EnvironmentS
 //-----------------------------------------------------------------------------
 // Iterator_FuncBinder
 //-----------------------------------------------------------------------------
-Iterator_FuncBinder::Iterator_FuncBinder(Environment &env,
+Iterator_FuncBinder::Iterator_FuncBinder(Environment *pEnv,
 				Function *pFunc, const Value &valueThis, Iterator *pIterator) :
-		Iterator(false), _pEnv(new Environment(env)), _pFunc(pFunc),
+		Iterator(false), _pEnv(pEnv), _pFunc(pFunc),
 		_valueThis(valueThis), _pIterator(pIterator)
 {
 }
@@ -1651,9 +1651,9 @@ void Iterator_RoundOff::GatherFollower(Environment::Frame *pFrame, EnvironmentSe
 //-----------------------------------------------------------------------------
 // Iterator_FilterWithFunc
 //-----------------------------------------------------------------------------
-Iterator_FilterWithFunc::Iterator_FilterWithFunc(Environment &env,
+Iterator_FilterWithFunc::Iterator_FilterWithFunc(Environment *pEnv,
 							Iterator *pIterator, Object_function *pObjFunc) :
-			Iterator(pIterator->IsInfinite()), _pEnv(new Environment(env)),
+			Iterator(pIterator->IsInfinite()), _pEnv(pEnv),
 			_pIterator(pIterator), _pObjFunc(pObjFunc)
 {
 }
@@ -1730,9 +1730,9 @@ void Iterator_FilterWithIter::GatherFollower(Environment::Frame *pFrame, Environ
 //-----------------------------------------------------------------------------
 // Iterator_WhileWithFunc
 //-----------------------------------------------------------------------------
-Iterator_WhileWithFunc::Iterator_WhileWithFunc(Environment &env,
+Iterator_WhileWithFunc::Iterator_WhileWithFunc(Environment *pEnv,
 							Iterator *pIterator, Object_function *pObjFunc) :
-			Iterator(pIterator->IsInfinite()), _pEnv(new Environment(env)),
+			Iterator(pIterator->IsInfinite()), _pEnv(pEnv),
 			_pIterator(pIterator), _pObjFunc(pObjFunc)
 {
 }
@@ -1835,9 +1835,9 @@ void Iterator_WhileWithIter::GatherFollower(Environment::Frame *pFrame, Environm
 //-----------------------------------------------------------------------------
 // Iterator_UntilWithFunc
 //-----------------------------------------------------------------------------
-Iterator_UntilWithFunc::Iterator_UntilWithFunc(Environment &env, Iterator *pIterator,
+Iterator_UntilWithFunc::Iterator_UntilWithFunc(Environment *pEnv, Iterator *pIterator,
 								Object_function *pObjFunc, bool containLastFlag) :
-			Iterator(pIterator->IsInfinite()), _pEnv(new Environment(env)),
+			Iterator(pIterator->IsInfinite()), _pEnv(pEnv),
 			_pIterator(pIterator), _pObjFunc(pObjFunc), _containLastFlag(containLastFlag)
 {
 }
@@ -1948,9 +1948,9 @@ void Iterator_UntilWithIter::GatherFollower(Environment::Frame *pFrame, Environm
 //-----------------------------------------------------------------------------
 // Iterator_SinceWithFunc
 //-----------------------------------------------------------------------------
-Iterator_SinceWithFunc::Iterator_SinceWithFunc(Environment &env, Iterator *pIterator,
+Iterator_SinceWithFunc::Iterator_SinceWithFunc(Environment *pEnv, Iterator *pIterator,
 								Object_function *pObjFunc, bool containFirstFlag) :
-			Iterator(pIterator->IsInfinite()), _pEnv(new Environment(env)),
+			Iterator(pIterator->IsInfinite()), _pEnv(pEnv),
 			_pIterator(pIterator), _pObjFunc(pObjFunc), _containFirstFlag(containFirstFlag)
 {
 }
@@ -2426,9 +2426,9 @@ void Iterator_Concat::GatherFollower(Environment::Frame *pFrame, EnvironmentSet 
 //-----------------------------------------------------------------------------
 // Iterator_repeat
 //-----------------------------------------------------------------------------
-Iterator_repeat::Iterator_repeat(Environment &env, Signal sig, Function *pFuncBlock,
+Iterator_repeat::Iterator_repeat(Environment *pEnv, Signal sig, Function *pFuncBlock,
 					bool skipInvalidFlag, bool standaloneFlag, int cnt) :
-		Iterator(cnt < 0, skipInvalidFlag), _pEnv(new Environment(env)), _pFuncBlock(pFuncBlock),
+		Iterator(cnt < 0, skipInvalidFlag), _pEnv(pEnv), _pFuncBlock(pFuncBlock),
 		_standaloneFlag(standaloneFlag),
 		_pIteratorSub(NULL), _cnt(cnt), _idx(0)
 {
@@ -2493,9 +2493,9 @@ void Iterator_repeat::GatherFollower(Environment::Frame *pFrame, EnvironmentSet 
 //-----------------------------------------------------------------------------
 // Iterator_while
 //-----------------------------------------------------------------------------
-Iterator_while::Iterator_while(Environment &env, Signal sig, Function *pFuncBlock,
+Iterator_while::Iterator_while(Environment *pEnv, Signal sig, Function *pFuncBlock,
 					bool skipInvalidFlag, bool standaloneFlag, Expr *pExpr) :
-		Iterator(false, skipInvalidFlag), _pEnv(new Environment(env)), _pFuncBlock(pFuncBlock),
+		Iterator(false, skipInvalidFlag), _pEnv(pEnv), _pFuncBlock(pFuncBlock),
 		_standaloneFlag(standaloneFlag),
 		_pIteratorSub(NULL), _pExpr(Expr::Reference(pExpr)), _idx(0)
 {
@@ -2560,9 +2560,9 @@ void Iterator_while::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &
 //-----------------------------------------------------------------------------
 // Iterator_for
 //-----------------------------------------------------------------------------
-Iterator_for::Iterator_for(Environment &env, Signal sig, Function *pFuncBlock,
+Iterator_for::Iterator_for(Environment *pEnv, Signal sig, Function *pFuncBlock,
 			bool skipInvalidFlag, bool standaloneFlag, const ValueList &valListArg) :
-		Iterator(false, skipInvalidFlag), _pEnv(new Environment(env)), _pFuncBlock(pFuncBlock),
+		Iterator(false, skipInvalidFlag), _pEnv(pEnv), _pFuncBlock(pFuncBlock),
 		_standaloneFlag(standaloneFlag),
 		_pIteratorSub(NULL), _idx(0), _doneFlag(false)
 {
@@ -2646,9 +2646,9 @@ void Iterator_for::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &en
 //-----------------------------------------------------------------------------
 // Iterator_cross
 //-----------------------------------------------------------------------------
-Iterator_cross::Iterator_cross(Environment &env, Signal sig, Function *pFuncBlock,
+Iterator_cross::Iterator_cross(Environment *pEnv, Signal sig, Function *pFuncBlock,
 			bool skipInvalidFlag, bool standaloneFlag, const ValueList &valListArg) :
-		Iterator(false, skipInvalidFlag), _pEnv(new Environment(env)), _pFuncBlock(pFuncBlock),
+		Iterator(false, skipInvalidFlag), _pEnv(pEnv), _pFuncBlock(pFuncBlock),
 		_standaloneFlag(standaloneFlag),
 		_pIteratorSub(NULL), _idx(0), _doneFlag(true)
 {
@@ -2661,7 +2661,7 @@ Iterator_cross::Iterator_cross(Environment &env, Signal sig, Function *pFuncBloc
 	foreach (IteratorOwner, ppIteratorOrg, _iteratorOwnerOrg) {
 		Iterator *pIterator = (*ppIteratorOrg)->Clone();
 		Value valueVar;
-		bool rtn = pIterator->Next(env, sig, valueVar);
+		bool rtn = pIterator->Next(*_pEnv, sig, valueVar);
 		if (sig.IsSignalled()) return;
 		if (rtn) {
 			_doneFlag = false;

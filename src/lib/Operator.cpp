@@ -135,7 +135,7 @@ Value Operator::EvalMapUnary(Environment &env, Signal sig, const Value &value) c
 		return EvalUnary(env, sig, value);
 	}
 	AutoPtr<Iterator> pIterator(new Iterator_UnaryOperatorMap(
-												env, sig, this, value));
+										new Environment(env), sig, this, value));
 	if (value.IsIterator()) {
 		return Value(env, pIterator.release());
 	}
@@ -148,7 +148,7 @@ Value Operator::EvalMapBinary(Environment &env, Signal sig,
 	if (!valueLeft.IsListOrIterator() && !valueRight.IsListOrIterator()) {
 		return EvalBinary(env, sig, valueLeft, valueRight);
 	}
-	AutoPtr<Iterator> pIterator(new Iterator_BinaryOperatorMap(env, sig,
+	AutoPtr<Iterator> pIterator(new Iterator_BinaryOperatorMap(new Environment(env), sig,
 									this, valueLeft, valueRight));
 	if (valueLeft.IsIterator() || valueRight.IsIterator()) {
 		return Value(env, pIterator.release());
@@ -540,7 +540,7 @@ Value Operator_Mul::EvalMapBinary(Environment &env, Signal sig,
 			}
 			AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));
 			if (sig.IsSignalled()) return Value::Null;
-			AutoPtr<Iterator> pIteratorFuncBinder(new Iterator_FuncBinder(env,
+			AutoPtr<Iterator> pIteratorFuncBinder(new Iterator_FuncBinder(new Environment(env),
 						Function::Reference(pFunc),
 						Object_function::GetObject(valueLeft)->GetThis(), pIterator.release()));
 			ValueList valListArg(valueLeft, valueRight);
@@ -549,7 +549,7 @@ Value Operator_Mul::EvalMapBinary(Environment &env, Signal sig,
 		} else if (valueRight.IsIterator()) {
 			AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));
 			if (sig.IsSignalled()) return Value::Null;
-			AutoPtr<Iterator> pIteratorFuncBinder(new Iterator_FuncBinder(env,
+			AutoPtr<Iterator> pIteratorFuncBinder(new Iterator_FuncBinder(new Environment(env),
 						Function::Reference(pFunc),
 						Object_function::GetObject(valueLeft)->GetThis(), pIterator.release()));
 			if (pFunc->IsRsltNormal() ||

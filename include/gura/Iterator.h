@@ -357,7 +357,7 @@ private:
 		OAL::Event event;
 	} _writeBlock;
 public:
-	Iterator_Fork(Environment &env, Signal sig,
+	Iterator_Fork(Environment *pEnv, Signal sig,
 		Function *pFunc, const Value &valueThis, const ValueList &valListArg);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
@@ -378,7 +378,7 @@ private:
 	AutoPtr<Iterator> _pIterator;
 	AutoPtr<Object_function> _pObjFunc;
 public:
-	Iterator_ExplicitMap(Environment &env, Signal sig,
+	Iterator_ExplicitMap(Environment *pEnv, Signal sig,
 							Iterator *pIterator, Object_function *pObjFunc);
 	Iterator_ExplicitMap(const Iterator_ExplicitMap &iter);
 	virtual ~Iterator_ExplicitMap();
@@ -402,7 +402,7 @@ private:
 	IteratorOwner _iterOwner;
 	bool _doneThisFlag;
 public:
-	Iterator_ImplicitMap(Environment &env, Signal sig, Function *pFunc,
+	Iterator_ImplicitMap(Environment *pEnv, Signal sig, Function *pFunc,
 			const Value &valueThis, Iterator *pIteratorThis,
 			const ValueList &valListArg, bool skipInvalidFlag);
 	virtual ~Iterator_ImplicitMap();
@@ -422,7 +422,7 @@ private:
 	const Operator *_pOperator;
 	AutoPtr<Iterator> _pIterator;
 public:
-	Iterator_UnaryOperatorMap(Environment &env, Signal sig,
+	Iterator_UnaryOperatorMap(Environment *pEnv, Signal sig,
 						const Operator *pOperator, const Value &value);
 	virtual ~Iterator_UnaryOperatorMap();
 	virtual Iterator *GetSource();
@@ -442,7 +442,7 @@ private:
 	AutoPtr<Iterator> _pIteratorLeft;
 	AutoPtr<Iterator> _pIteratorRight;
 public:
-	Iterator_BinaryOperatorMap(Environment &env, Signal sig,
+	Iterator_BinaryOperatorMap(Environment *pEnv, Signal sig,
 		const Operator *pOperator, const Value &valueLeft, const Value &valueRight);
 	virtual ~Iterator_BinaryOperatorMap();
 	virtual Iterator *GetSource();
@@ -461,7 +461,7 @@ private:
 	AutoPtr<Iterator> _pIterator;
 	AutoPtr<Expr> _pExpr;
 public:
-	Iterator_MemberMap(Environment &env, Signal sig, Iterator *pIterator, Expr *pExpr);
+	Iterator_MemberMap(Environment *pEnv, Signal sig, Iterator *pIterator, Expr *pExpr);
 	virtual ~Iterator_MemberMap();
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
@@ -479,7 +479,7 @@ private:
 	AutoPtr<Iterator> _pIteratorThis;
 	AutoPtr<Expr_Caller> _pExprCaller;
 public:
-	Iterator_MethodMap(Environment &env, Signal sig, Iterator *pIteratorThis, Expr_Caller *pExprCaller);
+	Iterator_MethodMap(Environment *pEnv, Signal sig, Iterator *pIteratorThis, Expr_Caller *pExprCaller);
 	virtual ~Iterator_MethodMap();
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
@@ -497,7 +497,7 @@ private:
 	Value _valueThis;
 	AutoPtr<Iterator> _pIterator;
 public:
-	Iterator_FuncBinder(Environment &env,
+	Iterator_FuncBinder(Environment *pEnv,
 				Function *pFunc, const Value &valueThis, Iterator *pIterator);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
@@ -592,7 +592,7 @@ private:
 	AutoPtr<Iterator> _pIterator;
 	AutoPtr<Object_function> _pObjFunc;
 public:
-	Iterator_FilterWithFunc(Environment &env,
+	Iterator_FilterWithFunc(Environment *pEnv,
 							Iterator *pIterator, Object_function *pObjFunc);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
@@ -626,7 +626,7 @@ private:
 	AutoPtr<Iterator> _pIterator;
 	AutoPtr<Object_function> _pObjFunc;
 public:
-	Iterator_WhileWithFunc(Environment &env,
+	Iterator_WhileWithFunc(Environment *pEnv,
 							Iterator *pIterator, Object_function *pObjFunc);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
@@ -661,7 +661,7 @@ private:
 	AutoPtr<Object_function> _pObjFunc;
 	bool _containLastFlag;
 public:
-	Iterator_UntilWithFunc(Environment &env, Iterator *pIterator,
+	Iterator_UntilWithFunc(Environment *pEnv, Iterator *pIterator,
 								Object_function *pObjFunc, bool containLastFlag);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
@@ -699,7 +699,7 @@ private:
 	AutoPtr<Object_function> _pObjFunc;
 	bool _containFirstFlag;
 public:
-	Iterator_SinceWithFunc(Environment &env, Iterator *pIterator,
+	Iterator_SinceWithFunc(Environment *pEnv, Iterator *pIterator,
 								Object_function *pObjFunc, bool containFirstFlag);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
@@ -928,7 +928,7 @@ private:
 	int _cnt;
 	int _idx;
 public:
-	Iterator_repeat(Environment &env, Signal sig, Function *pFuncBlock,
+	Iterator_repeat(Environment *pEnv, Signal sig, Function *pFuncBlock,
 					bool skipInvalidFlag, bool standaloneFlag, int cnt);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
@@ -948,7 +948,7 @@ private:
 	AutoPtr<Expr> _pExpr;
 	int _idx;
 public:
-	Iterator_while(Environment &env, Signal sig, Function *pFuncBlock,
+	Iterator_while(Environment *pEnv, Signal sig, Function *pFuncBlock,
 					bool skipInvalidFlag, bool standaloneFlag, Expr *pExpr);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
@@ -970,7 +970,7 @@ private:
 	int _idx;
 	bool _doneFlag;
 public:
-	Iterator_for(Environment &env, Signal sig, Function *pFuncBlock,
+	Iterator_for(Environment *pEnv, Signal sig, Function *pFuncBlock,
 			bool skipInvalidFlag, bool standaloneFlag, const ValueList &valListArg);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
@@ -994,7 +994,7 @@ private:
 	int _idx;
 	bool _doneFlag;
 public:
-	Iterator_cross(Environment &env, Signal sig, Function *pFuncBlock,
+	Iterator_cross(Environment *pEnv, Signal sig, Function *pFuncBlock,
 			bool skipInvalidFlag, bool standaloneFlag, const ValueList &valListArg);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);

@@ -1919,7 +1919,7 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig,
 			return EvalEach(env, sig, valueThisEach,
 						pIteratorThis, valueThis.IsList(), ppFuncLeader);
 		} else {
-			AutoPtr<Iterator> pIteratorMap(new Iterator_MethodMap(env, sig,
+			AutoPtr<Iterator> pIteratorMap(new Iterator_MethodMap(new Environment(env), sig,
 								pIteratorThis, Expr_Caller::Reference(this)));
 			if (mode == Expr_Member::MODE_MapToIter) {
 				return Value(env, pIteratorMap.release());
@@ -2704,7 +2704,7 @@ Value Expr_Member::DoExec(Environment &env, Signal sig) const
 		if (sig.IsSignalled()) return Value::Null;
 		if (pIterator != NULL) {
 			AutoPtr<Iterator> pIteratorMap(new Iterator_MemberMap(
-						env, sig, pIterator, Expr::Reference(GetRight())));
+						new Environment(env), sig, pIterator, Expr::Reference(GetRight())));
 			if (mode == MODE_MapToIter) {
 				return Value(env, pIteratorMap.release());
 			}

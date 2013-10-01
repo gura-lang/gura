@@ -1401,7 +1401,7 @@ Gura_ImplementMethod(list, map)
 	Object_list *pThis = Object_list::GetThisObj(args);
 	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
 	if (sig.IsSignalled()) return Value::Null;
-	Iterator *pIterator = new Iterator_ExplicitMap(env, sig, pIteratorSrc,
+	Iterator *pIterator = new Iterator_ExplicitMap(new Environment(env), sig, pIteratorSrc,
 			Object_function::Reference(Object_function::GetObject(args, 0)));
 	return ReturnIterator(env, sig, args, pIterator);
 }

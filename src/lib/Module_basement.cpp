@@ -673,7 +673,7 @@ Gura_ImplementFunction(repeat)
 						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
 	if (pFuncBlock == NULL) return Value::Null;
 	bool standaloneFlag = (args.IsRsltIterator() || args.IsRsltXIterator());
-	Iterator *pIterator = new Iterator_repeat(*pEnvBlock, sig, Function::Reference(pFuncBlock),
+	Iterator *pIterator = new Iterator_repeat(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
 			args.IsRsltXIterator(), standaloneFlag,
 			args.IsNumber(0)? args.GetInt(0) : -1);
 	return DoRepeater(env, sig, args, pIterator);
@@ -700,7 +700,7 @@ Gura_ImplementFunction(while_)
 						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
 	if (pFuncBlock == NULL) return Value::Null;
 	bool standaloneFlag = (args.IsRsltIterator() || args.IsRsltXIterator());
-	Iterator *pIterator = new Iterator_while(*pEnvBlock, sig, Function::Reference(pFuncBlock),
+	Iterator *pIterator = new Iterator_while(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
 			args.IsRsltXIterator(), standaloneFlag, Expr::Reference(args.GetExpr(0)));
 	return DoRepeater(env, sig, args, pIterator);
 }
@@ -728,7 +728,7 @@ Gura_ImplementFunction(for_)
 						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
 	if (pFuncBlock == NULL) return Value::Null;
 	bool standaloneFlag = (args.IsRsltIterator() || args.IsRsltXIterator());
-	Iterator *pIterator = new Iterator_for(*pEnvBlock, sig, Function::Reference(pFuncBlock),
+	Iterator *pIterator = new Iterator_for(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
 				args.IsRsltXIterator(), standaloneFlag, args.GetList(0));
 	return DoRepeater(env, sig, args, pIterator);
 }
@@ -758,7 +758,7 @@ Gura_ImplementFunction(cross)
 						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
 	if (pFuncBlock == NULL) return Value::Null;
 	bool standaloneFlag = (args.IsRsltIterator() || args.IsRsltXIterator());
-	Iterator *pIterator = new Iterator_cross(*pEnvBlock, sig, Function::Reference(pFuncBlock),
+	Iterator *pIterator = new Iterator_cross(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
 				args.IsRsltXIterator(), standaloneFlag, args.GetList(0));
 	return DoRepeater(env, sig, args, pIterator);
 }
