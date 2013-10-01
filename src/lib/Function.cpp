@@ -30,7 +30,7 @@ bool Function::IsConstructorOfStruct() const { return false; }
 
 Function::Function(const Function &func) : _cntRef(1),
 	_pSymbol(func._pSymbol), _pClassToConstruct(func._pClassToConstruct),
-	_envScope(func._envScope), _declOwner(func._declOwner),
+	_pEnvScope(new Environment(func.GetEnvScope())), _declOwner(func._declOwner),
 	_opType(OPTYPE_None),
 	_funcType(func._funcType),
 	_resultMode(func._resultMode), _flags(func._flags),
@@ -41,7 +41,7 @@ Function::Function(const Function &func) : _cntRef(1),
 Function::Function(Environment &envScope, const Symbol *pSymbol,
 								FunctionType funcType, ULong flags) :
 	_cntRef(1),
-	_pSymbol(pSymbol), _pClassToConstruct(NULL), _envScope(envScope), _funcType(funcType),
+	_pSymbol(pSymbol), _pClassToConstruct(NULL), _pEnvScope(new Environment(envScope)), _funcType(funcType),
 	_resultMode(RSLTMODE_Normal), _flags(flags)
 {
 	_blockInfo.occurPattern = OCCUR_Zero;
@@ -379,8 +379,8 @@ Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &ar
 {
 	EnvType envType = (_funcType == FUNCTYPE_Block)? ENVTYPE_block : ENVTYPE_local;
 	Environment *pEnvOuter = GetDynamicScopeFlag()?
-							&env : const_cast<Environment *>(&_envScope);
-	std::auto_ptr<Environment> pEnvLocal(new Environment(pEnvOuter, envType));
+							&env : const_cast<Environment *>(_pEnvScope.get());
+	AutoPtr<Environment> pEnvLocal(new Environment(pEnvOuter, envType));
 	const ValueList &valListArg = args.GetArgs();
 	ValueList::const_iterator pValue = valListArg.begin();
 	DeclarationList::const_iterator ppDecl = _declOwner.begin();
@@ -433,12 +433,12 @@ Value Function::ReturnIterator(Environment &env, Signal sig,
 	}
 	Value result;
 	if (args.IsBlockSpecified()) {
-		Environment envBlock(&env, ENVTYPE_block);
+		AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 		const Function *pFuncBlock =
-						args.GetBlockFunc(envBlock, sig, GetSymbolForBlock());
+						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
 		if (pFuncBlock == NULL) return Value::Null;
 		// :iter and :xiter must be effective here
-		result = pIterator->Eval(envBlock, sig, args, pFuncBlock);
+		result = pIterator->Eval(*pEnvBlock, sig, args, pFuncBlock);
 		Iterator::Delete(pIterator);
 		if (sig.IsSignalled()) return Value::Null;
 	} else if (args.IsRsltList() || args.IsRsltXList() ||
@@ -458,9 +458,9 @@ Value Function::ReturnValue(Environment &env, Signal sig,
 {
 	if (!args.IsBlockSpecified()) return result;
 	if (sig.IsSignalled()) return Value::Null;
-	Environment envBlock(&env, ENVTYPE_block);
+	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
-					args.GetBlockFunc(envBlock, sig, GetSymbolForBlock());
+					args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
 	if (pFuncBlock == NULL) return Value::Null;
 	ValueList valListArg(result);
 	Args argsSub(valListArg);
@@ -476,9 +476,9 @@ Value Function::ReturnValue(Environment &env, Signal sig,
 {
 	if (!args.IsBlockSpecified()) return valListArg.front();
 	if (sig.IsSignalled()) return Value::Null;
-	Environment envBlock(&env, ENVTYPE_block);
+	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
-					args.GetBlockFunc(envBlock, sig, GetSymbolForBlock());
+					args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
 	if (pFuncBlock == NULL) return Value::Null;
 	Args argsSub(valListArg);
 	Value value = pFuncBlock->Eval(env, sig, argsSub);
@@ -540,8 +540,8 @@ Expr *Function::OptimizeBinary(Environment &env, Signal sig,
 
 void Function::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
-	if (_cntRef == 1 && _envScope.GetFrameOwner().DoesExist(pFrame)) {
-		envSet.insert(&_envScope);
+	if (_cntRef == 1 && _pEnvScope->GetFrameOwner().DoesExist(pFrame)) {
+		envSet.insert(_pEnvScope.get());
 	}
 }
 
@@ -790,7 +790,7 @@ CustomFunction::~CustomFunction()
 
 Value CustomFunction::DoEval(Environment &env, Signal sig, Args &args) const
 {
-	std::auto_ptr<Environment> pEnvLocal(PrepareEnvironment(env, sig, args));
+	AutoPtr<Environment> pEnvLocal(PrepareEnvironment(env, sig, args));
 	if (pEnvLocal.get() == NULL) return Value::Null;
 	if (_funcType != FUNCTYPE_Block) {
 		Value valueThis(args.GetThis());

@@ -99,14 +99,14 @@ bool CustomClass::Deserialize(Signal sig, Stream &stream, Value &value) const
 //-----------------------------------------------------------------------------
 ConstructorOfCustomClass::ConstructorOfCustomClass(Environment &envScope,
 				const Symbol *pSymbol, Expr *pExprBody, FunctionType funcType) :
-		Function(envScope, pSymbol, funcType, FLAG_None), _envScope(envScope),
+		Function(envScope, pSymbol, funcType, FLAG_None), _pEnvScope(new Environment(envScope)),
 		_pExprBody(pExprBody)
 {
 }
 
 Value ConstructorOfCustomClass::DoEval(Environment &env, Signal sig, Args &args) const
 {
-	std::auto_ptr<Environment> pEnvLocal(PrepareEnvironment(env, sig, args));
+	AutoPtr<Environment> pEnvLocal(PrepareEnvironment(env, sig, args));
 	if (pEnvLocal.get() == NULL) return Value::Null;
 	EnvType envType = pEnvLocal->GetEnvType();
 	Value valueRtn(args.GetThis());
@@ -127,9 +127,9 @@ Value ConstructorOfCustomClass::DoEval(Environment &env, Signal sig, Args &args)
 				pExprList = &pExprParam->GetExprOwner();
 			}
 		}
-		Environment envSuper(pEnvLocal.get(), ENVTYPE_local);
+		AutoPtr<Environment> pEnvSuper(new Environment(pEnvLocal.get(), ENVTYPE_local));
 		Args argsSub(*pExprList, valueRtn);
-		pConstructorSuper->EvalExpr(envSuper, sig, argsSub);
+		pConstructorSuper->EvalExpr(*pEnvSuper, sig, argsSub);
 		if (sig.IsSignalled()) return Value::Null;
 	}
 	Value valueThis(valueRtn);

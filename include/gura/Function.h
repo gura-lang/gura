@@ -171,7 +171,7 @@ protected:
 	int _cntRef;
 	const Symbol *_pSymbol;
 	Class *_pClassToConstruct;
-	Environment _envScope;
+	AutoPtr<Environment> _pEnvScope;
 	DeclarationOwner _declOwner;
 	OpType _opType;
 	FunctionType _funcType;
@@ -205,9 +205,9 @@ public:
 	inline void SetOpType(OpType opType) { _opType = opType; }
 	inline OpType GetOpType() const { return _opType; }
 	inline const char *GetMathSymbol() const { return Operator::GetMathSymbol(_opType); }
-	inline Environment &GetEnvScope() { return _envScope; }
+	inline Environment &GetEnvScope() { return *_pEnvScope; }
 	inline Environment &GetEnvScope() const {
-		return const_cast<Function *>(this)->_envScope;
+		return *const_cast<Function *>(this)->_pEnvScope;
 	}
 	virtual bool IsCustom() const;
 	virtual bool IsConstructorOfStruct() const;

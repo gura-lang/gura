@@ -119,10 +119,10 @@ Value Device::Initialize(Environment &env, Signal sig, const Function *pFuncBloc
 	Object_Canvas *pObj = new Object_Canvas(env, this);
 	Value result(pObj);
 	if (pFuncBlock != NULL) {
-		Environment envBlock(&env, ENVTYPE_block);
+		AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 		ValueList valList(result);
 		Args args(valList);
-		pFuncBlock->Eval(envBlock, sig, args);
+		pFuncBlock->Eval(*pEnvBlock, sig, args);
 		
 		// temporary handling before GC is correctly implemented
 		pObj->Device().Close();

@@ -143,9 +143,9 @@ bool TemplateEngine::EvalStream(Environment &env, Signal sig,
 		pExprOwnerRoot->push_back(new Expr_TmplString(streamDst, str));
 		str.clear();
 	}
-	Environment envBlock(&env, ENVTYPE_local);
+	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
 	do {
-		Environment &env = envBlock;
+		Environment &env = *pEnvBlock;
 		pExprOwnerRoot->Exec(env, sig, true);
 		//::printf("%s\n", pExprOwnerRoot->ToString().c_str());
 	} while (0);

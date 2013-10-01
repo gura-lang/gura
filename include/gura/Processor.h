@@ -12,7 +12,7 @@ public:
 	};
 private:
 	int _cntRef;
-	Environment _env;
+	AutoPtr<Environment> _pEnv;
 	AutoPtr<ExprOwner> _pExprOwner;
 	Mode _mode;
 	size_t _idxExpr;

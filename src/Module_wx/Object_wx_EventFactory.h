@@ -104,14 +104,14 @@ public:
 //-----------------------------------------------------------------------------
 class EventHandlerPack : public wxObject {
 private:
-	Environment _env;
+	AutoPtr<Environment> _pEnv;
 	Signal _sig;
 	AutoPtr<Object_function> _pObjFunc;
 	AutoPtr<Object_wx_EventFactory> _pEventFactory;
 public:
 	inline EventHandlerPack(Environment &env, Signal sig,
 				Object_function *pObjFunc, Object_wx_EventFactory *pEventFactory) :
-		_env(env), _sig(sig), _pObjFunc(pObjFunc), _pEventFactory(pEventFactory) {}
+		_pEnv(new Environment(env)), _sig(sig), _pObjFunc(pObjFunc), _pEventFactory(pEventFactory) {}
 	virtual ~EventHandlerPack();
 	void Eval(wxEvent &event);
 	Signal &GetSignal() { return _sig; }

@@ -1037,7 +1037,7 @@ void Iterator_Interval::GatherFollower(Environment::Frame *pFrame, EnvironmentSe
 //-----------------------------------------------------------------------------
 Iterator_Fork::Iterator_Fork(Environment &env, Signal sig,
 		Function *pFunc, const Value &valueThis, const ValueList &valListArg) :
-	Iterator(false), _env(env), _pFunc(pFunc), _valueThis(valueThis), _doneFlag(false)
+	Iterator(false), _pEnv(new Environment(env)), _pFunc(pFunc), _valueThis(valueThis), _doneFlag(false)
 {
 	_iterOwner.PrepareForMap(sig, pFunc->GetDeclOwner(), valListArg);
 	_pValListToWrite = &_valListA;
@@ -1104,7 +1104,7 @@ void Iterator_Fork::Run()
 	while (_iterOwner.Next(env, sig, valList)) {
 		Args args(valList);
 		args.SetThis(_valueThis);
-		Value value = _pFunc->Eval(_env, sig, args);
+		Value value = _pFunc->Eval(*_pEnv, sig, args);
 		if (sig.IsSignalled()) break;
 		_semaphore.Wait();
 		_pValListToWrite->push_back(value);
@@ -1123,20 +1123,20 @@ void Iterator_Fork::Run()
 //-----------------------------------------------------------------------------
 Iterator_ExplicitMap::Iterator_ExplicitMap(Environment &env, Signal sig,
 							Iterator *pIterator, Object_function *pObjFunc) :
-		Iterator(pIterator->IsInfinite()), _env(env), _sig(sig),
+		Iterator(pIterator->IsInfinite()), _pEnv(new Environment(env)), _sig(sig),
 		_pIterator(pIterator), _pObjFunc(pObjFunc)
 {
 }
 
 Iterator_ExplicitMap::Iterator_ExplicitMap(const Iterator_ExplicitMap &iter) :
-		Iterator(iter), _env(iter._env), _pIterator(iter._pIterator->Clone()),
+		Iterator(iter), _pEnv(iter._pEnv->Reference()), _pIterator(iter._pIterator->Clone()),
 		_pObjFunc(Object_function::Reference(iter._pObjFunc.get()))
 {
 }
 
 Iterator_ExplicitMap::~Iterator_ExplicitMap()
 {
-	if (IsVirgin()) Consume(_env, _sig);
+	if (IsVirgin()) Consume(*_pEnv, _sig);
 }
 
 Iterator *Iterator_ExplicitMap::Clone() const
@@ -1153,7 +1153,7 @@ bool Iterator_ExplicitMap::DoNext(Environment &env, Signal sig, Value &value)
 {
 	if (!_pIterator->Next(env, sig, value)) return false;
 	ValueList valList(value);
-	value = _pObjFunc->Eval(_env, sig, valList);
+	value = _pObjFunc->Eval(*_pEnv, sig, valList);
 	return true;
 }
 
@@ -1165,7 +1165,7 @@ String Iterator_ExplicitMap::ToString(Signal sig) const
 void Iterator_ExplicitMap::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameOwner().DoesExist(pFrame)) envSet.insert(&_env);
+		if (_pEnv->GetFrameOwner().DoesExist(pFrame)) envSet.insert(_pEnv.get());
 	}
 }
 
@@ -1175,7 +1175,7 @@ void Iterator_ExplicitMap::GatherFollower(Environment::Frame *pFrame, Environmen
 Iterator_ImplicitMap::Iterator_ImplicitMap(Environment &env, Signal sig, Function *pFunc,
 			const Value &valueThis, Iterator *pIteratorThis,
 			const ValueList &valListArg, bool skipInvalidFlag) :
-	Iterator(false, skipInvalidFlag), _env(env), _sig(sig), _pFunc(pFunc),
+	Iterator(false, skipInvalidFlag), _pEnv(new Environment(env)), _sig(sig), _pFunc(pFunc),
 	_valueThis(valueThis), _pIteratorThis(Reference(pIteratorThis)), _doneThisFlag(false)
 {
 	_iterOwner.PrepareForMap(sig, pFunc->GetDeclOwner(), valListArg);
@@ -1186,7 +1186,7 @@ Iterator_ImplicitMap::Iterator_ImplicitMap(Environment &env, Signal sig, Functio
 
 Iterator_ImplicitMap::~Iterator_ImplicitMap()
 {
-	if (IsVirgin()) Consume(_env, _sig);
+	if (IsVirgin()) Consume(*_pEnv, _sig);
 }
 
 Iterator *Iterator_ImplicitMap::GetSource()
@@ -1204,7 +1204,7 @@ bool Iterator_ImplicitMap::DoNext(Environment &env, Signal sig, Value &value)
 		_doneThisFlag = !_pIteratorThis->Next(env, sig, _valueThis);
 		if (sig.IsSignalled()) return false;
 	}
-	value = _pFunc->Eval(_env, sig, args);
+	value = _pFunc->Eval(*_pEnv, sig, args);
 	if (sig.IsSignalled()) return false;
 	return true;
 }
@@ -1221,7 +1221,7 @@ String Iterator_ImplicitMap::ToString(Signal sig) const
 void Iterator_ImplicitMap::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameOwner().DoesExist(pFrame)) envSet.insert(&_env);
+		if (_pEnv->GetFrameOwner().DoesExist(pFrame)) envSet.insert(_pEnv.get());
 		if (!_pIteratorThis.IsNull()) {
 			_pIteratorThis->GatherFollower(pFrame, envSet);
 		}
@@ -1235,7 +1235,7 @@ void Iterator_ImplicitMap::GatherFollower(Environment::Frame *pFrame, Environmen
 //-----------------------------------------------------------------------------
 Iterator_UnaryOperatorMap::Iterator_UnaryOperatorMap(Environment &env, Signal sig,
 								const Operator *pOperator, const Value &value) :
-	Iterator(false), _env(env), _sig(sig), _pOperator(pOperator)
+	Iterator(false), _pEnv(new Environment(env)), _sig(sig), _pOperator(pOperator)
 {
 	if (value.IsListOrIterator()) {
 		_pIterator.reset(value.CreateIterator(sig));
@@ -1248,7 +1248,7 @@ Iterator_UnaryOperatorMap::Iterator_UnaryOperatorMap(Environment &env, Signal si
 
 Iterator_UnaryOperatorMap::~Iterator_UnaryOperatorMap()
 {
-	if (IsVirgin()) Consume(_env, _sig);
+	if (IsVirgin()) Consume(*_pEnv, _sig);
 }
 
 Iterator *Iterator_UnaryOperatorMap::GetSource()
@@ -1260,7 +1260,7 @@ bool Iterator_UnaryOperatorMap::DoNext(Environment &env, Signal sig, Value &valu
 {
 	Value valueArg;
 	if (!_pIterator->Next(env, sig, valueArg)) return false;
-	value = _pOperator->EvalUnary(_env, sig, valueArg);
+	value = _pOperator->EvalUnary(*_pEnv, sig, valueArg);
 	if (sig.IsSignalled()) return false;
 	return true;
 }
@@ -1276,7 +1276,7 @@ String Iterator_UnaryOperatorMap::ToString(Signal sig) const
 void Iterator_UnaryOperatorMap::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameOwner().DoesExist(pFrame)) envSet.insert(&_env);
+		if (_pEnv->GetFrameOwner().DoesExist(pFrame)) envSet.insert(_pEnv.get());
 		_pIterator->GatherFollower(pFrame, envSet);
 	}
 }
@@ -1286,7 +1286,7 @@ void Iterator_UnaryOperatorMap::GatherFollower(Environment::Frame *pFrame, Envir
 //-----------------------------------------------------------------------------
 Iterator_BinaryOperatorMap::Iterator_BinaryOperatorMap(Environment &env, Signal sig,
 		const Operator *pOperator, const Value &valueLeft, const Value &valueRight) :
-	Iterator(false), _env(env), _sig(sig), _pOperator(pOperator)
+	Iterator(false), _pEnv(new Environment(env)), _sig(sig), _pOperator(pOperator)
 {
 	if (valueLeft.IsListOrIterator()) {
 		_pIteratorLeft.reset(valueLeft.CreateIterator(sig));
@@ -1305,7 +1305,7 @@ Iterator_BinaryOperatorMap::Iterator_BinaryOperatorMap(Environment &env, Signal 
 
 Iterator_BinaryOperatorMap::~Iterator_BinaryOperatorMap()
 {
-	if (IsVirgin()) Consume(_env, _sig);
+	if (IsVirgin()) Consume(*_pEnv, _sig);
 }
 
 Iterator *Iterator_BinaryOperatorMap::GetSource()
@@ -1318,7 +1318,7 @@ bool Iterator_BinaryOperatorMap::DoNext(Environment &env, Signal sig, Value &val
 	Value valueLeft, valueRight;
 	if (!_pIteratorLeft->Next(env, sig, valueLeft) ||
 			!_pIteratorRight->Next(env, sig, valueRight)) return false;
-	value = _pOperator->EvalBinary(_env, sig, valueLeft, valueRight);
+	value = _pOperator->EvalBinary(*_pEnv, sig, valueLeft, valueRight);
 	if (sig.IsSignalled()) return false;
 	return true;
 }
@@ -1334,7 +1334,7 @@ String Iterator_BinaryOperatorMap::ToString(Signal sig) const
 void Iterator_BinaryOperatorMap::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameOwner().DoesExist(pFrame)) envSet.insert(&_env);
+		if (_pEnv->GetFrameOwner().DoesExist(pFrame)) envSet.insert(_pEnv.get());
 		_pIteratorLeft->GatherFollower(pFrame, envSet);
 		_pIteratorRight->GatherFollower(pFrame, envSet);
 	}
@@ -1343,9 +1343,14 @@ void Iterator_BinaryOperatorMap::GatherFollower(Environment::Frame *pFrame, Envi
 //-----------------------------------------------------------------------------
 // Iterator_MemberMap
 //-----------------------------------------------------------------------------
+Iterator_MemberMap::Iterator_MemberMap(Environment &env, Signal sig, Iterator *pIterator, Expr *pExpr) :
+		Iterator(pIterator->IsInfinite()), _pEnv(new Environment(env)), _sig(sig), _pIterator(pIterator), _pExpr(pExpr)
+{
+}
+
 Iterator_MemberMap::~Iterator_MemberMap()
 {
-	if (IsVirgin()) Consume(_env, _sig);
+	if (IsVirgin()) Consume(*_pEnv, _sig);
 }
 
 Iterator *Iterator_MemberMap::GetSource()
@@ -1377,7 +1382,7 @@ String Iterator_MemberMap::ToString(Signal sig) const
 void Iterator_MemberMap::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameOwner().DoesExist(pFrame)) envSet.insert(&_env);
+		if (_pEnv->GetFrameOwner().DoesExist(pFrame)) envSet.insert(_pEnv.get());
 		_pIterator->GatherFollower(pFrame, envSet);
 	}
 }
@@ -1385,9 +1390,15 @@ void Iterator_MemberMap::GatherFollower(Environment::Frame *pFrame, EnvironmentS
 //-----------------------------------------------------------------------------
 // Iterator_MethodMap
 //-----------------------------------------------------------------------------
+Iterator_MethodMap::Iterator_MethodMap(Environment &env, Signal sig, Iterator *pIteratorThis, Expr_Caller *pExprCaller) :
+		Iterator(pIteratorThis->IsInfinite()), _pEnv(new Environment(env)), _sig(sig),
+		_pIteratorThis(pIteratorThis), _pExprCaller(pExprCaller)
+{
+}
+
 Iterator_MethodMap::~Iterator_MethodMap()
 {
-	if (IsVirgin()) Consume(_env, _sig);
+	if (IsVirgin()) Consume(*_pEnv, _sig);
 }
 
 Iterator *Iterator_MethodMap::GetSource()
@@ -1400,7 +1411,7 @@ bool Iterator_MethodMap::DoNext(Environment &env, Signal sig, Value &value)
 	const Function *pFuncLeader = NULL;
 	Value valueThis;
 	if (!_pIteratorThis->Next(env, sig, valueThis)) return false;
-	value = _pExprCaller->EvalEach(_env, sig,
+	value = _pExprCaller->EvalEach(*_pEnv, sig,
 							valueThis, NULL, false, &pFuncLeader);
 	return true;
 }
@@ -1413,7 +1424,7 @@ String Iterator_MethodMap::ToString(Signal sig) const
 void Iterator_MethodMap::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameOwner().DoesExist(pFrame)) envSet.insert(&_env);
+		if (_pEnv->GetFrameOwner().DoesExist(pFrame)) envSet.insert(_pEnv.get());
 		_pIteratorThis->GatherFollower(pFrame, envSet);
 	}
 }
@@ -1423,7 +1434,7 @@ void Iterator_MethodMap::GatherFollower(Environment::Frame *pFrame, EnvironmentS
 //-----------------------------------------------------------------------------
 Iterator_FuncBinder::Iterator_FuncBinder(Environment &env,
 				Function *pFunc, const Value &valueThis, Iterator *pIterator) :
-		Iterator(false), _env(env), _pFunc(pFunc),
+		Iterator(false), _pEnv(new Environment(env)), _pFunc(pFunc),
 		_valueThis(valueThis), _pIterator(pIterator)
 {
 }
@@ -1440,20 +1451,20 @@ bool Iterator_FuncBinder::DoNext(Environment &env, Signal sig, Value &value)
 	if (valueArg.IsList()) {
 		const Function *pFuncLeader = NULL;
 		ValueList valListComp = valueArg.GetList();
-		if (!_pFunc->GetDeclOwner().Compensate(_env, sig, valListComp)) {
+		if (!_pFunc->GetDeclOwner().Compensate(*_pEnv, sig, valListComp)) {
 			return false;
 		}
 		Args args(valListComp, _valueThis, NULL, false, &pFuncLeader);
-		value = _pFunc->Eval(_env, sig, args);
+		value = _pFunc->Eval(*_pEnv, sig, args);
 		if (sig.IsSignalled()) return false;
 	} else {
 		const Function *pFuncLeader = NULL;
 		ValueList valListComp(valueArg);
-		if (!_pFunc->GetDeclOwner().Compensate(_env, sig, valListComp)) {
+		if (!_pFunc->GetDeclOwner().Compensate(*_pEnv, sig, valListComp)) {
 			return false;
 		}
 		Args args(valListComp, _valueThis, NULL, false, &pFuncLeader);
-		value = _pFunc->Eval(_env, sig, args);
+		value = _pFunc->Eval(*_pEnv, sig, args);
 		if (sig.IsSignalled()) return false;
 		//sig.SetError(ERR_TypeError, "invalid structure of arguments");
 		//return false;
@@ -1473,7 +1484,7 @@ String Iterator_FuncBinder::ToString(Signal sig) const
 void Iterator_FuncBinder::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameOwner().DoesExist(pFrame)) envSet.insert(&_env);
+		if (_pEnv->GetFrameOwner().DoesExist(pFrame)) envSet.insert(_pEnv.get());
 		_pFunc->GatherFollower(pFrame, envSet);
 		_pIterator->GatherFollower(pFrame, envSet);
 	}
@@ -1640,6 +1651,13 @@ void Iterator_RoundOff::GatherFollower(Environment::Frame *pFrame, EnvironmentSe
 //-----------------------------------------------------------------------------
 // Iterator_FilterWithFunc
 //-----------------------------------------------------------------------------
+Iterator_FilterWithFunc::Iterator_FilterWithFunc(Environment &env,
+							Iterator *pIterator, Object_function *pObjFunc) :
+			Iterator(pIterator->IsInfinite()), _pEnv(new Environment(env)),
+			_pIterator(pIterator), _pObjFunc(pObjFunc)
+{
+}
+
 Iterator *Iterator_FilterWithFunc::GetSource()
 {
 	return _pIterator.get();
@@ -1649,7 +1667,7 @@ bool Iterator_FilterWithFunc::DoNext(Environment &env, Signal sig, Value &value)
 {
 	while (_pIterator->Next(env, sig, value)) {
 		ValueList valList(value);
-		Value valueCriteria = _pObjFunc->Eval(_env, sig, valList);
+		Value valueCriteria = _pObjFunc->Eval(*_pEnv, sig, valList);
 		if (sig.IsSignalled()) return false;
 		if (valueCriteria.GetBoolean()) return true;
 	}
@@ -1668,7 +1686,7 @@ String Iterator_FilterWithFunc::ToString(Signal sig) const
 void Iterator_FilterWithFunc::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameOwner().DoesExist(pFrame)) envSet.insert(&_env);
+		if (_pEnv->GetFrameOwner().DoesExist(pFrame)) envSet.insert(_pEnv.get());
 		_pIterator->GatherFollower(pFrame, envSet);
 		_pObjFunc->GatherFollower(pFrame, envSet);
 	}
@@ -1712,6 +1730,13 @@ void Iterator_FilterWithIter::GatherFollower(Environment::Frame *pFrame, Environ
 //-----------------------------------------------------------------------------
 // Iterator_WhileWithFunc
 //-----------------------------------------------------------------------------
+Iterator_WhileWithFunc::Iterator_WhileWithFunc(Environment &env,
+							Iterator *pIterator, Object_function *pObjFunc) :
+			Iterator(pIterator->IsInfinite()), _pEnv(new Environment(env)),
+			_pIterator(pIterator), _pObjFunc(pObjFunc)
+{
+}
+
 Iterator *Iterator_WhileWithFunc::GetSource()
 {
 	return _pIterator.get();
@@ -1723,7 +1748,7 @@ bool Iterator_WhileWithFunc::DoNext(Environment &env, Signal sig, Value &value)
 	do {
 		if (!_pIterator->Next(env, sig, value)) break;
 		ValueList valList(value);
-		Value valueCriteria = _pObjFunc->Eval(_env, sig, valList);
+		Value valueCriteria = _pObjFunc->Eval(*_pEnv, sig, valList);
 		if (sig.IsSignalled()) break;
 		if (!valueCriteria.GetBoolean()) break;
 		return true;
@@ -1749,7 +1774,7 @@ String Iterator_WhileWithFunc::ToString(Signal sig) const
 void Iterator_WhileWithFunc::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameOwner().DoesExist(pFrame)) envSet.insert(&_env);
+		if (_pEnv->GetFrameOwner().DoesExist(pFrame)) envSet.insert(_pEnv.get());
 		if (!_pIterator.IsNull()) {
 			_pIterator->GatherFollower(pFrame, envSet);
 		}
@@ -1810,6 +1835,13 @@ void Iterator_WhileWithIter::GatherFollower(Environment::Frame *pFrame, Environm
 //-----------------------------------------------------------------------------
 // Iterator_UntilWithFunc
 //-----------------------------------------------------------------------------
+Iterator_UntilWithFunc::Iterator_UntilWithFunc(Environment &env, Iterator *pIterator,
+								Object_function *pObjFunc, bool containLastFlag) :
+			Iterator(pIterator->IsInfinite()), _pEnv(new Environment(env)),
+			_pIterator(pIterator), _pObjFunc(pObjFunc), _containLastFlag(containLastFlag)
+{
+}
+
 Iterator *Iterator_UntilWithFunc::GetSource()
 {
 	return _pIterator.get();
@@ -1822,7 +1854,7 @@ bool Iterator_UntilWithFunc::DoNext(Environment &env, Signal sig, Value &value)
 	do {
 		if (!_pIterator->Next(env, sig, value)) break;
 		ValueList valList(value);
-		Value valueCriteria = _pObjFunc->Eval(_env, sig, valList);
+		Value valueCriteria = _pObjFunc->Eval(*_pEnv, sig, valList);
 		if (sig.IsSignalled()) break;
 		if (valueCriteria.GetBoolean()) {
 			rtnDone = _containLastFlag;
@@ -1851,7 +1883,7 @@ String Iterator_UntilWithFunc::ToString(Signal sig) const
 void Iterator_UntilWithFunc::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameOwner().DoesExist(pFrame)) envSet.insert(&_env);
+		if (_pEnv->GetFrameOwner().DoesExist(pFrame)) envSet.insert(_pEnv.get());
 		if (!_pIterator.IsNull()) {
 			_pIterator->GatherFollower(pFrame, envSet);
 		}
@@ -1916,6 +1948,13 @@ void Iterator_UntilWithIter::GatherFollower(Environment::Frame *pFrame, Environm
 //-----------------------------------------------------------------------------
 // Iterator_SinceWithFunc
 //-----------------------------------------------------------------------------
+Iterator_SinceWithFunc::Iterator_SinceWithFunc(Environment &env, Iterator *pIterator,
+								Object_function *pObjFunc, bool containFirstFlag) :
+			Iterator(pIterator->IsInfinite()), _pEnv(new Environment(env)),
+			_pIterator(pIterator), _pObjFunc(pObjFunc), _containFirstFlag(containFirstFlag)
+{
+}
+
 Iterator *Iterator_SinceWithFunc::GetSource()
 {
 	return _pIterator.get();
@@ -1927,7 +1966,7 @@ bool Iterator_SinceWithFunc::DoNext(Environment &env, Signal sig, Value &value)
 		if (!_pIterator->Next(env, sig, value)) return false;
 		if (_pObjFunc.IsNull()) break;
 		ValueList valList(value);
-		Value valueCriteria = _pObjFunc->Eval(_env, sig, valList);
+		Value valueCriteria = _pObjFunc->Eval(*_pEnv, sig, valList);
 		if (sig.IsSignalled()) return false;
 		if (valueCriteria.GetBoolean()) {
 			_pObjFunc.reset(NULL);
@@ -1949,7 +1988,7 @@ String Iterator_SinceWithFunc::ToString(Signal sig) const
 void Iterator_SinceWithFunc::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameOwner().DoesExist(pFrame)) envSet.insert(&_env);
+		if (_pEnv->GetFrameOwner().DoesExist(pFrame)) envSet.insert(_pEnv.get());
 		_pIterator->GatherFollower(pFrame, envSet);
 		if (!_pObjFunc.IsNull()) {
 			_pObjFunc->GatherFollower(pFrame, envSet);
@@ -2389,7 +2428,7 @@ void Iterator_Concat::GatherFollower(Environment::Frame *pFrame, EnvironmentSet 
 //-----------------------------------------------------------------------------
 Iterator_repeat::Iterator_repeat(Environment &env, Signal sig, Function *pFuncBlock,
 					bool skipInvalidFlag, bool standaloneFlag, int cnt) :
-		Iterator(cnt < 0, skipInvalidFlag), _env(env), _pFuncBlock(pFuncBlock),
+		Iterator(cnt < 0, skipInvalidFlag), _pEnv(new Environment(env)), _pFuncBlock(pFuncBlock),
 		_standaloneFlag(standaloneFlag),
 		_pIteratorSub(NULL), _cnt(cnt), _idx(0)
 {
@@ -2407,7 +2446,7 @@ bool Iterator_repeat::DoNext(Environment &env, Signal sig, Value &value)
 			if (_cnt >= 0 && _idx >= _cnt) return false;
 			ValueList valListArg(Value(static_cast<Number>(_idx)));
 			Args args(valListArg);
-			value = _pFuncBlock->Eval(_env, sig, args);
+			value = _pFuncBlock->Eval(*_pEnv, sig, args);
 			if (sig.IsBreak()) {
 				sig.ClearSignal();
 				return false;
@@ -2445,7 +2484,7 @@ String Iterator_repeat::ToString(Signal sig) const
 void Iterator_repeat::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameOwner().DoesExist(pFrame)) envSet.insert(&_env);
+		if (_pEnv->GetFrameOwner().DoesExist(pFrame)) envSet.insert(_pEnv.get());
 		_pFuncBlock->GatherFollower(pFrame, envSet);
 		if (!_pIteratorSub.IsNull()) _pIteratorSub->GatherFollower(pFrame, envSet);
 	}
@@ -2456,7 +2495,7 @@ void Iterator_repeat::GatherFollower(Environment::Frame *pFrame, EnvironmentSet 
 //-----------------------------------------------------------------------------
 Iterator_while::Iterator_while(Environment &env, Signal sig, Function *pFuncBlock,
 					bool skipInvalidFlag, bool standaloneFlag, Expr *pExpr) :
-		Iterator(false, skipInvalidFlag), _env(env), _pFuncBlock(pFuncBlock),
+		Iterator(false, skipInvalidFlag), _pEnv(new Environment(env)), _pFuncBlock(pFuncBlock),
 		_standaloneFlag(standaloneFlag),
 		_pIteratorSub(NULL), _pExpr(Expr::Reference(pExpr)), _idx(0)
 {
@@ -2471,10 +2510,10 @@ bool Iterator_while::DoNext(Environment &env, Signal sig, Value &value)
 {
 	for (;;) {
 		if (_pIteratorSub.IsNull()) {
-			if (!_pExpr->Exec(_env, sig).GetBoolean()) return false;
+			if (!_pExpr->Exec(*_pEnv, sig).GetBoolean()) return false;
 			ValueList valListArg(Value(static_cast<Number>(_idx)));
 			Args args(valListArg);
-			value = _pFuncBlock->Eval(_env, sig, args);
+			value = _pFuncBlock->Eval(*_pEnv, sig, args);
 			if (sig.IsBreak()) {
 				sig.ClearSignal();
 				return false;
@@ -2512,7 +2551,7 @@ String Iterator_while::ToString(Signal sig) const
 void Iterator_while::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameOwner().DoesExist(pFrame)) envSet.insert(&_env);
+		if (_pEnv->GetFrameOwner().DoesExist(pFrame)) envSet.insert(_pEnv.get());
 		_pFuncBlock->GatherFollower(pFrame, envSet);
 		if (!_pIteratorSub.IsNull()) _pIteratorSub->GatherFollower(pFrame, envSet);
 	}
@@ -2523,11 +2562,11 @@ void Iterator_while::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &
 //-----------------------------------------------------------------------------
 Iterator_for::Iterator_for(Environment &env, Signal sig, Function *pFuncBlock,
 			bool skipInvalidFlag, bool standaloneFlag, const ValueList &valListArg) :
-		Iterator(false, skipInvalidFlag), _env(env), _pFuncBlock(pFuncBlock),
+		Iterator(false, skipInvalidFlag), _pEnv(new Environment(env)), _pFuncBlock(pFuncBlock),
 		_standaloneFlag(standaloneFlag),
 		_pIteratorSub(NULL), _idx(0), _doneFlag(false)
 {
-	PrepareRepeaterIterators(_env, sig, valListArg, _exprLeftList, _iteratorOwner);
+	PrepareRepeaterIterators(*_pEnv, sig, valListArg, _exprLeftList, _iteratorOwner);
 }
 
 Iterator *Iterator_for::GetSource()
@@ -2550,14 +2589,14 @@ bool Iterator_for::DoNext(Environment &env, Signal sig, Value &value)
 					break;
 				}
 				// same effect as assign operator
-				(*ppExprLeft)->DoAssign(_env, sig, valueVar, NULL, false);
+				(*ppExprLeft)->DoAssign(*_pEnv, sig, valueVar, NULL, false);
 				if (sig.IsSignalled()) return false;
 				ppExprLeft++;
 			}
 			if (_doneFlag) return false;
 			ValueList valListArg(Value(static_cast<Number>(_idx)));
 			Args args(valListArg);
-			value = _pFuncBlock->Eval(_env, sig, args);
+			value = _pFuncBlock->Eval(*_pEnv, sig, args);
 			if (sig.IsBreak()) {
 				value = sig.GetValue();
 				sig.ClearSignal();
@@ -2597,7 +2636,7 @@ String Iterator_for::ToString(Signal sig) const
 void Iterator_for::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameOwner().DoesExist(pFrame)) envSet.insert(&_env);
+		if (_pEnv->GetFrameOwner().DoesExist(pFrame)) envSet.insert(_pEnv.get());
 		_pFuncBlock->GatherFollower(pFrame, envSet);
 		if (!_pIteratorSub.IsNull()) _pIteratorSub->GatherFollower(pFrame, envSet);
 		_iteratorOwner.GatherFollower(pFrame, envSet);
@@ -2609,11 +2648,11 @@ void Iterator_for::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &en
 //-----------------------------------------------------------------------------
 Iterator_cross::Iterator_cross(Environment &env, Signal sig, Function *pFuncBlock,
 			bool skipInvalidFlag, bool standaloneFlag, const ValueList &valListArg) :
-		Iterator(false, skipInvalidFlag), _env(env), _pFuncBlock(pFuncBlock),
+		Iterator(false, skipInvalidFlag), _pEnv(new Environment(env)), _pFuncBlock(pFuncBlock),
 		_standaloneFlag(standaloneFlag),
 		_pIteratorSub(NULL), _idx(0), _doneFlag(true)
 {
-	if (!PrepareRepeaterIterators(_env, sig, valListArg,
+	if (!PrepareRepeaterIterators(*_pEnv, sig, valListArg,
 									_exprLeftList, _iteratorOwnerOrg)) return;
 	_valListArg.reserve(_iteratorOwnerOrg.size() + 1);
 	_iteratorOwner.reserve(_iteratorOwnerOrg.size());
@@ -2633,7 +2672,7 @@ Iterator_cross::Iterator_cross(Environment &env, Signal sig, Function *pFuncBloc
 			_valListArg.push_back(Value::Null);
 			Iterator::Delete(pIterator);
 		}
-		(*ppExprLeft)->DoAssign(_env, sig, valueVar, NULL, false);
+		(*ppExprLeft)->DoAssign(*_pEnv, sig, valueVar, NULL, false);
 		if (sig.IsSignalled()) return;
 		ppExprLeft++;
 	}
@@ -2651,7 +2690,7 @@ bool Iterator_cross::DoNext(Environment &env, Signal sig, Value &value)
 			if (_doneFlag) return false;
 			_valListArg[0] = Value(_idx);
 			Args args(_valListArg);
-			value = _pFuncBlock->Eval(_env, sig, args);
+			value = _pFuncBlock->Eval(*_pEnv, sig, args);
 			if (sig.IsBreak()) {
 				value = sig.GetValue();
 				sig.ClearSignal();
@@ -2693,7 +2732,7 @@ String Iterator_cross::ToString(Signal sig) const
 void Iterator_cross::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 	if (_cntRef == 1) {
-		if (_env.GetFrameOwner().DoesExist(pFrame)) envSet.insert(&_env);
+		if (_pEnv->GetFrameOwner().DoesExist(pFrame)) envSet.insert(_pEnv.get());
 		_pFuncBlock->GatherFollower(pFrame, envSet);
 		if (!_pIteratorSub.IsNull()) _pIteratorSub->GatherFollower(pFrame, envSet);
 		_iteratorOwner.GatherFollower(pFrame, envSet);
@@ -2712,7 +2751,7 @@ bool Iterator_cross::AdvanceIterators(Environment &env, Signal sig)
 		if (pIterator != NULL) {
 			if (pIterator->Next(env, sig, valueVar)) {
 				*pValueArg = Value(pValueArg->GetNumber() + 1);
-				(*ppExprLeft)->DoAssign(_env, sig, valueVar, NULL, false);
+				(*ppExprLeft)->DoAssign(*_pEnv, sig, valueVar, NULL, false);
 				if (sig.IsSignalled()) return false;
 				break;
 			}
@@ -2721,7 +2760,7 @@ bool Iterator_cross::AdvanceIterators(Environment &env, Signal sig)
 			pIterator = (*ppIteratorOrg)->Clone();
 			pIterator->Next(env, sig, valueVar);
 			if (sig.IsSignalled()) return false;
-			(*ppExprLeft)->DoAssign(_env, sig, valueVar, NULL, false);
+			(*ppExprLeft)->DoAssign(*_pEnv, sig, valueVar, NULL, false);
 			if (sig.IsSignalled()) return false;
 			*pValueArg = Value(0);
 			*ppIterator = pIterator;

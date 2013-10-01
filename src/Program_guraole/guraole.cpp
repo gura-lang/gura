@@ -29,9 +29,9 @@ inline Gura::String IIDString(REFIID riid)
 // CMain implementation
 //-----------------------------------------------------------------------------
 CMain::CMain() : _cntRef(0), _activeScriptParse32(this),
-	_objectSafety(this), _pActiveScriptSite(NULL), _env()
+	_objectSafety(this), _pActiveScriptSite(NULL), _pEnv(new Gura::EnvironmentRoot())
 {
-	_env.Initialize(_sig, 0, NULL);
+	_pEnv->Initialize(_sig, 0, NULL);
 }
 
 STDMETHODIMP CMain::QueryInterface(REFIID riid, void **ppv)
@@ -242,10 +242,10 @@ HRESULT CMain::ParseScriptText(
 	DBGPRINTF(("dwSourceContextCookie %08x\n", dwSourceContextCookie));
 	DBGPRINTF(("ulStartingLineNumber  %d\n", ulStartingLineNumber));
 	DBGPRINTF(("dwFlags               %08x\n", dwFlags));
-	Gura::Gura_Module(mswin)::Import(_env, _sig);
-	Gura::Stream *pConsole = _env.GetConsole();
+	Gura::Gura_Module(mswin)::Import(*_pEnv, _sig);
+	Gura::Stream *pConsole = _pEnv->GetConsole();
 	Gura::AutoPtr<Gura::ExprOwner> pExprOwner(new Gura::ExprOwner());
-	if (!Gura::Parser().ParseString(_env, _sig, *pExprOwner, "OLE",
+	if (!Gura::Parser().ParseString(*_pEnv, _sig, *pExprOwner, "OLE",
 					Gura::Gura_Module(mswin)::BSTRToString(pstrCode).c_str())) {
 		pexcepinfo->bstrDescription = L"*************";
 		pexcepinfo->bstrHelpFile = L"";
@@ -262,7 +262,7 @@ HRESULT CMain::ParseScriptText(
 	if (pExprOwner->empty()) {
 		pConsole->Println(_sig, "incomplete command");
 	} else {
-		Gura::Value result = pExprOwner->Exec(_env, _sig, true);
+		Gura::Value result = pExprOwner->Exec(*_pEnv, _sig, true);
 		if (_sig.IsSignalled()) {
 			pConsole->PrintSignal(_sig, _sig);
 			NotifyScriptError();
@@ -335,7 +335,7 @@ HRESULT STDMETHODCALLTYPE CMain::GetIDsOfNames(
 	for (UINT iName = 0; iName < cNames; iName++) {
 		const Gura::Symbol *pSymbol =
 			Gura::Symbol::Add(Gura::Gura_Module(mswin)::BSTRToString(rgszNames[iName]).c_str());
-		const Gura::Value *pValue = _env.LookupValue(pSymbol, Gura::ENVREF_NoEscalate);
+		const Gura::Value *pValue = _pEnv->LookupValue(pSymbol, Gura::ENVREF_NoEscalate);
 		if (pValue == NULL) {
 			return E_INVALIDARG;
 		} else {
@@ -361,12 +361,12 @@ HRESULT STDMETHODCALLTYPE CMain::Invoke(
 	if (idx >= _valListDispatched.size()) {
 		return E_HANDLE;
 	}
-	Gura::Stream *pConsole = _env.GetConsole();
+	Gura::Stream *pConsole = _pEnv->GetConsole();
 	Gura::Value value = _valListDispatched[idx];
 	Gura::ValueList valListArg;
 	for (UINT iArg = 0; iArg < pDispParams->cArgs; iArg++) {
 		Gura::Value value;
-		if (!Gura::Gura_Module(mswin)::VariantToValue(_env, _sig,
+		if (!Gura::Gura_Module(mswin)::VariantToValue(*_pEnv, _sig,
 										value, pDispParams->rgvarg[iArg])) {
 			pExcepInfo->bstrDescription = L"*************";
 			pExcepInfo->bstrHelpFile = L"";
@@ -387,7 +387,7 @@ HRESULT STDMETHODCALLTYPE CMain::Invoke(
 	if (wFlags == DISPATCH_METHOD) {
 		if (!value.IsFunction()) return E_INVALIDARG;
 		Gura::Object_function *pObjFunc = Gura::Object_function::GetObject(value);
-		Gura::Value result = pObjFunc->Eval(_env, _sig, valListArg);
+		Gura::Value result = pObjFunc->Eval(*_pEnv, _sig, valListArg);
 		if (_sig.IsSignalled()) {
 			pExcepInfo->bstrDescription = L"*************";
 			pExcepInfo->bstrHelpFile = L"";

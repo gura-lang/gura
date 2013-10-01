@@ -8,7 +8,7 @@ namespace Gura {
 // Sequence
 //-----------------------------------------------------------------------------
 Sequence::Sequence(const Environment &env, ExprOwner *pExprOwner, Mode mode) :
-		_cntRef(1), _env(env), _pExprOwner(pExprOwner), _mode(mode), _idxExpr(0)
+		_cntRef(1), _pEnv(new Environment(env)), _pExprOwner(pExprOwner), _mode(mode), _idxExpr(0)
 {
 }
 
@@ -16,7 +16,7 @@ Value Sequence::Step(Signal sig)
 {
 	if (CheckDone()) return Value::Null;
 	const Expr *pExpr = GetExprOwner()[_idxExpr++];
-	Value rtn = pExpr->Exec(_env, sig);
+	Value rtn = pExpr->Exec(*_pEnv, sig);
 	return rtn;
 }
 

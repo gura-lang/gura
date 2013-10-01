@@ -2152,9 +2152,9 @@ Gura_ImplementMethod(server, wait)
 		if (sig.IsSignalled()) return Value::Null;
 		return Value(pObjRequest);
 	}
-	Environment envBlock(&env, ENVTYPE_block);
+	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
-					args.GetBlockFunc(envBlock, sig, GetSymbolForBlock());
+					args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
 	if (pFuncBlock == NULL) return Value::Null;
 	for (;;) {
 		Object_request *pObjRequest = pThis->Wait(sig);

@@ -28,7 +28,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE ConstructorOfCustomClass : public Function {
 private:
-	Environment _envScope;
+	AutoPtr<Environment> _pEnvScope;
 	AutoPtr<Expr> _pExprBody;
 public:
 	ConstructorOfCustomClass(Environment &envScope, const Symbol *pSymbol, Expr *pExpr,

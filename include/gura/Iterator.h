@@ -337,7 +337,7 @@ protected:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Iterator_Fork : public Iterator, public OAL::Thread {
 private:
-	Environment _env;
+	AutoPtr<Environment> _pEnv;
 	AutoPtr<Function> _pFunc;
 	Value _valueThis;
 	IteratorOwner _iterOwner;
@@ -373,7 +373,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Iterator_ExplicitMap : public Iterator {
 private:
-	Environment _env;
+	AutoPtr<Environment> _pEnv;
 	Signal _sig;
 	AutoPtr<Iterator> _pIterator;
 	AutoPtr<Object_function> _pObjFunc;
@@ -394,7 +394,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Iterator_ImplicitMap : public Iterator {
 private:
-	Environment _env;
+	AutoPtr<Environment> _pEnv;
 	Signal _sig;
 	AutoPtr<Function> _pFunc;
 	Value _valueThis;
@@ -417,7 +417,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Iterator_UnaryOperatorMap : public Iterator {
 private:
-	Environment _env;
+	AutoPtr<Environment> _pEnv;
 	Signal _sig;
 	const Operator *_pOperator;
 	AutoPtr<Iterator> _pIterator;
@@ -436,7 +436,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Iterator_BinaryOperatorMap : public Iterator {
 private:
-	Environment _env;
+	AutoPtr<Environment> _pEnv;
 	Signal _sig;
 	const Operator *_pOperator;
 	AutoPtr<Iterator> _pIteratorLeft;
@@ -456,13 +456,12 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Iterator_MemberMap : public Iterator {
 private:
-	Environment _env;
+	AutoPtr<Environment> _pEnv;
 	Signal _sig;
 	AutoPtr<Iterator> _pIterator;
 	AutoPtr<Expr> _pExpr;
 public:
-	inline Iterator_MemberMap(Environment &env, Signal sig, Iterator *pIterator, Expr *pExpr) :
-		Iterator(pIterator->IsInfinite()), _env(env), _sig(sig), _pIterator(pIterator), _pExpr(pExpr) {}
+	Iterator_MemberMap(Environment &env, Signal sig, Iterator *pIterator, Expr *pExpr);
 	virtual ~Iterator_MemberMap();
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
@@ -475,14 +474,12 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Iterator_MethodMap : public Iterator {
 private:
-	Environment _env;
+	AutoPtr<Environment> _pEnv;
 	Signal _sig;
 	AutoPtr<Iterator> _pIteratorThis;
 	AutoPtr<Expr_Caller> _pExprCaller;
 public:
-	inline Iterator_MethodMap(Environment &env, Signal sig, Iterator *pIteratorThis, Expr_Caller *pExprCaller) :
-		Iterator(pIteratorThis->IsInfinite()), _env(env), _sig(sig),
-		_pIteratorThis(pIteratorThis), _pExprCaller(pExprCaller) {}
+	Iterator_MethodMap(Environment &env, Signal sig, Iterator *pIteratorThis, Expr_Caller *pExprCaller);
 	virtual ~Iterator_MethodMap();
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
@@ -495,7 +492,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Iterator_FuncBinder : public Iterator {
 private:
-	Environment _env;
+	AutoPtr<Environment> _pEnv;
 	AutoPtr<Function> _pFunc;
 	Value _valueThis;
 	AutoPtr<Iterator> _pIterator;
@@ -591,14 +588,12 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Iterator_FilterWithFunc : public Iterator {
 private:
-	Environment _env;
+	AutoPtr<Environment> _pEnv;
 	AutoPtr<Iterator> _pIterator;
 	AutoPtr<Object_function> _pObjFunc;
 public:
-	inline Iterator_FilterWithFunc(Environment &env,
-							Iterator *pIterator, Object_function *pObjFunc) :
-			Iterator(pIterator->IsInfinite()), _env(env),
-			_pIterator(pIterator), _pObjFunc(pObjFunc) {}
+	Iterator_FilterWithFunc(Environment &env,
+							Iterator *pIterator, Object_function *pObjFunc);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
@@ -627,14 +622,12 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Iterator_WhileWithFunc : public Iterator {
 private:
-	Environment _env;
+	AutoPtr<Environment> _pEnv;
 	AutoPtr<Iterator> _pIterator;
 	AutoPtr<Object_function> _pObjFunc;
 public:
-	inline Iterator_WhileWithFunc(Environment &env,
-							Iterator *pIterator, Object_function *pObjFunc) :
-			Iterator(pIterator->IsInfinite()), _env(env),
-			_pIterator(pIterator), _pObjFunc(pObjFunc) {}
+	Iterator_WhileWithFunc(Environment &env,
+							Iterator *pIterator, Object_function *pObjFunc);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
@@ -663,15 +656,13 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Iterator_UntilWithFunc : public Iterator {
 private:
-	Environment _env;
+	AutoPtr<Environment> _pEnv;
 	AutoPtr<Iterator> _pIterator;
 	AutoPtr<Object_function> _pObjFunc;
 	bool _containLastFlag;
 public:
-	inline Iterator_UntilWithFunc(Environment &env, Iterator *pIterator,
-								Object_function *pObjFunc, bool containLastFlag) :
-			Iterator(pIterator->IsInfinite()), _env(env),
-			_pIterator(pIterator), _pObjFunc(pObjFunc), _containLastFlag(containLastFlag) {}
+	Iterator_UntilWithFunc(Environment &env, Iterator *pIterator,
+								Object_function *pObjFunc, bool containLastFlag);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
@@ -703,15 +694,13 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Iterator_SinceWithFunc : public Iterator {
 private:
-	Environment _env;
+	AutoPtr<Environment> _pEnv;
 	AutoPtr<Iterator> _pIterator;
 	AutoPtr<Object_function> _pObjFunc;
 	bool _containFirstFlag;
 public:
-	inline Iterator_SinceWithFunc(Environment &env, Iterator *pIterator,
-								Object_function *pObjFunc, bool containFirstFlag) :
-			Iterator(pIterator->IsInfinite()), _env(env),
-			_pIterator(pIterator), _pObjFunc(pObjFunc), _containFirstFlag(containFirstFlag) {}
+	Iterator_SinceWithFunc(Environment &env, Iterator *pIterator,
+								Object_function *pObjFunc, bool containFirstFlag);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
@@ -932,7 +921,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Iterator_repeat : public Iterator {
 private:
-	Environment _env;
+	AutoPtr<Environment> _pEnv;
 	AutoPtr<Function> _pFuncBlock;
 	bool _standaloneFlag;
 	AutoPtr<Iterator> _pIteratorSub;
@@ -952,7 +941,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Iterator_while : public Iterator {
 private:
-	Environment _env;
+	AutoPtr<Environment> _pEnv;
 	AutoPtr<Function> _pFuncBlock;
 	bool _standaloneFlag;
 	AutoPtr<Iterator> _pIteratorSub;
@@ -972,7 +961,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Iterator_for : public Iterator {
 private:
-	Environment _env;
+	AutoPtr<Environment> _pEnv;
 	AutoPtr<Function> _pFuncBlock;
 	bool _standaloneFlag;
 	AutoPtr<Iterator> _pIteratorSub;
@@ -994,7 +983,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Iterator_cross : public Iterator {
 private:
-	Environment _env;
+	AutoPtr<Environment> _pEnv;
 	AutoPtr<Function> _pFuncBlock;
 	bool _standaloneFlag;
 	AutoPtr<Iterator> _pIteratorSub;

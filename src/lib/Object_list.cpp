@@ -679,9 +679,9 @@ Gura_ImplementFunction(ListInit)
 			sig.SetError(ERR_TypeError, "function '%s' needs no argument", pFunc->GetName());
 			return Value::Null;
 		}
-		Environment envLister(&env, ENVTYPE_lister);
+		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
 		Value valueRaw =
-				pExprBlock->GetExprOwner().ExecForList(envLister, sig, false, false);
+				pExprBlock->GetExprOwner().ExecForList(*pEnvLister, sig, false, false);
 		if (sig.IsSignalled() || !valueRaw.IsList()) return Value::Null;
 		ValueList &valList = result.InitAsList(env);
 		foreach_const (ValueList, pValue, valueRaw.GetList()) {
@@ -694,8 +694,8 @@ Gura_ImplementFunction(ListInit)
 			valList.push_back(valueElem);
 		}
 	} else {
-		Environment envLister(&env, ENVTYPE_lister);
-		result = pExprBlock->GetExprOwner().ExecForList(envLister, sig, false, false);
+		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
+		result = pExprBlock->GetExprOwner().ExecForList(*pEnvLister, sig, false, false);
 	}
 	return result;
 }
@@ -1422,9 +1422,9 @@ Gura_ImplementMethod(list, reduce)
 	Object_list *pThis = Object_list::GetThisObj(args);
 	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Null;
-	Environment envBlock(&env, ENVTYPE_block);
+	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
-						args.GetBlockFunc(envBlock, sig, GetSymbolForBlock());
+						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
 	if (pFuncBlock == NULL) {
 		return Value::Null;
 	}

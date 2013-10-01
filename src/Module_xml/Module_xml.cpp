@@ -1263,7 +1263,7 @@ Gura_ImplementFunction(element)
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
 	if (pExprBlock != NULL) {
-		Environment envLister(&env, ENVTYPE_lister);
+		//AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
 		foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {
 			const Expr *pExpr = *ppExpr;
 			Value value = pExpr->Exec(env, sig);

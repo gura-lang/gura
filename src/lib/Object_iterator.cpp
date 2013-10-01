@@ -676,9 +676,9 @@ Gura_ImplementMethod(iterator, reduce)
 {
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
-	Environment envBlock(&env, ENVTYPE_block);
+	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Function *pFuncBlock =
-						args.GetBlockFunc(envBlock, sig, GetSymbolForBlock());
+						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
 	if (pFuncBlock == NULL) {
 		return Value::Null;
 	}

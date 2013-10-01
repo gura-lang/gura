@@ -45,7 +45,8 @@ int MainW(int argc, const char *argv[])
 		{ "version",		'v', false	},
 	};
 	Signal sig;
-	EnvironmentRoot env;
+	AutoPtr<EnvironmentRoot> pEnv(new EnvironmentRoot());
+	EnvironmentRoot &env = *pEnv;
 	Option opt(optInfoTbl, ArraySizeOf(optInfoTbl));
 	String strErr;
 	bool rtn = opt.Parse(argc, argv, strErr);

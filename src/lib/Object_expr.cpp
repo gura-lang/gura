@@ -199,8 +199,8 @@ Gura_DeclareMethod(expr, eval)
 
 Gura_ImplementMethod(expr, eval)
 {
-	Environment envBlock(&env, ENVTYPE_block);
-	return Object_expr::GetThisObj(args)->GetExpr()->Exec(envBlock, sig);
+	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
+	return Object_expr::GetThisObj(args)->GetExpr()->Exec(*pEnvBlock, sig);
 }
 
 // expr#genscript(stream?:stream:w, style?:symbol):void

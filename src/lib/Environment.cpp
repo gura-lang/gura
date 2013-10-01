@@ -368,7 +368,7 @@ void Environment::AssignValueType(ValueTypeInfo *pValueTypeInfo)
 
 const ValueTypeInfo *Environment::LookupValueType(const SymbolList &symbolList) const
 {
-	std::auto_ptr<Environment> pEnvRoot;
+	AutoPtr<Environment> pEnvRoot;
 	SymbolList::const_iterator ppSymbol = symbolList.begin();
 	const Environment *pEnv = this;
 	if ((*ppSymbol)->IsIdentical(Gura_Symbol(root))) {

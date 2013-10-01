@@ -209,7 +209,7 @@ void EventHandlerPack::Eval(wxEvent &event)
 	Object_wx_Event *pObj = _pEventFactory->CreateEventObject(event);
 	ValueList valListArg;
 	valListArg.push_back(Value(pObj));
-	_pObjFunc->Eval(_env, _sig, valListArg);
+	_pObjFunc->Eval(*_pEnv, _sig, valListArg);
 }
 
 }}

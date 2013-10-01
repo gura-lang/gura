@@ -302,17 +302,17 @@ bool Class::Deserialize(Environment &env, Signal sig, Stream &stream, Value &val
 bool Class::BuildContent(Environment &env, Signal sig, const Value &valueThis,
 			const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable)
 {
-	Environment envLocal(this, ENVTYPE_local);
+	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
 	foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {
 		const Expr *pExpr = *ppExpr;
 		if (pExpr->IsAssign()) {
 			const Expr_Assign *pExprAssign =
 								dynamic_cast<const Expr_Assign *>(pExpr);
-			pExprAssign->Exec(envLocal, sig, *this, pSymbolsAssignable);
+			pExprAssign->Exec(*pEnvLocal, sig, *this, pSymbolsAssignable);
 		} else if (pExpr->IsCaller()) {
 			const Expr_Caller *pExprCaller =
 								dynamic_cast<const Expr_Caller *>(pExpr);
-			Value valueCar = pExprCaller->GetCar()->Exec(envLocal, sig);
+			Value valueCar = pExprCaller->GetCar()->Exec(*pEnvLocal, sig);
 			if (sig.IsSignalled()) return false;
 			Callable *pCallable = valueCar.GetObject();
 			if (pCallable == NULL) {

@@ -82,7 +82,7 @@ private:
 	CObjectSafety _objectSafety;
 	IActiveScriptSite *_pActiveScriptSite;
 	Gura::Signal _sig;
-	Gura::EnvironmentRoot _env;
+	Gura::AutoPtr<Gura::EnvironmentRoot> _pEnv;
 	Gura::ValueList _valListDispatched;
 public:
 	static const CLSID ClsId;
