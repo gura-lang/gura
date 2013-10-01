@@ -328,6 +328,7 @@ Value Function::EvalMap(Environment &env, Signal sig, Args &args) const
 	if (args.IsRsltIterator() || args.IsRsltXIterator()) {
 		// nothing to do
 	} else if (!args.IsRsltNormal() || !args.ShouldGenerateIterator(_declOwner)) {
+		// List, XList, Set, XSet, Void, Reduce, XReduce
 		Value result;
 		ResultComposer resultComposer(env, args, result);
 		Value value;
