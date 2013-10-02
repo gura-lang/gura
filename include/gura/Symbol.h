@@ -410,7 +410,9 @@ public:
 	Gura_DeclareSymbol(urlpath);
 	Gura_DeclareSymbol(misc);
 	Gura_DeclareSymbol(line);
+	Gura_DeclareSymbol(pathname);
 	Gura_DeclareSymbol(lineno);
+	Gura_DeclareSymbol(linenobtm);
 	Gura_DeclareSymbol(crammed);
 	Gura_DeclareSymbol(oneline);
 	Gura_DeclareSymbol(digest);

@@ -56,6 +56,24 @@ void Error::Set(ErrorType errType, const String &text)
 	_text = text;
 }
 
+const char *Error::GetPathName() const
+{
+	const ExprOwner &exprCauseOwner = GetExprCauseOwner();
+	return exprCauseOwner.empty()? NULL : exprCauseOwner.front()->GetPathName();
+}
+
+int Error::GetLineNoTop() const
+{
+	const ExprOwner &exprCauseOwner = GetExprCauseOwner();
+	return exprCauseOwner.empty()? 0 : exprCauseOwner.front()->GetLineNoTop();
+}
+
+int Error::GetLineNoBtm() const
+{
+	const ExprOwner &exprCauseOwner = GetExprCauseOwner();
+	return exprCauseOwner.empty()? 0 : exprCauseOwner.front()->GetLineNoBtm();
+}
+
 String Error::MakeText(bool lineInfoFlag) const
 {
 	String str;

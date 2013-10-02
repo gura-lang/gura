@@ -358,7 +358,7 @@ String Expr::MakePosText() const
 	if (GetLineNoTop() == GetLineNoBtm()) {
 		::sprintf(buff, ":%d", GetLineNoTop());
 	} else {
-		::sprintf(buff, ":%d-%d", GetLineNoTop(), GetLineNoBtm());
+		::sprintf(buff, ":%d:%d", GetLineNoTop(), GetLineNoBtm());
 	}
 	str += buff;
 	return str;

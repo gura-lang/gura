@@ -59,6 +59,9 @@ public:
 	Error(const Error &err);
 	void Clear();
 	void Set(ErrorType errType, const String &text);
+	const char *GetPathName() const;
+	int GetLineNoTop() const;
+	int GetLineNoBtm() const;
 	String MakeText(bool lineInfoFlag = true) const;
 	inline ErrorType GetType() const { return _errType; }
 	inline const char *GetTypeName() const { return GetTypeName(_errType); }

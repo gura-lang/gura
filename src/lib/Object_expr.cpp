@@ -30,6 +30,10 @@ bool Object_expr::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(typename));
 	symbols.insert(Gura_Symbol(typesym));
+	symbols.insert(Gura_Symbol(pathname));
+	symbols.insert(Gura_Symbol(lineno));
+	symbols.insert(Gura_Symbol(linenobtm));
+	symbols.insert(Gura_Symbol(postext));
 	symbols.insert(Gura_Symbol(child));
 	symbols.insert(Gura_Symbol(children));
 	symbols.insert(Gura_Symbol(left));
@@ -52,6 +56,16 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		return Value(env, GetExpr()->GetTypeName());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(typesym))) {
 		return Value(Symbol::Add(GetExpr()->GetTypeName()));
+	} else if (pSymbol->IsIdentical(Gura_Symbol(pathname))) {
+		const char *pathName = GetExpr()->GetPathName();
+		if (pathName == NULL) return Value::Null;
+		return Value(env, pathName);
+	} else if (pSymbol->IsIdentical(Gura_Symbol(lineno))) {
+		return Value(GetExpr()->GetLineNoTop());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(linenobtm))) {
+		return Value(GetExpr()->GetLineNoBtm());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(postext))) {
+		return Value(env, GetExpr()->MakePosText());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(child))) {
 		if (!GetExpr()->IsUnary()) {
 			sig.SetError(ERR_ValueError, "not a unary expression");

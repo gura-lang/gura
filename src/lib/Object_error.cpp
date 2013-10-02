@@ -21,6 +21,10 @@ Object *Object_error::Clone() const
 bool Object_error::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_Symbol(pathname));
+	symbols.insert(Gura_Symbol(lineno));
+	symbols.insert(Gura_Symbol(linenobtm));
+	symbols.insert(Gura_Symbol(postext));
 	symbols.insert(Gura_Symbol(text));
 	symbols.insert(Gura_Symbol(trace));
 	return true;
@@ -30,19 +34,23 @@ Value Object_error::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(text))) {
+	if (pSymbol->IsIdentical(Gura_Symbol(pathname))) {
+		const char *pathName = _err.GetPathName();
+		if (pathName == NULL) return Value::Null;
+		return Value(env, pathName);
+	} else if (pSymbol->IsIdentical(Gura_Symbol(lineno))) {
+		return Value(_err.GetLineNoTop());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(linenobtm))) {
+		return Value(_err.GetLineNoBtm());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(postext))) {
+		//
+	} else if (pSymbol->IsIdentical(Gura_Symbol(text))) {
 		bool lineInfoFlag = attrs.IsSet(Gura_Symbol(lineno));
 		return Value(env, _err.MakeText(lineInfoFlag));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(trace))) {
-		Value value;
-		ValueList &valList = value.InitAsList(env);
 		AutoPtr<ExprOwner> pExprOwner(new ExprOwner());
 		_err.GetExprCauseOwner().ExtractTrace(*pExprOwner);
-		foreach_const (ExprOwner, ppExpr, *pExprOwner) {
-			const Expr *pExpr = *ppExpr;
-			valList.push_back(Value(new Object_expr(env, pExpr->Reference())));
-		}
-		return value;
+		return Value(env, new Iterator_expr(pExprOwner.release()));
 	}
 	evaluatedFlag = false;
 	return Value::Null;

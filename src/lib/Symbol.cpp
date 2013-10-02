@@ -423,7 +423,9 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(urlpath);
 	Gura_RealizeSymbol(misc);
 	Gura_RealizeSymbol(line);
+	Gura_RealizeSymbol(pathname);
 	Gura_RealizeSymbol(lineno);
+	Gura_RealizeSymbol(linenobtm);
 	Gura_RealizeSymbol(crammed);
 	Gura_RealizeSymbol(oneline);
 	Gura_RealizeSymbol(digest);
