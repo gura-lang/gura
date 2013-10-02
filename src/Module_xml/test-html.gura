@@ -1,0 +1,35 @@
+#!/usr/bin/env gura
+import(xml)
+
+html(attrs%) {`block} = {
+	root = xml.element('html', attrs%)
+	head(attrs%)	{`block?} = xml.element('head',		attrs%) {|block|}
+	body(attrs%)	{`block?} = xml.element('body',		attrs%) {|block|}
+	h1(attrs%)		{`block?} = xml.element('h1',		attrs%) {|block|}
+	h2(attrs%)		{`block?} = xml.element('h2',		attrs%) {|block|}
+	h3(attrs%)		{`block?} = xml.element('h3',		attrs%) {|block|}
+	h4(attrs%)		{`block?} = xml.element('h4',		attrs%) {|block|}
+	h5(attrs%)		{`block?} = xml.element('h5',		attrs%) {|block|}
+	h6(attrs%)		{`block?} = xml.element('h6',		attrs%) {|block|}
+	p(attrs%)		{`block?} = xml.element('p',		attrs%) {|block|}
+	div(attrs%)		{`block?} = xml.element('div',		attrs%) {|block|}
+	table(attrs%)	{`block?} = xml.element('table',	attrs%) {|block|}
+	a(attrs%)		{`block?} = xml.element('a',		attrs%) {|block|}
+	tr(attrs%)		{`block?} = xml.element('tr',		attrs%) {|block|}
+	th(attrs%)		{`block?} = xml.element('th',		attrs%) {|block|}
+	td(attrs%)		{`block?} = xml.element('td',		attrs%) {|block|}
+	root.addchild(block.children:*eval())
+	root
+}
+
+e = html {
+	head {
+		
+	}
+	body {
+		table {
+			tr { td {'col-1'}, td {'col-2'}, td {'col-3'} }
+		}
+	}
+}
+e.write(fancy => true)
