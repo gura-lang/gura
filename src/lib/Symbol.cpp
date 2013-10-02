@@ -177,7 +177,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(this);
 	Gura_RealizeSymbolAlias(static_,		"static");
 	Gura_RealizeSymbolAlias(const_,			"const");
-	Gura_RealizeSymbolAlias(_anonymous_,	"<>");
+	Gura_RealizeSymbolAlias(_anonymous_,	"*anonymous*");
 	Gura_RealizeSymbolAlias(public_,		"public");
 	Gura_RealizeSymbolAlias(private_,		"private");
 	Gura_RealizeSymbolAlias(protected_,		"protected");

@@ -2583,8 +2583,11 @@ bool Expr_Assign::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr_Assign::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
-	bool needParenthesisFlag = (GetParent()->IsUnary() || GetParent()->IsBinary()) &&
-														!GetParent()->IsQuote();
+	bool needParenthesisFlag = false;
+	if (GetParent() != NULL) {
+		needParenthesisFlag = (GetParent()->IsUnary() ||
+						GetParent()->IsBinary()) && !GetParent()->IsQuote();
+	}
 	if (needParenthesisFlag) {
 		stream.PutChar(sig, '(');
 		if (sig.IsSignalled()) return false;
