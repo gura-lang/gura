@@ -1,4 +1,6 @@
 /ipch
+/bin-x86-dbg/
+/src/ipch
 /guest/*.zip
 /guest/*.tar.gz
 /guest/README
@@ -32,7 +34,9 @@
 msc/
 gnuc/
 Release/
+Debug/
 Release.*/
+Debug.*/
 .deps/
 .libs/
 CMakeFiles/
