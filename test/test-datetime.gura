@@ -51,27 +51,27 @@ scope {
 	tester(`time.parse('Tue Aug 31 23:54:46 +0000 2010'))
 	try {
 		tester(`time.parse(''))
-	} except {|e|
+	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 	try {
 		tester(`time.parse('x'))
-	} except {|e|
+	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 	try {
 		tester(`time.parse('111'))
-	} except {|e|
+	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 	try {
 		tester(`time.parse('Sun Dec 31 24:59:59 9999'))
-	} except {|e|
+	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 	try {
 		tester(`time.parse('Sun Dec 31 003:59:59 2010'))
-	} except {|e|
+	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 }

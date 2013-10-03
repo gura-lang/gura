@@ -5,7 +5,7 @@ argopt.Parser {|p|
 	p.addFlag('eval', 'e', 'eval generated script')
 	try {
 		[cfg, argv] = p.parse(sys.argv)
-	} except {|e|
+	} catch {|e|
 		sys.stderr.println(e.text)
 		sys.exit(1)
 	}

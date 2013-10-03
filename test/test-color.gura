@@ -52,19 +52,19 @@ scope {
 scope {
 	try {
 		tester(`(color * [1]))
-	} except {|e|
+	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 	try {
 		tester(`(color * [1, 2]))
-	} except {|e|
+	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 	tester(`(color * [1, 2, 3]))
 	tester(`(color * [1, 2, 3, 4]))
 	try {
 		tester(`(color * [1, 2, 3, 4, 5]))
-	} except {|e|
+	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 	tester(`(color * [[1, 2, 3], [4, 5, 6], [7, 8, 9], [13, 14, 15, 16]]))
@@ -86,7 +86,7 @@ scope {
 	try {
 		plt = palette(16)
 		plt.updateby(image(I('kangaroo.gif'), `rgb))
-	} except {|e|
+	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 	plt = palette(`win256)

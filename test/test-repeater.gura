@@ -141,9 +141,9 @@ scope {
 }
 scope {
 	for (i in 0..9) {}
-	try { i } except(ValueError) { println('expected error occurs') }
+	try { i } catch(ValueError) { println('expected error occurs') }
 	cross (j in 0..9) {}
-	try { j } except(ValueError) { println('expected error occurs') }
+	try { j } catch(ValueError) { println('expected error occurs') }
 }
 scope {
 	i = for (n in 0..9):iter {|i| i}
@@ -208,7 +208,7 @@ scope {
 	try {
 		for ([a, b, c+] in [[1..2]]) {
 		}
-	} except(ValueError) {
+	} catch(ValueError) {
 		println('expected error occurs')
 	}
 }
@@ -419,7 +419,7 @@ scope {
 		repeat_ten() {
 			printf('**** scope problem happened if this message appears %d ****\n', i)
 		} // i must be invisible
-	} except(ValueError) {
+	} catch(ValueError) {
 		printf('expected error happens\n')
 	}
 }

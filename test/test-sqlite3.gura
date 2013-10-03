@@ -7,7 +7,7 @@ import(testutil) {*}
 sys.stdout.setcodec('shift_jis').addcr(false)
 
 scope {
-	try {fs.remove('50records-en.sqlite3')} except {}
+	try {fs.remove('50records-en.sqlite3')} catch {}
 	sqlite3.db('50records-en.sqlite3') {|db|
 		db.exec('''\
 			create table people (
@@ -49,7 +49,7 @@ scope {
 	}
 }
 scope {
-	try {fs.remove('50records-jp.sqlite3')} except {}
+	try {fs.remove('50records-jp.sqlite3')} catch {}
 	sqlite3.db('50records-jp.sqlite3') {|db|
 		db.exec('''\
 			create table people (
@@ -95,7 +95,7 @@ scope {
 	}
 }
 function {
-	try {fs.remove('temperature.sqlite3')} except {}
+	try {fs.remove('temperature.sqlite3')} catch {}
 	sqlite3.db('temperature.sqlite3') {|db|
 		db.exec('''\
 			create table sites (

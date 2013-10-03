@@ -279,7 +279,7 @@ createZip(filenames) = {
 		filenameZip = path.join(dirnameDst, filenameBase + '.zip')
 		filenameList = path.join(dirnameDst, filenameBase + '.list.txt')
 		open(filenameList, 'w', 'shift_jis').println(filenames)
-		try { fs.remove(filenameZip) } except {}
+		try { fs.remove(filenameZip) } catch {}
 		os.exec('7z', 'a', '-r-', filenameZip, '@' + filenameList)
 	} != 0) && sys.exit(1)
 	conio.setcolor(`bright_red) {
@@ -365,7 +365,7 @@ createMsi(filenames) = {
 			(os.exec('candle', '-o', filenameWixobj, filenameWxs) != 0) && sys.exit(1)
 			(os.exec('light', '-ext', 'WixUIExtension', '-spdb'
 						'-o', filenameMsi, filenameWixobj) != 0) && sys.exit(1)
-		} except {
+		} catch {
 			println('Failed to execute WiX tool. Make sure that WiX has been properly installed.')
 			sys.exit(1)
 		}

@@ -27,7 +27,7 @@ BuilderBase = class {
 			p.addParam('basedir',	'b', 'specify basement output directory', 'DIR', '')
 			try {
 				[this.cfg, argv] = p.parse(sys.argv)
-			} except {|e|
+			} catch {|e|
 				sys.stderr.println(e.text)
 				sys.exit(1)
 			}

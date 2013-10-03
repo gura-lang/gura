@@ -6,7 +6,7 @@ argopt.Parser {|p|
 	p.addParam('output', 'o', 'output duplicated MIDI file', 'OUTPUT')
 	try {
 		[cfg, argv] = p.parse(sys.argv)
-	} except {|e|
+	} catch {|e|
 		println(e.text)
 		sys.exit(1)
 	}

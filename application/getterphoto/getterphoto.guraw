@@ -21,7 +21,7 @@ main = module {
 	}
 	try {
 		cfg:public = yaml.read(fileNameCfg)
-	} except {
+	} catch {
 		cfg:public = %{}
 	}
 	main() = {
@@ -284,7 +284,7 @@ Page_Stamper = class(wx.Panel) {
 		try {
 			pathNames = path.dir(dirName, main.patternImgList*,
 								main.patternAviList*):icase:file:list
-		} except {
+		} catch {
 			pathNames = []
 		}
 		this.pathNames = pathNames
@@ -1035,16 +1035,16 @@ BoxDisabled_xpm = @{
 MakeUniqPathName(pathName:string, dirNameDstBase:string, makeDirFlag:boolean):map = {
 	try {
 		stat = path.stat(pathName)
-	} except { stat = nil }
+	} catch { stat = nil }
 	(!stat || stat.isdir) && return(nil)
 	charsAtoZ = chr(ord('A')..ord('Z'))
-	try { exif = jpeg.exif(pathName) } except { exif = nil }
+	try { exif = jpeg.exif(pathName) } catch { exif = nil }
 	if (exif) {
 		try {
 			exif.DateTime.value.match(r'(\d{4}):(\d{2}):(\d{2})\s+(\d{2}):(\d{2}):(\d{2})') {|m|
 				[year, month, day, hour, min, sec] = int(m[1..6])
 			}
-		} except { exif = nil }
+		} catch { exif = nil }
 	}
 	if (!exif) {
 		mtime = stat.mtime

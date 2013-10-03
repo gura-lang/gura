@@ -9,16 +9,16 @@ import(argopt)
 MakeUniqPathName(pathName:string, dirNameOut:string:nil):map = {
 	try {
 		stat = path.stat(pathName)
-	} except { stat = nil }
+	} catch { stat = nil }
 	(!stat || stat.isdir) && return(nil)
 	charsAtoZ = chr(ord('A')..ord('Z'))
-	try { exif = jpeg.exif(pathName) } except { exif = nil }
+	try { exif = jpeg.exif(pathName) } catch { exif = nil }
 	if (exif) {
 		try {
 			exif.DateTime.value.match(r'(\d{4}):(\d{2}):(\d{2})\s+(\d{2}):(\d{2}):(\d{2})') {|m|
 				[year, month, day, hour, min, sec] = int(m[1..6])
 			}
-		} except { exif = nil }
+		} catch { exif = nil }
 	}
 	if (!exif) {
 		mtime = stat.mtime
@@ -46,7 +46,7 @@ argopt.Parser {|p|
 	p.addFlag('test',		't', 'just prints renaming result')
 	try {
 		[cfg, argv] = p.parse(sys.argv)
-	} except {|e|
+	} catch {|e|
 		println(e.text)
 		sys.exit(1)
 	}

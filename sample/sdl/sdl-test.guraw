@@ -11,7 +11,7 @@ screen = sdl.SetVideoMode(640, 480, 16, sdl.SWSURFACE) # | sdl.FULLSCREEN)
 try {
 	surfaceImg:local = sdl.CreateRGBSurfaceFrom('Winter.jpg')
 	sdl.BlitSurface(surfaceImg, nil, screen, nil)
-} except {
+} catch {
 	n = 32
 	i = 0..(n - 1)
 	colors = sdl.Color(128 * i / (n - 1), 128 * i / (n - 1), 255 * i / (n - 1))

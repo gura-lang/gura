@@ -16,9 +16,9 @@ scope {
 					}
 				}
 			}
-		} except(IteratorError) {
+		} catch(IteratorError) {
 			println('except(IteratorError)')
-		} except {
+		} catch {
 			println('except()')
 		} else {
 			println('else')
@@ -34,7 +34,7 @@ scope {
 		repeat(10) {|i|
 			try {
 				(i % 2 == 0) && continue()
-			} except {
+			} catch {
 			}
 			printf('%3d', i)
 		}
@@ -49,7 +49,7 @@ scope {
 			try {
 				printf('%3d', i)
 				(i == 8) && break()
-			} except {
+			} catch {
 			}
 		}
 		println()
@@ -62,7 +62,7 @@ scope {
 		try {
 			println('try')
 			return('hello')
-		} except {
+		} catch {
 			println('except')
 		}
 		println('end-of-function')
@@ -75,7 +75,7 @@ scope {
 	people = repeat(3):list { Person() }
 	try {
 		f(people)
-	} except(TypeError) {|e|
+	} catch(TypeError) {|e|
 		println('expected error occurs: ', e.text)
 	}
 }
@@ -83,27 +83,27 @@ scope {
 	b = [1]
 	try {
 		a
-	} except(ValueError) {|e|
+	} catch(ValueError) {|e|
 		println('ValueError detected: ', e.text)
-	} except {|e|
+	} catch {|e|
 		println('other error detected: ', e.text)
 	} else {
 		println('no error')
 	}
 	try {
 		b[2]
-	} except(ValueError) {|e|
+	} catch(ValueError) {|e|
 		println('ValueError detected: ', e.text)
-	} except {|e|
+	} catch {|e|
 		println('other error detected: ', e.text)
 	} else {
 		println('no error')
 	}
 	try {
 		b[0]
-	} except(ValueError) {|e|
+	} catch(ValueError) {|e|
 		println('ValueError detected: ', e.text)
-	} except {|e|
+	} catch {|e|
 		println('other error detected: ', e.text)
 	} else {
 		println('no error')
@@ -112,15 +112,15 @@ scope {
 scope {
 	error_tester(err) = try {
 		if (err != nil) { raise(err, 'intentional error for handling test') }
-	} except(IndexError) {|e|
+	} catch(IndexError) {|e|
 		println('except(IndexError) .. ', e.text)
-	} except(ValueError) {|e|
+	} catch(ValueError) {|e|
 		println('except(ValueError) .. ', e.text)
-	} except(IOError) {|e|
+	} catch(IOError) {|e|
 		println('except(IOError) .. ', e.text)
-	} except(SystemError, CodecError) {|e|
+	} catch(SystemError, CodecError) {|e|
 		println('except(SystemError, CodecError) .. ', e.text)
-	} except {|e|
+	} catch {|e|
 		println('except() .. ', e.text)
 	} else {
 		println('else()')
@@ -135,7 +135,7 @@ scope {
 }
 try {
 	raise(ValueError, 'unhandled error')
-} except(ValueError) {|e|
+} catch(ValueError) {|e|
 	println('ValueError detected: ', e.text)
 }
 sys.stderr = stderrOrg

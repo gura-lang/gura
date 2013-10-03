@@ -3,7 +3,7 @@ import(http)
 import(xml)
 try {
 	import(calil_auth)
-} except {
+} catch {
 	sys.stderr.printf('Create a script file %s and define appkey variable in it.\n',
 			path.join(sys.localdir, 'module', 'calil_auth.gura'))
 	sys.exit(1)

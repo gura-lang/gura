@@ -13,7 +13,7 @@ W = 400, H = 400
 
 try {
 	img = image(`rgb).rgbread('1.rgb')
-} except {
+} catch {
 	RD = color(0xA4,0x00,0x00,0xFF)
 	WT = color(0xFF,0xFF,0xFF,0xFF)
 	brickImageRaw = @{

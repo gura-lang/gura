@@ -30,7 +30,7 @@ Panel = class(wx.Panel) {
 								(size.GetWidth() - img.width) / 2,
 								(size.GetHeight() - img.height) / 2, false)
 					}
-				} except {|e|
+				} catch {|e|
 					println(e)
 				}
 				dc = nil

@@ -81,7 +81,7 @@ http.server(port => port).wait {|req|
 			stream = open('../resource/' + m.group(1)),
 			req.response('200', nil, stream, headerCommon%,
 				'Connection'	=> 'Keep-Alive')
-		} except {
+		} catch {
 			str = 'image not found: ' + m.group(1)
 			req.response('404', nil, str.encode('utf-8'), headerCommon%,
 				'Connection'	=> 'close'

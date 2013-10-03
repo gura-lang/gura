@@ -162,7 +162,7 @@ MyFrame = class(wx.Frame) {
 		}
 		try {
 			pos = int(str)
-		} except {
+		} catch {
 			wx.LogError('The splitter position should be an integer.')
 			return
 		}
@@ -177,7 +177,7 @@ MyFrame = class(wx.Frame) {
 		}
 		try {
 			minsize = int(str)
-		} except {
+		} catch {
 			return
 		}
 		this.m_splitter.SetMinimumPaneSize(minsize)

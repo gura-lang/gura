@@ -24,14 +24,14 @@ scope {
 	tester(`d['Apple', 'Orange', 'Grape'])
 	try {
 		d = dict():icase { 'apple' => 100, 'Apple' => 80 }
-	} except {|e|
+	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 	d = dict() { 'apple' => 100, 'orange' => 80, 'grape' => 120 }
 	tester(`d['apple', 'orange', 'grape'])
 	try {
 		tester(`d['Apple', 'Orange', 'Grape'])
-	} except {|e|
+	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 }
@@ -109,7 +109,7 @@ scope {
 			`foo	=>	'bbbbb'
 			`hoge	=>	'AAAA'		# causes error
 		}
-	} except(KeyError) {|e|
+	} catch(KeyError) {|e|
 		println('expected error occurs: ', e.text)
 	}
 	println('for loop')

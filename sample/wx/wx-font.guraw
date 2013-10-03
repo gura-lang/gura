@@ -588,7 +588,7 @@ MyCanvas = class(wx.Window) {
 			l = 0..32
 			xl = x + w * l - 2
 			dc.DrawLine(xl, y - 2, xl, y + 7 * h - 1)
-		} except {|error|
+		} catch {|error|
 			println(error.message)
 		}
 		dc = nil

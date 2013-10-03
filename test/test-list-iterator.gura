@@ -189,12 +189,12 @@ scope {
 scope {
 	try {
 		[0..]
-	} except (IteratorError) {|e|
+	} catch (IteratorError) {|e|
 		println('expected error occurs: ', e.text)
 	}
 	try {
 		[(0..) + 3]
-	} except (IteratorError) {|e|
+	} catch (IteratorError) {|e|
 		println('expected error occurs: ', e.text)
 	}
 }
@@ -242,7 +242,7 @@ scope {
 	println()
 	try {
 		x.shift():raise
-	} except(ValueError) {|e|
+	} catch(ValueError) {|e|
 		println('expected error occurs: ', e.text)
 	}
 }

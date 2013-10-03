@@ -173,7 +173,7 @@ GridFrame = class(wx.Frame) {
 		try {
 			// avoid error under gtk
 			wx.Log.SetTimestamp(nil)
-		} except {}
+		} catch {}
 		// this will create a grid and, by default, an associated grid
 		// table for strings
 		grid.CreateGrid(0, 0)

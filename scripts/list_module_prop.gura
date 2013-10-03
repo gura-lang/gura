@@ -6,7 +6,7 @@ if (sys.argv.len() < 2) {
 msym = tosymbol(sys.argv[1])
 try {
 	format('import(%s)', msym).parse().eval()
-} except {|e|
+} catch {|e|
 	sys.stderr.println(e.text)
 	sys.exit(1)
 }

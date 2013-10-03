@@ -124,7 +124,7 @@ if (__name__ == '__main__') {
 		p.addFlag('bold', 'b')
 		try {
 			[cfg, argv] = p.parse(sys.argv)
-		} except {|e|
+		} catch {|e|
 			println(e.text)
 			sys.exit(1)
 		}

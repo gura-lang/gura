@@ -97,7 +97,7 @@ TestGLCanvas = class(wx.GLCanvas) {
 			glFlush()
 			// Swap
 			this.SwapBuffers()
-		} except {|e|
+		} catch {|e|
 			println(e.message)
 		}
 		dc = nil

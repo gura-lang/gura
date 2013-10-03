@@ -153,7 +153,7 @@ not line top:  ${x}
 scope {
 	try {
 		'abcdefg${hoge}hijklmn'.template()
-	} except {|e|
+	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 }

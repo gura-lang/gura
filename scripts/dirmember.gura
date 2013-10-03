@@ -6,7 +6,7 @@ if (sys.argv.len() < 2) {
 type = sys.argv[1]
 try {
 	obj = type.parse().eval()
-} except {
+} catch {
 	obj = nil
 }
 if (ismodule(obj)) {

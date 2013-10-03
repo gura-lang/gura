@@ -228,7 +228,7 @@ MyFrame = class(wx.Frame) {
 		try {
 			// avoid error under gtk
 			wx.Log.SetTimestamp(nil)
-		} except {}
+		} catch {}
 		this.m_logOld = wx.Log.SetActiveTarget(wx.LogTextCtrl(this.m_textctrl))
 
 		wx.LogMessage('Brief explanations: the commands or the \"Menu\" menu ' \

@@ -8,7 +8,7 @@ tk.mainwindow {|mw|
 		try {
 			value = feet.number
 			meters.number = (0.3048 * value * 10000.0 + 0.5) / 10000.0
-		} except {
+		} catch {
 		}
 	}
 	mw.wm$title('Feet to Meters')

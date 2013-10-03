@@ -36,7 +36,7 @@ scope {
 		expr = `{|x, y, z| x + y + y + 2}
 		f = expr.tofunction(x, y, z)
 		print_func(f)
-	} except(TypeError) {|e|
+	} catch(TypeError) {|e|
 		println('expected error occurs: ', e.text)
 	}
 }

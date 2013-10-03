@@ -211,22 +211,22 @@ scope {
 			md5.hexdigest in ['f6a1550a12459ae6887cba27a8d9c17e', '65cd08b2a30ff0687845ae0652e2722e'] || md5.hexdigest)
 	try {
 		image(I('Winter.jpg'), `rgb, 'png')
-	} except {|e|
+	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 	try {
 		image(I('kangaroo.png'), `rgb, 'jpeg')
-	} except {|e|
+	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 	try {
 		image(I('kangaroo.png'), `rgb, 'gif')
-	} except {|e|
+	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 	try {
 		image(I('kangaroo.png'), `rgb, 'bmp')
-	} except {|e|
+	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 }

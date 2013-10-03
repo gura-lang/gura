@@ -22,7 +22,7 @@ jpeg.exif(sys.argv[1]) {|exif|
 	println('= ifd0.Exif.Interoperability =')
 	try {
 		PrintIFD(exif.ifd0.Exif.Interoperability)
-	} except {}
+	} catch {}
 	if (exif.ifd1) {
 		println('= ifd1 =')
 		PrintIFD(exif.ifd1)

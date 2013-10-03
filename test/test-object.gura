@@ -30,7 +30,7 @@ scope {
 		T1 = struct(a, b, c) {
 			__init__(xx) = {}
 		}
-	} except {|e|
+	} catch {|e|
 		println('expected error: ', e.text)
 	}
 }
@@ -44,7 +44,7 @@ scope {
 	}
 	try {
 		println(M.varPrivate)
-	} except {|e|
+	} catch {|e|
 		println('expected error: ', e.text)
 	}
 	println('varPublic = ', M.varPublic)
@@ -76,7 +76,7 @@ scope {
 	a = A()
 	try {
 		funcOut(a)
-	} except {|e|
+	} catch {|e|
 		println('expected error: ', e.text)
 	}
 	funcOutPrivileged(a)
@@ -85,18 +85,18 @@ scope {
 	println('a.namePublic2 = ', a.namePublic2)
 	try {
 		println(a.namePrivate)
-	} except {|e|
+	} catch {|e|
 		println('expected error: ', e.text)
 	}
 	try {
 		println(a.varPrivate)
-	} except {|e|
+	} catch {|e|
 		println('expected error: ', e.text)
 	}
 	a.funcPublic()
 	try {
 		a.funcPrivate()
-	} except {|e|
+	} catch {|e|
 		println('expected error: ', e.text)
 	}
 }
@@ -163,7 +163,7 @@ scope {
 	A.f()
 	try {
 		A.g()
-	} except(ValueError) {
+	} catch(ValueError) {
 		println('expected error occurs')
 	}
 }
@@ -747,7 +747,7 @@ scope {
 	print(`A.hoge, ' = ', A.hoge, '\n')
 	try {
 		A.func2()
-	} except (ValueError) {
+	} catch (ValueError) {
 		println('expected error occurs')
 	}
 }

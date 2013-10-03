@@ -20,7 +20,7 @@ Panel = class(wx.Panel) {
 						size = panel.GetClientSize()
 						dc.DrawBitmap(this.imgFrame, 0, 0, false)
 					}
-				} except {|e|
+				} catch {|e|
 					println(e)
 				}
 			}

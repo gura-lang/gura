@@ -399,9 +399,9 @@ Gura_DeclareFunctionAlias(try_, "try")
 	SetMode(RSLTMODE_Normal, FLAG_Leader);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Specify a try block of a statement of try-except-else.\n"
+	"Specify a try block of a statement of try-catch-else.\n"
 	"It catches signals that occur in the block and executes a corresponding\n"
-	"except() or else() function that follow after it.");
+	"catch() or else() function that follow after it.");
 }
 
 Gura_ImplementFunction(try_)
@@ -414,22 +414,22 @@ Gura_ImplementFunction(try_)
 	return result;
 }
 
-// except (errors*:error):leader:trailer {block}
-Gura_DeclareFunctionTrailerAlias(except_, "except")
+// catch (errors*:error):leader:trailer {block}
+Gura_DeclareFunctionTrailerAlias(catch_, "catch")
 {
 	SetMode(RSLTMODE_Normal, FLAG_Leader | FLAG_Trailer);
 	DeclareArg(env, "errors", VTYPE_error, OCCUR_ZeroOrMore);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Specify an except block of a statement of try-except-else.\n"
+	"Specify an catch block of a statement of try-catch-else.\n"
 	"It can take multiple numbers of arguments of error objects to handle.\n"
 	"If there's no error objects specified, it handles all the errors that are\n"
-	"not handled in the preceding except() function calls.\n"
+	"not handled in the preceding catch() function calls.\n"
 	"Block parameter format: |error:error|\n"
 	"error is an error object that contains information of the handled error.");
 }
 
-Gura_ImplementFunction(except_)
+Gura_ImplementFunction(catch_)
 {
 	bool handleFlag = false;
 	if (!sig.IsErrorSuspended()) {
@@ -529,12 +529,12 @@ Gura_DeclareFunctionTrailerAlias(else_, "else")
 	SetMode(RSLTMODE_Normal, FLAG_Trailer);
 	DeclareBlock(OCCUR_Once);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Specify an else block of a statement of if-elsif-else or try-except-else.\n");
+	"Specify an else block of a statement of if-elsif-else or try-catch-else.\n");
 }
 
 Gura_ImplementFunction(else_)
 {
-	// this function works as a terminater of if-else and try-except
+	// this function works as a terminater of if-else and try-catch
 	if (sig.IsErrorSuspended()) return Value::Null;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
@@ -1577,7 +1577,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(module);
 	Gura_AssignFunction(public_);
 	Gura_AssignFunction(try_);
-	Gura_AssignFunction(except_);
+	Gura_AssignFunction(catch_);
 	Gura_AssignFunction(finally_);
 	Gura_AssignFunction(if_);
 	Gura_AssignFunction(elsif_);

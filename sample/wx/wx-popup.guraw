@@ -181,7 +181,7 @@ MyFrame = class(wx.Frame) {
 		try {
 			// avoid error under gtk
 			wx.LogTextCtrl.SetTimestamp(nil)
-		} except {}
+		} catch {}
 		topSizer = wx.BoxSizer(wx.VERTICAL)
 		topSizer.Add(this.m_button1, wx.SizerFlags(0).Border(wx.ALL, 5))
 		topSizer.Add(this.m_button2, wx.SizerFlags(0).Border(wx.ALL, 5))

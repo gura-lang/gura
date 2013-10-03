@@ -125,12 +125,12 @@ scope {
 	doc.root << [e('foo3'), e('foo4'), e('foo5'), 'text-added']
 	try {
 		doc.root.addchild(2)
-	} except {|e|
+	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 	try {
 		doc.root << 3
-	} except {|e|
+	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 	println('== result output ==')

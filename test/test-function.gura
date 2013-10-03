@@ -5,12 +5,12 @@ scope {
 	f(x:string:nocast) = {println(x)}
 	try {
 		f(3)
-	} except {|e|
+	} catch {|e|
 		println('expected error occured:', e.text)
 	}
 	try {
 		f(['first', 'second', 'third'])
-	} except {|e|
+	} catch {|e|
 		println('expected error occured:', e.text)
 	}
 	f(['first', 'second', 'third']):map
@@ -80,7 +80,7 @@ scope {
 	g = &{|x:number| x}
 	try {
 		g('hoge')
-	} except {|e|
+	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 }
@@ -260,12 +260,12 @@ scope {
 	f(m)
 	try {
 		f(10)
-	} except(TypeError) {|e|
+	} catch(TypeError) {|e|
 		println('expected error occurs: ', e.text)
 	}
 	try {
 		f('foo')
-	} except(TypeError) {|e|
+	} catch(TypeError) {|e|
 		println('expected error occurs: ', e.text)
 	}
 }
@@ -324,7 +324,7 @@ scope {
 	f4(2, 3, 4, 5, 6, 7)
 	try {
 		f4(2, 3)
-	} except(TypeError) {|e|
+	} catch(TypeError) {|e|
 		println('expected error occurs: ', e.text)
 	}
 }

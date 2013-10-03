@@ -15,7 +15,7 @@ classref(`cairo.context) {|ref|
 }
 
 fileNameCfg = path.join(path.dirname(sys.argv[0]), 'guraplot.yml')
-try { cfg = yaml.read(fileNameCfg) } except { cfg = %{} }
+try { cfg = yaml.read(fileNameCfg) } catch { cfg = %{} }
 cfg.store():default {
 	'width' => 740
 	'height' => 480
@@ -138,7 +138,7 @@ tk.mainwindow() {|mw|
 		img.cairo {|cr|
 			try {
 				cr.save { graph.draw(cr) }
-			} except {|e|
+			} catch {|e|
 				varIndicator.string = e.text
 			}
 		}
@@ -161,7 +161,7 @@ tk.mainwindow() {|mw|
 					cr.scale(units.mm$pt(100) / 100, units.mm$pt(100) / 100)
 					try {
 						graph.draw(cr)
-					} except {|e|
+					} catch {|e|
 						varIndicator.string = e.text
 					}
 					cr.show_page()
@@ -221,7 +221,7 @@ tk.mainwindow() {|mw|
 					cr.scale(units.mm$pt(100) / 100, units.mm$pt(100) / 100)
 					try {
 						graph.draw(cr)
-					} except {|e|
+					} catch {|e|
 						varIndicator.string = e.text
 					}
 					cr.show_page()
@@ -302,7 +302,7 @@ tk.mainwindow() {|mw|
 							//history.add(varCommand.string)
 							//varCommand.string = ''
 						}
-					} except {|e|
+					} catch {|e|
 						varIndicator.string = e.text
 					}
 				}

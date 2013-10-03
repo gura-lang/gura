@@ -14,7 +14,7 @@ audio(`u16le, 1, 1000) {|aud|
 	printf('%s\n', aud.each(0).join(','))
 	try {
 		aud.store(0, 0, 0..100)
-	} except {|e|
+	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 }
@@ -35,7 +35,7 @@ audio(`u16le, 2, 1000) {|aud|
 	printf('%s\n', aud.each(0).join(','))
 	try {
 		aud.store(0, 0, 0..100)
-	} except {|e|
+	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 }
