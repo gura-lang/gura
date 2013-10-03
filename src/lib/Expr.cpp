@@ -1895,8 +1895,13 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig, TrailCtrlHolder *pTrailC
 			SetError(sig, ERR_TypeError, "object is not callable");
 			return Value::Null;
 		}
-		return pCallable->Call(env, sig, Value::Null, NULL, false,
-								this, GetExprOwner().Reference(), pTrailCtrlHolder);
+		//return pCallable->Call(env, sig, Value::Null, NULL, false,
+		//						this, GetExprOwner().Reference(), pTrailCtrlHolder);
+		Args args(GetExprOwner().Reference(),
+				Value::Null, NULL, false,
+				TrailCtrlHolder::Reference(pTrailCtrlHolder),
+				GetAttrs(), GetAttrsOpt(), Expr_Block::Reference(GetBlock()));
+		return pCallable->DoCall(env, sig, args);
 	}
 	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
 	Value valueThis = pExprMember->GetLeft()->Exec(env, sig);
@@ -1974,8 +1979,13 @@ Value Expr_Caller::EvalEach(Environment &env, Signal sig, const Value &valueThis
 		SetError(sig, ERR_TypeError, "object is not callable");
 		return Value::Null;
 	}
-	return pCallable->Call(env, sig, valueThis, pIteratorThis, listThisFlag,
-								this, GetExprOwner().Reference(), pTrailCtrlHolder);
+	//return pCallable->Call(env, sig, valueThis, pIteratorThis, listThisFlag,
+	//							this, GetExprOwner().Reference(), pTrailCtrlHolder);
+	Args args(GetExprOwner().Reference(),
+			valueThis, Iterator::Reference(pIteratorThis), listThisFlag,
+			TrailCtrlHolder::Reference(pTrailCtrlHolder),
+			GetAttrs(), GetAttrsOpt(), Expr_Block::Reference(GetBlock()));
+	return pCallable->DoCall(env, sig, args);
 }
 
 Value Expr_Caller::DoAssign(Environment &env, Signal sig, Value &value,

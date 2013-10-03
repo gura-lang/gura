@@ -301,8 +301,7 @@ Value Function::Eval(Environment &env, Signal sig, Args &args) const
 	if (!_declOwner.ValidateAndCast(env, sig, args.GetArgs(), valListCasted)) {
 		return Value::Null;
 	}
-	Args argsCasted(args, valListCasted, args.GetValueWithDict(),
-									args.GetResultMode(), args.GetFlatFlag());
+	Args argsCasted(args, valListCasted);
 	Value value = DoEval(env, sig, argsCasted);
 	if (args.IsRsltVoid()) return Value::Undefined;
 	return value;
@@ -365,8 +364,7 @@ Value Function::EvalMapRecursive(Environment &env, Signal sig,
 			}
 			break;
 		}
-		Args argsEach(args, valListArg, args.GetValueWithDict(),
-									args.GetResultMode(), args.GetFlatFlag());
+		Args argsEach(args, valListArg);
 		Value valueEach = Eval(env, sig, argsEach);
 		if (sig.IsSignalled()) return Value::Null;
 		pResultComposer->Store(valueEach);
@@ -913,6 +911,7 @@ const Function *Args::GetBlockFunc(Environment &env, Signal sig, const Symbol *p
 //-----------------------------------------------------------------------------
 // Callable
 //-----------------------------------------------------------------------------
+#if 0
 Value Callable::Call(Environment &env, Signal sig,
 		const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
 		const Expr_Caller *pExprCaller, ExprOwner *pExprOwnerArg,
@@ -929,6 +928,7 @@ Value Callable::Call(Environment &env, Signal sig,
 	}
 	return result;
 }
+#endif
 
 bool Callable::IsLeader() const
 {

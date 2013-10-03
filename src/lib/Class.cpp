@@ -318,8 +318,17 @@ bool Class::BuildContent(Environment &env, Signal sig, const Value &valueThis,
 			if (pCallable == NULL) {
 				sig.SetError(ERR_TypeError, "object is not callable");
 			} else {
-				pCallable->Call(*this, sig, valueThis, NULL, false,
-					pExprCaller, pExprCaller->GetExprOwner().Reference(), NULL);
+				//pCallable->Call(*this, sig, valueThis, NULL, false,
+				//	pExprCaller, pExprCaller->GetExprOwner().Reference(), NULL);
+				Args args(pExprCaller->GetExprOwner().Reference(),
+							valueThis, NULL, false, NULL,
+							pExprCaller->GetAttrs(), pExprCaller->GetAttrsOpt(),
+							Expr_Block::Reference(pExprCaller->GetBlock()));
+				pCallable->DoCall(*this, sig, args);
+				if (sig.IsSignalled()) {
+					sig.AddExprCause(pExprCaller);
+					return false;
+				}
 			}
 		} else {
 			sig.SetError(ERR_SyntaxError, "invalid element in class constructor");

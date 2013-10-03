@@ -343,7 +343,8 @@ private:
 	AutoPtr<Expr_Block> _pExprBlock;
 	AutoPtr<Function> _pFuncBlock;
 public:
-	inline Args(ExprOwner *pExprOwnerArg, const Value &valueThis = Value::Null,
+	inline Args(ExprOwner *pExprOwnerArg,
+				const Value &valueThis = Value::Null,
 				Iterator *pIteratorThis = NULL, bool listThisFlag = false,
 				TrailCtrlHolder *pTrailCtrlHolder = NULL,
 				const SymbolSet &attrs = SymbolSet::Null,
@@ -362,7 +363,8 @@ public:
 		_valListArg(ValueList::Null),
 		_pExprBlock(pExprBlock),
 		_pFuncBlock(NULL) {}
-	inline Args(const ValueList &valListArg, const Value &valueThis = Value::Null,
+	inline Args(const ValueList &valListArg,
+				const Value &valueThis = Value::Null,
 				Iterator *pIteratorThis = NULL, bool listThisFlag = false,
 				TrailCtrlHolder *pTrailCtrlHolder = NULL,
 				const SymbolSet &attrs = SymbolSet::Null,
@@ -381,7 +383,35 @@ public:
 		_valListArg(valListArg),
 		_pExprBlock(pExprBlock),
 		_pFuncBlock(NULL) {}
-	inline Args(Args &args, const ValueList &valListArg,
+	inline Args(const Args &args, ExprOwner *pExprOwnerArg) :
+		_listThisFlag(args._listThisFlag),
+		_pTrailCtrlHolder(TrailCtrlHolder::Reference(args._pTrailCtrlHolder.get())),
+		_attrs(args._attrs),
+		_attrsOpt(args._attrsOpt),
+		_resultMode(args._resultMode),
+		_flags(args._flags),
+		_valueWithDict(args._valueWithDict),
+		_valueThis(args._valueThis),
+		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())),
+		_pExprOwnerArg(pExprOwnerArg),
+		_valListArg(ValueList::Null),
+		_pExprBlock(Expr_Block::Reference(args._pExprBlock.get())),
+		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
+	inline Args(const Args &args, const ValueList &valListArg) :
+		_listThisFlag(args._listThisFlag),
+		_pTrailCtrlHolder(TrailCtrlHolder::Reference(args._pTrailCtrlHolder.get())),
+		_attrs(args._attrs),
+		_attrsOpt(args._attrsOpt),
+		_resultMode(args._resultMode),
+		_flags(args._flags),
+		_valueWithDict(args._valueWithDict),
+		_valueThis(args._valueThis),
+		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())),
+		_pExprOwnerArg(NULL),
+		_valListArg(valListArg),
+		_pExprBlock(Expr_Block::Reference(args._pExprBlock.get())),
+		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
+	inline Args(const Args &args, const ValueList &valListArg,
 			const Value &valueWithDict, ResultMode resultMode, ULong flags) :
 		_listThisFlag(args._listThisFlag),
 		_pTrailCtrlHolder(TrailCtrlHolder::Reference(args._pTrailCtrlHolder.get())),
@@ -394,20 +424,6 @@ public:
 		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())),
 		_pExprOwnerArg(NULL),
 		_valListArg(valListArg),
-		_pExprBlock(Expr_Block::Reference(args._pExprBlock.get())),
-		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
-	inline Args(Args &args, ExprOwner *pExprOwnerArg) :
-		_listThisFlag(args._listThisFlag),
-		_pTrailCtrlHolder(TrailCtrlHolder::Reference(args._pTrailCtrlHolder.get())),
-		_attrs(args._attrs),
-		_attrsOpt(args._attrsOpt),
-		_resultMode(args._resultMode),
-		_flags(args._flags),
-		_valueWithDict(Value::Null),
-		_valueThis(args._valueThis),
-		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())),
-		_pExprOwnerArg(pExprOwnerArg),
-		_valListArg(ValueList::Null),
 		_pExprBlock(Expr_Block::Reference(args._pExprBlock.get())),
 		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
 	virtual ~Args();
@@ -543,16 +559,15 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Callable {
 public:
-	Value Call(Environment &env, Signal sig,
-			const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
-			const Expr_Caller *pExprCaller, ExprOwner *pExprOwnerArg,
-			TrailCtrlHolder *pTrailCtrlHolder);
+	//Value Call(Environment &env, Signal sig,
+	//		const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
+	//		const Expr_Caller *pExprCaller, ExprOwner *pExprOwnerArg,
+	//		TrailCtrlHolder *pTrailCtrlHolder);
+	virtual Value DoCall(Environment &env, Signal sig, Args &args) = 0;
 	virtual bool IsLeader() const;
 	virtual bool IsTrailer() const;
 	virtual bool IsEndMarker() const;
 	virtual OccurPattern GetBlockOccurPattern() const;
-protected:
-	virtual Value DoCall(Environment &env, Signal sig, Args &args) = 0;
 };
 
 }
