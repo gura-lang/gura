@@ -43,7 +43,7 @@ MakeUniqPathName(pathName:string, dirNameOut:string:nil):map = {
 argopt.Parser {|p|
 	p.addParam('outdir',	'o', 'specify output directory')
 	p.addFlag('rename',		'r', 'rename existing files')
-	p.addFlag('test',		't', 'just prints renaming result')
+	p.addFlag('create',		'c', 'create new files with modified names')
 	try {
 		[cfg, argv] = p.parse(sys.argv)
 	} catch {|e|
@@ -57,7 +57,7 @@ argopt.Parser {|p|
 		sys.exit(1)
 	}
 }
-[dirNameOut, renameFlag, testFlag] = cfg['outdir', 'rename', 'test']
+[dirNameOut, renameFlag, createFlag] = cfg['outdir', 'rename', 'create']
 pathNames = path.glob(argv[0..]):list
 nPads = pathNames:*len().max()
 if (dirNameOut && !path.exists(dirNameOut)) {
@@ -65,16 +65,16 @@ if (dirNameOut && !path.exists(dirNameOut)) {
 }
 pathNames.each {|pathName|
 	if (pathNameUniq = MakeUniqPathName(pathName, dirNameOut)) {
-		if (testFlag) {
-			printf('test: %-*s -> %s\n', nPads, pathName, pathNameUniq)
+		if (!renameFlag && !createFlag) {
+			printf('test:   %-*s -> %s\n', nPads, pathName, pathNameUniq)
 		} elsif (pathName == pathNameUniq) {
-			printf('skip: %-*s\n', nPads, pathName)
+			printf('skip:   %-*s\n', nPads, pathName)
 		} elsif (renameFlag) {
 			fs.rename(pathName, pathNameUniq)
-			printf('ren:  %-*s -> %s\n', nPads, pathName, pathNameUniq)
+			printf('rename: %-*s -> %s\n', nPads, pathName, pathNameUniq)
 		} else {
 			copy(pathName, pathNameUniq)
-			printf('copy: %-*s -> %s\n', nPads, pathName, pathNameUniq)
+			printf('create: %-*s -> %s\n', nPads, pathName, pathNameUniq)
 		}
 	}
 }
