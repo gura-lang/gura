@@ -275,30 +275,30 @@ aci_to_rgb = @(aci_to_rgb_t) {
 
 DXFVector = class {
 	__init__(x:number => 0, y:number => 0, z:number => 0) = {
-		this.x = x; this.y = y; this.z = z
+		this.x:public = x; this.y:public = y; this.z:public = z
 	}
 }
 
 DXFEntity = class {
-	[Line, Face] = 0..
+	[Line:public, Face:public] = 0..
 	__init__(type:number, colour:number) = {
-		this.type = type, this.colour = colour
+		this.type:public = type, this.colour:public = colour
 	}
 }
 
 DXFLine = class(DXFEntity) {
 	__init__() = {|DXFEntity.Line, 0|
-		this.v0 = DXFVector(), this.v1 = DXFVector()
+		this.v0:public = DXFVector(), this.v1:public = DXFVector()
 	}
 }
 
 DXFFace = class(DXFEntity) {
 	__init__() = {|DXFEntity.Face, 0|
-		this.v0 = DXFVector()
-		this.v1 = DXFVector()
-		this.v2 = DXFVector()
-		this.v3 = DXFVector()
-		this.n = DXFVector()		// normal
+		this.v0:public = DXFVector()
+		this.v1:public = DXFVector()
+		this.v2:public = DXFVector()
+		this.v3:public = DXFVector()
+		this.n:public = DXFVector()		// normal
 	}
 	CalculateNormal() = {
 		v01 = DXFVector()
@@ -318,7 +318,7 @@ DXFFace = class(DXFEntity) {
 }
 
 DXFLayer = class {
-	__init__() = { this.name = '', this.colour = -1 }
+	__init__() = { this.name:public = '', this.colour:public = -1 }
 }
 
 // ---------------------------------------------------------------------------
