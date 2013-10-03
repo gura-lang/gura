@@ -1871,11 +1871,11 @@ Callable *Expr_Caller::LookupCallable(Environment &env, Signal sig) const
 Value Expr_Caller::DoExec(Environment &env, Signal sig) const
 {
 	Value result;
-	TrailCtrl trailCtrl = TRAILCTRL_Continue;
+	AutoPtr<TrailCtrlHolder> pTrailCtrlHolder(new TrailCtrlHolder(TRAILCTRL_Continue));
 	for (const Expr_Caller *pExprCaller = this; pExprCaller != NULL;
 									pExprCaller = pExprCaller->GetTrailer()) {
-		result = pExprCaller->DoExec(env, sig, &trailCtrl);
-		if (trailCtrl == TRAILCTRL_Quit) break;
+		result = pExprCaller->DoExec(env, sig, pTrailCtrlHolder.get());
+		if (pTrailCtrlHolder->Get() == TRAILCTRL_Quit) break;
 	}
 	// if there's an error suspended by try() function, it would be resumed below.
 	// otherwise, nothing would happen and any error would be kept intact.
@@ -1883,7 +1883,7 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig) const
 	return result;
 }
 
-Value Expr_Caller::DoExec(Environment &env, Signal sig, TrailCtrl *pTrailCtrl) const
+Value Expr_Caller::DoExec(Environment &env, Signal sig, TrailCtrlHolder *pTrailCtrlHolder) const
 {
 	// Expr_Caller::Exec(), Expr_Member::Exec() and Expr_Member::DoAssign()
 	// correspond to method-calling, property-getting and property-setting.
@@ -1896,7 +1896,7 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig, TrailCtrl *pTrailCtrl) c
 			return Value::Null;
 		}
 		return pCallable->Call(env, sig, Value::Null, NULL, false,
-								this, GetExprOwner().Reference(), pTrailCtrl);
+								this, GetExprOwner().Reference(), pTrailCtrlHolder);
 	}
 	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
 	Value valueThis = pExprMember->GetLeft()->Exec(env, sig);
@@ -1916,7 +1916,7 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig, TrailCtrl *pTrailCtrl) c
 			Value valueThisEach;
 			if (!pIteratorThis->Next(env, sig, valueThisEach)) return Value::Null;
 			return EvalEach(env, sig, valueThisEach,
-							pIteratorThis, valueThis.IsList(), pTrailCtrl);
+							pIteratorThis, valueThis.IsList(), pTrailCtrlHolder);
 		} else {
 			AutoPtr<Iterator> pIteratorMap(new Iterator_MethodMap(new Environment(env), sig,
 								pIteratorThis, Expr_Caller::Reference(this)));
@@ -1928,11 +1928,11 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig, TrailCtrl *pTrailCtrl) c
 			return result;
 		}
 	}
-	return EvalEach(env, sig, valueThis, NULL, false, pTrailCtrl);
+	return EvalEach(env, sig, valueThis, NULL, false, pTrailCtrlHolder);
 }
 
 Value Expr_Caller::EvalEach(Environment &env, Signal sig, const Value &valueThis,
-		Iterator *pIteratorThis, bool listThisFlag, TrailCtrl *pTrailCtrl) const
+		Iterator *pIteratorThis, bool listThisFlag, TrailCtrlHolder *pTrailCtrlHolder) const
 {
 	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
 	const Expr *pExprRight = pExprMember->GetRight();
@@ -1975,7 +1975,7 @@ Value Expr_Caller::EvalEach(Environment &env, Signal sig, const Value &valueThis
 		return Value::Null;
 	}
 	return pCallable->Call(env, sig, valueThis, pIteratorThis, listThisFlag,
-								this, GetExprOwner().Reference(), pTrailCtrl);
+								this, GetExprOwner().Reference(), pTrailCtrlHolder);
 }
 
 Value Expr_Caller::DoAssign(Environment &env, Signal sig, Value &value,

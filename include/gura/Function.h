@@ -327,9 +327,10 @@ private:
 // Args
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Args {
+public:
 private:
 	bool _listThisFlag;
-	TrailCtrl *_pTrailCtrl;
+	AutoPtr<TrailCtrlHolder> _pTrailCtrlHolder;
 	SymbolSet _attrs;
 	SymbolSet _attrsOpt;
 	ResultMode _resultMode;
@@ -344,12 +345,12 @@ private:
 public:
 	inline Args(ExprOwner *pExprOwnerArg, const Value &valueThis = Value::Null,
 				Iterator *pIteratorThis = NULL, bool listThisFlag = false,
-				TrailCtrl *pTrailCtrl = NULL,
+				TrailCtrlHolder *pTrailCtrlHolder = NULL,
 				const SymbolSet &attrs = SymbolSet::Null,
 				const SymbolSet &attrsOpt = SymbolSet::Null,
 				Expr_Block *pExprBlock = NULL) :
 		_listThisFlag(listThisFlag),
-		_pTrailCtrl(pTrailCtrl),
+		_pTrailCtrlHolder(pTrailCtrlHolder),
 		_attrs(attrs),
 		_attrsOpt(attrsOpt),
 		_resultMode(RSLTMODE_Normal),
@@ -363,12 +364,12 @@ public:
 		_pFuncBlock(NULL) {}
 	inline Args(const ValueList &valListArg, const Value &valueThis = Value::Null,
 				Iterator *pIteratorThis = NULL, bool listThisFlag = false,
-				TrailCtrl *pTrailCtrl = NULL,
+				TrailCtrlHolder *pTrailCtrlHolder = NULL,
 				const SymbolSet &attrs = SymbolSet::Null,
 				const SymbolSet &attrsOpt = SymbolSet::Null,
 				Expr_Block *pExprBlock = NULL) :
 		_listThisFlag(listThisFlag),
-		_pTrailCtrl(pTrailCtrl),
+		_pTrailCtrlHolder(pTrailCtrlHolder),
 		_attrs(attrs),
 		_attrsOpt(attrsOpt),
 		_resultMode(RSLTMODE_Normal),
@@ -383,7 +384,7 @@ public:
 	inline Args(Args &args, const ValueList &valListArg,
 			const Value &valueWithDict, ResultMode resultMode, ULong flags) :
 		_listThisFlag(args._listThisFlag),
-		_pTrailCtrl(args._pTrailCtrl),
+		_pTrailCtrlHolder(TrailCtrlHolder::Reference(args._pTrailCtrlHolder.get())),
 		_attrs(args._attrs),
 		_attrsOpt(args._attrsOpt),
 		_resultMode(resultMode),
@@ -397,7 +398,7 @@ public:
 		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
 	inline Args(Args &args, ExprOwner *pExprOwnerArg) :
 		_listThisFlag(args._listThisFlag),
-		_pTrailCtrl(args._pTrailCtrl),
+		_pTrailCtrlHolder(TrailCtrlHolder::Reference(args._pTrailCtrlHolder.get())),
 		_attrs(args._attrs),
 		_attrsOpt(args._attrsOpt),
 		_resultMode(args._resultMode),
@@ -445,7 +446,7 @@ public:
 	}
 	inline bool IsRsltFlat() const { return GetFlatFlag(); }
 	inline void SetTrailCtrl(TrailCtrl trailCtrl) {
-		if (_pTrailCtrl != NULL) *_pTrailCtrl = trailCtrl;
+		if (!_pTrailCtrlHolder.IsNull()) _pTrailCtrlHolder->Set(trailCtrl);
 	}
 	inline const ExprList &GetExprListArg() const {
 		return (_pExprOwnerArg.IsNull())? ExprList::Null : *_pExprOwnerArg;
@@ -545,7 +546,7 @@ public:
 	Value Call(Environment &env, Signal sig,
 			const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
 			const Expr_Caller *pExprCaller, ExprOwner *pExprOwnerArg,
-			TrailCtrl *pTrailCtrl);
+			TrailCtrlHolder *pTrailCtrlHolder);
 	virtual bool IsLeader() const;
 	virtual bool IsTrailer() const;
 	virtual bool IsEndMarker() const;

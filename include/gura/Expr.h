@@ -53,6 +53,25 @@ enum TrailCtrl {
 };
 
 //-----------------------------------------------------------------------------
+// TrailCtrlHolder
+//-----------------------------------------------------------------------------
+class TrailCtrlHolder {
+private:
+	int _cntRef;
+	TrailCtrl _trailCtrl;
+public:
+	Gura_DeclareReferenceAccessor(TrailCtrlHolder);
+public:
+	inline TrailCtrlHolder(TrailCtrl trailCtrl) :
+									_cntRef(1), _trailCtrl(trailCtrl) {}
+private:
+	inline ~TrailCtrlHolder() {}
+public:
+	inline void Set(TrailCtrl trailCtrl) { _trailCtrl = trailCtrl; }
+	inline TrailCtrl Get() const { return _trailCtrl; }
+};
+
+//-----------------------------------------------------------------------------
 // ExprVisitor
 //-----------------------------------------------------------------------------
 class ExprVisitor {
@@ -708,7 +727,7 @@ public:
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
 	Value EvalEach(Environment &env, Signal sig, const Value &valueThis,
-		Iterator *pIteratorThis, bool listThisFlag, TrailCtrl *pTrailCtrl) const;
+		Iterator *pIteratorThis, bool listThisFlag, TrailCtrlHolder *pTrailCtrlHolder) const;
 	inline void AddAttr(const Symbol *pSymbol) { _attrs.Insert(pSymbol); }
 	inline void AddAttrOpt(const Symbol *pSymbol) { _attrsOpt.Insert(pSymbol); }
 	inline const SymbolSet &GetAttrs() const { return _attrs; }
@@ -730,7 +749,7 @@ public:
 		return (_pExprTrailer.IsNull())? this : _pExprTrailer->GetLastTrailer();
 	}
 private:
-	Value DoExec(Environment &env, Signal sig, TrailCtrl *pTrailCtrl) const;
+	Value DoExec(Environment &env, Signal sig, TrailCtrlHolder *pTrailCtrlHolder) const;
 };
 
 //-----------------------------------------------------------------------------

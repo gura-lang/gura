@@ -916,11 +916,12 @@ const Function *Args::GetBlockFunc(Environment &env, Signal sig, const Symbol *p
 Value Callable::Call(Environment &env, Signal sig,
 		const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
 		const Expr_Caller *pExprCaller, ExprOwner *pExprOwnerArg,
-		TrailCtrl *pTrailCtrl)
+		TrailCtrlHolder *pTrailCtrlHolder)
 {
-	Args args(pExprOwnerArg, valueThis, pIteratorThis, listThisFlag, pTrailCtrl,
-					pExprCaller->GetAttrs(), pExprCaller->GetAttrsOpt(),
-					Expr_Block::Reference(pExprCaller->GetBlock()));
+	Args args(pExprOwnerArg, valueThis, pIteratorThis, listThisFlag,
+				TrailCtrlHolder::Reference(pTrailCtrlHolder),
+				pExprCaller->GetAttrs(), pExprCaller->GetAttrsOpt(),
+				Expr_Block::Reference(pExprCaller->GetBlock()));
 	Value result = DoCall(env, sig, args);
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(pExprCaller);

@@ -534,8 +534,7 @@ Value Operator_Mul::EvalMapBinary(Environment &env, Signal sig,
 				if (!pFunc->GetDeclOwner().Compensate(env, sig, valListComp)) {
 					return Value::Null;
 				}
-				TrailCtrl trailCtrl = TRAILCTRL_Continue;
-				Args argsSub(valListComp, Value::Null, NULL, false, &trailCtrl);
+				Args argsSub(valListComp, Value::Null, NULL, false, NULL);
 				return pFunc->Eval(env, sig, argsSub);
 			}
 			AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));
