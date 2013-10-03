@@ -853,7 +853,7 @@ const Expr_Block *Args::GetBlock(Environment &env, Signal sig) const
 	// check if the block parameter specifies a delegated block information
 	// like "g() {|block|}"
 	// scope problem remains: 2010.11.02
-	const Expr_Block *pExprBlock = _pExprBlock;
+	const Expr_Block *pExprBlock = _pExprBlock.get();
 	while (pExprBlock != NULL) {
 		const Expr_BlockParam *pExprBlockParam = pExprBlock->GetParam();
 		if (pExprBlockParam == NULL || !pExprBlock->GetExprOwner().empty()) {
@@ -919,7 +919,8 @@ Value Callable::Call(Environment &env, Signal sig,
 		TrailCtrl *pTrailCtrl)
 {
 	Args args(pExprOwnerArg, valueThis, pIteratorThis, listThisFlag, pTrailCtrl,
-		pExprCaller->GetAttrs(), pExprCaller->GetAttrsOpt(), pExprCaller->GetBlock());
+					pExprCaller->GetAttrs(), pExprCaller->GetAttrsOpt(),
+					Expr_Block::Reference(pExprCaller->GetBlock()));
 	Value result = DoCall(env, sig, args);
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(pExprCaller);

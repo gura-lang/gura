@@ -2012,7 +2012,7 @@ Value Expr_Caller::DoAssign(Environment &env, Signal sig, Value &value,
 		GetAttrs().IsSet(Gura_Symbol(static_))? FUNCTYPE_Class : FUNCTYPE_Instance;
 	CustomFunction *pFunc = new CustomFunction(env, pSymbol, pExprBody, funcType);
 	Args args(GetExprOwner().Reference(), Value::Null, NULL, false,
-								NULL, GetAttrs(), GetAttrsOpt(), GetBlock());
+			NULL, GetAttrs(), GetAttrsOpt(), Expr_Block::Reference(GetBlock()));
 	if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, args)) {
 		Function::Delete(pFunc);
 		return Value::Null;

@@ -328,18 +328,18 @@ private:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Args {
 private:
-	Value _valueThis;
-	AutoPtr<Iterator> _pIteratorThis;
 	bool _listThisFlag;
-	const Value &_valueWithDict;
-	AutoPtr<ExprOwner> _pExprOwnerArg;
-	const ValueList &_valListArg;
 	TrailCtrl *_pTrailCtrl;
-	const SymbolSet &_attrs;
-	const SymbolSet &_attrsOpt;
-	const Expr_Block *_pExprBlock;
+	SymbolSet _attrs;
+	SymbolSet _attrsOpt;
 	ResultMode _resultMode;
 	ULong _flags;
+	Value _valueWithDict;
+	Value _valueThis;
+	AutoPtr<Iterator> _pIteratorThis;
+	ValueList _valListArg;
+	AutoPtr<ExprOwner> _pExprOwnerArg;
+	AutoPtr<Expr_Block> _pExprBlock;
 	AutoPtr<Function> _pFuncBlock;
 public:
 	inline Args(ExprOwner *pExprOwnerArg, const Value &valueThis = Value::Null,
@@ -347,47 +347,67 @@ public:
 				TrailCtrl *pTrailCtrl = NULL,
 				const SymbolSet &attrs = SymbolSet::Null,
 				const SymbolSet &attrsOpt = SymbolSet::Null,
-				const Expr_Block *pExprBlock = NULL) :
-		_valueThis(valueThis),
-		_pIteratorThis(pIteratorThis), _listThisFlag(listThisFlag),
-		_valueWithDict(Value::Null),
-		_pExprOwnerArg(pExprOwnerArg), _valListArg(ValueList::Null),
+				Expr_Block *pExprBlock = NULL) :
+		_listThisFlag(listThisFlag),
 		_pTrailCtrl(pTrailCtrl),
-		_attrs(attrs), _attrsOpt(attrsOpt), _pExprBlock(pExprBlock),
-		_resultMode(RSLTMODE_Normal), _flags(FLAG_None),
+		_attrs(attrs),
+		_attrsOpt(attrsOpt),
+		_resultMode(RSLTMODE_Normal),
+		_flags(FLAG_None),
+		_valueWithDict(Value::Null),
+		_valueThis(valueThis),
+		_pIteratorThis(pIteratorThis),
+		_pExprOwnerArg(pExprOwnerArg),
+		_valListArg(ValueList::Null),
+		_pExprBlock(pExprBlock),
 		_pFuncBlock(NULL) {}
 	inline Args(const ValueList &valListArg, const Value &valueThis = Value::Null,
 				Iterator *pIteratorThis = NULL, bool listThisFlag = false,
 				TrailCtrl *pTrailCtrl = NULL,
 				const SymbolSet &attrs = SymbolSet::Null,
 				const SymbolSet &attrsOpt = SymbolSet::Null,
-				const Expr_Block *pExprBlock = NULL) :
-		_valueThis(valueThis),
-		_pIteratorThis(pIteratorThis), _listThisFlag(listThisFlag),
-		_valueWithDict(Value::Null),
-		_pExprOwnerArg(NULL), _valListArg(valListArg),
+				Expr_Block *pExprBlock = NULL) :
+		_listThisFlag(listThisFlag),
 		_pTrailCtrl(pTrailCtrl),
-		_attrs(attrs), _attrsOpt(attrsOpt), _pExprBlock(pExprBlock),
-		_resultMode(RSLTMODE_Normal), _flags(FLAG_None),
+		_attrs(attrs),
+		_attrsOpt(attrsOpt),
+		_resultMode(RSLTMODE_Normal),
+		_flags(FLAG_None),
+		_valueWithDict(Value::Null),
+		_valueThis(valueThis),
+		_pIteratorThis(pIteratorThis),
+		_pExprOwnerArg(NULL),
+		_valListArg(valListArg),
+		_pExprBlock(pExprBlock),
 		_pFuncBlock(NULL) {}
 	inline Args(Args &args, const ValueList &valListArg,
 			const Value &valueWithDict, ResultMode resultMode, ULong flags) :
-		_valueThis(args._valueThis),
-		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())), _listThisFlag(args._listThisFlag),
-		_valueWithDict(valueWithDict),
-		_pExprOwnerArg(NULL), _valListArg(valListArg),
+		_listThisFlag(args._listThisFlag),
 		_pTrailCtrl(args._pTrailCtrl),
-		_attrs(args._attrs), _attrsOpt(args._attrsOpt), _pExprBlock(args._pExprBlock),
-		_resultMode(resultMode), _flags(flags),
+		_attrs(args._attrs),
+		_attrsOpt(args._attrsOpt),
+		_resultMode(resultMode),
+		_flags(flags),
+		_valueWithDict(valueWithDict),
+		_valueThis(args._valueThis),
+		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())),
+		_pExprOwnerArg(NULL),
+		_valListArg(valListArg),
+		_pExprBlock(Expr_Block::Reference(args._pExprBlock.get())),
 		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
 	inline Args(Args &args, ExprOwner *pExprOwnerArg) :
-		_valueThis(args._valueThis),
-		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())), _listThisFlag(args._listThisFlag),
-		_valueWithDict(Value::Null),
-		_pExprOwnerArg(pExprOwnerArg), _valListArg(ValueList::Null),
+		_listThisFlag(args._listThisFlag),
 		_pTrailCtrl(args._pTrailCtrl),
-		_attrs(args._attrs), _attrsOpt(args._attrsOpt), _pExprBlock(args._pExprBlock),
-		_resultMode(args._resultMode), _flags(args._flags),
+		_attrs(args._attrs),
+		_attrsOpt(args._attrsOpt),
+		_resultMode(args._resultMode),
+		_flags(args._flags),
+		_valueWithDict(Value::Null),
+		_valueThis(args._valueThis),
+		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())),
+		_pExprOwnerArg(pExprOwnerArg),
+		_valListArg(ValueList::Null),
+		_pExprBlock(Expr_Block::Reference(args._pExprBlock.get())),
 		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
 	virtual ~Args();
 	inline bool IsSet(const Symbol *pSymbol) const {
@@ -408,7 +428,7 @@ public:
 	inline bool IsThisIterable() const { return !_pIteratorThis.IsNull(); }
 	inline bool IsThisList() const { return !_pIteratorThis.IsNull() && _listThisFlag; }
 	inline bool IsThisIterator() const { return !_pIteratorThis.IsNull() && !_listThisFlag; }
-	inline bool IsBlockSpecified() const { return _pExprBlock != NULL; }
+	inline bool IsBlockSpecified() const { return !_pExprBlock.IsNull(); }
 	inline bool IsRsltNormal() const { return _resultMode == RSLTMODE_Normal; }
 	inline bool IsRsltList() const { return _resultMode == RSLTMODE_List; }
 	inline bool IsRsltXList() const { return _resultMode == RSLTMODE_XList; }
