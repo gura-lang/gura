@@ -17,9 +17,9 @@ scope {
 				}
 			}
 		} catch(IteratorError) {
-			println('except(IteratorError)')
+			println('catch(IteratorError)')
 		} catch {
-			println('except()')
+			println('catch()')
 		} else {
 			println('else')
 		}
@@ -63,7 +63,7 @@ scope {
 			println('try')
 			return('hello')
 		} catch {
-			println('except')
+			println('catch')
 		}
 		println('end-of-function')
 	}
@@ -113,15 +113,15 @@ scope {
 	error_tester(err) = try {
 		if (err != nil) { raise(err, 'intentional error for handling test') }
 	} catch(IndexError) {|e|
-		println('except(IndexError) .. ', e.text)
+		println('catch(IndexError) .. ', e.text)
 	} catch(ValueError) {|e|
-		println('except(ValueError) .. ', e.text)
+		println('catch(ValueError) .. ', e.text)
 	} catch(IOError) {|e|
-		println('except(IOError) .. ', e.text)
+		println('catch(IOError) .. ', e.text)
 	} catch(SystemError, CodecError) {|e|
-		println('except(SystemError, CodecError) .. ', e.text)
+		println('catch(SystemError, CodecError) .. ', e.text)
 	} catch {|e|
-		println('except() .. ', e.text)
+		println('catch() .. ', e.text)
 	} else {
 		println('else()')
 	}

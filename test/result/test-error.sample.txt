@@ -1,7 +1,7 @@
 ======== error test ========
- [0,0,0] [0,0,1] [0,0,2] [0,1,0] [0,1,1] [0,1,2] [0,2,0] [0,2,1] [0,2,2] [1,0,0] [1,0,1] [1,0,2] [1,1,0] [1,1,1] [1,1,2] [1,2,0] [1,2,1] [1,2,2] [2,0,0] [2,0,1] [2,0,2]except(IteratorError)
+ [0,0,0] [0,0,1] [0,0,2] [0,1,0] [0,1,1] [0,1,2] [0,2,0] [0,2,1] [0,2,2] [1,0,0] [1,0,1] [1,0,2] [1,1,0] [1,1,1] [1,1,2] [1,2,0] [1,2,1] [1,2,2] [2,0,0] [2,0,1] [2,0,2]catch(IteratorError)
 end-of-function
- [0,0,0] [0,0,1] [0,0,2] [0,1,0] [0,1,1] [0,1,2] [0,2,0] [0,2,1] [0,2,2] [1,0,0] [1,0,1] [1,0,2] [1,1,0] [1,1,1] [1,1,2] [1,2,0] [1,2,1] [1,2,2] [2,0,0] [2,0,1] [2,0,2]except()
+ [0,0,0] [0,0,1] [0,0,2] [0,1,0] [0,1,1] [0,1,2] [0,2,0] [0,2,1] [0,2,2] [1,0,0] [1,0,1] [1,0,2] [1,1,0] [1,1,1] [1,1,2] [1,2,0] [1,2,1] [1,2,2] [2,0,0] [2,0,1] [2,0,2]catch()
 end-of-function
  [0,0,0] [0,0,1] [0,0,2] [0,1,0] [0,1,1] [0,1,2] [0,2,0] [0,2,1] [0,2,2] [1,0,0] [1,0,1] [1,0,2] [1,1,0] [1,1,1] [1,1,2] [1,2,0] [1,2,1] [1,2,2] [2,0,0] [2,0,1] [2,0,2] [2,1,0] [2,1,1] [2,1,2] [2,2,0] [2,2,1] [2,2,2]else
 end-of-function
@@ -14,11 +14,11 @@ expected error occurs: TypeError: variable 'p' cannot take list value in 'p:Pers
 ValueError detected: ValueError: undefined symbol 'a'
 other error detected: IndexError: index is out of range
 no error
-except(IndexError) .. IndexError: intentional error for handling test
-except(ValueError) .. ValueError: intentional error for handling test
-except(IOError) .. IOError: intentional error for handling test
-except(SystemError, CodecError) .. SystemError: intentional error for handling test
-except(SystemError, CodecError) .. CodecError: intentional error for handling test
-except() .. AttributeError: intentional error for handling test
+catch(IndexError) .. IndexError: intentional error for handling test
+catch(ValueError) .. ValueError: intentional error for handling test
+catch(IOError) .. IOError: intentional error for handling test
+catch(SystemError, CodecError) .. SystemError: intentional error for handling test
+catch(SystemError, CodecError) .. CodecError: intentional error for handling test
+catch() .. AttributeError: intentional error for handling test
 else()
 ValueError detected: ValueError: unhandled error

@@ -41,6 +41,7 @@ base64:module = <module:base64:<integrated>>
   writer:function = writer(stream:stream:w, linelen:number:nil => 76)
 binary:function = binary(buff*) {block?}
 case:function = case(`cond) {block}
+catch:function = catch(errors*:error):leader:trailer {block}
 choose:function = choose(index:number, values+):map
 chr:function = chr(num:number):map
 class:function = class(superclass?:function) {block?}
@@ -101,7 +102,6 @@ else:function = else():trailer {block}
 elsif:function = elsif (`cond):leader:trailer {block}
 end:function = end():symbol_func:trailer:end_marker:void
 eval:function = eval(expr:expr):map
-except:function = except(errors*:error):leader:trailer {block}
 extern:function = extern(`syms+)
 false:boolean = false
 finally:function = finally():trailer {block}
