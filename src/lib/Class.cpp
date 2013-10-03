@@ -318,9 +318,9 @@ bool Class::BuildContent(Environment &env, Signal sig, const Value &valueThis,
 			if (pCallable == NULL) {
 				sig.SetError(ERR_TypeError, "object is not callable");
 			} else {
-				const Function *pFuncLeader = NULL;
+				TrailCtrl trailCtrl = TRAILCTRL_Continue;
 				pCallable->Call(*this, sig, valueThis, NULL, false,
-						pExprCaller, pExprCaller->GetExprOwner(), &pFuncLeader);
+						pExprCaller, pExprCaller->GetExprOwner(), &trailCtrl);
 			}
 		} else {
 			sig.SetError(ERR_SyntaxError, "invalid element in class constructor");

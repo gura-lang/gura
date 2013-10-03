@@ -48,7 +48,6 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual bool CheckIfAcceptableLeader(const Function *pFuncLeader) const;
 	virtual bool IsLeader() const;
 	virtual bool IsTrailer() const;
 	virtual bool IsEndMarker() const;

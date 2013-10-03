@@ -44,6 +44,14 @@ enum ExprType {
 GURA_DLLDECLARE const char *GetExprTypeName(ExprType exprType);
 
 //-----------------------------------------------------------------------------
+// TrailCtrl
+//-----------------------------------------------------------------------------
+enum TrailCtrl {
+	TRAILCTRL_Continue,
+	TRAILCTRL_Quit,
+};
+
+//-----------------------------------------------------------------------------
 // ExprVisitor
 //-----------------------------------------------------------------------------
 class ExprVisitor {
@@ -699,7 +707,7 @@ public:
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
 	Value EvalEach(Environment &env, Signal sig, const Value &valueThis,
-		Iterator *pIteratorThis, bool listThisFlag, const Function **ppFuncLeader) const;
+		Iterator *pIteratorThis, bool listThisFlag, TrailCtrl *pTrailCtrl) const;
 	inline void AddAttr(const Symbol *pSymbol) { _attrs.Insert(pSymbol); }
 	inline void AddAttrOpt(const Symbol *pSymbol) { _attrsOpt.Insert(pSymbol); }
 	inline const SymbolSet &GetAttrs() const { return _attrs; }
@@ -721,7 +729,7 @@ public:
 		return (_pExprTrailer.IsNull())? this : _pExprTrailer->GetLastTrailer();
 	}
 private:
-	Value DoExec(Environment &env, Signal sig, const Function **ppFuncLeader) const;
+	Value DoExec(Environment &env, Signal sig, TrailCtrl *pTrailCtrl) const;
 };
 
 //-----------------------------------------------------------------------------

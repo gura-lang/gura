@@ -1408,11 +1408,11 @@ Iterator *Iterator_MethodMap::GetSource()
 
 bool Iterator_MethodMap::DoNext(Environment &env, Signal sig, Value &value)
 {
-	const Function *pFuncLeader = NULL;
+	TrailCtrl trailCtrl = TRAILCTRL_Continue;
 	Value valueThis;
 	if (!_pIteratorThis->Next(env, sig, valueThis)) return false;
 	value = _pExprCaller->EvalEach(*_pEnv, sig,
-							valueThis, NULL, false, &pFuncLeader);
+							valueThis, NULL, false, &trailCtrl);
 	return true;
 }
 
@@ -1449,21 +1449,21 @@ bool Iterator_FuncBinder::DoNext(Environment &env, Signal sig, Value &value)
 	Value valueArg;
 	if (!_pIterator->Next(env, sig, valueArg)) return false;
 	if (valueArg.IsList()) {
-		const Function *pFuncLeader = NULL;
+		TrailCtrl trailCtrl = TRAILCTRL_Continue;
 		ValueList valListComp = valueArg.GetList();
 		if (!_pFunc->GetDeclOwner().Compensate(*_pEnv, sig, valListComp)) {
 			return false;
 		}
-		Args args(valListComp, _valueThis, NULL, false, &pFuncLeader);
+		Args args(valListComp, _valueThis, NULL, false, &trailCtrl);
 		value = _pFunc->Eval(*_pEnv, sig, args);
 		if (sig.IsSignalled()) return false;
 	} else {
-		const Function *pFuncLeader = NULL;
+		TrailCtrl trailCtrl = TRAILCTRL_Continue;
 		ValueList valListComp(valueArg);
 		if (!_pFunc->GetDeclOwner().Compensate(*_pEnv, sig, valListComp)) {
 			return false;
 		}
-		Args args(valListComp, _valueThis, NULL, false, &pFuncLeader);
+		Args args(valListComp, _valueThis, NULL, false, &trailCtrl);
 		value = _pFunc->Eval(*_pEnv, sig, args);
 		if (sig.IsSignalled()) return false;
 		//sig.SetError(ERR_TypeError, "invalid structure of arguments");

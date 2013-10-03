@@ -124,22 +124,22 @@ bool Object::DirProp(Environment &env, Signal sig, SymbolSet &symbols)
 
 Value Object::EvalMethod(Environment &env, Signal sig, const Function *pFunc, const ValueList &valListArg)
 {
-	const Function *pFuncLeader = NULL;
+	TrailCtrl trailCtrl = TRAILCTRL_Continue;
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
-	Args args(valListArg, valueThis, NULL, false, &pFuncLeader);
+	Args args(valListArg, valueThis, NULL, false, &trailCtrl);
 	return pFunc->Eval(env, sig, args);
 }
 
 Value Object::EvalMethod(Environment &env, Signal sig, const Symbol *pSymbol,
 							const ValueList &valListArg, bool &evaluatedFlag)
 {
-	const Function *pFuncLeader = NULL;
+	TrailCtrl trailCtrl = TRAILCTRL_Continue;
 	evaluatedFlag = false;
 	const Function *pFunc = LookupFunction(pSymbol, ENVREF_Escalate);
 	if (pFunc == NULL) return Value::Null;
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	evaluatedFlag = true;
-	Args args(valListArg, valueThis, NULL, false, &pFuncLeader);
+	Args args(valListArg, valueThis, NULL, false, &trailCtrl);
 	return pFunc->Eval(env, sig, args);
 }
 

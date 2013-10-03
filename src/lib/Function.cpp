@@ -423,11 +423,6 @@ Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &ar
 	return pEnvLocal.release();
 }
 
-bool Function::CheckIfAcceptableLeader(const Function *pFuncLeader) const
-{
-	return false;
-}
-
 Value Function::ReturnIterator(Environment &env, Signal sig,
 								Args &args, Iterator *pIterator) const
 {
@@ -921,21 +916,9 @@ const Function *Args::GetBlockFunc(Environment &env, Signal sig, const Symbol *p
 Value Callable::Call(Environment &env, Signal sig,
 		const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
 		const Expr_Caller *pExprCaller, const ExprList &exprListArg,
-		const Function **ppFuncLeader)
+		TrailCtrl *pTrailCtrl)
 {
-	if (ppFuncLeader != NULL) {
-		const Function *pFuncLeader = *ppFuncLeader;
-		*ppFuncLeader = NULL;
-		if (pFuncLeader == NULL) {
-			// nothing to do
-		} else if (!CheckIfAcceptableLeader(pFuncLeader)) {
-			sig.AddExprCause(pExprCaller);
-			pExprCaller->SetError(sig,
-					ERR_SyntaxError, "invalid trailing process");
-			return Value::Null;
-		}
-	}
-	Args args(exprListArg, valueThis, pIteratorThis, listThisFlag, ppFuncLeader,
+	Args args(exprListArg, valueThis, pIteratorThis, listThisFlag, pTrailCtrl,
 		pExprCaller->GetAttrs(), pExprCaller->GetAttrsOpt(), pExprCaller->GetBlock());
 	Value result = DoCall(env, sig, args);
 	if (sig.IsSignalled()) {
@@ -943,11 +926,6 @@ Value Callable::Call(Environment &env, Signal sig,
 		return Value::Null;
 	}
 	return result;
-}
-
-bool Callable::CheckIfAcceptableLeader(const Function *pFuncLeader) const
-{
-	return false;
 }
 
 bool Callable::IsLeader() const

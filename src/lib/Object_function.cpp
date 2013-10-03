@@ -94,11 +94,6 @@ Value Object_function::DoSetProp(Environment &env, Signal sig, const Symbol *pSy
 	return DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
-bool Object_function::CheckIfAcceptableLeader(const Function *pFuncLeader) const
-{
-	return _pFunc->CheckIfAcceptableLeader(pFuncLeader);
-}
-
 bool Object_function::IsLeader() const
 {
 	return _pFunc->GetLeaderFlag();

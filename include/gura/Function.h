@@ -40,7 +40,6 @@ class Func_##name : public Function { \
 public: \
 	Func_##name(Environment &env, const char *name = nameAlias); \
 	virtual Value DoEval(Environment &env, Signal sig, Args &args) const; \
-	virtual bool CheckIfAcceptableLeader(const Function *pFuncLeader) const; \
 }; \
 Func_##name::Func_##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
@@ -217,7 +216,6 @@ public:
 	Value EvalMap(Environment &env, Signal sig, Args &args) const;
 	Value EvalMapRecursive(Environment &env, Signal sig,
 				ResultComposer *pResultComposer, Args &args) const;
-	virtual bool CheckIfAcceptableLeader(const Function *pFuncLeader) const;
 	inline FunctionType GetType() const { return _funcType; }
 	inline const char *GetTypeName() const { return GetFuncTypeName(_funcType); }
 	inline void SetMode(ResultMode resultMode, ULong flags) {
@@ -335,7 +333,7 @@ private:
 	const Value &_valueWithDict;
 	const ExprList &_exprListArg;
 	const ValueList &_valListArg;
-	const Function **_ppFuncLeader;
+	TrailCtrl *_pTrailCtrl;
 	const SymbolSet &_attrs;
 	const SymbolSet &_attrsOpt;
 	const Expr_Block *_pExprBlock;
@@ -345,7 +343,7 @@ private:
 public:
 	inline Args(const ExprList &exprListArg, const Value &valueThis = Value::Null,
 				Iterator *pIteratorThis = NULL, bool listThisFlag = false,
-				const Function **ppFuncLeader = NULL,
+				TrailCtrl *pTrailCtrl = NULL,
 				const SymbolSet &attrs = SymbolSet::Null,
 				const SymbolSet &attrsOpt = SymbolSet::Null,
 				const Expr_Block *pExprBlock = NULL) :
@@ -353,13 +351,13 @@ public:
 		_pIteratorThis(pIteratorThis), _listThisFlag(listThisFlag),
 		_valueWithDict(Value::Null),
 		_exprListArg(exprListArg), _valListArg(ValueList::Null),
-		_ppFuncLeader(ppFuncLeader),
+		_pTrailCtrl(pTrailCtrl),
 		_attrs(attrs), _attrsOpt(attrsOpt), _pExprBlock(pExprBlock),
 		_resultMode(RSLTMODE_Normal), _flags(FLAG_None),
 		_pFuncBlock(NULL) {}
 	inline Args(const ValueList &valListArg, const Value &valueThis = Value::Null,
 				Iterator *pIteratorThis = NULL, bool listThisFlag = false,
-				const Function **ppFuncLeader = NULL,
+				TrailCtrl *pTrailCtrl = NULL,
 				const SymbolSet &attrs = SymbolSet::Null,
 				const SymbolSet &attrsOpt = SymbolSet::Null,
 				const Expr_Block *pExprBlock = NULL) :
@@ -367,7 +365,7 @@ public:
 		_pIteratorThis(pIteratorThis), _listThisFlag(listThisFlag),
 		_valueWithDict(Value::Null),
 		_exprListArg(ExprList::Null), _valListArg(valListArg),
-		_ppFuncLeader(ppFuncLeader),
+		_pTrailCtrl(pTrailCtrl),
 		_attrs(attrs), _attrsOpt(attrsOpt), _pExprBlock(pExprBlock),
 		_resultMode(RSLTMODE_Normal), _flags(FLAG_None),
 		_pFuncBlock(NULL) {}
@@ -377,7 +375,7 @@ public:
 		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())), _listThisFlag(args._listThisFlag),
 		_valueWithDict(valueWithDict),
 		_exprListArg(ExprList::Null), _valListArg(valListArg),
-		_ppFuncLeader(args._ppFuncLeader),
+		_pTrailCtrl(args._pTrailCtrl),
 		_attrs(args._attrs), _attrsOpt(args._attrsOpt), _pExprBlock(args._pExprBlock),
 		_resultMode(resultMode), _flags(flags),
 		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
@@ -386,7 +384,7 @@ public:
 		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())), _listThisFlag(args._listThisFlag),
 		_valueWithDict(Value::Null),
 		_exprListArg(exprListArg), _valListArg(ValueList::Null),
-		_ppFuncLeader(args._ppFuncLeader),
+		_pTrailCtrl(args._pTrailCtrl),
 		_attrs(args._attrs), _attrsOpt(args._attrsOpt), _pExprBlock(args._pExprBlock),
 		_resultMode(args._resultMode), _flags(args._flags),
 		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
@@ -425,8 +423,8 @@ public:
 			IsRsltSet() || IsRsltXSet() || IsRsltIterator() || IsRsltXIterator();
 	}
 	inline bool IsRsltFlat() const { return GetFlatFlag(); }
-	inline void RequestTrailer(const Function *pFuncLeader) {
-		if (_ppFuncLeader != NULL) *_ppFuncLeader = pFuncLeader;
+	inline void SetTrailCtrl(TrailCtrl trailCtrl) {
+		if (_pTrailCtrl != NULL) *_pTrailCtrl = trailCtrl;
 	}
 	inline const ExprList &GetExprListArg() const { return _exprListArg; }
 	inline const ValueList &GetArgs() const { return _valListArg; }
@@ -524,8 +522,7 @@ public:
 	Value Call(Environment &env, Signal sig,
 			const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
 			const Expr_Caller *pExprCaller, const ExprList &exprListArg,
-			const Function **ppFuncLeader);
-	virtual bool CheckIfAcceptableLeader(const Function *pFuncLeader) const;
+			TrailCtrl *pTrailCtrl);
 	virtual bool IsLeader() const;
 	virtual bool IsTrailer() const;
 	virtual bool IsEndMarker() const;

@@ -411,7 +411,6 @@ Gura_ImplementFunction(try_)
 	if (sig.IsSignalled()) return Value::Null;
 	Value result = pExprBlock->Exec(*pEnvBlock, sig);
 	sig.SuspendError();
-	args.RequestTrailer(this);
 	return result;
 }
 
@@ -445,10 +444,8 @@ Gura_ImplementFunction(except_)
 			}
 		}
 	}
-	if (!handleFlag) {
-		args.RequestTrailer(this);
-		return Value::Null;
-	}
+	if (!handleFlag) return Value::Null;
+	args.SetTrailCtrl(TRAILCTRL_Quit);
 	Object_error *pObj = new Object_error(env, sig.GetError());
 	Value value(pObj);
 	ValueList valListArg(value);
@@ -459,13 +456,6 @@ Gura_ImplementFunction(except_)
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	Args argsSub(valListArg);
 	return pFuncBlock->Eval(*pEnvBlock, sig, argsSub);
-}
-
-bool Gura_Function(except_)::CheckIfAcceptableLeader(const Function *pFuncLeader) const
-{
-	//const Symbol *pSymbol = pFuncLeader->GetSymbol();
-	//return pSymbol->IsIdentical(Gura_Symbol(try_))) || pSymbol->IsIdentical(Gura_Symbol(except_));
-	return true;
 }
 
 // finally ():trailer {block}
@@ -481,13 +471,6 @@ Gura_ImplementFunction(finally_)
 	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
 	if (sig.IsSignalled()) return Value::Null;
 	return pExprBlock->Exec(*pEnvBlock, sig);
-}
-
-bool Gura_Function(finally_)::CheckIfAcceptableLeader(const Function *pFuncLeader) const
-{
-	//const Symbol *pSymbol = pFuncLeader->GetSymbol();
-	//return pSymbol->IsIdentical(Gura_Symbol(try_))) || pSymbol->IsIdentical(Gura_Symbol(except_));
-	return true;
 }
 
 // if (`cond):leader {block}
@@ -507,11 +490,11 @@ Gura_ImplementFunction(if_)
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	Value value = args.GetExpr(0)->Exec(*pEnvBlock, sig);
 	if (value.GetBoolean()) {
+		args.SetTrailCtrl(TRAILCTRL_Quit);
 		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		return pExprBlock->Exec(*pEnvBlock, sig);
 	}
-	args.RequestTrailer(this);
 	return Value::Null;
 }
 
@@ -534,17 +517,10 @@ Gura_ImplementFunction(elsif_)
 	if (value.GetBoolean()) {
 		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
 		if (sig.IsSignalled()) return Value::Null;
+		args.SetTrailCtrl(TRAILCTRL_Quit);
 		return pExprBlock->Exec(*pEnvBlock, sig);
 	}
-	args.RequestTrailer(this);
 	return Value::Null;
-}
-
-bool Gura_Function(elsif_)::CheckIfAcceptableLeader(const Function *pFuncLeader) const
-{
-	//const Symbol *pSymbol = pFuncLeader->GetSymbol();
-	//return pSymbol->IsIdentical(Gura_Symbol(if_))) || pSymbol->IsIdentical(Gura_Symbol(elsif_));
-	return true;
 }
 
 // else ():trailer {block}
@@ -564,13 +540,6 @@ Gura_ImplementFunction(else_)
 	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
 	if (sig.IsSignalled()) return Value::Null;
 	return pExprBlock->Exec(*pEnvBlock, sig);
-}
-
-bool Gura_Function(else_)::CheckIfAcceptableLeader(const Function *pFuncLeader) const
-{
-	//const Symbol *pSymbol = pFuncLeader->GetSymbol();
-	//return pSymbol->IsIdentical(Gura_Symbol(if_))) || pSymbol->IsIdentical(Gura_Symbol(elsif_));
-	return true;
 }
 
 // end ():void:symbol_func:trailer:end_marker
