@@ -75,7 +75,7 @@ Function *CustomClass::PrepareConstructor(Environment &env, Signal sig)
 	} else {
 		pFunc.reset(new ConstructorOfCustomClass(env, Gura_Symbol(_anonymous_),
 												new Expr_Block(), FUNCTYPE_Function));
-		Args argsSub(ExprList::Null);
+		Args argsSub(NULL);
 		if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, argsSub)) return NULL;
 	}
 	pFunc->SetSymbol(_pSymbol);
@@ -119,16 +119,16 @@ Value ConstructorOfCustomClass::DoEval(Environment &env, Signal sig, Args &args)
 				(pClassSuper == NULL)? NULL : pClassSuper->GetConstructor();
 	if (pConstructorSuper != NULL) {
 		const Expr *pExpr = GetExprBody();
-		const ExprList *pExprList = &ExprList::Null;
+		ExprOwner *pExprOwner = NULL;
 		if (pExpr->IsBlock()) {
 			const Expr_Block *pExprBlock = dynamic_cast<const Expr_Block *>(pExpr);
 			const Expr_BlockParam *pExprParam = pExprBlock->GetParam();
 			if (pExprParam != NULL) {
-				pExprList = &pExprParam->GetExprOwner();
+				pExprOwner = pExprParam->GetExprOwner().Reference();
 			}
 		}
 		AutoPtr<Environment> pEnvSuper(new Environment(pEnvLocal.get(), ENVTYPE_local));
-		Args argsSub(*pExprList, valueRtn);
+		Args argsSub(pExprOwner, valueRtn);
 		pConstructorSuper->EvalExpr(*pEnvSuper, sig, argsSub);
 		if (sig.IsSignalled()) return Value::Null;
 	}

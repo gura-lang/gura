@@ -175,7 +175,7 @@ Value Gura_Method(Object, __call__)::EvalExpr(Environment &env, Signal sig, Args
 	}
 	const Function *pFunc = valueFunc.GetFunction();
 	pExprOwnerArgs->erase(pExprOwnerArgs->begin());
-	Args argsSub(args, *pExprOwnerArgs);
+	Args argsSub(args, pExprOwnerArgs->Reference());
 	return pFunc->EvalExpr(env, sig, argsSub);
 }
 
@@ -320,7 +320,7 @@ bool Class::BuildContent(Environment &env, Signal sig, const Value &valueThis,
 			} else {
 				TrailCtrl trailCtrl = TRAILCTRL_Continue;
 				pCallable->Call(*this, sig, valueThis, NULL, false,
-						pExprCaller, pExprCaller->GetExprOwner(), &trailCtrl);
+					pExprCaller, pExprCaller->GetExprOwner().Reference(), &trailCtrl);
 			}
 		} else {
 			sig.SetError(ERR_SyntaxError, "invalid element in class constructor");

@@ -205,24 +205,24 @@ Gura_ImplementFunction(function)
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
 	const Expr_BlockParam *pExprBlockParam = pExprBlock->GetParam();
-	ExprList exprListArg;
-	const ExprList *pExprListArg = &exprListArg;
+	ExprOwner *pExprOwnerArg = NULL;
 	if (pExprBlockParam == NULL) {
+		pExprOwnerArg = new ExprOwner();
 		foreach_const (ValueList, pValue, args.GetList(0)) {
-			exprListArg.push_back(const_cast<Expr *>(pValue->GetExpr()));
+			pExprOwnerArg->push_back(pValue->GetExpr()->Reference());
 		}
-		if (exprListArg.empty()) {
-			pExprBlock->GatherSimpleLambdaArgs(exprListArg);
+		if (pExprOwnerArg->empty()) {
+			pExprBlock->GatherSimpleLambdaArgs(*pExprOwnerArg);
 		}
 	} else if (!args.GetList(0).empty()) {
 		sig.SetError(ERR_SyntaxError, "argument list conflicts with block parameter.");
 		return Value::Null;
 	} else {
-		pExprListArg = &pExprBlockParam->GetExprOwner();
+		pExprOwnerArg = pExprBlockParam->GetExprOwner().Reference();
 	}
 	AutoPtr<CustomFunction> pFunc(new CustomFunction(env,
 			Gura_Symbol(_anonymous_), Expr::Reference(pExprBlock), FUNCTYPE_Function));
-	Args argsSub(*pExprListArg, Value::Null, NULL, false, NULL, args.GetAttrs());
+	Args argsSub(pExprOwnerArg, Value::Null, NULL, false, NULL, args.GetAttrs());
 	if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, argsSub)) return Value::Null;
 	return Value(env, pFunc.release(), Value::Null);
 }

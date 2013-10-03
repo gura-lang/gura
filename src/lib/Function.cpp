@@ -833,7 +833,7 @@ CustomFunction *CustomFunction::CreateBlockFunc(Environment &env, Signal sig,
 	pFunc->_declOwner.AllowTooManyArgs(true);
 	const Expr_BlockParam *pExprBlockParam = pExprBlock->GetParam();
 	if (pExprBlockParam != NULL) {
-		Args args(pExprBlockParam->GetExprOwner());
+		Args args(pExprBlockParam->GetExprOwner().Reference());
 		if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, args)) {
 			return NULL;
 		}
@@ -915,10 +915,10 @@ const Function *Args::GetBlockFunc(Environment &env, Signal sig, const Symbol *p
 //-----------------------------------------------------------------------------
 Value Callable::Call(Environment &env, Signal sig,
 		const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
-		const Expr_Caller *pExprCaller, const ExprList &exprListArg,
+		const Expr_Caller *pExprCaller, ExprOwner *pExprOwnerArg,
 		TrailCtrl *pTrailCtrl)
 {
-	Args args(exprListArg, valueThis, pIteratorThis, listThisFlag, pTrailCtrl,
+	Args args(pExprOwnerArg, valueThis, pIteratorThis, listThisFlag, pTrailCtrl,
 		pExprCaller->GetAttrs(), pExprCaller->GetAttrsOpt(), pExprCaller->GetBlock());
 	Value result = DoCall(env, sig, args);
 	if (sig.IsSignalled()) {

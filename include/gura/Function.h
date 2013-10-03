@@ -114,6 +114,7 @@ namespace Gura {
 
 class Args;
 class ExprList;
+class ExprOwner;
 class Expr_Block;
 class Expr_Caller;
 class CustomClass;
@@ -331,7 +332,7 @@ private:
 	AutoPtr<Iterator> _pIteratorThis;
 	bool _listThisFlag;
 	const Value &_valueWithDict;
-	const ExprList &_exprListArg;
+	AutoPtr<ExprOwner> _pExprOwnerArg;
 	const ValueList &_valListArg;
 	TrailCtrl *_pTrailCtrl;
 	const SymbolSet &_attrs;
@@ -341,7 +342,7 @@ private:
 	ULong _flags;
 	AutoPtr<Function> _pFuncBlock;
 public:
-	inline Args(const ExprList &exprListArg, const Value &valueThis = Value::Null,
+	inline Args(ExprOwner *pExprOwnerArg, const Value &valueThis = Value::Null,
 				Iterator *pIteratorThis = NULL, bool listThisFlag = false,
 				TrailCtrl *pTrailCtrl = NULL,
 				const SymbolSet &attrs = SymbolSet::Null,
@@ -350,7 +351,7 @@ public:
 		_valueThis(valueThis),
 		_pIteratorThis(pIteratorThis), _listThisFlag(listThisFlag),
 		_valueWithDict(Value::Null),
-		_exprListArg(exprListArg), _valListArg(ValueList::Null),
+		_pExprOwnerArg(pExprOwnerArg), _valListArg(ValueList::Null),
 		_pTrailCtrl(pTrailCtrl),
 		_attrs(attrs), _attrsOpt(attrsOpt), _pExprBlock(pExprBlock),
 		_resultMode(RSLTMODE_Normal), _flags(FLAG_None),
@@ -364,7 +365,7 @@ public:
 		_valueThis(valueThis),
 		_pIteratorThis(pIteratorThis), _listThisFlag(listThisFlag),
 		_valueWithDict(Value::Null),
-		_exprListArg(ExprList::Null), _valListArg(valListArg),
+		_pExprOwnerArg(NULL), _valListArg(valListArg),
 		_pTrailCtrl(pTrailCtrl),
 		_attrs(attrs), _attrsOpt(attrsOpt), _pExprBlock(pExprBlock),
 		_resultMode(RSLTMODE_Normal), _flags(FLAG_None),
@@ -374,16 +375,16 @@ public:
 		_valueThis(args._valueThis),
 		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())), _listThisFlag(args._listThisFlag),
 		_valueWithDict(valueWithDict),
-		_exprListArg(ExprList::Null), _valListArg(valListArg),
+		_pExprOwnerArg(NULL), _valListArg(valListArg),
 		_pTrailCtrl(args._pTrailCtrl),
 		_attrs(args._attrs), _attrsOpt(args._attrsOpt), _pExprBlock(args._pExprBlock),
 		_resultMode(resultMode), _flags(flags),
 		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
-	inline Args(Args &args, const ExprList &exprListArg) :
+	inline Args(Args &args, ExprOwner *pExprOwnerArg) :
 		_valueThis(args._valueThis),
 		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())), _listThisFlag(args._listThisFlag),
 		_valueWithDict(Value::Null),
-		_exprListArg(exprListArg), _valListArg(ValueList::Null),
+		_pExprOwnerArg(pExprOwnerArg), _valListArg(ValueList::Null),
 		_pTrailCtrl(args._pTrailCtrl),
 		_attrs(args._attrs), _attrsOpt(args._attrsOpt), _pExprBlock(args._pExprBlock),
 		_resultMode(args._resultMode), _flags(args._flags),
@@ -426,7 +427,9 @@ public:
 	inline void SetTrailCtrl(TrailCtrl trailCtrl) {
 		if (_pTrailCtrl != NULL) *_pTrailCtrl = trailCtrl;
 	}
-	inline const ExprList &GetExprListArg() const { return _exprListArg; }
+	inline const ExprList &GetExprListArg() const {
+		return (_pExprOwnerArg.IsNull())? ExprList::Null : *_pExprOwnerArg;
+	}
 	inline const ValueList &GetArgs() const { return _valListArg; }
 	inline size_t CountArgs() const { return _valListArg.size(); }
 	inline Value GetValue(size_t idxArg) {
@@ -521,7 +524,7 @@ class GURA_DLLDECLARE Callable {
 public:
 	Value Call(Environment &env, Signal sig,
 			const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
-			const Expr_Caller *pExprCaller, const ExprList &exprListArg,
+			const Expr_Caller *pExprCaller, ExprOwner *pExprOwnerArg,
 			TrailCtrl *pTrailCtrl);
 	virtual bool IsLeader() const;
 	virtual bool IsTrailer() const;

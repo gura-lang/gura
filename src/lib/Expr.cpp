@@ -150,11 +150,11 @@ Function *Expr::ToFunction(Environment &env, Signal sig,
 			sig.SetError(ERR_TypeError, "argument declaration conflicts");
 			return NULL;
 		}
-		ExprList exprListArg;
+		AutoPtr<ExprOwner> pExprOwnerArg(new ExprOwner());
 		foreach_const (ValueList, pValue, valListArg) {
-			exprListArg.push_back(const_cast<Expr *>(pValue->GetExpr()));
+			pExprOwnerArg->push_back(pValue->GetExpr()->Reference());
 		}
-		Args args(exprListArg, Value::Null, NULL, false, NULL, attrs);
+		Args args(pExprOwnerArg.release(), Value::Null, NULL, false, NULL, attrs);
 		if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, args)) {
 			return NULL;
 		}
@@ -178,9 +178,9 @@ void Expr::GatherSymbol(SymbolSet &symbolSet) const
 	Accept(visitor);
 }
 
-void Expr::GatherSimpleLambdaArgs(ExprList &exprListArg) const
+void Expr::GatherSimpleLambdaArgs(ExprOwner &exprOwnerArg) const
 {
-	ExprVisitor_GatherSimpleLambdaArgs visitor(exprListArg);
+	ExprVisitor_GatherSimpleLambdaArgs visitor(exprOwnerArg);
 	Accept(visitor);
 }
 
@@ -420,7 +420,7 @@ bool Expr::ExprVisitor_GatherSimpleLambdaArgs::Visit(const Expr *pExpr)
 						dynamic_cast<const Expr_Symbol *>(pExpr)->GetSymbol();
 		if (pSymbol->GetName()[0] == '$' &&
 								_symbolSet.find(pSymbol) == _symbolSet.end()) {
-			_exprListArg.push_back(const_cast<Expr *>(pExpr));
+			_exprOwnerArg.push_back(pExpr->Reference());
 			_symbolSet.insert(pSymbol);
 		}
 	}
@@ -484,7 +484,7 @@ Value ExprList::Exec2(Environment &env, Signal sig, bool evalSymFuncFlag) const
 			// object as its result, and then the block of "repeat" shall evaluate it.
 			//   repeat { flag && return }
 			const Function *pFunc = result.GetFunction();
-			Args args(ExprList::Null);
+			Args args(NULL);
 			Value result = pFunc->EvalExpr(env, sig, args);
 			if (sig.IsSignalled()) {
 				sig.AddExprCause(*ppExpr);
@@ -1896,7 +1896,7 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig, TrailCtrl *pTrailCtrl) c
 			return Value::Null;
 		}
 		return pCallable->Call(env, sig, Value::Null, NULL, false,
-									this, GetExprOwner(), pTrailCtrl);
+								this, GetExprOwner().Reference(), pTrailCtrl);
 	}
 	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
 	Value valueThis = pExprMember->GetLeft()->Exec(env, sig);
@@ -1975,7 +1975,7 @@ Value Expr_Caller::EvalEach(Environment &env, Signal sig, const Value &valueThis
 		return Value::Null;
 	}
 	return pCallable->Call(env, sig, valueThis, pIteratorThis, listThisFlag,
-										this, GetExprOwner(), pTrailCtrl);
+								this, GetExprOwner().Reference(), pTrailCtrl);
 }
 
 Value Expr_Caller::DoAssign(Environment &env, Signal sig, Value &value,
@@ -2011,7 +2011,7 @@ Value Expr_Caller::DoAssign(Environment &env, Signal sig, Value &value,
 	FunctionType funcType = !env.IsClass()? FUNCTYPE_Function :
 		GetAttrs().IsSet(Gura_Symbol(static_))? FUNCTYPE_Class : FUNCTYPE_Instance;
 	CustomFunction *pFunc = new CustomFunction(env, pSymbol, pExprBody, funcType);
-	Args args(GetExprOwner(), Value::Null, NULL, false,
+	Args args(GetExprOwner().Reference(), Value::Null, NULL, false,
 								NULL, GetAttrs(), GetAttrsOpt(), GetBlock());
 	if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, args)) {
 		Function::Delete(pFunc);

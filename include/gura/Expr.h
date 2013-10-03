@@ -110,9 +110,9 @@ public:
 	class ExprVisitor_GatherSimpleLambdaArgs : public ExprVisitor {
 	private:
 		SymbolSet _symbolSet;
-		ExprList &_exprListArg;
+		ExprOwner &_exprOwnerArg;
 	public:
-		inline ExprVisitor_GatherSimpleLambdaArgs(ExprList &exprListArg) : _exprListArg(exprListArg) {}
+		inline ExprVisitor_GatherSimpleLambdaArgs(ExprOwner &exprOwnerArg) : _exprOwnerArg(exprOwnerArg) {}
 		virtual bool Visit(const Expr *pExpr);
 	};
 	class ExprVisitor_SearchBar : public ExprVisitor {
@@ -152,7 +152,7 @@ public:
 				const ValueList &valListArg, const SymbolSet &attrs) const;
 	bool IsAtSameLine(const Expr *pExpr) const;
 	void GatherSymbol(SymbolSet &symbolSet) const;
-	void GatherSimpleLambdaArgs(ExprList &exprList) const;
+	void GatherSimpleLambdaArgs(ExprOwner &exprOwner) const;
 	bool GetChainedSymbolList(SymbolList &symbolList) const;
 	void SetError(Signal sig, ErrorType errType, const char *format, ...) const;
 	void SetError_NotAssignableSymbol(Signal sig, const Symbol *pSymbol) const;

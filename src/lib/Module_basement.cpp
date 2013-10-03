@@ -79,14 +79,14 @@ Gura_ImplementFunction(struct_)
 	CustomClass *pClassCustom = new CustomClass(&env, pClassSuper,
 			pClassSuper->GetValueType(),
 			dynamic_cast<Expr_Block *>(Expr::Reference(pExprBlock)), sig);
-	ExprList exprListArg;
+	AutoPtr<ExprOwner> pExprOwnerArg(new ExprOwner());
 	foreach_const (ValueList, pValue, args.GetList(0)) {
-		exprListArg.push_back(const_cast<Expr *>(pValue->GetExpr()));
+		pExprOwnerArg->push_back(pValue->GetExpr()->Reference());
 	}
 	AutoPtr<ConstructorOfStruct> pFunc(new ConstructorOfStruct(env));
 	pFunc->SetClassToConstruct(pClassCustom); // constructor is registered in this class
 	pFunc->DeclareBlock(OCCUR_ZeroOrOnce);
-	Args argsSub(exprListArg, Value::Null, NULL, false, NULL, args.GetAttrs());
+	Args argsSub(pExprOwnerArg.release(), Value::Null, NULL, false, NULL, args.GetAttrs());
 	if (!pFunc->CustomDeclare(env, sig, _attrsOpt, argsSub)) return false;
 	if (args.IsSet(Gura_Symbol(loose))) {
 		pFunc->GetDeclOwner().SetAsLoose();
