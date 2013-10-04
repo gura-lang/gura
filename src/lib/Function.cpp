@@ -917,25 +917,6 @@ const Function *Args::GetBlockFunc(Environment &env, Signal sig, const Symbol *p
 //-----------------------------------------------------------------------------
 // Callable
 //-----------------------------------------------------------------------------
-#if 0
-Value Callable::Call(Environment &env, Signal sig,
-		const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
-		const Expr_Caller *pExprCaller, ExprOwner *pExprOwnerArg,
-		TrailCtrlHolder *pTrailCtrlHolder)
-{
-	AutoPtr<Args> pArgs(new Args(pExprOwnerArg, valueThis, pIteratorThis, listThisFlag,
-				TrailCtrlHolder::Reference(pTrailCtrlHolder),
-				pExprCaller->GetAttrs(), pExprCaller->GetAttrsOpt(),
-				Expr_Block::Reference(pExprCaller->GetBlock())));
-	Value result = DoCall(env, sig, *pArgs);
-	if (sig.IsSignalled()) {
-		sig.AddExprCause(pExprCaller);
-		return Value::Null;
-	}
-	return result;
-}
-#endif
-
 bool Callable::IsLeader() const
 {
 	return false;

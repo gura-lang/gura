@@ -612,10 +612,6 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Callable {
 public:
-	//Value Call(Environment &env, Signal sig,
-	//		const Value &valueThis, Iterator *pIteratorThis, bool listThisFlag,
-	//		const Expr_Caller *pExprCaller, ExprOwner *pExprOwnerArg,
-	//		TrailCtrlHolder *pTrailCtrlHolder);
 	virtual Value DoCall(Environment &env, Signal sig, Args &args) = 0;
 	virtual bool IsLeader() const;
 	virtual bool IsTrailer() const;
