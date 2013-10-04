@@ -145,6 +145,7 @@ public:
 	Gura_DeclareSymbol(unary);
 	Gura_DeclareSymbol(message);
 	Gura_DeclareSymbol(value);
+	Gura_DeclareSymbol(values);
 	Gura_DeclareSymbol(__init__);
 	Gura_DeclareSymbol(__del__);
 	Gura_DeclareSymbol(__str__);

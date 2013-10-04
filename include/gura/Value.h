@@ -579,6 +579,7 @@ public:
 	void InitAsObject(Object *pObj);
 	ValueList &InitAsList(Environment &env);
 	ValueList &InitAsList(Environment &env, size_t n);
+	ValueList &InitAsList(Environment &env, const ValueList &valList);
 	ValueList &InitAsList(Environment &env, size_t n, const Value &value);
 	ValueDict &InitAsDict(Environment &env, bool ignoreCaseFlag);
 	bool CastType(Environment &env, Signal sig, ValueType valType, Value &valueCasted) const;

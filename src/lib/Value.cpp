@@ -852,6 +852,13 @@ ValueList &Value::InitAsList(Environment &env, size_t n)
 	return pObj->GetList();
 }
 
+ValueList &Value::InitAsList(Environment &env, const ValueList &valList)
+{
+	Object_list *pObj = new Object_list(env, valList);
+	InitAsObject(pObj);
+	return pObj->GetList();
+}
+
 ValueList &Value::InitAsList(Environment &env, size_t n, const Value &value)
 {
 	Object_list *pObj =

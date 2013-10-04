@@ -29,8 +29,10 @@ public:
 					Object(env.LookupClass(VTYPE_args)), _pArgs(pArgs) {}
 	inline Object_args(Class *pClass, Args *pArgs) :
 					Object(pClass), _pArgs(pArgs) {}
-	virtual ~Object_args();
 	virtual Object *Clone() const;
+	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
+	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+								const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(Signal sig, bool exprFlag);
 	inline Args *GetArgs() { return _pArgs.get(); }
 };

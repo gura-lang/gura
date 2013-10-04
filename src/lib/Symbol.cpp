@@ -158,6 +158,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(unary);
 	Gura_RealizeSymbol(message);
 	Gura_RealizeSymbol(value);
+	Gura_RealizeSymbol(values);
 	Gura_RealizeSymbol(__init__);
 	Gura_RealizeSymbol(__del__);
 	Gura_RealizeSymbol(__str__);
