@@ -31,7 +31,6 @@ bool Function::IsConstructorOfStruct() const { return false; }
 Function::Function(const Function &func) : _cntRef(1),
 	_pSymbol(func._pSymbol), _pClassToConstruct(func._pClassToConstruct),
 	_pEnvScope(new Environment(func.GetEnvScope())), _declOwner(func._declOwner),
-	_opType(OPTYPE_None),
 	_funcType(func._funcType),
 	_resultMode(func._resultMode), _flags(func._flags),
 	_attrsOpt(func._attrsOpt), _blockInfo(func._blockInfo)
@@ -287,15 +286,6 @@ Value Function::EvalExpr(Environment &env, Signal sig, Args &args) const
 		return Value::Null;
 	}
 	AutoPtr<Args> pArgsSub(new Args(args, valListArg, valueWithDict, resultMode, flags));
-#if 0
-	if (!mapFlag) {
-		return Eval(env, sig, *pArgsSub);
-	} else if (_declOwner.ShouldImplicitMap(*pArgsSub)) {
-		return EvalMap(env, sig, *pArgsSub);
-	} else {
-		return Eval(env, sig, *pArgsSub);
-	}
-#endif
 	if (mapFlag && _declOwner.ShouldImplicitMap(*pArgsSub)) {
 		return EvalMap(env, sig, *pArgsSub);
 	} else {

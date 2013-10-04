@@ -173,7 +173,6 @@ protected:
 	Class *_pClassToConstruct;
 	AutoPtr<Environment> _pEnvScope;
 	DeclarationOwner _declOwner;
-	OpType _opType;
 	FunctionType _funcType;
 	ResultMode _resultMode;
 	ULong _flags;
@@ -202,9 +201,6 @@ public:
 	inline bool GetBlockQuoteFlag() const { return _blockInfo.quoteFlag; }
 	inline const Symbol *GetSymbolForBlock() const { return _blockInfo.pSymbol; }
 	inline const char *GetName() const { return _pSymbol->GetName(); }
-	inline void SetOpType(OpType opType) { _opType = opType; }
-	inline OpType GetOpType() const { return _opType; }
-	inline const char *GetMathSymbol() const { return Operator::GetMathSymbol(_opType); }
 	inline Environment &GetEnvScope() { return *_pEnvScope; }
 	inline Environment &GetEnvScope() const {
 		return *const_cast<Function *>(this)->_pEnvScope;
