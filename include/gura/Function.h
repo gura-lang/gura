@@ -486,6 +486,7 @@ public:
 	inline const ExprList &GetExprListArg() const {
 		return (_pExprOwnerArg.IsNull())? ExprList::Null : *_pExprOwnerArg;
 	}
+	inline ValueList &GetValueListArg() { return _valListArg; }
 	inline const ValueList &GetValueListArg() const { return _valListArg; }
 	inline size_t CountArgs() const { return _valListArg.size(); }
 	inline void ReserveValueListArg(size_t n) { _valListArg.reserve(n); }

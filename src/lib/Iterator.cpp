@@ -1176,16 +1176,16 @@ void Iterator_ExplicitMap::GatherFollower(Environment::Frame *pFrame, Environmen
 //-----------------------------------------------------------------------------
 // Iterator_ImplicitMap
 //-----------------------------------------------------------------------------
-Iterator_ImplicitMap::Iterator_ImplicitMap(Environment *pEnv, Signal sig, Function *pFunc,
-			const Value &valueThis, Iterator *pIteratorThis,
-			const ValueList &valListArg, bool skipInvalidFlag) :
-	Iterator(false, skipInvalidFlag), _pEnv(pEnv), _sig(sig), _pFunc(pFunc),
-	_valueThis(valueThis), _pIteratorThis(Reference(pIteratorThis)), _doneThisFlag(false)
+Iterator_ImplicitMap::Iterator_ImplicitMap(Environment *pEnv, Signal sig,
+						Function *pFunc, Args *pArgs, bool skipInvalidFlag) :
+	Iterator(false, skipInvalidFlag), _pEnv(pEnv), _sig(sig),
+	_pFunc(pFunc), _pArgs(pArgs), _doneThisFlag(false)
 {
-	_iterOwner.PrepareForMap(sig, pFunc->GetDeclOwner(), valListArg);
+	_iterOwner.PrepareForMap(sig, pFunc->GetDeclOwner(), pArgs->GetValueListArg());
 	if (sig.IsSignalled()) return;
+	Iterator *pIteratorThis = _pArgs->GetIteratorThis();
 	SetInfiniteFlag(_iterOwner.IsInfinite() &&
-				(_pIteratorThis.IsNull() || _pIteratorThis->IsInfinite()));
+				(pIteratorThis == NULL || pIteratorThis->IsInfinite()));
 }
 
 Iterator_ImplicitMap::~Iterator_ImplicitMap()
@@ -1195,21 +1195,23 @@ Iterator_ImplicitMap::~Iterator_ImplicitMap()
 
 Iterator *Iterator_ImplicitMap::GetSource()
 {
-	return _pIteratorThis.get();
+	return _pArgs->GetIteratorThis();
 }
 
 bool Iterator_ImplicitMap::DoNext(Environment &env, Signal sig, Value &value)
 {
 	ValueList valList;
 	if (_doneThisFlag || !_iterOwner.Next(env, sig, valList)) return false;
-	AutoPtr<Args> pArgs(new Args(valList));
-	pArgs->SetThis(_valueThis);
-	if (!_pIteratorThis.IsNull()) {
-		_doneThisFlag = !_pIteratorThis->Next(env, sig, _valueThis);
-		if (sig.IsSignalled()) return false;
-	}
-	value = _pFunc->Eval(*_pEnv, sig, *pArgs);
+	AutoPtr<Args> pArgsEach(new Args(*_pArgs, valList));
+	value = _pFunc->Eval(*_pEnv, sig, *pArgsEach);
 	if (sig.IsSignalled()) return false;
+	Iterator *pIteratorThis = _pArgs->GetIteratorThis();
+	if (pIteratorThis != NULL) {
+		Value valueThis;
+		_doneThisFlag = !pIteratorThis->Next(env, sig, valueThis);
+		if (sig.IsSignalled()) return false;
+		_pArgs->SetThis(valueThis);
+	}
 	return true;
 }
 
@@ -1226,8 +1228,9 @@ void Iterator_ImplicitMap::GatherFollower(Environment::Frame *pFrame, Environmen
 {
 	if (_cntRef == 1) {
 		if (_pEnv->GetFrameOwner().DoesExist(pFrame)) envSet.insert(_pEnv.get());
-		if (!_pIteratorThis.IsNull()) {
-			_pIteratorThis->GatherFollower(pFrame, envSet);
+		Iterator *pIteratorThis = _pArgs->GetIteratorThis();
+		if (pIteratorThis != NULL) {
+			pIteratorThis->GatherFollower(pFrame, envSet);
 		}
 		_pFunc->GatherFollower(pFrame, envSet);
 		_iterOwner.GatherFollower(pFrame, envSet);

@@ -397,14 +397,12 @@ private:
 	AutoPtr<Environment> _pEnv;
 	Signal _sig;
 	AutoPtr<Function> _pFunc;
-	Value _valueThis;
-	AutoPtr<Iterator> _pIteratorThis;
+	AutoPtr<Args> _pArgs;
 	IteratorOwner _iterOwner;
 	bool _doneThisFlag;
 public:
-	Iterator_ImplicitMap(Environment *pEnv, Signal sig, Function *pFunc,
-			const Value &valueThis, Iterator *pIteratorThis,
-			const ValueList &valListArg, bool skipInvalidFlag);
+	Iterator_ImplicitMap(Environment *pEnv, Signal sig,
+					Function *pFunc, Args *pArgs, bool skipInvalidFlag);
 	virtual ~Iterator_ImplicitMap();
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);

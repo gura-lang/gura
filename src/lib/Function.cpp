@@ -318,10 +318,12 @@ Value Function::EvalMap(Environment &env, Signal sig, Args &args) const
 	}
 #endif
 	bool skipInvalidFlag = args.IsRsltXIterator();
+	//AutoPtr<Iterator_ImplicitMap> pIterator(new Iterator_ImplicitMap(new Environment(env), sig,
+	//		Function::Reference(this),
+	//		args.GetThis(), Iterator::Reference(args.GetIteratorThis()),
+	//		args.GetValueListArg(), skipInvalidFlag));
 	AutoPtr<Iterator_ImplicitMap> pIterator(new Iterator_ImplicitMap(new Environment(env), sig,
-			Function::Reference(this),
-			args.GetThis(), Iterator::Reference(args.GetIteratorThis()),
-			args.GetValueListArg(), skipInvalidFlag));
+			Function::Reference(this), args.Reference(), skipInvalidFlag));
 	if (sig.IsSignalled()) return Value::Null;
 #if 0
 	if (args.IsRsltIterator() || args.IsRsltXIterator()) {
