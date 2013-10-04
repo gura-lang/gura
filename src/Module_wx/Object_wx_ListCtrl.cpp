@@ -1413,12 +1413,13 @@ public:
 
 int wxListCompareFunction::Body(long item1, long item2)
 {
-	ValueList valList;
-	valList.reserve(2);
-	valList.push_back(Value(item1));
-	valList.push_back(Value(item2));
-	Args args(valList);
-	Value rtn = _pFunc->Eval(_env, _sig, args);
+	//ValueList valList;
+	//valList.reserve(2);
+	//valList.push_back(Value(item1));
+	//valList.push_back(Value(item2));
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValues(Value(item1), Value(item2));
+	Value rtn = _pFunc->Eval(_env, _sig, *pArgs);
 	return rtn.GetInt();
 }
 

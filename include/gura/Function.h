@@ -486,6 +486,36 @@ public:
 	inline const ValueList &GetValueListArg() const { return _valListArg; }
 	inline size_t CountArgs() const { return _valListArg.size(); }
 	inline void AddValue(const Value &value) { _valListArg.push_back(value); }
+	inline void SetValue(const Value &value) {
+		_valListArg.reserve(1);
+		_valListArg.push_back(value);
+	}
+	inline void SetValues(const Value &v1, const Value &v2) {
+		_valListArg.reserve(2);
+		_valListArg.push_back(v1);
+		_valListArg.push_back(v2);
+	}
+	inline void SetValues(const Value &v1, const Value &v2, const Value &v3) {
+		_valListArg.reserve(3);
+		_valListArg.push_back(v1);
+		_valListArg.push_back(v2);
+		_valListArg.push_back(v3);
+	}
+	inline void SetValues(const Value &v1, const Value &v2, const Value &v3, const Value &v4) {
+		_valListArg.reserve(4);
+		_valListArg.push_back(v1);
+		_valListArg.push_back(v2);
+		_valListArg.push_back(v3);
+		_valListArg.push_back(v4);
+	}
+	inline void SetValues(const Value &v1, const Value &v2, const Value &v3, const Value &v4, const Value &v5) {
+		_valListArg.reserve(5);
+		_valListArg.push_back(v1);
+		_valListArg.push_back(v2);
+		_valListArg.push_back(v3);
+		_valListArg.push_back(v4);
+		_valListArg.push_back(v5);
+	}
 	inline Value GetValue(size_t idxArg) {
 		return (idxArg < _valListArg.size())? _valListArg[idxArg] : Value::Null;
 	}
