@@ -71,10 +71,12 @@ void Object::EmptyIndexSet(Environment &env, Signal sig, const Value &value)
 		return;
 	}
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
-	ValueList valListArg;
-	valListArg.reserve(1);
-	valListArg.push_back(value);
-	AutoPtr<Args> pArgs(new Args(valListArg, valueThis));
+	//ValueList valListArg;
+	//valListArg.reserve(1);
+	//valListArg.push_back(value);
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValue(value);
+	pArgs->SetThis(valueThis);
 	pFunc->Eval(*this, sig, *pArgs);
 }
 
@@ -86,10 +88,12 @@ Value Object::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 		return Value::Null;
 	}
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
-	ValueList valListArg;
-	valListArg.reserve(1);
-	valListArg.push_back(valueIdx);
-	AutoPtr<Args> pArgs(new Args(valListArg, valueThis));
+	//ValueList valListArg;
+	//valListArg.reserve(1);
+	//valListArg.push_back(valueIdx);
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValue(valueIdx);
+	pArgs->SetThis(valueThis);
 	return pFunc->Eval(*this, sig, *pArgs);
 }
 
@@ -101,8 +105,10 @@ void Object::IndexSet(Environment &env, Signal sig, const Value &valueIdx, const
 		return;
 	}
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
-	ValueList valListArg(valueIdx, value);
-	AutoPtr<Args> pArgs(new Args(valListArg, valueThis));
+	//ValueList valListArg(valueIdx, value);
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValues(valueIdx, value);
+	pArgs->SetThis(valueThis);
 	pFunc->Eval(*this, sig, *pArgs);
 }
 
@@ -148,10 +154,12 @@ Value Object::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	if (pFunc == NULL) return Value::Null;
 	evaluatedFlag = true;
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
-	ValueList valListArg;
-	valListArg.reserve(1);
-	valListArg.push_back(Value(pSymbol));
-	AutoPtr<Args> pArgs(new Args(valListArg, valueThis));
+	//ValueList valListArg;
+	//valListArg.reserve(1);
+	//valListArg.push_back(Value(pSymbol));
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValue(Value(pSymbol));
+	pArgs->SetThis(valueThis);
 	return pFunc->Eval(*this, sig, *pArgs);
 }
 
@@ -161,8 +169,10 @@ Value Object::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, con
 	const Function *pFunc = LookupFunction(Gura_Symbol(__setprop__), ENVREF_Escalate);
 	if (pFunc == NULL) return Value::Null;
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
-	ValueList valListArg(Value(pSymbol), value);
-	AutoPtr<Args> pArgs(new Args(valListArg, valueThis));
+	//ValueList valListArg(Value(pSymbol), value);
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValues(Value(pSymbol), value);
+	pArgs->SetThis(valueThis);
 	Value result = pFunc->Eval(*this, sig, *pArgs);
 	evaluatedFlag = result.GetBoolean();
 	return value;

@@ -119,10 +119,10 @@ Gura_DeclareFunction(interval)
 
 Gura_ImplementFunction(interval)
 {
-	const ValueList &valListArg = args.GetValueListArg();
-	Number numBegin = valListArg[0].GetNumber();
-	Number numEnd = valListArg[1].GetNumber();
-	int numSamples = valListArg[2].GetInt();
+	//const ValueList &valListArg = args.GetValueListArg();
+	Number numBegin = args.GetNumber(0);
+	Number numEnd = args.GetNumber(1);
+	int numSamples = args.GetInt(2);
 	if (numSamples <= 1) {
 		sig.SetError(ERR_ValueError, "samples must be more than one");
 		return Value::Null;

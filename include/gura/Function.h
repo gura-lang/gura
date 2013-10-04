@@ -485,6 +485,7 @@ public:
 	}
 	inline const ValueList &GetValueListArg() const { return _valListArg; }
 	inline size_t CountArgs() const { return _valListArg.size(); }
+	inline void ReserveValueListArg(size_t n) { _valListArg.reserve(n); }
 	inline void AddValue(const Value &value) { _valListArg.push_back(value); }
 	inline void SetValue(const Value &value) {
 		_valListArg.reserve(1);

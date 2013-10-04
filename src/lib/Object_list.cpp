@@ -485,8 +485,9 @@ bool Object_list::Comparator_Custom::
 				operator()(const Value *pValue1, const Value *pValue2) const
 {
 	if (_sig.IsSignalled()) return false;
-	ValueList valListArg(*pValue1, *pValue2);
-	AutoPtr<Args> pArgsSub(new Args(valListArg));
+	//ValueList valListArg(*pValue1, *pValue2);
+	AutoPtr<Args> pArgsSub(new Args());
+	pArgsSub->SetValues(*pValue1, *pValue2);
 	Value value = _pFunc->Eval(_env, _sig, *pArgsSub);
 	return value.GetNumber() < 0;
 }

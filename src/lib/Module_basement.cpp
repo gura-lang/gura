@@ -447,14 +447,15 @@ Gura_ImplementFunction(catch_)
 	if (!handleFlag) return Value::Null;
 	args.SetTrailCtrl(TRAILCTRL_Quit);
 	Object_error *pObj = new Object_error(env, sig.GetError());
-	Value value(pObj);
-	ValueList valListArg(value);
+	//Value value(pObj);
+	//ValueList valListArg(value);
 	sig.ClearSignal(); // clear even the suspended state
 	const Function *pFuncBlock =
 						args.GetBlockFunc(env, sig, GetSymbolForBlock());
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	AutoPtr<Args> pArgsSub(new Args(valListArg));
+	AutoPtr<Args> pArgsSub(new Args());
+	pArgsSub->SetValue(Value(pObj));
 	return pFuncBlock->Eval(*pEnvBlock, sig, *pArgsSub);
 }
 
@@ -837,12 +838,13 @@ bool Func_dim_Sub(Environment &env, Signal sig, const Function *pFuncBlock, Valu
 			}
 		} else {
 			for (*pIdx = 0; *pIdx < *pCnt; (*pIdx)++) {
-				ValueList valListArg;
-				valListArg.reserve(idxList.size());
+				//ValueList valListArg;
+				//valListArg.reserve(idxList.size());
+				AutoPtr<Args> pArgs(new Args());
+				pArgs->ReserveValueListArg(idxList.size());
 				foreach (IntList, pIdxWk, idxList) {
-					valListArg.push_back(Value(*pIdxWk));
+					pArgs->AddValue(Value(*pIdxWk));
 				}
-				AutoPtr<Args> pArgs(new Args(valListArg));
 				Value result = pFuncBlock->Eval(env, sig, *pArgs);
 				if (sig.IsSignalled()) return false;
 				valListParent.push_back(result);

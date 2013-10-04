@@ -131,15 +131,16 @@ Value Iterator::Eval(Environment &env, Signal sig,
 								nArgs++, pIterator = pIterator->GetSource()) ;
 	}
 	while (contFlag && Next(env, sig, value)) {
-		ValueList valListArg;
-		valListArg.reserve(nArgs);
+		//ValueList valListArg;
+		//valListArg.reserve(nArgs);
+		AutoPtr<Args> pArgsSub(new Args());
+		pArgsSub->ReserveValueListArg(nArgs);
 		size_t iArg = 0;
-		if (iArg++ < nArgs) valListArg.push_back(value);
+		if (iArg++ < nArgs) pArgsSub->AddValue(value);
 		for (Iterator *pIterator = this; iArg < nArgs && pIterator != NULL;
 								iArg++, pIterator = pIterator->GetSource()) {
-			valListArg.push_back(Value(pIterator->GetCountNext() - 1));
+			pArgsSub->AddValue(Value(pIterator->GetCountNext() - 1));
 		}
-		AutoPtr<Args> pArgsSub(new Args(valListArg));
 		Value resultElem = pFuncBlock->Eval(env, sig, *pArgsSub);
 		if (!sig.IsSignalled()) {
 			// nothing to do
@@ -176,8 +177,9 @@ Value Iterator::Reduce(Environment &env, Signal sig,
 	}
 	Value value;
 	while (Next(env, sig, value)) {
-		ValueList valListArg(value, valueAccum);
-		AutoPtr<Args> pArgsSub(new Args(valListArg));
+		//ValueList valListArg(value, valueAccum);
+		AutoPtr<Args> pArgsSub(new Args());
+		pArgsSub->SetValues(value, valueAccum);
 		Value result = pFuncBlock->Eval(env, sig, *pArgsSub);
 		if (!sig.IsSignalled()) {
 			// nothing to do
@@ -464,8 +466,9 @@ size_t Iterator::Find(Environment &env, Signal sig, const Value &criteria, Value
 		}
 		const Function *pFunc = criteria.GetFunction();
 		while (Next(env, sig, value)) {
-			ValueList valListArg(value);
-			AutoPtr<Args> pArgs(new Args(valListArg));
+			//ValueList valListArg(value);
+			AutoPtr<Args> pArgs(new Args());
+			pArgs->SetValue(value);
 			Value valueFlag = pFunc->Eval(env, sig, *pArgs);
 			if (sig.IsSignalled()) return InvalidSize;
 			if (valueFlag.GetBoolean()) return GetCountNext() - 1;
@@ -515,8 +518,9 @@ size_t Iterator::Count(Environment &env, Signal sig, const Value &criteria)
 		const Function *pFunc = criteria.GetFunction();
 		Value value;
 		while (Next(env, sig, value)) {
-			ValueList valListArg(value);
-			AutoPtr<Args> pArgs(new Args(valListArg));
+			//ValueList valListArg(value);
+			AutoPtr<Args> pArgs(new Args());
+			pArgs->SetValue(value);
 			Value valueFlag = pFunc->Eval(env, sig, *pArgs);
 			if (sig.IsSignalled()) return 0;
 			if (valueFlag.GetBoolean()) cnt++;
@@ -2440,8 +2444,9 @@ bool Iterator_repeat::DoNext(Environment &env, Signal sig, Value &value)
 	for (;;) {
 		if (_pIteratorSub.IsNull()) {
 			if (_cnt >= 0 && _idx >= _cnt) return false;
-			ValueList valListArg(Value(static_cast<Number>(_idx)));
-			AutoPtr<Args> pArgs(new Args(valListArg));
+			//ValueList valListArg(Value(static_cast<Number>(_idx)));
+			AutoPtr<Args> pArgs(new Args());
+			pArgs->SetValue(Value(static_cast<Number>(_idx)));
 			value = _pFuncBlock->Eval(*_pEnv, sig, *pArgs);
 			if (sig.IsBreak()) {
 				sig.ClearSignal();
@@ -2507,8 +2512,9 @@ bool Iterator_while::DoNext(Environment &env, Signal sig, Value &value)
 	for (;;) {
 		if (_pIteratorSub.IsNull()) {
 			if (!_pExpr->Exec(*_pEnv, sig).GetBoolean()) return false;
-			ValueList valListArg(Value(static_cast<Number>(_idx)));
-			AutoPtr<Args> pArgs(new Args(valListArg));
+			//ValueList valListArg(Value(static_cast<Number>(_idx)));
+			AutoPtr<Args> pArgs(new Args());
+			pArgs->SetValue(Value(static_cast<Number>(_idx)));
 			value = _pFuncBlock->Eval(*_pEnv, sig, *pArgs);
 			if (sig.IsBreak()) {
 				sig.ClearSignal();
@@ -2590,8 +2596,9 @@ bool Iterator_for::DoNext(Environment &env, Signal sig, Value &value)
 				ppExprLeft++;
 			}
 			if (_doneFlag) return false;
-			ValueList valListArg(Value(static_cast<Number>(_idx)));
-			AutoPtr<Args> pArgs(new Args(valListArg));
+			//ValueList valListArg(Value(static_cast<Number>(_idx)));
+			AutoPtr<Args> pArgs(new Args());
+			pArgs->SetValue(Value(static_cast<Number>(_idx)));
 			value = _pFuncBlock->Eval(*_pEnv, sig, *pArgs);
 			if (sig.IsBreak()) {
 				value = sig.GetValue();

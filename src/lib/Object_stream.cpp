@@ -107,8 +107,9 @@ Gura_ImplementFunction(stream)
 		const Function *pFuncBlock =
 						args.GetBlockFunc(env, sig, GetSymbolForBlock());
 		if (pFuncBlock == NULL) return Value::Null;
-		ValueList valListArg(result);
-		AutoPtr<Args> pArgsSub(new Args(valListArg));
+		//ValueList valListArg(result);
+		AutoPtr<Args> pArgsSub(new Args());
+		pArgsSub->SetValue(result);
 		pFuncBlock->Eval(env, sig, *pArgsSub);
 		result = Value::Null;	// object is destroyed here
 	}
