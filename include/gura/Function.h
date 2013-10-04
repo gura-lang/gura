@@ -213,10 +213,7 @@ public:
 	virtual bool IsConstructorOfStruct() const;
 	virtual Value EvalExpr(Environment &env, Signal sig, Args &args) const;
 	Value Eval(Environment &env, Signal sig, Args &args) const;
-	Value EvalFuncBinder(Environment &env, Signal sig, const ValueList &valListArg) const;
 	Value EvalMap(Environment &env, Signal sig, Args &args) const;
-	Value EvalMapRecursive(Environment &env, Signal sig,
-				ResultComposer *pResultComposer, Args &args) const;
 	inline FunctionType GetType() const { return _funcType; }
 	inline const char *GetTypeName() const { return GetFuncTypeName(_funcType); }
 	inline void SetMode(ResultMode resultMode, ULong flags) {

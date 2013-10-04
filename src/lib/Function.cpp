@@ -287,9 +287,16 @@ Value Function::EvalExpr(Environment &env, Signal sig, Args &args) const
 		return Value::Null;
 	}
 	AutoPtr<Args> pArgsSub(new Args(args, valListArg, valueWithDict, resultMode, flags));
+#if 0
 	if (!mapFlag) {
 		return Eval(env, sig, *pArgsSub);
 	} else if (_declOwner.ShouldImplicitMap(*pArgsSub)) {
+		return EvalMap(env, sig, *pArgsSub);
+	} else {
+		return Eval(env, sig, *pArgsSub);
+	}
+#endif
+	if (mapFlag && _declOwner.ShouldImplicitMap(*pArgsSub)) {
 		return EvalMap(env, sig, *pArgsSub);
 	} else {
 		return Eval(env, sig, *pArgsSub);
@@ -298,7 +305,6 @@ Value Function::EvalExpr(Environment &env, Signal sig, Args &args) const
 
 Value Function::Eval(Environment &env, Signal sig, Args &args) const
 {
-	bool exprFlag = false;
 	ValueList valListCasted;
 	if (!_declOwner.ValidateAndCast(env, sig, args.GetValueListArg(), valListCasted)) {
 		return Value::Null;
@@ -311,7 +317,7 @@ Value Function::Eval(Environment &env, Signal sig, Args &args) const
 
 Value Function::EvalMap(Environment &env, Signal sig, Args &args) const
 {
-#if 1
+#if 0
 	if (args.IsRsltIterator() || args.IsRsltXIterator()) {
 		// nothing to do
 	} else if (!args.IsRsltNormal() || !args.ShouldGenerateIterator(_declOwner)) {
@@ -320,14 +326,10 @@ Value Function::EvalMap(Environment &env, Signal sig, Args &args) const
 	}
 #endif
 	bool skipInvalidFlag = args.IsRsltXIterator();
-	//AutoPtr<Iterator_ImplicitMap> pIterator(new Iterator_ImplicitMap(new Environment(env), sig,
-	//		Function::Reference(this),
-	//		args.GetThis(), Iterator::Reference(args.GetIteratorThis()),
-	//		args.GetValueListArg(), skipInvalidFlag));
 	AutoPtr<Iterator_ImplicitMap> pIterator(new Iterator_ImplicitMap(new Environment(env), sig,
 			Function::Reference(this), args.Reference(), skipInvalidFlag));
 	if (sig.IsSignalled()) return Value::Null;
-#if 0
+#if 1
 	if (args.IsRsltIterator() || args.IsRsltXIterator()) {
 		// nothing to do
 	} else if (!args.IsRsltNormal() || !args.ShouldGenerateIterator(_declOwner)) {
@@ -335,8 +337,12 @@ Value Function::EvalMap(Environment &env, Signal sig, Args &args) const
 		Value result;
 		ResultComposer resultComposer(env, args, result);
 		Value value;
-		while (pIterator->Next(env, sig, value)) {
+		size_t n = 0;
+		for ( ; pIterator->Next(env, sig, value); n++) {
 			resultComposer.Store(value);
+		}
+		if (n == 0 && !args.IsRsltVoid()) {
+			result.InitAsList(env);
 		}
 		return result;
 	}
@@ -344,6 +350,7 @@ Value Function::EvalMap(Environment &env, Signal sig, Args &args) const
 	return Value(env, pIterator.release());
 }
 
+#if 0
 Value Function::EvalMapRecursive(Environment &env, Signal sig,
 				ResultComposer *pResultComposer, Args &args) const
 {
@@ -381,6 +388,7 @@ Value Function::EvalMapRecursive(Environment &env, Signal sig,
 	}
 	return result;
 }
+#endif
 
 Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &args) const
 {
