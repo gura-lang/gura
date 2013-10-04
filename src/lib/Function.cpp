@@ -797,8 +797,8 @@ Value CustomFunction::DoEval(Environment &env, Signal sig, Args &args) const
 		pEnvLocal->AssignValue(Gura_Symbol(this), valueThis, EXTRA_Public);
 	}
 	do {
-		Object_args *pObjArgs = new Object_args(env, args);
-		pEnvLocal->AssignValue(Gura_Symbol(__args__), Value(pObjArgs), EXTRA_Public);
+		pEnvLocal->AssignValue(Gura_Symbol(__args__),
+				Value(new Object_args(env, args.Reference())), EXTRA_Public);
 	} while (0);
 	EnvType envType = pEnvLocal->GetEnvType();
 	Value result = GetExprBody()->Exec(*pEnvLocal, sig);

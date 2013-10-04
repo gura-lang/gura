@@ -21,18 +21,18 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Object_args : public Object {
 private:
-	SymbolSet _attrs;
+	AutoPtr<Args> _pArgs;
 public:
 	Gura_DeclareObjectAccessor(args)
 public:
-	inline Object_args(Environment &env, const Args &args) :
-			Object(env.LookupClass(VTYPE_args)), _attrs(args.GetAttrs()) {}
-	inline Object_args(Class *pClass, const Args &args) :
-			Object(pClass), _attrs(args.GetAttrs()) {}
+	inline Object_args(Environment &env, Args *pArgs) :
+					Object(env.LookupClass(VTYPE_args)), _pArgs(pArgs) {}
+	inline Object_args(Class *pClass, Args *pArgs) :
+					Object(pClass), _pArgs(pArgs) {}
 	virtual ~Object_args();
 	virtual Object *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
-	inline const SymbolSet &GetAttrs() const { return _attrs; }
+	inline Args *GetArgs() { return _pArgs.get(); }
 };
 
 }

@@ -49,7 +49,7 @@ GURA_DLLDECLARE const char *GetExprTypeName(ExprType exprType);
 enum TrailCtrl {
 	TRAILCTRL_Continue,
 	TRAILCTRL_Quit,
-	TRAILCTRL_Final,
+	TRAILCTRL_Finalize,
 };
 
 //-----------------------------------------------------------------------------

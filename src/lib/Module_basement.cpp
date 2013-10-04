@@ -445,7 +445,7 @@ Gura_ImplementFunction(catch_)
 		}
 	}
 	if (!handleFlag) return Value::Null;
-	args.SetTrailCtrl(TRAILCTRL_Quit);
+	args.QuitTrailer();
 	Object_error *pObj = new Object_error(env, sig.GetError());
 	//Value value(pObj);
 	//ValueList valListArg(value);
@@ -491,7 +491,7 @@ Gura_ImplementFunction(if_)
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	Value value = args.GetExpr(0)->Exec(*pEnvBlock, sig);
 	if (value.GetBoolean()) {
-		args.SetTrailCtrl(TRAILCTRL_Quit);
+		args.QuitTrailer();
 		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		return pExprBlock->Exec(*pEnvBlock, sig);
@@ -518,7 +518,7 @@ Gura_ImplementFunction(elsif_)
 	if (value.GetBoolean()) {
 		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		args.SetTrailCtrl(TRAILCTRL_Quit);
+		args.QuitTrailer();
 		return pExprBlock->Exec(*pEnvBlock, sig);
 	}
 	return Value::Null;

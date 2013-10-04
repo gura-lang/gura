@@ -18,8 +18,8 @@ Gura_DeclareMethod(args, isset)
 
 Gura_ImplementMethod(args, isset)
 {
-	Object_args *pThis = Object_args::GetThisObj(args);
-	bool rtn = pThis->GetAttrs().IsSet(args.GetSymbol(0));
+	Args *pArgs = Object_args::GetThisObj(args)->GetArgs();
+	bool rtn = pArgs->IsSet(args.GetSymbol(0));
 	return Value(rtn);
 }
 
@@ -39,14 +39,6 @@ String Object_args::ToString(Signal sig, bool exprFlag)
 {
 	String str;
 	str += "<args:";
-	if (_attrs.empty()) {
-		str += "(empty)";
-	} else {
-		foreach_const (SymbolSet, ppSymbol, _attrs) {
-			if (ppSymbol != _attrs.begin()) str += ",";
-			str += (*ppSymbol)->GetName();
-		}
-	}
 	str += ">";
 	return str;
 }

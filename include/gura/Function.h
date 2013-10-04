@@ -477,8 +477,11 @@ public:
 			IsRsltSet() || IsRsltXSet() || IsRsltIterator() || IsRsltXIterator();
 	}
 	inline bool IsRsltFlat() const { return GetFlatFlag(); }
-	inline void SetTrailCtrl(TrailCtrl trailCtrl) {
-		if (!_pTrailCtrlHolder.IsNull()) _pTrailCtrlHolder->Set(trailCtrl);
+	inline void QuitTrailer() {
+		if (!_pTrailCtrlHolder.IsNull()) _pTrailCtrlHolder->Set(TRAILCTRL_Quit);
+	}
+	inline void FinalizeTrailer() {
+		if (!_pTrailCtrlHolder.IsNull()) _pTrailCtrlHolder->Set(TRAILCTRL_Finalize);
 	}
 	inline const ExprList &GetExprListArg() const {
 		return (_pExprOwnerArg.IsNull())? ExprList::Null : *_pExprOwnerArg;
