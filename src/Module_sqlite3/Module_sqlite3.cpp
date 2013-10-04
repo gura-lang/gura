@@ -261,8 +261,8 @@ Gura_ImplementMethod(db, transaction)
 	if (sig.IsSignalled()) return Value::Null;
 	if (!pObj->ExecNoResult(sig, "BEGIN TRANSACTION")) return Value::Null;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	Args argsSub(ValueList::Null);
-	Value result = pFuncBlock->Eval(*pEnvBlock, sig, argsSub);
+	AutoPtr<Args> pArgsSub(new Args());
+	Value result = pFuncBlock->Eval(*pEnvBlock, sig, *pArgsSub);
 	// "END TRANSACTION" has the same effect as "COMMIT"
 	if (!pObj->ExecNoResult(sig, "END TRANSACTION")) return Value::Null;
 	return result;

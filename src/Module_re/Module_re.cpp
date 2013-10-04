@@ -955,10 +955,11 @@ String DoSubWithFunc(Environment &env, Signal sig, regex_t *pRegEx,
 				delete pObj;
 				goto error_done;
 			}
-			Value value(pObj);
-			ValueList valListArg(value);
-			Args args(valListArg);
-			Value resultFunc = pFunc->Eval(env, sig, args);
+			//Value value(pObj);
+			//ValueList valListArg(value);
+			AutoPtr<Args> pArgs(new Args());
+			pArgs->AddValue(Value(pObj));
+			Value resultFunc = pFunc->Eval(env, sig, *pArgs);
 			if (sig.IsSignalled()) goto error_done;
 			result += String(str + idx, rtn - idx);
 			result += resultFunc.ToString(sig, false);

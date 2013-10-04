@@ -2159,10 +2159,11 @@ Gura_ImplementMethod(server, wait)
 	for (;;) {
 		Object_request *pObjRequest = pThis->Wait(sig);
 		if (sig.IsSignalled()) return Value::Null;
-		Value value(pObjRequest);
-		ValueList valListArg(value);
-		Args argsSub(valListArg);
-		pFuncBlock->Eval(env, sig, argsSub);
+		//Value value(pObjRequest);
+		//ValueList valListArg(value);
+		AutoPtr<Args> pArgsSub(new Args());
+		pArgsSub->AddValue(Value(pObjRequest));
+		pFuncBlock->Eval(env, sig, *pArgsSub);
 		if (sig.IsBreak()) {
 			sig.ClearSignal();
 			break;
@@ -2449,9 +2450,10 @@ String Object_proxy::ToString(Signal sig, bool exprFlag)
 bool Object_proxy::IsResponsible(Environment &env, Signal sig, const char *addr) const
 {
 	if (_pFuncCriteria.IsNull()) return true;
-	ValueList valListArg(Value(env, addr));
-	Args args(valListArg);
-	Value result = _pFuncCriteria->Eval(env, sig, args);
+	//ValueList valListArg(Value(env, addr));
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->AddValue(Value(env, addr));
+	Value result = _pFuncCriteria->Eval(env, sig, *pArgs);
 	if (sig.IsSignalled()) return false;
 	return result.GetBoolean();
 }

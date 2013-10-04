@@ -85,8 +85,8 @@ Tcl_Obj *Object_interp::ConvToTclObj(Environment &env, Signal sig, const Value &
 					pObj->LookupFunction(Gura_UserSymbol(__tclname__), ENVREF_Escalate);
 		if (pFunc != NULL) {
 			Value valueThis(pObj, VFLAG_NoOwner); // reference to self
-			Args args(ValueList::Null, valueThis);
-			Value result = pFunc->Eval(*pObj, sig, args);
+			AutoPtr<Args> pArgs(new Args(ValueList::Null, valueThis));
+			Value result = pFunc->Eval(*pObj, sig, *pArgs);
 			if (!sig.IsSignalled()) {
 				return ConvToTclObj(env, sig, result);
 			}

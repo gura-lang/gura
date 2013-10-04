@@ -327,8 +327,8 @@ private:
 // Args
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Args {
-public:
 private:
+	int _cntRef;
 	bool _listThisFlag;
 	AutoPtr<TrailCtrlHolder> _pTrailCtrlHolder;
 	SymbolSet _attrs;
@@ -343,13 +343,29 @@ private:
 	AutoPtr<Expr_Block> _pExprBlock;
 	AutoPtr<Function> _pFuncBlock;
 public:
+	Gura_DeclareReferenceAccessor(Args);
+public:
+	inline Args() : _cntRef(1),
+		_listThisFlag(false),
+		_pTrailCtrlHolder(NULL),
+		_attrs(SymbolSet::Null),
+		_attrsOpt(SymbolSet::Null),
+		_resultMode(RSLTMODE_Normal),
+		_flags(FLAG_None),
+		_valueWithDict(Value::Null),
+		_valueThis(Value::Null),
+		_pIteratorThis(NULL),
+		_pExprOwnerArg(NULL),
+		_valListArg(ValueList::Null),
+		_pExprBlock(NULL),
+		_pFuncBlock(NULL) {}
 	inline Args(ExprOwner *pExprOwnerArg,
 				const Value &valueThis = Value::Null,
 				Iterator *pIteratorThis = NULL, bool listThisFlag = false,
 				TrailCtrlHolder *pTrailCtrlHolder = NULL,
 				const SymbolSet &attrs = SymbolSet::Null,
 				const SymbolSet &attrsOpt = SymbolSet::Null,
-				Expr_Block *pExprBlock = NULL) :
+				Expr_Block *pExprBlock = NULL) : _cntRef(1),
 		_listThisFlag(listThisFlag),
 		_pTrailCtrlHolder(pTrailCtrlHolder),
 		_attrs(attrs),
@@ -369,7 +385,7 @@ public:
 				TrailCtrlHolder *pTrailCtrlHolder = NULL,
 				const SymbolSet &attrs = SymbolSet::Null,
 				const SymbolSet &attrsOpt = SymbolSet::Null,
-				Expr_Block *pExprBlock = NULL) :
+				Expr_Block *pExprBlock = NULL) : _cntRef(1),
 		_listThisFlag(listThisFlag),
 		_pTrailCtrlHolder(pTrailCtrlHolder),
 		_attrs(attrs),
@@ -383,7 +399,7 @@ public:
 		_valListArg(valListArg),
 		_pExprBlock(pExprBlock),
 		_pFuncBlock(NULL) {}
-	inline Args(const Args &args, ExprOwner *pExprOwnerArg) :
+	inline Args(const Args &args, ExprOwner *pExprOwnerArg) : _cntRef(1),
 		_listThisFlag(args._listThisFlag),
 		_pTrailCtrlHolder(TrailCtrlHolder::Reference(args._pTrailCtrlHolder.get())),
 		_attrs(args._attrs),
@@ -397,7 +413,7 @@ public:
 		_valListArg(ValueList::Null),
 		_pExprBlock(Expr_Block::Reference(args._pExprBlock.get())),
 		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
-	inline Args(const Args &args, const ValueList &valListArg) :
+	inline Args(const Args &args, const ValueList &valListArg) : _cntRef(1),
 		_listThisFlag(args._listThisFlag),
 		_pTrailCtrlHolder(TrailCtrlHolder::Reference(args._pTrailCtrlHolder.get())),
 		_attrs(args._attrs),
@@ -412,7 +428,7 @@ public:
 		_pExprBlock(Expr_Block::Reference(args._pExprBlock.get())),
 		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
 	inline Args(const Args &args, const ValueList &valListArg,
-			const Value &valueWithDict, ResultMode resultMode, ULong flags) :
+			const Value &valueWithDict, ResultMode resultMode, ULong flags) : _cntRef(1),
 		_listThisFlag(args._listThisFlag),
 		_pTrailCtrlHolder(TrailCtrlHolder::Reference(args._pTrailCtrlHolder.get())),
 		_attrs(args._attrs),
@@ -426,10 +442,10 @@ public:
 		_valListArg(valListArg),
 		_pExprBlock(Expr_Block::Reference(args._pExprBlock.get())),
 		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
+protected:
 	virtual ~Args();
-	inline bool IsSet(const Symbol *pSymbol) const {
-		return _attrs.IsSet(pSymbol);
-	}
+public:
+	inline bool IsSet(const Symbol *pSymbol) const { return _attrs.IsSet(pSymbol); }
 	inline bool IsAttrEmpty() const { return _attrs.empty(); }
 	inline const SymbolSet &GetAttrs() const { return _attrs; }
 	inline const SymbolSet &GetAttrsOpt() const { return _attrsOpt; }
@@ -467,8 +483,9 @@ public:
 	inline const ExprList &GetExprListArg() const {
 		return (_pExprOwnerArg.IsNull())? ExprList::Null : *_pExprOwnerArg;
 	}
-	inline const ValueList &GetArgs() const { return _valListArg; }
+	inline const ValueList &GetValueListArg() const { return _valListArg; }
 	inline size_t CountArgs() const { return _valListArg.size(); }
+	inline void AddValue(const Value &value) { _valListArg.push_back(value); }
 	inline Value GetValue(size_t idxArg) {
 		return (idxArg < _valListArg.size())? _valListArg[idxArg] : Value::Null;
 	}
@@ -549,8 +566,8 @@ public:
 	inline const ValueDict &GetDictArg() const {
 		return _valueWithDict.IsDict()? _valueWithDict.GetDict() : ValueDict::Null;
 	}
-	const Expr_Block *GetBlock(Environment &env, Signal sig) const;
 	bool ShouldGenerateIterator(const DeclarationList &declList) const;
+	const Expr_Block *GetBlock(Environment &env, Signal sig) const;
 	const Function *GetBlockFunc(Environment &env, Signal sig, const Symbol *pSymbol);
 };
 

@@ -2350,22 +2350,22 @@ bool HelpPresenter_markdown::DoPresent(Environment &env, Signal sig,
 		sig.SetError(ERR_FormatError, "presenter function is not registered");
 		return false;
 	}
-	ValueList valListArg;
+	//ValueList valListArg;
+	AutoPtr<Args> pArgs(new Args());
 	if (title == NULL) {
-		valListArg.push_back(Value::Null);
+		pArgs->AddValue(Value::Null);
 	} else {
-		valListArg.push_back(Value(env, title));
+		pArgs->AddValue(Value(env, title));
 	}
 	if (pHelp == NULL) {
-		valListArg.push_back(Value::Null);
+		pArgs->AddValue(Value::Null);
 	} else {
 		AutoPtr<Document> pDocument(new Document());
 		SimpleStream_CString streamSrc(pHelp->GetText());
 		if (!pDocument->ParseStream(sig, streamSrc)) return false;
-		valListArg.push_back(Value(new Object_document(pDocument->Reference())));
+		pArgs->AddValue(Value(new Object_document(pDocument->Reference())));
 	}
-	Args args(valListArg);
-	g_pFunc_Presenter->Eval(env, sig, args);
+	g_pFunc_Presenter->Eval(env, sig, *pArgs);
 	return !sig.IsSignalled();
 }
 

@@ -102,8 +102,8 @@ bool StructClass::CastFrom(Environment &env, Signal sig, Value &value, const Dec
 		if (pClass == NULL) return false;
 		const Function *pConstructor = pClass->GetConstructor();
 		if (pConstructor == NULL) return false;
-		Args args(value.GetList());
-		value = pConstructor->Eval(env, sig, args);
+		AutoPtr<Args> pArgs(new Args(value.GetList()));
+		value = pConstructor->Eval(env, sig, *pArgs);
 		return !sig.IsSignalled();
 	}
 	return false;

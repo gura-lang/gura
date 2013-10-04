@@ -534,8 +534,8 @@ Value Operator_Mul::EvalMapBinary(Environment &env, Signal sig,
 				if (!pFunc->GetDeclOwner().Compensate(env, sig, valListComp)) {
 					return Value::Null;
 				}
-				Args argsSub(valListComp, Value::Null, NULL, false, NULL);
-				return pFunc->Eval(env, sig, argsSub);
+				AutoPtr<Args> pArgsSub(new Args(valListComp, Value::Null, NULL, false, NULL));
+				return pFunc->Eval(env, sig, *pArgsSub);
 			}
 			AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));
 			if (sig.IsSignalled()) return Value::Null;
@@ -543,8 +543,8 @@ Value Operator_Mul::EvalMapBinary(Environment &env, Signal sig,
 						Function::Reference(pFunc),
 						Object_function::GetObject(valueLeft)->GetThis(), pIterator.release()));
 			ValueList valListArg(valueLeft, valueRight);
-			Args argsSub(valListArg);
-			return pIteratorFuncBinder->Eval(env, sig, argsSub);
+			AutoPtr<Args> pArgsSub(new Args(valListArg));
+			return pIteratorFuncBinder->Eval(env, sig, *pArgsSub);
 		} else if (valueRight.IsIterator()) {
 			AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));
 			if (sig.IsSignalled()) return Value::Null;
@@ -556,8 +556,8 @@ Value Operator_Mul::EvalMapBinary(Environment &env, Signal sig,
 				return Value(env, pIteratorFuncBinder.release());
 			} else {
 				ValueList valListArg(valueLeft, valueRight);
-				Args argsSub(valListArg);
-				return pIteratorFuncBinder->Eval(env, sig, argsSub);
+				AutoPtr<Args> pArgsSub(new Args(valListArg));
+				return pIteratorFuncBinder->Eval(env, sig, *pArgsSub);
 			}
 		}
 	} else if (valueLeft.IsMatrix() && valueRight.IsList() ||
@@ -862,19 +862,19 @@ Value Operator_Mod::EvalMapBinary(Environment &env, Signal sig,
 		Value result;
 		if (!valueRight.IsList()) {
 			ValueList valListArg(valueRight);
-			Args argsSub(valListArg);
-			result = pFunc->Eval(env, sig, argsSub);
+			AutoPtr<Args> pArgsSub(new Args(valListArg));
+			result = pFunc->Eval(env, sig, *pArgsSub);
 		} else if (pFunc->GetMapFlag() == Function::MAP_Off ||
 				!pFunc->GetDeclOwner().ShouldImplicitMap(valueRight.GetList())) {
-			Args argsSub(valueRight.GetList());
-			result = pFunc->Eval(env, sig, argsSub);
+			AutoPtr<Args> pArgsSub(new Args(valueRight.GetList()));
+			result = pFunc->Eval(env, sig, *pArgsSub);
 		} else if (pFunc->IsUnary()) {
 			ValueList valListArg(valueRight);
-			Args argsSub(valListArg);
-			result = pFunc->EvalMap(env, sig, argsSub);
+			AutoPtr<Args> pArgsSub(new Args(valListArg));
+			result = pFunc->EvalMap(env, sig, *pArgsSub);
 		} else {
-			Args argsSub(valueRight.GetList());
-			result = pFunc->EvalMap(env, sig, argsSub);
+			AutoPtr<Args> pArgsSub(new Args(valueRight.GetList()));
+			result = pFunc->EvalMap(env, sig, *pArgsSub);
 		}
 		return result;
 	} else if (valueLeft.IsString()) {

@@ -175,8 +175,8 @@ Value Gura_Method(Object, __call__)::EvalExpr(Environment &env, Signal sig, Args
 	}
 	const Function *pFunc = valueFunc.GetFunction();
 	pExprOwnerArgs->erase(pExprOwnerArgs->begin());
-	Args argsSub(args, pExprOwnerArgs->Reference());
-	return pFunc->EvalExpr(env, sig, argsSub);
+	AutoPtr<Args> pArgsSub(new Args(args, pExprOwnerArgs->Reference()));
+	return pFunc->EvalExpr(env, sig, *pArgsSub);
 }
 
 Value Gura_Method(Object, __call__)::DoEval(Environment &env, Signal sig, Args &args) const
@@ -320,11 +320,11 @@ bool Class::BuildContent(Environment &env, Signal sig, const Value &valueThis,
 			} else {
 				//pCallable->Call(*this, sig, valueThis, NULL, false,
 				//	pExprCaller, pExprCaller->GetExprOwner().Reference(), NULL);
-				Args args(pExprCaller->GetExprOwner().Reference(),
+				AutoPtr<Args> pArgs(new Args(pExprCaller->GetExprOwner().Reference(),
 							valueThis, NULL, false, NULL,
 							pExprCaller->GetAttrs(), pExprCaller->GetAttrsOpt(),
-							Expr_Block::Reference(pExprCaller->GetBlock()));
-				pCallable->DoCall(*this, sig, args);
+							Expr_Block::Reference(pExprCaller->GetBlock())));
+				pCallable->DoCall(*this, sig, *pArgs);
 				if (sig.IsSignalled()) {
 					sig.AddExprCause(pExprCaller);
 					return false;

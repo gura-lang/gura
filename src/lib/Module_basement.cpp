@@ -86,8 +86,8 @@ Gura_ImplementFunction(struct_)
 	AutoPtr<ConstructorOfStruct> pFunc(new ConstructorOfStruct(env));
 	pFunc->SetClassToConstruct(pClassCustom); // constructor is registered in this class
 	pFunc->DeclareBlock(OCCUR_ZeroOrOnce);
-	Args argsSub(pExprOwnerArg.release(), Value::Null, NULL, false, NULL, args.GetAttrs());
-	if (!pFunc->CustomDeclare(env, sig, _attrsOpt, argsSub)) return false;
+	AutoPtr<Args> pArgsSub(new Args(pExprOwnerArg.release(), Value::Null, NULL, false, NULL, args.GetAttrs()));
+	if (!pFunc->CustomDeclare(env, sig, _attrsOpt, *pArgsSub)) return false;
 	if (args.IsSet(Gura_Symbol(loose))) {
 		pFunc->GetDeclOwner().SetAsLoose();
 	}
@@ -454,8 +454,8 @@ Gura_ImplementFunction(catch_)
 						args.GetBlockFunc(env, sig, GetSymbolForBlock());
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	Args argsSub(valListArg);
-	return pFuncBlock->Eval(*pEnvBlock, sig, argsSub);
+	AutoPtr<Args> pArgsSub(new Args(valListArg));
+	return pFuncBlock->Eval(*pEnvBlock, sig, *pArgsSub);
 }
 
 // finally ():trailer {block}
@@ -842,8 +842,8 @@ bool Func_dim_Sub(Environment &env, Signal sig, const Function *pFuncBlock, Valu
 				foreach (IntList, pIdxWk, idxList) {
 					valListArg.push_back(Value(*pIdxWk));
 				}
-				Args args(valListArg);
-				Value result = pFuncBlock->Eval(env, sig, args);
+				AutoPtr<Args> pArgs(new Args(valListArg));
+				Value result = pFuncBlock->Eval(env, sig, *pArgs);
 				if (sig.IsSignalled()) return false;
 				valListParent.push_back(result);
 			}

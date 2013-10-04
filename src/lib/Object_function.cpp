@@ -127,8 +127,8 @@ Value Object_function::Eval(Environment &env, Signal sig, ValueList &valListArg)
 {
 	_pFunc->GetDeclOwner().Compensate(env, sig, valListArg);
 	if (sig.IsSignalled()) return Value::Null;
-	Args args(valListArg, _valueThis);
-	return _pFunc->Eval(env, sig, args);
+	AutoPtr<Args> pArgs(new Args(valListArg, _valueThis));
+	return _pFunc->Eval(env, sig, *pArgs);
 }
 
 Object *Object_function::Clone() const
@@ -222,8 +222,8 @@ Gura_ImplementFunction(function)
 	}
 	AutoPtr<CustomFunction> pFunc(new CustomFunction(env,
 			Gura_Symbol(_anonymous_), Expr::Reference(pExprBlock), FUNCTYPE_Function));
-	Args argsSub(pExprOwnerArg, Value::Null, NULL, false, NULL, args.GetAttrs());
-	if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, argsSub)) return Value::Null;
+	AutoPtr<Args> pArgsSub(new Args(pExprOwnerArg, Value::Null, NULL, false, NULL, args.GetAttrs()));
+	if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, *pArgsSub)) return Value::Null;
 	return Value(env, pFunc.release(), Value::Null);
 }
 

@@ -284,13 +284,13 @@ Value Function::EvalExpr(Environment &env, Signal sig, Args &args) const
 	if (!_declOwner.PrepareArgs(env, sig, exprListArg, valListArg, valueWithDict)) {
 		return Value::Null;
 	}
-	Args argsSub(args, valListArg, valueWithDict, resultMode, flags);
+	AutoPtr<Args> pArgsSub(new Args(args, valListArg, valueWithDict, resultMode, flags));
 	if (!mapFlag) {
-		return Eval(env, sig, argsSub);
-	} else if (_declOwner.ShouldImplicitMap(argsSub)) {
-		return EvalMap(env, sig, argsSub);
+		return Eval(env, sig, *pArgsSub);
+	} else if (_declOwner.ShouldImplicitMap(*pArgsSub)) {
+		return EvalMap(env, sig, *pArgsSub);
 	} else {
-		return Eval(env, sig, argsSub);
+		return Eval(env, sig, *pArgsSub);
 	}
 }
 
@@ -298,11 +298,11 @@ Value Function::Eval(Environment &env, Signal sig, Args &args) const
 {
 	bool exprFlag = false;
 	ValueList valListCasted;
-	if (!_declOwner.ValidateAndCast(env, sig, args.GetArgs(), valListCasted)) {
+	if (!_declOwner.ValidateAndCast(env, sig, args.GetValueListArg(), valListCasted)) {
 		return Value::Null;
 	}
-	Args argsCasted(args, valListCasted);
-	Value value = DoEval(env, sig, argsCasted);
+	AutoPtr<Args> pArgsCasted(new Args(args, valListCasted));
+	Value value = DoEval(env, sig, *pArgsCasted);
 	if (args.IsRsltVoid()) return Value::Undefined;
 	return value;
 }
@@ -321,7 +321,7 @@ Value Function::EvalMap(Environment &env, Signal sig, Args &args) const
 	AutoPtr<Iterator_ImplicitMap> pIterator(new Iterator_ImplicitMap(new Environment(env), sig,
 			Function::Reference(this),
 			args.GetThis(), Iterator::Reference(args.GetIteratorThis()),
-			args.GetArgs(), skipInvalidFlag));
+			args.GetValueListArg(), skipInvalidFlag));
 	if (sig.IsSignalled()) return Value::Null;
 #if 0
 	if (args.IsRsltIterator() || args.IsRsltXIterator()) {
@@ -344,7 +344,7 @@ Value Function::EvalMapRecursive(Environment &env, Signal sig,
 				ResultComposer *pResultComposer, Args &args) const
 {
 	IteratorOwner iterOwner;
-	if (!iterOwner.PrepareForMap(sig, GetDeclOwner(), args.GetArgs())) {
+	if (!iterOwner.PrepareForMap(sig, GetDeclOwner(), args.GetValueListArg())) {
 		return Value::Null;
 	}
 	Value result;
@@ -364,8 +364,8 @@ Value Function::EvalMapRecursive(Environment &env, Signal sig,
 			}
 			break;
 		}
-		Args argsEach(args, valListArg);
-		Value valueEach = Eval(env, sig, argsEach);
+		AutoPtr<Args> pArgsEach(new Args(args, valListArg));
+		Value valueEach = Eval(env, sig, *pArgsEach);
 		if (sig.IsSignalled()) return Value::Null;
 		pResultComposer->Store(valueEach);
 		if (pIteratorThis != NULL) {
@@ -384,7 +384,7 @@ Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &ar
 	Environment *pEnvOuter = GetDynamicScopeFlag()?
 							&env : const_cast<Environment *>(_pEnvScope.get());
 	AutoPtr<Environment> pEnvLocal(new Environment(pEnvOuter, envType));
-	const ValueList &valListArg = args.GetArgs();
+	const ValueList &valListArg = args.GetValueListArg();
 	ValueList::const_iterator pValue = valListArg.begin();
 	DeclarationList::const_iterator ppDecl = _declOwner.begin();
 	for ( ; pValue != valListArg.end() && ppDecl != _declOwner.end();
@@ -461,8 +461,8 @@ Value Function::ReturnValue(Environment &env, Signal sig,
 					args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
 	if (pFuncBlock == NULL) return Value::Null;
 	ValueList valListArg(result);
-	Args argsSub(valListArg);
-	Value value = pFuncBlock->Eval(env, sig, argsSub);
+	AutoPtr<Args> pArgsSub(new Args(valListArg));
+	Value value = pFuncBlock->Eval(env, sig, *pArgsSub);
 	if (sig.IsBreak() || sig.IsContinue()) {
 		sig.ClearSignal();
 	}
@@ -478,8 +478,8 @@ Value Function::ReturnValue(Environment &env, Signal sig,
 	const Function *pFuncBlock =
 					args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
 	if (pFuncBlock == NULL) return Value::Null;
-	Args argsSub(valListArg);
-	Value value = pFuncBlock->Eval(env, sig, argsSub);
+	AutoPtr<Args> pArgsSub(new Args(valListArg));
+	Value value = pFuncBlock->Eval(env, sig, *pArgsSub);
 	if (sig.IsBreak() || sig.IsContinue()) {
 		sig.ClearSignal();
 	}
@@ -831,8 +831,8 @@ CustomFunction *CustomFunction::CreateBlockFunc(Environment &env, Signal sig,
 	pFunc->_declOwner.AllowTooManyArgs(true);
 	const Expr_BlockParam *pExprBlockParam = pExprBlock->GetParam();
 	if (pExprBlockParam != NULL) {
-		Args args(pExprBlockParam->GetExprOwner().Reference());
-		if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, args)) {
+		AutoPtr<Args> pArgs(new Args(pExprBlockParam->GetExprOwner().Reference()));
+		if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, *pArgs)) {
 			return NULL;
 		}
 	}
@@ -844,6 +844,20 @@ CustomFunction *CustomFunction::CreateBlockFunc(Environment &env, Signal sig,
 //-----------------------------------------------------------------------------
 Args::~Args()
 {
+}
+
+bool Args::ShouldGenerateIterator(const DeclarationList &declList) const
+{
+	if (IsThisIterator()) return true;
+	ValueList::const_iterator pValue = _valListArg.begin();
+	DeclarationList::const_iterator ppDecl = declList.begin();
+	for ( ; pValue != _valListArg.end() && ppDecl != declList.end(); pValue++) {
+		const Declaration *pDecl = *ppDecl;
+		if (pValue->IsIterator() &&
+						pDecl->GetValueType() != VTYPE_iterator) return true;
+		if (!pDecl->IsVariableLength()) ppDecl++;
+	}
+	return false;
 }
 
 const Expr_Block *Args::GetBlock(Environment &env, Signal sig) const
@@ -882,20 +896,6 @@ const Expr_Block *Args::GetBlock(Environment &env, Signal sig) const
 	return pExprBlock;
 }
 
-bool Args::ShouldGenerateIterator(const DeclarationList &declList) const
-{
-	if (IsThisIterator()) return true;
-	ValueList::const_iterator pValue = _valListArg.begin();
-	DeclarationList::const_iterator ppDecl = declList.begin();
-	for ( ; pValue != _valListArg.end() && ppDecl != declList.end(); pValue++) {
-		const Declaration *pDecl = *ppDecl;
-		if (pValue->IsIterator() &&
-						pDecl->GetValueType() != VTYPE_iterator) return true;
-		if (!pDecl->IsVariableLength()) ppDecl++;
-	}
-	return false;
-}
-
 // return NULL without error if block is not specified
 const Function *Args::GetBlockFunc(Environment &env, Signal sig, const Symbol *pSymbol)
 {
@@ -917,11 +917,11 @@ Value Callable::Call(Environment &env, Signal sig,
 		const Expr_Caller *pExprCaller, ExprOwner *pExprOwnerArg,
 		TrailCtrlHolder *pTrailCtrlHolder)
 {
-	Args args(pExprOwnerArg, valueThis, pIteratorThis, listThisFlag,
+	AutoPtr<Args> pArgs(new Args(pExprOwnerArg, valueThis, pIteratorThis, listThisFlag,
 				TrailCtrlHolder::Reference(pTrailCtrlHolder),
 				pExprCaller->GetAttrs(), pExprCaller->GetAttrsOpt(),
-				Expr_Block::Reference(pExprCaller->GetBlock()));
-	Value result = DoCall(env, sig, args);
+				Expr_Block::Reference(pExprCaller->GetBlock())));
+	Value result = DoCall(env, sig, *pArgs);
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(pExprCaller);
 		return Value::Null;

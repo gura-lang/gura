@@ -100,9 +100,10 @@ void Object_Quadric::Callback_QuadricErrorProc(GLenum err)
 	if (_pFunc_QuadricErrorProc == NULL) return;
 	Environment &env = _pFunc_QuadricErrorProc->GetEnvScope();
 	Signal sig;
-	ValueList valListArg(Value(static_cast<int>(err)));
-	Args args(valListArg);
-	_pFunc_QuadricErrorProc->Eval(env, sig, args);
+	//ValueList valListArg(Value(static_cast<int>(err)));
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->AddValue(Value(static_cast<int>(err)));
+	_pFunc_QuadricErrorProc->Eval(env, sig, *pArgs);
 }
 
 //-----------------------------------------------------------------------------

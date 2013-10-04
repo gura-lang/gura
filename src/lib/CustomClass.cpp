@@ -75,8 +75,8 @@ Function *CustomClass::PrepareConstructor(Environment &env, Signal sig)
 	} else {
 		pFunc.reset(new ConstructorOfCustomClass(env, Gura_Symbol(_anonymous_),
 												new Expr_Block(), FUNCTYPE_Function));
-		Args argsSub(NULL);
-		if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, argsSub)) return NULL;
+		AutoPtr<Args> pArgsSub(new Args(NULL));
+		if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, *pArgsSub)) return NULL;
 	}
 	pFunc->SetSymbol(_pSymbol);
 	pFunc->SetClassToConstruct(this); // constructor is registered in this class
@@ -128,8 +128,8 @@ Value ConstructorOfCustomClass::DoEval(Environment &env, Signal sig, Args &args)
 			}
 		}
 		AutoPtr<Environment> pEnvSuper(new Environment(pEnvLocal.get(), ENVTYPE_local));
-		Args argsSub(pExprOwner, valueRtn);
-		pConstructorSuper->EvalExpr(*pEnvSuper, sig, argsSub);
+		AutoPtr<Args> pArgsSub(new Args(pExprOwner, valueRtn));
+		pConstructorSuper->EvalExpr(*pEnvSuper, sig, *pArgsSub);
 		if (sig.IsSignalled()) return Value::Null;
 	}
 	Value valueThis(valueRtn);
@@ -160,9 +160,9 @@ Value ConstructorOfStruct::DoEval(Environment &env, Signal sig, Args &args) cons
 		pObjThis = _pClassToConstruct->CreateDescendant(env, sig, _pClassToConstruct);
 		valueRtn.InitAsObject(pObjThis);
 	}
-	ValueList::const_iterator pValue = args.GetArgs().begin();
+	ValueList::const_iterator pValue = args.GetValueListArg().begin();
 	DeclarationList::const_iterator ppDecl = GetDeclOwner().begin();
-	for ( ; pValue != args.GetArgs().end() && ppDecl != GetDeclOwner().end();
+	for ( ; pValue != args.GetValueListArg().end() && ppDecl != GetDeclOwner().end();
 														pValue++, ppDecl++) {
 		const Declaration *pDecl = *ppDecl;
 		pObjThis->AssignValue(pDecl->GetSymbol(), *pValue, EXTRA_Public);

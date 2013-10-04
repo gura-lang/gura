@@ -486,8 +486,8 @@ bool Object_list::Comparator_Custom::
 {
 	if (_sig.IsSignalled()) return false;
 	ValueList valListArg(*pValue1, *pValue2);
-	Args argsSub(valListArg);
-	Value value = _pFunc->Eval(_env, _sig, argsSub);
+	AutoPtr<Args> pArgsSub(new Args(valListArg));
+	Value value = _pFunc->Eval(_env, _sig, *pArgsSub);
 	return value.GetNumber() < 0;
 }
 
@@ -689,8 +689,8 @@ Gura_ImplementFunction(ListInit)
 				sig.SetError(ERR_SyntaxError, "invalid format in list initializer");
 				return Value::Null;
 			}
-			Args argsSub(pValue->GetList());
-			Value valueElem = pFunc->Eval(env, sig, argsSub);
+			AutoPtr<Args> pArgsSub(new Args(pValue->GetList()));
+			Value valueElem = pFunc->Eval(env, sig, *pArgsSub);
 			valList.push_back(valueElem);
 		}
 	} else {

@@ -108,8 +108,8 @@ Gura_ImplementFunction(stream)
 						args.GetBlockFunc(env, sig, GetSymbolForBlock());
 		if (pFuncBlock == NULL) return Value::Null;
 		ValueList valListArg(result);
-		Args argsSub(valListArg);
-		pFuncBlock->Eval(env, sig, argsSub);
+		AutoPtr<Args> pArgsSub(new Args(valListArg));
+		pFuncBlock->Eval(env, sig, *pArgsSub);
 		result = Value::Null;	// object is destroyed here
 	}
 	return result;

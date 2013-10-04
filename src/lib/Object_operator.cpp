@@ -237,16 +237,16 @@ Object *Class_operator::CreateDescendant(Environment &env, Signal sig, Class *pC
 Value CustomOperatorEntry::DoEval(Environment &env, Signal sig, const Value &value) const
 {
 	ValueList valListArg(value);
-	Args args(valListArg);
-	return _pFunc->Eval(env, sig, args);
+	AutoPtr<Args> pArgs(new Args(valListArg));
+	return _pFunc->Eval(env, sig, *pArgs);
 }
 
 Value CustomOperatorEntry::DoEval(Environment &env, Signal sig,
 					const Value &valueLeft, const Value &valueRight) const
 {
 	ValueList valListArg(valueLeft, valueRight);
-	Args args(valListArg);
-	return _pFunc->Eval(env, sig, args);
+	AutoPtr<Args> pArgs(new Args(valListArg));
+	return _pFunc->Eval(env, sig, *pArgs);
 }
 
 }

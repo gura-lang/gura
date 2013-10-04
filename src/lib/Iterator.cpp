@@ -139,8 +139,8 @@ Value Iterator::Eval(Environment &env, Signal sig,
 								iArg++, pIterator = pIterator->GetSource()) {
 			valListArg.push_back(Value(pIterator->GetCountNext() - 1));
 		}
-		Args argsSub(valListArg);
-		Value resultElem = pFuncBlock->Eval(env, sig, argsSub);
+		AutoPtr<Args> pArgsSub(new Args(valListArg));
+		Value resultElem = pFuncBlock->Eval(env, sig, *pArgsSub);
 		if (!sig.IsSignalled()) {
 			// nothing to do
 		} else if (sig.IsBreak()) {
@@ -177,8 +177,8 @@ Value Iterator::Reduce(Environment &env, Signal sig,
 	Value value;
 	while (Next(env, sig, value)) {
 		ValueList valListArg(value, valueAccum);
-		Args argsSub(valListArg);
-		Value result = pFuncBlock->Eval(env, sig, argsSub);
+		AutoPtr<Args> pArgsSub(new Args(valListArg));
+		Value result = pFuncBlock->Eval(env, sig, *pArgsSub);
 		if (!sig.IsSignalled()) {
 			// nothing to do
 		} else if (sig.IsBreak()) {
@@ -465,8 +465,8 @@ size_t Iterator::Find(Environment &env, Signal sig, const Value &criteria, Value
 		const Function *pFunc = criteria.GetFunction();
 		while (Next(env, sig, value)) {
 			ValueList valListArg(value);
-			Args args(valListArg);
-			Value valueFlag = pFunc->Eval(env, sig, args);
+			AutoPtr<Args> pArgs(new Args(valListArg));
+			Value valueFlag = pFunc->Eval(env, sig, *pArgs);
 			if (sig.IsSignalled()) return InvalidSize;
 			if (valueFlag.GetBoolean()) return GetCountNext() - 1;
 		}
@@ -516,8 +516,8 @@ size_t Iterator::Count(Environment &env, Signal sig, const Value &criteria)
 		Value value;
 		while (Next(env, sig, value)) {
 			ValueList valListArg(value);
-			Args args(valListArg);
-			Value valueFlag = pFunc->Eval(env, sig, args);
+			AutoPtr<Args> pArgs(new Args(valListArg));
+			Value valueFlag = pFunc->Eval(env, sig, *pArgs);
 			if (sig.IsSignalled()) return 0;
 			if (valueFlag.GetBoolean()) cnt++;
 		}
@@ -1102,9 +1102,9 @@ void Iterator_Fork::Run()
 	Signal sig;
 	ValueList valList;
 	while (_iterOwner.Next(env, sig, valList)) {
-		Args args(valList);
-		args.SetThis(_valueThis);
-		Value value = _pFunc->Eval(*_pEnv, sig, args);
+		AutoPtr<Args> pArgs(new Args(valList));
+		pArgs->SetThis(_valueThis);
+		Value value = _pFunc->Eval(*_pEnv, sig, *pArgs);
 		if (sig.IsSignalled()) break;
 		_semaphore.Wait();
 		_pValListToWrite->push_back(value);
@@ -1198,13 +1198,13 @@ bool Iterator_ImplicitMap::DoNext(Environment &env, Signal sig, Value &value)
 {
 	ValueList valList;
 	if (_doneThisFlag || !_iterOwner.Next(env, sig, valList)) return false;
-	Args args(valList);
-	args.SetThis(_valueThis);
+	AutoPtr<Args> pArgs(new Args(valList));
+	pArgs->SetThis(_valueThis);
 	if (!_pIteratorThis.IsNull()) {
 		_doneThisFlag = !_pIteratorThis->Next(env, sig, _valueThis);
 		if (sig.IsSignalled()) return false;
 	}
-	value = _pFunc->Eval(*_pEnv, sig, args);
+	value = _pFunc->Eval(*_pEnv, sig, *pArgs);
 	if (sig.IsSignalled()) return false;
 	return true;
 }
@@ -1451,16 +1451,16 @@ bool Iterator_FuncBinder::DoNext(Environment &env, Signal sig, Value &value)
 		if (!_pFunc->GetDeclOwner().Compensate(*_pEnv, sig, valListComp)) {
 			return false;
 		}
-		Args args(valListComp, _valueThis, NULL, false, NULL);
-		value = _pFunc->Eval(*_pEnv, sig, args);
+		AutoPtr<Args> pArgs(new Args(valListComp, _valueThis, NULL, false, NULL));
+		value = _pFunc->Eval(*_pEnv, sig, *pArgs);
 		if (sig.IsSignalled()) return false;
 	} else {
 		ValueList valListComp(valueArg);
 		if (!_pFunc->GetDeclOwner().Compensate(*_pEnv, sig, valListComp)) {
 			return false;
 		}
-		Args args(valListComp, _valueThis, NULL, false, NULL);
-		value = _pFunc->Eval(*_pEnv, sig, args);
+		AutoPtr<Args> pArgs(new Args(valListComp, _valueThis, NULL, false, NULL));
+		value = _pFunc->Eval(*_pEnv, sig, *pArgs);
 		if (sig.IsSignalled()) return false;
 		//sig.SetError(ERR_TypeError, "invalid structure of arguments");
 		//return false;
@@ -2441,8 +2441,8 @@ bool Iterator_repeat::DoNext(Environment &env, Signal sig, Value &value)
 		if (_pIteratorSub.IsNull()) {
 			if (_cnt >= 0 && _idx >= _cnt) return false;
 			ValueList valListArg(Value(static_cast<Number>(_idx)));
-			Args args(valListArg);
-			value = _pFuncBlock->Eval(*_pEnv, sig, args);
+			AutoPtr<Args> pArgs(new Args(valListArg));
+			value = _pFuncBlock->Eval(*_pEnv, sig, *pArgs);
 			if (sig.IsBreak()) {
 				sig.ClearSignal();
 				return false;
@@ -2508,8 +2508,8 @@ bool Iterator_while::DoNext(Environment &env, Signal sig, Value &value)
 		if (_pIteratorSub.IsNull()) {
 			if (!_pExpr->Exec(*_pEnv, sig).GetBoolean()) return false;
 			ValueList valListArg(Value(static_cast<Number>(_idx)));
-			Args args(valListArg);
-			value = _pFuncBlock->Eval(*_pEnv, sig, args);
+			AutoPtr<Args> pArgs(new Args(valListArg));
+			value = _pFuncBlock->Eval(*_pEnv, sig, *pArgs);
 			if (sig.IsBreak()) {
 				sig.ClearSignal();
 				return false;
@@ -2591,8 +2591,8 @@ bool Iterator_for::DoNext(Environment &env, Signal sig, Value &value)
 			}
 			if (_doneFlag) return false;
 			ValueList valListArg(Value(static_cast<Number>(_idx)));
-			Args args(valListArg);
-			value = _pFuncBlock->Eval(*_pEnv, sig, args);
+			AutoPtr<Args> pArgs(new Args(valListArg));
+			value = _pFuncBlock->Eval(*_pEnv, sig, *pArgs);
 			if (sig.IsBreak()) {
 				value = sig.GetValue();
 				sig.ClearSignal();
@@ -2685,8 +2685,8 @@ bool Iterator_cross::DoNext(Environment &env, Signal sig, Value &value)
 		if (_pIteratorSub.IsNull()) {
 			if (_doneFlag) return false;
 			_valListArg[0] = Value(_idx);
-			Args args(_valListArg);
-			value = _pFuncBlock->Eval(*_pEnv, sig, args);
+			AutoPtr<Args> pArgs(new Args(_valListArg));
+			value = _pFuncBlock->Eval(*_pEnv, sig, *pArgs);
 			if (sig.IsBreak()) {
 				value = sig.GetValue();
 				sig.ClearSignal();

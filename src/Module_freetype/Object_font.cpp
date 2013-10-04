@@ -237,12 +237,14 @@ FT_Error Object_font::LoadAndDecorateChar(Environment &env, Signal sig,
 					FT_LOAD_DEFAULT | (transformFlag? FT_LOAD_NO_BITMAP : 0));
 		if (err != 0) return err;
 	} else {
-		ValueList valListArg;
-		valListArg.reserve(2);
-		valListArg.push_back(Value(codeUTF32));
-		valListArg.push_back(Value(idx));
-		Args args(valListArg);
-		pFuncDeco->Eval(env, sig, args);
+		//ValueList valListArg;
+		//valListArg.reserve(2);
+		//valListArg.push_back(Value(codeUTF32));
+		//valListArg.push_back(Value(idx));
+		AutoPtr<Args> pArgs(new Args());
+		pArgs->AddValue(Value(codeUTF32));
+		pArgs->AddValue(Value(idx));
+		pFuncDeco->Eval(env, sig, *pArgs);
 	}
 	FT_GlyphSlot glyphSlot = GetFace()->glyph;
 	if (_strength == 0.) {

@@ -119,7 +119,7 @@ Gura_DeclareFunction(interval)
 
 Gura_ImplementFunction(interval)
 {
-	const ValueList &valListArg = args.GetArgs();
+	const ValueList &valListArg = args.GetValueListArg();
 	Number numBegin = valListArg[0].GetNumber();
 	Number numEnd = valListArg[1].GetNumber();
 	int numSamples = valListArg[2].GetInt();

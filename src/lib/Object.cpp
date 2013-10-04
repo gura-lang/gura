@@ -21,8 +21,8 @@ Object::~Object()
 	if (pFunc == NULL) return;
 	Signal &sig = pClassCustom->GetSignal();
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
-	Args args(ValueList::Null, valueThis);
-	pFunc->Eval(*this, sig, args);
+	AutoPtr<Args> pArgs(new Args(ValueList::Null, valueThis));
+	pFunc->Eval(*this, sig, *pArgs);
 }
 
 Object *Object::Clone() const
@@ -59,8 +59,8 @@ Value Object::EmptyIndexGet(Environment &env, Signal sig)
 		return Value::Null;
 	}
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
-	Args args(ValueList::Null, valueThis);
-	return pFunc->Eval(*this, sig, args);
+	AutoPtr<Args> pArgs(new Args(ValueList::Null, valueThis));
+	return pFunc->Eval(*this, sig, *pArgs);
 }
 
 void Object::EmptyIndexSet(Environment &env, Signal sig, const Value &value)
@@ -74,8 +74,8 @@ void Object::EmptyIndexSet(Environment &env, Signal sig, const Value &value)
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(value);
-	Args args(valListArg, valueThis);
-	pFunc->Eval(*this, sig, args);
+	AutoPtr<Args> pArgs(new Args(valListArg, valueThis));
+	pFunc->Eval(*this, sig, *pArgs);
 }
 
 Value Object::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
@@ -89,8 +89,8 @@ Value Object::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(valueIdx);
-	Args args(valListArg, valueThis);
-	return pFunc->Eval(*this, sig, args);
+	AutoPtr<Args> pArgs(new Args(valListArg, valueThis));
+	return pFunc->Eval(*this, sig, *pArgs);
 }
 
 void Object::IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value)
@@ -102,8 +102,8 @@ void Object::IndexSet(Environment &env, Signal sig, const Value &valueIdx, const
 	}
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	ValueList valListArg(valueIdx, value);
-	Args args(valListArg, valueThis);
-	pFunc->Eval(*this, sig, args);
+	AutoPtr<Args> pArgs(new Args(valListArg, valueThis));
+	pFunc->Eval(*this, sig, *pArgs);
 }
 
 bool Object::DirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -125,8 +125,8 @@ bool Object::DirProp(Environment &env, Signal sig, SymbolSet &symbols)
 Value Object::EvalMethod(Environment &env, Signal sig, const Function *pFunc, const ValueList &valListArg)
 {
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
-	Args args(valListArg, valueThis, NULL, false, NULL);
-	return pFunc->Eval(env, sig, args);
+	AutoPtr<Args> pArgs(new Args(valListArg, valueThis, NULL, false, NULL));
+	return pFunc->Eval(env, sig, *pArgs);
 }
 
 Value Object::EvalMethod(Environment &env, Signal sig, const Symbol *pSymbol,
@@ -137,8 +137,8 @@ Value Object::EvalMethod(Environment &env, Signal sig, const Symbol *pSymbol,
 	if (pFunc == NULL) return Value::Null;
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	evaluatedFlag = true;
-	Args args(valListArg, valueThis, NULL, false, NULL);
-	return pFunc->Eval(env, sig, args);
+	AutoPtr<Args> pArgs(new Args(valListArg, valueThis, NULL, false, NULL));
+	return pFunc->Eval(env, sig, *pArgs);
 }
 
 Value Object::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
@@ -151,8 +151,8 @@ Value Object::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	ValueList valListArg;
 	valListArg.reserve(1);
 	valListArg.push_back(Value(pSymbol));
-	Args args(valListArg, valueThis);
-	return pFunc->Eval(*this, sig, args);
+	AutoPtr<Args> pArgs(new Args(valListArg, valueThis));
+	return pFunc->Eval(*this, sig, *pArgs);
 }
 
 Value Object::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
@@ -162,8 +162,8 @@ Value Object::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, con
 	if (pFunc == NULL) return Value::Null;
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	ValueList valListArg(Value(pSymbol), value);
-	Args args(valListArg, valueThis);
-	Value result = pFunc->Eval(*this, sig, args);
+	AutoPtr<Args> pArgs(new Args(valListArg, valueThis));
+	Value result = pFunc->Eval(*this, sig, *pArgs);
 	evaluatedFlag = result.GetBoolean();
 	return value;
 }
