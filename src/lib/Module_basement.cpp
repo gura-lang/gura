@@ -459,10 +459,10 @@ Gura_ImplementFunction(catch_)
 	return pFuncBlock->Eval(*pEnvBlock, sig, *pArgsSub);
 }
 
-// finally ():trailer {block}
+// finally ():trailer:finalizer {block}
 Gura_DeclareFunctionTrailerAlias(finally_, "finally")
 {
-	SetMode(RSLTMODE_Normal, FLAG_Trailer);
+	SetMode(RSLTMODE_Normal, FLAG_Trailer | FLAG_Finalizer);
 	DeclareBlock(OCCUR_Once);
 }
 

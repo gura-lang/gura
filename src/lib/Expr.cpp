@@ -1857,15 +1857,13 @@ Expr *Expr_Caller::Clone() const
 
 Callable *Expr_Caller::LookupCallable(Environment &env, Signal sig) const
 {
-	if (!_pExprCar->IsMember()) {
-		Value valueCar = _pExprCar->Exec(env, sig);
-		if (sig.IsSignalled()) {
-			sig.AddExprCause(this);
-			return NULL;
-		}
-		return valueCar.GetObject();
+	if (_pExprCar->IsMember()) return NULL;
+	Value valueCar = _pExprCar->Exec(env, sig);
+	if (sig.IsSignalled()) {
+		sig.AddExprCause(this);
+		return NULL;
 	}
-	return NULL;
+	return valueCar.GetObject();
 }
 
 Value Expr_Caller::DoExec(Environment &env, Signal sig) const
@@ -1875,7 +1873,36 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig) const
 	for (const Expr_Caller *pExprCaller = this; pExprCaller != NULL;
 									pExprCaller = pExprCaller->GetTrailer()) {
 		result = pExprCaller->DoExec(env, sig, pTrailCtrlHolder.get());
-		if (pTrailCtrlHolder->Get() == TRAILCTRL_Quit) break;
+		TrailCtrl trailCtrl = pTrailCtrlHolder->Get();
+		if (trailCtrl == TRAILCTRL_Quit) {
+			break;
+		} else if (trailCtrl == TRAILCTRL_Finalize) {
+			// doesn't work correctly yet.
+			SignalType sigType = SIGTYPE_None;
+			Value valueSig;
+			if (sig.IsErrorSuspended()) {
+				break;
+			} else if (sig.IsError()) {
+				break;
+			} else if (sig.IsTerminate()) {
+				break;
+			} else if (sig.IsBreak() || sig.IsContinue() || sig.IsReturn()) {
+				sigType = sig.GetType();
+				valueSig = sig.GetValue();
+			}
+			sig.ClearSignal();
+			for ( ; pExprCaller != NULL; pExprCaller = pExprCaller->GetTrailer()) {
+				Callable *pCallable = pExprCaller->LookupCallable(env, sig);
+				if (sig.IsSignalled()) return Value::Null;
+				if (pCallable != NULL && pCallable->IsFinalizer()) {
+					result = pExprCaller->DoExec(env, sig, pTrailCtrlHolder.get());
+					if (sig.IsSignalled()) return Value::Null;
+					sig.SetType(sigType);
+					sig.SetValue(valueSig);
+					return Value::Null;
+				}
+			}
+		}
 	}
 	// if there's an error suspended by try() function, it would be resumed below.
 	// otherwise, nothing would happen and any error would be kept intact.

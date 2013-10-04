@@ -104,6 +104,8 @@ bool Function::CustomDeclare(Environment &env, Signal sig,
 			_flags |= FLAG_Leader;
 		} else if (pSymbol->IsIdentical(Gura_Symbol(trailer))) {
 			_flags |= FLAG_Trailer;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(finalizer))) {
+			_flags |= FLAG_Finalizer;
 		} else if (pSymbol->IsIdentical(Gura_Symbol(end_marker))) {
 			_flags |= FLAG_EndMarker;
 		} else if (pSymbol->IsIdentical(Gura_Symbol(public_))) {
@@ -586,6 +588,10 @@ String Function::ToString() const
 		str += ":";
 		str += Gura_Symbol(trailer)->GetName();
 	}
+	if (GetFinalizerFlag()) {
+		str += ":";
+		str += Gura_Symbol(finalizer)->GetName();
+	}
 	if (GetEndMarkerFlag()) {
 		str += ":";
 		str += Gura_Symbol(end_marker)->GetName();
@@ -937,6 +943,11 @@ bool Callable::IsLeader() const
 }
 
 bool Callable::IsTrailer() const
+{
+	return false;
+}
+
+bool Callable::IsFinalizer() const
 {
 	return false;
 }

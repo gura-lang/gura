@@ -239,6 +239,7 @@ public:
 	inline bool GetSymbolFuncFlag() const { return (_flags & FLAG_SymbolFunc)? true : false; }
 	inline bool GetLeaderFlag() const { return (_flags & FLAG_Leader)? true : false; }
 	inline bool GetTrailerFlag() const { return (_flags & FLAG_Trailer)? true : false; }
+	inline bool GetFinalizerFlag() const { return (_flags & FLAG_Finalizer)? true : false; }
 	inline bool GetEndMarkerFlag() const { return (_flags & FLAG_EndMarker)? true : false; }
 	inline bool GetPublicFlag() const { return (_flags & FLAG_Public)? true : false; }
 	inline bool GetPrivateFlag() const { return (_flags & FLAG_Private)? true : false; }
@@ -618,6 +619,7 @@ public:
 	virtual Value DoCall(Environment &env, Signal sig, Args &args) = 0;
 	virtual bool IsLeader() const;
 	virtual bool IsTrailer() const;
+	virtual bool IsFinalizer() const;
 	virtual bool IsEndMarker() const;
 	virtual OccurPattern GetBlockOccurPattern() const;
 };

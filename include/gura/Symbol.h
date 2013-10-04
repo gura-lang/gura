@@ -189,6 +189,7 @@ public:
 	Gura_DeclareSymbol(nosort);
 	Gura_DeclareSymbol(leader);
 	Gura_DeclareSymbol(trailer);
+	Gura_DeclareSymbol(finalizer);
 	Gura_DeclareSymbol(end_marker);
 	Gura_DeclareSymbol(fork);
 	Gura_DeclareSymbol(strict);

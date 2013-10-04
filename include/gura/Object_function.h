@@ -50,6 +50,7 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual bool IsLeader() const;
 	virtual bool IsTrailer() const;
+	virtual bool IsFinalizer() const;
 	virtual bool IsEndMarker() const;
 	virtual OccurPattern GetBlockOccurPattern() const;
 	virtual Value DoCall(Environment &env, Signal sig, Args &args);

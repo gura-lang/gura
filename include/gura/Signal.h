@@ -52,16 +52,17 @@ public:
 		return _pShared->sigType != SIGTYPE_None &&
 									_pShared->sigType != SIGTYPE_ErrorSuspended;
 	}
-	inline bool IsErrorSuspended() const{ return _pShared->sigType == SIGTYPE_ErrorSuspended; }
-	inline bool IsError() const			{ return _pShared->sigType == SIGTYPE_Error; }
-	inline bool IsTerminate() const		{ return _pShared->sigType == SIGTYPE_Terminate; }
-	inline bool IsBreak() const			{ return _pShared->sigType == SIGTYPE_Break; }
-	inline bool IsContinue() const		{ return _pShared->sigType == SIGTYPE_Continue; }
-	inline bool IsReturn() const		{ return _pShared->sigType == SIGTYPE_Return; }
-	inline bool IsSwitchDone() const	{ return _pShared->sigType == SIGTYPE_SwitchDone; }
-	inline bool IsDetectEncoding() const{ return _pShared->sigType == SIGTYPE_DetectEncoding; }
-	inline bool IsReqSaveHistory() const	{ return _pShared->sigType == SIGTYPE_ReqSaveHistory; }
-	inline bool IsReqClearHistory() const	{ return _pShared->sigType == SIGTYPE_ReqClearHistory; }
+	inline bool IsErrorSuspended() const	{ return _pShared->sigType == SIGTYPE_ErrorSuspended;	}
+	inline bool IsError() const				{ return _pShared->sigType == SIGTYPE_Error;			}
+	inline bool IsTerminate() const			{ return _pShared->sigType == SIGTYPE_Terminate;		}
+	inline bool IsBreak() const				{ return _pShared->sigType == SIGTYPE_Break;			}
+	inline bool IsContinue() const			{ return _pShared->sigType == SIGTYPE_Continue;			}
+	inline bool IsReturn() const			{ return _pShared->sigType == SIGTYPE_Return;			}
+	inline bool IsSwitchDone() const		{ return _pShared->sigType == SIGTYPE_SwitchDone;		}
+	inline bool IsDetectEncoding() const	{ return _pShared->sigType == SIGTYPE_DetectEncoding;	}
+	inline bool IsReqSaveHistory() const	{ return _pShared->sigType == SIGTYPE_ReqSaveHistory;	}
+	inline bool IsReqClearHistory() const	{ return _pShared->sigType == SIGTYPE_ReqClearHistory;	}
+	inline void SetType(SignalType sigType) { _pShared->sigType = sigType; }
 	inline SignalType GetType() const { return _pShared->sigType; }
 	inline const char *GetTypeName() const { return GetTypeName(_pShared->sigType); }
 	inline Value &GetValue() const { return *_pShared->pValue; }

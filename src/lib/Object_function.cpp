@@ -104,6 +104,11 @@ bool Object_function::IsTrailer() const
 	return _pFunc->GetTrailerFlag();
 }
 
+bool Object_function::IsFinalizer() const
+{
+	return _pFunc->GetFinalizerFlag();
+}
+
 bool Object_function::IsEndMarker() const
 {
 	return _pFunc->GetEndMarkerFlag();
