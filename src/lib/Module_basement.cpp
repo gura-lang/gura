@@ -447,8 +447,6 @@ Gura_ImplementFunction(catch_)
 	if (!handleFlag) return Value::Null;
 	args.QuitTrailer();
 	Object_error *pObj = new Object_error(env, sig.GetError());
-	//Value value(pObj);
-	//ValueList valListArg(value);
 	sig.ClearSignal(); // clear even the suspended state
 	const Function *pFuncBlock =
 						args.GetBlockFunc(env, sig, GetSymbolForBlock());
@@ -838,8 +836,6 @@ bool Func_dim_Sub(Environment &env, Signal sig, const Function *pFuncBlock, Valu
 			}
 		} else {
 			for (*pIdx = 0; *pIdx < *pCnt; (*pIdx)++) {
-				//ValueList valListArg;
-				//valListArg.reserve(idxList.size());
 				AutoPtr<Args> pArgs(new Args());
 				pArgs->ReserveValueListArg(idxList.size());
 				foreach (IntList, pIdxWk, idxList) {

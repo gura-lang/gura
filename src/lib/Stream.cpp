@@ -450,7 +450,6 @@ bool Stream::ReadToStream(Environment &env, Signal sig, Stream &streamDst,
 		if (bytesRead == 0) break;
 		if (pFuncFilter != NULL) {
 			Value value(new Object_binary(env, buff, bytesUnit, false));
-			//ValueList valListArg(value);
 			AutoPtr<Args> pArgsSub(new Args());
 			pArgsSub->SetValue(value);
 			Value rtn = pFuncFilter->Eval(env, sig, *pArgsSub);

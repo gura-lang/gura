@@ -536,7 +536,6 @@ bool DeclarationOwner::PrepareArgs(Environment &env, Signal sig,
 			}
 		} else if (pDecl->IsQuote()) {
 			value = Value(new Object_expr(env, Expr::Reference(pExprArg)));
-			//valListArg.push_back(value);
 		} else if (pDecl->IsType(VTYPE_symbol)) {
 			const Expr *pExpr = pExprArg;
 			if (pExpr->IsQuote()) {

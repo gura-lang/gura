@@ -131,8 +131,6 @@ Value Iterator::Eval(Environment &env, Signal sig,
 								nArgs++, pIterator = pIterator->GetSource()) ;
 	}
 	while (contFlag && Next(env, sig, value)) {
-		//ValueList valListArg;
-		//valListArg.reserve(nArgs);
 		AutoPtr<Args> pArgsSub(new Args());
 		pArgsSub->ReserveValueListArg(nArgs);
 		size_t iArg = 0;
@@ -177,7 +175,6 @@ Value Iterator::Reduce(Environment &env, Signal sig,
 	}
 	Value value;
 	while (Next(env, sig, value)) {
-		//ValueList valListArg(value, valueAccum);
 		AutoPtr<Args> pArgsSub(new Args());
 		pArgsSub->SetValues(value, valueAccum);
 		Value result = pFuncBlock->Eval(env, sig, *pArgsSub);
@@ -466,7 +463,6 @@ size_t Iterator::Find(Environment &env, Signal sig, const Value &criteria, Value
 		}
 		const Function *pFunc = criteria.GetFunction();
 		while (Next(env, sig, value)) {
-			//ValueList valListArg(value);
 			AutoPtr<Args> pArgs(new Args());
 			pArgs->SetValue(value);
 			Value valueFlag = pFunc->Eval(env, sig, *pArgs);
@@ -518,7 +514,6 @@ size_t Iterator::Count(Environment &env, Signal sig, const Value &criteria)
 		const Function *pFunc = criteria.GetFunction();
 		Value value;
 		while (Next(env, sig, value)) {
-			//ValueList valListArg(value);
 			AutoPtr<Args> pArgs(new Args());
 			pArgs->SetValue(value);
 			Value valueFlag = pFunc->Eval(env, sig, *pArgs);
@@ -2447,7 +2442,6 @@ bool Iterator_repeat::DoNext(Environment &env, Signal sig, Value &value)
 	for (;;) {
 		if (_pIteratorSub.IsNull()) {
 			if (_cnt >= 0 && _idx >= _cnt) return false;
-			//ValueList valListArg(Value(static_cast<Number>(_idx)));
 			AutoPtr<Args> pArgs(new Args());
 			pArgs->SetValue(Value(static_cast<Number>(_idx)));
 			value = _pFuncBlock->Eval(*_pEnv, sig, *pArgs);
@@ -2515,7 +2509,6 @@ bool Iterator_while::DoNext(Environment &env, Signal sig, Value &value)
 	for (;;) {
 		if (_pIteratorSub.IsNull()) {
 			if (!_pExpr->Exec(*_pEnv, sig).GetBoolean()) return false;
-			//ValueList valListArg(Value(static_cast<Number>(_idx)));
 			AutoPtr<Args> pArgs(new Args());
 			pArgs->SetValue(Value(static_cast<Number>(_idx)));
 			value = _pFuncBlock->Eval(*_pEnv, sig, *pArgs);
@@ -2599,7 +2592,6 @@ bool Iterator_for::DoNext(Environment &env, Signal sig, Value &value)
 				ppExprLeft++;
 			}
 			if (_doneFlag) return false;
-			//ValueList valListArg(Value(static_cast<Number>(_idx)));
 			AutoPtr<Args> pArgs(new Args());
 			pArgs->SetValue(Value(static_cast<Number>(_idx)));
 			value = _pFuncBlock->Eval(*_pEnv, sig, *pArgs);
