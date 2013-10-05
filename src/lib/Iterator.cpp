@@ -1453,7 +1453,8 @@ bool Iterator_FuncBinder::DoNext(Environment &env, Signal sig, Value &value)
 		if (!_pFunc->GetDeclOwner().Compensate(*_pEnv, sig, valListComp)) {
 			return false;
 		}
-		AutoPtr<Args> pArgs(new Args(valListComp, _valueThis, NULL, false, NULL));
+		AutoPtr<Args> pArgs(new Args(valListComp));
+		pArgs->SetThis(_valueThis);
 		value = _pFunc->Eval(*_pEnv, sig, *pArgs);
 		if (sig.IsSignalled()) return false;
 	} else {
@@ -1461,7 +1462,8 @@ bool Iterator_FuncBinder::DoNext(Environment &env, Signal sig, Value &value)
 		if (!_pFunc->GetDeclOwner().Compensate(*_pEnv, sig, valListComp)) {
 			return false;
 		}
-		AutoPtr<Args> pArgs(new Args(valListComp, _valueThis, NULL, false, NULL));
+		AutoPtr<Args> pArgs(new Args(valListComp));
+		pArgs->SetThis(_valueThis);
 		value = _pFunc->Eval(*_pEnv, sig, *pArgs);
 		if (sig.IsSignalled()) return false;
 		//sig.SetError(ERR_TypeError, "invalid structure of arguments");

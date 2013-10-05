@@ -285,7 +285,10 @@ Value Function::EvalExpr(Environment &env, Signal sig, Args &args) const
 	if (!_declOwner.PrepareArgs(env, sig, exprListArg, valListArg, valDictArg)) {
 		return Value::Null;
 	}
-	AutoPtr<Args> pArgsSub(new Args(args, valListArg, valueWithDict, resultMode, flags));
+	AutoPtr<Args> pArgsSub(new Args(args, valListArg));
+	pArgsSub->SetValueWithDict(valueWithDict);
+	pArgsSub->SetResultMode(resultMode);
+	pArgsSub->SetFlags(flags);
 	if (mapFlag && _declOwner.ShouldImplicitMap(*pArgsSub)) {
 		return EvalMap(env, sig, *pArgsSub);
 	}

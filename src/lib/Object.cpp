@@ -21,7 +21,8 @@ Object::~Object()
 	if (pFunc == NULL) return;
 	Signal &sig = pClassCustom->GetSignal();
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
-	AutoPtr<Args> pArgs(new Args(ValueList::Null, valueThis));
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetThis(valueThis);
 	pFunc->Eval(*this, sig, *pArgs);
 }
 
@@ -59,7 +60,8 @@ Value Object::EmptyIndexGet(Environment &env, Signal sig)
 		return Value::Null;
 	}
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
-	AutoPtr<Args> pArgs(new Args(ValueList::Null, valueThis));
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetThis(valueThis);
 	return pFunc->Eval(*this, sig, *pArgs);
 }
 
@@ -124,7 +126,8 @@ bool Object::DirProp(Environment &env, Signal sig, SymbolSet &symbols)
 Value Object::EvalMethod(Environment &env, Signal sig, const Function *pFunc, const ValueList &valListArg)
 {
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
-	AutoPtr<Args> pArgs(new Args(valListArg, valueThis, NULL, false, NULL));
+	AutoPtr<Args> pArgs(new Args(valListArg));
+	pArgs->SetThis(valueThis);
 	return pFunc->Eval(env, sig, *pArgs);
 }
 
@@ -136,7 +139,8 @@ Value Object::EvalMethod(Environment &env, Signal sig, const Symbol *pSymbol,
 	if (pFunc == NULL) return Value::Null;
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	evaluatedFlag = true;
-	AutoPtr<Args> pArgs(new Args(valListArg, valueThis, NULL, false, NULL));
+	AutoPtr<Args> pArgs(new Args(valListArg));
+	pArgs->SetThis(valueThis);
 	return pFunc->Eval(env, sig, *pArgs);
 }
 

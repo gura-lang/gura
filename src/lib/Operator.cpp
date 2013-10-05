@@ -534,7 +534,7 @@ Value Operator_Mul::EvalMapBinary(Environment &env, Signal sig,
 				if (!pFunc->GetDeclOwner().Compensate(env, sig, valListComp)) {
 					return Value::Null;
 				}
-				AutoPtr<Args> pArgsSub(new Args(valListComp, Value::Null, NULL, false, NULL));
+				AutoPtr<Args> pArgsSub(new Args(valListComp));
 				return pFunc->Eval(env, sig, *pArgsSub);
 			}
 			AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));
