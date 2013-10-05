@@ -1202,7 +1202,7 @@ Gura_DeclareFunction(printf)
 	"\n"
 	"- `+` .. `+` precedes for positive numbers\n"
 	"- `-` .. adjust a string to left\n"
-	"- `(space)` .. space character precedes for positive numbers\n"
+	"- `[SPC]` .. space character precedes for positive numbers\n"
 	"- `#` .. converted results of binary, octdecimal and hexadecimal are preceded by `'0b'`, `'0'` and `'0x'` respectively\n"
 	"- `0` .. fill lacking columns with `'0'`\n"
 	);
