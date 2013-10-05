@@ -1874,19 +1874,13 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig) const
 									pExprCaller = pExprCaller->GetTrailer()) {
 		result = pExprCaller->DoExec(env, sig, pTrailCtrlHolder.get());
 		TrailCtrl trailCtrl = pTrailCtrlHolder->Get();
-		if (trailCtrl == TRAILCTRL_Quit) {
-			break;
-		} else if (trailCtrl == TRAILCTRL_Finalize) {
+		if (trailCtrl == TRAILCTRL_Quit) break;
+		if (trailCtrl == TRAILCTRL_Finalize) {
 			// doesn't work correctly yet.
 			SignalType sigType = SIGTYPE_None;
 			Value valueSig;
-			if (sig.IsErrorSuspended()) {
-				break;
-			} else if (sig.IsError()) {
-				break;
-			} else if (sig.IsTerminate()) {
-				break;
-			} else if (sig.IsBreak() || sig.IsContinue() || sig.IsReturn()) {
+			if (sig.IsErrorSuspended() || sig.IsError() || sig.IsTerminate()) break;
+			if (sig.IsBreak() || sig.IsContinue() || sig.IsReturn()) {
 				sigType = sig.GetType();
 				valueSig = sig.GetValue();
 			}
@@ -1897,11 +1891,15 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig) const
 				if (pCallable != NULL && pCallable->IsFinalizer()) {
 					result = pExprCaller->DoExec(env, sig, pTrailCtrlHolder.get());
 					if (sig.IsSignalled()) return Value::Null;
+					
 					sig.SetType(sigType);
 					sig.SetValue(valueSig);
 					return Value::Null;
 				}
 			}
+			sig.SetType(sigType);
+			sig.SetValue(valueSig);
+			break;
 		}
 	}
 	// if there's an error suspended by try() function, it would be resumed below.

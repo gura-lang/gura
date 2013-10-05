@@ -410,7 +410,11 @@ Gura_ImplementFunction(try_)
 	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
 	if (sig.IsSignalled()) return Value::Null;
 	Value result = pExprBlock->Exec(*pEnvBlock, sig);
-	sig.SuspendError();
+	if (sig.IsError()) {
+		sig.SuspendError();
+	} else {
+		//args.FinalizeTrailer();
+	}
 	return result;
 }
 
@@ -431,10 +435,9 @@ Gura_DeclareFunctionTrailerAlias(catch_, "catch")
 
 Gura_ImplementFunction(catch_)
 {
+	if (!sig.IsErrorSuspended()) return Value::Null;
 	bool handleFlag = false;
-	if (!sig.IsErrorSuspended()) {
-		// nothing to do
-	} else if (args.GetList(0).empty()) {
+	if (args.GetList(0).empty()) {
 		handleFlag = true;
 	} else {
 		foreach_const (ValueList, pValue, args.GetList(0)) {
@@ -445,6 +448,7 @@ Gura_ImplementFunction(catch_)
 		}
 	}
 	if (!handleFlag) return Value::Null;
+	//args.FinalizeTrailer();
 	args.QuitTrailer();
 	Object_error *pObj = new Object_error(env, sig.GetError());
 	sig.ClearSignal(); // clear even the suspended state
