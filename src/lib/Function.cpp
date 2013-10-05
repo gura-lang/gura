@@ -281,16 +281,15 @@ Value Function::EvalExpr(Environment &env, Signal sig, Args &args) const
 	const ExprList &exprListArg = args.GetExprListArg();
 	ValueList valListArg;
 	Value valueWithDict;
-	valueWithDict.InitAsDict(env, false);
-	if (!_declOwner.PrepareArgs(env, sig, exprListArg, valListArg, valueWithDict)) {
+	ValueDict &valDictArg = valueWithDict.InitAsDict(env, false);
+	if (!_declOwner.PrepareArgs(env, sig, exprListArg, valListArg, valDictArg)) {
 		return Value::Null;
 	}
 	AutoPtr<Args> pArgsSub(new Args(args, valListArg, valueWithDict, resultMode, flags));
 	if (mapFlag && _declOwner.ShouldImplicitMap(*pArgsSub)) {
 		return EvalMap(env, sig, *pArgsSub);
-	} else {
-		return Eval(env, sig, *pArgsSub);
 	}
+	return Eval(env, sig, *pArgsSub);
 }
 
 Value Function::Eval(Environment &env, Signal sig, Args &args) const
@@ -307,19 +306,10 @@ Value Function::Eval(Environment &env, Signal sig, Args &args) const
 
 Value Function::EvalMap(Environment &env, Signal sig, Args &args) const
 {
-#if 0
-	if (args.IsRsltIterator() || args.IsRsltXIterator()) {
-		// nothing to do
-	} else if (!args.IsRsltNormal() || !args.ShouldGenerateIterator(_declOwner)) {
-		// List, XList, Set, XSet, Void, Reduce, XReduce
-		return EvalMapRecursive(env, sig, NULL, args);
-	}
-#endif
 	bool skipInvalidFlag = args.IsRsltXIterator();
 	AutoPtr<Iterator_ImplicitMap> pIterator(new Iterator_ImplicitMap(new Environment(env), sig,
 			Function::Reference(this), args.Reference(), skipInvalidFlag));
 	if (sig.IsSignalled()) return Value::Null;
-#if 1
 	if (args.IsRsltIterator() || args.IsRsltXIterator()) {
 		// nothing to do
 	} else if (!args.IsRsltNormal() || !args.ShouldGenerateIterator(_declOwner)) {
@@ -336,49 +326,8 @@ Value Function::EvalMap(Environment &env, Signal sig, Args &args) const
 		}
 		return result;
 	}
-#endif
 	return Value(env, pIterator.release());
 }
-
-#if 0
-Value Function::EvalMapRecursive(Environment &env, Signal sig,
-				ResultComposer *pResultComposer, Args &args) const
-{
-	IteratorOwner iterOwner;
-	if (!iterOwner.PrepareForMap(sig, GetDeclOwner(), args.GetValueListArg())) {
-		return Value::Null;
-	}
-	Value result;
-	std::auto_ptr<ResultComposer> pResultComposerOwner;
-	if (pResultComposer == NULL) {
-		pResultComposer = new ResultComposer(env, args, result);
-		pResultComposerOwner.reset(pResultComposer);
-	}
-	bool doneThisFlag = false;
-	Iterator *pIteratorThis = args.GetIteratorThis();
-	for (size_t n = 0; ; n++) {
-		ValueList valListArg;
-		if (doneThisFlag || !iterOwner.Next(env, sig, valListArg)) {
-			if (sig.IsSignalled()) return Value::Null;
-			if (n == 0 && !args.IsRsltVoid() && pResultComposerOwner.get() != NULL) {
-				result.InitAsList(env);
-			}
-			break;
-		}
-		AutoPtr<Args> pArgsEach(new Args(args, valListArg));
-		Value valueEach = Eval(env, sig, *pArgsEach);
-		if (sig.IsSignalled()) return Value::Null;
-		pResultComposer->Store(valueEach);
-		if (pIteratorThis != NULL) {
-			Value valueThis;
-			doneThisFlag = !pIteratorThis->Next(env, sig, valueThis);
-			if (sig.IsSignalled()) return Value::Null;
-			args.SetThis(valueThis);
-		}
-	}
-	return result;
-}
-#endif
 
 Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &args) const
 {

@@ -444,10 +444,9 @@ bool DeclarationOwner::Declare(Environment &env, Signal sig, const ExprList &exp
 }
 
 bool DeclarationOwner::PrepareArgs(Environment &env, Signal sig,
-		const ExprList &exprListArg, ValueList &valListArg, Value &valueWithDict) const
+		const ExprList &exprListArg, ValueList &valListArg, ValueDict &valDictArg) const
 {
 	ExprMap exprMap;
-	ValueDict &valDict = valueWithDict.GetDict();
 	DeclarationList::const_iterator ppDecl = begin();
 	bool stayDeclPointerFlag = false;
 	AutoPtr<ExprOwner> pExprsToDelete(new ExprOwner()); // store temporary Exprs that are to be deleted at the end
@@ -464,7 +463,7 @@ bool DeclarationOwner::PrepareArgs(Environment &env, Signal sig,
 			} else {
 				Value value = pExprDictAssign->GetRight()->Exec(env, sig);
 				if (sig.IsSignalled()) return false;
-				valDict[valueKey] = value;
+				valDictArg[valueKey] = value;
 			}
 		} else if (!quoteFlag && IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) {
 			pExprArg = dynamic_cast<const Expr_Suffix *>(pExprArg)->GetChild();
@@ -487,7 +486,7 @@ bool DeclarationOwner::PrepareArgs(Environment &env, Signal sig,
 					pExprsToDelete->push_back(pExpr);
 					exprMap[valueKey.GetSymbol()] = pExpr;
 				} else {
-					valDict.insert(*item);
+					valDictArg.insert(*item);
 				}
 			}
 		} else if (ppDecl != end()) {
@@ -560,7 +559,7 @@ bool DeclarationOwner::PrepareArgs(Environment &env, Signal sig,
 			const Expr *pExprArg = iter->second;
 			Value value = pExprArg->Exec(env, sig);
 			if (sig.IsSignalled()) return false;
-			valDict[Value(pSymbol)] = value;
+			valDictArg[Value(pSymbol)] = value;
 		}
 	} else if (!exprMap.empty()) {
 		SetError_InvalidArgumentName(sig, exprMap);

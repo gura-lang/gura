@@ -116,7 +116,7 @@ public:
 	}
 	bool Declare(Environment &env, Signal sig, const ExprList &exprList);
 	bool PrepareArgs(Environment &env, Signal sig,
-		const ExprList &exprListArg, ValueList &valListArg, Value &valueWithDict) const;
+		const ExprList &exprListArg, ValueList &valListArg, ValueDict &valDictArg) const;
 	bool ValidateAndCast(Environment &env, Signal sig,
 		const ValueList &valList, ValueList &valListCasted) const;
 	String ToString() const;
