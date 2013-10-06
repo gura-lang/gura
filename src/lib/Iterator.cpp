@@ -2426,11 +2426,82 @@ void Iterator_Concat::GatherFollower(Environment::Frame *pFrame, EnvironmentSet 
 }
 
 //-----------------------------------------------------------------------------
+// Iterator_Repeater
+//-----------------------------------------------------------------------------
+Iterator_Repeater::Iterator_Repeater(Environment *pEnv, Signal sig, Function *pFuncBlock,
+					bool skipInvalidFlag, bool standaloneFlag, Iterator *pIteratorSrc) :
+		Iterator(pIteratorSrc->IsInfinite(), skipInvalidFlag, true), _pEnv(pEnv), _pFuncBlock(pFuncBlock),
+		_standaloneFlag(standaloneFlag),
+		_pIteratorSub(NULL), _pIteratorSrc(pIteratorSrc), _idx(0)
+{
+}
+
+Iterator *Iterator_Repeater::GetSource()
+{
+	return _pIteratorSrc.get();
+}
+
+bool Iterator_Repeater::DoNext(Environment &env, Signal sig, Value &value)
+{
+#if 0
+	for (;;) {
+		if (_pIteratorSub.IsNull()) {
+			if (_cnt >= 0 && _idx >= _cnt) return false;
+			AutoPtr<Args> pArgs(new Args());
+			pArgs->SetValue(Value(static_cast<Number>(_idx)));
+			value = _pFuncBlock->Eval(*_pEnv, sig, *pArgs);
+			if (sig.IsBreak()) {
+				sig.ClearSignal();
+				return false;
+			} else if (sig.IsReturn()) {
+				if (_standaloneFlag) {
+					sig.ClearSignal();
+				}
+				return false;
+			} else if (sig.IsContinue()) {
+				value = sig.GetValue();
+				sig.ClearSignal();
+			} else if (sig.IsSignalled()) {
+				return false;
+			}
+			_idx++;
+			if (_standaloneFlag && value.IsIterator()) {
+				_pIteratorSub.reset(Reference(value.GetIterator()));
+				continue;
+			}
+		} else if (!_pIteratorSub->Next(env, sig, value)) {
+			_pIteratorSub.reset(NULL);
+			if (sig.IsSignalled()) return false;
+			continue;
+		}
+		break;
+	}
+	return true;
+#endif
+	return false;
+}
+
+String Iterator_Repeater::ToString(Signal sig) const
+{
+	return String("<iterator:Repeater>");
+}
+
+void Iterator_Repeater::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+	if (_cntRef == 1) {
+		if (_pEnv->GetFrameOwner().DoesExist(pFrame)) envSet.insert(_pEnv.get());
+		_pFuncBlock->GatherFollower(pFrame, envSet);
+		if (!_pIteratorSub.IsNull()) _pIteratorSub->GatherFollower(pFrame, envSet);
+		_pIteratorSrc->GatherFollower(pFrame, envSet);
+	}
+}
+
+//-----------------------------------------------------------------------------
 // Iterator_repeat
 //-----------------------------------------------------------------------------
 Iterator_repeat::Iterator_repeat(Environment *pEnv, Signal sig, Function *pFuncBlock,
 					bool skipInvalidFlag, bool standaloneFlag, int cnt) :
-		Iterator(cnt < 0, skipInvalidFlag), _pEnv(pEnv), _pFuncBlock(pFuncBlock),
+		Iterator(cnt < 0, skipInvalidFlag, true), _pEnv(pEnv), _pFuncBlock(pFuncBlock),
 		_standaloneFlag(standaloneFlag),
 		_pIteratorSub(NULL), _cnt(cnt), _idx(0)
 {
@@ -2460,7 +2531,7 @@ bool Iterator_repeat::DoNext(Environment &env, Signal sig, Value &value)
 			} else if (sig.IsContinue()) {
 				value = sig.GetValue();
 				sig.ClearSignal();
-			} else if ((sig).IsSignalled()) {
+			} else if (sig.IsSignalled()) {
 				return false;
 			}
 			_idx++;
@@ -2497,7 +2568,7 @@ void Iterator_repeat::GatherFollower(Environment::Frame *pFrame, EnvironmentSet 
 //-----------------------------------------------------------------------------
 Iterator_while::Iterator_while(Environment *pEnv, Signal sig, Function *pFuncBlock,
 					bool skipInvalidFlag, bool standaloneFlag, Expr *pExpr) :
-		Iterator(false, skipInvalidFlag), _pEnv(pEnv), _pFuncBlock(pFuncBlock),
+		Iterator(false, skipInvalidFlag, true), _pEnv(pEnv), _pFuncBlock(pFuncBlock),
 		_standaloneFlag(standaloneFlag),
 		_pIteratorSub(NULL), _pExpr(Expr::Reference(pExpr)), _idx(0)
 {
@@ -2527,7 +2598,7 @@ bool Iterator_while::DoNext(Environment &env, Signal sig, Value &value)
 			} else if (sig.IsContinue()) {
 				value = sig.GetValue();
 				sig.ClearSignal();
-			} else if ((sig).IsSignalled()) {
+			} else if (sig.IsSignalled()) {
 				return false;
 			}
 			_idx++;
@@ -2564,7 +2635,7 @@ void Iterator_while::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &
 //-----------------------------------------------------------------------------
 Iterator_for::Iterator_for(Environment *pEnv, Signal sig, Function *pFuncBlock,
 			bool skipInvalidFlag, bool standaloneFlag, const ValueList &valListArg) :
-		Iterator(false, skipInvalidFlag), _pEnv(pEnv), _pFuncBlock(pFuncBlock),
+		Iterator(false, skipInvalidFlag, true), _pEnv(pEnv), _pFuncBlock(pFuncBlock),
 		_standaloneFlag(standaloneFlag),
 		_pIteratorSub(NULL), _idx(0), _doneFlag(false)
 {
@@ -2612,7 +2683,7 @@ bool Iterator_for::DoNext(Environment &env, Signal sig, Value &value)
 			} else if (sig.IsContinue()) {
 				value = sig.GetValue();
 				sig.ClearSignal();
-			} else if ((sig).IsSignalled()) {
+			} else if (sig.IsSignalled()) {
 				return false;
 			}
 			_idx++;
@@ -2650,7 +2721,7 @@ void Iterator_for::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &en
 //-----------------------------------------------------------------------------
 Iterator_cross::Iterator_cross(Environment *pEnv, Signal sig, Function *pFuncBlock,
 			bool skipInvalidFlag, bool standaloneFlag, const ValueList &valListArg) :
-		Iterator(false, skipInvalidFlag), _pEnv(pEnv), _pFuncBlock(pFuncBlock),
+		Iterator(false, skipInvalidFlag, true), _pEnv(pEnv), _pFuncBlock(pFuncBlock),
 		_standaloneFlag(standaloneFlag),
 		_pIteratorSub(NULL), _idx(0), _doneFlag(true)
 {
@@ -2707,7 +2778,7 @@ bool Iterator_cross::DoNext(Environment &env, Signal sig, Value &value)
 			} else if (sig.IsContinue()) {
 				value = sig.GetValue();
 				sig.ClearSignal();
-			} else if ((sig).IsSignalled()) {
+			} else if (sig.IsSignalled()) {
 				return false;
 			}
 			_idx++;

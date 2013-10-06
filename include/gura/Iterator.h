@@ -55,20 +55,24 @@ protected:
 	std::auto_ptr<Share> _pShare;
 	bool _infiniteFlag;
 	bool _skipInvalidFlag;
+	bool _repeaterFlag;
 public:
 	Gura_DeclareReferenceAccessor(Iterator);
 public:
-	inline Iterator(bool infiniteFlag, bool skipInvalidFlag = false) :
+	inline Iterator(bool infiniteFlag, bool skipInvalidFlag = false, bool repeaterFlag = false) :
 			_cntRef(1), _cntNext(0), _pShare(NULL),
-			_infiniteFlag(infiniteFlag), _skipInvalidFlag(skipInvalidFlag) {}
+			_infiniteFlag(infiniteFlag), _skipInvalidFlag(skipInvalidFlag),
+			_repeaterFlag(repeaterFlag) {}
 	inline Iterator(const Iterator &iter) :
 			_cntRef(1), _cntNext(iter._cntNext), _pShare(NULL),
-			_infiniteFlag(iter._infiniteFlag), _skipInvalidFlag(iter._skipInvalidFlag) {}
+			_infiniteFlag(iter._infiniteFlag), _skipInvalidFlag(iter._skipInvalidFlag),
+			_repeaterFlag(iter._repeaterFlag) {}
 	virtual ~Iterator();
 	inline int GetCountNext() const { return _cntNext; }
 	inline bool IsVirgin() const { return _cntNext == 0 && _pShare.get() == NULL; }
 	inline bool IsInfinite() const { return _infiniteFlag; }
 	inline bool IsSkipInvalid() const { return _skipInvalidFlag; }
+	inline bool IsRepeater() const { return _repeaterFlag; }
 	inline void SetInfiniteFlag(bool infiniteFlag) { _infiniteFlag = infiniteFlag; }
 	inline void SetSkipInvalidFlag(bool skipInvalidFlag) { _skipInvalidFlag = skipInvalidFlag; }
 	inline bool Next(Environment &env, Signal sig, Value &value) {
@@ -911,6 +915,26 @@ public:
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
 	void Add(Iterator *pIterator);
+	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+};
+
+//-----------------------------------------------------------------------------
+// Iterator_Repeater
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Iterator_Repeater : public Iterator {
+private:
+	AutoPtr<Environment> _pEnv;
+	AutoPtr<Function> _pFuncBlock;
+	bool _standaloneFlag;
+	AutoPtr<Iterator> _pIteratorSub;
+	AutoPtr<Iterator> _pIteratorSrc;
+	int _idx;
+public:
+	Iterator_Repeater(Environment *pEnv, Signal sig, Function *pFuncBlock,
+			bool skipInvalidFlag, bool standaloneFlag, Iterator *pIteratorSrc);
+	virtual Iterator *GetSource();
+	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual String ToString(Signal sig) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 
