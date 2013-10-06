@@ -321,10 +321,16 @@ bool Class::BuildContent(Environment &env, Signal sig, const Value &valueThis,
 			} else {
 				//pCallable->Call(*this, sig, valueThis, NULL, false,
 				//	pExprCaller, pExprCaller->GetExprOwner().Reference(), NULL);
-				AutoPtr<Args> pArgs(new Args(pExprCaller->GetExprOwner().Reference(),
-							valueThis, NULL, false, NULL,
-							pExprCaller->GetAttrs(), pExprCaller->GetAttrsOpt(),
-							Expr_Block::Reference(pExprCaller->GetBlock())));
+				//AutoPtr<Args> pArgs(new Args(pExprCaller->GetExprOwner().Reference(),
+				//			valueThis, NULL, false, NULL,
+				//			pExprCaller->GetAttrs(), pExprCaller->GetAttrsOpt(),
+				//			Expr_Block::Reference(pExprCaller->GetBlock())));
+				AutoPtr<Args> pArgs(new Args());
+				pArgs->SetExprOwnerArg(pExprCaller->GetExprOwner().Reference());
+				pArgs->SetThis(valueThis);
+				pArgs->SetAttrs(pExprCaller->GetAttrs());
+				pArgs->SetAttrsOpt(pExprCaller->GetAttrsOpt());
+				pArgs->SetBlock(Expr_Block::Reference(pExprCaller->GetBlock()));
 				pCallable->DoCall(*this, sig, *pArgs);
 				if (sig.IsSignalled()) {
 					sig.AddExprCause(pExprCaller);

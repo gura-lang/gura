@@ -86,7 +86,10 @@ Gura_ImplementFunction(struct_)
 	AutoPtr<ConstructorOfStruct> pFunc(new ConstructorOfStruct(env));
 	pFunc->SetClassToConstruct(pClassCustom); // constructor is registered in this class
 	pFunc->DeclareBlock(OCCUR_ZeroOrOnce);
-	AutoPtr<Args> pArgsSub(new Args(pExprOwnerArg.release(), Value::Null, NULL, false, NULL, args.GetAttrs()));
+	//AutoPtr<Args> pArgsSub(new Args(pExprOwnerArg.release(), Value::Null, NULL, false, NULL, args.GetAttrs()));
+	AutoPtr<Args> pArgsSub(new Args());
+	pArgsSub->SetExprOwnerArg(pExprOwnerArg.release());
+	pArgsSub->SetAttrs(args.GetAttrs());
 	if (!pFunc->CustomDeclare(env, sig, _attrsOpt, *pArgsSub)) return false;
 	if (args.IsSet(Gura_Symbol(loose))) {
 		pFunc->GetDeclOwner().SetAsLoose();

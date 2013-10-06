@@ -787,7 +787,9 @@ CustomFunction *CustomFunction::CreateBlockFunc(Environment &env, Signal sig,
 	pFunc->_declOwner.AllowTooManyArgs(true);
 	const Expr_BlockParam *pExprBlockParam = pExprBlock->GetParam();
 	if (pExprBlockParam != NULL) {
-		AutoPtr<Args> pArgs(new Args(pExprBlockParam->GetExprOwner().Reference()));
+		//AutoPtr<Args> pArgs(new Args(pExprBlockParam->GetExprOwner().Reference()));
+		AutoPtr<Args> pArgs(new Args());
+		pArgs->SetExprOwnerArg(pExprBlockParam->GetExprOwner().Reference());
 		if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, *pArgs)) {
 			return NULL;
 		}

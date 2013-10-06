@@ -357,26 +357,6 @@ public:
 		_pExprOwnerArg(ExprOwner::Reference(args._pExprOwnerArg.get())),
 		_pExprBlock(Expr_Block::Reference(args._pExprBlock.get())),
 		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
-	inline Args(ExprOwner *pExprOwnerArg,
-				const Value &valueThis = Value::Null,
-				Iterator *pIteratorThis = NULL, bool listThisFlag = false,
-				TrailCtrlHolder *pTrailCtrlHolder = NULL,
-				const SymbolSet &attrs = SymbolSet::Null,
-				const SymbolSet &attrsOpt = SymbolSet::Null,
-				Expr_Block *pExprBlock = NULL) : _cntRef(1),
-		_resultMode(RSLTMODE_Normal),
-		_flags(FLAG_None),
-		_listThisFlag(listThisFlag),
-		_attrs(attrs),
-		_attrsOpt(attrsOpt),
-		_valueWithDict(Value::Null),
-		_valueThis(valueThis),
-		_valListArg(ValueList::Null),
-		_pTrailCtrlHolder(pTrailCtrlHolder),
-		_pIteratorThis(pIteratorThis),
-		_pExprOwnerArg(pExprOwnerArg),
-		_pExprBlock(pExprBlock),
-		_pFuncBlock(NULL) {}
 	inline Args(const ValueList &valListArg) : _cntRef(1),
 		_resultMode(RSLTMODE_Normal),
 		_flags(FLAG_None),
@@ -401,6 +381,8 @@ protected:
 public:
 	inline bool IsSet(const Symbol *pSymbol) const { return _attrs.IsSet(pSymbol); }
 	inline bool IsAttrEmpty() const { return _attrs.empty(); }
+	inline void SetAttrs(const SymbolSet &attrs) { _attrs = attrs; }
+	inline void SetAttrsOpt(const SymbolSet &attrsOpt) { _attrsOpt = attrsOpt; }
 	inline const SymbolSet &GetAttrs() const { return _attrs; }
 	inline const SymbolSet &GetAttrsOpt() const { return _attrsOpt; }
 	inline void SetResultMode(ResultMode resultMode) { _resultMode = resultMode; }
@@ -413,6 +395,10 @@ public:
 	inline Class *GetThisClass() { return _valueThis.GetClass(); }
 	inline Object *GetThisObj() { return _valueThis.GetObject(); }
 	inline Fundamental *GetThisFundamental() { return _valueThis.GetFundamental(); }
+	inline void SetIteratorThis(Iterator *pIteratorThis, bool listThisFlag) {
+		_pIteratorThis.reset(pIteratorThis);
+		_listThisFlag = listThisFlag;
+	}
 	inline Iterator *GetIteratorThis() { return _pIteratorThis.get(); }
 	inline bool IsThisIterable() const { return !_pIteratorThis.IsNull(); }
 	inline bool IsThisList() const { return !_pIteratorThis.IsNull() && _listThisFlag; }
@@ -433,6 +419,9 @@ public:
 			IsRsltSet() || IsRsltXSet() || IsRsltIterator() || IsRsltXIterator();
 	}
 	inline bool IsRsltFlat() const { return GetFlatFlag(); }
+	inline void SetTrailCtrlHolder(TrailCtrlHolder *pTrailCtrlHolder) {
+		_pTrailCtrlHolder.reset(pTrailCtrlHolder);
+	}
 	inline void QuitTrailer() {
 		if (!_pTrailCtrlHolder.IsNull()) _pTrailCtrlHolder->Set(TRAILCTRL_Quit);
 	}
@@ -560,6 +549,7 @@ public:
 		return _valueWithDict.IsDict()? _valueWithDict.GetDict() : ValueDict::Null;
 	}
 	bool ShouldGenerateIterator(const DeclarationList &declList) const;
+	inline void SetBlock(Expr_Block *pExprBlock) { _pExprBlock.reset(pExprBlock); }
 	const Expr_Block *GetBlock(Environment &env, Signal sig) const;
 	const Function *GetBlockFunc(Environment &env, Signal sig, const Symbol *pSymbol);
 };

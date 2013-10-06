@@ -154,7 +154,10 @@ Function *Expr::ToFunction(Environment &env, Signal sig,
 		foreach_const (ValueList, pValue, valListArg) {
 			pExprOwnerArg->push_back(pValue->GetExpr()->Reference());
 		}
-		AutoPtr<Args> pArgs(new Args(pExprOwnerArg.release(), Value::Null, NULL, false, NULL, attrs));
+		//AutoPtr<Args> pArgs(new Args(pExprOwnerArg.release(), Value::Null, NULL, false, NULL, attrs));
+		AutoPtr<Args> pArgs(new Args());
+		pArgs->SetExprOwnerArg(pExprOwnerArg.release());
+		pArgs->SetAttrs(attrs);
 		if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, *pArgs)) {
 			return NULL;
 		}
@@ -1922,10 +1925,16 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig, TrailCtrlHolder *pTrailC
 		}
 		//return pCallable->Call(env, sig, Value::Null, NULL, false,
 		//						this, GetExprOwner().Reference(), pTrailCtrlHolder);
-		AutoPtr<Args> pArgs(new Args(GetExprOwner().Reference(),
-				Value::Null, NULL, false,
-				TrailCtrlHolder::Reference(pTrailCtrlHolder),
-				GetAttrs(), GetAttrsOpt(), Expr_Block::Reference(GetBlock())));
+		//AutoPtr<Args> pArgs(new Args(GetExprOwner().Reference(),
+		//		Value::Null, NULL, false,
+		//		TrailCtrlHolder::Reference(pTrailCtrlHolder),
+		//		GetAttrs(), GetAttrsOpt(), Expr_Block::Reference(GetBlock())));
+		AutoPtr<Args> pArgs(new Args());
+		pArgs->SetExprOwnerArg(GetExprOwner().Reference());
+		pArgs->SetTrailCtrlHolder(TrailCtrlHolder::Reference(pTrailCtrlHolder));
+		pArgs->SetAttrs(GetAttrs());
+		pArgs->SetAttrsOpt(GetAttrsOpt());
+		pArgs->SetBlock(Expr_Block::Reference(GetBlock()));
 		return pCallable->DoCall(env, sig, *pArgs);
 	}
 	const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(GetCar());
@@ -2006,10 +2015,18 @@ Value Expr_Caller::EvalEach(Environment &env, Signal sig, const Value &valueThis
 	}
 	//return pCallable->Call(env, sig, valueThis, pIteratorThis, listThisFlag,
 	//							this, GetExprOwner().Reference(), pTrailCtrlHolder);
-	AutoPtr<Args> pArgs(new Args(GetExprOwner().Reference(),
-			valueThis, Iterator::Reference(pIteratorThis), listThisFlag,
-			TrailCtrlHolder::Reference(pTrailCtrlHolder),
-			GetAttrs(), GetAttrsOpt(), Expr_Block::Reference(GetBlock())));
+	//AutoPtr<Args> pArgs(new Args(GetExprOwner().Reference(),
+	//		valueThis, Iterator::Reference(pIteratorThis), listThisFlag,
+	//		TrailCtrlHolder::Reference(pTrailCtrlHolder),
+	//		GetAttrs(), GetAttrsOpt(), Expr_Block::Reference(GetBlock())));
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetExprOwnerArg(GetExprOwner().Reference());
+	pArgs->SetThis(valueThis);
+	pArgs->SetIteratorThis(Iterator::Reference(pIteratorThis), listThisFlag);
+	pArgs->SetTrailCtrlHolder(TrailCtrlHolder::Reference(pTrailCtrlHolder));
+	pArgs->SetAttrs(GetAttrs());
+	pArgs->SetAttrsOpt(GetAttrsOpt());
+	pArgs->SetBlock(Expr_Block::Reference(GetBlock()));
 	return pCallable->DoCall(env, sig, *pArgs);
 }
 
@@ -2046,8 +2063,13 @@ Value Expr_Caller::DoAssign(Environment &env, Signal sig, Value &value,
 	FunctionType funcType = !env.IsClass()? FUNCTYPE_Function :
 		GetAttrs().IsSet(Gura_Symbol(static_))? FUNCTYPE_Class : FUNCTYPE_Instance;
 	CustomFunction *pFunc = new CustomFunction(env, pSymbol, pExprBody, funcType);
-	AutoPtr<Args> pArgs(new Args(GetExprOwner().Reference(), Value::Null, NULL, false,
-			NULL, GetAttrs(), GetAttrsOpt(), Expr_Block::Reference(GetBlock())));
+	//AutoPtr<Args> pArgs(new Args(GetExprOwner().Reference(), Value::Null, NULL, false,
+	//		NULL, GetAttrs(), GetAttrsOpt(), Expr_Block::Reference(GetBlock())));
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetExprOwnerArg(GetExprOwner().Reference());
+	pArgs->SetAttrs(GetAttrs());
+	pArgs->SetAttrsOpt(GetAttrsOpt());
+	pArgs->SetBlock(Expr_Block::Reference(GetBlock()));
 	if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, *pArgs)) {
 		Function::Delete(pFunc);
 		return Value::Null;
