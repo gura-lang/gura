@@ -132,8 +132,9 @@ Value Object_function::Eval(Environment &env, Signal sig, ValueList &valListArg)
 {
 	_pFunc->GetDeclOwner().Compensate(env, sig, valListArg);
 	if (sig.IsSignalled()) return Value::Null;
-	AutoPtr<Args> pArgs(new Args(valListArg));
+	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetThis(_valueThis);
+	pArgs->SetValueListArg(valListArg);
 	return _pFunc->Eval(env, sig, *pArgs);
 }
 

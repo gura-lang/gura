@@ -75,7 +75,7 @@ Function *CustomClass::PrepareConstructor(Environment &env, Signal sig)
 	} else {
 		pFunc.reset(new ConstructorOfCustomClass(env, Gura_Symbol(_anonymous_),
 												new Expr_Block(), FUNCTYPE_Function));
-		AutoPtr<Args> pArgsSub(new Args(NULL));
+		AutoPtr<Args> pArgsSub(new Args());
 		if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, *pArgsSub)) return NULL;
 	}
 	pFunc->SetSymbol(_pSymbol);

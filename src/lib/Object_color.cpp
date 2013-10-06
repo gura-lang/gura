@@ -1063,7 +1063,8 @@ bool Class_color::CastFrom(Environment &env, Signal sig, Value &value, const Dec
 	} else if (value.IsList()) {
 		const Function *pConstructor = GetConstructor();
 		if (pConstructor == NULL) return false;
-		AutoPtr<Args> pArgs(new Args(value.GetList()));
+		AutoPtr<Args> pArgs(new Args());
+		pArgs->SetValueListArg(value.GetList());
 		value = pConstructor->Eval(env, sig, *pArgs);
 		return !sig.IsSignalled();
 	}

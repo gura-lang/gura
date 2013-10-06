@@ -689,7 +689,8 @@ Gura_ImplementFunction(ListInit)
 				sig.SetError(ERR_SyntaxError, "invalid format in list initializer");
 				return Value::Null;
 			}
-			AutoPtr<Args> pArgsSub(new Args(pValue->GetList()));
+			AutoPtr<Args> pArgsSub(new Args());
+			pArgsSub->SetValueListArg(pValue->GetList());
 			Value valueElem = pFunc->Eval(env, sig, *pArgsSub);
 			valList.push_back(valueElem);
 		}

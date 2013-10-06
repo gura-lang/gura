@@ -126,8 +126,9 @@ bool Object::DirProp(Environment &env, Signal sig, SymbolSet &symbols)
 Value Object::EvalMethod(Environment &env, Signal sig, const Function *pFunc, const ValueList &valListArg)
 {
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
-	AutoPtr<Args> pArgs(new Args(valListArg));
+	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetThis(valueThis);
+	pArgs->SetValueListArg(valListArg);
 	return pFunc->Eval(env, sig, *pArgs);
 }
 
@@ -139,8 +140,9 @@ Value Object::EvalMethod(Environment &env, Signal sig, const Symbol *pSymbol,
 	if (pFunc == NULL) return Value::Null;
 	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged); // reference to this
 	evaluatedFlag = true;
-	AutoPtr<Args> pArgs(new Args(valListArg));
+	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetThis(valueThis);
+	pArgs->SetValueListArg(valListArg);
 	return pFunc->Eval(env, sig, *pArgs);
 }
 

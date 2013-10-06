@@ -534,7 +534,8 @@ Value Operator_Mul::EvalMapBinary(Environment &env, Signal sig,
 				if (!pFunc->GetDeclOwner().Compensate(env, sig, valListComp)) {
 					return Value::Null;
 				}
-				AutoPtr<Args> pArgsSub(new Args(valListComp));
+				AutoPtr<Args> pArgsSub(new Args());
+				pArgsSub->SetValueListArg(valListComp);
 				return pFunc->Eval(env, sig, *pArgsSub);
 			}
 			AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));
@@ -866,14 +867,16 @@ Value Operator_Mod::EvalMapBinary(Environment &env, Signal sig,
 			result = pFunc->Eval(env, sig, *pArgsSub);
 		} else if (pFunc->GetMapFlag() == Function::MAP_Off ||
 				!pFunc->GetDeclOwner().ShouldImplicitMap(valueRight.GetList())) {
-			AutoPtr<Args> pArgsSub(new Args(valueRight.GetList()));
+			AutoPtr<Args> pArgsSub(new Args());
+			pArgsSub->SetValueListArg(valueRight.GetList());
 			result = pFunc->Eval(env, sig, *pArgsSub);
 		} else if (pFunc->IsUnary()) {
 			AutoPtr<Args> pArgsSub(new Args());
 			pArgsSub->SetValue(valueRight);
 			result = pFunc->EvalMap(env, sig, *pArgsSub);
 		} else {
-			AutoPtr<Args> pArgsSub(new Args(valueRight.GetList()));
+			AutoPtr<Args> pArgsSub(new Args());
+			pArgsSub->SetValueListArg(valueRight.GetList());
 			result = pFunc->EvalMap(env, sig, *pArgsSub);
 		}
 		return result;

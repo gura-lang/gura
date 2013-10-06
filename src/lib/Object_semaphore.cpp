@@ -95,7 +95,7 @@ Gura_ImplementMethod(semaphore, session)
 	if (sig.IsSignalled()) return Value::Null;
 	pThis->GetSemaphore().Wait();
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	AutoPtr<Args> pArgsSub(new Args(ValueList::Null));
+	AutoPtr<Args> pArgsSub(new Args());
 	Value result = pFuncBlock->Eval(*pEnvBlock, sig, *pArgsSub);
 	pThis->GetSemaphore().Release();
 	return result;

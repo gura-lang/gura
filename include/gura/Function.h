@@ -357,11 +357,13 @@ public:
 		_pExprOwnerArg(ExprOwner::Reference(args._pExprOwnerArg.get())),
 		_pExprBlock(Expr_Block::Reference(args._pExprBlock.get())),
 		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
+#if 0
 	inline Args(const ValueList &valListArg) : _cntRef(1),
 		_resultMode(RSLTMODE_Normal),
 		_flags(FLAG_None),
 		_listThisFlag(false),
 		_valListArg(valListArg) {}
+#endif
 	inline Args(const Args &args, const ValueList &valListArg) : _cntRef(1),
 		_resultMode(args._resultMode),
 		_flags(args._flags),
@@ -543,6 +545,7 @@ public:
 	inline Function *GetFunction(size_t idxArg)			{ return GetValue(idxArg).GetFunction(); }
 	inline const Function *GetFunction(size_t idxArg) const	{ return GetValue(idxArg).GetFunction(); }
 	inline ErrorType GetErrorType(size_t idxArg) const	{ return GetValue(idxArg).GetErrorType(); }
+	inline void SetValueListArg(const ValueList &valListArg) { _valListArg = valListArg; }
 	inline void SetValueWithDict(const Value &valueWithDict) { _valueWithDict = valueWithDict;	}
 	inline const Value &GetValueWithDict() const		{ return _valueWithDict;				}
 	inline const ValueDict &GetDictArg() const {

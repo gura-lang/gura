@@ -432,7 +432,8 @@ Value Function::ReturnValue(Environment &env, Signal sig,
 	const Function *pFuncBlock =
 					args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
 	if (pFuncBlock == NULL) return Value::Null;
-	AutoPtr<Args> pArgsSub(new Args(valListArg));
+	AutoPtr<Args> pArgsSub(new Args());
+	pArgsSub->SetValueListArg(valListArg);
 	Value value = pFuncBlock->Eval(env, sig, *pArgsSub);
 	if (sig.IsBreak() || sig.IsContinue()) {
 		sig.ClearSignal();
