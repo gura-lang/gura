@@ -2443,12 +2443,12 @@ Iterator *Iterator_Repeater::GetSource()
 
 bool Iterator_Repeater::DoNext(Environment &env, Signal sig, Value &value)
 {
-#if 0
 	for (;;) {
 		if (_pIteratorNest.IsNull()) {
-			if (_cnt >= 0 && _idx >= _cnt) return false;
+			Value valueSrc;
+			if (!_pIteratorSrc->Next(env, sig, valueSrc)) return false;
 			AutoPtr<Args> pArgs(new Args());
-			pArgs->SetValue(Value(static_cast<Number>(_idx)));
+			pArgs->SetValues(valueSrc, Value(static_cast<Number>(_idx)));
 			value = _pFuncBlock->Eval(*_pEnv, sig, *pArgs);
 			if (sig.IsBreak()) {
 				sig.ClearSignal();
@@ -2465,20 +2465,16 @@ bool Iterator_Repeater::DoNext(Environment &env, Signal sig, Value &value)
 				return false;
 			}
 			_idx++;
-			if (_genIterFlag && value.IsIterator()) {
-				_pIteratorNest.reset(Reference(value.GetIterator()));
-				continue;
-			}
-		} else if (!_pIteratorNest->Next(env, sig, value)) {
+			if (!_genIterFlag || !value.IsIterator()) break;
+			_pIteratorNest.reset(Reference(value.GetIterator()));
+		} else if (_pIteratorNest->Next(env, sig, value)) {
+			break;
+		} else {
 			_pIteratorNest.reset(NULL);
 			if (sig.IsSignalled()) return false;
-			continue;
 		}
-		break;
 	}
 	return true;
-#endif
-	return false;
 }
 
 String Iterator_Repeater::ToString(Signal sig) const
