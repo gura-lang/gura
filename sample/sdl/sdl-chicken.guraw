@@ -22,11 +22,11 @@ Chicken = class {
 		[this.x, this.y] = [x, y]
 		if (dir == `right) { this.turnRight() } else { this.turnLeft() }
 	}
-	turnRight() = {
+	turnRight():void = {
 		this.xDir = xStep
 		this.imageIter = imagesR.round()
 	}
-	turnLeft() = {
+	turnLeft():void = {
 		this.xDir = -xStep
 		this.imageIter = imagesL.round()
 	}
@@ -35,8 +35,8 @@ Chicken = class {
 		sdl.BlitSurface(image, nil,
 				screen, sdl.Rect(this.x, this.y - image.height, 0, 0))
 		this.x += this.xDir
-		(this.x + wdImage > wdScreen) && this.turnLeft()
-		(this.x < 0) && this.turnRight()
+		if (this.x + wdImage > wdScreen) { this.turnLeft() }
+		if (this.x < 0) { this.turnRight() }
 	}
 }
 
