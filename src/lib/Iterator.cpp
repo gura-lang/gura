@@ -2535,16 +2535,14 @@ bool Iterator_repeat::DoNext(Environment &env, Signal sig, Value &value)
 				return false;
 			}
 			_idx++;
-			if (_genIterFlag && value.IsIterator()) {
-				_pIteratorNest.reset(Reference(value.GetIterator()));
-				continue;
-			}
-		} else if (!_pIteratorNest->Next(env, sig, value)) {
+			if (!_genIterFlag || !value.IsIterator()) break;
+			_pIteratorNest.reset(Reference(value.GetIterator()));
+		} else if (_pIteratorNest->Next(env, sig, value)) {
+			break;
+		} else {
 			_pIteratorNest.reset(NULL);
 			if (sig.IsSignalled()) return false;
-			continue;
 		}
-		break;
 	}
 	return true;
 }
@@ -2602,16 +2600,14 @@ bool Iterator_while::DoNext(Environment &env, Signal sig, Value &value)
 				return false;
 			}
 			_idx++;
-			if (_genIterFlag && value.IsIterator()) {
-				_pIteratorNest.reset(Reference(value.GetIterator()));
-				continue;
-			}
-		} else if (!_pIteratorNest->Next(env, sig, value)) {
+			if (!_genIterFlag || !value.IsIterator()) break;
+			_pIteratorNest.reset(Reference(value.GetIterator()));
+		} else if (_pIteratorNest->Next(env, sig, value)) {
+			break;
+		} else {
 			_pIteratorNest.reset(NULL);
 			if (sig.IsSignalled()) return false;
-			continue;
 		}
-		break;
 	}
 	return true;
 }
@@ -2687,16 +2683,14 @@ bool Iterator_for::DoNext(Environment &env, Signal sig, Value &value)
 				return false;
 			}
 			_idx++;
-			if (_genIterFlag && value.IsIterator()) {
-				_pIteratorNest.reset(Reference(value.GetIterator()));
-				continue;
-			}
-		} else if (!_pIteratorNest->Next(env, sig, value)) {
+			if (!_genIterFlag || !value.IsIterator()) break;
+			_pIteratorNest.reset(Reference(value.GetIterator()));
+		} else if (_pIteratorNest->Next(env, sig, value)) {
+			break;
+		} else {
 			_pIteratorNest.reset(NULL);
 			if (sig.IsSignalled()) return false;
-			continue;
 		}
-		break;
 	}
 	return true;
 }
@@ -2782,18 +2776,18 @@ bool Iterator_cross::DoNext(Environment &env, Signal sig, Value &value)
 				return false;
 			}
 			_idx++;
-			if (_genIterFlag && value.IsIterator()) {
-				_pIteratorNest.reset(Reference(value.GetIterator()));
-				continue;
+			if (!_genIterFlag || !value.IsIterator()) {
+				if (!AdvanceIterators(env, sig)) return false;
+				break;
 			}
-			if (!AdvanceIterators(env, sig)) return false;
-		} else if (!_pIteratorNest->Next(env, sig, value)) {
+			_pIteratorNest.reset(Reference(value.GetIterator()));
+		} else if (_pIteratorNest->Next(env, sig, value)) {
+			break;
+		} else {
 			_pIteratorNest.reset(NULL);
 			if (sig.IsSignalled()) return false;
 			if (!AdvanceIterators(env, sig)) return false;
-			continue;
 		}
-		break;
 	}
 	return true;
 }
