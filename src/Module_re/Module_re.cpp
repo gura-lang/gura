@@ -268,7 +268,7 @@ Gura_ImplementMethod(pattern, sub)
 	valListArg.reserve(2);
 	valListArg.push_back(Value(env, result));
 	valListArg.push_back(Value(result != args.GetStringSTL(1)));
-	return ReturnValue(env, sig, args, valListArg);
+	return ReturnValues(env, sig, args, valListArg);
 }
 
 // re.pattern#split(str:string, count?:number):map {block?}
@@ -580,7 +580,7 @@ Gura_ImplementMethod(string, sub)
 	valListArg.reserve(2);
 	valListArg.push_back(Value(env, result));
 	valListArg.push_back(Value(result != pThis->GetStringSTL()));
-	return ReturnValue(env, sig, args, valListArg);
+	return ReturnValues(env, sig, args, valListArg);
 }
 
 // string#splitreg(pattern:pattern, count?:number):map {block?}
@@ -740,7 +740,7 @@ Gura_ImplementFunction(sub)
 	valListArg.reserve(2);
 	valListArg.push_back(Value(env, result));
 	valListArg.push_back(Value(result != args.GetStringSTL(2)));
-	return ReturnValue(env, sig, args, valListArg);
+	return ReturnValues(env, sig, args, valListArg);
 }
 
 // re.split(pattern:pattern, str:string, count?:number):map {block?}

@@ -287,7 +287,7 @@ protected:
 					Args &args, Iterator *pIterator) const;
 	Value ReturnValue(Environment &env, Signal sig,
 					Args &args, const Value &result) const;
-	Value ReturnValue(Environment &env, Signal sig,
+	Value ReturnValues(Environment &env, Signal sig,
 					Args &args, const ValueList &valListArg) const;
 	Environment *PrepareEnvironment(Environment &env, Signal sig, Args &args) const;
 private:

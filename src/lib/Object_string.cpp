@@ -582,7 +582,7 @@ Gura_ImplementMethod(string, replace)
 	valListArg.reserve(2);
 	valListArg.push_back(Value(env, result));
 	valListArg.push_back(Value(result != args.GetThis().GetStringSTL()));
-	return ReturnValue(env, sig, args, valListArg);
+	return ReturnValues(env, sig, args, valListArg);
 }
 
 // string#split(sep?:string, count?:number):[icase] {block?}

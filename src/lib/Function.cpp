@@ -432,7 +432,7 @@ Value Function::ReturnValue(Environment &env, Signal sig,
 	return value;
 }
 
-Value Function::ReturnValue(Environment &env, Signal sig,
+Value Function::ReturnValues(Environment &env, Signal sig,
 								Args &args, const ValueList &valListArg) const
 {
 	if (!args.IsBlockSpecified()) return valListArg.front();
