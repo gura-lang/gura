@@ -925,13 +925,13 @@ class GURA_DLLDECLARE Iterator_Repeater : public Iterator {
 private:
 	AutoPtr<Environment> _pEnv;
 	AutoPtr<Function> _pFuncBlock;
-	bool _standaloneFlag;
-	AutoPtr<Iterator> _pIteratorSub;
+	bool _genIterFlag;
+	AutoPtr<Iterator> _pIteratorNest;
 	AutoPtr<Iterator> _pIteratorSrc;
 	int _idx;
 public:
 	Iterator_Repeater(Environment *pEnv, Signal sig, Function *pFuncBlock,
-			bool skipInvalidFlag, bool standaloneFlag, Iterator *pIteratorSrc);
+			bool skipInvalidFlag, bool genIterFlag, Iterator *pIteratorSrc);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
@@ -945,13 +945,13 @@ class GURA_DLLDECLARE Iterator_repeat : public Iterator {
 private:
 	AutoPtr<Environment> _pEnv;
 	AutoPtr<Function> _pFuncBlock;
-	bool _standaloneFlag;
-	AutoPtr<Iterator> _pIteratorSub;
+	bool _genIterFlag;
+	AutoPtr<Iterator> _pIteratorNest;
 	int _cnt;
 	int _idx;
 public:
 	Iterator_repeat(Environment *pEnv, Signal sig, Function *pFuncBlock,
-					bool skipInvalidFlag, bool standaloneFlag, int cnt);
+					bool skipInvalidFlag, bool genIterFlag, int cnt);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
@@ -965,13 +965,13 @@ class GURA_DLLDECLARE Iterator_while : public Iterator {
 private:
 	AutoPtr<Environment> _pEnv;
 	AutoPtr<Function> _pFuncBlock;
-	bool _standaloneFlag;
-	AutoPtr<Iterator> _pIteratorSub;
+	bool _genIterFlag;
+	AutoPtr<Iterator> _pIteratorNest;
 	AutoPtr<Expr> _pExpr;
 	int _idx;
 public:
 	Iterator_while(Environment *pEnv, Signal sig, Function *pFuncBlock,
-					bool skipInvalidFlag, bool standaloneFlag, Expr *pExpr);
+					bool skipInvalidFlag, bool genIterFlag, Expr *pExpr);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
@@ -985,15 +985,15 @@ class GURA_DLLDECLARE Iterator_for : public Iterator {
 private:
 	AutoPtr<Environment> _pEnv;
 	AutoPtr<Function> _pFuncBlock;
-	bool _standaloneFlag;
-	AutoPtr<Iterator> _pIteratorSub;
+	bool _genIterFlag;
+	AutoPtr<Iterator> _pIteratorNest;
 	ExprList _exprLeftList;
 	IteratorOwner _iteratorOwner;
 	int _idx;
 	bool _doneFlag;
 public:
 	Iterator_for(Environment *pEnv, Signal sig, Function *pFuncBlock,
-			bool skipInvalidFlag, bool standaloneFlag, const ValueList &valListArg);
+			bool skipInvalidFlag, bool genIterFlag, const ValueList &valListArg);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
@@ -1007,8 +1007,8 @@ class GURA_DLLDECLARE Iterator_cross : public Iterator {
 private:
 	AutoPtr<Environment> _pEnv;
 	AutoPtr<Function> _pFuncBlock;
-	bool _standaloneFlag;
-	AutoPtr<Iterator> _pIteratorSub;
+	bool _genIterFlag;
+	AutoPtr<Iterator> _pIteratorNest;
 	ExprList _exprLeftList;
 	IteratorOwner _iteratorOwner;
 	IteratorOwner _iteratorOwnerOrg;
@@ -1017,7 +1017,7 @@ private:
 	bool _doneFlag;
 public:
 	Iterator_cross(Environment *pEnv, Signal sig, Function *pFuncBlock,
-			bool skipInvalidFlag, bool standaloneFlag, const ValueList &valListArg);
+			bool skipInvalidFlag, bool genIterFlag, const ValueList &valListArg);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;
