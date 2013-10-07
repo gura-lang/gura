@@ -384,22 +384,31 @@ Value Function::ReturnIterator(Environment &env, Signal sig,
 		return Value::Null;
 	}
 	Value result;
-	if (args.IsBlockSpecified()) {
-		AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-		const Function *pFuncBlock =
-						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
-		if (pFuncBlock == NULL) return Value::Null;
-		// :iter and :xiter must be effective here
-		result = pIterator->Eval(*pEnvBlock, sig, args, pFuncBlock);
-		Iterator::Delete(pIterator);
-		if (sig.IsSignalled()) return Value::Null;
+	if (!pIterator->IsRepeater()) {
+		bool skipInvalidFlag = args.IsRsltXList() || args.IsRsltXSet() || args.IsRsltXIterator();
+		pIterator->SetSkipInvalidFlag(skipInvalidFlag);
+		if (args.IsBlockSpecified()) {
+			AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
+			const Function *pFuncBlock =
+								args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
+			if (pFuncBlock == NULL) return Value::Null;
+			bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
+			pIterator = new Iterator_Repeater(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
+								skipInvalidFlag, genIterFlag, pIterator);
+		}
+	}
+	if (args.IsRsltIterator() || args.IsRsltXIterator()) {
+		result = Value(env, pIterator);
 	} else if (args.IsRsltList() || args.IsRsltXList() ||
-								args.IsRsltSet() || args.IsRsltXSet()) {
+									args.IsRsltSet() || args.IsRsltXSet()) {
 		result = pIterator->Eval(env, sig, args);
 		Iterator::Delete(pIterator);
 		if (sig.IsSignalled()) return Value::Null;
+	} else if (pIterator->IsRepeater()) {
+		while (pIterator->Next(env, sig, result)) ;
+		Iterator::Delete(pIterator);
+		if (sig.IsSignalled()) return Value::Null;
 	} else {
-		pIterator->SetSkipInvalidFlag(args.IsRsltXIterator());
 		result = Value(env, pIterator);
 	}
 	return result;
@@ -439,29 +448,6 @@ Value Function::ReturnValue(Environment &env, Signal sig,
 		sig.ClearSignal();
 	}
 	return value;
-}
-
-Value Function::DoRepeater(Environment &env, Signal sig,
-								Args &args, Iterator *pIterator) const
-{
-	if (sig.IsSignalled()) {
-		Iterator::Delete(pIterator);
-		return Value::Null;
-	}
-	Value result;
-	if (args.IsRsltIterator() || args.IsRsltXIterator()) {
-		result = Value(env, pIterator);
-	} else if (args.IsRsltList() || args.IsRsltXList() ||
-									args.IsRsltSet() || args.IsRsltXSet()) {
-		result = pIterator->Eval(env, sig, args);
-		Iterator::Delete(pIterator);
-		if (sig.IsSignalled()) return Value::Null;
-	} else {
-		while (pIterator->Next(env, sig, result)) ;
-		Iterator::Delete(pIterator);
-		if (sig.IsSignalled()) return Value::Null;
-	}
-	return result;
 }
 
 Expr *Function::DiffUnary(Environment &env, Signal sig,

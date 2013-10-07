@@ -929,6 +929,7 @@ private:
 	AutoPtr<Iterator> _pIteratorNest;
 	AutoPtr<Iterator> _pIteratorSrc;
 	int _idx;
+	bool _doneFlag;
 public:
 	Iterator_Repeater(Environment *pEnv, Signal sig, Function *pFuncBlock,
 			bool skipInvalidFlag, bool genIterFlag, Iterator *pIteratorSrc);
@@ -949,6 +950,7 @@ private:
 	AutoPtr<Iterator> _pIteratorNest;
 	int _cnt;
 	int _idx;
+	bool _doneFlag;
 public:
 	Iterator_repeat(Environment *pEnv, Signal sig, Function *pFuncBlock,
 					bool skipInvalidFlag, bool genIterFlag, int cnt);
@@ -969,6 +971,7 @@ private:
 	AutoPtr<Iterator> _pIteratorNest;
 	AutoPtr<Expr> _pExpr;
 	int _idx;
+	bool _doneFlag;
 public:
 	Iterator_while(Environment *pEnv, Signal sig, Function *pFuncBlock,
 					bool skipInvalidFlag, bool genIterFlag, Expr *pExpr);

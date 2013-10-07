@@ -655,11 +655,11 @@ Gura_ImplementFunction(repeat)
 	const Function *pFuncBlock =
 						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
 	if (pFuncBlock == NULL) return Value::Null;
-	bool standaloneFlag = (args.IsRsltIterator() || args.IsRsltXIterator());
+	bool skipInvalidFlag = args.IsRsltXList() || args.IsRsltXSet() || args.IsRsltXIterator();
+	bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
 	Iterator *pIterator = new Iterator_repeat(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
-			args.IsRsltXIterator(), standaloneFlag,
-			args.IsNumber(0)? args.GetInt(0) : -1);
-	return DoRepeater(env, sig, args, pIterator);
+			skipInvalidFlag, genIterFlag, args.IsNumber(0)? args.GetInt(0) : -1);
+	return ReturnIterator(env, sig, args, pIterator);
 }
 
 // while (`cond) {block}
@@ -682,10 +682,11 @@ Gura_ImplementFunction(while_)
 	const Function *pFuncBlock =
 						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
 	if (pFuncBlock == NULL) return Value::Null;
-	bool standaloneFlag = (args.IsRsltIterator() || args.IsRsltXIterator());
+	bool skipInvalidFlag = args.IsRsltXList() || args.IsRsltXSet() || args.IsRsltXIterator();
+	bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
 	Iterator *pIterator = new Iterator_while(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
-			args.IsRsltXIterator(), standaloneFlag, Expr::Reference(args.GetExpr(0)));
-	return DoRepeater(env, sig, args, pIterator);
+			skipInvalidFlag, genIterFlag, Expr::Reference(args.GetExpr(0)));
+	return ReturnIterator(env, sig, args, pIterator);
 }
 
 // for (`expr+) {block}
@@ -710,10 +711,11 @@ Gura_ImplementFunction(for_)
 	const Function *pFuncBlock =
 						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
 	if (pFuncBlock == NULL) return Value::Null;
-	bool standaloneFlag = (args.IsRsltIterator() || args.IsRsltXIterator());
+	bool skipInvalidFlag = args.IsRsltXList() || args.IsRsltXSet() || args.IsRsltXIterator();
+	bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
 	Iterator *pIterator = new Iterator_for(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
-				args.IsRsltXIterator(), standaloneFlag, args.GetList(0));
-	return DoRepeater(env, sig, args, pIterator);
+				skipInvalidFlag, genIterFlag, args.GetList(0));
+	return ReturnIterator(env, sig, args, pIterator);
 }
 
 // cross (`expr+) {block}
@@ -740,10 +742,11 @@ Gura_ImplementFunction(cross)
 	const Function *pFuncBlock =
 						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
 	if (pFuncBlock == NULL) return Value::Null;
-	bool standaloneFlag = (args.IsRsltIterator() || args.IsRsltXIterator());
+	bool skipInvalidFlag = args.IsRsltXList() || args.IsRsltXSet() || args.IsRsltXIterator();
+	bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
 	Iterator *pIterator = new Iterator_cross(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
-				args.IsRsltXIterator(), standaloneFlag, args.GetList(0));
-	return DoRepeater(env, sig, args, pIterator);
+				skipInvalidFlag, genIterFlag, args.GetList(0));
+	return ReturnIterator(env, sig, args, pIterator);
 }
 
 // break(value?):void:symbol_func

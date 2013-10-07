@@ -289,8 +289,6 @@ protected:
 					Args &args, const Value &result) const;
 	Value ReturnValue(Environment &env, Signal sig,
 					Args &args, const ValueList &valListArg) const;
-	Value DoRepeater(Environment &env, Signal sig,
-					Args &args, Iterator *pIterator) const;
 	Environment *PrepareEnvironment(Environment &env, Signal sig, Args &args) const;
 private:
 	virtual Value DoEval(Environment &env, Signal sig, Args &args) const = 0;

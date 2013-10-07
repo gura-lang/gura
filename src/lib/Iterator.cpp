@@ -2432,7 +2432,7 @@ Iterator_Repeater::Iterator_Repeater(Environment *pEnv, Signal sig, Function *pF
 					bool skipInvalidFlag, bool genIterFlag, Iterator *pIteratorSrc) :
 		Iterator(pIteratorSrc->IsInfinite(), skipInvalidFlag, true), _pEnv(pEnv), _pFuncBlock(pFuncBlock),
 		_genIterFlag(genIterFlag),
-		_pIteratorNest(NULL), _pIteratorSrc(pIteratorSrc), _idx(0)
+		_pIteratorNest(NULL), _pIteratorSrc(pIteratorSrc), _idx(0), _doneFlag(false)
 {
 }
 
@@ -2443,6 +2443,7 @@ Iterator *Iterator_Repeater::GetSource()
 
 bool Iterator_Repeater::DoNext(Environment &env, Signal sig, Value &value)
 {
+	if (_doneFlag) return false;
 	for (;;) {
 		if (_pIteratorNest.IsNull()) {
 			Value valueSrc;
@@ -2450,9 +2451,12 @@ bool Iterator_Repeater::DoNext(Environment &env, Signal sig, Value &value)
 			AutoPtr<Args> pArgs(new Args());
 			pArgs->SetValues(valueSrc, Value(static_cast<Number>(_idx)));
 			value = _pFuncBlock->Eval(*_pEnv, sig, *pArgs);
+			_idx++;
 			if (sig.IsBreak()) {
+				value = sig.GetValue();
 				sig.ClearSignal();
-				return false;
+				_doneFlag = true;
+				return value.IsValid();
 			} else if (sig.IsReturn()) {
 				if (_genIterFlag) {
 					sig.ClearSignal();
@@ -2461,11 +2465,12 @@ bool Iterator_Repeater::DoNext(Environment &env, Signal sig, Value &value)
 			} else if (sig.IsContinue()) {
 				value = sig.GetValue();
 				sig.ClearSignal();
+				if (value.IsInvalid()) continue;
 			} else if (sig.IsSignalled()) {
 				return false;
 			}
-			_idx++;
-			if (!_genIterFlag || !value.IsIterator()) break;
+			if (!_genIterFlag || !value.IsIterator() ||
+									!value.GetIterator()->IsRepeater()) break;
 			_pIteratorNest.reset(Reference(value.GetIterator()));
 		} else if (_pIteratorNest->Next(env, sig, value)) {
 			break;
@@ -2499,7 +2504,7 @@ Iterator_repeat::Iterator_repeat(Environment *pEnv, Signal sig, Function *pFuncB
 					bool skipInvalidFlag, bool genIterFlag, int cnt) :
 		Iterator(cnt < 0, skipInvalidFlag, true), _pEnv(pEnv), _pFuncBlock(pFuncBlock),
 		_genIterFlag(genIterFlag),
-		_pIteratorNest(NULL), _cnt(cnt), _idx(0)
+		_pIteratorNest(NULL), _cnt(cnt), _idx(0), _doneFlag(false)
 {
 }
 
@@ -2510,15 +2515,19 @@ Iterator *Iterator_repeat::GetSource()
 
 bool Iterator_repeat::DoNext(Environment &env, Signal sig, Value &value)
 {
+	if (_doneFlag) return false;
 	for (;;) {
 		if (_pIteratorNest.IsNull()) {
 			if (_cnt >= 0 && _idx >= _cnt) return false;
 			AutoPtr<Args> pArgs(new Args());
 			pArgs->SetValue(Value(static_cast<Number>(_idx)));
 			value = _pFuncBlock->Eval(*_pEnv, sig, *pArgs);
+			_idx++;
 			if (sig.IsBreak()) {
+				value = sig.GetValue();
 				sig.ClearSignal();
-				return false;
+				_doneFlag = true;
+				return value.IsValid();
 			} else if (sig.IsReturn()) {
 				if (_genIterFlag) {
 					sig.ClearSignal();
@@ -2527,11 +2536,12 @@ bool Iterator_repeat::DoNext(Environment &env, Signal sig, Value &value)
 			} else if (sig.IsContinue()) {
 				value = sig.GetValue();
 				sig.ClearSignal();
+				if (value.IsInvalid()) continue;
 			} else if (sig.IsSignalled()) {
 				return false;
 			}
-			_idx++;
-			if (!_genIterFlag || !value.IsIterator()) break;
+			if (!_genIterFlag || !value.IsIterator() ||
+									!value.GetIterator()->IsRepeater()) break;
 			_pIteratorNest.reset(Reference(value.GetIterator()));
 		} else if (_pIteratorNest->Next(env, sig, value)) {
 			break;
@@ -2564,7 +2574,7 @@ Iterator_while::Iterator_while(Environment *pEnv, Signal sig, Function *pFuncBlo
 					bool skipInvalidFlag, bool genIterFlag, Expr *pExpr) :
 		Iterator(false, skipInvalidFlag, true), _pEnv(pEnv), _pFuncBlock(pFuncBlock),
 		_genIterFlag(genIterFlag),
-		_pIteratorNest(NULL), _pExpr(Expr::Reference(pExpr)), _idx(0)
+		_pIteratorNest(NULL), _pExpr(Expr::Reference(pExpr)), _idx(0), _doneFlag(false)
 {
 }
 
@@ -2575,15 +2585,19 @@ Iterator *Iterator_while::GetSource()
 
 bool Iterator_while::DoNext(Environment &env, Signal sig, Value &value)
 {
+	if (_doneFlag) return false;
 	for (;;) {
 		if (_pIteratorNest.IsNull()) {
 			if (!_pExpr->Exec(*_pEnv, sig).GetBoolean()) return false;
 			AutoPtr<Args> pArgs(new Args());
 			pArgs->SetValue(Value(static_cast<Number>(_idx)));
 			value = _pFuncBlock->Eval(*_pEnv, sig, *pArgs);
+			_idx++;
 			if (sig.IsBreak()) {
+				value = sig.GetValue();
 				sig.ClearSignal();
-				return false;
+				_doneFlag = true;
+				return value.IsValid();
 			} else if (sig.IsReturn()) {
 				if (_genIterFlag) {
 					sig.ClearSignal();
@@ -2592,11 +2606,12 @@ bool Iterator_while::DoNext(Environment &env, Signal sig, Value &value)
 			} else if (sig.IsContinue()) {
 				value = sig.GetValue();
 				sig.ClearSignal();
+				if (value.IsInvalid()) continue;
 			} else if (sig.IsSignalled()) {
 				return false;
 			}
-			_idx++;
-			if (!_genIterFlag || !value.IsIterator()) break;
+			if (!_genIterFlag || !value.IsIterator() ||
+									!value.GetIterator()->IsRepeater()) break;
 			_pIteratorNest.reset(Reference(value.GetIterator()));
 		} else if (_pIteratorNest->Next(env, sig, value)) {
 			break;
@@ -2662,24 +2677,26 @@ bool Iterator_for::DoNext(Environment &env, Signal sig, Value &value)
 			AutoPtr<Args> pArgs(new Args());
 			pArgs->SetValue(Value(static_cast<Number>(_idx)));
 			value = _pFuncBlock->Eval(*_pEnv, sig, *pArgs);
+			_idx++;
 			if (sig.IsBreak()) {
 				value = sig.GetValue();
 				sig.ClearSignal();
-				return false;
+				_doneFlag = true;
+				return value.IsValid();
 			} else if (sig.IsReturn()) {
 				if (_genIterFlag) {
-					value = sig.GetValue();
 					sig.ClearSignal();
 				}
 				return false;
 			} else if (sig.IsContinue()) {
 				value = sig.GetValue();
 				sig.ClearSignal();
+				if (value.IsInvalid()) continue;
 			} else if (sig.IsSignalled()) {
 				return false;
 			}
-			_idx++;
-			if (!_genIterFlag || !value.IsIterator()) break;
+			if (!_genIterFlag || !value.IsIterator() ||
+									!value.GetIterator()->IsRepeater()) break;
 			_pIteratorNest.reset(Reference(value.GetIterator()));
 		} else if (_pIteratorNest->Next(env, sig, value)) {
 			break;
@@ -2755,24 +2772,29 @@ bool Iterator_cross::DoNext(Environment &env, Signal sig, Value &value)
 			AutoPtr<Args> pArgs(new Args());
 			pArgs->SetValueListArg(_valListArg);
 			value = _pFuncBlock->Eval(*_pEnv, sig, *pArgs);
+			_idx++;
 			if (sig.IsBreak()) {
 				value = sig.GetValue();
 				sig.ClearSignal();
-				return false;
+				_doneFlag = true;
+				return value.IsValid();
 			} else if (sig.IsReturn()) {
 				if (_genIterFlag) {
-					value = sig.GetValue();
 					sig.ClearSignal();
 				}
 				return false;
 			} else if (sig.IsContinue()) {
 				value = sig.GetValue();
 				sig.ClearSignal();
+				if (value.IsInvalid()) {
+					if (!AdvanceIterators(env, sig)) return false;
+					continue;
+				}
 			} else if (sig.IsSignalled()) {
 				return false;
 			}
-			_idx++;
-			if (!_genIterFlag || !value.IsIterator()) {
+			if (!_genIterFlag || !value.IsIterator() ||
+									!value.GetIterator()->IsRepeater()) {
 				if (!AdvanceIterators(env, sig)) return false;
 				break;
 			}
