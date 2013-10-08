@@ -32,30 +32,23 @@ bool Sequence_Root::Step(Signal sig, Value &result)
 	}
 	Environment &env = *_pEnv;
 	const Expr *pExpr = GetExprOwner()[_idxExpr++];
-	
-	::printf("# %s\n", pExpr->ToString(Expr::SCRSTYLE_Brief).c_str());
-	
-	result = pExpr->Exec(*_pEnv, sig);
+	//::printf("# %s\n", pExpr->ToString(Expr::SCRSTYLE_Brief).c_str());
+	result = pExpr->Exec(env, sig);
 	if (sig.IsError()) {
-		::printf("line.%d\n", __LINE__);
 		sig.AddExprCause(pExpr);
 		_doneFlag = true;
 		return false;
 	} else if (sig.IsTerminate()) {
-		::printf("line.%d\n", __LINE__);
 		env.GetConsoleErr()->PrintSignal(sig, sig);
 		sig.ClearSignal();
 		_doneFlag = true;
 		return false;
 	} else if (sig.IsSignalled()) {
-		::printf("line.%d\n", __LINE__);
 		env.GetConsoleErr()->PrintSignal(sig, sig);
 		sig.ClearSignal();
 	} else if (!env.GetGlobal()->GetEchoFlag()) {
-		::printf("line.%d\n", __LINE__);
 		// nothing to do
 	} else if (result.IsValid()) {
-		::printf("line.%d\n", __LINE__);
 		// pConsole must be retrieved here.
 		env.GetConsole()->Println(sig, result.ToString(sig).c_str());
 	}
@@ -72,8 +65,9 @@ String Sequence_Root::ToString() const
 //-----------------------------------------------------------------------------
 // Sequence_Expr
 //-----------------------------------------------------------------------------
-Sequence_Expr::Sequence_Expr(Environment *pEnv, ExprOwner *pExprOwner) :
-						Sequence(pEnv), _pExprOwner(pExprOwner), _idxExpr(0)
+Sequence_Expr::Sequence_Expr(Environment *pEnv, ExprOwner *pExprOwner, bool evalSymFuncFlag) :
+						Sequence(pEnv), _pExprOwner(pExprOwner), _idxExpr(0),
+						_evalSymFuncFlag(evalSymFuncFlag)
 {
 }
 
@@ -87,6 +81,29 @@ bool Sequence_Expr::Step(Signal sig, Value &result)
 	Environment &env = *_pEnv;
 	const Expr *pExpr = GetExprOwner()[_idxExpr++];
 	result = pExpr->Exec(env, sig);
+	if (sig.IsSignalled()) {
+		sig.AddExprCause(pExpr);
+		_doneFlag = true;
+		return false;
+	}
+	if (_evalSymFuncFlag && result.IsFunction() &&
+								result.GetFunction()->IsSymbolFunc()) {
+		// symbol functions are only evaluated by a sequence of block.
+		// in the folloiwng example, "return" shall be evaluated by a block
+		// of "if" function.
+		//   repeat { if (flag) { return } }
+		// in the following example, "&&" operator returns "return" function
+		// object as its result, and then the block of "repeat" shall evaluate it.
+		//   repeat { flag && return }
+		const Function *pFunc = result.GetFunction();
+		AutoPtr<Args> pArgs(new Args());
+		Value result = pFunc->EvalExpr(env, sig, *pArgs);
+		if (sig.IsSignalled()) {
+			sig.AddExprCause(pExpr);
+			_doneFlag = true;
+			return false;
+		}
+	}
 	return true;
 }
 
@@ -176,11 +193,10 @@ Processor::Processor() : _cntRef(1)
 {
 }
 
-bool Processor::Step(Signal sig)
+bool Processor::Step(Signal sig, Value &result)
 {
 	if (CheckDone()) return true;
 	Sequence *pSequence = _sequenceStack.back();
-	Value result;
 	pSequence->Step(sig, result);
 	if (sig.IsSignalled()) return false;
 	if (pSequence->CheckDone()) {

@@ -168,6 +168,9 @@ public:
 	inline const char *GetTypeName() const { return GetExprTypeName(_exprType); }
 	inline ExprType GetType() const { return _exprType; }
 	inline bool IsType(ExprType exprType) const { return _exprType == exprType; }
+	Value Exec(Environment &env, Signal sig) const;
+	bool ExecInArg(Environment &env, Signal sig,
+					ValueList &valListArg, size_t &nElems, bool quoteFlag) const;
 	Function *ToFunction(Environment &env, Signal sig,
 				const ValueList &valListArg, const SymbolSet &attrs) const;
 	bool IsAtSameLine(const Expr *pExpr) const;
@@ -181,14 +184,6 @@ public:
 	virtual Expr *Clone() const = 0;
 	virtual const char *GetPathName() const;
 	virtual Callable *LookupCallable(Environment &env, Signal sig) const;
-	inline Value Exec(Environment &env, Signal sig) const {
-		Value result = DoExec(env, sig);
-		if (sig.IsSignalled()) {
-			sig.AddExprCause(this);
-			return Value::Null;
-		}
-		return result;
-	}
 	inline Value Assign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const {
 		Value result = DoAssign(env, sig, value, pSymbolsAssignable, escalateFlag);
@@ -199,8 +194,6 @@ public:
 		return result;
 	}
 	virtual Value DoExec(Environment &env, Signal sig) const = 0;
-	bool ExecInArg(Environment &env, Signal sig,
-					ValueList &valListArg, size_t &nElems, bool quoteFlag) const;
 	virtual void Accept(ExprVisitor &visitor) const = 0;
 	virtual bool IsParentOf(const Expr *pExpr) const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,

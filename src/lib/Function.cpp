@@ -740,8 +740,8 @@ Value CustomFunction::DoEval(Environment &env, Signal sig, Args &args) const
 	}
 	pEnvLocal->AssignValue(Gura_Symbol(__args__),
 				Value(new Object_args(env, args.Reference())), EXTRA_Public);
-	EnvType envType = pEnvLocal->GetEnvType();
 	Value result = GetExprBody()->Exec(*pEnvLocal, sig);
+	EnvType envType = pEnvLocal->GetEnvType();
 	if (envType == ENVTYPE_block) {
 		// nothing to do. simply pass the signal to the outside.
 	} else if (!sig.IsSignalled()) {

@@ -73,6 +73,16 @@ const char *Expr::GetPathName() const
 	return (_pExprParent == NULL)? NULL : _pExprParent->GetPathName();
 }
 
+Value Expr::Exec(Environment &env, Signal sig) const
+{
+	Value result = DoExec(env, sig);
+	if (sig.IsSignalled()) {
+		sig.AddExprCause(this);
+		return Value::Null;
+	}
+	return result;
+}
+
 bool Expr::ExecInArg(Environment &env, Signal sig,
 					ValueList &valListArg, size_t &nElems, bool quoteFlag) const
 {
@@ -1124,7 +1134,7 @@ const char *Expr_Root::GetPathName() const
 	return _pathName.c_str();
 }
 
-#if 1
+#if 0
 Value Expr_Root::DoExec(Environment &env, Signal sig) const
 {
 	Value result;
@@ -1157,10 +1167,11 @@ Value Expr_Root::DoExec(Environment &env, Signal sig) const
 {
 	_pProcessor->PushSequence(new Sequence_Root(
 							env.Reference(), GetExprOwner().Reference()));
+	Value result;
 	while (!_pProcessor->CheckDone()) {
-		if (!_pProcessor->Step(sig)) return Value::Null;
+		if (!_pProcessor->Step(sig, result)) return Value::Null;
 	}
-	return Value::Null;
+	return result;
 }
 #endif
 

@@ -38,8 +38,9 @@ class Sequence_Expr : public Sequence {
 private:
 	AutoPtr<ExprOwner> _pExprOwner;
 	size_t _idxExpr;
+	bool _evalSymFuncFlag;
 public:
-	Sequence_Expr(Environment *pEnv, ExprOwner *pExprOwner);
+	Sequence_Expr(Environment *pEnv, ExprOwner *pExprOwner, bool evalSymFuncFlag);
 public:
 	virtual bool Step(Signal sig, Value &result);
 	virtual String ToString() const;
@@ -85,7 +86,7 @@ public:
 	Gura_DeclareReferenceAccessor(Processor)
 public:
 	Processor();
-	bool Step(Signal sig);
+	bool Step(Signal sig, Value &value);
 	inline void PushSequence(Sequence *pSequence) { _sequenceStack.push_back(pSequence); }
 	inline bool CheckDone() const { return _sequenceStack.empty(); }
 };
