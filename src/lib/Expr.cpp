@@ -384,8 +384,8 @@ Expr::ScriptStyle Expr::SymbolToScriptStyle(const Symbol *pSymbol)
 		return SCRSTYLE_OneLine;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(fancy))) {
 		return SCRSTYLE_Fancy;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(digest))) {
-		return SCRSTYLE_Digest;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(brief))) {
+		return SCRSTYLE_Brief;
 	} else {
 		return SCRSTYLE_None;
 	}
@@ -1125,6 +1125,7 @@ const char *Expr_Root::GetPathName() const
 	return _pathName.c_str();
 }
 
+#if 1
 Value Expr_Root::DoExec(Environment &env, Signal sig) const
 {
 	Value result;
@@ -1151,6 +1152,17 @@ Value Expr_Root::DoExec(Environment &env, Signal sig) const
 	}
 	return result;
 }
+#else
+Value Expr_Root::DoExec(Environment &env, Signal sig) const
+{
+	_pProcessor->PushSequence(new Sequence_Root(
+							env.Reference(), GetExprOwner().Reference()));
+	while (!_pProcessor->CheckDone()) {
+		if (!_pProcessor->Step(sig)) return Value::Null;
+	}
+	return Value::Null;
+}
+#endif
 
 bool Expr_Root::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
@@ -1231,7 +1243,7 @@ bool Expr_Block::GenerateScript(Signal sig, SimpleStream &stream,
 	}
 	if (GetExprOwner().empty()) {
 		// nothing to do
-	} else if (scriptStyle == SCRSTYLE_Digest && !GetExprOwner().IsAtSameLine()) {
+	} else if (scriptStyle == SCRSTYLE_Brief && !GetExprOwner().IsAtSameLine()) {
 		stream.Print(sig, " .. ");
 		if (sig.IsSignalled()) return false;
 	} else {
@@ -1432,7 +1444,7 @@ bool Expr_Lister::GenerateScript(Signal sig, SimpleStream &stream,
 	if (sig.IsSignalled()) return false;
 	if (GetExprOwner().empty()) {
 		// nothing to do
-	} else if (scriptStyle == SCRSTYLE_Digest && !GetExprOwner().IsAtSameLine()) {
+	} else if (scriptStyle == SCRSTYLE_Brief && !GetExprOwner().IsAtSameLine()) {
 		stream.Print(sig, " .. ");
 		if (sig.IsSignalled()) return false;
 	} else {
@@ -1490,7 +1502,7 @@ bool Expr_IterLink::GenerateScript(Signal sig, SimpleStream &stream,
 	if (sig.IsSignalled()) return false;
 	if (GetExprOwner().empty()) {
 		// nothing to do
-	} else if (scriptStyle == SCRSTYLE_Digest && !GetExprOwner().IsAtSameLine()) {
+	} else if (scriptStyle == SCRSTYLE_Brief && !GetExprOwner().IsAtSameLine()) {
 		stream.Print(sig, " .. ");
 		if (sig.IsSignalled()) return false;
 	} else {
@@ -1804,7 +1816,7 @@ bool Expr_Indexer::GenerateScript(Signal sig, SimpleStream &stream,
 		if (sig.IsSignalled()) return false;
 		if (GetExprOwner().empty()) {
 			// nothing to do
-		} else if (scriptStyle == SCRSTYLE_Digest && !GetExprOwner().IsAtSameLine()) {
+		} else if (scriptStyle == SCRSTYLE_Brief && !GetExprOwner().IsAtSameLine()) {
 			stream.Print(sig, " .. ");
 			if (sig.IsSignalled()) return false;
 		} else {
@@ -1821,7 +1833,7 @@ bool Expr_Indexer::GenerateScript(Signal sig, SimpleStream &stream,
 		if (sig.IsSignalled()) return false;
 		if (GetExprOwner().empty()) {
 			// nothing to do
-		} else if (scriptStyle == SCRSTYLE_Digest && !GetExprOwner().IsAtSameLine()) {
+		} else if (scriptStyle == SCRSTYLE_Brief && !GetExprOwner().IsAtSameLine()) {
 			stream.Print(sig, " .. ");
 			if (sig.IsSignalled()) return false;
 		} else {

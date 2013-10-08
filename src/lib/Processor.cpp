@@ -23,35 +23,43 @@ Sequence_Root::Sequence_Root(Environment *pEnv, ExprOwner *pExprOwner) :
 {
 }
 
-Value Sequence_Root::Step(Signal sig)
+bool Sequence_Root::Step(Signal sig, Value &result)
 {
-	if (CheckDone()) return Value::Null;
+	if (CheckDone()) return false;
 	if (_idxExpr >= GetExprOwner().size()) {
 		_doneFlag = true;
-		return Value::Null;
+		return false;
 	}
 	Environment &env = *_pEnv;
 	const Expr *pExpr = GetExprOwner()[_idxExpr++];
-	Value result = pExpr->Exec(*_pEnv, sig);
+	
+	::printf("# %s\n", pExpr->ToString(Expr::SCRSTYLE_Brief).c_str());
+	
+	result = pExpr->Exec(*_pEnv, sig);
 	if (sig.IsError()) {
+		::printf("line.%d\n", __LINE__);
 		sig.AddExprCause(pExpr);
-		result = Value::Null;
 		_doneFlag = true;
+		return false;
 	} else if (sig.IsTerminate()) {
+		::printf("line.%d\n", __LINE__);
 		env.GetConsoleErr()->PrintSignal(sig, sig);
 		sig.ClearSignal();
-		result = Value::Null;
 		_doneFlag = true;
+		return false;
 	} else if (sig.IsSignalled()) {
+		::printf("line.%d\n", __LINE__);
 		env.GetConsoleErr()->PrintSignal(sig, sig);
 		sig.ClearSignal();
 	} else if (!env.GetGlobal()->GetEchoFlag()) {
+		::printf("line.%d\n", __LINE__);
 		// nothing to do
 	} else if (result.IsValid()) {
+		::printf("line.%d\n", __LINE__);
 		// pConsole must be retrieved here.
 		env.GetConsole()->Println(sig, result.ToString(sig).c_str());
 	}
-	return result;
+	return true;
 }
 
 String Sequence_Root::ToString() const
@@ -69,17 +77,17 @@ Sequence_Expr::Sequence_Expr(Environment *pEnv, ExprOwner *pExprOwner) :
 {
 }
 
-Value Sequence_Expr::Step(Signal sig)
+bool Sequence_Expr::Step(Signal sig, Value &result)
 {
-	if (CheckDone()) return Value::Null;
+	if (CheckDone()) return false;
 	if (_idxExpr >= GetExprOwner().size()) {
 		_doneFlag = true;
-		return Value::Null;
+		return false;
 	}
 	Environment &env = *_pEnv;
 	const Expr *pExpr = GetExprOwner()[_idxExpr++];
-	Value result = pExpr->Exec(env, sig);
-	return result;
+	result = pExpr->Exec(env, sig);
+	return true;
 }
 
 String Sequence_Expr::ToString() const
@@ -98,17 +106,17 @@ Sequence_ExprForList::Sequence_ExprForList(Environment *pEnv, ExprOwner *pExprOw
 	_pValList = &_value.InitAsList(*pEnv);
 }
 
-Value Sequence_ExprForList::Step(Signal sig)
+bool Sequence_ExprForList::Step(Signal sig, Value &result)
 {
-	if (CheckDone()) return Value::Null;
+	if (CheckDone()) return false;
 	if (_idxExpr >= GetExprOwner().size()) {
 		_doneFlag = true;
-		return Value::Null;
+		return false;
 	}
 	Environment &env = *_pEnv;
 	const Expr *pExpr = GetExprOwner()[_idxExpr++];
-	Value result = pExpr->Exec(env, sig);
-	return result;
+	result = pExpr->Exec(env, sig);
+	return true;
 }
 
 String Sequence_ExprForList::ToString() const
@@ -126,16 +134,15 @@ Sequence_Iterator::Sequence_Iterator(Environment *pEnv, Iterator *pIterator) :
 {
 }
 
-Value Sequence_Iterator::Step(Signal sig)
+bool Sequence_Iterator::Step(Signal sig, Value &result)
 {
-	if (CheckDone()) return Value::Null;
+	if (CheckDone()) return false;
 	Environment &env = *_pEnv;
-	Value result;
 	if (!_pIterator->Next(env, sig, result)) {
 		_doneFlag = true;
-		return Value::Null;
+		return false;
 	}
-	return result;
+	return true;
 }
 
 String Sequence_Iterator::ToString() const
@@ -169,21 +176,22 @@ Processor::Processor() : _cntRef(1)
 {
 }
 
-Value Processor::Step(Signal sig)
+bool Processor::Step(Signal sig)
 {
-	if (CheckDone()) return Value::Null;
+	if (CheckDone()) return true;
 	Sequence *pSequence = _sequenceStack.back();
-	Value result = pSequence->Step(sig);
-	if (sig.IsSignalled()) return Value::Null;
+	Value result;
+	pSequence->Step(sig, result);
+	if (sig.IsSignalled()) return false;
 	if (pSequence->CheckDone()) {
 		Sequence::Delete(pSequence);
 		_sequenceStack.pop_back();
 	}
 	if (result.IsSequence()) {
 		_sequenceStack.push_back(result.GetSequence()->Reference());
-		return Value::Null;
+		return true;
 	}
-	return result;
+	return true;
 }
 
 }

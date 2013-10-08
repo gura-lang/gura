@@ -416,7 +416,7 @@ public:
 	Gura_DeclareSymbol(linenobtm);
 	Gura_DeclareSymbol(crammed);
 	Gura_DeclareSymbol(oneline);
-	Gura_DeclareSymbol(digest);
+	Gura_DeclareSymbol(brief);
 	Gura_DeclareSymbol(fancy);
 	Gura_DeclareSymbol(trace);
 	Gura_DeclareSymbol(postext);

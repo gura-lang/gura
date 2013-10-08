@@ -17,7 +17,7 @@ public:
 protected:
 	virtual ~Sequence();
 public:
-	virtual Value Step(Signal sig) = 0;
+	virtual bool Step(Signal sig, Value &result) = 0;
 	virtual String ToString() const = 0;
 	inline bool CheckDone() const { return _doneFlag; }
 };
@@ -29,7 +29,7 @@ private:
 public:
 	Sequence_Root(Environment *pEnv, ExprOwner *pExprOwner);
 public:
-	virtual Value Step(Signal sig);
+	virtual bool Step(Signal sig, Value &result);
 	virtual String ToString() const;
 	inline const ExprOwner &GetExprOwner() const { return *_pExprOwner; }
 };
@@ -41,7 +41,7 @@ private:
 public:
 	Sequence_Expr(Environment *pEnv, ExprOwner *pExprOwner);
 public:
-	virtual Value Step(Signal sig);
+	virtual bool Step(Signal sig, Value &result);
 	virtual String ToString() const;
 	inline const ExprOwner &GetExprOwner() const { return *_pExprOwner; }
 };
@@ -55,7 +55,7 @@ private:
 public:
 	Sequence_ExprForList(Environment *pEnv, ExprOwner *pExprOwner);
 public:
-	virtual Value Step(Signal sig);
+	virtual bool Step(Signal sig, Value &result);
 	virtual String ToString() const;
 	inline const ExprOwner &GetExprOwner() const { return *_pExprOwner; }
 };
@@ -66,7 +66,7 @@ private:
 public:
 	Sequence_Iterator(Environment *pEnv, Iterator *pIterator);
 public:
-	virtual Value Step(Signal sig);
+	virtual bool Step(Signal sig, Value &result);
 	virtual String ToString() const;
 	inline Iterator *GetIterator() { return _pIterator.get(); }
 };
@@ -85,7 +85,7 @@ public:
 	Gura_DeclareReferenceAccessor(Processor)
 public:
 	Processor();
-	Value Step(Signal sig);
+	bool Step(Signal sig);
 	inline void PushSequence(Sequence *pSequence) { _sequenceStack.push_back(pSequence); }
 	inline bool CheckDone() const { return _sequenceStack.empty(); }
 };

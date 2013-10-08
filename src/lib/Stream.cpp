@@ -36,7 +36,7 @@ void SimpleStream::PrintSignal(Signal sig, const Signal &sigToPrint)
 			str += pExpr->MakePosText();
 			str += ":\n";
 			str += "  ";
-			str += pExpr->ToString(Expr::SCRSTYLE_Digest);
+			str += pExpr->ToString(Expr::SCRSTYLE_Brief);
 			str += "\n";
 			Print(sig, str.c_str());
 		}

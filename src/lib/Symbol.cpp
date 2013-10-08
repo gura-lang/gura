@@ -429,7 +429,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(linenobtm);
 	Gura_RealizeSymbol(crammed);
 	Gura_RealizeSymbol(oneline);
-	Gura_RealizeSymbol(digest);
+	Gura_RealizeSymbol(brief);
 	Gura_RealizeSymbol(fancy);
 	Gura_RealizeSymbol(trace);
 	Gura_RealizeSymbol(postext);
