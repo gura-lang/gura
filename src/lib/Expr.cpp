@@ -1129,9 +1129,10 @@ Value Expr_Root::DoExec(Environment &env, Signal sig) const
 {
 	Value result;
 	foreach_const (ExprList, ppExpr, GetExprOwner()) {
-		result = (*ppExpr)->Exec(env, sig);
+		const Expr *pExpr = *ppExpr;
+		result = pExpr->Exec(env, sig);
 		if (sig.IsError()) {
-			sig.AddExprCause(*ppExpr);
+			sig.AddExprCause(pExpr);
 			result = Value::Null;
 			break;
 		} else if (sig.IsTerminate()) {
