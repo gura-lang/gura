@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 import(testutil) {*}
 
-scope {
+testcase {
 	patterns = @{
 		''
 		'a'
@@ -43,7 +43,7 @@ scope {
 	}
 	printf('"%-*s" -> "%s"\n', patterns:*len().max(), patterns, path.regulate(patterns):uri)
 }
-scope {
+testcase {
 	patterns = [
 		''
 		'hoge/boke'

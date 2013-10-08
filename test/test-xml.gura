@@ -2,7 +2,7 @@
 import(xml)
 import(testutil) {*}
 
-scope {
+testcase {
 	MyParser = class(xml.parser) {
 		StartElement(elem) = {
 			printf('%s\n', elem)
@@ -60,7 +60,7 @@ scope {
 	}
 	MyParser().parse('test.xml');
 }
-scope {
+testcase {
 	e = xml.element
 	elem = e('hoge', attr => 'aaa', attr_2 => 'bbb') {
 		e('foo') {
@@ -78,7 +78,7 @@ scope {
 	}
 	println(elem.format())
 }
-scope {
+testcase {
 	e = xml.read('test.xml')
 	println(e.name)
 	#println(e.children::name, ' ', e.children::get('match'))

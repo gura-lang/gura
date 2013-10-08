@@ -5,7 +5,7 @@ sys.echo(false)
 println('======== error test ========')
 stderrOrg = sys.stderr
 sys.stderr = sys.stdout
-scope {
+testcase {
 	f(err) = {
 		try {
 			repeat(3) {|i|
@@ -29,7 +29,7 @@ scope {
 	f(IOError)
 	f(nil)
 }
-scope {
+testcase {
 	f() = {
 		repeat(10) {|i|
 			try {
@@ -43,7 +43,7 @@ scope {
 	}
 	f()
 }
-scope {
+testcase {
 	f() = {
 		repeat(10) {|i|
 			try {
@@ -57,7 +57,7 @@ scope {
 	}
 	f()
 }
-scope {
+testcase {
 	f() = {
 		try {
 			println('try')
@@ -69,7 +69,7 @@ scope {
 	}
 	f()
 }
-scope {
+testcase {
 	Person = class()
 	f(p:Person) = 3
 	people = repeat(3):list { Person() }
@@ -79,7 +79,7 @@ scope {
 		println('expected error occurs: ', e.text)
 	}
 }
-scope {
+testcase {
 	b = [1]
 	try {
 		a
@@ -109,7 +109,7 @@ scope {
 		println('no error')
 	}
 }
-scope {
+testcase {
 	error_tester(err) = try {
 		if (err != nil) { raise(err, 'intentional error for handling test') }
 	} catch(IndexError) {|e|

@@ -2,7 +2,7 @@
 import(testutil) {*}
 
 sys.echo(false)
-scope {
+testcase {
 	A = class {
 		var = 100
 		__init__() = {
@@ -11,7 +11,7 @@ scope {
 	}
 	a = A()
 }
-scope {
+testcase {
 	T = struct(a, b, c) {
 		Print(t:T):static = {
 			printf('%d, %d, %d\n', t.a, t.b, t.c)
@@ -34,7 +34,7 @@ scope {
 		println('expected error: ', e.text)
 	}
 }
-scope {
+testcase {
 	M = module {
 		varPrivate = 3
 		public {
@@ -100,7 +100,7 @@ scope {
 		println('expected error: ', e.text)
 	}
 }
-scope {
+testcase {
 	A = struct(x, y, z)
 	f(a1:A, a2:A) = {
 		println(a1.x, ' ', a1.y, ' ', a1.z)
@@ -108,7 +108,7 @@ scope {
 	}
 	f([1, 2, 3], [4, 5, 6])
 }
-scope {
+testcase {
 	point_t = struct(x:number, y:number)
 	knots_t = struct(a:point_t, b:point_t, c:point_t, d:point_t)
 	knots = @(knots_t) {
@@ -120,7 +120,7 @@ scope {
 	};
 	println(knots)
 }
-scope {
+testcase {
 	A = class {
 		str = 'class variable'
 		test1() = {
@@ -152,7 +152,7 @@ scope {
 	A().test1()
 	A().test2()
 }
-scope {
+testcase {
 	A = class {
 		f():static = println('A.f()')
 		g() = println('A#g()')
@@ -167,7 +167,7 @@ scope {
 		println('expected error occurs')
 	}
 }
-scope {
+testcase {
 	A = class {
 		public {
 			x = 'X in A'
@@ -224,7 +224,7 @@ scope {
 	super(super(super(d))).func()
 	println(super(super(super(d))).x)
 }
-scope {
+testcase {
 	Person = class {
 		public {
 			name, age
@@ -254,7 +254,7 @@ scope {
 				person1.HasSameName(person2), person1.IsAtSameAge(person2))
 	}
 }
-scope {
+testcase {
 	A = class {
 		__init__(x, y, z) = {
 			println(x, ' ', y, ' ', z)
@@ -266,7 +266,7 @@ scope {
 	}
 	B()
 }
-scope {
+testcase {
 	A = class {
 		__init__() = {
 			this.prop = 'property'
@@ -285,7 +285,7 @@ scope {
 	tester(`a.__call__(`func1, 1, 2, 3, 4))
 	tester(`a.__call__(`func2, 1, 2, 3, 4))
 }
-scope {
+testcase {
 	A = class {
 		__getitem__(index:string) = {
 			'indexed at ' + index
@@ -302,7 +302,7 @@ scope {
 	a['bar'] = 'bbbbb'
 	a['aaa', 'bbb'] = 3
 }
-scope {
+testcase {
 	classref(`string) {|ref|
 		ref.len2() = this.len() * 2
 		ref.len3() = this.len() * 3
@@ -311,7 +311,7 @@ scope {
 	tester(`'hello world'.len2())
 	tester(`'hello world'.len3())
 }
-scope {
+testcase {
 	A = class {
 		inst = nil
 		__init__(name:string) = {
@@ -329,7 +329,7 @@ scope {
 	b = A.getInst()
 	b.print()
 }
-scope {
+testcase {
 	A = class {
 		__setprop__(symbol:symbol, value) = {
 			printf('__setprop__: %s = %s\n', symbol, value)
@@ -345,7 +345,7 @@ scope {
 	println(a.hoge)
 	println(a.foo)
 }
-scope {
+testcase {
 	A = class {
 		__getprop__(symbol:symbol) = {
 			function { println('symbol-' + symbol.tostring()) }
@@ -355,7 +355,7 @@ scope {
 	a.func_hoge()
 	a.func_foo()
 }
-scope {
+testcase {
 	A = class {
 		func1(n:number) = {
 			if (n == 0) {
@@ -378,13 +378,13 @@ scope {
 	A.func2(0)
 	A.func2(2)
 }
-scope {
+testcase {
 	obj = object()
 	syms = tosymbol(format('attr%02d', 0..99))
 	for (sym in syms) {|i| obj.setprop!(sym, i) }
 	println((syms::tostring() + '=' + obj.getprop!(syms)).join(','))
 }
-scope {
+testcase {
 	Person = struct(name:string, workplace:string)
 	Teacher = class(Person) {
 		__init__(name:string) = {|name, 'school'|}
@@ -398,7 +398,7 @@ scope {
 	people = [ Teacher('Yamada'), Businessman('Honda'), Lawyer('Kimura') ]
 	println(people::tolist()::join(' works at '))
 }
-scope {
+testcase {
 	Person1 = class {
 		__init__(name:string, age:number) = {
 			this.name = name, this.age = age
@@ -413,7 +413,7 @@ scope {
 	p2 = Person2('yamada', 30)
 	printf('%s %s\n', typename(p2), p2)
 }
-scope {
+testcase {
 	B = class {
 		cntAll = 0
 		__init__() = {
@@ -430,7 +430,7 @@ scope {
 	B().print()
 	B().print()
 }
-scope {
+testcase {
 	Person = class {
 		__init__(name:string) = {
 			this.name = name
@@ -472,7 +472,7 @@ scope {
 	tester(`isinstance(people, `Teacher))
 	tester(`people::work())
 }
-scope {
+testcase {
 	Person = class {
 		__init__(job, name, age) = {
 			this.job = job, this.name = name, this.age = age
@@ -496,7 +496,7 @@ scope {
 	]
 	list::Print()
 }
-scope {
+testcase {
 	A = class {
 		nn = 0
 		__init__() = {
@@ -534,7 +534,7 @@ scope {
 	}
 	printf('----\n')
 }
-scope {
+testcase {
 	Person = class {
 		public {
 			name, age
@@ -561,7 +561,7 @@ scope {
 	println('sort by age')
 	people.sort(&{$person1.age <=> $person2.age})::Print()
 }
-scope {
+testcase {
 	Object = class {
 		public {a, b}
 	}
@@ -577,7 +577,7 @@ scope {
 	println(obj.func3())
 	println('--------')
 }
-scope {
+testcase {
 	Person = class {
 		public {
 			name = 'aaa'
@@ -597,7 +597,7 @@ scope {
 	a.Print()
 	println('--------')
 }
-scope {
+testcase {
 	Person = class {
 		__init__(name) = {
 			print('Person constructor\n')
@@ -622,13 +622,13 @@ scope {
 	}
 	#p.Print('hoge')
 }
-scope {
+testcase {
 	[A, B, C] = [class(), class(), class()]
 	println(A())
 	println(B())
 	println(C())
 }
-scope {
+testcase {
 	Axis = class {
 		__init__(title) = {
 			this.title = title
@@ -667,7 +667,7 @@ scope {
 	g.Print()
 	println('--------')
 }
-scope {
+testcase {
 	Graph = class {
 		Axis = class {
 			__init__(title) = {
@@ -706,7 +706,7 @@ scope {
 	g.Print()
 	println('--------')
 }
-scope {
+testcase {
 	A = class {
 		func(x) = { print('A.func(', x, ')\n') }
 	}
@@ -729,7 +729,7 @@ function {
 	repeat(5) { a.add('1', '2', '3') }
 	println(a)
 }
-scope {
+testcase {
 	A = class {
 		public {
 			hoge

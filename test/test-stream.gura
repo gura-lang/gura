@@ -6,7 +6,7 @@ import(gzip)
 import(bzip2)
 import(testutil) {*}
 
-scope {
+testcase {
 	src = B'''
 Hello world
 first line
@@ -19,7 +19,7 @@ third line
 		}
 	}
 }
-scope {
+testcase {
 	entries = [
 		b'a' * 38009
 		b'b' * 43643
@@ -53,36 +53,36 @@ scope {
 		}
 	}
 }
-scope {
+testcase {
 	buff = binary()
 	buff.writer().setcodec('shift_jis').println('こんにちは、世界')
 	buff.dump()
 }
-scope {
+testcase {
 	buff = binary()
 	gzip.writer(buff.writer().setcodec('shift_jis')).println('こんにちは、世界')
 	//buff.dump()
 	gzip.reader(buff).read().dump()
 }
-scope {
+testcase {
 	buff = binary()
 	gzip.writer(buff).setcodec('shift_jis').println('こんにちは、世界')
 	//buff.dump()
 	gzip.reader(buff).read().dump()
 }
-scope {
+testcase {
 	buff = binary()
 	bzip2.writer(buff.writer().setcodec('shift_jis')).println('こんにちは、世界')
 	//buff.dump()
 	bzip2.reader(buff).read().dump()
 }
-scope {
+testcase {
 	buff = binary()
 	bzip2.writer(buff).setcodec('shift_jis').println('こんにちは、世界')
 	//buff.dump()
 	bzip2.reader(buff).read().dump()
 }
-scope {
+testcase {
 	patterns = [
 		[b'ABCDEFG',							nil]
 		// examples in RFC2440

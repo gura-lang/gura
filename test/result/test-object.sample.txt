@@ -1,8 +1,11 @@
+Test Case #1
 100
+Test Case #2
 7, 5, 3
 0, 0, 0
 7, 5, 3
 expected error: DeclarationError: struct can't have constructor
+Test Case #3
 expected error: MemberAccessError: can't access module member M.varPrivate
 varPublic = 4
 varPublic2 = 5
@@ -15,13 +18,16 @@ expected error: MemberAccessError: can't access object member A#namePrivate
 expected error: MemberAccessError: can't access object member A#varPrivate
 funcPrivate: hoge2
 expected error: MemberAccessError: can't access object member A#funcPrivate
+Test Case #4
 1 2 3
 4 5 6
+Test Case #5
 knots_t(a => point_t(x => 0, y => 0), b => point_t(x => 0, y => 100), c => point_t(x => 100, y => 100), d => point_t(x => 100, y => 0))
 knots_t(a => point_t(x => 0, y => 0), b => point_t(x => 75, y => 100), c => point_t(x => 25, y => 100), d => point_t(x => 100, y => 0))
 knots_t(a => point_t(x => 0, y => 0), b => point_t(x => 100, y => 100), c => point_t(x => 0, y => 100), d => point_t(x => 100, y => 0))
 knots_t(a => point_t(x => 0, y => 0), b => point_t(x => 150, y => 100), c => point_t(x => -50, y => 100), d => point_t(x => 100, y => 0))
 knots_t(a => point_t(x => 0, y => 0), b => point_t(x => 100, y => 200), c => point_t(x => 0, y => -100), d => point_t(x => 100, y => 100))
+Test Case #6
 class variable
 local variable
 modified class variable
@@ -30,10 +36,12 @@ modified class variable
 local variable
 modified class variable: added
 local variable
+Test Case #7
 A.f()
 A#g()
 A.f()
 expected error occurs
+Test Case #8
 A.func()
 ----
 B.func()
@@ -65,6 +73,7 @@ X in B
 ----
 A.func()
 X in A
+Test Case #9
 Inari      is 23 years old.
 Maruyama   is 27 years old.
 Akai       is 23 years old.
@@ -83,11 +92,14 @@ Akai      :23 Maruyama  :32 .. false:false
 Maruyama  :32 Inari     :23 .. false:false
 Maruyama  :32 Maruyama  :27 .. true :false
 Maruyama  :32 Akai      :23 .. false:false
+Test Case #10
 31 7 15
+Test Case #11
 a.__call__(`dynamic1, 1, 2, 3, 4) .. dynamic1 OK (1,2,3,4) property
 a.__call__(`dynamic2, 1, 2, 3, 4) .. dynamic2 OK (1,2,3,4) property
 a.__call__(`func1, 1, 2, 3, 4) .. func1 OK (1,2,3,4) property
 a.__call__(`func2, 1, 2, 3, 4) .. func2 OK (1,2,3,4) property
+Test Case #12
 a['hello'] .. indexed at hello
 a['hoge'] .. indexed at hoge
 a[[1, 2]] .. ['indexed at 1', 'indexed at 2']
@@ -95,27 +107,36 @@ foo = aaaaa
 bar = bbbbb
 aaa = 3
 bbb = 3
+Test Case #13
 'hello world'.len() .. 11
 'hello world'.len2() .. 22
 'hello world'.len3() .. 33
+Test Case #14
 hoge
 mod-hoge
+Test Case #15
 __setprop__: hoge = 2
 __setprop__: foo = hello world
 symbol-hoge
 symbol-foo
+Test Case #16
 symbol-func_hoge
 symbol-func_foo
+Test Case #17
 0 is zero
 2 is not zero
 0 is zero
 2 is not zero
+Test Case #18
 attr00=0,attr01=1,attr02=2,attr03=3,attr04=4,attr05=5,attr06=6,attr07=7,attr08=8,attr09=9,attr10=10,attr11=11,attr12=12,attr13=13,attr14=14,attr15=15,attr16=16,attr17=17,attr18=18,attr19=19,attr20=20,attr21=21,attr22=22,attr23=23,attr24=24,attr25=25,attr26=26,attr27=27,attr28=28,attr29=29,attr30=30,attr31=31,attr32=32,attr33=33,attr34=34,attr35=35,attr36=36,attr37=37,attr38=38,attr39=39,attr40=40,attr41=41,attr42=42,attr43=43,attr44=44,attr45=45,attr46=46,attr47=47,attr48=48,attr49=49,attr50=50,attr51=51,attr52=52,attr53=53,attr54=54,attr55=55,attr56=56,attr57=57,attr58=58,attr59=59,attr60=60,attr61=61,attr62=62,attr63=63,attr64=64,attr65=65,attr66=66,attr67=67,attr68=68,attr69=69,attr70=70,attr71=71,attr72=72,attr73=73,attr74=74,attr75=75,attr76=76,attr77=77,attr78=78,attr79=79,attr80=80,attr81=81,attr82=82,attr83=83,attr84=84,attr85=85,attr86=86,attr87=87,attr88=88,attr89=89,attr90=90,attr91=91,attr92=92,attr93=93,attr94=94,attr95=95,attr96=96,attr97=97,attr98=98,attr99=99
+Test Case #19
 Yamada works at school
 Honda works at office
 Kimura works at court
+Test Case #20
 Person1 name: yamada, age:30
 Person2 name: yamada, age:30
+Test Case #21
 0
 1
 2
@@ -123,6 +144,7 @@ Person2 name: yamada, age:30
 4
 5
 6
+Test Case #22
 f(people) .. ['my name is Hayasaka Hiroko', 'my name is Kikuchi Takao', 'my name is Nagao Erika', 'my name is Kikuchi Shigeo']
 isinstance(people, `number) .. [false, false, false, false]
 isinstance(people, `string) .. [false, false, false, false]
@@ -133,11 +155,13 @@ isinstance(people, `Worker) .. [false, false, true, true]
 isinstance(people, `Businessman) .. [false, false, false, true]
 isinstance(people, `Teacher) .. [false, false, true, false]
 people::work() .. ['do what?', 'study', 'work at school', 'work at office']
+Test Case #23
 job:student, name:Hayasaka Hiroko, age:14
 job:teacher, name:Hannda Yumiko, age:40
 job:student, name:Honma Chise, age:13
 job:student, name:Kikuchi Takao, age:15
 job:teacher, name:Aoi Tatsuya, age:30
+Test Case #24
 +created 0
  print   0
 +created 1
@@ -165,6 +189,7 @@ done
 +created 8
 -deleted 7
 ----
+Test Case #25
 before sort
 hoge is 15 years old.
 aaaa is 18 years old.
@@ -183,17 +208,20 @@ sato is 17 years old.
 aaaa is 18 years old.
 saito is 19 years old.
 tanaka is 20 years old.
+Test Case #26
 obj.a + obj.b = 30
 0.14112
 1.41421
 3.16228
 --------
+Test Case #27
 name: aaa, age:10
 a.name = aaa
 a.age = 10
 aaa is 10 years old  pi=3.14159
 bbbb is 10 years old  pi=3.14159
 --------
+Test Case #28
 Person constructor
 My name is Yutaka
 Person#func() cnt = 0
@@ -206,9 +234,11 @@ Person#func() cnt = 6
 Person#func() cnt = 7
 Person#func() cnt = 8
 Person#func() cnt = 9
+Test Case #29
 <A>
 <B>
 <C>
+Test Case #30
 title=hogehoge
 axis.title=x-title, axis_step=1, guide_step=10, min=0, max=100, samples=10
 [0, 11.1111, 22.2222, 33.3333, 44.4444, 55.5556, 66.6667, 77.7778, 88.8889, 100]
@@ -217,6 +247,7 @@ axis.title=y-title, axis_step=1, guide_step=10, min=0, max=100, samples=10
 axis.title=z-title, axis_step=1, guide_step=10, min=0, max=100, samples=10
 [0, 11.1111, 22.2222, 33.3333, 44.4444, 55.5556, 66.6667, 77.7778, 88.8889, 100]
 --------
+Test Case #31
 title=hogehoge
 axis.title=x-title, axis_step=1, guide_step=10, min=0, max=100, samples=10
 [0, 11.1111, 22.2222, 33.3333, 44.4444, 55.5556, 66.6667, 77.7778, 88.8889, 100]
@@ -225,11 +256,13 @@ axis.title=y-title, axis_step=1, guide_step=10, min=0, max=100, samples=10
 axis.title=z-title, axis_step=1, guide_step=10, min=0, max=100, samples=10
 [0, 11.1111, 22.2222, 33.3333, 44.4444, 55.5556, 66.6667, 77.7778, 88.8889, 100]
 --------
+Test Case #32
 A.func(1)
 A.func(2)
 A.func(3)
 A.func(4)
 --------
+Test Case #33
 1
 hello
 A.hoge = 1

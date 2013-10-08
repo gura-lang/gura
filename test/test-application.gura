@@ -2,7 +2,7 @@
 import(testutil) {*}
 sys.echo(false)
 
-scope {
+testcase {
 	hanoi(n:number, from:string, to:string, via:string) = {
 		if (n == 1) {
 			printf('%s => %s\n', from, to)
@@ -14,13 +14,13 @@ scope {
 	}
 	hanoi(3, 'a', 'b', 'c')
 }
-scope {
+testcase {
 	x = 1..100
 	printf('[%d,%s%s]', x,
 			cond(x % 3 == 0, 'Fizz', ''), cond(x % 5 == 0, 'Buzz', ''))
 	println()
 }
-scope {
+testcase {
 	weekName = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 	wdayAccum = 1
 	for (year in 1900..2500) {
@@ -36,7 +36,7 @@ scope {
 		wdayAccum = (wdayAccum + time.monthdays(year, 12)) % 7
 	}
 }
-scope {
+testcase {
 	calOfMonth(year:number, month:number) = {
 		days = [consts('  ', time.weekday(year, month, 1)),
 		         (1..time.monthdays(year, month)).format('%2d')]
@@ -93,7 +93,7 @@ function(nRange:number, nTrial:number) {
 	hist_50 = regular_distrib(50)
 	printbar(hist_5, hist_10, hist_30, hist_50)
 }(30, 300)
-scope {
+testcase {
 	fib(n:number) = {
 		[a, b] = [0, 1]
 		while (b < n):list { [a, b] = [b, a + b], a }
@@ -101,11 +101,11 @@ scope {
 	println('fibonacci series')
 	println(fib(2000).tostring())
 }
-scope {
+testcase {
 	foo(x) = if (x <= 0) { [] } else { [x, foo(x - 1)] }
 	println(foo(3).tostring())
 }
-scope {
+testcase {
 	primes(n:number) = for (i in 2..n):xlist {
 		for (j in 2..i-1) {
 			if (i % j == 0) { break } else { i }
@@ -115,7 +115,7 @@ scope {
 	printf('prime numbers up to %d: ', n)
 	println(format('%d', primes(n)).join(', '))
 }
-scope {
+testcase {
 	Ackermann(m:number, n:number) = {
 		if (m == 0) {
 			n + 1
@@ -130,7 +130,7 @@ scope {
 	print(Ackermann(2, 3), ' ... should be 9\n')
 	//print(Ackermann(3, 4), ' ... should be 125\n')
 }
-scope {
+testcase {
 	quicksort(seq[]) = {
 		if (seq.len() < 1) {
 			return(seq)
@@ -147,7 +147,7 @@ scope {
 		println(quicksort(repeat(20):list { rand(10) })):nomap
 	}
 }
-scope {
+testcase {
 	// http://konohaotoshi.blog69.fc2.com/blog-category-22.html
 	birth_number(str:string) = {
 		if (str.len() <= 1) {
@@ -160,7 +160,7 @@ scope {
 	tester(`birth_number('19900101'))
 	tester(`format('0x%04x', [0..99] ** 2).join(', '))
 }
-scope {
+testcase {
 	convToNumber(str:string):map = if (str == ' ') { nil } else { str.tonumber():raise }
 	makeBoard(boardRaw:string) = boardRaw.split('\n').each():list {|line|
 		convToNumber(line.split()):list

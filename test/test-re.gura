@@ -4,13 +4,13 @@ import(testutil) {*}
 
 sys.stdout.setcodec('shift_jis').addcr(false)
 
-scope {
+testcase {
 	x = ['hoge 123 foo', 'no number here', '456 aaaaaa 111']
 	x::sub(r'\d+', 'NUM') {|str, replaced| println(str)}
 	println('---')
 	x::sub(r'\d+', 'NUM') {|str, replaced| replaced && println(str)}
 }
-scope {
+testcase {
 	x = ['apple', 'orange', 'pencil', '1234', 'grape', '5678']
 	tester(`x.grep(r'\w+'):*string.join(','))
 	tester(`x.grep(r'r'):*string.join(','))
@@ -20,32 +20,32 @@ scope {
 	tester(`x.grep(r'\d+'):*string.join(','))
 	tester(`['1-1', '11-a', '1', '00-', '1-0'].grep(r'\d+-\d+'):*string.join(','))
 }
-scope {
+testcase {
 	tester(`(0..):*tostring():*match('3').skipnil().head(30):*string.join(','))
 }
-scope {
+testcase {
 	str = 'hoge(ABCD, EFGH, IJKL), foo(MNOP, QRST), bar(UVWX, 1234)'
 	tester(`str.sub(r'(\w+\()(\w+)', &{$m[1] + $m[2].lower()}))
 }
-scope {
+testcase {
 	str = 'abcdefg hijklmn opqrstu vwxyz'
 	tester(`str.match(r'(\w+) (\w+) (\w+) (\w+)')[1..4].join())
 }
-scope {
+testcase {
 	str = 'あいうえお かきくけこ さしすせそ たちつてと'
 	tester(`str)
 	tester(`re.scan(r'\w+', str)::group(0))
 	tester(`re.scan(r'\w+', str, 10)::group(0))
 	tester(`re.scan(r'\w+', str, 0, 10)::group(0))
 }
-scope {
+testcase {
 	str = 'あいうえお かきくけこ さしすせそ たちつてと'
 	tester(`str)
 	tester(`str.scan(r'\w+')::group(0))
 	tester(`str.scan(r'\w+', 10)::group(0))
 	tester(`str.scan(r'\w+', 0, 10)::group(0))
 }
-scope {
+testcase {
 	str = 'あいうえお かきくけこ さしすせそ たちつてと'
 	tester(`str)
 	tester(`str.match(r'\w+', 0)[0])
@@ -53,17 +53,17 @@ scope {
 	tester(`str.match(r'\w+', 12)[0])
 	tester(`str.match(r'\w+', 12, 13)[0])
 }
-scope {
+testcase {
 	m = '3.14'.match(r'(\d+)\.(\d*)')
 	tester(`m.string)
 	tester(`m[1])
 	tester(`m[2])
 	tester(`m.groups())
 }
-scope {
+testcase {
 	tester(`re.scan('(ba)(.)', 'foobarbazfoobarbaz'):list {|m| [m[0], m[1, 2]] })
 }
-scope {
+testcase {
 	pattern = re.pattern(r'^http://([^/]+)')
 	lines = '''\
 http://sourceforge.jp/projects/
@@ -74,7 +74,7 @@ hoge
 '''.eachline()
 	println(pattern.match(lines).skipnil():*group(1))
 }
-scope {
+testcase {
 	ms = re.scan(r'\[([^]]+)\]', 'jkfdjf[hoge]kdsaa[foo]kfjdkjfkd[bar]saajkjkjfdsfdaaa');
 	println(ms::group(1)):nomap
 	ms = re.pattern(r'\[([^]]+)\]').scan('jkfdjf[hoge]kdsaa[foo]kfjdkjfkd[bar]saajkjkjfdsfdaaa');
@@ -82,86 +82,86 @@ scope {
 	text = 'fjdkjf[0]jfkdjk[100]fdfdsfjdsfjdkshe[300]llofkdjsk[999]fjdsfjdshello[9999]'
 	println(re.scan(r'\[(\d+)\]', text):*group(1))
 }
-scope {
+testcase {
 	fields = [re.split('a+', 'aaaaaaabbbbbbaaacccccDDa')];
 	println(fields):nomap
 	fields = [re.pattern('a+').split('aaaaaaabbbbbbaaacccccDDa')];
 	println(fields):nomap
 }
-scope {
+testcase {
 	m = re.match('q[\\c\\\\]', 'q\034');
 	println(m):nomap
 }
-scope {
+testcase {
 	m = re.match(r'(\b[a-z]+) \1', 'cat in the the hat')
 	println(m):nomap
 	tester(`re.match(r'A(a*)A', 'AA')[1])
 }
-scope {
+testcase {
 	m = re.match(r'(\d+)\.(\d*)', '3.14')
 	tester(`m.string)
 	tester(`m[1])
 	tester(`m[2])
 	tester(`m.groups())
 }
-scope {
+testcase {
 	m = re.match(r'(?<first>\d+)\.(?<second>\d*)', '3.14')
 	tester(`m.string)
 	tester(`m['first'])
 	tester(`m['second'])
 }
-scope {
+testcase {
 	m = re.match(r'(?<first>\d+)\.(\d*)', '3.14')
 	tester(`m.string)
 	tester(`m['first'])
 	tester(`m[2])
 }
-scope {
+testcase {
 	m = re.match(r'(\d+)\.(?<second>\d*)', '3.14')
 	tester(`m.string)
 	tester(`m[1])
 	tester(`m['second'])
 }
-scope {
+testcase {
 	tester(`cond(re.match(r'hello', 'HELLO WORLD'), 'match', 'not match'))
 	tester(`cond(re.match(re.pattern(r'hello'):icase, 'HELLO WORLD'), 'match', 'not match'))
 }
 // match with pattern object
-scope {
+testcase {
 	m = re.pattern(r'(\d+)\.(\d*)').match('3.14')
 	tester(`m.string)
 	tester(`m[1])
 	tester(`m[2])
 	tester(`m.groups())
 }
-scope {
+testcase {
 	m = re.pattern(r'(?<first>\d+)\.(?<second>\d*)').match('3.14')
 	tester(`m.string)
 	tester(`m['first'])
 	tester(`m['second'])
 }
-scope {
+testcase {
 	m = re.pattern(r'(?<first>\d+)\.(\d*)').match('3.14')
 	tester(`m.string)
 	tester(`m['first'])
 	tester(`m[2])
 }
-scope {
+testcase {
 	m = re.pattern(r'(\d+)\.(?<second>\d*)').match('3.14')
 	tester(`m.string)
 	tester(`m[1])
 	tester(`m['second'])
 }
-scope {
+testcase {
 	tester(`cond(re.pattern(r'hello').match('HELLO WORLD'), 'match', 'not match'))
 	tester(`cond((re.pattern(r'hello'):icase).match('HELLO WORLD'), 'match', 'not match'))
 }
-scope {
+testcase {
 	lines = format('%08d', rands(100000000, 10))
 	println(lines, ' ', lines:*sub(r'(\d)(\d)(\d)(\d)',
 				&{chr(ord('A') + int($m[1..4])).join()}))
 }
-scope {
+testcase {
 	tester(`re.sub(r',\s*', ':', '1234, 567,    890,   123'))
 	tester(`re.sub(r'def\s+([a-zA-Z_][a-zA-Z_0-9]*)\s*\(\s*\):',
 		r'static PyObject*\npy_\1(void)\n{',
@@ -172,7 +172,7 @@ scope {
 	print_func(dashrepl)
 	tester(`re.sub('-{1,2}', dashrepl, 'pro----gram-files'))
 }
-scope {
+testcase {
 	tester(`re.pattern(r',\s*').sub(':', '1234, 567,    890,   123'))
 	tester(`re.pattern(r'def\s+([a-zA-Z_][a-zA-Z_0-9]*)\s*\(\s*\):').sub(
 		r'static PyObject*\npy_\1(void)\n{',
@@ -183,7 +183,7 @@ scope {
 	print_func(dashrepl)
 	tester(`re.pattern('-{1,2}').sub(dashrepl, 'pro----gram-files'))
 }
-scope {
+testcase {
 	lines = '''\
 http://sourceforge.jp/projects/
 foo
@@ -196,7 +196,7 @@ hoge
 	}
 	println()
 }
-scope {
+testcase {
 	lines = '''\
 http://sourceforge.jp/projects/
 foo

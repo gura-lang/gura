@@ -1,11 +1,11 @@
 #!/usr/bin/env gura
 import(testutil) {*}
 
-scope {
+testcase {
 	f(x):map = println(x):nomap
 	f([1, 2, [3, 4, 5], 6, [7, 8, [9, 10]]])
 }
-scope {
+testcase {
 	f(name:string, price:number, color:string):map = printf('%-8s %3d %s\n', name, price, color)
 	names = ['apple', 'orange', 'grape']
 	prices = [100, 200, 300]
@@ -16,7 +16,7 @@ scope {
 	println()
 	f(names, prices, color => colors)
 }
-scope {
+testcase {
 	A = class {
 		f() = nil
 		g():void = nil
@@ -25,7 +25,7 @@ scope {
 	tester(`tbl::f())
 	tester(`tbl::g())
 }
-scope {
+testcase {
 	f(x) = println(x)
 	f(1..10)
 	g(x, y) = println(x, ' ', y)
@@ -41,11 +41,11 @@ scope {
 	fruits:*Print()
 	nil
 }
-scope {
+testcase {
 	tester(`[]::x)
 	tester(`[]::func())
 }
-scope {
+testcase {
 	A = class {
 		__init__(name:string) = { this.name = name }
 		func(str:string):map = println(this.name, ' ', str)
@@ -69,20 +69,20 @@ scope {
 	println('-----')
 	tbl.each():&func(['123', '456', '789', '012', '345', '678', '901']).each():list
 }
-scope {
+testcase {
 	strs = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 	strs:*x = strs:*len()
 	strs::y = strs:*len()
 	println(strs:*x.join(','))
 	println(strs:*y.join(','))
 }
-scope {
+testcase {
 	tester(`(math.sin(interval(0, math.pi / 2, 20)):list))
 	tester(`(format('%.3f', math.sin(interval(0, math.pi / 2, 20)):list)))
 	tester(`format('%d ** 2 = %d\n', [0..10], [0..10] ** 2))
 	tester(`'  fj,  jfkdjfd,  dkfjdkj  '.split(','):*strip().join(','))
 }
-scope {
+testcase {
 	tester(test):map = printf('%-14s .. %s\n', test, eval(test)):nomap
 	ident(x):map = x
 	x = [nil, nil, 3, 1, 4, 1, nil, 5, nil, 9, 2, 6, 5, 3]

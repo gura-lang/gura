@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 import(midi)
 
-scope {
+testcase {
 	 midi.sequence {|seq|
 		seq.track(0) {|t|
 			t.note_off(0, 0, 0, 0)
@@ -30,7 +30,7 @@ scope {
 		}
 	}
 }
-scope {
+testcase {
 	// erase test
 	 midi.sequence {|seq|
 		seq.track(0) {|t|

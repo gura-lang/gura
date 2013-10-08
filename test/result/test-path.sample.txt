@@ -1,3 +1,4 @@
+Test Case #1
 "                             " -> ""
 "a                            " -> "a"
 "a/b                          " -> "a/b"
@@ -35,6 +36,7 @@
 "dir1/dir2///dir3//dir4/      " -> "dir1/dir2/dir3/dir4/"
 "///dir1/dir2///dir3//dir4/   " -> "///dir1/dir2/dir3/dir4/"
 "dir1/dir2/../dir3/../dir4/../" -> "dir1/"
+Test Case #2
 path.splitext('') .. [ + ]
 path.splitext('hoge/boke') .. [hoge/boke + ]
 path.splitext('hoge/boke/') .. [hoge/boke/ + ]

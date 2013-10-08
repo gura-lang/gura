@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 import(testutil) {*}
 
-scope {
+testcase {
 	d = %{'a' => 3, 'b' => 2, 'c' => 1}
 	tester(`d)
 	tester(`d.setdefault('a', 99))
@@ -10,7 +10,7 @@ scope {
 	d.set('f', 100).set('g', 200).set('h', 300)
 	tester(`d)
 }
-scope {
+testcase {
 	d = %{'a' => 3, 'b' => 2, 'c' => 1}
 	tester(`d)
 	d.store {'a' => 33, 'b' => 22, 'c' => 11}
@@ -18,7 +18,7 @@ scope {
 	d.store():default {'a' => 333, 'b' => 222, 'c' => 111, 'd' => 444}
 	tester(`d)
 }
-scope {
+testcase {
 	d = dict():icase { 'apple' => 100, 'orange' => 80, 'grape' => 120 }
 	tester(`d['apple', 'orange', 'grape'])
 	tester(`d['Apple', 'Orange', 'Grape'])
@@ -35,14 +35,14 @@ scope {
 		println('expected error occurs: ', e.text)
 	}
 }
-scope {
+testcase {
 	d = %{}
 	d[0..10] = 0..10
 	tester(`d)
 	d[0..10] = 'hello'
 	tester(`d)
 }
-scope {
+testcase {
 	d = %{
 		`hoge	=>	'aaaaaa'
 		`foo	=>	'bbbbb'
@@ -62,7 +62,7 @@ scope {
 	d.store(%{`hoge3 => '*FFFFF*', `hoge4 => '*GGGGG*'})
 	tester(`d)
 }
-scope {
+testcase {
 	d = %{
 		`hoge	=>	'aaaaaa'
 		`foo	=>	'bbbbb'
@@ -77,7 +77,7 @@ scope {
 	tester(`d.get([`hoge, `foo, `aaaa, `bbbb, `cccc, `dddd, `eeee, `ffff, `eee], [1, 2, 3]))
 	tester(`d.gets([`hoge, `foo, `aaaa, `Hoge, `Foo, `Aaaa], [1, 2, 3, 1, 2, 3]))
 }
-scope {
+testcase {
 	d = %{}
 	d.set([1, 2, 3], [4, 5, 6])
 	tester(`d)
@@ -85,7 +85,7 @@ scope {
 	d.sets([1, 2, 3], [4, 5, 6])
 	tester(`d)
 }
-scope {
+testcase {
 	PrintDict(d) = {
 		println('items   = ', d.items():list):nomap
 		println('keys    = ', d.keys():list):nomap
@@ -121,7 +121,7 @@ scope {
 	println('member mapping with items()')
 	d.items().printf('%-10s %s\n')
 }
-scope {
+testcase {
 	nestedDict = %{
 		'key-1', %{
 			'key-1-1' => 'value of 1-1'
@@ -160,7 +160,7 @@ scope {
 		println('')
 	}
 }
-scope {
+testcase {
 	d = %{
 		`key1 => 'value of key1'
 		`key2 => 'value of key2'

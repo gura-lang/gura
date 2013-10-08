@@ -2,7 +2,7 @@
 import(hash)
 import(testutil) {*}
 
-scope {
+testcase {
 	println('CRC32')
 	crc32 = hash.crc32()
 	println(crc32.init().update(b'').hexdigest)
@@ -10,7 +10,7 @@ scope {
 	println(crc32.init().update(b'ABC').hexdigest)
 	println(crc32.init().update(b'This is a string').hexdigest)
 }
-scope {
+testcase {
 	println('MD5')
 	testCases = @{
 		[b'',
@@ -39,7 +39,7 @@ scope {
 		println(hash.md5().copyfrom(buff).hexdigest)
 	}
 }
-scope {
+testcase {
 	println('SHA1')
 	testCases = @{
 		[b'abc', 1,

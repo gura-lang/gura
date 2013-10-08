@@ -5,7 +5,7 @@ import(testutil) {*}
 sys.echo(false)
 sys.stdout.setcodec('shift_jis').addcr(false)
 
-scope {
+testcase {
 	f(str:string):map = {
 		u = uri(str)
 		printf('%s\n', str)
@@ -24,7 +24,7 @@ scope {
 	]
 	f(tbl)
 }
-scope {
+testcase {
 	tester(`''.chop())
 	tester(`'abcdef'.chop())
 	tester(`'abcdef'.chop('f'))
@@ -39,11 +39,11 @@ scope {
 	tester(`'abcdeg'.chop('f', 'g', 'h'))
 	tester(`'abcdeh'.chop('f', 'g', 'h'))
 }
-scope {
+testcase {
 	println(chr(iterator(1, 1..0xff)).join().fold(16):*encodeuri())
 	println(chr(0x20..0x7e).join().fold(16):*encodeuri():*decodeuri())
 }
-scope {
+testcase {
 	r'''
 1st line
 2nd line
@@ -60,13 +60,13 @@ scope {
 3rd line
 '''.binary().dump()
 }
-scope {
+testcase {
 	text = '！“”゛″＃＄％＆’´′（）＊×＋、，ー－─。．／０１２３４５６７８９'
 	text += '：；＜〈＝＞〉？＠ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ'
 	text += '［〔￥］〕＾＿‘｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ｛｜｝～￣'
 	println(text.zentohan())
 }
-scope {
+testcase {
 	textLower = 'ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ，．：；？！｀｜'
 	textUpper = 'ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ，．：；？！｀｜'
 	println(textUpper.upper())
@@ -74,18 +74,18 @@ scope {
 	println(textUpper.lower())
 	println(textLower.lower())
 }
-scope {
+testcase {
 	str = (0..9).join() * 10
 	tester(`str.fold(10):list)
 	tester(`str.fold(10, 5):list)
 	tester(`str.fold(5, 10):list)
 }
-scope {
+testcase {
 	tester(`'x < 0 & y > 1'.escapehtml());
 	tester(`'x &lt; 0 &amp; y &gt; 1'.unescapehtml());
 	tester(`'&quot;hello world&quot;'.unescapehtml());
 }
-scope {
+testcase {
 	str = 'hello world'
 	tester(`str.align(16):center)
 	tester(`str.align(16):left)
@@ -94,7 +94,7 @@ scope {
 	tester(`str.align(16, '*'):left)
 	tester(`str.align(16, '*'):right)
 }
-scope {
+testcase {
 	str = ''
 	tester(`format('[%s]', str.strip():both))
 	tester(`format('[%s]', str.strip():left))
@@ -108,13 +108,13 @@ scope {
 	tester(`format('[%s]', str.strip():left))
 	tester(`format('[%s]', str.strip():right))
 }
-scope {
+testcase {
 	print(open('chars-cp932.txt', 'r', 'shift_jis').readlines())
 	print(open('chars-utf8-jp.txt', 'r', 'utf-8').readlines())
 	print(open('chars-eucjp.txt', 'r', 'euc-jp').readlines())
 	print(open('chars-jis.txt', 'r', 'jis').readlines())
 }
-scope {
+testcase {
 	str = 'first line\nsecond line\nthird line\nfourth line\nfifth line\n'
 	tester(`str)
 	tester(`str.eachline():list)
@@ -128,12 +128,12 @@ scope {
 	tester(`str.eachline():list:chop)
 	tester(`str.eachline(2):list:chop)
 }
-scope {
+testcase {
 	tester(`chr(0x00..0x7f):list)
 	tester(`ord(chr(0x00..0x7f)):list)
 	tester(`chr(ord('あいうえお'.split())):list)
 }
-scope {
+testcase {
 	str = 'あいうえお'
 	tester(`str)
 	tester(`str.len())
@@ -184,7 +184,7 @@ scope {
 	tester(`str.startswith('うえ', 2):rest)
 	tester(`str.endswith('うえ', 4):rest)
 }
-scope {
+testcase {
 	str = 'abcdefghijklmn'
 	tester(`str)
 	tester(`str.startswith('abcd'))
@@ -208,14 +208,14 @@ scope {
 	tester(`str.startswith('defg', 3):rest)
 	tester(`str.endswith('ghij', 10):rest)
 }
-scope {
+testcase {
 	tester(`'apple[sep]orange[sep]pear[sep]orange[sep]banana'.split('[sep]'):list)
 	tester(`'apple|orange|pear|orange|banana'.split('|'):list)
 	tester(`'|apple|orange||pear|orange|banana|'.split('|'):list)
 	tester(`''.split('|'):list)
 	tester(`['apple', 'orange', 'pear', 'orange', 'banana'].join(';'))
 }
-scope {
+testcase {
 	println('日本語SJISテスト')
 	println('構わない .. contains 0x5c (\\)')
 	println('芸能界 .. contains 0x5c (\\)')
@@ -243,7 +243,7 @@ this is the first line
 	println('string concatenation test: ' ' 1st' ' 2dn' ' 3rd' r' 4th' R' 5th' \
 			' 6th' ''' 7th''' r''' 8th''')
 }
-scope {
+testcase {
 	println('日本語SJISテスト')
 	println('構わない .. contains 0x5c (\\)')
 	println('芸能界 .. contains 0x5c (\\)')
@@ -271,7 +271,7 @@ this is the first line
 	println('string concatenation test: ' ' 1st' ' 2dn' ' 3rd' r' 4th' R' 5th' \
 			' 6th' ''' 7th''' r''' 8th''')
 }
-scope {
+testcase {
 	tester([`(math.sqrt * 2), `(math.sin * math.pi).roundoff(), `(math.cos * math.pi)])
 	tester(`'hello world hello hello'.find('llo'))
 	tester(`'hello world hello hello'.find('llo'):rev)
@@ -283,7 +283,7 @@ scope {
 	tester(`'hello world hello hello'.find('Llo'):rev:icase)
 	tester(`'hello world hello hello'.find('Llo'):list:icase)
 }
-scope {
+testcase {
 	str = 'hello world'
 	tester(`str)
 	tester([`str.left(nil), `str.left(5)])
@@ -297,7 +297,7 @@ scope {
 	tester(`str.replace('', '*', 0))
 	tester(`str.replace('', '*', 3))
 }
-scope {
+testcase {
 	Struct = struct(a, b, c, d, e):loose
 	x = @(Struct) {
 		[1, 2, 3, 4, 5],

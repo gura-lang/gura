@@ -3,13 +3,13 @@ import(testutil) {*}
 
 sys.echo(false)
 println('======== formatter test ========')
-scope {
+testcase {
 	printf('%d\n', 0x7fffffff)
 	printf('%d\n', 0x80000000)
 	printf('%d\n', -0x7fffffff)
 	printf('%d\n', -0x80000000)
 }
-scope {
+testcase {
 	print('%e\n' % (math.pi * 1000000000))
 	print('%E\n' % (math.pi * 1000000000))
 	print('%e\n' % (math.pi * 100))
@@ -21,7 +21,7 @@ scope {
 	print('%g\n' % (math.pi * 1000000000))
 	print('%G\n' % (math.pi * 1000000000))
 }
-scope {
+testcase {
 	println('%d' % 1)
 	println('%d' % [1])
 	println('%d %d %d %d %d %d' % [1, 2, 3, 4, 5, 6])
@@ -32,7 +32,7 @@ scope {
 	println('%d %d' % @{1..5, 10..15})
 	println('%d %d %d' % @{1, 1..5, 10..15})
 }
-scope {
+testcase {
 	print('%d format\n')
 	testList = @{
 		'|%d|%d|'
@@ -51,7 +51,7 @@ scope {
 		println(test % [123456, -123456])
 	}
 }
-scope {
+testcase {
 	print('%u format\n')
 	testList = @{
 		'|%u|%u|'
@@ -70,7 +70,7 @@ scope {
 		println(test % [123456, -123456])
 	}
 }
-scope {
+testcase {
 	print('%b format\n')
 	testList = @{
 		'|%b|%b|'
@@ -88,7 +88,7 @@ scope {
 		println(test % [123, -123])
 	}
 }
-scope {
+testcase {
 	print('%o format\n')
 	testList = @{
 		'|%o|%o|'
@@ -106,7 +106,7 @@ scope {
 		println(test % [123456, -123456])
 	}
 }
-scope {
+testcase {
 	print('%x format\n')
 	testList = @{
 		'|%x|%x|'
@@ -125,7 +125,7 @@ scope {
 		println(test % [123456, -123456])
 	}
 }
-scope {
+testcase {
 	print('%X format\n')
 	testList = @{
 		'|%X|%X|'
@@ -144,7 +144,7 @@ scope {
 		println(test % [123456, -123456])
 	}
 }
-scope {
+testcase {
 	print('* format\n')
 	testList = @{
 		'|%*d|'

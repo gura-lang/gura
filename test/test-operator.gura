@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 import(testutil) {*}
 
-scope {
+testcase {
 	println('script generation test')
 	x = [
 		`(-(a + b))
@@ -35,7 +35,7 @@ scope {
 	]
 	println(x)
 }
-scope {
+testcase {
 	[`+, `-, `~, `!, `..].each {|op|
 		printf('%s %s\n', op, operator(op).entries(`unary)):nomap
 	}
@@ -43,7 +43,7 @@ scope {
 		printf('%s %s\n', op, operator(op).entries(`binary)):nomap
 	}
 }
-scope {
+testcase {
 	A = class {
 		__getitem__(i) = println('__getitem__ ', i)				// a[i]
 		__getitemx__() = println('__getitemx__')				// a[]
@@ -117,12 +117,12 @@ scope {
 	a1.b
 	a1.b = 2
 }
-scope {
+testcase {
 	sys.stdout << 'hello world\n'
 	sys.stdout << 'hello world\n' << '2nd line\n' << '3rd line\n'
 	sys.stdout << b'hello world\n'
 }
-scope {
+testcase {
 	tester(`(nil | 3))
 	tester(`(3 | nil))
 	tester(`(nil | nil))
@@ -130,7 +130,7 @@ scope {
 	tester(`(3 & nil))
 	tester(`(nil & nil))
 }
-scope {
+testcase {
 	tester(`(2 in 2))
 	tester(`(2 in 3))
 	tester(`(2 in 0..10))
@@ -150,7 +150,7 @@ scope {
 	tester(`([0..10] in [0..5]))
 	tester(`([0..10] in [4..8]))
 }
-scope {
+testcase {
 	[a, b, c] = [1, 2, 3]
 	printf('a=%s, b=%s, c=%s\n', a, b, c):nomap
 	[a, b, c+] = [1, 2, 3, 4, 5]
@@ -172,7 +172,7 @@ function {
 	println(f(`x))
 	println(f(`(t + 2)))
 }
-scope {
+testcase {
 	Fruit = class {
 		__init__(name:string) = { this.cnt = 0, this.name = name }
 		__str__() = format('name = %s, cnt = %d', this.name, this.cnt)
@@ -235,7 +235,7 @@ scope {
 	println(fruit & 1)
 	println(fruit .. 1)
 }
-scope {
+testcase {
 	tester(`(false & false))
 	tester(`(false & true))
 	tester(`(true & false))
@@ -285,7 +285,7 @@ scope {
 	tester(`(x && y && z))
 	tester(`(x ^ y ^ z))
 }
-scope {
+testcase {
 	f(a:number, b:number, c:number, d:number):map = format('%d-%d-%d-%d', a, b, c, d)
 	print_func(f)
 	tester(`(f % [1, 2, 3, 4]))
@@ -293,7 +293,7 @@ scope {
 	tester(`(f * [1, 2, 3, 4]))
 	tester(`(f * [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16], [17, 18, 19, 20]]))
 }
-scope {
+testcase {
 	f(a:number, b:number, c:number, d:number):map = a + b + c + d
 	print_func(f)
 	tester(`(f % [1, 2, 3, 4]))

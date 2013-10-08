@@ -1,7 +1,9 @@
+Test Case #1
   line.1
   line.2
   line.3
   line.4
+Test Case #2
   1
   2
   3
@@ -12,6 +14,7 @@
   8
   9
   10
+Test Case #3
 hello
 gura
 
@@ -31,6 +34,7 @@ hello 1
 10 world
 foobar
 foobar
+Test Case #4
 [Companies]
     Company: Gura company
     Company: Guri corporation
@@ -47,6 +51,7 @@ foobar
 - apple
 - grape
 - orange
+Test Case #5
     1 is less than five
     2 is less than five
     3 is less than five
@@ -57,7 +62,9 @@ foobar
     8 is greater or equal to eight
     9 is greater or equal to eight
     10 is greater or equal to eight
+Test Case #6
 漢字のテスト スクリプト文字列
+Test Case #7
 Company: hoge
 [Products]
 - apple
@@ -68,6 +75,7 @@ Company: hoge
 - car
 - bicycle
 - boat
+Test Case #8
 ** auto-indent **
 space 1
  embedded #1 line
@@ -269,8 +277,11 @@ tab 1
 tab 2
 		single string
 not line top:  single string
+Test Case #9
 expected error occurs: ValueError: undefined symbol 'hoge'
+Test Case #10
 'hello ${format("%d", 0..10).join(",")}'.template() .. hello 0,1,2,3,4,5,6,7,8,9,10
+Test Case #11
 'hello ${var} world'.template() .. hello HOGE world
 'hello ${var * 2} world'.template() .. hello HOGEHOGE world
 "hello '${format('%8s', var)}' world".template() .. hello '    HOGE' world

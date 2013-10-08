@@ -2,7 +2,7 @@
 import(csv)
 import(testutil) {*}
 
-scope {
+testcase {
 patterns = @{
 //----------------------------------
 R'''
@@ -31,7 +31,7 @@ R'''"aaa","b""bb","ccc"'''
 		println(line):nomap
 	}
 }
-scope {
+testcase {
 	text = '''\
 Japan,Tokyo,127767944
 "Japan","Tokyo","127767944"
@@ -39,7 +39,7 @@ Japan,Tokyo,127767944
 '''
 	println(csv.parse(text):*join(' - '))
 }
-scope {
+testcase {
 	names_csv = '''\
 1,NTT
 2,KDDI
@@ -59,7 +59,7 @@ scope {
 		writer.write(year, month, day, key, d.get(key, ''), prop)
 	}
 }
-scope {
+testcase {
 	Person = struct(name:string, email:string, gender:string, age:number, rest*)
 	people = Person * csv.reader('50records-en.csv')
 	tester(`people::name.sort(`ascend):stable:list)
@@ -79,7 +79,7 @@ scope {
 	tester(`(people.filter(&{$p.age < 40}).map(&{$p.name}):list).sort():stable:list)
 	tester(`(people.filter(people:*age < 40).map(&{$p.name}):list).sort():stable:list)
 }
-scope {
+testcase {
 	#fit(f(x), x, y)
 	print_statinfo(x) = printf('len=%d, sum=%g, average=%g, min=%g, max=%g\n',
 							x.len(), x.sum(), x.average(), x.min(), x.max())
@@ -96,18 +96,18 @@ scope {
 	}
 	println('---------------------------')
 }
-scope {
+testcase {
 	f = open('50records-en.csv')
 	for (line in csv.reader(f)) {|i|
 		printf('%3d %s\n', i + 1, line):nomap
 	}
 }
-scope {
+testcase {
 	csv.reader('50records-en.csv') {|line, i|
 		printf('%3d %s\n', i + 1, line):nomap
 	}
 }
-scope {
+testcase {
 	Person = struct(name:string, email:string,
 					gender:string, age:string, birthday:string, mobile:string)
 	people = Person * csv.reader('50records-en.csv')
@@ -115,12 +115,12 @@ scope {
 	csv.writer(sys.stdout).write(people:*name, people:*email,
 				people:*gender, people:*age, people:*birthday, people:*mobile)
 }
-scope {
+testcase {
 	Person = struct(name:string, email:string, rest*)
 	people = for (line in csv.reader('50records-en.csv')):iter { Person * line }
 	println(people)
 }
-scope {
+testcase {
 	Person = struct(name:string, email:string, gender:string, age:number, rest*)
 	people = Person * csv.reader('50records-en.csv')
 	familyNames = (people:*name:*split(' '):list)::get(0).sort():stable

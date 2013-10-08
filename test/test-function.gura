@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 import(testutil) {*}
 
-scope {
+testcase {
 	f(x:string:nocast) = {println(x)}
 	try {
 		f(3)
@@ -15,15 +15,15 @@ scope {
 	}
 	f(['first', 'second', 'third']):map
 }
-scope {
+testcase {
 	filterNames(names[]:string, len:number) = names.filter(names:*len() >= len):*upper()
 	tester(`filterNames(['aaaa', 'bbb', 'ccccc'], 4).join(','))
 }
-scope {
+testcase {
 	repeat(3) {
 	|i| println(i)}
 }
-scope {
+testcase {
 	A = class {
 		__del__() = println('this must be first')
 	}
@@ -36,7 +36,7 @@ scope {
 	nil
 	println('this must be second')
 }
-scope {
+testcase {
 	f(a, b*) = {
 		printf('a=%d b=[%s]\n', a, b.join(','))
 	}
@@ -56,7 +56,7 @@ scope {
 	f(x*)
 	g(x*)
 }
-scope {
+testcase {
 	f():[foo,bar,hoge] = {
 		printf('foo:%d bar:%d hoge:%d\n',
 			__args__.isset(`foo), __args__.isset(`bar), __args__.isset(`hoge))
@@ -69,11 +69,11 @@ scope {
 	f():bar:hoge
 	f():foo:bar:hoge
 }
-scope {
+testcase {
 	x = `println('hello world')
 	x.eval()
 }
-scope {
+testcase {
 	f = &{|x, y, z| x * y * z}
 	print_func(f)
 	tester(`f(5, 7, 8))
@@ -84,7 +84,7 @@ scope {
 		println('expected error occurs: ', e.text)
 	}
 }
-scope {
+testcase {
 	println * (1..10)
 	println * [1..10]
 	println * ['aaaa', 'bbbb']
@@ -93,12 +93,12 @@ scope {
 	str = 'Hello World'
 	tester(`(str.mid * [[0, 1], [0, 2], [0, 5], [6, -1]]))
 }
-scope {
+testcase {
 	accum = 0
 	f(x:number):map:reduce = { accum += x }
 	tester(`f(1..10))
 }
-scope {
+testcase {
 	m = module {
 		A = class {
 			__init__(name) = { this.name = name }
@@ -126,7 +126,7 @@ scope {
 	m.f2()
 	m.f3()
 }
-scope {
+testcase {
 	f() {`block} = {
 		println(typename(block))
 	}
@@ -136,7 +136,7 @@ scope {
 	g()
 	g() {}
 }
-scope {
+testcase {
 	g(opts%) = {
 		println(opts):nomap
 	}
@@ -146,7 +146,7 @@ scope {
 	}
 	f(a => `println('hello'))
 }
-scope {
+testcase {
 	f() {block} = {
 		block()
 	}
@@ -157,7 +157,7 @@ scope {
 		}
 	}
 }
-scope {
+testcase {
 	f(a, b, c, d, dict%) = {
 		format('a=%d b=%d c=%d d=%d %s', a, b, c, d, dict)
 	}
@@ -171,7 +171,7 @@ scope {
 	}
 	tester(`f(1, (%{`a => 1, `b => 2, `c => 3, `d => 4})%))
 }
-scope {
+testcase {
 	funcorg() = {}
 	print_func(funcorg)
 	funcorg.symbol = `funcnew
@@ -179,7 +179,7 @@ scope {
 	funcorg.symbol = `funcnew1
 	print_func(funcorg)
 }
-scope {
+testcase {
 	x = [[1, 1], [1, 2], [1, 3], [2, 1], [2, 2], [2, 3], [3, 1], [3, 2], [3, 3]]
 	for ([a, b] in x) {
 		switch {
@@ -228,24 +228,24 @@ scope {
 		}
 	}
 }
-scope {
+testcase {
 	x = `{|a, b, c, d, e:number| a + b + c + d + e}
 	f(g:function) = g(1, 2, 3, 4, 5)
 	tester(`f(x))
 }
-scope {
+testcase {
 	x = `{|a, b, c, d, e:number| a + b + c + d + e}
 	f = x.tofunction()
 	print_func(f)
 	tester(`f(1, 2, 3, 4, 5))
 }
-scope {
+testcase {
 	f(x, y):map = [x, y]
 	g(x, y:nomap):map = [x, y]
 	tester(`f([1, 2, 3], [4, 5, 6]))
 	tester(`g([1, 2, 3], [4, 5, 6]))
 }
-scope {
+testcase {
 	f(x[]) = x
 	tester(`f(1..10))
 	f(x[]:string) = x
@@ -253,7 +253,7 @@ scope {
 	f(x:list) = x
 	tester(`f(1..10))
 }
-scope {
+testcase {
 	import(re)
 	f(m:re.match) = printf('%s\n', m[1])
 	m = re.match(r'([0-9]+)', 'hello 100 world')
@@ -269,7 +269,7 @@ scope {
 		println('expected error occurs: ', e.text)
 	}
 }
-scope {
+testcase {
 	f(a, b, c, d, e, f, g, h, i, j, dict%) = {
 		format('a=%d b=%d c=%d d=%d e=%d f=%d g=%d h=%d i=%d j=%d %s',
 									 a, b, c, d, e, f, g, h, i, j, dict)
@@ -280,7 +280,7 @@ scope {
 	tester(`f(1, 2, 3, [4..6]*, 7, [8..10]*))
 	tester(`f([1..3]*, [4..6]*, 7, [8..10]*))
 }
-scope {
+testcase {
 	f = 'hello world'.left
 	tester(`f)
 	tester(`f(3))
@@ -289,7 +289,7 @@ scope {
 	tester(`(['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh']::left * 2))
 	tester(`[['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh']:*left * 2])
 }
-scope {
+testcase {
 	f(a, b, c, d, rest*, dict%) = {
 		format('a=%d b=%d c=%d d=%d rest=%s dict=%s', a, b, c, d, rest, dict):nomap
 	}
@@ -297,7 +297,7 @@ scope {
 	tester(`f(1, 2, 3, 4, 5, 6))
 	tester(`f(1, 2, 3, 4, 5, 6, e => 2, f => 3))
 }
-scope {
+testcase {
 	f(a, b, c, d, dict%) = format('a=%d b=%d c=%d d=%d dict=%s', a, b, c, d, dict)
 	print_func(f)
 	tester(`f(1, 2, 3, 4))
@@ -308,7 +308,7 @@ scope {
 	tester(`f(d => 4, 1, 2, 3))
 	tester(`f(d => 4, 1, 2, 3, e => 5, f => 6, g => 7))
 }
-scope {
+testcase {
 	f1(a, b?, c?) = printf('a=%s, b=%s:%d, c=%s:%d\n', a, b, isdefined(b), c, isdefined(c))
 	f1(2)
 	f1(2, 3)
@@ -328,7 +328,7 @@ scope {
 		println('expected error occurs: ', e.text)
 	}
 }
-scope {
+testcase {
 	println('test of closure')
 	newCounter(n:number):map = {
 		function() { n += 1}
@@ -343,14 +343,14 @@ scope {
 		printf('%2d %2d %2d %2d\n', cnts[0](), cnts[1](), cnts[2](), cnts[3]())
 	}
 }
-scope {
+testcase {
 	function(n):map { printf('%3d', n) }([0..10])
 	println()
 }
-scope {
+testcase {
 	println((&{math.sin($n) * math.cos($n)})(3))
 }
-scope {
+testcase {
 	f(x) = x
 	g(x):void = x
 	print_func(f)
@@ -358,18 +358,18 @@ scope {
 	tester(`f(2))
 	tester(`g(2))
 }
-scope {
+testcase {
 	f = &{$x < $y}
 	print_func(f)
 	tester(`f(1, 3))
 	tester(`f(4, 3))
 }
-scope {
+testcase {
 	f = &{$a + $b + $c + $d + $e + $f + $g + $h + $i + $j}
 	print_func(f)
 	tester(`f(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
 }
-scope {
+testcase {
 	t = [interval(0, 1, 10)]	# 0 <= x <= 1
 	for (func in [math.acos, math.asin, math.atan]) {
 		print(func, ' .. ', func(t).tostring(), '\n')
@@ -384,7 +384,7 @@ scope {
 		print(func, ' .. ', func(t).tostring(), '\n')
 	}
 }
-scope {
+testcase {
 	f(x) = {
 		g(y) = x + y
 	}

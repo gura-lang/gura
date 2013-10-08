@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 import(testutil) {*}
 
-scope {
+testcase {
 	tester(`matrix.rotation(math.pi / 6))
 	tester(`matrix.rotation(30):deg)
 	tester(`matrix.rotation_x(math.pi / 6))
@@ -15,7 +15,7 @@ scope {
 	tester(`matrix.rotation_y(math.pi / 6, 11, 22, 33))
 	tester(`matrix.rotation_z(math.pi / 6, 11, 22, 33))
 }
-scope {
+testcase {
 	// http://web.sfc.keio.ac.jp/~kawazoe/math/book/d-chap8.pdf
 	tester(`(3 * @@{{1, -3}, {2, -4}} - 2 * @@{{5, 6}, {7, 3}}))
 	tester(`(@@{{1, -3}, {2, -4}} * 3 - @@{{5, 6}, {7, 3}} * 2))
@@ -28,13 +28,13 @@ scope {
 	tester(`(@@{{1, -1, -2}, {2, -1, 5}, {1, -1, -1}}.invert()))
 	tester(`(@@{{-2, -3, -2}, {1, 1, 1}, {2, 2, 1}}.invert()))
 }
-scope {
+testcase {
 	tester(`matrix.identity(1))
 	tester(`matrix.identity(2))
 	tester(`matrix.identity(3))
 	tester(`matrix.identity(10))
 }
-scope {
+testcase {
 	m = @@{
 		{8, 3, 3, 6, 3, 8, 0, 4, 8, 6},
 		{6, 3, 4, 5, 3, 1, 3, 3, 9, 9},
@@ -56,7 +56,7 @@ scope {
 		m.eachcol().each() {|col| writer.write(col*)}
 	}
 }
-scope {
+testcase {
 	f(x[]) = x
 	g(x:list) = x
 	tester(`f(@@{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}))
@@ -64,7 +64,7 @@ scope {
 	tester(`g(@@{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}))
 	tester(`g(@@{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}}))
 }
-scope {
+testcase {
 	a = @@{{2, 1, 0, 4}, {2, 3, -1, 1}, {0, 1, 4, -1}}
 	tester(`a)
 	tester(`a.each():list)
@@ -74,7 +74,7 @@ scope {
 	tester(`a.eachrow():list)
 	tester(`a.eachcol():list)
 }
-scope {
+testcase {
 	a = @@{{2, 1, 0, 4}, {2, 3, -1, 1}, {0, 1, 4, -1}}
 	b = @@{{2, 0, 1, 2}, {-1, 1, 3, 1}, {0, -2, 1, -1}}
 	tester(`a)
@@ -83,7 +83,7 @@ scope {
 	tester(`(a - 2 * b))
 	tester(`(-3 * a + 2 * b))
 }
-scope {
+testcase {
 	tester(`(@@{{3, 2, 1}} * [1, 0, -3]))
 	tester(`([-1, 1] * @@{{4, -3}, {-5, 2}}))
 	try {
@@ -93,7 +93,7 @@ scope {
 	}
 	tester(`(@@{{-1, 2, 0}, {4, 0, -2}} * @@{{1, 2 ,0}, {-1, 1, 3}, {5, 1, -1}}))
 }
-scope {
+testcase {
 	mats = [
 		@@{{2, 5}, {1, 4}}
 		@@{{2, 5, -1}, {1, 3, 1}, {3, -1, -2}}
@@ -119,13 +119,13 @@ scope {
 	}
 	tester(`(@@{{2, 1, 3}, {4, 5, 4}, {3, 1, 5}}.invert() * [0, -2, 1]))
 }
-scope {
+testcase {
 	m = @@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
 	tester(`m)
 	tester(`m.col([0, 1, 2]))
 	tester(`m.row([0, 1, 2]))
 }
-scope {
+testcase {
 	// http://brain.cc.kogakuin.ac.jp/~kanamaru/lecture/senkei/senkei03-ans.pdf
 	a = @@{{2, 1, 1}, {0, 2, -1}, {3, 0, 2}}
 	b = @@{{1, 1, 0}, {0, -1, 1}, {1, 0, -1}}
@@ -161,7 +161,7 @@ scope {
 	tester(`(b * a).roundoff())
 	tester(`(a * b).roundoff())
 }
-scope {
+testcase {
 	m = @@{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
 	tester(`m)
 	tester(`m[0])

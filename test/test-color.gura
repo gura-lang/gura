@@ -2,7 +2,7 @@
 import(gif)
 import(testutil) {*}
 
-scope {
+testcase {
 	colors = [
 		color.Black
 		color.Maroon
@@ -23,20 +23,20 @@ scope {
 	]
 	println(colors)
 }
-scope {
+testcase {
 	['red', `blue, [128, 128, 0], [255, 255, 255, 64]].each() {|d|
 		c:color = d
 		println(c)
 	}
 }
-scope {
+testcase {
 	plt = palette(8)
 	plt[0..] = [`black, `blue, `lime, `aqua, `red, `fuchsia, `yellow, `white]
 	println(plt.each():*html().join(','))
 	plt[0..] = [`black, `blue, `lime, `aqua, `red, `fuchsia, `yellow, `white].reverse()
 	println(plt.each():*html().join(','))
 }
-scope {
+testcase {
 	tester(`palette(2).each():*html().join(','))
 	tester(`palette(4).each():*html().join(','))
 	tester(`palette(8).each():*html().join(','))
@@ -49,7 +49,7 @@ scope {
 	tester(`palette(`win256).each():*html().join(','))
 	tester(`palette(`websafe).each():*html().join(','))
 }
-scope {
+testcase {
 	try {
 		tester(`(color * [1]))
 	} catch {|e|
@@ -69,7 +69,7 @@ scope {
 	}
 	tester(`(color * [[1, 2, 3], [4, 5, 6], [7, 8, 9], [13, 14, 15, 16]]))
 }
-scope {
+testcase {
 	plt = palette(256)
 	plt.updateby(palette(`basic))
 	println(plt.each():*html().join(','))
@@ -95,12 +95,12 @@ scope {
 	println(plt.each():*html().join(','))
 	println(plt2.each():*html().join(','))
 }
-scope {
+testcase {
 	plt = palette(`basic)
 	tester(`plt.each()::tolist())
 	tester(`plt.each()::tolist():alpha)
 }
-scope {
+testcase {
 	plt = palette(`basic)
 	names = @{
 		`black, `maroon, `green, `olive, `navy, `purple, `teal, `gray,

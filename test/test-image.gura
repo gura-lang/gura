@@ -61,7 +61,7 @@ if (sys.build == `msc) {
 	}
 }
 */
-scope {
+testcase {
 	charLines = nil
 	for (fileName in ['arrow-green-u.gif', 'arrow-green-l.gif', 'arrow-green-d.gif', 'arrow-green-r.gif']) {
 		img = image(I(fileName), `rgb)
@@ -74,7 +74,7 @@ scope {
 	}
 	println(charLines)
 }
-scope {
+testcase {
 	imgs = msico.content(I('msnms.ico'), `rgba).images
 	tester_image(imgs:*delpalette(), format('msnms #%d', 0..), [
 		'aace9f35d873a4cc1cfae1103bd4974c'
@@ -91,7 +91,7 @@ scope {
 	msico.content().addimage(imgs).write(md5)
 	printf('icon output: %s\n', md5.hexdigest == 'f8189920672cdde0d5fd5a141d7f7d23' || md5.hexdigest)
 }
-scope {
+testcase {
 	tester_image(gif.content(I('chicken-anim.gif'), `rgba).images:*delpalette(),
 													format('chicken #%d', 0..), [
 		'1872079fdec22dccdc1202092a10f7d6'
@@ -102,7 +102,7 @@ scope {
 		'603940e448ba6278a3c0c7a474eea50e'
 	])
 }
-scope {
+testcase {
 	img = image(I('Water_lilies.jpg'), `rgb)
 	tester_image(img.reducecolor(palette(`win256)).delpalette(), 'reducecolor',
 		 '2309d5011098eb2253ea7c8336c60769;d1df3abe4d3d73dcdc328f284ccfd783'):nomap
@@ -129,7 +129,7 @@ scope {
 		'1e2611222ea534bbd21a2ab303ac7c69'
 	])
 }
-scope {
+testcase {
 	img = image(\
 		b'\x89\x50\x4e\x47\x0d\x0a\x1a\x0a\x00\x00\x00\x0d\x49\x48\x44\x52' \
 		b'\x00\x00\x00\x10\x00\x00\x00\x10\x08\x06\x00\x00\x00\x1f\xf3\xff' \
@@ -184,7 +184,7 @@ scope {
 	img.bmpwrite(md5.init())
 	println('image written in script binary: ', md5.hexdigest == 'd8e123ea43ac83a77e489f9da0256951' || md5.hexdigest)
 }
-scope {
+testcase {
 	md5 = hash.md5()
 	image(I('chicken256.bmp'), `rgb).delpalette().bmpwrite(md5.init())
 	println('chicken256.bmp to BMP: ', md5.hexdigest == '3224bf2c42fdb023ff99e30ba5b08544' || md5.hexdigest)
@@ -230,7 +230,7 @@ scope {
 		println('expected error occurs: ', e.text)
 	}
 }
-scope {
+testcase {
 	g = gif.content(I('kangaroo.gif'), `rgba)
 	symPacks = @{
 		[`Header, [
@@ -302,7 +302,7 @@ scope {
 	g.ApplicationExtension.AuthenticationCode.dump()
 	g.ApplicationExtension.ApplicationData.dump()
 }
-scope {
+testcase {
 zebra_xpm = @{
 /* columns rows colors chars-per-pixel */
 "200 167 236 2",

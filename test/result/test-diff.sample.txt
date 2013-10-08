@@ -1,3 +1,4 @@
+Test Case #1
 math.sin(num):map:[deg] -> math.cos(num)
 math.cos(num):map:[deg] -> -math.sin(num)
 math.tan(num):map:[deg] -> 1 / math.cos(num) ** 2

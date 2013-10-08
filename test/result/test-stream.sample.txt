@@ -1,7 +1,9 @@
+Test Case #1
 Hello world
 first line
 second line
 third line
+Test Case #2
 tar compression: none
 entry1.bin   38009 OK
 entry2.bin   43643 OK
@@ -68,16 +70,22 @@ entry7.bin    2048 OK
 entry8.bin   24991 OK
 entry9.bin   38910 OK
 entry10.bin  56954 OK
+Test Case #3
 82 b1 82 f1 82 c9 82 bf 82 cd 81 41 90 a2 8a 45  ...........A...E
 0a                                               .
+Test Case #4
 82 b1 82 f1 82 c9 82 bf 82 cd 81 41 90 a2 8a 45  ...........A...E
 0a                                               .
+Test Case #5
 82 b1 82 f1 82 c9 82 bf 82 cd 81 41 90 a2 8a 45  ...........A...E
 0a                                               .
+Test Case #6
 82 b1 82 f1 82 c9 82 bf 82 cd 81 41 90 a2 8a 45  ...........A...E
 0a                                               .
+Test Case #7
 82 b1 82 f1 82 c9 82 bf 82 cd 81 41 90 a2 8a 45  ...........A...E
 0a                                               .
+Test Case #8
 --------------------------------
 QUJDREVGRw==
 OK

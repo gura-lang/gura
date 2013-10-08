@@ -5,14 +5,14 @@ import(testutil) {*}
 sys.echo(false)
 sys.stdout.setcodec('shift_jis').addcr(false)
 
-scope {
+testcase {
 	tester(`codec.bom_utf8)
 	tester(`codec.bom_utf16le)
 	tester(`codec.bom_utf16be)
 	tester(`codec.bom_utf32le)
 	tester(`codec.bom_utf32be)
 }
-scope {
+testcase {
 	'あいうえお'.binary().dump()
 	codec('utf-8') {|c|
 		c.encode('あいうえお').dump()

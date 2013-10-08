@@ -1,3 +1,4 @@
+Test Case #1
 ['aaa', 'bbb', 'ccc']
 ['zzz', 'yyy', 'xxx']
 ['aaa', 'bbb', 'ccc']
@@ -8,14 +9,17 @@
 ['aaa', 'b\nbb', 'ccc']
 ['zzz', 'yyy', 'xxx']
 ['aaa', 'b"bb', 'ccc']
+Test Case #2
 Japan - Tokyo - 127767944
 Japan - Tokyo - 127767944
 Japan - Tokyo - 127767944
+Test Case #3
 "2005","09","11","1","NTT","D501"
 "2005","10","11","1","NTT","P502"
 "2005","10","11","1","NTT","P503"
 "2006","03","11","2","KDDI","A5518SA"
 "2006","03","11","4","","AAAAAAA"
+Test Case #4
 people::name.sort(`ascend):stable:list .. ['Aoi Tatsuya', 'Chiba Hiroyuki', 'Fujii Airi', 'Fujisawa Haruomi', 'Hannda Yumiko', 'Harada Misako', 'Hayasaka Hiroko', 'Honma Chise', 'Honma Noriko', 'Ikegami Yui', 'Inagaki Ouga', 'Ishida Ayame', 'Iwai Michiko', 'Kadotani Takao', 'Kameyama Mitsunori', 'Kasahara Shidou', 'Kasai Ayaka', 'Kasai Satoshi', 'Katahira Hideki', 'Kawahara Suzuka', 'Kawahata Nana', 'Kikuchi Takao', 'Kishimoto Natsumi', 'Maehara Tatsuhito', 'Mifune Yuu', 'Miki Seiji', 'Nagao Erika', 'Nakao Haruka', 'Nakayama Yoshiki', 'Obata Ikuko', 'Ochiai Kikuo', 'Oochi Noriko', 'Shima Masashi', 'Suenaga Rena', 'Sugimura Shunsuke', 'Suwa Takashi', 'Tachikawa Hiroaki', 'Takaya Masahiko', 'Tamura Meisa', 'Taue Takashi', 'Tsutsumi Manami', 'Umezawa Yukiya', 'Wakabayashi Mitsuru', 'Yamanaka Mayuko', 'Yanagiya Yuujirou', 'Yokokawa Fumiyo', 'Yokoyama Yuuji', 'Yoshioka Stmaria']
 people::name.sort(`ascend, people::name):stable:list .. ['Aoi Tatsuya', 'Chiba Hiroyuki', 'Fujii Airi', 'Fujisawa Haruomi', 'Hannda Yumiko', 'Harada Misako', 'Hayasaka Hiroko', 'Honma Chise', 'Honma Noriko', 'Ikegami Yui', 'Inagaki Ouga', 'Ishida Ayame', 'Iwai Michiko', 'Kadotani Takao', 'Kameyama Mitsunori', 'Kasahara Shidou', 'Kasai Ayaka', 'Kasai Satoshi', 'Katahira Hideki', 'Kawahara Suzuka', 'Kawahata Nana', 'Kikuchi Takao', 'Kishimoto Natsumi', 'Maehara Tatsuhito', 'Mifune Yuu', 'Miki Seiji', 'Nagao Erika', 'Nakao Haruka', 'Nakayama Yoshiki', 'Obata Ikuko', 'Ochiai Kikuo', 'Oochi Noriko', 'Shima Masashi', 'Suenaga Rena', 'Sugimura Shunsuke', 'Suwa Takashi', 'Tachikawa Hiroaki', 'Takaya Masahiko', 'Tamura Meisa', 'Taue Takashi', 'Tsutsumi Manami', 'Umezawa Yukiya', 'Wakabayashi Mitsuru', 'Yamanaka Mayuko', 'Yanagiya Yuujirou', 'Yokokawa Fumiyo', 'Yokoyama Yuuji', 'Yoshioka Stmaria']
 (people.sort(& { $p1.age <=> $p2.age }):stable)::name .. ['Aoi Tatsuya', 'Fujisawa Haruomi', 'Honma Noriko', 'Kasai Satoshi', 'Yokokawa Fumiyo', 'Kadotani Takao', 'Inagaki Ouga', 'Takaya Masahiko', 'Nagao Erika', 'Yanagiya Yuujirou', 'Hayasaka Hiroko', 'Nakao Haruka', 'Taue Takashi', 'Kikuchi Takao', 'Harada Misako', 'Iwai Michiko', 'Fujii Airi', 'Nakayama Yoshiki', 'Tachikawa Hiroaki', 'Yoshioka Stmaria', 'Honma Chise', 'Miki Seiji', 'Kawahata Nana', 'Maehara Tatsuhito', 'Ishida Ayame', 'Kawahara Suzuka', 'Yokoyama Yuuji', 'Ochiai Kikuo', 'Kasahara Shidou', 'Wakabayashi Mitsuru', 'Chiba Hiroyuki', 'Tamura Meisa', 'Shima Masashi', 'Ikegami Yui', 'Oochi Noriko', 'Yamanaka Mayuko', 'Mifune Yuu', 'Kameyama Mitsunori', 'Kasai Ayaka', 'Kishimoto Natsumi', 'Sugimura Shunsuke', 'Katahira Hideki', 'Suwa Takashi', 'Hannda Yumiko', 'Tsutsumi Manami', 'Umezawa Yukiya', 'Obata Ikuko', 'Suenaga Rena']
@@ -32,6 +36,7 @@ people.filter(people:*age < 40):*name.sort():stable:list .. ['Aoi Tatsuya', 'Fuj
 
 (people.filter(& { $p.age < 40 }).map(& { $p.name }):list).sort():stable:list .. ['Aoi Tatsuya', 'Fujii Airi', 'Fujisawa Haruomi', 'Harada Misako', 'Hayasaka Hiroko', 'Honma Noriko', 'Inagaki Ouga', 'Iwai Michiko', 'Kadotani Takao', 'Kasai Satoshi', 'Kikuchi Takao', 'Nagao Erika', 'Nakao Haruka', 'Nakayama Yoshiki', 'Takaya Masahiko', 'Taue Takashi', 'Yanagiya Yuujirou', 'Yokokawa Fumiyo']
 (people.filter(people:*age < 40).map(& { $p.name }):list).sort():stable:list .. ['Aoi Tatsuya', 'Fujii Airi', 'Fujisawa Haruomi', 'Harada Misako', 'Hayasaka Hiroko', 'Honma Noriko', 'Inagaki Ouga', 'Iwai Michiko', 'Kadotani Takao', 'Kasai Satoshi', 'Kikuchi Takao', 'Nagao Erika', 'Nakao Haruka', 'Nakayama Yoshiki', 'Takaya Masahiko', 'Taue Takashi', 'Yanagiya Yuujirou', 'Yokokawa Fumiyo']
+Test Case #5
 average=0.95
 len=20, sum=19, average=0.95, min=0, max=1.9
 len=20, sum=13.695, average=0.684751, min=0, max=0.999574
@@ -57,6 +62,7 @@ len=20, sum=13.695, average=0.684751, min=0, max=0.999574
 1.800000,0.807583,0.948379,3.240000,1.341641
 1.900000,0.242946,0.895484,3.610000,1.378405
 ---------------------------
+Test Case #6
   1 ['Hayasaka Hiroko', 'hayasaka_hiroko@example.com', 'female', '33', '1976/8/27', '090-9134-30BF']
   2 ['Hannda Yumiko', 'hannda_yumiko@example.com', 'female', '75', '1934/10/20', '080-6713-87BI']
   3 ['Honma Chise', 'honma_chise@example.com', 'female', '46', '1964/3/9', '090-5237-82FJ']
@@ -105,6 +111,7 @@ len=20, sum=13.695, average=0.684751, min=0, max=0.999574
  46 ['Honma Noriko', 'honma_noriko@example.com', 'female', '23', '1986/6/11', '090-3085-98JE']
  47 ['Ochiai Kikuo', 'ochiai_kikuo@example.com', 'male', '57', '1953/1/8', '090-1341-78CC']
  48 ['Harada Misako', 'harada_misako@example.com', 'female', '35', '1974/4/6', '080-8564- 3AF']
+Test Case #7
   1 ['Hayasaka Hiroko', 'hayasaka_hiroko@example.com', 'female', '33', '1976/8/27', '090-9134-30BF']
   2 ['Hannda Yumiko', 'hannda_yumiko@example.com', 'female', '75', '1934/10/20', '080-6713-87BI']
   3 ['Honma Chise', 'honma_chise@example.com', 'female', '46', '1964/3/9', '090-5237-82FJ']
@@ -153,6 +160,7 @@ len=20, sum=13.695, average=0.684751, min=0, max=0.999574
  46 ['Honma Noriko', 'honma_noriko@example.com', 'female', '23', '1986/6/11', '090-3085-98JE']
  47 ['Ochiai Kikuo', 'ochiai_kikuo@example.com', 'male', '57', '1953/1/8', '090-1341-78CC']
  48 ['Harada Misako', 'harada_misako@example.com', 'female', '35', '1974/4/6', '080-8564- 3AF']
+Test Case #8
 Person(name => 'Hayasaka Hiroko', email => 'hayasaka_hiroko@example.com', gender => 'female', age => '33', birthday => '1976/8/27', mobile => '090-9134-30BF')
 Person(name => 'Hannda Yumiko', email => 'hannda_yumiko@example.com', gender => 'female', age => '75', birthday => '1934/10/20', mobile => '080-6713-87BI')
 Person(name => 'Honma Chise', email => 'honma_chise@example.com', gender => 'female', age => '46', birthday => '1964/3/9', mobile => '090-5237-82FJ')
@@ -249,6 +257,7 @@ Person(name => 'Harada Misako', email => 'harada_misako@example.com', gender => 
 "Honma Noriko","honma_noriko@example.com","female","23","1986/6/11","090-3085-98JE"
 "Ochiai Kikuo","ochiai_kikuo@example.com","male","57","1953/1/8","090-1341-78CC"
 "Harada Misako","harada_misako@example.com","female","35","1974/4/6","080-8564- 3AF"
+Test Case #9
 Person(name => 'Hayasaka Hiroko', email => 'hayasaka_hiroko@example.com', rest => ['female', '33', '1976/8/27', '090-9134-30BF'])
 Person(name => 'Hannda Yumiko', email => 'hannda_yumiko@example.com', rest => ['female', '75', '1934/10/20', '080-6713-87BI'])
 Person(name => 'Honma Chise', email => 'honma_chise@example.com', rest => ['female', '46', '1964/3/9', '090-5237-82FJ'])
@@ -297,6 +306,7 @@ Person(name => 'Ishida Ayame', email => 'ishida_ayame@example.com', rest => ['fe
 Person(name => 'Honma Noriko', email => 'honma_noriko@example.com', rest => ['female', '23', '1986/6/11', '090-3085-98JE'])
 Person(name => 'Ochiai Kikuo', email => 'ochiai_kikuo@example.com', rest => ['male', '57', '1953/1/8', '090-1341-78CC'])
 Person(name => 'Harada Misako', email => 'harada_misako@example.com', rest => ['female', '35', '1974/4/6', '080-8564- 3AF'])
+Test Case #10
 Aoi(1),Chiba(1),Fujii(1),Fujisawa(1),Hannda(1),Harada(1),Hayasaka(1),Honma(2),Ikegami(1),Inagaki(1),Ishida(1),Iwai(1),Kadotani(1),Kameyama(1),Kasahara(1),Kasai(2),Katahira(1),Kawahara(1),Kawahata(1),Kikuchi(1),Kishimoto(1),Maehara(1),Mifune(1),Miki(1),Nagao(1),Nakao(1),Nakayama(1),Obata(1),Ochiai(1),Oochi(1),Shima(1),Suenaga(1),Sugimura(1),Suwa(1),Tachikawa(1),Takaya(1),Tamura(1),Taue(1),Tsutsumi(1),Umezawa(1),Wakabayashi(1),Yamanaka(1),Yanagiya(1),Yokokawa(1),Yokoyama(1),Yoshioka(1),
 Honma(2),Kasai(2),Aoi(1),Chiba(1),Fujii(1),Fujisawa(1),Hannda(1),Harada(1),Hayasaka(1),Ikegami(1),Inagaki(1),Ishida(1),Iwai(1),Kadotani(1),Kameyama(1),Kasahara(1),Katahira(1),Kawahara(1),Kawahata(1),Kikuchi(1),Kishimoto(1),Maehara(1),Mifune(1),Miki(1),Nagao(1),Nakao(1),Nakayama(1),Obata(1),Ochiai(1),Oochi(1),Shima(1),Suenaga(1),Sugimura(1),Suwa(1),Tachikawa(1),Takaya(1),Tamura(1),Taue(1),Tsutsumi(1),Umezawa(1),Wakabayashi(1),Yamanaka(1),Yanagiya(1),Yokokawa(1),Yokoyama(1),Yoshioka(1),
 all=48 male=25 female=23

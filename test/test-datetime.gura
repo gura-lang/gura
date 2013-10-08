@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 import(testutil) {*}
 
-scope {
+testcase {
 	d = (
 		time.datetime(2013, 1..12, 1, minsoff => 0)
 		time.datetime(2013, 1..12, 21, minsoff => 0)
@@ -11,7 +11,7 @@ scope {
 	printf('%s, unixtime=%d, yday=%d, wday=%d, week=%s\n', d,
 							d:*unixtime, d:*yday, d:*wday, d:*week)
 }
-scope {
+testcase {
 	println(time.datetime(2000, 1, 1) - time.datetime(2000, 1, 1))
 	println(time.datetime(2001, 1, 1) - time.datetime(2000, 1, 1))
 	println(time.datetime(2002, 1, 1) - time.datetime(2000, 1, 1))
@@ -23,12 +23,12 @@ scope {
 	println(time.datetime(2008, 1, 1) - time.datetime(2000, 1, 1))
 	println(time.datetime(2009, 1, 1) - time.datetime(2000, 1, 1))
 }
-scope {
+testcase {
 	tester(`time.datetime(2011, 1, 10, 8, 3, 0, 0, 0).unixtime)
 	tester(`time.datetime(2001, 9, 9, 1, 46, 40, 0, 0).unixtime)
 	tester(`time.datetime(2009, 2, 13, 23, 31, 30, 0, 0).unixtime)
 }
-scope {
+testcase {
 	tester(`time.parse('Sun, 06 Nov 1994 08:49:37 -0900'))
 	tester(`time.parse('Sun, 06 Nov 1994 08:49:37 +0900'))
 	tester(`time.parse('Sun, 06 Nov 1994 08:49:37 +0845'))
@@ -75,7 +75,7 @@ scope {
 		println('expected error occurs: ', e.text)
 	}
 }
-scope {
+testcase {
 	tdOrg = time.datetime(1900, 1, 1, minsoff => 0)
 	dayOffsets1 = rands(365 * 200, 1000)
 	dayOffsets2 = rands(365 * 200, 1000)

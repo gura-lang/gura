@@ -1,3 +1,4 @@
+Test Case #1
        ******             ******             ******             ******      
      **      **         **      **         **      **         **      **    
     *    @     *       *          *       *          *       *          *   
@@ -16,6 +17,7 @@
     *          *       *          *       *     @    *       *          *   
      **      **         **      **         **      **         **      **    
        ******             ******             ******             ******      
+Test Case #2
 msnms #0              48x 48 true
 msnms #1              32x 32 true
 msnms #2              16x 16 true
@@ -26,12 +28,14 @@ msnms #6              48x 48 true
 msnms #7              32x 32 true
 msnms #8              16x 16 true
 icon output: true
+Test Case #3
 chicken #0            51x 62 true
 chicken #1            53x 60 true
 chicken #2            51x 60 true
 chicken #3            51x 62 true
 chicken #4            53x 60 true
 chicken #5            51x 60 true
+Test Case #4
 reducecolor          800x600 true
 normal kangaroo       97x 52 true
 flip horizontal       97x 52 true
@@ -51,7 +55,9 @@ rotate 240            93x110 true
 rotate 270            52x 97 true
 rotate 300            93x110 true
 rotate 330           110x 93 true
+Test Case #5
 image written in script binary: true
+Test Case #6
 chicken256.bmp to BMP: true
 chicken16.bmp to BMP: true
 Winter.jpg to BMP: true
@@ -66,6 +72,7 @@ expected error occurs: FormatError: Not a PNG file
 expected error occurs: FormatError: Not a JPEG file: starts with 0x89 0x50
 expected error occurs: FormatError: Not a GIF file
 expected error occurs: FormatError: Not a BMP file
+Test Case #7
 Header.Signature <binary:RW:3byte:'GIF'>
 Header.Version   <binary:RW:3byte:'89a'>
 LogicalScreenDescriptor.LogicalScreenWidth     99
@@ -96,4 +103,5 @@ gif.ImageDescriptor.SizeOfLocalColorTable 0
 4e 45 54 53 43 41 50 45                          NETSCAPE
 32 2e 30                                         2.0
 01 00 00                                         ...
+Test Case #8
 zebra_xpm to BMP: true

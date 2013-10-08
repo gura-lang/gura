@@ -6,7 +6,7 @@ import(testutil) {*}
 
 sys.stdout.setcodec('shift_jis').addcr(false)
 
-scope {
+testcase {
 	try {fs.remove('50records-en.sqlite3')} catch {}
 	sqlite3.db('50records-en.sqlite3') {|db|
 		db.exec('''\
@@ -30,7 +30,7 @@ scope {
 		}
 	}
 }
-scope {
+testcase {
 	Person = struct(name:string, email:string,
 				gender:string, age:number, birthday:string, mobile:string)
 	db = sqlite3.db('50records-en.sqlite3')
@@ -39,7 +39,7 @@ scope {
 	println(Person * db.query('select * from people'))
 	db.close()
 }
-scope {
+testcase {
 	Person = struct(name:string, email:string,
 				gender:string, age:number, birthday:string, mobile:string)
 	sqlite3.db('50records-en.sqlite3') {|db|
@@ -48,7 +48,7 @@ scope {
 		println(Person * db.query('select * from people'))
 	}
 }
-scope {
+testcase {
 	try {fs.remove('50records-jp.sqlite3')} catch {}
 	sqlite3.db('50records-jp.sqlite3') {|db|
 		db.exec('''\
@@ -80,7 +80,7 @@ scope {
 		}
 	}
 }
-scope {
+testcase {
 	Person = struct(name:string, name_ruby:string, email:string,
 			gender:string, age:number, birthday:string,
 			married:string, prefecture:string, mobile:string,

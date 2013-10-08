@@ -6,7 +6,7 @@ sys.echo(false)
 sys.stdout.setcodec('shift_jis').addcr(false)
 
 //-----------------------------------------------------------------------------
-scope {
+testcase {
 	R'''
   ${// comment}
   line.1
@@ -19,7 +19,7 @@ scope {
 '''.template(sys.stdout)
 }
 //-----------------------------------------------------------------------------
-scope {
+testcase {
 	R'''
 ${(1..10).each() {|i|}}
   ${i}
@@ -27,7 +27,7 @@ ${end}
 '''.template(sys.stdout)
 }
 //-----------------------------------------------------------------------------
-scope {
+testcase {
 	R'''
 hello
 ${
@@ -46,7 +46,7 @@ foo${''}bar
 '''.template(sys.stdout)
 }
 //-----------------------------------------------------------------------------
-scope {
+testcase {
 	companies = ['Gura company', 'Guri corporation', nil]
 	products = ['apple', 'grape', 'orange']
 	// iteration with for function
@@ -80,7 +80,7 @@ ${products.each {|product|}}
 ${end}
 '''.template(sys.stdout)
 }
-scope {
+testcase {
 	R'''
 ${for (i in 1..10)}
   ${if (i < 5)}
@@ -94,11 +94,11 @@ ${end}
 '''.template(sys.stdout)
 }
 //-----------------------------------------------------------------------------
-scope {
+testcase {
 	println('漢字のテスト ${"スクリプト文字列"}'.template())
 }
 //-----------------------------------------------------------------------------
-scope {
+testcase {
 	template = R'''
 ${if (company) {R"""
 Company: ${company}
@@ -120,7 +120,7 @@ ${R"""
 	}
 }
 //-----------------------------------------------------------------------------
-scope {
+testcase {
 	x = format('embedded #%d line\n', 1..4)
 	template = R'''
 space 1
@@ -150,7 +150,7 @@ not line top:  ${x}
 	template.template(sys.stdout)
 }
 //-----------------------------------------------------------------------------
-scope {
+testcase {
 	try {
 		'abcdefg${hoge}hijklmn'.template()
 	} catch {|e|
@@ -158,11 +158,11 @@ scope {
 	}
 }
 //-----------------------------------------------------------------------------
-scope {
+testcase {
 	tester(`'hello ${format("%d", 0..10).join(",")}'.template())
 }
 //-----------------------------------------------------------------------------
-scope {
+testcase {
 	var = 'HOGE'
 	tester(`'hello ${var} world'.template())
 	tester(`'hello ${var * 2} world'.template())

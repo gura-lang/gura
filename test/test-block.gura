@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 import(testutil) {*}
 
-scope {
+testcase {
 	// chain of block delegation
 	e1 = `{|i| println('hello world ', i)}
 	e2 = `{|e1|}
@@ -11,7 +11,7 @@ scope {
 	e6 = `{|e5|}
 	repeat (3) {|e6|}
 }
-scope {
+testcase {
 	scope {
 		expr = `{x + y + z + 2}
 		f = expr.tofunction(x, y, z)
@@ -40,7 +40,7 @@ scope {
 		println('expected error occurs: ', e.text)
 	}
 }
-scope {
+testcase {
 	shortBool(flag:boolean) = cond(flag, 'y', 'n')
 	for (expr in [`(-x), `(`x), `(!!x), `(x*), `(x + y), `(x = y),
 	              `(x => y), `(x::y), `{}, `3, `[], `x[y], `x(y, z)]) {
@@ -63,7 +63,7 @@ scope {
 				shortBool(expr.iscaller()))
 	}
 }
-scope {
+testcase {
 	fileName = '50records-en.csv'
 	open(fileName) {|f|
 		repeat(10) {|i|
@@ -71,7 +71,7 @@ scope {
 		}
 	}
 }
-scope {
+testcase {
 	fileName = '50records-en.csv'
 	open(fileName) {|f|
 		lines = [f.readlines(10):chop]
@@ -79,18 +79,18 @@ scope {
 		printf('%3d  %s\n', lineNums, lines)
 	}
 }
-scope {
+testcase {
 	fileName = '50records-en.csv'
 	for (line in open(fileName).readlines(10):chop) {|i|
 		printf('%3d  %s\n', i + 1, line)
 	}
 }
-scope {
+testcase {
 	fileName = '50records-en.csv'
 	colsPerLines = for (line in open(fileName).readlines():chop):list { line.len() }
 	printf('colsPerLines: %s\n', colsPerLines):nomap
 }
-scope {
+testcase {
 	fileName = '50records-en.csv'
 	nLines = 0
 	for (line in open(fileName).readlines():chop) {
@@ -98,7 +98,7 @@ scope {
 	}
 	printf('lines of %s is %d\n', fileName, nLines)
 }
-scope {
+testcase {
 	c_like_for(`init, `cond, `next):dynamic_scope {block:inside_scope} = {
 		env = outers()
 		env.eval(init)
@@ -124,7 +124,7 @@ scope {
 		printf('i = %d\n', i)
 	}
 }
-scope {
+testcase {
 	repeat_delegate(n) {`block} = {
 		print('begin ')
 		repeat(n) {|block|}
@@ -139,7 +139,7 @@ scope {
 	f = x.tofunction()
 	f(2, 3, 4, 5, 6)
 }
-scope {
+testcase {
 	f(x) {block?} = {
 		if (block == nil) {
 			println('do nothing')
@@ -151,21 +151,21 @@ scope {
 	f(2)
 	f(2) {|n| printf('%d\n', n) }
 }
-scope {
+testcase {
 	f(a, b, c) {block} = {
 		block(a, b, c)
 		'******** bad signal processing in a block ********'
 	}
 	tester(`f(1, 2, 3) {|a, b, c| return('no problem') })
 }
-scope {
+testcase {
 	# this is just a test of block mechanism. use auto-mapping for actual programs.
 	f(n) {block} = { s = 0, for (i in 1..n) { s += block(i) }, s }
 	print_func(f)
 	tester(`f(10) {|x| x })
 	tester(`f(10) {|x| x * x })
 }
-scope {
+testcase {
 	select_with_index(list:list) {criteria} = {
 		for (i in (0..), x in list):xlist {
 			if (criteria(x)) { [x, i] }
@@ -175,7 +175,7 @@ scope {
 	tester(`t)
 	tester(`select_with_index(t) {|x| x % 2 == 0})
 }
-scope {
+testcase {
 	fib(num:number) {block} = {
 		[i, j] = [0, 1]
 		while (i <= num):list {

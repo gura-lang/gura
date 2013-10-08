@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
 import(testutil) {*}
 
-scope {
+testcase {
 	nLines = 0
 	open('test-file.gura').readlines():chop {|line|
 		println(line)
@@ -9,7 +9,7 @@ scope {
 	}
 	printf('<nLines = %d>\n', nLines)
 }
-scope {
+testcase {
 	tester(`[path.glob('test-*.gura')])
 	tester(`path.glob('test-*.gura'):list {|filename|
 		filename.upper()
@@ -18,20 +18,20 @@ scope {
 		if (string.find(filename, 'op')) { filename }
 	})
 }
-scope {
+testcase {
 	import(re)
 	tester(`path.dir('.'):xlist {|filename|
 		if (m = filename.match(r'test-([^\.]*)')) { m[1] }
 	})
 }
-scope {
+testcase {
 	tester(`path.match('foo*', ['foo', 'FOObar', 'bar']))
 	tester(`path.match('foo*', ['foo', 'FOObar', 'bar']):icase)
 }
-scope {
+testcase {
 	println(path.dir() {|filename, i| '%3d %s' % [i, filename]})
 }
-scope {
+testcase {
 	stats = path.glob('test-*.gura'):list:stat
 	println('sort by name')
 	for (stat in stats.sort(&{$s1.filename <=> $s2.filename})) {
