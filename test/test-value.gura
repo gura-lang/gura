@@ -2,31 +2,31 @@
 import(testutil) {*}
 sys.echo(false)
 
-scope {
+testcase {
 	@var = 3
 	@var@ = 2
 	println('@var = ', @var)
 	println('@var@ = ', @var@)
 }
-scope {
+testcase {
 	tester(`(1e-12j).roundoff())
 }
-scope {
+testcase {
 	x = fraction(3, 4)
 	printf('%s .. numerator=%d denominator=%d\n', x, x.numerator(), x.denominator())
 }
-scope {
+testcase {
 	x = [3, 3 + 4j, 2 + 3j, 1 + 1j, 1 + math.sqrt(3) * 1j]
 	printf('%s .. real=%d imag=%d abs=%f arg=%f arg:deg=%f\n', x, x:*real(), x:*imag(), x:*abs(), x:*arg(), x:*arg():deg)
 	tester(`(3+1e-12j).roundoff())
 	tester(`(1e-12+1e-12j).roundoff())
 	tester(`(1e-12+4j).roundoff())
 }
-scope {
+testcase {
 	[a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z] = 100..
 	println([a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z].join(', '))
 }
-scope {
+testcase {
 	a:string = 123
 	a += 4
 	tester(`a)
@@ -36,7 +36,7 @@ scope {
 	[a, b, c:string, d, e:string] = [1, 2, 3, 4, 5]
 	printf('%d, %d, %s, %d, %s\n', a, b, c, d, e)
 }
-scope {
+testcase {
 	a = 11, b = 12, c = 13, d = 14, e = 15, f = 16
 	printf('%d, %d, %d, %d, %d, %d\n', a, b, c, d, e, f)
 	f() = {
@@ -46,7 +46,7 @@ scope {
 	f()
 	printf('%d, %d, %d, %d, %d, %d\n', a, b, c, d, e, f)
 }
-scope {
+testcase {
 	a = 11, b = 12, c = 13, d = 14, e = 15, f = 16
 	printf('%d, %d, %d, %d, %d, %d\n', a, b, c, d, e, f)
 	if (true) {
@@ -55,7 +55,7 @@ scope {
 	}
 	printf('%d, %d, %d, %d, %d, %d\n', a, b, c, d, e, f)
 }
-scope {
+testcase {
 	a = 'A'
 	b = 'B'
 	c = 'C'
@@ -103,11 +103,11 @@ scope {
 	try { hoge.foo.c } catch(ValueError) { printf('expected error occurs\n') }
 	try { hoge.foo.d } catch(ValueError) { printf('expected error occurs\n') }
 }
-scope {
+testcase {
 	println(format('%08x', 1 << [0..31]).join(', '))
 	println(format('%08x', 0x80000000 >> [0..31]).join(', '))
 }
-scope {
+testcase {
 	f(x) = math.sin(x / 180 * math.pi)
 	for (test in @{
 		`(-3 + 4)
@@ -155,11 +155,11 @@ scope {
 		printf('%s .. %s\n', test, eval(test)):nomap
 	}
 }
-scope {
+testcase {
 	tbl = [0, 3.14, 1 + 2j, true, sys, 'foo', [], %{}, &{}, `sym]
 	println((for (x in tbl):list { typename(x) }).join(' '))
 }
-scope {
+testcase {
 	shortBool(flag:boolean) = cond(flag, 'y', 'n')
 	printf('%-14s isdefined:%-6s %s\n', 'hoge', isdefined(hoge), typename(hoge))
 	printf('%-14s isdefined:%-6s %s\n', 'function', isdefined(function), typename(function))
