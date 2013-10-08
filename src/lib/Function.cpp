@@ -309,27 +309,25 @@ Value Function::Eval(Environment &env, Signal sig, Args &args) const
 
 Value Function::EvalMap(Environment &env, Signal sig, Args &args) const
 {
-	bool skipInvalidFlag = args.IsRsltXIterator();
 	AutoPtr<Iterator_ImplicitMap> pIterator(new Iterator_ImplicitMap(new Environment(env), sig,
-			Function::Reference(this), args.Reference(), skipInvalidFlag));
+			Function::Reference(this), args.Reference(), false));
 	if (sig.IsSignalled()) return Value::Null;
-	if (args.IsRsltIterator() || args.IsRsltXIterator()) {
-		// nothing to do
-	} else if (!args.IsRsltNormal() || !args.ShouldGenerateIterator(_declOwner)) {
-		// List, XList, Set, XSet, Void, Reduce, XReduce
-		Value result;
-		ResultComposer resultComposer(env, args, result);
-		Value value;
-		size_t n = 0;
-		for ( ; pIterator->Next(env, sig, value); n++) {
-			resultComposer.Store(value);
-		}
-		if (n == 0 && !args.IsRsltVoid()) {
-			result.InitAsList(env);
-		}
-		return result;
+	if (args.IsRsltIterator() || args.IsRsltXIterator() ||
+			 (args.IsRsltNormal() && args.ShouldGenerateIterator(_declOwner))) {
+		pIterator->SetSkipInvalidFlag(args.IsRsltXIterator());
+		return Value(env, pIterator.release());
 	}
-	return Value(env, pIterator.release());
+	Value result;
+	ResultComposer resultComposer(env, args, result);
+	Value value;
+	size_t n = 0;
+	for ( ; pIterator->Next(env, sig, value); n++) {
+		resultComposer.Store(value);
+	}
+	if (n == 0 && !args.IsRsltVoid()) {
+		result.InitAsList(env);
+	}
+	return result;
 }
 
 Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &args) const
@@ -421,8 +419,6 @@ Value Function::ReturnIterator(Environment &env, Signal sig,
 	}
 	Value result;
 	if (!pIterator->IsRepeater()) {
-		bool skipInvalidFlag = args.IsRsltXList() || args.IsRsltXSet() || args.IsRsltXIterator();
-		pIterator->SetSkipInvalidFlag(skipInvalidFlag);
 		if (args.IsBlockSpecified()) {
 			AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 			const Function *pFuncBlock =
@@ -430,8 +426,10 @@ Value Function::ReturnIterator(Environment &env, Signal sig,
 			if (pFuncBlock == NULL) return Value::Null;
 			bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
 			pIterator = new Iterator_Repeater(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
-								skipInvalidFlag, genIterFlag, pIterator);
+								false, genIterFlag, pIterator);
 		}
+		bool skipInvalidFlag = args.IsRsltXList() || args.IsRsltXSet() || args.IsRsltXIterator();
+		pIterator->SetSkipInvalidFlag(skipInvalidFlag);
 	}
 	if (args.IsRsltIterator() || args.IsRsltXIterator()) {
 		result = Value(env, pIterator);

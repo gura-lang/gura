@@ -1,3 +1,16 @@
+f(x).join(',') .. 1,2,3,,4,5,6,,7,8
+(f(x):xiter).join(',') .. 1,2,3,4,5,6,7,8
+(f(x):xlist).join(',') .. 1,2,3,4,5,6,7,8
+(f(x):xset).join(',') .. 1,2,3,4,5,6,7,8
+(f(x.each()):xiter).join(',') .. 1,2,3,4,5,6,7,8
+(f(x.each()):xlist).join(',') .. 1,2,3,4,5,6,7,8
+(f(x.each()):xset).join(',') .. 1,2,3,4,5,6,7,8
+(range(10):xiter {|i| x[i] }).join(',') .. 1,2,3,4,5,6,7,8
+(range(10):xlist {|i| x[i] }).join(',') .. 1,2,3,4,5,6,7,8
+(range(10):xset {|i| x[i] }).join(',') .. 1,2,3,4,5,6,7,8
+(x.each():xiter {|i| i.tostring() }).join(',') .. 1,2,3,,4,5,6,,7,8
+(x.each():xlist {|i| i.tostring() }).join(',') .. 1,2,3,,4,5,6,,7,8
+(x.each():xset {|i| i.tostring() }).join(',') .. 1,2,3,,4,5,6,7,8
 x .. <iterator:1..10>
 x.min():index .. 2
 x.runlength():list .. [[3, 1], [2, 2], [5, 3], [2, 4]]

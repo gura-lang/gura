@@ -7,6 +7,23 @@ assign_tester(container):dynamic_scope {`block} = {
 	container.clear()
 }
 scope {
+	f(n):map = n
+	x = [1, 2, 3, nil, 4, 5, 6, nil, 7, 8]
+	tester(`(f(x)).join(','))
+	tester(`(f(x):xiter).join(','))
+	tester(`(f(x):xlist).join(','))
+	tester(`(f(x):xset).join(','))
+	tester(`(f(x.each()):xiter).join(','))
+	tester(`(f(x.each()):xlist).join(','))
+	tester(`(f(x.each()):xset).join(','))
+	tester(`(range(10):xiter {|i| x[i]}).join(','))
+	tester(`(range(10):xlist {|i| x[i]}).join(','))
+	tester(`(range(10):xset {|i| x[i]}).join(','))
+	tester(`(x.each():xiter {|i| i.tostring()}).join(','))
+	tester(`(x.each():xlist {|i| i.tostring()}).join(','))
+	tester(`(x.each():xset {|i| i.tostring()}).join(','))
+}
+scope {
 	x = 1..10
 	x.next()
 	x.next()
