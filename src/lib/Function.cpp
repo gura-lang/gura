@@ -375,6 +375,42 @@ Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &ar
 	return pEnvLocal.release();
 }
 
+Value Function::ReturnValue(Environment &env, Signal sig,
+									Args &args, const Value &result) const
+{
+	if (!args.IsBlockSpecified()) return result;
+	if (sig.IsSignalled()) return Value::Null;
+	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
+	const Function *pFuncBlock =
+					args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
+	if (pFuncBlock == NULL) return Value::Null;
+	AutoPtr<Args> pArgsSub(new Args());
+	pArgsSub->SetValue(result);
+	Value value = pFuncBlock->Eval(env, sig, *pArgsSub);
+	if (sig.IsBreak() || sig.IsContinue()) {
+		sig.ClearSignal();
+	}
+	return value;
+}
+
+Value Function::ReturnValues(Environment &env, Signal sig,
+								Args &args, const ValueList &valListArg) const
+{
+	if (!args.IsBlockSpecified()) return valListArg.front();
+	if (sig.IsSignalled()) return Value::Null;
+	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
+	const Function *pFuncBlock =
+					args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
+	if (pFuncBlock == NULL) return Value::Null;
+	AutoPtr<Args> pArgsSub(new Args());
+	pArgsSub->SetValueListArg(valListArg);
+	Value value = pFuncBlock->Eval(env, sig, *pArgsSub);
+	if (sig.IsBreak() || sig.IsContinue()) {
+		sig.ClearSignal();
+	}
+	return value;
+}
+
 Value Function::ReturnIterator(Environment &env, Signal sig,
 								Args &args, Iterator *pIterator) const
 {
@@ -412,42 +448,6 @@ Value Function::ReturnIterator(Environment &env, Signal sig,
 		result = Value(env, pIterator);
 	}
 	return result;
-}
-
-Value Function::ReturnValue(Environment &env, Signal sig,
-									Args &args, const Value &result) const
-{
-	if (!args.IsBlockSpecified()) return result;
-	if (sig.IsSignalled()) return Value::Null;
-	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	const Function *pFuncBlock =
-					args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
-	if (pFuncBlock == NULL) return Value::Null;
-	AutoPtr<Args> pArgsSub(new Args());
-	pArgsSub->SetValue(result);
-	Value value = pFuncBlock->Eval(env, sig, *pArgsSub);
-	if (sig.IsBreak() || sig.IsContinue()) {
-		sig.ClearSignal();
-	}
-	return value;
-}
-
-Value Function::ReturnValues(Environment &env, Signal sig,
-								Args &args, const ValueList &valListArg) const
-{
-	if (!args.IsBlockSpecified()) return valListArg.front();
-	if (sig.IsSignalled()) return Value::Null;
-	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	const Function *pFuncBlock =
-					args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
-	if (pFuncBlock == NULL) return Value::Null;
-	AutoPtr<Args> pArgsSub(new Args());
-	pArgsSub->SetValueListArg(valListArg);
-	Value value = pFuncBlock->Eval(env, sig, *pArgsSub);
-	if (sig.IsBreak() || sig.IsContinue()) {
-		sig.ClearSignal();
-	}
-	return value;
 }
 
 Expr *Function::DiffUnary(Environment &env, Signal sig,

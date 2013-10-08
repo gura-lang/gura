@@ -109,63 +109,6 @@ Value Iterator::Eval(Environment &env, Signal sig, Args &args)
 	return result;
 }
 
-Value Iterator::Eval(Environment &env, Signal sig,
-								Args &args, const Function *pFuncBlock)
-{
-	if (IsInfinite()) {
-		SetError_InfiniteNotAllowed(sig);
-		return Value::Null;
-	}
-	Value value, result;
-	std::auto_ptr<Function::ResultComposer> pResultComposer;
-	if (args.IsRsltList() || args.IsRsltXList() ||
-								args.IsRsltSet() || args.IsRsltXSet()) {
-		pResultComposer.reset(new Function::ResultComposer(env, args, result));
-	}
-	bool contFlag = true;
-	const DeclarationOwner &declOwner = pFuncBlock->GetDeclOwner();
-	size_t nArgs = declOwner.size();
-	if (declOwner.IsVariableLength()) {
-		nArgs = 1;
-		for (Iterator *pIterator = this; pIterator != NULL;
-								nArgs++, pIterator = pIterator->GetSource()) ;
-	}
-	while (contFlag && Next(env, sig, value)) {
-		AutoPtr<Args> pArgsSub(new Args());
-		pArgsSub->ReserveValueListArg(nArgs);
-		size_t iArg = 0;
-		if (iArg++ < nArgs) pArgsSub->AddValue(value);
-		for (Iterator *pIterator = this; iArg < nArgs && pIterator != NULL;
-								iArg++, pIterator = pIterator->GetSource()) {
-			pArgsSub->AddValue(Value(pIterator->GetCountNext() - 1));
-		}
-		Value resultElem = pFuncBlock->Eval(env, sig, *pArgsSub);
-		if (!sig.IsSignalled()) {
-			// nothing to do
-		} else if (sig.IsBreak()) {
-			resultElem = sig.GetValue();
-			sig.ClearSignal();
-			if (resultElem.IsInvalid()) break;
-			contFlag = false;
-		} else if (sig.IsContinue()) {
-			resultElem = sig.GetValue();
-			sig.ClearSignal();
-			if (resultElem.IsInvalid()) continue;
-		} else if (sig.IsReturn()) {
-			return Value::Null;
-		} else {
-			return Value::Null;
-		}
-		if (pResultComposer.get() == NULL) {
-			result = resultElem;
-		} else {
-			pResultComposer->Store(resultElem);
-		}
-	}
-	if (sig.IsSignalled()) return Value::Null;
-	return result;
-}
-
 Value Iterator::Reduce(Environment &env, Signal sig,
 							Value valueAccum, const Function *pFuncBlock)
 {

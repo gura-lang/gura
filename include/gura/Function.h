@@ -283,12 +283,12 @@ public:
 										Expr *pExprOpt1, Expr *pExprOpt2) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 protected:
-	Value ReturnIterator(Environment &env, Signal sig,
-					Args &args, Iterator *pIterator) const;
 	Value ReturnValue(Environment &env, Signal sig,
 					Args &args, const Value &result) const;
 	Value ReturnValues(Environment &env, Signal sig,
 					Args &args, const ValueList &valListArg) const;
+	Value ReturnIterator(Environment &env, Signal sig,
+					Args &args, Iterator *pIterator) const;
 	Environment *PrepareEnvironment(Environment &env, Signal sig, Args &args) const;
 private:
 	virtual Value DoEval(Environment &env, Signal sig, Args &args) const = 0;

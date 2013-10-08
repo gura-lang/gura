@@ -128,7 +128,6 @@ Value ConstructorOfCustomClass::DoEval(Environment &env, Signal sig, Args &args)
 			}
 		}
 		AutoPtr<Environment> pEnvSuper(new Environment(pEnvLocal.get(), ENVTYPE_local));
-		//AutoPtr<Args> pArgsSub(new Args(pExprOwner, valueRtn));
 		AutoPtr<Args> pArgsSub(new Args());
 		pArgsSub->SetExprOwnerArg(pExprOwner);
 		pArgsSub->SetThis(valueRtn);
