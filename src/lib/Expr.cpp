@@ -1101,6 +1101,16 @@ bool Expr_Symbol::GenerateScriptTail(Signal sig, SimpleStream &stream,
 //-----------------------------------------------------------------------------
 bool Expr_Root::IsRoot() const { return true; }
 
+Expr_Root::Expr_Root(const String &pathName) :
+	Expr_Container(EXPRTYPE_Root), _pathName(pathName), _pProcessor(new Processor())
+{
+}
+
+Expr_Root::Expr_Root(const Expr_Root &expr) :
+	Expr_Container(expr), _pathName(expr._pathName), _pProcessor(expr._pProcessor->Reference())
+{
+}
+
 Expr_Root::~Expr_Root()
 {
 }

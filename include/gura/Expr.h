@@ -12,6 +12,7 @@ class Expr;
 class ExprList;
 class Expr_Member;
 class Callable;
+class Processor;
 
 //-----------------------------------------------------------------------------
 // ExprType
@@ -503,11 +504,10 @@ public:
 class GURA_DLLDECLARE Expr_Root : public Expr_Container {
 private:
 	String _pathName;
+	AutoPtr<Processor> _pProcessor;
 public:
-	inline Expr_Root(const String &pathName) :
-						Expr_Container(EXPRTYPE_Root), _pathName(pathName) {}
-	inline Expr_Root(const Expr_Root &expr) :
-						Expr_Container(expr), _pathName(expr._pathName) {}
+	Expr_Root(const String &pathName);
+	Expr_Root(const Expr_Root &expr);
 	inline static Expr_Root *Reference(const Expr_Root *pExpr) {
 		return dynamic_cast<Expr_Root *>(Expr::Reference(pExpr));
 	}
