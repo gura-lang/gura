@@ -21,7 +21,6 @@ enum ExprType {
 	EXPRTYPE_None,
 	EXPRTYPE_UnaryOp,
 	EXPRTYPE_Quote,
-	EXPRTYPE_Force,
 	EXPRTYPE_Prefix,
 	EXPRTYPE_Suffix,
 	EXPRTYPE_BinaryOp,
@@ -85,7 +84,6 @@ public:
 // [class hierarchy under Expr]
 // Expr <-+- Expr_Unary <-----+- Expr_UnaryOp
 //        |                   +- Expr_Quote
-//        |                   +- Expr_Force
 //        |                   +- Expr_Prefix
 //        |                   `- Expr_Suffix
 //        +- Expr_Binary <----+- Expr_BinaryOp
@@ -206,7 +204,6 @@ public:
 	virtual bool IsUnary() const;
 	virtual bool IsUnaryOp() const;
 	virtual bool IsQuote() const;
-	virtual bool IsForce() const;
 	virtual bool IsPrefix() const;
 	virtual bool IsSuffix() const;
 	// type chekers - Binary and descendants
@@ -816,25 +813,6 @@ public:
 	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual const Expr *Unquote() const;
 	virtual bool IsQuote() const;
-	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
-};
-
-//-----------------------------------------------------------------------------
-// Expr_Force
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_Force : public Expr_Unary {
-public:
-	inline Expr_Force(Expr *pExprChild) : Expr_Unary(EXPRTYPE_Force, pExprChild) {}
-	inline Expr_Force(const Expr_Force &expr) : Expr_Unary(expr) {}
-	inline static Expr_Force *Reference(const Expr_Force *pExpr) {
-		return dynamic_cast<Expr_Force *>(Expr::Reference(pExpr));
-	}
-	virtual ~Expr_Force();
-	virtual Expr *Clone() const;
-	virtual Value DoExec(Environment &env, Signal sig) const;
-	virtual bool IsForce() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;

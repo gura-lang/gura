@@ -47,13 +47,7 @@ Declaration *Declaration::Create(Environment &env, Signal sig, const Expr *pExpr
 								dynamic_cast<const Expr_DictAssign *>(pExpr);
 		pExpr = pExprDictAssign->GetLeft();
 		const Expr *pExprRight = pExprDictAssign->GetRight();
-		if (pExprRight->IsForce()) {
-			Value value = pExprRight->Exec2(env, sig);
-			if (sig.IsSignalled()) return NULL;
-			pExprDefault = new Expr_Value(value);
-		} else {
-			pExprDefault = Expr::Reference(pExprRight);
-		}
+		pExprDefault = Expr::Reference(pExprRight);
 	}
 	if (pExpr->IsSuffix()) {
 		const Expr_Suffix *pExprSuffix = dynamic_cast<const Expr_Suffix *>(pExpr);

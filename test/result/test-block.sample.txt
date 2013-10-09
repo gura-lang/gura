@@ -9,19 +9,18 @@ f(x, y, z) = {|x, y, z| x + y + y + 2 }
 f(x:number, y:number, z:number) = {|x:number, y:number, z:number| x + y + y + 2 }
 expected error occurs: TypeError: argument declaration conflicts
 Test Case #3
--x       y n n n n n n n n n n n n n n n
-`x       n y n n n n n n n n n n n n n n
-!!x      n n y n n n n n n n n n n n n n
-x*       n n n n y n n n n n n n n n n n
-x + y    n n n n n y n n n n n n n n n n
-x = y    n n n n n n y n n n n n n n n n
-x => y   n n n n n n n y n n n n n n n n
-x::y     n n n n n n n n y n n n n n n n
-{}       n n n n n n n n n n y n n n n n
-3        n n n n n n n n n n n n y n n n
-[]       n n n n n n n n n n n y n n n n
-x[y]     n n n n n n n n n n n n n n y n
-x(y, z)  n n n n n n n n n n n n n n n y
+-x       y n n n n n n n n n n n n n n
+`x       n y n n n n n n n n n n n n n
+x*       n n n y n n n n n n n n n n n
+x + y    n n n n y n n n n n n n n n n
+x = y    n n n n n y n n n n n n n n n
+x => y   n n n n n n y n n n n n n n n
+x::y     n n n n n n n y n n n n n n n
+{}       n n n n n n n n n y n n n n n
+3        n n n n n n n n n n n y n n n
+[]       n n n n n n n n n n y n n n n
+x[y]     n n n n n n n n n n n n n y n
+x(y, z)  n n n n n n n n n n n n n n y
 Test Case #4
   1  "Hayasaka Hiroko","hayasaka_hiroko@example.com","female",33,"1976/8/27","090-9134-30BF"
   2  "Hannda Yumiko","hannda_yumiko@example.com","female",75,"1934/10/20","080-6713-87BI"

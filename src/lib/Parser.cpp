@@ -192,7 +192,6 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 						{ '\0', ETYPE_Unknown		}, } },
 			{ '!', ETYPE_Not, {
 						{ '=', ETYPE_Ne				},
-						{ '!', ETYPE_Force			},
 						{ '\0', ETYPE_Unknown		}, } },
 			{ '|', ETYPE_Or, {
 						{ '=', ETYPE_AssignOr 		},
@@ -977,7 +976,6 @@ const Parser::ElemTypeInfo Parser::_elemTypeInfoTbl[] = {
 	{ ETYPE_Inv,				15, "Inv",				"~",		OPTYPE_Inv		},	// ~
 	{ ETYPE_Pow,				16, "Pow",				"**",		OPTYPE_Pow		},	// **
 	{ ETYPE_Quote,				17, "Quote",			"`",		OPTYPE_None		},	// `
-	{ ETYPE_Force,				17, "Force",			"!!",		OPTYPE_None		},
 	{ ETYPE_Colon,				18, "Colon",			":",		OPTYPE_None		},	// :
 	{ ETYPE_ColonAfterSuffix,	19, "ColonAfterSuffix",	":",		OPTYPE_None		},	// *:
 	{ ETYPE_Dot,				20, "Dot",				".",		OPTYPE_None		},	// .
@@ -1285,9 +1283,6 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 		if (elem1.IsType(ETYPE_Quote)) {
 			DBGPARSER(::printf("Reduce: Expr -> '`' Expr\n"));
 			pExpr = new Expr_Quote(elem2.GetExpr());
-		} else if (elem1.IsType(ETYPE_Force)) {
-			DBGPARSER(::printf("Reduce: Expr -> '!!' Expr\n"));
-			pExpr = new Expr_Force(elem2.GetExpr());
 		} else if (elem1.IsType(ETYPE_Add)) {
 			DBGPARSER(::printf("Reduce: Expr -> '+' Expr\n"));
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Pos), elem2.GetExpr(), false);

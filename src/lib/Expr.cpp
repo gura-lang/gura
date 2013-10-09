@@ -13,7 +13,6 @@ const char *GetExprTypeName(ExprType exprType)
 	} tbl[] = {
 		{ EXPRTYPE_UnaryOp,		"unaryop",		},
 		{ EXPRTYPE_Quote,		"quote",		},
-		{ EXPRTYPE_Force,		"force",		},
 		{ EXPRTYPE_Prefix,		"prefix",		},
 		{ EXPRTYPE_Suffix,		"suffix",		},
 		{ EXPRTYPE_BinaryOp,	"binaryop",		},
@@ -44,7 +43,6 @@ const char *GetExprTypeName(ExprType exprType)
 // [class hierarchy under Expr]
 // Expr <-+- Expr_Unary <-----+- Expr_UnaryOp
 //        |                   +- Expr_Quote
-//        |                   +- Expr_Force
 //        |                   +- Expr_Prefix
 //        |                   `- Expr_Suffix
 //        +- Expr_Binary <----+- Expr_BinaryOp
@@ -283,7 +281,6 @@ bool Expr::IsOperatorSeq() const
 bool Expr::IsUnary() const		{ return false; }
 bool Expr::IsUnaryOp() const	{ return false; }
 bool Expr::IsQuote() const		{ return false; }
-bool Expr::IsForce() const		{ return false; }
 bool Expr::IsPrefix() const		{ return false; }
 bool Expr::IsSuffix() const		{ return false; }
 	// type chekers - Binary and descendants
@@ -2486,41 +2483,6 @@ bool Expr_Quote::GenerateScript(Signal sig, SimpleStream &stream,
 }
 
 //-----------------------------------------------------------------------------
-// Expr_Force
-//-----------------------------------------------------------------------------
-bool Expr_Force::IsForce() const { return true; }
-
-Expr_Force::~Expr_Force()
-{
-}
-
-Expr *Expr_Force::Clone() const
-{
-	return new Expr_Force(*this);
-}
-
-Value Expr_Force::DoExec(Environment &env, Signal sig) const
-{
-	Value result = GetChild()->Exec2(env, sig);
-	return result;
-}
-
-bool Expr_Force::GenerateCode(Environment &env, Signal sig, Stream &stream)
-{
-	stream.Println(sig, "Force");
-	return true;
-}
-
-bool Expr_Force::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
-{
-	stream.Print(sig, "!!");
-	if (sig.IsSignalled()) return false;
-	if (!GetChild()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
-	return true;
-}
-
-//-----------------------------------------------------------------------------
 // Expr_Prefix
 //-----------------------------------------------------------------------------
 bool Expr_Prefix::IsPrefix() const { return true; }
@@ -2629,13 +2591,8 @@ Value Expr_Assign::Exec(Environment &env, Signal sig,
 			SetError(sig, ERR_SyntaxError, "invalid operation");
 			return Value::Null;
 		}
-		if (GetRight()->IsForce()) {
-			value = GetRight()->Exec2(env, sig);
-			if (sig.IsSignalled()) return Value::Null;
-		} else {
-			Expr *pExprBody = Expr::Reference(GetRight()->Unquote());
-			value = Value(new Object_expr(env, pExprBody));
-		}
+		Expr *pExprBody = Expr::Reference(GetRight()->Unquote());
+		value = Value(new Object_expr(env, pExprBody));
 	} else {
 		value = GetRight()->Exec2(env, sig);
 		if (sig.IsSignalled()) return Value::Null;

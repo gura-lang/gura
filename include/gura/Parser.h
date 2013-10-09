@@ -58,7 +58,6 @@ public:
 		ETYPE_Number,
 		ETYPE_ImagNumber,
 		ETYPE_Quote,
-		ETYPE_Force,
 		ETYPE_Question,
 		ETYPE_Add,
 		ETYPE_Sub,
