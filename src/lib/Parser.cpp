@@ -916,7 +916,7 @@ void Parser::EvalConsoleChar(Environment &env, Signal sig,
 				Reset();
 			}
 		} else if (pExpr != NULL) {
-			Value result = pExpr->Exec(env, sig);
+			Value result = pExpr->Exec2(env, sig);
 			if (sig.IsSignalled()) {
 				if (sig.IsReqSaveHistory()) {
 					

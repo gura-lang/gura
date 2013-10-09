@@ -434,7 +434,7 @@ Value Matrix::Invert(Environment &env, Signal sig)
 bool Matrix::GetElemIndex(Environment &env, Signal sig,
 		const Expr *pExprIdx, size_t nElemsSrc, size_t &iElem, size_t &nElems)
 {
-	Value valueIdx = pExprIdx->Exec(env, sig);
+	Value valueIdx = pExprIdx->Exec2(env, sig);
 	if (sig.IsSignalled()) return false;
 	if (valueIdx.IsNumber()) {
 		iElem = valueIdx.GetSizeT();

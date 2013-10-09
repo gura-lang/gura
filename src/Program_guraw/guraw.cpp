@@ -112,7 +112,7 @@ int MainW(int argc, const char *argv[])
 			env.GetConsole()->PrintSignal(sig, sig);
 			return 1;
 		}
-		pExprRoot->Exec(env, sig);
+		pExprRoot->Exec2(env, sig);
 		if (sig.IsSignalled()) {
 			env.GetConsole()->PrintSignal(sig, sig);
 			sig.ClearSignal();

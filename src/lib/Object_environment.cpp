@@ -105,7 +105,7 @@ Gura_DeclareMethod(environment, eval)
 Gura_ImplementMethod(environment, eval)
 {
 	Object_environment *pThis = Object_environment::GetThisObj(args);
-	return args.GetExpr(0)->Exec(pThis->GetEnv(), sig);
+	return args.GetExpr(0)->Exec2(pThis->GetEnv(), sig);
 }
 
 // environment#lookup(symbol:symbol, escalate:boolean => true):map

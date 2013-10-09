@@ -149,7 +149,7 @@ Value Gura_Method(Object, __call__)::EvalExpr(Environment &env, Signal sig, Args
 	const Expr *pExprArg = pExprOwnerArg->front();
 	size_t nElems = 0;
 	ValueList valListArg;
-	if (!pExprArg->ExecInArg(env, sig, valListArg, nElems, false)) return Value::Null;
+	if (!pExprArg->Exec2InArg(env, sig, valListArg, nElems, false)) return Value::Null;
 	if (valListArg.size() != 1) {
 		sig.SetError(ERR_ValueError, "invalid argument for __call__()");
 		return Value::Null;
@@ -313,18 +313,12 @@ bool Class::BuildContent(Environment &env, Signal sig, const Value &valueThis,
 		} else if (pExpr->IsCaller()) {
 			const Expr_Caller *pExprCaller =
 								dynamic_cast<const Expr_Caller *>(pExpr);
-			Value valueCar = pExprCaller->GetCar()->Exec(*pEnvLocal, sig);
+			Value valueCar = pExprCaller->GetCar()->Exec2(*pEnvLocal, sig);
 			if (sig.IsSignalled()) return false;
 			Callable *pCallable = valueCar.GetObject();
 			if (pCallable == NULL) {
 				sig.SetError(ERR_TypeError, "object is not callable");
 			} else {
-				//pCallable->Call(*this, sig, valueThis, NULL, false,
-				//	pExprCaller, pExprCaller->GetExprOwner().Reference(), NULL);
-				//AutoPtr<Args> pArgs(new Args(pExprCaller->GetExprOwner().Reference(),
-				//			valueThis, NULL, false, NULL,
-				//			pExprCaller->GetAttrs(), pExprCaller->GetAttrsOpt(),
-				//			Expr_Block::Reference(pExprCaller->GetBlock())));
 				AutoPtr<Args> pArgs(new Args());
 				pArgs->SetExprOwnerArg(pExprCaller->GetExprOwner().Reference());
 				pArgs->SetThis(valueThis);

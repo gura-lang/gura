@@ -54,7 +54,7 @@ Gura_ImplementFunction(BusyInfo)
 	wx_BusyInfo busyInfo(msg, parent);
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
-	Value rtn = pExprBlock->Exec(env, sig);
+	Value rtn = pExprBlock->Exec2(env, sig);
 	return rtn;
 }
 

@@ -148,7 +148,7 @@ Gura_ImplementFunction(module)
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
 	Module *pModule = new Module(&env, Gura_Symbol(_anonymous_), "", NULL, NULL);
-	pExprBlock->Exec(*pModule, sig);
+	pExprBlock->Exec2(*pModule, sig);
 	return Value(pModule);
 }
 
@@ -233,7 +233,7 @@ Gura_DeclareFunction(eval)
 Gura_ImplementFunction(eval)
 {
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	return args.GetExpr(0)->Exec(*pEnvBlock, sig);
+	return args.GetExpr(0)->Exec2(*pEnvBlock, sig);
 }
 
 // scope(target?) {block}
@@ -252,7 +252,7 @@ Gura_ImplementFunction(scope)
 		AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
 		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		return pExprBlock->Exec(*pEnvBlock, sig);
+		return pExprBlock->Exec2(*pEnvBlock, sig);
 	} else {
 		Environment *pEnv = NULL;
 		if (args.IsModule(0)) {
@@ -267,7 +267,7 @@ Gura_ImplementFunction(scope)
 		if (pEnv != NULL) {
 			const Expr_Block *pExprBlock = args.GetBlock(*pEnv, sig);
 			if (sig.IsSignalled()) return Value::Null;
-			return pExprBlock->Exec(*pEnv, sig);
+			return pExprBlock->Exec2(*pEnv, sig);
 		}
 	}
 	sig.SetError(ERR_ValueError, "module or environment must be specified");
@@ -386,7 +386,7 @@ Gura_ImplementFunction(public_)
 			}
 			const Expr_Symbol *pExprSymbol = dynamic_cast<const Expr_Symbol *>(pExprAssign->GetLeft());
 			symbolsPublic.Insert(pExprSymbol->GetSymbol());
-			pExpr->Exec(env, sig);
+			pExpr->Exec2(env, sig);
 			if (sig.IsSignalled()) return Value::Null;
 		} else {
 			sig.SetError(ERR_ValueError, "invalid element for public");
@@ -412,7 +412,7 @@ Gura_ImplementFunction(try_)
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
 	if (sig.IsSignalled()) return Value::Null;
-	Value result = pExprBlock->Exec(*pEnvBlock, sig);
+	Value result = pExprBlock->Exec2(*pEnvBlock, sig);
 	if (sig.IsError()) {
 		sig.SuspendError();
 	} else {
@@ -476,7 +476,7 @@ Gura_ImplementFunction(finally_)
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
 	if (sig.IsSignalled()) return Value::Null;
-	return pExprBlock->Exec(*pEnvBlock, sig);
+	return pExprBlock->Exec2(*pEnvBlock, sig);
 }
 
 // if (`cond):leader {block}
@@ -494,12 +494,12 @@ Gura_DeclareFunctionAlias(if_, "if")
 Gura_ImplementFunction(if_)
 {
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	Value value = args.GetExpr(0)->Exec(*pEnvBlock, sig);
+	Value value = args.GetExpr(0)->Exec2(*pEnvBlock, sig);
 	if (value.GetBoolean()) {
 		args.QuitTrailer();
 		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		return pExprBlock->Exec(*pEnvBlock, sig);
+		return pExprBlock->Exec2(*pEnvBlock, sig);
 	}
 	return Value::Null;
 }
@@ -519,12 +519,12 @@ Gura_DeclareFunctionTrailerAlias(elsif_, "elsif")
 Gura_ImplementFunction(elsif_)
 {
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	Value value = args.GetExpr(0)->Exec(*pEnvBlock, sig);
+	Value value = args.GetExpr(0)->Exec2(*pEnvBlock, sig);
 	if (value.GetBoolean()) {
 		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		args.QuitTrailer();
-		return pExprBlock->Exec(*pEnvBlock, sig);
+		return pExprBlock->Exec2(*pEnvBlock, sig);
 	}
 	return Value::Null;
 }
@@ -545,7 +545,7 @@ Gura_ImplementFunction(else_)
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
 	if (sig.IsSignalled()) return Value::Null;
-	return pExprBlock->Exec(*pEnvBlock, sig);
+	return pExprBlock->Exec2(*pEnvBlock, sig);
 }
 
 // end ():void:symbol_func:trailer:end_marker
@@ -576,7 +576,7 @@ Gura_ImplementFunction(switch_)
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));;
 	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
 	if (sig.IsSignalled()) return Value::Null;
-	pExprBlock->Exec(*pEnvBlock, sig);
+	pExprBlock->Exec2(*pEnvBlock, sig);
 	if (sig.IsSwitchDone()) {
 		Value result = sig.GetValue();
 		sig.ClearSignal();
@@ -600,11 +600,11 @@ Gura_DeclareFunctionAlias(case_, "case")
 Gura_ImplementFunction(case_)
 {
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	Value value = args.GetExpr(0)->Exec(*pEnvBlock, sig);
+	Value value = args.GetExpr(0)->Exec2(*pEnvBlock, sig);
 	if (value.GetBoolean()) {
 		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		Value result = pExprBlock->Exec(*pEnvBlock, sig);
+		Value result = pExprBlock->Exec2(*pEnvBlock, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		sig.SetSignal(SIGTYPE_SwitchDone, result);
 		return result;
@@ -628,7 +628,7 @@ Gura_ImplementFunction(default_)
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
 	const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
 	if (sig.IsSignalled()) return Value::Null;
-	Value result = pExprBlock->Exec(*pEnvBlock, sig);
+	Value result = pExprBlock->Exec2(*pEnvBlock, sig);
 	if (sig.IsSignalled()) return Value::Null;
 	sig.SetSignal(SIGTYPE_SwitchDone, result);
 	return result;
@@ -1342,7 +1342,7 @@ Gura_ImplementFunction(isdefined)
 	bool definedFlag = false;
 	const Expr *pExpr = args.GetExpr(0);
 	if (pExpr->IsSymbol() || pExpr->IsMember()) {
-		Value result = pExpr->Exec(env, sig);
+		Value result = pExpr->Exec2(env, sig);
 		if (sig.IsSignalled() && !sig.IsError()) return Value::Null;
 		definedFlag = !sig.IsError() && result.IsDefined();
 		sig.ClearSignal();
@@ -1450,7 +1450,7 @@ Gura_ImplementFunction(typename_)
 	const Expr *pExpr = args.GetExpr(0);
 	String typeName = "unknown";
 	if (pExpr->IsSymbol() || pExpr->IsMember()) {
-		Value value = pExpr->Exec(env, sig);
+		Value value = pExpr->Exec2(env, sig);
 		if (sig.IsSignalled() && !sig.IsError()) return Value::Null;
 		if (sig.IsError()) {
 			typeName = "undefined";
@@ -1459,7 +1459,7 @@ Gura_ImplementFunction(typename_)
 		}
 		sig.ClearSignal();
 	} else {
-		Value value = pExpr->Exec(env, sig);
+		Value value = pExpr->Exec2(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		typeName = value.MakeValueTypeName();
 	}

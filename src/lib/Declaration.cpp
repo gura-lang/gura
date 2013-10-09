@@ -48,7 +48,7 @@ Declaration *Declaration::Create(Environment &env, Signal sig, const Expr *pExpr
 		pExpr = pExprDictAssign->GetLeft();
 		const Expr *pExprRight = pExprDictAssign->GetRight();
 		if (pExprRight->IsForce()) {
-			Value value = pExprRight->Exec(env, sig);
+			Value value = pExprRight->Exec2(env, sig);
 			if (sig.IsSignalled()) return NULL;
 			pExprDefault = new Expr_Value(value);
 		} else {
@@ -321,7 +321,7 @@ bool DeclarationList::Compensate(Environment &env, Signal sig, ValueList &valLis
 						dynamic_cast<const Expr_Symbol *>(pExpr)->GetSymbol();
 			value = Value(pSymbol);
 		} else {
-			value = pExprArg->Exec(env, sig);
+			value = pExprArg->Exec2(env, sig);
 			if (sig.IsSignalled()) return false;
 		}
 		valList.push_back(value);
@@ -461,13 +461,13 @@ bool DeclarationOwner::PrepareArgs(Environment &env, Signal sig,
 			if (valueKey.IsSymbol()) {
 				exprMap[valueKey.GetSymbol()] = pExprDictAssign->GetRight();
 			} else {
-				Value value = pExprDictAssign->GetRight()->Exec(env, sig);
+				Value value = pExprDictAssign->GetRight()->Exec2(env, sig);
 				if (sig.IsSignalled()) return false;
 				valDictArg[valueKey] = value;
 			}
 		} else if (!quoteFlag && IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) {
 			pExprArg = dynamic_cast<const Expr_Suffix *>(pExprArg)->GetChild();
-			Value value = pExprArg->Exec(env, sig);
+			Value value = pExprArg->Exec2(env, sig);
 			if (sig.IsSignalled()) return false;
 			if (!value.IsDict()) {
 				sig.SetError(ERR_ValueError, "modulo argument must take a dictionary");
@@ -496,7 +496,7 @@ bool DeclarationOwner::PrepareArgs(Environment &env, Signal sig,
 				return false;
 			}
 			size_t nElems = 0;
-			if (!pExprArg->ExecInArg(env, sig, valListArg, nElems, quoteFlag)) {
+			if (!pExprArg->Exec2InArg(env, sig, valListArg, nElems, quoteFlag)) {
 				return false;
 			}
 			for ( ; nElems > 0 && ppDecl != end(); nElems--) {
@@ -548,7 +548,7 @@ bool DeclarationOwner::PrepareArgs(Environment &env, Signal sig,
 						dynamic_cast<const Expr_Symbol *>(pExpr)->GetSymbol();
 			value = Value(pSymbol);
 		} else {
-			value = pExprArg->Exec(env, sig);
+			value = pExprArg->Exec2(env, sig);
 			if (sig.IsSignalled()) return false;
 		}
 		valListArg.push_back(value);
@@ -557,7 +557,7 @@ bool DeclarationOwner::PrepareArgs(Environment &env, Signal sig,
 		foreach (ExprMap, iter, exprMap) {
 			const Symbol *pSymbol = iter->first;
 			const Expr *pExprArg = iter->second;
-			Value value = pExprArg->Exec(env, sig);
+			Value value = pExprArg->Exec2(env, sig);
 			if (sig.IsSignalled()) return false;
 			valDictArg[Value(pSymbol)] = value;
 		}

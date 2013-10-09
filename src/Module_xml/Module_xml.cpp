@@ -1266,7 +1266,7 @@ Gura_ImplementFunction(element)
 		//AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
 		foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {
 			const Expr *pExpr = *ppExpr;
-			Value value = pExpr->Exec(env, sig);
+			Value value = pExpr->Exec2(env, sig);
 			if (sig.IsSignalled()) return Value::Null;
 			if (!pElement->AddChild(env, sig, value)) {
 				sig.AddExprCause(pExpr);

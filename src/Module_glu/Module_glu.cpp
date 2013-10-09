@@ -330,7 +330,7 @@ Gura_ImplementMethod(Tesselator, gluTessBeginPolygon)
 	if (args.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec(env, sig);
+		pExprBlock->Exec2(env, sig);
 		::gluTessEndPolygon(tess);
 	}
 	return Value::Null;
@@ -350,7 +350,7 @@ Gura_ImplementMethod(Tesselator, gluTessBeginContour)
 	if (args.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec(env, sig);
+		pExprBlock->Exec2(env, sig);
 		::gluTessEndContour(tess);
 	}
 	return Value::Null;
@@ -485,7 +485,7 @@ Gura_ImplementMethod(Tesselator, gluBeginPolygon)
 	if (args.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec(env, sig);
+		pExprBlock->Exec2(env, sig);
 		::gluEndPolygon(tess);
 	}
 	return Value::Null;
@@ -571,7 +571,7 @@ Gura_ImplementMethod(Nurbs, gluBeginSurface)
 	if (args.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec(env, sig);
+		pExprBlock->Exec2(env, sig);
 		::gluEndSurface(nobj);
 	}
 	return Value::Null;
@@ -591,7 +591,7 @@ Gura_ImplementMethod(Nurbs, gluBeginCurve)
 	if (args.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec(env, sig);
+		pExprBlock->Exec2(env, sig);
 		::gluEndCurve(nobj);
 	}
 	return Value::Null;
@@ -637,7 +637,7 @@ Gura_ImplementMethod(Nurbs, gluBeginTrim)
 	if (args.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec(env, sig);
+		pExprBlock->Exec2(env, sig);
 		::gluEndTrim(nobj);
 	}
 	return Value::Null;

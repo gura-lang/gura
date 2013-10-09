@@ -137,7 +137,7 @@ Value ConstructorOfCustomClass::DoEval(Environment &env, Signal sig, Args &args)
 	Value valueThis(valueRtn);
 	valueThis.AddFlags(VFLAG_Privileged);
 	pEnvLocal->AssignValue(Gura_Symbol(this), valueThis, EXTRA_Public);
-	GetExprBody()->Exec(*pEnvLocal, sig);
+	GetExprBody()->Exec2(*pEnvLocal, sig);
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, sig, args, valueRtn);
 }

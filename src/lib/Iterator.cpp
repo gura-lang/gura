@@ -586,7 +586,7 @@ bool Iterator::PrepareRepeaterIterators(Environment &env, Signal sig,
 		}
 		const Expr_BinaryOp *pExprBin =
 						dynamic_cast<const Expr_BinaryOp *>(pExpr);
-		value = pExprBin->GetRight()->Exec(env, sig);
+		value = pExprBin->GetRight()->Exec2(env, sig);
 		if (sig.IsSignalled()) return false;
 		Iterator *pIterator = value.CreateIterator(sig);
 		if (pIterator == NULL) return false;
@@ -1310,7 +1310,7 @@ bool Iterator_MemberMap::DoNext(Environment &env, Signal sig, Value &value)
 	Fundamental *pFundEach = valueThisEach.ExtractFundamental(sig);
 	if (sig.IsSignalled()) return false;
 	Environment &envEach = *pFundEach;
-	value = _pExpr->Exec(envEach, sig);
+	value = _pExpr->Exec2(envEach, sig);
 	if (value.IsFunction()) {
 		Object_function *pObj = new Object_function(envEach,
 						Function::Reference(value.GetFunction()), valueThisEach);
@@ -2531,7 +2531,7 @@ bool Iterator_while::DoNext(Environment &env, Signal sig, Value &value)
 	if (_doneFlag) return false;
 	for (;;) {
 		if (_pIteratorNest.IsNull()) {
-			if (!_pExpr->Exec(*_pEnv, sig).GetBoolean()) return false;
+			if (!_pExpr->Exec2(*_pEnv, sig).GetBoolean()) return false;
 			AutoPtr<Args> pArgs(new Args());
 			pArgs->SetValue(Value(static_cast<Number>(_idx)));
 			value = _pFuncBlock->Eval(*_pEnv, sig, *pArgs);

@@ -56,7 +56,7 @@ Value Object_operator::DoCall(Environment &env, Signal sig, Args &args)
 					"operator '%s' is not a unary one", GetMathSymbol());
 			return Value::Null;
 		}
-		Value value = exprList[0]->Exec(env, sig);
+		Value value = exprList[0]->Exec2(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		const Operator *pOperator = GetOperator(_opTypeUnary);
 		return pOperator->EvalUnary(env, sig, value);
@@ -66,9 +66,9 @@ Value Object_operator::DoCall(Environment &env, Signal sig, Args &args)
 					"operator '%s' is not a binary one", GetMathSymbol());
 			return Value::Null;
 		}
-		Value valueLeft = exprList[0]->Exec(env, sig);
+		Value valueLeft = exprList[0]->Exec2(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		Value valueRight = exprList[1]->Exec(env, sig);
+		Value valueRight = exprList[1]->Exec2(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		const Operator *pOperator = GetOperator(_opTypeBinary);
 		return pOperator->EvalBinary(env, sig, valueLeft, valueRight);

@@ -705,7 +705,7 @@ Value Object_ole::CallableOLE::DoCall(Environment &env, Signal sig, Args &argsEx
 						dynamic_cast<const Expr_DictAssign *>(pExpr);
 			Value valueKey = pExprDictAssign->GetKey(env, sig);
 			if (sig.IsSignalled()) goto error_done;
-			Value value = pExprDictAssign->GetRight()->Exec(env, sig);
+			Value value = pExprDictAssign->GetRight()->Exec2(env, sig);
 			if (sig.IsSignalled()) goto error_done;
 			valueArgsNamed.push_back(value);
 			if (valueKey.IsSymbol()) {
@@ -718,7 +718,7 @@ Value Object_ole::CallableOLE::DoCall(Environment &env, Signal sig, Args &argsEx
 				goto error_done;
 			}
 		} else {
-			Value value = pExpr->Exec(env, sig);
+			Value value = pExpr->Exec2(env, sig);
 			if (sig.IsSignalled()) goto error_done;
 			valueArgs.push_back(value);
 		}

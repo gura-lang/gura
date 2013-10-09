@@ -134,7 +134,7 @@ Gura_ImplementMethod(context, save)
 	if (args.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec(env, sig);
+		pExprBlock->Exec2(env, sig);
 		::cairo_restore(cr);
 		if (IsError(sig, cr)) return Value::Null;
 	}

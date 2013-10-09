@@ -51,7 +51,7 @@ Gura_ImplementFunction(glBegin)
 	if (args.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec(env, sig);
+		pExprBlock->Exec2(env, sig);
 		::glEnd();
 	}
 	return Value::Null;
@@ -992,7 +992,7 @@ Gura_ImplementFunction(glNewList)
 	if (args.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec(env, sig);
+		pExprBlock->Exec2(env, sig);
 		::glEndList();
 	}
 	return Value::Null;
@@ -1058,7 +1058,7 @@ Gura_ImplementFunction(glPushAttrib)
 	if (args.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec(env, sig);
+		pExprBlock->Exec2(env, sig);
 		::glPopAttrib();
 	}
 	return Value::Null;
@@ -1080,7 +1080,7 @@ Gura_ImplementFunction(glPushClientAttrib)
 	if (args.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec(env, sig);
+		pExprBlock->Exec2(env, sig);
 		::glPopClientAttrib();
 	}
 	return Value::Null;
@@ -1100,7 +1100,7 @@ Gura_ImplementFunction(glPushMatrix)
 	if (args.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec(env, sig);
+		pExprBlock->Exec2(env, sig);
 		::glPopMatrix();
 	}
 	return Value::Null;
@@ -1122,7 +1122,7 @@ Gura_ImplementFunction(glPushName)
 	if (args.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec(env, sig);
+		pExprBlock->Exec2(env, sig);
 		::glPopName();
 	}
 	return Value::Null;

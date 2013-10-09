@@ -778,7 +778,7 @@ Module *Environment::ImportSeparatedModule_Script(Signal sig, Environment *pEnvO
 	GetGlobal()->RegisterSeparatedModule(pathName, pModule);
 	bool echoFlagSaved = pModule->GetGlobal()->GetEchoFlag();
 	pModule->GetGlobal()->SetEchoFlag(false);
-	pExpr->Exec(*pModule, sig);
+	pExpr->Exec2(*pModule, sig);
 	pModule->GetGlobal()->SetEchoFlag(echoFlagSaved);
 	if (sig.IsSignalled()) {
 		GetGlobal()->UnregisterSeparatedModule(pathName);
