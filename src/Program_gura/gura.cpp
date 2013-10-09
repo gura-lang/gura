@@ -101,7 +101,7 @@ int Main(int argc, const char *argv[])
 	}
 	const char *encoding = opt.GetString("coding", "utf-8");
 	if (argc >= 2) {
-		AutoPtr<Expr> pExprRoot(Parser().ParseStream(env, sig,
+		AutoPtr<Expr_Root> pExprRoot(Parser().ParseStream(env, sig,
 						OAL::FromNativeString(argv[1]).c_str(), encoding));
 		if (sig.IsSignalled()) {
 			env.GetConsoleErr()->PrintSignal(sig, sig);
@@ -110,7 +110,8 @@ int Main(int argc, const char *argv[])
 		if (opt.IsSet("llvm")) {
 			pExprRoot->GenerateCode(env, sig, *env.GetConsole());
 		} else {
-			pExprRoot->Exec2(env, sig);
+			AutoPtr<Processor> pProcessor(pExprRoot->GenerateProcessor(env));
+			pProcessor->Run(sig);
 		}
 		if (sig.IsSignalled()) {
 			env.GetConsoleErr()->PrintSignal(sig, sig);

@@ -106,13 +106,14 @@ int MainW(int argc, const char *argv[])
 	}
 	const char *encoding = opt.GetString("coding", "utf-8");
 	if (argc >= 2) {
-		AutoPtr<Expr> pExprRoot(Parser().ParseStream(env, sig,
+		AutoPtr<Expr_Root> pExprRoot(Parser().ParseStream(env, sig,
 						OAL::FromNativeString(argv[1]).c_str(), encoding));
 		if (sig.IsSignalled()) {
 			env.GetConsole()->PrintSignal(sig, sig);
 			return 1;
 		}
-		pExprRoot->Exec2(env, sig);
+		AutoPtr<Processor> pProcessor(pExprRoot->GenerateProcessor(env));
+		pProcessor->Run(sig);
 		if (sig.IsSignalled()) {
 			env.GetConsole()->PrintSignal(sig, sig);
 			sig.ClearSignal();

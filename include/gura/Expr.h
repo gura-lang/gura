@@ -493,7 +493,6 @@ public:
 class GURA_DLLDECLARE Expr_Root : public Expr_Container {
 private:
 	String _pathName;
-	AutoPtr<Processor> _pProcessor;
 public:
 	Expr_Root(const String &pathName);
 	Expr_Root(const Expr_Root &expr);
@@ -508,6 +507,7 @@ public:
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
+	Processor *GenerateProcessor(Environment &env) const;
 };
 
 //-----------------------------------------------------------------------------

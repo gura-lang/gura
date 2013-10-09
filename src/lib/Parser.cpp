@@ -816,7 +816,7 @@ bool Parser::CheckStringPrefix(StringInfo &stringInfo, const String &token)
 	return true;
 }
 
-Expr *Parser::ParseStream(Environment &env, Signal sig, Stream &stream)
+Expr_Root *Parser::ParseStream(Environment &env, Signal sig, Stream &stream)
 {
 	Value result;
 	AutoPtr<Expr_Root> pExprRoot(new Expr_Root(stream.GetName()));
@@ -848,7 +848,7 @@ Expr *Parser::ParseStream(Environment &env, Signal sig, Stream &stream)
 	return pExprRoot.release();
 }
 
-Expr *Parser::ParseStream(Environment &env, Signal sig, const char *pathName, const char *encoding)
+Expr_Root *Parser::ParseStream(Environment &env, Signal sig, const char *pathName, const char *encoding)
 {
 	String pathNameMod;
 	do {

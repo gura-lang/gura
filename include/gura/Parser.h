@@ -226,8 +226,8 @@ public:
 	void Reset();
 	void InitStack();
 	Expr *ParseChar(Environment &env, Signal sig, char ch);
-	Expr *ParseStream(Environment &env, Signal sig, Stream &stream);
-	Expr *ParseStream(Environment &env, Signal sig, const char *pathName, const char *encoding);
+	Expr_Root *ParseStream(Environment &env, Signal sig, Stream &stream);
+	Expr_Root *ParseStream(Environment &env, Signal sig, const char *pathName, const char *encoding);
 	bool ParseString(Environment &env, Signal sig, ExprOwner &exprOwner,
 							const char *sourceName, const char *str, size_t len);
 	inline bool ParseString(Environment &env, Signal sig, ExprOwner &exprOwner,

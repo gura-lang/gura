@@ -772,13 +772,14 @@ Module *Environment::ImportSeparatedModule_Script(Signal sig, Environment *pEnvO
 	AutoPtr<Stream> pStream(PathManager::OpenStream(env, sig,
 										pathName, Stream::ATTR_Readable));
 	if (sig.IsError()) return NULL;
-	Expr *pExpr = Parser().ParseStream(*pEnvOuter, sig, *pStream);
+	Expr_Root *pExprRoot = Parser().ParseStream(*pEnvOuter, sig, *pStream);
 	if (sig.IsSignalled()) return NULL;
-	Module *pModule = new Module(pEnvOuter, symbolOfModule.back(), pathName, pExpr, NULL);
+	Module *pModule = new Module(pEnvOuter, symbolOfModule.back(),
+												pathName, pExprRoot, NULL);
 	GetGlobal()->RegisterSeparatedModule(pathName, pModule);
 	bool echoFlagSaved = pModule->GetGlobal()->GetEchoFlag();
 	pModule->GetGlobal()->SetEchoFlag(false);
-	pExpr->Exec2(*pModule, sig);
+	pExprRoot->Exec2(*pModule, sig);
 	pModule->GetGlobal()->SetEchoFlag(echoFlagSaved);
 	if (sig.IsSignalled()) {
 		GetGlobal()->UnregisterSeparatedModule(pathName);

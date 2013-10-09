@@ -575,9 +575,9 @@ Gura_DeclareMethod(stream, parse)
 Gura_ImplementMethod(stream, parse)
 {
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
-	Expr *pExpr = Parser().ParseStream(env, sig, stream);
-	if (pExpr == NULL) return Value::Null;
-	return ReturnValue(env, sig, args, Value(env, pExpr));
+	AutoPtr<Expr_Root> pExprRoot(Parser().ParseStream(env, sig, stream));
+	if (pExprRoot.IsNull()) return Value::Null;
+	return ReturnValue(env, sig, args, Value(env, pExprRoot.release()));
 }
 
 // stream#template(dst?:stream:w):map:[noindent,lasteol]

@@ -5,7 +5,7 @@
 
 namespace Gura {
 
-class Sequence {
+class GURA_DLLDECLARE Sequence {
 protected:
 	int _cntRef;
 	AutoPtr<Environment> _pEnv;
@@ -22,7 +22,7 @@ public:
 	inline bool CheckDone() const { return _doneFlag; }
 };
 
-class Sequence_Root : public Sequence {
+class GURA_DLLDECLARE Sequence_Root : public Sequence {
 protected:
 	AutoPtr<ExprOwner> _pExprOwner;
 	size_t _idxExpr;
@@ -34,7 +34,7 @@ public:
 	inline const ExprOwner &GetExprOwner() const { return *_pExprOwner; }
 };
 
-class Sequence_Expr : public Sequence {
+class GURA_DLLDECLARE Sequence_Expr : public Sequence {
 protected:
 	AutoPtr<ExprOwner> _pExprOwner;
 	size_t _idxExpr;
@@ -47,7 +47,7 @@ public:
 	inline const ExprOwner &GetExprOwner() const { return *_pExprOwner; }
 };
 
-class Sequence_CustomFunction : public Sequence_Expr {
+class GURA_DLLDECLARE Sequence_CustomFunction : public Sequence_Expr {
 protected:
 	AutoPtr<CustomFunction> _pCustomFunction;
 public:
@@ -57,7 +57,7 @@ public:
 	virtual String ToString() const;
 };
 
-class Sequence_ExprForList : public Sequence {
+class GURA_DLLDECLARE Sequence_ExprForList : public Sequence {
 protected:
 	AutoPtr<ExprOwner> _pExprOwner;
 	size_t _idxExpr;
@@ -71,7 +71,7 @@ public:
 	inline const ExprOwner &GetExprOwner() const { return *_pExprOwner; }
 };
 
-class Sequence_Iterator : public Sequence {
+class GURA_DLLDECLARE Sequence_Iterator : public Sequence {
 protected:
 	AutoPtr<Iterator> _pIterator;
 public:
@@ -82,13 +82,13 @@ public:
 	inline Iterator *GetIterator() { return _pIterator.get(); }
 };
 
-class SequenceStack : public std::list<Sequence *> {
+class GURA_DLLDECLARE SequenceStack : public std::list<Sequence *> {
 public:
 	~SequenceStack();
 	void Clear();
 };
 
-class Processor {
+class GURA_DLLDECLARE Processor {
 protected:
 	int _cntRef;
 	SequenceStack _sequenceStack;
@@ -99,6 +99,7 @@ public:
 	bool Step(Signal sig, Value &value);
 	inline void PushSequence(Sequence *pSequence) { _sequenceStack.push_back(pSequence); }
 	inline bool CheckDone() const { return _sequenceStack.empty(); }
+	Value Run(Signal sig);
 };
 
 }

@@ -1071,12 +1071,12 @@ bool Expr_Symbol::GenerateScriptTail(Signal sig, SimpleStream &stream,
 bool Expr_Root::IsRoot() const { return true; }
 
 Expr_Root::Expr_Root(const String &pathName) :
-	Expr_Container(EXPRTYPE_Root), _pathName(pathName), _pProcessor(new Processor())
+						Expr_Container(EXPRTYPE_Root), _pathName(pathName)
 {
 }
 
 Expr_Root::Expr_Root(const Expr_Root &expr) :
-	Expr_Container(expr), _pathName(expr._pathName), _pProcessor(expr._pProcessor->Reference())
+						Expr_Container(expr), _pathName(expr._pathName)
 {
 }
 
@@ -1125,13 +1125,8 @@ Value Expr_Root::DoExec(Environment &env, Signal sig) const
 #else
 Value Expr_Root::DoExec(Environment &env, Signal sig) const
 {
-	_pProcessor->PushSequence(new Sequence_Root(
-							env.Reference(), GetExprOwner().Reference()));
-	Value result;
-	while (!_pProcessor->CheckDone()) {
-		if (!_pProcessor->Step(sig, result)) return Value::Null;
-	}
-	return result;
+	AutoPtr<Processor> pProcessor(GenerateProcessor(env));
+	return pProcessor->Run(sig);
 }
 #endif
 
@@ -1150,6 +1145,14 @@ bool Expr_Root::GenerateScript(Signal sig, SimpleStream &stream,
 		if (sig.IsSignalled()) return false;
 	}
 	return true;
+}
+
+Processor *Expr_Root::GenerateProcessor(Environment &env) const
+{
+	AutoPtr<Processor> pProcessor(new Processor());
+	pProcessor->PushSequence(new Sequence_Root(
+							env.Reference(), GetExprOwner().Reference()));
+	return pProcessor.release();
 }
 
 //-----------------------------------------------------------------------------
