@@ -33,7 +33,7 @@ bool Sequence_Root::Step(Signal sig, Value &result)
 	Environment &env = *_pEnv;
 	const Expr *pExpr = GetExprOwner()[_idxExpr++];
 	//::printf("# %s\n", pExpr->ToString(Expr::SCRSTYLE_Brief).c_str());
-	result = pExpr->Exec2(env, sig);
+	result = pExpr->Exec(env, sig);
 	if (sig.IsError()) {
 		sig.AddExprCause(pExpr);
 		_doneFlag = true;
@@ -80,7 +80,7 @@ bool Sequence_Expr::Step(Signal sig, Value &result)
 	}
 	Environment &env = *_pEnv;
 	const Expr *pExpr = GetExprOwner()[_idxExpr++];
-	result = pExpr->Exec2(env, sig);
+	result = pExpr->Exec(env, sig);
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(pExpr);
 		_doneFlag = true;
@@ -176,7 +176,7 @@ bool Sequence_ExprForList::Step(Signal sig, Value &result)
 	}
 	Environment &env = *_pEnv;
 	const Expr *pExpr = GetExprOwner()[_idxExpr++];
-	result = pExpr->Exec2(env, sig);
+	result = pExpr->Exec(env, sig);
 	return true;
 }
 

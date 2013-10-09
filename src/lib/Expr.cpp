@@ -73,7 +73,7 @@ const char *Expr::GetPathName() const
 	return (_pExprParent == NULL)? NULL : _pExprParent->GetPathName();
 }
 
-Value Expr::Exec2(Environment &env, Signal sig) const
+Value Expr::Exec(Environment &env, Signal sig) const
 {
 	Value result = DoExec(env, sig);
 	if (sig.IsSignalled()) {

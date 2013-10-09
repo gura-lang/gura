@@ -168,7 +168,8 @@ public:
 	inline const char *GetTypeName() const { return GetExprTypeName(_exprType); }
 	inline ExprType GetType() const { return _exprType; }
 	inline bool IsType(ExprType exprType) const { return _exprType == exprType; }
-	Value Exec2(Environment &env, Signal sig) const;
+	inline Value Exec2(Environment &env, Signal sig) const { return Exec(env, sig); }
+	Value Exec(Environment &env, Signal sig) const;
 	bool Exec2InArg(Environment &env, Signal sig,
 					ValueList &valListArg, size_t &nElems, bool quoteFlag) const;
 	Function *ToFunction(Environment &env, Signal sig,
