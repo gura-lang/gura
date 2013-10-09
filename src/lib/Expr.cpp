@@ -81,43 +81,6 @@ Value Expr::Exec(Environment &env, Signal sig) const
 	return result;
 }
 
-bool Expr::Exec2InArg(Environment &env, Signal sig,
-					ValueList &valListArg, size_t &nElems, bool quoteFlag) const
-{
-	if (quoteFlag) {
-		Object_expr *pObj = new Object_expr(env, Expr::Reference(this));
-		valListArg.push_back(Value(pObj));
-		nElems = 1;
-	} else if (IsSuffix()) {
-		const Expr_Suffix *pExprSuffix = dynamic_cast<const Expr_Suffix *>(this);
-		if (!pExprSuffix->GetSymbol()->IsIdentical(Gura_Symbol(Char_Mul))) {
-			SetError(sig, ERR_SyntaxError, "invalid argument");
-			return false;
-		}
-		Value value = pExprSuffix->GetChild()->Exec2(env, sig);
-		if (sig.IsSignalled()) {
-			sig.AddExprCause(this);
-			return false;
-		}
-		if (value.IsList()) {
-			const ValueList &valList = value.GetList();
-			nElems = valList.size();
-			foreach_const (ValueList, pValue, valList) {
-				valListArg.push_back(*pValue);
-			}
-		} else {
-			nElems = 1;
-			valListArg.push_back(value);
-		}
-	} else {
-		Value value = Exec2(env, sig);
-		if (sig.IsSignalled()) return false;
-		valListArg.push_back(value);
-		nElems = 1;
-	}
-	return true;
-}
-
 Value Expr::DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
 {

@@ -145,16 +145,12 @@ Gura_Method(Object, __call__)::Gura_Method(Object, __call__)(Environment &env, c
 Value Gura_Method(Object, __call__)::EvalExpr(Environment &env, Signal sig, Args &args) const
 {
 	Fundamental *pThis = args.GetThisFundamental();
-	AutoPtr<ExprOwner> pExprOwnerArg(new ExprOwner(args.GetExprListArg()));
-	const Expr *pExprArg = pExprOwnerArg->front();
-	size_t nElems = 0;
-	ValueList valListArg;
-	if (!pExprArg->Exec2InArg(env, sig, valListArg, nElems, false)) return Value::Null;
-	if (valListArg.size() != 1) {
+	if (args.GetExprListArg().size() < 1) {
 		sig.SetError(ERR_ValueError, "invalid argument for __call__()");
 		return Value::Null;
 	}
-	const Value &value = valListArg.front();
+	Value value = args.GetExprListArg().front()->Exec2(env, sig);
+	if (sig.IsSignalled()) return Value::Null;
 	if (!value.IsSymbol()) {
 		sig.SetError(ERR_ValueError, "invalid argument for __call__()");
 		return Value::Null;
@@ -174,8 +170,14 @@ Value Gura_Method(Object, __call__)::EvalExpr(Environment &env, Signal sig, Args
 		return Value::Null;
 	}
 	const Function *pFunc = valueFunc.GetFunction();
-	pExprOwnerArg->erase(pExprOwnerArg->begin());
 	AutoPtr<Args> pArgsSub(new Args(args));
+	AutoPtr<ExprOwner> pExprOwnerArg(new ExprOwner());
+	ExprList::const_iterator ppExprArg = args.GetExprListArg().begin();
+	ppExprArg++;
+	for ( ; ppExprArg != args.GetExprListArg().end(); ppExprArg++) {
+		const Expr *pExprArg = *ppExprArg;
+		pExprOwnerArg->push_back(pExprArg->Reference());
+	}
 	pArgsSub->SetExprOwnerArg(pExprOwnerArg.release());
 	return pFunc->EvalExpr(env, sig, *pArgsSub);
 }

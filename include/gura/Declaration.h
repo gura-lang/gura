@@ -87,7 +87,6 @@ public:
 	bool ShouldImplicitMap(const ValueList &valList) const;
 	bool ShouldImplicitMap(const Args &args) const;
 	String ToString() const;
-	static void SetError_InvalidArgumentName(Signal sig, const ExprMap &exprMap);
 };
 
 //-----------------------------------------------------------------------------
@@ -115,8 +114,6 @@ public:
 		return Declare(env, Symbol::Add(name), valType, occurPattern, flags, pExprDefault);
 	}
 	bool Declare(Environment &env, Signal sig, const ExprList &exprList);
-	bool PrepareArgs(Environment &env, Signal sig,
-		const ExprList &exprListArg, ValueList &valListArg, ValueDict &valDictArg) const;
 	bool ValidateAndCast(Environment &env, Signal sig,
 		const ValueList &valList, ValueList &valListCasted) const;
 	String ToString() const;

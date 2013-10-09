@@ -168,8 +168,6 @@ public:
 	inline bool IsType(ExprType exprType) const { return _exprType == exprType; }
 	inline Value Exec2(Environment &env, Signal sig) const { return Exec(env, sig); }
 	Value Exec(Environment &env, Signal sig) const;
-	bool Exec2InArg(Environment &env, Signal sig,
-					ValueList &valListArg, size_t &nElems, bool quoteFlag) const;
 	Function *ToFunction(Environment &env, Signal sig,
 				const ValueList &valListArg, const SymbolSet &attrs) const;
 	bool IsAtSameLine(const Expr *pExpr) const;
@@ -865,6 +863,10 @@ public:
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
+	inline static bool IsSuffixed(const Expr *pExpr, const Symbol *pSymbol) {
+		return pExpr->IsSuffix() && dynamic_cast<const Expr_Suffix *>(pExpr)->
+												GetSymbol()->IsIdentical(pSymbol);
+	}
 };
 
 //-----------------------------------------------------------------------------

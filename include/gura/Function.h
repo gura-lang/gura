@@ -274,6 +274,7 @@ public:
 	void SetError_InvalidFunctionExpression(Signal sig) const;
 	void SetError_MathDiffError(Signal sig) const;
 	void SetError_MathOptimizeError(Signal sig) const;
+	void SetError_InvalidArgumentName(Signal sig, const ExprMap &exprMap) const;
 	virtual Expr *DiffUnary(Environment &env, Signal sig,
 							const Expr *pExprArg, const Symbol *pSymbol) const;
 	virtual Expr *DiffBinary(Environment &env, Signal sig,
@@ -289,6 +290,7 @@ protected:
 					Args &args, const ValueList &valListArg) const;
 	Value ReturnIterator(Environment &env, Signal sig,
 					Args &args, Iterator *pIterator) const;
+	Args *PrepareArgs(Environment &env, Signal sig, const Args &argsSrc) const;
 	Environment *PrepareEnvironment(Environment &env, Signal sig, Args &args) const;
 private:
 	virtual Value DoEval(Environment &env, Signal sig, Args &args) const = 0;
