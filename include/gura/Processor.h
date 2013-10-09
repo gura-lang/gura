@@ -23,7 +23,7 @@ public:
 };
 
 class Sequence_Root : public Sequence {
-private:
+protected:
 	AutoPtr<ExprOwner> _pExprOwner;
 	size_t _idxExpr;
 public:
@@ -35,7 +35,7 @@ public:
 };
 
 class Sequence_Expr : public Sequence {
-private:
+protected:
 	AutoPtr<ExprOwner> _pExprOwner;
 	size_t _idxExpr;
 	bool _evalSymFuncFlag;
@@ -47,8 +47,18 @@ public:
 	inline const ExprOwner &GetExprOwner() const { return *_pExprOwner; }
 };
 
+class Sequence_CustomFunction : public Sequence_Expr {
+protected:
+	AutoPtr<CustomFunction> _pCustomFunction;
+public:
+	Sequence_CustomFunction(Environment *pEnv, CustomFunction *pCustomFunction);
+public:
+	virtual bool Step(Signal sig, Value &result);
+	virtual String ToString() const;
+};
+
 class Sequence_ExprForList : public Sequence {
-private:
+protected:
 	AutoPtr<ExprOwner> _pExprOwner;
 	size_t _idxExpr;
 	Value _value;
@@ -62,7 +72,7 @@ public:
 };
 
 class Sequence_Iterator : public Sequence {
-private:
+protected:
 	AutoPtr<Iterator> _pIterator;
 public:
 	Sequence_Iterator(Environment *pEnv, Iterator *pIterator);
@@ -79,7 +89,7 @@ public:
 };
 
 class Processor {
-private:
+protected:
 	int _cntRef;
 	SequenceStack _sequenceStack;
 public:

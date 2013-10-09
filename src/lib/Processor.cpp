@@ -115,6 +115,50 @@ String Sequence_Expr::ToString() const
 }
 
 //-----------------------------------------------------------------------------
+// Sequence_CustomFunction
+//-----------------------------------------------------------------------------
+Sequence_CustomFunction::Sequence_CustomFunction(Environment *pEnv, CustomFunction *pCustomFunction) :
+			Sequence_Expr(pEnv, NULL, true), _pCustomFunction(pCustomFunction)
+{
+	const Expr *pExprBody = _pCustomFunction->GetExprBody();
+	if (pExprBody == NULL) {
+		_pExprOwner.reset(new ExprOwner());
+	} else if (pExprBody->IsBlock()) {
+		const Expr_Block *pExprBlock = dynamic_cast<const Expr_Block *>(pExprBody);
+		_pExprOwner.reset(pExprBlock->GetExprOwner().Reference());
+	} else {
+		_pExprOwner.reset(new ExprOwner());
+		_pExprOwner->push_back(pExprBody->Reference());
+	}
+}
+
+bool Sequence_CustomFunction::Step(Signal sig, Value &result)
+{
+	Environment &env = *_pEnv;
+	if (!Sequence_Expr::Step(sig, result)) return false;
+	if (env.GetEnvType() == ENVTYPE_block) {
+		// nothing to do. simply pass the signal to the outside.
+	} else if (!sig.IsSignalled()) {
+		// nothing to do
+	} else if (sig.IsBreak()) {
+		sig.ClearSignal();
+	} else if (sig.IsContinue()) {
+		sig.ClearSignal();
+	} else if (sig.IsReturn()) {
+		result = sig.GetValue();
+		sig.ClearSignal();
+	}
+	return true;
+}
+
+String Sequence_CustomFunction::ToString() const
+{
+	String str;
+	str += "<sequence_customfunction>";
+	return str;
+}
+
+//-----------------------------------------------------------------------------
 // Sequence_ExprForList
 //-----------------------------------------------------------------------------
 Sequence_ExprForList::Sequence_ExprForList(Environment *pEnv, ExprOwner *pExprOwner) :
