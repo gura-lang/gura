@@ -213,19 +213,58 @@ const Help *Function::GetHelp(const Symbol *pSymbol) const
 	return NULL;
 }
 
+class Sequence_Call : public Sequence {
+private:
+	AutoPtr<Function> _pFunc;
+	AutoPtr<Args> _pArgs;
+public:
+	Sequence_Call(Environment *pEnv, Function *pFunc, const Args &args);
+public:
+	virtual bool Step(Signal sig, Value &result);
+	virtual String ToString() const;
+};
+
+Sequence_Call::Sequence_Call(Environment *pEnv, Function *pFunc, const Args &args) :
+			Sequence(pEnv), _pFunc(pFunc), _pArgs(new Args(args, ValueList::Null))
+{
+}
+
+bool Sequence_Call::Step(Signal sig, Value &result)
+{
+	return true;
+}
+
+String Sequence_Call::ToString() const
+{
+	String str;
+	str += "<sequence:call>";
+	return str;
+}
+
 Value Function::Call(Environment &env, Signal sig, const Args &args) const
 {
-	if (GetType() == FUNCTYPE_Instance && args.GetThisObj() == NULL) {
+	AutoPtr<Args> pArgs(new Args(args, ValueList::Null));
+	ValueList &valListArg = pArgs->GetValueListArg();
+	Value valueWithDict;
+	ValueDict &valDictArg = valueWithDict.InitAsDict(env, false);
+	pArgs->SetValueWithDict(valueWithDict);
+	ExprMap exprMap;
+	DeclarationList::const_iterator ppDecl = _declOwner.begin();
+	bool stayDeclPointerFlag = false;
+	AutoPtr<ExprOwner> pExprsToDelete(new ExprOwner()); // store temporary Exprs that are to be deleted at the end
+	bool mapFlag = GetMapFlag();
+	//-------------------------------------------------------------------------
+	if (GetType() == FUNCTYPE_Instance && pArgs->GetThisObj() == NULL) {
 		sig.SetError(ERR_ValueError,
 			"object is expected as l-value of field");
 		return Value::Null;
 	} else if (GetType() == FUNCTYPE_Class &&
-				args.GetThisClass() == NULL && args.GetThisObj() == NULL) {
+				pArgs->GetThisClass() == NULL && pArgs->GetThisObj() == NULL) {
 		sig.SetError(ERR_ValueError,
 			"class or object is expected as l-value of field");
 		return Value::Null;
 	}
-	if (args.IsBlockSpecified()) {
+	if (pArgs->IsBlockSpecified()) {
 		if (_blockInfo.occurPattern == OCCUR_Zero) {
 			sig.SetError(ERR_ValueError,
 				"block is unnecessary for '%s'", ToString().c_str());
@@ -238,58 +277,51 @@ Value Function::Call(Environment &env, Signal sig, const Args &args) const
 			return Value::Null;
 		}
 	}
-	bool mapFlag = GetMapFlag();
-	ULong flags = _flags;
-	ResultMode resultMode = _resultMode;
-	foreach_const (SymbolSet, ppSymbol, args.GetAttrs()) {
-		const Symbol *pSymbol = *ppSymbol;
-		if (pSymbol->IsIdentical(Gura_Symbol(map))) {
-			mapFlag = true;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(nomap))) {
-			mapFlag = false;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(flat))) {
-			flags |= FLAG_Flat;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(noflat))) {
-			flags &= ~FLAG_Flat;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(list))) {
-			resultMode = RSLTMODE_List;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(xlist))) {
-			resultMode = RSLTMODE_XList;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(set))) {
-			resultMode = RSLTMODE_Set;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(xset))) {
-			resultMode = RSLTMODE_XSet;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(iter))) {
-			resultMode = RSLTMODE_Iterator;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(xiter))) {
-			resultMode = RSLTMODE_XIterator;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(void_))) {
-			resultMode = RSLTMODE_Void;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(reduce))) {
-			resultMode = RSLTMODE_Reduce;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(xreduce))) {
-			resultMode = RSLTMODE_XReduce;
-		} else if (_attrsOpt.IsSet(pSymbol)) {
-			// nothing to do
-		} else {
-			sig.SetError(ERR_AttributeError,
-				"unsupported attribute '%s' for '%s'",
-										pSymbol->GetName(), ToString().c_str());
-			return Value::Null;
+	do {
+		ULong flags = _flags;
+		ResultMode resultMode = _resultMode;
+		foreach_const (SymbolSet, ppSymbol, pArgs->GetAttrs()) {
+			const Symbol *pSymbol = *ppSymbol;
+			if (pSymbol->IsIdentical(Gura_Symbol(map))) {
+				mapFlag = true;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(nomap))) {
+				mapFlag = false;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(flat))) {
+				flags |= FLAG_Flat;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(noflat))) {
+				flags &= ~FLAG_Flat;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(list))) {
+				resultMode = RSLTMODE_List;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(xlist))) {
+				resultMode = RSLTMODE_XList;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(set))) {
+				resultMode = RSLTMODE_Set;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(xset))) {
+				resultMode = RSLTMODE_XSet;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(iter))) {
+				resultMode = RSLTMODE_Iterator;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(xiter))) {
+				resultMode = RSLTMODE_XIterator;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(void_))) {
+				resultMode = RSLTMODE_Void;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(reduce))) {
+				resultMode = RSLTMODE_Reduce;
+			} else if (pSymbol->IsIdentical(Gura_Symbol(xreduce))) {
+				resultMode = RSLTMODE_XReduce;
+			} else if (_attrsOpt.IsSet(pSymbol)) {
+				// nothing to do
+			} else {
+				sig.SetError(ERR_AttributeError,
+					"unsupported attribute '%s' for '%s'",
+											pSymbol->GetName(), ToString().c_str());
+				return Value::Null;
+			}
 		}
-	}
-	AutoPtr<Args> pArgsSub(new Args(args, ValueList::Null));
-	pArgsSub->SetResultMode(resultMode);
-	pArgsSub->SetFlags(flags);
-	ValueList &valListArg = pArgsSub->GetValueListArg();
-	Value valueWithDict;
-	ValueDict &valDictArg = valueWithDict.InitAsDict(env, false);
-	pArgsSub->SetValueWithDict(valueWithDict);
-	ExprMap exprMap;
-	DeclarationList::const_iterator ppDecl = _declOwner.begin();
-	bool stayDeclPointerFlag = false;
-	AutoPtr<ExprOwner> pExprsToDelete(new ExprOwner()); // store temporary Exprs that are to be deleted at the end
-	foreach_const (ExprList, ppExprArg, args.GetExprListArg()) {
+		pArgs->SetResultMode(resultMode);
+		pArgs->SetFlags(flags);
+	} while (0);
+	//-------------------------------------------------------------------------
+	foreach_const (ExprList, ppExprArg, pArgs->GetExprListArg()) {
 		const Expr *pExprArg = *ppExprArg;
 		bool quoteFlag = ppDecl != _declOwner.end() && (*ppDecl)->IsQuote();
 		if (!quoteFlag && pExprArg->IsDictAssign()) {
@@ -379,6 +411,7 @@ Value Function::Call(Environment &env, Signal sig, const Args &args) const
 			return Value::Null;
 		}
 	}
+	//-------------------------------------------------------------------------
 	if (!stayDeclPointerFlag) {
 		for ( ; ppDecl != _declOwner.end(); ppDecl++) {
 			const Declaration *pDecl = *ppDecl;
@@ -419,6 +452,7 @@ Value Function::Call(Environment &env, Signal sig, const Args &args) const
 			valListArg.push_back(value);
 		}
 	}
+	//-------------------------------------------------------------------------
 	if (_declOwner.GetSymbolDict() != NULL) {
 		foreach (ExprMap, iter, exprMap) {
 			const Symbol *pSymbol = iter->first;
@@ -431,10 +465,11 @@ Value Function::Call(Environment &env, Signal sig, const Args &args) const
 		SetError_InvalidArgumentName(sig, exprMap);
 		return Value::Null;
 	}
-	if (mapFlag && _declOwner.ShouldImplicitMap(*pArgsSub)) {
-		return EvalMap(env, sig, *pArgsSub);
+	//-------------------------------------------------------------------------
+	if (mapFlag && _declOwner.ShouldImplicitMap(*pArgs)) {
+		return EvalMap(env, sig, *pArgs);
 	}
-	return Eval(env, sig, *pArgsSub);
+	return Eval(env, sig, *pArgs);
 }
 
 Value Function::Eval(Environment &env, Signal sig, Args &args) const

@@ -59,7 +59,7 @@ bool Sequence_Root::Step(Signal sig, Value &result)
 String Sequence_Root::ToString() const
 {
 	String str;
-	str += "<sequence_root>";
+	str += "<sequence:root>";
 	return str;
 }
 
@@ -111,7 +111,7 @@ bool Sequence_Expr::Step(Signal sig, Value &result)
 String Sequence_Expr::ToString() const
 {
 	String str;
-	str += "<sequence_expr>";
+	str += "<sequence:expr>";
 	return str;
 }
 
@@ -155,7 +155,7 @@ bool Sequence_CustomFunction::Step(Signal sig, Value &result)
 String Sequence_CustomFunction::ToString() const
 {
 	String str;
-	str += "<sequence_customfunction>";
+	str += "<sequence:customfunction>";
 	return str;
 }
 
@@ -184,7 +184,7 @@ bool Sequence_ExprForList::Step(Signal sig, Value &result)
 String Sequence_ExprForList::ToString() const
 {
 	String str;
-	str += "<sequence_exprforlist>";
+	str += "<sequence:exprforlist>";
 	return str;
 }
 
@@ -210,7 +210,7 @@ bool Sequence_Iterator::Step(Signal sig, Value &result)
 String Sequence_Iterator::ToString() const
 {
 	String str;
-	str += "<sequence_iterator>";
+	str += "<sequence:iterator>";
 	return str;
 }
 
