@@ -357,13 +357,6 @@ public:
 		_pExprOwnerArg(ExprOwner::Reference(args._pExprOwnerArg.get())),
 		_pExprBlock(Expr_Block::Reference(args._pExprBlock.get())),
 		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
-#if 0
-	inline Args(const ValueList &valListArg) : _cntRef(1),
-		_resultMode(RSLTMODE_Normal),
-		_flags(FLAG_None),
-		_listThisFlag(false),
-		_valListArg(valListArg) {}
-#endif
 	inline Args(const Args &args, const ValueList &valListArg) : _cntRef(1),
 		_resultMode(args._resultMode),
 		_flags(args._flags),
@@ -395,7 +388,9 @@ public:
 	inline Value &GetThis() { return _valueThis; }
 	inline const Value &GetThis() const { return _valueThis; }
 	inline Class *GetThisClass() { return _valueThis.GetClass(); }
+	inline const Class *GetThisClass() const { return _valueThis.GetClass(); }
 	inline Object *GetThisObj() { return _valueThis.GetObject(); }
+	inline const Object *GetThisObj() const { return _valueThis.GetObject(); }
 	inline Fundamental *GetThisFundamental() { return _valueThis.GetFundamental(); }
 	inline void SetIteratorThis(Iterator *pIteratorThis, bool listThisFlag) {
 		_pIteratorThis.reset(pIteratorThis);
