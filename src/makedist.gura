@@ -95,6 +95,7 @@ textTemplate = R"""
         </Directory>
       </Directory>
     </Directory>
+    <Icon Id="getterphoto" SourceFile="application\getterphoto\getterphoto.ico" />
     <DirectoryRef Id="ProgramShortcutDir">
       <Component Id="ApplicationShortcut" Guid="${uuid.generate()}">
         <Shortcut Id="Shortcut1"
@@ -112,6 +113,12 @@ textTemplate = R"""
                   Description="Gura Developers Manual"
                   Target="[INSTALLDIR]doc\gura-dev-j.pdf"
                   WorkingDirectory="INSTALLDIR" />
+        <Shortcut Id="Shortcut4"
+                  Name="Getter Photo"
+                  Description="Getter Photo"
+                  Target="[INSTALLDIR]application\getterphoto\getterphoto.guraw"
+                  WorkingDirectory="INSTALLDIR"
+                  Icon="getterphoto" />
         <RemoveFolder Id="ProgramShortcutDir" On="uninstall"/>
         <RegistryValue Root="HKCU" Key="Software\Microsoft\Gura" Name="Installed" Type="integer" Value="1" KeyPath="yes"/>
       </Component>
