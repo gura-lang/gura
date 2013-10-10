@@ -98,7 +98,7 @@ bool Sequence_Expr::Step(Signal sig, Value &result)
 		//   repeat { flag && return }
 		const Function *pFunc = result.GetFunction();
 		AutoPtr<Args> pArgs(new Args());
-		Value result = pFunc->EvalExpr(env, sig, *pArgs);
+		Value result = pFunc->Call(env, sig, *pArgs);
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(pExpr);
 			_doneFlag = true;

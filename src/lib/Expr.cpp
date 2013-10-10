@@ -457,7 +457,7 @@ Value ExprList::Exec2(Environment &env, Signal sig, bool evalSymFuncFlag) const
 			//   repeat { flag && return }
 			const Function *pFunc = result.GetFunction();
 			AutoPtr<Args> pArgs(new Args());
-			Value result = pFunc->EvalExpr(env, sig, *pArgs);
+			Value result = pFunc->Call(env, sig, *pArgs);
 			if (sig.IsSignalled()) {
 				sig.AddExprCause(*ppExpr);
 				return Value::Null;

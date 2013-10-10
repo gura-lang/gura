@@ -128,7 +128,7 @@ Gura_ImplementClassMethod(Object, setprop_X)
 class Gura_Method(Object, __call__) : public Function {
 public:
 	Gura_Method(Object, __call__)(Environment &env, const char *name = "__call__");
-	virtual Value EvalExpr(Environment &env, Signal sig, const Args &args) const;
+	virtual Value Call(Environment &env, Signal sig, const Args &args) const;
 	virtual Value DoEval(Environment &env, Signal sig, Args &args) const;
 };
 
@@ -142,7 +142,7 @@ Gura_Method(Object, __call__)::Gura_Method(Object, __call__)(Environment &env, c
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Value Gura_Method(Object, __call__)::EvalExpr(Environment &env, Signal sig, const Args &args) const
+Value Gura_Method(Object, __call__)::Call(Environment &env, Signal sig, const Args &args) const
 {
 	const Fundamental *pThis = args.GetThisFundamental();
 	if (args.GetExprListArg().size() < 1) {
@@ -179,7 +179,7 @@ Value Gura_Method(Object, __call__)::EvalExpr(Environment &env, Signal sig, cons
 		pExprOwnerArg->push_back(pExprArg->Reference());
 	}
 	pArgsSub->SetExprOwnerArg(pExprOwnerArg.release());
-	return pFunc->EvalExpr(env, sig, *pArgsSub);
+	return pFunc->Call(env, sig, *pArgsSub);
 }
 
 Value Gura_Method(Object, __call__)::DoEval(Environment &env, Signal sig, Args &args) const

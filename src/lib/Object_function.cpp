@@ -125,7 +125,7 @@ Value Object_function::DoCall(Environment &env, Signal sig, Args &args)
 					(args.GetThis().IsModule() && _valueThis.IsValid())) {
 		args.SetThis(_valueThis);
 	}
-	return _pFunc->EvalExpr(env, sig, args);
+	return _pFunc->Call(env, sig, args);
 }
 
 Value Object_function::Eval(Environment &env, Signal sig, ValueList &valListArg) const

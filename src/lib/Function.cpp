@@ -213,7 +213,7 @@ const Help *Function::GetHelp(const Symbol *pSymbol) const
 	return NULL;
 }
 
-Value Function::EvalExpr(Environment &env, Signal sig, const Args &args) const
+Value Function::Call(Environment &env, Signal sig, const Args &args) const
 {
 	if (GetType() == FUNCTYPE_Instance && args.GetThisObj() == NULL) {
 		sig.SetError(ERR_ValueError,

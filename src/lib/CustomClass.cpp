@@ -131,7 +131,7 @@ Value ConstructorOfCustomClass::DoEval(Environment &env, Signal sig, Args &args)
 		AutoPtr<Args> pArgsSub(new Args());
 		pArgsSub->SetExprOwnerArg(pExprOwner);
 		pArgsSub->SetThis(valueRtn);
-		pConstructorSuper->EvalExpr(*pEnvSuper, sig, *pArgsSub);
+		pConstructorSuper->Call(*pEnvSuper, sig, *pArgsSub);
 		if (sig.IsSignalled()) return Value::Null;
 	}
 	Value valueThis(valueRtn);
