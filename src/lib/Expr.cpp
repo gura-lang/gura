@@ -1094,41 +1094,11 @@ const char *Expr_Root::GetPathName() const
 	return _pathName.c_str();
 }
 
-#if 0
-Value Expr_Root::DoExec(Environment &env, Signal sig) const
-{
-	Value result;
-	foreach_const (ExprList, ppExpr, GetExprOwner()) {
-		const Expr *pExpr = *ppExpr;
-		result = pExpr->Exec(env, sig);
-		if (sig.IsError()) {
-			sig.AddExprCause(pExpr);
-			result = Value::Null;
-			break;
-		} else if (sig.IsTerminate()) {
-			env.GetConsoleErr()->PrintSignal(sig, sig);
-			sig.ClearSignal();
-			result = Value::Null;
-			break;
-		} else if (sig.IsSignalled()) {
-			env.GetConsoleErr()->PrintSignal(sig, sig);
-			sig.ClearSignal();
-		} else if (!env.GetGlobal()->GetEchoFlag()) {
-			// nothing to do
-		} else if (result.IsValid()) {
-			// pConsole must be retrieved here.
-			env.GetConsole()->Println(sig, result.ToString(sig).c_str());
-		}
-	}
-	return result;
-}
-#else
 Value Expr_Root::DoExec(Environment &env, Signal sig) const
 {
 	AutoPtr<Processor> pProcessor(GenerateProcessor(env));
 	return pProcessor->Run(sig);
 }
-#endif
 
 bool Expr_Root::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {

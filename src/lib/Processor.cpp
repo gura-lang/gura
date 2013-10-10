@@ -36,11 +36,13 @@ bool Sequence_Root::Step(Signal sig, Value &result)
 	result = pExpr->Exec(env, sig);
 	if (sig.IsError()) {
 		sig.AddExprCause(pExpr);
+		result = Value::Null;
 		_doneFlag = true;
 		return false;
 	} else if (sig.IsTerminate()) {
 		env.GetConsoleErr()->PrintSignal(sig, sig);
 		sig.ClearSignal();
+		result = Value::Null;
 		_doneFlag = true;
 		return false;
 	} else if (sig.IsSignalled()) {
@@ -49,7 +51,6 @@ bool Sequence_Root::Step(Signal sig, Value &result)
 	} else if (!env.GetGlobal()->GetEchoFlag()) {
 		// nothing to do
 	} else if (result.IsValid()) {
-		// pConsole must be retrieved here.
 		env.GetConsole()->Println(sig, result.ToString(sig).c_str());
 	}
 	return true;
