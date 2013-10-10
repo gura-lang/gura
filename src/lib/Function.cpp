@@ -379,44 +379,45 @@ Value Function::EvalExpr(Environment &env, Signal sig, Args &args) const
 			return Value::Null;
 		}
 	}
-	if (stayDeclPointerFlag) ppDecl = _declOwner.end();
-	for ( ; ppDecl != _declOwner.end(); ppDecl++) {
-		const Declaration *pDecl = *ppDecl;
-		const Expr *pExprArg = pDecl->GetExprDefault();
-		ExprMap::iterator iter = exprMap.find(pDecl->GetSymbol());
-		if (iter != exprMap.end()) {
-			exprMap.erase(iter);
-			pExprArg = iter->second;
-		}
-		Value value;
-		if (pExprArg == NULL) {
-			if (pDecl->GetOccurPattern() == OCCUR_ZeroOrOnce) {
-				value = Value::Undefined;
-			} else if (pDecl->GetOccurPattern() == OCCUR_ZeroOrMore) {
-				break;
+	if (!stayDeclPointerFlag) {
+		for ( ; ppDecl != _declOwner.end(); ppDecl++) {
+			const Declaration *pDecl = *ppDecl;
+			const Expr *pExprArg = pDecl->GetExprDefault();
+			ExprMap::iterator iter = exprMap.find(pDecl->GetSymbol());
+			if (iter != exprMap.end()) {
+				exprMap.erase(iter);
+				pExprArg = iter->second;
+			}
+			Value value;
+			if (pExprArg == NULL) {
+				if (pDecl->GetOccurPattern() == OCCUR_ZeroOrOnce) {
+					value = Value::Undefined;
+				} else if (pDecl->GetOccurPattern() == OCCUR_ZeroOrMore) {
+					break;
+				} else {
+					Declaration::SetError_NotEnoughArguments(sig);
+					return Value::Null;
+				}
+			} else if (pDecl->IsQuote()) {
+				value = Value(new Object_expr(env, Expr::Reference(pExprArg)));
+			} else if (pDecl->IsType(VTYPE_symbol)) {
+				const Expr *pExpr = pExprArg;
+				if (pExpr->IsQuote()) {
+					pExpr = dynamic_cast<const Expr_Quote *>(pExpr)->GetChild();
+				}
+				if (!pExpr->IsSymbol()) {
+					sig.SetError(ERR_TypeError, "symbol is expected");
+					return Value::Null;
+				}
+				const Symbol *pSymbol =
+							dynamic_cast<const Expr_Symbol *>(pExpr)->GetSymbol();
+				value = Value(pSymbol);
 			} else {
-				Declaration::SetError_NotEnoughArguments(sig);
-				return Value::Null;
+				value = pExprArg->Exec2(env, sig);
+				if (sig.IsSignalled()) return Value::Null;
 			}
-		} else if (pDecl->IsQuote()) {
-			value = Value(new Object_expr(env, Expr::Reference(pExprArg)));
-		} else if (pDecl->IsType(VTYPE_symbol)) {
-			const Expr *pExpr = pExprArg;
-			if (pExpr->IsQuote()) {
-				pExpr = dynamic_cast<const Expr_Quote *>(pExpr)->GetChild();
-			}
-			if (!pExpr->IsSymbol()) {
-				sig.SetError(ERR_TypeError, "symbol is expected");
-				return Value::Null;
-			}
-			const Symbol *pSymbol =
-						dynamic_cast<const Expr_Symbol *>(pExpr)->GetSymbol();
-			value = Value(pSymbol);
-		} else {
-			value = pExprArg->Exec2(env, sig);
-			if (sig.IsSignalled()) return Value::Null;
+			valListArg.push_back(value);
 		}
-		valListArg.push_back(value);
 	}
 	if (_declOwner.GetSymbolDict() != NULL) {
 		foreach (ExprMap, iter, exprMap) {
