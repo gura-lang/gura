@@ -459,7 +459,7 @@ Callable *Environment::GetCallable(Signal sig, const Symbol *pSymbol)
 
 Value Environment::GetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, const Value *pValueDefault,
-						EnvRefMode envRefMode, int cntSuperSkip)
+						EnvRefMode envRefMode, int cntSuperSkip) const
 {
 	const ValueEx *pValue = LookupValue(pSymbol, envRefMode, cntSuperSkip);
 	if (pValue == NULL) {
@@ -471,17 +471,17 @@ Value Environment::GetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	} else if (IsModule()) {
 		sig.SetError(ERR_MemberAccessError,
 				"can't access module member %s.%s",
-				dynamic_cast<Module *>(this)->GetName(), pSymbol->GetName());
+				dynamic_cast<const Module *>(this)->GetName(), pSymbol->GetName());
 		return Value::Null;
 	} else if (IsClass()) {
 		sig.SetError(ERR_MemberAccessError,
 				"can't access class member %s.%s",
-				dynamic_cast<Class *>(this)->GetName(), pSymbol->GetName());
+				dynamic_cast<const Class *>(this)->GetName(), pSymbol->GetName());
 		return Value::Null;
 	} else if (IsObject()) {
 		sig.SetError(ERR_MemberAccessError,
 				"can't access object member %s#%s",
-				dynamic_cast<Object *>(this)->GetClass()->GetName(),
+				dynamic_cast<const Object *>(this)->GetClass()->GetName(),
 				pSymbol->GetName());
 		return Value::Null;
 	} else {
@@ -490,22 +490,22 @@ Value Environment::GetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 		return Value::Null;
 	}
 	bool evaluatedFlag = false;
-	Value result = DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
+	Value result = const_cast<Environment *>(this)->DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 	if (sig.IsSignalled()) return Value::Null;
 	if (evaluatedFlag) return result;
 	if (pValueDefault != NULL) return *pValueDefault;
 	if (IsModule()) {
 		sig.SetError(ERR_ValueError,
 				"%s module does not have a symbol '%s'",
-				dynamic_cast<Module *>(this)->GetName(), pSymbol->GetName());
+				dynamic_cast<const Module *>(this)->GetName(), pSymbol->GetName());
 	} else if (IsClass()) {
 		sig.SetError(ERR_ValueError,
 				"%s class does not have a property '%s'",
-				dynamic_cast<Class *>(this)->GetName(), pSymbol->GetName());
+				dynamic_cast<const Class *>(this)->GetName(), pSymbol->GetName());
 	} else if (IsObject()) {
 		sig.SetError(ERR_ValueError,
 				"the object of %s class does not have a property '%s'",
-				dynamic_cast<Object *>(this)->GetClass()->GetName(),
+				dynamic_cast<const Object *>(this)->GetClass()->GetName(),
 				pSymbol->GetName());
 	} else {
 		sig.SetError(ERR_ValueError,

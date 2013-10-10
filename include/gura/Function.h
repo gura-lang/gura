@@ -207,7 +207,7 @@ public:
 	}
 	virtual bool IsCustom() const;
 	virtual bool IsConstructorOfStruct() const;
-	virtual Value EvalExpr(Environment &env, Signal sig, Args &args) const;
+	virtual Value EvalExpr(Environment &env, Signal sig, const Args &args) const;
 	Value Eval(Environment &env, Signal sig, Args &args) const;
 	Value EvalMap(Environment &env, Signal sig, Args &args) const;
 	inline FunctionType GetType() const { return _funcType; }
@@ -391,6 +391,7 @@ public:
 	inline Object *GetThisObj() { return _valueThis.GetObject(); }
 	inline const Object *GetThisObj() const { return _valueThis.GetObject(); }
 	inline Fundamental *GetThisFundamental() { return _valueThis.GetFundamental(); }
+	inline const Fundamental *GetThisFundamental() const { return _valueThis.GetFundamental(); }
 	inline void SetIteratorThis(Iterator *pIteratorThis, bool listThisFlag) {
 		_pIteratorThis.reset(pIteratorThis);
 		_listThisFlag = listThisFlag;

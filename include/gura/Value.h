@@ -570,6 +570,9 @@ public:
 	inline Object *GetObject() { return IsObject()? _u.pObj : NULL; }
 	inline Object *GetObject() const { return IsObject()? _u.pObj : NULL; }
 	Fundamental *GetFundamental();
+	const Fundamental *GetFundamental() const {
+		return const_cast<Value *>(this)->GetFundamental();
+	}
 	Iterator *CreateIterator(Signal sig) const;
 	String ToString(Signal sig, bool exprFlag = true) const;
 	Number ToNumber(bool allowPartFlag, bool &successFlag) const;

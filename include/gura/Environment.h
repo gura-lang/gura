@@ -326,8 +326,8 @@ public:
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Callable *GetCallable(Signal sig, const Symbol *pSymbol);
 	Value GetProp(Environment &env, Signal sig, const Symbol *pSymbol,
-						const SymbolSet &attrs, const Value *pValueDefault = NULL,
-						EnvRefMode envRefMode = ENVREF_Escalate, int cntSuperSkip = 0);
+					const SymbolSet &attrs, const Value *pValueDefault = NULL,
+					EnvRefMode envRefMode = ENVREF_Escalate, int cntSuperSkip = 0) const;
 	inline Class *LookupClass(ValueType valType) const {
 		return GetGlobal()->LookupClass(valType);
 	}
