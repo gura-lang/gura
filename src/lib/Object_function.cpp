@@ -229,7 +229,6 @@ Gura_ImplementFunction(function)
 	}
 	AutoPtr<CustomFunction> pFunc(new CustomFunction(env,
 			Gura_Symbol(_anonymous_), Expr::Reference(pExprBlock), FUNCTYPE_Function));
-	//AutoPtr<Args> pArgsSub(new Args(pExprOwnerArg, Value::Null, NULL, false, NULL, args.GetAttrs()));
 	AutoPtr<Args> pArgsSub(new Args());
 	pArgsSub->SetExprOwnerArg(pExprOwnerArg);
 	pArgsSub->SetAttrs(args.GetAttrs());
