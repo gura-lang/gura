@@ -869,7 +869,7 @@ ValueList &Value::InitAsList(Environment &env, size_t n, const Value &value)
 
 ValueDict &Value::InitAsDict(Environment &env, bool ignoreCaseFlag)
 {
-	Object_dict *pObj = new Object_dict(env, ignoreCaseFlag);
+	Object_dict *pObj = new Object_dict(env, new ValueDict(ignoreCaseFlag));
 	InitAsObject(pObj);
 	return pObj->GetDict();
 }

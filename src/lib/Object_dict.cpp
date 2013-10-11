@@ -31,7 +31,7 @@ void Object_dict::IndexSet(Environment &env, Signal sig, const Value &valueIdx, 
 		sig.SetError(ERR_KeyError, "invalid value type for key");
 		return;
 	}
-	_valDict[valueIdx] = value;
+	GetDict()[valueIdx] = value;
 }
 
 Iterator *Object_dict::CreateIterator(Signal sig)
@@ -44,8 +44,8 @@ String Object_dict::ToString(Signal sig, bool exprFlag)
 	bool limitLenFlag = true;
 	String str;
 	str += "%{";
-	foreach_const (ValueDict, iter, _valDict) {
-		if (iter != _valDict.begin()) str += ", ";
+	foreach_const (ValueDict, iter, GetDict()) {
+		if (iter != GetDict().begin()) str += ", ";
 		if (limitLenFlag && str.size() > 4096) {
 			str += "...";
 			break;
@@ -69,8 +69,8 @@ const Value *Object_dict::Find(Signal sig, const Value &valueIdx) const
 		sig.SetError(ERR_KeyError, "invalid value type for key");
 		return NULL;
 	}
-	ValueDict::const_iterator iter = _valDict.find(valueIdx);
-	return (iter == _valDict.end())? NULL : &iter->second;
+	ValueDict::const_iterator iter = GetDict().find(valueIdx);
+	return (iter == GetDict().end())? NULL : &iter->second;
 }
 
 void Object_dict::SetError_KeyNotFound(Signal sig, const Value &valueIdx)
@@ -228,7 +228,7 @@ Gura_DeclareFunction(dict)
 
 Gura_ImplementFunction(dict)
 {
-	Object_dict *pObj = new Object_dict(env, args.IsSet(Gura_Symbol(icase)));
+	Object_dict *pObj = new Object_dict(env, new ValueDict(args.IsSet(Gura_Symbol(icase))));
 	ValueDict &valDict = pObj->GetDict();
 	ValueDict::StoreMode storeMode = ValueDict::STORE_Normal;
 	if (args.GetValue(0).IsList() &&
@@ -535,7 +535,7 @@ bool Class_dict::Deserialize(Environment &env, Signal sig, Stream &stream, Value
 
 Object *Class_dict::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
-	return new Object_dict((pClass == NULL)? this : pClass, true);
+	return new Object_dict((pClass == NULL)? this : pClass, new ValueDict());
 }
 
 }

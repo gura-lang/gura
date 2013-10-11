@@ -699,10 +699,23 @@ public:
 		STORE_Default,
 	};
 	static const ValueDict Null;
+private:
+	int _cntRef;
+	bool _ignoreCaseFlag;
 public:
-	inline ValueDict() : std::map<Value, Value, Value::KeyCompare>() {}
-	inline ValueDict(const Value::KeyCompare &comp) :
-							std::map<Value, Value, Value::KeyCompare>(comp) {}
+	Gura_DeclareReferenceAccessor(ValueDict);
+public:
+	inline ValueDict() : std::map<Value, Value, Value::KeyCompare>(),
+								_cntRef(1), _ignoreCaseFlag(false) {}
+	inline ValueDict(bool ignoreCaseFlag) :
+		std::map<Value, Value, Value::KeyCompare>(ignoreCaseFlag? Value::KeyCompareIgnoreCase : Value::KeyCompareCase),
+		_cntRef(1), _ignoreCaseFlag(ignoreCaseFlag) {}
+	inline ValueDict(const ValueDict &valDict) :
+		std::map<Value, Value, Value::KeyCompare>(valDict),
+		_cntRef(1), _ignoreCaseFlag(valDict._ignoreCaseFlag) {}
+private:
+	inline ~ValueDict() {}
+public:
 	void Store(Environment &env, const String &strIndex, const String &strValue);
 	bool Store(Signal sig, const ValueList &valList, StoreMode storeMode);
 	bool Store(Signal sig, const ValueDict &valDict, StoreMode storeMode);
@@ -710,6 +723,7 @@ public:
 	inline static bool IsValidKey(const Value &value) {
 		return value.IsNumber() || value.IsString() || value.IsSymbol();
 	}
+	inline bool GetIgnoreCaseFlag() const { return _ignoreCaseFlag; }
 	bool Serialize(Environment &env, Signal sig, Stream &stream) const;
 	bool Deserialize(Environment &env, Signal sig, Stream &stream);
 };

@@ -70,21 +70,18 @@ public:
 public:
 	Gura_DeclareObjectAccessor(dict)
 protected:
-	ValueDict _valDict;
-	bool _ignoreCaseFlag;
+	AutoPtr<ValueDict> _pValDict;
 public:
-	inline Object_dict(Class *pClass, bool ignoreCaseFlag) : Object(pClass),
-		_valDict(ignoreCaseFlag? Value::KeyCompareIgnoreCase : Value::KeyCompareCase),
-		_ignoreCaseFlag(ignoreCaseFlag) {}
-	inline Object_dict(Environment &env, bool ignoreCaseFlag) : Object(env.LookupClass(VTYPE_dict)),
-		_valDict(ignoreCaseFlag? Value::KeyCompareIgnoreCase : Value::KeyCompareCase),
-		_ignoreCaseFlag(ignoreCaseFlag) {}
-	inline Object_dict(const Object_dict &obj) : Object(obj),
-		_valDict(obj._valDict), _ignoreCaseFlag(obj._ignoreCaseFlag) {}
+	inline Object_dict(Class *pClass, ValueDict *pValDict) :
+					Object(pClass), _pValDict(pValDict) {}
+	inline Object_dict(Environment &env, ValueDict *pValDict) :
+					Object(env.LookupClass(VTYPE_dict)), _pValDict(pValDict) {}
+	inline Object_dict(const Object_dict &obj) :
+					Object(obj), _pValDict(new ValueDict(obj.GetDict())) {}
 	virtual Object *Clone() const;
-	inline ValueDict &GetDict() { return _valDict; }
-	inline const ValueDict &GetDict() const { return _valDict; }
-	inline bool GetIgnoreCaseFlag() const { return _ignoreCaseFlag; }
+	inline ValueDict &GetDict() { return *_pValDict; }
+	inline const ValueDict &GetDict() const { return *_pValDict; }
+	inline bool GetIgnoreCaseFlag() const { return _pValDict->GetIgnoreCaseFlag(); }
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value);
 	virtual Iterator *CreateIterator(Signal sig);
