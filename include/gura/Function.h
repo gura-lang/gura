@@ -207,7 +207,7 @@ public:
 	}
 	virtual bool IsCustom() const;
 	virtual bool IsConstructorOfStruct() const;
-	virtual Value Call(Environment &env, Signal sig, const Args &args) const;
+	virtual Value Call(Environment &env, Signal sig, Args &args) const;
 	Value Eval(Environment &env, Signal sig, Args &args) const;
 	Value EvalMap(Environment &env, Signal sig, Args &args) const;
 	inline FunctionType GetType() const { return _funcType; }

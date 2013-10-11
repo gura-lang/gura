@@ -218,13 +218,13 @@ private:
 	AutoPtr<Function> _pFunc;
 	AutoPtr<Args> _pArgs;
 public:
-	Sequence_Call(Environment *pEnv, Function *pFunc, const Args &args);
+	Sequence_Call(Environment *pEnv, Function *pFunc, Args &args);
 public:
 	virtual bool Step(Signal sig, Value &result);
 	virtual String ToString() const;
 };
 
-Sequence_Call::Sequence_Call(Environment *pEnv, Function *pFunc, const Args &args) :
+Sequence_Call::Sequence_Call(Environment *pEnv, Function *pFunc, Args &args) :
 			Sequence(pEnv), _pFunc(pFunc), _pArgs(new Args(args, ValueList::Null))
 {
 }
@@ -241,7 +241,7 @@ String Sequence_Call::ToString() const
 	return str;
 }
 
-Value Function::Call(Environment &env, Signal sig, const Args &args) const
+Value Function::Call(Environment &env, Signal sig, Args &args) const
 {
 	AutoPtr<Args> pArgs(new Args(args, ValueList::Null));
 	ValueDict *pValDictArg = new ValueDict();

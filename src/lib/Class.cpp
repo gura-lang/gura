@@ -128,7 +128,7 @@ Gura_ImplementClassMethod(Object, setprop_X)
 class Gura_Method(Object, __call__) : public Function {
 public:
 	Gura_Method(Object, __call__)(Environment &env, const char *name = "__call__");
-	virtual Value Call(Environment &env, Signal sig, const Args &args) const;
+	virtual Value Call(Environment &env, Signal sig, Args &args) const;
 	virtual Value DoEval(Environment &env, Signal sig, Args &args) const;
 };
 
@@ -142,7 +142,7 @@ Gura_Method(Object, __call__)::Gura_Method(Object, __call__)(Environment &env, c
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Value Gura_Method(Object, __call__)::Call(Environment &env, Signal sig, const Args &args) const
+Value Gura_Method(Object, __call__)::Call(Environment &env, Signal sig, Args &args) const
 {
 	const Fundamental *pThis = args.GetThisFundamental();
 	if (args.GetExprListArg().size() < 1) {
