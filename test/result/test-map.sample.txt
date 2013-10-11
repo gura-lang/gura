@@ -1,13 +1,12 @@
-Test Case #1
+======== #1 ========
+
 1
 2
 [3, 4, 5]
 6
 [7, 8, [9, 10]]
-Test Case #2
-apple    100 red
-orange   200 yellow
-grape    300 purple
+
+======== #2 ========
 
 apple    100 red
 orange   200 yellow
@@ -16,10 +15,18 @@ grape    300 purple
 apple    100 red
 orange   200 yellow
 grape    300 purple
-Test Case #3
+
+apple    100 red
+orange   200 yellow
+grape    300 purple
+
+======== #3 ========
+
 tbl::f() .. [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
 tbl::g() .. nil
-Test Case #4
+
+======== #4 ========
+
 1
 2
 3
@@ -56,10 +63,14 @@ grape costs 120
 apple costs 100
 orage costs 80
 grape costs 120
-Test Case #5
+
+======== #5 ========
+
 []::x .. []
 []::func() .. []
-Test Case #6
+
+======== #6 ========
+
 abc 123
 def 123
 ghi 123
@@ -129,15 +140,21 @@ def 456
 ghi 789
 jkl 012
 mno 345
-Test Case #7
+
+======== #7 ========
+
 6,6,7,9,8,6,8
 6,6,7,9,8,6,8
-Test Case #8
+
+======== #8 ========
+
 math.sin(interval(0, math.pi / 2, 20)):list .. [0, 0.0825793, 0.164595, 0.245485, 0.324699, 0.401695, 0.475947, 0.546948, 0.614213, 0.677282, 0.735724, 0.789141, 0.837166, 0.879474, 0.915773, 0.945817, 0.9694, 0.986361, 0.996584, 1]
 format('%.3f', math.sin(interval(0, math.pi / 2, 20)):list) .. ['0.000', '0.083', '0.165', '0.245', '0.325', '0.402', '0.476', '0.547', '0.614', '0.677', '0.736', '0.789', '0.837', '0.879', '0.916', '0.946', '0.969', '0.986', '0.997', '1.000']
 format('%d ** 2 = %d\n', [0 .. 10], [0 .. 10] ** 2) .. ['0 ** 2 = 0\n', '1 ** 2 = 1\n', '2 ** 2 = 4\n', '3 ** 2 = 9\n', '4 ** 2 = 16\n', '5 ** 2 = 25\n', '6 ** 2 = 36\n', '7 ** 2 = 49\n', '8 ** 2 = 64\n', '9 ** 2 = 81\n', '10 ** 2 = 100\n']
 '  fj,  jfkdjfd,  dkfjdkj  '.split(','):*strip().join(',') .. fj,jfkdjfd,dkfjdkj
-Test Case #9
+
+======== #9 ========
+
 x              .. [nil, nil, 3, 1, 4, 1, nil, 5, nil, 9, 2, 6, 5, 3]
 ident(x)       .. [nil, nil, 3, 1, 4, 1, nil, 5, nil, 9, 2, 6, 5, 3]
 ident(x):list  .. [nil, nil, 3, 1, 4, 1, nil, 5, nil, 9, 2, 6, 5, 3]

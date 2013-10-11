@@ -1,10 +1,13 @@
-Test Case #1
+======== #1 ========
+
 codec.bom_utf8 .. <binary:R:3byte:'\xef\xbb\xbf'>
 codec.bom_utf16le .. <binary:R:2byte:'\xff\xfe'>
 codec.bom_utf16be .. <binary:R:2byte:'\xfe\xff'>
 codec.bom_utf32le .. <binary:R:4byte:'\xff\xfe\x00\x00'>
 codec.bom_utf32be .. <binary:R:4byte:'\x00\x00\xfe\xff'>
-Test Case #2
+
+======== #2 ========
+
 e3 81 82 e3 81 84 e3 81 86 e3 81 88 e3 81 8a     ...............
 e3 81 82 e3 81 84 e3 81 86 e3 81 88 e3 81 8a     ...............
 ‚ ‚¢‚¤‚¦‚¨

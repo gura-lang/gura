@@ -1,19 +1,28 @@
-Test Case #1
+======== #1 ========
+
 expected error occured:TypeError: variable 'x' cannot take number value in 'x:string:nocast'
 expected error occured:TypeError: variable 'x' cannot take list value in 'x:string:nocast'
 first
 second
 third
-Test Case #2
+
+======== #2 ========
+
 filterNames(['aaaa', 'bbb', 'ccccc'], 4).join(',') .. AAAA,CCCCC
-Test Case #3
+
+======== #3 ========
+
 0
 1
 2
-Test Case #4
+
+======== #4 ========
+
 this must be first
 this must be second
-Test Case #5
+
+======== #5 ========
+
 a=1 b=[2,3,4]
 a=1 b=2 c=3 d=4 e=[]
 a=1 b=[2,3,4,5]
@@ -22,7 +31,9 @@ a=1 b=[2,3,4,5,6]
 a=1 b=2 c=3 d=4 e=[5,6]
 a=1 b=[2,3,4,5,6,7,8,9,10]
 a=1 b=2 c=3 d=4 e=[5,6,7,8,9,10]
-Test Case #6
+
+======== #6 ========
+
 foo:1 bar:0 hoge:0
 foo:0 bar:1 hoge:0
 foo:0 bar:0 hoge:1
@@ -30,13 +41,19 @@ foo:1 bar:1 hoge:0
 foo:1 bar:0 hoge:1
 foo:0 bar:1 hoge:1
 foo:1 bar:1 hoge:1
-Test Case #7
+
+======== #7 ========
+
 hello world
-Test Case #8
+
+======== #8 ========
+
 f(x, y, z) = {|x, y, z| x * y * z }
 f(5, 7, 8) .. 280
 expected error occurs: TypeError: variable 'x' cannot take string value in 'x:number'
-Test Case #9
+
+======== #9 ========
+
 1
 2
 3
@@ -56,9 +73,13 @@ aaaabbbb
 ccccdddd
 eeeeffff
 str.mid * [[0, 1], [0, 2], [0, 5], [6, -1]] .. ['H', 'He', 'Hello', 'World']
-Test Case #10
+
+======== #10 ========
+
 f(1 .. 10) .. 55
-Test Case #11
+
+======== #11 ========
+
 message from object-1
 message from object-2
 message from object-3
@@ -68,26 +89,38 @@ message from object-3
 message from object-1
 message from object-2
 message from object-3
-Test Case #12
+
+======== #12 ========
+
 nil
 expr
-Test Case #13
+
+======== #13 ========
+
 %{a => `println('hello')}
 %{a => `println('hello')}
-Test Case #14
+
+======== #14 ========
+
 3
-Test Case #15
+
+======== #15 ========
+
 f(% { `a => 1, `b => 2, `c => 3, `d => 4 }%) .. a=1 b=2 c=3 d=4 %{}
 f(% { `a => 1, `b => 2 }%, % { `c => 3, `d => 4 }%) .. a=1 b=2 c=3 d=4 %{}
 f(% { `a => 1, `b => 2 }%, % { `c => 3 }%, d => 4) .. a=1 b=2 c=3 d=4 %{}
 f(1, 2, 3, 4, % { `a => 1, `b => 2, `c => 3, `d => 4 }%) .. a=1 b=2 c=3 d=4 %{a => 1, b => 2, c => 3, d => 4}
 f(1, 2, 3, 4, % { 'a' => 1, 'b' => 2, 'c' => 3, 'd' => 4 }%) .. a=1 b=2 c=3 d=4 %{'a' => 1, 'b' => 2, 'c' => 3, 'd' => 4}
 f(1, % { `a => 1, `b => 2, `c => 3, `d => 4 }%) .. a=1 %{a => 1, b => 2, c => 3, d => 4}
-Test Case #16
+
+======== #16 ========
+
 funcorg() = {}
 funcnew() = {}
 funcnew1() = {}
-Test Case #17
+
+======== #17 ========
+
 [a, b] = [1, 1]
 [a, b] = [1, 2]
 [a, b] = [1, default]
@@ -97,40 +130,58 @@ Test Case #17
 [a, b] = [default, 1]
 [a, b] = [default, 2]
 [a, b] = [default, default]
-Test Case #18
+
+======== #18 ========
+
 f(x) .. 15
-Test Case #19
+
+======== #19 ========
+
 f(a, b, c, d, e:number) = {|a, b, c, d, e:number| a + b + c + d + e }
 f(1, 2, 3, 4, 5) .. 15
-Test Case #20
+
+======== #20 ========
+
 f([1, 2, 3], [4, 5, 6]) .. [[1, 4], [2, 5], [3, 6]]
 g([1, 2, 3], [4, 5, 6]) .. [[1, [4, 5, 6]], [2, [4, 5, 6]], [3, [4, 5, 6]]]
-Test Case #21
+
+======== #21 ========
+
 f(1 .. 10) .. [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 f(1 .. 10) .. ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
 f(1 .. 10) .. [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-Test Case #22
+
+======== #22 ========
+
 100
 expected error occurs: TypeError: variable 'm' cannot take number value in 'm:re.match'
 expected error occurs: TypeError: variable 'm' cannot take string value in 'm:re.match'
-Test Case #23
+
+======== #23 ========
+
 f(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) .. a=1 b=2 c=3 d=4 e=5 f=6 g=7 h=8 i=9 j=10 %{}
 f(1, 2, 3, [4 .. 10]*) .. a=1 b=2 c=3 d=4 e=5 f=6 g=7 h=8 i=9 j=10 %{}
 f(1, 2, 3, [4 .. 6]*, 7, 8, 9, 10) .. a=1 b=2 c=3 d=4 e=5 f=6 g=7 h=8 i=9 j=10 %{}
 f(1, 2, 3, [4 .. 6]*, 7, [8 .. 10]*) .. a=1 b=2 c=3 d=4 e=5 f=6 g=7 h=8 i=9 j=10 %{}
 f([1 .. 3]*, [4 .. 6]*, 7, [8 .. 10]*) .. a=1 b=2 c=3 d=4 e=5 f=6 g=7 h=8 i=9 j=10 %{}
-Test Case #24
+
+======== #24 ========
+
 f .. string#left(len?:number):map
 f(3) .. hel
 f(5) .. hello
 f(9) .. hello wor
 ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh']::left * 2 .. ['fi', 'se', 'th', 'fo', 'fi', 'si', 'se']
 [['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh']:*left * 2] .. ['fi', 'se', 'th', 'fo', 'fi', 'si', 'se']
-Test Case #25
+
+======== #25 ========
+
 f(a, b, c, d, rest*, dict%) = { format('a=%d b=%d c=%d d=%d rest=%s dict=%s', a, b, c, d, rest, dict):nomap }
 f(1, 2, 3, 4, 5, 6) .. a=1 b=2 c=3 d=4 rest=[5, 6] dict=%{}
 f(1, 2, 3, 4, 5, 6, e => 2, f => 3) .. a=1 b=2 c=3 d=4 rest=[5, 6] dict=%{e => 2, f => 3}
-Test Case #26
+
+======== #26 ========
+
 f(a, b, c, d, dict%) = format('a=%d b=%d c=%d d=%d dict=%s', a, b, c, d, dict)
 f(1, 2, 3, 4) .. a=1 b=2 c=3 d=4 dict=%{}
 f(1, 2, d => 4, c => 4) .. a=1 b=2 c=4 d=4 dict=%{}
@@ -139,7 +190,9 @@ f(c => 3, a => 1, b => 2, d => 4) .. a=1 b=2 c=3 d=4 dict=%{}
 f(b => 2, c => 3, d => 4, a => 1, e => 1) .. a=1 b=2 c=3 d=4 dict=%{e => 1}
 f(d => 4, 1, 2, 3) .. a=1 b=2 c=3 d=4 dict=%{}
 f(d => 4, 1, 2, 3, e => 5, f => 6, g => 7) .. a=1 b=2 c=3 d=4 dict=%{e => 5, f => 6, g => 7}
-Test Case #27
+
+======== #27 ========
+
 a=2, b=nil:0, c=nil:0
 a=2, b=3:1, c=nil:0
 a=2, b=3:1, c=def:1
@@ -150,7 +203,9 @@ a=2, b=3, c=[4, 5, 6, 7]
 a=2, b=3, c=[]
 a=2, b=3, c=[4, 5, 6, 7]
 expected error occurs: TypeError: not enough arguments
-Test Case #28
+
+======== #28 ========
+
 test of closure
  3 4 5 6 7 8
  5  3  2  4
@@ -163,23 +218,35 @@ test of closure
 12 10  9 11
 13 11 10 12
 14 12 11 13
-Test Case #29
+
+======== #29 ========
+
   0  1  2  3  4  5  6  7  8  9 10
-Test Case #30
+
+======== #30 ========
+
 -0.139708
-Test Case #31
+
+======== #31 ========
+
 f(x) = x
 g(x):void = x
 f(2) .. 2
 g(2) .. nil
-Test Case #32
+
+======== #32 ========
+
 f($x, $y) = { $x < $y }
 f(1, 3) .. true
 f(4, 3) .. false
-Test Case #33
+
+======== #33 ========
+
 f($a, $b, $c, $d, $e, $f, $g, $h, $i, $j) = { $a + $b + $c + $d + $e + $f + $g + $h + $i + $j }
 f(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) .. 55
-Test Case #34
+
+======== #34 ========
+
 math.acos(num):map:[deg] .. [1.5708, 1.45946, 1.3467, 1.23096, 1.11024, 0.981765, 0.841069, 0.679674, 0.475882, 0]
 math.asin(num):map:[deg] .. [0, 0.111341, 0.224093, 0.339837, 0.460554, 0.589031, 0.729728, 0.891123, 1.09491, 1.5708]
 math.atan(num):map:[deg] .. [0, 0.110657, 0.218669, 0.321751, 0.418224, 0.507099, 0.588003, 0.661043, 0.726642, 0.785398]
@@ -196,5 +263,7 @@ math.tan(num):map:[deg] .. [2.18504, 34.2325, -2.57215, -1.02964, -0.422793, 0, 
 math.tanh(num):map .. [-0.964028, -0.921669, -0.833655, -0.664037, -0.379949, 0, 0.379949, 0.664037, 0.833655, 0.921669, 0.964028]
 math.log(num):map .. [0, 0.693147, 1.09861, 1.38629, 1.60944, 1.79176, 1.94591, 2.07944, 2.19722, 2.30259]
 math.log10(num):map .. [0, 0.30103, 0.477121, 0.60206, 0.69897, 0.778151, 0.845098, 0.90309, 0.954243, 1]
-Test Case #35
+
+======== #35 ========
+
 5 .. should be 5

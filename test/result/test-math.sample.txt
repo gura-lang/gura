@@ -1,8 +1,13 @@
-Test Case #1
+======== #1 ========
+
 fraction(260, 364).reduce() .. 5/7
-Test Case #2
+
+======== #2 ========
+
 math.hypot(3, 4) .. 5
-Test Case #3
+
+======== #3 ========
+
 6   3   .. GCD:3   LCM:6  
 3   6   .. GCD:3   LCM:6  
 2   3   .. GCD:1   LCM:6  
@@ -24,7 +29,9 @@ Test Case #3
 36   60   84   .. GCD:12  LCM:1260
 60   84   36   .. GCD:12  LCM:1260
 60   36   84   .. GCD:12  LCM:1260
-Test Case #4
+
+======== #4 ========
+
 math.cross_product([1, 2], [3, 1]) .. -5
 math.cross_product([3, 1], [1, 2]) .. 5
 math.cross_product([1, 2, 3], [-1, 1, 2]) .. [1, -5, 3]
@@ -34,7 +41,9 @@ expected error occurs: ValueError: only support two or three dimension vector fo
 math.dot_product([-1, -3], [2, 2]) .. -8
 math.dot_product([-1, -3, 3], [2, 2, -1]) .. -11
 expected error occurs: ValueError: different length of lists
-Test Case #5
+
+======== #5 ========
+
 f2_x(t:number):map = { a + b * t + c * t * t + d * t * t * t }
 f2_y(t:number):map = { a + b * t + c * t * t + d * t * t * t }
          f_x,        f1_x,        f2_x,          f_y,        f1_y,        f2_y
@@ -48,9 +57,13 @@ f2_y(t:number):map = { a + b * t + c * t * t + d * t * t * t }
    17.080933,   17.080933,   17.080933,     7.717421,    7.717421,    7.717421
    18.598080,   18.598080,   18.598080,     8.751715,    8.751715,    8.751715
    20.000000,   20.000000,   20.000000,    10.000000,   10.000000,   10.000000
-Test Case #6
+
+======== #6 ========
+
 f(x:number):map = 3.55 + 0.35 * x
 g(temp:number):map = 2.94286 + 0.707143 * temp + (-0.0357143) * temp ** 2
 h(hoge:number):map = (-0.619643) + 4.54464 * hoge + (-0.973214) * hoge ** 2 + 0.0625 * hoge ** 3
-Test Case #7
+
+======== #7 ========
+
 f(x:number):map = 1.00714 + 5.10714 * x

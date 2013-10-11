@@ -543,7 +543,7 @@ testcase {
 	}
 	func(3)
 }
-testcase('==== Test of list operation (1) ====') {
+testcase('Test of list operation (1)') {
 	import(csv)
 	t = [0..3]
 	tester(`t)
@@ -619,7 +619,7 @@ testcase('==== Test of list operation (1) ====') {
 	println(dict({x = [0..90], zipv(x, math.sin(x * math.pi / 180)):list})):nomap
 	println(dict(for (x in 0..90):list { [x, math.sin(x * math.pi / 180)] })):nomap
 }
-testcase('==== Test of list operation (2) ====') {
+testcase('Test of list operation (2)') {
 	t = [range(0, 20)] * 2
 	t[3]
 	t[range(0, 4)]

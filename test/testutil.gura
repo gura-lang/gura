@@ -7,9 +7,11 @@ I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
 
 _idxTestCase = 0
 testcase(title?:string) {`block} = {
+	(_idxTestCase > 0) && println()
 	_idxTestCase += 1
-	printf('Test Case #%d', _idxTestCase)
+	printf('======== #%d', _idxTestCase)
 	title && printf(' %s', title)
+	println(' ========')
 	println()
 	scope {|block|}
 }

@@ -170,3 +170,16 @@ testcase {
 	var = 3.14
 	tester(`'hello ${var} world'.template())
 }
+//-----------------------------------------------------------------------------
+testcase {
+	tester(`'${nil}'.template())
+	tester(`'${3}'.template())
+	tester(`'${"hello"}'.template())
+	tester(`'${["first", "second", "third"]}'.template())
+	try {
+		'${color(`red)}'.template()
+	} catch {|e|
+		println('expected error occurs: ', e.text)
+	}
+}
+//-----------------------------------------------------------------------------

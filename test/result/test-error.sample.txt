@@ -1,26 +1,39 @@
 ======== error test ========
-Test Case #1
+======== #1 ========
+
  [0,0,0] [0,0,1] [0,0,2] [0,1,0] [0,1,1] [0,1,2] [0,2,0] [0,2,1] [0,2,2] [1,0,0] [1,0,1] [1,0,2] [1,1,0] [1,1,1] [1,1,2] [1,2,0] [1,2,1] [1,2,2] [2,0,0] [2,0,1] [2,0,2]catch(IteratorError)
 end-of-function
  [0,0,0] [0,0,1] [0,0,2] [0,1,0] [0,1,1] [0,1,2] [0,2,0] [0,2,1] [0,2,2] [1,0,0] [1,0,1] [1,0,2] [1,1,0] [1,1,1] [1,1,2] [1,2,0] [1,2,1] [1,2,2] [2,0,0] [2,0,1] [2,0,2]catch()
 end-of-function
  [0,0,0] [0,0,1] [0,0,2] [0,1,0] [0,1,1] [0,1,2] [0,2,0] [0,2,1] [0,2,2] [1,0,0] [1,0,1] [1,0,2] [1,1,0] [1,1,1] [1,1,2] [1,2,0] [1,2,1] [1,2,2] [2,0,0] [2,0,1] [2,0,2] [2,1,0] [2,1,1] [2,1,2] [2,2,0] [2,2,1] [2,2,2]else
 end-of-function
-Test Case #2
+
+======== #2 ========
+
   1  3  5  7  9
 end-of-function
-Test Case #3
+
+======== #3 ========
+
   0  1  2  3  4  5  6  7  8
 end-of-function
-Test Case #4
+
+======== #4 ========
+
 try
-Test Case #5
+
+======== #5 ========
+
 expected error occurs: TypeError: variable 'p' cannot take list value in 'p:Person'
-Test Case #6
+
+======== #6 ========
+
 ValueError detected: ValueError: undefined symbol 'a'
 other error detected: IndexError: index is out of range
 no error
-Test Case #7
+
+======== #7 ========
+
 catch(IndexError) .. IndexError: intentional error for handling test
 catch(ValueError) .. ValueError: intentional error for handling test
 catch(IOError) .. IOError: intentional error for handling test
