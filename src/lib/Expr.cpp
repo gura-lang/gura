@@ -771,73 +771,6 @@ bool Expr_Value::GenerateScript(Signal sig, SimpleStream &stream,
 }
 
 //-----------------------------------------------------------------------------
-// Expr_String
-//-----------------------------------------------------------------------------
-bool Expr_String::IsString() const { return true; }
-
-Expr *Expr_String::Clone() const
-{
-	return new Expr_String(*this);
-}
-
-Value Expr_String::DoExec(Environment &env, Signal sig) const
-{
-	return Value(env, _str.c_str());
-}
-
-void Expr_String::Accept(ExprVisitor &visitor) const
-{
-	visitor.Visit(this);
-}
-
-bool Expr_String::GenerateCode(Environment &env, Signal sig, Stream &stream)
-{
-	stream.Println(sig, "String");
-	return true;
-}
-
-bool Expr_String::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
-{
-	stream.Print(sig, MakeQuotedString(_str.c_str()).c_str());
-	if (sig.IsSignalled()) return false;
-	return true;
-}
-
-//-----------------------------------------------------------------------------
-// Expr_TmplString
-//-----------------------------------------------------------------------------
-bool Expr_TmplString::IsTmplString() const { return true; }
-
-Expr *Expr_TmplString::Clone() const
-{
-	return new Expr_TmplString(*this);
-}
-
-Value Expr_TmplString::DoExec(Environment &env, Signal sig) const
-{
-	_streamDst.Print(sig, _str.c_str());
-	return Value::Null;
-}
-
-void Expr_TmplString::Accept(ExprVisitor &visitor) const
-{
-	visitor.Visit(this);
-}
-
-bool Expr_TmplString::GenerateCode(Environment &env, Signal sig, Stream &stream)
-{
-	stream.Println(sig, "TmplString");
-	return true;
-}
-
-bool Expr_TmplString::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
-{
-	return false;
-}
-
-//-----------------------------------------------------------------------------
 // Expr_Symbol
 //-----------------------------------------------------------------------------
 bool Expr_Symbol::IsSymbol() const { return true; }
@@ -1047,6 +980,73 @@ bool Expr_Symbol::GenerateScriptTail(Signal sig, SimpleStream &stream,
 		if (sig.IsSignalled()) return false;
 	}
 	return true;
+}
+
+//-----------------------------------------------------------------------------
+// Expr_String
+//-----------------------------------------------------------------------------
+bool Expr_String::IsString() const { return true; }
+
+Expr *Expr_String::Clone() const
+{
+	return new Expr_String(*this);
+}
+
+Value Expr_String::DoExec(Environment &env, Signal sig) const
+{
+	return Value(env, _str.c_str());
+}
+
+void Expr_String::Accept(ExprVisitor &visitor) const
+{
+	visitor.Visit(this);
+}
+
+bool Expr_String::GenerateCode(Environment &env, Signal sig, Stream &stream)
+{
+	stream.Println(sig, "String");
+	return true;
+}
+
+bool Expr_String::GenerateScript(Signal sig, SimpleStream &stream,
+								ScriptStyle scriptStyle, int nestLevel) const
+{
+	stream.Print(sig, MakeQuotedString(_str.c_str()).c_str());
+	if (sig.IsSignalled()) return false;
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// Expr_TmplString
+//-----------------------------------------------------------------------------
+bool Expr_TmplString::IsTmplString() const { return true; }
+
+Expr *Expr_TmplString::Clone() const
+{
+	return new Expr_TmplString(*this);
+}
+
+Value Expr_TmplString::DoExec(Environment &env, Signal sig) const
+{
+	_streamDst.Print(sig, _str.c_str());
+	return Value::Null;
+}
+
+void Expr_TmplString::Accept(ExprVisitor &visitor) const
+{
+	visitor.Visit(this);
+}
+
+bool Expr_TmplString::GenerateCode(Environment &env, Signal sig, Stream &stream)
+{
+	stream.Println(sig, "TmplString");
+	return true;
+}
+
+bool Expr_TmplString::GenerateScript(Signal sig, SimpleStream &stream,
+								ScriptStyle scriptStyle, int nestLevel) const
+{
+	return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -1471,16 +1471,24 @@ Value Expr_TmplScript::DoExec(Environment &env, Signal sig) const
 			}
 			if (valueElem.IsString()) {
 				strLast = valueElem.GetStringSTL();
-			} else if (valueElem.IsValid()) {
+			} else if (valueElem.IsInvalid()) {
+				strLast.clear();
+			} else if (valueElem.IsNumber()) {
 				strLast = valueElem.ToString(sig);
 				if (sig.IsSignalled()) return false;
 			} else {
-				strLast.clear();
+				sig.SetError(ERR_TypeError,
+					"template script must return nil, string or number");
+				return Value::Null;
 			}
 		}
-	} else {
+	} else if (value.IsNumber()) {
 		strLast = value.ToString(sig);
 		if (sig.IsSignalled()) return false;
+	} else {
+		sig.SetError(ERR_TypeError,
+			"template script must return nil, string or number");
+		return Value::Null;
 	}
 	foreach_const (String, p, strLast) {
 		char ch = *p;
