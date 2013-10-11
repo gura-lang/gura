@@ -1450,15 +1450,15 @@ Value Expr_TmplScript::DoExec(Environment &env, Signal sig) const
 		return Value::Null;
 	}
 	_streamDst.Print(sig, _strIndent.c_str());
-	String str;
+	String strLast;
 	if (value.IsString()) {
-		str = value.GetStringSTL();
+		strLast = value.GetStringSTL();
 	} else if (value.IsList() || value.IsIterator()) {
 		AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
 		if (sig.IsSignalled()) return false;
 		Value valueElem;
 		while (pIterator->Next(env, sig, valueElem)) {
-			foreach_const (String, p, str) {
+			foreach_const (String, p, strLast) {
 				char ch = *p;
 				if (ch == '\n') {
 					_streamDst.PutChar(sig, ch);
@@ -1470,23 +1470,23 @@ Value Expr_TmplScript::DoExec(Environment &env, Signal sig) const
 				}
 			}
 			if (valueElem.IsString()) {
-				str = valueElem.GetStringSTL();
+				strLast = valueElem.GetStringSTL();
 			} else if (valueElem.IsValid()) {
-				str = valueElem.ToString(sig);
+				strLast = valueElem.ToString(sig);
 				if (sig.IsSignalled()) return false;
 			} else {
-				str.clear();
+				strLast.clear();
 			}
 		}
 	} else {
-		str = value.ToString(sig);
+		strLast = value.ToString(sig);
 		if (sig.IsSignalled()) return false;
 	}
-	foreach_const (String, p, str) {
+	foreach_const (String, p, strLast) {
 		char ch = *p;
 		if (ch != '\n') {
 			_streamDst.PutChar(sig, ch);
-		} else if (p + 1 != str.end()) {
+		} else if (p + 1 != strLast.end()) {
 			_streamDst.PutChar(sig, ch);
 			if (_autoIndentFlag) {
 				_streamDst.Print(sig, _strIndent.c_str());
