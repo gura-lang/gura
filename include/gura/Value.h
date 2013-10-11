@@ -39,6 +39,7 @@ class Sequence;
 class Object;
 class ValueList;
 class ValueDict;
+class ValueVisitor;
 class Iterator;
 
 enum {
@@ -209,14 +210,6 @@ private:
 private:
 	inline ValueTypePool(const ValueTypePool &valTypeInfoPool) {}
 	inline void operator=(const ValueTypePool &valTypeInfoPool) {}
-};
-
-//-----------------------------------------------------------------------------
-// ValueVisitor
-//-----------------------------------------------------------------------------
-class ValueVisitor {
-public:
-	virtual void Visit(Signal sig, const Value &value) = 0;
 };
 
 //-----------------------------------------------------------------------------
@@ -576,7 +569,7 @@ public:
 	Iterator *CreateIterator(Signal sig) const;
 	String ToString(Signal sig, bool exprFlag = true) const;
 	Number ToNumber(bool allowPartFlag, bool &successFlag) const;
-	void Accept(Signal sig, ValueVisitor &visitor) const;
+	bool Accept(ValueVisitor &visitor) const;
 	void InitAsModule(Module *pModule);
 	void InitAsClass(Class *pClass);
 	void InitAsObject(Object *pObj);
@@ -655,7 +648,7 @@ public:
 	bool IsContainIterator() const;
 	bool CheckMatrix(size_t *pnRow, size_t *pnCol) const;
 	void ExtractFlat(ValueList &valList) const;
-	void Accept(Signal sig, ValueVisitor &visitor) const;
+	bool Accept(ValueVisitor &visitor) const;
 	void Append(const ValueList &valList);
 	void Print(Signal sig, int indentLevel = 0) const;
 	bool ToStringList(Signal sig, StringList &strList) const;
@@ -726,6 +719,25 @@ public:
 	inline bool GetIgnoreCaseFlag() const { return _ignoreCaseFlag; }
 	bool Serialize(Environment &env, Signal sig, Stream &stream) const;
 	bool Deserialize(Environment &env, Signal sig, Stream &stream);
+};
+
+//-----------------------------------------------------------------------------
+// ValueVisitor
+//-----------------------------------------------------------------------------
+class ValueVisitor {
+public:
+	virtual bool Visit(const Value &value) = 0;
+};
+
+//-----------------------------------------------------------------------------
+// ValueVisitor_Flatten
+//-----------------------------------------------------------------------------
+class ValueVisitor_Flatten : public ValueVisitor {
+private:
+	ValueList &_valList;
+public:
+	inline ValueVisitor_Flatten(ValueList &valList) : _valList(valList) {}
+	virtual bool Visit(const Value &value);
 };
 
 inline const char *GetNumberFormat() { return "%g"; }

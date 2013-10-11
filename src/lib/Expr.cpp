@@ -467,6 +467,7 @@ Value ExprList::Exec2(Environment &env, Signal sig, bool evalSymFuncFlag) const
 	return result;
 }
 
+#if 0
 Value ExprList::Exec2ForList(Environment &env, Signal sig, bool flattenFlag) const
 {
 	Value result;
@@ -486,6 +487,7 @@ Value ExprList::Exec2ForList(Environment &env, Signal sig, bool flattenFlag) con
 	}
 	return result;
 }
+#endif
 
 void ExprList::Accept(ExprVisitor &visitor) const
 {
@@ -524,11 +526,6 @@ bool ExprList::GenerateScript(Signal sig, SimpleStream &stream,
 		if (!pExpr->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
 	}
 	return true;
-}
-
-void ExprList::ValueVisitorEx::Visit(Signal sig, const Value &value)
-{
-	_valList.push_back(value);
 }
 
 void ExprList::SetParent(const Expr *pExpr)
@@ -1133,7 +1130,18 @@ Value Expr_Block::DoExec(Environment &env, Signal sig) const
 {
 	if (!_pExprBlockParam.IsNull()) {} // needs to do something here?
 	if (env.IsType(ENVTYPE_lister)) {
-		return GetExprOwner().Exec2ForList(env, sig, false);
+		//return GetExprOwner().Exec2ForList(env, sig, false);
+		Value result;
+		ValueList &valList = result.InitAsList(env);
+		foreach_const (ExprOwner, ppExpr, GetExprOwner()) {
+			Value value = (*ppExpr)->Exec2(env, sig);
+			if (sig.IsSignalled()) {
+				sig.AddExprCause(*ppExpr);
+				return Value::Null;
+			}
+			valList.push_back(value);
+		}
+		return result;
 	}
 	return GetExprOwner().Exec2(env, sig, true);
 }
@@ -1571,9 +1579,23 @@ Value Expr_Indexer::DoExec(Environment &env, Signal sig) const
 	if (exprList.empty()) {
 		return objCar.EmptyIndexGet(env, sig);
 	}
-	Value valueIdx = exprList.Exec2ForList(env, sig, true);
-	if (sig.IsSignalled()) return Value::Null;
-	ValueList &valIdxList = valueIdx.GetList();
+	ValueList valIdxList;
+	foreach_const (ExprList, ppExpr, exprList) {
+		Value value = (*ppExpr)->Exec2(env, sig);
+		if (sig.IsSignalled()) {
+			sig.AddExprCause(*ppExpr);
+			return Value::Null;
+		}
+		if (value.IsList()) {
+			ValueVisitor_Flatten visitor(valIdxList);
+			value.Accept(visitor);
+		} else {
+			valIdxList.push_back(value);
+		}
+	}
+	//Value valueIdx = exprList.Exec2ForList(env, sig, true);
+	//if (sig.IsSignalled()) return Value::Null;
+	//ValueList &valIdxList = valueIdx.GetList();
 	if (valIdxList.size() == 0) return Value::Null;
 	if (!valueCar.IsObject()) {
 		SetError(sig, ERR_ValueError, "object should be specified as l-value of indexer");

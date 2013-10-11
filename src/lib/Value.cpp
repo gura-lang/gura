@@ -810,13 +810,9 @@ int Value::Compare(const Value &value1, const Value &value2, bool ignoreCaseFlag
 	return rtn;
 }
 
-void Value::Accept(Signal sig, ValueVisitor &visitor) const
+bool Value::Accept(ValueVisitor &visitor) const
 {
-	if (IsList()) {
-		GetList().Accept(sig, visitor);
-	} else {
-		visitor.Visit(sig, *this);
-	}
+	return IsList()? GetList().Accept(visitor) : visitor.Visit(*this);
 }
 
 void Value::InitAsModule(Module *pModule)
@@ -1058,12 +1054,12 @@ void ValueList::ExtractFlat(ValueList &valList) const
 	}
 }
 
-void ValueList::Accept(Signal sig, ValueVisitor &visitor) const
+bool ValueList::Accept(ValueVisitor &visitor) const
 {
 	foreach_const (ValueList, pValue, *this) {
-		pValue->Accept(sig, visitor);
-		if (sig.IsSignalled()) break;
+		if (!pValue->Accept(visitor)) return false;
 	}
+	return true;
 }
 
 void ValueList::Append(const ValueList &valList)
@@ -1252,6 +1248,15 @@ bool ValueDict::Deserialize(Environment &env, Signal sig, Stream &stream)
 		if (!Value::Deserialize(env, sig, stream, value, false)) return false;
 		insert(ValueDict::value_type(valueIdx, value));
 	}
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// ValueVisitor_Flatten
+//-----------------------------------------------------------------------------
+bool ValueVisitor_Flatten::Visit(const Value &value)
+{
+	_valList.push_back(value);
 	return true;
 }
 

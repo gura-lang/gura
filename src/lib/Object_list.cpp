@@ -183,7 +183,7 @@ Object_list *Object_list::SortRank(Signal sig, const Value &valDirective,
 	return Object_list::Reference(Object_list::GetObject(result));
 }
 
-void Object_list::ValueVisitor_Index::Visit(Signal sig, const Value &value)
+bool Object_list::ValueVisitor_Index::Visit(const Value &value)
 {
 	GURA_ASSUME(_env, value.IsNumber());
 	int idx = value.GetInt();
@@ -193,8 +193,10 @@ void Object_list::ValueVisitor_Index::Visit(Signal sig, const Value &value)
 	} else if (idx < static_cast<int>(_valList.size())) {
 		_indexList.push_back(idx);
 	} else {
-		sig.SetError(ERR_IndexError, "index is out of range");
+		_sig.SetError(ERR_IndexError, "index is out of range");
+		return false;
 	}
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -680,23 +682,38 @@ Gura_ImplementFunction(ListInit)
 			return Value::Null;
 		}
 		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
-		Value valueRaw =
-				pExprBlock->GetExprOwner().Exec2ForList(*pEnvLister, sig, false);
-		if (sig.IsSignalled() || !valueRaw.IsList()) return Value::Null;
+		//Value valueRaw =
+		//		pExprBlock->GetExprOwner().Exec2ForList(*pEnvLister, sig, false);
+		//if (sig.IsSignalled() || !valueRaw.IsList()) return Value::Null;
 		ValueList &valList = result.InitAsList(env);
-		foreach_const (ValueList, pValue, valueRaw.GetList()) {
-			if (!pValue->IsList()) {
+		foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
+			Value value = (*ppExpr)->Exec2(*pEnvLister, sig);
+			if (sig.IsSignalled()) {
+				sig.AddExprCause(*ppExpr);
+				return Value::Null;
+			}
+			if (!value.IsList()) {
 				sig.SetError(ERR_SyntaxError, "invalid format in list initializer");
 				return Value::Null;
 			}
 			AutoPtr<Args> pArgsSub(new Args());
-			pArgsSub->SetValueListArg(pValue->GetList());
+			pArgsSub->SetValueListArg(value.GetList());
 			Value valueElem = pFunc->Eval(env, sig, *pArgsSub);
+			if (sig.IsSignalled()) return Value::Null;
 			valList.push_back(valueElem);
 		}
 	} else {
 		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
-		result = pExprBlock->GetExprOwner().Exec2ForList(*pEnvLister, sig, false);
+		//result = pExprBlock->GetExprOwner().Exec2ForList(*pEnvLister, sig, false);
+		ValueList &valList = result.InitAsList(env);
+		foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
+			Value value = (*ppExpr)->Exec2(*pEnvLister, sig);
+			if (sig.IsSignalled()) {
+				sig.AddExprCause(*ppExpr);
+				return Value::Null;
+			}
+			valList.push_back(value);
+		}
 	}
 	return result;
 }
@@ -863,9 +880,9 @@ Gura_ImplementMethod(list, erase)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
 	ValueList &valList = pThis->GetList();
-	Object_list::ValueVisitor_Index visitor(env, valList);
+	Object_list::ValueVisitor_Index visitor(env, sig, valList);
 	foreach_const (ValueList, pValue, args.GetList(0)) {
-		pValue->Accept(sig, visitor);
+		pValue->Accept(visitor);
 	}
 	Object_list::IndexList &indexList = visitor.GetIndexList();
 	if (!indexList.empty()) {

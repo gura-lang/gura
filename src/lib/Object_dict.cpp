@@ -238,11 +238,20 @@ Gura_ImplementFunction(dict)
 	if (args.IsBlockSpecified()) {
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
-		Value valueList =
-				pExprBlock->GetExprOwner().Exec2ForList(*pEnvLister, sig, false);
-		if (sig.IsSignalled() || !valueList.IsList()) return Value::Null;
-		if (!valDict.Store(sig, valueList.GetList(), storeMode)) return Value::Null;
+		//AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
+		//Value valueList =
+		//		pExprBlock->GetExprOwner().Exec2ForList(*pEnvLister, sig, false);
+		//if (sig.IsSignalled() || !valueList.IsList()) return Value::Null;
+		ValueList valList;
+		foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
+			Value value = (*ppExpr)->Exec2(env, sig);
+			if (sig.IsSignalled()) {
+				sig.AddExprCause(*ppExpr);
+				return Value::Null;
+			}
+			valList.push_back(value);
+		}
+		if (!valDict.Store(sig, valList, storeMode)) return Value::Null;
 	}
 	return Value(pObj);
 }
@@ -397,10 +406,19 @@ Gura_ImplementMethod(dict, store)
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
-		Value valueList =
-				pExprBlock->GetExprOwner().Exec2ForList(*pEnvLister, sig, false);
-		if (sig.IsSignalled() || !valueList.IsList()) return Value::Null;
-		if (!valDict.Store(sig, valueList.GetList(), storeMode)) return Value::Null;
+		//Value valueList =
+		//		pExprBlock->GetExprOwner().Exec2ForList(*pEnvLister, sig, false);
+		//if (sig.IsSignalled() || !valueList.IsList()) return Value::Null;
+		ValueList valList;
+		foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
+			Value value = (*ppExpr)->Exec2(*pEnvLister, sig);
+			if (sig.IsSignalled()) {
+				sig.AddExprCause(*ppExpr);
+				return Value::Null;
+			}
+			valList.push_back(value);
+		}
+		if (!valDict.Store(sig, valList, storeMode)) return Value::Null;
 	}
 	return args.GetThis();
 }

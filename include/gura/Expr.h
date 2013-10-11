@@ -247,6 +247,7 @@ public:
 // ExprList
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE ExprList : public std::vector<Expr *> {
+#if 0
 private:
 	class ValueVisitorEx : public ValueVisitor {
 	private:
@@ -255,6 +256,7 @@ private:
 		inline ValueVisitorEx(ValueList &valList) : _valList(valList) {}
 		virtual void Visit(Signal sig, const Value &value);
 	};
+#endif
 public:
 	static const ExprList Null;
 public:
@@ -267,7 +269,7 @@ public:
 	}
 	void ExtractTrace(ExprOwner &exprOwner) const;
 	Value Exec2(Environment &env, Signal sig, bool evalSymFuncFlag) const;
-	Value Exec2ForList(Environment &env, Signal sig, bool flattenFlag) const;
+	//Value Exec2ForList(Environment &env, Signal sig, bool flattenFlag) const;
 	bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	bool GenerateScript(Signal sig, SimpleStream &stream,
 		Expr::ScriptStyle scriptStyle, int nestLevel, Expr::Separator sep) const;
