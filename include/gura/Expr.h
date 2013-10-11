@@ -382,7 +382,6 @@ public:
 	inline static Expr_Value *Reference(const Expr_Value *pExpr) {
 		return dynamic_cast<Expr_Value *>(Expr::Reference(pExpr));
 	}
-	virtual ~Expr_Value();
 	virtual bool IsValue() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
@@ -407,7 +406,6 @@ public:
 	inline static Expr_String *Reference(const Expr_String *pExpr) {
 		return dynamic_cast<Expr_String *>(Expr::Reference(pExpr));
 	}
-	virtual ~Expr_String();
 	virtual bool IsString() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
@@ -434,7 +432,6 @@ public:
 	inline static Expr_TmplString *Reference(const Expr_TmplString *pExpr) {
 		return dynamic_cast<Expr_TmplString *>(Expr::Reference(pExpr));
 	}
-	virtual ~Expr_TmplString();
 	virtual bool IsTmplString() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
@@ -460,7 +457,6 @@ public:
 	inline static Expr_Symbol *Reference(const Expr_Symbol *pExpr) {
 		return dynamic_cast<Expr_Symbol *>(Expr::Reference(pExpr));
 	}
-	virtual ~Expr_Symbol();
 	virtual bool IsSymbol() const;
 	virtual Expr *Clone() const;
 	virtual Callable *LookupCallable(Environment &env, Signal sig) const;
@@ -499,7 +495,6 @@ public:
 	inline static Expr_Root *Reference(const Expr_Root *pExpr) {
 		return dynamic_cast<Expr_Root *>(Expr::Reference(pExpr));
 	}
-	virtual ~Expr_Root();
 	virtual bool IsRoot() const;
 	virtual Expr *Clone() const;
 	virtual const char *GetPathName() const;
@@ -520,7 +515,6 @@ public:
 	inline static Expr_BlockParam *Reference(const Expr_BlockParam *pExpr) {
 		return dynamic_cast<Expr_BlockParam *>(Expr::Reference(pExpr));
 	}
-	virtual ~Expr_BlockParam();
 	virtual bool IsBlockParam() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
@@ -569,7 +563,6 @@ public:
 	inline static Expr_Lister *Reference(const Expr_Lister *pExpr) {
 		return dynamic_cast<Expr_Lister *>(Expr::Reference(pExpr));
 	}
-	virtual ~Expr_Lister();
 	virtual bool IsLister() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
@@ -593,7 +586,6 @@ public:
 	inline static Expr_IterLink *Reference(const Expr_IterLink *pExpr) {
 		return dynamic_cast<Expr_IterLink *>(Expr::Reference(pExpr));
 	}
-	virtual ~Expr_IterLink();
 	virtual bool IsIterLink() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
@@ -629,7 +621,6 @@ public:
 	inline static Expr_TmplScript *Reference(const Expr_TmplScript *pExpr) {
 		return dynamic_cast<Expr_TmplScript *>(Expr::Reference(pExpr));
 	}
-	virtual ~Expr_TmplScript();
 	virtual bool IsTmplScript() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
@@ -673,7 +664,6 @@ public:
 	inline static Expr_Indexer *Reference(const Expr_Indexer *pExpr) {
 		return dynamic_cast<Expr_Indexer *>(Expr::Reference(pExpr));
 	}
-	virtual ~Expr_Indexer();
 	virtual bool IsIndexer() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
@@ -759,7 +749,6 @@ public:
 	inline static Expr_UnaryOp *Reference(const Expr_UnaryOp *pExpr) {
 		return dynamic_cast<Expr_UnaryOp *>(Expr::Reference(pExpr));
 	}
-	virtual ~Expr_UnaryOp();
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
@@ -785,7 +774,6 @@ public:
 	inline static Expr_BinaryOp *Reference(const Expr_BinaryOp *pExpr) {
 		return dynamic_cast<Expr_BinaryOp *>(Expr::Reference(pExpr));
 	}
-	virtual ~Expr_BinaryOp();
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
@@ -806,7 +794,6 @@ public:
 	inline static Expr_Quote *Reference(const Expr_Quote *pExpr) {
 		return dynamic_cast<Expr_Quote *>(Expr::Reference(pExpr));
 	}
-	virtual ~Expr_Quote();
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual const Expr *Unquote() const;
@@ -830,7 +817,6 @@ public:
 	inline static Expr_Prefix *Reference(const Expr_Prefix *pExpr) {
 		return dynamic_cast<Expr_Prefix *>(Expr::Reference(pExpr));
 	}
-	virtual ~Expr_Prefix();
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual bool IsPrefix() const;
@@ -854,7 +840,6 @@ public:
 	inline static Expr_Suffix *Reference(const Expr_Suffix *pExpr) {
 		return dynamic_cast<Expr_Suffix *>(Expr::Reference(pExpr));
 	}
-	virtual ~Expr_Suffix();
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual bool IsSuffix() const;
@@ -884,7 +869,6 @@ public:
 		return dynamic_cast<Expr_Assign *>(Expr::Reference(pExpr));
 	}
 	inline const Operator *GetOperatorToApply() const { return _pOperatorToApply; }
-	virtual ~Expr_Assign();
 	virtual Value DoExec(Environment &env, Signal sig) const;
 	Value Exec(Environment &env, Signal sig,
 				Environment &envDst, const SymbolSet *pSymbolsAssignable) const;
@@ -906,7 +890,6 @@ public:
 	inline static Expr_DictAssign *Reference(const Expr_DictAssign *pExpr) {
 		return dynamic_cast<Expr_DictAssign *>(Expr::Reference(pExpr));
 	}
-	virtual ~Expr_DictAssign();
 	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual Expr *Clone() const;
 	virtual bool IsDictAssign() const;
@@ -937,7 +920,6 @@ public:
 	inline static Expr_Member *Reference(const Expr_Member *pExpr) {
 		return dynamic_cast<Expr_Member *>(Expr::Reference(pExpr));
 	}
-	virtual ~Expr_Member();
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,

@@ -701,10 +701,6 @@ bool Expr_Container::IsParentOf(const Expr *pExpr) const
 //-----------------------------------------------------------------------------
 bool Expr_Value::IsValue() const { return true; }
 
-Expr_Value::~Expr_Value()
-{
-}
-
 Expr *Expr_Value::Clone() const
 {
 	return new Expr_Value(*this);
@@ -779,10 +775,6 @@ bool Expr_Value::GenerateScript(Signal sig, SimpleStream &stream,
 //-----------------------------------------------------------------------------
 bool Expr_String::IsString() const { return true; }
 
-Expr_String::~Expr_String()
-{
-}
-
 Expr *Expr_String::Clone() const
 {
 	return new Expr_String(*this);
@@ -817,10 +809,6 @@ bool Expr_String::GenerateScript(Signal sig, SimpleStream &stream,
 //-----------------------------------------------------------------------------
 bool Expr_TmplString::IsTmplString() const { return true; }
 
-Expr_TmplString::~Expr_TmplString()
-{
-}
-
 Expr *Expr_TmplString::Clone() const
 {
 	return new Expr_TmplString(*this);
@@ -853,10 +841,6 @@ bool Expr_TmplString::GenerateScript(Signal sig, SimpleStream &stream,
 // Expr_Symbol
 //-----------------------------------------------------------------------------
 bool Expr_Symbol::IsSymbol() const { return true; }
-
-Expr_Symbol::~Expr_Symbol()
-{
-}
 
 Expr *Expr_Symbol::Clone() const
 {
@@ -1080,10 +1064,6 @@ Expr_Root::Expr_Root(const Expr_Root &expr) :
 {
 }
 
-Expr_Root::~Expr_Root()
-{
-}
-
 Expr *Expr_Root::Clone() const
 {
 	return new Expr_Root(*this);
@@ -1214,10 +1194,6 @@ bool Expr_Block::GenerateScript(Signal sig, SimpleStream &stream,
 //-----------------------------------------------------------------------------
 bool Expr_BlockParam::IsBlockParam() const { return true; }
 
-Expr_BlockParam::~Expr_BlockParam()
-{
-}
-
 Expr *Expr_BlockParam::Clone() const
 {
 	return new Expr_BlockParam(*this);
@@ -1267,10 +1243,6 @@ bool Expr_BlockParam::GenerateScript(Signal sig, SimpleStream &stream,
 // Expr_Lister
 //-----------------------------------------------------------------------------
 bool Expr_Lister::IsLister() const { return true; }
-
-Expr_Lister::~Expr_Lister()
-{
-}
 
 Expr *Expr_Lister::Clone() const
 {
@@ -1405,10 +1377,6 @@ bool Expr_Lister::GenerateScript(Signal sig, SimpleStream &stream,
 //-----------------------------------------------------------------------------
 bool Expr_IterLink::IsIterLink() const { return true; }
 
-Expr_IterLink::~Expr_IterLink()
-{
-}
-
 Expr *Expr_IterLink::Clone() const
 {
 	return new Expr_IterLink(*this);
@@ -1466,10 +1434,6 @@ bool Expr_IterLink::GenerateScript(Signal sig, SimpleStream &stream,
 // Expr_TmplScript
 //-----------------------------------------------------------------------------
 bool Expr_TmplScript::IsTmplScript() const { return true; }
-
-Expr_TmplScript::~Expr_TmplScript()
-{
-}
 
 Expr *Expr_TmplScript::Clone() const
 {
@@ -1584,10 +1548,6 @@ bool Expr_Compound::IsParentOf(const Expr *pExpr) const
 // Expr_Indexer
 //-----------------------------------------------------------------------------
 bool Expr_Indexer::IsIndexer() const { return true; }
-
-Expr_Indexer::~Expr_Indexer()
-{
-}
 
 Expr *Expr_Indexer::Clone() const
 {
@@ -2186,10 +2146,6 @@ bool Expr_Caller::GenerateScript(Signal sig, SimpleStream &stream,
 //-----------------------------------------------------------------------------
 bool Expr_UnaryOp::IsUnaryOp() const { return true; }
 
-Expr_UnaryOp::~Expr_UnaryOp()
-{
-}
-
 Expr *Expr_UnaryOp::Clone() const
 {
 	return new Expr_UnaryOp(*this);
@@ -2257,10 +2213,6 @@ bool Expr_UnaryOp::GenerateScript(Signal sig, SimpleStream &stream,
 // Expr_BinaryOp
 //-----------------------------------------------------------------------------
 bool Expr_BinaryOp::IsBinaryOp() const { return true; }
-
-Expr_BinaryOp::~Expr_BinaryOp()
-{
-}
 
 Expr *Expr_BinaryOp::Clone() const
 {
@@ -2368,10 +2320,6 @@ bool Expr_BinaryOp::GenerateScript(Signal sig, SimpleStream &stream,
 //-----------------------------------------------------------------------------
 bool Expr_Quote::IsQuote() const { return true; }
 
-Expr_Quote::~Expr_Quote()
-{
-}
-
 Expr *Expr_Quote::Clone() const
 {
 	return new Expr_Quote(*this);
@@ -2423,10 +2371,6 @@ bool Expr_Quote::GenerateScript(Signal sig, SimpleStream &stream,
 //-----------------------------------------------------------------------------
 bool Expr_Prefix::IsPrefix() const { return true; }
 
-Expr_Prefix::~Expr_Prefix()
-{
-}
-
 Expr *Expr_Prefix::Clone() const
 {
 	return new Expr_Prefix(*this);
@@ -2457,10 +2401,6 @@ bool Expr_Prefix::GenerateScript(Signal sig, SimpleStream &stream,
 // Expr_Suffix
 //-----------------------------------------------------------------------------
 bool Expr_Suffix::IsSuffix() const { return true; }
-
-Expr_Suffix::~Expr_Suffix()
-{
-}
 
 Expr *Expr_Suffix::Clone() const
 {
@@ -2501,10 +2441,6 @@ bool Expr_Suffix::GenerateScript(Signal sig, SimpleStream &stream,
 // Expr_Assign
 //-----------------------------------------------------------------------------
 bool Expr_Assign::IsAssign() const { return true; }
-
-Expr_Assign::~Expr_Assign()
-{
-}
 
 Expr *Expr_Assign::Clone() const
 {
@@ -2583,10 +2519,6 @@ bool Expr_Assign::GenerateScript(Signal sig, SimpleStream &stream,
 //-----------------------------------------------------------------------------
 bool Expr_DictAssign::IsDictAssign() const { return true; }
 
-Expr_DictAssign::~Expr_DictAssign()
-{
-}
-
 Expr *Expr_DictAssign::Clone() const
 {
 	return new Expr_DictAssign(*this);
@@ -2643,10 +2575,6 @@ Value Expr_DictAssign::GetKey(Environment &env, Signal sig) const
 // Expr_Member
 //-----------------------------------------------------------------------------
 bool Expr_Member::IsMember() const { return true; }
-
-Expr_Member::~Expr_Member()
-{
-}
 
 Expr *Expr_Member::Clone() const
 {
