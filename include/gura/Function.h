@@ -327,9 +327,9 @@ private:
 	bool _listThisFlag;
 	SymbolSet _attrs;
 	SymbolSet _attrsOpt;
-	Value _valueWithDict;
 	Value _valueThis;
 	ValueList _valListArg;
+	AutoPtr<ValueDict> _pValDictArg;
 	AutoPtr<TrailCtrlHolder> _pTrailCtrlHolder;
 	AutoPtr<Iterator> _pIteratorThis;
 	AutoPtr<ExprOwner> _pExprOwnerArg;
@@ -341,16 +341,17 @@ public:
 	inline Args() : _cntRef(1),
 		_resultMode(RSLTMODE_Normal),
 		_flags(FLAG_None),
-		_listThisFlag(false) {}
+		_listThisFlag(false),
+		_pValDictArg(new ValueDict()) {}
 	inline Args(const Args &args) : _cntRef(1),
 		_resultMode(args._resultMode),
 		_flags(args._flags),
 		_listThisFlag(args._listThisFlag),
 		_attrs(args._attrs),
 		_attrsOpt(args._attrsOpt),
-		_valueWithDict(args._valueWithDict),
 		_valueThis(args._valueThis),
 		_valListArg(args._valListArg),
+		_pValDictArg(ValueDict::Reference(args._pValDictArg.get())),
 		_pTrailCtrlHolder(TrailCtrlHolder::Reference(args._pTrailCtrlHolder.get())),
 		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())),
 		_pExprOwnerArg(ExprOwner::Reference(args._pExprOwnerArg.get())),
@@ -362,9 +363,9 @@ public:
 		_listThisFlag(args._listThisFlag),
 		_attrs(args._attrs),
 		_attrsOpt(args._attrsOpt),
-		_valueWithDict(args._valueWithDict),
 		_valueThis(args._valueThis),
 		_valListArg(valListArg),
+		_pValDictArg(ValueDict::Reference(args._pValDictArg.get())),
 		_pTrailCtrlHolder(TrailCtrlHolder::Reference(args._pTrailCtrlHolder.get())),
 		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())),
 		_pExprOwnerArg(ExprOwner::Reference(args._pExprOwnerArg.get())),
@@ -541,11 +542,8 @@ public:
 	inline const Function *GetFunction(size_t idxArg) const	{ return GetValue(idxArg).GetFunction(); }
 	inline ErrorType GetErrorType(size_t idxArg) const	{ return GetValue(idxArg).GetErrorType(); }
 	inline void SetValueListArg(const ValueList &valListArg) { _valListArg = valListArg; }
-	inline void SetValueWithDict(const Value &valueWithDict) { _valueWithDict = valueWithDict;	}
-	inline const Value &GetValueWithDict() const		{ return _valueWithDict;				}
-	inline const ValueDict &GetDictArg() const {
-		return _valueWithDict.IsDict()? _valueWithDict.GetDict() : ValueDict::Null;
-	}
+	inline void SetValueDictArg(ValueDict *pValDictArg) { _pValDictArg.reset(pValDictArg); }
+	inline const ValueDict &GetValueDictArg() const { return *_pValDictArg; }
 	bool ShouldGenerateIterator(const DeclarationList &declList) const;
 	inline void SetBlock(Expr_Block *pExprBlock) { _pExprBlock.reset(pExprBlock); }
 	const Expr_Block *GetBlock(Environment &env, Signal sig) const;

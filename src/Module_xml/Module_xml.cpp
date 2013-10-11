@@ -1253,7 +1253,7 @@ Gura_DeclareFunction(element)
 Gura_ImplementFunction(element)
 {
 	Element *pElement = new Element(Element::TYPE_Tag, args.GetStringSTL(0));
-	foreach_const (ValueDict, iter, args.GetDictArg()) {
+	foreach_const (ValueDict, iter, args.GetValueDictArg()) {
 		String key = iter->first.ToString(sig, false);
 		if (sig.IsSignalled()) return Value::Null;
 		String value = iter->second.ToString(sig, false);
@@ -1263,7 +1263,6 @@ Gura_ImplementFunction(element)
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
 	if (pExprBlock != NULL) {
-		//AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
 		foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {
 			const Expr *pExpr = *ppExpr;
 			Value value = pExpr->Exec2(env, sig);

@@ -1800,7 +1800,7 @@ Gura_ImplementMethod(request, response)
 	if (!pThis->SendResponse(sig,
 			args.GetString(0), args.IsString(1)? args.GetString(1) : NULL,
 			args.IsStream(2)? &args.GetStream(2) : NULL, args.GetString(3),
-			args.GetDictArg())) {
+			args.GetValueDictArg())) {
 		return Value::Null;
 	}
 	return args.GetThis();
@@ -1824,7 +1824,7 @@ Gura_ImplementMethod(request, respchunk)
 	Object_request *pThis = Object_request::GetThisObj(args);
 	Stream *pStream = pThis->SendRespChunk(sig, args.GetString(0),
 			args.IsString(1)? args.GetString(1) : NULL, args.GetString(2),
-			args.GetDictArg());
+			args.GetValueDictArg());
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, sig, args, Value(new Object_stream(env, pStream)));
 }
@@ -2367,7 +2367,7 @@ Gura_ImplementMethod(client, request)
 	Object_response *pObjResponse = pThis->SendRequest(sig,
 			args.GetString(0), args.GetString(1),
 			args.IsStream(2)? &args.GetStream(2) : NULL,
-			args.GetString(3), args.GetDictArg());
+			args.GetString(3), args.GetValueDictArg());
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, sig, args, Value(pObjResponse));
 }
@@ -2391,7 +2391,7 @@ Gura_ImplementMethod(client, _request)
 	Object_response *pObjResponse = pThis->SendRequest(sig,
 			Upper(GetName()).c_str(), args.GetString(0),
 			args.IsStream(1)? &args.GetStream(1) : NULL,
-			args.GetString(2), args.GetDictArg());
+			args.GetString(2), args.GetValueDictArg());
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, sig, args, Value(pObjResponse));
 }

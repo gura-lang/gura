@@ -244,10 +244,9 @@ String Sequence_Call::ToString() const
 Value Function::Call(Environment &env, Signal sig, const Args &args) const
 {
 	AutoPtr<Args> pArgs(new Args(args, ValueList::Null));
+	ValueDict *pValDictArg = new ValueDict();
+	pArgs->SetValueDictArg(pValDictArg);
 	ValueList &valListArg = pArgs->GetValueListArg();
-	Value valueWithDict;
-	ValueDict &valDictArg = valueWithDict.InitAsDict(env, false);
-	pArgs->SetValueWithDict(valueWithDict);
 	ExprMap exprMap;
 	DeclarationList::const_iterator ppDecl = _declOwner.begin();
 	bool stayDeclPointerFlag = false;
@@ -334,7 +333,7 @@ Value Function::Call(Environment &env, Signal sig, const Args &args) const
 			} else {
 				Value value = pExprDictAssign->GetRight()->Exec2(env, sig);
 				if (sig.IsSignalled()) return Value::Null;
-				valDictArg[valueKey] = value;
+				(*pValDictArg)[valueKey] = value;
 			}
 		} else if (!quoteFlag && Expr_Suffix::IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) {
 			pExprArg = dynamic_cast<const Expr_Suffix *>(pExprArg)->GetChild();
@@ -357,7 +356,7 @@ Value Function::Call(Environment &env, Signal sig, const Args &args) const
 					pExprsToDelete->push_back(pExpr);
 					exprMap[valueKey.GetSymbol()] = pExpr;
 				} else {
-					valDictArg.insert(*item);
+					pValDictArg->insert(*item);
 				}
 			}
 		} else if (ppDecl != _declOwner.end()) {
@@ -459,7 +458,7 @@ Value Function::Call(Environment &env, Signal sig, const Args &args) const
 			const Expr *pExprArg = iter->second;
 			Value value = pExprArg->Exec2(env, sig);
 			if (sig.IsSignalled()) return Value::Null;
-			valDictArg[Value(pSymbol)] = value;
+			(*pValDictArg)[Value(pSymbol)] = value;
 		}
 	} else if (!exprMap.empty()) {
 		SetError_InvalidArgumentName(sig, exprMap);
@@ -521,11 +520,9 @@ Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &ar
 		pEnvLocal->AssignValue((*ppDecl)->GetSymbol(), *pValue, EXTRA_Public);
 	}
 	if (_declOwner.GetSymbolDict() != NULL) {
-		Value valueWithDict = args.GetValueWithDict();
-		if (valueWithDict.IsInvalid()) {
-			valueWithDict.InitAsDict(env, false);
-		}
-		pEnvLocal->AssignValue(_declOwner.GetSymbolDict(), valueWithDict, EXTRA_Public);
+		const ValueDict &valDictArg = args.GetValueDictArg();
+		pEnvLocal->AssignValue(_declOwner.GetSymbolDict(),
+				Value(new Object_dict(env, valDictArg.Reference())), EXTRA_Public);
 	}
 	if (_blockInfo.pSymbol == NULL) return pEnvLocal.release();
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
