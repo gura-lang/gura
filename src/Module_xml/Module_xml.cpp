@@ -491,7 +491,7 @@ bool Document::Write(Signal sig, Stream &stream, bool fancyFlag) const
 	if (sig.IsSignalled()) return false;
 	if (_standalone != 0) {
 		char buff[64];
-		::sprintf(buff, "standalone=\"%d\"");
+		::sprintf(buff, "standalone=\"%d\"", _standalone);
 		stream.Print(sig, buff);
 		if (sig.IsSignalled()) return false;
 	}
