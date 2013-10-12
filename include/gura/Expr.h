@@ -898,7 +898,7 @@ public:
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
-	Value GetKey(Environment &env, Signal sig) const;
+	//Value GetKey(Environment &env, Signal sig) const;
 };
 
 //-----------------------------------------------------------------------------

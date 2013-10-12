@@ -326,14 +326,21 @@ Value Function::Call(Environment &env, Signal sig, Args &args) const
 		if (!quoteFlag && pExprArg->IsDictAssign()) {
 			const Expr_DictAssign *pExprDictAssign =
 							dynamic_cast<const Expr_DictAssign *>(pExprArg);
-			Value valueKey = pExprDictAssign->GetKey(env, sig);
-			if (sig.IsSignalled()) return Value::Null;
-			if (valueKey.IsSymbol()) {
-				exprMap[valueKey.GetSymbol()] = pExprDictAssign->GetRight();
-			} else {
+			const Expr *pExprLeft = pExprDictAssign->GetLeft()->Unquote();
+			if (pExprLeft->IsSymbol()) {
+				const Symbol *pSymbol = dynamic_cast<const Expr_Symbol *>(pExprLeft)->GetSymbol();
+				exprMap[pSymbol] = pExprDictAssign->GetRight();
+			} else if (pExprLeft->IsValue() || pExprLeft->IsString()) {
+				Value valueKey = pExprLeft->IsValue()?
+					dynamic_cast<const Expr_Value *>(pExprLeft)->GetValue() :
+					 Value(env, dynamic_cast<const Expr_String *>(pExprLeft)->GetString());
 				Value value = pExprDictAssign->GetRight()->Exec2(env, sig);
 				if (sig.IsSignalled()) return Value::Null;
 				(*pValDictArg)[valueKey] = value;
+			} else {
+				pExprDictAssign->SetError(sig, ERR_KeyError,
+					"l-value of dictionary assignment must be a symbol or a constant value");
+				return Value::Null;
 			}
 		} else if (!quoteFlag && Expr_Suffix::IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) {
 			pExprArg = dynamic_cast<const Expr_Suffix *>(pExprArg)->GetChild();

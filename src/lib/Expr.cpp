@@ -2584,6 +2584,7 @@ bool Expr_DictAssign::GenerateScript(Signal sig, SimpleStream &stream,
 	return true;
 }
 
+#if 0
 Value Expr_DictAssign::GetKey(Environment &env, Signal sig) const
 {
 	const Expr *pExpr = GetLeft()->Unquote();
@@ -2600,6 +2601,7 @@ Value Expr_DictAssign::GetKey(Environment &env, Signal sig) const
 		return Value::Null;
 	}
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Expr_Member

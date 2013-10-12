@@ -703,20 +703,23 @@ Value Object_ole::CallableOLE::DoCall(Environment &env, Signal sig, Args &argsEx
 		if (pExpr->IsDictAssign()) {
 			const Expr_DictAssign *pExprDictAssign =
 						dynamic_cast<const Expr_DictAssign *>(pExpr);
-			Value valueKey = pExprDictAssign->GetKey(env, sig);
-			if (sig.IsSignalled()) goto error_done;
-			Value value = pExprDictAssign->GetRight()->Exec2(env, sig);
-			if (sig.IsSignalled()) goto error_done;
-			valueArgsNamed.push_back(value);
-			if (valueKey.IsSymbol()) {
-				argNames.push_back(valueKey.GetSymbol()->GetName());
-			} else if (valueKey.IsString()) {
-				argNames.push_back(valueKey.GetString());
+			const Expr *pExprLeft = pExprDictAssign->GetLeft()->Unquote();
+			if (pExprLeft->IsSymbol()) {
+				const Symbol *pSymbol = dynamic_cast<const Expr_Symbol *>(pExprLeft)->GetSymbol();
+				argNames.push_back(pSymbol->GetName());
+			} else if (pExprLeft->IsString()) {
+				const char *str = dynamic_cast<const Expr_String *>(pExprLeft)->GetString();
+				argNames.push_back(str);
 			} else {
 				sig.SetError(ERR_ValueError,
 						"a key for named argument of OLE must be a string or symbol");
 				goto error_done;
 			}
+			Value value = pExprDictAssign->GetRight()->Exec2(env, sig);
+			if (sig.IsSignalled()) goto error_done;
+			valueArgsNamed.push_back(value);
+			//Value valueKey = pExprDictAssign->GetKey(env, sig);
+			//if (sig.IsSignalled()) goto error_done;
 		} else {
 			Value value = pExpr->Exec2(env, sig);
 			if (sig.IsSignalled()) goto error_done;
