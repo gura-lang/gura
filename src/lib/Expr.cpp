@@ -240,6 +240,12 @@ bool Expr::IsOperatorSeq() const
 		dynamic_cast<const Expr_BinaryOp *>(this)->GetOperator()->GetOpType() == OPTYPE_Seq;
 }
 
+bool Expr::IsOperatorPair() const
+{
+	return IsBinaryOp() &&
+		dynamic_cast<const Expr_BinaryOp *>(this)->GetOperator()->GetOpType() == OPTYPE_Pair;
+}
+
 // type chekers - Unary and descendants
 bool Expr::IsUnary() const		{ return false; }
 bool Expr::IsUnaryOp() const	{ return false; }
