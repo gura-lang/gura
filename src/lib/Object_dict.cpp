@@ -239,9 +239,6 @@ Gura_ImplementFunction(dict)
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
-		//Value valueList =
-		//		pExprBlock->GetExprOwner().Exec2ForList(*pEnvLister, sig, false);
-		//if (sig.IsSignalled() || !valueList.IsList()) return Value::Null;
 		ValueList valList;
 		foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
 			Value value = (*ppExpr)->Exec2(*pEnvLister, sig);
@@ -406,9 +403,6 @@ Gura_ImplementMethod(dict, store)
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
-		//Value valueList =
-		//		pExprBlock->GetExprOwner().Exec2ForList(*pEnvLister, sig, false);
-		//if (sig.IsSignalled() || !valueList.IsList()) return Value::Null;
 		ValueList valList;
 		foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
 			Value value = (*ppExpr)->Exec2(*pEnvLister, sig);

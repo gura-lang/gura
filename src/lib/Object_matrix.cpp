@@ -185,8 +185,6 @@ Gura_ImplementFunction(MatrixInit)
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
-	//Value valueInit = pExprBlock->GetExprOwner().Exec2ForList(*pEnvLister, sig, false);
-	//if (sig.IsSignalled()) return Value::Null;
 	ValueList valList;
 	foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
 		Value value = (*ppExpr)->Exec2(*pEnvLister, sig);
@@ -197,7 +195,6 @@ Gura_ImplementFunction(MatrixInit)
 		valList.push_back(value);
 	}
 	size_t nRows = 0, nCols = 0;
-	//ValueList &valList = valueInit.GetList();
 	if (!valList.CheckMatrix(&nRows, &nCols)) {
 		sig.SetError(ERR_ValueError, "invalid matrix initialization");
 		return Value::Null;

@@ -470,28 +470,6 @@ Value ExprList::Exec2(Environment &env, Signal sig, bool evalSymFuncFlag) const
 	return result;
 }
 
-#if 0
-Value ExprList::Exec2ForList(Environment &env, Signal sig, bool flattenFlag) const
-{
-	Value result;
-	ValueList &valList = result.InitAsList(env);
-	foreach_const (ExprList, ppExpr, *this) {
-		Value value = (*ppExpr)->Exec2(env, sig);
-		if (sig.IsSignalled()) {
-			sig.AddExprCause(*ppExpr);
-			return Value::Null;
-		}
-		if (flattenFlag && value.IsList()) {
-			ValueVisitorEx visitor(valList);
-			value.Accept(sig, visitor);
-		} else {
-			valList.push_back(value);
-		}
-	}
-	return result;
-}
-#endif
-
 void ExprList::Accept(ExprVisitor &visitor) const
 {
 	foreach_const (ExprList, ppExpr, *this) {
@@ -1133,7 +1111,6 @@ Value Expr_Block::DoExec(Environment &env, Signal sig) const
 {
 	if (!_pExprBlockParam.IsNull()) {} // needs to do something here?
 	if (env.IsType(ENVTYPE_lister)) {
-		//return GetExprOwner().Exec2ForList(env, sig, false);
 		Value result;
 		ValueList &valList = result.InitAsList(env);
 		foreach_const (ExprOwner, ppExpr, GetExprOwner()) {
@@ -1596,9 +1573,6 @@ Value Expr_Indexer::DoExec(Environment &env, Signal sig) const
 			valIdxList.push_back(value);
 		}
 	}
-	//Value valueIdx = exprList.Exec2ForList(env, sig, true);
-	//if (sig.IsSignalled()) return Value::Null;
-	//ValueList &valIdxList = valueIdx.GetList();
 	if (valIdxList.size() == 0) return Value::Null;
 	if (!valueCar.IsObject()) {
 		SetError(sig, ERR_ValueError, "object should be specified as l-value of indexer");
@@ -1615,10 +1589,6 @@ Value Expr_Indexer::DoExec(Environment &env, Signal sig) const
 			if (pValueIdx->IsList() || pValueIdx->IsIterator()) {
 				AutoPtr<Iterator> pIteratorIdx(pValueIdx->CreateIterator(sig));
 				if (sig.IsSignalled()) break;
-				//if (pIteratorIdx->IsInfinite() && !pIteratorIdx->IsSequenceInf()) {
-				//	Iterator::SetError_InfiniteNotAllowed(sig);
-				//	return Value::Null;
-				//}
 				Value valueIdxEach;
 				while (pIteratorIdx->Next(env, sig, valueIdxEach)) {
 					Value value = objCar.IndexGet(env, sig, valueIdxEach);
@@ -2316,10 +2286,6 @@ bool Expr_BinaryOp::GenerateScript(Signal sig, SimpleStream &stream,
 	if (GetParent() == NULL) {
 		// nothing to do
 	} else if (GetParent()->IsUnaryOp()) {
-		//const Expr_UnaryOp *pExprOuter =
-		//						dynamic_cast<const Expr_UnaryOp *>(GetParent());
-		//needParenthesisFlag = NeedParenthesis(pExprOuter->GetOperator(),
-		//					GetOperator(), false);
 		needParenthesisFlag = true;
 	} else if (GetParent()->IsBinaryOp()) {
 		const Expr_BinaryOp *pExprOuter =

@@ -682,9 +682,6 @@ Gura_ImplementFunction(ListInit)
 			return Value::Null;
 		}
 		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
-		//Value valueRaw =
-		//		pExprBlock->GetExprOwner().Exec2ForList(*pEnvLister, sig, false);
-		//if (sig.IsSignalled() || !valueRaw.IsList()) return Value::Null;
 		ValueList &valList = result.InitAsList(env);
 		foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
 			Value value = (*ppExpr)->Exec2(*pEnvLister, sig);
@@ -704,7 +701,6 @@ Gura_ImplementFunction(ListInit)
 		}
 	} else {
 		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
-		//result = pExprBlock->GetExprOwner().Exec2ForList(*pEnvLister, sig, false);
 		ValueList &valList = result.InitAsList(env);
 		foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
 			Value value = (*ppExpr)->Exec2(*pEnvLister, sig);
