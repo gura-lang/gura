@@ -36,6 +36,7 @@ const char *Operator::_mathSymbolTbl[] = {
 	"||",	// OPTYPE_OrOr
 	"&&",	// OPTYPE_AndAnd
 	"..",	// OPTYPE_Seq
+	"=>",	// OPTYPE_Pair
 };
 
 const OperatorEntry *Operator::Lookup(ValueType valType) const
@@ -1060,6 +1061,10 @@ Value Operator_Contains::EvalMapBinary(Environment &env, Signal sig,
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
+// Operator_Pair
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
 // OperatorEntry
 //-----------------------------------------------------------------------------
 Value OperatorEntry::DoEval(Environment &env, Signal sig, const Value &value) const
@@ -1772,6 +1777,22 @@ Gura_ImplementBinaryOperator(Seq, number, number)
 	return Value(env, new Iterator_Sequence(numBegin, numEnd, numStep));
 }
 
+//-----------------------------------------------------------------------------
+// BinaryOperator(Pair, symbol, any)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(Pair, symbol, any)
+{
+	return Value::CreateAsList(env, valueLeft, valueRight);
+}
+
+//-----------------------------------------------------------------------------
+// BinaryOperator(Pair, string, any)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(Pair, string, any)
+{
+	return Value::CreateAsList(env, valueLeft, valueRight);
+}
+
 void AssignBasicOperators(Environment &env)
 {
 	env.SetOperator(OPTYPE_Pos, new Operator_Pos());
@@ -1801,6 +1822,7 @@ void AssignBasicOperators(Environment &env)
 	env.SetOperator(OPTYPE_OrOr, new Operator_OrOr());
 	env.SetOperator(OPTYPE_AndAnd, new Operator_AndAnd());
 	env.SetOperator(OPTYPE_Seq, new Operator_Seq());
+	env.SetOperator(OPTYPE_Pair, new Operator_Pair());
 	Gura_AssignUnaryOperator(Pos, number);
 	Gura_AssignUnaryOperator(Pos, complex);
 	Gura_AssignUnaryOperator(Pos, matrix);
@@ -1887,6 +1909,8 @@ void AssignBasicOperators(Environment &env)
 	Gura_AssignBinaryOperator(OrOr, any, any);
 	Gura_AssignBinaryOperator(AndAnd, any, any);
 	Gura_AssignBinaryOperator(Seq, number, number);
+	Gura_AssignBinaryOperator(Pair, symbol, any);
+	Gura_AssignBinaryOperator(Pair, string, any);
 }
 
 }

@@ -72,6 +72,7 @@ enum OpType {
 	OPTYPE_OrOr,
 	OPTYPE_AndAnd,
 	OPTYPE_Seq,
+	OPTYPE_Pair,
 	OPTYPE_max,
 };
 
@@ -395,6 +396,14 @@ public:
 class GURA_DLLDECLARE Operator_Seq : public Operator {
 public:
 	inline Operator_Seq() : Operator(OPTYPE_Seq) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Pair
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Pair : public Operator {
+public:
+	inline Operator_Pair() : Operator(OPTYPE_Pair) {}
 };
 
 //-----------------------------------------------------------------------------

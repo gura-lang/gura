@@ -92,7 +92,7 @@ public:
 		ETYPE_AssignXor,
 		ETYPE_AssignShl,
 		ETYPE_AssignShr,
-		ETYPE_DictAssign,
+		ETYPE_Pair,
 		ETYPE_OrOr,
 		ETYPE_AndAnd,
 		ETYPE_Not,

@@ -180,7 +180,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 						{ '\0', ETYPE_Unknown		}, } },
 			{ '=', ETYPE_Assign, {
 						{ '=', ETYPE_Eq 			},
-						{ '>', ETYPE_DictAssign		},
+						{ '>', ETYPE_Pair			},
 						{ '\0', ETYPE_Unknown		}, } },
 			{ '<', ETYPE_Lt, {
 						{ '=', ETYPE_TripleChars	},
@@ -948,7 +948,7 @@ const Parser::ElemTypeInfo Parser::_elemTypeInfoTbl[] = {
 	{ ETYPE_AssignXor,			 2, "AssignXor",		"^=",		OPTYPE_None		},
 	{ ETYPE_AssignShl,			 2, "AssignShl",		"<<=",		OPTYPE_None		},
 	{ ETYPE_AssignShr,			 2, "AssignShr",		">>=",		OPTYPE_None		},
-	{ ETYPE_DictAssign,			 2, "DictAssign",		"=>",		OPTYPE_None		},
+	{ ETYPE_Pair,				 2, "Pair",				"=>",		OPTYPE_Pair		},
 	{ ETYPE_OrOr,				 3, "OrOr",				"||",		OPTYPE_OrOr		},	// ||
 	{ ETYPE_AndAnd,				 4, "AndAnd",			"&&",		OPTYPE_AndAnd	},	// &&
 	{ ETYPE_Not,				 5, "Not",				"!",		OPTYPE_Not		},	// !
@@ -1643,7 +1643,7 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 		} else if (elem2.IsType(ETYPE_AssignShr)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr >>= Expr\n"));
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Shr));
-		} else if (elem2.IsType(ETYPE_DictAssign)) {
+		} else if (elem2.IsType(ETYPE_Pair)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr => Expr\n"));
 			pExpr = new Expr_DictAssign(pExprLeft, pExprRight);
 		} else if (elem2.IsType(ETYPE_Colon) || elem2.IsType(ETYPE_ColonAfterSuffix)) {
