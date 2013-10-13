@@ -25,7 +25,6 @@ enum ExprType {
 	EXPRTYPE_Suffix,
 	EXPRTYPE_BinaryOp,
 	EXPRTYPE_Assign,
-	EXPRTYPE_DictAssign,
 	EXPRTYPE_Member,
 	EXPRTYPE_Root,
 	EXPRTYPE_BlockParam,
@@ -879,28 +878,6 @@ public:
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
 };
-
-#if 0
-//-----------------------------------------------------------------------------
-// Expr_DictAssign
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_DictAssign : public Expr_Binary {
-public:
-	inline Expr_DictAssign(Expr *pExprLeft, Expr *pExprRight) :
-				Expr_Binary(EXPRTYPE_DictAssign, pExprLeft, pExprRight) {}
-	inline Expr_DictAssign(const Expr_DictAssign &expr) : Expr_Binary(expr) {}
-	inline static Expr_DictAssign *Reference(const Expr_DictAssign *pExpr) {
-		return dynamic_cast<Expr_DictAssign *>(Expr::Reference(pExpr));
-	}
-	virtual Value DoExec(Environment &env, Signal sig) const;
-	virtual Expr *Clone() const;
-	virtual bool IsDictAssign() const;
-	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
-	//Value GetKey(Environment &env, Signal sig) const;
-};
-#endif
 
 //-----------------------------------------------------------------------------
 // Expr_Member

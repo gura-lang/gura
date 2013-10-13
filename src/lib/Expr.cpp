@@ -2547,67 +2547,6 @@ bool Expr_Assign::GenerateScript(Signal sig, SimpleStream &stream,
 	return true;
 }
 
-#if 0
-//-----------------------------------------------------------------------------
-// Expr_DictAssign
-//-----------------------------------------------------------------------------
-bool Expr_DictAssign::IsDictAssign() const { return true; }
-
-Expr *Expr_DictAssign::Clone() const
-{
-	return new Expr_DictAssign(*this);
-}
-
-Value Expr_DictAssign::DoExec(Environment &env, Signal sig) const
-{
-	Value result;
-	ValueList &valList = result.InitAsList(env);
-	Value valueKey = GetLeft()->Exec2(env, sig);
-	if (sig.IsSignalled()) return Value::Null;
-	Value value = GetRight()->Exec2(env, sig);
-	if (sig.IsSignalled()) return Value::Null;
-	valList.reserve(2);
-	valList.push_back(valueKey);
-	valList.push_back(value);
-	return result;
-}
-
-bool Expr_DictAssign::GenerateCode(Environment &env, Signal sig, Stream &stream)
-{
-	stream.Println(sig, "DictAssign");
-	return true;
-}
-
-bool Expr_DictAssign::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
-{
-	if (!GetLeft()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
-	stream.Print(sig, (scriptStyle == SCRSTYLE_Crammed)? "=>" : " => ");
-	if (sig.IsSignalled()) return false;
-	if (!GetRight()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
-	return true;
-}
-
-#if 0
-Value Expr_DictAssign::GetKey(Environment &env, Signal sig) const
-{
-	const Expr *pExpr = GetLeft()->Unquote();
-	if (pExpr->IsSymbol()) {
-		const Symbol *pSymbol = dynamic_cast<const Expr_Symbol *>(pExpr)->GetSymbol();
-		return Value(pSymbol);
-	} else if (pExpr->IsValue()) {
-		return dynamic_cast<const Expr_Value *>(pExpr)->GetValue();
-	} else if (pExpr->IsString()) {
-		return Value(env, dynamic_cast<const Expr_String *>(pExpr)->GetString());
-	} else {
-		SetError(sig, ERR_KeyError,
-				"l-value of dictionary assignment must be a symbol or a constant value");
-		return Value::Null;
-	}
-}
-#endif
-#endif
-
 //-----------------------------------------------------------------------------
 // Expr_Member
 //-----------------------------------------------------------------------------
