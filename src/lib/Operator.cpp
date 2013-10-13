@@ -1063,6 +1063,11 @@ Value Operator_Contains::EvalMapBinary(Environment &env, Signal sig,
 //-----------------------------------------------------------------------------
 // Operator_Pair
 //-----------------------------------------------------------------------------
+Value Operator_Pair::EvalMapBinary(Environment &env, Signal sig,
+							const Value &valueLeft, const Value &valueRight) const
+{
+	return EvalBinary(env, sig, valueLeft, valueRight);
+}
 
 //-----------------------------------------------------------------------------
 // OperatorEntry
@@ -1793,6 +1798,14 @@ Gura_ImplementBinaryOperator(Pair, string, any)
 	return Value::CreateAsList(env, valueLeft, valueRight);
 }
 
+//-----------------------------------------------------------------------------
+// BinaryOperator(Pair, number, any)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(Pair, number, any)
+{
+	return Value::CreateAsList(env, valueLeft, valueRight);
+}
+
 void AssignBasicOperators(Environment &env)
 {
 	env.SetOperator(OPTYPE_Pos, new Operator_Pos());
@@ -1911,6 +1924,7 @@ void AssignBasicOperators(Environment &env)
 	Gura_AssignBinaryOperator(Seq, number, number);
 	Gura_AssignBinaryOperator(Pair, symbol, any);
 	Gura_AssignBinaryOperator(Pair, string, any);
+	Gura_AssignBinaryOperator(Pair, number, any);
 }
 
 }

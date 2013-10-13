@@ -305,6 +305,7 @@ Page = struct(questions[] => [])
 //-----------------------------------------------------------------------------
 ComposerAttr = class {
 	public {
+		name
 		fileNamePDF
 		cntHorz, cntVert
 		nPages
@@ -384,6 +385,7 @@ Composer = class {
 		iPageCur
 		attrsHist
 		cntHorzMax, cntVertMax
+		itemComposer
 	}
 	wdScoreBox = 30
 	htTitle = 16

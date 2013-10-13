@@ -404,6 +404,8 @@ public:
 class GURA_DLLDECLARE Operator_Pair : public Operator {
 public:
 	inline Operator_Pair() : Operator(OPTYPE_Pair) {}
+	virtual Value EvalMapBinary(Environment &env, Signal sig,
+					const Value &valueLeft, const Value &valueRight) const;
 };
 
 //-----------------------------------------------------------------------------

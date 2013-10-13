@@ -17,7 +17,6 @@ const char *GetExprTypeName(ExprType exprType)
 		{ EXPRTYPE_Suffix,		"suffix",		},
 		{ EXPRTYPE_BinaryOp,	"binaryop",		},
 		{ EXPRTYPE_Assign,		"assign",		},
-		{ EXPRTYPE_DictAssign,	"dictassign",	},
 		{ EXPRTYPE_Member,		"member",		},
 		{ EXPRTYPE_Root,		"root",			},
 		{ EXPRTYPE_BlockParam,	"blockparam",	},
@@ -47,7 +46,6 @@ const char *GetExprTypeName(ExprType exprType)
 //        |                   `- Expr_Suffix
 //        +- Expr_Binary <----+- Expr_BinaryOp
 //        |                   +- Expr_Assign
-//        |                   +- Expr_DictAssign
 //        |                   `- Expr_Member
 //        +- Expr_Container <-+- Expr_Root
 //        |                   +- Expr_BlockParam
@@ -256,7 +254,6 @@ bool Expr::IsSuffix() const		{ return false; }
 bool Expr::IsBinary() const		{ return false; }
 bool Expr::IsBinaryOp() const	{ return false; }
 bool Expr::IsAssign() const		{ return false; }
-bool Expr::IsDictAssign() const	{ return false; }
 bool Expr::IsMember() const		{ return false; }
 // type chekers - Container and descendants
 bool Expr::IsContainer() const	{ return false; }
@@ -2550,6 +2547,7 @@ bool Expr_Assign::GenerateScript(Signal sig, SimpleStream &stream,
 	return true;
 }
 
+#if 0
 //-----------------------------------------------------------------------------
 // Expr_DictAssign
 //-----------------------------------------------------------------------------
@@ -2607,6 +2605,7 @@ Value Expr_DictAssign::GetKey(Environment &env, Signal sig) const
 		return Value::Null;
 	}
 }
+#endif
 #endif
 
 //-----------------------------------------------------------------------------

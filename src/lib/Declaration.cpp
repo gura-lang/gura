@@ -36,11 +36,11 @@ Declaration *Declaration::Create(Environment &env, Signal sig, const Expr *pExpr
 	OccurPattern occurPattern = OCCUR_Once;
 	ValueType valType = VTYPE_any;
 	Expr *pExprDefault = NULL;
-	if (pExpr->IsDictAssign()) {
-		const Expr_DictAssign *pExprDictAssign =
-								dynamic_cast<const Expr_DictAssign *>(pExpr);
-		pExpr = pExprDictAssign->GetLeft();
-		const Expr *pExprRight = pExprDictAssign->GetRight();
+	if (pExpr->IsOperatorPair()) {
+		const Expr_BinaryOp *pExprBinaryOp =
+								dynamic_cast<const Expr_BinaryOp *>(pExpr);
+		pExpr = pExprBinaryOp->GetLeft();
+		const Expr *pExprRight = pExprBinaryOp->GetRight();
 		pExprDefault = Expr::Reference(pExprRight);
 	}
 	if (pExpr->IsSuffix()) {

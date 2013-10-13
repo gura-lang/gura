@@ -88,7 +88,6 @@ public:
 //        |                   `- Expr_Suffix
 //        +- Expr_Binary <----+- Expr_BinaryOp
 //        |                   +- Expr_Assign
-//        |                   +- Expr_DictAssign
 //        |                   `- Expr_Member
 //        +- Expr_Container <-+- Expr_Root
 //        |                   +- Expr_BlockParam
@@ -208,7 +207,6 @@ public:
 	virtual bool IsBinary() const;
 	virtual bool IsBinaryOp() const;
 	virtual bool IsAssign() const;
-	virtual bool IsDictAssign() const;
 	virtual bool IsMember() const;
 	// type chekers - Container and descendants
 	virtual bool IsContainer() const;
@@ -882,6 +880,7 @@ public:
 							ScriptStyle scriptStyle, int nestLevel) const;
 };
 
+#if 0
 //-----------------------------------------------------------------------------
 // Expr_DictAssign
 //-----------------------------------------------------------------------------
@@ -901,6 +900,7 @@ public:
 							ScriptStyle scriptStyle, int nestLevel) const;
 	//Value GetKey(Environment &env, Signal sig) const;
 };
+#endif
 
 //-----------------------------------------------------------------------------
 // Expr_Member

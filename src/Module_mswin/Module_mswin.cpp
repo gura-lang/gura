@@ -700,10 +700,10 @@ Value Object_ole::CallableOLE::DoCall(Environment &env, Signal sig, Args &argsEx
 	StringList argNames;
 	foreach_const (ExprList, ppExpr, exprListArg) {
 		const Expr *pExpr = *ppExpr;
-		if (pExpr->IsDictAssign()) {
-			const Expr_DictAssign *pExprDictAssign =
-						dynamic_cast<const Expr_DictAssign *>(pExpr);
-			const Expr *pExprLeft = pExprDictAssign->GetLeft()->Unquote();
+		if (pExpr->IsOperatorPair()) {
+			const Expr_BinaryOp *pExprBinaryOp =
+						dynamic_cast<const Expr_BinaryOp *>(pExpr);
+			const Expr *pExprLeft = pExprBinaryOp->GetLeft()->Unquote();
 			if (pExprLeft->IsSymbol()) {
 				const Symbol *pSymbol = dynamic_cast<const Expr_Symbol *>(pExprLeft)->GetSymbol();
 				argNames.push_back(pSymbol->GetName());
@@ -715,11 +715,9 @@ Value Object_ole::CallableOLE::DoCall(Environment &env, Signal sig, Args &argsEx
 						"a key for named argument of OLE must be a string or symbol");
 				goto error_done;
 			}
-			Value value = pExprDictAssign->GetRight()->Exec2(env, sig);
+			Value value = pExprBinaryOp->GetRight()->Exec2(env, sig);
 			if (sig.IsSignalled()) goto error_done;
 			valueArgsNamed.push_back(value);
-			//Value valueKey = pExprDictAssign->GetKey(env, sig);
-			//if (sig.IsSignalled()) goto error_done;
 		} else {
 			Value value = pExpr->Exec2(env, sig);
 			if (sig.IsSignalled()) goto error_done;

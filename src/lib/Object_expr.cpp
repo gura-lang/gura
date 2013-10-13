@@ -256,7 +256,6 @@ ImplementTypeChecker(issuffix,		IsSuffix)
 ImplementTypeChecker(isbinary,		IsBinary)
 ImplementTypeChecker(isbinaryop,	IsBinaryOp)
 ImplementTypeChecker(isassign,		IsAssign)
-ImplementTypeChecker(isdictassign,	IsDictAssign)
 ImplementTypeChecker(ismember,		IsMember)
 // type chekers - Container and descendants
 ImplementTypeChecker(iscontainer,	IsContainer)
@@ -299,7 +298,6 @@ void Class_expr::Prepare(Environment &env)
 	Gura_AssignMethod(expr,	isbinary);
 	Gura_AssignMethod(expr,	isbinaryop);
 	Gura_AssignMethod(expr,	isassign);
-	Gura_AssignMethod(expr,	isdictassign);
 	Gura_AssignMethod(expr,	ismember);
 	// type chekers - Container and descendants
 	Gura_AssignMethod(expr,	iscontainer);

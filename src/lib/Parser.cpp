@@ -1645,7 +1645,7 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 			pExpr = new Expr_Assign(pExprLeft, pExprRight, env.GetOperator(OPTYPE_Shr));
 		} else if (elem2.IsType(ETYPE_Pair)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr => Expr\n"));
-			pExpr = new Expr_DictAssign(pExprLeft, pExprRight);
+			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Pair), pExprLeft, pExprRight);
 		} else if (elem2.IsType(ETYPE_Colon) || elem2.IsType(ETYPE_ColonAfterSuffix)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr : Expr\n"));
 			Expr *pExprDst = pExprLeft;
