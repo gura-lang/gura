@@ -262,7 +262,7 @@ HRESULT CMain::ParseScriptText(
 	if (pExprOwner->empty()) {
 		pConsole->Println(_sig, "incomplete command");
 	} else {
-		Gura::Value result = pExprOwner->Exec2(*_pEnv, _sig, true);
+		Gura::Value result = pExprOwner->Exec3(*_pEnv, _sig, true);
 		if (_sig.IsSignalled()) {
 			pConsole->PrintSignal(_sig, _sig);
 			NotifyScriptError();

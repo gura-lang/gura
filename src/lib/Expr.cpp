@@ -440,7 +440,7 @@ void ExprList::ExtractTrace(ExprOwner &exprOwner) const
 	}
 }
 
-Value ExprList::Exec2(Environment &env, Signal sig, bool evalSymFuncFlag) const
+Value ExprList::Exec3(Environment &env, Signal sig, bool evalSymFuncFlag) const
 {
 	Value result;
 	foreach_const (ExprList, ppExpr, *this) {
@@ -1123,7 +1123,7 @@ Value Expr_Block::DoExec(Environment &env, Signal sig) const
 		}
 		return result;
 	}
-	return GetExprOwner().Exec2(env, sig, true);
+	return GetExprOwner().Exec3(env, sig, true);
 }
 
 Expr *Expr_Block::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
@@ -1189,7 +1189,7 @@ Expr *Expr_BlockParam::Clone() const
 
 Value Expr_BlockParam::DoExec(Environment &env, Signal sig) const
 {
-	return GetExprOwner().Exec2(env, sig, false);
+	return GetExprOwner().Exec3(env, sig, false);
 }
 
 bool Expr_BlockParam::GenerateCode(Environment &env, Signal sig, Stream &stream)
@@ -1431,7 +1431,7 @@ Expr *Expr_TmplScript::Clone() const
 Value Expr_TmplScript::DoExec(Environment &env, Signal sig) const
 {
 	if (GetExprOwner().empty()) return Value::Null;
-	Value value = GetExprOwner().Exec2(env, sig, true);
+	Value value = GetExprOwner().Exec3(env, sig, true);
 	if (sig.IsSignalled()) {
 		return Value::Null;
 	} else if (value.IsInvalid()) {
