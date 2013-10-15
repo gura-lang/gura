@@ -15,6 +15,19 @@ Sequence::~Sequence()
 {
 }
 
+Value Sequence::Return(Signal sig, Sequence *pSequence)
+{
+	Value result;
+	while (!pSequence->CheckDone()) {
+		if (!pSequence->Step(sig, result)) {
+			result = Value::Null;
+			break;
+		}
+	}
+	Sequence::Delete(pSequence);
+	return result;
+}
+
 //-----------------------------------------------------------------------------
 // Sequence_Root
 //-----------------------------------------------------------------------------

@@ -20,6 +20,7 @@ public:
 	virtual bool Step(Signal sig, Value &result) = 0;
 	virtual String ToString() const = 0;
 	inline bool CheckDone() const { return _doneFlag; }
+	static Value Return(Signal sig, Sequence *pSequence);
 };
 
 class GURA_DLLDECLARE Sequence_Root : public Sequence {

@@ -533,12 +533,8 @@ String Sequence_Call::ToString() const
 #if 0
 Value Function::Call(Environment &env, Signal sig, Args &args) const
 {
-	Value result;
-	AutoPtr<Sequence_Call> pSequence(new Sequence_Call(env.Reference(), Reference(this), args));
-	while (!pSequence->CheckDone()) {
-		if (!pSequence->Step(sig, result)) return Value::Null;
-	}
-	return result;
+	Sequence *pSequence = new Sequence_Call(env.Reference(), Reference(this), args);
+	return Sequence::Return(sig, pSequence);
 }
 #endif
 
