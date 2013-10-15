@@ -166,6 +166,12 @@ public:
 		Environment &GetEnv() { return _env; }
 		void Store(const Value &value);
 	};
+	struct BlockInfo {
+		OccurPattern occurPattern;
+		BlockScope blockScope;
+		bool quoteFlag;	// don't create function object from block
+		const Symbol *pSymbol;
+	};
 	typedef std::map<const Symbol *, const Expr *, Symbol::KeyCompare_UniqNumber> ExprMap;
 protected:
 	int _cntRef;
@@ -178,12 +184,7 @@ protected:
 	ULong _flags;
 	SymbolSet _attrsOpt;
 	HelpOwner _helpOwner;
-	struct {
-		OccurPattern occurPattern;
-		BlockScope blockScope;
-		bool quoteFlag;	// don't create function object from block
-		const Symbol *pSymbol;
-	} _blockInfo;
+	BlockInfo _blockInfo;
 public:
 	Gura_DeclareReferenceAccessor(Function);
 public:
@@ -215,6 +216,11 @@ public:
 	inline void SetMode(ResultMode resultMode, ULong flags) {
 		_resultMode = resultMode, _flags |= flags;
 	}
+	inline ResultMode GetResultMode() const { return _resultMode; }
+	inline ULong GetFlags() const { return _flags; }
+	inline const SymbolSet &GetAttrsOpt() const { return _attrsOpt; }
+	inline const HelpOwner &GetHelpOwner() const { return _helpOwner; }
+	inline const BlockInfo &GetBlockInfo() const { return _blockInfo; }
 	inline bool IsRsltNormal() const { return _resultMode == RSLTMODE_Normal; }
 	inline bool IsRsltList() const { return _resultMode == RSLTMODE_List; }
 	inline bool IsRsltXList() const { return _resultMode == RSLTMODE_XList; }
@@ -543,6 +549,7 @@ public:
 	inline ErrorType GetErrorType(size_t idxArg) const	{ return GetValue(idxArg).GetErrorType(); }
 	inline void SetValueListArg(const ValueList &valListArg) { _valListArg = valListArg; }
 	inline void SetValueDictArg(ValueDict *pValDictArg) { _pValDictArg.reset(pValDictArg); }
+	inline ValueDict &GetValueDictArg() { return *_pValDictArg; }
 	inline const ValueDict &GetValueDictArg() const { return *_pValDictArg; }
 	bool ShouldGenerateIterator(const DeclarationList &declList) const;
 	inline void SetBlock(Expr_Block *pExprBlock) { _pExprBlock.reset(pExprBlock); }
