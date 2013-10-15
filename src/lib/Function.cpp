@@ -662,10 +662,10 @@ Value CustomFunction::DoEval(Environment &env, Signal sig, Args &args) const
 	}
 	pEnvLocal->AssignValue(Gura_Symbol(__args__),
 				Value(new Object_args(env, args.Reference())), EXTRA_Public);
-#if defined(GURA_USE_PROCESSOR)
+#if 0
 	Sequence *pSequence = new Sequence_CustomFunction(pEnvLocal.release(),
 								dynamic_cast<CustomFunction *>(Reference()));
-	return Value(pSequence);
+	return Sequence::Return(sig, pSequence);
 #else
 	Value result = GetExprBody()->Exec(*pEnvLocal, sig);
 	EnvType envType = pEnvLocal->GetEnvType();

@@ -118,6 +118,7 @@ bool Sequence_Expr::Step(Signal sig, Value &result)
 			return false;
 		}
 	}
+	if (_idxExpr >= GetExprOwner().size()) _doneFlag = true;
 	return true;
 }
 
