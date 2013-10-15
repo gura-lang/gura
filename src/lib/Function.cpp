@@ -218,7 +218,10 @@ private:
 	enum Stat {
 		STAT_Init, STAT_ExprArgs, STAT_OptArgs, STAT_NamedArgs, STAT_Exec,
 	};
-	typedef std::map<const Symbol *, const Expr *, Symbol::KeyCompare_UniqNumber> ExprMap;
+	class ExprMap : public std::map<const Symbol *, Expr *, Symbol::KeyCompare_UniqNumber> {
+	public:
+		~ExprMap();
+	};
 private:
 	class Sequence_StoreDict : public Sequence {
 	private:
@@ -251,18 +254,27 @@ private:
 	DeclarationList::const_iterator _ppDecl;
 	ExprList::const_iterator _ppExprArg;
 	bool _stayDeclPointerFlag;
-	AutoPtr<ExprOwner> _pExprsToDelete; // store temporary Exprs that are to be deleted at the end
 	bool _mapFlag;
 public:
 	Sequence_Call(Environment *pEnv, Function *pFunc, Args &args);
 public:
 	inline Args *GetArgs() { return _pArgs.get(); }
 	inline ExprMap &GetExprMap() { return _exprMap; }
-	inline ExprOwner *GetExprsToDelete() { return _pExprsToDelete.get(); }
 	virtual bool Step(Signal sig, Value &result);
 	virtual String ToString() const;
 	void SkipDeclarations(size_t nSkipDecl);
 };
+
+//-----------------------------------------------------------------------------
+// Sequence_Call::ExprMap
+//-----------------------------------------------------------------------------
+Sequence_Call::ExprMap::~ExprMap()
+{
+	foreach (ExprMap, iter, *this) {
+		Expr *pExpr = iter->second;
+		Expr::Delete(pExpr);
+	}
+}
 
 //-----------------------------------------------------------------------------
 // Sequence_Call::Sequence_StoreDict
@@ -295,7 +307,6 @@ bool Sequence_Call::Sequence_ExpandModulo::Step(Signal sig, Value &result)
 {
 	Environment &env = *_pEnv;
 	ValueDict &valDictArg = _pSequenceCall->GetArgs()->GetValueDictArg();
-	ExprOwner *pExprsToDelete = _pSequenceCall->GetExprsToDelete();
 	ExprMap &exprMap = _pSequenceCall->GetExprMap();
 	Value value = _pExprArg->Exec2(env, sig);
 	if (sig.IsSignalled()) return false;
@@ -313,7 +324,6 @@ bool Sequence_Call::Sequence_ExpandModulo::Step(Signal sig, Value &result)
 			} else {
 				pExpr = new Expr_Value(value);
 			}
-			pExprsToDelete->push_back(pExpr);
 			exprMap[valueKey.GetSymbol()] = pExpr;
 		} else {
 			valDictArg.insert(*item);
@@ -334,9 +344,7 @@ String Sequence_Call::Sequence_ExpandModulo::ToString() const
 Sequence_Call::Sequence_Call(Environment *pEnv, Function *pFunc, Args &args) :
 			Sequence(pEnv), _stat(STAT_Init),
 			_pFunc(pFunc), _pArgs(new Args(args, ValueList::Null)),
-			_pExprsToDelete(new ExprOwner()),
-			_stayDeclPointerFlag(false),
-			_mapFlag(pFunc->GetMapFlag())
+			_stayDeclPointerFlag(false), _mapFlag(pFunc->GetMapFlag())
 {
 	_pArgs->SetValueDictArg(new ValueDict());
 	_ppDecl = _pFunc->GetDeclOwner().begin();
@@ -438,16 +446,8 @@ bool Sequence_Call::Step(Signal sig, Value &result)
 			const Expr *pExprRight = pExprBinaryOp->GetRight();
 			if (pExprLeft->IsSymbol()) {
 				const Symbol *pSymbol = dynamic_cast<const Expr_Symbol *>(pExprLeft)->GetSymbol();
-				_exprMap[pSymbol] = pExprRight;
+				_exprMap[pSymbol] = pExprRight->Reference();
 			} else if (pExprLeft->IsValue() || pExprLeft->IsString()) {
-				//----------------------
-				//Value valueKey = pExprLeft->IsValue()?
-				//	dynamic_cast<const Expr_Value *>(pExprLeft)->GetValue() :
-				//	 Value(env, dynamic_cast<const Expr_String *>(pExprLeft)->GetString());
-				//Value value = pExprRight->Exec2(env, sig);
-				//if (sig.IsSignalled()) return false;
-				//valDictArg[valueKey] = value;
-				//----------------------
 				Sequence *pSequence = new Sequence_StoreDict(env.Reference(),
 							dynamic_cast<Sequence_Call *>(Reference()),
 							pExprLeft->Reference(), pExprRight->Reference());
@@ -458,37 +458,11 @@ bool Sequence_Call::Step(Signal sig, Value &result)
 				return false;
 			}
 		} else if (!quoteFlag && Expr_Suffix::IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) {
-			//----------------------
 			pExprArg = dynamic_cast<const Expr_Suffix *>(pExprArg)->GetChild();
 			Sequence *pSequence = new Sequence_ExpandModulo(env.Reference(),
 						dynamic_cast<Sequence_Call *>(Reference()),
 						pExprArg->Reference());
 			result = Sequence::Return(sig, pSequence);
-#if 0
-			Value value = pExprArg->Exec2(env, sig);
-			if (sig.IsSignalled()) return false;
-			if (!value.IsDict()) {
-				sig.SetError(ERR_ValueError, "modulo argument must take a dictionary");
-				return false;
-			}
-			foreach_const (ValueDict, item, value.GetDict()) {
-				const Value &valueKey = item->first;
-				const Value &value = item->second;
-				if (valueKey.IsSymbol()) {
-					Expr *pExpr;
-					if (value.IsExpr()) {
-						pExpr = new Expr_Quote(Expr::Reference(value.GetExpr()));
-					} else {
-						pExpr = new Expr_Value(value);
-					}
-					_pExprsToDelete->push_back(pExpr);
-					_exprMap[valueKey.GetSymbol()] = pExpr;
-				} else {
-					valDictArg.insert(*item);
-				}
-			}
-#endif
-			//----------------------
 		} else if (_ppDecl != _pFunc->GetDeclOwner().end()) {
 			const Declaration *pDecl = *_ppDecl;
 			if (_exprMap.find(pDecl->GetSymbol()) != _exprMap.end()) {
@@ -550,14 +524,14 @@ bool Sequence_Call::Step(Signal sig, Value &result)
 			break;
 		}
 		const Declaration *pDecl = *_ppDecl++;
-		const Expr *pExprArg = pDecl->GetExprDefault();
+		AutoPtr<Expr> pExprArg(Expr::Reference(pDecl->GetExprDefault()));
 		ExprMap::iterator iter = _exprMap.find(pDecl->GetSymbol());
 		if (iter != _exprMap.end()) {
 			_exprMap.erase(iter);
-			pExprArg = iter->second;
+			pExprArg.reset(iter->second);
 		}
 		Value value;
-		if (pExprArg == NULL) {
+		if (pExprArg.IsNull()) {
 			if (pDecl->GetOccurPattern() == OCCUR_ZeroOrOnce) {
 				value = Value::Undefined;
 			} else if (pDecl->GetOccurPattern() == OCCUR_ZeroOrMore) {
@@ -569,10 +543,12 @@ bool Sequence_Call::Step(Signal sig, Value &result)
 				Declaration::SetError_NotEnoughArguments(sig);
 				return false;
 			}
+			valListArg.push_back(value);
 		} else if (pDecl->IsQuote()) {
-			value = Value(new Object_expr(env, Expr::Reference(pExprArg)));
+			value = Value(new Object_expr(env, pExprArg->Reference()));
+			valListArg.push_back(value);
 		} else if (pDecl->IsType(VTYPE_symbol)) {
-			const Expr *pExpr = pExprArg;
+			const Expr *pExpr = pExprArg.get();
 			if (pExpr->IsQuote()) {
 				pExpr = dynamic_cast<const Expr_Quote *>(pExpr)->GetChild();
 			}
@@ -583,13 +559,14 @@ bool Sequence_Call::Step(Signal sig, Value &result)
 			const Symbol *pSymbol =
 						dynamic_cast<const Expr_Symbol *>(pExpr)->GetSymbol();
 			value = Value(pSymbol);
+			valListArg.push_back(value);
 		} else {
 			//----------------------
 			value = pExprArg->Exec2(env, sig);
 			if (sig.IsSignalled()) return false;
+			valListArg.push_back(value);
 			//----------------------
 		}
-		valListArg.push_back(value);
 		break;
 	}
 	//-------------------------------------------------------------------------
