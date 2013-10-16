@@ -7,7 +7,8 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Sequence
 //-----------------------------------------------------------------------------
-Sequence::Sequence(Environment *pEnv) : _cntRef(1), _pEnv(pEnv), _doneFlag(false)
+Sequence::Sequence(Environment *pEnv) : _cntRef(1),
+						_pEnv(pEnv), _doneFlag(false), _pPostHandler(NULL)
 {
 }
 
@@ -56,8 +57,7 @@ bool Processor::Step(Signal sig, Value &result)
 {
 	if (CheckDone()) return true;
 	Sequence *pSequence = _sequenceStack.back();
-	pSequence->Step(sig, result);
-	if (sig.IsSignalled()) return false;
+	if (!pSequence->Step(sig, result)) return false;
 	if (pSequence->CheckDone()) {
 		Sequence::Delete(pSequence);
 		_sequenceStack.pop_back();

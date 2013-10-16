@@ -660,7 +660,7 @@ Function::Sequence_Call::Sequence_Call(Environment *pEnv, Function *pFunc, Args 
 	_ppExprArg = _pArgs->GetExprListArg().begin();
 }
 
-bool Function::Sequence_Call::Step(Signal sig, Value &result)
+bool Function::Sequence_Call::DoStep(Signal sig, Value &result)
 {
 	Environment &env = *_pEnv;
 	ValueList &valListArg = _pArgs->GetValueListArg();
@@ -925,7 +925,7 @@ void Function::Sequence_Call::SkipDeclarations(size_t nSkipDecl)
 //-----------------------------------------------------------------------------
 // Function::Sequence_StoreDict
 //-----------------------------------------------------------------------------
-bool Function::Sequence_StoreDict::Step(Signal sig, Value &result)
+bool Function::Sequence_StoreDict::DoStep(Signal sig, Value &result)
 {
 	Environment &env = *_pEnv;
 	result = _pExprRight->Exec(env, sig);
@@ -951,7 +951,7 @@ String Function::Sequence_StoreDict::ToString() const
 //-----------------------------------------------------------------------------
 // Function::Sequence_ExpandMod
 //-----------------------------------------------------------------------------
-bool Function::Sequence_ExpandMod::Step(Signal sig, Value &result)
+bool Function::Sequence_ExpandMod::DoStep(Signal sig, Value &result)
 {
 	Environment &env = *_pEnv;
 	result = _pExprArg->Exec(env, sig);
@@ -993,7 +993,7 @@ String Function::Sequence_ExpandMod::ToString() const
 //-----------------------------------------------------------------------------
 // Function::Sequence_ExpandMul
 //-----------------------------------------------------------------------------
-bool Function::Sequence_ExpandMul::Step(Signal sig, Value &result)
+bool Function::Sequence_ExpandMul::DoStep(Signal sig, Value &result)
 {
 	Environment &env = *_pEnv;
 	result = _pExprArg->Exec(env, sig);
@@ -1029,7 +1029,7 @@ String Function::Sequence_ExpandMul::ToString() const
 //-----------------------------------------------------------------------------
 // Function::Sequence_ValListArg
 //-----------------------------------------------------------------------------
-bool Function::Sequence_ValListArg::Step(Signal sig, Value &result)
+bool Function::Sequence_ValListArg::DoStep(Signal sig, Value &result)
 {
 	Environment &env = *_pEnv;
 	result = _pExprArg->Exec(env, sig);
@@ -1053,7 +1053,7 @@ String Function::Sequence_ValListArg::ToString() const
 //-----------------------------------------------------------------------------
 // Function::Sequence_ValDictArg
 //-----------------------------------------------------------------------------
-bool Function::Sequence_ValDictArg::Step(Signal sig, Value &result)
+bool Function::Sequence_ValDictArg::DoStep(Signal sig, Value &result)
 {
 	Environment &env = *_pEnv;
 	ExprMap::iterator iterExprMap = _pSequenceCall->NextIterExprMap();
@@ -1264,10 +1264,10 @@ Sequence_CustomFunction::Sequence_CustomFunction(Environment *pEnv, CustomFuncti
 	}
 }
 
-bool Sequence_CustomFunction::Step(Signal sig, Value &result)
+bool Sequence_CustomFunction::DoStep(Signal sig, Value &result)
 {
 	Environment &env = *_pEnv;
-	if (!Sequence_Expr::Step(sig, result)) return false;
+	if (!Sequence_Expr::DoStep(sig, result)) return false;
 	if (env.GetEnvType() == ENVTYPE_block) {
 		// nothing to do. simply pass the signal to the outside.
 	} else if (!sig.IsSignalled()) {

@@ -757,7 +757,7 @@ Expr_Value::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_Value::SequenceEx::Step(Signal sig, Value &result)
+bool Expr_Value::SequenceEx::DoStep(Signal sig, Value &result)
 {
 	return false;
 }
@@ -990,7 +990,7 @@ Expr_Symbol::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_Symbol::SequenceEx::Step(Signal sig, Value &result)
+bool Expr_Symbol::SequenceEx::DoStep(Signal sig, Value &result)
 {
 	return false;
 }
@@ -1045,7 +1045,7 @@ Expr_String::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_String::SequenceEx::Step(Signal sig, Value &result)
+bool Expr_String::SequenceEx::DoStep(Signal sig, Value &result)
 {
 	return false;
 }
@@ -1099,7 +1099,7 @@ Expr_TmplString::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_TmplString::SequenceEx::Step(Signal sig, Value &result)
+bool Expr_TmplString::SequenceEx::DoStep(Signal sig, Value &result)
 {
 	return false;
 }
@@ -1176,7 +1176,7 @@ Expr_Root::SequenceEx::SequenceEx(Environment *pEnv, Expr_Root *pExpr) :
 {
 }
 
-bool Expr_Root::SequenceEx::Step(Signal sig, Value &result)
+bool Expr_Root::SequenceEx::DoStep(Signal sig, Value &result)
 {
 	if (_idxExpr >= _pExpr->GetExprOwner().size()) {
 		_doneFlag = true;
@@ -1319,7 +1319,7 @@ Expr_Block::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_Block::SequenceEx::Step(Signal sig, Value &result)
+bool Expr_Block::SequenceEx::DoStep(Signal sig, Value &result)
 {
 	return false;
 }
@@ -1390,7 +1390,7 @@ Expr_BlockParam::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_BlockParam::SequenceEx::Step(Signal sig, Value &result)
+bool Expr_BlockParam::SequenceEx::DoStep(Signal sig, Value &result)
 {
 	return false;
 }
@@ -1544,7 +1544,7 @@ Expr_Lister::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_Lister::SequenceEx::Step(Signal sig, Value &result)
+bool Expr_Lister::SequenceEx::DoStep(Signal sig, Value &result)
 {
 	return false;
 }
@@ -1623,7 +1623,7 @@ Expr_IterLink::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_IterLink::SequenceEx::Step(Signal sig, Value &result)
+bool Expr_IterLink::SequenceEx::DoStep(Signal sig, Value &result)
 {
 	return false;
 }
@@ -1733,7 +1733,7 @@ Expr_TmplScript::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_TmplScript::SequenceEx::Step(Signal sig, Value &result)
+bool Expr_TmplScript::SequenceEx::DoStep(Signal sig, Value &result)
 {
 	return false;
 }
@@ -2000,7 +2000,7 @@ Expr_Indexer::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_Indexer::SequenceEx::Step(Signal sig, Value &result)
+bool Expr_Indexer::SequenceEx::DoStep(Signal sig, Value &result)
 {
 	return false;
 }
@@ -2412,7 +2412,7 @@ Expr_Caller::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_Caller::SequenceEx::Step(Signal sig, Value &result)
+bool Expr_Caller::SequenceEx::DoStep(Signal sig, Value &result)
 {
 	return false;
 }
@@ -2501,7 +2501,7 @@ Expr_UnaryOp::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_UnaryOp::SequenceEx::Step(Signal sig, Value &result)
+bool Expr_UnaryOp::SequenceEx::DoStep(Signal sig, Value &result)
 {
 	return false;
 }
@@ -2624,7 +2624,7 @@ Expr_BinaryOp::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_BinaryOp::SequenceEx::Step(Signal sig, Value &result)
+bool Expr_BinaryOp::SequenceEx::DoStep(Signal sig, Value &result)
 {
 	return false;
 }
@@ -2696,7 +2696,7 @@ Expr_Quote::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_Quote::SequenceEx::Step(Signal sig, Value &result)
+bool Expr_Quote::SequenceEx::DoStep(Signal sig, Value &result)
 {
 	return false;
 }
@@ -2748,7 +2748,7 @@ Expr_Prefix::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_Prefix::SequenceEx::Step(Signal sig, Value &result)
+bool Expr_Prefix::SequenceEx::DoStep(Signal sig, Value &result)
 {
 	return false;
 }
@@ -2809,7 +2809,7 @@ Expr_Suffix::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_Suffix::SequenceEx::Step(Signal sig, Value &result)
+bool Expr_Suffix::SequenceEx::DoStep(Signal sig, Value &result)
 {
 	return false;
 }
@@ -2907,7 +2907,7 @@ Expr_Assign::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_Assign::SequenceEx::Step(Signal sig, Value &result)
+bool Expr_Assign::SequenceEx::DoStep(Signal sig, Value &result)
 {
 	return false;
 }
@@ -3077,7 +3077,7 @@ Expr_Member::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_Member::SequenceEx::Step(Signal sig, Value &result)
+bool Expr_Member::SequenceEx::DoStep(Signal sig, Value &result)
 {
 	return false;
 }
@@ -3098,7 +3098,7 @@ Sequence_Expr::Sequence_Expr(Environment *pEnv, ExprOwner *pExprOwner, bool eval
 {
 }
 
-bool Sequence_Expr::Step(Signal sig, Value &result)
+bool Sequence_Expr::DoStep(Signal sig, Value &result)
 {
 	if (CheckDone()) return false;
 	if (_idxExpr >= GetExprOwner().size()) {

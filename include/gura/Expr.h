@@ -362,7 +362,7 @@ public:
 	class SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
-		virtual bool Step(Signal sig, Value &result);
+		virtual bool DoStep(Signal sig, Value &result);
 		virtual String ToString() const;
 	};
 protected:
@@ -399,7 +399,7 @@ public:
 	class SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
-		virtual bool Step(Signal sig, Value &result);
+		virtual bool DoStep(Signal sig, Value &result);
 		virtual String ToString() const;
 	};
 protected:
@@ -429,7 +429,7 @@ public:
 	class SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
-		virtual bool Step(Signal sig, Value &result);
+		virtual bool DoStep(Signal sig, Value &result);
 		virtual String ToString() const;
 	};
 protected:
@@ -463,7 +463,7 @@ public:
 	class SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
-		virtual bool Step(Signal sig, Value &result);
+		virtual bool DoStep(Signal sig, Value &result);
 		virtual String ToString() const;
 	};
 protected:
@@ -516,7 +516,7 @@ public:
 		size_t _idxExpr;
 	public:
 		SequenceEx(Environment *pEnv, Expr_Root *pExpr);
-		virtual bool Step(Signal sig, Value &result);
+		virtual bool DoStep(Signal sig, Value &result);
 		virtual String ToString() const;
 	};
 private:
@@ -546,7 +546,7 @@ public:
 	class SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
-		virtual bool Step(Signal sig, Value &result);
+		virtual bool DoStep(Signal sig, Value &result);
 		virtual String ToString() const;
 	};
 public:
@@ -572,7 +572,7 @@ public:
 	class SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
-		virtual bool Step(Signal sig, Value &result);
+		virtual bool DoStep(Signal sig, Value &result);
 		virtual String ToString() const;
 	};
 protected:
@@ -607,7 +607,7 @@ public:
 	class SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
-		virtual bool Step(Signal sig, Value &result);
+		virtual bool DoStep(Signal sig, Value &result);
 		virtual String ToString() const;
 	};
 public:
@@ -638,7 +638,7 @@ public:
 	class SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
-		virtual bool Step(Signal sig, Value &result);
+		virtual bool DoStep(Signal sig, Value &result);
 		virtual String ToString() const;
 	};
 public:
@@ -667,7 +667,7 @@ public:
 	class SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
-		virtual bool Step(Signal sig, Value &result);
+		virtual bool DoStep(Signal sig, Value &result);
 		virtual String ToString() const;
 	};
 protected:
@@ -710,7 +710,7 @@ public:
 	class SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
-		virtual bool Step(Signal sig, Value &result);
+		virtual bool DoStep(Signal sig, Value &result);
 		virtual String ToString() const;
 	};
 protected:
@@ -741,7 +741,7 @@ public:
 	class SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
-		virtual bool Step(Signal sig, Value &result);
+		virtual bool DoStep(Signal sig, Value &result);
 		virtual String ToString() const;
 	};
 public:
@@ -771,7 +771,7 @@ public:
 	class SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
-		virtual bool Step(Signal sig, Value &result);
+		virtual bool DoStep(Signal sig, Value &result);
 		virtual String ToString() const;
 	};
 protected:
@@ -835,7 +835,7 @@ public:
 	class SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
-		virtual bool Step(Signal sig, Value &result);
+		virtual bool DoStep(Signal sig, Value &result);
 		virtual String ToString() const;
 	};
 protected:
@@ -871,7 +871,7 @@ public:
 	class SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
-		virtual bool Step(Signal sig, Value &result);
+		virtual bool DoStep(Signal sig, Value &result);
 		virtual String ToString() const;
 	};
 protected:
@@ -904,7 +904,7 @@ public:
 	class SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
-		virtual bool Step(Signal sig, Value &result);
+		virtual bool DoStep(Signal sig, Value &result);
 		virtual String ToString() const;
 	};
 public:
@@ -931,7 +931,7 @@ public:
 	class SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
-		virtual bool Step(Signal sig, Value &result);
+		virtual bool DoStep(Signal sig, Value &result);
 		virtual String ToString() const;
 	};
 private:
@@ -962,7 +962,7 @@ public:
 	class SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
-		virtual bool Step(Signal sig, Value &result);
+		virtual bool DoStep(Signal sig, Value &result);
 		virtual String ToString() const;
 	};
 private:
@@ -998,7 +998,7 @@ public:
 	class SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
-		virtual bool Step(Signal sig, Value &result);
+		virtual bool DoStep(Signal sig, Value &result);
 		virtual String ToString() const;
 	};
 private:
@@ -1031,7 +1031,7 @@ public:
 	class SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
-		virtual bool Step(Signal sig, Value &result);
+		virtual bool DoStep(Signal sig, Value &result);
 		virtual String ToString() const;
 	};
 public:
@@ -1073,7 +1073,7 @@ protected:
 public:
 	Sequence_Expr(Environment *pEnv, ExprOwner *pExprOwner, bool evalSymFuncFlag);
 public:
-	virtual bool Step(Signal sig, Value &result);
+	virtual bool DoStep(Signal sig, Value &result);
 	virtual String ToString() const;
 	inline const ExprOwner &GetExprOwner() const { return *_pExprOwner; }
 };
