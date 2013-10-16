@@ -637,223 +637,20 @@ void Function::ResultComposer::Store(const Value &value)
 }
 
 //-----------------------------------------------------------------------------
-// CustomFunction
+// Function::ExprMap
 //-----------------------------------------------------------------------------
-bool CustomFunction::IsCustom() const { return true; }
-
-CustomFunction::CustomFunction(Environment &envScope,
-				const Symbol *pSymbol, Expr *pExprBody, FunctionType funcType) :
-		Function(envScope, pSymbol, funcType, FLAG_None), _pExprBody(pExprBody)
+Function::ExprMap::~ExprMap()
 {
-}
-
-CustomFunction::~CustomFunction()
-{
-}
-
-Value CustomFunction::DoEval(Environment &env, Signal sig, Args &args) const
-{
-	AutoPtr<Environment> pEnvLocal(PrepareEnvironment(env, sig, args));
-	if (pEnvLocal.get() == NULL) return Value::Null;
-	if (_funcType != FUNCTYPE_Block) {
-		Value valueThis(args.GetThis());
-		valueThis.AddFlags(VFLAG_Privileged);
-		pEnvLocal->AssignValue(Gura_Symbol(this), valueThis, EXTRA_Public);
-	}
-	pEnvLocal->AssignValue(Gura_Symbol(__args__),
-				Value(new Object_args(env, args.Reference())), EXTRA_Public);
-#if 0
-	Sequence *pSequence = new Sequence_CustomFunction(pEnvLocal.release(),
-								dynamic_cast<CustomFunction *>(Reference()));
-	return Sequence::Return(sig, pSequence);
-#else
-	Value result = GetExprBody()->Exec(*pEnvLocal, sig);
-	EnvType envType = pEnvLocal->GetEnvType();
-	if (envType == ENVTYPE_block) {
-		// nothing to do. simply pass the signal to the outside.
-	} else if (!sig.IsSignalled()) {
-		// nothing to do
-	} else if (sig.IsBreak()) {
-		sig.ClearSignal();
-	} else if (sig.IsContinue()) {
-		sig.ClearSignal();
-	} else if (sig.IsReturn()) {
-		result = sig.GetValue();
-		sig.ClearSignal();
-	}
-	return result;
-#endif
-}
-
-Expr *CustomFunction::DiffUnary(Environment &env, Signal sig,
-							const Expr *pExprArg, const Symbol *pSymbol) const
-{
-	SetError_MathDiffError(sig);
-	return NULL;
-}
-
-CustomFunction *CustomFunction::CreateBlockFunc(Environment &env, Signal sig,
-	const Symbol *pSymbol, const Expr_Block *pExprBlock, FunctionType funcType)
-{
-	AutoPtr<CustomFunction> pFunc(new CustomFunction(env,
-							pSymbol, Expr::Reference(pExprBlock), funcType));
-	pFunc->_declOwner.AllowTooManyArgs(true);
-	const Expr_BlockParam *pExprBlockParam = pExprBlock->GetParam();
-	if (pExprBlockParam != NULL) {
-		AutoPtr<Args> pArgs(new Args());
-		pArgs->SetExprOwnerArg(pExprBlockParam->GetExprOwner().Reference());
-		if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, *pArgs)) {
-			return NULL;
-		}
-	}
-	return pFunc.release();
-}
-
-//-----------------------------------------------------------------------------
-// Args
-//-----------------------------------------------------------------------------
-Args::~Args()
-{
-}
-
-bool Args::ShouldGenerateIterator(const DeclarationList &declList) const
-{
-	if (IsThisIterator()) return true;
-	ValueList::const_iterator pValue = _valListArg.begin();
-	DeclarationList::const_iterator ppDecl = declList.begin();
-	for ( ; pValue != _valListArg.end() && ppDecl != declList.end(); pValue++) {
-		const Declaration *pDecl = *ppDecl;
-		if (pValue->IsIterator() &&
-						pDecl->GetValueType() != VTYPE_iterator) return true;
-		if (!pDecl->IsVariableLength()) ppDecl++;
-	}
-	return false;
-}
-
-const Expr_Block *Args::GetBlock(Environment &env, Signal sig) const
-{
-	// check if the block parameter specifies a delegated block information
-	// like "g() {|block|}"
-	// scope problem remains: 2010.11.02
-	const Expr_Block *pExprBlock = _pExprBlock.get();
-	while (pExprBlock != NULL) {
-		const Expr_BlockParam *pExprBlockParam = pExprBlock->GetParam();
-		if (pExprBlockParam == NULL || !pExprBlock->GetExprOwner().empty()) {
-			break;
-		}
-		const ExprList &exprList = pExprBlockParam->GetExprOwner();
-		if (exprList.size() != 1 || !exprList.front()->IsSymbol()) {
-			break;
-		}
-		const Expr_Symbol *pExprSymbol =
-							dynamic_cast<const Expr_Symbol *>(exprList.front());
-		const Value *pValue = env.LookupValue(pExprSymbol->GetSymbol(), ENVREF_Escalate);
-		if (pValue == NULL) {
-			break;
-		} else if (pValue->IsExpr()) {
-			const Expr *pExpr = pValue->GetExpr();
-			if (!pExpr->IsBlock()) {
-				sig.SetError(ERR_ValueError, "invalid value for block delegation");
-				return NULL;
-			}
-			pExprBlock = dynamic_cast<const Expr_Block *>(pExpr);
-		} else if (pValue->IsInvalid()) {
-			return NULL;
-		} else {
-			break;
-		}
-	}
-	return pExprBlock;
-}
-
-// return NULL without error if block is not specified
-const Function *Args::GetBlockFunc(Environment &env, Signal sig, const Symbol *pSymbol)
-{
-	const Expr_Block *pExprBlock = GetBlock(env, sig);
-	if (pExprBlock == NULL || pSymbol == NULL) return NULL;
-	if (_pFuncBlock.IsNull()) {
-		_pFuncBlock.reset(CustomFunction::CreateBlockFunc(env, sig,
-										pSymbol, pExprBlock, FUNCTYPE_Block));
-	}
-	return _pFuncBlock.get();
-}
-
-//-----------------------------------------------------------------------------
-// Callable
-//-----------------------------------------------------------------------------
-bool Callable::IsLeader() const
-{
-	return false;
-}
-
-bool Callable::IsTrailer() const
-{
-	return false;
-}
-
-bool Callable::IsFinalizer() const
-{
-	return false;
-}
-
-bool Callable::IsEndMarker() const
-{
-	return false;
-}
-
-OccurPattern Callable::GetBlockOccurPattern() const
-{
-	return OCCUR_Zero;
-}
-
-//-----------------------------------------------------------------------------
-// Sequence_CustomFunction
-//-----------------------------------------------------------------------------
-Sequence_CustomFunction::Sequence_CustomFunction(Environment *pEnv, CustomFunction *pCustomFunction) :
-			Sequence_Expr(pEnv, NULL, true), _pCustomFunction(pCustomFunction)
-{
-	const Expr *pExprBody = _pCustomFunction->GetExprBody();
-	if (pExprBody == NULL) {
-		_pExprOwner.reset(new ExprOwner());
-	} else if (pExprBody->IsBlock()) {
-		const Expr_Block *pExprBlock = dynamic_cast<const Expr_Block *>(pExprBody);
-		_pExprOwner.reset(pExprBlock->GetExprOwner().Reference());
-	} else {
-		_pExprOwner.reset(new ExprOwner());
-		_pExprOwner->push_back(pExprBody->Reference());
+	foreach (ExprMap, iter, *this) {
+		Expr *pExpr = iter->second;
+		Expr::Delete(pExpr);
 	}
 }
 
-bool Sequence_CustomFunction::Step(Signal sig, Value &result)
-{
-	Environment &env = *_pEnv;
-	if (!Sequence_Expr::Step(sig, result)) return false;
-	if (env.GetEnvType() == ENVTYPE_block) {
-		// nothing to do. simply pass the signal to the outside.
-	} else if (!sig.IsSignalled()) {
-		// nothing to do
-	} else if (sig.IsBreak()) {
-		sig.ClearSignal();
-	} else if (sig.IsContinue()) {
-		sig.ClearSignal();
-	} else if (sig.IsReturn()) {
-		result = sig.GetValue();
-		sig.ClearSignal();
-	}
-	return true;
-}
-
-String Sequence_CustomFunction::ToString() const
-{
-	String str;
-	str += "<sequence:customfunction>";
-	return str;
-}
-
 //-----------------------------------------------------------------------------
-// Sequence_Call
+// Function::Sequence_Call
 //-----------------------------------------------------------------------------
-Sequence_Call::Sequence_Call(Environment *pEnv, Function *pFunc, Args &args) :
+Function::Sequence_Call::Sequence_Call(Environment *pEnv, Function *pFunc, Args &args) :
 			Sequence(pEnv), _stat(STAT_Init),
 			_pFunc(pFunc), _pArgs(new Args(args, ValueList::Null)),
 			_stayDeclPointerFlag(false), _mapFlag(pFunc->GetMapFlag())
@@ -863,7 +660,7 @@ Sequence_Call::Sequence_Call(Environment *pEnv, Function *pFunc, Args &args) :
 	_ppExprArg = _pArgs->GetExprListArg().begin();
 }
 
-bool Sequence_Call::Step(Signal sig, Value &result)
+bool Function::Sequence_Call::Step(Signal sig, Value &result)
 {
 	Environment &env = *_pEnv;
 	ValueList &valListArg = _pArgs->GetValueListArg();
@@ -1105,14 +902,14 @@ bool Sequence_Call::Step(Signal sig, Value &result)
 	return !sig.IsSignalled();
 }
 
-String Sequence_Call::ToString() const
+String Function::Sequence_Call::ToString() const
 {
 	String str;
 	str += "<sequence:call>";
 	return str;
 }
 
-void Sequence_Call::SkipDeclarations(size_t nSkipDecl)
+void Function::Sequence_Call::SkipDeclarations(size_t nSkipDecl)
 {
 	for (size_t iSkipDecl = 0; iSkipDecl < nSkipDecl &&
 				_ppDecl != _pFunc->GetDeclOwner().end(); iSkipDecl++) {
@@ -1126,34 +923,25 @@ void Sequence_Call::SkipDeclarations(size_t nSkipDecl)
 }
 
 //-----------------------------------------------------------------------------
-// Sequence_Call::ExprMap
+// Function::Sequence_StoreDict
 //-----------------------------------------------------------------------------
-Sequence_Call::ExprMap::~ExprMap()
-{
-	foreach (ExprMap, iter, *this) {
-		Expr *pExpr = iter->second;
-		Expr::Delete(pExpr);
-	}
-}
-
-//-----------------------------------------------------------------------------
-// Sequence_Call::Sequence_StoreDict
-//-----------------------------------------------------------------------------
-bool Sequence_Call::Sequence_StoreDict::Step(Signal sig, Value &result)
+bool Function::Sequence_StoreDict::Step(Signal sig, Value &result)
 {
 	Environment &env = *_pEnv;
-	ValueDict &valDictArg = _pSequenceCall->GetArgs()->GetValueDictArg();
-	Value valueKey = _pExprLeft->IsValue()?
-		dynamic_cast<const Expr_Value *>(_pExprLeft.get())->GetValue() :
-		 Value(env, dynamic_cast<const Expr_String *>(_pExprLeft.get())->GetString());
 	result = _pExprRight->Exec(env, sig);
-	if (sig.IsSignalled()) return false;
-	valDictArg[valueKey] = result;
+	do {
+		ValueDict &valDictArg = _pSequenceCall->GetArgs()->GetValueDictArg();
+		Value valueKey = _pExprLeft->IsValue()?
+			dynamic_cast<const Expr_Value *>(_pExprLeft.get())->GetValue() :
+			 Value(env, dynamic_cast<const Expr_String *>(_pExprLeft.get())->GetString());
+		if (sig.IsSignalled()) return false;
+		valDictArg[valueKey] = result;
+	} while (0);
 	_doneFlag = true;
 	return true;
 }
 
-String Sequence_Call::Sequence_StoreDict::ToString() const
+String Function::Sequence_StoreDict::ToString() const
 {
 	String str;
 	str += "<sequence:call:storedict>";
@@ -1161,39 +949,41 @@ String Sequence_Call::Sequence_StoreDict::ToString() const
 }
 
 //-----------------------------------------------------------------------------
-// Sequence_Call::Sequence_ExpandMod
+// Function::Sequence_ExpandMod
 //-----------------------------------------------------------------------------
-bool Sequence_Call::Sequence_ExpandMod::Step(Signal sig, Value &result)
+bool Function::Sequence_ExpandMod::Step(Signal sig, Value &result)
 {
 	Environment &env = *_pEnv;
-	ValueDict &valDictArg = _pSequenceCall->GetArgs()->GetValueDictArg();
-	ExprMap &exprMap = _pSequenceCall->GetExprMap();
 	result = _pExprArg->Exec(env, sig);
-	if (sig.IsSignalled()) return false;
-	if (!result.IsDict()) {
-		sig.SetError(ERR_ValueError, "modulo argument must take a dictionary");
-		return false;
-	}
-	foreach_const (ValueDict, item, result.GetDict()) {
-		const Value &valueKey = item->first;
-		const Value &value = item->second;
-		if (valueKey.IsSymbol()) {
-			Expr *pExpr;
-			if (value.IsExpr()) {
-				pExpr = new Expr_Quote(Expr::Reference(value.GetExpr()));
-			} else {
-				pExpr = new Expr_Value(value);
-			}
-			exprMap[valueKey.GetSymbol()] = pExpr;
-		} else {
-			valDictArg.insert(*item);
+	do {
+		ValueDict &valDictArg = _pSequenceCall->GetArgs()->GetValueDictArg();
+		ExprMap &exprMap = _pSequenceCall->GetExprMap();
+		if (sig.IsSignalled()) return false;
+		if (!result.IsDict()) {
+			sig.SetError(ERR_ValueError, "modulo argument must take a dictionary");
+			return false;
 		}
-	}
+		foreach_const (ValueDict, item, result.GetDict()) {
+			const Value &valueKey = item->first;
+			const Value &value = item->second;
+			if (valueKey.IsSymbol()) {
+				Expr *pExpr;
+				if (value.IsExpr()) {
+					pExpr = new Expr_Quote(Expr::Reference(value.GetExpr()));
+				} else {
+					pExpr = new Expr_Value(value);
+				}
+				exprMap[valueKey.GetSymbol()] = pExpr;
+			} else {
+				valDictArg.insert(*item);
+			}
+		}
+	} while (0);
 	_doneFlag = true;
 	return true;
 }
 
-String Sequence_Call::Sequence_ExpandMod::ToString() const
+String Function::Sequence_ExpandMod::ToString() const
 {
 	String str;
 	str += "<sequence:call:expandmod>";
@@ -1201,33 +991,35 @@ String Sequence_Call::Sequence_ExpandMod::ToString() const
 }
 
 //-----------------------------------------------------------------------------
-// Sequence_Call::Sequence_ExpandMul
+// Function::Sequence_ExpandMul
 //-----------------------------------------------------------------------------
-bool Sequence_Call::Sequence_ExpandMul::Step(Signal sig, Value &result)
+bool Function::Sequence_ExpandMul::Step(Signal sig, Value &result)
 {
 	Environment &env = *_pEnv;
-	ValueList &valListArg = _pSequenceCall->GetArgs()->GetValueListArg();
-	size_t nSkipDecl = 1;
 	result = _pExprArg->Exec(env, sig);
-	if (sig.IsSignalled()) {
-		sig.AddExprCause(_pExprArg.get());
-		return false;
-	}
-	if (result.IsList()) {
-		const ValueList &valList = result.GetList();
-		nSkipDecl = valList.size();
-		foreach_const (ValueList, pValue, valList) {
-			valListArg.push_back(*pValue);
+	do {
+		ValueList &valListArg = _pSequenceCall->GetArgs()->GetValueListArg();
+		size_t nSkipDecl = 1;
+		if (sig.IsSignalled()) {
+			sig.AddExprCause(_pExprArg.get());
+			return false;
 		}
-	} else {
-		valListArg.push_back(result);
-	}
-	_pSequenceCall->SkipDeclarations(nSkipDecl);
+		if (result.IsList()) {
+			const ValueList &valList = result.GetList();
+			nSkipDecl = valList.size();
+			foreach_const (ValueList, pValue, valList) {
+				valListArg.push_back(*pValue);
+			}
+		} else {
+			valListArg.push_back(result);
+		}
+		_pSequenceCall->SkipDeclarations(nSkipDecl);
+	} while (0);
 	_doneFlag = true;
 	return true;
 }
 
-String Sequence_Call::Sequence_ExpandMul::ToString() const
+String Function::Sequence_ExpandMul::ToString() const
 {
 	String str;
 	str += "<sequence:call:expandmul>";
@@ -1235,21 +1027,23 @@ String Sequence_Call::Sequence_ExpandMul::ToString() const
 }
 
 //-----------------------------------------------------------------------------
-// Sequence_Call::Sequence_ValListArg
+// Function::Sequence_ValListArg
 //-----------------------------------------------------------------------------
-bool Sequence_Call::Sequence_ValListArg::Step(Signal sig, Value &result)
+bool Function::Sequence_ValListArg::Step(Signal sig, Value &result)
 {
 	Environment &env = *_pEnv;
-	ValueList &valListArg = _pSequenceCall->GetArgs()->GetValueListArg();
 	result = _pExprArg->Exec(env, sig);
-	if (sig.IsSignalled()) return false;
-	valListArg.push_back(result);
-	if (_skipDeclFlag) _pSequenceCall->SkipDeclarations(1);
+	do {
+		ValueList &valListArg = _pSequenceCall->GetArgs()->GetValueListArg();
+		if (sig.IsSignalled()) return false;
+		valListArg.push_back(result);
+		if (_skipDeclFlag) _pSequenceCall->SkipDeclarations(1);
+	} while (0);
 	_doneFlag = true;
 	return true;
 }
 
-String Sequence_Call::Sequence_ValListArg::ToString() const
+String Function::Sequence_ValListArg::ToString() const
 {
 	String str;
 	str += "<sequence:call:vallistarg>";
@@ -1257,26 +1051,242 @@ String Sequence_Call::Sequence_ValListArg::ToString() const
 }
 
 //-----------------------------------------------------------------------------
-// Sequence_Call::Sequence_ValDictArg
+// Function::Sequence_ValDictArg
 //-----------------------------------------------------------------------------
-bool Sequence_Call::Sequence_ValDictArg::Step(Signal sig, Value &result)
+bool Function::Sequence_ValDictArg::Step(Signal sig, Value &result)
 {
 	Environment &env = *_pEnv;
-	ValueDict &valDictArg = _pSequenceCall->GetArgs()->GetValueDictArg();
 	ExprMap::iterator iterExprMap = _pSequenceCall->NextIterExprMap();
 	const Symbol *pSymbol = iterExprMap->first;
 	const Expr *pExprArg = iterExprMap->second;
-	Value value = pExprArg->Exec(env, sig);
-	if (sig.IsSignalled()) return false;
-	valDictArg[Value(pSymbol)] = value;
+	result = pExprArg->Exec(env, sig);
+	do {
+		ValueDict &valDictArg = _pSequenceCall->GetArgs()->GetValueDictArg();
+		if (sig.IsSignalled()) return false;
+		valDictArg[Value(pSymbol)] = result;
+	} while (0);
 	_doneFlag = true;
 	return true;
 }
 
-String Sequence_Call::Sequence_ValDictArg::ToString() const
+String Function::Sequence_ValDictArg::ToString() const
 {
 	String str;
 	str += "<sequence:call:valdictarg>";
+	return str;
+}
+
+//-----------------------------------------------------------------------------
+// CustomFunction
+//-----------------------------------------------------------------------------
+bool CustomFunction::IsCustom() const { return true; }
+
+CustomFunction::CustomFunction(Environment &envScope,
+				const Symbol *pSymbol, Expr *pExprBody, FunctionType funcType) :
+		Function(envScope, pSymbol, funcType, FLAG_None), _pExprBody(pExprBody)
+{
+}
+
+CustomFunction::~CustomFunction()
+{
+}
+
+Value CustomFunction::DoEval(Environment &env, Signal sig, Args &args) const
+{
+	AutoPtr<Environment> pEnvLocal(PrepareEnvironment(env, sig, args));
+	if (pEnvLocal.get() == NULL) return Value::Null;
+	if (_funcType != FUNCTYPE_Block) {
+		Value valueThis(args.GetThis());
+		valueThis.AddFlags(VFLAG_Privileged);
+		pEnvLocal->AssignValue(Gura_Symbol(this), valueThis, EXTRA_Public);
+	}
+	pEnvLocal->AssignValue(Gura_Symbol(__args__),
+				Value(new Object_args(env, args.Reference())), EXTRA_Public);
+#if 0
+	Sequence *pSequence = new Sequence_CustomFunction(pEnvLocal.release(),
+								dynamic_cast<CustomFunction *>(Reference()));
+	return Sequence::Return(sig, pSequence);
+#else
+	Value result = GetExprBody()->Exec(*pEnvLocal, sig);
+	EnvType envType = pEnvLocal->GetEnvType();
+	if (envType == ENVTYPE_block) {
+		// nothing to do. simply pass the signal to the outside.
+	} else if (!sig.IsSignalled()) {
+		// nothing to do
+	} else if (sig.IsBreak()) {
+		sig.ClearSignal();
+	} else if (sig.IsContinue()) {
+		sig.ClearSignal();
+	} else if (sig.IsReturn()) {
+		result = sig.GetValue();
+		sig.ClearSignal();
+	}
+	return result;
+#endif
+}
+
+Expr *CustomFunction::DiffUnary(Environment &env, Signal sig,
+							const Expr *pExprArg, const Symbol *pSymbol) const
+{
+	SetError_MathDiffError(sig);
+	return NULL;
+}
+
+CustomFunction *CustomFunction::CreateBlockFunc(Environment &env, Signal sig,
+	const Symbol *pSymbol, const Expr_Block *pExprBlock, FunctionType funcType)
+{
+	AutoPtr<CustomFunction> pFunc(new CustomFunction(env,
+							pSymbol, Expr::Reference(pExprBlock), funcType));
+	pFunc->_declOwner.AllowTooManyArgs(true);
+	const Expr_BlockParam *pExprBlockParam = pExprBlock->GetParam();
+	if (pExprBlockParam != NULL) {
+		AutoPtr<Args> pArgs(new Args());
+		pArgs->SetExprOwnerArg(pExprBlockParam->GetExprOwner().Reference());
+		if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, *pArgs)) {
+			return NULL;
+		}
+	}
+	return pFunc.release();
+}
+
+//-----------------------------------------------------------------------------
+// Args
+//-----------------------------------------------------------------------------
+Args::~Args()
+{
+}
+
+bool Args::ShouldGenerateIterator(const DeclarationList &declList) const
+{
+	if (IsThisIterator()) return true;
+	ValueList::const_iterator pValue = _valListArg.begin();
+	DeclarationList::const_iterator ppDecl = declList.begin();
+	for ( ; pValue != _valListArg.end() && ppDecl != declList.end(); pValue++) {
+		const Declaration *pDecl = *ppDecl;
+		if (pValue->IsIterator() &&
+						pDecl->GetValueType() != VTYPE_iterator) return true;
+		if (!pDecl->IsVariableLength()) ppDecl++;
+	}
+	return false;
+}
+
+const Expr_Block *Args::GetBlock(Environment &env, Signal sig) const
+{
+	// check if the block parameter specifies a delegated block information
+	// like "g() {|block|}"
+	// scope problem remains: 2010.11.02
+	const Expr_Block *pExprBlock = _pExprBlock.get();
+	while (pExprBlock != NULL) {
+		const Expr_BlockParam *pExprBlockParam = pExprBlock->GetParam();
+		if (pExprBlockParam == NULL || !pExprBlock->GetExprOwner().empty()) {
+			break;
+		}
+		const ExprList &exprList = pExprBlockParam->GetExprOwner();
+		if (exprList.size() != 1 || !exprList.front()->IsSymbol()) {
+			break;
+		}
+		const Expr_Symbol *pExprSymbol =
+							dynamic_cast<const Expr_Symbol *>(exprList.front());
+		const Value *pValue = env.LookupValue(pExprSymbol->GetSymbol(), ENVREF_Escalate);
+		if (pValue == NULL) {
+			break;
+		} else if (pValue->IsExpr()) {
+			const Expr *pExpr = pValue->GetExpr();
+			if (!pExpr->IsBlock()) {
+				sig.SetError(ERR_ValueError, "invalid value for block delegation");
+				return NULL;
+			}
+			pExprBlock = dynamic_cast<const Expr_Block *>(pExpr);
+		} else if (pValue->IsInvalid()) {
+			return NULL;
+		} else {
+			break;
+		}
+	}
+	return pExprBlock;
+}
+
+// return NULL without error if block is not specified
+const Function *Args::GetBlockFunc(Environment &env, Signal sig, const Symbol *pSymbol)
+{
+	const Expr_Block *pExprBlock = GetBlock(env, sig);
+	if (pExprBlock == NULL || pSymbol == NULL) return NULL;
+	if (_pFuncBlock.IsNull()) {
+		_pFuncBlock.reset(CustomFunction::CreateBlockFunc(env, sig,
+										pSymbol, pExprBlock, FUNCTYPE_Block));
+	}
+	return _pFuncBlock.get();
+}
+
+//-----------------------------------------------------------------------------
+// Callable
+//-----------------------------------------------------------------------------
+bool Callable::IsLeader() const
+{
+	return false;
+}
+
+bool Callable::IsTrailer() const
+{
+	return false;
+}
+
+bool Callable::IsFinalizer() const
+{
+	return false;
+}
+
+bool Callable::IsEndMarker() const
+{
+	return false;
+}
+
+OccurPattern Callable::GetBlockOccurPattern() const
+{
+	return OCCUR_Zero;
+}
+
+//-----------------------------------------------------------------------------
+// Sequence_CustomFunction
+//-----------------------------------------------------------------------------
+Sequence_CustomFunction::Sequence_CustomFunction(Environment *pEnv, CustomFunction *pCustomFunction) :
+			Sequence_Expr(pEnv, NULL, true), _pCustomFunction(pCustomFunction)
+{
+	const Expr *pExprBody = _pCustomFunction->GetExprBody();
+	if (pExprBody == NULL) {
+		_pExprOwner.reset(new ExprOwner());
+	} else if (pExprBody->IsBlock()) {
+		const Expr_Block *pExprBlock = dynamic_cast<const Expr_Block *>(pExprBody);
+		_pExprOwner.reset(pExprBlock->GetExprOwner().Reference());
+	} else {
+		_pExprOwner.reset(new ExprOwner());
+		_pExprOwner->push_back(pExprBody->Reference());
+	}
+}
+
+bool Sequence_CustomFunction::Step(Signal sig, Value &result)
+{
+	Environment &env = *_pEnv;
+	if (!Sequence_Expr::Step(sig, result)) return false;
+	if (env.GetEnvType() == ENVTYPE_block) {
+		// nothing to do. simply pass the signal to the outside.
+	} else if (!sig.IsSignalled()) {
+		// nothing to do
+	} else if (sig.IsBreak()) {
+		sig.ClearSignal();
+	} else if (sig.IsContinue()) {
+		sig.ClearSignal();
+	} else if (sig.IsReturn()) {
+		result = sig.GetValue();
+		sig.ClearSignal();
+	}
+	return true;
+}
+
+String Sequence_CustomFunction::ToString() const
+{
+	String str;
+	str += "<sequence:customfunction>";
 	return str;
 }
 
