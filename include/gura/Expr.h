@@ -189,7 +189,7 @@ public:
 		return result;
 	}
 	virtual Value DoExec(Environment &env, Signal sig) const = 0;
-	virtual Sequence *GenerateSequence() const = 0;
+	virtual Sequence *GenerateSequence(Environment &env) const = 0;
 	virtual void Accept(ExprVisitor &visitor) const = 0;
 	virtual bool IsParentOf(const Expr *pExpr) const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
@@ -382,7 +382,7 @@ public:
 	virtual bool IsValue() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
-	virtual Sequence *GenerateSequence() const;
+	virtual Sequence *GenerateSequence(Environment &env) const;
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
 	virtual void Accept(ExprVisitor &visitor) const;
@@ -414,7 +414,7 @@ public:
 	virtual bool IsString() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
-	virtual Sequence *GenerateSequence() const;
+	virtual Sequence *GenerateSequence(Environment &env) const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
@@ -448,7 +448,7 @@ public:
 	virtual bool IsTmplString() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
-	virtual Sequence *GenerateSequence() const;
+	virtual Sequence *GenerateSequence(Environment &env) const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
@@ -482,7 +482,7 @@ public:
 	virtual Expr *Clone() const;
 	virtual Callable *LookupCallable(Environment &env, Signal sig) const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
-	virtual Sequence *GenerateSequence() const;
+	virtual Sequence *GenerateSequence(Environment &env) const;
 	Value Exec(Environment &env, Signal sig, const Value &valueThis) const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
@@ -511,8 +511,11 @@ public:
 class GURA_DLLDECLARE Expr_Root : public Expr_Container {
 public:
 	class SequenceEx : public Sequence {
+	private:
+		AutoPtr<Expr_Root> _pExpr;
+		size_t _idxExpr;
 	public:
-		SequenceEx(Environment *pEnv);
+		SequenceEx(Environment *pEnv, Expr_Root *pExpr);
 		virtual bool Step(Signal sig, Value &result);
 		virtual String ToString() const;
 	};
@@ -528,10 +531,10 @@ public:
 	virtual Expr *Clone() const;
 	virtual const char *GetPathName() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
-	virtual Sequence *GenerateSequence() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
+	virtual Sequence *GenerateSequence(Environment &env) const;
 	Processor *GenerateProcessor(Environment &env) const;
 };
 
@@ -555,7 +558,7 @@ public:
 	virtual bool IsBlockParam() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
-	virtual Sequence *GenerateSequence() const;
+	virtual Sequence *GenerateSequence(Environment &env) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
@@ -584,7 +587,7 @@ public:
 	virtual bool IsBlock() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
-	virtual Sequence *GenerateSequence() const;
+	virtual Sequence *GenerateSequence(Environment &env) const;
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
@@ -619,7 +622,7 @@ public:
 	virtual bool IsLister() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
-	virtual Sequence *GenerateSequence() const;
+	virtual Sequence *GenerateSequence(Environment &env) const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
@@ -650,7 +653,7 @@ public:
 	virtual bool IsIterLink() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
-	virtual Sequence *GenerateSequence() const;
+	virtual Sequence *GenerateSequence(Environment &env) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
@@ -693,7 +696,7 @@ public:
 	virtual bool IsTmplScript() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
-	virtual Sequence *GenerateSequence() const;
+	virtual Sequence *GenerateSequence(Environment &env) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
@@ -751,7 +754,7 @@ public:
 	virtual bool IsIndexer() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
-	virtual Sequence *GenerateSequence() const;
+	virtual Sequence *GenerateSequence(Environment &env) const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual void Accept(ExprVisitor &visitor) const;
@@ -788,7 +791,7 @@ public:
 	virtual Expr *Clone() const;
 	virtual Callable *LookupCallable(Environment &env, Signal sig) const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
-	virtual Sequence *GenerateSequence() const;
+	virtual Sequence *GenerateSequence(Environment &env) const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual void Accept(ExprVisitor &visitor) const;
@@ -851,7 +854,7 @@ public:
 	}
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
-	virtual Sequence *GenerateSequence() const;
+	virtual Sequence *GenerateSequence(Environment &env) const;
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
 	virtual bool IsUnaryOp() const;
@@ -884,7 +887,7 @@ public:
 	}
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
-	virtual Sequence *GenerateSequence() const;
+	virtual Sequence *GenerateSequence(Environment &env) const;
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
 	virtual bool IsBinaryOp() const;
@@ -912,7 +915,7 @@ public:
 	}
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
-	virtual Sequence *GenerateSequence() const;
+	virtual Sequence *GenerateSequence(Environment &env) const;
 	virtual const Expr *Unquote() const;
 	virtual bool IsQuote() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
@@ -943,7 +946,7 @@ public:
 	}
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
-	virtual Sequence *GenerateSequence() const;
+	virtual Sequence *GenerateSequence(Environment &env) const;
 	virtual bool IsPrefix() const;
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
@@ -974,7 +977,7 @@ public:
 	}
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
-	virtual Sequence *GenerateSequence() const;
+	virtual Sequence *GenerateSequence(Environment &env) const;
 	virtual bool IsSuffix() const;
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	OccurPattern GetOccurPattern() const;
@@ -1010,7 +1013,7 @@ public:
 	}
 	inline const Operator *GetOperatorToApply() const { return _pOperatorToApply; }
 	virtual Value DoExec(Environment &env, Signal sig) const;
-	virtual Sequence *GenerateSequence() const;
+	virtual Sequence *GenerateSequence(Environment &env) const;
 	Value Exec(Environment &env, Signal sig,
 				Environment &envDst, const SymbolSet *pSymbolsAssignable) const;
 	virtual Expr *Clone() const;
@@ -1050,28 +1053,13 @@ public:
 	}
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
-	virtual Sequence *GenerateSequence() const;
+	virtual Sequence *GenerateSequence(Environment &env) const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual bool IsMember() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
-};
-
-//-----------------------------------------------------------------------------
-// Sequence_Root
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Sequence_Root : public Sequence {
-protected:
-	AutoPtr<ExprOwner> _pExprOwner;
-	size_t _idxExpr;
-public:
-	Sequence_Root(Environment *pEnv, ExprOwner *pExprOwner);
-public:
-	virtual bool Step(Signal sig, Value &result);
-	virtual String ToString() const;
-	inline const ExprOwner &GetExprOwner() const { return *_pExprOwner; }
 };
 
 //-----------------------------------------------------------------------------

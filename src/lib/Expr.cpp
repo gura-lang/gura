@@ -693,7 +693,7 @@ Value Expr_Value::DoExec(Environment &env, Signal sig) const
 	}
 }
 
-Sequence *Expr_Value::GenerateSequence() const
+Sequence *Expr_Value::GenerateSequence(Environment &env) const
 {
 	return NULL;
 }
@@ -796,7 +796,7 @@ Value Expr_Symbol::DoExec(Environment &env, Signal sig) const
 	return rtn;
 }
 
-Sequence *Expr_Symbol::GenerateSequence() const
+Sequence *Expr_Symbol::GenerateSequence(Environment &env) const
 {
 	return NULL;
 }
@@ -1017,7 +1017,7 @@ Value Expr_String::DoExec(Environment &env, Signal sig) const
 	return Value(env, _str.c_str());
 }
 
-Sequence *Expr_String::GenerateSequence() const
+Sequence *Expr_String::GenerateSequence(Environment &env) const
 {
 	return NULL;
 }
@@ -1073,7 +1073,7 @@ Value Expr_TmplString::DoExec(Environment &env, Signal sig) const
 	return Value::Null;
 }
 
-Sequence *Expr_TmplString::GenerateSequence() const
+Sequence *Expr_TmplString::GenerateSequence(Environment &env) const
 {
 	return NULL;
 }
@@ -1142,11 +1142,6 @@ Value Expr_Root::DoExec(Environment &env, Signal sig) const
 	return pProcessor->Run(sig);
 }
 
-Sequence *Expr_Root::GenerateSequence() const
-{
-	return NULL;
-}
-
 bool Expr_Root::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
 	return GetExprOwner().GenerateCode(env, sig, stream);
@@ -1164,21 +1159,54 @@ bool Expr_Root::GenerateScript(Signal sig, SimpleStream &stream,
 	return true;
 }
 
+Sequence *Expr_Root::GenerateSequence(Environment &env) const
+{
+	return new SequenceEx(env.Reference(), Reference(this));
+}
+
 Processor *Expr_Root::GenerateProcessor(Environment &env) const
 {
 	AutoPtr<Processor> pProcessor(new Processor());
-	pProcessor->PushSequence(new Sequence_Root(
-							env.Reference(), GetExprOwner().Reference()));
+	pProcessor->PushSequence(GenerateSequence(env));
 	return pProcessor.release();
 }
 
-Expr_Root::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
+Expr_Root::SequenceEx::SequenceEx(Environment *pEnv, Expr_Root *pExpr) :
+								Sequence(pEnv), _pExpr(pExpr), _idxExpr(0)
 {
 }
 
 bool Expr_Root::SequenceEx::Step(Signal sig, Value &result)
 {
-	return false;
+	if (_idxExpr >= _pExpr->GetExprOwner().size()) {
+		_doneFlag = true;
+		return false;
+	}
+	Environment &env = *_pEnv;
+	const Expr *pExpr = _pExpr->GetExprOwner()[_idxExpr++];
+	//::printf("# %s\n", pExpr->ToString(Expr::SCRSTYLE_Brief).c_str());
+	result = pExpr->Exec(env, sig);
+	if (sig.IsError()) {
+		sig.AddExprCause(pExpr);
+		result = Value::Null;
+		_doneFlag = true;
+		return false;
+	} else if (sig.IsTerminate()) {
+		env.GetConsoleErr()->PrintSignal(sig, sig);
+		sig.ClearSignal();
+		result = Value::Null;
+		_doneFlag = true;
+		return false;
+	} else if (sig.IsSignalled()) {
+		env.GetConsoleErr()->PrintSignal(sig, sig);
+		sig.ClearSignal();
+	} else if (!env.GetGlobal()->GetEchoFlag()) {
+		// nothing to do
+	} else if (result.IsValid()) {
+		env.GetConsole()->Println(sig, result.ToString(sig).c_str());
+	}
+	_doneFlag = (_idxExpr >= _pExpr->GetExprOwner().size());
+	return true;
 }
 
 String Expr_Root::SequenceEx::ToString() const
@@ -1231,7 +1259,7 @@ Value Expr_Block::DoExec(Environment &env, Signal sig) const
 	return GetExprOwner().Exec3(env, sig, true);
 }
 
-Sequence *Expr_Block::GenerateSequence() const
+Sequence *Expr_Block::GenerateSequence(Environment &env) const
 {
 	return NULL;
 }
@@ -1318,7 +1346,7 @@ Value Expr_BlockParam::DoExec(Environment &env, Signal sig) const
 	return GetExprOwner().Exec3(env, sig, false);
 }
 
-Sequence *Expr_BlockParam::GenerateSequence() const
+Sequence *Expr_BlockParam::GenerateSequence(Environment &env) const
 {
 	return NULL;
 }
@@ -1411,7 +1439,7 @@ Value Expr_Lister::DoExec(Environment &env, Signal sig) const
 	return result;
 }
 
-Sequence *Expr_Lister::GenerateSequence() const
+Sequence *Expr_Lister::GenerateSequence(Environment &env) const
 {
 	return NULL;
 }
@@ -1557,7 +1585,7 @@ Value Expr_IterLink::DoExec(Environment &env, Signal sig) const
 	return Value(env, pIterator.release());
 }
 
-Sequence *Expr_IterLink::GenerateSequence() const
+Sequence *Expr_IterLink::GenerateSequence(Environment &env) const
 {
 	return NULL;
 }
@@ -1684,7 +1712,7 @@ Value Expr_TmplScript::DoExec(Environment &env, Signal sig) const
 	return Value::Null;
 }
 
-Sequence *Expr_TmplScript::GenerateSequence() const
+Sequence *Expr_TmplScript::GenerateSequence(Environment &env) const
 {
 	return NULL;
 }
@@ -1822,7 +1850,7 @@ Value Expr_Indexer::DoExec(Environment &env, Signal sig) const
 	return result;
 }
 
-Sequence *Expr_Indexer::GenerateSequence() const
+Sequence *Expr_Indexer::GenerateSequence(Environment &env) const
 {
 	return NULL;
 }
@@ -2071,7 +2099,7 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig) const
 	return result;
 }
 
-Sequence *Expr_Caller::GenerateSequence() const
+Sequence *Expr_Caller::GenerateSequence(Environment &env) const
 {
 	return NULL;
 }
@@ -2415,7 +2443,7 @@ Value Expr_UnaryOp::DoExec(Environment &env, Signal sig) const
 	return result;
 }
 
-Sequence *Expr_UnaryOp::GenerateSequence() const
+Sequence *Expr_UnaryOp::GenerateSequence(Environment &env) const
 {
 	return NULL;
 }
@@ -2526,7 +2554,7 @@ Value Expr_BinaryOp::DoExec(Environment &env, Signal sig) const
 	return _pOperator->EvalMapBinary(env, sig, valueLeft, valueRight);
 }
 
-Sequence *Expr_BinaryOp::GenerateSequence() const
+Sequence *Expr_BinaryOp::GenerateSequence(Environment &env) const
 {
 	return NULL;
 }
@@ -2636,7 +2664,7 @@ Value Expr_Quote::DoExec(Environment &env, Signal sig) const
 	return value;
 }
 
-Sequence *Expr_Quote::GenerateSequence() const
+Sequence *Expr_Quote::GenerateSequence(Environment &env) const
 {
 	return NULL;
 }
@@ -2696,7 +2724,7 @@ Value Expr_Prefix::DoExec(Environment &env, Signal sig) const
 	return Value::Null;
 }
 
-Sequence *Expr_Prefix::GenerateSequence() const
+Sequence *Expr_Prefix::GenerateSequence(Environment &env) const
 {
 	return NULL;
 }
@@ -2748,7 +2776,7 @@ Value Expr_Suffix::DoExec(Environment &env, Signal sig) const
 	return Value::Null;
 }
 
-Sequence *Expr_Suffix::GenerateSequence() const
+Sequence *Expr_Suffix::GenerateSequence(Environment &env) const
 {
 	return NULL;
 }
@@ -2808,7 +2836,7 @@ Value Expr_Assign::DoExec(Environment &env, Signal sig) const
 	return Exec(env, sig, env, NULL);
 }
 
-Sequence *Expr_Assign::GenerateSequence() const
+Sequence *Expr_Assign::GenerateSequence(Environment &env) const
 {
 	return NULL;
 }
@@ -2950,7 +2978,7 @@ Value Expr_Member::DoExec(Environment &env, Signal sig) const
 	return result;
 }
 
-Sequence *Expr_Member::GenerateSequence() const
+Sequence *Expr_Member::GenerateSequence(Environment &env) const
 {
 	return NULL;
 }
@@ -3058,54 +3086,6 @@ String Expr_Member::SequenceEx::ToString() const
 {
 	String str;
 	str += "<sequence:expr_member>";
-	return str;
-}
-
-//-----------------------------------------------------------------------------
-// Sequence_Root
-//-----------------------------------------------------------------------------
-Sequence_Root::Sequence_Root(Environment *pEnv, ExprOwner *pExprOwner) :
-						Sequence(pEnv), _pExprOwner(pExprOwner), _idxExpr(0)
-{
-}
-
-bool Sequence_Root::Step(Signal sig, Value &result)
-{
-	if (CheckDone()) return false;
-	if (_idxExpr >= GetExprOwner().size()) {
-		_doneFlag = true;
-		return false;
-	}
-	Environment &env = *_pEnv;
-	const Expr *pExpr = GetExprOwner()[_idxExpr++];
-	//::printf("# %s\n", pExpr->ToString(Expr::SCRSTYLE_Brief).c_str());
-	result = pExpr->Exec(env, sig);
-	if (sig.IsError()) {
-		sig.AddExprCause(pExpr);
-		result = Value::Null;
-		_doneFlag = true;
-		return false;
-	} else if (sig.IsTerminate()) {
-		env.GetConsoleErr()->PrintSignal(sig, sig);
-		sig.ClearSignal();
-		result = Value::Null;
-		_doneFlag = true;
-		return false;
-	} else if (sig.IsSignalled()) {
-		env.GetConsoleErr()->PrintSignal(sig, sig);
-		sig.ClearSignal();
-	} else if (!env.GetGlobal()->GetEchoFlag()) {
-		// nothing to do
-	} else if (result.IsValid()) {
-		env.GetConsole()->Println(sig, result.ToString(sig).c_str());
-	}
-	return true;
-}
-
-String Sequence_Root::ToString() const
-{
-	String str;
-	str += "<sequence:root>";
 	return str;
 }
 
