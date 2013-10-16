@@ -13,6 +13,14 @@ class Environment;
 class GURA_DLLDECLARE Sequence {
 public:
 	class GURA_DLLDECLARE PostHandler {
+	private:
+		int _cntRef;
+	public:
+		Gura_DeclareReferenceAccessor(PostHandler)
+	public:
+		inline PostHandler() : _cntRef(1) {}
+	protected:
+		inline ~PostHandler() {}
 	public:
 		virtual bool DoPost(Signal sig, const Value &value) = 0;
 	};
@@ -20,7 +28,7 @@ protected:
 	int _cntRef;
 	AutoPtr<Environment> _pEnv;
 	bool _doneFlag;
-	PostHandler *_pPostHandler;
+	AutoPtr<PostHandler> _pPostHandler;
 public:
 	Gura_DeclareReferenceAccessor(Sequence)
 public:
@@ -28,12 +36,10 @@ public:
 protected:
 	virtual ~Sequence();
 public:
-	inline void SetPostHandler(PostHandler *pPostHandler) { _pPostHandler = pPostHandler; }
-	inline bool Step(Signal sig, Value &result) {
-		if (!DoStep(sig, result)) return false;
-		return (CheckDone() && _pPostHandler != NULL)?
-						_pPostHandler->DoPost(sig, result) : true;
+	inline void SetPostHandler(PostHandler *pPostHandler) {
+		_pPostHandler.reset(pPostHandler);
 	}
+	bool Step(Signal sig, Value &result);
 	virtual bool DoStep(Signal sig, Value &result) = 0;
 	virtual String ToString() const = 0;
 	inline bool CheckDone() const { return _doneFlag; }

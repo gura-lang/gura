@@ -7,13 +7,23 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Sequence
 //-----------------------------------------------------------------------------
-Sequence::Sequence(Environment *pEnv) : _cntRef(1),
-						_pEnv(pEnv), _doneFlag(false), _pPostHandler(NULL)
+Sequence::Sequence(Environment *pEnv) : _cntRef(1), _pEnv(pEnv), _doneFlag(false)
 {
 }
 
 Sequence::~Sequence()
 {
+}
+
+bool Sequence::Step(Signal sig, Value &result)
+{
+	if (!DoStep(sig, result)) return false;
+	if (CheckDone() && !_pPostHandler.IsNull()) {
+		bool rtn = _pPostHandler->DoPost(sig, result);
+		_pPostHandler.reset(NULL);
+		return rtn;
+	}
+	return true;
 }
 
 Value Sequence::Return(Signal sig, Sequence *pSequence)
