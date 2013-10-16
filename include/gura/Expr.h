@@ -5,6 +5,7 @@
 #include "Symbol.h"
 #include "Signal.h"
 #include "Environment.h"
+#include "Processor.h"
 
 namespace Gura {
 
@@ -12,7 +13,6 @@ class Expr;
 class ExprList;
 class Expr_Member;
 class Callable;
-class Processor;
 
 //-----------------------------------------------------------------------------
 // ExprType
@@ -189,6 +189,7 @@ public:
 		return result;
 	}
 	virtual Value DoExec(Environment &env, Signal sig) const = 0;
+	virtual Sequence *GenerateSequence() const = 0;
 	virtual void Accept(ExprVisitor &visitor) const = 0;
 	virtual bool IsParentOf(const Expr *pExpr) const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
@@ -357,6 +358,13 @@ public:
 // Expr_Value
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Value : public Expr {
+public:
+	class SequenceEx : public Sequence {
+	public:
+		SequenceEx(Environment *pEnv);
+		virtual bool Step(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
 protected:
 	Value _value;
 	std::auto_ptr<String> _pScript;
@@ -374,6 +382,7 @@ public:
 	virtual bool IsValue() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
+	virtual Sequence *GenerateSequence() const;
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
 	virtual void Accept(ExprVisitor &visitor) const;
@@ -386,6 +395,13 @@ public:
 // Expr_String
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_String : public Expr {
+public:
+	class SequenceEx : public Sequence {
+	public:
+		SequenceEx(Environment *pEnv);
+		virtual bool Step(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
 protected:
 	String _str;
 public:
@@ -398,6 +414,7 @@ public:
 	virtual bool IsString() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
+	virtual Sequence *GenerateSequence() const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
@@ -408,6 +425,13 @@ public:
 // Expr_TmplString
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_TmplString : public Expr {
+public:
+	class SequenceEx : public Sequence {
+	public:
+		SequenceEx(Environment *pEnv);
+		virtual bool Step(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
 protected:
 	SimpleStream &_streamDst;
 	String _str;
@@ -424,6 +448,7 @@ public:
 	virtual bool IsTmplString() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
+	virtual Sequence *GenerateSequence() const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
@@ -434,6 +459,13 @@ public:
 // Expr_Symbol
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Symbol : public Expr {
+public:
+	class SequenceEx : public Sequence {
+	public:
+		SequenceEx(Environment *pEnv);
+		virtual bool Step(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
 protected:
 	const Symbol *_pSymbol;
 	SymbolSet _attrs;
@@ -450,6 +482,7 @@ public:
 	virtual Expr *Clone() const;
 	virtual Callable *LookupCallable(Environment &env, Signal sig) const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
+	virtual Sequence *GenerateSequence() const;
 	Value Exec(Environment &env, Signal sig, const Value &valueThis) const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
@@ -476,6 +509,13 @@ public:
 // Expr_Root
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Root : public Expr_Container {
+public:
+	class SequenceEx : public Sequence {
+	public:
+		SequenceEx(Environment *pEnv);
+		virtual bool Step(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
 private:
 	String _pathName;
 public:
@@ -488,6 +528,7 @@ public:
 	virtual Expr *Clone() const;
 	virtual const char *GetPathName() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
+	virtual Sequence *GenerateSequence() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
@@ -499,6 +540,13 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_BlockParam : public Expr_Container {
 public:
+	class SequenceEx : public Sequence {
+	public:
+		SequenceEx(Environment *pEnv);
+		virtual bool Step(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
+public:
 	inline Expr_BlockParam() : Expr_Container(EXPRTYPE_BlockParam) {}
 	inline Expr_BlockParam(const Expr_BlockParam &expr) : Expr_Container(expr) {}
 	inline static Expr_BlockParam *Reference(const Expr_BlockParam *pExpr) {
@@ -507,6 +555,7 @@ public:
 	virtual bool IsBlockParam() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
+	virtual Sequence *GenerateSequence() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
@@ -516,6 +565,13 @@ public:
 // Expr_Block
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Block : public Expr_Container {
+public:
+	class SequenceEx : public Sequence {
+	public:
+		SequenceEx(Environment *pEnv);
+		virtual bool Step(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
 protected:
 	AutoPtr<Expr_BlockParam> _pExprBlockParam;	// this may be NULL
 public:
@@ -528,6 +584,7 @@ public:
 	virtual bool IsBlock() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
+	virtual Sequence *GenerateSequence() const;
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
@@ -544,6 +601,13 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Lister : public Expr_Container {
 public:
+	class SequenceEx : public Sequence {
+	public:
+		SequenceEx(Environment *pEnv);
+		virtual bool Step(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
+public:
 	inline Expr_Lister() : Expr_Container(EXPRTYPE_Lister) {}
 	inline Expr_Lister(Expr *pExpr) : Expr_Container(EXPRTYPE_Lister) {
 		AddExpr(pExpr);
@@ -555,6 +619,7 @@ public:
 	virtual bool IsLister() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
+	virtual Sequence *GenerateSequence() const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
@@ -567,6 +632,13 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_IterLink : public Expr_Container {
 public:
+	class SequenceEx : public Sequence {
+	public:
+		SequenceEx(Environment *pEnv);
+		virtual bool Step(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
+public:
 	inline Expr_IterLink() : Expr_Container(EXPRTYPE_IterLink) {}
 	inline Expr_IterLink(Expr *pExpr) : Expr_Container(EXPRTYPE_IterLink) {
 		AddExpr(pExpr);
@@ -578,6 +650,7 @@ public:
 	virtual bool IsIterLink() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
+	virtual Sequence *GenerateSequence() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
@@ -587,6 +660,13 @@ public:
 // Expr_TmplScript
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_TmplScript : public Expr_Container {
+public:
+	class SequenceEx : public Sequence {
+	public:
+		SequenceEx(Environment *pEnv);
+		virtual bool Step(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
 protected:
 	SimpleStream &_streamDst;
 	String _strIndent;
@@ -613,6 +693,7 @@ public:
 	virtual bool IsTmplScript() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
+	virtual Sequence *GenerateSequence() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
@@ -622,6 +703,13 @@ public:
 // Expr_Compound
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Compound : public Expr {
+public:
+	class SequenceEx : public Sequence {
+	public:
+		SequenceEx(Environment *pEnv);
+		virtual bool Step(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
 protected:
 	AutoPtr<Expr> _pExprCar;
 	AutoPtr<Expr_Lister> _pExprLister;
@@ -647,6 +735,13 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Indexer : public Expr_Compound {
 public:
+	class SequenceEx : public Sequence {
+	public:
+		SequenceEx(Environment *pEnv);
+		virtual bool Step(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
+public:
 	inline Expr_Indexer(Expr *pExprCar, Expr_Lister *pExprLister) :
 			Expr_Compound(EXPRTYPE_Indexer, pExprCar, pExprLister) {}
 	inline Expr_Indexer(const Expr_Indexer &expr) : Expr_Compound(expr) {}
@@ -656,6 +751,7 @@ public:
 	virtual bool IsIndexer() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
+	virtual Sequence *GenerateSequence() const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual void Accept(ExprVisitor &visitor) const;
@@ -668,6 +764,13 @@ public:
 // Expr_Caller
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Caller : public Expr_Compound {
+public:
+	class SequenceEx : public Sequence {
+	public:
+		SequenceEx(Environment *pEnv);
+		virtual bool Step(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
 protected:
 	AutoPtr<Expr_Block> _pExprBlock;		// this may be NULL
 	AutoPtr<Expr_Caller> _pExprTrailer;		// this may be NULL
@@ -685,6 +788,7 @@ public:
 	virtual Expr *Clone() const;
 	virtual Callable *LookupCallable(Environment &env, Signal sig) const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
+	virtual Sequence *GenerateSequence() const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual void Accept(ExprVisitor &visitor) const;
@@ -724,6 +828,13 @@ private:
 // Expr_UnaryOp
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_UnaryOp : public Expr_Unary {
+public:
+	class SequenceEx : public Sequence {
+	public:
+		SequenceEx(Environment *pEnv);
+		virtual bool Step(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
 protected:
 	const Operator *_pOperator;
 	bool _suffixSymbolFlag;
@@ -740,6 +851,7 @@ public:
 	}
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
+	virtual Sequence *GenerateSequence() const;
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
 	virtual bool IsUnaryOp() const;
@@ -752,6 +864,13 @@ public:
 // Expr_BinaryOp
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_BinaryOp : public Expr_Binary {
+public:
+	class SequenceEx : public Sequence {
+	public:
+		SequenceEx(Environment *pEnv);
+		virtual bool Step(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
 protected:
 	const Operator *_pOperator;
 public:
@@ -765,6 +884,7 @@ public:
 	}
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
+	virtual Sequence *GenerateSequence() const;
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
 	virtual bool IsBinaryOp() const;
@@ -778,6 +898,13 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Quote : public Expr_Unary {
 public:
+	class SequenceEx : public Sequence {
+	public:
+		SequenceEx(Environment *pEnv);
+		virtual bool Step(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
+public:
 	inline Expr_Quote(Expr *pExprChild) : Expr_Unary(EXPRTYPE_Quote, pExprChild) {}
 	inline Expr_Quote(const Expr_Quote &expr) : Expr_Unary(expr) {}
 	inline static Expr_Quote *Reference(const Expr_Quote *pExpr) {
@@ -785,6 +912,7 @@ public:
 	}
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
+	virtual Sequence *GenerateSequence() const;
 	virtual const Expr *Unquote() const;
 	virtual bool IsQuote() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
@@ -796,6 +924,13 @@ public:
 // Expr_Prefix
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Prefix : public Expr_Unary {
+public:
+	class SequenceEx : public Sequence {
+	public:
+		SequenceEx(Environment *pEnv);
+		virtual bool Step(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
 private:
 	const Symbol *_pSymbol;
 public:
@@ -808,6 +943,7 @@ public:
 	}
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
+	virtual Sequence *GenerateSequence() const;
 	virtual bool IsPrefix() const;
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
@@ -819,6 +955,13 @@ public:
 // Expr_Suffix
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Suffix : public Expr_Unary {
+public:
+	class SequenceEx : public Sequence {
+	public:
+		SequenceEx(Environment *pEnv);
+		virtual bool Step(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
 private:
 	const Symbol *_pSymbol;
 public:
@@ -831,6 +974,7 @@ public:
 	}
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
+	virtual Sequence *GenerateSequence() const;
 	virtual bool IsSuffix() const;
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	OccurPattern GetOccurPattern() const;
@@ -847,6 +991,13 @@ public:
 // Expr_Assign
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Assign : public Expr_Binary {
+public:
+	class SequenceEx : public Sequence {
+	public:
+		SequenceEx(Environment *pEnv);
+		virtual bool Step(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
 private:
 	const Operator *_pOperatorToApply;	// this may be NULL
 public:
@@ -859,6 +1010,7 @@ public:
 	}
 	inline const Operator *GetOperatorToApply() const { return _pOperatorToApply; }
 	virtual Value DoExec(Environment &env, Signal sig) const;
+	virtual Sequence *GenerateSequence() const;
 	Value Exec(Environment &env, Signal sig,
 				Environment &envDst, const SymbolSet *pSymbolsAssignable) const;
 	virtual Expr *Clone() const;
@@ -872,6 +1024,13 @@ public:
 // Expr_Member
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Member : public Expr_Binary {
+public:
+	class SequenceEx : public Sequence {
+	public:
+		SequenceEx(Environment *pEnv);
+		virtual bool Step(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
 public:
 	enum Mode {
 		MODE_Normal,		// foo.bar
@@ -891,12 +1050,44 @@ public:
 	}
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig) const;
+	virtual Sequence *GenerateSequence() const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual bool IsMember() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
+};
+
+//-----------------------------------------------------------------------------
+// Sequence_Root
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Sequence_Root : public Sequence {
+protected:
+	AutoPtr<ExprOwner> _pExprOwner;
+	size_t _idxExpr;
+public:
+	Sequence_Root(Environment *pEnv, ExprOwner *pExprOwner);
+public:
+	virtual bool Step(Signal sig, Value &result);
+	virtual String ToString() const;
+	inline const ExprOwner &GetExprOwner() const { return *_pExprOwner; }
+};
+
+//-----------------------------------------------------------------------------
+// Sequence_Expr
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Sequence_Expr : public Sequence {
+protected:
+	AutoPtr<ExprOwner> _pExprOwner;
+	size_t _idxExpr;
+	bool _evalSymFuncFlag;
+public:
+	Sequence_Expr(Environment *pEnv, ExprOwner *pExprOwner, bool evalSymFuncFlag);
+public:
+	virtual bool Step(Signal sig, Value &result);
+	virtual String ToString() const;
+	inline const ExprOwner &GetExprOwner() const { return *_pExprOwner; }
 };
 
 }

@@ -568,6 +568,106 @@ public:
 	virtual OccurPattern GetBlockOccurPattern() const;
 };
 
+//-----------------------------------------------------------------------------
+// Sequence_CustomFunction
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Sequence_CustomFunction : public Sequence_Expr {
+protected:
+	AutoPtr<CustomFunction> _pCustomFunction;
+public:
+	Sequence_CustomFunction(Environment *pEnv, CustomFunction *pCustomFunction);
+public:
+	virtual bool Step(Signal sig, Value &result);
+	virtual String ToString() const;
+};
+
+//-----------------------------------------------------------------------------
+// Sequence_Call
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Sequence_Call : public Sequence {
+private:
+	enum Stat {
+		STAT_Init, STAT_ExprArgs, STAT_OptArgs, STAT_NamedArgs, STAT_Exec,
+	};
+	class GURA_DLLDECLARE ExprMap : public std::map<const Symbol *, Expr *, Symbol::KeyCompare_UniqNumber> {
+	public:
+		~ExprMap();
+	};
+private:
+	class GURA_DLLDECLARE Sequence_StoreDict : public Sequence {
+	private:
+		AutoPtr<Sequence_Call> _pSequenceCall;
+		AutoPtr<Expr> _pExprLeft;
+		AutoPtr<Expr> _pExprRight;
+	public:
+		inline Sequence_StoreDict(Environment *pEnv, Sequence_Call *pSequenceCall, Expr *pExprLeft, Expr *pExprRight) :
+						Sequence(pEnv), _pSequenceCall(pSequenceCall),
+						_pExprLeft(pExprLeft), _pExprRight(pExprRight) {}
+		virtual bool Step(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
+	class GURA_DLLDECLARE Sequence_ExpandMod : public Sequence {
+	private:
+		AutoPtr<Sequence_Call> _pSequenceCall;
+		AutoPtr<Expr> _pExprArg;
+	public:
+		inline Sequence_ExpandMod(Environment *pEnv, Sequence_Call *pSequenceCall, Expr *pExprArg) :
+				Sequence(pEnv), _pSequenceCall(pSequenceCall), _pExprArg(pExprArg) {}
+		virtual bool Step(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
+	class GURA_DLLDECLARE Sequence_ExpandMul : public Sequence {
+	private:
+		AutoPtr<Sequence_Call> _pSequenceCall;
+		AutoPtr<Expr> _pExprArg;
+	public:
+		inline Sequence_ExpandMul(Environment *pEnv, Sequence_Call *pSequenceCall, Expr *pExprArg) :
+				Sequence(pEnv), _pSequenceCall(pSequenceCall), _pExprArg(pExprArg) {}
+		virtual bool Step(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
+	class GURA_DLLDECLARE Sequence_ValListArg : public Sequence {
+	private:
+		AutoPtr<Sequence_Call> _pSequenceCall;
+		AutoPtr<Expr> _pExprArg;
+		bool _skipDeclFlag;
+	public:
+		inline Sequence_ValListArg(Environment *pEnv, Sequence_Call *pSequenceCall, Expr *pExprArg, bool skipDeclFlag) :
+				Sequence(pEnv), _pSequenceCall(pSequenceCall), _pExprArg(pExprArg), _skipDeclFlag(skipDeclFlag) {}
+		virtual bool Step(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
+	class GURA_DLLDECLARE Sequence_ValDictArg : public Sequence {
+	private:
+		AutoPtr<Sequence_Call> _pSequenceCall;
+		bool _skipDeclFlag;
+	public:
+		inline Sequence_ValDictArg(Environment *pEnv, Sequence_Call *pSequenceCall) :
+								Sequence(pEnv), _pSequenceCall(pSequenceCall) {}
+		virtual bool Step(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
+private:
+	Stat _stat;
+	AutoPtr<Function> _pFunc;
+	AutoPtr<Args> _pArgs;
+	ExprMap _exprMap;
+	ExprMap::iterator _iterExprMap;
+	DeclarationList::const_iterator _ppDecl;
+	ExprList::const_iterator _ppExprArg;
+	bool _stayDeclPointerFlag;
+	bool _mapFlag;
+public:
+	Sequence_Call(Environment *pEnv, Function *pFunc, Args &args);
+public:
+	inline Args *GetArgs() { return _pArgs.get(); }
+	inline ExprMap &GetExprMap() { return _exprMap; }
+	inline ExprMap::iterator NextIterExprMap() { return _iterExprMap++; }
+	virtual bool Step(Signal sig, Value &result);
+	virtual String ToString() const;
+	void SkipDeclarations(size_t nSkipDecl);
+};
+
 }
 
 #endif

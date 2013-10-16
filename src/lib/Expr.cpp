@@ -693,6 +693,11 @@ Value Expr_Value::DoExec(Environment &env, Signal sig) const
 	}
 }
 
+Sequence *Expr_Value::GenerateSequence() const
+{
+	return NULL;
+}
+
 Expr *Expr_Value::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
 {
 	return new Expr_Value(0);
@@ -748,6 +753,22 @@ bool Expr_Value::GenerateScript(Signal sig, SimpleStream &stream,
 	}
 }
 
+Expr_Value::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
+{
+}
+
+bool Expr_Value::SequenceEx::Step(Signal sig, Value &result)
+{
+	return false;
+}
+
+String Expr_Value::SequenceEx::ToString() const
+{
+	String str;
+	str += "<sequence:expr_value>";
+	return str;
+}
+
 //-----------------------------------------------------------------------------
 // Expr_Symbol
 //-----------------------------------------------------------------------------
@@ -773,6 +794,11 @@ Value Expr_Symbol::DoExec(Environment &env, Signal sig) const
 	Value rtn = env.GetProp(env, sig, GetSymbol(), GetAttrs());
 	if (sig.IsSignalled()) return Value::Null;
 	return rtn;
+}
+
+Sequence *Expr_Symbol::GenerateSequence() const
+{
+	return NULL;
 }
 
 Value Expr_Symbol::Exec(Environment &env, Signal sig, const Value &valueThis) const
@@ -960,6 +986,22 @@ bool Expr_Symbol::GenerateScriptTail(Signal sig, SimpleStream &stream,
 	return true;
 }
 
+Expr_Symbol::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
+{
+}
+
+bool Expr_Symbol::SequenceEx::Step(Signal sig, Value &result)
+{
+	return false;
+}
+
+String Expr_Symbol::SequenceEx::ToString() const
+{
+	String str;
+	str += "<sequence:expr_symbol>";
+	return str;
+}
+
 //-----------------------------------------------------------------------------
 // Expr_String
 //-----------------------------------------------------------------------------
@@ -973,6 +1015,11 @@ Expr *Expr_String::Clone() const
 Value Expr_String::DoExec(Environment &env, Signal sig) const
 {
 	return Value(env, _str.c_str());
+}
+
+Sequence *Expr_String::GenerateSequence() const
+{
+	return NULL;
 }
 
 void Expr_String::Accept(ExprVisitor &visitor) const
@@ -994,6 +1041,22 @@ bool Expr_String::GenerateScript(Signal sig, SimpleStream &stream,
 	return true;
 }
 
+Expr_String::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
+{
+}
+
+bool Expr_String::SequenceEx::Step(Signal sig, Value &result)
+{
+	return false;
+}
+
+String Expr_String::SequenceEx::ToString() const
+{
+	String str;
+	str += "<sequence:expr_string>";
+	return str;
+}
+
 //-----------------------------------------------------------------------------
 // Expr_TmplString
 //-----------------------------------------------------------------------------
@@ -1008,6 +1071,11 @@ Value Expr_TmplString::DoExec(Environment &env, Signal sig) const
 {
 	_streamDst.Print(sig, _str.c_str());
 	return Value::Null;
+}
+
+Sequence *Expr_TmplString::GenerateSequence() const
+{
+	return NULL;
 }
 
 void Expr_TmplString::Accept(ExprVisitor &visitor) const
@@ -1025,6 +1093,22 @@ bool Expr_TmplString::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
 	return false;
+}
+
+Expr_TmplString::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
+{
+}
+
+bool Expr_TmplString::SequenceEx::Step(Signal sig, Value &result)
+{
+	return false;
+}
+
+String Expr_TmplString::SequenceEx::ToString() const
+{
+	String str;
+	str += "<sequence:expr_tmplstring>";
+	return str;
 }
 
 //-----------------------------------------------------------------------------
@@ -1058,6 +1142,11 @@ Value Expr_Root::DoExec(Environment &env, Signal sig) const
 	return pProcessor->Run(sig);
 }
 
+Sequence *Expr_Root::GenerateSequence() const
+{
+	return NULL;
+}
+
 bool Expr_Root::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
 	return GetExprOwner().GenerateCode(env, sig, stream);
@@ -1081,6 +1170,22 @@ Processor *Expr_Root::GenerateProcessor(Environment &env) const
 	pProcessor->PushSequence(new Sequence_Root(
 							env.Reference(), GetExprOwner().Reference()));
 	return pProcessor.release();
+}
+
+Expr_Root::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
+{
+}
+
+bool Expr_Root::SequenceEx::Step(Signal sig, Value &result)
+{
+	return false;
+}
+
+String Expr_Root::SequenceEx::ToString() const
+{
+	String str;
+	str += "<sequence:expr_root>";
+	return str;
 }
 
 //-----------------------------------------------------------------------------
@@ -1124,6 +1229,11 @@ Value Expr_Block::DoExec(Environment &env, Signal sig) const
 		return result;
 	}
 	return GetExprOwner().Exec3(env, sig, true);
+}
+
+Sequence *Expr_Block::GenerateSequence() const
+{
+	return NULL;
 }
 
 Expr *Expr_Block::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
@@ -1177,6 +1287,22 @@ bool Expr_Block::GenerateScript(Signal sig, SimpleStream &stream,
 	return true;
 }
 
+Expr_Block::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
+{
+}
+
+bool Expr_Block::SequenceEx::Step(Signal sig, Value &result)
+{
+	return false;
+}
+
+String Expr_Block::SequenceEx::ToString() const
+{
+	String str;
+	str += "<sequence:expr_block>";
+	return str;
+}
+
 //-----------------------------------------------------------------------------
 // Expr_BlockParam
 //-----------------------------------------------------------------------------
@@ -1190,6 +1316,11 @@ Expr *Expr_BlockParam::Clone() const
 Value Expr_BlockParam::DoExec(Environment &env, Signal sig) const
 {
 	return GetExprOwner().Exec3(env, sig, false);
+}
+
+Sequence *Expr_BlockParam::GenerateSequence() const
+{
+	return NULL;
 }
 
 bool Expr_BlockParam::GenerateCode(Environment &env, Signal sig, Stream &stream)
@@ -1227,6 +1358,22 @@ bool Expr_BlockParam::GenerateScript(Signal sig, SimpleStream &stream,
 	return true;
 }
 
+Expr_BlockParam::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
+{
+}
+
+bool Expr_BlockParam::SequenceEx::Step(Signal sig, Value &result)
+{
+	return false;
+}
+
+String Expr_BlockParam::SequenceEx::ToString() const
+{
+	String str;
+	str += "<sequence:expr_blockparam>";
+	return str;
+}
+
 //-----------------------------------------------------------------------------
 // Expr_Lister
 //-----------------------------------------------------------------------------
@@ -1262,6 +1409,11 @@ Value Expr_Lister::DoExec(Environment &env, Signal sig) const
 		}
 	}
 	return result;
+}
+
+Sequence *Expr_Lister::GenerateSequence() const
+{
+	return NULL;
 }
 
 Value Expr_Lister::DoAssign(Environment &env, Signal sig, Value &value,
@@ -1360,6 +1512,22 @@ bool Expr_Lister::GenerateScript(Signal sig, SimpleStream &stream,
 	return true;
 }
 
+Expr_Lister::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
+{
+}
+
+bool Expr_Lister::SequenceEx::Step(Signal sig, Value &result)
+{
+	return false;
+}
+
+String Expr_Lister::SequenceEx::ToString() const
+{
+	String str;
+	str += "<sequence:expr_lister>";
+	return str;
+}
+
 //-----------------------------------------------------------------------------
 // Expr_IterLink
 //-----------------------------------------------------------------------------
@@ -1389,6 +1557,11 @@ Value Expr_IterLink::DoExec(Environment &env, Signal sig) const
 	return Value(env, pIterator.release());
 }
 
+Sequence *Expr_IterLink::GenerateSequence() const
+{
+	return NULL;
+}
+
 bool Expr_IterLink::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
 	stream.Println(sig, "IterLink");
@@ -1416,6 +1589,22 @@ bool Expr_IterLink::GenerateScript(Signal sig, SimpleStream &stream,
 	stream.PutChar(sig, ')');
 	if (sig.IsSignalled()) return false;
 	return true;
+}
+
+Expr_IterLink::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
+{
+}
+
+bool Expr_IterLink::SequenceEx::Step(Signal sig, Value &result)
+{
+	return false;
+}
+
+String Expr_IterLink::SequenceEx::ToString() const
+{
+	String str;
+	str += "<sequence:expr_iterlink>";
+	return str;
 }
 
 //-----------------------------------------------------------------------------
@@ -1495,6 +1684,11 @@ Value Expr_TmplScript::DoExec(Environment &env, Signal sig) const
 	return Value::Null;
 }
 
+Sequence *Expr_TmplScript::GenerateSequence() const
+{
+	return NULL;
+}
+
 bool Expr_TmplScript::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
 	stream.Println(sig, "TmplScript");
@@ -1505,6 +1699,22 @@ bool Expr_TmplScript::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
 	return false;
+}
+
+Expr_TmplScript::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
+{
+}
+
+bool Expr_TmplScript::SequenceEx::Step(Signal sig, Value &result)
+{
+	return false;
+}
+
+String Expr_TmplScript::SequenceEx::ToString() const
+{
+	String str;
+	str += "<sequence:expr_tmplscript>";
+	return str;
 }
 
 //-----------------------------------------------------------------------------
@@ -1610,6 +1820,11 @@ Value Expr_Indexer::DoExec(Environment &env, Signal sig) const
 	}
 	if (sig.IsSignalled()) return Value::Null;
 	return result;
+}
+
+Sequence *Expr_Indexer::GenerateSequence() const
+{
+	return NULL;
 }
 
 Value Expr_Indexer::DoAssign(Environment &env, Signal sig, Value &value,
@@ -1753,6 +1968,22 @@ bool Expr_Indexer::GenerateScript(Signal sig, SimpleStream &stream,
 	}
 }
 
+Expr_Indexer::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
+{
+}
+
+bool Expr_Indexer::SequenceEx::Step(Signal sig, Value &result)
+{
+	return false;
+}
+
+String Expr_Indexer::SequenceEx::ToString() const
+{
+	String str;
+	str += "<sequence:expr_indexer>";
+	return str;
+}
+
 //-----------------------------------------------------------------------------
 // Expr_Caller
 //-----------------------------------------------------------------------------
@@ -1838,6 +2069,11 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig) const
 	// otherwise, nothing would happen and any error would be kept intact.
 	sig.ResumeError();
 	return result;
+}
+
+Sequence *Expr_Caller::GenerateSequence() const
+{
+	return NULL;
 }
 
 Value Expr_Caller::DoExec(Environment &env, Signal sig, TrailCtrlHolder *pTrailCtrlHolder) const
@@ -2144,6 +2380,22 @@ bool Expr_Caller::GenerateScript(Signal sig, SimpleStream &stream,
 	return true;
 }
 
+Expr_Caller::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
+{
+}
+
+bool Expr_Caller::SequenceEx::Step(Signal sig, Value &result)
+{
+	return false;
+}
+
+String Expr_Caller::SequenceEx::ToString() const
+{
+	String str;
+	str += "<sequence:expr_caller>";
+	return str;
+}
+
 //-----------------------------------------------------------------------------
 // Expr_UnaryOp
 //-----------------------------------------------------------------------------
@@ -2161,6 +2413,11 @@ Value Expr_UnaryOp::DoExec(Environment &env, Signal sig) const
 	Value result = _pOperator->EvalMapUnary(env, sig, value);
 	if (sig.IsSignalled()) return Value::Null;
 	return result;
+}
+
+Sequence *Expr_UnaryOp::GenerateSequence() const
+{
+	return NULL;
 }
 
 Expr *Expr_UnaryOp::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
@@ -2212,6 +2469,22 @@ bool Expr_UnaryOp::GenerateScript(Signal sig, SimpleStream &stream,
 	return true;
 }
 
+Expr_UnaryOp::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
+{
+}
+
+bool Expr_UnaryOp::SequenceEx::Step(Signal sig, Value &result)
+{
+	return false;
+}
+
+String Expr_UnaryOp::SequenceEx::ToString() const
+{
+	String str;
+	str += "<sequence:expr_unaryop>";
+	return str;
+}
+
 //-----------------------------------------------------------------------------
 // Expr_BinaryOp
 //-----------------------------------------------------------------------------
@@ -2251,6 +2524,11 @@ Value Expr_BinaryOp::DoExec(Environment &env, Signal sig) const
 		if (sig.IsSignalled()) return Value::Null;
 	}
 	return _pOperator->EvalMapBinary(env, sig, valueLeft, valueRight);
+}
+
+Sequence *Expr_BinaryOp::GenerateSequence() const
+{
+	return NULL;
 }
 
 Expr *Expr_BinaryOp::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
@@ -2314,6 +2592,22 @@ bool Expr_BinaryOp::GenerateScript(Signal sig, SimpleStream &stream,
 	return true;
 }
 
+Expr_BinaryOp::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
+{
+}
+
+bool Expr_BinaryOp::SequenceEx::Step(Signal sig, Value &result)
+{
+	return false;
+}
+
+String Expr_BinaryOp::SequenceEx::ToString() const
+{
+	String str;
+	str += "<sequence:expr_binaryop>";
+	return str;
+}
+
 //-----------------------------------------------------------------------------
 // Expr_Quote
 //-----------------------------------------------------------------------------
@@ -2342,6 +2636,11 @@ Value Expr_Quote::DoExec(Environment &env, Signal sig) const
 	return value;
 }
 
+Sequence *Expr_Quote::GenerateSequence() const
+{
+	return NULL;
+}
+
 bool Expr_Quote::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
 	stream.Println(sig, "Quote");
@@ -2365,6 +2664,22 @@ bool Expr_Quote::GenerateScript(Signal sig, SimpleStream &stream,
 	return true;
 }
 
+Expr_Quote::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
+{
+}
+
+bool Expr_Quote::SequenceEx::Step(Signal sig, Value &result)
+{
+	return false;
+}
+
+String Expr_Quote::SequenceEx::ToString() const
+{
+	String str;
+	str += "<sequence:expr_quote>";
+	return str;
+}
+
 //-----------------------------------------------------------------------------
 // Expr_Prefix
 //-----------------------------------------------------------------------------
@@ -2379,6 +2694,11 @@ Value Expr_Prefix::DoExec(Environment &env, Signal sig) const
 {
 	SetError(sig, ERR_SyntaxError, "invalid expression");
 	return Value::Null;
+}
+
+Sequence *Expr_Prefix::GenerateSequence() const
+{
+	return NULL;
 }
 
 bool Expr_Prefix::GenerateCode(Environment &env, Signal sig, Stream &stream)
@@ -2396,6 +2716,22 @@ bool Expr_Prefix::GenerateScript(Signal sig, SimpleStream &stream,
 	return true;
 }
 
+Expr_Prefix::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
+{
+}
+
+bool Expr_Prefix::SequenceEx::Step(Signal sig, Value &result)
+{
+	return false;
+}
+
+String Expr_Prefix::SequenceEx::ToString() const
+{
+	String str;
+	str += "<sequence:expr_prefix>";
+	return str;
+}
+
 //-----------------------------------------------------------------------------
 // Expr_Suffix
 //-----------------------------------------------------------------------------
@@ -2410,6 +2746,11 @@ Value Expr_Suffix::DoExec(Environment &env, Signal sig) const
 {
 	SetError(sig, ERR_SyntaxError, "invalid expression");
 	return Value::Null;
+}
+
+Sequence *Expr_Suffix::GenerateSequence() const
+{
+	return NULL;
 }
 
 OccurPattern Expr_Suffix::GetOccurPattern() const
@@ -2436,6 +2777,22 @@ bool Expr_Suffix::GenerateScript(Signal sig, SimpleStream &stream,
 	return true;
 }
 
+Expr_Suffix::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
+{
+}
+
+bool Expr_Suffix::SequenceEx::Step(Signal sig, Value &result)
+{
+	return false;
+}
+
+String Expr_Suffix::SequenceEx::ToString() const
+{
+	String str;
+	str += "<sequence:expr_suffix>";
+	return str;
+}
+
 //-----------------------------------------------------------------------------
 // Expr_Assign
 //-----------------------------------------------------------------------------
@@ -2449,6 +2806,11 @@ Expr *Expr_Assign::Clone() const
 Value Expr_Assign::DoExec(Environment &env, Signal sig) const
 {
 	return Exec(env, sig, env, NULL);
+}
+
+Sequence *Expr_Assign::GenerateSequence() const
+{
+	return NULL;
 }
 
 Value Expr_Assign::Exec(Environment &env, Signal sig,
@@ -2513,6 +2875,22 @@ bool Expr_Assign::GenerateScript(Signal sig, SimpleStream &stream,
 	return true;
 }
 
+Expr_Assign::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
+{
+}
+
+bool Expr_Assign::SequenceEx::Step(Signal sig, Value &result)
+{
+	return false;
+}
+
+String Expr_Assign::SequenceEx::ToString() const
+{
+	String str;
+	str += "<sequence:expr>";
+	return str;
+}
+
 //-----------------------------------------------------------------------------
 // Expr_Member
 //-----------------------------------------------------------------------------
@@ -2570,6 +2948,11 @@ Value Expr_Member::DoExec(Environment &env, Signal sig) const
 		result = Value(pObjFunc);
 	}
 	return result;
+}
+
+Sequence *Expr_Member::GenerateSequence() const
+{
+	return NULL;
 }
 
 Value Expr_Member::DoAssign(Environment &env, Signal sig, Value &value,
@@ -2660,6 +3043,123 @@ bool Expr_Member::GenerateScript(Signal sig, SimpleStream &stream,
 	stream.Print(sig, str);
 	if (!GetRight()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
 	return true;
+}
+
+Expr_Member::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
+{
+}
+
+bool Expr_Member::SequenceEx::Step(Signal sig, Value &result)
+{
+	return false;
+}
+
+String Expr_Member::SequenceEx::ToString() const
+{
+	String str;
+	str += "<sequence:expr_member>";
+	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Sequence_Root
+//-----------------------------------------------------------------------------
+Sequence_Root::Sequence_Root(Environment *pEnv, ExprOwner *pExprOwner) :
+						Sequence(pEnv), _pExprOwner(pExprOwner), _idxExpr(0)
+{
+}
+
+bool Sequence_Root::Step(Signal sig, Value &result)
+{
+	if (CheckDone()) return false;
+	if (_idxExpr >= GetExprOwner().size()) {
+		_doneFlag = true;
+		return false;
+	}
+	Environment &env = *_pEnv;
+	const Expr *pExpr = GetExprOwner()[_idxExpr++];
+	//::printf("# %s\n", pExpr->ToString(Expr::SCRSTYLE_Brief).c_str());
+	result = pExpr->Exec(env, sig);
+	if (sig.IsError()) {
+		sig.AddExprCause(pExpr);
+		result = Value::Null;
+		_doneFlag = true;
+		return false;
+	} else if (sig.IsTerminate()) {
+		env.GetConsoleErr()->PrintSignal(sig, sig);
+		sig.ClearSignal();
+		result = Value::Null;
+		_doneFlag = true;
+		return false;
+	} else if (sig.IsSignalled()) {
+		env.GetConsoleErr()->PrintSignal(sig, sig);
+		sig.ClearSignal();
+	} else if (!env.GetGlobal()->GetEchoFlag()) {
+		// nothing to do
+	} else if (result.IsValid()) {
+		env.GetConsole()->Println(sig, result.ToString(sig).c_str());
+	}
+	return true;
+}
+
+String Sequence_Root::ToString() const
+{
+	String str;
+	str += "<sequence:root>";
+	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Sequence_Expr
+//-----------------------------------------------------------------------------
+Sequence_Expr::Sequence_Expr(Environment *pEnv, ExprOwner *pExprOwner, bool evalSymFuncFlag) :
+						Sequence(pEnv), _pExprOwner(pExprOwner), _idxExpr(0),
+						_evalSymFuncFlag(evalSymFuncFlag)
+{
+}
+
+bool Sequence_Expr::Step(Signal sig, Value &result)
+{
+	if (CheckDone()) return false;
+	if (_idxExpr >= GetExprOwner().size()) {
+		_doneFlag = true;
+		return false;
+	}
+	Environment &env = *_pEnv;
+	const Expr *pExpr = GetExprOwner()[_idxExpr++];
+	result = pExpr->Exec(env, sig);
+	if (sig.IsSignalled()) {
+		sig.AddExprCause(pExpr);
+		_doneFlag = true;
+		return false;
+	}
+	if (_evalSymFuncFlag && result.IsFunction() &&
+								result.GetFunction()->IsSymbolFunc()) {
+		// symbol functions are only evaluated by a sequence of block.
+		// in the folloiwng example, "return" shall be evaluated by a block
+		// of "if" function.
+		//   repeat { if (flag) { return } }
+		// in the following example, "&&" operator returns "return" function
+		// object as its result, and then the block of "repeat" shall evaluate it.
+		//   repeat { flag && return }
+		const Function *pFunc = result.GetFunction();
+		AutoPtr<Args> pArgs(new Args());
+		Value result = pFunc->Call(env, sig, *pArgs);
+		if (sig.IsSignalled()) {
+			sig.AddExprCause(pExpr);
+			_doneFlag = true;
+			return false;
+		}
+	}
+	if (_idxExpr >= GetExprOwner().size()) _doneFlag = true;
+	return true;
+}
+
+String Sequence_Expr::ToString() const
+{
+	String str;
+	str += "<sequence:expr>";
+	return str;
 }
 
 }
