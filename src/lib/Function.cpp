@@ -773,10 +773,11 @@ bool Function::Sequence_Call::DoStep(Signal sig, Value &result)
 			}
 		} else if (!quoteFlag && Expr_Suffix::IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) {
 			const Expr_Suffix *pExprSuffix = dynamic_cast<const Expr_Suffix *>(pExprArg);
-			Sequence *pSequence = new Sequence_ExpandMod(env.Reference(),
-						dynamic_cast<Sequence_Call *>(Reference()),
-						pExprSuffix->GetChild()->Reference());
-			result = Sequence::Return(sig, pSequence);
+			AutoPtr<Sequence::PostHandler> pPostHandler(new PostHandler_ExpandMod(
+					env.Reference(), dynamic_cast<Sequence_Call *>(Reference())));
+			result = pExprSuffix->GetChild()->Exec(env, sig);
+			if (sig.IsSignalled()) return false;
+			pPostHandler->DoPost(sig, result);
 		} else if (_ppDecl != _pFunc->GetDeclOwner().end()) {
 			const Declaration *pDecl = *_ppDecl;
 			if (_exprMap.find(pDecl->GetSymbol()) != _exprMap.end()) {
@@ -938,45 +939,33 @@ bool Function::PostHandler_StoreDict::DoPost(Signal sig, const Value &result)
 }
 
 //-----------------------------------------------------------------------------
-// Function::Sequence_ExpandMod
+// Function::PostHandler_ExpandMod
 //-----------------------------------------------------------------------------
-bool Function::Sequence_ExpandMod::DoStep(Signal sig, Value &result)
+bool Function::PostHandler_ExpandMod::DoPost(Signal sig, const Value &result)
 {
-	Environment &env = *_pEnv;
-	result = _pExprArg->Exec(env, sig);
-	do {
-		ValueDict &valDictArg = _pSequenceCall->GetArgs()->GetValueDictArg();
-		ExprMap &exprMap = _pSequenceCall->GetExprMap();
-		if (sig.IsSignalled()) return false;
-		if (!result.IsDict()) {
-			sig.SetError(ERR_ValueError, "modulo argument must take a dictionary");
-			return false;
-		}
-		foreach_const (ValueDict, item, result.GetDict()) {
-			const Value &valueKey = item->first;
-			const Value &value = item->second;
-			if (valueKey.IsSymbol()) {
-				Expr *pExpr;
-				if (value.IsExpr()) {
-					pExpr = new Expr_Quote(Expr::Reference(value.GetExpr()));
-				} else {
-					pExpr = new Expr_Value(value);
-				}
-				exprMap[valueKey.GetSymbol()] = pExpr;
+	ValueDict &valDictArg = _pSequenceCall->GetArgs()->GetValueDictArg();
+	ExprMap &exprMap = _pSequenceCall->GetExprMap();
+	if (sig.IsSignalled()) return false;
+	if (!result.IsDict()) {
+		sig.SetError(ERR_ValueError, "modulo argument must take a dictionary");
+		return false;
+	}
+	foreach_const (ValueDict, item, result.GetDict()) {
+		const Value &valueKey = item->first;
+		const Value &value = item->second;
+		if (valueKey.IsSymbol()) {
+			Expr *pExpr;
+			if (value.IsExpr()) {
+				pExpr = new Expr_Quote(Expr::Reference(value.GetExpr()));
 			} else {
-				valDictArg.insert(*item);
+				pExpr = new Expr_Value(value);
 			}
+			exprMap[valueKey.GetSymbol()] = pExpr;
+		} else {
+			valDictArg.insert(*item);
 		}
-	} while (0);
-	_doneFlag = true;
+	}
 	return true;
-}
-
-String Function::Sequence_ExpandMod::ToString() const
-{
-	String str;
-	str += "<sequence:call:expandmod>";
-	return str;
 }
 
 //-----------------------------------------------------------------------------

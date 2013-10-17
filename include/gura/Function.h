@@ -210,15 +210,13 @@ public:
 				PostHandler(pEnv), _pSequenceCall(pSequenceCall), _valueKey(valueKey) {}
 		virtual bool DoPost(Signal sig, const Value &result);
 	};
-	class GURA_DLLDECLARE Sequence_ExpandMod : public Sequence {
+	class GURA_DLLDECLARE PostHandler_ExpandMod : public Sequence::PostHandler {
 	private:
 		AutoPtr<Sequence_Call> _pSequenceCall;
-		AutoPtr<Expr> _pExprArg;
 	public:
-		inline Sequence_ExpandMod(Environment *pEnv, Sequence_Call *pSequenceCall, Expr *pExprArg) :
-				Sequence(pEnv), _pSequenceCall(pSequenceCall), _pExprArg(pExprArg) {}
-		virtual bool DoStep(Signal sig, Value &result);
-		virtual String ToString() const;
+		inline PostHandler_ExpandMod(Environment *pEnv, Sequence_Call *pSequenceCall) :
+				PostHandler(pEnv), _pSequenceCall(pSequenceCall) {}
+		virtual bool DoPost(Signal sig, const Value &result);
 	};
 	class GURA_DLLDECLARE Sequence_ExpandMul : public Sequence {
 	private:
