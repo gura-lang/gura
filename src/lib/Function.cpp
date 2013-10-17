@@ -757,10 +757,15 @@ bool Function::Sequence_Call::DoStep(Signal sig, Value &result)
 				const Symbol *pSymbol = dynamic_cast<const Expr_Symbol *>(pExprLeft)->GetSymbol();
 				_exprMap[pSymbol] = pExprRight->Reference();
 			} else if (pExprLeft->IsValue() || pExprLeft->IsString()) {
-				Sequence *pSequence = new Sequence_StoreDict(env.Reference(),
-							dynamic_cast<Sequence_Call *>(Reference()),
-							pExprLeft->Reference(), pExprRight->Reference());
-				result = Sequence::Return(sig, pSequence);
+				Value valueKey = pExprLeft->IsValue()?
+					dynamic_cast<const Expr_Value *>(pExprLeft)->GetValue() :
+					 Value(env, dynamic_cast<const Expr_String *>(pExprLeft)->GetString());
+				AutoPtr<Sequence::PostHandler> pPostHandler(new PostHandler_StoreDict(
+							env.Reference(), dynamic_cast<Sequence_Call *>(Reference()),
+							valueKey));
+				result = pExprRight->Exec(env, sig);
+				if (sig.IsSignalled()) return false;
+				pPostHandler->DoPost(sig, result);
 			} else {
 				pExprBinaryOp->SetError(sig, ERR_KeyError,
 					"l-value of dictionary assignment must be a symbol or a constant value");
@@ -923,29 +928,13 @@ void Function::Sequence_Call::SkipDeclarations(size_t nSkipDecl)
 }
 
 //-----------------------------------------------------------------------------
-// Function::Sequence_StoreDict
+// Function::PostHandler_StoreDict
 //-----------------------------------------------------------------------------
-bool Function::Sequence_StoreDict::DoStep(Signal sig, Value &result)
+bool Function::PostHandler_StoreDict::DoPost(Signal sig, const Value &result)
 {
-	Environment &env = *_pEnv;
-	result = _pExprRight->Exec(env, sig);
-	do {
-		ValueDict &valDictArg = _pSequenceCall->GetArgs()->GetValueDictArg();
-		Value valueKey = _pExprLeft->IsValue()?
-			dynamic_cast<const Expr_Value *>(_pExprLeft.get())->GetValue() :
-			 Value(env, dynamic_cast<const Expr_String *>(_pExprLeft.get())->GetString());
-		if (sig.IsSignalled()) return false;
-		valDictArg[valueKey] = result;
-	} while (0);
-	_doneFlag = true;
+	ValueDict &valDictArg = _pSequenceCall->GetArgs()->GetValueDictArg();
+	valDictArg[_valueKey] = result;
 	return true;
-}
-
-String Function::Sequence_StoreDict::ToString() const
-{
-	String str;
-	str += "<sequence:call:storedict>";
-	return str;
 }
 
 //-----------------------------------------------------------------------------

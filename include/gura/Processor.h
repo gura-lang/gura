@@ -15,10 +15,11 @@ public:
 	class GURA_DLLDECLARE PostHandler {
 	private:
 		int _cntRef;
+		AutoPtr<Environment> _pEnv;
 	public:
 		Gura_DeclareReferenceAccessor(PostHandler)
 	public:
-		inline PostHandler() : _cntRef(1) {}
+		inline PostHandler(Environment *pEnv) : _cntRef(1), _pEnv(pEnv) {}
 	protected:
 		inline ~PostHandler() {}
 	public:

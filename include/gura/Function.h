@@ -201,17 +201,14 @@ public:
 		virtual String ToString() const;
 		void SkipDeclarations(size_t nSkipDecl);
 	};
-	class GURA_DLLDECLARE Sequence_StoreDict : public Sequence {
+	class GURA_DLLDECLARE PostHandler_StoreDict : public Sequence::PostHandler {
 	private:
 		AutoPtr<Sequence_Call> _pSequenceCall;
-		AutoPtr<Expr> _pExprLeft;
-		AutoPtr<Expr> _pExprRight;
+		Value _valueKey;
 	public:
-		inline Sequence_StoreDict(Environment *pEnv, Sequence_Call *pSequenceCall, Expr *pExprLeft, Expr *pExprRight) :
-						Sequence(pEnv), _pSequenceCall(pSequenceCall),
-						_pExprLeft(pExprLeft), _pExprRight(pExprRight) {}
-		virtual bool DoStep(Signal sig, Value &result);
-		virtual String ToString() const;
+		inline PostHandler_StoreDict(Environment *pEnv, Sequence_Call *pSequenceCall, const Value &valueKey) :
+				PostHandler(pEnv), _pSequenceCall(pSequenceCall), _valueKey(valueKey) {}
+		virtual bool DoPost(Signal sig, const Value &result);
 	};
 	class GURA_DLLDECLARE Sequence_ExpandMod : public Sequence {
 	private:
