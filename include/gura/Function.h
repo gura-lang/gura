@@ -226,16 +226,14 @@ public:
 				PostHandler(pEnv), _pSequenceCall(pSequenceCall) {}
 		virtual bool DoPost(Signal sig, const Value &result);
 	};
-	class GURA_DLLDECLARE Sequence_ValListArg : public Sequence {
+	class GURA_DLLDECLARE PostHandler_ValListArg : public Sequence::PostHandler {
 	private:
 		AutoPtr<Sequence_Call> _pSequenceCall;
-		AutoPtr<Expr> _pExprArg;
 		bool _skipDeclFlag;
 	public:
-		inline Sequence_ValListArg(Environment *pEnv, Sequence_Call *pSequenceCall, Expr *pExprArg, bool skipDeclFlag) :
-				Sequence(pEnv), _pSequenceCall(pSequenceCall), _pExprArg(pExprArg), _skipDeclFlag(skipDeclFlag) {}
-		virtual bool DoStep(Signal sig, Value &result);
-		virtual String ToString() const;
+		inline PostHandler_ValListArg(Environment *pEnv, Sequence_Call *pSequenceCall, bool skipDeclFlag) :
+				PostHandler(pEnv), _pSequenceCall(pSequenceCall), _skipDeclFlag(skipDeclFlag) {}
+		virtual bool DoPost(Signal sig, const Value &result);
 	};
 	class GURA_DLLDECLARE Sequence_ValDictArg : public Sequence {
 	private:

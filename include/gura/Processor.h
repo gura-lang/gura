@@ -21,7 +21,7 @@ public:
 	public:
 		inline PostHandler(Environment *pEnv) : _cntRef(1), _pEnv(pEnv) {}
 	protected:
-		inline ~PostHandler() {}
+		virtual ~PostHandler();
 	public:
 		virtual bool DoPost(Signal sig, const Value &value) = 0;
 	};

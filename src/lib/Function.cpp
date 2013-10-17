@@ -800,10 +800,14 @@ bool Function::Sequence_Call::DoStep(Signal sig, Value &result)
 				if (sig.IsSignalled()) return false;
 				if (!pPostHandler->DoPost(sig, result)) return false;
 			} else {
-				Sequence *pSequence = new Sequence_ValListArg(env.Reference(),
-							dynamic_cast<Sequence_Call *>(Reference()),
-							pExprArg->Reference(), true);
-				result = Sequence::Return(sig, pSequence);
+				AutoPtr<Sequence::PostHandler> pPostHandler(new PostHandler_ValListArg(
+					env.Reference(), dynamic_cast<Sequence_Call *>(Reference()), true));
+				result = pExprArg->Exec(env, sig);
+				if (sig.IsSignalled()) return false;
+				if (!pPostHandler->DoPost(sig, result)) return false;
+				//ValueList &valListArg = GetArgs()->GetValueListArg();
+				//valListArg.push_back(result);
+				//SkipDeclarations(1);
 			}
 		} else if (_pFunc->GetDeclOwner().IsAllowTooManyArgs()) {
 			continueFlag = true;
@@ -861,10 +865,13 @@ bool Function::Sequence_Call::DoStep(Signal sig, Value &result)
 			value = Value(pSymbol);
 			valListArg.push_back(value);
 		} else {
-			Sequence *pSequence = new Sequence_ValListArg(env.Reference(),
-						dynamic_cast<Sequence_Call *>(Reference()),
-						pExprArg->Reference(), false);
-			result = Sequence::Return(sig, pSequence);
+			AutoPtr<Sequence::PostHandler> pPostHandler(new PostHandler_ValListArg(
+				env.Reference(), dynamic_cast<Sequence_Call *>(Reference()), false));
+			result = pExprArg->Exec(env, sig);
+			if (sig.IsSignalled()) return false;
+			if (!pPostHandler->DoPost(sig, result)) return false;
+			//ValueList &valListArg = GetArgs()->GetValueListArg();
+			//valListArg.push_back(result);
 		}
 		break;
 	}
@@ -992,27 +999,14 @@ bool Function::PostHandler_ExpandMul::DoPost(Signal sig, const Value &result)
 }
 
 //-----------------------------------------------------------------------------
-// Function::Sequence_ValListArg
+// Function::PostHandler_ValListArg
 //-----------------------------------------------------------------------------
-bool Function::Sequence_ValListArg::DoStep(Signal sig, Value &result)
+bool Function::PostHandler_ValListArg::DoPost(Signal sig, const Value &result)
 {
-	Environment &env = *_pEnv;
-	result = _pExprArg->Exec(env, sig);
-	do {
-		ValueList &valListArg = _pSequenceCall->GetArgs()->GetValueListArg();
-		if (sig.IsSignalled()) return false;
-		valListArg.push_back(result);
-		if (_skipDeclFlag) _pSequenceCall->SkipDeclarations(1);
-	} while (0);
-	_doneFlag = true;
+	ValueList &valListArg = _pSequenceCall->GetArgs()->GetValueListArg();
+	valListArg.push_back(result);
+	if (_skipDeclFlag) _pSequenceCall->SkipDeclarations(1);
 	return true;
-}
-
-String Function::Sequence_ValListArg::ToString() const
-{
-	String str;
-	str += "<sequence:call:vallistarg>";
-	return str;
 }
 
 //-----------------------------------------------------------------------------
