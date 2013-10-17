@@ -777,7 +777,7 @@ bool Function::Sequence_Call::DoStep(Signal sig, Value &result)
 					env.Reference(), dynamic_cast<Sequence_Call *>(Reference())));
 			result = pExprSuffix->GetChild()->Exec(env, sig);
 			if (sig.IsSignalled()) return false;
-			pPostHandler->DoPost(sig, result);
+			if (!pPostHandler->DoPost(sig, result)) return false;
 		} else if (_ppDecl != _pFunc->GetDeclOwner().end()) {
 			const Declaration *pDecl = *_ppDecl;
 			if (_exprMap.find(pDecl->GetSymbol()) != _exprMap.end()) {
@@ -794,10 +794,11 @@ bool Function::Sequence_Call::DoStep(Signal sig, Value &result)
 					pExprArg->SetError(sig, ERR_SyntaxError, "invalid argument");
 					return false;
 				}
-				Sequence *pSequence = new Sequence_ExpandMul(env.Reference(),
-							dynamic_cast<Sequence_Call *>(Reference()),
-							pExprSuffix->GetChild()->Reference());
-				result = Sequence::Return(sig, pSequence);
+				AutoPtr<Sequence::PostHandler> pPostHandler(new PostHandler_ExpandMul(
+						env.Reference(), dynamic_cast<Sequence_Call *>(Reference())));
+				result = pExprSuffix->GetChild()->Exec(env, sig);
+				if (sig.IsSignalled()) return false;
+				if (!pPostHandler->DoPost(sig, result)) return false;
 			} else {
 				Sequence *pSequence = new Sequence_ValListArg(env.Reference(),
 							dynamic_cast<Sequence_Call *>(Reference()),
@@ -969,19 +970,13 @@ bool Function::PostHandler_ExpandMod::DoPost(Signal sig, const Value &result)
 }
 
 //-----------------------------------------------------------------------------
-// Function::Sequence_ExpandMul
+// Function::PostHandler_ExpandMul
 //-----------------------------------------------------------------------------
-bool Function::Sequence_ExpandMul::DoStep(Signal sig, Value &result)
+bool Function::PostHandler_ExpandMul::DoPost(Signal sig, const Value &result)
 {
-	Environment &env = *_pEnv;
-	result = _pExprArg->Exec(env, sig);
 	do {
 		ValueList &valListArg = _pSequenceCall->GetArgs()->GetValueListArg();
 		size_t nSkipDecl = 1;
-		if (sig.IsSignalled()) {
-			sig.AddExprCause(_pExprArg.get());
-			return false;
-		}
 		if (result.IsList()) {
 			const ValueList &valList = result.GetList();
 			nSkipDecl = valList.size();
@@ -993,15 +988,7 @@ bool Function::Sequence_ExpandMul::DoStep(Signal sig, Value &result)
 		}
 		_pSequenceCall->SkipDeclarations(nSkipDecl);
 	} while (0);
-	_doneFlag = true;
 	return true;
-}
-
-String Function::Sequence_ExpandMul::ToString() const
-{
-	String str;
-	str += "<sequence:call:expandmul>";
-	return str;
 }
 
 //-----------------------------------------------------------------------------

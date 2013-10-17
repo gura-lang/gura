@@ -218,15 +218,13 @@ public:
 				PostHandler(pEnv), _pSequenceCall(pSequenceCall) {}
 		virtual bool DoPost(Signal sig, const Value &result);
 	};
-	class GURA_DLLDECLARE Sequence_ExpandMul : public Sequence {
+	class GURA_DLLDECLARE PostHandler_ExpandMul : public Sequence::PostHandler {
 	private:
 		AutoPtr<Sequence_Call> _pSequenceCall;
-		AutoPtr<Expr> _pExprArg;
 	public:
-		inline Sequence_ExpandMul(Environment *pEnv, Sequence_Call *pSequenceCall, Expr *pExprArg) :
-				Sequence(pEnv), _pSequenceCall(pSequenceCall), _pExprArg(pExprArg) {}
-		virtual bool DoStep(Signal sig, Value &result);
-		virtual String ToString() const;
+		inline PostHandler_ExpandMul(Environment *pEnv, Sequence_Call *pSequenceCall) :
+				PostHandler(pEnv), _pSequenceCall(pSequenceCall) {}
+		virtual bool DoPost(Signal sig, const Value &result);
 	};
 	class GURA_DLLDECLARE Sequence_ValListArg : public Sequence {
 	private:
