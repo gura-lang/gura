@@ -196,7 +196,6 @@ public:
 	public:
 		inline Args *GetArgs() { return _pArgs.get(); }
 		inline ExprMap &GetExprMap() { return _exprMap; }
-		inline ExprMap::iterator NextIterExprMap() { return _iterExprMap++; }
 		virtual bool DoStep(Signal sig, Value &result);
 		virtual String ToString() const;
 		void SkipDeclarations(size_t nSkipDecl);
@@ -235,14 +234,14 @@ public:
 				PostHandler(pEnv), _pSequenceCall(pSequenceCall), _skipDeclFlag(skipDeclFlag) {}
 		virtual bool DoPost(Signal sig, const Value &result);
 	};
-	class GURA_DLLDECLARE Sequence_ValDictArg : public Sequence {
+	class GURA_DLLDECLARE PostHandler_ValDictArg : public Sequence::PostHandler {
 	private:
 		AutoPtr<Sequence_Call> _pSequenceCall;
+		const Symbol *_pSymbol;
 	public:
-		inline Sequence_ValDictArg(Environment *pEnv, Sequence_Call *pSequenceCall) :
-								Sequence(pEnv), _pSequenceCall(pSequenceCall) {}
-		virtual bool DoStep(Signal sig, Value &result);
-		virtual String ToString() const;
+		inline PostHandler_ValDictArg(Environment *pEnv, Sequence_Call *pSequenceCall, const Symbol *pSymbol) :
+				PostHandler(pEnv), _pSequenceCall(pSequenceCall), _pSymbol(pSymbol) {}
+		virtual bool DoPost(Signal sig, const Value &result);
 	};
 protected:
 	int _cntRef;

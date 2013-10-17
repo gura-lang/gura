@@ -805,9 +805,6 @@ bool Function::Sequence_Call::DoStep(Signal sig, Value &result)
 				result = pExprArg->Exec(env, sig);
 				if (sig.IsSignalled()) return false;
 				if (!pPostHandler->DoPost(sig, result)) return false;
-				//ValueList &valListArg = GetArgs()->GetValueListArg();
-				//valListArg.push_back(result);
-				//SkipDeclarations(1);
 			}
 		} else if (_pFunc->GetDeclOwner().IsAllowTooManyArgs()) {
 			continueFlag = true;
@@ -870,8 +867,6 @@ bool Function::Sequence_Call::DoStep(Signal sig, Value &result)
 			result = pExprArg->Exec(env, sig);
 			if (sig.IsSignalled()) return false;
 			if (!pPostHandler->DoPost(sig, result)) return false;
-			//ValueList &valListArg = GetArgs()->GetValueListArg();
-			//valListArg.push_back(result);
 		}
 		break;
 	}
@@ -897,9 +892,14 @@ bool Function::Sequence_Call::DoStep(Signal sig, Value &result)
 			_stat = STAT_Exec;
 			break;
 		}
-		Sequence *pSequence = new Sequence_ValDictArg(env.Reference(),
-					dynamic_cast<Sequence_Call *>(Reference()));
-		result = Sequence::Return(sig, pSequence);
+		const Symbol *pSymbol = _iterExprMap->first;
+		const Expr *pExprArg = _iterExprMap->second;
+		_iterExprMap++;
+		AutoPtr<Sequence::PostHandler> pPostHandler(new PostHandler_ValDictArg(
+				env.Reference(), dynamic_cast<Sequence_Call *>(Reference()), pSymbol));
+		result = pExprArg->Exec(env, sig);
+		if (sig.IsSignalled()) return false;
+		if (!pPostHandler->DoPost(sig, result)) return false;
 		break;
 	}
 	//-------------------------------------------------------------------------
@@ -1010,29 +1010,13 @@ bool Function::PostHandler_ValListArg::DoPost(Signal sig, const Value &result)
 }
 
 //-----------------------------------------------------------------------------
-// Function::Sequence_ValDictArg
+// Function::PostHandler_ValDictArg
 //-----------------------------------------------------------------------------
-bool Function::Sequence_ValDictArg::DoStep(Signal sig, Value &result)
+bool Function::PostHandler_ValDictArg::DoPost(Signal sig, const Value &result)
 {
-	Environment &env = *_pEnv;
-	ExprMap::iterator iterExprMap = _pSequenceCall->NextIterExprMap();
-	const Symbol *pSymbol = iterExprMap->first;
-	const Expr *pExprArg = iterExprMap->second;
-	result = pExprArg->Exec(env, sig);
-	do {
-		ValueDict &valDictArg = _pSequenceCall->GetArgs()->GetValueDictArg();
-		if (sig.IsSignalled()) return false;
-		valDictArg[Value(pSymbol)] = result;
-	} while (0);
-	_doneFlag = true;
+	ValueDict &valDictArg = _pSequenceCall->GetArgs()->GetValueDictArg();
+	valDictArg[Value(_pSymbol)] = result;
 	return true;
-}
-
-String Function::Sequence_ValDictArg::ToString() const
-{
-	String str;
-	str += "<sequence:call:valdictarg>";
-	return str;
 }
 
 //-----------------------------------------------------------------------------
