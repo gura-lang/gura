@@ -167,7 +167,7 @@ public:
 	inline Value Exec2(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const {
 		return Exec(env, sig, pSeqPostHandler);
 	}
-	Value Exec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
+	Value Exec(Environment &env, Signal sig, AutoPtr<SeqPostHandler> pSeqPostHandler) const;
 	Function *ToFunction(Environment &env, Signal sig,
 				const ValueList &valListArg, const SymbolSet &attrs) const;
 	bool IsAtSameLine(const Expr *pExpr) const;

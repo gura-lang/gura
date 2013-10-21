@@ -69,9 +69,9 @@ const char *Expr::GetPathName() const
 	return (_pExprParent == NULL)? NULL : _pExprParent->GetPathName();
 }
 
-Value Expr::Exec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr::Exec(Environment &env, Signal sig, AutoPtr<SeqPostHandler> pSeqPostHandler) const
 {
-	Value result = DoExec(env, sig, pSeqPostHandler);
+	Value result = DoExec(env, sig, pSeqPostHandler.get());
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Null;
