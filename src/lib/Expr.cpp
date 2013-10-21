@@ -693,11 +693,6 @@ Value Expr_Value::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostH
 	return result;
 }
 
-Sequence *Expr_Value::GenerateSequence(Environment &env) const
-{
-	return NULL;
-}
-
 Expr *Expr_Value::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
 {
 	return new Expr_Value(0);
@@ -795,11 +790,6 @@ Value Expr_Symbol::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPost
 	if (sig.IsSignalled()) return Value::Null;
 	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
 	return result;
-}
-
-Sequence *Expr_Symbol::GenerateSequence(Environment &env) const
-{
-	return NULL;
 }
 
 Value Expr_Symbol::Exec(Environment &env, Signal sig,
@@ -1021,11 +1011,6 @@ Value Expr_String::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPost
 	return result;
 }
 
-Sequence *Expr_String::GenerateSequence(Environment &env) const
-{
-	return NULL;
-}
-
 void Expr_String::Accept(ExprVisitor &visitor) const
 {
 	visitor.Visit(this);
@@ -1076,11 +1061,6 @@ Value Expr_TmplString::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeq
 	_streamDst.Print(sig, _str.c_str());
 	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, Value::Null)) return Value::Null;
 	return Value::Null;
-}
-
-Sequence *Expr_TmplString::GenerateSequence(Environment &env) const
-{
-	return NULL;
 }
 
 void Expr_TmplString::Accept(ExprVisitor &visitor) const
@@ -1164,15 +1144,10 @@ bool Expr_Root::GenerateScript(Signal sig, SimpleStream &stream,
 	return true;
 }
 
-Sequence *Expr_Root::GenerateSequence(Environment &env) const
-{
-	return new SequenceEx(env.Reference(), Reference(this));
-}
-
 Processor *Expr_Root::GenerateProcessor(Environment &env) const
 {
 	AutoPtr<Processor> pProcessor(new Processor());
-	pProcessor->PushSequence(GenerateSequence(env));
+	pProcessor->PushSequence(new SequenceEx(env.Reference(), Reference(this)));
 	return pProcessor.release();
 }
 
@@ -1266,11 +1241,6 @@ Value Expr_Block::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostH
 	return result;
 }
 
-Sequence *Expr_Block::GenerateSequence(Environment &env) const
-{
-	return NULL;
-}
-
 Expr *Expr_Block::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
 {
 	return (GetExprOwner().size() == 1)?
@@ -1353,11 +1323,6 @@ Value Expr_BlockParam::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeq
 	Value result = GetExprOwner().Exec3(env, sig, false);
 	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
 	return result;
-}
-
-Sequence *Expr_BlockParam::GenerateSequence(Environment &env) const
-{
-	return NULL;
 }
 
 bool Expr_BlockParam::GenerateCode(Environment &env, Signal sig, Stream &stream)
@@ -1448,11 +1413,6 @@ Value Expr_Lister::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPost
 	}
 	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
 	return result;
-}
-
-Sequence *Expr_Lister::GenerateSequence(Environment &env) const
-{
-	return NULL;
 }
 
 Value Expr_Lister::DoAssign(Environment &env, Signal sig, Value &value,
@@ -1599,11 +1559,6 @@ Value Expr_IterLink::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPo
 	return result;
 }
 
-Sequence *Expr_IterLink::GenerateSequence(Environment &env) const
-{
-	return NULL;
-}
-
 bool Expr_IterLink::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
 	stream.Println(sig, "IterLink");
@@ -1724,11 +1679,6 @@ Value Expr_TmplScript::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeq
 	}
 	_streamDst.Print(sig, _strPost.c_str());
 	return Value::Null;
-}
-
-Sequence *Expr_TmplScript::GenerateSequence(Environment &env) const
-{
-	return NULL;
 }
 
 bool Expr_TmplScript::GenerateCode(Environment &env, Signal sig, Stream &stream)
@@ -1868,11 +1818,6 @@ Value Expr_Indexer::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPos
 	}
 	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
 	return result;
-}
-
-Sequence *Expr_Indexer::GenerateSequence(Environment &env) const
-{
-	return NULL;
 }
 
 Value Expr_Indexer::DoAssign(Environment &env, Signal sig, Value &value,
@@ -2124,11 +2069,6 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPost
 	if (sig.IsSignalled()) return Value::Null;
 	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
 	return result;
-}
-
-Sequence *Expr_Caller::GenerateSequence(Environment &env) const
-{
-	return NULL;
 }
 
 Value Expr_Caller::DoExec(Environment &env, Signal sig, TrailCtrlHolder *pTrailCtrlHolder) const
@@ -2477,11 +2417,6 @@ Value Expr_UnaryOp::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPos
 	return result;
 }
 
-Sequence *Expr_UnaryOp::GenerateSequence(Environment &env) const
-{
-	return NULL;
-}
-
 Expr *Expr_UnaryOp::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
 {
 	return _pOperator->DiffUnary(env, sig, GetChild(), pSymbol);
@@ -2603,11 +2538,6 @@ Value Expr_BinaryOp::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPo
 	return result;
 }
 
-Sequence *Expr_BinaryOp::GenerateSequence(Environment &env) const
-{
-	return NULL;
-}
-
 Expr *Expr_BinaryOp::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
 {
 	return _pOperator->DiffBinary(env, sig, GetLeft(), GetRight(), pSymbol);
@@ -2714,11 +2644,6 @@ Value Expr_Quote::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostH
 	return result;
 }
 
-Sequence *Expr_Quote::GenerateSequence(Environment &env) const
-{
-	return NULL;
-}
-
 bool Expr_Quote::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
 	stream.Println(sig, "Quote");
@@ -2774,11 +2699,6 @@ Value Expr_Prefix::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPost
 	return Value::Null;
 }
 
-Sequence *Expr_Prefix::GenerateSequence(Environment &env) const
-{
-	return NULL;
-}
-
 bool Expr_Prefix::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
 	stream.Println(sig, "Prefix");
@@ -2824,11 +2744,6 @@ Value Expr_Suffix::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPost
 {
 	SetError(sig, ERR_SyntaxError, "invalid expression");
 	return Value::Null;
-}
-
-Sequence *Expr_Suffix::GenerateSequence(Environment &env) const
-{
-	return NULL;
 }
 
 OccurPattern Expr_Suffix::GetOccurPattern() const
@@ -2886,11 +2801,6 @@ Value Expr_Assign::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPost
 	Value result = Exec(env, sig, env, NULL, pSeqPostHandler);
 	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
 	return result;
-}
-
-Sequence *Expr_Assign::GenerateSequence(Environment &env) const
-{
-	return NULL;
 }
 
 Value Expr_Assign::Exec(Environment &env, Signal sig, Environment &envDst,
@@ -3036,11 +2946,6 @@ Value Expr_Member::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPost
 	}
 	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
 	return result;
-}
-
-Sequence *Expr_Member::GenerateSequence(Environment &env) const
-{
-	return NULL;
 }
 
 Value Expr_Member::DoAssign(Environment &env, Signal sig, Value &value,
