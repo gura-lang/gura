@@ -68,6 +68,7 @@
 #include "gura/Object_audio.h"
 #include "gura/Object_codec.h"
 #include "gura/Object_args.h"
+#include "gura/CustomFunction.h"
 #include "gura/CustomClass.h"
 #include "gura/StructObject.h"
 

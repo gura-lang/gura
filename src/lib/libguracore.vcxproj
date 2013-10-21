@@ -236,6 +236,7 @@
     <ClCompile Include="Object_timedelta.cpp" />
     <ClCompile Include="Object_uri.cpp" />
     <ClCompile Include="Object_args.cpp" />
+    <ClCompile Include="CustomFunction.cpp" />
     <ClCompile Include="CustomClass.cpp" />
     <ClCompile Include="StructObject.cpp" />
     <ClCompile Include="Operator.cpp" />
