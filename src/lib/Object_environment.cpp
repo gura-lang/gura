@@ -104,8 +104,9 @@ Gura_DeclareMethod(environment, eval)
 
 Gura_ImplementMethod(environment, eval)
 {
+	SeqPostHandler *pSeqPostHandler = NULL;
 	Object_environment *pThis = Object_environment::GetThisObj(args);
-	return args.GetExpr(0)->Exec2(pThis->GetEnv(), sig);
+	return args.GetExpr(0)->Exec2(pThis->GetEnv(), sig, pSeqPostHandler);
 }
 
 // environment#lookup(symbol:symbol, escalate:boolean => true):map

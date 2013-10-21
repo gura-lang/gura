@@ -213,8 +213,9 @@ Gura_DeclareMethod(expr, eval)
 
 Gura_ImplementMethod(expr, eval)
 {
+	SeqPostHandler *pSeqPostHandler = NULL;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	return Object_expr::GetThisObj(args)->GetExpr()->Exec2(*pEnvBlock, sig);
+	return Object_expr::GetThisObj(args)->GetExpr()->Exec2(*pEnvBlock, sig, pSeqPostHandler);
 }
 
 // expr#genscript(stream?:stream:w, style?:symbol):void

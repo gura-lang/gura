@@ -344,7 +344,8 @@ bool DoGLSection(Environment &env, Signal sig, Args &args, Image *pImage)
 	::wglMakeCurrent(hdc, hglrc);
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (!sig.IsSignalled()) {
-		pExprBlock->Exec2(env, sig);
+		SeqPostHandler *pSeqPostHandler = NULL;
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 	}
 	::wglMakeCurrent(NULL, NULL);
 	::wglDeleteContext(hglrc);

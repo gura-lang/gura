@@ -55,7 +55,8 @@ Gura_ImplementFunction(BusyCursor)
 	::wxBeginBusyCursor();
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
-	Value rtn = pExprBlock->Exec2(env, sig);
+	SeqPostHandler *pSeqPostHandler = NULL;
+	Value rtn = pExprBlock->Exec2(env, sig, pSeqPostHandler);
 	::wxEndBusyCursor();
 	return rtn;
 }
@@ -74,7 +75,8 @@ Gura_ImplementFunction(CaretSuspend)
 	wxCaretSuspend cs(win);
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
-	Value rtn = pExprBlock->Exec2(env, sig);
+	SeqPostHandler *pSeqPostHandler = NULL;
+	Value rtn = pExprBlock->Exec2(env, sig, pSeqPostHandler);
 	return rtn;
 }
 
@@ -90,7 +92,8 @@ Gura_ImplementFunction(ClipboardLocker)
 	wxClipboardLocker clipboardLocker;
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
-	Value rtn = pExprBlock->Exec2(env, sig);
+	SeqPostHandler *pSeqPostHandler = NULL;
+	Value rtn = pExprBlock->Exec2(env, sig, pSeqPostHandler);
 	return rtn;
 }
 

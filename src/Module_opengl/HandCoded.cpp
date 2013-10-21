@@ -49,9 +49,10 @@ Gura_ImplementFunction(glBegin)
 	// GLenum mode
 	::glBegin(mode);
 	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig);
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		::glEnd();
 	}
 	return Value::Null;
@@ -990,9 +991,10 @@ Gura_ImplementFunction(glNewList)
 	// GLuint list, GLenum mode
 	::glNewList(list, mode);
 	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig);
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		::glEndList();
 	}
 	return Value::Null;
@@ -1056,9 +1058,10 @@ Gura_ImplementFunction(glPushAttrib)
 	// GLbitfield mask
 	::glPushAttrib(mask);
 	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig);
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		::glPopAttrib();
 	}
 	return Value::Null;
@@ -1078,9 +1081,10 @@ Gura_ImplementFunction(glPushClientAttrib)
 	// GLbitfield mask
 	::glPushClientAttrib(mask);
 	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig);
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		::glPopClientAttrib();
 	}
 	return Value::Null;
@@ -1098,9 +1102,10 @@ Gura_ImplementFunction(glPushMatrix)
 	// void
 	::glPushMatrix();
 	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig);
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		::glPopMatrix();
 	}
 	return Value::Null;
@@ -1120,9 +1125,10 @@ Gura_ImplementFunction(glPushName)
 	// GLuint name
 	::glPushName(name);
 	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig);
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		::glPopName();
 	}
 	return Value::Null;

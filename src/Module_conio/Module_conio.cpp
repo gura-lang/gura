@@ -221,9 +221,10 @@ Gura_ImplementFunction(setcolor)
 	}
 	::SetConsoleTextAttribute(hConsole, fg + (bg << 4));
 	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig);
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		::SetConsoleTextAttribute(hConsole, csbi.wAttributes);
 	}
 	return Value::Null;
@@ -239,9 +240,10 @@ Gura_ImplementFunction(moveto)
 	COORD pos = { x, y };
 	::SetConsoleCursorPosition(hConsole, pos);
 	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig);
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		::SetConsoleCursorPosition(hConsole, csbi.dwCursorPosition);
 	}
 	return Value::Null;
@@ -376,10 +378,11 @@ Gura_ImplementFunction(setcolor)
 		::printf("\033[%sm", str.c_str());
 	}
 	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		g_attrStack.push_back(str);
-		pExprBlock->Exec2(env, sig);
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		if (!g_attrStack.empty()) g_attrStack.pop_back();
 		if (g_attrStack.empty()) {
 			::printf("\033[0m");
@@ -398,11 +401,12 @@ Gura_ImplementFunction(moveto)
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
 		::printf("\033[s");
 		::printf("\033[%d;%dH", y + 1, x + 1);
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig);
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		::printf("\033[u");
 	} else {
 		::printf("\033[%d;%dH", y + 1, x + 1);

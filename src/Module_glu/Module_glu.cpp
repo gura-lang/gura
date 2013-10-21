@@ -328,9 +328,10 @@ Gura_ImplementMethod(Tesselator, gluTessBeginPolygon)
 	GLUtesselator *tess = Object_Tesselator::GetThisObj(args)->GetTesselator();
 	::gluTessBeginPolygon(tess, tess); // pass this object pointer to callback
 	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig);
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		::gluTessEndPolygon(tess);
 	}
 	return Value::Null;
@@ -348,9 +349,10 @@ Gura_ImplementMethod(Tesselator, gluTessBeginContour)
 	GLUtesselator *tess = Object_Tesselator::GetThisObj(args)->GetTesselator();
 	::gluTessBeginContour(tess);
 	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig);
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		::gluTessEndContour(tess);
 	}
 	return Value::Null;
@@ -483,9 +485,10 @@ Gura_ImplementMethod(Tesselator, gluBeginPolygon)
 	GLUtesselator *tess = Object_Tesselator::GetThisObj(args)->GetTesselator();
 	::gluBeginPolygon(tess);
 	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig);
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		::gluEndPolygon(tess);
 	}
 	return Value::Null;
@@ -569,9 +572,10 @@ Gura_ImplementMethod(Nurbs, gluBeginSurface)
 	GLUnurbs *nobj = Object_Nurbs::GetThisObj(args)->GetNurbs();
 	::gluBeginSurface(nobj);
 	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig);
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		::gluEndSurface(nobj);
 	}
 	return Value::Null;
@@ -589,9 +593,10 @@ Gura_ImplementMethod(Nurbs, gluBeginCurve)
 	GLUnurbs *nobj = Object_Nurbs::GetThisObj(args)->GetNurbs();
 	::gluBeginCurve(nobj);
 	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig);
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		::gluEndCurve(nobj);
 	}
 	return Value::Null;
@@ -635,9 +640,10 @@ Gura_ImplementMethod(Nurbs, gluBeginTrim)
 	GLUnurbs *nobj = Object_Nurbs::GetThisObj(args)->GetNurbs();
 	::gluBeginTrim(nobj);
 	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		pExprBlock->Exec2(env, sig);
+		pExprBlock->Exec2(env, sig, pSeqPostHandler);
 		::gluEndTrim(nobj);
 	}
 	return Value::Null;

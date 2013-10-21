@@ -241,7 +241,8 @@ Gura_ImplementFunction(dict)
 		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
 		ValueList valList;
 		foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
-			Value value = (*ppExpr)->Exec2(*pEnvLister, sig);
+			SeqPostHandler *pSeqPostHandler = NULL;
+			Value value = (*ppExpr)->Exec2(*pEnvLister, sig, pSeqPostHandler);
 			if (sig.IsSignalled()) {
 				sig.AddExprCause(*ppExpr);
 				return Value::Null;
@@ -405,7 +406,8 @@ Gura_ImplementMethod(dict, store)
 		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
 		ValueList valList;
 		foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
-			Value value = (*ppExpr)->Exec2(*pEnvLister, sig);
+			SeqPostHandler *pSeqPostHandler = NULL;
+			Value value = (*ppExpr)->Exec2(*pEnvLister, sig, pSeqPostHandler);
 			if (sig.IsSignalled()) {
 				sig.AddExprCause(*ppExpr);
 				return Value::Null;

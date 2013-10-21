@@ -715,11 +715,13 @@ Value Object_ole::CallableOLE::DoCall(Environment &env, Signal sig, Args &argsEx
 						"a key for named argument of OLE must be a string or symbol");
 				goto error_done;
 			}
-			Value value = pExprBinaryOp->GetRight()->Exec2(env, sig);
+			SeqPostHandler *pSeqPostHandler = NULL;
+			Value value = pExprBinaryOp->GetRight()->Exec2(env, sig, pSeqPostHandler);
 			if (sig.IsSignalled()) goto error_done;
 			valueArgsNamed.push_back(value);
 		} else {
-			Value value = pExpr->Exec2(env, sig);
+			SeqPostHandler *pSeqPostHandler = NULL;
+			Value value = pExpr->Exec2(env, sig, pSeqPostHandler);
 			if (sig.IsSignalled()) goto error_done;
 			valueArgs.push_back(value);
 		}
