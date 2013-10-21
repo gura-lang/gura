@@ -274,6 +274,19 @@ private:
 // ExprOwner
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE ExprOwner : public ExprList {
+public:
+	class GURA_DLLDECLARE SequenceEx : public Sequence {
+	protected:
+		AutoPtr<ExprOwner> _pExprOwner;
+		size_t _idxExpr;
+		bool _evalSymFuncFlag;
+	public:
+		SequenceEx(Environment *pEnv, ExprOwner *pExprOwner, bool evalSymFuncFlag);
+	public:
+		virtual bool DoStep(Signal sig, Value &result);
+		virtual String ToString() const;
+		inline const ExprOwner &GetExprOwner() const { return *_pExprOwner; }
+	};
 private:
 	int _cntRef;
 public:
@@ -1014,22 +1027,6 @@ public:
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
-};
-
-//-----------------------------------------------------------------------------
-// Sequence_Expr
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Sequence_Expr : public Sequence {
-protected:
-	AutoPtr<ExprOwner> _pExprOwner;
-	size_t _idxExpr;
-	bool _evalSymFuncFlag;
-public:
-	Sequence_Expr(Environment *pEnv, ExprOwner *pExprOwner, bool evalSymFuncFlag);
-public:
-	virtual bool DoStep(Signal sig, Value &result);
-	virtual String ToString() const;
-	inline const ExprOwner &GetExprOwner() const { return *_pExprOwner; }
 };
 
 }

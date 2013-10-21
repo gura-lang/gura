@@ -215,7 +215,7 @@ const Help *Function::GetHelp(const Symbol *pSymbol) const
 
 Value Function::Call(Environment &env, Signal sig, Args &args) const
 {
-	Sequence *pSequence = new Sequence_Call(env.Reference(), Reference(this), args);
+	Sequence *pSequence = new SequenceEx(env.Reference(), Reference(this), args);
 	return Sequence::Return(sig, pSequence);
 }
 
@@ -648,9 +648,9 @@ Function::ExprMap::~ExprMap()
 }
 
 //-----------------------------------------------------------------------------
-// Function::Sequence_Call
+// Function::SequenceEx
 //-----------------------------------------------------------------------------
-Function::Sequence_Call::Sequence_Call(Environment *pEnv, Function *pFunc, Args &args) :
+Function::SequenceEx::SequenceEx(Environment *pEnv, Function *pFunc, Args &args) :
 			Sequence(pEnv), _stat(STAT_Init),
 			_pFunc(pFunc), _pArgs(new Args(args, ValueList::Null)),
 			_stayDeclPointerFlag(false), _mapFlag(pFunc->GetMapFlag())
@@ -660,7 +660,7 @@ Function::Sequence_Call::Sequence_Call(Environment *pEnv, Function *pFunc, Args 
 	_ppExprArg = _pArgs->GetExprListArg().begin();
 }
 
-bool Function::Sequence_Call::DoStep(Signal sig, Value &result)
+bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 {
 	Environment &env = *_pEnv;
 	ValueList &valListArg = _pArgs->GetValueListArg();
@@ -761,7 +761,7 @@ bool Function::Sequence_Call::DoStep(Signal sig, Value &result)
 					dynamic_cast<const Expr_Value *>(pExprLeft)->GetValue() :
 					 Value(env, dynamic_cast<const Expr_String *>(pExprLeft)->GetString());
 				AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_StoreDict(
-							env.Reference(), dynamic_cast<Sequence_Call *>(Reference()),
+							env.Reference(), dynamic_cast<SequenceEx *>(Reference()),
 							valueKey));
 				result = pExprRight->Exec(env, sig, pSeqPostHandler.release());
 				if (sig.IsSignalled()) return false;
@@ -774,7 +774,7 @@ bool Function::Sequence_Call::DoStep(Signal sig, Value &result)
 		} else if (!quoteFlag && Expr_Suffix::IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) {
 			const Expr_Suffix *pExprSuffix = dynamic_cast<const Expr_Suffix *>(pExprArg);
 			AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ExpandMod(
-					env.Reference(), dynamic_cast<Sequence_Call *>(Reference())));
+					env.Reference(), dynamic_cast<SequenceEx *>(Reference())));
 			result = pExprSuffix->GetChild()->Exec(env, sig, pSeqPostHandler.release());
 			if (sig.IsSignalled()) return false;
 			//if (!pSeqPostHandler->DoPost(sig, result)) return false;
@@ -795,13 +795,13 @@ bool Function::Sequence_Call::DoStep(Signal sig, Value &result)
 					return false;
 				}
 				AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ExpandMul(
-						env.Reference(), dynamic_cast<Sequence_Call *>(Reference())));
+						env.Reference(), dynamic_cast<SequenceEx *>(Reference())));
 				result = pExprSuffix->GetChild()->Exec(env, sig, pSeqPostHandler.release());
 				if (sig.IsSignalled()) return false;
 				//if (!pSeqPostHandler->DoPost(sig, result)) return false;
 			} else {
 				AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ValListArg(
-					env.Reference(), dynamic_cast<Sequence_Call *>(Reference()), true));
+					env.Reference(), dynamic_cast<SequenceEx *>(Reference()), true));
 				result = pExprArg->Exec(env, sig, pSeqPostHandler.release());
 				if (sig.IsSignalled()) return false;
 				//if (!pSeqPostHandler->DoPost(sig, result)) return false;
@@ -863,7 +863,7 @@ bool Function::Sequence_Call::DoStep(Signal sig, Value &result)
 			valListArg.push_back(value);
 		} else {
 			AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ValListArg(
-				env.Reference(), dynamic_cast<Sequence_Call *>(Reference()), false));
+				env.Reference(), dynamic_cast<SequenceEx *>(Reference()), false));
 			result = pExprArg->Exec(env, sig, pSeqPostHandler.release());
 			if (sig.IsSignalled()) return false;
 			//if (!pSeqPostHandler->DoPost(sig, result)) return false;
@@ -896,7 +896,7 @@ bool Function::Sequence_Call::DoStep(Signal sig, Value &result)
 		const Expr *pExprArg = _iterExprMap->second;
 		_iterExprMap++;
 		AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ValDictArg(
-				env.Reference(), dynamic_cast<Sequence_Call *>(Reference()), pSymbol));
+				env.Reference(), dynamic_cast<SequenceEx *>(Reference()), pSymbol));
 		result = pExprArg->Exec(env, sig, pSeqPostHandler.release());
 		if (sig.IsSignalled()) return false;
 		//if (!pSeqPostHandler->DoPost(sig, result)) return false;
@@ -916,14 +916,14 @@ bool Function::Sequence_Call::DoStep(Signal sig, Value &result)
 	return !sig.IsSignalled();
 }
 
-String Function::Sequence_Call::ToString() const
+String Function::SequenceEx::ToString() const
 {
 	String str;
 	str += "<sequence:call>";
 	return str;
 }
 
-void Function::Sequence_Call::SkipDeclarations(size_t nSkipDecl)
+void Function::SequenceEx::SkipDeclarations(size_t nSkipDecl)
 {
 	for (size_t iSkipDecl = 0; iSkipDecl < nSkipDecl &&
 				_ppDecl != _pFunc->GetDeclOwner().end(); iSkipDecl++) {
@@ -1046,7 +1046,7 @@ Value CustomFunction::DoEval(Environment &env, Signal sig, Args &args) const
 	pEnvLocal->AssignValue(Gura_Symbol(__args__),
 				Value(new Object_args(env, args.Reference())), EXTRA_Public);
 #if 0
-	Sequence *pSequence = new Sequence_CustomFunction(pEnvLocal.release(),
+	Sequence *pSequence = new CustomFunction::SequenceEx(pEnvLocal.release(),
 								dynamic_cast<CustomFunction *>(Reference()));
 	return Sequence::Return(sig, pSequence);
 #else
@@ -1091,6 +1091,50 @@ CustomFunction *CustomFunction::CreateBlockFunc(Environment &env, Signal sig,
 		}
 	}
 	return pFunc.release();
+}
+
+//-----------------------------------------------------------------------------
+// CustomFunction::SequenceEx
+//-----------------------------------------------------------------------------
+CustomFunction::SequenceEx::SequenceEx(Environment *pEnv, CustomFunction *pCustomFunction) :
+		ExprOwner::SequenceEx(pEnv, NULL, true), _pCustomFunction(pCustomFunction)
+{
+	const Expr *pExprBody = _pCustomFunction->GetExprBody();
+	if (pExprBody == NULL) {
+		_pExprOwner.reset(new ExprOwner());
+	} else if (pExprBody->IsBlock()) {
+		const Expr_Block *pExprBlock = dynamic_cast<const Expr_Block *>(pExprBody);
+		_pExprOwner.reset(pExprBlock->GetExprOwner().Reference());
+	} else {
+		_pExprOwner.reset(new ExprOwner());
+		_pExprOwner->push_back(pExprBody->Reference());
+	}
+}
+
+bool CustomFunction::SequenceEx::DoStep(Signal sig, Value &result)
+{
+	Environment &env = *_pEnv;
+	if (!ExprOwner::SequenceEx::DoStep(sig, result)) return false;
+	if (env.GetEnvType() == ENVTYPE_block) {
+		// nothing to do. simply pass the signal to the outside.
+	} else if (!sig.IsSignalled()) {
+		// nothing to do
+	} else if (sig.IsBreak()) {
+		sig.ClearSignal();
+	} else if (sig.IsContinue()) {
+		sig.ClearSignal();
+	} else if (sig.IsReturn()) {
+		result = sig.GetValue();
+		sig.ClearSignal();
+	}
+	return true;
+}
+
+String CustomFunction::SequenceEx::ToString() const
+{
+	String str;
+	str += "<sequence:customfunction>";
+	return str;
 }
 
 //-----------------------------------------------------------------------------
@@ -1188,50 +1232,6 @@ bool Callable::IsEndMarker() const
 OccurPattern Callable::GetBlockOccurPattern() const
 {
 	return OCCUR_Zero;
-}
-
-//-----------------------------------------------------------------------------
-// Sequence_CustomFunction
-//-----------------------------------------------------------------------------
-Sequence_CustomFunction::Sequence_CustomFunction(Environment *pEnv, CustomFunction *pCustomFunction) :
-			Sequence_Expr(pEnv, NULL, true), _pCustomFunction(pCustomFunction)
-{
-	const Expr *pExprBody = _pCustomFunction->GetExprBody();
-	if (pExprBody == NULL) {
-		_pExprOwner.reset(new ExprOwner());
-	} else if (pExprBody->IsBlock()) {
-		const Expr_Block *pExprBlock = dynamic_cast<const Expr_Block *>(pExprBody);
-		_pExprOwner.reset(pExprBlock->GetExprOwner().Reference());
-	} else {
-		_pExprOwner.reset(new ExprOwner());
-		_pExprOwner->push_back(pExprBody->Reference());
-	}
-}
-
-bool Sequence_CustomFunction::DoStep(Signal sig, Value &result)
-{
-	Environment &env = *_pEnv;
-	if (!Sequence_Expr::DoStep(sig, result)) return false;
-	if (env.GetEnvType() == ENVTYPE_block) {
-		// nothing to do. simply pass the signal to the outside.
-	} else if (!sig.IsSignalled()) {
-		// nothing to do
-	} else if (sig.IsBreak()) {
-		sig.ClearSignal();
-	} else if (sig.IsContinue()) {
-		sig.ClearSignal();
-	} else if (sig.IsReturn()) {
-		result = sig.GetValue();
-		sig.ClearSignal();
-	}
-	return true;
-}
-
-String Sequence_CustomFunction::ToString() const
-{
-	String str;
-	str += "<sequence:customfunction>";
-	return str;
 }
 
 }

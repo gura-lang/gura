@@ -564,6 +564,60 @@ void ExprOwner::Clear()
 }
 
 //-----------------------------------------------------------------------------
+// ExprOwner::SequenceEx
+//-----------------------------------------------------------------------------
+ExprOwner::SequenceEx::SequenceEx(Environment *pEnv, ExprOwner *pExprOwner, bool evalSymFuncFlag) :
+						Sequence(pEnv), _pExprOwner(pExprOwner), _idxExpr(0),
+						_evalSymFuncFlag(evalSymFuncFlag)
+{
+}
+
+bool ExprOwner::SequenceEx::DoStep(Signal sig, Value &result)
+{
+	if (CheckDone()) return false;
+	if (_idxExpr >= GetExprOwner().size()) {
+		_doneFlag = true;
+		return false;
+	}
+	SeqPostHandler *pSeqPostHandler = NULL;
+	Environment &env = *_pEnv;
+	const Expr *pExpr = GetExprOwner()[_idxExpr++];
+	result = pExpr->Exec(env, sig, pSeqPostHandler);
+	if (sig.IsSignalled()) {
+		sig.AddExprCause(pExpr);
+		_doneFlag = true;
+		return false;
+	}
+	if (_evalSymFuncFlag && result.IsFunction() &&
+								result.GetFunction()->IsSymbolFunc()) {
+		// symbol functions are only evaluated by a sequence of block.
+		// in the folloiwng example, "return" shall be evaluated by a block
+		// of "if" function.
+		//   repeat { if (flag) { return } }
+		// in the following example, "&&" operator returns "return" function
+		// object as its result, and then the block of "repeat" shall evaluate it.
+		//   repeat { flag && return }
+		const Function *pFunc = result.GetFunction();
+		AutoPtr<Args> pArgs(new Args());
+		Value result = pFunc->Call(env, sig, *pArgs);
+		if (sig.IsSignalled()) {
+			sig.AddExprCause(pExpr);
+			_doneFlag = true;
+			return false;
+		}
+	}
+	if (_idxExpr >= GetExprOwner().size()) _doneFlag = true;
+	return true;
+}
+
+String ExprOwner::SequenceEx::ToString() const
+{
+	String str;
+	str += "<sequence:expr>";
+	return str;
+}
+
+//-----------------------------------------------------------------------------
 // Expr_Unary
 //-----------------------------------------------------------------------------
 bool Expr_Unary::IsUnary() const { return true; }
@@ -2992,60 +3046,6 @@ String Expr_Member::SequenceEx::ToString() const
 {
 	String str;
 	str += "<sequence:expr_member>";
-	return str;
-}
-
-//-----------------------------------------------------------------------------
-// Sequence_Expr
-//-----------------------------------------------------------------------------
-Sequence_Expr::Sequence_Expr(Environment *pEnv, ExprOwner *pExprOwner, bool evalSymFuncFlag) :
-						Sequence(pEnv), _pExprOwner(pExprOwner), _idxExpr(0),
-						_evalSymFuncFlag(evalSymFuncFlag)
-{
-}
-
-bool Sequence_Expr::DoStep(Signal sig, Value &result)
-{
-	if (CheckDone()) return false;
-	if (_idxExpr >= GetExprOwner().size()) {
-		_doneFlag = true;
-		return false;
-	}
-	SeqPostHandler *pSeqPostHandler = NULL;
-	Environment &env = *_pEnv;
-	const Expr *pExpr = GetExprOwner()[_idxExpr++];
-	result = pExpr->Exec(env, sig, pSeqPostHandler);
-	if (sig.IsSignalled()) {
-		sig.AddExprCause(pExpr);
-		_doneFlag = true;
-		return false;
-	}
-	if (_evalSymFuncFlag && result.IsFunction() &&
-								result.GetFunction()->IsSymbolFunc()) {
-		// symbol functions are only evaluated by a sequence of block.
-		// in the folloiwng example, "return" shall be evaluated by a block
-		// of "if" function.
-		//   repeat { if (flag) { return } }
-		// in the following example, "&&" operator returns "return" function
-		// object as its result, and then the block of "repeat" shall evaluate it.
-		//   repeat { flag && return }
-		const Function *pFunc = result.GetFunction();
-		AutoPtr<Args> pArgs(new Args());
-		Value result = pFunc->Call(env, sig, *pArgs);
-		if (sig.IsSignalled()) {
-			sig.AddExprCause(pExpr);
-			_doneFlag = true;
-			return false;
-		}
-	}
-	if (_idxExpr >= GetExprOwner().size()) _doneFlag = true;
-	return true;
-}
-
-String Sequence_Expr::ToString() const
-{
-	String str;
-	str += "<sequence:expr>";
 	return str;
 }
 

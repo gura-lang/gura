@@ -176,7 +176,7 @@ public:
 		bool quoteFlag;	// don't create function object from block
 		const Symbol *pSymbol;
 	};
-	class GURA_DLLDECLARE Sequence_Call : public Sequence {
+	class GURA_DLLDECLARE SequenceEx : public Sequence {
 	private:
 		enum Stat {
 			STAT_Init, STAT_ExprArgs, STAT_OptArgs, STAT_NamedArgs, STAT_Exec,
@@ -192,7 +192,7 @@ public:
 		bool _stayDeclPointerFlag;
 		bool _mapFlag;
 	public:
-		Sequence_Call(Environment *pEnv, Function *pFunc, Args &args);
+		SequenceEx(Environment *pEnv, Function *pFunc, Args &args);
 	public:
 		inline Args *GetArgs() { return _pArgs.get(); }
 		inline ExprMap &GetExprMap() { return _exprMap; }
@@ -202,44 +202,44 @@ public:
 	};
 	class GURA_DLLDECLARE SeqPostHandler_StoreDict : public SeqPostHandler {
 	private:
-		AutoPtr<Sequence_Call> _pSequenceCall;
+		AutoPtr<SequenceEx> _pSequenceCall;
 		Value _valueKey;
 	public:
-		inline SeqPostHandler_StoreDict(Environment *pEnv, Sequence_Call *pSequenceCall, const Value &valueKey) :
+		inline SeqPostHandler_StoreDict(Environment *pEnv, SequenceEx *pSequenceCall, const Value &valueKey) :
 				SeqPostHandler(pEnv), _pSequenceCall(pSequenceCall), _valueKey(valueKey) {}
 		virtual bool DoPost(Signal sig, const Value &result);
 	};
 	class GURA_DLLDECLARE SeqPostHandler_ExpandMod : public SeqPostHandler {
 	private:
-		AutoPtr<Sequence_Call> _pSequenceCall;
+		AutoPtr<SequenceEx> _pSequenceCall;
 	public:
-		inline SeqPostHandler_ExpandMod(Environment *pEnv, Sequence_Call *pSequenceCall) :
+		inline SeqPostHandler_ExpandMod(Environment *pEnv, SequenceEx *pSequenceCall) :
 				SeqPostHandler(pEnv), _pSequenceCall(pSequenceCall) {}
 		virtual bool DoPost(Signal sig, const Value &result);
 	};
 	class GURA_DLLDECLARE SeqPostHandler_ExpandMul : public SeqPostHandler {
 	private:
-		AutoPtr<Sequence_Call> _pSequenceCall;
+		AutoPtr<SequenceEx> _pSequenceCall;
 	public:
-		inline SeqPostHandler_ExpandMul(Environment *pEnv, Sequence_Call *pSequenceCall) :
+		inline SeqPostHandler_ExpandMul(Environment *pEnv, SequenceEx *pSequenceCall) :
 				SeqPostHandler(pEnv), _pSequenceCall(pSequenceCall) {}
 		virtual bool DoPost(Signal sig, const Value &result);
 	};
 	class GURA_DLLDECLARE SeqPostHandler_ValListArg : public SeqPostHandler {
 	private:
-		AutoPtr<Sequence_Call> _pSequenceCall;
+		AutoPtr<SequenceEx> _pSequenceCall;
 		bool _skipDeclFlag;
 	public:
-		inline SeqPostHandler_ValListArg(Environment *pEnv, Sequence_Call *pSequenceCall, bool skipDeclFlag) :
+		inline SeqPostHandler_ValListArg(Environment *pEnv, SequenceEx *pSequenceCall, bool skipDeclFlag) :
 				SeqPostHandler(pEnv), _pSequenceCall(pSequenceCall), _skipDeclFlag(skipDeclFlag) {}
 		virtual bool DoPost(Signal sig, const Value &result);
 	};
 	class GURA_DLLDECLARE SeqPostHandler_ValDictArg : public SeqPostHandler {
 	private:
-		AutoPtr<Sequence_Call> _pSequenceCall;
+		AutoPtr<SequenceEx> _pSequenceCall;
 		const Symbol *_pSymbol;
 	public:
-		inline SeqPostHandler_ValDictArg(Environment *pEnv, Sequence_Call *pSequenceCall, const Symbol *pSymbol) :
+		inline SeqPostHandler_ValDictArg(Environment *pEnv, SequenceEx *pSequenceCall, const Symbol *pSymbol) :
 				SeqPostHandler(pEnv), _pSequenceCall(pSequenceCall), _pSymbol(pSymbol) {}
 		virtual bool DoPost(Signal sig, const Value &result);
 	};
@@ -374,6 +374,16 @@ private:
 // CustomFunction
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE CustomFunction : public Function {
+public:
+	class GURA_DLLDECLARE SequenceEx : public ExprOwner::SequenceEx {
+	protected:
+		AutoPtr<CustomFunction> _pCustomFunction;
+	public:
+		SequenceEx(Environment *pEnv, CustomFunction *pCustomFunction);
+	public:
+		virtual bool DoStep(Signal sig, Value &result);
+		virtual String ToString() const;
+	};
 private:
 	AutoPtr<Expr> _pExprBody;
 public:
@@ -637,19 +647,6 @@ public:
 	virtual bool IsFinalizer() const;
 	virtual bool IsEndMarker() const;
 	virtual OccurPattern GetBlockOccurPattern() const;
-};
-
-//-----------------------------------------------------------------------------
-// Sequence_CustomFunction
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Sequence_CustomFunction : public Sequence_Expr {
-protected:
-	AutoPtr<CustomFunction> _pCustomFunction;
-public:
-	Sequence_CustomFunction(Environment *pEnv, CustomFunction *pCustomFunction);
-public:
-	virtual bool DoStep(Signal sig, Value &result);
-	virtual String ToString() const;
 };
 
 }
