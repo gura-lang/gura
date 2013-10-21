@@ -687,9 +687,13 @@ Expr *Expr_Value::Clone() const
 
 Value Expr_Value::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
 {
-	Value result = _value.IsExpr()?
-				_value.GetExpr()->Exec2(env, sig, pSeqPostHandler) : _value;
-	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
+	Value result;
+	if (_value.IsExpr()) {
+		result = _value.GetExpr()->Exec(env, sig, pSeqPostHandler);
+	} else {
+		result = _value;
+		if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
+	}
 	return result;
 }
 
@@ -746,22 +750,6 @@ bool Expr_Value::GenerateScript(Signal sig, SimpleStream &stream,
 		if (sig.IsSignalled()) return false;
 		return true;
 	}
-}
-
-Expr_Value::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
-{
-}
-
-bool Expr_Value::SequenceEx::DoStep(Signal sig, Value &result)
-{
-	return false;
-}
-
-String Expr_Value::SequenceEx::ToString() const
-{
-	String str;
-	str += "<sequence:expr_value>";
-	return str;
 }
 
 //-----------------------------------------------------------------------------
@@ -978,22 +966,6 @@ bool Expr_Symbol::GenerateScriptTail(Signal sig, SimpleStream &stream,
 	return true;
 }
 
-Expr_Symbol::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
-{
-}
-
-bool Expr_Symbol::SequenceEx::DoStep(Signal sig, Value &result)
-{
-	return false;
-}
-
-String Expr_Symbol::SequenceEx::ToString() const
-{
-	String str;
-	str += "<sequence:expr_symbol>";
-	return str;
-}
-
 //-----------------------------------------------------------------------------
 // Expr_String
 //-----------------------------------------------------------------------------
@@ -1030,22 +1002,6 @@ bool Expr_String::GenerateScript(Signal sig, SimpleStream &stream,
 	return true;
 }
 
-Expr_String::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
-{
-}
-
-bool Expr_String::SequenceEx::DoStep(Signal sig, Value &result)
-{
-	return false;
-}
-
-String Expr_String::SequenceEx::ToString() const
-{
-	String str;
-	str += "<sequence:expr_string>";
-	return str;
-}
-
 //-----------------------------------------------------------------------------
 // Expr_TmplString
 //-----------------------------------------------------------------------------
@@ -1078,22 +1034,6 @@ bool Expr_TmplString::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
 	return false;
-}
-
-Expr_TmplString::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
-{
-}
-
-bool Expr_TmplString::SequenceEx::DoStep(Signal sig, Value &result)
-{
-	return false;
-}
-
-String Expr_TmplString::SequenceEx::ToString() const
-{
-	String str;
-	str += "<sequence:expr_tmplstring>";
-	return str;
 }
 
 //-----------------------------------------------------------------------------

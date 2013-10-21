@@ -359,13 +359,6 @@ public:
 // Expr_Value
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Value : public Expr {
-public:
-	class SequenceEx : public Sequence {
-	public:
-		SequenceEx(Environment *pEnv);
-		virtual bool DoStep(Signal sig, Value &result);
-		virtual String ToString() const;
-	};
 protected:
 	Value _value;
 	std::auto_ptr<String> _pScript;
@@ -392,78 +385,9 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Expr_String
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_String : public Expr {
-public:
-	class SequenceEx : public Sequence {
-	public:
-		SequenceEx(Environment *pEnv);
-		virtual bool DoStep(Signal sig, Value &result);
-		virtual String ToString() const;
-	};
-protected:
-	String _str;
-public:
-	inline Expr_String(const String &str) : Expr(EXPRTYPE_String), _str(str) {}
-	inline Expr_String(const Expr_String &expr) : Expr(expr), _str(expr._str) {}
-	inline const char *GetString() const { return _str.c_str(); }
-	inline static Expr_String *Reference(const Expr_String *pExpr) {
-		return dynamic_cast<Expr_String *>(Expr::Reference(pExpr));
-	}
-	virtual bool IsString() const;
-	virtual Expr *Clone() const;
-	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
-	virtual void Accept(ExprVisitor &visitor) const;
-	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
-};
-
-//-----------------------------------------------------------------------------
-// Expr_TmplString
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_TmplString : public Expr {
-public:
-	class SequenceEx : public Sequence {
-	public:
-		SequenceEx(Environment *pEnv);
-		virtual bool DoStep(Signal sig, Value &result);
-		virtual String ToString() const;
-	};
-protected:
-	SimpleStream &_streamDst;
-	String _str;
-public:
-	inline Expr_TmplString(SimpleStream &streamDst, const String &str) :
-				Expr(EXPRTYPE_TmplString), _streamDst(streamDst), _str(str) {}
-	inline Expr_TmplString(const Expr_TmplString &expr) :
-				Expr(expr), _streamDst(expr._streamDst), _str(expr._str) {}
-	inline SimpleStream &GetStreamDst() { return _streamDst;; }
-	inline const char *GetString() const { return _str.c_str(); }
-	inline static Expr_TmplString *Reference(const Expr_TmplString *pExpr) {
-		return dynamic_cast<Expr_TmplString *>(Expr::Reference(pExpr));
-	}
-	virtual bool IsTmplString() const;
-	virtual Expr *Clone() const;
-	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
-	virtual void Accept(ExprVisitor &visitor) const;
-	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
-};
-
-//-----------------------------------------------------------------------------
 // Expr_Symbol
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Symbol : public Expr {
-public:
-	class SequenceEx : public Sequence {
-	public:
-		SequenceEx(Environment *pEnv);
-		virtual bool DoStep(Signal sig, Value &result);
-		virtual String ToString() const;
-	};
 protected:
 	const Symbol *_pSymbol;
 	SymbolSet _attrs;
@@ -499,6 +423,54 @@ public:
 	bool GenerateScriptHead(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
 	bool GenerateScriptTail(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
+};
+
+//-----------------------------------------------------------------------------
+// Expr_String
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Expr_String : public Expr {
+protected:
+	String _str;
+public:
+	inline Expr_String(const String &str) : Expr(EXPRTYPE_String), _str(str) {}
+	inline Expr_String(const Expr_String &expr) : Expr(expr), _str(expr._str) {}
+	inline const char *GetString() const { return _str.c_str(); }
+	inline static Expr_String *Reference(const Expr_String *pExpr) {
+		return dynamic_cast<Expr_String *>(Expr::Reference(pExpr));
+	}
+	virtual bool IsString() const;
+	virtual Expr *Clone() const;
+	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
+	virtual void Accept(ExprVisitor &visitor) const;
+	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
+	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
+							ScriptStyle scriptStyle, int nestLevel) const;
+};
+
+//-----------------------------------------------------------------------------
+// Expr_TmplString
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Expr_TmplString : public Expr {
+protected:
+	SimpleStream &_streamDst;
+	String _str;
+public:
+	inline Expr_TmplString(SimpleStream &streamDst, const String &str) :
+				Expr(EXPRTYPE_TmplString), _streamDst(streamDst), _str(str) {}
+	inline Expr_TmplString(const Expr_TmplString &expr) :
+				Expr(expr), _streamDst(expr._streamDst), _str(expr._str) {}
+	inline SimpleStream &GetStreamDst() { return _streamDst;; }
+	inline const char *GetString() const { return _str.c_str(); }
+	inline static Expr_TmplString *Reference(const Expr_TmplString *pExpr) {
+		return dynamic_cast<Expr_TmplString *>(Expr::Reference(pExpr));
+	}
+	virtual bool IsTmplString() const;
+	virtual Expr *Clone() const;
+	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
+	virtual void Accept(ExprVisitor &visitor) const;
+	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
+	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
 };
 
