@@ -18,9 +18,9 @@ Sequence::~Sequence()
 bool Sequence::Step(Signal sig, Value &result)
 {
 	if (!DoStep(sig, result)) return false;
-	if (CheckDone() && !_pPostHandler.IsNull()) {
-		bool rtn = _pPostHandler->DoPost(sig, result);
-		_pPostHandler.reset(NULL);
+	if (CheckDone() && !_pSeqPostHandler.IsNull()) {
+		bool rtn = _pSeqPostHandler->DoPost(sig, result);
+		_pSeqPostHandler.reset(NULL);
 		return rtn;
 	}
 	return true;
@@ -40,9 +40,9 @@ Value Sequence::Return(Signal sig, Sequence *pSequence)
 }
 
 //-----------------------------------------------------------------------------
-// Sequence::PostHandler
+// SeqPostHandler
 //-----------------------------------------------------------------------------
-Sequence::PostHandler::~PostHandler()
+SeqPostHandler::~SeqPostHandler()
 {
 	// virtual destructor
 }

@@ -200,47 +200,47 @@ public:
 		virtual String ToString() const;
 		void SkipDeclarations(size_t nSkipDecl);
 	};
-	class GURA_DLLDECLARE PostHandler_StoreDict : public Sequence::PostHandler {
+	class GURA_DLLDECLARE SeqPostHandler_StoreDict : public SeqPostHandler {
 	private:
 		AutoPtr<Sequence_Call> _pSequenceCall;
 		Value _valueKey;
 	public:
-		inline PostHandler_StoreDict(Environment *pEnv, Sequence_Call *pSequenceCall, const Value &valueKey) :
-				PostHandler(pEnv), _pSequenceCall(pSequenceCall), _valueKey(valueKey) {}
+		inline SeqPostHandler_StoreDict(Environment *pEnv, Sequence_Call *pSequenceCall, const Value &valueKey) :
+				SeqPostHandler(pEnv), _pSequenceCall(pSequenceCall), _valueKey(valueKey) {}
 		virtual bool DoPost(Signal sig, const Value &result);
 	};
-	class GURA_DLLDECLARE PostHandler_ExpandMod : public Sequence::PostHandler {
+	class GURA_DLLDECLARE SeqPostHandler_ExpandMod : public SeqPostHandler {
 	private:
 		AutoPtr<Sequence_Call> _pSequenceCall;
 	public:
-		inline PostHandler_ExpandMod(Environment *pEnv, Sequence_Call *pSequenceCall) :
-				PostHandler(pEnv), _pSequenceCall(pSequenceCall) {}
+		inline SeqPostHandler_ExpandMod(Environment *pEnv, Sequence_Call *pSequenceCall) :
+				SeqPostHandler(pEnv), _pSequenceCall(pSequenceCall) {}
 		virtual bool DoPost(Signal sig, const Value &result);
 	};
-	class GURA_DLLDECLARE PostHandler_ExpandMul : public Sequence::PostHandler {
+	class GURA_DLLDECLARE SeqPostHandler_ExpandMul : public SeqPostHandler {
 	private:
 		AutoPtr<Sequence_Call> _pSequenceCall;
 	public:
-		inline PostHandler_ExpandMul(Environment *pEnv, Sequence_Call *pSequenceCall) :
-				PostHandler(pEnv), _pSequenceCall(pSequenceCall) {}
+		inline SeqPostHandler_ExpandMul(Environment *pEnv, Sequence_Call *pSequenceCall) :
+				SeqPostHandler(pEnv), _pSequenceCall(pSequenceCall) {}
 		virtual bool DoPost(Signal sig, const Value &result);
 	};
-	class GURA_DLLDECLARE PostHandler_ValListArg : public Sequence::PostHandler {
+	class GURA_DLLDECLARE SeqPostHandler_ValListArg : public SeqPostHandler {
 	private:
 		AutoPtr<Sequence_Call> _pSequenceCall;
 		bool _skipDeclFlag;
 	public:
-		inline PostHandler_ValListArg(Environment *pEnv, Sequence_Call *pSequenceCall, bool skipDeclFlag) :
-				PostHandler(pEnv), _pSequenceCall(pSequenceCall), _skipDeclFlag(skipDeclFlag) {}
+		inline SeqPostHandler_ValListArg(Environment *pEnv, Sequence_Call *pSequenceCall, bool skipDeclFlag) :
+				SeqPostHandler(pEnv), _pSequenceCall(pSequenceCall), _skipDeclFlag(skipDeclFlag) {}
 		virtual bool DoPost(Signal sig, const Value &result);
 	};
-	class GURA_DLLDECLARE PostHandler_ValDictArg : public Sequence::PostHandler {
+	class GURA_DLLDECLARE SeqPostHandler_ValDictArg : public SeqPostHandler {
 	private:
 		AutoPtr<Sequence_Call> _pSequenceCall;
 		const Symbol *_pSymbol;
 	public:
-		inline PostHandler_ValDictArg(Environment *pEnv, Sequence_Call *pSequenceCall, const Symbol *pSymbol) :
-				PostHandler(pEnv), _pSequenceCall(pSequenceCall), _pSymbol(pSymbol) {}
+		inline SeqPostHandler_ValDictArg(Environment *pEnv, Sequence_Call *pSequenceCall, const Symbol *pSymbol) :
+				SeqPostHandler(pEnv), _pSequenceCall(pSequenceCall), _pSymbol(pSymbol) {}
 		virtual bool DoPost(Signal sig, const Value &result);
 	};
 protected:

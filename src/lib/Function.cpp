@@ -760,12 +760,12 @@ bool Function::Sequence_Call::DoStep(Signal sig, Value &result)
 				Value valueKey = pExprLeft->IsValue()?
 					dynamic_cast<const Expr_Value *>(pExprLeft)->GetValue() :
 					 Value(env, dynamic_cast<const Expr_String *>(pExprLeft)->GetString());
-				AutoPtr<Sequence::PostHandler> pPostHandler(new PostHandler_StoreDict(
+				AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_StoreDict(
 							env.Reference(), dynamic_cast<Sequence_Call *>(Reference()),
 							valueKey));
 				result = pExprRight->Exec(env, sig);
 				if (sig.IsSignalled()) return false;
-				pPostHandler->DoPost(sig, result);
+				pSeqPostHandler->DoPost(sig, result);
 			} else {
 				pExprBinaryOp->SetError(sig, ERR_KeyError,
 					"l-value of dictionary assignment must be a symbol or a constant value");
@@ -773,11 +773,11 @@ bool Function::Sequence_Call::DoStep(Signal sig, Value &result)
 			}
 		} else if (!quoteFlag && Expr_Suffix::IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) {
 			const Expr_Suffix *pExprSuffix = dynamic_cast<const Expr_Suffix *>(pExprArg);
-			AutoPtr<Sequence::PostHandler> pPostHandler(new PostHandler_ExpandMod(
+			AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ExpandMod(
 					env.Reference(), dynamic_cast<Sequence_Call *>(Reference())));
 			result = pExprSuffix->GetChild()->Exec(env, sig);
 			if (sig.IsSignalled()) return false;
-			if (!pPostHandler->DoPost(sig, result)) return false;
+			if (!pSeqPostHandler->DoPost(sig, result)) return false;
 		} else if (_ppDecl != _pFunc->GetDeclOwner().end()) {
 			const Declaration *pDecl = *_ppDecl;
 			if (_exprMap.find(pDecl->GetSymbol()) != _exprMap.end()) {
@@ -794,17 +794,17 @@ bool Function::Sequence_Call::DoStep(Signal sig, Value &result)
 					pExprArg->SetError(sig, ERR_SyntaxError, "invalid argument");
 					return false;
 				}
-				AutoPtr<Sequence::PostHandler> pPostHandler(new PostHandler_ExpandMul(
+				AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ExpandMul(
 						env.Reference(), dynamic_cast<Sequence_Call *>(Reference())));
 				result = pExprSuffix->GetChild()->Exec(env, sig);
 				if (sig.IsSignalled()) return false;
-				if (!pPostHandler->DoPost(sig, result)) return false;
+				if (!pSeqPostHandler->DoPost(sig, result)) return false;
 			} else {
-				AutoPtr<Sequence::PostHandler> pPostHandler(new PostHandler_ValListArg(
+				AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ValListArg(
 					env.Reference(), dynamic_cast<Sequence_Call *>(Reference()), true));
 				result = pExprArg->Exec(env, sig);
 				if (sig.IsSignalled()) return false;
-				if (!pPostHandler->DoPost(sig, result)) return false;
+				if (!pSeqPostHandler->DoPost(sig, result)) return false;
 			}
 		} else if (_pFunc->GetDeclOwner().IsAllowTooManyArgs()) {
 			continueFlag = true;
@@ -862,11 +862,11 @@ bool Function::Sequence_Call::DoStep(Signal sig, Value &result)
 			value = Value(pSymbol);
 			valListArg.push_back(value);
 		} else {
-			AutoPtr<Sequence::PostHandler> pPostHandler(new PostHandler_ValListArg(
+			AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ValListArg(
 				env.Reference(), dynamic_cast<Sequence_Call *>(Reference()), false));
 			result = pExprArg->Exec(env, sig);
 			if (sig.IsSignalled()) return false;
-			if (!pPostHandler->DoPost(sig, result)) return false;
+			if (!pSeqPostHandler->DoPost(sig, result)) return false;
 		}
 		break;
 	}
@@ -895,11 +895,11 @@ bool Function::Sequence_Call::DoStep(Signal sig, Value &result)
 		const Symbol *pSymbol = _iterExprMap->first;
 		const Expr *pExprArg = _iterExprMap->second;
 		_iterExprMap++;
-		AutoPtr<Sequence::PostHandler> pPostHandler(new PostHandler_ValDictArg(
+		AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ValDictArg(
 				env.Reference(), dynamic_cast<Sequence_Call *>(Reference()), pSymbol));
 		result = pExprArg->Exec(env, sig);
 		if (sig.IsSignalled()) return false;
-		if (!pPostHandler->DoPost(sig, result)) return false;
+		if (!pSeqPostHandler->DoPost(sig, result)) return false;
 		break;
 	}
 	//-------------------------------------------------------------------------
@@ -937,9 +937,9 @@ void Function::Sequence_Call::SkipDeclarations(size_t nSkipDecl)
 }
 
 //-----------------------------------------------------------------------------
-// Function::PostHandler_StoreDict
+// Function::SeqPostHandler_StoreDict
 //-----------------------------------------------------------------------------
-bool Function::PostHandler_StoreDict::DoPost(Signal sig, const Value &result)
+bool Function::SeqPostHandler_StoreDict::DoPost(Signal sig, const Value &result)
 {
 	ValueDict &valDictArg = _pSequenceCall->GetArgs()->GetValueDictArg();
 	valDictArg[_valueKey] = result;
@@ -947,9 +947,9 @@ bool Function::PostHandler_StoreDict::DoPost(Signal sig, const Value &result)
 }
 
 //-----------------------------------------------------------------------------
-// Function::PostHandler_ExpandMod
+// Function::SeqPostHandler_ExpandMod
 //-----------------------------------------------------------------------------
-bool Function::PostHandler_ExpandMod::DoPost(Signal sig, const Value &result)
+bool Function::SeqPostHandler_ExpandMod::DoPost(Signal sig, const Value &result)
 {
 	ValueDict &valDictArg = _pSequenceCall->GetArgs()->GetValueDictArg();
 	ExprMap &exprMap = _pSequenceCall->GetExprMap();
@@ -977,9 +977,9 @@ bool Function::PostHandler_ExpandMod::DoPost(Signal sig, const Value &result)
 }
 
 //-----------------------------------------------------------------------------
-// Function::PostHandler_ExpandMul
+// Function::SeqPostHandler_ExpandMul
 //-----------------------------------------------------------------------------
-bool Function::PostHandler_ExpandMul::DoPost(Signal sig, const Value &result)
+bool Function::SeqPostHandler_ExpandMul::DoPost(Signal sig, const Value &result)
 {
 	do {
 		ValueList &valListArg = _pSequenceCall->GetArgs()->GetValueListArg();
@@ -999,9 +999,9 @@ bool Function::PostHandler_ExpandMul::DoPost(Signal sig, const Value &result)
 }
 
 //-----------------------------------------------------------------------------
-// Function::PostHandler_ValListArg
+// Function::SeqPostHandler_ValListArg
 //-----------------------------------------------------------------------------
-bool Function::PostHandler_ValListArg::DoPost(Signal sig, const Value &result)
+bool Function::SeqPostHandler_ValListArg::DoPost(Signal sig, const Value &result)
 {
 	ValueList &valListArg = _pSequenceCall->GetArgs()->GetValueListArg();
 	valListArg.push_back(result);
@@ -1010,9 +1010,9 @@ bool Function::PostHandler_ValListArg::DoPost(Signal sig, const Value &result)
 }
 
 //-----------------------------------------------------------------------------
-// Function::PostHandler_ValDictArg
+// Function::SeqPostHandler_ValDictArg
 //-----------------------------------------------------------------------------
-bool Function::PostHandler_ValDictArg::DoPost(Signal sig, const Value &result)
+bool Function::SeqPostHandler_ValDictArg::DoPost(Signal sig, const Value &result)
 {
 	ValueDict &valDictArg = _pSequenceCall->GetArgs()->GetValueDictArg();
 	valDictArg[Value(_pSymbol)] = result;

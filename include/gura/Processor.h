@@ -7,29 +7,18 @@ namespace Gura {
 
 class Environment;
 
+class SeqPostHandler;
+
 //-----------------------------------------------------------------------------
 // Sequence
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Sequence {
 public:
-	class GURA_DLLDECLARE PostHandler {
-	private:
-		int _cntRef;
-		AutoPtr<Environment> _pEnv;
-	public:
-		Gura_DeclareReferenceAccessor(PostHandler)
-	public:
-		inline PostHandler(Environment *pEnv) : _cntRef(1), _pEnv(pEnv) {}
-	protected:
-		virtual ~PostHandler();
-	public:
-		virtual bool DoPost(Signal sig, const Value &value) = 0;
-	};
 protected:
 	int _cntRef;
 	AutoPtr<Environment> _pEnv;
 	bool _doneFlag;
-	AutoPtr<PostHandler> _pPostHandler;
+	AutoPtr<SeqPostHandler> _pSeqPostHandler;
 public:
 	Gura_DeclareReferenceAccessor(Sequence)
 public:
@@ -37,14 +26,31 @@ public:
 protected:
 	virtual ~Sequence();
 public:
-	inline void SetPostHandler(PostHandler *pPostHandler) {
-		_pPostHandler.reset(pPostHandler);
+	inline void SetSeqPostHandler(SeqPostHandler *pSeqPostHandler) {
+		_pSeqPostHandler.reset(pSeqPostHandler);
 	}
 	bool Step(Signal sig, Value &result);
 	virtual bool DoStep(Signal sig, Value &result) = 0;
 	virtual String ToString() const = 0;
 	inline bool CheckDone() const { return _doneFlag; }
 	static Value Return(Signal sig, Sequence *pSequence);
+};
+
+//-----------------------------------------------------------------------------
+// SeqPostHandler
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE SeqPostHandler {
+private:
+	int _cntRef;
+	AutoPtr<Environment> _pEnv;
+public:
+	Gura_DeclareReferenceAccessor(SeqPostHandler)
+public:
+	inline SeqPostHandler(Environment *pEnv) : _cntRef(1), _pEnv(pEnv) {}
+protected:
+	virtual ~SeqPostHandler();
+public:
+	virtual bool DoPost(Signal sig, const Value &value) = 0;
 };
 
 //-----------------------------------------------------------------------------
