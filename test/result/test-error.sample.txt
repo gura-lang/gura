@@ -41,4 +41,23 @@ catch(SystemError, CodecError) .. SystemError: intentional error for handling te
 catch(SystemError, CodecError) .. CodecError: intentional error for handling test
 catch() .. AttributeError: intentional error for handling test
 else()
+
+======== #8 ========
+
+ValueError: undefined symbol 'b1'
+  [1] for (x in b1 .. 10) { b }
+ValueError: undefined symbol 'b'
+  [1] x[b]
+ValueError: undefined symbol 'b'
+  [1] b
+  [2] try { a } catch { b }
+ValueError: undefined symbol 'a'
+  [1] a
+  [2] scope { a }
+ValueError: invalid value type
+  [1] 3
+  [2] xml.element('hoge') { 3 }
+TypeError: not enough arguments
+  [1] block(1, 2, 3)
+  [2] f {|a, b, c, d| println('hello') }
 ValueError detected: ValueError: unhandled error

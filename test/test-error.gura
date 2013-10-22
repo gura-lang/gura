@@ -133,6 +133,56 @@ testcase {
 	error_tester(AttributeError)
 	error_tester(nil)
 }
+testcase {
+	import(xml)
+	test_errmsg(expr:expr):map = {
+		try {
+			expr.eval()
+		} catch {|e|
+			println(e.text)
+			trace = [e.trace]
+			trace.erase(-1)
+			printf('  [%d] %s\n', 1.., trace)
+		}
+	}
+	exprs = [
+		`{
+			for (x in b1..10) {
+				b
+			}
+		}
+		`{
+			x = [1, 2, 3]
+			x[b]
+		}
+		`{
+			try {
+				a
+			} catch {
+				b
+			}
+		}
+		`{
+			scope {
+				a
+			}
+		}
+		`{
+			xml.element('hoge') {
+				3
+			}
+		}
+		`{
+			f() {block} = {
+				block(1, 2, 3)
+			}
+			f() {|a, b, c, d|
+				println('hello')
+			}
+		}
+	]
+	test_errmsg(exprs)
+}
 try {
 	raise(ValueError, 'unhandled error')
 } catch(ValueError) {|e|
