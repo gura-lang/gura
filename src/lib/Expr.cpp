@@ -354,10 +354,10 @@ Expr::ScriptStyle Expr::SymbolToScriptStyle(const Symbol *pSymbol)
 		return SCRSTYLE_Crammed;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(oneline))) {
 		return SCRSTYLE_OneLine;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(fancy))) {
-		return SCRSTYLE_Fancy;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(brief))) {
 		return SCRSTYLE_Brief;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(fancy))) {
+		return SCRSTYLE_Fancy;
 	} else {
 		return SCRSTYLE_None;
 	}
@@ -1271,6 +1271,7 @@ bool Expr_Block::GenerateScript(Signal sig, SimpleStream &stream,
 		const char *sepText =
 			(scriptStyle == SCRSTYLE_Crammed)? "" :
 			(scriptStyle == SCRSTYLE_OneLine)? " " :
+			(scriptStyle == SCRSTYLE_Brief)? " " :
 			(scriptStyle == SCRSTYLE_Fancy)? "\n" : "";
 		stream.Print(sig, sepText);
 		if (sig.IsSignalled()) return false;
