@@ -6,7 +6,7 @@ fileNames = (path.glob('8859-*.TXT'):list).sort(function(fileName1, fileName2) {
 	tonumber(fileName2.match(r'-(\d+)\.TXT').group(1))
 })
 for (fileName in fileNames) {
-	tbl = fill(256, 0x0000):list
+	tbl = consts(0x0000, 256):list
 	pattern = re.pattern(r'^(0x\w+)\s+(0x\w+)')
 	for (m in pattern.match(open(fileName).readlines()).skipnil()) {
 		codeISO = tonumber(m.group(1))
