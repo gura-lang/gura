@@ -5,7 +5,7 @@ GURADIR = ..\..
 
 TARGET = $(GURADIR)\bin-x86\guraole.dll
 LIBS =
-CFLAGS = -I..\Module_mswin
+CFLAGS = -I..\module-mswin
 LDFLAGS =
 all: $(TARGET)
 #------------------------------------------------------------------------------
@@ -21,7 +21,7 @@ ws2_32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib \
 comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib \
 uuid.lib odbc32.lib odbccp32.lib
 
-OBJS = guraole.obj Module_mswin.obj
+OBJS = guraole.obj module-mswin.obj
 
 $(TARGET): $(OBJS) $(LIBS)
 	@link $(LDFLAGS) /OUT:$(TARGET) /DEF:guraole.def $(OBJS) $(LIBS)
@@ -30,8 +30,8 @@ $(TARGET): $(OBJS) $(LIBS)
 guraole.obj: guraole.cpp
 	@cl $(CFLAGS) /c guraole.cpp
 
-Module_mswin.obj: ..\Module_mswin\Module_mswin.cpp
-	@cl $(CFLAGS) /DGURA_MODULE_MAIN /c ..\Module_mswin\Module_mswin.cpp
+module-mswin.obj: ..\module-mswin\module-mswin.cpp
+	@cl $(CFLAGS) /DGURA_MODULE_MAIN /c ..\module-mswin\module-mswin.cpp
 
 clean:
 	@del $(TARGET) $(TARGET:.dll=.exp) $(TARGET:.dll=.lib) $(TARGET:.dll=.pdb) $(OBJS)

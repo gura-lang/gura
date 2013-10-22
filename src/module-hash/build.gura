@@ -1,0 +1,5 @@
+#!/usr/bin/env gura
+import(modbuild)
+builder = modbuild.Builder()
+builder.incDirs.append('md5', 'sha1')
+builder.build('hash', ['module-hash.cpp', 'md5/md5.c', 'sha1/sha1.c'])

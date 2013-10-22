@@ -219,41 +219,6 @@ Value Function::Call(Environment &env, Signal sig, Args &args) const
 	return Sequence::Return(sig, pSequence);
 }
 
-Value Function::Eval(Environment &env, Signal sig, Args &args) const
-{
-	ValueList valListCasted;
-	if (!_declOwner.ValidateAndCast(env, sig, args.GetValueListArg(), valListCasted)) {
-		return Value::Null;
-	}
-	AutoPtr<Args> pArgsCasted(new Args(args, valListCasted));
-	Value value = DoEval(env, sig, *pArgsCasted);
-	if (args.IsRsltVoid()) return Value::Undefined;
-	return value;
-}
-
-Value Function::EvalMap(Environment &env, Signal sig, Args &args) const
-{
-	AutoPtr<Iterator_ImplicitMap> pIterator(new Iterator_ImplicitMap(new Environment(env), sig,
-			Function::Reference(this), args.Reference(), false));
-	if (sig.IsSignalled()) return Value::Null;
-	if (args.IsRsltIterator() || args.IsRsltXIterator() ||
-			 (args.IsRsltNormal() && args.ShouldGenerateIterator(_declOwner))) {
-		pIterator->SetSkipInvalidFlag(args.IsRsltXIterator());
-		return Value(env, pIterator.release());
-	}
-	Value result;
-	ResultComposer resultComposer(env, args, result);
-	Value value;
-	size_t n = 0;
-	for ( ; pIterator->Next(env, sig, value); n++) {
-		resultComposer.Store(value);
-	}
-	if (n == 0 && !args.IsRsltVoid()) {
-		result.InitAsList(env);
-	}
-	return result;
-}
-
 Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &args) const
 {
 	EnvType envType = (_funcType == FUNCTYPE_Block)? ENVTYPE_block : ENVTYPE_local;
@@ -293,6 +258,42 @@ Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &ar
 		pEnvLocal->AssignFunction(pFuncBlock);
 	}
 	return pEnvLocal.release();
+}
+
+Value Function::Eval(Environment &env, Signal sig, Args &args) const
+{
+	ValueList valListCasted;
+	if (!_declOwner.ValidateAndCast(env, sig, args.GetValueListArg(), valListCasted)) {
+		return Value::Null;
+	}
+	AutoPtr<Args> pArgsCasted(new Args(args, valListCasted));
+	Value value = DoEval(env, sig, *pArgsCasted);
+	if (args.IsRsltVoid()) return Value::Undefined;
+	return value;
+}
+
+Value Function::EvalMap(Environment &env, Signal sig, Args &args) const
+{
+	AutoPtr<Iterator_ImplicitMap> pIterator(new Iterator_ImplicitMap(
+				new Environment(env), sig,
+				Function::Reference(this), args.Reference(), false));
+	if (sig.IsSignalled()) return Value::Null;
+	if (args.IsRsltIterator() || args.IsRsltXIterator() ||
+			 (args.IsRsltNormal() && args.ShouldGenerateIterator(_declOwner))) {
+		pIterator->SetSkipInvalidFlag(args.IsRsltXIterator());
+		return Value(env, pIterator.release());
+	}
+	Value result;
+	ResultComposer resultComposer(env, args, result);
+	Value value;
+	size_t n = 0;
+	for ( ; pIterator->Next(env, sig, value); n++) {
+		resultComposer.Store(value);
+	}
+	if (n == 0 && !args.IsRsltVoid()) {
+		result.InitAsList(env);
+	}
+	return result;
 }
 
 Value Function::ReturnValue(Environment &env, Signal sig,

@@ -64,18 +64,18 @@ Object_string.cpp
 Object_timedelta.cpp
 Object_uri.cpp
 Module.cpp
-Module_basement.cpp
-Module_sys.cpp
-../Module_codecs_basic/Module_codecs_basic.cpp
-../Module_codecs_iso8859/Module_codecs_iso8859.cpp
-../Module_codecs_japanese/Module_codecs_japanese.cpp
-../Module_base64/Module_base64.cpp
-../Module_fs/Module_fs.cpp
-../Module_math/Module_math.cpp
-../Module_os/Module_os.cpp
-../Module_path/Module_path.cpp
-../Module_time/Module_time.cpp
-../Module_conio/Module_conio.cpp
+module-basement.cpp
+module-sys.cpp
+../module-codecs_basic/module-codecs_basic.cpp
+../module-codecs_iso8859/module-codecs_iso8859.cpp
+../module-codecs_japanese/module-codecs_japanese.cpp
+../module-base64/module-base64.cpp
+../module-fs/module-fs.cpp
+../module-math/module-math.cpp
+../module-os/module-os.cpp
+../module-path/module-path.cpp
+../module-time/module-time.cpp
+../module-conio/module-conio.cpp
 )
 
 target_link_libraries(guracore dl pthread)

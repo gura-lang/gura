@@ -1,4 +1,0 @@
-#!/usr/bin/env gura
-import(gzip)
-gzip.writer('test.gz').copyfrom('Module_gzip.cpp')
-gzip.reader('test.gz').copyto('testdecomp')

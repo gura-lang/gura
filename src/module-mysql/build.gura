@@ -1,0 +1,14 @@
+#!/usr/bin/env gura
+import(modbuild)
+builder = modbuild.Builder()
+if (sys.build == `msc) {
+	mysqlDir = path.join(modbuild.guestDir, 'mysql-connector-c-noinstall-6.0.2-win32')
+	builder.incDirs.append(path.join(mysqlDir, 'include'))
+	builder.dlls.append(path.join(mysqlDir, 'lib', 'libmysql.dll'))
+	builder.addUnderscoreFlag = false
+} elsif (sys.build == `gnuc) {
+	builder.libs.append('mysqlclient')
+	builder.incDirs.append('/usr/include/mysql', '/usr/local/include/mysql')
+	builder.debFiles = ['libmysqlclient-dev']
+}
+builder.build('mysql', ['module-mysql.cpp'])

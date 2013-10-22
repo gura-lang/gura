@@ -1,7 +1,0 @@
-path.walk('', 1, '*.cpp') {|fileName|
-	println(fileName)
-	lines = readlines(fileName):list
-	lines = lines:*replace('Module_cairo.h', 'stdafx.h')
-	open(fileName, 'w').addcr(false).print(lines)
-	//print(lines)
-}

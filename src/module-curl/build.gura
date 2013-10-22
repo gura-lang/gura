@@ -1,0 +1,14 @@
+#!/usr/bin/env gura
+import(modbuild)
+builder = modbuild.Builder()
+if (sys.build == `msc) {
+	baseDir = path.join(modbuild.guestDir,
+		'curl-7.30.0/builds/libcurl-vc-x86-release-static-zlib-static-ipv6-sspi-spnego-winssl')
+	builder.incDirs.append(path.join(baseDir, 'include'))
+	builder.libs.append(path.join(baseDir, 'lib/libcurl_a.lib'))
+} elsif (sys.build == `gnuc) {
+	builder.libs.append('curl')
+	builder.debFiles = ['libcurl4-openssl-dev']
+	builder.rpmFiles = ['curl-devel']
+}
+builder.build('curl', ['module-curl.cpp'])

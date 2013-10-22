@@ -2,7 +2,7 @@
 // guraole
 //-----------------------------------------------------------------------------
 #include "guraole.h"
-#include "Module_mswin.h"
+#include "module-mswin.h"
 
 #define DBGPRINTF(x) printf##x
 

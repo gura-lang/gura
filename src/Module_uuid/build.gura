@@ -1,9 +1,0 @@
-#!/usr/bin/env gura
-import(modbuild)
-builder = modbuild.Builder()
-if (sys.build == `msc) {
-} elsif (sys.build == `gnuc) {
-	builder.libs.append('uuid')
-	builder.debFiles = ['uuid-dev']
-}
-builder.build('uuid', ['Module_uuid.cpp'])

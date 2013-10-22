@@ -1,0 +1,5 @@
+#!/usr/bin/env gura
+import(modbuild)
+builder = modbuild.Builder()
+builder.incDirs.append('..')
+builder.build('codecs/basic', ['module-codecs_basic.cpp'])

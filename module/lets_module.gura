@@ -1,4 +1,5 @@
 #!/bin/usr/env gura
+
 if (sys.argv.len() < 1) {
 	sys.stderr.println('module name needs to be specified')
 	sys.exit(1)
@@ -9,9 +10,9 @@ ubarName = fields.join('_')
 slashName = fields.join('/')
 localName = fields[-1]
 fileBuild = 'build.gura'
-fileTest = ubarName + '-test.gura'
-fileHdr = 'Module_' + ubarName + '.h'
-fileSrc = 'Module_' + ubarName + '.cpp'
+fileTest = 'test-' + ubarName + '.gura'
+fileHdr = 'module-' + ubarName + '.h'
+fileSrc = 'module-' + ubarName + '.cpp'
 incOnceMacroName = '__MODULE_' + ubarName.upper()  + '_H__'
 if (path.exists(fileBuild) || path.exists(fileHdr) || path.exists(fileSrc)) {
 	println('file already exists')
@@ -22,7 +23,7 @@ R'''
 import(modbuild)
 
 builder = modbuild.Builder()
-builder.build('${slashName}', ['Module_${ubarName}.cpp'])
+builder.build('${slashName}', ['module-${ubarName}.cpp'])
 '''.template(open(fileBuild, 'w').addcr(false))
 fs.chmod('a+x', fileBuild)
 R'''
@@ -62,7 +63,9 @@ Gura_DeclareFunction(test)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "num1", VTYPE_number);
 	DeclareArg(env, "num2", VTYPE_number);
-	AddHelp(Gura_Symbol(en), "adds two numbers and returns the result.");
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"This function adds two numbers and returns the result."
+	);
 }
 
 Gura_ImplementFunction(test)
@@ -90,10 +93,10 @@ Gura_RegisterModule(${ubarName})
 
 println(fileBuild, ', ', fileTest, ', ', fileHdr, ' and ', fileSrc, ' were created')
 /*
-print('''\
+R'''
 To create a module binary file, execute the following command:
   gura build.gura --here
 This would create the file in the current directory.
-'''.evalemb())
+'''.template(sys.stdout)
 */
 sys.exit(0)

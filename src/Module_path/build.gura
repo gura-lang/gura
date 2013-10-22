@@ -1,5 +1,0 @@
-#!/usr/bin/env gura
-import(modbuild)
-builder = modbuild.Builder()
-builder.incDirs.append('..')
-builder.build('path', ['Module_path.cpp'])

@@ -1,4 +1,0 @@
-#!/usr/bin/env gura
-import(bzip2)
-bzip2.writer('test.bz2').writefrom('Module_bzip2.cpp')
-bzip2.reader('test.bz2').readto('testdecomp')
