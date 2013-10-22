@@ -20,14 +20,14 @@ exec(fileName:string, silentFlag:boolean) {block} = {
 
 glob(pattern:string):[silent] {`block} = {
 	silentFlag = __args__.isset(`silent)
-	path.glob(pattern) {|fileName|
+	path.glob(pattern):file {|fileName|
 		exec(fileName, silentFlag) {|block|}
 	}
 }
 
 walk(directory?:directory, maxdepth?:number, pattern*:string):[silent] {`block} = {
 	silentFlag = __args__.isset(`silent)
-	path.walk(directory, maxdepth, pattern*) {|fileName|
+	path.walk(directory, maxdepth, pattern*):file {|fileName|
 		exec(fileName, silentFlag) {|block|}
 	}
 }
