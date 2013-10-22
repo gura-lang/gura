@@ -11,11 +11,11 @@ library:
 	@cd ..
 
 program: $(DLL_GURA)
-	@cd Program_gura
+	@cd program-gura
 	@nmake /nologo /f Makefile.msc
-	@cd ..\Program_guraw
+	@cd ..\program-guraw
 	@nmake /nologo /f Makefile.msc
-	@cd ..\Program_guraole
+	@cd ..\program-guraole
 	@nmake /nologo /f Makefile.msc
 	@cd ..
 
@@ -30,11 +30,11 @@ clean-library:
 	@cd ..
 
 clean-program:
-	@cd Program_gura
+	@cd program-gura
 	@nmake /nologo /f Makefile.msc clean
-	@cd ..\Program_guraw
+	@cd ..\program-guraw
 	@nmake /nologo /f Makefile.msc clean
-	@cd ..\Program_guraole
+	@cd ..\program-guraole
 	@nmake /nologo /f Makefile.msc clean
 	@cd ..
 
