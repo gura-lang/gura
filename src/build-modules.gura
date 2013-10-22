@@ -31,63 +31,63 @@ argopt.Parser {|p|
 		sys.exit(1)
 	}
 }
-DirInfo = struct(dirName:string, platforms[]:symbol)
-dirInfos = @(DirInfo) {
-	['module-sample',		[`mswin, `linux]]
-	['module-csv',			[`mswin, `linux]]
-	['module-re',			[`mswin, `linux]]
-	['module-sqlite3',		[`mswin, `linux]]
-	['module-xml',			[`mswin, `linux]]
-	['module-yaml',			[`mswin, `linux]]
-//	['module-mysql',		[`mswin, `linux]]
-//	['module-postgresql',	[`mswin, `linux]]
-	['module-sdl',			[`mswin, `linux]]
-	['module-cairo',		[`mswin, `linux]]
-	['module-opengl',		[`mswin, `linux]]
-	['module-glu',			[`mswin, `linux]]
-	['module-bmp',			[`mswin, `linux]]
-	['module-ppm',			[`mswin, `linux]]
-	['module-xpm',			[`mswin, `linux]]
-	['module-msico',		[`mswin, `linux]]
-	['module-jpeg',			[`mswin, `linux]]
-	['module-png',			[`mswin, `linux]]
-	['module-gif',			[`mswin, `linux]]
-	['module-tiff',			[`mswin, `linux]]
-	['module-freetype',		[`mswin, `linux]]
-	['module-tcl',			[`mswin, `linux]]
-	['module-hash',			[`mswin, `linux]]
-	['module-gzip',			[`mswin, `linux]]
-	['module-bzip2',		[`mswin, `linux]]
-	['module-zip',			[`mswin, `linux]]
-	['module-tar',			[`mswin, `linux]]
-	['module-http',			[`mswin, `linux]]
-	['module-curl',			[`mswin, `linux]]
-	['module-wx',			[`mswin, `linux]]
-	['module-guri',			[`mswin, `linux]]
-	['module-midi',			[`mswin, `linux]]
-	['module-wav',			[`mswin, `linux]]
-	['module-markdown',		[`mswin, `linux]]
-	['module-uuid',			[`mswin]]
-	['module-canvas',		[`mswin]]
-	['module-mswin',		[`mswin]]
+ModuleInfo = struct(moduleName:string, platforms[]:symbol)
+moduleInfos = @(ModuleInfo) {
+	['sample',		[`mswin, `linux]]
+	['csv',			[`mswin, `linux]]
+	['re',			[`mswin, `linux]]
+	['sqlite3',		[`mswin, `linux]]
+//	['mysql',		[`mswin, `linux]]
+//	['postgresql',	[`mswin, `linux]]
+	['xml',			[`mswin, `linux]]
+	['yaml',		[`mswin, `linux]]
+	['sdl',			[`mswin, `linux]]
+	['cairo',		[`mswin, `linux]]
+	['opengl',		[`mswin, `linux]]
+	['glu',			[`mswin, `linux]]
+	['bmp',			[`mswin, `linux]]
+	['ppm',			[`mswin, `linux]]
+	['xpm',			[`mswin, `linux]]
+	['msico',		[`mswin, `linux]]
+	['jpeg',		[`mswin, `linux]]
+	['png',			[`mswin, `linux]]
+	['gif',			[`mswin, `linux]]
+	['tiff',		[`mswin, `linux]]
+	['freetype',	[`mswin, `linux]]
+	['tcl',			[`mswin, `linux]]
+	['hash',		[`mswin, `linux]]
+	['gzip',		[`mswin, `linux]]
+	['bzip2',		[`mswin, `linux]]
+	['zip',			[`mswin, `linux]]
+	['tar',			[`mswin, `linux]]
+	['http',		[`mswin, `linux]]
+	['curl',		[`mswin, `linux]]
+	['wx',			[`mswin, `linux]]
+	['guri',		[`mswin, `linux]]
+	['midi',		[`mswin, `linux]]
+	['wav',			[`mswin, `linux]]
+	['markdown',	[`mswin, `linux]]
+	['uuid',		[`mswin]]
+	['canvas',		[`mswin]]
+	['mswin',		[`mswin]]
 }
-dirNamesExcept = 'module-' + cfg['exclude'].split(',')
-dirNames = dirInfos.filter(dirInfos:*platforms:*iscontain(sys.platform))::dirName
+moduleNamesExcept = cfg['exclude'].split(',')
+moduleNames = moduleInfos.filter(moduleInfos:*platforms:*iscontain(sys.platform))::moduleName
 dirNamePre = path.dirname(sys.argv[0])
-dirNamesError = []
+moduleNamesError = []
 debFiles = []
 rpmFiles = []
-for (dirName in dirNames) {
-	if (dirName in dirNamesExcept) {
-		printf('[%s]', dirName)
+for (moduleName in moduleNames) {
+	if (moduleName in moduleNamesExcept) {
+		printf('[%s]', moduleName)
 		conio.setcolor(`bright_red) {
 			printf('...skipped\n')
 		}
 		continue
 	}
-	printf('[%s]\n', dirName)
+	printf('[%s]\n', moduleName)
 	if (!dirNamePre.isempty()) {
-		pathName = path.join(dirNamePre, dirName)
+		pathName = path.join(dirNamePre, 'module-' + moduleName)
 	}
 	argvOrg = sys.argv
 	sys.argv = ['build.gura']
@@ -103,11 +103,11 @@ for (dirName in dirNames) {
 	cfg['verbose'] && sys.argv.append('--verbose')
 	cfg['debug'] && sys.argv.append('--debug')
 	cfg['rebuild'] && sys.argv.append('--rebuild')
-	sys.argv.append('--basedir=' + path.join(fs.getcwd(), dirName))
+	sys.argv.append('--basedir=' + path.join(fs.getcwd(), 'module-' + moduleName))
 	fs.chdir(pathName) {
 		scope {
 			builder = open('build.gura').parse().eval()
-			builder.errorFlag && dirNamesError.append(dirName)
+			builder.errorFlag && moduleNamesError.append(moduleName)
 			builder.debFiles && debFiles.append(builder.debFiles)
 			builder.rpmFiles && rpmFiles.append(builder.rpmFiles)
 		}
@@ -115,8 +115,8 @@ for (dirName in dirNames) {
 	}
 }
 if (sys.argv.len() < 2 || command != `install) {
-	if (!dirNamesError.isempty()) {
-		println('**** error in ', dirNamesError)
+	if (!moduleNamesError.isempty()) {
+		println('**** error while buiding ', moduleNamesError)
 	}
 	if (!debFiles.isempty()) {
 		fileName = 'install-deb.sh'
@@ -130,5 +130,5 @@ if (sys.argv.len() < 2 || command != `install) {
 		fs.chmod('a+x', fileName)
 		println(fileName, ' was created. Execute this to install guest RPM packages.')
 	}
-	!dirNamesError.isempty() && sys.exit(1);
+	!moduleNamesError.isempty() && sys.exit(1);
 }
