@@ -101,7 +101,7 @@
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ProjectReference Include="Program_gura\gura.vcxproj">
+    <ProjectReference Include="program-gura\gura.vcxproj">
       <Project>{21f75dae-fbec-4b6a-814b-f41fdbb7ade0}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
