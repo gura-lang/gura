@@ -175,40 +175,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="Algorithm.cpp" />
+    <ClCompile Include="Audio.cpp" />
+    <ClCompile Include="Binary.cpp" />
     <ClCompile Include="Class.cpp" />
     <ClCompile Include="Codec.cpp" />
     <ClCompile Include="Codec_Japanese.cpp" />
     <ClCompile Include="Common.cpp" />
+    <ClCompile Include="CustomFunction.cpp" />
+    <ClCompile Include="CustomClass.cpp" />
     <ClCompile Include="DateTime.cpp" />
     <ClCompile Include="Declaration.cpp" />
-    <ClCompile Include="PathManager.cpp" />
     <ClCompile Include="Directory.cpp" />
     <ClCompile Include="DllMain.cpp" />
     <ClCompile Include="Environment.cpp" />
+    <ClCompile Include="Error.cpp" />
     <ClCompile Include="Expr.cpp" />
     <ClCompile Include="Formatter.cpp" />
-    <ClCompile Include="Help.cpp" />
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="Fundamental.cpp" />
-    <ClCompile Include="Iterator.cpp" />
+    <ClCompile Include="Help.cpp" />
     <ClCompile Include="Image.cpp" />
-    <ClCompile Include="Palette.cpp" />
-    <ClCompile Include="Audio.cpp" />
+    <ClCompile Include="Iterator.cpp" />
     <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="Memory.cpp" />
     <ClCompile Include="Module.cpp" />
-    <ClCompile Include="module-basement.cpp" />
-    <ClCompile Include="..\module-codecs_basic\module-codecs_basic.cpp" />
-    <ClCompile Include="..\module-codecs_iso8859\module-codecs_iso8859.cpp" />
-    <ClCompile Include="..\module-codecs_japanese\module-codecs_japanese.cpp" />
-    <ClCompile Include="..\module-base64\module-base64.cpp" />
-    <ClCompile Include="..\module-fs\module-fs.cpp" />
-    <ClCompile Include="..\module-math\module-math.cpp" />
-    <ClCompile Include="..\module-os\module-os.cpp" />
-    <ClCompile Include="..\module-path\module-path.cpp" />
-    <ClCompile Include="module-sys.cpp" />
-    <ClCompile Include="..\module-time\module-time.cpp" />
-    <ClCompile Include="..\module-conio\module-conio.cpp" />
     <ClCompile Include="OAL.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Object_audio.cpp" />
@@ -237,36 +234,40 @@
     <ClCompile Include="Object_uri.cpp" />
     <ClCompile Include="Object_declaration.cpp" />
     <ClCompile Include="Object_args.cpp" />
-    <ClCompile Include="CustomFunction.cpp" />
-    <ClCompile Include="CustomClass.cpp" />
-    <ClCompile Include="StructObject.cpp" />
     <ClCompile Include="Operator.cpp" />
     <ClCompile Include="Option.cpp" />
+    <ClCompile Include="Palette.cpp" />
     <ClCompile Include="Parser.cpp" />
+    <ClCompile Include="PathManager.cpp" />
     <ClCompile Include="Processor.cpp" />
+    <ClCompile Include="Signal.cpp" />
+    <ClCompile Include="Stream.cpp" />
+    <ClCompile Include="String.cpp" />
+    <ClCompile Include="StructObject.cpp" />
+    <ClCompile Include="Symbol.cpp" />
     <ClCompile Include="TemplateEngine.cpp" />
+    <ClCompile Include="Value.cpp" />
+    <ClCompile Include="module-basement.cpp" />
+    <ClCompile Include="module-sys.cpp" />
+    <ClCompile Include="..\module-base64\module-base64.cpp" />
+    <ClCompile Include="..\module-codecs_basic\module-codecs_basic.cpp" />
+    <ClCompile Include="..\module-codecs_iso8859\module-codecs_iso8859.cpp" />
+    <ClCompile Include="..\module-codecs_japanese\module-codecs_japanese.cpp" />
+    <ClCompile Include="..\module-conio\module-conio.cpp" />
+    <ClCompile Include="..\module-fs\module-fs.cpp" />
+    <ClCompile Include="..\module-math\module-math.cpp" />
+    <ClCompile Include="..\module-os\module-os.cpp" />
+    <ClCompile Include="..\module-path\module-path.cpp" />
+    <ClCompile Include="..\module-time\module-time.cpp" />
     <ClCompile Include="..\dSFMT-src-2.2.1\dSFMT.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Error.cpp" />
-    <ClCompile Include="Signal.cpp" />
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Stream.cpp" />
-    <ClCompile Include="String.cpp" />
-    <ClCompile Include="Memory.cpp" />
-    <ClCompile Include="Binary.cpp" />
-    <ClCompile Include="Symbol.cpp" />
-    <ClCompile Include="Value.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\gura\stdafx.h" />
     <ClInclude Include="..\..\include\gura.h" />
     <ClInclude Include="..\..\include\gura\Algorithm.h" />
     <ClInclude Include="..\..\include\gura\BZLibHelper.h" />
@@ -275,14 +276,14 @@
     <ClInclude Include="..\..\include\gura\Common.h" />
     <ClInclude Include="..\..\include\gura\DateTime.h" />
     <ClInclude Include="..\..\include\gura\Declaration.h" />
-    <ClInclude Include="..\..\include\gura\PathManager.h" />
     <ClInclude Include="..\..\include\gura\Directory.h" />
     <ClInclude Include="..\..\include\gura\Environment.h" />
+    <ClInclude Include="..\..\include\gura\Error.h" />
     <ClInclude Include="..\..\include\gura\Expr.h" />
     <ClInclude Include="..\..\include\gura\Formatter.h" />
-    <ClInclude Include="..\..\include\gura\Help.h" />
     <ClInclude Include="..\..\include\gura\Function.h" />
     <ClInclude Include="..\..\include\gura\Fundamental.h" />
+    <ClInclude Include="..\..\include\gura\Help.h" />
     <ClInclude Include="..\..\include\gura\Iterator.h" />
     <ClInclude Include="..\..\include\gura\Image.h" />
     <ClInclude Include="..\..\include\gura\Module.h" />
@@ -320,16 +321,14 @@
     <ClInclude Include="..\..\include\gura\Option.h" />
     <ClInclude Include="..\..\include\gura\PackedNumber.h" />
     <ClInclude Include="..\..\include\gura\Parser.h" />
-    <ClInclude Include="..\..\include\gura\TemplateEngine.h" />
-    <ClInclude Include="..\..\include\gura\Error.h" />
+    <ClInclude Include="..\..\include\gura\PathManager.h" />
     <ClInclude Include="..\..\include\gura\Signal.h" />
-    <ClInclude Include="..\..\include\gura\stdafx.h" />
     <ClInclude Include="..\..\include\gura\Stream.h" />
     <ClInclude Include="..\..\include\gura\String.h" />
     <ClInclude Include="..\..\include\gura\Symbol.h" />
+    <ClInclude Include="..\..\include\gura\TemplateEngine.h" />
     <ClInclude Include="..\..\include\gura\Value.h" />
     <ClInclude Include="..\..\include\gura\ZLibHelper.h" />
-    <ClInclude Include="Codec_ISO8859.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
