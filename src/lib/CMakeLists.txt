@@ -1,5 +1,4 @@
 add_library(guracore SHARED
-../dSFMT-src-2.2.1/dSFMT.c
 Algorithm.cpp
 Audio.cpp
 Binary.cpp
@@ -77,6 +76,7 @@ module-sys.cpp
 ../module-os/module-os.cpp
 ../module-path/module-path.cpp
 ../module-time/module-time.cpp
+../dSFMT-src-2.2.1/dSFMT.c
 )
 
 target_link_libraries(guracore dl pthread)
