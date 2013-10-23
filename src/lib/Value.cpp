@@ -147,35 +147,35 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPE(Sequence);
 	// object types
 	Gura_RealizeVTYPE(object);
-	Gura_RealizeVTYPE(help);
-	Gura_RealizeVTYPE(function);
-	Gura_RealizeVTYPE(string);
+	Gura_RealizeVTYPE(args);
+	Gura_RealizeVTYPE(audio);
 	Gura_RealizeVTYPE(binary);
-	Gura_RealizeVTYPE(pointer);
-	Gura_RealizeVTYPE(list);
-	Gura_RealizeVTYPE(matrix);
-	Gura_RealizeVTYPE(dict);
-	Gura_RealizeVTYPE(stream);
-	Gura_RealizeVTYPE(directory);
+	Gura_RealizeVTYPE(codec);
+	Gura_RealizeVTYPE(color);
 	Gura_RealizeVTYPE(datetime);
-	Gura_RealizeVTYPE(timedelta);
-	Gura_RealizeVTYPE(iterator);
-	Gura_RealizeVTYPE(expr);
+	Gura_RealizeVTYPE(declaration);
+	Gura_RealizeVTYPE(dict);
+	Gura_RealizeVTYPE(directory);
 	Gura_RealizeVTYPE(environment);
 	Gura_RealizeVTYPE(error);
-	Gura_RealizeVTYPE(uri);
-	Gura_RealizeVTYPE(semaphore);
-	Gura_RealizeVTYPE(operator);
+	Gura_RealizeVTYPE(expr);
+	Gura_RealizeVTYPE(function);
+	Gura_RealizeVTYPE(help);
 	Gura_RealizeVTYPE(image);
-	Gura_RealizeVTYPE(color);
+	Gura_RealizeVTYPE(iterator);
+	Gura_RealizeVTYPE(list);
+	Gura_RealizeVTYPE(matrix);
+	Gura_RealizeVTYPE(operator);
 	Gura_RealizeVTYPE(palette);
-	Gura_RealizeVTYPE(audio);
-	Gura_RealizeVTYPE(codec);
-	Gura_RealizeVTYPE(args);
-	Gura_RealizeVTYPE(declaration);
+	Gura_RealizeVTYPE(pointer);
+	Gura_RealizeVTYPE(semaphore);
+	Gura_RealizeVTYPE(stream);
+	Gura_RealizeVTYPE(string);
+	Gura_RealizeVTYPE(timedelta);
+	Gura_RealizeVTYPE(uri);
 	Gura_RealizeVTYPEEx(Struct,		"struct");
 	Class *pClass = new Class(&env, VTYPE_object);
-	Gura_VTYPEInfo(object	)->SetClass(pClass);
+	Gura_VTYPEInfo(object		)->SetClass(pClass);
 	// classes for primitive types
 	Gura_VTYPEInfo(nil			)->SetClass(new Class_nil(pClass));
 	Gura_VTYPEInfo(undefined	)->SetClass(new Class_undefined(pClass));
@@ -220,41 +220,45 @@ void ValueTypePool::_Initialize(Environment &env)
 
 void ValueTypePool::DoPrepareClass(Environment &env)
 {
+	// nil / undefined
 	env.LookupClass(VTYPE_nil)->Prepare(env);
 	env.LookupClass(VTYPE_undefined)->Prepare(env);
+	// primitive types
 	env.LookupClass(VTYPE_symbol)->Prepare(env);
 	env.LookupClass(VTYPE_boolean)->Prepare(env);
 	env.LookupClass(VTYPE_number)->Prepare(env);
 	env.LookupClass(VTYPE_complex)->Prepare(env);
 	env.LookupClass(VTYPE_fraction)->Prepare(env);
+	// declaration
 	env.LookupClass(VTYPE_quote)->Prepare(env);
 	env.LookupClass(VTYPE_any)->Prepare(env);
-	env.LookupClass(VTYPE_help)->Prepare(env);
-	env.LookupClass(VTYPE_function)->Prepare(env);
-	env.LookupClass(VTYPE_string)->Prepare(env);
+	// object types
+	env.LookupClass(VTYPE_args)->Prepare(env);
+	env.LookupClass(VTYPE_audio)->Prepare(env);
 	env.LookupClass(VTYPE_binary)->Prepare(env);
-	env.LookupClass(VTYPE_pointer)->Prepare(env);
-	env.LookupClass(VTYPE_list)->Prepare(env);
-	env.LookupClass(VTYPE_matrix)->Prepare(env);
-	env.LookupClass(VTYPE_dict)->Prepare(env);
-	env.LookupClass(VTYPE_stream)->Prepare(env);
-	env.LookupClass(VTYPE_directory)->Prepare(env);
+	env.LookupClass(VTYPE_codec)->Prepare(env);
+	env.LookupClass(VTYPE_color)->Prepare(env);
 	env.LookupClass(VTYPE_datetime)->Prepare(env);
-	env.LookupClass(VTYPE_timedelta)->Prepare(env);
-	env.LookupClass(VTYPE_iterator)->Prepare(env);
-	env.LookupClass(VTYPE_expr)->Prepare(env);
+	env.LookupClass(VTYPE_declaration)->Prepare(env);
+	env.LookupClass(VTYPE_dict)->Prepare(env);
+	env.LookupClass(VTYPE_directory)->Prepare(env);
 	env.LookupClass(VTYPE_environment)->Prepare(env);
 	env.LookupClass(VTYPE_error)->Prepare(env);
-	env.LookupClass(VTYPE_uri)->Prepare(env);
-	env.LookupClass(VTYPE_semaphore)->Prepare(env);
-	env.LookupClass(VTYPE_operator)->Prepare(env);
+	env.LookupClass(VTYPE_expr)->Prepare(env);
+	env.LookupClass(VTYPE_function)->Prepare(env);
+	env.LookupClass(VTYPE_help)->Prepare(env);
 	env.LookupClass(VTYPE_image)->Prepare(env);
-	env.LookupClass(VTYPE_color)->Prepare(env);
+	env.LookupClass(VTYPE_iterator)->Prepare(env);
+	env.LookupClass(VTYPE_list)->Prepare(env);
+	env.LookupClass(VTYPE_matrix)->Prepare(env);
+	env.LookupClass(VTYPE_operator)->Prepare(env);
 	env.LookupClass(VTYPE_palette)->Prepare(env);
-	env.LookupClass(VTYPE_audio)->Prepare(env);
-	env.LookupClass(VTYPE_codec)->Prepare(env);
-	env.LookupClass(VTYPE_args)->Prepare(env);
-	env.LookupClass(VTYPE_declaration)->Prepare(env);
+	env.LookupClass(VTYPE_pointer)->Prepare(env);
+	env.LookupClass(VTYPE_semaphore)->Prepare(env);
+	env.LookupClass(VTYPE_stream)->Prepare(env);
+	env.LookupClass(VTYPE_string)->Prepare(env);
+	env.LookupClass(VTYPE_timedelta)->Prepare(env);
+	env.LookupClass(VTYPE_uri)->Prepare(env);
 }
 
 ValueTypeInfo *ValueTypePool::Add(const Symbol *pSymbol)
