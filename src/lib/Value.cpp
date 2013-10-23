@@ -188,34 +188,34 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(quote		)->SetClass(new Class_quote(pClass));
 	Gura_VTYPEInfo(any			)->SetClass(new Class_any(pClass));
 	// other built-in object classes
-	Gura_VTYPEInfo(help			)->SetClass(new Class_help(pClass));
-	Gura_VTYPEInfo(function		)->SetClass(new Class_function(pClass));
-	Gura_VTYPEInfo(string		)->SetClass(new Class_string(pClass));
+	Gura_VTYPEInfo(args			)->SetClass(new Class_args(pClass));
+	Gura_VTYPEInfo(audio		)->SetClass(new Class_audio(pClass));
 	Gura_VTYPEInfo(binary		)->SetClass(new Class_binary(pClass));
-	Gura_VTYPEInfo(pointer		)->SetClass(new Class_pointer(pClass));
+	Gura_VTYPEInfo(codec		)->SetClass(new Class_codec(pClass));
+	Gura_VTYPEInfo(color		)->SetClass(new Class_color(pClass));
+	Gura_VTYPEInfo(datetime		)->SetClass(new Class_datetime(pClass));
+	Gura_VTYPEInfo(declaration	)->SetClass(new Class_declaration(pClass));
+	Gura_VTYPEInfo(dict			)->SetClass(new Class_dict(pClass));
+	Gura_VTYPEInfo(directory	)->SetClass(new Class_directory(pClass));
+	Gura_VTYPEInfo(environment	)->SetClass(new Class_environment(pClass));
+	Gura_VTYPEInfo(error		)->SetClass(new Class_error(pClass));
+	Gura_VTYPEInfo(expr			)->SetClass(new Class_expr(pClass));
+	Gura_VTYPEInfo(function		)->SetClass(new Class_function(pClass));
+	Gura_VTYPEInfo(help			)->SetClass(new Class_help(pClass));
+	Gura_VTYPEInfo(image		)->SetClass(new Class_image(pClass));
+	Gura_VTYPEInfo(iterator		)->SetClass(new Class_iterator(pClass));
 	Gura_VTYPEInfo(list			)->SetClass(new Class_list(pClass));
 	Gura_VTYPEInfo(matrix		)->SetClass(new Class_matrix(pClass));
-	Gura_VTYPEInfo(dict			)->SetClass(new Class_dict(pClass));
-	Gura_VTYPEInfo(stream		)->SetClass(new Class_stream(pClass));
-	Gura_VTYPEInfo(directory	)->SetClass(new Class_directory(pClass));
-	Gura_VTYPEInfo(datetime		)->SetClass(new Class_datetime(pClass));
-	Gura_VTYPEInfo(timedelta	)->SetClass(new Class_timedelta(pClass));
-	Gura_VTYPEInfo(iterator		)->SetClass(new Class_iterator(pClass));
-	Gura_VTYPEInfo(expr			)->SetClass(new Class_expr(pClass));
-	Gura_VTYPEInfo(environment)->SetClass(new Class_environment(pClass));
-	Gura_VTYPEInfo(error		)->SetClass(new Class_error(pClass));
-	Gura_VTYPEInfo(uri			)->SetClass(new Class_uri(pClass));
-	Gura_VTYPEInfo(semaphore	)->SetClass(new Class_semaphore(pClass));
 	Gura_VTYPEInfo(operator		)->SetClass(new Class_operator(pClass));
-	Gura_VTYPEInfo(image		)->SetClass(new Class_image(pClass));
-	Gura_VTYPEInfo(color		)->SetClass(new Class_color(pClass));
 	Gura_VTYPEInfo(palette		)->SetClass(new Class_palette(pClass));
-	Gura_VTYPEInfo(audio		)->SetClass(new Class_audio(pClass));
-	Gura_VTYPEInfo(codec		)->SetClass(new Class_codec(pClass));
-	Gura_VTYPEInfo(args			)->SetClass(new Class_args(pClass));
-	Gura_VTYPEInfo(declaration	)->SetClass(new Class_declaration(pClass));
+	Gura_VTYPEInfo(pointer		)->SetClass(new Class_pointer(pClass));
+	Gura_VTYPEInfo(semaphore	)->SetClass(new Class_semaphore(pClass));
+	Gura_VTYPEInfo(stream		)->SetClass(new Class_stream(pClass));
+	Gura_VTYPEInfo(string		)->SetClass(new Class_string(pClass));
+	Gura_VTYPEInfo(timedelta	)->SetClass(new Class_timedelta(pClass));
+	Gura_VTYPEInfo(uri			)->SetClass(new Class_uri(pClass));
 	Gura_VTYPEInfo(Struct		)->SetClass(new StructClass(pClass));
-	pClass->Prepare(env);			// methods of Object can only be initialized here
+	pClass->Prepare(env); // methods of Object can only be initialized here
 }
 
 void ValueTypePool::DoPrepareClass(Environment &env)
@@ -259,6 +259,7 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_string)->Prepare(env);
 	env.LookupClass(VTYPE_timedelta)->Prepare(env);
 	env.LookupClass(VTYPE_uri)->Prepare(env);
+	env.LookupClass(VTYPE_Struct)->Prepare(env);
 }
 
 ValueTypeInfo *ValueTypePool::Add(const Symbol *pSymbol)

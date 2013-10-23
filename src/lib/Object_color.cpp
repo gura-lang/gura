@@ -1010,6 +1010,10 @@ Gura_ImplementMethod(color, tolist)
 //-----------------------------------------------------------------------------
 Class_color::Class_color(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_color)
 {
+}
+
+void Class_color::Prepare(Environment &env)
+{
 	Gura_AssignMethod(color, html);
 	Gura_AssignMethod(color, tolist);
 	do {
@@ -1023,10 +1027,6 @@ Class_color::Class_color(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_color)
 		}
 		Gura_AssignValue(names, value);
 	} while (0);
-}
-
-void Class_color::Prepare(Environment &env)
-{
 	Gura_AssignFunction(color);
 	Gura_AssignClassValue(Black,	Value(new Object_color(env, Color::Black)));
 	Gura_AssignClassValue(Maroon,	Value(new Object_color(env, Color::Maroon)));

@@ -92,6 +92,10 @@ Gura_ImplementMethod(Struct, tolist)
 //-----------------------------------------------------------------------------
 StructClass::StructClass(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_Struct)
 {
+}
+
+void StructClass::Prepare(Environment &env)
+{
 	Gura_AssignMethod(Struct, tolist);
 }
 

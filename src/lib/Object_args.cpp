@@ -90,13 +90,13 @@ String Object_args::ToString(Signal sig, bool exprFlag)
 //----------------------------------------------------------------------------
 Class_args::Class_args(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_args)
 {
-	Gura_AssignMethod(args, isset);
-	Gura_AssignMethod(args, quit_trailer);
-	Gura_AssignMethod(args, finalize_trailer);
 }
 
 void Class_args::Prepare(Environment &env)
 {
+	Gura_AssignMethod(args, isset);
+	Gura_AssignMethod(args, quit_trailer);
+	Gura_AssignMethod(args, finalize_trailer);
 }
 
 Object *Class_args::CreateDescendant(Environment &env, Signal sig, Class *pClass)

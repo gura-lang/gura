@@ -146,6 +146,11 @@ Gura_ImplementMethod(codec, decode)
 //-----------------------------------------------------------------------------
 Class_codec::Class_codec(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_codec)
 {
+}
+
+void Class_codec::Prepare(Environment &env)
+{
+	Gura_AssignFunction(codec);
 	Gura_AssignMethod(codec, dir);
 	Gura_AssignMethod(codec, addcr);
 	Gura_AssignMethod(codec, delcr);
@@ -159,11 +164,6 @@ Class_codec::Class_codec(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_codec)
 		Gura_AssignValue(bom_utf32le, Value(new Object_binary(env, Binary(Codec::BOM_UTF32LE, 4), false)));
 		Gura_AssignValue(bom_utf32be, Value(new Object_binary(env, Binary(Codec::BOM_UTF32BE, 4), false)));
 	} while (0);
-}
-
-void Class_codec::Prepare(Environment &env)
-{
-	Gura_AssignFunction(codec);
 }
 
 bool Class_codec::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
