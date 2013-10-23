@@ -38,6 +38,10 @@ BuilderBase = class {
 				sys.exit(1)
 			} elsif (argv[0] == 'clean') {
 				`clean
+			} elsif (argv[0] == 'build-install') {
+				`build_install
+			} elsif (argv[0] == 'build-install-root') {
+				`build_install_root
 			} elsif (argv[0] == 'install') {
 				`install
 			} elsif (argv[0] == 'install-root') {
@@ -71,6 +75,14 @@ BuilderBase = class {
 			this.doClean(target)
 			return(this)
 		}
+		if (this.command == `install) {
+			this.doInstall(target, true)
+			return(this)
+		}
+		if (this.command == `install_root) {
+			this.doInstall(target, false)
+			return(this)
+		}
 		if (this.cfg['rebuild']) {
 			this.doClean(target)
 		}
@@ -83,8 +95,8 @@ BuilderBase = class {
 		}
 		objs = this.makeObjName(srcs)
 		!this.doLink(target, objs) && this.printHint() && return(this)
-		(this.command == `install) && this.doInstall(target, true)
-		(this.command == `install_root) && this.doInstall(target, false)
+		(this.command == `build_install) && this.doInstall(target, true)
+		(this.command == `build_install_root) && this.doInstall(target, false)
 		this
 	}
 	execute(pathname:string, args*:string) = {
@@ -119,15 +131,22 @@ BuilderBase = class {
 		}
 		dirName = path.dirname(targetPath)
 		!path.exists(dirName) && fs.mkdir(dirName):tree
-		copy(path.join(this.outDir, target), open(targetPath, 'w'))
+		try {
+			copy(path.join(this.outDir, target), open(targetPath, 'w'))
+		} catch {
+			println('-- failed to install: ', targetPath)
+			return
+		}
 		println('-- installed: ', targetPath)
 	}
 	printHelp(p:argopt.Parser) = {
 		sys.stderr.printf('usage: %s [options] command\n', path.filename(sys.argv[0]))
 		sys.stderr.println('command:')
-		sys.stderr.println(' clean        clean output files')
-		sys.stderr.println(' install      install produced files')
-		sys.stderr.println(' install-root install produced files to root directory')
+		sys.stderr.println(' clean              clean output files')
+		sys.stderr.println(' install            install built files')
+		sys.stderr.println(' install-root       install built files to root directory')
+		sys.stderr.println(' build-install      build and install files')
+		sys.stderr.println(' build-install-root build and install files to root directory')
 		sys.stderr.println('options:')
 		sys.stderr.println(' ', p.formatHelp())
 	}
