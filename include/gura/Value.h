@@ -76,33 +76,33 @@ GURA_DLLDECLARE extern ValueType VTYPE_Class;
 GURA_DLLDECLARE extern ValueType VTYPE_Sequence;
 // object types
 GURA_DLLDECLARE extern ValueType VTYPE_object;
-GURA_DLLDECLARE extern ValueType VTYPE_help;
-GURA_DLLDECLARE extern ValueType VTYPE_function;
-GURA_DLLDECLARE extern ValueType VTYPE_string;
+GURA_DLLDECLARE extern ValueType VTYPE_Struct;
+GURA_DLLDECLARE extern ValueType VTYPE_args;
+GURA_DLLDECLARE extern ValueType VTYPE_audio;
 GURA_DLLDECLARE extern ValueType VTYPE_binary;
-GURA_DLLDECLARE extern ValueType VTYPE_pointer;
-GURA_DLLDECLARE extern ValueType VTYPE_list;
-GURA_DLLDECLARE extern ValueType VTYPE_matrix;
-GURA_DLLDECLARE extern ValueType VTYPE_dict;
-GURA_DLLDECLARE extern ValueType VTYPE_stream;
-GURA_DLLDECLARE extern ValueType VTYPE_directory;
+GURA_DLLDECLARE extern ValueType VTYPE_codec;
+GURA_DLLDECLARE extern ValueType VTYPE_color;
 GURA_DLLDECLARE extern ValueType VTYPE_datetime;
-GURA_DLLDECLARE extern ValueType VTYPE_timedelta;
-GURA_DLLDECLARE extern ValueType VTYPE_iterator;
-GURA_DLLDECLARE extern ValueType VTYPE_expr;
+GURA_DLLDECLARE extern ValueType VTYPE_declaration;
+GURA_DLLDECLARE extern ValueType VTYPE_dict;
+GURA_DLLDECLARE extern ValueType VTYPE_directory;
 GURA_DLLDECLARE extern ValueType VTYPE_environment;
 GURA_DLLDECLARE extern ValueType VTYPE_error;
-GURA_DLLDECLARE extern ValueType VTYPE_uri;
-GURA_DLLDECLARE extern ValueType VTYPE_semaphore;
-GURA_DLLDECLARE extern ValueType VTYPE_Struct;
-GURA_DLLDECLARE extern ValueType VTYPE_operator;
+GURA_DLLDECLARE extern ValueType VTYPE_expr;
+GURA_DLLDECLARE extern ValueType VTYPE_function;
+GURA_DLLDECLARE extern ValueType VTYPE_help;
 GURA_DLLDECLARE extern ValueType VTYPE_image;
-GURA_DLLDECLARE extern ValueType VTYPE_color;
+GURA_DLLDECLARE extern ValueType VTYPE_iterator;
+GURA_DLLDECLARE extern ValueType VTYPE_list;
+GURA_DLLDECLARE extern ValueType VTYPE_matrix;
+GURA_DLLDECLARE extern ValueType VTYPE_operator;
 GURA_DLLDECLARE extern ValueType VTYPE_palette;
-GURA_DLLDECLARE extern ValueType VTYPE_audio;
-GURA_DLLDECLARE extern ValueType VTYPE_codec;
-GURA_DLLDECLARE extern ValueType VTYPE_args;
-GURA_DLLDECLARE extern ValueType VTYPE_declaration;
+GURA_DLLDECLARE extern ValueType VTYPE_pointer;
+GURA_DLLDECLARE extern ValueType VTYPE_semaphore;
+GURA_DLLDECLARE extern ValueType VTYPE_stream;
+GURA_DLLDECLARE extern ValueType VTYPE_string;
+GURA_DLLDECLARE extern ValueType VTYPE_timedelta;
+GURA_DLLDECLARE extern ValueType VTYPE_uri;
 
 //-----------------------------------------------------------------------------
 // ValueTypeInfo
@@ -165,33 +165,33 @@ public:
 	Gura_DeclareVTYPE(Sequence);
 	// object types
 	Gura_DeclareVTYPE(object);
-	Gura_DeclareVTYPE(help);
-	Gura_DeclareVTYPE(function);
-	Gura_DeclareVTYPE(string);
+	Gura_DeclareVTYPE(Struct);
+	Gura_DeclareVTYPE(args);
+	Gura_DeclareVTYPE(audio);
 	Gura_DeclareVTYPE(binary);
-	Gura_DeclareVTYPE(pointer);
-	Gura_DeclareVTYPE(list);
-	Gura_DeclareVTYPE(matrix);
-	Gura_DeclareVTYPE(dict);
-	Gura_DeclareVTYPE(stream);
-	Gura_DeclareVTYPE(directory);
+	Gura_DeclareVTYPE(codec);
+	Gura_DeclareVTYPE(color);
 	Gura_DeclareVTYPE(datetime);
-	Gura_DeclareVTYPE(timedelta);
-	Gura_DeclareVTYPE(iterator);
-	Gura_DeclareVTYPE(expr);
+	Gura_DeclareVTYPE(declaration);
+	Gura_DeclareVTYPE(dict);
+	Gura_DeclareVTYPE(directory);
 	Gura_DeclareVTYPE(environment);
 	Gura_DeclareVTYPE(error);
-	Gura_DeclareVTYPE(uri);
-	Gura_DeclareVTYPE(semaphore);
-	Gura_DeclareVTYPE(Struct);
-	Gura_DeclareVTYPE(operator);
+	Gura_DeclareVTYPE(expr);
+	Gura_DeclareVTYPE(function);
+	Gura_DeclareVTYPE(help);
 	Gura_DeclareVTYPE(image);
-	Gura_DeclareVTYPE(color);
+	Gura_DeclareVTYPE(iterator);
+	Gura_DeclareVTYPE(list);
+	Gura_DeclareVTYPE(matrix);
+	Gura_DeclareVTYPE(operator);
 	Gura_DeclareVTYPE(palette);
-	Gura_DeclareVTYPE(audio);
-	Gura_DeclareVTYPE(codec);
-	Gura_DeclareVTYPE(args);
-	Gura_DeclareVTYPE(declaration);
+	Gura_DeclareVTYPE(pointer);
+	Gura_DeclareVTYPE(semaphore);
+	Gura_DeclareVTYPE(stream);
+	Gura_DeclareVTYPE(string);
+	Gura_DeclareVTYPE(timedelta);
+	Gura_DeclareVTYPE(uri);
 private:
 	static ValueTypePool *_pInst;
 	ValueTypeList _valueTypeList;
@@ -371,85 +371,93 @@ public:
 	inline bool IsUndefined() const			{ return IsType(VTYPE_undefined);	}
 	inline bool IsValid() const				{ return !IsInvalid();				}
 	inline bool IsDefined() const			{ return !IsUndefined();			}
+	// primitive types
 	inline bool IsSymbol() const			{ return IsType(VTYPE_symbol);		}
 	inline bool IsBoolean() const			{ return IsType(VTYPE_boolean);		}
 	inline bool IsNumber() const			{ return IsType(VTYPE_number);		}
 	inline bool IsComplex() const			{ return IsType(VTYPE_complex);		}
 	inline bool IsFraction() const			{ return IsType(VTYPE_fraction);	}
+	inline bool IsNumberOrComplex() const	{ return IsNumber() || IsComplex();	}
+	// container types
 	inline bool IsModule() const			{ return IsType(VTYPE_Module);		}
 	inline bool IsClass() const				{ return IsType(VTYPE_Class);		}
+	// sequence
 	inline bool IsSequence() const			{ return IsType(VTYPE_Sequence);	}
+	// object types
 	inline bool IsGenericObject() const		{ return IsType(VTYPE_object);		}
-	inline bool IsHelp() const				{ return IsType(VTYPE_help);		}
-	inline bool IsFunction() const			{ return IsType(VTYPE_function);	}
-	inline bool IsString() const			{ return IsType(VTYPE_string);		}
+	inline bool IsStruct() const			{ return IsType(VTYPE_Struct);		}
+	inline bool IsArgs() const				{ return IsType(VTYPE_args);		}
+	inline bool IsAudio() const				{ return IsType(VTYPE_audio);		}
 	inline bool IsBinary() const			{ return IsType(VTYPE_binary);		}
-	inline bool IsPointer() const			{ return IsType(VTYPE_pointer);		}
-	inline bool IsList() const				{ return IsType(VTYPE_list);		}
-	inline bool IsMatrix() const			{ return IsType(VTYPE_matrix);		}
-	inline bool IsDict() const				{ return IsType(VTYPE_dict);		}
-	inline bool IsStream() const			{ return IsType(VTYPE_stream);		}
-	inline bool IsDirectory() const			{ return IsType(VTYPE_directory);	}
+	inline bool IsCodec() const				{ return IsType(VTYPE_codec);		}
+	inline bool IsColor() const				{ return IsType(VTYPE_color);		}
 	inline bool IsDateTime() const			{ return IsType(VTYPE_datetime);	}
-	inline bool IsTimeDelta() const			{ return IsType(VTYPE_timedelta);	}
-	inline bool IsIterator() const			{ return IsType(VTYPE_iterator);	}
-	inline bool IsExpr() const				{ return IsType(VTYPE_expr);		}
+	inline bool IsDeclaration() const		{ return IsType(VTYPE_declaration);	}
+	inline bool IsDict() const				{ return IsType(VTYPE_dict);		}
+	inline bool IsDirectory() const			{ return IsType(VTYPE_directory);	}
 	inline bool IsEnvironment() const		{ return IsType(VTYPE_environment);	}
 	inline bool IsError() const				{ return IsType(VTYPE_error);		}
-	inline bool IsURI() const				{ return IsType(VTYPE_uri);			}
-	inline bool IsSemaphore() const			{ return IsType(VTYPE_semaphore);	}
-	inline bool IsStruct() const			{ return IsType(VTYPE_Struct);		}
-	inline bool IsOperator() const			{ return IsType(VTYPE_operator);	}
+	inline bool IsExpr() const				{ return IsType(VTYPE_expr);		}
+	inline bool IsFunction() const			{ return IsType(VTYPE_function);	}
+	inline bool IsHelp() const				{ return IsType(VTYPE_help);		}
 	inline bool IsImage() const				{ return IsType(VTYPE_image);		}
-	inline bool IsColor() const				{ return IsType(VTYPE_color);		}
+	inline bool IsIterator() const			{ return IsType(VTYPE_iterator);	}
+	inline bool IsList() const				{ return IsType(VTYPE_list);		}
+	inline bool IsMatrix() const			{ return IsType(VTYPE_matrix);		}
+	inline bool IsOperator() const			{ return IsType(VTYPE_operator);	}
 	inline bool IsPalette() const			{ return IsType(VTYPE_palette);		}
-	inline bool IsAudio() const				{ return IsType(VTYPE_audio);		}
-	inline bool IsCodec() const				{ return IsType(VTYPE_codec);		}
-	inline bool IsArgs() const				{ return IsType(VTYPE_args);		}
-	inline bool IsDeclaration() const		{ return IsType(VTYPE_declaration);	}
+	inline bool IsPointer() const			{ return IsType(VTYPE_pointer);		}
+	inline bool IsSemaphore() const			{ return IsType(VTYPE_semaphore);	}
+	inline bool IsStream() const			{ return IsType(VTYPE_stream);		}
+	inline bool IsString() const			{ return IsType(VTYPE_string);		}
+	inline bool IsTimeDelta() const			{ return IsType(VTYPE_timedelta);	}
+	inline bool IsURI() const				{ return IsType(VTYPE_uri);			}
 	inline bool IsListOrIterator() const	{ return IsList() || IsIterator();	}
-	inline bool IsNumberOrComplex() const	{ return IsNumber() || IsComplex();	}
 	bool MustBe(Signal &sig, bool flag, const char *expected) const;
 	inline bool MustBeInvalid(Signal &sig) const		{ return MustBe(sig, IsInvalid(),		"invalid");			}
 	inline bool MustBeUndefined(Signal &sig) const		{ return MustBe(sig, IsUndefined(),		"undefined");		}
 	inline bool MustBeValid(Signal &sig) const			{ return MustBe(sig, IsValid(),			"valid");			}
 	inline bool MustBeDefined(Signal &sig) const		{ return MustBe(sig, IsDefined(),		"defined");			}
+	// primitive types
 	inline bool MustBeSymbol(Signal &sig) const			{ return MustBe(sig, IsSymbol(),		"symbol");			}
 	inline bool MustBeBoolean(Signal &sig) const		{ return MustBe(sig, IsBoolean(), 		"boolean");			}
 	inline bool MustBeNumber(Signal &sig) const			{ return MustBe(sig, IsNumber(), 		"number");			}
 	inline bool MustBeComplex(Signal &sig) const		{ return MustBe(sig, IsComplex(), 		"complex");			}
 	inline bool MustBeFraction(Signal &sig) const		{ return MustBe(sig, IsFraction(), 		"fraction");		}
+	// container types
 	inline bool MustBeModule(Signal &sig) const			{ return MustBe(sig, IsModule(), 		"module");			}
 	inline bool MustBeClass(Signal &sig) const			{ return MustBe(sig, IsClass(), 		"class");			}
+	// sequence
 	inline bool MustBeSequence(Signal &sig) const		{ return MustBe(sig, IsSequence(), 		"sequence");		}
+	// object types
 	inline bool MustBeGenericObject(Signal &sig) const	{ return MustBe(sig, IsGenericObject(), "generic object");	}
-	inline bool MustBeHelp(Signal &sig) const			{ return MustBe(sig, IsHelp(), 			"help");			}
-	inline bool MustBeFunction(Signal &sig) const		{ return MustBe(sig, IsFunction(), 		"function");		}
-	inline bool MustBeString(Signal &sig) const			{ return MustBe(sig, IsString(), 		"string");			}
+	inline bool MustBeStruct(Signal &sig) const			{ return MustBe(sig, IsStruct(), 		"struct");			}
+	inline bool MustBeArgs(Signal &sig) const			{ return MustBe(sig, IsArgs(), 			"args");			}
+	inline bool MustBeAudio(Signal &sig) const			{ return MustBe(sig, IsAudio(), 		"audio");			}
 	inline bool MustBeBinary(Signal &sig) const			{ return MustBe(sig, IsBinary(), 		"binary");			}
-	inline bool MustBePointer(Signal &sig) const		{ return MustBe(sig, IsPointer(), 		"pointer");			}
-	inline bool MustBeList(Signal &sig) const			{ return MustBe(sig, IsList(), 			"list");			}
-	inline bool MustBeMatrix(Signal &sig) const			{ return MustBe(sig, IsMatrix(), 		"matrix");			}
-	inline bool MustBeDict(Signal &sig) const			{ return MustBe(sig, IsDict(), 			"dict");			}
-	inline bool MustBeStream(Signal &sig) const			{ return MustBe(sig, IsStream(), 		"stream");			}
-	inline bool MustBeDirectory(Signal &sig) const		{ return MustBe(sig, IsDirectory(), 	"directory");		}
+	inline bool MustBeCodec(Signal &sig) const			{ return MustBe(sig, IsCodec(), 		"codec");			}
+	inline bool MustBeColor(Signal &sig) const			{ return MustBe(sig, IsColor(), 		"color");			}
 	inline bool MustBeDateTime(Signal &sig) const		{ return MustBe(sig, IsDateTime(), 		"datetime");		}
-	inline bool MustBeTimeDelta(Signal &sig) const		{ return MustBe(sig, IsTimeDelta(), 	"timedelta");		}
-	inline bool MustBeIterator(Signal &sig) const		{ return MustBe(sig, IsIterator(), 		"iterator");		}
-	inline bool MustBeExpr(Signal &sig) const			{ return MustBe(sig, IsExpr(), 			"expr");			}
+	inline bool MustBeDeclaration(Signal &sig) const	{ return MustBe(sig, IsDeclaration(),	"declaration");		}
+	inline bool MustBeDict(Signal &sig) const			{ return MustBe(sig, IsDict(), 			"dict");			}
+	inline bool MustBeDirectory(Signal &sig) const		{ return MustBe(sig, IsDirectory(), 	"directory");		}
 	inline bool MustBeEnvironment(Signal &sig) const	{ return MustBe(sig, IsEnvironment(),	"environment");		}
 	inline bool MustBeError(Signal &sig) const			{ return MustBe(sig, IsError(), 		"error");			}
-	inline bool MustBeURI(Signal &sig) const			{ return MustBe(sig, IsURI(), 			"uri");				}
-	inline bool MustBeSemaphore(Signal &sig) const		{ return MustBe(sig, IsSemaphore(), 	"semaphore");		}
-	inline bool MustBeStruct(Signal &sig) const			{ return MustBe(sig, IsStruct(), 		"struct");			}
-	inline bool MustBeOperator(Signal &sig) const		{ return MustBe(sig, IsOperator(), 		"operator");		}
+	inline bool MustBeExpr(Signal &sig) const			{ return MustBe(sig, IsExpr(), 			"expr");			}
+	inline bool MustBeFunction(Signal &sig) const		{ return MustBe(sig, IsFunction(), 		"function");		}
+	inline bool MustBeHelp(Signal &sig) const			{ return MustBe(sig, IsHelp(), 			"help");			}
 	inline bool MustBeImage(Signal &sig) const			{ return MustBe(sig, IsImage(), 		"image");			}
-	inline bool MustBeColor(Signal &sig) const			{ return MustBe(sig, IsColor(), 		"color");			}
+	inline bool MustBeIterator(Signal &sig) const		{ return MustBe(sig, IsIterator(), 		"iterator");		}
+	inline bool MustBeList(Signal &sig) const			{ return MustBe(sig, IsList(), 			"list");			}
+	inline bool MustBeMatrix(Signal &sig) const			{ return MustBe(sig, IsMatrix(), 		"matrix");			}
+	inline bool MustBeOperator(Signal &sig) const		{ return MustBe(sig, IsOperator(), 		"operator");		}
 	inline bool MustBePalette(Signal &sig) const		{ return MustBe(sig, IsPalette(), 		"palette");			}
-	inline bool MustBeAudio(Signal &sig) const			{ return MustBe(sig, IsAudio(), 		"audio");			}
-	inline bool MustBeCodec(Signal &sig) const			{ return MustBe(sig, IsCodec(), 		"codec");			}
-	inline bool MustBeArgs(Signal &sig) const			{ return MustBe(sig, IsArgs(), 			"args");			}
-	inline bool MustBeDeclaration(Signal &sig) const	{ return MustBe(sig, IsDeclaration(),	"declaration");		}
+	inline bool MustBePointer(Signal &sig) const		{ return MustBe(sig, IsPointer(), 		"pointer");			}
+	inline bool MustBeSemaphore(Signal &sig) const		{ return MustBe(sig, IsSemaphore(), 	"semaphore");		}
+	inline bool MustBeStream(Signal &sig) const			{ return MustBe(sig, IsStream(), 		"stream");			}
+	inline bool MustBeString(Signal &sig) const			{ return MustBe(sig, IsString(), 		"string");			}
+	inline bool MustBeTimeDelta(Signal &sig) const		{ return MustBe(sig, IsTimeDelta(), 	"timedelta");		}
+	inline bool MustBeURI(Signal &sig) const			{ return MustBe(sig, IsURI(), 			"uri");				}
 	inline void SetSymbol(const Symbol *pSymbol) {
 		FreeResource(); _valType = VTYPE_symbol, _u.pSymbol = pSymbol;
 	}
