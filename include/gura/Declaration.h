@@ -20,7 +20,7 @@ private:
 	ValueType _valType;
 	OccurPattern _occurPattern;
 	ULong _flags;
-	AutoPtr<Expr> _pExprDefault;
+	AutoPtr<Expr> _pExprDefault;	// maybe NULL
 public:
 	Gura_DeclareReferenceAccessor(Declaration)
 public:
@@ -36,6 +36,7 @@ public:
 							Value &value, bool listElemFlag = false) const;
 	inline Declaration *Clone() const { return new Declaration(*this); }
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
+	inline const char *GetName() const { return _pSymbol->GetName(); }
 	inline bool GetListFlag() const { return (_flags & FLAG_List)? true : false; }
 	inline bool GetNoMapFlag() const { return (_flags & FLAG_NoMap)? true : false; }
 	inline bool GetNilFlag() const { return (_flags & FLAG_Nil)? true : false; }

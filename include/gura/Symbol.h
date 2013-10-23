@@ -250,6 +250,9 @@ public:
 	Gura_DeclareSymbol(name);
 	Gura_DeclareSymbol(fullname);
 	Gura_DeclareSymbol(identifier);
+	Gura_DeclareSymbol(decl);
+	Gura_DeclareSymbol(decls);
+	Gura_DeclareSymbol(arg);
 	Gura_DeclareSymbol(args);
 	Gura_DeclareSymbol(readable);
 	Gura_DeclareSymbol(writable);

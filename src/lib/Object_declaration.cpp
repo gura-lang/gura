@@ -21,21 +21,25 @@ Object *Object_declaration::Clone() const
 bool Object_declaration::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
-	symbols.insert(Gura_Symbol(values));
+	symbols.insert(Gura_Symbol(symbol));
+	symbols.insert(Gura_Symbol(name));
+	symbols.insert(Gura_Symbol(default_));
 	return true;
 }
 
 Value Object_declaration::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-#if 0
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(values))) {
-		Value rtn;
-		rtn.InitAsList(env, _pArgs->GetValueListArg());
-		return rtn;
+	if (pSymbol->IsIdentical(Gura_Symbol(symbol))) {
+		return Value(_pDeclaration->GetSymbol());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(name))) {
+		return Value(env, _pDeclaration->GetName());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(default_))) {
+		const Expr *pExpr = _pDeclaration->GetExprDefault();
+		if (pExpr == NULL) return Value::Null;
+		return Value(new Object_expr(env, pExpr->Reference()));
 	}
-#endif
 	evaluatedFlag = false;
 	return Value::Null;
 }
@@ -44,6 +48,7 @@ String Object_declaration::ToString(Signal sig, bool exprFlag)
 {
 	String str;
 	str += "<declaration:";
+	str += _pDeclaration->GetName();
 	str += ">";
 	return str;
 }

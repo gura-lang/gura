@@ -23,7 +23,7 @@ bool Object_function::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols
 	symbols.insert(Gura_Symbol(symbol));
 	symbols.insert(Gura_Symbol(name));
 	symbols.insert(Gura_Symbol(fullname));
-	symbols.insert(Gura_Symbol(args));
+	symbols.insert(Gura_Symbol(decls));
 	symbols.insert(Gura_Symbol(format));
 	symbols.insert(Gura_Symbol(expr));
 	return true;
@@ -41,13 +41,9 @@ Value Object_function::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 		String fullName = GetFullName(sig);
 		if (sig.IsSignalled()) return Value::Null;
 		return Value(env, fullName.c_str());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(args))) {
-		Value result;
-		ValueList &valList = result.InitAsList(env);
-		foreach_const (DeclarationList, ppDecl, GetFunction()->GetDeclOwner()) {
-			valList.push_back(Value((*ppDecl)->GetSymbol()));
-		}
-		return result;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(decls))) {
+		Iterator *pIterator = new Iterator_declaration(GetFunction()->GetDeclOwner().Reference());
+		return Value(env, pIterator);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(format))) {
 		String str = MakePrefix(sig);
 		if (sig.IsSignalled()) return Value::Null;

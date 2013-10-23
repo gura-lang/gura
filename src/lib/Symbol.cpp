@@ -263,6 +263,9 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(name);
 	Gura_RealizeSymbol(fullname);
 	Gura_RealizeSymbol(identifier);
+	Gura_RealizeSymbol(decl);
+	Gura_RealizeSymbol(decls);
+	Gura_RealizeSymbol(arg);
 	Gura_RealizeSymbol(args);
 	Gura_RealizeSymbol(readable);
 	Gura_RealizeSymbol(writable);
