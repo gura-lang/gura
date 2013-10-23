@@ -357,15 +357,22 @@ DeclarationOwner::DeclarationOwner(const DeclarationOwner &declOwner) : _cntRef(
 
 DeclarationOwner::~DeclarationOwner()
 {
+	Clear();
+}
+
+void DeclarationOwner::Clear()
+{
 	foreach (DeclarationOwner, ppDecl, *this) {
 		Declaration::Delete(*ppDecl);
 	}
+	clear();
 }
 
 void DeclarationOwner::operator=(const DeclarationOwner &declOwner)
 {
 	_pSymbolDict = declOwner._pSymbolDict;
 	_allowTooManyArgsFlag = declOwner._allowTooManyArgsFlag;
+	Clear();
 	foreach_const (DeclarationList, ppDecl, declOwner) {
 		push_back((*ppDecl)->Clone());
 	}

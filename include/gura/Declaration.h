@@ -109,6 +109,7 @@ public:
 private:
 	~DeclarationOwner();
 public:
+	void Clear();
 	void operator=(const DeclarationOwner &declOwner);
 	inline const Symbol *GetSymbolDict() const { return _pSymbolDict; }
 	inline void SetSymbolDict(const Symbol *pSymbol) { _pSymbolDict = pSymbol; }
