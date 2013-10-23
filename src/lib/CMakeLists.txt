@@ -45,6 +45,7 @@ Object_pointer.cpp
 Object_codec.cpp
 Object_color.cpp
 Object_datetime.cpp
+Object_declaration.cpp
 Object_dict.cpp
 Object_environment.cpp
 Object_error.cpp

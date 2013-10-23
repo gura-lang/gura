@@ -115,6 +115,7 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Object_codec.h
   ${GURA_INCLUDE_DIR}/gura/Object_color.h
   ${GURA_INCLUDE_DIR}/gura/Object_datetime.h
+  ${GURA_INCLUDE_DIR}/gura/Object_declaration.h
   ${GURA_INCLUDE_DIR}/gura/Object_dict.h
   ${GURA_INCLUDE_DIR}/gura/Object_environment.h
   ${GURA_INCLUDE_DIR}/gura/Object_error.h

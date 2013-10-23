@@ -2,7 +2,6 @@
 #define __GURA_OBJECT_DECLARATION_H__
 
 #include "Object.h"
-#include "OAL.h"
 
 namespace Gura {
 
@@ -24,10 +23,10 @@ private:
 public:
 	Gura_DeclareObjectAccessor(declaration)
 public:
-	inline Object_declaration(Environment &env, Args *pArgs) :
-					Object(env.LookupClass(VTYPE_declaration)), _pArgs(pArgs) {}
-	inline Object_declaration(Class *pClass, Args *pArgs) :
-					Object(pClass), _pArgs(pArgs) {}
+	inline Object_declaration(Environment &env, Declaration *pDeclaration) :
+					Object(env.LookupClass(VTYPE_declaration)), _pDeclaration(pDeclaration) {}
+	inline Object_declaration(Class *pClass, Declaration *pDeclaration) :
+					Object(pClass), _pDeclaration(pDeclaration) {}
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,

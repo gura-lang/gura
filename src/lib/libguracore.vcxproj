@@ -235,6 +235,7 @@
     <ClCompile Include="Object_string.cpp" />
     <ClCompile Include="Object_timedelta.cpp" />
     <ClCompile Include="Object_uri.cpp" />
+    <ClCompile Include="Object_declaration.cpp" />
     <ClCompile Include="Object_args.cpp" />
     <ClCompile Include="CustomFunction.cpp" />
     <ClCompile Include="CustomClass.cpp" />
@@ -295,6 +296,7 @@
     <ClInclude Include="..\..\include\gura\Object_color.h" />
     <ClInclude Include="..\..\include\gura\Object_Custom.h" />
     <ClInclude Include="..\..\include\gura\Object_datetime.h" />
+    <ClInclude Include="..\..\include\gura\Object_declaration.h" />
     <ClInclude Include="..\..\include\gura\Object_dict.h" />
     <ClInclude Include="..\..\include\gura\Object_environment.h" />
     <ClInclude Include="..\..\include\gura\Object_error.h" />
