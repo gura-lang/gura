@@ -33,12 +33,12 @@ int Main(int argc, const char *argv[])
 		{ "llvm",			'o', true	},
 	};
 	Signal sig;
-	AutoPtr<EnvironmentRoot> pEnv(new EnvironmentRoot());
-	EnvironmentRoot &env = *pEnv;
+	AutoPtr<Environment> pEnv(new Environment());
+	Environment &env = *pEnv;
 	Option opt(optInfoTbl, ArraySizeOf(optInfoTbl));
 	String strErr;
 	bool rtn = opt.Parse(argc, argv, strErr);
-	if (!env.Initialize(sig, argc, argv)) {
+	if (!env.InitializeAsRoot(sig, argc, argv)) {
 		env.GetConsoleErr()->PrintSignal(sig, sig);
 		return 1;
 	}

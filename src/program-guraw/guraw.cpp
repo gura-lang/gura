@@ -21,7 +21,7 @@ private:
 	HWND _hwndBtnOK;
 public:
 	inline UsageWindow() {}
-	LRESULT Show();
+	LRESULT Show(const char *strErr = NULL);
 private:
 	LRESULT WndProc(HWND hwnd, UINT nMsg, WPARAM wParam, LPARAM lParam);
 	static LRESULT CALLBACK WndProcStub(HWND hwnd, UINT nMsg, WPARAM wParam, LPARAM lParam);
@@ -45,17 +45,17 @@ int MainW(int argc, const char *argv[])
 		{ "version",		'v', false	},
 	};
 	Signal sig;
-	AutoPtr<EnvironmentRoot> pEnv(new EnvironmentRoot());
-	EnvironmentRoot &env = *pEnv;
+	AutoPtr<Environment> pEnv(new Environment());
+	Environment &env = *pEnv;
 	Option opt(optInfoTbl, ArraySizeOf(optInfoTbl));
 	String strErr;
 	bool rtn = opt.Parse(argc, argv, strErr);
-	if (!env.Initialize(sig, argc, argv)) {
+	if (!env.InitializeAsRoot(sig, argc, argv)) {
 		env.GetConsoleErr()->PrintSignal(sig, sig);
 		return 1;
 	}
 	if (!rtn) {
-		UsageWindow().Show();
+		UsageWindow().Show(strErr.c_str());
 		return 1;
 	}
 	if (opt.IsSet("version")) {
@@ -129,7 +129,7 @@ int MainW(int argc, const char *argv[])
 //-----------------------------------------------------------------------------
 // UsageWindow
 //-----------------------------------------------------------------------------
-LRESULT UsageWindow::Show()
+LRESULT UsageWindow::Show(const char *strErr)
 {
 	const char *lpClassName = "guraw";
 	WNDCLASSEX wc;
@@ -158,7 +158,7 @@ LRESULT UsageWindow::Show()
 		SetWindowFont(_hwndLabel, GetStockFont(DEFAULT_GUI_FONT), FALSE);
 	} while (0);
 	do {
-		const char *msg =
+		const char *msgUsage =
 			"usage: guraw [option] [file] [arg] ...\n"
 			"available options:\n"
 			"-h             print this help\n"
@@ -167,7 +167,14 @@ LRESULT UsageWindow::Show()
 			"-c cmd         execute program from command line\n"
 			"-C dir         change directory before executing scripts\n"
 			"-v             print version string\n";
-		_hwndUsage = ::CreateWindow("static", msg,
+		String msg;
+		if (strErr != NULL) {
+			msg += strErr;
+			msg += "\n";
+			msg += "\n";
+		}
+		msg += msgUsage;
+		_hwndUsage = ::CreateWindow("static", msg.c_str(),
 				WS_CHILD | WS_VISIBLE | SS_SUNKEN,
 				CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
 				hwnd, reinterpret_cast<HMENU>(IDC_Usage), g_hInst, NULL);

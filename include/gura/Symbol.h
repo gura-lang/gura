@@ -257,6 +257,7 @@ public:
 	Gura_DeclareSymbol(readable);
 	Gura_DeclareSymbol(writable);
 	Gura_DeclareSymbol(codec);
+	Gura_DeclareSymbol(codecs);
 	Gura_DeclareSymbol(argsymbols);
 	Gura_DeclareSymbol(expr);
 	Gura_DeclareSymbol(parent);

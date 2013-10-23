@@ -1,7 +1,6 @@
 #ifndef __GURA_OPTION_H__
 #define __GURA_OPTION_H__
 
-#include "Signal.h"
 #include "String.h"
 
 namespace Gura {

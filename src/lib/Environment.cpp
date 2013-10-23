@@ -127,6 +127,65 @@ Environment::~Environment()
 	// virtual destructor
 }
 
+bool Environment::InitializeAsRoot(Signal sig, int argc, const char *argv[])
+{
+	Environment &env = *this;
+#if defined(_MSC_VER)
+	::_set_output_format(_TWO_DIGIT_EXPONENT);
+#endif
+	SymbolPool::Initialize();
+	Codec::Initialize();
+	_frameOwner.push_back(new Frame(ENVTYPE_root, new Global()));
+	RandomGenerator::Initialize(1234);	// initialize random generator SFMT
+	ValueTypePool::Initialize(env);
+	GetGlobal()->Prepare(env, sig);
+	Error::AssignErrorTypes(env);
+	Operator::AssignOperators(env);
+	do {
+		ValueTypePool::DoPrepareClass(env);
+	} while (0);
+	do { // import(basement) { * }
+		Gura_Module(basement)::MixIn(env, sig);
+		if (sig.IsSignalled()) return false;
+	} while (0);
+	do { // import(sys), this module must be imported just after basement
+		Module *pModule = Gura_Module(sys)::Import(env, sig);
+		if (sig.IsSignalled()) return false;
+		GetGlobal()->SetModule_sys(pModule);
+	} while (0);
+	do {
+		Module *pModule = new Module(&env, Gura_Symbol(codecs),
+											"<integrated>", NULL, NULL);
+		env.AssignModule(pModule);
+		// import(codecs.basic)
+		if (Gura_Module(codecs_basic)::Import(*pModule, sig) == NULL) return false;
+		// import(codecs.iso8859)
+		if (Gura_Module(codecs_iso8859)::Import(*pModule, sig) == NULL) return false;
+		// import(codecs.japanese)
+		if (Gura_Module(codecs_japanese)::Import(*pModule, sig) == NULL) return false;
+	} while (0);
+	// import(base64)
+	if (Gura_Module(base64)::Import(env, sig) == NULL) return false;
+	// import(fs)
+	if (Gura_Module(fs)::Import(env, sig) == NULL) return false;
+	// import(os)
+	if (Gura_Module(os)::Import(env, sig) == NULL) return false;
+	// import(path)
+	if (Gura_Module(path)::Import(env, sig) == NULL) return false;
+	// import(time)
+	if (Gura_Module(time)::Import(env, sig) == NULL) return false;
+	// import(math)
+	if (Gura_Module(math)::Import(env, sig) == NULL) return false;
+	// import(conio)
+	if (Gura_Module(conio)::Import(env, sig) == NULL) return false;
+	// setup values in sys module
+	if (!Gura_Module(sys)::SetupValues(GetGlobal()->GetModule_sys(), sig, argc, argv)) {
+		return false;
+	}
+	OAL::SetupExecutablePath();
+	return true;
+}
+
 const SymbolSet &Environment::GetSymbolsPublic() const
 {
 	foreach_const (FrameOwner, ppFrame, GetFrameOwner()) {
@@ -1091,79 +1150,6 @@ void Environment::FrameOwner::Clear()
 		Frame::Delete(pFrame);
 	}
 	clear();
-}
-
-//-----------------------------------------------------------------------------
-// EnvironmentRoot
-//-----------------------------------------------------------------------------
-EnvironmentRoot::EnvironmentRoot()
-{
-	SymbolPool::Initialize();
-	Codec::Initialize();
-	Global *pGlobal = new Global();
-	_frameOwner.push_back(new Frame(ENVTYPE_root, pGlobal));
-}
-
-EnvironmentRoot::~EnvironmentRoot()
-{
-	Global *pGlobal = GetGlobal();
-	Global::Delete(pGlobal);
-}
-
-bool EnvironmentRoot::Initialize(Signal sig, int argc, const char *argv[])
-{
-	Environment &env = *this;
-#if defined(_MSC_VER)
-	::_set_output_format(_TWO_DIGIT_EXPONENT);
-#endif
-	RandomGenerator::Initialize(1234);	// initialize random generator SFMT
-	ValueTypePool::Initialize(env);
-	GetGlobal()->Prepare(env, sig);
-	Error::AssignErrorTypes(env);		// Signal.cpp
-	AssignBasicOperators(env);			// Operators.cpp
-	do {
-		ValueTypePool::DoPrepareClass(env);
-	} while (0);
-	do { // import(basement) { * }
-		Gura_Module(basement)::MixIn(env, sig);
-		if (sig.IsSignalled()) return false;
-	} while (0);
-	do { // import(sys), this module must be imported just after basement
-		Module *pModule = Gura_Module(sys)::Import(env, sig);
-		if (sig.IsSignalled()) return false;
-		GetGlobal()->SetModule_sys(pModule);
-	} while (0);
-	do {
-		Module *pModule = new Module(&env, Symbol::Add("codecs"),
-											"<integrated>", NULL, NULL);
-		env.AssignModule(pModule);
-		// import(codecs.basic)
-		if (Gura_Module(codecs_basic)::Import(*pModule, sig) == NULL) return false;
-		// import(codecs.iso8859)
-		if (Gura_Module(codecs_iso8859)::Import(*pModule, sig) == NULL) return false;
-		// import(codecs.japanese)
-		if (Gura_Module(codecs_japanese)::Import(*pModule, sig) == NULL) return false;
-	} while (0);
-	// import(base64)
-	if (Gura_Module(base64)::Import(env, sig) == NULL) return false;
-	// import(fs)
-	if (Gura_Module(fs)::Import(env, sig) == NULL) return false;
-	// import(os)
-	if (Gura_Module(os)::Import(env, sig) == NULL) return false;
-	// import(path)
-	if (Gura_Module(path)::Import(env, sig) == NULL) return false;
-	// import(time)
-	if (Gura_Module(time)::Import(env, sig) == NULL) return false;
-	// import(math)
-	if (Gura_Module(math)::Import(env, sig) == NULL) return false;
-	// import(conio)
-	if (Gura_Module(conio)::Import(env, sig) == NULL) return false;
-	// setup values in sys module
-	if (!Gura_Module(sys)::SetupValues(GetGlobal()->GetModule_sys(), sig, argc, argv)) {
-		return false;
-	}
-	OAL::SetupExecutablePath();
-	return true;
 }
 
 }

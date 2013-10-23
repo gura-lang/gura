@@ -29,9 +29,9 @@ inline Gura::String IIDString(REFIID riid)
 // CMain implementation
 //-----------------------------------------------------------------------------
 CMain::CMain() : _cntRef(0), _activeScriptParse32(this),
-	_objectSafety(this), _pActiveScriptSite(NULL), _pEnv(new Gura::EnvironmentRoot())
+	_objectSafety(this), _pActiveScriptSite(NULL), _pEnv(new Gura::Environment())
 {
-	_pEnv->Initialize(_sig, 0, NULL);
+	_pEnv->InitializeAsRoot(_sig, 0, NULL);
 }
 
 STDMETHODIMP CMain::QueryInterface(REFIID riid, void **ppv)

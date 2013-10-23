@@ -279,6 +279,7 @@ public:
 protected:
 	virtual ~Environment();
 public:
+	bool InitializeAsRoot(Signal sig, int argc, const char *argv[]);
 	inline FrameOwner &GetFrameOwner()			{ return _frameOwner;						}
 	inline const FrameOwner &GetFrameOwner() const{ return _frameOwner;						}
 	inline Frame *GetTopFrame()					{ return _frameOwner.front();				}
@@ -371,18 +372,6 @@ private:
 };
 
 typedef std::set<Environment *> EnvironmentSet;
-
-//-----------------------------------------------------------------------------
-// EnvironmentRoot
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE EnvironmentRoot : public Environment {
-public:
-	EnvironmentRoot();
-protected:
-	virtual ~EnvironmentRoot();
-public:
-	bool Initialize(Signal sig, int argc, const char *argv[]);
-};
 
 }
 #endif

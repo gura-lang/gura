@@ -1806,7 +1806,10 @@ Gura_ImplementBinaryOperator(Pair, number, any)
 	return Value::CreateAsList(env, valueLeft, valueRight);
 }
 
-void AssignBasicOperators(Environment &env)
+//-----------------------------------------------------------------------------
+// Operator assignment
+//-----------------------------------------------------------------------------
+void Operator::AssignOperators(Environment &env)
 {
 	env.SetOperator(OPTYPE_Pos, new Operator_Pos());
 	env.SetOperator(OPTYPE_Neg, new Operator_Neg());

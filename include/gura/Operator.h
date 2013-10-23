@@ -76,8 +76,6 @@ enum OpType {
 	OPTYPE_max,
 };
 
-void AssignBasicOperators(Environment &env);
-
 class OperatorEntry;
 
 //-----------------------------------------------------------------------------
@@ -141,6 +139,7 @@ public:
 	static void SetError_DivideByZero(Signal &sig);
 	static void SetError_MathDiffError(Signal &sig);
 	static void SetError_MathOptimizeError(Signal &sig);
+	static void AssignOperators(Environment &env);
 };
 
 //-----------------------------------------------------------------------------
