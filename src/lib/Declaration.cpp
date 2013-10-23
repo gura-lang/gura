@@ -346,7 +346,7 @@ void Declaration::SetError_TooManyArguments(Signal sig)
 //-----------------------------------------------------------------------------
 // DeclarationOwner
 //-----------------------------------------------------------------------------
-DeclarationOwner::DeclarationOwner(const DeclarationOwner &declOwner) :
+DeclarationOwner::DeclarationOwner(const DeclarationOwner &declOwner) : _cntRef(1),
 			_pSymbolDict(declOwner._pSymbolDict),
 			_allowTooManyArgsFlag(declOwner._allowTooManyArgsFlag)
 {

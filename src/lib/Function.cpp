@@ -30,7 +30,8 @@ bool Function::IsConstructorOfStruct() const { return false; }
 
 Function::Function(const Function &func) : _cntRef(1),
 	_pSymbol(func._pSymbol), _pClassToConstruct(func._pClassToConstruct),
-	_pEnvScope(new Environment(func.GetEnvScope())), _declOwner(func._declOwner),
+	_pEnvScope(new Environment(func.GetEnvScope())),
+	_pDeclOwner(new DeclarationOwner(func.GetDeclOwner())),
 	_funcType(func._funcType),
 	_resultMode(func._resultMode), _flags(func._flags),
 	_attrsOpt(func._attrsOpt), _blockInfo(func._blockInfo)
@@ -40,8 +41,9 @@ Function::Function(const Function &func) : _cntRef(1),
 Function::Function(Environment &envScope, const Symbol *pSymbol,
 								FunctionType funcType, ULong flags) :
 	_cntRef(1),
-	_pSymbol(pSymbol), _pClassToConstruct(NULL), _pEnvScope(new Environment(envScope)), _funcType(funcType),
-	_resultMode(RSLTMODE_Normal), _flags(flags)
+	_pSymbol(pSymbol), _pClassToConstruct(NULL),
+	_pEnvScope(new Environment(envScope)), _pDeclOwner(new DeclarationOwner()),
+	_funcType(funcType), _resultMode(RSLTMODE_Normal), _flags(flags)
 {
 	_blockInfo.occurPattern = OCCUR_Zero;
 	_blockInfo.pSymbol = NULL;
@@ -63,7 +65,7 @@ bool Function::CustomDeclare(Environment &env, Signal sig,
 								const SymbolSet &attrsAcceptable, Args &args)
 {
 	// delcaration of arguments
-	if (!_declOwner.Declare(env, sig, args.GetExprListArg())) return false;
+	if (!GetDeclOwner().Declare(env, sig, args.GetExprListArg())) return false;
 	// declaration of attributes
 	foreach_const (SymbolSet, ppSymbol, args.GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
@@ -173,7 +175,7 @@ bool Function::CustomDeclare(Environment &env, Signal sig,
 
 void Function::CopyDeclare(const Function &func)
 {
-	_declOwner	= func._declOwner;
+	_pDeclOwner.reset(new DeclarationOwner(func.GetDeclOwner()));
 	_resultMode	= func._resultMode;	// :list, :xlist, :set, :xset, :iter, :xiter, :void
 	_flags		= func._flags;		// :map, :nomap, :flat, :noflat
 	_attrsOpt	= func._attrsOpt;
@@ -183,7 +185,7 @@ void Function::CopyDeclare(const Function &func)
 Declaration *Function::DeclareArg(Environment &env, const Symbol *pSymbol, ValueType valType,
 				OccurPattern occurPattern, ULong flags, Expr *pExprDefault)
 {
-	return _declOwner.Declare(env, pSymbol, valType, occurPattern, flags, pExprDefault);
+	return GetDeclOwner().Declare(env, pSymbol, valType, occurPattern, flags, pExprDefault);
 }
 
 void Function::DeclareBlock(OccurPattern occurPattern,
@@ -227,14 +229,14 @@ Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &ar
 	AutoPtr<Environment> pEnvLocal(new Environment(pEnvOuter, envType));
 	const ValueList &valListArg = args.GetValueListArg();
 	ValueList::const_iterator pValue = valListArg.begin();
-	DeclarationList::const_iterator ppDecl = _declOwner.begin();
-	for ( ; pValue != valListArg.end() && ppDecl != _declOwner.end();
+	DeclarationList::const_iterator ppDecl = GetDeclOwner().begin();
+	for ( ; pValue != valListArg.end() && ppDecl != GetDeclOwner().end();
 														pValue++, ppDecl++) {
 		pEnvLocal->AssignValue((*ppDecl)->GetSymbol(), *pValue, EXTRA_Public);
 	}
-	if (_declOwner.GetSymbolDict() != NULL) {
+	if (GetDeclOwner().GetSymbolDict() != NULL) {
 		const ValueDict &valDictArg = args.GetValueDictArg();
-		pEnvLocal->AssignValue(_declOwner.GetSymbolDict(),
+		pEnvLocal->AssignValue(GetDeclOwner().GetSymbolDict(),
 				Value(new Object_dict(env, valDictArg.Reference())), EXTRA_Public);
 	}
 	if (_blockInfo.pSymbol == NULL) return pEnvLocal.release();
@@ -263,7 +265,7 @@ Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &ar
 Value Function::Eval(Environment &env, Signal sig, Args &args) const
 {
 	ValueList valListCasted;
-	if (!_declOwner.ValidateAndCast(env, sig, args.GetValueListArg(), valListCasted)) {
+	if (!GetDeclOwner().ValidateAndCast(env, sig, args.GetValueListArg(), valListCasted)) {
 		return Value::Null;
 	}
 	AutoPtr<Args> pArgsCasted(new Args(args, valListCasted));
@@ -279,7 +281,7 @@ Value Function::EvalMap(Environment &env, Signal sig, Args &args) const
 				Function::Reference(this), args.Reference(), false));
 	if (sig.IsSignalled()) return Value::Null;
 	if (args.IsRsltIterator() || args.IsRsltXIterator() ||
-			 (args.IsRsltNormal() && args.ShouldGenerateIterator(_declOwner))) {
+			 (args.IsRsltNormal() && args.ShouldGenerateIterator(GetDeclOwner()))) {
 		pIterator->SetSkipInvalidFlag(args.IsRsltXIterator());
 		return Value(env, pIterator.release());
 	}
@@ -412,7 +414,7 @@ String Function::ToString() const
 		str += " ";
 	}
 	str += "(";
-	str += _declOwner.ToString();
+	str += GetDeclOwner().ToString();
 	str += ")";
 	if (_funcType == FUNCTYPE_Class) {
 		str += ":";
@@ -540,8 +542,8 @@ void Function::SetError_NotConstructor(Signal sig) const
 
 void Function::SetError_ArgumentTypeByIndex(Signal sig, Args &args, size_t idxArg) const
 {
-	if (idxArg < _declOwner.size()) {
-		const Declaration *pDecl = _declOwner[idxArg];
+	if (idxArg < GetDeclOwner().size()) {
+		const Declaration *pDecl = GetDeclOwner()[idxArg];
 		pDecl->SetError_ArgumentType(sig, args.GetValue(idxArg));
 	} else {
 		sig.SetError(ERR_TypeError, "argument error");

@@ -98,12 +98,17 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE DeclarationOwner : public DeclarationList {
 private:
+	int _cntRef;
 	const Symbol *_pSymbolDict;
 	bool _allowTooManyArgsFlag;
 public:
-	inline DeclarationOwner() : _pSymbolDict(NULL), _allowTooManyArgsFlag(false) {}
+	Gura_DeclareReferenceAccessor(DeclarationOwner)
+public:
+	inline DeclarationOwner() : _cntRef(1), _pSymbolDict(NULL), _allowTooManyArgsFlag(false) {}
 	DeclarationOwner(const DeclarationOwner &declOwner);
+private:
 	~DeclarationOwner();
+public:
 	void operator=(const DeclarationOwner &declOwner);
 	inline const Symbol *GetSymbolDict() const { return _pSymbolDict; }
 	inline void SetSymbolDict(const Symbol *pSymbol) { _pSymbolDict = pSymbol; }

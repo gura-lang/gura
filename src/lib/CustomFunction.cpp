@@ -64,7 +64,7 @@ CustomFunction *CustomFunction::CreateBlockFunc(Environment &env, Signal sig,
 {
 	AutoPtr<CustomFunction> pFunc(new CustomFunction(env,
 							pSymbol, Expr::Reference(pExprBlock), funcType));
-	pFunc->_declOwner.AllowTooManyArgs(true);
+	pFunc->GetDeclOwner().AllowTooManyArgs(true);
 	const Expr_BlockParam *pExprBlockParam = pExprBlock->GetParam();
 	if (pExprBlockParam != NULL) {
 		AutoPtr<Args> pArgs(new Args());

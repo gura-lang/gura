@@ -248,7 +248,7 @@ protected:
 	const Symbol *_pSymbol;
 	Class *_pClassToConstruct;
 	AutoPtr<Environment> _pEnvScope;
-	DeclarationOwner _declOwner;
+	AutoPtr<DeclarationOwner> _pDeclOwner;
 	FunctionType _funcType;
 	ResultMode _resultMode;
 	ULong _flags;
@@ -324,15 +324,15 @@ public:
 			Expr *pExprDefault = NULL) {
 		return DeclareArg(env, Symbol::Add(name), valType, occurPattern, flags, pExprDefault);
 	}
-	inline void DeclareDictArg(const Symbol *pSymbol) { _declOwner.SetSymbolDict(pSymbol); }
+	inline void DeclareDictArg(const Symbol *pSymbol) { GetDeclOwner().SetSymbolDict(pSymbol); }
 	inline void DeclareDictArg(const char *name) { DeclareDictArg(Symbol::Add(name)); }
 	inline void DeclareAttr(const Symbol *pSymbol) { _attrsOpt.Insert(pSymbol); }
-	inline DeclarationOwner &GetDeclOwner() { return _declOwner; }
-	inline const DeclarationOwner &GetDeclOwner() const { return _declOwner; }
+	inline DeclarationOwner &GetDeclOwner() { return *_pDeclOwner; }
+	inline const DeclarationOwner &GetDeclOwner() const { return *_pDeclOwner; }
 	inline bool IsUnary() const {
-		return _declOwner.size() == 1 && !_declOwner.front()->IsVariableLength();
+		return GetDeclOwner().size() == 1 && !GetDeclOwner().front()->IsVariableLength();
 	}
-	inline bool IsUnaryable() const { return _declOwner.size() == 1; }
+	inline bool IsUnaryable() const { return GetDeclOwner().size() == 1; }
 	inline bool IsHelpExist() const { return !_helpOwner.empty(); }
 	void DeclareBlock(OccurPattern occurPattern, const Symbol *pSymbol = NULL,
 			BlockScope blockScope = BLKSCOPE_Through, bool quoteFlag = false);
