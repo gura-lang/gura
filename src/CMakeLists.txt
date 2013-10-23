@@ -85,73 +85,73 @@ install(FILES
   DESTINATION include)
 
 install(FILES
-  ${GURA_INCLUDE_DIR}/gura/Version.h
   ${GURA_INCLUDE_DIR}/gura/Algorithm.h
-  ${GURA_INCLUDE_DIR}/gura/BZLibHelper.h
+  ${GURA_INCLUDE_DIR}/gura/Audio.h
   ${GURA_INCLUDE_DIR}/gura/Binary.h
+  ${GURA_INCLUDE_DIR}/gura/BZLibHelper.h
+  ${GURA_INCLUDE_DIR}/gura/Class.h
   ${GURA_INCLUDE_DIR}/gura/Codec.h
   ${GURA_INCLUDE_DIR}/gura/Common.h
   ${GURA_INCLUDE_DIR}/gura/CustomClass.h
   ${GURA_INCLUDE_DIR}/gura/CustomFunction.h
   ${GURA_INCLUDE_DIR}/gura/DateTime.h
   ${GURA_INCLUDE_DIR}/gura/Declaration.h
-  ${GURA_INCLUDE_DIR}/gura/PathManager.h
   ${GURA_INCLUDE_DIR}/gura/Directory.h
   ${GURA_INCLUDE_DIR}/gura/Environment.h
+  ${GURA_INCLUDE_DIR}/gura/Error.h
   ${GURA_INCLUDE_DIR}/gura/Expr.h
   ${GURA_INCLUDE_DIR}/gura/Formatter.h
-  ${GURA_INCLUDE_DIR}/gura/Help.h
   ${GURA_INCLUDE_DIR}/gura/Function.h
+  ${GURA_INCLUDE_DIR}/gura/Fundamental.h
+  ${GURA_INCLUDE_DIR}/gura/Help.h
   ${GURA_INCLUDE_DIR}/gura/Image.h
-  ${GURA_INCLUDE_DIR}/gura/Palette.h
-  ${GURA_INCLUDE_DIR}/gura/Audio.h
-  ${GURA_INCLUDE_DIR}/gura/Matrix.h
   ${GURA_INCLUDE_DIR}/gura/Iterator.h
+  ${GURA_INCLUDE_DIR}/gura/Matrix.h
   ${GURA_INCLUDE_DIR}/gura/Memory.h
   ${GURA_INCLUDE_DIR}/gura/Module.h
   ${GURA_INCLUDE_DIR}/gura/OAL.h
-  ${GURA_INCLUDE_DIR}/gura/Fundamental.h
-  ${GURA_INCLUDE_DIR}/gura/Class.h
   ${GURA_INCLUDE_DIR}/gura/Object.h
   ${GURA_INCLUDE_DIR}/gura/Object_args.h
   ${GURA_INCLUDE_DIR}/gura/Object_audio.h
   ${GURA_INCLUDE_DIR}/gura/Object_binary.h
-  ${GURA_INCLUDE_DIR}/gura/Object_pointer.h
   ${GURA_INCLUDE_DIR}/gura/Object_codec.h
   ${GURA_INCLUDE_DIR}/gura/Object_color.h
   ${GURA_INCLUDE_DIR}/gura/Object_datetime.h
   ${GURA_INCLUDE_DIR}/gura/Object_declaration.h
   ${GURA_INCLUDE_DIR}/gura/Object_dict.h
+  ${GURA_INCLUDE_DIR}/gura/Object_directory.h
   ${GURA_INCLUDE_DIR}/gura/Object_environment.h
   ${GURA_INCLUDE_DIR}/gura/Object_error.h
   ${GURA_INCLUDE_DIR}/gura/Object_expr.h
-  ${GURA_INCLUDE_DIR}/gura/Object_help.h
   ${GURA_INCLUDE_DIR}/gura/Object_function.h
-  ${GURA_INCLUDE_DIR}/gura/Object_operator.h
+  ${GURA_INCLUDE_DIR}/gura/Object_help.h
   ${GURA_INCLUDE_DIR}/gura/Object_image.h
   ${GURA_INCLUDE_DIR}/gura/Object_iterator.h
   ${GURA_INCLUDE_DIR}/gura/Object_list.h
   ${GURA_INCLUDE_DIR}/gura/Object_matrix.h
+  ${GURA_INCLUDE_DIR}/gura/Object_operator.h
   ${GURA_INCLUDE_DIR}/gura/Object_palette.h
+  ${GURA_INCLUDE_DIR}/gura/Object_pointer.h
   ${GURA_INCLUDE_DIR}/gura/Object_semaphore.h
   ${GURA_INCLUDE_DIR}/gura/Object_stream.h
-  ${GURA_INCLUDE_DIR}/gura/Object_directory.h
   ${GURA_INCLUDE_DIR}/gura/Object_string.h
   ${GURA_INCLUDE_DIR}/gura/Object_timedelta.h
   ${GURA_INCLUDE_DIR}/gura/Object_uri.h
   ${GURA_INCLUDE_DIR}/gura/Operator.h
   ${GURA_INCLUDE_DIR}/gura/Option.h
   ${GURA_INCLUDE_DIR}/gura/PackedNumber.h
+  ${GURA_INCLUDE_DIR}/gura/Palette.h
   ${GURA_INCLUDE_DIR}/gura/Parser.h
+  ${GURA_INCLUDE_DIR}/gura/PathManager.h
   ${GURA_INCLUDE_DIR}/gura/Processor.h
-  ${GURA_INCLUDE_DIR}/gura/TemplateEngine.h
-  ${GURA_INCLUDE_DIR}/gura/Error.h
   ${GURA_INCLUDE_DIR}/gura/Signal.h
   ${GURA_INCLUDE_DIR}/gura/Stream.h
   ${GURA_INCLUDE_DIR}/gura/String.h
   ${GURA_INCLUDE_DIR}/gura/StructObject.h
   ${GURA_INCLUDE_DIR}/gura/Symbol.h
+  ${GURA_INCLUDE_DIR}/gura/TemplateEngine.h
   ${GURA_INCLUDE_DIR}/gura/Value.h
+  ${GURA_INCLUDE_DIR}/gura/Version.h
   ${GURA_INCLUDE_DIR}/gura/ZLibHelper.h
   DESTINATION include/gura)
 

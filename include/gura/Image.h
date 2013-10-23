@@ -1,7 +1,7 @@
 #ifndef __GURA_IMAGE_H__
 #define __GURA_IMAGE_H__
 
-#include "Common.h"
+#include "Memory.h"
 
 namespace Gura {
 
