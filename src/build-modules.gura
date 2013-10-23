@@ -17,8 +17,9 @@ argopt.Parser {|p|
 	} elsif (argv[0] == 'help') {
 		sys.stderr.printf('usage: %s [options] command\n', path.filename(sys.argv[0]))
 		sys.stderr.println('command:')
-		sys.stderr.println(' clean    clean output files')
-		sys.stderr.println(' install  install produced files to root directory')
+		sys.stderr.println(' clean          clean output files')
+		sys.stderr.println(' install        install built files to root directory')
+		sys.stderr.println(' build-install  build and install files to root directory')
 		sys.stderr.println('options:')
 		sys.stderr.println(' ', p.formatHelp())
 		sys.exit(1)
@@ -26,6 +27,8 @@ argopt.Parser {|p|
 		`clean
 	} elsif (argv[0] == 'install') {
 		`install
+	} elsif (argv[0] == 'build-install') {
+		`build_install
 	} else {
 		sys.stderr.println('unknown command: ', argv[0])
 		sys.exit(1)
@@ -97,6 +100,8 @@ for (moduleName in moduleNames) {
 		sys.argv.append('clean')
 	} elsif (command == `install) {
 		sys.argv.append('install-root')
+	} elsif (command == `build_install) {
+		sys.argv.append('build-install-root')
 	} else {
 		// nothing to do
 	}
@@ -114,7 +119,7 @@ for (moduleName in moduleNames) {
 		sys.argv = argvOrg
 	}
 }
-if (sys.argv.len() < 2 || command != `install) {
+if (sys.argv.len() < 2 || !(command in [`install, `build_install])) {
 	if (!moduleNamesError.isempty()) {
 		println('**** error while buiding ', moduleNamesError)
 	}
