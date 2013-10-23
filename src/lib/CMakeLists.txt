@@ -56,8 +56,8 @@ Operator.cpp
 Option.cpp
 Palette.cpp
 Parser.cpp
-Processor.cpp
 PathManager.cpp
+Processor.cpp
 Signal.cpp
 Stream.cpp
 String.cpp
