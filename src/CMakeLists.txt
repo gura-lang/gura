@@ -24,9 +24,9 @@ set(GURA_INCLUDE_DIR	${GURA_ROOT_DIR}/include)
 set(GURA_SAMPLE_DIR		${GURA_ROOT_DIR}/sample)
 set(GURA_MODULE_DIR		${GURA_ROOT_DIR}/module)
 
-set(BINDIR				${CMAKE_INSTALL_PREFIX}/bin)
-set(PKGDATADIR			${CMAKE_INSTALL_PREFIX}/share/gura)
-set(PKGLIBDIR			${CMAKE_INSTALL_PREFIX}/lib/gura)
+set(GURA_BINDIR			${CMAKE_INSTALL_PREFIX}/bin)
+set(GURA_PKGDATADIR		${CMAKE_INSTALL_PREFIX}/share/gura)
+set(GURA_PKGLIBDIR		${CMAKE_INSTALL_PREFIX}/lib/gura)
 
 configure_file(
   ${GURA_ROOT_DIR}/include/gura/Version.h.in
@@ -85,6 +85,7 @@ install(FILES
   DESTINATION include)
 
 install(FILES
+  ${GURA_INCLUDE_DIR}/gura/Version.h
   ${GURA_INCLUDE_DIR}/gura/Algorithm.h
   ${GURA_INCLUDE_DIR}/gura/BZLibHelper.h
   ${GURA_INCLUDE_DIR}/gura/Binary.h
