@@ -1,6 +1,7 @@
 #ifndef __GURA_COMMON_H__
 #define __GURA_COMMON_H__
 
+#include "Version.h"
 #include "PackedNumber.h"
 
 #define ArraySizeOf(array)				(sizeof(array) / sizeof(array[0]))
@@ -11,8 +12,6 @@
 #define foreach_const_reverse(T, i, c)	for (T::const_reverse_iterator i = (c).rbegin(); i != (c).rend(); i++)
 
 namespace Gura {
-
-#define GURA_VERSION "0.4.0"
 
 #if defined(_MSC_VER)
 #define GURA_ON_MSWIN

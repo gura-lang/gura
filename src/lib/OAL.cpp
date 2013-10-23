@@ -1223,7 +1223,7 @@ int GetSecsOffsetTZ()
 
 String GetBaseDir()
 {
-	return String(PKGDATADIR);
+	return String(GURA_PKGDATADIR);
 }
 
 String GetDataDir()
@@ -1233,7 +1233,7 @@ String GetDataDir()
 
 String GetLibDir()
 {
-	return String(PKGLIBDIR);
+	return String(GURA_PKGLIBDIR);
 }
 
 String GetLocalDir()
@@ -1251,7 +1251,7 @@ String GetLocalDir()
 
 String GetExecutable()
 {
-	return String(BINDIR "/gura");
+	return String(GURA_BINDIR "/gura");
 }
 
 void SetupModulePath(StringList &strList)
@@ -1266,8 +1266,8 @@ void SetupModulePath(StringList &strList)
 		dirNameSub += "/module";
 		strList.push_back(dirNameSub);
 	} while (0);
-	strList.push_back(PKGLIBDIR);
-	strList.push_back(PKGLIBDIR "/site");
+	strList.push_back(GURA_PKGLIBDIR);
+	strList.push_back(GURA_PKGLIBDIR "/site");
 }
 
 void SetupExecutablePath()

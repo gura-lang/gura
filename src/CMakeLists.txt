@@ -29,6 +29,10 @@ set(PKGDATADIR			${CMAKE_INSTALL_PREFIX}/share/gura)
 set(PKGLIBDIR			${CMAKE_INSTALL_PREFIX}/lib/gura)
 
 configure_file(
+  ${GURA_ROOT_DIR}/include/gura/Version.h.in
+  ${GURA_ROOT_DIR}/include/gura/Version.h)
+
+configure_file(
   ${GURA_ROOT_DIR}/include/gura/config.h.in
   ${GURA_ROOT_DIR}/include/gura/config.h)
 
