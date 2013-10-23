@@ -339,7 +339,7 @@ Object *Class_expr::CreateDescendant(Environment &env, Signal sig, Class *pClass
 // Iterator_expr
 //-----------------------------------------------------------------------------
 Iterator_expr::Iterator_expr(ExprOwner *pExprOwner) :
-						Iterator(false), _idxExpr(0), _pExprOwner(pExprOwner)
+						Iterator(false), _idx(0), _pExprOwner(pExprOwner)
 {
 }
 
@@ -350,8 +350,8 @@ Iterator *Iterator_expr::GetSource()
 
 bool Iterator_expr::DoNext(Environment &env, Signal sig, Value &value)
 {
-	if (_idxExpr < _pExprOwner->size()) {
-		Expr *pExpr = (*_pExprOwner)[_idxExpr++];
+	if (_idx < _pExprOwner->size()) {
+		Expr *pExpr = (*_pExprOwner)[_idx++];
 		value = Value(new Object_expr(env, pExpr->Reference()));
 		return true;
 	}

@@ -1154,7 +1154,7 @@ Gura_ImplementUserClass(document)
 // Iterator_attribute
 //-----------------------------------------------------------------------------
 Iterator_attribute::Iterator_attribute(AttributeOwner *pAttributeOwner) :
-						Iterator(false), _idxAttribute(0), _pAttributeOwner(pAttributeOwner)
+						Iterator(false), _idx(0), _pAttributeOwner(pAttributeOwner)
 {
 }
 
@@ -1165,8 +1165,8 @@ Iterator *Iterator_attribute::GetSource()
 
 bool Iterator_attribute::DoNext(Environment &env, Signal sig, Value &value)
 {
-	if (_idxAttribute < _pAttributeOwner->size()) {
-		Attribute *pAttribute = (*_pAttributeOwner)[_idxAttribute++];
+	if (_idx < _pAttributeOwner->size()) {
+		Attribute *pAttribute = (*_pAttributeOwner)[_idx++];
 		value = Value(new Object_attribute(pAttribute->Reference()));
 		return true;
 	}
@@ -1189,7 +1189,7 @@ void Iterator_attribute::GatherFollower(Environment::Frame *pFrame, EnvironmentS
 // Iterator_element
 //-----------------------------------------------------------------------------
 Iterator_element::Iterator_element(ElementOwner *pElementOwner) :
-						Iterator(false), _idxElement(0), _pElementOwner(pElementOwner)
+						Iterator(false), _idx(0), _pElementOwner(pElementOwner)
 {
 }
 
@@ -1200,8 +1200,8 @@ Iterator *Iterator_element::GetSource()
 
 bool Iterator_element::DoNext(Environment &env, Signal sig, Value &value)
 {
-	if (_idxElement < _pElementOwner->size()) {
-		Element *pElement = (*_pElementOwner)[_idxElement++];
+	if (_idx < _pElementOwner->size()) {
+		Element *pElement = (*_pElementOwner)[_idx++];
 		value = Value(new Object_element(pElement->Reference()));
 		return true;
 	}

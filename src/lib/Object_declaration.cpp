@@ -59,4 +59,39 @@ void Class_declaration::Prepare(Environment &env)
 {
 }
 
+//-----------------------------------------------------------------------------
+// Iterator_declaration
+//-----------------------------------------------------------------------------
+Iterator_declaration::Iterator_declaration(DeclarationOwner *pDeclarationOwner) :
+						Iterator(false), _idx(0), _pDeclarationOwner(pDeclarationOwner)
+{
+}
+
+Iterator *Iterator_declaration::GetSource()
+{
+	return NULL;
+}
+
+bool Iterator_declaration::DoNext(Environment &env, Signal sig, Value &value)
+{
+	if (_idx < _pDeclarationOwner->size()) {
+		Declaration *pDeclaration = (*_pDeclarationOwner)[_idx++];
+		value = Value(new Object_declaration(env, pDeclaration->Reference()));
+		return true;
+	}
+	return false;
+}
+
+String Iterator_declaration::ToString(Signal sig) const
+{
+	String rtn;
+	rtn += "<iterator:declaration";
+	rtn += ">";
+	return rtn;
+}
+
+void Iterator_declaration::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+}
+
 }

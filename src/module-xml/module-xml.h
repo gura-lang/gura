@@ -374,7 +374,7 @@ public:
 //-----------------------------------------------------------------------------
 class Iterator_attribute : public Iterator {
 private:
-	size_t _idxAttribute;
+	size_t _idx;
 	AutoPtr<AttributeOwner> _pAttributeOwner;
 public:
 	Iterator_attribute(AttributeOwner *pAttributeOwner);
@@ -389,7 +389,7 @@ public:
 //-----------------------------------------------------------------------------
 class Iterator_element : public Iterator {
 private:
-	size_t _idxElement;
+	size_t _idx;
 	AutoPtr<ElementOwner> _pElementOwner;
 public:
 	Iterator_element(ElementOwner *pElementOwner);

@@ -44,7 +44,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Iterator_expr : public Iterator {
 private:
-	size_t _idxExpr;
+	size_t _idx;
 	AutoPtr<ExprOwner> _pExprOwner;
 public:
 	Iterator_expr(ExprOwner *pExprOwner);
