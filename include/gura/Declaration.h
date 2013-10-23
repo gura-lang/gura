@@ -15,22 +15,26 @@ class Args;
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Declaration {
 private:
+	int _cntRef;
 	const Symbol *_pSymbol;
 	ValueType _valType;
 	OccurPattern _occurPattern;
 	ULong _flags;
 	AutoPtr<Expr> _pExprDefault;
 public:
+	Gura_DeclareReferenceAccessor(Declaration)
+public:
 	Declaration(const Declaration &decl);
 	Declaration(const Symbol *pSymbol, ValueType valType);
 	Declaration(const Symbol *pSymbol, ValueType valType,
 			OccurPattern occurPattern, ULong flags, Expr *pExprDefault);
+private:
 	~Declaration();
+public:
 	static Declaration *Create(Environment &env, Signal sig, const Expr *pExpr);
 	bool ValidateAndCast(Environment &env, Signal sig,
 							Value &value, bool listElemFlag = false) const;
 	inline Declaration *Clone() const { return new Declaration(*this); }
-	inline static void Delete(Declaration *pDecl) { delete pDecl; }
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline bool GetListFlag() const { return (_flags & FLAG_List)? true : false; }
 	inline bool GetNoMapFlag() const { return (_flags & FLAG_NoMap)? true : false; }

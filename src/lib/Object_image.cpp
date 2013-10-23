@@ -122,42 +122,42 @@ Gura_ImplementFunction(image)
 	ValueList valList = args.GetList(0);
 	AutoPtr<Image> pImage;
 	if (valList[0].IsSymbol()) {
-		Declaration(Gura_Symbol(format), VTYPE_symbol).
-									ValidateAndCast(env, sig, valList[0]);
+		AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(format), VTYPE_symbol));
+		pDecl->ValidateAndCast(env, sig, valList[0]);
 		if (sig.IsSignalled()) return Value::Null;
 		Image::Format format =
 					Image::SymbolToFormat(sig, valList[0].GetSymbol());
 		if (sig.IsSignalled()) return Value::Null;
 		pImage.reset(new Image(format));
 		if (valList.size() >= 2) {
-			Declaration(Gura_Symbol(width), VTYPE_number).
-										ValidateAndCast(env, sig, valList[1]);
+			AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(width), VTYPE_number));
+			pDecl->ValidateAndCast(env, sig, valList[1]);
 			if (sig.IsSignalled()) return Value::Null;
 			size_t width = valList[1].GetSizeT();
 			size_t height = width;
 			if (valList.size() >= 3) {
-				Declaration(Gura_Symbol(height), VTYPE_number).
-											ValidateAndCast(env, sig, valList[2]);
+				AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(height), VTYPE_number));
+				pDecl->ValidateAndCast(env, sig, valList[2]);
 				if (sig.IsSignalled()) return Value::Null;
 				height = valList[2].GetSizeT();
 			}
 			if (!pImage->AllocBuffer(sig, width, height, 0x00)) return Value::Null;
 			if (valList.size() >= 4) {
-				Declaration(Gura_Symbol(color), VTYPE_color).
-										ValidateAndCast(env, sig, valList[3]);
+				AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(color), VTYPE_color));
+				pDecl->ValidateAndCast(env, sig, valList[3]);
 				if (sig.IsSignalled()) return Value::Null;
 				pImage->Fill(Object_color::GetObject(valList[3])->GetColor());
 			}
 		}
 	} else {
-		Declaration(Gura_Symbol(stream), VTYPE_stream, OCCUR_Once, FLAG_Read, NULL).
-									ValidateAndCast(env, sig, valList[0]);
+		AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(stream), VTYPE_stream, OCCUR_Once, FLAG_Read, NULL));
+		pDecl->ValidateAndCast(env, sig, valList[0]);
 		if (sig.IsSignalled()) return Value::Null;
 		Stream &stream = valList[0].GetStream();
 		Image::Format format = Image::FORMAT_RGBA;
 		if (valList.size() >= 2) {
-			Declaration(Gura_Symbol(format), VTYPE_symbol).
-									ValidateAndCast(env, sig, valList[1]);
+			AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(format), VTYPE_symbol));
+			pDecl->ValidateAndCast(env, sig, valList[1]);
 			if (sig.IsSignalled()) return Value::Null;
 			format = Image::SymbolToFormat(sig, valList[1].GetSymbol());
 			if (sig.IsSignalled()) return Value::Null;
@@ -165,8 +165,8 @@ Gura_ImplementFunction(image)
 		pImage.reset(new Image(format));
 		const char *imageType = NULL;
 		if (valList.size() >= 3) {
-			Declaration(Gura_Symbol(imagetype), VTYPE_string).
-									ValidateAndCast(env, sig, valList[2]);
+			AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(imagetype), VTYPE_string));
+			pDecl->ValidateAndCast(env, sig, valList[2]);
 			if (sig.IsSignalled()) return Value::Null;
 			imageType = valList[2].GetString();
 		}

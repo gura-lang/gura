@@ -5,21 +5,21 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Declaration
 //-----------------------------------------------------------------------------
-Declaration::Declaration(const Declaration &decl) :
+Declaration::Declaration(const Declaration &decl) : _cntRef(1),
 	_pSymbol(decl._pSymbol), _valType(decl._valType),
 	_occurPattern(decl._occurPattern), _flags(decl._flags),
 	_pExprDefault(Expr::Reference(decl._pExprDefault.get()))
 {
 }
 
-Declaration::Declaration(const Symbol *pSymbol, ValueType valType) :
+Declaration::Declaration(const Symbol *pSymbol, ValueType valType) : _cntRef(1),
 	_pSymbol(pSymbol), _valType(valType),
 	_occurPattern(OCCUR_Once), _flags(0), _pExprDefault(NULL)
 {
 }
 
 Declaration::Declaration(const Symbol *pSymbol, ValueType valType,
-		OccurPattern occurPattern, ULong flags, Expr *pExprDefault) :
+		OccurPattern occurPattern, ULong flags, Expr *pExprDefault) : _cntRef(1),
 	_pSymbol(pSymbol), _valType(valType),
 	_occurPattern(occurPattern), _flags(flags), _pExprDefault(pExprDefault)
 {
