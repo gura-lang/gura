@@ -1,6 +1,60 @@
 #!/usr/bin/env gura
 import(argopt)
 
+ModuleInfo = struct(moduleName:string, action:symbol, platforms[]:symbol)
+moduleInfos = @(ModuleInfo) {
+	['base64',			`skip,	[`mswin,	`linux	]]	// integrated
+	['bmp',				`build,	[`mswin,	`linux	]]
+	['bzip2',			`build,	[`mswin,	`linux	]]
+	['cairo',			`build,	[`mswin,	`linux	]]
+	['canvas',			`build,	[`mswin,			]]
+	['codecs_basic',	`skip,	[`mswin,	`linux	]]	// integrated
+	['codecs_iso8859',	`skip,	[`mswin,	`linux	]]	// integrated
+	['codecs_japanese',	`skip,	[`mswin,	`linux	]]	// integrated
+	['conio',			`skip,	[`mswin,	`linux	]]	// integrated
+	['csv',				`build,	[`mswin,	`linux	]]
+	['curl',			`build,	[`mswin,	`linux	]]
+	['emf',				`skip,	[`mswin,	`linux	]]	// not completed
+	['freetype',		`build,	[`mswin,	`linux	]]
+	['fs',				`skip,	[`mswin,	`linux	]]	// integrated
+	['gif',				`build,	[`mswin,	`linux	]]
+	['glu',				`build,	[`mswin,	`linux	]]
+	['guri',			`build,	[`mswin,	`linux	]]
+	['gzip',			`build,	[`mswin,	`linux	]]
+	['hash',			`build,	[`mswin,	`linux	]]
+	['http',			`build,	[`mswin,	`linux	]]
+	['jpeg',			`build,	[`mswin,	`linux	]]
+	['llvm',			`skip,	[`mswin,	`linux	]]	// not completed
+	['markdown',		`build,	[`mswin,	`linux	]]
+	['math',			`skip,	[`mswin,	`linux	]]	// integrated
+	['midi',			`build,	[`mswin,	`linux	]]
+	['msico',			`build,	[`mswin,	`linux	]]
+	['mswin',			`build,	[`mswin,			]]
+	['mysql',			`skip,	[`mswin,	`linux	]]	// not completed
+	['opengl',			`build,	[`mswin,	`linux	]]
+	['os',				`skip,	[`mswin,	`linux	]]	// integrated
+	['path',			`skip,	[`mswin,	`linux	]]	// integrated
+	['png',				`build,	[`mswin,	`linux	]]
+	['postgresql',		`skip,	[`mswin,	`linux	]]	// not completed
+	['ppm',				`build,	[`mswin,	`linux	]]
+	['re',				`build,	[`mswin,	`linux	]]
+	['sample',			`build,	[`mswin,	`linux	]]
+	['sdl',				`build,	[`mswin,	`linux	]]
+	['sqlite3',			`build,	[`mswin,	`linux	]]
+	['tar',				`build,	[`mswin,	`linux	]]
+	['tcl',				`build,	[`mswin,	`linux	]]
+	['tester',			`skip,	[`mswin,	`linux	]]	// just for test
+	['tiff',			`build,	[`mswin,	`linux	]]
+	['time',			`skip,	[`mswin,	`linux	]]	// integrated
+	['uuid',			`build,	[`mswin,			]]
+	['wav',				`build,	[`mswin,	`linux	]]
+	['wx',				`build,	[`mswin,	`linux	]]
+	['xml',				`build,	[`mswin,	`linux	]]
+	['xpm',				`build,	[`mswin,	`linux	]]
+	['yaml',			`build,	[`mswin,	`linux	]]
+	['zip',				`build,	[`mswin,	`linux	]]
+}
+
 argopt.Parser {|p|
 	p.addFlag('verbose',	'v', 'verbose mode')
 	p.addFlag('debug',		'd', 'build module with debug information')
@@ -34,48 +88,9 @@ argopt.Parser {|p|
 		sys.exit(1)
 	}
 }
-ModuleInfo = struct(moduleName:string, platforms[]:symbol)
-moduleInfos = @(ModuleInfo) {
-	['sample',		[`mswin, `linux]]
-	['csv',			[`mswin, `linux]]
-	['re',			[`mswin, `linux]]
-	['sqlite3',		[`mswin, `linux]]
-//	['mysql',		[`mswin, `linux]]
-//	['postgresql',	[`mswin, `linux]]
-	['xml',			[`mswin, `linux]]
-	['yaml',		[`mswin, `linux]]
-	['sdl',			[`mswin, `linux]]
-	['cairo',		[`mswin, `linux]]
-	['opengl',		[`mswin, `linux]]
-	['glu',			[`mswin, `linux]]
-	['bmp',			[`mswin, `linux]]
-	['ppm',			[`mswin, `linux]]
-	['xpm',			[`mswin, `linux]]
-	['msico',		[`mswin, `linux]]
-	['jpeg',		[`mswin, `linux]]
-	['png',			[`mswin, `linux]]
-	['gif',			[`mswin, `linux]]
-	['tiff',		[`mswin, `linux]]
-	['freetype',	[`mswin, `linux]]
-	['tcl',			[`mswin, `linux]]
-	['hash',		[`mswin, `linux]]
-	['gzip',		[`mswin, `linux]]
-	['bzip2',		[`mswin, `linux]]
-	['zip',			[`mswin, `linux]]
-	['tar',			[`mswin, `linux]]
-	['http',		[`mswin, `linux]]
-	['curl',		[`mswin, `linux]]
-	['wx',			[`mswin, `linux]]
-	['guri',		[`mswin, `linux]]
-	['midi',		[`mswin, `linux]]
-	['wav',			[`mswin, `linux]]
-	['markdown',	[`mswin, `linux]]
-	['uuid',		[`mswin]]
-	['canvas',		[`mswin]]
-	['mswin',		[`mswin]]
-}
 moduleNamesExcept = cfg['exclude'].split(',')
-moduleNames = moduleInfos.filter(moduleInfos:*platforms:*iscontain(sys.platform))::moduleName
+moduleNames = moduleInfos.filter(moduleInfos:*action == `build && \
+		moduleInfos:*platforms:*iscontain(sys.platform))::moduleName
 dirNamePre = path.dirname(sys.argv[0])
 moduleNamesError = []
 debFiles = []
@@ -84,7 +99,7 @@ for (moduleName in moduleNames) {
 	if (moduleName in moduleNamesExcept) {
 		printf('[%s]', moduleName)
 		conio.setcolor(`bright_red) {
-			printf('...skipped\n')
+			printf(' .. skipped\n')
 		}
 		continue
 	}
@@ -121,7 +136,10 @@ for (moduleName in moduleNames) {
 }
 if (sys.argv.len() < 2 || !(command in [`install, `build_install])) {
 	if (!moduleNamesError.isempty()) {
-		println('**** error while buiding ', moduleNamesError)
+		println()
+		conio.setcolor(`bright_red) {
+			println('**** error while building ', moduleNamesError)
+		}
 	}
 	if (!debFiles.isempty()) {
 		fileName = 'install-deb.sh'
