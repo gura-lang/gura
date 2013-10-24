@@ -172,9 +172,7 @@ bool Stream_File::Open(Signal sig, const char *fileName, ULong attr)
 					dwDesiredAccess, dwShareMode,
 					NULL, dwCreationDisposition, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (_hFile == INVALID_HANDLE_VALUE) {
-		String fileNameBase;
-		PathManager::SplitFileName(fileName, NULL, &fileNameBase);
-		sig.SetError(ERR_IOError, "can't open file '%s'", fileNameBase.c_str());
+		sig.SetError(ERR_IOError, "can't open file '%s'", fileName);
 		return false;
 	}
 	if (IsAppend()) {
@@ -367,9 +365,7 @@ bool Stream_File::Open(Signal sig, const char *fileName, ULong attr)
 	modeMod[1] = '\0';
 	_fp = ::fopen(OAL::ToNativeString(_fileName.c_str()).c_str(), modeMod);
 	if (_fp == NULL) {
-		String fileNameBase;
-		PathManager::SplitFileName(fileName, NULL, &fileNameBase);
-		sig.SetError(ERR_IOError, "can't open file '%s'", fileNameBase.c_str());
+		sig.SetError(ERR_IOError, "can't open file '%s'", fileName);
 		return false;
 	}
 	_needCloseFlag = true;
