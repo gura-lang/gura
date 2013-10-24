@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#define USE_TINYBUFF 0
+#define USE_TINYBUFF 1
 
 namespace Gura {
 
@@ -340,7 +340,7 @@ Value::Value(Environment &env, const String &str) : _valType(VTYPE_string), _val
 	size_t len = str.size();
 	if (len < sizeof(_u) - 1) {
 		_valFlags |= VFLAG_TinyBuff;
-		::memcpy(_u.tinyBuff, str, len + 1);
+		::memcpy(_u.tinyBuff, str.c_str(), len + 1);
 	} else {
 		_u.pObj = new Object_string(env, str);
 	}
@@ -369,7 +369,8 @@ Value::Value(Environment &env, const char *str, size_t len) : _valType(VTYPE_str
 #if USE_TINYBUFF
 	if (len < sizeof(_u) - 1) {
 		_valFlags |= VFLAG_TinyBuff;
-		::memcpy(_u.tinyBuff, str, len + 1);
+		::memcpy(_u.tinyBuff, str, len);
+		_u.tinyBuff[len] = '\0';
 	} else {
 		_u.pObj = new Object_string(env, str, len);
 	}

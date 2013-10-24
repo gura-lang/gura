@@ -540,9 +540,9 @@ Gura_DeclareMethod(string, match)
 
 Gura_ImplementMethod(string, match)
 {
-	Object_string *pThis = Object_string::GetThisObj(args);
+	const char *strThis = args.GetThis().GetString();
 	regex_t *pRegEx = dynamic_cast<Object_pattern *>(args.GetObject(0))->GetRegEx();
-	Value result = DoMatch(env, sig, pRegEx, pThis->GetString(),
+	Value result = DoMatch(env, sig, pRegEx, strThis,
 			args.GetInt(1), args.IsNumber(2)? args.GetInt(2) : -1);
 	if (result.IsInvalid()) return result;
 	return ReturnValue(env, sig, args, result);
@@ -560,16 +560,16 @@ Gura_DeclareMethod(string, sub)
 
 Gura_ImplementMethod(string, sub)
 {
-	Object_string *pThis = Object_string::GetThisObj(args);
+	const char *strThis = args.GetThis().GetString();
 	regex_t *pRegEx = dynamic_cast<Object_pattern *>(args.GetObject(0))->GetRegEx();
 	int cnt = args.IsNumber(2)? static_cast<int>(args.GetNumber(2)) : -1;
 	String result;
 	if (args.IsString(1)) {
 		result = DoSubWithString(env, sig, pRegEx,
-						args.GetString(1), pThis->GetString(), cnt);
+						args.GetString(1), strThis, cnt);
 	} else if (args.IsFunction(1)) {
 		result = DoSubWithFunc(env, sig, pRegEx,
-						args.GetFunction(1), pThis->GetString(), cnt);
+						args.GetFunction(1), strThis, cnt);
 	} else {
 		SetError_ArgumentTypeByIndex(sig, args, 1);
 		return Value::Null;
@@ -579,7 +579,7 @@ Gura_ImplementMethod(string, sub)
 	ValueList valListArg;
 	valListArg.reserve(2);
 	valListArg.push_back(Value(env, result));
-	valListArg.push_back(Value(result != pThis->GetStringSTL()));
+	valListArg.push_back(Value(result != strThis));
 	return ReturnValues(env, sig, args, valListArg);
 }
 
@@ -594,12 +594,12 @@ Gura_DeclareMethod(string, splitreg)
 
 Gura_ImplementMethod(string, splitreg)
 {
-	Object_string *pThis = Object_string::GetThisObj(args);
+	const char *strThis = args.GetThis().GetString();
 	Object_pattern *pObjPattern =
 			dynamic_cast<Object_pattern *>(Object::Reference(args.GetObject(0)));
 	int cntMax = args.IsNumber(1)? static_cast<int>(args.GetNumber(1)) : -1;
 	return ReturnIterator(env, sig, args,
-				new IteratorSplit(pObjPattern, pThis->GetStringSTL(), cntMax));
+				new IteratorSplit(pObjPattern, strThis, cntMax));
 }
 
 // string#scan(pattern:pattern, pos:number => 0, endpos?:number):map {block?}
@@ -614,12 +614,12 @@ Gura_DeclareMethod(string, scan)
 
 Gura_ImplementMethod(string, scan)
 {
-	Object_string *pThis = Object_string::GetThisObj(args);
+	const char *strThis = args.GetThis().GetString();
 	Object_pattern *pObjPattern =
 			dynamic_cast<Object_pattern *>(Object::Reference(args.GetObject(0)));
 	int posEnd = args.IsNumber(2)? args.GetInt(2) : -1;
 	return ReturnIterator(env, sig, args,
-			new IteratorScan(pObjPattern, pThis->GetStringSTL(), args.GetInt(1), posEnd));
+			new IteratorScan(pObjPattern, strThis, args.GetInt(1), posEnd));
 }
 
 //-----------------------------------------------------------------------------

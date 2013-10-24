@@ -674,7 +674,8 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 	switch (_stat) {
 	//-------------------------------------------------------------------------
 	case STAT_Init: {
-		if (_pFunc->GetType() == FUNCTYPE_Instance && _pArgs->GetThisObj() == NULL) {
+		if (_pFunc->GetType() == FUNCTYPE_Instance &&
+				!_pArgs->GetThis().GetTinyBuffFlag() && _pArgs->GetThisObj() == NULL) {
 			sig.SetError(ERR_ValueError,
 				"object is expected as l-value of field");
 			return false;

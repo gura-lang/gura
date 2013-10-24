@@ -71,10 +71,11 @@ testcase {
 }
 testcase {
 	strs = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-	strs:*x = strs:*len()
-	strs::y = strs:*len()
-	println(strs:*x.join(','))
-	println(strs:*y.join(','))
+	attrs = dim(strs.len()) { object() }
+	attrs:*x = strs:*len()
+	attrs::y = strs:*len()
+	println(attrs:*x.join(','))
+	println(attrs:*y.join(','))
 }
 testcase {
 	tester(`(math.sin(interval(0, math.pi / 2, 20)):list))

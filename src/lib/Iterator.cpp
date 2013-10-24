@@ -1308,13 +1308,17 @@ bool Iterator_MemberMap::DoNext(Environment &env, Signal sig, Value &value)
 {
 	Value valueThisEach;
 	if (!_pIterator->Next(env, sig, valueThisEach)) return false;
-	Fundamental *pFundEach = valueThisEach.ExtractFundamental(sig);
-	if (sig.IsSignalled()) return false;
-	Environment &envEach = *pFundEach;
+	Fundamental *pFundEach = NULL;
+	if (valueThisEach.IsPrimitive() || valueThisEach.GetTinyBuffFlag()) {
+		pFundEach = env.LookupClass(valueThisEach.GetValueType());
+	} else {
+		pFundEach = valueThisEach.ExtractFundamental(sig);
+		if (sig.IsSignalled()) return false;
+	}
 	SeqPostHandler *pSeqPostHandler = NULL;
-	value = _pExpr->Exec2(envEach, sig, pSeqPostHandler);
+	value = _pExpr->Exec2(*pFundEach, sig, pSeqPostHandler);
 	if (value.IsFunction()) {
-		Object_function *pObj = new Object_function(envEach,
+		Object_function *pObj = new Object_function(*pFundEach,
 						Function::Reference(value.GetFunction()), valueThisEach);
 		value = Value(pObj);
 	}
