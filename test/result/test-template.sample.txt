@@ -315,3 +315,33 @@ expected error occurs: ValueError: undefined symbol 'hoge'
 '${"hello"}'.template() .. hello
 '${["first", "second", "third"]}'.template() .. firstsecondthird
 expected error occurs: TypeError: template script must return nil, string or number
+
+======== #13 ========
+
+10
+10
+hello world
+    B
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+hoge
+
+    hoge 1
+    hoge 2
+    hoge 3
+    hoge 4
+    hoge 5
+    hoge 6
+    hoge 7
+    hoge 8
+    hoge 9
+    hoge 10
+
