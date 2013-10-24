@@ -1217,7 +1217,6 @@ Expr *Expr_Block::Clone() const
 
 Value Expr_Block::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
 {
-	if (!_pExprBlockParam.IsNull()) {} // needs to do something here?
 	Value result;
 	if (env.IsType(ENVTYPE_lister)) {
 		ValueList &valList = result.InitAsList(env);
