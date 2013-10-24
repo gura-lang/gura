@@ -703,6 +703,7 @@ Gura_ImplementFunction(ListInit)
 	} else {
 		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
 		ValueList &valList = result.InitAsList(env);
+		//Object_list::GetObject(result);
 		foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
 			SeqPostHandler *pSeqPostHandler = NULL;
 			Value value = (*ppExpr)->Exec2(*pEnvLister, sig, pSeqPostHandler);

@@ -48,6 +48,15 @@ SeqPostHandler::~SeqPostHandler()
 }
 
 //-----------------------------------------------------------------------------
+// SeqPostHandler_StoreList
+//-----------------------------------------------------------------------------
+bool SeqPostHandler_StoreList::DoPost(Signal sig, const Value &result)
+{
+	_pObjList->GetList().push_back(result);
+	return true;
+}
+
+//-----------------------------------------------------------------------------
 // SequenceStack
 //-----------------------------------------------------------------------------
 SequenceStack::~SequenceStack()
