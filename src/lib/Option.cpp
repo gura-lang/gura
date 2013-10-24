@@ -12,7 +12,8 @@ Option::~Option()
 	}
 }
 
-bool Option::Parse(int &argc, const char *argv[], String &strErr)
+bool Option::Parse(int &argc, const char *argv[],
+						const Info *infoTbl, int cntInfo, String &strErr)
 {
 	enum { STAT_Key, STAT_Value } stat = STAT_Key;
 	const Info *pInfo = NULL;
@@ -24,9 +25,9 @@ bool Option::Parse(int &argc, const char *argv[], String &strErr)
 			} else if (arg[1] == '-') {
 				const char *keyLong = &arg[2];
 				pInfo = NULL;
-				for (int i = 0; i < _cntInfo; i++) {
-					if (::strcmp(_infoTbl[i].keyLong, keyLong) == 0) {
-						pInfo = &_infoTbl[i];
+				for (int i = 0; i < cntInfo; i++) {
+					if (::strcmp(infoTbl[i].keyLong, keyLong) == 0) {
+						pInfo = &infoTbl[i];
 						break;
 					}
 				}
@@ -47,9 +48,9 @@ bool Option::Parse(int &argc, const char *argv[], String &strErr)
 					return false;
 				}
 				pInfo = NULL;
-				for (int i = 0; i < _cntInfo; i++) {
-					if (_infoTbl[i].keyShort == keyShort) {
-						pInfo = &_infoTbl[i];
+				for (int i = 0; i < cntInfo; i++) {
+					if (infoTbl[i].keyShort == keyShort) {
+						pInfo = &infoTbl[i];
 						break;
 					}
 				}

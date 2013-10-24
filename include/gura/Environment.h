@@ -5,6 +5,7 @@
 #include "String.h"
 #include "Operator.h"
 #include "Help.h"
+#include "Option.h"
 
 //-----------------------------------------------------------------------------
 // macros
@@ -168,6 +169,7 @@ class GURA_DLLDECLARE Environment {
 public:
 	class GURA_DLLDECLARE Global {
 	private:
+		Option				_opt;
 		IntegratedModuleMap _integratedModuleMap;
 		SeparatedModuleMap	_separatedModuleMap;
 		StringList			_workingDirList;
@@ -192,6 +194,7 @@ public:
 		Module *LookupSeparatedModule(const char *pathName) const;
 		void RegisterSeparatedModule(const char *pathName, Module *pModule);
 		void UnregisterSeparatedModule(const char *pathName);
+		inline Option &GetOption() { return _opt; }
 		inline PathManagerOwner &GetPathManagerOwner() { return _pathManagerOwner; }
 		inline const PathManagerOwner &GetPathManagerOwner() const { return _pathManagerOwner; }
 		inline HelpPresenterOwner &GetHelpPresenterOwner() { return _helpPresenterOwner; }
@@ -279,18 +282,20 @@ public:
 protected:
 	virtual ~Environment();
 public:
-	bool InitializeAsRoot(Signal sig, int argc, const char *argv[]);
+	bool InitializeAsRoot(Signal sig, int &argc, const char *argv[],
+								const Option::Info *optInfoTbl, int cntOptInfo);
 	inline FrameOwner &GetFrameOwner()			{ return _frameOwner;						}
 	inline const FrameOwner &GetFrameOwner() const{ return _frameOwner;						}
 	inline Frame *GetTopFrame()					{ return _frameOwner.front();				}
 	inline const Frame *GetTopFrame() const		{ return _frameOwner.front();				}
 	inline Frame *GetBottomFrame()				{ return _frameOwner.back();				}
 	inline const Frame *GetBottomFrame() const	{ return _frameOwner.back();				}
-	inline EnvType GetEnvType() const			{ return GetTopFrame()->GetEnvType(); }
-	inline const char *GetTypeName() const		{ return GetTopFrame()->GetTypeName(); }
-	inline bool IsType(EnvType envType) const	{ return GetTopFrame()->IsType(envType); }
-	inline Global *GetGlobal()					{ return GetTopFrame()->GetGlobal();			}
-	inline Global *GetGlobal() const			{ return GetTopFrame()->GetGlobal();			}
+	inline EnvType GetEnvType() const			{ return GetTopFrame()->GetEnvType();		}
+	inline const char *GetTypeName() const		{ return GetTopFrame()->GetTypeName();		}
+	inline bool IsType(EnvType envType) const	{ return GetTopFrame()->IsType(envType);	}
+	inline Global *GetGlobal()					{ return GetTopFrame()->GetGlobal();		}
+	inline Global *GetGlobal() const			{ return GetTopFrame()->GetGlobal();		}
+	inline Option &GetOption()					{ return GetGlobal()->GetOption();			}
 	inline Operator *GetOperator(OpType opType) { return GetGlobal()->GetOperator(opType);	}
 	inline const Operator *GetOperator(OpType opType) const { return GetGlobal()->GetOperator(opType);	}
 	inline void SetOperator(OpType opType, Operator *pOperator) { GetGlobal()->SetOperator(opType, pOperator); }

@@ -127,7 +127,8 @@ Environment::~Environment()
 	// virtual destructor
 }
 
-bool Environment::InitializeAsRoot(Signal sig, int argc, const char *argv[])
+bool Environment::InitializeAsRoot(Signal sig, int &argc, const char *argv[],
+									const Option::Info *optInfoTbl, int cntOptInfo)
 {
 	Environment &env = *this;
 #if defined(_MSC_VER)
@@ -178,6 +179,13 @@ bool Environment::InitializeAsRoot(Signal sig, int argc, const char *argv[])
 	if (Gura_Module(math)::Import(env, sig) == NULL) return false;
 	// import(conio)
 	if (Gura_Module(conio)::Import(env, sig) == NULL) return false;
+	if (optInfoTbl != NULL) {
+		String strErr;
+		if (!GetOption().Parse(argc, argv, optInfoTbl, cntOptInfo, strErr)) {
+			sig.SetError(ERR_CommandError, "%s", strErr.c_str());
+			return false;
+		}
+	}
 	// setup values in sys module
 	if (!Gura_Module(sys)::SetupValues(GetGlobal()->GetModule_sys(), sig, argc, argv)) {
 		return false;

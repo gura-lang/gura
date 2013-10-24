@@ -31,7 +31,9 @@ inline Gura::String IIDString(REFIID riid)
 CMain::CMain() : _cntRef(0), _activeScriptParse32(this),
 	_objectSafety(this), _pActiveScriptSite(NULL), _pEnv(new Gura::Environment())
 {
-	_pEnv->InitializeAsRoot(_sig, 0, NULL);
+	int argc = 0;
+	const char **argv = NULL;
+	_pEnv->InitializeAsRoot(_sig, argc, argv, NULL, 0);
 }
 
 STDMETHODIMP CMain::QueryInterface(REFIID riid, void **ppv)

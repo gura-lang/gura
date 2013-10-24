@@ -47,17 +47,11 @@ int MainW(int argc, const char *argv[])
 	Signal sig;
 	AutoPtr<Environment> pEnv(new Environment());
 	Environment &env = *pEnv;
-	Option opt(optInfoTbl, ArraySizeOf(optInfoTbl));
-	String strErr;
-	bool rtn = opt.Parse(argc, argv, strErr);
-	if (!env.InitializeAsRoot(sig, argc, argv)) {
+	if (!env.InitializeAsRoot(sig, argc, argv, optInfoTbl, ArraySizeOf(optInfoTbl))) {
 		env.GetConsoleErr()->PrintSignal(sig, sig);
 		return 1;
 	}
-	if (!rtn) {
-		UsageWindow().Show(strErr.c_str());
-		return 1;
-	}
+	Option &opt = env.GetOption();
 	if (opt.IsSet("version")) {
 		UsageWindow().Show();
 		return 0;

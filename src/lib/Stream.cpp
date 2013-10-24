@@ -27,18 +27,20 @@ void SimpleStream::PrintSignal(Signal sig, const Signal &sigToPrint)
 {
 	if (sig.IsError()) {
 		Println(sig, sigToPrint.GetError().MakeText().c_str());
-		Println(sig, "Traceback:");
 		AutoPtr<ExprOwner> pExprOwner(new ExprOwner());
 		sigToPrint.GetError().GetExprCauseOwner().ExtractTrace(*pExprOwner);
-		foreach_const (ExprOwner, ppExpr, *pExprOwner) {
-			Expr *pExpr = *ppExpr;
-			String str;
-			str += pExpr->MakePosText();
-			str += ":\n";
-			str += "  ";
-			str += pExpr->ToString(Expr::SCRSTYLE_Brief);
-			str += "\n";
-			Print(sig, str.c_str());
+		if (!pExprOwner->empty()) {
+			Println(sig, "Traceback:");
+			foreach_const (ExprOwner, ppExpr, *pExprOwner) {
+				Expr *pExpr = *ppExpr;
+				String str;
+				str += pExpr->MakePosText();
+				str += ":\n";
+				str += "  ";
+				str += pExpr->ToString(Expr::SCRSTYLE_Brief);
+				str += "\n";
+				Print(sig, str.c_str());
+			}
 		}
 	} else {
 		Value value = sigToPrint.GetValue();

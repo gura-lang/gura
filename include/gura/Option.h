@@ -18,13 +18,11 @@ public:
 	typedef std::map<String, StringList *> Map;
 private:
 	Map _map;
-	const Info *_infoTbl;
-	int _cntInfo;
 public:
-	inline Option(const Info *infoTbl, int cntInfo) :
-									_infoTbl(infoTbl), _cntInfo(cntInfo) {}
+	inline Option() {}
 	~Option();
-	bool Parse(int &argc, const char *argv[], String &strErr);
+	bool Parse(int &argc, const char *argv[],
+					const Info *infoTbl, int cntInfo, String &strErr);
 	bool IsSet(const char *key);
 	const char *GetString(const char *key, const char *defValue) const;
 	const StringList &GetStringList(const char *key) const;
