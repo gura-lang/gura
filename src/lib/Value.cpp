@@ -306,7 +306,7 @@ Value::Value(const Value &value) : _valType(value._valType), _valFlags(value._va
 	} else if (value.IsFraction()) {
 		_u.pFrac = new Fraction(*value._u.pFrac);
 	} else if (value.IsString()) {
-		_u.pStr = new String(*value._u.pStr);
+		_u.pStrRef = value._u.pStrRef->Reference();
 	} else if (value.IsModule()) {
 		_u.pModule = Module::Reference(value._u.pModule);
 	} else if (value.IsClass()) {
@@ -344,10 +344,10 @@ Value::Value(Environment &env, const String &str) : _valType(VTYPE_string), _val
 		_valFlags |= VFLAG_TinyBuff;
 		::memcpy(_u.tinyBuff, str.c_str(), len + 1);
 	} else {
-		_u.pStr = new String(str);
+		_u.pStrRef = new StringRef(str);
 	}
 #else
-	_u.pStr = new String(str);
+	_u.pStrRef = new StringRef(str);
 #endif
 }
 
@@ -359,10 +359,10 @@ Value::Value(Environment &env, const char *str) : _valType(VTYPE_string), _valFl
 		_valFlags |= VFLAG_TinyBuff;
 		::memcpy(_u.tinyBuff, str, len + 1);
 	} else {
-		_u.pStr = new String(str);
+		_u.pStrRef = new StringRef(str);
 	}
 #else
-	_u.pStr = new String(str);
+	_u.pStrRef = new StringRef(str);
 #endif
 }
 
@@ -374,10 +374,10 @@ Value::Value(Environment &env, const char *str, size_t len) : _valType(VTYPE_str
 		::memcpy(_u.tinyBuff, str, len);
 		_u.tinyBuff[len] = '\0';
 	} else {
-		_u.pStr = new String(str, len);
+		_u.pStrRef = new StringRef(String(str, len));
 	}
 #else
-	_u.pStr = new String(str, len);
+	_u.pStrRef = new StringRef(String(str, len));
 #endif
 }
 
@@ -429,8 +429,8 @@ void Value::FreeResource()
 		delete _u.pFrac;
 		_u.pFrac = NULL;
 	} else if (IsString()) {
-		delete _u.pStr;
-		_u.pStr = NULL;
+		StringRef::Delete(_u.pStrRef);
+		_u.pStrRef = NULL;
 	} else if (IsModule()) {
 		if (IsOwner()) Module::Delete(_u.pModule);
 		_u.pModule = NULL;
@@ -467,7 +467,7 @@ Value &Value::operator=(const Value &value)
 	} else if (value.IsFraction()) {
 		_u.pFrac = new Fraction(*value._u.pFrac);
 	} else if (value.IsString()) {
-		_u.pStr = new String(*value._u.pStr);
+		_u.pStrRef = value._u.pStrRef->Reference();
 	} else if (value.IsModule()) {
 		_u.pModule = Module::Reference(value._u.pModule);
 	} else if (value.IsClass()) {
@@ -537,13 +537,13 @@ bool Value::IsInstanceOf(ValueType valType) const
 const char *Value::GetString() const
 {
 	if (GetTinyBuffFlag()) return _u.tinyBuff;
-	return _u.pStr->c_str();
+	return _u.pStrRef->GetString();
 }
 
 String Value::GetStringSTL() const
 {
 	if (GetTinyBuffFlag()) return String(_u.tinyBuff);
-	return *_u.pStr;
+	return _u.pStrRef->GetStringSTL();
 }
 
 const Binary &Value::GetBinary() const

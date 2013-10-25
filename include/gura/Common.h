@@ -217,6 +217,22 @@ private:
 typedef std::basic_string<char> String;
 typedef std::deque<String> StringDeque;
 
+class GURA_DLLDECLARE StringRef {
+private:
+	int _cntRef;
+	String _str;
+public:
+	Gura_DeclareReferenceAccessor(StringRef)
+public:
+	inline StringRef() : _cntRef(1) {}
+	inline StringRef(const String &str) : _cntRef(1), _str(str) {}
+private:
+	inline ~StringRef() {}
+public:
+	inline const char *GetString() const { return _str.c_str(); }
+	inline const String &GetStringSTL() const { return _str; }
+};
+
 //-----------------------------------------------------------------------------
 // Complex
 //-----------------------------------------------------------------------------

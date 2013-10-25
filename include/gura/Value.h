@@ -241,7 +241,7 @@ private:
 		const Symbol *pSymbol;	// VTYPE_symbol
 		Complex *pComp;			// VTYPE_complex
 		Fraction *pFrac;		// VTYPE_fraction
-		String *pStr;			// VTYPE_string
+		StringRef *pStrRef;		// VTYPE_string
 		Module *pModule;		// VTYPE_module
 		Class *pClass;			// VTYPE_class
 		Sequence *pSequence;	// VTYPE_Sequence
