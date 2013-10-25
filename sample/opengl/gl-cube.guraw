@@ -14,8 +14,8 @@ vertex = [
 init(w:number, h:number) = {
 	glClearColor(1, 1, 1, 1)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-	glEnable(GL_DEPTH_TEST, GL_CULL_FACE)
-	glEnable(GL_LIGHTING, GL_LIGHT0, GL_LIGHT1)
+	glEnable([GL_DEPTH_TEST, GL_CULL_FACE])
+	glEnable([GL_LIGHTING, GL_LIGHT0, GL_LIGHT1])
 	glCullFace(GL_FRONT)
 	glViewport(0, 0, w, h)
 	glMatrixMode(GL_PROJECTION)

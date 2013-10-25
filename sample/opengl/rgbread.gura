@@ -20,7 +20,7 @@ classref(`image).rgbread(stream:stream) = {
 				[pixel] = p.unpack('B')
 				repeat (count):iter { pixel }
 			} else {
-				p.unpack('${count}B'.template()).each()
+				p.unpack('${count}B'.template()).each().repeater()
 			}
 		}
 	}

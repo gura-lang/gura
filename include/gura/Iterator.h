@@ -75,6 +75,7 @@ public:
 	inline bool IsRepeater() const { return _repeaterFlag; }
 	inline void SetInfiniteFlag(bool infiniteFlag) { _infiniteFlag = infiniteFlag; }
 	inline void SetSkipInvalidFlag(bool skipInvalidFlag) { _skipInvalidFlag = skipInvalidFlag; }
+	inline void SetRepeaterFlag(bool repeaterFlag) { _repeaterFlag = repeaterFlag; }
 	inline bool Next(Environment &env, Signal sig, Value &value) {
 		_cntNext++;
 		return NextShared(env, sig, 0, value);

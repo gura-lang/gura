@@ -1129,6 +1129,19 @@ Gura_ImplementMethod(iterator, fold)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
+// iterator#repeater()
+Gura_DeclareMethod(iterator, repeater)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(iterator, repeater)
+{
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	pThis->GetIterator()->SetRepeaterFlag(true);
+	return args.GetThis();
+}
+
 //-----------------------------------------------------------------------------
 // Classs implementation
 //-----------------------------------------------------------------------------
@@ -1192,6 +1205,7 @@ void Class_iterator::Prepare(Environment &env)
 	Gura_AssignMethod(iterator, round);
 	Gura_AssignMethod(iterator, pingpong);
 	Gura_AssignMethod(iterator, fold);
+	Gura_AssignMethod(iterator, repeater);
 }
 
 bool Class_iterator::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
