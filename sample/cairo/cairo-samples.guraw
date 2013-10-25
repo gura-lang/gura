@@ -445,7 +445,7 @@ testList = @{
 		cr.scale(3, 3)
 		alphabet = 'AbCdEfGhIjKlMnOpQrStUvWxYz'
 		[x0, y0] = [0.5, 1]
-		for (letter in alphabet) {|i|
+		alphabet.each {|letter, i|
 			te = cr.text_extents(letter)
 			cr.move_to(x0 + i + 0.5 - te.x_bearing - te.width / 2,
 						y0 + 0.5 - te.y_bearing - te.height / 2)
