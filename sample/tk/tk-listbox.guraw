@@ -21,7 +21,7 @@ tk.mainwindow {|mw|
 		code = countrycodes[idx]
 		name = countrynames[idx]
 		popn = populations[code]
-		statusmsg.string = 'The population of %s (%s) is %d' % (name, code, popn)
+		statusmsg.string = 'The population of %s (%s) is %d' % [name, code, popn]
 		sentmsg.string = ''
 	}
 	sendGift() = {
@@ -29,7 +29,7 @@ tk.mainwindow {|mw|
 		idx = int(idx)
 		lbox.see(idx)
 		name = countrynames[idx]
-		sentmsg.string = 'Sent %s to leader of %s' % (gifts[gift.string], name)
+		sentmsg.string = 'Sent %s to leader of %s' % [gifts[gift.string], name]
 	}
 	mw.ttk$Frame(padding => '5 5 12 0') {|c|
 		c.grid(column => 0, row => 0, sticky => 'nwes')
