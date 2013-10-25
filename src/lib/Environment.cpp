@@ -257,7 +257,6 @@ void Environment::CacheFrame(const Symbol *pSymbol, Frame *pFrame)
 
 bool Environment::IsSymbolPublic(const Symbol *pSymbol) const
 {
-#if 1
 	EnvType envType = GetTopFrame()->GetEnvType();
 	if (envType == ENVTYPE_class || envType == ENVTYPE_object) {
 		foreach_const (FrameOwner, ppFrame, _frameOwner) {
@@ -270,9 +269,6 @@ bool Environment::IsSymbolPublic(const Symbol *pSymbol) const
 	}
 	const Frame *pFrame = GetTopFrame();
 	return pFrame->IsSymbolPublic(pSymbol);
-#else
-	return true;
-#endif
 }
 
 void Environment::AssignValue(const Symbol *pSymbol, const Value &value, ULong extra)
