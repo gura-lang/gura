@@ -1,6 +1,6 @@
 #!/usr/bin/env gura
 # encoding: utf-8
-import(show_wx)
+import(show.wx)
 import(freetype, ft)
 
 scope {
