@@ -857,13 +857,13 @@ Expr_Root *Parser::ParseStream(Environment &env, Signal sig, const char *pathNam
 		PathManager::SplitFileName(pathName, NULL, &fileName);
 		const char *extName = PathManager::SeekExtName(fileName.c_str());
 		std::string baseName = std::string(fileName.c_str(), extName);
-		if (::strcasecmp(extName, ".gurc") == 0) {
+		if (::strcasecmp(extName, EXTNAME_Compound) == 0) {
 			pathNameMod = OAL::JoinPathName(pathName, baseName.c_str());
-			pathNameMod += ".gura";
+			pathNameMod += EXTNAME_Script;
 			zippedFlag = true;
-		} else if (::strcasecmp(extName, ".gurcw") == 0) {
+		} else if (::strcasecmp(extName, EXTNAME_CompoundWin) == 0) {
 			pathNameMod = OAL::JoinPathName(pathName, baseName.c_str());
-			pathNameMod += ".guraw";
+			pathNameMod += EXTNAME_ScriptWin;
 			zippedFlag = true;
 		} else {
 			pathNameMod = pathName;

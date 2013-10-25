@@ -6,6 +6,12 @@ extern "C" {
 
 namespace Gura {
 
+const char *EXTNAME_Script		= ".gura";
+const char *EXTNAME_ScriptWin	= ".guraw";
+const char *EXTNAME_Compound	= ".gurc";
+const char *EXTNAME_CompoundWin	= ".gurcw";
+const char *EXTNAME_BinModule	= ".gurd";
+
 const int MAX_STACK_LEVEL = 20000;
 const size_t InvalidSize = static_cast<size_t>(-1);
 

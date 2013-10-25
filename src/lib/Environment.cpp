@@ -880,7 +880,7 @@ Module *Environment::ImportSeparatedModule_Binary(Signal sig, Environment *pEnvO
 
 bool Environment::IsBinaryModule(const char *pathName)
 {
-	return ::strcasecmp(PathManager::SeekExtName(pathName), ".gurd") == 0;
+	return ::strcasecmp(PathManager::SeekExtName(pathName), EXTNAME_BinModule) == 0;
 }
 
 bool Environment::AddModuleSearchPath(Signal sig, const StringList &strList)

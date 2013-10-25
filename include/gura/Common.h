@@ -85,6 +85,12 @@ inline static void Delete(T *p) { \
 //-----------------------------------------------------------------------------
 typedef double Number;
 
+GURA_DLLDECLARE extern const char *EXTNAME_Script;
+GURA_DLLDECLARE extern const char *EXTNAME_ScriptWin;
+GURA_DLLDECLARE extern const char *EXTNAME_Compound;
+GURA_DLLDECLARE extern const char *EXTNAME_CompoundWin;
+GURA_DLLDECLARE extern const char *EXTNAME_BinModule;
+
 GURA_DLLDECLARE extern const Number Math_PI;
 GURA_DLLDECLARE extern const Number Math_E;
 GURA_DLLDECLARE extern const Number RoundOffThreshold;
