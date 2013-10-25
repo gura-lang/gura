@@ -41,6 +41,7 @@
 #include "gura/Palette.h"
 #include "gura/Parser.h"
 #include "gura/PathManager.h"
+#include "gura/PrimitiveClass.h"
 #include "gura/Processor.h"
 #include "gura/String.h"
 #include "gura/StructObject.h"
@@ -69,7 +70,6 @@
 #include "gura/Object_pointer.h"
 #include "gura/Object_semaphore.h"
 #include "gura/Object_stream.h"
-#include "gura/Object_string.h"
 #include "gura/Object_timedelta.h"
 #include "gura/Object_uri.h"
 

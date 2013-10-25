@@ -48,7 +48,6 @@ Object_palette.cpp
 Object_pointer.cpp
 Object_semaphore.cpp
 Object_stream.cpp
-Object_string.cpp
 Object_timedelta.cpp
 Object_uri.cpp
 Operator.cpp
@@ -56,6 +55,7 @@ Option.cpp
 Palette.cpp
 Parser.cpp
 PathManager.cpp
+PrimitiveClass.cpp
 Processor.cpp
 Signal.cpp
 Stream.cpp

@@ -229,7 +229,6 @@
     <ClCompile Include="Object_semaphore.cpp" />
     <ClCompile Include="Object_stream.cpp" />
     <ClCompile Include="Object_directory.cpp" />
-    <ClCompile Include="Object_string.cpp" />
     <ClCompile Include="Object_timedelta.cpp" />
     <ClCompile Include="Object_uri.cpp" />
     <ClCompile Include="Object_declaration.cpp" />
@@ -239,6 +238,7 @@
     <ClCompile Include="Palette.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="PathManager.cpp" />
+    <ClCompile Include="PrimitiveClass.cpp" />
     <ClCompile Include="Processor.cpp" />
     <ClCompile Include="Signal.cpp" />
     <ClCompile Include="Stream.cpp" />
@@ -313,7 +313,6 @@
     <ClInclude Include="..\..\include\gura\Object_semaphore.h" />
     <ClInclude Include="..\..\include\gura\Object_stream.h" />
     <ClInclude Include="..\..\include\gura\Object_directory.h" />
-    <ClInclude Include="..\..\include\gura\Object_string.h" />
     <ClInclude Include="..\..\include\gura\Object_Struct.h" />
     <ClInclude Include="..\..\include\gura\Object_timedelta.h" />
     <ClInclude Include="..\..\include\gura\Object_uri.h" />
@@ -322,6 +321,7 @@
     <ClInclude Include="..\..\include\gura\PackedNumber.h" />
     <ClInclude Include="..\..\include\gura\Parser.h" />
     <ClInclude Include="..\..\include\gura\PathManager.h" />
+    <ClInclude Include="..\..\include\gura\PrimitiveClass.h" />
     <ClInclude Include="..\..\include\gura\Signal.h" />
     <ClInclude Include="..\..\include\gura\Stream.h" />
     <ClInclude Include="..\..\include\gura\String.h" />
