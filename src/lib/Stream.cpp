@@ -1508,4 +1508,68 @@ size_t Stream_CRC32::DoGetSize()
 	return _pStreamDst.IsNull()? 0 : _pStreamDst->GetSize();
 }
 
+//-----------------------------------------------------------------------------
+// Stream_StringReader
+//-----------------------------------------------------------------------------
+Stream_StringReader::Stream_StringReader(Environment &env, Signal sig, const String &str) :
+					Stream(env, sig, ATTR_Readable), _str(str), _offset(0)
+{
+}
+
+Stream_StringReader::~Stream_StringReader()
+{
+}
+
+const char *Stream_StringReader::GetName() const
+{
+	return "string";
+}
+
+const char *Stream_StringReader::GetIdentifier() const
+{
+	return NULL;
+}
+
+size_t Stream_StringReader::DoRead(Signal sig, void *buff, size_t len)
+{
+	if (_offset > _str.size()) {
+		sig.SetError(ERR_IndexError, "out of range");
+		return 0;
+	}
+	len = ChooseMin(_str.size() - _offset, len);
+	::memcpy(buff, _str.data() + _offset, len);
+	_offset += len;
+	return len;
+}
+
+size_t Stream_StringReader::DoWrite(Signal sig, const void *buff, size_t len)
+{
+	return 0;
+}
+
+bool Stream_StringReader::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode)
+{
+	if (seekMode == SeekSet) {
+		_offset = static_cast<size_t>(offset);
+	} else if (seekMode == SeekCur) {
+		_offset += offset;
+	}
+	return true;
+}
+
+bool Stream_StringReader::DoFlush(Signal sig)
+{
+	return true;
+}
+
+bool Stream_StringReader::DoClose(Signal sig)
+{
+	return true;
+}
+
+size_t Stream_StringReader::DoGetSize()
+{
+	return _str.size();
+}
+
 }

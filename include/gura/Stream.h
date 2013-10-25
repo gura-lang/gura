@@ -385,6 +385,26 @@ public:
 	inline size_t GetBytes() const { return _crc32.GetBytes(); }
 };
 
+//-----------------------------------------------------------------------------
+// Stream_StringReader
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Stream_StringReader : public Stream {
+private:
+	String _str;
+	size_t _offset;
+public:
+	Stream_StringReader(Environment &env, Signal sig, const String &str);
+	virtual ~Stream_StringReader();
+	virtual const char *GetName() const;
+	virtual const char *GetIdentifier() const;
+	virtual size_t DoRead(Signal sig, void *buff, size_t len);
+	virtual size_t DoWrite(Signal sig, const void *buff, size_t len);
+	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
+	virtual bool DoFlush(Signal sig);
+	virtual bool DoClose(Signal sig);
+	virtual size_t DoGetSize();
+};
+
 }
 
 #endif

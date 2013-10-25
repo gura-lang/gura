@@ -1,9 +1,97 @@
-#ifndef __GURA_OBJECT_STRING_H__
-#define __GURA_OBJECT_STRING_H__
+#ifndef __GURA_PRIMITIVECLASS_H__
+#define __GURA_PRIMITIVECLASS_H__
 
 #include "Object.h"
 
 namespace Gura {
+
+//-----------------------------------------------------------------------------
+// Class_nil
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Class_nil : public Class {
+public:
+	Class_nil(Environment *pEnvOuter);
+	virtual void Prepare(Environment &env);
+	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
+	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
+};
+
+//-----------------------------------------------------------------------------
+// Class_undefined
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Class_undefined : public Class {
+public:
+	Class_undefined(Environment *pEnvOuter);
+	virtual void Prepare(Environment &env);
+	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
+	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
+};
+
+//-----------------------------------------------------------------------------
+// Class_symbol
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Class_symbol : public Class {
+public:
+	Class_symbol(Environment *pEnvOuter);
+	virtual void Prepare(Environment &env);
+	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
+	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
+};
+
+//-----------------------------------------------------------------------------
+// Class_boolean
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Class_boolean : public Class {
+public:
+	Class_boolean(Environment *pEnvOuter);
+	virtual void Prepare(Environment &env);
+	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
+	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
+};
+
+//-----------------------------------------------------------------------------
+// Class_number
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Class_number : public Class {
+public:
+	Class_number(Environment *pEnvOuter);
+	virtual void Prepare(Environment &env);
+	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
+	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
+};
+
+//-----------------------------------------------------------------------------
+// Class_complex
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Class_complex : public Class {
+public:
+	Class_complex(Environment *pEnvOuter);
+	virtual void Prepare(Environment &env);
+	virtual Value GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
+			const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const;
+	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
+	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
+};
+
+//-----------------------------------------------------------------------------
+// Class_fraction
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Class_fraction : public Class {
+public:
+	Class_fraction(Environment *pEnvOuter);
+	virtual void Prepare(Environment &env);
+	virtual Value GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
+			const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const;
+	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
+	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
+};
 
 //-----------------------------------------------------------------------------
 // Class_string
@@ -83,23 +171,27 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Stream_StringReader
+// Class_quote
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Stream_StringReader : public Stream {
-private:
-	String _str;
-	size_t _offset;
+class GURA_DLLDECLARE Class_quote : public Class {
 public:
-	Stream_StringReader(Environment &env, Signal sig, const String &str);
-	virtual ~Stream_StringReader();
-	virtual const char *GetName() const;
-	virtual const char *GetIdentifier() const;
-	virtual size_t DoRead(Signal sig, void *buff, size_t len);
-	virtual size_t DoWrite(Signal sig, const void *buff, size_t len);
-	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
-	virtual bool DoFlush(Signal sig);
-	virtual bool DoClose(Signal sig);
-	virtual size_t DoGetSize();
+	Class_quote(Environment *pEnvOuter);
+	virtual void Prepare(Environment &env);
+	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
+	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
+};
+
+//-----------------------------------------------------------------------------
+// Class_any
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Class_any : public Class {
+public:
+	Class_any(Environment *pEnvOuter);
+	virtual void Prepare(Environment &env);
+	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
+	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
 };
 
 }
