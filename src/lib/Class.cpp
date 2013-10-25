@@ -257,6 +257,20 @@ Value Class::GetPropPrimitive(Environment &env, Signal sig, const Value &valueTh
 	return Value::Null;
 }
 
+
+Value Class::EmptyIndexGetPrimitive(Environment &env, Signal sig, const Value &valueThis) const
+{
+	sig.SetError(ERR_ValueError, "empty-indexed getting access is not supported");
+	return Value::Null;
+}
+
+Value Class::IndexGetPrimitive(Environment &env, Signal sig,
+									const Value &valueThis, const Value &valueIdx) const
+{
+	sig.SetError(ERR_ValueError, "indexed getting access is not supported");
+	return Value::Null;
+}
+
 bool Class::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
 	return false;

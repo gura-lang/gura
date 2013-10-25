@@ -129,6 +129,9 @@ public:
 	bool DirProp(Environment &env, Signal sig, SymbolSet &symbols, bool escalateFlag);
 	virtual Value GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
 			const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const;
+	virtual Value EmptyIndexGetPrimitive(Environment &env, Signal sig, const Value &valueThis) const;
+	virtual Value IndexGetPrimitive(Environment &env, Signal sig,
+									const Value &valueThis, const Value &valueIdx) const;
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl);
 	virtual String ToString(Signal sig, bool exprFlag);

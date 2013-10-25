@@ -12,6 +12,8 @@ class GURA_DLLDECLARE Class_string : public Class {
 public:
 	Class_string(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
+	virtual Value IndexGetPrimitive(Environment &env, Signal sig,
+						const Value &valueThis, const Value &valueIdx) const;
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;

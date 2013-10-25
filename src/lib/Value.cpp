@@ -556,7 +556,9 @@ const TimeDelta &Value::GetTimeDelta() const
 
 Value Value::EmptyIndexGet(Environment &env, Signal sig) const
 {
-	if (IsObject()) {
+	if (IsPrimitive()) {
+		return env.LookupClass(_valType)->EmptyIndexGetPrimitive(env, sig, *this);
+	} else if (IsObject()) {
 		return GetObject()->EmptyIndexGet(env, sig);
 	}
 	sig.SetError(ERR_TypeError, "object should be specified as l-value of indexer");
@@ -574,7 +576,9 @@ void Value::EmptyIndexSet(Environment &env, Signal sig, const Value &value)
 
 Value Value::IndexGet(Environment &env, Signal sig, const Value &valueIdx) const
 {
-	if (IsObject()) {
+	if (IsPrimitive()) {
+		return env.LookupClass(_valType)->IndexGetPrimitive(env, sig, *this, valueIdx);
+	} else if (IsObject()) {
 		return GetObject()->IndexGet(env, sig, valueIdx);
 	}
 	sig.SetError(ERR_TypeError, "object should be specified as l-value of indexer");

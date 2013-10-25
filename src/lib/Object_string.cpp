@@ -919,6 +919,30 @@ void Class_string::Prepare(Environment &env)
 	Gura_AssignMethod(string, template_);
 }
 
+Value Class_string::IndexGetPrimitive(Environment &env, Signal sig,
+						const Value &valueThis, const Value &valueIdx) const
+{
+	if (!valueIdx.IsNumber()) {
+		sig.SetError(ERR_IndexError, "index must be a number for string");
+		return Value::Null;
+	}
+	int idx = valueIdx.GetInt();
+	int len = static_cast<int>(Length(valueThis.GetString()));
+	if (idx >= 0) {
+		if (idx >= len) {
+			sig.SetError(ERR_IndexError, "index is out of range");
+			return Value::Null;
+		}
+		return Value(env, PickChar(valueThis.GetStringSTL(), idx).c_str());
+	} else {
+		if (-idx > len) {
+			sig.SetError(ERR_IndexError, "index is out of range");
+			return Value::Null;
+		}
+		return Value(env, PickChar(valueThis.GetStringSTL(), len + idx).c_str());
+	}
+}
+
 bool Class_string::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
 	value = Value(env, value.ToString(sig, false).c_str());
