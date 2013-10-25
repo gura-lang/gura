@@ -100,7 +100,6 @@ public:
 	virtual ~Object_string();
 	virtual Object *Clone() const;
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
-	virtual Iterator *CreateIterator(Signal sig);
 	virtual String ToString(Signal sig, bool exprFlag);
 	static String ToString(Signal sig, const char *str, bool exprFlag);
 	inline const char *GetString() const { return _str.c_str(); }

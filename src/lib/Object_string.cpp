@@ -45,11 +45,6 @@ Value Object_string::IndexGet(Environment &env, Signal sig, const Value &valueId
 	}
 }
 
-Iterator *Object_string::CreateIterator(Signal sig)
-{
-	return new Class_string::IteratorEach(_str, -1, Class_string::IteratorEach::ATTR_None);
-}
-
 String Object_string::ToString(Signal sig, bool exprFlag)
 {
 	return ToString(sig, _str.c_str(), exprFlag);
