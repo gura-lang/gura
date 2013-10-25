@@ -5,6 +5,8 @@
 #ifndef __MODULE_ZIP_H__
 #define __MODULE_ZIP_H__
 #include <gura.h>
+#include <gura/helper/ZLibHelper.h>
+#include <gura/helper/BZLibHelper.h>
 
 Gura_BeginModule(zip)
 

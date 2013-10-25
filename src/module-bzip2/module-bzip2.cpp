@@ -2,7 +2,6 @@
 // Gura bzip2 module
 //-----------------------------------------------------------------------------
 #include "module-bzip2.h"
-#include "gura/BZLibHelper.h"
 
 Gura_BeginModule(bzip2)
 

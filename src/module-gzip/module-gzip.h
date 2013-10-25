@@ -4,6 +4,7 @@
 #ifndef __MODULE_GZIP_H__
 #define __MODULE_GZIP_H__
 #include <gura.h>
+#include <gura/helper/ZLibHelper.h>
 
 Gura_BeginModule(gzip)
 

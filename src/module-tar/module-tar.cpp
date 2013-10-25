@@ -2,8 +2,6 @@
 // Gura tar module
 // http://www.gnu.org/software/tar/manual/html_node/Standard.html
 //-----------------------------------------------------------------------------
-#include "gura/ZLibHelper.h"
-#include "gura/BZLibHelper.h"
 #include "module-tar.h"
 
 Gura_BeginModule(tar)

@@ -2,7 +2,6 @@
 // Gura gzip module
 //-----------------------------------------------------------------------------
 #include "module-gzip.h"
-#include "gura/ZLibHelper.h"
 
 Gura_BeginModule(gzip)
 

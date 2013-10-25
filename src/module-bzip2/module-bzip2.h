@@ -4,6 +4,7 @@
 #ifndef __MODULE_BZIP2_H__
 #define __MODULE_BZIP2_H__
 #include <gura.h>
+#include <gura/helper/BZLibHelper.h>
 
 Gura_BeginModule(bzip2)
 

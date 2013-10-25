@@ -88,7 +88,6 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Algorithm.h
   ${GURA_INCLUDE_DIR}/gura/Audio.h
   ${GURA_INCLUDE_DIR}/gura/Binary.h
-  ${GURA_INCLUDE_DIR}/gura/BZLibHelper.h
   ${GURA_INCLUDE_DIR}/gura/Class.h
   ${GURA_INCLUDE_DIR}/gura/Codec.h
   ${GURA_INCLUDE_DIR}/gura/Common.h
@@ -152,7 +151,8 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/TemplateEngine.h
   ${GURA_INCLUDE_DIR}/gura/Value.h
   ${GURA_INCLUDE_DIR}/gura/Version.h
-  ${GURA_INCLUDE_DIR}/gura/ZLibHelper.h
+  ${GURA_INCLUDE_DIR}/gura/helper/BZLibHelper.h
+  ${GURA_INCLUDE_DIR}/gura/helper/ZLibHelper.h
   DESTINATION include/gura)
 
 set(CPACK_GENERATOR "DEB;RPM")

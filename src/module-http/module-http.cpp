@@ -2,7 +2,7 @@
 // Gura http module
 //-----------------------------------------------------------------------------
 #include <gura.h>
-#include "gura/ZLibHelper.h"
+#include <gura/helper/ZLibHelper.h>
 #include <algorithm>
 
 #if defined(GURA_ON_MSWIN)

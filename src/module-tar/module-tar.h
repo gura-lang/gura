@@ -6,6 +6,8 @@
 #define __MODULE_TAR_H__
 
 #include <gura.h>
+#include <gura/helper/ZLibHelper.h>
+#include <gura/helper/BZLibHelper.h>
 
 Gura_BeginModule(tar)
 
