@@ -10,18 +10,6 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Class_string : public Class {
 public:
-	Class_string(Environment *pEnvOuter);
-	virtual void Prepare(Environment &env);
-	virtual Value IndexGetPrimitive(Environment &env, Signal sig,
-						const Value &valueThis, const Value &valueIdx) const;
-	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
-	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
-	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
-	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
-};
-
-class GURA_DLLDECLARE Object_string : public Object {
-public:
 	class GURA_DLLDECLARE IteratorEach : public Iterator {
 	public:
 		enum Attr { ATTR_None, ATTR_UTF8, ATTR_UTF32, };
@@ -83,6 +71,18 @@ public:
 		virtual String ToString(Signal sig) const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
+public:
+	Class_string(Environment *pEnvOuter);
+	virtual void Prepare(Environment &env);
+	virtual Value IndexGetPrimitive(Environment &env, Signal sig,
+						const Value &valueThis, const Value &valueIdx) const;
+	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
+	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
+	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
+	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
+};
+
+class GURA_DLLDECLARE Object_string : public Object {
 public:
 	Gura_DeclareObjectAccessor(string)
 private:

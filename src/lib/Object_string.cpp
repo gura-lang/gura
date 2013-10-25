@@ -47,7 +47,7 @@ Value Object_string::IndexGet(Environment &env, Signal sig, const Value &valueId
 
 Iterator *Object_string::CreateIterator(Signal sig)
 {
-	return new IteratorEach(_str, -1, IteratorEach::ATTR_None);
+	return new Class_string::IteratorEach(_str, -1, Class_string::IteratorEach::ATTR_None);
 }
 
 String Object_string::ToString(Signal sig, bool exprFlag)
@@ -59,210 +59,6 @@ String Object_string::ToString(Signal sig, const char *str, bool exprFlag)
 {
 	if (exprFlag) return MakeQuotedString(str);
 	return String(str);
-}
-
-//-----------------------------------------------------------------------------
-// Object_string::IteratorEach
-//-----------------------------------------------------------------------------
-Object_string::IteratorEach::IteratorEach(const String &str, int cntMax, Attr attr) :
-	Iterator(false), _str(str), _cnt(cntMax), _cntMax(cntMax), _attr(attr)
-{
-	_pCur = _str.begin();
-}
-
-Object_string::IteratorEach::~IteratorEach()
-{
-}
-
-Iterator *Object_string::IteratorEach::GetSource()
-{
-	return NULL;
-}
-
-bool Object_string::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
-{
-	if (_pCur == _str.end()) return false;
-	if (_attr == ATTR_UTF8) {
-		UInt64 codeUTF8;
-		_pCur = NextUTF8(_str, _pCur, codeUTF8);
-		value = Value(codeUTF8);
-	} else if (_attr == ATTR_UTF32) {
-		ULong codeUTF32;
-		_pCur = NextUTF32(_str, _pCur, codeUTF32);
-		value = Value(codeUTF32);
-	} else {
-		String::const_iterator pLeft = _pCur;
-		if (_cnt == 0) {
-			_pCur = _str.end();
-		} else {
-			_pCur = NextChar(_str, _pCur);
-			if (_cnt > 0) _cnt--;
-		}
-		value = Value(env, String(pLeft, _pCur).c_str());
-	}
-	return true;
-}
-
-String Object_string::IteratorEach::ToString(Signal sig) const
-{
-	return String("<iterator:string:each>");
-}
-
-void Object_string::IteratorEach::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
-{
-}
-
-//-----------------------------------------------------------------------------
-// Object_string::IteratorLine
-//-----------------------------------------------------------------------------
-Object_string::IteratorLine::IteratorLine(const String &str,
-											int cntMax, bool includeEOLFlag) :
-			Iterator(false), _str(str), _cnt(cntMax), _cntMax(cntMax),
-			_includeEOLFlag(includeEOLFlag)
-{
-	_pCur = _str.begin();
-}
-
-Object_string::IteratorLine::~IteratorLine()
-{
-}
-
-Iterator *Object_string::IteratorLine::GetSource()
-{
-	return NULL;
-}
-
-bool Object_string::IteratorLine::DoNext(Environment &env, Signal sig, Value &value)
-{
-	if (_pCur == _str.end() || _cnt == 0) return false;
-	String::const_iterator pLeft = _pCur;
-	String::const_iterator pNext = _str.end();
-	for ( ; _pCur != _str.end(); _pCur++) {
-		if (*_pCur == '\r') {
-			pNext = _pCur + 1;
-			if (pNext != _str.end() && *pNext == '\n') pNext++;
-			break;
-		} else if (*_pCur == '\n') {
-			pNext = _pCur + 1;
-			break;
-		}
-	}
-	value = Value(env, String(pLeft, _includeEOLFlag? pNext : _pCur).c_str());
-	_pCur = pNext;
-	if (_cnt > 0) _cnt--;
-	return true;
-}
-
-String Object_string::IteratorLine::ToString(Signal sig) const
-{
-	return String("<iterator>");
-}
-
-void Object_string::IteratorLine::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
-{
-}
-
-//-----------------------------------------------------------------------------
-// Object_string::IteratorSplit
-//-----------------------------------------------------------------------------
-Object_string::IteratorSplit::IteratorSplit(const String &str, const char *sep,
-											int cntMax, bool ignoreCaseFlag) :
-	Iterator(false), _str(str), _sep(sep), _cnt(cntMax), _cntMax(cntMax),
-	_ignoreCaseFlag(ignoreCaseFlag), _doneFlag(false)
-{
-	_pCur = _str.begin();
-}
-
-Object_string::IteratorSplit::~IteratorSplit()
-{
-}
-
-Iterator *Object_string::IteratorSplit::GetSource()
-{
-	return NULL;
-}
-
-bool Object_string::IteratorSplit::DoNext(Environment &env, Signal sig, Value &value)
-{
-	if (_doneFlag) {
-		return false;
-	} else if (_pCur == _str.end()) {
-		value = Value(env, "");
-		_doneFlag = true;
-	} else if (_cnt == 0) {
-		String::const_iterator pEnd = _str.end();
-		value = Value(env, String(_pCur, pEnd).c_str());
-		_pCur = _str.end();
-		_doneFlag = true;
-	} else {
-		String::const_iterator pRight =
-							FindString(_pCur, _str.end(), _sep, _ignoreCaseFlag);
-		value = Value(env, String(_pCur, pRight).c_str());
-		if (pRight == _str.end()) {
-			_pCur = _str.end();
-			_doneFlag = true;
-		} else {
-			_pCur = pRight + _sep.size();
-		}
-		if (_cnt > 0) _cnt--;
-	}
-	return true;
-}
-
-String Object_string::IteratorSplit::ToString(Signal sig) const
-{
-	return String("<iterator>");
-}
-
-void Object_string::IteratorSplit::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
-{
-}
-
-//-----------------------------------------------------------------------------
-// Object_string::IteratorFold
-//-----------------------------------------------------------------------------
-Object_string::IteratorFold::IteratorFold(const String &str,
-										size_t cntPerFold, size_t cntStep) :
-	Iterator(false), _str(str), _cntPerFold(cntPerFold), _cntStep(cntStep)
-{
-	_pCur = _str.begin();
-}
-
-Object_string::IteratorFold::~IteratorFold()
-{
-}
-
-Iterator *Object_string::IteratorFold::GetSource()
-{
-	return NULL;
-}
-
-bool Object_string::IteratorFold::DoNext(Environment &env, Signal sig, Value &value)
-{
-	if (_pCur == _str.end()) {
-		return false;
-	} else {
-		String::const_iterator pNext, pTail;
-		if (_cntStep <= _cntPerFold) {
-			pNext = Forward(_pCur, _str.end(), _cntStep);
-			pTail = Forward(pNext, _str.end(), _cntPerFold - _cntStep);
-		} else {
-			pTail = Forward(_pCur, _str.end(), _cntPerFold);
-			pNext = Forward(pTail, _str.end(), _cntStep - _cntPerFold);
-		}
-		value = Value(env, String(_pCur, pTail).c_str());
-		_pCur = pNext;
-	}
-	return true;
-}
-
-String Object_string::IteratorFold::ToString(Signal sig) const
-{
-	return String("<iterator>");
-}
-
-void Object_string::IteratorFold::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
-{
 }
 
 //-----------------------------------------------------------------------------
@@ -608,11 +404,11 @@ Gura_ImplementMethod(string, split)
 	if (args.IsString(0) && *args.GetString(0) != '\0') {
 		const char *sep = args.GetString(0);
 		bool ignoreCaseFlag = args.IsSet(Gura_Symbol(icase));
-		pIterator = new Object_string::IteratorSplit(
+		pIterator = new Class_string::IteratorSplit(
 						args.GetThis().GetStringSTL(), sep, maxSplit, ignoreCaseFlag);
 	} else {
-		pIterator = new Object_string::IteratorEach(args.GetThis().GetStringSTL(),
-							maxSplit, Object_string::IteratorEach::ATTR_None);
+		pIterator = new Class_string::IteratorEach(args.GetThis().GetStringSTL(),
+							maxSplit, Class_string::IteratorEach::ATTR_None);
 	}
 	return ReturnIterator(env, sig, args, pIterator);
 }
@@ -634,7 +430,7 @@ Gura_ImplementMethod(string, fold)
 {
 	int cntPerFold = args.GetInt(0);
 	int cntStep = args.IsNumber(1)? args.GetInt(1) : cntPerFold;
-	Iterator *pIterator = new Object_string::IteratorFold(
+	Iterator *pIterator = new Class_string::IteratorFold(
 						args.GetThis().GetStringSTL(), cntPerFold, cntStep);
 	return ReturnIterator(env, sig, args, pIterator);
 }
@@ -654,11 +450,11 @@ Gura_DeclareMethod(string, each)
 
 Gura_ImplementMethod(string, each)
 {
-	Object_string::IteratorEach::Attr attr =
-		args.IsSet(Gura_Symbol(utf8))? Object_string::IteratorEach::ATTR_UTF8 :
-		args.IsSet(Gura_Symbol(utf32))? Object_string::IteratorEach::ATTR_UTF32 :
-		Object_string::IteratorEach::ATTR_None;
-	Iterator *pIterator = new Object_string::IteratorEach(
+	Class_string::IteratorEach::Attr attr =
+		args.IsSet(Gura_Symbol(utf8))? Class_string::IteratorEach::ATTR_UTF8 :
+		args.IsSet(Gura_Symbol(utf32))? Class_string::IteratorEach::ATTR_UTF32 :
+		Class_string::IteratorEach::ATTR_None;
+	Iterator *pIterator = new Class_string::IteratorEach(
 								args.GetThis().GetStringSTL(), -1, attr);
 	return ReturnIterator(env, sig, args, pIterator);
 }
@@ -683,7 +479,7 @@ Gura_ImplementMethod(string, eachline)
 {
 	int maxSplit = args.IsNumber(0)? args.GetInt(0) : -1;
 	bool includeEOLFlag = !args.IsSet(Gura_Symbol(chop));
-	return ReturnIterator(env, sig, args, new Object_string::IteratorLine(
+	return ReturnIterator(env, sig, args, new Class_string::IteratorLine(
 					args.GetThis().GetStringSTL(), maxSplit, includeEOLFlag));
 }
 
@@ -965,6 +761,210 @@ bool Class_string::Deserialize(Environment &env, Signal sig, Stream &stream, Val
 Object *Class_string::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
 	return new Object_string((pClass == NULL)? this : pClass);
+}
+
+//-----------------------------------------------------------------------------
+// Class_string::IteratorEach
+//-----------------------------------------------------------------------------
+Class_string::IteratorEach::IteratorEach(const String &str, int cntMax, Attr attr) :
+	Iterator(false), _str(str), _cnt(cntMax), _cntMax(cntMax), _attr(attr)
+{
+	_pCur = _str.begin();
+}
+
+Class_string::IteratorEach::~IteratorEach()
+{
+}
+
+Iterator *Class_string::IteratorEach::GetSource()
+{
+	return NULL;
+}
+
+bool Class_string::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
+{
+	if (_pCur == _str.end()) return false;
+	if (_attr == ATTR_UTF8) {
+		UInt64 codeUTF8;
+		_pCur = NextUTF8(_str, _pCur, codeUTF8);
+		value = Value(codeUTF8);
+	} else if (_attr == ATTR_UTF32) {
+		ULong codeUTF32;
+		_pCur = NextUTF32(_str, _pCur, codeUTF32);
+		value = Value(codeUTF32);
+	} else {
+		String::const_iterator pLeft = _pCur;
+		if (_cnt == 0) {
+			_pCur = _str.end();
+		} else {
+			_pCur = NextChar(_str, _pCur);
+			if (_cnt > 0) _cnt--;
+		}
+		value = Value(env, String(pLeft, _pCur).c_str());
+	}
+	return true;
+}
+
+String Class_string::IteratorEach::ToString(Signal sig) const
+{
+	return String("<iterator:string:each>");
+}
+
+void Class_string::IteratorEach::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Class_string::IteratorLine
+//-----------------------------------------------------------------------------
+Class_string::IteratorLine::IteratorLine(const String &str,
+											int cntMax, bool includeEOLFlag) :
+			Iterator(false), _str(str), _cnt(cntMax), _cntMax(cntMax),
+			_includeEOLFlag(includeEOLFlag)
+{
+	_pCur = _str.begin();
+}
+
+Class_string::IteratorLine::~IteratorLine()
+{
+}
+
+Iterator *Class_string::IteratorLine::GetSource()
+{
+	return NULL;
+}
+
+bool Class_string::IteratorLine::DoNext(Environment &env, Signal sig, Value &value)
+{
+	if (_pCur == _str.end() || _cnt == 0) return false;
+	String::const_iterator pLeft = _pCur;
+	String::const_iterator pNext = _str.end();
+	for ( ; _pCur != _str.end(); _pCur++) {
+		if (*_pCur == '\r') {
+			pNext = _pCur + 1;
+			if (pNext != _str.end() && *pNext == '\n') pNext++;
+			break;
+		} else if (*_pCur == '\n') {
+			pNext = _pCur + 1;
+			break;
+		}
+	}
+	value = Value(env, String(pLeft, _includeEOLFlag? pNext : _pCur).c_str());
+	_pCur = pNext;
+	if (_cnt > 0) _cnt--;
+	return true;
+}
+
+String Class_string::IteratorLine::ToString(Signal sig) const
+{
+	return String("<iterator>");
+}
+
+void Class_string::IteratorLine::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Class_string::IteratorSplit
+//-----------------------------------------------------------------------------
+Class_string::IteratorSplit::IteratorSplit(const String &str, const char *sep,
+											int cntMax, bool ignoreCaseFlag) :
+	Iterator(false), _str(str), _sep(sep), _cnt(cntMax), _cntMax(cntMax),
+	_ignoreCaseFlag(ignoreCaseFlag), _doneFlag(false)
+{
+	_pCur = _str.begin();
+}
+
+Class_string::IteratorSplit::~IteratorSplit()
+{
+}
+
+Iterator *Class_string::IteratorSplit::GetSource()
+{
+	return NULL;
+}
+
+bool Class_string::IteratorSplit::DoNext(Environment &env, Signal sig, Value &value)
+{
+	if (_doneFlag) {
+		return false;
+	} else if (_pCur == _str.end()) {
+		value = Value(env, "");
+		_doneFlag = true;
+	} else if (_cnt == 0) {
+		String::const_iterator pEnd = _str.end();
+		value = Value(env, String(_pCur, pEnd).c_str());
+		_pCur = _str.end();
+		_doneFlag = true;
+	} else {
+		String::const_iterator pRight =
+							FindString(_pCur, _str.end(), _sep, _ignoreCaseFlag);
+		value = Value(env, String(_pCur, pRight).c_str());
+		if (pRight == _str.end()) {
+			_pCur = _str.end();
+			_doneFlag = true;
+		} else {
+			_pCur = pRight + _sep.size();
+		}
+		if (_cnt > 0) _cnt--;
+	}
+	return true;
+}
+
+String Class_string::IteratorSplit::ToString(Signal sig) const
+{
+	return String("<iterator>");
+}
+
+void Class_string::IteratorSplit::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Class_string::IteratorFold
+//-----------------------------------------------------------------------------
+Class_string::IteratorFold::IteratorFold(const String &str,
+										size_t cntPerFold, size_t cntStep) :
+	Iterator(false), _str(str), _cntPerFold(cntPerFold), _cntStep(cntStep)
+{
+	_pCur = _str.begin();
+}
+
+Class_string::IteratorFold::~IteratorFold()
+{
+}
+
+Iterator *Class_string::IteratorFold::GetSource()
+{
+	return NULL;
+}
+
+bool Class_string::IteratorFold::DoNext(Environment &env, Signal sig, Value &value)
+{
+	if (_pCur == _str.end()) {
+		return false;
+	} else {
+		String::const_iterator pNext, pTail;
+		if (_cntStep <= _cntPerFold) {
+			pNext = Forward(_pCur, _str.end(), _cntStep);
+			pTail = Forward(pNext, _str.end(), _cntPerFold - _cntStep);
+		} else {
+			pTail = Forward(_pCur, _str.end(), _cntPerFold);
+			pNext = Forward(pTail, _str.end(), _cntStep - _cntPerFold);
+		}
+		value = Value(env, String(_pCur, pTail).c_str());
+		_pCur = pNext;
+	}
+	return true;
+}
+
+String Class_string::IteratorFold::ToString(Signal sig) const
+{
+	return String("<iterator>");
+}
+
+void Class_string::IteratorFold::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
 }
 
 //-----------------------------------------------------------------------------
