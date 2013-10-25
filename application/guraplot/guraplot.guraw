@@ -88,7 +88,7 @@ Graph = class {
 			y = interval(this.yMin, this.yMax, this.cntSamples)
 			cr.set_antialias(cairo.ANTIALIAS_DEFAULT)
 			for (func in this.funcs) {
-				syms = func.args
+				syms = [func.decls:*symbol]
 				if (syms.len() != 1) {
 					raise(ValueError, 'wrong number of arguments')
 				}

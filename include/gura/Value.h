@@ -66,6 +66,7 @@ GURA_DLLDECLARE extern ValueType VTYPE_boolean;
 GURA_DLLDECLARE extern ValueType VTYPE_number;
 GURA_DLLDECLARE extern ValueType VTYPE_complex;
 GURA_DLLDECLARE extern ValueType VTYPE_fraction;
+GURA_DLLDECLARE extern ValueType VTYPE_string;
 // declaration
 GURA_DLLDECLARE extern ValueType VTYPE_quote;
 GURA_DLLDECLARE extern ValueType VTYPE_any;
@@ -100,7 +101,6 @@ GURA_DLLDECLARE extern ValueType VTYPE_palette;
 GURA_DLLDECLARE extern ValueType VTYPE_pointer;
 GURA_DLLDECLARE extern ValueType VTYPE_semaphore;
 GURA_DLLDECLARE extern ValueType VTYPE_stream;
-GURA_DLLDECLARE extern ValueType VTYPE_string;
 GURA_DLLDECLARE extern ValueType VTYPE_timedelta;
 GURA_DLLDECLARE extern ValueType VTYPE_uri;
 
@@ -155,6 +155,7 @@ public:
 	Gura_DeclareVTYPE(number);
 	Gura_DeclareVTYPE(complex);
 	Gura_DeclareVTYPE(fraction);
+	Gura_DeclareVTYPE(string);
 	// for declaration
 	Gura_DeclareVTYPE(quote);
 	Gura_DeclareVTYPE(any);
@@ -189,7 +190,6 @@ public:
 	Gura_DeclareVTYPE(pointer);
 	Gura_DeclareVTYPE(semaphore);
 	Gura_DeclareVTYPE(stream);
-	Gura_DeclareVTYPE(string);
 	Gura_DeclareVTYPE(timedelta);
 	Gura_DeclareVTYPE(uri);
 private:
@@ -241,6 +241,7 @@ private:
 		const Symbol *pSymbol;	// VTYPE_symbol
 		Complex *pComp;			// VTYPE_complex
 		Fraction *pFrac;		// VTYPE_fraction
+		String *pStr;			// VTYPE_string
 		Module *pModule;		// VTYPE_module
 		Class *pClass;			// VTYPE_class
 		Sequence *pSequence;	// VTYPE_Sequence
@@ -329,7 +330,7 @@ public:
 	inline Value(const Fraction &frac) : _valType(VTYPE_fraction), _valFlags(VFLAG_Owner) {
 		_u.pFrac = new Fraction(frac);
 	}
-	// VTYPE_string, VTYPE_binary
+	// VTYPE_string
 	Value(Environment &env, const String &str);
 	Value(Environment &env, const char *str);
 	Value(Environment &env, const char *str, size_t len);
@@ -366,7 +367,7 @@ public:
 	}
 	inline bool IsType(ValueType valType) const { return _valType == valType;	}
 	inline bool IsObject() const			{ return _valType >= VTYPE_object && !GetTinyBuffFlag(); }
-	inline bool IsPrimitive() const			{ return _valType <= VTYPE_fraction;}
+	inline bool IsPrimitive() const			{ return _valType <= VTYPE_string;	}
 	inline bool IsInvalid() const			{ return IsType(VTYPE_nil) || IsType(VTYPE_undefined); }
 	inline bool IsUndefined() const			{ return IsType(VTYPE_undefined);	}
 	inline bool IsValid() const				{ return !IsInvalid();				}
@@ -377,6 +378,7 @@ public:
 	inline bool IsNumber() const			{ return IsType(VTYPE_number);		}
 	inline bool IsComplex() const			{ return IsType(VTYPE_complex);		}
 	inline bool IsFraction() const			{ return IsType(VTYPE_fraction);	}
+	inline bool IsString() const			{ return IsType(VTYPE_string);		}
 	inline bool IsNumberOrComplex() const	{ return IsNumber() || IsComplex();	}
 	// container types
 	inline bool IsModule() const			{ return IsType(VTYPE_Module);		}
@@ -409,7 +411,6 @@ public:
 	inline bool IsPointer() const			{ return IsType(VTYPE_pointer);		}
 	inline bool IsSemaphore() const			{ return IsType(VTYPE_semaphore);	}
 	inline bool IsStream() const			{ return IsType(VTYPE_stream);		}
-	inline bool IsString() const			{ return IsType(VTYPE_string);		}
 	inline bool IsTimeDelta() const			{ return IsType(VTYPE_timedelta);	}
 	inline bool IsURI() const				{ return IsType(VTYPE_uri);			}
 	inline bool IsListOrIterator() const	{ return IsList() || IsIterator();	}
@@ -424,6 +425,7 @@ public:
 	inline bool MustBeNumber(Signal &sig) const			{ return MustBe(sig, IsNumber(), 		"number");			}
 	inline bool MustBeComplex(Signal &sig) const		{ return MustBe(sig, IsComplex(), 		"complex");			}
 	inline bool MustBeFraction(Signal &sig) const		{ return MustBe(sig, IsFraction(), 		"fraction");		}
+	inline bool MustBeString(Signal &sig) const			{ return MustBe(sig, IsString(), 		"string");			}
 	// container types
 	inline bool MustBeModule(Signal &sig) const			{ return MustBe(sig, IsModule(), 		"module");			}
 	inline bool MustBeClass(Signal &sig) const			{ return MustBe(sig, IsClass(), 		"class");			}
@@ -455,7 +457,6 @@ public:
 	inline bool MustBePointer(Signal &sig) const		{ return MustBe(sig, IsPointer(), 		"pointer");			}
 	inline bool MustBeSemaphore(Signal &sig) const		{ return MustBe(sig, IsSemaphore(), 	"semaphore");		}
 	inline bool MustBeStream(Signal &sig) const			{ return MustBe(sig, IsStream(), 		"stream");			}
-	inline bool MustBeString(Signal &sig) const			{ return MustBe(sig, IsString(), 		"string");			}
 	inline bool MustBeTimeDelta(Signal &sig) const		{ return MustBe(sig, IsTimeDelta(), 	"timedelta");		}
 	inline bool MustBeURI(Signal &sig) const			{ return MustBe(sig, IsURI(), 			"uri");				}
 	inline void SetSymbol(const Symbol *pSymbol) {

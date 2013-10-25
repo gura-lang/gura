@@ -109,7 +109,7 @@ genTagMethod(container, searchProc:string) = {
 }
 
 makeBindScript(func:function) = {
-	args = func.args
+	args = func.decls:*symbol
 	cmdName = _interp.command(func)
 	elems = [cmdName]
 	elems.append('%' + bindSubstDict.gets(args, args:*tostring()))

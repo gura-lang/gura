@@ -6,7 +6,7 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Class_string / Object_string
+// Class_string / Object_SS
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Class_string : public Class {
 public:
@@ -82,22 +82,22 @@ public:
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
 };
 
-class GURA_DLLDECLARE Object_string : public Object {
+class GURA_DLLDECLARE Object_SS : public Object {
 public:
-	Gura_DeclareObjectAccessor(string)
+	Gura_DeclareObjectAccessor(SS)
 private:
 	String _str;
 public:
-	inline Object_string(Class *pClass) : Object(pClass) {}
-	inline Object_string(Environment &env) : Object(env.LookupClass(VTYPE_string)) {}
-	inline Object_string(Environment &env, const String &str) :
+	inline Object_SS(Class *pClass) : Object(pClass) {}
+	inline Object_SS(Environment &env) : Object(env.LookupClass(VTYPE_string)) {}
+	inline Object_SS(Environment &env, const String &str) :
 						Object(env.LookupClass(VTYPE_string)), _str(str) {}
-	inline Object_string(Environment &env, const char *str) :
+	inline Object_SS(Environment &env, const char *str) :
 						Object(env.LookupClass(VTYPE_string)), _str(str) {}
-	inline Object_string(Environment &env, const char *str, size_t len) :
+	inline Object_SS(Environment &env, const char *str, size_t len) :
 						Object(env.LookupClass(VTYPE_string)), _str(str, len) {}
-	Object_string(const Object_string &obj);
-	virtual ~Object_string();
+	Object_SS(const Object_SS &obj);
+	virtual ~Object_SS();
 	virtual Object *Clone() const;
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
 	virtual String ToString(Signal sig, bool exprFlag);

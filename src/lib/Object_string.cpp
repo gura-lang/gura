@@ -7,22 +7,22 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Object_string
+// Object_SS
 //-----------------------------------------------------------------------------
-Object_string::Object_string(const Object_string &obj) : Object(obj), _str(obj._str)
+Object_SS::Object_SS(const Object_SS &obj) : Object(obj), _str(obj._str)
 {
 }
 
-Object_string::~Object_string()
+Object_SS::~Object_SS()
 {
 }
 
-Object *Object_string::Clone() const
+Object *Object_SS::Clone() const
 {
-	return new Object_string(*this);
+	return new Object_SS(*this);
 }
 
-Value Object_string::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
+Value Object_SS::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 {
 	if (!valueIdx.IsNumber()) {
 		sig.SetError(ERR_IndexError, "index must be a number for string");
@@ -45,12 +45,12 @@ Value Object_string::IndexGet(Environment &env, Signal sig, const Value &valueId
 	}
 }
 
-String Object_string::ToString(Signal sig, bool exprFlag)
+String Object_SS::ToString(Signal sig, bool exprFlag)
 {
 	return ToString(sig, _str.c_str(), exprFlag);
 }
 
-String Object_string::ToString(Signal sig, const char *str, bool exprFlag)
+String Object_SS::ToString(Signal sig, const char *str, bool exprFlag)
 {
 	if (exprFlag) return MakeQuotedString(str);
 	return String(str);
@@ -755,7 +755,7 @@ bool Class_string::Deserialize(Environment &env, Signal sig, Stream &stream, Val
 
 Object *Class_string::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
-	return new Object_string((pClass == NULL)? this : pClass);
+	return NULL;
 }
 
 //-----------------------------------------------------------------------------

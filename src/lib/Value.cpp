@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#define USE_TINYBUFF 1
+#define USE_TINYBUFF 0
 
 namespace Gura {
 
@@ -13,6 +13,7 @@ ValueType VTYPE_boolean			= static_cast<ValueType>(3);
 ValueType VTYPE_number			= static_cast<ValueType>(4);
 ValueType VTYPE_complex			= static_cast<ValueType>(5);
 ValueType VTYPE_fraction		= static_cast<ValueType>(6);
+ValueType VTYPE_string			= static_cast<ValueType>(7);
 // for declaration
 ValueType VTYPE_quote			= static_cast<ValueType>(0);
 ValueType VTYPE_any				= static_cast<ValueType>(0);
@@ -46,7 +47,6 @@ ValueType VTYPE_palette			= static_cast<ValueType>(0);
 ValueType VTYPE_pointer			= static_cast<ValueType>(0);
 ValueType VTYPE_semaphore		= static_cast<ValueType>(0);
 ValueType VTYPE_stream			= static_cast<ValueType>(0);
-ValueType VTYPE_string			= static_cast<ValueType>(0);
 ValueType VTYPE_timedelta		= static_cast<ValueType>(0);
 ValueType VTYPE_uri				= static_cast<ValueType>(0);
 ValueType VTYPE_Struct			= static_cast<ValueType>(0);
@@ -137,6 +137,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPE(number);		// must be at 5th
 	Gura_RealizeVTYPE(complex);		// must be at 6th
 	Gura_RealizeVTYPE(fraction);	// must be at 7th
+	Gura_RealizeVTYPE(string);		// must be at 8th
 	// for declaration
 	Gura_RealizeVTYPE(quote);
 	Gura_RealizeVTYPE(any);
@@ -170,7 +171,6 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPE(pointer);
 	Gura_RealizeVTYPE(semaphore);
 	Gura_RealizeVTYPE(stream);
-	Gura_RealizeVTYPE(string);
 	Gura_RealizeVTYPE(timedelta);
 	Gura_RealizeVTYPE(uri);
 	Gura_RealizeVTYPEEx(Struct,		"struct");
@@ -184,6 +184,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(number		)->SetClass(new Class_number(pClass));
 	Gura_VTYPEInfo(complex		)->SetClass(new Class_complex(pClass));
 	Gura_VTYPEInfo(fraction		)->SetClass(new Class_fraction(pClass));
+	Gura_VTYPEInfo(string		)->SetClass(new Class_string(pClass));
 	// for declaration
 	Gura_VTYPEInfo(quote		)->SetClass(new Class_quote(pClass));
 	Gura_VTYPEInfo(any			)->SetClass(new Class_any(pClass));
@@ -211,7 +212,6 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(pointer		)->SetClass(new Class_pointer(pClass));
 	Gura_VTYPEInfo(semaphore	)->SetClass(new Class_semaphore(pClass));
 	Gura_VTYPEInfo(stream		)->SetClass(new Class_stream(pClass));
-	Gura_VTYPEInfo(string		)->SetClass(new Class_string(pClass));
 	Gura_VTYPEInfo(timedelta	)->SetClass(new Class_timedelta(pClass));
 	Gura_VTYPEInfo(uri			)->SetClass(new Class_uri(pClass));
 	Gura_VTYPEInfo(Struct		)->SetClass(new StructClass(pClass));
@@ -229,6 +229,7 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_number)->Prepare(env);
 	env.LookupClass(VTYPE_complex)->Prepare(env);
 	env.LookupClass(VTYPE_fraction)->Prepare(env);
+	env.LookupClass(VTYPE_string)->Prepare(env);
 	// declaration
 	env.LookupClass(VTYPE_quote)->Prepare(env);
 	env.LookupClass(VTYPE_any)->Prepare(env);
@@ -256,7 +257,6 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_pointer)->Prepare(env);
 	env.LookupClass(VTYPE_semaphore)->Prepare(env);
 	env.LookupClass(VTYPE_stream)->Prepare(env);
-	env.LookupClass(VTYPE_string)->Prepare(env);
 	env.LookupClass(VTYPE_timedelta)->Prepare(env);
 	env.LookupClass(VTYPE_uri)->Prepare(env);
 	env.LookupClass(VTYPE_Struct)->Prepare(env);
@@ -305,6 +305,8 @@ Value::Value(const Value &value) : _valType(value._valType), _valFlags(value._va
 		_u.pComp = new Complex(*value._u.pComp);
 	} else if (value.IsFraction()) {
 		_u.pFrac = new Fraction(*value._u.pFrac);
+	} else if (value.IsString()) {
+		_u.pStr = new String(*value._u.pStr);
 	} else if (value.IsModule()) {
 		_u.pModule = Module::Reference(value._u.pModule);
 	} else if (value.IsClass()) {
@@ -342,10 +344,10 @@ Value::Value(Environment &env, const String &str) : _valType(VTYPE_string), _val
 		_valFlags |= VFLAG_TinyBuff;
 		::memcpy(_u.tinyBuff, str.c_str(), len + 1);
 	} else {
-		_u.pObj = new Object_string(env, str);
+		_u.pStr = new String(str);
 	}
 #else
-	_u.pObj = new Object_string(env, str);
+	_u.pStr = new String(str);
 #endif
 }
 
@@ -357,10 +359,10 @@ Value::Value(Environment &env, const char *str) : _valType(VTYPE_string), _valFl
 		_valFlags |= VFLAG_TinyBuff;
 		::memcpy(_u.tinyBuff, str, len + 1);
 	} else {
-		_u.pObj = new Object_string(env, str);
+		_u.pStr = new String(str);
 	}
 #else
-	_u.pObj = new Object_string(env, str);
+	_u.pStr = new String(str);
 #endif
 }
 
@@ -372,10 +374,10 @@ Value::Value(Environment &env, const char *str, size_t len) : _valType(VTYPE_str
 		::memcpy(_u.tinyBuff, str, len);
 		_u.tinyBuff[len] = '\0';
 	} else {
-		_u.pObj = new Object_string(env, str, len);
+		_u.pStr = new String(str, len);
 	}
 #else
-	_u.pObj = new Object_string(env, str, len);
+	_u.pStr = new String(str, len);
 #endif
 }
 
@@ -426,6 +428,9 @@ void Value::FreeResource()
 	} else if (IsFraction()) {
 		delete _u.pFrac;
 		_u.pFrac = NULL;
+	} else if (IsString()) {
+		delete _u.pStr;
+		_u.pStr = NULL;
 	} else if (IsModule()) {
 		if (IsOwner()) Module::Delete(_u.pModule);
 		_u.pModule = NULL;
@@ -461,6 +466,8 @@ Value &Value::operator=(const Value &value)
 		_u.pComp = new Complex(*value._u.pComp);
 	} else if (value.IsFraction()) {
 		_u.pFrac = new Fraction(*value._u.pFrac);
+	} else if (value.IsString()) {
+		_u.pStr = new String(*value._u.pStr);
 	} else if (value.IsModule()) {
 		_u.pModule = Module::Reference(value._u.pModule);
 	} else if (value.IsClass()) {
@@ -530,13 +537,13 @@ bool Value::IsInstanceOf(ValueType valType) const
 const char *Value::GetString() const
 {
 	if (GetTinyBuffFlag()) return _u.tinyBuff;
-	return dynamic_cast<Object_string *>(_u.pObj)->GetString();
+	return _u.pStr->c_str();
 }
 
 String Value::GetStringSTL() const
 {
 	if (GetTinyBuffFlag()) return String(_u.tinyBuff);
-	return dynamic_cast<Object_string *>(_u.pObj)->GetStringSTL();
+	return *_u.pStr;
 }
 
 const Binary &Value::GetBinary() const
@@ -760,6 +767,10 @@ String Value::ToString(Signal sig, bool exprFlag) const
 			str += NumberToString(frac.denominator);
 		}
 		return str;
+	} else if (IsString()) {
+		const char *str = GetString();
+		if (exprFlag) return MakeQuotedString(str);
+		return String(str);
 	} else if (IsModule()) {
 		return _u.pModule->ToString(sig, exprFlag);
 	} else if (IsClass()) {
@@ -768,8 +779,6 @@ String Value::ToString(Signal sig, bool exprFlag) const
 		return _u.pSequence->ToString();
 	} else if (IsObject()) {
 		return _u.pObj->ToString(sig, exprFlag);
-	} else if (IsString() && GetTinyBuffFlag()) {
-		return Object_string::ToString(sig, GetString(), exprFlag);
 	}
 	return String(exprFlag? "nil" : "");
 }
