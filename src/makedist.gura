@@ -270,6 +270,7 @@ gatherFiles() = {
 			//----------------------------------
 			'include/*.h'
 			'include/gura/*.h'
+			'include/gura/helper/*.h'
 		]):list)
 		filenames.append(path.glob('gura-guest/tcl/bin/*.dll'):list)
 		filenames.append(path.walk('gura-guest/tcl/lib', nil):file)
