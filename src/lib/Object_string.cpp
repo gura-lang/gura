@@ -7,56 +7,6 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Object_SS
-//-----------------------------------------------------------------------------
-Object_SS::Object_SS(const Object_SS &obj) : Object(obj), _str(obj._str)
-{
-}
-
-Object_SS::~Object_SS()
-{
-}
-
-Object *Object_SS::Clone() const
-{
-	return new Object_SS(*this);
-}
-
-Value Object_SS::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
-{
-	if (!valueIdx.IsNumber()) {
-		sig.SetError(ERR_IndexError, "index must be a number for string");
-		return Value::Null;
-	}
-	int idx = valueIdx.GetInt();
-	int len = static_cast<int>(Length(_str.c_str()));
-	if (idx >= 0) {
-		if (idx >= len) {
-			sig.SetError(ERR_IndexError, "index is out of range");
-			return Value::Null;
-		}
-		return Value(*this, PickChar(_str, idx).c_str());
-	} else {
-		if (-idx > len) {
-			sig.SetError(ERR_IndexError, "index is out of range");
-			return Value::Null;
-		}
-		return Value(*this, PickChar(_str, len + idx).c_str());
-	}
-}
-
-String Object_SS::ToString(Signal sig, bool exprFlag)
-{
-	return ToString(sig, _str.c_str(), exprFlag);
-}
-
-String Object_SS::ToString(Signal sig, const char *str, bool exprFlag)
-{
-	if (exprFlag) return MakeQuotedString(str);
-	return String(str);
-}
-
-//-----------------------------------------------------------------------------
 // Gura interfaces for Object_string
 //-----------------------------------------------------------------------------
 // string#len()

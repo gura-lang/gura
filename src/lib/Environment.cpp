@@ -1038,7 +1038,7 @@ void Environment::Frame::Delete(Frame *pFrame)
 		EnvironmentSet envSet;
 		foreach_const (ValueMap, iter, valueMap) {
 			const Value &value = iter->second;
-			if (value.IsObject() && !value.GetTinyBuffFlag()) {
+			if (value.IsObject()) {
 				value.GetObject()->GatherFollower(pFrame, envSet);
 			}
 		}

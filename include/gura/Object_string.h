@@ -6,7 +6,7 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Class_string / Object_SS
+// Class_string
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Class_string : public Class {
 public:
@@ -80,31 +80,6 @@ public:
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
-};
-
-class GURA_DLLDECLARE Object_SS : public Object {
-public:
-	Gura_DeclareObjectAccessor(SS)
-private:
-	String _str;
-public:
-	inline Object_SS(Class *pClass) : Object(pClass) {}
-	inline Object_SS(Environment &env) : Object(env.LookupClass(VTYPE_string)) {}
-	inline Object_SS(Environment &env, const String &str) :
-						Object(env.LookupClass(VTYPE_string)), _str(str) {}
-	inline Object_SS(Environment &env, const char *str) :
-						Object(env.LookupClass(VTYPE_string)), _str(str) {}
-	inline Object_SS(Environment &env, const char *str, size_t len) :
-						Object(env.LookupClass(VTYPE_string)), _str(str, len) {}
-	Object_SS(const Object_SS &obj);
-	virtual ~Object_SS();
-	virtual Object *Clone() const;
-	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
-	virtual String ToString(Signal sig, bool exprFlag);
-	static String ToString(Signal sig, const char *str, bool exprFlag);
-	inline const char *GetString() const { return _str.c_str(); }
-	inline String GetStringSTL() const { return _str; } // not a reference
-	inline size_t GetSize() const { return _str.size(); }
 };
 
 //-----------------------------------------------------------------------------

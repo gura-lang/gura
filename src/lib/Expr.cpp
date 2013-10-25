@@ -2119,7 +2119,7 @@ Value Expr_Caller::EvalEach(Environment &env, Signal sig, const Value &valueThis
 	Value valueCar;
 	Callable *pCallable = NULL;
 	Fundamental *pFund = NULL;
-	if (valueThis.IsPrimitive() || valueThis.GetTinyBuffFlag()) {
+	if (valueThis.IsPrimitive()) {
 		pFund = env.LookupClass(valueThis.GetValueType());
 	} else {
 		pFund = valueThis.ExtractFundamental(sig);
@@ -2886,7 +2886,7 @@ Value Expr_Member::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPost
 	Value valueThis = GetLeft()->Exec2(env, sig, pSeqPostHandlerLeft);
 	if (sig.IsSignalled()) return Value::Null;
 	Fundamental *pFund = NULL;
-	if (valueThis.IsPrimitive() || valueThis.GetTinyBuffFlag()) {
+	if (valueThis.IsPrimitive()) {
 		pFund = env.LookupClass(valueThis.GetValueType());
 	} else {
 		pFund = valueThis.ExtractFundamental(sig);

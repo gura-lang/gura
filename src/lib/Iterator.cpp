@@ -1309,7 +1309,7 @@ bool Iterator_MemberMap::DoNext(Environment &env, Signal sig, Value &value)
 	Value valueThisEach;
 	if (!_pIterator->Next(env, sig, valueThisEach)) return false;
 	Fundamental *pFundEach = NULL;
-	if (valueThisEach.IsPrimitive() || valueThisEach.GetTinyBuffFlag()) {
+	if (valueThisEach.IsPrimitive()) {
 		pFundEach = env.LookupClass(valueThisEach.GetValueType());
 	} else {
 		pFundEach = valueThisEach.ExtractFundamental(sig);

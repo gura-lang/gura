@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#define USE_TINYBUFF 0
+#define USE_TINYBUFF 1
 
 namespace Gura {
 
@@ -492,9 +492,7 @@ bool Value::MustBe(Signal &sig, bool flag, const char *expected) const
 
 Fundamental *Value::ExtractFundamental(Signal sig)
 {
-	if (GetTinyBuffFlag()) {
-		// nothing to do
-	} else if (IsModule()) {
+	if (IsModule()) {
 		return GetModule();
 	} else if (IsClass()) {
 		return GetClass();
@@ -603,9 +601,7 @@ void Value::IndexSet(Environment &env, Signal sig, const Value &valueIdx, const 
 
 bool Value::DirProp(Environment &env, Signal sig, SymbolSet &symbols, bool escalateFlag)
 {
-	if (GetTinyBuffFlag()) {
-		// nothing to do
-	} else if (IsModule()) {
+	if (IsModule()) {
 		return GetModule()->DirProp(env, sig, symbols);
 	} else if (IsClass()) {
 		return GetClass()->DirProp(env, sig, symbols, escalateFlag);
@@ -622,9 +618,7 @@ bool Value::DirProp(Environment &env, Signal sig, SymbolSet &symbols, bool escal
 
 void Value::DirValueType(SymbolSet &symbols, bool escalateFlag)
 {
-	if (GetTinyBuffFlag()) {
-		// nothing to do
-	} else if (IsModule()) {
+	if (IsModule()) {
 		GetModule()->DirValueType(symbols);
 	} else if (IsClass()) {
 		// nothing to do
@@ -694,9 +688,7 @@ Expr *Value::CloneExpr() const
 
 Fundamental *Value::GetFundamental()
 {
-	if (GetTinyBuffFlag()) {
-		// nothing to do
-	} else if (IsObject()) {
+	if (IsObject()) {
 		return _u.pObj;
 	} else if (IsClass()) {
 		return _u.pClass;
@@ -860,8 +852,7 @@ int Value::Compare(const Value &value1, const Value &value2, bool ignoreCaseFlag
 		} else {
 			rtn = Value::Compare(value1.GetList().front(), value2.GetList().front());
 		}
-	} else if (value1.IsObject() &&
-					!value1.GetTinyBuffFlag() && !value2.GetTinyBuffFlag()) {
+	} else if (value1.IsObject() && value2.IsObject()) {
 		rtn = value1.GetObject()->Compare(value2.GetObject());
 	} else if (value1.IsInvalid() && value2.IsInvalid()) {
 		rtn = 0;

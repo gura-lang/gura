@@ -166,7 +166,7 @@ String Object_function::MakePrefix(Signal sig) const
 {
 	String str;
 	if (_valueThis.IsInvalid()) return str;
-	if (_valueThis.IsPrimitive() || _valueThis.GetTinyBuffFlag()) {
+	if (_valueThis.IsPrimitive()) {
 		const Environment &env = *this;
 		const Class *pClass = env.LookupClass(_valueThis.GetValueType());
 		if (pClass != NULL) {
