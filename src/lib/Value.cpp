@@ -554,6 +554,42 @@ const TimeDelta &Value::GetTimeDelta() const
 	return dynamic_cast<Object_timedelta *>(_u.pObj)->GetTimeDelta();
 }
 
+Value Value::EmptyIndexGet(Environment &env, Signal sig) const
+{
+	if (IsObject()) {
+		return GetObject()->EmptyIndexGet(env, sig);
+	}
+	sig.SetError(ERR_TypeError, "object should be specified as l-value of indexer");
+	return Value::Null;
+}
+
+void Value::EmptyIndexSet(Environment &env, Signal sig, const Value &value)
+{
+	if (IsObject()) {
+		GetObject()->EmptyIndexSet(env, sig, value);
+		return;
+	}
+	sig.SetError(ERR_TypeError, "object should be specified as l-value of indexer");
+}
+
+Value Value::IndexGet(Environment &env, Signal sig, const Value &valueIdx) const
+{
+	if (IsObject()) {
+		return GetObject()->IndexGet(env, sig, valueIdx);
+	}
+	sig.SetError(ERR_TypeError, "object should be specified as l-value of indexer");
+	return Value::Null;
+}
+
+void Value::IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value)
+{
+	if (IsObject()) {
+		GetObject()->IndexSet(env, sig, valueIdx, value);
+		return;
+	}
+	sig.SetError(ERR_TypeError, "object should be specified as l-value of indexer");
+}
+
 bool Value::DirProp(Environment &env, Signal sig, SymbolSet &symbols, bool escalateFlag)
 {
 	if (GetTinyBuffFlag()) {

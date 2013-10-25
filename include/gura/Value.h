@@ -562,6 +562,10 @@ public:
 	// VTYPE_expr
 	const Expr *GetExpr() const;
 	//-----------------------
+	Value EmptyIndexGet(Environment &env, Signal sig) const;
+	void EmptyIndexSet(Environment &env, Signal sig, const Value &value);
+	Value IndexGet(Environment &env, Signal sig, const Value &valueIdx) const;
+	void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value);
 	bool DirProp(Environment &env, Signal sig, SymbolSet &symbols, bool escalateFlag);
 	void DirValueType(SymbolSet &symbols, bool escalateFlag);
 	ErrorType GetErrorType() const;
