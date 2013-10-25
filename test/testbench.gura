@@ -1,0 +1,64 @@
+#!/usr/bin/env gura
+
+scriptNames = [
+	'test-application.gura'
+	'test-binary.gura'
+	'test-block.gura'
+	//'test-canvas.gura'
+	'test-codec.gura'
+	'test-color.gura'
+	'test-csv.gura'
+	'test-datetime.gura'
+	'test-declaration.gura'
+	'test-dict.gura'
+	'test-diff.gura'
+	'test-error.gura'
+	//'test-file.gura'
+	'test-filter.gura'
+	'test-formatter.gura'
+	'test-function.gura'
+	'test-graph.gura'
+	'test-hash.gura'
+	'test-image.gura'
+	'test-list-iterator.gura'
+	'test-map.gura'
+	'test-markdown.gura'
+	'test-matrix.gura'
+	'test-math.gura'
+	//'test-module.gura'
+	'test-object.gura'
+	'test-opengl.gura'
+	'test-operator.gura'
+	'test-optimize.gura'
+	'test-path.gura'
+	'test-re.gura'
+	'test-repeater.gura'
+	'test-sqlite3.gura'
+	'test-stream.gura'
+	'test-string.gura'
+	'test-template.gura'
+	'test-value.gura'
+	'test-yaml.gura'
+]
+cmd = if (sys.argv.len() < 2) {
+	`test
+} elsif (sys.argv[1] == 'update') {
+	`update
+} else {
+	sys.stderr.println('unknown command: ', sys.argv[1])
+	sys.exit(1)
+}
+scriptNames.each {|scriptName|
+	println(scriptName)
+	[baseName, extName] = path.splitext(scriptName)
+	pathNameResult = path.join('result', baseName + '.result.txt')
+	pathNameSample = path.join('result', baseName + '.sample.txt')
+	os.redirect(nil, pathNameResult) {
+		os.exec(sys.executable, scriptName)
+	}
+	if (cmd == `test) {
+		os.exec('diff', '-u', pathNameSample, pathNameResult)
+	} elsif (cmd == `update) {
+		copy(pathNameResult, pathNameSample)
+	}
+}
