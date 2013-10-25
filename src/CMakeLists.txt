@@ -151,9 +151,12 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/TemplateEngine.h
   ${GURA_INCLUDE_DIR}/gura/Value.h
   ${GURA_INCLUDE_DIR}/gura/Version.h
+  DESTINATION include/gura)
+
+install(FILES
   ${GURA_INCLUDE_DIR}/gura/helper/BZLibHelper.h
   ${GURA_INCLUDE_DIR}/gura/helper/ZLibHelper.h
-  DESTINATION include/gura)
+  DESTINATION include/gura/helper)
 
 set(CPACK_GENERATOR "DEB;RPM")
 set(CPACK_SET_DESTDIR true)
