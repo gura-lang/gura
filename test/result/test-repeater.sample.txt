@@ -241,3 +241,18 @@ return test in a nested loop
 
 it's successful if you see an error below ;-)
 expected error happens
+
+======== #25 ========
+
+0
+1
+2
+0
+1
+2
+3
+0
+1
+2
+3
+4
