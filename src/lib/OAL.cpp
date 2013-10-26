@@ -280,6 +280,16 @@ bool ParseStatMode(const char *mode, mode_t &st_mode)
 	return true;
 }
 
+bool CopyDir(const char *dirNameSrc, const char *dirNameDst)
+{
+	return false;
+}
+
+bool CopyDirTree(const char *dirNameSrc, const char *dirNameDst)
+{
+	return false;
+}
+
 bool MakeDirTree(const char *dirName)
 {
 	StringList dirNames;
@@ -472,6 +482,13 @@ String GetEnv(const char *name)
 void PutEnv(const char *name, const char *value)
 {
 	::SetEnvironmentVariable(ToNativeString(name).c_str(), ToNativeString(value).c_str());
+}
+
+bool Copy(const char *src, const char *dst, bool failIfExistsFlag)
+{
+	String srcNative = ToNativeString(src);
+	String dstNative = ToNativeString(dst);
+	return ::CopyFile(srcNative.c_str(), dstNative.c_str(), failIfExistsFlag)? true : false;
 }
 
 bool Rename(const char *src, const char *dst)
@@ -1083,6 +1100,31 @@ String GetEnv(const char *name)
 void PutEnv(const char *name, const char *value)
 {
 	::setenv(ToNativeString(name).c_str(), ToNativeString(value).c_str(), 1);
+}
+
+bool Copy(const char *src, const char *dst, bool failIfExistsFlag)
+{
+	bool rtn = false;
+	int fdSrc = -1, fdDst = -1;
+	struct stat statSrc, statDst;
+	String srcNative = ToNativeString(src);
+	String dstNative = ToNativeString(dst);
+	if (failIfExistsFlag && ::stat(dstNative.c_str(), &statDst) == 0) goto done;
+	fdSrc = ::open(srcNative.c_str(), O_RDONLY);
+	if (fdSrc < 0) goto done;
+	fdDst = ::open(dstNative.c_str(), O_WRONLY);
+	if (fdDst < 0) goto done;
+	if (::fstat(fdSrc, &statSrc) < 0) goto done;
+	size_t bytesSrc = statSrc.st_size;
+	void *addrSrc = ::mmap(NULL, bytesSrc, PROT_READ, MAP_PRIVATE, fdSrc, 0);
+	if (addrSrc == MAP_FAILED) goto done;
+	if (::write(fdDst, addrSrc, bytesSrc) < bytesSrc) goto done;
+	::munmap(addrSrc, bytesSrc);
+	rtn = true;
+done:
+	if (fdSrc >= 0) ::close(fdSrc);
+	if (fdDst >= 0) ::close(fdDst);
+	return rtn;
 }
 
 bool Rename(const char *src, const char *dst)

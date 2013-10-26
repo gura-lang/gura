@@ -659,6 +659,25 @@ Directory *PathManager_FileSys::DoOpenDirectory(Environment &env, Signal sig,
 //-----------------------------------------------------------------------------
 // Gura module functions: fs
 //-----------------------------------------------------------------------------
+// fs.copy(src:string, dst:string):map:void:[overwrite]
+Gura_DeclareFunction(copy)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "src", VTYPE_string);
+	DeclareArg(env, "dst", VTYPE_string);
+	DeclareAttr(Gura_Symbol(overwrite));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Copies a file.");
+}
+
+Gura_ImplementFunction(copy)
+{
+	bool failIfExistsFlag = !args.IsSet(Gura_Symbol(overwrite));
+	if (!OAL::Copy(args.GetString(0), args.GetString(1), failIfExistsFlag)) {
+		sig.SetError(ERR_IOError, "failed to copy a file");
+	}
+	return Value::Null;
+}
+
 // fs.rename(src:string, dst:string):map:void
 Gura_DeclareFunction(rename)
 {
@@ -688,6 +707,30 @@ Gura_ImplementFunction(remove)
 {
 	if (!OAL::Remove(args.GetString(0))) {
 		sig.SetError(ERR_IOError, "failed to remove a file");
+	}
+	return Value::Null;
+}
+
+// fs.cpdir(src:string, dst:string):map:void[:tree]
+Gura_DeclareFunction(cpdir)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "src", VTYPE_string);
+	DeclareArg(env, "dst", VTYPE_string);
+	DeclareAttr(Gura_UserSymbol(tree));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Copies a directory.");
+}
+
+Gura_ImplementFunction(cpdir)
+{
+	const char *dirNameSrc = args.GetString(0);
+	const char *dirNameDst = args.GetString(1);
+	bool rtn = args.IsSet(Gura_UserSymbol(tree))?
+				OAL::CopyDirTree(dirNameSrc, dirNameDst) :
+				OAL::CopyDir(dirNameSrc, dirNameDst);
+	if (!rtn) {
+		sig.SetError(ERR_IOError, "failed to copies a directory %s to %s",
+													dirNameSrc, dirNameDst);
 	}
 	return Value::Null;
 }
@@ -849,8 +892,10 @@ Gura_ModuleEntry()
 					Value(new Object_stream(env, pStream)), EXTRA_Public);
 	} while (0);
 	// function assignment
+	Gura_AssignFunction(copy);
 	Gura_AssignFunction(rename);
 	Gura_AssignFunction(remove);
+	Gura_AssignFunction(cpdir);
 	Gura_AssignFunction(mkdir);
 	Gura_AssignFunction(rmdir);
 	Gura_AssignFunction(chdir);
