@@ -21,8 +21,12 @@ typedef int mode_t;
 #include <unistd.h>
 #include <dlfcn.h>
 #include <pthread.h>
+#include <fcntl.h>
 #include <sys/time.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
+#include <sys/mman.h>
+#include <sys/types.h>
 #endif
 
 namespace Gura {
@@ -1143,17 +1147,24 @@ void PutEnv(const char *name, const char *value)
 
 bool Copy(const char *src, const char *dst, bool failIfExistsFlag)
 {
-	bool rtn = false;
 	int fdSrc = -1, fdDst = -1;
 	struct stat statSrc, statDst;
 	String srcNative = ToNativeString(src);
 	String dstNative = ToNativeString(dst);
 	if (::stat(srcNative.c_str(), &statSrc) < 0) return false;
 	if (S_ISREG(statSrc.st_mode)) {
-		if (failIfExistsFlag && ::stat(dstNative.c_str(), &statDst) == 0) return false;
+		if (::stat(dstNative.c_str(), &statDst) < 0) {
+			// nothing to do
+		} else if (failIfExistsFlag) {
+			return false;
+		} else if (!Remove(dst)) {
+			//ChangeMode("u+w", dst);
+			//if (!Remove(dst)) return false;
+			return false;
+		}
 		fdSrc = ::open(srcNative.c_str(), O_RDONLY);
 		if (fdSrc < 0) return false;
-		fdDst = ::open(dstNative.c_str(), O_WRONLY);
+		fdDst = ::open(dstNative.c_str(), O_WRONLY | O_CREAT | O_TRUNC, statSrc.st_mode);
 		if (fdDst < 0) {
 			::close(fdSrc);
 			return false;
