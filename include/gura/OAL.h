@@ -161,9 +161,8 @@ class DirLister {
 #else
 	DIR *_dirp;
 #endif
-	bool _joinPathNameFlag;
 public:
-	DirLister(const char *dirName, bool joinPathNameFlag = true);
+	DirLister(const char *dirName);
 	~DirLister();
 	bool Next(const char *pattern, String &pathName, bool *pDirFlag);
 };

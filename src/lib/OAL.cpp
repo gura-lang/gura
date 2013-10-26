@@ -325,11 +325,13 @@ bool CopyDirTree(const char *dirNameSrc, const char *dirNameDst)
 
 bool MakeDirTree(const char *dirName)
 {
+	bool existFlag = false;
+	if (IsDir(dirName, &existFlag)) return true;
+	if (existFlag) return false;
 	StringList dirNames;
 	dirNames.push_back(dirName);
 	String dirNameParent = EliminateBottomDirName(dirName);
 	while (!dirNameParent.empty()) {
-		bool existFlag = false;
 		if (IsDir(dirNameParent.c_str(), &existFlag)) break;
 		if (existFlag) return false;
 		dirNames.push_back(dirNameParent);
@@ -1146,22 +1148,47 @@ bool Copy(const char *src, const char *dst, bool failIfExistsFlag)
 	struct stat statSrc, statDst;
 	String srcNative = ToNativeString(src);
 	String dstNative = ToNativeString(dst);
-	if (failIfExistsFlag && ::stat(dstNative.c_str(), &statDst) == 0) goto done;
-	fdSrc = ::open(srcNative.c_str(), O_RDONLY);
-	if (fdSrc < 0) goto done;
-	fdDst = ::open(dstNative.c_str(), O_WRONLY);
-	if (fdDst < 0) goto done;
-	if (::fstat(fdSrc, &statSrc) < 0) goto done;
-	size_t bytesSrc = statSrc.st_size;
-	void *addrSrc = ::mmap(NULL, bytesSrc, PROT_READ, MAP_PRIVATE, fdSrc, 0);
-	if (addrSrc == MAP_FAILED) goto done;
-	if (::write(fdDst, addrSrc, bytesSrc) < bytesSrc) goto done;
-	::munmap(addrSrc, bytesSrc);
-	rtn = true;
-done:
-	if (fdSrc >= 0) ::close(fdSrc);
-	if (fdDst >= 0) ::close(fdDst);
-	return rtn;
+	if (::stat(srcNative.c_str(), &statSrc) < 0) return false;
+	if (S_ISREG(statSrc.st_mode)) {
+		if (failIfExistsFlag && ::stat(dstNative.c_str(), &statDst) == 0) return false;
+		fdSrc = ::open(srcNative.c_str(), O_RDONLY);
+		if (fdSrc < 0) return false;
+		fdDst = ::open(dstNative.c_str(), O_WRONLY);
+		if (fdDst < 0) {
+			::close(fdSrc);
+			return false;
+		}
+		size_t bytesSrc = statSrc.st_size;
+		void *addrSrc = ::mmap(NULL, bytesSrc, PROT_READ, MAP_PRIVATE, fdSrc, 0);
+		if (addrSrc == MAP_FAILED) {
+			::close(fdSrc);
+			::close(fdDst);
+			return false;
+		}
+		if (::write(fdDst, addrSrc, bytesSrc) < bytesSrc) {
+			::munmap(addrSrc, bytesSrc);
+			::close(fdSrc);
+			::close(fdDst);
+			return false;
+		}
+		::munmap(addrSrc, bytesSrc);
+		::close(fdSrc);
+		::close(fdDst);
+		return true;
+	} else if (S_ISDIR(statSrc.st_mode)) {
+		// nothing to do
+	} else if (S_ISCHR(statSrc.st_mode)) {
+		// nothing to do
+	} else if (S_ISBLK(statSrc.st_mode)) {
+		// nothing to do
+	} else if (S_ISFIFO(statSrc.st_mode)) {
+		// nothing to do
+	} else if (S_ISLNK(statSrc.st_mode)) {
+		// nothing to do
+	} else if (S_ISSOCK(statSrc.st_mode)) {
+		// nothing to do
+	}
+	return false;
 }
 
 bool Rename(const char *src, const char *dst)

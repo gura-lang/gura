@@ -729,7 +729,7 @@ Gura_ImplementFunction(cpdir)
 				OAL::CopyDirTree(dirNameSrc, dirNameDst) :
 				OAL::CopyDir(dirNameSrc, dirNameDst);
 	if (!rtn) {
-		sig.SetError(ERR_IOError, "failed to copies a directory %s to %s",
+		sig.SetError(ERR_IOError, "failed to copies a directory '%s' to '%s'",
 													dirNameSrc, dirNameDst);
 	}
 	return Value::Null;
