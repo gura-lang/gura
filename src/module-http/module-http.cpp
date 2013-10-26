@@ -1386,7 +1386,6 @@ size_t Stream_Http::DoRead(Signal sig, void *buff, size_t bytes)
 				AutoPtr<Codec> pCodec(Codec::CreateCodec(sig, _encodingDetector.GetEncoding(), true, false));
 				if (sig.IsSignalled()) return NULL;
 				SetCodec(pCodec.release());
-				return 0;
 			}
 		}
 		_bytesRead -= bytesRecved;
