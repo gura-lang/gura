@@ -21,8 +21,12 @@ typedef int mode_t;
 #include <unistd.h>
 #include <dlfcn.h>
 #include <pthread.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <sys/time.h>
 #include <sys/wait.h>
+#include <sys/mman.h>
 #endif
 
 namespace Gura {
@@ -1109,14 +1113,16 @@ bool Copy(const char *src, const char *dst, bool failIfExistsFlag)
 	struct stat statSrc, statDst;
 	String srcNative = ToNativeString(src);
 	String dstNative = ToNativeString(dst);
+	size_t bytesSrc = 0;
+	void *addrSrc = NULL;
 	if (failIfExistsFlag && ::stat(dstNative.c_str(), &statDst) == 0) goto done;
 	fdSrc = ::open(srcNative.c_str(), O_RDONLY);
 	if (fdSrc < 0) goto done;
-	fdDst = ::open(dstNative.c_str(), O_WRONLY);
+	fdDst = ::open(dstNative.c_str(), O_WRONLY | O_CREAT | O_TRUNC);
 	if (fdDst < 0) goto done;
 	if (::fstat(fdSrc, &statSrc) < 0) goto done;
-	size_t bytesSrc = statSrc.st_size;
-	void *addrSrc = ::mmap(NULL, bytesSrc, PROT_READ, MAP_PRIVATE, fdSrc, 0);
+	bytesSrc = statSrc.st_size;
+	addrSrc = ::mmap(NULL, bytesSrc, PROT_READ, MAP_PRIVATE, fdSrc, 0);
 	if (addrSrc == MAP_FAILED) goto done;
 	if (::write(fdDst, addrSrc, bytesSrc) < bytesSrc) goto done;
 	::munmap(addrSrc, bytesSrc);
