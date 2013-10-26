@@ -15,6 +15,6 @@ uri = 'http://api.calil.jp/library?' + [
 	//'format=json'
 	'format=xml'
 ].join('&')
-copy(uri.escapeuri(), 'calil-result.xml')
+copy(uri.encodeuri(), 'calil-result.xml')
 //print(readlines(uri.escapeuri()))
 //println(xml.read('bb.xml'))

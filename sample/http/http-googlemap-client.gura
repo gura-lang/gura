@@ -2,6 +2,7 @@
 import(tk)
 import(png)
 import(http)
+import(show.tk)
 
 uri = '/maps/api/staticmap?' + [
 	//'center=Brooklyn+Bridge,New+York,NY'
@@ -19,7 +20,7 @@ uri = '/maps/api/staticmap?' + [
 	'sensor=false'
 ].join('&')
 http.client('maps.googleapis.com') {|c|
-	resp = c.get(uri.escapeuri())
+	resp = c.get(uri.encodeuri())
 	println(resp.code, ' ', resp.version, ' ', resp.reason)
 	println(resp['Content-Type'])
 	if (resp.code == '200') {
