@@ -21,12 +21,8 @@ typedef int mode_t;
 #include <unistd.h>
 #include <dlfcn.h>
 #include <pthread.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <sys/time.h>
 #include <sys/wait.h>
-#include <sys/mman.h>
 #endif
 
 namespace Gura {
@@ -286,12 +282,45 @@ bool ParseStatMode(const char *mode, mode_t &st_mode)
 
 bool CopyDir(const char *dirNameSrc, const char *dirNameDst)
 {
-	return false;
+	if (!MakeDirTree(dirNameDst)) return false;
+	DirLister dirLister(dirNameSrc, false);
+	bool dirFlag = false;
+	String fileName;
+	while (dirLister.Next(NULL, fileName, &dirFlag)) {
+		if (dirFlag) continue;
+		String pathNameSrc = JoinPathName(dirNameSrc, fileName.c_str());
+		String pathNameDst = JoinPathName(dirNameDst, fileName.c_str());
+		if (!Copy(pathNameSrc.c_str(), pathNameDst.c_str(), false)) return false;
+	}
+	return true;
 }
 
 bool CopyDirTree(const char *dirNameSrc, const char *dirNameDst)
 {
-	return false;
+	typedef std::list<String> RelNames;
+	bool rtn = true;
+	RelNames relNames;
+	relNames.push_back("");
+	foreach (RelNames, pRelNameIter, relNames) {
+		const char *relNameIter = pRelNameIter->c_str();
+		String dirNameIterSrc = JoinPathName(dirNameSrc, relNameIter);
+		String dirNameIterDst = JoinPathName(dirNameDst, relNameIter);
+		if (!MakeDirTree(dirNameIterDst.c_str())) return false;
+		DirLister dirLister(dirNameIterSrc.c_str(), false);
+		bool dirFlag = false;
+		String fileName;
+		while (dirLister.Next(NULL, fileName, &dirFlag)) {
+			if (dirFlag) {
+				String relName = JoinPathName(relNameIter, fileName.c_str());
+				relNames.push_back(relName);
+				continue;
+			}
+			String pathNameSrc = JoinPathName(dirNameIterSrc.c_str(), fileName.c_str());
+			String pathNameDst = JoinPathName(dirNameIterDst.c_str(), fileName.c_str());
+			if (!Copy(pathNameSrc.c_str(), pathNameDst.c_str(), false)) return false;
+		}
+	}
+	return true;
 }
 
 bool MakeDirTree(const char *dirName)
@@ -860,8 +889,8 @@ FileStat *FileStat::Generate(Signal sig, const char *fileName)
 //-----------------------------------------------------------------------------
 // DirLister
 //-----------------------------------------------------------------------------
-DirLister::DirLister(const char *dirName) :
-						_dirName(dirName), _hFind(INVALID_HANDLE_VALUE)
+DirLister::DirLister(const char *dirName, bool joinPathNameFlag) :
+	_dirName(dirName), _joinPathNameFlag(joinPathNameFlag), _hFind(INVALID_HANDLE_VALUE)
 {
 }
 
@@ -877,7 +906,7 @@ bool DirLister::Next(const char *pattern, String &pathName, bool *pDirFlag)
 	String fileName;
 	for (;;) {
 		if (_hFind == INVALID_HANDLE_VALUE) {
-			String pattern = JoinPathName(FileSeparator, _dirName.c_str(), "*.*");
+			String pattern = JoinPathName(_dirName.c_str(), "*.*");
 			_hFind = ::FindFirstFile(ToNativeString(pattern.c_str()).c_str(), &findData);
 			if (_hFind == INVALID_HANDLE_VALUE) return false;
 		} else {
@@ -887,7 +916,11 @@ bool DirLister::Next(const char *pattern, String &pathName, bool *pDirFlag)
 		if (fileName != "." && fileName != ".." &&
 			(pattern == NULL || PathManager::DoesMatchName(pattern, fileName.c_str(), true))) break;
 	}
-	pathName = JoinPathName(FileSeparator, _dirName.c_str(), fileName.c_str());
+	if (_joinPathNameFlag) {
+		pathName = JoinPathName(_dirName.c_str(), fileName.c_str());
+	} else {
+		pathName = fileName;
+	}
 	*pDirFlag = (findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)? true : false;
 	return true;
 }
@@ -1113,16 +1146,14 @@ bool Copy(const char *src, const char *dst, bool failIfExistsFlag)
 	struct stat statSrc, statDst;
 	String srcNative = ToNativeString(src);
 	String dstNative = ToNativeString(dst);
-	size_t bytesSrc = 0;
-	void *addrSrc = NULL;
 	if (failIfExistsFlag && ::stat(dstNative.c_str(), &statDst) == 0) goto done;
 	fdSrc = ::open(srcNative.c_str(), O_RDONLY);
 	if (fdSrc < 0) goto done;
-	fdDst = ::open(dstNative.c_str(), O_WRONLY | O_CREAT | O_TRUNC);
+	fdDst = ::open(dstNative.c_str(), O_WRONLY);
 	if (fdDst < 0) goto done;
 	if (::fstat(fdSrc, &statSrc) < 0) goto done;
-	bytesSrc = statSrc.st_size;
-	addrSrc = ::mmap(NULL, bytesSrc, PROT_READ, MAP_PRIVATE, fdSrc, 0);
+	size_t bytesSrc = statSrc.st_size;
+	void *addrSrc = ::mmap(NULL, bytesSrc, PROT_READ, MAP_PRIVATE, fdSrc, 0);
 	if (addrSrc == MAP_FAILED) goto done;
 	if (::write(fdDst, addrSrc, bytesSrc) < bytesSrc) goto done;
 	::munmap(addrSrc, bytesSrc);
@@ -1371,7 +1402,8 @@ FileStat *FileStat::Generate(Signal sig, const char *fileName)
 //-----------------------------------------------------------------------------
 // DirLister
 //-----------------------------------------------------------------------------
-DirLister::DirLister(const char *dirName) : _dirName(dirName), _dirp(NULL)
+DirLister::DirLister(const char *dirName, bool joinPathNameFlag) :
+		_dirName(dirName), _joinPathNameFlag(joinPathNameFlag), _dirp(NULL)
 {
 }
 
@@ -1396,7 +1428,11 @@ bool DirLister::Next(const char *pattern, String &pathName, bool *pDirFlag)
 		if (fileName != "." && fileName != ".." &&
 			(pattern == NULL || PathManager::DoesMatchName(pattern, fileName.c_str(), false))) break;
 	}
-	pathName = JoinPathName(FileSeparator, _dirName.c_str(), fileName.c_str());
+	if (_joinPathNameFlag) {
+		pathName = JoinPathName(_dirName.c_str(), fileName.c_str());
+	} else {
+		pathName = fileName;
+	}
 	*pDirFlag = (direntp->d_type == DT_DIR);
 	return true;
 }
