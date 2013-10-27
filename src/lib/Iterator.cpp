@@ -640,7 +640,7 @@ void Iterator::Share::Store(int id, const Value &value)
 //-----------------------------------------------------------------------------
 Iterator *Iterator_GenericClone::GetSource()
 {
-	return _pIterator.get();
+	return _pIterator->GetSource();
 }
 
 bool Iterator_GenericClone::DoNext(Environment &env, Signal sig, Value &value)

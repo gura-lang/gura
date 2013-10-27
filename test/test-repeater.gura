@@ -440,3 +440,8 @@ testcase {
 		printf('%2d %2d %s\n', i, j, month)
 	}
 }
+testcase {
+	(0..512).skip(1).skip(1).skip(1).skip(1) {|x, i1, i2, i3, i4, i5|
+		printf('%3d %3d %3d %3d %3d %3d\n', x, i1, i2, i3, i4, i5)
+	}
+}
