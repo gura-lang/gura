@@ -112,3 +112,17 @@ testcase {
 		buffDec.dump()
 	}
 }
+testcase {
+	copy(b'hello world #1\n', sys.stdout)
+	copy(b'hello world #2\n', sys.stdout)
+	copy(b'hello world #3\n', sys.stdout)
+	copy(b'hello world #4\n', sys.stdout)
+	copy(b'hello world #5\n', sys.stdout)
+	copy(b'hello world #6\n', sys.stdout)
+	b'hello world #1\n'.reader().copyto(sys.stdout)
+	b'hello world #2\n'.reader().copyto(sys.stdout)
+	b'hello world #3\n'.reader().copyto(sys.stdout)
+	b'hello world #4\n'.reader().copyto(sys.stdout)
+	b'hello world #5\n'.reader().copyto(sys.stdout)
+	b'hello world #6\n'.reader().copyto(sys.stdout)
+}

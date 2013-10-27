@@ -122,7 +122,7 @@ size_t HashBase::DoRead(Signal sig, void *buff, size_t len)
 
 bool HashBase::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode) { return false; }
 bool HashBase::DoFlush(Signal sig) { return true; }
-bool HashBase::DoClose(Signal sig) { return true; }
+bool HashBase::DoClose(Signal sig) { return Stream::DoClose(sig); }
 
 const Value &HashBase::GetValue()
 {

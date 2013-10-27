@@ -582,7 +582,7 @@ bool Stream_Entry::DoFlush(Signal sig)
 bool Stream_Entry::DoClose(Signal sig)
 {
 	_pStreamSrc.reset(NULL);
-	return true;
+	return Stream::DoClose(sig);
 }
 
 size_t Stream_Entry::DoGetSize()

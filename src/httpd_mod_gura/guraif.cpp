@@ -108,7 +108,7 @@ bool StreamAPR::DoFlush(Signal sig)
 
 bool StreamAPR::DoClose(Signal sig)
 {
-	return true;
+	return Stream::DoClose(sig);
 }
 
 size_t StreamAPR::DoGetSize()

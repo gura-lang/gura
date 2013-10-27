@@ -147,7 +147,6 @@ Stream::~Stream()
 void Stream::Close()
 {
 	DoClose(_sig);
-	_attr &= ~(ATTR_Readable | ATTR_Writable | ATTR_Append);
 }
 
 void Stream::SetCodec(Codec *pCodec)
@@ -256,6 +255,7 @@ bool Stream::DoFlush(Signal sig)
 
 bool Stream::DoClose(Signal sig)
 {
+	_attr &= ~(ATTR_Readable | ATTR_Writable | ATTR_Append);
 	return true;
 }
 
@@ -822,7 +822,7 @@ bool StreamDumb::DoFlush(Signal sig)
 
 bool StreamDumb::DoClose(Signal sig)
 {
-	return true;
+	return Stream::DoClose(sig);
 }
 
 size_t StreamDumb::DoGetSize()
@@ -958,7 +958,7 @@ bool StreamFIFO::DoFlush(Signal sig)
 
 bool StreamFIFO::DoClose(Signal sig)
 {
-	return true;
+	return Stream::DoClose(sig);
 }
 
 size_t StreamFIFO::DoGetSize()
@@ -1023,7 +1023,7 @@ bool StreamMemory::DoFlush(Signal sig)
 
 bool StreamMemory::DoClose(Signal sig)
 {
-	return true;
+	return Stream::DoClose(sig);
 }
 
 size_t StreamMemory::DoGetSize()
@@ -1100,7 +1100,7 @@ bool StreamMemReader::DoFlush(Signal sig)
 
 bool StreamMemReader::DoClose(Signal sig)
 {
-	return true;
+	return Stream::DoClose(sig);
 }
 
 size_t StreamMemReader::DoGetSize()
@@ -1185,7 +1185,7 @@ bool Stream_Prefetch::DoFlush(Signal sig)
 
 bool Stream_Prefetch::DoClose(Signal sig)
 {
-	return true;
+	return Stream::DoClose(sig);
 }
 
 size_t Stream_Prefetch::DoGetSize()
@@ -1315,7 +1315,7 @@ bool Stream_Base64Reader::DoFlush(Signal sig)
 
 bool Stream_Base64Reader::DoClose(Signal sig)
 {
-	return true;
+	return Stream::DoClose(sig);
 }
 
 size_t Stream_Base64Reader::DoGetSize()
@@ -1449,7 +1449,8 @@ bool Stream_Base64Writer::DoFlush(Signal sig)
 
 bool Stream_Base64Writer::DoClose(Signal sig)
 {
-	return DoFlush(sig);
+	if (!DoFlush(sig)) return false;
+	return Stream::DoClose(sig);
 }
 
 size_t Stream_Base64Writer::DoGetSize()
@@ -1500,7 +1501,8 @@ bool Stream_CRC32::DoFlush(Signal sig)
 
 bool Stream_CRC32::DoClose(Signal sig)
 {
-	return _pStreamDst.IsNull()? 0 : _pStreamDst->DoClose(sig);
+	if (!_pStreamDst.IsNull() && !_pStreamDst->DoClose(sig)) return false;
+	return Stream::DoClose(sig);
 }
 
 size_t Stream_CRC32::DoGetSize()
@@ -1564,7 +1566,7 @@ bool Stream_StringReader::DoFlush(Signal sig)
 
 bool Stream_StringReader::DoClose(Signal sig)
 {
-	return true;
+	return Stream::DoClose(sig);
 }
 
 size_t Stream_StringReader::DoGetSize()

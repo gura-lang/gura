@@ -618,7 +618,7 @@ bool Stream_Binary::DoFlush(Signal sig)
 
 bool Stream_Binary::DoClose(Signal sig)
 {
-	return true;
+	return Stream::DoClose(sig);
 }
 
 size_t Stream_Binary::DoGetSize()

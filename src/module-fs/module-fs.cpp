@@ -308,7 +308,8 @@ bool Stream_File::DoFlush(Signal sig)
 
 bool Stream_File::DoClose(Signal sig)
 {
-	if (_needCloseFlag && _hFile != INVALID_HANDLE_VALUE) {
+	if (!_needCloseFlag) return true;
+	if (_hFile != INVALID_HANDLE_VALUE) {
 		if (_map.hFileMappingObject != NULL) {
 			::UnmapViewOfFile(_map.buff);
 			::CloseHandle(_map.hFileMappingObject);
@@ -318,8 +319,9 @@ bool Stream_File::DoClose(Signal sig)
 		::CloseHandle(_hFile);
 		_hFile = INVALID_HANDLE_VALUE;
 		_needCloseFlag = false;
+		
 	}
-	return true;
+	return Stream::DoClose(sig);
 }
 
 size_t Stream_File::DoGetSize()
@@ -432,12 +434,13 @@ bool Stream_File::DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode se
 
 bool Stream_File::DoClose(Signal sig)
 {
-	if (_needCloseFlag && _fp != NULL) {
+	if (!_needCloseFlag) return true;
+	if (_fp != NULL) {
 		::fclose(_fp);
 		_fp = NULL;
 		_needCloseFlag = false;
 	}
-	return true;
+	return Stream::DoClose(sig);
 }
 
 size_t Stream_File::DoGetSize()

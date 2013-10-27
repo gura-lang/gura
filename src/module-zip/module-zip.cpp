@@ -695,7 +695,7 @@ bool Stream_reader::DoFlush(Signal sig)
 bool Stream_reader::DoClose(Signal sig)
 {
 	_pStreamSrc.reset(NULL);
-	return true;
+	return Stream::DoClose(sig);
 }
 
 size_t Stream_reader::DoGetSize()

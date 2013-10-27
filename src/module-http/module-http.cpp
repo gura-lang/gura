@@ -1217,7 +1217,7 @@ bool Stream_Socket::DoFlush(Signal sig)
 
 bool Stream_Socket::DoClose(Signal sig)
 {
-	return true;
+	return Stream::DoClose(sig);
 }
 
 size_t Stream_Socket::DoGetSize()
@@ -1333,7 +1333,8 @@ bool Stream_Chunked::DoFlush(Signal sig)
 
 bool Stream_Chunked::DoClose(Signal sig)
 {
-	return DoFlush(sig);
+	if (!DoFlush(sig)) return false;
+	return Stream::DoClose(sig);
 }
 
 size_t Stream_Chunked::DoGetSize()
@@ -1440,7 +1441,7 @@ bool Stream_Http::DoFlush(Signal sig)
 
 bool Stream_Http::DoClose(Signal sig)
 {
-	return true;
+	return Stream::DoClose(sig);
 }
 
 size_t Stream_Http::DoGetSize()
