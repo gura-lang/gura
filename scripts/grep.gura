@@ -37,5 +37,7 @@ fileNames.each {|fileName|
 				printf('%s:%s', fileName, m.string)
 			}
 		}
-	} catch {}
+	} catch {|e|
+		println('error while reading ', fileName)
+	}
 }
