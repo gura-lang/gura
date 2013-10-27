@@ -24,9 +24,9 @@ argopt.Parser {|p|
 }
 if (cfg['recursive']) {
 	level = cfg['level']
-	fileNames = path.walk('', level, argv[1..]*)
+	fileNames = path.walk('', level, argv[1..]*):file
 } else {
-	fileNames = path.glob(argv[1..]):list
+	fileNames = path.glob(argv[1..]):list:file
 }
 fileNames.each {|fileName|
 	try {

@@ -2396,9 +2396,15 @@ bool Iterator_Repeater::DoNext(Environment &env, Signal sig, Value &value)
 	for (;;) {
 		if (_pIteratorNest.IsNull()) {
 			Value valueSrc;
-			if (!_pIteratorSrc->Next(env, sig, valueSrc)) return false;
 			AutoPtr<Args> pArgs(new Args());
-			pArgs->SetValues(valueSrc, Value(static_cast<Number>(_idx)));
+			pArgs->AddValue(valueSrc);
+			pArgs->AddValue(Value(static_cast<Number>(_idx)));
+			for (Iterator *pIterator = _pIteratorSrc.get(); pIterator != NULL;
+										pIterator = pIterator->GetSource()) {
+				pArgs->AddValue(Value(static_cast<Number>(pIterator->GetCountNext())));
+			}
+			if (!_pIteratorSrc->Next(env, sig, valueSrc)) return false;
+			pArgs->GetValueListArg()[0] = valueSrc;
 			value = _pFuncBlock->Eval(*_pEnv, sig, *pArgs);
 			_idx++;
 			if (sig.IsBreak()) {
