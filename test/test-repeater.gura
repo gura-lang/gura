@@ -428,3 +428,15 @@ testcase {
 	}
 	println(iter)
 }
+testcase {
+	months = [
+		'January', 'February', 'March', 'April', 'May', 'June',
+		'July', 'August', 'September','October', 'November', 'December'
+	]
+	months.each {|month, i|
+		printf('%2d %s\n', i, month)
+	}
+	months.each().filter(months:*startswith('J')) {|month, i, j|
+		printf('%2d %2d %s\n', i, j, month)
+	}
+}

@@ -2398,10 +2398,9 @@ bool Iterator_Repeater::DoNext(Environment &env, Signal sig, Value &value)
 			Value valueSrc;
 			AutoPtr<Args> pArgs(new Args());
 			pArgs->AddValue(valueSrc);
-			pArgs->AddValue(Value(static_cast<Number>(_idx)));
-			for (Iterator *pIterator = _pIteratorSrc.get(); pIterator != NULL;
-										pIterator = pIterator->GetSource()) {
-				pArgs->AddValue(Value(static_cast<Number>(pIterator->GetCountNext())));
+			for (Iterator *pIteratorSrc = _pIteratorSrc.get();
+					pIteratorSrc != NULL; pIteratorSrc = pIteratorSrc->GetSource()) {
+				pArgs->AddValue(Value(static_cast<Number>(pIteratorSrc->GetCountNext())));
 			}
 			if (!_pIteratorSrc->Next(env, sig, valueSrc)) return false;
 			pArgs->GetValueListArg()[0] = valueSrc;
