@@ -113,7 +113,7 @@ public:
 		SEP_NewLine,
 	};
 public:
-	class ExprVisitor_GatherSymbol : public ExprVisitor {
+	class GURA_DLLDECLARE ExprVisitor_GatherSymbol : public ExprVisitor {
 	private:
 		SymbolSet &_symbolSet;
 	public:
@@ -121,7 +121,7 @@ public:
 												_symbolSet(symbolSet) {}
 		virtual bool Visit(const Expr *pExpr);
 	};
-	class ExprVisitor_GatherSimpleLambdaArgs : public ExprVisitor {
+	class GURA_DLLDECLARE ExprVisitor_GatherSimpleLambdaArgs : public ExprVisitor {
 	private:
 		SymbolSet _symbolSet;
 		ExprOwner &_exprOwnerArg;
@@ -129,13 +129,22 @@ public:
 		inline ExprVisitor_GatherSimpleLambdaArgs(ExprOwner &exprOwnerArg) : _exprOwnerArg(exprOwnerArg) {}
 		virtual bool Visit(const Expr *pExpr);
 	};
-	class ExprVisitor_SearchBar : public ExprVisitor {
+	class GURA_DLLDECLARE ExprVisitor_SearchBar : public ExprVisitor {
 	private:
 		bool _foundFlag;
 	public:
 		inline ExprVisitor_SearchBar() : _foundFlag(false) {}
 		virtual bool Visit(const Expr *pExpr);
 		inline bool GetFoundFlag() const { return _foundFlag; }
+	};
+	class GURA_DLLDECLARE SequenceRoot : public Sequence {
+	private:
+		AutoPtr<ExprOwner> _pExprOwner;
+		size_t _idxExpr;
+	public:
+		SequenceRoot(Environment *pEnv, ExprOwner *pExprOwner);
+		virtual bool DoStep(Signal sig, Value &result);
+		virtual String ToString() const;
 	};
 private:
 	ExprType _exprType;
@@ -490,16 +499,6 @@ public:
 // Expr_Root
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Root : public Expr_Container {
-public:
-	class SequenceEx : public Sequence {
-	private:
-		AutoPtr<Expr_Root> _pExpr;
-		size_t _idxExpr;
-	public:
-		SequenceEx(Environment *pEnv, Expr_Root *pExpr);
-		virtual bool DoStep(Signal sig, Value &result);
-		virtual String ToString() const;
-	};
 private:
 	String _pathName;
 public:
@@ -523,7 +522,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Block : public Expr_Container {
 public:
-	class SequenceEx : public Sequence {
+	class GURA_DLLDECLARE SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
 		virtual bool DoStep(Signal sig, Value &result);
@@ -558,7 +557,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Lister : public Expr_Container {
 public:
-	class SequenceEx : public Sequence {
+	class GURA_DLLDECLARE SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
 		virtual bool DoStep(Signal sig, Value &result);
@@ -588,7 +587,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_IterLink : public Expr_Container {
 public:
-	class SequenceEx : public Sequence {
+	class GURA_DLLDECLARE SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
 		virtual bool DoStep(Signal sig, Value &result);
@@ -616,7 +615,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_TmplScript : public Expr_Container {
 public:
-	class SequenceEx : public Sequence {
+	class GURA_DLLDECLARE SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
 		virtual bool DoStep(Signal sig, Value &result);
@@ -657,13 +656,6 @@ public:
 // Expr_Compound
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Compound : public Expr {
-public:
-	class SequenceEx : public Sequence {
-	public:
-		SequenceEx(Environment *pEnv);
-		virtual bool DoStep(Signal sig, Value &result);
-		virtual String ToString() const;
-	};
 protected:
 	AutoPtr<Expr> _pExprCar;
 	AutoPtr<Expr_Lister> _pExprLister;
@@ -689,7 +681,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Indexer : public Expr_Compound {
 public:
-	class SequenceEx : public Sequence {
+	class GURA_DLLDECLARE SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
 		virtual bool DoStep(Signal sig, Value &result);
@@ -718,7 +710,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Caller : public Expr_Compound {
 public:
-	class SequenceEx : public Sequence {
+	class GURA_DLLDECLARE SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
 		virtual bool DoStep(Signal sig, Value &result);
@@ -781,7 +773,7 @@ private:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_UnaryOp : public Expr_Unary {
 public:
-	class SequenceEx : public Sequence {
+	class GURA_DLLDECLARE SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
 		virtual bool DoStep(Signal sig, Value &result);
@@ -816,7 +808,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_BinaryOp : public Expr_Binary {
 public:
-	class SequenceEx : public Sequence {
+	class GURA_DLLDECLARE SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
 		virtual bool DoStep(Signal sig, Value &result);
@@ -848,7 +840,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Quote : public Expr_Unary {
 public:
-	class SequenceEx : public Sequence {
+	class GURA_DLLDECLARE SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
 		virtual bool DoStep(Signal sig, Value &result);
@@ -874,7 +866,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Prefix : public Expr_Unary {
 public:
-	class SequenceEx : public Sequence {
+	class GURA_DLLDECLARE SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
 		virtual bool DoStep(Signal sig, Value &result);
@@ -904,7 +896,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Suffix : public Expr_Unary {
 public:
-	class SequenceEx : public Sequence {
+	class GURA_DLLDECLARE SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
 		virtual bool DoStep(Signal sig, Value &result);
@@ -939,7 +931,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Assign : public Expr_Binary {
 public:
-	class SequenceEx : public Sequence {
+	class GURA_DLLDECLARE SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
 		virtual bool DoStep(Signal sig, Value &result);
@@ -971,7 +963,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Member : public Expr_Binary {
 public:
-	class SequenceEx : public Sequence {
+	class GURA_DLLDECLARE SequenceEx : public Sequence {
 	public:
 		SequenceEx(Environment *pEnv);
 		virtual bool DoStep(Signal sig, Value &result);

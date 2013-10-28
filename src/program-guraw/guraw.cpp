@@ -87,7 +87,10 @@ int MainW(int argc, const char *argv[])
 			if (pExprOwner->empty()) {
 				env.GetConsole()->Println(sig, "incomplete command");
 			} else {
-				Value result = pExprOwner->Exec3(env, sig);
+				AutoPtr<Processor> pProcessor(new Processor());
+				pProcessor->PushSequence(new Expr::SequenceRoot(
+									env.Reference(), pExprOwner->Reference()));
+				Value result = pProcessor->Run(sig);
 				if (sig.IsSignalled()) {
 					env.GetConsole()->PrintSignal(sig, sig);
 					return 1;

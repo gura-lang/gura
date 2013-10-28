@@ -439,6 +439,55 @@ bool Expr::ExprVisitor_SearchBar::Visit(const Expr *pExpr)
 }
 
 //-----------------------------------------------------------------------------
+// Expr::SequenceRoot
+//-----------------------------------------------------------------------------
+Expr::SequenceRoot::SequenceRoot(Environment *pEnv, ExprOwner *pExprOwner) :
+								Sequence(pEnv), _pExprOwner(pExprOwner), _idxExpr(0)
+{
+}
+
+bool Expr::SequenceRoot::DoStep(Signal sig, Value &result)
+{
+	if (_idxExpr >= _pExprOwner->size()) {
+		_doneFlag = true;
+		return false;
+	}
+	Environment &env = *_pEnv;
+	const Expr *pExpr = (*_pExprOwner)[_idxExpr++];
+	//::printf("# %s\n", pExpr->ToString(Expr::SCRSTYLE_Brief).c_str());
+	SeqPostHandler *pSeqPostHandler = NULL;
+	result = pExpr->Exec(env, sig, pSeqPostHandler);
+	if (sig.IsError()) {
+		sig.AddExprCause(pExpr);
+		result = Value::Null;
+		_doneFlag = true;
+		return false;
+	} else if (sig.IsTerminate()) {
+		env.GetConsoleErr()->PrintSignal(sig, sig);
+		sig.ClearSignal();
+		result = Value::Null;
+		_doneFlag = true;
+		return false;
+	} else if (sig.IsSignalled()) {
+		env.GetConsoleErr()->PrintSignal(sig, sig);
+		sig.ClearSignal();
+	} else if (!env.GetGlobal()->GetEchoFlag()) {
+		// nothing to do
+	} else if (result.IsValid()) {
+		env.GetConsole()->Println(sig, result.ToString(sig).c_str());
+	}
+	_doneFlag = (_idxExpr >= _pExprOwner->size());
+	return true;
+}
+
+String Expr::SequenceRoot::ToString() const
+{
+	String str;
+	str += "<sequence:expr_root>";
+	return str;
+}
+
+//-----------------------------------------------------------------------------
 // ExprList
 //-----------------------------------------------------------------------------
 const ExprList ExprList::Null;
@@ -1138,54 +1187,8 @@ bool Expr_Root::GenerateScript(Signal sig, SimpleStream &stream,
 Processor *Expr_Root::GenerateProcessor(Environment &env) const
 {
 	AutoPtr<Processor> pProcessor(new Processor());
-	pProcessor->PushSequence(new SequenceEx(env.Reference(), Reference(this)));
+	pProcessor->PushSequence(new SequenceRoot(env.Reference(), GetExprOwner().Reference()));
 	return pProcessor.release();
-}
-
-Expr_Root::SequenceEx::SequenceEx(Environment *pEnv, Expr_Root *pExpr) :
-								Sequence(pEnv), _pExpr(pExpr), _idxExpr(0)
-{
-}
-
-bool Expr_Root::SequenceEx::DoStep(Signal sig, Value &result)
-{
-	if (_idxExpr >= _pExpr->GetExprOwner().size()) {
-		_doneFlag = true;
-		return false;
-	}
-	Environment &env = *_pEnv;
-	const Expr *pExpr = _pExpr->GetExprOwner()[_idxExpr++];
-	//::printf("# %s\n", pExpr->ToString(Expr::SCRSTYLE_Brief).c_str());
-	SeqPostHandler *pSeqPostHandler = NULL;
-	result = pExpr->Exec(env, sig, pSeqPostHandler);
-	if (sig.IsError()) {
-		sig.AddExprCause(pExpr);
-		result = Value::Null;
-		_doneFlag = true;
-		return false;
-	} else if (sig.IsTerminate()) {
-		env.GetConsoleErr()->PrintSignal(sig, sig);
-		sig.ClearSignal();
-		result = Value::Null;
-		_doneFlag = true;
-		return false;
-	} else if (sig.IsSignalled()) {
-		env.GetConsoleErr()->PrintSignal(sig, sig);
-		sig.ClearSignal();
-	} else if (!env.GetGlobal()->GetEchoFlag()) {
-		// nothing to do
-	} else if (result.IsValid()) {
-		env.GetConsole()->Println(sig, result.ToString(sig).c_str());
-	}
-	_doneFlag = (_idxExpr >= _pExpr->GetExprOwner().size());
-	return true;
-}
-
-String Expr_Root::SequenceEx::ToString() const
-{
-	String str;
-	str += "<sequence:expr_root>";
-	return str;
 }
 
 //-----------------------------------------------------------------------------

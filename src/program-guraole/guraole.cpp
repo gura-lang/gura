@@ -264,7 +264,10 @@ HRESULT CMain::ParseScriptText(
 	if (pExprOwner->empty()) {
 		pConsole->Println(_sig, "incomplete command");
 	} else {
-		Gura::Value result = pExprOwner->Exec3(*_pEnv, _sig);
+		Gura::AutoPtr<Gura::Processor> pProcessor(new Gura::Processor());
+		pProcessor->PushSequence(new Gura::Expr::SequenceRoot(
+							_pEnv->Reference(), pExprOwner->Reference()));
+		Gura::Value result = pProcessor->Run(_sig);
 		if (_sig.IsSignalled()) {
 			pConsole->PrintSignal(_sig, _sig);
 			NotifyScriptError();
