@@ -578,7 +578,7 @@ public:
 	inline void SetParam(Expr_BlockParam *pExprBlockParam) {
 		_pExprBlockParam.reset(pExprBlockParam);
 	}
-	inline const Expr_BlockParam *GetParam() const { return _pExprBlockParam.get(); }
+	//inline const Expr_BlockParam *GetParam() const { return _pExprBlockParam.get(); }
 	//inline void SetExprOwnerParam(ExprOwner *pExprOwnerParam) {
 	//	_pExprOwnerParam.reset(pExprOwnerParam);
 	//}

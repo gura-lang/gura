@@ -144,9 +144,9 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 			return Value::Null;
 		}
 		const Expr_Block *pExpr = dynamic_cast<const Expr_Block *>(GetExpr());
-		const Expr_BlockParam *pExprParam = pExpr->GetParam();
-		if (pExprParam == NULL) return Value::Null;
-		return Value(new Object_expr(env, Expr::Reference(pExprParam)));
+		const ExprOwner *pExprOwnerParam = pExpr->GetExprOwnerParam();
+		if (pExprOwnerParam == NULL) return Value::Null;
+		return Value(env, new Iterator_expr(pExprOwnerParam->Reference()));
 	}
 	evaluatedFlag = false;
 	return Value::Null;

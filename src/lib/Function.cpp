@@ -1051,11 +1051,11 @@ const Expr_Block *Args::GetBlock(Environment &env, Signal sig) const
 	// scope problem remains: 2010.11.02
 	const Expr_Block *pExprBlock = _pExprBlock.get();
 	while (pExprBlock != NULL) {
-		const Expr_BlockParam *pExprBlockParam = pExprBlock->GetParam();
-		if (pExprBlockParam == NULL || !pExprBlock->GetExprOwner().empty()) {
+		const ExprOwner *pExprOwnerParam = pExprBlock->GetExprOwnerParam();
+		if (pExprOwnerParam == NULL || !pExprBlock->GetExprOwner().empty()) {
 			break;
 		}
-		const ExprList &exprList = pExprBlockParam->GetExprOwner();
+		const ExprList &exprList = *pExprOwnerParam;
 		if (exprList.size() != 1 || !exprList.front()->IsSymbol()) {
 			break;
 		}
