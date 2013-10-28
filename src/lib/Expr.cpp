@@ -69,12 +69,29 @@ const char *Expr::GetPathName() const
 	return (_pExprParent == NULL)? NULL : _pExprParent->GetPathName();
 }
 
-Value Expr::Exec(Environment &env, Signal sig, AutoPtr<SeqPostHandler> pSeqPostHandler) const
+Value Expr::Exec(Environment &env, Signal sig,
+			AutoPtr<SeqPostHandler> pSeqPostHandler, bool evalSymFuncFlag) const
 {
 	Value result = DoExec(env, sig, pSeqPostHandler.get());
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return Value::Null;
+	}
+	if (evalSymFuncFlag && result.IsFunction() && result.GetFunction()->IsSymbolFunc()) {
+		// symbol functions are only evaluated by a sequence of block.
+		// in the folloiwng example, "return" shall be evaluated by a block
+		// of "if" function.
+		//   repeat { if (flag) { return } }
+		// in the following example, "&&" operator returns "return" function
+		// object as its result, and then the block of "repeat" shall evaluate it.
+		//   repeat { flag && return }
+		const Function *pFunc = result.GetFunction();
+		AutoPtr<Args> pArgs(new Args());
+		result = pFunc->Call(env, sig, *pArgs);
+		if (sig.IsSignalled()) {
+			sig.AddExprCause(this);
+			return Value::Null;
+		}
 	}
 	return result;
 }
@@ -440,32 +457,15 @@ void ExprList::ExtractTrace(ExprOwner &exprOwner) const
 	}
 }
 
-Value ExprList::Exec3(Environment &env, Signal sig, bool evalSymFuncFlag) const
+Value ExprList::Exec3(Environment &env, Signal sig) const
 {
 	Value result;
 	SeqPostHandler *pSeqPostHandler = NULL;
 	foreach_const (ExprList, ppExpr, *this) {
-		result = (*ppExpr)->Exec2(env, sig, pSeqPostHandler);
+		result = (*ppExpr)->Exec2(env, sig, pSeqPostHandler, true);
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(*ppExpr);
 			break;
-		}
-		if (evalSymFuncFlag && result.IsFunction() &&
-									result.GetFunction()->IsSymbolFunc()) {
-			// symbol functions are only evaluated by a sequence of block.
-			// in the folloiwng example, "return" shall be evaluated by a block
-			// of "if" function.
-			//   repeat { if (flag) { return } }
-			// in the following example, "&&" operator returns "return" function
-			// object as its result, and then the block of "repeat" shall evaluate it.
-			//   repeat { flag && return }
-			const Function *pFunc = result.GetFunction();
-			AutoPtr<Args> pArgs(new Args());
-			Value result = pFunc->Call(env, sig, *pArgs);
-			if (sig.IsSignalled()) {
-				sig.AddExprCause(*ppExpr);
-				return Value::Null;
-			}
 		}
 	}
 	return result;
@@ -1222,13 +1222,16 @@ Value Expr_Block::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostH
 		ValueList &valList = result.InitAsList(env);
 		SeqPostHandler *pSeqPostHandlerEach = NULL;
 		foreach_const (ExprOwner, ppExpr, GetExprOwner()) {
-			Value value = (*ppExpr)->Exec2(env, sig, pSeqPostHandlerEach);
+			Value value = (*ppExpr)->Exec2(env, sig, pSeqPostHandlerEach, true);
 			if (sig.IsSignalled()) return Value::Null;
 			valList.push_back(value);
 		}
 	} else {
-		result = GetExprOwner().Exec3(env, sig, true);
-		if (sig.IsSignalled()) return Value::Null;
+		SeqPostHandler *pSeqPostHandlerEach = NULL;
+		foreach_const (ExprList, ppExpr, GetExprOwner()) {
+			result = (*ppExpr)->Exec2(env, sig, pSeqPostHandlerEach, true);
+			if (sig.IsSignalled()) return Value::Null;
+		}
 	}
 	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
 	return result;
@@ -1314,9 +1317,8 @@ Expr *Expr_BlockParam::Clone() const
 
 Value Expr_BlockParam::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
 {
-	Value result = GetExprOwner().Exec3(env, sig, false);
-	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
-	return result;
+	// There's no chance to evaluate this expression alone.
+	return Value::Null;
 }
 
 bool Expr_BlockParam::GenerateCode(Environment &env, Signal sig, Stream &stream)
@@ -1611,7 +1613,7 @@ Expr *Expr_TmplScript::Clone() const
 Value Expr_TmplScript::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
 {
 	if (GetExprOwner().empty()) return Value::Null;
-	Value value = GetExprOwner().Exec3(env, sig, true);
+	Value value = GetExprOwner().Exec3(env, sig);
 	if (sig.IsSignalled()) {
 		return Value::Null;
 	} else if (value.IsInvalid()) {

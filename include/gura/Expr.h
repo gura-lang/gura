@@ -164,10 +164,12 @@ public:
 	inline const char *GetTypeName() const { return GetExprTypeName(_exprType); }
 	inline ExprType GetType() const { return _exprType; }
 	inline bool IsType(ExprType exprType) const { return _exprType == exprType; }
-	inline Value Exec2(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const {
-		return Exec(env, sig, pSeqPostHandler);
+	Value Exec(Environment &env, Signal sig,
+		AutoPtr<SeqPostHandler> pSeqPostHandler, bool evalSymFuncFlag = false) const;
+	inline Value Exec2(Environment &env, Signal sig,
+			SeqPostHandler *pSeqPostHandler, bool evalSymFuncFlag = false) const {
+		return Exec(env, sig, pSeqPostHandler, evalSymFuncFlag);
 	}
-	Value Exec(Environment &env, Signal sig, AutoPtr<SeqPostHandler> pSeqPostHandler) const;
 	Function *ToFunction(Environment &env, Signal sig,
 				const ValueList &valListArg, const SymbolSet &attrs) const;
 	bool IsAtSameLine(const Expr *pExpr) const;
@@ -258,7 +260,7 @@ public:
 		(*this)[0] = pExpr1, (*this)[1] = pExpr2;
 	}
 	void ExtractTrace(ExprOwner &exprOwner) const;
-	Value Exec3(Environment &env, Signal sig, bool evalSymFuncFlag) const;
+	Value Exec3(Environment &env, Signal sig) const;
 	bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	bool GenerateScript(Signal sig, SimpleStream &stream,
 		Expr::ScriptStyle scriptStyle, int nestLevel, Expr::Separator sep) const;
