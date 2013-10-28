@@ -6,7 +6,7 @@ sys.stdout.setcodec(nil)
 
 argopt.Parser {|p|
 	p.addFlag('line-number',	'n', 'print line number with output lines')
-	p.addFlag('recursive',		'r', 'recursively search subdirectories')
+	p.addFlag('recursive',		'r', 'recursively search sub directories')
 	p.addParam('level',			'l', 'specify depth-level for recursive search', 'NUM')
 	try {
 		[cfg, argv] = p.parse(sys.argv)
