@@ -266,7 +266,6 @@ public:
 		(*this)[0] = pExpr1, (*this)[1] = pExpr2;
 	}
 	void ExtractTrace(ExprOwner &exprOwner) const;
-	Value Exec3(Environment &env, Signal sig) const;
 	bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	bool GenerateScript(Signal sig, SimpleStream &stream,
 		Expr::ScriptStyle scriptStyle, int nestLevel, Expr::Separator sep) const;

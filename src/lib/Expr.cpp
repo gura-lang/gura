@@ -503,20 +503,6 @@ void ExprList::ExtractTrace(ExprOwner &exprOwner) const
 	}
 }
 
-Value ExprList::Exec3(Environment &env, Signal sig) const
-{
-	Value result;
-	SeqPostHandler *pSeqPostHandler = NULL;
-	foreach_const (ExprList, ppExpr, *this) {
-		result = (*ppExpr)->Exec2(env, sig, pSeqPostHandler, true);
-		if (sig.IsSignalled()) {
-			sig.AddExprCause(*ppExpr);
-			break;
-		}
-	}
-	return result;
-}
-
 void ExprList::Accept(ExprVisitor &visitor) const
 {
 	foreach_const (ExprList, ppExpr, *this) {
