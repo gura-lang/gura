@@ -1200,13 +1200,13 @@ Expr_Block::Expr_Block(const Expr_Block &expr) : Expr_Container(expr),
 		_pExprBlockParam((expr._pExprBlockParam.IsNull())? NULL :
 				dynamic_cast<Expr_BlockParam *>(expr._pExprBlockParam->Clone()))
 {
-	if (!_pExprBlockParam.IsNull()) _pExprBlockParam->SetParent(this);
+	if (GetExprOwnerParam() != NULL) GetExprOwnerParam()->SetParent(this);
 }
 
 Expr_Block::~Expr_Block()
 {
-	if (!_pExprBlockParam.IsNull()) {
-		_pExprBlockParam->SetParent(GetParent());
+	if (GetExprOwnerParam() != NULL) {
+		GetExprOwnerParam()->SetParent(GetParent());
 	}
 }
 
@@ -1246,7 +1246,7 @@ Expr *Expr_Block::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) 
 
 void Expr_Block::Accept(ExprVisitor &visitor) const
 {
-	if (!_pExprBlockParam.IsNull()) _pExprBlockParam->Accept(visitor);
+	if (GetExprOwnerParam() != NULL) GetExprOwnerParam()->Accept(visitor);
 	Expr_Container::Accept(visitor);
 }
 
@@ -1261,8 +1261,31 @@ bool Expr_Block::GenerateScript(Signal sig, SimpleStream &stream,
 {
 	stream.PutChar(sig, '{');
 	if (sig.IsSignalled()) return false;
-	if (!_pExprBlockParam.IsNull()) {
-		if (!_pExprBlockParam->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+	if (GetExprOwnerParam() != NULL) {
+		stream.PutChar(sig, '|');
+		if (sig.IsSignalled()) return false;
+		const char *sepText = (scriptStyle == Expr::SCRSTYLE_Crammed)? "," : ", ";
+		foreach_const (ExprList, ppExpr, *GetExprOwnerParam()) {
+			const Expr *pExpr = *ppExpr;
+			if (ppExpr != GetExprOwnerParam()->begin()) {
+				stream.Print(sig, sepText);
+				if (sig.IsSignalled()) return false;
+			}
+			ExprVisitor_SearchBar visitor;
+			pExpr->Accept(visitor);
+			if (visitor.GetFoundFlag()) {
+				stream.PutChar(sig, '(');
+				if (sig.IsSignalled()) return false;
+				if (!pExpr->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+				stream.PutChar(sig, ')');
+				if (sig.IsSignalled()) return false;
+			} else {
+				if (!pExpr->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+			}
+		}
+		stream.PutChar(sig, '|');
+		if (sig.IsSignalled()) return false;
+		//if (!_pExprBlockParam->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
 	}
 	if (GetExprOwner().empty()) {
 		// nothing to do
@@ -1330,29 +1353,6 @@ bool Expr_BlockParam::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr_BlockParam::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
-	stream.PutChar(sig, '|');
-	if (sig.IsSignalled()) return false;
-	const char *sepText = (scriptStyle == Expr::SCRSTYLE_Crammed)? "," : ", ";
-	foreach_const (ExprList, ppExpr, GetExprOwner()) {
-		const Expr *pExpr = *ppExpr;
-		if (ppExpr != GetExprOwner().begin()) {
-			stream.Print(sig, sepText);
-			if (sig.IsSignalled()) return false;
-		}
-		ExprVisitor_SearchBar visitor;
-		pExpr->Accept(visitor);
-		if (visitor.GetFoundFlag()) {
-			stream.PutChar(sig, '(');
-			if (sig.IsSignalled()) return false;
-			if (!pExpr->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
-			stream.PutChar(sig, ')');
-			if (sig.IsSignalled()) return false;
-		} else {
-			if (!pExpr->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
-		}
-	}
-	stream.PutChar(sig, '|');
-	if (sig.IsSignalled()) return false;
 	return true;
 }
 

@@ -559,6 +559,7 @@ public:
 	};
 protected:
 	AutoPtr<Expr_BlockParam> _pExprBlockParam;	// this may be NULL
+	//AutoPtr<ExprOwner> _pExprOwnerParam;		// this may be NULL
 public:
 	inline Expr_Block() : Expr_Container(EXPRTYPE_Block), _pExprBlockParam(NULL) {}
 	Expr_Block(const Expr_Block &expr);
@@ -578,6 +579,15 @@ public:
 		_pExprBlockParam.reset(pExprBlockParam);
 	}
 	inline const Expr_BlockParam *GetParam() const { return _pExprBlockParam.get(); }
+	//inline void SetExprOwnerParam(ExprOwner *pExprOwnerParam) {
+	//	_pExprOwnerParam.reset(pExprOwnerParam);
+	//}
+	inline ExprOwner *GetExprOwnerParam() {
+		return _pExprBlockParam.IsNull()? NULL : &_pExprBlockParam->GetExprOwner();
+	}
+	inline const ExprOwner *GetExprOwnerParam() const {
+		return _pExprBlockParam.IsNull()? NULL : &_pExprBlockParam->GetExprOwner();
+	}
 };
 
 //-----------------------------------------------------------------------------

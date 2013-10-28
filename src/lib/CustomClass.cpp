@@ -122,10 +122,7 @@ Value ConstructorOfCustomClass::DoEval(Environment &env, Signal sig, Args &args)
 		ExprOwner *pExprOwner = NULL;
 		if (pExpr->IsBlock()) {
 			const Expr_Block *pExprBlock = dynamic_cast<const Expr_Block *>(pExpr);
-			const Expr_BlockParam *pExprParam = pExprBlock->GetParam();
-			if (pExprParam != NULL) {
-				pExprOwner = pExprParam->GetExprOwner().Reference();
-			}
+			pExprOwner = ExprOwner::Reference(pExprBlock->GetExprOwnerParam());
 		}
 		AutoPtr<Environment> pEnvSuper(new Environment(pEnvLocal.get(), ENVTYPE_local));
 		AutoPtr<Args> pArgsSub(new Args());

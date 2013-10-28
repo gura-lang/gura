@@ -65,10 +65,10 @@ CustomFunction *CustomFunction::CreateBlockFunc(Environment &env, Signal sig,
 	AutoPtr<CustomFunction> pFunc(new CustomFunction(env,
 							pSymbol, Expr::Reference(pExprBlock), funcType));
 	pFunc->GetDeclOwner().AllowTooManyArgs(true);
-	const Expr_BlockParam *pExprBlockParam = pExprBlock->GetParam();
-	if (pExprBlockParam != NULL) {
+	const ExprOwner *pExprOwnerParam = pExprBlock->GetExprOwnerParam();
+	if (pExprOwnerParam != NULL) {
 		AutoPtr<Args> pArgs(new Args());
-		pArgs->SetExprOwnerArg(pExprBlockParam->GetExprOwner().Reference());
+		pArgs->SetExprOwnerArg(pExprOwnerParam->Reference());
 		if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, *pArgs)) {
 			return NULL;
 		}
