@@ -1570,12 +1570,13 @@ Expr *Expr_TmplScript::Clone() const
 Value Expr_TmplScript::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
 {
 	if (GetExprOwner().empty()) return Value::Null;
-	Value value = GetExprOwner().Exec3(env, sig);
-	if (sig.IsSignalled()) {
-		return Value::Null;
-	} else if (value.IsInvalid()) {
-		return Value::Null;
+	Value value;
+	SeqPostHandler *pSeqPostHandlerEach = NULL;
+	foreach_const (ExprList, ppExpr, GetExprOwner()) {
+		value = (*ppExpr)->Exec2(env, sig, pSeqPostHandlerEach, true);
+		if (sig.IsSignalled()) return Value::Null;
 	}
+	if (value.IsInvalid()) return Value::Null;
 	_streamDst.Print(sig, _strIndent.c_str());
 	String strLast;
 	if (value.IsString()) {

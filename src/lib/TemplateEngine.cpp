@@ -146,7 +146,11 @@ bool TemplateEngine::EvalStream(Environment &env, Signal sig,
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
 	do {
 		Environment &env = *pEnvBlock;
-		pExprOwnerRoot->Exec3(env, sig);
+		SeqPostHandler *pSeqPostHandlerEach = NULL;
+		foreach_const (ExprList, ppExpr, *pExprOwnerRoot) {
+			(*ppExpr)->Exec2(env, sig, pSeqPostHandlerEach, true);
+			if (sig.IsSignalled()) return false;
+		}
 	} while (0);
 	return !sig.IsSignalled();
 }
