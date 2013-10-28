@@ -27,7 +27,6 @@ enum ExprType {
 	EXPRTYPE_Assign,
 	EXPRTYPE_Member,
 	EXPRTYPE_Root,
-	EXPRTYPE_BlockParam,
 	EXPRTYPE_Block,
 	EXPRTYPE_Lister,
 	EXPRTYPE_IterLink,
@@ -89,7 +88,6 @@ public:
 //        |                   +- Expr_Assign
 //        |                   `- Expr_Member
 //        +- Expr_Container <-+- Expr_Root
-//        |                   +- Expr_BlockParam
 //        |                   +- Expr_Block
 //        |                   +- Expr_Lister
 //        |                   +- Expr_IterLink
@@ -214,7 +212,6 @@ public:
 	// type chekers - Container and descendants
 	virtual bool IsContainer() const;
 	virtual bool IsRoot() const;
-	virtual bool IsBlockParam() const;
 	virtual bool IsBlock() const;
 	virtual bool IsLister() const;
 	virtual bool IsIterLink() const;
@@ -522,31 +519,6 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Expr_BlockParam
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_BlockParam : public Expr_Container {
-public:
-	class SequenceEx : public Sequence {
-	public:
-		SequenceEx(Environment *pEnv);
-		virtual bool DoStep(Signal sig, Value &result);
-		virtual String ToString() const;
-	};
-public:
-	inline Expr_BlockParam() : Expr_Container(EXPRTYPE_BlockParam) {}
-	inline Expr_BlockParam(const Expr_BlockParam &expr) : Expr_Container(expr) {}
-	inline static Expr_BlockParam *Reference(const Expr_BlockParam *pExpr) {
-		return dynamic_cast<Expr_BlockParam *>(Expr::Reference(pExpr));
-	}
-	virtual bool IsBlockParam() const;
-	virtual Expr *Clone() const;
-	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
-	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
-};
-
-//-----------------------------------------------------------------------------
 // Expr_Block
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Block : public Expr_Container {
@@ -558,10 +530,9 @@ public:
 		virtual String ToString() const;
 	};
 protected:
-	AutoPtr<Expr_BlockParam> _pExprBlockParam;	// this may be NULL
-	//AutoPtr<ExprOwner> _pExprOwnerParam;		// this may be NULL
+	AutoPtr<ExprOwner> _pExprOwnerParam;		// this may be NULL
 public:
-	inline Expr_Block() : Expr_Container(EXPRTYPE_Block), _pExprBlockParam(NULL) {}
+	inline Expr_Block() : Expr_Container(EXPRTYPE_Block) {}
 	Expr_Block(const Expr_Block &expr);
 	inline static Expr_Block *Reference(const Expr_Block *pExpr) {
 		return dynamic_cast<Expr_Block *>(Expr::Reference(pExpr));
@@ -575,19 +546,11 @@ public:
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
-	inline void SetParam(Expr_BlockParam *pExprBlockParam) {
-		_pExprBlockParam.reset(pExprBlockParam);
+	inline void SetExprOwnerParam(ExprOwner *pExprOwnerParam) {
+		_pExprOwnerParam.reset(pExprOwnerParam);
 	}
-	//inline const Expr_BlockParam *GetParam() const { return _pExprBlockParam.get(); }
-	//inline void SetExprOwnerParam(ExprOwner *pExprOwnerParam) {
-	//	_pExprOwnerParam.reset(pExprOwnerParam);
-	//}
-	inline ExprOwner *GetExprOwnerParam() {
-		return _pExprBlockParam.IsNull()? NULL : &_pExprBlockParam->GetExprOwner();
-	}
-	inline const ExprOwner *GetExprOwnerParam() const {
-		return _pExprBlockParam.IsNull()? NULL : &_pExprBlockParam->GetExprOwner();
-	}
+	inline ExprOwner *GetExprOwnerParam() { return _pExprOwnerParam.get(); }
+	inline const ExprOwner *GetExprOwnerParam() const { return _pExprOwnerParam.get(); }
 };
 
 //-----------------------------------------------------------------------------

@@ -64,11 +64,13 @@ Function *CustomClass::PrepareConstructor(Environment &env, Signal sig)
 	} else if (!_pClassSuper.IsNull() && _pClassSuper->GetConstructor() != NULL) {
 		Function *pConstructorSuper = _pClassSuper->GetConstructor();
 		Expr_Block *pExprBlock = new Expr_Block();
-		Expr_BlockParam *pExprBlockParam = new Expr_BlockParam();
+		ExprOwner *pExprOwnerParam = new ExprOwner();
 		foreach_const (DeclarationOwner, ppDecl, pConstructorSuper->GetDeclOwner()) {
-			pExprBlockParam->AddExpr(new Expr_Symbol((*ppDecl)->GetSymbol()));
+			Expr *pExpr = new Expr_Symbol((*ppDecl)->GetSymbol());
+			pExprOwnerParam->push_back(pExpr);
+			pExpr->SetParent(pExprBlock);
 		}
-		pExprBlock->SetParam(pExprBlockParam);
+		pExprBlock->SetExprOwnerParam(pExprOwnerParam);
 		pFunc.reset(new ConstructorOfCustomClass(env, Gura_Symbol(_anonymous_),
 												pExprBlock, FUNCTYPE_Function));
 		pFunc->CopyDeclare(*pConstructorSuper);

@@ -1239,10 +1239,9 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 			// this is a special case of reducing
 			DBGPARSER(::printf("do (Reduce: Expr -> '|' '|') "
 					"and then attach the Expr to the preceeding LBrace\n"));
-			Expr_BlockParam *pExprBlockParam =
-						dynamic_cast<Expr_BlockParam *>(elem1.GetExpr());
+			Expr_Lister *pExprBlockParam = dynamic_cast<Expr_Lister *>(elem1.GetExpr());
 			if (pExprBlockParam == NULL) {
-				pExprBlockParam = new Expr_BlockParam();
+				pExprBlockParam = new Expr_Lister();
 			}
 			_elemStack.pop_back();
 			_elemStack.pop_back();
@@ -1254,7 +1253,8 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 					pExprBlock = new Expr_Block();
 					elemPrev.SetExpr(pExprBlock);
 				}
-				pExprBlock->SetParam(pExprBlockParam);
+				pExprBlock->SetExprOwnerParam(pExprBlockParam->GetExprOwner().Reference());
+				Expr::Delete(pExprBlockParam);
 			} else {
 				Expr::Delete(pExprBlockParam);
 				SetError(sig, ERR_SyntaxError, "invalid placement of block parameter");
@@ -1520,13 +1520,13 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 			return false;
 		}
 	} else if (elem1.IsType(ETYPE_LBlockParam) && elem2.IsType(ETYPE_Expr)) {
-		Expr_BlockParam *pExprBlockParam = dynamic_cast<Expr_BlockParam *>(elem1.GetExpr());
+		Expr_Lister *pExprBlockParam = dynamic_cast<Expr_Lister *>(elem1.GetExpr());
 		if (elem3.IsType(ETYPE_RBlockParam)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("do (Reduce: Expr -> '|' Expr '|') "
 					"and then attach the Expr to the preceeding LBrace\n"));
 			if (pExprBlockParam == NULL) {
-				pExprBlockParam = new Expr_BlockParam();
+				pExprBlockParam = new Expr_Lister();
 			}
 			pExprBlockParam->AddExpr(elem2.GetExpr());
 			_elemStack.pop_back();
@@ -1540,7 +1540,8 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 					pExprBlock = new Expr_Block();
 					elemPrev.SetExpr(pExprBlock);
 				}
-				pExprBlock->SetParam(pExprBlockParam);
+				pExprBlock->SetExprOwnerParam(pExprBlockParam->GetExprOwner().Reference());
+				Expr::Delete(pExprBlockParam);
 			} else {
 				Expr::Delete(pExprBlockParam);
 				SetError(sig, ERR_SyntaxError, "invalid placement of block parameter");
@@ -1552,7 +1553,7 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '|' -> '|' Expr ','\n"));
 			if (pExprBlockParam == NULL) {
-				pExprBlockParam = new Expr_BlockParam();
+				pExprBlockParam = new Expr_Lister();
 				elem1.SetExpr(pExprBlockParam);
 			}
 			pExprBlockParam->AddExpr(elem2.GetExpr());

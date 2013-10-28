@@ -19,7 +19,6 @@ const char *GetExprTypeName(ExprType exprType)
 		{ EXPRTYPE_Assign,		"assign",		},
 		{ EXPRTYPE_Member,		"member",		},
 		{ EXPRTYPE_Root,		"root",			},
-		{ EXPRTYPE_BlockParam,	"blockparam",	},
 		{ EXPRTYPE_Block,		"block",		},
 		{ EXPRTYPE_Lister,		"lister",		},
 		{ EXPRTYPE_IterLink,	"iterlink",		},
@@ -48,7 +47,6 @@ const char *GetExprTypeName(ExprType exprType)
 //        |                   +- Expr_Assign
 //        |                   `- Expr_Member
 //        +- Expr_Container <-+- Expr_Root
-//        |                   +- Expr_BlockParam
 //        |                   +- Expr_Block
 //        |                   +- Expr_Lister
 //        |                   +- Expr_IterLink
@@ -275,7 +273,6 @@ bool Expr::IsMember() const		{ return false; }
 // type chekers - Container and descendants
 bool Expr::IsContainer() const	{ return false; }
 bool Expr::IsRoot() const		{ return false; }
-bool Expr::IsBlockParam() const	{ return false; }
 bool Expr::IsBlock() const		{ return false; }
 bool Expr::IsLister() const		{ return false; }
 bool Expr::IsIterLink() const	{ return false; }
@@ -1196,11 +1193,16 @@ String Expr_Root::SequenceEx::ToString() const
 //-----------------------------------------------------------------------------
 bool Expr_Block::IsBlock() const { return true; }
 
-Expr_Block::Expr_Block(const Expr_Block &expr) : Expr_Container(expr),
-		_pExprBlockParam((expr._pExprBlockParam.IsNull())? NULL :
-				dynamic_cast<Expr_BlockParam *>(expr._pExprBlockParam->Clone()))
+Expr_Block::Expr_Block(const Expr_Block &expr) : Expr_Container(expr)
 {
-	if (GetExprOwnerParam() != NULL) GetExprOwnerParam()->SetParent(this);
+	if (expr.GetExprOwnerParam() != NULL) {
+		SetExprOwnerParam(new ExprOwner());
+		foreach_const (ExprOwner, ppExpr, *expr.GetExprOwnerParam()) {
+			Expr *pExpr = (*ppExpr)->Clone();
+			GetExprOwnerParam()->push_back(pExpr);
+			pExpr->SetParent(this);
+		}
+	}
 }
 
 Expr_Block::~Expr_Block()
@@ -1285,7 +1287,6 @@ bool Expr_Block::GenerateScript(Signal sig, SimpleStream &stream,
 		}
 		stream.PutChar(sig, '|');
 		if (sig.IsSignalled()) return false;
-		//if (!_pExprBlockParam->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
 	}
 	if (GetExprOwner().empty()) {
 		// nothing to do
@@ -1325,50 +1326,6 @@ String Expr_Block::SequenceEx::ToString() const
 {
 	String str;
 	str += "<sequence:expr_block>";
-	return str;
-}
-
-//-----------------------------------------------------------------------------
-// Expr_BlockParam
-//-----------------------------------------------------------------------------
-bool Expr_BlockParam::IsBlockParam() const { return true; }
-
-Expr *Expr_BlockParam::Clone() const
-{
-	return new Expr_BlockParam(*this);
-}
-
-Value Expr_BlockParam::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
-{
-	// There's no chance to evaluate this expression alone.
-	return Value::Null;
-}
-
-bool Expr_BlockParam::GenerateCode(Environment &env, Signal sig, Stream &stream)
-{
-	stream.Println(sig, "BlockParam");
-	return true;
-}
-
-bool Expr_BlockParam::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
-{
-	return true;
-}
-
-Expr_BlockParam::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
-{
-}
-
-bool Expr_BlockParam::SequenceEx::DoStep(Signal sig, Value &result)
-{
-	return false;
-}
-
-String Expr_BlockParam::SequenceEx::ToString() const
-{
-	String str;
-	str += "<sequence:expr_blockparam>";
 	return str;
 }
 

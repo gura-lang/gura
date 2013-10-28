@@ -261,7 +261,6 @@ ImplementTypeChecker(ismember,		IsMember)
 // type chekers - Container and descendants
 ImplementTypeChecker(iscontainer,	IsContainer)
 ImplementTypeChecker(isroot,		IsRoot)
-ImplementTypeChecker(isblockparam,	IsBlockParam)
 ImplementTypeChecker(isblock,		IsBlock)
 ImplementTypeChecker(islister,		IsLister)
 ImplementTypeChecker(isiterlink,	IsIterLink)
@@ -303,7 +302,6 @@ void Class_expr::Prepare(Environment &env)
 	// type chekers - Container and descendants
 	Gura_AssignMethod(expr,	iscontainer);
 	Gura_AssignMethod(expr,	isroot);
-	Gura_AssignMethod(expr,	isblockparam);
 	Gura_AssignMethod(expr,	isblock);
 	Gura_AssignMethod(expr,	islister);
 	Gura_AssignMethod(expr,	isiterlink);
