@@ -1994,7 +1994,7 @@ bool Iterator_for::DoNext(Environment &env, Signal sig, Value &value)
 					break;
 				}
 				// same effect as assign operator
-				(*ppExprLeft)->DoAssign(*_pEnv, sig, valueVar, NULL, false);
+				(*ppExprLeft)->Assign(*_pEnv, sig, valueVar, NULL, false);
 				if (sig.IsSignalled()) return false;
 				ppExprLeft++;
 			}
@@ -2077,7 +2077,7 @@ Iterator_cross::Iterator_cross(Environment *pEnv, Signal sig, Function *pFuncBlo
 			_valListArg.push_back(Value::Null);
 			Iterator::Delete(pIterator);
 		}
-		(*ppExprLeft)->DoAssign(*_pEnv, sig, valueVar, NULL, false);
+		(*ppExprLeft)->Assign(*_pEnv, sig, valueVar, NULL, false);
 		if (sig.IsSignalled()) return;
 		ppExprLeft++;
 	}
@@ -2162,7 +2162,7 @@ bool Iterator_cross::AdvanceIterators(Environment &env, Signal sig)
 		if (pIterator != NULL) {
 			if (pIterator->Next(env, sig, valueVar)) {
 				*pValueArg = Value(pValueArg->GetNumber() + 1);
-				(*ppExprLeft)->DoAssign(*_pEnv, sig, valueVar, NULL, false);
+				(*ppExprLeft)->Assign(*_pEnv, sig, valueVar, NULL, false);
 				if (sig.IsSignalled()) return false;
 				break;
 			}
@@ -2171,7 +2171,7 @@ bool Iterator_cross::AdvanceIterators(Environment &env, Signal sig)
 			pIterator = (*ppIteratorOrg)->Clone();
 			pIterator->Next(env, sig, valueVar);
 			if (sig.IsSignalled()) return false;
-			(*ppExprLeft)->DoAssign(*_pEnv, sig, valueVar, NULL, false);
+			(*ppExprLeft)->Assign(*_pEnv, sig, valueVar, NULL, false);
 			if (sig.IsSignalled()) return false;
 			*pValueArg = Value(0);
 			*ppIterator = pIterator;

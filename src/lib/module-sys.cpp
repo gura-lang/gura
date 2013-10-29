@@ -109,7 +109,7 @@ static bool ExpandWildCard(Environment &env, Signal sig,
 	return !sig.IsSignalled();
 }
 
-bool SetupValues(Module *pModule, Signal sig, int argc, const char *argv[])
+bool SetCmdLineArgs(Module *pModule, Signal sig, int argc, const char *argv[])
 {
 	Environment &env = *pModule;
 	String fileNameScript;

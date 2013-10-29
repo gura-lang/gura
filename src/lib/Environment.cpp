@@ -4,20 +4,9 @@
 #include <dlfcn.h>
 #endif
 
-Gura_IncludeModule(basement)
 Gura_IncludeModuleBegin(sys)
-bool SetupValues(Module *pModule, Signal sig, int argc, const char *argv[]);
+bool SetCmdLineArgs(Module *pModule, Signal sig, int argc, const char *argv[]);
 Gura_IncludeModuleEnd()
-Gura_IncludeModule(codecs_basic)
-Gura_IncludeModule(codecs_iso8859)
-Gura_IncludeModule(codecs_japanese)
-Gura_IncludeModule(base64)
-Gura_IncludeModule(fs)
-Gura_IncludeModule(os)
-Gura_IncludeModule(path)
-Gura_IncludeModule(time)
-Gura_IncludeModule(math)
-Gura_IncludeModule(conio)
 
 namespace Gura {
 
@@ -142,43 +131,10 @@ bool Environment::InitializeAsRoot(Signal sig, int &argc, const char *argv[],
 	GetGlobal()->Prepare(env, sig);
 	Error::AssignErrorTypes(env);
 	Operator::AssignOperators(env);
-	do {
-		ValueTypePool::DoPrepareClass(env);
-	} while (0);
-	do { // import(basement) { * }
-		Gura_Module(basement)::MixIn(env, sig);
-		if (sig.IsSignalled()) return false;
-	} while (0);
-	do { // import(sys), this module must be imported just after basement
-		Module *pModule = Gura_Module(sys)::Import(env, sig);
-		if (sig.IsSignalled()) return false;
-		GetGlobal()->SetModule_sys(pModule);
-	} while (0);
-	do {
-		Module *pModule = new Module(&env, Gura_Symbol(codecs),
-											"<integrated>", NULL, NULL);
-		env.AssignModule(pModule);
-		// import(codecs.basic)
-		if (Gura_Module(codecs_basic)::Import(*pModule, sig) == NULL) return false;
-		// import(codecs.iso8859)
-		if (Gura_Module(codecs_iso8859)::Import(*pModule, sig) == NULL) return false;
-		// import(codecs.japanese)
-		if (Gura_Module(codecs_japanese)::Import(*pModule, sig) == NULL) return false;
-	} while (0);
-	// import(base64)
-	if (Gura_Module(base64)::Import(env, sig) == NULL) return false;
-	// import(fs)
-	if (Gura_Module(fs)::Import(env, sig) == NULL) return false;
-	// import(os)
-	if (Gura_Module(os)::Import(env, sig) == NULL) return false;
-	// import(path)
-	if (Gura_Module(path)::Import(env, sig) == NULL) return false;
-	// import(time)
-	if (Gura_Module(time)::Import(env, sig) == NULL) return false;
-	// import(math)
-	if (Gura_Module(math)::Import(env, sig) == NULL) return false;
-	// import(conio)
-	if (Gura_Module(conio)::Import(env, sig) == NULL) return false;
+	ValueTypePool::DoPrepareClass(env);
+	OAL::SetupExecutablePath();
+	Module::ImportBuiltIns(env, sig);
+	// set command line argument into sys module
 	if (optInfoTbl != NULL) {
 		String strErr;
 		if (!GetOption().Parse(argc, argv, optInfoTbl, cntOptInfo, strErr)) {
@@ -186,11 +142,9 @@ bool Environment::InitializeAsRoot(Signal sig, int &argc, const char *argv[],
 			return false;
 		}
 	}
-	// setup values in sys module
-	if (!Gura_Module(sys)::SetupValues(GetGlobal()->GetModule_sys(), sig, argc, argv)) {
+	if (!Gura_Module(sys)::SetCmdLineArgs(GetGlobal()->GetModule_sys(), sig, argc, argv)) {
 		return false;
 	}
-	OAL::SetupExecutablePath();
 	return true;
 }
 

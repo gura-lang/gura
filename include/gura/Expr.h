@@ -173,6 +173,8 @@ public:
 	inline bool IsType(ExprType exprType) const { return _exprType == exprType; }
 	Value Exec(Environment &env, Signal sig,
 		AutoPtr<SeqPostHandler> pSeqPostHandler, bool evalSymFuncFlag = false) const;
+	Value Assign(Environment &env, Signal sig, Value &valueAssigned,
+					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	inline Value Exec2(Environment &env, Signal sig,
 			SeqPostHandler *pSeqPostHandler, bool evalSymFuncFlag = false) const {
 		return Exec(env, sig, pSeqPostHandler, evalSymFuncFlag);
@@ -190,20 +192,13 @@ public:
 	virtual Expr *Clone() const = 0;
 	virtual const char *GetPathName() const;
 	virtual Callable *LookupCallable(Environment &env, Signal sig) const;
-	inline Value Assign(Environment &env, Signal sig, Value &value,
-					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const {
-		Value result = DoAssign(env, sig, value, pSymbolsAssignable, escalateFlag);
-		if (sig.IsSignalled()) {
-			sig.AddExprCause(this);
-			return Value::Null;
-		}
-		return result;
-	}
+private:
 	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const = 0;
+	virtual Value DoAssign(Environment &env, Signal sig, Value &valueAssigned,
+					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
+public:
 	virtual void Accept(ExprVisitor &visitor) const = 0;
 	virtual bool IsParentOf(const Expr *pExpr) const;
-	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
-					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
 	virtual const Expr *Unquote() const;

@@ -35,14 +35,11 @@ GURA_DLLEXPORT void Terminate(Module *pModule) \
 } \
 GURA_DLLEXPORT Module *Import(Environment &env, Signal sig) \
 { \
-	Module *pModule = new Module(&env, Symbol::Add(#nameBase), "<integrated>", NULL, Terminate); \
+	AutoPtr<Module> pModule(new Module(&env, Symbol::Add(#nameBase), "<integrated>", NULL, Terminate)); \
 	MixIn(*pModule, sig); \
-	if (sig.IsSignalled()) { \
-		delete pModule; \
-		return NULL; \
-	} \
-	env.AssignModule(pModule); \
-	return pModule; \
+	if (sig.IsSignalled()) return NULL; \
+	env.AssignModule(pModule.get()); \
+	return pModule.release(); \
 } \
 }}
 
@@ -110,6 +107,8 @@ public:
 	virtual void AssignValueType(ValueTypeInfo *pValueTypeInfo);
 	virtual Module *Clone() const;
 	virtual String ToString(Signal sig, bool exprFlag);
+public:
+	static bool ImportBuiltIns(Environment &env, Signal sig);
 };
 
 //-----------------------------------------------------------------------------
