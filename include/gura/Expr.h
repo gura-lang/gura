@@ -292,9 +292,8 @@ public:
 	protected:
 		AutoPtr<ExprOwner> _pExprOwner;
 		size_t _idxExpr;
-		bool _evalSymFuncFlag;
 	public:
-		SequenceEx(Environment *pEnv, ExprOwner *pExprOwner, bool evalSymFuncFlag);
+		SequenceEx(Environment *pEnv, ExprOwner *pExprOwner);
 	public:
 		virtual bool DoStep(Signal sig, Value &result);
 		virtual String ToString() const;

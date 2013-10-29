@@ -644,9 +644,8 @@ void ExprOwner::Iterator::GatherFollower(Environment::Frame *pFrame, Environment
 //-----------------------------------------------------------------------------
 // ExprOwner::SequenceEx
 //-----------------------------------------------------------------------------
-ExprOwner::SequenceEx::SequenceEx(Environment *pEnv, ExprOwner *pExprOwner, bool evalSymFuncFlag) :
-						Sequence(pEnv), _pExprOwner(pExprOwner), _idxExpr(0),
-						_evalSymFuncFlag(evalSymFuncFlag)
+ExprOwner::SequenceEx::SequenceEx(Environment *pEnv, ExprOwner *pExprOwner) :
+						Sequence(pEnv), _pExprOwner(pExprOwner), _idxExpr(0)
 {
 }
 
@@ -660,30 +659,8 @@ bool ExprOwner::SequenceEx::DoStep(Signal sig, Value &result)
 	SeqPostHandler *pSeqPostHandler = NULL;
 	Environment &env = *_pEnv;
 	const Expr *pExpr = GetExprOwner()[_idxExpr++];
-	result = pExpr->Exec(env, sig, pSeqPostHandler);
-	if (sig.IsSignalled()) {
-		sig.AddExprCause(pExpr);
-		_doneFlag = true;
-		return false;
-	}
-	if (_evalSymFuncFlag && result.IsFunction() &&
-								result.GetFunction()->IsSymbolFunc()) {
-		// symbol functions are only evaluated by a sequence of block.
-		// in the folloiwng example, "return" shall be evaluated by a block
-		// of "if" function.
-		//   repeat { if (flag) { return } }
-		// in the following example, "&&" operator returns "return" function
-		// object as its result, and then the block of "repeat" shall evaluate it.
-		//   repeat { flag && return }
-		const Function *pFunc = result.GetFunction();
-		AutoPtr<Args> pArgs(new Args());
-		Value result = pFunc->Call(env, sig, *pArgs);
-		if (sig.IsSignalled()) {
-			sig.AddExprCause(pExpr);
-			_doneFlag = true;
-			return false;
-		}
-	}
+	result = pExpr->Exec(env, sig, pSeqPostHandler, true);
+	if (sig.IsSignalled()) return false;
 	if (_idxExpr >= GetExprOwner().size()) _doneFlag = true;
 	return true;
 }

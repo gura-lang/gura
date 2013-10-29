@@ -80,7 +80,7 @@ CustomFunction *CustomFunction::CreateBlockFunc(Environment &env, Signal sig,
 // CustomFunction::SequenceEx
 //-----------------------------------------------------------------------------
 CustomFunction::SequenceEx::SequenceEx(Environment *pEnv, CustomFunction *pCustomFunction) :
-		ExprOwner::SequenceEx(pEnv, NULL, true), _pCustomFunction(pCustomFunction)
+		ExprOwner::SequenceEx(pEnv, NULL), _pCustomFunction(pCustomFunction)
 {
 	const Expr *pExprBody = _pCustomFunction->GetExprBody();
 	if (pExprBody == NULL) {
