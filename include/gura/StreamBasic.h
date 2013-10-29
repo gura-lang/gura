@@ -6,41 +6,41 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// SimpleStream_CString
+// SimpleStream_CStringReader
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE SimpleStream_CString : public SimpleStream {
+class GURA_DLLDECLARE SimpleStream_CStringReader : public SimpleStream {
 private:
 	const char *_pStr;
 	const char *_pEnd;
 public:
-	inline SimpleStream_CString(const char *pStr, const char *pEnd = NULL) :
+	inline SimpleStream_CStringReader(const char *pStr, const char *pEnd = NULL) :
 													_pStr(pStr), _pEnd(pEnd) {}
 	virtual int GetChar(Signal sig);
 	virtual void PutChar(Signal sig, char ch);
 };
 
 //-----------------------------------------------------------------------------
-// SimpleStream_String
+// SimpleStream_StringReader
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE SimpleStream_String : public SimpleStream {
+class GURA_DLLDECLARE SimpleStream_StringReader : public SimpleStream {
 private:
 	String::const_iterator _pStr;
 	String::const_iterator _pEnd;
 public:
-	inline SimpleStream_String(String::const_iterator pStr,
+	inline SimpleStream_StringReader(String::const_iterator pStr,
 				String::const_iterator pEnd) : _pStr(pStr), _pEnd(pEnd) {}
 	virtual int GetChar(Signal sig);
 	virtual void PutChar(Signal sig, char ch);
 };
 
 //-----------------------------------------------------------------------------
-// SimpleStream_StringWrite
+// SimpleStream_StringWriter
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE SimpleStream_StringWrite : public SimpleStream {
+class GURA_DLLDECLARE SimpleStream_StringWriter : public SimpleStream {
 private:
 	String &_str;
 public:
-	inline SimpleStream_StringWrite(String &str) : _str(str) {}
+	inline SimpleStream_StringWriter(String &str) : _str(str) {}
 	virtual int GetChar(Signal sig);
 	virtual void PutChar(Signal sig, char ch);
 };

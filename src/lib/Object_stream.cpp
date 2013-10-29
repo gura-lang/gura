@@ -166,7 +166,7 @@ Gura_ImplementFunction(template_)
 		return Value::Null;
 	} else {
 		String strDst;
-		SimpleStream_StringWrite streamDst(strDst);
+		SimpleStream_StringWriter streamDst(strDst);
 		if (!TemplateEngine(autoIndentFlag, appendLastEOLFlag).
 				EvalStream(env, sig, streamSrc, streamDst)) return Value::Null;
 		return Value(env, strDst.c_str());
@@ -602,7 +602,7 @@ Gura_ImplementMethod(stream, template_)
 		return Value::Null;
 	} else {
 		String strDst;
-		SimpleStream_StringWrite streamDst(strDst);
+		SimpleStream_StringWriter streamDst(strDst);
 		if (!TemplateEngine(autoIndentFlag, appendLastEOLFlag).
 				EvalStream(env, sig, streamSrc, streamDst)) return Value::Null;
 		return Value(env, strDst.c_str());

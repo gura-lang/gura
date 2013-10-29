@@ -1086,7 +1086,7 @@ Gura_ImplementMethod(string, template_)
 	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
 	String strSrc = args.GetThis().GetStringSTL();
-	SimpleStream_String streamSrc(strSrc.begin(), strSrc.end());
+	SimpleStream_StringReader streamSrc(strSrc.begin(), strSrc.end());
 	if (args.IsStream(0)) {
 		Stream &streamDst = args.GetStream(0);
 		TemplateEngine(autoIndentFlag, appendLastEOLFlag).
@@ -1094,7 +1094,7 @@ Gura_ImplementMethod(string, template_)
 		return Value::Null;
 	} else {
 		String strDst;
-		SimpleStream_StringWrite streamDst(strDst);
+		SimpleStream_StringWriter streamDst(strDst);
 		if (!TemplateEngine(autoIndentFlag, appendLastEOLFlag).
 				EvalStream(env, sig, streamSrc, streamDst)) return Value::Null;
 		return Value(env, strDst.c_str());

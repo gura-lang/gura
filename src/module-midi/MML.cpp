@@ -74,7 +74,7 @@ bool MML::ParseStream(Signal sig, Sequence &sequence, SimpleStream &stream)
 
 bool MML::ParseString(Signal sig, Sequence &sequence, const char *str)
 {
-	SimpleStream_CString stream(str);
+	SimpleStream_CStringReader stream(str);
 	return ParseStream(sig, sequence, stream);
 }
 
@@ -97,7 +97,7 @@ MML::Result MML::ParseStream(Signal sig, Track *pTrack, SimpleStream &stream)
 
 MML::Result MML::ParseString(Signal sig, Track *pTrack, const char *str)
 {
-	SimpleStream_CString stream(str);
+	SimpleStream_CStringReader stream(str);
 	return ParseStream(sig, pTrack, stream);
 }
 

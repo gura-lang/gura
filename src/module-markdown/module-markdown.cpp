@@ -215,7 +215,7 @@ bool Document::ParseStream(Signal sig, SimpleStream &stream)
 
 bool Document::ParseString(Signal sig, const char *text)
 {
-	SimpleStream_CString stream(text);
+	SimpleStream_CStringReader stream(text);
 	return ParseStream(sig, stream);
 }
 
@@ -2361,7 +2361,7 @@ bool HelpPresenter_markdown::DoPresent(Environment &env, Signal sig,
 		pArgs->AddValue(Value::Null);
 	} else {
 		AutoPtr<Document> pDocument(new Document());
-		SimpleStream_CString streamSrc(pHelp->GetText());
+		SimpleStream_CStringReader streamSrc(pHelp->GetText());
 		if (!pDocument->ParseStream(sig, streamSrc)) return false;
 		pArgs->AddValue(Value(new Object_document(pDocument->Reference())));
 	}

@@ -3,44 +3,44 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// SimpleStream_CString
+// SimpleStream_CStringReader
 //-----------------------------------------------------------------------------
-int SimpleStream_CString::GetChar(Signal sig)
+int SimpleStream_CStringReader::GetChar(Signal sig)
 {
 	if (*_pStr == '\0' || _pStr == _pEnd) return -1;
 	char ch = *_pStr++;
 	return static_cast<UChar>(ch);
 }
 
-void SimpleStream_CString::PutChar(Signal sig, char ch)
+void SimpleStream_CStringReader::PutChar(Signal sig, char ch)
 {
 	// nothing to do
 }
 
 //-----------------------------------------------------------------------------
-// SimpleStream_String
+// SimpleStream_StringReader
 //-----------------------------------------------------------------------------
-int SimpleStream_String::GetChar(Signal sig)
+int SimpleStream_StringReader::GetChar(Signal sig)
 {
 	if (_pStr == _pEnd) return -1;
 	char ch = *_pStr++;
 	return static_cast<UChar>(ch);
 }
 
-void SimpleStream_String::PutChar(Signal sig, char ch)
+void SimpleStream_StringReader::PutChar(Signal sig, char ch)
 {
 	// nothing to do
 }
 
 //-----------------------------------------------------------------------------
-// SimpleStream_StringWrite
+// SimpleStream_StringWriter
 //-----------------------------------------------------------------------------
-int SimpleStream_StringWrite::GetChar(Signal sig)
+int SimpleStream_StringWriter::GetChar(Signal sig)
 {
 	return -1;
 }
 
-void SimpleStream_StringWrite::PutChar(Signal sig, char ch)
+void SimpleStream_StringWriter::PutChar(Signal sig, char ch)
 {
 	_str += ch;
 }

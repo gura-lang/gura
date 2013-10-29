@@ -338,7 +338,7 @@ String Expr::ToString(ScriptStyle scriptStyle) const
 {
 	Signal sig;
 	String str;
-	SimpleStream_StringWrite stream(str);
+	SimpleStream_StringWriter stream(str);
 	GenerateScript(sig, stream, scriptStyle, 0);
 	return str;
 }
