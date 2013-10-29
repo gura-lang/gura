@@ -45,6 +45,8 @@
 #include "gura/Parser.h"
 #include "gura/PathManager.h"
 #include "gura/Processor.h"
+#include "gura/Stream.h"
+#include "gura/StreamBasic.h"
 #include "gura/String.h"
 #include "gura/StructObject.h"
 #include "gura/TemplateEngine.h"

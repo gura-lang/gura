@@ -146,6 +146,7 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Processor.h
   ${GURA_INCLUDE_DIR}/gura/Signal.h
   ${GURA_INCLUDE_DIR}/gura/Stream.h
+  ${GURA_INCLUDE_DIR}/gura/StreamBasic.h
   ${GURA_INCLUDE_DIR}/gura/String.h
   ${GURA_INCLUDE_DIR}/gura/StructObject.h
   ${GURA_INCLUDE_DIR}/gura/Symbol.h

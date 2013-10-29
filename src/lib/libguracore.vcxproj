@@ -243,6 +243,7 @@
     <ClCompile Include="Processor.cpp" />
     <ClCompile Include="Signal.cpp" />
     <ClCompile Include="Stream.cpp" />
+    <ClCompile Include="StreamBasic.cpp" />
     <ClCompile Include="String.cpp" />
     <ClCompile Include="StructObject.cpp" />
     <ClCompile Include="Symbol.cpp" />
@@ -327,6 +328,7 @@
     <ClInclude Include="..\..\include\gura\PathManager.h" />
     <ClInclude Include="..\..\include\gura\Signal.h" />
     <ClInclude Include="..\..\include\gura\Stream.h" />
+    <ClInclude Include="..\..\include\gura\StreamBasic.h" />
     <ClInclude Include="..\..\include\gura\String.h" />
     <ClInclude Include="..\..\include\gura\Symbol.h" />
     <ClInclude Include="..\..\include\gura\TemplateEngine.h" />

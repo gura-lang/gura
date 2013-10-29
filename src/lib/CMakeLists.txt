@@ -60,6 +60,7 @@ PathManager.cpp
 Processor.cpp
 Signal.cpp
 Stream.cpp
+StreamBasic.cpp
 String.cpp
 StructObject.cpp
 Symbol.cpp
