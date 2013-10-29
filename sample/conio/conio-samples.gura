@@ -1,5 +1,14 @@
 #!/usr/bin/env gura
 
+PushAnyKey() = {
+	[w, h] = conio.getwinsize()
+	str = ' push any key '
+	conio.moveto((w - str.len()) / 2, h / 2 - 3)
+	conio.setcolor(`black, `white) {
+		print(str)
+	}
+	conio.waitkey():raise
+}
 scope {
 	bg = `black
 	conio.clear()
@@ -24,7 +33,7 @@ scope {
 		}
 		println('red again')
 	}
-	conio.waitkey():raise
+	PushAnyKey()
 }
 scope {
 	conio.clear()
@@ -39,10 +48,10 @@ scope {
 		conio.moveto(x, y)
 		print('#')
 		conio.moveto(x, y)
-		conio.waitkey():raise
+		PushAnyKey()
 		conio.moveto(x, y)
 		conio.clear(region)
-		conio.waitkey():raise
+		PushAnyKey()
 	}
 }
 scope {
@@ -60,7 +69,7 @@ scope {
 	conio.moveto(w - 9, 0) {
 		print('right-top')
 	}
-	conio.waitkey():raise
+	PushAnyKey()
 }
 scope {
 	conio.clear()
@@ -93,7 +102,7 @@ scope {
 		conio.moveto(x, y) { print('.') }
 		x += xDir, y += yDir
 	}
-	conio.waitkey():raise
+	PushAnyKey()
 }
 scope {
 	conio.clear()
@@ -113,5 +122,5 @@ scope {
 	conio.moveto(3..20, 1..) {
 		print('hello')
 	}
-	conio.waitkey():raise
+	PushAnyKey()
 }
