@@ -185,6 +185,7 @@
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Binary.cpp" />
     <ClCompile Include="Class.cpp" />
+    <ClCompile Include="ClassBasic.cpp" />
     <ClCompile Include="Codec.cpp" />
     <ClCompile Include="Codec_Japanese.cpp" />
     <ClCompile Include="Common.cpp" />
@@ -238,7 +239,6 @@
     <ClCompile Include="Palette.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="PathManager.cpp" />
-    <ClCompile Include="PrimitiveClass.cpp" />
     <ClCompile Include="Processor.cpp" />
     <ClCompile Include="Signal.cpp" />
     <ClCompile Include="Stream.cpp" />
@@ -272,6 +272,7 @@
     <ClInclude Include="..\..\include\gura\Algorithm.h" />
     <ClInclude Include="..\..\include\gura\BZLibHelper.h" />
     <ClInclude Include="..\..\include\gura\Class.h" />
+    <ClInclude Include="..\..\include\gura\ClassBasic.h" />
     <ClInclude Include="..\..\include\gura\Codec.h" />
     <ClInclude Include="..\..\include\gura\Common.h" />
     <ClInclude Include="..\..\include\gura\DateTime.h" />
@@ -321,7 +322,6 @@
     <ClInclude Include="..\..\include\gura\PackedNumber.h" />
     <ClInclude Include="..\..\include\gura\Parser.h" />
     <ClInclude Include="..\..\include\gura\PathManager.h" />
-    <ClInclude Include="..\..\include\gura\PrimitiveClass.h" />
     <ClInclude Include="..\..\include\gura\Signal.h" />
     <ClInclude Include="..\..\include\gura\Stream.h" />
     <ClInclude Include="..\..\include\gura\String.h" />

@@ -1,5 +1,5 @@
 //
-// PrimitiveClass
+// ClassBasic
 //
 
 #include "stdafx.h"

@@ -89,6 +89,7 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Audio.h
   ${GURA_INCLUDE_DIR}/gura/Binary.h
   ${GURA_INCLUDE_DIR}/gura/Class.h
+  ${GURA_INCLUDE_DIR}/gura/ClassBasic.h
   ${GURA_INCLUDE_DIR}/gura/Codec.h
   ${GURA_INCLUDE_DIR}/gura/Common.h
   ${GURA_INCLUDE_DIR}/gura/CustomClass.h
@@ -141,7 +142,6 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Palette.h
   ${GURA_INCLUDE_DIR}/gura/Parser.h
   ${GURA_INCLUDE_DIR}/gura/PathManager.h
-  ${GURA_INCLUDE_DIR}/gura/PrimitiveClass.h
   ${GURA_INCLUDE_DIR}/gura/Processor.h
   ${GURA_INCLUDE_DIR}/gura/Signal.h
   ${GURA_INCLUDE_DIR}/gura/Stream.h

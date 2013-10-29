@@ -3,6 +3,7 @@ Algorithm.cpp
 Audio.cpp
 Binary.cpp
 Class.cpp
+ClassBasic.cpp
 Codec.cpp
 Codec_Japanese.cpp
 Common.cpp
@@ -55,7 +56,6 @@ Option.cpp
 Palette.cpp
 Parser.cpp
 PathManager.cpp
-PrimitiveClass.cpp
 Processor.cpp
 Signal.cpp
 Stream.cpp
