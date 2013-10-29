@@ -79,7 +79,7 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 			return Value::Null;
 		}
 		const Expr_Container *pExpr = dynamic_cast<const Expr_Container *>(GetExpr());
-		return Value(env, new Iterator_expr(pExpr->GetExprOwner().Reference()));
+		return Value(env, new Iterator_ExprOwner(pExpr->GetExprOwner().Reference()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(left))) {
 		if (!GetExpr()->IsBinary()) {
 			sig.SetError(ERR_ValueError, "not a binary expression");
@@ -107,7 +107,7 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 			return Value::Null;
 		}
 		const Expr_Compound *pExpr = dynamic_cast<const Expr_Compound *>(GetExpr());
-		return Value(env, new Iterator_expr(pExpr->GetExprOwner().Reference()));
+		return Value(env, new Iterator_ExprOwner(pExpr->GetExprOwner().Reference()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(block))) {
 		if (!GetExpr()->IsCaller()) {
 			sig.SetError(ERR_ValueError, "not a caller expression");
@@ -146,7 +146,7 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		const Expr_Block *pExpr = dynamic_cast<const Expr_Block *>(GetExpr());
 		const ExprOwner *pExprOwnerParam = pExpr->GetExprOwnerParam();
 		if (pExprOwnerParam == NULL) return Value::Null;
-		return Value(env, new Iterator_expr(pExprOwnerParam->Reference()));
+		return Value(env, new Iterator_ExprOwner(pExprOwnerParam->Reference()));
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -334,19 +334,19 @@ Object *Class_expr::CreateDescendant(Environment &env, Signal sig, Class *pClass
 }
 
 //-----------------------------------------------------------------------------
-// Iterator_expr
+// Iterator_ExprOwner
 //-----------------------------------------------------------------------------
-Iterator_expr::Iterator_expr(ExprOwner *pExprOwner) :
+Iterator_ExprOwner::Iterator_ExprOwner(ExprOwner *pExprOwner) :
 						Iterator(false), _idx(0), _pExprOwner(pExprOwner)
 {
 }
 
-Iterator *Iterator_expr::GetSource()
+Iterator *Iterator_ExprOwner::GetSource()
 {
 	return NULL;
 }
 
-bool Iterator_expr::DoNext(Environment &env, Signal sig, Value &value)
+bool Iterator_ExprOwner::DoNext(Environment &env, Signal sig, Value &value)
 {
 	if (_idx < _pExprOwner->size()) {
 		Expr *pExpr = (*_pExprOwner)[_idx++];
@@ -356,7 +356,7 @@ bool Iterator_expr::DoNext(Environment &env, Signal sig, Value &value)
 	return false;
 }
 
-String Iterator_expr::ToString(Signal sig) const
+String Iterator_ExprOwner::ToString(Signal sig) const
 {
 	String rtn;
 	rtn += "<iterator:expr";
@@ -364,7 +364,7 @@ String Iterator_expr::ToString(Signal sig) const
 	return rtn;
 }
 
-void Iterator_expr::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+void Iterator_ExprOwner::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 }
 

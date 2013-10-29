@@ -8,7 +8,7 @@
 #include "Value.h"
 #include "OAL.h"
 
-#define ITERATOR_HELP \
+#define GURA_ITERATOR_HELP \
 "If a block is specified, it executes the block while evaluating the iterator\n" \
 "and returns the last evaluated value in the block as its own result.\n" \
 "Otherwise, it returns an iterator or a list according to the attribute\n" \

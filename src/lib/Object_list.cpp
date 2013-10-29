@@ -959,7 +959,7 @@ Gura_DeclareMethod(list, permutation)
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Creates an iterator that generates lists that contain elements picked up\n"
 	"from the original list in a permutation manner.\n"
-	ITERATOR_HELP
+	GURA_ITERATOR_HELP
 	"Block parameter format: |value:list, idx:number|");
 }
 
@@ -985,7 +985,7 @@ Gura_DeclareMethod(list, combination)
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Creates an iterator that generates lists that contain elements picked up\n"
 	"from the original list in a combination manner.\n"
-	ITERATOR_HELP
+	GURA_ITERATOR_HELP
 	"Block parameter format: |value:list, idx:number|");
 }
 
@@ -1275,7 +1275,7 @@ Gura_DeclareMethodAlias(list, while_, "while")
 	"Creates an iterator that picks up each element in the list while criteria\n"
 	"is evaluated as true. You can specify a function object, a list or an iterator\n"
 	"as the criteria.\n"
-	ITERATOR_HELP
+	GURA_ITERATOR_HELP
 	"Block parameter format: |value:list, idx:number|");
 }
 
@@ -1302,7 +1302,7 @@ Gura_DeclareMethod(list, since)
 	"Creates an iterator that picks up each element in the list since criteria\n"
 	"is evaluated as true. You can specify a function object, a list or an iterator\n"
 	"as the criteria.\n"
-	ITERATOR_HELP
+	GURA_ITERATOR_HELP
 	"Block parameter format: |value:list, idx:number|");
 }
 
@@ -1329,7 +1329,7 @@ Gura_DeclareMethod(list, after)
 	"Creates an iterator that picks up each element in the list after criteria\n"
 	"is evaluated as true. You can specify a function object, a list or an iterator\n"
 	"as the criteria.\n"
-	ITERATOR_HELP
+	GURA_ITERATOR_HELP
 	"Block parameter format: |value:list, idx:number|");
 }
 
@@ -1356,7 +1356,7 @@ Gura_DeclareMethod(list, until)
 	"Creates an iterator that picks up each element in the list until criteria\n"
 	"is evaluated as true. You can specify a function object, a list or an iterator\n"
 	"as the criteria.\n"
-	ITERATOR_HELP
+	GURA_ITERATOR_HELP
 	"Block parameter format: |value:list, idx:number|");
 }
 
@@ -1383,7 +1383,7 @@ Gura_DeclareMethod(list, before)
 	"Creates an iterator that picks up each element in the list before criteria\n"
 	"is evaluated as true. You can specify a function object, a list or an iterator\n"
 	"as the criteria.\n"
-	ITERATOR_HELP
+	GURA_ITERATOR_HELP
 	"Block parameter format: |value:list, idx:number|");
 }
 
@@ -1409,7 +1409,7 @@ Gura_DeclareMethod(list, map)
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Creates an iterator that generates element values after applying the specfied\n"
 	"function on them. The function must take one argument.\n"
-	ITERATOR_HELP
+	GURA_ITERATOR_HELP
 	"Block parameter format: |value, idx:number|");
 }
 
@@ -1642,7 +1642,7 @@ Gura_DeclareMethod(list, each)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Creates an iterator that iterates each element in the list.\n"
-	ITERATOR_HELP
+	GURA_ITERATOR_HELP
 	"Block parameter format: |value, idx:number|");
 }
 

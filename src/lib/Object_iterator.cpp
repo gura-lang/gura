@@ -155,7 +155,7 @@ Gura_DeclareFunction(zipv)
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Creates an iterator generating lists that bind given argument values.\n"
 	"When the value is a list or an iterator, each item in it would be zipped.\n"
-	ITERATOR_HELP);
+	GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementFunction(zipv)

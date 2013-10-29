@@ -55,7 +55,7 @@ Gura_DeclareFunction(dir)
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Creates an iterator that lists item names in the specified directory.\n"
 	"If pathname is omitted, the current directory shall be listed.\n"
-	ITERATOR_HELP);
+	GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementFunction(dir)
@@ -97,7 +97,7 @@ Gura_DeclareFunction(walk)
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Creates an iterator that recursively lists item names under the specified\n"
 	"directory. If pathname is omitted, search starts at the current directory\n"
-	ITERATOR_HELP);
+	GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementFunction(walk)
@@ -138,7 +138,7 @@ Gura_DeclareFunction(glob)
 	"Creates an iterator for item names that match with a pattern supporting\n"
 	"UNIX shell-style wild cards. In default, case of characters is distinguished.\n"
 	"To ignore cases, specify :icase attribute.\n"
-	ITERATOR_HELP);
+	GURA_ITERATOR_HELP);
 }
 
 Gura_ImplementFunction(glob)

@@ -123,7 +123,7 @@ Gura_DeclareMethod(palette, each)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Creates an iterator that iterates each element in the palette.\n"
-	ITERATOR_HELP
+	GURA_ITERATOR_HELP
 	"Block parameter format: |value, idx:number|");
 }
 

@@ -40,14 +40,14 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Iterator_expr
+// Iterator_ExprOwner
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Iterator_expr : public Iterator {
+class GURA_DLLDECLARE Iterator_ExprOwner : public Iterator {
 private:
 	size_t _idx;
 	AutoPtr<ExprOwner> _pExprOwner;
 public:
-	Iterator_expr(ExprOwner *pExprOwner);
+	Iterator_ExprOwner(ExprOwner *pExprOwner);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString(Signal sig) const;

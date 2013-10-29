@@ -50,7 +50,7 @@ Value Object_error::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	} else if (pSymbol->IsIdentical(Gura_Symbol(trace))) {
 		AutoPtr<ExprOwner> pExprOwner(new ExprOwner());
 		_err.GetExprCauseOwner().ExtractTrace(*pExprOwner);
-		return Value(env, new Iterator_expr(pExprOwner.release()));
+		return Value(env, new Iterator_ExprOwner(pExprOwner.release()));
 	}
 	evaluatedFlag = false;
 	return Value::Null;

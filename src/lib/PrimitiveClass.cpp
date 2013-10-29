@@ -822,7 +822,7 @@ Gura_DeclareMethod(string, split)
 	"Creates an iterator generating sub strings extracted from the original one\n"
 	"separated by a specified string sep.\n"
 	"With an attribute :icase, case of characgters are ignored while finding.\n"
-	ITERATOR_HELP
+	GURA_ITERATOR_HELP
 	"Block parameter format: |sub:string, idx:number|");
 }
 
@@ -851,7 +851,7 @@ Gura_DeclareMethod(string, fold)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Creates an iterator that folds string in a specified length.\n"
-	ITERATOR_HELP
+	GURA_ITERATOR_HELP
 	"Block parameter format: |sub:string, idx:number|");
 }
 
@@ -873,7 +873,7 @@ Gura_DeclareMethod(string, each)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Creates an iterator generating strings of each character in the original one.\n"
-	ITERATOR_HELP
+	GURA_ITERATOR_HELP
 	"Block parameter format: |char:string, idx:number|");
 }
 
@@ -900,7 +900,7 @@ Gura_DeclareMethod(string, eachline)
 	"Creates an iterator generating strings of each line in the original one.\n"
 	"In default, end-of-line characters are involved in the result,\n"
 	"and you can eliminates them by specifying :chop attribute.\n"
-	ITERATOR_HELP
+	GURA_ITERATOR_HELP
 	"Block parameter format: |line:string, idx:number|");
 }
 
