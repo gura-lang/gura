@@ -7,6 +7,7 @@ namespace Gura {
 
 class Class;
 class Expr;
+class ExprList;
 class Environment;
 class Args;
 

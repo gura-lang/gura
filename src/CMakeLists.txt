@@ -106,6 +106,7 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Help.h
   ${GURA_INCLUDE_DIR}/gura/Image.h
   ${GURA_INCLUDE_DIR}/gura/Iterator.h
+  ${GURA_INCLUDE_DIR}/gura/IteratorBasic.h
   ${GURA_INCLUDE_DIR}/gura/Matrix.h
   ${GURA_INCLUDE_DIR}/gura/Memory.h
   ${GURA_INCLUDE_DIR}/gura/Module.h

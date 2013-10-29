@@ -21,6 +21,7 @@ Fundamental.cpp
 Help.cpp
 Image.cpp
 Iterator.cpp
+IteratorBasic.cpp
 Matrix.cpp
 Memory.cpp
 Module.cpp

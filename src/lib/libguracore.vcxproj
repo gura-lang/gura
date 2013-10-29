@@ -204,6 +204,7 @@
     <ClCompile Include="Help.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Iterator.cpp" />
+    <ClCompile Include="IteratorBasic.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="Module.cpp" />
@@ -286,6 +287,7 @@
     <ClInclude Include="..\..\include\gura\Fundamental.h" />
     <ClInclude Include="..\..\include\gura\Help.h" />
     <ClInclude Include="..\..\include\gura\Iterator.h" />
+    <ClInclude Include="..\..\include\gura\IteratorBasic.h" />
     <ClInclude Include="..\..\include\gura\Image.h" />
     <ClInclude Include="..\..\include\gura\Module.h" />
     <ClInclude Include="..\..\include\gura\OAL.h" />
