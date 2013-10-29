@@ -21,7 +21,7 @@ const char *GetExprTypeName(ExprType exprType)
 		{ EXPRTYPE_Root,		"root",			},
 		{ EXPRTYPE_Block,		"block",		},
 		{ EXPRTYPE_Lister,		"lister",		},
-		{ EXPRTYPE_IterLink,	"iterlink",		},
+		{ EXPRTYPE_Iterer,		"iterer",		},
 		{ EXPRTYPE_TmplScript,	"tmplscript",	},
 		{ EXPRTYPE_Indexer,		"indexer",		},
 		{ EXPRTYPE_Caller,		"caller",		},
@@ -49,7 +49,7 @@ const char *GetExprTypeName(ExprType exprType)
 //        +- Expr_Container <-+- Expr_Root
 //        |                   +- Expr_Block
 //        |                   +- Expr_Lister
-//        |                   +- Expr_IterLink
+//        |                   +- Expr_Iterer
 //        |                   `- Expr_TmplScript
 //        +- Expr_Compound <--+- Expr_Indexer
 //        |                   `- Expr_Caller
@@ -275,7 +275,7 @@ bool Expr::IsContainer() const	{ return false; }
 bool Expr::IsRoot() const		{ return false; }
 bool Expr::IsBlock() const		{ return false; }
 bool Expr::IsLister() const		{ return false; }
-bool Expr::IsIterLink() const	{ return false; }
+bool Expr::IsIterer() const		{ return false; }
 bool Expr::IsTmplScript() const	{ return false; }
 // type chekers - Compound and descendants
 bool Expr::IsCompound() const	{ return false; }
@@ -593,6 +593,41 @@ void ExprOwner::Clear()
 		Expr::Delete(*ppExpr);
 	}
 	clear();
+}
+
+//-----------------------------------------------------------------------------
+// ExprOwner::Iterator
+//-----------------------------------------------------------------------------
+ExprOwner::Iterator::Iterator(ExprOwner *pExprOwner) :
+					Gura::Iterator(false), _idx(0), _pExprOwner(pExprOwner)
+{
+}
+
+Iterator *ExprOwner::Iterator::GetSource()
+{
+	return NULL;
+}
+
+bool ExprOwner::Iterator::DoNext(Environment &env, Signal sig, Value &value)
+{
+	if (_idx < _pExprOwner->size()) {
+		Expr *pExpr = (*_pExprOwner)[_idx++];
+		value = Value(new Object_expr(env, pExpr->Reference()));
+		return true;
+	}
+	return false;
+}
+
+String ExprOwner::Iterator::ToString(Signal sig) const
+{
+	String rtn;
+	rtn += "<iterator:expr";
+	rtn += ">";
+	return rtn;
+}
+
+void ExprOwner::Iterator::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
 }
 
 //-----------------------------------------------------------------------------
@@ -1470,16 +1505,16 @@ String Expr_Lister::SequenceEx::ToString() const
 }
 
 //-----------------------------------------------------------------------------
-// Expr_IterLink
+// Expr_Iterer
 //-----------------------------------------------------------------------------
-bool Expr_IterLink::IsIterLink() const { return true; }
+bool Expr_Iterer::IsIterer() const { return true; }
 
-Expr *Expr_IterLink::Clone() const
+Expr *Expr_Iterer::Clone() const
 {
-	return new Expr_IterLink(*this);
+	return new Expr_Iterer(*this);
 }
 
-Value Expr_IterLink::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Iterer::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
 {
 	SeqPostHandler *pSeqPostHandlerEach = NULL;
 	AutoPtr<Iterator_Concat> pIterator(new Iterator_Concat());
@@ -1501,13 +1536,13 @@ Value Expr_IterLink::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPo
 	return result;
 }
 
-bool Expr_IterLink::GenerateCode(Environment &env, Signal sig, Stream &stream)
+bool Expr_Iterer::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
-	stream.Println(sig, "IterLink");
+	stream.Println(sig, "Iterer");
 	return true;
 }
 
-bool Expr_IterLink::GenerateScript(Signal sig, SimpleStream &stream,
+bool Expr_Iterer::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
 	stream.PutChar(sig, '(');
@@ -1530,19 +1565,19 @@ bool Expr_IterLink::GenerateScript(Signal sig, SimpleStream &stream,
 	return true;
 }
 
-Expr_IterLink::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
+Expr_Iterer::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }
 
-bool Expr_IterLink::SequenceEx::DoStep(Signal sig, Value &result)
+bool Expr_Iterer::SequenceEx::DoStep(Signal sig, Value &result)
 {
 	return false;
 }
 
-String Expr_IterLink::SequenceEx::ToString() const
+String Expr_Iterer::SequenceEx::ToString() const
 {
 	String str;
-	str += "<sequence:expr_iterlink>";
+	str += "<sequence:expr_iterer>";
 	return str;
 }
 

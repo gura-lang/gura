@@ -1183,12 +1183,12 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 	if (elem1.IsType(ETYPE_LParenthesis)) {
 		if (elem2.IsType(ETYPE_RParenthesis)) {
 			DBGPARSER(::printf("Reduce: Expr -> '(' ')'\n"));
-			Expr_IterLink *pExprIterLink =
-						dynamic_cast<Expr_IterLink *>(elem1.GetExpr());
-			if (pExprIterLink == NULL) {
-				pExprIterLink = new Expr_IterLink();
+			Expr_Iterer *pExprIterer =
+						dynamic_cast<Expr_Iterer *>(elem1.GetExpr());
+			if (pExprIterer == NULL) {
+				pExprIterer = new Expr_Iterer();
 			}
-			pExpr = pExprIterLink;
+			pExpr = pExprIterer;
 		} else if (elem2.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '(' -> '(' EOL\n"));
@@ -1380,23 +1380,23 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 	Element &elem2 = _elemStack.Peek(1);
 	Element &elem3 = _elemStack.Peek(0);
 	if (elem1.IsType(ETYPE_LParenthesis) && elem2.IsType(ETYPE_Expr)) {
-		Expr_IterLink *pExprIterLink = dynamic_cast<Expr_IterLink *>(elem1.GetExpr());
+		Expr_Iterer *pExprIterer = dynamic_cast<Expr_Iterer *>(elem1.GetExpr());
 		if (elem3.IsType(ETYPE_RParenthesis)) {
 			DBGPARSER(::printf("Reduce: Expr -> '(' Expr ')'\n"));
-			if (pExprIterLink == NULL) {
+			if (pExprIterer == NULL) {
 				pExpr = elem2.GetExpr();	// treat expr as non-list
 			} else {
-				pExprIterLink->AddExpr(elem2.GetExpr());
-				pExpr = pExprIterLink;
+				pExprIterer->AddExpr(elem2.GetExpr());
+				pExpr = pExprIterer;
 			}
 		} else if (elem3.IsType(ETYPE_Comma) || elem3.IsType(ETYPE_EOL)) {
 			// this is a special case of reducing
 			DBGPARSER(::printf("Reduce: '(' -> '(' Expr ','\n"));
-			if (pExprIterLink == NULL) {
-				pExprIterLink = new Expr_IterLink();
-				elem1.SetExpr(pExprIterLink);
+			if (pExprIterer == NULL) {
+				pExprIterer = new Expr_Iterer();
+				elem1.SetExpr(pExprIterer);
 			}
-			pExprIterLink->AddExpr(elem2.GetExpr());
+			pExprIterer->AddExpr(elem2.GetExpr());
 			_elemStack.pop_back();
 			_elemStack.pop_back();
 			return true;

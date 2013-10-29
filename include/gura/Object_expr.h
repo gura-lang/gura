@@ -39,21 +39,6 @@ public:
 	inline const Expr *GetExpr() const { return _pExpr.get(); }
 };
 
-//-----------------------------------------------------------------------------
-// Iterator_ExprOwner
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Iterator_ExprOwner : public Iterator {
-private:
-	size_t _idx;
-	AutoPtr<ExprOwner> _pExprOwner;
-public:
-	Iterator_ExprOwner(ExprOwner *pExprOwner);
-	virtual Iterator *GetSource();
-	virtual bool DoNext(Environment &env, Signal sig, Value &value);
-	virtual String ToString(Signal sig) const;
-	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
-};
-
 }
 
 #endif

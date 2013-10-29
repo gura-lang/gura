@@ -67,86 +67,112 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	} else if (pSymbol->IsIdentical(Gura_Symbol(postext))) {
 		return Value(env, GetExpr()->MakePosText());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(child))) {
-		if (!GetExpr()->IsUnary()) {
-			sig.SetError(ERR_ValueError, "not a unary expression");
-			return Value::Null;
+		if (GetExpr()->IsUnary()) {
+			const Expr_Unary *pExpr = dynamic_cast<const Expr_Unary *>(GetExpr());
+			return Value(new Object_expr(env, Expr::Reference(pExpr->GetChild())));
 		}
-		const Expr_Unary *pExpr = dynamic_cast<const Expr_Unary *>(GetExpr());
-		return Value(new Object_expr(env, Expr::Reference(pExpr->GetChild())));
+		sig.SetError(ERR_ValueError, "not a unary expression");
+		return Value::Null;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(children))) {
-		if (!GetExpr()->IsContainer()) {
-			sig.SetError(ERR_ValueError, "not a container expression");
-			return Value::Null;
+		if (GetExpr()->IsContainer()) {
+			const Expr_Container *pExpr = dynamic_cast<const Expr_Container *>(GetExpr());
+			return Value(env, new ExprOwner::Iterator(pExpr->GetExprOwner().Reference()));
 		}
-		const Expr_Container *pExpr = dynamic_cast<const Expr_Container *>(GetExpr());
-		return Value(env, new Iterator_ExprOwner(pExpr->GetExprOwner().Reference()));
+		sig.SetError(ERR_ValueError, "not a container expression");
+		return Value::Null;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(left))) {
-		if (!GetExpr()->IsBinary()) {
-			sig.SetError(ERR_ValueError, "not a binary expression");
-			return Value::Null;
+		if (GetExpr()->IsBinary()) {
+			const Expr_Binary *pExpr = dynamic_cast<const Expr_Binary *>(GetExpr());
+			return Value(new Object_expr(env, Expr::Reference(pExpr->GetLeft())));
 		}
-		const Expr_Binary *pExpr = dynamic_cast<const Expr_Binary *>(GetExpr());
-		return Value(new Object_expr(env, Expr::Reference(pExpr->GetLeft())));
+		sig.SetError(ERR_ValueError, "not a binary expression");
+		return Value::Null;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(right))) {
-		if (!GetExpr()->IsBinary()) {
-			sig.SetError(ERR_ValueError, "not a binary expression");
-			return Value::Null;
+		if (GetExpr()->IsBinary()) {
+			const Expr_Binary *pExpr = dynamic_cast<const Expr_Binary *>(GetExpr());
+			return Value(new Object_expr(env, Expr::Reference(pExpr->GetRight())));
 		}
-		const Expr_Binary *pExpr = dynamic_cast<const Expr_Binary *>(GetExpr());
-		return Value(new Object_expr(env, Expr::Reference(pExpr->GetRight())));
+		sig.SetError(ERR_ValueError, "not a binary expression");
+		return Value::Null;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(car))) {
-		if (!GetExpr()->IsCompound()) {
-			sig.SetError(ERR_ValueError, "not a compound expression");
-			return Value::Null;
+		if (GetExpr()->IsCompound()) {
+			const Expr_Compound *pExpr = dynamic_cast<const Expr_Compound *>(GetExpr());
+			return Value(new Object_expr(env, Expr::Reference(pExpr->GetCar())));
 		}
-		const Expr_Compound *pExpr = dynamic_cast<const Expr_Compound *>(GetExpr());
-		return Value(new Object_expr(env, Expr::Reference(pExpr->GetCar())));
+		sig.SetError(ERR_ValueError, "not a compound expression");
+		return Value::Null;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(cdr))) {
-		if (!GetExpr()->IsCompound()) {
-			sig.SetError(ERR_ValueError, "not a compound expression");
-			return Value::Null;
+		if (GetExpr()->IsCompound()) {
+			const Expr_Compound *pExpr = dynamic_cast<const Expr_Compound *>(GetExpr());
+			return Value(env, new ExprOwner::Iterator(pExpr->GetExprOwner().Reference()));
 		}
-		const Expr_Compound *pExpr = dynamic_cast<const Expr_Compound *>(GetExpr());
-		return Value(env, new Iterator_ExprOwner(pExpr->GetExprOwner().Reference()));
+		sig.SetError(ERR_ValueError, "not a compound expression");
+		return Value::Null;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(block))) {
-		if (!GetExpr()->IsCaller()) {
-			sig.SetError(ERR_ValueError, "not a caller expression");
-			return Value::Null;
+		if (GetExpr()->IsCaller()) {
+			const Expr_Caller *pExpr = dynamic_cast<const Expr_Caller *>(GetExpr());
+			const Expr_Block *pExprBlock = pExpr->GetBlock();
+			if (pExprBlock == NULL) return Value::Null;
+			return Value(new Object_expr(env, Expr::Reference(pExprBlock)));
 		}
-		const Expr_Caller *pExpr = dynamic_cast<const Expr_Caller *>(GetExpr());
-		const Expr_Block *pExprBlock = pExpr->GetBlock();
-		if (pExprBlock == NULL) return Value::Null;
-		return Value(new Object_expr(env, Expr::Reference(pExprBlock)));
+		sig.SetError(ERR_ValueError, "not a caller expression");
+		return Value::Null;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(trailer))) {
+		if (GetExpr()->IsCaller()) {
+			const Expr_Caller *pExpr = dynamic_cast<const Expr_Caller *>(GetExpr());
+			const Expr_Caller *pExprTrailer = pExpr->GetTrailer();
+			if (pExprTrailer == NULL) return Value::Null;
+			return Value(new Object_expr(env, Expr::Reference(pExprTrailer)));
+		}
+		sig.SetError(ERR_ValueError, "not a caller expression");
+		return Value::Null;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(value))) {
-		if (!GetExpr()->IsValue()) {
-			sig.SetError(ERR_ValueError, "expression is not a value");
-			return Value::Null;
+		if (GetExpr()->IsValue()) {
+			const Expr_Value *pExpr = dynamic_cast<const Expr_Value *>(GetExpr());
+			return pExpr->GetValue();
 		}
-		const Expr_Value *pExpr = dynamic_cast<const Expr_Value *>(GetExpr());
-		return pExpr->GetValue();
+		sig.SetError(ERR_ValueError, "expression is not a value");
+		return Value::Null;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(string))) {
-		if (!GetExpr()->IsString()) {
-			sig.SetError(ERR_ValueError, "expression is not a string");
-			return Value::Null;
+		if (GetExpr()->IsString()) {
+			const Expr_String *pExpr = dynamic_cast<const Expr_String *>(GetExpr());
+			return Value(env, pExpr->GetString());
 		}
-		const Expr_String *pExpr = dynamic_cast<const Expr_String *>(GetExpr());
-		return Value(env, pExpr->GetString());
+		sig.SetError(ERR_ValueError, "expression is not a string");
+		return Value::Null;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(symbol))) {
-		if (!GetExpr()->IsSymbol()) {
-			sig.SetError(ERR_ValueError, "expression is not a symbol");
-			return Value::Null;
+		if (GetExpr()->IsSymbol()) {
+			const Expr_Symbol *pExpr = dynamic_cast<const Expr_Symbol *>(GetExpr());
+			return Value(pExpr->GetSymbol());
 		}
-		const Expr_Symbol *pExpr = dynamic_cast<const Expr_Symbol *>(GetExpr());
-		return Value(pExpr->GetSymbol());
+		sig.SetError(ERR_ValueError, "expression is not a symbol");
+		return Value::Null;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(blockparam))) {
-		if (!GetExpr()->IsBlock()) {
-			sig.SetError(ERR_ValueError, "expression is not a block");
-			return Value::Null;
+		if (GetExpr()->IsBlock()) {
+			const Expr_Block *pExpr = dynamic_cast<const Expr_Block *>(GetExpr());
+			const ExprOwner *pExprOwnerParam = pExpr->GetExprOwnerParam();
+			if (pExprOwnerParam == NULL) return Value::Null;
+			return Value(env, new ExprOwner::Iterator(pExprOwnerParam->Reference()));
 		}
-		const Expr_Block *pExpr = dynamic_cast<const Expr_Block *>(GetExpr());
-		const ExprOwner *pExprOwnerParam = pExpr->GetExprOwnerParam();
-		if (pExprOwnerParam == NULL) return Value::Null;
-		return Value(env, new Iterator_ExprOwner(pExprOwnerParam->Reference()));
+		sig.SetError(ERR_ValueError, "expression is not a block");
+		return Value::Null;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(operator))) {
+		if (GetExpr()->IsUnaryOp()) {
+			const Expr_UnaryOp *pExpr = dynamic_cast<const Expr_UnaryOp *>(GetExpr());
+			return Value(new Object_operator(env,
+							pExpr->GetOperator()->GetOpType(), OPTYPE_None));
+		} else if (GetExpr()->IsBinaryOp()) {
+			const Expr_BinaryOp *pExpr = dynamic_cast<const Expr_BinaryOp *>(GetExpr());
+			return Value(new Object_operator(env,
+							OPTYPE_None, pExpr->GetOperator()->GetOpType()));
+		} else if (GetExpr()->IsAssign()) {
+			const Expr_Assign *pExpr = dynamic_cast<const Expr_Assign *>(GetExpr());
+			const Operator *pOperator = pExpr->GetOperatorToApply();
+			if (pOperator == NULL) return Value::Null;
+			return Value(new Object_operator(env, OPTYPE_None, pOperator->GetOpType()));
+		}
+		sig.SetError(ERR_ValueError, "expression is not a unaryop, binaryop nor assign");
+		return Value::Null;
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -263,7 +289,7 @@ ImplementTypeChecker(iscontainer,	IsContainer)
 ImplementTypeChecker(isroot,		IsRoot)
 ImplementTypeChecker(isblock,		IsBlock)
 ImplementTypeChecker(islister,		IsLister)
-ImplementTypeChecker(isiterlink,	IsIterLink)
+ImplementTypeChecker(isiterer,		IsIterer)
 ImplementTypeChecker(istmplscript,	IsTmplScript)
 // type chekers - Compound and descendants
 ImplementTypeChecker(iscompound,	IsCompound)
@@ -304,7 +330,7 @@ void Class_expr::Prepare(Environment &env)
 	Gura_AssignMethod(expr,	isroot);
 	Gura_AssignMethod(expr,	isblock);
 	Gura_AssignMethod(expr,	islister);
-	Gura_AssignMethod(expr,	isiterlink);
+	Gura_AssignMethod(expr,	isiterer);
 	Gura_AssignMethod(expr,	istmplscript);
 	// type chekers - Compound and descendants
 	Gura_AssignMethod(expr,	iscompound);
@@ -331,41 +357,6 @@ Object *Class_expr::CreateDescendant(Environment &env, Signal sig, Class *pClass
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
-}
-
-//-----------------------------------------------------------------------------
-// Iterator_ExprOwner
-//-----------------------------------------------------------------------------
-Iterator_ExprOwner::Iterator_ExprOwner(ExprOwner *pExprOwner) :
-						Iterator(false), _idx(0), _pExprOwner(pExprOwner)
-{
-}
-
-Iterator *Iterator_ExprOwner::GetSource()
-{
-	return NULL;
-}
-
-bool Iterator_ExprOwner::DoNext(Environment &env, Signal sig, Value &value)
-{
-	if (_idx < _pExprOwner->size()) {
-		Expr *pExpr = (*_pExprOwner)[_idx++];
-		value = Value(new Object_expr(env, pExpr->Reference()));
-		return true;
-	}
-	return false;
-}
-
-String Iterator_ExprOwner::ToString(Signal sig) const
-{
-	String rtn;
-	rtn += "<iterator:expr";
-	rtn += ">";
-	return rtn;
-}
-
-void Iterator_ExprOwner::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
-{
 }
 
 }

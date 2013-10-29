@@ -29,7 +29,7 @@ enum ExprType {
 	EXPRTYPE_Root,
 	EXPRTYPE_Block,
 	EXPRTYPE_Lister,
-	EXPRTYPE_IterLink,
+	EXPRTYPE_Iterer,
 	EXPRTYPE_TmplScript,
 	EXPRTYPE_Indexer,
 	EXPRTYPE_Caller,
@@ -90,7 +90,7 @@ public:
 //        +- Expr_Container <-+- Expr_Root
 //        |                   +- Expr_Block
 //        |                   +- Expr_Lister
-//        |                   +- Expr_IterLink
+//        |                   +- Expr_Iterer
 //        |                   `- Expr_TmplScript
 //        +- Expr_Compound <--+- Expr_Indexer
 //        |                   `- Expr_Caller
@@ -223,7 +223,7 @@ public:
 	virtual bool IsRoot() const;
 	virtual bool IsBlock() const;
 	virtual bool IsLister() const;
-	virtual bool IsIterLink() const;
+	virtual bool IsIterer() const;
 	virtual bool IsTmplScript() const;
 	// type chekers - Compound and descendants
 	virtual bool IsCompound() const;
@@ -282,6 +282,17 @@ private:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE ExprOwner : public ExprList {
 public:
+	class GURA_DLLDECLARE Iterator : public Gura::Iterator {
+	private:
+		size_t _idx;
+		AutoPtr<ExprOwner> _pExprOwner;
+	public:
+		Iterator(ExprOwner *pExprOwner);
+		virtual Gura::Iterator *GetSource();
+		virtual bool DoNext(Environment &env, Signal sig, Value &value);
+		virtual String ToString(Signal sig) const;
+		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+	};
 	class GURA_DLLDECLARE SequenceEx : public Sequence {
 	protected:
 		AutoPtr<ExprOwner> _pExprOwner;
@@ -582,9 +593,9 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Expr_IterLink
+// Expr_Iterer
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_IterLink : public Expr_Container {
+class GURA_DLLDECLARE Expr_Iterer : public Expr_Container {
 public:
 	class GURA_DLLDECLARE SequenceEx : public Sequence {
 	public:
@@ -593,15 +604,15 @@ public:
 		virtual String ToString() const;
 	};
 public:
-	inline Expr_IterLink() : Expr_Container(EXPRTYPE_IterLink) {}
-	inline Expr_IterLink(Expr *pExpr) : Expr_Container(EXPRTYPE_IterLink) {
+	inline Expr_Iterer() : Expr_Container(EXPRTYPE_Iterer) {}
+	inline Expr_Iterer(Expr *pExpr) : Expr_Container(EXPRTYPE_Iterer) {
 		AddExpr(pExpr);
 	}
-	inline Expr_IterLink(const Expr_IterLink &expr) : Expr_Container(expr) {}
-	inline static Expr_IterLink *Reference(const Expr_IterLink *pExpr) {
-		return dynamic_cast<Expr_IterLink *>(Expr::Reference(pExpr));
+	inline Expr_Iterer(const Expr_Iterer &expr) : Expr_Container(expr) {}
+	inline static Expr_Iterer *Reference(const Expr_Iterer *pExpr) {
+		return dynamic_cast<Expr_Iterer *>(Expr::Reference(pExpr));
 	}
-	virtual bool IsIterLink() const;
+	virtual bool IsIterer() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
