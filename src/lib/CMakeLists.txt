@@ -65,6 +65,7 @@ StructObject.cpp
 Symbol.cpp
 TemplateEngine.cpp
 Value.cpp
+ValueType.cpp
 module-basement.cpp
 module-sys.cpp
 ../module-base64/module-base64.cpp

@@ -248,6 +248,7 @@
     <ClCompile Include="Symbol.cpp" />
     <ClCompile Include="TemplateEngine.cpp" />
     <ClCompile Include="Value.cpp" />
+    <ClCompile Include="ValueType.cpp" />
     <ClCompile Include="module-basement.cpp" />
     <ClCompile Include="module-sys.cpp" />
     <ClCompile Include="..\module-base64\module-base64.cpp" />
@@ -330,6 +331,7 @@
     <ClInclude Include="..\..\include\gura\Symbol.h" />
     <ClInclude Include="..\..\include\gura\TemplateEngine.h" />
     <ClInclude Include="..\..\include\gura\Value.h" />
+    <ClInclude Include="..\..\include\gura\ValueType.h" />
     <ClInclude Include="..\..\include\gura\ZLibHelper.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -151,6 +151,7 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Symbol.h
   ${GURA_INCLUDE_DIR}/gura/TemplateEngine.h
   ${GURA_INCLUDE_DIR}/gura/Value.h
+  ${GURA_INCLUDE_DIR}/gura/ValueType.h
   ${GURA_INCLUDE_DIR}/gura/Version.h
   DESTINATION include/gura)
 
