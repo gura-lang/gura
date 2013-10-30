@@ -655,10 +655,10 @@ bool ExprOwner::SequenceEach::DoStep(Signal sig, Value &result)
 		_doneFlag = true;
 		return false;
 	}
-	SeqPostHandler *pSeqPostHandler = NULL;
+	SeqPostHandler *pSeqPostHandlerEach = NULL;
 	Environment &env = *_pEnv;
 	const Expr *pExpr = (*_pExprOwner)[_idxExpr++];
-	result = pExpr->Exec(env, sig, pSeqPostHandler, true);
+	result = pExpr->Exec(env, sig, pSeqPostHandlerEach, true);
 	if (sig.IsSignalled()) return false;
 	if (_idxExpr < _pExprOwner->size()) return true;
 	_doneFlag = true;
@@ -679,7 +679,7 @@ ExprOwner::SequenceToList::SequenceToList(Environment *pEnv, ExprOwner *pExprOwn
 						Sequence(pEnv), _pExprOwner(pExprOwner), _idxExpr(0)
 {
 	_pValList = &_result.InitAsList(*pEnv);
-	_pSeqPostHandler.reset(new SeqPostHandlerEx(pEnv->Reference(), *_pValList));
+	_pSeqPostHandlerEach.reset(new SeqPostHandlerEach(pEnv->Reference(), *_pValList));
 }
 
 bool ExprOwner::SequenceToList::DoStep(Signal sig, Value &result)
@@ -690,7 +690,7 @@ bool ExprOwner::SequenceToList::DoStep(Signal sig, Value &result)
 	}
 	Environment &env = *_pEnv;
 	const Expr *pExpr = (*_pExprOwner)[_idxExpr++];
-	result = pExpr->Exec(env, sig, _pSeqPostHandler->Reference(), true);
+	result = pExpr->Exec(env, sig, _pSeqPostHandlerEach->Reference(), true);
 	if (sig.IsSignalled()) return false;
 	if (result.IsSequence()) return true;
 	if (_idxExpr < _pExprOwner->size()) return false;
@@ -706,7 +706,7 @@ String ExprOwner::SequenceToList::ToString() const
 	return str;
 }
 
-bool ExprOwner::SequenceToList::SeqPostHandlerEx::DoPost(Signal sig, const Value &result)
+bool ExprOwner::SequenceToList::SeqPostHandlerEach::DoPost(Signal sig, const Value &result)
 {
 	_valList.push_back(result);
 	return true;
@@ -1293,10 +1293,11 @@ Value Expr_Block::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostH
 #else
 	Sequence *pSequence = NULL;
 	if (env.IsType(ENVTYPE_lister)) {
-		pSequence = new ExprOwner::SequenceEach(env.Reference(), GetExprOwner().Reference());
-	} else {
 		pSequence = new ExprOwner::SequenceToList(env.Reference(), GetExprOwner().Reference());
+	} else {
+		pSequence = new ExprOwner::SequenceEach(env.Reference(), GetExprOwner().Reference());
 	}
+	pSequence->SetSeqPostHandler(SeqPostHandler::Reference(pSeqPostHandler));
 	return Sequence::Return(sig, pSequence);
 #endif
 }

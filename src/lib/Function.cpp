@@ -769,7 +769,6 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 							valueKey));
 				result = pExprRight->Exec(env, sig, pSeqPostHandler.release());
 				if (sig.IsSignalled()) return false;
-				//pSeqPostHandler->DoPost(sig, result);
 			} else {
 				pExprBinaryOp->SetError(sig, ERR_KeyError,
 					"l-value of dictionary assignment must be a symbol or a constant value");

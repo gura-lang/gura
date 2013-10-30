@@ -300,11 +300,11 @@ public:
 	};
 	class GURA_DLLDECLARE SequenceToList : public Sequence {
 	public:
-		class SeqPostHandlerEx : public SeqPostHandler {
+		class SeqPostHandlerEach : public SeqPostHandler {
 		private:
 			ValueList &_valList;
 		public:
-			inline SeqPostHandlerEx(Environment *pEnv, ValueList &valList) :
+			inline SeqPostHandlerEach(Environment *pEnv, ValueList &valList) :
 									SeqPostHandler(pEnv), _valList(valList) {}
 			virtual bool DoPost(Signal sig, const Value &result);
 		};
@@ -313,7 +313,7 @@ public:
 		size_t _idxExpr;
 		Value _result;
 		ValueList *_pValList;
-		AutoPtr<SeqPostHandlerEx> _pSeqPostHandler;
+		AutoPtr<SeqPostHandlerEach> _pSeqPostHandlerEach;
 	public:
 		SequenceToList(Environment *pEnv, ExprOwner *pExprOwner);
 	public:
