@@ -642,34 +642,74 @@ void ExprOwner::Iterator::GatherFollower(Environment::Frame *pFrame, Environment
 }
 
 //-----------------------------------------------------------------------------
-// ExprOwner::SequenceEx
+// ExprOwner::SequenceEach
 //-----------------------------------------------------------------------------
-ExprOwner::SequenceEx::SequenceEx(Environment *pEnv, ExprOwner *pExprOwner) :
+ExprOwner::SequenceEach::SequenceEach(Environment *pEnv, ExprOwner *pExprOwner) :
 						Sequence(pEnv), _pExprOwner(pExprOwner), _idxExpr(0)
 {
 }
 
-bool ExprOwner::SequenceEx::DoStep(Signal sig, Value &result)
+bool ExprOwner::SequenceEach::DoStep(Signal sig, Value &result)
 {
-	if (CheckDone()) return false;
-	if (_idxExpr >= GetExprOwner().size()) {
+	if (_idxExpr >= _pExprOwner->size()) {
 		_doneFlag = true;
 		return false;
 	}
 	SeqPostHandler *pSeqPostHandler = NULL;
 	Environment &env = *_pEnv;
-	const Expr *pExpr = GetExprOwner()[_idxExpr++];
+	const Expr *pExpr = (*_pExprOwner)[_idxExpr++];
 	result = pExpr->Exec(env, sig, pSeqPostHandler, true);
 	if (sig.IsSignalled()) return false;
-	if (_idxExpr >= GetExprOwner().size()) _doneFlag = true;
+	if (_idxExpr < _pExprOwner->size()) return true;
+	_doneFlag = true;
 	return true;
 }
 
-String ExprOwner::SequenceEx::ToString() const
+String ExprOwner::SequenceEach::ToString() const
 {
 	String str;
 	str += "<sequence:expr>";
 	return str;
+}
+
+//-----------------------------------------------------------------------------
+// ExprOwner::SequenceToList
+//-----------------------------------------------------------------------------
+ExprOwner::SequenceToList::SequenceToList(Environment *pEnv, ExprOwner *pExprOwner) :
+						Sequence(pEnv), _pExprOwner(pExprOwner), _idxExpr(0)
+{
+	_pValList = &_result.InitAsList(*pEnv);
+	_pSeqPostHandler.reset(new SeqPostHandlerEx(pEnv->Reference(), *_pValList));
+}
+
+bool ExprOwner::SequenceToList::DoStep(Signal sig, Value &result)
+{
+	if (_idxExpr >= _pExprOwner->size()) {
+		_doneFlag = true;
+		return false;
+	}
+	Environment &env = *_pEnv;
+	const Expr *pExpr = (*_pExprOwner)[_idxExpr++];
+	result = pExpr->Exec(env, sig, _pSeqPostHandler->Reference(), true);
+	if (sig.IsSignalled()) return false;
+	if (result.IsSequence()) return true;
+	if (_idxExpr < _pExprOwner->size()) return false;
+	result = _result;
+	_doneFlag = true;
+	return true;
+}
+
+String ExprOwner::SequenceToList::ToString() const
+{
+	String str;
+	str += "<sequence:expr>";
+	return str;
+}
+
+bool ExprOwner::SequenceToList::SeqPostHandlerEx::DoPost(Signal sig, const Value &result)
+{
+	_valList.push_back(result);
+	return true;
 }
 
 //-----------------------------------------------------------------------------
@@ -1231,6 +1271,7 @@ Expr *Expr_Block::Clone() const
 
 Value Expr_Block::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
 {
+#if 1
 	Value result;
 	if (env.IsType(ENVTYPE_lister)) {
 		ValueList &valList = result.InitAsList(env);
@@ -1249,6 +1290,15 @@ Value Expr_Block::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostH
 	}
 	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
 	return result;
+#else
+	Sequence *pSequence = NULL;
+	if (env.IsType(ENVTYPE_lister)) {
+		pSequence = new ExprOwner::SequenceEach(env.Reference(), GetExprOwner().Reference());
+	} else {
+		pSequence = new ExprOwner::SequenceToList(env.Reference(), GetExprOwner().Reference());
+	}
+	return Sequence::Return(sig, pSequence);
+#endif
 }
 
 Expr *Expr_Block::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const

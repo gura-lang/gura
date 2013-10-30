@@ -10,9 +10,11 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE CustomFunction : public Function {
 public:
-	class GURA_DLLDECLARE SequenceEx : public ExprOwner::SequenceEx {
+	class GURA_DLLDECLARE SequenceEx : public Sequence {
 	protected:
 		AutoPtr<CustomFunction> _pCustomFunction;
+		AutoPtr<ExprOwner> _pExprOwner;
+		size_t _idxExpr;
 	public:
 		SequenceEx(Environment *pEnv, CustomFunction *pCustomFunction);
 	public:

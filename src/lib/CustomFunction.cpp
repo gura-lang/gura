@@ -80,7 +80,7 @@ CustomFunction *CustomFunction::CreateBlockFunc(Environment &env, Signal sig,
 // CustomFunction::SequenceEx
 //-----------------------------------------------------------------------------
 CustomFunction::SequenceEx::SequenceEx(Environment *pEnv, CustomFunction *pCustomFunction) :
-		ExprOwner::SequenceEx(pEnv, NULL), _pCustomFunction(pCustomFunction)
+				Sequence(pEnv), _pCustomFunction(pCustomFunction), _idxExpr(0)
 {
 	const Expr *pExprBody = _pCustomFunction->GetExprBody();
 	if (pExprBody == NULL) {
@@ -96,8 +96,14 @@ CustomFunction::SequenceEx::SequenceEx(Environment *pEnv, CustomFunction *pCusto
 
 bool CustomFunction::SequenceEx::DoStep(Signal sig, Value &result)
 {
+	if (_idxExpr >= _pExprOwner->size()) {
+		_doneFlag = true;
+		return false;
+	}
+	SeqPostHandler *pSeqPostHandler = NULL;
 	Environment &env = *_pEnv;
-	if (!ExprOwner::SequenceEx::DoStep(sig, result)) return false;
+	const Expr *pExpr = (*_pExprOwner)[_idxExpr++];
+	result = pExpr->Exec(env, sig, pSeqPostHandler, true);
 	if (env.GetEnvType() == ENVTYPE_block) {
 		// nothing to do. simply pass the signal to the outside.
 	} else if (!sig.IsSignalled()) {
@@ -109,7 +115,11 @@ bool CustomFunction::SequenceEx::DoStep(Signal sig, Value &result)
 	} else if (sig.IsReturn()) {
 		result = sig.GetValue();
 		sig.ClearSignal();
+	} else {
+		return false;
 	}
+	if (_idxExpr < _pExprOwner->size()) return true;
+	_doneFlag = true;
 	return true;
 }
 

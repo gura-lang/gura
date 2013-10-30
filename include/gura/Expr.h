@@ -288,16 +288,37 @@ public:
 		virtual String ToString(Signal sig) const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
-	class GURA_DLLDECLARE SequenceEx : public Sequence {
+	class GURA_DLLDECLARE SequenceEach : public Sequence {
 	protected:
 		AutoPtr<ExprOwner> _pExprOwner;
 		size_t _idxExpr;
 	public:
-		SequenceEx(Environment *pEnv, ExprOwner *pExprOwner);
+		SequenceEach(Environment *pEnv, ExprOwner *pExprOwner);
 	public:
 		virtual bool DoStep(Signal sig, Value &result);
 		virtual String ToString() const;
-		inline const ExprOwner &GetExprOwner() const { return *_pExprOwner; }
+	};
+	class GURA_DLLDECLARE SequenceToList : public Sequence {
+	public:
+		class SeqPostHandlerEx : public SeqPostHandler {
+		private:
+			ValueList &_valList;
+		public:
+			inline SeqPostHandlerEx(Environment *pEnv, ValueList &valList) :
+									SeqPostHandler(pEnv), _valList(valList) {}
+			virtual bool DoPost(Signal sig, const Value &result);
+		};
+	protected:
+		AutoPtr<ExprOwner> _pExprOwner;
+		size_t _idxExpr;
+		Value _result;
+		ValueList *_pValList;
+		AutoPtr<SeqPostHandlerEx> _pSeqPostHandler;
+	public:
+		SequenceToList(Environment *pEnv, ExprOwner *pExprOwner);
+	public:
+		virtual bool DoStep(Signal sig, Value &result);
+		virtual String ToString() const;
 	};
 private:
 	int _cntRef;

@@ -781,7 +781,6 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 					env.Reference(), dynamic_cast<SequenceEx *>(Reference())));
 			result = pExprSuffix->GetChild()->Exec(env, sig, pSeqPostHandler.release());
 			if (sig.IsSignalled()) return false;
-			//if (!pSeqPostHandler->DoPost(sig, result)) return false;
 		} else if (_ppDecl != _pFunc->GetDeclOwner().end()) {
 			const Declaration *pDecl = *_ppDecl;
 			if (_exprMap.find(pDecl->GetSymbol()) != _exprMap.end()) {
@@ -802,13 +801,11 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 						env.Reference(), dynamic_cast<SequenceEx *>(Reference())));
 				result = pExprSuffix->GetChild()->Exec(env, sig, pSeqPostHandler.release());
 				if (sig.IsSignalled()) return false;
-				//if (!pSeqPostHandler->DoPost(sig, result)) return false;
 			} else {
 				AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ValListArg(
 					env.Reference(), dynamic_cast<SequenceEx *>(Reference()), true));
 				result = pExprArg->Exec(env, sig, pSeqPostHandler.release());
 				if (sig.IsSignalled()) return false;
-				//if (!pSeqPostHandler->DoPost(sig, result)) return false;
 			}
 		} else if (_pFunc->GetDeclOwner().IsAllowTooManyArgs()) {
 			continueFlag = true;
@@ -870,7 +867,6 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 				env.Reference(), dynamic_cast<SequenceEx *>(Reference()), false));
 			result = pExprArg->Exec(env, sig, pSeqPostHandler.release());
 			if (sig.IsSignalled()) return false;
-			//if (!pSeqPostHandler->DoPost(sig, result)) return false;
 		}
 		break;
 	}
@@ -903,7 +899,6 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 				env.Reference(), dynamic_cast<SequenceEx *>(Reference()), pSymbol));
 		result = pExprArg->Exec(env, sig, pSeqPostHandler.release());
 		if (sig.IsSignalled()) return false;
-		//if (!pSeqPostHandler->DoPost(sig, result)) return false;
 		break;
 	}
 	//-------------------------------------------------------------------------
