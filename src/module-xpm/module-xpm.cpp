@@ -4,7 +4,7 @@
 //-----------------------------------------------------------------------------
 #include "module-xpm.h"
 
-Gura_BeginModule(xpm)
+Gura_BeginModuleBody(xpm, xpm)
 
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_image
@@ -400,6 +400,6 @@ void ImageStreamer_xpm::SetError_InvalidFormat(Signal sig)
 	sig.SetError(ERR_FormatError, "invalid xpm format");
 }
 
-Gura_EndModule(xpm, xpm)
+Gura_EndModuleBody(xpm, xpm)
 
 Gura_RegisterModule(xpm)

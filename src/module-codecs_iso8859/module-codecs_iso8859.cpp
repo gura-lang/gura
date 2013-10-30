@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(codecs_iso8859)
+Gura_BeginModuleBody(codecs_iso8859, iso8859)
 
 //-----------------------------------------------------------------------------
 // Codec_ISO8859
@@ -748,6 +748,6 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModule(codecs_iso8859, iso8859)
+Gura_EndModuleBody(codecs_iso8859, iso8859)
 
 Gura_RegisterModule(codecs_iso8859)

@@ -13,7 +13,7 @@
 #include <cairo-win32.h>
 #endif
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleHeader(cairo, cairo)
 
 Gura_DeclareUserSymbol(ascent);
 Gura_DeclareUserSymbol(descent);
@@ -150,6 +150,6 @@ Value CreateValueList(Environment &env,
 cairo_surface_t *CreateSurfaceFromImage(Signal sig, Image *pImage);
 const char *SurfaceTypeToName(cairo_surface_type_t surface_type);
 
-}}
+Gura_EndModuleHeader(cairo, cairo)
 
 #endif

@@ -6,7 +6,7 @@
 #include <gura.h>
 #include <gura/helper/ZLibHelper.h>
 
-Gura_BeginModule(gzip)
+Gura_BeginModuleHeader(gzip, gzip)
 
 //-----------------------------------------------------------------------------
 // utilities
@@ -16,6 +16,6 @@ Object_stream *GenerateDecompressor(Environment &env, Signal sig,
 Object_stream *GenerateCompressor(Environment &env, Signal sig,
 								Stream *pStreamDst, int level, int windowBits);
 
-}}
+Gura_EndModuleHeader(gzip, gzip)
 
 #endif

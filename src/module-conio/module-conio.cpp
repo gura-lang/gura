@@ -5,7 +5,7 @@
 
 #define Gura_AssignValueOf(v) Gura_AssignValue(v, v)
 
-Gura_BeginModule(conio)
+Gura_BeginModuleBody(conio, conio)
 
 enum {
 	K_BACKSPACE	= 0x7f,
@@ -592,6 +592,6 @@ bool SymbolToNumber(Signal sig, const Symbol *pSymbol, int *pNum)
 	return true;
 }
 
-Gura_EndModule(conio, conio)
+Gura_EndModuleBody(conio, conio)
 
 Gura_RegisterModule(conio)

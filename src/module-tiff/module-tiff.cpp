@@ -7,7 +7,7 @@
 //-----------------------------------------------------------------------------
 #include "module-tiff.h"
 
-Gura_BeginModule(tiff)
+Gura_BeginModuleBody(tiff, tiff)
 
 //-----------------------------------------------------------------------------
 // Handler
@@ -185,6 +185,6 @@ bool ImageStreamer_TIFF::WriteStream(Environment &env, Signal sig, Image *pImage
 	return true;
 }
 
-Gura_EndModule(tiff, tiff)
+Gura_EndModuleBody(tiff, tiff)
 
 Gura_RegisterModule(tiff)

@@ -4,7 +4,7 @@
 //-----------------------------------------------------------------------------
 #include "module-opengl.h"
 
-Gura_BeginModule(opengl)
+Gura_BeginModuleBody(opengl, opengl)
 
 //-----------------------------------------------------------------------------
 // helper
@@ -375,6 +375,6 @@ bool DoGLSection(Environment &env, Signal sig, Args &args, Image *pImage)
 }
 #endif
 
-Gura_EndModule(opengl, opengl)
+Gura_EndModuleBody(opengl, opengl)
 
 Gura_RegisterModule(opengl)

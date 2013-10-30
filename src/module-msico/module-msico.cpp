@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-msico.h"
 
-Gura_BeginModule(msico)
+Gura_BeginModuleBody(msico, msico)
 
 //-----------------------------------------------------------------------------
 // Object_content
@@ -348,6 +348,6 @@ bool ImageStreamer_ICO::ReadStream(Environment &env, Signal sig,
 	return true;
 }
 
-Gura_EndModule(msico, msico)
+Gura_EndModuleBody(msico, msico)
 
 Gura_RegisterModule(msico)

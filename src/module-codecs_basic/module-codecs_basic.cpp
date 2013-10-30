@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(codecs_basic)
+Gura_BeginModuleBody(codecs_basic, basic)
 
 //-----------------------------------------------------------------------------
 // Codec_USASCII
@@ -104,6 +104,6 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModule(codecs_basic, basic)
+Gura_EndModuleBody(codecs_basic, basic)
 
 Gura_RegisterModule(codecs_basic)

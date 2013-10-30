@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-gzip.h"
 
-Gura_BeginModule(gzip)
+Gura_BeginModuleBody(gzip, gzip)
 
 //-----------------------------------------------------------------------------
 // Gura module functions: gzip
@@ -127,6 +127,6 @@ Object_stream *GenerateCompressor(Environment &env, Signal sig,
 	return new Object_stream(env, pStream.release());
 }
 
-Gura_EndModule(gzip, gzip)
+Gura_EndModuleBody(gzip, gzip)
 
 Gura_RegisterModule(gzip)

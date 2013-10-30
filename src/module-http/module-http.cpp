@@ -19,7 +19,7 @@ inline void closesocket(int sock) { close(sock); }
 
 #include "module-http.h"
 
-Gura_BeginModule(http)
+Gura_BeginModuleBody(http, http)
 
 static Environment *_pEnvThis = NULL;
 
@@ -2842,6 +2842,6 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModule(http, http)
+Gura_EndModuleBody(http, http)
 
 Gura_RegisterModule(http)

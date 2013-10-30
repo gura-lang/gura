@@ -21,7 +21,7 @@ Gura_AssignValue(PAUSE_##name, Value(CURLPAUSE_##name))
 #define Gura_AssignValueVERSION(name) \
 Gura_AssignValue(VERSION_##name, Value(CURL_VERSION_##name))
 
-Gura_BeginModule(curl)
+Gura_BeginModuleBody(curl, curl)
 
 //-----------------------------------------------------------------------------
 // utility functions
@@ -1050,6 +1050,6 @@ Gura_ImplementUserClass(easy_handle)
 	Gura_AssignMethod(easy_handle, send);
 }
 
-Gura_EndModule(curl, curl)
+Gura_EndModuleBody(curl, curl)
 
 Gura_RegisterModule(curl)

@@ -10,7 +10,7 @@ Gura_AssignValue(name, Value(CAIRO_##name))
 #define Gura_AssignCairoStringValue(name) \
 Gura_AssignValue(name, Value(env, CAIRO_##name))
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleBody(cairo, cairo)
 
 //-----------------------------------------------------------------------------
 // Gura interfaces for image
@@ -879,7 +879,7 @@ cairo_surface_t *CreateSurfaceFromImage(Signal sig, Image *pImage)
 	return surface;
 }
 
-Gura_EndModule(cairo, cairo)
+Gura_EndModuleBody(cairo, cairo)
 
 Gura_RegisterModule(cairo)
 

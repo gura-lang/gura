@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-sample.h"
 
-Gura_BeginModule(sample)
+Gura_BeginModuleBody(sample, sample)
 
 //-----------------------------------------------------------------------------
 // Object_foo implementation
@@ -88,6 +88,6 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModule(sample, sample)
+Gura_EndModuleBody(sample, sample)
 
 Gura_RegisterModule(sample)

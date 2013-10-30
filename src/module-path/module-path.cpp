@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(path)
+Gura_BeginModuleBody(path, path)
 
 //-----------------------------------------------------------------------------
 // Gura module functions: path
@@ -374,6 +374,6 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModule(path, path)
+Gura_EndModuleBody(path, path)
 
 Gura_RegisterModule(path)

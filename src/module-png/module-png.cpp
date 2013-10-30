@@ -5,7 +5,7 @@
 
 #define SetRGBOrder(png_ptr) ::png_set_bgr(png_ptr)
 
-Gura_BeginModule(png)
+Gura_BeginModuleBody(png, png)
 
 //-----------------------------------------------------------------------------
 // Gura interfaces for image
@@ -253,6 +253,6 @@ void Handler::FlushData(png_structp png_ptr)
 	}
 }
 
-Gura_EndModule(png, png)
+Gura_EndModuleBody(png, png)
 
 Gura_RegisterModule(png)

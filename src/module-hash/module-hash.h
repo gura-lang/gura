@@ -10,7 +10,8 @@ extern "C" {
 #include <sha1.h>
 }
 
-Gura_BeginModule(hash)
+Gura_BeginModuleHeader(hash, hash)
+
 //-----------------------------------------------------------------------------
 // HashBase declaration
 //-----------------------------------------------------------------------------
@@ -102,6 +103,6 @@ public:
 	virtual const Value &GetValue();
 };
 
-}}
+Gura_EndModuleHeader(hash, hash)
 
 #endif

@@ -9,7 +9,7 @@ Gura_AssignValueEx(#name, Value(static_cast<double>(name)))
 #define Gura_AssignFTValue(name) \
 Gura_AssignValueEx(#name, Value(static_cast<double>(FT_##name)))
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleBody(freetype, freetype)
 
 FT_Library g_lib;
 
@@ -622,6 +622,6 @@ void SetError_Freetype(Signal sig, FT_Error err)
 	sig.SetError(ERR_RuntimeError, "freetype error");
 }
 
-Gura_EndModule(freetype, freetype)
+Gura_EndModuleBody(freetype, freetype)
 
 Gura_RegisterModule(freetype)

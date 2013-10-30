@@ -4,7 +4,7 @@
 //-----------------------------------------------------------------------------
 #include "module-tar.h"
 
-Gura_BeginModule(tar)
+Gura_BeginModuleBody(tar, tar)
 
 //-----------------------------------------------------------------------------
 // TAR format data types
@@ -967,6 +967,6 @@ ULong OctetToULong(Signal sig, const char *octet, size_t len)
 	return num;
 }
 
-Gura_EndModule(tar, tar)
+Gura_EndModuleBody(tar, tar)
 
 Gura_RegisterModule(tar)

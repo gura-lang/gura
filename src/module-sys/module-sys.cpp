@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include <gura.h>
 
-Gura_BeginModule(sys)
+Gura_BeginModuleBody(sys, sys)
 
 //-----------------------------------------------------------------------------
 // Gura module functions: sys
@@ -165,6 +165,6 @@ bool SetCmdLineArgs(Module *pModule, Signal sig, int argc, const char *argv[])
 	return true;
 }
 
-Gura_EndModule(sys, sys)
+Gura_EndModuleBody(sys, sys)
 
 Gura_RegisterModule(sys)

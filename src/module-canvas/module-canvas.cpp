@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-canvas.h"
 
-Gura_BeginModule(canvas)
+Gura_BeginModuleBody(canvas, canvas)
 
 //-----------------------------------------------------------------------------
 // Anchor
@@ -886,6 +886,6 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModule(canvas, canvas)
+Gura_EndModuleBody(canvas, canvas)
 
 Gura_RegisterModule(canvas)

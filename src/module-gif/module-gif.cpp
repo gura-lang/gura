@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-gif.h"
 
-Gura_BeginModule(gif)
+Gura_BeginModuleBody(gif, gif)
 
 //-----------------------------------------------------------------------------
 // Object_Header
@@ -1544,6 +1544,6 @@ bool ImageStreamer_GIF::Write(Environment &env, Signal sig,
 	return gif.Write(env, sig, stream, Color::Zero, false, loopCount);
 }
 
-Gura_EndModule(gif, gif)
+Gura_EndModuleBody(gif, gif)
 
 Gura_RegisterModule(gif)

@@ -4,7 +4,7 @@
 //-----------------------------------------------------------------------------
 #include "module-zip.h"
 
-Gura_BeginModule(zip)
+Gura_BeginModuleBody(zip, zip)
 
 //-----------------------------------------------------------------------------
 // Implementation of Object_reader
@@ -1248,6 +1248,6 @@ bool LocalFileHeader::SkipOver(Signal sig, Stream &stream)
 	return true;
 }
 
-Gura_EndModule(zip, zip)
+Gura_EndModuleBody(zip, zip)
 
 Gura_RegisterModule(zip)

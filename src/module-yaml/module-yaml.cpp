@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-yaml.h"
 
-Gura_BeginModule(yaml)
+Gura_BeginModuleBody(yaml, yaml)
 
 //-----------------------------------------------------------------------------
 // Gura module functions: yaml
@@ -564,6 +564,6 @@ const char *GetErrorText(yaml_error_type_e error)
 	return "unknown error";
 }
 
-Gura_EndModule(yaml, yaml)
+Gura_EndModuleBody(yaml, yaml)
 
 Gura_RegisterModule(yaml)

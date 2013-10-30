@@ -5,7 +5,7 @@
 #define __MODULE_SAMPLE_H__
 #include <gura.h>
 
-Gura_BeginModule(sample)
+Gura_BeginModuleHeader(sample, sample)
 
 Gura_DeclareUserSymbol(hoge_symbol);
 
@@ -25,7 +25,6 @@ public:
 	virtual String ToString(Signal sig, bool exprFlag);
 };
 
-
-}}
+Gura_EndModuleHeader(sample, sample)
 
 #endif

@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(math)
+Gura_BeginModuleBody(math, math)
 
 //-----------------------------------------------------------------------------
 // Gura module functions
@@ -1135,6 +1135,6 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModule(math, math)
+Gura_EndModuleBody(math, math)
 
 Gura_RegisterModule(math)

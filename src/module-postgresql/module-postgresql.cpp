@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-postgresql.h"
 
-Gura_BeginModule(postgresql)
+Gura_BeginModuleBody(postgresql, postgresql)
 
 //-----------------------------------------------------------------------------
 // Object_postgresql
@@ -201,6 +201,6 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModule(postgresql, postgresql)
+Gura_EndModuleBody(postgresql, postgresql)
 
 Gura_RegisterModule(postgresql)

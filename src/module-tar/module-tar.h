@@ -9,7 +9,7 @@
 #include <gura/helper/ZLibHelper.h>
 #include <gura/helper/BZLibHelper.h>
 
-Gura_BeginModule(tar)
+Gura_BeginModuleHeader(tar, tar)
 
 Gura_DeclareUserSymbol(name);
 Gura_DeclareUserSymbol(filename);
@@ -337,6 +337,6 @@ public:
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 
-}}
+Gura_EndModuleHeader(tar, tar)
 
 #endif

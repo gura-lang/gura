@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-csv.h"
 
-Gura_BeginModule(csv)
+Gura_BeginModuleBody(csv, csv)
 
 static const char *DEFAULT_FORMAT = "%g";
 
@@ -351,6 +351,6 @@ void Iterator_reader::GatherFollower(Environment::Frame *pFrame, EnvironmentSet 
 {
 }
 
-Gura_EndModule(csv, csv)
+Gura_EndModuleBody(csv, csv)
 
 Gura_RegisterModule(csv)

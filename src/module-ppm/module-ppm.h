@@ -7,7 +7,7 @@
 #define __MODULE_PPM_H__
 #include <gura.h>
 
-Gura_BeginModule(ppm)
+Gura_BeginModuleHeader(ppm, ppm)
 
 //-----------------------------------------------------------------------------
 // ImageStreamer_PPM
@@ -25,6 +25,6 @@ public:
 	static void SetError_InvalidPPMFormat(Signal sig);
 };
 
-}}
+Gura_EndModuleHeader(ppm, ppm)
 
 #endif

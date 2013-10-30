@@ -4,7 +4,7 @@
 //-----------------------------------------------------------------------------
 #include "module-tcl.h"
 
-Gura_BeginModule(tcl)
+Gura_BeginModuleBody(tcl, tcl)
 
 TCL_DECLARE_MUTEX(g_mutex)
 
@@ -818,6 +818,6 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModule(tcl, tcl)
+Gura_EndModuleBody(tcl, tcl)
 
 Gura_RegisterModule(tcl)

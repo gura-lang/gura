@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-uuid.h"
 
-Gura_BeginModule(uuid)
+Gura_BeginModuleBody(uuid, uuid)
 
 //-----------------------------------------------------------------------------
 // Gura module functions: uuid
@@ -55,6 +55,6 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModule(uuid, uuid)
+Gura_EndModuleBody(uuid, uuid)
 
 Gura_RegisterModule(uuid)

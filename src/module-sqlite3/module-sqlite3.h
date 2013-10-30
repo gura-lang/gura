@@ -8,7 +8,7 @@ extern "C" {
 #include <sqlite3.h>
 }
 
-Gura_BeginModule(sqlite3)
+Gura_BeginModuleHeader(sqlite3, sqlite3)
 
 //-----------------------------------------------------------------------------
 // Object_db
@@ -53,6 +53,6 @@ private:
 	static int Callback(void *user, int argc, char **argv, char **azColName);
 };
 
-}}
+Gura_EndModuleHeader(sqlite3, sqlite3)
 
 #endif

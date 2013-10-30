@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include <gura.h>
 
-Gura_BeginModule(basement)
+Gura_BeginModuleBody(basement, basement)
 
 #define REPEATER_HELP \
 "It returns the last evaluated value in the block as its own result,\n" \
@@ -1684,6 +1684,6 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModule(basement, basement)
+Gura_EndModuleBody(basement, basement)
 
 Gura_RegisterModule(basement)

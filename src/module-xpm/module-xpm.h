@@ -7,7 +7,7 @@
 
 #include <gura.h>
 
-Gura_BeginModule(xpm)
+Gura_BeginModuleHeader(xpm, xpm)
 
 //-----------------------------------------------------------------------------
 // ImageStreamer_xpm
@@ -24,6 +24,6 @@ public:
 	static void SetError_InvalidFormat(Signal sig);
 };
 
-}}
+Gura_EndModuleHeader(xpm, xpm)
 
 #endif

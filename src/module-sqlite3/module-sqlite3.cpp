@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-sqlite3.h"
 
-Gura_BeginModule(sqlite3)
+Gura_BeginModuleBody(sqlite3, sqlite3)
 
 //-----------------------------------------------------------------------------
 // Object_db
@@ -331,6 +331,6 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModule(sqlite3, sqlite3)
+Gura_EndModuleBody(sqlite3, sqlite3)
 
 Gura_RegisterModule(sqlite3)

@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-emf.h"
 
-Gura_BeginModule(emf)
+Gura_BeginModuleBody(emf, emf)
 
 //-----------------------------------------------------------------------------
 // File structure
@@ -165,6 +165,6 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModule(emf, emf)
+Gura_EndModuleBody(emf, emf)
 
 Gura_RegisterModule(emf)

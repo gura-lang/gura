@@ -8,7 +8,7 @@
 #define YAML_DECLARE_STATIC
 #include <yaml.h>
 
-Gura_BeginModule(yaml)
+Gura_BeginModuleHeader(yaml, yaml)
 
 //-----------------------------------------------------------------------------
 // AnchorMap
@@ -137,6 +137,6 @@ Value ExecParser(Environment &env, Signal sig,
 bool ExecEmitter(Environment &env, Signal sig, yaml_emitter_t &emitter,
 						yaml_encoding_t encoding, const Value &value);
 
-}}
+Gura_EndModuleHeader(yaml, yaml)
 
 #endif

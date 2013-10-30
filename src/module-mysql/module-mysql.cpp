@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-mysql.h"
 
-Gura_BeginModule(mysql)
+Gura_BeginModuleBody(mysql, mysql)
 
 //-----------------------------------------------------------------------------
 // Object_mysql
@@ -219,6 +219,6 @@ Gura_ModuleTerminate()
 	::mysql_server_end();
 }
 
-Gura_EndModule(mysql, mysql)
+Gura_EndModuleBody(mysql, mysql)
 
 Gura_RegisterModule(mysql)

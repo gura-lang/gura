@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #include "module-ppm.h"
 
-Gura_BeginModule(ppm)
+Gura_BeginModuleBody(ppm, ppm)
 
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_image
@@ -332,6 +332,6 @@ void ImageStreamer_PPM::SetError_InvalidPPMFormat(Signal sig)
 }
 
 
-Gura_EndModule(ppm, ppm)
+Gura_EndModuleBody(ppm, ppm)
 
 Gura_RegisterModule(ppm)

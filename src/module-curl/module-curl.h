@@ -7,7 +7,7 @@
 #define CURL_STATICLIB
 #include <curl/curl.h>
 
-Gura_BeginModule(curl)
+Gura_BeginModuleHeader(curl, curl)
 
 //-----------------------------------------------------------------------------
 // FileinfoList
@@ -160,6 +160,6 @@ public:
 	inline CURL *GetEntity() { return _curl; }
 };
 
-}}
+Gura_EndModuleHeader(curl, curl)
 
 #endif

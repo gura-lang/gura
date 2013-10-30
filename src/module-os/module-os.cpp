@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(os)
+Gura_BeginModuleBody(os, os)
 
 static Environment *_pEnvThis = NULL;
 
@@ -181,6 +181,6 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModule(os, os)
+Gura_EndModuleBody(os, os)
 
 Gura_RegisterModule(os)

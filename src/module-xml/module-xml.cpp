@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-xml.h"
 
-Gura_BeginModule(xml)
+Gura_BeginModuleBody(xml, xml)
 
 //-----------------------------------------------------------------------------
 // Parser
@@ -1378,6 +1378,6 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModule(xml, xml)
+Gura_EndModuleBody(xml, xml)
 
 Gura_RegisterModule(xml)

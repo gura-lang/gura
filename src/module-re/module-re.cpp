@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-re.h"
 
-Gura_BeginModule(re)
+Gura_BeginModuleBody(re, re)
 
 //-----------------------------------------------------------------------------
 // IteratorSplit
@@ -993,6 +993,6 @@ void SetError_FailInOniguruma(Signal sig)
 				"something's wrong in the process of Oniguruma library");
 }
 
-Gura_EndModule(re, re)
+Gura_EndModuleBody(re, re)
 
 Gura_RegisterModule(re)

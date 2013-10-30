@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(time)
+Gura_BeginModuleBody(time, time)
 
 Gura_DeclarePrivUserSymbol(utc);
 
@@ -227,6 +227,6 @@ Gura_ModuleTerminate()
 }
 
 
-Gura_EndModule(time, time)
+Gura_EndModuleBody(time, time)
 
 Gura_RegisterModule(time)

@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-bmp.h"
 
-Gura_BeginModule(bmp)
+Gura_BeginModuleBody(bmp, bmp)
 
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_image
@@ -157,6 +157,6 @@ void ImageStreamer_BMP::SetError_InvalidBMPFormat(Signal sig)
 	sig.SetError(ERR_FormatError, "invalid BMP format");
 }
 
-Gura_EndModule(bmp, bmp)
+Gura_EndModuleBody(bmp, bmp)
 
 Gura_RegisterModule(bmp)

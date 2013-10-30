@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(codecs_japanese)
+Gura_BeginModuleBody(codecs_japanese, japanese)
 
 //-----------------------------------------------------------------------------
 // Codec_CP932
@@ -266,6 +266,6 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModule(codecs_japanese, japanese)
+Gura_EndModuleBody(codecs_japanese, japanese)
 
 Gura_RegisterModule(codecs_japanese)

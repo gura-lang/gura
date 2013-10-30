@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-wav.h"
 
-Gura_BeginModule(wav)
+Gura_BeginModuleBody(wav, wav)
 
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_audio
@@ -116,6 +116,6 @@ void AudioStreamer_WAV::SetError_InvalidWAVFormat(Signal sig)
 	sig.SetError(ERR_FormatError, "invalid WAV format");
 }
 
-Gura_EndModule(wav, wav)
+Gura_EndModuleBody(wav, wav)
 
 Gura_RegisterModule(wav)

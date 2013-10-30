@@ -10,7 +10,7 @@
 
 #define SDL_USEREVENT_Timer (SDL_NUMEVENTS - 1)
 
-Gura_BeginModule(sdl)
+Gura_BeginModuleHeader(sdl, sdl)
 
 // symbols in SDL_Event
 Gura_DeclareUserSymbol(type);
@@ -508,6 +508,6 @@ public:
 	}
 };
 
-}}
+Gura_EndModuleHeader(sdl, sdl)
 
 #endif

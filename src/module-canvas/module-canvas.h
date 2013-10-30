@@ -5,7 +5,7 @@
 #define __MODULE_CANVAS_H__
 #include <gura.h>
 
-Gura_BeginModule(canvas)
+Gura_BeginModuleHeader(canvas, canvas)
 
 Gura_DeclareUserSymbol(red);
 Gura_DeclareUserSymbol(blue);
@@ -186,6 +186,6 @@ private:
 	static void MakeRect(RECT *prc, const POINT &pt, int width, int height, Anchor anchor);
 };
 
-}}
+Gura_EndModuleHeader(canvas, canvas)
 
 #endif

@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-tester.h"
 
-Gura_BeginModule(tester)
+Gura_BeginModuleBody(tester, tester)
 
 //-----------------------------------------------------------------------------
 // Thread1
@@ -91,6 +91,6 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModule(tester, tester)
+Gura_EndModuleBody(tester, tester)
 
 Gura_RegisterModule(tester)

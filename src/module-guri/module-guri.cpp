@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-guri.h"
 
-Gura_BeginModule(guri)
+Gura_BeginModuleBody(guri, guri)
 
 //-----------------------------------------------------------------------------
 // Gura module functions: guri
@@ -66,6 +66,6 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModule(guri, guri)
+Gura_EndModuleBody(guri, guri)
 
 Gura_RegisterModule(guri)

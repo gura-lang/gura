@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-sdl.h"
 
-Gura_BeginModule(sdl)
+Gura_BeginModuleBody(sdl, sdl)
 
 //-----------------------------------------------------------------------------
 // Object_Cursor implementation
@@ -4747,6 +4747,6 @@ const char *GetEventTypeName(Uint8 type)
 	return "(unknown)";
 }
 
-Gura_EndModule(sdl, sdl)
+Gura_EndModuleBody(sdl, sdl)
 
 Gura_RegisterModule(sdl)

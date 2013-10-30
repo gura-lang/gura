@@ -5,7 +5,7 @@
 #define __MODULE_MSICO_H__
 #include <gura.h>
 
-Gura_BeginModule(msico)
+Gura_BeginModuleHeader(msico, msico)
 
 Gura_DeclareUserSymbol(images);
 
@@ -69,6 +69,6 @@ public:
 	static bool ReadStream(Environment &env, Signal sig, Image *pImage, Stream &stream, int idx);
 };
 
-}}
+Gura_EndModuleHeader(msico, msico)
 
 #endif

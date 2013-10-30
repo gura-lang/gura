@@ -8,7 +8,7 @@
 #include <gura/helper/ZLibHelper.h>
 #include <gura/helper/BZLibHelper.h>
 
-Gura_BeginModule(zip)
+Gura_BeginModuleHeader(zip, zip)
 
 Gura_DeclareUserSymbol(filename);
 Gura_DeclareUserSymbol(comment);
@@ -963,6 +963,6 @@ public:
 	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);
 };
 
-}}
+Gura_EndModuleHeader(zip, zip)
 
 #endif

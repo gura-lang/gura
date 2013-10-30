@@ -9,7 +9,7 @@
 #define __stdcall
 #endif
 
-Gura_BeginModule(glu)
+Gura_BeginModuleBody(glu, glu)
 
 //-----------------------------------------------------------------------------
 // helper
@@ -1325,6 +1325,6 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModule(glu, glu)
+Gura_EndModuleBody(glu, glu)
 
 Gura_RegisterModule(glu)

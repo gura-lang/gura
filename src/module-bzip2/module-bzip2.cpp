@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-bzip2.h"
 
-Gura_BeginModule(bzip2)
+Gura_BeginModuleBody(bzip2, bzip2)
 
 //-----------------------------------------------------------------------------
 // Gura module functions: bzip2
@@ -107,6 +107,6 @@ Object_stream *GenerateCompressor(Environment &env, Signal sig, Stream &stream)
 	return new Object_stream(env, pStream.release());
 }
 
-Gura_EndModule(bzip2, bzip2)
+Gura_EndModuleBody(bzip2, bzip2)
 
 Gura_RegisterModule(bzip2)

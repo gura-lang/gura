@@ -4,7 +4,7 @@
 #include "module-mswin.h"
 #include <ATLComTime.h>
 
-Gura_BeginModule(mswin)
+Gura_BeginModuleBody(mswin, mswin)
 
 //-----------------------------------------------------------------------------
 // Object_regkey implementation
@@ -1277,6 +1277,6 @@ error_done:
 	return false;
 }
 
-Gura_EndModule(mswin, mswin)
+Gura_EndModuleBody(mswin, mswin)
 
 Gura_RegisterModule(mswin)

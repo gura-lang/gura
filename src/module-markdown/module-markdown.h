@@ -6,7 +6,7 @@
 #define __MODULE_MARKDOWN_H__
 #include <gura.h>
 
-Gura_BeginModule(markdown)
+Gura_BeginModuleHeader(markdown, markdown)
 
 //-----------------------------------------------------------------------------
 // symbols
@@ -390,6 +390,6 @@ public:
 	virtual bool DoPresent(Environment &env, Signal sig, const char *title, const Help *pHelp) const;
 };
 
-}}
+Gura_EndModuleHeader(markdown, markdown)
 
 #endif

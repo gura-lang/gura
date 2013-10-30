@@ -17,6 +17,25 @@ GURA_DLLEXPORT void MixIn(Environment &env, Signal sig); \
 GURA_DLLEXPORT Module *Import(Environment &env, Signal sig); \
 }}
 
+#define Gura_BeginModuleBody(name, nameBase) \
+namespace Gura { \
+namespace ModuleNS_##name {
+
+#define Gura_EndModuleBody(name, nameBase) \
+GURA_DLLEXPORT void Terminate(Module *pModule) \
+{ \
+	_Terminate(pModule); \
+} \
+GURA_DLLEXPORT Module *Import(Environment &env, Signal sig) \
+{ \
+	AutoPtr<Module> pModule(new Module(&env, Symbol::Add(#nameBase), "<integrated>", NULL, Terminate)); \
+	MixIn(*pModule, sig); \
+	if (sig.IsSignalled()) return NULL; \
+	env.AssignModule(pModule.get()); \
+	return pModule.release(); \
+} \
+}}
+
 #define Gura_BeginModule(name) \
 namespace Gura { \
 namespace ModuleNS_##name {

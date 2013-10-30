@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(fs)
+Gura_BeginModuleBody(fs, fs)
 
 Gura_DeclarePrivUserSymbol(pathname);
 Gura_DeclarePrivUserSymbol(dirname);
@@ -909,6 +909,6 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModule(fs, fs)
+Gura_EndModuleBody(fs, fs)
 
 Gura_RegisterModule(fs)

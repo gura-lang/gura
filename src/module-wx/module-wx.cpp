@@ -25,7 +25,7 @@ Gura_RealizeUserClassExWithoutPrepare(wx_##className, #className, Gura_UserClass
 #define PrepareClass(className) \
 Gura_UserClass(wx_##className)->Prepare(env)
 
-Gura_BeginModule(wx)
+Gura_BeginModuleBody(wx, wx)
 
 const bool OwnerTrue = true;
 const bool OwnerFalse = false;
@@ -3454,6 +3454,6 @@ void Iterator_NewIds::GatherFollower(Environment::Frame *pFrame, EnvironmentSet 
 {
 }
 
-Gura_EndModule(wx, wx)
+Gura_EndModuleBody(wx, wx)
 
 Gura_RegisterModule(wx)

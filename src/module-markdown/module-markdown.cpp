@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-markdown.h"
 
-Gura_BeginModule(markdown)
+Gura_BeginModuleBody(markdown, markdown)
 
 AutoPtr<Function> g_pFunc_Presenter;
 
@@ -2402,6 +2402,6 @@ Gura_ModuleTerminate()
 	g_pFunc_Presenter.reset(NULL);
 }
 
-Gura_EndModule(markdown, markdown)
+Gura_EndModuleBody(markdown, markdown)
 
 Gura_RegisterModule(markdown)

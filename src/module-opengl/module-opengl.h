@@ -7,7 +7,7 @@
 #include <gura.h>
 #include <GL/gl.h>
 
-Gura_BeginModule(opengl)
+Gura_BeginModuleHeader(opengl, opengl)
 
 bool DoGLSection(Environment &env, Signal sig, Args &args, Image *pImage);
 
@@ -50,6 +50,6 @@ size_t GetParamCount(GLenum pname);
 size_t GetLightParamCount(GLenum pname);
 GLenum GetImageFormat(Signal sig, const Image *pImage);
 
-}}
+Gura_EndModuleHeader(opengl, opengl)
 
 #endif
