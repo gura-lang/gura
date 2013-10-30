@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 // Gura xml module
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_XML_H__
-#define __MODULE_XML_H__
+#ifndef __GURA_MODULE_XML_H__
+#define __GURA_MODULE_XML_H__
 #include <gura.h>
 #include <expat.h>
 

@@ -1,5 +1,8 @@
-#ifndef __MODULE_TCL_H__
-#define __MODULE_TCL_H__
+//-----------------------------------------------------------------------------
+// Gura tcl module
+//-----------------------------------------------------------------------------
+#ifndef __GURA_MODULE_TCL_H__
+#define __GURA_MODULE_TCL_H__
 
 #include <gura.h>
 #undef DLLEXPORT

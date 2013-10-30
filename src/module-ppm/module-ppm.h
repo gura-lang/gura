@@ -3,8 +3,8 @@
 // PPM specification:
 // http://local.wasp.uwa.edu.au/~pbourke/dataformats/ppm/
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_PPM_H__
-#define __MODULE_PPM_H__
+#ifndef __GURA_MODULE_PPM_H__
+#define __GURA_MODULE_PPM_H__
 #include <gura.h>
 
 Gura_BeginModuleHeader(ppm, ppm)

@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 // Gura csv module
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_CSV_H__
-#define __MODULE_CSV_H__
+#ifndef __GURA_MODULE_CSV_H__
+#define __GURA_MODULE_CSV_H__
 #include <gura.h>
 
 Gura_BeginModuleHeader(csv, csv)

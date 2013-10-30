@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 // Gura jpeg module
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_JPEG_H__
-#define __MODULE_JPEG_H__
+#ifndef __GURA_MODULE_JPEG_H__
+#define __GURA_MODULE_JPEG_H__
 #include <gura.h>
 extern "C" {
 #include <jpeglib.h>

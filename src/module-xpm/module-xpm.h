@@ -2,8 +2,8 @@
 // Gura xpm module
 // As fot the XPM format, see http://www.fileformat.info/format/xpm/egff.htm
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_XPM_H__
-#define __MODULE_XPM_H__
+#ifndef __GURA_MODULE_XPM_H__
+#define __GURA_MODULE_XPM_H__
 
 #include <gura.h>
 

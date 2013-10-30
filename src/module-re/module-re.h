@@ -1,5 +1,8 @@
-#ifndef __MODULE_RE_H__
-#define __MODULE_RE_H__
+//-----------------------------------------------------------------------------
+// Gura re module
+//-----------------------------------------------------------------------------
+#ifndef __GURA_MODULE_RE_H__
+#define __GURA_MODULE_RE_H__
 
 #include <gura.h>
 #include <oniguruma.h>

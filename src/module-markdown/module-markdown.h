@@ -2,8 +2,8 @@
 // Gura markdown module
 // Specification: http://daringfireball.net/projects/markdown/
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_MARKDOWN_H__
-#define __MODULE_MARKDOWN_H__
+#ifndef __GURA_MODULE_MARKDOWN_H__
+#define __GURA_MODULE_MARKDOWN_H__
 #include <gura.h>
 
 Gura_BeginModuleHeader(markdown, markdown)

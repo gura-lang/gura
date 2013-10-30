@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 // Gura yaml module
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_YAML_H__
-#define __MODULE_YAML_H__
+#ifndef __GURA_MODULE_YAML_H__
+#define __GURA_MODULE_YAML_H__
 
 #include <gura.h>
 #define YAML_DECLARE_STATIC

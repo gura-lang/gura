@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 // Gura emf (Enhanced Metafiles in Win32) module
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_EMF_H__
-#define __MODULE_EMF_H__
+#ifndef __GURA_MODULE_EMF_H__
+#define __GURA_MODULE_EMF_H__
 #include <gura.h>
 
 Gura_BeginModuleHeader(emf, emf)

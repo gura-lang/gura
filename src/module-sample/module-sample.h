@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 // Gura sample module
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_SAMPLE_H__
-#define __MODULE_SAMPLE_H__
+#ifndef __GURA_MODULE_SAMPLE_H__
+#define __GURA_MODULE_SAMPLE_H__
 #include <gura.h>
 
 Gura_BeginModuleHeader(sample, sample)

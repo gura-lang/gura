@@ -2,8 +2,8 @@
 // Gura opengl module
 // see http://www.opengl.org/sdk/docs/man/ for detailed information of each API
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_OPENGL_H__
-#define __MODULE_OPENGL_H__
+#ifndef __GURA_MODULE_OPENGL_H__
+#define __GURA_MODULE_OPENGL_H__
 #include <gura.h>
 #include <GL/gl.h>
 

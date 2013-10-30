@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 // Gura curl module
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_CURL_H__
-#define __MODULE_CURL_H__
+#ifndef __GURA_MODULE_CURL_H__
+#define __GURA_MODULE_CURL_H__
 #include <gura.h>
 #define CURL_STATICLIB
 #include <curl/curl.h>

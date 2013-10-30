@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 // Gura bmp module
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_BMP_H__
-#define __MODULE_BMP_H__
+#ifndef __GURA_MODULE_BMP_H__
+#define __GURA_MODULE_BMP_H__
 #include <gura.h>
 
 Gura_BeginModuleHeader(bmp, bmp)

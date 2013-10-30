@@ -1,5 +1,8 @@
-#ifndef __MODULE_HTTP_H__
-#define __MODULE_HTTP_H__
+//-----------------------------------------------------------------------------
+// Gura http module
+//-----------------------------------------------------------------------------
+#ifndef __GURA_MODULE_HTTP_H__
+#define __GURA_MODULE_HTTP_H__
 #include <gura.h>
 
 Gura_BeginModuleHeader(http, http)

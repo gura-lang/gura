@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 // Gura gzip module
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_GZIP_H__
-#define __MODULE_GZIP_H__
+#ifndef __GURA_MODULE_GZIP_H__
+#define __GURA_MODULE_GZIP_H__
 #include <gura.h>
 #include <gura/helper/ZLibHelper.h>
 

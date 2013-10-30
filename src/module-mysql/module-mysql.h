@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 // Gura mysql module
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_MYSQL_H__
-#define __MODULE_MYSQL_H__
+#ifndef __GURA_MODULE_MYSQL_H__
+#define __GURA_MODULE_MYSQL_H__
 #include <gura.h>
 #include <mysql.h>
 

@@ -2,8 +2,8 @@
 // Gura zip module
 // specification: http://www.pkware.com/documents/casestudies/APPNOTE.TXT
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_ZIP_H__
-#define __MODULE_ZIP_H__
+#ifndef __GURA_MODULE_ZIP_H__
+#define __GURA_MODULE_ZIP_H__
 #include <gura.h>
 #include <gura/helper/ZLibHelper.h>
 #include <gura/helper/BZLibHelper.h>

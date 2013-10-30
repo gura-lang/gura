@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 // Gura postgresql module
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_POSTGRESQL_H__
-#define __MODULE_POSTGRESQL_H__
+#ifndef __GURA_MODULE_POSTGRESQL_H__
+#define __GURA_MODULE_POSTGRESQL_H__
 #include <gura.h>
 #include <libpq-fe.h>
 

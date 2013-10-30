@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 // Gura guri module
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_GURI_H__
-#define __MODULE_GURI_H__
+#ifndef __GURA_MODULE_GURI_H__
+#define __GURA_MODULE_GURI_H__
 #include <gura.h>
 #if defined(GURA_ON_MSWIN)
 typedef int socklen_t;

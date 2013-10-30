@@ -1,5 +1,8 @@
-#ifndef __MODULE_CAIRO_H__
-#define __MODULE_CAIRO_H__
+//-----------------------------------------------------------------------------
+// Gura cairo module
+//-----------------------------------------------------------------------------
+#ifndef __GURA_MODULE_CAIRO_H__
+#define __GURA_MODULE_CAIRO_H__
 
 #include <gura.h>
 #if defined(GURA_ON_MSWIN)

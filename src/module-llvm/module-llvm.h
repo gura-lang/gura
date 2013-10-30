@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 // Gura llvm module
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_LLVM_H__
-#define __MODULE_LLVM_H__
+#ifndef __GURA_MODULE_LLVM_H__
+#define __GURA_MODULE_LLVM_H__
 #include <llvm/LLVMContext.h>
 #include <llvm/Module.h>
 #include <llvm/Constants.h>

@@ -5,8 +5,8 @@
 // http://www.ibm.com/developerworks/jp/linux/library/l-libtiff/
 // http://www.ibm.com/developerworks/jp/linux/library/l-libtiff2/
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_TIFF_H__
-#define __MODULE_TIFF_H__
+#ifndef __GURA_MODULE_TIFF_H__
+#define __GURA_MODULE_TIFF_H__
 #include <gura.h>
 #include <tiffio.h>
 

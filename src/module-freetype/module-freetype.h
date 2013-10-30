@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 // Gura freetype module
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_FREETYPE_H__
-#define __MODULE_FREETYPE_H__
+#ifndef __GURA_MODULE_FREETYPE_H__
+#define __GURA_MODULE_FREETYPE_H__
 #include <gura.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H

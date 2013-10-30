@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 // Gura tester module
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_TESTER_H__
-#define __MODULE_TESTER_H__
+#ifndef __GURA_MODULE_TESTER_H__
+#define __GURA_MODULE_TESTER_H__
 #include <gura.h>
 
 Gura_BeginModuleHeader(tester, tester)

@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 // Gura gif module
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_GIF_H__
-#define __MODULE_GIF_H__
+#ifndef __GURA_MODULE_GIF_H__
+#define __GURA_MODULE_GIF_H__
 #include <gura.h>
 
 Gura_BeginModuleHeader(gif, gif)

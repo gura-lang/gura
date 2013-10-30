@@ -1,5 +1,8 @@
-#ifndef __MODULE_SDL_H__
-#define __MODULE_SDL_H__
+//-----------------------------------------------------------------------------
+// Gura sdl module
+//-----------------------------------------------------------------------------
+#ifndef __GURA_MODULE_SDL_H__
+#define __GURA_MODULE_SDL_H__
 #include <gura.h>
 #include <SDL.h>
 //#include <SDL_image.h>

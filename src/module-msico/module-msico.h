@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 // Gura msicon module
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_MSICO_H__
-#define __MODULE_MSICO_H__
+#ifndef __GURA_MODULE_MSICO_H__
+#define __GURA_MODULE_MSICO_H__
 #include <gura.h>
 
 Gura_BeginModuleHeader(msico, msico)

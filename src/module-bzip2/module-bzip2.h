@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 // Gura bzip2 module
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_BZIP2_H__
-#define __MODULE_BZIP2_H__
+#ifndef __GURA_MODULE_BZIP2_H__
+#define __GURA_MODULE_BZIP2_H__
 #include <gura.h>
 #include <gura/helper/BZLibHelper.h>
 

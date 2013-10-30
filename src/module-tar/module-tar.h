@@ -2,8 +2,8 @@
 // Gura tar module
 // http://www.gnu.org/software/tar/manual/html_node/Standard.html
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_TAR_H__
-#define __MODULE_TAR_H__
+#ifndef __GURA_MODULE_TAR_H__
+#define __GURA_MODULE_TAR_H__
 
 #include <gura.h>
 #include <gura/helper/ZLibHelper.h>

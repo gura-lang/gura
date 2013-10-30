@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 // Gura sqlite3 module
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_SQLITE3_H__
-#define __MODULE_SQLITE3_H__
+#ifndef __GURA_MODULE_SQLITE3_H__
+#define __GURA_MODULE_SQLITE3_H__
 #include <gura.h>
 extern "C" {
 #include <sqlite3.h>
