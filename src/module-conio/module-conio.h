@@ -5,8 +5,7 @@
 #define __GURA_MODULE_CONIO_H__
 #include <gura.h>
 
-Gura_BeginModule(conio)
-
-}}
+Gura_BeginModuleHeader(conio, conio)
+Gura_EndModuleHeader(conio, conio)
 
 #endif

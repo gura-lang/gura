@@ -1,18 +1,5 @@
 #include "stdafx.h"
 
-Gura_IncludeModule(basement)
-Gura_IncludeModule(sys)
-Gura_IncludeModule(codecs_basic)
-Gura_IncludeModule(codecs_iso8859)
-Gura_IncludeModule(codecs_japanese)
-Gura_IncludeModule(base64)
-Gura_IncludeModule(fs)
-Gura_IncludeModule(os)
-Gura_IncludeModule(path)
-Gura_IncludeModule(time)
-Gura_IncludeModule(math)
-Gura_IncludeModule(conio)
-
 namespace Gura {
 
 //-----------------------------------------------------------------------------

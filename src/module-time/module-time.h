@@ -5,7 +5,7 @@
 #define __GURA_MODULE_TIME_H__
 #include <gura.h>
 
-Gura_BeginModule(time)
-}}
+Gura_BeginModuleHeader(time, time)
+Gura_EndModuleHeader(time, time)
 
 #endif

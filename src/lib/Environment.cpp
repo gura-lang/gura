@@ -4,10 +4,6 @@
 #include <dlfcn.h>
 #endif
 
-Gura_IncludeModuleBegin(sys)
-bool SetCmdLineArgs(Module *pModule, Signal sig, int argc, const char *argv[]);
-Gura_IncludeModuleEnd()
-
 namespace Gura {
 
 //-----------------------------------------------------------------------------

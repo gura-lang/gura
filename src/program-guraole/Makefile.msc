@@ -5,7 +5,7 @@ GURADIR = ..\..
 
 TARGET = $(GURADIR)\bin-x86\guraole.dll
 LIBS =
-CFLAGS = -I..\module-mswin
+CFLAGS =
 LDFLAGS =
 all: $(TARGET)
 #------------------------------------------------------------------------------

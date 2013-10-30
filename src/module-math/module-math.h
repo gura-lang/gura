@@ -5,8 +5,7 @@
 #define __GURA_MODULE_MATH_H__
 #include <gura.h>
 
-Gura_BeginModule(math)
-
-}}
+Gura_BeginModuleHeader(math, math)
+Gura_EndModuleHeader(math, math)
 
 #endif

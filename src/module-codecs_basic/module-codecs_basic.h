@@ -6,7 +6,7 @@
 
 #include <gura.h>
 
-Gura_BeginModule(codecs_basic)
+Gura_BeginModuleHeader(codecs_basic, basic)
 
 //-----------------------------------------------------------------------------
 // Codec_USASCII
@@ -125,6 +125,6 @@ public:
 	};
 };
 
-}}
+Gura_EndModuleHeader(codecs_basic, basic)
 
 #endif

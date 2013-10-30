@@ -8,21 +8,14 @@
 //-----------------------------------------------------------------------------
 #define Gura_Module(name) ModuleNS_##name
 
-#define Gura_IncludeModule(name) \
+#define Gura_BeginModuleHeader(name, nameBase) \
 namespace Gura { \
-namespace ModuleNS_##name { \
-void MixIn(Environment &env, Signal sig); \
-Module *Import(Environment &env, Signal sig); \
-} }
+namespace ModuleNS_##name {
 
-#define Gura_IncludeModuleBegin(name) \
-namespace Gura { \
-namespace ModuleNS_##name { \
-void MixIn(Environment &env, Signal sig); \
-Module *Import(Environment &env, Signal sig);
-
-#define Gura_IncludeModuleEnd() \
-} }
+#define Gura_EndModuleHeader(name, nameBase) \
+GURA_DLLEXPORT void MixIn(Environment &env, Signal sig); \
+GURA_DLLEXPORT Module *Import(Environment &env, Signal sig); \
+}}
 
 #define Gura_BeginModule(name) \
 namespace Gura { \

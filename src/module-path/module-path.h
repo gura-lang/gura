@@ -5,7 +5,7 @@
 #define __GURA_MODULE_PATH_H__
 #include <gura.h>
 
-Gura_BeginModule(path)
-}}
+Gura_BeginModuleHeader(path, path)
+Gura_EndModuleHeader(path, path)
 
 #endif

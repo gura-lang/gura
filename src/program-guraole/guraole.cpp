@@ -1,8 +1,7 @@
 //-----------------------------------------------------------------------------
 // guraole
 //-----------------------------------------------------------------------------
-#include "guraole.h"
-#include "module-mswin.h"
+#include "stdafx.h"
 
 #define DBGPRINTF(x) printf##x
 
@@ -13,8 +12,6 @@ const CLSID CMain::ClsId = {
 static HMODULE g_hModule;
 
 CClassFactory g_classFactory;
-
-Gura_IncludeModule(mswin)
 
 inline Gura::String IIDString(REFIID riid)
 {

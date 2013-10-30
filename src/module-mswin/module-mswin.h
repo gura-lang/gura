@@ -1,12 +1,12 @@
 //-----------------------------------------------------------------------------
 // Gura mswin module
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_MSWIN_H__
-#define __MODULE_MSWIN_H__
+#ifndef __GURA_MODULE_MSWIN_H__
+#define __GURA_MODULE_MSWIN_H__
 
 #include <gura.h>
 
-Gura_BeginModule(mswin)
+Gura_BeginModuleHeader(mswin, mswin)
 
 Gura_DeclareUserSymbol(connect);
 Gura_DeclareUserSymbol(no_const);
@@ -149,6 +149,6 @@ Value RegDataToValue(Environment &env, Signal sig,
 bool ValueToRegData(Environment &env, Signal sig, const Value &value,
 							DWORD *pdwType, LPBYTE *lppData, DWORD *pcbData);
 
-}}
+Gura_EndModuleHeader(mswin, mswin)
 
 #endif
