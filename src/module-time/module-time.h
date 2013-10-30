@@ -1,12 +1,11 @@
 //-----------------------------------------------------------------------------
-// Gura conio module
+// Gura time module
 //-----------------------------------------------------------------------------
-#ifndef __GURA_MODULE_CONIO_H__
-#define __GURA_MODULE_CONIO_H__
+#ifndef __GURA_MODULE_TIME_H__
+#define __GURA_MODULE_TIME_H__
 #include <gura.h>
 
-Gura_BeginModule(conio)
-
+Gura_BeginModule(time)
 }}
 
 #endif

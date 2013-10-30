@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 // Gura fs module
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_FS_H__
-#define __MODULE_FS_H__
+#ifndef __GURA_MODULE_FS_H__
+#define __GURA_MODULE_FS_H__
 #include <gura.h>
 
 #ifdef HAVE_DIRENT_H

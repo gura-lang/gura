@@ -2,7 +2,6 @@
 // Gura codecs.basic module
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
-#include "module-codecs_basic.h"
 
 Gura_BeginModule(codecs_basic)
 

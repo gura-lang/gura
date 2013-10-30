@@ -2,7 +2,6 @@
 // Gura codecs.iso8859 module
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
-#include "module-codecs_iso8859.h"
 
 Gura_BeginModule(codecs_iso8859)
 

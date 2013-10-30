@@ -1,12 +1,11 @@
 //-----------------------------------------------------------------------------
-// Gura conio module
+// Gura path module
 //-----------------------------------------------------------------------------
-#ifndef __GURA_MODULE_CONIO_H__
-#define __GURA_MODULE_CONIO_H__
+#ifndef __GURA_MODULE_PATH_H__
+#define __GURA_MODULE_PATH_H__
 #include <gura.h>
 
-Gura_BeginModule(conio)
-
+Gura_BeginModule(path)
 }}
 
 #endif

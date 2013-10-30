@@ -2,7 +2,6 @@
 // Gura math module
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
-#include <gura.h>
 
 Gura_BeginModule(math)
 

@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 // Gura codecs.basoc module
 //-----------------------------------------------------------------------------
-#ifndef __MODULE_CODECS_BASIC_H__
-#define __MODULE_CODECS_BASIC_H__
+#ifndef __GURA_MODULE_CODECS_BASIC_H__
+#define __GURA_MODULE_CODECS_BASIC_H__
 
 #include <gura.h>
 

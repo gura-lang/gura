@@ -2,7 +2,6 @@
 // Gura fs module
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
-#include "module-fs.h"
 
 Gura_BeginModule(fs)
 

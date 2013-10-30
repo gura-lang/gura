@@ -2,7 +2,6 @@
 // Gura time module
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
-#include <gura.h>
 
 Gura_BeginModule(time)
 

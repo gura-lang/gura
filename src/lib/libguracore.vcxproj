@@ -250,8 +250,8 @@
     <ClCompile Include="TemplateEngine.cpp" />
     <ClCompile Include="Value.cpp" />
     <ClCompile Include="ValueType.cpp" />
-    <ClCompile Include="module-basement.cpp" />
-    <ClCompile Include="module-sys.cpp" />
+    <ClCompile Include="..\module-basement\module-basement.cpp" />
+    <ClCompile Include="..\module-sys\module-sys.cpp" />
     <ClCompile Include="..\module-base64\module-base64.cpp" />
     <ClCompile Include="..\module-codecs_basic\module-codecs_basic.cpp" />
     <ClCompile Include="..\module-codecs_iso8859\module-codecs_iso8859.cpp" />

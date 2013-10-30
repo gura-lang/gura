@@ -2,7 +2,6 @@
 // Gura codec.japanese module
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
-#include "module-codecs_japanese.h"
 
 Gura_BeginModule(codecs_japanese)
 

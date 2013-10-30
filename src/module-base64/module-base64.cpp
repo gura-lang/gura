@@ -2,7 +2,6 @@
 // Gura base64 module
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
-#include "module-base64.h"
 
 Gura_BeginModule(base64)
 
