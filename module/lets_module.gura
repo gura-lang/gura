@@ -13,7 +13,7 @@ fileBuild = 'build.gura'
 fileTest = 'test-' + ubarName + '.gura'
 fileHdr = 'module-' + ubarName + '.h'
 fileSrc = 'module-' + ubarName + '.cpp'
-incOnceMacroName = '__MODULE_' + ubarName.upper()  + '_H__'
+incOnceMacroName = '__GURA_MODULE_' + ubarName.upper()  + '_H__'
 if (path.exists(fileBuild) || path.exists(fileHdr) || path.exists(fileSrc)) {
 	println('file already exists')
 	sys.exit(1)
@@ -41,8 +41,8 @@ R'''
 #define ${incOnceMacroName}
 #include <gura.h>
 
-Gura_BeginModule(${ubarName})
-}}
+Gura_BeginModuleHeader(${ubarName}, ${localName})
+Gura_EndModuleHeader(${ubarName}, ${localName})
 
 #endif
 '''.template(open(fileHdr, 'w').addcr(false))
@@ -52,7 +52,7 @@ R'''
 //-----------------------------------------------------------------------------
 #include "${fileHdr}"
 
-Gura_BeginModule(${ubarName})
+Gura_BeginModuleBody(${ubarName}, ${localName})
 
 //-----------------------------------------------------------------------------
 // Gura module functions: ${dotName}
@@ -86,7 +86,7 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModule(${ubarName}, ${localName})
+Gura_EndModuleBody(${ubarName}, ${localName})
 
 Gura_RegisterModule(${ubarName})
 '''.template(open(fileSrc, 'w').addcr(false))
