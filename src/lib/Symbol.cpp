@@ -127,6 +127,12 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbolAlias(Char_Mod,		"%");
 	Gura_RealizeSymbolAlias(Char_ModMod,	"%%");
 	Gura_RealizeSymbolAlias(Char_And,		"&");
+	Gura_RealizeSymbol(math);
+	Gura_RealizeSymbol(log);
+	Gura_RealizeSymbol(sqrt);
+	Gura_RealizeSymbol(exp);
+	Gura_RealizeSymbol(sin);
+	Gura_RealizeSymbol(cos);
 	Gura_RealizeSymbol(boolean);
 	Gura_RealizeSymbol(number);
 	Gura_RealizeSymbol(string);

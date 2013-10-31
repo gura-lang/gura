@@ -6,6 +6,9 @@
 #include <gura.h>
 
 Gura_BeginModuleHeader(math, math)
+
+GURA_DLLEXPORT Expr_Caller *CreateExprCaller(const Symbol *pSymbol, Expr *pExprArg);
+
 Gura_EndModuleHeader(math, math)
 
 #endif

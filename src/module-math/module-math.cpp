@@ -148,7 +148,7 @@ Gura_ImplementDiffUnary(acos)
 {
 	// acos(x)' = -1 / sqrt(1 - x ** 2)
 	return new Expr_BinaryOp(env.GetOperator(OPTYPE_Div), new Expr_Value(-1),
-			CreateFuncExpr("sqrt", new Expr_BinaryOp(env.GetOperator(OPTYPE_Sub),
+			CreateExprCaller(Gura_Symbol(sqrt), new Expr_BinaryOp(env.GetOperator(OPTYPE_Sub),
 					new Expr_Value(1),
 					new Expr_BinaryOp(env.GetOperator(OPTYPE_Pow),
 							Expr::Reference(pExprArg), new Expr_Value(2)))));
@@ -181,7 +181,7 @@ Gura_ImplementDiffUnary(asin)
 {
 	// asin(x)' = 1 / sqrt(1 - x ** 2)
 	return new Expr_BinaryOp(env.GetOperator(OPTYPE_Div), new Expr_Value(1),
-			CreateFuncExpr("sqrt", new Expr_BinaryOp(env.GetOperator(OPTYPE_Sub),
+			CreateExprCaller(Gura_Symbol(sqrt), new Expr_BinaryOp(env.GetOperator(OPTYPE_Sub),
 					new Expr_Value(1),
 					new Expr_BinaryOp(env.GetOperator(OPTYPE_Pow),
 							Expr::Reference(pExprArg), new Expr_Value(2)))));
@@ -295,7 +295,7 @@ Gura_ImplementDiffUnary(cos)
 {
 	// cos(x)' = -sin(x)
 	return new Expr_UnaryOp(env.GetOperator(OPTYPE_Neg),
-					CreateFuncExpr("sin", Expr::Reference(pExprArg)), false);
+			CreateExprCaller(Gura_Symbol(sin), Expr::Reference(pExprArg)), false);
 }
 
 // math.cosh(num):map
@@ -345,7 +345,7 @@ Gura_ImplementFunction(exp)
 Gura_ImplementDiffUnary(exp)
 {
 	// exp(x)' = exp(x)
-	return CreateFuncExpr("exp", Expr::Reference(pExprArg));
+	return CreateExprCaller(Gura_Symbol(exp), Expr::Reference(pExprArg));
 }
 
 // math.abs(num):map
@@ -455,7 +455,7 @@ Gura_ImplementDiffUnary(log10)
 	// log10(x)' = 1 / (x * log(10))
 	return new Expr_BinaryOp(env.GetOperator(OPTYPE_Div), new Expr_Value(1),
 			new Expr_BinaryOp(env.GetOperator(OPTYPE_Mul),
-				Expr::Reference(pExprArg), CreateFuncExpr("log", new Expr_Value(10))));
+				Expr::Reference(pExprArg), CreateExprCaller(Gura_Symbol(log), new Expr_Value(10))));
 }
 
 // math.sin(num):map:[deg]
@@ -486,7 +486,7 @@ Gura_ImplementFunction(sin)
 Gura_ImplementDiffUnary(sin)
 {
 	// sin(x)' = cos(x)
-	return CreateFuncExpr("cos", Expr::Reference(pExprArg));
+	return CreateExprCaller(Gura_Symbol(cos), Expr::Reference(pExprArg));
 }
 
 // math.sinh(num):map
@@ -543,7 +543,7 @@ Gura_ImplementDiffUnary(sqrt)
 	return new Expr_BinaryOp(env.GetOperator(OPTYPE_Div), new Expr_Value(1),
 			new Expr_BinaryOp(env.GetOperator(OPTYPE_Mul),
 					new Expr_Value(2),
-					CreateFuncExpr("sqrt", Expr::Reference(pExprArg))));
+					CreateExprCaller(Gura_Symbol(sqrt), Expr::Reference(pExprArg))));
 }
 
 // math.tan(num):map:[deg]
@@ -576,7 +576,7 @@ Gura_ImplementDiffUnary(tan)
 	// tan(x)' = 1 / cos(x) ** 2
 	return new Expr_BinaryOp(env.GetOperator(OPTYPE_Div), new Expr_Value(1),
 			new Expr_BinaryOp(env.GetOperator(OPTYPE_Pow),
-					CreateFuncExpr("cos", Expr::Reference(pExprArg)),
+					CreateExprCaller(Gura_Symbol(cos), Expr::Reference(pExprArg)),
 					new Expr_Value(2)));
 }
 
@@ -1133,6 +1133,16 @@ Gura_ModuleEntry()
 
 Gura_ModuleTerminate()
 {
+}
+
+//-----------------------------------------------------------------------------
+// utility functions
+//-----------------------------------------------------------------------------
+Expr_Caller *CreateExprCaller(const Symbol *pSymbol, Expr *pExprArg)
+{
+	return new Expr_Caller(
+		new Expr_Member(new Expr_Symbol(Gura_Symbol(math)), new Expr_Symbol(pSymbol)),
+		new Expr_Lister(pExprArg), NULL);
 }
 
 Gura_EndModuleBody(math, math)

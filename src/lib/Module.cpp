@@ -106,18 +106,4 @@ bool Module::ImportBuiltIns(Environment &env, Signal sig)
 	return true;
 }
 
-//-----------------------------------------------------------------------------
-// utility functions
-//-----------------------------------------------------------------------------
-namespace Gura_Module(math) {
-Expr *CreateFuncExpr(const char *name, Expr *pExprArg)
-{
-	return new Expr_Caller(
-			new Expr_Member(
-					new Expr_Symbol(Symbol::Add("math")),
-					new Expr_Symbol(Symbol::Add(name))),
-			new Expr_Lister(pExprArg), NULL);
-}
-}
-
 }

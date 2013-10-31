@@ -935,7 +935,7 @@ Expr *Operator_Pow::DiffBinary(Environment &env, Signal sig,
 		Operator_Mul::OptimizeExpr(env, sig,
 			Operator_Mul::OptimizeExpr(env, sig,
 				pExprDiff2,
-				Gura_Module(math)::CreateFuncExpr("log", Expr::Reference(pExprArg1))),
+				Gura_Module(math)::CreateExprCaller(Gura_Symbol(log), Expr::Reference(pExprArg1))),
 			Operator_Pow::OptimizeExpr(env, sig, Expr::Reference(pExprArg1), Expr::Reference(pExprArg2))));
 }
 
@@ -986,7 +986,7 @@ Expr *Operator_Pow::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 	//} else if (pExprRight->IsConstNumber(0.5)) {
 	//	// n ** 0.5 = math.sqrt(n)
 	//	Expr::Delete(pExprRight);
-	//	return Gura_Module(math)::CreateFuncExpr("sqrt", pExprLeft);
+	//	return Gura_Module(math)::CreateExprCaller(Gura_Symbol(sqrt), pExprLeft);
 	}
 	return new Expr_BinaryOp(env.GetOperator(OPTYPE_Pow), pExprLeft, pExprRight);
 }

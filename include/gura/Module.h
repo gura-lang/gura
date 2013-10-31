@@ -111,13 +111,6 @@ public:
 	static bool ImportBuiltIns(Environment &env, Signal sig);
 };
 
-//-----------------------------------------------------------------------------
-// utility functions
-//-----------------------------------------------------------------------------
-namespace Gura_Module(math) {
-GURA_DLLEXPORT Expr *CreateFuncExpr(const char *name, Expr *pExprArg);
-}
-
 }
 
 #endif

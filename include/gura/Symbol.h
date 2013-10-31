@@ -114,6 +114,12 @@ public:
 	Gura_DeclareSymbol(Char_Mod);
 	Gura_DeclareSymbol(Char_ModMod);
 	Gura_DeclareSymbol(Char_And);
+	Gura_DeclareSymbol(math);
+	Gura_DeclareSymbol(log);
+	Gura_DeclareSymbol(sqrt);
+	Gura_DeclareSymbol(exp);
+	Gura_DeclareSymbol(sin);
+	Gura_DeclareSymbol(cos);
 	Gura_DeclareSymbol(boolean);
 	Gura_DeclareSymbol(number);
 	Gura_DeclareSymbol(string);
