@@ -30,10 +30,8 @@ Value Sequence::Return(Signal sig, Sequence *pSequence)
 {
 	Value result;
 	while (!pSequence->CheckDone()) {
-		if (!pSequence->Step(sig, result)) {
-			result = Value::Null;
-			break;
-		}
+		pSequence->Step(sig, result);
+		if (sig.IsSignalled()) break;
 	}
 	Sequence::Delete(pSequence);
 	return result;
