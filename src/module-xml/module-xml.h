@@ -6,7 +6,7 @@
 #include <gura.h>
 #include <expat.h>
 
-Gura_BeginModuleHeader(xml, xml)
+Gura_BeginModuleHeader(xml)
 
 Gura_DeclareUserSymbol(name);
 Gura_DeclareUserSymbol(value);
@@ -399,6 +399,6 @@ public:
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 
-Gura_EndModuleHeader(xml, xml)
+Gura_EndModuleHeader(xml)
 
 #endif

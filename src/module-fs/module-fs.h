@@ -9,7 +9,7 @@
 #include <dirent.h>
 #endif
 
-Gura_BeginModuleHeader(fs, fs)
+Gura_BeginModuleHeader(fs)
 
 //-----------------------------------------------------------------------------
 // Object_Stat declaration
@@ -111,6 +111,6 @@ public:
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode);
 };
 
-Gura_EndModuleHeader(fs, fs)
+Gura_EndModuleHeader(fs)
 
 #endif

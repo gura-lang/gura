@@ -6,7 +6,7 @@
 
 #include <gura.h>
 
-Gura_BeginModuleHeader(mswin, mswin)
+Gura_BeginModuleHeader(mswin)
 
 Gura_DeclareUserSymbol(connect);
 Gura_DeclareUserSymbol(no_const);
@@ -149,6 +149,6 @@ Value RegDataToValue(Environment &env, Signal sig,
 bool ValueToRegData(Environment &env, Signal sig, const Value &value,
 							DWORD *pdwType, LPBYTE *lppData, DWORD *pcbData);
 
-Gura_EndModuleHeader(mswin, mswin)
+Gura_EndModuleHeader(mswin)
 
 #endif

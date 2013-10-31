@@ -7,7 +7,7 @@
 #include <gura.h>
 #include <GL/glu.h>
 
-Gura_BeginModuleHeader(glu, glu)
+Gura_BeginModuleHeader(glu)
 
 //-----------------------------------------------------------------------------
 // Object_Quadric
@@ -81,6 +81,6 @@ public:
 	}
 };
 
-Gura_EndModuleHeader(glu, glu)
+Gura_EndModuleHeader(glu)
 
 #endif

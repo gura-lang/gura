@@ -7,7 +7,7 @@
 #include <gura.h>
 #include <oniguruma.h>
 
-Gura_BeginModuleHeader(re, re)
+Gura_BeginModuleHeader(re)
 
 Gura_DeclareUserSymbol(re);
 Gura_DeclareUserSymbol(string);
@@ -162,6 +162,6 @@ public:
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 
-Gura_EndModuleHeader(re, re)
+Gura_EndModuleHeader(re)
 
 #endif

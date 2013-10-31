@@ -5,7 +5,7 @@
 #define __GURA_MODULE_EMF_H__
 #include <gura.h>
 
-Gura_BeginModuleHeader(emf, emf)
+Gura_BeginModuleHeader(emf)
 
 //-----------------------------------------------------------------------------
 // File structure
@@ -130,6 +130,6 @@ public:
 	}
 };
 
-Gura_EndModuleHeader(emf, emf)
+Gura_EndModuleHeader(emf)
 
 #endif

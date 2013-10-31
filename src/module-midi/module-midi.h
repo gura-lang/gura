@@ -9,7 +9,7 @@
 #include "MML.h"
 #include "SoundFont.h"
 
-Gura_BeginModuleHeader(midi, midi)
+Gura_BeginModuleHeader(midi)
 
 Gura_DeclareUserSymbol(type);
 Gura_DeclareUserSymbol(midi);
@@ -374,6 +374,6 @@ public:
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 
-Gura_EndModuleHeader(midi, midi)
+Gura_EndModuleHeader(midi)
 
 #endif

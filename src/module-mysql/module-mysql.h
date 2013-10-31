@@ -6,7 +6,7 @@
 #include <gura.h>
 #include <mysql.h>
 
-Gura_BeginModuleHeader(mysql, mysql)
+Gura_BeginModuleHeader(mysql)
 
 //-----------------------------------------------------------------------------
 // Object_mysql
@@ -41,6 +41,6 @@ public:
 	Iterator *Query(Signal sig, const char *stmt_str);
 };
 
-Gura_EndModuleHeader(mysql, mysql)
+Gura_EndModuleHeader(mysql)
 
 #endif

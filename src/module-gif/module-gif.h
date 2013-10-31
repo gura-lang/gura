@@ -5,7 +5,7 @@
 #define __GURA_MODULE_GIF_H__
 #include <gura.h>
 
-Gura_BeginModuleHeader(gif, gif)
+Gura_BeginModuleHeader(gif)
 
 Gura_DeclareUserSymbol(noimage);
 
@@ -454,6 +454,6 @@ public:
 	}
 };
 
-Gura_EndModuleHeader(gif, gif)
+Gura_EndModuleHeader(gif)
 
 #endif

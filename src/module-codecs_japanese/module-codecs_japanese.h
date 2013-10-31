@@ -6,7 +6,7 @@
 
 #include <gura.h>
 
-Gura_BeginModuleHeader(codecs_japanese, japanese)
+Gura_BeginModuleHeader(codecs_japanese)
 
 enum Mode {
 	MODE_JISC,
@@ -93,6 +93,6 @@ public:
 	};
 };
 
-Gura_EndModuleHeader(codecs_japanese, japanese)
+Gura_EndModuleHeader(codecs_japanese)
 
 #endif

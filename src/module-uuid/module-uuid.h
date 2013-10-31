@@ -10,7 +10,7 @@
 #include <uuid/uuid.h>
 #endif
 
-Gura_BeginModuleHeader(uuid, uuid)
-Gura_EndModuleHeader(uuid, uuid)
+Gura_BeginModuleHeader(uuid)
+Gura_EndModuleHeader(uuid)
 
 #endif

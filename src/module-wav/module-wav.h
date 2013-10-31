@@ -6,7 +6,7 @@
 #include <gura.h>
 #include "Wave.h"
 
-Gura_BeginModuleHeader(wav, wav)
+Gura_BeginModuleHeader(wav)
 
 //-----------------------------------------------------------------------------
 // AudioStreamer_WAV
@@ -23,6 +23,6 @@ public:
 	static void SetError_InvalidWAVFormat(Signal sig);
 };
 
-Gura_EndModuleHeader(wav, wav)
+Gura_EndModuleHeader(wav)
 
 #endif

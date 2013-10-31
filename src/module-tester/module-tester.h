@@ -5,7 +5,7 @@
 #define __GURA_MODULE_TESTER_H__
 #include <gura.h>
 
-Gura_BeginModuleHeader(tester, tester)
-Gura_EndModuleHeader(tester, tester)
+Gura_BeginModuleHeader(tester)
+Gura_EndModuleHeader(tester)
 
 #endif

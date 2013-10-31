@@ -31,7 +31,7 @@ Gura_AssignValue(name, Value(name))
 #define Gura_LookupWxMethod(pObj, name) \
 pObj->LookupCustomFunction(Gura_UserSymbol(name), ENVREF_Escalate)
 
-Gura_BeginModuleHeader(wx, wx)
+Gura_BeginModuleHeader(wx)
 
 extern const bool OwnerFalse;
 extern const bool OwnerTrue;
@@ -102,6 +102,6 @@ public:
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 
-Gura_EndModuleHeader(wx, wx)
+Gura_EndModuleHeader(wx)
 
 #endif

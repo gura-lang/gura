@@ -35,7 +35,7 @@
 #include <shlobj.h>
 #endif
 
-Gura_BeginModuleHeader(freetype, freetype)
+Gura_BeginModuleHeader(freetype)
 
 extern FT_Library g_lib;
 
@@ -114,6 +114,6 @@ private:
 String GetSysFontPathName();
 void SetError_Freetype(Signal sig, FT_Error err);
 
-Gura_EndModuleHeader(freetype, freetype)
+Gura_EndModuleHeader(freetype)
 
 #endif

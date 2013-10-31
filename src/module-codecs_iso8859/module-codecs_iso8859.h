@@ -6,7 +6,7 @@
 
 #include <gura.h>
 
-Gura_BeginModuleHeader(codecs_iso8859, iso8859)
+Gura_BeginModuleHeader(codecs_iso8859)
 
 //-----------------------------------------------------------------------------
 // CodecDecoder_ISO8859
@@ -257,6 +257,6 @@ public:
 	};
 };
 
-Gura_EndModuleHeader(codecs_iso8859, iso8859)
+Gura_EndModuleHeader(codecs_iso8859)
 
 #endif

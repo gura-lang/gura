@@ -5,7 +5,7 @@
 #define __GURA_MODULE_BMP_H__
 #include <gura.h>
 
-Gura_BeginModuleHeader(bmp, bmp)
+Gura_BeginModuleHeader(bmp)
 
 //-----------------------------------------------------------------------------
 // ImageStreamer_BMP
@@ -22,6 +22,6 @@ public:
 	static void SetError_InvalidBMPFormat(Signal sig);
 };
 
-Gura_EndModuleHeader(bmp, bmp)
+Gura_EndModuleHeader(bmp)
 
 #endif

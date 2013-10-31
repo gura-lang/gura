@@ -5,7 +5,7 @@
 #define __GURA_MODULE_CSV_H__
 #include <gura.h>
 
-Gura_BeginModuleHeader(csv, csv)
+Gura_BeginModuleHeader(csv)
 
 Gura_DeclareUserSymbol(format)
 
@@ -81,6 +81,6 @@ public:
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 
-Gura_EndModuleHeader(csv, csv)
+Gura_EndModuleHeader(csv)
 
 #endif

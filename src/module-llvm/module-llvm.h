@@ -21,7 +21,7 @@
 #undef GURA_ON_MSWIN
 #include <gura.h>
 
-Gura_BeginModuleHeader(llvm, llvm)
-Gura_EndModuleHeader(llvm, llvm)
+Gura_BeginModuleHeader(llvm)
+Gura_EndModuleHeader(llvm)
 
 #endif

@@ -10,7 +10,7 @@
 #include <tk.h>
 #include <setjmp.h>
 
-Gura_BeginModuleHeader(tcl, tcl)
+Gura_BeginModuleHeader(tcl)
 
 Gura_DeclareUserSymbol(__tclname__);
 
@@ -140,6 +140,6 @@ public:
 	static void TimerProcStub(ClientData clientData);
 };
 
-Gura_EndModuleHeader(tcl, tcl)
+Gura_EndModuleHeader(tcl)
 
 #endif

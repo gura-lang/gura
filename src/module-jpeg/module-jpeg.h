@@ -10,7 +10,7 @@ extern "C" {
 #include <setjmp.h>
 }
 
-Gura_BeginModuleHeader(jpeg, jpeg)
+Gura_BeginModuleHeader(jpeg)
 
 Gura_DeclareUserSymbol(endian);
 Gura_DeclareUserSymbol(big);
@@ -465,6 +465,6 @@ const TypeInfo *TypeToInfo(UShort type);
 
 extern SymbolAssocOwner g_symbolAssocOwner;
 
-Gura_EndModuleHeader(jpeg, jpeg)
+Gura_EndModuleHeader(jpeg)
 
 #endif

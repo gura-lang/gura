@@ -8,7 +8,7 @@
 #include <png.h>
 #include <setjmp.h>
 
-Gura_BeginModuleHeader(png, png)
+Gura_BeginModuleHeader(png)
 
 //-----------------------------------------------------------------------------
 // ImageStreamer_PNG
@@ -43,6 +43,6 @@ public:
 	static void FlushData(png_structp png_ptr);
 };
 
-Gura_EndModuleHeader(png, png)
+Gura_EndModuleHeader(png)
 
 #endif

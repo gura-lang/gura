@@ -6,7 +6,7 @@
 #include <gura.h>
 #include <libpq-fe.h>
 
-Gura_BeginModuleHeader(postgresql, postgresql)
+Gura_BeginModuleHeader(postgresql)
 
 //-----------------------------------------------------------------------------
 // Object_postgresql
@@ -42,6 +42,6 @@ public:
 	Iterator *Exec(Signal sig, const char *command);
 };
 
-Gura_EndModuleHeader(postgresql, postgresql)
+Gura_EndModuleHeader(postgresql)
 
 #endif

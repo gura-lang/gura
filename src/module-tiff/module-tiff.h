@@ -10,7 +10,7 @@
 #include <gura.h>
 #include <tiffio.h>
 
-Gura_BeginModuleHeader(tiff, tiff)
+Gura_BeginModuleHeader(tiff)
 
 //-----------------------------------------------------------------------------
 // ImageStreamer_TIFF
@@ -60,6 +60,6 @@ public:
 	static toff_t TiffSize(thandle_t fd);
 };
 
-Gura_EndModuleHeader(tiff, tiff)
+Gura_EndModuleHeader(tiff)
 
 #endif

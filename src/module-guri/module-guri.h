@@ -17,7 +17,7 @@ typedef int socklen_t;
 inline void closesocket(int sock) { close(sock); }
 #endif
 
-Gura_BeginModuleHeader(guri, guri)
-Gura_EndModuleHeader(guri, guri)
+Gura_BeginModuleHeader(guri)
+Gura_EndModuleHeader(guri)
 
 #endif

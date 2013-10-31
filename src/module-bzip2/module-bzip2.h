@@ -6,7 +6,7 @@
 #include <gura.h>
 #include <gura/helper/BZLibHelper.h>
 
-Gura_BeginModuleHeader(bzip2, bzip2)
+Gura_BeginModuleHeader(bzip2)
 
 //-----------------------------------------------------------------------------
 // utilities
@@ -14,6 +14,6 @@ Gura_BeginModuleHeader(bzip2, bzip2)
 Object_stream *GenerateDecompressor(Environment &env, Signal sig, Stream &stream);
 Object_stream *GenerateCompressor(Environment &env, Signal sig, Stream &stream);
 
-Gura_EndModuleHeader(bzip2, bzip2)
+Gura_EndModuleHeader(bzip2)
 
 #endif

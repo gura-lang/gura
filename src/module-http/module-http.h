@@ -5,7 +5,7 @@
 #define __GURA_MODULE_HTTP_H__
 #include <gura.h>
 
-Gura_BeginModuleHeader(http, http)
+Gura_BeginModuleHeader(http)
 
 class Header;
 class Stream_Http;
@@ -668,6 +668,6 @@ public:
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode);
 };
 
-Gura_EndModuleHeader(http, http)
+Gura_EndModuleHeader(http)
 
 #endif
