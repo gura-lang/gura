@@ -7,25 +7,30 @@ if (sys.argv.len() < 1) {
 fields = path.filename(sys.argv[0]).split('.'):list
 dotName = fields.join('.')
 ubarName = fields.join('_')
-slashName = fields.join('/')
-localName = fields[-1]
+baseName = fields[-1]
 fileBuild = 'build.gura'
 fileTest = 'test-' + ubarName + '.gura'
+fileAfx = 'stdafx.h'
 fileHdr = 'module-' + ubarName + '.h'
 fileSrc = 'module-' + ubarName + '.cpp'
 incOnceMacroName = '__GURA_MODULE_' + ubarName.upper()  + '_H__'
-if (path.exists(fileBuild) || path.exists(fileHdr) || path.exists(fileSrc)) {
+incOnceMacroNameAfx = '__GURA_MODULE_' + ubarName.upper()  + '_STDAFX_H__'
+if (path.exists([fileBuild, fileTest, fileAfx, fileHdr, fileSrc]).or()) {
 	println('file already exists')
 	sys.exit(1)
 }
+
+//======== Generate Build Script ========
 R'''
 #!/usr/bin/env gura
 import(modbuild)
 
 builder = modbuild.Builder()
-builder.build('${slashName}', ['module-${ubarName}.cpp'])
+builder.build('${dotName}', ['module-${ubarName}.cpp'])
 '''.template(open(fileBuild, 'w').addcr(false))
 fs.chmod('a+x', fileBuild)
+
+//======== Generate Test Script ========
 R'''
 #!/usr/bin/env gura
 import(${dotName})
@@ -33,6 +38,16 @@ import(${dotName})
 println(${dotName}.test(3, 4))
 '''.template(open(fileTest, 'w').addcr(false))
 fs.chmod('a+x', fileTest)
+
+//======== Generate Precompiled Header File ========
+R'''
+#ifndef ${incOnceMacroNameAfx}
+#define ${incOnceMacroNameAfx}
+#include "${fileHdr}"
+#endif
+'''.template(open(fileAfx, 'w').addcr(false))
+
+//======== Generate Header File ========
 R'''
 //-----------------------------------------------------------------------------
 // Gura ${dotName} module
@@ -41,18 +56,20 @@ R'''
 #define ${incOnceMacroName}
 #include <gura.h>
 
-Gura_BeginModuleHeader(${ubarName}, ${localName})
-Gura_EndModuleHeader(${ubarName}, ${localName})
+Gura_BeginModuleHeader(${ubarName})
+Gura_EndModuleHeader(${ubarName})
 
 #endif
 '''.template(open(fileHdr, 'w').addcr(false))
+
+//======== Generate Source File ========
 R'''
 //-----------------------------------------------------------------------------
 // Gura ${dotName} module
 //-----------------------------------------------------------------------------
-#include "${fileHdr}"
+#include "${fileAfx}"
 
-Gura_BeginModuleBody(${ubarName}, ${localName})
+Gura_BeginModuleBody(${ubarName})
 
 //-----------------------------------------------------------------------------
 // Gura module functions: ${dotName}
@@ -86,17 +103,15 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModuleBody(${ubarName}, ${localName})
+Gura_EndModuleBody(${ubarName}, ${baseName})
 
 Gura_RegisterModule(${ubarName})
 '''.template(open(fileSrc, 'w').addcr(false))
 
-println(fileBuild, ', ', fileTest, ', ', fileHdr, ' and ', fileSrc, ' were created')
-/*
 R'''
-To create a module binary file, execute the following command:
-  gura build.gura --here
-This would create the file in the current directory.
+Following files were generated.
+- Build Script: ${fileBuild}
+- Test Script:  ${fileTest}
+- Source Files: ${fileAfx}, ${fileHdr}, ${fileSrc}
 '''.template(sys.stdout)
-*/
 sys.exit(0)
