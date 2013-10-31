@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Class derivation
@@ -117,4 +117,4 @@ Gura_ImplementDescendantCreator(wx_EraseEvent)
 	return new Object_wx_EraseEvent((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

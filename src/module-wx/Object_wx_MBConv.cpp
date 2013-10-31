@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(MB2WC);
 Gura_DeclarePrivUserSymbol(WC2MB);
@@ -450,4 +450,4 @@ Gura_ImplementDescendantCreator(wx_MBConv)
 	return new Object_wx_MBConv((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

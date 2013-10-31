@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(AnimateShow);
 Gura_DeclarePrivUserSymbol(DoShowPopup);
@@ -943,4 +943,4 @@ Gura_ImplementDescendantCreator(wx_ComboCtrl)
 	return new Object_wx_ComboCtrl((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

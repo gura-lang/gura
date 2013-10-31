@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_Outline implementation
@@ -162,4 +162,4 @@ Gura_ImplementUserClass(Outline)
 	Gura_AssignMethod(Outline, Reverse);
 }
 
-}}
+Gura_EndModuleScope(freetype)

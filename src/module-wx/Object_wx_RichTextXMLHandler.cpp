@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Class derivation
@@ -368,4 +368,4 @@ Gura_ImplementDescendantCreator(wx_RichTextXMLHandler)
 	return new Object_wx_RichTextXMLHandler((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

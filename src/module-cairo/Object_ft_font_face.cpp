@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_ft_font_face implementation
@@ -44,4 +44,4 @@ Gura_ImplementUserClass(ft_font_face)
 {
 }
 
-}}
+Gura_EndModuleScope(cairo)

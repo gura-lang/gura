@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Gura interfaces for wxEventFactory
@@ -212,4 +212,4 @@ void EventHandlerPack::Eval(wxEvent &event)
 	_pObjFunc->Eval(*_pEnv, _sig, valListArg);
 }
 
-}}
+Gura_EndModuleScope(wx)

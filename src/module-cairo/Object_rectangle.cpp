@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_rectangle implementation
@@ -112,4 +112,4 @@ Gura_ImplementUserClass(rectangle)
 	Gura_AssignFunction(rectangle);
 }
 
-}}
+Gura_EndModuleScope(cairo)

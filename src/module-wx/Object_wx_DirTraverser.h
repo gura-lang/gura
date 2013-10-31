@@ -5,7 +5,7 @@
 #ifndef __OBJECT_WX_DIRTRAVERSER_H__
 #define __OBJECT_WX_DIRTRAVERSER_H__
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Class declaration for wxDirTraverser
@@ -54,6 +54,6 @@ public:
 	}
 };
 
-}}
+Gura_EndModuleScope(wx)
 
 #endif

@@ -1,7 +1,7 @@
 #ifndef __CAIRO_OBJECT_FONT_EXTENTS_H__
 #define __CAIRO_OBJECT_FONT_EXTENTS_H__
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_font_extents declaration
@@ -25,6 +25,6 @@ public:
 	inline cairo_font_extents_t &GetEntity() { return _font_extents; }
 };
 
-}}
+Gura_EndModuleScope(cairo)
 
 #endif

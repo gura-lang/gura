@@ -4,7 +4,7 @@
 #ifndef __OBJECT_WX_JPEGHANDLER_H__
 #define __OBJECT_WX_JPEGHANDLER_H__
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Class declaration for wxJPEGHandler
@@ -40,6 +40,6 @@ public:
 	}
 };
 
-}}
+Gura_EndModuleScope(wx)
 
 #endif

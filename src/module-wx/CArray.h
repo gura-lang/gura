@@ -1,7 +1,7 @@
 #ifndef __CARRAY_H__
 #define __CARRAY_H__
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //-----------------------------------------------------------------------------
 // CArray
@@ -71,6 +71,6 @@ typedef CArray<wxString,	ValueToString>	CArrayOfString;
 typedef CArray<wxPoint,		ValueToPoint>	CArrayOfPoint;
 typedef CArray<wxAcceleratorEntry, ValueToAcceleratorEntry>	CArrayOfAcceleratorEntry;
 
-}}
+Gura_EndModuleScope(wx)
 
 #endif

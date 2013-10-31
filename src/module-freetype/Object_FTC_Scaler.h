@@ -1,7 +1,7 @@
 #ifndef __FREETYPE_OBJECT_FTC_SCALER_H__
 #define __FREETYPE_OBJECT_FTC_SCALER_H__
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_FTC_Scaler declaration
@@ -29,6 +29,6 @@ public:
 	inline const FTC_Scaler &GetEntity() const { return _scaler; }
 };
 
-}}
+Gura_EndModuleScope(freetype)
 
 #endif

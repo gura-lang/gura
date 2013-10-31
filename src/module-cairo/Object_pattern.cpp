@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_pattern implementation
@@ -675,4 +675,4 @@ Gura_ImplementCastTo(pattern)
 	return false;
 }
 
-}}
+Gura_EndModuleScope(cairo)

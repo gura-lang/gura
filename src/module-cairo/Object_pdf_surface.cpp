@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_pdf_surface implementation
@@ -72,4 +72,4 @@ Gura_ImplementUserClass(pdf_surface)
 	Gura_AssignMethod(pdf_surface, set_size);
 }
 
-}}
+Gura_EndModuleScope(cairo)

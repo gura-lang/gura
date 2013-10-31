@@ -5,7 +5,7 @@
 #ifndef __OBJECT_WX_COLOURDIALOG_H__
 #define __OBJECT_WX_COLOURDIALOG_H__
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Class declaration for wxColourDialog
@@ -41,6 +41,6 @@ public:
 	}
 };
 
-}}
+Gura_EndModuleScope(wx)
 
 #endif

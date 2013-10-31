@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_svg_surface implementation
@@ -54,4 +54,4 @@ Gura_ImplementUserClass(svg_surface)
 	Gura_AssignMethod(svg_surface, restrict_to_version);
 }
 
-}}
+Gura_EndModuleScope(cairo)

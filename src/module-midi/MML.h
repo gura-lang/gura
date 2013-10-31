@@ -3,7 +3,7 @@
 #include <gura.h>
 #include "Event.h"
 
-Gura_BeginModule(midi)
+Gura_BeginModuleScope(midi)
 
 class Track;
 class Sequence;
@@ -111,6 +111,6 @@ private:
 	int CalcDeltaTime(const Track *pTrack, int length, int cntDot) const;
 };
 
-}}
+Gura_EndModuleScope(midi)
 
 #endif

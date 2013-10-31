@@ -1,7 +1,7 @@
 #ifndef __CAIRO_OBJECT_DEVICE_H__
 #define __CAIRO_OBJECT_DEVICE_H__
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_device declaration
@@ -22,6 +22,6 @@ public:
 	inline cairo_device_t *GetEntity() { return _device; }
 };
 
-}}
+Gura_EndModuleScope(cairo)
 
 #endif

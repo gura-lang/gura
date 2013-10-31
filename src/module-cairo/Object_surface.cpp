@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_surface implementation
@@ -708,4 +708,4 @@ Gura_ImplementCastTo(surface)
 	return false;
 }
 
-}}
+Gura_EndModuleScope(cairo)

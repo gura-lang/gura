@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Class derivation
@@ -366,4 +366,4 @@ Gura_ImplementDescendantCreator(wx_SymbolPickerDialog)
 	return new Object_wx_SymbolPickerDialog((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

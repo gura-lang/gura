@@ -5,7 +5,7 @@
 #ifndef __OBJECT_WX_CONTEXTMENUEVENT_H__
 #define __OBJECT_WX_CONTEXTMENUEVENT_H__
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Class declaration for wxContextMenuEvent
@@ -41,6 +41,6 @@ public:
 	}
 };
 
-}}
+Gura_EndModuleScope(wx)
 
 #endif

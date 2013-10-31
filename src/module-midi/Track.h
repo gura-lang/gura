@@ -4,7 +4,7 @@
 #include "Event.h"
 #include "MML.h"
 
-Gura_BeginModule(midi)
+Gura_BeginModuleScope(midi)
 
 //-----------------------------------------------------------------------------
 // Property
@@ -91,6 +91,6 @@ public:
 	UChar GetChannelNext();
 };
 
-}}
+Gura_EndModuleScope(midi)
 
 #endif

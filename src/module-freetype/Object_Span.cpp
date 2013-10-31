@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_Span implementation
@@ -68,4 +68,4 @@ Gura_ImplementUserClass(Span)
 {
 }
 
-}}
+Gura_EndModuleScope(freetype)

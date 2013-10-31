@@ -1,7 +1,7 @@
 #ifndef __CAIRO_OBJECT_SCALED_FONT_H__
 #define __CAIRO_OBJECT_SCALED_FONT_H__
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_scaled_font declaration
@@ -22,6 +22,6 @@ public:
 	inline cairo_scaled_font_t *GetEntity() { return _scaled_font; }
 };
 
-}}
+Gura_EndModuleScope(cairo)
 
 #endif

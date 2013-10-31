@@ -9,7 +9,7 @@
 #error unknown platform
 #endif
 
-Gura_BeginModule(midi)
+Gura_BeginModuleScope(midi)
 
 //-----------------------------------------------------------------------------
 // Port
@@ -126,6 +126,6 @@ public:
 
 #endif
 
-}}
+Gura_EndModuleScope(midi)
 
 #endif

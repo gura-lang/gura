@@ -1,7 +1,7 @@
 #ifndef __FREETYPE_OBJECT_BITMAP_H__
 #define __FREETYPE_OBJECT_BITMAP_H__
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_Bitmap declaration
@@ -29,6 +29,6 @@ public:
 	inline const FT_Bitmap *GetEntity() const { return _pBitmap; }
 };
 
-}}
+Gura_EndModuleScope(freetype)
 
 #endif

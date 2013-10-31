@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(CanOpen);
 Gura_DeclarePrivUserSymbol(FindFirst);
@@ -301,4 +301,4 @@ Gura_ImplementDescendantCreator(wx_FileSystemHandler)
 	return new Object_wx_FileSystemHandler((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Class derivation
@@ -97,4 +97,4 @@ Gura_ImplementDescendantCreator(wx_BMPHandler)
 	return new Object_wx_BMPHandler((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

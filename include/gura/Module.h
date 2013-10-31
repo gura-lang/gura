@@ -36,23 +36,11 @@ GURA_DLLEXPORT Module *Import(Environment &env, Signal sig) \
 } \
 }}
 
-#define Gura_BeginModule(name) \
+#define Gura_BeginModuleScope(name) \
 namespace Gura { \
 namespace ModuleNS_##name {
 
-#define Gura_EndModule(name, nameBase) \
-GURA_DLLEXPORT void Terminate(Module *pModule) \
-{ \
-	_Terminate(pModule); \
-} \
-GURA_DLLEXPORT Module *Import(Environment &env, Signal sig) \
-{ \
-	AutoPtr<Module> pModule(new Module(&env, Symbol::Add(#nameBase), "<integrated>", NULL, Terminate)); \
-	MixIn(*pModule, sig); \
-	if (sig.IsSignalled()) return NULL; \
-	env.AssignModule(pModule.get()); \
-	return pModule.release(); \
-} \
+#define Gura_EndModuleScope(name) \
 }}
 
 #if defined(GURA_MODULE_SEPARATED)

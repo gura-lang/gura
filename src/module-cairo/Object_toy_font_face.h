@@ -1,7 +1,7 @@
 #ifndef __CAIRO_OBJECT_TOY_FONT_FACE_H__
 #define __CAIRO_OBJECT_TOY_FONT_FACE_H__
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_toy_font_face declaration
@@ -17,6 +17,6 @@ public:
 	virtual String ToString(Signal sig, bool exprFlag);
 };
 
-}}
+Gura_EndModuleScope(cairo)
 
 #endif

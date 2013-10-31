@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_BDF_Property implementation
@@ -68,4 +68,4 @@ Gura_ImplementUserClass(BDF_Property)
 {
 }
 
-}}
+Gura_EndModuleScope(freetype)

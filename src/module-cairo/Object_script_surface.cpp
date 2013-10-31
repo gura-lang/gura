@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_script_surface implementation
@@ -22,4 +22,4 @@ Gura_ImplementUserClass(script_surface)
 {
 }
 
-}}
+Gura_EndModuleScope(cairo)

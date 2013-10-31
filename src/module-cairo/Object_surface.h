@@ -1,7 +1,7 @@
 #ifndef __CAIRO_OBJECT_SURFACE_H__
 #define __CAIRO_OBJECT_SURFACE_H__
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_surface declaration
@@ -25,6 +25,6 @@ public:
 	inline cairo_surface_t *GetEntity() { return _surface; }
 };
 
-}}
+Gura_EndModuleScope(cairo)
 
 #endif

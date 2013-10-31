@@ -5,7 +5,7 @@
 #ifndef __OBJECT_WX_TREEITEMDATA_H__
 #define __OBJECT_WX_TREEITEMDATA_H__
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 class Object_wx_TreeItemData;
 
@@ -79,6 +79,6 @@ public:
 	}
 };
 
-}}
+Gura_EndModuleScope(wx)
 
 #endif

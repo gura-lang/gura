@@ -1,7 +1,7 @@
 #ifndef __FREETYPE_OBJECT_SPAN_H__
 #define __FREETYPE_OBJECT_SPAN_H__
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_Span declaration
@@ -29,6 +29,6 @@ public:
 	inline const FT_Span &GetEntity() const { return _span; }
 };
 
-}}
+Gura_EndModuleScope(freetype)
 
 #endif

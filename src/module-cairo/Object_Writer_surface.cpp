@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_Writer_surface implementation
@@ -42,4 +42,4 @@ Value Object_Writer_surface::DoGetProp(Environment &env, Signal sig, const Symbo
 	return Object_surface::DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
-}}
+Gura_EndModuleScope(cairo)

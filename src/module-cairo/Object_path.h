@@ -1,7 +1,7 @@
 #ifndef __CAIRO_OBJECT_PATH_H__
 #define __CAIRO_OBJECT_PATH_H__
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_path declaration
@@ -22,6 +22,6 @@ public:
 	inline cairo_path_t *GetEntity() { return _path; }
 };
 
-}}
+Gura_EndModuleScope(cairo)
 
 #endif

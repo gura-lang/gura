@@ -1,7 +1,7 @@
 #ifndef __CAIRO_OBJECT_MESH_PATTERN_H__
 #define __CAIRO_OBJECT_MESH_PATTERN_H__
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_mesh_pattern declaration
@@ -17,6 +17,6 @@ public:
 	virtual String ToString(Signal sig, bool exprFlag);
 };
 
-}}
+Gura_EndModuleScope(cairo)
 
 #endif

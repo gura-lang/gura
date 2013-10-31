@@ -2,7 +2,7 @@
 #define __JPEG_OBJECT_TAG_H__
 #include <gura.h>
 
-Gura_BeginModule(jpeg)
+Gura_BeginModuleScope(jpeg)
 
 class Object_ifd;
 
@@ -58,6 +58,6 @@ public:
 	void Clear();
 };
 
-}}
+Gura_EndModuleScope(jpeg)
 
 #endif

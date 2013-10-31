@@ -1,7 +1,7 @@
 #ifndef __FREETYPE_OBJECT_FTC_IMAGECACHE_H__
 #define __FREETYPE_OBJECT_FTC_IMAGECACHE_H__
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_FTC_ImageCache declaration
@@ -29,6 +29,6 @@ public:
 	inline const FTC_ImageCache &GetEntity() const { return _imageCache; }
 };
 
-}}
+Gura_EndModuleScope(freetype)
 
 #endif

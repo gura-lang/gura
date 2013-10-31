@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(CreateFontMapper);
 Gura_DeclarePrivUserSymbol(CreateLogTarget);
@@ -281,4 +281,4 @@ Gura_ImplementDescendantCreator(wx_AppTraits)
 	return new Object_wx_AppTraits((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(Create);
 Gura_DeclarePrivUserSymbol(Create_1);
@@ -844,4 +844,4 @@ Gura_ImplementCastTo(wx_Bitmap)
 	return false;
 }
 
-}}
+Gura_EndModuleScope(wx)

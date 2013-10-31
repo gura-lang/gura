@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_xcb_surface implementation
@@ -24,4 +24,4 @@ Gura_ImplementUserClass(xcb_surface)
 {
 }
 
-}}
+Gura_EndModuleScope(cairo)

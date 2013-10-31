@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(CanUndo);
 Gura_DeclarePrivUserSymbol(ClearCommands);
@@ -413,4 +413,4 @@ Gura_ImplementDescendantCreator(wx_CommandProcessor)
 	return new Object_wx_CommandProcessor((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

@@ -4,7 +4,7 @@
 #include "module-jpeg.h"
 #include "Object_exif.h"
 
-Gura_BeginModule(jpeg)
+Gura_BeginModuleScope(jpeg)
 
 //-----------------------------------------------------------------------------
 // Object_exif implementation
@@ -258,4 +258,4 @@ Gura_ImplementUserClass(exif)
 	Gura_AssignMethod(exif, each);
 }
 
-}}
+Gura_EndModuleScope(jpeg)

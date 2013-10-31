@@ -1,7 +1,7 @@
 #ifndef __FREETYPE_OBJECT_RASTER_H__
 #define __FREETYPE_OBJECT_RASTER_H__
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_Raster declaration
@@ -29,6 +29,6 @@ public:
 	inline const FT_Raster &GetEntity() const { return _raster; }
 };
 
-}}
+Gura_EndModuleScope(freetype)
 
 #endif

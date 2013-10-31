@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_font implementation
@@ -507,4 +507,4 @@ Gura_ImplementUserClass(font)
 	Gura_AssignMethod(font, calcbbox);
 }
 
-}}
+Gura_EndModuleScope(freetype)

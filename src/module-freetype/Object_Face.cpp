@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_Face implementation
@@ -458,4 +458,4 @@ Gura_ImplementCastTo(Face)
 	return false;
 }
 
-}}
+Gura_EndModuleScope(freetype)

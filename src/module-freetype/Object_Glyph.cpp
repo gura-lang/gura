@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_Glyph implementation
@@ -137,4 +137,4 @@ Gura_ImplementUserClass(Glyph)
 	Gura_AssignMethod(Glyph, StrokeBorder);
 }
 
-}}
+Gura_EndModuleScope(freetype)

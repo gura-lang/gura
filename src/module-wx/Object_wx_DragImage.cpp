@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(DoDrawImage);
 Gura_DeclarePrivUserSymbol(GetImageRect);
@@ -476,4 +476,4 @@ Gura_ImplementDescendantCreator(wx_DragImage)
 	return new Object_wx_DragImage((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

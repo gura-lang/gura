@@ -1,7 +1,7 @@
 #ifndef __FREETYPE_OBJECT_VECTOR_H__
 #define __FREETYPE_OBJECT_VECTOR_H__
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_Vector declaration
@@ -29,6 +29,6 @@ public:
 	inline const FT_Vector *GetEntity() const { return _pVector; }
 };
 
-}}
+Gura_EndModuleScope(freetype)
 
 #endif

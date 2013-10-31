@@ -5,7 +5,7 @@
 #ifndef __OBJECT_WX_COORD_H__
 #define __OBJECT_WX_COORD_H__
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Class declaration for wxCoord
@@ -32,6 +32,6 @@ public:
 	inline wxCoord *GetEntity() { return _pEntity; }
 };
 
-}}
+Gura_EndModuleScope(wx)
 
 #endif

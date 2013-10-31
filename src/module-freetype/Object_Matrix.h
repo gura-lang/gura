@@ -1,7 +1,7 @@
 #ifndef __FREETYPE_OBJECT_MATRIX_H__
 #define __FREETYPE_OBJECT_MATRIX_H__
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_Matrix declaration
@@ -33,6 +33,6 @@ public:
 	bool ConvertFrom(Signal sig, const Gura::Matrix *pMat);
 };
 
-}}
+Gura_EndModuleScope(freetype)
 
 #endif

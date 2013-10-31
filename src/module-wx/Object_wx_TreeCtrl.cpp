@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(OnCompareItems);
 
@@ -1641,4 +1641,4 @@ Gura_ImplementDescendantCreator(wx_TreeCtrl)
 	return new Object_wx_TreeCtrl((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

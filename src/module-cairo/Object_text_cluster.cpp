@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_text_cluster implementation
@@ -45,4 +45,4 @@ Gura_ImplementUserClass(text_cluster)
 	Gura_AssignMethod(text_cluster, allocate);
 }
 
-}}
+Gura_EndModuleScope(cairo)

@@ -2,7 +2,7 @@
 #include "Event.h"
 #include "Sequence.h"
 
-Gura_BeginModule(midi)
+Gura_BeginModuleScope(midi)
 
 //-----------------------------------------------------------------------------
 // Event
@@ -1880,4 +1880,4 @@ Value MetaEvent_SequencerSpecificEvent::DoSetProp(Environment &env, Signal sig, 
 	return Value::Null;
 }
 
-}}
+Gura_EndModuleScope(midi)

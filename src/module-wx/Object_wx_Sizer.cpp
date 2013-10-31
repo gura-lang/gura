@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //-----------------------------------------------------------------------------
 // utilities
@@ -1026,4 +1026,4 @@ Value SizerItemListToValue(Environment &env, const wxSizerItemList &list)
 	return rtn;
 }
 
-}}
+Gura_EndModuleScope(wx)

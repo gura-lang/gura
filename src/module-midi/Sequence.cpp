@@ -1,6 +1,6 @@
 #include "Sequence.h"
 
-Gura_BeginModule(midi)
+Gura_BeginModuleScope(midi)
 
 //-----------------------------------------------------------------------------
 // Sequence
@@ -276,4 +276,4 @@ Player *Sequence::GeneratePlayer(Signal sig, Port *pPort, double speed, int cntR
 	return pPlayer.release();
 }
 
-}}
+Gura_EndModuleScope(midi)

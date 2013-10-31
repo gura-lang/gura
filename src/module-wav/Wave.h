@@ -2,7 +2,7 @@
 #define __WAVE_H__
 #include <gura.h>
 
-Gura_BeginModule(wav)
+Gura_BeginModuleScope(wav)
 
 #define FOURCC(c1, c2, c3, c4) \
 	(static_cast<ULong>(c1) << 0) + (static_cast<ULong>(c2) << 8) + \
@@ -117,6 +117,6 @@ private:
 						char *str, size_t ckSizeMax, size_t ckSizeActual);
 };
 
-}}
+Gura_EndModuleScope(wav)
 
 #endif

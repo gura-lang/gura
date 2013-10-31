@@ -2,7 +2,7 @@
 #include "MML.h"
 #include "Track.h"
 
-Gura_BeginModule(midi)
+Gura_BeginModuleScope(midi)
 
 //-----------------------------------------------------------------------------
 // MML
@@ -943,4 +943,4 @@ void MML::StateMachineStack::Clear()
 	clear();
 }
 
-}}
+Gura_EndModuleScope(midi)

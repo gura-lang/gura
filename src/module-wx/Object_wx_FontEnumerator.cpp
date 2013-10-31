@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(EnumerateFacenames);
 Gura_DeclarePrivUserSymbol(EnumerateEncodings);
@@ -293,4 +293,4 @@ Gura_ImplementDescendantCreator(wx_FontEnumerator)
 	return new Object_wx_FontEnumerator((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

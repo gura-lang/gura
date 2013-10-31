@@ -5,7 +5,7 @@
 #ifndef __OBJECT_WX_TASKBARICON_H__
 #define __OBJECT_WX_TASKBARICON_H__
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Class declaration for wxTaskBarIcon
@@ -41,6 +41,6 @@ public:
 	}
 };
 
-}}
+Gura_EndModuleScope(wx)
 
 #endif

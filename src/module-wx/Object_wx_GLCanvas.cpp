@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 int *MakeAttribList(const ValueList &valList);
 
@@ -311,4 +311,4 @@ int *MakeAttribList(const ValueList &valList)
 	return attribList;
 }
 
-}}
+Gura_EndModuleScope(wx)

@@ -1,7 +1,7 @@
 #ifndef __CAIRO_OBJECT_IMAGE_SURFACE_H__
 #define __CAIRO_OBJECT_IMAGE_SURFACE_H__
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_image_surface declaration
@@ -21,6 +21,6 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 };
 
-}}
+Gura_EndModuleScope(cairo)
 
 #endif

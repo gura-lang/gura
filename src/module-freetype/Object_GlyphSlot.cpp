@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_GlyphSlot implementation
@@ -124,4 +124,4 @@ Gura_ImplementUserClass(GlyphSlot)
 	Gura_AssignMethod(GlyphSlot, Render);
 }
 
-}}
+Gura_EndModuleScope(freetype)

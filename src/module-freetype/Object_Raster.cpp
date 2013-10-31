@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_Raster implementation
@@ -68,4 +68,4 @@ Gura_ImplementUserClass(Raster)
 {
 }
 
-}}
+Gura_EndModuleScope(freetype)

@@ -2,7 +2,7 @@
 #define __SOUNDFONT_H__
 #include <gura.h>
 
-Gura_BeginModule(midi)
+Gura_BeginModuleScope(midi)
 
 template<typename T_Elem>
 class ListTemplate : public std::vector<T_Elem *> {
@@ -618,6 +618,6 @@ private:
 						char *str, size_t ckSizeMax, size_t ckSizeActual);
 };
 
-}}
+Gura_EndModuleScope(midi)
 
 #endif

@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(OnDraw);
 
@@ -441,4 +441,4 @@ Gura_ImplementDescendantCreator(wx_ScrolledWindow)
 	return new Object_wx_ScrolledWindow((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

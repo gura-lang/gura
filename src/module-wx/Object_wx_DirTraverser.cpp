@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(OnDir);
 Gura_DeclarePrivUserSymbol(OnFile);
@@ -136,4 +136,4 @@ Gura_ImplementDescendantCreator(wx_DirTraverser)
 	return new Object_wx_DirTraverser((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

@@ -1,6 +1,6 @@
 #include "Port.h"
 
-Gura_BeginModule(midi)
+Gura_BeginModuleScope(midi)
 
 //-----------------------------------------------------------------------------
 // Port
@@ -11,4 +11,4 @@ Gura_BeginModule(midi)
 
 #endif
 
-}}
+Gura_EndModuleScope(midi)

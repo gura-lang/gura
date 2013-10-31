@@ -1,7 +1,7 @@
 #ifndef __CAIRO_OBJECT_FONT_OPTIONS_H__
 #define __CAIRO_OBJECT_FONT_OPTIONS_H__
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_font_options declaration
@@ -22,6 +22,6 @@ public:
 	inline cairo_font_options_t *GetEntity() { return _options; }
 };
 
-}}
+Gura_EndModuleScope(cairo)
 
 #endif

@@ -5,7 +5,7 @@
 #ifndef __OBJECT_WX_HASHMAP_H__
 #define __OBJECT_WX_HASHMAP_H__
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Class declaration for wxHashMap
@@ -54,6 +54,6 @@ public:
 	}
 };
 
-}}
+Gura_EndModuleScope(wx)
 
 #endif

@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(Hostname);
 Gura_DeclarePrivUserSymbol(Hostname_1);
@@ -241,4 +241,4 @@ Gura_ImplementDescendantCreator(wx_IPaddress)
 	return new Object_wx_IPaddress((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

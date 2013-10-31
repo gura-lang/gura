@@ -5,7 +5,7 @@
 #ifndef __OBJECT_WX_FONTDIALOG_H__
 #define __OBJECT_WX_FONTDIALOG_H__
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Class declaration for wxFontDialog
@@ -41,6 +41,6 @@ public:
 	}
 };
 
-}}
+Gura_EndModuleScope(wx)
 
 #endif

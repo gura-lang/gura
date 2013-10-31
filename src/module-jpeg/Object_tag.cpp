@@ -2,7 +2,7 @@
 #include "Object_tag.h"
 #include "Object_ifd.h"
 
-Gura_BeginModule(jpeg)
+Gura_BeginModuleScope(jpeg)
 
 //-----------------------------------------------------------------------------
 // Object_tag implementation
@@ -127,4 +127,4 @@ void TagOwner::Clear()
 	clear();
 }
 
-}}
+Gura_EndModuleScope(jpeg)

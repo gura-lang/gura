@@ -1,7 +1,7 @@
 #ifndef __CAIRO_OBJECT_FONT_FACE_H__
 #define __CAIRO_OBJECT_FONT_FACE_H__
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_font_face declaration
@@ -22,6 +22,6 @@ public:
 	inline cairo_font_face_t *GetEntity() { return _font_face; }
 };
 
-}}
+Gura_EndModuleScope(cairo)
 
 #endif

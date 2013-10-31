@@ -3,7 +3,7 @@
 #include <gura.h>
 #include "Port.h"
 
-Gura_BeginModule(midi)
+Gura_BeginModuleScope(midi)
 
 class Sequence;
 
@@ -53,6 +53,6 @@ public:
 	inline int GetRepeat() const { return _iRepeat; }
 };
 
-}}
+Gura_EndModuleScope(midi)
 
 #endif

@@ -1,7 +1,7 @@
 #ifndef __FREETYPE_OBJECT_FTC_SBIT_H__
 #define __FREETYPE_OBJECT_FTC_SBIT_H__
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_FTC_SBit declaration
@@ -29,6 +29,6 @@ public:
 	inline const FTC_SBit &GetEntity() const { return _sbit; }
 };
 
-}}
+Gura_EndModuleScope(freetype)
 
 #endif

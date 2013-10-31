@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_quartz_font_face implementation
@@ -21,4 +21,4 @@ Gura_ImplementUserClass(quartz_font_face)
 {
 }
 
-}}
+Gura_EndModuleScope(cairo)

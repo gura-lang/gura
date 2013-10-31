@@ -1,7 +1,7 @@
 #ifndef __CAIRO_OBJECT_REGION_H__
 #define __CAIRO_OBJECT_REGION_H__
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_region declaration
@@ -22,6 +22,6 @@ public:
 	inline cairo_region_t *GetEntity() { return _region; }
 };
 
-}}
+Gura_EndModuleScope(cairo)
 
 #endif

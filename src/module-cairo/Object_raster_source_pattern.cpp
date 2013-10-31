@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_raster_source_pattern implementation
@@ -31,4 +31,4 @@ Gura_ImplementUserClass(raster_source_pattern)
 {
 }
 
-}}
+Gura_EndModuleScope(cairo)

@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(Update);
 Gura_DeclarePrivUserSymbol(Pulse);
@@ -170,4 +170,4 @@ Gura_ImplementDescendantCreator(wx_ProgressDialog)
 	return new Object_wx_ProgressDialog((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

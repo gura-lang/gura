@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(GetPageAreaSizer);
 Gura_DeclarePrivUserSymbol(HasNextPage);
@@ -356,4 +356,4 @@ Gura_ImplementDescendantCreator(wx_Wizard)
 	return new Object_wx_Wizard((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

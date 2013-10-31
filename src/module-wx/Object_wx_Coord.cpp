@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Gura interfaces for wxCoord
@@ -45,4 +45,4 @@ Gura_ImplementDescendantCreator(wx_Coord)
 	return new Object_wx_Coord((pClass == NULL)? this : pClass, NULL);
 }
 
-}}
+Gura_EndModuleScope(wx)

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_CharMap implementation
@@ -85,4 +85,4 @@ Gura_ImplementUserClass(CharMap)
 	Gura_AssignMethod(CharMap, Get_Index);
 }
 
-}}
+Gura_EndModuleScope(freetype)

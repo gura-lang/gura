@@ -5,7 +5,7 @@
 #ifndef __OBJECT_WX_CLIENTDATA_H__
 #define __OBJECT_WX_CLIENTDATA_H__
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 class Object_wx_ClientData;
 
@@ -84,6 +84,6 @@ public:
 	}
 };
 
-}}
+Gura_EndModuleScope(wx)
 
 #endif

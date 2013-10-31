@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_Bitmap implementation
@@ -113,4 +113,4 @@ Gura_ImplementUserClass(Bitmap)
 	Gura_AssignMethod(Bitmap, Embolden);
 }
 
-}}
+Gura_EndModuleScope(freetype)

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_FTC_SBit implementation
@@ -68,4 +68,4 @@ Gura_ImplementUserClass(FTC_SBit)
 {
 }
 
-}}
+Gura_EndModuleScope(freetype)

@@ -5,7 +5,7 @@
 #ifndef __OBJECT_WX_SPLASHSCREEN_H__
 #define __OBJECT_WX_SPLASHSCREEN_H__
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Class declaration for wxSplashScreen
@@ -41,6 +41,6 @@ public:
 	}
 };
 
-}}
+Gura_EndModuleScope(wx)
 
 #endif

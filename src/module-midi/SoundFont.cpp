@@ -1,6 +1,6 @@
 #include "SoundFont.h"
 
-Gura_BeginModule(midi)
+Gura_BeginModuleScope(midi)
 
 //-----------------------------------------------------------------------------
 // SoundFont
@@ -1202,4 +1202,4 @@ bool SoundFont::Synthesizer::Props::Update(SFGenerator sfGenOper, UShort genAmou
 	return true;
 }
 
-}}
+Gura_EndModuleScope(midi)

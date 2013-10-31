@@ -5,7 +5,7 @@
 #ifndef __OBJECT_WX_AUIPANEINFO_H__
 #define __OBJECT_WX_AUIPANEINFO_H__
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Class declaration for wxAuiPaneInfo
@@ -54,6 +54,6 @@ public:
 	}
 };
 
-}}
+Gura_EndModuleScope(wx)
 
 #endif

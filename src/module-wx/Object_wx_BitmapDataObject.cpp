@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(GetBitmap);
 Gura_DeclarePrivUserSymbol(SetBitmap);
@@ -137,4 +137,4 @@ Gura_ImplementDescendantCreator(wx_BitmapDataObject)
 	return new Object_wx_BitmapDataObject((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

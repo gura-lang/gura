@@ -16,7 +16,7 @@
 	Gura_AssignValueEx(#name, Value(pObjEventFactory)); \
 } while (0)
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Class declaration for wxEventFactory
@@ -117,6 +117,6 @@ public:
 	Signal &GetSignal() { return _sig; }
 };
 
-}}
+Gura_EndModuleScope(wx)
 
 #endif

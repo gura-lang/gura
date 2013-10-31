@@ -1,7 +1,7 @@
 #ifndef __CAIRO_OBJECT_WIN32_SURFACE_H__
 #define __CAIRO_OBJECT_WIN32_SURFACE_H__
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_win32_surface declaration
@@ -14,6 +14,6 @@ public:
 				Object_Writer_surface(surface, pWriter) {}
 };
 
-}}
+Gura_EndModuleScope(cairo)
 
 #endif

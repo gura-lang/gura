@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(GetFieldRect);
 Gura_DeclarePrivUserSymbol(GetStatusText);
@@ -351,4 +351,4 @@ Gura_ImplementDescendantCreator(wx_StatusBar)
 	return new Object_wx_StatusBar((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

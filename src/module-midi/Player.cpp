@@ -1,7 +1,7 @@
 #include "module-midi.h"
 #include "Player.h"
 
-Gura_BeginModule(midi)
+Gura_BeginModuleScope(midi)
 
 //-----------------------------------------------------------------------------
 // Player
@@ -77,4 +77,4 @@ void Player::Thread::Run()
 }
 
 
-}}
+Gura_EndModuleScope(midi)

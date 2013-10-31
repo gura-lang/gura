@@ -1,7 +1,7 @@
 #ifndef __CAIRO_OBJECT_USER_FONT_FACE_H__
 #define __CAIRO_OBJECT_USER_FONT_FACE_H__
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_user_font_face declaration
@@ -31,6 +31,6 @@ public:
 			unsigned long  unicode, unsigned long *glyph_index);
 };
 
-}}
+Gura_EndModuleScope(cairo)
 
 #endif

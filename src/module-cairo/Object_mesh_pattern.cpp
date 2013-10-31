@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_mesh_pattern implementation
@@ -309,4 +309,4 @@ Gura_ImplementUserClass(mesh_pattern)
 	Gura_AssignMethod(mesh_pattern, set_corner_color_rgba);
 }
 
-}}
+Gura_EndModuleScope(cairo)

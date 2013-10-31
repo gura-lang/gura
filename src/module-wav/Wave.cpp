@@ -1,6 +1,6 @@
 #include "Wave.h"
 
-Gura_BeginModule(wav)
+Gura_BeginModuleScope(wav)
 
 //-----------------------------------------------------------------------------
 // Wave
@@ -291,4 +291,4 @@ Audio *Wave::Format::ReadAudio(Signal sig, Stream &stream, size_t ckSize) const
 	return pAudio.release();
 }
 
-}}
+Gura_EndModuleScope(wav)

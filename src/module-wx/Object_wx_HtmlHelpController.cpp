@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(CreateHelpDialog);
 Gura_DeclarePrivUserSymbol(CreateHelpFrame);
@@ -362,4 +362,4 @@ Gura_ImplementDescendantCreator(wx_HtmlHelpController)
 	return new Object_wx_HtmlHelpController((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

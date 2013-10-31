@@ -1,7 +1,7 @@
 #ifndef __FREETYPE_OBJECT_FTC_CMAPCACHE_H__
 #define __FREETYPE_OBJECT_FTC_CMAPCACHE_H__
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_FTC_CMapCache declaration
@@ -29,6 +29,6 @@ public:
 	inline const FTC_CMapCache &GetEntity() const { return _cmapCache; }
 };
 
-}}
+Gura_EndModuleScope(freetype)
 
 #endif

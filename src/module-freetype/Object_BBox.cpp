@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_BBox implementation
@@ -77,4 +77,4 @@ Gura_ImplementUserClass(BBox)
 {
 }
 
-}}
+Gura_EndModuleScope(freetype)

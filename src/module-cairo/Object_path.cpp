@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_path implementation
@@ -30,4 +30,4 @@ Gura_ImplementUserClass(path)
 {
 }
 
-}}
+Gura_EndModuleScope(cairo)

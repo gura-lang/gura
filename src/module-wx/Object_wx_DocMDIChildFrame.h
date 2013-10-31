@@ -5,7 +5,7 @@
 #ifndef __OBJECT_WX_DOCMDICHILDFRAME_H__
 #define __OBJECT_WX_DOCMDICHILDFRAME_H__
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Class declaration for wxDocMDIChildFrame
@@ -41,6 +41,6 @@ public:
 	}
 };
 
-}}
+Gura_EndModuleScope(wx)
 
 #endif

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_context implementation
@@ -2886,4 +2886,4 @@ Gura_ImplementUserClass(context)
 	Gura_AssignMethod(context, glyph_extents);
 }
 
-}}
+Gura_EndModuleScope(cairo)

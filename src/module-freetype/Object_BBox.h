@@ -1,7 +1,7 @@
 #ifndef __FREETYPE_OBJECT_BBOX_H__
 #define __FREETYPE_OBJECT_BBOX_H__
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_BBox declaration
@@ -29,6 +29,6 @@ public:
 	inline const FT_BBox &GetEntity() const { return _bbox; }
 };
 
-}}
+Gura_EndModuleScope(freetype)
 
 #endif

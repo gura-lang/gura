@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_Vector implementation
@@ -131,4 +131,4 @@ Gura_ImplementUserClass(Vector)
 	Gura_AssignMethod(Vector, Transform);
 }
 
-}}
+Gura_EndModuleScope(freetype)

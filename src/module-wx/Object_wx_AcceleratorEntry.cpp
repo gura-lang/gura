@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 int ArgToKeyCode(const Function *pFunc, Signal sig, Args &args, size_t iArg);
 
@@ -218,4 +218,4 @@ int ArgToKeyCode(const Function *pFunc, Signal sig, Args &args, size_t iArg)
 	return keyCode;
 }
 
-}}
+Gura_EndModuleScope(wx)

@@ -5,7 +5,7 @@
 #ifndef __OBJECT_WX_FINDREPLACEDATA_H__
 #define __OBJECT_WX_FINDREPLACEDATA_H__
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Class declaration for wxFindReplaceData
@@ -41,6 +41,6 @@ public:
 	}
 };
 
-}}
+Gura_EndModuleScope(wx)
 
 #endif

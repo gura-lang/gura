@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_image_surface implementation
@@ -136,4 +136,4 @@ Gura_ImplementUserClass(image_surface)
 	Gura_AssignMethod(image_surface, get_stride);
 }
 
-}}
+Gura_EndModuleScope(cairo)

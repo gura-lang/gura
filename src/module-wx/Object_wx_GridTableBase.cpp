@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(GetNumberRows);
 Gura_DeclarePrivUserSymbol(GetNumberCols);
@@ -1018,4 +1018,4 @@ Gura_ImplementDescendantCreator(wx_GridTableBase)
 	return new Object_wx_GridTableBase((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

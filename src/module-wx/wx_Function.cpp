@@ -3,7 +3,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(GetApp);
 
@@ -5357,4 +5357,4 @@ void RegisterFunctions(Environment &env, Signal sig)
 	Gura_AssignFunction(Toupper);
 }
 
-}}
+Gura_EndModuleScope(wx)

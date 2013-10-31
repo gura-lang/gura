@@ -2,7 +2,7 @@
 #define __EVENT_H__
 #include <gura.h>
 
-Gura_BeginModule(midi)
+Gura_BeginModuleScope(midi)
 
 class Track;
 class EventList;
@@ -822,6 +822,6 @@ public:
 								const SymbolSet &attrs, bool &evaluatedFlag);
 };
 
-}}
+Gura_EndModuleScope(midi)
 
 #endif

@@ -1,7 +1,7 @@
 #ifndef __CAIRO_OBJECT_PATTERN_H__
 #define __CAIRO_OBJECT_PATTERN_H__
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_pattern declaration
@@ -22,6 +22,6 @@ public:
 	inline cairo_pattern_t *GetEntity() { return _pattern; }
 };
 
-}}
+Gura_EndModuleScope(cairo)
 
 #endif

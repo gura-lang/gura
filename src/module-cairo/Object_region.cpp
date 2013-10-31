@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_region implementation
@@ -493,4 +493,4 @@ Gura_ImplementUserClass(region)
 	Gura_AssignMethod(region, xor_rectangle);
 }
 
-}}
+Gura_EndModuleScope(cairo)

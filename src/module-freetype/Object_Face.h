@@ -1,7 +1,7 @@
 #ifndef __FREETYPE_OBJECT_FACE_H__
 #define __FREETYPE_OBJECT_FACE_H__
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_Face declaration
@@ -32,6 +32,6 @@ public:
 	bool Initialize(Environment &env, Signal sig, Stream *pSstream, int index);
 };
 
-}}
+Gura_EndModuleScope(freetype)
 
 #endif

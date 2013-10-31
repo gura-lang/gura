@@ -6,7 +6,7 @@
 #undef Above
 #undef Below
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Class derivation
@@ -285,4 +285,4 @@ Gura_ImplementDescendantCreator(wx_IndividualLayoutConstraint)
 	return new Object_wx_IndividualLayoutConstraint((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

@@ -1,7 +1,7 @@
 #ifndef __CAIRO_OBJECT_TEXT_EXTENTS_H__
 #define __CAIRO_OBJECT_TEXT_EXTENTS_H__
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_text_extents declaration
@@ -25,6 +25,6 @@ public:
 	inline cairo_text_extents_t &GetEntity() { return _text_extents; }
 };
 
-}}
+Gura_EndModuleScope(cairo)
 
 #endif

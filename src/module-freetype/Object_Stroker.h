@@ -1,7 +1,7 @@
 #ifndef __FREETYPE_OBJECT_STROKER_H__
 #define __FREETYPE_OBJECT_STROKER_H__
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_Stroker declaration
@@ -27,6 +27,6 @@ public:
 	inline const FT_Stroker &GetEntity() const { return _stroker; }
 };
 
-}}
+Gura_EndModuleScope(freetype)
 
 #endif

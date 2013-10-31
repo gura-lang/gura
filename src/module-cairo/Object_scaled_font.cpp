@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_scaled_font implementation
@@ -99,4 +99,4 @@ Gura_ImplementUserClass(scaled_font)
 	Gura_AssignMethod(scaled_font, create);
 }
 
-}}
+Gura_EndModuleScope(cairo)

@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(CanCopy);
 Gura_DeclarePrivUserSymbol(CanCut);
@@ -1096,4 +1096,4 @@ Gura_ImplementDescendantCreator(wx_TextCtrl)
 	return new Object_wx_TextCtrl((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

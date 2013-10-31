@@ -1,7 +1,7 @@
 #ifndef __CAIRO_OBJECT_PS_SURFACE_H__
 #define __CAIRO_OBJECT_PS_SURFACE_H__
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_ps_surface declaration
@@ -16,6 +16,6 @@ public:
 				Object_Writer_surface(surface, pWriter) {}
 };
 
-}}
+Gura_EndModuleScope(cairo)
 
 #endif

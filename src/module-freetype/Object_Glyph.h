@@ -1,7 +1,7 @@
 #ifndef __FREETYPE_OBJECT_GLYPH_H__
 #define __FREETYPE_OBJECT_GLYPH_H__
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_Glyph declaration
@@ -29,6 +29,6 @@ public:
 	inline const FT_Glyph *GetEntity() const { return _pGlyph; }
 };
 
-}}
+Gura_EndModuleScope(freetype)
 
 #endif

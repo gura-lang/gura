@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //-----------------------------------------------------------------------------
 // utilities
@@ -3716,4 +3716,4 @@ Value GridCellCoordsArrayToValue(Environment &env, const wxGridCellCoordsArray &
 	return rtn;
 }
 
-}}
+Gura_EndModuleScope(wx)

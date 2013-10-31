@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_toy_font_face implementation
@@ -103,4 +103,4 @@ Gura_ImplementUserClass(toy_font_face)
 	Gura_AssignMethod(toy_font_face, get_weight);
 }
 
-}}
+Gura_EndModuleScope(cairo)

@@ -1,6 +1,6 @@
 #include "Sequence.h"
 
-Gura_BeginModule(midi)
+Gura_BeginModuleScope(midi)
 
 //-----------------------------------------------------------------------------
 // Track
@@ -131,4 +131,4 @@ void TrackOwner::Clear()
 	clear();
 }
 
-}}
+Gura_EndModuleScope(midi)

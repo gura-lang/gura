@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(GetAllFormats);
 Gura_DeclarePrivUserSymbol(GetDataHere);
@@ -252,4 +252,4 @@ Gura_ImplementDescendantCreator(wx_DataObject)
 	return new Object_wx_DataObject((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

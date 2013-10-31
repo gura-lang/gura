@@ -5,7 +5,7 @@
 #ifndef __OBJECT_WX_GLCANVAS_H__
 #define __OBJECT_WX_GLCANVAS_H__
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Class declaration for wxGLCanvas
@@ -41,6 +41,6 @@ public:
 	}
 };
 
-}}
+Gura_EndModuleScope(wx)
 
 #endif

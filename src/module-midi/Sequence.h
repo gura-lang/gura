@@ -4,7 +4,7 @@
 #include "Track.h"
 #include "Player.h"
 
-Gura_BeginModule(midi)
+Gura_BeginModuleScope(midi)
 
 //-----------------------------------------------------------------------------
 // Sequence
@@ -46,6 +46,6 @@ public:
 	bool ParseStringMML(Signal sig, const char *str);
 };
 
-}}
+Gura_EndModuleScope(midi)
 
 #endif

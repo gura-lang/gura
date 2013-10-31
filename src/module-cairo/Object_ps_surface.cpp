@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_ps_surface implementation
@@ -157,4 +157,4 @@ Gura_ImplementUserClass(ps_surface)
 	Gura_AssignMethod(ps_surface, dsc_comment);
 }
 
-}}
+Gura_EndModuleScope(cairo)

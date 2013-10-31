@@ -1,7 +1,7 @@
 #ifndef __FREETYPE_OBJECT_FTC_IMAGETYPE_H__
 #define __FREETYPE_OBJECT_FTC_IMAGETYPE_H__
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_FTC_ImageType declaration
@@ -29,6 +29,6 @@ public:
 	inline const FTC_ImageType &GetEntity() const { return _imageType; }
 };
 
-}}
+Gura_EndModuleScope(freetype)
 
 #endif

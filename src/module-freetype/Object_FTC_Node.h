@@ -1,7 +1,7 @@
 #ifndef __FREETYPE_OBJECT_FTC_NODE_H__
 #define __FREETYPE_OBJECT_FTC_NODE_H__
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_FTC_Node declaration
@@ -29,6 +29,6 @@ public:
 	inline const FTC_Node &GetEntity() const { return _node; }
 };
 
-}}
+Gura_EndModuleScope(freetype)
 
 #endif

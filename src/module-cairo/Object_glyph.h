@@ -1,7 +1,7 @@
 #ifndef __CAIRO_OBJECT_GLYPH_H__
 #define __CAIRO_OBJECT_GLYPH_H__
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_glyph declaration
@@ -24,6 +24,6 @@ public:
 	inline int GetNumGlyphs() const { return _num_glyphs; }
 };
 
-}}
+Gura_EndModuleScope(cairo)
 
 #endif

@@ -1,7 +1,7 @@
 #ifndef __FREETYPE_OBJECT_FONT_H__
 #define __FREETYPE_OBJECT_FONT_H__
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_font declaration
@@ -71,6 +71,6 @@ private:
 				int xOffset, int yOffset);
 };
 
-}}
+Gura_EndModuleScope(freetype)
 
 #endif

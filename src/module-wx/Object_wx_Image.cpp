@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Class derivation
@@ -1922,4 +1922,4 @@ Gura_ImplementCastTo(wx_Image)
 	return false;
 }
 
-}}
+Gura_EndModuleScope(wx)

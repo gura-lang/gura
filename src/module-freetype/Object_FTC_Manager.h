@@ -1,7 +1,7 @@
 #ifndef __FREETYPE_OBJECT_FTC_MANAGER_H__
 #define __FREETYPE_OBJECT_FTC_MANAGER_H__
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_FTC_Manager declaration
@@ -29,6 +29,6 @@ public:
 	inline const FTC_Manager &GetEntity() const { return _manager; }
 };
 
-}}
+Gura_EndModuleScope(freetype)
 
 #endif

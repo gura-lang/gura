@@ -5,7 +5,7 @@
 #ifndef __OBJECT_WX_LANGUAGEINFO_H__
 #define __OBJECT_WX_LANGUAGEINFO_H__
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Class declaration for wxLanguageInfo
@@ -59,6 +59,6 @@ public:
 	}
 };
 
-}}
+Gura_EndModuleScope(wx)
 
 #endif

@@ -1,7 +1,7 @@
 #ifndef __CAIRO_OBJECT_RECTANGLE_INT_H__
 #define __CAIRO_OBJECT_RECTANGLE_INT_H__
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_rectangle_int declaration
@@ -27,6 +27,6 @@ public:
 	inline cairo_rectangle_int_t &GetEntity() { return _rectangle; }
 };
 
-}}
+Gura_EndModuleScope(cairo)
 
 #endif

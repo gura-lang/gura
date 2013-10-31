@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(AddToolbarButtons);
 
@@ -316,4 +316,4 @@ Gura_ImplementDescendantCreator(wx_HtmlHelpDialog)
 	return new Object_wx_HtmlHelpDialog((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

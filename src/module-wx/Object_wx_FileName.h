@@ -5,7 +5,7 @@
 #ifndef __OBJECT_WX_FILENAME_H__
 #define __OBJECT_WX_FILENAME_H__
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Class declaration for wxFileName
@@ -54,6 +54,6 @@ public:
 	}
 };
 
-}}
+Gura_EndModuleScope(wx)
 
 #endif

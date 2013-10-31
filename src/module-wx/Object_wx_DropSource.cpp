@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(DoDragDrop);
 Gura_DeclarePrivUserSymbol(GiveFeedback);
@@ -280,4 +280,4 @@ Gura_ImplementDescendantCreator(wx_DropSource)
 	return new Object_wx_DropSource((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

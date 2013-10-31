@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_glyph implementation
@@ -45,4 +45,4 @@ Gura_ImplementUserClass(glyph)
 	Gura_AssignMethod(glyph, allocate);
 }
 
-}}
+Gura_EndModuleScope(cairo)

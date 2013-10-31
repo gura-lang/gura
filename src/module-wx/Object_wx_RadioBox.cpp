@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(Enable);
 Gura_DeclarePrivUserSymbol(EnableItem);
@@ -559,4 +559,4 @@ Gura_ImplementDescendantCreator(wx_RadioBox)
 	return new Object_wx_RadioBox((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

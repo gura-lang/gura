@@ -1,7 +1,7 @@
 #ifndef __FREETYPE_OBJECT_GLYPHSLOT_H__
 #define __FREETYPE_OBJECT_GLYPHSLOT_H__
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_GlyphSlot declaration
@@ -28,6 +28,6 @@ public:
 	inline const FT_GlyphSlot &GetEntity() const { return _glyphSlot; }
 };
 
-}}
+Gura_EndModuleScope(freetype)
 
 #endif

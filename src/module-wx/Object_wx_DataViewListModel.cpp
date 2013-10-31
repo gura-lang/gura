@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(GetColType);
 Gura_DeclarePrivUserSymbol(GetNumberOfCols);
@@ -502,4 +502,4 @@ Gura_ImplementDescendantCreator(wx_DataViewListModel)
 	return new Object_wx_DataViewListModel((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

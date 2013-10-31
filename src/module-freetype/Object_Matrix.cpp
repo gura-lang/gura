@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_Matrix implementation
@@ -170,4 +170,4 @@ Gura_ImplementCastTo(Matrix)
 	return false;
 }
 
-}}
+Gura_EndModuleScope(freetype)

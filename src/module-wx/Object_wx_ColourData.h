@@ -5,7 +5,7 @@
 #ifndef __OBJECT_WX_COLOURDATA_H__
 #define __OBJECT_WX_COLOURDATA_H__
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Class declaration for wxColourData
@@ -41,6 +41,6 @@ public:
 	}
 };
 
-}}
+Gura_EndModuleScope(wx)
 
 #endif

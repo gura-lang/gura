@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(EstimateTotalHeight);
 Gura_DeclarePrivUserSymbol(OnGetLineHeight);
@@ -500,4 +500,4 @@ Gura_ImplementDescendantCreator(wx_VScrolledWindow)
 	return new Object_wx_VScrolledWindow((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_Stroker implementation
@@ -115,4 +115,4 @@ Gura_ImplementUserClass(Stroker)
 	Gura_AssignMethod(Stroker, BeginSubPath);
 }
 
-}}
+Gura_EndModuleScope(freetype)

@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(AddBookCtrl);
 Gura_DeclarePrivUserSymbol(CreateBookCtrl);
@@ -352,4 +352,4 @@ Gura_ImplementDescendantCreator(wx_PropertySheetDialog)
 	return new Object_wx_PropertySheetDialog((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

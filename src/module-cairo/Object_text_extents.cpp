@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_text_extents implementation
@@ -60,4 +60,4 @@ Gura_ImplementUserClass(text_extents)
 {
 }
 
-}}
+Gura_EndModuleScope(cairo)

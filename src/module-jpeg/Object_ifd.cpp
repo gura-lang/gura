@@ -1,7 +1,7 @@
 #include "module-jpeg.h"
 #include "Object_ifd.h"
 
-Gura_BeginModule(jpeg)
+Gura_BeginModuleScope(jpeg)
 
 //-----------------------------------------------------------------------------
 // utility functions
@@ -419,4 +419,4 @@ Gura_ImplementUserClass(ifd)
 	Gura_AssignMethod(ifd, each);
 }
 
-}}
+Gura_EndModuleScope(jpeg)

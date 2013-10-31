@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_device implementation
@@ -125,4 +125,4 @@ Gura_ImplementUserClass(device)
 	Gura_AssignMethod(device, release);
 }
 
-}}
+Gura_EndModuleScope(cairo)

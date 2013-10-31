@@ -1,7 +1,7 @@
 #ifndef __FREETYPE_OBJECT_BDF_PROPERTY_H__
 #define __FREETYPE_OBJECT_BDF_PROPERTY_H__
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_BDF_Property declaration
@@ -29,6 +29,6 @@ public:
 	inline const BDF_Property &GetEntity() const { return _property; }
 };
 
-}}
+Gura_EndModuleScope(freetype)
 
 #endif

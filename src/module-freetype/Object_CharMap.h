@@ -1,7 +1,7 @@
 #ifndef __FREETYPE_OBJECT_CHARMAP_H__
 #define __FREETYPE_OBJECT_CHARMAP_H__
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_CharMap declaration
@@ -29,6 +29,6 @@ public:
 	inline const FT_CharMap &GetEntity() const { return _charMap; }
 };
 
-}}
+Gura_EndModuleScope(freetype)
 
 #endif

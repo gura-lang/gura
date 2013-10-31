@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(AddTagHandler);
 Gura_DeclarePrivUserSymbol(AddWord);
@@ -402,4 +402,4 @@ Gura_ImplementDescendantCreator(wx_HtmlParser)
 	return new Object_wx_HtmlParser((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

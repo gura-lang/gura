@@ -1,7 +1,7 @@
 #ifndef __CAIRO_OBJECT_TEXT_CLUSTER_H__
 #define __CAIRO_OBJECT_TEXT_CLUSTER_H__
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_text_cluster declaration
@@ -24,6 +24,6 @@ public:
 	inline int GetNumClusters() const { return _num_clusters; }
 };
 
-}}
+Gura_EndModuleScope(cairo)
 
 #endif

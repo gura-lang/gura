@@ -5,7 +5,7 @@
 #ifndef __OBJECT_WX_OBJECT_H__
 #define __OBJECT_WX_OBJECT_H__
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Class declaration for wxObject
@@ -70,6 +70,6 @@ public:
 	virtual void GuraObjectDeleted();
 };
 
-}}
+Gura_EndModuleScope(wx)
 
 #endif

@@ -1,7 +1,7 @@
 #ifndef __FREETYPE_OBJECT_OUTLINE_H__
 #define __FREETYPE_OBJECT_OUTLINE_H__
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_Outline declaration
@@ -28,6 +28,6 @@ public:
 	inline const FT_Outline *GetEntity() const { return _outline; }
 };
 
-}}
+Gura_EndModuleScope(freetype)
 
 #endif

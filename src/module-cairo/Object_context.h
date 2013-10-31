@@ -1,7 +1,7 @@
 #ifndef __OBJECT_CAIRO_CONTEXT_H__
 #define __OBJECT_CAIRO_CONTEXT_H__
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 class Writer;
 class Object_surface;
@@ -35,6 +35,6 @@ public:
 	void Destroy();
 };
 
-}}
+Gura_EndModuleScope(cairo)
 
 #endif

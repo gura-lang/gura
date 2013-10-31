@@ -1,7 +1,7 @@
 #ifndef __FREETYPE_OBJECT_FTC_SBITCACHE_H__
 #define __FREETYPE_OBJECT_FTC_SBITCACHE_H__
 
-Gura_BeginModule(freetype)
+Gura_BeginModuleScope(freetype)
 
 //-----------------------------------------------------------------------------
 // Object_FTC_SBitCache declaration
@@ -29,6 +29,6 @@ public:
 	inline const FTC_SBitCache &GetEntity() const { return _sbitCache; }
 };
 
-}}
+Gura_EndModuleScope(freetype)
 
 #endif

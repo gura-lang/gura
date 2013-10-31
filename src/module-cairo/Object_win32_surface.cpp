@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //-----------------------------------------------------------------------------
 // Object_win32_surface implementation
@@ -111,4 +111,4 @@ Gura_ImplementUserClass(win32_surface)
 #endif
 }
 
-}}
+Gura_EndModuleScope(cairo)

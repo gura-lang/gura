@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(GetAttr);
 
@@ -142,4 +142,4 @@ Gura_ImplementDescendantCreator(wx_GridCellAttrProvider)
 	return new Object_wx_GridCellAttrProvider((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

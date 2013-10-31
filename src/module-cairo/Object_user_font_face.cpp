@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Gura_BeginModule(cairo)
+Gura_BeginModuleScope(cairo)
 
 //static cairo_user_data_key_t Object_user_font_face::key_ObjFontFaceL;
 
@@ -83,4 +83,4 @@ Gura_ImplementUserClass(user_font_face)
 	Gura_AssignMethod(user_font_face, create);
 }
 
-}}
+Gura_EndModuleScope(cairo)

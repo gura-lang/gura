@@ -3,7 +3,7 @@
 #include <gura.h>
 #include "Object_tag.h"
 
-Gura_BeginModule(jpeg)
+Gura_BeginModuleScope(jpeg)
 
 //-----------------------------------------------------------------------------
 // Object_ifd declaration
@@ -50,6 +50,6 @@ public:
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 
-}}
+Gura_EndModuleScope(jpeg)
 
 #endif

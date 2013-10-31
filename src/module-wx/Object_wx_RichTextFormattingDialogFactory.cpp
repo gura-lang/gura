@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(CreateButtons);
 Gura_DeclarePrivUserSymbol(CreatePage);
@@ -263,4 +263,4 @@ Gura_ImplementDescendantCreator(wx_RichTextFormattingDialogFactory)
 	return new Object_wx_RichTextFormattingDialogFactory((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
 }
 
-}}
+Gura_EndModuleScope(wx)

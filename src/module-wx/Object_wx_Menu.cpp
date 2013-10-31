@@ -4,7 +4,7 @@
 //----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 Value MenuItemListToValue(Environment &env, const wxMenuItemList &list);
 
@@ -906,4 +906,4 @@ Value MenuItemListToValue(Environment &env, const wxMenuItemList &list)
 	return rtn;
 }
 
-}}
+Gura_EndModuleScope(wx)

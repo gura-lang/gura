@@ -4,7 +4,7 @@
 #include "module-jpeg.h"
 #include "Object_ifd.h"
 
-Gura_BeginModule(jpeg)
+Gura_BeginModuleScope(jpeg)
 
 //-----------------------------------------------------------------------------
 // Object_exif declaration
@@ -38,6 +38,6 @@ public:
 	static Object_exif *ReadStream(Environment &env, Signal sig, Stream &stream);
 };
 
-}}
+Gura_EndModuleScope(jpeg)
 
 #endif

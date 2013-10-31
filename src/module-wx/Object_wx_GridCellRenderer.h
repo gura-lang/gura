@@ -5,7 +5,7 @@
 #ifndef __OBJECT_WX_GRIDCELLRENDERER_H__
 #define __OBJECT_WX_GRIDCELLRENDERER_H__
 
-Gura_BeginModule(wx)
+Gura_BeginModuleScope(wx)
 
 //----------------------------------------------------------------------------
 // Class declaration for wxGridCellRenderer
@@ -45,6 +45,6 @@ public:
 					const wxRect &rect, int row, int col, bool isSelected);
 };
 
-}}
+Gura_EndModuleScope(wx)
 
 #endif
