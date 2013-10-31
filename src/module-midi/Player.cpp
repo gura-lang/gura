@@ -1,4 +1,4 @@
-#include "module-midi.h"
+#include "stdafx.h"
 #include "Player.h"
 
 Gura_BeginModuleScope(midi)

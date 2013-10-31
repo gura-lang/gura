@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // Gura emf (Enhanced Metafiles in Win32) module
 //-----------------------------------------------------------------------------
-#include "module-emf.h"
+#include "stdafx.h"
 
 Gura_BeginModuleBody(emf)
 

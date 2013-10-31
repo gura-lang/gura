@@ -1,4 +1,4 @@
-#include "module-jpeg.h"
+#include "stdafx.h"
 #include "Object_tag.h"
 #include "Object_ifd.h"
 

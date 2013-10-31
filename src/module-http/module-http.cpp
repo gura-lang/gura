@@ -1,23 +1,7 @@
 //-----------------------------------------------------------------------------
 // Gura http module
 //-----------------------------------------------------------------------------
-#include <gura.h>
-#include <gura/helper/ZLibHelper.h>
-#include <algorithm>
-
-#if defined(GURA_ON_MSWIN)
-typedef int socklen_t;
-#else
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <netdb.h>
-
-inline void closesocket(int sock) { close(sock); }
-#endif
-
-#include "module-http.h"
+#include "stdafx.h"
 
 Gura_BeginModuleBody(http)
 

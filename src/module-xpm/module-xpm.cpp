@@ -2,7 +2,7 @@
 // Gura xpm module
 // As fot the XPM format, see http://www.fileformat.info/format/xpm/egff.htm
 //-----------------------------------------------------------------------------
-#include "module-xpm.h"
+#include "stdafx.h"
 
 Gura_BeginModuleBody(xpm)
 

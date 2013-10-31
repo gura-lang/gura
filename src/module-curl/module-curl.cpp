@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // Gura curl module
 //-----------------------------------------------------------------------------
-#include "module-curl.h"
+#include "stdafx.h"
 
 #define Gura_AssignValueCURLINFO(name) \
 Gura_AssignValue(INFO_##name, Value(CURLINFO_##name))

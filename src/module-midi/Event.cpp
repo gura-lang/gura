@@ -1,4 +1,4 @@
-#include "module-midi.h"
+#include "stdafx.h"
 #include "Event.h"
 #include "Sequence.h"
 

@@ -2,7 +2,7 @@
 // Gura zip module
 // specification: http://www.pkware.com/documents/casestudies/APPNOTE.TXT
 //-----------------------------------------------------------------------------
-#include "module-zip.h"
+#include "stdafx.h"
 
 Gura_BeginModuleBody(zip)
 

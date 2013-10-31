@@ -2,7 +2,7 @@
 // Gura glu module
 // see http://www.opengl.org/sdk/docs/man/ for detailed information of each API
 //-----------------------------------------------------------------------------
-#include "module-glu.h"
+#include "stdafx.h"
 
 #if defined(GURA_ON_MSWIN)
 #else

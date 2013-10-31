@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // Gura postgresql module
 //-----------------------------------------------------------------------------
-#include "module-postgresql.h"
+#include "stdafx.h"
 
 Gura_BeginModuleBody(postgresql)
 

@@ -2,7 +2,7 @@
 // Gura opengl module
 // see http://www.opengl.org/sdk/docs/man/ for detailed information of each API
 //-----------------------------------------------------------------------------
-#include "module-opengl.h"
+#include "stdafx.h"
 
 Gura_BeginModuleBody(opengl)
 

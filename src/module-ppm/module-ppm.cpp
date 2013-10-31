@@ -3,7 +3,7 @@
 // PPM specification:
 // http://local.wasp.uwa.edu.au/~pbourke/dataformats/ppm/
 //-----------------------------------------------------------------------------
-#include "module-ppm.h"
+#include "stdafx.h"
 
 Gura_BeginModuleBody(ppm)
 

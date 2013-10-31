@@ -1,4 +1,4 @@
-#include "module-jpeg.h"
+#include "stdafx.h"
 #include "Object_ifd.h"
 
 Gura_BeginModuleScope(jpeg)

@@ -2,7 +2,7 @@
 // Gura tcl module
 // Tcl/Tk manual: http://www.tcl.tk/man/tcl8.5/
 //-----------------------------------------------------------------------------
-#include "module-tcl.h"
+#include "stdafx.h"
 
 Gura_BeginModuleBody(tcl)
 

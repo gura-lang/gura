@@ -2,7 +2,7 @@
 // Gura tar module
 // http://www.gnu.org/software/tar/manual/html_node/Standard.html
 //-----------------------------------------------------------------------------
-#include "module-tar.h"
+#include "stdafx.h"
 
 Gura_BeginModuleBody(tar)
 

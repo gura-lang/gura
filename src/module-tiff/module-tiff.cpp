@@ -5,7 +5,7 @@
 // http://www.ibm.com/developerworks/jp/linux/library/l-libtiff/
 // http://www.ibm.com/developerworks/jp/linux/library/l-libtiff2/
 //-----------------------------------------------------------------------------
-#include "module-tiff.h"
+#include "stdafx.h"
 
 Gura_BeginModuleBody(tiff)
 

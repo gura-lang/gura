@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // Gura mswin module
 //-----------------------------------------------------------------------------
-#include "module-mswin.h"
+#include "stdafx.h"
 #include <ATLComTime.h>
 
 Gura_BeginModuleBody(mswin)

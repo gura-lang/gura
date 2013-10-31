@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // Gura markdown module
 //-----------------------------------------------------------------------------
-#include "module-markdown.h"
+#include "stdafx.h"
 
 Gura_BeginModuleBody(markdown)
 
