@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include <gura.h>
 
-Gura_BeginModuleBody(basement, basement)
+Gura_BeginModuleBody(basement)
 
 #define REPEATER_HELP \
 "It returns the last evaluated value in the block as its own result,\n" \

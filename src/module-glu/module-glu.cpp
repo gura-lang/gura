@@ -9,7 +9,7 @@
 #define __stdcall
 #endif
 
-Gura_BeginModuleBody(glu, glu)
+Gura_BeginModuleBody(glu)
 
 //-----------------------------------------------------------------------------
 // helper

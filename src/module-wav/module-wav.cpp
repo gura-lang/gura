@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-wav.h"
 
-Gura_BeginModuleBody(wav, wav)
+Gura_BeginModuleBody(wav)
 
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_audio

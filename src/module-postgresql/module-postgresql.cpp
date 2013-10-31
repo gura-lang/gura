@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-postgresql.h"
 
-Gura_BeginModuleBody(postgresql, postgresql)
+Gura_BeginModuleBody(postgresql)
 
 //-----------------------------------------------------------------------------
 // Object_postgresql

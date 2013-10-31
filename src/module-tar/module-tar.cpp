@@ -4,7 +4,7 @@
 //-----------------------------------------------------------------------------
 #include "module-tar.h"
 
-Gura_BeginModuleBody(tar, tar)
+Gura_BeginModuleBody(tar)
 
 //-----------------------------------------------------------------------------
 // TAR format data types

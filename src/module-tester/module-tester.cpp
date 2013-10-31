@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-tester.h"
 
-Gura_BeginModuleBody(tester, tester)
+Gura_BeginModuleBody(tester)
 
 //-----------------------------------------------------------------------------
 // Thread1

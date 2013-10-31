@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-midi.h"
 
-Gura_BeginModuleBody(midi, midi)
+Gura_BeginModuleBody(midi)
 
 Value ActivatePlayer(Environment &env, Signal sig, Args &args,
 				Sequence &sequence, Port *pPort, double speed, int cntRepeat);

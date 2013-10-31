@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModuleBody(math, math)
+Gura_BeginModuleBody(math)
 
 //-----------------------------------------------------------------------------
 // Gura module functions

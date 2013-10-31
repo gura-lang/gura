@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-sqlite3.h"
 
-Gura_BeginModuleBody(sqlite3, sqlite3)
+Gura_BeginModuleBody(sqlite3)
 
 //-----------------------------------------------------------------------------
 // Object_db

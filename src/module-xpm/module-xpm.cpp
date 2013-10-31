@@ -4,7 +4,7 @@
 //-----------------------------------------------------------------------------
 #include "module-xpm.h"
 
-Gura_BeginModuleBody(xpm, xpm)
+Gura_BeginModuleBody(xpm)
 
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_image

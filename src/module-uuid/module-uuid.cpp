@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-uuid.h"
 
-Gura_BeginModuleBody(uuid, uuid)
+Gura_BeginModuleBody(uuid)
 
 //-----------------------------------------------------------------------------
 // Gura module functions: uuid

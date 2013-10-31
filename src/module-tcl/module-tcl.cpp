@@ -4,7 +4,7 @@
 //-----------------------------------------------------------------------------
 #include "module-tcl.h"
 
-Gura_BeginModuleBody(tcl, tcl)
+Gura_BeginModuleBody(tcl)
 
 TCL_DECLARE_MUTEX(g_mutex)
 

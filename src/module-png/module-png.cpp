@@ -5,7 +5,7 @@
 
 #define SetRGBOrder(png_ptr) ::png_set_bgr(png_ptr)
 
-Gura_BeginModuleBody(png, png)
+Gura_BeginModuleBody(png)
 
 //-----------------------------------------------------------------------------
 // Gura interfaces for image

@@ -9,7 +9,7 @@ Gura_AssignValueEx(#name, Value(static_cast<double>(name)))
 #define Gura_AssignFTValue(name) \
 Gura_AssignValueEx(#name, Value(static_cast<double>(FT_##name)))
 
-Gura_BeginModuleBody(freetype, freetype)
+Gura_BeginModuleBody(freetype)
 
 FT_Library g_lib;
 

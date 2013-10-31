@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModuleBody(codecs_basic, basic)
+Gura_BeginModuleBody(codecs_basic)
 
 //-----------------------------------------------------------------------------
 // Codec_USASCII

@@ -5,7 +5,7 @@
 //-----------------------------------------------------------------------------
 #include "module-ppm.h"
 
-Gura_BeginModuleBody(ppm, ppm)
+Gura_BeginModuleBody(ppm)
 
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_image

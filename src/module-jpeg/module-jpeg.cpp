@@ -4,7 +4,7 @@
 #include "module-jpeg.h"
 #include "Object_exif.h"
 
-Gura_BeginModuleBody(jpeg, jpeg)
+Gura_BeginModuleBody(jpeg)
 
 // 4.6.4 TIFF Rev.6.0 Attribute Information
 static const TagInfo g_tagInfoTbl[] = {

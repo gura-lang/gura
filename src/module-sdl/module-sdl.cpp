@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-sdl.h"
 
-Gura_BeginModuleBody(sdl, sdl)
+Gura_BeginModuleBody(sdl)
 
 //-----------------------------------------------------------------------------
 // Object_Cursor implementation

@@ -4,7 +4,7 @@
 //-----------------------------------------------------------------------------
 #include "module-opengl.h"
 
-Gura_BeginModuleBody(opengl, opengl)
+Gura_BeginModuleBody(opengl)
 
 //-----------------------------------------------------------------------------
 // helper

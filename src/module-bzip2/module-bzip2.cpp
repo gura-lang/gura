@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-bzip2.h"
 
-Gura_BeginModuleBody(bzip2, bzip2)
+Gura_BeginModuleBody(bzip2)
 
 //-----------------------------------------------------------------------------
 // Gura module functions: bzip2

@@ -25,7 +25,7 @@ Gura_RealizeUserClassExWithoutPrepare(wx_##className, #className, Gura_UserClass
 #define PrepareClass(className) \
 Gura_UserClass(wx_##className)->Prepare(env)
 
-Gura_BeginModuleBody(wx, wx)
+Gura_BeginModuleBody(wx)
 
 const bool OwnerTrue = true;
 const bool OwnerFalse = false;

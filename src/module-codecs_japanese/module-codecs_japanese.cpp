@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModuleBody(codecs_japanese, japanese)
+Gura_BeginModuleBody(codecs_japanese)
 
 //-----------------------------------------------------------------------------
 // Codec_CP932

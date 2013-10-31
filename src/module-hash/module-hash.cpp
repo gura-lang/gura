@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-hash.h"
 
-Gura_BeginModuleBody(hash, hash)
+Gura_BeginModuleBody(hash)
 
 Gura_DeclareUserSymbol(digest);
 Gura_DeclareUserSymbol(hexdigest);

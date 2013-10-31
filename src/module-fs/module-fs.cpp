@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModuleBody(fs, fs)
+Gura_BeginModuleBody(fs)
 
 Gura_DeclarePrivUserSymbol(pathname);
 Gura_DeclarePrivUserSymbol(dirname);

@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-gzip.h"
 
-Gura_BeginModuleBody(gzip, gzip)
+Gura_BeginModuleBody(gzip)
 
 //-----------------------------------------------------------------------------
 // Gura module functions: gzip

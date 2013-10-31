@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-msico.h"
 
-Gura_BeginModuleBody(msico, msico)
+Gura_BeginModuleBody(msico)
 
 //-----------------------------------------------------------------------------
 // Object_content

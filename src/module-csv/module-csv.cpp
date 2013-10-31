@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-csv.h"
 
-Gura_BeginModuleBody(csv, csv)
+Gura_BeginModuleBody(csv)
 
 static const char *DEFAULT_FORMAT = "%g";
 

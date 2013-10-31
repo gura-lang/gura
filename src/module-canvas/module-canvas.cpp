@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-canvas.h"
 
-Gura_BeginModuleBody(canvas, canvas)
+Gura_BeginModuleBody(canvas)
 
 //-----------------------------------------------------------------------------
 // Anchor

@@ -4,7 +4,7 @@
 //-----------------------------------------------------------------------------
 #include "module-zip.h"
 
-Gura_BeginModuleBody(zip, zip)
+Gura_BeginModuleBody(zip)
 
 //-----------------------------------------------------------------------------
 // Implementation of Object_reader

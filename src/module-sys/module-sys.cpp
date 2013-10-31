@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include <gura.h>
 
-Gura_BeginModuleBody(sys, sys)
+Gura_BeginModuleBody(sys)
 
 //-----------------------------------------------------------------------------
 // Gura module functions: sys

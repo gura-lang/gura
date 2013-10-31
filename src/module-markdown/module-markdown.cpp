@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-markdown.h"
 
-Gura_BeginModuleBody(markdown, markdown)
+Gura_BeginModuleBody(markdown)
 
 AutoPtr<Function> g_pFunc_Presenter;
 

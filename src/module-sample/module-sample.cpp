@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-sample.h"
 
-Gura_BeginModuleBody(sample, sample)
+Gura_BeginModuleBody(sample)
 
 //-----------------------------------------------------------------------------
 // Object_foo implementation

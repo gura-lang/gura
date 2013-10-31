@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-guri.h"
 
-Gura_BeginModuleBody(guri, guri)
+Gura_BeginModuleBody(guri)
 
 //-----------------------------------------------------------------------------
 // Gura module functions: guri

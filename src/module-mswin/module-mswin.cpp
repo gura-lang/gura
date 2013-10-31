@@ -4,7 +4,7 @@
 #include "module-mswin.h"
 #include <ATLComTime.h>
 
-Gura_BeginModuleBody(mswin, mswin)
+Gura_BeginModuleBody(mswin)
 
 //-----------------------------------------------------------------------------
 // Object_regkey implementation

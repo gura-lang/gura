@@ -5,7 +5,7 @@
 
 #define Gura_AssignValueOf(v) Gura_AssignValue(v, v)
 
-Gura_BeginModuleBody(conio, conio)
+Gura_BeginModuleBody(conio)
 
 enum {
 	K_BACKSPACE	= 0x7f,

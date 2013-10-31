@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModuleBody(base64, base64)
+Gura_BeginModuleBody(base64)
 
 //-----------------------------------------------------------------------------
 // Gura module functions: base64

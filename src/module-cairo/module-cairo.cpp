@@ -10,7 +10,7 @@ Gura_AssignValue(name, Value(CAIRO_##name))
 #define Gura_AssignCairoStringValue(name) \
 Gura_AssignValue(name, Value(env, CAIRO_##name))
 
-Gura_BeginModuleBody(cairo, cairo)
+Gura_BeginModuleBody(cairo)
 
 //-----------------------------------------------------------------------------
 // Gura interfaces for image

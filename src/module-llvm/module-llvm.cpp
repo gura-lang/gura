@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-llvm.h"
 
-Gura_BeginModuleBody(llvm, llvm)
+Gura_BeginModuleBody(llvm)
 
 static const llvm::Type *NullTy = reinterpret_cast<llvm::Type *>(0);
 

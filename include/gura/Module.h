@@ -17,7 +17,7 @@ GURA_DLLEXPORT void MixIn(Environment &env, Signal sig); \
 GURA_DLLEXPORT Module *Import(Environment &env, Signal sig); \
 }}
 
-#define Gura_BeginModuleBody(name, nameBase) \
+#define Gura_BeginModuleBody(name) \
 namespace Gura { \
 namespace ModuleNS_##name {
 

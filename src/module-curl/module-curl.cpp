@@ -21,7 +21,7 @@ Gura_AssignValue(PAUSE_##name, Value(CURLPAUSE_##name))
 #define Gura_AssignValueVERSION(name) \
 Gura_AssignValue(VERSION_##name, Value(CURL_VERSION_##name))
 
-Gura_BeginModuleBody(curl, curl)
+Gura_BeginModuleBody(curl)
 
 //-----------------------------------------------------------------------------
 // utility functions

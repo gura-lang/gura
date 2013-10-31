@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-yaml.h"
 
-Gura_BeginModuleBody(yaml, yaml)
+Gura_BeginModuleBody(yaml)
 
 //-----------------------------------------------------------------------------
 // Gura module functions: yaml

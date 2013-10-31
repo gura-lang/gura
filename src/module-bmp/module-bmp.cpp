@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-bmp.h"
 
-Gura_BeginModuleBody(bmp, bmp)
+Gura_BeginModuleBody(bmp)
 
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_image

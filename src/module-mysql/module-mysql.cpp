@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------
 #include "module-mysql.h"
 
-Gura_BeginModuleBody(mysql, mysql)
+Gura_BeginModuleBody(mysql)
 
 //-----------------------------------------------------------------------------
 // Object_mysql

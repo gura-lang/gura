@@ -19,7 +19,7 @@ inline void closesocket(int sock) { close(sock); }
 
 #include "module-http.h"
 
-Gura_BeginModuleBody(http, http)
+Gura_BeginModuleBody(http)
 
 static Environment *_pEnvThis = NULL;
 
