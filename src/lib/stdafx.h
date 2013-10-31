@@ -1,5 +1,5 @@
-#ifndef __STDAFX_H__
-#define __STDAFX_H__
+#ifndef __GURA_STDAFX_H__
+#define __GURA_STDAFX_H__
 
 #include <gura.h>
 #include "../module-basement/stdafx.h"
