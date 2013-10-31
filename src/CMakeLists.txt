@@ -71,7 +71,7 @@ install(FILES
   ${GURA_MODULE_DIR}/calendar.gura
   ${GURA_MODULE_DIR}/graph.gura
   ${GURA_MODULE_DIR}/gurcbuild.gura
-  ${GURA_MODULE_DIR}/lets_module.gura
+  ${GURA_MODULE_DIR}/modgen.gura
   ${GURA_MODULE_DIR}/modbuild.gura
   ${GURA_MODULE_DIR}/msxls.gura
   ${GURA_MODULE_DIR}/tk.gura
