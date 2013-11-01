@@ -29,7 +29,7 @@ Class_stream.cpp
 Class_timedelta.cpp
 Class_uri.cpp
 ClassBasic.cpp
-ClassOfStrct.cpp
+ClassOfStruct.cpp
 Codec.cpp
 Codec_Japanese.cpp
 Common.cpp
