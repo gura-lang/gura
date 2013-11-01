@@ -832,7 +832,7 @@ bool Object_stream::IteratorLine::DoNext(Environment &env, Signal sig, Value &va
 
 String Object_stream::IteratorLine::ToString(Signal sig) const
 {
-	return String("<iterator:stream#readlines>");
+	return String("stream#readlines");
 }
 
 void Object_stream::IteratorLine::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)

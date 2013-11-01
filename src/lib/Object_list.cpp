@@ -222,7 +222,7 @@ bool Object_list::IteratorEach::DoNext(Environment &env, Signal sig, Value &valu
 
 String Object_list::IteratorEach::ToString(Signal sig) const
 {
-	return String("<iterator:list#each>");
+	return String("list#each");
 }
 
 void Object_list::IteratorEach::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
@@ -252,7 +252,7 @@ bool Object_list::IteratorReverse::DoNext(Environment &env, Signal sig, Value &v
 
 String Object_list::IteratorReverse::ToString(Signal sig) const
 {
-	return String("<iterator:list#reverse>");
+	return String("list#reverse");
 }
 
 void Object_list::IteratorReverse::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
@@ -284,7 +284,7 @@ bool Object_list::IteratorRound::DoNext(Environment &env, Signal sig, Value &val
 
 String Object_list::IteratorRound::ToString(Signal sig) const
 {
-	return String("<iterator:list#round>");
+	return String("list#round");
 }
 
 void Object_list::IteratorRound::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
@@ -332,7 +332,7 @@ bool Object_list::IteratorPingpong::DoNext(Environment &env, Signal sig, Value &
 
 String Object_list::IteratorPingpong::ToString(Signal sig) const
 {
-	return String("<iterator:list#pingpong>");
+	return String("list#pingpong");
 }
 
 void Object_list::IteratorPingpong::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
@@ -375,7 +375,7 @@ bool Object_list::IteratorFold::DoNext(Environment &env, Signal sig, Value &valu
 
 String Object_list::IteratorFold::ToString(Signal sig) const
 {
-	return String("<iterator:list#fold>");
+	return String("list#fold");
 }
 
 void Object_list::IteratorFold::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
@@ -427,7 +427,7 @@ bool Object_list::IteratorPermutation::DoNext(Environment &env, Signal sig, Valu
 
 String Object_list::IteratorPermutation::ToString(Signal sig) const
 {
-	return String("<iterator:list#permutation>");
+	return String("list#permutation");
 }
 
 void Object_list::IteratorPermutation::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
@@ -473,7 +473,7 @@ bool Object_list::IteratorCombination::DoNext(Environment &env, Signal sig, Valu
 
 String Object_list::IteratorCombination::ToString(Signal sig) const
 {
-	return String("<iterator:list#combination>");
+	return String("list#combination");
 }
 
 void Object_list::IteratorCombination::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)

@@ -759,7 +759,7 @@ bool Palette::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
 
 String Palette::IteratorEach::ToString(Signal sig) const
 {
-	return String("<iterator:palette#each>");
+	return String("palette#each");
 }
 
 void Palette::IteratorEach::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)

@@ -31,7 +31,11 @@ Iterator *Object_iterator::CreateIterator(Signal sig)
 
 String Object_iterator::ToString(Signal sig, bool exprFlag)
 {
-	return _pIterator->ToString(sig);
+	String rtn;
+	rtn += "<iterator:";
+	rtn += _pIterator->ToString(sig);
+	rtn += ">";
+	return rtn;
 }
 
 void Object_iterator::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)

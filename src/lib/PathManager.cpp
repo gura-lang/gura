@@ -242,9 +242,9 @@ bool PathManager::Iterator_Walk::DoNext(Environment &env, Signal sig, Value &val
 String PathManager::Iterator_Walk::ToString(Signal sig) const
 {
 	String str;
-	str = "<iterator:path.walk";
+	str = "path.walk(";
 	str += _statFlag? ":stat" : ":name";
-	str += ">";
+	str += ")";
 	return str;
 }
 
@@ -365,7 +365,7 @@ found:
 
 String PathManager::Iterator_Glob::ToString(Signal sig) const
 {
-	return String("<iterator:path.glob>");
+	return String("path.glob");
 }
 
 void PathManager::Iterator_Glob::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)

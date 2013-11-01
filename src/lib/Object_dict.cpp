@@ -102,7 +102,7 @@ bool Object_dict::IteratorKeys::DoNext(Environment &env, Signal sig, Value &valu
 
 String Object_dict::IteratorKeys::ToString(Signal sig) const
 {
-	return String("<iterator:dict#keys>");
+	return String("dict#keys");
 }
 
 void Object_dict::IteratorKeys::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
@@ -132,7 +132,7 @@ bool Object_dict::IteratorValues::DoNext(Environment &env, Signal sig, Value &va
 
 String Object_dict::IteratorValues::ToString(Signal sig) const
 {
-	return String("<iterator:dict#values>");
+	return String("dict#values");
 }
 
 void Object_dict::IteratorValues::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
@@ -164,7 +164,7 @@ bool Object_dict::IteratorItems::DoNext(Environment &env, Signal sig, Value &val
 
 String Object_dict::IteratorItems::ToString(Signal sig) const
 {
-	return String("<iterator:dict#items>");
+	return String("dict#items");
 }
 
 void Object_dict::IteratorItems::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
@@ -206,7 +206,7 @@ bool Object_dict::IteratorGet::DoNext(Environment &env, Signal sig, Value &value
 
 String Object_dict::IteratorGet::ToString(Signal sig) const
 {
-	return String("<iterator:dict#get>");
+	return String("dict#get");
 }
 
 void Object_dict::IteratorGet::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)

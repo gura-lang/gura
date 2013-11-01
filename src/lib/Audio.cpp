@@ -330,7 +330,7 @@ bool Audio::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
 
 String Audio::IteratorEach::ToString(Signal sig) const
 {
-	return String("<iterator:audio:each>");
+	return String("audio#each");
 }
 
 void Audio::IteratorEach::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)

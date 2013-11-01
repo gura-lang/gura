@@ -568,7 +568,7 @@ bool Iterator::IsContain(Environment &env, Signal sig, const Value &value)
 
 String Iterator::ToString(Signal sig) const
 {
-	return String("<iterator>");
+	return String("");
 }
 
 //-----------------------------------------------------------------------------

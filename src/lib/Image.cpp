@@ -1356,7 +1356,7 @@ bool Image::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
 
 String Image::IteratorEach::ToString(Signal sig) const
 {
-	return String("<iterator:image#each>");
+	return String("image#each");
 }
 
 void Image::IteratorEach::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)

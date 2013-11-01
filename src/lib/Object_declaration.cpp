@@ -90,8 +90,7 @@ bool Iterator_declaration::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_declaration::ToString(Signal sig) const
 {
 	String rtn;
-	rtn += "<iterator:declaration";
-	rtn += ">";
+	rtn += "declaration";
 	return rtn;
 }
 

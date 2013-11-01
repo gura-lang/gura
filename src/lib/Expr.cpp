@@ -632,8 +632,7 @@ bool ExprOwner::Iterator::DoNext(Environment &env, Signal sig, Value &value)
 String ExprOwner::Iterator::ToString(Signal sig) const
 {
 	String rtn;
-	rtn += "<iterator:expr";
-	rtn += ">";
+	rtn += "exprowner";
 	return rtn;
 }
 

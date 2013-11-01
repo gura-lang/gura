@@ -1233,7 +1233,7 @@ bool Class_string::IteratorEach::DoNext(Environment &env, Signal sig, Value &val
 
 String Class_string::IteratorEach::ToString(Signal sig) const
 {
-	return String("<iterator:string:each>");
+	return String("string#each");
 }
 
 void Class_string::IteratorEach::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
@@ -1283,7 +1283,7 @@ bool Class_string::IteratorLine::DoNext(Environment &env, Signal sig, Value &val
 
 String Class_string::IteratorLine::ToString(Signal sig) const
 {
-	return String("<iterator>");
+	return String("string#eachline");
 }
 
 void Class_string::IteratorLine::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
@@ -1339,7 +1339,7 @@ bool Class_string::IteratorSplit::DoNext(Environment &env, Signal sig, Value &va
 
 String Class_string::IteratorSplit::ToString(Signal sig) const
 {
-	return String("<iterator>");
+	return String("string#split");
 }
 
 void Class_string::IteratorSplit::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
@@ -1386,7 +1386,7 @@ bool Class_string::IteratorFold::DoNext(Environment &env, Signal sig, Value &val
 
 String Class_string::IteratorFold::ToString(Signal sig) const
 {
-	return String("<iterator>");
+	return String("string#fold");
 }
 
 void Class_string::IteratorFold::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)

@@ -157,7 +157,7 @@ bool Object_binary::IteratorByte::DoNext(Environment &env, Signal sig, Value &va
 
 String Object_binary::IteratorByte::ToString(Signal sig) const
 {
-	return String("<iterator:binary>");
+	return String("binary#byte");
 }
 
 void Object_binary::IteratorByte::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
@@ -194,7 +194,7 @@ bool Object_binary::IteratorUnpack::DoNext(Environment &env, Signal sig, Value &
 
 String Object_binary::IteratorUnpack::ToString(Signal sig) const
 {
-	return String("<iterator:unpacks>");
+	return String("binary#unpacks");
 }
 
 void Object_binary::IteratorUnpack::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)

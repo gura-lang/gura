@@ -51,9 +51,9 @@ bool Iterator_Constant::DoNext(Environment &env, Signal sig, Value &value)
 
 String Iterator_Constant::ToString(Signal sig) const
 {
-	String rtn = "<iterator:constant:";
+	String rtn = "const(";
 	rtn += _value.ToString(sig, true);
-	rtn += ">";
+	rtn += ")";
 	return rtn;
 }
 
@@ -84,10 +84,10 @@ bool Iterator_ConstantN::DoNext(Environment &env, Signal sig, Value &value)
 
 String Iterator_ConstantN::ToString(Signal sig) const
 {
-	String rtn = "<iterator:constant:";
-	rtn += NumberToString(_cnt);
-	rtn += ":";
+	String rtn = "consts(";
 	rtn += _value.ToString(sig, true);
+	rtn += ",";
+	rtn += NumberToString(_cnt);
 	rtn += ")>";
 	return rtn;
 }
@@ -119,9 +119,9 @@ bool Iterator_OneShot::DoNext(Environment &env, Signal sig, Value &value)
 
 String Iterator_OneShot::ToString(Signal sig) const
 {
-	String rtn = "<iterator:oneshot:";
+	String rtn = "oneshot(";
 	rtn += _value.ToString(sig);
-	rtn += ">";
+	rtn += ")";
 	return rtn;
 }
 
@@ -151,19 +151,19 @@ bool Iterator_Rand::DoNext(Environment &env, Signal sig, Value &value)
 
 String Iterator_Rand::ToString(Signal sig) const
 {
-	String rtn = "<iterator:rands:";
+	String rtn = "rands(";
 	if (_range > 0) {
 		rtn += NumberToString(_range);
 	} else {
-		rtn += "(floating)";
+		rtn += "nil";
 	}
-	rtn += ":";
+	rtn += ",";
 	if (_cnt >= 0) {
 		rtn += NumberToString(_cnt);
 	} else {
-		rtn += "infinite";
+		rtn += "nil";
 	}
-	rtn += ")>";
+	rtn += ")";
 	return rtn;
 }
 
@@ -197,24 +197,24 @@ String Iterator_Range::ToString(Signal sig) const
 	String rtn;
 	if (_numStep == 1 || _numStep == -1) {
 		if (_numBegin == 0) {
-			rtn = "<iterator:range(";
+			rtn = "range(";
 			rtn += NumberToString(_numEnd);
-			rtn += ")>";
+			rtn += ")";
 		} else {
-			rtn = "<iterator:range(";
+			rtn = "range(";
 			rtn += NumberToString(_numBegin);
-			rtn += ", ";
+			rtn += ",";
 			rtn += NumberToString(_numEnd);
-			rtn += ")>";
+			rtn += ")";
 		}
 	} else {
-		rtn = "<iterator:range(";
+		rtn = "range(";
 		rtn += NumberToString(_numBegin);
-		rtn += ", ";
+		rtn += ",";
 		rtn += NumberToString(_numEnd);
-		rtn += ", ";
+		rtn += ",";
 		rtn += NumberToString(_numStep);
-		rtn += ")>";
+		rtn += ")";
 	}
 	return rtn;
 }
@@ -250,19 +250,17 @@ String Iterator_Sequence::ToString(Signal sig) const
 {
 	String rtn;
 	if (_numStep == 1. || _numStep == -1.) {
-		rtn = "<iterator:";
 		rtn += NumberToString(_numBegin);
 		rtn += "..";
 		rtn += NumberToString(_numEnd);
-		rtn += ">";
 	} else {
-		rtn = "<iterator:seq(";
+		rtn = "sequence(";
 		rtn += NumberToString(_numBegin);
-		rtn += ", ";
+		rtn += ",";
 		rtn += NumberToString(_numEnd);
-		rtn += ", ";
+		rtn += ",";
 		rtn += NumberToString(_numStep);
-		rtn += ")>";
+		rtn += ")";
 	}
 	return rtn;
 }
@@ -296,9 +294,8 @@ bool Iterator_SequenceInf::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_SequenceInf::ToString(Signal sig) const
 {
 	String rtn;
-	rtn = "<iterator:";
 	rtn += NumberToString(_numBegin);
-	rtn += "..>";
+	rtn += "..";
 	return rtn;
 }
 
@@ -330,13 +327,13 @@ bool Iterator_Interval::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_Interval::ToString(Signal sig) const
 {
 	String str;
-	str = "<iterator:interval(";
+	str = "interval(";
 	str += NumberToString(_numBegin);
 	str += ",";
 	str += NumberToString(_numEnd);
 	str += ",";
 	str += NumberToString(_numSamples);
-	str += ")>";
+	str += ")";
 	return str;
 }
 
@@ -386,7 +383,9 @@ bool Iterator_Fork::DoNext(Environment &env, Signal sig, Value &value)
 
 String Iterator_Fork::ToString(Signal sig) const
 {
-	return String("<iterator:fork>");
+	String rtn;
+	rtn += "fork()";
+	return rtn;
 }
 
 void Iterator_Fork::SwapList()
@@ -472,7 +471,13 @@ bool Iterator_ExplicitMap::DoNext(Environment &env, Signal sig, Value &value)
 
 String Iterator_ExplicitMap::ToString(Signal sig) const
 {
-	return String("<iterator:explicit_map>");
+	String rtn;
+	rtn += "(";
+	rtn += _pIterator->ToString(sig);
+	rtn += ").map(";
+	rtn += _pObjFunc->ToString(sig, true);
+	rtn += ")";
+	return rtn;
 }
 
 void Iterator_ExplicitMap::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
@@ -527,9 +532,15 @@ bool Iterator_ImplicitMap::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_ImplicitMap::ToString(Signal sig) const
 {
 	String str;
-	str += "<iterator:implicit_map:";
-	str += _pFunc->ToString();
-	str += ">";
+	str += "implicitmap(";
+	str += _pFunc->GetName();
+	str += ";";
+	foreach_const (IteratorOwner, ppIterator, _iterOwner) {
+		const Iterator *pIterator = *ppIterator;
+		if (ppIterator != _iterOwner.begin()) str += ",";
+		str += pIterator->ToString(sig);
+	}
+	str += ")";
 	return str;
 }
 
@@ -584,8 +595,11 @@ bool Iterator_UnaryOperatorMap::DoNext(Environment &env, Signal sig, Value &valu
 String Iterator_UnaryOperatorMap::ToString(Signal sig) const
 {
 	String str;
-	str += "<iterator:unary_operator_map:";
-	str += ">";
+	str += "unary_operator_map(";
+	str += _pOperator->GetMathSymbol();
+	str += ";";
+	str += _pIterator->ToString(sig);
+	str += ")";
 	return str;
 }
 
@@ -642,8 +656,13 @@ bool Iterator_BinaryOperatorMap::DoNext(Environment &env, Signal sig, Value &val
 String Iterator_BinaryOperatorMap::ToString(Signal sig) const
 {
 	String str;
-	str += "<iterator:binary_operator_map:";
-	str += ">";
+	str += "binary_operator_map(";
+	str += _pOperator->GetMathSymbol();
+	str += ";";
+	str += _pIteratorLeft->ToString(sig);
+	str += ",";
+	str += _pIteratorRight->ToString(sig);
+	str += ")";
 	return str;
 }
 
@@ -697,7 +716,13 @@ bool Iterator_MemberMap::DoNext(Environment &env, Signal sig, Value &value)
 
 String Iterator_MemberMap::ToString(Signal sig) const
 {
-	return String("<iterator:member_map>");
+	String rtn;
+	rtn += "member_map(";
+	rtn += _pExpr->ToString(Expr::SCRSTYLE_Brief);
+	rtn += ";";
+	rtn += _pIterator->ToString(sig);
+	rtn += ")";
+	return rtn;
 }
 
 void Iterator_MemberMap::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
@@ -737,7 +762,13 @@ bool Iterator_MethodMap::DoNext(Environment &env, Signal sig, Value &value)
 
 String Iterator_MethodMap::ToString(Signal sig) const
 {
-	return String("<iterator:method_map>");
+	String rtn;
+	rtn += "member_map(";
+	rtn += _pExprCaller->ToString(Expr::SCRSTYLE_Brief);
+	rtn += ";";
+	rtn += _pIteratorThis->ToString(sig);
+	rtn += ")";
+	return rtn;
 }
 
 void Iterator_MethodMap::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
@@ -796,9 +827,9 @@ bool Iterator_FuncBinder::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_FuncBinder::ToString(Signal sig) const
 {
 	String str;
-	str += "<iterator:func_binder:";
+	str += "func_binder(";
 	str += _pFunc->ToString();
-	str += ">";
+	str += ")";
 	return str;
 }
 
@@ -827,7 +858,7 @@ bool Iterator_Delay::DoNext(Environment &env, Signal sig, Value &value)
 
 String Iterator_Delay::ToString(Signal sig) const
 {
-	return String("<iterator:delay>");
+	return String("delay");
 }
 
 void Iterator_Delay::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
@@ -858,9 +889,9 @@ bool Iterator_Skip::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_Skip::ToString(Signal sig) const
 {
 	String rtn;
-	rtn += "<iterator:skip:";
+	rtn += "skip(";
 	rtn += _pIterator->ToString(sig);
-	rtn += ">";
+	rtn += ")";
 	return rtn;
 }
 
@@ -890,9 +921,9 @@ bool Iterator_SkipInvalid::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_SkipInvalid::ToString(Signal sig) const
 {
 	String rtn;
-	rtn += "<iterator:skip_invalid:";
+	rtn += "skip_invalid(";
 	rtn += _pIterator->ToString(sig);
-	rtn += ">";
+	rtn += ")";
 	return rtn;
 }
 
@@ -922,9 +953,9 @@ bool Iterator_SkipFalse::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_SkipFalse::ToString(Signal sig) const
 {
 	String rtn;
-	rtn += "<iterator:skip_false:";
+	rtn += "skip_false(";
 	rtn += _pIterator->ToString(sig);
-	rtn += ">";
+	rtn += ")";
 	return rtn;
 }
 
@@ -956,9 +987,9 @@ bool Iterator_RoundOff::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_RoundOff::ToString(Signal sig) const
 {
 	String rtn;
-	rtn += "<iterator:roundoff:";
+	rtn += "roundoff(";
 	rtn += _pIterator->ToString(sig);
-	rtn += ">";
+	rtn += ")";
 	return rtn;
 }
 
@@ -998,9 +1029,9 @@ bool Iterator_FilterWithFunc::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_FilterWithFunc::ToString(Signal sig) const
 {
 	String rtn;
-	rtn += "<iterator:filter_with_func:";
+	rtn += "filter_with_func(";
 	rtn += _pIterator->ToString(sig);
-	rtn += ">";
+	rtn += ")";
 	return rtn;
 }
 
@@ -1034,9 +1065,9 @@ bool Iterator_FilterWithIter::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_FilterWithIter::ToString(Signal sig) const
 {
 	String rtn;
-	rtn += "<iterator:filter_with_iter:";
+	rtn += "filter_with_iter(";
 	rtn += _pIterator->ToString(sig);
-	rtn += ">";
+	rtn += ")";
 	return rtn;
 }
 
@@ -1082,13 +1113,13 @@ bool Iterator_WhileWithFunc::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_WhileWithFunc::ToString(Signal sig) const
 {
 	String rtn;
-	rtn += "<iterator:while_with_func:";
+	rtn += "while_with_func(";
 	if (_pIterator.IsNull()) {
 		rtn += "(done)";
 	} else {
 		rtn += _pIterator->ToString(sig);
 	}
-	rtn += ">";
+	rtn += ")";
 	return rtn;
 }
 
@@ -1131,13 +1162,13 @@ bool Iterator_WhileWithIter::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_WhileWithIter::ToString(Signal sig) const
 {
 	String rtn;
-	rtn += "<iterator:while_with_iter:";
+	rtn += "while_with_iter(";
 	if (_pIterator.IsNull()) {
 		rtn += "(done)";
 	} else {
 		rtn += _pIterator->ToString(sig);
 	}
-	rtn += ">";
+	rtn += ")";
 	return rtn;
 }
 
@@ -1191,13 +1222,13 @@ bool Iterator_UntilWithFunc::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_UntilWithFunc::ToString(Signal sig) const
 {
 	String rtn;
-	rtn += "<iterator:until_with_func:";
+	rtn += "until_with_func(";
 	if (_pIterator.IsNull()) {
 		rtn += "(done)";
 	} else {
 		rtn += _pIterator->ToString(sig);
 	}
-	rtn += ">";
+	rtn += ")";
 	return rtn;
 }
 
@@ -1244,13 +1275,13 @@ bool Iterator_UntilWithIter::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_UntilWithIter::ToString(Signal sig) const
 {
 	String rtn;
-	rtn += "<iterator:until_with_iter:";
+	rtn += "until_with_iter(";
 	if (_pIterator.IsNull()) {
 		rtn += "(done)";
 	} else {
 		rtn += _pIterator->ToString(sig);
 	}
-	rtn += ">";
+	rtn += ")";
 	return rtn;
 }
 
@@ -1300,9 +1331,9 @@ bool Iterator_SinceWithFunc::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_SinceWithFunc::ToString(Signal sig) const
 {
 	String rtn;
-	rtn += "<iterator:since_with_func:";
+	rtn += "since_with_func(";
 	rtn += _pIterator->ToString(sig);
-	rtn += ">";
+	rtn += ")";
 	return rtn;
 }
 
@@ -1343,9 +1374,9 @@ bool Iterator_SinceWithIter::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_SinceWithIter::ToString(Signal sig) const
 {
 	String rtn;
-	rtn += "<iterator:since_with_iter:";
+	rtn += "since_with_iter(";
 	rtn += _pIterator->ToString(sig);
-	rtn += ">";
+	rtn += ")";
 	return rtn;
 }
 
@@ -1377,9 +1408,9 @@ bool Iterator_Replace::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_Replace::ToString(Signal sig) const
 {
 	String rtn;
-	rtn += "<iterator:replace:";
+	rtn += "replace(";
 	rtn += _pIterator->ToString(sig);
-	rtn += ">";
+	rtn += ")";
 	return rtn;
 }
 
@@ -1408,9 +1439,9 @@ bool Iterator_ReplaceInvalid::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_ReplaceInvalid::ToString(Signal sig) const
 {
 	String rtn;
-	rtn += "<iterator:replace_invalid:";
+	rtn += "replace_invalid(";
 	rtn += _pIterator->ToString(sig);
-	rtn += ">";
+	rtn += ")";
 	return rtn;
 }
 
@@ -1447,9 +1478,9 @@ bool Iterator_Format::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_Format::ToString(Signal sig) const
 {
 	String rtn;
-	rtn += "<iterator:format:";
+	rtn += "format(";
 	rtn += _pIterator->ToString(sig);
-	rtn += ">";
+	rtn += ")";
 	return rtn;
 }
 
@@ -1488,9 +1519,9 @@ bool Iterator_Pack::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_Pack::ToString(Signal sig) const
 {
 	String rtn;
-	rtn += "<iterator:pack:";
+	rtn += "pack(";
 	rtn += _pIterator->ToString(sig);
-	rtn += ">";
+	rtn += ")";
 	return rtn;
 }
 
@@ -1517,7 +1548,7 @@ bool Iterator_Zipv::DoNext(Environment &env, Signal sig, Value &value)
 
 String Iterator_Zipv::ToString(Signal sig) const
 {
-	return String("<iterator:zipv>");
+	return String("zipv");
 }
 
 void Iterator_Zipv::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
@@ -1561,7 +1592,7 @@ bool Iterator_RunLength::DoNext(Environment &env, Signal sig, Value &value)
 
 String Iterator_RunLength::ToString(Signal sig) const
 {
-	return String("<iterator:runlength>");
+	return String("runlength");
 }
 
 void Iterator_RunLength::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
@@ -1590,9 +1621,9 @@ bool Iterator_Align::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_Align::ToString(Signal sig) const
 {
 	String rtn;
-	rtn += "<iterator:align:";
+	rtn += "align(";
 	rtn += _pIterator->ToString(sig);
-	rtn += ">";
+	rtn += ")";
 	return rtn;
 }
 
@@ -1621,9 +1652,9 @@ bool Iterator_Head::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_Head::ToString(Signal sig) const
 {
 	String rtn;
-	rtn += "<iterator:head:";
+	rtn += "head(";
 	rtn += _pIterator->ToString(sig);
-	rtn += ">";
+	rtn += ")";
 	return rtn;
 }
 
@@ -1660,9 +1691,9 @@ bool Iterator_Fold::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_Fold::ToString(Signal sig) const
 {
 	String rtn;
-	rtn += "<iterator:fold:";
+	rtn += "fold(";
 	rtn += _pIterator->ToString(sig);
-	rtn += ">";
+	rtn += ")";
 	return rtn;
 }
 
@@ -1693,9 +1724,9 @@ bool Iterator_FoldSeg::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_FoldSeg::ToString(Signal sig) const
 {
 	String rtn;
-	rtn += "<iterator:fold_seg:";
+	rtn += "fold_seg(";
 	rtn += _pIterator->ToString(sig);
-	rtn += ">";
+	rtn += ")";
 	return rtn;
 }
 
@@ -1726,7 +1757,7 @@ bool Iterator_Concat::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_Concat::ToString(Signal sig) const
 {
 	String rtn;
-	rtn += "<iterator:concat>";
+	rtn += "concat";
 	return rtn;
 }
 
@@ -1808,7 +1839,7 @@ bool Iterator_Repeater::DoNext(Environment &env, Signal sig, Value &value)
 
 String Iterator_Repeater::ToString(Signal sig) const
 {
-	return String("<iterator:Repeater>");
+	return String("repeater");
 }
 
 void Iterator_Repeater::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
@@ -1879,7 +1910,7 @@ bool Iterator_repeat::DoNext(Environment &env, Signal sig, Value &value)
 
 String Iterator_repeat::ToString(Signal sig) const
 {
-	return String("<iterator:repeat>");
+	return String("repeat");
 }
 
 void Iterator_repeat::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
@@ -1950,7 +1981,7 @@ bool Iterator_while::DoNext(Environment &env, Signal sig, Value &value)
 
 String Iterator_while::ToString(Signal sig) const
 {
-	return String("<iterator:while>");
+	return String("while");
 }
 
 void Iterator_while::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
@@ -2035,7 +2066,7 @@ bool Iterator_for::DoNext(Environment &env, Signal sig, Value &value)
 
 String Iterator_for::ToString(Signal sig) const
 {
-	return String("<iterator:for>");
+	return String("for");
 }
 
 void Iterator_for::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
@@ -2137,7 +2168,7 @@ bool Iterator_cross::DoNext(Environment &env, Signal sig, Value &value)
 
 String Iterator_cross::ToString(Signal sig) const
 {
-	return String("<iterator:cross>");
+	return String("cross");
 }
 
 void Iterator_cross::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
