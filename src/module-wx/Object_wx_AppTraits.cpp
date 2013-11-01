@@ -237,7 +237,7 @@ Object *Object_wx_AppTraits::Clone() const
 	return NULL;
 }
 
-String Object_wx_AppTraits::ToString(Signal sig, bool exprFlag)
+String Object_wx_AppTraits::ToString(bool exprFlag)
 {
 	String rtn("<wx.AppTraits:");
 	if (GetEntity() == NULL) {

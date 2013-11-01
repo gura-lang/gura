@@ -25,7 +25,7 @@ public:
 				Object_wx_Frame(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_PreviewFrame();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxPreviewFrame *GetEntity() {
 		return dynamic_cast<wxPreviewFrame *>(_pEntity);
 	}

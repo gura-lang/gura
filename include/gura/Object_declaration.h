@@ -31,7 +31,7 @@ public:
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline Declaration *GetDeclaration() { return _pDeclaration.get(); }
 };
 
@@ -46,7 +46,7 @@ public:
 	Iterator_declaration(DeclarationOwner *pDeclarationOwner);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
-	virtual String ToString(Signal sig) const;
+	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 

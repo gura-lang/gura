@@ -25,7 +25,7 @@ public:
 				Object_wx_Object(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_Module();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxModule *GetEntity() {
 		return dynamic_cast<wxModule *>(_pEntity);
 	}

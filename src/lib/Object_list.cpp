@@ -69,7 +69,7 @@ Iterator *Object_list::CreateIterator(Signal sig)
 	return new IteratorEach(Object_list::Reference(this));
 }
 
-String Object_list::ToString(Signal sig, bool exprFlag)
+String Object_list::ToString(bool exprFlag)
 {
 	bool limitLenFlag = true;
 	String str;
@@ -81,7 +81,7 @@ String Object_list::ToString(Signal sig, bool exprFlag)
 			str += "...";
 			break;
 		}
-		str += pValue->ToString(sig);
+		str += pValue->ToString();
 	}
 	str += "]";
 	return str;
@@ -220,7 +220,7 @@ bool Object_list::IteratorEach::DoNext(Environment &env, Signal sig, Value &valu
 	return true;
 }
 
-String Object_list::IteratorEach::ToString(Signal sig) const
+String Object_list::IteratorEach::ToString() const
 {
 	return String("list#each");
 }
@@ -250,7 +250,7 @@ bool Object_list::IteratorReverse::DoNext(Environment &env, Signal sig, Value &v
 	return true;
 }
 
-String Object_list::IteratorReverse::ToString(Signal sig) const
+String Object_list::IteratorReverse::ToString() const
 {
 	return String("list#reverse");
 }
@@ -282,7 +282,7 @@ bool Object_list::IteratorRound::DoNext(Environment &env, Signal sig, Value &val
 	return true;
 }
 
-String Object_list::IteratorRound::ToString(Signal sig) const
+String Object_list::IteratorRound::ToString() const
 {
 	return String("list#round");
 }
@@ -330,7 +330,7 @@ bool Object_list::IteratorPingpong::DoNext(Environment &env, Signal sig, Value &
 	return true;
 }
 
-String Object_list::IteratorPingpong::ToString(Signal sig) const
+String Object_list::IteratorPingpong::ToString() const
 {
 	return String("list#pingpong");
 }
@@ -373,7 +373,7 @@ bool Object_list::IteratorFold::DoNext(Environment &env, Signal sig, Value &valu
 	return true;
 }
 
-String Object_list::IteratorFold::ToString(Signal sig) const
+String Object_list::IteratorFold::ToString() const
 {
 	return String("list#fold");
 }
@@ -425,7 +425,7 @@ bool Object_list::IteratorPermutation::DoNext(Environment &env, Signal sig, Valu
 	return true;
 }
 
-String Object_list::IteratorPermutation::ToString(Signal sig) const
+String Object_list::IteratorPermutation::ToString() const
 {
 	return String("list#permutation");
 }
@@ -471,7 +471,7 @@ bool Object_list::IteratorCombination::DoNext(Environment &env, Signal sig, Valu
 	return true;
 }
 
-String Object_list::IteratorCombination::ToString(Signal sig) const
+String Object_list::IteratorCombination::ToString() const
 {
 	return String("list#combination");
 }

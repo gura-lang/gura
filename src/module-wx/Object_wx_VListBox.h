@@ -25,7 +25,7 @@ public:
 				Object_wx_VScrolledWindow(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_VListBox();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxVListBox *GetEntity() {
 		return dynamic_cast<wxVListBox *>(_pEntity);
 	}

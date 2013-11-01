@@ -25,7 +25,7 @@ public:
 				Object_wx_HtmlListBox(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_RichTextStyleListBox();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxRichTextStyleListBox *GetEntity() {
 		return dynamic_cast<wxRichTextStyleListBox *>(_pEntity);
 	}

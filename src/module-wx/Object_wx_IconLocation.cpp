@@ -64,7 +64,7 @@ Object *Object_wx_IconLocation::Clone() const
 	return NULL;
 }
 
-String Object_wx_IconLocation::ToString(Signal sig, bool exprFlag)
+String Object_wx_IconLocation::ToString(bool exprFlag)
 {
 	String rtn("<wx.IconLocation:");
 	if (GetEntity() == NULL) {

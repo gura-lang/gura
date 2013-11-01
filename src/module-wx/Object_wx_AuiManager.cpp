@@ -509,7 +509,7 @@ Object *Object_wx_AuiManager::Clone() const
 	return NULL;
 }
 
-String Object_wx_AuiManager::ToString(Signal sig, bool exprFlag)
+String Object_wx_AuiManager::ToString(bool exprFlag)
 {
 	String rtn("<wx.AuiManager:");
 	if (GetEntity() == NULL) {

@@ -262,7 +262,7 @@ Object *Object_wx_FileSystemHandler::Clone() const
 	return NULL;
 }
 
-String Object_wx_FileSystemHandler::ToString(Signal sig, bool exprFlag)
+String Object_wx_FileSystemHandler::ToString(bool exprFlag)
 {
 	String rtn("<wx.FileSystemHandler:");
 	if (GetEntity() == NULL) {

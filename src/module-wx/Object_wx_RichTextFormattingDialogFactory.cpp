@@ -221,7 +221,7 @@ Object *Object_wx_RichTextFormattingDialogFactory::Clone() const
 	return NULL;
 }
 
-String Object_wx_RichTextFormattingDialogFactory::ToString(Signal sig, bool exprFlag)
+String Object_wx_RichTextFormattingDialogFactory::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextFormattingDialogFactory:");
 	if (GetEntity() == NULL) {

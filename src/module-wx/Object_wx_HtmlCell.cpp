@@ -463,7 +463,7 @@ Object *Object_wx_HtmlCell::Clone() const
 	return NULL;
 }
 
-String Object_wx_HtmlCell::ToString(Signal sig, bool exprFlag)
+String Object_wx_HtmlCell::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlCell:");
 	if (GetEntity() == NULL) {

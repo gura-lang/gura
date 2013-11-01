@@ -242,7 +242,7 @@ Object *Object_wx_BitmapHandler::Clone() const
 	return NULL;
 }
 
-String Object_wx_BitmapHandler::ToString(Signal sig, bool exprFlag)
+String Object_wx_BitmapHandler::ToString(bool exprFlag)
 {
 	String rtn("<wx.BitmapHandler:");
 	if (GetEntity() == NULL) {

@@ -25,7 +25,7 @@ public:
 				Object_wx_Dialog(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_MultiChoiceDialog();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxMultiChoiceDialog *GetEntity() {
 		return dynamic_cast<wxMultiChoiceDialog *>(_pEntity);
 	}

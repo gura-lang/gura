@@ -244,7 +244,7 @@ bool Iterator_FromStream::DoNext(Environment &env, Signal sig, Value &value)
 	return !_doneFlag;
 }
 
-String Iterator_FromStream::ToString(Signal sig) const
+String Iterator_FromStream::ToString() const
 {
 	return String("<iterator:yaml.fromstream>");
 }
@@ -294,7 +294,7 @@ bool Iterator_FromString::DoNext(Environment &env, Signal sig, Value &value)
 	return !_doneFlag;
 }
 
-String Iterator_FromString::ToString(Signal sig) const
+String Iterator_FromString::ToString() const
 {
 	return String("<iterator:yaml.fromstring>");
 }
@@ -520,7 +520,7 @@ bool ExecEmitterSub(Environment &env, Signal sig,
 			}
 		} while (0);
 	} else {
-		String str = value.ToString(sig, false);
+		String str = value.ToString(false);
 		if (sig.IsSignalled()) return false;
 		yaml_char_t *anchor = NULL;
 		yaml_char_t *tag = NULL;

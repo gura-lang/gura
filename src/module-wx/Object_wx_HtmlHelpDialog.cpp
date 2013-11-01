@@ -281,7 +281,7 @@ Object *Object_wx_HtmlHelpDialog::Clone() const
 	return NULL;
 }
 
-String Object_wx_HtmlHelpDialog::ToString(Signal sig, bool exprFlag)
+String Object_wx_HtmlHelpDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlHelpDialog:");
 	if (GetEntity() == NULL) {

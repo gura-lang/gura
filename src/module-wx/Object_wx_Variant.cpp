@@ -653,7 +653,7 @@ Object *Object_wx_Variant::Clone() const
 	return NULL;
 }
 
-String Object_wx_Variant::ToString(Signal sig, bool exprFlag)
+String Object_wx_Variant::ToString(bool exprFlag)
 {
 	String rtn("<wx.Variant:");
 	if (GetEntity() == NULL) {

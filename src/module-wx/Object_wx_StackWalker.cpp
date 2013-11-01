@@ -132,7 +132,7 @@ Object *Object_wx_StackWalker::Clone() const
 	return NULL;
 }
 
-String Object_wx_StackWalker::ToString(Signal sig, bool exprFlag)
+String Object_wx_StackWalker::ToString(bool exprFlag)
 {
 	String rtn("<wx.StackWalker:");
 	if (GetEntity() == NULL) {

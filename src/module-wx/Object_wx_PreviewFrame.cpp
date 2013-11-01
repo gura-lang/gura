@@ -142,7 +142,7 @@ Object *Object_wx_PreviewFrame::Clone() const
 	return NULL;
 }
 
-String Object_wx_PreviewFrame::ToString(Signal sig, bool exprFlag)
+String Object_wx_PreviewFrame::ToString(bool exprFlag)
 {
 	String rtn("<wx.PreviewFrame:");
 	if (GetEntity() == NULL) {

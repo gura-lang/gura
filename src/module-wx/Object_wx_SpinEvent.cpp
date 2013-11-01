@@ -105,7 +105,7 @@ Object *Object_wx_SpinEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_SpinEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_SpinEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.SpinEvent:");
 	if (GetEntity() == NULL) {

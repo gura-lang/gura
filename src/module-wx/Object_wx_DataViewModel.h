@@ -25,7 +25,7 @@ public:
 				Object_wx_Object(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_DataViewModel();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxDataViewModel *GetEntity() {
 		return dynamic_cast<wxDataViewModel *>(_pEntity);
 	}

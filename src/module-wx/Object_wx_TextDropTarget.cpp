@@ -129,7 +129,7 @@ Object *Object_wx_TextDropTarget::Clone() const
 	return NULL;
 }
 
-String Object_wx_TextDropTarget::ToString(Signal sig, bool exprFlag)
+String Object_wx_TextDropTarget::ToString(bool exprFlag)
 {
 	String rtn("<wx.TextDropTarget:");
 	if (GetEntity() == NULL) {

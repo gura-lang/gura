@@ -197,7 +197,7 @@ Object *Object_wx_Choice::Clone() const
 	return NULL;
 }
 
-String Object_wx_Choice::ToString(Signal sig, bool exprFlag)
+String Object_wx_Choice::ToString(bool exprFlag)
 {
 	String rtn("<wx.Choice:");
 	if (GetEntity() == NULL) {

@@ -102,7 +102,7 @@ Object *Object_wx_DialUpEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_DialUpEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_DialUpEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.DialUpEvent:");
 	if (GetEntity() == NULL) {

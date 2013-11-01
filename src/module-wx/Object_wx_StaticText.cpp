@@ -190,7 +190,7 @@ Object *Object_wx_StaticText::Clone() const
 	return NULL;
 }
 
-String Object_wx_StaticText::ToString(Signal sig, bool exprFlag)
+String Object_wx_StaticText::ToString(bool exprFlag)
 {
 	String rtn("<wx.StaticText:");
 	if (GetEntity() == NULL) {

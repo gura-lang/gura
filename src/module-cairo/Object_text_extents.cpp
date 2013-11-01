@@ -47,7 +47,7 @@ Value Object_text_extents::DoGetProp(Environment &env, Signal sig, const Symbol 
 	return Value::Null;
 }
 
-String Object_text_extents::ToString(Signal sig, bool exprFlag)
+String Object_text_extents::ToString(bool exprFlag)
 {
 	return String("<cairo.text_extents>");
 }

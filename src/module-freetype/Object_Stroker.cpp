@@ -15,7 +15,7 @@ Object *Object_Stroker::Clone() const
 	return NULL;
 }
 
-String Object_Stroker::ToString(Signal sig, bool exprFlag)
+String Object_Stroker::ToString(bool exprFlag)
 {
 	char buff[80];
 	::sprintf(buff, "<freetype.Stroker>");

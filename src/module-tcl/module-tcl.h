@@ -70,7 +70,7 @@ public:
 	inline Tcl_Interp *GetInterp() { return _interp; }
 	virtual ~Object_interp();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	Tcl_Obj *ConvToTclObj(Environment &env, Signal sig, const Value &value);
 	Value ConvFromTclObj(Environment &env, Signal sig, Tcl_Obj *obj);
 	Tcl_Obj **CreateTclObjArray(Environment &env, Signal sig,
@@ -109,7 +109,7 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	bool Set(Environment &env, Signal sig, const Value &value);
 	Value Get(Environment &env, Signal sig);
 };
@@ -133,7 +133,7 @@ public:
 	Object_timer(Object_interp *pObjInterp);
 	virtual ~Object_timer();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	void Start(Signal sig, const Function *pFunc, int msec, int msecCont, int cnt);
 	void Cancel();
 	bool TimerProc();

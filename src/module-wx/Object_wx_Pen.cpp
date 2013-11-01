@@ -473,7 +473,7 @@ Object *Object_wx_Pen::Clone() const
 	return new Object_wx_Pen(new wxPen(*dynamic_cast<wxPen *>(_pEntity)), NULL, OwnerTrue);
 }
 
-String Object_wx_Pen::ToString(Signal sig, bool exprFlag)
+String Object_wx_Pen::ToString(bool exprFlag)
 {
 	String rtn("<wx.Pen:");
 	if (GetEntity() == NULL) {

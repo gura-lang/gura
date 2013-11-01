@@ -25,7 +25,7 @@ public:
 				Object_wx_Panel(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_WizardPage();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxWizardPage *GetEntity() {
 		return dynamic_cast<wxWizardPage *>(_pEntity);
 	}

@@ -145,7 +145,7 @@ Object *Object_wx_MiniFrame::Clone() const
 	return NULL;
 }
 
-String Object_wx_MiniFrame::ToString(Signal sig, bool exprFlag)
+String Object_wx_MiniFrame::ToString(bool exprFlag)
 {
 	String rtn("<wx.MiniFrame:");
 	if (GetEntity() == NULL) {

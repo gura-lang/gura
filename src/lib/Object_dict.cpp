@@ -39,7 +39,7 @@ Iterator *Object_dict::CreateIterator(Signal sig)
 	return new IteratorItems(Object_dict::Reference(this));
 }
 
-String Object_dict::ToString(Signal sig, bool exprFlag)
+String Object_dict::ToString(bool exprFlag)
 {
 	bool limitLenFlag = true;
 	String str;
@@ -54,10 +54,10 @@ String Object_dict::ToString(Signal sig, bool exprFlag)
 		if (value.IsString()) {
 			str += MakeQuotedString(value.GetString());
 		} else {
-			str += value.ToString(sig, false);
+			str += value.ToString(false);
 		}
 		str += " => ";
-		str += iter->second.ToString(sig);
+		str += iter->second.ToString();
 	}
 	str += "}";
 	return str;
@@ -76,7 +76,7 @@ const Value *Object_dict::Find(Signal sig, const Value &valueIdx) const
 void Object_dict::SetError_KeyNotFound(Signal sig, const Value &valueIdx)
 {
 	sig.SetError(ERR_KeyError, "dictionary doesn't have a key '%s'",
-										valueIdx.ToString(sig).c_str());
+										valueIdx.ToString().c_str());
 }
 
 //-----------------------------------------------------------------------------
@@ -100,7 +100,7 @@ bool Object_dict::IteratorKeys::DoNext(Environment &env, Signal sig, Value &valu
 	return true;
 }
 
-String Object_dict::IteratorKeys::ToString(Signal sig) const
+String Object_dict::IteratorKeys::ToString() const
 {
 	return String("dict#keys");
 }
@@ -130,7 +130,7 @@ bool Object_dict::IteratorValues::DoNext(Environment &env, Signal sig, Value &va
 	return true;
 }
 
-String Object_dict::IteratorValues::ToString(Signal sig) const
+String Object_dict::IteratorValues::ToString() const
 {
 	return String("dict#values");
 }
@@ -162,7 +162,7 @@ bool Object_dict::IteratorItems::DoNext(Environment &env, Signal sig, Value &val
 	return true;
 }
 
-String Object_dict::IteratorItems::ToString(Signal sig) const
+String Object_dict::IteratorItems::ToString() const
 {
 	return String("dict#items");
 }
@@ -204,7 +204,7 @@ bool Object_dict::IteratorGet::DoNext(Environment &env, Signal sig, Value &value
 	return true;
 }
 
-String Object_dict::IteratorGet::ToString(Signal sig) const
+String Object_dict::IteratorGet::ToString() const
 {
 	return String("dict#get");
 }

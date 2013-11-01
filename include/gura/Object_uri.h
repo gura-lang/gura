@@ -41,7 +41,7 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	bool Parse(Signal sig, const char *str);
 	inline bool IsUserValid() const { return _userValidFlag; }
 	inline const char *GetScheme() const { return _scheme.c_str(); }

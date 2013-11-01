@@ -84,7 +84,7 @@ Gura_DeclareMethodPrimitive(Object, tostring)
 
 Gura_ImplementMethod(Object, tostring)
 {
-	String str = args.GetThis().ToString(sig, false);
+	String str = args.GetThis().ToString(false);
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(env, str.c_str());
 }
@@ -281,7 +281,7 @@ bool Class::CastTo(Environment &env, Signal sig, Value &value, const Declaration
 	return false;
 }
 
-String Class::ToString(Signal sig, bool exprFlag)
+String Class::ToString(bool exprFlag)
 {
 	String str;
 	str += "<class:";

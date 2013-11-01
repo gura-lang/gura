@@ -217,7 +217,7 @@ Object *Object_wx_RichTextListStyleDefinition::Clone() const
 	return NULL;
 }
 
-String Object_wx_RichTextListStyleDefinition::ToString(Signal sig, bool exprFlag)
+String Object_wx_RichTextListStyleDefinition::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextListStyleDefinition:");
 	if (GetEntity() == NULL) {

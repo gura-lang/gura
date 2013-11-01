@@ -452,7 +452,7 @@ Object *Object_wx_DataViewListModel::Clone() const
 	return NULL;
 }
 
-String Object_wx_DataViewListModel::ToString(Signal sig, bool exprFlag)
+String Object_wx_DataViewListModel::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataViewListModel:");
 	if (GetEntity() == NULL) {

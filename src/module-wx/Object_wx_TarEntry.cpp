@@ -504,7 +504,7 @@ Object *Object_wx_TarEntry::Clone() const
 	return NULL;
 }
 
-String Object_wx_TarEntry::ToString(Signal sig, bool exprFlag)
+String Object_wx_TarEntry::ToString(bool exprFlag)
 {
 	String rtn("<wx.TarEntry:");
 	if (GetEntity() == NULL) {

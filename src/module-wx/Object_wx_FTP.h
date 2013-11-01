@@ -25,7 +25,7 @@ public:
 				Object_wx_Protocol(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_FTP();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxFTP *GetEntity() {
 		return dynamic_cast<wxFTP *>(_pEntity);
 	}

@@ -25,7 +25,7 @@ public:
 				Object_wx_RendererNative(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_DelegateRendererNative();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxDelegateRendererNative *GetEntity() {
 		return dynamic_cast<wxDelegateRendererNative *>(_pEntity);
 	}

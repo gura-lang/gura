@@ -108,7 +108,7 @@ Object *Object_wx_ContextMenuEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_ContextMenuEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_ContextMenuEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.ContextMenuEvent:");
 	if (GetEntity() == NULL) {

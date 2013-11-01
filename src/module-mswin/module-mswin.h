@@ -30,7 +30,7 @@ public:
 		Object(obj), _hKey(obj._hKey), _ownerFlag(false) {}
 	virtual ~Object_regkey();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline HKEY GetKey() { return _hKey; }
 };
 
@@ -53,7 +53,7 @@ public:
 		virtual ~IteratorEx();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString(Signal sig) const;
+		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
 public:
@@ -101,7 +101,7 @@ public:
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Callable *GetCallable(Signal sig, const Symbol *pSymbol);
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	static void SetError(Signal sig, HRESULT hr);
 };
 
@@ -117,7 +117,7 @@ public:
 	Iterator_RegEnumKey(Object_regkey *pObjRegKey, REGSAM samDesired);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
-	virtual String ToString(Signal sig) const;
+	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 
@@ -132,7 +132,7 @@ public:
 	Iterator_RegEnumValue(Object_regkey *pObjRegKey);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
-	virtual String ToString(Signal sig) const;
+	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 

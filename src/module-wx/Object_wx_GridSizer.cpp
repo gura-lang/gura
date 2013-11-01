@@ -203,7 +203,7 @@ Object *Object_wx_GridSizer::Clone() const
 	return NULL;
 }
 
-String Object_wx_GridSizer::ToString(Signal sig, bool exprFlag)
+String Object_wx_GridSizer::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridSizer:");
 	if (GetEntity() == NULL) {

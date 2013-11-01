@@ -270,7 +270,7 @@ Object *Object_wx_TextInputStream::Clone() const
 	return NULL;
 }
 
-String Object_wx_TextInputStream::ToString(Signal sig, bool exprFlag)
+String Object_wx_TextInputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.TextInputStream:");
 	if (GetEntity() == NULL) {

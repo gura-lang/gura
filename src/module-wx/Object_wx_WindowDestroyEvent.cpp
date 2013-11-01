@@ -73,7 +73,7 @@ Object *Object_wx_WindowDestroyEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_WindowDestroyEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_WindowDestroyEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.WindowDestroyEvent:");
 	if (GetEntity() == NULL) {

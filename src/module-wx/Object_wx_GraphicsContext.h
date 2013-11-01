@@ -25,7 +25,7 @@ public:
 				Object_wx_GraphicsObject(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_GraphicsContext();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxGraphicsContext *GetEntity() {
 		return dynamic_cast<wxGraphicsContext *>(_pEntity);
 	}

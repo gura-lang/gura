@@ -178,7 +178,7 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	return Value::Null;
 }
 
-String Object_expr::ToString(Signal sig, bool exprFlag)
+String Object_expr::ToString(bool exprFlag)
 {
 	String str;
 	if (_pExpr->IsValue() || _pExpr->IsSymbol() || _pExpr->IsCaller()) {

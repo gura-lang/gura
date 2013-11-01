@@ -303,7 +303,7 @@ Object *Object_wx_EncodingConverter::Clone() const
 	return NULL;
 }
 
-String Object_wx_EncodingConverter::ToString(Signal sig, bool exprFlag)
+String Object_wx_EncodingConverter::ToString(bool exprFlag)
 {
 	String rtn("<wx.EncodingConverter:");
 	if (GetEntity() == NULL) {

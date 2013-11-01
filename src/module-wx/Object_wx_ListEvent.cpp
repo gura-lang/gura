@@ -258,7 +258,7 @@ Object *Object_wx_ListEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_ListEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_ListEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.ListEvent:");
 	if (GetEntity() == NULL) {

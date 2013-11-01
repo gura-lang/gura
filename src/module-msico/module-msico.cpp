@@ -152,7 +152,7 @@ void Object_content::AddImage(const Value &value)
 	_valList.push_back(value);
 }
 
-String Object_content::ToString(Signal sig, bool exprFlag)
+String Object_content::ToString(bool exprFlag)
 {
 	String str;
 	str = "<msico:";

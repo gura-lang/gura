@@ -15,7 +15,7 @@ Object *Object_font_options::Clone() const
 	return NULL;
 }
 
-String Object_font_options::ToString(Signal sig, bool exprFlag)
+String Object_font_options::ToString(bool exprFlag)
 {
 	return String("<cairo.font_options>");
 }

@@ -25,7 +25,7 @@ public:
 				Object_wx_Frame(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_SplashScreen();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxSplashScreen *GetEntity() {
 		return dynamic_cast<wxSplashScreen *>(_pEntity);
 	}

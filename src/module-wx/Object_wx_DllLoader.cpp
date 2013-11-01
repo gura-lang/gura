@@ -128,7 +128,7 @@ Object *Object_wx_DllLoader::Clone() const
 	return NULL;
 }
 
-String Object_wx_DllLoader::ToString(Signal sig, bool exprFlag)
+String Object_wx_DllLoader::ToString(bool exprFlag)
 {
 	String rtn("<wx.DllLoader:");
 	if (GetEntity() == NULL) {

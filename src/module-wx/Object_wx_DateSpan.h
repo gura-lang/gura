@@ -30,7 +30,7 @@ public:
 				Object(pClass), _pEntity(pEntity), _pObserver(pObserver), _ownerFlag(ownerFlag) {}
 	virtual ~Object_wx_DateSpan();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline void SetEntity(wxDateSpan *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) {
 		if (_ownerFlag) delete _pEntity;
 		_pEntity = pEntity;

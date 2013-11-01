@@ -113,7 +113,7 @@ Object *Object_wx_ScopedArray::Clone() const
 	return NULL;
 }
 
-String Object_wx_ScopedArray::ToString(Signal sig, bool exprFlag)
+String Object_wx_ScopedArray::ToString(bool exprFlag)
 {
 	String rtn("<wx.ScopedArray:");
 	if (GetEntity() == NULL) {

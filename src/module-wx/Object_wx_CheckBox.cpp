@@ -249,7 +249,7 @@ Object *Object_wx_CheckBox::Clone() const
 	return NULL;
 }
 
-String Object_wx_CheckBox::ToString(Signal sig, bool exprFlag)
+String Object_wx_CheckBox::ToString(bool exprFlag)
 {
 	String rtn("<wx.CheckBox:");
 	if (GetEntity() == NULL) {

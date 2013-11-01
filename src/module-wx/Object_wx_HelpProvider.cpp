@@ -210,7 +210,7 @@ Object *Object_wx_HelpProvider::Clone() const
 	return NULL;
 }
 
-String Object_wx_HelpProvider::ToString(Signal sig, bool exprFlag)
+String Object_wx_HelpProvider::ToString(bool exprFlag)
 {
 	String rtn("<wx.HelpProvider:");
 	if (GetEntity() == NULL) {

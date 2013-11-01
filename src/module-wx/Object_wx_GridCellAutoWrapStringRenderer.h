@@ -25,7 +25,7 @@ public:
 				Object_wx_GridCellStringRenderer(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_GridCellAutoWrapStringRenderer();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxGridCellAutoWrapStringRenderer *GetEntity() {
 		return dynamic_cast<wxGridCellAutoWrapStringRenderer *>(_pEntity);
 	}

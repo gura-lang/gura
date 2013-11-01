@@ -302,7 +302,7 @@ bool IteratorTag::DoNext(Environment &env, Signal sig, Value &value)
 	return true;
 }
 
-String IteratorTag::ToString(Signal sig) const
+String IteratorTag::ToString() const
 {
 	return String("<iterator:re.exif.tag>");
 }
@@ -391,7 +391,7 @@ Value Object_ifd::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	return Value::Null;
 }
 
-String Object_ifd::ToString(Signal sig, bool exprFlag)
+String Object_ifd::ToString(bool exprFlag)
 {
 	return String("<jpeg.ifd>");
 }

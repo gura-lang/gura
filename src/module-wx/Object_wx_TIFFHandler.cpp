@@ -71,7 +71,7 @@ Object *Object_wx_TIFFHandler::Clone() const
 	return NULL;
 }
 
-String Object_wx_TIFFHandler::ToString(Signal sig, bool exprFlag)
+String Object_wx_TIFFHandler::ToString(bool exprFlag)
 {
 	String rtn("<wx.TIFFHandler:");
 	if (GetEntity() == NULL) {

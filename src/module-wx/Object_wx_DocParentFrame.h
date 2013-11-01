@@ -25,7 +25,7 @@ public:
 				Object_wx_Frame(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_DocParentFrame();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxDocParentFrame *GetEntity() {
 		return dynamic_cast<wxDocParentFrame *>(_pEntity);
 	}

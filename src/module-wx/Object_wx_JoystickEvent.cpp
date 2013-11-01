@@ -245,7 +245,7 @@ Object *Object_wx_JoystickEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_JoystickEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_JoystickEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.JoystickEvent:");
 	if (GetEntity() == NULL) {

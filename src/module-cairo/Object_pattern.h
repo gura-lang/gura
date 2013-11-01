@@ -18,7 +18,7 @@ public:
 						Object(Gura_UserClass(pattern)), _pattern(pattern) {}
 	virtual ~Object_pattern();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline cairo_pattern_t *GetEntity() { return _pattern; }
 };
 

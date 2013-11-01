@@ -206,7 +206,7 @@ Object *Object_wx_StringTokenizer::Clone() const
 	return NULL;
 }
 
-String Object_wx_StringTokenizer::ToString(Signal sig, bool exprFlag)
+String Object_wx_StringTokenizer::ToString(bool exprFlag)
 {
 	String rtn("<wx.StringTokenizer:");
 	if (GetEntity() == NULL) {

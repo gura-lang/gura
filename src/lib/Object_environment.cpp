@@ -46,7 +46,7 @@ Value Object_environment::DoSetProp(Environment &env, Signal sig, const Symbol *
 	return value;
 }
 
-String Object_environment::ToString(Signal sig, bool exprFlag)
+String Object_environment::ToString(bool exprFlag)
 {
 	String str;
 	EnvType envType = _pEnv->GetTopFrame()->GetEnvType();

@@ -93,7 +93,7 @@ Object *Object_wx_ActivateEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_ActivateEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_ActivateEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.ActivateEvent:");
 	if (GetEntity() == NULL) {

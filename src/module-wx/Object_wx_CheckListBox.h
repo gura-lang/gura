@@ -25,7 +25,7 @@ public:
 				Object_wx_ListBox(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_CheckListBox();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxCheckListBox *GetEntity() {
 		return dynamic_cast<wxCheckListBox *>(_pEntity);
 	}

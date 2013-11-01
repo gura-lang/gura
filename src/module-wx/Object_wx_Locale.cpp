@@ -532,7 +532,7 @@ Object *Object_wx_Locale::Clone() const
 	return NULL;
 }
 
-String Object_wx_Locale::ToString(Signal sig, bool exprFlag)
+String Object_wx_Locale::ToString(bool exprFlag)
 {
 	String rtn("<wx.Locale:");
 	if (GetEntity() == NULL) {

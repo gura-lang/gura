@@ -241,7 +241,7 @@ Object *Object_wx_HtmlHelpFrame::Clone() const
 	return NULL;
 }
 
-String Object_wx_HtmlHelpFrame::ToString(Signal sig, bool exprFlag)
+String Object_wx_HtmlHelpFrame::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlHelpFrame:");
 	if (GetEntity() == NULL) {

@@ -455,7 +455,7 @@ Object *Object_wx_DateSpan::Clone() const
 	return NULL;
 }
 
-String Object_wx_DateSpan::ToString(Signal sig, bool exprFlag)
+String Object_wx_DateSpan::ToString(bool exprFlag)
 {
 	String rtn("<wx.DateSpan:");
 	if (GetEntity() == NULL) {

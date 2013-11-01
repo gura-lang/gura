@@ -1354,7 +1354,7 @@ bool Image::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
 	return true;
 }
 
-String Image::IteratorEach::ToString(Signal sig) const
+String Image::IteratorEach::ToString() const
 {
 	return String("image#each");
 }

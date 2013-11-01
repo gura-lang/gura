@@ -434,7 +434,7 @@ Object *Object_wx_MediaCtrl::Clone() const
 	return NULL;
 }
 
-String Object_wx_MediaCtrl::ToString(Signal sig, bool exprFlag)
+String Object_wx_MediaCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.MediaCtrl:");
 	if (GetEntity() == NULL) {

@@ -48,7 +48,7 @@ Object *Object_wx_ZipClassFactory::Clone() const
 	return NULL;
 }
 
-String Object_wx_ZipClassFactory::ToString(Signal sig, bool exprFlag)
+String Object_wx_ZipClassFactory::ToString(bool exprFlag)
 {
 	String rtn("<wx.ZipClassFactory:");
 	if (GetEntity() == NULL) {

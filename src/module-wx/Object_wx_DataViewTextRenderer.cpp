@@ -76,7 +76,7 @@ Object *Object_wx_DataViewTextRenderer::Clone() const
 	return NULL;
 }
 
-String Object_wx_DataViewTextRenderer::ToString(Signal sig, bool exprFlag)
+String Object_wx_DataViewTextRenderer::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataViewTextRenderer:");
 	if (GetEntity() == NULL) {

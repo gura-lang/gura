@@ -75,7 +75,7 @@ Object *Object_wx_WindowUpdateLocker::Clone() const
 	return NULL;
 }
 
-String Object_wx_WindowUpdateLocker::ToString(Signal sig, bool exprFlag)
+String Object_wx_WindowUpdateLocker::ToString(bool exprFlag)
 {
 	String rtn("<wx.WindowUpdateLocker:");
 	if (GetEntity() == NULL) {

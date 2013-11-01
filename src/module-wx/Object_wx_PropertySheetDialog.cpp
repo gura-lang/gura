@@ -311,7 +311,7 @@ Object *Object_wx_PropertySheetDialog::Clone() const
 	return NULL;
 }
 
-String Object_wx_PropertySheetDialog::ToString(Signal sig, bool exprFlag)
+String Object_wx_PropertySheetDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.PropertySheetDialog:");
 	if (GetEntity() == NULL) {

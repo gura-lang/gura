@@ -131,7 +131,7 @@ Object *Object_wx_CalculateLayoutEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_CalculateLayoutEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_CalculateLayoutEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.CalculateLayoutEvent:");
 	if (GetEntity() == NULL) {

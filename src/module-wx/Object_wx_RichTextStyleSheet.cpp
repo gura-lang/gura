@@ -438,7 +438,7 @@ Object *Object_wx_RichTextStyleSheet::Clone() const
 	return pObj;
 }
 
-String Object_wx_RichTextStyleSheet::ToString(Signal sig, bool exprFlag)
+String Object_wx_RichTextStyleSheet::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextStyleSheet:");
 	if (GetEntity() == NULL) {

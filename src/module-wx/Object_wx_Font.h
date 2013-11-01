@@ -25,7 +25,7 @@ public:
 				Object_wx_GDIObject(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_Font();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxFont *GetEntity() {
 		return dynamic_cast<wxFont *>(_pEntity);
 	}

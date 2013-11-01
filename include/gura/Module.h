@@ -106,7 +106,7 @@ public:
 	virtual bool IsModule() const;
 	virtual void AssignValueType(ValueTypeInfo *pValueTypeInfo);
 	virtual Module *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 public:
 	static bool ImportBuiltIns(Environment &env, Signal sig);
 };

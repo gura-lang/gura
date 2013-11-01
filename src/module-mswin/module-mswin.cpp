@@ -19,7 +19,7 @@ Object *Object_regkey::Clone() const
 	return NULL;
 }
 
-String Object_regkey::ToString(Signal sig, bool exprFlag)
+String Object_regkey::ToString(bool exprFlag)
 {
 	return String("<mswin.regkey>");
 }
@@ -612,7 +612,7 @@ Callable *Object_ole::GetCallable(Signal sig, const Symbol *pSymbol)
 	return pCallableOLE;
 }
 
-String Object_ole::ToString(Signal sig, bool exprFlag)
+String Object_ole::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<mswin.ole:";
@@ -622,7 +622,7 @@ String Object_ole::ToString(Signal sig, bool exprFlag)
 		do {
 			hr = _pDispatch->GetTypeInfo(0, LOCALE_SYSTEM_DEFAULT, &pTypeInfo);
 			if (FAILED(hr)) {
-				SetError(sig, hr);
+				rtn += "*error*>";
 				return rtn;
 			}
 		} while (0);
@@ -631,7 +631,7 @@ String Object_ole::ToString(Signal sig, bool exprFlag)
 			TYPEATTR *pTypeAttr = NULL;
 			hr = pTypeInfo->GetTypeAttr(&pTypeAttr);
 			if (FAILED(hr)) {
-				SetError(sig, hr);
+				rtn += "*error*>";
 				pTypeInfo->Release();
 				return rtn;
 			}
@@ -834,7 +834,7 @@ bool Object_ole::IteratorEx::DoNext(Environment &env, Signal sig, Value &value)
 	return true;
 }
 
-String Object_ole::IteratorEx::ToString(Signal sig) const
+String Object_ole::IteratorEx::ToString() const
 {
 	return String("<iterator:mswin.ole>");
 }
@@ -894,7 +894,7 @@ bool Iterator_RegEnumKey::DoNext(Environment &env, Signal sig, Value &value)
 	return true;
 }
 
-String Iterator_RegEnumKey::ToString(Signal sig) const
+String Iterator_RegEnumKey::ToString() const
 {
 	return String("<iterator:mswin.regenumkey>");
 }
@@ -948,7 +948,7 @@ bool Iterator_RegEnumValue::DoNext(Environment &env, Signal sig, Value &value)
 	return true;
 }
 
-String Iterator_RegEnumValue::ToString(Signal sig) const
+String Iterator_RegEnumValue::ToString() const
 {
 	return String("<iterator:mswin.regenumvalue>");
 }
@@ -1088,7 +1088,7 @@ String BSTRToString(const OLECHAR *bstr)
 
 bool ValueToVariant(Signal sig, VARIANT &var, const Value &value)
 {
-	//::printf("ValueToVariant(%s %s)\n", value.GetTypeName(), value.ToString(sig).c_str());
+	//::printf("ValueToVariant(%s %s)\n", value.GetTypeName(), value.ToString().c_str());
 	::VariantInit(&var);
 	if (value.IsNumber()) {
 		Number num = value.GetNumber();

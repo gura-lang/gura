@@ -190,7 +190,7 @@ Object *Object_wx_TreeEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_TreeEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_TreeEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.TreeEvent:");
 	if (GetEntity() == NULL) {

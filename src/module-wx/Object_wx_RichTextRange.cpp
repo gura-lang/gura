@@ -319,7 +319,7 @@ Object *Object_wx_RichTextRange::Clone() const
 	return NULL;
 }
 
-String Object_wx_RichTextRange::ToString(Signal sig, bool exprFlag)
+String Object_wx_RichTextRange::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextRange:");
 	if (GetEntity() == NULL) {

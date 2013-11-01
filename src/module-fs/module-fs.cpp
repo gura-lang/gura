@@ -102,7 +102,7 @@ Value Object_Stat::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	return Value::Null;
 }
 
-String Object_Stat::ToString(Signal sig, bool exprFlag)
+String Object_Stat::ToString(bool exprFlag)
 {
 	return String("<fs.stat>");
 }

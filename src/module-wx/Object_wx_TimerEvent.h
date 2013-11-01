@@ -25,7 +25,7 @@ public:
 				Object_wx_Event(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_TimerEvent();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxTimerEvent *GetEntity() {
 		return dynamic_cast<wxTimerEvent *>(_pEntity);
 	}

@@ -285,7 +285,7 @@ Object *Object_wx_LongLong::Clone() const
 	return NULL;
 }
 
-String Object_wx_LongLong::ToString(Signal sig, bool exprFlag)
+String Object_wx_LongLong::ToString(bool exprFlag)
 {
 	String rtn("<wx.LongLong:");
 	if (GetEntity() == NULL) {

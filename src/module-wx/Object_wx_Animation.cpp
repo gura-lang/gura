@@ -235,7 +235,7 @@ Object *Object_wx_Animation::Clone() const
 	return NULL;
 }
 
-String Object_wx_Animation::ToString(Signal sig, bool exprFlag)
+String Object_wx_Animation::ToString(bool exprFlag)
 {
 	String rtn("<wx.Animation:");
 	if (GetEntity() == NULL) {

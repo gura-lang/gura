@@ -262,7 +262,7 @@ Object *Object_wx_HashTable::Clone() const
 	return NULL;
 }
 
-String Object_wx_HashTable::ToString(Signal sig, bool exprFlag)
+String Object_wx_HashTable::ToString(bool exprFlag)
 {
 	String rtn("<wx.HashTable:");
 	if (GetEntity() == NULL) {

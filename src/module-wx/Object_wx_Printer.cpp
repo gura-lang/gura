@@ -203,7 +203,7 @@ Object *Object_wx_Printer::Clone() const
 	return NULL;
 }
 
-String Object_wx_Printer::ToString(Signal sig, bool exprFlag)
+String Object_wx_Printer::ToString(bool exprFlag)
 {
 	String rtn("<wx.Printer:");
 	if (GetEntity() == NULL) {

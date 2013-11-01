@@ -167,7 +167,7 @@ Object *Object_wx_TaskBarIcon::Clone() const
 	return NULL;
 }
 
-String Object_wx_TaskBarIcon::ToString(Signal sig, bool exprFlag)
+String Object_wx_TaskBarIcon::ToString(bool exprFlag)
 {
 	String rtn("<wx.TaskBarIcon:");
 	if (GetEntity() == NULL) {

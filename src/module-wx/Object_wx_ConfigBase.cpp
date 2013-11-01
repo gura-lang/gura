@@ -821,7 +821,7 @@ Object *Object_wx_ConfigBase::Clone() const
 	return NULL;
 }
 
-String Object_wx_ConfigBase::ToString(Signal sig, bool exprFlag)
+String Object_wx_ConfigBase::ToString(bool exprFlag)
 {
 	String rtn("<wx.ConfigBase:");
 	if (GetEntity() == NULL) {

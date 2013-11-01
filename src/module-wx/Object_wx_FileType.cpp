@@ -258,7 +258,7 @@ Object *Object_wx_FileType::Clone() const
 	return NULL;
 }
 
-String Object_wx_FileType::ToString(Signal sig, bool exprFlag)
+String Object_wx_FileType::ToString(bool exprFlag)
 {
 	String rtn("<wx.FileType:");
 	if (GetEntity() == NULL) {

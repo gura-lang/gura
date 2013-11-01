@@ -25,7 +25,7 @@ public:
 				Object_wx_BookCtrlBase(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_Choicebook();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxChoicebook *GetEntity() {
 		return dynamic_cast<wxChoicebook *>(_pEntity);
 	}

@@ -25,7 +25,7 @@ public:
 				Object_wx_GDIObject(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_Brush();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxBrush *GetEntity() {
 		return dynamic_cast<wxBrush *>(_pEntity);
 	}

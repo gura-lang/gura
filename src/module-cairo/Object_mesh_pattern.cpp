@@ -5,7 +5,7 @@ Gura_BeginModuleScope(cairo)
 //-----------------------------------------------------------------------------
 // Object_mesh_pattern implementation
 //-----------------------------------------------------------------------------
-String Object_mesh_pattern::ToString(Signal sig, bool exprFlag)
+String Object_mesh_pattern::ToString(bool exprFlag)
 {
 	return String("<cairo.mesh_pattern>");
 }

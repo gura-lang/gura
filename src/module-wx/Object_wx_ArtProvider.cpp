@@ -190,7 +190,7 @@ Object *Object_wx_ArtProvider::Clone() const
 	return NULL;
 }
 
-String Object_wx_ArtProvider::ToString(Signal sig, bool exprFlag)
+String Object_wx_ArtProvider::ToString(bool exprFlag)
 {
 	String rtn("<wx.ArtProvider:");
 	if (GetEntity() == NULL) {

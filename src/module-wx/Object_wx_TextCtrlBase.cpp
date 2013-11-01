@@ -51,7 +51,7 @@ Object *Object_wx_TextCtrlBase::Clone() const
 	return NULL;
 }
 
-String Object_wx_TextCtrlBase::ToString(Signal sig, bool exprFlag)
+String Object_wx_TextCtrlBase::ToString(bool exprFlag)
 {
 	String rtn("<wx.TextCtrlBase:");
 	if (GetEntity() == NULL) {

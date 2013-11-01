@@ -267,7 +267,7 @@ Object *Object_wx_GLCanvas::Clone() const
 	return NULL;
 }
 
-String Object_wx_GLCanvas::ToString(Signal sig, bool exprFlag)
+String Object_wx_GLCanvas::ToString(bool exprFlag)
 {
 	String rtn("<wx.GLCanvas:");
 	if (GetEntity() == NULL) {

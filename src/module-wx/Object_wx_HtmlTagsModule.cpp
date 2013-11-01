@@ -71,7 +71,7 @@ Object *Object_wx_HtmlTagsModule::Clone() const
 	return NULL;
 }
 
-String Object_wx_HtmlTagsModule::ToString(Signal sig, bool exprFlag)
+String Object_wx_HtmlTagsModule::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlTagsModule:");
 	if (GetEntity() == NULL) {

@@ -51,7 +51,7 @@ Object *Object_wx_NativeFontInfo::Clone() const
 	return NULL;
 }
 
-String Object_wx_NativeFontInfo::ToString(Signal sig, bool exprFlag)
+String Object_wx_NativeFontInfo::ToString(bool exprFlag)
 {
 	String rtn("<wx.NativeFontInfo:");
 	if (GetEntity() == NULL) {

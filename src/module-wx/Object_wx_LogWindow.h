@@ -25,7 +25,7 @@ public:
 				Object_wx_LogPassThrough(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_LogWindow();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxLogWindow *GetEntity() {
 		return dynamic_cast<wxLogWindow *>(_pEntity);
 	}

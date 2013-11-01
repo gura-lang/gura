@@ -150,7 +150,7 @@ Object *Object_wx_SplashScreen::Clone() const
 	return NULL;
 }
 
-String Object_wx_SplashScreen::ToString(Signal sig, bool exprFlag)
+String Object_wx_SplashScreen::ToString(bool exprFlag)
 {
 	String rtn("<wx.SplashScreen:");
 	if (GetEntity() == NULL) {

@@ -246,7 +246,7 @@ Object *Object_wx_DropSource::Clone() const
 	return NULL;
 }
 
-String Object_wx_DropSource::ToString(Signal sig, bool exprFlag)
+String Object_wx_DropSource::ToString(bool exprFlag)
 {
 	String rtn("<wx.DropSource:");
 	if (GetEntity() == NULL) {

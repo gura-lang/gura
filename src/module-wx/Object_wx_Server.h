@@ -25,7 +25,7 @@ public:
 				Object_wx_ServerBase(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_Server();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxServer *GetEntity() {
 		return dynamic_cast<wxServer *>(_pEntity);
 	}

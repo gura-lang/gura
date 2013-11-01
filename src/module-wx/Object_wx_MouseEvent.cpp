@@ -622,7 +622,7 @@ Object *Object_wx_MouseEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_MouseEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_MouseEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.MouseEvent:");
 	if (GetEntity() == NULL) {

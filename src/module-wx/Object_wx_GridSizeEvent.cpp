@@ -204,7 +204,7 @@ Object *Object_wx_GridSizeEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_GridSizeEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_GridSizeEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridSizeEvent:");
 	if (GetEntity() == NULL) {

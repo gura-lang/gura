@@ -132,7 +132,7 @@ Object *Object_wx_FindDialogEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_FindDialogEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_FindDialogEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.FindDialogEvent:");
 	if (GetEntity() == NULL) {

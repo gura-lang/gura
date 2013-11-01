@@ -44,7 +44,7 @@ public:
 	inline bool IsInvalid(Signal sig) const { return false; }
 	virtual ~Object_wx_EventFactory();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	virtual Object_wx_Event *CreateEventObject(wxEvent &event);
 	inline wxEventType GetEventType() { return _eventType; }
 	inline const char *GetName() { return _name.c_str(); }

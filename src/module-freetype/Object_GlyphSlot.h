@@ -18,7 +18,7 @@ public:
 	inline Object_GlyphSlot(Object *pObjHolder, FT_GlyphSlot glyphSlot) :
 			Object(Gura_UserClass(GlyphSlot)), _pObjHolder(pObjHolder), _glyphSlot(glyphSlot) {}
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);

@@ -25,7 +25,7 @@ public:
 				Object_wx_List(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_FontList();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxFontList *GetEntity() {
 		return dynamic_cast<wxFontList *>(_pEntity);
 	}

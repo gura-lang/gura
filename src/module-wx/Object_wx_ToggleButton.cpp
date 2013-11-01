@@ -178,7 +178,7 @@ Object *Object_wx_ToggleButton::Clone() const
 	return NULL;
 }
 
-String Object_wx_ToggleButton::ToString(Signal sig, bool exprFlag)
+String Object_wx_ToggleButton::ToString(bool exprFlag)
 {
 	String rtn("<wx.ToggleButton:");
 	if (GetEntity() == NULL) {

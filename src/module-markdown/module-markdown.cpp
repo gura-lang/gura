@@ -2101,7 +2101,7 @@ Value Object_document::DoSetProp(Environment &env, Signal sig, const Symbol *pSy
 	return Value::Null;
 }
 
-String Object_document::ToString(Signal sig, bool exprFlag)
+String Object_document::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<markdown.document";
@@ -2214,7 +2214,7 @@ Value Object_item::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	return Value::Null;
 }
 
-String Object_item::ToString(Signal sig, bool exprFlag)
+String Object_item::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<markdown.item:";
@@ -2328,7 +2328,7 @@ bool Iterator_item::DoNext(Environment &env, Signal sig, Value &value)
 	return false;
 }
 
-String Iterator_item::ToString(Signal sig) const
+String Iterator_item::ToString() const
 {
 	String rtn;
 	rtn += "<iterator:markdown.item";

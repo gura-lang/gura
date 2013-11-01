@@ -232,7 +232,7 @@ Object *Object_wx_Cursor::Clone() const
 	return NULL;
 }
 
-String Object_wx_Cursor::ToString(Signal sig, bool exprFlag)
+String Object_wx_Cursor::ToString(bool exprFlag)
 {
 	String rtn("<wx.Cursor:");
 	if (GetEntity() == NULL) {

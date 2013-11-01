@@ -147,7 +147,7 @@ Object *Object_wx_SetCursorEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_SetCursorEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_SetCursorEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.SetCursorEvent:");
 	if (GetEntity() == NULL) {

@@ -18,7 +18,7 @@ public:
 					Object(Gura_UserClass(font_options)), _options(options) {}
 	virtual ~Object_font_options();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline cairo_font_options_t *GetEntity() { return _options; }
 };
 

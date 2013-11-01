@@ -25,7 +25,7 @@ public:
 				Object_wx_Object(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_FileHistory();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxFileHistory *GetEntity() {
 		return dynamic_cast<wxFileHistory *>(_pEntity);
 	}

@@ -25,7 +25,7 @@ public:
 				Object_wx_Object(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_EncodingConverter();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxEncodingConverter *GetEntity() {
 		return dynamic_cast<wxEncodingConverter *>(_pEntity);
 	}

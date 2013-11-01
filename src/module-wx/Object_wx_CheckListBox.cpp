@@ -154,7 +154,7 @@ Object *Object_wx_CheckListBox::Clone() const
 	return NULL;
 }
 
-String Object_wx_CheckListBox::ToString(Signal sig, bool exprFlag)
+String Object_wx_CheckListBox::ToString(bool exprFlag)
 {
 	String rtn("<wx.CheckListBox:");
 	if (GetEntity() == NULL) {

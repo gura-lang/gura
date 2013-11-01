@@ -51,7 +51,7 @@ Object *Object_wx_HelpControllerBase::Clone() const
 	return NULL;
 }
 
-String Object_wx_HelpControllerBase::ToString(Signal sig, bool exprFlag)
+String Object_wx_HelpControllerBase::ToString(bool exprFlag)
 {
 	String rtn("<wx.HelpControllerBase:");
 	if (GetEntity() == NULL) {

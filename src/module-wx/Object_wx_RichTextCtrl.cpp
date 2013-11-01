@@ -3555,7 +3555,7 @@ Object *Object_wx_RichTextCtrl::Clone() const
 	return NULL;
 }
 
-String Object_wx_RichTextCtrl::ToString(Signal sig, bool exprFlag)
+String Object_wx_RichTextCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextCtrl:");
 	if (GetEntity() == NULL) {

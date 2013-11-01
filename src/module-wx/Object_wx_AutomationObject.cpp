@@ -357,7 +357,7 @@ Object *Object_wx_AutomationObject::Clone() const
 	return NULL;
 }
 
-String Object_wx_AutomationObject::ToString(Signal sig, bool exprFlag)
+String Object_wx_AutomationObject::ToString(bool exprFlag)
 {
 	String rtn("<wx.AutomationObject:");
 	if (GetEntity() == NULL) {

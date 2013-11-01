@@ -108,7 +108,7 @@ Object *Object_wx_HtmlFilter::Clone() const
 	return NULL;
 }
 
-String Object_wx_HtmlFilter::ToString(Signal sig, bool exprFlag)
+String Object_wx_HtmlFilter::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlFilter:");
 	if (GetEntity() == NULL) {

@@ -187,7 +187,7 @@ Object *Object_wx_CustomDataObject::Clone() const
 	return NULL;
 }
 
-String Object_wx_CustomDataObject::ToString(Signal sig, bool exprFlag)
+String Object_wx_CustomDataObject::ToString(bool exprFlag)
 {
 	String rtn("<wx.CustomDataObject:");
 	if (GetEntity() == NULL) {

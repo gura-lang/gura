@@ -83,7 +83,7 @@ Object *Object_wx_HtmlModalHelp::Clone() const
 	return NULL;
 }
 
-String Object_wx_HtmlModalHelp::ToString(Signal sig, bool exprFlag)
+String Object_wx_HtmlModalHelp::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlModalHelp:");
 	if (GetEntity() == NULL) {

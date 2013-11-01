@@ -51,7 +51,7 @@ Object *Object_wx_RichTextObject::Clone() const
 	return NULL;
 }
 
-String Object_wx_RichTextObject::ToString(Signal sig, bool exprFlag)
+String Object_wx_RichTextObject::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextObject:");
 	if (GetEntity() == NULL) {

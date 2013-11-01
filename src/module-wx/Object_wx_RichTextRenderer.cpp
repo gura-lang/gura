@@ -51,7 +51,7 @@ Object *Object_wx_RichTextRenderer::Clone() const
 	return NULL;
 }
 
-String Object_wx_RichTextRenderer::ToString(Signal sig, bool exprFlag)
+String Object_wx_RichTextRenderer::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextRenderer:");
 	if (GetEntity() == NULL) {

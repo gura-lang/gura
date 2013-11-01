@@ -568,7 +568,7 @@ Object *Object_wx_VListBox::Clone() const
 	return NULL;
 }
 
-String Object_wx_VListBox::ToString(Signal sig, bool exprFlag)
+String Object_wx_VListBox::ToString(bool exprFlag)
 {
 	String rtn("<wx.VListBox:");
 	if (GetEntity() == NULL) {

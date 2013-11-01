@@ -234,7 +234,7 @@ Object *Object_wx_GridEditorCreatedEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_GridEditorCreatedEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_GridEditorCreatedEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridEditorCreatedEvent:");
 	if (GetEntity() == NULL) {

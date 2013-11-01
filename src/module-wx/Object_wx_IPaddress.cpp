@@ -198,7 +198,7 @@ Object *Object_wx_IPaddress::Clone() const
 	return NULL;
 }
 
-String Object_wx_IPaddress::ToString(Signal sig, bool exprFlag)
+String Object_wx_IPaddress::ToString(bool exprFlag)
 {
 	String rtn("<wx.IPaddress:");
 	if (GetEntity() == NULL) {

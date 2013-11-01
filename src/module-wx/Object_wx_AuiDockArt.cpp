@@ -372,7 +372,7 @@ Object *Object_wx_AuiDockArt::Clone() const
 	return NULL;
 }
 
-String Object_wx_AuiDockArt::ToString(Signal sig, bool exprFlag)
+String Object_wx_AuiDockArt::ToString(bool exprFlag)
 {
 	String rtn("<wx.AuiDockArt:");
 	if (GetEntity() == NULL) {

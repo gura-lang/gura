@@ -77,7 +77,7 @@ Object *Object_wx_StringBuffer::Clone() const
 	return NULL;
 }
 
-String Object_wx_StringBuffer::ToString(Signal sig, bool exprFlag)
+String Object_wx_StringBuffer::ToString(bool exprFlag)
 {
 	String rtn("<wx.StringBuffer:");
 	if (GetEntity() == NULL) {

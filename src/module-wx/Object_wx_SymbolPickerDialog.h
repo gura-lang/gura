@@ -25,7 +25,7 @@ public:
 				Object_wx_Dialog(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_SymbolPickerDialog();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxSymbolPickerDialog *GetEntity() {
 		return dynamic_cast<wxSymbolPickerDialog *>(_pEntity);
 	}

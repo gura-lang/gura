@@ -141,7 +141,7 @@ Object *Object_wx_HelpEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_HelpEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_HelpEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.HelpEvent:");
 	if (GetEntity() == NULL) {

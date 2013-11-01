@@ -757,7 +757,7 @@ bool Palette::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
 	return true;
 }
 
-String Palette::IteratorEach::ToString(Signal sig) const
+String Palette::IteratorEach::ToString() const
 {
 	return String("palette#each");
 }

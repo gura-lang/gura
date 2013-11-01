@@ -70,7 +70,7 @@ Object *Object_wx_GridCellNumberRenderer::Clone() const
 	return NULL;
 }
 
-String Object_wx_GridCellNumberRenderer::ToString(Signal sig, bool exprFlag)
+String Object_wx_GridCellNumberRenderer::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridCellNumberRenderer:");
 	if (GetEntity() == NULL) {

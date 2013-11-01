@@ -252,7 +252,7 @@ Object *Object_wx_DropTarget::Clone() const
 	return NULL;
 }
 
-String Object_wx_DropTarget::ToString(Signal sig, bool exprFlag)
+String Object_wx_DropTarget::ToString(bool exprFlag)
 {
 	String rtn("<wx.DropTarget:");
 	if (GetEntity() == NULL) {

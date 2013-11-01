@@ -368,7 +368,7 @@ Object *Object_wx_DocTemplate::Clone() const
 	return NULL;
 }
 
-String Object_wx_DocTemplate::ToString(Signal sig, bool exprFlag)
+String Object_wx_DocTemplate::ToString(bool exprFlag)
 {
 	String rtn("<wx.DocTemplate:");
 	if (GetEntity() == NULL) {

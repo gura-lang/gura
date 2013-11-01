@@ -1447,7 +1447,7 @@ Object *Object_wx_RichTextAttr::Clone() const
 	return NULL;
 }
 
-String Object_wx_RichTextAttr::ToString(Signal sig, bool exprFlag)
+String Object_wx_RichTextAttr::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextAttr:");
 	if (GetEntity() == NULL) {

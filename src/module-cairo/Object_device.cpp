@@ -15,7 +15,7 @@ Object *Object_device::Clone() const
 	return NULL;
 }
 
-String Object_device::ToString(Signal sig, bool exprFlag)
+String Object_device::ToString(bool exprFlag)
 {
 	return String("<cairo.device>");
 }

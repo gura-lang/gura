@@ -19,7 +19,7 @@ public:
 	inline Object_BDF_Property(const Object_BDF_Property &obj) :
 			Object(obj), _property(obj._property) {}
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);

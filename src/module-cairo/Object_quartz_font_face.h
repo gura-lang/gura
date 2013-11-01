@@ -14,7 +14,7 @@ public:
 public:
 	inline Object_quartz_font_face(cairo_font_face_t *font_face) :
 										Object_font_face(font_face) {}
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 };
 
 Gura_EndModuleScope(cairo)

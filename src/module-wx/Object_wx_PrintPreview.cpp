@@ -314,7 +314,7 @@ Object *Object_wx_PrintPreview::Clone() const
 	return NULL;
 }
 
-String Object_wx_PrintPreview::ToString(Signal sig, bool exprFlag)
+String Object_wx_PrintPreview::ToString(bool exprFlag)
 {
 	String rtn("<wx.PrintPreview:");
 	if (GetEntity() == NULL) {

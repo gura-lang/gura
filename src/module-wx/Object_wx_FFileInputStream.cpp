@@ -159,7 +159,7 @@ Object *Object_wx_FFileInputStream::Clone() const
 	return NULL;
 }
 
-String Object_wx_FFileInputStream::ToString(Signal sig, bool exprFlag)
+String Object_wx_FFileInputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.FFileInputStream:");
 	if (GetEntity() == NULL) {

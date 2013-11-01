@@ -117,7 +117,7 @@ Object *Object_wx_MDIClientWindow::Clone() const
 	return NULL;
 }
 
-String Object_wx_MDIClientWindow::ToString(Signal sig, bool exprFlag)
+String Object_wx_MDIClientWindow::ToString(bool exprFlag)
 {
 	String rtn("<wx.MDIClientWindow:");
 	if (GetEntity() == NULL) {

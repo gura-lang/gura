@@ -102,7 +102,7 @@ Object *Object_wx_URLDataObject::Clone() const
 	return NULL;
 }
 
-String Object_wx_URLDataObject::ToString(Signal sig, bool exprFlag)
+String Object_wx_URLDataObject::ToString(bool exprFlag)
 {
 	String rtn("<wx.URLDataObject:");
 	if (GetEntity() == NULL) {

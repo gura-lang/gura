@@ -25,7 +25,7 @@ public:
 				Object_wx_ArchiveInputStream(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_ZipInputStream();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxZipInputStream *GetEntity() {
 		return dynamic_cast<wxZipInputStream *>(_pEntity);
 	}

@@ -163,7 +163,7 @@ Object *Object_wx_DirPickerCtrl::Clone() const
 	return NULL;
 }
 
-String Object_wx_DirPickerCtrl::ToString(Signal sig, bool exprFlag)
+String Object_wx_DirPickerCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.DirPickerCtrl:");
 	if (GetEntity() == NULL) {

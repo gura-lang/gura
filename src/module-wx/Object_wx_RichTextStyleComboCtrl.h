@@ -25,7 +25,7 @@ public:
 				Object_wx_ComboCtrl(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_RichTextStyleComboCtrl();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxRichTextStyleComboCtrl *GetEntity() {
 		return dynamic_cast<wxRichTextStyleComboCtrl *>(_pEntity);
 	}

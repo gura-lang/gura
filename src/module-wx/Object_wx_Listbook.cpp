@@ -87,7 +87,7 @@ Object *Object_wx_Listbook::Clone() const
 	return NULL;
 }
 
-String Object_wx_Listbook::ToString(Signal sig, bool exprFlag)
+String Object_wx_Listbook::ToString(bool exprFlag)
 {
 	String rtn("<wx.Listbook:");
 	if (GetEntity() == NULL) {

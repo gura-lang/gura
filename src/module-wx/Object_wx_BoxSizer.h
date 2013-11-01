@@ -25,7 +25,7 @@ public:
 				Object_wx_Sizer(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_BoxSizer();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxBoxSizer *GetEntity() {
 		return dynamic_cast<wxBoxSizer *>(_pEntity);
 	}

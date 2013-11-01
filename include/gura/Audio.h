@@ -76,7 +76,7 @@ public:
 		IteratorEach(Audio *pAudio, size_t iChannel, size_t offset);
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString(Signal sig) const;
+		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
 private:

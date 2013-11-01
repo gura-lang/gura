@@ -201,7 +201,7 @@ Object *Object_wx_Mask::Clone() const
 	return NULL;
 }
 
-String Object_wx_Mask::ToString(Signal sig, bool exprFlag)
+String Object_wx_Mask::ToString(bool exprFlag)
 {
 	String rtn("<wx.Mask:");
 	if (GetEntity() == NULL) {

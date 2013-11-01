@@ -117,7 +117,7 @@ Object *Object_wx_TreeItemData::Clone() const
 	return NULL;
 }
 
-String Object_wx_TreeItemData::ToString(Signal sig, bool exprFlag)
+String Object_wx_TreeItemData::ToString(bool exprFlag)
 {
 	String rtn("<wx.TreeItemData:");
 	if (GetEntity() == NULL) {

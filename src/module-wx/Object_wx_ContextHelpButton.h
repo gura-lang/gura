@@ -25,7 +25,7 @@ public:
 				Object_wx_BitmapButton(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_ContextHelpButton();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxContextHelpButton *GetEntity() {
 		return dynamic_cast<wxContextHelpButton *>(_pEntity);
 	}

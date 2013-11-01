@@ -273,7 +273,7 @@ Object *Object_wx_DialUpManager::Clone() const
 	return NULL;
 }
 
-String Object_wx_DialUpManager::ToString(Signal sig, bool exprFlag)
+String Object_wx_DialUpManager::ToString(bool exprFlag)
 {
 	String rtn("<wx.DialUpManager:");
 	if (GetEntity() == NULL) {

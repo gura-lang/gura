@@ -26,7 +26,7 @@ public:
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline unsigned short GetId() const { return _tagId; }
 	inline unsigned short GetType() const { return _type; }
 	inline bool IsTypeSHORTorLONG() const { return _type == TYPE_SHORT || _type == TYPE_LONG; }

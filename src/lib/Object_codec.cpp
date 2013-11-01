@@ -19,7 +19,7 @@ Object *Object_codec::Clone() const
 	return new Object_codec(*this);
 }
 
-String Object_codec::ToString(Signal sig, bool exprFlag)
+String Object_codec::ToString(bool exprFlag)
 {
 	String str;
 	str += "<codec:";

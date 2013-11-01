@@ -15,7 +15,7 @@ Object *Object_region::Clone() const
 	return NULL;
 }
 
-String Object_region::ToString(Signal sig, bool exprFlag)
+String Object_region::ToString(bool exprFlag)
 {
 	return String("<cairo.region>");
 }

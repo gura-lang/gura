@@ -24,7 +24,7 @@ public:
 				Object_wx_ImageHandler(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_PNGHandler();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxPNGHandler *GetEntity() {
 		return dynamic_cast<wxPNGHandler *>(_pEntity);
 	}

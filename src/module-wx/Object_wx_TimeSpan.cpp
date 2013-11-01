@@ -719,7 +719,7 @@ Object *Object_wx_TimeSpan::Clone() const
 	return NULL;
 }
 
-String Object_wx_TimeSpan::ToString(Signal sig, bool exprFlag)
+String Object_wx_TimeSpan::ToString(bool exprFlag)
 {
 	String rtn("<wx.TimeSpan:");
 	if (GetEntity() == NULL) {

@@ -398,7 +398,7 @@ Object *Object_wx_ArrayString::Clone() const
 	return NULL;
 }
 
-String Object_wx_ArrayString::ToString(Signal sig, bool exprFlag)
+String Object_wx_ArrayString::ToString(bool exprFlag)
 {
 	String rtn("<wx.ArrayString:");
 	if (GetEntity() == NULL) {

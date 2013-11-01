@@ -316,7 +316,7 @@ Object *Object_wx_AboutDialogInfo::Clone() const
 	return NULL;
 }
 
-String Object_wx_AboutDialogInfo::ToString(Signal sig, bool exprFlag)
+String Object_wx_AboutDialogInfo::ToString(bool exprFlag)
 {
 	String rtn("<wx.AboutDialogInfo:");
 	if (GetEntity() == NULL) {

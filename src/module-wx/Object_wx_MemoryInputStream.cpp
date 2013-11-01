@@ -119,7 +119,7 @@ Object *Object_wx_MemoryInputStream::Clone() const
 	return NULL;
 }
 
-String Object_wx_MemoryInputStream::ToString(Signal sig, bool exprFlag)
+String Object_wx_MemoryInputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.MemoryInputStream:");
 	if (GetEntity() == NULL) {

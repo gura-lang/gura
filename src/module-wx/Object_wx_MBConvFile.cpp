@@ -87,7 +87,7 @@ Object *Object_wx_MBConvFile::Clone() const
 	return NULL;
 }
 
-String Object_wx_MBConvFile::ToString(Signal sig, bool exprFlag)
+String Object_wx_MBConvFile::ToString(bool exprFlag)
 {
 	String rtn("<wx.MBConvFile:");
 	if (GetEntity() == NULL) {

@@ -25,7 +25,7 @@ public:
 				Object_wx_HelpControllerBase(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_HtmlHelpController();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxHtmlHelpController *GetEntity() {
 		return dynamic_cast<wxHtmlHelpController *>(_pEntity);
 	}

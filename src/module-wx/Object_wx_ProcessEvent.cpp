@@ -107,7 +107,7 @@ Object *Object_wx_ProcessEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_ProcessEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_ProcessEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.ProcessEvent:");
 	if (GetEntity() == NULL) {

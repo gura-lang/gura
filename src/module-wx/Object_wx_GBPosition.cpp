@@ -183,7 +183,7 @@ Object *Object_wx_GBPosition::Clone() const
 	return NULL;
 }
 
-String Object_wx_GBPosition::ToString(Signal sig, bool exprFlag)
+String Object_wx_GBPosition::ToString(bool exprFlag)
 {
 	String rtn("<wx.GBPosition:");
 	if (GetEntity() == NULL) {

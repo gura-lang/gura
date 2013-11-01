@@ -25,7 +25,7 @@ public:
 				Object_wx_FileSystemHandler(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_MemoryFSHandler();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxMemoryFSHandler *GetEntity() {
 		return dynamic_cast<wxMemoryFSHandler *>(_pEntity);
 	}

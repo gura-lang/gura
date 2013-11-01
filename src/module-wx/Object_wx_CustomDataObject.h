@@ -25,7 +25,7 @@ public:
 				Object_wx_DataObjectSimple(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_CustomDataObject();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxCustomDataObject *GetEntity() {
 		return dynamic_cast<wxCustomDataObject *>(_pEntity);
 	}

@@ -406,7 +406,7 @@ Object *Object_wx_HtmlHelpWindow::Clone() const
 	return NULL;
 }
 
-String Object_wx_HtmlHelpWindow::ToString(Signal sig, bool exprFlag)
+String Object_wx_HtmlHelpWindow::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlHelpWindow:");
 	if (GetEntity() == NULL) {

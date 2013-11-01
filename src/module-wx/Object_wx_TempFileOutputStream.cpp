@@ -99,7 +99,7 @@ Object *Object_wx_TempFileOutputStream::Clone() const
 	return NULL;
 }
 
-String Object_wx_TempFileOutputStream::ToString(Signal sig, bool exprFlag)
+String Object_wx_TempFileOutputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.TempFileOutputStream:");
 	if (GetEntity() == NULL) {

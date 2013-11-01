@@ -274,7 +274,7 @@ Object *Object_wx_CommandEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_CommandEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_CommandEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.CommandEvent:");
 	if (GetEntity() == NULL) {

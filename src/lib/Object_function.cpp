@@ -147,8 +147,9 @@ String Object_function::GetFullName(Signal sig)
 	return str;
 }
 
-String Object_function::ToString(Signal sig, bool exprFlag)
+String Object_function::ToString(bool exprFlag)
 {
+	Signal sig;
 	String str = MakePrefix(sig);
 	if (sig.IsSignalled()) return String("");
 	str += _pFunc->ToString();
@@ -288,7 +289,7 @@ Gura_ImplementMethod(function, help)
 {
 	Object_function *pThis = Object_function::GetThisObj(args);
 	const Symbol *pSymbol = args.IsSymbol(0)? args.GetSymbol(0) : NULL;
-	HelpPresenter::Present(env, sig, pThis->ToString(sig, true).c_str(),
+	HelpPresenter::Present(env, sig, pThis->ToString(true).c_str(),
 									pThis->GetFunction()->GetHelp(pSymbol));
 	return Value::Null;
 }

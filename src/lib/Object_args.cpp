@@ -77,7 +77,7 @@ Value Object_args::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	return Value::Null;
 }
 
-String Object_args::ToString(Signal sig, bool exprFlag)
+String Object_args::ToString(bool exprFlag)
 {
 	String str;
 	str += "<args:";

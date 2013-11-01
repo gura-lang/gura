@@ -773,7 +773,7 @@ Object *Object_wx_TextAttrEx::Clone() const
 	return NULL;
 }
 
-String Object_wx_TextAttrEx::ToString(Signal sig, bool exprFlag)
+String Object_wx_TextAttrEx::ToString(bool exprFlag)
 {
 	String rtn("<wx.TextAttrEx:");
 	if (GetEntity() == NULL) {

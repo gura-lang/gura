@@ -340,7 +340,7 @@ Object *Object_wx_RichTextStyleListBox::Clone() const
 	return NULL;
 }
 
-String Object_wx_RichTextStyleListBox::ToString(Signal sig, bool exprFlag)
+String Object_wx_RichTextStyleListBox::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextStyleListBox:");
 	if (GetEntity() == NULL) {

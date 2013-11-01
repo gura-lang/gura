@@ -30,7 +30,7 @@ public:
 	inline OAL::Semaphore &GetSemaphore() { return _semaphore; }
 	virtual ~Object_semaphore();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 };
 
 }

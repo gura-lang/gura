@@ -90,7 +90,7 @@ Object *Object_wx_EraseEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_EraseEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_EraseEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.EraseEvent:");
 	if (GetEntity() == NULL) {

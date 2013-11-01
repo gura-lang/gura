@@ -56,7 +56,7 @@ public:
 					const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 					const Value &value, const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	bool DirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	Value EvalMethod(Environment &env, Signal sig, const Function *pFunc, const ValueList &valListArg);
 	Value EvalMethod(Environment &env, Signal sig, const Symbol *pSymbol,

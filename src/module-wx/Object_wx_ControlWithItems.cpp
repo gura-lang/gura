@@ -340,7 +340,7 @@ Object *Object_wx_ControlWithItems::Clone() const
 	return NULL;
 }
 
-String Object_wx_ControlWithItems::ToString(Signal sig, bool exprFlag)
+String Object_wx_ControlWithItems::ToString(bool exprFlag)
 {
 	String rtn("<wx.ControlWithItems:");
 	if (GetEntity() == NULL) {

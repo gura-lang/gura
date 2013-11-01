@@ -257,7 +257,7 @@ Object *Object_wx_TarOutputStream::Clone() const
 	return NULL;
 }
 
-String Object_wx_TarOutputStream::ToString(Signal sig, bool exprFlag)
+String Object_wx_TarOutputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.TarOutputStream:");
 	if (GetEntity() == NULL) {

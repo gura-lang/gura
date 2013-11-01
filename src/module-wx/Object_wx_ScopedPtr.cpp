@@ -115,7 +115,7 @@ Object *Object_wx_ScopedPtr::Clone() const
 	return NULL;
 }
 
-String Object_wx_ScopedPtr::ToString(Signal sig, bool exprFlag)
+String Object_wx_ScopedPtr::ToString(bool exprFlag)
 {
 	String rtn("<wx.ScopedPtr:");
 	if (GetEntity() == NULL) {

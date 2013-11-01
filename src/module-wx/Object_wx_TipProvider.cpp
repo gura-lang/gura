@@ -134,7 +134,7 @@ Object *Object_wx_TipProvider::Clone() const
 	return NULL;
 }
 
-String Object_wx_TipProvider::ToString(Signal sig, bool exprFlag)
+String Object_wx_TipProvider::ToString(bool exprFlag)
 {
 	String rtn("<wx.TipProvider:");
 	if (GetEntity() == NULL) {

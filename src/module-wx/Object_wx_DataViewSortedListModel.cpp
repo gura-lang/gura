@@ -114,7 +114,7 @@ Object *Object_wx_DataViewSortedListModel::Clone() const
 	return NULL;
 }
 
-String Object_wx_DataViewSortedListModel::ToString(Signal sig, bool exprFlag)
+String Object_wx_DataViewSortedListModel::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataViewSortedListModel:");
 	if (GetEntity() == NULL) {

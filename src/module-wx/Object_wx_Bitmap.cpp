@@ -760,7 +760,7 @@ Object *Object_wx_Bitmap::Clone() const
 	return NULL;
 }
 
-String Object_wx_Bitmap::ToString(Signal sig, bool exprFlag)
+String Object_wx_Bitmap::ToString(bool exprFlag)
 {
 	String rtn("<wx.Bitmap:");
 	if (GetEntity() == NULL) {

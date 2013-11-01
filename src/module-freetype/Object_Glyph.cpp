@@ -18,7 +18,7 @@ Object *Object_Glyph::Clone() const
 	return NULL;
 }
 
-String Object_Glyph::ToString(Signal sig, bool exprFlag)
+String Object_Glyph::ToString(bool exprFlag)
 {
 	char buff[80];
 	::sprintf(buff, "<freetype.Glyph>");

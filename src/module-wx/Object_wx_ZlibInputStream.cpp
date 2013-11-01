@@ -88,7 +88,7 @@ Object *Object_wx_ZlibInputStream::Clone() const
 	return NULL;
 }
 
-String Object_wx_ZlibInputStream::ToString(Signal sig, bool exprFlag)
+String Object_wx_ZlibInputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.ZlibInputStream:");
 	if (GetEntity() == NULL) {

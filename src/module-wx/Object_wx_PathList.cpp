@@ -189,7 +189,7 @@ Object *Object_wx_PathList::Clone() const
 	return NULL;
 }
 
-String Object_wx_PathList::ToString(Signal sig, bool exprFlag)
+String Object_wx_PathList::ToString(bool exprFlag)
 {
 	String rtn("<wx.PathList:");
 	if (GetEntity() == NULL) {

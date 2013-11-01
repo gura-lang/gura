@@ -105,7 +105,7 @@ Object *Object_wx_TCPServer::Clone() const
 	return NULL;
 }
 
-String Object_wx_TCPServer::ToString(Signal sig, bool exprFlag)
+String Object_wx_TCPServer::ToString(bool exprFlag)
 {
 	String rtn("<wx.TCPServer:");
 	if (GetEntity() == NULL) {

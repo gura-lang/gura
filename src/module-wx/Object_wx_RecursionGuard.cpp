@@ -95,7 +95,7 @@ Object *Object_wx_RecursionGuard::Clone() const
 	return NULL;
 }
 
-String Object_wx_RecursionGuard::ToString(Signal sig, bool exprFlag)
+String Object_wx_RecursionGuard::ToString(bool exprFlag)
 {
 	String rtn("<wx.RecursionGuard:");
 	if (GetEntity() == NULL) {

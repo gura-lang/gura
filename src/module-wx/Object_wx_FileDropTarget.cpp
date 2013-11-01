@@ -129,7 +129,7 @@ Object *Object_wx_FileDropTarget::Clone() const
 	return NULL;
 }
 
-String Object_wx_FileDropTarget::ToString(Signal sig, bool exprFlag)
+String Object_wx_FileDropTarget::ToString(bool exprFlag)
 {
 	String rtn("<wx.FileDropTarget:");
 	if (GetEntity() == NULL) {

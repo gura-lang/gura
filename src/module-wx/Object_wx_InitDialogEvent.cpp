@@ -73,7 +73,7 @@ Object *Object_wx_InitDialogEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_InitDialogEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_InitDialogEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.InitDialogEvent:");
 	if (GetEntity() == NULL) {

@@ -25,7 +25,7 @@ public:
 				Object_wx_BookCtrlBaseEvent(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_NotebookEvent();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxNotebookEvent *GetEntity() {
 		return dynamic_cast<wxNotebookEvent *>(_pEntity);
 	}

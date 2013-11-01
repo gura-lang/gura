@@ -24,7 +24,7 @@ void Object_Cursor::FreeCursor()
 	_pCursor = NULL;
 }
 
-String Object_Cursor::ToString(Signal sig, bool exprFlag)
+String Object_Cursor::ToString(bool exprFlag)
 {
 	return String("<Cursor>");
 }
@@ -70,7 +70,7 @@ Object *Object_Timer::Clone() const
 	return NULL;
 }
 
-String Object_Timer::ToString(Signal sig, bool exprFlag)
+String Object_Timer::ToString(bool exprFlag)
 {
 	return String("<sdl.timer>");
 }
@@ -165,7 +165,7 @@ Object *Object_Event::Clone() const
 	return NULL;
 }
 
-String Object_Event::ToString(Signal sig, bool exprFlag)
+String Object_Event::ToString(bool exprFlag)
 {
 	String str;
 	str += "<sdl.Event:";
@@ -425,7 +425,7 @@ Object *Object_Rect::Clone() const
 	return NULL;
 }
 
-String Object_Rect::ToString(Signal sig, bool exprFlag)
+String Object_Rect::ToString(bool exprFlag)
 {
 	char buff[80];
 	::sprintf(buff, "<sdl.Rect:x=%d,y=%d,w=%d,h=%d>", _rect.x, _rect.y, _rect.w, _rect.h);
@@ -503,7 +503,7 @@ Object *Object_Color::Clone() const
 	return NULL;
 }
 
-String Object_Color::ToString(Signal sig, bool exprFlag)
+String Object_Color::ToString(bool exprFlag)
 {
 	char buff[80];
 	::sprintf(buff, "<sdl.Color:r=%d,g=%d,b=%d>", _color.r, _color.g, _color.b);
@@ -599,7 +599,7 @@ Object *Object_Palette::Clone() const
 	return NULL;
 }
 
-String Object_Palette::ToString(Signal sig, bool exprFlag)
+String Object_Palette::ToString(bool exprFlag)
 {
 	return String("<sdl.Palette>");
 }
@@ -655,7 +655,7 @@ Object *Object_PixelFormat::Clone() const
 	return NULL;
 }
 
-String Object_PixelFormat::ToString(Signal sig, bool exprFlag)
+String Object_PixelFormat::ToString(bool exprFlag)
 {
 	return String("<sdl.PixelFormat>");
 }
@@ -892,7 +892,7 @@ Value Object_Surface::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 	return Value::Null;
 }
 
-String Object_Surface::ToString(Signal sig, bool exprFlag)
+String Object_Surface::ToString(bool exprFlag)
 {
 	return String("<sdl.Surface>");
 }
@@ -1429,7 +1429,7 @@ Object *Object_Overlay::Clone() const
 	return NULL;
 }
 
-String Object_Overlay::ToString(Signal sig, bool exprFlag)
+String Object_Overlay::ToString(bool exprFlag)
 {
 	return String("<sdl.Overlay>");
 }
@@ -1515,7 +1515,7 @@ Object *Object_VideoInfo::Clone() const
 	return NULL;
 }
 
-String Object_VideoInfo::ToString(Signal sig, bool exprFlag)
+String Object_VideoInfo::ToString(bool exprFlag)
 {
 	return String("<sdl.VideoInfo>");
 }
@@ -1589,7 +1589,7 @@ Object *Object_Joystick::Clone() const
 	return NULL;
 }
 
-String Object_Joystick::ToString(Signal sig, bool exprFlag)
+String Object_Joystick::ToString(bool exprFlag)
 {
 	return String("<sdl.Joystick>");
 }
@@ -1876,7 +1876,7 @@ void Object_AudioSpec::CallbackStub(void *userdata, Uint8 *stream, int len)
 	pThis->Callback(stream, len);
 }
 
-String Object_AudioSpec::ToString(Signal sig, bool exprFlag)
+String Object_AudioSpec::ToString(bool exprFlag)
 {
 	char buff[64];
 	String rtn;
@@ -1965,7 +1965,7 @@ Object *Object_AudioCVT::Clone() const
 	return NULL;
 }
 
-String Object_AudioCVT::ToString(Signal sig, bool exprFlag)
+String Object_AudioCVT::ToString(bool exprFlag)
 {
 	return String("<sdl.AudioCVT>");
 }
@@ -2035,7 +2035,7 @@ Value Object_CDtrack::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 	return Value::Null;
 }
 
-String Object_CDtrack::ToString(Signal sig, bool exprFlag)
+String Object_CDtrack::ToString(bool exprFlag)
 {
 	return String("<sdl.CDtrack>");
 }
@@ -2087,7 +2087,7 @@ Value Object_CD::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	return Value::Null;
 }
 
-String Object_CD::ToString(Signal sig, bool exprFlag)
+String Object_CD::ToString(bool exprFlag)
 {
 	return String("<sdl.CD>");
 }

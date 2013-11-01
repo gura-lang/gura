@@ -213,7 +213,7 @@ Object *Object_wx_HtmlPrintout::Clone() const
 	return NULL;
 }
 
-String Object_wx_HtmlPrintout::ToString(Signal sig, bool exprFlag)
+String Object_wx_HtmlPrintout::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlPrintout:");
 	if (GetEntity() == NULL) {

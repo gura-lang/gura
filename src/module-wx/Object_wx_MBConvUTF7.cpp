@@ -99,7 +99,7 @@ Object *Object_wx_MBConvUTF7::Clone() const
 	return NULL;
 }
 
-String Object_wx_MBConvUTF7::ToString(Signal sig, bool exprFlag)
+String Object_wx_MBConvUTF7::ToString(bool exprFlag)
 {
 	String rtn("<wx.MBConvUTF7:");
 	if (GetEntity() == NULL) {

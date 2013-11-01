@@ -15,7 +15,7 @@ Object *Object_text_cluster::Clone() const
 	return NULL;
 }
 
-String Object_text_cluster::ToString(Signal sig, bool exprFlag)
+String Object_text_cluster::ToString(bool exprFlag)
 {
 	return String("<cairo.text_cluster>");
 }

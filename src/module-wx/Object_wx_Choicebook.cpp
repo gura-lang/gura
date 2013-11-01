@@ -87,7 +87,7 @@ Object *Object_wx_Choicebook::Clone() const
 	return NULL;
 }
 
-String Object_wx_Choicebook::ToString(Signal sig, bool exprFlag)
+String Object_wx_Choicebook::ToString(bool exprFlag)
 {
 	String rtn("<wx.Choicebook:");
 	if (GetEntity() == NULL) {

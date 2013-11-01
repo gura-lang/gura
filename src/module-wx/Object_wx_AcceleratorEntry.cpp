@@ -167,7 +167,7 @@ Object *Object_wx_AcceleratorEntry::Clone() const
 	return NULL;
 }
 
-String Object_wx_AcceleratorEntry::ToString(Signal sig, bool exprFlag)
+String Object_wx_AcceleratorEntry::ToString(bool exprFlag)
 {
 	String rtn("<wx.AcceleratorEntry:");
 	if (GetEntity() == NULL) {

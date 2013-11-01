@@ -65,7 +65,7 @@ Value Object_timedelta::DoSetProp(Environment &env, Signal sig, const Symbol *pS
 	return DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
-String Object_timedelta::ToString(Signal sig, bool exprFlag)
+String Object_timedelta::ToString(bool exprFlag)
 {
 	String str;
 	str += "<timedelta:";

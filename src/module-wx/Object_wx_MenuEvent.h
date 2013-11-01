@@ -25,7 +25,7 @@ public:
 				Object_wx_Event(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_MenuEvent();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxMenuEvent *GetEntity() {
 		return dynamic_cast<wxMenuEvent *>(_pEntity);
 	}

@@ -285,7 +285,7 @@ Object *Object_wx_InputStream::Clone() const
 	return NULL;
 }
 
-String Object_wx_InputStream::ToString(Signal sig, bool exprFlag)
+String Object_wx_InputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.InputStream:");
 	if (GetEntity() == NULL) {

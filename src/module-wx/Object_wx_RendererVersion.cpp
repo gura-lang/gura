@@ -65,7 +65,7 @@ Object *Object_wx_RendererVersion::Clone() const
 	return NULL;
 }
 
-String Object_wx_RendererVersion::ToString(Signal sig, bool exprFlag)
+String Object_wx_RendererVersion::ToString(bool exprFlag)
 {
 	String rtn("<wx.RendererVersion:");
 	if (GetEntity() == NULL) {

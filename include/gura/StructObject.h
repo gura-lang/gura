@@ -25,7 +25,7 @@ public:
 	StructObject(const StructObject &obj);
 	virtual ~StructObject();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	const DeclarationList &GetDeclList() const;
 };
 

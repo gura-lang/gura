@@ -22,7 +22,7 @@ Object *Object_wx_Coord::Clone() const
 	return new Object_wx_Coord(*this);
 }
 
-String Object_wx_Coord::ToString(Signal sig, bool exprFlag)
+String Object_wx_Coord::ToString(bool exprFlag)
 {
 	String rtn("<wx.Coord:");
 	char buff[64];

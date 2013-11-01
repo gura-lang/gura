@@ -15,7 +15,7 @@ Object *Object_scaled_font::Clone() const
 	return NULL;
 }
 
-String Object_scaled_font::ToString(Signal sig, bool exprFlag)
+String Object_scaled_font::ToString(bool exprFlag)
 {
 	return String("<cairo.scaled_font>");
 }

@@ -25,7 +25,7 @@ public:
 				Object_wx_SocketBase(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_DatagramSocket();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxDatagramSocket *GetEntity() {
 		return dynamic_cast<wxDatagramSocket *>(_pEntity);
 	}

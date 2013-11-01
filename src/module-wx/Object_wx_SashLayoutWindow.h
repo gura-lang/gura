@@ -25,7 +25,7 @@ public:
 				Object_wx_SashWindow(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_SashLayoutWindow();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxSashLayoutWindow *GetEntity() {
 		return dynamic_cast<wxSashLayoutWindow *>(_pEntity);
 	}

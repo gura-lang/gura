@@ -25,7 +25,7 @@ public:
 				Object_wx_ArchiveEntry(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_ZipEntry();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxZipEntry *GetEntity() {
 		return dynamic_cast<wxZipEntry *>(_pEntity);
 	}

@@ -25,7 +25,7 @@ public:
 				Object_wx_ClientBase(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_DDEClient();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxDDEClient *GetEntity() {
 		return dynamic_cast<wxDDEClient *>(_pEntity);
 	}

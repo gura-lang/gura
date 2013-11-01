@@ -225,7 +225,7 @@ Object *Object_wx_RichTextStyleDefinition::Clone() const
 	return NULL;
 }
 
-String Object_wx_RichTextStyleDefinition::ToString(Signal sig, bool exprFlag)
+String Object_wx_RichTextStyleDefinition::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextStyleDefinition:");
 	if (GetEntity() == NULL) {

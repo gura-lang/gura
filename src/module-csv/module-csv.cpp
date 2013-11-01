@@ -57,7 +57,7 @@ Value Object_writer::DoSetProp(Environment &env, Signal sig, const Symbol *pSymb
 	return DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
-String Object_writer::ToString(Signal sig, bool exprFlag)
+String Object_writer::ToString(bool exprFlag)
 {
 	String str;
 	str = "<csv.writer:";
@@ -342,7 +342,7 @@ bool Iterator_reader::DoNext(Environment &env, Signal sig, Value &value)
 	return false;
 }
 
-String Iterator_reader::ToString(Signal sig) const
+String Iterator_reader::ToString() const
 {
 	return String("<iterator:csv.reader>");
 }

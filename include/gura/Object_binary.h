@@ -30,7 +30,7 @@ public:
 		virtual ~IteratorByte();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString(Signal sig) const;
+		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
 	class IteratorUnpack : public Iterator {
@@ -44,7 +44,7 @@ public:
 		virtual ~IteratorUnpack();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString(Signal sig) const;
+		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
 public:
@@ -70,7 +70,7 @@ public:
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value);
 	virtual Iterator *CreateIterator(Signal sig);
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline Binary &GetBinary() { return _binary; }
 	inline const Binary &GetBinary() const { return _binary; }
 	inline bool IsWritable() const { return _writableFlag; }

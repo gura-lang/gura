@@ -25,7 +25,7 @@ public:
 				Object_wx_RichTextFileHandler(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_RichTextXMLHandler();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxRichTextXMLHandler *GetEntity() {
 		return dynamic_cast<wxRichTextXMLHandler *>(_pEntity);
 	}

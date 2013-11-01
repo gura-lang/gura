@@ -255,7 +255,7 @@ Object *Object_wx_ComboPopup::Clone() const
 	return NULL;
 }
 
-String Object_wx_ComboPopup::ToString(Signal sig, bool exprFlag)
+String Object_wx_ComboPopup::ToString(bool exprFlag)
 {
 	String rtn("<wx.ComboPopup:");
 	if (GetEntity() == NULL) {

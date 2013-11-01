@@ -121,7 +121,7 @@ Object *Object_wx_GridCellStringRenderer::Clone() const
 	return NULL;
 }
 
-String Object_wx_GridCellStringRenderer::ToString(Signal sig, bool exprFlag)
+String Object_wx_GridCellStringRenderer::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridCellStringRenderer:");
 	if (GetEntity() == NULL) {

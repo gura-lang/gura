@@ -25,7 +25,7 @@ public:
 				Object_wx_Event(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_SysColourChangedEvent();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxSysColourChangedEvent *GetEntity() {
 		return dynamic_cast<wxSysColourChangedEvent *>(_pEntity);
 	}

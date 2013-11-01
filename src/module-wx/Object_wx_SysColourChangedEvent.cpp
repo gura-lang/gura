@@ -70,7 +70,7 @@ Object *Object_wx_SysColourChangedEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_SysColourChangedEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_SysColourChangedEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.SysColourChangedEvent:");
 	if (GetEntity() == NULL) {

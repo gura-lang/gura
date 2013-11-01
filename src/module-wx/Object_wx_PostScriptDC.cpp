@@ -129,7 +129,7 @@ Object *Object_wx_PostScriptDC::Clone() const
 	return NULL;
 }
 
-String Object_wx_PostScriptDC::ToString(Signal sig, bool exprFlag)
+String Object_wx_PostScriptDC::ToString(bool exprFlag)
 {
 	String rtn("<wx.PostScriptDC:");
 	if (GetEntity() == NULL) {

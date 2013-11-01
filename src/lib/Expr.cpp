@@ -485,7 +485,7 @@ bool Expr::SequenceRoot::DoStep(Signal sig, Value &result)
 	} else if (!env.GetGlobal()->GetEchoFlag()) {
 		// nothing to do
 	} else if (result.IsValid()) {
-		env.GetConsole()->Println(sig, result.ToString(sig).c_str());
+		env.GetConsole()->Println(sig, result.ToString().c_str());
 	}
 	_doneFlag = (_idxExpr >= _pExprOwner->size());
 	return true;
@@ -629,7 +629,7 @@ bool ExprOwner::Iterator::DoNext(Environment &env, Signal sig, Value &value)
 	return false;
 }
 
-String ExprOwner::Iterator::ToString(Signal sig) const
+String ExprOwner::Iterator::ToString() const
 {
 	String rtn;
 	rtn += "exprowner";
@@ -886,7 +886,7 @@ bool Expr_Value::GenerateScript(Signal sig, SimpleStream &stream,
 	} else {
 		String str;
 		if (_pScript.get() == NULL) {
-			str = _value.ToString(sig);
+			str = _value.ToString();
 			if (sig.IsSignalled()) return false;
 		} else {
 			str = *_pScript;
@@ -1664,7 +1664,7 @@ Value Expr_TmplScript::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeq
 			} else if (valueElem.IsInvalid()) {
 				strLast.clear();
 			} else if (valueElem.IsNumber()) {
-				strLast = valueElem.ToString(sig);
+				strLast = valueElem.ToString();
 				if (sig.IsSignalled()) return false;
 			} else {
 				sig.SetError(ERR_TypeError,
@@ -1673,7 +1673,7 @@ Value Expr_TmplScript::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeq
 			}
 		}
 	} else if (value.IsNumber()) {
-		strLast = value.ToString(sig);
+		strLast = value.ToString();
 		if (sig.IsSignalled()) return false;
 	} else {
 		sig.SetError(ERR_TypeError,

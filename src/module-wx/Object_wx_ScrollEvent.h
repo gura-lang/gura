@@ -25,7 +25,7 @@ public:
 				Object_wx_CommandEvent(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_ScrollEvent();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxScrollEvent *GetEntity() {
 		return dynamic_cast<wxScrollEvent *>(_pEntity);
 	}

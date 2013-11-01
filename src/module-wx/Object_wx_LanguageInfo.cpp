@@ -157,7 +157,7 @@ Value Object_wx_LanguageInfo::DoSetProp(Environment &env, Signal sig, const Symb
 	return Value::Null;
 }
 
-String Object_wx_LanguageInfo::ToString(Signal sig, bool exprFlag)
+String Object_wx_LanguageInfo::ToString(bool exprFlag)
 {
 	String rtn("<wx.LanguageInfo:");
 	if (GetEntity() == NULL) {

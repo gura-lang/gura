@@ -99,7 +99,7 @@ Object *Object_wx_CriticalSection::Clone() const
 	return NULL;
 }
 
-String Object_wx_CriticalSection::ToString(Signal sig, bool exprFlag)
+String Object_wx_CriticalSection::ToString(bool exprFlag)
 {
 	String rtn("<wx.CriticalSection:");
 	if (GetEntity() == NULL) {

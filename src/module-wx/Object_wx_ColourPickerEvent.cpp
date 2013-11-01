@@ -105,7 +105,7 @@ Object *Object_wx_ColourPickerEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_ColourPickerEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_ColourPickerEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.ColourPickerEvent:");
 	if (GetEntity() == NULL) {

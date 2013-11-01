@@ -25,7 +25,7 @@ public:
 				Object_wx_ConnectionBase(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_Connection();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxConnection *GetEntity() {
 		return dynamic_cast<wxConnection *>(_pEntity);
 	}

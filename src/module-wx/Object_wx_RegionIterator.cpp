@@ -239,7 +239,7 @@ Object *Object_wx_RegionIterator::Clone() const
 	return NULL;
 }
 
-String Object_wx_RegionIterator::ToString(Signal sig, bool exprFlag)
+String Object_wx_RegionIterator::ToString(bool exprFlag)
 {
 	String rtn("<wx.RegionIterator:");
 	if (GetEntity() == NULL) {

@@ -61,7 +61,7 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	String GetHTML() const;
 	inline size_t CalcDistSqu(UChar red, UChar green, UChar blue) const {
 		return _color.CalcDistSqu(red, green, blue);

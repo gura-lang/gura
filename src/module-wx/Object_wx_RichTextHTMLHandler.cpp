@@ -250,7 +250,7 @@ Object *Object_wx_RichTextHTMLHandler::Clone() const
 	return NULL;
 }
 
-String Object_wx_RichTextHTMLHandler::ToString(Signal sig, bool exprFlag)
+String Object_wx_RichTextHTMLHandler::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextHTMLHandler:");
 	if (GetEntity() == NULL) {

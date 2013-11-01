@@ -25,7 +25,7 @@ public:
 				Object_wx_HtmlParser(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_HtmlWinParser();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxHtmlWinParser *GetEntity() {
 		return dynamic_cast<wxHtmlWinParser *>(_pEntity);
 	}

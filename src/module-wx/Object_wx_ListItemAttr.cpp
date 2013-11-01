@@ -231,7 +231,7 @@ Object *Object_wx_ListItemAttr::Clone() const
 	return NULL;
 }
 
-String Object_wx_ListItemAttr::ToString(Signal sig, bool exprFlag)
+String Object_wx_ListItemAttr::ToString(bool exprFlag)
 {
 	String rtn("<wx.ListItemAttr:");
 	if (GetEntity() == NULL) {

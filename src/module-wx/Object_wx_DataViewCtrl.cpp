@@ -635,7 +635,7 @@ Object *Object_wx_DataViewCtrl::Clone() const
 	return NULL;
 }
 
-String Object_wx_DataViewCtrl::ToString(Signal sig, bool exprFlag)
+String Object_wx_DataViewCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataViewCtrl:");
 	if (GetEntity() == NULL) {

@@ -382,7 +382,7 @@ Object *Object_wx_CalendarDateAttr::Clone() const
 	return NULL;
 }
 
-String Object_wx_CalendarDateAttr::ToString(Signal sig, bool exprFlag)
+String Object_wx_CalendarDateAttr::ToString(bool exprFlag)
 {
 	String rtn("<wx.CalendarDateAttr:");
 	if (GetEntity() == NULL) {

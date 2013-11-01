@@ -114,7 +114,7 @@ Object *Object_wx_GridCellAttrProvider::Clone() const
 	return NULL;
 }
 
-String Object_wx_GridCellAttrProvider::ToString(Signal sig, bool exprFlag)
+String Object_wx_GridCellAttrProvider::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridCellAttrProvider:");
 	if (GetEntity() == NULL) {

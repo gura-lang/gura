@@ -186,7 +186,7 @@ Object *Object_wx_FontPickerCtrl::Clone() const
 	return NULL;
 }
 
-String Object_wx_FontPickerCtrl::ToString(Signal sig, bool exprFlag)
+String Object_wx_FontPickerCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.FontPickerCtrl:");
 	if (GetEntity() == NULL) {

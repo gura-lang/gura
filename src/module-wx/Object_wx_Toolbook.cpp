@@ -87,7 +87,7 @@ Object *Object_wx_Toolbook::Clone() const
 	return NULL;
 }
 
-String Object_wx_Toolbook::ToString(Signal sig, bool exprFlag)
+String Object_wx_Toolbook::ToString(bool exprFlag)
 {
 	String rtn("<wx.Toolbook:");
 	if (GetEntity() == NULL) {

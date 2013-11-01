@@ -51,7 +51,7 @@ Object *Object_wx_SplitterRenderParams::Clone() const
 	return NULL;
 }
 
-String Object_wx_SplitterRenderParams::ToString(Signal sig, bool exprFlag)
+String Object_wx_SplitterRenderParams::ToString(bool exprFlag)
 {
 	String rtn("<wx.SplitterRenderParams:");
 	if (GetEntity() == NULL) {

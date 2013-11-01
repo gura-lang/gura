@@ -476,7 +476,7 @@ Object *Object_wx_SplitterWindow::Clone() const
 	return NULL;
 }
 
-String Object_wx_SplitterWindow::ToString(Signal sig, bool exprFlag)
+String Object_wx_SplitterWindow::ToString(bool exprFlag)
 {
 	String rtn("<wx.SplitterWindow:");
 	if (GetEntity() == NULL) {

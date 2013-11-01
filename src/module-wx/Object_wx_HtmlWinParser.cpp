@@ -671,7 +671,7 @@ Object *Object_wx_HtmlWinParser::Clone() const
 	return NULL;
 }
 
-String Object_wx_HtmlWinParser::ToString(Signal sig, bool exprFlag)
+String Object_wx_HtmlWinParser::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlWinParser:");
 	if (GetEntity() == NULL) {

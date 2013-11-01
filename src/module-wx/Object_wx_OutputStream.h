@@ -25,7 +25,7 @@ public:
 				Object_wx_StreamBase(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_OutputStream();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxOutputStream *GetEntity() {
 		return dynamic_cast<wxOutputStream *>(_pEntity);
 	}

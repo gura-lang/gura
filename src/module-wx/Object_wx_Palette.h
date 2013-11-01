@@ -25,7 +25,7 @@ public:
 				Object_wx_GDIObject(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_Palette();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxPalette *GetEntity() {
 		return dynamic_cast<wxPalette *>(_pEntity);
 	}

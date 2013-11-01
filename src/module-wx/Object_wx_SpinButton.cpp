@@ -213,7 +213,7 @@ Object *Object_wx_SpinButton::Clone() const
 	return NULL;
 }
 
-String Object_wx_SpinButton::ToString(Signal sig, bool exprFlag)
+String Object_wx_SpinButton::ToString(bool exprFlag)
 {
 	String rtn("<wx.SpinButton:");
 	if (GetEntity() == NULL) {

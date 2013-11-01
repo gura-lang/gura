@@ -229,7 +229,7 @@ Object *Object_wx_SimpleHtmlListBox::Clone() const
 	return NULL;
 }
 
-String Object_wx_SimpleHtmlListBox::ToString(Signal sig, bool exprFlag)
+String Object_wx_SimpleHtmlListBox::ToString(bool exprFlag)
 {
 	String rtn("<wx.SimpleHtmlListBox:");
 	if (GetEntity() == NULL) {

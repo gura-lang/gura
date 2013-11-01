@@ -328,7 +328,7 @@ bool Audio::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
 	return true;
 }
 
-String Audio::IteratorEach::ToString(Signal sig) const
+String Audio::IteratorEach::ToString() const
 {
 	return String("audio#each");
 }

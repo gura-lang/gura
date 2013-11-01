@@ -127,7 +127,7 @@ Object *Object_wx_ThreadHelper::Clone() const
 	return NULL;
 }
 
-String Object_wx_ThreadHelper::ToString(Signal sig, bool exprFlag)
+String Object_wx_ThreadHelper::ToString(bool exprFlag)
 {
 	String rtn("<wx.ThreadHelper:");
 	if (GetEntity() == NULL) {

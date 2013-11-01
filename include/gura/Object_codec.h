@@ -32,7 +32,7 @@ public:
 	inline Object_codec(Class *pClass, Codec *pCodec) :
 						Object(pClass), _pCodec(pCodec) {}
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline Codec *GetCodec() { return _pCodec.get(); }
 	inline const Codec *GetCodec() const { return _pCodec.get(); }
 };

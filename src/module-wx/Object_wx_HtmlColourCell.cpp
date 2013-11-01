@@ -75,7 +75,7 @@ Object *Object_wx_HtmlColourCell::Clone() const
 	return NULL;
 }
 
-String Object_wx_HtmlColourCell::ToString(Signal sig, bool exprFlag)
+String Object_wx_HtmlColourCell::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlColourCell:");
 	if (GetEntity() == NULL) {

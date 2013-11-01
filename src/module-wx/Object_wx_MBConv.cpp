@@ -400,7 +400,7 @@ Object *Object_wx_MBConv::Clone() const
 	return NULL;
 }
 
-String Object_wx_MBConv::ToString(Signal sig, bool exprFlag)
+String Object_wx_MBConv::ToString(bool exprFlag)
 {
 	String rtn("<wx.MBConv:");
 	if (GetEntity() == NULL) {

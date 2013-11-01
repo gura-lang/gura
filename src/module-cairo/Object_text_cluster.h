@@ -19,7 +19,7 @@ public:
 		Object(Gura_UserClass(text_cluster)), _clusters(clusters), _num_clusters(num_clusters) {}
 	virtual ~Object_text_cluster();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline cairo_text_cluster_t *GetClusters() { return _clusters; }
 	inline int GetNumClusters() const { return _num_clusters; }
 };

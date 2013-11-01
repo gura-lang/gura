@@ -25,7 +25,7 @@ public:
 				Object_wx_ScrolledWindow(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_Grid();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxGrid *GetEntity() {
 		return dynamic_cast<wxGrid *>(_pEntity);
 	}

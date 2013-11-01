@@ -824,7 +824,7 @@ Object *Object_wx_GraphicsContext::Clone() const
 	return NULL;
 }
 
-String Object_wx_GraphicsContext::ToString(Signal sig, bool exprFlag)
+String Object_wx_GraphicsContext::ToString(bool exprFlag)
 {
 	String rtn("<wx.GraphicsContext:");
 	if (GetEntity() == NULL) {

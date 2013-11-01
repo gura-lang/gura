@@ -168,7 +168,7 @@ Object *Object_wx_SystemOptions::Clone() const
 	return NULL;
 }
 
-String Object_wx_SystemOptions::ToString(Signal sig, bool exprFlag)
+String Object_wx_SystemOptions::ToString(bool exprFlag)
 {
 	String rtn("<wx.SystemOptions:");
 	if (GetEntity() == NULL) {

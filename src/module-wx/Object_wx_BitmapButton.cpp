@@ -363,7 +363,7 @@ Object *Object_wx_BitmapButton::Clone() const
 	return NULL;
 }
 
-String Object_wx_BitmapButton::ToString(Signal sig, bool exprFlag)
+String Object_wx_BitmapButton::ToString(bool exprFlag)
 {
 	String rtn("<wx.BitmapButton:");
 	if (GetEntity() == NULL) {

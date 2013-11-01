@@ -108,7 +108,7 @@ Object *Object_wx_BookCtrlBaseEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_BookCtrlBaseEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_BookCtrlBaseEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.BookCtrlBaseEvent:");
 	if (GetEntity() == NULL) {

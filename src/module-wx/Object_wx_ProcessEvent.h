@@ -25,7 +25,7 @@ public:
 				Object_wx_Event(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_ProcessEvent();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxProcessEvent *GetEntity() {
 		return dynamic_cast<wxProcessEvent *>(_pEntity);
 	}

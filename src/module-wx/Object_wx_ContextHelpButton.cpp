@@ -113,7 +113,7 @@ Object *Object_wx_ContextHelpButton::Clone() const
 	return NULL;
 }
 
-String Object_wx_ContextHelpButton::ToString(Signal sig, bool exprFlag)
+String Object_wx_ContextHelpButton::ToString(bool exprFlag)
 {
 	String rtn("<wx.ContextHelpButton:");
 	if (GetEntity() == NULL) {

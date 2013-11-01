@@ -25,7 +25,7 @@ public:
 				Object_wx_ArrayString(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_PathList();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxPathList *GetEntity() {
 		return dynamic_cast<wxPathList *>(_pEntity);
 	}

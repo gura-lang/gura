@@ -414,7 +414,7 @@ Object *Object_wx_RichTextFormattingDialog::Clone() const
 	return NULL;
 }
 
-String Object_wx_RichTextFormattingDialog::ToString(Signal sig, bool exprFlag)
+String Object_wx_RichTextFormattingDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextFormattingDialog:");
 	if (GetEntity() == NULL) {

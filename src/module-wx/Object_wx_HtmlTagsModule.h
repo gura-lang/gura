@@ -25,7 +25,7 @@ public:
 				Object_wx_Module(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_HtmlTagsModule();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxHtmlTagsModule *GetEntity() {
 		return dynamic_cast<wxHtmlTagsModule *>(_pEntity);
 	}

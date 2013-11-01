@@ -162,7 +162,7 @@ Object *Object_wx_DocMDIParentFrame::Clone() const
 	return NULL;
 }
 
-String Object_wx_DocMDIParentFrame::ToString(Signal sig, bool exprFlag)
+String Object_wx_DocMDIParentFrame::ToString(bool exprFlag)
 {
 	String rtn("<wx.DocMDIParentFrame:");
 	if (GetEntity() == NULL) {

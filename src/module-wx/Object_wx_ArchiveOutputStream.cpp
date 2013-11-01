@@ -51,7 +51,7 @@ Object *Object_wx_ArchiveOutputStream::Clone() const
 	return NULL;
 }
 
-String Object_wx_ArchiveOutputStream::ToString(Signal sig, bool exprFlag)
+String Object_wx_ArchiveOutputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.ArchiveOutputStream:");
 	if (GetEntity() == NULL) {

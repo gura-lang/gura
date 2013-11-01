@@ -25,7 +25,7 @@ public:
 				Object_wx_FileOutputStream(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_FileStream();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxFileStream *GetEntity() {
 		return dynamic_cast<wxFileStream *>(_pEntity);
 	}

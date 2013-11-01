@@ -25,7 +25,7 @@ public:
 				Object_wx_TextCtrlBase(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_RichTextCtrl();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxRichTextCtrl *GetEntity() {
 		return dynamic_cast<wxRichTextCtrl *>(_pEntity);
 	}

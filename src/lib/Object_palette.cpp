@@ -66,7 +66,7 @@ void Object_palette::IndexSet(Environment &env, Signal sig, const Value &valueId
 }
 
 
-String Object_palette::ToString(Signal sig, bool exprFlag)
+String Object_palette::ToString(bool exprFlag)
 {
 	String str;
 	str += "<Palette:";

@@ -110,7 +110,7 @@ Object *Object_wx_ScrollEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_ScrollEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_ScrollEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.ScrollEvent:");
 	if (GetEntity() == NULL) {

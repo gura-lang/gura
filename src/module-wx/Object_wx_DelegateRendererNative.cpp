@@ -114,7 +114,7 @@ Object *Object_wx_DelegateRendererNative::Clone() const
 	return NULL;
 }
 
-String Object_wx_DelegateRendererNative::ToString(Signal sig, bool exprFlag)
+String Object_wx_DelegateRendererNative::ToString(bool exprFlag)
 {
 	String rtn("<wx.DelegateRendererNative:");
 	if (GetEntity() == NULL) {

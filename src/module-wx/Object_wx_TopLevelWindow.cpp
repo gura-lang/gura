@@ -633,7 +633,7 @@ Object *Object_wx_TopLevelWindow::Clone() const
 	return NULL;
 }
 
-String Object_wx_TopLevelWindow::ToString(Signal sig, bool exprFlag)
+String Object_wx_TopLevelWindow::ToString(bool exprFlag)
 {
 	String rtn("<wx.TopLevelWindow:");
 	if (GetEntity() == NULL) {

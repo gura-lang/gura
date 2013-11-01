@@ -156,7 +156,7 @@ Object *Object_wx_FontDialog::Clone() const
 	return NULL;
 }
 
-String Object_wx_FontDialog::ToString(Signal sig, bool exprFlag)
+String Object_wx_FontDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.FontDialog:");
 	if (GetEntity() == NULL) {

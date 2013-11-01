@@ -22,7 +22,7 @@ Value Object_directory::DoGetProp(Environment &env, Signal sig, const Symbol *pS
 	return Value::Null;
 }
 
-String Object_directory::ToString(Signal sig, bool exprFlag)
+String Object_directory::ToString(bool exprFlag)
 {
 	String str;
 	//Directory *pDirectory = GetDirectory();

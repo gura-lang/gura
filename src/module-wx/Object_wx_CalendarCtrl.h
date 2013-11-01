@@ -25,7 +25,7 @@ public:
 				Object_wx_Control(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_CalendarCtrl();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxCalendarCtrl *GetEntity() {
 		return dynamic_cast<wxCalendarCtrl *>(_pEntity);
 	}

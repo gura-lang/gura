@@ -46,7 +46,7 @@ public:
 		virtual ~IteratorEach();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString(Signal sig) const;
+		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
 	class IteratorReverse : public Iterator {
@@ -59,7 +59,7 @@ public:
 		virtual ~IteratorReverse();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString(Signal sig) const;
+		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
 	class IteratorRound : public Iterator {
@@ -73,7 +73,7 @@ public:
 		virtual ~IteratorRound();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString(Signal sig) const;
+		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
 	class IteratorPingpong : public Iterator {
@@ -92,7 +92,7 @@ public:
 		virtual ~IteratorPingpong();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString(Signal sig) const;
+		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
 	class IteratorFold : public Iterator {
@@ -107,7 +107,7 @@ public:
 		virtual ~IteratorFold();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString(Signal sig) const;
+		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
 	class IteratorPermutation : public Iterator {
@@ -123,7 +123,7 @@ public:
 		~IteratorPermutation();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString(Signal sig) const;
+		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
 	class IteratorCombination : public Iterator {
@@ -139,7 +139,7 @@ public:
 		~IteratorCombination();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString(Signal sig) const;
+		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
 	class Comparator_Ascend {
@@ -200,7 +200,7 @@ public:
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value);
 	virtual Iterator *CreateIterator(Signal sig);
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	Object_list *SortRank(Signal sig, const Value &valDirective,
 					const ValueList *pValListKey, bool rankFlag, bool stableFlag);
 };

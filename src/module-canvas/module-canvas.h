@@ -141,7 +141,7 @@ public:
 						Object(obj), _pDevice(obj._pDevice->IncRef()) {}
 	virtual ~Object_Canvas();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	Device &Device() { return *_pDevice; }
 };
 

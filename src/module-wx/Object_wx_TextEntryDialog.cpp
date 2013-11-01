@@ -130,7 +130,7 @@ Object *Object_wx_TextEntryDialog::Clone() const
 	return NULL;
 }
 
-String Object_wx_TextEntryDialog::ToString(Signal sig, bool exprFlag)
+String Object_wx_TextEntryDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.TextEntryDialog:");
 	if (GetEntity() == NULL) {

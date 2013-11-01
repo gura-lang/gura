@@ -18,7 +18,7 @@ public:
 					Object(Gura_UserClass(device)), _device(device) {}
 	virtual ~Object_device();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline cairo_device_t *GetEntity() { return _device; }
 };
 

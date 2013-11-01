@@ -320,7 +320,7 @@ Object *Object_wx_HtmlHelpController::Clone() const
 	return NULL;
 }
 
-String Object_wx_HtmlHelpController::ToString(Signal sig, bool exprFlag)
+String Object_wx_HtmlHelpController::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlHelpController:");
 	if (GetEntity() == NULL) {

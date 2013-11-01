@@ -25,7 +25,7 @@ public:
 				Object_wx_Object(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_RichTextHeaderFooterData();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxRichTextHeaderFooterData *GetEntity() {
 		return dynamic_cast<wxRichTextHeaderFooterData *>(_pEntity);
 	}

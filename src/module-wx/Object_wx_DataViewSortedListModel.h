@@ -25,7 +25,7 @@ public:
 				Object_wx_DataViewListModel(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_DataViewSortedListModel();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxDataViewSortedListModel *GetEntity() {
 		return dynamic_cast<wxDataViewSortedListModel *>(_pEntity);
 	}

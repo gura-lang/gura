@@ -116,7 +116,7 @@ Object *Object_wx_NotifyEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_NotifyEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_NotifyEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.NotifyEvent:");
 	if (GetEntity() == NULL) {

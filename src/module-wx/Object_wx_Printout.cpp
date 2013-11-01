@@ -535,7 +535,7 @@ Object *Object_wx_Printout::Clone() const
 	return NULL;
 }
 
-String Object_wx_Printout::ToString(Signal sig, bool exprFlag)
+String Object_wx_Printout::ToString(bool exprFlag)
 {
 	String rtn("<wx.Printout:");
 	if (GetEntity() == NULL) {

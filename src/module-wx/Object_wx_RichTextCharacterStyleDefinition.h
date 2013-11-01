@@ -25,7 +25,7 @@ public:
 				Object_wx_RichTextStyleDefinition(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_RichTextCharacterStyleDefinition();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxRichTextCharacterStyleDefinition *GetEntity() {
 		return dynamic_cast<wxRichTextCharacterStyleDefinition *>(_pEntity);
 	}

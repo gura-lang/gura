@@ -332,7 +332,7 @@ Object *Object_wx_MouseState::Clone() const
 	return NULL;
 }
 
-String Object_wx_MouseState::ToString(Signal sig, bool exprFlag)
+String Object_wx_MouseState::ToString(bool exprFlag)
 {
 	String rtn("<wx.MouseState:");
 	if (GetEntity() == NULL) {

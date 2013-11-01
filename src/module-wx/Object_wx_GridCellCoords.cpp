@@ -51,7 +51,7 @@ Object *Object_wx_GridCellCoords::Clone() const
 	return NULL;
 }
 
-String Object_wx_GridCellCoords::ToString(Signal sig, bool exprFlag)
+String Object_wx_GridCellCoords::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridCellCoords:");
 	if (GetEntity() == NULL) {

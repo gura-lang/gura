@@ -25,7 +25,7 @@ public:
 				Object_wx_Event(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_IconizeEvent();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxIconizeEvent *GetEntity() {
 		return dynamic_cast<wxIconizeEvent *>(_pEntity);
 	}

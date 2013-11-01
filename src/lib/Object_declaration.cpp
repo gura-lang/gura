@@ -44,7 +44,7 @@ Value Object_declaration::DoGetProp(Environment &env, Signal sig, const Symbol *
 	return Value::Null;
 }
 
-String Object_declaration::ToString(Signal sig, bool exprFlag)
+String Object_declaration::ToString(bool exprFlag)
 {
 	String str;
 	str += "<declaration:";
@@ -87,7 +87,7 @@ bool Iterator_declaration::DoNext(Environment &env, Signal sig, Value &value)
 	return false;
 }
 
-String Iterator_declaration::ToString(Signal sig) const
+String Iterator_declaration::ToString() const
 {
 	String rtn;
 	rtn += "declaration";

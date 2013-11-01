@@ -423,7 +423,7 @@ Object *Object_wx_FTP::Clone() const
 	return NULL;
 }
 
-String Object_wx_FTP::ToString(Signal sig, bool exprFlag)
+String Object_wx_FTP::ToString(bool exprFlag)
 {
 	String rtn("<wx.FTP:");
 	if (GetEntity() == NULL) {

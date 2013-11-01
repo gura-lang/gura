@@ -641,7 +641,7 @@ Object *Object_wx_PlatformInfo::Clone() const
 	return NULL;
 }
 
-String Object_wx_PlatformInfo::ToString(Signal sig, bool exprFlag)
+String Object_wx_PlatformInfo::ToString(bool exprFlag)
 {
 	String rtn("<wx.PlatformInfo:");
 	if (GetEntity() == NULL) {

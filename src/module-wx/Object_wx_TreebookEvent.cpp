@@ -110,7 +110,7 @@ Object *Object_wx_TreebookEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_TreebookEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_TreebookEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.TreebookEvent:");
 	if (GetEntity() == NULL) {

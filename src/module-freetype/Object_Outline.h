@@ -18,7 +18,7 @@ public:
 	inline Object_Outline(Object *pObjHolder, FT_Outline *outline) :
 			Object(Gura_UserClass(Outline)), _pObjHolder(pObjHolder), _outline(outline) {}
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);

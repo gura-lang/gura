@@ -164,7 +164,7 @@ Object *Object_wx_MemoryFSHandler::Clone() const
 	return NULL;
 }
 
-String Object_wx_MemoryFSHandler::ToString(Signal sig, bool exprFlag)
+String Object_wx_MemoryFSHandler::ToString(bool exprFlag)
 {
 	String rtn("<wx.MemoryFSHandler:");
 	if (GetEntity() == NULL) {

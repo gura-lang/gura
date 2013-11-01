@@ -120,19 +120,19 @@ void Object_matrix::IndexSet(Environment &env, Signal sig, const Value &valueIdx
 	}
 }
 
-String Object_matrix::ToString(Signal sig, bool exprFlag)
+String Object_matrix::ToString(bool exprFlag)
 {
 	String rtn;
 	if (_pMat->GetRows() == 1 && _pMat->GetCols() == 1) {
 		ValueList::const_iterator pValueElem = _pMat->GetPointer(0, 0);
-		rtn += pValueElem->ToString(sig, exprFlag);
+		rtn += pValueElem->ToString(exprFlag);
 	} else if (_pMat->GetCols() == 1) {
 		rtn += "@@{";
 		ValueList::const_iterator pValueElem = _pMat->GetPointer(0, 0);
 		size_t offset = 0;
 		for (size_t iRow = 0; iRow < _pMat->GetRows(); iRow++, offset += _pMat->GetFold()) {
 			if (iRow > 0) rtn += ", ";
-			rtn += (pValueElem + offset)->ToString(sig, exprFlag);
+			rtn += (pValueElem + offset)->ToString(exprFlag);
 		}
 		rtn += "}";
 	} else {
@@ -143,7 +143,7 @@ String Object_matrix::ToString(Signal sig, bool exprFlag)
 			ValueList::const_iterator pValueElem = _pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < _pMat->GetCols(); iCol++, pValueElem++) {
 				if (iCol > 0) rtn += ", ";
-				rtn += pValueElem->ToString(sig, exprFlag);
+				rtn += pValueElem->ToString(exprFlag);
 			}
 			rtn += "}";
 		}

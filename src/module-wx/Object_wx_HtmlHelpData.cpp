@@ -187,7 +187,7 @@ Object *Object_wx_HtmlHelpData::Clone() const
 	return NULL;
 }
 
-String Object_wx_HtmlHelpData::ToString(Signal sig, bool exprFlag)
+String Object_wx_HtmlHelpData::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlHelpData:");
 	if (GetEntity() == NULL) {

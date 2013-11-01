@@ -34,7 +34,7 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline FT_Face &GetFace() { return _pObjFace->GetEntity(); }
 	inline void SetColor(const Color &color) { _pObjColor->SetColor(color); }
 	inline const Color &GetColor() const { return _pObjColor->GetColor(); }

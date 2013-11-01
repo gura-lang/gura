@@ -304,7 +304,7 @@ Object *Object_wx_ArchiveClassFactory::Clone() const
 	return NULL;
 }
 
-String Object_wx_ArchiveClassFactory::ToString(Signal sig, bool exprFlag)
+String Object_wx_ArchiveClassFactory::ToString(bool exprFlag)
 {
 	String rtn("<wx.ArchiveClassFactory:");
 	if (GetEntity() == NULL) {

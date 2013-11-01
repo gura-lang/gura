@@ -48,7 +48,7 @@ Object *Object_wx_HtmlWinTagHandler::Clone() const
 	return NULL;
 }
 
-String Object_wx_HtmlWinTagHandler::ToString(Signal sig, bool exprFlag)
+String Object_wx_HtmlWinTagHandler::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlWinTagHandler:");
 	if (GetEntity() == NULL) {

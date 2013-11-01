@@ -76,7 +76,7 @@ Object *Object_wx_DataViewBitmapRenderer::Clone() const
 	return NULL;
 }
 
-String Object_wx_DataViewBitmapRenderer::ToString(Signal sig, bool exprFlag)
+String Object_wx_DataViewBitmapRenderer::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataViewBitmapRenderer:");
 	if (GetEntity() == NULL) {

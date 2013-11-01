@@ -143,7 +143,7 @@ Object *Object_wx_StaticBox::Clone() const
 	return NULL;
 }
 
-String Object_wx_StaticBox::ToString(Signal sig, bool exprFlag)
+String Object_wx_StaticBox::ToString(bool exprFlag)
 {
 	String rtn("<wx.StaticBox:");
 	if (GetEntity() == NULL) {

@@ -102,7 +102,7 @@ Object *Object_wx_FileDataObject::Clone() const
 	return NULL;
 }
 
-String Object_wx_FileDataObject::ToString(Signal sig, bool exprFlag)
+String Object_wx_FileDataObject::ToString(bool exprFlag)
 {
 	String rtn("<wx.FileDataObject:");
 	if (GetEntity() == NULL) {

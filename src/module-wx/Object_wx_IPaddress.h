@@ -25,7 +25,7 @@ public:
 				Object_wx_SockAddress(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_IPaddress();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxIPaddress *GetEntity() {
 		return dynamic_cast<wxIPaddress *>(_pEntity);
 	}

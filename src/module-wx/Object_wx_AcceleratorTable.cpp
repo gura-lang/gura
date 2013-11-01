@@ -139,7 +139,7 @@ Object *Object_wx_AcceleratorTable::Clone() const
 	return NULL;
 }
 
-String Object_wx_AcceleratorTable::ToString(Signal sig, bool exprFlag)
+String Object_wx_AcceleratorTable::ToString(bool exprFlag)
 {
 	String rtn("<wx.AcceleratorTable:");
 	if (GetEntity() == NULL) {

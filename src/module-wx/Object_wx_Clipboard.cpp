@@ -218,7 +218,7 @@ Object *Object_wx_Clipboard::Clone() const
 	return NULL;
 }
 
-String Object_wx_Clipboard::ToString(Signal sig, bool exprFlag)
+String Object_wx_Clipboard::ToString(bool exprFlag)
 {
 	String rtn("<wx.Clipboard:");
 	if (GetEntity() == NULL) {

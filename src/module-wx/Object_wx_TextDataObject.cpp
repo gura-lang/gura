@@ -123,7 +123,7 @@ Object *Object_wx_TextDataObject::Clone() const
 	return NULL;
 }
 
-String Object_wx_TextDataObject::ToString(Signal sig, bool exprFlag)
+String Object_wx_TextDataObject::ToString(bool exprFlag)
 {
 	String rtn("<wx.TextDataObject:");
 	if (GetEntity() == NULL) {

@@ -169,7 +169,7 @@ Object *Object_wx_FilePickerCtrl::Clone() const
 	return NULL;
 }
 
-String Object_wx_FilePickerCtrl::ToString(Signal sig, bool exprFlag)
+String Object_wx_FilePickerCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.FilePickerCtrl:");
 	if (GetEntity() == NULL) {

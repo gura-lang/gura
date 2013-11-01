@@ -403,7 +403,7 @@ Object *Object_wx_Caret::Clone() const
 	return NULL;
 }
 
-String Object_wx_Caret::ToString(Signal sig, bool exprFlag)
+String Object_wx_Caret::ToString(bool exprFlag)
 {
 	String rtn("<wx.Caret:");
 	if (GetEntity() == NULL) {

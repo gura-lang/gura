@@ -143,7 +143,7 @@ Object *Object_wx_StdDialogButtonSizer::Clone() const
 	return NULL;
 }
 
-String Object_wx_StdDialogButtonSizer::ToString(Signal sig, bool exprFlag)
+String Object_wx_StdDialogButtonSizer::ToString(bool exprFlag)
 {
 	String rtn("<wx.StdDialogButtonSizer:");
 	if (GetEntity() == NULL) {

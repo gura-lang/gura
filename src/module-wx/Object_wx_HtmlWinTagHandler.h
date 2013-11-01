@@ -25,7 +25,7 @@ public:
 				Object_wx_HtmlTagHandler(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_HtmlWinTagHandler();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxHtmlWinTagHandler *GetEntity() {
 		return dynamic_cast<wxHtmlWinTagHandler *>(_pEntity);
 	}

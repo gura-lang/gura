@@ -124,7 +124,7 @@ Object *Object_wx_ColourDialog::Clone() const
 	return NULL;
 }
 
-String Object_wx_ColourDialog::ToString(Signal sig, bool exprFlag)
+String Object_wx_ColourDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.ColourDialog:");
 	if (GetEntity() == NULL) {

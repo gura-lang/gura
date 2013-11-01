@@ -25,7 +25,7 @@ public:
 				Object_wx_MDIParentFrame(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_DocMDIParentFrame();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxDocMDIParentFrame *GetEntity() {
 		return dynamic_cast<wxDocMDIParentFrame *>(_pEntity);
 	}

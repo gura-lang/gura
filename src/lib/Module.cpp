@@ -30,7 +30,7 @@ Module *Module::Clone() const
 	return new Module(*this);
 }
 
-String Module::ToString(Signal sig, bool exprFlag)
+String Module::ToString(bool exprFlag)
 {
 	String str;
 	str += "<module:";

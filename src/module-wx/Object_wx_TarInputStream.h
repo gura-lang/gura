@@ -25,7 +25,7 @@ public:
 				Object_wx_ArchiveInputStream(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_TarInputStream();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxTarInputStream *GetEntity() {
 		return dynamic_cast<wxTarInputStream *>(_pEntity);
 	}

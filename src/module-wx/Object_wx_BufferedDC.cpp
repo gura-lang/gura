@@ -170,7 +170,7 @@ Object *Object_wx_BufferedDC::Clone() const
 	return NULL;
 }
 
-String Object_wx_BufferedDC::ToString(Signal sig, bool exprFlag)
+String Object_wx_BufferedDC::ToString(bool exprFlag)
 {
 	String rtn("<wx.BufferedDC:");
 	if (GetEntity() == NULL) {

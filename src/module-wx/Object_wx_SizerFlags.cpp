@@ -306,7 +306,7 @@ Object *Object_wx_SizerFlags::Clone() const
 	return NULL;
 }
 
-String Object_wx_SizerFlags::ToString(Signal sig, bool exprFlag)
+String Object_wx_SizerFlags::ToString(bool exprFlag)
 {
 	String rtn("<wx.SizerFlags:");
 	if (GetEntity() == NULL) {

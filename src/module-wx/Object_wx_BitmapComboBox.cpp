@@ -332,7 +332,7 @@ Object *Object_wx_BitmapComboBox::Clone() const
 	return NULL;
 }
 
-String Object_wx_BitmapComboBox::ToString(Signal sig, bool exprFlag)
+String Object_wx_BitmapComboBox::ToString(bool exprFlag)
 {
 	String rtn("<wx.BitmapComboBox:");
 	if (GetEntity() == NULL) {

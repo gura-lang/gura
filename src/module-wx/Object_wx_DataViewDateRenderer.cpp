@@ -76,7 +76,7 @@ Object *Object_wx_DataViewDateRenderer::Clone() const
 	return NULL;
 }
 
-String Object_wx_DataViewDateRenderer::ToString(Signal sig, bool exprFlag)
+String Object_wx_DataViewDateRenderer::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataViewDateRenderer:");
 	if (GetEntity() == NULL) {

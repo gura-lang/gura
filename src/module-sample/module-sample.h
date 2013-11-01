@@ -22,7 +22,7 @@ public:
 	inline Object_foo(const Object_foo &obj) : Object(obj) {}
 	virtual ~Object_foo();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 };
 
 Gura_EndModuleHeader(sample)

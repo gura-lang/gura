@@ -25,7 +25,7 @@ public:
 				Object_wx_GDIObject(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_Icon();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxIcon *GetEntity() {
 		return dynamic_cast<wxIcon *>(_pEntity);
 	}

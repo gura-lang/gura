@@ -120,7 +120,7 @@ Object *Object_wx_DDEClient::Clone() const
 	return NULL;
 }
 
-String Object_wx_DDEClient::ToString(Signal sig, bool exprFlag)
+String Object_wx_DDEClient::ToString(bool exprFlag)
 {
 	String rtn("<wx.DDEClient:");
 	if (GetEntity() == NULL) {

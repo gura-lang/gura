@@ -435,7 +435,7 @@ Object *Object_wx_Slider::Clone() const
 	return NULL;
 }
 
-String Object_wx_Slider::ToString(Signal sig, bool exprFlag)
+String Object_wx_Slider::ToString(bool exprFlag)
 {
 	String rtn("<wx.Slider:");
 	if (GetEntity() == NULL) {

@@ -603,7 +603,7 @@ Object *Object_wx_TextFile::Clone() const
 	return NULL;
 }
 
-String Object_wx_TextFile::ToString(Signal sig, bool exprFlag)
+String Object_wx_TextFile::ToString(bool exprFlag)
 {
 	String rtn("<wx.TextFile:");
 	if (GetEntity() == NULL) {

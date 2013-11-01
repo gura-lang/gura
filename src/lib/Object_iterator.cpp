@@ -29,11 +29,11 @@ Iterator *Object_iterator::CreateIterator(Signal sig)
 	return _pIterator->Clone();
 }
 
-String Object_iterator::ToString(Signal sig, bool exprFlag)
+String Object_iterator::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<iterator:";
-	rtn += _pIterator->ToString(sig);
+	rtn += _pIterator->ToString();
 	rtn += ">";
 	return rtn;
 }
@@ -250,7 +250,7 @@ Gura_ImplementMethod(iterator, print)
 	Iterator *pIterator = pThis->GetIterator()->Clone();
 	Value value;
 	while (pIterator->Next(env, sig, value)) {
-		String str(value.ToString(sig, false));
+		String str(value.ToString(false));
 		if (sig.IsSignalled()) return Value::Null;
 		pConsole->Print(sig, str.c_str());
 		if (sig.IsSignalled()) return Value::Null;
@@ -274,7 +274,7 @@ Gura_ImplementMethod(iterator, println)
 	Iterator *pIterator = pThis->GetIterator()->Clone();
 	Value value;
 	while (pIterator->Next(env, sig, value)) {
-		String str(value.ToString(sig, false));
+		String str(value.ToString(false));
 		if (sig.IsSignalled()) return Value::Null;
 		pConsole->Println(sig, str.c_str());
 		if (sig.IsSignalled()) return Value::Null;
@@ -791,13 +791,13 @@ Gura_ImplementMethod(iterator, join)
 	String rtn;
 	Value value;
 	if (pIterator->Next(env, sig, value)) {
-		rtn += value.ToString(sig, false);
+		rtn += value.ToString(false);
 		if (sig.IsSignalled()) {
 			return Value::Null;
 		}
 		while (pIterator->Next(env, sig, value)) {
 			rtn += sep;
-			rtn += value.ToString(sig, false);
+			rtn += value.ToString(false);
 			if (sig.IsSignalled()) {
 				return Value::Null;
 			}

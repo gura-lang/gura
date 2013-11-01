@@ -533,7 +533,7 @@ Object *Object_wx_ZipEntry::Clone() const
 	return NULL;
 }
 
-String Object_wx_ZipEntry::ToString(Signal sig, bool exprFlag)
+String Object_wx_ZipEntry::ToString(bool exprFlag)
 {
 	String rtn("<wx.ZipEntry:");
 	if (GetEntity() == NULL) {

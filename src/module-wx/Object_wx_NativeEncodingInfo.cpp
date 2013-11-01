@@ -51,7 +51,7 @@ Object *Object_wx_NativeEncodingInfo::Clone() const
 	return NULL;
 }
 
-String Object_wx_NativeEncodingInfo::ToString(Signal sig, bool exprFlag)
+String Object_wx_NativeEncodingInfo::ToString(bool exprFlag)
 {
 	String rtn("<wx.NativeEncodingInfo:");
 	if (GetEntity() == NULL) {

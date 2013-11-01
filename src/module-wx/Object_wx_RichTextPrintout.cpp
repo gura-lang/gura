@@ -249,7 +249,7 @@ Object *Object_wx_RichTextPrintout::Clone() const
 	return NULL;
 }
 
-String Object_wx_RichTextPrintout::ToString(Signal sig, bool exprFlag)
+String Object_wx_RichTextPrintout::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextPrintout:");
 	if (GetEntity() == NULL) {

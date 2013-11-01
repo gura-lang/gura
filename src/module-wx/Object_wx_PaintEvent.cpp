@@ -73,7 +73,7 @@ Object *Object_wx_PaintEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_PaintEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_PaintEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.PaintEvent:");
 	if (GetEntity() == NULL) {

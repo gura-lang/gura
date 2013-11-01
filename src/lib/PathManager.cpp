@@ -239,7 +239,7 @@ bool PathManager::Iterator_Walk::DoNext(Environment &env, Signal sig, Value &val
 	return true;
 }
 
-String PathManager::Iterator_Walk::ToString(Signal sig) const
+String PathManager::Iterator_Walk::ToString() const
 {
 	String str;
 	str = "path.walk(";
@@ -363,7 +363,7 @@ found:
 	return true;
 }
 
-String PathManager::Iterator_Glob::ToString(Signal sig) const
+String PathManager::Iterator_Glob::ToString() const
 {
 	return String("path.glob");
 }

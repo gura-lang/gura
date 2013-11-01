@@ -25,7 +25,7 @@ public:
 				Object_wx_Object(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_LayoutAlgorithm();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxLayoutAlgorithm *GetEntity() {
 		return dynamic_cast<wxLayoutAlgorithm *>(_pEntity);
 	}

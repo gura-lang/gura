@@ -37,7 +37,7 @@ Value Object_surface::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 	return Value::Null;
 }
 
-String Object_surface::ToString(Signal sig, bool exprFlag)
+String Object_surface::ToString(bool exprFlag)
 {
 	String str;
 	str += "<cairo.surface:";

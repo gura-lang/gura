@@ -794,7 +794,7 @@ Value Object_easy_handle::DoGetProp(Environment &env, Signal sig, const Symbol *
 	return Value::Null;
 }
 
-String Object_easy_handle::ToString(Signal sig, bool exprFlag)
+String Object_easy_handle::ToString(bool exprFlag)
 {
 	String str;
 	str += "<curl.easy_handle:";

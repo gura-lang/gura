@@ -25,7 +25,7 @@ public:
 				Object_wx_Array(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_ArrayString();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxArrayString *GetEntity() {
 		return dynamic_cast<wxArrayString *>(_pEntity);
 	}

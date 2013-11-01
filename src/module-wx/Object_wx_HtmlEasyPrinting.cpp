@@ -284,7 +284,7 @@ Object *Object_wx_HtmlEasyPrinting::Clone() const
 	return NULL;
 }
 
-String Object_wx_HtmlEasyPrinting::ToString(Signal sig, bool exprFlag)
+String Object_wx_HtmlEasyPrinting::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlEasyPrinting:");
 	if (GetEntity() == NULL) {

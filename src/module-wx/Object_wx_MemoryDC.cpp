@@ -125,7 +125,7 @@ Object *Object_wx_MemoryDC::Clone() const
 	return NULL;
 }
 
-String Object_wx_MemoryDC::ToString(Signal sig, bool exprFlag)
+String Object_wx_MemoryDC::ToString(bool exprFlag)
 {
 	String rtn("<wx.MemoryDC:");
 	if (GetEntity() == NULL) {

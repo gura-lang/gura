@@ -25,7 +25,7 @@ public:
 				Object_wx_Protocol(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_HTTP();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxHTTP *GetEntity() {
 		return dynamic_cast<wxHTTP *>(_pEntity);
 	}

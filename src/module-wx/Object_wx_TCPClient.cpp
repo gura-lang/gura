@@ -120,7 +120,7 @@ Object *Object_wx_TCPClient::Clone() const
 	return NULL;
 }
 
-String Object_wx_TCPClient::ToString(Signal sig, bool exprFlag)
+String Object_wx_TCPClient::ToString(bool exprFlag)
 {
 	String rtn("<wx.TCPClient:");
 	if (GetEntity() == NULL) {

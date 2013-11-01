@@ -421,7 +421,7 @@ Object *Object_wx_GenericDirCtrl::Clone() const
 	return NULL;
 }
 
-String Object_wx_GenericDirCtrl::ToString(Signal sig, bool exprFlag)
+String Object_wx_GenericDirCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.GenericDirCtrl:");
 	if (GetEntity() == NULL) {

@@ -25,7 +25,7 @@ public:
 				Object_wx_ConfigBase(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_FileConfig();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxFileConfig *GetEntity() {
 		return dynamic_cast<wxFileConfig *>(_pEntity);
 	}

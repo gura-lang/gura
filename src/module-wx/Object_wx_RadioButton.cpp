@@ -178,7 +178,7 @@ Object *Object_wx_RadioButton::Clone() const
 	return NULL;
 }
 
-String Object_wx_RadioButton::ToString(Signal sig, bool exprFlag)
+String Object_wx_RadioButton::ToString(bool exprFlag)
 {
 	String rtn("<wx.RadioButton:");
 	if (GetEntity() == NULL) {

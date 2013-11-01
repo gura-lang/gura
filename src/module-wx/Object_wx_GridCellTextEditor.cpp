@@ -85,7 +85,7 @@ Object *Object_wx_GridCellTextEditor::Clone() const
 	return NULL;
 }
 
-String Object_wx_GridCellTextEditor::ToString(Signal sig, bool exprFlag)
+String Object_wx_GridCellTextEditor::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridCellTextEditor:");
 	if (GetEntity() == NULL) {

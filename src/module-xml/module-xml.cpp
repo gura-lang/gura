@@ -900,7 +900,7 @@ Value Object_attribute::DoGetProp(Environment &env, Signal sig, const Symbol *pS
 	return Value::Null;
 }
 
-String Object_attribute::ToString(Signal sig, bool exprFlag)
+String Object_attribute::ToString(bool exprFlag)
 {
 	String str;
 	str = "<xml.attribute:";
@@ -982,7 +982,7 @@ Value Object_element::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 	return Value::Null;
 }
 
-String Object_element::ToString(Signal sig, bool exprFlag)
+String Object_element::ToString(bool exprFlag)
 {
 	String str;
 	str = "<xml.element:";
@@ -1115,7 +1115,7 @@ Value Object_document::DoSetProp(Environment &env, Signal sig, const Symbol *pSy
 	return Value::Null;
 }
 
-String Object_document::ToString(Signal sig, bool exprFlag)
+String Object_document::ToString(bool exprFlag)
 {
 	String str;
 	str = "<xml.document:";
@@ -1173,7 +1173,7 @@ bool Iterator_attribute::DoNext(Environment &env, Signal sig, Value &value)
 	return false;
 }
 
-String Iterator_attribute::ToString(Signal sig) const
+String Iterator_attribute::ToString() const
 {
 	String rtn;
 	rtn += "<iterator:xml.attribute";
@@ -1208,7 +1208,7 @@ bool Iterator_element::DoNext(Environment &env, Signal sig, Value &value)
 	return false;
 }
 
-String Iterator_element::ToString(Signal sig) const
+String Iterator_element::ToString() const
 {
 	String rtn;
 	rtn += "<iterator:xml.element";
@@ -1254,9 +1254,9 @@ Gura_ImplementFunction(element)
 {
 	Element *pElement = new Element(Element::TYPE_Tag, args.GetStringSTL(0));
 	foreach_const (ValueDict, iter, args.GetValueDictArg()) {
-		String key = iter->first.ToString(sig, false);
+		String key = iter->first.ToString(false);
 		if (sig.IsSignalled()) return Value::Null;
-		String value = iter->second.ToString(sig, false);
+		String value = iter->second.ToString(false);
 		if (sig.IsSignalled()) return Value::Null;
 		pElement->GetAttributes()->push_back(new Attribute(key, value));
 	}

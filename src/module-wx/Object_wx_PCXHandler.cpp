@@ -71,7 +71,7 @@ Object *Object_wx_PCXHandler::Clone() const
 	return NULL;
 }
 
-String Object_wx_PCXHandler::ToString(Signal sig, bool exprFlag)
+String Object_wx_PCXHandler::ToString(bool exprFlag)
 {
 	String rtn("<wx.PCXHandler:");
 	if (GetEntity() == NULL) {

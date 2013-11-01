@@ -190,7 +190,7 @@ Value Object_wx_Point::DoSetProp(Environment &env, Signal sig, const Symbol *pSy
 	return Value::Null;
 }
 
-String Object_wx_Point::ToString(Signal sig, bool exprFlag)
+String Object_wx_Point::ToString(bool exprFlag)
 {
 	String rtn("<wx.Point:");
 	if (GetEntity() == NULL) {

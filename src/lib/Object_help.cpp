@@ -54,7 +54,7 @@ Value Object_help::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	return DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
-String Object_help::ToString(Signal sig, bool exprFlag)
+String Object_help::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<help:";

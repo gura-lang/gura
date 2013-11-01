@@ -51,7 +51,7 @@ Object *Object_wx_ArchiveNotifier::Clone() const
 	return NULL;
 }
 
-String Object_wx_ArchiveNotifier::ToString(Signal sig, bool exprFlag)
+String Object_wx_ArchiveNotifier::ToString(bool exprFlag)
 {
 	String rtn("<wx.ArchiveNotifier:");
 	if (GetEntity() == NULL) {

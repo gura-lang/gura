@@ -434,7 +434,7 @@ Value Object_wx_Size::DoSetProp(Environment &env, Signal sig, const Symbol *pSym
 	return Value::Null;
 }
 
-String Object_wx_Size::ToString(Signal sig, bool exprFlag)
+String Object_wx_Size::ToString(bool exprFlag)
 {
 	String rtn("<wx.Size:");
 	if (GetEntity() == NULL) {

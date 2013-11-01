@@ -327,7 +327,7 @@ Object *Object_wx_RegEx::Clone() const
 	return NULL;
 }
 
-String Object_wx_RegEx::ToString(Signal sig, bool exprFlag)
+String Object_wx_RegEx::ToString(bool exprFlag)
 {
 	String rtn("<wx.RegEx:");
 	if (GetEntity() == NULL) {

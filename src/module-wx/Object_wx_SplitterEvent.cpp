@@ -147,7 +147,7 @@ Object *Object_wx_SplitterEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_SplitterEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_SplitterEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.SplitterEvent:");
 	if (GetEntity() == NULL) {

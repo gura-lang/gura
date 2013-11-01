@@ -10,7 +10,7 @@ Object *Object_GlyphSlot::Clone() const
 	return NULL;
 }
 
-String Object_GlyphSlot::ToString(Signal sig, bool exprFlag)
+String Object_GlyphSlot::ToString(bool exprFlag)
 {
 	char buff[80];
 	::sprintf(buff, "<freetype.GlyphSlot>");

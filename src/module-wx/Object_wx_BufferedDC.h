@@ -25,7 +25,7 @@ public:
 				Object_wx_MemoryDC(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_BufferedDC();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxBufferedDC *GetEntity() {
 		return dynamic_cast<wxBufferedDC *>(_pEntity);
 	}

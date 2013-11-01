@@ -454,7 +454,7 @@ Object *Object_wx_RichTextPrinting::Clone() const
 	return NULL;
 }
 
-String Object_wx_RichTextPrinting::ToString(Signal sig, bool exprFlag)
+String Object_wx_RichTextPrinting::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextPrinting:");
 	if (GetEntity() == NULL) {

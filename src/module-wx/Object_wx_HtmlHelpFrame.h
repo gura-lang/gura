@@ -25,7 +25,7 @@ public:
 				Object_wx_Frame(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_HtmlHelpFrame();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxHtmlHelpFrame *GetEntity() {
 		return dynamic_cast<wxHtmlHelpFrame *>(_pEntity);
 	}

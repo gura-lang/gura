@@ -25,7 +25,7 @@ public:
 				Object_wx_Object(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_PageSetupDialogData();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxPageSetupDialogData *GetEntity() {
 		return dynamic_cast<wxPageSetupDialogData *>(_pEntity);
 	}

@@ -246,7 +246,7 @@ Object *Object_wx_StreamBase::Clone() const
 	return NULL;
 }
 
-String Object_wx_StreamBase::ToString(Signal sig, bool exprFlag)
+String Object_wx_StreamBase::ToString(bool exprFlag)
 {
 	String rtn("<wx.StreamBase:");
 	if (GetEntity() == NULL) {

@@ -25,7 +25,7 @@ public:
 				Object_wx_PopupTransientWindow(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_TipWindow();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxTipWindow *GetEntity() {
 		return dynamic_cast<wxTipWindow *>(_pEntity);
 	}

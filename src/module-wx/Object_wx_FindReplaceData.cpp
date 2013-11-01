@@ -160,7 +160,7 @@ Object *Object_wx_FindReplaceData::Clone() const
 	return NULL;
 }
 
-String Object_wx_FindReplaceData::ToString(Signal sig, bool exprFlag)
+String Object_wx_FindReplaceData::ToString(bool exprFlag)
 {
 	String rtn("<wx.FindReplaceData:");
 	if (GetEntity() == NULL) {

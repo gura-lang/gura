@@ -25,7 +25,7 @@ public:
 				Object_wx_DropTarget(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_FileDropTarget();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxFileDropTarget *GetEntity() {
 		return dynamic_cast<wxFileDropTarget *>(_pEntity);
 	}

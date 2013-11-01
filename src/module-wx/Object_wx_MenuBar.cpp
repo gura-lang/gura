@@ -518,7 +518,7 @@ Object *Object_wx_MenuBar::Clone() const
 	return NULL;
 }
 
-String Object_wx_MenuBar::ToString(Signal sig, bool exprFlag)
+String Object_wx_MenuBar::ToString(bool exprFlag)
 {
 	String rtn("<wx.MenuBar:");
 	if (GetEntity() == NULL) {

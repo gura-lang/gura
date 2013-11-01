@@ -484,7 +484,7 @@ Object *Object_wx_Accessible::Clone() const
 	return NULL;
 }
 
-String Object_wx_Accessible::ToString(Signal sig, bool exprFlag)
+String Object_wx_Accessible::ToString(bool exprFlag)
 {
 	String rtn("<wx.Accessible:");
 	if (GetEntity() == NULL) {

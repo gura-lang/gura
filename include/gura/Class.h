@@ -134,7 +134,7 @@ public:
 									const Value &valueThis, const Value &valueIdx) const;
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl);
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
 	bool BuildContent(Environment &env, Signal sig, const Value &valueThis,

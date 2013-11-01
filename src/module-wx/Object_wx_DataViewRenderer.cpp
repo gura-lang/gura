@@ -274,7 +274,7 @@ Object *Object_wx_DataViewRenderer::Clone() const
 	return NULL;
 }
 
-String Object_wx_DataViewRenderer::ToString(Signal sig, bool exprFlag)
+String Object_wx_DataViewRenderer::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataViewRenderer:");
 	if (GetEntity() == NULL) {

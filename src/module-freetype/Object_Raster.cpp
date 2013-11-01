@@ -10,7 +10,7 @@ Object *Object_Raster::Clone() const
 	return NULL;
 }
 
-String Object_Raster::ToString(Signal sig, bool exprFlag)
+String Object_Raster::ToString(bool exprFlag)
 {
 	char buff[80];
 	::sprintf(buff, "<freetype.Raster>");

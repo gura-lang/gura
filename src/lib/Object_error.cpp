@@ -56,7 +56,7 @@ Value Object_error::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	return Value::Null;
 }
 
-String Object_error::ToString(Signal sig, bool exprFlag)
+String Object_error::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<error:";

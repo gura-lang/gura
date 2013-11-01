@@ -170,7 +170,7 @@ Object *Object_wx_ListView::Clone() const
 	return NULL;
 }
 
-String Object_wx_ListView::ToString(Signal sig, bool exprFlag)
+String Object_wx_ListView::ToString(bool exprFlag)
 {
 	String rtn("<wx.ListView:");
 	if (GetEntity() == NULL) {

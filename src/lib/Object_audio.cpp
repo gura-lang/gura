@@ -60,7 +60,7 @@ Value Object_audio::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	return DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
-String Object_audio::ToString(Signal sig, bool exprFlag)
+String Object_audio::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<audio:";

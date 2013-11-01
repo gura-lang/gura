@@ -850,7 +850,7 @@ Value Object_color::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	return Value::Null;
 }
 
-String Object_color::ToString(Signal sig, bool exprFlag)
+String Object_color::ToString(bool exprFlag)
 {
 	String str;
 	str += "<color:";

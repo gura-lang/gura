@@ -161,7 +161,7 @@ Object *Object_wx_ColourData::Clone() const
 	return NULL;
 }
 
-String Object_wx_ColourData::ToString(Signal sig, bool exprFlag)
+String Object_wx_ColourData::ToString(bool exprFlag)
 {
 	String rtn("<wx.ColourData:");
 	if (GetEntity() == NULL) {

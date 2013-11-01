@@ -33,7 +33,7 @@ public:
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoCall(Environment &env, Signal sig, Args &args);
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	const char *GetMathSymbol() const;
 	inline OpType GetUnaryOpType() const { return _opTypeUnary; }
 	inline OpType GetBinaryOpType() const { return _opTypeBinary; }

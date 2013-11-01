@@ -667,7 +667,7 @@ Object *Object_wx_Font::Clone() const
 	return pObj;
 }
 
-String Object_wx_Font::ToString(Signal sig, bool exprFlag)
+String Object_wx_Font::ToString(bool exprFlag)
 {
 	String rtn("<wx.Font:");
 	if (GetEntity() == NULL) {

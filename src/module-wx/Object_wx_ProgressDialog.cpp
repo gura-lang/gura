@@ -139,7 +139,7 @@ Object *Object_wx_ProgressDialog::Clone() const
 	return NULL;
 }
 
-String Object_wx_ProgressDialog::ToString(Signal sig, bool exprFlag)
+String Object_wx_ProgressDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.ProgressDialog:");
 	if (GetEntity() == NULL) {

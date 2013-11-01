@@ -5,7 +5,7 @@ Gura_BeginModuleScope(cairo)
 //-----------------------------------------------------------------------------
 // Object_raster_source_pattern implementation
 //-----------------------------------------------------------------------------
-String Object_raster_source_pattern::ToString(Signal sig, bool exprFlag)
+String Object_raster_source_pattern::ToString(bool exprFlag)
 {
 	return String("<cairo.raster_source_pattern>");
 }

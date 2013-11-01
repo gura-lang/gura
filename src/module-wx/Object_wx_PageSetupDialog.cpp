@@ -121,7 +121,7 @@ Object *Object_wx_PageSetupDialog::Clone() const
 	return NULL;
 }
 
-String Object_wx_PageSetupDialog::ToString(Signal sig, bool exprFlag)
+String Object_wx_PageSetupDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.PageSetupDialog:");
 	if (GetEntity() == NULL) {

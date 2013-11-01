@@ -333,7 +333,7 @@ Object *Object_wx_Dir::Clone() const
 	return NULL;
 }
 
-String Object_wx_Dir::ToString(Signal sig, bool exprFlag)
+String Object_wx_Dir::ToString(bool exprFlag)
 {
 	String rtn("<wx.Dir:");
 	if (GetEntity() == NULL) {

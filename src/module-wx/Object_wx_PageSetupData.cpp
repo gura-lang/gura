@@ -51,7 +51,7 @@ Object *Object_wx_PageSetupData::Clone() const
 	return NULL;
 }
 
-String Object_wx_PageSetupData::ToString(Signal sig, bool exprFlag)
+String Object_wx_PageSetupData::ToString(bool exprFlag)
 {
 	String rtn("<wx.PageSetupData:");
 	if (GetEntity() == NULL) {

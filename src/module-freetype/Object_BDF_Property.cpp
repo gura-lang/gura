@@ -10,7 +10,7 @@ Object *Object_BDF_Property::Clone() const
 	return NULL;
 }
 
-String Object_BDF_Property::ToString(Signal sig, bool exprFlag)
+String Object_BDF_Property::ToString(bool exprFlag)
 {
 	char buff[80];
 	::sprintf(buff, "<freetype.BDF_Property>");

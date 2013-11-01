@@ -343,7 +343,7 @@ Object *Object_wx_ImageList::Clone() const
 	return NULL;
 }
 
-String Object_wx_ImageList::ToString(Signal sig, bool exprFlag)
+String Object_wx_ImageList::ToString(bool exprFlag)
 {
 	String rtn("<wx.ImageList:");
 	if (GetEntity() == NULL) {

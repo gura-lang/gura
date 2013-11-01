@@ -18,7 +18,7 @@ Object *Object_Bitmap::Clone() const
 	return NULL;
 }
 
-String Object_Bitmap::ToString(Signal sig, bool exprFlag)
+String Object_Bitmap::ToString(bool exprFlag)
 {
 	char buff[80];
 	::sprintf(buff, "<freetype.Bitmap>");

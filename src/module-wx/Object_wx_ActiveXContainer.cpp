@@ -78,7 +78,7 @@ Object *Object_wx_ActiveXContainer::Clone() const
 	return NULL;
 }
 
-String Object_wx_ActiveXContainer::ToString(Signal sig, bool exprFlag)
+String Object_wx_ActiveXContainer::ToString(bool exprFlag)
 {
 	String rtn("<wx.ActiveXContainer:");
 	if (GetEntity() == NULL) {

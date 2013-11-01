@@ -23,7 +23,7 @@ Object *Object_mysql::Clone() const
 	return NULL;
 }
 
-String Object_mysql::ToString(Signal sig, bool exprFlag)
+String Object_mysql::ToString(bool exprFlag)
 {
 	String str;
 	str += "<mysql";
@@ -88,7 +88,7 @@ bool Object_mysql::IteratorQuery::DoNext(Environment &env, Signal sig, Value &va
 	return true;
 }
 
-String Object_mysql::IteratorQuery::ToString(Signal sig) const
+String Object_mysql::IteratorQuery::ToString() const
 {
 	return String("<iterator:MySQL#query>");
 }

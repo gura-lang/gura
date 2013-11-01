@@ -406,7 +406,7 @@ Object *Object_wx_File::Clone() const
 	return NULL;
 }
 
-String Object_wx_File::ToString(Signal sig, bool exprFlag)
+String Object_wx_File::ToString(bool exprFlag)
 {
 	String rtn("<wx.File:");
 	if (GetEntity() == NULL) {

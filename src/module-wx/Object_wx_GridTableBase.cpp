@@ -122,7 +122,7 @@ wxString wx_GridTableBase::GetValue(int row, int col)
 	valListArg.push_back(Value(col));
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valListArg);
 	if (!CheckMethodResult(_sig)) return wxEmptyString;
-	return wxString::FromUTF8(rtn.ToString(_sig, false).c_str());
+	return wxString::FromUTF8(rtn.ToString(false).c_str());
 }
 
 void wx_GridTableBase::SetValue(int row, int col, const wxString &value)
@@ -279,7 +279,7 @@ wxString wx_GridTableBase::GetRowLabelValue(int row)
 	valListArg.push_back(Value(row));
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valListArg);
 	if (!CheckMethodResult(_sig)) return wxEmptyString;
-	return wxString::FromUTF8(rtn.ToString(_sig, false).c_str());
+	return wxString::FromUTF8(rtn.ToString(false).c_str());
 }
 
 wxString wx_GridTableBase::GetColLabelValue(int col)
@@ -292,7 +292,7 @@ wxString wx_GridTableBase::GetColLabelValue(int col)
 	valListArg.push_back(Value(col));
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valListArg);
 	if (!CheckMethodResult(_sig)) return wxEmptyString;
-	return wxString::FromUTF8(rtn.ToString(_sig, false).c_str());
+	return wxString::FromUTF8(rtn.ToString(false).c_str());
 }
 
 //----------------------------------------------------------------------------
@@ -943,7 +943,7 @@ Object *Object_wx_GridTableBase::Clone() const
 	return NULL;
 }
 
-String Object_wx_GridTableBase::ToString(Signal sig, bool exprFlag)
+String Object_wx_GridTableBase::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridTableBase:");
 	if (GetEntity() == NULL) {

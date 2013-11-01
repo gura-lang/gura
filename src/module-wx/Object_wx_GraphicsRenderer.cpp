@@ -272,7 +272,7 @@ Object *Object_wx_GraphicsRenderer::Clone() const
 	return NULL;
 }
 
-String Object_wx_GraphicsRenderer::ToString(Signal sig, bool exprFlag)
+String Object_wx_GraphicsRenderer::ToString(bool exprFlag)
 {
 	String rtn("<wx.GraphicsRenderer:");
 	if (GetEntity() == NULL) {

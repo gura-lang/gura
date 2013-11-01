@@ -25,7 +25,7 @@ Object *Object_Vector::Clone() const
 	return NULL;
 }
 
-String Object_Vector::ToString(Signal sig, bool exprFlag)
+String Object_Vector::ToString(bool exprFlag)
 {
 	char buff[80];
 	::sprintf(buff, "<freetype.Vector:x=%d,y=%d>", _pVector->x, _pVector->y);

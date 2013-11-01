@@ -838,7 +838,7 @@ Object *Object_wx_App::Clone() const
 	return NULL;
 }
 
-String Object_wx_App::ToString(Signal sig, bool exprFlag)
+String Object_wx_App::ToString(bool exprFlag)
 {
 	String rtn("<wx.App:");
 	if (GetEntity() == NULL) {

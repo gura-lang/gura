@@ -25,7 +25,7 @@ public:
 				Object_wx_RichTextParagraphLayoutBox(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_RichTextBuffer();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxRichTextBuffer *GetEntity() {
 		return dynamic_cast<wxRichTextBuffer *>(_pEntity);
 	}

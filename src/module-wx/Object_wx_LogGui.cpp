@@ -70,7 +70,7 @@ Object *Object_wx_LogGui::Clone() const
 	return NULL;
 }
 
-String Object_wx_LogGui::ToString(Signal sig, bool exprFlag)
+String Object_wx_LogGui::ToString(bool exprFlag)
 {
 	String rtn("<wx.LogGui:");
 	if (GetEntity() == NULL) {

@@ -297,7 +297,7 @@ Object *Object_wx_DebugContext::Clone() const
 	return NULL;
 }
 
-String Object_wx_DebugContext::ToString(Signal sig, bool exprFlag)
+String Object_wx_DebugContext::ToString(bool exprFlag)
 {
 	String rtn("<wx.DebugContext:");
 	if (GetEntity() == NULL) {

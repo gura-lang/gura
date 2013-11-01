@@ -219,7 +219,7 @@ Object *Object_wx_DatePickerCtrl::Clone() const
 	return NULL;
 }
 
-String Object_wx_DatePickerCtrl::ToString(Signal sig, bool exprFlag)
+String Object_wx_DatePickerCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.DatePickerCtrl:");
 	if (GetEntity() == NULL) {

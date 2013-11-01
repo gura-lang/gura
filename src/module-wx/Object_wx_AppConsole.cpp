@@ -51,7 +51,7 @@ Object *Object_wx_AppConsole::Clone() const
 	return NULL;
 }
 
-String Object_wx_AppConsole::ToString(Signal sig, bool exprFlag)
+String Object_wx_AppConsole::ToString(bool exprFlag)
 {
 	String rtn("<wx.AppConsole:");
 	if (GetEntity() == NULL) {

@@ -92,7 +92,7 @@ Value Object_exif::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	return _pObj0thIFD->DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
-String Object_exif::ToString(Signal sig, bool exprFlag)
+String Object_exif::ToString(bool exprFlag)
 {
 	return String("<jpeg.exif>");
 }

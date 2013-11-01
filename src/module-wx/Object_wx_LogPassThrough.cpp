@@ -48,7 +48,7 @@ Object *Object_wx_LogPassThrough::Clone() const
 	return NULL;
 }
 
-String Object_wx_LogPassThrough::ToString(Signal sig, bool exprFlag)
+String Object_wx_LogPassThrough::ToString(bool exprFlag)
 {
 	String rtn("<wx.LogPassThrough:");
 	if (GetEntity() == NULL) {

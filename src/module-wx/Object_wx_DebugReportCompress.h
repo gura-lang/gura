@@ -25,7 +25,7 @@ public:
 				Object_wx_DebugReport(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_DebugReportCompress();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxDebugReportCompress *GetEntity() {
 		return dynamic_cast<wxDebugReportCompress *>(_pEntity);
 	}

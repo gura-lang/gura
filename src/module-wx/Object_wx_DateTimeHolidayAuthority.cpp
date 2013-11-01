@@ -51,7 +51,7 @@ Object *Object_wx_DateTimeHolidayAuthority::Clone() const
 	return NULL;
 }
 
-String Object_wx_DateTimeHolidayAuthority::ToString(Signal sig, bool exprFlag)
+String Object_wx_DateTimeHolidayAuthority::ToString(bool exprFlag)
 {
 	String rtn("<wx.DateTimeHolidayAuthority:");
 	if (GetEntity() == NULL) {

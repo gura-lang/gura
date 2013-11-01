@@ -31,7 +31,7 @@ public:
 		_offset(obj._offset) {}
 	virtual ~Object_pointer();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline Object_binary *GetBinaryObj() { return _pObjBinary.get(); }
 	inline const Object_binary *GetBinaryObj() const { return _pObjBinary.get(); }
 	inline Binary &GetBinary() { return _pObjBinary->GetBinary(); }

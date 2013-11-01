@@ -433,7 +433,7 @@ Object *Object_wx_DragImage::Clone() const
 	return NULL;
 }
 
-String Object_wx_DragImage::ToString(Signal sig, bool exprFlag)
+String Object_wx_DragImage::ToString(bool exprFlag)
 {
 	String rtn("<wx.DragImage:");
 	if (GetEntity() == NULL) {

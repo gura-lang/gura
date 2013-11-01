@@ -505,7 +505,7 @@ Object *Object_wx_RadioBox::Clone() const
 	return NULL;
 }
 
-String Object_wx_RadioBox::ToString(Signal sig, bool exprFlag)
+String Object_wx_RadioBox::ToString(bool exprFlag)
 {
 	String rtn("<wx.RadioBox:");
 	if (GetEntity() == NULL) {

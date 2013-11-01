@@ -169,7 +169,7 @@ Object *Object_wx_StaticLine::Clone() const
 	return NULL;
 }
 
-String Object_wx_StaticLine::ToString(Signal sig, bool exprFlag)
+String Object_wx_StaticLine::ToString(bool exprFlag)
 {
 	String rtn("<wx.StaticLine:");
 	if (GetEntity() == NULL) {

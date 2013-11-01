@@ -445,7 +445,7 @@ Object *Object_wx_Connection::Clone() const
 	return NULL;
 }
 
-String Object_wx_Connection::ToString(Signal sig, bool exprFlag)
+String Object_wx_Connection::ToString(bool exprFlag)
 {
 	String rtn("<wx.Connection:");
 	if (GetEntity() == NULL) {

@@ -3464,7 +3464,7 @@ Object *Object_wx_Grid::Clone() const
 	return NULL;
 }
 
-String Object_wx_Grid::ToString(Signal sig, bool exprFlag)
+String Object_wx_Grid::ToString(bool exprFlag)
 {
 	String rtn("<wx.Grid:");
 	if (GetEntity() == NULL) {

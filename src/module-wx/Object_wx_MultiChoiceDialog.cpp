@@ -174,7 +174,7 @@ Object *Object_wx_MultiChoiceDialog::Clone() const
 	return NULL;
 }
 
-String Object_wx_MultiChoiceDialog::ToString(Signal sig, bool exprFlag)
+String Object_wx_MultiChoiceDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.MultiChoiceDialog:");
 	if (GetEntity() == NULL) {

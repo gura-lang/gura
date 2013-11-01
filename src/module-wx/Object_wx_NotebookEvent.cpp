@@ -140,7 +140,7 @@ Object *Object_wx_NotebookEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_NotebookEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_NotebookEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.NotebookEvent:");
 	if (GetEntity() == NULL) {

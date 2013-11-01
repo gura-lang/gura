@@ -299,7 +299,7 @@ Object *Object_wx_GBSizerItem::Clone() const
 	return NULL;
 }
 
-String Object_wx_GBSizerItem::ToString(Signal sig, bool exprFlag)
+String Object_wx_GBSizerItem::ToString(bool exprFlag)
 {
 	String rtn("<wx.GBSizerItem:");
 	if (GetEntity() == NULL) {

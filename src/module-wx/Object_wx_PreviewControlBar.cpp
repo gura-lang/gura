@@ -144,7 +144,7 @@ Object *Object_wx_PreviewControlBar::Clone() const
 	return NULL;
 }
 
-String Object_wx_PreviewControlBar::ToString(Signal sig, bool exprFlag)
+String Object_wx_PreviewControlBar::ToString(bool exprFlag)
 {
 	String rtn("<wx.PreviewControlBar:");
 	if (GetEntity() == NULL) {

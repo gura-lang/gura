@@ -110,7 +110,7 @@ Object *Object_wx_ObjectRefData::Clone() const
 	return NULL;
 }
 
-String Object_wx_ObjectRefData::ToString(Signal sig, bool exprFlag)
+String Object_wx_ObjectRefData::ToString(bool exprFlag)
 {
 	String rtn("<wx.ObjectRefData:");
 	if (GetEntity() == NULL) {

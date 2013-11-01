@@ -118,7 +118,7 @@ Object *Object_wx_Mutex::Clone() const
 	return NULL;
 }
 
-String Object_wx_Mutex::ToString(Signal sig, bool exprFlag)
+String Object_wx_Mutex::ToString(bool exprFlag)
 {
 	String rtn("<wx.Mutex:");
 	if (GetEntity() == NULL) {

@@ -200,7 +200,7 @@ Object *Object_wx_Panel::Clone() const
 	return NULL;
 }
 
-String Object_wx_Panel::ToString(Signal sig, bool exprFlag)
+String Object_wx_Panel::ToString(bool exprFlag)
 {
 	String rtn("<wx.Panel:");
 	if (GetEntity() == NULL) {

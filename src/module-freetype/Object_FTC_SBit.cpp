@@ -10,7 +10,7 @@ Object *Object_FTC_SBit::Clone() const
 	return NULL;
 }
 
-String Object_FTC_SBit::ToString(Signal sig, bool exprFlag)
+String Object_FTC_SBit::ToString(bool exprFlag)
 {
 	char buff[80];
 	::sprintf(buff, "<freetype.FTC_SBit>");

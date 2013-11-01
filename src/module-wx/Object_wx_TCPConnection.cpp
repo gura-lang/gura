@@ -445,7 +445,7 @@ Object *Object_wx_TCPConnection::Clone() const
 	return NULL;
 }
 
-String Object_wx_TCPConnection::ToString(Signal sig, bool exprFlag)
+String Object_wx_TCPConnection::ToString(bool exprFlag)
 {
 	String rtn("<wx.TCPConnection:");
 	if (GetEntity() == NULL) {

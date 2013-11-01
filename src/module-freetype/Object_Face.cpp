@@ -15,7 +15,7 @@ Object *Object_Face::Clone() const
 	return NULL;
 }
 
-String Object_Face::ToString(Signal sig, bool exprFlag)
+String Object_Face::ToString(bool exprFlag)
 {
 	String str;
 	str = "<freetype.Face";

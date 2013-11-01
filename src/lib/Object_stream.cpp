@@ -50,7 +50,7 @@ Iterator *Object_stream::CreateIterator(Signal sig)
 	return new IteratorLine(Object_stream::Reference(this), -1, true);
 }
 
-String Object_stream::ToString(Signal sig, bool exprFlag)
+String Object_stream::ToString(bool exprFlag)
 {
 	String str;
 	Stream &stream = GetStream();
@@ -621,7 +621,7 @@ Gura_ImplementMethod(stream, print)
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	if (!stream.CheckWritable(sig)) return Value::Null;
 	foreach_const (ValueList, pValue, args.GetList(0)) {
-		String str(pValue->ToString(sig, false));
+		String str(pValue->ToString(false));
 		if (sig.IsSignalled()) break;
 		stream.Print(sig, str.c_str());
 		if (sig.IsSignalled()) break;
@@ -641,7 +641,7 @@ Gura_ImplementMethod(stream, println)
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	if (!stream.CheckWritable(sig)) return Value::Null;
 	foreach_const (ValueList, pValue, args.GetList(0)) {
-		String str(pValue->ToString(sig, false));
+		String str(pValue->ToString(false));
 		if (sig.IsSignalled()) break;
 		stream.Print(sig, str.c_str());
 		if (sig.IsSignalled()) break;
@@ -723,7 +723,7 @@ Gura_ImplementBinaryOperator(Shl, stream, any)
 		stream.Write(sig, binary.c_str(), binary.size());
 		if (sig.IsSignalled()) return Value::Null;
 	} else {
-		String str(valueRight.ToString(sig, false));
+		String str(valueRight.ToString(false));
 		if (sig.IsSignalled()) return Value::Null;
 		stream.Print(sig, str.c_str());
 		if (sig.IsSignalled()) return Value::Null;
@@ -830,7 +830,7 @@ bool Object_stream::IteratorLine::DoNext(Environment &env, Signal sig, Value &va
 	return true;
 }
 
-String Object_stream::IteratorLine::ToString(Signal sig) const
+String Object_stream::IteratorLine::ToString() const
 {
 	return String("stream#readlines");
 }

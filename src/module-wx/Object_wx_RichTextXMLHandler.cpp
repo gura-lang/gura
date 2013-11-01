@@ -329,7 +329,7 @@ Object *Object_wx_RichTextXMLHandler::Clone() const
 	return NULL;
 }
 
-String Object_wx_RichTextXMLHandler::ToString(Signal sig, bool exprFlag)
+String Object_wx_RichTextXMLHandler::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextXMLHandler:");
 	if (GetEntity() == NULL) {

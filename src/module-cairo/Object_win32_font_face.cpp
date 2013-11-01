@@ -5,7 +5,7 @@ Gura_BeginModuleScope(cairo)
 //-----------------------------------------------------------------------------
 // Object_win32_font_face implementation
 //-----------------------------------------------------------------------------
-String Object_win32_font_face::ToString(Signal sig, bool exprFlag)
+String Object_win32_font_face::ToString(bool exprFlag)
 {
 	return String("<cairo.win32_font_face>");
 }

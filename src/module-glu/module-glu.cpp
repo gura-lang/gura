@@ -84,7 +84,7 @@ Object *Object_Quadric::Clone() const
 	return NULL;
 }
 
-String Object_Quadric::ToString(Signal sig, bool exprFlag)
+String Object_Quadric::ToString(bool exprFlag)
 {
 	return String("<quadric>");
 }
@@ -308,7 +308,7 @@ Object *Object_Tesselator::Clone() const
 	return NULL;
 }
 
-String Object_Tesselator::ToString(Signal sig, bool exprFlag)
+String Object_Tesselator::ToString(bool exprFlag)
 {
 	return String("<tesselator>");
 }
@@ -552,7 +552,7 @@ Object *Object_Nurbs::Clone() const
 	return NULL;
 }
 
-String Object_Nurbs::ToString(Signal sig, bool exprFlag)
+String Object_Nurbs::ToString(bool exprFlag)
 {
 	return String("<nurbs>");
 }

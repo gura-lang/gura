@@ -483,7 +483,7 @@ Object *Object_Canvas::Clone() const
 	return new Object_Canvas(*this);
 }
 
-String Object_Canvas::ToString(Signal sig, bool exprFlag)
+String Object_Canvas::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<canvas:";

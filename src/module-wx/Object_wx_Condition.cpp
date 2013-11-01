@@ -145,7 +145,7 @@ Object *Object_wx_Condition::Clone() const
 	return NULL;
 }
 
-String Object_wx_Condition::ToString(Signal sig, bool exprFlag)
+String Object_wx_Condition::ToString(bool exprFlag)
 {
 	String rtn("<wx.Condition:");
 	if (GetEntity() == NULL) {

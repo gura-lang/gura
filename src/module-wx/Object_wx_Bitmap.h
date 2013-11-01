@@ -25,7 +25,7 @@ public:
 				Object_wx_GDIObject(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_Bitmap();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxBitmap *GetEntity() {
 		return dynamic_cast<wxBitmap *>(_pEntity);
 	}

@@ -558,7 +558,7 @@ Object *Object_wx_AuiNotebook::Clone() const
 	return NULL;
 }
 
-String Object_wx_AuiNotebook::ToString(Signal sig, bool exprFlag)
+String Object_wx_AuiNotebook::ToString(bool exprFlag)
 {
 	String rtn("<wx.AuiNotebook:");
 	if (GetEntity() == NULL) {

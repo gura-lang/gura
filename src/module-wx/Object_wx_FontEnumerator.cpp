@@ -256,7 +256,7 @@ Object *Object_wx_FontEnumerator::Clone() const
 	return NULL;
 }
 
-String Object_wx_FontEnumerator::ToString(Signal sig, bool exprFlag)
+String Object_wx_FontEnumerator::ToString(bool exprFlag)
 {
 	String rtn("<wx.FontEnumerator:");
 	if (GetEntity() == NULL) {

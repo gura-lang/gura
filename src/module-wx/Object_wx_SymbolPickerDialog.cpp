@@ -326,7 +326,7 @@ Object *Object_wx_SymbolPickerDialog::Clone() const
 	return NULL;
 }
 
-String Object_wx_SymbolPickerDialog::ToString(Signal sig, bool exprFlag)
+String Object_wx_SymbolPickerDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.SymbolPickerDialog:");
 	if (GetEntity() == NULL) {

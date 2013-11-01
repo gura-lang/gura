@@ -445,7 +445,7 @@ Object *Object_wx_DDEConnection::Clone() const
 	return NULL;
 }
 
-String Object_wx_DDEConnection::ToString(Signal sig, bool exprFlag)
+String Object_wx_DDEConnection::ToString(bool exprFlag)
 {
 	String rtn("<wx.DDEConnection:");
 	if (GetEntity() == NULL) {

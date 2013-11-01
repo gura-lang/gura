@@ -51,7 +51,7 @@ Object *Object_wx_ArchiveIterator::Clone() const
 	return NULL;
 }
 
-String Object_wx_ArchiveIterator::ToString(Signal sig, bool exprFlag)
+String Object_wx_ArchiveIterator::ToString(bool exprFlag)
 {
 	String rtn("<wx.ArchiveIterator:");
 	if (GetEntity() == NULL) {

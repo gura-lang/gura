@@ -25,7 +25,7 @@ public:
 				Object_wx_ScopedPtr(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_ScopedTiedPtr();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxScopedTiedPtr *GetEntity() {
 		return dynamic_cast<wxScopedTiedPtr *>(_pEntity);
 	}

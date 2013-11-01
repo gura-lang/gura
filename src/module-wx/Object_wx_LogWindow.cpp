@@ -193,7 +193,7 @@ Object *Object_wx_LogWindow::Clone() const
 	return NULL;
 }
 
-String Object_wx_LogWindow::ToString(Signal sig, bool exprFlag)
+String Object_wx_LogWindow::ToString(bool exprFlag)
 {
 	String rtn("<wx.LogWindow:");
 	if (GetEntity() == NULL) {

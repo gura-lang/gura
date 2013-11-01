@@ -25,7 +25,7 @@ public:
 				Object_wx_DataObjectSimple(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_BitmapDataObject();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxBitmapDataObject *GetEntity() {
 		return dynamic_cast<wxBitmapDataObject *>(_pEntity);
 	}

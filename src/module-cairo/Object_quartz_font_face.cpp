@@ -5,7 +5,7 @@ Gura_BeginModuleScope(cairo)
 //-----------------------------------------------------------------------------
 // Object_quartz_font_face implementation
 //-----------------------------------------------------------------------------
-String Object_quartz_font_face::ToString(Signal sig, bool exprFlag)
+String Object_quartz_font_face::ToString(bool exprFlag)
 {
 	return String("<cairo.quartz_font_face>");
 }

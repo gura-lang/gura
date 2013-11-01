@@ -129,7 +129,7 @@ Object *Object_wx_Module::Clone() const
 	return NULL;
 }
 
-String Object_wx_Module::ToString(Signal sig, bool exprFlag)
+String Object_wx_Module::ToString(bool exprFlag)
 {
 	String rtn("<wx.Module:");
 	if (GetEntity() == NULL) {

@@ -25,7 +25,7 @@ public:
 				Object_wx_BoxSizer(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_StdDialogButtonSizer();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxStdDialogButtonSizer *GetEntity() {
 		return dynamic_cast<wxStdDialogButtonSizer *>(_pEntity);
 	}

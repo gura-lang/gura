@@ -271,7 +271,7 @@ Object *Object_wx_SpinCtrl::Clone() const
 	return NULL;
 }
 
-String Object_wx_SpinCtrl::ToString(Signal sig, bool exprFlag)
+String Object_wx_SpinCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.SpinCtrl:");
 	if (GetEntity() == NULL) {

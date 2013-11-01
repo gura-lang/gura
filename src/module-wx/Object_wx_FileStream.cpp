@@ -76,7 +76,7 @@ Object *Object_wx_FileStream::Clone() const
 	return NULL;
 }
 
-String Object_wx_FileStream::ToString(Signal sig, bool exprFlag)
+String Object_wx_FileStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.FileStream:");
 	if (GetEntity() == NULL) {

@@ -25,7 +25,7 @@ public:
 				Object_wx_CommandEvent(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_HyperlinkEvent();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxHyperlinkEvent *GetEntity() {
 		return dynamic_cast<wxHyperlinkEvent *>(_pEntity);
 	}

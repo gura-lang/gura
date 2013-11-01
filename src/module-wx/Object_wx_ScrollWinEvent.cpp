@@ -107,7 +107,7 @@ Object *Object_wx_ScrollWinEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_ScrollWinEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_ScrollWinEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.ScrollWinEvent:");
 	if (GetEntity() == NULL) {

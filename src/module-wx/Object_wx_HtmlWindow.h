@@ -25,7 +25,7 @@ public:
 				Object_wx_ScrolledWindow(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_HtmlWindow();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxHtmlWindow *GetEntity() {
 		return dynamic_cast<wxHtmlWindow *>(_pEntity);
 	}

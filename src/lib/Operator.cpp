@@ -1263,13 +1263,13 @@ Gura_ImplementBinaryOperator(Add, pointer, number)
 Gura_ImplementBinaryOperator(Add, string, any)
 {
 	String str(valueLeft.GetString());
-	str += valueRight.ToString(sig);
+	str += valueRight.ToString();
 	return Value(env, str.c_str());
 }
 
 Gura_ImplementBinaryOperator(Add, any, string)
 {
-	String str(valueLeft.ToString(sig));
+	String str(valueLeft.ToString());
 	str += valueRight.GetString();
 	return Value(env, str.c_str());
 }

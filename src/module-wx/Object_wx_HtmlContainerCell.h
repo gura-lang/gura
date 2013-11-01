@@ -25,7 +25,7 @@ public:
 				Object_wx_HtmlCell(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_HtmlContainerCell();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxHtmlContainerCell *GetEntity() {
 		return dynamic_cast<wxHtmlContainerCell *>(_pEntity);
 	}

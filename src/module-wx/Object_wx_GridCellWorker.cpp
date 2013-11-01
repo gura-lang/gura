@@ -51,7 +51,7 @@ Object *Object_wx_GridCellWorker::Clone() const
 	return NULL;
 }
 
-String Object_wx_GridCellWorker::ToString(Signal sig, bool exprFlag)
+String Object_wx_GridCellWorker::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridCellWorker:");
 	if (GetEntity() == NULL) {

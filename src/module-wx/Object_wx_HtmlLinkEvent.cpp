@@ -84,7 +84,7 @@ Object *Object_wx_HtmlLinkEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_HtmlLinkEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_HtmlLinkEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlLinkEvent:");
 	if (GetEntity() == NULL) {

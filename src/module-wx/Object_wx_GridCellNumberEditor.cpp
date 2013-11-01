@@ -127,7 +127,7 @@ Object *Object_wx_GridCellNumberEditor::Clone() const
 	return NULL;
 }
 
-String Object_wx_GridCellNumberEditor::ToString(Signal sig, bool exprFlag)
+String Object_wx_GridCellNumberEditor::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridCellNumberEditor:");
 	if (GetEntity() == NULL) {

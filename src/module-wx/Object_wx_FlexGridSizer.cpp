@@ -211,7 +211,7 @@ Object *Object_wx_FlexGridSizer::Clone() const
 	return NULL;
 }
 
-String Object_wx_FlexGridSizer::ToString(Signal sig, bool exprFlag)
+String Object_wx_FlexGridSizer::ToString(bool exprFlag)
 {
 	String rtn("<wx.FlexGridSizer:");
 	if (GetEntity() == NULL) {

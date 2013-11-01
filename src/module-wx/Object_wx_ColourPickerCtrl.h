@@ -25,7 +25,7 @@ public:
 				Object_wx_PickerBase(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_ColourPickerCtrl();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxColourPickerCtrl *GetEntity() {
 		return dynamic_cast<wxColourPickerCtrl *>(_pEntity);
 	}

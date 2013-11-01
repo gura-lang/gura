@@ -87,7 +87,7 @@ Object *Object_wx_PasswordEntryDialog::Clone() const
 	return NULL;
 }
 
-String Object_wx_PasswordEntryDialog::ToString(Signal sig, bool exprFlag)
+String Object_wx_PasswordEntryDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.PasswordEntryDialog:");
 	if (GetEntity() == NULL) {

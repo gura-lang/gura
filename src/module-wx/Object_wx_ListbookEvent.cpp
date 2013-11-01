@@ -49,7 +49,7 @@ Object *Object_wx_ListbookEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_ListbookEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_ListbookEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.ListbookEvent:");
 	if (GetEntity() == NULL) {

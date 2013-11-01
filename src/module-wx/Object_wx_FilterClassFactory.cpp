@@ -254,7 +254,7 @@ Object *Object_wx_FilterClassFactory::Clone() const
 	return NULL;
 }
 
-String Object_wx_FilterClassFactory::ToString(Signal sig, bool exprFlag)
+String Object_wx_FilterClassFactory::ToString(bool exprFlag)
 {
 	String rtn("<wx.FilterClassFactory:");
 	if (GetEntity() == NULL) {

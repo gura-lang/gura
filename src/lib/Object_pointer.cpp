@@ -14,7 +14,7 @@ Object *Object_pointer::Clone() const
 	return new Object_pointer(*this);
 }
 
-String Object_pointer::ToString(Signal sig, bool exprFlag)
+String Object_pointer::ToString(bool exprFlag)
 {
 	char buff[64];
 	::sprintf(buff, "<pointer:%d>", static_cast<int>(_offset));

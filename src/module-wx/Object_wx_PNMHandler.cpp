@@ -71,7 +71,7 @@ Object *Object_wx_PNMHandler::Clone() const
 	return NULL;
 }
 
-String Object_wx_PNMHandler::ToString(Signal sig, bool exprFlag)
+String Object_wx_PNMHandler::ToString(bool exprFlag)
 {
 	String rtn("<wx.PNMHandler:");
 	if (GetEntity() == NULL) {

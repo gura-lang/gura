@@ -490,7 +490,7 @@ Object *Object_wx_PrintDialogData::Clone() const
 	return NULL;
 }
 
-String Object_wx_PrintDialogData::ToString(Signal sig, bool exprFlag)
+String Object_wx_PrintDialogData::ToString(bool exprFlag)
 {
 	String rtn("<wx.PrintDialogData:");
 	if (GetEntity() == NULL) {

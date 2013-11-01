@@ -186,7 +186,7 @@ Object *Object_wx_DocMDIChildFrame::Clone() const
 	return NULL;
 }
 
-String Object_wx_DocMDIChildFrame::ToString(Signal sig, bool exprFlag)
+String Object_wx_DocMDIChildFrame::ToString(bool exprFlag)
 {
 	String rtn("<wx.DocMDIChildFrame:");
 	if (GetEntity() == NULL) {

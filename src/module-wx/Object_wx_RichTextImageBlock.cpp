@@ -51,7 +51,7 @@ Object *Object_wx_RichTextImageBlock::Clone() const
 	return NULL;
 }
 
-String Object_wx_RichTextImageBlock::ToString(Signal sig, bool exprFlag)
+String Object_wx_RichTextImageBlock::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextImageBlock:");
 	if (GetEntity() == NULL) {

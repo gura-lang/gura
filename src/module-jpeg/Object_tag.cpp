@@ -30,7 +30,7 @@ void Object_tag::Print(int indentLevel) const
 		::printf("%*s%s [%04x], %s [%04x], %s\n", indentLevel * 2, "",
 			GetSymbol()->GetName(), _tagId,
 			(pTypeInfo == NULL)? "(unknown)" : pTypeInfo->name, _type,
-			_value.ToString(sig).c_str());
+			_value.ToString().c_str());
 	}
 }
 
@@ -68,7 +68,7 @@ Value Object_tag::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	return Value::Null;
 }
 
-String Object_tag::ToString(Signal sig, bool exprFlag)
+String Object_tag::ToString(bool exprFlag)
 {
 	return String("<jpeg.tag>");
 }

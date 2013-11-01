@@ -36,7 +36,7 @@ Value Object_Header::DoGetProp(Environment &env, Signal sig, const Symbol *pSymb
 	return Value::Null;
 }
 
-String Object_Header::ToString(Signal sig, bool exprFlag)
+String Object_Header::ToString(bool exprFlag)
 {
 	return String("<gif.Header>");
 }
@@ -102,7 +102,7 @@ Value Object_LogicalScreenDescriptor::DoGetProp(Environment &env, Signal sig, co
 	return Value::Null;
 }
 
-String Object_LogicalScreenDescriptor::ToString(Signal sig, bool exprFlag)
+String Object_LogicalScreenDescriptor::ToString(bool exprFlag)
 {
 	return String("<gif.LogicalScreenDescriptor>");
 }
@@ -141,7 +141,7 @@ Value Object_CommentExtension::DoGetProp(Environment &env, Signal sig, const Sym
 	return Value::Null;
 }
 
-String Object_CommentExtension::ToString(Signal sig, bool exprFlag)
+String Object_CommentExtension::ToString(bool exprFlag)
 {
 	return String("<gif.CommentExtension>");
 }
@@ -204,7 +204,7 @@ Value Object_PlainTextExtension::DoGetProp(Environment &env, Signal sig, const S
 	return Value::Null;
 }
 
-String Object_PlainTextExtension::ToString(Signal sig, bool exprFlag)
+String Object_PlainTextExtension::ToString(bool exprFlag)
 {
 	return String("<gif.PlainTextExtension>");
 }
@@ -249,7 +249,7 @@ Value Object_ApplicationExtension::DoGetProp(Environment &env, Signal sig, const
 	return Value::Null;
 }
 
-String Object_ApplicationExtension::ToString(Signal sig, bool exprFlag)
+String Object_ApplicationExtension::ToString(bool exprFlag)
 {
 	return String("<gif.ApplicationExtension>");
 }
@@ -1111,7 +1111,7 @@ Value Object_content::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 	return Value::Null;
 }
 
-String Object_content::ToString(Signal sig, bool exprFlag)
+String Object_content::ToString(bool exprFlag)
 {
 	String str = "<gif.content:";
 	do {
@@ -1228,7 +1228,7 @@ Value Object_GraphicControl::DoGetProp(Environment &env, Signal sig, const Symbo
 	return Value::Null;
 }
 
-String Object_GraphicControl::ToString(Signal sig, bool exprFlag)
+String Object_GraphicControl::ToString(bool exprFlag)
 {
 	return String("<gif.GraphicControl>");
 }
@@ -1292,7 +1292,7 @@ Value Object_ImageDescriptor::DoGetProp(Environment &env, Signal sig, const Symb
 	return Value::Null;
 }
 
-String Object_ImageDescriptor::ToString(Signal sig, bool exprFlag)
+String Object_ImageDescriptor::ToString(bool exprFlag)
 {
 	return String("<gif.ImageDescriptor>");
 }
@@ -1338,7 +1338,7 @@ Value Object_imgprop::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 	return Value::Null;
 }
 
-String Object_imgprop::ToString(Signal sig, bool exprFlag)
+String Object_imgprop::ToString(bool exprFlag)
 {
 	return String("<gif.imgprop>");
 }

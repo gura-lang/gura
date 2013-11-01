@@ -272,7 +272,7 @@ Object *Object_wx_ZipOutputStream::Clone() const
 	return NULL;
 }
 
-String Object_wx_ZipOutputStream::ToString(Signal sig, bool exprFlag)
+String Object_wx_ZipOutputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.ZipOutputStream:");
 	if (GetEntity() == NULL) {

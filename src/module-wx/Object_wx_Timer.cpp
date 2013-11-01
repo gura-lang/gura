@@ -204,7 +204,7 @@ Object *Object_wx_Timer::Clone() const
 	return NULL;
 }
 
-String Object_wx_Timer::ToString(Signal sig, bool exprFlag)
+String Object_wx_Timer::ToString(bool exprFlag)
 {
 	String rtn("<wx.Timer:");
 	if (GetEntity() == NULL) {

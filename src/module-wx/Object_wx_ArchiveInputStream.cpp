@@ -91,7 +91,7 @@ Object *Object_wx_ArchiveInputStream::Clone() const
 	return NULL;
 }
 
-String Object_wx_ArchiveInputStream::ToString(Signal sig, bool exprFlag)
+String Object_wx_ArchiveInputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.ArchiveInputStream:");
 	if (GetEntity() == NULL) {

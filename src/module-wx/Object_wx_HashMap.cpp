@@ -271,7 +271,7 @@ Object *Object_wx_HashMap::Clone() const
 	return NULL;
 }
 
-String Object_wx_HashMap::ToString(Signal sig, bool exprFlag)
+String Object_wx_HashMap::ToString(bool exprFlag)
 {
 	String rtn("<wx.HashMap:");
 	if (GetEntity() == NULL) {

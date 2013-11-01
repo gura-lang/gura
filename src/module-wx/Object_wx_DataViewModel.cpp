@@ -76,7 +76,7 @@ Object *Object_wx_DataViewModel::Clone() const
 	return NULL;
 }
 
-String Object_wx_DataViewModel::ToString(Signal sig, bool exprFlag)
+String Object_wx_DataViewModel::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataViewModel:");
 	if (GetEntity() == NULL) {

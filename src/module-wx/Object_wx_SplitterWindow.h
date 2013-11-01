@@ -25,7 +25,7 @@ public:
 				Object_wx_Window(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_SplitterWindow();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxSplitterWindow *GetEntity() {
 		return dynamic_cast<wxSplitterWindow *>(_pEntity);
 	}

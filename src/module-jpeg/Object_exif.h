@@ -28,7 +28,7 @@ public:
 	Object_exif();
 	virtual ~Object_exif();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,

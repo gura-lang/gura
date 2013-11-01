@@ -65,7 +65,7 @@ Object *Object_wx_ZipNotifier::Clone() const
 	return NULL;
 }
 
-String Object_wx_ZipNotifier::ToString(Signal sig, bool exprFlag)
+String Object_wx_ZipNotifier::ToString(bool exprFlag)
 {
 	String rtn("<wx.ZipNotifier:");
 	if (GetEntity() == NULL) {

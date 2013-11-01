@@ -48,7 +48,7 @@ Object *Object_wx_GraphicsBrush::Clone() const
 	return NULL;
 }
 
-String Object_wx_GraphicsBrush::ToString(Signal sig, bool exprFlag)
+String Object_wx_GraphicsBrush::ToString(bool exprFlag)
 {
 	String rtn("<wx.GraphicsBrush:");
 	if (GetEntity() == NULL) {

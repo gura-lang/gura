@@ -124,7 +124,7 @@ Object *Object_wx_TipWindow::Clone() const
 	return NULL;
 }
 
-String Object_wx_TipWindow::ToString(Signal sig, bool exprFlag)
+String Object_wx_TipWindow::ToString(bool exprFlag)
 {
 	String rtn("<wx.TipWindow:");
 	if (GetEntity() == NULL) {

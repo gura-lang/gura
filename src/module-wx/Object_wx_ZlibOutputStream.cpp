@@ -91,7 +91,7 @@ Object *Object_wx_ZlibOutputStream::Clone() const
 	return NULL;
 }
 
-String Object_wx_ZlibOutputStream::ToString(Signal sig, bool exprFlag)
+String Object_wx_ZlibOutputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.ZlibOutputStream:");
 	if (GetEntity() == NULL) {

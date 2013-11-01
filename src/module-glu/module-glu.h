@@ -26,7 +26,7 @@ public:
 	inline Object_Quadric(const Object_Quadric &obj) : Object(obj) {}
 	virtual ~Object_Quadric();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline GLUquadric *GetQuadric() { return _qobj; }
 	inline static Value CreateValue(GLUquadric *qobj) {
 		return Value(new Object_Quadric(qobj));
@@ -51,7 +51,7 @@ public:
 	inline Object_Tesselator(const Object_Tesselator &obj) : Object(obj) {}
 	virtual ~Object_Tesselator();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline GLUtesselator *GetTesselator() { return _tess; }
 	inline static Value CreateValue(GLUtesselator *tess) {
 		return Value(new Object_Tesselator(tess));
@@ -74,7 +74,7 @@ public:
 	inline Object_Nurbs(const Object_Nurbs &obj) : Object(obj) {}
 	virtual ~Object_Nurbs();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline GLUnurbs *GetNurbs() { return _nobj; }
 	inline static Value CreateValue(GLUnurbs *nobj) {
 		return Value(new Object_Nurbs(nobj));

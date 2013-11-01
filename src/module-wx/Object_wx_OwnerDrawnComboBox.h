@@ -25,7 +25,7 @@ public:
 				Object_wx_ComboCtrl(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_OwnerDrawnComboBox();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxOwnerDrawnComboBox *GetEntity() {
 		return dynamic_cast<wxOwnerDrawnComboBox *>(_pEntity);
 	}

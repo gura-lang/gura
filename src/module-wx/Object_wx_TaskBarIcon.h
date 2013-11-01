@@ -25,7 +25,7 @@ public:
 				Object_wx_EvtHandler(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_TaskBarIcon();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxTaskBarIcon *GetEntity() {
 		return dynamic_cast<wxTaskBarIcon *>(_pEntity);
 	}

@@ -314,7 +314,7 @@ Object *Object_wx_Wizard::Clone() const
 	return NULL;
 }
 
-String Object_wx_Wizard::ToString(Signal sig, bool exprFlag)
+String Object_wx_Wizard::ToString(bool exprFlag)
 {
 	String rtn("<wx.Wizard:");
 	if (GetEntity() == NULL) {

@@ -51,7 +51,7 @@ Object *Object_wx_HtmlTagsCache::Clone() const
 	return NULL;
 }
 
-String Object_wx_HtmlTagsCache::ToString(Signal sig, bool exprFlag)
+String Object_wx_HtmlTagsCache::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlTagsCache:");
 	if (GetEntity() == NULL) {

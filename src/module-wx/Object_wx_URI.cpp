@@ -459,7 +459,7 @@ Object *Object_wx_URI::Clone() const
 	return NULL;
 }
 
-String Object_wx_URI::ToString(Signal sig, bool exprFlag)
+String Object_wx_URI::ToString(bool exprFlag)
 {
 	String rtn("<wx.URI:");
 	if (GetEntity() == NULL) {

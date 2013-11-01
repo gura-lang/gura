@@ -120,7 +120,7 @@ Object *Object_wx_Control::Clone() const
 	return NULL;
 }
 
-String Object_wx_Control::ToString(Signal sig, bool exprFlag)
+String Object_wx_Control::ToString(bool exprFlag)
 {
 	String rtn("<wx.Control:");
 	if (GetEntity() == NULL) {

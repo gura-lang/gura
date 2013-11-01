@@ -354,7 +354,7 @@ Object *Object_wx_HtmlParser::Clone() const
 	return NULL;
 }
 
-String Object_wx_HtmlParser::ToString(Signal sig, bool exprFlag)
+String Object_wx_HtmlParser::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlParser:");
 	if (GetEntity() == NULL) {

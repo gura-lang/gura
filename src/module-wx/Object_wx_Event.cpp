@@ -302,7 +302,7 @@ Object *Object_wx_Event::Clone() const
 	return NULL;
 }
 
-String Object_wx_Event::ToString(Signal sig, bool exprFlag)
+String Object_wx_Event::ToString(bool exprFlag)
 {
 	String rtn("<wx.Event:");
 	if (GetEntity() == NULL) {

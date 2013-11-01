@@ -234,7 +234,7 @@ Object *Object_wx_VariantData::Clone() const
 	return NULL;
 }
 
-String Object_wx_VariantData::ToString(Signal sig, bool exprFlag)
+String Object_wx_VariantData::ToString(bool exprFlag)
 {
 	String rtn("<wx.VariantData:");
 	if (GetEntity() == NULL) {

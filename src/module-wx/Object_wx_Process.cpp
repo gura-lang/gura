@@ -309,7 +309,7 @@ Object *Object_wx_Process::Clone() const
 	return NULL;
 }
 
-String Object_wx_Process::ToString(Signal sig, bool exprFlag)
+String Object_wx_Process::ToString(bool exprFlag)
 {
 	String rtn("<wx.Process:");
 	if (GetEntity() == NULL) {

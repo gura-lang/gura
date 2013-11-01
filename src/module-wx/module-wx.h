@@ -98,7 +98,7 @@ public:
 	virtual Iterator *Clone() const;
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
-	virtual String ToString(Signal sig) const;
+	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 

@@ -103,7 +103,7 @@ Object *Object_wx_BufferedOutputStream::Clone() const
 	return NULL;
 }
 
-String Object_wx_BufferedOutputStream::ToString(Signal sig, bool exprFlag)
+String Object_wx_BufferedOutputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.BufferedOutputStream:");
 	if (GetEntity() == NULL) {

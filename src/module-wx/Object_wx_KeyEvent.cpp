@@ -295,7 +295,7 @@ Object *Object_wx_KeyEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_KeyEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_KeyEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.KeyEvent:");
 	if (GetEntity() == NULL) {

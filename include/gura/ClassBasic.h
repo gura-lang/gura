@@ -111,7 +111,7 @@ public:
 		virtual ~IteratorEach();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString(Signal sig) const;
+		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
 	class GURA_DLLDECLARE IteratorLine : public Iterator {
@@ -125,7 +125,7 @@ public:
 		virtual ~IteratorLine();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString(Signal sig) const;
+		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
 	class GURA_DLLDECLARE IteratorSplit : public Iterator {
@@ -142,7 +142,7 @@ public:
 		virtual ~IteratorSplit();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString(Signal sig) const;
+		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
 	class GURA_DLLDECLARE IteratorFold : public Iterator {
@@ -156,7 +156,7 @@ public:
 		virtual ~IteratorFold();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString(Signal sig) const;
+		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
 public:

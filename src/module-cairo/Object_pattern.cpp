@@ -15,7 +15,7 @@ Object *Object_pattern::Clone() const
 	return NULL;
 }
 
-String Object_pattern::ToString(Signal sig, bool exprFlag)
+String Object_pattern::ToString(bool exprFlag)
 {
 	return String("<cairo.pattern>");
 }

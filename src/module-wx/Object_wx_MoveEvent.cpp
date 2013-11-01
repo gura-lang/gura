@@ -89,7 +89,7 @@ Object *Object_wx_MoveEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_MoveEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_MoveEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.MoveEvent:");
 	if (GetEntity() == NULL) {

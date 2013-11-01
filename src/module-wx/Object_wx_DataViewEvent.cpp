@@ -289,7 +289,7 @@ Object *Object_wx_DataViewEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_DataViewEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_DataViewEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataViewEvent:");
 	if (GetEntity() == NULL) {

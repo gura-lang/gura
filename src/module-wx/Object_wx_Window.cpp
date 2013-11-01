@@ -3823,7 +3823,7 @@ Object *Object_wx_Window::Clone() const
 	return NULL;
 }
 
-String Object_wx_Window::ToString(Signal sig, bool exprFlag)
+String Object_wx_Window::ToString(bool exprFlag)
 {
 	String rtn("<wx.Window:");
 	if (GetEntity() == NULL) {

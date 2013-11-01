@@ -300,7 +300,7 @@ Object *Object_wx_ScrollBar::Clone() const
 	return NULL;
 }
 
-String Object_wx_ScrollBar::ToString(Signal sig, bool exprFlag)
+String Object_wx_ScrollBar::ToString(bool exprFlag)
 {
 	String rtn("<wx.ScrollBar:");
 	if (GetEntity() == NULL) {

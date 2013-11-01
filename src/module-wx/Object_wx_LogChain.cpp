@@ -143,7 +143,7 @@ Object *Object_wx_LogChain::Clone() const
 	return NULL;
 }
 
-String Object_wx_LogChain::ToString(Signal sig, bool exprFlag)
+String Object_wx_LogChain::ToString(bool exprFlag)
 {
 	String rtn("<wx.LogChain:");
 	if (GetEntity() == NULL) {

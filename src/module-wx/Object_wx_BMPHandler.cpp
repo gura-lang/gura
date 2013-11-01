@@ -71,7 +71,7 @@ Object *Object_wx_BMPHandler::Clone() const
 	return NULL;
 }
 
-String Object_wx_BMPHandler::ToString(Signal sig, bool exprFlag)
+String Object_wx_BMPHandler::ToString(bool exprFlag)
 {
 	String rtn("<wx.BMPHandler:");
 	if (GetEntity() == NULL) {

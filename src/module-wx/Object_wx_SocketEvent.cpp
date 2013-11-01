@@ -118,7 +118,7 @@ Object *Object_wx_SocketEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_SocketEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_SocketEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.SocketEvent:");
 	if (GetEntity() == NULL) {

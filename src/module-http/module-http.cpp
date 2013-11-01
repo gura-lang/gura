@@ -775,9 +775,9 @@ bool Header::IsField(const char *fieldName, const char *value, bool *pFoundFlag)
 bool Header::SetFields(Signal sig, const ValueDict &valueDict, Stream *pStreamBody)
 {
 	foreach_const (ValueDict, iter, valueDict) {
-		String fieldName = iter->first.ToString(sig, false);
+		String fieldName = iter->first.ToString(false);
 		if (sig.IsSignalled()) return false;
-		String fieldValue = iter->second.ToString(sig, false);
+		String fieldValue = iter->second.ToString(false);
 		if (sig.IsSignalled()) return false;
 		SetField(fieldName.c_str(), fieldValue.c_str());
 	}
@@ -1487,7 +1487,7 @@ Value Object_stat::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 	return _header.IndexGet(env, sig, valueIdx);
 }
 
-String Object_stat::ToString(Signal sig, bool exprFlag)
+String Object_stat::ToString(bool exprFlag)
 {
 	return String("<http.stat>");
 }
@@ -1565,7 +1565,7 @@ Object *Object_session::Clone() const
 	return new Object_session(*this);
 }
 
-String Object_session::ToString(Signal sig, bool exprFlag)
+String Object_session::ToString(bool exprFlag)
 {
 	String rtn = "<http.session";
 	do {
@@ -1700,7 +1700,7 @@ Object *Object_request::Clone() const
 	return NULL;
 }
 
-String Object_request::ToString(Signal sig, bool exprFlag)
+String Object_request::ToString(bool exprFlag)
 {
 	Request &request = _pObjSession->GetRequest();
 	String str = "<http.request:";
@@ -1891,7 +1891,7 @@ Object *Object_response::Clone() const
 	return NULL;
 }
 
-String Object_response::ToString(Signal sig, bool exprFlag)
+String Object_response::ToString(bool exprFlag)
 {
 	Status &status = _pObjClient->GetStatus();
 	String str = "<http.response:";
@@ -1978,7 +1978,7 @@ Value Object_server::DoGetProp(Environment &env, Signal sig, const Symbol *pSymb
 	return Value::Null;
 }
 
-String Object_server::ToString(Signal sig, bool exprFlag)
+String Object_server::ToString(bool exprFlag)
 {
 	String str;
 	str += "<http.server:";
@@ -2179,7 +2179,7 @@ Object *Object_client::Clone() const
 	return NULL; //new Object_client(*this);
 }
 
-String Object_client::ToString(Signal sig, bool exprFlag)
+String Object_client::ToString(bool exprFlag)
 {
 	String str;
 	str += "<http.client:";
@@ -2420,7 +2420,7 @@ Object *Object_proxy::Clone() const
 	return NULL;
 }
 
-String Object_proxy::ToString(Signal sig, bool exprFlag)
+String Object_proxy::ToString(bool exprFlag)
 {
 	String str;
 	str += "<http.proxy:";

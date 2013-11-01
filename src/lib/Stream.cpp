@@ -44,7 +44,7 @@ void SimpleStream::PrintSignal(Signal sig, const Signal &sigToPrint)
 		}
 	} else {
 		Value value = sigToPrint.GetValue();
-		if (value.IsValid()) Println(sig, value.ToString(sig).c_str());
+		if (value.IsValid()) Println(sig, value.ToString().c_str());
 	}
 }
 

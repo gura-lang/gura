@@ -212,7 +212,7 @@ Object *Object_wx_DataObject::Clone() const
 	return NULL;
 }
 
-String Object_wx_DataObject::ToString(Signal sig, bool exprFlag)
+String Object_wx_DataObject::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataObject:");
 	if (GetEntity() == NULL) {

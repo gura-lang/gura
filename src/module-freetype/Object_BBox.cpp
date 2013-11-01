@@ -10,7 +10,7 @@ Object *Object_BBox::Clone() const
 	return NULL;
 }
 
-String Object_BBox::ToString(Signal sig, bool exprFlag)
+String Object_BBox::ToString(bool exprFlag)
 {
 	char buff[80];
 	::sprintf(buff, "<freetype.BBox:xMin=%d,yMin=%d,xMax=%d,yMax=%d>",

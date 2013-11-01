@@ -638,7 +638,7 @@ Object *Object_wx_Joystick::Clone() const
 	return NULL;
 }
 
-String Object_wx_Joystick::ToString(Signal sig, bool exprFlag)
+String Object_wx_Joystick::ToString(bool exprFlag)
 {
 	String rtn("<wx.Joystick:");
 	if (GetEntity() == NULL) {

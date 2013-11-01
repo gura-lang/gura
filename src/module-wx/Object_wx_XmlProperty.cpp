@@ -190,7 +190,7 @@ Object *Object_wx_XmlProperty::Clone() const
 	return NULL;
 }
 
-String Object_wx_XmlProperty::ToString(Signal sig, bool exprFlag)
+String Object_wx_XmlProperty::ToString(bool exprFlag)
 {
 	String rtn("<wx.XmlProperty:");
 	if (GetEntity() == NULL) {

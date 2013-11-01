@@ -51,7 +51,7 @@ Object *Object_wx_List::Clone() const
 	return NULL;
 }
 
-String Object_wx_List::ToString(Signal sig, bool exprFlag)
+String Object_wx_List::ToString(bool exprFlag)
 {
 	String rtn("<wx.List:");
 	if (GetEntity() == NULL) {

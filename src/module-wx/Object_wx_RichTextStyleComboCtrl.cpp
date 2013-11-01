@@ -155,7 +155,7 @@ Object *Object_wx_RichTextStyleComboCtrl::Clone() const
 	return NULL;
 }
 
-String Object_wx_RichTextStyleComboCtrl::ToString(Signal sig, bool exprFlag)
+String Object_wx_RichTextStyleComboCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextStyleComboCtrl:");
 	if (GetEntity() == NULL) {

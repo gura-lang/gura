@@ -242,7 +242,7 @@ Object *Object_wx_SashLayoutWindow::Clone() const
 	return NULL;
 }
 
-String Object_wx_SashLayoutWindow::ToString(Signal sig, bool exprFlag)
+String Object_wx_SashLayoutWindow::ToString(bool exprFlag)
 {
 	String rtn("<wx.SashLayoutWindow:");
 	if (GetEntity() == NULL) {

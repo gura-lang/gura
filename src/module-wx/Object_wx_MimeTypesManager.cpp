@@ -173,7 +173,7 @@ Object *Object_wx_MimeTypesManager::Clone() const
 	return NULL;
 }
 
-String Object_wx_MimeTypesManager::ToString(Signal sig, bool exprFlag)
+String Object_wx_MimeTypesManager::ToString(bool exprFlag)
 {
 	String rtn("<wx.MimeTypesManager:");
 	if (GetEntity() == NULL) {

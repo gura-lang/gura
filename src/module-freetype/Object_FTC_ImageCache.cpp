@@ -10,7 +10,7 @@ Object *Object_FTC_ImageCache::Clone() const
 	return NULL;
 }
 
-String Object_FTC_ImageCache::ToString(Signal sig, bool exprFlag)
+String Object_FTC_ImageCache::ToString(bool exprFlag)
 {
 	char buff[80];
 	::sprintf(buff, "<freetype.FTC_ImageCache>");

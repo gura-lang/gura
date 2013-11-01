@@ -764,7 +764,7 @@ public:
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 };
 
 //-----------------------------------------------------------------------------
@@ -783,7 +783,7 @@ public:
 	inline CentralFileHeaderList &GetHeaderList() { return _hdrList; }
 	virtual ~Object_reader();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline Stream *GetStreamSrc() { return _pStreamSrc.get(); }
 	bool ReadDirectory(Environment &env, Signal sig);
 };
@@ -806,7 +806,7 @@ public:
 	inline CentralFileHeaderList &GetHeaderList() { return _hdrList; }
 	virtual ~Object_writer();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline Stream *GetStreamDst() { return _pStreamDst.get(); }
 	bool Add(Environment &env, Signal sig, Stream &streamSrc,
 					const char *fileName, UShort compressionMethod);
@@ -826,7 +826,7 @@ public:
 	virtual ~Iterator_Entry();
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
-	virtual String ToString(Signal sig) const;
+	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 

@@ -71,7 +71,7 @@ Object *Object_wx_GIFHandler::Clone() const
 	return NULL;
 }
 
-String Object_wx_GIFHandler::ToString(Signal sig, bool exprFlag)
+String Object_wx_GIFHandler::ToString(bool exprFlag)
 {
 	String rtn("<wx.GIFHandler:");
 	if (GetEntity() == NULL) {

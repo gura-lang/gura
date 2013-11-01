@@ -129,7 +129,7 @@ Object *Object_wx_StopWatch::Clone() const
 	return NULL;
 }
 
-String Object_wx_StopWatch::ToString(Signal sig, bool exprFlag)
+String Object_wx_StopWatch::ToString(bool exprFlag)
 {
 	String rtn("<wx.StopWatch:");
 	if (GetEntity() == NULL) {

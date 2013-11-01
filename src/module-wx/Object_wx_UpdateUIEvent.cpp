@@ -326,7 +326,7 @@ Object *Object_wx_UpdateUIEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_UpdateUIEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_UpdateUIEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.UpdateUIEvent:");
 	if (GetEntity() == NULL) {

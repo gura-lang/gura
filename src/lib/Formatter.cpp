@@ -250,7 +250,7 @@ bool FormatterBase::DoFormat(Signal sig, const char *format, const ValueList &va
 					pValue++;
 					stat = STAT_Start;
 				} else {
-					PutString(flags, pValue->ToString(sig, false).c_str(), flags.precision);
+					PutString(flags, pValue->ToString(false).c_str(), flags.precision);
 					pValue++;
 					stat = STAT_Start;
 				}

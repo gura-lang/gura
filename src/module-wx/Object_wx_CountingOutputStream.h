@@ -25,7 +25,7 @@ public:
 				Object_wx_OutputStream(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_CountingOutputStream();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxCountingOutputStream *GetEntity() {
 		return dynamic_cast<wxCountingOutputStream *>(_pEntity);
 	}

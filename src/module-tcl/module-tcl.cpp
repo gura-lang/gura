@@ -36,7 +36,7 @@ Object *Object_interp::Clone() const
 	return NULL;
 }
 
-String Object_interp::ToString(Signal sig, bool exprFlag)
+String Object_interp::ToString(bool exprFlag)
 {
 	return String("<tcl.interp>");
 }
@@ -93,7 +93,7 @@ Tcl_Obj *Object_interp::ConvToTclObj(Environment &env, Signal sig, const Value &
 			}
 		}
 	}
-	String str = value.ToString(sig, false);
+	String str = value.ToString(false);
 	return ::Tcl_NewStringObj(str.c_str(), static_cast<int>(str.size()));
 }
 
@@ -453,7 +453,7 @@ Object *Object_variable::Clone() const
 	return new Object_variable(Object_interp::Reference(_pObjInterp.get()), GetVarName());
 }
 
-String Object_variable::ToString(Signal sig, bool exprFlag)
+String Object_variable::ToString(bool exprFlag)
 {
 	String str;
 	str += "<tcl.variable:";
@@ -497,7 +497,7 @@ Value Object_variable::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 		Value value = Get(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		if (!value.IsString()) {
-			String str = value.ToString(sig, false);
+			String str = value.ToString(false);
 			if (sig.IsSignalled()) return Value::Null;
 			value = Value(env, str.c_str());
 		}
@@ -579,7 +579,7 @@ Object *Object_timer::Clone() const
 	return NULL;
 }
 
-String Object_timer::ToString(Signal sig, bool exprFlag)
+String Object_timer::ToString(bool exprFlag)
 {
 	String str;
 	str += "<tcl.timer:";

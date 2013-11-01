@@ -161,7 +161,7 @@ Object *Object_wx_SingleChoiceDialog::Clone() const
 	return NULL;
 }
 
-String Object_wx_SingleChoiceDialog::ToString(Signal sig, bool exprFlag)
+String Object_wx_SingleChoiceDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.SingleChoiceDialog:");
 	if (GetEntity() == NULL) {

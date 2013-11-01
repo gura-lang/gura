@@ -102,7 +102,7 @@ Object *Object_wx_RichTextParagraphStyleDefinition::Clone() const
 	return NULL;
 }
 
-String Object_wx_RichTextParagraphStyleDefinition::ToString(Signal sig, bool exprFlag)
+String Object_wx_RichTextParagraphStyleDefinition::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextParagraphStyleDefinition:");
 	if (GetEntity() == NULL) {

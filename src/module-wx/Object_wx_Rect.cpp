@@ -864,7 +864,7 @@ Value Object_wx_Rect::DoSetProp(Environment &env, Signal sig, const Symbol *pSym
 	return Value::Null;
 }
 
-String Object_wx_Rect::ToString(Signal sig, bool exprFlag)
+String Object_wx_Rect::ToString(bool exprFlag)
 {
 	String rtn("<wx.Rect:");
 	if (GetEntity() == NULL) {

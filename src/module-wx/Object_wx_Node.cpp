@@ -123,7 +123,7 @@ Object *Object_wx_Node::Clone() const
 	return NULL;
 }
 
-String Object_wx_Node::ToString(Signal sig, bool exprFlag)
+String Object_wx_Node::ToString(bool exprFlag)
 {
 	String rtn("<wx.Node:");
 	if (GetEntity() == NULL) {

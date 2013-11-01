@@ -69,7 +69,7 @@ bool IteratorSplit::DoNext(Environment &env, Signal sig, Value &value)
 	return true;
 }
 
-String IteratorSplit::ToString(Signal sig) const
+String IteratorSplit::ToString() const
 {
 	return String("<iterator:re.split>");
 }
@@ -136,7 +136,7 @@ bool IteratorScan::DoNext(Environment &env, Signal sig, Value &value)
 	return true;
 }
 
-String IteratorScan::ToString(Signal sig) const
+String IteratorScan::ToString() const
 {
 	return String("<iterator:re.scan>");
 }
@@ -163,7 +163,7 @@ bool IteratorGrep::DoNext(Environment &env, Signal sig, Value &value)
 {
 	const int pos = 0, posEnd = -1;
 	while (_pIteratorSrc->Next(env, sig, value)) {
-		String str = value.ToString(sig, false);
+		String str = value.ToString(false);
 		if (sig.IsSignalled()) return false;
 		value = DoMatch(env, sig,
 					_pObjPattern->GetRegEx(), str.c_str(), pos, posEnd);
@@ -173,11 +173,11 @@ bool IteratorGrep::DoNext(Environment &env, Signal sig, Value &value)
 	return false;
 }
 
-String IteratorGrep::ToString(Signal sig) const
+String IteratorGrep::ToString() const
 {
 	String rtn;
 	rtn += "<iterator:re.grep:";
-	rtn += _pIteratorSrc->ToString(sig);
+	rtn += _pIteratorSrc->ToString();
 	rtn += ">";
 	return rtn;
 }
@@ -204,7 +204,7 @@ Object *Object_pattern::Clone() const
 	return NULL;
 }
 
-String Object_pattern::ToString(Signal sig, bool exprFlag)
+String Object_pattern::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<re.pattern:'";
@@ -377,7 +377,7 @@ Value Object_match::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	return Value::Null;
 }
 
-String Object_match::ToString(Signal sig, bool exprFlag)
+String Object_match::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<match:";
@@ -962,7 +962,7 @@ String DoSubWithFunc(Environment &env, Signal sig, regex_t *pRegEx,
 			Value resultFunc = pFunc->Eval(env, sig, *pArgs);
 			if (sig.IsSignalled()) goto error_done;
 			result += String(str + idx, rtn - idx);
-			result += resultFunc.ToString(sig, false);
+			result += resultFunc.ToString(false);
 			if (sig.IsSignalled()) goto error_done;
 			idx = pRegion->end[0];
 		} else if (rtn == ONIG_MISMATCH) {

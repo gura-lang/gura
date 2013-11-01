@@ -10,7 +10,7 @@ Object *Object_FTC_CMapCache::Clone() const
 	return NULL;
 }
 
-String Object_FTC_CMapCache::ToString(Signal sig, bool exprFlag)
+String Object_FTC_CMapCache::ToString(bool exprFlag)
 {
 	char buff[80];
 	::sprintf(buff, "<freetype.FTC_CMapCache>");

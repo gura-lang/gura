@@ -727,7 +727,7 @@ Object *Object_wx_CmdLineParser::Clone() const
 	return NULL;
 }
 
-String Object_wx_CmdLineParser::ToString(Signal sig, bool exprFlag)
+String Object_wx_CmdLineParser::ToString(bool exprFlag)
 {
 	String rtn("<wx.CmdLineParser:");
 	if (GetEntity() == NULL) {

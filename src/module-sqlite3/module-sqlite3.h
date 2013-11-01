@@ -27,7 +27,7 @@ public:
 		virtual ~IteratorQuery();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString(Signal sig) const;
+		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
 private:
@@ -40,7 +40,7 @@ public:
 							Object(Gura_UserClass(db)), _db(NULL) {}
 	virtual ~Object_db();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	bool Open(Signal sig, const char *fileName);
 	void Close();
 	Value Exec(Signal sig, const char *sql, Args &args);

@@ -10,7 +10,7 @@ Object *Object_Span::Clone() const
 	return NULL;
 }
 
-String Object_Span::ToString(Signal sig, bool exprFlag)
+String Object_Span::ToString(bool exprFlag)
 {
 	char buff[80];
 	::sprintf(buff, "<freetype.Span>");

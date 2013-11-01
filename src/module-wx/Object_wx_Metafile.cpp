@@ -123,7 +123,7 @@ Object *Object_wx_Metafile::Clone() const
 	return NULL;
 }
 
-String Object_wx_Metafile::ToString(Signal sig, bool exprFlag)
+String Object_wx_Metafile::ToString(bool exprFlag)
 {
 	String rtn("<wx.Metafile:");
 	if (GetEntity() == NULL) {

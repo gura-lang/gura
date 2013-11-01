@@ -101,7 +101,7 @@ Object *Object_wx_FontList::Clone() const
 	return NULL;
 }
 
-String Object_wx_FontList::ToString(Signal sig, bool exprFlag)
+String Object_wx_FontList::ToString(bool exprFlag)
 {
 	String rtn("<wx.FontList:");
 	if (GetEntity() == NULL) {

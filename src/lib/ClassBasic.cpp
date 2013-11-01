@@ -1167,7 +1167,7 @@ Value Class_string::IndexGetPrimitive(Environment &env, Signal sig,
 
 bool Class_string::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
-	value = Value(env, value.ToString(sig, false).c_str());
+	value = Value(env, value.ToString(false).c_str());
 	return !sig.IsSignalled();
 }
 
@@ -1231,7 +1231,7 @@ bool Class_string::IteratorEach::DoNext(Environment &env, Signal sig, Value &val
 	return true;
 }
 
-String Class_string::IteratorEach::ToString(Signal sig) const
+String Class_string::IteratorEach::ToString() const
 {
 	return String("string#each");
 }
@@ -1281,7 +1281,7 @@ bool Class_string::IteratorLine::DoNext(Environment &env, Signal sig, Value &val
 	return true;
 }
 
-String Class_string::IteratorLine::ToString(Signal sig) const
+String Class_string::IteratorLine::ToString() const
 {
 	return String("string#eachline");
 }
@@ -1337,7 +1337,7 @@ bool Class_string::IteratorSplit::DoNext(Environment &env, Signal sig, Value &va
 	return true;
 }
 
-String Class_string::IteratorSplit::ToString(Signal sig) const
+String Class_string::IteratorSplit::ToString() const
 {
 	return String("string#split");
 }
@@ -1384,7 +1384,7 @@ bool Class_string::IteratorFold::DoNext(Environment &env, Signal sig, Value &val
 	return true;
 }
 
-String Class_string::IteratorFold::ToString(Signal sig) const
+String Class_string::IteratorFold::ToString() const
 {
 	return String("string#fold");
 }

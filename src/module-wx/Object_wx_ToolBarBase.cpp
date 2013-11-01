@@ -51,7 +51,7 @@ Object *Object_wx_ToolBarBase::Clone() const
 	return NULL;
 }
 
-String Object_wx_ToolBarBase::ToString(Signal sig, bool exprFlag)
+String Object_wx_ToolBarBase::ToString(bool exprFlag)
 {
 	String rtn("<wx.ToolBarBase:");
 	if (GetEntity() == NULL) {

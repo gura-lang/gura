@@ -105,7 +105,7 @@ Object *Object_wx_DirTraverser::Clone() const
 	return NULL;
 }
 
-String Object_wx_DirTraverser::ToString(Signal sig, bool exprFlag)
+String Object_wx_DirTraverser::ToString(bool exprFlag)
 {
 	String rtn("<wx.DirTraverser:");
 	if (GetEntity() == NULL) {

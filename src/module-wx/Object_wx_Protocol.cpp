@@ -149,7 +149,7 @@ Object *Object_wx_Protocol::Clone() const
 	return NULL;
 }
 
-String Object_wx_Protocol::ToString(Signal sig, bool exprFlag)
+String Object_wx_Protocol::ToString(bool exprFlag)
 {
 	String rtn("<wx.Protocol:");
 	if (GetEntity() == NULL) {

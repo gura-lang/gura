@@ -18,7 +18,7 @@ public:
 					Object(Gura_UserClass(font_face)), _font_face(font_face) {}
 	virtual ~Object_font_face();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline cairo_font_face_t *GetEntity() { return _font_face; }
 };
 

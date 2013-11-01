@@ -462,7 +462,7 @@ Object *Object_wx_Icon::Clone() const
 	return NULL;
 }
 
-String Object_wx_Icon::ToString(Signal sig, bool exprFlag)
+String Object_wx_Icon::ToString(bool exprFlag)
 {
 	String rtn("<wx.Icon:");
 	if (GetEntity() == NULL) {

@@ -169,7 +169,7 @@ Object *Object_wx_DataObjectSimple::Clone() const
 	return NULL;
 }
 
-String Object_wx_DataObjectSimple::ToString(Signal sig, bool exprFlag)
+String Object_wx_DataObjectSimple::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataObjectSimple:");
 	if (GetEntity() == NULL) {

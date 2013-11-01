@@ -118,7 +118,7 @@ Value Object_wx_ClientData::DoSetProp(Environment &env, Signal sig, const Symbol
 	return Value::Null;
 }
 
-String Object_wx_ClientData::ToString(Signal sig, bool exprFlag)
+String Object_wx_ClientData::ToString(bool exprFlag)
 {
 	String rtn("<wx.ClientData:");
 	if (GetEntity() == NULL) {

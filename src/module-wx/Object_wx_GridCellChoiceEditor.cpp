@@ -91,7 +91,7 @@ Object *Object_wx_GridCellChoiceEditor::Clone() const
 	return NULL;
 }
 
-String Object_wx_GridCellChoiceEditor::ToString(Signal sig, bool exprFlag)
+String Object_wx_GridCellChoiceEditor::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridCellChoiceEditor:");
 	if (GetEntity() == NULL) {

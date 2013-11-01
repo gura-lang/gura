@@ -60,7 +60,7 @@ Object *Object_wx_PowerEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_PowerEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_PowerEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.PowerEvent:");
 	if (GetEntity() == NULL) {

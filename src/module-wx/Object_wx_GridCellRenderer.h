@@ -25,7 +25,7 @@ public:
 				Object_wx_GridCellWorker(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_GridCellRenderer();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxGridCellRenderer *GetEntity() {
 		return dynamic_cast<wxGridCellRenderer *>(_pEntity);
 	}

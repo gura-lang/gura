@@ -1985,7 +1985,7 @@ Object *Object_wx_String::Clone() const
 	return NULL;
 }
 
-String Object_wx_String::ToString(Signal sig, bool exprFlag)
+String Object_wx_String::ToString(bool exprFlag)
 {
 	if (exprFlag) return MakeQuotedString(GetEntity()->ToUTF8());
 	return String(GetEntity()->ToUTF8());

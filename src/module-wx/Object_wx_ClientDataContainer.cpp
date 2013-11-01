@@ -140,7 +140,7 @@ Object *Object_wx_ClientDataContainer::Clone() const
 	return NULL;
 }
 
-String Object_wx_ClientDataContainer::ToString(Signal sig, bool exprFlag)
+String Object_wx_ClientDataContainer::ToString(bool exprFlag)
 {
 	String rtn("<wx.ClientDataContainer:");
 	if (GetEntity() == NULL) {

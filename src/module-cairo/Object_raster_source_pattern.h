@@ -14,7 +14,7 @@ public:
 public:
 	inline Object_raster_source_pattern(cairo_pattern_t *pattern) :
 										Object_pattern(pattern) {}
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 };
 
 Gura_EndModuleScope(cairo)

@@ -10,7 +10,7 @@ Object *Object_Matrix::Clone() const
 	return NULL;
 }
 
-String Object_Matrix::ToString(Signal sig, bool exprFlag)
+String Object_Matrix::ToString(bool exprFlag)
 {
 	char buff[80];
 	::sprintf(buff, "<freetype.Matrix:xx=%f,xy=%f,yx=%f,yy=%f>",

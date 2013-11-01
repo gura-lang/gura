@@ -110,7 +110,7 @@ Value Object_db::GetColumnNames(Signal sig, const char *sql)
 	return result;
 }
 
-String Object_db::ToString(Signal sig, bool exprFlag)
+String Object_db::ToString(bool exprFlag)
 {
 	String str;
 	str += "<sqlite3.db:";
@@ -180,7 +180,7 @@ bool Object_db::IteratorQuery::DoNext(Environment &env, Signal sig, Value &value
 	return true;
 }
 
-String Object_db::IteratorQuery::ToString(Signal sig) const
+String Object_db::IteratorQuery::ToString() const
 {
 	return String("<iterator:sqlite3.db.query>");
 }

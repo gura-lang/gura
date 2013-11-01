@@ -116,7 +116,7 @@ Object *Object_wx_DynamicLibraryDetails::Clone() const
 	return NULL;
 }
 
-String Object_wx_DynamicLibraryDetails::ToString(Signal sig, bool exprFlag)
+String Object_wx_DynamicLibraryDetails::ToString(bool exprFlag)
 {
 	String rtn("<wx.DynamicLibraryDetails:");
 	if (GetEntity() == NULL) {

@@ -18,7 +18,7 @@ public:
 						Object(Gura_UserClass(region)), _region(region) {}
 	virtual ~Object_region();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline cairo_region_t *GetEntity() { return _region; }
 };
 

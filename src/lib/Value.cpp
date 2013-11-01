@@ -435,7 +435,7 @@ Iterator *Value::CreateIterator(Signal sig) const
 	return NULL;
 }
 
-String Value::ToString(Signal sig, bool exprFlag) const
+String Value::ToString(bool exprFlag) const
 {
 	if (IsNumber()) {
 		return NumberToString(_u.num);
@@ -491,13 +491,13 @@ String Value::ToString(Signal sig, bool exprFlag) const
 		if (exprFlag) return MakeQuotedString(str);
 		return String(str);
 	} else if (IsModule()) {
-		return _u.pModule->ToString(sig, exprFlag);
+		return _u.pModule->ToString(exprFlag);
 	} else if (IsClass()) {
-		return _u.pClass->ToString(sig, exprFlag);
+		return _u.pClass->ToString(exprFlag);
 	} else if (IsSequence()) {
 		return _u.pSequence->ToString();
 	} else if (IsObject()) {
-		return _u.pObj->ToString(sig, exprFlag);
+		return _u.pObj->ToString(exprFlag);
 	}
 	return String(exprFlag? "nil" : "");
 }
@@ -855,7 +855,7 @@ void ValueList::Print(Signal sig, int indentLevel) const
 			pValue->GetList().Print(sig, indentLevel + 1);
 		} else {
 			::printf("%*s%s\n",
-					indentLevel * 2, "", pValue->ToString(sig).c_str());
+					indentLevel * 2, "", pValue->ToString().c_str());
 		}
 	}
 }
@@ -863,7 +863,7 @@ void ValueList::Print(Signal sig, int indentLevel) const
 bool ValueList::ToStringList(Signal sig, StringList &strList) const
 {
 	foreach_const (ValueList, pValue, *this) {
-		String str = pValue->ToString(sig, false);
+		String str = pValue->ToString(false);
 		if (sig.IsSignalled()) return false;
 		strList.push_back(str);
 	}
@@ -942,7 +942,7 @@ bool ValueDict::Store(Signal sig, const ValueList &valList, StoreMode storeMode)
 				} else if (storeMode == STORE_Default) {
 					// nothing to do
 				} else {
-					sig.SetError(ERR_KeyError, "duplicated key '%s'", valueIdx.ToString(sig).c_str());
+					sig.SetError(ERR_KeyError, "duplicated key '%s'", valueIdx.ToString().c_str());
 					return false;
 				}
 			} else {
@@ -957,7 +957,7 @@ bool ValueDict::Store(Signal sig, const ValueList &valList, StoreMode storeMode)
 			} else if (storeMode == STORE_Default) {
 				// nothing to do
 			} else {
-				sig.SetError(ERR_KeyError, "duplicated key '%s'", valueIdx.ToString(sig).c_str());
+				sig.SetError(ERR_KeyError, "duplicated key '%s'", valueIdx.ToString().c_str());
 				return false;
 			}
 			field = FIELD_Key;
@@ -982,7 +982,7 @@ bool ValueDict::Store(Signal sig, const ValueDict &valDict, StoreMode storeMode)
 		} else if (storeMode == STORE_Default) {
 			// nothing to do
 		} else {
-			sig.SetError(ERR_KeyError, "duplicated key '%s'", valueIdx.ToString(sig).c_str());
+			sig.SetError(ERR_KeyError, "duplicated key '%s'", valueIdx.ToString().c_str());
 			return false;
 		}
 	}
@@ -1003,7 +1003,7 @@ bool ValueDict::Store(Signal sig, const Value &valueIdx, const Value &value, Sto
 	} else if (storeMode == STORE_Default) {
 		// nothing to do
 	} else {
-		sig.SetError(ERR_KeyError, "duplicated key '%s'", valueIdx.ToString(sig).c_str());
+		sig.SetError(ERR_KeyError, "duplicated key '%s'", valueIdx.ToString().c_str());
 		return false;
 	}
 	return true;

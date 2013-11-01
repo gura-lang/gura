@@ -215,7 +215,7 @@ Object *Object_wx_SearchCtrl::Clone() const
 	return NULL;
 }
 
-String Object_wx_SearchCtrl::ToString(Signal sig, bool exprFlag)
+String Object_wx_SearchCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.SearchCtrl:");
 	if (GetEntity() == NULL) {

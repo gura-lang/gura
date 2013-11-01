@@ -282,7 +282,7 @@ Object *Object_wx_StandardPaths::Clone() const
 	return NULL;
 }
 
-String Object_wx_StandardPaths::ToString(Signal sig, bool exprFlag)
+String Object_wx_StandardPaths::ToString(bool exprFlag)
 {
 	String rtn("<wx.StandardPaths:");
 	if (GetEntity() == NULL) {

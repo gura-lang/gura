@@ -440,7 +440,7 @@ Object *Object_wx_DebugReport::Clone() const
 	return NULL;
 }
 
-String Object_wx_DebugReport::ToString(Signal sig, bool exprFlag)
+String Object_wx_DebugReport::ToString(bool exprFlag)
 {
 	String rtn("<wx.DebugReport:");
 	if (GetEntity() == NULL) {

@@ -289,7 +289,7 @@ Object *Object_wx_Display::Clone() const
 	return NULL;
 }
 
-String Object_wx_Display::ToString(Signal sig, bool exprFlag)
+String Object_wx_Display::ToString(bool exprFlag)
 {
 	String rtn("<wx.Display:");
 	if (GetEntity() == NULL) {

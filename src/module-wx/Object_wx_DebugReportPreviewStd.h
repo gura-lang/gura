@@ -25,7 +25,7 @@ public:
 				Object_wx_DebugReportPreview(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_DebugReportPreviewStd();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxDebugReportPreviewStd *GetEntity() {
 		return dynamic_cast<wxDebugReportPreviewStd *>(_pEntity);
 	}

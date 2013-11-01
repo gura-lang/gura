@@ -1451,7 +1451,7 @@ Object *Object_wx_ListCtrl::Clone() const
 	return NULL;
 }
 
-String Object_wx_ListCtrl::ToString(Signal sig, bool exprFlag)
+String Object_wx_ListCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.ListCtrl:");
 	if (GetEntity() == NULL) {

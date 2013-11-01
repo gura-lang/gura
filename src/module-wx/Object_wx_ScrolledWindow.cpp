@@ -398,7 +398,7 @@ Object *Object_wx_ScrolledWindow::Clone() const
 	return NULL;
 }
 
-String Object_wx_ScrolledWindow::ToString(Signal sig, bool exprFlag)
+String Object_wx_ScrolledWindow::ToString(bool exprFlag)
 {
 	String rtn("<wx.ScrolledWindow:");
 	if (GetEntity() == NULL) {

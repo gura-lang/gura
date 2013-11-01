@@ -551,7 +551,7 @@ Object *Object_wx_XmlResource::Clone() const
 	return NULL;
 }
 
-String Object_wx_XmlResource::ToString(Signal sig, bool exprFlag)
+String Object_wx_XmlResource::ToString(bool exprFlag)
 {
 	String rtn("<wx.XmlResource:");
 	if (GetEntity() == NULL) {

@@ -360,7 +360,7 @@ Object *Object_wx_CommandProcessor::Clone() const
 	return NULL;
 }
 
-String Object_wx_CommandProcessor::ToString(Signal sig, bool exprFlag)
+String Object_wx_CommandProcessor::ToString(bool exprFlag)
 {
 	String rtn("<wx.CommandProcessor:");
 	if (GetEntity() == NULL) {

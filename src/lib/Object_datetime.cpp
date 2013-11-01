@@ -145,7 +145,7 @@ Value Object_datetime::DoSetProp(Environment &env, Signal sig, const Symbol *pSy
 	return DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
-String Object_datetime::ToString(Signal sig, bool exprFlag)
+String Object_datetime::ToString(bool exprFlag)
 {
 	String str;
 	str += "<datetime:";

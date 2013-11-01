@@ -25,7 +25,7 @@ public:
 				Object_wx_TopLevelWindow(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_Frame();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxFrame *GetEntity() {
 		return dynamic_cast<wxFrame *>(_pEntity);
 	}

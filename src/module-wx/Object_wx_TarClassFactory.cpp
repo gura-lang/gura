@@ -48,7 +48,7 @@ Object *Object_wx_TarClassFactory::Clone() const
 	return NULL;
 }
 
-String Object_wx_TarClassFactory::ToString(Signal sig, bool exprFlag)
+String Object_wx_TarClassFactory::ToString(bool exprFlag)
 {
 	String rtn("<wx.TarClassFactory:");
 	if (GetEntity() == NULL) {

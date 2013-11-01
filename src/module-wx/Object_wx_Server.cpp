@@ -105,7 +105,7 @@ Object *Object_wx_Server::Clone() const
 	return NULL;
 }
 
-String Object_wx_Server::ToString(Signal sig, bool exprFlag)
+String Object_wx_Server::ToString(bool exprFlag)
 {
 	String rtn("<wx.Server:");
 	if (GetEntity() == NULL) {

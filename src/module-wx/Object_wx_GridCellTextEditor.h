@@ -25,7 +25,7 @@ public:
 				Object_wx_GridCellEditor(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_GridCellTextEditor();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxGridCellTextEditor *GetEntity() {
 		return dynamic_cast<wxGridCellTextEditor *>(_pEntity);
 	}

@@ -169,7 +169,7 @@ Object *Object_wx_Quantize::Clone() const
 	return NULL;
 }
 
-String Object_wx_Quantize::ToString(Signal sig, bool exprFlag)
+String Object_wx_Quantize::ToString(bool exprFlag)
 {
 	String rtn("<wx.Quantize:");
 	if (GetEntity() == NULL) {

@@ -3444,7 +3444,7 @@ bool Iterator_NewIds::DoNext(Environment &env, Signal sig, Value &value)
 	return true;
 }
 
-String Iterator_NewIds::ToString(Signal sig) const
+String Iterator_NewIds::ToString() const
 {
 	String rtn = "<iterator:wx.newids>";
 	return rtn;

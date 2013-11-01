@@ -451,7 +451,7 @@ Object *Object_wx_EvtHandler::Clone() const
 	return NULL;
 }
 
-String Object_wx_EvtHandler::ToString(Signal sig, bool exprFlag)
+String Object_wx_EvtHandler::ToString(bool exprFlag)
 {
 	String rtn("<wx.EvtHandler:");
 	if (GetEntity() == NULL) {

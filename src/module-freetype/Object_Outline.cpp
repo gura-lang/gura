@@ -10,7 +10,7 @@ Object *Object_Outline::Clone() const
 	return NULL;
 }
 
-String Object_Outline::ToString(Signal sig, bool exprFlag)
+String Object_Outline::ToString(bool exprFlag)
 {
 	char buff[80];
 	::sprintf(buff, "<freetype.Outline>");

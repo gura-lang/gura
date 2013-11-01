@@ -25,7 +25,7 @@ public:
 				Object_wx_ToolBarBase(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_ToolBar();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxToolBar *GetEntity() {
 		return dynamic_cast<wxToolBar *>(_pEntity);
 	}

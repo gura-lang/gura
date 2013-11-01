@@ -270,7 +270,7 @@ Object *Object_wx_HyperlinkCtrl::Clone() const
 	return NULL;
 }
 
-String Object_wx_HyperlinkCtrl::ToString(Signal sig, bool exprFlag)
+String Object_wx_HyperlinkCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.HyperlinkCtrl:");
 	if (GetEntity() == NULL) {

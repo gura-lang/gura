@@ -10,7 +10,7 @@ Object *Object_CharMap::Clone() const
 	return NULL;
 }
 
-String Object_CharMap::ToString(Signal sig, bool exprFlag)
+String Object_CharMap::ToString(bool exprFlag)
 {
 	char buff[80];
 	::sprintf(buff, "<freetype.CharMap>");

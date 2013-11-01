@@ -25,7 +25,7 @@ public:
 				Object_wx_FilterInputStream(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_BufferedInputStream();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxBufferedInputStream *GetEntity() {
 		return dynamic_cast<wxBufferedInputStream *>(_pEntity);
 	}

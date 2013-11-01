@@ -118,7 +118,7 @@ Object *Object_wx_StaticBoxSizer::Clone() const
 	return NULL;
 }
 
-String Object_wx_StaticBoxSizer::ToString(Signal sig, bool exprFlag)
+String Object_wx_StaticBoxSizer::ToString(bool exprFlag)
 {
 	String rtn("<wx.StaticBoxSizer:");
 	if (GetEntity() == NULL) {

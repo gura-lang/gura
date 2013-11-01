@@ -109,7 +109,7 @@ Object *Object_wx_FileConfig::Clone() const
 	return NULL;
 }
 
-String Object_wx_FileConfig::ToString(Signal sig, bool exprFlag)
+String Object_wx_FileConfig::ToString(bool exprFlag)
 {
 	String rtn("<wx.FileConfig:");
 	if (GetEntity() == NULL) {

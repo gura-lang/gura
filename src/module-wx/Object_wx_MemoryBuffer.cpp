@@ -269,7 +269,7 @@ Object *Object_wx_MemoryBuffer::Clone() const
 	return NULL;
 }
 
-String Object_wx_MemoryBuffer::ToString(Signal sig, bool exprFlag)
+String Object_wx_MemoryBuffer::ToString(bool exprFlag)
 {
 	String rtn("<wx.MemoryBuffer:");
 	if (GetEntity() == NULL) {

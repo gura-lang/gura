@@ -856,11 +856,11 @@ String Join(const ValueList &valList, const char *str)
 	Signal sig;
 	ValueList::const_iterator pValue = valList.begin();
 	if (pValue == valList.end()) return "";
-	String rtn = pValue->ToString(sig, false);
+	String rtn = pValue->ToString(false);
 	pValue++;
 	for ( ; pValue != valList.end(); pValue++) {
 		rtn += str;
-		rtn += pValue->ToString(sig, false);
+		rtn += pValue->ToString(false);
 	}
 	return rtn;
 }

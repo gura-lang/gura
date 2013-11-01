@@ -25,7 +25,7 @@ public:
 				Object_wx_NotifyEvent(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_ListEvent();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxListEvent *GetEntity() {
 		return dynamic_cast<wxListEvent *>(_pEntity);
 	}

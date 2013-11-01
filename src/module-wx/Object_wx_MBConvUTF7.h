@@ -25,7 +25,7 @@ public:
 				Object_wx_MBConv(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_MBConvUTF7();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxMBConvUTF7 *GetEntity() {
 		return dynamic_cast<wxMBConvUTF7 *>(_pEntity);
 	}

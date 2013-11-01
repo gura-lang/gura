@@ -70,7 +70,7 @@ Object *Object_wx_LayoutConstraints::Clone() const
 	return NULL;
 }
 
-String Object_wx_LayoutConstraints::ToString(Signal sig, bool exprFlag)
+String Object_wx_LayoutConstraints::ToString(bool exprFlag)
 {
 	String rtn("<wx.LayoutConstraints:");
 	if (GetEntity() == NULL) {

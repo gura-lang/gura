@@ -27,7 +27,7 @@ public:
 		IteratorKeys(Object_dict *pObj);
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString(Signal sig) const;
+		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
 	class IteratorValues : public Iterator {
@@ -38,7 +38,7 @@ public:
 		IteratorValues(Object_dict *pObj);
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString(Signal sig) const;
+		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
 	class IteratorItems : public Iterator {
@@ -49,7 +49,7 @@ public:
 		IteratorItems(Object_dict *pObj);
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString(Signal sig) const;
+		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
 	class IteratorGet : public Iterator {
@@ -64,7 +64,7 @@ public:
 					const Value &valDefault, bool raiseFlag, bool setDefaultFlag);
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString(Signal sig) const;
+		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
 public:
@@ -85,7 +85,7 @@ public:
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value);
 	virtual Iterator *CreateIterator(Signal sig);
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	const Value *Find(Signal sig, const Value &valueIdx) const;
 	static void SetError_KeyNotFound(Signal sig, const Value &valueIdx);
 };

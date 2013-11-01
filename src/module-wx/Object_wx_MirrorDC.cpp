@@ -74,7 +74,7 @@ Object *Object_wx_MirrorDC::Clone() const
 	return NULL;
 }
 
-String Object_wx_MirrorDC::ToString(Signal sig, bool exprFlag)
+String Object_wx_MirrorDC::ToString(bool exprFlag)
 {
 	String rtn("<wx.MirrorDC:");
 	if (GetEntity() == NULL) {

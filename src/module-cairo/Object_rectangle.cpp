@@ -66,7 +66,7 @@ Value Object_rectangle::DoSetProp(Environment &env, Signal sig, const Symbol *pS
 	return Value::Null;
 }
 
-String Object_rectangle::ToString(Signal sig, bool exprFlag)
+String Object_rectangle::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<cairo.rectangle:";

@@ -202,7 +202,7 @@ Object *Object_wx_ZipInputStream::Clone() const
 	return NULL;
 }
 
-String Object_wx_ZipInputStream::ToString(Signal sig, bool exprFlag)
+String Object_wx_ZipInputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.ZipInputStream:");
 	if (GetEntity() == NULL) {

@@ -120,7 +120,7 @@ Object *Object_wx_Client::Clone() const
 	return NULL;
 }
 
-String Object_wx_Client::ToString(Signal sig, bool exprFlag)
+String Object_wx_Client::ToString(bool exprFlag)
 {
 	String rtn("<wx.Client:");
 	if (GetEntity() == NULL) {

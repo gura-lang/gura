@@ -137,7 +137,7 @@ Object *Object_wx_DCClipper::Clone() const
 	return NULL;
 }
 
-String Object_wx_DCClipper::ToString(Signal sig, bool exprFlag)
+String Object_wx_DCClipper::ToString(bool exprFlag)
 {
 	String rtn("<wx.DCClipper:");
 	if (GetEntity() == NULL) {

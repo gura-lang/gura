@@ -18,7 +18,7 @@ public:
 					Object(Gura_UserClass(scaled_font)), _scaled_font(scaled_font) {}
 	virtual ~Object_scaled_font();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline cairo_scaled_font_t *GetEntity() { return _scaled_font; }
 };
 

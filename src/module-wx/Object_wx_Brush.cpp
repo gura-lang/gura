@@ -340,7 +340,7 @@ Object *Object_wx_Brush::Clone() const
 	return NULL;
 }
 
-String Object_wx_Brush::ToString(Signal sig, bool exprFlag)
+String Object_wx_Brush::ToString(bool exprFlag)
 {
 	String rtn("<wx.Brush:");
 	if (GetEntity() == NULL) {

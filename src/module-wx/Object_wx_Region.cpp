@@ -696,7 +696,7 @@ Object *Object_wx_Region::Clone() const
 	return NULL;
 }
 
-String Object_wx_Region::ToString(Signal sig, bool exprFlag)
+String Object_wx_Region::ToString(bool exprFlag)
 {
 	String rtn("<wx.Region:");
 	if (GetEntity() == NULL) {

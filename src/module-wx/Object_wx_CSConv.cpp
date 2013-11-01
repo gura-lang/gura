@@ -163,7 +163,7 @@ Object *Object_wx_CSConv::Clone() const
 	return NULL;
 }
 
-String Object_wx_CSConv::ToString(Signal sig, bool exprFlag)
+String Object_wx_CSConv::ToString(bool exprFlag)
 {
 	String rtn("<wx.CSConv:");
 	if (GetEntity() == NULL) {

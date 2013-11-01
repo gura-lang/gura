@@ -25,7 +25,7 @@ public:
 				Object_wx_Log(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_LogGui();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxLogGui *GetEntity() {
 		return dynamic_cast<wxLogGui *>(_pEntity);
 	}

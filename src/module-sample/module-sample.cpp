@@ -17,7 +17,7 @@ Object *Object_foo::Clone() const
 	return new Object_foo(*this);
 }
 
-String Object_foo::ToString(Signal sig, bool exprFlag)
+String Object_foo::ToString(bool exprFlag)
 {
 	return String("<foo>");
 }

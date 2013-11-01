@@ -25,7 +25,7 @@ public:
 				Object_wx_HelpProvider(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_SimpleHelpProvider();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxSimpleHelpProvider *GetEntity() {
 		return dynamic_cast<wxSimpleHelpProvider *>(_pEntity);
 	}

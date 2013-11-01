@@ -98,7 +98,7 @@ Object *Object_wx_MessageDialog::Clone() const
 	return NULL;
 }
 
-String Object_wx_MessageDialog::ToString(Signal sig, bool exprFlag)
+String Object_wx_MessageDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.MessageDialog:");
 	if (GetEntity() == NULL) {

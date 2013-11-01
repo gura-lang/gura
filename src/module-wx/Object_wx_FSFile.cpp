@@ -169,7 +169,7 @@ Object *Object_wx_FSFile::Clone() const
 	return NULL;
 }
 
-String Object_wx_FSFile::ToString(Signal sig, bool exprFlag)
+String Object_wx_FSFile::ToString(bool exprFlag)
 {
 	String rtn("<wx.FSFile:");
 	if (GetEntity() == NULL) {

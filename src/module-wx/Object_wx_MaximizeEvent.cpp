@@ -73,7 +73,7 @@ Object *Object_wx_MaximizeEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_MaximizeEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_MaximizeEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.MaximizeEvent:");
 	if (GetEntity() == NULL) {

@@ -76,7 +76,7 @@ Object *Object_wx_CalendarEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_CalendarEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_CalendarEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.CalendarEvent:");
 	if (GetEntity() == NULL) {

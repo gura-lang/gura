@@ -461,7 +461,7 @@ Object *Object_wx_ListItem::Clone() const
 	return NULL;
 }
 
-String Object_wx_ListItem::ToString(Signal sig, bool exprFlag)
+String Object_wx_ListItem::ToString(bool exprFlag)
 {
 	String rtn("<wx.ListItem:");
 	if (GetEntity() == NULL) {

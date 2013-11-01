@@ -26,7 +26,7 @@ Object *Object_reader::Clone() const
 	return NULL;
 }
 
-String Object_reader::ToString(Signal sig, bool exprFlag)
+String Object_reader::ToString(bool exprFlag)
 {
 	String str;
 	str = "<zip.reader";
@@ -180,7 +180,7 @@ Object *Object_writer::Clone() const
 	return NULL;
 }
 
-String Object_writer::ToString(Signal sig, bool exprFlag)
+String Object_writer::ToString(bool exprFlag)
 {
 	String str;
 	str = "<zip.writer";
@@ -454,7 +454,7 @@ bool Iterator_Entry::DoNext(Environment &env, Signal sig, Value &value)
 	return true;
 }
 
-String Iterator_Entry::ToString(Signal sig) const
+String Iterator_Entry::ToString() const
 {
 	String rtn;
 	rtn += "<iterator:zip.entry>";
@@ -617,7 +617,7 @@ Value Object_stat::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	return Value::Null;
 }
 
-String Object_stat::ToString(Signal sig, bool exprFlag)
+String Object_stat::ToString(bool exprFlag)
 {
 	String str;
 	str = "<zip.stat:";

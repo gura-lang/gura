@@ -89,7 +89,7 @@ Object *Object_wx_BrushList::Clone() const
 	return NULL;
 }
 
-String Object_wx_BrushList::ToString(Signal sig, bool exprFlag)
+String Object_wx_BrushList::ToString(bool exprFlag)
 {
 	String rtn("<wx.BrushList:");
 	if (GetEntity() == NULL) {

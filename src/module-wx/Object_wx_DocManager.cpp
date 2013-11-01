@@ -715,7 +715,7 @@ Object *Object_wx_DocManager::Clone() const
 	return NULL;
 }
 
-String Object_wx_DocManager::ToString(Signal sig, bool exprFlag)
+String Object_wx_DocManager::ToString(bool exprFlag)
 {
 	String rtn("<wx.DocManager:");
 	if (GetEntity() == NULL) {

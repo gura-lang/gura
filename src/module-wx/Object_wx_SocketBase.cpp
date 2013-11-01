@@ -740,7 +740,7 @@ Object *Object_wx_SocketBase::Clone() const
 	return NULL;
 }
 
-String Object_wx_SocketBase::ToString(Signal sig, bool exprFlag)
+String Object_wx_SocketBase::ToString(bool exprFlag)
 {
 	String rtn("<wx.SocketBase:");
 	if (GetEntity() == NULL) {

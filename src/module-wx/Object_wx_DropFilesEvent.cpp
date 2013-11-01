@@ -131,7 +131,7 @@ Object *Object_wx_DropFilesEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_DropFilesEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_DropFilesEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.DropFilesEvent:");
 	if (GetEntity() == NULL) {

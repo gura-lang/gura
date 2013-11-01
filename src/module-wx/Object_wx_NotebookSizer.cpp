@@ -86,7 +86,7 @@ Object *Object_wx_NotebookSizer::Clone() const
 	return NULL;
 }
 
-String Object_wx_NotebookSizer::ToString(Signal sig, bool exprFlag)
+String Object_wx_NotebookSizer::ToString(bool exprFlag)
 {
 	String rtn("<wx.NotebookSizer:");
 	if (GetEntity() == NULL) {

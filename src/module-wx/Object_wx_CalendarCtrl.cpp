@@ -450,7 +450,7 @@ Object *Object_wx_CalendarCtrl::Clone() const
 	return NULL;
 }
 
-String Object_wx_CalendarCtrl::ToString(Signal sig, bool exprFlag)
+String Object_wx_CalendarCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.CalendarCtrl:");
 	if (GetEntity() == NULL) {

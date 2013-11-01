@@ -276,7 +276,7 @@ Object *Object_wx_OwnerDrawnComboBox::Clone() const
 	return NULL;
 }
 
-String Object_wx_OwnerDrawnComboBox::ToString(Signal sig, bool exprFlag)
+String Object_wx_OwnerDrawnComboBox::ToString(bool exprFlag)
 {
 	String rtn("<wx.OwnerDrawnComboBox:");
 	if (GetEntity() == NULL) {

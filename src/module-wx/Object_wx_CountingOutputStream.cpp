@@ -84,7 +84,7 @@ Object *Object_wx_CountingOutputStream::Clone() const
 	return NULL;
 }
 
-String Object_wx_CountingOutputStream::ToString(Signal sig, bool exprFlag)
+String Object_wx_CountingOutputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.CountingOutputStream:");
 	if (GetEntity() == NULL) {

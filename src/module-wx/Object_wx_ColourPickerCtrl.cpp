@@ -172,7 +172,7 @@ Object *Object_wx_ColourPickerCtrl::Clone() const
 	return NULL;
 }
 
-String Object_wx_ColourPickerCtrl::ToString(Signal sig, bool exprFlag)
+String Object_wx_ColourPickerCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.ColourPickerCtrl:");
 	if (GetEntity() == NULL) {

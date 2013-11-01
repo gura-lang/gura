@@ -70,7 +70,7 @@ Object *Object_wx_LogStream::Clone() const
 	return NULL;
 }
 
-String Object_wx_LogStream::ToString(Signal sig, bool exprFlag)
+String Object_wx_LogStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.LogStream:");
 	if (GetEntity() == NULL) {

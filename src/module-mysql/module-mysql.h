@@ -24,7 +24,7 @@ public:
 								Iterator(false), _pObj(pObj), _pRes(pRes) {}
 		virtual ~IteratorQuery();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString(Signal sig) const;
+		virtual String ToString() const;
 	};
 private:
 	MYSQL _mysql;
@@ -34,7 +34,7 @@ public:
 	Object_mysql();
 	virtual ~Object_mysql();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	bool Connect(Signal sig, const char *host, const char *user, const char *passwd,
 		const char *db, unsigned int port, const char *unix_socket, unsigned long client_flag);
 	void Close();

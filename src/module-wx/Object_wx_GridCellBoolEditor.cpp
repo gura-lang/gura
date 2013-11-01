@@ -103,7 +103,7 @@ Object *Object_wx_GridCellBoolEditor::Clone() const
 	return NULL;
 }
 
-String Object_wx_GridCellBoolEditor::ToString(Signal sig, bool exprFlag)
+String Object_wx_GridCellBoolEditor::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridCellBoolEditor:");
 	if (GetEntity() == NULL) {

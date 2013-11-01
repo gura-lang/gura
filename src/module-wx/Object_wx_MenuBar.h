@@ -25,7 +25,7 @@ public:
 				Object_wx_Window(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_MenuBar();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxMenuBar *GetEntity() {
 		return dynamic_cast<wxMenuBar *>(_pEntity);
 	}

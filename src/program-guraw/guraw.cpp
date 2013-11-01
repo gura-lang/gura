@@ -95,7 +95,7 @@ int MainW(int argc, const char *argv[])
 					env.GetConsole()->PrintSignal(sig, sig);
 					return 1;
 				} else if (result.IsValid()) {
-					env.GetConsole()->Println(sig, result.ToString(sig).c_str());
+					env.GetConsole()->Println(sig, result.ToString().c_str());
 				}
 			}
 		}

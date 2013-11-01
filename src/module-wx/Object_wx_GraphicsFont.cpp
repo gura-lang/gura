@@ -48,7 +48,7 @@ Object *Object_wx_GraphicsFont::Clone() const
 	return NULL;
 }
 
-String Object_wx_GraphicsFont::ToString(Signal sig, bool exprFlag)
+String Object_wx_GraphicsFont::ToString(bool exprFlag)
 {
 	String rtn("<wx.GraphicsFont:");
 	if (GetEntity() == NULL) {

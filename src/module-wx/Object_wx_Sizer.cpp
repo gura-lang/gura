@@ -947,7 +947,7 @@ Object *Object_wx_Sizer::Clone() const
 	return NULL;
 }
 
-String Object_wx_Sizer::ToString(Signal sig, bool exprFlag)
+String Object_wx_Sizer::ToString(bool exprFlag)
 {
 	String rtn("<wx.Sizer:");
 	if (GetEntity() == NULL) {

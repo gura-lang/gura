@@ -25,7 +25,7 @@ public:
 				Object_wx_GraphicsObject(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_GraphicsPath();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxGraphicsPath *GetEntity() {
 		return dynamic_cast<wxGraphicsPath *>(_pEntity);
 	}

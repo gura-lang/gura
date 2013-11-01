@@ -28,7 +28,7 @@ public:
 	inline bool IsInvalid(Signal sig) const { return false; }
 	virtual ~Object_wx_Coord();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxCoord *GetEntity() { return _pEntity; }
 };
 

@@ -356,7 +356,7 @@ Object *Object_wx_FontMapper::Clone() const
 	return NULL;
 }
 
-String Object_wx_FontMapper::ToString(Signal sig, bool exprFlag)
+String Object_wx_FontMapper::ToString(bool exprFlag)
 {
 	String rtn("<wx.FontMapper:");
 	if (GetEntity() == NULL) {

@@ -35,7 +35,7 @@ public:
 	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline void SetEntity(wxRect *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) {
 		if (_ownerFlag) delete _pEntity;
 		_pEntity = pEntity;

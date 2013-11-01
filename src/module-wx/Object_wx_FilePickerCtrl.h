@@ -25,7 +25,7 @@ public:
 				Object_wx_PickerBase(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_FilePickerCtrl();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxFilePickerCtrl *GetEntity() {
 		return dynamic_cast<wxFilePickerCtrl *>(_pEntity);
 	}

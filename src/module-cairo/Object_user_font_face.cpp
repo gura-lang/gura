@@ -13,7 +13,7 @@ void destroy_ObjFontFace(void *data)
 //-----------------------------------------------------------------------------
 // Object_user_font_face implementation
 //-----------------------------------------------------------------------------
-String Object_user_font_face::ToString(Signal sig, bool exprFlag)
+String Object_user_font_face::ToString(bool exprFlag)
 {
 	return String("<cairo.user_font_face>");
 }

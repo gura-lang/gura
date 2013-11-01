@@ -25,7 +25,7 @@ public:
 				Object_wx_DataViewRenderer(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_DataViewTextRenderer();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxDataViewTextRenderer *GetEntity() {
 		return dynamic_cast<wxDataViewTextRenderer *>(_pEntity);
 	}

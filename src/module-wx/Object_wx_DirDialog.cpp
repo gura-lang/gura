@@ -163,7 +163,7 @@ Object *Object_wx_DirDialog::Clone() const
 	return NULL;
 }
 
-String Object_wx_DirDialog::ToString(Signal sig, bool exprFlag)
+String Object_wx_DirDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.DirDialog:");
 	if (GetEntity() == NULL) {

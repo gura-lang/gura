@@ -105,7 +105,7 @@ Object *Object_wx_DDEServer::Clone() const
 	return NULL;
 }
 
-String Object_wx_DDEServer::ToString(Signal sig, bool exprFlag)
+String Object_wx_DDEServer::ToString(bool exprFlag)
 {
 	String rtn("<wx.DDEServer:");
 	if (GetEntity() == NULL) {

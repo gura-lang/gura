@@ -481,7 +481,7 @@ Object *Object_wx_Treebook::Clone() const
 	return NULL;
 }
 
-String Object_wx_Treebook::ToString(Signal sig, bool exprFlag)
+String Object_wx_Treebook::ToString(bool exprFlag)
 {
 	String rtn("<wx.Treebook:");
 	if (GetEntity() == NULL) {

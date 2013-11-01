@@ -543,7 +543,7 @@ Object *Object_wx_Frame::Clone() const
 	return NULL;
 }
 
-String Object_wx_Frame::ToString(Signal sig, bool exprFlag)
+String Object_wx_Frame::ToString(bool exprFlag)
 {
 	String rtn("<wx.Frame:");
 	if (GetEntity() == NULL) {

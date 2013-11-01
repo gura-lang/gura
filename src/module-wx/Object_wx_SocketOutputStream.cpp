@@ -72,7 +72,7 @@ Object *Object_wx_SocketOutputStream::Clone() const
 	return NULL;
 }
 
-String Object_wx_SocketOutputStream::ToString(Signal sig, bool exprFlag)
+String Object_wx_SocketOutputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.SocketOutputStream:");
 	if (GetEntity() == NULL) {

@@ -216,7 +216,7 @@ Object *Object_wx_StaticBitmap::Clone() const
 	return NULL;
 }
 
-String Object_wx_StaticBitmap::ToString(Signal sig, bool exprFlag)
+String Object_wx_StaticBitmap::ToString(bool exprFlag)
 {
 	String rtn("<wx.StaticBitmap:");
 	if (GetEntity() == NULL) {

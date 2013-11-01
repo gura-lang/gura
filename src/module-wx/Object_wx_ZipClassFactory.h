@@ -25,7 +25,7 @@ public:
 				Object_wx_ArchiveClassFactory(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_ZipClassFactory();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxZipClassFactory *GetEntity() {
 		return dynamic_cast<wxZipClassFactory *>(_pEntity);
 	}

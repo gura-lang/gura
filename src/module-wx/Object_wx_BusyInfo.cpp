@@ -74,7 +74,7 @@ Object *Object_wx_BusyInfo::Clone() const
 	return NULL;
 }
 
-String Object_wx_BusyInfo::ToString(Signal sig, bool exprFlag)
+String Object_wx_BusyInfo::ToString(bool exprFlag)
 {
 	String rtn("<wx.BusyInfo:");
 	if (GetEntity() == NULL) {

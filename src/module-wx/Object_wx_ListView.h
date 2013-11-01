@@ -25,7 +25,7 @@ public:
 				Object_wx_ListCtrl(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_ListView();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxListView *GetEntity() {
 		return dynamic_cast<wxListView *>(_pEntity);
 	}

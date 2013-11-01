@@ -90,7 +90,7 @@ int Main(int argc, const char *argv[])
 					env.GetConsoleErr()->PrintSignal(sig, sig);
 					return 1;
 				} else if (result.IsValid()) {
-					env.GetConsole()->Println(sig, result.ToString(sig).c_str());
+					env.GetConsole()->Println(sig, result.ToString().c_str());
 				}
 			}
 		}

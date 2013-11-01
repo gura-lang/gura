@@ -48,7 +48,7 @@ Object *Object_wx_GraphicsPen::Clone() const
 	return NULL;
 }
 
-String Object_wx_GraphicsPen::ToString(Signal sig, bool exprFlag)
+String Object_wx_GraphicsPen::ToString(bool exprFlag)
 {
 	String rtn("<wx.GraphicsPen:");
 	if (GetEntity() == NULL) {

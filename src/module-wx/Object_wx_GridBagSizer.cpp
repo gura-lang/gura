@@ -466,7 +466,7 @@ Object *Object_wx_GridBagSizer::Clone() const
 	return NULL;
 }
 
-String Object_wx_GridBagSizer::ToString(Signal sig, bool exprFlag)
+String Object_wx_GridBagSizer::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridBagSizer:");
 	if (GetEntity() == NULL) {

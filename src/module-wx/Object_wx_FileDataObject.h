@@ -25,7 +25,7 @@ public:
 				Object_wx_DataObjectSimple(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_FileDataObject();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxFileDataObject *GetEntity() {
 		return dynamic_cast<wxFileDataObject *>(_pEntity);
 	}

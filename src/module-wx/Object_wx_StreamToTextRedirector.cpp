@@ -78,7 +78,7 @@ Object *Object_wx_StreamToTextRedirector::Clone() const
 	return NULL;
 }
 
-String Object_wx_StreamToTextRedirector::ToString(Signal sig, bool exprFlag)
+String Object_wx_StreamToTextRedirector::ToString(bool exprFlag)
 {
 	String rtn("<wx.StreamToTextRedirector:");
 	if (GetEntity() == NULL) {

@@ -315,7 +315,7 @@ Object *Object_wx_FileDialog::Clone() const
 	return NULL;
 }
 
-String Object_wx_FileDialog::ToString(Signal sig, bool exprFlag)
+String Object_wx_FileDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.FileDialog:");
 	if (GetEntity() == NULL) {

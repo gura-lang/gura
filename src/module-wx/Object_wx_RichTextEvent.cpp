@@ -289,7 +289,7 @@ Object *Object_wx_RichTextEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_RichTextEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_RichTextEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextEvent:");
 	if (GetEntity() == NULL) {

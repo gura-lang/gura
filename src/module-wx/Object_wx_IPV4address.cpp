@@ -165,7 +165,7 @@ Object *Object_wx_IPV4address::Clone() const
 	return NULL;
 }
 
-String Object_wx_IPV4address::ToString(Signal sig, bool exprFlag)
+String Object_wx_IPV4address::ToString(bool exprFlag)
 {
 	String rtn("<wx.IPV4address:");
 	if (GetEntity() == NULL) {

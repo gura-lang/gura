@@ -84,7 +84,7 @@ Object *Object_wx_DebugReportCompress::Clone() const
 	return NULL;
 }
 
-String Object_wx_DebugReportCompress::ToString(Signal sig, bool exprFlag)
+String Object_wx_DebugReportCompress::ToString(bool exprFlag)
 {
 	String rtn("<wx.DebugReportCompress:");
 	if (GetEntity() == NULL) {

@@ -69,7 +69,7 @@ Object *Object_wx_SimpleHelpProvider::Clone() const
 	return NULL;
 }
 
-String Object_wx_SimpleHelpProvider::ToString(Signal sig, bool exprFlag)
+String Object_wx_SimpleHelpProvider::ToString(bool exprFlag)
 {
 	String rtn("<wx.SimpleHelpProvider:");
 	if (GetEntity() == NULL) {

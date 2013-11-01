@@ -393,7 +393,7 @@ Object *Object_wx_DataViewCustomRenderer::Clone() const
 	return NULL;
 }
 
-String Object_wx_DataViewCustomRenderer::ToString(Signal sig, bool exprFlag)
+String Object_wx_DataViewCustomRenderer::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataViewCustomRenderer:");
 	if (GetEntity() == NULL) {

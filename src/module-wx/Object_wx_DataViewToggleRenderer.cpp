@@ -76,7 +76,7 @@ Object *Object_wx_DataViewToggleRenderer::Clone() const
 	return NULL;
 }
 
-String Object_wx_DataViewToggleRenderer::ToString(Signal sig, bool exprFlag)
+String Object_wx_DataViewToggleRenderer::ToString(bool exprFlag)
 {
 	String rtn("<wx.DataViewToggleRenderer:");
 	if (GetEntity() == NULL) {

@@ -51,7 +51,7 @@ Object *Object_wx_HtmlWindowInterface::Clone() const
 	return NULL;
 }
 
-String Object_wx_HtmlWindowInterface::ToString(Signal sig, bool exprFlag)
+String Object_wx_HtmlWindowInterface::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlWindowInterface:");
 	if (GetEntity() == NULL) {

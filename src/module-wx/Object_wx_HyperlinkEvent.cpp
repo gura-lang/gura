@@ -105,7 +105,7 @@ Object *Object_wx_HyperlinkEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_HyperlinkEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_HyperlinkEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.HyperlinkEvent:");
 	if (GetEntity() == NULL) {

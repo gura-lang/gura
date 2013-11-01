@@ -500,7 +500,7 @@ Object *Object_wx_TextAttr::Clone() const
 	return NULL;
 }
 
-String Object_wx_TextAttr::ToString(Signal sig, bool exprFlag)
+String Object_wx_TextAttr::ToString(bool exprFlag)
 {
 	String rtn("<wx.TextAttr:");
 	if (GetEntity() == NULL) {

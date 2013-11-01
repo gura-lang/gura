@@ -48,7 +48,7 @@ Object *Object_wx_MediaEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_MediaEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_MediaEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.MediaEvent:");
 	if (GetEntity() == NULL) {

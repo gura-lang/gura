@@ -134,7 +134,7 @@ Object *Object_wx_SingleInstanceChecker::Clone() const
 	return NULL;
 }
 
-String Object_wx_SingleInstanceChecker::ToString(Signal sig, bool exprFlag)
+String Object_wx_SingleInstanceChecker::ToString(bool exprFlag)
 {
 	String rtn("<wx.SingleInstanceChecker:");
 	if (GetEntity() == NULL) {

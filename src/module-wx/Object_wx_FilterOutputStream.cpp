@@ -97,7 +97,7 @@ Object *Object_wx_FilterOutputStream::Clone() const
 	return NULL;
 }
 
-String Object_wx_FilterOutputStream::ToString(Signal sig, bool exprFlag)
+String Object_wx_FilterOutputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.FilterOutputStream:");
 	if (GetEntity() == NULL) {

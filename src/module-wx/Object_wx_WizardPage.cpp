@@ -126,7 +126,7 @@ Object *Object_wx_WizardPage::Clone() const
 	return NULL;
 }
 
-String Object_wx_WizardPage::ToString(Signal sig, bool exprFlag)
+String Object_wx_WizardPage::ToString(bool exprFlag)
 {
 	String rtn("<wx.WizardPage:");
 	if (GetEntity() == NULL) {

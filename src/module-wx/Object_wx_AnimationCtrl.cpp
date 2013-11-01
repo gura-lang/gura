@@ -238,7 +238,7 @@ Object *Object_wx_AnimationCtrl::Clone() const
 	return NULL;
 }
 
-String Object_wx_AnimationCtrl::ToString(Signal sig, bool exprFlag)
+String Object_wx_AnimationCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.AnimationCtrl:");
 	if (GetEntity() == NULL) {

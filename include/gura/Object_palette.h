@@ -32,7 +32,7 @@ public:
 	Object_palette(const Object_palette &obj);
 	virtual ~Object_palette();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	virtual Iterator *CreateIterator(Signal sig);
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value);

@@ -44,7 +44,7 @@ Value Object_font_extents::DoGetProp(Environment &env, Signal sig, const Symbol 
 	return Value::Null;
 }
 
-String Object_font_extents::ToString(Signal sig, bool exprFlag)
+String Object_font_extents::ToString(bool exprFlag)
 {
 	return String("<cairo.font_extents>");
 }

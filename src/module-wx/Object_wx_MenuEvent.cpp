@@ -121,7 +121,7 @@ Object *Object_wx_MenuEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_MenuEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_MenuEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.MenuEvent:");
 	if (GetEntity() == NULL) {

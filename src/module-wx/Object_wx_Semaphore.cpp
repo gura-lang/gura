@@ -137,7 +137,7 @@ Object *Object_wx_Semaphore::Clone() const
 	return NULL;
 }
 
-String Object_wx_Semaphore::ToString(Signal sig, bool exprFlag)
+String Object_wx_Semaphore::ToString(bool exprFlag)
 {
 	String rtn("<wx.Semaphore:");
 	if (GetEntity() == NULL) {

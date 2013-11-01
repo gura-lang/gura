@@ -10,7 +10,7 @@ Object *Object_FTC_SBitCache::Clone() const
 	return NULL;
 }
 
-String Object_FTC_SBitCache::ToString(Signal sig, bool exprFlag)
+String Object_FTC_SBitCache::ToString(bool exprFlag)
 {
 	char buff[80];
 	::sprintf(buff, "<freetype.FTC_SBitCache>");

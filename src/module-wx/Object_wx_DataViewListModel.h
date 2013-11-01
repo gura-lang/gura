@@ -25,7 +25,7 @@ public:
 				Object_wx_DataViewModel(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_DataViewListModel();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxDataViewListModel *GetEntity() {
 		return dynamic_cast<wxDataViewListModel *>(_pEntity);
 	}

@@ -92,7 +92,7 @@ Object *Object_wx_StringBufferLength::Clone() const
 	return NULL;
 }
 
-String Object_wx_StringBufferLength::ToString(Signal sig, bool exprFlag)
+String Object_wx_StringBufferLength::ToString(bool exprFlag)
 {
 	String rtn("<wx.StringBufferLength:");
 	if (GetEntity() == NULL) {

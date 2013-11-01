@@ -70,7 +70,7 @@ Object *Object_wx_GridCellAutoWrapStringRenderer::Clone() const
 	return NULL;
 }
 
-String Object_wx_GridCellAutoWrapStringRenderer::ToString(Signal sig, bool exprFlag)
+String Object_wx_GridCellAutoWrapStringRenderer::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridCellAutoWrapStringRenderer:");
 	if (GetEntity() == NULL) {

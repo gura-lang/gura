@@ -361,7 +361,7 @@ Object *Object_wx_AuiTabArt::Clone() const
 	return NULL;
 }
 
-String Object_wx_AuiTabArt::ToString(Signal sig, bool exprFlag)
+String Object_wx_AuiTabArt::ToString(bool exprFlag)
 {
 	String rtn("<wx.AuiTabArt:");
 	if (GetEntity() == NULL) {

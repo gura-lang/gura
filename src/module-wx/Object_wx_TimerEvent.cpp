@@ -61,7 +61,7 @@ Object *Object_wx_TimerEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_TimerEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_TimerEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.TimerEvent:");
 	if (GetEntity() == NULL) {

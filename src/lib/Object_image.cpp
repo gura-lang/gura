@@ -74,7 +74,7 @@ Value Object_image::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	return DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
-String Object_image::ToString(Signal sig, bool exprFlag)
+String Object_image::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn = "<image:";

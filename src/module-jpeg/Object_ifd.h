@@ -20,7 +20,7 @@ public:
 	Object_ifd(const Symbol *pSymbolOfIFD);
 	virtual ~Object_ifd();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
@@ -46,7 +46,7 @@ public:
 	IteratorTag(Object_ifd *pObjIFD);
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
-	virtual String ToString(Signal sig) const;
+	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 

@@ -75,7 +75,7 @@ Object *Object_wx_CriticalSectionLocker::Clone() const
 	return NULL;
 }
 
-String Object_wx_CriticalSectionLocker::ToString(Signal sig, bool exprFlag)
+String Object_wx_CriticalSectionLocker::ToString(bool exprFlag)
 {
 	String rtn("<wx.CriticalSectionLocker:");
 	if (GetEntity() == NULL) {

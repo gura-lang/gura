@@ -25,7 +25,7 @@ public:
 				Object_wx_TextAttr(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_TextAttrEx();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxTextAttrEx *GetEntity() {
 		return static_cast<wxTextAttrEx *>(_pEntity);
 	}

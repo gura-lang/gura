@@ -86,7 +86,7 @@ Object *Object_wx_DebugReportPreviewStd::Clone() const
 	return NULL;
 }
 
-String Object_wx_DebugReportPreviewStd::ToString(Signal sig, bool exprFlag)
+String Object_wx_DebugReportPreviewStd::ToString(bool exprFlag)
 {
 	String rtn("<wx.DebugReportPreviewStd:");
 	if (GetEntity() == NULL) {

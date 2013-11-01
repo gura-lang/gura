@@ -68,7 +68,7 @@ public:
 		_item(item), _itemChild(itemChild), _cookie(cookie) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
-	virtual String ToString(Signal sig) const;
+	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 
@@ -86,7 +86,7 @@ bool Iterator_TreeCtrl_ItemChildren::DoNext(Environment &env, Signal sig, Value 
 	return true;
 }
 
-String Iterator_TreeCtrl_ItemChildren::ToString(Signal sig) const
+String Iterator_TreeCtrl_ItemChildren::ToString() const
 {
 	String str;
 	str = "<iterator:wx.TreeCtrl.ItemChildren>";
@@ -1531,7 +1531,7 @@ Object *Object_wx_TreeCtrl::Clone() const
 	return NULL;
 }
 
-String Object_wx_TreeCtrl::ToString(Signal sig, bool exprFlag)
+String Object_wx_TreeCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.TreeCtrl:");
 	if (GetEntity() == NULL) {

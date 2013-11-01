@@ -25,7 +25,7 @@ public:
 				Object_wx_DateEvent(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_CalendarEvent();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxCalendarEvent *GetEntity() {
 		return dynamic_cast<wxCalendarEvent *>(_pEntity);
 	}

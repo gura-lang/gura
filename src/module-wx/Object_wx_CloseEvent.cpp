@@ -171,7 +171,7 @@ Object *Object_wx_CloseEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_CloseEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_CloseEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.CloseEvent:");
 	if (GetEntity() == NULL) {

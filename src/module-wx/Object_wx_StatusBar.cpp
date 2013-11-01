@@ -307,7 +307,7 @@ Object *Object_wx_StatusBar::Clone() const
 	return NULL;
 }
 
-String Object_wx_StatusBar::ToString(Signal sig, bool exprFlag)
+String Object_wx_StatusBar::ToString(bool exprFlag)
 {
 	String rtn("<wx.StatusBar:");
 	if (GetEntity() == NULL) {

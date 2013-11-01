@@ -430,7 +430,7 @@ Object *Object_wx_Log::Clone() const
 	return NULL;
 }
 
-String Object_wx_Log::ToString(Signal sig, bool exprFlag)
+String Object_wx_Log::ToString(bool exprFlag)
 {
 	String rtn("<wx.Log:");
 	if (GetEntity() == NULL) {

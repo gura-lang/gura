@@ -2214,7 +2214,7 @@ Object *Object_wx_DateTime::Clone() const
 	return NULL;
 }
 
-String Object_wx_DateTime::ToString(Signal sig, bool exprFlag)
+String Object_wx_DateTime::ToString(bool exprFlag)
 {
 	String rtn("<wx.DateTime:");
 	if (GetEntity() == NULL) {

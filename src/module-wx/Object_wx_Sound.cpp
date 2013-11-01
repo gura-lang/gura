@@ -195,7 +195,7 @@ Object *Object_wx_Sound::Clone() const
 	return NULL;
 }
 
-String Object_wx_Sound::ToString(Signal sig, bool exprFlag)
+String Object_wx_Sound::ToString(bool exprFlag)
 {
 	String rtn("<wx.Sound:");
 	if (GetEntity() == NULL) {

@@ -245,7 +245,7 @@ Object *Object_wx_TempFile::Clone() const
 	return NULL;
 }
 
-String Object_wx_TempFile::ToString(Signal sig, bool exprFlag)
+String Object_wx_TempFile::ToString(bool exprFlag)
 {
 	String rtn("<wx.TempFile:");
 	if (GetEntity() == NULL) {

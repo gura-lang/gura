@@ -242,7 +242,7 @@ Object *Object_wx_Button::Clone() const
 	return NULL;
 }
 
-String Object_wx_Button::ToString(Signal sig, bool exprFlag)
+String Object_wx_Button::ToString(bool exprFlag)
 {
 	String rtn("<wx.Button:");
 	if (GetEntity() == NULL) {

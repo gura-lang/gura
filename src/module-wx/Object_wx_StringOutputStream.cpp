@@ -87,7 +87,7 @@ Object *Object_wx_StringOutputStream::Clone() const
 	return NULL;
 }
 
-String Object_wx_StringOutputStream::ToString(Signal sig, bool exprFlag)
+String Object_wx_StringOutputStream::ToString(bool exprFlag)
 {
 	String rtn("<wx.StringOutputStream:");
 	if (GetEntity() == NULL) {

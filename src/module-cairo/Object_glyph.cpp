@@ -15,7 +15,7 @@ Object *Object_glyph::Clone() const
 	return NULL;
 }
 
-String Object_glyph::ToString(Signal sig, bool exprFlag)
+String Object_glyph::ToString(bool exprFlag)
 {
 	return String("<cairo.glyph>");
 }

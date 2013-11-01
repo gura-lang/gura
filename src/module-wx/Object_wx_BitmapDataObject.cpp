@@ -107,7 +107,7 @@ Object *Object_wx_BitmapDataObject::Clone() const
 	return NULL;
 }
 
-String Object_wx_BitmapDataObject::ToString(Signal sig, bool exprFlag)
+String Object_wx_BitmapDataObject::ToString(bool exprFlag)
 {
 	String rtn("<wx.BitmapDataObject:");
 	if (GetEntity() == NULL) {

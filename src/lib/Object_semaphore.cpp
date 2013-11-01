@@ -18,7 +18,7 @@ Object *Object_semaphore::Clone() const
 	return new Object_semaphore(*this);
 }
 
-String Object_semaphore::ToString(Signal sig, bool exprFlag)
+String Object_semaphore::ToString(bool exprFlag)
 {
 	String str;
 	str += "<semaphore:";

@@ -1242,7 +1242,7 @@ Object *Object_wx_AuiPaneInfo::Clone() const
 	return NULL;
 }
 
-String Object_wx_AuiPaneInfo::ToString(Signal sig, bool exprFlag)
+String Object_wx_AuiPaneInfo::ToString(bool exprFlag)
 {
 	String rtn("<wx.AuiPaneInfo:");
 	if (GetEntity() == NULL) {

@@ -734,7 +734,7 @@ Object *Object_wx_XmlResourceHandler::Clone() const
 	return NULL;
 }
 
-String Object_wx_XmlResourceHandler::ToString(Signal sig, bool exprFlag)
+String Object_wx_XmlResourceHandler::ToString(bool exprFlag)
 {
 	String rtn("<wx.XmlResourceHandler:");
 	if (GetEntity() == NULL) {

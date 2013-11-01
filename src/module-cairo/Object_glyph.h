@@ -19,7 +19,7 @@ public:
 		Object(Gura_UserClass(glyph)), _glyphs(glyphs), _num_glyphs(num_glyphs) {}
 	virtual ~Object_glyph();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline cairo_glyph_t *GetGlyphs() { return _glyphs; }
 	inline int GetNumGlyphs() const { return _num_glyphs; }
 };

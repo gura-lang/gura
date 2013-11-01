@@ -22,12 +22,14 @@ Object *StructObject::Clone() const
 	return new StructObject(*this);
 }
 
-String StructObject::ToString(Signal sig, bool exprFlag)
+String StructObject::ToString(bool exprFlag)
 {
+	Signal sig;
 	bool evaluatedFlag = false;
 	Value value = EvalMethod(*this, sig, Gura_Symbol(__str__),
 											ValueList::Null, evaluatedFlag);
-	if (evaluatedFlag) return value.ToString(sig, false);
+	if (sig.IsSignalled()) return "";
+	if (evaluatedFlag) return value.ToString(false);
 	String str;
 	str += _pClass->GetName();
 	str += "(";
@@ -41,7 +43,7 @@ String StructObject::ToString(Signal sig, bool exprFlag)
 		if (pValue == NULL) {
 			str += "nil";
 		} else {
-			str += pValue->ToString(sig, true);
+			str += pValue->ToString(true);
 		}
 	}
 	str += ")";

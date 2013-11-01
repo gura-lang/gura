@@ -25,7 +25,7 @@ public:
 						Iterator(false), _pObj(pObj), _res(res), _iTuple(0) {}
 		virtual ~IteratorTuple();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString(Signal sig) const;
+		virtual String ToString() const;
 	};
 private:
     PGconn *_conn;
@@ -35,7 +35,7 @@ public:
 	Object_postgresql();
 	virtual ~Object_postgresql();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	bool Connect(Signal sig, const char *pghost, const char *pgport,
 		const char *pgoptions, const char *pgtty, const char *dbName, const char *login, const char *pwd);
 	void Close();

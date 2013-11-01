@@ -131,7 +131,7 @@ Object *Object_wx_DatagramSocket::Clone() const
 	return NULL;
 }
 
-String Object_wx_DatagramSocket::ToString(Signal sig, bool exprFlag)
+String Object_wx_DatagramSocket::ToString(bool exprFlag)
 {
 	String rtn("<wx.DatagramSocket:");
 	if (GetEntity() == NULL) {

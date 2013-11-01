@@ -933,7 +933,7 @@ bool Matrix::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
 	return true;
 }
 
-String Matrix::IteratorEach::ToString(Signal sig) const
+String Matrix::IteratorEach::ToString() const
 {
 	return String("matrix#each");
 }
@@ -962,7 +962,7 @@ bool Matrix::IteratorEachRow::DoNext(Environment &env, Signal sig, Value &value)
 	return true;
 }
 
-String Matrix::IteratorEachRow::ToString(Signal sig) const
+String Matrix::IteratorEachRow::ToString() const
 {
 	return String("matrix#eachrow");
 }
@@ -991,7 +991,7 @@ bool Matrix::IteratorEachCol::DoNext(Environment &env, Signal sig, Value &value)
 	return true;
 }
 
-String Matrix::IteratorEachCol::ToString(Signal sig) const
+String Matrix::IteratorEachCol::ToString() const
 {
 	return String("matrix#eachcol");
 }

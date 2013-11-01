@@ -18,7 +18,7 @@ public:
 						Object(Gura_UserClass(path)), _path(path) {}
 	virtual ~Object_path();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline cairo_path_t *GetEntity() { return _path; }
 };
 

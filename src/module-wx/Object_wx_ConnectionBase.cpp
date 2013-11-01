@@ -51,7 +51,7 @@ Object *Object_wx_ConnectionBase::Clone() const
 	return NULL;
 }
 
-String Object_wx_ConnectionBase::ToString(Signal sig, bool exprFlag)
+String Object_wx_ConnectionBase::ToString(bool exprFlag)
 {
 	String rtn("<wx.ConnectionBase:");
 	if (GetEntity() == NULL) {

@@ -990,7 +990,7 @@ Object *Object_wx_TextCtrl::Clone() const
 	return NULL;
 }
 
-String Object_wx_TextCtrl::ToString(Signal sig, bool exprFlag)
+String Object_wx_TextCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.TextCtrl:");
 	if (GetEntity() == NULL) {

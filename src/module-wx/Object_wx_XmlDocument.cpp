@@ -405,7 +405,7 @@ Object *Object_wx_XmlDocument::Clone() const
 	return NULL;
 }
 
-String Object_wx_XmlDocument::ToString(Signal sig, bool exprFlag)
+String Object_wx_XmlDocument::ToString(bool exprFlag)
 {
 	String rtn("<wx.XmlDocument:");
 	if (GetEntity() == NULL) {

@@ -222,7 +222,7 @@ Object *Object_wx_PickerBase::Clone() const
 	return NULL;
 }
 
-String Object_wx_PickerBase::ToString(Signal sig, bool exprFlag)
+String Object_wx_PickerBase::ToString(bool exprFlag)
 {
 	String rtn("<wx.PickerBase:");
 	if (GetEntity() == NULL) {

@@ -180,7 +180,7 @@ Object *Object_wx_DocChildFrame::Clone() const
 	return NULL;
 }
 
-String Object_wx_DocChildFrame::ToString(Signal sig, bool exprFlag)
+String Object_wx_DocChildFrame::ToString(bool exprFlag)
 {
 	String rtn("<wx.DocChildFrame:");
 	if (GetEntity() == NULL) {

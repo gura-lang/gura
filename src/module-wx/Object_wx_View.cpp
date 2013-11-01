@@ -359,7 +359,7 @@ Object *Object_wx_View::Clone() const
 	return NULL;
 }
 
-String Object_wx_View::ToString(Signal sig, bool exprFlag)
+String Object_wx_View::ToString(bool exprFlag)
 {
 	String rtn("<wx.View:");
 	if (GetEntity() == NULL) {

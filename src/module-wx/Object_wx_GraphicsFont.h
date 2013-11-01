@@ -25,7 +25,7 @@ public:
 				Object_wx_GraphicsObject(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_GraphicsFont();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxGraphicsFont *GetEntity() {
 		return dynamic_cast<wxGraphicsFont *>(_pEntity);
 	}

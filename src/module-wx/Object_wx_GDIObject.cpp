@@ -70,7 +70,7 @@ Object *Object_wx_GDIObject::Clone() const
 	return NULL;
 }
 
-String Object_wx_GDIObject::ToString(Signal sig, bool exprFlag)
+String Object_wx_GDIObject::ToString(bool exprFlag)
 {
 	String rtn("<wx.GDIObject:");
 	if (GetEntity() == NULL) {

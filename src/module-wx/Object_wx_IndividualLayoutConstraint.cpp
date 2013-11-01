@@ -249,7 +249,7 @@ Object *Object_wx_IndividualLayoutConstraint::Clone() const
 	return NULL;
 }
 
-String Object_wx_IndividualLayoutConstraint::ToString(Signal sig, bool exprFlag)
+String Object_wx_IndividualLayoutConstraint::ToString(bool exprFlag)
 {
 	String rtn("<wx.IndividualLayoutConstraint:");
 	if (GetEntity() == NULL) {

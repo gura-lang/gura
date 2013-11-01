@@ -25,7 +25,7 @@ public:
 				Object_wx_Window(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_ActiveXContainer();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxActiveXContainer *GetEntity() {
 		return dynamic_cast<wxActiveXContainer *>(_pEntity);
 	}

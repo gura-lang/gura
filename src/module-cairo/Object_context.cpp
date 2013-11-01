@@ -35,7 +35,7 @@ Value Object_context::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 	return Value::Null;
 }
 
-String Object_context::ToString(Signal sig, bool exprFlag)
+String Object_context::ToString(bool exprFlag)
 {
 	String str;
 	str += "<cairo.context:";

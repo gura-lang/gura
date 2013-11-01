@@ -25,7 +25,7 @@ public:
 				Object_wx_RichTextParagraphStyleDefinition(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_RichTextListStyleDefinition();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxRichTextListStyleDefinition *GetEntity() {
 		return dynamic_cast<wxRichTextListStyleDefinition *>(_pEntity);
 	}

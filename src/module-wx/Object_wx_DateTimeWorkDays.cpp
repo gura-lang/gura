@@ -51,7 +51,7 @@ Object *Object_wx_DateTimeWorkDays::Clone() const
 	return NULL;
 }
 
-String Object_wx_DateTimeWorkDays::ToString(Signal sig, bool exprFlag)
+String Object_wx_DateTimeWorkDays::ToString(bool exprFlag)
 {
 	String rtn("<wx.DateTimeWorkDays:");
 	if (GetEntity() == NULL) {

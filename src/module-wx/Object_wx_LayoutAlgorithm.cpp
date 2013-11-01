@@ -127,7 +127,7 @@ Object *Object_wx_LayoutAlgorithm::Clone() const
 	return NULL;
 }
 
-String Object_wx_LayoutAlgorithm::ToString(Signal sig, bool exprFlag)
+String Object_wx_LayoutAlgorithm::ToString(bool exprFlag)
 {
 	String rtn("<wx.LayoutAlgorithm:");
 	if (GetEntity() == NULL) {

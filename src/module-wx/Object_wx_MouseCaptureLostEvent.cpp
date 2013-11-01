@@ -73,7 +73,7 @@ Object *Object_wx_MouseCaptureLostEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_MouseCaptureLostEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_MouseCaptureLostEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.MouseCaptureLostEvent:");
 	if (GetEntity() == NULL) {

@@ -25,7 +25,7 @@ public:
 				Object_wx_URI(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_URL();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxURL *GetEntity() {
 		return dynamic_cast<wxURL *>(_pEntity);
 	}

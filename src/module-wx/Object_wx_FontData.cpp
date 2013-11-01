@@ -261,7 +261,7 @@ Object *Object_wx_FontData::Clone() const
 	return NULL;
 }
 
-String Object_wx_FontData::ToString(Signal sig, bool exprFlag)
+String Object_wx_FontData::ToString(bool exprFlag)
 {
 	String rtn("<wx.FontData:");
 	if (GetEntity() == NULL) {

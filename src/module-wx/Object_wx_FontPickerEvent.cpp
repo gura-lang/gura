@@ -105,7 +105,7 @@ Object *Object_wx_FontPickerEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_FontPickerEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_FontPickerEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.FontPickerEvent:");
 	if (GetEntity() == NULL) {

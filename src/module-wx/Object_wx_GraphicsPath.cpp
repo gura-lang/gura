@@ -508,7 +508,7 @@ Object *Object_wx_GraphicsPath::Clone() const
 	return NULL;
 }
 
-String Object_wx_GraphicsPath::ToString(Signal sig, bool exprFlag)
+String Object_wx_GraphicsPath::ToString(bool exprFlag)
 {
 	String rtn("<wx.GraphicsPath:");
 	if (GetEntity() == NULL) {

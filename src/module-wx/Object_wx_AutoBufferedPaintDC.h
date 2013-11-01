@@ -25,7 +25,7 @@ public:
 				Object_wx_DC(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_AutoBufferedPaintDC();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxAutoBufferedPaintDC *GetEntity() {
 		return dynamic_cast<wxAutoBufferedPaintDC *>(_pEntity);
 	}

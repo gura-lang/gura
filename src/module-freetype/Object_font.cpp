@@ -108,11 +108,11 @@ Value Object_font::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	return Value::Null;
 }
 
-String Object_font::ToString(Signal sig, bool exprFlag)
+String Object_font::ToString(bool exprFlag)
 {
 	String str;
 	str = "<freetype.font:";
-	str += _pObjFace->ToString(sig, false);
+	str += _pObjFace->ToString(false);
 	str += ">";
 	return str;
 }

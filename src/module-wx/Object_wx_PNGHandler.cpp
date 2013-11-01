@@ -71,7 +71,7 @@ Object *Object_wx_PNGHandler::Clone() const
 	return NULL;
 }
 
-String Object_wx_PNGHandler::ToString(Signal sig, bool exprFlag)
+String Object_wx_PNGHandler::ToString(bool exprFlag)
 {
 	String rtn("<wx.PNGHandler:");
 	if (GetEntity() == NULL) {

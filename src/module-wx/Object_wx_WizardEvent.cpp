@@ -107,7 +107,7 @@ Object *Object_wx_WizardEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_WizardEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_WizardEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.WizardEvent:");
 	if (GetEntity() == NULL) {

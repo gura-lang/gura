@@ -451,7 +451,7 @@ public:
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	Header &GetHeader() { return _header; }
 };
 
@@ -475,7 +475,7 @@ public:
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	bool SendResponse(Signal sig,
 		const char *statusCode, const char *reasonPhrase, Stream *pStreamBody,
 		const char *httpVersion, const ValueDict &valueDict);
@@ -504,7 +504,7 @@ public:
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline Object_client *GetClientObj() { return _pObjClient.get(); }
 };
 
@@ -541,7 +541,7 @@ public:
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline bool IsValid() const { return _sock > 0; }
 	inline int GetSocket() const { return _sock; }
 	inline Request &GetRequest() { return _request; }
@@ -575,7 +575,7 @@ public:
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	bool Prepare(Signal sig, const char *addr, short port);
 	Object_request *Wait(Signal sig);
 };
@@ -604,7 +604,7 @@ public:
 			_pStreamHttp(NULL), _sock(-1), _port(0), _portProxy(0) {}
 	virtual ~Object_client();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	bool Prepare(Signal sig, const char *addr, short port,
 					const char *addrProxy, short portProxy,
 					const char *userIdProxy, const char *passwordProxy);
@@ -639,7 +639,7 @@ public:
 		_userId(userId), _password(password), _pFuncCriteria(pFuncCriteria) {}
 	virtual ~Object_proxy();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline const char *GetAddr() const { return _addr.c_str(); }
 	inline short GetPort() const { return _port; }
 	inline const char *GetUserId() const { return _userId.c_str(); }

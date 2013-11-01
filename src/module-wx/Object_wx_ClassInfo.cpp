@@ -232,7 +232,7 @@ Object *Object_wx_ClassInfo::Clone() const
 	return NULL;
 }
 
-String Object_wx_ClassInfo::ToString(Signal sig, bool exprFlag)
+String Object_wx_ClassInfo::ToString(bool exprFlag)
 {
 	String rtn("<wx.ClassInfo:");
 	if (GetEntity() == NULL) {

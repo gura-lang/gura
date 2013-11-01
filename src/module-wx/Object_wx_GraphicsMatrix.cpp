@@ -278,7 +278,7 @@ Object *Object_wx_GraphicsMatrix::Clone() const
 	return NULL;
 }
 
-String Object_wx_GraphicsMatrix::ToString(Signal sig, bool exprFlag)
+String Object_wx_GraphicsMatrix::ToString(bool exprFlag)
 {
 	String rtn("<wx.GraphicsMatrix:");
 	if (GetEntity() == NULL) {

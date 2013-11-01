@@ -15,7 +15,7 @@ Object *Object_path::Clone() const
 	return NULL;
 }
 
-String Object_path::ToString(Signal sig, bool exprFlag)
+String Object_path::ToString(bool exprFlag)
 {
 	return String("<cairo.path>");
 }

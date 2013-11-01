@@ -927,7 +927,7 @@ void Parser::EvalConsoleChar(Environment &env, Signal sig,
 				Expr::Delete(pExpr);
 			} else {
 				if (env.GetGlobal()->GetEchoFlag() && result.IsValid()) {
-					pConsole->Println(sig, result.ToString(sig).c_str());
+					pConsole->Println(sig, result.ToString().c_str());
 				}
 				exprOwner.push_back(pExpr);
 			}

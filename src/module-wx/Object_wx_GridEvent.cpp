@@ -238,7 +238,7 @@ Object *Object_wx_GridEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_GridEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_GridEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.GridEvent:");
 	if (GetEntity() == NULL) {

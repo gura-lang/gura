@@ -90,7 +90,7 @@ Object *Object_wx_MouseCaptureChangedEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_MouseCaptureChangedEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_MouseCaptureChangedEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.MouseCaptureChangedEvent:");
 	if (GetEntity() == NULL) {

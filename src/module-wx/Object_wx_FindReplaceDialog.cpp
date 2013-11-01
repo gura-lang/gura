@@ -141,7 +141,7 @@ Object *Object_wx_FindReplaceDialog::Clone() const
 	return NULL;
 }
 
-String Object_wx_FindReplaceDialog::ToString(Signal sig, bool exprFlag)
+String Object_wx_FindReplaceDialog::ToString(bool exprFlag)
 {
 	String rtn("<wx.FindReplaceDialog:");
 	if (GetEntity() == NULL) {

@@ -271,7 +271,7 @@ Object *Object_wx_HashSet::Clone() const
 	return NULL;
 }
 
-String Object_wx_HashSet::ToString(Signal sig, bool exprFlag)
+String Object_wx_HashSet::ToString(bool exprFlag)
 {
 	String rtn("<wx.HashSet:");
 	if (GetEntity() == NULL) {

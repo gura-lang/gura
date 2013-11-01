@@ -100,7 +100,7 @@ Iterator *Object_binary::CreateIterator(Signal sig)
 	return new IteratorByte(Object_binary::Reference(this), -1);
 }
 
-String Object_binary::ToString(Signal sig, bool exprFlag)
+String Object_binary::ToString(bool exprFlag)
 {
 	String str;
 	char buff[64];
@@ -155,7 +155,7 @@ bool Object_binary::IteratorByte::DoNext(Environment &env, Signal sig, Value &va
 	return true;
 }
 
-String Object_binary::IteratorByte::ToString(Signal sig) const
+String Object_binary::IteratorByte::ToString() const
 {
 	return String("binary#byte");
 }
@@ -192,7 +192,7 @@ bool Object_binary::IteratorUnpack::DoNext(Environment &env, Signal sig, Value &
 	return value.IsValid();
 }
 
-String Object_binary::IteratorUnpack::ToString(Signal sig) const
+String Object_binary::IteratorUnpack::ToString() const
 {
 	return String("binary#unpacks");
 }

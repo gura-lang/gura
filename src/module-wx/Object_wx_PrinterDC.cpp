@@ -121,7 +121,7 @@ Object *Object_wx_PrinterDC::Clone() const
 	return NULL;
 }
 
-String Object_wx_PrinterDC::ToString(Signal sig, bool exprFlag)
+String Object_wx_PrinterDC::ToString(bool exprFlag)
 {
 	String rtn("<wx.PrinterDC:");
 	if (GetEntity() == NULL) {

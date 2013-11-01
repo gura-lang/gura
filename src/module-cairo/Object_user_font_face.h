@@ -16,7 +16,7 @@ public:
 public:
 	inline Object_user_font_face(cairo_font_face_t *font_face) :
 										Object_font_face(font_face) {}
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 public:
 	static cairo_status_t init_func(cairo_scaled_font_t *scaled_font,
 			cairo_t *cr, cairo_font_extents_t *extents);

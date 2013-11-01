@@ -50,7 +50,7 @@ public:
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 						const SymbolSet &attrs, bool &evaluatedFlag);
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	bool Read(Environment &env, Signal sig, Stream &stream, Image::Format format);
 	bool Write(Environment &env, Signal sig, Stream &stream);
 	void AddImage(const Value &value);

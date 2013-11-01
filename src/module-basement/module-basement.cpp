@@ -1006,7 +1006,7 @@ Gura_DeclareFunction(tostring)
 
 Gura_ImplementFunction(tostring)
 {
-	return Value(env, args.GetValue(0).ToString(sig, false).c_str());
+	return Value(env, args.GetValue(0).ToString(false).c_str());
 }
 
 // tonumber(value):map:[strict,raise,zero,nil]
@@ -1164,7 +1164,7 @@ Gura_ImplementFunction(print)
 	Stream *pConsole = env.GetConsole();
 	if (pConsole == NULL) return Value::Null;
 	foreach_const (ValueList, pValue, args.GetList(0)) {
-		pConsole->Print(sig, pValue->ToString(sig, false).c_str());
+		pConsole->Print(sig, pValue->ToString(false).c_str());
 		if (sig.IsSignalled()) break;
 	}
 	return Value::Null;
@@ -1185,7 +1185,7 @@ Gura_ImplementFunction(println)
 	Stream *pConsole = env.GetConsole();
 	if (pConsole == NULL) return Value::Null;
 	foreach_const (ValueList, pValue, args.GetList(0)) {
-		pConsole->Print(sig, pValue->ToString(sig, false).c_str());
+		pConsole->Print(sig, pValue->ToString(false).c_str());
 		if (sig.IsSignalled()) break;
 	}
 	pConsole->Print(sig, "\n");
@@ -1340,7 +1340,7 @@ Gura_ImplementFunction(help)
 {
 	Object_function *pFuncObj = Object_function::GetObject(args, 0);
 	const Symbol *pSymbol = args.IsSymbol(1)? args.GetSymbol(1) : NULL;
-	HelpPresenter::Present(env, sig, pFuncObj->ToString(sig, true).c_str(),
+	HelpPresenter::Present(env, sig, pFuncObj->ToString(true).c_str(),
 									pFuncObj->GetFunction()->GetHelp(pSymbol));
 	return Value::Null;
 }

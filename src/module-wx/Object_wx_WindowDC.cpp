@@ -72,7 +72,7 @@ Object *Object_wx_WindowDC::Clone() const
 	return NULL;
 }
 
-String Object_wx_WindowDC::ToString(Signal sig, bool exprFlag)
+String Object_wx_WindowDC::ToString(bool exprFlag)
 {
 	String rtn("<wx.WindowDC:");
 	if (GetEntity() == NULL) {

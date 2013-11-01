@@ -198,7 +198,7 @@ bool Object_uri::Parse(Signal sig, const char *str)
 	return true;
 }
 
-String Object_uri::ToString(Signal sig, bool exprFlag)
+String Object_uri::ToString(bool exprFlag)
 {
 	String rtn;
 	if (!_scheme.empty()) {

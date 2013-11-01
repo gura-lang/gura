@@ -867,7 +867,7 @@ Object *Object_wx_ComboCtrl::Clone() const
 	return NULL;
 }
 
-String Object_wx_ComboCtrl::ToString(Signal sig, bool exprFlag)
+String Object_wx_ComboCtrl::ToString(bool exprFlag)
 {
 	String rtn("<wx.ComboCtrl:");
 	if (GetEntity() == NULL) {

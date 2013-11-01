@@ -102,7 +102,7 @@ public:
 	virtual ~Iterator_FromStream();
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
-	virtual String ToString(Signal sig) const;
+	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	int DoRead(unsigned char *buffer, size_t size, size_t *length);
 	static int ReadHandler(void *ext, unsigned char *buffer,
@@ -122,7 +122,7 @@ public:
 	virtual ~Iterator_FromString();
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
-	virtual String ToString(Signal sig) const;
+	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 };
 

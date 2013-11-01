@@ -284,7 +284,7 @@ Object *Object_wx_ArchiveEntry::Clone() const
 	return NULL;
 }
 
-String Object_wx_ArchiveEntry::ToString(Signal sig, bool exprFlag)
+String Object_wx_ArchiveEntry::ToString(bool exprFlag)
 {
 	String rtn("<wx.ArchiveEntry:");
 	if (GetEntity() == NULL) {

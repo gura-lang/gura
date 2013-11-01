@@ -113,7 +113,7 @@ Object *Object_wx_BoxSizer::Clone() const
 	return NULL;
 }
 
-String Object_wx_BoxSizer::ToString(Signal sig, bool exprFlag)
+String Object_wx_BoxSizer::ToString(bool exprFlag)
 {
 	String rtn("<wx.BoxSizer:");
 	if (GetEntity() == NULL) {

@@ -25,7 +25,7 @@ public:
 				Object_wx_PropertySheetDialog(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_RichTextFormattingDialog();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxRichTextFormattingDialog *GetEntity() {
 		return dynamic_cast<wxRichTextFormattingDialog *>(_pEntity);
 	}

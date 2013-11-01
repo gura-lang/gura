@@ -71,7 +71,7 @@ Object *Object_wx_LogStderr::Clone() const
 	return NULL;
 }
 
-String Object_wx_LogStderr::ToString(Signal sig, bool exprFlag)
+String Object_wx_LogStderr::ToString(bool exprFlag)
 {
 	String rtn("<wx.LogStderr:");
 	if (GetEntity() == NULL) {

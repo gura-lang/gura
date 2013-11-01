@@ -391,7 +391,7 @@ Object *Object_wx_RichTextHeaderFooterData::Clone() const
 	return NULL;
 }
 
-String Object_wx_RichTextHeaderFooterData::ToString(Signal sig, bool exprFlag)
+String Object_wx_RichTextHeaderFooterData::ToString(bool exprFlag)
 {
 	String rtn("<wx.RichTextHeaderFooterData:");
 	if (GetEntity() == NULL) {

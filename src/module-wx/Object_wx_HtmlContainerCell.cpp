@@ -323,7 +323,7 @@ Object *Object_wx_HtmlContainerCell::Clone() const
 	return NULL;
 }
 
-String Object_wx_HtmlContainerCell::ToString(Signal sig, bool exprFlag)
+String Object_wx_HtmlContainerCell::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlContainerCell:");
 	if (GetEntity() == NULL) {

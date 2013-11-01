@@ -142,7 +142,7 @@ Object *Object_wx_IdleEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_IdleEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_IdleEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.IdleEvent:");
 	if (GetEntity() == NULL) {

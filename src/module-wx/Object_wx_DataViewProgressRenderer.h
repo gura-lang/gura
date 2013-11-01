@@ -25,7 +25,7 @@ public:
 				Object_wx_DataViewRenderer(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_DataViewProgressRenderer();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxDataViewProgressRenderer *GetEntity() {
 		return dynamic_cast<wxDataViewProgressRenderer *>(_pEntity);
 	}

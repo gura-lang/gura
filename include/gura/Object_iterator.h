@@ -30,7 +30,7 @@ public:
 	virtual ~Object_iterator();
 	virtual Object *Clone() const;
 	virtual Iterator *CreateIterator(Signal sig);
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	inline Iterator *GetIterator() const { return _pIterator; }
 };

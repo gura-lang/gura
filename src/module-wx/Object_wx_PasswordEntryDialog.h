@@ -25,7 +25,7 @@ public:
 				Object_wx_TextEntryDialog(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_PasswordEntryDialog();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxPasswordEntryDialog *GetEntity() {
 		return dynamic_cast<wxPasswordEntryDialog *>(_pEntity);
 	}

@@ -19,7 +19,7 @@ Object *Object_operator::Clone() const
 	return new Object_operator(*this);
 }
 
-String Object_operator::ToString(Signal sig, bool exprFlag)
+String Object_operator::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<operator:";

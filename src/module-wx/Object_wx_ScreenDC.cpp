@@ -117,7 +117,7 @@ Object *Object_wx_ScreenDC::Clone() const
 	return NULL;
 }
 
-String Object_wx_ScreenDC::ToString(Signal sig, bool exprFlag)
+String Object_wx_ScreenDC::ToString(bool exprFlag)
 {
 	String rtn("<wx.ScreenDC:");
 	if (GetEntity() == NULL) {

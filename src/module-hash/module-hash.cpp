@@ -62,7 +62,7 @@ Value Object_hash::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	return Value::Null;
 }
 
-String Object_hash::ToString(Signal sig, bool exprFlag)
+String Object_hash::ToString(bool exprFlag)
 {
 	String str = "<hash:";
 	str += _name;

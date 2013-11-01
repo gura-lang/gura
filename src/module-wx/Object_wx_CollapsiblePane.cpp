@@ -197,7 +197,7 @@ Object *Object_wx_CollapsiblePane::Clone() const
 	return NULL;
 }
 
-String Object_wx_CollapsiblePane::ToString(Signal sig, bool exprFlag)
+String Object_wx_CollapsiblePane::ToString(bool exprFlag)
 {
 	String rtn("<wx.CollapsiblePane:");
 	if (GetEntity() == NULL) {

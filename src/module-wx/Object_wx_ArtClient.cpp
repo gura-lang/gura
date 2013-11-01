@@ -51,7 +51,7 @@ Object *Object_wx_ArtClient::Clone() const
 	return NULL;
 }
 
-String Object_wx_ArtClient::ToString(Signal sig, bool exprFlag)
+String Object_wx_ArtClient::ToString(bool exprFlag)
 {
 	String rtn("<wx.ArtClient:");
 	if (GetEntity() == NULL) {

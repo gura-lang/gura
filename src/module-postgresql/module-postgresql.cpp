@@ -23,7 +23,7 @@ Object *Object_postgresql::Clone() const
 	return NULL;
 }
 
-String Object_postgresql::ToString(Signal sig, bool exprFlag)
+String Object_postgresql::ToString(bool exprFlag)
 {
 	String str;
 	str += "<postgresql";
@@ -91,7 +91,7 @@ bool Object_postgresql::IteratorTuple::DoNext(Environment &env, Signal sig, Valu
 	return true;
 }
 
-String Object_postgresql::IteratorTuple::ToString(Signal sig) const
+String Object_postgresql::IteratorTuple::ToString() const
 {
 	return String("<iterator:postgresql#tuple>");
 }

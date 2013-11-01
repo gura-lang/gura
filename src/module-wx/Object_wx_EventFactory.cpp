@@ -48,7 +48,7 @@ Object *Object_wx_EventFactory::Clone() const
 	return new Object_wx_EventFactory(*this);
 }
 
-String Object_wx_EventFactory::ToString(Signal sig, bool exprFlag)
+String Object_wx_EventFactory::ToString(bool exprFlag)
 {
 	String rtn("<wx.EventFactory:");
 	rtn += GetName();

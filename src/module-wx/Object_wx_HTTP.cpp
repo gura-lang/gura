@@ -110,7 +110,7 @@ Object *Object_wx_HTTP::Clone() const
 	return NULL;
 }
 
-String Object_wx_HTTP::ToString(Signal sig, bool exprFlag)
+String Object_wx_HTTP::ToString(bool exprFlag)
 {
 	String rtn("<wx.HTTP:");
 	if (GetEntity() == NULL) {

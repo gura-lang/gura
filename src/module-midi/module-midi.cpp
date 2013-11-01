@@ -344,7 +344,7 @@ Value Object_event::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	return Value::Null;
 }
 
-String Object_event::ToString(Signal sig, bool exprFlag)
+String Object_event::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<midi.event:";
@@ -401,7 +401,7 @@ Value Object_track::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	return Value::Null;
 }
 
-String Object_track::ToString(Signal sig, bool exprFlag)
+String Object_track::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<midi.track";
@@ -1119,7 +1119,7 @@ Value Object_sequence::DoSetProp(Environment &env, Signal sig, const Symbol *pSy
 	return Value::Null;
 }
 
-String Object_sequence::ToString(Signal sig, bool exprFlag)
+String Object_sequence::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<midi.sequence";
@@ -1324,7 +1324,7 @@ Value Object_portinfo::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 	return Value::Null;
 }
 
-String Object_portinfo::ToString(Signal sig, bool exprFlag)
+String Object_portinfo::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<midi.portinfo:";
@@ -1371,7 +1371,7 @@ Value Object_port::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	return Value::Null;
 }
 
-String Object_port::ToString(Signal sig, bool exprFlag)
+String Object_port::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<midi.port:";
@@ -1729,7 +1729,7 @@ Value Object_player::DoSetProp(Environment &env, Signal sig, const Symbol *pSymb
 	return Value::Null;
 }
 
-String Object_player::ToString(Signal sig, bool exprFlag)
+String Object_player::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<midi.player";
@@ -1777,7 +1777,7 @@ Value Object_controller::DoGetProp(Environment &env, Signal sig, const Symbol *p
 	return Value::Null;
 }
 
-String Object_controller::ToString(Signal sig, bool exprFlag)
+String Object_controller::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<midi.controller:";
@@ -1829,7 +1829,7 @@ Value Object_program::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 	return Value::Null;
 }
 
-String Object_program::ToString(Signal sig, bool exprFlag)
+String Object_program::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<midi.program:";
@@ -1885,7 +1885,7 @@ Value Object_soundfont::DoGetProp(Environment &env, Signal sig, const Symbol *pS
 	return Value::Null;
 }
 
-String Object_soundfont::ToString(Signal sig, bool exprFlag)
+String Object_soundfont::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<midi.soundfont";
@@ -1975,7 +1975,7 @@ Value Object_synthesizer::DoGetProp(Environment &env, Signal sig, const Symbol *
 	return Value::Null;
 }
 
-String Object_synthesizer::ToString(Signal sig, bool exprFlag)
+String Object_synthesizer::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<midi.synthesizer";
@@ -2017,7 +2017,7 @@ bool Iterator_track::DoNext(Environment &env, Signal sig, Value &value)
 	return false;
 }
 
-String Iterator_track::ToString(Signal sig) const
+String Iterator_track::ToString() const
 {
 	String rtn;
 	rtn += "<iterator:midi.track";
@@ -2056,7 +2056,7 @@ bool Iterator_eventAll::DoNext(Environment &env, Signal sig, Value &value)
 	return false;
 }
 
-String Iterator_eventAll::ToString(Signal sig) const
+String Iterator_eventAll::ToString() const
 {
 	String rtn;
 	rtn += "<iterator:midi.event_all";
@@ -2091,7 +2091,7 @@ bool Iterator_event::DoNext(Environment &env, Signal sig, Value &value)
 	return false;
 }
 
-String Iterator_event::ToString(Signal sig) const
+String Iterator_event::ToString() const
 {
 	String rtn;
 	rtn += "<iterator:midi.event";

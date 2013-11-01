@@ -100,7 +100,7 @@ Object *Object_wx_RealPoint::Clone() const
 	return NULL;
 }
 
-String Object_wx_RealPoint::ToString(Signal sig, bool exprFlag)
+String Object_wx_RealPoint::ToString(bool exprFlag)
 {
 	String rtn("<wx.RealPoint:");
 	if (GetEntity() == NULL) {

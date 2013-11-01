@@ -25,7 +25,7 @@ public:
 				Object_wx_VListBox(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_HtmlListBox();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxHtmlListBox *GetEntity() {
 		return dynamic_cast<wxHtmlListBox *>(_pEntity);
 	}

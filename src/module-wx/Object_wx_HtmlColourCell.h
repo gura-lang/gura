@@ -25,7 +25,7 @@ public:
 				Object_wx_HtmlCell(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_HtmlColourCell();
 	virtual Object *Clone() const;
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	inline wxHtmlColourCell *GetEntity() {
 		return dynamic_cast<wxHtmlColourCell *>(_pEntity);
 	}

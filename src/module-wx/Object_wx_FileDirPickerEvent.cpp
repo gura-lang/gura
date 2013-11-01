@@ -107,7 +107,7 @@ Object *Object_wx_FileDirPickerEvent::Clone() const
 	return NULL;
 }
 
-String Object_wx_FileDirPickerEvent::ToString(Signal sig, bool exprFlag)
+String Object_wx_FileDirPickerEvent::ToString(bool exprFlag)
 {
 	String rtn("<wx.FileDirPickerEvent:");
 	if (GetEntity() == NULL) {

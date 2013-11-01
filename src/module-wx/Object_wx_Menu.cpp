@@ -827,7 +827,7 @@ Object *Object_wx_Menu::Clone() const
 	return NULL;
 }
 
-String Object_wx_Menu::ToString(Signal sig, bool exprFlag)
+String Object_wx_Menu::ToString(bool exprFlag)
 {
 	String rtn("<wx.Menu:");
 	if (GetEntity() == NULL) {

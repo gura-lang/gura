@@ -154,7 +154,7 @@ Object *Object_wx_HtmlLinkInfo::Clone() const
 	return NULL;
 }
 
-String Object_wx_HtmlLinkInfo::ToString(Signal sig, bool exprFlag)
+String Object_wx_HtmlLinkInfo::ToString(bool exprFlag)
 {
 	String rtn("<wx.HtmlLinkInfo:");
 	if (GetEntity() == NULL) {

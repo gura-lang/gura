@@ -33,7 +33,7 @@ public:
 	virtual Value EmptyIndexGet(Environment &env, Signal sig);
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);
 	virtual void IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value);
-	virtual String ToString(Signal sig, bool exprFlag);
+	virtual String ToString(bool exprFlag);
 	Matrix *GetMatrix() { return _pMat.get(); }
 	const Matrix *GetMatrix() const { return _pMat.get(); }
 };

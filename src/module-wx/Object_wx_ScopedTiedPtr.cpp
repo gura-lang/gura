@@ -70,7 +70,7 @@ Object *Object_wx_ScopedTiedPtr::Clone() const
 	return NULL;
 }
 
-String Object_wx_ScopedTiedPtr::ToString(Signal sig, bool exprFlag)
+String Object_wx_ScopedTiedPtr::ToString(bool exprFlag)
 {
 	String rtn("<wx.ScopedTiedPtr:");
 	if (GetEntity() == NULL) {

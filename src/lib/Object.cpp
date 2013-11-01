@@ -173,13 +173,14 @@ Value Object::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, con
 	return value;
 }
 
-String Object::ToString(Signal sig, bool exprFlag)
+String Object::ToString(bool exprFlag)
 {
+	Signal sig;
 	bool evaluatedFlag = false;
 	Value value = EvalMethod(*this, sig, Gura_Symbol(__str__),
 											ValueList::Null, evaluatedFlag);
 	if (sig.IsSignalled()) return String("");
-	if (evaluatedFlag) return value.ToString(sig, false);
+	if (evaluatedFlag) return value.ToString(false);
 	String str;
 	str += "<";
 	str += _pClass->GetName();
