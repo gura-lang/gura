@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "Object_tag.h"
-#include "Object_ifd.h"
+#include "Class_tag.h"
+#include "Class_ifd.h"
 
 Gura_BeginModuleScope(jpeg)
 

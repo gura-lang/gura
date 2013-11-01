@@ -1,7 +1,7 @@
 #ifndef __GURA_OBJECT_MATRIX_H__
 #define __GURA_OBJECT_MATRIX_H__
 
-#include "Object_list.h"
+#include "Class_list.h"
 
 namespace Gura {
 

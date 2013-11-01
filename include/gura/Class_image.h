@@ -2,7 +2,7 @@
 #define __GURA_OBJECT_IMAGE_H__
 
 #include "Object.h"
-#include "Object_palette.h"
+#include "Class_palette.h"
 
 namespace Gura {
 

@@ -2,7 +2,7 @@
 #define __JPEG_OBJECT_EXIF_H__
 #include <gura.h>
 #include "module-jpeg.h"
-#include "Object_ifd.h"
+#include "Class_ifd.h"
 
 Gura_BeginModuleScope(jpeg)
 

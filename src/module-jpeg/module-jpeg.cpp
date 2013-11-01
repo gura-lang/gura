@@ -2,7 +2,7 @@
 // Gura jpeg module
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
-#include "Object_exif.h"
+#include "Class_exif.h"
 
 Gura_BeginModuleBody(jpeg)
 

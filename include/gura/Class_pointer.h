@@ -1,7 +1,7 @@
 #ifndef __GURA_OBJECT_POINTER_H__
 #define __GURA_OBJECT_POINTER_H__
 
-#include "Object_binary.h"
+#include "Class_binary.h"
 
 namespace Gura {
 

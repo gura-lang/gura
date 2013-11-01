@@ -2,7 +2,7 @@
 // Reference: http://www.exif.org/
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
-#include "Object_exif.h"
+#include "Class_exif.h"
 
 Gura_BeginModuleScope(jpeg)
 

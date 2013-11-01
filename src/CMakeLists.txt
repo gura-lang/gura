@@ -89,6 +89,31 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Audio.h
   ${GURA_INCLUDE_DIR}/gura/Binary.h
   ${GURA_INCLUDE_DIR}/gura/Class.h
+  ${GURA_INCLUDE_DIR}/gura/Class_args.h
+  ${GURA_INCLUDE_DIR}/gura/Class_audio.h
+  ${GURA_INCLUDE_DIR}/gura/Class_binary.h
+  ${GURA_INCLUDE_DIR}/gura/Class_codec.h
+  ${GURA_INCLUDE_DIR}/gura/Class_color.h
+  ${GURA_INCLUDE_DIR}/gura/Class_datetime.h
+  ${GURA_INCLUDE_DIR}/gura/Class_declaration.h
+  ${GURA_INCLUDE_DIR}/gura/Class_dict.h
+  ${GURA_INCLUDE_DIR}/gura/Class_directory.h
+  ${GURA_INCLUDE_DIR}/gura/Class_environment.h
+  ${GURA_INCLUDE_DIR}/gura/Class_error.h
+  ${GURA_INCLUDE_DIR}/gura/Class_expr.h
+  ${GURA_INCLUDE_DIR}/gura/Class_function.h
+  ${GURA_INCLUDE_DIR}/gura/Class_help.h
+  ${GURA_INCLUDE_DIR}/gura/Class_image.h
+  ${GURA_INCLUDE_DIR}/gura/Class_iterator.h
+  ${GURA_INCLUDE_DIR}/gura/Class_list.h
+  ${GURA_INCLUDE_DIR}/gura/Class_matrix.h
+  ${GURA_INCLUDE_DIR}/gura/Class_operator.h
+  ${GURA_INCLUDE_DIR}/gura/Class_palette.h
+  ${GURA_INCLUDE_DIR}/gura/Class_pointer.h
+  ${GURA_INCLUDE_DIR}/gura/Class_semaphore.h
+  ${GURA_INCLUDE_DIR}/gura/Class_stream.h
+  ${GURA_INCLUDE_DIR}/gura/Class_timedelta.h
+  ${GURA_INCLUDE_DIR}/gura/Class_uri.h
   ${GURA_INCLUDE_DIR}/gura/ClassBasic.h
   ${GURA_INCLUDE_DIR}/gura/Codec.h
   ${GURA_INCLUDE_DIR}/gura/Common.h
@@ -112,31 +137,6 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Module.h
   ${GURA_INCLUDE_DIR}/gura/OAL.h
   ${GURA_INCLUDE_DIR}/gura/Object.h
-  ${GURA_INCLUDE_DIR}/gura/Object_args.h
-  ${GURA_INCLUDE_DIR}/gura/Object_audio.h
-  ${GURA_INCLUDE_DIR}/gura/Object_binary.h
-  ${GURA_INCLUDE_DIR}/gura/Object_codec.h
-  ${GURA_INCLUDE_DIR}/gura/Object_color.h
-  ${GURA_INCLUDE_DIR}/gura/Object_datetime.h
-  ${GURA_INCLUDE_DIR}/gura/Object_declaration.h
-  ${GURA_INCLUDE_DIR}/gura/Object_dict.h
-  ${GURA_INCLUDE_DIR}/gura/Object_directory.h
-  ${GURA_INCLUDE_DIR}/gura/Object_environment.h
-  ${GURA_INCLUDE_DIR}/gura/Object_error.h
-  ${GURA_INCLUDE_DIR}/gura/Object_expr.h
-  ${GURA_INCLUDE_DIR}/gura/Object_function.h
-  ${GURA_INCLUDE_DIR}/gura/Object_help.h
-  ${GURA_INCLUDE_DIR}/gura/Object_image.h
-  ${GURA_INCLUDE_DIR}/gura/Object_iterator.h
-  ${GURA_INCLUDE_DIR}/gura/Object_list.h
-  ${GURA_INCLUDE_DIR}/gura/Object_matrix.h
-  ${GURA_INCLUDE_DIR}/gura/Object_operator.h
-  ${GURA_INCLUDE_DIR}/gura/Object_palette.h
-  ${GURA_INCLUDE_DIR}/gura/Object_pointer.h
-  ${GURA_INCLUDE_DIR}/gura/Object_semaphore.h
-  ${GURA_INCLUDE_DIR}/gura/Object_stream.h
-  ${GURA_INCLUDE_DIR}/gura/Object_timedelta.h
-  ${GURA_INCLUDE_DIR}/gura/Object_uri.h
   ${GURA_INCLUDE_DIR}/gura/ObjectOfStruct.h
   ${GURA_INCLUDE_DIR}/gura/Operator.h
   ${GURA_INCLUDE_DIR}/gura/Option.h
