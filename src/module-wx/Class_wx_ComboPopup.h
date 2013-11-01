@@ -2,8 +2,8 @@
 // wxComboPopup
 // extracted from combopopup.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_COMBOPOPUP_H__
-#define __OBJECT_WX_COMBOPOPUP_H__
+#ifndef __CLASS_WX_COMBOPOPUP_H__
+#define __CLASS_WX_COMBOPOPUP_H__
 
 Gura_BeginModuleScope(wx)
 

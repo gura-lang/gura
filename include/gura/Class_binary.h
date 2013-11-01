@@ -1,5 +1,5 @@
-#ifndef __GURA_OBJECT_BINARY_H__
-#define __GURA_OBJECT_BINARY_H__
+#ifndef __GURA_CLASS_BINARY_H__
+#define __GURA_CLASS_BINARY_H__
 
 #include "Class.h"
 

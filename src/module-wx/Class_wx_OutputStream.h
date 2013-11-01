@@ -2,8 +2,8 @@
 // wxOutputStream
 // extracted from outptstr.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_OUTPUTSTREAM_H__
-#define __OBJECT_WX_OUTPUTSTREAM_H__
+#ifndef __CLASS_WX_OUTPUTSTREAM_H__
+#define __CLASS_WX_OUTPUTSTREAM_H__
 
 Gura_BeginModuleScope(wx)
 

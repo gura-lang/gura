@@ -2,8 +2,8 @@
 // wxRichTextFormattingDialog
 // extracted from richtextformattingdialog.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_RICHTEXTFORMATTINGDIALOG_H__
-#define __OBJECT_WX_RICHTEXTFORMATTINGDIALOG_H__
+#ifndef __CLASS_WX_RICHTEXTFORMATTINGDIALOG_H__
+#define __CLASS_WX_RICHTEXTFORMATTINGDIALOG_H__
 
 Gura_BeginModuleScope(wx)
 

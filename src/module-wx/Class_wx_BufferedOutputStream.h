@@ -2,8 +2,8 @@
 // wxBufferedOutputStream
 // extracted from strmbfrd.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_BUFFEREDOUTPUTSTREAM_H__
-#define __OBJECT_WX_BUFFEREDOUTPUTSTREAM_H__
+#ifndef __CLASS_WX_BUFFEREDOUTPUTSTREAM_H__
+#define __CLASS_WX_BUFFEREDOUTPUTSTREAM_H__
 
 Gura_BeginModuleScope(wx)
 

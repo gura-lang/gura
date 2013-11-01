@@ -2,8 +2,8 @@
 // wxWizardPageSimple
 // extracted from wizpage.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_WIZARDPAGESIMPLE_H__
-#define __OBJECT_WX_WIZARDPAGESIMPLE_H__
+#ifndef __CLASS_WX_WIZARDPAGESIMPLE_H__
+#define __CLASS_WX_WIZARDPAGESIMPLE_H__
 
 Gura_BeginModuleScope(wx)
 

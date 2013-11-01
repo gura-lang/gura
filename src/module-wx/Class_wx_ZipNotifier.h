@@ -2,8 +2,8 @@
 // wxZipNotifier
 // extracted from zipstrm.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_ZIPNOTIFIER_H__
-#define __OBJECT_WX_ZIPNOTIFIER_H__
+#ifndef __CLASS_WX_ZIPNOTIFIER_H__
+#define __CLASS_WX_ZIPNOTIFIER_H__
 
 Gura_BeginModuleScope(wx)
 

@@ -1,5 +1,5 @@
-#ifndef __CAIRO_OBJECT_WIN32_FONT_FACE_H__
-#define __CAIRO_OBJECT_WIN32_FONT_FACE_H__
+#ifndef __CAIRO_CLASS_WIN32_FONT_FACE_H__
+#define __CAIRO_CLASS_WIN32_FONT_FACE_H__
 
 Gura_BeginModuleScope(cairo)
 

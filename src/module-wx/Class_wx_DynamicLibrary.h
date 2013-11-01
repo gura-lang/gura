@@ -2,8 +2,8 @@
 // wxDynamicLibrary
 // extracted from dynlib.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_DYNAMICLIBRARY_H__
-#define __OBJECT_WX_DYNAMICLIBRARY_H__
+#ifndef __CLASS_WX_DYNAMICLIBRARY_H__
+#define __CLASS_WX_DYNAMICLIBRARY_H__
 
 Gura_BeginModuleScope(wx)
 

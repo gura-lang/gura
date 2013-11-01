@@ -2,8 +2,8 @@
 // wxMutex
 // extracted from mutex.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_MUTEX_H__
-#define __OBJECT_WX_MUTEX_H__
+#ifndef __CLASS_WX_MUTEX_H__
+#define __CLASS_WX_MUTEX_H__
 
 Gura_BeginModuleScope(wx)
 

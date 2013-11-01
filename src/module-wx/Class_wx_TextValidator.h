@@ -2,8 +2,8 @@
 // wxTextValidator
 // extracted from valtext.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_TEXTVALIDATOR_H__
-#define __OBJECT_WX_TEXTVALIDATOR_H__
+#ifndef __CLASS_WX_TEXTVALIDATOR_H__
+#define __CLASS_WX_TEXTVALIDATOR_H__
 
 Gura_BeginModuleScope(wx)
 

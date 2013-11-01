@@ -2,8 +2,8 @@
 // wxDocTemplate
 // extracted from doctempl.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_DOCTEMPLATE_H__
-#define __OBJECT_WX_DOCTEMPLATE_H__
+#ifndef __CLASS_WX_DOCTEMPLATE_H__
+#define __CLASS_WX_DOCTEMPLATE_H__
 
 Gura_BeginModuleScope(wx)
 

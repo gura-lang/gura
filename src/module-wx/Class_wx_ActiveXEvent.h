@@ -2,8 +2,8 @@
 // wxActiveXEvent
 // extracted from activexevt.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_ACTIVEXEVENT_H__
-#define __OBJECT_WX_ACTIVEXEVENT_H__
+#ifndef __CLASS_WX_ACTIVEXEVENT_H__
+#define __CLASS_WX_ACTIVEXEVENT_H__
 
 Gura_BeginModuleScope(wx)
 

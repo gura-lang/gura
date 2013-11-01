@@ -2,8 +2,8 @@
 // wxRichTextImageBlock
 // (automatically generated)
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_RICHTEXTIMAGEBLOCK_H__
-#define __OBJECT_WX_RICHTEXTIMAGEBLOCK_H__
+#ifndef __CLASS_WX_RICHTEXTIMAGEBLOCK_H__
+#define __CLASS_WX_RICHTEXTIMAGEBLOCK_H__
 
 Gura_BeginModuleScope(wx)
 

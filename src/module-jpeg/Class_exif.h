@@ -1,5 +1,5 @@
-#ifndef __JPEG_OBJECT_EXIF_H__
-#define __JPEG_OBJECT_EXIF_H__
+#ifndef __JPEG_CLASS_EXIF_H__
+#define __JPEG_CLASS_EXIF_H__
 #include <gura.h>
 #include "module-jpeg.h"
 #include "Class_ifd.h"

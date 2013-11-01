@@ -2,8 +2,8 @@
 // wxHtmlHelpFrame
 // extracted from hthlpfrm.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_HTMLHELPFRAME_H__
-#define __OBJECT_WX_HTMLHELPFRAME_H__
+#ifndef __CLASS_WX_HTMLHELPFRAME_H__
+#define __CLASS_WX_HTMLHELPFRAME_H__
 
 Gura_BeginModuleScope(wx)
 

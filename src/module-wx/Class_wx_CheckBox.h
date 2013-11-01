@@ -2,8 +2,8 @@
 // wxCheckBox
 // extracted from checkbox.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_CHECKBOX_H__
-#define __OBJECT_WX_CHECKBOX_H__
+#ifndef __CLASS_WX_CHECKBOX_H__
+#define __CLASS_WX_CHECKBOX_H__
 
 Gura_BeginModuleScope(wx)
 

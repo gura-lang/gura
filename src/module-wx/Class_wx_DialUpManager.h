@@ -2,8 +2,8 @@
 // wxDialUpManager
 // extracted from dialup.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_DIALUPMANAGER_H__
-#define __OBJECT_WX_DIALUPMANAGER_H__
+#ifndef __CLASS_WX_DIALUPMANAGER_H__
+#define __CLASS_WX_DIALUPMANAGER_H__
 
 Gura_BeginModuleScope(wx)
 

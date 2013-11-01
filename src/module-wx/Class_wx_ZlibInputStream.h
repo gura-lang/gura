@@ -2,8 +2,8 @@
 // wxZlibInputStream
 // hand-coded
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_ZLIBINPUTSTREAM_H__
-#define __OBJECT_WX_ZLIBINPUTSTREAM_H__
+#ifndef __CLASS_WX_ZLIBINPUTSTREAM_H__
+#define __CLASS_WX_ZLIBINPUTSTREAM_H__
 
 Gura_BeginModuleScope(wx)
 

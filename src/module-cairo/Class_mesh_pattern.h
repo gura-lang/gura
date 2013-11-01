@@ -1,5 +1,5 @@
-#ifndef __CAIRO_OBJECT_MESH_PATTERN_H__
-#define __CAIRO_OBJECT_MESH_PATTERN_H__
+#ifndef __CAIRO_CLASS_MESH_PATTERN_H__
+#define __CAIRO_CLASS_MESH_PATTERN_H__
 
 Gura_BeginModuleScope(cairo)
 

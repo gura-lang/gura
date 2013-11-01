@@ -2,8 +2,8 @@
 // wxFileStream
 // extracted from filestrm.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_FILESTREAM_H__
-#define __OBJECT_WX_FILESTREAM_H__
+#ifndef __CLASS_WX_FILESTREAM_H__
+#define __CLASS_WX_FILESTREAM_H__
 
 Gura_BeginModuleScope(wx)
 

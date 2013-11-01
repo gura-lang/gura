@@ -2,8 +2,8 @@
 // wxDirDialog
 // extracted from dirdlg.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_DIRDIALOG_H__
-#define __OBJECT_WX_DIRDIALOG_H__
+#ifndef __CLASS_WX_DIRDIALOG_H__
+#define __CLASS_WX_DIRDIALOG_H__
 
 Gura_BeginModuleScope(wx)
 

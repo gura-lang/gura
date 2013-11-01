@@ -2,8 +2,8 @@
 // wxDataObjectSimple
 // extracted from dobjsmpl.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_DATAOBJECTSIMPLE_H__
-#define __OBJECT_WX_DATAOBJECTSIMPLE_H__
+#ifndef __CLASS_WX_DATAOBJECTSIMPLE_H__
+#define __CLASS_WX_DATAOBJECTSIMPLE_H__
 
 Gura_BeginModuleScope(wx)
 

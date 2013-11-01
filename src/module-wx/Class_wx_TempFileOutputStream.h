@@ -2,8 +2,8 @@
 // wxTempFileOutputStream
 // extracted from tempfilestrm.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_TEMPFILEOUTPUTSTREAM_H__
-#define __OBJECT_WX_TEMPFILEOUTPUTSTREAM_H__
+#ifndef __CLASS_WX_TEMPFILEOUTPUTSTREAM_H__
+#define __CLASS_WX_TEMPFILEOUTPUTSTREAM_H__
 
 Gura_BeginModuleScope(wx)
 

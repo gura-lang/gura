@@ -2,8 +2,8 @@
 // wxDirTraverser
 // extracted from dirtrav.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_DIRTRAVERSER_H__
-#define __OBJECT_WX_DIRTRAVERSER_H__
+#ifndef __CLASS_WX_DIRTRAVERSER_H__
+#define __CLASS_WX_DIRTRAVERSER_H__
 
 Gura_BeginModuleScope(wx)
 

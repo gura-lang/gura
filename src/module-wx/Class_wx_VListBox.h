@@ -2,8 +2,8 @@
 // wxVListBox
 // extracted from vlbox.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_VLISTBOX_H__
-#define __OBJECT_WX_VLISTBOX_H__
+#ifndef __CLASS_WX_VLISTBOX_H__
+#define __CLASS_WX_VLISTBOX_H__
 
 Gura_BeginModuleScope(wx)
 

@@ -1,5 +1,5 @@
-#ifndef __CAIRO_OBJECT_PATH_H__
-#define __CAIRO_OBJECT_PATH_H__
+#ifndef __CAIRO_CLASS_PATH_H__
+#define __CAIRO_CLASS_PATH_H__
 
 Gura_BeginModuleScope(cairo)
 

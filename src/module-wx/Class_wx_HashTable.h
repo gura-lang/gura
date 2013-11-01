@@ -2,8 +2,8 @@
 // wxHashTable
 // extracted from hash.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_HASHTABLE_H__
-#define __OBJECT_WX_HASHTABLE_H__
+#ifndef __CLASS_WX_HASHTABLE_H__
+#define __CLASS_WX_HASHTABLE_H__
 
 Gura_BeginModuleScope(wx)
 

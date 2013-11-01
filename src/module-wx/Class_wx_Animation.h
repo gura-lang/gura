@@ -2,8 +2,8 @@
 // wxAnimation
 // extracted from animation.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_ANIMATION_H__
-#define __OBJECT_WX_ANIMATION_H__
+#ifndef __CLASS_WX_ANIMATION_H__
+#define __CLASS_WX_ANIMATION_H__
 
 Gura_BeginModuleScope(wx)
 

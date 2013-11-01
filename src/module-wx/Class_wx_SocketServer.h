@@ -2,8 +2,8 @@
 // wxSocketServer
 // extracted from socksrv.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_SOCKETSERVER_H__
-#define __OBJECT_WX_SOCKETSERVER_H__
+#ifndef __CLASS_WX_SOCKETSERVER_H__
+#define __CLASS_WX_SOCKETSERVER_H__
 
 Gura_BeginModuleScope(wx)
 

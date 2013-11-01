@@ -2,8 +2,8 @@
 // wxImage
 // extracted from image.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_IMAGE_H__
-#define __OBJECT_WX_IMAGE_H__
+#ifndef __CLASS_WX_IMAGE_H__
+#define __CLASS_WX_IMAGE_H__
 
 Gura_BeginModuleScope(wx)
 

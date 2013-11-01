@@ -2,8 +2,8 @@
 // wxFTP
 // extracted from ftp.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_FTP_H__
-#define __OBJECT_WX_FTP_H__
+#ifndef __CLASS_WX_FTP_H__
+#define __CLASS_WX_FTP_H__
 
 Gura_BeginModuleScope(wx)
 

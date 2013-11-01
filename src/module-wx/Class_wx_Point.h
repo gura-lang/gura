@@ -2,8 +2,8 @@
 // wxPoint
 // extracted from point.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_POINT_H__
-#define __OBJECT_WX_POINT_H__
+#ifndef __CLASS_WX_POINT_H__
+#define __CLASS_WX_POINT_H__
 
 Gura_BeginModuleScope(wx)
 

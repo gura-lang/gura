@@ -2,8 +2,8 @@
 // wxXmlDocument
 // extracted from xmldocument.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_XMLDOCUMENT_H__
-#define __OBJECT_WX_XMLDOCUMENT_H__
+#ifndef __CLASS_WX_XMLDOCUMENT_H__
+#define __CLASS_WX_XMLDOCUMENT_H__
 
 Gura_BeginModuleScope(wx)
 

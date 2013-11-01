@@ -2,8 +2,8 @@
 // wxDataViewListModelNotifier
 // extracted from dataviewlistmodelnotifier.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_DATAVIEWLISTMODELNOTIFIER_H__
-#define __OBJECT_WX_DATAVIEWLISTMODELNOTIFIER_H__
+#ifndef __CLASS_WX_DATAVIEWLISTMODELNOTIFIER_H__
+#define __CLASS_WX_DATAVIEWLISTMODELNOTIFIER_H__
 
 Gura_BeginModuleScope(wx)
 

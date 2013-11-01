@@ -2,8 +2,8 @@
 // wxClipboard
 // extracted from clipbrd.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_CLIPBOARD_H__
-#define __OBJECT_WX_CLIPBOARD_H__
+#ifndef __CLASS_WX_CLIPBOARD_H__
+#define __CLASS_WX_CLIPBOARD_H__
 
 Gura_BeginModuleScope(wx)
 

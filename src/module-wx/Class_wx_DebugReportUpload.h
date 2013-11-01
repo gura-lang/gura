@@ -2,8 +2,8 @@
 // wxDebugReportUpload
 // extracted from debugrptup.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_DEBUGREPORTUPLOAD_H__
-#define __OBJECT_WX_DEBUGREPORTUPLOAD_H__
+#ifndef __CLASS_WX_DEBUGREPORTUPLOAD_H__
+#define __CLASS_WX_DEBUGREPORTUPLOAD_H__
 
 Gura_BeginModuleScope(wx)
 

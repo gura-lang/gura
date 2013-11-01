@@ -2,8 +2,8 @@
 // wxTempFile
 // extracted from tempfile.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_TEMPFILE_H__
-#define __OBJECT_WX_TEMPFILE_H__
+#ifndef __CLASS_WX_TEMPFILE_H__
+#define __CLASS_WX_TEMPFILE_H__
 
 Gura_BeginModuleScope(wx)
 

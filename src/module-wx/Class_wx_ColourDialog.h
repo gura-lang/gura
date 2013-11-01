@@ -2,8 +2,8 @@
 // wxColourDialog
 // extracted from colordlg.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_COLOURDIALOG_H__
-#define __OBJECT_WX_COLOURDIALOG_H__
+#ifndef __CLASS_WX_COLOURDIALOG_H__
+#define __CLASS_WX_COLOURDIALOG_H__
 
 Gura_BeginModuleScope(wx)
 

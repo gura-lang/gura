@@ -2,8 +2,8 @@
 // wxStringBuffer
 // extracted from wxstring.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_STRINGBUFFER_H__
-#define __OBJECT_WX_STRINGBUFFER_H__
+#ifndef __CLASS_WX_STRINGBUFFER_H__
+#define __CLASS_WX_STRINGBUFFER_H__
 
 Gura_BeginModuleScope(wx)
 

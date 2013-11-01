@@ -2,8 +2,8 @@
 // wxTextFile
 // extracted from textfile.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_TEXTFILE_H__
-#define __OBJECT_WX_TEXTFILE_H__
+#ifndef __CLASS_WX_TEXTFILE_H__
+#define __CLASS_WX_TEXTFILE_H__
 
 Gura_BeginModuleScope(wx)
 

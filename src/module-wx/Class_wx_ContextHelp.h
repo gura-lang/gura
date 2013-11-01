@@ -2,8 +2,8 @@
 // wxContextHelp
 // extracted from cshelp.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_CONTEXTHELP_H__
-#define __OBJECT_WX_CONTEXTHELP_H__
+#ifndef __CLASS_WX_CONTEXTHELP_H__
+#define __CLASS_WX_CONTEXTHELP_H__
 
 Gura_BeginModuleScope(wx)
 

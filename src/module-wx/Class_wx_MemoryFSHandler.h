@@ -2,8 +2,8 @@
 // wxMemoryFSHandler
 // extracted from fs_mem.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_MEMORYFSHANDLER_H__
-#define __OBJECT_WX_MEMORYFSHANDLER_H__
+#ifndef __CLASS_WX_MEMORYFSHANDLER_H__
+#define __CLASS_WX_MEMORYFSHANDLER_H__
 
 Gura_BeginModuleScope(wx)
 

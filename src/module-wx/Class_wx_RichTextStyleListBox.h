@@ -2,8 +2,8 @@
 // wxRichTextStyleListBox
 // extracted from richtextstylelistbox.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_RICHTEXTSTYLELISTBOX_H__
-#define __OBJECT_WX_RICHTEXTSTYLELISTBOX_H__
+#ifndef __CLASS_WX_RICHTEXTSTYLELISTBOX_H__
+#define __CLASS_WX_RICHTEXTSTYLELISTBOX_H__
 
 Gura_BeginModuleScope(wx)
 

@@ -2,8 +2,8 @@
 // wxTreebook
 // extracted from treebook.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_TREEBOOK_H__
-#define __OBJECT_WX_TREEBOOK_H__
+#ifndef __CLASS_WX_TREEBOOK_H__
+#define __CLASS_WX_TREEBOOK_H__
 
 Gura_BeginModuleScope(wx)
 

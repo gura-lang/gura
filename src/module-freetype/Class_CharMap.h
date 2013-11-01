@@ -1,5 +1,5 @@
-#ifndef __FREETYPE_OBJECT_CHARMAP_H__
-#define __FREETYPE_OBJECT_CHARMAP_H__
+#ifndef __FREETYPE_CLASS_CHARMAP_H__
+#define __FREETYPE_CLASS_CHARMAP_H__
 
 Gura_BeginModuleScope(freetype)
 

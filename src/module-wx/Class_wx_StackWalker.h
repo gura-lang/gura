@@ -2,8 +2,8 @@
 // wxStackWalker
 // extracted from stackwalker.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_STACKWALKER_H__
-#define __OBJECT_WX_STACKWALKER_H__
+#ifndef __CLASS_WX_STACKWALKER_H__
+#define __CLASS_WX_STACKWALKER_H__
 
 Gura_BeginModuleScope(wx)
 

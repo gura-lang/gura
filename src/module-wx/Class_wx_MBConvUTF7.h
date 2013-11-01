@@ -2,8 +2,8 @@
 // wxMBConvUTF7
 // extracted from mbcnvut7.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_MBCONVUTF7_H__
-#define __OBJECT_WX_MBCONVUTF7_H__
+#ifndef __CLASS_WX_MBCONVUTF7_H__
+#define __CLASS_WX_MBCONVUTF7_H__
 
 Gura_BeginModuleScope(wx)
 

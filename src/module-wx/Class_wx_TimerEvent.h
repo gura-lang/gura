@@ -2,8 +2,8 @@
 // wxTimerEvent
 // extracted from timer.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_TIMEREVENT_H__
-#define __OBJECT_WX_TIMEREVENT_H__
+#ifndef __CLASS_WX_TIMEREVENT_H__
+#define __CLASS_WX_TIMEREVENT_H__
 
 Gura_BeginModuleScope(wx)
 

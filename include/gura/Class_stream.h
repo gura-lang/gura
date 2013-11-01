@@ -1,5 +1,5 @@
-#ifndef __GURA_OBJECT_STREAM_H__
-#define __GURA_OBJECT_STREAM_H__
+#ifndef __GURA_CLASS_STREAM_H__
+#define __GURA_CLASS_STREAM_H__
 
 #include "Class.h"
 #include "Stream.h"

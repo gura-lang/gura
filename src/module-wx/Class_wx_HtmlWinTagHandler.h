@@ -2,8 +2,8 @@
 // wxHtmlWinTagHandler
 // extracted from htwinhnd.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_HTMLWINTAGHANDLER_H__
-#define __OBJECT_WX_HTMLWINTAGHANDLER_H__
+#ifndef __CLASS_WX_HTMLWINTAGHANDLER_H__
+#define __CLASS_WX_HTMLWINTAGHANDLER_H__
 
 Gura_BeginModuleScope(wx)
 

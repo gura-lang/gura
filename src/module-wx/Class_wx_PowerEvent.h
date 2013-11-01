@@ -2,8 +2,8 @@
 // wxPowerEvent
 // extracted from powerevt.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_POWEREVENT_H__
-#define __OBJECT_WX_POWEREVENT_H__
+#ifndef __CLASS_WX_POWEREVENT_H__
+#define __CLASS_WX_POWEREVENT_H__
 
 Gura_BeginModuleScope(wx)
 

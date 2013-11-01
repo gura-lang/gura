@@ -1,5 +1,5 @@
-#ifndef __FREETYPE_OBJECT_RASTER_H__
-#define __FREETYPE_OBJECT_RASTER_H__
+#ifndef __FREETYPE_CLASS_RASTER_H__
+#define __FREETYPE_CLASS_RASTER_H__
 
 Gura_BeginModuleScope(freetype)
 

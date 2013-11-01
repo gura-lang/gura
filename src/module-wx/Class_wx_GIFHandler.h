@@ -1,8 +1,8 @@
 //----------------------------------------------------------------------------
 // wxGIFHandler
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_GIFHANDLER_H__
-#define __OBJECT_WX_GIFHANDLER_H__
+#ifndef __CLASS_WX_GIFHANDLER_H__
+#define __CLASS_WX_GIFHANDLER_H__
 
 Gura_BeginModuleScope(wx)
 

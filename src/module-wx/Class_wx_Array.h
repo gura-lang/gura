@@ -2,8 +2,8 @@
 // wxArray
 // extracted from array.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_ARRAY_H__
-#define __OBJECT_WX_ARRAY_H__
+#ifndef __CLASS_WX_ARRAY_H__
+#define __CLASS_WX_ARRAY_H__
 
 Gura_BeginModuleScope(wx)
 

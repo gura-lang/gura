@@ -1,5 +1,5 @@
-#ifndef __GURA_OBJECT_IMAGE_H__
-#define __GURA_OBJECT_IMAGE_H__
+#ifndef __GURA_CLASS_IMAGE_H__
+#define __GURA_CLASS_IMAGE_H__
 
 #include "Class.h"
 #include "Class_palette.h"

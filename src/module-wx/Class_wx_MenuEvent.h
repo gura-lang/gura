@@ -2,8 +2,8 @@
 // wxMenuEvent
 // extracted from menuevt.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_MENUEVENT_H__
-#define __OBJECT_WX_MENUEVENT_H__
+#ifndef __CLASS_WX_MENUEVENT_H__
+#define __CLASS_WX_MENUEVENT_H__
 
 Gura_BeginModuleScope(wx)
 

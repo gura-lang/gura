@@ -2,8 +2,8 @@
 // wxDebugReportPreview
 // extracted from debugrptpvw.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_DEBUGREPORTPREVIEW_H__
-#define __OBJECT_WX_DEBUGREPORTPREVIEW_H__
+#ifndef __CLASS_WX_DEBUGREPORTPREVIEW_H__
+#define __CLASS_WX_DEBUGREPORTPREVIEW_H__
 
 Gura_BeginModuleScope(wx)
 

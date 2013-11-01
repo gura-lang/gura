@@ -2,8 +2,8 @@
 // wxSearchCtrl
 // extracted from srchctrl.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_SEARCHCTRL_H__
-#define __OBJECT_WX_SEARCHCTRL_H__
+#ifndef __CLASS_WX_SEARCHCTRL_H__
+#define __CLASS_WX_SEARCHCTRL_H__
 
 Gura_BeginModuleScope(wx)
 

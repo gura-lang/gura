@@ -2,8 +2,8 @@
 // wxJoystick
 // extracted from joystick.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_JOYSTICK_H__
-#define __OBJECT_WX_JOYSTICK_H__
+#ifndef __CLASS_WX_JOYSTICK_H__
+#define __CLASS_WX_JOYSTICK_H__
 
 Gura_BeginModuleScope(wx)
 

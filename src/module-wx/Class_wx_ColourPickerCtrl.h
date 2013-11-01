@@ -2,8 +2,8 @@
 // wxColourPickerCtrl
 // extracted from clrpicker.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_COLOURPICKERCTRL_H__
-#define __OBJECT_WX_COLOURPICKERCTRL_H__
+#ifndef __CLASS_WX_COLOURPICKERCTRL_H__
+#define __CLASS_WX_COLOURPICKERCTRL_H__
 
 Gura_BeginModuleScope(wx)
 

@@ -2,8 +2,8 @@
 // wxMBConvFile
 // extracted from mbcnvfil.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_MBCONVFILE_H__
-#define __OBJECT_WX_MBCONVFILE_H__
+#ifndef __CLASS_WX_MBCONVFILE_H__
+#define __CLASS_WX_MBCONVFILE_H__
 
 Gura_BeginModuleScope(wx)
 

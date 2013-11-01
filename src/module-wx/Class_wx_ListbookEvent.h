@@ -2,8 +2,8 @@
 // wxListbookEvent
 // (hand-coded)
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_LISTBOOKEVENT_H__
-#define __OBJECT_WX_LISTBOOKEVENT_H__
+#ifndef __CLASS_WX_LISTBOOKEVENT_H__
+#define __CLASS_WX_LISTBOOKEVENT_H__
 
 Gura_BeginModuleScope(wx)
 

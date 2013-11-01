@@ -2,8 +2,8 @@
 // wxRegion
 // extracted from region.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_REGION_H__
-#define __OBJECT_WX_REGION_H__
+#ifndef __CLASS_WX_REGION_H__
+#define __CLASS_WX_REGION_H__
 
 Gura_BeginModuleScope(wx)
 

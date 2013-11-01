@@ -1,8 +1,8 @@
 //----------------------------------------------------------------------------
 // wxEventFactory
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_EVENTFACTORY_H__
-#define __OBJECT_WX_EVENTFACTORY_H__
+#ifndef __CLASS_WX_EVENTFACTORY_H__
+#define __CLASS_WX_EVENTFACTORY_H__
 
 #define Gura_AssignWxEvent(type, name, className) do { \
 	Object_wx_EventFactory *pObjEventFactory = \

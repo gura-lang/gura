@@ -2,8 +2,8 @@
 // wxStaticBox
 // extracted from statbox.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_STATICBOX_H__
-#define __OBJECT_WX_STATICBOX_H__
+#ifndef __CLASS_WX_STATICBOX_H__
+#define __CLASS_WX_STATICBOX_H__
 
 Gura_BeginModuleScope(wx)
 

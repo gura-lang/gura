@@ -2,8 +2,8 @@
 // wxArchiveClassFactory
 // extracted from archive.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_ARCHIVECLASSFACTORY_H__
-#define __OBJECT_WX_ARCHIVECLASSFACTORY_H__
+#ifndef __CLASS_WX_ARCHIVECLASSFACTORY_H__
+#define __CLASS_WX_ARCHIVECLASSFACTORY_H__
 
 Gura_BeginModuleScope(wx)
 

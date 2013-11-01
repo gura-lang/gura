@@ -1,5 +1,5 @@
-#ifndef __GURA_OBJECT_DATETIME_H__
-#define __GURA_OBJECT_DATETIME_H__
+#ifndef __GURA_CLASS_DATETIME_H__
+#define __GURA_CLASS_DATETIME_H__
 
 #include "Class.h"
 #include "Environment.h"

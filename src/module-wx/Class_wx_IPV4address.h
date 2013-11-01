@@ -2,8 +2,8 @@
 // wxIPV4address
 // extracted from ipvaddr.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_IPV4ADDRESS_H__
-#define __OBJECT_WX_IPV4ADDRESS_H__
+#ifndef __CLASS_WX_IPV4ADDRESS_H__
+#define __CLASS_WX_IPV4ADDRESS_H__
 
 Gura_BeginModuleScope(wx)
 

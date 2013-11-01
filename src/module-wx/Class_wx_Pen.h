@@ -2,8 +2,8 @@
 // wxPen
 // extracted from pen.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_PEN_H__
-#define __OBJECT_WX_PEN_H__
+#ifndef __CLASS_WX_PEN_H__
+#define __CLASS_WX_PEN_H__
 
 Gura_BeginModuleScope(wx)
 

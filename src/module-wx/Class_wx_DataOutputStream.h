@@ -2,8 +2,8 @@
 // wxDataOutputStream
 // extracted from datostrm.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_DATAOUTPUTSTREAM_H__
-#define __OBJECT_WX_DATAOUTPUTSTREAM_H__
+#ifndef __CLASS_WX_DATAOUTPUTSTREAM_H__
+#define __CLASS_WX_DATAOUTPUTSTREAM_H__
 
 Gura_BeginModuleScope(wx)
 

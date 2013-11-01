@@ -1,5 +1,5 @@
-#ifndef __OBJECT_CAIRO_CONTEXT_H__
-#define __OBJECT_CAIRO_CONTEXT_H__
+#ifndef __CLASS_CAIRO_CONTEXT_H__
+#define __CLASS_CAIRO_CONTEXT_H__
 
 Gura_BeginModuleScope(cairo)
 

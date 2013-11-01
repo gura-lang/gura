@@ -2,8 +2,8 @@
 // wxPrinter
 // extracted from print.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_PRINTER_H__
-#define __OBJECT_WX_PRINTER_H__
+#ifndef __CLASS_WX_PRINTER_H__
+#define __CLASS_WX_PRINTER_H__
 
 Gura_BeginModuleScope(wx)
 

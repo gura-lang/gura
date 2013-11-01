@@ -1,5 +1,5 @@
-#ifndef __JPEG_OBJECT_TAG_H__
-#define __JPEG_OBJECT_TAG_H__
+#ifndef __JPEG_CLASS_TAG_H__
+#define __JPEG_CLASS_TAG_H__
 #include <gura.h>
 
 Gura_BeginModuleScope(jpeg)

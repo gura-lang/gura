@@ -2,8 +2,8 @@
 // wxFilterClassFactory
 // extracted from fltfactory.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_FILTERCLASSFACTORY_H__
-#define __OBJECT_WX_FILTERCLASSFACTORY_H__
+#ifndef __CLASS_WX_FILTERCLASSFACTORY_H__
+#define __CLASS_WX_FILTERCLASSFACTORY_H__
 
 Gura_BeginModuleScope(wx)
 

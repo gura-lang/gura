@@ -2,8 +2,8 @@
 // wxContextMenuEvent
 // extracted from cntxtevt.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_CONTEXTMENUEVENT_H__
-#define __OBJECT_WX_CONTEXTMENUEVENT_H__
+#ifndef __CLASS_WX_CONTEXTMENUEVENT_H__
+#define __CLASS_WX_CONTEXTMENUEVENT_H__
 
 Gura_BeginModuleScope(wx)
 

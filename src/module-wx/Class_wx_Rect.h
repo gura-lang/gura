@@ -2,8 +2,8 @@
 // wxRect
 // extracted from rect.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_RECT_H__
-#define __OBJECT_WX_RECT_H__
+#ifndef __CLASS_WX_RECT_H__
+#define __CLASS_WX_RECT_H__
 
 Gura_BeginModuleScope(wx)
 

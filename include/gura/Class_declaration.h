@@ -1,5 +1,5 @@
-#ifndef __GURA_OBJECT_DECLARATION_H__
-#define __GURA_OBJECT_DECLARATION_H__
+#ifndef __GURA_CLASS_DECLARATION_H__
+#define __GURA_CLASS_DECLARATION_H__
 
 #include "Class.h"
 

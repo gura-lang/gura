@@ -2,8 +2,8 @@
 // wxHyperlinkCtrl
 // extracted from hyperlink.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_HYPERLINKCTRL_H__
-#define __OBJECT_WX_HYPERLINKCTRL_H__
+#ifndef __CLASS_WX_HYPERLINKCTRL_H__
+#define __CLASS_WX_HYPERLINKCTRL_H__
 
 Gura_BeginModuleScope(wx)
 

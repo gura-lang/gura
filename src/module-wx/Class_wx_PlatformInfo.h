@@ -2,8 +2,8 @@
 // wxPlatformInfo
 // extracted from platinfo.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_PLATFORMINFO_H__
-#define __OBJECT_WX_PLATFORMINFO_H__
+#ifndef __CLASS_WX_PLATFORMINFO_H__
+#define __CLASS_WX_PLATFORMINFO_H__
 
 Gura_BeginModuleScope(wx)
 

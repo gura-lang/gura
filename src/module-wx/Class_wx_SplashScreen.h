@@ -2,8 +2,8 @@
 // wxSplashScreen
 // extracted from splash.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_SPLASHSCREEN_H__
-#define __OBJECT_WX_SPLASHSCREEN_H__
+#ifndef __CLASS_WX_SPLASHSCREEN_H__
+#define __CLASS_WX_SPLASHSCREEN_H__
 
 Gura_BeginModuleScope(wx)
 

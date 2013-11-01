@@ -1,5 +1,5 @@
-#ifndef __FREETYPE_OBJECT_VECTOR_H__
-#define __FREETYPE_OBJECT_VECTOR_H__
+#ifndef __FREETYPE_CLASS_VECTOR_H__
+#define __FREETYPE_CLASS_VECTOR_H__
 
 Gura_BeginModuleScope(freetype)
 

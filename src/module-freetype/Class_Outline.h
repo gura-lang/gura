@@ -1,5 +1,5 @@
-#ifndef __FREETYPE_OBJECT_OUTLINE_H__
-#define __FREETYPE_OBJECT_OUTLINE_H__
+#ifndef __FREETYPE_CLASS_OUTLINE_H__
+#define __FREETYPE_CLASS_OUTLINE_H__
 
 Gura_BeginModuleScope(freetype)
 

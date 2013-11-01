@@ -2,8 +2,8 @@
 // wxSplitterRenderParams
 // extracted from splitpar.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_SPLITTERRENDERPARAMS_H__
-#define __OBJECT_WX_SPLITTERRENDERPARAMS_H__
+#ifndef __CLASS_WX_SPLITTERRENDERPARAMS_H__
+#define __CLASS_WX_SPLITTERRENDERPARAMS_H__
 
 Gura_BeginModuleScope(wx)
 

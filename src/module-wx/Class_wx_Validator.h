@@ -2,8 +2,8 @@
 // wxValidator
 // extracted from validatr.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_VALIDATOR_H__
-#define __OBJECT_WX_VALIDATOR_H__
+#ifndef __CLASS_WX_VALIDATOR_H__
+#define __CLASS_WX_VALIDATOR_H__
 
 Gura_BeginModuleScope(wx)
 

@@ -2,8 +2,8 @@
 // wxTarOutputStream
 // extracted from tarstrm.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_TAROUTPUTSTREAM_H__
-#define __OBJECT_WX_TAROUTPUTSTREAM_H__
+#ifndef __CLASS_WX_TAROUTPUTSTREAM_H__
+#define __CLASS_WX_TAROUTPUTSTREAM_H__
 
 Gura_BeginModuleScope(wx)
 

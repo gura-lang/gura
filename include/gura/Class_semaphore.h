@@ -1,5 +1,5 @@
-#ifndef __GURA_OBJECT_SEMAPHORE_H__
-#define __GURA_OBJECT_SEMAPHORE_H__
+#ifndef __GURA_CLASS_SEMAPHORE_H__
+#define __GURA_CLASS_SEMAPHORE_H__
 
 #include "Class.h"
 #include "OAL.h"

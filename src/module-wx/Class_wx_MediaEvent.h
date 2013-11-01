@@ -2,8 +2,8 @@
 // wxMediaEvent
 // extracted from mediaevt.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_MEDIAEVENT_H__
-#define __OBJECT_WX_MEDIAEVENT_H__
+#ifndef __CLASS_WX_MEDIAEVENT_H__
+#define __CLASS_WX_MEDIAEVENT_H__
 
 Gura_BeginModuleScope(wx)
 

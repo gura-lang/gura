@@ -2,8 +2,8 @@
 // wxGraphicsObject
 // extracted from graphicsobject.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_GRAPHICSOBJECT_H__
-#define __OBJECT_WX_GRAPHICSOBJECT_H__
+#ifndef __CLASS_WX_GRAPHICSOBJECT_H__
+#define __CLASS_WX_GRAPHICSOBJECT_H__
 
 Gura_BeginModuleScope(wx)
 

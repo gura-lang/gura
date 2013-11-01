@@ -1,5 +1,5 @@
-#ifndef __GURA_OBJECT_DICT_H__
-#define __GURA_OBJECT_DICT_H__
+#ifndef __GURA_CLASS_DICT_H__
+#define __GURA_CLASS_DICT_H__
 
 #include "Class.h"
 

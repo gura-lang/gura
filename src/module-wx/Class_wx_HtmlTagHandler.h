@@ -2,8 +2,8 @@
 // wxHtmlTagHandler
 // extracted from httaghnd.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_HTMLTAGHANDLER_H__
-#define __OBJECT_WX_HTMLTAGHANDLER_H__
+#ifndef __CLASS_WX_HTMLTAGHANDLER_H__
+#define __CLASS_WX_HTMLTAGHANDLER_H__
 
 Gura_BeginModuleScope(wx)
 

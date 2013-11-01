@@ -1,5 +1,5 @@
-#ifndef __JPEG_OBJECT_IFD_H__
-#define __JPEG_OBJECT_IFD_H__
+#ifndef __JPEG_CLASS_IFD_H__
+#define __JPEG_CLASS_IFD_H__
 #include <gura.h>
 #include "Class_tag.h"
 

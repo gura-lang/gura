@@ -2,8 +2,8 @@
 // wxToolBarBase
 // (automatically generated)
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_TOOLBARBASE_H__
-#define __OBJECT_WX_TOOLBARBASE_H__
+#ifndef __CLASS_WX_TOOLBARBASE_H__
+#define __CLASS_WX_TOOLBARBASE_H__
 
 Gura_BeginModuleScope(wx)
 

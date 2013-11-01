@@ -1,5 +1,5 @@
-#ifndef __GURA_OBJECT_HELP_H__
-#define __GURA_OBJECT_HELP_H__
+#ifndef __GURA_CLASS_HELP_H__
+#define __GURA_CLASS_HELP_H__
 
 #include "Class.h"
 

@@ -2,8 +2,8 @@
 // wxFindReplaceData
 // extracted from fdrepdlg.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_FINDREPLACEDATA_H__
-#define __OBJECT_WX_FINDREPLACEDATA_H__
+#ifndef __CLASS_WX_FINDREPLACEDATA_H__
+#define __CLASS_WX_FINDREPLACEDATA_H__
 
 Gura_BeginModuleScope(wx)
 

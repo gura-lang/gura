@@ -2,8 +2,8 @@
 // wxRegKey
 // extracted from regkey.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_REGKEY_H__
-#define __OBJECT_WX_REGKEY_H__
+#ifndef __CLASS_WX_REGKEY_H__
+#define __CLASS_WX_REGKEY_H__
 
 Gura_BeginModuleScope(wx)
 

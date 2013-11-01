@@ -2,8 +2,8 @@
 // wxBoxSizer
 // extracted from boxsizer.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_BOXSIZER_H__
-#define __OBJECT_WX_BOXSIZER_H__
+#ifndef __CLASS_WX_BOXSIZER_H__
+#define __CLASS_WX_BOXSIZER_H__
 
 Gura_BeginModuleScope(wx)
 

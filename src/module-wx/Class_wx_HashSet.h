@@ -2,8 +2,8 @@
 // wxHashSet
 // extracted from hashset.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_HASHSET_H__
-#define __OBJECT_WX_HASHSET_H__
+#ifndef __CLASS_WX_HASHSET_H__
+#define __CLASS_WX_HASHSET_H__
 
 Gura_BeginModuleScope(wx)
 

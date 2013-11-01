@@ -2,8 +2,8 @@
 // wxSize
 // extracted from size.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_SIZE_H__
-#define __OBJECT_WX_SIZE_H__
+#ifndef __CLASS_WX_SIZE_H__
+#define __CLASS_WX_SIZE_H__
 
 Gura_BeginModuleScope(wx)
 

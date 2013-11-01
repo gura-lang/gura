@@ -2,8 +2,8 @@
 // wxBitmap
 // extracted from bitmap.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_BITMAP_H__
-#define __OBJECT_WX_BITMAP_H__
+#ifndef __CLASS_WX_BITMAP_H__
+#define __CLASS_WX_BITMAP_H__
 
 Gura_BeginModuleScope(wx)
 

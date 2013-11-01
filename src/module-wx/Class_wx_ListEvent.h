@@ -2,8 +2,8 @@
 // wxListEvent
 // extracted from listevt.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_LISTEVENT_H__
-#define __OBJECT_WX_LISTEVENT_H__
+#ifndef __CLASS_WX_LISTEVENT_H__
+#define __CLASS_WX_LISTEVENT_H__
 
 Gura_BeginModuleScope(wx)
 

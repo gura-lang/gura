@@ -2,8 +2,8 @@
 // wxDocMDIChildFrame
 // extracted from docmdich.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_DOCMDICHILDFRAME_H__
-#define __OBJECT_WX_DOCMDICHILDFRAME_H__
+#ifndef __CLASS_WX_DOCMDICHILDFRAME_H__
+#define __CLASS_WX_DOCMDICHILDFRAME_H__
 
 Gura_BeginModuleScope(wx)
 

@@ -2,8 +2,8 @@
 // wxFileDataObject
 // extracted from fildatob.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_FILEDATAOBJECT_H__
-#define __OBJECT_WX_FILEDATAOBJECT_H__
+#ifndef __CLASS_WX_FILEDATAOBJECT_H__
+#define __CLASS_WX_FILEDATAOBJECT_H__
 
 Gura_BeginModuleScope(wx)
 

@@ -2,8 +2,8 @@
 // wxNotifyEvent
 // extracted from notifevt.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_NOTIFYEVENT_H__
-#define __OBJECT_WX_NOTIFYEVENT_H__
+#ifndef __CLASS_WX_NOTIFYEVENT_H__
+#define __CLASS_WX_NOTIFYEVENT_H__
 
 Gura_BeginModuleScope(wx)
 

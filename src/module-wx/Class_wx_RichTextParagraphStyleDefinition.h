@@ -2,8 +2,8 @@
 // wxRichTextParagraphStyleDefinition
 // extracted from richtextparagraphstyledefinition.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_RICHTEXTPARAGRAPHSTYLEDEFINITION_H__
-#define __OBJECT_WX_RICHTEXTPARAGRAPHSTYLEDEFINITION_H__
+#ifndef __CLASS_WX_RICHTEXTPARAGRAPHSTYLEDEFINITION_H__
+#define __CLASS_WX_RICHTEXTPARAGRAPHSTYLEDEFINITION_H__
 
 Gura_BeginModuleScope(wx)
 

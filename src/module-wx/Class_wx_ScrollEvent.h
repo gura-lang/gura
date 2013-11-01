@@ -2,8 +2,8 @@
 // wxScrollEvent
 // extracted from scrolevt.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_SCROLLEVENT_H__
-#define __OBJECT_WX_SCROLLEVENT_H__
+#ifndef __CLASS_WX_SCROLLEVENT_H__
+#define __CLASS_WX_SCROLLEVENT_H__
 
 Gura_BeginModuleScope(wx)
 

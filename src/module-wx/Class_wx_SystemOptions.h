@@ -2,8 +2,8 @@
 // wxSystemOptions
 // extracted from sysopt.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_SYSTEMOPTIONS_H__
-#define __OBJECT_WX_SYSTEMOPTIONS_H__
+#ifndef __CLASS_WX_SYSTEMOPTIONS_H__
+#define __CLASS_WX_SYSTEMOPTIONS_H__
 
 Gura_BeginModuleScope(wx)
 

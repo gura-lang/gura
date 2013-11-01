@@ -2,8 +2,8 @@
 // wxHtmlPrintout
 // extracted from htprint.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_HTMLPRINTOUT_H__
-#define __OBJECT_WX_HTMLPRINTOUT_H__
+#ifndef __CLASS_WX_HTMLPRINTOUT_H__
+#define __CLASS_WX_HTMLPRINTOUT_H__
 
 Gura_BeginModuleScope(wx)
 

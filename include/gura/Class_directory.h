@@ -1,5 +1,5 @@
-#ifndef __GURA_OBJECT_DIRECTORY_H__
-#define __GURA_OBJECT_DIRECTORY_H__
+#ifndef __GURA_CLASS_DIRECTORY_H__
+#define __GURA_CLASS_DIRECTORY_H__
 
 #include "Class.h"
 #include "Directory.h"

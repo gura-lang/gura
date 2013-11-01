@@ -2,8 +2,8 @@
 // wxPopupWindow
 // (automatically generated)
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_POPUPWINDOW_H__
-#define __OBJECT_WX_POPUPWINDOW_H__
+#ifndef __CLASS_WX_POPUPWINDOW_H__
+#define __CLASS_WX_POPUPWINDOW_H__
 
 Gura_BeginModuleScope(wx)
 

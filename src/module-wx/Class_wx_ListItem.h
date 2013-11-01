@@ -2,8 +2,8 @@
 // wxListItem
 // extracted from listitem.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_LISTITEM_H__
-#define __OBJECT_WX_LISTITEM_H__
+#ifndef __CLASS_WX_LISTITEM_H__
+#define __CLASS_WX_LISTITEM_H__
 
 Gura_BeginModuleScope(wx)
 

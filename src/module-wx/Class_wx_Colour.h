@@ -2,8 +2,8 @@
 // wxColour
 // extracted from colour.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_COLOUR_H__
-#define __OBJECT_WX_COLOUR_H__
+#ifndef __CLASS_WX_COLOUR_H__
+#define __CLASS_WX_COLOUR_H__
 
 Gura_BeginModuleScope(wx)
 

@@ -1,5 +1,5 @@
-#ifndef __FREETYPE_OBJECT_FTC_SBITCACHE_H__
-#define __FREETYPE_OBJECT_FTC_SBITCACHE_H__
+#ifndef __FREETYPE_CLASS_FTC_SBITCACHE_H__
+#define __FREETYPE_CLASS_FTC_SBITCACHE_H__
 
 Gura_BeginModuleScope(freetype)
 

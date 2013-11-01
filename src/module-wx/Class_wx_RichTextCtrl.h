@@ -2,8 +2,8 @@
 // wxRichTextCtrl
 // extracted from richtextctrl.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_RICHTEXTCTRL_H__
-#define __OBJECT_WX_RICHTEXTCTRL_H__
+#ifndef __CLASS_WX_RICHTEXTCTRL_H__
+#define __CLASS_WX_RICHTEXTCTRL_H__
 
 Gura_BeginModuleScope(wx)
 

@@ -1,5 +1,5 @@
-#ifndef __GURA_OBJECT_MATRIX_H__
-#define __GURA_OBJECT_MATRIX_H__
+#ifndef __GURA_CLASS_MATRIX_H__
+#define __GURA_CLASS_MATRIX_H__
 
 #include "Class_list.h"
 

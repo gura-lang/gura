@@ -2,8 +2,8 @@
 // wxTextInputStream
 // extracted from txtstrm.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_TEXTINPUTSTREAM_H__
-#define __OBJECT_WX_TEXTINPUTSTREAM_H__
+#ifndef __CLASS_WX_TEXTINPUTSTREAM_H__
+#define __CLASS_WX_TEXTINPUTSTREAM_H__
 
 Gura_BeginModuleScope(wx)
 

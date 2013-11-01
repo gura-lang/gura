@@ -2,8 +2,8 @@
 // wxDateTimeHolidayAuthority
 // extracted from datetime.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_DATETIMEHOLIDAYAUTHORITY_H__
-#define __OBJECT_WX_DATETIMEHOLIDAYAUTHORITY_H__
+#ifndef __CLASS_WX_DATETIMEHOLIDAYAUTHORITY_H__
+#define __CLASS_WX_DATETIMEHOLIDAYAUTHORITY_H__
 
 Gura_BeginModuleScope(wx)
 

@@ -1,5 +1,5 @@
-#ifndef __CAIRO_OBJECT_SCRIPT_SURFACE_H__
-#define __CAIRO_OBJECT_SCRIPT_SURFACE_H__
+#ifndef __CAIRO_CLASS_SCRIPT_SURFACE_H__
+#define __CAIRO_CLASS_SCRIPT_SURFACE_H__
 
 Gura_BeginModuleScope(cairo)
 

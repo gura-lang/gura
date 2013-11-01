@@ -1,5 +1,5 @@
-#ifndef __GURA_OBJECT_FUNCTION_H__
-#define __GURA_OBJECT_FUNCTION_H__
+#ifndef __GURA_CLASS_FUNCTION_H__
+#define __GURA_CLASS_FUNCTION_H__
 
 #include "Class.h"
 #include "Expr.h"

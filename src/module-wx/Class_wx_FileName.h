@@ -2,8 +2,8 @@
 // wxFileName
 // extracted from filename.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_FILENAME_H__
-#define __OBJECT_WX_FILENAME_H__
+#ifndef __CLASS_WX_FILENAME_H__
+#define __CLASS_WX_FILENAME_H__
 
 Gura_BeginModuleScope(wx)
 

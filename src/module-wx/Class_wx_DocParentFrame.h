@@ -2,8 +2,8 @@
 // wxDocParentFrame
 // extracted from docprfrm.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_DOCPARENTFRAME_H__
-#define __OBJECT_WX_DOCPARENTFRAME_H__
+#ifndef __CLASS_WX_DOCPARENTFRAME_H__
+#define __CLASS_WX_DOCPARENTFRAME_H__
 
 Gura_BeginModuleScope(wx)
 

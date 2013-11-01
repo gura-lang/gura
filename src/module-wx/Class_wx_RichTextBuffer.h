@@ -2,8 +2,8 @@
 // wxRichTextBuffer
 // extracted from richtextbuffer.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_RICHTEXTBUFFER_H__
-#define __OBJECT_WX_RICHTEXTBUFFER_H__
+#ifndef __CLASS_WX_RICHTEXTBUFFER_H__
+#define __CLASS_WX_RICHTEXTBUFFER_H__
 
 Gura_BeginModuleScope(wx)
 

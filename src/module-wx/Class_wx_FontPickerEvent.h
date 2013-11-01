@@ -2,8 +2,8 @@
 // wxFontPickerEvent
 // extracted from fontpicker.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_FONTPICKEREVENT_H__
-#define __OBJECT_WX_FONTPICKEREVENT_H__
+#ifndef __CLASS_WX_FONTPICKEREVENT_H__
+#define __CLASS_WX_FONTPICKEREVENT_H__
 
 Gura_BeginModuleScope(wx)
 

@@ -2,8 +2,8 @@
 // wxTextDataObject
 // extracted from txtdatob.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_TEXTDATAOBJECT_H__
-#define __OBJECT_WX_TEXTDATAOBJECT_H__
+#ifndef __CLASS_WX_TEXTDATAOBJECT_H__
+#define __CLASS_WX_TEXTDATAOBJECT_H__
 
 Gura_BeginModuleScope(wx)
 

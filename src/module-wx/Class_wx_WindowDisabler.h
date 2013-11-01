@@ -2,8 +2,8 @@
 // wxWindowDisabler
 // extracted from wnddisbl.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_WINDOWDISABLER_H__
-#define __OBJECT_WX_WINDOWDISABLER_H__
+#ifndef __CLASS_WX_WINDOWDISABLER_H__
+#define __CLASS_WX_WINDOWDISABLER_H__
 
 Gura_BeginModuleScope(wx)
 

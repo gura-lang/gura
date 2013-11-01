@@ -2,8 +2,8 @@
 // wxZipEntry
 // extracted from zipstrm.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_ZIPENTRY_H__
-#define __OBJECT_WX_ZIPENTRY_H__
+#ifndef __CLASS_WX_ZIPENTRY_H__
+#define __CLASS_WX_ZIPENTRY_H__
 
 Gura_BeginModuleScope(wx)
 

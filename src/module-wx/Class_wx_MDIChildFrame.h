@@ -2,8 +2,8 @@
 // wxMDIChildFrame
 // extracted from mdi.tex
 //----------------------------------------------------------------------------
-#ifndef __OBJECT_WX_MDICHILDFRAME_H__
-#define __OBJECT_WX_MDICHILDFRAME_H__
+#ifndef __CLASS_WX_MDICHILDFRAME_H__
+#define __CLASS_WX_MDICHILDFRAME_H__
 
 Gura_BeginModuleScope(wx)
 
