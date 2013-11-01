@@ -1,7 +1,7 @@
 #ifndef __GURA_OBJECT_ARGS_H__
 #define __GURA_OBJECT_ARGS_H__
 
-#include "Object.h"
+#include "Class.h"
 #include "OAL.h"
 
 namespace Gura {

@@ -7,8 +7,13 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 bool Object::IsObject() const { return true; }
 
+Object::Object(const Object &obj) :
+		Fundamental(obj), _pClass(Class::Reference(obj._pClass.get()))
+{
+}
+
 Object::Object(Class *pClass) :
-	Fundamental(pClass, ENVTYPE_object), _pClass(Class::Reference(pClass))
+		Fundamental(pClass, ENVTYPE_object), _pClass(Class::Reference(pClass))
 {
 }
 

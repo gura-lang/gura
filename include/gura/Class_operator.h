@@ -1,7 +1,7 @@
 #ifndef __GURA_OBJECT_OPERATOR_H__
 #define __GURA_OBJECT_OPERATOR_H__
 
-#include "Object.h"
+#include "Class.h"
 
 namespace Gura {
 

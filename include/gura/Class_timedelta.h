@@ -1,7 +1,7 @@
 #ifndef __GURA_OBJECT_TIMEDELTA_H__
 #define __GURA_OBJECT_TIMEDELTA_H__
 
-#include "Object.h"
+#include "Class.h"
 #include "Environment.h"
 
 namespace Gura {

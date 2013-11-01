@@ -27,6 +27,7 @@
 #include "gura/Binary.h"
 #include "gura/Class.h"
 #include "gura/ClassBasic.h"
+#include "gura/ClassOfStruct.h"
 #include "gura/CustomClass.h"
 #include "gura/CustomFunction.h"
 #include "gura/Directory.h"
@@ -75,6 +76,5 @@
 #include "gura/Class_stream.h"
 #include "gura/Class_timedelta.h"
 #include "gura/Class_uri.h"
-#include "gura/ObjectOfStruct.h"
 
 #endif

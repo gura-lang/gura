@@ -1,7 +1,7 @@
 #ifndef __GURA_OBJECT_CODEC_H__
 #define __GURA_OBJECT_CODEC_H__
 
-#include "Object.h"
+#include "Class.h"
 #include "Codec.h"
 
 namespace Gura {

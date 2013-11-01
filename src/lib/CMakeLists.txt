@@ -29,6 +29,7 @@ Class_stream.cpp
 Class_timedelta.cpp
 Class_uri.cpp
 ClassBasic.cpp
+ClassOfStrct.cpp
 Codec.cpp
 Codec_Japanese.cpp
 Common.cpp
@@ -51,8 +52,6 @@ Matrix.cpp
 Memory.cpp
 Module.cpp
 OAL.cpp
-Object.cpp
-ObjectOfStrct.cpp
 Operator.cpp
 Option.cpp
 Palette.cpp

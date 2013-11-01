@@ -115,6 +115,7 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Class_timedelta.h
   ${GURA_INCLUDE_DIR}/gura/Class_uri.h
   ${GURA_INCLUDE_DIR}/gura/ClassBasic.h
+  ${GURA_INCLUDE_DIR}/gura/ClassOfStruct.h
   ${GURA_INCLUDE_DIR}/gura/Codec.h
   ${GURA_INCLUDE_DIR}/gura/Common.h
   ${GURA_INCLUDE_DIR}/gura/CustomClass.h
@@ -136,8 +137,6 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Memory.h
   ${GURA_INCLUDE_DIR}/gura/Module.h
   ${GURA_INCLUDE_DIR}/gura/OAL.h
-  ${GURA_INCLUDE_DIR}/gura/Object.h
-  ${GURA_INCLUDE_DIR}/gura/ObjectOfStruct.h
   ${GURA_INCLUDE_DIR}/gura/Operator.h
   ${GURA_INCLUDE_DIR}/gura/Option.h
   ${GURA_INCLUDE_DIR}/gura/PackedNumber.h

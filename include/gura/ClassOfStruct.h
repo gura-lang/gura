@@ -1,7 +1,7 @@
-#ifndef __GURA_OBJECTOFSTRUCT_H__
-#define __GURA_OBJECTOFSTRUCT_H__
+#ifndef __GURA_CLASSOFSTRUCT_H__
+#define __GURA_CLASSOFSTRUCT_H__
 
-#include "Object.h"
+#include "Class.h"
 
 namespace Gura {
 

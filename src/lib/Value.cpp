@@ -46,7 +46,7 @@ Value::Value(const Value &value) : _valType(value._valType), _valFlags(value._va
 }
 
 Value::Value(Object *pObj, UShort valFlags) :
-						_valType(pObj->GetValueType()), _valFlags(valFlags)
+				_valType(pObj->GetClass()->GetValueType()), _valFlags(valFlags)
 {
 	_u.pObj = pObj;
 }
@@ -607,7 +607,7 @@ void Value::InitAsClass(Class *pClass)
 void Value::InitAsObject(Object *pObj)
 {
 	FreeResource();
-	_valType = pObj->GetValueType(), _u.pObj = pObj;
+	_valType = pObj->GetClass()->GetValueType(), _u.pObj = pObj;
 	_valFlags = VFLAG_Owner;
 }
 

@@ -1,7 +1,7 @@
 #ifndef __GURA_OBJECT_STREAM_H__
 #define __GURA_OBJECT_STREAM_H__
 
-#include "Object.h"
+#include "Class.h"
 #include "Stream.h"
 
 namespace Gura {

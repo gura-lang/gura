@@ -1,7 +1,7 @@
 #ifndef __GURA_PRIMITIVECLASS_H__
 #define __GURA_PRIMITIVECLASS_H__
 
-#include "Object.h"
+#include "Class.h"
 
 namespace Gura {
 

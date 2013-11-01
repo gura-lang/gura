@@ -2,7 +2,7 @@
 #define __GURA_CUSTOMCLASS_H__
 
 #include "Common.h"
-#include "Object.h"
+#include "Class.h"
 
 namespace Gura {
 

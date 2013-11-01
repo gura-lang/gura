@@ -1,7 +1,7 @@
 #ifndef __GURA_OBJECT_IMAGE_H__
 #define __GURA_OBJECT_IMAGE_H__
 
-#include "Object.h"
+#include "Class.h"
 #include "Class_palette.h"
 
 namespace Gura {

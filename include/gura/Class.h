@@ -109,6 +109,8 @@ Gura_DeclareObjectAccessorEx(Object_##name)
 
 namespace Gura {
 
+class Class;
+
 //-----------------------------------------------------------------------------
 // Object
 //-----------------------------------------------------------------------------
@@ -116,8 +118,7 @@ class GURA_DLLDECLARE Object : public Fundamental {
 protected:
 	AutoPtr<Class> _pClass;
 protected:
-	inline Object(const Object &obj) :
-			Fundamental(obj), _pClass(Class::Reference(obj._pClass.get())) {}
+	Object(const Object &obj);
 public:
 	Object(Class *pClass);
 protected:
@@ -132,7 +133,6 @@ public:
 	inline void SetClass(Class *pClass) { _pClass.reset(pClass); }
 	const char *GetClassName() const;
 	bool IsInstanceOf(ValueType valType) const;
-	inline ValueType GetValueType() const { return _pClass->GetValueType(); }
 	virtual int Compare(const Object *pObj) const;
 	virtual Value EmptyIndexGet(Environment &env, Signal sig);
 	virtual void EmptyIndexSet(Environment &env, Signal sig, const Value &value);

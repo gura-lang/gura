@@ -1,5 +1,5 @@
 //
-// ObjectOfStruct
+// ClassOfStruct
 //
 
 #include "stdafx.h"

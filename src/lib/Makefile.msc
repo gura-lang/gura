@@ -36,6 +36,7 @@ Class_stream.cpp \
 Class_timedelta.cpp \
 Class_uri.cpp \
 ClassBasic.cpp \
+ClassOfStruct.cpp \
 Codec.cpp \
 Codec_Japanese.cpp \
 Common.cpp \
@@ -59,8 +60,6 @@ Matrix.cpp \
 Memory.cpp \
 Module.cpp \
 OAL.cpp \
-Object.cpp \
-ObjectOfStruct.cpp \
 Operator.cpp \
 Option.cpp \
 Palette.cpp \
