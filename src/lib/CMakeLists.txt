@@ -52,6 +52,7 @@ Object_semaphore.cpp
 Object_stream.cpp
 Object_timedelta.cpp
 Object_uri.cpp
+ObjectOfStrct.cpp
 Operator.cpp
 Option.cpp
 Palette.cpp
@@ -62,7 +63,6 @@ Signal.cpp
 Stream.cpp
 StreamBasic.cpp
 String.cpp
-StructObject.cpp
 Symbol.cpp
 TemplateEngine.cpp
 Value.cpp

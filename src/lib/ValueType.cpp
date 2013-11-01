@@ -200,7 +200,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(stream		)->SetClass(new Class_stream(pClass));
 	Gura_VTYPEInfo(timedelta	)->SetClass(new Class_timedelta(pClass));
 	Gura_VTYPEInfo(uri			)->SetClass(new Class_uri(pClass));
-	Gura_VTYPEInfo(Struct		)->SetClass(new StructClass(pClass));
+	Gura_VTYPEInfo(Struct		)->SetClass(new ClassOfStruct(pClass));
 	pClass->Prepare(env); // methods of Object can only be initialized here
 }
 

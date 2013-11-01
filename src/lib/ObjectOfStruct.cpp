@@ -1,5 +1,5 @@
 //
-// StructObject
+// ObjectOfStruct
 //
 
 #include "stdafx.h"
@@ -7,22 +7,22 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// StructObject
+// ObjectOfStruct
 //-----------------------------------------------------------------------------
-StructObject::StructObject(const StructObject &obj) : Object(obj)
+ObjectOfStruct::ObjectOfStruct(const ObjectOfStruct &obj) : Object(obj)
 {
 }
 
-StructObject::~StructObject()
+ObjectOfStruct::~ObjectOfStruct()
 {
 }
 
-Object *StructObject::Clone() const
+Object *ObjectOfStruct::Clone() const
 {
-	return new StructObject(*this);
+	return new ObjectOfStruct(*this);
 }
 
-String StructObject::ToString(bool exprFlag)
+String ObjectOfStruct::ToString(bool exprFlag)
 {
 	Signal sig;
 	bool evaluatedFlag = false;
@@ -50,7 +50,7 @@ String StructObject::ToString(bool exprFlag)
 	return str;
 }
 
-const DeclarationList &StructObject::GetDeclList() const
+const DeclarationList &ObjectOfStruct::GetDeclList() const
 {
 	const Class *pClass = _pClass.get();
 	for ( ; pClass != NULL; pClass = pClass->GetClassSuper()) {
@@ -61,7 +61,7 @@ const DeclarationList &StructObject::GetDeclList() const
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for StructObject
+// Gura interfaces for ObjectOfStruct
 //-----------------------------------------------------------------------------
 // struct#tolist()
 Gura_DeclareMethod(Struct, tolist)
@@ -74,7 +74,7 @@ Gura_DeclareMethod(Struct, tolist)
 
 Gura_ImplementMethod(Struct, tolist)
 {
-	StructObject *pThis = StructObject::GetThisObj(args);
+	ObjectOfStruct *pThis = ObjectOfStruct::GetThisObj(args);
 	Value result;
 	ValueList &valList = result.InitAsList(env);
 	const DeclarationList &declList = pThis->GetDeclList();
@@ -92,16 +92,16 @@ Gura_ImplementMethod(Struct, tolist)
 //-----------------------------------------------------------------------------
 // Classs implementation
 //-----------------------------------------------------------------------------
-StructClass::StructClass(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_Struct)
+ClassOfStruct::ClassOfStruct(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_Struct)
 {
 }
 
-void StructClass::Prepare(Environment &env)
+void ClassOfStruct::Prepare(Environment &env)
 {
 	Gura_AssignMethod(Struct, tolist);
 }
 
-bool StructClass::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+bool ClassOfStruct::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
 	if (value.IsList()) {
 		Class *pClass = env.LookupClass(pDecl->GetValueType());
@@ -116,9 +116,9 @@ bool StructClass::CastFrom(Environment &env, Signal sig, Value &value, const Dec
 	return false;
 }
 
-Object *StructClass::CreateDescendant(Environment &env, Signal sig, Class *pClass)
+Object *ClassOfStruct::CreateDescendant(Environment &env, Signal sig, Class *pClass)
 {
-	return new StructObject((pClass == NULL)? this : pClass);
+	return new ObjectOfStruct((pClass == NULL)? this : pClass);
 }
 
 }

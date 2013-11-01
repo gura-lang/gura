@@ -48,7 +48,6 @@
 #include "gura/Stream.h"
 #include "gura/StreamBasic.h"
 #include "gura/String.h"
-#include "gura/StructObject.h"
 #include "gura/TemplateEngine.h"
 
 #include "gura/Object_args.h"
@@ -76,5 +75,6 @@
 #include "gura/Object_stream.h"
 #include "gura/Object_timedelta.h"
 #include "gura/Object_uri.h"
+#include "gura/ObjectOfStruct.h"
 
 #endif

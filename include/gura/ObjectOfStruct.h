@@ -1,29 +1,29 @@
-#ifndef __GURA_STRUCTOBJECT_H__
-#define __GURA_STRUCTOBJECT_H__
+#ifndef __GURA_OBJECTOFSTRUCT_H__
+#define __GURA_OBJECTOFSTRUCT_H__
 
 #include "Object.h"
 
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// StructClass / StructObject
+// ClassOfStruct / ObjectOfStruct
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE StructClass : public Class {
+class GURA_DLLDECLARE ClassOfStruct : public Class {
 public:
-	StructClass(Environment *pEnvOuter);
+	ClassOfStruct(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
 };
 
-class GURA_DLLDECLARE StructObject : public Object {
+class GURA_DLLDECLARE ObjectOfStruct : public Object {
 public:
-	Gura_DeclareObjectAccessorEx(StructObject)
+	Gura_DeclareObjectAccessorEx(ObjectOfStruct)
 public:
-	inline StructObject(Class *pClass) : Object(pClass) {}
-	inline StructObject(Environment &env) : Object(env.LookupClass(VTYPE_Struct)) {}
-	StructObject(const StructObject &obj);
-	virtual ~StructObject();
+	inline ObjectOfStruct(Class *pClass) : Object(pClass) {}
+	inline ObjectOfStruct(Environment &env) : Object(env.LookupClass(VTYPE_Struct)) {}
+	ObjectOfStruct(const ObjectOfStruct &obj);
+	virtual ~ObjectOfStruct();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
 	const DeclarationList &GetDeclList() const;

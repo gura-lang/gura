@@ -235,6 +235,7 @@
     <ClCompile Include="Object_uri.cpp" />
     <ClCompile Include="Object_declaration.cpp" />
     <ClCompile Include="Object_args.cpp" />
+    <ClCompile Include="ObjectOfStruct.cpp" />
     <ClCompile Include="Operator.cpp" />
     <ClCompile Include="Option.cpp" />
     <ClCompile Include="Palette.cpp" />
@@ -245,7 +246,6 @@
     <ClCompile Include="Stream.cpp" />
     <ClCompile Include="StreamBasic.cpp" />
     <ClCompile Include="String.cpp" />
-    <ClCompile Include="StructObject.cpp" />
     <ClCompile Include="Symbol.cpp" />
     <ClCompile Include="TemplateEngine.cpp" />
     <ClCompile Include="Value.cpp" />
@@ -318,9 +318,9 @@
     <ClInclude Include="..\..\include\gura\Object_semaphore.h" />
     <ClInclude Include="..\..\include\gura\Object_stream.h" />
     <ClInclude Include="..\..\include\gura\Object_directory.h" />
-    <ClInclude Include="..\..\include\gura\Object_Struct.h" />
     <ClInclude Include="..\..\include\gura\Object_timedelta.h" />
     <ClInclude Include="..\..\include\gura\Object_uri.h" />
+    <ClInclude Include="..\..\include\gura\ObjectOfStruct.h" />
     <ClInclude Include="..\..\include\gura\Operator.h" />
     <ClInclude Include="..\..\include\gura\Option.h" />
     <ClInclude Include="..\..\include\gura\PackedNumber.h" />

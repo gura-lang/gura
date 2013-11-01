@@ -137,6 +137,7 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Object_stream.h
   ${GURA_INCLUDE_DIR}/gura/Object_timedelta.h
   ${GURA_INCLUDE_DIR}/gura/Object_uri.h
+  ${GURA_INCLUDE_DIR}/gura/ObjectOfStruct.h
   ${GURA_INCLUDE_DIR}/gura/Operator.h
   ${GURA_INCLUDE_DIR}/gura/Option.h
   ${GURA_INCLUDE_DIR}/gura/PackedNumber.h
@@ -148,7 +149,6 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Stream.h
   ${GURA_INCLUDE_DIR}/gura/StreamBasic.h
   ${GURA_INCLUDE_DIR}/gura/String.h
-  ${GURA_INCLUDE_DIR}/gura/StructObject.h
   ${GURA_INCLUDE_DIR}/gura/Symbol.h
   ${GURA_INCLUDE_DIR}/gura/TemplateEngine.h
   ${GURA_INCLUDE_DIR}/gura/Value.h
