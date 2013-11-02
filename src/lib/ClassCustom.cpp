@@ -51,7 +51,9 @@ Function *ClassCustom::PrepareConstructor(Environment &env, Signal sig)
 	if (GetConstructor() == NULL) {
 		// nothing to do
 	} else if (pFuncInit == NULL) {
-		return GetConstructor();
+		Function *pFunc = GetConstructor();
+		if (pFunc->IsAnonymous()) pFunc->SetSymbol(_pSymbol);
+		return pFunc;
 	} else {
 		sig.SetError(ERR_DeclarationError, "struct can't have constructor");
 		return NULL;
