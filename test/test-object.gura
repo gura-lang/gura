@@ -20,6 +20,7 @@ testcase {
 			[this.a, this.b, this.c] = [t.a, t.b, t.c]
 		}
 	}
+	println(T)
 	t = T(7, 5, 3)
 	T.Print(t)
 	t1 = T(0, 0, 0)
