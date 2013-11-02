@@ -39,7 +39,7 @@ ClassBasic.cpp \
 ClassCustom.cpp \
 ClassOfStruct.cpp \
 Codec.cpp \
-Codec_Japanese.cpp \
+CodecJapanese.cpp \
 Common.cpp \
 DateTime.cpp \
 Declaration.cpp \

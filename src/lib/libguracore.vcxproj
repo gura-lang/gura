@@ -214,7 +214,7 @@
     <ClCompile Include="ClassCustom.cpp" />
     <ClCompile Include="ClassOfStruct.cpp" />
     <ClCompile Include="Codec.cpp" />
-    <ClCompile Include="Codec_Japanese.cpp" />
+    <ClCompile Include="CodecJapanese.cpp" />
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="DateTime.cpp" />
     <ClCompile Include="Declaration.cpp" />
