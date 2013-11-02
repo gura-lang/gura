@@ -6,9 +6,16 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// ClassOfStruct / ObjectOfStruct
+// ClassOfStruct
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE ClassOfStruct : public Class {
+public:
+	class GURA_DLLDECLARE Constructor : public Function {
+	public:
+		Constructor(Environment &env);
+		virtual bool IsConstructorOfStruct() const;
+		virtual Value DoEval(Environment &env, Signal sig, Args &args) const;
+	};
 public:
 	ClassOfStruct(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
@@ -16,6 +23,9 @@ public:
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
 };
 
+//-----------------------------------------------------------------------------
+// ObjectOfStruct
+//-----------------------------------------------------------------------------
 class GURA_DLLDECLARE ObjectOfStruct : public Object {
 public:
 	Gura_DeclareObjectAccessorEx(ObjectOfStruct)

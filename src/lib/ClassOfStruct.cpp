@@ -121,4 +121,34 @@ Object *ClassOfStruct::CreateDescendant(Environment &env, Signal sig, Class *pCl
 	return new ObjectOfStruct((pClass == NULL)? this : pClass);
 }
 
+//-----------------------------------------------------------------------------
+// ClassOfStruct::Constructor
+//-----------------------------------------------------------------------------
+bool ClassOfStruct::Constructor::IsConstructorOfStruct() const { return true; }
+
+ClassOfStruct::Constructor::Constructor(Environment &env) :
+		Function(env, Gura_Symbol(_anonymous_), FUNCTYPE_Function, FLAG_None)
+{
+}
+
+Value ClassOfStruct::Constructor::DoEval(Environment &env, Signal sig, Args &args) const
+{
+	Object *pObjThis = NULL;
+	Value valueRtn(args.GetThis());
+	if (valueRtn.IsObject()) {
+		pObjThis = valueRtn.GetObject();
+	} else {
+		pObjThis = _pClassToConstruct->CreateDescendant(env, sig, _pClassToConstruct);
+		valueRtn.InitAsObject(pObjThis);
+	}
+	ValueList::const_iterator pValue = args.GetValueListArg().begin();
+	DeclarationList::const_iterator ppDecl = GetDeclOwner().begin();
+	for ( ; pValue != args.GetValueListArg().end() && ppDecl != GetDeclOwner().end();
+														pValue++, ppDecl++) {
+		const Declaration *pDecl = *ppDecl;
+		pObjThis->AssignValue(pDecl->GetSymbol(), *pValue, EXTRA_Public);
+	}
+	return ReturnValue(env, sig, args, valueRtn);
+}
+
 }
