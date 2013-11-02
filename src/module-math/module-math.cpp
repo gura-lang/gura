@@ -736,7 +736,7 @@ Gura_ImplementFunction(least_square)
 					new Expr_Value(n)));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Add), pExpr, pExprLeft);
 		}
-		Function *pFunc = new CustomFunction(env,
+		Function *pFunc = new FunctionCustom(env,
 							Gura_Symbol(_anonymous_), pExpr, FUNCTYPE_Function);
 		pFunc->SetMode(RSLTMODE_Normal, FLAG_Map);
 		pFunc->DeclareArg(env, pSymbolVar, VTYPE_number);

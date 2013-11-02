@@ -74,7 +74,7 @@ class Module;
 class PathManager;
 
 class Callable;
-class CustomFunction;
+class FunctionCustom;
 
 //-----------------------------------------------------------------------------
 // EnvType
@@ -320,7 +320,7 @@ public:
 						LookupValue(pSymbol, envRefMode, cntSuperSkip));
 	}
 	Function *LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip = 0) const;
-	CustomFunction *LookupCustomFunction(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip = 0) const;
+	FunctionCustom *LookupFunctionCustom(const Symbol *pSymbol, EnvRefMode envRefMode, int cntSuperSkip = 0) const;
 	virtual void AssignValueType(ValueTypeInfo *pValueTypeInfo);
 	const ValueTypeInfo *LookupValueType(const SymbolList &symbolList) const;
 	const ValueTypeInfo *LookupValueType(const Symbol *pSymbol) const;

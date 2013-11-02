@@ -3,21 +3,21 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// CustomFunction
+// FunctionCustom
 //-----------------------------------------------------------------------------
-bool CustomFunction::IsCustom() const { return true; }
+bool FunctionCustom::IsCustom() const { return true; }
 
-CustomFunction::CustomFunction(Environment &envScope,
+FunctionCustom::FunctionCustom(Environment &envScope,
 				const Symbol *pSymbol, Expr *pExprBody, FunctionType funcType) :
 		Function(envScope, pSymbol, funcType, FLAG_None), _pExprBody(pExprBody)
 {
 }
 
-CustomFunction::~CustomFunction()
+FunctionCustom::~FunctionCustom()
 {
 }
 
-Value CustomFunction::DoEval(Environment &env, Signal sig, Args &args) const
+Value FunctionCustom::DoEval(Environment &env, Signal sig, Args &args) const
 {
 	AutoPtr<Environment> pEnvLocal(PrepareEnvironment(env, sig, args));
 	if (pEnvLocal.get() == NULL) return Value::Null;
@@ -29,8 +29,8 @@ Value CustomFunction::DoEval(Environment &env, Signal sig, Args &args) const
 	pEnvLocal->AssignValue(Gura_Symbol(__args__),
 				Value(new Object_args(env, args.Reference())), EXTRA_Public);
 #if 0
-	Sequence *pSequence = new CustomFunction::SequenceEx(pEnvLocal.release(),
-								dynamic_cast<CustomFunction *>(Reference()));
+	Sequence *pSequence = new FunctionCustom::SequenceEx(pEnvLocal.release(),
+								dynamic_cast<FunctionCustom *>(Reference()));
 	return Sequence::Return(sig, pSequence);
 #else
 	SeqPostHandler *pSeqPostHandler = NULL;
@@ -52,17 +52,17 @@ Value CustomFunction::DoEval(Environment &env, Signal sig, Args &args) const
 #endif
 }
 
-Expr *CustomFunction::DiffUnary(Environment &env, Signal sig,
+Expr *FunctionCustom::DiffUnary(Environment &env, Signal sig,
 							const Expr *pExprArg, const Symbol *pSymbol) const
 {
 	SetError_MathDiffError(sig);
 	return NULL;
 }
 
-CustomFunction *CustomFunction::CreateBlockFunc(Environment &env, Signal sig,
+FunctionCustom *FunctionCustom::CreateBlockFunc(Environment &env, Signal sig,
 	const Symbol *pSymbol, const Expr_Block *pExprBlock, FunctionType funcType)
 {
-	AutoPtr<CustomFunction> pFunc(new CustomFunction(env,
+	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 							pSymbol, Expr::Reference(pExprBlock), funcType));
 	pFunc->GetDeclOwner().AllowTooManyArgs(true);
 	const ExprOwner *pExprOwnerParam = pExprBlock->GetExprOwnerParam();
@@ -77,12 +77,12 @@ CustomFunction *CustomFunction::CreateBlockFunc(Environment &env, Signal sig,
 }
 
 //-----------------------------------------------------------------------------
-// CustomFunction::SequenceEx
+// FunctionCustom::SequenceEx
 //-----------------------------------------------------------------------------
-CustomFunction::SequenceEx::SequenceEx(Environment *pEnv, CustomFunction *pCustomFunction) :
-				Sequence(pEnv), _pCustomFunction(pCustomFunction), _idxExpr(0)
+FunctionCustom::SequenceEx::SequenceEx(Environment *pEnv, FunctionCustom *pFunctionCustom) :
+				Sequence(pEnv), _pFunctionCustom(pFunctionCustom), _idxExpr(0)
 {
-	const Expr *pExprBody = _pCustomFunction->GetExprBody();
+	const Expr *pExprBody = _pFunctionCustom->GetExprBody();
 	if (pExprBody == NULL) {
 		_pExprOwner.reset(new ExprOwner());
 	} else if (pExprBody->IsBlock()) {
@@ -94,7 +94,7 @@ CustomFunction::SequenceEx::SequenceEx(Environment *pEnv, CustomFunction *pCusto
 	}
 }
 
-bool CustomFunction::SequenceEx::DoStep(Signal sig, Value &result)
+bool FunctionCustom::SequenceEx::DoStep(Signal sig, Value &result)
 {
 	if (_idxExpr >= _pExprOwner->size()) {
 		_doneFlag = true;
@@ -123,10 +123,10 @@ bool CustomFunction::SequenceEx::DoStep(Signal sig, Value &result)
 	return true;
 }
 
-String CustomFunction::SequenceEx::ToString() const
+String FunctionCustom::SequenceEx::ToString() const
 {
 	String str;
-	str += "<sequence:customfunction>";
+	str += "<sequence:functioncustom>";
 	return str;
 }
 

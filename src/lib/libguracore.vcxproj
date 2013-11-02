@@ -211,12 +211,11 @@
     <ClCompile Include="Class_declaration.cpp" />
     <ClCompile Include="Class_args.cpp" />
     <ClCompile Include="ClassBasic.cpp" />
+    <ClCompile Include="ClassCustom.cpp" />
     <ClCompile Include="ClassOfStruct.cpp" />
     <ClCompile Include="Codec.cpp" />
     <ClCompile Include="Codec_Japanese.cpp" />
     <ClCompile Include="Common.cpp" />
-    <ClCompile Include="CustomFunction.cpp" />
-    <ClCompile Include="CustomClass.cpp" />
     <ClCompile Include="DateTime.cpp" />
     <ClCompile Include="Declaration.cpp" />
     <ClCompile Include="Directory.cpp" />
@@ -226,6 +225,7 @@
     <ClCompile Include="Expr.cpp" />
     <ClCompile Include="Formatter.cpp" />
     <ClCompile Include="Function.cpp" />
+    <ClCompile Include="FunctionCustom.cpp" />
     <ClCompile Include="Fundamental.cpp" />
     <ClCompile Include="Help.cpp" />
     <ClCompile Include="Image.cpp" />

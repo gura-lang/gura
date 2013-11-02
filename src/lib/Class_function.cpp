@@ -51,8 +51,8 @@ Value Object_function::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 		return Value(env, str.c_str());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(expr))) {
 		if (!GetFunction()->IsCustom()) return Value::Null;
-		const CustomFunction *pFuncCustom =
-						dynamic_cast<const CustomFunction *>(GetFunction());
+		const FunctionCustom *pFuncCustom =
+						dynamic_cast<const FunctionCustom *>(GetFunction());
 		return Value(env, Expr::Reference(pFuncCustom->GetExprBody()));
 	}
 	evaluatedFlag = false;
@@ -83,7 +83,7 @@ Value Object_function::DoSetProp(Environment &env, Signal sig, const Symbol *pSy
 			sig.SetError(ERR_TypeError, "expr must be specified");
 			return Value::Null;
 		}
-		CustomFunction *pFuncCustom = dynamic_cast<CustomFunction *>(GetFunction());
+		FunctionCustom *pFuncCustom = dynamic_cast<FunctionCustom *>(GetFunction());
 		pFuncCustom->SetExprBody(Expr::Reference(value.GetExpr()));
 		return value;
 	}
@@ -224,7 +224,7 @@ Gura_ImplementFunction(function)
 	} else {
 		pExprOwnerArg = pExprOwnerParam->Reference();
 	}
-	AutoPtr<CustomFunction> pFunc(new CustomFunction(env,
+	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 			Gura_Symbol(_anonymous_), Expr::Reference(pExprBlock), FUNCTYPE_Function));
 	AutoPtr<Args> pArgsSub(new Args());
 	pArgsSub->SetExprOwnerArg(pExprOwnerArg);
@@ -317,7 +317,7 @@ Gura_ImplementMethod(function, diff)
 	}
 	AutoPtr<Expr> pExprDiff;
 	if (pFunc->IsCustom()) {
-		const CustomFunction *pFuncCustom = dynamic_cast<const CustomFunction *>(pFunc);
+		const FunctionCustom *pFuncCustom = dynamic_cast<const FunctionCustom *>(pFunc);
 		pExprDiff.reset(pFuncCustom->GetExprBody()->MathDiff(env, sig, pSymbol));
 		if (sig.IsSignalled()) return Value::Null;
 	} else {
@@ -325,7 +325,7 @@ Gura_ImplementMethod(function, diff)
 		pExprDiff.reset(pFunc->DiffUnary(env, sig, pExprArg.get(), pSymbol));
 		if (sig.IsSignalled()) return Value::Null;
 	}
-	AutoPtr<CustomFunction> pFuncDiff(new CustomFunction(env,
+	AutoPtr<FunctionCustom> pFuncDiff(new FunctionCustom(env,
 			Gura_Symbol(_anonymous_), pExprDiff.release(), FUNCTYPE_Function));
 	pFuncDiff->CopyDeclare(*pFunc);
 	return Value(env, pFuncDiff.release(), Value::Null);

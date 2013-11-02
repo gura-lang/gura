@@ -29,12 +29,11 @@ Class_stream.cpp
 Class_timedelta.cpp
 Class_uri.cpp
 ClassBasic.cpp
+ClassCustom.cpp
 ClassOfStruct.cpp
 Codec.cpp
 Codec_Japanese.cpp
 Common.cpp
-CustomClass.cpp
-CustomFunction.cpp
 DateTime.cpp
 Declaration.cpp
 Directory.cpp
@@ -43,6 +42,7 @@ Environment.cpp
 Expr.cpp
 Formatter.cpp
 Function.cpp
+FunctionCustom.cpp
 Fundamental.cpp
 Help.cpp
 Image.cpp

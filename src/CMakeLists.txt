@@ -115,11 +115,10 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Class_timedelta.h
   ${GURA_INCLUDE_DIR}/gura/Class_uri.h
   ${GURA_INCLUDE_DIR}/gura/ClassBasic.h
+  ${GURA_INCLUDE_DIR}/gura/ClassCustom.h
   ${GURA_INCLUDE_DIR}/gura/ClassOfStruct.h
   ${GURA_INCLUDE_DIR}/gura/Codec.h
   ${GURA_INCLUDE_DIR}/gura/Common.h
-  ${GURA_INCLUDE_DIR}/gura/CustomClass.h
-  ${GURA_INCLUDE_DIR}/gura/CustomFunction.h
   ${GURA_INCLUDE_DIR}/gura/DateTime.h
   ${GURA_INCLUDE_DIR}/gura/Declaration.h
   ${GURA_INCLUDE_DIR}/gura/Directory.h
@@ -128,6 +127,7 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Expr.h
   ${GURA_INCLUDE_DIR}/gura/Formatter.h
   ${GURA_INCLUDE_DIR}/gura/Function.h
+  ${GURA_INCLUDE_DIR}/gura/FunctionCustom.h
   ${GURA_INCLUDE_DIR}/gura/Fundamental.h
   ${GURA_INCLUDE_DIR}/gura/Help.h
   ${GURA_INCLUDE_DIR}/gura/Image.h

@@ -46,7 +46,7 @@ Gura_ImplementFunction(class_)
 			return Value::Null;
 		}
 	}
-	CustomClass *pClassCustom = new CustomClass(&env, pClassSuper,
+	ClassCustom *pClassCustom = new ClassCustom(&env, pClassSuper,
 			pClassSuper->GetValueType(),
 			dynamic_cast<Expr_Block *>(Expr::Reference(pExprBlock)), sig);
 	return Value(pClassCustom);
@@ -76,7 +76,7 @@ Gura_ImplementFunction(struct_)
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
 	Class *pClassSuper = env.LookupClass(VTYPE_Struct);
-	CustomClass *pClassCustom = new CustomClass(&env, pClassSuper,
+	ClassCustom *pClassCustom = new ClassCustom(&env, pClassSuper,
 			pClassSuper->GetValueType(),
 			dynamic_cast<Expr_Block *>(Expr::Reference(pExprBlock)), sig);
 	AutoPtr<ExprOwner> pExprOwnerArg(new ExprOwner());

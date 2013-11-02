@@ -29,7 +29,7 @@ Gura_AssignValue(name, Value(new Object_wx_##className(const_cast<wx##className 
 Gura_AssignValue(name, Value(name))
 
 #define Gura_LookupWxMethod(pObj, name) \
-pObj->LookupCustomFunction(Gura_UserSymbol(name), ENVREF_Escalate)
+pObj->LookupFunctionCustom(Gura_UserSymbol(name), ENVREF_Escalate)
 
 Gura_BeginModuleHeader(wx)
 

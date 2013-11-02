@@ -254,7 +254,7 @@ Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &ar
 				(_blockInfo.blockScope == BLKSCOPE_Inside)? pEnvLocal.get() : &env;
 		FunctionType funcType = (_blockInfo.blockScope == BLKSCOPE_SameAsFunc)?
 											FUNCTYPE_Function : FUNCTYPE_Block;
-		CustomFunction *pFuncBlock = CustomFunction::CreateBlockFunc(*pEnv, sig,
+		FunctionCustom *pFuncBlock = FunctionCustom::CreateBlockFunc(*pEnv, sig,
 								_blockInfo.pSymbol, pExprBlock, funcType);
 		if (pFuncBlock == NULL) return NULL;
 		pEnvLocal->AssignFunction(pFuncBlock);
@@ -1080,7 +1080,7 @@ const Function *Args::GetBlockFunc(Environment &env, Signal sig, const Symbol *p
 	const Expr_Block *pExprBlock = GetBlock(env, sig);
 	if (pExprBlock == NULL || pSymbol == NULL) return NULL;
 	if (_pFuncBlock.IsNull()) {
-		_pFuncBlock.reset(CustomFunction::CreateBlockFunc(env, sig,
+		_pFuncBlock.reset(FunctionCustom::CreateBlockFunc(env, sig,
 										pSymbol, pExprBlock, FUNCTYPE_Block));
 	}
 	return _pFuncBlock.get();

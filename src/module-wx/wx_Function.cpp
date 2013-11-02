@@ -29,7 +29,7 @@ Gura_ImplementFunction(IMPLEMENT_APP)
 	do {
 		Expr_Block *pExprBlock = new Expr_Block();
 		pExprBlock->AddExpr(new Expr_Value(rtn));
-		AutoPtr<CustomFunction> pFunc(new CustomFunction(env,
+		AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 			Gura_UserSymbol(GetApp), pExprBlock, FUNCTYPE_Function));
 		_pEnv->AssignFunction(pFunc.release());
 	} while (0);

@@ -1,20 +1,20 @@
-#ifndef __GURA_CUSTOMCLASS_H__
-#define __GURA_CUSTOMCLASS_H__
+#ifndef __GURA_CLASSCUSTOM_H__
+#define __GURA_CLASSCUSTOM_H__
 
 #include "Common.h"
 #include "Class.h"
 
 namespace Gura {
 
-class GURA_DLLDECLARE CustomClass : public Class {
+class GURA_DLLDECLARE ClassCustom : public Class {
 private:
 	AutoPtr<Expr_Block> _pExprContent;
 	Signal _sig;
 public:
-	CustomClass(const CustomClass &cls);
-	CustomClass(Environment *pEnv, Class *pClassSuper,
+	ClassCustom(const ClassCustom &cls);
+	ClassCustom(Environment *pEnv, Class *pClassSuper,
 				ValueType valType, Expr_Block *pExprContent, Signal sig);
-	virtual ~CustomClass();
+	virtual ~ClassCustom();
 	virtual bool IsCustom() const;
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
 	Function *PrepareConstructor(Environment &env, Signal sig);
@@ -24,14 +24,14 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// ConstructorOfCustomClass
+// ConstructorOfClassCustom
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE ConstructorOfCustomClass : public Function {
+class GURA_DLLDECLARE ConstructorOfClassCustom : public Function {
 private:
 	AutoPtr<Environment> _pEnvScope;
 	AutoPtr<Expr> _pExprBody;
 public:
-	ConstructorOfCustomClass(Environment &envScope, const Symbol *pSymbol, Expr *pExpr,
+	ConstructorOfClassCustom(Environment &envScope, const Symbol *pSymbol, Expr *pExpr,
 													FunctionType funcType);
 	inline const Expr *GetExprBody() const { return _pExprBody.get(); }
 private:

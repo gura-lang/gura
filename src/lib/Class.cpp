@@ -20,7 +20,7 @@ Object::Object(Class *pClass) :
 Object::~Object()
 {
 	if (!_pClass->IsCustom()) return;
-	CustomClass *pClassCustom = dynamic_cast<CustomClass *>(_pClass.get());
+	ClassCustom *pClassCustom = dynamic_cast<ClassCustom *>(_pClass.get());
 	const Function *pFunc =
 			pClassCustom->LookupFunction(Gura_Symbol(__del__), ENVREF_NoEscalate);
 	if (pFunc == NULL) return;

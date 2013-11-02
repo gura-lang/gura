@@ -1,22 +1,22 @@
-#ifndef __GURA_CUSTOMFUNCTION_H__
-#define __GURA_CUSTOMFUNCTION_H__
+#ifndef __GURA_FUNCTIONCUSTOM_H__
+#define __GURA_FUNCTIONCUSTOM_H__
 
 #include "Function.h"
 
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// CustomFunction
+// FunctionCustom
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE CustomFunction : public Function {
+class GURA_DLLDECLARE FunctionCustom : public Function {
 public:
 	class GURA_DLLDECLARE SequenceEx : public Sequence {
 	protected:
-		AutoPtr<CustomFunction> _pCustomFunction;
+		AutoPtr<FunctionCustom> _pFunctionCustom;
 		AutoPtr<ExprOwner> _pExprOwner;
 		size_t _idxExpr;
 	public:
-		SequenceEx(Environment *pEnv, CustomFunction *pCustomFunction);
+		SequenceEx(Environment *pEnv, FunctionCustom *pFunctionCustom);
 	public:
 		virtual bool DoStep(Signal sig, Value &result);
 		virtual String ToString() const;
@@ -24,15 +24,15 @@ public:
 private:
 	AutoPtr<Expr> _pExprBody;
 public:
-	CustomFunction(Environment &envScope, const Symbol *pSymbol,
+	FunctionCustom(Environment &envScope, const Symbol *pSymbol,
 									Expr *pExprBody, FunctionType funcType);
-	virtual ~CustomFunction();
+	virtual ~FunctionCustom();
 	virtual bool IsCustom() const;
 	inline const Expr *GetExprBody() const { return _pExprBody.get(); }
 	inline void SetExprBody(Expr *pExprBody) { _pExprBody.reset(pExprBody); }
 	virtual Expr *DiffUnary(Environment &env, Signal sig,
 						const Expr *pExprArg, const Symbol *pSymbol) const;
-	static CustomFunction *CreateBlockFunc(Environment &env, Signal sig,
+	static FunctionCustom *CreateBlockFunc(Environment &env, Signal sig,
 		const Symbol *pSymbol, const Expr_Block *pExprBlock, FunctionType funcType);
 private:
 	virtual Value DoEval(Environment &env, Signal sig, Args &args) const;
