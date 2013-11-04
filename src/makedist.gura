@@ -3,6 +3,59 @@
 
 //[langId, codePage] = ['1041', '932']	// jp-JP
 [langId, codePage] = ['1033', '1252']	// en-US
+dirNameScript = path.dirname(sys.argv[0])
+dirNameDst = path.join(dirNameScript)
+prefix = 'gura-' + sys.version
+fileNameSrcTar	= path.join(dirNameDst, prefix + '-src.tar.gz')
+fileNameSrcZip 	= path.join(dirNameDst, prefix + '-src.zip')
+fileNameBinZip	= path.join(dirNameDst, prefix + '-win32.zip')
+fileNameList	= path.join(dirNameDst, prefix + '-win32.list.txt')
+fileNameWxs		= path.join(dirNameDst, prefix + '-win32.wxs')
+fileNameWixobj	= path.join(dirNameDst, prefix + '-win32.wixobj')
+fileNameMsi		= path.join(dirNameDst, prefix + '-win32.msi')
+
+if (sys.platform == `mswin) {
+	create() = {
+		fileNames = gatherFiles()
+		createZip(fileNames)
+		createMsi(fileNames)
+		createSrcPackage()
+	}
+} elsif (sys.platform == `linux) {
+	create() = {
+		createSrcPackage()
+	}
+} else {
+	sys.stderr.printf('unknown platform %s\n', sys.platform)
+}
+
+clean() = {
+	fileNames = [
+		fileNameSrcTar
+		fileNameSrcZip
+		fileNameBinZip
+		fileNameList
+		fileNameWxs
+		fileNameWixobj
+		fileNameMsi
+	]
+	fileNames.each {|fileName|
+		try {
+			fs.remove(fileName)
+			conio.setcolor(`bright_red) {
+				printf('removed: %s\n', path.filename(fileName))
+			}
+		} catch {}
+	}
+}
+
+main() = {
+	if (sys.argv.len() >= 2 && sys.argv[1] == 'clean') {
+		clean()
+	} else {
+		create()
+	}
+}
 
 textTemplate = R"""
 <?xml version='1.0' encoding="utf-8"?>
@@ -189,13 +242,9 @@ textTemplate = R"""
 </Wix>
 """
 
-dirnameScript = path.dirname(sys.argv[0])
-dirnameDst = path.join(dirnameScript)
-filenameBase = 'gura-%s-win32' % [sys.version]
-
 gatherFiles() = {
 	if (sys.build == `msc) {
-		filenames = [
+		fileNames = [
 			'bin-x86\\gura.exe'
 			//'bin-x86\\guri.exe'
 			'bin-x86\\guraw.exe'
@@ -207,8 +256,8 @@ gatherFiles() = {
 			'lib\\libguracore-x86.lib'
 		]
 	}
-	fs.chdir(path.join(dirnameScript, '..')) {
-		filenames.append(path.glob([
+	fs.chdir(path.join(dirNameScript, '..')) {
+		fileNames.append(path.glob([
 			'module/*.gura'
 			'module/*.gurd'
 			'module/site/readme.txt'
@@ -272,64 +321,62 @@ gatherFiles() = {
 			'include/gura/*.h'
 			'include/gura/helper/*.h'
 		]):list)
-		filenames.append(path.glob('gura-guest/tcl/bin/*.dll'):list)
-		filenames.append(path.walk('gura-guest/tcl/lib', nil):file)
+		fileNames.append(path.glob('gura-guest/tcl/bin/*.dll'):list)
+		fileNames.append(path.walk('gura-guest/tcl/lib', nil):file)
 	}
-	filenames
+	fileNames
 }
 
 //-----------------------------------------------------------------------------
 // ZIP file creator
 //-----------------------------------------------------------------------------
-createZip(filenames) = {
-	(fs.chdir(path.join(dirnameScript, '..', '..')) {
-		filenames = path.join('gura', filenames)
-		filenameZip = path.join(dirnameDst, filenameBase + '.zip')
-		filenameList = path.join(dirnameDst, filenameBase + '.list.txt')
-		open(filenameList, 'w', 'shift_jis').println(filenames)
-		try { fs.remove(filenameZip) } catch {}
-		os.exec('7z', 'a', '-r-', filenameZip, '@' + filenameList)
+createZip(fileNames) = {
+	(fs.chdir(path.join(dirNameScript, '..', '..')) {
+		fileNames = path.join('gura', fileNames)
+		open(fileNameList, 'w', 'shift_jis').println(fileNames)
+		try { fs.remove(fileNameBinZip) } catch {}
+		os.exec('7z', 'a', '-r-', fileNameBinZip, '@' + fileNameList)
 	} != 0) && sys.exit(1)
 	conio.setcolor(`bright_red) {
-		printf('generated: %s\n', path.filename(filenameZip))
+		printf('generated: %s\n', path.filename(fileNameBinZip))
 	}
 }
 
 //-----------------------------------------------------------------------------
 // MS installer creator
 //-----------------------------------------------------------------------------
-createMsi(filenames) = {
+createMsi(fileNames) = {
 	import(uuid)
 	directoryId = 1
 	componentId = 0
 	fileId = 1
 	components = []
-	DirectoryRec = struct(dirRecs => %{}, filenames => []) {
+	DirectoryRec = struct(dirRecs => %{}, fileNames => []) {
 		GenerateText(indentLevel:number => 0) = {
 			text = ''
 			indent = '  ' * indentLevel
-			if (!this.filenames.isempty()) {
+			if (!this.fileNames.isempty()) {
 				text += indent
 				component = format('Component%d', componentId)
 				components.add(component)
 				text += format("<Component Id='%s' Guid='%s'>\n",
 										component, uuid.generate())
 				keyPathFlag = true
-				for (filename in this.filenames) {
+				for (fileName in this.fileNames) {
 					option = ''
 					if (keyPathFlag) {
 						option += " KeyPath='yes'"
 						keyPathFlag = false
 					}
-					//if (filename == 'bin\\guraole.dll') {
+					//if (fileName == 'bin\\guraole.dll') {
 					//	option += " SelfRegCost='1'"
 					//}
-					//if (path.match('*.ttf', filename)) {
+					//if (path.match('*.ttf', fileName)) {
 					//	option += " TrueType='yes'"
 					//}
 					text += indent
 					text += format("  <File Id='File%d' Name='%s' DiskId='1' Source='%s'%s />\n",
-										fileId, path.filename(filename), filename, option)
+										fileId, path.filename(fileName), fileName, option)
 					fileId += 1
 				}
 				text += indent
@@ -337,11 +384,11 @@ createMsi(filenames) = {
 			}
 			componentId += 1
 			this.dirRecs.items() {|item|
-				[dirname, dirRec] = item
+				[dirName, dirRec] = item
 				text += indent
-				dirname = dirname.replace('bin-x86', 'bin').replace('bin-x64', 'bin')
+				dirName = dirName.replace('bin-x86', 'bin').replace('bin-x64', 'bin')
 				text += format("<Directory Id='Directory%d' Name='%s'>\n",
-														directoryId, dirname)
+														directoryId, dirName)
 				directoryId += 1
 				text += dirRec.GenerateText(indentLevel + 1)
 				text += indent
@@ -351,36 +398,33 @@ createMsi(filenames) = {
 		}
 	}
 	dirRecRoot = DirectoryRec()
-	for (filename in filenames) {
-		segs = filename.split(path.sep_file)
+	for (fileName in fileNames) {
+		segs = fileName.split(path.sep_file)
 		seg = segs.each()
 		dirRec = dirRecRoot
 		repeat (segs.len() - 1) {
-			dirname = seg.next()
-			dirRec.dirRecs.setdefault(dirname, DirectoryRec())
-			dirRec = dirRec.dirRecs[dirname]
+			dirName = seg.next()
+			dirRec.dirRecs.setdefault(dirName, DirectoryRec())
+			dirRec = dirRec.dirRecs[dirName]
 		}
-		dirRec.filenames.add(filename)
+		dirRec.fileNames.add(fileName)
 	}
-	fs.chdir(path.join(dirnameScript, '..')) {
+	fs.chdir(path.join(dirNameScript, '..')) {
 		version = sys.version
 		components.add('ComponentReg')
-		filenameWxs = path.join(dirnameDst, filenameBase + '.wxs')
-		filenameWixobj = path.join(dirnameDst, filenameBase + '.wixobj')
-		filenameMsi = path.join(dirnameDst, filenameBase + '.msi')
-		textTemplate.template(open(filenameWxs, 'w', 'utf-8'))
+		textTemplate.template(open(fileNameWxs, 'w', 'utf-8'))
 		try {
-			(os.exec('candle', '-o', filenameWixobj, filenameWxs) != 0) && sys.exit(1)
+			(os.exec('candle', '-o', fileNameWixobj, fileNameWxs) != 0) && sys.exit(1)
 			(os.exec('light', '-ext', 'WixUIExtension', '-spdb'
-						'-o', filenameMsi, filenameWixobj) != 0) && sys.exit(1)
+						'-o', fileNameMsi, fileNameWixobj) != 0) && sys.exit(1)
 		} catch {
 			println('Failed to execute WiX tool. Make sure that WiX has been properly installed.')
 			sys.exit(1)
 		}
-		fs.remove(filenameWixobj)
+		fs.remove(fileNameWixobj)
 	}
 	conio.setcolor(`bright_red) {
-		printf('generated: %s\n', path.filename(filenameMsi))
+		printf('generated: %s\n', path.filename(fileNameMsi))
 	}
 }
 
@@ -388,28 +432,16 @@ createMsi(filenames) = {
 // tar-ball creator
 //-----------------------------------------------------------------------------
 createSrcPackage() = {
-	prefix = 'gura-' + sys.version
-	filenameTar = prefix + '-src.tar.gz'
-	filenameZip = prefix + '-src.zip'
 	fs.chdir('..') {
 		(os.exec('git', 'archive', '--format=tar.gz', '--prefix=' + prefix + '/',
-				 '--output=src/' + filenameTar, 'HEAD') != 0) || \
+				 '--output=' + fileNameSrcTar, 'HEAD') != 0) || \
 		(os.exec('git', 'archive', '--format=zip', '--prefix=' + prefix + '/',
-				 '--output=src/' + filenameZip, 'HEAD') != 0)
+				 '--output=' + fileNameSrcZip, 'HEAD') != 0)
 	} && sys.exit(1)
 	conio.setcolor(`bright_red) {
-		printf('generated: %s\n', filenameTar)
-		printf('generated: %s\n', filenameZip)
+		printf('generated: %s\n', path.filename(fileNameSrcTar))
+		printf('generated: %s\n', path.filename(fileNameSrcZip))
 	}
 }
 
-if (sys.platform == `mswin) {
-	filenames = gatherFiles()
-	createZip(filenames)
-	createMsi(filenames)
-	createSrcPackage()
-} elsif (sys.platform == `linux) {
-	createSrcPackage()
-} else {
-	sys.stderr.printf('unknown platform %s\n', sys.platform)
-}
+main()
