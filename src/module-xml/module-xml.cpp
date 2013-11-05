@@ -1241,7 +1241,7 @@ Gura_ImplementFunction(parser)
 	return ReturnValue(env, sig, args, args.GetThis());
 }
 
-// xml.element(_tagname_:string, %attrs):map {block?}
+// xml.element(_tagname_:string, attrs%):map {block?}
 Gura_DeclareFunction(element)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
