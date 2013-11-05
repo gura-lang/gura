@@ -392,3 +392,27 @@ testcase {
 	x = 4
 	printf('%d .. should be 5\n', g(3))
 }
+testcase {
+	f(a:number, b, c, d[]:number):map = {
+	}
+	println(f.decls:*name.join(','))
+}
+testcase {
+	f(a:number, b, c, d[]:number):map = {
+		println(__args__.values):nomap
+	}
+	f(1, 2, 3, [4, 5, 6])
+}
+testcase {
+	f(x:number) = {
+		if (x % 2 == 0) {
+			println('x is an even number, quit trailer')
+			__args__.quit_trailer()
+		}
+	}
+	f(0) println('trailer')
+	f(1) println('trailer')
+	f(2) println('trailer')
+	f(3) println('trailer')
+}
+

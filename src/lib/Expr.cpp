@@ -2232,6 +2232,14 @@ Value Expr_Caller::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
 		Function::Delete(pFunc);
 		return Value::Null;
 	}
+#if 0
+	if (!pSymbol->IsIdentical(Gura_Symbol(__init__)) && pExprBody->IsBlock()) {
+		ExprOwnerParam *pExprOwnerParam =
+						dynamic_cast<Expr_Block *>(pExprBody)->GetExprOwnerParam();
+		if (pExprOwnerParam != NULL) {
+		}
+	}
+#endif
 	Value valueFunc(env, pFunc, Value::Null);
 	GetCar()->Assign(env, sig, valueFunc, pSymbolsAssignable, escalateFlag);
 	if (sig.IsSignalled()) return Value::Null;

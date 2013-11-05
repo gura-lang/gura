@@ -267,3 +267,18 @@ math.log10(num):map .. [0, 0.30103, 0.477121, 0.60206, 0.69897, 0.778151, 0.8450
 ======== #35 ========
 
 5 .. should be 5
+
+======== #36 ========
+
+a,b,c,d
+
+======== #37 ========
+
+[1, 2, 3, [4, 5, 6]]
+
+======== #38 ========
+
+x is an even number, quit trailer
+trailer
+x is an even number, quit trailer
+trailer
