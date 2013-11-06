@@ -278,6 +278,13 @@ public:
 typedef std::vector<Fraction> FractionList;
 typedef std::deque<Fraction> FractionDeque;
 
+GURA_DLLDECLARE Fraction operator+(const Fraction &a);
+GURA_DLLDECLARE Fraction operator-(const Fraction &a);
+GURA_DLLDECLARE Fraction operator+(const Fraction &a, const Fraction &b);
+GURA_DLLDECLARE Fraction operator-(const Fraction &a, const Fraction &b);
+GURA_DLLDECLARE Fraction operator*(const Fraction &a, const Fraction &b);
+GURA_DLLDECLARE Fraction operator/(const Fraction &a, const Fraction &b);
+
 //-----------------------------------------------------------------------------
 // RandomGenerator
 //-----------------------------------------------------------------------------

@@ -1107,6 +1107,16 @@ Gura_ImplementUnaryOperator(Pos, complex)
 	return value;
 }
 
+Gura_ImplementUnaryOperator(Pos, fraction)
+{
+	const Fraction &a = value.GetFraction();
+	if (a.denominator == 0) {
+		sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
+		return Value::Null;
+	}
+	return Value(+a);
+}
+
 Gura_ImplementUnaryOperator(Pos, matrix)
 {
 	return value;
@@ -1128,6 +1138,16 @@ Gura_ImplementUnaryOperator(Neg, number)
 Gura_ImplementUnaryOperator(Neg, complex)
 {
 	return Value(-value.GetComplex());
+}
+
+Gura_ImplementUnaryOperator(Neg, fraction)
+{
+	const Fraction &a = value.GetFraction();
+	if (a.denominator == 0) {
+		sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
+		return Value::Null;
+	}
+	return Value(-a);
 }
 
 Gura_ImplementUnaryOperator(Neg, matrix)
@@ -1179,6 +1199,17 @@ Gura_ImplementBinaryOperator(Add, number, number)
 Gura_ImplementBinaryOperator(Add, complex, complex)
 {
 	return Value(valueLeft.GetComplex() + valueRight.GetComplex());
+}
+
+Gura_ImplementBinaryOperator(Add, fraction, fraction)
+{
+	const Fraction &a = valueLeft.GetFraction();
+	const Fraction &b = valueRight.GetFraction();
+	if (a.denominator == 0 || b.denominator == 0) {
+		sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
+		return Value::Null;
+	}
+	return Value(a + b);
 }
 
 Gura_ImplementBinaryOperator(Add, number, complex)
@@ -1287,6 +1318,17 @@ Gura_ImplementBinaryOperator(Sub, complex, complex)
 	return Value(valueLeft.GetComplex() - valueRight.GetComplex());
 }
 
+Gura_ImplementBinaryOperator(Sub, fraction, fraction)
+{
+	const Fraction &a = valueLeft.GetFraction();
+	const Fraction &b = valueRight.GetFraction();
+	if (a.denominator == 0 || b.denominator == 0) {
+		sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
+		return Value::Null;
+	}
+	return Value(a - b);
+}
+
 Gura_ImplementBinaryOperator(Sub, number, complex)
 {
 	return Value(valueLeft.GetNumber() - valueRight.GetComplex());
@@ -1374,6 +1416,17 @@ Gura_ImplementBinaryOperator(Mul, number, number)
 Gura_ImplementBinaryOperator(Mul, complex, complex)
 {
 	return Value(valueLeft.GetComplex() * valueRight.GetComplex());
+}
+
+Gura_ImplementBinaryOperator(Mul, fraction, fraction)
+{
+	const Fraction &a = valueLeft.GetFraction();
+	const Fraction &b = valueRight.GetFraction();
+	if (a.denominator == 0 || b.denominator == 0) {
+		sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
+		return Value::Null;
+	}
+	return Value(a * b);
 }
 
 Gura_ImplementBinaryOperator(Mul, number, complex)
@@ -1503,6 +1556,17 @@ Gura_ImplementBinaryOperator(Div, complex, complex)
 		return Value::Null;
 	}
 	return Value(valueLeft.GetComplex() / valueRight.GetComplex());
+}
+
+Gura_ImplementBinaryOperator(Div, fraction, fraction)
+{
+	const Fraction &a = valueLeft.GetFraction();
+	const Fraction &b = valueRight.GetFraction();
+	if (a.denominator == 0 || b.numerator == 0) {
+		sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
+		return Value::Null;
+	}
+	return Value(a / b);
 }
 
 Gura_ImplementBinaryOperator(Div, number, complex)
@@ -1841,10 +1905,12 @@ void Operator::AssignOperators(Environment &env)
 	env.SetOperator(OPTYPE_Pair, new Operator_Pair());
 	Gura_AssignUnaryOperator(Pos, number);
 	Gura_AssignUnaryOperator(Pos, complex);
+	Gura_AssignUnaryOperator(Pos, fraction);
 	Gura_AssignUnaryOperator(Pos, matrix);
 	Gura_AssignUnaryOperator(Pos, timedelta);
 	Gura_AssignUnaryOperator(Neg, number);
 	Gura_AssignUnaryOperator(Neg, complex);
+	Gura_AssignUnaryOperator(Neg, fraction);
 	Gura_AssignUnaryOperator(Neg, matrix);
 	Gura_AssignUnaryOperator(Neg, timedelta);
 	Gura_AssignUnaryOperator(Inv, number);
@@ -1852,6 +1918,7 @@ void Operator::AssignOperators(Environment &env)
 	Gura_AssignUnaryOperator(SeqInf, number);
 	Gura_AssignBinaryOperator(Add, number, number);
 	Gura_AssignBinaryOperator(Add, complex, complex);
+	Gura_AssignBinaryOperator(Add, fraction, fraction);
 	Gura_AssignBinaryOperator(Add, number, complex);
 	Gura_AssignBinaryOperator(Add, complex, number);
 	Gura_AssignBinaryOperator(Add, matrix, matrix);
@@ -1867,6 +1934,7 @@ void Operator::AssignOperators(Environment &env)
 	Gura_AssignBinaryOperator(Add, any, string);
 	Gura_AssignBinaryOperator(Sub, number, number);
 	Gura_AssignBinaryOperator(Sub, complex, complex);
+	Gura_AssignBinaryOperator(Sub, fraction, fraction);
 	Gura_AssignBinaryOperator(Sub, number, complex);
 	Gura_AssignBinaryOperator(Sub, complex, number);
 	Gura_AssignBinaryOperator(Sub, matrix, matrix);
@@ -1878,6 +1946,7 @@ void Operator::AssignOperators(Environment &env)
 	Gura_AssignBinaryOperator(Sub, pointer, pointer);
 	Gura_AssignBinaryOperator(Mul, number, number);
 	Gura_AssignBinaryOperator(Mul, complex, complex);
+	Gura_AssignBinaryOperator(Mul, fraction, fraction);
 	Gura_AssignBinaryOperator(Mul, number, complex);
 	Gura_AssignBinaryOperator(Mul, complex, number);
 	Gura_AssignBinaryOperator(Mul, matrix, matrix);
@@ -1894,6 +1963,7 @@ void Operator::AssignOperators(Environment &env)
 	Gura_AssignBinaryOperator(Mul, number, binary);
 	Gura_AssignBinaryOperator(Div, number, number);
 	Gura_AssignBinaryOperator(Div, complex, complex);
+	Gura_AssignBinaryOperator(Div, fraction, fraction);
 	Gura_AssignBinaryOperator(Div, number, complex);
 	Gura_AssignBinaryOperator(Div, complex, number);
 	Gura_AssignBinaryOperator(Div, matrix, any);

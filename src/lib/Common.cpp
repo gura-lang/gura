@@ -56,7 +56,65 @@ Fraction Fraction::Reduce() const
 {
 	int gcd = CalcGCD(numerator, denominator);
 	if (gcd == 0) return *this;
-	return Fraction(numerator / gcd, denominator / gcd);
+	int numeratorReduced = numerator / gcd;
+	int denominatorReduced = denominator / gcd;
+	if (denominatorReduced < 0) {
+		numeratorReduced = -numeratorReduced;
+		denominatorReduced = -denominatorReduced;
+	}
+	return Fraction(numeratorReduced, denominatorReduced);
+}
+
+Fraction operator+(const Fraction &a)
+{
+	if (a.denominator < 0) return Fraction(-a.numerator, -a.denominator);
+	return a;
+}
+
+Fraction operator-(const Fraction &a)
+{
+	if (a.denominator < 0) return Fraction(a.numerator, -a.denominator);
+	return Fraction(-a.numerator, a.denominator);
+}
+
+Fraction operator+(const Fraction &a, const Fraction &b)
+{
+	if (a.denominator == 0 || b.denominator == 0) return Fraction::Zero;
+	Fraction rtn;
+	if (a.denominator == b.denominator) {
+		rtn.numerator = a.numerator + b.numerator;
+		rtn.denominator = a.denominator;
+	} else {
+		rtn.numerator = a.numerator * b.denominator + b.numerator * a.denominator;
+		rtn.denominator = a.denominator * b.denominator;
+	}
+	return rtn.Reduce();
+}
+
+Fraction operator-(const Fraction &a, const Fraction &b)
+{
+	if (a.denominator == 0 || b.denominator == 0) return Fraction::Zero;
+	Fraction rtn;
+	if (a.denominator == b.denominator) {
+		rtn.numerator = a.numerator - b.numerator;
+		rtn.denominator = a.denominator;
+	} else {
+		rtn.numerator = a.numerator * b.denominator - b.numerator * a.denominator;
+		rtn.denominator = a.denominator * b.denominator;
+	}
+	return rtn.Reduce();
+}
+
+Fraction operator*(const Fraction &a, const Fraction &b)
+{
+	if (a.denominator == 0 || b.denominator == 0) return Fraction::Zero;
+	return Fraction(a.numerator * b.numerator, a.denominator * b.denominator).Reduce();
+}
+
+Fraction operator/(const Fraction &a, const Fraction &b)
+{
+	if (a.denominator == 0 || b.numerator == 0) return Fraction::Zero;
+	return Fraction(a.numerator * b.denominator, a.denominator * b.numerator).Reduce();
 }
 
 //-----------------------------------------------------------------------------
