@@ -24,7 +24,7 @@ Value FunctionCustom::DoEval(Environment &env, Signal sig, Args &args) const
 	if (_funcType != FUNCTYPE_Block) {
 		Value valueThis(args.GetThis());
 		valueThis.AddFlags(VFLAG_Privileged);
-		pEnvLocal->AssignValue(Gura_Symbol(this), valueThis, EXTRA_Public);
+		pEnvLocal->AssignValue(Gura_Symbol(this_), valueThis, EXTRA_Public);
 	}
 	pEnvLocal->AssignValue(Gura_Symbol(__args__),
 				Value(new Object_args(env, args.Reference())), EXTRA_Public);

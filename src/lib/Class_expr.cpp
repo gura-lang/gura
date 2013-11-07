@@ -28,7 +28,7 @@ Object *Object_expr::Clone() const
 bool Object_expr::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
-	symbols.insert(Gura_Symbol(typename));
+	symbols.insert(Gura_Symbol(typename_));
 	symbols.insert(Gura_Symbol(typesym));
 	symbols.insert(Gura_Symbol(pathname));
 	symbols.insert(Gura_Symbol(lineno));
@@ -52,7 +52,7 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(typename))) {
+	if (pSymbol->IsIdentical(Gura_Symbol(typename_))) {
 		return Value(env, GetExpr()->GetTypeName());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(typesym))) {
 		return Value(Symbol::Add(GetExpr()->GetTypeName()));
@@ -156,7 +156,7 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		}
 		sig.SetError(ERR_ValueError, "expression is not a block");
 		return Value::Null;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(operator))) {
+	} else if (pSymbol->IsIdentical(Gura_Symbol(operator_))) {
 		if (GetExpr()->IsUnaryOp()) {
 			const Expr_UnaryOp *pExpr = dynamic_cast<const Expr_UnaryOp *>(GetExpr());
 			return Value(new Object_operator(env,

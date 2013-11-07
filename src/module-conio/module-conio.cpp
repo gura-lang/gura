@@ -143,7 +143,7 @@ Gura_ImplementFunction(clear)
 	DWORD dwConSize = 0;
 	if (pSymbol == NULL) {
 		dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
-	} else if (pSymbol == Gura_Symbol(line)) {
+	} else if (pSymbol == Gura_Symbol(line_)) {
 		int width = csbi.dwSize.X;
 		coordStart = csbi.dwCursorPosition;
 		coordStart.X = 0;

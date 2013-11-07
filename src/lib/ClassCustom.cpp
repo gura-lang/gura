@@ -138,7 +138,7 @@ Value ClassCustom::Constructor::DoEval(Environment &env, Signal sig, Args &args)
 	SeqPostHandler *pSeqPostHandler = NULL;
 	Value valueThis(valueRtn);
 	valueThis.AddFlags(VFLAG_Privileged);
-	pEnvLocal->AssignValue(Gura_Symbol(this), valueThis, EXTRA_Public);
+	pEnvLocal->AssignValue(Gura_Symbol(this_), valueThis, EXTRA_Public);
 	GetExprBody()->Exec2(*pEnvLocal, sig, pSeqPostHandler);
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, sig, args, valueRtn);
