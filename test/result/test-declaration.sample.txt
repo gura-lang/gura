@@ -63,6 +63,7 @@ codecs:module = <module:codecs:<integrated>>
     __source__:string = <integrated>
     __symbol__:symbol = japanese
 color:function = color(args+):map {block?}
+complex:function = complex(real:number, imag?:number):map {block?}
 cond:function = cond(flag:boolean, value1:nomap, value2?:nomap):map
 conds:function = conds(flag:boolean, value1, value2?):map
 conio:module = <module:conio:<integrated>>
