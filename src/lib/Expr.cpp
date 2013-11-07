@@ -1294,6 +1294,7 @@ Value Expr_Block::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostH
 		foreach_const (ExprOwner, ppExpr, GetExprOwner()) {
 			Value value = (*ppExpr)->Exec2(env, sig, pSeqPostHandlerEach, true);
 			if (sig.IsSignalled()) return Value::Null;
+			
 			valList.push_back(value);
 		}
 	} else {

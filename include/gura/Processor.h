@@ -54,18 +54,6 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// SeqPostHandler_StoreList
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE SeqPostHandler_StoreList : public SeqPostHandler {
-private:
-	AutoPtr<Object_list> _pObjList;
-public:
-	inline SeqPostHandler_StoreList(Environment *pEnv, Object_list *pObjList) :
-						SeqPostHandler(pEnv), _pObjList(pObjList) {}
-	virtual bool DoPost(Signal sig, const Value &result);
-};
-
-//-----------------------------------------------------------------------------
 // SequenceStack
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE SequenceStack : public std::list<Sequence *> {

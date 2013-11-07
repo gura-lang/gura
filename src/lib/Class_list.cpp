@@ -701,9 +701,9 @@ Gura_ImplementFunction(ListInit)
 			valList.push_back(valueElem);
 		}
 	} else {
+#if 0
 		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
 		ValueList &valList = result.InitAsList(env);
-		//Object_list::GetObject(result);
 		foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
 			SeqPostHandler *pSeqPostHandler = NULL;
 			Value value = (*ppExpr)->Exec2(*pEnvLister, sig, pSeqPostHandler);
@@ -713,6 +713,9 @@ Gura_ImplementFunction(ListInit)
 			}
 			valList.push_back(value);
 		}
+#endif
+		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
+		result = pExprBlock->Exec(*pEnvLister, sig, NULL);
 	}
 	return result;
 }
