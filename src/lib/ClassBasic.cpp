@@ -247,6 +247,24 @@ bool Class_number::Deserialize(Environment &env, Signal sig, Stream &stream, Val
 //-----------------------------------------------------------------------------
 // Class_complex
 //-----------------------------------------------------------------------------
+// complex(real:number, imag?:number):map {block?}
+Gura_DeclareFunction(complex)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "real", VTYPE_number);
+	DeclareArg(env, "imag", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetClassToConstruct(env.LookupClass(VTYPE_complex));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Creates a fraction value.");
+}
+
+Gura_ImplementFunction(complex)
+{
+	double real = args.GetDouble(0);
+	double imag = args.IsNumber(1)? args.GetDouble(1) : 0;
+	return ReturnValue(env, sig, args, Value(Complex(real, imag)));
+}
+
 // complex#real()
 Gura_DeclareMethodPrimitive(complex, real)
 {
@@ -335,6 +353,7 @@ Class_complex::Class_complex(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_co
 
 void Class_complex::Prepare(Environment &env)
 {
+	Gura_AssignFunction(complex);
 	Gura_AssignMethod(complex, real);		// primitive method
 	Gura_AssignMethod(complex, imag);		// primitive method
 	Gura_AssignMethod(complex, norm);		// primitive method
