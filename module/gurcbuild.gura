@@ -1,23 +1,45 @@
 #!/usr/bin/env gura
 import(re)
 import(zip)
+import(argopt)
 
 build(pathNames[]:string, dirName?:string) = {
+	argopt.Parser {|p|
+		try {
+			[cfg, argv] = p.parse(sys.argv)
+		} catch {|e|
+			sys.stderr.println(e.text)
+			sys.exit(1)
+		}
+		cmd = if (argv.len() == 0) {
+			`build
+		} elsif (argv[0] == 'clean') {
+			`clean
+		} else {
+			sys.stderr.println('unknown command: ', argv[0])
+			sys.exit(1)
+		}
+	}
 	[baseName, extName] = path.splitext(path.filename(pathNames.first()))
 	if (!(m = extName.match('gura(w?)'))) {
 		raise(NameError, 'first element must have an extension .gura or .guraw')
 	}
 	tgtName = baseName + '.gurc' + m[1]
-	if (dirName) {
-		tgtName = path.join(dirName, tgtName)
-		!path.exists(dirName) && fs.mkdir(dirName)
+	if (cmd == `build) {
+		if (dirName) {
+			tgtName = path.join(dirName, tgtName)
+			!path.exists(dirName) && fs.mkdir(dirName)
+		}
+		open(tgtName, 'w') {|f|
+			f.addcr(false)
+			f.println('#!/usr/bin/env gura')
+			zip.writer(f).add(pathNames, pathNames).close()
+			f.close()
+		}
+		fs.chmod('a+x', tgtName)
+		println(tgtName, ' was created')
+	} elsif (cmd == `clean) {
+		fs.remove(tgtName)
+		println(tgtName, ' was removed')
 	}
-	open(tgtName, 'w') {|f|
-		f.addcr(false)
-		f.println('#!/usr/bin/env gura')
-		zip.writer(f).add(pathNames, pathNames).close()
-		f.close()
-	}
-	fs.chmod('a+x', tgtName)
-	println(tgtName, ' was created')
 }
