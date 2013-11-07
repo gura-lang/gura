@@ -1,0 +1,65 @@
+#!/usr/bin/env gura
+import(argopt)
+import(bmp)
+import(png)
+import(jpeg)
+import(xpm)
+import(show.wx)
+
+main() = {
+	argopt.Parser {|p|
+		try {
+			[cfg, argv] = p.parse(sys.argv)
+		} catch {|e|
+			sys.stderr.println(e.text)
+			sys.exit(1)
+		}
+	}
+	[width, height] = [300, 300]
+	[realMin, realMax] = [-2.0, 1.0]
+	[imagMin, imagMax] = [-1.5, 1.5]
+	colors = palette(`basic).each():list
+	//colors = palette(`win256).each():list
+	//colors = color(0, 0, interval(80, 255, 16))
+	//colors = color(0, 0, interval(80, 255, 16))
+	printf('canvas: %dx%d, real: [%g, %g], imaginal: [%g, %g]\n',
+						width, height, realMin, realMax, imagMin, imagMax)
+	img = mandelbrot(width, height, colors,
+						realMin, realMax, imagMin, imagMax) {|progress|
+		sys.stderr.printf('Progress: %d%%\r', progress)
+	}
+	if (argv.len() > 0) {
+		fileName = argv[0]
+		img.write(fileName)
+		sys.stderr.println(fileName, ' was created')
+	} else {
+		img.show()
+	}
+}
+
+mandelbrot(width:number, height:number, colors[]:color,
+		realMin:number, realMax:number, imagMin:number, imagMax:number) {block?} = {
+	img = image(`rgb, width, height)
+	nPixels = img.width * img.height
+	progressPrev = 0
+	cross (x in range(img.width), y in range(img.height)) {|iPixel|
+		real = x * (realMax - realMin) / img.width + realMin
+		imag = y * (imagMax - imagMin) / img.height + imagMin
+		zn = z0 = complex(real, imag)
+		c = colors.each {|c|
+			zm = zn * zn + z0
+			(zm.norm() > 4) && break(c)
+			zn = zm
+			`black
+		}
+		img.putpixel(x, y, c)
+		progress = int((iPixel + 1) / nPixels * 100)
+		if (progress != progressPrev) {
+			block && block(progress)
+			progressPrev = progress
+		}
+	}
+	img
+}
+
+main()
