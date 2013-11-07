@@ -74,6 +74,8 @@ install(FILES
   ${GURA_MODULE_DIR}/modgen.gura
   ${GURA_MODULE_DIR}/modbuild.gura
   ${GURA_MODULE_DIR}/msxls.gura
+  ${GURA_MODULE_DIR}/show.tk.gura
+  ${GURA_MODULE_DIR}/show.wx.gura
   ${GURA_MODULE_DIR}/tk.gura
   ${GURA_MODULE_DIR}/tokenizer.gura
   ${GURA_MODULE_DIR}/units.gura

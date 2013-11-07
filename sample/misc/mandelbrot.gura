@@ -4,7 +4,6 @@ import(bmp)
 import(png)
 import(jpeg)
 import(xpm)
-import(show.wx)
 
 main() = {
 	argopt.Parser {|p|
@@ -33,6 +32,7 @@ main() = {
 		img.write(fileName)
 		sys.stderr.println(fileName, ' was created')
 	} else {
+		import(show.wx)
 		img.show()
 	}
 }
