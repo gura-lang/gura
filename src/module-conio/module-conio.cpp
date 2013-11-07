@@ -310,7 +310,7 @@ Gura_ImplementFunction(clear)
 	if (pSymbol == NULL) {
 		::printf("\033[2J");
 		::printf("\033[H");
-	} else if (pSymbol == Gura_Symbol(line)) {
+	} else if (pSymbol == Gura_Symbol(line_)) {
 		::printf("\033[2K");
 	} else if (pSymbol == Gura_Symbol(up)) {
 		::printf("\033[D");
