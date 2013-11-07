@@ -32,15 +32,15 @@ func(a, b, c, d, e%, f*) = {}
 
 ======== #2 ========
 
-+ [`number, `complex, `matrix, `timedelta]
-- [`number, `complex, `matrix, `timedelta]
++ [`number, `complex, `fraction, `matrix, `timedelta]
+- [`number, `complex, `fraction, `matrix, `timedelta]
 ~ [`number]
 ! [`any]
 .. [`number]
-+ [[`number, `number], [`complex, `number], [`pointer, `number], [`number, `complex], [`complex, `complex], [`string, `string], [`any, `string], [`binary, `string], [`string, `any], [`string, `binary], [`binary, `binary], [`timedelta, `datetime], [`matrix, `matrix], [`datetime, `timedelta], [`timedelta, `timedelta]]
-- [[`number, `number], [`complex, `number], [`pointer, `number], [`number, `complex], [`complex, `complex], [`color, `color], [`datetime, `datetime], [`matrix, `matrix], [`pointer, `pointer], [`datetime, `timedelta], [`timedelta, `timedelta]]
-* [[`number, `number], [`complex, `number], [`string, `number], [`binary, `number], [`timedelta, `number], [`number, `complex], [`complex, `complex], [`number, `string], [`function, `any], [`matrix, `any], [`number, `binary], [`matrix, `list], [`any, `matrix], [`list, `matrix], [`matrix, `matrix], [`number, `timedelta]]
-/ [[`number, `number], [`complex, `number], [`number, `complex], [`complex, `complex], [`matrix, `any]]
++ [[`number, `number], [`complex, `number], [`pointer, `number], [`number, `complex], [`complex, `complex], [`fraction, `fraction], [`string, `string], [`any, `string], [`binary, `string], [`string, `any], [`string, `binary], [`binary, `binary], [`timedelta, `datetime], [`matrix, `matrix], [`datetime, `timedelta], [`timedelta, `timedelta]]
+- [[`number, `number], [`complex, `number], [`pointer, `number], [`number, `complex], [`complex, `complex], [`fraction, `fraction], [`color, `color], [`datetime, `datetime], [`matrix, `matrix], [`pointer, `pointer], [`datetime, `timedelta], [`timedelta, `timedelta]]
+* [[`number, `number], [`complex, `number], [`string, `number], [`binary, `number], [`timedelta, `number], [`number, `complex], [`complex, `complex], [`fraction, `fraction], [`number, `string], [`function, `any], [`matrix, `any], [`number, `binary], [`matrix, `list], [`any, `matrix], [`list, `matrix], [`matrix, `matrix], [`number, `timedelta]]
+/ [[`number, `number], [`complex, `number], [`number, `complex], [`complex, `complex], [`fraction, `fraction], [`matrix, `any]]
 % [[`number, `number]]
 ** [[`number, `number], [`complex, `number], [`number, `complex], [`complex, `complex]]
 == [[`any, `any]]
