@@ -546,13 +546,6 @@ public:
 // Expr_Block
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Block : public Expr_Container {
-public:
-	class GURA_DLLDECLARE SequenceEx : public Sequence {
-	public:
-		SequenceEx(Environment *pEnv);
-		virtual bool DoStep(Signal sig, Value &result);
-		virtual String ToString() const;
-	};
 protected:
 	AutoPtr<ExprOwner> _pExprOwnerParam;		// this may be NULL
 public:

@@ -707,7 +707,23 @@ String ExprOwner::SequenceToList::ToString() const
 
 bool ExprOwner::SequenceToList::SeqPostHandlerEach::DoPost(Signal sig, const Value &result)
 {
-	_valList.push_back(result);
+	Environment &env = *_pEnv;
+	if (result.IsIterator()) {
+		AutoPtr<Gura::Iterator> pIterator(result.CreateIterator(sig));
+		if (sig.IsSignalled()) return false;
+		if (pIterator->IsInfinite()) {
+			Iterator::SetError_InfiniteNotAllowed(sig);
+			return false;
+		}
+		Value value;
+		while (pIterator->Next(env, sig, value)) {
+			_valList.push_back(value);
+		}
+		if (sig.IsSignalled()) return false;
+	} else {
+		_valList.push_back(result);
+	}
+	//_valList.push_back(result);
 	return true;
 }
 
@@ -1375,22 +1391,6 @@ bool Expr_Block::GenerateScript(Signal sig, SimpleStream &stream,
 	return true;
 }
 
-Expr_Block::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
-{
-}
-
-bool Expr_Block::SequenceEx::DoStep(Signal sig, Value &result)
-{
-	return false;
-}
-
-String Expr_Block::SequenceEx::ToString() const
-{
-	String str;
-	str += "<sequence:expr_block>";
-	return str;
-}
-
 //-----------------------------------------------------------------------------
 // Expr_Lister
 //-----------------------------------------------------------------------------
@@ -1403,6 +1403,7 @@ Expr *Expr_Lister::Clone() const
 
 Value Expr_Lister::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
 {
+#if 1
 	Value result;
 	SeqPostHandler *pSeqPostHandlerEach = NULL;
 	ValueList &valList = result.InitAsList(env);
@@ -1428,6 +1429,11 @@ Value Expr_Lister::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPost
 	}
 	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
 	return result;
+#else
+	Sequence *pSequence = new ExprOwner::SequenceToList(env.Reference(), GetExprOwner().Reference());
+	pSequence->SetSeqPostHandler(SeqPostHandler::Reference(pSeqPostHandler));
+	return Sequence::Return(sig, pSequence);
+#endif
 }
 
 Value Expr_Lister::DoAssign(Environment &env, Signal sig, Value &valueAssigned,

@@ -14,7 +14,6 @@ class Object_list;
 // Sequence
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Sequence {
-public:
 protected:
 	int _cntRef;
 	AutoPtr<Environment> _pEnv;
@@ -41,19 +40,16 @@ public:
 // SeqPostHandler
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE SeqPostHandler {
-private:
+protected:
 	int _cntRef;
 	AutoPtr<Environment> _pEnv;
-	bool _eachFlag;
 public:
 	Gura_DeclareReferenceAccessor(SeqPostHandler)
 public:
-	inline SeqPostHandler(Environment *pEnv, bool eachFlag = false) :
-							_cntRef(1), _pEnv(pEnv), _eachFlag(eachFlag) {}
+	inline SeqPostHandler(Environment *pEnv) : _cntRef(1), _pEnv(pEnv) {}
 protected:
 	virtual ~SeqPostHandler();
 public:
-	inline bool GetEachFlag() const { return _eachFlag; }
 	virtual bool DoPost(Signal sig, const Value &value) = 0;
 };
 
@@ -64,8 +60,8 @@ class GURA_DLLDECLARE SeqPostHandler_StoreList : public SeqPostHandler {
 private:
 	AutoPtr<Object_list> _pObjList;
 public:
-	inline SeqPostHandler_StoreList(Environment *pEnv, bool eachFlag, Object_list *pObjList) :
-						SeqPostHandler(pEnv, eachFlag), _pObjList(pObjList) {}
+	inline SeqPostHandler_StoreList(Environment *pEnv, Object_list *pObjList) :
+						SeqPostHandler(pEnv), _pObjList(pObjList) {}
 	virtual bool DoPost(Signal sig, const Value &result);
 };
 
