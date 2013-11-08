@@ -158,6 +158,39 @@ String Object_datetime::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_datetime
 //-----------------------------------------------------------------------------
+// datetime(year:number, month:number, day:number,
+//           hour:number => 0, min:number => 0, sec:number => 0, usec:number => 0,
+//           minsoff?:number):map
+Gura_DeclareFunction(datetime)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "year", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "month", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "day", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "hour", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "min", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "sec", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "usec", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "minsoff", VTYPE_number, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(datetime)
+{
+	short year = static_cast<short>(args.GetLong(0));
+	char month = static_cast<char>(args.GetLong(1));
+	char day = static_cast<char>(args.GetLong(2));
+	long sec = static_cast<long>(args.GetLong(3) * 3600 +
+								args.GetLong(4) * 60 + args.GetLong(5));
+	long usec = args.GetLong(6);
+	long secsOffset = 0;
+	if (args.IsNumber(7)) {
+		secsOffset = args.GetLong(7) * 60;
+	} else {
+		secsOffset = OAL::GetSecsOffsetTZ();
+	}
+	return Value(env, DateTime(year, month, day, sec, usec, secsOffset));
+}
+
 // datetime#format(format => `w3c)
 Gura_DeclareMethod(datetime, format)
 {
@@ -296,6 +329,7 @@ Class_datetime::Class_datetime(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 
 void Class_datetime::Prepare(Environment &env)
 {
+	Gura_AssignFunction(datetime);
 	Gura_AssignMethod(datetime, format);
 	Gura_AssignMethod(datetime, settzoff);
 	Gura_AssignMethod(datetime, clrtzoff);

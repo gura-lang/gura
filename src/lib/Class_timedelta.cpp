@@ -77,6 +77,25 @@ String Object_timedelta::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_timedelta
 //-----------------------------------------------------------------------------
+// timedelta(days:number => 0, secs:number => 0, usecs:number => 0):map
+Gura_DeclareFunction(timedelta)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "days", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "secs", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "usecs", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Returns a timedelta instance with specified values. The instance actually\n"
+	"holds properties of days, secs and usecs.\n");
+}
+
+Gura_ImplementFunction(timedelta)
+{
+	long days = static_cast<long>(args.GetNumber(0));
+	long secs = static_cast<long>(args.GetNumber(1));
+	long usecs = static_cast<long>(args.GetNumber(2));
+	return Value(env, TimeDelta(days, secs, usecs));
+}
 
 //-----------------------------------------------------------------------------
 // Classs implementation
@@ -87,6 +106,7 @@ Class_timedelta::Class_timedelta(Environment *pEnvOuter) : Class(pEnvOuter, VTYP
 
 void Class_timedelta::Prepare(Environment &env)
 {
+	Gura_AssignFunction(timedelta);
 }
 
 Object *Class_timedelta::CreateDescendant(Environment &env, Signal sig, Class *pClass)

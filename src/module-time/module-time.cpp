@@ -93,39 +93,6 @@ Gura_ImplementFunction(today)
 	return Value(env, dateTime);
 }
 
-// time.datetime(year:number, month:number, day:number,
-//           hour:number => 0, min:number => 0, sec:number => 0, usec:number => 0,
-//           minsoff?:number):map
-Gura_DeclareFunction(datetime)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "year", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "month", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "day", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "hour", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "min", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "sec", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "usec", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "minsoff", VTYPE_number, OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementFunction(datetime)
-{
-	short year = static_cast<short>(args.GetLong(0));
-	char month = static_cast<char>(args.GetLong(1));
-	char day = static_cast<char>(args.GetLong(2));
-	long sec = static_cast<long>(args.GetLong(3) * 3600 +
-								args.GetLong(4) * 60 + args.GetLong(5));
-	long usec = args.GetLong(6);
-	long secsOffset = 0;
-	if (args.IsNumber(7)) {
-		secsOffset = args.GetLong(7) * 60;
-	} else {
-		secsOffset = OAL::GetSecsOffsetTZ();
-	}
-	return Value(env, DateTime(year, month, day, sec, usec, secsOffset));
-}
-
 // time.time(hour:number => 0, minute:number => 0, sec:number => 0, usec:number => 0):map
 Gura_DeclareFunction(time)
 {
@@ -165,26 +132,6 @@ Gura_ImplementFunction(parse)
 	return Value(env, dateTime);
 }
 
-// time.delta(days:number => 0, secs:number => 0, usecs:number => 0):map
-Gura_DeclareFunction(delta)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "days", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "secs", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "usecs", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a timedelta instance with specified values. The instance actually\n"
-	"holds properties of days, secs and usecs.\n");
-}
-
-Gura_ImplementFunction(delta)
-{
-	long days = static_cast<long>(args.GetNumber(0));
-	long secs = static_cast<long>(args.GetNumber(1));
-	long usecs = static_cast<long>(args.GetNumber(2));
-	return Value(env, TimeDelta(days, secs, usecs));
-}
-
 // time.isleap(year:number):map
 Gura_DeclareFunction(isleap)
 {
@@ -215,10 +162,8 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(weekday);
 	Gura_AssignFunction(now);
 	Gura_AssignFunction(today);
-	Gura_AssignFunction(datetime);
 	Gura_AssignFunction(time);
 	Gura_AssignFunction(parse);
-	Gura_AssignFunction(delta);
 	Gura_AssignFunction(isleap);
 }
 
