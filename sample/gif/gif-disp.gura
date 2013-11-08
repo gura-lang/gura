@@ -2,9 +2,9 @@
 import(sdl)
 import(gif)
 
-gif.read(sys.argv[1], `rgba) {|g|
+gif.content(sys.argv[1], `rgba) {|g|
 	imgs = g.images::resize(300)
-	imgs:*delayTime = g.images:*gif$gctl:*DelayTime / 100
+	imgs:*delayTime:public = g.images:*gif:*GraphicControl:*DelayTime / 100
 }
 createHatchImage(width:number, height:number, wdHatch:number, htHatch:number) = {
 	colors = [color(`gray), color(`white)]
@@ -26,9 +26,9 @@ tickPrev = os.clock()
 delayTime = 0
 sdl.AddTimer(5) {
 	if (os.clock() - tickPrev > delayTime) {
-		screen.PutSurface(imgHatch)
+		sdl.BlitSurface(imgHatch, nil, screen, nil)
 		img = imgIter.next()
-		screen.PutSurface(img, 0, screen.h - img.height)
+		sdl.BlitSurface(img, nil, screen, sdl.Rect(0, screen.h - img.height, 0, 0))
 		screen.UpdateRect()
 		delayTime:extern = img.delayTime
 		tickPrev = os.clock()
