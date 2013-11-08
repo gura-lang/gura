@@ -1,2 +1,2 @@
 #define GURA_VERSION "@GURA_VERSION_MAJOR@.@GURA_VERSION_MINOR@.@GURA_VERSION_PATCH@"
-#define GURA_COPYRIGHT "Copyright (C) 2011-2013 gura-lang.org"
+#define GURA_COPYRIGHT "Copyright (C) 2011-2013 ypsitau"
