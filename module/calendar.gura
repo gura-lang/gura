@@ -26,12 +26,12 @@ calendar(year:number, weekoffset:number => 0, ncols:number => 3) = {
 		months = [month..(month + ncolsCur - 1)]
 		rtn.add((monthNames[months]:*align(wdPerMonth):center).join(sep))
 		rtn.add(repeat(ncolsCur):list { weekLine }.join(sep))
-		lines = repeat(6):list { '' }
+		lines = dim(6) {''}
 		repeat (ncolsCur) {|iCol|
 			if (iCol > 0) { lines += sep }
 			lines += calOfMonth(year, month + iCol)
 		}
-		rtn.add(lines)
+		rtn.append(lines)
 	}
 }
 calendar.addhelp(`en, 'markdown', '''\
