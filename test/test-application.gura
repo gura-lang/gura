@@ -37,34 +37,10 @@ testcase {
 	}
 }
 testcase {
-	calOfMonth(year:number, month:number) = {
-		days = [consts('  ', datetime.weekday(year, month, 1)),
-		         (1..datetime.monthdays(year, month)).format('%2d')]
-		days.fold(7).align(6, []):*align(7, '  '):*join(' ')
+	import(calendar)
+	(1..4).each {|ncols|
+		println(calendar.calendar(2010, ncols => ncols))
 	}
-	monthNames = [
-		'', 'January', 'February', 'March', 'April', 'May', 'June',
-		'July', 'August', 'September', 'October', 'November', 'December',
-	]
-	sep = '  '
-	calendar(year:number, nCols:number) = {
-		printf('[%04d]\n', year)
-		repeat (math.ceil(12 / nCols)) {|iRow|
-			month = iRow * nCols + 1
-			nColsCur = min(nCols, 12 - month + 1)
-			months = [month..(month + nColsCur - 1)]
-			println(format('%-20s', format('%d %s', months, monthNames[months])).join(sep))
-			println(repeat(nColsCur):list { ' S  M  T  W  T  F  S' }.join(sep))
-			lines = repeat(6):list { '' }
-			repeat (nColsCur) {|iCol|
-				if (iCol > 0) { lines += sep }
-				lines += calOfMonth(year, month + iCol)
-			}
-			println(lines)
-			println()
-		}
-	}
-	calendar(2010, 1..4):map:void
 }
 function(nRange:number, nTrial:number) {
 	println('-- Histogram of regular distribution --')

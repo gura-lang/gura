@@ -23,7 +23,7 @@ calendar(year:number, weekoffset:number => 0, ncols:number => 3) = {
 	repeat (math.ceil(12 / ncols)) {|iRow|
 		month = iRow * ncols + 1
 		ncolsCur = min(ncols, 12 - month + 1)
-		months = [month..(month + ncolsCur - 1)]
+		months = month..(month + ncolsCur - 1)
 		rtn.add((monthNames[months]:*align(wdPerMonth):center).join(sep))
 		rtn.add(repeat(ncolsCur):list { weekLine }.join(sep))
 		lines = dim(6) {''}
@@ -39,10 +39,30 @@ calendar.addhelp(`en, 'markdown', '''\
 ''')
 
 if (__name__ == '__main__') {
-	year = if (sys.argv.len() < 2) {
-		datetime.today().year
-	} else {
-		sys.argv[1].tonumber()
+	import(argopt)
+	argopt.Parser {|p|
+		p.addParam('weekoffset',	'w', 'specify which week to print on the left', 'NUM', '0')
+		p.addParam('ncols',			'n', 'specify number of columns', 'NUM', '3')
+		p.addFlag('help',			'h', 'print help')
+		try {
+			[cfg, argv] = p.parse(sys.argv)
+		} catch {|e|
+			sys.stderr.println(e.text)
+			sys.exit(1)
+		}
+		if (cfg['help']) {
+			sys.stderr.printf('usage: calendar [options] [year]\n')
+			sys.stderr.printf('options:\n')
+			sys.stderr.println(' ', p.formatHelp())
+			sys.exit(0)
+		}
+		year = if (argv.len() < 1) {
+			datetime.today().year
+		} else {
+			argv[0].tonumber()
+		}
+		weekoffset = cfg['weekoffset'].tonumber()
+		ncols = cfg['ncols'].tonumber()
 	}
-	println(calendar(year))
+	println(calendar(year, weekoffset, ncols))
 }
