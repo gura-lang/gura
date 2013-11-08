@@ -3,7 +3,7 @@ import(re)
 Person = struct(name_j:string, kana:string, email:string, gender:string, age:number,
 	birthday:string, marriage:string, prefecture:string,
 	mobilephone:string, mobilecarrier:string, custom:string, rest*)
-//begin = time.clock()
+//begin = os.clock()
 csv.read(sys.argv[1]) {|line|
 	person = Person * line
 	m = re.compile('([^_]+)_([^@]+)@.*').match(person.email)
@@ -12,5 +12,5 @@ csv.read(sys.argv[1]) {|line|
 		cond(person.gender == '’j', 'male', 'female'),
 		person.age, person.birthday, person.mobilephone])
 }
-//end = time.clock()
+//end = os.clock()
 //sys.stderr.printf('%f\n', end - begin)

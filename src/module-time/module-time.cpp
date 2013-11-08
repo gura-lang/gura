@@ -10,30 +10,6 @@ Gura_DeclarePrivUserSymbol(utc);
 //-----------------------------------------------------------------------------
 // Gura module functions: time
 //-----------------------------------------------------------------------------
-// time.sleep(secs)
-Gura_DeclareFunction(sleep)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "secs", VTYPE_number);
-}
-
-Gura_ImplementFunction(sleep)
-{
-	OAL::Sleep(args.GetNumber(0));
-	return Value::Null;
-}
-
-// time.clock()
-Gura_DeclareFunction(clock)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementFunction(clock)
-{
-	return Value(OAL::GetTickTime());
-}
-
 // time.monthdays(year:number, month:number):map
 Gura_DeclareFunction(monthdays)
 {
@@ -156,8 +132,6 @@ Gura_ModuleEntry()
 	Gura_AssignValue(Friday,	Value(5));
 	Gura_AssignValue(Saturday,	Value(6));
 	// function assignment
-	Gura_AssignFunction(sleep);
-	Gura_AssignFunction(clock);
 	Gura_AssignFunction(monthdays);
 	Gura_AssignFunction(weekday);
 	Gura_AssignFunction(now);

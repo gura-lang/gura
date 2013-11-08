@@ -98,7 +98,7 @@ scope {
 		} elsif (y + yDir == h - 1) {
 			yDir = -1
 		}
-		time.sleep(.05)
+		os.sleep(.05)
 		conio.moveto(x, y) { print('.') }
 		x += xDir, y += yDir
 	}

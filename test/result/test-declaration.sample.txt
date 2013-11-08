@@ -93,6 +93,7 @@ conio:module = <module:conio:<integrated>>
 consts:function = consts(value, num?:number) {block?}
 copy:function = copy(src:stream:r, dst:stream:w, bytesunit:number => 65536):map:void {block?}
 cross:function = cross (`expr+) {block}
+datetime:function = datetime(year:number, month:number, day:number, hour:number => 0, min:number => 0, sec:number => 0, usec:number => 0, minsoff?:number):map
 default:function = default() {block}
 dict:function = dict(elem[]?):[icase] {block?}
 dim:function = dim(n+:number) {block?}
@@ -212,11 +213,13 @@ os:module = <module:os:<integrated>>
   __name__:string = os
   __source__:string = <integrated>
   __symbol__:symbol = os
+  clock:function = clock()
   exec:function = exec(pathname:string, args*:string):map:[fork]
   fromnative:function = fromnative(buff:binary):map
   getenv:function = getenv(name:string):map
   putenv:function = putenv(name:string, value:string):void
   redirect:function = redirect(stdin:stream:nil:r, stdout:stream:nil:w, stderr?:stream:w) {block?}
+  sleep:function = sleep(secs:number)
   tonative:function = tonative(str:string):map
 outers:function = outers() {block?}
 palette:function = palette(type) {block?}
@@ -279,17 +282,14 @@ time:module = <module:time:<integrated>>
   __name__:string = time
   __source__:string = <integrated>
   __symbol__:symbol = time
-  clock:function = clock()
-  datetime:function = datetime(year:number, month:number, day:number, hour:number => 0, min:number => 0, sec:number => 0, usec:number => 0, minsoff?:number):map
-  delta:function = delta(days:number => 0, secs:number => 0, usecs:number => 0):map
   isleap:function = isleap(year:number):map
   monthdays:function = monthdays(year:number, month:number):map
   now:function = now():[utc]
   parse:function = parse(str:string):map
-  sleep:function = sleep(secs:number)
   time:function = time(hour:number => 0, minute:number => 0, sec:number => 0, usec:number => 0):map
   today:function = today():[utc]
   weekday:function = weekday(year:number, month:number, day:number):map
+timedelta:function = timedelta(days:number => 0, secs:number => 0, usecs:number => 0):map
 tonumber:function = tonumber(value):map:[nil,raise,strict,zero]
 tostring:function = tostring(value):map
 tosymbol:function = tosymbol(str:string):map

@@ -108,7 +108,7 @@ PrintPokerHand(cards[]:Card) = {
 	printf('%-20s|%-20s .. %s\n', cardsHand.join(' '), cardsNone.join(' '), pokerHand)
 }
 deck = Deck()
-randseed(time.clock())
+randseed(os.clock())
 repeat {
 	cards = deck.cards.shuffle().head(5)
 	cards = cards.sort(`ascend, cards::rank)

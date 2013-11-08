@@ -11,7 +11,7 @@ midi.port {|port|
 		port.program_change(channel, program.id)
 		notes.each {|note|
 			port.note_on(channel, note, velocity)
-			time.sleep(.2)
+			os.sleep(.2)
 			port.note_on(channel, note, 0)
 		}
 	}

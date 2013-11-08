@@ -22,16 +22,16 @@ imgHatch = createHatchImage(imgs[0].width, imgs[0].height, 8, 8)
 sdl.Init(sdl.INIT_EVERYTHING)
 screen = sdl.SetVideoMode(imgs[0].width, imgs[0].height, 16, sdl.SWSURFACE)
 imgIter = imgs.round()
-tickPrev = time.clock()
+tickPrev = os.clock()
 delayTime = 0
 sdl.AddTimer(5) {
-	if (time.clock() - tickPrev > delayTime) {
+	if (os.clock() - tickPrev > delayTime) {
 		screen.PutSurface(imgHatch)
 		img = imgIter.next()
 		screen.PutSurface(img, 0, screen.h - img.height)
 		screen.UpdateRect()
 		delayTime:extern = img.delayTime
-		tickPrev = time.clock()
+		tickPrev = os.clock()
 	}
 	true
 }

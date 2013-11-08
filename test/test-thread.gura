@@ -7,10 +7,10 @@ f(indent:number, t:number):map = {
 		sem.wait()
 		printf('%*s%d\n', indent * 8, '', i)
 		sem.release()
-		time.sleep(t)
+		os.sleep(t)
 	}
 }
 for (i in 0..10) {
 	f(i, .1 * (i + 1)):fork
 }
-time.sleep(100)
+os.sleep(100)

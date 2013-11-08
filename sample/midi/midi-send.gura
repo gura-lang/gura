@@ -10,7 +10,7 @@ midi.port {|port|
 		port.send(0xc0, i)
 		notes.each {|note|
 			port.send(0x90, note, 0x40)
-			time.sleep(.2)
+			os.sleep(.2)
 			port.send(0x90, note, 0x00)
 		}
 	}

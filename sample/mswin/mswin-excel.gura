@@ -25,14 +25,14 @@ mswin.ole('Excel.Application') {|app|
 		interior.Pattern = app.xlSolid
 		interior.PatternColorIndex = app.xlAutomatic
 	}
-	time.sleep(2)
+	os.sleep(2)
 	worksheet.Range('A1:D2').Select()
 	chart = workbook.Charts.Add()
 	chart.Type = app.xl3DPie
 	//chart.ChartWizard(range)
 	//, app.xl3DPie, 7, app.xlRows, 1, 0, 2, 'Sales Percentages')
 	workbook.Saved = 1
-	time.sleep(2)
+	os.sleep(2)
 	//workbook.SaveAs(path.absname('hoge.xls'))
 	app.ActiveWorkbook.Close(0)
 	app.Quit();
@@ -50,9 +50,9 @@ mswin.ole('Excel.Application') {|app|
 	repeat(60) {
 		chart.Rotation = degree
 		degree = (degree + 10) % 360
-		time.sleep(.1)
+		os.sleep(.1)
 	}
-	time.sleep(2)
+	os.sleep(2)
 	app.ActiveWorkbook.Close(0)
 	app.Quit()
 }

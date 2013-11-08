@@ -10,6 +10,30 @@ static Environment *_pEnvThis = NULL;
 //-----------------------------------------------------------------------------
 // Gura module functions: os
 //-----------------------------------------------------------------------------
+// os.sleep(secs)
+Gura_DeclareFunction(sleep)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "secs", VTYPE_number);
+}
+
+Gura_ImplementFunction(sleep)
+{
+	OAL::Sleep(args.GetNumber(0));
+	return Value::Null;
+}
+
+// os.clock()
+Gura_DeclareFunction(clock)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementFunction(clock)
+{
+	return Value(OAL::GetTickTime());
+}
+
 // os.redirect(stdin:stream:nil:r, stdout:stream:nil:w, stderr?:stream:w) {block?}
 Gura_DeclareFunction(redirect)
 {
@@ -169,6 +193,8 @@ Gura_ModuleEntry()
 		Gura_AssignValue(stderr, *pValue);
 	} while (0);
 	// function assignment
+	Gura_AssignFunction(sleep);
+	Gura_AssignFunction(clock);
 	Gura_AssignFunction(redirect);
 	Gura_AssignFunction(exec);
 	Gura_AssignFunction(fromnative);

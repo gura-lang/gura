@@ -23,5 +23,5 @@ objs = repeat(10):list { create_object() }
 		scribble.clear()
 		objs::next()
 	}
-	time.sleep(.01)
+	os.sleep(.01)
 }
