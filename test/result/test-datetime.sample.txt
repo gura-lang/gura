@@ -48,26 +48,26 @@ datetime(2009, 2, 13, 23, 31, 30, 0, 0).unixtime .. 1234567890
 
 ======== #4 ========
 
-time.parse('Sun, 06 Nov 1994 08:49:37 -0900') .. <datetime:1994-11-06T08:49:37-09:00>
-time.parse('Sun, 06 Nov 1994 08:49:37 +0900') .. <datetime:1994-11-06T08:49:37+09:00>
-time.parse('Sun, 06 Nov 1994 08:49:37 +0845') .. <datetime:1994-11-06T08:49:37+08:45>
-time.parse('Sun, 06 Nov 1994 08:49:37 +1245') .. <datetime:1994-11-06T08:49:37+12:45>
-time.parse('Sun, 06 Nov 1994 08:49:37 -0930') .. <datetime:1994-11-06T08:49:37-09:30>
-time.parse('Sun, 06 Nov 1994 08:49:37 GMT') .. <datetime:1994-11-06T08:49:37Z>
-time.parse('Sunday, 06-Nov-94 08:49:37 GMT') .. <datetime:1994-11-06T08:49:37Z>
-time.parse('Sun Nov  6 08:49:37 1994') .. <datetime:1994-11-06T08:49:37>
-time.parse('Sat, 06 Nov 2010 08:49:37 GMT') .. <datetime:2010-11-06T08:49:37Z>
-time.parse('Saturday, 06-Nov-10 08:49:37 GMT') .. <datetime:2010-11-06T08:49:37Z>
-time.parse('Sat Nov  6 08:49:37 2010') .. <datetime:2010-11-06T08:49:37>
-time.parse('Wed, 06 Nov 2069 08:49:37 GMT') .. <datetime:2069-11-06T08:49:37Z>
-time.parse('Wednesday, 06-Nov-69 08:49:37 GMT') .. <datetime:2069-11-06T08:49:37Z>
-time.parse('Wed Nov  6 08:49:37 2069') .. <datetime:2069-11-06T08:49:37>
-time.parse('Thu, 06 Nov 2070 08:49:37 GMT') .. <datetime:2070-11-06T08:49:37Z>
-time.parse('Thursday, 06-Nov-70 08:49:37 GMT') .. <datetime:1970-11-06T08:49:37Z>
-time.parse('Sun Nov  6 08:49:37 2070') .. <datetime:2070-11-06T08:49:37>
-time.parse('Fri Dec 31 23:59:59 9999') .. <datetime:9999-12-31T23:59:59>
-time.parse('2010-11-06T08:49:37+09:00') .. <datetime:2010-11-06T08:49:37+09:00>
-time.parse('Tue Aug 31 23:54:46 +0000 2010') .. <datetime:2010-08-31T23:54:46Z>
+datetime.parse('Sun, 06 Nov 1994 08:49:37 -0900') .. <datetime:1994-11-06T08:49:37-09:00>
+datetime.parse('Sun, 06 Nov 1994 08:49:37 +0900') .. <datetime:1994-11-06T08:49:37+09:00>
+datetime.parse('Sun, 06 Nov 1994 08:49:37 +0845') .. <datetime:1994-11-06T08:49:37+08:45>
+datetime.parse('Sun, 06 Nov 1994 08:49:37 +1245') .. <datetime:1994-11-06T08:49:37+12:45>
+datetime.parse('Sun, 06 Nov 1994 08:49:37 -0930') .. <datetime:1994-11-06T08:49:37-09:30>
+datetime.parse('Sun, 06 Nov 1994 08:49:37 GMT') .. <datetime:1994-11-06T08:49:37Z>
+datetime.parse('Sunday, 06-Nov-94 08:49:37 GMT') .. <datetime:1994-11-06T08:49:37Z>
+datetime.parse('Sun Nov  6 08:49:37 1994') .. <datetime:1994-11-06T08:49:37>
+datetime.parse('Sat, 06 Nov 2010 08:49:37 GMT') .. <datetime:2010-11-06T08:49:37Z>
+datetime.parse('Saturday, 06-Nov-10 08:49:37 GMT') .. <datetime:2010-11-06T08:49:37Z>
+datetime.parse('Sat Nov  6 08:49:37 2010') .. <datetime:2010-11-06T08:49:37>
+datetime.parse('Wed, 06 Nov 2069 08:49:37 GMT') .. <datetime:2069-11-06T08:49:37Z>
+datetime.parse('Wednesday, 06-Nov-69 08:49:37 GMT') .. <datetime:2069-11-06T08:49:37Z>
+datetime.parse('Wed Nov  6 08:49:37 2069') .. <datetime:2069-11-06T08:49:37>
+datetime.parse('Thu, 06 Nov 2070 08:49:37 GMT') .. <datetime:2070-11-06T08:49:37Z>
+datetime.parse('Thursday, 06-Nov-70 08:49:37 GMT') .. <datetime:1970-11-06T08:49:37Z>
+datetime.parse('Sun Nov  6 08:49:37 2070') .. <datetime:2070-11-06T08:49:37>
+datetime.parse('Fri Dec 31 23:59:59 9999') .. <datetime:9999-12-31T23:59:59>
+datetime.parse('2010-11-06T08:49:37+09:00') .. <datetime:2010-11-06T08:49:37+09:00>
+datetime.parse('Tue Aug 31 23:54:46 +0000 2010') .. <datetime:2010-08-31T23:54:46Z>
 expected error occurs: FormatError: invalid time format
 expected error occurs: FormatError: invalid time format
 expected error occurs: FormatError: invalid time format
@@ -218,7 +218,7 @@ dt + (-timedelta(0, 0, 1000000)) .. <datetime:2000-12-31T22:59:59Z>
 dt + timedelta(0, 0, 2000000) .. <datetime:2000-12-31T23:00:02Z>
 dt - timedelta(0, 0, 2000000) .. <datetime:2000-12-31T22:59:58Z>
 dt + (-timedelta(0, 0, 2000000)) .. <datetime:2000-12-31T22:59:58Z>
-cond(time.isleap(1800 .. 1899), '*', '.').join() .. ....*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...
-cond(time.isleap(1900 .. 1999), '*', '.').join() .. ....*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...
-cond(time.isleap(2000 .. 2099), '*', '.').join() .. *...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...
-cond(time.isleap(2100 .. 2199), '*', '.').join() .. ....*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...
+cond(datetime.isleap(1800 .. 1899), '*', '.').join() .. ....*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...
+cond(datetime.isleap(1900 .. 1999), '*', '.').join() .. ....*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...
+cond(datetime.isleap(2000 .. 2099), '*', '.').join() .. *...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...
+cond(datetime.isleap(2100 .. 2199), '*', '.').join() .. ....*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...*...

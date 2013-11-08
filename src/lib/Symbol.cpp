@@ -417,6 +417,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(usec);
 	Gura_RealizeSymbol(usecs);
 	Gura_RealizeSymbol(user);
+	Gura_RealizeSymbol(utc);
 	Gura_RealizeSymbol(utf16);
 	Gura_RealizeSymbol(utf32);
 	Gura_RealizeSymbol(utf8);

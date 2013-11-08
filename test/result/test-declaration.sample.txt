@@ -93,7 +93,7 @@ conio:module = <module:conio:<integrated>>
 consts:function = consts(value, num?:number) {block?}
 copy:function = copy(src:stream:r, dst:stream:w, bytesunit:number => 65536):map:void {block?}
 cross:function = cross (`expr+) {block}
-datetime:function = datetime(year:number, month:number, day:number, hour:number => 0, min:number => 0, sec:number => 0, usec:number => 0, minsoff?:number):map
+datetime:function = datetime(year:number, month:number, day:number, hour:number => 0, min:number => 0, sec:number => 0, usec:number => 0, minsoff?:number):map {block?}
 default:function = default() {block}
 dict:function = dict(elem[]?):[icase] {block?}
 dim:function = dim(n+:number) {block?}
@@ -272,24 +272,10 @@ sys:module = <module:sys:<integrated>>
   version:string = 0.4.0
 template:function = template(src:stream:r, dst?:stream:w):map:[lasteol,noindent] {block?}
 time:module = <module:time:<integrated>>
-  Friday:number = 5
-  Monday:number = 1
-  Saturday:number = 6
-  Sunday:number = 0
-  Thursday:number = 4
-  Tuesday:number = 2
-  Wednesday:number = 3
   __name__:string = time
   __source__:string = <integrated>
   __symbol__:symbol = time
-  isleap:function = isleap(year:number):map
-  monthdays:function = monthdays(year:number, month:number):map
-  now:function = now():[utc]
-  parse:function = parse(str:string):map
-  time:function = time(hour:number => 0, minute:number => 0, sec:number => 0, usec:number => 0):map
-  today:function = today():[utc]
-  weekday:function = weekday(year:number, month:number, day:number):map
-timedelta:function = timedelta(days:number => 0, secs:number => 0, usecs:number => 0):map
+timedelta:function = timedelta(days:number => 0, secs:number => 0, usecs:number => 0):map {block?}
 tonumber:function = tonumber(value):map:[nil,raise,strict,zero]
 tostring:function = tostring(value):map
 tosymbol:function = tosymbol(str:string):map

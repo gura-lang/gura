@@ -27,19 +27,19 @@ testcase {
 		printf('%04d', year)
 		weekdays = [wdayAccum]
 		for (month in 1..11) {
-			wdayAccum = (wdayAccum + time.monthdays(year, month)) % 7
+			wdayAccum = (wdayAccum + datetime.monthdays(year, month)) % 7
 			weekdays.add(wdayAccum)
 		}
-		printf(' %s', cond((time.weekday(year, 1..12, 1):list == weekdays).and(), 'OK', 'NG'))
-		printf(' %d:%s', 1..12, weekName[time.weekday(year, 1..12, 1)])
+		printf(' %s', cond((datetime.weekday(year, 1..12, 1):list == weekdays).and(), 'OK', 'NG'))
+		printf(' %d:%s', 1..12, weekName[datetime.weekday(year, 1..12, 1)])
 		println()
-		wdayAccum = (wdayAccum + time.monthdays(year, 12)) % 7
+		wdayAccum = (wdayAccum + datetime.monthdays(year, 12)) % 7
 	}
 }
 testcase {
 	calOfMonth(year:number, month:number) = {
-		days = [consts('  ', time.weekday(year, month, 1)),
-		         (1..time.monthdays(year, month)).format('%2d')]
+		days = [consts('  ', datetime.weekday(year, month, 1)),
+		         (1..datetime.monthdays(year, month)).format('%2d')]
 		days.fold(7).align(6, []):*align(7, '  '):*join(' ')
 	}
 	monthNames = [

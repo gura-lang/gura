@@ -29,48 +29,48 @@ testcase {
 	tester(`datetime(2009, 2, 13, 23, 31, 30, 0, 0).unixtime)
 }
 testcase {
-	tester(`time.parse('Sun, 06 Nov 1994 08:49:37 -0900'))
-	tester(`time.parse('Sun, 06 Nov 1994 08:49:37 +0900'))
-	tester(`time.parse('Sun, 06 Nov 1994 08:49:37 +0845'))
-	tester(`time.parse('Sun, 06 Nov 1994 08:49:37 +1245'))
-	tester(`time.parse('Sun, 06 Nov 1994 08:49:37 -0930'))
-	tester(`time.parse('Sun, 06 Nov 1994 08:49:37 GMT'))
-	tester(`time.parse('Sunday, 06-Nov-94 08:49:37 GMT'))
-	tester(`time.parse('Sun Nov  6 08:49:37 1994'))
-	tester(`time.parse('Sat, 06 Nov 2010 08:49:37 GMT'))
-	tester(`time.parse('Saturday, 06-Nov-10 08:49:37 GMT'))
-	tester(`time.parse('Sat Nov  6 08:49:37 2010'))
-	tester(`time.parse('Wed, 06 Nov 2069 08:49:37 GMT'))
-	tester(`time.parse('Wednesday, 06-Nov-69 08:49:37 GMT'))
-	tester(`time.parse('Wed Nov  6 08:49:37 2069'))
-	tester(`time.parse('Thu, 06 Nov 2070 08:49:37 GMT'))
-	tester(`time.parse('Thursday, 06-Nov-70 08:49:37 GMT'))
-	tester(`time.parse('Sun Nov  6 08:49:37 2070'))
-	tester(`time.parse('Fri Dec 31 23:59:59 9999'))
-	tester(`time.parse('2010-11-06T08:49:37+09:00'))
-	tester(`time.parse('Tue Aug 31 23:54:46 +0000 2010'))
+	tester(`datetime.parse('Sun, 06 Nov 1994 08:49:37 -0900'))
+	tester(`datetime.parse('Sun, 06 Nov 1994 08:49:37 +0900'))
+	tester(`datetime.parse('Sun, 06 Nov 1994 08:49:37 +0845'))
+	tester(`datetime.parse('Sun, 06 Nov 1994 08:49:37 +1245'))
+	tester(`datetime.parse('Sun, 06 Nov 1994 08:49:37 -0930'))
+	tester(`datetime.parse('Sun, 06 Nov 1994 08:49:37 GMT'))
+	tester(`datetime.parse('Sunday, 06-Nov-94 08:49:37 GMT'))
+	tester(`datetime.parse('Sun Nov  6 08:49:37 1994'))
+	tester(`datetime.parse('Sat, 06 Nov 2010 08:49:37 GMT'))
+	tester(`datetime.parse('Saturday, 06-Nov-10 08:49:37 GMT'))
+	tester(`datetime.parse('Sat Nov  6 08:49:37 2010'))
+	tester(`datetime.parse('Wed, 06 Nov 2069 08:49:37 GMT'))
+	tester(`datetime.parse('Wednesday, 06-Nov-69 08:49:37 GMT'))
+	tester(`datetime.parse('Wed Nov  6 08:49:37 2069'))
+	tester(`datetime.parse('Thu, 06 Nov 2070 08:49:37 GMT'))
+	tester(`datetime.parse('Thursday, 06-Nov-70 08:49:37 GMT'))
+	tester(`datetime.parse('Sun Nov  6 08:49:37 2070'))
+	tester(`datetime.parse('Fri Dec 31 23:59:59 9999'))
+	tester(`datetime.parse('2010-11-06T08:49:37+09:00'))
+	tester(`datetime.parse('Tue Aug 31 23:54:46 +0000 2010'))
 	try {
-		tester(`time.parse(''))
+		tester(`datetime.parse(''))
 	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 	try {
-		tester(`time.parse('x'))
+		tester(`datetime.parse('x'))
 	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 	try {
-		tester(`time.parse('111'))
+		tester(`datetime.parse('111'))
 	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 	try {
-		tester(`time.parse('Sun Dec 31 24:59:59 9999'))
+		tester(`datetime.parse('Sun Dec 31 24:59:59 9999'))
 	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 	try {
-		tester(`time.parse('Sun Dec 31 003:59:59 2010'))
+		tester(`datetime.parse('Sun Dec 31 003:59:59 2010'))
 	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
@@ -129,8 +129,8 @@ testcase {
 		tester(`(dt - timedelta(0, 0, 2000000)))
 		tester(`(dt + (-timedelta(0, 0, 2000000))))
 	}
-	tester(`cond(time.isleap(1800..1899), '*', '.').join())
-	tester(`cond(time.isleap(1900..1999), '*', '.').join())
-	tester(`cond(time.isleap(2000..2099), '*', '.').join())
-	tester(`cond(time.isleap(2100..2199), '*', '.').join())
+	tester(`cond(datetime.isleap(1800..1899), '*', '.').join())
+	tester(`cond(datetime.isleap(1900..1999), '*', '.').join())
+	tester(`cond(datetime.isleap(2000..2099), '*', '.').join())
+	tester(`cond(datetime.isleap(2100..2199), '*', '.').join())
 }

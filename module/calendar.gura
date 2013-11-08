@@ -2,9 +2,9 @@
 
 calendar(year:number, weekoffset:number => 0, ncols:number => 3) = {
 	calOfMonth(year:number, month:number) = {
-		offsetFirst = (time.weekday(year, month, 1) + 7 - weekoffset) % 7
+		offsetFirst = (datetime.weekday(year, month, 1) + 7 - weekoffset) % 7
 		days = [consts('  ', offsetFirst),
-				(1..time.monthdays(year, month)).format('%2d')]
+				(1..datetime.monthdays(year, month)).format('%2d')]
 		days.fold(7).align(6, []):*align(7, '  '):*join(' ')
 	}
 	monthNames = [
@@ -40,7 +40,7 @@ calendar.addhelp(`en, 'markdown', '''\
 
 if (__name__ == '__main__') {
 	year = if (sys.argv.len() < 2) {
-		time.today().year
+		datetime.today().year
 	} else {
 		sys.argv[1].tonumber()
 	}

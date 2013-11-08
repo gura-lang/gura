@@ -404,6 +404,7 @@ public:
 	Gura_DeclareSymbol(usec);
 	Gura_DeclareSymbol(usecs);
 	Gura_DeclareSymbol(user);
+	Gura_DeclareSymbol(utc);
 	Gura_DeclareSymbol(utf16);
 	Gura_DeclareSymbol(utf32);
 	Gura_DeclareSymbol(utf8);
