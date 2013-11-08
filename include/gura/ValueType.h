@@ -36,12 +36,12 @@ typedef UShort ValueType;
 GURA_DLLDECLARE extern ValueType VTYPE_nil;
 GURA_DLLDECLARE extern ValueType VTYPE_undefined;
 // primitive types
-GURA_DLLDECLARE extern ValueType VTYPE_symbol;
 GURA_DLLDECLARE extern ValueType VTYPE_boolean;
-GURA_DLLDECLARE extern ValueType VTYPE_number;
 GURA_DLLDECLARE extern ValueType VTYPE_complex;
 GURA_DLLDECLARE extern ValueType VTYPE_fraction;
+GURA_DLLDECLARE extern ValueType VTYPE_number;
 GURA_DLLDECLARE extern ValueType VTYPE_string;
+GURA_DLLDECLARE extern ValueType VTYPE_symbol;
 // declaration
 GURA_DLLDECLARE extern ValueType VTYPE_quote;
 GURA_DLLDECLARE extern ValueType VTYPE_any;

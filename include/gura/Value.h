@@ -59,12 +59,12 @@ private:
 	UShort _valType;			// 2 bytes
 	UShort _valFlags;			// 2 bytes
 	union {						// 8 bytes
-		Number num;				// VTYPE_number
 		bool flag;				// VTYPE_boolean
-		const Symbol *pSymbol;	// VTYPE_symbol
 		Complex *pComp;			// VTYPE_complex
 		Fraction *pFrac;		// VTYPE_fraction
+		Number num;				// VTYPE_number
 		StringRef *pStrRef;		// VTYPE_string
+		const Symbol *pSymbol;	// VTYPE_symbol
 		Module *pModule;		// VTYPE_module
 		Class *pClass;			// VTYPE_class
 		Sequence *pSequence;	// VTYPE_Sequence
@@ -190,7 +190,7 @@ public:
 	}
 	inline bool IsType(ValueType valType) const { return _valType == valType;	}
 	inline bool IsObject() const			{ return _valType >= VTYPE_object && !GetTinyBuffFlag(); }
-	inline bool IsPrimitive() const			{ return _valType <= VTYPE_string;	}
+	inline bool IsPrimitive() const			{ return _valType <= VTYPE_symbol;	}
 	inline bool IsInvalid() const			{ return IsType(VTYPE_nil) || IsType(VTYPE_undefined); }
 	inline bool IsUndefined() const			{ return IsType(VTYPE_undefined);	}
 	inline bool IsValid() const				{ return !IsInvalid();				}

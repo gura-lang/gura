@@ -9,12 +9,12 @@ namespace Gura {
 ValueType VTYPE_nil				= static_cast<ValueType>(0);
 ValueType VTYPE_undefined		= static_cast<ValueType>(1);
 // primitive types
-ValueType VTYPE_symbol			= static_cast<ValueType>(2);
-ValueType VTYPE_boolean			= static_cast<ValueType>(3);
-ValueType VTYPE_number			= static_cast<ValueType>(4);
-ValueType VTYPE_complex			= static_cast<ValueType>(5);
-ValueType VTYPE_fraction		= static_cast<ValueType>(6);
-ValueType VTYPE_string			= static_cast<ValueType>(7);
+ValueType VTYPE_boolean			= static_cast<ValueType>(2);
+ValueType VTYPE_complex			= static_cast<ValueType>(3);
+ValueType VTYPE_fraction		= static_cast<ValueType>(4);
+ValueType VTYPE_number			= static_cast<ValueType>(5);
+ValueType VTYPE_string			= static_cast<ValueType>(6);
+ValueType VTYPE_symbol			= static_cast<ValueType>(7);
 // for declaration
 ValueType VTYPE_quote			= static_cast<ValueType>(0);
 ValueType VTYPE_any				= static_cast<ValueType>(0);
@@ -118,12 +118,12 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPE(nil);			// must be at 1st
 	Gura_RealizeVTYPE(undefined);	// must be at 2nd
 	// primitive types
-	Gura_RealizeVTYPE(symbol);		// must be at 3rd
-	Gura_RealizeVTYPE(boolean);		// must be at 4th
-	Gura_RealizeVTYPE(number);		// must be at 5th
-	Gura_RealizeVTYPE(complex);		// must be at 6th
-	Gura_RealizeVTYPE(fraction);	// must be at 7th
-	Gura_RealizeVTYPE(string);		// must be at 8th
+	Gura_RealizeVTYPE(boolean);		// must be at 3rd
+	Gura_RealizeVTYPE(complex);		// must be at 4th
+	Gura_RealizeVTYPE(fraction);	// must be at 5th
+	Gura_RealizeVTYPE(number);		// must be at 6th
+	Gura_RealizeVTYPE(string);		// must be at 7th
+	Gura_RealizeVTYPE(symbol);		// must be at 8th
 	// for declaration
 	Gura_RealizeVTYPE(quote);
 	Gura_RealizeVTYPE(any);
@@ -210,12 +210,12 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_nil)->Prepare(env);
 	env.LookupClass(VTYPE_undefined)->Prepare(env);
 	// primitive types
-	env.LookupClass(VTYPE_symbol)->Prepare(env);
 	env.LookupClass(VTYPE_boolean)->Prepare(env);
-	env.LookupClass(VTYPE_number)->Prepare(env);
 	env.LookupClass(VTYPE_complex)->Prepare(env);
 	env.LookupClass(VTYPE_fraction)->Prepare(env);
+	env.LookupClass(VTYPE_number)->Prepare(env);
 	env.LookupClass(VTYPE_string)->Prepare(env);
+	env.LookupClass(VTYPE_symbol)->Prepare(env);
 	// declaration
 	env.LookupClass(VTYPE_quote)->Prepare(env);
 	env.LookupClass(VTYPE_any)->Prepare(env);
