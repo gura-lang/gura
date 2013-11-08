@@ -271,10 +271,6 @@ sys:module = <module:sys:<integrated>>
   ps2:string = ... 
   version:string = 0.4.0
 template:function = template(src:stream:r, dst?:stream:w):map:[lasteol,noindent] {block?}
-time:module = <module:time:<integrated>>
-  __name__:string = time
-  __source__:string = <integrated>
-  __symbol__:symbol = time
 timedelta:function = timedelta(days:number => 0, secs:number => 0, usecs:number => 0):map {block?}
 tonumber:function = tonumber(value):map:[nil,raise,strict,zero]
 tostring:function = tostring(value):map

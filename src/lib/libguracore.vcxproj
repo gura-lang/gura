@@ -260,7 +260,6 @@
     <ClCompile Include="..\module-math\module-math.cpp" />
     <ClCompile Include="..\module-os\module-os.cpp" />
     <ClCompile Include="..\module-path\module-path.cpp" />
-    <ClCompile Include="..\module-time\module-time.cpp" />
     <ClCompile Include="..\dSFMT-src-2.2.1\dSFMT.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>

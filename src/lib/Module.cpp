@@ -97,8 +97,6 @@ bool Module::ImportBuiltIns(Environment &env, Signal sig)
 	if (Gura_Module(os)::Import(env, sig) == NULL) return false;
 	// import(path)
 	if (Gura_Module(path)::Import(env, sig) == NULL) return false;
-	// import(time)
-	if (Gura_Module(time)::Import(env, sig) == NULL) return false;
 	// import(math)
 	if (Gura_Module(math)::Import(env, sig) == NULL) return false;
 	// import(conio)

@@ -85,7 +85,6 @@ ValueType.cpp \
 ..\module-math\module-math.cpp \
 ..\module-os\module-os.cpp \
 ..\module-path\module-path.cpp \
-..\module-time\module-time.cpp
 
 OBJS = $(SRCS:.cpp=.obj)
 

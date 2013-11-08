@@ -77,7 +77,6 @@ ValueType.cpp
 ../module-math/module-math.cpp
 ../module-os/module-os.cpp
 ../module-path/module-path.cpp
-../module-time/module-time.cpp
 ../dSFMT-src-2.2.1/dSFMT.c
 )
 
