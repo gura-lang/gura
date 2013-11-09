@@ -1,7 +1,6 @@
-//
-// Object_operator
-//
-
+//-----------------------------------------------------------------------------
+// Gura operator class
+//-----------------------------------------------------------------------------
 #include "stdafx.h"
 
 namespace Gura {
@@ -88,7 +87,7 @@ const char *Object_operator::GetMathSymbol() const
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_operator
+// Gura interfaces for operator
 //-----------------------------------------------------------------------------
 // operator(op:symbol) {block?}
 Gura_DeclareFunctionAlias(operator_, "operator")
@@ -116,7 +115,7 @@ Gura_ImplementFunction(operator_)
 }
 
 // operator#assign(type_l:expr, type_r?:expr):map:void {block}
-Gura_DeclareMethod(operator, assign)
+Gura_DeclareMethod(operator_, assign)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "type_l", VTYPE_expr);
@@ -124,11 +123,10 @@ Gura_DeclareMethod(operator, assign)
 	DeclareBlock(OCCUR_Once);
 }
 
-Gura_ImplementMethod(operator, assign)
+Gura_ImplementMethod(operator_, assign)
 {
 	Object_operator *pThis = Object_operator::GetThisObj(args);
-	const Function *pFuncBlock =
-					args.GetBlockFunc(env, sig, GetSymbolForBlock());
+	const Function *pFuncBlock = args.GetBlockFunc(env, sig, GetSymbolForBlock());
 	if (pFuncBlock == NULL) return Value::Null;
 	CustomOperatorEntry *pOperatorEntry = NULL;
 	if (args.IsValid(1)) {
@@ -164,13 +162,13 @@ Gura_ImplementMethod(operator, assign)
 }
 
 // operator#entries(type?:symbol)
-Gura_DeclareMethod(operator, entries)
+Gura_DeclareMethod(operator_, entries)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "type", VTYPE_symbol, OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(operator, entries)
+Gura_ImplementMethod(operator_, entries)
 {
 	Object_operator *pThis = Object_operator::GetThisObj(args);
 	Value rtn;
@@ -215,7 +213,7 @@ Gura_ImplementMethod(operator, entries)
 }
 
 //-----------------------------------------------------------------------------
-// Classs implementation
+// Class implementation
 //-----------------------------------------------------------------------------
 Class_operator::Class_operator(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_operator)
 {
@@ -224,8 +222,8 @@ Class_operator::Class_operator(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 void Class_operator::Prepare(Environment &env)
 {
 	Gura_AssignFunction(operator_);
-	Gura_AssignMethod(operator, assign);
-	Gura_AssignMethod(operator, entries);
+	Gura_AssignMethod(operator_, assign);
+	Gura_AssignMethod(operator_, entries);
 }
 
 Object *Class_operator::CreateDescendant(Environment &env, Signal sig, Class *pClass)
