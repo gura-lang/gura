@@ -1,7 +1,6 @@
-//
-// Object_directory
-//
-
+//-----------------------------------------------------------------------------
+// Gura directory class
+//-----------------------------------------------------------------------------
 #include "stdafx.h"
 
 namespace Gura {
@@ -32,11 +31,29 @@ String Object_directory::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_directory
+// Gura interfaces for directory
 //-----------------------------------------------------------------------------
+// directory(pathname:string):map {block?}
+Gura_DeclareFunction(directory)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "pathname", VTYPE_string);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetClassToConstruct(env.LookupClass(VTYPE_directory));
+}
+
+Gura_ImplementFunction(directory)
+{
+	const char *pathName = args.GetString(0);
+	AutoPtr<Directory> pDirectory(PathManager::OpenDirectory(env, sig,
+								pathName, PathManager::NF_Signal));
+	if (sig.IsSignalled()) return Value::Null;
+	Object_directory *pObj = new Object_directory(env, pDirectory.release());
+	return ReturnValue(env, sig, args, Value(pObj));
+}
 
 //-----------------------------------------------------------------------------
-// Classs implementation
+// Class implementation
 //-----------------------------------------------------------------------------
 Class_directory::Class_directory(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_directory)
 {
@@ -44,6 +61,8 @@ Class_directory::Class_directory(Environment *pEnvOuter) : Class(pEnvOuter, VTYP
 
 void Class_directory::Prepare(Environment &env)
 {
+	// function assignment
+	Gura_AssignFunction(directory);
 }
 
 bool Class_directory::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)

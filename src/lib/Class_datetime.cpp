@@ -155,7 +155,7 @@ String Object_datetime::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_datetime
+// Gura interfaces for datetime
 //-----------------------------------------------------------------------------
 // datetime(year:number, month:number, day:number,
 //           hour:number => 0, min:number => 0, sec:number => 0, usec:number => 0,
@@ -443,6 +443,7 @@ Class_datetime::Class_datetime(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 
 void Class_datetime::Prepare(Environment &env)
 {
+	// function assignment
 	Gura_AssignFunction(datetime);
 	// value assignment
 	Gura_AssignClassValue(Sunday,		Value(0));
