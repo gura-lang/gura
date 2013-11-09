@@ -76,6 +76,30 @@ Object *Directory::DoGetStatObj(Signal sig)
 	return NULL;
 }
 
+Directory *Directory::Open(Environment &env, Signal sig,
+				const char *pathName, PathManager::NotFoundMode notFoundMode)
+{
+	return Open(env, sig, NULL, &pathName, notFoundMode);
+}
+
+Directory *Directory::Open(Environment &env, Signal sig, Directory *pParent,
+				const char **pPathName, PathManager::NotFoundMode notFoundMode)
+{
+	Directory *pDirectory = pParent;
+	do {
+		PathManager *pPathManager =
+				PathManager::FindResponsible(env, sig, pDirectory, *pPathName);
+		if (sig.IsSignalled()) return NULL;
+		if (pPathManager == NULL) {
+			sig.SetError(ERR_ValueError, "unsupported directory name");
+			return NULL;
+		}
+		pDirectory = pPathManager->DoOpenDirectory(env, sig,
+									pDirectory, pPathName, notFoundMode);
+		if (sig.IsSignalled() || pDirectory == NULL) return NULL;
+	} while (**pPathName != '\0');
+	return pDirectory;
+}
 
 namespace DirBuilder {
 

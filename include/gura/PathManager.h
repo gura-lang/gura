@@ -91,19 +91,13 @@ public:
 							const char *fileName, bool ignoreCaseFlag);
 public:
 	static void Register(Environment &env, PathManager *pPathManager);
-	static Directory *OpenDirectory(Environment &env, Signal sig,
-							const char *pathName, NotFoundMode notFoundMode);
-	static Directory *OpenDirectory(Environment &env, Signal sig,
-				Directory *pParent, const char **pPathName, NotFoundMode notFoundMode);
-	static Stream *OpenStream(Environment &env, Signal sig,
-							const char *pathName, ULong attr);
 	static PathManager *FindResponsible(Environment &env, Signal sig,
 				const Directory *pParent, const char *pathName);
 	static bool DoesExist(Environment &env, Signal sig, const char *pathName);
 	static bool IsContainer(Environment &env, Signal sig, const char *pathName);
 	virtual Directory *DoOpenDirectory(Environment &env, Signal sig,
 				Directory *pParent, const char **pPathName,
-				NotFoundMode notFoundMode) = 0;
+				PathManager::NotFoundMode notFoundMode) = 0;
 };
 
 }

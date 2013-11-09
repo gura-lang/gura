@@ -71,8 +71,7 @@ Gura_ImplementFunction(dir)
 	if (args.IsDirectory(0)) {
 		pDirectory.reset(Directory::Reference(args.GetDirectory(0)));
 	} else {
-		pDirectory.reset(PathManager::OpenDirectory(env, sig,
-											"", PathManager::NF_Signal));
+		pDirectory.reset(Directory::Open(env, sig, "", PathManager::NF_Signal));
 		if (pDirectory.IsNull()) return Value::Null;
 	}
 	PathManager::Iterator_Walk *pIterator = new PathManager::Iterator_Walk(
@@ -113,8 +112,7 @@ Gura_ImplementFunction(walk)
 	if (args.IsDirectory(0)) {
 		pDirectory.reset(Directory::Reference(args.GetDirectory(0)));
 	} else {
-		pDirectory.reset(PathManager::OpenDirectory(env, sig,
-											"", PathManager::NF_Signal));
+		pDirectory.reset(Directory::Open(env, sig, "", PathManager::NF_Signal));
 		if (pDirectory.IsNull()) return Value::Null;
 	}
 	PathManager::Iterator_Walk *pIterator = new PathManager::Iterator_Walk(

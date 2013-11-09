@@ -782,8 +782,7 @@ Module *Environment::ImportSeparatedModule_Script(Signal sig, Environment *pEnvO
 						const char *pathName, const SymbolList &symbolOfModule)
 {
 	Environment &env = *this;
-	AutoPtr<Stream> pStream(PathManager::OpenStream(env, sig,
-										pathName, Stream::ATTR_Readable));
+	AutoPtr<Stream> pStream(Stream::Open(env, sig, pathName, Stream::ATTR_Readable));
 	if (sig.IsError()) return NULL;
 	Expr_Root *pExprRoot = Parser().ParseStream(*pEnvOuter, sig, *pStream);
 	if (sig.IsSignalled()) return NULL;

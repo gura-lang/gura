@@ -92,49 +92,6 @@ bool PathManager::DoesMatchNameSub(const char *pattern, const char *fileName, bo
 	}
 }
 
-Directory *PathManager::OpenDirectory(Environment &env, Signal sig,
-							const char *pathName, NotFoundMode notFoundMode)
-{
-	return OpenDirectory(env, sig, NULL, &pathName, notFoundMode);
-}
-
-Directory *PathManager::OpenDirectory(Environment &env, Signal sig,
-		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode)
-{
-	Directory *pDirectory = pParent;
-	do {
-		PathManager *pPathManager =
-						FindResponsible(env, sig, pDirectory, *pPathName);
-		if (sig.IsSignalled()) return NULL;
-		if (pPathManager == NULL) {
-			sig.SetError(ERR_ValueError, "unsupported directory name");
-			return NULL;
-		}
-		pDirectory = pPathManager->DoOpenDirectory(env, sig,
-									pDirectory, pPathName, notFoundMode);
-		if (sig.IsSignalled() || pDirectory == NULL) return NULL;
-	} while (**pPathName != '\0');
-	return pDirectory;
-}
-
-Stream *PathManager::OpenStream(Environment &env, Signal sig,
-								const char *pathName, ULong attr)
-{
-	if (*pathName == '>') {
-		pathName++;
-		attr = (attr & ~Stream::ATTR_Readable) | Stream::ATTR_Writable;
-		if (*pathName == '>') {
-			pathName++;
-			attr |= Stream::ATTR_Append;
-		}
-	}
-	NotFoundMode notFoundMode = (attr & Stream::ATTR_Writable)?
-									NF_Wouldbe : NF_Signal;
-	AutoPtr<Directory> pDirectory(OpenDirectory(env, sig, pathName, notFoundMode));
-	if (sig.IsSignalled()) return NULL;
-	return pDirectory->DoOpenStream(env, sig, attr);
-}
-
 PathManager *PathManager::FindResponsible(Environment &env, Signal sig,
 								const Directory *pParent, const char *pathName)
 {
@@ -153,14 +110,14 @@ PathManager *PathManager::FindResponsible(Environment &env, Signal sig,
 bool PathManager::DoesExist(Environment &env, Signal sig, const char *pathName)
 {
 	if (*pathName == '\0') return false;
-	AutoPtr<Directory> pDirectory(OpenDirectory(env, sig, pathName, NF_NoSignal));
+	AutoPtr<Directory> pDirectory(Directory::Open(env, sig, pathName, NF_NoSignal));
 	return !pDirectory.IsNull();
 }
 
 bool PathManager::IsContainer(Environment &env, Signal sig, const char *pathName)
 {
 	if (*pathName == '\0') return false;
-	AutoPtr<Directory> pDirectory(OpenDirectory(env, sig, pathName, NF_NoSignal));
+	AutoPtr<Directory> pDirectory(Directory::Open(env, sig, pathName, NF_NoSignal));
 	return !pDirectory.IsNull() && pDirectory->IsContainer();
 }
 
@@ -292,7 +249,7 @@ bool PathManager::Iterator_Glob::Init(Environment &env, Signal sig, const char *
 			field += ch;
 		}
 	}
-	AutoPtr<Directory> pDirectory(PathManager::OpenDirectory(env, sig,
+	AutoPtr<Directory> pDirectory(Directory::Open(env, sig,
 									pathName.c_str(), PathManager::NF_Signal));
 	if (sig.IsSignalled()) return false;
 	_directoryQue.push_back(pDirectory.release());

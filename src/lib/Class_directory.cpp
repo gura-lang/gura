@@ -45,7 +45,7 @@ Gura_DeclareFunction(directory)
 Gura_ImplementFunction(directory)
 {
 	const char *pathName = args.GetString(0);
-	AutoPtr<Directory> pDirectory(PathManager::OpenDirectory(env, sig,
+	AutoPtr<Directory> pDirectory(Directory::Open(env, sig,
 								pathName, PathManager::NF_Signal));
 	if (sig.IsSignalled()) return Value::Null;
 	Object_directory *pObj = new Object_directory(env, pDirectory.release());
@@ -68,7 +68,7 @@ void Class_directory::Prepare(Environment &env)
 bool Class_directory::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
 	if (value.IsString()) {
-		AutoPtr<Directory> pDirectory(PathManager::OpenDirectory(env, sig,
+		AutoPtr<Directory> pDirectory(Directory::Open(env, sig,
 									value.GetString(), PathManager::NF_Signal));
 		if (sig.IsSignalled()) return false;
 		value = Value(new Object_directory(env, pDirectory.release()));

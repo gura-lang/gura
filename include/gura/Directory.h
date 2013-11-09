@@ -52,6 +52,11 @@ public:
 	String MakePathName(bool addSepFlag, const char *pathNameTrail = NULL) const;
 	int CountDepth() const;
 	virtual Stream *DoOpenStream(Environment &env, Signal sig, ULong attr) = 0;
+public:
+	static Directory *Open(Environment &env, Signal sig,
+					const char *pathName, PathManager::NotFoundMode notFoundMode);
+	static Directory *Open(Environment &env, Signal sig, Directory *pParent,
+					const char **pPathName, PathManager::NotFoundMode notFoundMode);
 protected:
 	virtual Directory *DoNext(Environment &env, Signal sig) = 0;
 	virtual Object *DoGetStatObj(Signal sig);

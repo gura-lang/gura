@@ -870,7 +870,7 @@ Expr_Root *Parser::ParseStream(Environment &env, Signal sig, const char *pathNam
 		}
 		if (zippedFlag && !env.ImportModules(sig, "zip", false, false)) return NULL;
 	} while (0);
-	AutoPtr<Stream> pStream(PathManager::OpenStream(env, sig,
+	AutoPtr<Stream> pStream(Stream::Open(env, sig,
 									pathNameMod.c_str(), Stream::ATTR_Readable));
 	if (sig.IsSignalled()) return NULL;
 	return ParseStream(env, sig, *pStream);

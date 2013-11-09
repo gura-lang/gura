@@ -149,6 +149,7 @@ public:
 	bool SerializePackedULong(Signal sig, ULong num);
 	bool DeserializePackedULong(Signal sig, ULong &num);
 public:
+	static Stream *Open(Environment &env, Signal sig, const char *pathName, ULong attr);
 	static Stream *Prefetch(Environment &env, Signal sig, Stream *pStreamSrc,
 							bool deleteSrcFlag, size_t bytesUnit = 0x10000);
 	static ULong ParseOpenMode(Signal sig, const char *mode);

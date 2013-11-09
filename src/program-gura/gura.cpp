@@ -118,7 +118,7 @@ int Main(int argc, const char *argv[])
 	}
 	if (opt.IsSet("template")) {
 		foreach_const (StringList, pPathName, opt.GetStringList("template")) {
-			AutoPtr<Stream> pStreamSrc(PathManager::OpenStream(env, sig,
+			AutoPtr<Stream> pStreamSrc(Stream::Open(env, sig,
 								pPathName->c_str(), Stream::ATTR_Readable));
 			
 			// encoding

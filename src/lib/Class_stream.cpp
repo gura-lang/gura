@@ -94,7 +94,7 @@ Gura_ImplementFunction(stream)
 		attr = Stream::ParseOpenMode(sig, args.GetString(1));
 		if (sig.IsSignalled()) return Value::Null;
 	}
-	Stream *pStream = PathManager::OpenStream(env, sig, args.GetString(0), attr);
+	Stream *pStream = Stream::Open(env, sig, args.GetString(0), attr);
 	if (sig.IsSignalled()) return Value::Null;
 	if (args.IsValid(2)) {
 		Codec *pCodec = Object_codec::GetObject(args, 2)->GetCodec();
@@ -781,7 +781,7 @@ bool Class_stream::CastFrom(Environment &env, Signal sig, Value &value, const De
 			if (pDecl->GetWriteFlag()) attr = Stream::ATTR_Writable;
 			if (pDecl->GetReadFlag()) attr |= Stream::ATTR_Readable;
 		}
-		Stream *pStream = PathManager::OpenStream(env, sig, value.GetString(), attr);
+		Stream *pStream = Stream::Open(env, sig, value.GetString(), attr);
 		if (sig.IsSignalled()) return false;
 		value = Value(new Object_stream(env, pStream));
 		return true;

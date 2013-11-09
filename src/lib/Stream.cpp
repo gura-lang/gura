@@ -689,6 +689,23 @@ bool Stream::DeserializePackedULong(Signal sig, ULong &num)
 	return true;
 }
 
+Stream *Stream::Open(Environment &env, Signal sig, const char *pathName, ULong attr)
+{
+	if (*pathName == '>') {
+		pathName++;
+		attr = (attr & ~ATTR_Readable) | ATTR_Writable;
+		if (*pathName == '>') {
+			pathName++;
+			attr |= ATTR_Append;
+		}
+	}
+	PathManager::NotFoundMode notFoundMode = (attr & ATTR_Writable)?
+								PathManager::NF_Wouldbe : PathManager::NF_Signal;
+	AutoPtr<Directory> pDirectory(Directory::Open(env, sig, pathName, notFoundMode));
+	if (sig.IsSignalled()) return NULL;
+	return pDirectory->DoOpenStream(env, sig, attr);
+}
+
 Stream *Stream::Prefetch(Environment &env, Signal sig, Stream *pStreamSrc,
 										bool deleteSrcFlag, size_t bytesUnit)
 {
