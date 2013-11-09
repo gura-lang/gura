@@ -1484,11 +1484,11 @@ Gura_ImplementFunction(typename_)
 	return Value(env, typeName);
 }
 
-// undef(`value+):[raise]
+// undef(`symbol+):[raise]
 Gura_DeclareFunctionAlias(undef_, "undef")
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "value", VTYPE_quote, OCCUR_OnceOrMore);
+	DeclareArg(env, "symbol", VTYPE_quote, OCCUR_OnceOrMore);
 	DeclareAttr(Gura_Symbol(raise));
 }
 
