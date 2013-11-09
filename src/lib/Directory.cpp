@@ -101,6 +101,214 @@ Directory *Directory::Open(Environment &env, Signal sig, Directory *pParent,
 	return pDirectory;
 }
 
+//-----------------------------------------------------------------------------
+// Directory::Iterator_Walk
+//-----------------------------------------------------------------------------
+Directory::Iterator_Walk::Iterator_Walk(bool addSepFlag, bool statFlag,
+				bool ignoreCaseFlag, bool fileFlag, bool dirFlag,
+				Directory *pDirectory, int depthMax, const StringList &patterns) :
+	Iterator(false),
+	_addSepFlag(addSepFlag), _statFlag(statFlag), _ignoreCaseFlag(ignoreCaseFlag),
+	_fileFlag(fileFlag), _dirFlag(dirFlag), _pDirectory(NULL), _depthMax(0),
+	_patterns(patterns)
+{
+	_depthMax = (depthMax < 0)? -1 : pDirectory->CountDepth() + depthMax + 1;
+	_directoryQue.push_back(pDirectory);
+}
+
+Directory::Iterator_Walk::~Iterator_Walk()
+{
+	foreach (DirectoryDeque, ppDirectory, _directoryQue) {
+		Directory::Delete(*ppDirectory);
+	}
+}
+
+Iterator *Directory::Iterator_Walk::GetSource()
+{
+	return NULL;
+}
+
+bool Directory::Iterator_Walk::DoNext(Environment &env, Signal sig, Value &value)
+{
+	for (;;) {
+		Directory *pDirectoryChild = NULL;
+		while (_pDirectory.IsNull() ||
+				(pDirectoryChild = _pDirectory->Next(env, sig)) == NULL) {
+			if (_directoryQue.empty()) {
+				_pDirectory.reset(NULL);
+				return false;
+			}
+			Directory *pDirectoryNext = _directoryQue.front();
+			_directoryQue.pop_front();
+			_pDirectory.reset(pDirectoryNext);
+		}
+		if (sig.IsSignalled()) return false;
+		if (pDirectoryChild->IsContainer() &&
+					(_depthMax < 0 || pDirectoryChild->CountDepth() < _depthMax)) {
+			_directoryQue.push_back(Directory::Reference(pDirectoryChild));
+		}
+		bool typeMatchFlag =
+				(pDirectoryChild->IsContainer() && _dirFlag) ||
+				(!pDirectoryChild->IsContainer() && _fileFlag);
+		if (typeMatchFlag) {
+			bool matchFlag = false;
+			foreach_const (StringList, pPattern, _patterns) {
+				if (PathManager::DoesMatchName(pPattern->c_str(),
+									pDirectoryChild->GetName(), _ignoreCaseFlag)) {
+					matchFlag = true;
+					break;
+				}
+			}
+			if (_patterns.empty() || matchFlag) {
+				if (_statFlag) {
+					Object *pObj = pDirectoryChild->GetStatObj(sig);
+					if (sig.IsSignalled()) return false;
+					if (pObj != NULL) value = Value(pObj);
+				} else {
+					value = Value(env, pDirectoryChild->MakePathName(_addSepFlag).c_str());
+				}
+				Directory::Delete(pDirectoryChild);
+				break;
+			}
+		}
+		Directory::Delete(pDirectoryChild);
+	}
+	return true;
+}
+
+String Directory::Iterator_Walk::ToString() const
+{
+	String str;
+	str = "path.walk(";
+	str += _statFlag? ":stat" : ":name";
+	str += ")";
+	return str;
+}
+
+void Directory::Iterator_Walk::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+}
+
+//-----------------------------------------------------------------------------
+// Directory::Iterator_Glob
+//-----------------------------------------------------------------------------
+Directory::Iterator_Glob::Iterator_Glob(bool addSepFlag, bool statFlag,
+							bool ignoreCaseFlag, bool fileFlag, bool dirFlag) :
+	Iterator(false),
+	_addSepFlag(addSepFlag), _statFlag(statFlag), _ignoreCaseFlag(ignoreCaseFlag),
+	_fileFlag(fileFlag), _dirFlag(dirFlag), _pDirectory(NULL), _depth(0)
+{
+}
+
+bool Directory::Iterator_Glob::Init(Environment &env, Signal sig, const char *pattern)
+{
+	String pathName, field;
+	const char *patternTop = pattern;
+	for (const char *p = pattern; ; p++) {
+		char ch = *p;
+		if (IsFileSeparator(ch) || ch == '\0') {
+			patternTop = p;
+			pathName += field;
+			if (ch == '\0') break;
+			patternTop++;
+			pathName += ch;
+			field.clear();
+		} else if (PathManager::IsWildCardChar(ch)) {
+			break;
+		} else {
+			field += ch;
+		}
+	}
+	field.clear();
+	for (const char *p = patternTop; ; p++) {
+		char ch = *p;
+		if (IsFileSeparator(ch) || ch == '\0') {
+			_patternSegs.push_back(field);
+			if (ch == '\0') break;
+		} else {
+			field += ch;
+		}
+	}
+	AutoPtr<Directory> pDirectory(Directory::Open(env, sig,
+									pathName.c_str(), PathManager::NF_Signal));
+	if (sig.IsSignalled()) return false;
+	_directoryQue.push_back(pDirectory.release());
+	_depthQue.push_back(0);
+	return true;
+}
+
+Directory::Iterator_Glob::~Iterator_Glob()
+{
+	foreach (DirectoryDeque, ppDirectory, _directoryQue) {
+		Directory::Delete(*ppDirectory);
+	}
+}
+
+Iterator *Directory::Iterator_Glob::GetSource()
+{
+	return NULL;
+}
+
+bool Directory::Iterator_Glob::DoNext(Environment &env, Signal sig, Value &value)
+{
+	Directory *pDirectoryChild = NULL;
+	for (;;) {
+		while (_pDirectory.IsNull() ||
+				(pDirectoryChild = _pDirectory->Next(env, sig)) == NULL) {
+			if (_directoryQue.empty()) {
+				_pDirectory.reset(NULL);
+				return false;
+			}
+			Directory *pDirectoryNext = _directoryQue.front();
+			_depth = _depthQue.front();
+			_directoryQue.pop_front();
+			_depthQue.pop_front();
+			if (pDirectoryNext->IsContainer()) {
+				_pDirectory.reset(pDirectoryNext);
+			} else {
+				_pDirectory.reset(NULL);
+				pDirectoryChild = pDirectoryNext;
+				goto found;
+			}
+		}
+		if (sig.IsSignalled()) return false;
+		if (PathManager::DoesMatchName(_patternSegs[_depth].c_str(),
+								pDirectoryChild->GetName(), _ignoreCaseFlag)) {
+			bool typeMatchFlag =
+					(pDirectoryChild->IsContainer() && _dirFlag) ||
+					(!pDirectoryChild->IsContainer() && _fileFlag);
+			if (_depth + 1 < _patternSegs.size()) {
+				if (pDirectoryChild->IsContainer()) {
+					_directoryQue.push_back(Directory::Reference(pDirectoryChild));
+					_depthQue.push_back(static_cast<UInt>(_depth + 1));
+				}
+			} else if (typeMatchFlag) {
+				break;
+			}
+		}
+		Directory::Delete(pDirectoryChild);
+	}
+found:
+	if (_statFlag) {
+		Object *pObj = pDirectoryChild->GetStatObj(sig);
+		if (sig.IsSignalled()) return false;
+		if (pObj != NULL) value = Value(pObj);
+	} else {
+		value = Value(env, pDirectoryChild->MakePathName(_addSepFlag).c_str());
+	}
+	Directory::Delete(pDirectoryChild);
+	return true;
+}
+
+String Directory::Iterator_Glob::ToString() const
+{
+	return String("path.glob");
+}
+
+void Directory::Iterator_Glob::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+}
+
 namespace DirBuilder {
 
 //-----------------------------------------------------------------------------

@@ -74,7 +74,7 @@ Gura_ImplementFunction(dir)
 		pDirectory.reset(Directory::Open(env, sig, "", PathManager::NF_Signal));
 		if (pDirectory.IsNull()) return Value::Null;
 	}
-	PathManager::Iterator_Walk *pIterator = new PathManager::Iterator_Walk(
+	Directory::Iterator_Walk *pIterator = new Directory::Iterator_Walk(
 					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag,
 					pDirectory.release(), depthMax, patterns);
 	return ReturnIterator(env, sig, args, pIterator);
@@ -115,7 +115,7 @@ Gura_ImplementFunction(walk)
 		pDirectory.reset(Directory::Open(env, sig, "", PathManager::NF_Signal));
 		if (pDirectory.IsNull()) return Value::Null;
 	}
-	PathManager::Iterator_Walk *pIterator = new PathManager::Iterator_Walk(
+	Directory::Iterator_Walk *pIterator = new Directory::Iterator_Walk(
 					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag,
 					pDirectory.release(), depthMax, patterns);
 	return ReturnIterator(env, sig, args, pIterator);
@@ -145,7 +145,7 @@ Gura_ImplementFunction(glob)
 	bool ignoreCaseFlag = args.IsSet(Gura_Symbol(icase));
 	bool fileFlag = args.IsSet(Gura_Symbol(file)) || !args.IsSet(Gura_Symbol(dir));
 	bool dirFlag = args.IsSet(Gura_Symbol(dir)) || !args.IsSet(Gura_Symbol(file));
-	AutoPtr<PathManager::Iterator_Glob> pIterator(new PathManager::Iterator_Glob(
+	AutoPtr<Directory::Iterator_Glob> pIterator(new Directory::Iterator_Glob(
 					addSepFlag, statFlag, ignoreCaseFlag, fileFlag, dirFlag));
 	if (!pIterator->Init(env, sig, args.GetString(0))) {
 		return Value::Null;

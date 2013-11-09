@@ -98,6 +98,7 @@ default:function = default() {block}
 dict:function = dict(elem[]?):[icase] {block?}
 dim:function = dim(n+:number) {block?}
 dir:function = dir(obj?):[noesc]
+directory:function = directory(pathname:string):map {block?}
 dirtype:function = dirtype(obj?):[noesc]
 else:function = else():trailer {block}
 elsif:function = elsif (`cond):leader:trailer {block}

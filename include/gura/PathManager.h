@@ -19,54 +19,6 @@ public:
 		NF_Signal, NF_NoSignal, NF_Wouldbe,
 	};
 	typedef std::vector<PathManager *> List;
-	typedef std::deque<Directory *> DirectoryDeque;
-public:
-	class GURA_DLLDECLARE Iterator_Walk : public Iterator {
-	public:
-	private:
-		bool _addSepFlag;
-		bool _statFlag;
-		bool _ignoreCaseFlag;
-		bool _fileFlag;
-		bool _dirFlag;
-		AutoPtr<Directory> _pDirectory;
-		int _depthMax;
-		StringList _patterns;
-		DirectoryDeque _directoryQue;
-	public:
-		Iterator_Walk(bool addSepFlag, bool statFlag,
-				bool ignoreCaseFlag, bool fileFlag, bool dirFlag,
-				Directory *pDirectory, int depthMax, const StringList &patterns);
-		~Iterator_Walk();
-		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString() const;
-		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
-	};
-	class GURA_DLLDECLARE Iterator_Glob : public Iterator {
-	public:
-		typedef std::deque<size_t> DepthDeque;
-	private:
-		bool _addSepFlag;
-		bool _statFlag;
-		bool _ignoreCaseFlag;
-		bool _fileFlag;
-		bool _dirFlag;
-		AutoPtr<Directory> _pDirectory;
-		size_t _depth;
-		DepthDeque _depthQue;
-		StringList _patternSegs;
-		DirectoryDeque _directoryQue;
-	public:
-		Iterator_Glob(bool addSepFlag, bool statFlag,
-							bool ignoreCaseFlag, bool fileFlag, bool dirFlag);
-		~Iterator_Glob();
-		bool Init(Environment &env, Signal sig, const char *pattern);
-		virtual Iterator *GetSource();
-		virtual bool DoNext(Environment &env, Signal sig, Value &value);
-		virtual String ToString() const;
-		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
-	};
 protected:
 	int _cntRef;
 public:
