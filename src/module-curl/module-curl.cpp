@@ -292,17 +292,19 @@ Gura_ModuleEntry()
 	Gura_AssignValueCURLE(UNSUPPORTED_PROTOCOL);
 	Gura_AssignValueCURLE(FAILED_INIT);
 	Gura_AssignValueCURLE(URL_MALFORMAT);
+#if defined(CURLE_NOT_BUILT_IN)
 	Gura_AssignValueCURLE(NOT_BUILT_IN);
+#endif
 	Gura_AssignValueCURLE(COULDNT_RESOLVE_PROXY);
 	Gura_AssignValueCURLE(COULDNT_RESOLVE_HOST);
 	Gura_AssignValueCURLE(COULDNT_CONNECT);
 	Gura_AssignValueCURLE(FTP_WEIRD_SERVER_REPLY);
 	Gura_AssignValueCURLE(REMOTE_ACCESS_DENIED);
-#if 0
+#if defined(CURLE_FTP_ACCEPT_FAILED)
 	Gura_AssignValueCURLE(FTP_ACCEPT_FAILED);
 #endif
 	Gura_AssignValueCURLE(FTP_WEIRD_PASS_REPLY);
-#if 0
+#if defined(CURLE_FTP_ACCEPT_TIMEOUT)
 	Gura_AssignValueCURLE(FTP_ACCEPT_TIMEOUT);
 #endif
 	Gura_AssignValueCURLE(FTP_WEIRD_PASV_REPLY);
@@ -340,7 +342,9 @@ Gura_ModuleEntry()
 	Gura_AssignValueCURLE(INTERFACE_FAILED);
 	Gura_AssignValueCURLE(OBSOLETE46);
 	Gura_AssignValueCURLE(TOO_MANY_REDIRECTS);
+#if defined(CURLE_UNKNOWN_OPTION)
 	Gura_AssignValueCURLE(UNKNOWN_OPTION);
+#endif
 	Gura_AssignValueCURLE(TELNET_OPTION_SYNTAX);
 	Gura_AssignValueCURLE(OBSOLETE50);
 	Gura_AssignValueCURLE(PEER_FAILED_VERIFICATION);
@@ -381,7 +385,7 @@ Gura_ModuleEntry()
 	Gura_AssignValueCURLE(RTSP_SESSION_ERROR);
 	Gura_AssignValueCURLE(FTP_BAD_FILE_LIST);
 	Gura_AssignValueCURLE(CHUNK_FAILED);
-#if 0
+#if defined(CURLE_NO_CONNECTION_AVAILABLE)
 	Gura_AssignValueCURLE(NO_CONNECTION_AVAILABLE);
 #endif
 	// CURLoption
@@ -477,7 +481,9 @@ Gura_ModuleEntry()
 	Gura_AssignValueCURLOPT(NOSIGNAL);						// LONG
 	Gura_AssignValueCURLOPT(SHARE);							// OBJECTPOINT
 	Gura_AssignValueCURLOPT(PROXYTYPE);						// LONG
+#if defined(CURLOPT_ACCEPT_ENCODING)
 	Gura_AssignValueCURLOPT(ACCEPT_ENCODING);				// OBJECTPOINT
+#endif
 	Gura_AssignValueCURLOPT(PRIVATE);						// OBJECTPOINT
 	Gura_AssignValueCURLOPT(HTTP200ALIASES);				// OBJECTPOINT
 	Gura_AssignValueCURLOPT(UNRESTRICTED_AUTH);				// LONG
@@ -569,21 +575,47 @@ Gura_ModuleEntry()
 	Gura_AssignValueCURLOPT(FNMATCH_FUNCTION);				// FUNCTIONPOINT
 	Gura_AssignValueCURLOPT(CHUNK_DATA);					// OBJECTPOINT
 	Gura_AssignValueCURLOPT(FNMATCH_DATA);					// OBJECTPOINT
+#if defined(CURLOPT_RESOLVE)
 	Gura_AssignValueCURLOPT(RESOLVE);						// OBJECTPOINT
+#endif
+#if defined(CURLOPT_TLSAUTH_USERNAME)
 	Gura_AssignValueCURLOPT(TLSAUTH_USERNAME);				// OBJECTPOINT
+#endif
+#if defined(CURLOPT_TLSAUTH_PASSWORD)
 	Gura_AssignValueCURLOPT(TLSAUTH_PASSWORD);				// OBJECTPOINT
+#endif
+#if defined(CURLOPT_TLSAUTH_TYPE)
 	Gura_AssignValueCURLOPT(TLSAUTH_TYPE);					// OBJECTPOINT
+#endif
+#if defined(CURLOPT_TRANSFER_ENCODING)
 	Gura_AssignValueCURLOPT(TRANSFER_ENCODING);				// LONG
+#endif
+#if defined(CURLOPT_CLOSESOCKETFUNCTION)
 	Gura_AssignValueCURLOPT(CLOSESOCKETFUNCTION);			// FUNCTIONPOINT
+#endif
+#if defined(CURLOPT_CLOSESOCKETDATA)
 	Gura_AssignValueCURLOPT(CLOSESOCKETDATA);				// OBJECTPOINT
+#endif
 	Gura_AssignValueCURLOPT(GSSAPI_DELEGATION);				// LONG
-#if 0
+#if defined(CURLOPT_DNS_SERVERS)
 	Gura_AssignValueCURLOPT(DNS_SERVERS);					// OBJECTPOINT
+#endif
+#if defined(CURLOPT_ACCEPTTIMEOUT_MS)
 	Gura_AssignValueCURLOPT(ACCEPTTIMEOUT_MS);				// LONG
+#endif
+#if defined(CURLOPT_TCP_KEEPALIVE)
 	Gura_AssignValueCURLOPT(TCP_KEEPALIVE);					// LONG
+#endif
+#if defined(CURLOPT_TCP_KEEPIDLE)
 	Gura_AssignValueCURLOPT(TCP_KEEPIDLE);					// LONG
+#endif
+#if defined(CURLOPT_TCP_KEEPINTVL)
 	Gura_AssignValueCURLOPT(TCP_KEEPINTVL);					// LONG
+#endif
+#if defined(CURLOPT_SSL_OPTIONS)
 	Gura_AssignValueCURLOPT(SSL_OPTIONS);					// LONG
+#endif
+#if defined(CURLOPT_MAIL_AUTH)
 	Gura_AssignValueCURLOPT(MAIL_AUTH);						// OBJECTPOINT
 #endif
 	Gura_AssignValueCURLOPT(ENCODING);
@@ -642,8 +674,12 @@ Gura_ModuleEntry()
 	Gura_AssignValueVERSION(SSPI);
 	Gura_AssignValueVERSION(CONV);
 	Gura_AssignValueVERSION(CURLDEBUG);
+#if defined(CURL_VERSION_TLSAUTH_SRP)
 	Gura_AssignValueVERSION(TLSAUTH_SRP);
+#endif
+#if defined(CURL_VERSION_NTLM_WB)
 	Gura_AssignValueVERSION(NTLM_WB);
+#endif
 	// function assignment
 	Gura_AssignFunction(version);
 	Gura_AssignFunction(easy_init);
