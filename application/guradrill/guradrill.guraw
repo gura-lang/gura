@@ -503,7 +503,7 @@ Composer = class {
 	}
 	UpdatePages() = {
 		if (this.attrCur.seed < 0) {
-			this.attrCur.seed = time.clock()
+			this.attrCur.seed = os.clock()
 		}
 		randseed(this.attrCur.seed)
 		this.pages = repeat (this.attrCur.nPages):list {
