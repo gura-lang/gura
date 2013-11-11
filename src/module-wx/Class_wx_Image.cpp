@@ -1904,7 +1904,7 @@ Gura_ImplementDescendantCreator(wx_Image)
 
 Gura_ImplementCastFrom(wx_Image)
 {
-	if (value.IsImage()) {
+	if (value.Is_image()) {
 		Object_image *pObjImage = Object_image::GetObject(value);
 		wx_Image *pImage = new wx_Image(pObjImage->GetImage()->GetWidth(),
 									pObjImage->GetImage()->GetHeight(), false);

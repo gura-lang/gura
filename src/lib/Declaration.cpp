@@ -112,7 +112,7 @@ bool Declaration::ValidateAndCast(Environment &env, Signal sig,
 	if (!listElemFlag && GetListFlag()) {
 		env.LookupClass(VTYPE_list)->CastFrom(env, sig, value, this);
 		if (sig.IsSignalled()) return false;
-		if (value.IsList()) {
+		if (value.Is_list()) {
 			foreach (ValueList, pValue, value.GetList()) {
 				if (!ValidateAndCast(env, sig, *pValue, true)) {
 					SetError_ArgumentType(sig, *pValue);
@@ -131,7 +131,7 @@ bool Declaration::ValidateAndCast(Environment &env, Signal sig,
 												GetValueType() == VTYPE_quote) {
 		goto done;
 	} else if (GetValueType() == VTYPE_any || value.IsInstanceOf(GetValueType())) {
-		if (value.IsIterator()) {
+		if (value.Is_iterator()) {
 			// make a clone of the iterator
 			Iterator *pIterator = value.CreateIterator(sig);
 			if (pIterator == NULL) return false;

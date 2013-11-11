@@ -336,7 +336,7 @@ Value Matrix::RoundOff(Environment &env, Signal sig, Number threshold)
 	AutoPtr<Matrix> pMatRtn(new Matrix(nRows, nCols));
 	ValueList &valList = pMatRtn->GetList();
 	foreach_const (ValueList, pValue, GetList()) {
-		if (pValue->IsNumber()) {
+		if (pValue->Is_number()) {
 			Number num = pValue->GetNumber();
 			if (num < threshold) num = 0;
 			valList.push_back(Value(num));
@@ -437,9 +437,9 @@ bool Matrix::GetElemIndex(Environment &env, Signal sig,
 	SeqPostHandler *pSeqPostHandler = NULL;
 	Value valueIdx = pExprIdx->Exec2(env, sig, pSeqPostHandler);
 	if (sig.IsSignalled()) return false;
-	if (valueIdx.IsNumber()) {
+	if (valueIdx.Is_number()) {
 		iElem = valueIdx.GetSizeT();
-	} else if (valueIdx.IsIterator()) {
+	} else if (valueIdx.Is_iterator()) {
 		Iterator *pIterator = valueIdx.GetIterator();
 		if (pIterator->IsSequence()) {
 			Iterator_Sequence *pIteratorEx =
@@ -875,9 +875,9 @@ ValueType Matrix::CheckValueType(const ValueList &valList)
 {
 	ValueType valType = VTYPE_nil;
 	foreach_const (ValueList, pValueElem, valList) {
-		if (pValueElem->IsNumber()) {
+		if (pValueElem->Is_number()) {
 			if (valType == VTYPE_nil) valType = VTYPE_number;
-		} else if (pValueElem->IsComplex()) {
+		} else if (pValueElem->Is_complex()) {
 			valType = VTYPE_complex;
 		} else {
 			return VTYPE_nil;

@@ -106,7 +106,7 @@ Gura_ImplementFunction(audio)
 	size_t nSamplesPerSec = 10000;
 	ValueList valList = args.GetList(0);
 	AutoPtr<Audio> pAudio;
-	if (valList[0].IsSymbol()) {
+	if (valList[0].Is_symbol()) {
 		Audio::Format format = Audio::SymbolToFormat(sig, valList[0].GetSymbol());
 		if (sig.IsSignalled()) return Value::Null;
 		if (valList.size() >= 2) {
@@ -171,7 +171,7 @@ Gura_ImplementMethod(audio, sinewave)
 	}
 	double freq = args.GetDouble(1);
 	size_t nSamples = static_cast<size_t>(args.GetDouble(2) * pAudio->GetSamplesPerSec());
-	int amplitude = args.IsNumber(3)? args.GetInt(3) : -1;
+	int amplitude = args.Is_number(3)? args.GetInt(3) : -1;
 	if (!pAudio->AddSineWave(sig, iChannel, freq, nSamples, amplitude)) {
 		return Value::Null;
 	}
@@ -246,7 +246,7 @@ Gura_ImplementMethod(audio, each)
 		sig.SetError(ERR_ValueError, "channel is out of range");
 		return Value::Null;
 	}
-	size_t offset = args.IsNumber(1)? args.GetSizeT(1) : 0;
+	size_t offset = args.Is_number(1)? args.GetSizeT(1) : 0;
 	AutoPtr<Iterator> pIterator(new Audio::IteratorEach(
 								pAudio->Reference(), iChannel, offset));
 	return ReturnIterator(env, sig, args, pIterator.release());
@@ -298,7 +298,7 @@ bool Class_audio::CastFrom(Environment &env, Signal sig, Value &value, const Dec
 	size_t nChannels = 1;
 	size_t nSamplesPerSec = 10000;
 	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, value, pDecl);
-	if (value.IsStream()) {
+	if (value.Is_stream()) {
 		AutoPtr<Audio> pAudio(new Audio(Audio::FORMAT_None, nChannels, nSamplesPerSec));
 		pAudio->Read(env, sig, value.GetStream(), NULL);
 		value = Value::Null; // delete stream instance

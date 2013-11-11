@@ -613,7 +613,7 @@ void Function::ResultComposer::Store(const Value &value)
 		_result = value;
 	} else if (_args.IsRsltXReduce()) {
 		if (value.IsValid()) _result = value;
-	} else if (_args.IsRsltFlat() && value.IsList()) {
+	} else if (_args.IsRsltFlat() && value.Is_list()) {
 		const ValueList &valList = value.GetList();
 		foreach_const (ValueList, pValue, value.GetList()) {
 			Store(*pValue);
@@ -625,13 +625,13 @@ void Function::ResultComposer::Store(const Value &value)
 			if (_pValList == NULL) {
 				_pValList = &_result.InitAsList(_env, _cnt, Value::Null);
 			}
-			if (!_setFlag || !_pValList->IsContain(value)) {
+			if (!_setFlag || !_pValList->DoesContain(value)) {
 				_pValList->push_back(value);
 			}
 		} else if (_excludeNilFlag) {
 			// nothing to do
 		} else if (_pValList != NULL) {
-			if (!_setFlag || !_pValList->IsContain(value)) {
+			if (!_setFlag || !_pValList->DoesContain(value)) {
 				_pValList->push_back(value);
 			}
 		}
@@ -952,16 +952,16 @@ bool Function::SeqPostHandler_ExpandMod::DoPost(Signal sig, const Value &result)
 	ValueDict &valDictArg = _pSequenceCall->GetArgs()->GetValueDictArg();
 	ExprMap &exprMap = _pSequenceCall->GetExprMap();
 	if (sig.IsSignalled()) return false;
-	if (!result.IsDict()) {
+	if (!result.Is_dict()) {
 		sig.SetError(ERR_ValueError, "modulo argument must take a dictionary");
 		return false;
 	}
 	foreach_const (ValueDict, item, result.GetDict()) {
 		const Value &valueKey = item->first;
 		const Value &value = item->second;
-		if (valueKey.IsSymbol()) {
+		if (valueKey.Is_symbol()) {
 			Expr *pExpr;
-			if (value.IsExpr()) {
+			if (value.Is_expr()) {
 				pExpr = new Expr_Quote(Expr::Reference(value.GetExpr()));
 			} else {
 				pExpr = new Expr_Value(value);
@@ -982,7 +982,7 @@ bool Function::SeqPostHandler_ExpandMul::DoPost(Signal sig, const Value &result)
 	do {
 		ValueList &valListArg = _pSequenceCall->GetArgs()->GetValueListArg();
 		size_t nSkipDecl = 1;
-		if (result.IsList()) {
+		if (result.Is_list()) {
 			const ValueList &valList = result.GetList();
 			nSkipDecl = valList.size();
 			foreach_const (ValueList, pValue, valList) {
@@ -1031,7 +1031,7 @@ bool Args::ShouldGenerateIterator(const DeclarationList &declList) const
 	DeclarationList::const_iterator ppDecl = declList.begin();
 	for ( ; pValue != _valListArg.end() && ppDecl != declList.end(); pValue++) {
 		const Declaration *pDecl = *ppDecl;
-		if (pValue->IsIterator() &&
+		if (pValue->Is_iterator() &&
 						pDecl->GetValueType() != VTYPE_iterator) return true;
 		if (!pDecl->IsVariableLength()) ppDecl++;
 	}
@@ -1058,7 +1058,7 @@ const Expr_Block *Args::GetBlock(Environment &env, Signal sig) const
 		const Value *pValue = env.LookupValue(pExprSymbol->GetSymbol(), ENVREF_Escalate);
 		if (pValue == NULL) {
 			break;
-		} else if (pValue->IsExpr()) {
+		} else if (pValue->Is_expr()) {
 			const Expr *pExpr = pValue->GetExpr();
 			if (!pExpr->IsBlock()) {
 				sig.SetError(ERR_ValueError, "invalid value for block delegation");

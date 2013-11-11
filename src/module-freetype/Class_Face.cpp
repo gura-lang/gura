@@ -148,11 +148,11 @@ Value Object_Face::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	evaluatedFlag = true;
 #if 0
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		_vector.x = static_cast<FT_Pos>(value.GetLong());
 		return Value(_vector.x);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		_vector.y = static_cast<FT_Pos>(value.GetLong());
 		return Value(_vector.y);
 	}
@@ -443,7 +443,7 @@ Gura_ImplementUserClassWithCast(Face)
 Gura_ImplementCastFrom(Face)
 {
 	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, value, pDecl);
-	if (value.IsStream()) {
+	if (value.Is_stream()) {
 		int index = 0;
 		AutoPtr<Object_Face> pObjFace(new Object_Face());
 		if (!pObjFace->Initialize(env, sig, &value.GetStream(), index)) return false;

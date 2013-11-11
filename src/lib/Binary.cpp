@@ -49,7 +49,7 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 				sig.SetError(ERR_ValueError, "not enough arguments");
 				return false;
 			}
-			if (!pValue->IsNumber()) {
+			if (!pValue->Is_number()) {
 				sig.SetError(ERR_ValueError,
 								"repeat specifier requires a number value");
 				return false;
@@ -610,7 +610,7 @@ bool Binary::CheckString(Signal sig,
 	if (pValue == valList.end()) {
 		sig.SetError(ERR_ValueError, "not enough arguments");
 		return false;
-	} else if (!pValue->IsString()) {
+	} else if (!pValue->Is_string()) {
 		sig.SetError(ERR_ValueError, "string value is expected");
 		return false;
 	}
@@ -623,7 +623,7 @@ bool Binary::CheckNumber(Signal sig,
 	if (pValue == valList.end()) {
 		sig.SetError(ERR_ValueError, "not enough arguments");
 		return false;
-	} else if (!pValue->IsNumber()) {
+	} else if (!pValue->Is_number()) {
 		sig.SetError(ERR_ValueError, "number value is expected");
 		return false;
 	}

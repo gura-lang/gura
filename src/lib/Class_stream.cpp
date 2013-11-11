@@ -159,7 +159,7 @@ Gura_ImplementFunction(template_)
 	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
 	Stream &streamSrc = args.GetStream(0);
-	if (args.IsStream(1)) {
+	if (args.Is_stream(1)) {
 		Stream &streamDst = args.GetStream(1);
 		TemplateEngine(autoIndentFlag, appendLastEOLFlag).
 							EvalStream(env, sig, streamSrc, streamDst);
@@ -185,13 +185,13 @@ Gura_DeclareFunction(readlines)
 Gura_ImplementFunction(readlines)
 {
 	Object_stream *pObjStream = NULL;
-	if (args.IsStream(0)) {
+	if (args.Is_stream(0)) {
 		pObjStream = Object_stream::GetObject(args, 0);
 	} else {
 		Module *pModuleSys = env.GetGlobal()->GetModule_sys();
 		const Value *pValue = pModuleSys->LookupValue(Gura_Symbol(stdin), ENVREF_NoEscalate);
 		if (pValue == NULL) return Value::Null;
-		if (!pValue->IsStream()) return Value::Null;
+		if (!pValue->Is_stream()) return Value::Null;
 		pObjStream = Object_stream::GetObject(*pValue);
 	}
 	if (!pObjStream->GetStream().CheckReadable(sig)) return Value::Null;
@@ -229,7 +229,7 @@ Gura_ImplementMethod(stream, read)
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	if (!stream.CheckReadable(sig)) return Value::Null;
 	Value result;
-	if (args.IsNumber(0)) {
+	if (args.Is_number(0)) {
 		size_t len = static_cast<size_t>(args.GetNumber(0));
 		char *buff = new char [len];
 		size_t lenRead = stream.Read(sig, buff, len);
@@ -296,7 +296,7 @@ Gura_ImplementMethod(stream, write)
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	if (!stream.CheckWritable(sig)) return Value::Null;
 	const Binary &binary = args.GetBinary(0);
-	size_t len = args.IsNumber(1)? args.GetSizeT(1) : binary.size();
+	size_t len = args.Is_number(1)? args.GetSizeT(1) : binary.size();
 	if (len > binary.size()) {
 		sig.SetError(ERR_MemoryError, "too large length");
 		return Value::Null;
@@ -317,7 +317,7 @@ Gura_ImplementMethod(stream, seek)
 {
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	Stream::SeekMode seekMode = Stream::SeekSet;
-	if (args.GetValue(1).IsSymbol()) {
+	if (args.GetValue(1).Is_symbol()) {
 		const Symbol *pSymbol = args.GetSymbol(1);
 		if (pSymbol->IsIdentical(Gura_Symbol(set))) {
 			seekMode = Stream::SeekSet;
@@ -537,7 +537,7 @@ Gura_ImplementMethod(stream, readlines)
 	Object_stream *pThis = Object_stream::GetThisObj(args);
 	Stream &stream = pThis->GetStream();
 	if (!stream.CheckReadable(sig)) return Value::Null;
-	int nLinesMax = args.IsNumber(0)? static_cast<int>(args.GetNumber(0)) : -1;
+	int nLinesMax = args.Is_number(0)? static_cast<int>(args.GetNumber(0)) : -1;
 	bool includeEOLFlag = !args.IsSet(Gura_Symbol(chop));
 	Iterator *pIterator = new Object_stream::IteratorLine(
 				Object_stream::Reference(pThis), nLinesMax, includeEOLFlag);
@@ -595,7 +595,7 @@ Gura_ImplementMethod(stream, template_)
 	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
 	Stream &streamSrc = Object_stream::GetThisObj(args)->GetStream();
-	if (args.IsStream(0)) {
+	if (args.Is_stream(0)) {
 		Stream &streamDst = args.GetStream(0);
 		TemplateEngine(autoIndentFlag, appendLastEOLFlag).
 							EvalStream(env, sig, streamSrc, streamDst);
@@ -718,7 +718,7 @@ Gura_ImplementBinaryOperator(Shl, stream, any)
 {
 	Stream &stream = valueLeft.GetStream();
 	if (!stream.CheckWritable(sig)) return Value::Null;
-	if (valueRight.IsBinary()) {
+	if (valueRight.Is_binary()) {
 		const Binary &binary = valueRight.GetBinary();
 		stream.Write(sig, binary.c_str(), binary.size());
 		if (sig.IsSignalled()) return Value::Null;
@@ -775,7 +775,7 @@ void Class_stream::Prepare(Environment &env)
 
 bool Class_stream::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
-	if (value.IsString()) {
+	if (value.Is_string()) {
 		ULong attr = Stream::ATTR_Readable;
 		if (pDecl != NULL) {
 			if (pDecl->GetWriteFlag()) attr = Stream::ATTR_Writable;
@@ -785,7 +785,7 @@ bool Class_stream::CastFrom(Environment &env, Signal sig, Value &value, const De
 		if (sig.IsSignalled()) return false;
 		value = Value(new Object_stream(env, pStream));
 		return true;
-	} else if (value.IsBinary()) {
+	} else if (value.Is_binary()) {
 		Object_binary *pObjBinary = Object_binary::Reference(
 						dynamic_cast<Object_binary *>(value.GetObject()));
 		bool seekEndFlag = pDecl->GetWriteFlag();

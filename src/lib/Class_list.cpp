@@ -34,7 +34,7 @@ Object *Object_list::Clone() const
 
 Value Object_list::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 {
-	if (!valueIdx.IsNumber()) {
+	if (!valueIdx.Is_number()) {
 		sig.SetError(ERR_IndexError, "index must be a number for list");
 		return Value::Null;
 	}
@@ -50,7 +50,7 @@ Value Object_list::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 
 void Object_list::IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value)
 {
-	if (!valueIdx.IsNumber()) {
+	if (!valueIdx.Is_number()) {
 		sig.SetError(ERR_IndexError, "index must be a number for list");
 		return;
 	}
@@ -97,7 +97,7 @@ Object_list *Object_list::SortRank(Signal sig, const Value &valDirective,
 	const ValueList &valList = GetList();
 	if (valDirective.IsInvalid()) {
 		// nothing to do
-	} else if (valDirective.IsSymbol()) {
+	} else if (valDirective.Is_symbol()) {
 		const Symbol *pSymbol = valDirective.GetSymbol();
 		if (pSymbol->IsIdentical(Gura_Symbol(ascend))) {
 			mode = MODE_Ascend;
@@ -108,7 +108,7 @@ Object_list *Object_list::SortRank(Signal sig, const Value &valDirective,
 				"invalid symbol '%s'", pSymbol->GetName());
 			return NULL;
 		}
-	} else if (valDirective.IsFunction()) {
+	} else if (valDirective.Is_function()) {
 		mode = MODE_Custom;
 		pFunc = valDirective.GetFunction();
 		if (pFunc->GetDeclOwner().size() != 2) {
@@ -185,7 +185,7 @@ Object_list *Object_list::SortRank(Signal sig, const Value &valDirective,
 
 bool Object_list::ValueVisitor_Index::Visit(const Value &value)
 {
-	GURA_ASSUME(_env, value.IsNumber());
+	GURA_ASSUME(_env, value.Is_number());
 	int idx = value.GetInt();
 	if (idx < 0) idx += _valList.size();
 	if (std::find(_indexList.begin(), _indexList.end(), idx) != _indexList.end()) {
@@ -510,7 +510,7 @@ Gura_ImplementFunction(list)
 	ValueList &valList = result.InitAsList(env);
 	foreach_const (ValueList, pValue, args.GetList(0)) {
 		Iterator *pIterator = NULL;
-		if (pValue->IsList() || pValue->IsIterator()) {
+		if (pValue->Is_list() || pValue->Is_iterator()) {
 			pIterator = pValue->CreateIterator(sig);
 			if (sig.IsSignalled()) return Value::Null;
 		} else {
@@ -580,7 +580,7 @@ Gura_ImplementFunction(set_xset)
 		for (Iterator *pIterator = pValueArg->GetIterator();
 											pIterator->Next(env, sig, value); ) {
 			if ((_acceptInvalidFlag || value.IsValid()) &&
-											!valList1.IsContain(value)) {
+											!valList1.DoesContain(value)) {
 				valList1.push_back(value);
 			}
 		}
@@ -593,7 +593,7 @@ Gura_ImplementFunction(set_xset)
 			Value value;
 			for (Iterator *pIterator = pValueArg->GetIterator();
 											pIterator->Next(env, sig, value); ) {
-				if (pValListAnd->IsContain(value) && !pValListWork->IsContain(value)) {
+				if (pValListAnd->DoesContain(value) && !pValListWork->DoesContain(value)) {
 					pValListWork->push_back(value);
 				}
 			}
@@ -612,9 +612,9 @@ Gura_ImplementFunction(set_xset)
 		Value value;
 		for (Iterator *pIterator = pValueArg->GetIterator();
 										pIterator->Next(env, sig, value); ) {
-			if (!valList1.IsContain(value)) valList1.push_back(value);
+			if (!valList1.DoesContain(value)) valList1.push_back(value);
 			if ((_acceptInvalidFlag || value.IsValid()) &&
-											!valListOr.IsContain(value)) {
+											!valListOr.DoesContain(value)) {
 				valListOr.push_back(value);
 			}
 		}
@@ -626,9 +626,9 @@ Gura_ImplementFunction(set_xset)
 			Value value;
 			for (Iterator *pIterator = pValueArg->GetIterator();
 										pIterator->Next(env, sig, value); ) {
-				if (pValListAnd->IsContain(value)) pValListWork->push_back(value);
+				if (pValListAnd->DoesContain(value)) pValListWork->push_back(value);
 				if ((_acceptInvalidFlag || value.IsValid()) &&
-												!valListOr.IsContain(value)) {
+												!valListOr.DoesContain(value)) {
 					valListOr.push_back(value);
 				}
 			}
@@ -638,7 +638,7 @@ Gura_ImplementFunction(set_xset)
 			pValListWork->clear();
 		}
 		foreach_const (ValueList, pValue, valListOr) {
-			if (!pValListAnd->IsContain(*pValue)) {
+			if (!pValListAnd->DoesContain(*pValue)) {
 				valList.push_back(*pValue);
 			}
 		}
@@ -648,7 +648,7 @@ Gura_ImplementFunction(set_xset)
 			for (Iterator *pIterator = pValue->GetIterator();
 												pIterator->Next(env, sig, value); ) {
 				if ((_acceptInvalidFlag || value.IsValid()) &&
-												!valList.IsContain(value)) {
+												!valList.DoesContain(value)) {
 					valList.push_back(value);
 				}
 			}
@@ -674,7 +674,7 @@ Gura_ImplementFunction(ListInit)
 	Value result;
 	if (pExprBlock == NULL) {
 		result.InitAsList(env);
-	} else if (valueFunc.IsFunction()) {
+	} else if (valueFunc.Is_function()) {
 		const Function *pFunc = valueFunc.GetFunction();
 		size_t cntArgs = pFunc->GetDeclOwner().size();
 		if (cntArgs == 0) {
@@ -690,7 +690,7 @@ Gura_ImplementFunction(ListInit)
 				sig.AddExprCause(*ppExpr);
 				return Value::Null;
 			}
-			if (!value.IsList()) {
+			if (!value.Is_list()) {
 				sig.SetError(ERR_SyntaxError, "invalid format in list initializer");
 				return Value::Null;
 			}
@@ -824,7 +824,7 @@ Gura_ImplementMethod(list, append)
 	Object_list *pThis = Object_list::GetThisObj(args);
 	ValueList &valList = pThis->GetList();
 	foreach_const (ValueList, pValue, args.GetList(0)) {
-		if (pValue->IsList() || pValue->IsIterator()) {
+		if (pValue->Is_list() || pValue->Is_iterator()) {
 			AutoPtr<Iterator> pIterator(pValue->CreateIterator(sig));
 			if (sig.IsSignalled()) return Value::Null;
 			if (pIterator->IsInfinite()) {
@@ -969,7 +969,7 @@ Gura_DeclareMethod(list, permutation)
 Gura_ImplementMethod(list, permutation)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	int cnt = args.IsNumber(0)? args.GetInt(0) : -1;
+	int cnt = args.Is_number(0)? args.GetInt(0) : -1;
 	if (cnt > 0 && pThis->GetList().size() < static_cast<size_t>(cnt)) {
 		sig.SetError(ERR_ValueError, "specified size is out of range");
 		return Value::Null;
@@ -1219,8 +1219,8 @@ Gura_ImplementMethod(list, or_)
 	return result;
 }
 
-// list#iscontain(value)
-Gura_DeclareMethod(list, iscontain)
+// list#contains(value)
+Gura_DeclareMethod(list, contains)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any);
@@ -1228,12 +1228,12 @@ Gura_DeclareMethod(list, iscontain)
 	"Returns true if a specified value exists in the list.");
 }
 
-Gura_ImplementMethod(list, iscontain)
+Gura_ImplementMethod(list, contains)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
 	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Null;
-	bool result = pIterator->IsContain(env, sig, args.GetValue(0));
+	bool result = pIterator->DoesContain(env, sig, args.GetValue(0));
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(result);
 }
@@ -1523,7 +1523,7 @@ Gura_ImplementMethod(list, sort)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
 	Object_list *pObj = pThis->SortRank(sig, args.GetValue(0),
-						args.IsList(1)? &args.GetList(1) : NULL,
+						args.Is_list(1)? &args.GetList(1) : NULL,
 						false, args.IsSet(Gura_Symbol(stable)));
 	if (sig.IsSignalled()) return Value::Null;
 	Iterator *pIterator = new Object_list::IteratorEach(pObj);
@@ -1856,7 +1856,7 @@ Gura_DeclareMethod(list, round)
 Gura_ImplementMethod(list, round)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	int cnt = args.IsNumber(0)? args.GetInt(0) : -1;
+	int cnt = args.Is_number(0)? args.GetInt(0) : -1;
 	Object_list *pObj = Object_list::Reference(pThis);
 	Iterator *pIterator = new Object_list::IteratorRound(pObj, cnt);
 	return ReturnIterator(env, sig, args, pIterator);
@@ -1876,7 +1876,7 @@ Gura_DeclareMethod(list, pingpong)
 Gura_ImplementMethod(list, pingpong)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	int cnt = args.IsNumber(0)? args.GetInt(0) : -1;
+	int cnt = args.Is_number(0)? args.GetInt(0) : -1;
 	bool stickyFlagL = args.IsSet(Gura_Symbol(sticky)) ||
 						args.IsSet(Gura_Symbol(sticky_l));
 	bool stickyFlagR = args.IsSet(Gura_Symbol(sticky)) ||
@@ -1901,7 +1901,7 @@ Gura_ImplementMethod(list, fold)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
 	size_t cnt = args.GetSizeT(0);
-	size_t cntStep = args.IsNumber(1)? args.GetSizeT(1) : cnt;
+	size_t cntStep = args.Is_number(1)? args.GetSizeT(1) : cnt;
 	bool listItemFlag = !args.IsSet(Gura_Symbol(iteritem));
 	Object_list *pObj = Object_list::Reference(pThis);
 	Iterator *pIterator = new Object_list::IteratorFold(pObj, cnt, cntStep, listItemFlag);
@@ -1947,7 +1947,7 @@ void Class_list::Prepare(Environment &env)
 	Gura_AssignMethod(list, stddev);
 	Gura_AssignMethod(list, and_);
 	Gura_AssignMethod(list, or_);
-	Gura_AssignMethod(list, iscontain);
+	Gura_AssignMethod(list, contains);
 	Gura_AssignMethod(list, filter);
 	Gura_AssignMethod(list, while_);
 	Gura_AssignMethod(list, since);
@@ -1985,14 +1985,14 @@ bool Class_list::CastFrom(Environment &env, Signal sig, Value &value, const Decl
 	if (value.IsType(VTYPE_nil)) {
 		value.InitAsList(env);
 		return true;
-	} else if (value.IsIterator()) {
+	} else if (value.Is_iterator()) {
 		AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
 		if (sig.IsSignalled()) return false;
 		Value result = pIterator->ToList(env, sig, true, false);
 		if (sig.IsSignalled()) return false;
 		value = result;
 		return true;
-	} else if (value.IsMatrix()) {
+	} else if (value.Is_matrix()) {
 		const Object_matrix *pObjMat = Object_matrix::GetObject(value);
 		if (pObjMat->GetMatrix()->GetRows() == 1) {
 			Value result = pObjMat->GetMatrix()->GetRow(env, sig, 0);

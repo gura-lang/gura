@@ -827,7 +827,7 @@ Gura_ImplementDescendantCreator(wx_Bitmap)
 
 Gura_ImplementCastFrom(wx_Bitmap)
 {
-	if (!value.IsImage()) return false;
+	if (!value.Is_image()) return false;
 	Object_image *pObjImage = Object_image::GetObject(value);
 	std::auto_ptr<wxImage> pImage(new wxImage(
 		pObjImage->GetImage()->GetWidth(), pObjImage->GetImage()->GetHeight(), false));

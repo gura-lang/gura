@@ -387,7 +387,7 @@ HRESULT STDMETHODCALLTYPE CMain::Invoke(
 		DISPID dispId = pDispParams->rgdispidNamedArgs[iArg];
 	}
 	if (wFlags == DISPATCH_METHOD) {
-		if (!value.IsFunction()) return E_INVALIDARG;
+		if (!value.Is_function()) return E_INVALIDARG;
 		Gura::Object_function *pObjFunc = Gura::Object_function::GetObject(value);
 		Gura::Value result = pObjFunc->Eval(*_pEnv, _sig, valListArg);
 		if (_sig.IsSignalled()) {

@@ -985,18 +985,18 @@ Gura_ImplementMethod(wx_String, IsNull)
 	return Value::Null;
 }
 
-Gura_DeclareMethod(wx_String, IsNumber)
+Gura_DeclareMethod(wx_String, Is_number)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(wx_String, IsNumber)
+Gura_ImplementMethod(wx_String, Is_number)
 {
 #if 0
 	Object_wx_String *pThis = Object_wx_String::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	bool rtn = pThis->GetEntity()->IsNumber();
+	bool rtn = pThis->GetEntity()->Is_number();
 	return ReturnValue(env, sig, args, Value(rtn));
 #endif
 	SetError_NotImplemented(sig);
@@ -2040,7 +2040,7 @@ Gura_ImplementUserInheritableClassWithCast(wx_String)
 	Gura_AssignMethod(wx_String, IsAscii);
 	Gura_AssignMethod(wx_String, IsEmpty);
 	Gura_AssignMethod(wx_String, IsNull);
-	Gura_AssignMethod(wx_String, IsNumber);
+	Gura_AssignMethod(wx_String, Is_number);
 	Gura_AssignMethod(wx_String, IsSameAs);
 	Gura_AssignMethod(wx_String, IsSameAs_1);
 	Gura_AssignMethod(wx_String, IsWord);
@@ -2102,7 +2102,7 @@ Gura_ImplementDescendantCreator(wx_String)
 
 Gura_ImplementCastFrom(wx_String)
 {
-	if (!value.IsString()) return false;
+	if (!value.Is_string()) return false;
 	const char *str = value.GetString();
 	wx_String *pEntity = new wx_String(wxString::FromUTF8(str));
 	Object_wx_String *pObj = new Object_wx_String(pEntity, pEntity, OwnerTrue);

@@ -161,7 +161,7 @@ String Object_content::ToString(bool exprFlag)
 	} else {
 		bool followFlag = false;
 		foreach_const (ValueList, pValue, _valList) {
-			if (!pValue->IsImage()) continue;
+			if (!pValue->Is_image()) continue;
 			Image *pImage = Object_image::GetObject(*pValue)->GetImage();
 			char buff[64];
 			if (followFlag) str += ",";
@@ -253,7 +253,7 @@ Gura_DeclareFunction(content)
 Gura_ImplementFunction(content)
 {
 	Object_content *pObj = new Object_content();
-	if (args.IsStream(0)) {
+	if (args.Is_stream(0)) {
 		Stream &stream = args.GetStream(0);
 		Image::Format format = Image::SymbolToFormat(sig, args.GetSymbol(1));
 		if (sig.IsSignalled()) return Value::Null;

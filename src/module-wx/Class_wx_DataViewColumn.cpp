@@ -59,7 +59,7 @@ Gura_ImplementFunction(DataViewColumn)
 	int flags = wxDATAVIEW_COL_RESIZABLE;
 	if (args.IsValid(4)) flags = args.GetInt(4);
 	wx_DataViewColumn *pEntity = NULL;
-	if (args.IsString(0)) {
+	if (args.Is_string(0)) {
 		wxString title = wxString::FromUTF8(args.GetString(0));
 		pEntity = new wx_DataViewColumn(title, renderer, model_column, width, flags);
 	} else if (args.IsInstanceOf(0, VTYPE_wx_Bitmap)) {

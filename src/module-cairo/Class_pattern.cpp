@@ -42,7 +42,7 @@ Gura_ImplementClassMethod(pattern, create_rgb)
 {
 	cairo_pattern_t *pattern = ::cairo_pattern_create_rgb(
 			args.GetDouble(0), args.GetDouble(1), args.GetDouble(2));
-	if (IsError(sig, pattern)) {
+	if (Is_error(sig, pattern)) {
 		::cairo_pattern_destroy(pattern);
 		return Value::Null;
 	}
@@ -69,7 +69,7 @@ Gura_ImplementClassMethod(pattern, create_rgba)
 {
 	cairo_pattern_t *pattern = ::cairo_pattern_create_rgba(
 			args.GetDouble(0), args.GetDouble(1), args.GetDouble(2), args.GetDouble(3));
-	if (IsError(sig, pattern)) {
+	if (Is_error(sig, pattern)) {
 		::cairo_pattern_destroy(pattern);
 		return Value::Null;
 	}
@@ -95,13 +95,13 @@ Gura_ImplementClassMethod(pattern, create_color)
 	double green = static_cast<double>(color.GetGreen()) / 255;
 	double blue = static_cast<double>(color.GetBlue()) / 255;
 	cairo_pattern_t *pattern;
-	if (args.IsNumber(1)) {
+	if (args.Is_number(1)) {
 		double alpha = args.GetDouble(1);
 		pattern = ::cairo_pattern_create_rgba(red, green, blue, alpha);
 	} else {
 		pattern = ::cairo_pattern_create_rgb(red, green, blue);
 	}
-	if (IsError(sig, pattern)) {
+	if (Is_error(sig, pattern)) {
 		::cairo_pattern_destroy(pattern);
 		return Value::Null;
 	}
@@ -123,7 +123,7 @@ Gura_ImplementClassMethod(pattern, create_for_surface)
 {
 	cairo_surface_t *surface = Object_surface::GetObject(args, 0)->GetEntity();
 	cairo_pattern_t *pattern = ::cairo_pattern_create_for_surface(surface);
-	if (IsError(sig, pattern)) {
+	if (Is_error(sig, pattern)) {
 		::cairo_pattern_destroy(pattern);
 		return Value::Null;
 	}
@@ -152,7 +152,7 @@ Gura_ImplementClassMethod(pattern, create_linear)
 {
 	cairo_pattern_t *pattern = ::cairo_pattern_create_linear(
 			args.GetDouble(0), args.GetDouble(1), args.GetDouble(2), args.GetDouble(3));
-	if (IsError(sig, pattern)) {
+	if (Is_error(sig, pattern)) {
 		::cairo_pattern_destroy(pattern);
 		return Value::Null;
 	}
@@ -184,7 +184,7 @@ Gura_ImplementClassMethod(pattern, create_radial)
 	cairo_pattern_t *pattern = ::cairo_pattern_create_radial(
 			args.GetDouble(0), args.GetDouble(1), args.GetDouble(2),
 			args.GetDouble(3), args.GetDouble(4), args.GetDouble(5));
-	if (IsError(sig, pattern)) {
+	if (Is_error(sig, pattern)) {
 		::cairo_pattern_destroy(pattern);
 		return Value::Null;
 	}
@@ -222,7 +222,7 @@ Gura_ImplementMethod(pattern, add_color_stop_rgb)
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	::cairo_pattern_add_color_stop_rgb(pattern, args.GetDouble(0),
 		args.GetDouble(1), args.GetDouble(2), args.GetDouble(3));
-	if (IsError(sig, pattern)) return Value::Null;
+	if (Is_error(sig, pattern)) return Value::Null;
 	return args.GetThis();
 }
 
@@ -258,7 +258,7 @@ Gura_ImplementMethod(pattern, add_color_stop_rgba)
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	::cairo_pattern_add_color_stop_rgba(pattern, args.GetDouble(0),
 		args.GetDouble(1), args.GetDouble(2), args.GetDouble(3), args.GetDouble(4));
-	if (IsError(sig, pattern)) return Value::Null;
+	if (Is_error(sig, pattern)) return Value::Null;
 	return args.GetThis();
 }
 
@@ -277,7 +277,7 @@ Gura_ImplementMethod(pattern, get_color_stop_count)
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	int count;
 	cairo_status_t status = ::cairo_pattern_get_color_stop_count(pattern, &count);
-	if (IsError(sig, status)) return Value::Null;
+	if (Is_error(sig, status)) return Value::Null;
 	return Value(count);
 }
 
@@ -299,7 +299,7 @@ Gura_ImplementMethod(pattern, get_color_stop_rgba)
 	double offset, red, green, blue, alpha;
 	cairo_status_t status = ::cairo_pattern_get_color_stop_rgba(pattern, args.GetInt(0),
 										&offset, &red, &green, &blue, &alpha);
-	if (IsError(sig, status)) return Value::Null;
+	if (Is_error(sig, status)) return Value::Null;
 	return CreateValueList(env, offset, red, green, blue, alpha);
 }
 
@@ -319,7 +319,7 @@ Gura_ImplementMethod(pattern, get_rgba)
 	double red, green, blue, alpha;
 	cairo_status_t status = ::cairo_pattern_get_rgba(pattern,
 										&red, &green, &blue, &alpha);
-	if (IsError(sig, status)) return Value::Null;
+	if (Is_error(sig, status)) return Value::Null;
 	return CreateValueList(env, red, green, blue, alpha);
 }
 
@@ -340,7 +340,7 @@ Gura_ImplementMethod(pattern, get_surface)
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	cairo_surface_t *surface = NULL;
 	cairo_status_t status = ::cairo_pattern_get_surface(pattern, &surface);
-	if (IsError(sig, status)) return Value::Null;
+	if (Is_error(sig, status)) return Value::Null;
 	cairo_surface_t *surface_ref = ::cairo_surface_reference(surface);
 	cairo_surface_type_t surface_type = ::cairo_surface_get_type(surface);
 	Object_surface *pObjSurface = NULL;
@@ -414,7 +414,7 @@ Gura_ImplementMethod(pattern, get_linear_points)
 	double x0, y0, x1, y1;
 	cairo_status_t status =
 			::cairo_pattern_get_linear_points(pattern, &x0, &y0, &x1, &y1);
-	if (IsError(sig, status)) return Value::Null;
+	if (Is_error(sig, status)) return Value::Null;
 	return CreateValueList(env, x0, y0, x1, y1);
 }
 
@@ -434,7 +434,7 @@ Gura_ImplementMethod(pattern, get_radial_circles)
 	double x0, y0, r0, x1, y1, r1;
 	cairo_status_t status =
 		::cairo_pattern_get_radial_circles(pattern, &x0, &y0, &r0, &x1, &y1, &r1);
-	if (IsError(sig, status)) return Value::Null;
+	if (Is_error(sig, status)) return Value::Null;
 	return CreateValueList(env, x0, y0, r0, x1, y1, r1);
 }
 
@@ -478,7 +478,7 @@ Gura_ImplementMethod(pattern, set_extend)
 	cairo_extend_t extend = static_cast<cairo_extend_t>(args.GetInt(0));
 	if (sig.IsSignalled()) return Value::Null;
 	::cairo_pattern_set_extend(pattern, extend);
-	if (IsError(sig, pattern)) return Value::Null;
+	if (Is_error(sig, pattern)) return Value::Null;
 	return args.GetThis();
 }
 
@@ -497,7 +497,7 @@ Gura_ImplementMethod(pattern, get_extend)
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	cairo_extend_t extend = ::cairo_pattern_get_extend(pattern);
-	if (IsError(sig, pattern)) return Value::Null;
+	if (Is_error(sig, pattern)) return Value::Null;
 	return Value(extend);
 }
 
@@ -525,7 +525,7 @@ Gura_ImplementMethod(pattern, set_filter)
 	cairo_filter_t filter = static_cast<cairo_filter_t>(args.GetInt(0));
 	if (sig.IsSignalled()) return Value::Null;
 	::cairo_pattern_set_filter(pattern, filter);
-	if (IsError(sig, pattern)) return Value::Null;
+	if (Is_error(sig, pattern)) return Value::Null;
 	return args.GetThis();
 }
 
@@ -543,7 +543,7 @@ Gura_ImplementMethod(pattern, get_filter)
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	cairo_filter_t filter = ::cairo_pattern_get_filter(pattern);
-	if (IsError(sig, pattern)) return Value::Null;
+	if (Is_error(sig, pattern)) return Value::Null;
 	return Value(pattern);
 }
 
@@ -580,7 +580,7 @@ Gura_ImplementMethod(pattern, set_matrix)
 	cairo_matrix_t matrix;
 	if (!MatrixToCairo(sig, matrix, pObjMatrix->GetMatrix())) return Value::Null;
 	::cairo_pattern_set_matrix(pattern, &matrix);
-	if (IsError(sig, pattern)) return Value::Null;
+	if (Is_error(sig, pattern)) return Value::Null;
 	return args.GetThis();
 }
 
@@ -599,7 +599,7 @@ Gura_ImplementMethod(pattern, get_matrix)
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	cairo_matrix_t matrix;
 	::cairo_pattern_get_matrix(pattern, &matrix);
-	if (IsError(sig, pattern)) return Value::Null;
+	if (Is_error(sig, pattern)) return Value::Null;
 	AutoPtr<Matrix> pMat(CairoToMatrix(matrix));
 	return Value(new Object_matrix(env, pMat.release()));
 }
@@ -618,7 +618,7 @@ Gura_ImplementMethod(pattern, get_type)
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	cairo_pattern_type_t rtn = ::cairo_pattern_get_type(pattern);
-	if (IsError(sig, pattern)) return Value::Null;
+	if (Is_error(sig, pattern)) return Value::Null;
 	return Value(rtn);
 }
 
@@ -660,7 +660,7 @@ Gura_ImplementCastFrom(pattern)
 	if (valueCast.GetValueType() == VTYPE_surface) {
 		cairo_surface_t *surface = Object_surface::GetObject(valueCast)->GetEntity();
 		cairo_pattern_t *pattern = ::cairo_pattern_create_for_surface(surface);
-		if (IsError(sig, pattern)) {
+		if (Is_error(sig, pattern)) {
 			::cairo_pattern_destroy(pattern);
 			return false;
 		}

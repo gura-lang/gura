@@ -20,9 +20,9 @@ Gura_ImplementFunction(real)
 {
 	const Value &value = args.GetValue(0);
 	Value result;
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		result.SetNumber(value.GetNumber());
-	} else if (value.IsComplex()) {
+	} else if (value.Is_complex()) {
 		result.SetNumber(value.GetComplex().real());
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
@@ -42,9 +42,9 @@ Gura_ImplementFunction(imag)
 {
 	const Value &value = args.GetValue(0);
 	Value result;
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		result.SetNumber(0.);
-	} else if (value.IsComplex()) {
+	} else if (value.Is_complex()) {
 		result.SetNumber(value.GetComplex().imag());
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
@@ -65,9 +65,9 @@ Gura_ImplementFunction(arg)
 {
 	const Value &value = args.GetValue(0);
 	double result = 0;
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		// nothing to do
-	} else if (value.IsComplex()) {
+	} else if (value.Is_complex()) {
 		result = std::arg(value.GetComplex());
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
@@ -89,9 +89,9 @@ Gura_ImplementFunction(norm)
 {
 	const Value &value = args.GetValue(0);
 	Value result;
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		result.SetNumber(value.GetNumber() * value.GetNumber());
-	} else if (value.IsComplex()) {
+	} else if (value.Is_complex()) {
 		result.SetNumber(std::norm(value.GetComplex()));
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
@@ -111,9 +111,9 @@ Gura_ImplementFunction(conj)
 {
 	const Value &value = args.GetValue(0);
 	Value result;
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		result.SetNumber(value.GetNumber());
-	} else if (value.IsComplex()) {
+	} else if (value.Is_complex()) {
 		result.SetComplex(std::conj(value.GetComplex()));
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
@@ -134,7 +134,7 @@ Gura_ImplementFunction(acos)
 {
 	const Value &value = args.GetValue(0);
 	double result = 0;
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		result = ::acos(value.GetNumber());
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
@@ -167,7 +167,7 @@ Gura_ImplementFunction(asin)
 {
 	const Value &value = args.GetValue(0);
 	double result = 0;
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		result = ::asin(value.GetNumber());
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
@@ -200,7 +200,7 @@ Gura_ImplementFunction(atan)
 {
 	const Value &value = args.GetValue(0);
 	double result = 0;
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		result = ::atan(value.GetNumber());
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
@@ -235,7 +235,7 @@ Gura_ImplementFunction(atan2)
 	const Value &value1 = args.GetValue(0);
 	const Value &value2 = args.GetValue(1);
 	double result = 0;
-	if (value1.IsNumber() && value2.IsNumber()) {
+	if (value1.Is_number() && value2.Is_number()) {
 		result = ::atan2(value1.GetNumber(), value2.GetNumber());
 	} else if (value1.IsValid() && value2.IsValid()) {
 		SetError_InvalidValType(sig, value1, value2);
@@ -258,7 +258,7 @@ Gura_ImplementFunction(ceil)
 {
 	const Value &value = args.GetValue(0);
 	Value result;
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		result.SetNumber(::ceil(value.GetNumber()));
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
@@ -279,11 +279,11 @@ Gura_ImplementFunction(cos)
 {
 	const Value &value = args.GetValue(0);
 	Value result;
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		double num = value.GetNumber();
 		if (args.IsSet(Gura_Symbol(deg))) num = DegToRad(num);
 		result.SetNumber(::cos(num));
-	} else if (value.IsComplex()) {
+	} else if (value.Is_complex()) {
 		result.SetComplex(std::cos(value.GetComplex()));
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
@@ -310,9 +310,9 @@ Gura_ImplementFunction(cosh)
 {
 	const Value &value = args.GetValue(0);
 	Value result;
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		result.SetNumber(::cosh(value.GetNumber()));
-	} else if (value.IsComplex()) {
+	} else if (value.Is_complex()) {
 		result.SetComplex(std::cosh(value.GetComplex()));
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
@@ -332,9 +332,9 @@ Gura_ImplementFunction(exp)
 {
 	const Value &value = args.GetValue(0);
 	Value result;
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		result.SetNumber(::exp(value.GetNumber()));
-	} else if (value.IsComplex()) {
+	} else if (value.Is_complex()) {
 		result.SetComplex(std::exp(value.GetComplex()));
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
@@ -360,9 +360,9 @@ Gura_ImplementFunction(abs)
 {
 	const Value &value = args.GetValue(0);
 	Value result;
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		result.SetNumber(::fabs(value.GetNumber()));
-	} else if (value.IsComplex()) {
+	} else if (value.Is_complex()) {
 		result.SetComplex(std::abs(value.GetComplex()));
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
@@ -383,7 +383,7 @@ Gura_ImplementFunction(floor)
 {
 	const Value &value = args.GetValue(0);
 	Value result;
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		result.SetNumber(::floor(value.GetNumber()));
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
@@ -403,13 +403,13 @@ Gura_ImplementFunction(log)
 {
 	const Value &value = args.GetValue(0);
 	Value result;
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		if (value.GetNumber() > 0.) {
 			result.SetNumber(::log(value.GetNumber()));
 		} else {
 			SetError_InvalidValue(sig, value);
 		}
-	} else if (value.IsComplex()) {
+	} else if (value.Is_complex()) {
 		result.SetComplex(std::log(value.GetComplex()));
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
@@ -436,13 +436,13 @@ Gura_ImplementFunction(log10)
 {
 	const Value &value = args.GetValue(0);
 	Value result;
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		if (value.GetNumber() > 0.) {
 			result.SetNumber(::log10(value.GetNumber()));
 		} else {
 			SetError_InvalidValue(sig, value);
 		}
-	} else if (value.IsComplex()) {
+	} else if (value.Is_complex()) {
 		result.SetComplex(std::log10(value.GetComplex()));
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
@@ -471,11 +471,11 @@ Gura_ImplementFunction(sin)
 {
 	const Value &value = args.GetValue(0);
 	Value result;
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		double num = value.GetNumber();
 		if (args.IsSet(Gura_Symbol(deg))) num = DegToRad(num);
 		result.SetNumber(::sin(num));
-	} else if (value.IsComplex()) {
+	} else if (value.Is_complex()) {
 		result.SetComplex(std::sin(value.GetComplex()));
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
@@ -501,9 +501,9 @@ Gura_ImplementFunction(sinh)
 {
 	const Value &value = args.GetValue(0);
 	Value result;
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		result.SetNumber(::sinh(value.GetNumber()));
-	} else if (value.IsComplex()) {
+	} else if (value.Is_complex()) {
 		result.SetComplex(std::sinh(value.GetComplex()));
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
@@ -523,13 +523,13 @@ Gura_ImplementFunction(sqrt)
 {
 	const Value &value = args.GetValue(0);
 	Value result;
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		if (value.GetNumber() >= 0) {
 			result.SetNumber(::sqrt(value.GetNumber()));
 		} else {
 			result.SetComplex(Complex(0, ::sqrt(-value.GetNumber())));
 		}
-	} else if (value.IsComplex()) {
+	} else if (value.Is_complex()) {
 		result.SetComplex(std::sqrt(value.GetComplex()));
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
@@ -559,11 +559,11 @@ Gura_ImplementFunction(tan)
 {
 	const Value &value = args.GetValue(0);
 	Value result;
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		double num = value.GetNumber();
 		if (args.IsSet(Gura_Symbol(deg))) num = DegToRad(num);
 		result.SetNumber(::tan(num));
-	} else if (value.IsComplex()) {
+	} else if (value.Is_complex()) {
 		result.SetComplex(std::tan(value.GetComplex()));
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
@@ -592,9 +592,9 @@ Gura_ImplementFunction(tanh)
 {
 	const Value &value = args.GetValue(0);
 	Value result;
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		result.SetNumber(::tanh(value.GetNumber()));
-	} else if (value.IsComplex()) {
+	} else if (value.Is_complex()) {
 		result.SetComplex(std::tanh(value.GetComplex()));
 	} else if (value.IsValid()) {
 		SetError_InvalidValType(sig, value);
@@ -616,7 +616,7 @@ Gura_ImplementFunction(hypot)
 	const Value &x = args.GetValue(0);
 	const Value &y = args.GetValue(1);
 	Value result;
-	if (x.IsNumber() && y.IsNumber()) {
+	if (x.Is_number() && y.Is_number()) {
 		result.SetNumber(::hypot(x.GetNumber(), y.GetNumber()));
 	} else if (x.IsValid() || y.IsValid()) {
 		SetError_InvalidValType(sig, x, y);
@@ -661,11 +661,11 @@ Gura_ImplementFunction(least_square)
 		flagY = pIterY->Next(env, sig, valueY);
 		if (sig.IsSignalled()) return Value::Null;
 		if (!(flagX && flagY)) break;
-		if (!valueX.IsNumber()) {
+		if (!valueX.Is_number()) {
 			sig.SetError(ERR_ValueError, "cannot calculate non-number value");
 			return Value::Null;
 		}
-		if (!valueY.IsNumber()) {
+		if (!valueY.Is_number()) {
 			sig.SetError(ERR_ValueError, "cannot calculate non-number value");
 			return Value::Null;
 		}
@@ -1022,9 +1022,9 @@ Gura_ImplementFunction(covariance)
 	Iterator *pIteratorA = args.GetIterator(0);
 	Iterator *pIteratorB = args.GetIterator(1);
 	Value valueAveA = pIteratorA->Clone()->Average(env, sig, cntA);
-	if (!valueAveA.IsNumber()) return Value::Null;
+	if (!valueAveA.Is_number()) return Value::Null;
 	Value valueAveB = pIteratorB->Clone()->Average(env, sig, cntB);
-	if (!valueAveB.IsNumber()) return Value::Null;
+	if (!valueAveB.Is_number()) return Value::Null;
 	if (cntA != cntB) {
 		sig.SetError(ERR_ValueError, "different length of iterators");
 		return Value::Null;
@@ -1034,7 +1034,7 @@ Gura_ImplementFunction(covariance)
 	Number averageB = valueAveB.GetNumber();
 	Value valueA, valueB;
 	while (pIteratorA->Next(env, sig, valueA) && pIteratorB->Next(env, sig, valueB)) {
-		if (valueA.IsNumber() && valueB.IsNumber()) {
+		if (valueA.Is_number() && valueB.Is_number()) {
 			result +=
 				(valueA.GetNumber() - averageA) * (valueB.GetNumber() - averageB);
 		} else {

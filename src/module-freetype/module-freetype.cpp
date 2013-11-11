@@ -188,7 +188,7 @@ Gura_DeclareFunction(sysfontpath)
 
 Gura_ImplementFunction(sysfontpath)
 {
-	const char *name = args.IsString(0)? args.GetString(0) : "";
+	const char *name = args.Is_string(0)? args.GetString(0) : "";
 	return Value(env, OAL::JoinPathName(GetSysFontPathName().c_str(), name).c_str());
 }
 

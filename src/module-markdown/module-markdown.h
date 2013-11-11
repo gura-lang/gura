@@ -77,7 +77,7 @@ public:
 	inline const Type GetType() const { return _type; }
 	inline bool IsRoot() const { return _type == TYPE_Root; }
 	inline bool IsBlockQuote() const { return _type == TYPE_BlockQuote; }
-	inline bool IsList() const { return _type == TYPE_UList || _type == TYPE_OList; }
+	inline bool Is_list() const { return _type == TYPE_UList || _type == TYPE_OList; }
 	inline bool IsListItem() const { return _type == TYPE_ListItem; }
 	inline bool IsTag() const { return _type == TYPE_Tag; }
 	inline bool IsOwner() const { return !_pItemOwner.IsNull(); }

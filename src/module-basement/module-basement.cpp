@@ -39,7 +39,7 @@ Gura_ImplementFunction(class_)
 	if (sig.IsSignalled()) return Value::Null;
 	Class *pClassSuper = env.LookupClass(VTYPE_object);
 	const Value &valueSuper = args.GetValue(0);
-	if (valueSuper.IsFunction()) {
+	if (valueSuper.Is_function()) {
 		pClassSuper = valueSuper.GetFunction()->GetClassToConstruct();
 		if (pClassSuper == NULL) {
 			valueSuper.GetFunction()->SetError_NotConstructor(sig);
@@ -202,7 +202,7 @@ Gura_ImplementFunction(import_)
 		pSymbolsToMixIn = &symbolsToMixIn;
 	}
 	const Symbol *pSymbol = NULL;
-	if (!args.IsExpr(1)) {
+	if (!args.Is_expr(1)) {
 		// nothing to do
 	} else if (!args.GetExpr(1)->IsSymbol()) {
 		sig.SetError(ERR_ValueError, "symbol is expected as a module name");
@@ -262,7 +262,7 @@ Gura_ImplementFunction(scope)
 			pEnv = args.GetModule(0);
 		} else if (args.IsClass(0)) {
 			pEnv = args.GetClass(0);
-		} else if (args.IsFunction(0)) {
+		} else if (args.Is_function(0)) {
 			pEnv = args.GetFunction(0)->GetClassToConstruct();
 		} else if (args.IsType(0, VTYPE_environment)) {
 			pEnv = &Object_environment::GetObject(args, 0)->GetEnv();
@@ -673,7 +673,7 @@ Gura_ImplementFunction(repeat)
 	bool skipInvalidFlag = args.IsRsltXList() || args.IsRsltXSet() || args.IsRsltXIterator();
 	bool genIterFlag = args.IsRsltIterator() || args.IsRsltXIterator();
 	Iterator *pIterator = new Iterator_repeat(pEnvBlock->Reference(), sig, Function::Reference(pFuncBlock),
-			skipInvalidFlag, genIterFlag, args.IsNumber(0)? args.GetInt(0) : -1);
+			skipInvalidFlag, genIterFlag, args.Is_number(0)? args.GetInt(0) : -1);
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -1062,11 +1062,11 @@ Gura_ImplementFunction(int_)
 {
 	const Value &value = args.GetValue(0);
 	Value result;
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		result.SetNumber(value.GetLong());
-	} else if (value.IsComplex()) {
+	} else if (value.Is_complex()) {
 		result.SetNumber(static_cast<long>(std::abs(value.GetComplex())));
-	} else if (value.IsString()) {
+	} else if (value.Is_string()) {
 		bool successFlag;
 		Number num = value.ToNumber(true, successFlag);
 		if (!successFlag) {
@@ -1135,7 +1135,7 @@ Gura_DeclareFunction(hex)
 
 Gura_ImplementFunction(hex)
 {
-	int digits = args.IsNumber(1)? args.GetInt(1) : 0;
+	int digits = args.Is_number(1)? args.GetInt(1) : 0;
 	bool upperFlag = args.IsSet(Gura_Symbol(upper));
 	String str;
 	if (digits <= 0) {
@@ -1339,7 +1339,7 @@ Gura_DeclareFunction(help)
 Gura_ImplementFunction(help)
 {
 	Object_function *pFuncObj = Object_function::GetObject(args, 0);
-	const Symbol *pSymbol = args.IsSymbol(1)? args.GetSymbol(1) : NULL;
+	const Symbol *pSymbol = args.Is_symbol(1)? args.GetSymbol(1) : NULL;
 	HelpPresenter::Present(env, sig, pFuncObj->ToString(true).c_str(),
 									pFuncObj->GetFunction()->GetHelp(pSymbol));
 	return Value::Null;
@@ -1561,7 +1561,7 @@ Gura_DeclareFunction(rand)
 
 Gura_ImplementFunction(rand)
 {
-	if (args.IsNumber(0)) {
+	if (args.Is_number(0)) {
 		ULong num = args.GetULong(0);
 		Number result = static_cast<ULong>(RandomGenerator::Real2() * num);
 		return Value(result);

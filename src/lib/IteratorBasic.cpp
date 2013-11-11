@@ -706,7 +706,7 @@ bool Iterator_MemberMap::DoNext(Environment &env, Signal sig, Value &value)
 	}
 	SeqPostHandler *pSeqPostHandler = NULL;
 	value = _pExpr->Exec2(*pFundEach, sig, pSeqPostHandler);
-	if (value.IsFunction()) {
+	if (value.Is_function()) {
 		Object_function *pObj = new Object_function(*pFundEach,
 						Function::Reference(value.GetFunction()), valueThisEach);
 		value = Value(pObj);
@@ -798,7 +798,7 @@ bool Iterator_FuncBinder::DoNext(Environment &env, Signal sig, Value &value)
 {
 	Value valueArg;
 	if (!_pIterator->Next(env, sig, valueArg)) return false;
-	if (valueArg.IsList()) {
+	if (valueArg.Is_list()) {
 		ValueList valListComp = valueArg.GetList();
 		if (!_pFunc->GetDeclOwner().Compensate(*_pEnv, sig, valListComp)) {
 			return false;
@@ -977,7 +977,7 @@ Iterator *Iterator_RoundOff::GetSource()
 bool Iterator_RoundOff::DoNext(Environment &env, Signal sig, Value &value)
 {
 	if (!_pIterator->Next(env, sig, value)) return false;
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		Number num = value.GetNumber();
 		if (num < _threshold) value = Value(0);
 	}
@@ -1465,7 +1465,7 @@ bool Iterator_Format::DoNext(Environment &env, Signal sig, Value &value)
 	Value valueSrc;
 	if (!_pIterator->Next(env, sig, valueSrc)) return false;
 	String str;
-	if (valueSrc.IsList()) {
+	if (valueSrc.Is_list()) {
 		str = Formatter::Format(sig, _format.c_str(), valueSrc.GetList());
 	} else {
 		ValueList valList(valueSrc);
@@ -1505,7 +1505,7 @@ bool Iterator_Pack::DoNext(Environment &env, Signal sig, Value &value)
 	if (!_pIterator->Next(env, sig, valueSrc)) return false;
 	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
 	size_t offset = 0;
-	if (valueSrc.IsList()) {
+	if (valueSrc.Is_list()) {
 		pObjBinary->GetBinary().Pack(env, sig, offset, _format.c_str(), valueSrc.GetList());
 	} else {
 		ValueList valList(valueSrc);
@@ -1824,7 +1824,7 @@ bool Iterator_Repeater::DoNext(Environment &env, Signal sig, Value &value)
 			} else if (sig.IsSignalled()) {
 				return false;
 			}
-			if (!_genIterFlag || !value.IsIterator() ||
+			if (!_genIterFlag || !value.Is_iterator() ||
 									!value.GetIterator()->IsRepeater()) break;
 			_pIteratorNest.reset(Reference(value.GetIterator()));
 		} else if (_pIteratorNest->Next(env, sig, value)) {
@@ -1895,7 +1895,7 @@ bool Iterator_repeat::DoNext(Environment &env, Signal sig, Value &value)
 			} else if (sig.IsSignalled()) {
 				return false;
 			}
-			if (!_genIterFlag || !value.IsIterator() ||
+			if (!_genIterFlag || !value.Is_iterator() ||
 									!value.GetIterator()->IsRepeater()) break;
 			_pIteratorNest.reset(Reference(value.GetIterator()));
 		} else if (_pIteratorNest->Next(env, sig, value)) {
@@ -1966,7 +1966,7 @@ bool Iterator_while::DoNext(Environment &env, Signal sig, Value &value)
 			} else if (sig.IsSignalled()) {
 				return false;
 			}
-			if (!_genIterFlag || !value.IsIterator() ||
+			if (!_genIterFlag || !value.Is_iterator() ||
 									!value.GetIterator()->IsRepeater()) break;
 			_pIteratorNest.reset(Reference(value.GetIterator()));
 		} else if (_pIteratorNest->Next(env, sig, value)) {
@@ -2051,7 +2051,7 @@ bool Iterator_for::DoNext(Environment &env, Signal sig, Value &value)
 			} else if (sig.IsSignalled()) {
 				return false;
 			}
-			if (!_genIterFlag || !value.IsIterator() ||
+			if (!_genIterFlag || !value.Is_iterator() ||
 									!value.GetIterator()->IsRepeater()) break;
 			_pIteratorNest.reset(Reference(value.GetIterator()));
 		} else if (_pIteratorNest->Next(env, sig, value)) {
@@ -2149,7 +2149,7 @@ bool Iterator_cross::DoNext(Environment &env, Signal sig, Value &value)
 			} else if (sig.IsSignalled()) {
 				return false;
 			}
-			if (!_genIterFlag || !value.IsIterator() ||
+			if (!_genIterFlag || !value.Is_iterator() ||
 									!value.GetIterator()->IsRepeater()) {
 				if (!AdvanceIterators(env, sig)) return false;
 				break;
@@ -2225,7 +2225,7 @@ bool PrepareRepeaterIterators(Environment &env, Signal sig,
 	const ValueList &valListArg, ExprList &exprLeftList, IteratorOwner &iteratorOwner)
 {
 	foreach_const (ValueList, pValue, valListArg) {
-		GURA_ASSUME(env, pValue->IsExpr());
+		GURA_ASSUME(env, pValue->Is_expr());
 		const Expr *pExpr = pValue->GetExpr();
 		Value value;
 		if (!(pExpr->IsBinaryOp() && dynamic_cast<const Expr_BinaryOp *>(pExpr)->

@@ -99,10 +99,10 @@ Gura_ImplementFunction(exec)
 	}
 	const Value *pValue = NULL;
 	pValue = _pEnvThis->LookupValue(Gura_Symbol(stdout), ENVREF_NoEscalate);
-	Stream *pStreamStdout = (pValue != NULL && pValue->IsStream())?
+	Stream *pStreamStdout = (pValue != NULL && pValue->Is_stream())?
 										&pValue->GetStream() : NULL;
 	pValue = _pEnvThis->LookupValue(Gura_Symbol(stderr), ENVREF_NoEscalate);
-	Stream *pStreamStderr = (pValue != NULL && pValue->IsStream())?
+	Stream *pStreamStderr = (pValue != NULL && pValue->Is_stream())?
 										&pValue->GetStream() : NULL;
 	int rtn = OAL::ExecProgram(env, sig, pathName, args.GetList(1),
 					pStreamStdout, pStreamStderr, forkFlag);

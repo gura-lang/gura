@@ -62,7 +62,7 @@ Gura_ImplementFunction(iterator)
 	Iterator_Concat *pIterator = new Iterator_Concat();
 	foreach_const (ValueList, pValue, args.GetList(0)) {
 		Iterator *pIteratorArg = NULL;
-		if (pValue->IsIterator()) {
+		if (pValue->Is_iterator()) {
 			pIteratorArg = pValue->CreateIterator(sig);
 			if (sig.IsSignalled()) return Value::Null;
 		} else {
@@ -167,7 +167,7 @@ Gura_ImplementFunction(zipv)
 	IteratorOwner iterOwner;
 	bool iteratorFlag = false;
 	foreach_const (ValueList, pValue, args.GetList(0)) {
-		if (pValue->IsList() || pValue->IsIterator()) {
+		if (pValue->Is_list() || pValue->Is_iterator()) {
 			iteratorFlag = true;
 			break;
 		}
@@ -182,7 +182,7 @@ Gura_ImplementFunction(zipv)
 	}
 	foreach_const (ValueList, pValue, args.GetList(0)) {
 		Iterator *pIteratorArg = NULL;
-		if (pValue->IsList() || pValue->IsIterator()) {
+		if (pValue->Is_list() || pValue->Is_iterator()) {
 			pIteratorArg = pValue->CreateIterator(sig);
 			if (sig.IsSignalled()) return Value::Null;
 		} else {
@@ -206,7 +206,7 @@ Gura_DeclareFunction(consts)
 Gura_ImplementFunction(consts)
 {
 	Iterator *pIterator = NULL;
-	if (args.IsNumber(1)) {
+	if (args.Is_number(1)) {
 		pIterator = new Iterator_ConstantN(args.GetValue(0), args.GetInt(1));
 	} else {
 		pIterator = new Iterator_Constant(args.GetValue(0));
@@ -226,8 +226,8 @@ Gura_DeclareFunction(rands)
 Gura_ImplementFunction(rands)
 {
 	Iterator *pIterator = new Iterator_Rand(
-				args.IsNumber(0)? args.GetInt(0) : 0,
-				args.IsNumber(1)? args.GetInt(1) : -1);
+				args.Is_number(0)? args.GetInt(0) : 0,
+				args.Is_number(1)? args.GetInt(1) : -1);
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -300,7 +300,7 @@ Gura_ImplementMethod(iterator, printf)
 	Iterator *pIterator = pThis->GetIterator()->Clone();
 	Value value;
 	while (pIterator->Next(env, sig, value)) {
-		if (value.IsList()) {
+		if (value.Is_list()) {
 			pConsole->Printf(sig, format, value.GetList());
 		} else {
 			pConsole->Printf(sig, format, ValueList(value));
@@ -524,8 +524,8 @@ Gura_ImplementMethod(iterator, or_)
 	return result;
 }
 
-// iterator#iscontain(value)
-Gura_DeclareMethod(iterator, iscontain)
+// iterator#contains(value)
+Gura_DeclareMethod(iterator, contains)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any);
@@ -533,12 +533,12 @@ Gura_DeclareMethod(iterator, iscontain)
 	"Returns true if a specified value exists in the iterated elements.");
 }
 
-Gura_ImplementMethod(iterator, iscontain)
+Gura_ImplementMethod(iterator, contains)
 {
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Null;
-	bool result = pIterator->IsContain(env, sig, args.GetValue(0));
+	bool result = pIterator->DoesContain(env, sig, args.GetValue(0));
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(result);
 }
@@ -745,9 +745,9 @@ Gura_ImplementMethod(iterator, sort)
 	Value value = pIteratorSrc->Eval(env, sig, args);
 	if (sig.IsSignalled()) return Value::Null;
 	if (value.IsInvalid()) return args.GetThis();
-	GURA_ASSUME(env, value.IsList());
+	GURA_ASSUME(env, value.Is_list());
 	Object_list *pObj = Object_list::GetObject(value)->SortRank(sig, args.GetValue(0),
-						args.IsList(1)? &args.GetList(1) : NULL,
+						args.Is_list(1)? &args.GetList(1) : NULL,
 						false, args.IsSet(Gura_Symbol(stable)));
 	if (sig.IsSignalled()) return Value::Null;
 	Iterator *pIterator = new Object_list::IteratorEach(pObj);
@@ -768,7 +768,7 @@ Gura_ImplementMethod(iterator, rank)
 	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
 	Value value = pIteratorSrc->Eval(env, sig, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
-	GURA_ASSUME(env, value.IsList());
+	GURA_ASSUME(env, value.Is_list());
 	Object_list *pObj = Object_list::GetObject(value)->SortRank(sig, args.GetValue(0), NULL,
 							true, args.IsSet(Gura_Symbol(stable)));
 	if (sig.IsSignalled()) return Value::Null;
@@ -786,7 +786,7 @@ Gura_DeclareMethod(iterator, join)
 Gura_ImplementMethod(iterator, join)
 {
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
-	const char *sep = args.IsString(0)? args.GetString(0) : "";
+	const char *sep = args.Is_string(0)? args.GetString(0) : "";
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	String rtn;
 	Value value;
@@ -816,12 +816,12 @@ Gura_DeclareMethod(iterator, joinb)
 Gura_ImplementMethod(iterator, joinb)
 {
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
-	const char *sep = args.IsString(0)? args.GetString(0) : "";
+	const char *sep = args.Is_string(0)? args.GetString(0) : "";
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	Binary buff;
 	Value value;
 	while (pIterator->Next(env, sig, value)) {
-		if (!value.IsBinary()) {
+		if (!value.Is_binary()) {
 			sig.SetError(ERR_ValueError, "invalid value type");
 			return Value::Null;
 		}
@@ -1035,7 +1035,7 @@ Gura_ImplementMethod(iterator, tail)
 	AutoPtr<Iterator> pIteratorSrc(pThis->GetIterator()->Clone());
 	Value value = pIteratorSrc->Eval(env, sig, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
-	GURA_ASSUME(env, value.IsList());
+	GURA_ASSUME(env, value.Is_list());
 	//Object_list *pObj = dynamic_cast<Object_list *>(value.GetListObj()->Clone());
 	Object_list *pObj = Object_list::Reference(Object_list::GetObject(value));
 	int cnt = args.GetInt(0);
@@ -1058,7 +1058,7 @@ Gura_ImplementMethod(iterator, reverse)
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	Value value = pIterator->Eval(env, sig, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
-	GURA_ASSUME(env, value.IsList());
+	GURA_ASSUME(env, value.Is_list());
 	Object_list *pObj = Object_list::Reference(Object_list::GetObject(value));
 	return ReturnIterator(env, sig, args,
 							new Object_list::IteratorReverse(pObj));
@@ -1075,11 +1075,11 @@ Gura_DeclareMethod(iterator, round)
 Gura_ImplementMethod(iterator, round)
 {
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
-	int cnt = args.IsNumber(0)? args.GetInt(0) : -1;
+	int cnt = args.Is_number(0)? args.GetInt(0) : -1;
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	Value value = pIterator->Eval(env, sig, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
-	GURA_ASSUME(env, value.IsList());
+	GURA_ASSUME(env, value.Is_list());
 	//Object_list *pObj = dynamic_cast<Object_list *>(value.GetListObj()->Clone());
 	Object_list *pObj = Object_list::Reference(Object_list::GetObject(value));
 	return ReturnIterator(env, sig, args,
@@ -1100,7 +1100,7 @@ Gura_DeclareMethod(iterator, pingpong)
 Gura_ImplementMethod(iterator, pingpong)
 {
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
-	int cnt = args.IsNumber(0)? args.GetInt(0) : -1;
+	int cnt = args.Is_number(0)? args.GetInt(0) : -1;
 	bool stickyFlagL = args.IsSet(Gura_Symbol(sticky)) ||
 						args.IsSet(Gura_Symbol(sticky_l));
 	bool stickyFlagR = args.IsSet(Gura_Symbol(sticky)) ||
@@ -1108,7 +1108,7 @@ Gura_ImplementMethod(iterator, pingpong)
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	Value value = pIterator->Eval(env, sig, args);
 	if (sig.IsSignalled() || value.IsInvalid()) return Value::Null;
-	GURA_ASSUME(env, value.IsList());
+	GURA_ASSUME(env, value.Is_list());
 	//Object_list *pObj = dynamic_cast<Object_list *>(value.GetListObj()->Clone());
 	Object_list *pObj = Object_list::Reference(Object_list::GetObject(value));
 	return ReturnIterator(env, sig, args,
@@ -1177,7 +1177,7 @@ void Class_iterator::Prepare(Environment &env)
 	Gura_AssignMethod(iterator, stddev);
 	Gura_AssignMethod(iterator, and_);
 	Gura_AssignMethod(iterator, or_);
-	Gura_AssignMethod(iterator, iscontain);
+	Gura_AssignMethod(iterator, contains);
 	Gura_AssignMethod(iterator, filter);
 	Gura_AssignMethod(iterator, while_);
 	Gura_AssignMethod(iterator, since);

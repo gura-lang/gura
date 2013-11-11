@@ -335,7 +335,7 @@ Gura_ImplementUserInheritableClassWithCast(wx_Colour)
 
 Gura_ImplementCastFrom(wx_Colour)
 {
-	if (value.IsColor()) {
+	if (value.Is_color()) {
 		const Object_color *pObjColor = Object_color::GetObject(value);
 		wx_Colour *pEntity = new wx_Colour(
 						pObjColor->GetRed(), pObjColor->GetGreen(),
@@ -344,7 +344,7 @@ Gura_ImplementCastFrom(wx_Colour)
 		pEntity->AssocWithGura(sig, pObj);
 		value = Value(pObj);
 		return true;
-	} else if (value.IsString()) {
+	} else if (value.Is_string()) {
 		AutoPtr<Object_color> pObjColor(
 				Object_color::CreateNamedColor(env, sig, value.GetString(), 255));
 		if (sig.IsSignalled()) return false;

@@ -983,13 +983,13 @@ Gura_ImplementMethod(easy_handle, setopt)
 	Object_easy_handle *pThis = Object_easy_handle::GetThisObj(args);
 	CURLcode code;
 	CURLoption option = static_cast<CURLoption>(args.GetInt(0));
-	if (args.IsNumber(1)) {
+	if (args.Is_number(1)) {
 		if (!(option < CURLOPTTYPE_OBJECTPOINT || CURLOPTTYPE_OFF_T <= option)) {
 			sig.SetError(ERR_TypeError, "number cannot be specified for the option");
 			return Value::Null;
 		}
 		code = ::curl_easy_setopt(pThis->GetEntity(), option, args.GetInt(1));
-	} else if (args.IsString(1)) {
+	} else if (args.Is_string(1)) {
 		if (!(CURLOPTTYPE_OBJECTPOINT <= option && option < CURLOPTTYPE_FUNCTIONPOINT)) {
 			sig.SetError(ERR_TypeError, "string cannot be specified for the option");
 			return Value::Null;
@@ -1063,7 +1063,7 @@ Gura_DeclareMethod(easy_handle, perform)
 Gura_ImplementMethod(easy_handle, perform)
 {
 	Object_easy_handle *pThis = Object_easy_handle::GetThisObj(args);
-	Stream *pStreamOut = args.IsStream(0)?
+	Stream *pStreamOut = args.Is_stream(0)?
 			&Object_stream::GetObject(args, 0)->GetStream() : env.GetConsole();
 	std::auto_ptr<Writer> pWriter(new Writer(sig, Stream::Reference(pStreamOut)));
 	::curl_easy_setopt(pThis->GetEntity(), CURLOPT_WRITEDATA, pWriter.get());

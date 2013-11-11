@@ -27,7 +27,7 @@ Gura_ImplementClassMethod(mesh_pattern, create)
 {
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 12, 0)
 	cairo_pattern_t *pattern = ::cairo_pattern_create_mesh();
-	if (IsError(sig, pattern)) {
+	if (Is_error(sig, pattern)) {
 		::cairo_pattern_destroy(pattern);
 		return Value::Null;
 	}
@@ -53,7 +53,7 @@ Gura_ImplementMethod(mesh_pattern, begin_patch)
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	::cairo_mesh_pattern_begin_patch(pattern);
-	if (IsError(sig, pattern)) return Value::Null;
+	if (Is_error(sig, pattern)) return Value::Null;
 	return args.GetThis();
 #else
 	sig.SetError(ERR_NotImplementedError, "only supported with cairo v1.12 or later");
@@ -76,7 +76,7 @@ Gura_ImplementMethod(mesh_pattern, end_patch)
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	::cairo_mesh_pattern_end_patch(pattern);
-	if (IsError(sig, pattern)) return Value::Null;
+	if (Is_error(sig, pattern)) return Value::Null;
 	return args.GetThis();
 #else
 	sig.SetError(ERR_NotImplementedError, "only supported with cairo v1.12 or later");
@@ -103,7 +103,7 @@ Gura_ImplementMethod(mesh_pattern, move_to)
 	double x = args.GetDouble(0);
 	double y = args.GetDouble(1);
 	::cairo_mesh_pattern_move_to(pattern, x, y);
-	if (IsError(sig, pattern)) return Value::Null;
+	if (Is_error(sig, pattern)) return Value::Null;
 	return args.GetThis();
 #else
 	sig.SetError(ERR_NotImplementedError, "only supported with cairo v1.12 or later");
@@ -130,7 +130,7 @@ Gura_ImplementMethod(mesh_pattern, line_to)
 	double x = args.GetDouble(0);
 	double y = args.GetDouble(1);
 	::cairo_mesh_pattern_line_to(pattern, x, y);
-	if (IsError(sig, pattern)) return Value::Null;
+	if (Is_error(sig, pattern)) return Value::Null;
 	return args.GetThis();
 #else
 	sig.SetError(ERR_NotImplementedError, "only supported with cairo v1.12 or later");
@@ -165,7 +165,7 @@ Gura_ImplementMethod(mesh_pattern, curve_to)
 	double x3 = args.GetDouble(4);
 	double y3 = args.GetDouble(5);
 	::cairo_mesh_pattern_curve_to(pattern, x1, y1, x2, y2, x3, y3);
-	if (IsError(sig, pattern)) return Value::Null;
+	if (Is_error(sig, pattern)) return Value::Null;
 	return args.GetThis();
 #else
 	sig.SetError(ERR_NotImplementedError, "only supported with cairo v1.12 or later");
@@ -194,7 +194,7 @@ Gura_ImplementMethod(mesh_pattern, set_control_point)
 	double x = args.GetDouble(1);
 	double y = args.GetDouble(2);
 	::cairo_mesh_pattern_set_control_point(pattern, point_num, x, y);
-	if (IsError(sig, pattern)) return Value::Null;
+	if (Is_error(sig, pattern)) return Value::Null;
 	return args.GetThis();
 #else
 	sig.SetError(ERR_NotImplementedError, "only supported with cairo v1.12 or later");
@@ -226,7 +226,7 @@ Gura_ImplementMethod(mesh_pattern, set_corner_color_rgb)
 	double green = args.GetDouble(2);
 	double blue = args.GetDouble(3);
 	::cairo_mesh_pattern_set_corner_color_rgb(pattern, corner_num, red, green, blue);
-	if (IsError(sig, pattern)) return Value::Null;
+	if (Is_error(sig, pattern)) return Value::Null;
 	return args.GetThis();
 #else
 	sig.SetError(ERR_NotImplementedError, "only supported with cairo v1.12 or later");
@@ -260,7 +260,7 @@ Gura_ImplementMethod(mesh_pattern, set_corner_color_rgba)
 	double blue = args.GetDouble(3);
 	double alpha = args.GetDouble(4);
 	::cairo_mesh_pattern_set_corner_color_rgba(pattern, corner_num, red, green, blue, alpha);
-	if (IsError(sig, pattern)) return Value::Null;
+	if (Is_error(sig, pattern)) return Value::Null;
 	return args.GetThis();
 #else
 	sig.SetError(ERR_NotImplementedError, "only supported with cairo v1.12 or later");
@@ -284,7 +284,7 @@ Gura_ImplementMethod(mesh_pattern, )
 	Object_pattern *pThis = Object_pattern::GetThisObj(args);
 	cairo_pattern_t *pattern = pThis->GetEntity();
 	::cairo_mesh_pattern_(pattern);
-	if (IsError(sig, pattern)) return Value::Null;
+	if (Is_error(sig, pattern)) return Value::Null;
 	return args.GetThis();
 }
 #endif

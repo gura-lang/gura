@@ -38,7 +38,7 @@ Gura_DeclareFunction(writer)
 Gura_ImplementFunction(writer)
 {
 	Stream &stream = args.GetStream(0);
-	int level = args.IsNumber(1)? args.GetInt(1) : Z_DEFAULT_COMPRESSION;
+	int level = args.Is_number(1)? args.GetInt(1) : Z_DEFAULT_COMPRESSION;
 	int windowBits = 31;
 	Object_stream *pObjStream = GenerateCompressor(env, sig,
 									stream.Reference(), level, windowBits);
@@ -77,7 +77,7 @@ Gura_DeclareMethod(stream, gzipwriter)
 Gura_ImplementMethod(stream, gzipwriter)
 {
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
-	int level = args.IsNumber(0)? args.GetInt(0) : Z_DEFAULT_COMPRESSION;
+	int level = args.Is_number(0)? args.GetInt(0) : Z_DEFAULT_COMPRESSION;
 	int windowBits = 31;
 	Object_stream *pObjStream = GenerateCompressor(env, sig,
 									stream.Reference(), level, windowBits);

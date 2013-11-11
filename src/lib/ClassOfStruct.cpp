@@ -103,7 +103,7 @@ void ClassOfStruct::Prepare(Environment &env)
 
 bool ClassOfStruct::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
-	if (value.IsList()) {
+	if (value.Is_list()) {
 		Class *pClass = env.LookupClass(pDecl->GetValueType());
 		if (pClass == NULL) return false;
 		const Function *pConstructor = pClass->GetConstructor();

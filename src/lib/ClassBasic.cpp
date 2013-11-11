@@ -73,7 +73,7 @@ void Class_symbol::Prepare(Environment &env)
 
 bool Class_symbol::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
-	if (value.IsString()) {
+	if (value.Is_string()) {
 		value = Value(Symbol::Add(value.GetString()));
 		return true;
 	}
@@ -106,7 +106,7 @@ void Class_boolean::Prepare(Environment &env)
 
 bool Class_boolean::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
-	if (value.IsList()) {
+	if (value.Is_list()) {
 		return true;	// ?????
 	} else {
 		value = Value(value.GetBoolean());
@@ -261,7 +261,7 @@ Gura_DeclareFunction(complex)
 Gura_ImplementFunction(complex)
 {
 	double real = args.GetDouble(0);
-	double imag = args.IsNumber(1)? args.GetDouble(1) : 0;
+	double imag = args.Is_number(1)? args.GetDouble(1) : 0;
 	return ReturnValue(env, sig, args, Value(Complex(real, imag)));
 }
 
@@ -370,9 +370,9 @@ Value Class_complex::GetPropPrimitive(Environment &env, Signal sig, const Value 
 
 bool Class_complex::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
-	if (value.IsNumber()) {		// cast number to complex
+	if (value.Is_number()) {		// cast number to complex
 		return true;
-	} else if (value.IsFraction()) {
+	} else if (value.Is_fraction()) {
 		bool allowPartFlag = false;
 		bool successFlag = false;
 		Number num = value.ToNumber(allowPartFlag, successFlag);
@@ -418,7 +418,7 @@ Gura_DeclareFunction(fraction)
 Gura_ImplementFunction(fraction)
 {
 	int numerator = args.GetInt(0);
-	int denominator = args.IsNumber(1)? args.GetInt(1) : 1;
+	int denominator = args.Is_number(1)? args.GetInt(1) : 1;
 	if (denominator == 0) {
 		sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
 		return Value::Null;
@@ -482,7 +482,7 @@ Value Class_fraction::GetPropPrimitive(Environment &env, Signal sig, const Value
 
 bool Class_fraction::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
-	if (value.IsNumber()) {		// cast number to fraction
+	if (value.Is_number()) {		// cast number to fraction
 		return true;
 	}
 	return false;
@@ -682,7 +682,7 @@ Gura_DeclareMethod(string, left)
 
 Gura_ImplementMethod(string, left)
 {
-	if (!args.IsNumber(0)) return args.GetThis();
+	if (!args.Is_number(0)) return args.GetThis();
 	return Value(env, Left(args.GetThis().GetString(), args.GetSizeT(0)).c_str());
 }
 
@@ -696,7 +696,7 @@ Gura_DeclareMethod(string, right)
 
 Gura_ImplementMethod(string, right)
 {
-	if (!args.IsNumber(0)) return args.GetThis();
+	if (!args.Is_number(0)) return args.GetThis();
 	return Value(env, Right(args.GetThis().GetString(), args.GetSizeT(0)).c_str());
 }
 
@@ -720,7 +720,7 @@ Gura_DeclareMethod(string, mid)
 Gura_ImplementMethod(string, mid)
 {
 	return Value(env, Middle(args.GetThis().GetString(), args.GetInt(0),
-						args.IsNumber(1)? args.GetInt(1) : -1).c_str());
+						args.Is_number(1)? args.GetInt(1) : -1).c_str());
 }
 
 // string#find(sub:string, pos?:number => 0):map:[icase,rev]
@@ -790,7 +790,7 @@ Gura_ImplementMethod(string, endswith)
 {
 	const char *str = args.GetThis().GetString();
 	bool ignoreCaseFlag = args.IsSet(Gura_Symbol(icase));
-	const char *rtn = args.IsNumber(1)?
+	const char *rtn = args.Is_number(1)?
 		EndsWith(str, args.GetString(0), args.GetInt(1), ignoreCaseFlag) :
 		EndsWith(str, args.GetString(0), ignoreCaseFlag);
 	if (args.IsSet(Gura_Symbol(rest))) {
@@ -820,7 +820,7 @@ Gura_ImplementMethod(string, replace)
 {
 	String result = Replace(args.GetThis().GetString(),
 			args.GetString(0), args.GetString(1),
-			args.IsNumber(2)? args.GetInt(2) : -1, args.GetAttrs());
+			args.Is_number(2)? args.GetInt(2) : -1, args.GetAttrs());
 	if (!args.IsBlockSpecified()) return Value(env, result);
 	ValueList valListArg;
 	valListArg.reserve(2);
@@ -847,9 +847,9 @@ Gura_DeclareMethod(string, split)
 
 Gura_ImplementMethod(string, split)
 {
-	int maxSplit = args.IsNumber(1)? args.GetInt(1) : -1;
+	int maxSplit = args.Is_number(1)? args.GetInt(1) : -1;
 	Iterator *pIterator = NULL;
-	if (args.IsString(0) && *args.GetString(0) != '\0') {
+	if (args.Is_string(0) && *args.GetString(0) != '\0') {
 		const char *sep = args.GetString(0);
 		bool ignoreCaseFlag = args.IsSet(Gura_Symbol(icase));
 		pIterator = new Class_string::IteratorSplit(
@@ -877,7 +877,7 @@ Gura_DeclareMethod(string, fold)
 Gura_ImplementMethod(string, fold)
 {
 	int cntPerFold = args.GetInt(0);
-	int cntStep = args.IsNumber(1)? args.GetInt(1) : cntPerFold;
+	int cntStep = args.Is_number(1)? args.GetInt(1) : cntPerFold;
 	Iterator *pIterator = new Class_string::IteratorFold(
 						args.GetThis().GetStringSTL(), cntPerFold, cntStep);
 	return ReturnIterator(env, sig, args, pIterator);
@@ -925,7 +925,7 @@ Gura_DeclareMethod(string, eachline)
 
 Gura_ImplementMethod(string, eachline)
 {
-	int maxSplit = args.IsNumber(0)? args.GetInt(0) : -1;
+	int maxSplit = args.Is_number(0)? args.GetInt(0) : -1;
 	bool includeEOLFlag = !args.IsSet(Gura_Symbol(chop));
 	return ReturnIterator(env, sig, args, new Class_string::IteratorLine(
 					args.GetThis().GetStringSTL(), maxSplit, includeEOLFlag));
@@ -1106,7 +1106,7 @@ Gura_ImplementMethod(string, template_)
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
 	String strSrc = args.GetThis().GetStringSTL();
 	SimpleStream_StringReader streamSrc(strSrc.begin(), strSrc.end());
-	if (args.IsStream(0)) {
+	if (args.Is_stream(0)) {
 		Stream &streamDst = args.GetStream(0);
 		TemplateEngine(autoIndentFlag, appendLastEOLFlag).
 						EvalStream(env, sig, streamSrc, streamDst);
@@ -1163,7 +1163,7 @@ void Class_string::Prepare(Environment &env)
 Value Class_string::IndexGetPrimitive(Environment &env, Signal sig,
 						const Value &valueThis, const Value &valueIdx) const
 {
-	if (!valueIdx.IsNumber()) {
+	if (!valueIdx.Is_number()) {
 		sig.SetError(ERR_IndexError, "index must be a number for string");
 		return Value::Null;
 	}

@@ -50,19 +50,19 @@ Value Object_BBox::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(xMin))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		_bbox.xMin = static_cast<FT_Pos>(value.GetLong());
 		return Value(_bbox.xMin);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(yMin))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		_bbox.yMin = static_cast<FT_Pos>(value.GetLong());
 		return Value(_bbox.yMin);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(xMax))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		_bbox.xMax = static_cast<FT_Pos>(value.GetLong());
 		return Value(_bbox.xMax);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(yMax))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		_bbox.yMax = static_cast<FT_Pos>(value.GetLong());
 		return Value(_bbox.yMax);
 	}

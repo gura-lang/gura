@@ -271,7 +271,7 @@ Gura_DeclareFunction(md5)
 Gura_ImplementFunction(md5)
 {
 	Object_hash *pObj = new Object_hash(env, new Hash_MD5(env, sig), "md5");
-	if (args.IsStream(0)) {
+	if (args.Is_stream(0)) {
 		args.GetStream(0).ReadToStream(env, sig, pObj->GetHash(), 0x10000, false);
 	}
 	return ReturnValue(env, sig, args, Value(pObj));
@@ -288,7 +288,7 @@ Gura_DeclareFunction(sha1)
 Gura_ImplementFunction(sha1)
 {
 	Object_hash *pObj = new Object_hash(env, new Hash_SHA1(env, sig), "sha1");
-	if (args.IsStream(0)) {
+	if (args.Is_stream(0)) {
 		args.GetStream(0).ReadToStream(env, sig, pObj->GetHash(), 0x10000, false);
 	}
 	return ReturnValue(env, sig, args, Value(pObj));
@@ -305,7 +305,7 @@ Gura_DeclareFunction(crc32)
 Gura_ImplementFunction(crc32)
 {
 	Object_hash *pObj = new Object_hash(env, new Hash_CRC32(env, sig), "crc32");
-	if (args.IsStream(0)) {
+	if (args.Is_stream(0)) {
 		args.GetStream(0).ReadToStream(env, sig, pObj->GetHash(), 0x10000, false);
 	}
 	return ReturnValue(env, sig, args, Value(pObj));

@@ -184,7 +184,7 @@ Gura_ImplementFunction(datetime)
 								args.GetLong(4) * 60 + args.GetLong(5));
 	long usec = args.GetLong(6);
 	long secsOffset = 0;
-	if (args.IsNumber(7)) {
+	if (args.Is_number(7)) {
 		secsOffset = args.GetLong(7) * 60;
 	} else {
 		secsOffset = OAL::GetSecsOffsetTZ();
@@ -335,9 +335,9 @@ Gura_ImplementMethod(datetime, format)
 		"Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
 	};
 	const DateTime &dateTime = Object_datetime::GetThisObj(args)->GetDateTime();
-	if (args.IsString(0)) {
+	if (args.Is_string(0)) {
 		return Value(env, dateTime.ToString(args.GetString(0)).c_str());
-	} else if (args.IsSymbol(0)) {
+	} else if (args.Is_symbol(0)) {
 		const Symbol *pSymbol = args.GetSymbol(0);
 		char str[64];
 		if (pSymbol->IsIdentical(Gura_Symbol(w3c))) {

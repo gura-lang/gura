@@ -90,7 +90,7 @@ argopt.Parser {|p|
 }
 moduleNamesExcept = cfg['exclude'].split(',')
 moduleNames = moduleInfos.filter(moduleInfos:*action == `build && \
-		moduleInfos:*platforms:*iscontain(sys.platform))::moduleName
+		moduleInfos:*platforms:*contains(sys.platform))::moduleName
 dirNamePre = path.dirname(sys.argv[0])
 moduleNamesError = []
 debFiles = []

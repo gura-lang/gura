@@ -834,9 +834,9 @@ Gura_DeclareFunction(chmod)
 Gura_ImplementFunction(chmod)
 {
 	bool rtn = false;
-	if (args.IsString(0)) {
+	if (args.Is_string(0)) {
 		rtn = OAL::ChangeMode(args.GetString(0), args.GetString(1));
-	} else if (args.IsNumber(0)) {
+	} else if (args.Is_number(0)) {
 		rtn = OAL::ChangeMode(args.GetInt(0), args.GetString(1));
 	} else {
 		sig.SetError(ERR_ValueError, "number or string must be specified as mode");

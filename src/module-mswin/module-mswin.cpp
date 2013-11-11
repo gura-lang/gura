@@ -42,9 +42,9 @@ Gura_ImplementMethod(regkey, createkey)
 	Object_regkey *pThis = Object_regkey::GetThisObj(args);
 	HKEY hKey = pThis->GetKey();
 	const char *lpSubKey = args.GetString(0);
-	DWORD dwOptions = args.IsNumber(1)? args.GetULong(1) : REG_OPTION_NON_VOLATILE;
+	DWORD dwOptions = args.Is_number(1)? args.GetULong(1) : REG_OPTION_NON_VOLATILE;
 	if (sig.IsSignalled()) return Value::Null;
-	REGSAM samDesired = args.IsNumber(2)? args.GetULong(2) : KEY_ALL_ACCESS;
+	REGSAM samDesired = args.Is_number(2)? args.GetULong(2) : KEY_ALL_ACCESS;
 	HKEY hKeyResult;
 	DWORD dwDisposition;
 	DWORD dwErrCode = ::RegCreateKeyEx(hKey, OAL::ToNativeString(lpSubKey).c_str(),
@@ -72,7 +72,7 @@ Gura_ImplementMethod(regkey, openkey)
 	HKEY hKey = pThis->GetKey();
 	const char *lpSubKey = args.GetString(0);
 	if (sig.IsSignalled()) return Value::Null;
-	REGSAM samDesired = args.IsNumber(1)? args.GetULong(1) : KEY_ALL_ACCESS;
+	REGSAM samDesired = args.Is_number(1)? args.GetULong(1) : KEY_ALL_ACCESS;
 	HKEY hKeyResult;
 	DWORD dwErrCode = ::RegOpenKeyEx(hKey, OAL::ToNativeString(lpSubKey).c_str(),
 												0, samDesired, &hKeyResult);
@@ -120,7 +120,7 @@ Gura_ImplementMethod(regkey, enumkey)
 	if (!args.IsSet(Gura_UserSymbol(openkey))) {
 		// nothing to do
 	} else {
-		samDesired = args.IsNumber(0)? args.GetULong(0) : KEY_ALL_ACCESS;
+		samDesired = args.Is_number(0)? args.GetULong(0) : KEY_ALL_ACCESS;
 	}
 	Iterator *pIterator =
 			new Iterator_RegEnumKey(Object_regkey::Reference(pThis), samDesired);
@@ -187,7 +187,7 @@ Gura_ImplementMethod(regkey, queryvalue)
 {
 	Object_regkey *pThis = Object_regkey::GetThisObj(args);
 	HKEY hKey = pThis->GetKey();
-	const char *lpValueName = args.IsString(0)? args.GetString(0) : NULL;
+	const char *lpValueName = args.Is_string(0)? args.GetString(0) : NULL;
 	DWORD dwType;
 	DWORD cbData;
 	DWORD dwErrCode = ::RegQueryValueEx(hKey,
@@ -1090,7 +1090,7 @@ bool ValueToVariant(Signal sig, VARIANT &var, const Value &value)
 {
 	//::printf("ValueToVariant(%s %s)\n", value.GetTypeName(), value.ToString().c_str());
 	::VariantInit(&var);
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		Number num = value.GetNumber();
 		if (static_cast<Number>(static_cast<long>(num)) == num) {
 			var.vt = VT_I4;
@@ -1099,13 +1099,13 @@ bool ValueToVariant(Signal sig, VARIANT &var, const Value &value)
 			var.vt = VT_R8;
 			var.dblVal = value.GetNumber();
 		}
-	} else if (value.IsString()) {
+	} else if (value.Is_string()) {
 		var.vt = VT_BSTR;
 		var.bstrVal = StringToBSTR(value.GetString());
-	} else if (value.IsBoolean()) {
+	} else if (value.Is_boolean()) {
 		var.vt = VT_BOOL;
 		var.boolVal = value.GetBoolean()? VARIANT_TRUE : VARIANT_FALSE;
-	} else if (value.IsList()) {
+	} else if (value.Is_list()) {
 		const ValueList &valList = value.GetList();
 		SAFEARRAYBOUND safeArrayBound;
 		safeArrayBound.lLbound = 0;
@@ -1127,7 +1127,7 @@ bool ValueToVariant(Signal sig, VARIANT &var, const Value &value)
 		pDispatch->AddRef();
 		var.vt = VT_DISPATCH;
 		var.pdispVal = pDispatch;
-	} else if (value.IsDateTime()) {
+	} else if (value.Is_datetime()) {
 		const DateTime &dateTime = value.GetDateTime();
 		COleDateTime oledt(dateTime.GetYear(), dateTime.GetMonth(), dateTime.GetDay(),
 				dateTime.GetHour(), dateTime.GetMin(), dateTime.GetSec());
@@ -1229,23 +1229,23 @@ Value RegDataToValue(Environment &env, Signal sig,
 bool ValueToRegData(Environment &env, Signal sig, const Value &value,
 								DWORD *pdwType, LPBYTE *lppData, DWORD *pcbData)
 {
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		*pdwType = REG_DWORD;
 		*pcbData = sizeof(DWORD);
 		*lppData = reinterpret_cast<LPBYTE>(::LocalAlloc(LMEM_FIXED, *pcbData));
 		*reinterpret_cast<DWORD *>(*lppData) = value.GetULong();
 		return true;
-	} else if (value.IsBinary()) {
+	} else if (value.Is_binary()) {
 		const Binary &buff = value.GetBinary();
 		*pdwType = REG_BINARY;
 		*pcbData = static_cast<DWORD>(buff.size());
 		*lppData = reinterpret_cast<LPBYTE>(::LocalAlloc(LMEM_FIXED, *pcbData));
 		::memcpy(*lppData, buff.data(), *pcbData);
 		return true;
-	} else if (value.IsList()) {
+	} else if (value.Is_list()) {
 		size_t bytesSum = 0;
 		foreach_const (ValueList, pValue, value.GetList()) {
-			if (!pValue->IsString()) goto error_done;
+			if (!pValue->Is_string()) goto error_done;
 			String str = OAL::ToNativeString(pValue->GetString());
 			size_t bytes = str.size() + 1;
 			bytesSum += bytes;
@@ -1256,7 +1256,7 @@ bool ValueToRegData(Environment &env, Signal sig, const Value &value,
 		*lppData = reinterpret_cast<LPBYTE>(::LocalAlloc(LMEM_FIXED, *pcbData));
 		BYTE *p = *lppData;
 		foreach_const (ValueList, pValue, value.GetList()) {
-			if (!pValue->IsString()) goto error_done;
+			if (!pValue->Is_string()) goto error_done;
 			String str = OAL::ToNativeString(pValue->GetString());
 			size_t bytes = str.size() + 1;
 			::memcpy(p, str.c_str(), bytes);
@@ -1264,7 +1264,7 @@ bool ValueToRegData(Environment &env, Signal sig, const Value &value,
 		}
 		*p = '\0';
 		return true;
-	} else if (value.IsString()) {
+	} else if (value.Is_string()) {
 		String str = OAL::ToNativeString(value.GetString());
 		*pdwType = REG_SZ;
 		*pcbData = static_cast<DWORD>(str.size() + 1);

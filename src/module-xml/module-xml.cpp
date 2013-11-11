@@ -426,7 +426,7 @@ void Element::AddChild(Element *pChild)
 
 bool Element::AddChild(Environment &env, Signal sig, const Value &value)
 {
-	if (value.IsString()) {
+	if (value.Is_string()) {
 		AutoPtr<Element> pChild(new Element(Element::TYPE_Text, value.GetStringSTL()));
 		AddChild(pChild.release());
 	} else if (value.IsInstanceOf(VTYPE_element)) {
@@ -929,7 +929,7 @@ Object_element::Object_element(Element *pElement) :
 
 Value Object_element::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 {
-	if (!valueIdx.IsString()) {
+	if (!valueIdx.Is_string()) {
 		sig.SetError(ERR_ValueError, "index must be a string");
 		return Value::Null;
 	}
@@ -1013,9 +1013,9 @@ Gura_ImplementMethod(element, write)
 {
 	Object_element *pObj = Object_element::GetThisObj(args);
 	Stream *pStream = env.GetConsole();
-	if (args.IsStream(0)) pStream = &args.GetStream(0);
+	if (args.Is_stream(0)) pStream = &args.GetStream(0);
 	bool fancyFlag = args.GetBoolean(1);
-	int indentLevel = args.IsNumber(2)? args.GetInt(2) : 0;
+	int indentLevel = args.Is_number(2)? args.GetInt(2) : 0;
 	pObj->GetElement()->Write(sig, *pStream, fancyFlag, indentLevel);
 	return Value::Null;
 }
@@ -1138,7 +1138,7 @@ Gura_ImplementMethod(document, write)
 {
 	Object_document *pObj = Object_document::GetThisObj(args);
 	Stream *pStream = env.GetConsole();
-	if (args.IsStream(0)) pStream = &args.GetStream(0);
+	if (args.Is_stream(0)) pStream = &args.GetStream(0);
 	bool fancyFlag = args.GetBoolean(1);
 	pObj->GetDocument()->Write(sig, *pStream, fancyFlag);
 	return Value::Null;
@@ -1301,7 +1301,7 @@ Gura_DeclareFunction(document)
 Gura_ImplementFunction(document)
 {
 	AutoPtr<Document> pDocument(new Document());
-	if (args.IsStream(0)) {
+	if (args.Is_stream(0)) {
 		if (!pDocument->Parse(sig, args.GetStream(0))) return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_document(pDocument.release())));

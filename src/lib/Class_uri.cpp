@@ -67,31 +67,31 @@ Value Object_uri::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(scheme))) {
-		if (!value.MustBeString(sig)) return Value::Null;
+		if (!value.MustBe_string(sig)) return Value::Null;
 		_scheme = value.GetStringSTL();
 		return Value(env, _scheme);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(user))) {
-		if (!value.MustBeString(sig)) return Value::Null;
+		if (!value.MustBe_string(sig)) return Value::Null;
 		_user = value.GetStringSTL();
 		return Value(env, _user);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(password))) {
-		if (!value.MustBeString(sig)) return Value::Null;
+		if (!value.MustBe_string(sig)) return Value::Null;
 		_password = value.GetStringSTL();
 		return Value(env, _password);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(host))) {
-		if (!value.MustBeString(sig)) return Value::Null;
+		if (!value.MustBe_string(sig)) return Value::Null;
 		_host = value.GetStringSTL();
 		return Value(env, _host);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(port))) {
-		if (!value.MustBeString(sig)) return Value::Null;
+		if (!value.MustBe_string(sig)) return Value::Null;
 		_port = value.GetStringSTL();
 		return Value(env, _port);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(urlpath))) {
-		if (!value.MustBeString(sig)) return Value::Null;
+		if (!value.MustBe_string(sig)) return Value::Null;
 		_urlpath = value.GetStringSTL();
 		return Value(env, _urlpath);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(misc))) {
-		if (!value.MustBeString(sig)) return Value::Null;
+		if (!value.MustBe_string(sig)) return Value::Null;
 		_misc = value.GetStringSTL();
 		return Value(env, _misc);
 	}
@@ -269,7 +269,7 @@ void Class_uri::Prepare(Environment &env)
 
 bool Class_uri::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
-	if (value.IsString()) {
+	if (value.Is_string()) {
 		AutoPtr<Object_uri> pObj(new Object_uri(env));
 		if (!pObj->Parse(sig, value.GetString())) return false;
 		value = Value(pObj.release());

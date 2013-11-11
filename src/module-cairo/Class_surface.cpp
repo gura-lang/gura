@@ -197,7 +197,7 @@ Gura_ImplementMethod(surface, finish)
 	Object_surface *pThis = Object_surface::GetThisObj(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_surface_finish(surface);
-	if (IsError(sig, surface)) return Value::Null;
+	if (Is_error(sig, surface)) return Value::Null;
 	return args.GetThis();
 }
 
@@ -217,7 +217,7 @@ Gura_ImplementMethod(surface, flush)
 	Object_surface *pThis = Object_surface::GetThisObj(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_surface_flush(surface);
-	if (IsError(sig, surface)) return Value::Null;
+	if (Is_error(sig, surface)) return Value::Null;
 	return args.GetThis();
 }
 
@@ -235,7 +235,7 @@ Gura_ImplementMethod(surface, get_device)
 	Object_surface *pThis = Object_surface::GetThisObj(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	cairo_device_t *device = ::cairo_surface_get_device(surface);
-	if (IsError(sig, surface) || device == NULL) return Value::Null;
+	if (Is_error(sig, surface) || device == NULL) return Value::Null;
 	Object_device *pObjDevice = new Object_device(::cairo_device_reference(device));
 	return Value(pObjDevice);
 }
@@ -258,7 +258,7 @@ Gura_ImplementMethod(surface, get_font_options)
 	cairo_surface_t *surface = pThis->GetEntity();
 	cairo_font_options_t *options = ::cairo_font_options_create();
 	::cairo_surface_get_font_options(surface, options);
-	if (IsError(sig, surface)) {
+	if (Is_error(sig, surface)) {
 		::cairo_font_options_destroy(options);
 		return Value::Null;
 	}
@@ -281,7 +281,7 @@ Gura_ImplementMethod(surface, get_content)
 	Object_surface *pThis = Object_surface::GetThisObj(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	cairo_content_t content = ::cairo_surface_get_content(surface);
-	if (IsError(sig, surface)) return Value::Null;
+	if (Is_error(sig, surface)) return Value::Null;
 	return Value(content);
 }
 
@@ -300,7 +300,7 @@ Gura_ImplementMethod(surface, mark_dirty)
 	Object_surface *pThis = Object_surface::GetThisObj(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_surface_mark_dirty(surface);
-	if (IsError(sig, surface)) return Value::Null;
+	if (Is_error(sig, surface)) return Value::Null;
 	return args.GetThis();
 }
 
@@ -326,7 +326,7 @@ Gura_ImplementMethod(surface, mark_dirty_rectangle)
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_surface_mark_dirty_rectangle(surface,
 			args.GetInt(0), args.GetInt(1), args.GetInt(2), args.GetInt(3));
-	if (IsError(sig, surface)) return Value::Null;
+	if (Is_error(sig, surface)) return Value::Null;
 	return args.GetThis();
 }
 
@@ -353,7 +353,7 @@ Gura_ImplementMethod(surface, set_device_offset)
 	Object_surface *pThis = Object_surface::GetThisObj(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_surface_set_device_offset(surface, args.GetDouble(0), args.GetDouble(1));
-	if (IsError(sig, surface)) return Value::Null;
+	if (Is_error(sig, surface)) return Value::Null;
 	return args.GetThis();
 }
 
@@ -372,7 +372,7 @@ Gura_ImplementMethod(surface, get_device_offset)
 	cairo_surface_t *surface = pThis->GetEntity();
 	double x_offset, y_offset;
 	::cairo_surface_get_device_offset(surface, &x_offset, &y_offset);
-	if (IsError(sig, surface)) return Value::Null;
+	if (Is_error(sig, surface)) return Value::Null;
 	return CreateValueList(env, x_offset, y_offset);
 }
 
@@ -407,7 +407,7 @@ Gura_ImplementMethod(surface, set_fallback_resolution)
 	Object_surface *pThis = Object_surface::GetThisObj(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_surface_set_fallback_resolution(surface, args.GetDouble(0), args.GetDouble(1));
-	if (IsError(sig, surface)) return Value::Null;
+	if (Is_error(sig, surface)) return Value::Null;
 	return args.GetThis();
 }
 
@@ -426,7 +426,7 @@ Gura_ImplementMethod(surface, get_fallback_resolution)
 	cairo_surface_t *surface = pThis->GetEntity();
 	double x_pixels_per_inch, y_pixels_per_inch;
 	::cairo_surface_get_fallback_resolution(surface, &x_pixels_per_inch, &y_pixels_per_inch);
-	if (IsError(sig, surface)) return Value::Null;
+	if (Is_error(sig, surface)) return Value::Null;
 	return CreateValueList(env, x_pixels_per_inch, y_pixels_per_inch);
 }
 
@@ -444,7 +444,7 @@ Gura_ImplementMethod(surface, get_type)
 	Object_surface *pThis = Object_surface::GetThisObj(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	cairo_surface_type_t rtn = ::cairo_surface_get_type(surface);
-	if (IsError(sig, surface)) return Value::Null;
+	if (Is_error(sig, surface)) return Value::Null;
 	return Value(rtn);
 }
 
@@ -462,7 +462,7 @@ Gura_ImplementMethod(surface, get_reference_count)
 	Object_surface *pThis = Object_surface::GetThisObj(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	unsigned int rtn = cairo_surface_get_reference_count(surface);
-	if (IsError(sig, surface)) return Value::Null;
+	if (Is_error(sig, surface)) return Value::Null;
 	return Value(rtn);
 }
 
@@ -487,7 +487,7 @@ Gura_ImplementMethod(surface, copy_page)
 	Object_surface *pThis = Object_surface::GetThisObj(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_surface_copy_page(surface);
-	if (IsError(sig, surface)) return Value::Null;
+	if (Is_error(sig, surface)) return Value::Null;
 	return args.GetThis();
 }
 
@@ -508,7 +508,7 @@ Gura_ImplementMethod(surface, show_page)
 	Object_surface *pThis = Object_surface::GetThisObj(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	::cairo_surface_show_page(surface);
-	if (IsError(sig, surface)) return Value::Null;
+	if (Is_error(sig, surface)) return Value::Null;
 	return args.GetThis();
 }
 
@@ -531,7 +531,7 @@ Gura_ImplementMethod(surface, has_show_text_glyphs)
 	Object_surface *pThis = Object_surface::GetThisObj(args);
 	cairo_surface_t *surface = pThis->GetEntity();
 	bool rtn = ::cairo_surface_has_show_text_glyphs(surface)? true : false;
-	if (IsError(sig, surface)) return Value::Null;
+	if (Is_error(sig, surface)) return Value::Null;
 	return Value(rtn);
 }
 
@@ -655,7 +655,7 @@ Gura_ImplementMethod(surface, write_to_png)
 	std::auto_ptr<Writer_Stream> pWriter(new Writer_Stream(sig, 0, 0,
 											args.GetStream(0).Reference()));
 	::cairo_surface_write_to_png_stream(surface, Writer_Stream::write_func, pWriter.get());
-	if (IsError(sig, surface)) return Value::Null;
+	if (Is_error(sig, surface)) return Value::Null;
 	return args.GetThis();
 }
 
@@ -693,7 +693,7 @@ Gura_ImplementCastFrom(surface)
 {
 	Value valueCast(value);
 	env.LookupClass(VTYPE_image)->CastFrom(env, sig, valueCast, pDecl);
-	if (valueCast.IsImage()) {
+	if (valueCast.Is_image()) {
 		Image *pImage = Object_image::GetObject(valueCast)->GetImage();
 		cairo_surface_t *surface = CreateSurfaceFromImage(sig, pImage);
 		if (sig.IsSignalled()) return false;

@@ -168,7 +168,7 @@ void Class_codec::Prepare(Environment &env)
 
 bool Class_codec::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
-	if (value.IsString()) {
+	if (value.Is_string()) {
 		AutoPtr<Codec> pCodec(Codec::CreateCodec(sig, value.GetString(), true, false));
 		if (sig.IsSignalled()) return false;
 		value = Value(new Object_codec(env, pCodec.release()));

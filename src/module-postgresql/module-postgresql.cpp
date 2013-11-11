@@ -151,10 +151,10 @@ Gura_DeclareFunction(connect)
 
 Gura_ImplementFunction(connect)
 {
-	const char *pghost = args.IsString(0)? args.GetString(0) : NULL;
-	const char *login = args.IsString(1)? args.GetString(1) : NULL;
-	const char *pwd = args.IsString(2)? args.GetString(2) : NULL;
-	const char *dbName = args.IsString(3)? args.GetString(3) : NULL;
+	const char *pghost = args.Is_string(0)? args.GetString(0) : NULL;
+	const char *login = args.Is_string(1)? args.GetString(1) : NULL;
+	const char *pwd = args.Is_string(2)? args.GetString(2) : NULL;
+	const char *dbName = args.Is_string(3)? args.GetString(3) : NULL;
 	const char *pgport = NULL;
 	const char *pgoptions = NULL;
 	const char *pgtty = NULL;

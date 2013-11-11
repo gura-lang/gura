@@ -48,11 +48,11 @@ Value Object_BDF_Property::DoSetProp(Environment &env, Signal sig, const Symbol 
 	evaluatedFlag = true;
 #if 0
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		_vector.x = static_cast<FT_Pos>(value.GetLong());
 		return Value(_vector.x);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		_vector.y = static_cast<FT_Pos>(value.GetLong());
 		return Value(_vector.y);
 	}

@@ -47,7 +47,7 @@ Value Object_writer::DoSetProp(Environment &env, Signal sig, const Symbol *pSymb
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(format))) {
-		if (!value.IsString()) {
+		if (!value.Is_string()) {
 			sig.SetError(ERR_TypeError, "string must be specified");
 			return Value::Null;
 		}
@@ -75,11 +75,11 @@ bool Object_writer::PutValue(Environment &env, Signal sig, const Value &value)
 	String str;
 	if (value.IsInvalid()) {
 		return true;
-	} else if (value.IsNumber()) {
+	} else if (value.Is_number()) {
 		str = Formatter::Format(sig, _format.c_str(), ValueList(value));
-	} else if (value.IsComplex()) {
+	} else if (value.Is_complex()) {
 		str = Formatter::Format(sig, _format.c_str(), ValueList(value));
-	} else if (value.IsString()) {
+	} else if (value.Is_string()) {
 		str += '"';
 		for (const char *p = value.GetString(); *p != '\0'; p++) {
 			char ch = *p;
@@ -176,7 +176,7 @@ Gura_DeclareFunction(writer)
 Gura_ImplementFunction(writer)
 {
 	Object_stream *pObjStream = Object_stream::GetObject(args, 0);
-	const char *format = args.IsString(1)? args.GetString(1) : DEFAULT_FORMAT;
+	const char *format = args.Is_string(1)? args.GetString(1) : DEFAULT_FORMAT;
 	Object_writer *pObj = new Object_writer(
 						pObjStream->GetStream().Reference(), format);
 	return ReturnValue(env, sig, args, Value(pObj));
@@ -211,7 +211,7 @@ Gura_DeclareMethod(stream, csvwriter)
 Gura_ImplementMethod(stream, csvwriter)
 {
 	Object_stream *pThis = Object_stream::GetThisObj(args);
-	const char *format = args.IsString(1)? args.GetString(1) : DEFAULT_FORMAT;
+	const char *format = args.Is_string(1)? args.GetString(1) : DEFAULT_FORMAT;
 	Object_writer *pObj = new Object_writer(pThis->GetStream().Reference(), format);
 	return ReturnValue(env, sig, args, Value(pObj));
 }

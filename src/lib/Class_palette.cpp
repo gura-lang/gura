@@ -30,7 +30,7 @@ Iterator *Object_palette::CreateIterator(Signal sig)
 
 Value Object_palette::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 {
-	if (!valueIdx.IsNumber()) {
+	if (!valueIdx.Is_number()) {
 		sig.SetError(ERR_IndexError, "index must be a number");
 		return Value::Null;
 	}
@@ -44,7 +44,7 @@ Value Object_palette::IndexGet(Environment &env, Signal sig, const Value &valueI
 
 void Object_palette::IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value)
 {
-	if (!valueIdx.IsNumber()) {
+	if (!valueIdx.Is_number()) {
 		sig.SetError(ERR_IndexError, "index must be a number");
 		return;
 	}
@@ -53,7 +53,7 @@ void Object_palette::IndexSet(Environment &env, Signal sig, const Value &valueId
 		sig.SetError(ERR_IndexError, "index is out of range");
 		return;
 	}
-	if (value.IsColor()) {
+	if (value.Is_color()) {
 		_pPalette->SetColor(idx, Object_color::GetObject(value)->GetColor());
 	} else {
 		Value valueCasted = value;
@@ -97,9 +97,9 @@ Gura_DeclareFunction(palette)
 Gura_ImplementFunction(palette)
 {
 	AutoPtr<Palette> pPalette(new Palette());
-	if (args.IsSymbol(0)) {
+	if (args.Is_symbol(0)) {
 		if (!pPalette->Prepare(sig, args.GetSymbol(0))) return Value::Null;
-	} else if (args.IsNumber(0)) {
+	} else if (args.Is_number(0)) {
 		size_t nEntries = args.GetSizeT(0);
 		if (nEntries > 0xffff) {
 			sig.SetError(ERR_ValueError, "too large palette size");
@@ -173,12 +173,12 @@ Gura_ImplementMethod(palette, updateby)
 		shrinkMode = args.IsSet(Gura_Symbol(align))?
 					Palette::ShrinkAlign : Palette::ShrinkMinimum;
 	}
-	if (args.IsImage(0)) {
+	if (args.Is_image(0)) {
 		if (!pThis->GetPalette()->UpdateByImage(sig,
 				Object_image::GetObject(args, 0)->GetImage(), shrinkMode)) {
 			return Value::Null;
 		}
-	} else if (args.IsPalette(0)) {
+	} else if (args.Is_palette(0)) {
 		if (!pThis->GetPalette()->UpdateByPalette(sig,
 				Object_palette::GetObject(args, 0)->GetPalette(), shrinkMode)) {
 			return Value::Null;
@@ -226,7 +226,7 @@ void Class_palette::Prepare(Environment &env)
 
 bool Class_palette::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
-	if (value.IsSymbol()) {
+	if (value.Is_symbol()) {
 		AutoPtr<Palette> pPalette(new Palette());
 		if (!pPalette->Prepare(sig, value.GetSymbol())) return false;
 		value = Value(new Object_palette(env, pPalette.release()));

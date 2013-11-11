@@ -423,11 +423,11 @@ Value Object_wx_Size::DoSetProp(Environment &env, Signal sig, const Symbol *pSym
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		GetEntity()->x = value.GetInt();
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		GetEntity()->y = value.GetInt();
 		return value;
 	}

@@ -70,7 +70,7 @@ bool FormatterBase::DoFormat(Signal sig, const char *format, const ValueList &va
 			} else if (ch == '+') {
 				flags.plusMode = PLUSMODE_Plus;
 			} else if (ch == '*') {
-				if (!pValue->IsNumber()) {
+				if (!pValue->Is_number()) {
 					SetError_NumberIsExpected(sig,
 									"*, specifier of variable field length");
 					break;
@@ -98,12 +98,12 @@ bool FormatterBase::DoFormat(Signal sig, const char *format, const ValueList &va
 					PutInvalid(flags);
 					pValue++;
 					stat = STAT_Start;
-				} else if (pValue->IsNumber()) {
+				} else if (pValue->Is_number()) {
 					PutString(flags, Conv_d(flags,
 						static_cast<int>(pValue->GetNumber()), buff, sizeof(buff)));
 					pValue++;
 					stat = STAT_Start;
-				} else if (pValue->IsBoolean()) {
+				} else if (pValue->Is_boolean()) {
 					PutString(flags, Conv_d(flags,
 						static_cast<int>(pValue->GetBoolean()), buff, sizeof(buff)));
 					pValue++;
@@ -117,7 +117,7 @@ bool FormatterBase::DoFormat(Signal sig, const char *format, const ValueList &va
 					PutInvalid(flags);
 					pValue++;
 					stat = STAT_Start;
-				} else if (pValue->IsNumber()) {
+				} else if (pValue->Is_number()) {
 					PutString(flags, Conv_u(flags,
 						static_cast<UInt>(pValue->GetNumber()), buff, sizeof(buff)));
 					pValue++;
@@ -131,7 +131,7 @@ bool FormatterBase::DoFormat(Signal sig, const char *format, const ValueList &va
 					PutInvalid(flags);
 					pValue++;
 					stat = STAT_Start;
-				} else if (pValue->IsNumber()) {
+				} else if (pValue->Is_number()) {
 					PutString(flags, Conv_b(flags,
 						static_cast<UInt>(pValue->GetNumber()), buff, sizeof(buff)));
 					pValue++;
@@ -145,7 +145,7 @@ bool FormatterBase::DoFormat(Signal sig, const char *format, const ValueList &va
 					PutInvalid(flags);
 					pValue++;
 					stat = STAT_Start;
-				} else if (pValue->IsNumber()) {
+				} else if (pValue->Is_number()) {
 					PutString(flags, Conv_o(flags,
 						static_cast<UInt>(pValue->GetNumber()), buff, sizeof(buff)));
 					pValue++;
@@ -159,7 +159,7 @@ bool FormatterBase::DoFormat(Signal sig, const char *format, const ValueList &va
 					PutInvalid(flags);
 					pValue++;
 					stat = STAT_Start;
-				} else if (pValue->IsNumber()) {
+				} else if (pValue->Is_number()) {
 					PutString(flags, Conv_x(flags,
 						static_cast<UInt>(pValue->GetNumber()), buff, sizeof(buff),
 						ch == 'X'));
@@ -174,12 +174,12 @@ bool FormatterBase::DoFormat(Signal sig, const char *format, const ValueList &va
 					PutInvalid(flags);
 					pValue++;
 					stat = STAT_Start;
-				} else if (pValue->IsNumber()) {
+				} else if (pValue->Is_number()) {
 					PutString(flags, Conv_e(flags,
 						pValue->GetNumber(), buff, sizeof(buff), ch == 'E'));
 					pValue++;
 					stat = STAT_Start;
-				} else if (pValue->IsComplex()) {
+				} else if (pValue->Is_complex()) {
 					PutString(flags, Conv_e(flags,
 						pValue->GetComplex().real(), buff, sizeof(buff), ch == 'E'));
 					PlusMode plusMode = flags.plusMode;
@@ -199,12 +199,12 @@ bool FormatterBase::DoFormat(Signal sig, const char *format, const ValueList &va
 					PutInvalid(flags);
 					pValue++;
 					stat = STAT_Start;
-				} else if (pValue->IsNumber()) {
+				} else if (pValue->Is_number()) {
 					PutString(flags, Conv_f(flags,
 						pValue->GetNumber(), buff, sizeof(buff), ch == 'F'));
 					pValue++;
 					stat = STAT_Start;
-				} else if (pValue->IsComplex()) {
+				} else if (pValue->Is_complex()) {
 					PutString(flags, Conv_f(flags,
 						pValue->GetComplex().real(), buff, sizeof(buff), ch == 'F'));
 					PlusMode plusMode = flags.plusMode;
@@ -224,12 +224,12 @@ bool FormatterBase::DoFormat(Signal sig, const char *format, const ValueList &va
 					PutInvalid(flags);
 					pValue++;
 					stat = STAT_Start;
-				} else if (pValue->IsNumber()) {
+				} else if (pValue->Is_number()) {
 					PutString(flags, Conv_g(flags,
 						pValue->GetNumber(), buff, sizeof(buff), ch == 'G'));
 					pValue++;
 					stat = STAT_Start;
-				} else if (pValue->IsComplex()) {
+				} else if (pValue->Is_complex()) {
 					PutString(flags, Conv_g(flags,
 						pValue->GetComplex().real(), buff, sizeof(buff), ch == 'G'));
 					PlusMode plusMode = flags.plusMode;
@@ -285,7 +285,7 @@ bool FormatterBase::DoFormat(Signal sig, const char *format, const ValueList &va
 			}
 		} else if (stat == STAT_PrecisionPre) {
 			if (ch == '*') {
-				if (!pValue->IsNumber()) {
+				if (!pValue->Is_number()) {
 					SetError_NumberIsExpected(sig,
 									"*, specifier of variable precision");
 					break;

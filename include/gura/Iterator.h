@@ -102,7 +102,7 @@ public:
 	Iterator *While(Environment &env, Signal sig, const Value &criteria);
 	Iterator *Since(Environment &env, Signal sig, const Value &criteria, bool containFirstFlag);
 	Iterator *Until(Environment &env, Signal sig, const Value &criteria, bool containLastFlag);
-	bool IsContain(Environment &env, Signal sig, const Value &value);
+	bool DoesContain(Environment &env, Signal sig, const Value &value);
 	virtual String ToString() const;
 	static void SetError_InvalidDataTypeOfElement(Signal sig);
 	static void SetError_InfiniteNotAllowed(Signal sig);

@@ -532,11 +532,12 @@ public:
 	inline bool IsUndefined(size_t idxArg) const		{ return GetValue(idxArg).IsUndefined();		}
 	inline bool IsType(size_t idxArg, ValueType valType) const { return GetValue(idxArg).IsType(valType); }
 	// primitive types
-	inline bool IsSymbol(size_t idxArg) const			{ return GetValue(idxArg).IsSymbol();			}
-	inline bool IsBoolean(size_t idxArg) const			{ return GetValue(idxArg).IsBoolean();			}
-	inline bool IsNumber(size_t idxArg) const			{ return GetValue(idxArg).IsNumber();			}
-	inline bool IsComplex(size_t idxArg) const			{ return GetValue(idxArg).IsComplex();			}
-	inline bool IsFraction(size_t idxArg) const			{ return GetValue(idxArg).IsFraction();			}
+	inline bool Is_boolean(size_t idxArg) const			{ return GetValue(idxArg).Is_boolean();			}
+	inline bool Is_complex(size_t idxArg) const			{ return GetValue(idxArg).Is_complex();			}
+	inline bool Is_fraction(size_t idxArg) const		{ return GetValue(idxArg).Is_fraction();		}
+	inline bool Is_number(size_t idxArg) const			{ return GetValue(idxArg).Is_number();			}
+	inline bool Is_string(size_t idxArg) const			{ return GetValue(idxArg).Is_string();			}
+	inline bool Is_symbol(size_t idxArg) const			{ return GetValue(idxArg).Is_symbol();			}
 	inline bool IsNumberOrComplex(size_t idxArg) const	{ return GetValue(idxArg).IsNumberOrComplex();	}
 	// container types
 	inline bool IsModule(size_t idxArg) const			{ return GetValue(idxArg).IsModule();			}
@@ -544,31 +545,30 @@ public:
 	// object types
 	inline bool IsGenericObject(size_t idxArg) const	{ return GetValue(idxArg).IsGenericObject();	}
 	inline bool IsStruct(size_t idxArg) const			{ return GetValue(idxArg).IsStruct();			}
-	inline bool IsArgs(size_t idxArg) const				{ return GetValue(idxArg).IsArgs();				}
-	inline bool IsAudio(size_t idxArg) const			{ return GetValue(idxArg).IsAudio();			}
-	inline bool IsBinary(size_t idxArg) const			{ return GetValue(idxArg).IsBinary();			}
-	inline bool IsCodec(size_t idxArg) const			{ return GetValue(idxArg).IsCodec();			}
-	inline bool IsColor(size_t idxArg) const			{ return GetValue(idxArg).IsColor();			}
-	inline bool IsDateTime(size_t idxArg) const			{ return GetValue(idxArg).IsDateTime();			}
-	inline bool IsDeclaration(size_t idxArg) const		{ return GetValue(idxArg).IsDeclaration();		}
-	inline bool IsDict(size_t idxArg) const				{ return GetValue(idxArg).IsDict();				}
-	inline bool IsDirectory(size_t idxArg) const		{ return GetValue(idxArg).IsDirectory();		}
-	inline bool IsError(size_t idxArg) const			{ return GetValue(idxArg).IsError();			}
-	inline bool IsExpr(size_t idxArg) const				{ return GetValue(idxArg).IsExpr();				}
-	inline bool IsFunction(size_t idxArg) const			{ return GetValue(idxArg).IsFunction();			}
-	inline bool IsHelp(size_t idxArg) const				{ return GetValue(idxArg).IsHelp();				}
-	inline bool IsImage(size_t idxArg) const			{ return GetValue(idxArg).IsImage();			}
-	inline bool IsIterator(size_t idxArg) const			{ return GetValue(idxArg).IsIterator();			}
-	inline bool IsList(size_t idxArg) const				{ return GetValue(idxArg).IsList();				}
-	inline bool IsMatrix(size_t idxArg) const			{ return GetValue(idxArg).IsMatrix();			}
-	inline bool IsOperator(size_t idxArg) const			{ return GetValue(idxArg).IsOperator();			}
-	inline bool IsPalette(size_t idxArg) const			{ return GetValue(idxArg).IsPalette();			}
-	inline bool IsPointer(size_t idxArg) const			{ return GetValue(idxArg).IsPointer();			}
-	inline bool IsSemaphore(size_t idxArg) const		{ return GetValue(idxArg).IsSemaphore();		}
-	inline bool IsStream(size_t idxArg) const			{ return GetValue(idxArg).IsStream();			}
-	inline bool IsString(size_t idxArg) const			{ return GetValue(idxArg).IsString();			}
-	inline bool IsTimeDelta(size_t idxArg) const		{ return GetValue(idxArg).IsTimeDelta();		}
-	inline bool IsURI(size_t idxArg) const				{ return GetValue(idxArg).IsURI();				}
+	inline bool Is_args(size_t idxArg) const			{ return GetValue(idxArg).Is_args();			}
+	inline bool Is_audio(size_t idxArg) const			{ return GetValue(idxArg).Is_audio();			}
+	inline bool Is_binary(size_t idxArg) const			{ return GetValue(idxArg).Is_binary();			}
+	inline bool Is_codec(size_t idxArg) const			{ return GetValue(idxArg).Is_codec();			}
+	inline bool Is_color(size_t idxArg) const			{ return GetValue(idxArg).Is_color();			}
+	inline bool Is_datetime(size_t idxArg) const		{ return GetValue(idxArg).Is_datetime();		}
+	inline bool Is_declaration(size_t idxArg) const		{ return GetValue(idxArg).Is_declaration();		}
+	inline bool Is_dict(size_t idxArg) const			{ return GetValue(idxArg).Is_dict();			}
+	inline bool Is_directory(size_t idxArg) const		{ return GetValue(idxArg).Is_directory();		}
+	inline bool Is_error(size_t idxArg) const			{ return GetValue(idxArg).Is_error();			}
+	inline bool Is_expr(size_t idxArg) const			{ return GetValue(idxArg).Is_expr();			}
+	inline bool Is_function(size_t idxArg) const		{ return GetValue(idxArg).Is_function();		}
+	inline bool Is_help(size_t idxArg) const			{ return GetValue(idxArg).Is_help();			}
+	inline bool Is_image(size_t idxArg) const			{ return GetValue(idxArg).Is_image();			}
+	inline bool Is_iterator(size_t idxArg) const		{ return GetValue(idxArg).Is_iterator();		}
+	inline bool Is_list(size_t idxArg) const			{ return GetValue(idxArg).Is_list();			}
+	inline bool Is_matrix(size_t idxArg) const			{ return GetValue(idxArg).Is_matrix();			}
+	inline bool Is_operator(size_t idxArg) const		{ return GetValue(idxArg).Is_operator();		}
+	inline bool Is_palette(size_t idxArg) const			{ return GetValue(idxArg).Is_palette();			}
+	inline bool Is_pointer(size_t idxArg) const			{ return GetValue(idxArg).Is_pointer();			}
+	inline bool Is_semaphore(size_t idxArg) const		{ return GetValue(idxArg).Is_semaphore();		}
+	inline bool Is_stream(size_t idxArg) const			{ return GetValue(idxArg).Is_stream();			}
+	inline bool Is_timedelta(size_t idxArg) const		{ return GetValue(idxArg).Is_timedelta();		}
+	inline bool Is_uri(size_t idxArg) const				{ return GetValue(idxArg).Is_uri();				}
 	inline bool IsInstanceOf(size_t idxArg, ValueType valType) { return GetValue(idxArg).IsInstanceOf(valType); }
 	inline Number GetNumber(size_t idxArg) const		{ return GetValue(idxArg).GetNumber();	}
 	inline int GetInt(size_t idxArg) const				{ return GetValue(idxArg).GetInt();		}

@@ -233,7 +233,7 @@ Gura_DeclareFunction(exif)
 Gura_ImplementFunction(exif)
 {
 	Value value;
-	if (args.IsStream(0)) {
+	if (args.Is_stream(0)) {
 		Object_exif *pObj = Object_exif::ReadStream(env, sig, args.GetStream(0));
 		if (sig.IsSignalled()) return Value::Null;
 		if (pObj != NULL) {

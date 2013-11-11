@@ -67,7 +67,7 @@ void Class_directory::Prepare(Environment &env)
 
 bool Class_directory::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
-	if (value.IsString()) {
+	if (value.Is_string()) {
 		AutoPtr<Directory> pDirectory(Directory::Open(env, sig,
 									value.GetString(), PathManager::NF_Signal));
 		if (sig.IsSignalled()) return false;

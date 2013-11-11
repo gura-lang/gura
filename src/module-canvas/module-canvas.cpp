@@ -51,7 +51,7 @@ Anchor GetAnchor(const SymbolSet &attrs)
 //-----------------------------------------------------------------------------
 Color::Color(Signal sig, const Value &value)
 {
-	if (value.IsList()) {
+	if (value.Is_list()) {
 		const ValueList &valList = value.GetList();
 		size_t len = valList.size();
 		if (len < 3) {
@@ -61,7 +61,7 @@ Color::Color(Signal sig, const Value &value)
 		_red = valList[0].GetUChar();
 		_green = valList[1].GetUChar();
 		_blue = valList[2].GetUChar();
-	} else if (value.IsString()) {
+	} else if (value.Is_string()) {
 		const char *str = value.GetString();
 		if (*str == '#') str++;
 		char *strp;
@@ -74,7 +74,7 @@ Color::Color(Signal sig, const Value &value)
 			static_cast<UChar>(num >> 16),
 			static_cast<UChar>(num >> 8),
 			static_cast<UChar>(num >> 0));
-	} else if (value.IsSymbol()) {
+	} else if (value.Is_symbol()) {
 		const Symbol *pSymbol = value.GetSymbol();
 		if (pSymbol->IsIdentical(Gura_UserSymbol(black))) {
 			*this = Color(0, 0, 0);
@@ -416,7 +416,7 @@ void Device_EnhMetaFile::Polygon(Signal sig, const ValueList &pts, bool closeFla
 	ValueList::const_iterator ptp = pts.begin();
 	POINT *ptpDst = ptList;
 	foreach_const (ValueList, pValue, pts) {
-		if (!pValue->IsList()) {
+		if (!pValue->Is_list()) {
 			sig.SetError(ERR_ValueError, "element of point list must be a list");
 			return;
 		}
@@ -539,7 +539,7 @@ Gura_ImplementMethod(Canvas, setfont)
 	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
 	pObj->Device().SetFont(sig, args.GetNumber(0),
 			args.GetSymbol(1), args.GetSymbol(2), args.GetSymbol(3),
-			args.IsString(4)? args.GetString(4) : "");
+			args.Is_string(4)? args.GetString(4) : "");
 	return args.GetThis();
 }
 
@@ -609,8 +609,8 @@ Gura_ImplementMethod(Canvas, text)
 	Object_Canvas *pObj = Object_Canvas::GetThisObj(args);
 	pObj->Device().Text(sig, args.GetNumber(0), args.GetNumber(1),
 		args.GetString(2),
-		args.IsNumber(3)? args.GetNumber(3) : -1,
-		args.IsNumber(4)? args.GetNumber(4) : -1, GetAnchor(args.GetAttrs()));
+		args.Is_number(3)? args.GetNumber(3) : -1,
+		args.Is_number(4)? args.GetNumber(4) : -1, GetAnchor(args.GetAttrs()));
 	return args.GetThis();
 }
 
@@ -822,8 +822,8 @@ Gura_ImplementFunction(create_emf)
 {
 	Device *pDevice = new Device_EnhMetaFile(sig,
 		args.GetString(0), args.GetNumber(1), args.GetNumber(2),
-		args.IsString(3)? args.GetString(3) : NULL,
-		args.IsString(4)? args.GetString(4) : NULL);
+		args.Is_string(3)? args.GetString(3) : NULL,
+		args.Is_string(4)? args.GetString(4) : NULL);
 	if (sig.IsSignalled()) {
 		delete pDevice;
 		return Value::Null;

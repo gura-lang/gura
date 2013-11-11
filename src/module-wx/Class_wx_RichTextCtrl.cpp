@@ -2370,7 +2370,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, NumberList)
 	if (args.IsInvalid(1)) {
 		wxRichTextListStyleDefinition *style = NULL;
 		rtn = pThis->GetEntity()->NumberList(*range, style, flags, startFrom, listLevel);
-	} else if (args.IsString(1)) {
+	} else if (args.Is_string(1)) {
 		wxString styleName = wxString::FromUTF8(args.GetString(1));
 		rtn = pThis->GetEntity()->NumberList(*range, styleName, flags, startFrom, listLevel);
 	} else if (args.IsInstanceOf(1, VTYPE_wx_RichTextListStyleDefinition)) {
@@ -3117,7 +3117,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetListStyle)
 	int listLevel = -1;
 	if (args.IsValid(4)) listLevel = args.GetInt(4);
 	bool rtn = false;
-	if (args.IsString(1)) {
+	if (args.Is_string(1)) {
 		wxString styleName = wxString::FromUTF8(args.GetString(1));
 		rtn = pThis->GetEntity()->SetListStyle(*range, styleName, flags, startFrom, listLevel);
 	} else if (args.IsInstanceOf(1, VTYPE_wx_RichTextListStyleDefinition)) {

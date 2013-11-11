@@ -46,19 +46,19 @@ Value Object_rectangle::DoSetProp(Environment &env, Signal sig, const Symbol *pS
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		_rectangle.x = value.GetDouble();
 		return Value(_rectangle.x);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		_rectangle.y = value.GetDouble();
 		return Value(_rectangle.y);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(width))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		_rectangle.width = value.GetDouble();
 		return Value(_rectangle.width);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(height))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		_rectangle.height = value.GetDouble();
 		return Value(_rectangle.height);
 	}
@@ -98,10 +98,10 @@ Gura_DeclareFunction(rectangle)
 Gura_ImplementFunction(rectangle)
 {
 	cairo_rectangle_t rectangle;
-	rectangle.x = args.IsNumber(0)? args.GetDouble(0) : 0;
-	rectangle.y = args.IsNumber(1)? args.GetDouble(1) : 0;
-	rectangle.width = args.IsNumber(2)? args.GetDouble(2) : 0;
-	rectangle.height = args.IsNumber(3)? args.GetDouble(3) : 0;
+	rectangle.x = args.Is_number(0)? args.GetDouble(0) : 0;
+	rectangle.y = args.Is_number(1)? args.GetDouble(1) : 0;
+	rectangle.width = args.Is_number(2)? args.GetDouble(2) : 0;
+	rectangle.height = args.Is_number(3)? args.GetDouble(3) : 0;
 	AutoPtr<Object_rectangle> pObj(new Object_rectangle(rectangle));
 	return ReturnValue(env, sig, args, Value(pObj.release()));
 }

@@ -43,7 +43,7 @@ Value Object_matrix::EmptyIndexGet(Environment &env, Signal sig)
 
 Value Object_matrix::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 {
-	if (!valueIdx.IsNumber()) {
+	if (!valueIdx.Is_number()) {
 		sig.SetError(ERR_IndexError, "index must be a number for list");
 		return Value::Null;
 	}
@@ -89,7 +89,7 @@ Value Object_matrix::IndexGet(Environment &env, Signal sig, const Value &valueId
 
 void Object_matrix::IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value)
 {
-	if (!valueIdx.IsNumber()) {
+	if (!valueIdx.Is_number()) {
 		sig.SetError(ERR_IndexError, "index must be a number for list");
 		return;
 	}
@@ -107,12 +107,12 @@ void Object_matrix::IndexSet(Environment &env, Signal sig, const Value &valueIdx
 		}
 		if (_pMat->GetCols() == 1) {
 			*_pMat->GetPointer(idx, 0) = value;
-		} else if (value.IsMatrix()) {
+		} else if (value.Is_matrix()) {
 			
 			// todo
 			
 		} else {
-			AutoPtr<Iterator> pIterator((value.IsList() || value.IsIterator())?
+			AutoPtr<Iterator> pIterator((value.Is_list() || value.Is_iterator())?
 					value.CreateIterator(sig) : new Iterator_Constant(value));
 			if (sig.IsSignalled()) return;
 			_pMat->SetRow(env, sig, idx, *pIterator);
@@ -203,7 +203,7 @@ Gura_ImplementFunction(MatrixInit)
 	AutoPtr<Matrix> pMat(new Matrix(nRows, nCols));
 	ValueList &valListDst = pMat->GetList();
 	foreach_const (ValueList, pValue, valList) {
-		if (pValue->IsList()) {
+		if (pValue->Is_list()) {
 			foreach_const (ValueList, pValueElem, pValue->GetList()) {
 				valListDst.push_back(*pValueElem);
 			}
@@ -249,11 +249,11 @@ Gura_ImplementClassMethod(matrix, rotation)
 	bool transFlag = false;
 	double xTrans = 0;
 	double yTrans = 0;
-	if (args.IsNumber(1)) {
+	if (args.Is_number(1)) {
 		transFlag = true;
 		xTrans = args.GetDouble(1);
 	}
-	if (args.IsNumber(2)) {
+	if (args.Is_number(2)) {
 		transFlag = true;
 		yTrans = args.GetDouble(2);
 	}
@@ -281,15 +281,15 @@ Gura_ImplementClassMethod(matrix, rotation_x)
 	double xTrans = 0;
 	double yTrans = 0;
 	double zTrans = 0;
-	if (args.IsNumber(1)) {
+	if (args.Is_number(1)) {
 		transFlag = true;
 		xTrans = args.GetDouble(1);
 	}
-	if (args.IsNumber(2)) {
+	if (args.Is_number(2)) {
 		transFlag = true;
 		yTrans = args.GetDouble(2);
 	}
-	if (args.IsNumber(3)) {
+	if (args.Is_number(3)) {
 		transFlag = true;
 		zTrans = args.GetDouble(3);
 	}
@@ -317,15 +317,15 @@ Gura_ImplementClassMethod(matrix, rotation_y)
 	double xTrans = 0;
 	double yTrans = 0;
 	double zTrans = 0;
-	if (args.IsNumber(1)) {
+	if (args.Is_number(1)) {
 		transFlag = true;
 		xTrans = args.GetDouble(1);
 	}
-	if (args.IsNumber(2)) {
+	if (args.Is_number(2)) {
 		transFlag = true;
 		yTrans = args.GetDouble(2);
 	}
-	if (args.IsNumber(3)) {
+	if (args.Is_number(3)) {
 		transFlag = true;
 		zTrans = args.GetDouble(3);
 	}
@@ -353,15 +353,15 @@ Gura_ImplementClassMethod(matrix, rotation_z)
 	double xTrans = 0;
 	double yTrans = 0;
 	double zTrans = 0;
-	if (args.IsNumber(1)) {
+	if (args.Is_number(1)) {
 		transFlag = true;
 		xTrans = args.GetDouble(1);
 	}
-	if (args.IsNumber(2)) {
+	if (args.Is_number(2)) {
 		transFlag = true;
 		yTrans = args.GetDouble(2);
 	}
-	if (args.IsNumber(3)) {
+	if (args.Is_number(3)) {
 		transFlag = true;
 		zTrans = args.GetDouble(3);
 	}
@@ -381,7 +381,7 @@ Gura_DeclareMethod(matrix, set)
 Gura_ImplementMethod(matrix, set)
 {
 	Object_matrix *pThis = Object_matrix::GetThisObj(args);
-	AutoPtr<Iterator> pIterator((args.IsList(0) || args.IsIterator(0))?
+	AutoPtr<Iterator> pIterator((args.Is_list(0) || args.Is_iterator(0))?
 								args.GetValue(0).CreateIterator(sig) :
 								new Iterator_Constant(args.GetValue(0)));
 	if (sig.IsSignalled()) return Value::Null;
@@ -401,7 +401,7 @@ Gura_DeclareMethod(matrix, setrow)
 Gura_ImplementMethod(matrix, setrow)
 {
 	Object_matrix *pThis = Object_matrix::GetThisObj(args);
-	AutoPtr<Iterator> pIterator((args.IsList(1) || args.IsIterator(1))?
+	AutoPtr<Iterator> pIterator((args.Is_list(1) || args.Is_iterator(1))?
 								args.GetValue(1).CreateIterator(sig) :
 								new Iterator_Constant(args.GetValue(1)));
 	if (sig.IsSignalled()) return Value::Null;
@@ -421,7 +421,7 @@ Gura_DeclareMethod(matrix, setcol)
 Gura_ImplementMethod(matrix, setcol)
 {
 	Object_matrix *pThis = Object_matrix::GetThisObj(args);
-	AutoPtr<Iterator> pIterator((args.IsList(1) || args.IsIterator(1))?
+	AutoPtr<Iterator> pIterator((args.Is_list(1) || args.Is_iterator(1))?
 								args.GetValue(1).CreateIterator(sig) :
 								new Iterator_Constant(args.GetValue(1)));
 	if (sig.IsSignalled()) return Value::Null;

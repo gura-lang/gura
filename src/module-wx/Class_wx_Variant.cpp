@@ -89,17 +89,17 @@ Gura_ImplementFunction(Variant)
 	wx_Variant *pEntity = NULL;
 	wxString name = wxEmptyString;
 	if (args.IsValid(1)) name = wxString::FromUTF8(args.GetString(1));
-	if (args.IsString(0)) {
+	if (args.Is_string(0)) {
 		pEntity = new wx_Variant(args.GetString(0), name);
-	} else if (args.IsNumber(0)) {
+	} else if (args.Is_number(0)) {
 		pEntity = new wx_Variant(args.GetLong(0), name);
-	} else if (args.IsBoolean(0)) {
+	} else if (args.Is_boolean(0)) {
 		pEntity = new wx_Variant(args.GetBoolean(0), name);
-	} else if (args.IsList(0)) {
+	} else if (args.Is_list(0)) {
 		wxArrayString val;
 		foreach_const (ValueList, pValue, args.GetList(0)) {
 			const Value &value = *pValue;
-			if (!value.IsString()) {
+			if (!value.Is_string()) {
 				sig.SetError(ERR_TypeError, "elements in the list must be string");
 				return Value::Null;
 			}

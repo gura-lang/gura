@@ -258,9 +258,9 @@ Gura_DeclareMethod(expr, genscript)
 Gura_ImplementMethod(expr, genscript)
 {
 	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
-	Stream *pStream = args.IsStream(0)? &args.GetStream(0) : env.GetConsole();
+	Stream *pStream = args.Is_stream(0)? &args.GetStream(0) : env.GetConsole();
 	Expr::ScriptStyle scriptStyle = Expr::SCRSTYLE_Fancy;
-	if (args.IsSymbol(1)) {
+	if (args.Is_symbol(1)) {
 		const Symbol *pSymbol = args.GetSymbol(1);
 		scriptStyle = Expr::SymbolToScriptStyle(pSymbol);
 		if (scriptStyle == Expr::SCRSTYLE_None) {
@@ -345,7 +345,7 @@ void Class_expr::Prepare(Environment &env)
 
 bool Class_expr::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
-	if (value.IsSymbol()) {		// cast Symbol to Expr
+	if (value.Is_symbol()) {		// cast Symbol to Expr
 		const Symbol *pSymbol = value.GetSymbol();
 		value = Value(new Object_expr(env, new Expr_Symbol(pSymbol)));
 		return true;

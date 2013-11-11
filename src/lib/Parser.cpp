@@ -834,7 +834,7 @@ Expr_Root *Parser::ParseStream(Environment &env, Signal sig, Stream &stream)
 			if (!sig.IsDetectEncoding()) return NULL;
 			sig.ClearSignal();
 			Value value = sig.GetValue();
-			if (value.IsString()) {
+			if (value.Is_string()) {
 				const char *encoding = value.GetString();
 				AutoPtr<Codec> pCodec(Codec::CreateCodec(sig, encoding, true, false));
 				if (sig.IsSignalled()) return NULL;

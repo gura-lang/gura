@@ -229,13 +229,13 @@ Value Iterator::Sum(Environment &env, Signal sig, size_t &cnt)
 	Value value;
 	if (!Next(env, sig, value)) return Value::Null;
 	cnt++;
-	if (value.IsNumber()) {
+	if (value.Is_number()) {
 		Number result = value.GetNumber();
 		while (Next(env, sig, value)) {
 			cnt++;
-			if (value.IsNumber()) {
+			if (value.Is_number()) {
 				result += value.GetNumber();
-			} else if (value.IsComplex()) {
+			} else if (value.Is_complex()) {
 				Complex resultEx = result;
 				while (Next(env, sig, value)) {
 					cnt++;
@@ -255,7 +255,7 @@ Value Iterator::Sum(Environment &env, Signal sig, size_t &cnt)
 		}
 		if (sig.IsSignalled()) return Value::Null;
 		return Value(result);
-	} else if (value.IsComplex()) {
+	} else if (value.Is_complex()) {
 		Complex result = value.GetComplex();
 		while (Next(env, sig, value)) {
 			cnt++;
@@ -281,9 +281,9 @@ Value Iterator::Average(Environment &env, Signal sig, size_t &cnt)
 		return Value::Null;
 	}
 	Value valueSum = Clone()->Sum(env, sig, cnt);
-	if (valueSum.IsNumber()) {
+	if (valueSum.Is_number()) {
 		return Value(valueSum.GetNumber() / static_cast<Number>(cnt));
-	} else if (valueSum.IsComplex()) {
+	} else if (valueSum.Is_complex()) {
 		return Value(valueSum.GetComplex() / static_cast<Number>(cnt));
 	} else {
 		return Value::Null;
@@ -302,7 +302,7 @@ Value Iterator::Variance(Environment &env, Signal sig, size_t &cnt)
 	if (!valueAve.IsNumberOrComplex()) return Value::Null;
 	Value value;
 	if (!Next(env, sig, value)) return Value::Null;
-	if (value.IsNumber() && valueAve.IsNumber()) {
+	if (value.Is_number() && valueAve.Is_number()) {
 		Number result;
 		Number average = valueAve.GetNumber();
 		do {
@@ -310,10 +310,10 @@ Value Iterator::Variance(Environment &env, Signal sig, size_t &cnt)
 			result = tmp * tmp;
 		} while (0);
 		while (Next(env, sig, value)) {
-			if (value.IsNumber()) {
+			if (value.Is_number()) {
 				Number tmp = value.GetNumber() - average;
 				result += tmp * tmp;
-			} else if (value.IsComplex()) {
+			} else if (value.Is_complex()) {
 				while (Next(env, sig, value)) {
 					if (value.IsNumberOrComplex()) {
 						Complex tmp = value.GetComplex() - average;
@@ -361,7 +361,7 @@ Value Iterator::StandardDeviation(Environment &env, Signal sig, size_t &cnt)
 		return Value::Null;
 	}
 	Value valueVar = Clone()->Variance(env, sig, cnt);
-	if (!valueVar.IsNumber()) return Value::Null;
+	if (!valueVar.Is_number()) return Value::Null;
 	return Value(::sqrt(valueVar.GetNumber()));
 }
 
@@ -399,7 +399,7 @@ Value Iterator::Or(Environment &env, Signal sig)
 
 size_t Iterator::Find(Environment &env, Signal sig, const Value &criteria, Value &value)
 {
-	if (criteria.IsFunction()) {
+	if (criteria.Is_function()) {
 		if (IsInfinite()) {
 			SetError_InfiniteNotAllowed(sig);
 			return InvalidSize;
@@ -413,7 +413,7 @@ size_t Iterator::Find(Environment &env, Signal sig, const Value &criteria, Value
 			if (valueFlag.GetBoolean()) return GetCountNext() - 1;
 		}
 		if (sig.IsSignalled()) return InvalidSize;
-	} else if (criteria.IsList() || criteria.IsIterator()) {
+	} else if (criteria.Is_list() || criteria.Is_iterator()) {
 		AutoPtr<Iterator> pIteratorCriteria(criteria.CreateIterator(sig));
 		if (sig.IsSignalled()) return InvalidSize;
 		if (IsInfinite() && pIteratorCriteria->IsInfinite()) {
@@ -453,7 +453,7 @@ size_t Iterator::Count(Environment &env, Signal sig, const Value &criteria)
 		return 0;
 	}
 	size_t cnt = 0;
-	if (criteria.IsFunction()) {
+	if (criteria.Is_function()) {
 		const Function *pFunc = criteria.GetFunction();
 		Value value;
 		while (Next(env, sig, value)) {
@@ -489,11 +489,11 @@ size_t Iterator::CountTrue(Environment &env, Signal sig)
 
 Iterator *Iterator::Filter(Environment &env, Signal sig, const Value &criteria)
 {
-	if (criteria.IsFunction()) {
+	if (criteria.Is_function()) {
 		Object_function *pFuncObjCriteria =
 			Object_function::Reference(Object_function::GetObject(criteria));
 		return new Iterator_FilterWithFunc(new Environment(env), this, pFuncObjCriteria);
-	} else if (criteria.IsList() || criteria.IsIterator()) {
+	} else if (criteria.Is_list() || criteria.Is_iterator()) {
 		Iterator *pIteratorCriteria = criteria.CreateIterator(sig);
 		if (sig.IsSignalled()) return NULL;
 		return new Iterator_FilterWithIter(this, pIteratorCriteria);
@@ -505,11 +505,11 @@ Iterator *Iterator::Filter(Environment &env, Signal sig, const Value &criteria)
 
 Iterator *Iterator::While(Environment &env, Signal sig, const Value &criteria)
 {
-	if (criteria.IsFunction()) {
+	if (criteria.Is_function()) {
 		Object_function *pFuncObjCriteria = 
 			Object_function::Reference(Object_function::GetObject(criteria));
 		return new Iterator_WhileWithFunc(new Environment(env), this, pFuncObjCriteria);
-	} else if (criteria.IsList() || criteria.IsIterator()) {
+	} else if (criteria.Is_list() || criteria.Is_iterator()) {
 		Iterator *pIteratorCriteria = criteria.CreateIterator(sig);
 		if (sig.IsSignalled()) return NULL;
 		return new Iterator_WhileWithIter(this, pIteratorCriteria);
@@ -522,11 +522,11 @@ Iterator *Iterator::While(Environment &env, Signal sig, const Value &criteria)
 Iterator *Iterator::Since(Environment &env, Signal sig,
 									const Value &criteria, bool containFirstFlag)
 {
-	if (criteria.IsFunction()) {
+	if (criteria.Is_function()) {
 		Object_function *pFuncObjCriteria = 
 			Object_function::Reference(Object_function::GetObject(criteria));
 		return new Iterator_SinceWithFunc(new Environment(env), this, pFuncObjCriteria, containFirstFlag);
-	} else if (criteria.IsList() || criteria.IsIterator()) {
+	} else if (criteria.Is_list() || criteria.Is_iterator()) {
 		Iterator *pIteratorCriteria = criteria.CreateIterator(sig);
 		if (sig.IsSignalled()) return NULL;
 		return new Iterator_SinceWithIter(this, pIteratorCriteria, containFirstFlag);
@@ -539,11 +539,11 @@ Iterator *Iterator::Since(Environment &env, Signal sig,
 Iterator *Iterator::Until(Environment &env, Signal sig,
 									const Value &criteria, bool containLastFlag)
 {
-	if (criteria.IsFunction()) {
+	if (criteria.Is_function()) {
 		Object_function *pFuncObjCriteria = 
 			Object_function::Reference(Object_function::GetObject(criteria));
 		return new Iterator_UntilWithFunc(new Environment(env), this, pFuncObjCriteria, containLastFlag);
-	} else if (criteria.IsList() || criteria.IsIterator()) {
+	} else if (criteria.Is_list() || criteria.Is_iterator()) {
 		Iterator *pIteratorCriteria = criteria.CreateIterator(sig);
 		if (sig.IsSignalled()) return NULL;
 		return new Iterator_UntilWithIter(this, pIteratorCriteria, containLastFlag);
@@ -553,7 +553,7 @@ Iterator *Iterator::Until(Environment &env, Signal sig,
 	}
 }
 
-bool Iterator::IsContain(Environment &env, Signal sig, const Value &value)
+bool Iterator::DoesContain(Environment &env, Signal sig, const Value &value)
 {
 	if (IsInfinite()) {
 		SetError_InfiniteNotAllowed(sig);

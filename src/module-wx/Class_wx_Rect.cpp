@@ -845,19 +845,19 @@ Value Object_wx_Rect::DoSetProp(Environment &env, Signal sig, const Symbol *pSym
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		GetEntity()->x = value.GetInt();
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		GetEntity()->y = value.GetInt();
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(width))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		GetEntity()->width = value.GetInt();
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(height))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		GetEntity()->height = value.GetInt();
 		return value;
 	}

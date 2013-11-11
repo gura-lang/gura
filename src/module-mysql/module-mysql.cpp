@@ -148,10 +148,10 @@ Gura_DeclareFunction(connect)
 
 Gura_ImplementFunction(connect)
 {
-	const char *host = args.IsString(0)? args.GetString(0) : NULL;
-	const char *user = args.IsString(1)? args.GetString(1) : NULL;
-	const char *passwd = args.IsString(2)? args.GetString(2) : NULL;
-	const char *db = args.IsString(3)? args.GetString(3) : NULL;
+	const char *host = args.Is_string(0)? args.GetString(0) : NULL;
+	const char *user = args.Is_string(1)? args.GetString(1) : NULL;
+	const char *passwd = args.Is_string(2)? args.GetString(2) : NULL;
+	const char *db = args.Is_string(3)? args.GetString(3) : NULL;
 	unsigned int port = 0;
 	const char *unix_socket = NULL;
 	unsigned long client_flag = 0;

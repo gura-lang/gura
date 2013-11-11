@@ -333,7 +333,7 @@ Function *Environment::LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMo
 	if (envRefMode == ENVREF_NoEscalate || envRefMode == ENVREF_Module) {
 		Frame *pFrame = const_cast<Frame *>(GetTopFrame());
 		Value *pValue = pFrame->LookupValue(pSymbol);
-		if (pValue != NULL && pValue->IsFunction()) {
+		if (pValue != NULL && pValue->Is_function()) {
 			return pValue->GetFunction();
 		}
 	} else if (envType == ENVTYPE_object || envType == ENVTYPE_class) {
@@ -341,7 +341,7 @@ Function *Environment::LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMo
 			Frame *pFrame = *ppFrame;
 			if (pFrame->IsType(ENVTYPE_object)) {
 				Value *pValue = pFrame->LookupValue(pSymbol);
-				if (pValue != NULL && pValue->IsFunction()) {
+				if (pValue != NULL && pValue->Is_function()) {
 					return pValue->GetFunction();
 				}
 			} else if (pFrame->IsType(ENVTYPE_class)) {
@@ -349,7 +349,7 @@ Function *Environment::LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMo
 					cntSuperSkip--;
 				} else {
 					Value *pValue = pFrame->LookupValue(pSymbol);
-					if (pValue != NULL && pValue->IsFunction()) {
+					if (pValue != NULL && pValue->Is_function()) {
 						return pValue->GetFunction();
 					}
 				}
@@ -359,7 +359,7 @@ Function *Environment::LookupFunction(const Symbol *pSymbol, EnvRefMode envRefMo
 		foreach_const (FrameOwner, ppFrame, _frameOwner) {
 			Frame *pFrame = *ppFrame;
 			Value *pValue = pFrame->LookupValue(pSymbol);
-			if (pValue != NULL && pValue->IsFunction()) {
+			if (pValue != NULL && pValue->Is_function()) {
 				return pValue->GetFunction();
 			}
 		}
@@ -417,7 +417,7 @@ const ValueTypeInfo *Environment::LookupValueType(Signal sig, const ValueList &v
 {
 	SymbolList symbolList;
 	foreach_const_reverse (ValueList, pValue, valList) {
-		if (!pValue->IsExpr()) {
+		if (!pValue->Is_expr()) {
 			sig.SetError(ERR_TypeError, "expr must be specified");
 			return NULL;
 		}
@@ -746,7 +746,7 @@ bool Environment::SearchSeparatedModuleFile(Signal sig, String &pathName,
 	if (pValDirNameList == NULL) {
 		sig.SetError(ERR_ImportError, "variable path is not specified");
 		return false;
-	} else if (!pValDirNameList->IsList()) {
+	} else if (!pValDirNameList->Is_list()) {
 		sig.SetError(ERR_ImportError, "variable path must be a list");
 		return false;
 	}
@@ -757,7 +757,7 @@ bool Environment::SearchSeparatedModuleFile(Signal sig, String &pathName,
 	extNameList.push_back("gurd");
 	String baseName = SymbolList::Join(ppSymbolOfModule, ppSymbolOfModuleEnd, '.'); //OAL::FileSeparator
 	foreach_const (ValueList, pValue, pValDirNameList->GetList()) {
-		if (!pValue->IsString()) {
+		if (!pValue->Is_string()) {
 			sig.SetError(ERR_ImportError, "elements of variable path must be strings");
 			return false;
 		}
@@ -853,7 +853,7 @@ const char *Environment::GetPrompt(bool indentFlag)
 {
 	Value *pValue = GetGlobal()->GetModule_sys()->LookupValue(
 			indentFlag? Gura_Symbol(ps2) : Gura_Symbol(ps1), ENVREF_NoEscalate);
-	return (pValue == NULL || !pValue->IsString())? "" : pValue->GetString();
+	return (pValue == NULL || !pValue->Is_string())? "" : pValue->GetString();
 }
 
 Stream *Environment::GetConsole()

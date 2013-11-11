@@ -51,7 +51,7 @@ String Object_dict::ToString(bool exprFlag)
 			break;
 		}
 		const Value &value = iter->first;
-		if (value.IsString()) {
+		if (value.Is_string()) {
 			str += MakeQuotedString(value.GetString());
 		} else {
 			str += value.ToString(false);
@@ -231,7 +231,7 @@ Gura_ImplementFunction(dict)
 	Object_dict *pObj = new Object_dict(env, new ValueDict(args.IsSet(Gura_Symbol(icase))));
 	ValueDict &valDict = pObj->GetDict();
 	ValueDict::StoreMode storeMode = ValueDict::STORE_Normal;
-	if (args.GetValue(0).IsList() &&
+	if (args.GetValue(0).Is_list() &&
 					!valDict.Store(sig, args.GetList(0), storeMode)) {
 		return Value::Null;
 	}
@@ -388,11 +388,11 @@ Gura_ImplementMethod(dict, store)
 	ValueDict &valDict = pThis->GetDict();
 	ValueDict::StoreMode storeMode = args.IsSet(Gura_Symbol(default_))?
 					ValueDict::STORE_Default : ValueDict::STORE_AllowDup;
-	if (args.GetValue(0).IsList()) {
+	if (args.GetValue(0).Is_list()) {
 		if (!valDict.Store(sig, args.GetList(0), storeMode)) {
 			return Value::Null;
 		}
-	} else if (args.GetValue(0).IsDict()) {
+	} else if (args.GetValue(0).Is_dict()) {
 		if (!valDict.Store(sig, args.GetDict(0), storeMode)) {
 			return Value::Null;
 		}

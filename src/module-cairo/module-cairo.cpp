@@ -644,51 +644,51 @@ bool IsInvalid(Signal sig, cairo_t *cr)
 	return false;
 }
 
-bool IsError(Signal sig, cairo_status_t status)
+bool Is_error(Signal sig, cairo_status_t status)
 {
 	if (status == CAIRO_STATUS_SUCCESS) return false;
 	sig.SetError(ERR_RuntimeError, "%s", ::cairo_status_to_string(status));
 	return true;
 }
 
-bool IsError(Signal sig, cairo_t *cr)
+bool Is_error(Signal sig, cairo_t *cr)
 {
-	return IsError(sig, ::cairo_status(cr));
+	return Is_error(sig, ::cairo_status(cr));
 }
 
-bool IsError(Signal sig, cairo_pattern_t *pattern)
+bool Is_error(Signal sig, cairo_pattern_t *pattern)
 {
-	return IsError(sig, ::cairo_pattern_status(pattern));
+	return Is_error(sig, ::cairo_pattern_status(pattern));
 }
 
-bool IsError(Signal sig, cairo_region_t *region)
+bool Is_error(Signal sig, cairo_region_t *region)
 {
-	return IsError(sig, ::cairo_region_status(region));
+	return Is_error(sig, ::cairo_region_status(region));
 }
 
-bool IsError(Signal sig, cairo_font_face_t *font_face)
+bool Is_error(Signal sig, cairo_font_face_t *font_face)
 {
-	return IsError(sig, ::cairo_font_face_status(font_face));
+	return Is_error(sig, ::cairo_font_face_status(font_face));
 }
 
-bool IsError(Signal sig, cairo_scaled_font_t *scaled_font)
+bool Is_error(Signal sig, cairo_scaled_font_t *scaled_font)
 {
-	return IsError(sig, ::cairo_scaled_font_status(scaled_font));
+	return Is_error(sig, ::cairo_scaled_font_status(scaled_font));
 }
 
-bool IsError(Signal sig, cairo_device_t *device)
+bool Is_error(Signal sig, cairo_device_t *device)
 {
-	return IsError(sig, ::cairo_device_status(device));
+	return Is_error(sig, ::cairo_device_status(device));
 }
 
-bool IsError(Signal sig, cairo_surface_t *surface)
+bool Is_error(Signal sig, cairo_surface_t *surface)
 {
-	return IsError(sig, ::cairo_surface_status(surface));
+	return Is_error(sig, ::cairo_surface_status(surface));
 }
 
-bool IsError(Signal sig, cairo_font_options_t *options)
+bool Is_error(Signal sig, cairo_font_options_t *options)
 {
-	return IsError(sig, ::cairo_font_options_status(options));
+	return Is_error(sig, ::cairo_font_options_status(options));
 }
 
 const char *SurfaceTypeToName(cairo_surface_type_t surface_type)

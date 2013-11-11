@@ -45,29 +45,29 @@ Tcl_Obj *Object_interp::ConvToTclObj(Environment &env, Signal sig, const Value &
 {
 	if (value.IsInvalid()) {
 		return ::Tcl_NewStringObj("", 0);
-	} else if (value.IsBoolean()) {
+	} else if (value.Is_boolean()) {
 		return ::Tcl_NewBooleanObj(value.GetBoolean());
-	} else if (value.IsBinary()) {
+	} else if (value.Is_binary()) {
 		const Binary &binary = value.GetBinary();
 		return ::Tcl_NewByteArrayObj(
 			reinterpret_cast<const unsigned char *>(binary.data()), static_cast<int>(binary.size()));
-	} else if (value.IsNumber()) {
+	} else if (value.Is_number()) {
 		Number num = value.GetNumber();
 		if (static_cast<Number>(static_cast<long>(num)) == num) {
 			return ::Tcl_NewLongObj(static_cast<long>(num));
 		} else {
 			return ::Tcl_NewDoubleObj(num);
 		}
-	} else if (value.IsList()) {
+	} else if (value.Is_list()) {
 		int objc;
 		Tcl_Obj **objv = CreateTclObjArray(env, sig, value.GetList(), &objc);
 		if (!sig.IsSignalled()) {
 			return ::Tcl_NewListObj(objc, objv);
 		}
-	} else if (value.IsString()) {
+	} else if (value.Is_string()) {
 		const char *str = value.GetString();
 		return ::Tcl_NewStringObj(str, static_cast<int>(::strlen(str)));
-	} else if (value.IsFunction()) {
+	} else if (value.Is_function()) {
 		Handler *pHandler = new Handler(Object_interp::Reference(this),
 				Object_function::Reference(Object_function::GetObject(value)), sig);
 		String cmdName = NewCommandName();
@@ -341,7 +341,7 @@ Gura_ImplementMethod(interp, variable)
 	Object_interp *pThis = Object_interp::GetThisObj(args);
 	Object_interp *pObjInterp = Object_interp::Reference(pThis);
 	String varName;
-	if (args.IsString(1)) {
+	if (args.Is_string(1)) {
 		varName = args.GetString(1);
 	} else {
 		varName = pObjInterp->NewVariableName();
@@ -477,7 +477,7 @@ Value Object_variable::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 	if (pSymbol->IsIdentical(Gura_Symbol(boolean))) {
 		Value value = Get(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		if (value.IsString()) {
+		if (value.Is_string()) {
 			if (*value.GetString() == '\0') {
 				value = Value(false);
 			} else {
@@ -485,9 +485,9 @@ Value Object_variable::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 				Number num = value.ToNumber(true, successFlag);
 				value = Value(successFlag? (num != 0) : true);
 			}
-		} else if (value.IsNumber()) {
+		} else if (value.Is_number()) {
 			value = Value(value.GetNumber() != 0);
-		} else if (!value.IsBoolean()) {
+		} else if (!value.Is_boolean()) {
 			bool flag = value.GetBoolean();
 			value = Value(flag);
 		}
@@ -496,7 +496,7 @@ Value Object_variable::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 	} else if (pSymbol->IsIdentical(Gura_Symbol(string))) {
 		Value value = Get(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		if (!value.IsString()) {
+		if (!value.Is_string()) {
 			String str = value.ToString(false);
 			if (sig.IsSignalled()) return Value::Null;
 			value = Value(env, str.c_str());
@@ -506,7 +506,7 @@ Value Object_variable::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 	} else if (pSymbol->IsIdentical(Gura_Symbol(number))) {
 		Value value = Get(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
-		if (!value.IsNumber()) {
+		if (!value.Is_number()) {
 			bool successFlag;
 			Number num = value.ToNumber(true, successFlag);
 			value = Value(num);
@@ -651,8 +651,8 @@ Gura_ImplementMethod(timer, start)
 	const Function *pFuncBlock =
 					args.GetBlockFunc(env, sig, GetSymbolForBlock());
 	int msec = args.GetInt(0);
-	int msecCont = args.IsNumber(1)? args.GetInt(1) : msec;
-	int cnt = args.IsNumber(2)? args.GetInt(2) : -1;
+	int msecCont = args.Is_number(1)? args.GetInt(1) : msec;
+	int cnt = args.Is_number(2)? args.GetInt(2) : -1;
 	pThis->Start(sig, pFuncBlock, msec, msecCont, cnt);
 	return args.GetThis();
 }

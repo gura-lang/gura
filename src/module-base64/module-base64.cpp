@@ -33,7 +33,7 @@ Gura_DeclareFunction(writer)
 Gura_ImplementFunction(writer)
 {
 	Stream &stream = args.GetStream(0);
-	int nCharsPerLine = args.IsNumber(1)? args.GetInt(1) : -1;
+	int nCharsPerLine = args.Is_number(1)? args.GetInt(1) : -1;
 	AutoPtr<Stream> pStream(new Stream_Base64Writer(env, sig,
 								stream.Reference(), nCharsPerLine));
 	return Value(new Object_stream(env, pStream.release()));
@@ -67,7 +67,7 @@ Gura_DeclareFunction(encode)
 
 Gura_ImplementFunction(encode)
 {
-	int nCharsPerLine = args.IsNumber(1)? args.GetInt(1) : -1;
+	int nCharsPerLine = args.Is_number(1)? args.GetInt(1) : -1;
 	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
 	Stream &streamSrc = args.GetStream(0);
 	AutoPtr<Stream> pStreamDst(new Stream_Base64Writer(env, sig,
@@ -101,7 +101,7 @@ Gura_DeclareMethod(stream, base64writer)
 
 Gura_ImplementMethod(stream, base64writer)
 {
-	int nCharsPerLine = args.IsNumber(0)? args.GetInt(0) : -1;
+	int nCharsPerLine = args.Is_number(0)? args.GetInt(0) : -1;
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	AutoPtr<Stream> pStream(new Stream_Base64Writer(env, sig,
 								stream.Reference(), nCharsPerLine));

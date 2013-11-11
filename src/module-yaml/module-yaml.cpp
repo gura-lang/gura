@@ -471,7 +471,7 @@ bool ExecEmitter(Environment &env, Signal sig, yaml_emitter_t &emitter,
 bool ExecEmitterSub(Environment &env, Signal sig,
 								yaml_emitter_t &emitter, const Value &value)
 {
-	if (value.IsList()) {
+	if (value.Is_list()) {
 		do {
 			yaml_char_t *anchor = NULL;
 			yaml_char_t *tag = NULL;
@@ -495,7 +495,7 @@ bool ExecEmitterSub(Environment &env, Signal sig,
 				return false;
 			}
 		} while (0);
-	} else if (value.IsDict()) {
+	} else if (value.Is_dict()) {
 		do {
 			yaml_char_t *anchor = NULL;
 			yaml_char_t *tag = NULL;

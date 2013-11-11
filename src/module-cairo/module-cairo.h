@@ -125,15 +125,15 @@ public:
 // Error handling
 //-----------------------------------------------------------------------------
 bool IsInvalid(Signal sig, cairo_t *cr);
-bool IsError(Signal sig, cairo_status_t status);
-bool IsError(Signal sig, cairo_t *cr);
-bool IsError(Signal sig, cairo_pattern_t *pattern);
-bool IsError(Signal sig, cairo_region_t *region);
-bool IsError(Signal sig, cairo_font_face_t *font_face);
-bool IsError(Signal sig, cairo_scaled_font_t *scaled_font);
-bool IsError(Signal sig, cairo_device_t *device);
-bool IsError(Signal sig, cairo_surface_t *surface);
-bool IsError(Signal sig, cairo_font_options_t *options);
+bool Is_error(Signal sig, cairo_status_t status);
+bool Is_error(Signal sig, cairo_t *cr);
+bool Is_error(Signal sig, cairo_pattern_t *pattern);
+bool Is_error(Signal sig, cairo_region_t *region);
+bool Is_error(Signal sig, cairo_font_face_t *font_face);
+bool Is_error(Signal sig, cairo_scaled_font_t *scaled_font);
+bool Is_error(Signal sig, cairo_device_t *device);
+bool Is_error(Signal sig, cairo_surface_t *surface);
+bool Is_error(Signal sig, cairo_font_options_t *options);
 
 //-----------------------------------------------------------------------------
 // Value converter

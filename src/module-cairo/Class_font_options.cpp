@@ -70,7 +70,7 @@ Gura_ImplementMethod(font_options, merge)
 	cairo_font_options_t *other =
 					Object_font_options::GetObject(args, 0)->GetEntity();
 	::cairo_font_options_merge(options, other);
-	if (IsError(sig, options)) return Value::Null;
+	if (Is_error(sig, options)) return Value::Null;
 	return Value::Null;
 }
 
@@ -85,7 +85,7 @@ Gura_ImplementMethod(font_options, hash)
 	Object_font_options *pThis = Object_font_options::GetThisObj(args);
 	cairo_font_options_t *options = pThis->GetEntity();
 	unsigned long rtn = ::cairo_font_options_hash(options);
-	if (IsError(sig, options)) return Value::Null;
+	if (Is_error(sig, options)) return Value::Null;
 	return Value(rtn);
 }
 
@@ -103,7 +103,7 @@ Gura_ImplementMethod(font_options, equal)
 	cairo_font_options_t *other =
 					Object_font_options::GetObject(args, 0)->GetEntity();
 	cairo_bool_t rtn = ::cairo_font_options_equal(options, other);
-	if (IsError(sig, options)) return Value::Null;
+	if (Is_error(sig, options)) return Value::Null;
 	return Value(rtn);
 }
 
@@ -121,7 +121,7 @@ Gura_ImplementMethod(font_options, set_antialias)
 	cairo_antialias_t antialias = static_cast<cairo_antialias_t>(args.GetInt(0));
 	if (sig.IsSignalled()) return Value::Null;
 	::cairo_font_options_set_antialias(options, antialias);
-	if (IsError(sig, options)) return Value::Null;
+	if (Is_error(sig, options)) return Value::Null;
 	return Value::Null;
 }
 
@@ -136,7 +136,7 @@ Gura_ImplementMethod(font_options, get_antialias)
 	Object_font_options *pThis = Object_font_options::GetThisObj(args);
 	cairo_font_options_t *options = pThis->GetEntity();
 	cairo_antialias_t antialias = ::cairo_font_options_get_antialias(options);
-	if (IsError(sig, options)) return Value::Null;
+	if (Is_error(sig, options)) return Value::Null;
 	return Value(antialias);
 }
 
@@ -154,7 +154,7 @@ Gura_ImplementMethod(font_options, set_subpixel_order)
 	cairo_subpixel_order_t subpixel_order = static_cast<cairo_subpixel_order_t>(args.GetInt(0));
 	if (sig.IsSignalled()) return Value::Null;
 	::cairo_font_options_set_subpixel_order(options, subpixel_order);
-	if (IsError(sig, options)) return Value::Null;
+	if (Is_error(sig, options)) return Value::Null;
 	return Value::Null;
 }
 
@@ -169,7 +169,7 @@ Gura_ImplementMethod(font_options, get_subpixel_order)
 	Object_font_options *pThis = Object_font_options::GetThisObj(args);
 	cairo_font_options_t *options = pThis->GetEntity();
 	cairo_subpixel_order_t subpixel_order = ::cairo_font_options_get_subpixel_order(options);
-	if (IsError(sig, options)) return Value::Null;
+	if (Is_error(sig, options)) return Value::Null;
 	return Value(subpixel_order);
 }
 
@@ -187,7 +187,7 @@ Gura_ImplementMethod(font_options, set_hint_style)
 	cairo_hint_style_t hint_style = static_cast<cairo_hint_style_t>(args.GetInt(0));
 	if (sig.IsSignalled()) return Value::Null;
 	::cairo_font_options_set_hint_style(options, hint_style);
-	if (IsError(sig, options)) return Value::Null;
+	if (Is_error(sig, options)) return Value::Null;
 	return Value::Null;
 }
 
@@ -202,7 +202,7 @@ Gura_ImplementMethod(font_options, get_hint_style)
 	Object_font_options *pThis = Object_font_options::GetThisObj(args);
 	cairo_font_options_t *options = pThis->GetEntity();
 	cairo_hint_style_t hint_style = ::cairo_font_options_get_hint_style(options);
-	if (IsError(sig, options)) return Value::Null;
+	if (Is_error(sig, options)) return Value::Null;
 	return Value(hint_style);
 }
 
@@ -220,7 +220,7 @@ Gura_ImplementMethod(font_options, set_hint_metrics)
 	cairo_hint_metrics_t hint_metrics = static_cast<cairo_hint_metrics_t>(args.GetInt(0));
 	if (sig.IsSignalled()) return Value::Null;
 	::cairo_font_options_set_hint_metrics(options, hint_metrics);
-	if (IsError(sig, options)) return Value::Null;
+	if (Is_error(sig, options)) return Value::Null;
 	return Value::Null;
 }
 
@@ -235,7 +235,7 @@ Gura_ImplementMethod(font_options, get_hint_metrics)
 	Object_font_options *pThis = Object_font_options::GetThisObj(args);
 	cairo_font_options_t *options = pThis->GetEntity();
 	cairo_hint_metrics_t hint_metrics = ::cairo_font_options_get_hint_metrics(options);
-	if (IsError(sig, options)) return Value::Null;
+	if (Is_error(sig, options)) return Value::Null;
 	return Value(hint_metrics);
 }
 

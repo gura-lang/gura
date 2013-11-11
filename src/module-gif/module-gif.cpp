@@ -361,7 +361,7 @@ bool GIF::Write(Environment &env, Signal sig, Stream &stream,
 	size_t logicalScreenWidth = 0, logicalScreenHeight = 0;
 	ValueList &valList = GetList();
 	foreach (ValueList, pValue, valList) {
-		if (!pValue->IsImage()) continue;
+		if (!pValue->Is_image()) continue;
 		const Object_image *pObjImage = Object_image::GetObject(*pValue);
 		const Image *pImage = pObjImage->GetImage();
 		const Palette *pPalette = pImage->GetPalette();
@@ -400,7 +400,7 @@ bool GIF::Write(Environment &env, Signal sig, Stream &stream,
 				_pPaletteGlobal->LookupNearest(colorBackground));
 	}
 	foreach (ValueList, pValue, valList) {
-		if (!pValue->IsImage()) continue;
+		if (!pValue->Is_image()) continue;
 		Object_image *pObjImage = Object_image::GetObject(*pValue);
 		Image *pImage = pObjImage->GetImage();
 		if (!pImage->CheckValid(sig)) return false;
@@ -470,7 +470,7 @@ bool GIF::Write(Environment &env, Signal sig, Stream &stream,
 		if (!WriteDataBlocks(sig, stream, _exts.application.ApplicationData)) return false;
 	}
 	foreach (ValueList, pValue, GetList()) {
-		if (!pValue->IsImage()) continue;
+		if (!pValue->Is_image()) continue;
 		Object_image *pObjImage = Object_image::GetObject(*pValue);
 		Image *pImage = pObjImage->GetImage();
 		GraphicControlExtension *pGraphicControl = GetGraphicControl(pObjImage);
@@ -1419,7 +1419,7 @@ Gura_DeclareFunction(content)
 Gura_ImplementFunction(content)
 {
 	Object_content *pObjContent = new Object_content();
-	if (args.IsStream(0)) {
+	if (args.Is_stream(0)) {
 		Stream &stream = args.GetStream(0);
 		const Symbol *pSymbol = args.GetSymbol(1);
 		Image::Format format = Image::FORMAT_None;

@@ -68,7 +68,7 @@ Gura_ImplementFunction(dir)
 	StringList patterns;
 	if (!args.GetList(1).ToStringList(sig, patterns)) return Value::Null;
 	AutoPtr<Directory> pDirectory;
-	if (args.IsDirectory(0)) {
+	if (args.Is_directory(0)) {
 		pDirectory.reset(Directory::Reference(args.GetDirectory(0)));
 	} else {
 		pDirectory.reset(Directory::Open(env, sig, "", PathManager::NF_Signal));
@@ -105,11 +105,11 @@ Gura_ImplementFunction(walk)
 	bool ignoreCaseFlag = args.IsSet(Gura_Symbol(icase));
 	bool fileFlag = args.IsSet(Gura_Symbol(file)) || !args.IsSet(Gura_Symbol(dir));
 	bool dirFlag = args.IsSet(Gura_Symbol(dir)) || !args.IsSet(Gura_Symbol(file));
-	int depthMax = args.IsNumber(1)? args.GetInt(1) : -1;
+	int depthMax = args.Is_number(1)? args.GetInt(1) : -1;
 	StringList patterns;
 	if (!args.GetList(2).ToStringList(sig, patterns)) return Value::Null;
 	AutoPtr<Directory> pDirectory;
-	if (args.IsDirectory(0)) {
+	if (args.Is_directory(0)) {
 		pDirectory.reset(Directory::Reference(args.GetDirectory(0)));
 	} else {
 		pDirectory.reset(Directory::Open(env, sig, "", PathManager::NF_Signal));

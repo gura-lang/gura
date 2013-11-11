@@ -708,7 +708,7 @@ Value Header::GetFieldNames(Environment &env, Signal sig) const
 
 Value Header::IndexGet(Environment &env, Signal sig, const Value &valueIdx) const
 {
-	if (!valueIdx.IsString()) {
+	if (!valueIdx.Is_string()) {
 		sig.SetError(ERR_KeyError, "index must be a string");
 		return Value::Null;
 	}
@@ -1782,8 +1782,8 @@ Gura_ImplementMethod(request, response)
 {
 	Object_request *pThis = Object_request::GetThisObj(args);
 	if (!pThis->SendResponse(sig,
-			args.GetString(0), args.IsString(1)? args.GetString(1) : NULL,
-			args.IsStream(2)? &args.GetStream(2) : NULL, args.GetString(3),
+			args.GetString(0), args.Is_string(1)? args.GetString(1) : NULL,
+			args.Is_stream(2)? &args.GetStream(2) : NULL, args.GetString(3),
 			args.GetValueDictArg())) {
 		return Value::Null;
 	}
@@ -1807,7 +1807,7 @@ Gura_ImplementMethod(request, respchunk)
 {
 	Object_request *pThis = Object_request::GetThisObj(args);
 	Stream *pStream = pThis->SendRespChunk(sig, args.GetString(0),
-			args.IsString(1)? args.GetString(1) : NULL, args.GetString(2),
+			args.Is_string(1)? args.GetString(1) : NULL, args.GetString(2),
 			args.GetValueDictArg());
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, sig, args, Value(new Object_stream(env, pStream)));
@@ -2203,7 +2203,7 @@ bool Object_client::Prepare(Signal sig, const char *addr, short port,
 {
 	if (addrProxy == NULL) {
 		const Value *pValueOfList = _pEnvThis->LookupValue(Gura_UserSymbol(proxies), ENVREF_NoEscalate);
-		if (pValueOfList != NULL && pValueOfList->IsList()) {
+		if (pValueOfList != NULL && pValueOfList->Is_list()) {
 			foreach_const_reverse (ValueList, pValue, pValueOfList->GetList()) {
 				if (!pValue->IsType(VTYPE_proxy)) continue;
 				Object_proxy *pObjProxy = Object_proxy::GetObject(*pValue);
@@ -2350,7 +2350,7 @@ Gura_ImplementMethod(client, request)
 	Object_client *pThis = Object_client::GetThisObj(args);
 	Object_response *pObjResponse = pThis->SendRequest(sig,
 			args.GetString(0), args.GetString(1),
-			args.IsStream(2)? &args.GetStream(2) : NULL,
+			args.Is_stream(2)? &args.GetStream(2) : NULL,
 			args.GetString(3), args.GetValueDictArg());
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, sig, args, Value(pObjResponse));
@@ -2374,7 +2374,7 @@ Gura_ImplementMethod(client, _request)
 	Object_client *pThis = Object_client::GetThisObj(args);
 	Object_response *pObjResponse = pThis->SendRequest(sig,
 			Upper(GetName()).c_str(), args.GetString(0),
-			args.IsStream(1)? &args.GetStream(1) : NULL,
+			args.Is_stream(1)? &args.GetStream(1) : NULL,
 			args.GetString(2), args.GetValueDictArg());
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, sig, args, Value(pObjResponse));
@@ -2475,11 +2475,11 @@ Gura_ImplementFunction(uri)
 	const char *path = args.GetString(2);
 	if (*path != '/') str += "/";
 	str += QuoteURI(path);
-	if (args.IsString(3)) {
+	if (args.Is_string(3)) {
 		str += "?";
 		str += args.GetString(3);
 	}
-	if (args.IsString(4)) {
+	if (args.Is_string(4)) {
 		str += "#";
 		str += QuoteURI(args.GetString(4));
 	}
@@ -2561,7 +2561,7 @@ Gura_ImplementFunction(addproxy)
 {
 	ValueList *pValList = NULL;
 	Value *pValue = _pEnvThis->LookupValue(Gura_UserSymbol(proxies), ENVREF_NoEscalate);
-	if (pValue == NULL || !pValue->IsList()) {
+	if (pValue == NULL || !pValue->Is_list()) {
 		Value value;
 		pValList = &value.InitAsList(env);
 		_pEnvThis->AssignValue(Gura_UserSymbol(proxies), value, EXTRA_Public);
@@ -2570,8 +2570,8 @@ Gura_ImplementFunction(addproxy)
 	}
 	const Function *pFuncCriteria = args.GetBlockFunc(env, sig, GetSymbolForBlock());
 	Value value(new Object_proxy(args.GetString(0), args.GetShort(1),
-				args.IsString(2)? args.GetString(2) : "",
-				args.IsString(3)? args.GetString(3) : "",
+				args.Is_string(2)? args.GetString(2) : "",
+				args.Is_string(3)? args.GetString(3) : "",
 				Function::Reference(pFuncCriteria)));
 	pValList->push_back(value);
 	return Value::Null;
@@ -2592,7 +2592,7 @@ Gura_ImplementFunction(server)
 {
 	AutoPtr<Object_server> pObjServer(new Object_server());
 	if (!pObjServer->Prepare(sig,
-				args.IsString(0)? args.GetString(0) : NULL, args.GetShort(1))) {
+				args.Is_string(0)? args.GetString(0) : NULL, args.GetShort(1))) {
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(pObjServer.release()));
@@ -2622,15 +2622,15 @@ Gura_ImplementFunction(client)
 	short portProxy = 0;
 	const char *userIdProxy = "";
 	const char *passwordProxy = "";
-	if (args.IsString(2)) {
-		if (!args.IsNumber(3)) {
+	if (args.Is_string(2)) {
+		if (!args.Is_number(3)) {
 			Declaration::SetError_NotEnoughArguments(sig);
 			return Value::Null;
 		}
 		addrProxy = args.GetString(2);
 		portProxy = args.GetShort(3);
-		if (args.IsString(4)) userIdProxy = args.GetString(4);
-		if (args.IsString(5)) passwordProxy = args.GetString(5);
+		if (args.Is_string(4)) userIdProxy = args.GetString(4);
+		if (args.Is_string(5)) passwordProxy = args.GetString(5);
 	}
 	if (!pObjClient->Prepare(sig, args.GetString(0), args.GetShort(1),
 							addrProxy, portProxy, userIdProxy, passwordProxy)) {

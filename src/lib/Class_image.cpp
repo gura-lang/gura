@@ -60,7 +60,7 @@ Value Object_image::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbo
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(palette))) {
-		if (value.IsPalette()) {
+		if (value.Is_palette()) {
 			GetImage()->SetPalette(Palette::Reference(Object_palette::GetObject(value)->GetPalette()));
 			return value;
 		} else if (value.IsInvalid()) {
@@ -121,7 +121,7 @@ Gura_ImplementFunction(image)
 	if (sig.IsSignalled()) return Value::Null;
 	ValueList valList = args.GetList(0);
 	AutoPtr<Image> pImage;
-	if (valList[0].IsSymbol()) {
+	if (valList[0].Is_symbol()) {
 		AutoPtr<Declaration> pDecl(new Declaration(Gura_Symbol(format), VTYPE_symbol));
 		pDecl->ValidateAndCast(env, sig, valList[0]);
 		if (sig.IsSignalled()) return Value::Null;
@@ -208,7 +208,7 @@ Gura_ImplementMethod(image, allocbuff)
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckEmpty(sig)) return Value::Null;
 	pThis->GetImage()->AllocBuffer(sig, args.GetSizeT(0), args.GetSizeT(1), 0x00);
-	if (args.IsColor(2)) pThis->GetImage()->Fill(Object_color::GetObject(args, 2)->GetColor());
+	if (args.Is_color(2)) pThis->GetImage()->Fill(Object_color::GetObject(args, 2)->GetColor());
 	return Value::Null;
 }
 
@@ -273,10 +273,10 @@ Gura_ImplementMethod(image, store)
 	if (!pThis->GetImage()->CheckCoord(sig, x, y)) return Value::Null;
 	if (!pThis->GetImage()->CheckCoord(sig, x + width - 1, y + height - 1)) return Value::Null;
 	const Symbol *pSymbol = args.GetSymbol(4);
-	if (args.IsMatrix(5)) {
+	if (args.Is_matrix(5)) {
 		pThis->GetImage()->Store(sig, x, y, width, height, pSymbol,
 							Object_matrix::GetObject(args, 5)->GetMatrix());
-	} else if (args.IsList(5) || args.IsIterator(5)) {
+	} else if (args.Is_list(5) || args.Is_iterator(5)) {
 		AutoPtr<Iterator> pIterator(args.GetValue(5).CreateIterator(sig));
 		pThis->GetImage()->Store(env, sig, x, y, width, height, pSymbol, pIterator.get());
 	} else {
@@ -307,10 +307,10 @@ Gura_ImplementMethod(image, extract)
 	if (!pThis->GetImage()->CheckCoord(sig, x, y)) return Value::Null;
 	if (!pThis->GetImage()->CheckCoord(sig, x + width - 1, y + height - 1)) return Value::Null;
 	const Symbol *pSymbol = args.GetSymbol(4);
-	if (args.IsMatrix(5)) {
+	if (args.Is_matrix(5)) {
 		pThis->GetImage()->Extract(sig, x, y, width, height,
 					pSymbol, Object_matrix::GetObject(args, 5)->GetMatrix());
-	} else if (args.IsList(5)) {
+	} else if (args.Is_list(5)) {
 		pThis->GetImage()->Extract(sig, x, y, width, height,
 					pSymbol, Object_list::GetObject(args, 5)->GetList());
 	} else {
@@ -333,7 +333,7 @@ Gura_ImplementMethod(image, replacecolor)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
-	double tolerance = args.IsNumber(2)? args.GetDouble(2) : 0.;
+	double tolerance = args.Is_number(2)? args.GetDouble(2) : 0.;
 	pThis->GetImage()->ReplaceColor(Object_color::GetObject(args, 0)->GetColor(),
 					Object_color::GetObject(args, 1)->GetColor(), tolerance);
 	return Value::Null;
@@ -408,7 +408,7 @@ Gura_ImplementMethod(image, setalpha)
 		return 0;
 	}
 	if (args.IsValid(1)) {
-		double tolerance = args.IsNumber(2)? args.GetDouble(2) : 0;
+		double tolerance = args.Is_number(2)? args.GetDouble(2) : 0;
 		pThis->GetImage()->FillAlpha(args.GetUChar(0),
 					Object_color::GetObject(args, 1)->GetColor(), tolerance);
 	} else {
@@ -428,7 +428,7 @@ Gura_ImplementMethod(image, reducecolor)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	const Palette *pPalette = pThis->GetImage()->GetPalette();
-	if (args.IsPalette(0)) {
+	if (args.Is_palette(0)) {
 		pPalette = Object_palette::GetObject(args, 0)->GetPalette();
 	} else if (pPalette == NULL) {
 		sig.SetError(ERR_ValueError, "palette must be specified");
@@ -465,7 +465,7 @@ Gura_ImplementMethod(image, blur)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	int radius = args.GetInt(0);
-	Number sigma = args.IsNumber(1)? args.GetNumber(1) : 1.5;
+	Number sigma = args.Is_number(1)? args.GetNumber(1) : 1.5;
 	AutoPtr<Image> pImage(pThis->GetImage()->Blur(sig, radius, sigma));
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(new Object_image(env, pImage.release()));
@@ -525,7 +525,7 @@ Gura_ImplementMethod(image, rotate)
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	Color color;
-	if (args.IsColor(1)) {
+	if (args.Is_color(1)) {
 		color = Object_color::GetObject(1)->GetColor();
 	}
 	AutoPtr<Image> pImage(pThis->GetImage()->Rotate(sig, args.GetNumber(0), color));
@@ -550,8 +550,8 @@ Gura_ImplementMethod(image, crop)
 	size_t x = args.GetSizeT(0);
 	size_t y = args.GetSizeT(1);
 	if (!pThis->GetImage()->CheckCoord(sig, x, y)) return Value::Null;
-	size_t width = args.IsNumber(2)? args.GetSizeT(2) : pThis->GetImage()->GetWidth() - x;
-	size_t height = args.IsNumber(3)? args.GetSizeT(3) : pThis->GetImage()->GetHeight() - y;
+	size_t width = args.Is_number(2)? args.GetSizeT(2) : pThis->GetImage()->GetWidth() - x;
+	size_t height = args.Is_number(3)? args.GetSizeT(3) : pThis->GetImage()->GetHeight() - y;
 	if (!pThis->GetImage()->CheckCoord(sig, x + width - 1, y + height - 1)) return Value::Null;
 	AutoPtr<Image> pImage(pThis->GetImage()->Crop(sig, x, y, width, height));
 	if (sig.IsSignalled()) return Value::Null;
@@ -573,18 +573,18 @@ Gura_ImplementMethod(image, resize)
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	bool boxFlag = args.IsSet(Gura_Symbol(box));
 	size_t width, height;
-	if (!args.IsNumber(0) && !args.IsNumber(1)) {
+	if (!args.Is_number(0) && !args.Is_number(1)) {
 		sig.SetError(ERR_ValueError, "width or height must be specified");
 		return Value::Null;
 	}
-	if (args.IsNumber(0) && !args.IsNumber(1)) {
+	if (args.Is_number(0) && !args.Is_number(1)) {
 		width = args.GetSizeT(0);
 		if (boxFlag) {
 			height = width;
 		} else {
 			height = pThis->GetImage()->GetHeight() * width / pThis->GetImage()->GetWidth();
 		}
-	} else if (!args.IsNumber(0) && args.IsNumber(1)) {
+	} else if (!args.Is_number(0) && args.Is_number(1)) {
 		height = args.GetSizeT(1);
 		if (boxFlag) {
 			width = height;
@@ -614,12 +614,12 @@ Gura_ImplementMethod(image, thumbnail)
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	bool boxFlag = args.IsSet(Gura_Symbol(box));
 	Object_image *pObj = NULL;
-	if (!args.IsNumber(0) && !args.IsNumber(1)) {
+	if (!args.Is_number(0) && !args.Is_number(1)) {
 		sig.SetError(ERR_ValueError, "width or height must be specified");
 		return Value::Null;
 	}
 	size_t width = 0, height = 0;
-	if (args.IsNumber(0) && !args.IsNumber(1)) {
+	if (args.Is_number(0) && !args.Is_number(1)) {
 		width = args.GetSizeT(0);
 		if (boxFlag) {
 			height = width;
@@ -634,7 +634,7 @@ Gura_ImplementMethod(image, thumbnail)
 			}
 			return Value(pObj);
 		}
-	} else if (!args.IsNumber(0) && args.IsNumber(1)) {
+	} else if (!args.Is_number(0) && args.Is_number(1)) {
 		height = args.GetSizeT(1);
 		if (boxFlag) {
 			width = height;
@@ -696,9 +696,9 @@ Gura_ImplementMethod(image, paste)
 	size_t xOffset = args.GetSizeT(5);
 	size_t yOffset = args.GetSizeT(6);
 	if (!pObjImg->GetImage()->CheckCoord(sig, xOffset, yOffset)) return Value::Null;
-	size_t width = args.IsNumber(3)?
+	size_t width = args.Is_number(3)?
 				args.GetSizeT(3) : pObjImg->GetImage()->GetWidth() - xOffset;
-	size_t height = args.IsNumber(4)?
+	size_t height = args.Is_number(4)?
 				args.GetSizeT(4) : pObjImg->GetImage()->GetHeight() - yOffset;
 	if (!pObjImg->GetImage()->CheckCoord(sig, xOffset + width - 1, yOffset + height - 1)) {
 		return Value::Null;
@@ -725,7 +725,7 @@ Gura_ImplementMethod(image, read)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->Read(env, sig, args.GetStream(0),
-			args.IsString(1)? args.GetString(1) : NULL)) return Value::Null;
+			args.Is_string(1)? args.GetString(1) : NULL)) return Value::Null;
 	return args.GetThis();
 }
 
@@ -742,7 +742,7 @@ Gura_ImplementMethod(image, write)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->Write(env, sig, args.GetStream(0),
-			args.IsString(1)? args.GetString(1) : NULL)) return Value::Null;
+			args.Is_string(1)? args.GetString(1) : NULL)) return Value::Null;
 	return args.GetThis();
 }
 
@@ -762,12 +762,12 @@ Gura_DeclareMethod(image, each)
 Gura_ImplementMethod(image, each)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
-	size_t x = args.IsNumber(0)? args.GetSizeT(0) : 0;
-	size_t y = args.IsNumber(1)? args.GetSizeT(1) : 0;
-	size_t width = args.IsNumber(2)? args.GetSizeT(2) : pThis->GetImage()->GetWidth();
-	size_t height = args.IsNumber(3)? args.GetSizeT(3) : pThis->GetImage()->GetHeight();
+	size_t x = args.Is_number(0)? args.GetSizeT(0) : 0;
+	size_t y = args.Is_number(1)? args.GetSizeT(1) : 0;
+	size_t width = args.Is_number(2)? args.GetSizeT(2) : pThis->GetImage()->GetWidth();
+	size_t height = args.Is_number(3)? args.GetSizeT(3) : pThis->GetImage()->GetHeight();
 	Image::ScanDir scanDir = Image::SCAN_LeftTopHorz;
-	if (args.IsSymbol(4)) {
+	if (args.Is_symbol(4)) {
 		const Symbol *pSymbol = args.GetSymbol(4);
 		
 	}
@@ -815,7 +815,7 @@ void Class_image::Prepare(Environment &env)
 bool Class_image::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
 	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, value, pDecl);
-	if (value.IsStream()) {
+	if (value.Is_stream()) {
 		AutoPtr<Image> pImage(new Image(Image::FORMAT_RGBA));
 		pImage->Read(env, sig, value.GetStream(), NULL);
 		value = Value::Null; // delete stream instance

@@ -464,19 +464,19 @@ Value Object_Rect::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(x))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		_rect.x = static_cast<Sint16>(value.GetInt());
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(y))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		_rect.y = static_cast<Sint16>(value.GetInt());
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(w))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		_rect.w = static_cast<Uint16>(value.GetUInt());
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(h))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		_rect.h = static_cast<Uint16>(value.GetUInt());
 		return value;
 	}
@@ -539,15 +539,15 @@ Value Object_Color::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbo
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(r))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		_color.r = static_cast<Uint8>(value.GetUInt());
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(g))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		_color.g = static_cast<Uint8>(value.GetUInt());
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(b))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		_color.b = static_cast<Uint8>(value.GetUInt());
 		return value;
 	}
@@ -1400,7 +1400,7 @@ Gura_ImplementUserClassWithCast(Surface)
 
 Gura_ImplementCastFrom(Surface)
 {
-	if (value.IsImage()) {
+	if (value.Is_image()) {
 		Image *pImage = Object_image::GetObject(value)->GetImage();
 		Object_Surface *pObjSurface =
 					Object_Surface::CreateSurfaceFromImage(sig, pImage);
@@ -3125,7 +3125,7 @@ Gura_DeclareFunction(WM_SetIcon)
 Gura_ImplementFunction(WM_SetIcon)
 {
 	SDL_Surface *pSurface = dynamic_cast<Object_Surface *>(args.GetObject(0))->GetSurface();
-	const char *mask = args.IsBinary(1)? args.GetBinary(1).data() : NULL;
+	const char *mask = args.Is_binary(1)? args.GetBinary(1).data() : NULL;
 	::SDL_WM_SetIcon(pSurface,
 				const_cast<Uint8 *>(reinterpret_cast<const Uint8 *>(mask)));
 	return Value::Null;
@@ -4082,7 +4082,7 @@ Gura_DeclareFunction(AddTimer)
 Gura_ImplementFunction(AddTimer)
 {
 	Object_function *pObjFunc;
-	if (args.IsFunction(1)) {
+	if (args.Is_function(1)) {
 		pObjFunc = Object_function::Reference(Object_function::GetObject(args, 1));
 	} else if (args.IsBlockSpecified()) {
 		const Function *pFunc = args.GetBlockFunc(env, sig, GetSymbolForBlock());
@@ -4186,7 +4186,7 @@ Gura_ImplementFunction(AudioSpec)
 	pAudioSpec->callback	= Object_AudioSpec::CallbackStub;
 	pAudioSpec->userdata	= NULL;
 	Function *pFuncCallback = NULL;
-	if (args.IsFunction(4)) {
+	if (args.Is_function(4)) {
 		pFuncCallback = Function::Reference(args.GetFunction(4));
 	}
 	Object_AudioSpec *pObj =

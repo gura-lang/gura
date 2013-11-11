@@ -940,19 +940,19 @@ Gura_DeclareFunction(color)
 Gura_ImplementFunction(color)
 {
 	const ValueList &valList = args.GetList(0);
-	if (valList[0].IsString()) {
+	if (valList[0].Is_string()) {
 		UChar alpha = (valList.size() < 2)? 255 : valList[1].GetUChar();
 		Object_color *pObj = Object_color::CreateNamedColor(env,
 					sig, valList[0].GetString(), alpha);
 		if (sig.IsSignalled()) return Value::Null;
 		return ReturnValue(env, sig, args, Value(pObj));
-	} else if (valList[0].IsSymbol()) {
+	} else if (valList[0].Is_symbol()) {
 		UChar alpha = (valList.size() < 2)? 255 : valList[1].GetUChar();
 		Object_color *pObj = Object_color::CreateNamedColor(env,
 					sig, valList[0].GetSymbol()->GetName(), alpha);
 		if (sig.IsSignalled()) return Value::Null;
 		return ReturnValue(env, sig, args, Value(pObj));
-	} else if (valList[0].IsNumber()) {
+	} else if (valList[0].Is_number()) {
 		UChar red = valList[0].GetUChar();
 		if (valList.size() < 3) {
 			Declaration::SetError_InvalidArgument(sig);
@@ -1048,19 +1048,19 @@ void Class_color::Prepare(Environment &env)
 
 bool Class_color::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
-	if (value.IsSymbol()) {
+	if (value.Is_symbol()) {
 		Object_color *pObj = Object_color::CreateNamedColor(env,
 									sig, value.GetSymbol()->GetName(), 255);
 		if (sig.IsSignalled()) return false;
 		value = Value(pObj);
 		return true;
-	} else if (value.IsString()) {
+	} else if (value.Is_string()) {
 		Object_color *pObj = Object_color::CreateNamedColor(env,
 									sig, value.GetString(), 255);
 		if (sig.IsSignalled()) return false;
 		value = Value(pObj);
 		return true;
-	} else if (value.IsList()) {
+	} else if (value.Is_list()) {
 		const Function *pConstructor = GetConstructor();
 		if (pConstructor == NULL) return false;
 		AutoPtr<Args> pArgs(new Args());

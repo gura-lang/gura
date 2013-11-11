@@ -72,7 +72,7 @@ Value Object_font::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		_pObjColor->SetColor(Object_color::GetObject(valueCasted)->GetColor());
 		return Value(Object_color::Reference(_pObjColor.get()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mode))) {
-		if (!value.MustBeSymbol(sig)) return Value::Null;
+		if (!value.MustBe_symbol(sig)) return Value::Null;
 		const Symbol *pSymbolVal = value.GetSymbol();
 		if (pSymbolVal->IsIdentical(Gura_UserSymbol(blend))) {
 			_mode = MODE_Blend;
@@ -84,23 +84,23 @@ Value Object_font::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		}
 		return Value(pSymbolVal);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(strength))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		SetStrength(value.GetDouble());
 		return Value(_strength);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(slant))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		SetSlant(value.GetDouble());
 		return Value(_slant);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(rotate))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		SetRotate(value.GetDouble());
 		return Value(_rotate.deg);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(width))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		SetWidth(value.GetDouble());
 		return Value(_width);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(height))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		SetHeight(value.GetDouble());
 		return Value(_height);
 	}

@@ -173,7 +173,7 @@ void ItemStack::ClearListItem()
 {
 	foreach (ItemStack, ppItem, *this) {
 		Item *pItem = *ppItem;
-		if (pItem->IsList()) {
+		if (pItem->Is_list()) {
 			erase(ppItem, end());
 			break;
 		}
@@ -2269,7 +2269,7 @@ Gura_DeclareFunction(document)
 Gura_ImplementFunction(document)
 {
 	AutoPtr<Document> pDocument(new Document());
-	if (args.IsStream(0)) {
+	if (args.Is_stream(0)) {
 		if (!pDocument->ParseStream(sig, args.GetStream(0))) return Value::Null;
 	}
 	AutoPtr<Object_document> pObj(new Object_document(pDocument.release()));

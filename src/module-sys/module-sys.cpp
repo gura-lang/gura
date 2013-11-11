@@ -35,7 +35,7 @@ Gura_DeclareFunction(exit)
 
 Gura_ImplementFunction(exit)
 {
-	::exit(args.IsNumber(0)? args.GetInt(0) : 0);
+	::exit(args.Is_number(0)? args.GetInt(0) : 0);
 	return Value::Null;
 }
 

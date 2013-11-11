@@ -343,7 +343,7 @@ Value Gura_Method(Object, __call__)::Call(Environment &env, Signal sig, Args &ar
 	SeqPostHandler *pSeqPostHandler = NULL;
 	Value value = args.GetExprListArg().front()->Exec2(env, sig, pSeqPostHandler);
 	if (sig.IsSignalled()) return Value::Null;
-	if (!value.IsSymbol()) {
+	if (!value.Is_symbol()) {
 		sig.SetError(ERR_ValueError, "invalid argument for __call__()");
 		return Value::Null;
 	}
@@ -357,7 +357,7 @@ Value Gura_Method(Object, __call__)::Call(Environment &env, Signal sig, Args &ar
 	} else {
 		valueFunc = *pValue;
 	}
-	if (!valueFunc.IsFunction()) {
+	if (!valueFunc.Is_function()) {
 		sig.SetError(ERR_ValueError, "invalid argument for __call__()");
 		return Value::Null;
 	}

@@ -20,19 +20,19 @@ Value::Value(const Value &value) : _valType(value._valType), _valFlags(value._va
 {
 	if (value.GetTinyBuffFlag()) {
 		_u = value._u;
-	} else if (value.IsNumber()) {
+	} else if (value.Is_number()) {
 		_u.num = value._u.num;
-	} else if (value.IsBoolean()) {
+	} else if (value.Is_boolean()) {
 		_u.flag = value._u.flag;
 	} else if (value.IsObject()) {
 		_u.pObj = Object::Reference(value._u.pObj);
-	} else if (value.IsSymbol()) {
+	} else if (value.Is_symbol()) {
 		_u.pSymbol = value._u.pSymbol;
-	} else if (value.IsComplex()) {
+	} else if (value.Is_complex()) {
 		_u.pComp = new Complex(*value._u.pComp);
-	} else if (value.IsFraction()) {
+	} else if (value.Is_fraction()) {
 		_u.pFrac = new Fraction(*value._u.pFrac);
-	} else if (value.IsString()) {
+	} else if (value.Is_string()) {
 		_u.pStrRef = value._u.pStrRef->Reference();
 	} else if (value.IsModule()) {
 		_u.pModule = Module::Reference(value._u.pModule);
@@ -149,13 +149,13 @@ void Value::FreeResource()
 {
 	if (GetTinyBuffFlag()) {
 		// nothing to do
-	} else if (IsComplex()) {
+	} else if (Is_complex()) {
 		delete _u.pComp;
 		_u.pComp = NULL;
-	} else if (IsFraction()) {
+	} else if (Is_fraction()) {
 		delete _u.pFrac;
 		_u.pFrac = NULL;
-	} else if (IsString()) {
+	} else if (Is_string()) {
 		StringRef::Delete(_u.pStrRef);
 		_u.pStrRef = NULL;
 	} else if (IsModule()) {
@@ -183,17 +183,17 @@ Value &Value::operator=(const Value &value)
 	_valFlags = value._valFlags;
 	if (GetTinyBuffFlag()) {
 		_u = value._u;
-	} else if (value.IsNumber()) {
+	} else if (value.Is_number()) {
 		_u.num = value._u.num;
-	} else if (value.IsBoolean()) {
+	} else if (value.Is_boolean()) {
 		_u.flag = value._u.flag;
-	} else if (value.IsSymbol()) {
+	} else if (value.Is_symbol()) {
 		_u.pSymbol = value._u.pSymbol;
-	} else if (value.IsComplex()) {
+	} else if (value.Is_complex()) {
 		_u.pComp = new Complex(*value._u.pComp);
-	} else if (value.IsFraction()) {
+	} else if (value.Is_fraction()) {
 		_u.pFrac = new Fraction(*value._u.pFrac);
-	} else if (value.IsString()) {
+	} else if (value.Is_string()) {
 		_u.pStrRef = value._u.pStrRef->Reference();
 	} else if (value.IsModule()) {
 		_u.pModule = Module::Reference(value._u.pModule);
@@ -243,7 +243,7 @@ Fundamental *Value::ExtractFundamental(Signal sig)
 
 bool Value::IsFlatList() const
 {
-	return IsList() && GetList().IsFlat();
+	return Is_list() && GetList().IsFlat();
 }
 
 bool Value::IsInstanceOf(ValueType valType) const
@@ -332,7 +332,7 @@ bool Value::DirProp(Environment &env, Signal sig, SymbolSet &symbols, bool escal
 		return GetModule()->DirProp(env, sig, symbols);
 	} else if (IsClass()) {
 		return GetClass()->DirProp(env, sig, symbols, escalateFlag);
-	} else if (IsFunction()) {
+	} else if (Is_function()) {
 		Class *pClass = GetFunction()->GetClassToConstruct();
 		if (pClass != NULL) {
 			return pClass->DirProp(env, sig, symbols, escalateFlag);
@@ -376,13 +376,13 @@ ValueDict &Value::GetDict()
 
 const ValueDict &Value::GetDict() const
 {
-	return IsDict()?
+	return Is_dict()?
 		dynamic_cast<const Object_dict *>(_u.pObj)->GetDict() : ValueDict::Null;
 }
 
 Iterator *Value::GetIterator() const
 {
-	return IsIterator()?
+	return Is_iterator()?
 		dynamic_cast<const Object_iterator *>(_u.pObj)->GetIterator() : NULL;
 }
 
@@ -398,19 +398,19 @@ Directory *Value::GetDirectory() const
 
 const Expr *Value::GetExpr() const
 {
-	return IsExpr()? dynamic_cast<Object_expr *>(_u.pObj)->GetExpr() : NULL;
+	return Is_expr()? dynamic_cast<Object_expr *>(_u.pObj)->GetExpr() : NULL;
 }
 
 Function *Value::GetFunction()
 {
-	return IsFunction()? dynamic_cast<Object_function *>(_u.pObj)->GetFunction() : NULL;
+	return Is_function()? dynamic_cast<Object_function *>(_u.pObj)->GetFunction() : NULL;
 }
 
 Expr *Value::CloneExpr() const
 {
 	return
-		IsExpr()? Expr::Reference(dynamic_cast<Object_expr *>(_u.pObj)->GetExpr()) :
-		IsSymbol()? new Expr_Symbol(_u.pSymbol) : NULL;
+		Is_expr()? Expr::Reference(dynamic_cast<Object_expr *>(_u.pObj)->GetExpr()) :
+		Is_symbol()? new Expr_Symbol(_u.pSymbol) : NULL;
 }
 
 Fundamental *Value::GetFundamental()
@@ -437,17 +437,17 @@ Iterator *Value::CreateIterator(Signal sig) const
 
 String Value::ToString(bool exprFlag) const
 {
-	if (IsNumber()) {
+	if (Is_number()) {
 		return NumberToString(_u.num);
-	} else if (IsBoolean()) {
+	} else if (Is_boolean()) {
 		return String(_u.flag?
 			Gura_Symbol(true_)->GetName() : Gura_Symbol(false_)->GetName());
-	} else if (IsSymbol()) {
+	} else if (Is_symbol()) {
 		String str;
 		if (exprFlag) str += '`';
 		str += _u.pSymbol->GetName();
 		return str;
-	} else if (IsComplex()) {
+	} else if (Is_complex()) {
 		const Complex &comp = *_u.pComp;
 		String str;
 		char buff[32];
@@ -471,7 +471,7 @@ String Value::ToString(bool exprFlag) const
 			str += Gura_Symbol(j)->GetName();
 		}
 		return str;
-	} else if (IsFraction()) {
+	} else if (Is_fraction()) {
 		const Fraction &frac = *_u.pFrac;
 		String str;
 		if (exprFlag) {
@@ -486,7 +486,7 @@ String Value::ToString(bool exprFlag) const
 			str += NumberToString(frac.denominator);
 		}
 		return str;
-	} else if (IsString()) {
+	} else if (Is_string()) {
 		const char *str = GetString();
 		if (exprFlag) return MakeQuotedString(str);
 		return String(str);
@@ -505,11 +505,11 @@ String Value::ToString(bool exprFlag) const
 Number Value::ToNumber(bool allowPartFlag, bool &successFlag) const
 {
 	successFlag = true;
-	if (IsNumber()) {
+	if (Is_number()) {
 		return _u.num;
-	} else if (IsBoolean()) {
+	} else if (Is_boolean()) {
 		return _u.flag? 1. : 0.;
-	} else if (IsString()) {
+	} else if (Is_string()) {
 		const char *str = GetString();
 		Number num = 0.;
 		char *p = const_cast<char *>(str);
@@ -521,7 +521,7 @@ Number Value::ToNumber(bool allowPartFlag, bool &successFlag) const
 		}
 		successFlag = (p > str && (allowPartFlag || *p == '\0'));
 		return num;
-	} else if (IsFraction()) {
+	} else if (Is_fraction()) {
 		const Fraction &frac = *_u.pFrac;
 		if (frac.denominator == 0) {
 			successFlag = false;
@@ -540,22 +540,22 @@ int Value::Compare(const Value &value1, const Value &value2, bool ignoreCaseFlag
 	if (value1.GetValueType() != value2.GetValueType()) {
 		rtn = static_cast<int>(value1.GetValueType()) -
 								static_cast<int>(value2.GetValueType());
-	} else if (value1.IsNumber()) {
+	} else if (value1.Is_number()) {
 		rtn = (value1.GetNumber() == value2.GetNumber())? 0 :
 				(value1.GetNumber() < value2.GetNumber())? -1 : +1;
-	} else if (value1.IsBoolean()) {
+	} else if (value1.Is_boolean()) {
 		rtn = static_cast<int>(value1.GetBoolean()) -
 								static_cast<int>(value2.GetBoolean());
-	} else if (value1.IsSymbol()) {
+	} else if (value1.Is_symbol()) {
 		rtn = static_cast<int>(value1.GetSymbol()->GetUniqNum()) -
 										value2.GetSymbol()->GetUniqNum();
-	} else if (value1.IsString()) {
+	} else if (value1.Is_string()) {
 		if (ignoreCaseFlag) {
 			rtn = ::strcasecmp(value1.GetString(), value2.GetString());
 		} else {
 			rtn = ::strcmp(value1.GetString(), value2.GetString());
 		}
-	} else if (value1.IsBinary()) {
+	} else if (value1.Is_binary()) {
 		const Binary &buff1 = value1.GetBinary();
 		const Binary &buff2 = value2.GetBinary();
 		if (buff1.size() < buff2.size()) {
@@ -565,13 +565,13 @@ int Value::Compare(const Value &value1, const Value &value2, bool ignoreCaseFlag
 		} else {
 			rtn = ::memcmp(buff1.data(), buff2.data(), buff1.size());
 		}
-	} else if (value1.IsDateTime()) {
+	} else if (value1.Is_datetime()) {
 		const DateTime &dt1 = value1.GetDateTime();
 		const DateTime &dt2 = value2.GetDateTime();
 		rtn = DateTime::Compare(dt1, dt2);
-	} else if (value1.IsTimeDelta()) {
+	} else if (value1.Is_timedelta()) {
 		rtn = TimeDelta::Compare(value1.GetTimeDelta(), value2.GetTimeDelta());
-	} else if (value1.IsList()) {
+	} else if (value1.Is_list()) {
 		bool emptyFlag1 = value1.GetList().empty();
 		bool emptyFlag2 = value2.GetList().empty();
 		if (emptyFlag1 || emptyFlag2) {
@@ -589,7 +589,7 @@ int Value::Compare(const Value &value1, const Value &value2, bool ignoreCaseFlag
 
 bool Value::Accept(ValueVisitor &visitor) const
 {
-	return IsList()? GetList().Accept(visitor) : visitor.Visit(*this);
+	return Is_list()? GetList().Accept(visitor) : visitor.Visit(*this);
 }
 
 void Value::InitAsModule(Module *pModule)
@@ -769,12 +769,12 @@ ValueList::ValueList(const ValueList &valList)
 bool ValueList::IsFlat() const
 {
 	foreach_const (ValueList, pValue, *this) {
-		if (pValue->IsList()) return false;
+		if (pValue->Is_list()) return false;
 	}
 	return true;
 }
 
-bool ValueList::IsContain(const Value &value) const
+bool ValueList::DoesContain(const Value &value) const
 {
 	foreach_const (ValueList, pValue, *this) {
 		if (Value::Compare(*pValue, value) == 0) return true;
@@ -782,10 +782,10 @@ bool ValueList::IsContain(const Value &value) const
 	return false;
 }
 
-bool ValueList::IsContainIterator() const
+bool ValueList::DoesContainIterator() const
 {
 	foreach_const (ValueList, pValue, *this) {
-		if (pValue->IsIterator()) return true;
+		if (pValue->Is_iterator()) return true;
 	}
 	return false;
 }
@@ -795,10 +795,10 @@ bool ValueList::CheckMatrix(size_t *pnRow, size_t *pnCol) const
 	if (empty()) return false;
 	size_t nRow = size();
 	size_t nCol = 1;
-	if (front().IsList()) {
+	if (front().Is_list()) {
 		nCol = front().GetList().size();
 		foreach_const (ValueList, pValueRow, *this) {
-			if (!pValueRow->IsList()) {
+			if (!pValueRow->Is_list()) {
 				return false;
 			} else if (pValueRow->GetList().size() != nCol) {
 				return false;
@@ -806,7 +806,7 @@ bool ValueList::CheckMatrix(size_t *pnRow, size_t *pnCol) const
 		}
 	} else {
 		foreach_const (ValueList, pValueCol, *this) {
-			if (pValueCol->IsList()) return false;
+			if (pValueCol->Is_list()) return false;
 		}
 	}
 	if (pnRow != NULL) *pnRow = nRow;
@@ -825,7 +825,7 @@ bool ValueList::AssumeSameLength(Signal sig,
 void ValueList::ExtractFlat(ValueList &valList) const
 {
 	foreach_const (ValueList, pValue, *this) {
-		if (pValue->IsList()) {
+		if (pValue->Is_list()) {
 			pValue->GetList().ExtractFlat(valList);
 		} else {
 			valList.push_back(*pValue);
@@ -851,7 +851,7 @@ void ValueList::Append(const ValueList &valList)
 void ValueList::Print(Signal sig, int indentLevel) const
 {
 	foreach_const (ValueList, pValue, *this) {
-		if (pValue->IsList()) {
+		if (pValue->Is_list()) {
 			pValue->GetList().Print(sig, indentLevel + 1);
 		} else {
 			::printf("%*s%s\n",
@@ -913,14 +913,14 @@ bool ValueDict::Store(Signal sig, const ValueList &valList, StoreMode storeMode)
 	enum { FIELD_Key, FIELD_Value } field = FIELD_Key;
 	Value valueIdx;
 	const ValueList *pValList = &valList;
-	if (valList.size() == 1 && valList[0].IsList()) {
+	if (valList.size() == 1 && valList[0].Is_list()) {
 		pValList = &valList[0].GetList();
 	}
 	foreach_const (ValueList, pValue, *pValList) {
 		if (field == FIELD_Key) {
 			Value value;
 			valueIdx = *pValue;
-			if (valueIdx.IsList()) {
+			if (valueIdx.Is_list()) {
 				const ValueList &valListElem = valueIdx.GetList();
 				if (valListElem.size() != 2) {
 					sig.SetError(ERR_KeyError, "invalid key-value format");

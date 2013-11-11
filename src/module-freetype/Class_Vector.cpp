@@ -58,11 +58,11 @@ Value Object_Vector::DoSetProp(Environment &env, Signal sig, const Symbol *pSymb
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(x))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		_pVector->x = static_cast<FT_Pos>(value.GetLong());
 		return Value(_pVector->x);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(y))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		_pVector->y = static_cast<FT_Pos>(value.GetLong());
 		return Value(_pVector->y);
 	}

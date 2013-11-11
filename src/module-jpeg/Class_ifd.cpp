@@ -330,7 +330,7 @@ Object *Object_ifd::Clone() const
 
 Value Object_ifd::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 {
-	if (valueIdx.IsNumber()) {
+	if (valueIdx.Is_number()) {
 		unsigned short tagId = valueIdx.GetUShort();
 		Object_tag *pObjTag = GetTagOwner().FindById(tagId);
 		if (pObjTag == NULL) {
@@ -338,7 +338,7 @@ Value Object_ifd::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 			return Value::Null;
 		}
 		return Value(Object_tag::Reference(pObjTag));
-	} else if (valueIdx.IsSymbol()) {
+	} else if (valueIdx.Is_symbol()) {
 		const Symbol *pSymbol = valueIdx.GetSymbol();
 		Object_tag *pObjTag = GetTagOwner().FindBySymbol(pSymbol);
 		if (pObjTag == NULL) {

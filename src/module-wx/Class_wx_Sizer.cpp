@@ -251,7 +251,7 @@ Gura_ImplementMethod(wx_Sizer, Detach)
 	} else if (args.IsInstanceOf(0, VTYPE_wx_Sizer)) {
 		wxSizer *sizer = Object_wx_Sizer::GetObject(args, 0)->GetEntity();
 		rtn = pThis->GetEntity()->Detach(sizer);
-	} else if (args.IsNumber(0)) {
+	} else if (args.Is_number(0)) {
 		size_t index = args.GetSizeT(0);
 		rtn = pThis->GetEntity()->Detach(index);
 	} else {
@@ -341,7 +341,7 @@ Gura_ImplementMethod(wx_Sizer, GetItem)
 	} else if (args.IsInstanceOf(0, VTYPE_wx_Sizer)) {
 		wxSizer *sizer = Object_wx_Sizer::GetObject(args, 0)->GetEntity();
 		rtn = (wxSizerItem *)pThis->GetEntity()->GetItem(sizer, recursive);
-	} else if (args.IsNumber(0)) {
+	} else if (args.Is_number(0)) {
 		size_t index = args.GetSizeT(0);
 		rtn = (wxSizerItem *)pThis->GetEntity()->GetItem(index);
 	} else {
@@ -414,7 +414,7 @@ Gura_ImplementMethod(wx_Sizer, Hide)
 	} else if (args.IsInstanceOf(0, VTYPE_wx_Sizer)) {
 		wxSizer *sizer = Object_wx_Sizer::GetObject(args, 0)->GetEntity();
 		rtn = pThis->GetEntity()->Hide(sizer, recursive);
-	} else if (args.IsNumber(0)) {
+	} else if (args.Is_number(0)) {
 		size_t index = args.GetSizeT(0);
 		rtn = pThis->GetEntity()->Hide(index);
 	} else {
@@ -528,7 +528,7 @@ Gura_ImplementMethod(wx_Sizer, IsShown)
 	} else if (args.IsInstanceOf(0, VTYPE_wx_Sizer)) {
 		wxSizer *sizer = Object_wx_Sizer::GetObject(args, 0)->GetEntity();
 		rtn = pThis->GetEntity()->IsShown(sizer);
-	} else if (args.IsNumber(0)) {
+	} else if (args.Is_number(0)) {
 		size_t index = args.GetSizeT(0);
 		rtn = pThis->GetEntity()->IsShown(index);
 	} else {
@@ -712,7 +712,7 @@ Gura_ImplementMethod(wx_Sizer, Remove)
 	} else if (args.IsInstanceOf(0, VTYPE_wx_Sizer)) {
 		wxSizer *sizer = Object_wx_Sizer::GetObject(args, 0)->GetEntity();
 		rtn = pThis->GetEntity()->Remove(sizer);
-	} else if (args.IsNumber(0)) {
+	} else if (args.Is_number(0)) {
 		size_t index = args.GetSizeT(0);
 		rtn = pThis->GetEntity()->Remove(index);
 	} else {
@@ -861,7 +861,7 @@ Gura_ImplementMethod(wx_Sizer, SetItemMinSize)
 	} else if (args.IsInstanceOf(0, VTYPE_wx_Sizer)) {
 		wxSizer *sizer = Object_wx_Sizer::GetObject(args, 0)->GetEntity();
 		pThis->GetEntity()->SetItemMinSize(sizer, width, height);
-	} else if (args.IsNumber(0)) {
+	} else if (args.Is_number(0)) {
 		size_t index = args.GetSizeT(0);
 		pThis->GetEntity()->SetItemMinSize(index, width, height);
 	} else {
@@ -925,7 +925,7 @@ Gura_ImplementMethod(wx_Sizer, Show)
 	} else if (args.IsInstanceOf(0, VTYPE_wx_Sizer)) {
 		wxSizer *sizer = Object_wx_Sizer::GetObject(args, 0)->GetEntity();
 		rtn = pThis->GetEntity()->Show(sizer, show, recursive);
-	} else if (args.IsNumber(0)) {
+	} else if (args.Is_number(0)) {
 		size_t index = args.GetSizeT(0);
 		rtn = pThis->GetEntity()->Show(index, show);
 	} else {

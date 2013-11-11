@@ -1898,7 +1898,7 @@ Gura_ImplementMethod(wx_Window, IsExposed)
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	bool rtn = false;
-	if (args.IsNumber(2) && args.IsNumber(3)) {
+	if (args.Is_number(2) && args.Is_number(3)) {
 		int w = args.GetInt(2);
 		int h = args.GetInt(3);
 		rtn = pThis->GetEntity()->IsExposed(x, y, w, h);

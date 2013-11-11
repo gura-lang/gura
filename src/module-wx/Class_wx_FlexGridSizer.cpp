@@ -58,7 +58,7 @@ Gura_ImplementFunction(FlexGridSizer)
 	int hgap = 0;
 	if (args.IsValid(3)) hgap = args.GetInt(3);
 	wx_FlexGridSizer *pEntity = NULL;
-	if (args.IsNumber(0)) {
+	if (args.Is_number(0)) {
 		int rows = args.GetInt(0);
 		pEntity = new wx_FlexGridSizer(rows, cols, vgap, hgap);
 	} else {

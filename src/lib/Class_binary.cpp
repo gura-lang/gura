@@ -38,7 +38,7 @@ Value Object_binary::DoGetProp(Environment &env, Signal sig, const Symbol *pSymb
 
 Value Object_binary::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 {
-	if (!valueIdx.IsNumber()) {
+	if (!valueIdx.Is_number()) {
 		sig.SetError(ERR_IndexError, "index must be a number for binary");
 		return Value::Null;
 	}
@@ -65,11 +65,11 @@ void Object_binary::IndexSet(Environment &env, Signal sig, const Value &valueIdx
 		sig.SetError(ERR_ValueError, "not a writable binary");
 		return;
 	}
-	if (!valueIdx.IsNumber()) {
+	if (!valueIdx.Is_number()) {
 		sig.SetError(ERR_IndexError, "index must be a number for binary");
 		return;
 	}
-	if (!value.IsNumber()) {
+	if (!value.Is_number()) {
 		sig.SetError(ERR_IndexError, "value must be a number for binary");
 		return;
 	}
@@ -218,9 +218,9 @@ Gura_ImplementFunction(binary)
 	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
 	Binary &binary = pObjBinary->GetBinary();
 	foreach_const (ValueList, pValue, args.GetList(0)) {
-		if (pValue->IsString()) {
+		if (pValue->Is_string()) {
 			binary += pValue->GetString();
-		} else if (pValue->IsBinary()) {
+		} else if (pValue->Is_binary()) {
 			binary += pValue->GetBinary();
 		} else {
 			sig.SetError(ERR_ValueError, "string or binary is expected");
@@ -328,7 +328,7 @@ Gura_ImplementMethod(binary, unpacks)
 	Object_binary *pObj = Object_binary::Reference(pThis);
 	const char *format = args.GetString(0);
 	size_t offset = args.GetSizeT(1);
-	int cntMax = args.IsNumber(2)? args.GetInt(2) : -1;
+	int cntMax = args.Is_number(2)? args.GetInt(2) : -1;
 	Iterator *pIterator =
 			new Object_binary::IteratorUnpack(pObj, format, offset, cntMax);
 	return ReturnIterator(env, sig, args, pIterator);
@@ -523,7 +523,7 @@ void Class_binary::Prepare(Environment &env)
 
 bool Class_binary::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
-	if (value.IsString()) {
+	if (value.Is_string()) {
 		Object_binary *pObjBinary = new Object_binary(env, value.GetStringSTL(), true);
 		value = Value(pObjBinary);
 		return true;

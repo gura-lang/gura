@@ -65,9 +65,9 @@ Value Object_function::DoSetProp(Environment &env, Signal sig, const Symbol *pSy
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(symbol)) ||
 						pSymbol->IsIdentical(Gura_Symbol(name))) {
-		if (value.IsSymbol()) {
+		if (value.Is_symbol()) {
 			GetFunction()->SetSymbol(value.GetSymbol());
-		} else if (value.IsString()) {
+		} else if (value.Is_string()) {
 			GetFunction()->SetSymbol(Symbol::Add(value.GetString()));
 		} else {
 			sig.SetError(ERR_TypeError, "symbol or string must be specified");
@@ -79,7 +79,7 @@ Value Object_function::DoSetProp(Environment &env, Signal sig, const Symbol *pSy
 			sig.SetError(ERR_TypeError, "not a custom function");
 			return Value::Null;
 		}
-		if (!value.IsExpr()) {
+		if (!value.Is_expr()) {
 			sig.SetError(ERR_TypeError, "expr must be specified");
 			return Value::Null;
 		}
@@ -267,7 +267,7 @@ Gura_DeclareMethod(function, gethelp)
 Gura_ImplementMethod(function, gethelp)
 {
 	Object_function *pThis = Object_function::GetThisObj(args);
-	const Symbol *pSymbol = args.IsSymbol(0)? args.GetSymbol(0) : NULL;
+	const Symbol *pSymbol = args.Is_symbol(0)? args.GetSymbol(0) : NULL;
 	const Help *pHelp = pThis->GetFunction()->GetHelp(pSymbol);
 	if (pHelp == NULL) return Value::Null;
 	return Value(new Object_help(env, pHelp->Reference()));
@@ -288,7 +288,7 @@ Gura_DeclareMethod(function, help)
 Gura_ImplementMethod(function, help)
 {
 	Object_function *pThis = Object_function::GetThisObj(args);
-	const Symbol *pSymbol = args.IsSymbol(0)? args.GetSymbol(0) : NULL;
+	const Symbol *pSymbol = args.Is_symbol(0)? args.GetSymbol(0) : NULL;
 	HelpPresenter::Present(env, sig, pThis->ToString(true).c_str(),
 									pThis->GetFunction()->GetHelp(pSymbol));
 	return Value::Null;
@@ -307,7 +307,7 @@ Gura_ImplementMethod(function, diff)
 	const Function *pFunc = pThis->GetFunction();
 	const DeclarationOwner &declOwner = pFunc->GetDeclOwner();
 	const Symbol *pSymbol = NULL;
-	if (args.IsSymbol(0)) {
+	if (args.Is_symbol(0)) {
 		pSymbol = args.GetSymbol(0);
 	} else if (declOwner.empty()) {
 		sig.SetError(ERR_ValueError, "variable symbol must be specified");
@@ -350,7 +350,7 @@ void Class_function::Prepare(Environment &env)
 
 bool Class_function::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
-	if (value.IsExpr()) {
+	if (value.Is_expr()) {
 		Function *pFunc = value.GetExpr()->
 				ToFunction(env, sig, ValueList::Null, SymbolSet::Null);
 		if (sig.IsSignalled()) return false;

@@ -378,7 +378,7 @@ Gura_ImplementMethod(writer, add)
 {
 	Object_writer *pThis = Object_writer::GetThisObj(args);
 	String fileName;
-	if (args.IsString(1)) {
+	if (args.Is_string(1)) {
 		fileName = args.GetString(1);
 	} else {
 		const char *identifier = args.GetStream(0).GetIdentifier();
@@ -388,7 +388,7 @@ Gura_ImplementMethod(writer, add)
 		}
 		PathManager::SplitFileName(identifier, NULL, &fileName);
 	}
-	UShort compressionMethod = args.IsSymbol(2)?
+	UShort compressionMethod = args.Is_symbol(2)?
 						SymbolToCompressionMethod(args.GetSymbol(2)) :
 						pThis->GetCompressionMethod();
 	if (compressionMethod == METHOD_Invalid) {
@@ -499,7 +499,7 @@ Gura_DeclareFunction(writer)
 Gura_ImplementFunction(writer)
 {
 	Stream &streamDst = args.GetStream(0);
-	UShort compressionMethod = args.IsSymbol(1)?
+	UShort compressionMethod = args.Is_symbol(1)?
 			SymbolToCompressionMethod(args.GetSymbol(1)) : METHOD_Deflate;
 	if (compressionMethod == METHOD_Invalid) {
 		sig.SetError(ERR_IOError, "invalid compression method");

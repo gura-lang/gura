@@ -342,7 +342,7 @@ Gura_ImplementMethod(writer, add)
 {
 	Object_writer *pThis = Object_writer::GetThisObj(args);
 	String fileName;
-	if (args.IsString(1)) {
+	if (args.Is_string(1)) {
 		fileName = args.GetString(1);
 	} else {
 		const char *identifier = args.GetStream(0).GetIdentifier();
@@ -724,7 +724,7 @@ Gura_DeclareFunction(reader)
 Gura_ImplementFunction(reader)
 {
 	Stream &streamSrc = args.GetStream(0);
-	CompressionType compressionType = args.IsSymbol(1)?
+	CompressionType compressionType = args.Is_symbol(1)?
 				SymbolToCompressionType(args.GetSymbol(1)) : COMPRESS_Auto;
 	if (compressionType == COMPRESS_Invalid) {
 		sig.SetError(ERR_ValueError, "invalid compression symbol");
@@ -750,7 +750,7 @@ Gura_DeclareFunction(writer)
 Gura_ImplementFunction(writer)
 {
 	Stream &streamDst = args.GetStream(0);
-	CompressionType compressionType = args.IsSymbol(1)?
+	CompressionType compressionType = args.Is_symbol(1)?
 				SymbolToCompressionType(args.GetSymbol(1)) : COMPRESS_Auto;
 	if (compressionType == COMPRESS_Invalid) {
 		sig.SetError(ERR_ValueError, "invalid compression symbol");

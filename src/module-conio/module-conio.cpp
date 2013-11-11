@@ -137,7 +137,7 @@ Gura_ImplementFunction(clear)
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFO csbi;
 	::GetConsoleScreenBufferInfo(hConsole, &csbi);
-	const Symbol *pSymbol = args.IsSymbol(0)? args.GetSymbol(0) : NULL;
+	const Symbol *pSymbol = args.Is_symbol(0)? args.GetSymbol(0) : NULL;
 	COORD coordStart = { 0, 0 };
 	COORD coordHome = { 0, 0 };
 	DWORD dwConSize = 0;
@@ -203,10 +203,10 @@ Gura_ImplementFunction(setcolor)
 	::GetConsoleScreenBufferInfo(hConsole, &csbi);
 	int fg = csbi.wAttributes & 0x000f;
 	int bg = (csbi.wAttributes & 0x00f0) >> 4;
-	if (args.IsSymbol(0) && !SymbolToNumber(sig, args.GetSymbol(0), &fg)) {
+	if (args.Is_symbol(0) && !SymbolToNumber(sig, args.GetSymbol(0), &fg)) {
 		return Value::Null;
 	}
-	if (args.IsSymbol(1) && !SymbolToNumber(sig, args.GetSymbol(1), &bg)) {
+	if (args.Is_symbol(1) && !SymbolToNumber(sig, args.GetSymbol(1), &bg)) {
 		return Value::Null;
 	}
 	::SetConsoleTextAttribute(hConsole, fg + (bg << 4));
@@ -306,7 +306,7 @@ Gura_ImplementFunction(waitkey)
 
 Gura_ImplementFunction(clear)
 {
-	const Symbol *pSymbol = args.IsSymbol(0)? args.GetSymbol(0) : NULL;
+	const Symbol *pSymbol = args.Is_symbol(0)? args.GetSymbol(0) : NULL;
 	if (pSymbol == NULL) {
 		::printf("\033[2J");
 		::printf("\033[H");
@@ -342,7 +342,7 @@ Gura_ImplementFunction(setcolor)
 {
 	int fg = 0, bg = 0;
 	String str;
-	if (!args.IsSymbol(0)) {
+	if (!args.Is_symbol(0)) {
 		// nothing to do
 	} else if (!SymbolToNumber(sig, args.GetSymbol(0), &fg)) {
 		return Value::Null;
@@ -355,7 +355,7 @@ Gura_ImplementFunction(setcolor)
 		str += '3';
 		str += ('0' + (fg & 7));
 	}
-	if (!args.IsSymbol(1)) {
+	if (!args.Is_symbol(1)) {
 		// nothing to do
 	} else if (!SymbolToNumber(sig, args.GetSymbol(1), &bg)) {
 		return Value::Null;

@@ -132,24 +132,24 @@ Value Object_wx_LanguageInfo::DoSetProp(Environment &env, Signal sig, const Symb
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_UserSymbol(Language))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		GetEntity()->Language = value.GetInt();
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(CanonicalName))) {
-		if (!value.MustBeString(sig)) return Value::Null;
+		if (!value.MustBe_string(sig)) return Value::Null;
 		GetEntity()->CanonicalName = wxString::FromUTF8(value.GetString());
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(Description))) {
-		if (!value.MustBeString(sig)) return Value::Null;
+		if (!value.MustBe_string(sig)) return Value::Null;
 		GetEntity()->Description = wxString::FromUTF8(value.GetString());
 		return value;
 #ifdef __WIN32__
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(WinLang))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		GetEntity()->WinLang = value.GetInt();
 		return value;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(WinSublang))) {
-		if (!value.MustBeNumber(sig)) return Value::Null;
+		if (!value.MustBe_number(sig)) return Value::Null;
 		GetEntity()->WinSublang = value.GetInt();
 		return value;
 #endif

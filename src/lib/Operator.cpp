@@ -137,7 +137,7 @@ Value Operator::EvalMapUnary(Environment &env, Signal sig, const Value &value) c
 	}
 	AutoPtr<Iterator> pIterator(new Iterator_UnaryOperatorMap(
 										new Environment(env), sig, this, value));
-	if (value.IsIterator()) {
+	if (value.Is_iterator()) {
 		return Value(env, pIterator.release());
 	}
 	return pIterator->ToList(env, sig, true, false);
@@ -151,7 +151,7 @@ Value Operator::EvalMapBinary(Environment &env, Signal sig,
 	}
 	AutoPtr<Iterator> pIterator(new Iterator_BinaryOperatorMap(new Environment(env), sig,
 									this, valueLeft, valueRight));
-	if (valueLeft.IsIterator() || valueRight.IsIterator()) {
+	if (valueLeft.Is_iterator() || valueRight.Is_iterator()) {
 		return Value(env, pIterator.release());
 	}
 	return pIterator->ToList(env, sig, true, false);
@@ -524,11 +524,11 @@ Expr *Operator_Sub::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 Value Operator_Mul::EvalMapBinary(Environment &env, Signal sig,
 							const Value &valueLeft, const Value &valueRight) const
 {
-	if (valueLeft.IsFunction()) {
+	if (valueLeft.Is_function()) {
 		const Function *pFunc = valueLeft.GetFunction();
 		if (pFunc->IsUnary()) {
 			// nothing to do
-		} else if (valueRight.IsList()) {
+		} else if (valueRight.Is_list()) {
 			const ValueList &valList = valueRight.GetList();
 			if (valList.IsFlat()) {
 				ValueList valListComp = valList;
@@ -547,7 +547,7 @@ Value Operator_Mul::EvalMapBinary(Environment &env, Signal sig,
 			AutoPtr<Args> pArgsSub(new Args());
 			pArgsSub->SetValues(valueLeft, valueRight);
 			return pIteratorFuncBinder->Eval(env, sig, *pArgsSub);
-		} else if (valueRight.IsIterator()) {
+		} else if (valueRight.Is_iterator()) {
 			AutoPtr<Iterator> pIterator(valueRight.CreateIterator(sig));
 			if (sig.IsSignalled()) return Value::Null;
 			AutoPtr<Iterator> pIteratorFuncBinder(new Iterator_FuncBinder(new Environment(env),
@@ -562,8 +562,8 @@ Value Operator_Mul::EvalMapBinary(Environment &env, Signal sig,
 				return pIteratorFuncBinder->Eval(env, sig, *pArgsSub);
 			}
 		}
-	} else if (valueLeft.IsMatrix() && valueRight.IsList() ||
-			   valueLeft.IsList() && valueRight.IsMatrix()) {
+	} else if (valueLeft.Is_matrix() && valueRight.Is_list() ||
+			   valueLeft.Is_list() && valueRight.Is_matrix()) {
 		return EvalBinary(env, sig, valueLeft, valueRight);
 	}
 	return Operator::EvalMapBinary(env, sig, valueLeft, valueRight);
@@ -859,10 +859,10 @@ Expr *Operator_Div::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 Value Operator_Mod::EvalMapBinary(Environment &env, Signal sig,
 							const Value &valueLeft, const Value &valueRight) const
 {
-	if (valueLeft.IsFunction()) {
+	if (valueLeft.Is_function()) {
 		const Function *pFunc = valueLeft.GetFunction();
 		Value result;
-		if (!valueRight.IsList()) {
+		if (!valueRight.Is_list()) {
 			AutoPtr<Args> pArgsSub(new Args());
 			pArgsSub->SetValue(valueRight);
 			result = pFunc->Eval(env, sig, *pArgsSub);
@@ -881,15 +881,15 @@ Value Operator_Mod::EvalMapBinary(Environment &env, Signal sig,
 			result = pFunc->EvalMap(env, sig, *pArgsSub);
 		}
 		return result;
-	} else if (valueLeft.IsString()) {
+	} else if (valueLeft.Is_string()) {
 		const char *format = valueLeft.GetString();
-		if (!valueRight.IsList()) {
+		if (!valueRight.Is_list()) {
 			String str = Formatter::Format(sig, format, ValueList(valueRight));
 			if (sig.IsSignalled()) return Value::Null;
 			return Value(env, str.c_str());
 		} else {
 			const ValueList &valList = valueRight.GetList();
-			if (valList.IsFlat() && !valList.IsContainIterator()) {
+			if (valList.IsFlat() && !valList.DoesContainIterator()) {
 				String str = Formatter::Format(sig, format, valList);
 				if (sig.IsSignalled()) return Value::Null;
 				return Value(env, str.c_str());
@@ -897,7 +897,7 @@ Value Operator_Mod::EvalMapBinary(Environment &env, Signal sig,
 				IteratorOwner iterOwner;
 				foreach_const (ValueList, pValue, valList) {
 					AutoPtr<Iterator> pIterator;
-					if (pValue->IsList() || pValue->IsIterator()) {
+					if (pValue->Is_list() || pValue->Is_iterator()) {
 						pIterator.reset(pValue->CreateIterator(sig));
 						if (pIterator.IsNull()) return Value::Null;
 					} else {
@@ -1687,26 +1687,26 @@ Gura_ImplementBinaryOperator(Cmp, any, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Contains, any, any)
 {
-	if (valueLeft.IsList() || valueLeft.IsIterator()) {
+	if (valueLeft.Is_list() || valueLeft.Is_iterator()) {
 		Value result;
 		ValueList &valList = result.InitAsList(env);
 		AutoPtr<Iterator> pIterator(valueLeft.CreateIterator(sig));
 		if (pIterator.IsNull()) return Value::Null;
-		if (valueRight.IsList()) {
+		if (valueRight.Is_list()) {
 			const ValueList &valListToFind = valueRight.GetList();
 			Value value;
 			while (pIterator->Next(env, sig, value)) {
-				valList.push_back(valListToFind.IsContain(value));
+				valList.push_back(valListToFind.DoesContain(value));
 			}
 			if (sig.IsSignalled()) {
 				return Value::Null;
 			}
-		} else if (valueRight.IsIterator()) {
+		} else if (valueRight.Is_iterator()) {
 			Value value;
 			while (pIterator->Next(env, sig, value)) {
 				AutoPtr<Iterator> pIteratorToFind(valueRight.CreateIterator(sig));
 				if (pIteratorToFind.IsNull()) break;
-				bool foundFlag = pIteratorToFind->IsContain(env, sig, value);
+				bool foundFlag = pIteratorToFind->DoesContain(env, sig, value);
 				if (sig.IsSignalled()) break;
 				valList.push_back(foundFlag);
 			}
@@ -1723,12 +1723,12 @@ Gura_ImplementBinaryOperator(Contains, any, any)
 			}
 		}
 		return result;
-	} else if (valueRight.IsList()) {
-		return Value(valueRight.GetList().IsContain(valueLeft));
-	} else if (valueRight.IsIterator()) {
+	} else if (valueRight.Is_list()) {
+		return Value(valueRight.GetList().DoesContain(valueLeft));
+	} else if (valueRight.Is_iterator()) {
 		AutoPtr<Iterator> pIteratorToFind(valueRight.CreateIterator(sig));
 		if (pIteratorToFind.IsNull()) return Value::Null;
-		bool foundFlag = pIteratorToFind->IsContain(env, sig, valueLeft);
+		bool foundFlag = pIteratorToFind->DoesContain(env, sig, valueLeft);
 		if (sig.IsSignalled()) return Value::Null;
 		return Value(foundFlag);
 	} else {

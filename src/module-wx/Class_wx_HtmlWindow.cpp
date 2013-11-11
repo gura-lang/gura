@@ -132,7 +132,7 @@ wxHtmlOpeningStatus wx_HtmlWindow::OnOpeningURL(wxHtmlURLType type, const wxStri
 		_sig.SetError(ERR_ValueError, "a list of two elements is expected");
 		return wxHTML_OPEN;
 	}
-	if (!valListRtn[0].IsNumber() || valListRtn[1].IsString()) {
+	if (!valListRtn[0].Is_number() || valListRtn[1].Is_string()) {
 		_sig.SetError(ERR_ValueError, "unexpected result type");
 		return wxHTML_OPEN;
 	}

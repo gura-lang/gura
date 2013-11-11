@@ -413,7 +413,7 @@ bool Stream::ReadToStream(Environment &env, Signal sig, Stream &streamDst,
 			pArgsSub->SetValue(value);
 			Value rtn = pFuncFilter->Eval(env, sig, *pArgsSub);
 			if (sig.IsSignalled()) return false;
-			if (rtn.IsBinary()) {
+			if (rtn.Is_binary()) {
 				const Binary &buffRtn = rtn.GetBinary();
 				streamDst.Write(sig, buffRtn.data(), buffRtn.size());
 				if (sig.IsSignalled()) return false;

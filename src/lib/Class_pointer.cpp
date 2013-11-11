@@ -111,7 +111,7 @@ Gura_ImplementMethod(pointer, unpacks)
 	Object_pointer *pThis = Object_pointer::GetThisObj(args);
 	Object_binary *pObj = Object_binary::Reference(pThis->GetBinaryObj());
 	const char *format = args.GetString(0);
-	int cntMax = args.IsNumber(1)? args.GetInt(1) : -1;
+	int cntMax = args.Is_number(1)? args.GetInt(1) : -1;
 	Iterator *pIterator =
 		new Object_binary::IteratorUnpack(pObj, format, pThis->GetOffset(), cntMax);
 	return ReturnIterator(env, sig, args, pIterator);
