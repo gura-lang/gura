@@ -3,7 +3,7 @@ import(jpeg)
 import(bmp)
 
 PrintIFD(ifd:jpeg.ifd, indentLevel:number => 0) = {
-	ifd.each() {|tag|
+	ifd.each {|tag|
 		printf('%s[%04x] %-32s %s\n', '  ' * indentLevel, tag.id, tag.name, tag.value):nomap
 		//tag.ifd && PrintIFD(tag.ifd, indentLevel + 1)
 	}
