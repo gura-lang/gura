@@ -9,6 +9,10 @@ PrintIFD(ifd:jpeg.ifd, indentLevel:number => 0) = {
 	}
 }
 
+if (sys.argv.len() < 2) {
+	sys.stderr.println('usage: jpeg-showexif.gura file')
+	sys.exit(0)
+}
 jpeg.exif(sys.argv[1]) {|exif|
 	if (!exif) {
 		println("exif doesn't exist")
