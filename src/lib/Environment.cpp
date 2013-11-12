@@ -598,23 +598,24 @@ Module *Environment::ImportModule(Signal sig,
 			bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag)
 {
 	Module *pModule = NULL;
+	const Symbol *pSymbolOfModule = symbolOfModule.back();
+	SymbolList::const_iterator ppSymbolOfModule = symbolOfModule.begin();
+	SymbolList::const_iterator ppSymbolOfModuleEnd = symbolOfModule.end();
 	if (!binaryOnlyFlag) {
-		pModule = ImportIntegratedModule(sig, symbolOfModule.back());
+		pModule = ImportIntegratedModule(sig, pSymbolOfModule);
 		if (sig.IsSignalled()) return NULL;
 	}
 	if (pModule == NULL) {
 		String pathName;
 		if (!SearchSeparatedModuleFile(sig, pathName,
-			symbolOfModule.begin(), symbolOfModule.end(), binaryOnlyFlag)) return NULL;
+				ppSymbolOfModule, ppSymbolOfModuleEnd, binaryOnlyFlag)) return NULL;
 		pModule = GetGlobal()->LookupSeparatedModule(pathName.c_str());
 		if (pModule != NULL) {
 			// nothing to do
 		} else if (IsBinaryModule(pathName.c_str())) {
-			pModule = ImportSeparatedModule_Binary(sig, this,
-									pathName.c_str(), symbolOfModule.back());
+			pModule = ImportSeparatedModule_Binary(sig, this, pathName.c_str(), pSymbolOfModule);
 		} else {
-			pModule = ImportSeparatedModule_Script(sig, this,
-									pathName.c_str(), symbolOfModule.back());
+			pModule = ImportSeparatedModule_Script(sig, this, pathName.c_str(), pSymbolOfModule);
 		}
 		if (pModule == NULL) return NULL;
 	}
@@ -624,8 +625,8 @@ Module *Environment::ImportModule(Signal sig,
 			// nothing to do
 		} else if (pSymbolAlias == NULL) {
 			Environment *pEnvDst = this;
-			for (SymbolList::const_iterator ppSymbol = symbolOfModule.begin();
-									ppSymbol + 1 != symbolOfModule.end(); ppSymbol++) {
+			for (SymbolList::const_iterator ppSymbol = ppSymbolOfModule;
+								ppSymbol + 1 != ppSymbolOfModuleEnd; ppSymbol++) {
 				const Symbol *pSymbol = *ppSymbol;
 				Value *pValue = pEnvDst->LookupValue(pSymbol, ENVREF_NoEscalate);
 				if (pValue == NULL) {
@@ -635,7 +636,7 @@ Module *Environment::ImportModule(Signal sig,
 					if (!pEnvDst->ImportValue(pSymbol, valueOfModule, EXTRA_Public, false)) {
 						sig.SetError(ERR_ImportError,
 							"module symbol conflicts with an existing variable '%s'",
-							symbolOfModule.Join('.').c_str());
+							SymbolList::Join(ppSymbolOfModule, ppSymbol + 1, '.').c_str());
 						return NULL;
 					}
 					pEnvDst = pModuleParent;
@@ -644,24 +645,23 @@ Module *Environment::ImportModule(Signal sig,
 				} else {
 					sig.SetError(ERR_ImportError,
 						"module symbol conflicts with an existing variable '%s'",
-						pSymbol->GetName());
+						SymbolList::Join(ppSymbolOfModule, ppSymbol + 1, '.').c_str());
 					return NULL;
 				}
 			}
-			const Symbol *pSymbolOfModule = symbolOfModule.back();
 			Value valueOfModule(Module::Reference(pModule));
 			if (!pEnvDst->ImportValue(pSymbolOfModule, valueOfModule, EXTRA_Public, false)) {
 				sig.SetError(ERR_ImportError,
-						"module symbol conflicts with an existing variable '%s'",
-						symbolOfModule.Join('.').c_str());
+					"module symbol conflicts with an existing variable '%s'",
+					SymbolList::Join(ppSymbolOfModule, ppSymbolOfModuleEnd, '.').c_str());
 				return NULL;
 			}
 		} else {
 			Value valueOfModule(Module::Reference(pModule));
 			if (!ImportValue(pSymbolAlias, valueOfModule, EXTRA_Public, false)) {
 				sig.SetError(ERR_ImportError,
-						"module symbol conflicts with an existing variable '%s'",
-						pSymbolAlias->GetName());
+					"module symbol conflicts with an existing variable '%s'",
+					pSymbolAlias->GetName());
 				return NULL;
 			}
 		}
@@ -675,8 +675,8 @@ Module *Environment::ImportModule(Signal sig,
 				// nothing to do
 			} else if (!ImportValue(pSymbol, valueEx, valueEx.GetExtra(), overwriteFlag)) {
 				sig.SetError(ERR_ImportError,
-						"imported variable name conflicts with an existing one '%s'",
-						pSymbol->GetName());
+					"imported variable name conflicts with an existing one '%s'",
+					pSymbol->GetName());
 				return NULL;
 			}
 		}
