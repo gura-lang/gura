@@ -733,10 +733,10 @@ Module *Environment::ImportSeparatedModule(Signal sig,
 	if (pModule != NULL) return pModule;
 	if (IsBinaryModule(pathName.c_str())) {
 		pModule = ImportSeparatedModule_Binary(sig, this,
-								pathName.c_str(), symbolOfModule);
+								pathName.c_str(), symbolOfModule.back());
 	} else {
 		pModule = ImportSeparatedModule_Script(sig, this,
-								pathName.c_str(), symbolOfModule);
+								pathName.c_str(), symbolOfModule.back());
 	}
 	return pModule;
 }
@@ -784,15 +784,14 @@ bool Environment::SearchSeparatedModuleFile(Signal sig, String &pathName,
 }
 
 Module *Environment::ImportSeparatedModule_Script(Signal sig, Environment *pEnvOuter,
-						const char *pathName, const SymbolList &symbolOfModule)
+									const char *pathName, const Symbol *pSymbol)
 {
 	Environment &env = *this;
 	AutoPtr<Stream> pStream(Stream::Open(env, sig, pathName, Stream::ATTR_Readable));
 	if (sig.IsError()) return NULL;
 	Expr_Root *pExprRoot = Parser().ParseStream(*pEnvOuter, sig, *pStream);
 	if (sig.IsSignalled()) return NULL;
-	Module *pModule = new Module(pEnvOuter, symbolOfModule.back(),
-												pathName, pExprRoot, NULL);
+	Module *pModule = new Module(pEnvOuter, pSymbol, pathName, pExprRoot, NULL);
 	GetGlobal()->RegisterSeparatedModule(pathName, pModule);
 	bool echoFlagSaved = pModule->GetGlobal()->GetEchoFlag();
 	pModule->GetGlobal()->SetEchoFlag(false);
@@ -808,7 +807,7 @@ Module *Environment::ImportSeparatedModule_Script(Signal sig, Environment *pEnvO
 }
 
 Module *Environment::ImportSeparatedModule_Binary(Signal sig, Environment *pEnvOuter,
-						const char *pathName, const SymbolList &symbolOfModule)
+									const char *pathName, const Symbol *pSymbol)
 {
 	OAL::DynamicLibrary dynamicLibrary;
 	if (!dynamicLibrary.Open(sig, pathName)) return NULL;
@@ -821,7 +820,7 @@ Module *Environment::ImportSeparatedModule_Binary(Signal sig, Environment *pEnvO
 	pFunc = dynamicLibrary.GetEntry(sig, "GuraModuleTerminate");
 	if (pFunc == NULL) return NULL;
 	ModuleTerminateType moduleTerminate = (ModuleTerminateType)(pFunc);
-	Module *pModule = new Module(pEnvOuter, symbolOfModule.back(), pathName, NULL, moduleTerminate);
+	Module *pModule = new Module(pEnvOuter, pSymbol, pathName, NULL, moduleTerminate);
 	GetGlobal()->RegisterSeparatedModule(pathName, pModule);
 	(*moduleEntry)(*pModule, sig);
 	if (sig.IsSignalled()) {

@@ -370,9 +370,9 @@ private:
 			SymbolList::const_iterator ppSymbolOfModule,
 			SymbolList::const_iterator ppSymbolOfModuleEnd, bool binaryOnlyFlag);
 	Module *ImportSeparatedModule_Script(Signal sig, Environment *pEnvOuter,
-						const char *pathName, const SymbolList &symbolOfModule);
+							const char *pathName, const Symbol *pSymbol);
 	Module *ImportSeparatedModule_Binary(Signal sig, Environment *pEnvOuter,
-						const char *pathName, const SymbolList &symbolOfModule);
+							const char *pathName, const Symbol *pSymbol);
 };
 
 typedef std::set<Environment *> EnvironmentSet;
