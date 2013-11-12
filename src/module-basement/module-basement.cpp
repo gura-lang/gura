@@ -201,21 +201,20 @@ Gura_ImplementFunction(import_)
 		}
 		pSymbolsToMixIn = &symbolsToMixIn;
 	}
-	const Symbol *pSymbol = NULL;
+	const Symbol *pSymbolAlias = NULL;
 	if (!args.Is_expr(1)) {
 		// nothing to do
 	} else if (!args.GetExpr(1)->IsSymbol()) {
 		sig.SetError(ERR_ValueError, "symbol is expected as a module name");
 		return Value::Null;
 	} else {
-		pSymbol =
-			dynamic_cast<const Expr_Symbol *>(args.GetExpr(1))->GetSymbol();
+		pSymbolAlias = dynamic_cast<const Expr_Symbol *>(args.GetExpr(1))->GetSymbol();
 	}
 	bool overwriteFlag = args.IsSet(Gura_Symbol(overwrite));
 	bool binaryOnlyFlag = args.IsSet(Gura_Symbol(binary));
 	bool mixinTypeFlag = args.IsSet(Gura_Symbol(mixin_type));
-	if (!env.ImportModule(sig, args.GetExpr(0), pSymbol, pSymbolsToMixIn,
-								overwriteFlag, binaryOnlyFlag, mixinTypeFlag)) {
+	if (env.ImportModule(sig, args.GetExpr(0), pSymbolAlias, pSymbolsToMixIn,
+						overwriteFlag, binaryOnlyFlag, mixinTypeFlag) == NULL) {
 		return Value::Null;
 	}
 	return Value::Null;

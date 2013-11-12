@@ -340,10 +340,10 @@ public:
 	void AssignModule(Module *pModule);
 	bool ImportModules(Signal sig, const char *moduleNames,
 								bool binaryOnlyFlag, bool mixinTypeFlag);
-	bool ImportModule(Signal sig, const Expr *pExpr,
+	Module *ImportModule(Signal sig, const Expr *pExpr,
 			const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
 			bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag);
-	bool ImportModule(Signal sig, const SymbolList &symbolOfModule, bool assignModuleNameFlag,
+	Module *ImportModule(Signal sig, const SymbolList &symbolOfModule, bool assignModuleNameFlag,
 			const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
 			bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag);
 	static bool IsBinaryModule(const char *pathName);

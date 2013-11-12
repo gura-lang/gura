@@ -562,8 +562,8 @@ bool Environment::ImportModules(Signal sig,
 			if (!field.empty()) {
 				symbolList.push_back(Symbol::Add(field.c_str()));
 			}
-			if (!ImportModule(sig, symbolList, true, NULL, NULL,
-						true, binaryOnlyFlag, mixinTypeFlag)) return false;
+			if (ImportModule(sig, symbolList, true, NULL, NULL,
+						true, binaryOnlyFlag, mixinTypeFlag) == NULL) return false;
 			moduleName.clear();
 			if (ch == '\0') break;
 		} else {
@@ -573,7 +573,7 @@ bool Environment::ImportModules(Signal sig,
 	return true;
 }
 
-bool Environment::ImportModule(Signal sig, const Expr *pExpr,
+Module *Environment::ImportModule(Signal sig, const Expr *pExpr,
 			const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
 			bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag)
 {
@@ -590,25 +590,25 @@ bool Environment::ImportModule(Signal sig, const Expr *pExpr,
 	}
 	if (!pExpr->GetChainedSymbolList(symbolOfModule)) {
 		sig.SetError(ERR_ImportError, "wrong format for module name");
-		return false;
+		return NULL;
 	}
 	return ImportModule(sig, symbolOfModule, assignModuleNameFlag,
 						pSymbolAlias, pSymbolsToMixIn,
 						overwriteFlag, binaryOnlyFlag, mixinTypeFlag);
 }
 
-bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule, bool assignModuleNameFlag,
+Module *Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule, bool assignModuleNameFlag,
 			const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
 			bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag)
 {
 	Module *pModule = NULL;
 	if (!binaryOnlyFlag) {
 		pModule = ImportIntegratedModule(sig, symbolOfModule);
-		if (sig.IsSignalled()) return false;
+		if (sig.IsSignalled()) return NULL;
 	}
 	if (pModule == NULL) {
 		pModule = ImportSeparatedModule(sig, symbolOfModule, binaryOnlyFlag);
-		if (sig.IsSignalled()) return false;
+		if (sig.IsSignalled()) return NULL;
 	}
 	if (pSymbolsToMixIn == NULL) {
 		// import(hoge)
@@ -628,7 +628,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule, boo
 						sig.SetError(ERR_ImportError,
 							"module symbol conflicts with an existing variable '%s'",
 							symbolOfModule.Join('.').c_str());
-						return false;
+						return NULL;
 					}
 					pEnvDst = pModuleParent;
 				} else if (pValue->IsModule()) {
@@ -637,7 +637,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule, boo
 					sig.SetError(ERR_ImportError,
 						"module symbol conflicts with an existing variable '%s'",
 						pSymbol->GetName());
-					return false;
+					return NULL;
 				}
 			}
 			const Symbol *pSymbolOfModule = symbolOfModule.back();
@@ -646,7 +646,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule, boo
 				sig.SetError(ERR_ImportError,
 						"module symbol conflicts with an existing variable '%s'",
 						symbolOfModule.front()->GetName());
-				return false;
+				return NULL;
 			}
 		} else {
 			Value valueOfModule(Module::Reference(pModule));
@@ -654,7 +654,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule, boo
 				sig.SetError(ERR_ImportError,
 						"module symbol conflicts with an existing variable '%s'",
 						pSymbolAlias->GetName());
-				return false;
+				return NULL;
 			}
 		}
 	} else if (pSymbolsToMixIn->IsSet(Gura_Symbol(Char_Mul))) {
@@ -669,7 +669,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule, boo
 				sig.SetError(ERR_ImportError,
 						"imported variable name conflicts with an existing one '%s'",
 						pSymbol->GetName());
-				return false;
+				return NULL;
 			}
 		}
 	} else {
@@ -683,7 +683,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule, boo
 				sig.SetError(ERR_ImportError,
 						"imported variable name conflicts with an existing one '%s'",
 												pSymbol->GetName());
-				return false;
+				return NULL;
 			}
 		}
 	}
@@ -693,7 +693,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule, boo
 			AssignValueType(pValueTypeInfo);
 		}
 	}
-	return true;
+	return pModule;
 }
 
 Module *Environment::ImportIntegratedModule(Signal sig, const SymbolList &symbolOfModule)
