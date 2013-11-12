@@ -4,6 +4,7 @@ import(bmp)
 import(png)
 import(jpeg)
 import(xpm)
+import(cairo)
 
 main() = {
 	argopt.Parser {|p|
@@ -14,7 +15,7 @@ main() = {
 			sys.exit(1)
 		}
 	}
-	[width, height] = [300, 300]
+	[width, height] = [100, 100]
 	[realMin, realMax] = [-2.0, 1.0]
 	[imagMin, imagMax] = [-1.5, 1.5]
 	colors = palette(`basic).each():list
@@ -23,9 +24,17 @@ main() = {
 	//colors = color(0, 0, interval(80, 255, 16))
 	printf('canvas:%dx%d, real [%g,%g], imag [%g,%g]\n',
 						width, height, realMin, realMax, imagMin, imagMax)
-	img = mandelbrot(width, height, colors,
-						realMin, realMax, imagMin, imagMax) {|progress|
-		sys.stderr.printf('Progress: %d%%\r', progress)
+	img = image(`rgba, width, height)
+	//mandelbrot(img, colors, realMin, realMax, imagMin, imagMax) {|progress|
+	//	sys.stderr.printf('Progress: %d%%\r', progress)
+	//}
+	img.cairo {|cr|
+		cr.scale(width, height)
+		cr.set_source_rgb(0.0, 1.0, 1.0)
+		cr.move_to(0, 0)
+		cr.line_to(width, height)
+		cr.set_line_width(0.01)
+		cr.stroke()
 	}
 	if (argv.len() > 0) {
 		fileName = argv[0]
@@ -37,9 +46,8 @@ main() = {
 	}
 }
 
-mandelbrot(width:number, height:number, colors[]:color,
-		realMin:number, realMax:number, imagMin:number, imagMax:number) {block?} = {
-	img = image(`rgb, width, height)
+mandelbrot(img:image, colors[]:color,
+		realMin:number, realMax:number, imagMin:number, imagMax:number):void {block?} = {
 	nPixels = img.width * img.height
 	progressPrev = 0
 	cross (x in range(img.width), y in range(img.height)) {|iPixel|
