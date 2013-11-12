@@ -32,11 +32,6 @@ const char *GetEnvTypeName(EnvType envType)
 //-----------------------------------------------------------------------------
 // IntegratedModule
 //-----------------------------------------------------------------------------
-bool IntegratedModule::DoesMatch(const SymbolList &symbolOfModule) const
-{
-	return symbolOfModule.size() == 1 &&
-			::strcmp(symbolOfModule.back()->GetName(), _name.c_str()) == 0;
-}
 
 //-----------------------------------------------------------------------------
 // IntegratedModuleOwner
@@ -597,13 +592,14 @@ Module *Environment::ImportModule(Signal sig, const Expr *pExpr,
 						overwriteFlag, binaryOnlyFlag, mixinTypeFlag);
 }
 
-Module *Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule, bool assignModuleNameFlag,
+Module *Environment::ImportModule(Signal sig,
+			const SymbolList &symbolOfModule, bool assignModuleNameFlag,
 			const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
 			bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag)
 {
 	Module *pModule = NULL;
 	if (!binaryOnlyFlag) {
-		pModule = ImportIntegratedModule(sig, symbolOfModule);
+		pModule = ImportIntegratedModule(sig, symbolOfModule.back());
 		if (sig.IsSignalled()) return NULL;
 	}
 	if (pModule == NULL) {
@@ -696,13 +692,13 @@ Module *Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule, 
 	return pModule;
 }
 
-Module *Environment::ImportIntegratedModule(Signal sig, const SymbolList &symbolOfModule)
+Module *Environment::ImportIntegratedModule(Signal sig, const Symbol *pSymbol)
 {
 	int id = 0;
 	IntegratedModule *pIntegratedModule = NULL;
 	if (_pIntegratedModuleOwner != NULL) {
 		foreach (IntegratedModuleOwner, ppIntegratedModule, *_pIntegratedModuleOwner) {
-			if ((*ppIntegratedModule)->DoesMatch(symbolOfModule)) {
+			if (::strcmp((*ppIntegratedModule)->GetName(), pSymbol->GetName()) == 0) {
 				pIntegratedModule = *ppIntegratedModule;
 				break;
 			}
@@ -712,7 +708,7 @@ Module *Environment::ImportIntegratedModule(Signal sig, const SymbolList &symbol
 	if (pIntegratedModule == NULL) return NULL;
 	Module *pModule = GetGlobal()->LookupIntegratedModule(id);
 	if (pModule == NULL) {
-		pModule = new Module(this, symbolOfModule.back(), "<integrated>", NULL, NULL);
+		pModule = new Module(this, pSymbol, "<integrated>", NULL, NULL);
 		pIntegratedModule->ModuleEntry(*pModule, sig);
 		if (sig.IsSignalled()) {
 			delete pModule;

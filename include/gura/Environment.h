@@ -132,7 +132,7 @@ public:
 	inline void ModuleTerminate(Module *pModule) {
 		(*_moduleTerminate)(pModule);
 	}
-	bool DoesMatch(const SymbolList &symbolOfModule) const;
+	inline const char *GetName() const { return _name.c_str(); }
 };
 
 //-----------------------------------------------------------------------------
@@ -363,7 +363,7 @@ public:
 	static void IntegrateModule(const char *name,
 			ModuleEntryType moduleEntry, ModuleTerminateType moduleTerminate);
 private:
-	Module *ImportIntegratedModule(Signal sig, const SymbolList &symbolOfModule);
+	Module *ImportIntegratedModule(Signal sig, const Symbol *pSymbol);
 	Module *ImportSeparatedModule(Signal sig,
 							const SymbolList &symbolOfModule, bool binaryOnlyFlag);
 	bool SearchSeparatedModuleFile(Signal sig, String &pathName,
