@@ -25,6 +25,7 @@ set files=%files% test-map.gura
 set files=%files% test-markdown.gura
 set files=%files% test-matrix.gura
 set files=%files% test-math.gura
+rem set files=%files% test-midi.gura
 set files=%files% test-module.gura
 set files=%files% test-object.gura
 set files=%files% test-opengl.gura
