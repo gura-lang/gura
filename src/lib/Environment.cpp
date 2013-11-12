@@ -545,30 +545,32 @@ bool Environment::ImportModules(Signal sig, const char *moduleNames,
 	String moduleName;
 	for (const char *p = moduleNames; ; p++) {
 		char ch = *p;
-		if (ch == ',' || ch == '\0') {
-			moduleName = Strip(moduleName.c_str());
-			SymbolList symbolList;
-			String field;
-			foreach (String, p, moduleName) {
-				char ch = *p;
-				if (ch == '.') {
-					symbolList.push_back(Symbol::Add(field.c_str()));
-					field.clear();
-				} else {
-					field += ch;
-				}
-			}
-			if (!field.empty()) {
-				symbolList.push_back(Symbol::Add(field.c_str()));
-			}
-			if (ImportModule(sig, symbolList.begin(), symbolList.end(), assignModuleNameFlag,
-						pSymbolAlias, pSymbolsToMixIn,
-						overwriteFlag, binaryOnlyFlag, mixinTypeFlag) == NULL) return false;
-			moduleName.clear();
-			if (ch == '\0') break;
-		} else {
+		if (ch != ',' && ch != '\0') {
 			moduleName += ch;
+			continue;
 		}
+		moduleName = Strip(moduleName.c_str());
+		SymbolList symbolList;
+		String field;
+		foreach (String, p, moduleName) {
+			char ch = *p;
+			if (ch == '.') {
+				symbolList.push_back(Symbol::Add(field.c_str()));
+				field.clear();
+			} else if (ch == '\0') {
+				// nothing to do
+			} else {
+				field += ch;
+			}
+		}
+		if (!field.empty()) {
+			symbolList.push_back(Symbol::Add(field.c_str()));
+		}
+		if (ImportModule(sig, symbolList.begin(), symbolList.end(), assignModuleNameFlag,
+					pSymbolAlias, pSymbolsToMixIn,
+					overwriteFlag, binaryOnlyFlag, mixinTypeFlag) == NULL) return false;
+		moduleName.clear();
+		if (ch == '\0') break;
 	}
 	return true;
 }
@@ -580,6 +582,7 @@ Module *Environment::ImportModule(Signal sig, const Expr *pExpr,
 	bool assignModuleNameFlag = true;
 	SymbolList symbolList;
 	if (pExpr->IsPrefix()) {
+		// import(*hoge)
 		const Expr_Prefix *pExprEx = dynamic_cast<const Expr_Prefix *>(pExpr);
 		const Symbol *pSymbol = pExprEx->GetSymbol();
 		if (!pSymbol->IsIdentical(Gura_Symbol(Char_Mul))) {
@@ -637,15 +640,6 @@ Module *Environment::ImportModule(Signal sig, SymbolList::const_iterator ppSymbo
 				const Symbol *pSymbol = *ppSymbol;
 				Value *pValue = pEnvDst->LookupValue(pSymbol, ENVREF_NoEscalate);
 				if (pValue == NULL) {
-					//Module *pModuleParent = new Module(pEnvDst, pSymbol,
-					//								"<integrated>", NULL, NULL);
-					//Value valueOfModule(pModuleParent);
-					//if (!pEnvDst->ImportValue(pSymbol, valueOfModule, EXTRA_Public, false)) {
-					//	sig.SetError(ERR_ImportError,
-					//		"module symbol conflicts with an existing variable '%s'",
-					//		SymbolList::Join(ppSymbolOfModule, ppSymbol + 1, '.').c_str());
-					//	return NULL;
-					//}
 					Module *pModuleParent = ImportModule(sig, ppSymbolOfModule,
 								ppSymbol + 1, assignModuleNameFlag, NULL, NULL,
 								overwriteFlag, false, false);
