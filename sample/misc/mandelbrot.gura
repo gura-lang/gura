@@ -4,7 +4,6 @@ import(bmp)
 import(png)
 import(jpeg)
 import(xpm)
-import(cairo)
 
 main() = {
 	argopt.Parser {|p|
@@ -15,26 +14,17 @@ main() = {
 			sys.exit(1)
 		}
 	}
-	[width, height] = [100, 100]
+	[width, height] = [500, 500]
 	[realMin, realMax] = [-2.0, 1.0]
 	[imagMin, imagMax] = [-1.5, 1.5]
 	colors = palette(`basic).each():list
 	//colors = palette(`win256).each():list
-	//colors = color(0, 0, interval(80, 255, 16))
-	//colors = color(0, 0, interval(80, 255, 16))
+	colors = color(0, 0, interval(20, 255, 64))
 	printf('canvas:%dx%d, real [%g,%g], imag [%g,%g]\n',
 						width, height, realMin, realMax, imagMin, imagMax)
 	img = image(`rgba, width, height)
-	//mandelbrot(img, colors, realMin, realMax, imagMin, imagMax) {|progress|
-	//	sys.stderr.printf('Progress: %d%%\r', progress)
-	//}
-	img.cairo {|cr|
-		cr.scale(width, height)
-		cr.set_source_rgb(0.0, 1.0, 1.0)
-		cr.move_to(0, 0)
-		cr.line_to(width, height)
-		cr.set_line_width(0.01)
-		cr.stroke()
+	mandelbrot(img, colors, realMin, realMax, imagMin, imagMax) {|progress|
+		sys.stderr.printf('Progress: %d%%\r', progress)
 	}
 	if (argv.len() > 0) {
 		fileName = argv[0]
