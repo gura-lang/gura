@@ -1,6 +1,8 @@
 #!/usr/bin/env gura
 import(testutil) {*}
 
+sys.path.add('test-module')
+
 testcase {
 	import(sample)
 	println(dir(sample).join(', '))
@@ -15,4 +17,12 @@ testcase {
 	undef(re)
 	import(re)
 	println('no error')
+}
+testcase {
+	import(m1.m2.m3.m4.m5)
+	println(m1.str)
+	println(m1.m2.str)
+	println(m1.m2.m3.str)
+	println(m1.m2.m3.m4.str)
+	println(m1.m2.m3.m4.m5.str)
 }
