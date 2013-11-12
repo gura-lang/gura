@@ -641,7 +641,7 @@ Module *Environment::ImportModule(Signal sig,
 			if (!pEnvDst->ImportValue(pSymbolOfModule, valueOfModule, EXTRA_Public, false)) {
 				sig.SetError(ERR_ImportError,
 						"module symbol conflicts with an existing variable '%s'",
-						symbolOfModule.front()->GetName());
+						symbolOfModule.Join('.').c_str());
 				return NULL;
 			}
 		} else {
