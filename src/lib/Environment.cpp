@@ -562,8 +562,8 @@ bool Environment::ImportModules(Signal sig,
 			if (!field.empty()) {
 				symbolList.push_back(Symbol::Add(field.c_str()));
 			}
-			if (!ImportModule(sig, symbolList, NULL, NULL,
-					true, true, binaryOnlyFlag, mixinTypeFlag)) return false;
+			if (!ImportModule(sig, symbolList, true, NULL, NULL,
+						true, binaryOnlyFlag, mixinTypeFlag)) return false;
 			moduleName.clear();
 			if (ch == '\0') break;
 		} else {
@@ -574,7 +574,7 @@ bool Environment::ImportModules(Signal sig,
 }
 
 bool Environment::ImportModule(Signal sig, const Expr *pExpr,
-			const Symbol *pSymbolOfModule, const SymbolSet *pSymbolsToMixIn,
+			const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
 			bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag)
 {
 	bool assignModuleNameFlag = true;
@@ -592,14 +592,14 @@ bool Environment::ImportModule(Signal sig, const Expr *pExpr,
 		sig.SetError(ERR_ImportError, "wrong format for module name");
 		return false;
 	}
-	return ImportModule(sig, symbolOfModule, pSymbolOfModule, pSymbolsToMixIn,
-			overwriteFlag, assignModuleNameFlag, binaryOnlyFlag, mixinTypeFlag);
+	return ImportModule(sig, symbolOfModule, assignModuleNameFlag,
+						pSymbolAlias, pSymbolsToMixIn,
+						overwriteFlag, binaryOnlyFlag, mixinTypeFlag);
 }
 
-bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule,
+bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule, bool assignModuleNameFlag,
 			const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
-			bool overwriteFlag, bool assignModuleNameFlag,
-			bool binaryOnlyFlag, bool mixinTypeFlag)
+			bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag)
 {
 	Module *pModule = NULL;
 	if (!binaryOnlyFlag) {
