@@ -637,15 +637,19 @@ Module *Environment::ImportModule(Signal sig, SymbolList::const_iterator ppSymbo
 				const Symbol *pSymbol = *ppSymbol;
 				Value *pValue = pEnvDst->LookupValue(pSymbol, ENVREF_NoEscalate);
 				if (pValue == NULL) {
-					Module *pModuleParent = new Module(pEnvDst, pSymbol,
-													"<integrated>", NULL, NULL);
-					Value valueOfModule(pModuleParent);
-					if (!pEnvDst->ImportValue(pSymbol, valueOfModule, EXTRA_Public, false)) {
-						sig.SetError(ERR_ImportError,
-							"module symbol conflicts with an existing variable '%s'",
-							SymbolList::Join(ppSymbolOfModule, ppSymbol + 1, '.').c_str());
-						return NULL;
-					}
+					//Module *pModuleParent = new Module(pEnvDst, pSymbol,
+					//								"<integrated>", NULL, NULL);
+					//Value valueOfModule(pModuleParent);
+					//if (!pEnvDst->ImportValue(pSymbol, valueOfModule, EXTRA_Public, false)) {
+					//	sig.SetError(ERR_ImportError,
+					//		"module symbol conflicts with an existing variable '%s'",
+					//		SymbolList::Join(ppSymbolOfModule, ppSymbol + 1, '.').c_str());
+					//	return NULL;
+					//}
+					Module *pModuleParent = ImportModule(sig, ppSymbolOfModule,
+								ppSymbol + 1, assignModuleNameFlag, NULL, NULL,
+								overwriteFlag, false, false);
+					if (pModuleParent == NULL) return NULL;
 					pEnvDst = pModuleParent;
 				} else if (pValue->IsModule()) {
 					pEnvDst = pValue->GetModule();
