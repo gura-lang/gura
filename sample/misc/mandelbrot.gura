@@ -21,7 +21,7 @@ main() = {
 	//colors = palette(`win256).each():list
 	//colors = color(0, 0, interval(80, 255, 16))
 	//colors = color(0, 0, interval(80, 255, 16))
-	printf('canvas: %dx%d, real: [%g, %g], imaginal: [%g, %g]\n',
+	printf('canvas:%dx%d, real [%g,%g], imag [%g,%g]\n',
 						width, height, realMin, realMax, imagMin, imagMax)
 	img = mandelbrot(width, height, colors,
 						realMin, realMax, imagMin, imagMax) {|progress|
