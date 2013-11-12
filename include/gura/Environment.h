@@ -364,8 +364,6 @@ public:
 			ModuleEntryType moduleEntry, ModuleTerminateType moduleTerminate);
 private:
 	Module *ImportIntegratedModule(Signal sig, const Symbol *pSymbol);
-	Module *ImportSeparatedModule(Signal sig,
-							const SymbolList &symbolOfModule, bool binaryOnlyFlag);
 	bool SearchSeparatedModuleFile(Signal sig, String &pathName,
 			SymbolList::const_iterator ppSymbolOfModule,
 			SymbolList::const_iterator ppSymbolOfModuleEnd, bool binaryOnlyFlag);

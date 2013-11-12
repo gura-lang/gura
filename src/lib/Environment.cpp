@@ -603,8 +603,20 @@ Module *Environment::ImportModule(Signal sig,
 		if (sig.IsSignalled()) return NULL;
 	}
 	if (pModule == NULL) {
-		pModule = ImportSeparatedModule(sig, symbolOfModule, binaryOnlyFlag);
-		if (sig.IsSignalled()) return NULL;
+		String pathName;
+		if (!SearchSeparatedModuleFile(sig, pathName,
+			symbolOfModule.begin(), symbolOfModule.end(), binaryOnlyFlag)) return NULL;
+		pModule = GetGlobal()->LookupSeparatedModule(pathName.c_str());
+		if (pModule != NULL) {
+			// nothing to do
+		} else if (IsBinaryModule(pathName.c_str())) {
+			pModule = ImportSeparatedModule_Binary(sig, this,
+									pathName.c_str(), symbolOfModule.back());
+		} else {
+			pModule = ImportSeparatedModule_Script(sig, this,
+									pathName.c_str(), symbolOfModule.back());
+		}
+		if (pModule == NULL) return NULL;
 	}
 	if (pSymbolsToMixIn == NULL) {
 		// import(hoge)
@@ -715,24 +727,6 @@ Module *Environment::ImportIntegratedModule(Signal sig, const Symbol *pSymbol)
 			return NULL;
 		}
 		GetGlobal()->RegisterIntegratedModule(id, pModule);
-	}
-	return pModule;
-}
-
-Module *Environment::ImportSeparatedModule(Signal sig,
-					const SymbolList &symbolOfModule, bool binaryOnlyFlag)
-{
-	String pathName;
-	if (!SearchSeparatedModuleFile(sig, pathName,
-		symbolOfModule.begin(), symbolOfModule.end(), binaryOnlyFlag)) return NULL;
-	Module *pModule = GetGlobal()->LookupSeparatedModule(pathName.c_str());
-	if (pModule != NULL) return pModule;
-	if (IsBinaryModule(pathName.c_str())) {
-		pModule = ImportSeparatedModule_Binary(sig, this,
-								pathName.c_str(), symbolOfModule.back());
-	} else {
-		pModule = ImportSeparatedModule_Script(sig, this,
-								pathName.c_str(), symbolOfModule.back());
 	}
 	return pModule;
 }
