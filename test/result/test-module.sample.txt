@@ -1,1 +1,8 @@
-__name__, foo, skeleton, adder, adder2
+======== #1 ========
+
+__name__, __source__, __symbol__, adder, foo
+
+======== #2 ========
+
+ImportError: module symbol conflicts with an existing variable 're'
+no error

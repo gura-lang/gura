@@ -1,4 +1,18 @@
 #!/usr/bin/env gura
-import(sample)
 import(testutil) {*}
-println(dir(sample).join(', '))
+
+testcase {
+	import(sample)
+	println(dir(sample).join(', '))
+}
+testcase {
+	re = 3
+	try {
+		import(re)
+	} catch {|e|
+		println(e.text)
+	}
+	undef(re)
+	import(re)
+	println('no error')
+}

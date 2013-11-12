@@ -620,9 +620,7 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule, boo
 									ppSymbol + 1 != symbolOfModule.end(); ppSymbol++) {
 				const Symbol *pSymbol = *ppSymbol;
 				Value *pValue = pEnvDst->LookupValue(pSymbol, ENVREF_NoEscalate);
-				if (pValue != NULL && pValue->IsModule()) {
-					pEnvDst = pValue->GetModule();
-				} else {
+				if (pValue == NULL) {
 					Module *pModuleParent = new Module(pEnvDst, pSymbol,
 													"<integrated>", NULL, NULL);
 					Value valueOfModule(pModuleParent);
@@ -633,6 +631,13 @@ bool Environment::ImportModule(Signal sig, const SymbolList &symbolOfModule, boo
 						return false;
 					}
 					pEnvDst = pModuleParent;
+				} else if (pValue->IsModule()) {
+					pEnvDst = pValue->GetModule();
+				} else {
+					sig.SetError(ERR_ImportError,
+						"module symbol conflicts with an existing variable '%s'",
+						pSymbol->GetName());
+					return false;
 				}
 			}
 			const Symbol *pSymbolOfModule = symbolOfModule.back();
