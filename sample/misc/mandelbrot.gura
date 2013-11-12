@@ -17,11 +17,11 @@ main() = {
 	[width, height] = [500, 500]
 	[realMin, realMax] = [-2.0, 1.0]
 	[imagMin, imagMax] = [-1.5, 1.5]
-	colors = palette(`basic).each():list
+	//colors = palette(`basic).each():list
 	//colors = palette(`win256).each():list
 	colors = color(0, 0, interval(20, 255, 64))
-	printf('canvas:%dx%d, real [%g,%g], imag [%g,%g]\n',
-						width, height, realMin, realMax, imagMin, imagMax)
+	printf('canvas:%dx%d, real [%g,%g], imag [%g,%g], level:%d\n',
+				width, height, realMin, realMax, imagMin, imagMax, colors.len())
 	img = image(`rgba, width, height)
 	mandelbrot(img, colors, realMin, realMax, imagMin, imagMax) {|progress|
 		sys.stderr.printf('Progress: %d%%\r', progress)
