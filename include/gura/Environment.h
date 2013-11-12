@@ -343,7 +343,8 @@ public:
 	Module *ImportModule(Signal sig, const Expr *pExpr,
 			const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
 			bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag);
-	Module *ImportModule(Signal sig, const SymbolList &symbolOfModule, bool assignModuleNameFlag,
+	Module *ImportModule(Signal sig, SymbolList::const_iterator ppSymbolOfModule,
+			SymbolList::const_iterator ppSymbolOfModuleEnd, bool assignModuleNameFlag,
 			const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
 			bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag);
 	static bool IsBinaryModule(const char *pathName);

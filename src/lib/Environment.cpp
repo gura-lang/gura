@@ -535,9 +535,13 @@ void Environment::AssignModule(Module *pModule)
 	}
 }
 
-bool Environment::ImportModules(Signal sig,
-		const char *moduleNames, bool binaryOnlyFlag, bool mixinTypeFlag)
+bool Environment::ImportModules(Signal sig, const char *moduleNames,
+									bool binaryOnlyFlag, bool mixinTypeFlag)
 {
+	bool assignModuleNameFlag = true;
+	const Symbol *pSymbolAlias = NULL;
+	const SymbolSet *pSymbolsToMixIn = NULL;
+	bool overwriteFlag = true;
 	String moduleName;
 	for (const char *p = moduleNames; ; p++) {
 		char ch = *p;
@@ -557,8 +561,9 @@ bool Environment::ImportModules(Signal sig,
 			if (!field.empty()) {
 				symbolList.push_back(Symbol::Add(field.c_str()));
 			}
-			if (ImportModule(sig, symbolList, true, NULL, NULL,
-						true, binaryOnlyFlag, mixinTypeFlag) == NULL) return false;
+			if (ImportModule(sig, symbolList.begin(), symbolList.end(), assignModuleNameFlag,
+						pSymbolAlias, pSymbolsToMixIn,
+						overwriteFlag, binaryOnlyFlag, mixinTypeFlag) == NULL) return false;
 			moduleName.clear();
 			if (ch == '\0') break;
 		} else {
@@ -573,7 +578,7 @@ Module *Environment::ImportModule(Signal sig, const Expr *pExpr,
 			bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag)
 {
 	bool assignModuleNameFlag = true;
-	SymbolList symbolOfModule;
+	SymbolList symbolList;
 	if (pExpr->IsPrefix()) {
 		const Expr_Prefix *pExprEx = dynamic_cast<const Expr_Prefix *>(pExpr);
 		const Symbol *pSymbol = pExprEx->GetSymbol();
@@ -583,24 +588,26 @@ Module *Environment::ImportModule(Signal sig, const Expr *pExpr,
 		assignModuleNameFlag = false;
 		pExpr = pExprEx->GetChild();
 	}
-	if (!pExpr->GetChainedSymbolList(symbolOfModule)) {
+	if (!pExpr->GetChainedSymbolList(symbolList)) {
 		sig.SetError(ERR_ImportError, "wrong format for module name");
 		return NULL;
 	}
-	return ImportModule(sig, symbolOfModule, assignModuleNameFlag,
+	return ImportModule(sig, symbolList.begin(), symbolList.end(), assignModuleNameFlag,
 						pSymbolAlias, pSymbolsToMixIn,
 						overwriteFlag, binaryOnlyFlag, mixinTypeFlag);
 }
 
-Module *Environment::ImportModule(Signal sig,
-			const SymbolList &symbolOfModule, bool assignModuleNameFlag,
+Module *Environment::ImportModule(Signal sig, SymbolList::const_iterator ppSymbolOfModule,
+			SymbolList::const_iterator ppSymbolOfModuleEnd, bool assignModuleNameFlag,
 			const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
 			bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag)
 {
 	Module *pModule = NULL;
-	const Symbol *pSymbolOfModule = symbolOfModule.back();
-	SymbolList::const_iterator ppSymbolOfModule = symbolOfModule.begin();
-	SymbolList::const_iterator ppSymbolOfModuleEnd = symbolOfModule.end();
+	const Symbol *pSymbolOfModule = NULL;
+	for (SymbolList::const_iterator ppSymbol = ppSymbolOfModule;
+							ppSymbol != ppSymbolOfModuleEnd; ppSymbol++) {
+		pSymbolOfModule = *ppSymbol;
+	}
 	if (!binaryOnlyFlag) {
 		pModule = ImportIntegratedModule(sig, pSymbolOfModule);
 		if (sig.IsSignalled()) return NULL;
