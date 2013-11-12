@@ -32,7 +32,7 @@ main() = {
 		img.write(fileName)
 		sys.stderr.println(fileName, ' was created')
 	} else {
-		import(show.wx)
+		import(wx.show)
 		img.show()
 	}
 }

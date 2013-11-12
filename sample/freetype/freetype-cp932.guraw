@@ -1,5 +1,5 @@
 # encoding: shift_jis
-import(show.wx)
+import(wx.show)
 import(png)
 import(freetype, ft)
 
