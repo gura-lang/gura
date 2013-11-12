@@ -6,3 +6,11 @@ __name__, __source__, __symbol__, adder, foo
 
 ImportError: module symbol conflicts with an existing variable 're'
 no error
+
+======== #3 ========
+
+string in m1
+string m1.m2
+string m1.m2.m3
+string m1.m2.m3.m4
+string m1.m2.m3.m4.m5

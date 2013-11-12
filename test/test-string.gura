@@ -109,10 +109,10 @@ testcase {
 	tester(`format('[%s]', str.strip():right))
 }
 testcase {
-	print(open('chars-cp932.txt', 'r', 'shift_jis').readlines())
-	print(open('chars-utf8-jp.txt', 'r', 'utf-8').readlines())
-	print(open('chars-eucjp.txt', 'r', 'euc-jp').readlines())
-	print(open('chars-jis.txt', 'r', 'jis').readlines())
+	print(open('test-string/chars-cp932.txt', 'r', 'shift_jis').readlines())
+	print(open('test-string/chars-utf8-jp.txt', 'r', 'utf-8').readlines())
+	print(open('test-string/chars-eucjp.txt', 'r', 'euc-jp').readlines())
+	print(open('test-string/chars-jis.txt', 'r', 'jis').readlines())
 }
 testcase {
 	str = 'first line\nsecond line\nthird line\nfourth line\nfifth line\n'

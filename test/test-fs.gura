@@ -1,0 +1,50 @@
+#!/usr/bin/env gura
+import(testutil) {*}
+
+fs.chdir('test-fs')
+testcase {
+	try { fs.rmdir('dirbase'):tree } catch {}
+	fs.mkdir('dirbase')
+	try {
+		fs.mkdir('dirbase')
+	} catch {|e|
+		println('expected error: ', e.text)
+	}
+	fs.chdir('dirbase') {
+		println('current directory: ', (path.split(fs.getcwd()):bottom)[1])
+	}
+	println('current directory: ', (path.split(fs.getcwd()):bottom)[1])
+	range(6) {|i|
+		fs.mkdir(format('dirbase/dir-%d', i))
+		fs.mkdir(format('dirbase/dir-%d/dir-%d-%d', i, i, 0..i))
+	}
+	try {
+		fs.mkdir('dirbase/dir-6/dir-6-0/dir-6-0-0/dir-6-0-0-0/dir-6-0-0-0-0')
+	} catch {|e|
+		println('expected error: ', e.text)
+	}
+	fs.mkdir('dirbase/dir-6/dir-6-0/dir-6-0-0/dir-6-0-0-0/dir-6-0-0-0-0'):tree
+	println(path.walk('dirbase'))
+	println((path.walk('dirbase'):stat):*filename)
+	stats = path.dir('dirbase'):list:stat
+	statsSorted = stats.sort(&{$s1.filename <=> $s2.filename})
+	printf('asdend: %-32s\n', statsSorted:*filename)
+	statsSorted = stats.sort(&{-($s1.filename <=> $s2.filename)})
+	printf('descend: %-32s\n', statsSorted:*filename)
+	println(path.dir('dirbase'):iter {|filename, i| '%3d %s' % [i, filename]})
+	try { fs.rmdir('dirbase'):tree } catch {}
+}
+testcase {
+	tester(`path.match('foo*', ['foo', 'FOObar', 'bar']))
+	tester(`path.match('foo*', ['foo', 'FOObar', 'bar']):icase)
+}
+/*
+testcase {
+	nLines = 0
+	open('test-file.gura').readlines():chop {|line|
+		println(line)
+		nLines += 1
+	}
+	printf('<nLines = %d>\n', nLines)
+}
+*/
