@@ -286,12 +286,12 @@ Gura_ImplementClassMethod(binary, pack)
 	return Value(pObjBinary.release());
 }
 
-// binary#unpack(format:string, value*:number):[nil]
+// binary#unpack(format:string, values*:number):[nil]
 Gura_DeclareMethod(binary, unpack)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
-	DeclareArg(env, "value", VTYPE_number, OCCUR_ZeroOrMore);
+	DeclareArg(env, "values", VTYPE_number, OCCUR_ZeroOrMore);
 	DeclareAttr(Gura_Symbol(nil));
 }
 
@@ -304,12 +304,12 @@ Gura_ImplementMethod(binary, unpack)
 						args.GetString(0), args.GetList(1), exceedErrorFlag);
 }
 
-// binary#unpacks(format:string, value*:number) {block?}
+// binary#unpacks(format:string, values*:number) {block?}
 Gura_DeclareMethod(binary, unpacks)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
-	DeclareArg(env, "value", VTYPE_number, OCCUR_ZeroOrMore);
+	DeclareArg(env, "values", VTYPE_number, OCCUR_ZeroOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
