@@ -286,20 +286,22 @@ Gura_ImplementClassMethod(binary, pack)
 	return Value(pObjBinary.release());
 }
 
-// binary#unpack(format:string, value*:number)
+// binary#unpack(format:string, value*:number):[nil]
 Gura_DeclareMethod(binary, unpack)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_ZeroOrMore);
+	DeclareAttr(Gura_Symbol(nil));
 }
 
 Gura_ImplementMethod(binary, unpack)
 {
 	Object_binary *pThis = Object_binary::GetThisObj(args);
 	size_t offset = 0;
+	bool exceedErrorFlag = !args.IsSet(Gura_Symbol(nil));
 	return pThis->GetBinary().Unpack(env, sig, offset,
-							args.GetString(0), args.GetList(1), true);
+						args.GetString(0), args.GetList(1), exceedErrorFlag);
 }
 
 // binary#unpacks(format:string, value*:number) {block?}

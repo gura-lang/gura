@@ -6,14 +6,14 @@ namespace Gura {
 // Binary
 //-----------------------------------------------------------------------------
 bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
-							const char *format, const ValueList &valList)
+							const char *format, const ValueList &valListArg)
 {
 	enum {
 		STAT_Format,
 		STAT_Repeat,
 		STAT_Encoding,
 	} stat = STAT_Format;
-	ValueList::const_iterator pValue = valList.begin();
+	ValueList::const_iterator pValueArg = valListArg.begin();
 	bool bigEndianFlag = IsBigEndian();
 	int nRepeat = 1;
 	String encoding;
@@ -45,17 +45,17 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 			eatNextFlag = false;
 			stat = STAT_Repeat;
 		} else if (ch == '*') {
-			if (pValue == valList.end()) {
+			if (pValueArg == valListArg.end()) {
 				sig.SetError(ERR_ValueError, "not enough arguments");
 				return false;
 			}
-			if (!pValue->Is_number()) {
+			if (!pValueArg->Is_number()) {
 				sig.SetError(ERR_ValueError,
 								"repeat specifier requires a number value");
 				return false;
 			}
-			nRepeat = pValue->GetInt();
-			pValue++;
+			nRepeat = pValueArg->GetInt();
+			pValueArg++;
 		} else if (ch == '{') {
 			encoding.clear();
 			stat = STAT_Encoding;
@@ -77,36 +77,36 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 			if (!PackForward(sig, offset, nRepeat)) return false;
 			iterator pByte = begin() + offset;
 			offset += nRepeat;
-			for (int i = 0; i < nRepeat; i++, pByte++, pValue++) {
-				if (!CheckString(sig, valList, pValue)) return false;
-				*pByte = pValue->GetString()[0];
+			for (int i = 0; i < nRepeat; i++, pByte++, pValueArg++) {
+				if (!CheckString(sig, valListArg, pValueArg)) return false;
+				*pByte = pValueArg->GetString()[0];
 			}
 			nRepeat = 1;
 		} else if (ch == 'b') {
 			if (!PackForward(sig, offset, nRepeat)) return false;
 			iterator pByte = begin() + offset;
 			offset += nRepeat;
-			for (int i = 0; i < nRepeat; i++, pByte++, pValue++) {
-				if (!CheckNumber(sig, valList, pValue, -128, 127)) return false;
-				*pByte = pValue->GetChar();
+			for (int i = 0; i < nRepeat; i++, pByte++, pValueArg++) {
+				if (!CheckNumber(sig, valListArg, pValueArg, -128, 127)) return false;
+				*pByte = pValueArg->GetChar();
 			}
 			nRepeat = 1;
 		} else if (ch == 'B') {
 			if (!PackForward(sig, offset, nRepeat)) return false;
 			iterator pByte = begin() + offset;
 			offset += nRepeat;
-			for (int i = 0; i < nRepeat; i++, pByte++, pValue++) {
-				if (!CheckNumber(sig, valList, pValue, 0, 255)) return false;
-				*pByte = pValue->GetUChar();
+			for (int i = 0; i < nRepeat; i++, pByte++, pValueArg++) {
+				if (!CheckNumber(sig, valListArg, pValueArg, 0, 255)) return false;
+				*pByte = pValueArg->GetUChar();
 			}
 			nRepeat = 1;
 		} else if (ch == 'h') {
 			if (!PackForward(sig, offset, 2 * nRepeat)) return false;
 			iterator pByte = begin() + offset;
 			offset += 2 * nRepeat;
-			for (int i = 0; i < nRepeat; i++, pByte += 2, pValue++) {
-				if (!CheckNumber(sig, valList, pValue, -32768, 32767)) return false;
-				UShort num = pValue->GetShort();
+			for (int i = 0; i < nRepeat; i++, pByte += 2, pValueArg++) {
+				if (!CheckNumber(sig, valListArg, pValueArg, -32768, 32767)) return false;
+				UShort num = pValueArg->GetShort();
 				PackUShort(pByte, bigEndianFlag, num);
 			}
 			nRepeat = 1;
@@ -114,9 +114,9 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 			if (!PackForward(sig, offset, 2 * nRepeat)) return false;
 			iterator pByte = begin() + offset;
 			offset += 2 * nRepeat;
-			for (int i = 0; i < nRepeat; i++, pByte += 2, pValue++) {
-				if (!CheckNumber(sig, valList, pValue, 0, 65535)) return false;
-				UShort num = pValue->GetUShort();
+			for (int i = 0; i < nRepeat; i++, pByte += 2, pValueArg++) {
+				if (!CheckNumber(sig, valListArg, pValueArg, 0, 65535)) return false;
+				UShort num = pValueArg->GetUShort();
 				PackUShort(pByte, bigEndianFlag, num);
 			}
 			nRepeat = 1;
@@ -124,9 +124,9 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 			if (!PackForward(sig, offset, 4 * nRepeat)) return false;
 			iterator pByte = begin() + offset;
 			offset += 4 * nRepeat;
-			for (int i = 0; i < nRepeat; i++, pByte += 4, pValue++) {
-				if (!CheckNumber(sig, valList, pValue, -2147483648., 2147483647.)) return false;
-				ULong num = pValue->GetInt();
+			for (int i = 0; i < nRepeat; i++, pByte += 4, pValueArg++) {
+				if (!CheckNumber(sig, valListArg, pValueArg, -2147483648., 2147483647.)) return false;
+				ULong num = pValueArg->GetInt();
 				PackULong(pByte, bigEndianFlag, num);
 			}
 			nRepeat = 1;
@@ -134,9 +134,9 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 			if (!PackForward(sig, offset, 4 * nRepeat)) return false;
 			iterator pByte = begin() + offset;
 			offset += 4 * nRepeat;
-			for (int i = 0; i < nRepeat; i++, pByte += 4, pValue++) {
-				if (!CheckNumber(sig, valList, pValue, 0, 4294967295.)) return false;
-				ULong num = pValue->GetUInt();
+			for (int i = 0; i < nRepeat; i++, pByte += 4, pValueArg++) {
+				if (!CheckNumber(sig, valListArg, pValueArg, 0, 4294967295.)) return false;
+				ULong num = pValueArg->GetUInt();
 				PackULong(pByte, bigEndianFlag, num);
 			}
 			nRepeat = 1;
@@ -144,9 +144,9 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 			if (!PackForward(sig, offset, 4 * nRepeat)) return false;
 			iterator pByte = begin() + offset;
 			offset += 4 * nRepeat;
-			for (int i = 0; i < nRepeat; i++, pByte += 4, pValue++) {
-				if (!CheckNumber(sig, valList, pValue, -2147483648., 2147483647.)) return false;
-				ULong num = pValue->GetLong();
+			for (int i = 0; i < nRepeat; i++, pByte += 4, pValueArg++) {
+				if (!CheckNumber(sig, valListArg, pValueArg, -2147483648., 2147483647.)) return false;
+				ULong num = pValueArg->GetLong();
 				PackULong(pByte, bigEndianFlag, num);
 			}
 			nRepeat = 1;
@@ -154,9 +154,9 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 			if (!PackForward(sig, offset, 4 * nRepeat)) return false;
 			iterator pByte = begin() + offset;
 			offset += 4 * nRepeat;
-			for (int i = 0; i < nRepeat; i++, pByte += 4, pValue++) {
-				if (!CheckNumber(sig, valList, pValue, 0, 4294967295.)) return false;
-				ULong num = pValue->GetULong();
+			for (int i = 0; i < nRepeat; i++, pByte += 4, pValueArg++) {
+				if (!CheckNumber(sig, valListArg, pValueArg, 0, 4294967295.)) return false;
+				ULong num = pValueArg->GetULong();
 				PackULong(pByte, bigEndianFlag, num);
 			}
 			nRepeat = 1;
@@ -164,9 +164,9 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 			if (!PackForward(sig, offset, 8 * nRepeat)) return false;
 			iterator pByte = begin() + offset;
 			offset += 8 * nRepeat;
-			for (int i = 0; i < nRepeat; i++, pValue++) {
-				if (!CheckNumber(sig, valList, pValue)) return false;
-				Int64 num = static_cast<Int64>(pValue->GetNumber());
+			for (int i = 0; i < nRepeat; i++, pValueArg++) {
+				if (!CheckNumber(sig, valListArg, pValueArg)) return false;
+				Int64 num = static_cast<Int64>(pValueArg->GetNumber());
 				PackUInt64(pByte, bigEndianFlag, num);
 			}
 			nRepeat = 1;
@@ -174,9 +174,9 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 			if (!PackForward(sig, offset, 8 * nRepeat)) return false;
 			iterator pByte = begin() + offset;
 			offset += 8 * nRepeat;
-			for (int i = 0; i < nRepeat; i++, pValue++) {
-				if (!CheckNumber(sig, valList, pValue)) return false;
-				UInt64 num = static_cast<UInt64>(pValue->GetNumber());
+			for (int i = 0; i < nRepeat; i++, pValueArg++) {
+				if (!CheckNumber(sig, valListArg, pValueArg)) return false;
+				UInt64 num = static_cast<UInt64>(pValueArg->GetNumber());
 				PackUInt64(pByte, bigEndianFlag, num);
 			}
 			nRepeat = 1;
@@ -184,9 +184,9 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 			if (!PackForward(sig, offset, 4 * nRepeat)) return false;
 			iterator pByte = begin() + offset;
 			offset += 4 * nRepeat;
-			for (int i = 0; i < nRepeat; i++, pValue++) {
-				if (!CheckNumber(sig, valList, pValue)) return false;
-				float num = static_cast<float>(pValue->GetNumber());
+			for (int i = 0; i < nRepeat; i++, pValueArg++) {
+				if (!CheckNumber(sig, valListArg, pValueArg)) return false;
+				float num = static_cast<float>(pValueArg->GetNumber());
 				UChar *buff = reinterpret_cast<UChar *>(&num);
 				for (int j = 0; j < 4; j++, pByte++) *pByte = buff[j];
 			}
@@ -195,9 +195,9 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 			if (!PackForward(sig, offset, 8 * nRepeat)) return false;
 			iterator pByte = begin() + offset;
 			offset += 8 * nRepeat;
-			for (int i = 0; i < nRepeat; i++, pValue++) {
-				if (!CheckNumber(sig, valList, pValue)) return false;
-				double num = static_cast<double>(pValue->GetNumber());
+			for (int i = 0; i < nRepeat; i++, pValueArg++) {
+				if (!CheckNumber(sig, valListArg, pValueArg)) return false;
+				double num = static_cast<double>(pValueArg->GetNumber());
 				UChar *buff = reinterpret_cast<UChar *>(&num);
 				for (int j = 0; j < 8; j++, pByte++) *pByte = buff[j];
 			}
@@ -206,8 +206,8 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 			if (!PackForward(sig, offset, nRepeat)) return false;
 			iterator pByte = begin() + offset;
 			offset += nRepeat;
-			if (!CheckString(sig, valList, pValue)) return false;
-			const char *p = pValue->GetString();
+			if (!CheckString(sig, valListArg, pValueArg)) return false;
+			const char *p = pValueArg->GetString();
 			int nPacked = 0;
 			char chConv;
 			for ( ; nPacked < nRepeat && *p != '\0'; p++) {
@@ -226,7 +226,7 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 			for ( ; nPacked < nRepeat; nPacked++, pByte++) {
 				*pByte = '\0';
 			}
-			pValue++;
+			pValueArg++;
 			nRepeat = 1;
 		} else if (ch == 'p') {
 			sig.SetError(ERR_ValueError, "sorry, not implemented yet");
@@ -253,6 +253,7 @@ Value Binary::Unpack(Environment &env, Signal sig, size_t &offset,
 		STAT_Repeat,
 		STAT_Encoding,
 	} stat = STAT_Format;
+	ValueList::const_iterator pValueArg = valListArg.begin();
 	Value result;
 	ValueList &valList = result.InitAsList(env);
 	bool bigEndianFlag = IsBigEndian();
@@ -285,6 +286,18 @@ Value Binary::Unpack(Environment &env, Signal sig, size_t &offset,
 			nRepeat = 0;
 			eatNextFlag = false;
 			stat = STAT_Repeat;
+		} else if (ch == '*') {
+			if (pValueArg == valListArg.end()) {
+				sig.SetError(ERR_ValueError, "not enough arguments");
+				return false;
+			}
+			if (!pValueArg->Is_number()) {
+				sig.SetError(ERR_ValueError,
+								"repeat specifier requires a number value");
+				return false;
+			}
+			nRepeat = pValueArg->GetInt();
+			pValueArg++;
 		} else if (ch == '{') {
 			encoding.clear();
 			stat = STAT_Encoding;

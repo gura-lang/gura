@@ -8,7 +8,7 @@ classref(`image).rgbread(stream:stream) = {
 	this.allocbuff(hdr.width, hdr.height)
 	p = buff.pointer(512)
 	n = hdr.height * hdr.nElems
-	rowStart = p.unpack('>${n}I'.template())
+	rowStart = p.unpack('>*I', n)
 	getrow(y:number, iElem:number) = {
 		p = buff.pointer(rowStart[y + iElem * hdr.height])
 		repeat ():iter {
@@ -20,7 +20,7 @@ classref(`image).rgbread(stream:stream) = {
 				[pixel] = p.unpack('B')
 				repeat (count):iter { pixel }
 			} else {
-				p.unpack('${count}B'.template()).each().repeater()
+				p.unpack('*B', count).each().repeater()
 			}
 		}
 	}

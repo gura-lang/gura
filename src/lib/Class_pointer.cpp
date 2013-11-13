@@ -84,12 +84,13 @@ Gura_ImplementMethod(pointer, pack)
 	return args.GetThis();
 }
 
-// pointer#unpack(format:string, value*:number):[stay]
+// pointer#unpack(format:string, value*:number):[nil,stay]
 Gura_DeclareMethod(pointer, unpack)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "value", VTYPE_number, OCCUR_ZeroOrMore);
+	DeclareAttr(Gura_Symbol(nil));
 	DeclareAttr(Gura_Symbol(stay));
 }
 
@@ -97,7 +98,9 @@ Gura_ImplementMethod(pointer, unpack)
 {
 	Object_pointer *pThis = Object_pointer::GetThisObj(args);
 	bool forwardFlag = !args.IsSet(Gura_Symbol(stay));
-	return pThis->Unpack(sig, forwardFlag, args.GetString(0), args.GetList(1), false);
+	bool exceedErrorFlag = !args.IsSet(Gura_Symbol(nil));
+	return pThis->Unpack(sig, forwardFlag,
+					args.GetString(0), args.GetList(1), exceedErrorFlag);
 }
 
 // pointer#unpacks(format:string, value*:number)

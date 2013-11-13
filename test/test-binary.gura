@@ -15,7 +15,7 @@ dump(buff:binary) = {
 unpack(buff:binary, formatUnpack:string, formatPrint:string) = {
 	p = buff.pointer()
 	printf('unpack(%s): ', formatUnpack)
-	list = while (n = p.unpack(formatUnpack)):list {
+	list = while (n = p.unpack(formatUnpack):nil):list {
 		format(formatPrint, n[0])
 	}
 	println(list.join(' '))
@@ -257,4 +257,24 @@ testcase {
 	println()
 	dump(buff = binary.pack('48s', 'The quick brown fox jumps over the lazy dog'))
 	unpack(buff, '8s', '\'%s\'')
+}
+testcase {
+	values = [0..255]
+	buff = binary.pack('256B', values*)
+	println(buff.unpack('*B', 32).join(','))
+	println(hex(buff.unpack('*i*B', 4, 32)).join(','))
+	p = buff.pointer()
+	println(hex(p.unpack('*B', 32)).join(','))
+	println(hex(p.unpack('*B', 32)).join(','))
+	println(hex(p.unpack('*B', 32)).join(','))
+	println(hex(p.unpack('*B', 32)).join(','))
+	println(hex(p.unpack('*B', 32)).join(','))
+	println(hex(p.unpack('*B', 32)).join(','))
+	println(hex(p.unpack('*B', 32)).join(','))
+	println(hex(p.unpack('*B', 32)).join(','))
+	try {
+		println(hex(p.unpack('*B', 32)).join(','))
+	} catch {|e|
+		println('expected error: ', e.text)
+	}
 }
