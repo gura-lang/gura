@@ -136,10 +136,6 @@ Object_binary::IteratorByte::IteratorByte(Object_binary *pObj, int cntMax) :
 {
 }
 
-Object_binary::IteratorByte::~IteratorByte()
-{
-}
-
 Iterator *Object_binary::IteratorByte::GetSource()
 {
 	return NULL;
@@ -168,14 +164,9 @@ void Object_binary::IteratorByte::GatherFollower(Environment::Frame *pFrame, Env
 // Object_binary::IteratorUnpack
 //-----------------------------------------------------------------------------
 Object_binary::IteratorUnpack::IteratorUnpack(Object_binary *pObj,
-						const char *format, size_t offset, int cntMax) :
-		Iterator(false), _pObj(pObj), _format(format),
-		_offset(offset), _offsetInit(offset),
-		_cntMax(cntMax), _cnt(cntMax)
-{
-}
-
-Object_binary::IteratorUnpack::~IteratorUnpack()
+				const char *format, const ValueList &valListArg, size_t offset) :
+		Iterator(false), _pObj(pObj), _format(format), _valListArg(valListArg),
+		_offset(offset), _offsetInit(offset)
 {
 }
 
@@ -186,9 +177,7 @@ Iterator *Object_binary::IteratorUnpack::GetSource()
 
 bool Object_binary::IteratorUnpack::DoNext(Environment &env, Signal sig, Value &value)
 {
-	if (_cnt == 0) return false;
-	if (_cnt > 0) _cnt--;
-	value = _pObj->GetBinary().Unpack(env, sig, _offset, _format.c_str(), false);
+	value = _pObj->GetBinary().Unpack(env, sig, _offset, _format.c_str(), _valListArg, false);
 	return value.IsValid();
 }
 
@@ -297,28 +286,26 @@ Gura_ImplementClassMethod(binary, pack)
 	return Value(pObjBinary.release());
 }
 
-// binary#unpack(format:string, offset:number => 0)
+// binary#unpack(format:string)
 Gura_DeclareMethod(binary, unpack)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
-	DeclareArg(env, "offset", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 }
 
 Gura_ImplementMethod(binary, unpack)
 {
 	Object_binary *pThis = Object_binary::GetThisObj(args);
-	size_t offset = args.GetSizeT(1);
-	return pThis->GetBinary().Unpack(env, sig, offset, args.GetString(0), true);
+	size_t offset = 0;
+	ValueList valListArg;
+	return pThis->GetBinary().Unpack(env, sig, offset, args.GetString(0), valListArg, true);
 }
 
-// binary#unpacks(format:string, offset:number => 0, cnt?:number) {block?}
+// binary#unpacks(format:string) {block?}
 Gura_DeclareMethod(binary, unpacks)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
-	DeclareArg(env, "offset", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "cnt", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -327,10 +314,9 @@ Gura_ImplementMethod(binary, unpacks)
 	Object_binary *pThis = Object_binary::GetThisObj(args);
 	Object_binary *pObj = Object_binary::Reference(pThis);
 	const char *format = args.GetString(0);
-	size_t offset = args.GetSizeT(1);
-	int cntMax = args.Is_number(2)? args.GetInt(2) : -1;
-	Iterator *pIterator =
-			new Object_binary::IteratorUnpack(pObj, format, offset, cntMax);
+	ValueList valListArg;
+	size_t offset = 0;
+	Iterator *pIterator = new Object_binary::IteratorUnpack(pObj, format, valListArg, offset);
 	return ReturnIterator(env, sig, args, pIterator);
 }
 

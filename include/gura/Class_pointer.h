@@ -40,9 +40,9 @@ public:
 	inline size_t GetOffset() const { return _offset; }
 	inline void Reset() { _offset = 0; }
 	bool Pack(Signal sig, bool forwardFlag,
-							const char *format, const ValueList &valList);
+					const char *format, const ValueList &valListArg);
 	Value Unpack(Signal sig, bool forwardFlag,
-							const char *format, bool exeedErrorFlag);
+					const char *format, const ValueList &valListArg, bool exeedErrorFlag);
 	bool UnpackForward(Signal sig, int distance, bool exceedErrorFlag);
 };
 

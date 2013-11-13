@@ -245,8 +245,8 @@ bool Binary::Pack(Environment &env, Signal sig, size_t &offset,
 	return true;
 }
 
-Value Binary::Unpack(Environment &env, Signal sig,
-				size_t &offset, const char *format, bool exceedErrorFlag)
+Value Binary::Unpack(Environment &env, Signal sig, size_t &offset,
+		const char *format, const ValueList &valListArg, bool exceedErrorFlag)
 {
 	enum {
 		STAT_Format,

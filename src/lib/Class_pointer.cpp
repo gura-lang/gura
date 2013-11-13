@@ -26,22 +26,23 @@ bool Object_pointer::UnpackForward(Signal sig, int distance, bool exceedErrorFla
 	return _pObjBinary->GetBinary().UnpackForward(sig, _offset, distance, exceedErrorFlag);
 }
 
-Value Object_pointer::Unpack(Signal sig,
-					bool forwardFlag, const char *format, bool exceedErrorFlag)
+Value Object_pointer::Unpack(Signal sig, bool forwardFlag,
+		const char *format, const ValueList &valListArg, bool exceedErrorFlag)
 {
 	Environment &env = *this;
 	size_t offset = _offset;
-	Value value = _pObjBinary->GetBinary().Unpack(env, sig, offset, format, exceedErrorFlag);
+	Value value = _pObjBinary->GetBinary().Unpack(env, sig, offset,
+											format, valListArg, exceedErrorFlag);
 	if (forwardFlag) _offset = offset;
 	return value;
 }
 
 bool Object_pointer::Pack(Signal sig,
-					bool forwardFlag, const char *format, const ValueList &valList)
+				bool forwardFlag, const char *format, const ValueList &valListArg)
 {
 	Environment &env = *this;
 	size_t offset = _offset;
-	if (!_pObjBinary->GetBinary().Pack(env, sig, offset, format, valList)) return false;
+	if (!_pObjBinary->GetBinary().Pack(env, sig, offset, format, valListArg)) return false;
 	if (forwardFlag) _offset = offset;
 	return true;
 }
@@ -95,7 +96,8 @@ Gura_ImplementMethod(pointer, unpack)
 {
 	Object_pointer *pThis = Object_pointer::GetThisObj(args);
 	bool forwardFlag = !args.IsSet(Gura_Symbol(stay));
-	return pThis->Unpack(sig, forwardFlag, args.GetString(0), false);
+	ValueList valListArg;
+	return pThis->Unpack(sig, forwardFlag, args.GetString(0), valListArg, false);
 }
 
 // pointer#unpacks(format:string, cnt?:number)
@@ -103,7 +105,6 @@ Gura_DeclareMethod(pointer, unpacks)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
-	DeclareArg(env, "cnt", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(pointer, unpacks)
@@ -111,9 +112,9 @@ Gura_ImplementMethod(pointer, unpacks)
 	Object_pointer *pThis = Object_pointer::GetThisObj(args);
 	Object_binary *pObj = Object_binary::Reference(pThis->GetBinaryObj());
 	const char *format = args.GetString(0);
-	int cntMax = args.Is_number(1)? args.GetInt(1) : -1;
-	Iterator *pIterator =
-		new Object_binary::IteratorUnpack(pObj, format, pThis->GetOffset(), cntMax);
+	ValueList valListArg;
+	Iterator *pIterator = new Object_binary::IteratorUnpack(pObj,
+									format, valListArg, pThis->GetOffset());
 	return ReturnIterator(env, sig, args, pIterator);
 }
 

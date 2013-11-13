@@ -19,10 +19,10 @@ public:
 		return *this;
 	}
 public:
-	bool Pack(Environment &env, Signal sig,
-				size_t &offset, const char *format, const ValueList &valList);
-	Value Unpack(Environment &env, Signal sig,
-				size_t &offset, const char *format, bool exceedErrorFlag);
+	bool Pack(Environment &env, Signal sig, size_t &offset,
+				const char *format, const ValueList &valListArg);
+	Value Unpack(Environment &env, Signal sig, size_t &offset,
+				const char *format, const ValueList &valListArg, bool exceedErrorFlag);
 	bool PackForward(Signal sig, size_t offset, size_t bytes);
 	bool UnpackForward(Signal sig,size_t &offset, int distance, bool exceedErrorFlag);
 	static void PackUShort(iterator pByte, bool bigEndianFlag, UShort num);

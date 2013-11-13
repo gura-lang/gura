@@ -27,7 +27,6 @@ public:
 		size_t _offset;
 	public:
 		IteratorByte(Object_binary *pObj, int cntMax);
-		virtual ~IteratorByte();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString() const;
@@ -37,11 +36,11 @@ public:
 	private:
 		AutoPtr<Object_binary> _pObj;
 		String _format;
+		ValueList _valListArg;
 		size_t _offset, _offsetInit;
-		int _cntMax, _cnt;
 	public:
-		IteratorUnpack(Object_binary *pObj, const char *format, size_t offset, int cntMax);
-		virtual ~IteratorUnpack();
+		IteratorUnpack(Object_binary *pObj, const char *format,
+										const ValueList &valListArg, size_t offset);
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString() const;
