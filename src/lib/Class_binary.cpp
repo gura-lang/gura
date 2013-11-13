@@ -286,26 +286,28 @@ Gura_ImplementClassMethod(binary, pack)
 	return Value(pObjBinary.release());
 }
 
-// binary#unpack(format:string)
+// binary#unpack(format:string, value*:number)
 Gura_DeclareMethod(binary, unpack)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
+	DeclareArg(env, "value", VTYPE_number, OCCUR_ZeroOrMore);
 }
 
 Gura_ImplementMethod(binary, unpack)
 {
 	Object_binary *pThis = Object_binary::GetThisObj(args);
 	size_t offset = 0;
-	ValueList valListArg;
-	return pThis->GetBinary().Unpack(env, sig, offset, args.GetString(0), valListArg, true);
+	return pThis->GetBinary().Unpack(env, sig, offset,
+							args.GetString(0), args.GetList(1), true);
 }
 
-// binary#unpacks(format:string) {block?}
+// binary#unpacks(format:string, value*:number) {block?}
 Gura_DeclareMethod(binary, unpacks)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
+	DeclareArg(env, "value", VTYPE_number, OCCUR_ZeroOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -313,10 +315,9 @@ Gura_ImplementMethod(binary, unpacks)
 {
 	Object_binary *pThis = Object_binary::GetThisObj(args);
 	Object_binary *pObj = Object_binary::Reference(pThis);
-	const char *format = args.GetString(0);
-	ValueList valListArg;
 	size_t offset = 0;
-	Iterator *pIterator = new Object_binary::IteratorUnpack(pObj, format, valListArg, offset);
+	Iterator *pIterator = new Object_binary::IteratorUnpack(pObj,
+							args.GetString(0), args.GetList(1), offset);
 	return ReturnIterator(env, sig, args, pIterator);
 }
 

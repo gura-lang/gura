@@ -84,11 +84,12 @@ Gura_ImplementMethod(pointer, pack)
 	return args.GetThis();
 }
 
-// pointer#unpack(format:string):[stay]
+// pointer#unpack(format:string, value*:number):[stay]
 Gura_DeclareMethod(pointer, unpack)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
+	DeclareArg(env, "value", VTYPE_number, OCCUR_ZeroOrMore);
 	DeclareAttr(Gura_Symbol(stay));
 }
 
@@ -96,25 +97,23 @@ Gura_ImplementMethod(pointer, unpack)
 {
 	Object_pointer *pThis = Object_pointer::GetThisObj(args);
 	bool forwardFlag = !args.IsSet(Gura_Symbol(stay));
-	ValueList valListArg;
-	return pThis->Unpack(sig, forwardFlag, args.GetString(0), valListArg, false);
+	return pThis->Unpack(sig, forwardFlag, args.GetString(0), args.GetList(1), false);
 }
 
-// pointer#unpacks(format:string, cnt?:number)
+// pointer#unpacks(format:string, value*:number)
 Gura_DeclareMethod(pointer, unpacks)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
+	DeclareArg(env, "value", VTYPE_number, OCCUR_ZeroOrMore);
 }
 
 Gura_ImplementMethod(pointer, unpacks)
 {
 	Object_pointer *pThis = Object_pointer::GetThisObj(args);
 	Object_binary *pObj = Object_binary::Reference(pThis->GetBinaryObj());
-	const char *format = args.GetString(0);
-	ValueList valListArg;
 	Iterator *pIterator = new Object_binary::IteratorUnpack(pObj,
-									format, valListArg, pThis->GetOffset());
+						args.GetString(0), args.GetList(1), pThis->GetOffset());
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
