@@ -24,14 +24,14 @@ testcase {
 		println('expected error: ', e.text)
 	}
 	fs.mkdir('dirbase/dir-6/dir-6-0/dir-6-0-0/dir-6-0-0-0/dir-6-0-0-0-0'):tree
-	println(path.walk('dirbase'))
-	println((path.walk('dirbase'):stat):*filename)
+	println(path.walk('dirbase').sort())
+	println((path.walk('dirbase'):stat):*filename.sort())
 	stats = path.dir('dirbase'):list:stat
 	statsSorted = stats.sort(&{$s1.filename <=> $s2.filename})
 	printf('asdend: %-32s\n', statsSorted:*filename)
 	statsSorted = stats.sort(&{-($s1.filename <=> $s2.filename)})
 	printf('descend: %-32s\n', statsSorted:*filename)
-	println(path.dir('dirbase'):iter {|filename, i| '%3d %s' % [i, filename]})
+	println((path.dir('dirbase'):iter {|filename| '%s' % [filename]}).sort())
 	try { fs.rmdir('dirbase'):tree } catch {}
 }
 testcase {

@@ -5,65 +5,65 @@ current directory: dirbase
 current directory: test-fs
 expected error: IOError: failed to create a directory dirbase/dir-6/dir-6-0/dir-6-0-0/dir-6-0-0-0/dir-6-0-0-0-0
 dirbase\dir-0\
-dirbase\dir-1\
-dirbase\dir-2\
-dirbase\dir-3\
-dirbase\dir-4\
-dirbase\dir-5\
-dirbase\dir-6\
 dirbase\dir-0\dir-0-0\
+dirbase\dir-1\
 dirbase\dir-1\dir-1-0\
 dirbase\dir-1\dir-1-1\
+dirbase\dir-2\
 dirbase\dir-2\dir-2-0\
 dirbase\dir-2\dir-2-1\
 dirbase\dir-2\dir-2-2\
+dirbase\dir-3\
 dirbase\dir-3\dir-3-0\
 dirbase\dir-3\dir-3-1\
 dirbase\dir-3\dir-3-2\
 dirbase\dir-3\dir-3-3\
+dirbase\dir-4\
 dirbase\dir-4\dir-4-0\
 dirbase\dir-4\dir-4-1\
 dirbase\dir-4\dir-4-2\
 dirbase\dir-4\dir-4-3\
 dirbase\dir-4\dir-4-4\
+dirbase\dir-5\
 dirbase\dir-5\dir-5-0\
 dirbase\dir-5\dir-5-1\
 dirbase\dir-5\dir-5-2\
 dirbase\dir-5\dir-5-3\
 dirbase\dir-5\dir-5-4\
 dirbase\dir-5\dir-5-5\
+dirbase\dir-6\
 dirbase\dir-6\dir-6-0\
 dirbase\dir-6\dir-6-0\dir-6-0-0\
 dirbase\dir-6\dir-6-0\dir-6-0-0\dir-6-0-0-0\
 dirbase\dir-6\dir-6-0\dir-6-0-0\dir-6-0-0-0\dir-6-0-0-0-0\
 dir-0
-dir-1
-dir-2
-dir-3
-dir-4
-dir-5
-dir-6
 dir-0-0
+dir-1
 dir-1-0
 dir-1-1
+dir-2
 dir-2-0
 dir-2-1
 dir-2-2
+dir-3
 dir-3-0
 dir-3-1
 dir-3-2
 dir-3-3
+dir-4
 dir-4-0
 dir-4-1
 dir-4-2
 dir-4-3
 dir-4-4
+dir-5
 dir-5-0
 dir-5-1
 dir-5-2
 dir-5-3
 dir-5-4
 dir-5-5
+dir-6
 dir-6-0
 dir-6-0-0
 dir-6-0-0-0
@@ -82,13 +82,13 @@ descend: dir-3
 descend: dir-2                           
 descend: dir-1                           
 descend: dir-0                           
-  0 dirbase\dir-0\
-  1 dirbase\dir-1\
-  2 dirbase\dir-2\
-  3 dirbase\dir-3\
-  4 dirbase\dir-4\
-  5 dirbase\dir-5\
-  6 dirbase\dir-6\
+dirbase\dir-0\
+dirbase\dir-1\
+dirbase\dir-2\
+dirbase\dir-3\
+dirbase\dir-4\
+dirbase\dir-5\
+dirbase\dir-6\
 
 ======== #2 ========
 
