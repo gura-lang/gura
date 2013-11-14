@@ -137,7 +137,7 @@ bool Function::CustomDeclare(Environment &env, Signal sig,
 	if (pExpr->IsSuffix()) {
 		const Expr_Suffix *pExprSuffix = dynamic_cast<const Expr_Suffix *>(pExpr);
 		pExpr = pExprSuffix->GetChild();
-		occurPattern = pExprSuffix->GetOccurPattern();
+		occurPattern = Declaration::SymbolToOccurPattern(pExprSuffix->GetSymbol());
 		if (occurPattern == OCCUR_Invalid) {
 			SetError_InvalidFunctionExpression(sig);
 			return false;

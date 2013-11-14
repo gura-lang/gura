@@ -1456,7 +1456,7 @@ Value Expr_Lister::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
 				const Expr_Suffix *pExprSuffix =
 								dynamic_cast<const Expr_Suffix *>(pExpr);
 				pExpr = pExprSuffix->GetChild();
-				occurPattern = pExprSuffix->GetOccurPattern();
+				occurPattern = Declaration::SymbolToOccurPattern(pExprSuffix->GetSymbol());
 				if (occurPattern == OCCUR_Invalid) {
 					SetError(sig, ERR_SyntaxError,
 								"invalid expression of array assignment");
@@ -1482,7 +1482,7 @@ Value Expr_Lister::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
 				const Expr_Suffix *pExprSuffix =
 								dynamic_cast<const Expr_Suffix *>(pExpr);
 				pExpr = pExprSuffix->GetChild();
-				occurPattern = pExprSuffix->GetOccurPattern();
+				occurPattern = Declaration::SymbolToOccurPattern(pExprSuffix->GetSymbol());
 			}
 			if (occurPattern == OCCUR_ZeroOrMore) {
 				Value value;
@@ -2717,15 +2717,6 @@ Value Expr_Suffix::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPost
 {
 	SetError(sig, ERR_SyntaxError, "invalid expression");
 	return Value::Null;
-}
-
-OccurPattern Expr_Suffix::GetOccurPattern() const
-{
-	return
-		(_pSymbol->IsIdentical(Gura_Symbol(Char_Mul)))?			OCCUR_ZeroOrMore :
-		(_pSymbol->IsIdentical(Gura_Symbol(Char_Add)))?			OCCUR_OnceOrMore :
-		(_pSymbol->IsIdentical(Gura_Symbol(Char_Question)))?	OCCUR_ZeroOrOnce :
-		OCCUR_Invalid;
 }
 
 bool Expr_Suffix::GenerateCode(Environment &env, Signal sig, Stream &stream)

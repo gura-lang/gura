@@ -901,7 +901,6 @@ public:
 	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
 	virtual bool IsSuffix() const;
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
-	OccurPattern GetOccurPattern() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;

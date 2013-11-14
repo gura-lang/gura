@@ -46,7 +46,7 @@ Declaration *Declaration::Create(Environment &env, Signal sig, const Expr *pExpr
 	if (pExpr->IsSuffix()) {
 		const Expr_Suffix *pExprSuffix = dynamic_cast<const Expr_Suffix *>(pExpr);
 		pExpr = pExprSuffix->GetChild();
-		occurPattern = pExprSuffix->GetOccurPattern();
+		occurPattern = SymbolToOccurPattern(pExprSuffix->GetSymbol());
 		if (occurPattern == OCCUR_Invalid) {
 			sig.SetError(ERR_SyntaxError, "invalid argument expression");
 			return NULL;
@@ -228,6 +228,15 @@ String Declaration::ToString() const
 		str += _pExprDefault->ToString(Expr::SCRSTYLE_OneLine);
 	}
 	return str;
+}
+
+OccurPattern Declaration::SymbolToOccurPattern(const Symbol *pSymbol)
+{
+	return
+		(pSymbol->IsIdentical(Gura_Symbol(Char_Mul)))?		OCCUR_ZeroOrMore :
+		(pSymbol->IsIdentical(Gura_Symbol(Char_Add)))?		OCCUR_OnceOrMore :
+		(pSymbol->IsIdentical(Gura_Symbol(Char_Question)))?	OCCUR_ZeroOrOnce :
+		OCCUR_Invalid;
 }
 
 //-----------------------------------------------------------------------------
