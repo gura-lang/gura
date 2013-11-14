@@ -596,7 +596,7 @@ String Iterator_UnaryOperatorMap::ToString() const
 {
 	String str;
 	str += "unary_operator_map(";
-	str += _pOperator->GetMathSymbol();
+	str += _pOperator->GetSymbol()->GetName();
 	str += ";";
 	str += _pIterator->ToString();
 	str += ")";
@@ -657,7 +657,7 @@ String Iterator_BinaryOperatorMap::ToString() const
 {
 	String str;
 	str += "binary_operator_map(";
-	str += _pOperator->GetMathSymbol();
+	str += _pOperator->GetSymbol()->GetName();
 	str += ";";
 	str += _pIteratorLeft->ToString();
 	str += ",";

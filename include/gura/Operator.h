@@ -88,14 +88,16 @@ public:
 	typedef std::map<Key, OperatorEntry *> Map;
 private:
 	OpType _opType;
+	const Symbol *_pSymbol;
 	Map _map;
 	static const char *_mathSymbolTbl[];
 public:
-	inline Operator(OpType opType) : _opType(opType) {}
+	inline Operator(OpType opType) :
+				_opType(opType), _pSymbol(Symbol::Add(_mathSymbolTbl[opType])) {}
 	inline OpType GetOpType() const { return _opType; }
 	inline Map &GetMap() { return _map; }
 	inline const Map &GetMap() const { return _map; }
-	inline const char *GetMathSymbol() const { return _mathSymbolTbl[_opType]; }
+	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline static const char *GetMathSymbol(OpType opType) { return _mathSymbolTbl[opType]; }
 	inline static Key CalcKey(ValueType valType) {
 		return static_cast<Key>(VTYPE_undefined << 16) + static_cast<Key>(valType);

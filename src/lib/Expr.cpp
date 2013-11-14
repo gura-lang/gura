@@ -2471,12 +2471,12 @@ bool Expr_UnaryOp::GenerateScript(Signal sig, SimpleStream &stream,
 		if (sig.IsSignalled()) return false;
 	}
 	if (!_suffixFlag) {
-		stream.Print(sig, _pOperator->GetMathSymbol());
+		stream.Print(sig, _pOperator->GetSymbol()->GetName());
 		if (sig.IsSignalled()) return false;
 	}
 	if (!GetChild()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
 	if (_suffixFlag) {
-		stream.Print(sig, _pOperator->GetMathSymbol());
+		stream.Print(sig, _pOperator->GetSymbol()->GetName());
 		if (sig.IsSignalled()) return false;
 	}
 	if (needParenthesisFlag) {
@@ -2607,7 +2607,7 @@ bool Expr_BinaryOp::GenerateScript(Signal sig, SimpleStream &stream,
 	if (!GetLeft()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
 	String text;
 	if (scriptStyle != SCRSTYLE_Crammed) text += ' ';
-	text += _pOperator->GetMathSymbol();
+	text += _pOperator->GetSymbol()->GetName();
 	if (scriptStyle != SCRSTYLE_Crammed) text += ' ';
 	stream.Print(sig, text.c_str());
 	if (sig.IsSignalled()) return false;
@@ -2826,7 +2826,7 @@ bool Expr_Assign::GenerateScript(Signal sig, SimpleStream &stream,
 	String text;
 	if (scriptStyle != SCRSTYLE_Crammed) text += ' ';
 	if (_pOperatorToApply != NULL) {
-		text += _pOperatorToApply->GetMathSymbol();
+		text += _pOperatorToApply->GetSymbol()->GetName();
 	}
 	text += '=';
 	if (scriptStyle != SCRSTYLE_Crammed) text += ' ';

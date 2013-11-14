@@ -34,7 +34,7 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual Value DoCall(Environment &env, Signal sig, Args &args);
 	virtual String ToString(bool exprFlag);
-	const char *GetMathSymbol() const;
+	const Symbol *GetSymbol() const;
 	inline OpType GetUnaryOpType() const { return _opTypeUnary; }
 	inline OpType GetBinaryOpType() const { return _opTypeBinary; }
 };

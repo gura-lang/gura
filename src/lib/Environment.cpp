@@ -584,8 +584,8 @@ Module *Environment::ImportModule(Signal sig, const Expr *pExpr,
 	if (pExpr->IsUnaryOp()) {
 		// import(*hoge)
 		const Expr_UnaryOp *pExprEx = dynamic_cast<const Expr_UnaryOp *>(pExpr);
-		const char *mathSymbol = pExprEx->GetOperator()->GetMathSymbol();
-		if (::strcmp(mathSymbol, "*") != 0) {
+		const Symbol *pSymbol = pExprEx->GetOperator()->GetSymbol();
+		if (pSymbol->IsIdentical(Gura_Symbol(Char_Mul))) {
 			sig.SetError(ERR_ImportError, "wrong format for module name");
 			return NULL;
 		}

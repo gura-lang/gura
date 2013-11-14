@@ -22,7 +22,7 @@ String Object_operator::ToString(bool exprFlag)
 {
 	String rtn;
 	rtn += "<operator:";
-	rtn += GetMathSymbol();
+	rtn += GetSymbol()->GetName();
 	rtn += ">";
 	return rtn;
 }
@@ -39,7 +39,7 @@ Value Object_operator::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(symbol))) {
-		return Value(Symbol::Add(GetMathSymbol()));
+		return Value(GetSymbol());
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -54,7 +54,7 @@ Value Object_operator::DoCall(Environment &env, Signal sig, Args &args)
 		SeqPostHandler *pSeqPostHandler = NULL;
 		if (_opTypeUnary == OPTYPE_None) {
 			sig.SetError(ERR_ArgumentError,
-					"operator '%s' is not a unary one", GetMathSymbol());
+					"operator '%s' is not a unary one", GetSymbol()->GetName());
 			return Value::Null;
 		}
 		Value value = exprList[0]->Exec2(env, sig, pSeqPostHandler);
@@ -66,7 +66,7 @@ Value Object_operator::DoCall(Environment &env, Signal sig, Args &args)
 		SeqPostHandler *pSeqPostHandlerRight = NULL;
 		if (_opTypeBinary == OPTYPE_None) {
 			sig.SetError(ERR_ArgumentError,
-					"operator '%s' is not a binary one", GetMathSymbol());
+					"operator '%s' is not a binary one", GetSymbol()->GetName());
 			return Value::Null;
 		}
 		Value valueLeft = exprList[0]->Exec2(env, sig, pSeqPostHandlerLeft);
@@ -80,11 +80,11 @@ Value Object_operator::DoCall(Environment &env, Signal sig, Args &args)
 	return Value::Null;
 }
 
-const char *Object_operator::GetMathSymbol() const
+const Symbol *Object_operator::GetSymbol() const
 {
 	const Operator *pOperator = GetOperator(
 			(_opTypeUnary != OPTYPE_None)? _opTypeUnary : _opTypeBinary);
-	return pOperator->GetMathSymbol();
+	return pOperator->GetSymbol();
 }
 
 //-----------------------------------------------------------------------------
@@ -135,7 +135,7 @@ Gura_ImplementMethod(operator_, assign)
 		OpType opType = pThis->GetBinaryOpType();
 		if (opType == OPTYPE_None) {
 			sig.SetError(ERR_ValueError,
-				"operator '%s' is not a binary one", pThis->GetMathSymbol());
+				"operator '%s' is not a binary one", pThis->GetSymbol()->GetName());
 			return Value::Null;
 		}
 		const ValueTypeInfo *pValueTypeInfoL = env.LookupValueType(sig, args.GetExpr(0));
@@ -150,7 +150,7 @@ Gura_ImplementMethod(operator_, assign)
 		OpType opType = pThis->GetUnaryOpType();
 		if (opType == OPTYPE_None) {
 			sig.SetError(ERR_ValueError,
-				"operator '%s' is not a unary one", pThis->GetMathSymbol());
+				"operator '%s' is not a unary one", pThis->GetSymbol()->GetName());
 			return Value::Null;
 		}
 		const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetExpr(0));
@@ -179,7 +179,7 @@ Gura_ImplementMethod(operator_, entries)
 		OpType opType = pThis->GetBinaryOpType();
 		if (opType == OPTYPE_None) {
 			sig.SetError(ERR_ValueError,
-				"operator '%s' is not a binary one", pThis->GetMathSymbol());
+				"operator '%s' is not a binary one", pThis->GetSymbol()->GetName());
 			return Value::Null;
 		}
 		const Operator *pOperator = env.GetOperator(opType);
@@ -196,7 +196,7 @@ Gura_ImplementMethod(operator_, entries)
 		OpType opType = pThis->GetUnaryOpType();
 		if (opType == OPTYPE_None) {
 			sig.SetError(ERR_ValueError,
-				"operator '%s' is not a unary one", pThis->GetMathSymbol());
+				"operator '%s' is not a unary one", pThis->GetSymbol()->GetName());
 			return Value::Null;
 		}
 		const Operator *pOperator = env.GetOperator(opType);
