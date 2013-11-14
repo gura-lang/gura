@@ -169,7 +169,7 @@ Gura_ImplementFunction(template_)
 		SimpleStream_StringWriter streamDst(strDst);
 		if (!TemplateEngine(autoIndentFlag, appendLastEOLFlag).
 				EvalStream(env, sig, streamSrc, streamDst)) return Value::Null;
-		return Value(env, strDst.c_str());
+		return Value(env, strDst);
 	}
 }
 
