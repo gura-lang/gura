@@ -66,7 +66,6 @@ in [[`any, `any]]
 -A
 ~A
 !A
-A..
 A + A
 A - A
 A * A

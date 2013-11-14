@@ -59,7 +59,7 @@ testcase {
 	operator(`-).assign(`A) {|v| printf('-%s\n', typename(v)):nomap }
 	operator(`~).assign(`A) {|v| printf('~%s\n', typename(v)):nomap }
 	operator(`!).assign(`A) {|v| printf('!%s\n', typename(v)):nomap }
-	operator(`..).assign(`A) {|v| printf('%s..\n', typename(v)):nomap }
+	//operator(`..).assign(`A) {|v| printf('%s..\n', typename(v)):nomap }
 	operator(`+).assign(`A, `A) {|v1, v2| printf('%s + %s\n', typename(v1), typename(v2)):nomap }
 	operator(`-).assign(`A, `A) {|v1, v2| printf('%s - %s\n', typename(v1), typename(v2)):nomap }
 	operator(`*).assign(`A, `A) {|v1, v2| printf('%s * %s\n', typename(v1), typename(v2)):nomap }
@@ -88,7 +88,7 @@ testcase {
 	-a1
 	~a1
 	!a1
-	a1..
+	//a1..
 	a1 + a2
 	a1 - a2
 	a1 * a2

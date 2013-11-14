@@ -183,8 +183,8 @@ Gura_ImplementMethod(operator_, entries)
 			return Value::Null;
 		}
 		const Operator *pOperator = env.GetOperator(opType);
-		const Operator::Map &map = pOperator->GetMap();
-		foreach_const (Operator::Map, iter, map) {
+		const Operator::EntryDict &entryDict = pOperator->GetEntryDict();
+		foreach_const (Operator::EntryDict, iter, entryDict) {
 			Operator::Key key = iter->first;
 			ValueType valTypeLeft = Operator::ExtractValueTypeLeft(key);
 			ValueType valTypeRight = Operator::ExtractValueTypeRight(key);
@@ -200,8 +200,8 @@ Gura_ImplementMethod(operator_, entries)
 			return Value::Null;
 		}
 		const Operator *pOperator = env.GetOperator(opType);
-		const Operator::Map &map = pOperator->GetMap();
-		foreach_const (Operator::Map, iter, map) {
+		const Operator::EntryDict &entryDict = pOperator->GetEntryDict();
+		foreach_const (Operator::EntryDict, iter, entryDict) {
 			Operator::Key key = iter->first;
 			ValueType valType = Operator::ExtractValueType(key);
 			Expr *pExpr = ValueTypePool::GetInstance()->Lookup(valType)->MakeExpr();

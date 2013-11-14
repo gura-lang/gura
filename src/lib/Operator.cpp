@@ -42,23 +42,23 @@ const char *Operator::_mathSymbolTbl[] = {
 
 const OperatorEntry *Operator::Lookup(ValueType valType, bool suffixFlag) const
 {
-	Map::const_iterator iter = _map.find(CalcKey(valType));
-	if (iter != _map.end()) return iter->second;
-	iter = _map.find(CalcKey(VTYPE_any));
-	if (iter != _map.end()) return iter->second;
+	EntryDict::const_iterator iter = _entryDict.find(CalcKey(valType, suffixFlag));
+	if (iter != _entryDict.end()) return iter->second;
+	iter = _entryDict.find(CalcKey(VTYPE_any, suffixFlag));
+	if (iter != _entryDict.end()) return iter->second;
 	return NULL;
 }
 
 const OperatorEntry *Operator::Lookup(ValueType valTypeLeft, ValueType valTypeRight) const
 {
-	Map::const_iterator iter = _map.find(CalcKey(valTypeLeft, valTypeRight));
-	if (iter != _map.end()) return iter->second;
-	iter = _map.find(CalcKey(valTypeLeft, VTYPE_any));
-	if (iter != _map.end()) return iter->second;
-	iter = _map.find(CalcKey(VTYPE_any, valTypeRight));
-	if (iter != _map.end()) return iter->second;
-	iter = _map.find(CalcKey(VTYPE_any, VTYPE_any));
-	if (iter != _map.end()) return iter->second;
+	EntryDict::const_iterator iter = _entryDict.find(CalcKey(valTypeLeft, valTypeRight));
+	if (iter != _entryDict.end()) return iter->second;
+	iter = _entryDict.find(CalcKey(valTypeLeft, VTYPE_any));
+	if (iter != _entryDict.end()) return iter->second;
+	iter = _entryDict.find(CalcKey(VTYPE_any, valTypeRight));
+	if (iter != _entryDict.end()) return iter->second;
+	iter = _entryDict.find(CalcKey(VTYPE_any, VTYPE_any));
+	if (iter != _entryDict.end()) return iter->second;
 	return NULL;
 }
 
@@ -134,7 +134,7 @@ Value Operator::EvalBinary(Environment &env, Signal sig, const Value &valueLeft,
 
 Value Operator::EvalMapUnary(Environment &env, Signal sig, const Value &value, bool suffixFlag) const
 {
-	if (!value.IsListOrIterator()) {
+	if (!_mapFlag || !value.IsListOrIterator()) {
 		return EvalUnary(env, sig, value, suffixFlag);
 	}
 	AutoPtr<Iterator> pIterator(new Iterator_UnaryOperatorMap(
@@ -148,7 +148,7 @@ Value Operator::EvalMapUnary(Environment &env, Signal sig, const Value &value, b
 Value Operator::EvalMapBinary(Environment &env, Signal sig,
 							const Value &valueLeft, const Value &valueRight) const
 {
-	if (!valueLeft.IsListOrIterator() && !valueRight.IsListOrIterator()) {
+	if (!_mapFlag || (!valueLeft.IsListOrIterator() && !valueRight.IsListOrIterator())) {
 		return EvalBinary(env, sig, valueLeft, valueRight);
 	}
 	AutoPtr<Iterator> pIterator(new Iterator_BinaryOperatorMap(new Environment(env), sig,
@@ -178,11 +178,11 @@ OpType Operator::LookupBinaryOpType(const char *str)
 void Operator::Assign(Environment &env, OperatorEntry *pOperatorEntry)
 {
 	Operator *pOperator = env.GetOperator(pOperatorEntry->GetOpType());
-	Map &map = pOperator->GetMap();
+	EntryDict &entryDict = pOperator->GetEntryDict();
 	Key key = pOperatorEntry->CalcKey();
-	Map::iterator iter = map.find(key);
-	if (iter == map.end()) {
-		map[key] = pOperatorEntry;
+	EntryDict::iterator iter = entryDict.find(key);
+	if (iter == entryDict.end()) {
+		entryDict[key] = pOperatorEntry;
 	} else {
 		delete iter->second;
 		iter->second = pOperatorEntry;
@@ -1196,7 +1196,7 @@ Gura_ImplementUnaryOperator(Not, any)
 //-----------------------------------------------------------------------------
 // UnaryOperator(SeqInf, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementUnaryOperator(SeqInf, number)
+Gura_ImplementUnaryOperatorSuffix(SeqInf, number)
 {
 	Number numBegin = value.GetNumber();
 	return Value(env, new Iterator_SequenceInf(numBegin));
@@ -1205,6 +1205,11 @@ Gura_ImplementUnaryOperator(SeqInf, number)
 //-----------------------------------------------------------------------------
 // UnaryOperator(Question, *)
 //-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperatorSuffix(Question, any)
+{
+	bool rtn = value.GetBoolean();
+	return Value(rtn);
+}
 
 //-----------------------------------------------------------------------------
 // BinaryOperator(Add, *, *)
@@ -1934,7 +1939,8 @@ void Operator::AssignOperators(Environment &env)
 	Gura_AssignUnaryOperator(Neg, timedelta);
 	Gura_AssignUnaryOperator(Inv, number);
 	Gura_AssignUnaryOperator(Not, any);
-	Gura_AssignUnaryOperator(SeqInf, number);
+	Gura_AssignUnaryOperatorSuffix(SeqInf, number);
+	Gura_AssignUnaryOperatorSuffix(Question, any);
 	Gura_AssignBinaryOperator(Add, number, number);
 	Gura_AssignBinaryOperator(Add, complex, complex);
 	Gura_AssignBinaryOperator(Add, fraction, fraction);

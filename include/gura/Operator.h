@@ -15,6 +15,18 @@ public: \
 }; \
 Value OperatorEntry_##op##_##type::DoEval(Environment &env, Signal sig, const Value &value) const
 
+#define Gura_ImplementUnaryOperatorSuffix(op, type) \
+class OperatorEntry_##op##_##type##_suffix : public OperatorEntry { \
+public: \
+	inline OperatorEntry_##op##_##type##_suffix() : \
+					OperatorEntry(OPTYPE_##op, VTYPE_undefined, VTYPE_##type) {} \
+	inline static OperatorEntry_##op##_##type##_suffix *Create() { \
+		return new OperatorEntry_##op##_##type##_suffix(); \
+	} \
+	virtual Value DoEval(Environment &env, Signal sig, const Value &value) const; \
+}; \
+Value OperatorEntry_##op##_##type##_suffix::DoEval(Environment &env, Signal sig, const Value &value) const
+
 #define Gura_ImplementBinaryOperator(op, typeL, typeR) \
 class OperatorEntry_##op##_##typeL##_##typeR : public OperatorEntry { \
 public: \
@@ -31,6 +43,9 @@ Value OperatorEntry_##op##_##typeL##_##typeR::DoEval(Environment &env, Signal si
 
 #define Gura_AssignUnaryOperator(op, type) \
 Operator::Assign(env, new OperatorEntry_##op##_##type())
+
+#define Gura_AssignUnaryOperatorSuffix(op, type) \
+Operator::Assign(env, new OperatorEntry_##op##_##type##_suffix())
 
 #define Gura_AssignBinaryOperator(op, typeL, typeR) \
 Operator::Assign(env, new OperatorEntry_##op##_##typeL##_##typeR())
@@ -86,35 +101,44 @@ class OperatorEntry;
 class GURA_DLLDECLARE Operator {
 public:
 	typedef ULong Key;
-	typedef std::map<Key, OperatorEntry *> Map;
+	typedef std::map<Key, OperatorEntry *> EntryDict;
 private:
 	OpType _opType;
 	const Symbol *_pSymbol;
-	Map _map;
+	bool _mapFlag;
+	EntryDict _entryDict;
 	static const char *_mathSymbolTbl[];
 public:
-	inline Operator(OpType opType) :
-				_opType(opType), _pSymbol(Symbol::Add(_mathSymbolTbl[opType])) {}
+	inline Operator(OpType opType, bool mapFlag = true) :
+		_opType(opType), _pSymbol(Symbol::Add(_mathSymbolTbl[opType])), _mapFlag(mapFlag) {}
 	inline OpType GetOpType() const { return _opType; }
-	inline Map &GetMap() { return _map; }
-	inline const Map &GetMap() const { return _map; }
+	inline EntryDict &GetEntryDict() { return _entryDict; }
+	inline const EntryDict &GetEntryDict() const { return _entryDict; }
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline static const char *GetMathSymbol(OpType opType) { return _mathSymbolTbl[opType]; }
-	inline static Key CalcKey(ValueType valType) {
-		return static_cast<Key>(VTYPE_undefined << 16) + static_cast<Key>(valType);
+	inline static Key CalcKey(ValueType valType, bool suffixFlag) {
+		if (suffixFlag) {
+			return static_cast<Key>((static_cast<ULong>(valType) << 16) +
+							static_cast<ULong>(VTYPE_undefined));
+		} else {
+			return static_cast<Key>((static_cast<ULong>(VTYPE_undefined) << 16) +
+							static_cast<ULong>(valType));
+		}
 	}
 	inline static Key CalcKey(ValueType valTypeLeft, ValueType valTypeRight) {
 		return static_cast<Key>((static_cast<ULong>(valTypeRight) << 16) +
 							static_cast<ULong>(valTypeLeft));
-	}
-	inline static ValueType ExtractValueType(Key key) {
-		return static_cast<ValueType>(static_cast<ULong>(key) & 0xffff);
 	}
 	inline static ValueType ExtractValueTypeLeft(Key key) {
 		return static_cast<ValueType>(static_cast<ULong>(key) & 0xffff);
 	}
 	inline static ValueType ExtractValueTypeRight(Key key) {
 		return static_cast<ValueType>((static_cast<ULong>(key) >> 16) & 0xffff);
+	}
+	inline static ValueType ExtractValueType(Key key) {
+		ValueType valType = ExtractValueTypeLeft(key);
+		if (valType != VTYPE_undefined) return valType;
+		return ExtractValueTypeRight(key);
 	}
 	const OperatorEntry *Lookup(ValueType valType, bool suffixFlag) const;
 	const OperatorEntry *Lookup(ValueType valTypeLeft, ValueType valTypeRight) const;
@@ -135,7 +159,7 @@ public:
 	Value EvalBinary(Environment &env, Signal sig,
 					const Value &valueLeft, const Value &valueRight) const;
 	virtual Value EvalMapUnary(Environment &env, Signal sig,
-					const Value &value, bool suffixFlag) const;
+									const Value &value, bool suffixFlag) const;
 	virtual Value EvalMapBinary(Environment &env, Signal sig,
 					const Value &valueLeft, const Value &valueRight) const;
 	static void SetError_InvalidValueType(Signal &sig, OpType opType,
@@ -202,7 +226,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Operator_Question : public Operator {
 public:
-	inline Operator_Question() : Operator(OPTYPE_Question) {}
+	inline Operator_Question() : Operator(OPTYPE_Question, false) {}
 };
 
 //-----------------------------------------------------------------------------
