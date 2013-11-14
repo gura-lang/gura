@@ -21,7 +21,6 @@ enum ExprType {
 	EXPRTYPE_None,
 	EXPRTYPE_UnaryOp,
 	EXPRTYPE_Quote,
-	EXPRTYPE_Suffix,
 	EXPRTYPE_BinaryOp,
 	EXPRTYPE_Assign,
 	EXPRTYPE_Member,
@@ -80,8 +79,7 @@ public:
 // Expr
 // [class hierarchy under Expr]
 // Expr <-+- Expr_Unary <-----+- Expr_UnaryOp
-//        |                   +- Expr_Quote
-//        |                   `- Expr_Suffix
+//        |                   `- Expr_Quote
 //        +- Expr_Binary <----+- Expr_BinaryOp
 //        |                   +- Expr_Assign
 //        |                   `- Expr_Member
@@ -880,42 +878,6 @@ public:
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
 };
-
-#if 0
-//-----------------------------------------------------------------------------
-// Expr_Suffix
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_Suffix : public Expr_Unary {
-public:
-	class GURA_DLLDECLARE SequenceEx : public Sequence {
-	public:
-		SequenceEx(Environment *pEnv);
-		virtual bool DoStep(Signal sig, Value &result);
-		virtual String ToString() const;
-	};
-private:
-	const Symbol *_pSymbol;
-public:
-	inline Expr_Suffix(Expr *pExprChild, const Symbol *pSymbol) :
-					Expr_Unary(EXPRTYPE_Suffix, pExprChild), _pSymbol(pSymbol) {}
-	inline Expr_Suffix(const Expr_Suffix &expr) :
-					Expr_Unary(expr), _pSymbol(expr._pSymbol) {}
-	inline static Expr_Suffix *Reference(const Expr_Suffix *pExpr) {
-		return dynamic_cast<Expr_Suffix *>(Expr::Reference(pExpr));
-	}
-	virtual Expr *Clone() const;
-	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
-	virtual bool IsSuffix() const;
-	inline const Symbol *GetSymbol() const { return _pSymbol; }
-	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
-	inline static bool IsSuffixed(const Expr *pExpr, const Symbol *pSymbol) {
-		return pExpr->IsSuffix() && dynamic_cast<const Expr_Suffix *>(pExpr)->
-												GetSymbol()->IsIdentical(pSymbol);
-	}
-};
-#endif
 
 //-----------------------------------------------------------------------------
 // Expr_Assign

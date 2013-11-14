@@ -13,7 +13,6 @@ const char *GetExprTypeName(ExprType exprType)
 	} tbl[] = {
 		{ EXPRTYPE_UnaryOp,		"unaryop",		},
 		{ EXPRTYPE_Quote,		"quote",		},
-		{ EXPRTYPE_Suffix,		"suffix",		},
 		{ EXPRTYPE_BinaryOp,	"binaryop",		},
 		{ EXPRTYPE_Assign,		"assign",		},
 		{ EXPRTYPE_Member,		"member",		},
@@ -39,8 +38,7 @@ const char *GetExprTypeName(ExprType exprType)
 // Expr
 // [class hierarchy under Expr]
 // Expr <-+- Expr_Unary <-----+- Expr_UnaryOp
-//        |                   +- Expr_Quote
-//        |                   `- Expr_Suffix
+//        |                   `- Expr_Quote
 //        +- Expr_Binary <----+- Expr_BinaryOp
 //        |                   +- Expr_Assign
 //        |                   `- Expr_Member
@@ -2705,55 +2703,6 @@ String Expr_Quote::SequenceEx::ToString() const
 	str += "<sequence:expr_quote>";
 	return str;
 }
-
-#if 0
-//-----------------------------------------------------------------------------
-// Expr_Suffix
-//-----------------------------------------------------------------------------
-bool Expr_Suffix::IsSuffix() const { return true; }
-
-Expr *Expr_Suffix::Clone() const
-{
-	return new Expr_Suffix(*this);
-}
-
-Value Expr_Suffix::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
-{
-	SetError(sig, ERR_SyntaxError, "invalid expression");
-	return Value::Null;
-}
-
-bool Expr_Suffix::GenerateCode(Environment &env, Signal sig, Stream &stream)
-{
-	stream.Println(sig, "Suffix");
-	return true;
-}
-
-bool Expr_Suffix::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
-{
-	if (!GetChild()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
-	stream.Print(sig, _pSymbol->GetName());
-	if (sig.IsSignalled()) return false;
-	return true;
-}
-
-Expr_Suffix::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
-{
-}
-
-bool Expr_Suffix::SequenceEx::DoStep(Signal sig, Value &result)
-{
-	return false;
-}
-
-String Expr_Suffix::SequenceEx::ToString() const
-{
-	String str;
-	str += "<sequence:expr_suffix>";
-	return str;
-}
-#endif
 
 //-----------------------------------------------------------------------------
 // Expr_Assign

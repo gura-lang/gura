@@ -138,7 +138,8 @@ public:
 					const Value &value, bool suffixFlag) const;
 	virtual Value EvalMapBinary(Environment &env, Signal sig,
 					const Value &valueLeft, const Value &valueRight) const;
-	static void SetError_InvalidValueType(Signal &sig, OpType opType, const Value &value);
+	static void SetError_InvalidValueType(Signal &sig, OpType opType,
+									const Value &value, bool suffixFlag);
 	static void SetError_InvalidValueType(Signal &sig, OpType opType,
 					const Value &valueLeft, const Value &valueRight);
 	static void Assign(Environment &env, OperatorEntry *pOperatorEntry);
@@ -441,7 +442,7 @@ public:
 	virtual Value DoEval(Environment &env, Signal sig, const Value &value) const;
 	virtual Value DoEval(Environment &env, Signal sig,
 					const Value &valueLeft, const Value &valueRight) const;
-	void SetError_InvalidValueType(Signal &sig, const Value &value) const;
+	void SetError_InvalidValueType(Signal &sig, const Value &value, bool suffixFlag) const;
 	void SetError_InvalidValueType(Signal &sig, const Value &valueLeft, const Value &valueRight) const;
 };
 

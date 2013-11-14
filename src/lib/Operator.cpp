@@ -115,7 +115,7 @@ Value Operator::EvalUnary(Environment &env, Signal sig, const Value &value, bool
 {
 	const OperatorEntry *pOperatorEntry = Lookup(value.GetValueType(), suffixFlag);
 	if (pOperatorEntry == NULL) {
-		SetError_InvalidValueType(sig, GetOpType(), value);
+		SetError_InvalidValueType(sig, GetOpType(), value, suffixFlag);
 		return Value::Null;
 	}
 	return pOperatorEntry->DoEval(env, sig, value);
@@ -189,10 +189,16 @@ void Operator::Assign(Environment &env, OperatorEntry *pOperatorEntry)
 	}
 }
 
-void Operator::SetError_InvalidValueType(Signal &sig, OpType opType, const Value &value)
+void Operator::SetError_InvalidValueType(Signal &sig, OpType opType,
+										const Value &value, bool suffixFlag)
 {
-	sig.SetError(ERR_TypeError, "can't evaluate (%s %s)",
+	if (suffixFlag) {
+		sig.SetError(ERR_TypeError, "can't evaluate (%s %s)",
+					value.MakeValueTypeName().c_str(), GetMathSymbol(opType));
+	} else {
+		sig.SetError(ERR_TypeError, "can't evaluate (%s %s)",
 					GetMathSymbol(opType), value.MakeValueTypeName().c_str());
+	}
 }
 
 void Operator::SetError_InvalidValueType(Signal &sig, OpType opType,
@@ -1091,9 +1097,9 @@ Value OperatorEntry::DoEval(Environment &env, Signal sig,
 	return Value::Null;
 }
 
-void OperatorEntry::SetError_InvalidValueType(Signal &sig, const Value &value) const
+void OperatorEntry::SetError_InvalidValueType(Signal &sig, const Value &value, bool suffixFlag) const
 {
-	Operator::SetError_InvalidValueType(sig, GetOpType(), value);
+	Operator::SetError_InvalidValueType(sig, GetOpType(), value, suffixFlag);
 }
 
 void OperatorEntry::SetError_InvalidValueType(Signal &sig,

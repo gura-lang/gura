@@ -1337,19 +1337,15 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 	} else if (elem1.IsType(ETYPE_Expr)) {
 		if (elem2.IsType(ETYPE_Add)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '+'\n"));
-			//pExpr = new Expr_Suffix(elem1.GetExpr(), Gura_Symbol(Char_Add));
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Add), elem1.GetExpr(), true);
 		} else if (elem2.IsType(ETYPE_Mul)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '*'\n"));
-			//pExpr = new Expr_Suffix(elem1.GetExpr(), Gura_Symbol(Char_Mul));
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Mul), elem1.GetExpr(), true);
 		} else if (elem2.IsType(ETYPE_Question)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '?'\n"));
-			//pExpr = new Expr_Suffix(elem1.GetExpr(), Gura_Symbol(Char_Question));
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Question), elem1.GetExpr(), true);
 		} else if (elem2.IsType(ETYPE_Mod)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '%'\n"));
-			//pExpr = new Expr_Suffix(elem1.GetExpr(), Gura_Symbol(Char_Mod));
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Mod), elem1.GetExpr(), true);
 		} else if (elem2.IsType(ETYPE_Seq)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr ..\n"));
