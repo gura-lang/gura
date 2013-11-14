@@ -1,0 +1,31 @@
+#!/usr/bin/env gura
+import(testutil) {*}
+
+testcase {
+	shortBool(flag:boolean) = cond(flag, 'y', 'n')
+	for (expr in [`(-x), `(`x), `(x*), `(x + y), `(x = y),
+	              `(x => y), `(x::y), `{}, `3, `[], `x[y], `x(y, z)]) {
+		printf('%-8s %s %s %s %s %s %s %s %s %s %s %s\n', expr.tostring(),
+				shortBool(expr.isunaryop()),
+				shortBool(expr.isquote()),
+				shortBool(expr.isbinaryop()),
+				shortBool(expr.isassign()),
+				shortBool(expr.ismember()),
+				shortBool(expr.isblock()),
+				shortBool(expr.islister()),
+				shortBool(expr.isvalue()),
+				shortBool(expr.issymbol()),
+				shortBool(expr.isindexer()),
+				shortBool(expr.iscaller()))
+	}
+}
+testcase {
+	x = [
+		`(-3)
+		`(3 + 4)
+		`(f(x))
+		`(f(x) = {})
+		`(f(x) = {|a, b| c})
+	]
+	printf('%-16s %s\n', x:*typename, x:*genscript(style => `oneline))
+}
