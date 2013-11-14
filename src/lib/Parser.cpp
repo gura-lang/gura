@@ -1330,7 +1330,6 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 				pExpr = pExprCaller;
 			} else if (elem2.GetExpr()->IsSymbol()) {
 				pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Mod), elem2.GetExpr(), false);
-				//pExpr = new Expr_Prefix(elem2.GetExpr(), Gura_Symbol(Char_And));
 			} else {
 				SetError_InvalidElement(sig, __LINE__);
 				return false;
@@ -1338,7 +1337,6 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 		} else if (elem1.IsType(ETYPE_Mul)) {
 			DBGPARSER(::printf("Reduce: Expr -> '*' Expr\n"));
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Mul), elem2.GetExpr(), false);
-			//pExpr = new Expr_Prefix(elem2.GetExpr(), Gura_Symbol(Char_Mul));
 		} else {
 			SetError_InvalidElement(sig, __LINE__);
 			return false;

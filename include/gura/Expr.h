@@ -876,38 +876,6 @@ public:
 							ScriptStyle scriptStyle, int nestLevel) const;
 };
 
-#if 0
-//-----------------------------------------------------------------------------
-// Expr_Prefix
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_Prefix : public Expr_Unary {
-public:
-	class GURA_DLLDECLARE SequenceEx : public Sequence {
-	public:
-		SequenceEx(Environment *pEnv);
-		virtual bool DoStep(Signal sig, Value &result);
-		virtual String ToString() const;
-	};
-private:
-	const Symbol *_pSymbol;
-public:
-	inline Expr_Prefix(Expr *pExprChild, const Symbol *pSymbol) :
-					Expr_Unary(EXPRTYPE_Prefix, pExprChild), _pSymbol(pSymbol) {}
-	inline Expr_Prefix(const Expr_Prefix &expr) :
-					Expr_Unary(expr), _pSymbol(expr._pSymbol) {}
-	inline static Expr_Prefix *Reference(const Expr_Prefix *pExpr) {
-		return dynamic_cast<Expr_Prefix *>(Expr::Reference(pExpr));
-	}
-	virtual Expr *Clone() const;
-	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
-	virtual bool IsPrefix() const;
-	inline const Symbol *GetSymbol() const { return _pSymbol; }
-	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
-};
-#endif
-
 //-----------------------------------------------------------------------------
 // Expr_Suffix
 //-----------------------------------------------------------------------------

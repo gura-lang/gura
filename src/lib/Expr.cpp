@@ -2703,55 +2703,6 @@ String Expr_Quote::SequenceEx::ToString() const
 	return str;
 }
 
-#if 0
-//-----------------------------------------------------------------------------
-// Expr_Prefix
-//-----------------------------------------------------------------------------
-bool Expr_Prefix::IsPrefix() const { return true; }
-
-Expr *Expr_Prefix::Clone() const
-{
-	return new Expr_Prefix(*this);
-}
-
-Value Expr_Prefix::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
-{
-	SetError(sig, ERR_SyntaxError, "invalid expression");
-	return Value::Null;
-}
-
-bool Expr_Prefix::GenerateCode(Environment &env, Signal sig, Stream &stream)
-{
-	stream.Println(sig, "Prefix");
-	return true;
-}
-
-bool Expr_Prefix::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
-{
-	stream.Print(sig, _pSymbol->GetName());
-	if (sig.IsSignalled()) return false;
-	if (!GetChild()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
-	return true;
-}
-
-Expr_Prefix::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
-{
-}
-
-bool Expr_Prefix::SequenceEx::DoStep(Signal sig, Value &result)
-{
-	return false;
-}
-
-String Expr_Prefix::SequenceEx::ToString() const
-{
-	String str;
-	str += "<sequence:expr_prefix>";
-	return str;
-}
-#endif
-
 //-----------------------------------------------------------------------------
 // Expr_Suffix
 //-----------------------------------------------------------------------------
