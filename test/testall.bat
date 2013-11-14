@@ -13,6 +13,7 @@ set files=%files% test-declaration.gura
 set files=%files% test-dict.gura
 set files=%files% test-diff.gura
 set files=%files% test-error.gura
+set files=%files% test-expr.gura
 set files=%files% test-filter.gura
 set files=%files% test-formatter.gura
 set files=%files% test-fs.gura

@@ -14,18 +14,16 @@ expected error occurs: TypeError: argument declaration conflicts
 
 ======== #3 ========
 
--x       y n n n n n n n n n n n
-`x       n y n n n n n n n n n n
-x*       n n y n n n n n n n n n
-x + y    n n n y n n n n n n n n
-x = y    n n n n y n n n n n n n
-x => y   n n n y n n n n n n n n
-x::y     n n n n n y n n n n n n
-{}       n n n n n n y n n n n n
-3        n n n n n n n n y n n n
-[]       n n n n n n n y n n n n
-x[y]     n n n n n n n n n n y n
-x(y, z)  n n n n n n n n n n n y
+  1  "Hayasaka Hiroko","hayasaka_hiroko@example.com","female",33,"1976/8/27","090-9134-30BF"
+  2  "Hannda Yumiko","hannda_yumiko@example.com","female",75,"1934/10/20","080-6713-87BI"
+  3  "Honma Chise","honma_chise@example.com","female",46,"1964/3/9","090-5237-82FJ"
+  4  "Kawahata Nana","kawahata_nana@example.com","female",47,"1962/4/23","090-4760-51JA"
+  5  "Kikuchi Takao","kikuchi_takao@example.com","male",35,"1975/1/1","080-1904-58CH"
+  6  "Iwai Michiko","iwai_michiko@example.com","female",36,"1974/2/2","090-4520-77GH"
+  7  "Kasai Satoshi","kasai_satoshi@example.com","male",24,"1985/12/23","090-8055-78CB"
+  8  "Shima Masashi","shima_masashi@example.com","male",61,"1948/12/20","090-4180-99GH"
+  9  "Suenaga Rena","suenaga_rena@example.com","female",80,"1929/5/22","080-1042-32EG"
+ 10  "Yokokawa Fumiyo","yokokawa_fumiyo@example.com","female",24,"1985/11/9","090-2679-49BI"
 
 ======== #4 ========
 
@@ -55,26 +53,13 @@ x(y, z)  n n n n n n n n n n n y
 
 ======== #6 ========
 
-  1  "Hayasaka Hiroko","hayasaka_hiroko@example.com","female",33,"1976/8/27","090-9134-30BF"
-  2  "Hannda Yumiko","hannda_yumiko@example.com","female",75,"1934/10/20","080-6713-87BI"
-  3  "Honma Chise","honma_chise@example.com","female",46,"1964/3/9","090-5237-82FJ"
-  4  "Kawahata Nana","kawahata_nana@example.com","female",47,"1962/4/23","090-4760-51JA"
-  5  "Kikuchi Takao","kikuchi_takao@example.com","male",35,"1975/1/1","080-1904-58CH"
-  6  "Iwai Michiko","iwai_michiko@example.com","female",36,"1974/2/2","090-4520-77GH"
-  7  "Kasai Satoshi","kasai_satoshi@example.com","male",24,"1985/12/23","090-8055-78CB"
-  8  "Shima Masashi","shima_masashi@example.com","male",61,"1948/12/20","090-4180-99GH"
-  9  "Suenaga Rena","suenaga_rena@example.com","female",80,"1929/5/22","080-1042-32EG"
- 10  "Yokokawa Fumiyo","yokokawa_fumiyo@example.com","female",24,"1985/11/9","090-2679-49BI"
+colsPerLines: [87, 84, 78, 83, 80, 80, 82, 82, 81, 87, 86, 77, 89, 87, 89, 93, 89, 82, 87, 91, 81, 79, 90, 79, 84, 87, 85, 80, 87, 79, 91, 84, 86, 79, 80, 79, 74, 81, 86, 83, 76, 79, 77, 83, 81, 81, 78, 82]
 
 ======== #7 ========
 
-colsPerLines: [87, 84, 78, 83, 80, 80, 82, 82, 81, 87, 86, 77, 89, 87, 89, 93, 89, 82, 87, 91, 81, 79, 90, 79, 84, 87, 85, 80, 87, 79, 91, 84, 86, 79, 80, 79, 74, 81, 86, 83, 76, 79, 77, 83, 81, 81, 78, 82]
-
-======== #8 ========
-
 lines of 50records-en.csv is 48
 
-======== #9 ========
+======== #8 ========
 
 c_like_for(`init, `cond, `next):dynamic_scope {block:inside_scope} = { env = outers(), env.eval(init), while (env.eval(cond)) { block(), env.eval(next) } }
   0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19
@@ -84,35 +69,35 @@ hello   1
 hello   2
 i = 3
 
-======== #10 ========
+======== #9 ========
 
 block delegation test
 begin    0   1   2 end
    0   1   2   3   4   5   6   7   8   9
 a=2, b=3, c=[4, 5, 6]
 
-======== #11 ========
+======== #10 ========
 
 { if (block == nil) { println('do nothing') } else { block(x * 2) } }
 do nothing
 4
 
-======== #12 ========
+======== #11 ========
 
 f(1, 2, 3) {|a, b, c| return('no problem') } .. no problem
 
-======== #13 ========
+======== #12 ========
 
 f(n) {block} = { s = 0, for (i in 1 .. n) { s += block(i) }, s }
 f(10) {|x| x } .. 55
 f(10) {|x| x * x } .. 385
 
-======== #14 ========
+======== #13 ========
 
 t .. [1, 3, 4, 5, 6]
 select_with_index(t) {|x| x % 2 == 0 } .. [[4, 2], [6, 4]]
 
-======== #15 ========
+======== #14 ========
 
 fibonacci generation using a block
    0   1   1   2   3   5   8  13  21  34  55  89 144 233 377 610 987

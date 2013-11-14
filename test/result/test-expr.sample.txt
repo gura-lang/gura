@@ -1,0 +1,22 @@
+======== #1 ========
+
+-x       y n n n n n n n n n n n
+`x       n y n n n n n n n n n n
+x*       n n y n n n n n n n n n
+x + y    n n n y n n n n n n n n
+x = y    n n n n y n n n n n n n
+x => y   n n n y n n n n n n n n
+x::y     n n n n n y n n n n n n
+{}       n n n n n n y n n n n n
+3        n n n n n n n n y n n n
+[]       n n n n n n n y n n n n
+x[y]     n n n n n n n n n n y n
+x(y, z)  n n n n n n n n n n n y
+
+======== #2 ========
+
+unaryop          -3
+binaryop         3 + 4
+caller           f(x)
+assign           f(x) = {}
+assign           f(x) = {|a, b| c }
