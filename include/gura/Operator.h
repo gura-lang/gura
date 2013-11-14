@@ -6,7 +6,8 @@
 #define Gura_ImplementUnaryOperator(op, type) \
 class OperatorEntry_##op##_##type : public OperatorEntry { \
 public: \
-	inline OperatorEntry_##op##_##type() : OperatorEntry(OPTYPE_##op, VTYPE_##type) {} \
+	inline OperatorEntry_##op##_##type() : \
+					OperatorEntry(OPTYPE_##op, VTYPE_##type, VTYPE_undefined) {} \
 	inline static OperatorEntry_##op##_##type *Create() { \
 		return new OperatorEntry_##op##_##type(); \
 	} \
@@ -97,7 +98,7 @@ public:
 	inline const char *GetMathSymbol() const { return _mathSymbolTbl[_opType]; }
 	inline static const char *GetMathSymbol(OpType opType) { return _mathSymbolTbl[opType]; }
 	inline static Key CalcKey(ValueType valType) {
-		return static_cast<Key>(valType);
+		return static_cast<Key>(VTYPE_undefined << 16) + static_cast<Key>(valType);
 	}
 	inline static Key CalcKey(ValueType valTypeLeft, ValueType valTypeRight) {
 		return static_cast<Key>((static_cast<ULong>(valTypeRight) << 16) +
@@ -112,13 +113,14 @@ public:
 	inline static ValueType ExtractValueTypeRight(Key key) {
 		return static_cast<ValueType>((static_cast<ULong>(key) >> 16) & 0xffff);
 	}
-	const OperatorEntry *Lookup(ValueType valType) const;
+	const OperatorEntry *Lookup(ValueType valType, bool suffixFlag) const;
 	const OperatorEntry *Lookup(ValueType valTypeLeft, ValueType valTypeRight) const;
 	virtual Expr *DiffUnary(Environment &env, Signal sig,
 							const Expr *pExprArg, const Symbol *pSymbol) const;
 	virtual Expr *DiffBinary(Environment &env, Signal sig,
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const;
-	Expr *OptimizeConst(Environment &env, Signal sig, Expr_Value *pExprChild) const;
+	Expr *OptimizeConst(Environment &env, Signal sig,
+									Expr_Value *pExprChild, bool suffixFlag) const;
 	Expr *OptimizeConst(Environment &env, Signal sig,
 									Expr_Value *pExprLeft, Expr_Value *pExprRight) const;
 	virtual Expr *OptimizeUnary(Environment &env, Signal sig, Expr *pExprOpt) const;
@@ -126,10 +128,11 @@ public:
 									Expr *pExprOpt1, Expr *pExprOpt2) const;
 	static OpType LookupUnaryOpType(const char *str);
 	static OpType LookupBinaryOpType(const char *str);
-	Value EvalUnary(Environment &env, Signal sig, const Value &value) const;
+	Value EvalUnary(Environment &env, Signal sig, const Value &value, bool suffixFlag) const;
 	Value EvalBinary(Environment &env, Signal sig,
 					const Value &valueLeft, const Value &valueRight) const;
-	virtual Value EvalMapUnary(Environment &env, Signal sig, const Value &value) const;
+	virtual Value EvalMapUnary(Environment &env, Signal sig,
+					const Value &value, bool suffixFlag) const;
 	virtual Value EvalMapBinary(Environment &env, Signal sig,
 					const Value &valueLeft, const Value &valueRight) const;
 	static void SetError_InvalidValueType(Signal &sig, OpType opType, const Value &value);
@@ -416,8 +419,6 @@ protected:
 	ValueType _valTypeLeft;
 	ValueType _valTypeRight;
 public:
-	inline OperatorEntry(OpType opType, ValueType valType) :
-			_opType(opType), _valTypeLeft(valType), _valTypeRight(VTYPE_nil) {}
 	inline OperatorEntry(OpType opType, ValueType valTypeLeft, ValueType valTypeRight) :
 			_opType(opType), _valTypeLeft(valTypeLeft), _valTypeRight(valTypeRight) {}
 	inline OpType GetOpType() const { return _opType; }

@@ -488,11 +488,12 @@ Value Matrix::Neg(Environment &env, Signal sig, const Matrix *pMat)
 			}
 		}
 	} else {
+		bool suffixFlag = false;
 		const Operator *pOperator = env.GetOperator(OPTYPE_Neg);
 		for (size_t iRow = 0; iRow < nRows; iRow++) {
 			ValueList::const_iterator pValueElem = pMat->GetPointer(iRow, 0);
 			for (size_t iCol = 0; iCol < nCols; iCol++, pValueElem++) {
-				valList.push_back(pOperator->EvalUnary(env, sig, *pValueElem));
+				valList.push_back(pOperator->EvalUnary(env, sig, *pValueElem, suffixFlag));
 				if (sig.IsSignalled()) return Value::Null;
 			}
 		}

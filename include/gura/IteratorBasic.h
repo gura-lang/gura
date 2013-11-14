@@ -300,9 +300,10 @@ private:
 	Signal _sig;
 	const Operator *_pOperator;
 	AutoPtr<Iterator> _pIterator;
+	bool _suffixFlag;
 public:
 	Iterator_UnaryOperatorMap(Environment *pEnv, Signal sig,
-						const Operator *pOperator, const Value &value);
+				const Operator *pOperator, const Value &value, bool suffixFlag);
 	virtual ~Iterator_UnaryOperatorMap();
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);

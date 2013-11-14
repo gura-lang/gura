@@ -2431,7 +2431,7 @@ Value Expr_UnaryOp::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPos
 	SeqPostHandler *pSeqPostHandlerChild = NULL;
 	Value value = GetChild()->Exec2(env, sig, pSeqPostHandlerChild);
 	if (sig.IsSignalled()) return Value::Null;
-	Value result = _pOperator->EvalMapUnary(env, sig, value);
+	Value result = _pOperator->EvalMapUnary(env, sig, value, _suffixFlag);
 	if (sig.IsSignalled()) return Value::Null;
 	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
 	return result;
@@ -2470,12 +2470,12 @@ bool Expr_UnaryOp::GenerateScript(Signal sig, SimpleStream &stream,
 		stream.PutChar(sig, '(');
 		if (sig.IsSignalled()) return false;
 	}
-	if (!_suffixSymbolFlag) {
+	if (!_suffixFlag) {
 		stream.Print(sig, _pOperator->GetMathSymbol());
 		if (sig.IsSignalled()) return false;
 	}
 	if (!GetChild()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
-	if (_suffixSymbolFlag) {
+	if (_suffixFlag) {
 		stream.Print(sig, _pOperator->GetMathSymbol());
 		if (sig.IsSignalled()) return false;
 	}

@@ -39,7 +39,7 @@ const char *Operator::_mathSymbolTbl[] = {
 	"=>",	// OPTYPE_Pair
 };
 
-const OperatorEntry *Operator::Lookup(ValueType valType) const
+const OperatorEntry *Operator::Lookup(ValueType valType, bool suffixFlag) const
 {
 	Map::const_iterator iter = _map.find(CalcKey(valType));
 	if (iter != _map.end()) return iter->second;
@@ -75,11 +75,12 @@ Expr *Operator::DiffBinary(Environment &env, Signal sig,
 	return NULL;
 }
 
-Expr *Operator::OptimizeConst(Environment &env, Signal sig, Expr_Value *pExprChild) const
+Expr *Operator::OptimizeConst(Environment &env, Signal sig,
+								Expr_Value *pExprChild, bool suffixFlag) const
 {
 	Value value = pExprChild->GetValue();
 	Expr::Delete(pExprChild);
-	Value result = EvalUnary(env, sig, value);
+	Value result = EvalUnary(env, sig, value, suffixFlag);
 	if (sig.IsSignalled()) return NULL;
 	return new Expr_Value(result);
 }
@@ -109,9 +110,9 @@ Expr *Operator::OptimizeBinary(Environment &env, Signal sig,
 	return NULL;
 }
 
-Value Operator::EvalUnary(Environment &env, Signal sig, const Value &value) const
+Value Operator::EvalUnary(Environment &env, Signal sig, const Value &value, bool suffixFlag) const
 {
-	const OperatorEntry *pOperatorEntry = Lookup(value.GetValueType());
+	const OperatorEntry *pOperatorEntry = Lookup(value.GetValueType(), suffixFlag);
 	if (pOperatorEntry == NULL) {
 		SetError_InvalidValueType(sig, GetOpType(), value);
 		return Value::Null;
@@ -130,13 +131,13 @@ Value Operator::EvalBinary(Environment &env, Signal sig, const Value &valueLeft,
 	return pOperatorEntry->DoEval(env, sig, valueLeft, valueRight);
 }
 
-Value Operator::EvalMapUnary(Environment &env, Signal sig, const Value &value) const
+Value Operator::EvalMapUnary(Environment &env, Signal sig, const Value &value, bool suffixFlag) const
 {
 	if (!value.IsListOrIterator()) {
-		return EvalUnary(env, sig, value);
+		return EvalUnary(env, sig, value, suffixFlag);
 	}
 	AutoPtr<Iterator> pIterator(new Iterator_UnaryOperatorMap(
-										new Environment(env), sig, this, value));
+							new Environment(env), sig, this, value, suffixFlag));
 	if (value.Is_iterator()) {
 		return Value(env, pIterator.release());
 	}
@@ -263,7 +264,9 @@ Expr *Operator_Neg::OptimizeExpr(Environment &env, Signal sig, Expr *pExprChild)
 		return NULL;
 	}
 	if (pExprChild->IsValue()) {
-		return env.GetOperator(OPTYPE_Neg)->OptimizeConst(env, sig, dynamic_cast<Expr_Value *>(pExprChild));
+		bool suffixFlag = false;
+		return env.GetOperator(OPTYPE_Neg)->OptimizeConst(env, sig,
+							dynamic_cast<Expr_Value *>(pExprChild), suffixFlag);
 	} else if (pExprChild->IsOperatorNeg()) {
 		// -(-n) = n
 		Expr *pExpr =

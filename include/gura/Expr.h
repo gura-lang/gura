@@ -796,14 +796,14 @@ public:
 	};
 protected:
 	const Operator *_pOperator;
-	bool _suffixSymbolFlag;
+	bool _suffixFlag;
 public:
-	inline Expr_UnaryOp(const Operator *pOperator, Expr *pExprChild, bool suffixSymbolFlag) :
+	inline Expr_UnaryOp(const Operator *pOperator, Expr *pExprChild, bool suffixFlag) :
 					Expr_Unary(EXPRTYPE_UnaryOp, pExprChild),
-					_pOperator(pOperator), _suffixSymbolFlag(suffixSymbolFlag) {}
+					_pOperator(pOperator), _suffixFlag(suffixFlag) {}
 	inline Expr_UnaryOp(const Expr_UnaryOp &expr) :
 					Expr_Unary(expr),
-					_pOperator(expr._pOperator), _suffixSymbolFlag(expr._suffixSymbolFlag) {}
+					_pOperator(expr._pOperator), _suffixFlag(expr._suffixFlag) {}
 	inline const Operator *GetOperator() const { return _pOperator; }
 	inline static Expr_UnaryOp *Reference(const Expr_UnaryOp *pExpr) {
 		return dynamic_cast<Expr_UnaryOp *>(Expr::Reference(pExpr));

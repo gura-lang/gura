@@ -1299,23 +1299,20 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 		} else if (elem1.IsType(ETYPE_Mod)) {
 			DBGPARSER(::printf("Reduce: Expr -> '%' Expr\n"));
 			if (elem2.GetExpr()->IsBlock()) {
+				// %{..}
 				Expr *pExprCar = new Expr_Symbol(Gura_Symbol(Char_Mod));
 				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
-				Expr_Caller *pExprCaller =
-								new Expr_Caller(pExprCar, NULL, pExprBlock);
-				pExpr = pExprCaller;
+				pExpr = new Expr_Caller(pExprCar, NULL, pExprBlock);
 			} else {
-				SetError_InvalidElement(sig, __LINE__);
-				return false;
+				pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Mod), elem2.GetExpr(), false);
 			}
 		} else if (elem1.IsType(ETYPE_ModMod)) {
 			DBGPARSER(::printf("Reduce: Expr -> '%%' Expr\n"));
 			if (elem2.GetExpr()->IsBlock()) {
+				// %%{..}
 				Expr *pExprCar = new Expr_Symbol(Gura_Symbol(Char_ModMod));
 				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
-				Expr_Caller *pExprCaller =
-								new Expr_Caller(pExprCar, NULL, pExprBlock);
-				pExpr = pExprCaller;
+				pExpr = new Expr_Caller(pExprCar, NULL, pExprBlock);
 			} else {
 				SetError_InvalidElement(sig, __LINE__);
 				return false;
@@ -1323,16 +1320,12 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 		} else if (elem1.IsType(ETYPE_And)) {
 			DBGPARSER(::printf("Reduce: Expr -> '&' Expr\n"));
 			if (elem2.GetExpr()->IsBlock()) {
+				// &{..}
 				Expr *pExprCar = new Expr_Symbol(Gura_Symbol(Char_And));
 				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
-				Expr_Caller *pExprCaller =
-								new Expr_Caller(pExprCar, NULL, pExprBlock);
-				pExpr = pExprCaller;
-			} else if (elem2.GetExpr()->IsSymbol()) {
-				pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Mod), elem2.GetExpr(), false);
+				pExpr = new Expr_Caller(pExprCar, NULL, pExprBlock);
 			} else {
-				SetError_InvalidElement(sig, __LINE__);
-				return false;
+				pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_And), elem2.GetExpr(), false);
 			}
 		} else if (elem1.IsType(ETYPE_Mul)) {
 			DBGPARSER(::printf("Reduce: Expr -> '*' Expr\n"));

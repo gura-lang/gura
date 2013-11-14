@@ -50,6 +50,7 @@ Value Object_operator::DoCall(Environment &env, Signal sig, Args &args)
 	const ExprList &exprList = args.GetExprListArg();
 	size_t nArgs = exprList.size();
 	if (nArgs == 1) {
+		bool suffixFlag = false;
 		SeqPostHandler *pSeqPostHandler = NULL;
 		if (_opTypeUnary == OPTYPE_None) {
 			sig.SetError(ERR_ArgumentError,
@@ -59,7 +60,7 @@ Value Object_operator::DoCall(Environment &env, Signal sig, Args &args)
 		Value value = exprList[0]->Exec2(env, sig, pSeqPostHandler);
 		if (sig.IsSignalled()) return Value::Null;
 		const Operator *pOperator = GetOperator(_opTypeUnary);
-		return pOperator->EvalUnary(env, sig, value);
+		return pOperator->EvalUnary(env, sig, value, suffixFlag);
 	} else if (nArgs == 2) {
 		SeqPostHandler *pSeqPostHandlerLeft = NULL;
 		SeqPostHandler *pSeqPostHandlerRight = NULL;
@@ -142,8 +143,8 @@ Gura_ImplementMethod(operator_, assign)
 		const ValueTypeInfo *pValueTypeInfoR = env.LookupValueType(sig, args.GetExpr(1));
 		if (pValueTypeInfoR == NULL) return Value::Null;
 		pOperatorEntry = new CustomOperatorEntry(opType,
-				pValueTypeInfoL->GetValueType(), pValueTypeInfoR->GetValueType(), 
-				Function::Reference(pFuncBlock));
+					pValueTypeInfoL->GetValueType(), pValueTypeInfoR->GetValueType(),
+					Function::Reference(pFuncBlock));
 	} else {
 		// assign unary operator
 		OpType opType = pThis->GetUnaryOpType();
@@ -155,7 +156,8 @@ Gura_ImplementMethod(operator_, assign)
 		const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetExpr(0));
 		if (pValueTypeInfo == NULL) return Value::Null;
 		pOperatorEntry = new CustomOperatorEntry(opType,
-				pValueTypeInfo->GetValueType(), Function::Reference(pFuncBlock));
+					pValueTypeInfo->GetValueType(), VTYPE_undefined,
+					Function::Reference(pFuncBlock));
 	}
 	Operator::Assign(env, pOperatorEntry);
 	return Value::Null;
