@@ -43,10 +43,10 @@ Declaration *Declaration::Create(Environment &env, Signal sig, const Expr *pExpr
 		const Expr *pExprRight = pExprBinaryOp->GetRight();
 		pExprDefault = Expr::Reference(pExprRight);
 	}
-	if (pExpr->IsSuffix()) {
-		const Expr_Suffix *pExprSuffix = dynamic_cast<const Expr_Suffix *>(pExpr);
-		pExpr = pExprSuffix->GetChild();
-		occurPattern = SymbolToOccurPattern(pExprSuffix->GetSymbol());
+	if (pExpr->IsUnaryOpSuffix()) {
+		const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExpr);
+		pExpr = pExprUnaryOp->GetChild();
+		occurPattern = SymbolToOccurPattern(pExprUnaryOp->GetOperator()->GetSymbol());
 		if (occurPattern == OCCUR_Invalid) {
 			sig.SetError(ERR_SyntaxError, "invalid argument expression");
 			return NULL;
@@ -403,12 +403,12 @@ bool DeclarationOwner::Declare(Environment &env, Signal sig, const ExprList &exp
 {
 	foreach_const (ExprList, ppExpr, exprList) {
 		const Expr *pExpr = *ppExpr;
-		if (pExpr->IsSuffix()) {
-			const Expr_Suffix *pExprSuffix =
-									dynamic_cast<const Expr_Suffix *>(pExpr);
-			const Symbol *pSymbol = pExprSuffix->GetSymbol();
+		if (pExpr->IsUnaryOpSuffix()) {
+			const Expr_UnaryOp *pExprUnaryOp =
+									dynamic_cast<const Expr_UnaryOp *>(pExpr);
+			const Symbol *pSymbol = pExprUnaryOp->GetOperator()->GetSymbol();
 			if (pSymbol->IsIdentical(Gura_Symbol(Char_Mod))) {
-				const Expr *pExprChild = pExprSuffix->GetChild();
+				const Expr *pExprChild = pExprUnaryOp->GetChild();
 				if (!pExprChild->IsSymbol()) {
 					sig.SetError(ERR_SyntaxError,
 									"invalid expression for declaration");

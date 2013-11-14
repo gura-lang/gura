@@ -134,10 +134,11 @@ bool Function::CustomDeclare(Environment &env, Signal sig,
 	}
 	const Expr *pExpr = exprList.front();
 	OccurPattern occurPattern = OCCUR_Once;
-	if (pExpr->IsSuffix()) {
-		const Expr_Suffix *pExprSuffix = dynamic_cast<const Expr_Suffix *>(pExpr);
-		pExpr = pExprSuffix->GetChild();
-		occurPattern = Declaration::SymbolToOccurPattern(pExprSuffix->GetSymbol());
+	if (pExpr->IsUnaryOpSuffix()) {
+		const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExpr);
+		pExpr = pExprUnaryOp->GetChild();
+		occurPattern = Declaration::SymbolToOccurPattern(
+							pExprUnaryOp->GetOperator()->GetSymbol());
 		if (occurPattern == OCCUR_Invalid) {
 			SetError_InvalidFunctionExpression(sig);
 			return false;
@@ -774,11 +775,11 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 					"l-value of dictionary assignment must be a symbol or a constant value");
 				return false;
 			}
-		} else if (!quoteFlag && Expr_Suffix::IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) {
-			const Expr_Suffix *pExprSuffix = dynamic_cast<const Expr_Suffix *>(pExprArg);
+		} else if (!quoteFlag && Expr_UnaryOp::IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) {
+			const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
 			AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ExpandMod(
 					env.Reference(), dynamic_cast<SequenceEx *>(Reference())));
-			result = pExprSuffix->GetChild()->Exec(env, sig, pSeqPostHandler.release());
+			result = pExprUnaryOp->GetChild()->Exec(env, sig, pSeqPostHandler.release());
 			if (sig.IsSignalled()) return false;
 		} else if (_ppDecl != _pFunc->GetDeclOwner().end()) {
 			const Declaration *pDecl = *_ppDecl;
@@ -790,15 +791,11 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 				Object_expr *pObj = new Object_expr(env, Expr::Reference(pExprArg));
 				valListArg.push_back(Value(pObj));
 				SkipDeclarations(1);
-			} else if (pExprArg->IsSuffix()) {
-				const Expr_Suffix *pExprSuffix = dynamic_cast<const Expr_Suffix *>(pExprArg);
-				if (!pExprSuffix->GetSymbol()->IsIdentical(Gura_Symbol(Char_Mul))) {
-					pExprArg->SetError(sig, ERR_SyntaxError, "invalid argument");
-					return false;
-				}
+			} else if (Expr_UnaryOp::IsSuffixed(pExprArg, Gura_Symbol(Char_Mul))) {
+				const Expr_UnaryOp *pExprUnaryOp = dynamic_cast<const Expr_UnaryOp *>(pExprArg);
 				AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ExpandMul(
 						env.Reference(), dynamic_cast<SequenceEx *>(Reference())));
-				result = pExprSuffix->GetChild()->Exec(env, sig, pSeqPostHandler.release());
+				result = pExprUnaryOp->GetChild()->Exec(env, sig, pSeqPostHandler.release());
 				if (sig.IsSignalled()) return false;
 			} else {
 				AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ValListArg(

@@ -203,8 +203,8 @@ public:
 	// type chekers - Unary and descendants
 	virtual bool IsUnary() const;
 	virtual bool IsUnaryOp() const;
+	virtual bool IsUnaryOpSuffix() const;
 	virtual bool IsQuote() const;
-	virtual bool IsSuffix() const;
 	// type chekers - Binary and descendants
 	virtual bool IsBinary() const;
 	virtual bool IsBinaryOp() const;
@@ -813,9 +813,14 @@ public:
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
 	virtual bool IsUnaryOp() const;
+	virtual bool IsUnaryOpSuffix() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
+	inline static bool IsSuffixed(const Expr *pExpr, const Symbol *pSymbol) {
+		return pExpr->IsUnaryOpSuffix() && dynamic_cast<const Expr_UnaryOp *>(pExpr)->
+								GetOperator()->GetSymbol()->IsIdentical(pSymbol);
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -876,6 +881,7 @@ public:
 							ScriptStyle scriptStyle, int nestLevel) const;
 };
 
+#if 0
 //-----------------------------------------------------------------------------
 // Expr_Suffix
 //-----------------------------------------------------------------------------
@@ -909,6 +915,7 @@ public:
 												GetSymbol()->IsIdentical(pSymbol);
 	}
 };
+#endif
 
 //-----------------------------------------------------------------------------
 // Expr_Assign

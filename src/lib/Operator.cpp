@@ -13,6 +13,7 @@ const char *Operator::_mathSymbolTbl[] = {
 	"~",	// OPTYPE_Inv
 	"!",	// OPTYPE_Not
 	"..",	// OPTYPE_SeqInf
+	"?",	// OPTYPE_Question
 	// binary operators
 	"+",	// OPTYPE_Add
 	"-",	// OPTYPE_Sub
@@ -288,6 +289,10 @@ Expr *Operator_Neg::OptimizeExpr(Environment &env, Signal sig, Expr *pExprChild)
 
 //-----------------------------------------------------------------------------
 // Operator_SeqInf
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Question
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
@@ -1183,13 +1188,17 @@ Gura_ImplementUnaryOperator(Not, any)
 }
 
 //-----------------------------------------------------------------------------
-// UnaryOperator(SequenceInf, *)
+// UnaryOperator(SeqInf, *)
 //-----------------------------------------------------------------------------
 Gura_ImplementUnaryOperator(SeqInf, number)
 {
 	Number numBegin = value.GetNumber();
 	return Value(env, new Iterator_SequenceInf(numBegin));
 }
+
+//-----------------------------------------------------------------------------
+// UnaryOperator(Question, *)
+//-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
 // BinaryOperator(Add, *, *)
@@ -1883,6 +1892,7 @@ void Operator::AssignOperators(Environment &env)
 	env.SetOperator(OPTYPE_Inv, new Operator_Inv());
 	env.SetOperator(OPTYPE_Not, new Operator_Not());
 	env.SetOperator(OPTYPE_SeqInf, new Operator_SeqInf());
+	env.SetOperator(OPTYPE_Question, new Operator_Question());
 	env.SetOperator(OPTYPE_Add, new Operator_Add());
 	env.SetOperator(OPTYPE_Sub, new Operator_Sub());
 	env.SetOperator(OPTYPE_Mul, new Operator_Mul());

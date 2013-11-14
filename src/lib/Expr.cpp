@@ -269,31 +269,31 @@ bool Expr::IsOperatorPair() const
 }
 
 // type chekers - Unary and descendants
-bool Expr::IsUnary() const		{ return false; }
-bool Expr::IsUnaryOp() const	{ return false; }
-bool Expr::IsQuote() const		{ return false; }
-bool Expr::IsSuffix() const		{ return false; }
+bool Expr::IsUnary() const			{ return false; }
+bool Expr::IsUnaryOp() const		{ return false; }
+bool Expr::IsUnaryOpSuffix() const	{ return false; }
+bool Expr::IsQuote() const			{ return false; }
 	// type chekers - Binary and descendants
-bool Expr::IsBinary() const		{ return false; }
-bool Expr::IsBinaryOp() const	{ return false; }
-bool Expr::IsAssign() const		{ return false; }
-bool Expr::IsMember() const		{ return false; }
+bool Expr::IsBinary() const			{ return false; }
+bool Expr::IsBinaryOp() const		{ return false; }
+bool Expr::IsAssign() const			{ return false; }
+bool Expr::IsMember() const			{ return false; }
 // type chekers - Container and descendants
-bool Expr::IsContainer() const	{ return false; }
-bool Expr::IsRoot() const		{ return false; }
-bool Expr::IsBlock() const		{ return false; }
-bool Expr::IsLister() const		{ return false; }
-bool Expr::IsIterer() const		{ return false; }
-bool Expr::IsTmplScript() const	{ return false; }
+bool Expr::IsContainer() const		{ return false; }
+bool Expr::IsRoot() const			{ return false; }
+bool Expr::IsBlock() const			{ return false; }
+bool Expr::IsLister() const			{ return false; }
+bool Expr::IsIterer() const			{ return false; }
+bool Expr::IsTmplScript() const		{ return false; }
 // type chekers - Compound and descendants
-bool Expr::IsCompound() const	{ return false; }
-bool Expr::IsIndexer() const	{ return false; }
-bool Expr::IsCaller() const		{ return false; }
+bool Expr::IsCompound() const		{ return false; }
+bool Expr::IsIndexer() const		{ return false; }
+bool Expr::IsCaller() const			{ return false; }
 // type chekers - others
-bool Expr::IsValue() const		{ return false; }
-bool Expr::IsSymbol() const		{ return false; }
-bool Expr::IsString() const		{ return false; }
-bool Expr::IsTmplString() const	{ return false; }
+bool Expr::IsValue() const			{ return false; }
+bool Expr::IsSymbol() const			{ return false; }
+bool Expr::IsString() const			{ return false; }
+bool Expr::IsTmplString() const		{ return false; }
 
 bool Expr::IsParentOf(const Expr *pExpr) const
 {
@@ -1452,11 +1452,12 @@ Value Expr_Lister::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
 			if (ppExpr == exprList.end()) break;
 			const Expr *pExpr = *ppExpr;
 			OccurPattern occurPattern = OCCUR_Once;
-			if (pExpr->IsSuffix()) {
-				const Expr_Suffix *pExprSuffix =
-								dynamic_cast<const Expr_Suffix *>(pExpr);
-				pExpr = pExprSuffix->GetChild();
-				occurPattern = Declaration::SymbolToOccurPattern(pExprSuffix->GetSymbol());
+			if (pExpr->IsUnaryOpSuffix()) {
+				const Expr_UnaryOp *pExprUnaryOp =
+										dynamic_cast<const Expr_UnaryOp *>(pExpr);
+				pExpr = pExprUnaryOp->GetChild();
+				occurPattern = Declaration::SymbolToOccurPattern(
+										pExprUnaryOp->GetOperator()->GetSymbol());
 				if (occurPattern == OCCUR_Invalid) {
 					SetError(sig, ERR_SyntaxError,
 								"invalid expression of array assignment");
@@ -1478,11 +1479,12 @@ Value Expr_Lister::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
 		for ( ; ppExpr != exprList.end(); ppExpr++) {
 			const Expr *pExpr = *ppExpr;
 			OccurPattern occurPattern = OCCUR_Once;
-			if (pExpr->IsSuffix()) {
-				const Expr_Suffix *pExprSuffix =
-								dynamic_cast<const Expr_Suffix *>(pExpr);
-				pExpr = pExprSuffix->GetChild();
-				occurPattern = Declaration::SymbolToOccurPattern(pExprSuffix->GetSymbol());
+			if (pExpr->IsUnaryOpSuffix()) {
+				const Expr_UnaryOp *pExprUnaryOp =
+								dynamic_cast<const Expr_UnaryOp *>(pExpr);
+				pExpr = pExprUnaryOp->GetChild();
+				occurPattern = Declaration::SymbolToOccurPattern(
+										pExprUnaryOp->GetOperator()->GetSymbol());
 			}
 			if (occurPattern == OCCUR_ZeroOrMore) {
 				Value value;
@@ -2420,6 +2422,7 @@ String Expr_Caller::SequenceEx::ToString() const
 // Expr_UnaryOp
 //-----------------------------------------------------------------------------
 bool Expr_UnaryOp::IsUnaryOp() const { return true; }
+bool Expr_UnaryOp::IsUnaryOpSuffix() const { return _suffixFlag; }
 
 Expr *Expr_UnaryOp::Clone() const
 {
@@ -2703,6 +2706,7 @@ String Expr_Quote::SequenceEx::ToString() const
 	return str;
 }
 
+#if 0
 //-----------------------------------------------------------------------------
 // Expr_Suffix
 //-----------------------------------------------------------------------------
@@ -2749,6 +2753,7 @@ String Expr_Suffix::SequenceEx::ToString() const
 	str += "<sequence:expr_suffix>";
 	return str;
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Expr_Assign

@@ -49,6 +49,7 @@ enum OpType {
 	OPTYPE_Inv,
 	OPTYPE_Not,
 	OPTYPE_SeqInf,
+	OPTYPE_Question,
 	// binary operators
 	OPTYPE_binary,
 	OPTYPE_Add		= OPTYPE_binary,
@@ -193,6 +194,14 @@ public:
 class GURA_DLLDECLARE Operator_SeqInf : public Operator {
 public:
 	inline Operator_SeqInf() : Operator(OPTYPE_SeqInf) {}
+};
+
+//-----------------------------------------------------------------------------
+// Operator_Question
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Operator_Question : public Operator {
+public:
+	inline Operator_Question() : Operator(OPTYPE_Question) {}
 };
 
 //-----------------------------------------------------------------------------
