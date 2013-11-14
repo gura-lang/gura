@@ -283,7 +283,6 @@ Gura_ImplementMethod(expr, unquote)
 ImplementTypeChecker(isunary,		IsUnary)
 ImplementTypeChecker(isunaryop,		IsUnaryOp)
 ImplementTypeChecker(isquote,		IsQuote)
-ImplementTypeChecker(isprefix,		IsPrefix)
 ImplementTypeChecker(issuffix,		IsSuffix)
 // type chekers - Binary and descendants
 ImplementTypeChecker(isbinary,		IsBinary)
@@ -324,7 +323,6 @@ void Class_expr::Prepare(Environment &env)
 	Gura_AssignMethod(expr,	isunary);
 	Gura_AssignMethod(expr,	isunaryop);
 	Gura_AssignMethod(expr,	isquote);
-	Gura_AssignMethod(expr,	isprefix);
 	Gura_AssignMethod(expr,	issuffix);
 	// type chekers - Binary and descendants
 	Gura_AssignMethod(expr,	isbinary);

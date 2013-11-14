@@ -13,7 +13,6 @@ const char *GetExprTypeName(ExprType exprType)
 	} tbl[] = {
 		{ EXPRTYPE_UnaryOp,		"unaryop",		},
 		{ EXPRTYPE_Quote,		"quote",		},
-		{ EXPRTYPE_Prefix,		"prefix",		},
 		{ EXPRTYPE_Suffix,		"suffix",		},
 		{ EXPRTYPE_BinaryOp,	"binaryop",		},
 		{ EXPRTYPE_Assign,		"assign",		},
@@ -41,7 +40,6 @@ const char *GetExprTypeName(ExprType exprType)
 // [class hierarchy under Expr]
 // Expr <-+- Expr_Unary <-----+- Expr_UnaryOp
 //        |                   +- Expr_Quote
-//        |                   +- Expr_Prefix
 //        |                   `- Expr_Suffix
 //        +- Expr_Binary <----+- Expr_BinaryOp
 //        |                   +- Expr_Assign
@@ -274,7 +272,6 @@ bool Expr::IsOperatorPair() const
 bool Expr::IsUnary() const		{ return false; }
 bool Expr::IsUnaryOp() const	{ return false; }
 bool Expr::IsQuote() const		{ return false; }
-bool Expr::IsPrefix() const		{ return false; }
 bool Expr::IsSuffix() const		{ return false; }
 	// type chekers - Binary and descendants
 bool Expr::IsBinary() const		{ return false; }
@@ -2706,6 +2703,7 @@ String Expr_Quote::SequenceEx::ToString() const
 	return str;
 }
 
+#if 0
 //-----------------------------------------------------------------------------
 // Expr_Prefix
 //-----------------------------------------------------------------------------
@@ -2752,6 +2750,7 @@ String Expr_Prefix::SequenceEx::ToString() const
 	str += "<sequence:expr_prefix>";
 	return str;
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Expr_Suffix

@@ -44,10 +44,9 @@ testcase {
 	shortBool(flag:boolean) = cond(flag, 'y', 'n')
 	for (expr in [`(-x), `(`x), `(x*), `(x + y), `(x = y),
 	              `(x => y), `(x::y), `{}, `3, `[], `x[y], `x(y, z)]) {
-		printf('%-8s %s %s %s %s %s %s %s %s %s %s %s %s %s\n', expr.tostring(),
+		printf('%-8s %s %s %s %s %s %s %s %s %s %s %s %s\n', expr.tostring(),
 				shortBool(expr.isunaryop()),
 				shortBool(expr.isquote()),
-				shortBool(expr.isprefix()),
 				shortBool(expr.issuffix()),
 				shortBool(expr.isbinaryop()),
 				shortBool(expr.isassign()),

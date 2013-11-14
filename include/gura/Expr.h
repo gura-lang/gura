@@ -21,7 +21,6 @@ enum ExprType {
 	EXPRTYPE_None,
 	EXPRTYPE_UnaryOp,
 	EXPRTYPE_Quote,
-	EXPRTYPE_Prefix,
 	EXPRTYPE_Suffix,
 	EXPRTYPE_BinaryOp,
 	EXPRTYPE_Assign,
@@ -82,7 +81,6 @@ public:
 // [class hierarchy under Expr]
 // Expr <-+- Expr_Unary <-----+- Expr_UnaryOp
 //        |                   +- Expr_Quote
-//        |                   +- Expr_Prefix
 //        |                   `- Expr_Suffix
 //        +- Expr_Binary <----+- Expr_BinaryOp
 //        |                   +- Expr_Assign
@@ -206,7 +204,6 @@ public:
 	virtual bool IsUnary() const;
 	virtual bool IsUnaryOp() const;
 	virtual bool IsQuote() const;
-	virtual bool IsPrefix() const;
 	virtual bool IsSuffix() const;
 	// type chekers - Binary and descendants
 	virtual bool IsBinary() const;
@@ -879,6 +876,7 @@ public:
 							ScriptStyle scriptStyle, int nestLevel) const;
 };
 
+#if 0
 //-----------------------------------------------------------------------------
 // Expr_Prefix
 //-----------------------------------------------------------------------------
@@ -908,6 +906,7 @@ public:
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
 };
+#endif
 
 //-----------------------------------------------------------------------------
 // Expr_Suffix
