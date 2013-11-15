@@ -11,7 +11,10 @@ mswin.ole('Word.Application') {|app|
 		(path.exists(fileNamePDF) && \
 			path.stat(fileNamePDF).mtime >= path.stat(fileNameDOC).mtime) && continue
 		println(fileNameDOC)
-		app.Documents.Open(path.absname(fileNameDOC))
+		try {
+			app.Documents.Open(path.absname(fileNameDOC))
+		} catch {
+		}
 		try {
 			app.ActiveDocument.ExportAsFixedFormat(
 				OutputFileName		=> path.absname(fileNamePDF)
@@ -28,8 +31,12 @@ mswin.ole('Word.Application') {|app|
 				DocStructureTags	=> true
 				BitmapMissingFonts	=> true
 				UseISO19005_1		=> false)
-		} catch {|e|
-			println('error occured while running MS-Word')
+		} catch {
+			conio.setcolor(`bright_red) {
+				println('An error occured while running MS-Word')
+			}
+			println('It may have failed probably because you opened ', fileNamePDF, ' by some viewer.')
+			println('Close the application and try this again.')
 		}
 		app.ActiveDocument.Close()
 	}
