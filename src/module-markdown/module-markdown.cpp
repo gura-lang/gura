@@ -2112,7 +2112,7 @@ String Object_document::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for markdown.document
 //-----------------------------------------------------------------------------
-// markdown.document#read(stream:stream:w):void
+// markdown.document#read(stream:stream:r):void
 Gura_DeclareMethod(document, read)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2253,11 +2253,11 @@ Gura_ImplementUserClass(item)
 //-----------------------------------------------------------------------------
 // Gura module functions: markdown
 //-----------------------------------------------------------------------------
-// markdown.document(stream?:stream) {block?}
+// markdown.document(stream?:stream:r) {block?}
 Gura_DeclareFunction(document)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	SetClassToConstruct(Gura_UserClass(document));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,

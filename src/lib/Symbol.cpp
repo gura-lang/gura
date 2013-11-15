@@ -336,6 +336,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(ps2);
 	Gura_RealizeSymbolAlias(public_,		"public");
 	Gura_RealizeSymbol(purple);
+	Gura_RealizeSymbol(quote);
 	Gura_RealizeSymbol(r);
 	Gura_RealizeSymbol(raise);
 	Gura_RealizeSymbol(raw);

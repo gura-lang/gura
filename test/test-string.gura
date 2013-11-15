@@ -81,6 +81,7 @@ testcase {
 	tester(`str.fold(5, 10):list)
 }
 testcase {
+	tester(`'<hoge foo="abcdefg">'.escapehtml():quote);
 	tester(`'x < 0 & y > 1'.escapehtml());
 	tester(`'x &lt; 0 &amp; y &gt; 1'.unescapehtml());
 	tester(`'&quot;hello world&quot;'.unescapehtml());

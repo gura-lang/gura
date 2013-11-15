@@ -323,6 +323,7 @@ public:
 	Gura_DeclareSymbol(ps2);
 	Gura_DeclareSymbol(public_);
 	Gura_DeclareSymbol(purple);
+	Gura_DeclareSymbol(quote);
 	Gura_DeclareSymbol(r);
 	Gura_DeclareSymbol(raise);
 	Gura_DeclareSymbol(raw);

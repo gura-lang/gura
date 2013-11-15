@@ -512,28 +512,52 @@ bool Class_fraction::Deserialize(Environment &env, Signal sig, Stream &stream, V
 //-----------------------------------------------------------------------------
 // Class_string
 //-----------------------------------------------------------------------------
-// string#len()
-Gura_DeclareMethod(string, len)
+// string#align(len:number, padding:string => " "):map:[center,left,right]
+Gura_DeclareMethod(string, align)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "len", VTYPE_number);
+	DeclareArg(env, "padding", VTYPE_string, OCCUR_Once, FLAG_None, new Expr_String(" "));
+	DeclareAttr(Gura_Symbol(center));
+	DeclareAttr(Gura_Symbol(left));
+	DeclareAttr(Gura_Symbol(right));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Returns a string aligned in left, right or center within a specified length.\n"
+	"An attribute :center aligns the string in center, :left in left and :right in right\n"
+	"An attribute :center is the default behaviour.\n"
+	"It fills a padding area with a character specified by an argument padding,\n"
+	"and a white space is used when itt is omitted");
+}
+
+Gura_ImplementMethod(string, align)
+{
+	size_t len = args.GetSizeT(0);
+	const char *padding = args.GetString(1);
+	if (Length(padding) != 1) {
+		sig.SetError(ERR_ValueError, "padding must consist of a single character");
+		return Value::Null;
+	}
+	String str;
+	if (args.IsSet(Gura_Symbol(right))) {
+		str = RJust(args.GetThis().GetString(), len, padding);
+	} else if (args.IsSet(Gura_Symbol(left))) {
+		str = LJust(args.GetThis().GetString(), len, padding);
+	} else {
+		str = Center(args.GetThis().GetString(), len, padding);
+	}
+	return Value(env, str.c_str());
+}
+
+// string#binary()
+Gura_DeclareMethodPrimitive(string, binary)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the length of the string in characters.");
 }
 
-Gura_ImplementMethod(string, len)
+Gura_ImplementMethod(string, binary)
 {
-	return Value(static_cast<UInt>(Length(args.GetThis().GetString())));
-}
-
-// string#isempty()
-Gura_DeclareMethod(string, isempty)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns true if the string is empty.");
-}
-
-Gura_ImplementMethod(string, isempty)
-{
-	return Value(*args.GetThis().GetString() == '\0');
+	const char *str = args.GetThis().GetString();
+	return Value(new Object_binary(env, str, ::strlen(str), true));
 }
 
 // string#capitalize()
@@ -548,60 +572,6 @@ Gura_DeclareMethod(string, capitalize)
 Gura_ImplementMethod(string, capitalize)
 {
 	return Value(env, Capitalize(args.GetThis().GetString()).c_str());
-}
-
-// string#lower()
-Gura_DeclareMethod(string, lower)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a string of lowercase characters of the original one");
-}
-
-Gura_ImplementMethod(string, lower)
-{
-	return Value(env, Lower(args.GetThis().GetString()).c_str());
-}
-
-// string#upper()
-Gura_DeclareMethod(string, upper)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a string of uppercase characters of the original one");
-}
-
-Gura_ImplementMethod(string, upper)
-{
-	return Value(env, Upper(args.GetThis().GetString()).c_str());
-}
-
-// string#zentohan()
-Gura_DeclareMethod(string, zentohan)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Converts zenkaku to hankaku characters");
-}
-
-Gura_ImplementMethod(string, zentohan)
-{
-	return Value(env, ZenToHan(args.GetThis().GetString()).c_str());
-}
-
-// string#strip():[both,left,right]
-Gura_DeclareMethod(string, strip)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareAttr(Gura_Symbol(both));
-	DeclareAttr(Gura_Symbol(left));
-	DeclareAttr(Gura_Symbol(right));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a string that removes space characters on left, right or both of\n"
-	"the original one. An attribute :both removes spaces on both sides, :left on left\n"
-	"and :right on right. An attribut :both is the default behaviour.");
-}
-
-Gura_ImplementMethod(string, strip)
-{
-	return Value(env, Strip(args.GetThis().GetString(), args.GetAttrs()).c_str());
 }
 
 // string#chop(suffix*:string):[eol,icase]
@@ -635,252 +605,17 @@ Gura_ImplementMethod(string, chop)
 	return Value(env, rtn.c_str());
 }
 
-// string#align(len:number, padding:string => " "):map:[center,left,right]
-Gura_DeclareMethod(string, align)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "len", VTYPE_number);
-	DeclareArg(env, "padding", VTYPE_string, OCCUR_Once, FLAG_None, new Expr_String(" "));
-	DeclareAttr(Gura_Symbol(center));
-	DeclareAttr(Gura_Symbol(left));
-	DeclareAttr(Gura_Symbol(right));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a string aligned in left, right or center within a specified length.\n"
-	"An attribute :center aligns the string in center, :left in left and :right in right\n"
-	"An attribute :center is the default behaviour.\n"
-	"It fills a padding area with a character specified by an argument padding,\n"
-	"and a white space is used when itt is omitted");
-}
-
-
-Gura_ImplementMethod(string, align)
-{
-	size_t len = args.GetSizeT(0);
-	const char *padding = args.GetString(1);
-	if (Length(padding) != 1) {
-		sig.SetError(ERR_ValueError, "padding must consist of a single character");
-		return Value::Null;
-	}
-	String str;
-	if (args.IsSet(Gura_Symbol(right))) {
-		str = RJust(args.GetThis().GetString(), len, padding);
-	} else if (args.IsSet(Gura_Symbol(left))) {
-		str = LJust(args.GetThis().GetString(), len, padding);
-	} else {
-		str = Center(args.GetThis().GetString(), len, padding);
-	}
-	return Value(env, str.c_str());
-}
-
-// string#left(len?:number):map
-Gura_DeclareMethod(string, left)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a copy of the string in len characters from its left side");
-}
-
-Gura_ImplementMethod(string, left)
-{
-	if (!args.Is_number(0)) return args.GetThis();
-	return Value(env, Left(args.GetThis().GetString(), args.GetSizeT(0)).c_str());
-}
-
-// string#right(len?:number):map
-Gura_DeclareMethod(string, right)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a copy of the string in len characters from its right side");
-}
-
-Gura_ImplementMethod(string, right)
-{
-	if (!args.Is_number(0)) return args.GetThis();
-	return Value(env, Right(args.GetThis().GetString(), args.GetSizeT(0)).c_str());
-}
-
-// string#mid(pos:number => 0, len?:number):map
-Gura_DeclareMethod(string, mid)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a copy of part of the string in len characters starting from pos.\n"
-	"If an argument len is omitted, it returns a string from pos to its end.\n"
-	"Number of an argument pos starts from zero.\n"
-	"Example:\n"
-	">>> \"Hello world\".mid(3, 2)\n"
-	"lo\n"
-	">>> \"Hello world\".mid(5)\n"
-	"world");
-}
-
-Gura_ImplementMethod(string, mid)
-{
-	return Value(env, Middle(args.GetThis().GetString(), args.GetInt(0),
-						args.Is_number(1)? args.GetInt(1) : -1).c_str());
-}
-
-// string#find(sub:string, pos?:number => 0):map:[icase,rev]
-Gura_DeclareMethod(string, find)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "sub",	VTYPE_string);
-	DeclareArg(env, "pos",	VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareAttr(Gura_Symbol(icase));
-	DeclareAttr(Gura_Symbol(rev));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Finds a sub string from the string and returns its position.\n"
-	"Number of position starts from zero. You can specify a position to start\n"
-	"finding by an argument pos. It returns nil if finding fails.\n"
-	"With an attribute :icase, case of characters are ignored while finding.\n"
-	"When an attribute :rev is specified, finding starts from tail of the string\n");
-}
-
-Gura_ImplementMethod(string, find)
-{
-	return FindString(env, sig, args.GetThis().GetString(), args.GetString(0),
-									args.GetInt(1), args.GetAttrs());
-}
-
-// string#startswith(prefix:string, pos:number => 0):map:[rest,icase]
-Gura_DeclareMethod(string, startswith)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "prefix",	VTYPE_string);
-	DeclareArg(env, "pos",		VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareAttr(Gura_Symbol(rest));
-	DeclareAttr(Gura_Symbol(icase));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns true if the string starts with prefix. If attribute :rest is specified,\n"
-	"it returns the rest part if the string starts with prefix, or nil otherewise.\n"
-	"You can specify a top position for the matching by an argument pos.\n"
-	"With an attribute :icase, case of characters are ignored while finding.");
-}
-
-Gura_ImplementMethod(string, startswith)
-{
-	const char *rtn = StartsWith(args.GetThis().GetString(), args.GetString(0),
-					args.GetInt(1), args.IsSet(Gura_Symbol(icase)));
-	if (args.IsSet(Gura_Symbol(rest))) {
-		if (rtn == NULL) return Value::Null;
-		return Value(env, rtn);
-	}
-	return rtn != NULL;
-}
-
-// string#endswith(suffix:string, endpos?:number):map:[rest,icase]
-Gura_DeclareMethod(string, endswith)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "suffix",	VTYPE_string);
-	DeclareArg(env, "endpos",	VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareAttr(Gura_Symbol(rest));
-	DeclareAttr(Gura_Symbol(icase));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns true if the string ends with suffix. If attribute :rest is specified,\n"
-	"it returns the rest part if the string ends with suffix, or nil otherewise.\n"
-	"You can specify a bottom position for the matching by an argument endpos.\n"
-	"With an attribute :icase, case of characters are ignored while finding.");
-}
-
-Gura_ImplementMethod(string, endswith)
-{
-	const char *str = args.GetThis().GetString();
-	bool ignoreCaseFlag = args.IsSet(Gura_Symbol(icase));
-	const char *rtn = args.Is_number(1)?
-		EndsWith(str, args.GetString(0), args.GetInt(1), ignoreCaseFlag) :
-		EndsWith(str, args.GetString(0), ignoreCaseFlag);
-	if (args.IsSet(Gura_Symbol(rest))) {
-		if (rtn == NULL) return Value::Null;
-		return Value(env, str, rtn - str);
-	}
-	return rtn != NULL;
-}
-
-// string#replace(sub:string, replace:string, count?:number):map:[icase] {block?}
-Gura_DeclareMethod(string, replace)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "sub",		VTYPE_string);
-	DeclareArg(env, "replace",	VTYPE_string);
-	DeclareArg(env, "count",	VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareAttr(Gura_Symbol(icase));
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a string that substitutes sub strings in the string with replace.\n"
-	"An argument count limits the maximum number of substitution\n"
-	"and there's no limit if it's omitted.\n"
-	"With an attribute :icase,	case of characgters are ignored while finding.");
-}
-
-Gura_ImplementMethod(string, replace)
-{
-	String result = Replace(args.GetThis().GetString(),
-			args.GetString(0), args.GetString(1),
-			args.Is_number(2)? args.GetInt(2) : -1, args.GetAttrs());
-	if (!args.IsBlockSpecified()) return Value(env, result);
-	ValueList valListArg;
-	valListArg.reserve(2);
-	valListArg.push_back(Value(env, result));
-	valListArg.push_back(Value(result != args.GetThis().GetStringSTL()));
-	return ReturnValues(env, sig, args, valListArg);
-}
-
-// string#split(sep?:string, count?:number):[icase] {block?}
-Gura_DeclareMethod(string, split)
+// string#decodeuri()
+Gura_DeclareMethod(string, decodeuri)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "sep", VTYPE_string, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareAttr(Gura_Symbol(icase));
-	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Creates an iterator generating sub strings extracted from the original one\n"
-	"separated by a specified string sep.\n"
-	"With an attribute :icase, case of characgters are ignored while finding.\n"
-	GURA_ITERATOR_HELP
-	"Block parameter format: |sub:string, idx:number|");
+	"Returns a string in which percent-encoded characters are decoded.");
 }
 
-Gura_ImplementMethod(string, split)
+Gura_ImplementMethod(string, decodeuri)
 {
-	int maxSplit = args.Is_number(1)? args.GetInt(1) : -1;
-	Iterator *pIterator = NULL;
-	if (args.Is_string(0) && *args.GetString(0) != '\0') {
-		const char *sep = args.GetString(0);
-		bool ignoreCaseFlag = args.IsSet(Gura_Symbol(icase));
-		pIterator = new Class_string::IteratorSplit(
-						args.GetThis().GetStringSTL(), sep, maxSplit, ignoreCaseFlag);
-	} else {
-		pIterator = new Class_string::IteratorEach(args.GetThis().GetStringSTL(),
-							maxSplit, Class_string::IteratorEach::ATTR_None);
-	}
-	return ReturnIterator(env, sig, args, pIterator);
-}
-
-// string#fold(n:number, nstep?:number) {block?}
-Gura_DeclareMethod(string, fold)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "n", VTYPE_number);
-	DeclareArg(env, "nstep", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Creates an iterator that folds string in a specified length.\n"
-	GURA_ITERATOR_HELP
-	"Block parameter format: |sub:string, idx:number|");
-}
-
-Gura_ImplementMethod(string, fold)
-{
-	int cntPerFold = args.GetInt(0);
-	int cntStep = args.Is_number(1)? args.GetInt(1) : cntPerFold;
-	Iterator *pIterator = new Class_string::IteratorFold(
-						args.GetThis().GetStringSTL(), cntPerFold, cntStep);
-	return ReturnIterator(env, sig, args, pIterator);
+	return Value(env, DecodeURI(args.GetThis().GetString()).c_str());
 }
 
 // string#each():[utf8,utf32] {block?}
@@ -931,6 +666,124 @@ Gura_ImplementMethod(string, eachline)
 					args.GetThis().GetStringSTL(), maxSplit, includeEOLFlag));
 }
 
+// string#encode(codec:codec)
+Gura_DeclareMethodPrimitive(string, encode)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "codec", VTYPE_codec);
+}
+
+Gura_ImplementMethod(string, encode)
+{
+	Codec *pCodec = Object_codec::GetObject(args, 0)->GetCodec();
+	Binary buff;
+	if (!pCodec->GetEncoder()->Encode(sig, buff, args.GetThis().GetString())) {
+		return Value::Null;
+	}
+	return Value(new Object_binary(env, buff, true));
+}
+
+// string#encodeuri()
+Gura_DeclareMethod(string, encodeuri)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Returns a string in which non-URIC characters are percent-encoded.");
+}
+
+Gura_ImplementMethod(string, encodeuri)
+{
+	return Value(env, EncodeURI(args.GetThis().GetString()));
+}
+
+// string#endswith(suffix:string, endpos?:number):map:[rest,icase]
+Gura_DeclareMethod(string, endswith)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "suffix",	VTYPE_string);
+	DeclareArg(env, "endpos",	VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(rest));
+	DeclareAttr(Gura_Symbol(icase));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Returns true if the string ends with suffix. If attribute :rest is specified,\n"
+	"it returns the rest part if the string ends with suffix, or nil otherewise.\n"
+	"You can specify a bottom position for the matching by an argument endpos.\n"
+	"With an attribute :icase, case of characters are ignored while finding.");
+}
+
+Gura_ImplementMethod(string, endswith)
+{
+	const char *str = args.GetThis().GetString();
+	bool ignoreCaseFlag = args.IsSet(Gura_Symbol(icase));
+	const char *rtn = args.Is_number(1)?
+		EndsWith(str, args.GetString(0), args.GetInt(1), ignoreCaseFlag) :
+		EndsWith(str, args.GetString(0), ignoreCaseFlag);
+	if (args.IsSet(Gura_Symbol(rest))) {
+		if (rtn == NULL) return Value::Null;
+		return Value(env, str, rtn - str);
+	}
+	return rtn != NULL;
+}
+
+// string#escapehtml():[quote]
+Gura_DeclareMethod(string, escapehtml)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(quote));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Returns a string that converts characters into escape sequences.");
+}
+
+Gura_ImplementMethod(string, escapehtml)
+{
+	bool quoteFlag = args.IsSet(Gura_Symbol(quote));
+	return Value(env, EscapeHtml(args.GetThis().GetString(), quoteFlag).c_str());
+}
+
+// string#find(sub:string, pos?:number => 0):map:[icase,rev]
+Gura_DeclareMethod(string, find)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "sub",	VTYPE_string);
+	DeclareArg(env, "pos",	VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareAttr(Gura_Symbol(icase));
+	DeclareAttr(Gura_Symbol(rev));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Finds a sub string from the string and returns its position.\n"
+	"Number of position starts from zero. You can specify a position to start\n"
+	"finding by an argument pos. It returns nil if finding fails.\n"
+	"With an attribute :icase, case of characters are ignored while finding.\n"
+	"When an attribute :rev is specified, finding starts from tail of the string\n");
+}
+
+Gura_ImplementMethod(string, find)
+{
+	return FindString(env, sig, args.GetThis().GetString(), args.GetString(0),
+									args.GetInt(1), args.GetAttrs());
+}
+
+// string#fold(n:number, nstep?:number) {block?}
+Gura_DeclareMethod(string, fold)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "n", VTYPE_number);
+	DeclareArg(env, "nstep", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Creates an iterator that folds string in a specified length.\n"
+	GURA_ITERATOR_HELP
+	"Block parameter format: |sub:string, idx:number|");
+}
+
+Gura_ImplementMethod(string, fold)
+{
+	int cntPerFold = args.GetInt(0);
+	int cntStep = args.Is_number(1)? args.GetInt(1) : cntPerFold;
+	Iterator *pIterator = new Class_string::IteratorFold(
+						args.GetThis().GetStringSTL(), cntPerFold, cntStep);
+	return ReturnIterator(env, sig, args, pIterator);
+}
+
 // string#format(values*):map
 Gura_DeclareMethod(string, format)
 {
@@ -947,56 +800,93 @@ Gura_ImplementMethod(string, format)
 					args.GetThis().GetString(), args.GetList(0)).c_str());
 }
 
-// string#encodeuri()
-Gura_DeclareMethod(string, encodeuri)
+// string#isempty()
+Gura_DeclareMethod(string, isempty)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a string in which non-URIC characters are percent-encoded.");
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns true if the string is empty.");
 }
 
-Gura_ImplementMethod(string, encodeuri)
+Gura_ImplementMethod(string, isempty)
 {
-	return Value(env, EncodeURI(args.GetThis().GetString()));
+	return Value(*args.GetThis().GetString() == '\0');
 }
 
-// string#decodeuri()
-Gura_DeclareMethod(string, decodeuri)
+// string#left(len?:number):map
+Gura_DeclareMethod(string, left)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a string in which percent-encoded characters are decoded.");
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a copy of the string in len characters from its left side");
 }
 
-Gura_ImplementMethod(string, decodeuri)
+Gura_ImplementMethod(string, left)
 {
-	return Value(env, DecodeURI(args.GetThis().GetString()).c_str());
+	if (!args.Is_number(0)) return args.GetThis();
+	return Value(env, Left(args.GetThis().GetString(), args.GetSizeT(0)).c_str());
 }
 
-// string#escapehtml()
-Gura_DeclareMethod(string, escapehtml)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a string that converts characters into escape sequences.");
-}
-
-Gura_ImplementMethod(string, escapehtml)
-{
-	return Value(env, EscapeHtml(args.GetThis().GetString(), false).c_str());
-}
-
-// string#unescapehtml()
-Gura_DeclareMethod(string, unescapehtml)
+// string#len()
+Gura_DeclareMethod(string, len)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a string that reverts escaped sequences into characters.");
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the length of the string in characters.");
 }
 
-Gura_ImplementMethod(string, unescapehtml)
+Gura_ImplementMethod(string, len)
 {
-	return Value(env, UnescapeHtml(args.GetThis().GetString()).c_str());
+	return Value(static_cast<UInt>(Length(args.GetThis().GetString())));
+}
+
+// string#lower()
+Gura_DeclareMethod(string, lower)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a string of lowercase characters of the original one");
+}
+
+Gura_ImplementMethod(string, lower)
+{
+	return Value(env, Lower(args.GetThis().GetString()).c_str());
+}
+
+// string#mid(pos:number => 0, len?:number):map
+Gura_DeclareMethod(string, mid)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "pos", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Returns a copy of part of the string in len characters starting from pos.\n"
+	"If an argument len is omitted, it returns a string from pos to its end.\n"
+	"Number of an argument pos starts from zero.\n"
+	"Example:\n"
+	">>> \"Hello world\".mid(3, 2)\n"
+	"lo\n"
+	">>> \"Hello world\".mid(5)\n"
+	"world");
+}
+
+Gura_ImplementMethod(string, mid)
+{
+	return Value(env, Middle(args.GetThis().GetString(), args.GetInt(0),
+						args.Is_number(1)? args.GetInt(1) : -1).c_str());
+}
+
+// string#parse() {block?}
+Gura_DeclareMethod(string, parse)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Parse a string returns an expr object.");
+}
+
+Gura_ImplementMethod(string, parse)
+{
+	AutoPtr<Expr_Block> pExpr(new Expr_Block());
+	if (!Parser().ParseString(env, sig, pExpr->GetExprOwner(),
+		"<parse function>", args.GetThis().GetString())) return Value::Null;
+	return ReturnValue(env, sig, args, Value(env, pExpr.release()));
 }
 
 // string#print(stream?:stream:w):void
@@ -1029,35 +919,6 @@ Gura_ImplementMethod(string, println)
 	return Value::Null;
 }
 
-// string#binary()
-Gura_DeclareMethodPrimitive(string, binary)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(string, binary)
-{
-	const char *str = args.GetThis().GetString();
-	return Value(new Object_binary(env, str, ::strlen(str), true));
-}
-
-// string#encode(codec:codec)
-Gura_DeclareMethodPrimitive(string, encode)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "codec", VTYPE_codec);
-}
-
-Gura_ImplementMethod(string, encode)
-{
-	Codec *pCodec = Object_codec::GetObject(args, 0)->GetCodec();
-	Binary buff;
-	if (!pCodec->GetEncoder()->Encode(sig, buff, args.GetThis().GetString())) {
-		return Value::Null;
-	}
-	return Value(new Object_binary(env, buff, true));
-}
-
 // string#reader() {block?}
 Gura_DeclareMethod(string, reader)
 {
@@ -1071,20 +932,123 @@ Gura_ImplementMethod(string, reader)
 		new Stream_StringReader(env, sig, args.GetThis().GetStringSTL()))));
 }
 
-// string#parse() {block?}
-Gura_DeclareMethod(string, parse)
+// string#replace(sub:string, replace:string, count?:number):map:[icase] {block?}
+Gura_DeclareMethod(string, replace)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "sub",		VTYPE_string);
+	DeclareArg(env, "replace",	VTYPE_string);
+	DeclareArg(env, "count",	VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(icase));
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Parse a string returns an expr object.");
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Returns a string that substitutes sub strings in the string with replace.\n"
+	"An argument count limits the maximum number of substitution\n"
+	"and there's no limit if it's omitted.\n"
+	"With an attribute :icase,	case of characgters are ignored while finding.");
 }
 
-Gura_ImplementMethod(string, parse)
+Gura_ImplementMethod(string, replace)
 {
-	AutoPtr<Expr_Block> pExpr(new Expr_Block());
-	if (!Parser().ParseString(env, sig, pExpr->GetExprOwner(),
-		"<parse function>", args.GetThis().GetString())) return Value::Null;
-	return ReturnValue(env, sig, args, Value(env, pExpr.release()));
+	String result = Replace(args.GetThis().GetString(),
+			args.GetString(0), args.GetString(1),
+			args.Is_number(2)? args.GetInt(2) : -1, args.GetAttrs());
+	if (!args.IsBlockSpecified()) return Value(env, result);
+	ValueList valListArg;
+	valListArg.reserve(2);
+	valListArg.push_back(Value(env, result));
+	valListArg.push_back(Value(result != args.GetThis().GetStringSTL()));
+	return ReturnValues(env, sig, args, valListArg);
+}
+
+// string#right(len?:number):map
+Gura_DeclareMethod(string, right)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a copy of the string in len characters from its right side");
+}
+
+Gura_ImplementMethod(string, right)
+{
+	if (!args.Is_number(0)) return args.GetThis();
+	return Value(env, Right(args.GetThis().GetString(), args.GetSizeT(0)).c_str());
+}
+
+// string#startswith(prefix:string, pos:number => 0):map:[rest,icase]
+Gura_DeclareMethod(string, startswith)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "prefix",	VTYPE_string);
+	DeclareArg(env, "pos",		VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareAttr(Gura_Symbol(rest));
+	DeclareAttr(Gura_Symbol(icase));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Returns true if the string starts with prefix. If attribute :rest is specified,\n"
+	"it returns the rest part if the string starts with prefix, or nil otherewise.\n"
+	"You can specify a top position for the matching by an argument pos.\n"
+	"With an attribute :icase, case of characters are ignored while finding.");
+}
+
+Gura_ImplementMethod(string, startswith)
+{
+	const char *rtn = StartsWith(args.GetThis().GetString(), args.GetString(0),
+					args.GetInt(1), args.IsSet(Gura_Symbol(icase)));
+	if (args.IsSet(Gura_Symbol(rest))) {
+		if (rtn == NULL) return Value::Null;
+		return Value(env, rtn);
+	}
+	return rtn != NULL;
+}
+
+// string#split(sep?:string, count?:number):[icase] {block?}
+Gura_DeclareMethod(string, split)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "sep", VTYPE_string, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "count", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(icase));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Creates an iterator generating sub strings extracted from the original one\n"
+	"separated by a specified string sep.\n"
+	"With an attribute :icase, case of characgters are ignored while finding.\n"
+	GURA_ITERATOR_HELP
+	"Block parameter format: |sub:string, idx:number|");
+}
+
+Gura_ImplementMethod(string, split)
+{
+	int maxSplit = args.Is_number(1)? args.GetInt(1) : -1;
+	Iterator *pIterator = NULL;
+	if (args.Is_string(0) && *args.GetString(0) != '\0') {
+		const char *sep = args.GetString(0);
+		bool ignoreCaseFlag = args.IsSet(Gura_Symbol(icase));
+		pIterator = new Class_string::IteratorSplit(
+						args.GetThis().GetStringSTL(), sep, maxSplit, ignoreCaseFlag);
+	} else {
+		pIterator = new Class_string::IteratorEach(args.GetThis().GetStringSTL(),
+							maxSplit, Class_string::IteratorEach::ATTR_None);
+	}
+	return ReturnIterator(env, sig, args, pIterator);
+}
+
+// string#strip():[both,left,right]
+Gura_DeclareMethod(string, strip)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(both));
+	DeclareAttr(Gura_Symbol(left));
+	DeclareAttr(Gura_Symbol(right));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Returns a string that removes space characters on left, right or both of\n"
+	"the original one. An attribute :both removes spaces on both sides, :left on left\n"
+	"and :right on right. An attribut :both is the default behaviour.");
+}
+
+Gura_ImplementMethod(string, strip)
+{
+	return Value(env, Strip(args.GetThis().GetString(), args.GetAttrs()).c_str());
 }
 
 // string#template(dst?:stream:w):[noindent,lasteol]
@@ -1120,44 +1084,81 @@ Gura_ImplementMethod(string, template_)
 	}
 }
 
+// string#unescapehtml()
+Gura_DeclareMethod(string, unescapehtml)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Returns a string that reverts escaped sequences into characters.");
+}
+
+Gura_ImplementMethod(string, unescapehtml)
+{
+	return Value(env, UnescapeHtml(args.GetThis().GetString()).c_str());
+}
+
+// string#upper()
+Gura_DeclareMethod(string, upper)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a string of uppercase characters of the original one");
+}
+
+Gura_ImplementMethod(string, upper)
+{
+	return Value(env, Upper(args.GetThis().GetString()).c_str());
+}
+
+// string#zentohan()
+Gura_DeclareMethod(string, zentohan)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Converts zenkaku to hankaku characters");
+}
+
+Gura_ImplementMethod(string, zentohan)
+{
+	return Value(env, ZenToHan(args.GetThis().GetString()).c_str());
+}
+
 Class_string::Class_string(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_string)
 {
 }
 
 void Class_string::Prepare(Environment &env)
 {
-	Gura_AssignMethod(string, len);
-	Gura_AssignMethod(string, isempty);
-	Gura_AssignMethod(string, capitalize);
-	Gura_AssignMethod(string, lower);
-	Gura_AssignMethod(string, upper);
-	Gura_AssignMethod(string, zentohan);
-	Gura_AssignMethod(string, strip);
-	Gura_AssignMethod(string, chop);
 	Gura_AssignMethod(string, align);
-	Gura_AssignMethod(string, left);
-	Gura_AssignMethod(string, right);
-	Gura_AssignMethod(string, mid);
-	Gura_AssignMethod(string, find);
-	Gura_AssignMethod(string, startswith);
-	Gura_AssignMethod(string, endswith);
-	Gura_AssignMethod(string, replace);
-	Gura_AssignMethod(string, split);
-	Gura_AssignMethod(string, fold);
+	Gura_AssignMethod(string, binary);
+	Gura_AssignMethod(string, capitalize);
+	Gura_AssignMethod(string, chop);
+	Gura_AssignMethod(string, decodeuri);
 	Gura_AssignMethod(string, each);
 	Gura_AssignMethod(string, eachline);
-	Gura_AssignMethod(string, format);
+	Gura_AssignMethod(string, encode);
 	Gura_AssignMethod(string, encodeuri);
-	Gura_AssignMethod(string, decodeuri);
+	Gura_AssignMethod(string, endswith);
 	Gura_AssignMethod(string, escapehtml);
-	Gura_AssignMethod(string, unescapehtml);
+	Gura_AssignMethod(string, find);
+	Gura_AssignMethod(string, fold);
+	Gura_AssignMethod(string, format);
+	Gura_AssignMethod(string, isempty);
+	Gura_AssignMethod(string, left);
+	Gura_AssignMethod(string, len);
+	Gura_AssignMethod(string, lower);
+	Gura_AssignMethod(string, mid);
+	Gura_AssignMethod(string, parse);
 	Gura_AssignMethod(string, print);
 	Gura_AssignMethod(string, println);
-	Gura_AssignMethod(string, binary);
-	Gura_AssignMethod(string, encode);
 	Gura_AssignMethod(string, reader);
-	Gura_AssignMethod(string, parse);
+	Gura_AssignMethod(string, replace);
+	Gura_AssignMethod(string, right);
+	Gura_AssignMethod(string, split);
+	Gura_AssignMethod(string, startswith);
+	Gura_AssignMethod(string, strip);
 	Gura_AssignMethod(string, template_);
+	Gura_AssignMethod(string, unescapehtml);
+	Gura_AssignMethod(string, upper);
+	Gura_AssignMethod(string, zentohan);
 }
 
 Value Class_string::IndexGetPrimitive(Environment &env, Signal sig,
