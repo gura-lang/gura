@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
-import(html) {html}
+import(xhtml) {xhtml}
 
-e = html {
+e = xhtml {
 	head {
 		
 	}
@@ -12,4 +12,4 @@ e = html {
 		}
 	}
 }
-e.write(fancy => true)
+e.gendoc(sys.stdout, fancy => true)

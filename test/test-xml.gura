@@ -57,9 +57,45 @@ testcase {
 	}
 	Parser().parse('test.xml');
 }
-testcase {
+scope {
+	text = R'''
+<?xml version="1.0" encoding="utf-8"?>
+<Document xmlns="http://schemas.hoge.co.jp/waver/document">
+  <!-- comment -->
+  <ChartOwner>
+    <Chart label="Chart1" label-area-width="100" wave-area-width="1000"
+           time-whole-min="0" time-whole-max="3000000000"
+           time-range-min="1000000000" time-range-max="2000000000">
+      <WaveOwner>
+        <WaveUser label="Signal1" bus="0" bit-width="1" signal-begin="H"
+                  value-begin="X" dominant="1" slant-width="3">
+          <EdgeOwner>
+            <Edge id="1" type="falling" time="5000000" value="L" />
+            <Edge id="2" type="rising" time="15000000" value="H" />
+          </EdgeOwner>
+        </WaveUser>
+        <WaveUser label="Signal2" bus="0" bit-width="1" signal-begin="L"
+                  value-begin="X" dominant="0" slant-width="3">
+          <EdgeOwner>
+            <Edge id="301" type="rising" time="1045000000" value="H" />
+            <Edge id="302" type="falling" time="1095000000" value="L" />
+            <Edge id="303" type="rising" time="1115000000" value="H" />
+          </EdgeOwner>
+        </WaveUser>
+      </WaveOwner>
+    </Chart>
+  </ChartOwner>
+</Document>
+'''
+	xml.document(text.reader()) {|doc|
+		doc.gendoc(sys.stdout)
+	}
+}
+scope {
 	e = xml.element
-	elem = e('hoge', attr => 'aaa', attr_2 => 'bbb') {
+	c = xml.comment
+	doc = xml.document()
+	doc.root = e('hoge', attr => 'aaa', attr_2 => 'bbb') {
 		e('foo') {
 			'text'
 			e('bar')
@@ -68,14 +104,33 @@ testcase {
 			e('bar')
 			e('bar')
 			e('bar')
+			c('This is a comment text')
+			e('bar') {
+				e('hoge')
+				e('hoge')
+				e('hoge')
+				e('hoge')
+				e('hoge')
+			}
 			e('bar')
-			e('bar')
+			e('bar' + (1..10))
 		}
 		e('foo')
 	}
-	elem.gendoc(sys.stdout)
-}
-testcase {
-	d = xml.document('test.xml')
-	d.gendoc(sys.stdout, true)
+	doc.root.addchild(e('foo2'))
+	doc.root.addchild([e('foo3'), e('foo4'), e('foo5'), 'text-added'])
+	doc.root << e('foo2')
+	doc.root << [e('foo3'), e('foo4'), e('foo5'), 'text-added']
+	try {
+		doc.root.addchild(2)
+	} catch {|e|
+		println('expected error occurs: ', e.text)
+	}
+	try {
+		doc.root << 3
+	} catch {|e|
+		println('expected error occurs: ', e.text)
+	}
+	println('== result output ==')
+	doc.gendoc(sys.stdout, fancy => true)
 }
