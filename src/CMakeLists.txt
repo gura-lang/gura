@@ -72,14 +72,16 @@ install(FILES
   ${GURA_MODULE_DIR}/graph.gura
   ${GURA_MODULE_DIR}/gurcbuild.gura
   ${GURA_MODULE_DIR}/markdown.gura
-  ${GURA_MODULE_DIR}/modgen.gura
   ${GURA_MODULE_DIR}/modbuild.gura
+  ${GURA_MODULE_DIR}/modgen.gura
   ${GURA_MODULE_DIR}/msxls.gura
+  ${GURA_MODULE_DIR}/sed.gura
   ${GURA_MODULE_DIR}/tk.gura
   ${GURA_MODULE_DIR}/tk.show.gura
   ${GURA_MODULE_DIR}/tokenizer.gura
   ${GURA_MODULE_DIR}/units.gura
   ${GURA_MODULE_DIR}/wx.show.gura
+  ${GURA_MODULE_DIR}/xhtml.gura
   DESTINATION lib/gura)
 
 install(FILES
