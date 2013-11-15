@@ -12,21 +12,25 @@ mswin.ole('Word.Application') {|app|
 			path.stat(fileNamePDF).mtime >= path.stat(fileNameDOC).mtime) && continue
 		println(fileNameDOC)
 		app.Documents.Open(path.absname(fileNameDOC))
-		app.ActiveDocument.ExportAsFixedFormat(
-			OutputFileName		=> path.absname(fileNamePDF)
-			ExportFormat		=> app.wdExportFormatPDF
-			OpenAfterExport		=> false
-			OptimizeFor			=> app.wdExportOptimizeForPrint
-			Range				=> app.wdExportAllDocument
-			From				=> 1
-			To					=> 1
-			Item				=> app.wdExportDocumentContent
-			IncludeDocProps		=> true
-			KeepIRM				=> true
-			CreateBookmarks		=> app.wdExportCreateHeadingBookmarks
-			DocStructureTags	=> true
-			BitmapMissingFonts	=> true
-			UseISO19005_1		=> false)
+		try {
+			app.ActiveDocument.ExportAsFixedFormat(
+				OutputFileName		=> path.absname(fileNamePDF)
+				ExportFormat		=> app.wdExportFormatPDF
+				OpenAfterExport		=> false
+				OptimizeFor			=> app.wdExportOptimizeForPrint
+				Range				=> app.wdExportAllDocument
+				From				=> 1
+				To					=> 1
+				Item				=> app.wdExportDocumentContent
+				IncludeDocProps		=> true
+				KeepIRM				=> true
+				CreateBookmarks		=> app.wdExportCreateHeadingBookmarks
+				DocStructureTags	=> true
+				BitmapMissingFonts	=> true
+				UseISO19005_1		=> false)
+		} catch {|e|
+			println('error occured while running MS-Word')
+		}
 		app.ActiveDocument.Close()
 	}
 	app.Quit()
