@@ -264,18 +264,6 @@ gatherFiles() = {
 			//----------------------------------
 			'doc/gura-*.pdf'
 			//----------------------------------
-			'test/test-*.gura'
-			'test/50records-en.csv'
-			'test/50records-jp.csv'
-			'test/temperature.txt'
-			'test/ipss.go.jp-report-1.csv'
-			'test/testall.bat'
-			'test/result/test-*.sample.txt'
-			'test/test-string/chars-cp932.txt'
-			'test/test-string/chars-eucjp.txt'
-			'test/test-string/chars-utf8-jp.txt'
-			'test/test-string/chars-jis.txt'
-			//----------------------------------
 			'application/getterphoto/*.gura'
 			'application/getterphoto/*.gurcw'
 			'application/getterphoto/*.guraw'
