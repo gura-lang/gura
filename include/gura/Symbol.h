@@ -287,6 +287,7 @@ public:
 	Gura_DeclareSymbol(mswin);
 	Gura_DeclareSymbol(multi);
 	Gura_DeclareSymbol(name);
+	Gura_DeclareSymbol(neat);
 	Gura_DeclareSymbol(next);
 	Gura_DeclareSymbol(nil);
 	Gura_DeclareSymbol(nocast);

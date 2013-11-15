@@ -130,16 +130,28 @@ bool Class_boolean::Deserialize(Environment &env, Signal sig, Stream &stream, Va
 //-----------------------------------------------------------------------------
 // Class_number
 //-----------------------------------------------------------------------------
-// number#real()
-Gura_DeclareMethodPrimitive(number, real)
+// number#abs()
+Gura_DeclareMethodPrimitive(number, abs)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 }
 
-Gura_ImplementMethod(number, real)
+Gura_ImplementMethod(number, abs)
 {
 	Number num = args.GetThis().GetNumber();
-	return Value(num);
+	return Value(::fabs(num));
+}
+
+// number#arg():[deg]
+Gura_DeclareMethodPrimitive(number, arg)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(deg));
+}
+
+Gura_ImplementMethod(number, arg)
+{
+	return Value::Zero;
 }
 
 // number#imag()
@@ -165,28 +177,16 @@ Gura_ImplementMethod(number, norm)
 	return Value(num * num);
 }
 
-// number#abs()
-Gura_DeclareMethodPrimitive(number, abs)
+// number#real()
+Gura_DeclareMethodPrimitive(number, real)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 }
 
-Gura_ImplementMethod(number, abs)
+Gura_ImplementMethod(number, real)
 {
 	Number num = args.GetThis().GetNumber();
-	return Value(::fabs(num));
-}
-
-// number#arg():[deg]
-Gura_DeclareMethodPrimitive(number, arg)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareAttr(Gura_Symbol(deg));
-}
-
-Gura_ImplementMethod(number, arg)
-{
-	return Value::Zero;
+	return Value(num);
 }
 
 // number#roundoff(threshold:number => 1e-10)
@@ -210,11 +210,11 @@ Class_number::Class_number(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_numb
 
 void Class_number::Prepare(Environment &env)
 {
-	Gura_AssignMethod(number, real);		// primitive method
-	Gura_AssignMethod(number, imag);		// primitive method
-	Gura_AssignMethod(number, norm);		// primitive method
 	Gura_AssignMethod(number, abs);			// primitive method
 	Gura_AssignMethod(number, arg);			// primitive method
+	Gura_AssignMethod(number, imag);		// primitive method
+	Gura_AssignMethod(number, norm);		// primitive method
+	Gura_AssignMethod(number, real);		// primitive method
 	Gura_AssignMethod(number, roundoff);	// primitive method
 }
 
@@ -265,16 +265,31 @@ Gura_ImplementFunction(complex)
 	return ReturnValue(env, sig, args, Value(Complex(real, imag)));
 }
 
-// complex#real()
-Gura_DeclareMethodPrimitive(complex, real)
+// complex#abs()
+Gura_DeclareMethodPrimitive(complex, abs)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 }
 
-Gura_ImplementMethod(complex, real)
+Gura_ImplementMethod(complex, abs)
 {
 	Complex num = args.GetThis().GetComplex();
-	return Value(num.real());
+	return Value(std::abs(num));
+}
+
+// complex#arg():[deg]
+Gura_DeclareMethodPrimitive(complex, arg)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(deg));
+}
+
+Gura_ImplementMethod(complex, arg)
+{
+	Complex num = args.GetThis().GetComplex();
+	double angle = std::arg(num);
+	if (args.IsSet(Gura_Symbol(deg))) angle = RadToDeg(angle);
+	return Value(angle);
 }
 
 // complex#imag()
@@ -301,31 +316,16 @@ Gura_ImplementMethod(complex, norm)
 	return Value(std::norm(num));
 }
 
-// complex#abs()
-Gura_DeclareMethodPrimitive(complex, abs)
+// complex#real()
+Gura_DeclareMethodPrimitive(complex, real)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 }
 
-Gura_ImplementMethod(complex, abs)
+Gura_ImplementMethod(complex, real)
 {
 	Complex num = args.GetThis().GetComplex();
-	return Value(std::abs(num));
-}
-
-// complex#arg():[deg]
-Gura_DeclareMethodPrimitive(complex, arg)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareAttr(Gura_Symbol(deg));
-}
-
-Gura_ImplementMethod(complex, arg)
-{
-	Complex num = args.GetThis().GetComplex();
-	double angle = std::arg(num);
-	if (args.IsSet(Gura_Symbol(deg))) angle = RadToDeg(angle);
-	return Value(angle);
+	return Value(num.real());
 }
 
 // complex#roundoff(threshold:number => 1e-10)
@@ -354,11 +354,11 @@ Class_complex::Class_complex(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_co
 void Class_complex::Prepare(Environment &env)
 {
 	Gura_AssignFunction(complex);
-	Gura_AssignMethod(complex, real);		// primitive method
-	Gura_AssignMethod(complex, imag);		// primitive method
-	Gura_AssignMethod(complex, norm);		// primitive method
 	Gura_AssignMethod(complex, abs);		// primitive method
 	Gura_AssignMethod(complex, arg);		// primitive method
+	Gura_AssignMethod(complex, imag);		// primitive method
+	Gura_AssignMethod(complex, norm);		// primitive method
+	Gura_AssignMethod(complex, real);		// primitive method
 	Gura_AssignMethod(complex, roundoff);	// primitive method
 }
 
@@ -426,18 +426,6 @@ Gura_ImplementFunction(fraction)
 	return ReturnValue(env, sig, args, Value(Fraction(numerator, denominator)));
 }
 
-// fraction#numerator()
-Gura_DeclareMethodPrimitive(fraction, numerator)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(fraction, numerator)
-{
-	const Fraction &num = args.GetThis().GetFraction();
-	return Value(num.numerator);
-}
-
 // fraction#denominator()
 Gura_DeclareMethodPrimitive(fraction, denominator)
 {
@@ -448,6 +436,18 @@ Gura_ImplementMethod(fraction, denominator)
 {
 	const Fraction &num = args.GetThis().GetFraction();
 	return Value(num.denominator);
+}
+
+// fraction#numerator()
+Gura_DeclareMethodPrimitive(fraction, numerator)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(fraction, numerator)
+{
+	const Fraction &num = args.GetThis().GetFraction();
+	return Value(num.numerator);
 }
 
 // fraction#reduce()
@@ -469,8 +469,8 @@ Class_fraction::Class_fraction(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 void Class_fraction::Prepare(Environment &env)
 {
 	Gura_AssignFunction(fraction);
-	Gura_AssignMethod(fraction, numerator);		// primitive method
 	Gura_AssignMethod(fraction, denominator);	// primitive method
+	Gura_AssignMethod(fraction, numerator);		// primitive method
 	Gura_AssignMethod(fraction, reduce);		// primitive method
 }
 
@@ -762,12 +762,13 @@ Gura_ImplementMethod(string, find)
 									args.GetInt(1), args.GetAttrs());
 }
 
-// string#fold(n:number, nstep?:number) {block?}
+// string#fold(len:number, step?:number):[neat] {block?}
 Gura_DeclareMethod(string, fold)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "n", VTYPE_number);
-	DeclareArg(env, "nstep", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "len", VTYPE_number);
+	DeclareArg(env, "step", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(neat));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Creates an iterator that folds string in a specified length.\n"
@@ -779,8 +780,9 @@ Gura_ImplementMethod(string, fold)
 {
 	int cntPerFold = args.GetInt(0);
 	int cntStep = args.Is_number(1)? args.GetInt(1) : cntPerFold;
+	bool neatFlag = args.IsSet(Gura_Symbol(neat));
 	Iterator *pIterator = new Class_string::IteratorFold(
-						args.GetThis().GetStringSTL(), cntPerFold, cntStep);
+		args.GetThis().GetStringSTL(), cntPerFold, cntStep, neatFlag);
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -975,32 +977,6 @@ Gura_ImplementMethod(string, right)
 	return Value(env, Right(args.GetThis().GetString(), args.GetSizeT(0)).c_str());
 }
 
-// string#startswith(prefix:string, pos:number => 0):map:[rest,icase]
-Gura_DeclareMethod(string, startswith)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "prefix",	VTYPE_string);
-	DeclareArg(env, "pos",		VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareAttr(Gura_Symbol(rest));
-	DeclareAttr(Gura_Symbol(icase));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns true if the string starts with prefix. If attribute :rest is specified,\n"
-	"it returns the rest part if the string starts with prefix, or nil otherewise.\n"
-	"You can specify a top position for the matching by an argument pos.\n"
-	"With an attribute :icase, case of characters are ignored while finding.");
-}
-
-Gura_ImplementMethod(string, startswith)
-{
-	const char *rtn = StartsWith(args.GetThis().GetString(), args.GetString(0),
-					args.GetInt(1), args.IsSet(Gura_Symbol(icase)));
-	if (args.IsSet(Gura_Symbol(rest))) {
-		if (rtn == NULL) return Value::Null;
-		return Value(env, rtn);
-	}
-	return rtn != NULL;
-}
-
 // string#split(sep?:string, count?:number):[icase] {block?}
 Gura_DeclareMethod(string, split)
 {
@@ -1031,6 +1007,32 @@ Gura_ImplementMethod(string, split)
 							maxSplit, Class_string::IteratorEach::ATTR_None);
 	}
 	return ReturnIterator(env, sig, args, pIterator);
+}
+
+// string#startswith(prefix:string, pos:number => 0):map:[rest,icase]
+Gura_DeclareMethod(string, startswith)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "prefix",	VTYPE_string);
+	DeclareArg(env, "pos",		VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareAttr(Gura_Symbol(rest));
+	DeclareAttr(Gura_Symbol(icase));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Returns true if the string starts with prefix. If attribute :rest is specified,\n"
+	"it returns the rest part if the string starts with prefix, or nil otherewise.\n"
+	"You can specify a top position for the matching by an argument pos.\n"
+	"With an attribute :icase, case of characters are ignored while finding.");
+}
+
+Gura_ImplementMethod(string, startswith)
+{
+	const char *rtn = StartsWith(args.GetThis().GetString(), args.GetString(0),
+					args.GetInt(1), args.IsSet(Gura_Symbol(icase)));
+	if (args.IsSet(Gura_Symbol(rest))) {
+		if (rtn == NULL) return Value::Null;
+		return Value(env, rtn);
+	}
+	return rtn != NULL;
 }
 
 // string#strip():[both,left,right]
@@ -1370,8 +1372,8 @@ void Class_string::IteratorSplit::GatherFollower(Environment::Frame *pFrame, Env
 // Class_string::IteratorFold
 //-----------------------------------------------------------------------------
 Class_string::IteratorFold::IteratorFold(const String &str,
-										size_t cntPerFold, size_t cntStep) :
-	Iterator(false), _str(str), _cntPerFold(cntPerFold), _cntStep(cntStep)
+							size_t lenPerFold, size_t lenStep, bool neatFlag) :
+	Iterator(false), _str(str), _lenPerFold(lenPerFold), _lenStep(lenStep), _neatFlag(neatFlag)
 {
 	_pCur = _str.begin();
 }
@@ -1387,20 +1389,21 @@ Iterator *Class_string::IteratorFold::GetSource()
 
 bool Class_string::IteratorFold::DoNext(Environment &env, Signal sig, Value &value)
 {
-	if (_pCur == _str.end()) {
-		return false;
+	if (_pCur == _str.end()) return false;
+	size_t lenForward = 0;
+	String::const_iterator pNext, pTail;
+	if (_lenStep <= _lenPerFold) {
+		size_t lenForwardSub = 0;
+		pNext = Forward(_pCur, _str.end(), _lenStep, &lenForward);
+		pTail = Forward(pNext, _str.end(), _lenPerFold - _lenStep, &lenForwardSub);
+		lenForward += lenForwardSub;
 	} else {
-		String::const_iterator pNext, pTail;
-		if (_cntStep <= _cntPerFold) {
-			pNext = Forward(_pCur, _str.end(), _cntStep);
-			pTail = Forward(pNext, _str.end(), _cntPerFold - _cntStep);
-		} else {
-			pTail = Forward(_pCur, _str.end(), _cntPerFold);
-			pNext = Forward(pTail, _str.end(), _cntStep - _cntPerFold);
-		}
-		value = Value(env, String(_pCur, pTail).c_str());
-		_pCur = pNext;
+		pTail = Forward(_pCur, _str.end(), _lenPerFold, &lenForward);
+		pNext = Forward(pTail, _str.end(), _lenStep - _lenPerFold);
 	}
+	if (_neatFlag && lenForward < _lenPerFold) return false;
+	value = Value(env, String(_pCur, pTail).c_str());
+	_pCur = pNext;
 	return true;
 }
 

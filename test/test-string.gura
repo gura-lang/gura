@@ -309,3 +309,12 @@ testcase {
 	}
 	function(x):map { printf('%d %d %d %d %d\n', x.a, x.b, x.c, x.d, x.e) }(x)
 }
+testcase {
+	str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+	tester(`str.fold(6):list)
+	tester(`str.fold(6, 3):list)
+	tester(`str.fold(3, 6):list)
+	tester(`str.fold(6):list:neat)
+	tester(`str.fold(6, 3):list:neat)
+	tester(`str.fold(3, 6):list:neat)
+}

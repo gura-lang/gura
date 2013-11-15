@@ -755,28 +755,32 @@ void _Copy(String &rtn, const char *str, size_t len)
 	}
 }
 
-const char *Forward(const char *str, size_t len)
+const char *Forward(const char *str, size_t len, size_t *pLenForward)
 {
-	for ( ; *str != '\0' && len > 0; len--) {
+	size_t lenForward = 0;
+	for ( ; *str != '\0' && lenForward < len; lenForward++) {
 		int ch = static_cast<UChar>(*str);
 		str++;
 		if (IsUTF8First(ch)) {
 			while (IsUTF8Follower(*str)) str++;
 		}
 	}
+	if (pLenForward != NULL) *pLenForward = lenForward;
 	return str;
 }
 
 String::const_iterator Forward(String::const_iterator str,
-							String::const_iterator strEnd, size_t len)
+			String::const_iterator strEnd, size_t len, size_t *pLenForward)
 {
-	for ( ; str != strEnd && len > 0; len--) {
+	size_t lenForward = 0;
+	for ( ; str != strEnd && lenForward < len; lenForward++) {
 		int ch = static_cast<UChar>(*str);
 		str++;
 		if (IsUTF8First(ch)) {
 			while (IsUTF8Follower(*str)) str++;
 		}
 	}
+	if (pLenForward != NULL) *pLenForward = lenForward;
 	return str;
 }
 

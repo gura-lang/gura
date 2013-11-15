@@ -148,11 +148,12 @@ public:
 	class GURA_DLLDECLARE IteratorFold : public Iterator {
 	private:
 		String _str;
-		size_t _cntPerFold;
-		size_t _cntStep;
+		size_t _lenPerFold;
+		size_t _lenStep;
+		bool _neatFlag;
 		String::const_iterator _pCur;
 	public:
-		IteratorFold(const String &str, size_t cntPerFold, size_t cntStep);
+		IteratorFold(const String &str, size_t lenPerFold, size_t lenStep, bool neatFlag);
 		virtual ~IteratorFold();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);

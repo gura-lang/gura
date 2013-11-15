@@ -300,6 +300,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(mswin);
 	Gura_RealizeSymbol(multi);
 	Gura_RealizeSymbol(name);
+	Gura_RealizeSymbol(neat);
 	Gura_RealizeSymbol(next);
 	Gura_RealizeSymbol(nil);
 	Gura_RealizeSymbol(nocast);

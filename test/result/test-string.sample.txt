@@ -95,6 +95,7 @@ str.fold(5, 10):list .. ['01234', '01234', '01234', '01234', '01234', '01234', '
 
 ======== #8 ========
 
+'<hoge foo="abcdefg">'.escapehtml():quote .. &lt;hoge foo=&quot;abcdefg&quot;&gt;
 'x < 0 & y > 1'.escapehtml() .. x &lt; 0 &amp; y &gt; 1
 'x &lt; 0 &amp; y &gt; 1'.unescapehtml() .. x < 0 & y > 1
 '&quot;hello world&quot;'.unescapehtml() .. "hello world"
@@ -1300,3 +1301,12 @@ str.replace('', '*', 3) .. *h*e*llo world
 2 3 4 nil nil
 1 1 nil nil nil
 1 nil nil nil nil
+
+======== #22 ========
+
+str.fold(6):list .. ['ABCDEF', 'GHIJKL', 'MNOPQR', 'STUVWX', 'YZ']
+str.fold(6, 3):list .. ['ABCDEF', 'DEFGHI', 'GHIJKL', 'JKLMNO', 'MNOPQR', 'PQRSTU', 'STUVWX', 'VWXYZ', 'YZ']
+str.fold(3, 6):list .. ['ABC', 'GHI', 'MNO', 'STU', 'YZ']
+str.fold(6):list:neat .. ['ABCDEF', 'GHIJKL', 'MNOPQR', 'STUVWX']
+str.fold(6, 3):list:neat .. ['ABCDEF', 'DEFGHI', 'GHIJKL', 'JKLMNO', 'MNOPQR', 'PQRSTU', 'STUVWX']
+str.fold(3, 6):list:neat .. ['ABC', 'GHI', 'MNO', 'STU']
