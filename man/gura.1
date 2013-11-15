@@ -1,21 +1,55 @@
-.TH man 1 "15 Nov 2013" "0.4.0" "gura man page"
+.TH GURA 1 "15 Nov 2013" "0.4.0" "User Commands"
 .SH NAME
-gura \- interpreter of Gura programming language
+gura \- an iterator-oriented programming language
 .SH SYNOPSIS
-.B gura [\fIOPTIONS\fR] [\fIFILE\fR] [\fIARGS\fR] ...
+.B gura [\fIOPTIONS\fR] [\fIFILE\fR] [\fIARGS\fR]...
 
 .SH DESCRIPTION
-This program is an interpreter of the Gura programming language.
+Gura is an iterator-oriented programming language that has a powerful feature
+of generating and handling of iterators. You can write program codes with
+repeating processes in much easier way using it.
 
 .SH OPTIONS
 
 .TP
-\fB\-\-help\fR
+\fB\-h\fR, \fB\-\-help\fR
 Print a help.
 
-.SH SEE ALSO
+.TP
+\fB\-t\fR, \fB\-\-interactive\fR
 
-.SH BUGS
+.TP
+\fB\-i\fR \fImodule\fR, \fB\-\-import=\fR\fImodule\fR
+
+.TP
+\fB\-I\fR \fIdir\fR, \fB\-\-path=\fR\fIdir\fR
+
+.TP
+\fB\-c\fR \fIcmd\fR, \fB\-\-command=\fR\fIcmd\fR
+
+.TP
+\fB\-T\fR \fIfile\fR, \fB\-\-template=\fR\fIfile\fR
+
+.TP
+\fB\-C\fR \fIdir\fR, \fB\-\-current=\fR\fIdir\fR
+
+.TP
+\fB\-d\fR \fIcoding\fR, \fB\-\-coding=\fR\fIcoding\fR
+
+.TP
+\fB\-v\fR, \fB\-\-version\fR
+
+.SH ENVIRONMENT VARIABLES
+
+.TP
+\fBGURAPATH\fR
+
+.TP
+\fBGURADIR\fR
 
 .SH AUTHOR
 ypsitau (ypsitau@nifty.com)
+
+.SH INTERNET RESOURCES
+Official site: http://www.gura-lang.org/
+Source repository: https://github.com/ypsitau/gura.git
