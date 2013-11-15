@@ -167,7 +167,7 @@ public:
 	Gura_DeclareReferenceAccessor(Element);
 public:
 	Element(Type type, const String &str, const char **atts = NULL);
-	bool Write(Signal sig, Stream &stream, bool fancyFlag, int indentLevel) const;
+	bool Write(Signal sig, SimpleStream &stream, bool fancyFlag, int indentLevel) const;
 	String GatherText() const;
 	void AddChild(Element *pChild);
 	bool AddChild(Environment &env, Signal sig, const Value &value);
@@ -228,7 +228,7 @@ public:
 private:
 	inline ~Document() {}
 public:
-	bool Write(Signal sig, Stream &stream, bool fancyFlag) const;
+	bool Write(Signal sig, SimpleStream &stream, bool fancyFlag) const;
 	inline void SetVersion(const String &version) { _version = version; }
 	inline void SetEncoding(const String &encoding) { _encoding = encoding; }
 	inline const char *GetVersion() const { return _version.c_str(); }

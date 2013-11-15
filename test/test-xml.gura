@@ -3,20 +3,17 @@ import(xml)
 import(testutil) {*}
 
 testcase {
-	MyParser = class(xml.parser) {
+	Parser = class(xml.parser) {
 		StartElement(elem) = {
-			printf('%s\n', elem)
-			//printf('%s %s %s\n', elem.name, elem.tostring(), elem.children.tostring())
-			//for (att in atts) {
-			//	printf(" %s='%s'", att[0], att[1])
-			//}
-			//println()
+			printf('<%s%s>\n', elem.tagname,
+				format(' %s="%s"', elem.attrs:*name, elem.attrs:*value:*escapehtml():quote).join())
 		}
-		EndElement(name:string) = {
-			//println(name)
+		EndElement(tagname:string) = {
+			printf('</%s>\n', tagname)
 		}
 		CharacterData(text:string) = {
-			//print(text)
+			text = text.strip()
+			!text.isempty() && println(text)
 		}
 		ProcessingInstruction(target:string, data:string) = {
 		}
@@ -58,7 +55,7 @@ testcase {
 		NotStandalone() = {
 		}
 	}
-	MyParser().parse('test.xml');
+	Parser().parse('test.xml');
 }
 testcase {
 	e = xml.element
@@ -76,10 +73,9 @@ testcase {
 		}
 		e('foo')
 	}
-	println(elem.format())
+	elem.gendoc(sys.stdout)
 }
 testcase {
-	e = xml.read('test.xml')
-	println(e.name)
-	#println(e.children::name, ' ', e.children::get('match'))
+	d = xml.document('test.xml')
+	d.gendoc(sys.stdout, true)
 }

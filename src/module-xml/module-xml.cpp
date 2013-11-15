@@ -325,7 +325,7 @@ Element::Element(Type type, const String &str, const char **atts) :
 	}
 }
 
-bool Element::Write(Signal sig, Stream &stream, bool fancyFlag, int indentLevel) const
+bool Element::Write(Signal sig, SimpleStream &stream, bool fancyFlag, int indentLevel) const
 {
 	const char *indentUnit = "  ";
 	String indent;
@@ -479,7 +479,7 @@ Document::Document() : _cntRef(1), _version("1.0"), _encoding("utf-8"), _standal
 {
 }
 
-bool Document::Write(Signal sig, Stream &stream, bool fancyFlag) const
+bool Document::Write(Signal sig, SimpleStream &stream, bool fancyFlag) const
 {
 	stream.Print(sig, "<?xml version=\"");
 	if (sig.IsSignalled()) return false;
@@ -1000,24 +1000,29 @@ String Object_element::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_element
 //-----------------------------------------------------------------------------
-// xml.element#write(stream?:stream:w, fancy?:boolean, indentLevel?:number):void
-Gura_DeclareMethod(element, write)
+// xml.element#gendoc(stream?:stream:w, fancy?:boolean, indentLevel?:number)
+Gura_DeclareMethod(element, gendoc)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 	DeclareArg(env, "fancy", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "indentLevel", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(element, write)
+Gura_ImplementMethod(element, gendoc)
 {
 	Object_element *pObj = Object_element::GetThisObj(args);
-	Stream *pStream = env.GetConsole();
-	if (args.Is_stream(0)) pStream = &args.GetStream(0);
 	bool fancyFlag = args.GetBoolean(1);
 	int indentLevel = args.Is_number(2)? args.GetInt(2) : 0;
-	pObj->GetElement()->Write(sig, *pStream, fancyFlag, indentLevel);
-	return Value::Null;
+	if (args.Is_stream(0)) {
+		pObj->GetElement()->Write(sig, args.GetStream(0), fancyFlag, indentLevel);
+		return Value::Null;
+	} else {
+		String strDst;
+		SimpleStream_StringWriter streamDst(strDst);
+		pObj->GetElement()->Write(sig, streamDst, fancyFlag, indentLevel);
+		return Value(env, strDst);
+	}
 }
 
 // xml.element#gettext()
@@ -1059,7 +1064,7 @@ Gura_ImplementBinaryOperator(Shl, element, any)
 // implementation of class Element
 Gura_ImplementUserClass(element)
 {
-	Gura_AssignMethod(element, write);
+	Gura_AssignMethod(element, gendoc);
 	Gura_AssignMethod(element, gettext);
 	Gura_AssignMethod(element, addchild);
 	// operator assignment
@@ -1126,28 +1131,33 @@ String Object_document::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_document
 //-----------------------------------------------------------------------------
-// xml.document#write(stream?:stream:w, fancy?:boolean):void
-Gura_DeclareMethod(document, write)
+// xml.document#gendoc(stream?:stream:w, fancy?:boolean)
+Gura_DeclareMethod(document, gendoc)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 	DeclareArg(env, "fancy", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(document, write)
+Gura_ImplementMethod(document, gendoc)
 {
 	Object_document *pObj = Object_document::GetThisObj(args);
-	Stream *pStream = env.GetConsole();
-	if (args.Is_stream(0)) pStream = &args.GetStream(0);
 	bool fancyFlag = args.GetBoolean(1);
-	pObj->GetDocument()->Write(sig, *pStream, fancyFlag);
-	return Value::Null;
+	if (args.Is_stream(0)) {
+		pObj->GetDocument()->Write(sig, args.GetStream(0), fancyFlag);
+		return Value::Null;
+	} else {
+		String strDst;
+		SimpleStream_StringWriter streamDst(strDst);
+		pObj->GetDocument()->Write(sig, streamDst, fancyFlag);
+		return Value(env, strDst);
+	}
 }
 
 // implementation of class document
 Gura_ImplementUserClass(document)
 {
-	Gura_AssignMethod(document, write);
+	Gura_AssignMethod(document, gendoc);
 }
 
 //-----------------------------------------------------------------------------
