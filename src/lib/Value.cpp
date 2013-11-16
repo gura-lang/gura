@@ -476,14 +476,14 @@ String Value::ToString(bool exprFlag) const
 		String str;
 		if (exprFlag) {
 			str += "fraction(";
-			str += NumberToString(frac.numerator);
+			str += NumberToString(frac.numer);
 			str += ", ";
-			str += NumberToString(frac.denominator);
+			str += NumberToString(frac.denom);
 			str += ")";
 		} else {
-			str += NumberToString(frac.numerator);
+			str += NumberToString(frac.numer);
 			str += "/";
-			str += NumberToString(frac.denominator);
+			str += NumberToString(frac.denom);
 		}
 		return str;
 	} else if (Is_string()) {
@@ -523,11 +523,11 @@ Number Value::ToNumber(bool allowPartFlag, bool &successFlag) const
 		return num;
 	} else if (Is_fraction()) {
 		const Fraction &frac = *_u.pFrac;
-		if (frac.denominator == 0) {
+		if (frac.denom == 0) {
 			successFlag = false;
 			return 0.;
 		}
-		return frac.numerator / frac.denominator;
+		return frac.numer / frac.denom;
 	} else {
 		successFlag = false;
 		return 0.;

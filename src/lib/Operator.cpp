@@ -1124,7 +1124,7 @@ Gura_ImplementUnaryOperator(Pos, complex)
 Gura_ImplementUnaryOperator(Pos, fraction)
 {
 	const Fraction &a = value.GetFraction();
-	if (a.denominator == 0) {
+	if (a.denom == 0) {
 		sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
 		return Value::Null;
 	}
@@ -1157,7 +1157,7 @@ Gura_ImplementUnaryOperator(Neg, complex)
 Gura_ImplementUnaryOperator(Neg, fraction)
 {
 	const Fraction &a = value.GetFraction();
-	if (a.denominator == 0) {
+	if (a.denom == 0) {
 		sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
 		return Value::Null;
 	}
@@ -1228,7 +1228,7 @@ Gura_ImplementBinaryOperator(Add, fraction, fraction)
 {
 	const Fraction &a = valueLeft.GetFraction();
 	const Fraction &b = valueRight.GetFraction();
-	if (a.denominator == 0 || b.denominator == 0) {
+	if (a.denom == 0 || b.denom == 0) {
 		sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
 		return Value::Null;
 	}
@@ -1345,7 +1345,7 @@ Gura_ImplementBinaryOperator(Sub, fraction, fraction)
 {
 	const Fraction &a = valueLeft.GetFraction();
 	const Fraction &b = valueRight.GetFraction();
-	if (a.denominator == 0 || b.denominator == 0) {
+	if (a.denom == 0 || b.denom == 0) {
 		sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
 		return Value::Null;
 	}
@@ -1445,7 +1445,7 @@ Gura_ImplementBinaryOperator(Mul, fraction, fraction)
 {
 	const Fraction &a = valueLeft.GetFraction();
 	const Fraction &b = valueRight.GetFraction();
-	if (a.denominator == 0 || b.denominator == 0) {
+	if (a.denom == 0 || b.denom == 0) {
 		sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
 		return Value::Null;
 	}
@@ -1585,7 +1585,7 @@ Gura_ImplementBinaryOperator(Div, fraction, fraction)
 {
 	const Fraction &a = valueLeft.GetFraction();
 	const Fraction &b = valueRight.GetFraction();
-	if (a.denominator == 0 || b.numerator == 0) {
+	if (a.denom == 0 || b.numer == 0) {
 		sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
 		return Value::Null;
 	}

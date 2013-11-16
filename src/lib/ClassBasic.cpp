@@ -314,12 +314,12 @@ bool Class_complex::Deserialize(Environment &env, Signal sig, Stream &stream, Va
 //-----------------------------------------------------------------------------
 // Class_fraction
 //-----------------------------------------------------------------------------
-// fraction(numerator:number, denominator?:number):map {block?}
+// fraction(numer:number, denom?:number):map {block?}
 Gura_DeclareFunction(fraction)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "numerator", VTYPE_number);
-	DeclareArg(env, "denominator", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "numer", VTYPE_number);
+	DeclareArg(env, "denom", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_fraction));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Creates a fraction value.");
@@ -327,13 +327,13 @@ Gura_DeclareFunction(fraction)
 
 Gura_ImplementFunction(fraction)
 {
-	int numerator = args.GetInt(0);
-	int denominator = args.Is_number(1)? args.GetInt(1) : 1;
-	if (denominator == 0) {
+	int numer = args.GetInt(0);
+	int denom = args.Is_number(1)? args.GetInt(1) : 1;
+	if (denom == 0) {
 		sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(Fraction(numerator, denominator)));
+	return ReturnValue(env, sig, args, Value(Fraction(numer, denom)));
 }
 
 // fraction#reduce()
@@ -364,10 +364,10 @@ Value Class_fraction::GetPropPrimitive(Environment &env, Signal sig, const Value
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(denom))) {
 		const Fraction &num = valueThis.GetFraction();
-		return Value(num.denominator);
+		return Value(num.denom);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(numer))) {
 		const Fraction &num = valueThis.GetFraction();
-		return Value(num.numerator);
+		return Value(num.numer);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -384,21 +384,21 @@ bool Class_fraction::CastFrom(Environment &env, Signal sig, Value &value, const 
 bool Class_fraction::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
 {
 	const Fraction *pFrac = value.GetFractionPtr();
-	if (!stream.SerializeDouble(sig, pFrac->numerator)) return false;
-	if (!stream.SerializeDouble(sig, pFrac->denominator)) return false;
+	if (!stream.SerializeDouble(sig, pFrac->numer)) return false;
+	if (!stream.SerializeDouble(sig, pFrac->denom)) return false;
 	return true;
 }
 
 bool Class_fraction::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
 {
-	double numerator = 0, denominator = 0;
-	if (!stream.DeserializeDouble(sig, numerator)) return false;
-	if (!stream.DeserializeDouble(sig, denominator)) return false;
-	if (denominator == 0) {
+	double numer = 0, denom = 0;
+	if (!stream.DeserializeDouble(sig, numer)) return false;
+	if (!stream.DeserializeDouble(sig, denom)) return false;
+	if (denom == 0) {
 		sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
 		return false;
 	}
-	value = Value(Fraction(static_cast<int>(numerator), static_cast<int>(denominator)));
+	value = Value(Fraction(static_cast<int>(numer), static_cast<int>(denom)));
 	return true;
 }
 

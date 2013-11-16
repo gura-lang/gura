@@ -262,16 +262,14 @@ typedef std::deque<Complex> ComplexDeque;
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Fraction {
 public:
-	int numerator;
-	int denominator;
+	int numer;
+	int denom;
 public:
 	static const Fraction Zero;
 public:
-	inline Fraction() : numerator(0), denominator(1) {}
-	inline Fraction(int numerator_, int denominator_) :
-			numerator(numerator_), denominator(denominator_) {}
-	inline Fraction(const Fraction &frac) :
-			numerator(frac.numerator), denominator(frac.denominator) {}
+	inline Fraction() : numer(0), denom(1) {}
+	inline Fraction(int numer_, int denom_) : numer(numer_), denom(denom_) {}
+	inline Fraction(const Fraction &frac) : numer(frac.numer), denom(frac.denom) {}
 	Fraction Reduce() const;
 };
 

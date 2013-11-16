@@ -54,67 +54,67 @@ const char *GetOpening()
 //-----------------------------------------------------------------------------
 Fraction Fraction::Reduce() const
 {
-	int gcd = CalcGCD(numerator, denominator);
+	int gcd = CalcGCD(numer, denom);
 	if (gcd == 0) return *this;
-	int numeratorReduced = numerator / gcd;
-	int denominatorReduced = denominator / gcd;
-	if (denominatorReduced < 0) {
-		numeratorReduced = -numeratorReduced;
-		denominatorReduced = -denominatorReduced;
+	int numerReduced = numer / gcd;
+	int denomReduced = denom / gcd;
+	if (denomReduced < 0) {
+		numerReduced = -numerReduced;
+		denomReduced = -denomReduced;
 	}
-	return Fraction(numeratorReduced, denominatorReduced);
+	return Fraction(numerReduced, denomReduced);
 }
 
 Fraction operator+(const Fraction &a)
 {
-	if (a.denominator < 0) return Fraction(-a.numerator, -a.denominator);
+	if (a.denom < 0) return Fraction(-a.numer, -a.denom);
 	return a;
 }
 
 Fraction operator-(const Fraction &a)
 {
-	if (a.denominator < 0) return Fraction(a.numerator, -a.denominator);
-	return Fraction(-a.numerator, a.denominator);
+	if (a.denom < 0) return Fraction(a.numer, -a.denom);
+	return Fraction(-a.numer, a.denom);
 }
 
 Fraction operator+(const Fraction &a, const Fraction &b)
 {
-	if (a.denominator == 0 || b.denominator == 0) return Fraction::Zero;
+	if (a.denom == 0 || b.denom == 0) return Fraction::Zero;
 	Fraction rtn;
-	if (a.denominator == b.denominator) {
-		rtn.numerator = a.numerator + b.numerator;
-		rtn.denominator = a.denominator;
+	if (a.denom == b.denom) {
+		rtn.numer = a.numer + b.numer;
+		rtn.denom = a.denom;
 	} else {
-		rtn.numerator = a.numerator * b.denominator + b.numerator * a.denominator;
-		rtn.denominator = a.denominator * b.denominator;
+		rtn.numer = a.numer * b.denom + b.numer * a.denom;
+		rtn.denom = a.denom * b.denom;
 	}
 	return rtn.Reduce();
 }
 
 Fraction operator-(const Fraction &a, const Fraction &b)
 {
-	if (a.denominator == 0 || b.denominator == 0) return Fraction::Zero;
+	if (a.denom == 0 || b.denom == 0) return Fraction::Zero;
 	Fraction rtn;
-	if (a.denominator == b.denominator) {
-		rtn.numerator = a.numerator - b.numerator;
-		rtn.denominator = a.denominator;
+	if (a.denom == b.denom) {
+		rtn.numer = a.numer - b.numer;
+		rtn.denom = a.denom;
 	} else {
-		rtn.numerator = a.numerator * b.denominator - b.numerator * a.denominator;
-		rtn.denominator = a.denominator * b.denominator;
+		rtn.numer = a.numer * b.denom - b.numer * a.denom;
+		rtn.denom = a.denom * b.denom;
 	}
 	return rtn.Reduce();
 }
 
 Fraction operator*(const Fraction &a, const Fraction &b)
 {
-	if (a.denominator == 0 || b.denominator == 0) return Fraction::Zero;
-	return Fraction(a.numerator * b.numerator, a.denominator * b.denominator).Reduce();
+	if (a.denom == 0 || b.denom == 0) return Fraction::Zero;
+	return Fraction(a.numer * b.numer, a.denom * b.denom).Reduce();
 }
 
 Fraction operator/(const Fraction &a, const Fraction &b)
 {
-	if (a.denominator == 0 || b.numerator == 0) return Fraction::Zero;
-	return Fraction(a.numerator * b.denominator, a.denominator * b.numerator).Reduce();
+	if (a.denom == 0 || b.numer == 0) return Fraction::Zero;
+	return Fraction(a.numer * b.denom, a.denom * b.numer).Reduce();
 }
 
 //-----------------------------------------------------------------------------
