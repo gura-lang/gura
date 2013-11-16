@@ -130,65 +130,6 @@ bool Class_boolean::Deserialize(Environment &env, Signal sig, Stream &stream, Va
 //-----------------------------------------------------------------------------
 // Class_number
 //-----------------------------------------------------------------------------
-// number#abs()
-Gura_DeclareMethodPrimitive(number, abs)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(number, abs)
-{
-	Number num = args.GetThis().GetNumber();
-	return Value(::fabs(num));
-}
-
-// number#arg():[deg]
-Gura_DeclareMethodPrimitive(number, arg)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareAttr(Gura_Symbol(deg));
-}
-
-Gura_ImplementMethod(number, arg)
-{
-	return Value::Zero;
-}
-
-// number#imag()
-Gura_DeclareMethodPrimitive(number, imag)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(number, imag)
-{
-	return Value::Zero;
-}
-
-// number#norm()
-Gura_DeclareMethodPrimitive(number, norm)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(number, norm)
-{
-	Number num = args.GetThis().GetNumber();
-	return Value(num * num);
-}
-
-// number#real()
-Gura_DeclareMethodPrimitive(number, real)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(number, real)
-{
-	Number num = args.GetThis().GetNumber();
-	return Value(num);
-}
-
 // number#roundoff(threshold:number => 1e-10)
 Gura_DeclareMethodPrimitive(number, roundoff)
 {
@@ -210,12 +151,29 @@ Class_number::Class_number(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_numb
 
 void Class_number::Prepare(Environment &env)
 {
-	Gura_AssignMethod(number, abs);			// primitive method
-	Gura_AssignMethod(number, arg);			// primitive method
-	Gura_AssignMethod(number, imag);		// primitive method
-	Gura_AssignMethod(number, norm);		// primitive method
-	Gura_AssignMethod(number, real);		// primitive method
 	Gura_AssignMethod(number, roundoff);	// primitive method
+}
+
+Value Class_number::GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
+				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_Symbol(abs))) {
+		Number num = valueThis.GetNumber();
+		return Value(::fabs(num));
+	} else if (pSymbol->IsIdentical(Gura_Symbol(arg))) {
+		return Value::Zero;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(imag))) {
+		return Value::Zero;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(norm))) {
+		Number num = valueThis.GetNumber();
+		return Value(num * num);
+	} else if (pSymbol->IsIdentical(Gura_Symbol(real))) {
+		Number num = valueThis.GetNumber();
+		return Value(num);
+	}
+	evaluatedFlag = false;
+	return Value::Null;
 }
 
 bool Class_number::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
@@ -378,30 +336,6 @@ Gura_ImplementFunction(fraction)
 	return ReturnValue(env, sig, args, Value(Fraction(numerator, denominator)));
 }
 
-// fraction#denominator()
-Gura_DeclareMethodPrimitive(fraction, denominator)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(fraction, denominator)
-{
-	const Fraction &num = args.GetThis().GetFraction();
-	return Value(num.denominator);
-}
-
-// fraction#numerator()
-Gura_DeclareMethodPrimitive(fraction, numerator)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(fraction, numerator)
-{
-	const Fraction &num = args.GetThis().GetFraction();
-	return Value(num.numerator);
-}
-
 // fraction#reduce()
 Gura_DeclareMethodPrimitive(fraction, reduce)
 {
@@ -421,14 +355,21 @@ Class_fraction::Class_fraction(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 void Class_fraction::Prepare(Environment &env)
 {
 	Gura_AssignFunction(fraction);
-	Gura_AssignMethod(fraction, denominator);	// primitive method
-	Gura_AssignMethod(fraction, numerator);		// primitive method
 	Gura_AssignMethod(fraction, reduce);		// primitive method
 }
 
 Value Class_fraction::GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
 				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
 {
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_Symbol(denom))) {
+		const Fraction &num = valueThis.GetFraction();
+		return Value(num.denominator);
+	} else if (pSymbol->IsIdentical(Gura_Symbol(numer))) {
+		const Fraction &num = valueThis.GetFraction();
+		return Value(num.numerator);
+	}
+	evaluatedFlag = false;
 	return Value::Null;
 }
 

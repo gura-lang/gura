@@ -60,6 +60,8 @@ class GURA_DLLDECLARE Class_number : public Class {
 public:
 	Class_number(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
+	virtual Value GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
+			const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const;
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
