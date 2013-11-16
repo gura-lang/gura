@@ -46,7 +46,7 @@ mandelbrot(img:image, colors[]:color,
 		zn = z0 = complex(real, imag)
 		c = colors.each {|c|
 			zm = zn * zn + z0
-			(zm.norm() > 4) && break(c)
+			(zm.norm > 4) && break(c)
 			zn = zm
 			`black
 		}
