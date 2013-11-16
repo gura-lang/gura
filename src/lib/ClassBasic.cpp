@@ -265,69 +265,6 @@ Gura_ImplementFunction(complex)
 	return ReturnValue(env, sig, args, Value(Complex(real, imag)));
 }
 
-// complex#abs()
-Gura_DeclareMethodPrimitive(complex, abs)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(complex, abs)
-{
-	Complex num = args.GetThis().GetComplex();
-	return Value(std::abs(num));
-}
-
-// complex#arg():[deg]
-Gura_DeclareMethodPrimitive(complex, arg)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareAttr(Gura_Symbol(deg));
-}
-
-Gura_ImplementMethod(complex, arg)
-{
-	Complex num = args.GetThis().GetComplex();
-	double angle = std::arg(num);
-	if (args.IsSet(Gura_Symbol(deg))) angle = RadToDeg(angle);
-	return Value(angle);
-}
-
-// complex#imag()
-Gura_DeclareMethodPrimitive(complex, imag)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(complex, imag)
-{
-	Complex num = args.GetThis().GetComplex();
-	return Value(num.imag());
-}
-
-// complex#norm()
-Gura_DeclareMethodPrimitive(complex, norm)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(complex, norm)
-{
-	Complex num = args.GetThis().GetComplex();
-	return Value(std::norm(num));
-}
-
-// complex#real()
-Gura_DeclareMethodPrimitive(complex, real)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(complex, real)
-{
-	Complex num = args.GetThis().GetComplex();
-	return Value(num.real());
-}
-
 // complex#roundoff(threshold:number => 1e-10)
 Gura_DeclareMethodPrimitive(complex, roundoff)
 {
@@ -354,17 +291,32 @@ Class_complex::Class_complex(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_co
 void Class_complex::Prepare(Environment &env)
 {
 	Gura_AssignFunction(complex);
-	Gura_AssignMethod(complex, abs);		// primitive method
-	Gura_AssignMethod(complex, arg);		// primitive method
-	Gura_AssignMethod(complex, imag);		// primitive method
-	Gura_AssignMethod(complex, norm);		// primitive method
-	Gura_AssignMethod(complex, real);		// primitive method
 	Gura_AssignMethod(complex, roundoff);	// primitive method
 }
 
 Value Class_complex::GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
 				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
 {
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_Symbol(abs))) {
+		Complex num = valueThis.GetComplex();
+		return Value(std::abs(num));
+	} else if (pSymbol->IsIdentical(Gura_Symbol(arg))) {
+		Complex num = valueThis.GetComplex();
+		double angle = std::arg(num);
+		if (attrs.IsSet(Gura_Symbol(deg))) angle = RadToDeg(angle);
+		return Value(angle);
+	} else if (pSymbol->IsIdentical(Gura_Symbol(imag))) {
+		Complex num = valueThis.GetComplex();
+		return Value(num.imag());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(norm))) {
+		Complex num = valueThis.GetComplex();
+		return Value(std::norm(num));
+	} else if (pSymbol->IsIdentical(Gura_Symbol(real))) {
+		Complex num = valueThis.GetComplex();
+		return Value(num.real());
+	}
+	evaluatedFlag = false;
 	return Value::Null;
 }
 
