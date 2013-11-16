@@ -142,6 +142,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(__str__);
 	Gura_RealizeSymbol(__symbol__);
 	Gura_RealizeSymbolAlias(_anonymous_,	"*anonymous*");
+	Gura_RealizeSymbol(abs);
 	Gura_RealizeSymbol(align);
 	Gura_RealizeSymbol(alpha);
 	Gura_RealizeSymbol(and);
@@ -213,6 +214,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(decls);
 	Gura_RealizeSymbolAlias(default_,		"default");
 	Gura_RealizeSymbol(deg);
+	Gura_RealizeSymbol(denom);
 	Gura_RealizeSymbol(descend);
 	Gura_RealizeSymbol(dir);
 	Gura_RealizeSymbol(down);
@@ -257,6 +259,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(icase);
 	Gura_RealizeSymbol(identifier);
 	Gura_RealizeSymbolAlias(if_,			"if");
+	Gura_RealizeSymbol(imag);
 	Gura_RealizeSymbol(imagetype);
 	Gura_RealizeSymbol(indent);
 	Gura_RealizeSymbol(index);
@@ -308,10 +311,12 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(noflat);
 	Gura_RealizeSymbol(noindent);
 	Gura_RealizeSymbol(nomap);
+	Gura_RealizeSymbol(norm);
 	Gura_RealizeSymbol(nosort);
 	Gura_RealizeSymbol(nsec);
 	Gura_RealizeSymbol(nsecs);
 	Gura_RealizeSymbol(number);
+	Gura_RealizeSymbol(numer);
 	Gura_RealizeSymbol(oneline);
 	Gura_RealizeSymbol(open);
 	Gura_RealizeSymbol(open_l);
@@ -342,6 +347,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(raise);
 	Gura_RealizeSymbol(raw);
 	Gura_RealizeSymbol(readable);
+	Gura_RealizeSymbol(real);
 	Gura_RealizeSymbol(red);
 	Gura_RealizeSymbol(reduce);
 	Gura_RealizeSymbol(repeat);
