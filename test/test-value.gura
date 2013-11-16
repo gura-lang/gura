@@ -9,20 +9,6 @@ testcase {
 	println('@var@ = ', @var@)
 }
 testcase {
-	tester(`(1e-12j).roundoff())
-}
-testcase {
-	x = fraction(3, 4)
-	printf('%s .. numerator=%d denominator=%d\n', x, x.numer, x.denom)
-}
-testcase {
-	x = [3, 3 + 4j, 2 + 3j, 1 + 1j, 1 + math.sqrt(3) * 1j]
-	printf('%s .. real=%d imag=%d abs=%f arg=%f arg:deg=%f\n', x, x:*real, x:*imag, x:*abs, x:*arg, x:*arg:deg)
-	tester(`(3+1e-12j).roundoff())
-	tester(`(1e-12+1e-12j).roundoff())
-	tester(`(1e-12+4j).roundoff())
-}
-testcase {
 	[a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z] = 100..
 	println([a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z].join(', '))
 }

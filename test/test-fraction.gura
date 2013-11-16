@@ -1,0 +1,7 @@
+#!/usr/bin/env gura
+import(testutil) {*}
+
+testcase {
+	x = fraction(3, 4)
+	printf('%s .. numerator=%d denominator=%d\n', x, x.numer, x.denom)
+}
