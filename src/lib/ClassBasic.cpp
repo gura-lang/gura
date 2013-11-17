@@ -107,7 +107,7 @@ void Class_boolean::Prepare(Environment &env)
 bool Class_boolean::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
 	if (value.Is_list()) {
-		return true;	// ?????
+		return true;
 	} else {
 		value = Value(value.GetBoolean());
 		return true;
@@ -214,7 +214,8 @@ Gura_DeclareFunction(complex)
 	DeclareArg(env, "imag", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_complex));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Creates a fraction value.");
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"Creates a complex value.");
 }
 
 Gura_ImplementFunction(complex)
@@ -222,6 +223,26 @@ Gura_ImplementFunction(complex)
 	double real = args.GetDouble(0);
 	double imag = args.Is_number(1)? args.GetDouble(1) : 0;
 	return ReturnValue(env, sig, args, Value(Complex(real, imag)));
+}
+
+// complex.polar(abs:number, angle:number):map:[deg] {block?}
+Gura_DeclareClassMethod(complex, polar)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "abs", VTYPE_number);
+	DeclareArg(env, "arg", VTYPE_number);
+	DeclareAttr(Gura_Symbol(deg));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"Creates a complex value.");
+}
+
+Gura_ImplementClassMethod(complex, polar)
+{
+	double abs = args.GetDouble(0);
+	double arg = args.GetDouble(1);
+	if (args.IsSet(Gura_Symbol(deg))) arg = DegToRad(arg);
+	return ReturnValue(env, sig, args, Value(Complex::Polar(abs, arg)));
 }
 
 // complex#roundoff(threshold:number => 1e-10)
@@ -252,6 +273,7 @@ Class_complex::Class_complex(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_co
 void Class_complex::Prepare(Environment &env)
 {
 	Gura_AssignFunction(complex);
+	Gura_AssignMethod(complex, polar);
 	Gura_AssignMethod(complex, roundoff);	// primitive method
 }
 
@@ -264,9 +286,9 @@ Value Class_complex::GetPropPrimitive(Environment &env, Signal sig, const Value 
 		return Value(std::abs(num));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(arg))) {
 		Complex num = valueThis.GetComplex();
-		double angle = std::arg(num);
-		if (attrs.IsSet(Gura_Symbol(deg))) angle = RadToDeg(angle);
-		return Value(angle);
+		double arg = std::arg(num);
+		if (attrs.IsSet(Gura_Symbol(deg))) arg = RadToDeg(arg);
+		return Value(arg);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(imag))) {
 		Complex num = valueThis.GetComplex();
 		return Value(num.imag());

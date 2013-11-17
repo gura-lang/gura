@@ -91,9 +91,9 @@ GURA_DLLDECLARE extern const char *EXTNAME_Compound;
 GURA_DLLDECLARE extern const char *EXTNAME_CompoundWin;
 GURA_DLLDECLARE extern const char *EXTNAME_BinModule;
 
-GURA_DLLDECLARE extern const Number Math_PI;
-GURA_DLLDECLARE extern const Number Math_E;
-GURA_DLLDECLARE extern const Number RoundOffThreshold;
+GURA_DLLDECLARE extern const double Math_PI;
+GURA_DLLDECLARE extern const double Math_E;
+GURA_DLLDECLARE extern const double RoundOffThreshold;
 
 typedef int					Int;		// signed native bits
 typedef char				Char;		// signed 8bit
@@ -242,16 +242,19 @@ public:
 //-----------------------------------------------------------------------------
 // Complex
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Complex : public std::complex<Number> {
+class GURA_DLLDECLARE Complex : public std::complex<double> {
 public:
 	static const Complex Zero;
 public:
-	inline Complex() : std::complex<Number>(0.) {}
-	inline Complex(const Complex &comp) : std::complex<Number>(comp) {}
-	inline Complex(const std::complex<Number> &comp) : std::complex<Number>(comp) {}
-	inline Complex(Number real) : std::complex<Number>(real) {}
-	inline Complex(Number real, Number imag) : std::complex<Number>(real, imag) {}
+	inline Complex() : std::complex<double>(0.) {}
+	inline Complex(const Complex &comp) : std::complex<double>(comp) {}
+	inline Complex(const std::complex<double> &comp) : std::complex<double>(comp) {}
+	inline Complex(double real) : std::complex<double>(real) {}
+	inline Complex(double real, double imag) : std::complex<double>(real, imag) {}
 	inline bool IsZero() const { return real() == 0 && imag() == 0; }
+	inline static Complex Polar(double abs, double arg) {
+		return Complex(abs * ::cos(arg), abs * ::sin(arg));
+	}
 };
 
 typedef std::vector<Complex> ComplexList;
