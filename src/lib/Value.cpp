@@ -546,6 +546,8 @@ int Value::Compare(const Value &value1, const Value &value2, bool ignoreCaseFlag
 	} else if (value1.Is_boolean()) {
 		rtn = static_cast<int>(value1.GetBoolean()) -
 								static_cast<int>(value2.GetBoolean());
+	} else if (value1.Is_complex()) {
+		rtn = (value1.GetComplex() == value2.GetComplex())? 0 : -1;
 	} else if (value1.Is_symbol()) {
 		rtn = static_cast<int>(value1.GetSymbol()->GetUniqNum()) -
 										value2.GetSymbol()->GetUniqNum();
