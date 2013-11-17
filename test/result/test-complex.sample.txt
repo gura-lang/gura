@@ -9,6 +9,8 @@
 (3 + 1e-12j).roundoff() .. 3
 (1e-12 + 1e-12j).roundoff() .. 0
 (1e-12 + 4j).roundoff() .. 4j
+((-1e-12) - 4j).roundoff() .. -4j
+((-1e-12) - 1e-12j).roundoff() .. 0
 
 ======== #2 ========
 

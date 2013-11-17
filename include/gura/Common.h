@@ -80,6 +80,8 @@ inline static void Delete(T *p) { \
 	if (p->_cntRef <= 0) delete p; \
 }
 
+class Signal;
+
 //-----------------------------------------------------------------------------
 // Simple type declarations
 //-----------------------------------------------------------------------------
@@ -274,6 +276,8 @@ public:
 	inline Fraction(int numer_, int denom_) : numer(numer_), denom(denom_) {}
 	inline Fraction(const Fraction &frac) : numer(frac.numer), denom(frac.denom) {}
 	Fraction Reduce() const;
+	static Fraction FromNumber(Number num);
+	static void SetError_DenominatorZero(Signal &sig);
 };
 
 typedef std::vector<Fraction> FractionList;

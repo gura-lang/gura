@@ -54,8 +54,8 @@ const char *GetOpening()
 //-----------------------------------------------------------------------------
 Fraction Fraction::Reduce() const
 {
+	if (numer == 0 || denom == 0) return *this;
 	int gcd = CalcGCD(numer, denom);
-	if (gcd == 0) return *this;
 	int numerReduced = numer / gcd;
 	int denomReduced = denom / gcd;
 	if (denomReduced < 0) {
@@ -63,6 +63,20 @@ Fraction Fraction::Reduce() const
 		denomReduced = -denomReduced;
 	}
 	return Fraction(numerReduced, denomReduced);
+}
+
+Fraction Fraction::FromNumber(Number num)
+{
+	int numInt = int(num);
+	if (num == numInt) return Fraction(numInt, 1);
+	//char buff[64];
+	//::sprintf(buff, "", num);
+	return Fraction(0, 1);
+}
+
+void Fraction::SetError_DenominatorZero(Signal &sig)
+{
+	sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
 }
 
 Fraction operator+(const Fraction &a)

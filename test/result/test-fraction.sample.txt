@@ -1,3 +1,41 @@
 ======== #1 ========
 
-3/4 .. numerator=3 denominator=4
+3/4 .. numer=3 denom=4
+-3/4 .. numer=-3 denom=4
+-3/4 .. numer=-3 denom=4
+3/4 .. numer=3 denom=4
+fraction(3, 12).reduce() .. 1/4
+fraction(-3, 12).reduce() .. -1/4
+
+======== #2 ========
+
+fraction(4, 7) + fraction(3, 10) .. 61/70
+fraction(3, 5) + fraction(3, 10) .. 9/10
+fraction(4, 7) + fraction(2, 5) .. 34/35
+fraction(1, 2) + fraction(3, 7) .. 13/14
+fraction(2, 7) + fraction(3, 5) .. 31/35
+fraction(2, 5) + fraction(5, 9) .. 43/45
+fraction(2, 5) + fraction(3, 7) .. 29/35
+fraction(3, 10) + fraction(3, 5) .. 9/10
+fraction(2, 3) + fraction(3, 10) .. 29/30
+fraction(3, 4) + fraction(1, 5) .. 19/20
+fraction(2, 3) - fraction(3, 5) .. 1/15
+fraction(6, 7) - fraction(1, 3) .. 11/21
+fraction(6, 7) - fraction(1, 3) .. 11/21
+fraction(8, 9) - fraction(5, 6) .. 1/18
+fraction(1, 2) - fraction(1, 4) .. 1/4
+fraction(2, 7) - fraction(1, 5) .. 3/35
+fraction(1, 2) - fraction(1, 3) .. 1/6
+fraction(1, 3) - fraction(1, 5) .. 2/15
+fraction(2, 9) - fraction(1, 5) .. 1/45
+fraction(3, 8) - fraction(1, 5) .. 7/40
+fraction(1, 4) - fraction(1, 5) .. 1/20
+fraction(1, 2) + fraction(1, 3) .. 5/6
+fraction(3, 10) - fraction(3, 10) .. 0
+fraction(2, 9) - fraction(1, 5) .. 1/45
+fraction(5, 6) - fraction(2, 7) .. 23/42
+fraction(1, 2) - fraction(4, 9) .. 1/18
+fraction(2, 5) - fraction(2, 5) .. 0
+fraction(3, 5) - fraction(3, 5) .. 0
+fraction(2, 3) - fraction(5, 8) .. 1/24
+fraction(1, 2) - fraction(1, 4) .. 1/4
