@@ -36,7 +36,6 @@ testcase {
 		`(fraction(1, 3) - fraction(1, 5))
 		`(fraction(2, 9) - fraction(1, 5))
 		`(fraction(3, 8) - fraction(1, 5))
-		
 		`(fraction(1, 4) - fraction(1, 5))
 		`(fraction(1, 2) + fraction(1, 3))
 		`(fraction(3, 10) - fraction(3, 10))
@@ -47,6 +46,20 @@ testcase {
 		`(fraction(3, 5) - fraction(3, 5))
 		`(fraction(2, 3) - fraction(5, 8))
 		`(fraction(1, 2) - fraction(1, 4))
+		`(fraction(2, 3) * fraction(1, 2))
+		`(fraction(1, 2) * 3)
+		`(fraction(10, 13) * fraction(10, 3))
+		`(fraction(13, 8) * fraction(10, 3))
+		`(fraction(5, 9) * fraction(9, 2))
+		`(2 * fraction(11, 7))
+		`(4 * fraction(11, 14))
+		`(fraction(3, 7) / fraction(3, 4))
+		`(fraction(5, 2) / fraction(5, 7))
+		`(5 / fraction(14, 9))
+		`(fraction(6, 11) / fraction(1, 4))
+		`(fraction(12, 5) / fraction(15, 7))
+		`(fraction(4, 3) / fraction(3, 2))
+		`(fraction(13, 7) / 2)
 	].each {|test|
 		printf('%s .. %s\n', test, eval(test)):nomap
 	}

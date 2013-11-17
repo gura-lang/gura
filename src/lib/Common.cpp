@@ -70,7 +70,7 @@ Fraction Fraction::FromNumber(Number num)
 	int numInt = int(num);
 	if (num == numInt) return Fraction(numInt, 1);
 	//char buff[64];
-	//::sprintf(buff, "", num);
+	//::sprintf(buff, "%f", num);
 	return Fraction(0, 1);
 }
 
