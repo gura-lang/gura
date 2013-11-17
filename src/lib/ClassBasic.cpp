@@ -140,8 +140,9 @@ Gura_DeclareMethodPrimitive(number, roundoff)
 
 Gura_ImplementMethod(number, roundoff)
 {
-	Number num = args.GetThis().GetNumber();
-	if (num < args.GetNumber(0)) num = 0;
+	double num = args.GetThis().GetDouble();
+	double numAbs = (num >= 0)? num : -num;
+	if (numAbs < args.GetDouble(0)) num = 0;
 	return Value(num);
 }
 
@@ -159,17 +160,17 @@ Value Class_number::GetPropPrimitive(Environment &env, Signal sig, const Value &
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(abs))) {
-		Number num = valueThis.GetNumber();
+		double num = valueThis.GetDouble();
 		return Value(::fabs(num));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(arg))) {
 		return Value::Zero;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(imag))) {
 		return Value::Zero;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(norm))) {
-		Number num = valueThis.GetNumber();
+		double num = valueThis.GetDouble();
 		return Value(num * num);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(real))) {
-		Number num = valueThis.GetNumber();
+		double num = valueThis.GetDouble();
 		return Value(num);
 	}
 	evaluatedFlag = false;
@@ -180,7 +181,7 @@ bool Class_number::CastFrom(Environment &env, Signal sig, Value &value, const De
 {
 	bool allowPartFlag = false;
 	bool successFlag = false;
-	Number num = value.ToNumber(allowPartFlag, successFlag);
+	double num = value.ToNumber(allowPartFlag, successFlag);
 	if (successFlag) {
 		value = Value(num);
 		return true;
@@ -191,7 +192,7 @@ bool Class_number::CastFrom(Environment &env, Signal sig, Value &value, const De
 
 bool Class_number::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
 {
-	return stream.SerializeDouble(sig, value.GetNumber());
+	return stream.SerializeDouble(sig, value.GetDouble());
 }
 
 bool Class_number::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
@@ -235,11 +236,13 @@ Gura_ImplementMethod(complex, roundoff)
 {
 	Complex num = args.GetThis().GetComplex();
 	double numThreshold = args.GetDouble(0);
-	double numReal = num.real(), numImag = num.imag();
-	if (numReal < numThreshold) numReal = 0;
-	if (numImag < numThreshold) numImag = 0;
-	if (numImag == 0) return Value(numReal);
-	return Value(Complex(numReal, numImag));
+	double real = num.real(), imag = num.imag();
+	double realAbs = (real >= 0)? real : -real;
+	double imagAbs = (imag >= 0)? imag : -imag;
+	if (realAbs < numThreshold) real = 0;
+	if (imagAbs < numThreshold) imag = 0;
+	if (imag == 0) return Value(real);
+	return Value(Complex(real, imag));
 }
 
 Class_complex::Class_complex(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_complex)
@@ -332,6 +335,9 @@ Gura_ImplementFunction(fraction)
 	if (denom == 0) {
 		sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
 		return Value::Null;
+	}
+	if (denom < 0) {
+		numer = -numer, denom = -denom;
 	}
 	return ReturnValue(env, sig, args, Value(Fraction(numer, denom)));
 }
