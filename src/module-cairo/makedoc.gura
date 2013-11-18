@@ -245,9 +245,112 @@ doc << [
 
 doc << r'## Fonts'
 
+doc << r'### cairo\_font\_face\_t - Base class for font faces'
+doc << [
+	//cairo.font_face.status
+	//cairo.font_face.get_type
+]
+
+doc << r'### cairo\_scaled\_font\_t - Font face at particular size and options'
+doc << [
+	cairo.scaled_font.create
+	//cairo.scaled_font.status
+	//cairo.scaled_font.extents
+	//cairo.scaled_font.text_extents
+	//cairo.scaled_font.glyph_extents
+	//cairo.scaled_font.text_to_glyphs
+	//cairo.scaled_font.get_font_face
+	//cairo.scaled_font.get_font_options
+	//cairo.scaled_font.get_font_matrix
+	//cairo.scaled_font.get_ctm
+	//cairo.scaled_font.get_scale_matrix
+	//cairo.scaled_font.get_type
+]
+
+doc << r'### cairo\_font\_options\_t - How a font should be rendered'
+doc << [
+]
+
+doc << r'### FreeType  Fonts - Font support for FreeType'
+doc << [
+]
+
+doc << r'### Win32 Fonts - Font support for Microsoft Windows'
+doc << [
+]
+
+doc << r'### Quartz (CGFont) Fonts - Font support via CGFont on OS X'
+doc << [
+]
+
+doc << r'### User Fonts - Font support with font data provided by the user'
+doc << [
+]
+
 doc << r'## Surfaces'
 
+
+doc << r'### cairo\_device\_t - interface to underlying rendering system'
+doc << [
+]
+
+doc << r'### cairo\_surface\_t - Base class for surfaces'
+doc << [
+]
+
+doc << r'### Image Surfaces - Rendering to memory buffers'
+doc << [
+]
+
+doc << r'### PDF Surfaces - Rendering PDF documents'
+doc << [
+]
+
+doc << r'### PNG Support - Reading and writing PNG images'
+doc << [
+]
+
+doc << r'### PostScript Surfaces - Rendering PostScript documents'
+doc << [
+]
+
+doc << r'### Recording Surfaces - Records all drawing operations'
+doc << [
+]
+
+doc << r'### Win32 Surfaces - Microsoft Windows surface support'
+doc << [
+]
+
+doc << r'### SVG Surfaces - Rendering SVG documents'
+doc << [
+]
+
+doc << r'### Quartz Surfaces - Rendering to Quartz surfaces'
+doc << [
+]
+
+doc << r'### XCB Surfaces - X Window System rendering using the XCB library'
+doc << [
+]
+
+doc << r'### XLib Surfaces - X Window System rendering using XLib'
+doc << [
+]
+
+doc << r'### XLib-XRender Backend - X Window System rendering using XLib and the X Render extension'
+doc << [
+]
+
+doc << r'### Script Surfaces - Rendering to replayable scripts'
+doc << [
+]
+
 doc << r'## Utilities'
+
+doc << r'### cairo\_matrix\_t - Generic matrix operations'
+doc << [
+]
 
 doc.output_html(fileName)
 println(fileName, ' was created.')
