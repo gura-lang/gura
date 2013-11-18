@@ -1,0 +1,253 @@
+#!/usr/bin/env gura
+import(markdown)
+import(cairo)
+
+fileName = 'gura-cairo-e.html'
+
+doc = markdown.document()
+
+operator(`<<).assign(`markdown.document, `function) {|doc, func|
+	doc << '#### cairo.' + func.fullname.replace('_', '\\_')
+	doc << '\n'
+	doc << '`cairo.' +  func.format + '`'
+	doc << '\n'
+	if (help = func.gethelp()) { doc << help.text }
+}
+
+doc << R'''
+# About This Document
+
+This reference explains about specification of functions and classes defined in **Gura**'s `cairo` module.
+Official site of SDL is <http://cairographics.org/>.
+
+# Explanatory Note
+
+Functions in reference are described in a generic expression.
+For example, if there is a reference `func(num:number)`,
+it means that `func` function takes one argument named `num` with value type of `number`.
+You can call it like `func(3)`.
+
+If an argument is optional, the argument name is followed by a symbol `?`.
+For example: `func(num?:number)`.
+You can call it as `func(2)` or can omit the arugument like `func()`.
+
+If the the arument name has `*` symbol followed, the arument takes zero or more values.
+For a function that has a generic expression `func(args*:number)`,
+it can be called like `func()`, `func(3)`, `func(3, 4)`, `func(3, 4, 2)`, and so on.
+
+If the the arument name has `+` symbol followed, the arument takes one or more values.
+For a function that has a generic expression `func(args+:number)`,
+it can be called like `func(3)`, `func(3, 4)`, `func(3, 4, 2)`, and so on.
+In difference with `*`, it must take at least one value.
+
+An argument may have a default value.
+The default value is described with `=>` operator like `func(num:number => 4)`.
+In such a case, if `num` is omitted, the default value `4` shall be used.
+'''
+
+doc << R'''
+# Reference
+'''
+
+doc << r'## Drawing'
+doc << r'### cairo\_t - The cairo drawing context'
+doc << [
+	cairo.context.status
+	cairo.context.save
+	cairo.context.restore
+	cairo.context.get_target
+	cairo.context.push_group
+	cairo.context.push_group_with_content
+	cairo.context.pop_group
+	cairo.context.pop_group_to_source
+	cairo.context.get_group_target
+	cairo.context.set_source_rgb
+	cairo.context.set_source_rgba
+	cairo.context.set_source
+	cairo.context.set_source_surface
+	cairo.context.get_source
+	cairo.context.set_antialias
+	cairo.context.get_antialias
+	cairo.context.set_dash
+	cairo.context.get_dash
+	cairo.context.set_fill_rule
+	cairo.context.get_fill_rule
+	cairo.context.set_line_cap
+	cairo.context.get_line_cap
+	cairo.context.set_line_join
+	cairo.context.get_line_join
+	cairo.context.set_line_width
+	cairo.context.get_line_width
+	cairo.context.set_miter_limit
+	cairo.context.get_miter_limit
+	cairo.context.set_operator
+	cairo.context.get_operator
+	cairo.context.set_tolerance
+	cairo.context.get_tolerance
+	cairo.context.clip
+	cairo.context.clip_preserve
+	cairo.context.clip_extents
+	cairo.context.in_clip
+	cairo.context.reset_clip
+	cairo.context.copy_clip_rectangle_list
+	cairo.context.fill
+	cairo.context.fill_preserve
+	cairo.context.fill_extents
+	cairo.context.in_fill
+	cairo.context.mask
+	cairo.context.mask_surface
+	cairo.context.paint
+	cairo.context.paint_with_alpha
+	cairo.context.stroke
+	cairo.context.stroke_preserve
+	cairo.context.stroke_extents
+	cairo.context.in_stroke
+	cairo.context.copy_page
+	cairo.context.show_page
+]
+
+doc << '### Paths - Creating paths and manipulating path data'
+doc << [
+	cairo.context.copy_path
+	cairo.context.copy_path_flat
+	cairo.context.append_path
+	cairo.context.has_current_point
+	cairo.context.get_current_point
+	cairo.context.new_path
+	cairo.context.new_sub_path
+	cairo.context.close_path
+	cairo.context.arc
+	cairo.context.arc_negative
+	cairo.context.curve_to
+	cairo.context.line_to
+	cairo.context.move_to
+	cairo.context.rectangle
+	//cairo.context.glyph_path
+	cairo.context.text_path
+	cairo.context.rel_curve_to
+	cairo.context.rel_line_to
+	cairo.context.rel_move_to
+	cairo.context.path_extents
+]
+
+doc << r'### cairo\_pattern\_t - Sources for drawing'
+doc << [
+	cairo.pattern.add_color_stop_rgb
+	cairo.pattern.add_color_stop_rgba
+	cairo.pattern.get_color_stop_count
+	cairo.pattern.get_color_stop_rgba
+	cairo.pattern.create_rgb
+	cairo.pattern.create_rgba
+	cairo.pattern.get_rgba
+	cairo.pattern.create_for_surface
+	cairo.pattern.get_surface
+	cairo.pattern.create_linear
+	cairo.pattern.get_linear_points
+	cairo.pattern.create_radial
+	cairo.pattern.get_radial_circles
+	cairo.mesh_pattern.create
+	cairo.mesh_pattern.begin_patch
+	cairo.mesh_pattern.end_patch
+	cairo.mesh_pattern.move_to
+	cairo.mesh_pattern.line_to
+	cairo.mesh_pattern.curve_to
+	cairo.mesh_pattern.set_control_point
+	cairo.mesh_pattern.set_corner_color_rgb
+	cairo.mesh_pattern.set_corner_color_rgba
+	//cairo.mesh_pattern.get_patch_count
+	//cairo.mesh_pattern.get_path
+	//cairo.mesh_pattern.get_control_point
+	//cairo.mesh_pattern.get_corner_color_rgba
+	cairo.pattern.status
+	cairo.pattern.set_extend
+	cairo.pattern.get_extend
+	cairo.pattern.set_filter
+	cairo.pattern.get_filter
+	cairo.pattern.set_matrix
+	cairo.pattern.get_matrix
+	cairo.pattern.get_type
+]
+
+doc << r'### Regions - Representing a pixel-aligned area'
+doc << [
+	cairo.region.create
+	cairo.region.create_rectangle
+	cairo.region.create_rectangles
+	cairo.region.copy
+	cairo.region.status
+	cairo.region.get_extents
+	cairo.region.get_rectangle
+	cairo.region.is_empty
+	cairo.region.contains_point
+	cairo.region.contains_rectangle
+	cairo.region.equal
+	cairo.region.translate
+	cairo.region.intersect
+	cairo.region.intersect_rectangle
+	cairo.region.union
+	cairo.region.union_rectangle
+	cairo.region.xor
+	cairo.region.xor_rectangle
+]
+
+doc << r'### Transformations - Manipulating the current transformation matrix'
+doc << [
+	cairo.context.translate
+	cairo.context.scale
+	cairo.context.rotate
+	cairo.context.transform
+	cairo.context.set_matrix
+	cairo.context.get_matrix
+	cairo.context.identity_matrix
+	cairo.context.user_to_device
+	cairo.context.user_to_device_distance
+	cairo.context.device_to_user
+	cairo.context.device_to_user_distance
+]
+
+doc << r'### text - Rendering text and glyphs'
+doc << [
+	cairo.context.select_font_face
+	cairo.context.set_font_size
+	cairo.context.set_font_matrix
+	cairo.context.get_font_matrix
+	cairo.context.set_font_options
+	cairo.context.get_font_options
+	cairo.context.set_font_face
+	cairo.context.get_font_face
+	cairo.context.set_scaled_font
+	cairo.context.get_scaled_font
+	cairo.context.show_text
+	cairo.context.show_glyphs
+	cairo.context.font_extents
+	cairo.context.text_extents
+	cairo.context.glyph_extents
+	cairo.toy_font_face.create
+	cairo.toy_font_face.get_family
+	cairo.toy_font_face.get_slant
+	cairo.toy_font_face.get_weight
+]
+
+doc << r'### Raster Sources - Supplying arbitary image data'
+doc << [
+	//cairo.raster_source_pattern.create
+	//cairo.raster_source_pattern.set_callback_data
+	//cairo.raster_source_pattern.get_callback_data
+	//cairo.raster_source_pattern.set_acquire
+	//cairo.raster_source_pattern.get_acquire
+	//cairo.raster_source_pattern.set_snapshot
+	//cairo.raster_source_pattern.get_snapshot
+	//cairo.raster_source_pattern.set_copy
+	//cairo.raster_source_pattern.get_copy
+	//cairo.raster_source_pattern.set_finish
+	//cairo.raster_source_pattern.get_finish
+]
+
+doc << r'## Fonts'
+
+doc << r'## Surfaces'
+
+doc << r'## Utilities'
+
+doc.output_html(fileName)
+println(fileName, ' was created.')
