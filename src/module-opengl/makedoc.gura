@@ -7,9 +7,9 @@ fileName = 'gura-opengl-e.html'
 doc = markdown.document()
 
 operator(`<<).assign(`markdown.document, `function) {|doc, func|
-	doc << '### ' + func.fullname.replace('_', '\\_')
+	doc << '### ' + func.name.replace('_', '\\_')
 	doc << '\n'
-	doc << '`' +  func.format + '`'
+	doc << '`' +  func.format.replace('opengl.', '') + '`'
 	doc << '\n'
 	if (help = func.gethelp()) { doc << help.text }
 }
