@@ -1,3 +1,5 @@
+#!/usr/bin/env gura
+
 prime() = {
 	p = []
 	for (n in 2..):xiter {
@@ -7,4 +9,16 @@ prime() = {
 		}
 	}
 }
-println(prime())
+
+prime_faster() = {
+	p = [2]
+	iterator(2, for (i in 0..):xiter {
+		n = i * 2 + 3
+		if (!(n % p.while(p.each() * p <= n) == 0).or()) {
+			p.add(n)
+			n
+		}
+	})
+}
+
+println(prime(), ' ', prime_faster())
