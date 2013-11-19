@@ -785,14 +785,19 @@ Module *Environment::ImportSeparatedModule_Script(Signal sig, Environment *pEnvO
 	Environment &env = *this;
 	AutoPtr<Stream> pStream(Stream::Open(env, sig, pathName, Stream::ATTR_Readable));
 	if (sig.IsError()) return NULL;
-	Expr_Root *pExprRoot = Parser().ParseStream(*pEnvOuter, sig, *pStream);
+	AutoPtr<Expr_Root> pExprRoot(Parser().ParseStream(*pEnvOuter, sig, *pStream));
 	if (sig.IsSignalled()) return NULL;
-	Module *pModule = new Module(pEnvOuter, pSymbol, pathName, pExprRoot, NULL);
+	Module *pModule = new Module(pEnvOuter, pSymbol,
+							pathName, Expr::Reference(pExprRoot.get()), NULL);
 	GetGlobal()->RegisterSeparatedModule(pathName, pModule);
 	bool echoFlagSaved = pModule->GetGlobal()->GetEchoFlag();
 	pModule->GetGlobal()->SetEchoFlag(false);
-	SeqPostHandler *pSeqPostHandler = NULL;
-	pExprRoot->Exec2(*pModule, sig, pSeqPostHandler);
+	do {
+		AutoPtr<Processor> pProcessor(new Processor());
+		pProcessor->PushSequence(new Expr::SequenceRoot(pModule->Reference(),
+									pExprRoot->GetExprOwner().Reference()));
+		pProcessor->Run(sig);
+	} while (0);
 	pModule->GetGlobal()->SetEchoFlag(echoFlagSaved);
 	if (sig.IsSignalled()) {
 		GetGlobal()->UnregisterSeparatedModule(pathName);

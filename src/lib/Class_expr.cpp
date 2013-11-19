@@ -211,9 +211,20 @@ Gura_DeclareMethod(expr, eval)
 
 Gura_ImplementMethod(expr, eval)
 {
-	SeqPostHandler *pSeqPostHandler = NULL;
+	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	return Object_expr::GetThisObj(args)->GetExpr()->Exec2(*pEnvBlock, sig, pSeqPostHandler);
+	AutoPtr<Processor> pProcessor(new Processor());
+	if (pExpr->IsRoot()) {
+		const Expr_Root *pExprRoot = dynamic_cast<const Expr_Root *>(pExpr);
+		pProcessor->PushSequence(new Expr::SequenceRoot(
+					pEnvBlock->Reference(), pExprRoot->GetExprOwner().Reference()));
+	} else {
+		AutoPtr<ExprOwner> pExprOwner(new ExprOwner());
+		pExprOwner->push_back(pExpr->Reference());
+		pProcessor->PushSequence(new Expr::SequenceRoot(
+								pEnvBlock->Reference(), pExprOwner->Reference()));
+	}
+	return pProcessor->Run(sig);
 }
 
 // expr#genscript(dst?:stream:w, style?:symbol)

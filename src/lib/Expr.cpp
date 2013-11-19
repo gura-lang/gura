@@ -1222,9 +1222,10 @@ const char *Expr_Root::GetSourceName() const
 
 Value Expr_Root::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
 {
-	AutoPtr<Processor> pProcessor(new Processor());
-	pProcessor->PushSequence(new SequenceRoot(env.Reference(), GetExprOwner().Reference()));
-	return pProcessor->Run(sig);
+	//AutoPtr<Processor> pProcessor(new Processor());
+	//pProcessor->PushSequence(new SequenceRoot(env.Reference(), GetExprOwner().Reference()));
+	//return pProcessor->Run(sig);
+	return Value::Null;
 }
 
 bool Expr_Root::GenerateCode(Environment &env, Signal sig, Stream &stream)
