@@ -898,7 +898,7 @@ bool Parser::ParseString(Environment &env, Signal sig, ExprOwner &exprOwner,
 }
 
 void Parser::EvalConsoleChar(Environment &env, Signal sig,
-					ExprOwner &exprOwner, Stream *pConsole, char ch)
+						Expr_Root *pExprRoot, Stream *pConsole, char ch)
 {
 	char chConv = '\0';
 	Codec::Decoder *pDecoder = pConsole->GetCodec()->GetDecoder();
@@ -916,10 +916,11 @@ void Parser::EvalConsoleChar(Environment &env, Signal sig,
 			}
 		} else if (pExpr != NULL) {
 			SeqPostHandler *pSeqPostHandler = NULL;
+			pExprRoot->AddExpr(pExpr);
 			Value result = pExpr->Exec2(env, sig, pSeqPostHandler);
 			if (sig.IsSignalled()) {
 				if (sig.IsReqSaveHistory()) {
-					
+					// t.b.d
 				} else {
 					pConsole->PrintSignal(sig, sig);
 				}
@@ -929,7 +930,6 @@ void Parser::EvalConsoleChar(Environment &env, Signal sig,
 				if (env.GetGlobal()->GetEchoFlag() && result.IsValid()) {
 					pConsole->Println(sig, result.ToString().c_str());
 				}
-				exprOwner.push_back(pExpr);
 			}
 		}
 	} while (pDecoder->FollowChar(chConv));

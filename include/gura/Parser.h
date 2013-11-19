@@ -234,8 +234,7 @@ public:
 							const char *sourceName, const char *str) {
 		return ParseString(env, sig, exprOwner, sourceName, str, ::strlen(str));
 	}
-	void EvalConsoleChar(Environment &env, Signal sig, ExprOwner &exprOwner,
-												Stream *pConsole, char ch);
+	void EvalConsoleChar(Environment &env, Signal sig, Expr_Root *pExprRoot, Stream *pConsole, char ch);
 	inline void SetSourceName(const char *sourceName) { _sourceName = sourceName; }
 	inline bool IsStackEmpty() const { return _elemStack.size() <= 1; }
 	inline bool IsContinued() const { return !IsStackEmpty() || _stat != STAT_Start; }

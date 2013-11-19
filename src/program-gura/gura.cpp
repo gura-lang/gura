@@ -174,15 +174,15 @@ void ReadEvalPrintLoop(Environment &env, Signal sig)
 {
 	Parser parser;
 	AutoPtr<Expr_Root> pExprRoot(new Expr_Root(SRCNAME_interactive));
-	ExprOwner &exprOwner = pExprRoot->GetExprOwner();
+	parser.SetSourceName(pExprRoot->GetSourceName());
 	Stream *pConsole = env.GetConsole();
 	pConsole->Print(sig, env.GetPrompt(parser.IsContinued()));
 	for (;;) {
-		int ch = ::fgetc(stdin);
-		parser.EvalConsoleChar(env, sig, exprOwner,
-								pConsole, static_cast<unsigned char>(ch));
-		if (ch < 0) break;
-		if (ch == '\n') {
+		int chRaw = ::fgetc(stdin);
+		char ch = (chRaw < 0)? '\0' : static_cast<UChar>(chRaw);
+		parser.EvalConsoleChar(env, sig, pExprRoot.get(), pConsole, ch);
+		if (chRaw < 0) break;
+		if (chRaw == '\n') {
 			pConsole->Print(sig, env.GetPrompt(parser.IsContinued()));
 		}
 	}
@@ -192,13 +192,13 @@ void ReadEvalPrintLoop(Environment &env, Signal sig)
 {
 	Parser parser;
 	AutoPtr<Expr_Root> pExprRoot(new Expr_Root(SRCNAME_interactive));
-	ExprOwner &exprOwner = pExprRoot->GetExprOwner();
+	parser.SetSourceName(pExprRoot->GetSourceName());
 	char *lineBuff = NULL;
 	Stream *pConsole = env.GetConsole();
 	while (lineBuff = readline(env.GetPrompt(parser.IsContinued()))) {
 		for (char *p = lineBuff; ; p++) {
 			char ch = (*p == '\0')? '\n' : *p;
-			parser.EvalConsoleChar(env, sig, exprOwner, pConsole, ch);
+			parser.EvalConsoleChar(env, sig, pExprRoot.get(), pConsole, ch);
 			if (ch == '\n') break;
 		}
 		if (lineBuff[0] != '\0') {
