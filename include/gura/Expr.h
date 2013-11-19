@@ -186,7 +186,7 @@ public:
 	static bool NeedParenthesis(const Operator *pOperatorOuter,
 										const Operator *pOperator, bool rightFlag);
 	virtual Expr *Clone() const = 0;
-	virtual const char *GetPathName() const;
+	virtual const char *GetSourceName() const;
 	virtual Callable *LookupCallable(Environment &env, Signal sig) const;
 private:
 	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const = 0;
@@ -520,21 +520,20 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Root : public Expr_Container {
 private:
-	String _pathName;
+	String _sourceName;
 public:
-	Expr_Root(const String &pathName);
+	Expr_Root(const String &sourceName);
 	Expr_Root(const Expr_Root &expr);
 	inline static Expr_Root *Reference(const Expr_Root *pExpr) {
 		return dynamic_cast<Expr_Root *>(Expr::Reference(pExpr));
 	}
 	virtual bool IsRoot() const;
 	virtual Expr *Clone() const;
-	virtual const char *GetPathName() const;
+	virtual const char *GetSourceName() const;
 	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
-	Processor *GenerateProcessor(Environment &env) const;
 };
 
 //-----------------------------------------------------------------------------

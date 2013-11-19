@@ -21,7 +21,7 @@ Object *Object_error::Clone() const
 bool Object_error::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
-	symbols.insert(Gura_Symbol(pathname));
+	symbols.insert(Gura_Symbol(source));
 	symbols.insert(Gura_Symbol(lineno));
 	symbols.insert(Gura_Symbol(linenobtm));
 	symbols.insert(Gura_Symbol(postext));
@@ -34,10 +34,10 @@ Value Object_error::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(pathname))) {
-		const char *pathName = _err.GetPathName();
-		if (pathName == NULL) return Value::Null;
-		return Value(env, pathName);
+	if (pSymbol->IsIdentical(Gura_Symbol(source))) {
+		const char *sourceName = _err.GetSourceName();
+		if (sourceName == NULL) return Value::Null;
+		return Value(env, sourceName);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(lineno))) {
 		return Value(_err.GetLineNoTop());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(linenobtm))) {

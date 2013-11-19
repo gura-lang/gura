@@ -58,9 +58,9 @@ Expr::~Expr()
 {
 }
 
-const char *Expr::GetPathName() const
+const char *Expr::GetSourceName() const
 {
-	return (_pExprParent == NULL)? NULL : _pExprParent->GetPathName();
+	return (_pExprParent == NULL)? NULL : _pExprParent->GetSourceName();
 }
 
 Value Expr::Exec(Environment &env, Signal sig,
@@ -158,11 +158,11 @@ Function *Expr::ToFunction(Environment &env, Signal sig,
 bool Expr::IsAtSameLine(const Expr *pExpr) const
 {
 	if (GetLineNoTop() != pExpr->GetLineNoTop()) return false;
-	const char *pathName1 = GetPathName();
-	const char *pathName2 = pExpr->GetPathName();
-	if (pathName1 == NULL && pathName2 == NULL) return true;
-	if (pathName1 == NULL || pathName2 == NULL) return false;
-	return ::strcmp(pathName1, pathName2) == 0;
+	const char *sourceName1 = GetSourceName();
+	const char *sourceName2 = pExpr->GetSourceName();
+	if (sourceName1 == NULL && sourceName2 == NULL) return true;
+	if (sourceName1 == NULL || sourceName2 == NULL) return false;
+	return ::strcmp(sourceName1, sourceName2) == 0;
 }
 
 void Expr::GatherSymbol(SymbolSet &symbolSet) const
@@ -341,12 +341,12 @@ String Expr::ToString(ScriptStyle scriptStyle) const
 String Expr::MakePosText() const
 {
 	String str;
-	const char *pathName = GetPathName();
-	if (pathName == NULL) {
-		str += "<console>";
+	const char *sourceName = GetSourceName();
+	if (sourceName == NULL) {
+		str += SRCNAME_unknown;
 	} else {
 		String fileName;
-		PathManager::SplitFileName(pathName, NULL, &fileName);
+		PathManager::SplitFileName(sourceName, NULL, &fileName);
 		str += fileName;
 	}
 	char buff[64];
@@ -1200,13 +1200,13 @@ bool Expr_TmplString::GenerateScript(Signal sig, SimpleStream &stream,
 //-----------------------------------------------------------------------------
 bool Expr_Root::IsRoot() const { return true; }
 
-Expr_Root::Expr_Root(const String &pathName) :
-						Expr_Container(EXPRTYPE_Root), _pathName(pathName)
+Expr_Root::Expr_Root(const String &sourceName) :
+						Expr_Container(EXPRTYPE_Root), _sourceName(sourceName)
 {
 }
 
 Expr_Root::Expr_Root(const Expr_Root &expr) :
-						Expr_Container(expr), _pathName(expr._pathName)
+						Expr_Container(expr), _sourceName(expr._sourceName)
 {
 }
 
@@ -1215,14 +1215,15 @@ Expr *Expr_Root::Clone() const
 	return new Expr_Root(*this);
 }
 
-const char *Expr_Root::GetPathName() const
+const char *Expr_Root::GetSourceName() const
 {
-	return _pathName.c_str();
+	return _sourceName.c_str();
 }
 
 Value Expr_Root::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
 {
-	AutoPtr<Processor> pProcessor(GenerateProcessor(env));
+	AutoPtr<Processor> pProcessor(new Processor());
+	pProcessor->PushSequence(new SequenceRoot(env.Reference(), GetExprOwner().Reference()));
 	return pProcessor->Run(sig);
 }
 
@@ -1241,13 +1242,6 @@ bool Expr_Root::GenerateScript(Signal sig, SimpleStream &stream,
 		if (sig.IsSignalled()) return false;
 	}
 	return true;
-}
-
-Processor *Expr_Root::GenerateProcessor(Environment &env) const
-{
-	AutoPtr<Processor> pProcessor(new Processor());
-	pProcessor->PushSequence(new SequenceRoot(env.Reference(), GetExprOwner().Reference()));
-	return pProcessor.release();
 }
 
 //-----------------------------------------------------------------------------

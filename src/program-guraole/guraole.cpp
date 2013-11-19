@@ -243,8 +243,9 @@ HRESULT CMain::ParseScriptText(
 	DBGPRINTF(("dwFlags               %08x\n", dwFlags));
 	Gura::Gura_Module(mswin)::Import(*_pEnv, _sig);
 	Gura::Stream *pConsole = _pEnv->GetConsole();
-	Gura::AutoPtr<Gura::ExprOwner> pExprOwner(new Gura::ExprOwner());
-	if (!Gura::Parser().ParseString(*_pEnv, _sig, *pExprOwner, "OLE",
+	Gura::AutoPtr<Gura::Expr_Root> pExprRoot(new Gura::Expr_Root("<ole>"));
+	Gura::ExprOwner &exprOwner = pExprRoot->GetExprOwner();
+	if (!Gura::Parser().ParseString(*_pEnv, _sig, exprOwner, "<ole>",
 					Gura::Gura_Module(mswin)::BSTRToString(pstrCode).c_str())) {
 		pexcepinfo->bstrDescription = L"*************";
 		pexcepinfo->bstrHelpFile = L"";
@@ -258,12 +259,12 @@ HRESULT CMain::ParseScriptText(
 		NotifyScriptError();
 		return DISP_E_EXCEPTION;
 	}
-	if (pExprOwner->empty()) {
+	if (exprOwner.empty()) {
 		pConsole->Println(_sig, "incomplete command");
 	} else {
 		Gura::AutoPtr<Gura::Processor> pProcessor(new Gura::Processor());
 		pProcessor->PushSequence(new Gura::Expr::SequenceRoot(
-							_pEnv->Reference(), pExprOwner->Reference()));
+							_pEnv->Reference(), exprOwner.Reference()));
 		Gura::Value result = pProcessor->Run(_sig);
 		if (_sig.IsSignalled()) {
 			pConsole->PrintSignal(_sig, _sig);

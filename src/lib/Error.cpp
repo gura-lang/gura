@@ -56,10 +56,10 @@ void Error::Set(ErrorType errType, const String &text)
 	_text = text;
 }
 
-const char *Error::GetPathName() const
+const char *Error::GetSourceName() const
 {
 	const ExprOwner &exprCauseOwner = GetExprCauseOwner();
-	return exprCauseOwner.empty()? NULL : exprCauseOwner.front()->GetPathName();
+	return exprCauseOwner.empty()? NULL : exprCauseOwner.front()->GetSourceName();
 }
 
 int Error::GetLineNoTop() const

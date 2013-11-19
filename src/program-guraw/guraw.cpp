@@ -79,17 +79,18 @@ int MainW(int argc, const char *argv[])
 		foreach_const (StringList, pCmd, opt.GetStringList("command")) {
 			const char *cmd = pCmd->c_str();
 			if (::strcmp(cmd, "") == 0) continue;
-			AutoPtr<ExprOwner> pExprOwner(new ExprOwner());
-			if (!Parser().ParseString(env, sig, *pExprOwner, "<command line>", cmd)) {
+			AutoPtr<Expr_Root> pExprRoot(new Expr_Root(SRCNAME_cmdline));
+			ExprOwner &exprOwner = pExprRoot->GetExprOwner();
+			if (!Parser().ParseString(env, sig, exprOwner, "<command line>", cmd)) {
 				env.GetConsole()->PrintSignal(sig, sig);
 				return 1;
 			}
-			if (pExprOwner->empty()) {
+			if (exprOwner.empty()) {
 				env.GetConsole()->Println(sig, "incomplete command");
 			} else {
 				AutoPtr<Processor> pProcessor(new Processor());
 				pProcessor->PushSequence(new Expr::SequenceRoot(
-									env.Reference(), pExprOwner->Reference()));
+									env.Reference(), exprOwner.Reference()));
 				Value result = pProcessor->Run(sig);
 				if (sig.IsSignalled()) {
 					env.GetConsole()->PrintSignal(sig, sig);
@@ -109,7 +110,9 @@ int MainW(int argc, const char *argv[])
 			env.GetConsole()->PrintSignal(sig, sig);
 			return 1;
 		}
-		AutoPtr<Processor> pProcessor(pExprRoot->GenerateProcessor(env));
+		AutoPtr<Processor> pProcessor(new Processor());
+		pProcessor->PushSequence(new Expr::SequenceRoot(env.Reference(),
+									pExprRoot->GetExprOwner().Reference()));
 		pProcessor->Run(sig);
 		if (sig.IsSignalled()) {
 			env.GetConsole()->PrintSignal(sig, sig);

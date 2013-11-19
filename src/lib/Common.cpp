@@ -12,6 +12,10 @@ const char *EXTNAME_Compound	= ".gurc";
 const char *EXTNAME_CompoundWin	= ".gurcw";
 const char *EXTNAME_BinModule	= ".gurd";
 
+const char *SRCNAME_unknown		= "<unknown>";
+const char *SRCNAME_cmdline		= "<cmdline>";
+const char *SRCNAME_interactive	= "<interactive>";
+
 const int MAX_STACK_LEVEL = 20000;
 const size_t InvalidSize = static_cast<size_t>(-1);
 

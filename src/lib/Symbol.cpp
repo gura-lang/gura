@@ -379,6 +379,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(sin);
 	Gura_RealizeSymbol(single);
 	Gura_RealizeSymbol(sort);
+	Gura_RealizeSymbol(source);
 	Gura_RealizeSymbol(sqrt);
 	Gura_RealizeSymbol(stable);
 	Gura_RealizeSymbol(stat);

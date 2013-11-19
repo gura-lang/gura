@@ -59,7 +59,7 @@ public:
 	Error(const Error &err);
 	void Clear();
 	void Set(ErrorType errType, const String &text);
-	const char *GetPathName() const;
+	const char *GetSourceName() const;
 	int GetLineNoTop() const;
 	int GetLineNoBtm() const;
 	String MakeText(bool lineInfoFlag = true) const;

@@ -74,17 +74,18 @@ int Main(int argc, const char *argv[])
 		foreach_const (StringList, pCmd, opt.GetStringList("command")) {
 			const char *cmd = pCmd->c_str();
 			if (::strcmp(cmd, "") == 0) continue;
-			AutoPtr<ExprOwner> pExprOwner(new ExprOwner());
-			if (!Parser().ParseString(env, sig, *pExprOwner, "<command line>", cmd)) {
+			AutoPtr<Expr_Root> pExprRoot(new Expr_Root(SRCNAME_cmdline));
+			ExprOwner &exprOwner = pExprRoot->GetExprOwner();
+			if (!Parser().ParseString(env, sig, exprOwner, SRCNAME_cmdline, cmd)) {
 				env.GetConsoleErr()->PrintSignal(sig, sig);
 				return 1;
 			}
-			if (pExprOwner->empty()) {
+			if (exprOwner.empty()) {
 				env.GetConsoleErr()->Println(sig, "incomplete command");
 			} else {
 				AutoPtr<Processor> pProcessor(new Processor());
 				pProcessor->PushSequence(new Expr::SequenceRoot(
-									env.Reference(), pExprOwner->Reference()));
+									env.Reference(), exprOwner.Reference()));
 				Value result = pProcessor->Run(sig);
 				if (sig.IsSignalled()) {
 					env.GetConsoleErr()->PrintSignal(sig, sig);
@@ -107,7 +108,9 @@ int Main(int argc, const char *argv[])
 		if (opt.IsSet("llvm")) {
 			pExprRoot->GenerateCode(env, sig, *env.GetConsole());
 		} else {
-			AutoPtr<Processor> pProcessor(pExprRoot->GenerateProcessor(env));
+			AutoPtr<Processor> pProcessor(new Processor());
+			pProcessor->PushSequence(new Expr::SequenceRoot(env.Reference(),
+										pExprRoot->GetExprOwner().Reference()));
 			pProcessor->Run(sig);
 		}
 		if (sig.IsSignalled()) {
@@ -170,12 +173,13 @@ void PrintHelp(FILE *fp)
 void ReadEvalPrintLoop(Environment &env, Signal sig)
 {
 	Parser parser;
-	AutoPtr<ExprOwner> pExprOwner(new ExprOwner());
+	AutoPtr<Expr_Root> pExprRoot(new Expr_Root(SRCNAME_interactive));
+	ExprOwner &exprOwner = pExprRoot->GetExprOwner();
 	Stream *pConsole = env.GetConsole();
 	pConsole->Print(sig, env.GetPrompt(parser.IsContinued()));
 	for (;;) {
 		int ch = ::fgetc(stdin);
-		parser.EvalConsoleChar(env, sig, *pExprOwner,
+		parser.EvalConsoleChar(env, sig, exprOwner,
 								pConsole, static_cast<unsigned char>(ch));
 		if (ch < 0) break;
 		if (ch == '\n') {
@@ -187,13 +191,14 @@ void ReadEvalPrintLoop(Environment &env, Signal sig)
 void ReadEvalPrintLoop(Environment &env, Signal sig)
 {
 	Parser parser;
-	AutoPtr<ExprOwner> pExprOwner(new ExprOwner());
+	AutoPtr<Expr_Root> pExprRoot(new Expr_Root(SRCNAME_interactive));
+	ExprOwner &exprOwner = pExprRoot->GetExprOwner();
 	char *lineBuff = NULL;
 	Stream *pConsole = env.GetConsole();
 	while (lineBuff = readline(env.GetPrompt(parser.IsContinued()))) {
 		for (char *p = lineBuff; ; p++) {
 			char ch = (*p == '\0')? '\n' : *p;
-			parser.EvalConsoleChar(env, sig, *pExprOwner, pConsole, ch);
+			parser.EvalConsoleChar(env, sig, exprOwner, pConsole, ch);
 			if (ch == '\n') break;
 		}
 		if (lineBuff[0] != '\0') {

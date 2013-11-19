@@ -366,6 +366,7 @@ public:
 	Gura_DeclareSymbol(sin);
 	Gura_DeclareSymbol(single);
 	Gura_DeclareSymbol(sort);
+	Gura_DeclareSymbol(source);
 	Gura_DeclareSymbol(sqrt);
 	Gura_DeclareSymbol(stable);
 	Gura_DeclareSymbol(stat);

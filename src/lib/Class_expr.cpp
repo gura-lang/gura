@@ -30,7 +30,7 @@ bool Object_expr::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(typename_));
 	symbols.insert(Gura_Symbol(typesym));
-	symbols.insert(Gura_Symbol(pathname));
+	symbols.insert(Gura_Symbol(source));
 	symbols.insert(Gura_Symbol(lineno));
 	symbols.insert(Gura_Symbol(linenobtm));
 	symbols.insert(Gura_Symbol(postext));
@@ -56,10 +56,10 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		return Value(env, GetExpr()->GetTypeName());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(typesym))) {
 		return Value(Symbol::Add(GetExpr()->GetTypeName()));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(pathname))) {
-		const char *pathName = GetExpr()->GetPathName();
-		if (pathName == NULL) return Value::Null;
-		return Value(env, pathName);
+	} else if (pSymbol->IsIdentical(Gura_Symbol(source))) {
+		const char *sourceName = GetExpr()->GetSourceName();
+		if (sourceName == NULL) return Value::Null;
+		return Value(env, sourceName);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(lineno))) {
 		return Value(GetExpr()->GetLineNoTop());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(linenobtm))) {
