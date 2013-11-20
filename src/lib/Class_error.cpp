@@ -78,6 +78,8 @@ Class_error::Class_error(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_error)
 
 void Class_error::Prepare(Environment &env)
 {
+	Error::AssignErrorTypes(*this);
+	Gura_AssignValue(error, Value(this));
 }
 
 Object *Class_error::CreateDescendant(Environment &env, Signal sig, Class *pClass)

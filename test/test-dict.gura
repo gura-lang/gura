@@ -109,7 +109,7 @@ testcase {
 			`foo	=>	'bbbbb'
 			`hoge	=>	'AAAA'		# causes error
 		}
-	} catch(KeyError) {|e|
+	} catch (error.KeyError) {|e|
 		println('expected error occurs: ', e.text)
 	}
 	println('for loop')

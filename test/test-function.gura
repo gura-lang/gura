@@ -260,12 +260,12 @@ testcase {
 	f(m)
 	try {
 		f(10)
-	} catch(TypeError) {|e|
+	} catch (error.TypeError) {|e|
 		println('expected error occurs: ', e.text)
 	}
 	try {
 		f('foo')
-	} catch(TypeError) {|e|
+	} catch (error.TypeError) {|e|
 		println('expected error occurs: ', e.text)
 	}
 }
@@ -324,7 +324,7 @@ testcase {
 	f4(2, 3, 4, 5, 6, 7)
 	try {
 		f4(2, 3)
-	} catch(TypeError) {|e|
+	} catch (error.TypeError) {|e|
 		println('expected error occurs: ', e.text)
 	}
 }

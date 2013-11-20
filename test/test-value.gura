@@ -48,16 +48,16 @@ testcase {
 	d = 'D'
 	println([a, b, c, d].join(' '))
 	undef(a, b, c, d)
-	try { a } catch(ValueError) { printf('expected error occurs\n') }
-	try { b } catch(ValueError) { printf('expected error occurs\n') }
-	try { c } catch(ValueError) { printf('expected error occurs\n') }
-	try { d } catch(ValueError) { printf('expected error occurs\n') }
+	try { a } catch (error.ValueError) { printf('expected error occurs\n') }
+	try { b } catch (error.ValueError) { printf('expected error occurs\n') }
+	try { c } catch (error.ValueError) { printf('expected error occurs\n') }
+	try { d } catch (error.ValueError) { printf('expected error occurs\n') }
 	hoge = module {
 		a = 'A'
 	}
 	try {
 		println(hoge.a)
-	} catch(MemberAccessError) { printf('expected error occurs\n') }
+	} catch (error.MemberAccessError) { printf('expected error occurs\n') }
 	hoge = module {
 		public {
 			a = 'A'
@@ -68,10 +68,10 @@ testcase {
 	}
 	println([hoge.a, hoge.b, hoge.c, hoge.d].join(' '))
 	undef(hoge.a, hoge.b, hoge.c, hoge.d)
-	try { hoge.a } catch(ValueError) { printf('expected error occurs\n') }
-	try { hoge.b } catch(ValueError) { printf('expected error occurs\n') }
-	try { hoge.c } catch(ValueError) { printf('expected error occurs\n') }
-	try { hoge.d } catch(ValueError) { printf('expected error occurs\n') }
+	try { hoge.a } catch (error.ValueError) { printf('expected error occurs\n') }
+	try { hoge.b } catch (error.ValueError) { printf('expected error occurs\n') }
+	try { hoge.c } catch (error.ValueError) { printf('expected error occurs\n') }
+	try { hoge.d } catch (error.ValueError) { printf('expected error occurs\n') }
 	hoge = module {
 		foo = module {
 			public {
@@ -84,10 +84,10 @@ testcase {
 	}
 	println([hoge.foo.a, hoge.foo.b, hoge.foo.c, hoge.foo.d].join(' '))
 	undef(hoge.foo.a, hoge.foo.b, hoge.foo.c, hoge.foo.d)
-	try { hoge.foo.a } catch(ValueError) { printf('expected error occurs\n') }
-	try { hoge.foo.b } catch(ValueError) { printf('expected error occurs\n') }
-	try { hoge.foo.c } catch(ValueError) { printf('expected error occurs\n') }
-	try { hoge.foo.d } catch(ValueError) { printf('expected error occurs\n') }
+	try { hoge.foo.a } catch (error.ValueError) { printf('expected error occurs\n') }
+	try { hoge.foo.b } catch (error.ValueError) { printf('expected error occurs\n') }
+	try { hoge.foo.c } catch (error.ValueError) { printf('expected error occurs\n') }
+	try { hoge.foo.d } catch (error.ValueError) { printf('expected error occurs\n') }
 }
 testcase {
 	println(format('%08x', 1 << [0..31]).join(', '))

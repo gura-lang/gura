@@ -16,7 +16,7 @@ testcase {
 					}
 				}
 			}
-		} catch(IteratorError) {|e|
+		} catch (error.IteratorError) {|e|
 			println('catch(IteratorError)')
 			println('text:      ', e.text)
 			println('source:    ', path.filename(e.source))
@@ -39,8 +39,8 @@ testcase {
 		}
 		println('end-of-function')
 	}
-	f(IteratorError)
-	f(IOError)
+	f(error.IteratorError)
+	f(error.IOError)
 	f(nil)
 }
 testcase {
@@ -89,7 +89,7 @@ testcase {
 	people = repeat(3):list { Person() }
 	try {
 		f(people)
-	} catch(TypeError) {|e|
+	} catch (error.TypeError) {|e|
 		println('expected error occurs: ', e.text)
 	}
 }
@@ -97,7 +97,7 @@ testcase {
 	b = [1]
 	try {
 		a
-	} catch(ValueError) {|e|
+	} catch (error.ValueError) {|e|
 		println('ValueError detected: ', e.text)
 	} catch {|e|
 		println('other error detected: ', e.text)
@@ -106,7 +106,7 @@ testcase {
 	}
 	try {
 		b[2]
-	} catch(ValueError) {|e|
+	} catch (error.ValueError) {|e|
 		println('ValueError detected: ', e.text)
 	} catch {|e|
 		println('other error detected: ', e.text)
@@ -115,7 +115,7 @@ testcase {
 	}
 	try {
 		b[0]
-	} catch(ValueError) {|e|
+	} catch (error.ValueError) {|e|
 		println('ValueError detected: ', e.text)
 	} catch {|e|
 		println('other error detected: ', e.text)
@@ -126,25 +126,25 @@ testcase {
 testcase {
 	error_tester(err) = try {
 		if (err != nil) { raise(err, 'intentional error for handling test') }
-	} catch(IndexError) {|e|
+	} catch (error.IndexError) {|e|
 		println('catch(IndexError) .. ', e.text)
-	} catch(ValueError) {|e|
+	} catch (error.ValueError) {|e|
 		println('catch(ValueError) .. ', e.text)
-	} catch(IOError) {|e|
+	} catch (error.IOError) {|e|
 		println('catch(IOError) .. ', e.text)
-	} catch(SystemError, CodecError) {|e|
+	} catch (error.SystemError, error.CodecError) {|e|
 		println('catch(SystemError, CodecError) .. ', e.text)
 	} catch {|e|
 		println('catch() .. ', e.text)
 	} else {
 		println('else()')
 	}
-	error_tester(IndexError)
-	error_tester(ValueError)
-	error_tester(IOError)
-	error_tester(SystemError)
-	error_tester(CodecError)
-	error_tester(AttributeError)
+	error_tester(error.IndexError)
+	error_tester(error.ValueError)
+	error_tester(error.IOError)
+	error_tester(error.SystemError)
+	error_tester(error.CodecError)
+	error_tester(error.AttributeError)
 	error_tester(nil)
 }
 testcase {
@@ -198,8 +198,8 @@ testcase {
 	test_errmsg(exprs)
 }
 try {
-	raise(ValueError, 'unhandled error')
-} catch(ValueError) {|e|
+	raise(error.ValueError, 'unhandled error')
+} catch (error.ValueError) {|e|
 	println('ValueError detected: ', e.text)
 }
 sys.stderr = stderrOrg

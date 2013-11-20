@@ -120,7 +120,6 @@ bool Environment::InitializeAsRoot(Signal sig, int &argc, const char *argv[],
 	RandomGenerator::Initialize(1234);	// initialize random generator SFMT
 	ValueTypePool::Initialize(env);
 	GetGlobal()->Prepare(env, sig);
-	Error::AssignErrorTypes(env);
 	Operator::AssignOperators(env);
 	ValueTypePool::DoPrepareClass(env);
 	OAL::SetupExecutablePath();

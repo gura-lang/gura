@@ -206,12 +206,12 @@ testcase {
 testcase {
 	try {
 		[0..]
-	} catch (IteratorError) {|e|
+	} catch (error.IteratorError) {|e|
 		println('expected error occurs: ', e.text)
 	}
 	try {
 		[(0..) + 3]
-	} catch (IteratorError) {|e|
+	} catch (error.IteratorError) {|e|
 		println('expected error occurs: ', e.text)
 	}
 }
@@ -259,7 +259,7 @@ testcase {
 	println()
 	try {
 		x.shift():raise
-	} catch(ValueError) {|e|
+	} catch (error.ValueError) {|e|
 		println('expected error occurs: ', e.text)
 	}
 }

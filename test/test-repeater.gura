@@ -140,9 +140,9 @@ testcase {
 }
 testcase {
 	for (i in 0..9) {}
-	try { i } catch(ValueError) { println('expected error occurs') }
+	try { i } catch (error.ValueError) { println('expected error occurs') }
 	cross (j in 0..9) {}
-	try { j } catch(ValueError) { println('expected error occurs') }
+	try { j } catch (error.ValueError) { println('expected error occurs') }
 }
 testcase {
 	i = for (n in 0..9):iter {|i| i}
@@ -207,7 +207,7 @@ testcase {
 	try {
 		for ([a, b, c+] in [[1..2]]) {
 		}
-	} catch(ValueError) {
+	} catch (error.ValueError) {
 		println('expected error occurs')
 	}
 }
@@ -418,7 +418,7 @@ testcase {
 		repeat_ten() {
 			printf('**** scope problem happened if this message appears %d ****\n', i)
 		} // i must be invisible
-	} catch(ValueError) {
+	} catch (error.ValueError) {
 		printf('expected error happens\n')
 	}
 }

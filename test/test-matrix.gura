@@ -88,7 +88,7 @@ testcase {
 	tester(`([-1, 1] * @@{{4, -3}, {-5, 2}}))
 	try {
 		tester(`(@@{{-1, 2, -3}, {0, 1, 4}} * @@{{3, 1}, {0, 2}}))
-	} catch(ValueError) {
+	} catch (error.ValueError) {
 		println('expected error occurs')
 	}
 	tester(`(@@{{-1, 2, 0}, {4, 0, -2}} * @@{{1, 2 ,0}, {-1, 1, 3}, {5, 1, -1}}))
@@ -113,7 +113,7 @@ testcase {
 		try {
 			tester(`mat.invert().roundoff())
 			tester(`(mat.invert() * mat).roundoff())
-		} catch(ValueError) {|e|
+		} catch (error.ValueError) {|e|
 			println('not a regular matrix')
 		}
 	}
@@ -145,11 +145,11 @@ testcase {
 	a = @@{{1, 1, 0, 2}, {0, -1, 1, 1}, {1, 0, -1, 0}}
 	b = @@{{2, 0, 3}, {1, 1, -2}, {0, 3, 0}}
 	c = @@{{1, 3, 0}, {1, 0, 1}, {-1, 1, 0}, {0, 1, 2}}
-	try { tester(`(a * b)) } catch(ValueError) { println('expected error occurs') }
-	try { tester(`(a * c)) } catch(ValueError) { println('!! unexpected error occurs') }
-	try { tester(`(b * a)) } catch(ValueError) { println('!! unexpected error occurs') }
-	try { tester(`(b * c)) } catch(ValueError) { println('expected error occurs') }
-	try { tester(`(c * a)) } catch(ValueError) { println('!! unexpected error occurs') }
+	try { tester(`(a * b)) } catch (error.ValueError) { println('expected error occurs') }
+	try { tester(`(a * c)) } catch (error.ValueError) { println('!! unexpected error occurs') }
+	try { tester(`(b * a)) } catch (error.ValueError) { println('!! unexpected error occurs') }
+	try { tester(`(b * c)) } catch (error.ValueError) { println('expected error occurs') }
+	try { tester(`(c * a)) } catch (error.ValueError) { println('!! unexpected error occurs') }
 	matrix_rotate(theta) = @@{
 		{math.cos(theta), -math.sin(theta)},
 		{math.sin(theta), math.cos(theta)}

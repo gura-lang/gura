@@ -36,7 +36,7 @@ testcase {
 		expr = `{|x, y, z| x + y + y + 2}
 		f = expr.tofunction(x, y, z)
 		print_func(f)
-	} catch(TypeError) {|e|
+	} catch (error.TypeError) {|e|
 		println('expected error occurs: ', e.text)
 	}
 }

@@ -164,7 +164,7 @@ testcase {
 	A.f()
 	try {
 		A.g()
-	} catch(ValueError) {
+	} catch (error.ValueError) {
 		println('expected error occurs')
 	}
 }
@@ -748,7 +748,7 @@ testcase {
 	print(`A.hoge, ' = ', A.hoge, '\n')
 	try {
 		A.func2()
-	} catch (ValueError) {
+	} catch (error.ValueError) {
 		println('expected error occurs')
 	}
 }
