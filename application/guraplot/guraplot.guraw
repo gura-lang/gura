@@ -90,7 +90,7 @@ Graph = class {
 			for (func in this.funcs) {
 				syms = [func.decls:*symbol]
 				if (syms.len() != 1) {
-					raise(ValueError, 'wrong number of arguments')
+					raise(error.ValueError, 'wrong number of arguments')
 				}
 				sym = syms.first()
 				if (sym == `y) {
@@ -319,7 +319,7 @@ tk.mainwindow() {|mw|
 		} elsif (a > b) {
 			[graph.xMin, graph.xMax] = [b, a]
 		} else {
-			raise(ValueError, 'invalid range')
+			raise(error.ValueError, 'invalid range')
 		}
 	}
 	yrange(a:number, b:number) = {
@@ -328,7 +328,7 @@ tk.mainwindow() {|mw|
 		} elsif (a > b) {
 			[graph.yMin, graph.yMax] = [b, a]
 		} else {
-			raise(ValueError, 'invalid range')
+			raise(error.ValueError, 'invalid range')
 		}
 	}
 	samples(cntSamples:number) = {
