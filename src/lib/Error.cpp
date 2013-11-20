@@ -74,6 +74,13 @@ int Error::GetLineNoBtm() const
 	return exprCauseOwner.empty()? 0 : exprCauseOwner.front()->GetLineNoBtm();
 }
 
+String Error::MakePosText() const
+{
+	const ExprOwner &exprCauseOwner = GetExprCauseOwner();
+	if (exprCauseOwner.empty()) return "";
+	return exprCauseOwner.front()->MakePosText();
+}
+
 String Error::MakeText(bool lineInfoFlag) const
 {
 	String str;

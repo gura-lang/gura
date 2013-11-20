@@ -62,6 +62,7 @@ public:
 	const char *GetSourceName() const;
 	int GetLineNoTop() const;
 	int GetLineNoBtm() const;
+	String MakePosText() const;
 	String MakeText(bool lineInfoFlag = true) const;
 	inline ErrorType GetType() const { return _errType; }
 	inline const char *GetTypeName() const { return GetTypeName(_errType); }

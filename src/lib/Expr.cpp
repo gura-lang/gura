@@ -560,6 +560,7 @@ bool ExprList::IsAtSameLine() const
 	if (empty()) return false;
 	ExprList::const_iterator ppExpr = begin();
 	const Expr *pExprTop = *ppExpr++;
+	if (pExprTop->GetLineNoTop() != pExprTop->GetLineNoBtm()) return false;
 	for ( ; ppExpr != end(); ppExpr++) {
 		const Expr *pExpr = *ppExpr;
 		if (pExprTop->GetLineNoTop() != pExpr->GetLineNoTop()) return false;

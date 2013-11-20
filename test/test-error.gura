@@ -16,10 +16,24 @@ testcase {
 					}
 				}
 			}
-		} catch(IteratorError) {
+		} catch(IteratorError) {|e|
 			println('catch(IteratorError)')
-		} catch {
+			println('text:      ', e.text)
+			println('source:    ', path.filename(e.source))
+			println('lineno:    ', e.lineno)
+			println('linenobtm: ', e.linenobtm)
+			println('postext:   ', e.postext)
+			println('trace:')
+			println(e.trace)
+		} catch {|e|
 			println('catch()')
+			println('text:      ', e.text)
+			println('source:    ', path.filename(e.source))
+			println('lineno:    ', e.lineno)
+			println('linenobtm: ', e.linenobtm)
+			println('postext:   ', e.postext)
+			println('trace:')
+			println(e.trace)
 		} else {
 			println('else')
 		}

@@ -2,8 +2,28 @@
 ======== #1 ========
 
  [0,0,0] [0,0,1] [0,0,2] [0,1,0] [0,1,1] [0,1,2] [0,2,0] [0,2,1] [0,2,2] [1,0,0] [1,0,1] [1,0,2] [1,1,0] [1,1,1] [1,1,2] [1,2,0] [1,2,1] [1,2,2] [2,0,0] [2,0,1] [2,0,2]catch(IteratorError)
+text:      IteratorError: error
+source:    test-error.gura
+lineno:    15
+linenobtm: 15
+postext:   test-error.gura:15
+trace:
+err != nil && i == 2 && j == 0 && k == 2 && raise(err)
+repeat (3) {|k| printf(' [%d,%d,%d]', i, j, k), err != nil && i == 2 && j == 0 && k == 2 && raise(err) }
+repeat (3) {|j| repeat (3) {|k| printf(' [%d,%d,%d]', i, j, k), err != nil && i == 2 && j == 0 && k == 2 && raise(err) } }
+repeat (3) {|i| repeat (3) {|j| repeat (3) {|k| printf(' [%d,%d,%d]', i, j, k), err != nil && i == 2 && j == 0 && k == 2 && raise(err) } } }
 end-of-function
  [0,0,0] [0,0,1] [0,0,2] [0,1,0] [0,1,1] [0,1,2] [0,2,0] [0,2,1] [0,2,2] [1,0,0] [1,0,1] [1,0,2] [1,1,0] [1,1,1] [1,1,2] [1,2,0] [1,2,1] [1,2,2] [2,0,0] [2,0,1] [2,0,2]catch()
+text:      IOError: error
+source:    test-error.gura
+lineno:    15
+linenobtm: 15
+postext:   test-error.gura:15
+trace:
+err != nil && i == 2 && j == 0 && k == 2 && raise(err)
+repeat (3) {|k| printf(' [%d,%d,%d]', i, j, k), err != nil && i == 2 && j == 0 && k == 2 && raise(err) }
+repeat (3) {|j| repeat (3) {|k| printf(' [%d,%d,%d]', i, j, k), err != nil && i == 2 && j == 0 && k == 2 && raise(err) } }
+repeat (3) {|i| repeat (3) {|j| repeat (3) {|k| printf(' [%d,%d,%d]', i, j, k), err != nil && i == 2 && j == 0 && k == 2 && raise(err) } } }
 end-of-function
  [0,0,0] [0,0,1] [0,0,2] [0,1,0] [0,1,1] [0,1,2] [0,2,0] [0,2,1] [0,2,2] [1,0,0] [1,0,1] [1,0,2] [1,1,0] [1,1,1] [1,1,2] [1,2,0] [1,2,1] [1,2,2] [2,0,0] [2,0,1] [2,0,2] [2,1,0] [2,1,1] [2,1,2] [2,2,0] [2,2,1] [2,2,2]else
 end-of-function
