@@ -43,7 +43,7 @@ Build for Linux
         $ cd gura
         $ mkdir build
         $ cd build
-        $ cmake -D CMAKE_INSTALL_PREFIX=/usr ../src
+        $ ../src/configure
         $ make
 
 3. Make packages of Debian and RPM. Installation of following packages is necessary.
