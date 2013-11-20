@@ -31,9 +31,9 @@ bool Object_image::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(format));
-	symbols.insert(Gura_Symbol(width));
 	symbols.insert(Gura_Symbol(height));
 	symbols.insert(Gura_Symbol(palette));
+	symbols.insert(Gura_Symbol(width));
 	return true;
 }
 
@@ -43,14 +43,14 @@ Value Object_image::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(format))) {
 		return Value(GetImage()->FormatToSymbol(GetImage()->GetFormat()));
-	} else if (pSymbol->IsIdentical(Gura_Symbol(width))) {
-		return Value(static_cast<UInt>(GetImage()->GetWidth()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(height))) {
 		return Value(static_cast<UInt>(GetImage()->GetHeight()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(palette))) {
 		const Palette *pPalette = GetImage()->GetPalette();
 		if (pPalette == NULL) return Value::Null;
 		return Value(new Object_palette(env, Palette::Reference(pPalette)));
+	} else if (pSymbol->IsIdentical(Gura_Symbol(width))) {
+		return Value(static_cast<UInt>(GetImage()->GetWidth()));
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -178,22 +178,6 @@ Gura_ImplementFunction(image)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_image
 //-----------------------------------------------------------------------------
-// image#size()
-Gura_DeclareMethod(image, size)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(image, size)
-{
-	Object_image *pThis = Object_image::GetThisObj(args);
-	Value result;
-	ValueList &valList = result.InitAsList(env);
-	valList.push_back(static_cast<int>(pThis->GetImage()->GetWidth()));
-	valList.push_back(static_cast<int>(pThis->GetImage()->GetHeight()));
-	return result;
-}
-
 // image#allocbuff(width:number, height:number, color?:color):void
 Gura_DeclareMethod(image, allocbuff)
 {
@@ -212,78 +196,104 @@ Gura_ImplementMethod(image, allocbuff)
 	return Value::Null;
 }
 
-// image#putpixel(x:number, y:number, color:color):map:void
-Gura_DeclareMethod(image, putpixel)
+// image#blur(radius:number, sigma:number)
+Gura_DeclareMethod(image, blur)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "x", VTYPE_number);
-	DeclareArg(env, "y", VTYPE_number);
-	DeclareArg(env, "color", VTYPE_color);
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "radius", VTYPE_number);
+	DeclareArg(env, "sigma", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(image, putpixel)
+Gura_ImplementMethod(image, blur)
+{
+	Object_image *pThis = Object_image::GetThisObj(args);
+	int radius = args.GetInt(0);
+	Number sigma = args.Is_number(1)? args.GetNumber(1) : 1.5;
+	AutoPtr<Image> pImage(pThis->GetImage()->Blur(sig, radius, sigma));
+	if (sig.IsSignalled()) return Value::Null;
+	return Value(new Object_image(env, pImage.release()));
+}
+
+// image#clear():void
+Gura_DeclareMethod(image, clear)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(image, clear)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
-	int x = args.GetInt(0), y = args.GetInt(1);
-	if (!pThis->GetImage()->CheckCoord(sig, x, y)) return Value::Null;
-	UChar *p = pThis->GetImage()->GetPointer(x, y);
-	pThis->GetImage()->PutPixel(p, Object_color::GetObject(args, 2)->GetColor());
+	pThis->GetImage()->Fill(Color::Zero);
 	return Value::Null;
 }
 
-// image#getpixel(x:number, y:number):map
-Gura_DeclareMethod(image, getpixel)
+// image#crop(x:number, y:number, width?:number, height?:number):map
+Gura_DeclareMethod(image, crop)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
+	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "height", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(image, getpixel)
+Gura_ImplementMethod(image, crop)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
-	int x = args.GetInt(0), y = args.GetInt(1);
+	size_t x = args.GetSizeT(0);
+	size_t y = args.GetSizeT(1);
 	if (!pThis->GetImage()->CheckCoord(sig, x, y)) return Value::Null;
-	UChar *p = pThis->GetImage()->GetPointer(x, y);
-	Color color;
-	pThis->GetImage()->GetPixel(p, color);
-	return Value(new Object_color(env, color));
-}
-
-// image#store(x:number, y:number, width:number, height:number, element:symbol, src):void
-Gura_DeclareMethod(image, store)
-{
-	SetMode(RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "x", VTYPE_number);
-	DeclareArg(env, "y", VTYPE_number);
-	DeclareArg(env, "width", VTYPE_number);
-	DeclareArg(env, "height", VTYPE_number);
-	DeclareArg(env, "element", VTYPE_symbol);
-	DeclareArg(env, "src", VTYPE_any);
-}
-
-Gura_ImplementMethod(image, store)
-{
-	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
-	size_t x = args.GetSizeT(0), y = args.GetSizeT(1);
-	size_t width = args.GetSizeT(2), height = args.GetSizeT(3);
-	if (!pThis->GetImage()->CheckCoord(sig, x, y)) return Value::Null;
+	size_t width = args.Is_number(2)? args.GetSizeT(2) : pThis->GetImage()->GetWidth() - x;
+	size_t height = args.Is_number(3)? args.GetSizeT(3) : pThis->GetImage()->GetHeight() - y;
 	if (!pThis->GetImage()->CheckCoord(sig, x + width - 1, y + height - 1)) return Value::Null;
-	const Symbol *pSymbol = args.GetSymbol(4);
-	if (args.Is_matrix(5)) {
-		pThis->GetImage()->Store(sig, x, y, width, height, pSymbol,
-							Object_matrix::GetObject(args, 5)->GetMatrix());
-	} else if (args.Is_list(5) || args.Is_iterator(5)) {
-		AutoPtr<Iterator> pIterator(args.GetValue(5).CreateIterator(sig));
-		pThis->GetImage()->Store(env, sig, x, y, width, height, pSymbol, pIterator.get());
-	} else {
-		sig.SetError(ERR_ValueError, "invalid object for image's source");
-		return Value::Null;
+	AutoPtr<Image> pImage(pThis->GetImage()->Crop(sig, x, y, width, height));
+	if (sig.IsSignalled()) return Value::Null;
+	return Value(new Object_image(env, pImage.release()));
+}
+
+// image#delpalette():reduce
+Gura_DeclareMethod(image, delpalette)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+}
+
+Gura_ImplementMethod(image, delpalette)
+{
+	Object_image *pThis = Object_image::GetThisObj(args);
+	pThis->GetImage()->SetPalette(NULL);
+	return args.GetThis();
+}
+
+// image#each(x:number, y:number, width:number, height:number, scandir:symbol) {block?}
+Gura_DeclareMethod(image, each)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "height", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "scandir", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns an iterator that scans pixels in the image.");
+}
+
+Gura_ImplementMethod(image, each)
+{
+	Object_image *pThis = Object_image::GetThisObj(args);
+	size_t x = args.Is_number(0)? args.GetSizeT(0) : 0;
+	size_t y = args.Is_number(1)? args.GetSizeT(1) : 0;
+	size_t width = args.Is_number(2)? args.GetSizeT(2) : pThis->GetImage()->GetWidth();
+	size_t height = args.Is_number(3)? args.GetSizeT(3) : pThis->GetImage()->GetHeight();
+	Image::ScanDir scanDir = Image::SCAN_LeftTopHorz;
+	if (args.Is_symbol(4)) {
+		const Symbol *pSymbol = args.GetSymbol(4);
+		
 	}
-	return Value::Null;
+	Iterator *pIterator = new Image::IteratorEach(
+			Image::Reference(pThis->GetImage()), x, y, width, height, scanDir);
+	return ReturnIterator(env, sig, args, pIterator);
 }
 
 // image#extract(x:number, y:number, width:number, height:number, element:symbol, dst):void
@@ -317,39 +327,6 @@ Gura_ImplementMethod(image, extract)
 		sig.SetError(ERR_ValueError, "invalid object for image's destination");
 		return Value::Null;
 	}
-	return Value::Null;
-}
-
-// image#replacecolor(colorOrg:color, color:color, tolerance?:number):void
-Gura_DeclareMethod(image, replacecolor)
-{
-	SetMode(RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "colorOrg", VTYPE_color);
-	DeclareArg(env, "color", VTYPE_color);
-	DeclareArg(env, "tolerance", VTYPE_number, OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(image, replacecolor)
-{
-	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
-	double tolerance = args.Is_number(2)? args.GetDouble(2) : 0.;
-	pThis->GetImage()->ReplaceColor(Object_color::GetObject(args, 0)->GetColor(),
-					Object_color::GetObject(args, 1)->GetColor(), tolerance);
-	return Value::Null;
-}
-
-// image#clear():void
-Gura_DeclareMethod(image, clear)
-{
-	SetMode(RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(image, clear)
-{
-	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
-	pThis->GetImage()->Fill(Color::Zero);
 	return Value::Null;
 }
 
@@ -390,100 +367,6 @@ Gura_ImplementMethod(image, fillrect)
 	return Value::Null;
 }
 
-// image#setalpha(alpha:number, color?:color, tolerance?:number):reduce
-Gura_DeclareMethod(image, setalpha)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "alpha", VTYPE_number);
-	DeclareArg(env, "color", VTYPE_color, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "tolerance", VTYPE_number, OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(image, setalpha)
-{
-	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
-	if (pThis->GetImage()->GetFormat() != Image::FORMAT_RGBA) {
-		sig.SetError(ERR_ValueError, "only RGBA format contains alpha element");
-		return 0;
-	}
-	if (args.IsValid(1)) {
-		double tolerance = args.Is_number(2)? args.GetDouble(2) : 0;
-		pThis->GetImage()->FillAlpha(args.GetUChar(0),
-					Object_color::GetObject(args, 1)->GetColor(), tolerance);
-	} else {
-		pThis->GetImage()->FillAlpha(args.GetUChar(0));
-	}
-	return args.GetThis();
-}
-
-// image#reducecolor(palette?:palette)
-Gura_DeclareMethod(image, reducecolor)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "palette", VTYPE_palette, OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(image, reducecolor)
-{
-	Object_image *pThis = Object_image::GetThisObj(args);
-	const Palette *pPalette = pThis->GetImage()->GetPalette();
-	if (args.Is_palette(0)) {
-		pPalette = Object_palette::GetObject(args, 0)->GetPalette();
-	} else if (pPalette == NULL) {
-		sig.SetError(ERR_ValueError, "palette must be specified");
-		return Value::Null;
-	}
-	AutoPtr<Image> pImage(pThis->GetImage()->ReduceColor(sig, pPalette));
-	if (sig.IsSignalled()) return Value::Null;
-	return Value(new Object_image(env, pImage.release()));
-}
-
-// image#grayscale()
-Gura_DeclareMethod(image, grayscale)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(image, grayscale)
-{
-	Object_image *pThis = Object_image::GetThisObj(args);
-	AutoPtr<Image> pImage(pThis->GetImage()->GrayScale(sig));
-	if (sig.IsSignalled()) return Value::Null;
-	return Value(new Object_image(env, pImage.release()));
-}
-
-// image#blur(radius:number, sigma:number)
-Gura_DeclareMethod(image, blur)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "radius", VTYPE_number);
-	DeclareArg(env, "sigma", VTYPE_number, OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(image, blur)
-{
-	Object_image *pThis = Object_image::GetThisObj(args);
-	int radius = args.GetInt(0);
-	Number sigma = args.Is_number(1)? args.GetNumber(1) : 1.5;
-	AutoPtr<Image> pImage(pThis->GetImage()->Blur(sig, radius, sigma));
-	if (sig.IsSignalled()) return Value::Null;
-	return Value(new Object_image(env, pImage.release()));
-}
-
-// image#delpalette():reduce
-Gura_DeclareMethod(image, delpalette)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_None);
-}
-
-Gura_ImplementMethod(image, delpalette)
-{
-	Object_image *pThis = Object_image::GetThisObj(args);
-	pThis->GetImage()->SetPalette(NULL);
-	return args.GetThis();
-}
-
 // image#flip(orient:symbol):map
 Gura_DeclareMethod(image, flip)
 {
@@ -512,50 +395,159 @@ Gura_ImplementMethod(image, flip)
 	return Value(new Object_image(env, pImage.release()));
 }
 
-// image#rotate(angle:number, background?:color):map
-Gura_DeclareMethod(image, rotate)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "rotate", VTYPE_number);
-	DeclareArg(env, "background", VTYPE_color, OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(image, rotate)
-{
-	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
-	Color color;
-	if (args.Is_color(1)) {
-		color = Object_color::GetObject(1)->GetColor();
-	}
-	AutoPtr<Image> pImage(pThis->GetImage()->Rotate(sig, args.GetNumber(0), color));
-	if (sig.IsSignalled()) return Value::Null;
-	return Value(new Object_image(env, pImage.release()));
-}
-
-// image#crop(x:number, y:number, width?:number, height?:number):map
-Gura_DeclareMethod(image, crop)
+// image#getpixel(x:number, y:number):map
+Gura_DeclareMethod(image, getpixel)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
-	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "height", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(image, crop)
+Gura_ImplementMethod(image, getpixel)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
+	int x = args.GetInt(0), y = args.GetInt(1);
+	if (!pThis->GetImage()->CheckCoord(sig, x, y)) return Value::Null;
+	UChar *p = pThis->GetImage()->GetPointer(x, y);
+	Color color;
+	pThis->GetImage()->GetPixel(p, color);
+	return Value(new Object_color(env, color));
+}
+
+// image#grayscale()
+Gura_DeclareMethod(image, grayscale)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(image, grayscale)
+{
+	Object_image *pThis = Object_image::GetThisObj(args);
+	AutoPtr<Image> pImage(pThis->GetImage()->GrayScale(sig));
+	if (sig.IsSignalled()) return Value::Null;
+	return Value(new Object_image(env, pImage.release()));
+}
+
+// image#paste(x:number, y:number, src:image, width?:number, height?:number,
+//     xoffset:number => 0, yoffset:number => 0, alpha:number => 255):map:reduce
+Gura_DeclareMethod(image, paste)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "x", VTYPE_number);
+	DeclareArg(env, "y", VTYPE_number);
+	DeclareArg(env, "src", VTYPE_image);
+	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "height", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "xoffset", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "yoffset", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "alpha", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(255));
+}
+
+Gura_ImplementMethod(image, paste)
+{
+	Object_image *pThis = Object_image::GetThisObj(args);
+	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
+	Object_image *pObjImg = Object_image::GetObject(args, 2);
+	if (!pObjImg->GetImage()->CheckValid(sig)) return Value::Null;
 	size_t x = args.GetSizeT(0);
 	size_t y = args.GetSizeT(1);
 	if (!pThis->GetImage()->CheckCoord(sig, x, y)) return Value::Null;
-	size_t width = args.Is_number(2)? args.GetSizeT(2) : pThis->GetImage()->GetWidth() - x;
-	size_t height = args.Is_number(3)? args.GetSizeT(3) : pThis->GetImage()->GetHeight() - y;
-	if (!pThis->GetImage()->CheckCoord(sig, x + width - 1, y + height - 1)) return Value::Null;
-	AutoPtr<Image> pImage(pThis->GetImage()->Crop(sig, x, y, width, height));
+	size_t xOffset = args.GetSizeT(5);
+	size_t yOffset = args.GetSizeT(6);
+	if (!pObjImg->GetImage()->CheckCoord(sig, xOffset, yOffset)) return Value::Null;
+	size_t width = args.Is_number(3)?
+				args.GetSizeT(3) : pObjImg->GetImage()->GetWidth() - xOffset;
+	size_t height = args.Is_number(4)?
+				args.GetSizeT(4) : pObjImg->GetImage()->GetHeight() - yOffset;
+	if (!pObjImg->GetImage()->CheckCoord(sig, xOffset + width - 1, yOffset + height - 1)) {
+		return Value::Null;
+	}
+	if (x + width > pThis->GetImage()->GetWidth()) width = pThis->GetImage()->GetWidth() - x;
+	if (y + height > pThis->GetImage()->GetHeight()) height = pThis->GetImage()->GetHeight() - y;
+	UChar alpha = args.GetUChar(7);
+	pThis->GetImage()->Paste(x, y, pObjImg->GetImage(),
+							width, height, xOffset, yOffset, alpha);
+	if (sig.IsSignalled()) return Value::Null;
+	return args.GetThis();
+}
+
+// image#putpixel(x:number, y:number, color:color):map:void
+Gura_DeclareMethod(image, putpixel)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "x", VTYPE_number);
+	DeclareArg(env, "y", VTYPE_number);
+	DeclareArg(env, "color", VTYPE_color);
+}
+
+Gura_ImplementMethod(image, putpixel)
+{
+	Object_image *pThis = Object_image::GetThisObj(args);
+	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
+	int x = args.GetInt(0), y = args.GetInt(1);
+	if (!pThis->GetImage()->CheckCoord(sig, x, y)) return Value::Null;
+	UChar *p = pThis->GetImage()->GetPointer(x, y);
+	pThis->GetImage()->PutPixel(p, Object_color::GetObject(args, 2)->GetColor());
+	return Value::Null;
+}
+
+// image#read(stream:stream:r, imagetype?:string):map:reduce
+Gura_DeclareMethod(image, read)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
+	DeclareArg(env, "imagetype", VTYPE_string, OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Reads image data from a stream.");
+}
+
+Gura_ImplementMethod(image, read)
+{
+	Object_image *pThis = Object_image::GetThisObj(args);
+	if (!pThis->GetImage()->Read(env, sig, args.GetStream(0),
+			args.Is_string(1)? args.GetString(1) : NULL)) return Value::Null;
+	return args.GetThis();
+}
+
+// image#reducecolor(palette?:palette)
+Gura_DeclareMethod(image, reducecolor)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "palette", VTYPE_palette, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(image, reducecolor)
+{
+	Object_image *pThis = Object_image::GetThisObj(args);
+	const Palette *pPalette = pThis->GetImage()->GetPalette();
+	if (args.Is_palette(0)) {
+		pPalette = Object_palette::GetObject(args, 0)->GetPalette();
+	} else if (pPalette == NULL) {
+		sig.SetError(ERR_ValueError, "palette must be specified");
+		return Value::Null;
+	}
+	AutoPtr<Image> pImage(pThis->GetImage()->ReduceColor(sig, pPalette));
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(new Object_image(env, pImage.release()));
+}
+
+// image#replacecolor(colorOrg:color, color:color, tolerance?:number):void
+Gura_DeclareMethod(image, replacecolor)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "colorOrg", VTYPE_color);
+	DeclareArg(env, "color", VTYPE_color);
+	DeclareArg(env, "tolerance", VTYPE_number, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(image, replacecolor)
+{
+	Object_image *pThis = Object_image::GetThisObj(args);
+	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
+	double tolerance = args.Is_number(2)? args.GetDouble(2) : 0.;
+	pThis->GetImage()->ReplaceColor(Object_color::GetObject(args, 0)->GetColor(),
+					Object_color::GetObject(args, 1)->GetColor(), tolerance);
+	return Value::Null;
 }
 
 // image#resize(width?:number, height?:number):map:[box]
@@ -597,6 +589,104 @@ Gura_ImplementMethod(image, resize)
 	AutoPtr<Image> pImage(pThis->GetImage()->Resize(sig, width, height));
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(new Object_image(env, pImage.release()));
+}
+
+// image#rotate(angle:number, background?:color):map
+Gura_DeclareMethod(image, rotate)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "rotate", VTYPE_number);
+	DeclareArg(env, "background", VTYPE_color, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(image, rotate)
+{
+	Object_image *pThis = Object_image::GetThisObj(args);
+	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
+	Color color;
+	if (args.Is_color(1)) {
+		color = Object_color::GetObject(1)->GetColor();
+	}
+	AutoPtr<Image> pImage(pThis->GetImage()->Rotate(sig, args.GetNumber(0), color));
+	if (sig.IsSignalled()) return Value::Null;
+	return Value(new Object_image(env, pImage.release()));
+}
+
+// image#setalpha(alpha:number, color?:color, tolerance?:number):reduce
+Gura_DeclareMethod(image, setalpha)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "alpha", VTYPE_number);
+	DeclareArg(env, "color", VTYPE_color, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "tolerance", VTYPE_number, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(image, setalpha)
+{
+	Object_image *pThis = Object_image::GetThisObj(args);
+	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
+	if (pThis->GetImage()->GetFormat() != Image::FORMAT_RGBA) {
+		sig.SetError(ERR_ValueError, "only RGBA format contains alpha element");
+		return 0;
+	}
+	if (args.IsValid(1)) {
+		double tolerance = args.Is_number(2)? args.GetDouble(2) : 0;
+		pThis->GetImage()->FillAlpha(args.GetUChar(0),
+					Object_color::GetObject(args, 1)->GetColor(), tolerance);
+	} else {
+		pThis->GetImage()->FillAlpha(args.GetUChar(0));
+	}
+	return args.GetThis();
+}
+
+// image#size()
+Gura_DeclareMethod(image, size)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(image, size)
+{
+	Object_image *pThis = Object_image::GetThisObj(args);
+	Value result;
+	ValueList &valList = result.InitAsList(env);
+	valList.push_back(static_cast<int>(pThis->GetImage()->GetWidth()));
+	valList.push_back(static_cast<int>(pThis->GetImage()->GetHeight()));
+	return result;
+}
+
+// image#store(x:number, y:number, width:number, height:number, element:symbol, src):void
+Gura_DeclareMethod(image, store)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "x", VTYPE_number);
+	DeclareArg(env, "y", VTYPE_number);
+	DeclareArg(env, "width", VTYPE_number);
+	DeclareArg(env, "height", VTYPE_number);
+	DeclareArg(env, "element", VTYPE_symbol);
+	DeclareArg(env, "src", VTYPE_any);
+}
+
+Gura_ImplementMethod(image, store)
+{
+	Object_image *pThis = Object_image::GetThisObj(args);
+	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
+	size_t x = args.GetSizeT(0), y = args.GetSizeT(1);
+	size_t width = args.GetSizeT(2), height = args.GetSizeT(3);
+	if (!pThis->GetImage()->CheckCoord(sig, x, y)) return Value::Null;
+	if (!pThis->GetImage()->CheckCoord(sig, x + width - 1, y + height - 1)) return Value::Null;
+	const Symbol *pSymbol = args.GetSymbol(4);
+	if (args.Is_matrix(5)) {
+		pThis->GetImage()->Store(sig, x, y, width, height, pSymbol,
+							Object_matrix::GetObject(args, 5)->GetMatrix());
+	} else if (args.Is_list(5) || args.Is_iterator(5)) {
+		AutoPtr<Iterator> pIterator(args.GetValue(5).CreateIterator(sig));
+		pThis->GetImage()->Store(env, sig, x, y, width, height, pSymbol, pIterator.get());
+	} else {
+		sig.SetError(ERR_ValueError, "invalid object for image's source");
+		return Value::Null;
+	}
+	return Value::Null;
 }
 
 // image#thumbnail(width?:number, height?:number):map:[box]
@@ -669,66 +759,6 @@ Gura_ImplementMethod(image, thumbnail)
 	return Value(pObj);
 }
 
-// image#paste(x:number, y:number, src:image, width?:number, height?:number,
-//     xoffset:number => 0, yoffset:number => 0, alpha:number => 255):map:reduce
-Gura_DeclareMethod(image, paste)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
-	DeclareArg(env, "x", VTYPE_number);
-	DeclareArg(env, "y", VTYPE_number);
-	DeclareArg(env, "src", VTYPE_image);
-	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "height", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "xoffset", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "yoffset", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "alpha", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(255));
-}
-
-Gura_ImplementMethod(image, paste)
-{
-	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
-	Object_image *pObjImg = Object_image::GetObject(args, 2);
-	if (!pObjImg->GetImage()->CheckValid(sig)) return Value::Null;
-	size_t x = args.GetSizeT(0);
-	size_t y = args.GetSizeT(1);
-	if (!pThis->GetImage()->CheckCoord(sig, x, y)) return Value::Null;
-	size_t xOffset = args.GetSizeT(5);
-	size_t yOffset = args.GetSizeT(6);
-	if (!pObjImg->GetImage()->CheckCoord(sig, xOffset, yOffset)) return Value::Null;
-	size_t width = args.Is_number(3)?
-				args.GetSizeT(3) : pObjImg->GetImage()->GetWidth() - xOffset;
-	size_t height = args.Is_number(4)?
-				args.GetSizeT(4) : pObjImg->GetImage()->GetHeight() - yOffset;
-	if (!pObjImg->GetImage()->CheckCoord(sig, xOffset + width - 1, yOffset + height - 1)) {
-		return Value::Null;
-	}
-	if (x + width > pThis->GetImage()->GetWidth()) width = pThis->GetImage()->GetWidth() - x;
-	if (y + height > pThis->GetImage()->GetHeight()) height = pThis->GetImage()->GetHeight() - y;
-	UChar alpha = args.GetUChar(7);
-	pThis->GetImage()->Paste(x, y, pObjImg->GetImage(),
-							width, height, xOffset, yOffset, alpha);
-	if (sig.IsSignalled()) return Value::Null;
-	return args.GetThis();
-}
-
-// image#read(stream:stream:r, imagetype?:string):map:reduce
-Gura_DeclareMethod(image, read)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
-	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
-	DeclareArg(env, "imagetype", VTYPE_string, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Reads image data from a stream.");
-}
-
-Gura_ImplementMethod(image, read)
-{
-	Object_image *pThis = Object_image::GetThisObj(args);
-	if (!pThis->GetImage()->Read(env, sig, args.GetStream(0),
-			args.Is_string(1)? args.GetString(1) : NULL)) return Value::Null;
-	return args.GetThis();
-}
-
 // image#write(stream:stream:w, imagetype?:string):map:reduce
 Gura_DeclareMethod(image, write)
 {
@@ -746,36 +776,6 @@ Gura_ImplementMethod(image, write)
 	return args.GetThis();
 }
 
-// image#each(x:number, y:number, width:number, height:number, scandir:symbol) {block?}
-Gura_DeclareMethod(image, each)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "x", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "y", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "height", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "scandir", VTYPE_symbol, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns an iterator that scans pixels in the image.");
-}
-
-Gura_ImplementMethod(image, each)
-{
-	Object_image *pThis = Object_image::GetThisObj(args);
-	size_t x = args.Is_number(0)? args.GetSizeT(0) : 0;
-	size_t y = args.Is_number(1)? args.GetSizeT(1) : 0;
-	size_t width = args.Is_number(2)? args.GetSizeT(2) : pThis->GetImage()->GetWidth();
-	size_t height = args.Is_number(3)? args.GetSizeT(3) : pThis->GetImage()->GetHeight();
-	Image::ScanDir scanDir = Image::SCAN_LeftTopHorz;
-	if (args.Is_symbol(4)) {
-		const Symbol *pSymbol = args.GetSymbol(4);
-		
-	}
-	Iterator *pIterator = new Image::IteratorEach(
-			Image::Reference(pThis->GetImage()), x, y, width, height, scanDir);
-	return ReturnIterator(env, sig, args, pIterator);
-}
-
 //-----------------------------------------------------------------------------
 // Classs implementation
 //-----------------------------------------------------------------------------
@@ -786,30 +786,30 @@ Class_image::Class_image(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_image)
 void Class_image::Prepare(Environment &env)
 {
 	Gura_AssignFunction(image);
-	Gura_AssignMethod(image, size);
 	Gura_AssignMethod(image, allocbuff);
-	Gura_AssignMethod(image, putpixel);
-	Gura_AssignMethod(image, getpixel);
-	Gura_AssignMethod(image, store);
-	Gura_AssignMethod(image, extract);
-	Gura_AssignMethod(image, replacecolor);
+	Gura_AssignMethod(image, blur);
 	Gura_AssignMethod(image, clear);
+	Gura_AssignMethod(image, crop);
+	Gura_AssignMethod(image, delpalette);
+	Gura_AssignMethod(image, each);
+	Gura_AssignMethod(image, extract);
 	Gura_AssignMethod(image, fill);
 	Gura_AssignMethod(image, fillrect);
-	Gura_AssignMethod(image, setalpha);
-	Gura_AssignMethod(image, reducecolor);
-	Gura_AssignMethod(image, grayscale);
-	Gura_AssignMethod(image, blur);
-	Gura_AssignMethod(image, delpalette);
 	Gura_AssignMethod(image, flip);
-	Gura_AssignMethod(image, rotate);
-	Gura_AssignMethod(image, crop);
-	Gura_AssignMethod(image, resize);
-	Gura_AssignMethod(image, thumbnail);
+	Gura_AssignMethod(image, getpixel);
+	Gura_AssignMethod(image, grayscale);
 	Gura_AssignMethod(image, paste);
+	Gura_AssignMethod(image, putpixel);
+	Gura_AssignMethod(image, size);
+	Gura_AssignMethod(image, store);
 	Gura_AssignMethod(image, read);
+	Gura_AssignMethod(image, reducecolor);
+	Gura_AssignMethod(image, replacecolor);
+	Gura_AssignMethod(image, resize);
+	Gura_AssignMethod(image, rotate);
+	Gura_AssignMethod(image, setalpha);
+	Gura_AssignMethod(image, thumbnail);
 	Gura_AssignMethod(image, write);
-	Gura_AssignMethod(image, each);
 }
 
 bool Class_image::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)

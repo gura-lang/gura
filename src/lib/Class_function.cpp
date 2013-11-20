@@ -20,12 +20,12 @@ bool Object_function::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols
 	Class *pClass = GetFunction()->GetClassToConstruct();
 	if (pClass != NULL) return pClass->DoDirProp(env, sig, symbols);
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
-	symbols.insert(Gura_Symbol(symbol));
-	symbols.insert(Gura_Symbol(name));
-	symbols.insert(Gura_Symbol(fullname));
 	symbols.insert(Gura_Symbol(decls));
-	symbols.insert(Gura_Symbol(format));
 	symbols.insert(Gura_Symbol(expr));
+	symbols.insert(Gura_Symbol(format));
+	symbols.insert(Gura_Symbol(fullname));
+	symbols.insert(Gura_Symbol(name));
+	symbols.insert(Gura_Symbol(symbol));
 	return true;
 }
 
@@ -33,27 +33,27 @@ Value Object_function::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(symbol))) {
-		return Value(GetFunction()->GetSymbol());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(name))) {
-		return Value(env, GetName().c_str());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(fullname))) {
-		String fullName = GetFullName(sig);
-		if (sig.IsSignalled()) return Value::Null;
-		return Value(env, fullName.c_str());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(decls))) {
+	if (pSymbol->IsIdentical(Gura_Symbol(decls))) {
 		Iterator *pIterator = new Iterator_declaration(GetFunction()->GetDeclOwner().Reference());
 		return Value(env, pIterator);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(format))) {
-		String str = MakePrefix(sig);
-		if (sig.IsSignalled()) return Value::Null;
-		str += _pFunc->ToString();
-		return Value(env, str.c_str());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(expr))) {
 		if (!GetFunction()->IsCustom()) return Value::Null;
 		const FunctionCustom *pFuncCustom =
 						dynamic_cast<const FunctionCustom *>(GetFunction());
 		return Value(env, Expr::Reference(pFuncCustom->GetExprBody()));
+	} else if (pSymbol->IsIdentical(Gura_Symbol(format))) {
+		String str = MakePrefix(sig);
+		if (sig.IsSignalled()) return Value::Null;
+		str += _pFunc->ToString();
+		return Value(env, str.c_str());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(fullname))) {
+		String fullName = GetFullName(sig);
+		if (sig.IsSignalled()) return Value::Null;
+		return Value(env, fullName.c_str());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(name))) {
+		return Value(env, GetName().c_str());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(symbol))) {
+		return Value(GetFunction()->GetSymbol());
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -252,6 +252,43 @@ Gura_ImplementMethod(function, addhelp)
 	return Value::Null;
 }
 
+// function#diff(var?:symbol)
+Gura_DeclareMethod(function, diff)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "var", VTYPE_symbol, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(function, diff)
+{
+	Object_function *pThis = Object_function::GetThisObj(args);
+	const Function *pFunc = pThis->GetFunction();
+	const DeclarationOwner &declOwner = pFunc->GetDeclOwner();
+	const Symbol *pSymbol = NULL;
+	if (args.Is_symbol(0)) {
+		pSymbol = args.GetSymbol(0);
+	} else if (declOwner.empty()) {
+		sig.SetError(ERR_ValueError, "variable symbol must be specified");
+		return Value::Null;
+	} else {
+		pSymbol = declOwner.front()->GetSymbol();
+	}
+	AutoPtr<Expr> pExprDiff;
+	if (pFunc->IsCustom()) {
+		const FunctionCustom *pFuncCustom = dynamic_cast<const FunctionCustom *>(pFunc);
+		pExprDiff.reset(pFuncCustom->GetExprBody()->MathDiff(env, sig, pSymbol));
+		if (sig.IsSignalled()) return Value::Null;
+	} else {
+		AutoPtr<Expr> pExprArg(new Expr_Symbol(pSymbol));
+		pExprDiff.reset(pFunc->DiffUnary(env, sig, pExprArg.get(), pSymbol));
+		if (sig.IsSignalled()) return Value::Null;
+	}
+	AutoPtr<FunctionCustom> pFuncDiff(new FunctionCustom(env,
+			Gura_Symbol(_anonymous_), pExprDiff.release(), FUNCTYPE_Function));
+	pFuncDiff->CopyDeclare(*pFunc);
+	return Value(env, pFuncDiff.release(), Value::Null);
+}
+
 // function#gethelp(lang?:symbol):map
 Gura_DeclareMethod(function, gethelp)
 {
@@ -294,43 +331,6 @@ Gura_ImplementMethod(function, help)
 	return Value::Null;
 }
 
-// function#diff(var?:symbol)
-Gura_DeclareMethod(function, diff)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "var", VTYPE_symbol, OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(function, diff)
-{
-	Object_function *pThis = Object_function::GetThisObj(args);
-	const Function *pFunc = pThis->GetFunction();
-	const DeclarationOwner &declOwner = pFunc->GetDeclOwner();
-	const Symbol *pSymbol = NULL;
-	if (args.Is_symbol(0)) {
-		pSymbol = args.GetSymbol(0);
-	} else if (declOwner.empty()) {
-		sig.SetError(ERR_ValueError, "variable symbol must be specified");
-		return Value::Null;
-	} else {
-		pSymbol = declOwner.front()->GetSymbol();
-	}
-	AutoPtr<Expr> pExprDiff;
-	if (pFunc->IsCustom()) {
-		const FunctionCustom *pFuncCustom = dynamic_cast<const FunctionCustom *>(pFunc);
-		pExprDiff.reset(pFuncCustom->GetExprBody()->MathDiff(env, sig, pSymbol));
-		if (sig.IsSignalled()) return Value::Null;
-	} else {
-		AutoPtr<Expr> pExprArg(new Expr_Symbol(pSymbol));
-		pExprDiff.reset(pFunc->DiffUnary(env, sig, pExprArg.get(), pSymbol));
-		if (sig.IsSignalled()) return Value::Null;
-	}
-	AutoPtr<FunctionCustom> pFuncDiff(new FunctionCustom(env,
-			Gura_Symbol(_anonymous_), pExprDiff.release(), FUNCTYPE_Function));
-	pFuncDiff->CopyDeclare(*pFunc);
-	return Value(env, pFuncDiff.release(), Value::Null);
-}
-
 //-----------------------------------------------------------------------------
 // Classs implementation
 //-----------------------------------------------------------------------------
@@ -343,9 +343,9 @@ void Class_function::Prepare(Environment &env)
 	Gura_AssignFunction(function);
 	Gura_AssignFunctionEx(function, "&");
 	Gura_AssignMethod(function, addhelp);
+	Gura_AssignMethod(function, diff);
 	Gura_AssignMethod(function, gethelp);
 	Gura_AssignMethod(function, help);
-	Gura_AssignMethod(function, diff);
 }
 
 bool Class_function::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)

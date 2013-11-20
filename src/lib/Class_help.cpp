@@ -27,8 +27,8 @@ Object *Object_help::Clone() const
 bool Object_help::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
-	symbols.insert(Gura_Symbol(lang));
 	symbols.insert(Gura_Symbol(format));
+	symbols.insert(Gura_Symbol(lang));
 	symbols.insert(Gura_Symbol(text));
 	return true;
 }
@@ -37,10 +37,10 @@ Value Object_help::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(lang))) {
-		return Value(_pHelp->GetSymbol());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(format))) {
+	if (pSymbol->IsIdentical(Gura_Symbol(format))) {
 		return Value(env, _pHelp->GetFormatNameSTL());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(lang))) {
+		return Value(_pHelp->GetSymbol());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(text))) {
 		return Value(env, _pHelp->GetTextSTL());
 	}
