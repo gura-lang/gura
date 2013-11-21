@@ -1358,9 +1358,13 @@ bool Expr_Block::GenerateScript(Signal sig, SimpleStream &stream,
 		stream.PutChar(sig, '|');
 		if (sig.IsSignalled()) return false;
 	}
+	const Expr_Caller *pExprCaller =
+			(GetParent() == NULL || !GetParent()->IsCaller())? NULL :
+			dynamic_cast<const Expr_Caller *>(GetParent());
 	if (GetExprOwner().empty()) {
 		// nothing to do
-	} else if (scriptStyle == SCRSTYLE_Brief && !GetExprOwner().IsAtSameLine()) {
+	} else if (scriptStyle == SCRSTYLE_Brief && (!GetExprOwner().IsAtSameLine() ||
+			(pExprCaller != NULL && !pExprCaller->IsAtSameLine(GetExprOwner().front())))) {
 		stream.Print(sig, " .. ");
 		if (sig.IsSignalled()) return false;
 	} else {
