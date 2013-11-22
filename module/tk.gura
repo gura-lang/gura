@@ -262,7 +262,7 @@ Widget = class {
 			script = makeBindScript(func)
 			tclEval('bind', this, trigger, script)
 		} else {
-			raise(TypeError, 'symbol or string should specified for binding')
+			raise(error.TypeError, 'symbol or string should specified for binding')
 		}
 	}
 	assoc(trigger:symbol, func?:function) {block?} = {

@@ -28,7 +28,7 @@ Tokenizer = class {
 					}
 				}
 				if (!this.match) {
-					raise(ValueError,
+					raise(error.ValueError,
 						'unrecognizable token at %d:%d' % [raw + 1, col + 1])
 					break
 				}
@@ -39,7 +39,7 @@ Tokenizer = class {
 	ParseBlock(block:expr) = {
 		block.each():xlist {|expr|
 			if (!expr.isdictassign()) {
-				raise(SyntaxError, 'invalid element')
+				raise(error.SyntaxError, 'invalid element')
 			} elsif (expr.left().isquote()) {
 				exprLeft = expr.left().unquote()
 				this.entriesDict[exprLeft.getsymbol()] = this.ParseBlock(expr.right())

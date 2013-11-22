@@ -22,7 +22,7 @@ build(pathNames[]:string, dirName?:string) = {
 	}
 	[baseName, extName] = path.splitext(path.filename(pathNames.first()))
 	if (!(m = extName.match('gura(w?)'))) {
-		raise(NameError, 'first element must have an extension .gura or .guraw')
+		raise(error.NameError, 'first element must have an extension .gura or .guraw')
 	}
 	tgtName = baseName + '.gurc' + m[1]
 	if (cmd == `build) {
