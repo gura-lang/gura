@@ -162,48 +162,48 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			} tblCand[5];
 		} tbl[] = {
 			{ '+', ETYPE_Add, {
-						{ '=', ETYPE_AssignAdd		},
-						{ '\0', ETYPE_Unknown		}, } },
+				{ '=', ETYPE_AssignAdd		},
+				{ '\0', ETYPE_Unknown		}, } },
 			{ '-', ETYPE_Sub, {
-						{ '=', ETYPE_AssignSub		},
-						{ '\0', ETYPE_Unknown		}, } },
+				{ '=', ETYPE_AssignSub		},
+				{ '\0', ETYPE_Unknown		}, } },
 			{ '*', ETYPE_Mul, {
-						{ '=', ETYPE_AssignMul		},
-						{ '*', ETYPE_TripleChars	},
-						{ '\0', ETYPE_Unknown		}, } },
+				{ '=', ETYPE_AssignMul		},
+				{ '*', ETYPE_TripleChars	},
+				{ '\0', ETYPE_Unknown		}, } },
 			{ '/', ETYPE_Div, {
-						{ '=', ETYPE_AssignDiv		},
-						{ '\0', ETYPE_Unknown		}, } },
+				{ '=', ETYPE_AssignDiv		},
+				{ '\0', ETYPE_Unknown		}, } },
 			{ '%', ETYPE_Mod, {
-						{ '=', ETYPE_AssignMod		},
-						{ '%', ETYPE_ModMod		},
-						{ '\0', ETYPE_Unknown		}, } },
+				{ '=', ETYPE_AssignMod		},
+				{ '%', ETYPE_ModMod		},
+				{ '\0', ETYPE_Unknown		}, } },
 			{ '=', ETYPE_Assign, {
-						{ '=', ETYPE_Eq 			},
-						{ '>', ETYPE_Pair			},
-						{ '\0', ETYPE_Unknown		}, } },
+				{ '=', ETYPE_Eq 			},
+				{ '>', ETYPE_Pair			},
+				{ '\0', ETYPE_Unknown		}, } },
 			{ '<', ETYPE_Lt, {
-						{ '=', ETYPE_TripleChars	},
-						{ '<', ETYPE_TripleChars	},
-						{ '\0', ETYPE_Unknown		}, } },
+				{ '=', ETYPE_TripleChars	},
+				{ '<', ETYPE_TripleChars	},
+				{ '\0', ETYPE_Unknown		}, } },
 			{ '>', ETYPE_Gt, {
-						{ '=', ETYPE_Ge				},
-						{ '>', ETYPE_TripleChars	},
-						{ '\0', ETYPE_Unknown		}, } },
+				{ '=', ETYPE_Ge				},
+				{ '>', ETYPE_TripleChars	},
+				{ '\0', ETYPE_Unknown		}, } },
 			{ '!', ETYPE_Not, {
-						{ '=', ETYPE_Ne				},
-						{ '\0', ETYPE_Unknown		}, } },
+				{ '=', ETYPE_Ne				},
+				{ '\0', ETYPE_Unknown		}, } },
 			{ '|', ETYPE_Or, {
-						{ '=', ETYPE_AssignOr 		},
-						{ '|', ETYPE_OrOr			},
-						{ '\0', ETYPE_Unknown		}, } },
+				{ '=', ETYPE_AssignOr 		},
+				{ '|', ETYPE_OrOr			},
+				{ '\0', ETYPE_Unknown		}, } },
 			{ '&', ETYPE_And, {
-						{ '=', ETYPE_AssignAnd		},
-						{ '&', ETYPE_AndAnd			},
-						{ '\0', ETYPE_Unknown		}, } },
+				{ '=', ETYPE_AssignAnd		},
+				{ '&', ETYPE_AndAnd			},
+				{ '\0', ETYPE_Unknown		}, } },
 			{ '^', ETYPE_Xor, {
-						{ '=', ETYPE_AssignXor		},
-						{ '\0', ETYPE_Unknown		}, } },
+				{ '=', ETYPE_AssignXor		},
+				{ '\0', ETYPE_Unknown		}, } },
 		};
 		int chFirst = _token[0];
 		if (chFirst == '/' && ch == '*') {
@@ -258,17 +258,17 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			} tblCand[5];
 		} tbl[] = {
 			{ "**", ETYPE_Pow, {
-						{ '=', ETYPE_AssignPow		},
-						{ '\0', ETYPE_Unknown		}, } },
+				{ '=', ETYPE_AssignPow		},
+				{ '\0', ETYPE_Unknown		}, } },
 			{ "<=", ETYPE_Le, {
-						{ '>', ETYPE_Cmp			},
-						{ '\0', ETYPE_Unknown		}, } },
+				{ '>', ETYPE_Cmp			},
+				{ '\0', ETYPE_Unknown		}, } },
 			{ "<<", ETYPE_Shl, {
-						{ '=', ETYPE_AssignShl		},
-						{ '\0', ETYPE_Unknown		}, } },
+				{ '=', ETYPE_AssignShl		},
+				{ '\0', ETYPE_Unknown		}, } },
 			{ ">>", ETYPE_Shr, {
-						{ '=', ETYPE_AssignShr		},
-						{ '\0', ETYPE_Unknown		}, } },
+				{ '=', ETYPE_AssignShr		},
+				{ '\0', ETYPE_Unknown		}, } },
 		};
 		_stat = STAT_Start;
 		continueFlag = true;
