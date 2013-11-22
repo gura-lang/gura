@@ -138,6 +138,34 @@ size_t StreamAPR::DoGetSize()
 	return 0;
 }
 
+void OutputErrorMessage(request_rec *r, Signal &sig)
+{
+	ap_rprintf(r, "<html>\n");
+	ap_rprintf(r, "<body>\n");
+	ap_rprintf(r, "<pre>\n");
+	ap_rputs(sig.GetError().MakeText().c_str(), r);
+	ap_rputs("\n", r);
+	ap_rprintf(r, "</pre>\n");
+	AutoPtr<ExprOwner> pExprOwner(new ExprOwner());
+	sig.GetError().GetExprCauseOwner().ExtractTrace(*pExprOwner);
+	if (!pExprOwner->empty()) {
+		ap_rprintf(r, "<p>Traceback:</p>\n");
+		ap_rprintf(r, "<table border=\"1\">\n");
+		foreach_const (ExprOwner, ppExpr, *pExprOwner) {
+			Expr *pExpr = *ppExpr;
+			ap_rprintf(r, "<tr>");
+			ap_rprintf(r, "<td><code>%s</code></td>",
+					EscapeHtml(pExpr->MakePosText().c_str(), false).c_str());
+			ap_rprintf(r, "<td><code>%s</code></td>",
+					EscapeHtml(pExpr->ToString(Expr::SCRSTYLE_Brief).c_str(), false).c_str());
+			ap_rprintf(r, "</tr>\n");
+		}
+		ap_rprintf(r, "</table>\n");
+	}
+	ap_rprintf(r, "</body>\n");
+	ap_rprintf(r, "</html>\n");
+}
+
 int Handler(request_rec *r)
 {
 	if (::strcmp(r->handler, "gura") != 0) return DECLINED;
@@ -151,26 +179,15 @@ int Handler(request_rec *r)
 	const char *fileName = "C:/Users/yutaka/gura/src/httpd_mod_gura/test.gura";
 	AutoPtr<Expr_Root> pExprRoot(Parser().ParseStream(env, sig, fileName, NULL));
 	if (pExprRoot.IsNull()) {
-		ap_rprintf(r, "<html>\n");
-		ap_rprintf(r, "<body>\n");
-		ap_rprintf(r, "%s\n", EscapeHtml(sig.GetError().MakeText().c_str(), true));
-		ap_rprintf(r, "</body>\n");
-		ap_rprintf(r, "</html>\n");
+		OutputErrorMessage(r, sig);
+		sig.ClearSignal();
 	} else {
 		AutoPtr<Processor> pProcessor(new Processor());
 		pProcessor->PushSequence(new Expr::SequenceRoot(env.Reference(),
 									pExprRoot->GetExprOwner().Reference()));
 		pProcessor->Run(sig);
 		if (sig.IsSignalled()) {
-			ap_rprintf(r, "<html>\n");
-			ap_rprintf(r, "<body>\n");
-			ap_rprintf(r, "<pre>\n");
-			ap_rputs(sig.GetError().MakeText().c_str(), r);
-			ap_rputs("\n", r);
-			ap_rputs(sig.GetError().MakeText().c_str(), r);
-			ap_rprintf(r, "</pre>\n");
-			ap_rprintf(r, "</body>\n");
-			ap_rprintf(r, "</html>\n");
+			OutputErrorMessage(r, sig);
 			sig.ClearSignal();
 		}
 	}

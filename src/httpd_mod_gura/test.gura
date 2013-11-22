@@ -1,14 +1,22 @@
-apr.print(R'''
+R'''
 <html>
 <body>
 <p>hello, gura world</p>
 <p>あいうえお</p>
 <table border="1">
-<tr><td>column-1</td><td>column-2</td></tr>
-<tr><td>column-1</td><td>column-2</td></tr>
-<tr><td>column-1</td><td>column-2</td></tr>
-<tr><td>column-1</td><td>column-2</td></tr>
+${repeat(10) {|i|}}
+<tr><td>#${i + 1}</td><td>column-1</td><td>column-2</td><td>column-3</td></tr>
+${end}
+</table>
+<table border="1">
+${(1..9).each {|i|}}
+  <tr>
+  ${(1..9).each {|j|}}
+    <td width="50px" align="center">${i * j}</td>
+  ${end}
+  </tr>
+${end}
 </table>
 </body>
 </html>
-''')
+'''.template(apr)
