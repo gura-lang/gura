@@ -1157,7 +1157,11 @@ bool Expr_String::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr_String::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
-	stream.Print(sig, MakeQuotedString(_str.c_str()).c_str());
+	if (scriptStyle == SCRSTYLE_Brief && _str.size() > 32) {
+		stream.Print(sig, "' .. '");
+	} else {
+		stream.Print(sig, MakeQuotedString(_str.c_str()).c_str());
+	}
 	if (sig.IsSignalled()) return false;
 	return true;
 }
