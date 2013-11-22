@@ -1,22 +1,65 @@
 #!/usr/bin/env gura
+import(re)
 import(argopt)
 import(bmp)
 import(png)
 import(jpeg)
 import(xpm)
+import(ppm)
 
 main() = {
+	[width, height] = [500, 500]
+	[realMin, realMax] = [-2.0, 1.0]
+	[imagMin, imagMax] = [-1.5, 1.5]
 	argopt.Parser {|p|
+		p.addFlag('help',		'h',	'print help')
+		p.addParam('canvas',	'c',	'canvas size',						'X,Y')
+		p.addParam('real',		'r',	'value range for real number',		'MIN,MAX')
+		p.addParam('imag',		'i',	'value range for imaginary number',	'MIN,MAX')
 		try {
 			[cfg, argv] = p.parse(sys.argv)
 		} catch {|e|
 			sys.stderr.println(e.text)
 			sys.exit(1)
 		}
+		if (cfg['help']) {
+			sys.stderr.printf('usage: %s [options]\n', path.filename(sys.argv[0]))
+			sys.stderr.println('options:')
+			sys.stderr.println(' ', p.formatHelp())
+			sys.exit(0)
+		}
+		if (value = cfg['canvas']) {
+			if (!(m = value.match(r'(\d+),(\d+)'))) {
+				sys.stderr.println('invalid value for size option')
+				sys.exit(1)
+			}
+			[width, height] = int([m[1], m[2]])
+		}
+		if (value = cfg['real']) {
+			if (!(m = value.match(r'(-?[0-9.]+),(-?[0-9.]+)'))) {
+				sys.stderr.println('invalid value for real option')
+				sys.exit(1)
+			}
+			try {
+				[realMin, realMax] = tonumber([m[1], m[2]]):strict:raise
+			} catch {
+				sys.stderr.println('invalid value for real option')
+				sys.exit(1)
+			}
+		}
+		if (value = cfg['imag']) {
+			if (!(m = value.match(r'(-?[0-9.]+),(-?[0-9.]+)'))) {
+				sys.stderr.println('invalid value for imag option')
+				sys.exit(1)
+			}
+			try {
+				[imagMin, imagMax] = tonumber([m[1], m[2]]):strict:raise
+			} catch {
+				sys.stderr.println('invalid value for imag option')
+				sys.exit(1)
+			}
+		}
 	}
-	[width, height] = [500, 500]
-	[realMin, realMax] = [-2.0, 1.0]
-	[imagMin, imagMax] = [-1.5, 1.5]
 	//colors = palette(`basic).each():list
 	//colors = palette(`win256).each():list
 	colors = color(0, 0, interval(20, 255, 64))
