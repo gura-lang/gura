@@ -1,16 +1,23 @@
+//=============================================================================
+// guraif.cpp
+//=============================================================================
 #include "mod_gura.h"
 #undef strcasecmp
 #undef strtoul
 #include <gura.h>
 
+//-----------------------------------------------------------------------------
+// Context
+//-----------------------------------------------------------------------------
 class Context {
 private:
-	Gura::EnvironmentRoot _env;
+	Gura::AutoPtr<Gura::Environment> _pEnv;
 	Gura::Signal _sig;
 public:
-	inline Context() { _env.Initialize(_sig, 0, NULL); }
-	inline Gura::Environment &GetEnv() { return _env; }
+	Context();
+	inline Gura::Environment &GetEnv() { return *_pEnv; }
 	inline Gura::Signal &GetSignal() { return _sig; }
+	bool Initialize();
 };
 
 struct gura_dir_config {
@@ -42,6 +49,7 @@ void *gura_create_server_config(apr_pool_t *p, server_rec *s)
 	gura_server_config *cfg = reinterpret_cast<gura_server_config *>(
 									apr_pcalloc(p, sizeof(gura_server_config)));
 	cfg->pContext = new Context();
+	cfg->pContext->Initialize();
 	//apr_thread_rwlock_create(&cfg->vm_reslists_lock, p);
     return cfg;
 }
@@ -58,13 +66,27 @@ command_rec gura_cmds[] = {
 	{ NULL }
 };
 
+//-----------------------------------------------------------------------------
+// Context
+//-----------------------------------------------------------------------------
+Context::Context() : _pEnv(new Gura::Environment())
+{
+}
+
+bool Context::Initialize()
+{
+	int argc = 0;
+	return _pEnv->InitializeAsRoot(_sig, argc, NULL, 0, NULL);
+}
+
 namespace Gura {
 
 class StreamAPR : public Stream {
 private:
 	request_rec *_r;
 public:
-	inline StreamAPR(Signal sig, request_rec *r) : Stream(sig, ATTR_Writable), _r(r) {}
+	inline StreamAPR(Environment &env, Signal sig, request_rec *r) :
+									Stream(env, sig, ATTR_Writable), _r(r) {}
 	virtual const char *GetName() const;
 	virtual const char *GetIdentifier() const;
 	virtual size_t DoRead(Signal sig, void *buff, size_t len);
@@ -125,23 +147,27 @@ int Handler(request_rec *r)
 		ap_get_module_config(r->server->module_config, &gura_module))->pContext;
 	Environment &env = pContext->GetEnv();
 	Signal &sig = pContext->GetSignal();
-	env.AssignValue(Symbol::Add("apr"), Value(new Object_stream(env, new StreamAPR(sig, r))), false);
-	AutoPtr<Expr> pExpr(Parser().ParseStream(env, sig, "C:/Users/yutaka/gura/src/httpd_mod_gura/test.gura", NULL));
-	if (pExpr.IsNull()) {
+	env.AssignValue(Symbol::Add("apr"), Value(new Object_stream(env, new StreamAPR(env, sig, r))), false);
+	const char *fileName = "C:/Users/yutaka/gura/src/httpd_mod_gura/test.gura";
+	AutoPtr<Expr_Root> pExprRoot(Parser().ParseStream(env, sig, fileName, NULL));
+	if (pExprRoot.IsNull()) {
 		ap_rprintf(r, "<html>\n");
 		ap_rprintf(r, "<body>\n");
-		ap_rprintf(r, "%s\n", EscapeHtml(sig.GetErrString().c_str(), true));
+		ap_rprintf(r, "%s\n", EscapeHtml(sig.GetError().MakeText().c_str(), true));
 		ap_rprintf(r, "</body>\n");
 		ap_rprintf(r, "</html>\n");
 	} else {
-		pExpr->Exec(env, sig);
+		AutoPtr<Processor> pProcessor(new Processor());
+		pProcessor->PushSequence(new Expr::SequenceRoot(env.Reference(),
+									pExprRoot->GetExprOwner().Reference()));
+		pProcessor->Run(sig);
 		if (sig.IsSignalled()) {
 			ap_rprintf(r, "<html>\n");
 			ap_rprintf(r, "<body>\n");
 			ap_rprintf(r, "<pre>\n");
-			ap_rputs(sig.GetErrString().c_str(), r);
+			ap_rputs(sig.GetError().MakeText().c_str(), r);
 			ap_rputs("\n", r);
-			ap_rputs(sig.GetErrTrace().c_str(), r);
+			ap_rputs(sig.GetError().MakeText().c_str(), r);
 			ap_rprintf(r, "</pre>\n");
 			ap_rprintf(r, "</body>\n");
 			ap_rprintf(r, "</html>\n");
