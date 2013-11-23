@@ -110,6 +110,7 @@ class GURA_DLLDECLARE ValueTypeMap : public std::map<const Symbol *,
 							ValueTypeInfo *, Symbol::KeyCompare_UniqNumber> {
 public:
 	static const ValueTypeMap Null;
+	inline ValueTypeMap() {}
 };
 
 //-----------------------------------------------------------------------------
