@@ -33,15 +33,21 @@ hello
 ${
 nil
 }
+${
+-
+}
 ${nil}
+${-}
 gura
 ${''}
 world
 
 hello ${nil}world
+hello ${-}world
 hello ${(1..10) + ','} world
 hello ${(1..10) + '\n'} world
 foo${nil}bar
+foo${-}bar
 foo${''}bar
 '''.template(sys.stdout)
 }
@@ -173,6 +179,7 @@ testcase {
 //-----------------------------------------------------------------------------
 testcase {
 	tester(`'${nil}'.template())
+	tester(`'${-}'.template())
 	tester(`'${3}'.template())
 	tester(`'${"hello"}'.template())
 	tester(`'${["first", "second", "third"]}'.template())

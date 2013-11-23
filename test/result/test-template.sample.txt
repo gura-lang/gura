@@ -26,6 +26,7 @@ gura
 world
 
 hello world
+hello world
 hello 1,2,3,4,5,6,7,8,9,10, world
 hello 1
 2
@@ -37,6 +38,7 @@ hello 1
 8
 9
 10 world
+foobar
 foobar
 foobar
 
@@ -311,6 +313,7 @@ expected error occurs: ValueError: undefined symbol 'hoge'
 ======== #12 ========
 
 '${nil}'.template() .. 
+'${-}'.template() .. 
 '${3}'.template() .. 3
 '${"hello"}'.template() .. hello
 '${["first", "second", "third"]}'.template() .. firstsecondthird
