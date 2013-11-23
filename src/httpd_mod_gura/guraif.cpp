@@ -81,6 +81,9 @@ bool Context::Initialize()
 
 namespace Gura {
 
+//-----------------------------------------------------------------------------
+// StreamAPR
+//-----------------------------------------------------------------------------
 class StreamAPR : public Stream {
 private:
 	request_rec *_r;
@@ -97,6 +100,9 @@ public:
 	virtual size_t DoGetSize();
 };
 
+//-----------------------------------------------------------------------------
+// StreamAPR
+//-----------------------------------------------------------------------------
 const char *StreamAPR::GetName() const
 {
 	return "Apache";
