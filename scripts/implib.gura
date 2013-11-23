@@ -7,17 +7,32 @@ if (sys.argv.len() < 2) {
 fileNameDLL = sys.argv[1]
 fileNameDEF = path.splitext(fileNameDLL)[0] + '.def'
 fileNameLIB = path.splitext(fileNameDLL)[0] + '.lib'
+fileNameEXP = path.splitext(fileNameDLL)[0] + '.exp'
+buff = binary()
+os.redirect(nil, buff) {
+	try {
+		os.exec('dumpbin.exe', '/exports', fileNameDLL)
+	} catch {
+		sys.stderr.println('failed to execute dumpbin.exe')
+		sys.exit(1)
+	}
+}
+lines = buff.decode('shift_jis').eachline():chop
+lines = lines.since(lines:*match(r'^\s+ordinal\s+hint\s+RVA\s+name')).offset(2)
+lines = lines.while(!lines:*isempty())
 open(fileNameDEF, 'w') {|f|
-	buff = b''
-	os.stdout = buff.stream()
-	os.exec('dumpbin.exe', '/exports', fileNameDLL)
-	stat = `start
-	lines = buff.decode('shift_jis').eachline():chop
-	lines = lines.since(lines:*match(r'^\s+ordinal\s+hint\s+RVA\s+name')).offset(2)
-	lines = lines.while(!lines:*isempty())
 	f.println('EXPORTS')
 	f.println('\t', lines:*match(r'(\d+)\s+([\da-fA-F]+)\s+([\da-fA-F]+)\s+(.+)').skipnil():*group(4))
 	f.close()
 }
-os.stdout = sys.stdout
-os.exec('lib.exe', '/DEF:' + fileNameDEF, '/MACHINE:X86', '/OUT:' + fileNameLIB)
+println(fileNameDEF, ' was created')
+os.redirect(nil, nil, nil) {
+	try {
+		os.exec('lib.exe', '/DEF:' + fileNameDEF, '/MACHINE:X86', '/OUT:' + fileNameLIB)
+	} catch {
+		sys.stderr.println('failed to execute lib.exe')
+		sys.exit(1)
+	}
+	println(fileNameLIB, ' was created')
+	println(fileNameEXP, ' was created')
+}
