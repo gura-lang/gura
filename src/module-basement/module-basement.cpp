@@ -1586,9 +1586,10 @@ Gura_ModuleEntry()
 	// value assignment
 	Gura_AssignValue(__name__,	Value(env, "__main__"));
 	Gura_AssignValue(nil,		Value::Null);
+	Gura_AssignValueEx("-",		Value::Null);
+	Gura_AssignValueEx("@rem",	Value::Null); // dummy for MS-DOS batch
 	Gura_AssignValueEx("true",	Value(true));
 	Gura_AssignValueEx("false",	Value(false));
-	Gura_AssignValueEx("@rem",	Value::Null); // dummy for MS-DOS batch
 	Gura_AssignValueEx("*",		Value(env, new Iterator_SequenceInf(0)));
 	do {
 		Object_environment *pObj = new Object_environment(env);

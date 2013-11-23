@@ -1159,12 +1159,18 @@ bool Parser::ReduceOneElem(Environment &env, Signal sig)
 		DBGPARSER(::printf("Reduce: Expr -> Symbol\n"));
 		const Symbol *pSymbol = Symbol::Add(elem1.GetString());
 		pExpr = new Expr_Symbol(pSymbol);
+	} else if (elem1.IsType(ETYPE_Add)) {
+		DBGPARSER(::printf("Reduce: Expr -> '+'\n"));
+		pExpr = new Expr_Symbol(Gura_Symbol(Char_Add));
 	} else if (elem1.IsType(ETYPE_Mul)) {
 		DBGPARSER(::printf("Reduce: Expr -> '*'\n"));
 		pExpr = new Expr_Symbol(Gura_Symbol(Char_Mul));
 	} else if (elem1.IsType(ETYPE_Question)) {
 		DBGPARSER(::printf("Reduce: Expr -> '?'\n"));
 		pExpr = new Expr_Symbol(Gura_Symbol(Char_Question));
+	} else if (elem1.IsType(ETYPE_Sub)) {
+		DBGPARSER(::printf("Reduce: Expr -> '-'\n"));
+		pExpr = new Expr_Symbol(Gura_Symbol(Char_Sub));
 	} else {
 		SetError_InvalidElement(sig, __LINE__);
 		return false;

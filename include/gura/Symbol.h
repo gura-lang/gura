@@ -113,6 +113,7 @@ public:
 	Gura_DeclareSymbol(Char_ModMod);
 	Gura_DeclareSymbol(Char_Mul);
 	Gura_DeclareSymbol(Char_Question);
+	Gura_DeclareSymbol(Char_Sub);
 	Gura_DeclareSymbol(Str_Empty);
 	Gura_DeclareSymbol(__args__);
 	Gura_DeclareSymbol(__del__);

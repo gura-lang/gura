@@ -126,6 +126,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbolAlias(Char_ModMod,	"%%");
 	Gura_RealizeSymbolAlias(Char_Mul,		"*");
 	Gura_RealizeSymbolAlias(Char_Question,	"?");
+	Gura_RealizeSymbolAlias(Char_Sub,		"-");
 	Gura_RealizeSymbolAlias(Str_Empty,		"");
 	Gura_RealizeSymbol(__args__);
 	Gura_RealizeSymbol(__del__);

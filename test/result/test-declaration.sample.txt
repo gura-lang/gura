@@ -1,5 +1,6 @@
 %:function = %(elem[]?):[icase] {block?}
 &:function = &(`args*) {block}
+-:nil = nil
 @:function = @(func?:function) {block?}
 @@:function = @@() {block}
 @rem:nil = nil

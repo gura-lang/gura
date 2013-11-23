@@ -188,7 +188,7 @@ testcase {
 ${x = 10}
 ${x}
 hello world
-  ${x = 100, nil}
+  ${x = 100, -}
   ${if (x < 10)}
     A
   ${else}
