@@ -3,6 +3,35 @@ import(tk)
 import(cairo)
 import(png)
 import(msico)
+import(argopt)
+
+main() = {
+	argopt.Parser {|p|
+		p.addParam('image',	'i',	'output image file', 'SIZE')
+		p.addFlag('icon',	'I',	'output icon file')
+		try {
+			[cfg, argv] = p.parse(sys.argv)
+		} catch {|e|
+			sys.stderr.println(e.text)
+			sys.exit(1)
+		}
+	}
+	if (value = cfg['image']) {
+		size = int(value)
+		fileName = format('gura-icon-%d.png', size)
+		CreateImage(size, size).pngwrite(fileName)
+		println(fileName, ' was created')
+	} elsif (cfg['icon']) {
+		image64 = CreateImage(64, 64)
+		image32 = CreateImage(32, 32)
+		image16 = CreateImage(16, 16)
+		msico.content().addimage([image64, image32, image16]).write('gura.ico')
+		println('gura.ico was created')
+	} else {
+		sys.stderr.println('usage: makeguraicon.gura --image=SIZE|--icon')
+		sys.exit(1)
+	}
+}
 
 CreateImage(width:number, height:number) = {
 	colorBack = color(`white)
@@ -59,17 +88,6 @@ CreateImage(width:number, height:number) = {
 		cr.set_source_rgb(1, 0, 0)
 		cr.stroke()
 	}
-	/*
-	scope {	// adjust alpha value around object
-		cross (x in range(width), y in range(height)) {
-			color = img.getpixel(x, y)
-			if (color - colorBack < 100) {
-				color.alpha = 0
-				img.putpixel(x, y, color)
-			}
-		}
-	}
-	*/
 	scope { // eyes
 		draw(x, y) = {
 			cr.set_source_color(`white)
@@ -84,11 +102,5 @@ CreateImage(width:number, height:number) = {
 	}
 	img
 }
-image64 = CreateImage(64, 64)
-image32 = CreateImage(32, 32)
-image16 = CreateImage(16, 16)
-msico.content().addimage([image64, image32, image16]).write('gura.ico')
-println('gura.ico was created')
-//image64.show()
-CreateImage(256, 256).pngwrite('gura-icon-256.png')
-println('gura-icon-48.png was created')
+
+main()
