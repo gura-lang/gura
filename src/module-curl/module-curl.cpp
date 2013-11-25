@@ -596,7 +596,9 @@ Gura_ModuleEntry()
 #if defined(CURLOPT_CLOSESOCKETDATA)
 	Gura_AssignValueCURLOPT(CLOSESOCKETDATA);				// OBJECTPOINT
 #endif
+#if defined(CURLOPT_GSSAPI_DELEGATION)
 	Gura_AssignValueCURLOPT(GSSAPI_DELEGATION);				// LONG
+#endif
 #if defined(CURLOPT_DNS_SERVERS)
 	Gura_AssignValueCURLOPT(DNS_SERVERS);					// OBJECTPOINT
 #endif
