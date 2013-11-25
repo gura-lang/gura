@@ -1,0 +1,25 @@
+#!/usr/bin/env gura
+if (sys.argv.len() < 2) {
+	sys.stderr.println('usage: list-module-prop.gura module-name')
+	sys.exit(1)
+}
+moduleName = sys.argv[1]
+moduleSymbol = tosymbol(moduleName)
+try {
+	format('import(%s)', moduleName).parse().eval()
+} catch {|e|
+	sys.stderr.println(e.text)
+	sys.exit(1)
+}
+m = eval(moduleSymbol)
+strBorder = '-' * 78
+dirtype(m).each {|type, i|
+	(i > 0) && println()
+	println(strBorder)
+	println(type)
+	println(strBorder)
+	x = classref(moduleSymbol, type)
+	props = x.getprop!(dir(x):noesc)
+	funcs = props.filter(props:*istype(`function))
+	println(funcs:*format)
+}
