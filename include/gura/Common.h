@@ -96,6 +96,10 @@ GURA_DLLDECLARE extern const char *EXTNAME_BinModule;
 GURA_DLLDECLARE extern const char *SRCNAME_unknown;
 GURA_DLLDECLARE extern const char *SRCNAME_cmdline;
 GURA_DLLDECLARE extern const char *SRCNAME_interactive;
+GURA_DLLDECLARE extern const char *SRCNAME_string;
+GURA_DLLDECLARE extern const char *SRCNAME_dumb;
+GURA_DLLDECLARE extern const char *SRCNAME_fifo;
+GURA_DLLDECLARE extern const char *SRCNAME_memory;
 
 GURA_DLLDECLARE extern const double Math_PI;
 GURA_DLLDECLARE extern const double Math_E;

@@ -15,6 +15,10 @@ const char *EXTNAME_BinModule	= ".gurd";
 const char *SRCNAME_unknown		= "<unknown>";
 const char *SRCNAME_cmdline		= "<cmdline>";
 const char *SRCNAME_interactive	= "<interactive>";
+const char *SRCNAME_string		= "<string>";
+const char *SRCNAME_dumb		= "<dumb>";
+const char *SRCNAME_fifo		= "<fifo>";
+const char *SRCNAME_memory		= "<memory>";
 
 const int MAX_STACK_LEVEL = 20000;
 const size_t InvalidSize = static_cast<size_t>(-1);

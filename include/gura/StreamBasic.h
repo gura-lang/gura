@@ -15,6 +15,7 @@ private:
 public:
 	inline SimpleStream_CStringReader(const char *pStr, const char *pEnd = NULL) :
 													_pStr(pStr), _pEnd(pEnd) {}
+	virtual const char *GetName() const;
 	virtual int GetChar(Signal sig);
 	virtual void PutChar(Signal sig, char ch);
 };
@@ -29,6 +30,7 @@ private:
 public:
 	inline SimpleStream_StringReader(String::const_iterator pStr,
 				String::const_iterator pEnd) : _pStr(pStr), _pEnd(pEnd) {}
+	virtual const char *GetName() const;
 	virtual int GetChar(Signal sig);
 	virtual void PutChar(Signal sig, char ch);
 };
@@ -41,6 +43,7 @@ private:
 	String &_str;
 public:
 	inline SimpleStream_StringWriter(String &str) : _str(str) {}
+	virtual const char *GetName() const;
 	virtual int GetChar(Signal sig);
 	virtual void PutChar(Signal sig, char ch);
 };

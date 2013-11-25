@@ -5,6 +5,11 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // SimpleStream_CStringReader
 //-----------------------------------------------------------------------------
+const char *SimpleStream_CStringReader::GetName() const
+{
+	return SRCNAME_string;
+}
+
 int SimpleStream_CStringReader::GetChar(Signal sig)
 {
 	if (*_pStr == '\0' || _pStr == _pEnd) return -1;
@@ -20,6 +25,11 @@ void SimpleStream_CStringReader::PutChar(Signal sig, char ch)
 //-----------------------------------------------------------------------------
 // SimpleStream_StringReader
 //-----------------------------------------------------------------------------
+const char *SimpleStream_StringReader::GetName() const
+{
+	return SRCNAME_string;
+}
+
 int SimpleStream_StringReader::GetChar(Signal sig)
 {
 	if (_pStr == _pEnd) return -1;
@@ -35,6 +45,11 @@ void SimpleStream_StringReader::PutChar(Signal sig, char ch)
 //-----------------------------------------------------------------------------
 // SimpleStream_StringWriter
 //-----------------------------------------------------------------------------
+const char *SimpleStream_StringWriter::GetName() const
+{
+	return SRCNAME_string;
+}
+
 int SimpleStream_StringWriter::GetChar(Signal sig)
 {
 	return -1;
@@ -54,12 +69,12 @@ StreamDumb::StreamDumb(Environment &env, Signal sig) : Stream(env, sig, ATTR_Wri
 
 const char *StreamDumb::GetName() const
 {
-	return "dumb";
+	return SRCNAME_dumb;
 }
 
 const char *StreamDumb::GetIdentifier() const
 {
-	return "dumb";
+	return SRCNAME_dumb;
 }
 
 bool StreamDumb::GetAttribute(Attribute &attr)
@@ -117,7 +132,7 @@ StreamFIFO::StreamFIFO(Environment &env, Signal sig, size_t bytesBuff) :
 
 const char *StreamFIFO::GetName() const
 {
-	return "FIFO";
+	return SRCNAME_fifo;
 }
 
 const char *StreamFIFO::GetIdentifier() const
@@ -254,7 +269,7 @@ StreamMemory::StreamMemory(Environment &env, Signal sig) :
 
 const char *StreamMemory::GetName() const
 {
-	return "Memory";
+	return SRCNAME_memory;
 }
 
 const char *StreamMemory::GetIdentifier() const
@@ -319,7 +334,7 @@ StreamMemReader::StreamMemReader(Environment &env, Signal sig, const void *buff,
 
 const char *StreamMemReader::GetName() const
 {
-	return "MemReader";
+	return SRCNAME_memory;
 }
 
 const char *StreamMemReader::GetIdentifier() const
@@ -796,7 +811,7 @@ Stream_StringReader::~Stream_StringReader()
 
 const char *Stream_StringReader::GetName() const
 {
-	return "string";
+	return SRCNAME_string;
 }
 
 const char *Stream_StringReader::GetIdentifier() const
