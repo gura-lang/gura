@@ -150,6 +150,10 @@ bool TemplateEngine::EvalStream(Environment &env, Signal sig,
 		pExprOwnerRoot->push_back(new Expr_TmplString(streamDst, str));
 		str.clear();
 	}
+	
+	
+	
+	
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
 	do {
 		Environment &env = *pEnvBlock;

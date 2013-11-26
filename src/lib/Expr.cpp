@@ -54,6 +54,17 @@ const char *GetExprTypeName(ExprType exprType)
 //        +- Expr_String
 //        `- Expr_TmplString
 //-----------------------------------------------------------------------------
+Expr::Expr(ExprType exprType) : _exprType(exprType),
+	_cntRef(1), _lineNoTop(0), _lineNoBtm(0), _pExprParent(NULL)
+{
+}
+
+Expr::Expr(const Expr &expr) : _exprType(expr._exprType),
+	_cntRef(1), _lineNoTop(expr._lineNoTop), _lineNoBtm(expr._lineNoBtm), _pExprParent(expr._pExprParent),
+	_pSourceName(StringRef::Reference(expr._pSourceName.get()))
+{
+}
+
 Expr::~Expr()
 {
 }
