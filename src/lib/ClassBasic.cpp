@@ -996,13 +996,13 @@ Gura_ImplementMethod(string, template_)
 	SimpleStream_StringReader streamSrc(strSrc.begin(), strSrc.end());
 	if (args.Is_stream(0)) {
 		Stream &streamDst = args.GetStream(0);
-		TemplateParser(autoIndentFlag, appendLastEOLFlag).
+		Template::Parser(autoIndentFlag, appendLastEOLFlag).
 							EvalStream(env, sig, streamSrc, streamDst);
 		return Value::Null;
 	} else {
 		String strDst;
 		SimpleStream_StringWriter streamDst(strDst);
-		if (!TemplateParser(autoIndentFlag, appendLastEOLFlag).
+		if (!Template::Parser(autoIndentFlag, appendLastEOLFlag).
 					EvalStream(env, sig, streamSrc, streamDst)) return Value::Null;
 		return Value(env, strDst.c_str());
 	}

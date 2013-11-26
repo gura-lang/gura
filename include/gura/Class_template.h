@@ -6,24 +6,40 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// TemplateParser
+// Template
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE TemplateParser {
+class GURA_DLLDECLARE Template {
 public:
-	typedef std::vector<Expr_Caller *> ExprCallerStack;
+	class GURA_DLLDECLARE Parser {
+	public:
+		typedef std::vector<Expr_Caller *> ExprCallerStack;
+	private:
+		bool _autoIndentFlag;
+		bool _appendLastEOLFlag;
+	public:
+		Parser(bool autoIndentFlag, bool appendLastEOLFlag);
+		bool EvalStream(Environment &env, Signal sig,
+						SimpleStream &streamSrc, SimpleStream &streamDst);
+	private:
+		bool ParseScript(Environment &env, Signal sig,
+				const char *strIndent, const char *strScript, const char *strPost,
+				SimpleStream &streamDst, ExprOwner &exprOwnerRoot,
+				ExprCallerStack &exprCallerStack,
+				const char *sourceName, int cntLineStart);
+	};
 private:
-	bool _autoIndentFlag;
-	bool _appendLastEOLFlag;
+	int _cntRef;
+	AutoPtr<ExprOwner> _pExprOwnerRoot;
+	Stream *_pStreamDst;
 public:
-	TemplateParser(bool autoIndentFlag, bool appendLastEOLFlag);
-	bool EvalStream(Environment &env, Signal sig,
-					SimpleStream &streamSrc, SimpleStream &streamDst);
+	Gura_DeclareReferenceAccessor(Template);
+public:
+	Template(ExprOwner *pExprOwnerRoot);
 private:
-	bool ParseScript(Environment &env, Signal sig,
-			const char *strIndent, const char *strScript, const char *strPost,
-			SimpleStream &streamDst, ExprOwner &exprOwnerRoot,
-			ExprCallerStack &exprCallerStack,
-			const char *sourceName, int cntLineStart);
+	inline ~Template() {}
+public:
+	bool Eval(Environment &env, Signal sig, Stream *pStreamDst);
+	inline Stream *GetStreamDst() { return _pStreamDst; }
 };
 
 //-----------------------------------------------------------------------------

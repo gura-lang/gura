@@ -1,15 +1,40 @@
 #include "stdafx.h"
 
 namespace Gura {
+
 //-----------------------------------------------------------------------------
-// TemplateParser
+// Template
 //-----------------------------------------------------------------------------
-TemplateParser::TemplateParser(bool autoIndentFlag, bool appendLastEOLFlag) :
+Template::Template(ExprOwner *pExprOwnerRoot) :
+						_pExprOwnerRoot(pExprOwnerRoot), _pStreamDst(NULL)
+{
+}
+
+bool Template::Eval(Environment &env, Signal sig, Stream *pStreamDst)
+{
+	_pStreamDst = pStreamDst;
+	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
+	do {
+		Environment &env = *pEnvBlock;
+		SeqPostHandler *pSeqPostHandlerEach = NULL;
+		foreach_const (ExprList, ppExpr, *_pExprOwnerRoot) {
+			(*ppExpr)->Exec2(env, sig, pSeqPostHandlerEach, true);
+			if (sig.IsSignalled()) break;
+		}
+	} while (0);
+	_pStreamDst = NULL;
+	return !sig.IsSignalled();
+}
+
+//-----------------------------------------------------------------------------
+// Template::Parser
+//-----------------------------------------------------------------------------
+Template::Parser::Parser(bool autoIndentFlag, bool appendLastEOLFlag) :
 		_autoIndentFlag(autoIndentFlag), _appendLastEOLFlag(appendLastEOLFlag)
 {
 }
 
-bool TemplateParser::EvalStream(Environment &env, Signal sig,
+bool Template::Parser::EvalStream(Environment &env, Signal sig,
 					SimpleStream &streamSrc, SimpleStream &streamDst)
 {
 	const char *sourceName = streamSrc.GetName();
@@ -149,10 +174,6 @@ bool TemplateParser::EvalStream(Environment &env, Signal sig,
 		pExprOwnerRoot->push_back(new Expr_TmplString(streamDst, str));
 		str.clear();
 	}
-	
-	
-	
-	
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
 	do {
 		Environment &env = *pEnvBlock;
@@ -165,14 +186,14 @@ bool TemplateParser::EvalStream(Environment &env, Signal sig,
 	return !sig.IsSignalled();
 }
 
-bool TemplateParser::ParseScript(Environment &env, Signal sig,
+bool Template::Parser::ParseScript(Environment &env, Signal sig,
 			const char *strIndent, const char *strScript, const char *strPost,
 			SimpleStream &streamDst, ExprOwner &exprOwnerRoot,
 			ExprCallerStack &exprCallerStack,
 			const char *sourceName, int cntLineStart)
 {
 	AutoPtr<ExprOwner> pExprOwnerPart(new ExprOwner());
-	Parser parser(sourceName, cntLineStart);
+	Gura::Parser parser(sourceName, cntLineStart);
 	if (!parser.ParseString(env, sig, *pExprOwnerPart, strScript)) return false;
 	Expr_TmplScript *pExprTmplScript = new Expr_TmplScript(
 		streamDst, strIndent, strPost, _autoIndentFlag, _appendLastEOLFlag);
