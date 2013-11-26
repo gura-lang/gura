@@ -213,7 +213,7 @@ private:
 	int _cntLine;
 	int _cntCol;
 	int _commentNestLevel;
-	String _sourceName;
+	AutoPtr<StringRef> _pSourceName;
 	String _token;
 	ElementStack _elemStack;
 	StringInfo _stringInfo;

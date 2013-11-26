@@ -147,6 +147,7 @@ private:
 	int _cntRef;	// const_cast is used to update this value
 	int _lineNoTop, _lineNoBtm;
 	const Expr *_pExprParent;
+	AutoPtr<StringRef> _pSourceName;
 public:
 	Gura_DeclareReferenceAccessor(Expr);
 public:
@@ -157,9 +158,13 @@ public:
 protected:
 	virtual ~Expr();
 public:
-	inline void SetLineNo(int lineNoTop, int lineNoBtm) {
+	inline void SetSourceInfo(StringRef *pSourceName, int lineNoTop, int lineNoBtm) {
+		_pSourceName.reset(pSourceName);
 		_lineNoTop = lineNoTop, _lineNoBtm = lineNoBtm;
 	}
+	inline const char *GetSourceName() const {
+		return _pSourceName.IsNull()? SRCNAME_unknown : _pSourceName->GetString();
+	};
 	inline int GetLineNoTop() const { return _lineNoTop; }
 	inline int GetLineNoBtm() const { return _lineNoBtm; }
 	inline void SetParent(const Expr *pExpr) { _pExprParent = pExpr; }
@@ -186,7 +191,6 @@ public:
 	static bool NeedParenthesis(const Operator *pOperatorOuter,
 										const Operator *pOperator, bool rightFlag);
 	virtual Expr *Clone() const = 0;
-	virtual const char *GetSourceName() const;
 	virtual Callable *LookupCallable(Environment &env, Signal sig) const;
 private:
 	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const = 0;
@@ -529,7 +533,6 @@ public:
 	}
 	virtual bool IsRoot() const;
 	virtual Expr *Clone() const;
-	virtual const char *GetSourceName() const;
 	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,

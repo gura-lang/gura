@@ -58,11 +58,6 @@ Expr::~Expr()
 {
 }
 
-const char *Expr::GetSourceName() const
-{
-	return (_pExprParent == NULL)? NULL : _pExprParent->GetSourceName();
-}
-
 Value Expr::Exec(Environment &env, Signal sig,
 			AutoPtr<SeqPostHandler> pSeqPostHandler, bool evalSymFuncFlag) const
 {
@@ -1218,11 +1213,6 @@ Expr_Root::Expr_Root(const Expr_Root &expr) :
 Expr *Expr_Root::Clone() const
 {
 	return new Expr_Root(*this);
-}
-
-const char *Expr_Root::GetSourceName() const
-{
-	return _sourceName.c_str();
 }
 
 Value Expr_Root::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const

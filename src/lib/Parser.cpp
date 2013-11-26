@@ -8,7 +8,8 @@ namespace Gura {
 // Parser
 //-----------------------------------------------------------------------------
 Parser::Parser(const String &sourceName, int cntLineOffset) : _stat(STAT_Start),
-		_appearShebangFlag(false), _blockParamFlag(false), _sourceName(sourceName),
+		_appearShebangFlag(false), _blockParamFlag(false),
+		_pSourceName(new StringRef(sourceName)),
 		_cntLine(cntLineOffset), _cntCol(0), _commentNestLevel(0)
 {
 	InitStack();
@@ -1175,7 +1176,7 @@ bool Parser::ReduceOneElem(Environment &env, Signal sig)
 	}
 	int lineNoTop = elem1.GetLineNo();
 	_elemStack.pop_back();
-	pExpr->SetLineNo(lineNoTop, GetLineNo());
+	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, GetLineNo());
 	_elemStack.push_back(Element(ETYPE_Expr, pExpr));
 	return true;
 }
@@ -1282,7 +1283,7 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 		pExpr = new Expr_Symbol(pSymbol);
 		int lineNoTop = _elemStack.Peek(0).GetLineNo();
 		_elemStack.pop_back();
-		pExpr->SetLineNo(lineNoTop, GetLineNo());
+		pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, GetLineNo());
 		_elemStack.push_back(Element(ETYPE_Expr, pExpr));
 		return true;
 	} else if (elem2.IsType(ETYPE_Expr)) {
@@ -1366,7 +1367,7 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 	int lineNoTop = elem1.GetLineNo();
 	_elemStack.pop_back();
 	_elemStack.pop_back();
-	pExpr->SetLineNo(lineNoTop, GetLineNo());
+	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, GetLineNo());
 	_elemStack.push_back(Element(ETYPE_Expr, pExpr));
 	return true;
 }
@@ -1784,7 +1785,7 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 	_elemStack.pop_back();
 	_elemStack.pop_back();
 	_elemStack.pop_back();
-	pExpr->SetLineNo(lineNoTop, GetLineNo());
+	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, GetLineNo());
 	_elemStack.push_back(Element(ETYPE_Expr, pExpr));
 	return true;
 }
@@ -1952,7 +1953,7 @@ bool Parser::ReduceFourElems(Environment &env, Signal sig)
 	_elemStack.pop_back();
 	_elemStack.pop_back();
 	_elemStack.pop_back();
-	pExpr->SetLineNo(lineNoTop, GetLineNo());
+	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, GetLineNo());
 	_elemStack.push_back(Element(ETYPE_Expr, pExpr));
 	return true;
 }
@@ -2049,7 +2050,7 @@ bool Parser::ReduceFiveElems(Environment &env, Signal sig)
 	_elemStack.pop_back();
 	_elemStack.pop_back();
 	_elemStack.pop_back();
-	pExpr->SetLineNo(lineNoTop, GetLineNo());
+	pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, GetLineNo());
 	_elemStack.push_back(Element(ETYPE_Expr, pExpr));
 	return true;
 }
@@ -2057,9 +2058,9 @@ bool Parser::ReduceFiveElems(Environment &env, Signal sig)
 void Parser::SetError(Signal sig, ErrorType errType, const char *format, ...)
 {
 	String textPre(" at ");
-	if (!_sourceName.empty()) {
+	if (!_pSourceName->GetStringSTL().empty()) {
 		String fileName;
-		PathManager::SplitFileName(_sourceName.c_str(), NULL, &fileName);
+		PathManager::SplitFileName(_pSourceName->GetString(), NULL, &fileName);
 		textPre += fileName;
 	}
 	do {
