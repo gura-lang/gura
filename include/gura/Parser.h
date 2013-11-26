@@ -221,7 +221,7 @@ private:
 	CharConverter _charConverter;
 	static const ElemTypeInfo _elemTypeInfoTbl[];
 public:
-	Parser(const String &sourceName, int cntLineOffset = 0);
+	Parser(const String &sourceName, int cntLineStart = 0);
 	~Parser();
 	void Reset();
 	void InitStack();

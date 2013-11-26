@@ -22,7 +22,8 @@ private:
 	bool ParseScript(Environment &env, Signal sig,
 			const char *strIndent, const char *strScript, const char *strPost,
 			SimpleStream &streamDst, ExprOwner &exprOwnerRoot,
-			ExprCallerStack &exprCallerStack);
+			ExprCallerStack &exprCallerStack,
+			const char *sourceName, int cntLineStart);
 };
 
 }

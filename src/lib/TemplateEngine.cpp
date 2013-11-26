@@ -13,6 +13,7 @@ TemplateEngine::TemplateEngine(bool autoIndentFlag, bool appendLastEOLFlag) :
 bool TemplateEngine::EvalStream(Environment &env, Signal sig,
 					SimpleStream &streamSrc, SimpleStream &streamDst)
 {
+	const char *sourceName = streamSrc.GetName();
 	char chPrefix = '$';
 	enum {
 		STAT_LineTop, STAT_Indent, STAT_String,
@@ -21,6 +22,8 @@ bool TemplateEngine::EvalStream(Environment &env, Signal sig,
 	String str;
 	String strScript;
 	String strIndent;
+	int cntLine = 0;
+	int cntLineStart = 0;
 	int nDepth = 0;
 	AutoPtr<ExprOwner> pExprOwnerRoot(new ExprOwner());
 	ExprCallerStack exprCallerStack;
@@ -77,6 +80,7 @@ bool TemplateEngine::EvalStream(Environment &env, Signal sig,
 						exprOwner.push_back(new Expr_TmplString(streamDst, str));
 						str.clear();
 					}
+					cntLineStart = cntLine;
 					nDepth = 1;
 					strScript.clear();
 					stat = STAT_Script;
@@ -114,7 +118,8 @@ bool TemplateEngine::EvalStream(Environment &env, Signal sig,
 				const char *strPost = (ch == '\n')? "\n" : "";
 				if (!ParseScript(env, sig,
 						strIndent.c_str(), strScript.c_str(), strPost,
-						streamDst, *pExprOwnerRoot, exprCallerStack)) return false;
+						streamDst, *pExprOwnerRoot, exprCallerStack,
+						sourceName, cntLineStart)) return false;
 				strIndent.clear();
 				strScript.clear();
 				if (ch == '\n') {
@@ -128,12 +133,14 @@ bool TemplateEngine::EvalStream(Environment &env, Signal sig,
 			}
 			}
 		} while (continueFlag);
+		if (ch == '\n') cntLine++;
 	}
 	if (!strScript.empty()) {
 		const char *strPost = "";
 		if (!ParseScript(env, sig,
 				strIndent.c_str(), strScript.c_str(), strPost,
-				streamDst, *pExprOwnerRoot, exprCallerStack)) return false;
+				streamDst, *pExprOwnerRoot, exprCallerStack,
+				sourceName, cntLineStart)) return false;
 	}
 	if (!exprCallerStack.empty()) {
 		sig.SetError(ERR_SyntaxError, "lacking end statement for block expression");
@@ -158,10 +165,11 @@ bool TemplateEngine::EvalStream(Environment &env, Signal sig,
 bool TemplateEngine::ParseScript(Environment &env, Signal sig,
 			const char *strIndent, const char *strScript, const char *strPost,
 			SimpleStream &streamDst, ExprOwner &exprOwnerRoot,
-			ExprCallerStack &exprCallerStack)
+			ExprCallerStack &exprCallerStack,
+			const char *sourceName, int cntLineStart)
 {
 	AutoPtr<ExprOwner> pExprOwnerPart(new ExprOwner());
-	Parser parser(SRCNAME_string);
+	Parser parser(sourceName, cntLineStart);
 	if (!parser.ParseString(env, sig, *pExprOwnerPart, strScript)) return false;
 	Expr_TmplScript *pExprTmplScript = new Expr_TmplScript(
 		streamDst, strIndent, strPost, _autoIndentFlag, _appendLastEOLFlag);

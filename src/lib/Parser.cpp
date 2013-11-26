@@ -7,10 +7,10 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Parser
 //-----------------------------------------------------------------------------
-Parser::Parser(const String &sourceName, int cntLineOffset) : _stat(STAT_Start),
+Parser::Parser(const String &sourceName, int cntLineStart) : _stat(STAT_Start),
 		_appearShebangFlag(false), _blockParamFlag(false),
 		_pSourceName(new StringRef(sourceName)),
-		_cntLine(cntLineOffset), _cntCol(0), _commentNestLevel(0)
+		_cntLine(cntLineStart), _cntCol(0), _commentNestLevel(0)
 {
 	InitStack();
 	for (const ElemTypeInfo *p = _elemTypeInfoTbl;
