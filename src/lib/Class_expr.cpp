@@ -305,7 +305,6 @@ ImplementTypeChecker(isroot,		IsRoot)
 ImplementTypeChecker(isblock,		IsBlock)
 ImplementTypeChecker(islister,		IsLister)
 ImplementTypeChecker(isiterer,		IsIterer)
-ImplementTypeChecker(istmplscript,	IsTmplScript)
 // type chekers - Compound and descendants
 ImplementTypeChecker(iscompound,	IsCompound)
 ImplementTypeChecker(isindexer,		IsIndexer)
@@ -314,7 +313,6 @@ ImplementTypeChecker(iscaller,		IsCaller)
 ImplementTypeChecker(isvalue,		IsValue)
 ImplementTypeChecker(issymbol,		IsSymbol)
 ImplementTypeChecker(isstring,		IsString)
-ImplementTypeChecker(istmplstring,	IsTmplString)
 
 //-----------------------------------------------------------------------------
 // Classs implementation
@@ -344,7 +342,6 @@ void Class_expr::Prepare(Environment &env)
 	Gura_AssignMethod(expr,	isblock);
 	Gura_AssignMethod(expr,	islister);
 	Gura_AssignMethod(expr,	isiterer);
-	Gura_AssignMethod(expr,	istmplscript);
 	// type chekers - Compound and descendants
 	Gura_AssignMethod(expr,	iscompound);
 	Gura_AssignMethod(expr,	isindexer);
@@ -353,7 +350,6 @@ void Class_expr::Prepare(Environment &env)
 	Gura_AssignMethod(expr,	isvalue);
 	Gura_AssignMethod(expr,	issymbol);
 	Gura_AssignMethod(expr,	isstring);
-	Gura_AssignMethod(expr,	istmplstring);
 }
 
 bool Class_expr::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)

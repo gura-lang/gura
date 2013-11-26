@@ -233,4 +233,140 @@ bool TemplateEngine::ParseScript(Environment &env, Signal sig,
 	return true;
 }
 
+//-----------------------------------------------------------------------------
+// Expr_TmplString
+//-----------------------------------------------------------------------------
+Expr *Expr_TmplString::Clone() const
+{
+	return new Expr_TmplString(*this);
+}
+
+Value Expr_TmplString::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
+{
+	_streamDst.Print(sig, _str.c_str());
+	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, Value::Null)) return Value::Null;
+	return Value::Null;
+}
+
+void Expr_TmplString::Accept(ExprVisitor &visitor) const
+{
+	visitor.Visit(this);
+}
+
+bool Expr_TmplString::GenerateCode(Environment &env, Signal sig, Stream &stream)
+{
+	stream.Println(sig, "TmplString");
+	return true;
+}
+
+bool Expr_TmplString::GenerateScript(Signal sig, SimpleStream &stream,
+								ScriptStyle scriptStyle, int nestLevel) const
+{
+	return false;
+}
+
+//-----------------------------------------------------------------------------
+// Expr_TmplScript
+//-----------------------------------------------------------------------------
+Expr *Expr_TmplScript::Clone() const
+{
+	return new Expr_TmplScript(*this);
+}
+
+Value Expr_TmplScript::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
+{
+	if (GetExprOwner().empty()) return Value::Null;
+	Value value;
+	SeqPostHandler *pSeqPostHandlerEach = NULL;
+	foreach_const (ExprList, ppExpr, GetExprOwner()) {
+		value = (*ppExpr)->Exec2(env, sig, pSeqPostHandlerEach, true);
+		if (sig.IsSignalled()) return Value::Null;
+	}
+	if (value.IsInvalid()) return Value::Null;
+	_streamDst.Print(sig, _strIndent.c_str());
+	String strLast;
+	if (value.Is_string()) {
+		strLast = value.GetStringSTL();
+	} else if (value.Is_list() || value.Is_iterator()) {
+		AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
+		if (sig.IsSignalled()) return false;
+		Value valueElem;
+		while (pIterator->Next(env, sig, valueElem)) {
+			foreach_const (String, p, strLast) {
+				char ch = *p;
+				if (ch == '\n') {
+					_streamDst.PutChar(sig, ch);
+					if (_autoIndentFlag && valueElem.IsValid()) {
+						_streamDst.Print(sig, _strIndent.c_str());
+					}
+				} else {
+					_streamDst.PutChar(sig, ch);
+				}
+			}
+			if (valueElem.Is_string()) {
+				strLast = valueElem.GetStringSTL();
+			} else if (valueElem.IsInvalid()) {
+				strLast.clear();
+			} else if (valueElem.Is_number()) {
+				strLast = valueElem.ToString();
+				if (sig.IsSignalled()) return false;
+			} else {
+				sig.SetError(ERR_TypeError,
+					"template script must return nil, string or number");
+				return Value::Null;
+			}
+		}
+	} else if (value.Is_number()) {
+		strLast = value.ToString();
+		if (sig.IsSignalled()) return false;
+	} else {
+		sig.SetError(ERR_TypeError,
+			"template script must return nil, string or number");
+		return Value::Null;
+	}
+	foreach_const (String, p, strLast) {
+		char ch = *p;
+		if (ch != '\n') {
+			_streamDst.PutChar(sig, ch);
+		} else if (p + 1 != strLast.end()) {
+			_streamDst.PutChar(sig, ch);
+			if (_autoIndentFlag) {
+				_streamDst.Print(sig, _strIndent.c_str());
+			}
+		} else if (_appendLastEOLFlag) {
+			_streamDst.PutChar(sig, ch);
+		}
+	}
+	_streamDst.Print(sig, _strPost.c_str());
+	return Value::Null;
+}
+
+bool Expr_TmplScript::GenerateCode(Environment &env, Signal sig, Stream &stream)
+{
+	stream.Println(sig, "TmplScript");
+	return true;
+}
+
+bool Expr_TmplScript::GenerateScript(Signal sig, SimpleStream &stream,
+								ScriptStyle scriptStyle, int nestLevel) const
+{
+	return false;
+}
+
+Expr_TmplScript::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
+{
+}
+
+bool Expr_TmplScript::SequenceEx::DoStep(Signal sig, Value &result)
+{
+	return false;
+}
+
+String Expr_TmplScript::SequenceEx::ToString() const
+{
+	String str;
+	str += "<sequence:expr_tmplscript>";
+	return str;
+}
+
 }

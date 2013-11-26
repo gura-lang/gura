@@ -20,13 +20,11 @@ const char *GetExprTypeName(ExprType exprType)
 		{ EXPRTYPE_Block,		"block",		},
 		{ EXPRTYPE_Lister,		"lister",		},
 		{ EXPRTYPE_Iterer,		"iterer",		},
-		{ EXPRTYPE_TmplScript,	"tmplscript",	},
 		{ EXPRTYPE_Indexer,		"indexer",		},
 		{ EXPRTYPE_Caller,		"caller",		},
 		{ EXPRTYPE_Value,		"value",		},
 		{ EXPRTYPE_Symbol,		"symbol",		},
 		{ EXPRTYPE_String,		"string",		},
-		{ EXPRTYPE_TmplString,	"tmplstring",	},
 	};
 	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].exprType == exprType) return tbl[i].name;
@@ -45,14 +43,12 @@ const char *GetExprTypeName(ExprType exprType)
 //        +- Expr_Container <-+- Expr_Root
 //        |                   +- Expr_Block
 //        |                   +- Expr_Lister
-//        |                   +- Expr_Iterer
-//        |                   `- Expr_TmplScript
+//        |                   `- Expr_Iterer
 //        +- Expr_Compound <--+- Expr_Indexer
 //        |                   `- Expr_Caller
 //        +- Expr_Value
 //        +- Expr_Symbol
-//        +- Expr_String
-//        `- Expr_TmplString
+//        `- Expr_String
 //-----------------------------------------------------------------------------
 Expr::Expr(ExprType exprType) : _exprType(exprType),
 	_cntRef(1), _lineNoTop(0), _lineNoBtm(0), _pExprParent(NULL)
@@ -288,7 +284,6 @@ bool Expr::IsRoot() const			{ return false; }
 bool Expr::IsBlock() const			{ return false; }
 bool Expr::IsLister() const			{ return false; }
 bool Expr::IsIterer() const			{ return false; }
-bool Expr::IsTmplScript() const		{ return false; }
 // type chekers - Compound and descendants
 bool Expr::IsCompound() const		{ return false; }
 bool Expr::IsIndexer() const		{ return false; }
@@ -297,7 +292,6 @@ bool Expr::IsCaller() const			{ return false; }
 bool Expr::IsValue() const			{ return false; }
 bool Expr::IsSymbol() const			{ return false; }
 bool Expr::IsString() const			{ return false; }
-bool Expr::IsTmplString() const		{ return false; }
 
 bool Expr::IsParentOf(const Expr *pExpr) const
 {
@@ -1173,40 +1167,6 @@ bool Expr_String::GenerateScript(Signal sig, SimpleStream &stream,
 }
 
 //-----------------------------------------------------------------------------
-// Expr_TmplString
-//-----------------------------------------------------------------------------
-bool Expr_TmplString::IsTmplString() const { return true; }
-
-Expr *Expr_TmplString::Clone() const
-{
-	return new Expr_TmplString(*this);
-}
-
-Value Expr_TmplString::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
-{
-	_streamDst.Print(sig, _str.c_str());
-	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, Value::Null)) return Value::Null;
-	return Value::Null;
-}
-
-void Expr_TmplString::Accept(ExprVisitor &visitor) const
-{
-	visitor.Visit(this);
-}
-
-bool Expr_TmplString::GenerateCode(Environment &env, Signal sig, Stream &stream)
-{
-	stream.Println(sig, "TmplString");
-	return true;
-}
-
-bool Expr_TmplString::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
-{
-	return false;
-}
-
-//-----------------------------------------------------------------------------
 // Expr_Root
 //-----------------------------------------------------------------------------
 bool Expr_Root::IsRoot() const { return true; }
@@ -1625,112 +1585,6 @@ String Expr_Iterer::SequenceEx::ToString() const
 {
 	String str;
 	str += "<sequence:expr_iterer>";
-	return str;
-}
-
-//-----------------------------------------------------------------------------
-// Expr_TmplScript
-//-----------------------------------------------------------------------------
-bool Expr_TmplScript::IsTmplScript() const { return true; }
-
-Expr *Expr_TmplScript::Clone() const
-{
-	return new Expr_TmplScript(*this);
-}
-
-Value Expr_TmplScript::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
-{
-	if (GetExprOwner().empty()) return Value::Null;
-	Value value;
-	SeqPostHandler *pSeqPostHandlerEach = NULL;
-	foreach_const (ExprList, ppExpr, GetExprOwner()) {
-		value = (*ppExpr)->Exec2(env, sig, pSeqPostHandlerEach, true);
-		if (sig.IsSignalled()) return Value::Null;
-	}
-	if (value.IsInvalid()) return Value::Null;
-	_streamDst.Print(sig, _strIndent.c_str());
-	String strLast;
-	if (value.Is_string()) {
-		strLast = value.GetStringSTL();
-	} else if (value.Is_list() || value.Is_iterator()) {
-		AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
-		if (sig.IsSignalled()) return false;
-		Value valueElem;
-		while (pIterator->Next(env, sig, valueElem)) {
-			foreach_const (String, p, strLast) {
-				char ch = *p;
-				if (ch == '\n') {
-					_streamDst.PutChar(sig, ch);
-					if (_autoIndentFlag && valueElem.IsValid()) {
-						_streamDst.Print(sig, _strIndent.c_str());
-					}
-				} else {
-					_streamDst.PutChar(sig, ch);
-				}
-			}
-			if (valueElem.Is_string()) {
-				strLast = valueElem.GetStringSTL();
-			} else if (valueElem.IsInvalid()) {
-				strLast.clear();
-			} else if (valueElem.Is_number()) {
-				strLast = valueElem.ToString();
-				if (sig.IsSignalled()) return false;
-			} else {
-				sig.SetError(ERR_TypeError,
-					"template script must return nil, string or number");
-				return Value::Null;
-			}
-		}
-	} else if (value.Is_number()) {
-		strLast = value.ToString();
-		if (sig.IsSignalled()) return false;
-	} else {
-		sig.SetError(ERR_TypeError,
-			"template script must return nil, string or number");
-		return Value::Null;
-	}
-	foreach_const (String, p, strLast) {
-		char ch = *p;
-		if (ch != '\n') {
-			_streamDst.PutChar(sig, ch);
-		} else if (p + 1 != strLast.end()) {
-			_streamDst.PutChar(sig, ch);
-			if (_autoIndentFlag) {
-				_streamDst.Print(sig, _strIndent.c_str());
-			}
-		} else if (_appendLastEOLFlag) {
-			_streamDst.PutChar(sig, ch);
-		}
-	}
-	_streamDst.Print(sig, _strPost.c_str());
-	return Value::Null;
-}
-
-bool Expr_TmplScript::GenerateCode(Environment &env, Signal sig, Stream &stream)
-{
-	stream.Println(sig, "TmplScript");
-	return true;
-}
-
-bool Expr_TmplScript::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
-{
-	return false;
-}
-
-Expr_TmplScript::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
-{
-}
-
-bool Expr_TmplScript::SequenceEx::DoStep(Signal sig, Value &result)
-{
-	return false;
-}
-
-String Expr_TmplScript::SequenceEx::ToString() const
-{
-	String str;
-	str += "<sequence:expr_tmplscript>";
 	return str;
 }
 

@@ -28,13 +28,11 @@ enum ExprType {
 	EXPRTYPE_Block,
 	EXPRTYPE_Lister,
 	EXPRTYPE_Iterer,
-	EXPRTYPE_TmplScript,
 	EXPRTYPE_Indexer,
 	EXPRTYPE_Caller,
 	EXPRTYPE_Value,
 	EXPRTYPE_Symbol,
 	EXPRTYPE_String,
-	EXPRTYPE_TmplString,
 };
 
 GURA_DLLDECLARE const char *GetExprTypeName(ExprType exprType);
@@ -86,14 +84,12 @@ public:
 //        +- Expr_Container <-+- Expr_Root
 //        |                   +- Expr_Block
 //        |                   +- Expr_Lister
-//        |                   +- Expr_Iterer
-//        |                   `- Expr_TmplScript
+//        |                   `- Expr_Iterer
 //        +- Expr_Compound <--+- Expr_Indexer
 //        |                   `- Expr_Caller
 //        +- Expr_Value
 //        +- Expr_Symbol
-//        +- Expr_String
-//        `- Expr_TmplString
+//        `- Expr_String
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr {
 public:
@@ -216,7 +212,6 @@ public:
 	virtual bool IsBlock() const;
 	virtual bool IsLister() const;
 	virtual bool IsIterer() const;
-	virtual bool IsTmplScript() const;
 	// type chekers - Compound and descendants
 	virtual bool IsCompound() const;
 	virtual bool IsIndexer() const;
@@ -225,7 +220,6 @@ public:
 	virtual bool IsValue() const;
 	virtual bool IsSymbol() const;
 	virtual bool IsString() const;
-	virtual bool IsTmplString() const;
 	bool IsConstNumber(Number num) const;
 	bool IsConstEvenNumber() const;
 	bool IsConstNegNumber() const;
@@ -492,32 +486,6 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Expr_TmplString
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_TmplString : public Expr {
-protected:
-	SimpleStream &_streamDst;
-	String _str;
-public:
-	inline Expr_TmplString(SimpleStream &streamDst, const String &str) :
-				Expr(EXPRTYPE_TmplString), _streamDst(streamDst), _str(str) {}
-	inline Expr_TmplString(const Expr_TmplString &expr) :
-				Expr(expr), _streamDst(expr._streamDst), _str(expr._str) {}
-	inline SimpleStream &GetStreamDst() { return _streamDst;; }
-	inline const char *GetString() const { return _str.c_str(); }
-	inline static Expr_TmplString *Reference(const Expr_TmplString *pExpr) {
-		return dynamic_cast<Expr_TmplString *>(Expr::Reference(pExpr));
-	}
-	virtual bool IsTmplString() const;
-	virtual Expr *Clone() const;
-	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
-	virtual void Accept(ExprVisitor &visitor) const;
-	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
-};
-
-//-----------------------------------------------------------------------------
 // Expr_Root
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Root : public Expr_Container {
@@ -616,48 +584,6 @@ public:
 		return dynamic_cast<Expr_Iterer *>(Expr::Reference(pExpr));
 	}
 	virtual bool IsIterer() const;
-	virtual Expr *Clone() const;
-	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
-	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
-};
-
-//-----------------------------------------------------------------------------
-// Expr_TmplScript
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_TmplScript : public Expr_Container {
-public:
-	class GURA_DLLDECLARE SequenceEx : public Sequence {
-	public:
-		SequenceEx(Environment *pEnv);
-		virtual bool DoStep(Signal sig, Value &result);
-		virtual String ToString() const;
-	};
-protected:
-	SimpleStream &_streamDst;
-	String _strIndent;
-	String _strPost;
-	bool _autoIndentFlag;
-	bool _appendLastEOLFlag;
-public:
-	inline Expr_TmplScript(SimpleStream &streamDst,
-							const String &strIndent, const String &strPost,
-							bool autoIndentFlag, bool appendLastEOLFlag) :
-			Expr_Container(EXPRTYPE_TmplScript), _streamDst(streamDst),
-			_strIndent(strIndent), _strPost(strPost),
-			_autoIndentFlag(autoIndentFlag), _appendLastEOLFlag(appendLastEOLFlag) {}
-	inline Expr_TmplScript(const Expr_TmplScript &expr) :
-			Expr_Container(expr), _streamDst(expr._streamDst),
-			_strIndent(expr._strIndent), _strPost(expr._strPost),
-			_autoIndentFlag(expr._autoIndentFlag), _appendLastEOLFlag(expr._appendLastEOLFlag) {}
-	inline SimpleStream &GetStreamDst() { return _streamDst;; }
-	inline void SetStringIndent(const String &strIndent) { _strIndent = strIndent; }
-	inline void SetStringPost(const String &strPost) { _strPost = strPost; }
-	inline static Expr_TmplScript *Reference(const Expr_TmplScript *pExpr) {
-		return dynamic_cast<Expr_TmplScript *>(Expr::Reference(pExpr));
-	}
-	virtual bool IsTmplScript() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
