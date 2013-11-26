@@ -76,7 +76,7 @@ int Main(int argc, const char *argv[])
 			if (::strcmp(cmd, "") == 0) continue;
 			AutoPtr<Expr_Root> pExprRoot(new Expr_Root(SRCNAME_cmdline));
 			ExprOwner &exprOwner = pExprRoot->GetExprOwner();
-			if (!Parser().ParseString(env, sig, exprOwner, SRCNAME_cmdline, cmd)) {
+			if (!Parser(SRCNAME_cmdline).ParseString(env, sig, exprOwner, cmd)) {
 				env.GetConsoleErr()->PrintSignal(sig, sig);
 				return 1;
 			}
@@ -99,8 +99,9 @@ int Main(int argc, const char *argv[])
 	}
 	const char *encoding = opt.GetString("coding", "utf-8");
 	if (argc >= 2) {
-		AutoPtr<Expr_Root> pExprRoot(Parser().ParseStream(env, sig,
-						OAL::FromNativeString(argv[1]).c_str(), encoding));
+		String sourceName = OAL::FromNativeString(argv[1]);
+		AutoPtr<Expr_Root> pExprRoot(Parser(sourceName).ParseStream(env, sig,
+											sourceName.c_str(), encoding));
 		if (sig.IsSignalled()) {
 			env.GetConsoleErr()->PrintSignal(sig, sig);
 			return 1;
@@ -172,9 +173,8 @@ void PrintHelp(FILE *fp)
 #if defined(GURA_ON_MSWIN)
 void ReadEvalPrintLoop(Environment &env, Signal sig)
 {
-	Parser parser;
 	AutoPtr<Expr_Root> pExprRoot(new Expr_Root(SRCNAME_interactive));
-	parser.SetSourceName(pExprRoot->GetSourceName());
+	Parser parser(pExprRoot->GetSourceName());
 	Stream *pConsole = env.GetConsole();
 	pConsole->Print(sig, env.GetPrompt(parser.IsContinued()));
 	for (;;) {
@@ -190,9 +190,8 @@ void ReadEvalPrintLoop(Environment &env, Signal sig)
 #else
 void ReadEvalPrintLoop(Environment &env, Signal sig)
 {
-	Parser parser;
 	AutoPtr<Expr_Root> pExprRoot(new Expr_Root(SRCNAME_interactive));
-	parser.SetSourceName(pExprRoot->GetSourceName());
+	Parser parser(pExprRoot->GetSourceName());
 	char *lineBuff = NULL;
 	Stream *pConsole = env.GetConsole();
 	while (lineBuff = readline(env.GetPrompt(parser.IsContinued()))) {

@@ -161,8 +161,8 @@ bool TemplateEngine::ParseScript(Environment &env, Signal sig,
 			ExprCallerStack &exprCallerStack)
 {
 	AutoPtr<ExprOwner> pExprOwnerPart(new ExprOwner());
-	if (!_parser.ParseString(env, sig, *pExprOwnerPart,
-						"<tmplscript>", strScript)) return false;
+	Parser parser(SRCNAME_string);
+	if (!parser.ParseString(env, sig, *pExprOwnerPart, strScript)) return false;
 	Expr_TmplScript *pExprTmplScript = new Expr_TmplScript(
 		streamDst, strIndent, strPost, _autoIndentFlag, _appendLastEOLFlag);
 	ExprOwner::iterator ppExpr = pExprOwnerPart->begin();

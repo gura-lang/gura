@@ -81,7 +81,7 @@ int MainW(int argc, const char *argv[])
 			if (::strcmp(cmd, "") == 0) continue;
 			AutoPtr<Expr_Root> pExprRoot(new Expr_Root(SRCNAME_cmdline));
 			ExprOwner &exprOwner = pExprRoot->GetExprOwner();
-			if (!Parser().ParseString(env, sig, exprOwner, "<command line>", cmd)) {
+			if (!Parser(SRCNAME_cmdline).ParseString(env, sig, exprOwner, cmd)) {
 				env.GetConsole()->PrintSignal(sig, sig);
 				return 1;
 			}
@@ -104,8 +104,9 @@ int MainW(int argc, const char *argv[])
 	}
 	const char *encoding = opt.GetString("coding", "utf-8");
 	if (argc >= 2) {
-		AutoPtr<Expr_Root> pExprRoot(Parser().ParseStream(env, sig,
-						OAL::FromNativeString(argv[1]).c_str(), encoding));
+		String sourceName = OAL::FromNativeString(argv[1]);
+		AutoPtr<Expr_Root> pExprRoot(Parser(sourceName).ParseStream(env, sig,
+												sourceName.c_str(), encoding));
 		if (sig.IsSignalled()) {
 			env.GetConsole()->PrintSignal(sig, sig);
 			return 1;

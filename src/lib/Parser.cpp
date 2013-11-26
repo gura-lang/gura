@@ -7,9 +7,9 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Parser
 //-----------------------------------------------------------------------------
-Parser::Parser() : _stat(STAT_Start),
-		_appearShebangFlag(false), _blockParamFlag(false),
-		_cntLine(0), _cntCol(0), _commentNestLevel(0)
+Parser::Parser(const String &sourceName, int cntLineOffset) : _stat(STAT_Start),
+		_appearShebangFlag(false), _blockParamFlag(false), _sourceName(sourceName),
+		_cntLine(cntLineOffset), _cntCol(0), _commentNestLevel(0)
 {
 	InitStack();
 	for (const ElemTypeInfo *p = _elemTypeInfoTbl;
@@ -820,7 +820,6 @@ Expr_Root *Parser::ParseStream(Environment &env, Signal sig, Stream &stream)
 {
 	Value result;
 	AutoPtr<Expr_Root> pExprRoot(new Expr_Root(stream.GetName()));
-	SetSourceName(stream.GetName());
 	for (;;) {
 		int chRaw = stream.GetChar(sig);
 		if (sig.IsSignalled()) {
@@ -877,9 +876,8 @@ Expr_Root *Parser::ParseStream(Environment &env, Signal sig, const char *pathNam
 }
 
 bool Parser::ParseString(Environment &env, Signal sig, ExprOwner &exprOwner,
-							const char *sourceName, const char *str, size_t len)
+													const char *str, size_t len)
 {
-	SetSourceName(sourceName);
 	for ( ; ; str++, len--) {
 		char ch = (len == 0)? '\0' : *str;
 		Expr *pExpr = ParseChar(env, sig, ch);

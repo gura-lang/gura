@@ -14,7 +14,6 @@ public:
 private:
 	bool _autoIndentFlag;
 	bool _appendLastEOLFlag;
-	Parser _parser;
 public:
 	TemplateEngine(bool autoIndentFlag, bool appendLastEOLFlag);
 	bool EvalStream(Environment &env, Signal sig,

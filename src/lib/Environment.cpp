@@ -784,7 +784,7 @@ Module *Environment::ImportSeparatedModule_Script(Signal sig, Environment *pEnvO
 	Environment &env = *this;
 	AutoPtr<Stream> pStream(Stream::Open(env, sig, pathName, Stream::ATTR_Readable));
 	if (sig.IsError()) return NULL;
-	AutoPtr<Expr_Root> pExprRoot(Parser().ParseStream(*pEnvOuter, sig, *pStream));
+	AutoPtr<Expr_Root> pExprRoot(Parser(pStream->GetName()).ParseStream(*pEnvOuter, sig, *pStream));
 	if (sig.IsSignalled()) return NULL;
 	Module *pModule = new Module(pEnvOuter, pSymbol,
 							pathName, Expr::Reference(pExprRoot.get()), NULL);

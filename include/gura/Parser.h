@@ -221,21 +221,18 @@ private:
 	CharConverter _charConverter;
 	static const ElemTypeInfo _elemTypeInfoTbl[];
 public:
-	Parser();
+	Parser(const String &sourceName, int cntLineOffset = 0);
 	~Parser();
 	void Reset();
 	void InitStack();
 	Expr *ParseChar(Environment &env, Signal sig, char ch);
 	Expr_Root *ParseStream(Environment &env, Signal sig, Stream &stream);
 	Expr_Root *ParseStream(Environment &env, Signal sig, const char *pathName, const char *encoding);
-	bool ParseString(Environment &env, Signal sig, ExprOwner &exprOwner,
-							const char *sourceName, const char *str, size_t len);
-	inline bool ParseString(Environment &env, Signal sig, ExprOwner &exprOwner,
-							const char *sourceName, const char *str) {
-		return ParseString(env, sig, exprOwner, sourceName, str, ::strlen(str));
+	bool ParseString(Environment &env, Signal sig, ExprOwner &exprOwner, const char *str, size_t len);
+	inline bool ParseString(Environment &env, Signal sig, ExprOwner &exprOwner, const char *str) {
+		return ParseString(env, sig, exprOwner, str, ::strlen(str));
 	}
 	void EvalConsoleChar(Environment &env, Signal sig, Expr_Root *pExprRoot, Stream *pConsole, char ch);
-	inline void SetSourceName(const char *sourceName) { _sourceName = sourceName; }
 	inline bool IsStackEmpty() const { return _elemStack.size() <= 1; }
 	inline bool IsContinued() const { return !IsStackEmpty() || _stat != STAT_Start; }
 	inline int GetLineNo() const { return _cntLine + 1; }

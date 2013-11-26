@@ -245,7 +245,10 @@ HRESULT CMain::ParseScriptText(
 	Gura::Stream *pConsole = _pEnv->GetConsole();
 	Gura::AutoPtr<Gura::Expr_Root> pExprRoot(new Gura::Expr_Root("<ole>"));
 	Gura::ExprOwner &exprOwner = pExprRoot->GetExprOwner();
-	if (!Gura::Parser().ParseString(*_pEnv, _sig, exprOwner, "<ole>",
+	int cntLineOffset = static_cast<int>(ulStartingLineNumber) - 1;
+	if (cntLineOffset < 0) cntLineOffset = 0;
+	Gura::Parser parser(pExprRoot->GetSourceName(), cntLineOffset);
+	if (!parser.ParseString(*_pEnv, _sig, exprOwner,
 					Gura::Gura_Module(mswin)::BSTRToString(pstrCode).c_str())) {
 		pexcepinfo->bstrDescription = L"*************";
 		pexcepinfo->bstrHelpFile = L"";

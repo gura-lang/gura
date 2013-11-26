@@ -807,8 +807,9 @@ Gura_DeclareMethod(string, parse)
 Gura_ImplementMethod(string, parse)
 {
 	AutoPtr<Expr_Block> pExpr(new Expr_Block());
-	if (!Parser().ParseString(env, sig, pExpr->GetExprOwner(),
-		"<parse function>", args.GetThis().GetString())) return Value::Null;
+	Parser parser(SRCNAME_string);
+	if (!parser.ParseString(env, sig, pExpr->GetExprOwner(),
+							args.GetThis().GetString())) return Value::Null;
 	return ReturnValue(env, sig, args, Value(env, pExpr.release()));
 }
 
