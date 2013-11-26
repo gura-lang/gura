@@ -1,5 +1,5 @@
-#ifndef __GURA_TEMPLATEENGINE_H__
-#define __GURA_TEMPLATEENGINE_H__
+#ifndef __GURA_TEMPLATE_H__
+#define __GURA_TEMPLATE_H__
 
 #include "Parser.h"
 

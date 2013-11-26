@@ -26,6 +26,7 @@ Class_palette.cpp
 Class_pointer.cpp
 Class_semaphore.cpp
 Class_stream.cpp
+Class_template.cpp
 Class_timedelta.cpp
 Class_uri.cpp
 ClassBasic.cpp
@@ -63,7 +64,7 @@ Stream.cpp
 StreamBasic.cpp
 String.cpp
 Symbol.cpp
-TemplateEngine.cpp
+Template.cpp
 Value.cpp
 ValueType.cpp
 ../module-basement/module-basement.cpp

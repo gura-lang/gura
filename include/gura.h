@@ -49,7 +49,7 @@
 #include "gura/Stream.h"
 #include "gura/StreamBasic.h"
 #include "gura/String.h"
-#include "gura/TemplateEngine.h"
+#include "gura/Template.h"
 
 #include "gura/Class_args.h"
 #include "gura/Class_audio.h"
@@ -74,6 +74,7 @@
 #include "gura/Class_pointer.h"
 #include "gura/Class_semaphore.h"
 #include "gura/Class_stream.h"
+#include "gura/Class_template.h"
 #include "gura/Class_timedelta.h"
 #include "gura/Class_uri.h"
 

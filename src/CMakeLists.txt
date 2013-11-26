@@ -116,6 +116,7 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/Class_pointer.h
   ${GURA_INCLUDE_DIR}/gura/Class_semaphore.h
   ${GURA_INCLUDE_DIR}/gura/Class_stream.h
+  ${GURA_INCLUDE_DIR}/gura/Class_template.h
   ${GURA_INCLUDE_DIR}/gura/Class_timedelta.h
   ${GURA_INCLUDE_DIR}/gura/Class_uri.h
   ${GURA_INCLUDE_DIR}/gura/ClassBasic.h
@@ -153,7 +154,7 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/StreamBasic.h
   ${GURA_INCLUDE_DIR}/gura/String.h
   ${GURA_INCLUDE_DIR}/gura/Symbol.h
-  ${GURA_INCLUDE_DIR}/gura/TemplateEngine.h
+  ${GURA_INCLUDE_DIR}/gura/Template.h
   ${GURA_INCLUDE_DIR}/gura/Value.h
   ${GURA_INCLUDE_DIR}/gura/ValueType.h
   ${GURA_INCLUDE_DIR}/gura/Version.h

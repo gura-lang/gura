@@ -206,6 +206,7 @@
     <ClCompile Include="Class_semaphore.cpp" />
     <ClCompile Include="Class_stream.cpp" />
     <ClCompile Include="Class_directory.cpp" />
+    <ClCompile Include="Class_template.cpp" />
     <ClCompile Include="Class_timedelta.cpp" />
     <ClCompile Include="Class_uri.cpp" />
     <ClCompile Include="Class_declaration.cpp" />
@@ -246,7 +247,7 @@
     <ClCompile Include="StreamBasic.cpp" />
     <ClCompile Include="String.cpp" />
     <ClCompile Include="Symbol.cpp" />
-    <ClCompile Include="TemplateEngine.cpp" />
+    <ClCompile Include="Template.cpp" />
     <ClCompile Include="Value.cpp" />
     <ClCompile Include="ValueType.cpp" />
     <ClCompile Include="..\module-basement\module-basement.cpp" />
@@ -297,6 +298,7 @@
     <ClInclude Include="..\..\include\gura\Class_semaphore.h" />
     <ClInclude Include="..\..\include\gura\Class_stream.h" />
     <ClInclude Include="..\..\include\gura\Class_directory.h" />
+    <ClInclude Include="..\..\include\gura\Class_template.h" />
     <ClInclude Include="..\..\include\gura\Class_timedelta.h" />
     <ClInclude Include="..\..\include\gura\Class_uri.h" />
     <ClInclude Include="..\..\include\gura\ClassBasic.h" />
@@ -328,7 +330,7 @@
     <ClInclude Include="..\..\include\gura\StreamBasic.h" />
     <ClInclude Include="..\..\include\gura\String.h" />
     <ClInclude Include="..\..\include\gura\Symbol.h" />
-    <ClInclude Include="..\..\include\gura\TemplateEngine.h" />
+    <ClInclude Include="..\..\include\gura\Template.h" />
     <ClInclude Include="..\..\include\gura\Value.h" />
     <ClInclude Include="..\..\include\gura\ValueType.h" />
     <ClInclude Include="..\..\include\gura\ZLibHelper.h" />
