@@ -161,13 +161,13 @@ Gura_ImplementFunction(template_)
 	Stream &streamSrc = args.GetStream(0);
 	if (args.Is_stream(1)) {
 		Stream &streamDst = args.GetStream(1);
-		TemplateEngine(autoIndentFlag, appendLastEOLFlag).
+		TemplateParser(autoIndentFlag, appendLastEOLFlag).
 					EvalStream(env, sig, streamSrc, streamDst);
 		return Value::Null;
 	} else {
 		String strDst;
 		SimpleStream_StringWriter streamDst(strDst);
-		if (!TemplateEngine(autoIndentFlag, appendLastEOLFlag).
+		if (!TemplateParser(autoIndentFlag, appendLastEOLFlag).
 					EvalStream(env, sig, streamSrc, streamDst)) return Value::Null;
 		return Value(env, strDst);
 	}
@@ -597,13 +597,13 @@ Gura_ImplementMethod(stream, template_)
 	Stream &streamSrc = Object_stream::GetThisObj(args)->GetStream();
 	if (args.Is_stream(0)) {
 		Stream &streamDst = args.GetStream(0);
-		TemplateEngine(autoIndentFlag, appendLastEOLFlag).
+		TemplateParser(autoIndentFlag, appendLastEOLFlag).
 					EvalStream(env, sig, streamSrc, streamDst);
 		return Value::Null;
 	} else {
 		String strDst;
 		SimpleStream_StringWriter streamDst(strDst);
-		if (!TemplateEngine(autoIndentFlag, appendLastEOLFlag).
+		if (!TemplateParser(autoIndentFlag, appendLastEOLFlag).
 					EvalStream(env, sig, streamSrc, streamDst)) return Value::Null;
 		return Value(env, strDst.c_str());
 	}
