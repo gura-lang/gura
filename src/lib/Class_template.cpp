@@ -5,19 +5,18 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Template
 //-----------------------------------------------------------------------------
-Template::Template(ExprOwner *pExprOwnerRoot) :
-						_pExprOwnerRoot(pExprOwnerRoot), _pStreamDst(NULL)
+Template::Template() : _pExprOwnerRoot(new ExprOwner()), _pStreamDst(NULL)
 {
 }
 
-bool Template::Eval(Environment &env, Signal sig, Stream *pStreamDst)
+bool Template::Eval(Environment &env, Signal sig, SimpleStream *pStreamDst)
 {
 	_pStreamDst = pStreamDst;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
 	do {
 		Environment &env = *pEnvBlock;
 		SeqPostHandler *pSeqPostHandlerEach = NULL;
-		foreach_const (ExprList, ppExpr, *_pExprOwnerRoot) {
+		foreach_const (ExprList, ppExpr, GetExprOwnerRoot()) {
 			(*ppExpr)->Exec2(env, sig, pSeqPostHandlerEach, true);
 			if (sig.IsSignalled()) break;
 		}
@@ -35,7 +34,14 @@ Template::Parser::Parser(bool autoIndentFlag, bool appendLastEOLFlag) :
 }
 
 bool Template::Parser::EvalStream(Environment &env, Signal sig,
-					SimpleStream &streamSrc, SimpleStream &streamDst)
+							SimpleStream &streamSrc, SimpleStream &streamDst)
+{
+	AutoPtr<Template> pTemplate(ParseStream(env, sig, streamSrc));
+	if (pTemplate.IsNull()) return false;
+	return pTemplate->Eval(env, sig, &streamDst);
+}
+
+Template *Template::Parser::ParseStream(Environment &env, Signal sig, SimpleStream &streamSrc)
 {
 	const char *sourceName = streamSrc.GetName();
 	char chPrefix = '$';
@@ -49,11 +55,11 @@ bool Template::Parser::EvalStream(Environment &env, Signal sig,
 	int cntLine = 0;
 	int cntLineStart = 0;
 	int nDepth = 0;
-	AutoPtr<ExprOwner> pExprOwnerRoot(new ExprOwner());
-	ExprCallerStack exprCallerStack;
+	_exprCallerStack.clear();
+	AutoPtr<Template> pTemplate(new Template());
 	for (;;) {
 		int chRaw = streamSrc.GetChar(sig);
-		if (sig.IsSignalled()) return false;
+		if (sig.IsSignalled()) return NULL;
 		if (chRaw < 0) break;
 		char ch = static_cast<char>(chRaw);
 		bool continueFlag = false;
@@ -99,9 +105,10 @@ bool Template::Parser::EvalStream(Environment &env, Signal sig,
 			case STAT_ScriptPre: {
 				if (ch == '{') {
 					if (!str.empty()) {
-						ExprOwner &exprOwner = exprCallerStack.empty()?
-							*pExprOwnerRoot : exprCallerStack.back()->GetBlock()->GetExprOwner();
-						exprOwner.push_back(new Expr_TmplString(streamDst, str));
+						ExprOwner &exprOwner = _exprCallerStack.empty()?
+							pTemplate->GetExprOwnerRoot() :
+							_exprCallerStack.back()->GetBlock()->GetExprOwner();
+						exprOwner.push_back(new Expr_TmplString(pTemplate.get(), str));
 						str.clear();
 					}
 					cntLineStart = cntLine;
@@ -140,10 +147,9 @@ bool Template::Parser::EvalStream(Environment &env, Signal sig,
 			}
 			case STAT_ScriptPost: {
 				const char *strPost = (ch == '\n')? "\n" : "";
-				if (!ParseScript(env, sig,
+				if (!CreateTmplScript(env, sig,
 						strIndent.c_str(), strScript.c_str(), strPost,
-						streamDst, *pExprOwnerRoot, exprCallerStack,
-						sourceName, cntLineStart)) return false;
+						pTemplate.get(), sourceName, cntLineStart)) return NULL;
 				strIndent.clear();
 				strScript.clear();
 				if (ch == '\n') {
@@ -161,52 +167,40 @@ bool Template::Parser::EvalStream(Environment &env, Signal sig,
 	}
 	if (!strScript.empty()) {
 		const char *strPost = "";
-		if (!ParseScript(env, sig,
-				strIndent.c_str(), strScript.c_str(), strPost,
-				streamDst, *pExprOwnerRoot, exprCallerStack,
-				sourceName, cntLineStart)) return false;
+		if (!CreateTmplScript(env, sig, strIndent.c_str(), strScript.c_str(), strPost,
+				pTemplate.get(), sourceName, cntLineStart)) return NULL;
 	}
-	if (!exprCallerStack.empty()) {
+	if (!_exprCallerStack.empty()) {
 		sig.SetError(ERR_SyntaxError, "lacking end statement for block expression");
-		return false;
+		return NULL;
 	}
 	if (!str.empty()) {
-		pExprOwnerRoot->push_back(new Expr_TmplString(streamDst, str));
+		pTemplate->GetExprOwnerRoot().push_back(new Expr_TmplString(pTemplate.get(), str));
 		str.clear();
 	}
-	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
-	do {
-		Environment &env = *pEnvBlock;
-		SeqPostHandler *pSeqPostHandlerEach = NULL;
-		foreach_const (ExprList, ppExpr, *pExprOwnerRoot) {
-			(*ppExpr)->Exec2(env, sig, pSeqPostHandlerEach, true);
-			if (sig.IsSignalled()) return false;
-		}
-	} while (0);
-	return !sig.IsSignalled();
+	return pTemplate.release();
 }
 
-bool Template::Parser::ParseScript(Environment &env, Signal sig,
+bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 			const char *strIndent, const char *strScript, const char *strPost,
-			SimpleStream &streamDst, ExprOwner &exprOwnerRoot,
-			ExprCallerStack &exprCallerStack,
-			const char *sourceName, int cntLineStart)
+			Template *pTemplate, const char *sourceName, int cntLineStart)
 {
 	AutoPtr<ExprOwner> pExprOwnerPart(new ExprOwner());
 	Gura::Parser parser(sourceName, cntLineStart);
 	if (!parser.ParseString(env, sig, *pExprOwnerPart, strScript)) return false;
 	Expr_TmplScript *pExprTmplScript = new Expr_TmplScript(
-		streamDst, strIndent, strPost, _autoIndentFlag, _appendLastEOLFlag);
+		pTemplate, strIndent, strPost, _autoIndentFlag, _appendLastEOLFlag);
 	ExprOwner::iterator ppExpr = pExprOwnerPart->begin();
 	Expr *pExprLast = NULL;
 	//::printf("[%s], [%s], [%s]\n", strIndent, strScript, strPost);
 	if (ppExpr != pExprOwnerPart->end()) {
+		// check if the first Expr is a trailer
 		Expr *pExpr = *ppExpr;
 		Callable *pCallable = pExpr->LookupCallable(env, sig);
 		sig.ClearSignal();
 		if (pCallable != NULL && pCallable->IsTrailer()) {
 			pExprTmplScript->SetStringIndent("");
-			if (exprCallerStack.empty()) {
+			if (_exprCallerStack.empty()) {
 				sig.SetError(ERR_SyntaxError, "unmatching trailer expression");
 				Expr::Delete(pExprTmplScript);
 				return false;
@@ -215,10 +209,10 @@ bool Template::Parser::ParseScript(Environment &env, Signal sig,
 				Expr_Caller *pExprCaller = pExpr->IsCaller()?
 					dynamic_cast<Expr_Caller *>(Expr::Reference(pExpr)) :
 					new Expr_Caller(Expr::Reference(pExpr), NULL, NULL);
-				exprCallerStack.back()->SetTrailer(pExprCaller);
+				_exprCallerStack.back()->SetTrailer(pExprCaller);
 				pExprLast = pExprCaller;
 			}
-			exprCallerStack.pop_back();
+			_exprCallerStack.pop_back();
 			ppExpr++;
 		}
 	}
@@ -228,11 +222,13 @@ bool Template::Parser::ParseScript(Environment &env, Signal sig,
 			pExprTmplScript->GetExprOwner().push_back(Expr::Reference(pExpr));
 			pExprLast = pExpr;
 		}
-		ExprOwner &exprOwner = exprCallerStack.empty()?
-			exprOwnerRoot : exprCallerStack.back()->GetBlock()->GetExprOwner();
+		ExprOwner &exprOwner = _exprCallerStack.empty()?
+				pTemplate->GetExprOwnerRoot() :
+				_exprCallerStack.back()->GetBlock()->GetExprOwner();
 		exprOwner.push_back(pExprTmplScript);
 	}
-	if (pExprLast == NULL || !pExprLast->IsCaller()) return true;
+	if (pExprLast == NULL) return true;
+	if (!pExprLast->IsCaller()) return true;
 	Expr_Caller *pExprLastCaller = dynamic_cast<Expr_Caller *>(pExprLast);
 	if (pExprLastCaller->GetBlock() == NULL) {
 		Callable *pCallable = pExprLastCaller->LookupCallable(env, sig);
@@ -241,12 +237,12 @@ bool Template::Parser::ParseScript(Environment &env, Signal sig,
 						pCallable->GetBlockOccurPattern() == OCCUR_Once) {
 			Expr_Block *pExprBlock = new Expr_Block();
 			pExprLastCaller->SetBlock(pExprBlock);
-			exprCallerStack.push_back(pExprLastCaller);
+			_exprCallerStack.push_back(pExprLastCaller);
 			pExprTmplScript->SetStringIndent("");
 			pExprTmplScript->SetStringPost("");
 		}
 	} else if (pExprLastCaller->GetBlock()->GetExprOwner().empty()) {
-		exprCallerStack.push_back(pExprLastCaller);
+		_exprCallerStack.push_back(pExprLastCaller);
 		pExprTmplScript->SetStringIndent("");
 		pExprTmplScript->SetStringPost("");
 	}
@@ -263,7 +259,7 @@ Expr *Expr_TmplString::Clone() const
 
 Value Expr_TmplString::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
 {
-	_streamDst.Print(sig, _str.c_str());
+	_pTemplate->GetStreamDst()->Print(sig, _str.c_str());
 	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, Value::Null)) return Value::Null;
 	return Value::Null;
 }
@@ -303,7 +299,7 @@ Value Expr_TmplScript::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeq
 		if (sig.IsSignalled()) return Value::Null;
 	}
 	if (value.IsInvalid()) return Value::Null;
-	_streamDst.Print(sig, _strIndent.c_str());
+	_pTemplate->GetStreamDst()->Print(sig, _strIndent.c_str());
 	String strLast;
 	if (value.Is_string()) {
 		strLast = value.GetStringSTL();
@@ -315,12 +311,12 @@ Value Expr_TmplScript::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeq
 			foreach_const (String, p, strLast) {
 				char ch = *p;
 				if (ch == '\n') {
-					_streamDst.PutChar(sig, ch);
+					_pTemplate->GetStreamDst()->PutChar(sig, ch);
 					if (_autoIndentFlag && valueElem.IsValid()) {
-						_streamDst.Print(sig, _strIndent.c_str());
+						_pTemplate->GetStreamDst()->Print(sig, _strIndent.c_str());
 					}
 				} else {
-					_streamDst.PutChar(sig, ch);
+					_pTemplate->GetStreamDst()->PutChar(sig, ch);
 				}
 			}
 			if (valueElem.Is_string()) {
@@ -347,17 +343,17 @@ Value Expr_TmplScript::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeq
 	foreach_const (String, p, strLast) {
 		char ch = *p;
 		if (ch != '\n') {
-			_streamDst.PutChar(sig, ch);
+			_pTemplate->GetStreamDst()->PutChar(sig, ch);
 		} else if (p + 1 != strLast.end()) {
-			_streamDst.PutChar(sig, ch);
+			_pTemplate->GetStreamDst()->PutChar(sig, ch);
 			if (_autoIndentFlag) {
-				_streamDst.Print(sig, _strIndent.c_str());
+				_pTemplate->GetStreamDst()->Print(sig, _strIndent.c_str());
 			}
 		} else if (_appendLastEOLFlag) {
-			_streamDst.PutChar(sig, ch);
+			_pTemplate->GetStreamDst()->PutChar(sig, ch);
 		}
 	}
-	_streamDst.Print(sig, _strPost.c_str());
+	_pTemplate->GetStreamDst()->Print(sig, _strPost.c_str());
 	return Value::Null;
 }
 
