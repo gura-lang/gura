@@ -2400,8 +2400,8 @@ Gura_DeclareFunction(GetError)
 
 Gura_ImplementFunction(GetError)
 {
-	//return Value(env, ::SDL_GetError());
-	return Value(env, "");
+	//return Value(::SDL_GetError());
+	return Value("");
 }
 
 //-----------------------------------------------------------------------------
@@ -2459,7 +2459,7 @@ Gura_ImplementFunction(VideoDriverName)
 	char buff[64];
 	char *p = ::SDL_VideoDriverName(buff, sizeof(buff));
 	if (p == NULL) return Value::Null;
-	return Value(env, p);
+	return Value(p);
 }
 
 // sdl.ListModes(format:sdl.PixelFormat, flags:number)
@@ -3096,8 +3096,8 @@ Gura_ImplementFunction(WM_GetCaption)
 	char *title = NULL, *icon = NULL;
 	::SDL_WM_GetCaption(&title, &icon);
 	Value valTitle, valIcon;
-	if (title != NULL) valTitle = Value(env, title);
-	if (icon != NULL) valIcon = Value(env, icon);
+	if (title != NULL) valTitle = Value(title);
+	if (icon != NULL) valIcon = Value(icon);
 	return Value::CreateAsList(env, valTitle, valIcon);
 }
 
@@ -3581,7 +3581,7 @@ Gura_DeclareFunction(GetKeyName)
 
 Gura_ImplementFunction(GetKeyName)
 {
-	return Value(env, ::SDL_GetKeyName(static_cast<SDLKey>(args.GetInt(0))));
+	return Value(::SDL_GetKeyName(static_cast<SDLKey>(args.GetInt(0))));
 }
 
 // sdl.EnableUNICODE(enable:number)
@@ -3740,7 +3740,7 @@ Gura_DeclareFunction(JoystickName)
 
 Gura_ImplementFunction(JoystickName)
 {
-	return Value(env, ::SDL_JoystickName(args.GetInt(0)));
+	return Value(::SDL_JoystickName(args.GetInt(0)));
 }
 
 // sdl.JoystickOpen(index:number):map
@@ -3986,7 +3986,7 @@ Gura_DeclareFunction(CDName)
 
 Gura_ImplementFunction(CDName)
 {
-	return Value(env, ::SDL_CDName(args.GetInt(0)));
+	return Value(::SDL_CDName(args.GetInt(0)));
 }
 
 // sdl.CDOpen(drive:number)

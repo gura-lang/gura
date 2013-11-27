@@ -157,7 +157,7 @@ Gura_ImplementMethod(wx_Colour, GetAsString)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long flags = args.GetLong(0);
 	wxString rtn = pThis->GetEntity()->GetAsString(flags);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Colour, GetPixel)

@@ -74,7 +74,7 @@ Gura_ImplementFunction(compose)
 {
 	String str;
 	WriterToString::Write(env, sig, str, args.GetValue(0));
-	return Value(env, str.c_str());
+	return Value(str);
 }
 
 //-----------------------------------------------------------------------------
@@ -353,7 +353,7 @@ Value ExecParser(Environment &env, Signal sig,
 				yaml_scalar_style_t style = event.data.scalar.style;
 				String valueStr(reinterpret_cast<char *>(valueRaw), length);
 				//::printf("SCALAR %s %s %s\n", anchor, tag, valueStr.c_str());
-				value = Value(env, valueStr.c_str());
+				value = Value(valueStr);
 			} else if (event.type == YAML_SEQUENCE_START_EVENT) {
 				anchor = event.data.sequence_start.anchor;
 				tag = event.data.sequence_start.tag;

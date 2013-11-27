@@ -62,15 +62,15 @@ Value Object_Stat::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(pathname))) {
-		return Value(env, _fileStat.GetPathName());
+		return Value(_fileStat.GetPathName());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(dirname))) {
 		String dirName;
 		PathManager::SplitFileName(_fileStat.GetPathName(), &dirName, NULL);
-		return Value(env, dirName.c_str());
+		return Value(dirName);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(filename))) {
 		String fileName;
 		PathManager::SplitFileName(_fileStat.GetPathName(), NULL, &fileName);
-		return Value(env, fileName.c_str());
+		return Value(fileName);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(size))) {
 		return Value(static_cast<Number>(_fileStat.GetSize()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(uid))) {
@@ -819,7 +819,7 @@ Gura_DeclareFunction(getcwd)
 Gura_ImplementFunction(getcwd)
 {
 	String pathName = OAL::GetCurDir();
-	return Value(env, pathName.c_str());
+	return Value(pathName);
 }
 
 // fs.chmod(mode, pathname:string):map:void

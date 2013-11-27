@@ -321,7 +321,7 @@ Gura_ImplementMethod(wx_Notebook, GetPageText)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t nPage = args.GetSizeT(0);
 	wxString rtn = pThis->GetEntity()->GetPageText(nPage);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Notebook, GetRowCount)

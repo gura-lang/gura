@@ -1005,7 +1005,7 @@ Gura_DeclareFunction(tostring)
 
 Gura_ImplementFunction(tostring)
 {
-	return Value(env, args.GetValue(0).ToString(false).c_str());
+	return Value(args.GetValue(0).ToString(false));
 }
 
 // tonumber(value):map:[strict,raise,zero,nil]
@@ -1120,7 +1120,7 @@ Gura_ImplementFunction(chr)
 	for ( ; i > 0; i--) {
 		str.push_back(buff[i - 1]);
 	}
-	return Value(env, str.c_str());
+	return Value(str);
 }
 
 // hex(num:number, digits?:number):map:[upper]
@@ -1145,7 +1145,7 @@ Gura_ImplementFunction(hex)
 						ValueList(Value(digits), args.GetValue(0)));
 	}
 	if (sig.IsSignalled()) return Value::Null;
-	return Value(env, str.c_str());
+	return Value(str);
 }
 
 // print(value*):map:void
@@ -1246,7 +1246,7 @@ Gura_DeclareFunction(format)
 
 Gura_ImplementFunction(format)
 {
-	return Value(env, Formatter::Format(sig, args.GetString(0), args.GetList(1)));
+	return Value(Formatter::Format(sig, args.GetString(0), args.GetList(1)));
 }
 
 // dir(obj?):[noesc]
@@ -1480,7 +1480,7 @@ Gura_ImplementFunction(typename_)
 		if (sig.IsSignalled()) return Value::Null;
 		typeName = value.MakeValueTypeName();
 	}
-	return Value(env, typeName);
+	return Value(typeName);
 }
 
 // undef(`symbol+):[raise]
@@ -1584,7 +1584,7 @@ Gura_ImplementFunction(object)
 Gura_ModuleEntry()
 {
 	// value assignment
-	Gura_AssignValue(__name__,	Value(env, "__main__"));
+	Gura_AssignValue(__name__,	Value("__main__"));
 	Gura_AssignValue(nil,		Value::Null);
 	Gura_AssignValueEx("-",		Value::Null);
 	Gura_AssignValueEx("@rem",	Value::Null); // dummy for MS-DOS batch

@@ -321,7 +321,7 @@ Value Binary::Unpack(Environment &env, Signal sig, size_t &offset,
 			str[1] = '\0';
 			for (int i = 0; i < nRepeat; i++, pByte++) {
 				str[0] = *pByte;
-				valList.push_back(Value(env, str));
+				valList.push_back(Value(str));
 			}
 			nRepeat = 1;
 		} else if (ch == 'b') {
@@ -443,7 +443,7 @@ Value Binary::Unpack(Environment &env, Signal sig, size_t &offset,
 			}
 			// flush unprocessed characters
 			if (pCodec->GetDecoder()->Flush(chConv)) while (pCodec->GetDecoder()->FollowChar(chConv)) ;
-			valList.push_back(Value(env, str.c_str()));
+			valList.push_back(Value(str));
 			nRepeat = 1;
 		} else if (ch == 'p') {
 			//iterator pByte = begin() + offset;

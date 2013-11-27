@@ -880,7 +880,7 @@ bool Iterator_RegEnumKey::DoNext(Environment &env, Signal sig, Value &value)
 		return false;
 	}
 	if (_samDesired == 0) {
-		value = Value(env, OAL::FromNativeString(name).c_str());
+		value = Value(OAL::FromNativeString(name));
 	} else {
 		HKEY hKeyResult;
 		DWORD dwErrCode = ::RegOpenKeyEx(hKey, name, 0, _samDesired, &hKeyResult);
@@ -939,7 +939,7 @@ bool Iterator_RegEnumValue::DoNext(Environment &env, Signal sig, Value &value)
 		return false;
 	}
 	ValueList &valList = value.InitAsList(env);
-	Value valueWk(env, OAL::FromNativeString(valueName).c_str());
+	Value valueWk(OAL::FromNativeString(valueName));
 	valList.push_back(valueWk);
 	valList.push_back(RegDataToValue(env, sig, dwType, lpData, cbData));
 	::LocalFree(lpData);
@@ -1021,27 +1021,27 @@ Gura_ModuleEntry()
 		char dirName[MAX_PATH];
 		::GetWindowsDirectory(dirName, MAX_PATH);
 		Gura_AssignValue(WindowsDirectory,
-				Value(env, OAL::FromNativeString(dirName).c_str()));
+				Value(OAL::FromNativeString(dirName)));
 		::GetSystemDirectory(dirName, MAX_PATH);
 		Gura_AssignValue(SystemDirectory,
-				Value(env, OAL::FromNativeString(dirName).c_str()));
+				Value(OAL::FromNativeString(dirName)));
 		::GetSystemWindowsDirectory(dirName, MAX_PATH);
 		Gura_AssignValue(SystemWindowsDirectory,
-				Value(env, OAL::FromNativeString(dirName).c_str()));
+				Value(OAL::FromNativeString(dirName)));
 	} while (0);
 	do {
 		char computerName[MAX_COMPUTERNAME_LENGTH + 1];
 		DWORD nSize = MAX_COMPUTERNAME_LENGTH;
 		::GetComputerName(computerName, &nSize);
 		Gura_AssignValue(ComputerName,
-				Value(env, OAL::FromNativeString(computerName).c_str()));
+				Value(OAL::FromNativeString(computerName)));
 	} while (0);
 	do {
 		char userName[512 + 1];
 		DWORD nSize = 512;
 		::GetUserName(userName, &nSize);
 		Gura_AssignValue(UserName,
-				Value(env, OAL::FromNativeString(userName).c_str()));
+				Value(OAL::FromNativeString(userName)));
 	} while (0);
 	// function assignment
 	Gura_AssignFunction(ole);
@@ -1172,7 +1172,7 @@ bool VariantToValue(Environment &env, Signal sig, Value &value, const VARIANT &v
 				0, OAL::GetSecsOffsetTZ());
 		value = Value(new Object_datetime(env, dateTime));
 	} else if (type == VT_BSTR) {
-		value = Value(env, BSTRToString(var.bstrVal).c_str());
+		value = Value(BSTRToString(var.bstrVal));
 	} else if (type == VT_UNKNOWN) {
 		sig.SetError(ERR_ValueError, "cantnot convert from ole variant UNKNOWN");
 		//value = Value(static_cast<Number>((var.vt & VT_BYREF)? *var.ppunkVal : var.punkVal));
@@ -1206,8 +1206,8 @@ Value RegDataToValue(Environment &env, Signal sig,
 		ValueList &valList = result.InitAsList(env);
 		size_t bytesSum = 0;
 		while (bytesSum + 1 < static_cast<size_t>(cbData)) {
-			Value value(env, OAL::FromNativeString(
-								reinterpret_cast<const char *>(lpData)).c_str());
+			Value value(OAL::FromNativeString(
+								reinterpret_cast<const char *>(lpData)));
 			valList.push_back(value);
 			size_t bytes = ::strlen(reinterpret_cast<const char *>(lpData)) + 1;
 			lpData += bytes;
@@ -1220,8 +1220,8 @@ Value RegDataToValue(Environment &env, Signal sig,
 	} else if (dwType == REG_RESOURCE_LIST) {
 		sig.SetError(ERR_ValueError, "cantnot convert from registry value REG_RESOURCE_LIST");
 	} else if (dwType == REG_SZ) {
-		result = Value(env, OAL::FromNativeString(
-								reinterpret_cast<const char *>(lpData)).c_str());
+		result = Value(OAL::FromNativeString(
+								reinterpret_cast<const char *>(lpData)));
 	}
 	return result;
 }

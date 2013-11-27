@@ -2514,9 +2514,9 @@ _MS(PrepareClass(ThreadHelper));
 		Gura_AssignWxValue(RELEASE_NUMBER);
 		Gura_AssignWxValue(SUBRELEASE_NUMBER);
 		Gura_AssignWxValue(VERSION_NUMBER);
-		Gura_AssignValue(VERSION_STRING,			Value(env, wxString(wxVERSION_STRING).ToUTF8()));
-		Gura_AssignValue(VERSION_NUM_DOT_STRING,	Value(env, wxVERSION_NUM_DOT_STRING));
-		//Gura_AssignValue(VERSION_NUM_DOT_STRING,	Value(env, wxString(wxVERSION_NUM_DOT_STRING).ToUTF8()));
+		Gura_AssignValue(VERSION_STRING,			Value(wxString(wxVERSION_STRING).ToUTF8()));
+		Gura_AssignValue(VERSION_NUM_DOT_STRING,	Value(wxVERSION_NUM_DOT_STRING));
+		//Gura_AssignValue(VERSION_NUM_DOT_STRING,	Value(wxString(wxVERSION_NUM_DOT_STRING).ToUTF8()));
 	} while (0);
 	do {
 	_MS(Gura_AssignValue(RegKeyRead,				Value(wxRegKey::Read)));
@@ -2938,7 +2938,7 @@ void InitializeObjects(Environment &env)
 		Gura_AssignWxStringValue(FileSelectorDefaultWildcardStr);
 	} while (0);
 	do {
-		Gura_AssignValue(EmptyString,			Value(env, ""));
+		Gura_AssignValue(EmptyString,			Value(""));
 		Gura_AssignWxStringValue(GetTextFromUserPromptStr);
 	} while (0);
 	do { // Event Types
@@ -3343,7 +3343,7 @@ Value ArrayStringToValue(Environment &env, const wxArrayString &array)
 	ValueList &valList = rtn.InitAsList(env);
 	valList.reserve(array.GetCount());
 	for (size_t i = 0; i < array.GetCount(); i++) {
-		valList.push_back(Value(env, array.Item(i).ToUTF8()));
+		valList.push_back(Value(array.Item(i).ToUTF8()));
 	}
 	return rtn;
 }
@@ -3354,7 +3354,7 @@ Value ArrayStringToValue(Environment &env, const wxString *array, int n)
 	ValueList &valList = rtn.InitAsList(env);
 	valList.reserve(n);
 	for (int i = 0; i < n; i++) {
-		valList.push_back(Value(env, array[i].ToUTF8()));
+		valList.push_back(Value(array[i].ToUTF8()));
 	}
 	return rtn;
 }

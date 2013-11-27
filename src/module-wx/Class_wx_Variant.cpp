@@ -445,7 +445,7 @@ Gura_ImplementMethod(wx_Variant, GetName)
 	Object_wx_Variant *pThis = Object_wx_Variant::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Variant, GetString)
@@ -459,7 +459,7 @@ Gura_ImplementMethod(wx_Variant, GetString)
 	Object_wx_Variant *pThis = Object_wx_Variant::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetString();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Variant, GetType)
@@ -473,7 +473,7 @@ Gura_ImplementMethod(wx_Variant, GetType)
 	Object_wx_Variant *pThis = Object_wx_Variant::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetType();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Variant, GetVoidPtr)
@@ -594,7 +594,7 @@ Gura_ImplementMethod(wx_Variant, MakeString)
 	Object_wx_Variant *pThis = Object_wx_Variant::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->MakeString();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Variant, Member)

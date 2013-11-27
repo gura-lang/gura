@@ -36,7 +36,7 @@ Value Object_writer::DoGetProp(Environment &env, Signal sig, const Symbol *pSymb
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(format))) {
-		return Value(env, _format.c_str());
+		return Value(_format);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -231,7 +231,7 @@ Gura_ModuleEntry()
 	Gura_AssignMethodTo(VTYPE_stream, stream, csvreader);
 	Gura_AssignMethodTo(VTYPE_stream, stream, csvwriter);
 	// value assignment
-	Gura_AssignValue(format, Value(env, DEFAULT_FORMAT));
+	Gura_AssignValue(format, Value(DEFAULT_FORMAT));
 }
 
 Gura_ModuleTerminate()
@@ -268,7 +268,7 @@ bool Reader::ReadLine(Environment &env, Signal sig, ValueList &valList)
 			if (ch == '"') {
 				stat = STAT_Quoted;
 			} else if (ch == '\n' || ch == '\0') {
-				valList.push_back(Value(env, field.c_str()));
+				valList.push_back(Value(field));
 				break;
 			} else {
 				eatNextChar = false;
@@ -276,10 +276,10 @@ bool Reader::ReadLine(Environment &env, Signal sig, ValueList &valList)
 			}
 		} else if (stat == STAT_Field) {
 			if (ch == ',') {
-				valList.push_back(Value(env, field.c_str()));
+				valList.push_back(Value(field));
 				stat = STAT_FieldTop;
 			} else if (ch == '\n' || ch == '\0') {
-				valList.push_back(Value(env, field.c_str()));
+				valList.push_back(Value(field));
 				break;
 			} else {
 				field.push_back(ch);
@@ -288,7 +288,7 @@ bool Reader::ReadLine(Environment &env, Signal sig, ValueList &valList)
 			if (ch == '"') {
 				stat = STAT_QuotedEnd;
 			} else if (ch == '\0') {
-				valList.push_back(Value(env, field.c_str()));
+				valList.push_back(Value(field));
 				break;
 			} else {
 				field.push_back(ch);
@@ -298,7 +298,7 @@ bool Reader::ReadLine(Environment &env, Signal sig, ValueList &valList)
 				field.push_back(ch);
 				stat = STAT_Quoted;
 			} else if (ch == '\0') {
-				valList.push_back(Value(env, field.c_str()));
+				valList.push_back(Value(field));
 				break;
 			} else {
 				eatNextChar = false;

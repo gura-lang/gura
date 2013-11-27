@@ -8,7 +8,7 @@
 Gura_AssignValue(name, Value(CAIRO_##name))
 
 #define Gura_AssignCairoStringValue(name) \
-Gura_AssignValue(name, Value(env, CAIRO_##name))
+Gura_AssignValue(name, Value(CAIRO_##name))
 
 Gura_BeginModuleBody(cairo)
 
@@ -135,7 +135,7 @@ Gura_ImplementFunction(ps_level_to_string)
 	cairo_ps_level_t level = static_cast<cairo_ps_level_t>(args.GetInt(0));
 	const char *rtn = ::cairo_ps_level_to_string(level);
 	if (rtn == NULL) return Value::Null;
-	return Value(env, rtn);
+	return Value(rtn);
 }
 
 // cairo.pdf_version_to_string(version:number)
@@ -150,7 +150,7 @@ Gura_ImplementFunction(pdf_version_to_string)
 	cairo_pdf_version_t version = static_cast<cairo_pdf_version_t>(args.GetInt(0));
 	const char *rtn = ::cairo_pdf_version_to_string(version);
 	if (rtn == NULL) return Value::Null;
-	return Value(env, rtn);
+	return Value(rtn);
 }
 
 // cairo.svg_version_to_string(version:number)
@@ -165,7 +165,7 @@ Gura_ImplementFunction(svg_version_to_string)
 	cairo_svg_version_t version = static_cast<cairo_svg_version_t>(args.GetInt(0));
 	const char *rtn = ::cairo_svg_version_to_string(version);
 	if (rtn == NULL) return Value::Null;
-	return Value(env, rtn);
+	return Value(rtn);
 }
 
 // cairo.status_to_string(status:number)
@@ -180,7 +180,7 @@ Gura_ImplementFunction(status_to_string)
 	cairo_status_t status = static_cast<cairo_status_t>(args.GetInt(0));
 	const char *rtn = ::cairo_status_to_string(status);
 	if (rtn == NULL) return Value::Null;
-	return Value(env, rtn);
+	return Value(rtn);
 }
 
 // cairo.format_stride_for_width(format:number, width:number)

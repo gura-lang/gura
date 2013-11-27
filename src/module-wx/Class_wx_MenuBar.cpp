@@ -240,7 +240,7 @@ Gura_ImplementMethod(wx_MenuBar, GetHelpString)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
 	wxString rtn = pThis->GetEntity()->GetHelpString(id);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_MenuBar, GetLabel)
@@ -256,7 +256,7 @@ Gura_ImplementMethod(wx_MenuBar, GetLabel)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
 	wxString rtn = pThis->GetEntity()->GetLabel(id);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_MenuBar, GetLabelTop)
@@ -272,7 +272,7 @@ Gura_ImplementMethod(wx_MenuBar, GetLabelTop)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int pos = args.GetInt(0);
 	wxString rtn = pThis->GetEntity()->GetLabelTop(pos);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_MenuBar, GetMenu)
@@ -318,7 +318,7 @@ Gura_ImplementMethod(wx_MenuBar, GetMenuLabel)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int pos = args.GetInt(0);
 	wxString rtn = pThis->GetEntity()->GetMenuLabel(pos);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_MenuBar, GetMenuLabelText)
@@ -334,7 +334,7 @@ Gura_ImplementMethod(wx_MenuBar, GetMenuLabelText)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int pos = args.GetInt(0);
 	wxString rtn = pThis->GetEntity()->GetMenuLabelText(pos);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_MenuBar, Insert)

@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_RegEx, GetMatch_1)
 	size_t index = 0;
 	if (args.IsValid(1)) index = args.GetSizeT(1);
 	wxString rtn = pThis->GetEntity()->GetMatch(text, index);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RegEx, GetMatchCount)

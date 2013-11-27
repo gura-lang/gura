@@ -222,7 +222,7 @@ Gura_ImplementMethod(wx_App, GetAppName)
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetAppName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_App, GetClassName)
@@ -236,7 +236,7 @@ Gura_ImplementMethod(wx_App, GetClassName)
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetClassName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_App, GetExitOnFrameDelete)
@@ -327,7 +327,7 @@ Gura_ImplementMethod(wx_App, GetVendorName)
 	Object_wx_App *pThis = Object_wx_App::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetVendorName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_App, IsActive)

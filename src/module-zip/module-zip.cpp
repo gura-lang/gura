@@ -597,9 +597,9 @@ Value Object_stat::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(filename))) {
-		return Value(env, _hdr.GetFileName());
+		return Value(_hdr.GetFileName());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(comment))) {
-		return Value(env, _hdr.GetFileComment());
+		return Value(_hdr.GetFileComment());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mtime))) {
 		return Value(new Object_datetime(env, _hdr.GetLastModDateTime()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(crc32))) {

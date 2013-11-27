@@ -69,8 +69,8 @@ Gura_ImplementClassMethod(wx_DateTime, GetAmPmStrings)
 	wxString pm;
 	wxDateTime::GetAmPmStrings(&am, &pm);
 	return ReturnValue(env, sig, args, Value::CreateAsList(env,
-				Value(env, static_cast<const char *>(am.ToUTF8())),
-				Value(env, static_cast<const char *>(pm.ToUTF8()))));
+				Value(static_cast<const char *>(am.ToUTF8())),
+				Value(static_cast<const char *>(pm.ToUTF8()))));
 }
 
 Gura_DeclareClassMethod(wx_DateTime, GetBeginDST)
@@ -186,7 +186,7 @@ Gura_ImplementClassMethod(wx_DateTime, GetMonthName)
 	wxDateTime::NameFlags flags = wxDateTime::Name_Full;
 	if (args.IsValid(1)) flags = static_cast<wxDateTime::NameFlags>(args.GetInt(1));
 	wxString rtn = wxDateTime::GetMonthName(month, flags);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareClassMethod(wx_DateTime, GetNumberOfDaysInYear)
@@ -273,7 +273,7 @@ Gura_ImplementClassMethod(wx_DateTime, GetWeekDayName)
 	wxDateTime::NameFlags flags = wxDateTime::Name_Full;
 	if (args.IsValid(1)) flags = static_cast<wxDateTime::NameFlags>(args.GetInt(1));
 	wxString rtn = wxDateTime::GetWeekDayName(weekday, flags);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareClassMethod(wx_DateTime, IsLeapYear)
@@ -1554,7 +1554,7 @@ Gura_ImplementMethod(wx_DateTime, Format)
 		format = _format;
 	}
 	wxString rtn = pThis->GetEntity()->Format(format, );
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1572,7 +1572,7 @@ Gura_ImplementMethod(wx_DateTime, FormatDate)
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->FormatDate();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1589,7 +1589,7 @@ Gura_ImplementMethod(wx_DateTime, FormatTime)
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->FormatTime();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_DateTime, FormatISODate)
@@ -1603,7 +1603,7 @@ Gura_ImplementMethod(wx_DateTime, FormatISODate)
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->FormatISODate();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_DateTime, FormatISOTime)
@@ -1617,7 +1617,7 @@ Gura_ImplementMethod(wx_DateTime, FormatISOTime)
 	Object_wx_DateTime *pThis = Object_wx_DateTime::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->FormatISOTime();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_DateTime, SetToWeekDayInSameWeek)

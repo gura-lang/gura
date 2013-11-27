@@ -277,7 +277,7 @@ Gura_ImplementMethod(wx_TarEntry, GetGroupName)
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetGroupName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethodAlias(wx_TarEntry, GetUserName_, "GetUserName")
@@ -291,7 +291,7 @@ Gura_ImplementMethod(wx_TarEntry, GetUserName_)
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetUserName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TarEntry, SetGroupName)
@@ -336,7 +336,7 @@ Gura_ImplementMethod(wx_TarEntry, GetInternalName)
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetInternalName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -364,7 +364,7 @@ Gura_ImplementMethod(wx_TarEntry, GetInternalName_1)
 	bool pIsDir = NULL;
 	if (args.IsValid(2)) pIsDir = args.GetBoolean(2);
 	wxString rtn = pThis->GetEntity()->GetInternalName(name, format, pIsDir);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -381,7 +381,7 @@ Gura_ImplementMethod(wx_TarEntry, GetLinkName)
 	Object_wx_TarEntry *pThis = Object_wx_TarEntry::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetLinkName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TarEntry, SetLinkName)

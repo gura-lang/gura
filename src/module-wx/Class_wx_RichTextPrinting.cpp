@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_RichTextPrinting, GetFooterText)
 	wxRichTextPageLocation location = wxRICHTEXT_PAGE_CENTRE;
 	if (args.IsValid(1)) location = static_cast<wxRichTextPageLocation>(args.GetInt(1));
 	wxString rtn = pThis->GetEntity()->GetFooterText(page, location);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RichTextPrinting, GetHeaderFooterData)
@@ -115,7 +115,7 @@ Gura_ImplementMethod(wx_RichTextPrinting, GetHeaderText)
 	wxRichTextPageLocation location = wxRICHTEXT_PAGE_CENTRE;
 	if (args.IsValid(1)) location = static_cast<wxRichTextPageLocation>(args.GetInt(1));
 	wxString rtn = pThis->GetEntity()->GetHeaderText(page, location);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RichTextPrinting, GetPageSetupData)
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_RichTextPrinting, GetTitle)
 	Object_wx_RichTextPrinting *pThis = Object_wx_RichTextPrinting::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetTitle();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RichTextPrinting, PageSetup)

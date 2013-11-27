@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_HelpProvider, GetHelp)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindowBase *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 	wxString rtn = pThis->GetEntity()->GetHelp(window);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_HelpProvider, RemoveHelp)

@@ -179,7 +179,7 @@ Gura_ImplementMethod(wx_StatusBar, GetStatusText)
 	int i = 0;
 	if (args.IsValid(0)) i = args.GetInt(0);
 	wxString rtn = pThis->GetEntity()->GetStatusText(i);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_StatusBar, PopStatusText)

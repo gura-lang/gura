@@ -1139,7 +1139,7 @@ Expr *Expr_String::Clone() const
 
 Value Expr_String::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
 {
-	Value result(env, _str);
+	Value result(_str);
 	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
 	return result;
 }

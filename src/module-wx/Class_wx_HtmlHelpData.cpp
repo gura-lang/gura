@@ -87,7 +87,7 @@ Gura_ImplementMethod(wx_HtmlHelpData, FindPageById)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int id = args.GetInt(0);
 	wxString rtn = pThis->GetEntity()->FindPageById(id);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_HtmlHelpData, FindPageByName)
@@ -103,7 +103,7 @@ Gura_ImplementMethod(wx_HtmlHelpData, FindPageByName)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString page = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = pThis->GetEntity()->FindPageByName(page);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_HtmlHelpData, GetBookRecArray)

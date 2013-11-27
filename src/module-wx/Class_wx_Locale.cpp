@@ -203,7 +203,7 @@ Gura_ImplementMethod(wx_Locale, GetCanonicalName)
 	Object_wx_Locale *pThis = Object_wx_Locale::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetCanonicalName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Locale, GetLanguage)
@@ -251,7 +251,7 @@ Gura_ImplementClassMethod(wx_Locale, GetLanguageName)
 	if (!CheckWxReady(sig)) return Value::Null;
 	int lang = args.GetInt(0);
 	wxString rtn = wxLocale::GetLanguageName(lang);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Locale, GetLocale)
@@ -279,7 +279,7 @@ Gura_ImplementMethod(wx_Locale, GetName)
 	Object_wx_Locale *pThis = Object_wx_Locale::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Locale, GetString)
@@ -353,7 +353,7 @@ Gura_ImplementMethod(wx_Locale, GetHeaderValue)
 	const char *szDomain = NULL;
 	if (args.IsValid(1)) szDomain = args.GetString(1);
 	wxString rtn = pThis->GetEntity()->GetHeaderValue(szHeader, szDomain);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #else
 	SetError_MSWOnly(sig);
 	return Value::Null;
@@ -371,7 +371,7 @@ Gura_ImplementMethod(wx_Locale, GetSysName)
 	Object_wx_Locale *pThis = Object_wx_Locale::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetSysName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareClassMethod(wx_Locale, GetSystemEncoding)
@@ -397,7 +397,7 @@ Gura_ImplementClassMethod(wx_Locale, GetSystemEncodingName)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString rtn = wxLocale::GetSystemEncodingName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareClassMethod(wx_Locale, GetSystemLanguage)

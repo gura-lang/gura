@@ -414,7 +414,7 @@ Gura_ImplementMethod(wx_TextCtrl, GetLineText)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long lineNo = args.GetLong(0);
 	wxString rtn = pThis->GetEntity()->GetLineText(lineNo);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, GetNumberOfLines)
@@ -446,7 +446,7 @@ Gura_ImplementMethod(wx_TextCtrl, GetRange)
 	long from = args.GetLong(0);
 	long to = args.GetLong(1);
 	wxString rtn = pThis->GetEntity()->GetRange(from, to);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, GetSelection)
@@ -476,7 +476,7 @@ Gura_ImplementMethod(wx_TextCtrl, GetStringSelection)
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetStringSelection();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, GetStyle)
@@ -508,7 +508,7 @@ Gura_ImplementMethod(wx_TextCtrl, GetValue)
 	Object_wx_TextCtrl *pThis = Object_wx_TextCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetValue();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, HitTest)

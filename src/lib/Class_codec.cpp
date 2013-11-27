@@ -70,7 +70,7 @@ Gura_ImplementClassMethod(codec, dir)
 	ValueList &valList = result.InitAsList(env);
 	foreach_const (CodecFactory::List, ppCodecFactory, CodecFactory::GetList()) {
 		const CodecFactory *pCodecFactory = *ppCodecFactory;
-		valList.push_back(Value(env, pCodecFactory->GetEncoding()));
+		valList.push_back(Value(pCodecFactory->GetEncoding()));
 	}
 	return result;
 }
@@ -138,7 +138,7 @@ Gura_ImplementMethod(codec, decode)
 	if (!pThis->GetCodec()->GetDecoder()->Decode(sig, dst, args.GetBinary(0))) {
 		return Value::Null;
 	}
-	return Value(env, dst.c_str());
+	return Value(dst);
 }
 
 //-----------------------------------------------------------------------------

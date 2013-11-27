@@ -53,7 +53,7 @@ Value Object_tag::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	if (pSymbol->IsIdentical(Gura_UserSymbol(id))) {
 		return Value(_tagId);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
-		return Value(env, _pSymbol->GetName());
+		return Value(_pSymbol->GetName());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(symbol))) {
 		return Value(_pSymbol);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {

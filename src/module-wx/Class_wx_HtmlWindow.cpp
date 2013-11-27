@@ -124,7 +124,7 @@ wxHtmlOpeningStatus wx_HtmlWindow::OnOpeningURL(wxHtmlURLType type, const wxStri
 	ValueList valList;
 	valList.reserve(2);
 	valList.push_back(Value(type));
-	valList.push_back(Value(env, url.ToUTF8()));
+	valList.push_back(Value(url.ToUTF8()));
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_list)) return wxHTML_OPEN;
 	ValueList &valListRtn = rtn.GetList();
@@ -150,7 +150,7 @@ void wx_HtmlWindow::OnSetTitle(const wxString& title)
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.reserve(1);
-	valList.push_back(Value(env, title.ToUTF8()));
+	valList.push_back(Value(title.ToUTF8()));
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
 	CheckMethodResult(_sig);
 }
@@ -274,7 +274,7 @@ Gura_ImplementMethod(wx_HtmlWindow, GetOpenedAnchor)
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetOpenedAnchor();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_HtmlWindow, GetOpenedPage)
@@ -288,7 +288,7 @@ Gura_ImplementMethod(wx_HtmlWindow, GetOpenedPage)
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetOpenedPage();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_HtmlWindow, GetOpenedPageTitle)
@@ -302,7 +302,7 @@ Gura_ImplementMethod(wx_HtmlWindow, GetOpenedPageTitle)
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetOpenedPageTitle();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_HtmlWindow, GetRelatedFrame)
@@ -493,7 +493,7 @@ Gura_ImplementMethod(wx_HtmlWindow, OnOpeningURL)
 	wxString redirect;
 	wxHtmlOpeningStatus rtn = ((wx_HtmlWindow *)pThis->GetEntity())->_OnOpeningURL(type, url, &redirect);
 	return ReturnValue(env, sig, args, Value::CreateAsList(env,
-							Value(rtn), Value(env, redirect.ToUTF8())));
+							Value(rtn), Value(redirect.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_HtmlWindow, OnSetTitle)
@@ -553,7 +553,7 @@ Gura_ImplementMethod(wx_HtmlWindow, SelectionToText)
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->SelectionToText();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_HtmlWindow, SelectLine)
@@ -692,7 +692,7 @@ Gura_ImplementMethod(wx_HtmlWindow, ToText)
 	Object_wx_HtmlWindow *pThis = Object_wx_HtmlWindow::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->ToText();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_HtmlWindow, WriteCustomization)

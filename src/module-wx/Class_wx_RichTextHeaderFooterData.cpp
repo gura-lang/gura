@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, GetFooterText)
 	wxRichTextPageLocation location = wxRICHTEXT_PAGE_CENTRE;
 	if (args.IsValid(1)) location = static_cast<wxRichTextPageLocation>(args.GetInt(1));
 	wxString rtn = pThis->GetEntity()->GetFooterText(page, location);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RichTextHeaderFooterData, GetHeaderMargin)
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, GetHeaderText)
 	wxRichTextPageLocation location = wxRICHTEXT_PAGE_CENTRE;
 	if (args.IsValid(1)) location = static_cast<wxRichTextPageLocation>(args.GetInt(1));
 	wxString rtn = pThis->GetEntity()->GetHeaderText(page, location);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RichTextHeaderFooterData, GetShowOnFirstPage)
@@ -224,7 +224,7 @@ Gura_ImplementMethod(wx_RichTextHeaderFooterData, GetText)
 	wxRichTextOddEvenPage page = static_cast<wxRichTextOddEvenPage>(args.GetInt(1));
 	wxRichTextPageLocation location = static_cast<wxRichTextPageLocation>(args.GetInt(2));
 	wxString rtn = pThis->GetEntity()->GetText(headerFooter, page, location);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RichTextHeaderFooterData, GetTextColour)

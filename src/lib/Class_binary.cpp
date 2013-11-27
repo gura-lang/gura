@@ -350,7 +350,7 @@ Gura_ImplementMethod(binary, hex)
 		::sprintf(buff, format, ch);
 		rtn += buff;
 	}
-	return Value(env, rtn.c_str());
+	return Value(rtn);
 }
 
 // binary#dump(stream?:stream:w):void:[upper]
@@ -466,7 +466,7 @@ Gura_ImplementMethod(binary, decode)
 	if (!pCodec->GetDecoder()->Decode(sig, str, pThis->GetBinary())) {
 		return Value::Null;
 	}
-	return Value(env, str.c_str());
+	return Value(str);
 }
 
 // binary#encodeuri()
@@ -481,7 +481,7 @@ Gura_ImplementMethod(binary, encodeuri)
 {
 	Object_binary *pThis = Object_binary::GetThisObj(args);
 	const Binary &binary = pThis->GetBinary();
-	return Value(env, EncodeURI(binary.data(), binary.size()));
+	return Value(EncodeURI(binary.data(), binary.size()));
 }
 
 //-----------------------------------------------------------------------------

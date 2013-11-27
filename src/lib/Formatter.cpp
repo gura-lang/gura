@@ -677,7 +677,7 @@ Value Formatter::Format(Environment &env, Signal sig,
 	while (iterOwner.Next(env, sig, valList)) {
 		String str = Format(sig, format, valList);
 		if (sig.IsSignalled()) return Value::Null;
-		valListResult.push_back(Value(env, str.c_str()));
+		valListResult.push_back(Value(str));
 	}
 	if (sig.IsSignalled()) return Value::Null;
 	return result;

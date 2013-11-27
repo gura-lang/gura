@@ -377,7 +377,7 @@ Gura_ImplementMethod(wx_AuiManager, SavePaneInfo)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxAuiPaneInfo *pane = Object_wx_AuiPaneInfo::GetObject(args, 0)->GetEntity();
 	wxString rtn = pThis->GetEntity()->SavePaneInfo(*pane);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_AuiManager, SavePerspective)
@@ -391,7 +391,7 @@ Gura_ImplementMethod(wx_AuiManager, SavePerspective)
 	Object_wx_AuiManager *pThis = Object_wx_AuiManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->SavePerspective();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_AuiManager, SetArtProvider)

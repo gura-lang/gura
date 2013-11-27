@@ -111,7 +111,7 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, CreateStyle)
 	bool isPara = false;
 	if (args.IsValid(1)) isPara = args.GetBoolean(1);
 	wxString rtn = pThis->GetEntity()->CreateStyle(*attr, isPara);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RichTextXMLHandler, DoLoadFile)
@@ -199,7 +199,7 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, GetNodeContent)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxXmlNode *node = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
 	wxString rtn = pThis->GetEntity()->GetNodeContent(node);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RichTextXMLHandler, GetParamNode)
@@ -235,7 +235,7 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, GetParamValue)
 	wxXmlNode *node = Object_wx_XmlNode::GetObject(args, 0)->GetEntity();
 	wxString param = wxString::FromUTF8(args.GetString(1));
 	wxString rtn = pThis->GetEntity()->GetParamValue(node, param);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RichTextXMLHandler, GetStyle)
@@ -278,7 +278,7 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, GetText)
 	bool translate = false;
 	if (args.IsValid(2)) translate = args.GetBoolean(2);
 	wxString rtn = pThis->GetEntity()->GetText(node, param, translate);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RichTextXMLHandler, HasParam)

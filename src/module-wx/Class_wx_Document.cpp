@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_Document, GetDocumentName)
 	Object_wx_Document *pThis = Object_wx_Document::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetDocumentName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Document, GetDocumentWindow)
@@ -228,7 +228,7 @@ Gura_ImplementMethod(wx_Document, GetFilename)
 	Object_wx_Document *pThis = Object_wx_Document::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetFilename();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Document, GetFirstView)
@@ -271,7 +271,7 @@ Gura_ImplementMethod(wx_Document, GetTitle)
 	Object_wx_Document *pThis = Object_wx_Document::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetTitle();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Document, GetViews)

@@ -2185,7 +2185,7 @@ Value Object_item::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
 		const char *text = _pItem->GetText();
 		if (text == NULL) return Value::Null;
-		return Value(env, text);
+		return Value(text);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(children))) {
 		const ItemOwner *pItemOwner = _pItem->GetItemOwner();
 		if (pItemOwner == NULL) return Value::Null;
@@ -2194,15 +2194,15 @@ Value Object_item::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(url))) {
 		const char *url = _pItem->GetURL();
 		if (url == NULL) return Value::Null;
-		return Value(env, url);
+		return Value(url);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(title))) {
 		const char *title = _pItem->GetTitle();
 		if (title == NULL) return Value::Null;
-		return Value(env, title);
+		return Value(title);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(attrs))) {
 		const char *attrs = _pItem->GetAttrs();
 		if (attrs == NULL) return Value::Null;
-		return Value(env, attrs);
+		return Value(attrs);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -2355,7 +2355,7 @@ bool HelpPresenter_markdown::DoPresent(Environment &env, Signal sig,
 	if (title == NULL) {
 		pArgs->AddValue(Value::Null);
 	} else {
-		pArgs->AddValue(Value(env, title));
+		pArgs->AddValue(Value(title));
 	}
 	if (pHelp == NULL) {
 		pArgs->AddValue(Value::Null);

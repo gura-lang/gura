@@ -116,7 +116,7 @@ Gura_ImplementMethod(wx_FileSystem, GetPath)
 	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetPath();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareClassMethod(wx_FileSystem, FileNameToURL)
@@ -131,7 +131,7 @@ Gura_ImplementClassMethod(wx_FileSystem, FileNameToURL)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxFileName *filename = Object_wx_FileName::GetObject(args, 0)->GetEntity();
 	wxString rtn = wxFileSystem::FileNameToURL(*filename);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileSystem, FindFileInPath)
@@ -151,7 +151,7 @@ Gura_ImplementMethod(wx_FileSystem, FindFileInPath)
 	wxString file = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->FindFileInPath(&str, path, file);
 	Value value;
-	if (rtn) value = Value(env, str.ToUTF8());
+	if (rtn) value = Value(str.ToUTF8());
 	return ReturnValue(env, sig, args, value);
 }
 
@@ -171,7 +171,7 @@ Gura_ImplementMethod(wx_FileSystem, FindFirst)
 	int flags = 0;
 	if (args.IsValid(1)) flags = args.GetInt(1);
 	wxString rtn = pThis->GetEntity()->FindFirst(wildcard, flags);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileSystem, FindNext)
@@ -185,7 +185,7 @@ Gura_ImplementMethod(wx_FileSystem, FindNext)
 	Object_wx_FileSystem *pThis = Object_wx_FileSystem::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->FindNext();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileSystem, OpenFile)

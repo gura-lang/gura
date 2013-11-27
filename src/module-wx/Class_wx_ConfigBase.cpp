@@ -217,7 +217,7 @@ Gura_ImplementMethod(wx_ConfigBase, GetAppName)
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetAppName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ConfigBase, GetEntryType)
@@ -347,7 +347,7 @@ Gura_ImplementMethod(wx_ConfigBase, GetPath)
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetPath();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ConfigBase, GetVendorName)
@@ -361,7 +361,7 @@ Gura_ImplementMethod(wx_ConfigBase, GetVendorName)
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetVendorName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ConfigBase, HasEntry)
@@ -483,7 +483,7 @@ Gura_ImplementMethod(wx_ConfigBase, Read_2)
 	wxString key = wxString::FromUTF8(args.GetString(0));
 	wxString defaultVal = wxString::FromUTF8(args.GetString(1));
 	wxString rtn = pThis->GetEntity()->Read(key, defaultVal);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ConfigBase, Read_3)

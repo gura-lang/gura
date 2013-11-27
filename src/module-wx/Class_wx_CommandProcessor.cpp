@@ -172,7 +172,7 @@ Gura_ImplementMethod(wx_CommandProcessor, GetRedoAccelerator)
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetRedoAccelerator();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_CommandProcessor, GetRedoMenuLabel)
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_CommandProcessor, GetRedoMenuLabel)
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetRedoMenuLabel();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_CommandProcessor, GetUndoAccelerator)
@@ -200,7 +200,7 @@ Gura_ImplementMethod(wx_CommandProcessor, GetUndoAccelerator)
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetUndoAccelerator();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_CommandProcessor, GetUndoMenuLabel)
@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_CommandProcessor, GetUndoMenuLabel)
 	Object_wx_CommandProcessor *pThis = Object_wx_CommandProcessor::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetUndoMenuLabel();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_CommandProcessor, Initialize)

@@ -80,7 +80,7 @@ Gura_ImplementMethod(wx_TipProvider, GetTip)
 	Object_wx_TipProvider *pThis = Object_wx_TipProvider::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetTip();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TipProvider, PreProcessTip)
@@ -99,7 +99,7 @@ Gura_ImplementMethod(wx_TipProvider, PreProcessTip)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString tip = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = pThis->GetEntity()->PreProcessTip(tip);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

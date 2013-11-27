@@ -548,7 +548,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 	case STAT_MagicCommentLine: {
 		if (_magicCommentParser.ParseChar(ch)) {
 			const char *encoding = _magicCommentParser.GetEncoding();
-			sig.SetSignal(SIGTYPE_DetectEncoding, Value(env, encoding));
+			sig.SetSignal(SIGTYPE_DetectEncoding, Value(encoding));
 		}
 		if (ch == '\n') {
 			_stat = STAT_Start;

@@ -711,7 +711,7 @@ Gura_ImplementFunction(glGetString)
 	// GLenum name
 	const GLubyte *rtn = ::glGetString(name);
 	if (rtn == NULL) return Value::Null;
-	return Value(env, reinterpret_cast<const char *>(rtn));
+	return Value(reinterpret_cast<const char *>(rtn));
 }
 
 // opengl.glGetTexEnvfv(target:number, pname:number, params[]:number)

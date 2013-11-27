@@ -943,7 +943,7 @@ Gura_ImplementMethod(wx_Grid, GetCellValue)
 	int row = args.GetInt(0);
 	int col = args.GetInt(1);
 	wxString rtn = pThis->GetEntity()->GetCellValue(row, col);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Grid, GetCellValue_1)
@@ -959,7 +959,7 @@ Gura_ImplementMethod(wx_Grid, GetCellValue_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxGridCellCoords *coords = Object_wx_GridCellCoords::GetObject(args, 0)->GetEntity();
 	wxString rtn = pThis->GetEntity()->GetCellValue(*coords);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Grid, GetColAt)
@@ -1037,7 +1037,7 @@ Gura_ImplementMethod(wx_Grid, GetColLabelValue)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int col = args.GetInt(0);
 	wxString rtn = pThis->GetEntity()->GetColLabelValue(col);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Grid, GetColMinimalAcceptableWidth)
@@ -1637,7 +1637,7 @@ Gura_ImplementMethod(wx_Grid, GetRowLabelValue)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int row = args.GetInt(0);
 	wxString rtn = pThis->GetEntity()->GetRowLabelValue(row);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Grid, GetRowSize)

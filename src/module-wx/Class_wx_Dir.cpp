@@ -144,7 +144,7 @@ Gura_ImplementClassMethod(wx_Dir, FindFirst)
 	int flags = wxDIR_DEFAULT;
 	if (args.IsValid(2)) flags = args.GetInt(2);
 	wxString rtn = wxDir::FindFirst(dirname, filespec, flags);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Dir, GetFirst)
@@ -186,7 +186,7 @@ Gura_ImplementMethod(wx_Dir, GetName)
 	Object_wx_Dir *pThis = Object_wx_Dir::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Dir, GetNext)

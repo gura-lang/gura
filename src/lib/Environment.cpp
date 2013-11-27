@@ -848,7 +848,7 @@ bool Environment::AddModuleSearchPath(Signal sig, const StringList &strList)
 	}
 	ValueList &valList = pValDirNameList->GetList();
 	foreach_const (StringList, pStr, strList) {
-		Value value(env, pStr->c_str());
+		Value value(*pStr);
 		valList.push_back(value);
 	}
 	return true;

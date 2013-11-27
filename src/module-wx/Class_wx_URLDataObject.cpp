@@ -72,7 +72,7 @@ Gura_ImplementMethod(wx_URLDataObject, GetURL)
 	Object_wx_URLDataObject *pThis = Object_wx_URLDataObject::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetURL();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_URLDataObject, SetURL)

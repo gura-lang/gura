@@ -93,7 +93,7 @@ Gura_ImplementMethod(wx_HtmlFilter, ReadFile)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxFSFile *file = Object_wx_FSFile::GetObject(args, 0)->GetEntity();
 	wxString rtn = pThis->GetEntity()->ReadFile(*file);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 //----------------------------------------------------------------------------

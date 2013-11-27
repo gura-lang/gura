@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_HTTP, GetHeader)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString header = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = pThis->GetEntity()->GetHeader(header);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 //----------------------------------------------------------------------------

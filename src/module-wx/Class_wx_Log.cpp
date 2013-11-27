@@ -369,7 +369,7 @@ Gura_ImplementClassMethod(wx_Log, GetTimestamp)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString rtn = wxString(wxLog::GetTimestamp());
-	return ReturnValue(env, sig, args, Value(env, rtn.ToUTF8()));
+	return ReturnValue(env, sig, args, Value(rtn.ToUTF8()));
 }
 
 Gura_DeclareClassMethod(wx_Log, SetTraceMask)

@@ -63,7 +63,7 @@ Value::~Value()
 }
 
 // VTYPE_string
-Value::Value(Environment &env, const String &str) : _valType(VTYPE_string), _valFlags(VFLAG_Owner)
+Value::Value(const String &str) : _valType(VTYPE_string), _valFlags(VFLAG_Owner)
 {
 #if USE_TINYBUFF
 	size_t len = str.size();
@@ -78,7 +78,7 @@ Value::Value(Environment &env, const String &str) : _valType(VTYPE_string), _val
 #endif
 }
 
-Value::Value(Environment &env, const char *str) : _valType(VTYPE_string), _valFlags(VFLAG_Owner)
+Value::Value(const char *str) : _valType(VTYPE_string), _valFlags(VFLAG_Owner)
 {
 #if USE_TINYBUFF
 	size_t len = ::strlen(str);
@@ -93,7 +93,7 @@ Value::Value(Environment &env, const char *str) : _valType(VTYPE_string), _valFl
 #endif
 }
 
-Value::Value(Environment &env, const char *str, size_t len) : _valType(VTYPE_string), _valFlags(VFLAG_Owner)
+Value::Value(const char *str, size_t len) : _valType(VTYPE_string), _valFlags(VFLAG_Owner)
 {
 #if USE_TINYBUFF
 	if (len < sizeof(_u) - 1) {
@@ -870,7 +870,7 @@ const ValueDict ValueDict::Null;
 
 void ValueDict::Store(Environment &env, const String &strIndex, const String &strValue)
 {
-	insert(ValueDict::value_type(Value(env, strIndex), Value(env, strValue)));
+	insert(ValueDict::value_type(Value(strIndex), Value(strValue)));
 }
 
 bool ValueDict::Store(Signal sig, const ValueList &valList, StoreMode storeMode)

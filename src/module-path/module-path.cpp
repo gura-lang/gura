@@ -196,8 +196,8 @@ Gura_ImplementFunction(split)
 	}
 	Value result;
 	ValueList &valList = result.InitAsList(env);
-	valList.push_back(Value(env, first.c_str()));
-	valList.push_back(Value(env, second.c_str()));
+	valList.push_back(Value(first));
+	valList.push_back(Value(second));
 	return result;
 }
 
@@ -214,7 +214,7 @@ Gura_ImplementFunction(dirname)
 {
 	String dirName;
 	PathManager::SplitFileName(args.GetString(0), &dirName, NULL);
-	return Value(env, dirName.c_str());
+	return Value(dirName);
 }
 
 // path.filename(pathname:string):map
@@ -230,7 +230,7 @@ Gura_ImplementFunction(filename)
 {
 	String fileName;
 	PathManager::SplitFileName(args.GetString(0), NULL, &fileName);
-	return Value(env, fileName.c_str());
+	return Value(fileName);
 }
 
 // path.bottom(pathname:string):map
@@ -246,7 +246,7 @@ Gura_ImplementFunction(bottom)
 {
 	String bottom;
 	PathManager::SplitBottom(args.GetString(0), NULL, &bottom);
-	return Value(env, bottom.c_str());
+	return Value(bottom);
 }
 
 // path.cutbottom(pathname:string):map
@@ -262,7 +262,7 @@ Gura_ImplementFunction(cutbottom)
 {
 	String top;
 	PathManager::SplitBottom(args.GetString(0), &top, NULL);
-	return Value(env, top.c_str());
+	return Value(top);
 }
 
 // path.absname(name:string):map:[uri]
@@ -277,7 +277,7 @@ Gura_DeclareFunction(absname)
 Gura_ImplementFunction(absname)
 {
 	char chSeparator = args.IsSet(Gura_Symbol(uri))? '/' : OAL::FileSeparator;
-	return Value(env, OAL::MakeAbsPathName(chSeparator, args.GetString(0)).c_str());
+	return Value(OAL::MakeAbsPathName(chSeparator, args.GetString(0)));
 }
 
 // path.regulate(name:string):map:[uri]
@@ -293,8 +293,8 @@ Gura_ImplementFunction(regulate)
 {
 	char chSeparator = args.IsSet(Gura_Symbol(uri))? '/' : OAL::FileSeparator;
 	bool cutLastSepFlag = false;
-	return Value(env, OAL::RegulatePathName(chSeparator,
-								args.GetString(0), cutLastSepFlag).c_str());
+	return Value(OAL::RegulatePathName(chSeparator,
+								args.GetString(0), cutLastSepFlag));
 }
 
 // path.join(paths+:string):map:[uri]
@@ -314,7 +314,7 @@ Gura_ImplementFunction(join)
 	foreach_const (ValueList, pValue, valList) {
 		str = OAL::JoinPathName(chSeparator, str.c_str(), pValue->GetString());
 	}
-	return Value(env, str.c_str());
+	return Value(str);
 }
 
 // path.splitext(pathname:string):map
@@ -335,8 +335,8 @@ Gura_ImplementFunction(splitext)
 	Value result;
 	ValueList &valList = result.InitAsList(env);
 	size_t lenLeft = p - pathName;
-	valList.push_back(Value(env, pathName, lenLeft));
-	valList.push_back(Value(env, (*p == '.')? p + 1 : p));
+	valList.push_back(Value(pathName, lenLeft));
+	valList.push_back(Value((*p == '.')? p + 1 : p));
 	return result;
 }
 
@@ -348,7 +348,7 @@ Gura_ModuleEntry()
 		char str[2];
 		str[0] = OAL::FileSeparator;
 		str[1] = '\0';
-		Gura_AssignValue(sep_file, Value(env, str));
+		Gura_AssignValue(sep_file, Value(str));
 	} while (0);
 	// function assignment
 	Gura_AssignFunction(stat);

@@ -980,7 +980,7 @@ Gura_DeclareMethod(color, html)
 Gura_ImplementMethod(color, html)
 {
 	Object_color *pThis = Object_color::GetThisObj(args);
-	return Value(env, pThis->GetHTML().c_str());
+	return Value(pThis->GetHTML());
 }
 
 // color#tolist():[alpha]
@@ -1023,7 +1023,7 @@ void Class_color::Prepare(Environment &env)
 		valList.reserve(ArraySizeOf(Object_color::ElementEntries));
 		for (int i = 0; i < ArraySizeOf(Object_color::ElementEntries); i++) {
 			const Object_color::ElementEntry &elementEntry = Object_color::ElementEntries[i];
-			valList.push_back(Value(env, elementEntry.name));
+			valList.push_back(Value(elementEntry.name));
 		}
 		Gura_AssignValue(names, value);
 	} while (0);

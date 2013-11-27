@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_URI, BuildURI)
 	Object_wx_URI *pThis = Object_wx_URI::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->BuildURI();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_URI, BuildUnescapedURI)
@@ -134,7 +134,7 @@ Gura_ImplementMethod(wx_URI, BuildUnescapedURI)
 	Object_wx_URI *pThis = Object_wx_URI::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->BuildUnescapedURI();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_URI, Create)
@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_URI, GetFragment)
 	Object_wx_URI *pThis = Object_wx_URI::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetFragment();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_URI, GetHostType)
@@ -196,7 +196,7 @@ Gura_ImplementMethod(wx_URI, GetPassword)
 	Object_wx_URI *pThis = Object_wx_URI::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetPassword();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_URI, GetPath)
@@ -210,7 +210,7 @@ Gura_ImplementMethod(wx_URI, GetPath)
 	Object_wx_URI *pThis = Object_wx_URI::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetPath();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_URI, GetPort)
@@ -224,7 +224,7 @@ Gura_ImplementMethod(wx_URI, GetPort)
 	Object_wx_URI *pThis = Object_wx_URI::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetPort();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_URI, GetQuery)
@@ -238,7 +238,7 @@ Gura_ImplementMethod(wx_URI, GetQuery)
 	Object_wx_URI *pThis = Object_wx_URI::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetQuery();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_URI, GetScheme)
@@ -252,7 +252,7 @@ Gura_ImplementMethod(wx_URI, GetScheme)
 	Object_wx_URI *pThis = Object_wx_URI::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetScheme();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_URI, GetServer)
@@ -266,7 +266,7 @@ Gura_ImplementMethod(wx_URI, GetServer)
 	Object_wx_URI *pThis = Object_wx_URI::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetServer();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_URI, GetUser)
@@ -280,7 +280,7 @@ Gura_ImplementMethod(wx_URI, GetUser)
 	Object_wx_URI *pThis = Object_wx_URI::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetUser();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_URI, GetUserInfo)
@@ -294,7 +294,7 @@ Gura_ImplementMethod(wx_URI, GetUserInfo)
 	Object_wx_URI *pThis = Object_wx_URI::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetUserInfo();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_URI, HasFragment)
@@ -444,7 +444,7 @@ Gura_ImplementMethod(wx_URI, Unescape)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString uri = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = pThis->GetEntity()->Unescape(uri);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 //----------------------------------------------------------------------------

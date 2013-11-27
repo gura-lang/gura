@@ -73,10 +73,10 @@ Value Object_Face::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		return Value(_face->num_glyphs);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(family_name))) {
 		if (_face->family_name == NULL) return Value::Null;
-		return Value(env, _face->family_name);
+		return Value(_face->family_name);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(style_name))) {
 		if (_face->style_name == NULL) return Value::Null;
-		return Value(env, _face->style_name);
+		return Value(_face->style_name);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(num_fixed_sizes))) {
 		return Value(_face->num_fixed_sizes);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(available_sizes))) {
@@ -276,7 +276,7 @@ Gura_ImplementMethod(Face, Get_Glyph_Name)
 		SetError_Freetype(sig, err);
 		return Value::Null;
 	}
-	return Value(env, buffer);
+	return Value(buffer);
 }
 
 // freetype.Face#Get_Postscript_Name()
@@ -290,7 +290,7 @@ Gura_ImplementMethod(Face, Get_Postscript_Name)
 	FT_Face face = Object_Face::GetThisObj(args)->GetEntity();
 	const char *rtn = ::FT_Get_Postscript_Name(face);
 	if (rtn == NULL) return Value::Null;
-	return Value(env, rtn);
+	return Value(rtn);
 }
 
 // freetype.Face#Get_Kerning()

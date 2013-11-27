@@ -660,7 +660,7 @@ Gura_ImplementClassMethod(wx_Image, GetImageExtWildcard)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString rtn = wxImage::GetImageExtWildcard();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Image, GetAlphaXY)
@@ -1031,7 +1031,7 @@ Gura_ImplementMethod(wx_Image, GetOption)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString name = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = pThis->GetEntity()->GetOption(name);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Image, GetOptionInt)

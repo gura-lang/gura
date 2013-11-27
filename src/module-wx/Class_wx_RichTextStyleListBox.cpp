@@ -118,7 +118,7 @@ Gura_ImplementMethod(wx_RichTextStyleListBox, CreateHTML)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRichTextStyleDefinition *def = Object_wx_RichTextStyleDefinition::GetObject(args, 0)->GetEntity();
 	wxString rtn = pThis->GetEntity()->CreateHTML(def);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RichTextStyleListBox, GetApplyOnSelection)

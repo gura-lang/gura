@@ -17,7 +17,7 @@
 Gura_AssignValue(name, Value(static_cast<double>(wx##name)))
 
 #define Gura_AssignWxStringValue(name) \
-Gura_AssignValue(name, Value(env, wxString(wx##name).ToUTF8()))
+Gura_AssignValue(name, Value(wxString(wx##name).ToUTF8()))
 
 #define Gura_AssignWxObject(name, className) \
 Gura_AssignValue(name, Value(new Object_wx_##className(const_cast<wx##className *>(wx##name), NULL, false)));

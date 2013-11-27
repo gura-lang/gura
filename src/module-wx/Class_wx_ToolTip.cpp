@@ -114,7 +114,7 @@ Gura_ImplementMethod(wx_ToolTip, GetTip)
 	Object_wx_ToolTip *pThis = Object_wx_ToolTip::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetTip();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ToolTip, GetWindow)

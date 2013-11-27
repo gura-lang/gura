@@ -235,7 +235,7 @@ Value DecodeURIQuery(Environment &env, Signal sig, const char *str)
 		const String &key = *pStr++;
 		if (pStr == stringList.end()) break;
 		const String &value = *pStr++;
-		valDict[Value(env, key.c_str())] = Value(env, value.c_str());
+		valDict[Value(key)] = Value(value);
 	}
 	return result;
 }
@@ -684,7 +684,7 @@ Value Header::GetField(Environment &env,
 	if (GetField(fieldName, &pStringList)) {
 		valList.reserve(pStringList->size());
 		foreach_const (StringList, pStr, *pStringList) {
-			Value valueItem(env, pStr->c_str());
+			Value valueItem(*pStr);
 			valList.push_back(valueItem);
 		}
 	} else if (signalFlag) {
@@ -701,7 +701,7 @@ Value Header::GetFieldNames(Environment &env, Signal sig) const
 	valListRtn.reserve(_dict.size());
 	foreach_const(Dict, iter, _dict) {
 		const String &fieldName = iter->first;
-		valListRtn.push_back(Value(env, fieldName));
+		valListRtn.push_back(Value(fieldName));
 	}
 	return valueRtn;
 }
@@ -715,7 +715,7 @@ Value Header::IndexGet(Environment &env, Signal sig, const Value &valueIdx) cons
 	const char *fieldName = valueIdx.GetString();
 	StringList *pStringList = NULL;
 	if (GetField(fieldName, &pStringList)) {
-		return Value(env, pStringList->back().c_str());
+		return Value(pStringList->back());
 	} else {
 		return Value::Null;
 	}
@@ -1544,15 +1544,15 @@ Value Object_session::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 	if (pSymbol->IsIdentical(Gura_UserSymbol(server))) {
 		return Value(Object_server::Reference(_pObjServer.get()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(remote_ip))) {
-		return Value(env, _remoteIP.c_str());
+		return Value(_remoteIP);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(remote_host))) {
-		return Value(env, _remoteHost.c_str());
+		return Value(_remoteHost);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(remote_logname))) {
-		return Value(env, _remoteLogname.c_str());
+		return Value(_remoteLogname);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(local_ip))) {
-		return Value(env, _localIP.c_str());
+		return Value(_localIP);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(local_host))) {
-		return Value(env, _localHost.c_str());
+		return Value(_localHost);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(date))) {
 		return Value(new Object_datetime(env, _dateTime));
 	}
@@ -1645,11 +1645,11 @@ Value Object_request::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 	if (pSymbol->IsIdentical(Gura_UserSymbol(session))) {
 		return Value(Object_session::Reference(GetSessionObj()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(method))) {
-		return Value(env, request.GetMethod());
+		return Value(request.GetMethod());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(uri))) {
-		return Value(env, request.GetRequestURI());
+		return Value(request.GetRequestURI());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(version))) {
-		return Value(env, request.GetHttpVersion());
+		return Value(request.GetHttpVersion());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(body))) {
 		Stream *pStream = _pObjSession->GetStream();
 		if (pStream == NULL) return Value::Null;
@@ -1659,29 +1659,29 @@ Value Object_request::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 		if (sig.IsSignalled()) return Value::Null;
 		String strUnquote = UnquoteURI(sig, str.c_str());
 		if (sig.IsSignalled()) return Value::Null;
-		return Value(env, strUnquote.c_str());
+		return Value(strUnquote.c_str());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(authority))) {
 		String str = ExtractURIAuthority(sig, request.GetRequestURI(), NULL);
 		if (sig.IsSignalled()) return Value::Null;
 		String strUnquote = UnquoteURI(sig, str.c_str());
 		if (sig.IsSignalled()) return Value::Null;
-		return Value(env, strUnquote.c_str());
+		return Value(strUnquote);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(path))) {
 		String str = ExtractURIPath(sig, request.GetRequestURI());
 		if (sig.IsSignalled()) return Value::Null;
 		String strUnquote = UnquoteURI(sig, str.c_str());
 		if (sig.IsSignalled()) return Value::Null;
-		return Value(env, strUnquote.c_str());
+		return Value(strUnquote);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(query))) {
 		String str = ExtractURIQuery(sig, request.GetRequestURI());
 		if (sig.IsSignalled()) return Value::Null;
-		return Value(env, str.c_str()); // don't unescape query value
+		return Value(str); // don't unescape query value
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(fragment))) {
 		String str = ExtractURIFragment(sig, request.GetRequestURI());
 		if (sig.IsSignalled()) return Value::Null;
 		String strUnquote = UnquoteURI(sig, str.c_str());
 		if (sig.IsSignalled()) return Value::Null;
-		return Value(env, strUnquote.c_str());
+		return Value(strUnquote);
 	} else if (header.GetTimeField(env, sig, pSymbol, value)) {
 		return value;
 	}
@@ -1862,11 +1862,11 @@ Value Object_response::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 	Header &header = status.GetHeader();
 	Value value;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(version))) {
-		return Value(env, status.GetHttpVersion());
+		return Value(status.GetHttpVersion());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(code))) {
-		return Value(env, status.GetStatusCode());
+		return Value(status.GetStatusCode());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(reason))) {
-		return Value(env, status.GetReasonPhrase());
+		return Value(status.GetReasonPhrase());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(field_names))) {
 		return header.GetFieldNames(env, sig);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(body))) {
@@ -2436,7 +2436,7 @@ bool Object_proxy::IsResponsible(Environment &env, Signal sig, const char *addr)
 	if (_pFuncCriteria.IsNull()) return true;
 	//ValueList valListArg(Value(env, addr));
 	AutoPtr<Args> pArgs(new Args());
-	pArgs->AddValue(Value(env, addr));
+	pArgs->AddValue(Value(addr));
 	Value result = _pFuncCriteria->Eval(env, sig, *pArgs);
 	if (sig.IsSignalled()) return false;
 	return result.GetBoolean();
@@ -2483,7 +2483,7 @@ Gura_ImplementFunction(uri)
 		str += "#";
 		str += QuoteURI(args.GetString(4));
 	}
-	return Value(env, str.c_str());
+	return Value(str);
 }
 
 // http.splituri(uri:string)
@@ -2503,33 +2503,33 @@ Gura_ImplementFunction(splituri)
 		if (sig.IsSignalled()) return Value::Null;
 		String strUnquote = UnquoteURI(sig, str.c_str());
 		if (sig.IsSignalled()) return Value::Null;
-		valList.push_back(Value(env, strUnquote.c_str()));
+		valList.push_back(Value(strUnquote));
 	} while (0);
 	do {
 		String str = ExtractURIAuthority(sig, uri, NULL);
 		if (sig.IsSignalled()) return Value::Null;
 		String strUnquote = UnquoteURI(sig, str.c_str());
 		if (sig.IsSignalled()) return Value::Null;
-		valList.push_back(Value(env, strUnquote.c_str()));
+		valList.push_back(Value(strUnquote));
 	} while (0);
 	do {
 		String str = ExtractURIPath(sig, uri);
 		if (sig.IsSignalled()) return Value::Null;
 		String strUnquote = UnquoteURI(sig, str.c_str());
 		if (sig.IsSignalled()) return Value::Null;
-		valList.push_back(Value(env, strUnquote.c_str()));
+		valList.push_back(Value(strUnquote));
 	} while (0);
 	do {
 		String str = ExtractURIQuery(sig, uri);
 		if (sig.IsSignalled()) return Value::Null;
-		valList.push_back(Value(env, str.c_str()));
+		valList.push_back(Value(str));
 	} while (0);
 	do {
 		String str = ExtractURIFragment(sig, uri);
 		if (sig.IsSignalled()) return Value::Null;
 		String strUnquote = UnquoteURI(sig, str.c_str());
 		if (sig.IsSignalled()) return Value::Null;
-		valList.push_back(Value(env, strUnquote.c_str()));
+		valList.push_back(Value(strUnquote));
 	} while (0);
 	return result;
 }

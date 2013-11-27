@@ -31,11 +31,11 @@ bool IteratorSplit::DoNext(Environment &env, Signal sig, Value &value)
 	const char *str = _str.c_str();
 	if (_doneFlag) return false;
 	if (_cnt == 0) {
-		value = Value(env, str + _idx);
+		value = Value(str + _idx);
 		_idx = _len;
 		return true;
 	} else if (_idx >= _len) {
-		value = Value(env, "");
+		value = Value("");
 		_doneFlag = true;
 		return true;
 	}
@@ -51,14 +51,14 @@ bool IteratorSplit::DoNext(Environment &env, Signal sig, Value &value)
 			return false;
 		}
 		if (_pRegion->end[0] == _idx) {
-			value = Value(env, str + _idx);
+			value = Value(str + _idx);
 			_doneFlag = true;
 			return true;
 		}
-		value = Value(env, String(str + _idx, rtn - _idx).c_str());
+		value = Value(String(str + _idx, rtn - _idx));
 		_idx = _pRegion->end[0];
 	} else if (rtn == ONIG_MISMATCH) {
-		value = Value(env, str + _idx);
+		value = Value(str + _idx);
 		_idx = _len;
 		_doneFlag = true;
 	} else { // error
@@ -126,7 +126,7 @@ bool IteratorScan::DoNext(Environment &env, Signal sig, Value &value)
 		value = Value(pObj);
 		_idx = _pRegion->end[0];
 	} else if (rtn == ONIG_MISMATCH) {
-		value = Value(env, str + _idx);
+		value = Value(str + _idx);
 		_idx = _idxEnd;
 		return false;
 	} else { // error
@@ -263,10 +263,10 @@ Gura_ImplementMethod(pattern, sub)
 		return Value::Null;
 	}
 	if (sig.IsSignalled()) return Value::Null;
-	if (!args.IsBlockSpecified()) return Value(env, result);
+	if (!args.IsBlockSpecified()) return Value(result);
 	ValueList valListArg;
 	valListArg.reserve(2);
-	valListArg.push_back(Value(env, result));
+	valListArg.push_back(Value(result));
 	valListArg.push_back(Value(result != args.GetStringSTL(1)));
 	return ReturnValues(env, sig, args, valListArg);
 }
@@ -356,7 +356,7 @@ Value Object_match::IndexGet(Environment &env, Signal sig, const Value &valueIdx
 {
 	const Group *pGroup = GetGroup(sig, valueIdx);
 	if (pGroup == NULL) return Value::Null;
-	return Value(env, GetGroupString(*pGroup).c_str());
+	return Value(GetGroupString(*pGroup));
 }
 
 bool Object_match::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -371,7 +371,7 @@ Value Object_match::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(string))) {
-		return Value(env, _str);
+		return Value(_str);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -479,7 +479,7 @@ Gura_ImplementMethod(match, groups)
 	Object_match::GroupList::const_iterator pGroup = groupList.begin();
 	if (pGroup != groupList.end()) pGroup++;
 	for ( ; pGroup != groupList.end(); pGroup++) {
-		valList.push_back(Value(env, pThis->GetGroupString(*pGroup).c_str()));
+		valList.push_back(Value(pThis->GetGroupString(*pGroup)));
 	}
 	return result;
 }
@@ -575,10 +575,10 @@ Gura_ImplementMethod(string, sub)
 		return Value::Null;
 	}
 	if (sig.IsSignalled()) return Value::Null;
-	if (!args.IsBlockSpecified()) return Value(env, result);
+	if (!args.IsBlockSpecified()) return Value(result);
 	ValueList valListArg;
 	valListArg.reserve(2);
-	valListArg.push_back(Value(env, result));
+	valListArg.push_back(Value(result));
 	valListArg.push_back(Value(result != strThis));
 	return ReturnValues(env, sig, args, valListArg);
 }
@@ -735,10 +735,10 @@ Gura_ImplementFunction(sub)
 		return Value::Null;
 	}
 	if (sig.IsSignalled()) return Value::Null;
-	if (!args.IsBlockSpecified()) return Value(env, result);
+	if (!args.IsBlockSpecified()) return Value(result);
 	ValueList valListArg;
 	valListArg.reserve(2);
-	valListArg.push_back(Value(env, result));
+	valListArg.push_back(Value(result));
 	valListArg.push_back(Value(result != args.GetStringSTL(2)));
 	return ReturnValues(env, sig, args, valListArg);
 }

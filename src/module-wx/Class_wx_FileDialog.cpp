@@ -96,7 +96,7 @@ Gura_ImplementMethod(wx_FileDialog, GetDirectory)
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetDirectory();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileDialog, GetFilename)
@@ -110,7 +110,7 @@ Gura_ImplementMethod(wx_FileDialog, GetFilename)
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetFilename();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileDialog, GetFilenames)
@@ -153,7 +153,7 @@ Gura_ImplementMethod(wx_FileDialog, GetMessage)
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetMessage();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileDialog, GetPath)
@@ -167,7 +167,7 @@ Gura_ImplementMethod(wx_FileDialog, GetPath)
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetPath();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileDialog, GetPaths)
@@ -196,7 +196,7 @@ Gura_ImplementMethod(wx_FileDialog, GetWildcard)
 	Object_wx_FileDialog *pThis = Object_wx_FileDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetWildcard();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileDialog, SetDirectory)

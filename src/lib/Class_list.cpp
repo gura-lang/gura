@@ -1573,7 +1573,7 @@ Gura_ImplementMethod(list, join)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
 	ValueList &valList = pThis->GetList();
-	return Value(env, Join(valList, args.GetString(0)).c_str());
+	return Value(Join(valList, args.GetString(0)));
 }
 
 // list#format(format:string):map
@@ -1589,8 +1589,7 @@ Gura_DeclareMethod(list, format)
 Gura_ImplementMethod(list, format)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	return Value(env, Formatter::Format(sig,
-						args.GetString(0), pThis->GetList()).c_str());
+	return Value(Formatter::Format(sig, args.GetString(0), pThis->GetList()));
 }
 
 // list#pack(format:string)

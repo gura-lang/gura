@@ -96,7 +96,7 @@ public:
 	}
 	inline void SetSymbol(const Symbol *pSymbol) {
 		_pSymbol = pSymbol; 
-		AssignValue(Gura_Symbol(__name__), Value(*this, GetName()), EXTRA_Public);
+		AssignValue(Gura_Symbol(__name__), Value(GetName()), EXTRA_Public);
 	}
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline const char *GetSourceName() const { return _sourceName.c_str(); }

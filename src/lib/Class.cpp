@@ -277,7 +277,7 @@ Gura_ImplementMethod(Object, tostring)
 {
 	String str = args.GetThis().ToString(false);
 	if (sig.IsSignalled()) return Value::Null;
-	return Value(env, str.c_str());
+	return Value(str);
 }
 
 // object.getprop!(symbol:symbol, default?:nomap):map

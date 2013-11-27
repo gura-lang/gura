@@ -148,7 +148,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, GetInternalName)
 	wxPathFormat format = wxPATH_NATIVE;
 	if (args.IsValid(1)) format = static_cast<wxPathFormat>(args.GetInt(1));
 	wxString rtn = pThis->GetEntity()->GetInternalName(name, format);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, GetProtocol)
@@ -162,7 +162,7 @@ Gura_ImplementMethod(wx_ArchiveClassFactory, GetProtocol)
 	Object_wx_ArchiveClassFactory *pThis = Object_wx_ArchiveClassFactory::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetProtocol();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ArchiveClassFactory, GetProtocols)

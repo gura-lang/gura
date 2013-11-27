@@ -176,7 +176,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, GetEncoding)
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetEncoding();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RichTextFileHandler, GetExtension)
@@ -190,7 +190,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, GetExtension)
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetExtension();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RichTextFileHandler, GetFlags)
@@ -218,7 +218,7 @@ Gura_ImplementMethod(wx_RichTextFileHandler, GetName)
 	Object_wx_RichTextFileHandler *pThis = Object_wx_RichTextFileHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RichTextFileHandler, GetType)

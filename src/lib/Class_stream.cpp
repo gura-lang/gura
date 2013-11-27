@@ -29,11 +29,11 @@ Value Object_stream::DoGetProp(Environment &env, Signal sig, const Symbol *pSymb
 		Object *pObj = GetStream().GetStatObj(sig);
 		if (pObj != NULL) return Value(pObj);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(name))) {
-		return Value(env, GetStream().GetName());
+		return Value(GetStream().GetName());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(identifier))) {
 		const char *identifier = GetStream().GetIdentifier();
 		if (identifier == NULL) return Value::Null;
-		return Value(env, identifier);
+		return Value(identifier);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(readable))) {
 		return Value(GetStream().IsReadable());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(writable))) {
@@ -169,7 +169,7 @@ Gura_ImplementFunction(template_)
 		SimpleStream_StringWriter streamDst(strDst);
 		if (!Template::Parser(autoIndentFlag, appendLastEOLFlag).
 					EvalStream(env, sig, streamSrc, streamDst)) return Value::Null;
-		return Value(env, strDst);
+		return Value(strDst);
 	}
 }
 
@@ -491,7 +491,7 @@ Gura_ImplementMethod(stream, readchar)
 	if (!stream.CheckReadable(sig)) return Value::Null;
 	String str = stream.ReadChar(sig);
 	if (str.empty()) return Value::Null;
-	return Value(env, str);
+	return Value(str);
 }
 
 // stream#readline():[chop]
@@ -514,12 +514,12 @@ Gura_ImplementMethod(stream, readline)
 		if (ch < 0) break;
 		if (ch == '\n') {
 			if (includeEOLFlag) str += '\n';
-			return Value(env, str);
+			return Value(str);
 		}
 		str += ch;
 	}
 	if (str.empty()) return Value::Null;
-	return Value(env, str);
+	return Value(str);
 }
 
 // stream#readlines(nlines?:number):[chop] {block?}
@@ -561,7 +561,7 @@ Gura_ImplementMethod(stream, readtext)
 		if (ch < 0) break;
 		str += ch;
 	}
-	return Value(env, str.c_str());
+	return Value(str);
 }
 
 // stream#parse() {block?}
@@ -605,7 +605,7 @@ Gura_ImplementMethod(stream, template_)
 		SimpleStream_StringWriter streamDst(strDst);
 		if (!Template::Parser(autoIndentFlag, appendLastEOLFlag).
 					EvalStream(env, sig, streamSrc, streamDst)) return Value::Null;
-		return Value(env, strDst.c_str());
+		return Value(strDst);
 	}
 }
 
@@ -709,7 +709,7 @@ Gura_ImplementMethod(stream, prefetch)
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	if (!stream.CheckReadable(sig)) return Value::Null;
 	Stream *pStream = Stream::Prefetch(sig, &stream, false);
-	return Value(env, pStream);
+	return Value(new Object_stream(env, pStream));
 }
 #endif
 
@@ -826,7 +826,7 @@ bool Object_stream::IteratorLine::DoNext(Environment &env, Signal sig, Value &va
 	}
 	if (sig.IsSignalled()) return false;
 	_nLines++;
-	value = Value(*_pObj, str.c_str());
+	value = Value(str);
 	return true;
 }
 

@@ -1369,7 +1369,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetFilename)
 	Object_wx_RichTextCtrl *pThis = Object_wx_RichTextCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetFilename();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetFirstVisiblePosition)
@@ -1457,7 +1457,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetLineText)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long lineNo = args.GetLong(0);
 	wxString rtn = pThis->GetEntity()->GetLineText(lineNo);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetLogicalPoint)
@@ -1521,7 +1521,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetRange)
 	long from = args.GetLong(0);
 	long to = args.GetLong(1);
 	wxString rtn = pThis->GetEntity()->GetRange(from, to);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetSelection)
@@ -1565,7 +1565,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetStringSelection)
 	Object_wx_RichTextCtrl *pThis = Object_wx_RichTextCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetStringSelection();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetStyle)
@@ -1680,7 +1680,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetValue)
 	Object_wx_RichTextCtrl *pThis = Object_wx_RichTextCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetValue();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetVisibleLineForCaretPosition)

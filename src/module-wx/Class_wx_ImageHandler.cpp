@@ -75,7 +75,7 @@ Gura_ImplementMethod(wx_ImageHandler, GetName)
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ImageHandler, GetExtension)
@@ -89,7 +89,7 @@ Gura_ImplementMethod(wx_ImageHandler, GetExtension)
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetExtension();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ImageHandler, GetImageCount)
@@ -133,7 +133,7 @@ Gura_ImplementMethod(wx_ImageHandler, GetMimeType)
 	Object_wx_ImageHandler *pThis = Object_wx_ImageHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetMimeType();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ImageHandler, LoadFile)

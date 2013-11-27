@@ -170,7 +170,7 @@ Gura_ImplementMethod(wx_View, GetViewName)
 	Object_wx_View *pThis = Object_wx_View::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetViewName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_View, OnActivateView)

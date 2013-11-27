@@ -454,15 +454,15 @@ Value Object_stat::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
-		return Value(env, _hdr.GetName());
+		return Value(_hdr.GetName());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(filename))) {
-		return Value(env, _hdr.GetName());
+		return Value(_hdr.GetName());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(linkname))) {
-		return Value(env, _hdr.GetLinkName());
+		return Value(_hdr.GetLinkName());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(uname))) {
-		return Value(env, _hdr.GetUName());
+		return Value(_hdr.GetUName());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(gname))) {
-		return Value(env, _hdr.GetGName());
+		return Value(_hdr.GetGName());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mode))) {
 		return Value(_hdr.GetMode());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(uid))) {

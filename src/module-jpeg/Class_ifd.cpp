@@ -115,9 +115,9 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 					p = buff + offset;
 				}
 				if (count == 0) {
-					value = Value(env, p);
+					value = Value(p);
 				} else {
-					value = Value(env, p, count - 1);
+					value = Value(p, count - 1);
 				}
 				break;
 			}
@@ -372,7 +372,7 @@ Value Object_ifd::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
-		return Value(env, _pSymbol->GetName());
+		return Value(_pSymbol->GetName());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(symbol))) {
 		return Value(_pSymbol);
 	}

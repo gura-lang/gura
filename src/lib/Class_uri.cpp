@@ -44,19 +44,19 @@ Value Object_uri::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(scheme))) {
-		return Value(env, _scheme);
+		return Value(_scheme);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(user))) {
-		return Value(env, _user);
+		return Value(_user);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(password))) {
-		return Value(env, _password);
+		return Value(_password);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(host))) {
-		return Value(env, _host);
+		return Value(_host);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(port))) {
-		return Value(env, _port);
+		return Value(_port);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(urlpath))) {
-		return Value(env, _urlpath);
+		return Value(_urlpath);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(misc))) {
-		return Value(env, _misc);
+		return Value(_misc);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -69,31 +69,31 @@ Value Object_uri::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	if (pSymbol->IsIdentical(Gura_Symbol(scheme))) {
 		if (!value.MustBe_string(sig)) return Value::Null;
 		_scheme = value.GetStringSTL();
-		return Value(env, _scheme);
+		return Value(_scheme);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(user))) {
 		if (!value.MustBe_string(sig)) return Value::Null;
 		_user = value.GetStringSTL();
-		return Value(env, _user);
+		return Value(_user);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(password))) {
 		if (!value.MustBe_string(sig)) return Value::Null;
 		_password = value.GetStringSTL();
-		return Value(env, _password);
+		return Value(_password);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(host))) {
 		if (!value.MustBe_string(sig)) return Value::Null;
 		_host = value.GetStringSTL();
-		return Value(env, _host);
+		return Value(_host);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(port))) {
 		if (!value.MustBe_string(sig)) return Value::Null;
 		_port = value.GetStringSTL();
-		return Value(env, _port);
+		return Value(_port);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(urlpath))) {
 		if (!value.MustBe_string(sig)) return Value::Null;
 		_urlpath = value.GetStringSTL();
-		return Value(env, _urlpath);
+		return Value(_urlpath);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(misc))) {
 		if (!value.MustBe_string(sig)) return Value::Null;
 		_misc = value.GetStringSTL();
-		return Value(env, _misc);
+		return Value(_misc);
 	}
 	return DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }

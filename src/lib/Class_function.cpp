@@ -45,13 +45,13 @@ Value Object_function::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 		String str = MakePrefix(sig);
 		if (sig.IsSignalled()) return Value::Null;
 		str += _pFunc->ToString();
-		return Value(env, str.c_str());
+		return Value(str);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(fullname))) {
 		String fullName = GetFullName(sig);
 		if (sig.IsSignalled()) return Value::Null;
-		return Value(env, fullName.c_str());
+		return Value(fullName);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(name))) {
-		return Value(env, GetName().c_str());
+		return Value(GetName());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(symbol))) {
 		return Value(GetFunction()->GetSymbol());
 	}

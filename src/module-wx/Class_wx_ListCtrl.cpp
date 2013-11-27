@@ -688,7 +688,7 @@ Gura_ImplementMethod(wx_ListCtrl, GetItemText)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long item = args.GetLong(0);
 	wxString rtn = pThis->GetEntity()->GetItemText(item);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ListCtrl, GetItemTextColour)
@@ -982,7 +982,7 @@ Gura_ImplementMethod(wx_ListCtrl, OnGetItemText)
 	long item = args.GetLong(0);
 	long column = args.GetLong(1);
 	wxString rtn = dynamic_cast<wx_ListCtrl *>(pThis->GetEntity())->_OnGetItemText(item, column);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ListCtrl, RefreshItem)

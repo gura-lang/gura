@@ -563,7 +563,7 @@ Gura_ImplementClassMethod(wx_FileName, CreateTempFileName)
 	wxFile *fileTemp = (wxFile *)(NULL);
 	if (args.IsValid(1)) fileTemp = Object_wx_File::GetObject(args, 1)->GetEntity();
 	wxString rtn = wxFileName::CreateTempFileName(prefix, fileTemp);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -699,7 +699,7 @@ Gura_ImplementClassMethod(wx_FileName, GetCwd)
 	wxString volume = wxT("");
 	if (args.IsValid(0)) volume = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = wxFileName::GetCwd(volume);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -744,7 +744,7 @@ Gura_ImplementMethod(wx_FileName, GetExt)
 	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetExt();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareClassMethod(wx_FileName, GetForbiddenChars)
@@ -763,7 +763,7 @@ Gura_ImplementClassMethod(wx_FileName, GetForbiddenChars)
 	wxPathFormat format = wxPATH_NATIVE;
 	if (args.IsValid(0)) format = static_cast<wxPathFormat>(args.GetInt(0));
 	wxString rtn = wxFileName::GetForbiddenChars(format);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -802,7 +802,7 @@ Gura_ImplementMethod(wx_FileName, GetFullName)
 	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetFullName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileName, GetFullPath)
@@ -819,7 +819,7 @@ Gura_ImplementMethod(wx_FileName, GetFullPath)
 	wxPathFormat format = wxPATH_NATIVE;
 	if (args.IsValid(0)) format = static_cast<wxPathFormat>(args.GetInt(0));
 	wxString rtn = pThis->GetEntity()->GetFullPath(format);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareClassMethod(wx_FileName, GetHomeDir)
@@ -833,7 +833,7 @@ Gura_ImplementClassMethod(wx_FileName, GetHomeDir)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString rtn = wxFileName::GetHomeDir();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -850,7 +850,7 @@ Gura_ImplementMethod(wx_FileName, GetLongPath)
 	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetLongPath();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileName, GetModificationTime)
@@ -878,7 +878,7 @@ Gura_ImplementMethod(wx_FileName, GetName)
 	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileName, GetPath)
@@ -898,7 +898,7 @@ Gura_ImplementMethod(wx_FileName, GetPath)
 	wxPathFormat format = wxPATH_NATIVE;
 	if (args.IsValid(1)) format = static_cast<wxPathFormat>(args.GetInt(1));
 	wxString rtn = pThis->GetEntity()->GetPath(flags, format);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareClassMethod(wx_FileName, GetPathSeparator)
@@ -939,7 +939,7 @@ Gura_ImplementClassMethod(wx_FileName, GetPathSeparators)
 	wxPathFormat format = wxPATH_NATIVE;
 	if (args.IsValid(0)) format = static_cast<wxPathFormat>(args.GetInt(0));
 	wxString rtn = wxFileName::GetPathSeparators(format);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -961,7 +961,7 @@ Gura_ImplementClassMethod(wx_FileName, GetPathTerminators)
 	wxPathFormat format = wxPATH_NATIVE;
 	if (args.IsValid(0)) format = static_cast<wxPathFormat>(args.GetInt(0));
 	wxString rtn = wxFileName::GetPathTerminators(format);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -981,7 +981,7 @@ Gura_ImplementMethod(wx_FileName, GetPathWithSep)
 	wxPathFormat format = wxPATH_NATIVE;
 	if (args.IsValid(0)) format = static_cast<wxPathFormat>(args.GetInt(0));
 	wxString rtn = pThis->GetEntity()->GetPathWithSep(format);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileName, GetShortPath)
@@ -995,7 +995,7 @@ Gura_ImplementMethod(wx_FileName, GetShortPath)
 	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetShortPath();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileName, GetSize)
@@ -1057,7 +1057,7 @@ Gura_ImplementMethod(wx_FileName, GetHumanReadableSize)
 	int precision = 1;
 	if (args.IsValid(1)) precision = args.GetInt(1);
 	wxString rtn = pThis->GetEntity()->GetHumanReadableSize(failmsg, precision);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1084,7 +1084,7 @@ Gura_ImplementClassMethod(wx_FileName, GetHumanReadableSize_1)
 	int precision = 1;
 	if (args.IsValid(2)) precision = args.GetInt(2);
 	wxString rtn = wxFileName::GetHumanReadableSize(*bytes, nullsize, precision);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1101,7 +1101,7 @@ Gura_ImplementClassMethod(wx_FileName, GetTempDir)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if 0
 	wxString rtn = wxFileName::GetTempDir();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1138,7 +1138,7 @@ Gura_ImplementMethod(wx_FileName, GetVolume)
 	Object_wx_FileName *pThis = Object_wx_FileName::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetVolume();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareClassMethod(wx_FileName, GetVolumeSeparator)
@@ -1157,7 +1157,7 @@ Gura_ImplementClassMethod(wx_FileName, GetVolumeSeparator)
 	wxPathFormat format = wxPATH_NATIVE;
 	if (args.IsValid(0)) format = static_cast<wxPathFormat>(args.GetInt(0));
 	wxString rtn = wxFileName::GetVolumeSeparator(format);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;

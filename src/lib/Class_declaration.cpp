@@ -34,7 +34,7 @@ Value Object_declaration::DoGetProp(Environment &env, Signal sig, const Symbol *
 	if (pSymbol->IsIdentical(Gura_Symbol(symbol))) {
 		return Value(_pDeclaration->GetSymbol());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(name))) {
-		return Value(env, _pDeclaration->GetName());
+		return Value(_pDeclaration->GetName());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(default_))) {
 		const Expr *pExpr = _pDeclaration->GetExprDefault();
 		if (pExpr == NULL) return Value::Null;

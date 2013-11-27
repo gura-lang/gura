@@ -1478,7 +1478,7 @@ bool Iterator_Format::DoNext(Environment &env, Signal sig, Value &value)
 		ValueList valList(valueSrc);
 		str = Formatter::Format(sig, _format.c_str(), valList);
 	}
-	value = Value(env, str.c_str());
+	value = Value(str);
 	return true;
 }
 

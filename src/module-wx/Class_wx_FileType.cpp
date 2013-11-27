@@ -197,7 +197,7 @@ Gura_ImplementMethod(wx_FileType, GetOpenCommand_1)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = pThis->GetEntity()->GetOpenCommand(filename);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_FileType, GetPrintCommand)

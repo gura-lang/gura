@@ -284,7 +284,7 @@ Gura_ImplementMethod(wx_AuiNotebook, GetPageText)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t page = args.GetSizeT(0);
 	wxString rtn = pThis->GetEntity()->GetPageText(page);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_AuiNotebook, GetSelection)

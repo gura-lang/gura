@@ -123,7 +123,7 @@ Gura_ImplementFunction(fromnative)
 {
 	const Binary &buff = args.GetBinary(0);
 	String str = OAL::FromNativeString(buff.data(), static_cast<int>(buff.size()));
-	return Value(env, str.c_str());
+	return Value(str);
 }
 
 // os.tonative(str:string):map
@@ -153,7 +153,7 @@ Gura_DeclareFunction(getenv)
 Gura_ImplementFunction(getenv)
 {
 	String str = OAL::GetEnv(args.GetString(0));
-	return Value(env, str.c_str());
+	return Value(str);
 }
 
 // os.putenv(name:string, value:string):void

@@ -104,7 +104,7 @@ Value Object_db::GetColumnNames(Signal sig, const char *sql)
 	ValueList &valList = result.InitAsList(env);
 	int nCols = ::sqlite3_column_count(pStmt);
 	for (int iCol = 0; iCol < nCols; iCol++) {
-		valList.push_back(Value(env, ::sqlite3_column_name(pStmt, iCol)));
+		valList.push_back(Value(::sqlite3_column_name(pStmt, iCol)));
 	}
 	::sqlite3_finalize(pStmt);
 	return result;
@@ -127,7 +127,7 @@ int Object_db::Callback(void *user, int argc, char **argv, char **azColName)
 	Value value;
 	ValueList &valList = value.InitAsList(env);
 	for (int i = 0; i < argc; i++) {
-		valList.push_back(Value(env, argv[i]));
+		valList.push_back(Value(argv[i]));
 	}
 	pResultComposer->Store(value);
 	return SQLITE_OK;
@@ -165,7 +165,7 @@ bool Object_db::IteratorQuery::DoNext(Environment &env, Signal sig, Value &value
 		} else if (type == SQLITE_FLOAT) {
 			valList.push_back(Value(static_cast<Number>(::sqlite3_column_double(_pStmt, iCol))));
 		} else if (type == SQLITE_TEXT) {
-			valList.push_back(Value(env,
+			valList.push_back(Value(
 				reinterpret_cast<const char *>(::sqlite3_column_text(_pStmt, iCol))));
 		} else if (type == SQLITE_BLOB) {
 			//::sqlite3_column_blob(_pStmt, iCol);

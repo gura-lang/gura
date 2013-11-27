@@ -804,7 +804,7 @@ Gura_ImplementMethod(iterator, join)
 		}
 	}
 	if (sig.IsSignalled()) return Value::Null;
-	return Value(env, rtn.c_str());
+	return Value(rtn);
 }
 
 // iterator#joinb()

@@ -209,7 +209,7 @@ Gura_ImplementMethod(wx_TextInputStream, ReadLine)
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->ReadLine();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TextInputStream, ReadString)
@@ -223,7 +223,7 @@ Gura_ImplementMethod(wx_TextInputStream, ReadString)
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->ReadString();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TextInputStream, ReadWord)
@@ -237,7 +237,7 @@ Gura_ImplementMethod(wx_TextInputStream, ReadWord)
 	Object_wx_TextInputStream *pThis = Object_wx_TextInputStream::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->ReadWord();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TextInputStream, SetStringSeparators)

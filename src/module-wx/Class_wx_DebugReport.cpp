@@ -312,7 +312,7 @@ Gura_ImplementMethod(wx_DebugReport, GetDirectory)
 	Object_wx_DebugReport *pThis = Object_wx_DebugReport::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetDirectory();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_DebugReport, GetFile)
@@ -366,7 +366,7 @@ Gura_ImplementMethod(wx_DebugReport, GetReportName)
 	Object_wx_DebugReport *pThis = Object_wx_DebugReport::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetReportName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_DebugReport, IsOk)

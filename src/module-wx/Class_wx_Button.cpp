@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_Button, GetLabel)
 	Object_wx_Button *pThis = Object_wx_Button::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetLabel();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Button, GetDefaultSize)

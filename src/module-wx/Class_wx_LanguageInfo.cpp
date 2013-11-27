@@ -114,9 +114,9 @@ Value Object_wx_LanguageInfo::DoGetProp(Environment &env, Signal sig, const Symb
 	if (pSymbol->IsIdentical(Gura_UserSymbol(Language))) {
 		return Value(GetEntity()->Language);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(CanonicalName))) {
-		return Value(env, GetEntity()->CanonicalName.ToUTF8());
+		return Value(GetEntity()->CanonicalName.ToUTF8());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(Description))) {
-		return Value(env, GetEntity()->Description.ToUTF8());
+		return Value(GetEntity()->Description.ToUTF8());
 #ifdef __WIN32__
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(WinLang))) {
 		return Value(GetEntity()->WinLang);

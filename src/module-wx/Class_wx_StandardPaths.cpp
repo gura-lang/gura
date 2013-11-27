@@ -63,7 +63,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetConfigDir)
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetConfigDir();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_StandardPaths, GetDataDir)
@@ -77,7 +77,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetDataDir)
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetDataDir();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_StandardPaths, GetDocumentsDir)
@@ -91,7 +91,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetDocumentsDir)
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetDocumentsDir();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_StandardPaths, GetExecutablePath)
@@ -105,7 +105,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetExecutablePath)
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetExecutablePath();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_StandardPaths, GetInstallPrefix)
@@ -120,7 +120,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetInstallPrefix)
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetInstallPrefix();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -137,7 +137,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetLocalDataDir)
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetLocalDataDir();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_StandardPaths, GetLocalizedResourcesDir)
@@ -156,7 +156,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetLocalizedResourcesDir)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString lang = wxString::FromUTF8(args.GetString(0));
 	wxString rtn = pThis->GetEntity()->GetLocalizedResourcesDir(lang, );
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetPluginsDir)
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetPluginsDir();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_StandardPaths, GetResourcesDir)
@@ -187,7 +187,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetResourcesDir)
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetResourcesDir();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_StandardPaths, GetTempDir)
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetTempDir)
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetTempDir();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_StandardPaths, GetUserConfigDir)
@@ -215,7 +215,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetUserConfigDir)
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetUserConfigDir();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_StandardPaths, GetUserDataDir)
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetUserDataDir)
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetUserDataDir();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_StandardPaths, GetUserLocalDataDir)
@@ -243,7 +243,7 @@ Gura_ImplementMethod(wx_StandardPaths, GetUserLocalDataDir)
 	Object_wx_StandardPaths *pThis = Object_wx_StandardPaths::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetUserLocalDataDir();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_StandardPaths, SetInstallPrefix)

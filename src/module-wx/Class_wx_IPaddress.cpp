@@ -81,7 +81,7 @@ Gura_ImplementMethod(wx_IPaddress, Hostname_1)
 	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->Hostname();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_IPaddress, IPAddress)
@@ -95,7 +95,7 @@ Gura_ImplementMethod(wx_IPaddress, IPAddress)
 	Object_wx_IPaddress *pThis = Object_wx_IPaddress::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->IPAddress();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_IPaddress, Service)

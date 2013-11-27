@@ -764,7 +764,7 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 			} else if (pExprLeft->IsValue() || pExprLeft->IsString()) {
 				Value valueKey = pExprLeft->IsValue()?
 					dynamic_cast<const Expr_Value *>(pExprLeft)->GetValue() :
-					 Value(env, dynamic_cast<const Expr_String *>(pExprLeft)->GetString());
+					 Value(dynamic_cast<const Expr_String *>(pExprLeft)->GetString());
 				AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_StoreDict(
 							env.Reference(), dynamic_cast<SequenceEx *>(Reference()),
 							valueKey));

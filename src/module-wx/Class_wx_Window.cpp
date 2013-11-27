@@ -1265,7 +1265,7 @@ Gura_ImplementMethod(wx_Window, GetHelpTextAtPoint)
 	wxPoint *point = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	wxHelpEvent *origin = Object_wx_HelpEvent::GetObject(args, 1)->GetEntity();
 	wxString rtn = pThis->GetEntity()->GetHelpTextAtPoint(*point, *origin);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #endif
 	SetError_NotImplemented(sig);
 	return Value::Null;
@@ -1282,7 +1282,7 @@ Gura_ImplementMethod(wx_Window, GetHelpText)
 	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetHelpText();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Window, GetId)
@@ -1310,7 +1310,7 @@ Gura_ImplementMethod(wx_Window, GetLabel)
 	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetLabel();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Window, GetMaxSize)
@@ -1352,7 +1352,7 @@ Gura_ImplementMethod(wx_Window, GetName)
 	Object_wx_Window *pThis = Object_wx_Window::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_Window, GetNextSibling)

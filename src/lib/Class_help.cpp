@@ -38,11 +38,11 @@ Value Object_help::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(format))) {
-		return Value(env, _pHelp->GetFormatNameSTL());
+		return Value(_pHelp->GetFormatNameSTL());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(lang))) {
 		return Value(_pHelp->GetSymbol());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(text))) {
-		return Value(env, _pHelp->GetTextSTL());
+		return Value(_pHelp->GetTextSTL());
 	}
 	evaluatedFlag = false;
 	return Value::Null;

@@ -150,7 +150,7 @@ Gura_ImplementMethod(wx_CommandEvent, GetString)
 	Object_wx_CommandEvent *pThis = Object_wx_CommandEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetString();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_CommandEvent, IsChecked)

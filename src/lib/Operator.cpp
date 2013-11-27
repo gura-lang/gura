@@ -900,13 +900,13 @@ Value Operator_Mod::EvalMapBinary(Environment &env, Signal sig,
 		if (!valueRight.Is_list()) {
 			String str = Formatter::Format(sig, format, ValueList(valueRight));
 			if (sig.IsSignalled()) return Value::Null;
-			return Value(env, str.c_str());
+			return Value(str);
 		} else {
 			const ValueList &valList = valueRight.GetList();
 			if (valList.IsFlat() && !valList.DoesContainIterator()) {
 				String str = Formatter::Format(sig, format, valList);
 				if (sig.IsSignalled()) return Value::Null;
-				return Value(env, str.c_str());
+				return Value(str);
 			} else {
 				IteratorOwner iterOwner;
 				foreach_const (ValueList, pValue, valList) {
@@ -1309,7 +1309,7 @@ Gura_ImplementBinaryOperator(Add, string, string)
 {
 	String str(valueLeft.GetString());
 	str += valueRight.GetString();
-	return Value(env, str.c_str());
+	return Value(str);
 }
 
 Gura_ImplementBinaryOperator(Add, binary, binary)
@@ -1348,14 +1348,14 @@ Gura_ImplementBinaryOperator(Add, string, any)
 {
 	String str(valueLeft.GetString());
 	str += valueRight.ToString();
-	return Value(env, str.c_str());
+	return Value(str);
 }
 
 Gura_ImplementBinaryOperator(Add, any, string)
 {
 	String str(valueLeft.ToString());
 	str += valueRight.GetString();
-	return Value(env, str.c_str());
+	return Value(str);
 }
 
 //-----------------------------------------------------------------------------
@@ -1614,7 +1614,7 @@ Gura_ImplementBinaryOperator(Mul, string, number)
 	for (int cnt = static_cast<int>(valueRight.GetNumber()); cnt > 0; cnt--) {
 		str += valueLeft.GetString();
 	}
-	return Value(env, str);
+	return Value(str);
 }
 
 Gura_ImplementBinaryOperator(Mul, number, string)
@@ -1623,7 +1623,7 @@ Gura_ImplementBinaryOperator(Mul, number, string)
 	for (int cnt = static_cast<int>(valueLeft.GetNumber()); cnt > 0; cnt--) {
 		str += valueRight.GetString();
 	}
-	return Value(env, str);
+	return Value(str);
 }
 
 Gura_ImplementBinaryOperator(Mul, binary, number)

@@ -366,7 +366,7 @@ Gura_ImplementMethod(wx_DocManager, GetLastDirectory)
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetLastDirectory();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_DocManager, GetMaxDocsOpen)
@@ -452,7 +452,7 @@ Gura_ImplementMethod(wx_DocManager, MakeNewDocumentName)
 	Object_wx_DocManager *pThis = Object_wx_DocManager::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->MakeNewDocumentName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_DocManager, OnCreateFileHistory)

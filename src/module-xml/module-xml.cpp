@@ -657,7 +657,7 @@ void Object_parser::ParserEx::OnEndElement(const XML_Char *name)
 {
 	Environment &env = *_pObj;
 	ValueList valListArg;
-	valListArg.push_back(Value(env, name));
+	valListArg.push_back(Value(name));
 	_pObj->CallHandler(Gura_UserSymbol(EndElement), valListArg);
 }
 
@@ -665,7 +665,7 @@ void Object_parser::ParserEx::OnCharacterData(const XML_Char *text, int len)
 {
 	Environment &env = *_pObj;
 	ValueList valListArg;
-	valListArg.push_back(Value(env, text, len));
+	valListArg.push_back(Value(text, len));
 	_pObj->CallHandler(Gura_UserSymbol(CharacterData), valListArg);
 }
 
@@ -673,8 +673,8 @@ void Object_parser::ParserEx::OnProcessingInstruction(const XML_Char *target, co
 {
 	Environment &env = *_pObj;
 	ValueList valListArg;
-	valListArg.push_back(Value(env, target));
-	valListArg.push_back(Value(env, data));
+	valListArg.push_back(Value(target));
+	valListArg.push_back(Value(data));
 	_pObj->CallHandler(Gura_UserSymbol(ProcessingInstruction), valListArg);
 }
 
@@ -682,7 +682,7 @@ void Object_parser::ParserEx::OnComment(const XML_Char *data)
 {
 	Environment &env = *_pObj;
 	ValueList valListArg;
-	valListArg.push_back(Value(env, data));
+	valListArg.push_back(Value(data));
 	_pObj->CallHandler(Gura_UserSymbol(Comment), valListArg);
 }
 
@@ -702,7 +702,7 @@ void Object_parser::ParserEx::OnDefault(const XML_Char *text, int len)
 {
 	Environment &env = *_pObj;
 	ValueList valListArg;
-	valListArg.push_back(Value(env, text, len));
+	valListArg.push_back(Value(text, len));
 	_pObj->CallHandler(Gura_UserSymbol(Default), valListArg);
 }
 
@@ -710,7 +710,7 @@ void Object_parser::ParserEx::OnDefaultExpand(const XML_Char *text, int len)
 {
 	Environment &env = *_pObj;
 	ValueList valListArg;
-	valListArg.push_back(Value(env, text, len));
+	valListArg.push_back(Value(text, len));
 	_pObj->CallHandler(Gura_UserSymbol(DefaultExpand), valListArg);
 }
 
@@ -727,7 +727,7 @@ void Object_parser::ParserEx::OnSkippedEntity(const XML_Char *entityName, int is
 {
 	Environment &env = *_pObj;
 	ValueList valListArg;
-	valListArg.push_back(Value(env, entityName));
+	valListArg.push_back(Value(entityName));
 	valListArg.push_back(Value(isParameterEntity != 0));
 	_pObj->CallHandler(Gura_UserSymbol(SkippedEntity), valListArg);
 }
@@ -736,8 +736,8 @@ void Object_parser::ParserEx::OnStartNamespaceDecl(const XML_Char *prefix, const
 {
 	Environment &env = *_pObj;
 	ValueList valListArg;
-	valListArg.push_back(Value(env, prefix));
-	valListArg.push_back(Value(env, uri));
+	valListArg.push_back(Value(prefix));
+	valListArg.push_back(Value(uri));
 	_pObj->CallHandler(Gura_UserSymbol(StartNamespaceDecl), valListArg);
 }
 
@@ -745,7 +745,7 @@ void Object_parser::ParserEx::OnEndNamespaceDecl(const XML_Char *prefix)
 {
 	Environment &env = *_pObj;
 	ValueList valListArg;
-	valListArg.push_back(Value(env, prefix));
+	valListArg.push_back(Value(prefix));
 	_pObj->CallHandler(Gura_UserSymbol(EndNamespaceDecl), valListArg);
 }
 
@@ -753,8 +753,8 @@ void Object_parser::ParserEx::OnXmlDecl(const XML_Char *version, const XML_Char 
 {
 	Environment &env = *_pObj;
 	ValueList valListArg;
-	valListArg.push_back(Value(env, version));
-	valListArg.push_back(Value(env, encoding));
+	valListArg.push_back(Value(version));
+	valListArg.push_back(Value(encoding));
 	if (standalone >= 0) {
 		valListArg.push_back(Value(standalone != 0));
 	}
@@ -767,9 +767,9 @@ void Object_parser::ParserEx::OnStartDoctypeDecl(
 {
 	Environment &env = *_pObj;
 	ValueList valListArg;
-	valListArg.push_back(Value(env, doctypeName));
-	valListArg.push_back(Value(env, systemId));
-	valListArg.push_back(Value(env, publicId));
+	valListArg.push_back(Value(doctypeName));
+	valListArg.push_back(Value(systemId));
+	valListArg.push_back(Value(publicId));
 	valListArg.push_back(Value(hasInternalSubset != 0));
 	_pObj->CallHandler(Gura_UserSymbol(StartDoctypeDecl), valListArg);
 }
@@ -784,7 +784,7 @@ void Object_parser::ParserEx::OnElementDecl(const XML_Char *name, XML_Content *m
 {
 	Environment &env = *_pObj;
 	ValueList valListArg;
-	valListArg.push_back(Value(env, name));
+	valListArg.push_back(Value(name));
 	//**************************
 	// todo
 	//**************************
@@ -797,10 +797,10 @@ void Object_parser::ParserEx::OnAttlistDecl(
 {
 	Environment &env = *_pObj;
 	ValueList valListArg;
-	valListArg.push_back(Value(env, elemName));
-	valListArg.push_back(Value(env, attName));
-	valListArg.push_back(Value(env, attType));
-	valListArg.push_back(Value(env, defaultValue));
+	valListArg.push_back(Value(elemName));
+	valListArg.push_back(Value(attName));
+	valListArg.push_back(Value(attType));
+	valListArg.push_back(Value(defaultValue));
 	valListArg.push_back(Value(isRequired != 0)); // #IMPLIED / #REQUIRED
 	_pObj->CallHandler(Gura_UserSymbol(AttlistDecl), valListArg);
 }
@@ -813,13 +813,13 @@ void Object_parser::ParserEx::OnEntityDecl(
 {
 	Environment &env = *_pObj;
 	ValueList valListArg;
-	valListArg.push_back(Value(env, entityName));
+	valListArg.push_back(Value(entityName));
 	valListArg.push_back(Value(isParameterEntity != 0));
-	valListArg.push_back(Value(env, value, valueLength));
-	valListArg.push_back(Value(env, base));
-	valListArg.push_back(Value(env, systemId));
-	valListArg.push_back(Value(env, publicId));
-	valListArg.push_back(Value(env, notationName));
+	valListArg.push_back(Value(value, valueLength));
+	valListArg.push_back(Value(base));
+	valListArg.push_back(Value(systemId));
+	valListArg.push_back(Value(publicId));
+	valListArg.push_back(Value(notationName));
 	_pObj->CallHandler(Gura_UserSymbol(EntityDecl), valListArg);
 }
 
@@ -829,10 +829,10 @@ void Object_parser::ParserEx::OnNotationDecl(
 {
 	Environment &env = *_pObj;
 	ValueList valListArg;
-	valListArg.push_back(Value(env, notationName));
-	valListArg.push_back(Value(env, base));
-	valListArg.push_back(Value(env, systemId));
-	valListArg.push_back(Value(env, publicId));
+	valListArg.push_back(Value(notationName));
+	valListArg.push_back(Value(base));
+	valListArg.push_back(Value(systemId));
+	valListArg.push_back(Value(publicId));
 	_pObj->CallHandler(Gura_UserSymbol(NotationDecl), valListArg);
 }
 
@@ -892,9 +892,9 @@ Value Object_attribute::DoGetProp(Environment &env, Signal sig, const Symbol *pS
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
-		return Value(env, _pAttribute->GetName());
+		return Value(_pAttribute->GetName());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(value))) {
-		return Value(env, _pAttribute->GetValue());
+		return Value(_pAttribute->GetValue());
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -940,7 +940,7 @@ Value Object_element::IndexGet(Environment &env, Signal sig, const Value &valueI
 		sig.SetError(ERR_IndexError, "specified attribute doesn't exist");
 		return Value::Null;
 	}
-	return Value(env, pAttribute->GetValue());
+	return Value(pAttribute->GetValue());
 }
 
 bool Object_element::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
@@ -960,13 +960,13 @@ Value Object_element::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(tagname))) {
 		if (!_pElement->IsTag()) return Value::Null;
-		return Value(env, _pElement->GetTagName());
+		return Value(_pElement->GetTagName());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
 		if (!_pElement->IsText()) return Value::Null;
-		return Value(env, _pElement->GetText());
+		return Value(_pElement->GetText());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(comment))) {
 		if (!_pElement->IsComment()) return Value::Null;
-		return Value(env, _pElement->GetComment());
+		return Value(_pElement->GetComment());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(children))) {
 		const ElementOwner *pChildren = _pElement->GetChildren();
 		if (pChildren == NULL) return Value::Null;
@@ -1021,7 +1021,7 @@ Gura_ImplementMethod(element, gendoc)
 		String strDst;
 		SimpleStream_StringWriter streamDst(strDst);
 		pObj->GetElement()->Write(sig, streamDst, fancyFlag, indentLevel);
-		return Value(env, strDst);
+		return Value(strDst);
 	}
 }
 
@@ -1036,7 +1036,7 @@ Gura_ImplementMethod(element, gettext)
 	Object_element *pObj = Object_element::GetThisObj(args);
 	String str = pObj->GetElement()->GatherText();
 	if (sig.IsSignalled()) return Value::Null;
-	return Value(env, str.c_str());
+	return Value(str);
 }
 
 // xml.element#addchild(value):void:map
@@ -1093,9 +1093,9 @@ Value Object_document::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(version))) {
-		return Value(env, _pDocument->GetVersion());
+		return Value(_pDocument->GetVersion());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(encoding))) {
-		return Value(env, _pDocument->GetEncoding());
+		return Value(_pDocument->GetEncoding());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(root))) {
 		if (_pDocument->GetRoot() == NULL) return Value::Null;
 		return Value(new Object_element(_pDocument->GetRoot()->Reference()));
@@ -1150,7 +1150,7 @@ Gura_ImplementMethod(document, gendoc)
 		String strDst;
 		SimpleStream_StringWriter streamDst(strDst);
 		pObj->GetDocument()->Write(sig, streamDst, fancyFlag);
-		return Value(env, strDst);
+		return Value(strDst);
 	}
 }
 

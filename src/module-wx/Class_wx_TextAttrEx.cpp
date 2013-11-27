@@ -70,7 +70,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetBulletFont)
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetBulletFont();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TextAttrEx, GetBulletName)
@@ -84,7 +84,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetBulletName)
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetBulletName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TextAttrEx, GetBulletNumber)
@@ -126,7 +126,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetBulletText)
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetBulletText();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TextAttrEx, GetCharacterStyleName)
@@ -140,7 +140,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetCharacterStyleName)
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetCharacterStyleName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TextAttrEx, GetLineSpacing)
@@ -168,7 +168,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetListStyleName)
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetListStyleName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TextAttrEx, GetOutlineLevel)
@@ -224,7 +224,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetParagraphStyleName)
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetParagraphStyleName();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TextAttrEx, GetTextEffectFlags)
@@ -266,7 +266,7 @@ Gura_ImplementMethod(wx_TextAttrEx, GetURL)
 	Object_wx_TextAttrEx *pThis = Object_wx_TextAttrEx::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetURL();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TextAttrEx, HasBulletName)

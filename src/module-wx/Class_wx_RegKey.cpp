@@ -214,7 +214,7 @@ Gura_ImplementMethod(wx_RegKey, GetName)
 	bool bShortPrefix = true;
 	if (args.IsValid(0)) bShortPrefix = args.GetBoolean(0);
 	wxString rtn = pThis->GetEntity()->GetName(bShortPrefix);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RegKey, GetFirstKey)

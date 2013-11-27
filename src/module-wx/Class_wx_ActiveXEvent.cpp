@@ -62,7 +62,7 @@ Gura_ImplementMethod(wx_ActiveXEvent, ParamType)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t idx = args.GetSizeT(0);
 	wxString rtn = pThis->GetEntity()->ParamType(idx);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ActiveXEvent, ParamName)
@@ -78,7 +78,7 @@ Gura_ImplementMethod(wx_ActiveXEvent, ParamName)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t idx = args.GetSizeT(0);
 	wxString rtn = pThis->GetEntity()->ParamName(idx);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ActiveXEvent, GetDispatchId)

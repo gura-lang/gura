@@ -328,11 +328,11 @@ Value Object_event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(status))) {
 		return Value(_pEvent->GetStatusCode());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
-		return Value(env, _pEvent->GetSymbol()->GetName());
+		return Value(_pEvent->GetSymbol()->GetName());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(symbol))) {
 		return Value(_pEvent->GetSymbol());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(args))) {
-		return Value(env, _pEvent->GetArgsName());
+		return Value(_pEvent->GetArgsName());
 	}
 	evaluatedFlag = false;
 	return _pEvent->DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
@@ -1317,7 +1317,7 @@ Value Object_portinfo::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 #if 0
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(string))) {
-		return Value(env, _str);
+		return Value(_str);
 	}
 #endif
 	evaluatedFlag = false;
@@ -1364,7 +1364,7 @@ Value Object_port::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 #if 0
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(string))) {
-		return Value(env, _str);
+		return Value(_str);
 	}
 #endif
 	evaluatedFlag = false;
@@ -1771,7 +1771,7 @@ Value Object_controller::DoGetProp(Environment &env, Signal sig, const Symbol *p
 	if (pSymbol->IsIdentical(Gura_UserSymbol(id))) {
 		return Value(_controller);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
-		return Value(env, GetControllerInfo().name);
+		return Value(GetControllerInfo().name);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -1821,9 +1821,9 @@ Value Object_program::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 	if (pSymbol->IsIdentical(Gura_UserSymbol(id))) {
 		return Value(_program);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
-		return Value(env, GetProgramInfo().name);
+		return Value(GetProgramInfo().name);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(dispname))) {
-		return Value(env, GetProgramInfo().dispName);
+		return Value(GetProgramInfo().dispName);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -1876,9 +1876,9 @@ Value Object_soundfont::DoGetProp(Environment &env, Signal sig, const Symbol *pS
 	if (pSymbol->IsIdentical(Gura_UserSymbol(id))) {
 		return Value(_soundfont);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(name))) {
-		return Value(env, GetProgramInfo().name);
+		return Value(GetProgramInfo().name);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(dispname))) {
-		return Value(env, GetProgramInfo().dispName);
+		return Value(GetProgramInfo().dispName);
 	}
 #endif
 	evaluatedFlag = false;

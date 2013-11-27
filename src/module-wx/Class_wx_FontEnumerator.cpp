@@ -62,7 +62,7 @@ bool wx_FontEnumerator::EnumerateEncodings(const wxString& font)
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.reserve(1);
-	valList.push_back(Value(env, font.ToUTF8()));
+	valList.push_back(Value(font.ToUTF8()));
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
@@ -75,7 +75,7 @@ bool wx_FontEnumerator::OnFacename(const wxString& font)
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.reserve(1);
-	valList.push_back(Value(env, font.ToUTF8()));
+	valList.push_back(Value(font.ToUTF8()));
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
@@ -88,8 +88,8 @@ bool wx_FontEnumerator::OnFontEncoding(const wxString& font, const wxString& enc
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.reserve(2);
-	valList.push_back(Value(env, font.ToUTF8()));
-	valList.push_back(Value(env, encoding.ToUTF8()));
+	valList.push_back(Value(font.ToUTF8()));
+	valList.push_back(Value(encoding.ToUTF8()));
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();

@@ -34,7 +34,7 @@ Gura_DeclareMethod(foo, test)
 Gura_ImplementMethod(foo, test)
 {
 	Object_foo *pThis = Object_foo::GetThisObj(args);
-	return Value(env, "foo object");
+	return Value("foo object");
 }
 
 // implementation of class foo
@@ -78,7 +78,7 @@ Gura_ModuleEntry()
 	// class realization
 	Gura_RealizeUserClass(foo, env.LookupClass(VTYPE_object));
 	// value assignment
-	Gura_AssignValue(foo, Value(env, "a value in sample module"));
+	Gura_AssignValue(foo, Value("a value in sample module"));
 	// function assignment
 	Gura_AssignFunction(foo);
 	Gura_AssignFunction(adder);

@@ -53,19 +53,19 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(typename_))) {
-		return Value(env, GetExpr()->GetTypeName());
+		return Value(GetExpr()->GetTypeName());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(typesym))) {
 		return Value(Symbol::Add(GetExpr()->GetTypeName()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(source))) {
 		const char *sourceName = GetExpr()->GetSourceName();
 		if (sourceName == NULL) return Value::Null;
-		return Value(env, sourceName);
+		return Value(sourceName);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(lineno))) {
 		return Value(GetExpr()->GetLineNoTop());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(linenobtm))) {
 		return Value(GetExpr()->GetLineNoBtm());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(postext))) {
-		return Value(env, GetExpr()->MakePosText());
+		return Value(GetExpr()->MakePosText());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(child))) {
 		if (GetExpr()->IsUnary()) {
 			const Expr_Unary *pExpr = dynamic_cast<const Expr_Unary *>(GetExpr());
@@ -136,7 +136,7 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	} else if (pSymbol->IsIdentical(Gura_Symbol(string))) {
 		if (GetExpr()->IsString()) {
 			const Expr_String *pExpr = dynamic_cast<const Expr_String *>(GetExpr());
-			return Value(env, pExpr->GetString());
+			return Value(pExpr->GetString());
 		}
 		sig.SetError(ERR_ValueError, "expression is not a string");
 		return Value::Null;
@@ -258,7 +258,7 @@ Gura_ImplementMethod(expr, genscript)
 		String strDst;
 		SimpleStream_StringWriter streamDst(strDst);
 		if (!pExpr->GenerateScript(sig, streamDst, scriptStyle, 0)) return Value::Null;
-		return Value(env, strDst);
+		return Value(strDst);
 	}
 }
 

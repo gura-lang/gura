@@ -42,9 +42,9 @@ Gura_ImplementFunction(exit)
 Gura_ModuleEntry()
 {
 	// value assignment
-	Gura_AssignValue(version, Value(env, GURA_VERSION));
-	Gura_AssignValue(ps1, Value(env, ">>> "));
-	Gura_AssignValue(ps2, Value(env, "... "));
+	Gura_AssignValue(version, Value(GURA_VERSION));
+	Gura_AssignValue(ps1, Value(">>> "));
+	Gura_AssignValue(ps2, Value("... "));
 	do {
 		Value valueBuild, valuePlatform;
 #if defined(_MSC_VER)
@@ -64,10 +64,10 @@ Gura_ModuleEntry()
 		Gura_AssignValue(build, valueBuild);
 		Gura_AssignValue(platform, valuePlatform);
 	} while (0);
-	Gura_AssignValue(executable, Value(env, OAL::GetExecutable().c_str()));
-	Gura_AssignValue(datadir, Value(env, OAL::GetDataDir().c_str()));
-	Gura_AssignValue(libdir, Value(env, OAL::GetLibDir().c_str()));
-	Gura_AssignValue(localdir, Value(env, OAL::GetLocalDir().c_str()));
+	Gura_AssignValue(executable, Value(OAL::GetExecutable()));
+	Gura_AssignValue(datadir, Value(OAL::GetDataDir()));
+	Gura_AssignValue(libdir, Value(OAL::GetLibDir()));
+	Gura_AssignValue(localdir, Value(OAL::GetLocalDir()));
 	// function assignment
 	Gura_AssignFunction(echo);
 	Gura_AssignFunction(exit);
@@ -105,7 +105,7 @@ static bool ExpandWildCard(Environment &env, Signal sig,
 		valList.push_back(value);
 		emptyFlag  = false;
 	}
-	if (emptyFlag) valList.push_back(Value(env, pattern));
+	if (emptyFlag) valList.push_back(Value(pattern));
 	return !sig.IsSignalled();
 }
 
@@ -120,16 +120,15 @@ bool SetCmdLineArgs(Module *pModule, Signal sig, int argc, const char *argv[])
 		Value value;
 		ValueList &valList = value.InitAsList(env);
 		if (argc >= 2 && argv != NULL) {
-			valList.push_back(Value(env,
-					OAL::MakeAbsPathName(OAL::FileSeparator, fileNameScript.c_str()).c_str()));
+			valList.push_back(Value(OAL::MakeAbsPathName(OAL::FileSeparator, fileNameScript.c_str())));
 			for (int i = 2; i < argc; i++) {
 				const char *arg = argv[i];
 				//if (Directory::HasWildCard(arg)) {
 				//	if (!ExpandWildCard(env, sig, valList, arg)) return false;
 				//} else {
-				//	valList.push_back(Value(env, arg));
+				//	valList.push_back(Value(arg));
 				//}
-				valList.push_back(Value(env, OAL::FromNativeString(arg)));
+				valList.push_back(Value(OAL::FromNativeString(arg)));
 			}
 		}
 		env.AssignValue(Symbol::Add("argv"), value, EXTRA_Public);
@@ -140,11 +139,10 @@ bool SetCmdLineArgs(Module *pModule, Signal sig, int argc, const char *argv[])
 		StringList strList;
 		OAL::SetupModulePath(strList);
 		foreach (StringList, pStr, strList) {
-			valList.push_back(Value(env, pStr->c_str()));
+			valList.push_back(Value(*pStr));
 		}
 		if (argc >= 2 && IsCompositeFile(fileNameScript.c_str())) {
-			valList.push_back(Value(env,
-				OAL::MakeAbsPathName(OAL::FileSeparator, fileNameScript.c_str()).c_str()));
+			valList.push_back(Value(OAL::MakeAbsPathName(OAL::FileSeparator, fileNameScript.c_str())));
 		}
 		env.AssignValue(Symbol::Add("path"), value, EXTRA_Public);
 	} while (0);
@@ -160,7 +158,7 @@ bool SetCmdLineArgs(Module *pModule, Signal sig, int argc, const char *argv[])
 				str = dirName;
 			}
 		}
-		env.AssignValue(Symbol::Add("maindir"), Value(env, str.c_str()), EXTRA_Public);
+		env.AssignValue(Symbol::Add("maindir"), Value(str), EXTRA_Public);
 	} while (0);
 	return true;
 }

@@ -57,7 +57,7 @@ Gura_ImplementMethod(toy_font_face, get_family)
 	Object_toy_font_face *pThis = Object_toy_font_face::GetThisObj(args);
 	cairo_font_face_t *font_face = pThis->GetEntity();
 	const char *rtn = ::cairo_toy_font_face_get_family(font_face);
-	return Value(env, rtn);
+	return Value(rtn);
 }
 
 // cairo.toy_font_face#get_slant()

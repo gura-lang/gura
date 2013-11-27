@@ -709,7 +709,7 @@ Gura_ImplementMethod(wx_CmdLineParser, GetParam)
 	size_t n = 0u;
 	if (args.IsValid(0)) n = args.GetSizeT(0);
 	wxString rtn = pThis->GetEntity()->GetParam(n);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 //----------------------------------------------------------------------------

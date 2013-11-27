@@ -137,7 +137,7 @@ void wx_GridTableBase::SetValue(int row, int col, const wxString &value)
 	valListArg.reserve(3);
 	valListArg.push_back(Value(row));
 	valListArg.push_back(Value(col));
-	valListArg.push_back(Value(env, value.ToUTF8()));
+	valListArg.push_back(Value(value.ToUTF8()));
 	_pObj->EvalMethod(*_pObj, _sig, pFunc, valListArg);
 	CheckMethodResult(_sig);
 }
@@ -164,7 +164,7 @@ bool wx_GridTableBase::CanGetValueAs(int row, int col, const wxString& typeName)
 	valList.reserve(3);
 	valList.push_back(Value(row));
 	valList.push_back(Value(col));
-	valList.push_back(Value(env, typeName.ToUTF8()));
+	valList.push_back(Value(typeName.ToUTF8()));
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
@@ -179,7 +179,7 @@ bool wx_GridTableBase::CanSetValueAs(int row, int col, const wxString& typeName)
 	valList.reserve(3);
 	valList.push_back(Value(row));
 	valList.push_back(Value(col));
-	valList.push_back(Value(env, typeName.ToUTF8()));
+	valList.push_back(Value(typeName.ToUTF8()));
 	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
 	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
 	return rtn.GetBoolean();
@@ -335,7 +335,7 @@ Gura_ImplementMethod(wx_GridTableBase, GetTypeName)
 	int row = args.GetInt(0);
 	int col = args.GetInt(1);
 	wxString rtn = pThis->GetEntity()->wxGridTableBase::GetTypeName(row, col);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_GridTableBase, CanGetValueAs)
@@ -704,7 +704,7 @@ Gura_ImplementMethod(wx_GridTableBase, GetRowLabelValue)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int row = args.GetInt(0);
 	wxString rtn = pThis->GetEntity()->wxGridTableBase::GetRowLabelValue(row);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_GridTableBase, GetColLabelValue)
@@ -720,7 +720,7 @@ Gura_ImplementMethod(wx_GridTableBase, GetColLabelValue)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int col = args.GetInt(0);
 	wxString rtn = pThis->GetEntity()->wxGridTableBase::GetColLabelValue(col);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_GridTableBase, SetRowLabelValue)

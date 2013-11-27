@@ -150,9 +150,9 @@ public:
 		_u.num = static_cast<Number>(num);
 	}
 	// VTYPE_string
-	Value(Environment &env, const String &str);
-	Value(Environment &env, const char *str);
-	Value(Environment &env, const char *str, size_t len);
+	Value(const String &str);
+	Value(const char *str);
+	Value(const char *str, size_t len);
 	// VTYPE_symbol
 	inline Value(const Symbol *pSymbol) : _valType(VTYPE_symbol), _valFlags(VFLAG_Owner) {
 		_u.pSymbol = pSymbol;

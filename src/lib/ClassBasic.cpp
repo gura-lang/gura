@@ -466,7 +466,7 @@ Gura_ImplementMethod(string, align)
 	} else {
 		str = Center(args.GetThis().GetString(), len, padding);
 	}
-	return Value(env, str.c_str());
+	return Value(str);
 }
 
 // string#binary()
@@ -492,7 +492,7 @@ Gura_DeclareMethod(string, capitalize)
 
 Gura_ImplementMethod(string, capitalize)
 {
-	return Value(env, Capitalize(args.GetThis().GetString()).c_str());
+	return Value(Capitalize(args.GetThis().GetString()));
 }
 
 // string#chop(suffix*:string):[eol,icase]
@@ -514,16 +514,16 @@ Gura_ImplementMethod(string, chop)
 	bool eolOnlyFlag = args.IsSet(Gura_Symbol(eol));
 	const ValueList &valList = args.GetList(0);
 	if (valList.empty()) {
-		return Value(env, Chop(args.GetThis().GetString(), eolOnlyFlag).c_str());
+		return Value(Chop(args.GetThis().GetString(), eolOnlyFlag));
 	}
 	String rtn = args.GetThis().GetStringSTL();
 	if (eolOnlyFlag) rtn = Chop(rtn.c_str(), true);
 	foreach_const (ValueList, pValue, valList) {
 		const char *p1 = rtn.c_str();
 		const char *p2 = EndsWith(p1, pValue->GetString(), args.IsSet(Gura_Symbol(icase)));
-		if (p2 != NULL) return Value(env, String(p1, p2).c_str());
+		if (p2 != NULL) return Value(String(p1, p2));
 	}
-	return Value(env, rtn.c_str());
+	return Value(rtn);
 }
 
 // string#decodeuri()
@@ -536,7 +536,7 @@ Gura_DeclareMethod(string, decodeuri)
 
 Gura_ImplementMethod(string, decodeuri)
 {
-	return Value(env, DecodeURI(args.GetThis().GetString()).c_str());
+	return Value(DecodeURI(args.GetThis().GetString()));
 }
 
 // string#each():[utf8,utf32] {block?}
@@ -614,7 +614,7 @@ Gura_DeclareMethod(string, encodeuri)
 
 Gura_ImplementMethod(string, encodeuri)
 {
-	return Value(env, EncodeURI(args.GetThis().GetString()));
+	return Value(EncodeURI(args.GetThis().GetString()));
 }
 
 // string#endswith(suffix:string, endpos?:number):map:[rest,icase]
@@ -641,7 +641,7 @@ Gura_ImplementMethod(string, endswith)
 		EndsWith(str, args.GetString(0), ignoreCaseFlag);
 	if (args.IsSet(Gura_Symbol(rest))) {
 		if (rtn == NULL) return Value::Null;
-		return Value(env, str, rtn - str);
+		return Value(str, rtn - str);
 	}
 	return rtn != NULL;
 }
@@ -658,7 +658,7 @@ Gura_DeclareMethod(string, escapehtml)
 Gura_ImplementMethod(string, escapehtml)
 {
 	bool quoteFlag = args.IsSet(Gura_Symbol(quote));
-	return Value(env, EscapeHtml(args.GetThis().GetString(), quoteFlag).c_str());
+	return Value(EscapeHtml(args.GetThis().GetString(), quoteFlag));
 }
 
 // string#find(sub:string, pos?:number => 0):map:[icase,rev]
@@ -719,8 +719,7 @@ Gura_DeclareMethod(string, format)
 
 Gura_ImplementMethod(string, format)
 {
-	return Value(env, Formatter::Format(sig,
-					args.GetThis().GetString(), args.GetList(0)).c_str());
+	return Value(Formatter::Format(sig, args.GetThis().GetString(), args.GetList(0)));
 }
 
 // string#isempty()
@@ -746,7 +745,7 @@ Gura_DeclareMethod(string, left)
 Gura_ImplementMethod(string, left)
 {
 	if (!args.Is_number(0)) return args.GetThis();
-	return Value(env, Left(args.GetThis().GetString(), args.GetSizeT(0)).c_str());
+	return Value(Left(args.GetThis().GetString(), args.GetSizeT(0)));
 }
 
 // string#len()
@@ -770,7 +769,7 @@ Gura_DeclareMethod(string, lower)
 
 Gura_ImplementMethod(string, lower)
 {
-	return Value(env, Lower(args.GetThis().GetString()).c_str());
+	return Value(Lower(args.GetThis().GetString()));
 }
 
 // string#mid(pos:number => 0, len?:number):map
@@ -792,8 +791,8 @@ Gura_DeclareMethod(string, mid)
 
 Gura_ImplementMethod(string, mid)
 {
-	return Value(env, Middle(args.GetThis().GetString(), args.GetInt(0),
-						args.Is_number(1)? args.GetInt(1) : -1).c_str());
+	return Value(Middle(args.GetThis().GetString(), args.GetInt(0),
+						args.Is_number(1)? args.GetInt(1) : -1));
 }
 
 // string#parse() {block?}
@@ -877,10 +876,10 @@ Gura_ImplementMethod(string, replace)
 	String result = Replace(args.GetThis().GetString(),
 			args.GetString(0), args.GetString(1),
 			args.Is_number(2)? args.GetInt(2) : -1, args.GetAttrs());
-	if (!args.IsBlockSpecified()) return Value(env, result);
+	if (!args.IsBlockSpecified()) return Value(result);
 	ValueList valListArg;
 	valListArg.reserve(2);
-	valListArg.push_back(Value(env, result));
+	valListArg.push_back(Value(result));
 	valListArg.push_back(Value(result != args.GetThis().GetStringSTL()));
 	return ReturnValues(env, sig, args, valListArg);
 }
@@ -896,7 +895,7 @@ Gura_DeclareMethod(string, right)
 Gura_ImplementMethod(string, right)
 {
 	if (!args.Is_number(0)) return args.GetThis();
-	return Value(env, Right(args.GetThis().GetString(), args.GetSizeT(0)).c_str());
+	return Value(Right(args.GetThis().GetString(), args.GetSizeT(0)));
 }
 
 // string#split(sep?:string, count?:number):[icase] {block?}
@@ -952,7 +951,7 @@ Gura_ImplementMethod(string, startswith)
 					args.GetInt(1), args.IsSet(Gura_Symbol(icase)));
 	if (args.IsSet(Gura_Symbol(rest))) {
 		if (rtn == NULL) return Value::Null;
-		return Value(env, rtn);
+		return Value(rtn);
 	}
 	return rtn != NULL;
 }
@@ -972,7 +971,7 @@ Gura_DeclareMethod(string, strip)
 
 Gura_ImplementMethod(string, strip)
 {
-	return Value(env, Strip(args.GetThis().GetString(), args.GetAttrs()).c_str());
+	return Value(Strip(args.GetThis().GetString(), args.GetAttrs()));
 }
 
 // string#template(dst?:stream:w):[noindent,lasteol]
@@ -1004,7 +1003,7 @@ Gura_ImplementMethod(string, template_)
 		SimpleStream_StringWriter streamDst(strDst);
 		if (!Template::Parser(autoIndentFlag, appendLastEOLFlag).
 					EvalStream(env, sig, streamSrc, streamDst)) return Value::Null;
-		return Value(env, strDst.c_str());
+		return Value(strDst.c_str());
 	}
 }
 
@@ -1018,7 +1017,7 @@ Gura_DeclareMethod(string, unescapehtml)
 
 Gura_ImplementMethod(string, unescapehtml)
 {
-	return Value(env, UnescapeHtml(args.GetThis().GetString()).c_str());
+	return Value(UnescapeHtml(args.GetThis().GetString()));
 }
 
 // string#upper()
@@ -1030,7 +1029,7 @@ Gura_DeclareMethod(string, upper)
 
 Gura_ImplementMethod(string, upper)
 {
-	return Value(env, Upper(args.GetThis().GetString()).c_str());
+	return Value(Upper(args.GetThis().GetString()));
 }
 
 // string#zentohan()
@@ -1042,7 +1041,7 @@ Gura_DeclareMethod(string, zentohan)
 
 Gura_ImplementMethod(string, zentohan)
 {
-	return Value(env, ZenToHan(args.GetThis().GetString()).c_str());
+	return Value(ZenToHan(args.GetThis().GetString()));
 }
 
 Class_string::Class_string(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_string)
@@ -1099,19 +1098,19 @@ Value Class_string::IndexGetPrimitive(Environment &env, Signal sig,
 			sig.SetError(ERR_IndexError, "index is out of range");
 			return Value::Null;
 		}
-		return Value(env, PickChar(valueThis.GetStringSTL(), idx).c_str());
+		return Value(PickChar(valueThis.GetStringSTL(), idx));
 	} else {
 		if (-idx > len) {
 			sig.SetError(ERR_IndexError, "index is out of range");
 			return Value::Null;
 		}
-		return Value(env, PickChar(valueThis.GetStringSTL(), len + idx).c_str());
+		return Value(PickChar(valueThis.GetStringSTL(), len + idx));
 	}
 }
 
 bool Class_string::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
-	value = Value(env, value.ToString(false).c_str());
+	value = Value(value.ToString(false));
 	return !sig.IsSignalled();
 }
 
@@ -1124,7 +1123,7 @@ bool Class_string::Deserialize(Environment &env, Signal sig, Stream &stream, Val
 {
 	String str;
 	if (!stream.DeserializeString(sig, str)) return false;
-	value = Value(env, str.c_str());
+	value = Value(str);
 	return true;
 }
 
@@ -1170,7 +1169,7 @@ bool Class_string::IteratorEach::DoNext(Environment &env, Signal sig, Value &val
 			_pCur = NextChar(_str, _pCur);
 			if (_cnt > 0) _cnt--;
 		}
-		value = Value(env, String(pLeft, _pCur).c_str());
+		value = Value(String(pLeft, _pCur));
 	}
 	return true;
 }
@@ -1219,7 +1218,7 @@ bool Class_string::IteratorLine::DoNext(Environment &env, Signal sig, Value &val
 			break;
 		}
 	}
-	value = Value(env, String(pLeft, _includeEOLFlag? pNext : _pCur).c_str());
+	value = Value(String(pLeft, _includeEOLFlag? pNext : _pCur));
 	_pCur = pNext;
 	if (_cnt > 0) _cnt--;
 	return true;
@@ -1259,17 +1258,17 @@ bool Class_string::IteratorSplit::DoNext(Environment &env, Signal sig, Value &va
 	if (_doneFlag) {
 		return false;
 	} else if (_pCur == _str.end()) {
-		value = Value(env, "");
+		value = Value("");
 		_doneFlag = true;
 	} else if (_cnt == 0) {
 		String::const_iterator pEnd = _str.end();
-		value = Value(env, String(_pCur, pEnd).c_str());
+		value = Value(String(_pCur, pEnd));
 		_pCur = _str.end();
 		_doneFlag = true;
 	} else {
 		String::const_iterator pRight =
 							FindString(_pCur, _str.end(), _sep, _ignoreCaseFlag);
-		value = Value(env, String(_pCur, pRight).c_str());
+		value = Value(String(_pCur, pRight));
 		if (pRight == _str.end()) {
 			_pCur = _str.end();
 			_doneFlag = true;
@@ -1324,7 +1323,7 @@ bool Class_string::IteratorFold::DoNext(Environment &env, Signal sig, Value &val
 		pNext = Forward(pTail, _str.end(), _lenStep - _lenPerFold);
 	}
 	if (_neatFlag && lenForward < _lenPerFold) return false;
-	value = Value(env, String(_pCur, pTail).c_str());
+	value = Value(String(_pCur, pTail));
 	_pCur = pNext;
 	return true;
 }

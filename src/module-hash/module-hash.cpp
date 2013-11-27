@@ -54,7 +54,7 @@ Value Object_hash::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 			::sprintf(buff, "%02x", static_cast<UChar>(*p));
 			str += buff;
 		}
-		return Value(env, str.c_str());
+		return Value(str);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(number))) {
 		evaluatedFlag = true;
 		return GetHash().GetValue();

@@ -183,7 +183,7 @@ Gura_ImplementMethod(wx_XmlDocument, GetEncoding)
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetEncoding();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 #else
 	SetError_MSWOnly(sig);
 	return Value::Null;
@@ -201,7 +201,7 @@ Gura_ImplementMethod(wx_XmlDocument, GetFileEncoding)
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetFileEncoding();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_XmlDocument, GetRoot)
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_XmlDocument, GetVersion)
 	Object_wx_XmlDocument *pThis = Object_wx_XmlDocument::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetVersion();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_XmlDocument, IsOk)

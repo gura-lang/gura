@@ -481,7 +481,7 @@ Gura_ImplementMethod(wx_ToolBar, GetToolLongHelp)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int toolId = args.GetInt(0);
 	wxString rtn = pThis->GetEntity()->GetToolLongHelp(toolId);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ToolBar, GetToolPacking)
@@ -541,7 +541,7 @@ Gura_ImplementMethod(wx_ToolBar, GetToolShortHelp)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int toolId = args.GetInt(0);
 	wxString rtn = pThis->GetEntity()->GetToolShortHelp(toolId);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_ToolBar, GetToolState)

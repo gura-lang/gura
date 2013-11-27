@@ -165,7 +165,7 @@ bool Directory::Iterator_Walk::DoNext(Environment &env, Signal sig, Value &value
 					if (sig.IsSignalled()) return false;
 					if (pObj != NULL) value = Value(pObj);
 				} else {
-					value = Value(env, pDirectoryChild->MakePathName(_addSepFlag).c_str());
+					value = Value(pDirectoryChild->MakePathName(_addSepFlag));
 				}
 				Directory::Delete(pDirectoryChild);
 				break;
@@ -294,7 +294,7 @@ found:
 		if (sig.IsSignalled()) return false;
 		if (pObj != NULL) value = Value(pObj);
 	} else {
-		value = Value(env, pDirectoryChild->MakePathName(_addSepFlag).c_str());
+		value = Value(pDirectoryChild->MakePathName(_addSepFlag));
 	}
 	Directory::Delete(pDirectoryChild);
 	return true;

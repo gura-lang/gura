@@ -706,7 +706,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetItemText)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxString rtn = pThis->GetEntity()->GetItemText(*item);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_TreeCtrl, GetItemTextColour)

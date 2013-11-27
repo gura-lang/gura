@@ -37,16 +37,16 @@ Value Object_error::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	if (pSymbol->IsIdentical(Gura_Symbol(source))) {
 		const char *sourceName = _err.GetSourceName();
 		if (sourceName == NULL) return Value::Null;
-		return Value(env, sourceName);
+		return Value(sourceName);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(lineno))) {
 		return Value(_err.GetLineNoTop());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(linenobtm))) {
 		return Value(_err.GetLineNoBtm());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(postext))) {
-		return Value(env, _err.MakePosText());
+		return Value(_err.MakePosText());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(text))) {
 		bool lineInfoFlag = attrs.IsSet(Gura_Symbol(lineno));
-		return Value(env, _err.MakeText(lineInfoFlag));
+		return Value(_err.MakeText(lineInfoFlag));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(trace))) {
 		AutoPtr<ExprOwner> pExprOwner(new ExprOwner());
 		_err.GetExprCauseOwner().ExtractTrace(*pExprOwner);

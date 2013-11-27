@@ -589,7 +589,7 @@ Value SysExEvent::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(binary))) {
-		return Value(env, _binary);
+		return Value(new Object_binary(env, _binary, false));
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -729,7 +729,7 @@ Value MetaEvent_Unknown::DoGetProp(Environment &env, Signal sig, const Symbol *p
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(binary))) {
-		return Value(env, _binary);
+		return Value(new Object_binary(env, _binary, false));
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -875,7 +875,7 @@ Value MetaEvent_TextEvent::DoGetProp(Environment &env, Signal sig, const Symbol 
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
-		return Value(env, _text);
+		return Value(_text);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -943,7 +943,7 @@ Value MetaEvent_CopyrightNotice::DoGetProp(Environment &env, Signal sig, const S
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
-		return Value(env, _text);
+		return Value(_text);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -1011,7 +1011,7 @@ Value MetaEvent_SequenceOrTrackName::DoGetProp(Environment &env, Signal sig, con
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
-		return Value(env, _text);
+		return Value(_text);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -1079,7 +1079,7 @@ Value MetaEvent_InstrumentName::DoGetProp(Environment &env, Signal sig, const Sy
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
-		return Value(env, _text);
+		return Value(_text);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -1147,7 +1147,7 @@ Value MetaEvent_LyricText::DoGetProp(Environment &env, Signal sig, const Symbol 
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
-		return Value(env, _text);
+		return Value(_text);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -1215,7 +1215,7 @@ Value MetaEvent_MarkerText::DoGetProp(Environment &env, Signal sig, const Symbol
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
-		return Value(env, _text);
+		return Value(_text);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -1283,7 +1283,7 @@ Value MetaEvent_CuePoint::DoGetProp(Environment &env, Signal sig, const Symbol *
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
-		return Value(env, _text);
+		return Value(_text);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -1861,7 +1861,7 @@ Value MetaEvent_SequencerSpecificEvent::DoGetProp(Environment &env, Signal sig, 
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(binary))) {
-		return Value(env, _binary);
+		return Value(new Object_binary(env, _binary, false));
 	}
 	evaluatedFlag = false;
 	return Value::Null;

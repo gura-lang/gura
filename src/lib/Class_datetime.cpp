@@ -336,7 +336,7 @@ Gura_ImplementMethod(datetime, format)
 	};
 	const DateTime &dateTime = Object_datetime::GetThisObj(args)->GetDateTime();
 	if (args.Is_string(0)) {
-		return Value(env, dateTime.ToString(args.GetString(0)).c_str());
+		return Value(dateTime.ToString(args.GetString(0)));
 	} else if (args.Is_symbol(0)) {
 		const Symbol *pSymbol = args.GetSymbol(0);
 		char str[64];
@@ -371,7 +371,7 @@ Gura_ImplementMethod(datetime, format)
 			sig.SetError(ERR_ValueError, "unknown format symbol `%s", pSymbol->GetName());
 			return Value::Null;
 		}
-		return Value(env, str);
+		return Value(str);
 	}
 	SetError_InvalidValType(sig, args.GetValue(0));
 	return Value::Null;

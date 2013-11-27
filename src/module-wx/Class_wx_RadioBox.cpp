@@ -239,7 +239,7 @@ Gura_ImplementMethod(wx_RadioBox, GetItemHelpText)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned item = args.GetInt(0);
 	wxString rtn = pThis->GetEntity()->GetItemHelpText(item);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RadioBox, GetItemToolTip)
@@ -285,7 +285,7 @@ Gura_ImplementMethod(wx_RadioBox, GetLabel)
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetLabel();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RadioBox, GetRowCount)
@@ -327,7 +327,7 @@ Gura_ImplementMethod(wx_RadioBox, GetStringSelection)
 	Object_wx_RadioBox *pThis = Object_wx_RadioBox::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString rtn = pThis->GetEntity()->GetStringSelection();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RadioBox, GetString)
@@ -343,7 +343,7 @@ Gura_ImplementMethod(wx_RadioBox, GetString)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	unsigned n = args.GetInt(0);
 	wxString rtn = pThis->GetEntity()->GetString(n);
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
 Gura_DeclareMethod(wx_RadioBox, IsItemEnabled)

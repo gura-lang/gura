@@ -164,7 +164,7 @@ Gura_DeclareFunction(version)
 Gura_ImplementFunction(version)
 {
 	const char *rtn = ::curl_version();
-	return ReturnValue(env, sig, args, Value(env, rtn));
+	return ReturnValue(env, sig, args, Value(rtn));
 }
 
 // curl.easy_init() {block?}
@@ -863,7 +863,7 @@ Gura_ImplementMethod(easy_handle, escape)
 	const String str = args.GetStringSTL(0);
 	const char *rtn = ::curl_easy_escape(pThis->GetEntity(),
 								str.c_str(), static_cast<int>(str.size()));
-	return Value(env, rtn);
+	return Value(rtn);
 }
 
 // curl.easy_handle#unescape(string:string):void
@@ -883,7 +883,7 @@ Gura_ImplementMethod(easy_handle, unescape)
 	int outlength = 0;
 	const char *rtn = ::curl_easy_unescape(pThis->GetEntity(),
 					str.c_str(), static_cast<int>(str.size()), &outlength);
-	return Value(env, rtn, outlength);
+	return Value(rtn, outlength);
 }
 
 // curl.easy_handle#reset():void
@@ -1028,7 +1028,7 @@ Gura_ImplementMethod(easy_handle, getinfo)
 			SetError_Curl(sig, code);
 			return Value::Null;
 		}
-		return Value(env, rtn);
+		return Value(rtn);
 	} else if (infoType == CURLINFO_LONG) {
 		long rtn = 0;
 		code = ::curl_easy_getinfo(pThis->GetEntity(), info, &rtn);
