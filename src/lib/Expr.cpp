@@ -1010,7 +1010,8 @@ Value Expr_Symbol::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
 			env.AssignValueType(pValueTypeInfo);
 			Function *pFunc = pClass->PrepareConstructor(env, sig);
 			if (pFunc == NULL) return Value::Null;
-			valueAssigned = Value(env, pFunc, Value::Null);
+			//valueAssigned = Value(env, pFunc, Value::Null);
+			valueAssigned = Value(new Object_function(env, pFunc, Value::Null));
 		}
 		extra = EXTRA_Public;
 	} else if (valueAssigned.Is_function()) {
@@ -2095,7 +2096,8 @@ Value Expr_Caller::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
 		Function::Delete(pFunc);
 		return Value::Null;
 	}
-	Value valueFunc(env, pFunc, Value::Null);
+	//Value valueFunc(env, pFunc, Value::Null);
+	Value valueFunc(new Object_function(env, pFunc, Value::Null));
 	GetCar()->Assign(env, sig, valueFunc, pSymbolsAssignable, escalateFlag);
 	if (sig.IsSignalled()) return Value::Null;
 	if (pFunc->GetSymbolFuncFlag()) return Value::Null;

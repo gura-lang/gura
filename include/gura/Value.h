@@ -164,7 +164,7 @@ public:
 	// VTYPE_expr
 	Value(Environment &env, Expr *pExpr);
 	// VTYPE_function
-	Value(Environment &env, Function *pFunc, const Value &valueThis);
+	//Value(Environment &env, Function *pFunc, const Value &valueThis);
 	// VTYPE_datetime
 	Value(Environment &env, const DateTime &dateTime);
 	// VTYPE_timedelta

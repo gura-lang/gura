@@ -230,7 +230,8 @@ Gura_ImplementFunction(function)
 	pArgsSub->SetExprOwnerArg(pExprOwnerArg);
 	pArgsSub->SetAttrs(args.GetAttrs());
 	if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, *pArgsSub)) return Value::Null;
-	return Value(env, pFunc.release(), Value::Null);
+	//return Value(env, pFunc.release(), Value::Null);
+	return Value(new Object_function(env, pFunc.release(), Value::Null));
 }
 
 //-----------------------------------------------------------------------------
@@ -286,7 +287,8 @@ Gura_ImplementMethod(function, diff)
 	AutoPtr<FunctionCustom> pFuncDiff(new FunctionCustom(env,
 			Gura_Symbol(_anonymous_), pExprDiff.release(), FUNCTYPE_Function));
 	pFuncDiff->CopyDeclare(*pFunc);
-	return Value(env, pFuncDiff.release(), Value::Null);
+	//return Value(env, pFuncDiff.release(), Value::Null);
+	return Value(new Object_function(env, pFuncDiff.release(), Value::Null));
 }
 
 // function#gethelp(lang?:symbol):map
@@ -354,7 +356,8 @@ bool Class_function::CastFrom(Environment &env, Signal sig, Value &value, const 
 		Function *pFunc = value.GetExpr()->
 				ToFunction(env, sig, ValueList::Null, SymbolSet::Null);
 		if (sig.IsSignalled()) return false;
-		value = Value(env, pFunc, Value::Null);
+		//value = Value(env, pFunc, Value::Null);
+		value = Value(new Object_function(env, pFunc, Value::Null));
 		return true;
 	}
 	return false;

@@ -120,12 +120,14 @@ Value::Value(Environment &env, Stream *pStream) : _valType(VTYPE_stream), _valFl
 	_u.pObj = new Object_stream(env, pStream);
 }
 
+#if 0
 // VTYPE_function
 Value::Value(Environment &env, Function *pFunc, const Value &valueThis) :
 									_valType(VTYPE_function), _valFlags(VFLAG_Owner)
 {
 	_u.pObj = new Object_function(env, pFunc, valueThis);
 }
+#endif
 
 // VTYPE_expr
 Value::Value(Environment &env, Expr *pExpr) : _valType(VTYPE_expr), _valFlags(VFLAG_Owner)

@@ -274,7 +274,8 @@ Gura_ImplementMethod(expr, tofunction)
 	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
 	Function *pFunc = pExpr->ToFunction(env, sig,
 								args.GetList(0), args.GetAttrs());
-	return Value(env, pFunc, Value::Null);
+	//return Value(env, pFunc, Value::Null);
+	return Value(new Object_function(env, pFunc, Value::Null));
 }
 
 // expr#unquote()

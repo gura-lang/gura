@@ -3455,7 +3455,8 @@ Gura_DeclareFunction(GetEventFilter)
 Gura_ImplementFunction(GetEventFilter)
 {
 	if (_pFuncEventFilter == NULL) return Value::Null;
-	return Value(env, _pFuncEventFilter, Value::Null);
+	//return Value(env, _pFuncEventFilter, Value::Null);
+	return Value(new Object_function(env, _pFuncEventFilter, Value::Null));
 }
 
 // sdl.EventState(type:number, state:number)
