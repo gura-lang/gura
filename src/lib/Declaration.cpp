@@ -135,7 +135,7 @@ bool Declaration::ValidateAndCast(Environment &env, Signal sig,
 			// make a clone of the iterator
 			Iterator *pIterator = value.CreateIterator(sig);
 			if (pIterator == NULL) return false;
-			value = Value(env, pIterator);
+			value = Value(new Object_iterator(env, pIterator));
 		}
 		goto done;
 	} else if (GetValueType() == VTYPE_Class && value.IsInstanceOf(VTYPE_function)) {

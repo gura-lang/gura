@@ -601,9 +601,9 @@ Value Object_stat::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(comment))) {
 		return Value(env, _hdr.GetFileComment());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mtime))) {
-		return Value(env, _hdr.GetLastModDateTime());
+		return Value(new Object_datetime(env, _hdr.GetLastModDateTime()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(crc32))) {
-		return Value(env, _hdr.GetCrc32());
+		return Value(_hdr.GetCrc32());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(compression_method))) {
 		return Value(static_cast<ULong>(_hdr.GetCompressionMethod()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(size))) {

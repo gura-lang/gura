@@ -108,45 +108,6 @@ Value::Value(Environment &env, const char *str, size_t len) : _valType(VTYPE_str
 #endif
 }
 
-// VTYPE_iterator
-Value::Value(Environment &env, Iterator *pIterator) : _valType(VTYPE_iterator), _valFlags(VFLAG_Owner)
-{
-	_u.pObj = new Object_iterator(env, pIterator);
-}
-
-// VTYPE_stream
-Value::Value(Environment &env, Stream *pStream) : _valType(VTYPE_stream), _valFlags(VFLAG_Owner)
-{
-	_u.pObj = new Object_stream(env, pStream);
-}
-
-#if 0
-// VTYPE_function
-Value::Value(Environment &env, Function *pFunc, const Value &valueThis) :
-									_valType(VTYPE_function), _valFlags(VFLAG_Owner)
-{
-	_u.pObj = new Object_function(env, pFunc, valueThis);
-}
-#endif
-
-// VTYPE_expr
-Value::Value(Environment &env, Expr *pExpr) : _valType(VTYPE_expr), _valFlags(VFLAG_Owner)
-{
-	_u.pObj = new Object_expr(env, pExpr);
-}
-
-// VTYPE_datetime
-Value::Value(Environment &env, const DateTime &dateTime) : _valType(VTYPE_datetime), _valFlags(VFLAG_Owner)
-{
-	_u.pObj = new Object_datetime(env, dateTime);
-}
-
-// VTYPE_timedelta
-Value::Value(Environment &env, const TimeDelta &timeDelta) : _valType(VTYPE_timedelta), _valFlags(VFLAG_Owner)
-{
-	_u.pObj = new Object_timedelta(env, timeDelta);
-}
-
 void Value::FreeResource()
 {
 	if (GetTinyBuffFlag()) {

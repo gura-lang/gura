@@ -404,7 +404,7 @@ Gura_ImplementMethod(Object, __iter__)
 {
 	Iterator *pIterator = args.GetThis().CreateIterator(sig);
 	if (sig.IsSignalled()) return Value::Null;
-	return Value(env, pIterator);
+	return Value(new Object_iterator(env, pIterator));
 }
 
 bool Class::IsClass() const { return true; }

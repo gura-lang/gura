@@ -2089,7 +2089,7 @@ Value Object_document::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(refs))) {
 		const ItemOwner *pItemOwner = _pDocument->GetItemRefereeOwner();
 		Iterator *pIterator = new Iterator_item(pItemOwner->Reference());
-		return Value(env, pIterator);
+		return Value(new Object_iterator(env, pIterator));
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -2190,7 +2190,7 @@ Value Object_item::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		const ItemOwner *pItemOwner = _pItem->GetItemOwner();
 		if (pItemOwner == NULL) return Value::Null;
 		Iterator *pIterator = new Iterator_item(pItemOwner->Reference());
-		return Value(env, pIterator);
+		return Value(new Object_iterator(env, pIterator));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(url))) {
 		const char *url = _pItem->GetURL();
 		if (url == NULL) return Value::Null;

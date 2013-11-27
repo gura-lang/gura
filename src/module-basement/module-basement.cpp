@@ -1590,7 +1590,7 @@ Gura_ModuleEntry()
 	Gura_AssignValueEx("@rem",	Value::Null); // dummy for MS-DOS batch
 	Gura_AssignValueEx("true",	Value(true));
 	Gura_AssignValueEx("false",	Value(false));
-	Gura_AssignValueEx("*",		Value(env, new Iterator_SequenceInf(0)));
+	Gura_AssignValueEx("*",		Value(new Object_iterator(env, new Iterator_SequenceInf(0))));
 	do {
 		Object_environment *pObj = new Object_environment(env);
 		Gura_AssignValue(root, Value(pObj));

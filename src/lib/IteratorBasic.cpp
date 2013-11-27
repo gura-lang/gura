@@ -1690,7 +1690,7 @@ bool Iterator_Fold::DoNext(Environment &env, Signal sig, Value &value)
 		bool excludeNilFlag = false;
 		value = pIterator->ToList(env, sig, false, excludeNilFlag);
 	} else {
-		value = Value(env, pIterator.release());
+		value = Value(new Object_iterator(env, pIterator.release()));
 	}
 	return true;
 }

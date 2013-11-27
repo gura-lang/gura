@@ -76,7 +76,7 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	} else if (pSymbol->IsIdentical(Gura_Symbol(children))) {
 		if (GetExpr()->IsContainer()) {
 			const Expr_Container *pExpr = dynamic_cast<const Expr_Container *>(GetExpr());
-			return Value(env, new ExprOwner::Iterator(pExpr->GetExprOwner().Reference()));
+			return Value(new Object_iterator(env, new ExprOwner::Iterator(pExpr->GetExprOwner().Reference())));
 		}
 		sig.SetError(ERR_ValueError, "not a container expression");
 		return Value::Null;
@@ -104,7 +104,7 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	} else if (pSymbol->IsIdentical(Gura_Symbol(cdr))) {
 		if (GetExpr()->IsCompound()) {
 			const Expr_Compound *pExpr = dynamic_cast<const Expr_Compound *>(GetExpr());
-			return Value(env, new ExprOwner::Iterator(pExpr->GetExprOwner().Reference()));
+			return Value(new Object_iterator(env, new ExprOwner::Iterator(pExpr->GetExprOwner().Reference())));
 		}
 		sig.SetError(ERR_ValueError, "not a compound expression");
 		return Value::Null;
@@ -152,7 +152,7 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 			const Expr_Block *pExpr = dynamic_cast<const Expr_Block *>(GetExpr());
 			const ExprOwner *pExprOwnerParam = pExpr->GetExprOwnerParam();
 			if (pExprOwnerParam == NULL) return Value::Null;
-			return Value(env, new ExprOwner::Iterator(pExprOwnerParam->Reference()));
+			return Value(new Object_iterator(env, new ExprOwner::Iterator(pExprOwnerParam->Reference())));
 		}
 		sig.SetError(ERR_ValueError, "expression is not a block");
 		return Value::Null;

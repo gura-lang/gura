@@ -35,12 +35,12 @@ Value Object_function::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(decls))) {
 		Iterator *pIterator = new Iterator_declaration(GetFunction()->GetDeclOwner().Reference());
-		return Value(env, pIterator);
+		return Value(new Object_iterator(env, pIterator));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(expr))) {
 		if (!GetFunction()->IsCustom()) return Value::Null;
 		const FunctionCustom *pFuncCustom =
 						dynamic_cast<const FunctionCustom *>(GetFunction());
-		return Value(env, Expr::Reference(pFuncCustom->GetExprBody()));
+		return Value(new Object_expr(env, Expr::Reference(pFuncCustom->GetExprBody())));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(format))) {
 		String str = MakePrefix(sig);
 		if (sig.IsSignalled()) return Value::Null;

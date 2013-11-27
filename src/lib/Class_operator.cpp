@@ -190,7 +190,8 @@ Gura_ImplementMethod(operator_, entries)
 			ValueType valTypeRight = Operator::ExtractValueTypeRight(key);
 			Expr *pExprLeft = ValueTypePool::GetInstance()->Lookup(valTypeLeft)->MakeExpr();
 			Expr *pExprRight = ValueTypePool::GetInstance()->Lookup(valTypeRight)->MakeExpr();
-			valList.push_back(Value::CreateAsList(env, Value(env, pExprLeft), Value(env, pExprRight)));
+			valList.push_back(Value::CreateAsList(env,
+				Value(new Object_expr(env, pExprLeft)), Value(new Object_expr(env, pExprRight))));
 		}
 	} else if (args.GetSymbol(0)->IsIdentical(Gura_Symbol(unary))) {
 		OpType opType = pThis->GetUnaryOpType();
@@ -205,7 +206,7 @@ Gura_ImplementMethod(operator_, entries)
 			Operator::Key key = iter->first;
 			ValueType valType = Operator::ExtractValueType(key);
 			Expr *pExpr = ValueTypePool::GetInstance()->Lookup(valType)->MakeExpr();
-			valList.push_back(Value(env, pExpr));
+			valList.push_back(Value(new Object_expr(env, pExpr)));
 		}
 	} else {
 		sig.SetError(ERR_ValueError, "invalid symbol: %s", args.GetSymbol(0)->GetName());

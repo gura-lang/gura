@@ -1216,7 +1216,7 @@ bool Class_iterator::CastFrom(Environment &env, Signal sig, Value &value, const 
 {
 	Iterator *pIterator = value.CreateIterator(sig);
 	if (pIterator != NULL) {
-		value = Value(env, pIterator);
+		value = Value(new Object_iterator(env, pIterator));
 		return true;
 	}
 	return false;

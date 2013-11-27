@@ -732,7 +732,7 @@ bool Header::GetTimeField(Environment &env, Signal sig, const Symbol *pSymbol, V
 				sig.SetError(ERR_FormatError, "invalid format of Date");
 				return false;
 			}
-			value = Value(env, dt);
+			value = Value(new Object_datetime(env, dt));
 		}
 		return true;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(expires))) {
@@ -743,7 +743,7 @@ bool Header::GetTimeField(Environment &env, Signal sig, const Symbol *pSymbol, V
 				sig.SetError(ERR_FormatError, "invalid format of Expires");
 				return false;
 			}
-			value = Value(env, dt);
+			value = Value(new Object_datetime(env, dt));
 		}
 		return true;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(last_modified))) {
@@ -754,7 +754,7 @@ bool Header::GetTimeField(Environment &env, Signal sig, const Symbol *pSymbol, V
 				sig.SetError(ERR_FormatError, "invalid format of Last-Modified");
 				return false;
 			}
-			value = Value(env, dt);
+			value = Value(new Object_datetime(env, dt));
 		}
 		return true;
 	}

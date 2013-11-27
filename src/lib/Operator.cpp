@@ -140,7 +140,7 @@ Value Operator::EvalMapUnary(Environment &env, Signal sig, const Value &value, b
 	AutoPtr<Iterator> pIterator(new Iterator_UnaryOperatorMap(
 							new Environment(env), sig, this, value, suffixFlag));
 	if (value.Is_iterator()) {
-		return Value(env, pIterator.release());
+		return Value(new Object_iterator(env, pIterator.release()));
 	}
 	return pIterator->ToList(env, sig, true, false);
 }
@@ -154,7 +154,7 @@ Value Operator::EvalMapBinary(Environment &env, Signal sig,
 	AutoPtr<Iterator> pIterator(new Iterator_BinaryOperatorMap(new Environment(env), sig,
 									this, valueLeft, valueRight));
 	if (valueLeft.Is_iterator() || valueRight.Is_iterator()) {
-		return Value(env, pIterator.release());
+		return Value(new Object_iterator(env, pIterator.release()));
 	}
 	return pIterator->ToList(env, sig, true, false);
 }
@@ -569,7 +569,7 @@ Value Operator_Mul::EvalMapBinary(Environment &env, Signal sig,
 						Object_function::GetObject(valueLeft)->GetThis(), pIterator.release()));
 			if (pFunc->IsRsltNormal() ||
 						pFunc->IsRsltIterator() || pFunc->IsRsltXIterator()) {
-				return Value(env, pIteratorFuncBinder.release());
+				return Value(new Object_iterator(env, pIteratorFuncBinder.release()));
 			} else {
 				AutoPtr<Args> pArgsSub(new Args());
 				pArgsSub->SetValues(valueLeft, valueRight);
@@ -1174,7 +1174,7 @@ Gura_ImplementUnaryOperator(Neg, matrix)
 Gura_ImplementUnaryOperator(Neg, timedelta)
 {
 	TimeDelta td = value.GetTimeDelta();
-	return Value(env, TimeDelta(-td.GetDays(), -td.GetSecsRaw(), -td.GetUSecs()));
+	return Value(new Object_timedelta(env, TimeDelta(-td.GetDays(), -td.GetSecsRaw(), -td.GetUSecs())));
 }
 
 //-----------------------------------------------------------------------------
@@ -1201,7 +1201,7 @@ Gura_ImplementUnaryOperator(Not, any)
 Gura_ImplementUnaryOperatorSuffix(SeqInf, number)
 {
 	Number numBegin = value.GetNumber();
-	return Value(env, new Iterator_SequenceInf(numBegin));
+	return Value(new Object_iterator(env, new Iterator_SequenceInf(numBegin)));
 }
 
 //-----------------------------------------------------------------------------
@@ -1285,24 +1285,24 @@ Gura_ImplementBinaryOperator(Add, datetime, timedelta)
 {
 	DateTime dateTime = valueLeft.GetDateTime();
 	dateTime.Plus(valueRight.GetTimeDelta());
-	return Value(env, dateTime);
+	return Value(new Object_datetime(env, dateTime));
 }
 
 Gura_ImplementBinaryOperator(Add, timedelta, datetime)
 {
 	DateTime dateTime = valueRight.GetDateTime();
 	dateTime.Plus(valueLeft.GetTimeDelta());
-	return Value(env, dateTime);
+	return Value(new Object_datetime(env, dateTime));
 }
 
 Gura_ImplementBinaryOperator(Add, timedelta, timedelta)
 {
 	TimeDelta td1 = valueLeft.GetTimeDelta();
 	TimeDelta td2 = valueRight.GetTimeDelta();
-	return Value(env, TimeDelta(
+	return Value(new Object_timedelta(env, TimeDelta(
 			td1.GetDays() + td2.GetDays(),
 			td1.GetSecsRaw() + td2.GetSecsRaw(),
-			td1.GetUSecs() + td2.GetUSecs()));
+			td1.GetUSecs() + td2.GetUSecs())));
 }
 
 Gura_ImplementBinaryOperator(Add, string, string)
@@ -1430,7 +1430,7 @@ Gura_ImplementBinaryOperator(Sub, datetime, timedelta)
 {
 	DateTime dateTime = valueLeft.GetDateTime();
 	dateTime.Minus(valueRight.GetTimeDelta());
-	return Value(env, dateTime);
+	return Value(new Object_datetime(env, dateTime));
 }
 
 Gura_ImplementBinaryOperator(Sub, datetime, datetime)
@@ -1442,17 +1442,17 @@ Gura_ImplementBinaryOperator(Sub, datetime, datetime)
 		sig.SetError(ERR_ValueError, "failed to calculate datetime difference");
 		return Value::Null;
 	}
-	return Value(env, dt1.Minus(dt2));
+	return Value(new Object_timedelta(env, dt1.Minus(dt2)));
 }
 
 Gura_ImplementBinaryOperator(Sub, timedelta, timedelta)
 {
 	TimeDelta td1 = valueLeft.GetTimeDelta();
 	TimeDelta td2 = valueRight.GetTimeDelta();
-	return Value(env, TimeDelta(
+	return Value(new Object_timedelta(env, TimeDelta(
 			td1.GetDays() - td2.GetDays(),
 			td1.GetSecsRaw() - td2.GetSecsRaw(),
-			td1.GetUSecs() - td2.GetUSecs()));
+			td1.GetUSecs() - td2.GetUSecs())));
 }
 
 Gura_ImplementBinaryOperator(Sub, color, color)
@@ -1582,16 +1582,16 @@ Gura_ImplementBinaryOperator(Mul, timedelta, number)
 {
 	const TimeDelta &td = valueLeft.GetTimeDelta();
 	long num = valueRight.GetLong();
-	return Value(env,
-		TimeDelta(td.GetDays() * num, td.GetSecsRaw() * num, td.GetUSecs() * num));
+	return Value(new Object_timedelta(env,
+		TimeDelta(td.GetDays() * num, td.GetSecsRaw() * num, td.GetUSecs() * num)));
 }
 
 Gura_ImplementBinaryOperator(Mul, number, timedelta)
 {
 	const TimeDelta &td = valueRight.GetTimeDelta();
 	long num = valueLeft.GetLong();
-	return Value(env,
-		TimeDelta(td.GetDays() * num, td.GetSecsRaw() * num, td.GetUSecs() * num));
+	return Value(new Object_timedelta(env,
+		TimeDelta(td.GetDays() * num, td.GetSecsRaw() * num, td.GetUSecs() * num)));
 }
 
 Gura_ImplementBinaryOperator(Mul, function, any)
@@ -1980,7 +1980,7 @@ Gura_ImplementBinaryOperator(Seq, number, number)
 	Number numBegin = valueLeft.GetNumber();
 	Number numEnd = valueRight.GetNumber();
 	Number numStep = (numEnd >= numBegin)? +1 : -1;
-	return Value(env, new Iterator_Sequence(numBegin, numEnd, numStep));
+	return Value(new Object_iterator(env, new Iterator_Sequence(numBegin, numEnd, numStep)));
 }
 
 //-----------------------------------------------------------------------------

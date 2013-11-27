@@ -971,12 +971,12 @@ Value Object_element::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 		const ElementOwner *pChildren = _pElement->GetChildren();
 		if (pChildren == NULL) return Value::Null;
 		Iterator *pIterator = new Iterator_element(pChildren->Reference());
-		return Value(env, pIterator);
+		return Value(new Object_iterator(env, pIterator));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(attrs))) {
 		const AttributeOwner *pAttrs = _pElement->GetAttributes();
 		if (pAttrs == NULL) return Value::Null;
 		Iterator *pIterator = new Iterator_attribute(pAttrs->Reference());
-		return Value(env, pIterator);
+		return Value(new Object_iterator(env, pIterator));
 	}
 	evaluatedFlag = false;
 	return Value::Null;

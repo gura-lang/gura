@@ -284,7 +284,7 @@ Value Function::EvalMap(Environment &env, Signal sig, Args &args) const
 	if (args.IsRsltIterator() || args.IsRsltXIterator() ||
 			 (args.IsRsltNormal() && args.ShouldGenerateIterator(GetDeclOwner()))) {
 		pIterator->SetSkipInvalidFlag(args.IsRsltXIterator());
-		return Value(env, pIterator.release());
+		return Value(new Object_iterator(env, pIterator.release()));
 	}
 	Value result;
 	ResultComposer resultComposer(env, args, result);
@@ -358,7 +358,7 @@ Value Function::ReturnIterator(Environment &env, Signal sig,
 		pIterator->SetSkipInvalidFlag(skipInvalidFlag);
 	}
 	if (args.IsRsltIterator() || args.IsRsltXIterator()) {
-		result = Value(env, pIterator);
+		result = Value(new Object_iterator(env, pIterator));
 	} else if (args.IsRsltList() || args.IsRsltXList() ||
 									args.IsRsltSet() || args.IsRsltXSet()) {
 		result = pIterator->Eval(env, sig, args);
@@ -369,7 +369,7 @@ Value Function::ReturnIterator(Environment &env, Signal sig,
 		Iterator::Delete(pIterator);
 		if (sig.IsSignalled()) return Value::Null;
 	} else {
-		result = Value(env, pIterator);
+		result = Value(new Object_iterator(env, pIterator));
 	}
 	return result;
 }

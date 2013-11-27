@@ -190,7 +190,7 @@ Gura_ImplementFunction(datetime)
 		secsOffset = OAL::GetSecsOffsetTZ();
 	}
 	return ReturnValue(env, sig, args,
-				Value(env, DateTime(year, month, day, sec, usec, secsOffset)));
+		Value(new Object_datetime(env, DateTime(year, month, day, sec, usec, secsOffset))));
 }
 
 // datetime.monthdays(year:number, month:number):map
@@ -235,7 +235,7 @@ Gura_DeclareClassMethod(datetime, now)
 Gura_ImplementClassMethod(datetime, now)
 {
 	DateTime dateTime = OAL::GetCurDateTime(args.IsSet(Gura_Symbol(utc)));
-	return Value(env, dateTime);
+	return Value(new Object_datetime(env, dateTime));
 }
 
 // datetime.today():[utc]
@@ -249,7 +249,7 @@ Gura_ImplementClassMethod(datetime, today)
 {
 	DateTime dateTime = OAL::GetCurDateTime(args.IsSet(Gura_Symbol(utc)));
 	dateTime.ClearTime();
-	return Value(env, dateTime);
+	return Value(new Object_datetime(env, dateTime));
 }
 
 // datetime.time(hour:number => 0, minute:number => 0, sec:number => 0, usec:number => 0):map
@@ -271,7 +271,7 @@ Gura_ImplementClassMethod(datetime, time)
 						args.GetNumber(1) * 60 + args.GetNumber(2));
 	long usec = args.GetLong(3);
 	long secsOffset = OAL::GetSecsOffsetTZ();
-	return Value(env, DateTime(year, month, day, sec, usec, secsOffset));
+	return Value(new Object_datetime(env, DateTime(year, month, day, sec, usec, secsOffset)));
 }
 
 // datetime.parse(str:string):map
@@ -288,7 +288,7 @@ Gura_ImplementClassMethod(datetime, parse)
 		sig.SetError(ERR_FormatError, "invalid time format");
 		return Value::Null;
 	}
-	return Value(env, dateTime);
+	return Value(new Object_datetime(env, dateTime));
 }
 
 // datetime.isleap(year:number):map
@@ -417,7 +417,7 @@ Gura_ImplementMethod(datetime, utc)
 		sig.SetError(ERR_ValueError, "datetime has no timezone offset");
 		return Value::Null;
 	}
-	return Value(env, dateTime.ToUTC());
+	return Value(new Object_datetime(env, dateTime.ToUTC()));
 }
 
 #if 0

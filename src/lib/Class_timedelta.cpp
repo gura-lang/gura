@@ -96,7 +96,7 @@ Gura_ImplementFunction(timedelta)
 	long days = static_cast<long>(args.GetNumber(0));
 	long secs = static_cast<long>(args.GetNumber(1));
 	long usecs = static_cast<long>(args.GetNumber(2));
-	return ReturnValue(env, sig, args, Value(env, TimeDelta(days, secs, usecs)));
+	return ReturnValue(env, sig, args, Value(new Object_timedelta(env, TimeDelta(days, secs, usecs))));
 }
 
 //-----------------------------------------------------------------------------

@@ -103,6 +103,18 @@ public:
 	}
 	// VTYPE_object etc
 	Value(Object *pObj, UShort valFlags = VFLAG_Owner);
+	// VTYPE_boolean
+	inline Value(bool flag) : _valType(VTYPE_boolean), _valFlags(VFLAG_Owner) {
+		_u.flag = flag;
+	}
+	// VTYPE_complex
+	inline Value(const Complex &comp) : _valType(VTYPE_complex), _valFlags(VFLAG_Owner) {
+		_u.pComp = new Complex(comp);
+	}
+	// VTYPE_fraction
+	inline Value(const Fraction &frac) : _valType(VTYPE_fraction), _valFlags(VFLAG_Owner) {
+		_u.pFrac = new Fraction(frac);
+	}
 	// VTYPE_number
 	inline Value(Number num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = num;
@@ -137,38 +149,14 @@ public:
 	inline Value(UInt64 num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = static_cast<Number>(num);
 	}
-	// VTYPE_boolean
-	inline Value(bool flag) : _valType(VTYPE_boolean), _valFlags(VFLAG_Owner) {
-		_u.flag = flag;
-	}
-	// VTYPE_symbol
-	inline Value(const Symbol *pSymbol) : _valType(VTYPE_symbol), _valFlags(VFLAG_Owner) {
-		_u.pSymbol = pSymbol;
-	}
-	// VTYPE_complex
-	inline Value(const Complex &comp) : _valType(VTYPE_complex), _valFlags(VFLAG_Owner) {
-		_u.pComp = new Complex(comp);
-	}
-	// VTYPE_fraction
-	inline Value(const Fraction &frac) : _valType(VTYPE_fraction), _valFlags(VFLAG_Owner) {
-		_u.pFrac = new Fraction(frac);
-	}
 	// VTYPE_string
 	Value(Environment &env, const String &str);
 	Value(Environment &env, const char *str);
 	Value(Environment &env, const char *str, size_t len);
-	// VTYPE_iterator
-	Value(Environment &env, Iterator *pIterator);
-	// VTYPE_stream
-	Value(Environment &env, Stream *pStream);
-	// VTYPE_expr
-	Value(Environment &env, Expr *pExpr);
-	// VTYPE_function
-	//Value(Environment &env, Function *pFunc, const Value &valueThis);
-	// VTYPE_datetime
-	Value(Environment &env, const DateTime &dateTime);
-	// VTYPE_timedelta
-	Value(Environment &env, const TimeDelta &timeDelta);
+	// VTYPE_symbol
+	inline Value(const Symbol *pSymbol) : _valType(VTYPE_symbol), _valFlags(VFLAG_Owner) {
+		_u.pSymbol = pSymbol;
+	}
 	Value &operator=(const Value &value);
 	inline UShort GetFlags() const { return _valFlags; }
 	inline void SetFlags(UShort valFlags) { _valFlags = valFlags; }

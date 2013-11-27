@@ -1170,7 +1170,7 @@ bool VariantToValue(Environment &env, Signal sig, Value &value, const VARIANT &v
 		DateTime dateTime(oledt.GetYear(), oledt.GetMonth(), oledt.GetDay(),
 				oledt.GetHour() * 3600 + oledt.GetMinute() * 60 + oledt.GetSecond(),
 				0, OAL::GetSecsOffsetTZ());
-		value = Value(env, dateTime);
+		value = Value(new Object_datetime(env, dateTime));
 	} else if (type == VT_BSTR) {
 		value = Value(env, BSTRToString(var.bstrVal).c_str());
 	} else if (type == VT_UNKNOWN) {

@@ -395,7 +395,7 @@ Value Object_track::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_UserSymbol(events))) {
 		Iterator *pIterator = new Iterator_event(_pTrack->GetEventOwner().Reference());
-		return Value(env, pIterator);
+		return Value(new Object_iterator(env, pIterator));
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -1084,11 +1084,11 @@ Value Object_sequence::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(tracks))) {
 		Iterator *pIterator =
 				new Iterator_track(_sequence.GetTrackOwner().Reference());
-		return Value(env, pIterator);
+		return Value(new Object_iterator(env, pIterator));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(events))) {
 		Iterator *pIterator =
 				new Iterator_eventAll(_sequence.GetTrackOwner().Reference());
-		return Value(env, pIterator);
+		return Value(new Object_iterator(env, pIterator));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(division))) {
 		return Value(_sequence.GetProperty()->GetDivision());
 	}

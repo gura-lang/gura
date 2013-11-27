@@ -810,7 +810,7 @@ Gura_ImplementMethod(string, parse)
 	Parser parser(SRCNAME_string);
 	if (!parser.ParseString(env, sig, pExpr->GetExprOwner(),
 							args.GetThis().GetString())) return Value::Null;
-	return ReturnValue(env, sig, args, Value(env, pExpr.release()));
+	return ReturnValue(env, sig, args, Value(new Object_expr(env, pExpr.release())));
 }
 
 // string#print(stream?:stream:w):void

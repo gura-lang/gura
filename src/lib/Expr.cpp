@@ -1539,7 +1539,7 @@ Value Expr_Iterer::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPost
 		}
 		pIterator->Add(pIteratorArg);
 	}
-	Value result(env, pIterator.release());
+	Value result(new Object_iterator(env, pIterator.release()));
 	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
 	return result;
 }
@@ -1971,7 +1971,7 @@ Value Expr_Caller::DoExec(Environment &env, Signal sig, TrailCtrlHolder *pTrailC
 				AutoPtr<Iterator> pIteratorMap(new Iterator_MethodMap(new Environment(env), sig,
 									pIteratorThis, Expr_Caller::Reference(this)));
 				if (mode == Expr_Member::MODE_MapToIter) {
-					return Value(env, pIteratorMap.release());
+					return Value(new Object_iterator(env, pIteratorMap.release()));
 				}
 				Value result = pIteratorMap->ToList(env, sig, false, false);
 				if (sig.IsSignalled()) return Value::Null;
@@ -2708,7 +2708,7 @@ Value Expr_Member::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPost
 				AutoPtr<Iterator> pIteratorMap(new Iterator_MemberMap(
 							new Environment(env), sig, pIterator, Expr::Reference(GetRight())));
 				if (mode == MODE_MapToIter) {
-					result = Value(env, pIteratorMap.release());
+					result = Value(new Object_iterator(env, pIteratorMap.release()));
 				} else {
 					result = pIteratorMap->ToList(env, sig, false, false);
 					if (sig.IsSignalled()) return Value::Null;

@@ -400,7 +400,7 @@ bool Iterator_Entry::DoNext(Environment &env, Signal sig, Value &value)
 	_offsetNext = pStreamSrc->Tell() + pHdr->CalcBlocks() * BLOCKSIZE;
 	Stream *pStreamEntry = new Stream_Entry(env, sig,
 								Stream::Reference(pStreamSrc), *pHdr);
-	value = Value(env, pStreamEntry);
+	value = Value(new Object_stream(env, pStreamEntry));
 	return true;
 }
 
@@ -472,11 +472,11 @@ Value Object_stat::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(size))) {
 		return Value(_hdr.GetSize());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(mtime))) {
-		return Value(env, _hdr.GetMTime());
+		return Value(new Object_datetime(env, _hdr.GetMTime()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(atime))) {
-		return Value(env, _hdr.GetATime());
+		return Value(new Object_datetime(env, _hdr.GetATime()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ctime))) {
-		return Value(env, _hdr.GetCTime());
+		return Value(new Object_datetime(env, _hdr.GetCTime()));
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(chksum))) {
 		return Value(_hdr.GetChksum());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(typeflag))) {
