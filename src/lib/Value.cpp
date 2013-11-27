@@ -1,7 +1,5 @@
 #include "stdafx.h"
 
-#define USE_TINYBUFF 1
-
 namespace Gura {
 
 //-----------------------------------------------------------------------------
@@ -65,7 +63,6 @@ Value::~Value()
 // VTYPE_string
 Value::Value(const String &str) : _valType(VTYPE_string), _valFlags(VFLAG_Owner)
 {
-#if USE_TINYBUFF
 	size_t len = str.size();
 	if (len < sizeof(_u) - 1) {
 		_valFlags |= VFLAG_TinyBuff;
@@ -73,14 +70,10 @@ Value::Value(const String &str) : _valType(VTYPE_string), _valFlags(VFLAG_Owner)
 	} else {
 		_u.pStrRef = new StringRef(str);
 	}
-#else
-	_u.pStrRef = new StringRef(str);
-#endif
 }
 
 Value::Value(const char *str) : _valType(VTYPE_string), _valFlags(VFLAG_Owner)
 {
-#if USE_TINYBUFF
 	size_t len = ::strlen(str);
 	if (len < sizeof(_u) - 1) {
 		_valFlags |= VFLAG_TinyBuff;
@@ -88,14 +81,10 @@ Value::Value(const char *str) : _valType(VTYPE_string), _valFlags(VFLAG_Owner)
 	} else {
 		_u.pStrRef = new StringRef(str);
 	}
-#else
-	_u.pStrRef = new StringRef(str);
-#endif
 }
 
 Value::Value(const char *str, size_t len) : _valType(VTYPE_string), _valFlags(VFLAG_Owner)
 {
-#if USE_TINYBUFF
 	if (len < sizeof(_u) - 1) {
 		_valFlags |= VFLAG_TinyBuff;
 		::memcpy(_u.tinyBuff, str, len);
@@ -103,9 +92,6 @@ Value::Value(const char *str, size_t len) : _valType(VTYPE_string), _valFlags(VF
 	} else {
 		_u.pStrRef = new StringRef(String(str, len));
 	}
-#else
-	_u.pStrRef = new StringRef(String(str, len));
-#endif
 }
 
 void Value::FreeResource()
