@@ -154,6 +154,7 @@ install(FILES
   ${GURA_INCLUDE_DIR}/gura/StreamBasic.h
   ${GURA_INCLUDE_DIR}/gura/String.h
   ${GURA_INCLUDE_DIR}/gura/Symbol.h
+  ${GURA_INCLUDE_DIR}/gura/Template.h
   ${GURA_INCLUDE_DIR}/gura/Value.h
   ${GURA_INCLUDE_DIR}/gura/ValueType.h
   ${GURA_INCLUDE_DIR}/gura/Version.h

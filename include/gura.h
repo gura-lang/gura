@@ -49,6 +49,7 @@
 #include "gura/Stream.h"
 #include "gura/StreamBasic.h"
 #include "gura/String.h"
+#include "gura/Template.h"
 
 #include "gura/Class_args.h"
 #include "gura/Class_audio.h"

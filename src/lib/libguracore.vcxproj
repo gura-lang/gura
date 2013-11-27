@@ -247,6 +247,7 @@
     <ClCompile Include="StreamBasic.cpp" />
     <ClCompile Include="String.cpp" />
     <ClCompile Include="Symbol.cpp" />
+    <ClCompile Include="Template.cpp" />
     <ClCompile Include="Value.cpp" />
     <ClCompile Include="ValueType.cpp" />
     <ClCompile Include="..\module-basement\module-basement.cpp" />
@@ -329,6 +330,7 @@
     <ClInclude Include="..\..\include\gura\StreamBasic.h" />
     <ClInclude Include="..\..\include\gura\String.h" />
     <ClInclude Include="..\..\include\gura\Symbol.h" />
+    <ClInclude Include="..\..\include\gura\Template.h" />
     <ClInclude Include="..\..\include\gura\Value.h" />
     <ClInclude Include="..\..\include\gura\ValueType.h" />
     <ClInclude Include="..\..\include\gura\ZLibHelper.h" />

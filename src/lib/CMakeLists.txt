@@ -64,6 +64,7 @@ Stream.cpp
 StreamBasic.cpp
 String.cpp
 Symbol.cpp
+Template.cpp
 Value.cpp
 ValueType.cpp
 ../module-basement/module-basement.cpp
