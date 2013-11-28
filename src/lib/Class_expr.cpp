@@ -274,12 +274,12 @@ Gura_ImplementMethod(expr, tofunction)
 	Expr_Block *pExprBlock = Object_expr::GetThisObj(args)->GetExpr()->ToExprBlock();
 	AutoPtr<FunctionCustom> pFunc(FunctionCustom::CreateBlockFunc(env, sig,
 					Gura_Symbol(_anonymous_), pExprBlock, FUNCTYPE_Function));
-	if (sig.IsSignalled()) return NULL;
+	if (sig.IsSignalled()) return Value::Null;
 	const ValueList &valListArg = args.GetList(0);
 	if (!valListArg.empty()) {
 		if (!pFunc->GetDeclOwner().empty()) {
 			sig.SetError(ERR_TypeError, "argument declaration conflicts");
-			return NULL;
+			return Value::Null;
 		}
 		AutoPtr<ExprOwner> pExprOwnerArg(new ExprOwner());
 		foreach_const (ValueList, pValue, valListArg) {
@@ -288,7 +288,7 @@ Gura_ImplementMethod(expr, tofunction)
 		AutoPtr<Args> pArgs(new Args());
 		pArgs->SetExprOwnerArg(pExprOwnerArg.release());
 		pArgs->SetAttrs(args.GetAttrs());
-		if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, *pArgs)) return NULL;
+		if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, *pArgs)) return Value::Null;
 	}
 	return Value(new Object_function(env, pFunc.release()));
 }
