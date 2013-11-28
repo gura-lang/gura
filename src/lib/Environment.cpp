@@ -316,8 +316,7 @@ ValueEx *Environment::LookupValue(const Symbol *pSymbol, EnvRefMode envRefMode, 
 Function *Environment::AssignFunction(Function *pFunc)
 {
 	ULong extra = EXTRA_Public;
-	//Value value(*this, pFunc, Value::Null);
-	Value value(new Object_function(*this, pFunc, Value::Null));
+	Value value(new Object_function(*this, pFunc));
 	GetTopFrame()->AssignValue(pFunc->GetSymbol(), value, extra);
 	return pFunc;
 }

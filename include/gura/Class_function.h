@@ -26,10 +26,10 @@ protected:
 	AutoPtr<Function> _pFunc;
 	Value _valueThis;
 public:
-	inline Object_function(Environment &env, Function *pFunc, const Value &valueThis) :
-				Object(env.LookupClass(VTYPE_function)), _pFunc(pFunc), _valueThis(valueThis) {}
-	inline Object_function(Class *pClass, Function *pFunc, const Value &valueThis) :
-				Object(pClass), _pFunc(pFunc), _valueThis(valueThis) {}
+	inline Object_function(Environment &env, Function *pFunc) :
+				Object(env.LookupClass(VTYPE_function)), _pFunc(pFunc) {}
+	inline Object_function(Class *pClass, Function *pFunc) :
+				Object(pClass), _pFunc(pFunc) {}
 	inline Object_function(const Object_function &obj) :
 				Object(obj), _pFunc(Function::Reference(obj._pFunc.get())),
 				_valueThis(obj._valueThis) {}

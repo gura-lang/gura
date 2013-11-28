@@ -714,8 +714,9 @@ bool Iterator_MemberMap::DoNext(Environment &env, Signal sig, Value &value)
 		value = _pExpr->Exec2(*pFundEach, sig, pSeqPostHandler);
 	}
 	if (value.Is_function()) {
-		Object_function *pObj = new Object_function(*pFundEach,
-						Function::Reference(value.GetFunction()), valueThisEach);
+		Object_function *pObj = new Object_function(env,
+									Function::Reference(value.GetFunction()));
+		pObj->SetThis(valueThisEach);
 		value = Value(pObj);
 	}
 	return true;

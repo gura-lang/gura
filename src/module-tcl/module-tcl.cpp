@@ -597,8 +597,7 @@ void Object_timer::Start(Signal sig, const Function *pFunc,
 	if (_cnt == 0) return;
 	Object::Reference(this);
 	_token = ::Tcl_CreateTimerHandler(msec, TimerProcStub, this);
-	Object_function *pObjFunc = new Object_function(env,
-									Function::Reference(pFunc), Value::Null);
+	Object_function *pObjFunc = new Object_function(env, Function::Reference(pFunc));
 	_pHandler.reset(new Handler(Object_interp::Reference(_pObjInterp.get()), pObjFunc, sig));
 }
 

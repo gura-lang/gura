@@ -112,8 +112,7 @@ Gura_ImplementMethod(wx_EvtHandler, Bind)
 	int lastId = args.IsValid(2)? args.GetInt(2) : wxID_ANY;
 	wxEvtHandler *pEvtHandler = wxDynamicCast(pThis->GetEntity(), wxEvtHandler);
 	const Function *pFunc = args.GetBlockFunc(env, sig, GetSymbolForBlock());
-	Object_function *pObjFunc = new Object_function(env,
-									Function::Reference(pFunc), Value::Null);
+	Object_function *pObjFunc = new Object_function(env, Function::Reference(pFunc));
 	pObjEventFactory->Connect(env, sig, pEvtHandler, id, lastId,
 			wxEventHandler(wx_EvtHandler::ObjectEventFunction), pObjFunc, NULL);
 	return Value::Null;

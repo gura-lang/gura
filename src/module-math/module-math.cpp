@@ -740,8 +740,7 @@ Gura_ImplementFunction(least_square)
 							Gura_Symbol(_anonymous_), pExpr, FUNCTYPE_Function);
 		pFunc->SetMode(RSLTMODE_Normal, FLAG_Map);
 		pFunc->DeclareArg(env, pSymbolVar, VTYPE_number);
-		//result = Value(env, pFunc, Value::Null);
-		result = Value(new Object_function(env, pFunc, Value::Null));
+		result = Value(new Object_function(env, pFunc));
 	} while (0);
 	return result;
 }
@@ -842,8 +841,7 @@ Gura_ImplementFunction(bezier)
 		Function *pFunc = new Func_BezierPrototype(env, pValue->GetList());
 		pFunc->SetMode(RSLTMODE_Normal, FLAG_Map);
 		pFunc->DeclareArg(env, "t", VTYPE_number);
-		//valList.push_back(Value(env, pFunc, Value::Null));
-		valList.push_back(Value(new Object_function(env, pFunc, Value::Null)));
+		valList.push_back(Value(new Object_function(env, pFunc)));
 	}
 	return result;
 }

@@ -3443,7 +3443,7 @@ Gura_DeclareFunction(GetEventFilter)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"This function retrieces a pointer to the event filter that was previously set using `sdl.SetEventFilter`.\n"
+	"This function retrieves a pointer to the event filter that was previously set using `sdl.SetEventFilter`.\n"
 	"A filter function is defined as:\n"
 	"\n"
 	"    filter(event:sdl.Event)\n"
@@ -3455,8 +3455,7 @@ Gura_DeclareFunction(GetEventFilter)
 Gura_ImplementFunction(GetEventFilter)
 {
 	if (_pFuncEventFilter == NULL) return Value::Null;
-	//return Value(env, _pFuncEventFilter, Value::Null);
-	return Value(new Object_function(env, _pFuncEventFilter, Value::Null));
+	return Value(new Object_function(env, _pFuncEventFilter->Reference()));
 }
 
 // sdl.EventState(type:number, state:number)
@@ -4088,7 +4087,7 @@ Gura_ImplementFunction(AddTimer)
 	} else if (args.IsBlockSpecified()) {
 		const Function *pFunc = args.GetBlockFunc(env, sig, GetSymbolForBlock());
 		if (sig.IsSignalled()) return Value::Null;
-		pObjFunc = new Object_function(env, Function::Reference(pFunc), Value::Null);
+		pObjFunc = new Object_function(env, Function::Reference(pFunc));
 	} else {
 		sig.SetError(ERR_ValueError, "function or block must be specified");
 		return Value::Null;
