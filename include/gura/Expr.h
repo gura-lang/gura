@@ -375,6 +375,7 @@ protected:
 	AutoPtr<ExprOwner> _pExprOwner;
 public:
 	Expr_Container(ExprType exprType);
+	Expr_Container(ExprType exprType, ExprOwner *pExprOwner);
 	Expr_Container(const Expr_Container &expr);
 	inline static Expr_Container *Reference(const Expr_Container *pExpr) {
 		return dynamic_cast<Expr_Container *>(Expr::Reference(pExpr));
@@ -511,7 +512,8 @@ class GURA_DLLDECLARE Expr_Block : public Expr_Container {
 protected:
 	AutoPtr<ExprOwner> _pExprOwnerParam;		// this may be NULL
 public:
-	inline Expr_Block() : Expr_Container(EXPRTYPE_Block) {}
+	Expr_Block();
+	Expr_Block(ExprOwner *pExprOwner, ExprOwner *pExprOwnerParam);
 	Expr_Block(const Expr_Block &expr);
 	inline static Expr_Block *Reference(const Expr_Block *pExpr) {
 		return dynamic_cast<Expr_Block *>(Expr::Reference(pExpr));

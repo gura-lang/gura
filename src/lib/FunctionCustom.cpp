@@ -62,8 +62,8 @@ Expr *FunctionCustom::DiffUnary(Environment &env, Signal sig,
 FunctionCustom *FunctionCustom::CreateBlockFunc(Environment &env, Signal sig,
 	const Symbol *pSymbol, const Expr_Block *pExprBlock, FunctionType funcType)
 {
-	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
-							pSymbol, Expr::Reference(pExprBlock), funcType));
+	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env, pSymbol,
+		new Expr_Block(pExprBlock->GetExprOwner().Reference(), NULL), funcType));
 	pFunc->GetDeclOwner().AllowTooManyArgs(true);
 	const ExprOwner *pExprOwnerParam = pExprBlock->GetExprOwnerParam();
 	if (pExprOwnerParam != NULL) {

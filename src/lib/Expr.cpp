@@ -782,7 +782,13 @@ bool Expr_Binary::IsParentOf(const Expr *pExpr) const
 //-----------------------------------------------------------------------------
 bool Expr_Container::IsContainer() const { return true; }
 
-Expr_Container::Expr_Container(ExprType exprType) : Expr(exprType), _pExprOwner(new ExprOwner())
+Expr_Container::Expr_Container(ExprType exprType) :
+						Expr(exprType), _pExprOwner(new ExprOwner())
+{
+}
+
+Expr_Container::Expr_Container(ExprType exprType, ExprOwner *pExprOwner) :
+						Expr(exprType), _pExprOwner(pExprOwner)
 {
 }
 
@@ -1190,6 +1196,15 @@ bool Expr_Root::GenerateScript(Signal sig, SimpleStream &stream,
 // Expr_Block
 //-----------------------------------------------------------------------------
 bool Expr_Block::IsBlock() const { return true; }
+
+Expr_Block::Expr_Block() : Expr_Container(EXPRTYPE_Block)
+{
+}
+
+Expr_Block::Expr_Block(ExprOwner *pExprOwner, ExprOwner *pExprOwnerParam) :
+	Expr_Container(EXPRTYPE_Block, pExprOwner), _pExprOwnerParam(pExprOwnerParam)
+{
+}
 
 Expr_Block::Expr_Block(const Expr_Block &expr) : Expr_Container(expr)
 {
