@@ -25,11 +25,12 @@ public:
 	private:
 		bool CreateTmplScript(Environment &env, Signal sig,
 				const char *strIndent, const char *strScript, const char *strPost,
-				Template *pTemplate, const char *sourceName, int cntLineStart);
+				Template *pTemplate, Expr_Block *pExprBlock,
+				const char *sourceName, int cntLineStart);
 	};
 private:
 	int _cntRef;
-	AutoPtr<ExprOwner> _pExprOwnerRoot;
+	AutoPtr<Function> _pFuncForBody;
 	SimpleStream *_pStreamDst;
 public:
 	Gura_DeclareReferenceAccessor(Template);
@@ -39,8 +40,8 @@ private:
 	inline ~Template() {}
 public:
 	bool Eval(Environment &env, Signal sig, SimpleStream *pStreamDst);
-	inline ExprOwner &GetExprOwnerRoot() { return *_pExprOwnerRoot; }
-	inline const ExprOwner &GetExprOwnerRoot() const { return *_pExprOwnerRoot; }
+	inline void SetFuncForBody(Function *pFuncForBody) { _pFuncForBody.reset(pFuncForBody); }
+	inline const Function *GetFuncForBody() { return _pFuncForBody.get(); }
 	inline SimpleStream *GetStreamDst() { return _pStreamDst; }
 };
 

@@ -5,7 +5,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Template
 //-----------------------------------------------------------------------------
-Template::Template() : _pExprOwnerRoot(new ExprOwner()), _pStreamDst(NULL)
+Template::Template() : _pStreamDst(NULL)
 {
 }
 
@@ -13,6 +13,11 @@ bool Template::Eval(Environment &env, Signal sig, SimpleStream *pStreamDst)
 {
 	_pStreamDst = pStreamDst;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
+	if (!_pFuncForBody.IsNull()) {
+		AutoPtr<Args> pArgs(new Args());
+		_pFuncForBody->Eval(env, sig, *pArgs);
+	}
+#if 0
 	do {
 		Environment &env = *pEnvBlock;
 		SeqPostHandler *pSeqPostHandlerEach = NULL;
@@ -21,6 +26,7 @@ bool Template::Eval(Environment &env, Signal sig, SimpleStream *pStreamDst)
 			if (sig.IsSignalled()) break;
 		}
 	} while (0);
+#endif
 	_pStreamDst = NULL;
 	return !sig.IsSignalled();
 }
@@ -57,6 +63,7 @@ Template *Template::Parser::ParseStream(Environment &env, Signal sig, SimpleStre
 	int nDepth = 0;
 	_exprCallerStack.clear();
 	AutoPtr<Template> pTemplate(new Template());
+	AutoPtr<Expr_Block> pExprBlockRoot(new Expr_Block());
 	for (;;) {
 		int chRaw = streamSrc.GetChar(sig);
 		if (sig.IsSignalled()) return NULL;
@@ -106,7 +113,7 @@ Template *Template::Parser::ParseStream(Environment &env, Signal sig, SimpleStre
 				if (ch == '{') {
 					if (!str.empty()) {
 						ExprOwner &exprOwner = _exprCallerStack.empty()?
-							pTemplate->GetExprOwnerRoot() :
+							pExprBlockRoot->GetExprOwner() :
 							_exprCallerStack.back()->GetBlock()->GetExprOwner();
 						exprOwner.push_back(new Expr_TmplString(pTemplate.get(), str));
 						str.clear();
@@ -149,7 +156,8 @@ Template *Template::Parser::ParseStream(Environment &env, Signal sig, SimpleStre
 				const char *strPost = (ch == '\n')? "\n" : "";
 				if (!CreateTmplScript(env, sig,
 						strIndent.c_str(), strScript.c_str(), strPost,
-						pTemplate.get(), sourceName, cntLineStart)) return NULL;
+						pTemplate.get(), pExprBlockRoot.get(),
+						sourceName, cntLineStart)) return NULL;
 				strIndent.clear();
 				strScript.clear();
 				if (ch == '\n') {
@@ -167,23 +175,30 @@ Template *Template::Parser::ParseStream(Environment &env, Signal sig, SimpleStre
 	}
 	if (!strScript.empty()) {
 		const char *strPost = "";
-		if (!CreateTmplScript(env, sig, strIndent.c_str(), strScript.c_str(), strPost,
-				pTemplate.get(), sourceName, cntLineStart)) return NULL;
+		if (!CreateTmplScript(env, sig,
+				strIndent.c_str(), strScript.c_str(), strPost,
+				pTemplate.get(), pExprBlockRoot.get(),
+				sourceName, cntLineStart)) return NULL;
 	}
 	if (!_exprCallerStack.empty()) {
 		sig.SetError(ERR_SyntaxError, "lacking end statement for block expression");
 		return NULL;
 	}
 	if (!str.empty()) {
-		pTemplate->GetExprOwnerRoot().push_back(new Expr_TmplString(pTemplate.get(), str));
+		pExprBlockRoot->GetExprOwner().push_back(new Expr_TmplString(pTemplate.get(), str));
 		str.clear();
 	}
+	FunctionCustom *pFuncBlock = FunctionCustom::CreateBlockFunc(env, sig,
+				Gura_Symbol(_anonymous_), pExprBlockRoot.get(), FUNCTYPE_Function);
+	if (pFuncBlock == NULL) return NULL;
+	pTemplate->SetFuncForBody(pFuncBlock);
 	return pTemplate.release();
 }
 
 bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 			const char *strIndent, const char *strScript, const char *strPost,
-			Template *pTemplate, const char *sourceName, int cntLineStart)
+			Template *pTemplate, Expr_Block *pExprBlockRoot,
+			const char *sourceName, int cntLineStart)
 {
 	AutoPtr<ExprOwner> pExprOwnerPart(new ExprOwner());
 	Gura::Parser parser(sourceName, cntLineStart);
@@ -223,7 +238,7 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 			pExprLast = pExpr;
 		}
 		ExprOwner &exprOwner = _exprCallerStack.empty()?
-				pTemplate->GetExprOwnerRoot() :
+				pExprBlockRoot->GetExprOwner() :
 				_exprCallerStack.back()->GetBlock()->GetExprOwner();
 		exprOwner.push_back(pExprTmplScript);
 	}
@@ -233,8 +248,7 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 	if (pExprLastCaller->GetBlock() == NULL) {
 		Callable *pCallable = pExprLastCaller->LookupCallable(env, sig);
 		sig.ClearSignal();
-		if (pCallable != NULL &&
-						pCallable->GetBlockOccurPattern() == OCCUR_Once) {
+		if (pCallable != NULL && pCallable->GetBlockOccurPattern() == OCCUR_Once) {
 			Expr_Block *pExprBlock = new Expr_Block();
 			pExprLastCaller->SetBlock(pExprBlock);
 			_exprCallerStack.push_back(pExprLastCaller);
