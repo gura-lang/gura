@@ -351,10 +351,11 @@ void Class_function::Prepare(Environment &env)
 bool Class_function::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
 	if (value.Is_expr()) {
-		Function *pFunc = value.GetExpr()->
-				ToFunction(env, sig, ValueList::Null, SymbolSet::Null);
+		Expr_Block *pExprBlock = value.GetExpr()->ToExprBlock();
+		AutoPtr<FunctionCustom> pFunc(FunctionCustom::CreateBlockFunc(env, sig,
+						Gura_Symbol(_anonymous_), pExprBlock, FUNCTYPE_Function));
 		if (sig.IsSignalled()) return false;
-		value = Value(new Object_function(env, pFunc));
+		value = Value(new Object_function(env, pFunc.release()));
 		return true;
 	}
 	return false;

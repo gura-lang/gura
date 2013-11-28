@@ -124,37 +124,12 @@ Expr *Expr::MathOptimize(Environment &env, Signal sig) const
 	return NULL;
 }
 
-Function *Expr::ToFunction(Environment &env, Signal sig,
-				const ValueList &valListArg, const SymbolSet &attrs) const
+Expr_Block *Expr::ToExprBlock() const
 {
-	Expr_Block *pExprBlock;
-	if (IsBlock()) {
-		pExprBlock = dynamic_cast<Expr_Block *>(Expr::Reference(this));
-	} else {
-		pExprBlock = new Expr_Block();
-		pExprBlock->AddExpr(Expr::Reference(this));
-	}
-	Value result;
-	AutoPtr<FunctionCustom> pFunc(FunctionCustom::CreateBlockFunc(env, sig,
-					Gura_Symbol(_anonymous_), pExprBlock, FUNCTYPE_Function));
-	if (sig.IsSignalled()) return NULL;
-	if (!valListArg.empty()) {
-		if (!pFunc->GetDeclOwner().empty()) {
-			sig.SetError(ERR_TypeError, "argument declaration conflicts");
-			return NULL;
-		}
-		AutoPtr<ExprOwner> pExprOwnerArg(new ExprOwner());
-		foreach_const (ValueList, pValue, valListArg) {
-			pExprOwnerArg->push_back(pValue->GetExpr()->Reference());
-		}
-		AutoPtr<Args> pArgs(new Args());
-		pArgs->SetExprOwnerArg(pExprOwnerArg.release());
-		pArgs->SetAttrs(attrs);
-		if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, *pArgs)) {
-			return NULL;
-		}
-	}
-	return pFunc.release();
+	if (IsBlock()) return dynamic_cast<Expr_Block *>(Expr::Reference(this));
+	Expr_Block *pExprBlock = new Expr_Block();
+	pExprBlock->AddExpr(Expr::Reference(this));
+	return pExprBlock;
 }
 
 bool Expr::IsAtSameLine(const Expr *pExpr) const

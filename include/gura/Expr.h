@@ -11,7 +11,7 @@ namespace Gura {
 
 class Expr;
 class ExprList;
-class Expr_Member;
+class Expr_Block;
 class Callable;
 
 //-----------------------------------------------------------------------------
@@ -174,8 +174,7 @@ public:
 			SeqPostHandler *pSeqPostHandler, bool evalSymFuncFlag = false) const {
 		return Exec(env, sig, pSeqPostHandler, evalSymFuncFlag);
 	}
-	Function *ToFunction(Environment &env, Signal sig,
-				const ValueList &valListArg, const SymbolSet &attrs) const;
+	Expr_Block *ToExprBlock() const;
 	bool IsAtSameLine(const Expr *pExpr) const;
 	void GatherSymbol(SymbolSet &symbolSet) const;
 	void GatherSimpleLambdaArgs(ExprOwner &exprOwner) const;
