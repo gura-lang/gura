@@ -222,12 +222,17 @@ Value Function::Call(Environment &env, Signal sig, Args &args) const
 	return Sequence::Return(sig, pSequence);
 }
 
-Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &args) const
+Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &args, bool thisAssignFlag) const
 {
 	EnvType envType = (_funcType == FUNCTYPE_Block)? ENVTYPE_block : ENVTYPE_local;
 	Environment *pEnvOuter = GetDynamicScopeFlag()?
 							&env : const_cast<Environment *>(_pEnvScope.get());
 	AutoPtr<Environment> pEnvLocal(new Environment(pEnvOuter, envType));
+	if (thisAssignFlag) {
+		Value valueThis(args.GetThis());
+		valueThis.AddFlags(VFLAG_Privileged);
+		pEnvLocal->AssignValue(Gura_Symbol(this_), valueThis, EXTRA_Public);
+	}
 	const ValueList &valListArg = args.GetValueListArg();
 	ValueList::const_iterator pValue = valListArg.begin();
 	DeclarationList::const_iterator ppDecl = GetDeclOwner().begin();
@@ -240,6 +245,8 @@ Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &ar
 		pEnvLocal->AssignValue(GetDeclOwner().GetSymbolDict(),
 				Value(new Object_dict(env, valDictArg.Reference())), EXTRA_Public);
 	}
+	pEnvLocal->AssignValue(Gura_Symbol(__args__),
+				Value(new Object_args(env, args.Reference())), EXTRA_Public);
 	if (_blockInfo.pSymbol == NULL) return pEnvLocal.release();
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (sig.IsSignalled()) return NULL;

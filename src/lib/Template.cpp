@@ -15,20 +15,22 @@ bool Template::Eval(Environment &env, Signal sig, SimpleStream *pStreamDst)
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
 	if (!_pFuncForBody.IsNull()) {
 		AutoPtr<Args> pArgs(new Args());
+		pArgs->SetThis(Value(new Object_template(env, Reference())));
+		pArgs->GetValueDictArg()[Gura_Symbol(next)] = Value::Null;
 		_pFuncForBody->Eval(env, sig, *pArgs);
 	}
-#if 0
-	do {
-		Environment &env = *pEnvBlock;
-		SeqPostHandler *pSeqPostHandlerEach = NULL;
-		foreach_const (ExprList, ppExpr, GetExprOwnerRoot()) {
-			(*ppExpr)->Exec2(env, sig, pSeqPostHandlerEach, true);
-			if (sig.IsSignalled()) break;
-		}
-	} while (0);
-#endif
 	_pStreamDst = NULL;
 	return !sig.IsSignalled();
+}
+
+const ValueEx *Template::LookupValue(const Symbol *pSymbol) const
+{
+	for (const Template *pTemplate = this; pTemplate != NULL;
+							pTemplate = pTemplate->GetTemplateSuper()) {
+		ValueMap::const_iterator iter = pTemplate->GetValueMap().find(pSymbol);
+		if (iter != _valueMap.end()) return &iter->second;
+	}
+	return NULL;
 }
 
 //-----------------------------------------------------------------------------

@@ -27,7 +27,10 @@ bool Object_template::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_Symbol(body));
-	
+	foreach (ValueMap, iter, _pTemplate->GetValueMap()) {
+		const Symbol *pSymbol = iter->first;
+		symbols.insert(pSymbol);
+	}
 	return true;
 }
 
@@ -36,7 +39,12 @@ Value Object_template::DoGetProp(Environment &env, Signal sig, const Symbol *pSy
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(body))) {
-		
+		const Function *pFuncForBody = _pTemplate->GetFuncForBody();
+		if (pFuncForBody == NULL) return Value::Null;
+		return Value(new Object_function(env, pFuncForBody->Reference()));
+	} else {
+		const ValueEx *pValue = _pTemplate->LookupValue(pSymbol);
+		if (pValue != NULL) return *pValue;
 	}
 	evaluatedFlag = false;
 	return Value::Null;

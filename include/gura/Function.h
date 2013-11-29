@@ -365,7 +365,8 @@ protected:
 					Args &args, const ValueList &valListArg) const;
 	Value ReturnIterator(Environment &env, Signal sig,
 					Args &args, Iterator *pIterator) const;
-	Environment *PrepareEnvironment(Environment &env, Signal sig, Args &args) const;
+	Environment *PrepareEnvironment(Environment &env, Signal sig,
+									Args &args, bool thisAssignFlag) const;
 private:
 	virtual Value DoEval(Environment &env, Signal sig, Args &args) const = 0;
 };

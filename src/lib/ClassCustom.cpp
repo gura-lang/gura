@@ -110,8 +110,8 @@ ClassCustom::Constructor::Constructor(Environment &envScope,
 
 Value ClassCustom::Constructor::DoEval(Environment &env, Signal sig, Args &args) const
 {
-	AutoPtr<Environment> pEnvLocal(PrepareEnvironment(env, sig, args));
-	if (pEnvLocal.get() == NULL) return Value::Null;
+	AutoPtr<Environment> pEnvLocal(PrepareEnvironment(env, sig, args, false));
+	if (pEnvLocal.IsNull()) return Value::Null;
 	EnvType envType = pEnvLocal->GetEnvType();
 	Value valueRtn(args.GetThis());
 	if (!valueRtn.IsObject()) {

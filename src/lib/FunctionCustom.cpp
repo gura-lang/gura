@@ -19,15 +19,9 @@ FunctionCustom::~FunctionCustom()
 
 Value FunctionCustom::DoEval(Environment &env, Signal sig, Args &args) const
 {
-	AutoPtr<Environment> pEnvLocal(PrepareEnvironment(env, sig, args));
-	if (pEnvLocal.get() == NULL) return Value::Null;
-	if (_funcType != FUNCTYPE_Block) {
-		Value valueThis(args.GetThis());
-		valueThis.AddFlags(VFLAG_Privileged);
-		pEnvLocal->AssignValue(Gura_Symbol(this_), valueThis, EXTRA_Public);
-	}
-	pEnvLocal->AssignValue(Gura_Symbol(__args__),
-				Value(new Object_args(env, args.Reference())), EXTRA_Public);
+	AutoPtr<Environment> pEnvLocal(PrepareEnvironment(env, sig,
+											args, _funcType != FUNCTYPE_Block));
+	if (pEnvLocal.IsNull()) return Value::Null;
 #if 0
 	Sequence *pSequence = new FunctionCustom::SequenceEx(pEnvLocal.release(),
 								dynamic_cast<FunctionCustom *>(Reference()));
