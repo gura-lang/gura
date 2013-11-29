@@ -76,6 +76,7 @@ GURA_DLLDECLARE extern ValueType VTYPE_palette;
 GURA_DLLDECLARE extern ValueType VTYPE_pointer;
 GURA_DLLDECLARE extern ValueType VTYPE_semaphore;
 GURA_DLLDECLARE extern ValueType VTYPE_stream;
+GURA_DLLDECLARE extern ValueType VTYPE_template;
 GURA_DLLDECLARE extern ValueType VTYPE_timedelta;
 GURA_DLLDECLARE extern ValueType VTYPE_uri;
 
@@ -166,6 +167,7 @@ public:
 	Gura_DeclareVTYPE(pointer);
 	Gura_DeclareVTYPE(semaphore);
 	Gura_DeclareVTYPE(stream);
+	Gura_DeclareVTYPE(template);
 	Gura_DeclareVTYPE(timedelta);
 	Gura_DeclareVTYPE(uri);
 private:

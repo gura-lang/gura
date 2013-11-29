@@ -25,10 +25,9 @@ public:
 private:
 	OAL::Semaphore _semaphore;
 public:
-	inline Object_semaphore(Environment &env) : Object(env.LookupClass(VTYPE_semaphore)) {}
-	inline Object_semaphore(Class *pClass) : Object(pClass) {}
+	Object_semaphore(Environment &env);
+	Object_semaphore(Class *pClass);
 	inline OAL::Semaphore &GetSemaphore() { return _semaphore; }
-	virtual ~Object_semaphore();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
 };

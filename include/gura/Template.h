@@ -30,7 +30,9 @@ public:
 	};
 private:
 	int _cntRef;
+	AutoPtr<Template> _pTemplateSuper;
 	AutoPtr<Function> _pFuncForBody;
+	ValueMap _valueMap;
 	SimpleStream *_pStreamDst;
 public:
 	Gura_DeclareReferenceAccessor(Template);
@@ -40,8 +42,14 @@ private:
 	inline ~Template() {}
 public:
 	bool Eval(Environment &env, Signal sig, SimpleStream *pStreamDst);
+	inline void SetTemplateSuper(Template *pTemplateSuper) {
+		_pTemplateSuper.reset(pTemplateSuper);
+	}
+	inline const Template *GetTemplateSuper() const { return _pTemplateSuper.get(); }
 	inline void SetFuncForBody(Function *pFuncForBody) { _pFuncForBody.reset(pFuncForBody); }
 	inline const Function *GetFuncForBody() { return _pFuncForBody.get(); }
+	inline ValueMap &GetValueMap() { return _valueMap; }
+	inline const ValueMap &GetValueMap() const { return _valueMap; }
 	inline SimpleStream *GetStreamDst() { return _pStreamDst; }
 };
 

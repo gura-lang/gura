@@ -1,7 +1,6 @@
-//
-// Object_semaphore
-//
-
+//=============================================================================
+// semaphore class
+//=============================================================================
 #include "stdafx.h"
 
 namespace Gura {
@@ -9,13 +8,18 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Object_semaphore
 //-----------------------------------------------------------------------------
-Object_semaphore::~Object_semaphore()
+Object_semaphore::Object_semaphore(Environment &env) : 
+							Object(env.LookupClass(VTYPE_semaphore))
+{
+}
+
+Object_semaphore::Object_semaphore(Class *pClass) : Object(pClass)
 {
 }
 
 Object *Object_semaphore::Clone() const
 {
-	return new Object_semaphore(*this);
+	return NULL;
 }
 
 String Object_semaphore::ToString(bool exprFlag)

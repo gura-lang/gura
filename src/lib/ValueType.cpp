@@ -48,6 +48,7 @@ ValueType VTYPE_palette			= static_cast<ValueType>(0);
 ValueType VTYPE_pointer			= static_cast<ValueType>(0);
 ValueType VTYPE_semaphore		= static_cast<ValueType>(0);
 ValueType VTYPE_stream			= static_cast<ValueType>(0);
+ValueType VTYPE_template		= static_cast<ValueType>(0);
 ValueType VTYPE_timedelta		= static_cast<ValueType>(0);
 ValueType VTYPE_uri				= static_cast<ValueType>(0);
 ValueType VTYPE_Struct			= static_cast<ValueType>(0);
@@ -157,6 +158,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPE(pointer);
 	Gura_RealizeVTYPE(semaphore);
 	Gura_RealizeVTYPE(stream);
+	Gura_RealizeVTYPE(template);
 	Gura_RealizeVTYPE(timedelta);
 	Gura_RealizeVTYPE(uri);
 	Gura_RealizeVTYPEEx(Struct,		"struct");
@@ -198,6 +200,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(pointer		)->SetClass(new Class_pointer(pClass));
 	Gura_VTYPEInfo(semaphore	)->SetClass(new Class_semaphore(pClass));
 	Gura_VTYPEInfo(stream		)->SetClass(new Class_stream(pClass));
+	Gura_VTYPEInfo(template		)->SetClass(new Class_template(pClass));
 	Gura_VTYPEInfo(timedelta	)->SetClass(new Class_timedelta(pClass));
 	Gura_VTYPEInfo(uri			)->SetClass(new Class_uri(pClass));
 	Gura_VTYPEInfo(Struct		)->SetClass(new ClassOfStruct(pClass));
@@ -243,6 +246,7 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	env.LookupClass(VTYPE_pointer)->Prepare(env);
 	env.LookupClass(VTYPE_semaphore)->Prepare(env);
 	env.LookupClass(VTYPE_stream)->Prepare(env);
+	env.LookupClass(VTYPE_template)->Prepare(env);
 	env.LookupClass(VTYPE_timedelta)->Prepare(env);
 	env.LookupClass(VTYPE_uri)->Prepare(env);
 	env.LookupClass(VTYPE_Struct)->Prepare(env);

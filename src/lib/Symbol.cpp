@@ -171,6 +171,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(block);
 	Gura_RealizeSymbol(blockparam);
 	Gura_RealizeSymbol(blue);
+	Gura_RealizeSymbol(body);
 	Gura_RealizeSymbol(boolean);
 	Gura_RealizeSymbol(both);
 	Gura_RealizeSymbol(bottom);

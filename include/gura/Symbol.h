@@ -158,6 +158,7 @@ public:
 	Gura_DeclareSymbol(block);
 	Gura_DeclareSymbol(blockparam);
 	Gura_DeclareSymbol(blue);
+	Gura_DeclareSymbol(body);
 	Gura_DeclareSymbol(boolean);
 	Gura_DeclareSymbol(both);
 	Gura_DeclareSymbol(bottom);
