@@ -78,6 +78,32 @@ void Signal::SetErrorV(ErrorType errType,
 	_pShared->err.Set(errType, text);
 }
 
+void Signal::PrintSignal(SimpleStream &stream)
+{
+	Signal sig;
+	if (IsError()) {
+		stream.Println(sig, GetError().MakeText().c_str());
+		AutoPtr<ExprOwner> pExprOwner(new ExprOwner());
+		GetError().GetExprCauseOwner().ExtractTrace(*pExprOwner);
+		if (!pExprOwner->empty()) {
+			stream.Println(sig, "Traceback:");
+			foreach_const (ExprOwner, ppExpr, *pExprOwner) {
+				Expr *pExpr = *ppExpr;
+				String str;
+				str += pExpr->MakePosText();
+				str += ":\n";
+				str += "  ";
+				str += pExpr->ToString(Expr::SCRSTYLE_Brief);
+				str += "\n";
+				stream.Print(sig, str.c_str());
+			}
+		}
+	} else {
+		Value value = GetValue();
+		if (value.IsValid()) stream.Println(sig, value.ToString().c_str());
+	}
+}
+
 const char *Signal::GetTypeName(SignalType sigType)
 {
 	static const struct {

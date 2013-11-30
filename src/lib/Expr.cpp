@@ -444,13 +444,13 @@ bool Expr::SequenceRoot::DoStep(Signal sig, Value &result)
 		_doneFlag = true;
 		return false;
 	} else if (sig.IsTerminate()) {
-		env.GetConsoleErr()->PrintSignal(sig, sig);
+		sig.PrintSignal(*env.GetConsoleErr());
 		sig.ClearSignal();
 		result = Value::Null;
 		_doneFlag = true;
 		return false;
 	} else if (sig.IsSignalled()) {
-		env.GetConsoleErr()->PrintSignal(sig, sig);
+		sig.PrintSignal(*env.GetConsoleErr());
 		sig.ClearSignal();
 	} else if (!env.GetGlobal()->GetEchoFlag()) {
 		// nothing to do

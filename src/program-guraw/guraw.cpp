@@ -48,7 +48,7 @@ int MainW(int argc, const char *argv[])
 	AutoPtr<Environment> pEnv(new Environment());
 	Environment &env = *pEnv;
 	if (!env.InitializeAsRoot(sig, argc, argv, optInfoTbl, ArraySizeOf(optInfoTbl))) {
-		env.GetConsoleErr()->PrintSignal(sig, sig);
+		sig.PrintSignal(*env.GetConsoleErr());
 		return 1;
 	}
 	Option &opt = env.GetOption();
@@ -70,7 +70,7 @@ int MainW(int argc, const char *argv[])
 	if (opt.IsSet("import")) {
 		foreach_const (StringList, pModuleNames, opt.GetStringList("import")) {
 			if (!env.ImportModules(sig, pModuleNames->c_str(), false, false)) {
-				env.GetConsole()->PrintSignal(sig, sig);
+				sig.PrintSignal(*env.GetConsoleErr());
 				return 1;
 			}
 		}
@@ -82,7 +82,7 @@ int MainW(int argc, const char *argv[])
 			AutoPtr<Expr_Root> pExprRoot(new Expr_Root(SRCNAME_cmdline));
 			ExprOwner &exprOwner = pExprRoot->GetExprOwner();
 			if (!Parser(SRCNAME_cmdline).ParseString(env, sig, exprOwner, cmd)) {
-				env.GetConsole()->PrintSignal(sig, sig);
+				sig.PrintSignal(*env.GetConsole());
 				return 1;
 			}
 			if (exprOwner.empty()) {
@@ -93,7 +93,7 @@ int MainW(int argc, const char *argv[])
 									env.Reference(), exprOwner.Reference()));
 				Value result = pProcessor->Run(sig);
 				if (sig.IsSignalled()) {
-					env.GetConsole()->PrintSignal(sig, sig);
+					sig.PrintSignal(*env.GetConsole());
 					return 1;
 				} else if (result.IsValid()) {
 					env.GetConsole()->Println(sig, result.ToString().c_str());
@@ -108,7 +108,7 @@ int MainW(int argc, const char *argv[])
 		AutoPtr<Expr_Root> pExprRoot(Parser(sourceName).ParseStream(env, sig,
 												sourceName.c_str(), encoding));
 		if (sig.IsSignalled()) {
-			env.GetConsole()->PrintSignal(sig, sig);
+			sig.PrintSignal(*env.GetConsole());
 			return 1;
 		}
 		AutoPtr<Processor> pProcessor(new Processor());
@@ -116,7 +116,7 @@ int MainW(int argc, const char *argv[])
 									pExprRoot->GetExprOwner().Reference()));
 		pProcessor->Run(sig);
 		if (sig.IsSignalled()) {
-			env.GetConsole()->PrintSignal(sig, sig);
+			sig.PrintSignal(*env.GetConsole());
 			sig.ClearSignal();
 		}
 		interactiveFlag = false;

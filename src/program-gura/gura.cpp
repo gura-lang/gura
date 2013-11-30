@@ -36,7 +36,7 @@ int Main(int argc, const char *argv[])
 	AutoPtr<Environment> pEnv(new Environment());
 	Environment &env = *pEnv;
 	if (!env.InitializeAsRoot(sig, argc, argv, optInfoTbl, ArraySizeOf(optInfoTbl))) {
-		env.GetConsoleErr()->PrintSignal(sig, sig);
+		sig.PrintSignal(*env.GetConsoleErr());
 		return 1;
 	}
 	Option &opt = env.GetOption();
@@ -65,7 +65,7 @@ int Main(int argc, const char *argv[])
 	if (opt.IsSet("import")) {
 		foreach_const (StringList, pModuleNames, opt.GetStringList("import")) {
 			if (!env.ImportModules(sig, pModuleNames->c_str(), false, false)) {
-				env.GetConsoleErr()->PrintSignal(sig, sig);
+				sig.PrintSignal(*env.GetConsoleErr());
 				return 1;
 			}
 		}
@@ -77,7 +77,7 @@ int Main(int argc, const char *argv[])
 			AutoPtr<Expr_Root> pExprRoot(new Expr_Root(SRCNAME_cmdline));
 			ExprOwner &exprOwner = pExprRoot->GetExprOwner();
 			if (!Parser(SRCNAME_cmdline).ParseString(env, sig, exprOwner, cmd)) {
-				env.GetConsoleErr()->PrintSignal(sig, sig);
+				sig.PrintSignal(*env.GetConsoleErr());
 				return 1;
 			}
 			if (exprOwner.empty()) {
@@ -88,7 +88,7 @@ int Main(int argc, const char *argv[])
 									env.Reference(), exprOwner.Reference()));
 				Value result = pProcessor->Run(sig);
 				if (sig.IsSignalled()) {
-					env.GetConsoleErr()->PrintSignal(sig, sig);
+					sig.PrintSignal(*env.GetConsoleErr());
 					return 1;
 				} else if (result.IsValid()) {
 					env.GetConsole()->Println(sig, result.ToString().c_str());
@@ -103,7 +103,7 @@ int Main(int argc, const char *argv[])
 		AutoPtr<Expr_Root> pExprRoot(Parser(sourceName).ParseStream(env, sig,
 											sourceName.c_str(), encoding));
 		if (sig.IsSignalled()) {
-			env.GetConsoleErr()->PrintSignal(sig, sig);
+			sig.PrintSignal(*env.GetConsoleErr());
 			return 1;
 		}
 		if (opt.IsSet("llvm")) {
@@ -115,7 +115,7 @@ int Main(int argc, const char *argv[])
 			pProcessor->Run(sig);
 		}
 		if (sig.IsSignalled()) {
-			env.GetConsoleErr()->PrintSignal(sig, sig);
+			sig.PrintSignal(*env.GetConsoleErr());
 			sig.ClearSignal();
 		}
 		interactiveFlag = false;
@@ -128,13 +128,13 @@ int Main(int argc, const char *argv[])
 			// encoding
 			
 			if (sig.IsSignalled()) {
-				env.GetConsoleErr()->PrintSignal(sig, sig);
+				sig.PrintSignal(*env.GetConsoleErr());
 				return 1;
 			}
 			Template::Parser(true, false).EvalStream(env, sig,
 										*pStreamSrc, *env.GetConsole());
 			if (sig.IsSignalled()) {
-				env.GetConsoleErr()->PrintSignal(sig, sig);
+				sig.PrintSignal(*env.GetConsoleErr());
 				return 1;
 			}
 		}

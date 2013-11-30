@@ -909,7 +909,7 @@ void Parser::EvalConsoleChar(Environment &env, Signal sig,
 			if (sig.IsDetectEncoding()) {
 				sig.ClearSignal();
 			} else {
-				pConsole->PrintSignal(sig, sig);
+				sig.PrintSignal(*pConsole);
 				sig.ClearSignal();
 				Reset();
 			}
@@ -922,7 +922,7 @@ void Parser::EvalConsoleChar(Environment &env, Signal sig,
 				if (sig.IsReqSaveHistory()) {
 					// t.b.d
 				} else {
-					pConsole->PrintSignal(sig, sig);
+					sig.PrintSignal(*pConsole);
 				}
 				sig.ClearSignal();
 				Expr::Delete(pExpr);

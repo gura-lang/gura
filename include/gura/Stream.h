@@ -20,7 +20,6 @@ public:
 	void Print(Signal sig, const char *str);
 	void Printf(Signal sig, const char *format, const ValueList &valList);
 	void Println(Signal sig, const char *str);
-	void PrintSignal(Signal sig, const Signal &sigToPrint);
 	void Dump(Signal sig, const void *buff, size_t bytes, bool upperFlag = false);
 	virtual const char *GetName() const = 0;
 	virtual int GetChar(Signal sig) = 0;

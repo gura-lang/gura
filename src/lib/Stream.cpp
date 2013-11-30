@@ -23,31 +23,6 @@ void SimpleStream::Printf(Signal sig, const char *format, const ValueList &valLi
 	Print(sig, str.c_str());
 }
 
-void SimpleStream::PrintSignal(Signal sig, const Signal &sigToPrint)
-{
-	if (sig.IsError()) {
-		Println(sig, sigToPrint.GetError().MakeText().c_str());
-		AutoPtr<ExprOwner> pExprOwner(new ExprOwner());
-		sigToPrint.GetError().GetExprCauseOwner().ExtractTrace(*pExprOwner);
-		if (!pExprOwner->empty()) {
-			Println(sig, "Traceback:");
-			foreach_const (ExprOwner, ppExpr, *pExprOwner) {
-				Expr *pExpr = *ppExpr;
-				String str;
-				str += pExpr->MakePosText();
-				str += ":\n";
-				str += "  ";
-				str += pExpr->ToString(Expr::SCRSTYLE_Brief);
-				str += "\n";
-				Print(sig, str.c_str());
-			}
-		}
-	} else {
-		Value value = sigToPrint.GetValue();
-		if (value.IsValid()) Println(sig, value.ToString().c_str());
-	}
-}
-
 void SimpleStream::Dump(Signal sig, const void *buff, size_t bytes, bool upperFlag)
 {
 	int iCol = 0;

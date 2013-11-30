@@ -258,7 +258,7 @@ HRESULT CMain::ParseScriptText(
 		pexcepinfo->pvReserved = NULL;
 		pexcepinfo->wCode = ERROR_INVALID_FUNCTION;
 		pexcepinfo->wReserved = 0;
-		pConsole->PrintSignal(_sig, _sig);
+		_sig.PrintSignal(*pConsole);
 		NotifyScriptError();
 		return DISP_E_EXCEPTION;
 	}
@@ -270,7 +270,7 @@ HRESULT CMain::ParseScriptText(
 							_pEnv->Reference(), exprOwner.Reference()));
 		Gura::Value result = pProcessor->Run(_sig);
 		if (_sig.IsSignalled()) {
-			pConsole->PrintSignal(_sig, _sig);
+			_sig.PrintSignal(*pConsole);
 			NotifyScriptError();
 			return DISP_E_EXCEPTION;
 		}
@@ -382,7 +382,7 @@ HRESULT STDMETHODCALLTYPE CMain::Invoke(
 			pExcepInfo->pvReserved = NULL;
 			pExcepInfo->wCode = ERROR_INVALID_DATA;
 			pExcepInfo->wReserved = 0;
-			pConsole->PrintSignal(_sig, _sig);
+			_sig.PrintSignal(*pConsole);
 			return DISP_E_EXCEPTION;
 		}
 		valListArg.push_back(value);
@@ -403,7 +403,7 @@ HRESULT STDMETHODCALLTYPE CMain::Invoke(
 			pExcepInfo->pvReserved = NULL;
 			pExcepInfo->wCode = ERROR_INVALID_FUNCTION;
 			pExcepInfo->wReserved = 0;
-			pConsole->PrintSignal(_sig, _sig);
+			_sig.PrintSignal(*pConsole);
 			return DISP_E_EXCEPTION;
 		}
 		if (pVarResult != NULL) {
