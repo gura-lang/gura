@@ -385,6 +385,7 @@ private:
 	Value _valueThis;
 	ValueList _valListArg;
 	AutoPtr<ValueDict> _pValDictArg;
+	AutoPtr<ValueMap> _pValMapHiddenArg;
 	AutoPtr<TrailCtrlHolder> _pTrailCtrlHolder;
 	AutoPtr<Iterator> _pIteratorThis;
 	AutoPtr<ExprOwner> _pExprOwnerArg;
@@ -407,6 +408,7 @@ public:
 		_valueThis(args._valueThis),
 		_valListArg(args._valListArg),
 		_pValDictArg(ValueDict::Reference(args._pValDictArg.get())),
+		_pValMapHiddenArg(ValueMap::Reference(args._pValMapHiddenArg.get())),
 		_pTrailCtrlHolder(TrailCtrlHolder::Reference(args._pTrailCtrlHolder.get())),
 		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())),
 		_pExprOwnerArg(ExprOwner::Reference(args._pExprOwnerArg.get())),
@@ -421,6 +423,7 @@ public:
 		_valueThis(args._valueThis),
 		_valListArg(valListArg),
 		_pValDictArg(ValueDict::Reference(args._pValDictArg.get())),
+		_pValMapHiddenArg(ValueMap::Reference(args._pValMapHiddenArg.get())),
 		_pTrailCtrlHolder(TrailCtrlHolder::Reference(args._pTrailCtrlHolder.get())),
 		_pIteratorThis(Iterator::Reference(args._pIteratorThis.get())),
 		_pExprOwnerArg(ExprOwner::Reference(args._pExprOwnerArg.get())),
@@ -616,6 +619,8 @@ public:
 	inline void SetValueDictArg(ValueDict *pValDictArg) { _pValDictArg.reset(pValDictArg); }
 	inline ValueDict &GetValueDictArg() { return *_pValDictArg; }
 	inline const ValueDict &GetValueDictArg() const { return *_pValDictArg; }
+	inline void SetValueMapHiddenArg(ValueMap *pValMapHiddenArg) { _pValMapHiddenArg.reset(pValMapHiddenArg); }
+	inline ValueMap *GetValueMapHiddenArg() { return _pValMapHiddenArg.get(); }
 	bool ShouldGenerateIterator(const DeclarationList &declList) const;
 	inline void SetBlock(Expr_Block *pExprBlock) { _pExprBlock.reset(pExprBlock); }
 	const Expr_Block *GetBlock(Environment &env, Signal sig) const;

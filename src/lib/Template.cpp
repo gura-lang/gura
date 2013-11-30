@@ -27,8 +27,9 @@ const ValueEx *Template::LookupValue(const Symbol *pSymbol) const
 {
 	for (const Template *pTemplate = this; pTemplate != NULL;
 							pTemplate = pTemplate->GetTemplateSuper()) {
-		ValueMap::const_iterator iter = pTemplate->GetValueMap().find(pSymbol);
-		if (iter != _valueMap.end()) return &iter->second;
+		const ValueMap &valueMap = pTemplate->GetValueMap();
+		ValueMap::const_iterator iter = valueMap.find(pSymbol);
+		if (iter != valueMap.end()) return &iter->second;
 	}
 	return NULL;
 }

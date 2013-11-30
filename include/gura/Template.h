@@ -32,7 +32,7 @@ private:
 	int _cntRef;
 	AutoPtr<Template> _pTemplateSuper;
 	AutoPtr<Function> _pFuncForBody;
-	ValueMap _valueMap;
+	AutoPtr<ValueMap> _pValueMap;
 	SimpleStream *_pStreamDst;
 public:
 	Gura_DeclareReferenceAccessor(Template);
@@ -49,8 +49,8 @@ public:
 	inline const Template *GetTemplateSuper() const { return _pTemplateSuper.get(); }
 	inline void SetFuncForBody(Function *pFuncForBody) { _pFuncForBody.reset(pFuncForBody); }
 	inline const Function *GetFuncForBody() { return _pFuncForBody.get(); }
-	inline ValueMap &GetValueMap() { return _valueMap; }
-	inline const ValueMap &GetValueMap() const { return _valueMap; }
+	inline ValueMap &GetValueMap() { return *_pValueMap; }
+	inline const ValueMap &GetValueMap() const { return *_pValueMap; }
 	inline SimpleStream *GetStreamDst() { return _pStreamDst; }
 };
 

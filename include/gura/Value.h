@@ -497,8 +497,15 @@ typedef std::vector<const Value *> ValuePtrList;
 class GURA_DLLDECLARE ValueMap : public std::map<const Symbol *, ValueEx, Symbol::KeyCompare_UniqNumber> {
 public:
 	static const ValueMap Null;
+private:
+	int _cntRef;
 public:
-	inline ValueMap() {}
+	Gura_DeclareReferenceAccessor(ValueMap);
+public:
+	inline ValueMap() : _cntRef(1) {}
+private:
+	inline ~ValueMap() {}
+public:
 	inline bool IsSet(const Symbol *pSymbol) const {
 		return find(pSymbol) != const_cast<ValueMap *>(this)->end();
 	}

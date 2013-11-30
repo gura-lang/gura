@@ -245,6 +245,14 @@ Environment *Function::PrepareEnvironment(Environment &env, Signal sig, Args &ar
 		pEnvLocal->AssignValue(GetDeclOwner().GetSymbolDict(),
 				Value(new Object_dict(env, valDictArg.Reference())), EXTRA_Public);
 	}
+	const ValueMap *pValMapHiddenArg = args.GetValueMapHiddenArg();
+	if (pValMapHiddenArg != NULL) {
+		foreach_const (ValueMap, iter, *pValMapHiddenArg) {
+			const Symbol *pSymbol = iter->first;
+			const ValueEx &value = iter->second;
+			pEnvLocal->AssignValue(pSymbol, value, EXTRA_Public);
+		}
+	}
 	pEnvLocal->AssignValue(Gura_Symbol(__args__),
 				Value(new Object_args(env, args.Reference())), EXTRA_Public);
 	if (_blockInfo.pSymbol == NULL) return pEnvLocal.release();

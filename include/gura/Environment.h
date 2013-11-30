@@ -213,7 +213,7 @@ public:
 		int _cntRef;
 		EnvType _envType;
 		Global *_pGlobal;
-		std::auto_ptr<ValueMap> _pValueMap;
+		AutoPtr<ValueMap> _pValueMap;
 		std::auto_ptr<ValueTypeMap> _pValueTypeMap;
 		std::auto_ptr<SymbolSet> _pSymbolsPublic;
 	public:
