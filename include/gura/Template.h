@@ -26,7 +26,7 @@ public:
 		bool CreateTmplScript(Environment &env, Signal sig,
 				const char *strIndent, const char *strScript, const char *strPost,
 				Template *pTemplate, Expr_Block *pExprBlock,
-				const char *sourceName, int cntLineStart);
+				StringRef *pSourceName, int cntLineTop, int cntLineBtm);
 	};
 private:
 	int _cntRef;
