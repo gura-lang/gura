@@ -489,10 +489,8 @@ public:
 // Expr_Root
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Root : public Expr_Container {
-private:
-	String _sourceName;
 public:
-	Expr_Root(const String &sourceName);
+	Expr_Root();
 	Expr_Root(const Expr_Root &expr);
 	inline static Expr_Root *Reference(const Expr_Root *pExpr) {
 		return dynamic_cast<Expr_Root *>(Expr::Reference(pExpr));

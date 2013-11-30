@@ -82,21 +82,25 @@ void Signal::PrintSignal(SimpleStream &stream)
 {
 	Signal sig;
 	if (IsError()) {
+		bool firstFlag = true;
 		stream.Println(sig, GetError().MakeText().c_str());
 		AutoPtr<ExprOwner> pExprOwner(new ExprOwner());
 		GetError().GetExprCauseOwner().ExtractTrace(*pExprOwner);
-		if (!pExprOwner->empty()) {
-			stream.Println(sig, "Traceback:");
-			foreach_const (ExprOwner, ppExpr, *pExprOwner) {
-				Expr *pExpr = *ppExpr;
-				String str;
-				str += pExpr->MakePosText();
-				str += ":\n";
-				str += "  ";
-				str += pExpr->ToString(Expr::SCRSTYLE_Brief);
-				str += "\n";
-				stream.Print(sig, str.c_str());
+		foreach_const (ExprOwner, ppExpr, *pExprOwner) {
+			Expr *pExpr = *ppExpr;
+			String strExpr = pExpr->ToString(Expr::SCRSTYLE_Brief);
+			if (strExpr.empty()) continue;
+			if (firstFlag) {
+				stream.Println(sig, "Traceback:");
+				firstFlag = false;
 			}
+			String str;
+			str += pExpr->MakePosText();
+			str += ":\n";
+			str += "  ";
+			str += strExpr;
+			str += "\n";
+			stream.Print(sig, str.c_str());
 		}
 	} else {
 		Value value = GetValue();

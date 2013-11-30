@@ -1152,13 +1152,11 @@ bool Expr_String::GenerateScript(Signal sig, SimpleStream &stream,
 //-----------------------------------------------------------------------------
 bool Expr_Root::IsRoot() const { return true; }
 
-Expr_Root::Expr_Root(const String &sourceName) :
-						Expr_Container(EXPRTYPE_Root), _sourceName(sourceName)
+Expr_Root::Expr_Root() : Expr_Container(EXPRTYPE_Root)
 {
 }
 
-Expr_Root::Expr_Root(const Expr_Root &expr) :
-						Expr_Container(expr), _sourceName(expr._sourceName)
+Expr_Root::Expr_Root(const Expr_Root &expr) : Expr_Container(expr)
 {
 }
 

@@ -74,7 +74,7 @@ int Main(int argc, const char *argv[])
 		foreach_const (StringList, pCmd, opt.GetStringList("command")) {
 			const char *cmd = pCmd->c_str();
 			if (::strcmp(cmd, "") == 0) continue;
-			AutoPtr<Expr_Root> pExprRoot(new Expr_Root(SRCNAME_cmdline));
+			AutoPtr<Expr_Root> pExprRoot(new Expr_Root());
 			ExprOwner &exprOwner = pExprRoot->GetExprOwner();
 			if (!Parser(SRCNAME_cmdline).ParseString(env, sig, exprOwner, cmd)) {
 				sig.PrintSignal(*env.GetConsoleErr());
@@ -173,8 +173,8 @@ void PrintHelp(FILE *fp)
 #if defined(GURA_ON_MSWIN)
 void ReadEvalPrintLoop(Environment &env, Signal sig)
 {
-	AutoPtr<Expr_Root> pExprRoot(new Expr_Root(SRCNAME_interactive));
-	Parser parser(pExprRoot->GetSourceName());
+	AutoPtr<Expr_Root> pExprRoot(new Expr_Root());
+	Parser parser(SRCNAME_interactive);
 	Stream *pConsole = env.GetConsole();
 	pConsole->Print(sig, env.GetPrompt(parser.IsContinued()));
 	for (;;) {

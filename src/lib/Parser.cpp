@@ -820,7 +820,7 @@ bool Parser::CheckStringPrefix(StringInfo &stringInfo, const String &token)
 Expr_Root *Parser::ParseStream(Environment &env, Signal sig, Stream &stream)
 {
 	Value result;
-	AutoPtr<Expr_Root> pExprRoot(new Expr_Root(stream.GetName()));
+	AutoPtr<Expr_Root> pExprRoot(new Expr_Root());
 	for (;;) {
 		int chRaw = stream.GetChar(sig);
 		if (sig.IsSignalled()) {

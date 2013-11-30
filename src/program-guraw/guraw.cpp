@@ -79,7 +79,7 @@ int MainW(int argc, const char *argv[])
 		foreach_const (StringList, pCmd, opt.GetStringList("command")) {
 			const char *cmd = pCmd->c_str();
 			if (::strcmp(cmd, "") == 0) continue;
-			AutoPtr<Expr_Root> pExprRoot(new Expr_Root(SRCNAME_cmdline));
+			AutoPtr<Expr_Root> pExprRoot(new Expr_Root());
 			ExprOwner &exprOwner = pExprRoot->GetExprOwner();
 			if (!Parser(SRCNAME_cmdline).ParseString(env, sig, exprOwner, cmd)) {
 				sig.PrintSignal(*env.GetConsole());
