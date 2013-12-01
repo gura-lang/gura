@@ -11,13 +11,18 @@ Template::Template() : _pStreamDst(NULL)
 
 bool Template::Eval(Environment &env, Signal sig, SimpleStream *pStreamDst)
 {
-	_pStreamDst = pStreamDst;
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
-	if (!_pFuncForBody.IsNull()) {
-		AutoPtr<Args> pArgs(new Args());
-		pArgs->SetThis(Value(new Object_template(env, Reference())));
-		pArgs->GetValueDictArg()[Gura_Symbol(next)] = Value::Null;
-		_pFuncForBody->Eval(env, sig, *pArgs);
+	if (_pFuncForBody.IsNull()) return true;
+	_pStreamDst = pStreamDst;
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetThis(Value(new Object_template(env, Reference())));
+	ValueMap *pValMapHiddenArg = new ValueMap();
+	(*pValMapHiddenArg)[Gura_Symbol(next)] = Value::Null;
+	pArgs->SetValueMapHiddenArg(pValMapHiddenArg);
+	if (_pTemplateSuper.IsNull()) {
+		GetFuncForBody()->Eval(env, sig, *pArgs);
+	} else {
+		_pTemplateSuper->GetFuncForBody()->Eval(env, sig, *pArgs);
 	}
 	_pStreamDst = NULL;
 	return !sig.IsSignalled();
