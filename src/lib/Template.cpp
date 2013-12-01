@@ -11,7 +11,6 @@ Template::Template() : _pStreamDst(NULL)
 
 bool Template::Eval(Environment &env, Signal sig, SimpleStream *pStreamDst)
 {
-	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
 	if (_pFuncForBody.IsNull()) return true;
 	_pStreamDst = pStreamDst;
 	AutoPtr<Args> pArgs(new Args());
@@ -19,10 +18,11 @@ bool Template::Eval(Environment &env, Signal sig, SimpleStream *pStreamDst)
 	ValueMap *pValMapHiddenArg = new ValueMap();
 	(*pValMapHiddenArg)[Gura_Symbol(next)] = Value::Null;
 	pArgs->SetValueMapHiddenArg(pValMapHiddenArg);
+	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
 	if (_pTemplateSuper.IsNull()) {
-		GetFuncForBody()->Eval(env, sig, *pArgs);
+		GetFuncForBody()->Eval(*pEnvBlock, sig, *pArgs);
 	} else {
-		_pTemplateSuper->GetFuncForBody()->Eval(env, sig, *pArgs);
+		_pTemplateSuper->GetFuncForBody()->Eval(*pEnvBlock, sig, *pArgs);
 	}
 	_pStreamDst = NULL;
 	return !sig.IsSignalled();
@@ -61,7 +61,7 @@ Template *Template::Parser::ParseStream(Environment &env, Signal sig, SimpleStre
 	char chPrefix = '$';
 	enum {
 		STAT_LineTop, STAT_Indent, STAT_String,
-		STAT_ScriptPre, STAT_Script, STAT_ScriptPost,
+		STAT_ScriptPre, STAT_Script, STAT_ScriptFirst, STAT_ScriptPost,
 	} stat = STAT_LineTop;
 	String str;
 	String strScript;
@@ -131,7 +131,7 @@ Template *Template::Parser::ParseStream(Environment &env, Signal sig, SimpleStre
 					cntLineTop = cntLine;
 					nDepth = 1;
 					strScript.clear();
-					stat = STAT_Script;
+					stat = STAT_ScriptFirst;
 				} else if (ch == chPrefix) {
 					str += strIndent;
 					strIndent.clear();
@@ -143,6 +143,15 @@ Template *Template::Parser::ParseStream(Environment &env, Signal sig, SimpleStre
 					str += ch;
 					continueFlag = true;
 					stat = STAT_String;
+				}
+				break;
+			}
+			case STAT_ScriptFirst: {
+				if (ch == '=') {
+					stat = STAT_Script;
+				} else {
+					continueFlag = true;
+					stat = STAT_Script;
 				}
 				break;
 			}

@@ -59,8 +59,34 @@ String Object_template::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_template
+// Gura interfaces for template
 //-----------------------------------------------------------------------------
+// template#inherit(filename:string):void
+Gura_DeclareMethod(template, inherit)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "filename", VTYPE_string);
+}
+
+Gura_ImplementMethod(template, inherit)
+{
+	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	return Value::Null;
+}
+
+// template#block(name:string):void {block}
+Gura_DeclareMethod(template, block)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "name", VTYPE_string);
+	DeclareBlock(OCCUR_Once);
+}
+
+Gura_ImplementMethod(template, block)
+{
+	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	return Value::Null;
+}
 
 //-----------------------------------------------------------------------------
 // Classs implementation
@@ -71,6 +97,8 @@ Class_template::Class_template(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 
 void Class_template::Prepare(Environment &env)
 {
+	Gura_AssignMethod(template, inherit);
+	Gura_AssignMethod(template, block);
 }
 
 Object *Class_template::CreateDescendant(Environment &env, Signal sig, Class *pClass)
