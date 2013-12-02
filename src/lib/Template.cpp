@@ -57,7 +57,7 @@ Template *Template::Parser::ParseStream(Environment &env, Signal sig, SimpleStre
 	char chPrefix = '$';
 	enum {
 		STAT_LineTop, STAT_Indent, STAT_String,
-		STAT_ScriptPre, STAT_Script, STAT_ScriptFirst, STAT_ScriptPost,
+		STAT_ScriptPre, STAT_Script, STAT_ScriptPost,
 	} stat = STAT_LineTop;
 	String str;
 	String strTmplScript;
@@ -127,7 +127,7 @@ Template *Template::Parser::ParseStream(Environment &env, Signal sig, SimpleStre
 					cntLineTop = cntLine;
 					nDepth = 1;
 					strTmplScript.clear();
-					stat = STAT_ScriptFirst;
+					stat = STAT_Script;
 				} else if (ch == chPrefix) {
 					str += strIndent;
 					strIndent.clear();
@@ -139,15 +139,6 @@ Template *Template::Parser::ParseStream(Environment &env, Signal sig, SimpleStre
 					str += ch;
 					continueFlag = true;
 					stat = STAT_String;
-				}
-				break;
-			}
-			case STAT_ScriptFirst: {
-				if (ch == '=') {
-					stat = STAT_Script;
-				} else {
-					continueFlag = true;
-					stat = STAT_Script;
 				}
 				break;
 			}
@@ -218,6 +209,11 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 			Template *pTemplate, Expr_Block *pExprBlockRoot,
 			StringRef *pSourceName, int cntLineTop, int cntLineBtm)
 {
+	bool metaFlag = false;
+	if (*strTmplScript == '=') {
+		metaFlag = true;
+		strTmplScript++;
+	}
 	AutoPtr<ExprOwner> pExprOwnerPart(new ExprOwner());
 	Gura::Parser parser(pSourceName->GetString(), cntLineTop);
 	if (!parser.ParseString(env, sig, *pExprOwnerPart, strTmplScript)) return false;

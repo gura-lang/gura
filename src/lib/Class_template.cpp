@@ -75,10 +75,10 @@ Gura_ImplementMethod(template, inherit)
 	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
-	Template::Parser parser(autoIndentFlag, appendLastEOLFlag);
-	AutoPtr<Template> pTemplateSuper(parser.ParseStream(env, sig, args.GetStream(0)));
-	if (pTemplateSuper.IsNull()) return Value::Null;
-	pTemplate->SetTemplateSuper(pTemplateSuper.release());
+	//Template::Parser parser(autoIndentFlag, appendLastEOLFlag);
+	//AutoPtr<Template> pTemplateSuper(parser.ParseStream(env, sig, args.GetStream(0)));
+	//if (pTemplateSuper.IsNull()) return Value::Null;
+	//pTemplate->SetTemplateSuper(pTemplateSuper.release());
 	return Value::Null;
 }
 
