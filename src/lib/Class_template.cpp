@@ -61,16 +61,24 @@ String Object_template::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for template
 //-----------------------------------------------------------------------------
-// template#inherit(filename:string):void
+// template#inherit(stream:stream):void:[lasteol,noindent]
 Gura_DeclareMethod(template, inherit)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "filename", VTYPE_string);
+	DeclareArg(env, "stream", VTYPE_stream);
+	DeclareAttr(Gura_Symbol(lasteol));
+	DeclareAttr(Gura_Symbol(noindent));
 }
 
 Gura_ImplementMethod(template, inherit)
 {
+	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
+	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	Template::Parser parser(autoIndentFlag, appendLastEOLFlag);
+	AutoPtr<Template> pTemplateSuper(parser.ParseStream(env, sig, args.GetStream(0)));
+	if (pTemplateSuper.IsNull()) return Value::Null;
+	pTemplate->SetTemplateSuper(pTemplateSuper.release());
 	return Value::Null;
 }
 

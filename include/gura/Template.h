@@ -24,7 +24,7 @@ public:
 		Template *ParseStream(Environment &env, Signal sig, SimpleStream &streamSrc);
 	private:
 		bool CreateTmplScript(Environment &env, Signal sig,
-				const char *strIndent, const char *strScript, const char *strPost,
+				const char *strIndent, const char *strTmplScript, const char *strPost,
 				Template *pTemplate, Expr_Block *pExprBlock,
 				StringRef *pSourceName, int cntLineTop, int cntLineBtm);
 	};

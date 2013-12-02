@@ -19,11 +19,7 @@ bool Template::Eval(Environment &env, Signal sig, SimpleStream *pStreamDst)
 	(*pValMapHiddenArg)[Gura_Symbol(next)] = Value::Null;
 	pArgs->SetValueMapHiddenArg(pValMapHiddenArg);
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
-	if (_pTemplateSuper.IsNull()) {
-		GetFuncForBody()->Eval(*pEnvBlock, sig, *pArgs);
-	} else {
-		_pTemplateSuper->GetFuncForBody()->Eval(*pEnvBlock, sig, *pArgs);
-	}
+	GetFuncForBody()->Eval(*pEnvBlock, sig, *pArgs);
 	_pStreamDst = NULL;
 	return !sig.IsSignalled();
 }
@@ -64,7 +60,7 @@ Template *Template::Parser::ParseStream(Environment &env, Signal sig, SimpleStre
 		STAT_ScriptPre, STAT_Script, STAT_ScriptFirst, STAT_ScriptPost,
 	} stat = STAT_LineTop;
 	String str;
-	String strScript;
+	String strTmplScript;
 	String strIndent;
 	int cntLine = 0;
 	int cntLineTop = 0;
@@ -130,7 +126,7 @@ Template *Template::Parser::ParseStream(Environment &env, Signal sig, SimpleStre
 					}
 					cntLineTop = cntLine;
 					nDepth = 1;
-					strScript.clear();
+					strTmplScript.clear();
 					stat = STAT_ScriptFirst;
 				} else if (ch == chPrefix) {
 					str += strIndent;
@@ -157,28 +153,28 @@ Template *Template::Parser::ParseStream(Environment &env, Signal sig, SimpleStre
 			}
 			case STAT_Script: {
 				if (ch == '{') {
-					strScript += ch;
+					strTmplScript += ch;
 					nDepth++;
 				} else if (ch == '}') {
 					nDepth--;
 					if (nDepth > 0) {
-						strScript += ch;
+						strTmplScript += ch;
 						break;
 					}
 					stat = STAT_ScriptPost;
 				} else {
-					strScript += ch;
+					strTmplScript += ch;
 				}
 				break;
 			}
 			case STAT_ScriptPost: {
 				const char *strPost = (ch == '\n')? "\n" : "";
 				if (!CreateTmplScript(env, sig,
-						strIndent.c_str(), strScript.c_str(), strPost,
+						strIndent.c_str(), strTmplScript.c_str(), strPost,
 						pTemplate.get(), pExprBlockRoot.get(),
 						pSourceName.get(), cntLineTop, cntLine)) return NULL;
 				strIndent.clear();
-				strScript.clear();
+				strTmplScript.clear();
 				if (ch == '\n') {
 					continueFlag = false;
 					stat = STAT_LineTop;
@@ -192,10 +188,10 @@ Template *Template::Parser::ParseStream(Environment &env, Signal sig, SimpleStre
 		} while (continueFlag);
 		if (ch == '\n') cntLine++;
 	}
-	if (!strScript.empty()) {
+	if (!strTmplScript.empty()) {
 		const char *strPost = "";
 		if (!CreateTmplScript(env, sig,
-				strIndent.c_str(), strScript.c_str(), strPost,
+				strIndent.c_str(), strTmplScript.c_str(), strPost,
 				pTemplate.get(), pExprBlockRoot.get(),
 				pSourceName.get(), cntLineTop, cntLine)) return NULL;
 	}
@@ -218,19 +214,19 @@ Template *Template::Parser::ParseStream(Environment &env, Signal sig, SimpleStre
 }
 
 bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
-			const char *strIndent, const char *strScript, const char *strPost,
+			const char *strIndent, const char *strTmplScript, const char *strPost,
 			Template *pTemplate, Expr_Block *pExprBlockRoot,
 			StringRef *pSourceName, int cntLineTop, int cntLineBtm)
 {
 	AutoPtr<ExprOwner> pExprOwnerPart(new ExprOwner());
 	Gura::Parser parser(pSourceName->GetString(), cntLineTop);
-	if (!parser.ParseString(env, sig, *pExprOwnerPart, strScript)) return false;
+	if (!parser.ParseString(env, sig, *pExprOwnerPart, strTmplScript)) return false;
 	Expr_TmplScript *pExprTmplScript = new Expr_TmplScript(
 		pTemplate, strIndent, strPost, _autoIndentFlag, _appendLastEOLFlag);
 	pExprTmplScript->SetSourceInfo(pSourceName->Reference(), cntLineTop + 1, cntLineBtm + 1);
 	ExprOwner::iterator ppExpr = pExprOwnerPart->begin();
 	Expr *pExprLast = NULL;
-	//::printf("[%s], [%s], [%s]\n", strIndent, strScript, strPost);
+	//::printf("[%s], [%s], [%s]\n", strIndent, strTmplScript, strPost);
 	if (ppExpr != pExprOwnerPart->end()) {
 		// check if the first Expr is a trailer
 		Expr *pExpr = *ppExpr;
