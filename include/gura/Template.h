@@ -31,7 +31,7 @@ public:
 private:
 	int _cntRef;
 	AutoPtr<Template> _pTemplateSuper;
-	AutoPtr<FunctionCustom> _pFuncForInit;
+	AutoPtr<ExprOwner> _pExprOwnerForInit;
 	AutoPtr<FunctionCustom> _pFuncForBody;
 	AutoPtr<ValueMap> _pValueMap;
 	SimpleStream *_pStreamDst;
@@ -48,9 +48,8 @@ public:
 		_pTemplateSuper.reset(pTemplateSuper);
 	}
 	inline const Template *GetTemplateSuper() const { return _pTemplateSuper.get(); }
-	inline void SetFuncForInit(FunctionCustom *pFuncForInit) { _pFuncForInit.reset(pFuncForInit); }
 	inline void SetFuncForBody(FunctionCustom *pFuncForBody) { _pFuncForBody.reset(pFuncForBody); }
-	inline const FunctionCustom *GetFuncForInit() { return _pFuncForInit.get(); }
+	inline ExprOwner &GetExprOwnerForInit() { return *_pExprOwnerForInit; }
 	inline const FunctionCustom *GetFuncForBody() { return _pFuncForBody.get(); }
 	inline ValueMap &GetValueMap() { return *_pValueMap; }
 	inline const ValueMap &GetValueMap() const { return *_pValueMap; }

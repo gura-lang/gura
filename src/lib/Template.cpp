@@ -5,7 +5,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Template
 //-----------------------------------------------------------------------------
-Template::Template() : _pStreamDst(NULL)
+Template::Template() : _pExprOwnerForInit(new ExprOwner()), _pStreamDst(NULL)
 {
 }
 
@@ -212,22 +212,33 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 	Class *pClass = env.LookupClass(VTYPE_template);
 	bool metaFlag = false;
 	Environment *pEnvToLookup = &env;
+	Expr *pExprLast = NULL;
+	AutoPtr<ExprOwner> pExprOwnerPart(new ExprOwner());
 	if (*strTmplScript == '=') {
 		metaFlag = true;
 		pEnvToLookup = pClass;
 		strTmplScript++;
-	}
-	AutoPtr<ExprOwner> pExprOwnerPart(new ExprOwner());
-	do {
+		do {
+			ExprOwner &exprOwner = pTemplate->GetExprOwnerForInit();
+			Gura::Parser parser(pSourceName->GetString(), cntLineTop);
+			if (!parser.ParseString(env, sig, exprOwner, "this.", false)) return false;
+			if (!parser.ParseString(env, sig, exprOwner, strTmplScript, true)) return false;
+			//if (!exprOwner.empty()) pExprLast = exprOwner.back();
+		} while (0);
+		do {
+			Gura::Parser parser(pSourceName->GetString(), cntLineTop);
+			if (!parser.ParseString(env, sig, *pExprOwnerPart, "this.present_", false)) return false;
+			if (!parser.ParseString(env, sig, *pExprOwnerPart, strTmplScript, true)) return false;
+		} while (0);
+	} else {
 		Gura::Parser parser(pSourceName->GetString(), cntLineTop);
-		if (metaFlag && !parser.ParseString(env, sig, *pExprOwnerPart, "this.", false)) return false;
 		if (!parser.ParseString(env, sig, *pExprOwnerPart, strTmplScript, true)) return false;
-	} while (0);
+		//if (!pExprOwnerPart->empty()) pExprLast = pExprOwnerPart->back();
+	}
 	Expr_TmplScript *pExprTmplScript = new Expr_TmplScript(
 		pTemplate, strIndent, strPost, _autoIndentFlag, _appendLastEOLFlag);
 	pExprTmplScript->SetSourceInfo(pSourceName->Reference(), cntLineTop + 1, cntLineBtm + 1);
 	ExprOwner::iterator ppExpr = pExprOwnerPart->begin();
-	Expr *pExprLast = NULL;
 	//::printf("[%s], [%s], [%s]\n", strIndent, strTmplScript, strPost);
 	if (ppExpr != pExprOwnerPart->end()) {
 		// check if the first Expr is a trailer
