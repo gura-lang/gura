@@ -209,14 +209,20 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 			Template *pTemplate, Expr_Block *pExprBlockRoot,
 			StringRef *pSourceName, int cntLineTop, int cntLineBtm)
 {
+	Class *pClass = env.LookupClass(VTYPE_template);
 	bool metaFlag = false;
+	Environment *pEnvToLookup = &env;
 	if (*strTmplScript == '=') {
 		metaFlag = true;
+		pEnvToLookup = pClass;
 		strTmplScript++;
 	}
 	AutoPtr<ExprOwner> pExprOwnerPart(new ExprOwner());
-	Gura::Parser parser(pSourceName->GetString(), cntLineTop);
-	if (!parser.ParseString(env, sig, *pExprOwnerPart, strTmplScript, true)) return false;
+	do {
+		Gura::Parser parser(pSourceName->GetString(), cntLineTop);
+		if (metaFlag && !parser.ParseString(env, sig, *pExprOwnerPart, "this.", false)) return false;
+		if (!parser.ParseString(env, sig, *pExprOwnerPart, strTmplScript, true)) return false;
+	} while (0);
 	Expr_TmplScript *pExprTmplScript = new Expr_TmplScript(
 		pTemplate, strIndent, strPost, _autoIndentFlag, _appendLastEOLFlag);
 	pExprTmplScript->SetSourceInfo(pSourceName->Reference(), cntLineTop + 1, cntLineBtm + 1);
@@ -226,7 +232,7 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 	if (ppExpr != pExprOwnerPart->end()) {
 		// check if the first Expr is a trailer
 		Expr *pExpr = *ppExpr;
-		Callable *pCallable = pExpr->LookupCallable(env, sig);
+		Callable *pCallable = pExpr->LookupCallable(*pEnvToLookup, sig);
 		sig.ClearSignal();
 		if (pCallable != NULL && pCallable->IsTrailer()) {
 			pExprTmplScript->SetStringIndent("");
@@ -267,7 +273,17 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 	if (!pExprLast->IsCaller()) return true;
 	Expr_Caller *pExprLastCaller = dynamic_cast<Expr_Caller *>(pExprLast);
 	if (pExprLastCaller->GetBlock() == NULL) {
-		Callable *pCallable = pExprLastCaller->LookupCallable(env, sig);
+		Callable *pCallable = NULL;
+		if (pExprLastCaller->GetCar()->IsMember()) {
+			Expr_Member *pExprCar = dynamic_cast<Expr_Member *>(pExprLastCaller->GetCar());
+			if (pExprCar->GetLeft()->IsSymbol() &&
+					dynamic_cast<Expr_Symbol *>(pExprCar->GetLeft())->GetSymbol()->
+													IsIdentical(Gura_Symbol(this_))) {
+				pCallable = pExprCar->GetRight()->LookupCallable(*pClass, sig);
+			}
+		} else {
+			pCallable = pExprLastCaller->LookupCallable(env, sig);
+		}
 		sig.ClearSignal();
 		if (pCallable != NULL && pCallable->GetBlockOccurPattern() == OCCUR_Once) {
 			Expr_Block *pExprBlock = new Expr_Block();
