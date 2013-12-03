@@ -249,7 +249,7 @@ HRESULT CMain::ParseScriptText(
 	if (cntLineOffset < 0) cntLineOffset = 0;
 	Gura::Parser parser("<ole>", cntLineOffset);
 	if (!parser.ParseString(*_pEnv, _sig, exprOwner,
-					Gura::Gura_Module(mswin)::BSTRToString(pstrCode).c_str())) {
+			Gura::Gura_Module(mswin)::BSTRToString(pstrCode).c_str(), true)) {
 		pexcepinfo->bstrDescription = L"*************";
 		pexcepinfo->bstrHelpFile = L"";
 		pexcepinfo->bstrSource = L"Gura";

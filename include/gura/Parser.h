@@ -228,9 +228,11 @@ public:
 	Expr *ParseChar(Environment &env, Signal sig, char ch);
 	Expr_Root *ParseStream(Environment &env, Signal sig, Stream &stream);
 	Expr_Root *ParseStream(Environment &env, Signal sig, const char *pathName, const char *encoding);
-	bool ParseString(Environment &env, Signal sig, ExprOwner &exprOwner, const char *str, size_t len);
-	inline bool ParseString(Environment &env, Signal sig, ExprOwner &exprOwner, const char *str) {
-		return ParseString(env, sig, exprOwner, str, ::strlen(str));
+	bool ParseString(Environment &env, Signal sig, ExprOwner &exprOwner,
+							const char *str, size_t len, bool parseNullFlag);
+	inline bool ParseString(Environment &env, Signal sig, ExprOwner &exprOwner,
+							const char *str, bool parseNullFlag) {
+		return ParseString(env, sig, exprOwner, str, ::strlen(str), parseNullFlag);
 	}
 	void EvalConsoleChar(Environment &env, Signal sig, Expr_Root *pExprRoot, Stream *pConsole, char ch);
 	inline bool IsStackEmpty() const { return _elemStack.size() <= 1; }

@@ -76,7 +76,7 @@ int Main(int argc, const char *argv[])
 			if (::strcmp(cmd, "") == 0) continue;
 			AutoPtr<Expr_Root> pExprRoot(new Expr_Root());
 			ExprOwner &exprOwner = pExprRoot->GetExprOwner();
-			if (!Parser(SRCNAME_cmdline).ParseString(env, sig, exprOwner, cmd)) {
+			if (!Parser(SRCNAME_cmdline).ParseString(env, sig, exprOwner, cmd, true)) {
 				sig.PrintSignal(*env.GetConsoleErr());
 				return 1;
 			}

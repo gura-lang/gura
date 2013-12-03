@@ -877,9 +877,10 @@ Expr_Root *Parser::ParseStream(Environment &env, Signal sig, const char *pathNam
 }
 
 bool Parser::ParseString(Environment &env, Signal sig, ExprOwner &exprOwner,
-													const char *str, size_t len)
+									const char *str, size_t len, bool parseNullFlag)
 {
 	for ( ; ; str++, len--) {
+		if (!parseNullFlag && len == 0) break;
 		char ch = (len == 0)? '\0' : *str;
 		Expr *pExpr = ParseChar(env, sig, ch);
 		if (sig.IsSignalled()) {

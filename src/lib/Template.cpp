@@ -216,7 +216,7 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 	}
 	AutoPtr<ExprOwner> pExprOwnerPart(new ExprOwner());
 	Gura::Parser parser(pSourceName->GetString(), cntLineTop);
-	if (!parser.ParseString(env, sig, *pExprOwnerPart, strTmplScript)) return false;
+	if (!parser.ParseString(env, sig, *pExprOwnerPart, strTmplScript, true)) return false;
 	Expr_TmplScript *pExprTmplScript = new Expr_TmplScript(
 		pTemplate, strIndent, strPost, _autoIndentFlag, _appendLastEOLFlag);
 	pExprTmplScript->SetSourceInfo(pSourceName->Reference(), cntLineTop + 1, cntLineBtm + 1);
