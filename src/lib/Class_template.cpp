@@ -75,22 +75,49 @@ Gura_ImplementMethod(template, inherit)
 	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
-	//Template::Parser parser(autoIndentFlag, appendLastEOLFlag);
-	//AutoPtr<Template> pTemplateSuper(parser.ParseStream(env, sig, args.GetStream(0)));
-	//if (pTemplateSuper.IsNull()) return Value::Null;
-	//pTemplate->SetTemplateSuper(pTemplateSuper.release());
+	Template::Parser parser(autoIndentFlag, appendLastEOLFlag);
+	AutoPtr<Template> pTemplateSuper(parser.ParseStream(env, sig, args.GetStream(0)));
+	if (pTemplateSuper.IsNull()) return Value::Null;
+	pTemplate->SetTemplateSuper(pTemplateSuper.release());
 	return Value::Null;
 }
 
-// template#block(name:string):void {block}
+// template#present_inherit(stream:stream):void:[lasteol,noindent]
+Gura_DeclareMethod(template, present_inherit)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream);
+	DeclareAttr(Gura_Symbol(lasteol));
+	DeclareAttr(Gura_Symbol(noindent));
+}
+
+Gura_ImplementMethod(template, present_inherit)
+{
+	return Value::Null;
+}
+
+// template#block(symbol:symbol):void {block}
 Gura_DeclareMethod(template, block)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "name", VTYPE_string);
+	DeclareArg(env, "symbol", VTYPE_symbol);
 	DeclareBlock(OCCUR_Once);
 }
 
 Gura_ImplementMethod(template, block)
+{
+	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	return Value::Null;
+}
+
+// template#present_block(symbol:symbol):void
+Gura_DeclareMethod(template, present_block)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "symbol", VTYPE_symbol);
+}
+
+Gura_ImplementMethod(template, present_block)
 {
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	return Value::Null;
@@ -106,7 +133,9 @@ Class_template::Class_template(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 void Class_template::Prepare(Environment &env)
 {
 	Gura_AssignMethod(template, inherit);
+	Gura_AssignMethod(template, present_inherit);
 	Gura_AssignMethod(template, block);
+	Gura_AssignMethod(template, present_block);
 }
 
 Object *Class_template::CreateDescendant(Environment &env, Signal sig, Class *pClass)
