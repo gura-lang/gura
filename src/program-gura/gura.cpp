@@ -190,8 +190,8 @@ void ReadEvalPrintLoop(Environment &env, Signal sig)
 #else
 void ReadEvalPrintLoop(Environment &env, Signal sig)
 {
-	AutoPtr<Expr_Root> pExprRoot(new Expr_Root(SRCNAME_interactive));
-	Parser parser(pExprRoot->GetSourceName());
+	AutoPtr<Expr_Root> pExprRoot(new Expr_Root());
+	Parser parser(SRCNAME_interactive);
 	char *lineBuff = NULL;
 	Stream *pConsole = env.GetConsole();
 	while (lineBuff = readline(env.GetPrompt(parser.IsContinued()))) {
