@@ -63,7 +63,7 @@ main() = {
 	//colors = palette(`basic).each():list
 	//colors = palette(`win256).each():list
 	colors = color(0, 0, interval(20, 255, 64))
-	printf('canvas:%dx%d, real [%g,%g], imag [%g,%g], level:%d\n',
+	printf('canvas=%d,%d, real=%g,%g, imag=%g,%g, level=%d\n',
 				width, height, realMin, realMax, imagMin, imagMax, colors.len())
 	img = image(`rgba, width, height)
 	mandelbrot(img, colors, realMin, realMax, imagMin, imagMax) {|progress|
@@ -74,7 +74,11 @@ main() = {
 		img.write(fileName)
 		sys.stderr.println(fileName, ' was created')
 	} else {
-		import(wx.show)
+		try {
+			import(wx.show)
+		} catch {
+			import(tk.show)
+		}
 		img.show()
 	}
 }
