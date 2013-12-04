@@ -11,7 +11,7 @@ Template::Template() : _pExprOwnerForInit(new ExprOwner()), _pStreamDst(NULL)
 
 bool Template::Eval(Environment &env, Signal sig, SimpleStream *pStreamDst)
 {
-	if (_pFuncForBody.IsNull()) return true;
+	if (GetFuncForBody() == NULL) return true;
 	_pStreamDst = pStreamDst;
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetThis(Value(new Object_template(env, Reference())));
@@ -21,6 +21,18 @@ bool Template::Eval(Environment &env, Signal sig, SimpleStream *pStreamDst)
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
 	GetFuncForBody()->Eval(*pEnvBlock, sig, *pArgs);
 	_pStreamDst = NULL;
+	return !sig.IsSignalled();
+}
+
+bool Template::Prepare(Environment &env, Signal sig)
+{
+	AutoPtr<Processor> pProcessor(new Processor());
+	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
+	pEnvBlock->AssignValue(Gura_Symbol(this_),
+				Value(new Object_template(env, Reference())), EXTRA_Public);
+	pProcessor->PushSequence(new Expr::SequenceRoot(pEnvBlock.release(),
+									_pExprOwnerForInit->Reference()));
+	pProcessor->Run(sig);
 	return !sig.IsSignalled();
 }
 
@@ -201,6 +213,7 @@ Template *Template::Parser::ParseStream(Environment &env, Signal sig, SimpleStre
 				Gura_Symbol(_anonymous_), pExprBlockRoot.get(), FUNCTYPE_Function);
 	if (pFuncBlock == NULL) return NULL;
 	pTemplate->SetFuncForBody(pFuncBlock);
+	if (!pTemplate->Prepare(env, sig)) return NULL;
 	return pTemplate.release();
 }
 
@@ -210,103 +223,129 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 			StringRef *pSourceName, int cntLineTop, int cntLineBtm)
 {
 	Class *pClass = env.LookupClass(VTYPE_template);
-	bool metaFlag = false;
-	Environment *pEnvToLookup = &env;
 	Expr *pExprLast = NULL;
-	AutoPtr<ExprOwner> pExprOwnerPart(new ExprOwner());
+	AutoPtr<Expr_TmplScript> pExprTmplScript(new Expr_TmplScript(
+		pTemplate, strIndent, strPost, _autoIndentFlag, _appendLastEOLFlag));
+	pExprTmplScript->SetSourceInfo(pSourceName->Reference(), cntLineTop + 1, cntLineBtm + 1);
 	if (*strTmplScript == '=') {
-		metaFlag = true;
-		pEnvToLookup = pClass;
 		strTmplScript++;
-		do {
-			ExprOwner &exprOwner = pTemplate->GetExprOwnerForInit();
-			Gura::Parser parser(pSourceName->GetString(), cntLineTop);
-			if (!parser.ParseString(env, sig, exprOwner, "this.", false)) return false;
-			if (!parser.ParseString(env, sig, exprOwner, strTmplScript, true)) return false;
-			//if (!exprOwner.empty()) pExprLast = exprOwner.back();
-		} while (0);
+		AutoPtr<ExprOwner> pExprOwnerPart(new ExprOwner());
 		do {
 			Gura::Parser parser(pSourceName->GetString(), cntLineTop);
-			if (!parser.ParseString(env, sig, *pExprOwnerPart, "this.present_", false)) return false;
+			if (!parser.ParseString(env, sig, *pExprOwnerPart, "this.", false)) return false;
 			if (!parser.ParseString(env, sig, *pExprOwnerPart, strTmplScript, true)) return false;
 		} while (0);
-	} else {
-		Gura::Parser parser(pSourceName->GetString(), cntLineTop);
-		if (!parser.ParseString(env, sig, *pExprOwnerPart, strTmplScript, true)) return false;
-		//if (!pExprOwnerPart->empty()) pExprLast = pExprOwnerPart->back();
-	}
-	Expr_TmplScript *pExprTmplScript = new Expr_TmplScript(
-		pTemplate, strIndent, strPost, _autoIndentFlag, _appendLastEOLFlag);
-	pExprTmplScript->SetSourceInfo(pSourceName->Reference(), cntLineTop + 1, cntLineBtm + 1);
-	ExprOwner::iterator ppExpr = pExprOwnerPart->begin();
-	//::printf("[%s], [%s], [%s]\n", strIndent, strTmplScript, strPost);
-	if (ppExpr != pExprOwnerPart->end()) {
-		// check if the first Expr is a trailer
-		Expr *pExpr = *ppExpr;
-		Callable *pCallable = pExpr->LookupCallable(*pEnvToLookup, sig);
-		sig.ClearSignal();
-		if (pCallable != NULL && pCallable->IsTrailer()) {
-			pExprTmplScript->SetStringIndent("");
-			if (_exprCallerStack.empty()) {
-				sig.SetError(ERR_SyntaxError, "unmatching trailer expression");
-				sig.AddExprCause(pExprTmplScript);
-				Expr::Delete(pExprTmplScript);
-				return false;
-			}
-			if (!pCallable->IsEndMarker()) {
-				Expr_Caller *pExprCaller = NULL;
-				if (pExpr->IsCaller()) {
-					pExprCaller = dynamic_cast<Expr_Caller *>(Expr::Reference(pExpr));
-				} else {
-					pExprCaller = new Expr_Caller(Expr::Reference(pExpr), NULL, NULL);
-					pExprCaller->SetSourceInfo(pSourceName->Reference(),
-									pExpr->GetLineNoTop(), pExpr->GetLineNoBtm());
-				}
-				_exprCallerStack.back()->SetTrailer(pExprCaller);
-				pExprLast = pExprCaller;
-			}
-			_exprCallerStack.pop_back();
-			ppExpr++;
-		}
-	}
-	if (ppExpr != pExprOwnerPart->end()) {
-		for ( ; ppExpr != pExprOwnerPart->end(); ppExpr++) {
-			Expr *pExpr = *ppExpr;
-			pExprTmplScript->GetExprOwner().push_back(Expr::Reference(pExpr));
-			pExprLast = pExpr;
-		}
-		ExprOwner &exprOwner = _exprCallerStack.empty()?
+		do {
+			ExprOwner &exprOwner = pExprTmplScript->GetExprOwner();
+			Gura::Parser parser(pSourceName->GetString(), cntLineTop);
+			if (!parser.ParseString(env, sig, exprOwner, "this.present_", false)) return false;
+			if (!parser.ParseString(env, sig, exprOwner, strTmplScript, true)) return false;
+		} while (0);
+		ExprOwner &exprOwnerForPresent = _exprCallerStack.empty()?
 				pExprBlockRoot->GetExprOwner() :
 				_exprCallerStack.back()->GetBlock()->GetExprOwner();
-		exprOwner.push_back(pExprTmplScript);
-	}
-	if (pExprLast == NULL) return true;
-	if (!pExprLast->IsCaller()) return true;
-	Expr_Caller *pExprLastCaller = dynamic_cast<Expr_Caller *>(pExprLast);
-	if (pExprLastCaller->GetBlock() == NULL) {
-		Callable *pCallable = NULL;
-		if (pExprLastCaller->GetCar()->IsMember()) {
-			Expr_Member *pExprCar = dynamic_cast<Expr_Member *>(pExprLastCaller->GetCar());
-			if (pExprCar->GetLeft()->IsSymbol() &&
-					dynamic_cast<Expr_Symbol *>(pExprCar->GetLeft())->GetSymbol()->
-													IsIdentical(Gura_Symbol(this_))) {
-				pCallable = pExprCar->GetRight()->LookupCallable(*pClass, sig);
-			}
-		} else {
-			pCallable = pExprLastCaller->LookupCallable(env, sig);
+		exprOwnerForPresent.push_back(Expr::Reference(pExprTmplScript.get()));
+		foreach (ExprOwner, ppExpr, *pExprOwnerPart) {
+			Expr *pExpr = *ppExpr;
+			pTemplate->GetExprOwnerForInit().push_back(Expr::Reference(pExpr));
+			pExprLast = pExpr;
 		}
-		sig.ClearSignal();
-		if (pCallable != NULL && pCallable->GetBlockOccurPattern() == OCCUR_Once) {
-			Expr_Block *pExprBlock = new Expr_Block();
-			pExprLastCaller->SetBlock(pExprBlock);
+		if (!pExprLast->IsCaller()) return true;
+		Expr_Caller *pExprLastCaller = dynamic_cast<Expr_Caller *>(pExprLast);
+		if (pExprLastCaller->GetBlock() == NULL) {
+			Callable *pCallable = NULL;
+			if (pExprLastCaller->GetCar()->IsMember()) {
+				Expr_Member *pExprCar = dynamic_cast<Expr_Member *>(pExprLastCaller->GetCar());
+				if (pExprCar->GetLeft()->IsSymbol() &&
+						dynamic_cast<Expr_Symbol *>(pExprCar->GetLeft())->GetSymbol()->
+														IsIdentical(Gura_Symbol(this_))) {
+					pCallable = pExprCar->GetRight()->LookupCallable(*pClass, sig);
+				}
+			} else {
+				pCallable = pExprLastCaller->LookupCallable(env, sig);
+			}
+			sig.ClearSignal();
+			if (pCallable != NULL && pCallable->GetBlockOccurPattern() == OCCUR_Once) {
+				Expr_Block *pExprBlock = new Expr_Block();
+				pExprLastCaller->SetBlock(pExprBlock);
+				_exprCallerStack.push_back(pExprLastCaller);
+			}
+		} else if (pExprLastCaller->GetBlock()->GetExprOwner().empty()) {
+			_exprCallerStack.push_back(pExprLastCaller);
+		}
+	} else {
+		AutoPtr<ExprOwner> pExprOwnerPart(new ExprOwner());
+		Gura::Parser parser(pSourceName->GetString(), cntLineTop);
+		if (!parser.ParseString(env, sig, *pExprOwnerPart, strTmplScript, true)) return false;
+		ExprOwner::iterator ppExpr = pExprOwnerPart->begin();
+		//::printf("[%s], [%s], [%s]\n", strIndent, strTmplScript, strPost);
+		if (ppExpr != pExprOwnerPart->end()) {
+			// check if the first Expr is a trailer
+			Expr *pExpr = *ppExpr;
+			Callable *pCallable = pExpr->LookupCallable(env, sig);
+			sig.ClearSignal();
+			if (pCallable != NULL && pCallable->IsTrailer()) {
+				pExprTmplScript->SetStringIndent("");
+				if (_exprCallerStack.empty()) {
+					sig.SetError(ERR_SyntaxError, "unmatching trailer expression");
+					sig.AddExprCause(pExprTmplScript.get());
+					return false;
+				}
+				if (!pCallable->IsEndMarker()) {
+					Expr_Caller *pExprCaller = NULL;
+					if (pExpr->IsCaller()) {
+						pExprCaller = dynamic_cast<Expr_Caller *>(Expr::Reference(pExpr));
+					} else {
+						pExprCaller = new Expr_Caller(Expr::Reference(pExpr), NULL, NULL);
+						pExprCaller->SetSourceInfo(pSourceName->Reference(),
+										pExpr->GetLineNoTop(), pExpr->GetLineNoBtm());
+					}
+					_exprCallerStack.back()->SetTrailer(pExprCaller);
+					pExprLast = pExprCaller;
+				}
+				_exprCallerStack.pop_back();
+				ppExpr++;
+			}
+		}
+		if (ppExpr != pExprOwnerPart->end()) {
+			for ( ; ppExpr != pExprOwnerPart->end(); ppExpr++) {
+				Expr *pExpr = *ppExpr;
+				pExprTmplScript->GetExprOwner().push_back(Expr::Reference(pExpr));
+				pExprLast = pExpr;
+			}
+			ExprOwner &exprOwnerForPresent = _exprCallerStack.empty()?
+					pExprBlockRoot->GetExprOwner() :
+					_exprCallerStack.back()->GetBlock()->GetExprOwner();
+			exprOwnerForPresent.push_back(Expr::Reference(pExprTmplScript.get()));
+		}
+		if (pExprLast == NULL) return true;
+		if (!pExprLast->IsCaller()) return true;
+		Expr_Caller *pExprLastCaller = dynamic_cast<Expr_Caller *>(pExprLast);
+		if (pExprLastCaller->GetBlock() == NULL) {
+			Callable *pCallable = NULL;
+			if (pExprLastCaller->GetCar()->IsMember()) {
+				Expr_Member *pExprCar = dynamic_cast<Expr_Member *>(pExprLastCaller->GetCar());
+				if (pExprCar->GetLeft()->IsSymbol() &&
+						dynamic_cast<Expr_Symbol *>(pExprCar->GetLeft())->GetSymbol()->
+														IsIdentical(Gura_Symbol(this_))) {
+					pCallable = pExprCar->GetRight()->LookupCallable(*pClass, sig);
+				}
+			} else {
+				pCallable = pExprLastCaller->LookupCallable(env, sig);
+			}
+			sig.ClearSignal();
+			if (pCallable != NULL && pCallable->GetBlockOccurPattern() == OCCUR_Once) {
+				Expr_Block *pExprBlock = new Expr_Block();
+				pExprLastCaller->SetBlock(pExprBlock);
+				_exprCallerStack.push_back(pExprLastCaller);
+				pExprTmplScript->SetStringIndent("");
+				pExprTmplScript->SetStringPost("");
+			}
+		} else if (pExprLastCaller->GetBlock()->GetExprOwner().empty()) {
 			_exprCallerStack.push_back(pExprLastCaller);
 			pExprTmplScript->SetStringIndent("");
 			pExprTmplScript->SetStringPost("");
 		}
-	} else if (pExprLastCaller->GetBlock()->GetExprOwner().empty()) {
-		_exprCallerStack.push_back(pExprLastCaller);
-		pExprTmplScript->SetStringIndent("");
-		pExprTmplScript->SetStringPost("");
 	}
 	return true;
 }
