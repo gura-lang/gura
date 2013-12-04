@@ -48,12 +48,14 @@ public:
 	inline void SetTemplateSuper(Template *pTemplateSuper) {
 		_pTemplateSuper.reset(pTemplateSuper);
 	}
+	inline Template *GetTemplateSuper() { return _pTemplateSuper.get(); }
 	inline const Template *GetTemplateSuper() const { return _pTemplateSuper.get(); }
 	inline void SetFuncForBody(FunctionCustom *pFuncForBody) { _pFuncForBody.reset(pFuncForBody); }
 	inline ExprOwner &GetExprOwnerForInit() { return *_pExprOwnerForInit; }
 	inline const FunctionCustom *GetFuncForBody() { return _pFuncForBody.get(); }
 	inline ValueMap &GetValueMap() { return *_pValueMap; }
 	inline const ValueMap &GetValueMap() const { return *_pValueMap; }
+	inline void SetStreamDst(SimpleStream *pStreamDst) { _pStreamDst = pStreamDst; }
 	inline SimpleStream *GetStreamDst() { return _pStreamDst; }
 };
 

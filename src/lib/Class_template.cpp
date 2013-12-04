@@ -107,6 +107,11 @@ Gura_DeclareMethod(template, block)
 Gura_ImplementMethod(template, block)
 {
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	const Symbol *pSymbol = args.GetSymbol(0);
+	const Function *pFunc = args.GetBlockFunc(env, sig, pSymbol);
+	if (pFunc == NULL) return Value::Null;
+	ValueMap &valueMap = pTemplate->GetValueMap();
+	valueMap[pSymbol] = Value(new Object_function(env, pFunc->Reference()));
 	return Value::Null;
 }
 
@@ -120,6 +125,14 @@ Gura_DeclareMethod(template, present_block)
 Gura_ImplementMethod(template, present_block)
 {
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	const Symbol *pSymbol = args.GetSymbol(0);
+	ValueMap &valueMap = pTemplate->GetValueMap();
+	ValueMap::iterator iter = valueMap.find(pSymbol);
+	if (iter == valueMap.end()) return Value::Null;
+	Value &value = iter->second;
+	if (!value.Is_function()) return Value::Null;
+	AutoPtr<Args> pArgs(new Args());
+	value.GetFunction()->Eval(env, sig, *pArgs);
 	return Value::Null;
 }
 

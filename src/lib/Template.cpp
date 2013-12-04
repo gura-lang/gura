@@ -5,22 +5,37 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Template
 //-----------------------------------------------------------------------------
-Template::Template() : _pExprOwnerForInit(new ExprOwner()), _pStreamDst(NULL)
+Template::Template() : _pExprOwnerForInit(new ExprOwner()),
+								_pValueMap(new ValueMap()), _pStreamDst(NULL)
 {
 }
 
 bool Template::Eval(Environment &env, Signal sig, SimpleStream *pStreamDst)
 {
-	if (GetFuncForBody() == NULL) return true;
-	_pStreamDst = pStreamDst;
+	Template *pTemplateTop = NULL;
+	Template *pTemplateNext = NULL;
+	for (Template *pTemplate = this; pTemplate != NULL;
+							pTemplate = pTemplate->GetTemplateSuper()) {
+		pTemplate->SetStreamDst(pStreamDst);
+		pTemplateNext = pTemplateTop;
+		pTemplateTop = pTemplate;
+	}
+	if (pTemplateTop->GetFuncForBody() == NULL) return true;
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetThis(Value(new Object_template(env, Reference())));
 	ValueMap *pValMapHiddenArg = new ValueMap();
-	(*pValMapHiddenArg)[Gura_Symbol(next)] = Value::Null;
+	if (pTemplateNext == NULL) {
+		(*pValMapHiddenArg)[Gura_Symbol(next)] = Value::Null;
+	} else {
+		(*pValMapHiddenArg)[Gura_Symbol(next)] = Value(new Object_template(env, pTemplateNext->Reference()));
+	}
 	pArgs->SetValueMapHiddenArg(pValMapHiddenArg);
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
-	GetFuncForBody()->Eval(*pEnvBlock, sig, *pArgs);
-	_pStreamDst = NULL;
+	pTemplateTop->GetFuncForBody()->Eval(*pEnvBlock, sig, *pArgs);
+	for (Template *pTemplate = this; pTemplate != NULL;
+							pTemplate = pTemplate->GetTemplateSuper()) {
+		pTemplate->SetStreamDst(NULL);
+	}
 	return !sig.IsSignalled();
 }
 
