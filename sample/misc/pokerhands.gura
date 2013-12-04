@@ -12,6 +12,7 @@ Card = struct(suit:symbol, rank:number):map {
 	}
 	__str__() = format('%s%-2s', suitMarks[this.suit], rankMarks[this.rank])
 }
+
 Deck = class {
 	public {
 		cards
@@ -22,104 +23,110 @@ Deck = class {
 		}
 	}
 }
-list.equals() = (this == this[0]).and()
-CheckPokerHand(cards[]:Card) = {
-	cards = cards.sort(`ascend, cards::rank):list
-	flushFlag = cards::suit.equals()
-	cardsNone = []
-	pokerHand = if ((cards::rank == [1, 10, 11, 12, 13]).and()) {
-		cardsHand = cards[1, 2, 3, 4, 0]
-		cond(flushFlag, `RoyalStraightFlush, `Straight)
-	} elsif ([cards::rank - (0..)].equals()) {
-		cardsHand = cards
-		cond(flushFlag, `StraightFlush, `Straight)
-	} elsif (cards[0..3]::rank.equals()) {
-		cardsHand = cards.get([0..3])
-		cardsNone = cards.get([4])
-		`FourOfKind
-	} elsif (cards[1..4]::rank.equals()) {
-		cardsHand = cards.get([1..4])
-		cardsNone = cards.get([0])
-		`FourOfKind
-	} elsif (cards[0, 1, 2]::rank.equals() && cards[3, 4]::rank.equals()) {
-		cardsHand = cards
-		`FullHouse
-	} elsif (cards[0, 1]::rank.equals() && cards[2, 3, 4]::rank.equals()) {
-		cardsHand = cards[2, 3, 4, 0, 1]
-		`FullHouse
-	} elsif (cards[0, 1, 2]::rank.equals()) {
-		cardsHand = cards.get([0, 1, 2])
-		cardsNone = cards.get([3, 4])
-		`ThreeOfKind
-	} elsif (cards[1, 2, 3]::rank.equals()) {
-		cardsHand = cards.get([1, 2, 3])
-		cardsNone = cards.get([0, 4])
-		`ThreeOfKind
-	} elsif (cards[2, 3, 4]::rank.equals()) {
-		cardsHand = cards.get([2, 3, 4])
-		cardsNone = cards.get([0, 1])
-		`ThreeOfKind
-	} elsif (flushFlag) {
-		cardsHand = cards
-		`Flush
-	} else {
-		pairFlag1 = cards[0, 1]::rank.equals()
-		pairFlag2 = cards[1, 2]::rank.equals()
-		pairFlag3 = cards[2, 3]::rank.equals()
-		pairFlag4 = cards[3, 4]::rank.equals()
-		if (pairFlag1 && pairFlag3) {
-			cardsHand = cards.get([0, 1, 2, 3])
-			cardsNone = cards.get([4])
-			`TwoPair
-		} elsif (pairFlag1 && pairFlag4) {
-			cardsHand = cards.get([0, 1, 3, 4])
-			cardsNone = cards.get([2])
-			`TwoPair
-		} elsif (pairFlag2 && pairFlag4) {
-			cardsHand = cards.get([1, 2, 3, 4])
-			cardsNone = cards.get([0])
-			`TwoPair
-		} elsif (pairFlag1) {
-			cardsHand = cards.get([0, 1])
-			cardsNone = cards.get([2, 3, 4])
-			`OnePair
-		} elsif (pairFlag2) {
-			cardsHand = cards.get([1, 2])
-			cardsNone = cards.get([0, 3, 4])
-			`OnePair
-		} elsif (pairFlag3) {
-			cardsHand = cards.get([2, 3])
-			cardsNone = cards.get([0, 1, 4])
-			`OnePair
-		} elsif (pairFlag4) {
-			cardsHand = cards.get([3, 4])
-			cardsNone = cards.get([0, 1, 2])
-			`OnePair
+
+list.issame() = (this == this[0]).and()
+
+PokerHand = class {
+	__init__(cards[]:Card) = {
+		cards = cards.sort(`ascend, cards::rank):list
+		flushFlag = cards::suit.issame()
+		this.cardsHand = []
+		this.cardsNone = []
+		this.symbol = `none
+		if ((cards::rank == [1, 10, 11, 12, 13]).and()) {
+			this.cardsHand = cards[1, 2, 3, 4, 0]
+			this.symbol = cond(flushFlag, `RoyalStraightFlush, `Straight)
+		} elsif ([cards::rank - (0..)].issame()) {
+			this.cardsHand = cards
+			this.symbol = cond(flushFlag, `StraightFlush, `Straight)
+		} elsif (cards[0..3]::rank.issame()) {
+			this.cardsHand = cards.get([0..3])
+			this.cardsNone = cards.get([4])
+			this.symbol = `FourOfKind
+		} elsif (cards[1..4]::rank.issame()) {
+			this.cardsHand = cards.get([1..4])
+			this.cardsNone = cards.get([0])
+			this.symbol = `FourOfKind
+		} elsif (cards[0, 1, 2]::rank.issame() && cards[3, 4]::rank.issame()) {
+			this.cardsHand = cards
+			this.symbol = `FullHouse
+		} elsif (cards[0, 1]::rank.issame() && cards[2, 3, 4]::rank.issame()) {
+			this.cardsHand = cards[2, 3, 4, 0, 1]
+			this.symbol = `FullHouse
+		} elsif (cards[0, 1, 2]::rank.issame()) {
+			this.cardsHand = cards.get([0, 1, 2])
+			this.cardsNone = cards.get([3, 4])
+			this.symbol = `ThreeOfKind
+		} elsif (cards[1, 2, 3]::rank.issame()) {
+			this.cardsHand = cards.get([1, 2, 3])
+			this.cardsNone = cards.get([0, 4])
+			this.symbol = `ThreeOfKind
+		} elsif (cards[2, 3, 4]::rank.issame()) {
+			this.cardsHand = cards.get([2, 3, 4])
+			this.cardsNone = cards.get([0, 1])
+			this.symbol = `ThreeOfKind
+		} elsif (flushFlag) {
+			this.cardsHand = cards
+			this.symbol = `Flush
 		} else {
-			cardsHand = []
-			cardsNone = cards
-			`none
+			pairFlag1 = cards[0, 1]::rank.issame()
+			pairFlag2 = cards[1, 2]::rank.issame()
+			pairFlag3 = cards[2, 3]::rank.issame()
+			pairFlag4 = cards[3, 4]::rank.issame()
+			if (pairFlag1 && pairFlag3) {
+				this.cardsHand = cards.get([0, 1, 2, 3])
+				this.cardsNone = cards.get([4])
+				this.symbol = `TwoPair
+			} elsif (pairFlag1 && pairFlag4) {
+				this.cardsHand = cards.get([0, 1, 3, 4])
+				this.cardsNone = cards.get([2])
+				this.symbol = `TwoPair
+			} elsif (pairFlag2 && pairFlag4) {
+				this.cardsHand = cards.get([1, 2, 3, 4])
+				this.cardsNone = cards.get([0])
+				this.symbol = `TwoPair
+			} elsif (pairFlag1) {
+				this.cardsHand = cards.get([0, 1])
+				this.cardsNone = cards.get([2, 3, 4])
+				this.symbol = `OnePair
+			} elsif (pairFlag2) {
+				this.cardsHand = cards.get([1, 2])
+				this.cardsNone = cards.get([0, 3, 4])
+				this.symbol = `OnePair
+			} elsif (pairFlag3) {
+				this.cardsHand = cards.get([2, 3])
+				this.cardsNone = cards.get([0, 1, 4])
+				this.symbol = `OnePair
+			} elsif (pairFlag4) {
+				this.cardsHand = cards.get([3, 4])
+				this.cardsNone = cards.get([0, 1, 2])
+				this.symbol = `OnePair
+			} else {
+				this.cardsHand = []
+				this.cardsNone = cards
+				this.symbol = `none
+			}
 		}
 	}
-	[pokerHand, cardsHand, cardsNone]
+	Print() = {
+		printf('%-20s|%-20s .. %s\n', this.cardsHand.join(' '),
+								this.cardsNone.join(' '), this.symbol)
+	}
 }
-PrintPokerHand(cards[]:Card) = {
-	[pokerHand, cardsHand, cardsNone] = CheckPokerHand(cards)
-	printf('%-20s|%-20s .. %s\n', cardsHand.join(' '), cardsNone.join(' '), pokerHand)
+
+main() = {
+	println('Test for StraightFlush')
+	cross (suit in Card.suits, n in 0..9) {
+		pokerHand = PokerHand(Card(suit, range(n, n + 5) % 13 + 1))
+		pokerHand.Print()
+	}
+	println('Test with random pattern')
+	deck = Deck()
+	randseed(os.clock())
+	repeat {
+		pokerHand = PokerHand(deck.cards.shuffle().head(5))
+		pokerHand.Print()
+	}
 }
-deck = Deck()
-randseed(os.clock())
-repeat {
-	cards = deck.cards.shuffle().head(5)
-	cards = cards.sort(`ascend, cards::rank)
-	[pokerHand, cardsHand, cardsNone] = CheckPokerHand(cards)
-	printf('%-20s|%-20s .. %s\n', cardsHand.join(' '), cardsNone.join(' '), pokerHand)
-}
-/*
-cross (suit in Card.suits, n in 1..9) {
-	PrintPokerHand(Card(suit, range(n, n + 5)))
-}
-for (suit in Card.suits) {
-	PrintPokerHand(Card(suit, [10, 11, 12, 13, 1]))
-}
-*/
+
+main()
