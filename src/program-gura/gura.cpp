@@ -131,9 +131,15 @@ int Main(int argc, const char *argv[])
 				sig.PrintSignal(*env.GetConsoleErr());
 				return 1;
 			}
-			Template::Parser(true, false).EvalStream(env, sig,
-										*pStreamSrc, *env.GetConsole());
-			if (sig.IsSignalled()) {
+			bool autoIndentFlag = true;
+			bool appendLastEOLFlag = false;
+			AutoPtr<Template> pTemplate(new Template());
+			if (!pTemplate->Read(env, sig, *pStreamSrc,
+										autoIndentFlag, appendLastEOLFlag)) {
+				sig.PrintSignal(*env.GetConsoleErr());
+				return 1;
+			}
+			if (!pTemplate->Render(env, sig, env.GetConsole())) {
 				sig.PrintSignal(*env.GetConsoleErr());
 				return 1;
 			}

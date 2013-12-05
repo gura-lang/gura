@@ -974,37 +974,26 @@ Gura_ImplementMethod(string, strip)
 	return Value(Strip(args.GetThis().GetString(), args.GetAttrs()));
 }
 
-// string#template(dst?:stream:w):[noindent,lasteol]
+// string#template():[noindent,lasteol]
 Gura_DeclareMethodAlias(string, template_, "template")
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "dst", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 	DeclareAttr(Gura_Symbol(noindent));
 	DeclareAttr(Gura_Symbol(lasteol));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Evaluate script coded that is embedded in a string. If stream object dst is\n"
-	"specified, the result shall be a destination of the result. Otherwise, it shall\n"
-	"be returned as a string value.");
+	"Evaluate script coded that is embedded in a string.");
 }
 
 Gura_ImplementMethod(string, template_)
 {
 	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
 	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
+	AutoPtr<Template> pTemplate(new Template());
 	String strSrc = args.GetThis().GetStringSTL();
 	SimpleStream_StringReader streamSrc(strSrc.begin(), strSrc.end());
-	if (args.Is_stream(0)) {
-		Stream &streamDst = args.GetStream(0);
-		Template::Parser(autoIndentFlag, appendLastEOLFlag).
-							EvalStream(env, sig, streamSrc, streamDst);
-		return Value::Null;
-	} else {
-		String strDst;
-		SimpleStream_StringWriter streamDst(strDst);
-		if (!Template::Parser(autoIndentFlag, appendLastEOLFlag).
-					EvalStream(env, sig, streamSrc, streamDst)) return Value::Null;
-		return Value(strDst.c_str());
-	}
+	if (!pTemplate->Read(env, sig, streamSrc, autoIndentFlag, appendLastEOLFlag)) return Value::Null;
+	return ReturnValue(env, sig, args,
+					Value(new Object_template(env, pTemplate.release())));
 }
 
 // string#unescapehtml()

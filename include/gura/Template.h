@@ -19,9 +19,8 @@ public:
 		ExprCallerStack _exprCallerStack;
 	public:
 		Parser(bool autoIndentFlag, bool appendLastEOLFlag);
-		bool EvalStream(Environment &env, Signal sig,
-						SimpleStream &streamSrc, SimpleStream &streamDst);
-		Template *ParseStream(Environment &env, Signal sig, SimpleStream &streamSrc);
+		bool ParseStream(Environment &env, Signal sig,
+							Template *pTemplate, SimpleStream &streamSrc);
 	private:
 		bool CreateTmplScript(Environment &env, Signal sig,
 				const char *strIndent, const char *strTmplScript, const char *strPost,
@@ -42,7 +41,9 @@ public:
 private:
 	inline ~Template() {}
 public:
-	bool Eval(Environment &env, Signal sig, SimpleStream *pStreamDst);
+	bool Read(Environment &env, Signal sig,
+			SimpleStream &streamSrc, bool autoIndentFlag, bool appendLastEOLFlag);
+	bool Render(Environment &env, Signal sig, SimpleStream *pStreamDst);
 	bool Prepare(Environment &env, Signal sig);
 	const ValueEx *LookupValue(const Symbol *pSymbol) const;
 	inline void SetTemplateSuper(Template *pTemplateSuper) {

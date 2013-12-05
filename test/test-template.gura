@@ -16,7 +16,7 @@ testcase {
   line.3
   line.4${//comment}
 
-'''.template(sys.stdout)
+'''.template().render(sys.stdout)
 }
 //-----------------------------------------------------------------------------
 testcase {
@@ -24,7 +24,7 @@ testcase {
 ${(1..10).each() {|i|}}
   ${i}
 ${end}
-'''.template(sys.stdout)
+'''.template().render(sys.stdout)
 }
 //-----------------------------------------------------------------------------
 testcase {
@@ -49,7 +49,7 @@ hello ${(1..10) + '\n'} world
 foo${nil}bar
 foo${-}bar
 foo${''}bar
-'''.template(sys.stdout)
+'''.template().render(sys.stdout)
 }
 //-----------------------------------------------------------------------------
 testcase {
@@ -69,7 +69,7 @@ ${end}
 ${for (product in products)}
 - ${product}
 ${end}
-'''.template(sys.stdout)
+'''.template().render(sys.stdout)
 	// iteration with each method
 	R'''
 [Companies]
@@ -84,7 +84,7 @@ ${end}
 ${products.each {|product|}}
 - ${product}
 ${end}
-'''.template(sys.stdout)
+'''.template().render(sys.stdout)
 }
 testcase {
 	R'''
@@ -97,18 +97,18 @@ ${for (i in 1..10)}
     ${i} is greater or equal to eight
   ${end}
 ${end}
-'''.template(sys.stdout)
+'''.template().render(sys.stdout)
 }
 //-----------------------------------------------------------------------------
 testcase {
-	println('漢字のテスト ${"スクリプト文字列"}'.template())
+	println('漢字のテスト ${"スクリプト文字列"}'.template().render())
 }
 //-----------------------------------------------------------------------------
 testcase {
-	template = R'''
+	tmpl = R'''
 ${if (company) {R"""
 Company: ${company}
-""".template()} else {R"""
+""".template().render()} else {R"""
 (not defined)
 """}}
 [Products]
@@ -119,16 +119,16 @@ ${R"""
 	scope {
 		company = 'hoge'
 		products = ['apple', 'grape', 'orange']
-		template.template(sys.stdout)
+		tmpl.template().render(sys.stdout)
 		company = nil
 		products = ['car', 'bicycle', 'boat']
-		template.template(sys.stdout)
+		tmpl.template().render(sys.stdout)
 	}
 }
 //-----------------------------------------------------------------------------
 testcase {
 	x = format('embedded #%d line\n', 1..4)
-	template = R'''
+	tmpl = R'''
 space 1
  ${x}
 space 2
@@ -144,47 +144,47 @@ tab 2
 not line top:  ${x}
 '''
 	println('** auto-indent **')
-	template.template(sys.stdout)
-	template.reader().template(sys.stdout)
+	tmpl.template().render(sys.stdout)
+	template(tmpl.reader()).render(sys.stdout)
 	println('** append last-eol **')
-	template.template(sys.stdout):lasteol
+	(tmpl.template():lasteol).render(sys.stdout)
 	println('** no-indent **')
-	template.template(sys.stdout):noindent
+	(tmpl.template():noindent).render(sys.stdout)
 	println('** no-indent, append last-eol **')
-	template.template(sys.stdout):noindent:lasteol
+	(tmpl.template():noindent:lasteol).render(sys.stdout)
 	x = 'single string'
-	template.template(sys.stdout)
+	tmpl.template().render(sys.stdout)
 }
 //-----------------------------------------------------------------------------
 testcase {
 	try {
-		'abcdefg${hoge}hijklmn'.template()
+		'abcdefg${hoge}hijklmn'.template().render()
 	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
 }
 //-----------------------------------------------------------------------------
 testcase {
-	tester(`'hello ${format("%d", 0..10).join(",")}'.template())
+	tester(`'hello ${format("%d", 0..10).join(",")}'.template().render())
 }
 //-----------------------------------------------------------------------------
 testcase {
 	var = 'HOGE'
-	tester(`'hello ${var} world'.template())
-	tester(`'hello ${var * 2} world'.template())
-	tester(`'''hello '${format('%8s', var)}' world'''.template())
+	tester(`'hello ${var} world'.template().render())
+	tester(`'hello ${var * 2} world'.template().render())
+	tester(`'''hello '${format('%8s', var)}' world'''.template().render())
 	var = 3.14
-	tester(`'hello ${var} world'.template())
+	tester(`'hello ${var} world'.template().render())
 }
 //-----------------------------------------------------------------------------
 testcase {
-	tester(`'${nil}'.template())
-	tester(`'${-}'.template())
-	tester(`'${3}'.template())
-	tester(`'${"hello"}'.template())
-	tester(`'${["first", "second", "third"]}'.template())
+	tester(`'${nil}'.template().render())
+	tester(`'${-}'.template().render())
+	tester(`'${3}'.template().render())
+	tester(`'${"hello"}'.template().render())
+	tester(`'${["first", "second", "third"]}'.template().render())
 	try {
-		'${color(`red)}'.template()
+		'${color(`red)}'.template().render()
 	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
@@ -211,6 +211,6 @@ ${for (x in 1..10)}
     hoge ${x}
 ${end}
 
-'''.template(sys.stdout)
+'''.template().render(sys.stdout)
 }
 //-----------------------------------------------------------------------------

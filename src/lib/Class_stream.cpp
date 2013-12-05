@@ -143,36 +143,6 @@ Gura_ImplementFunction(copy)
 	return Value::Null;
 }
 
-// template(src:stream:r, dst?:stream:w):map:[noindent,lasteol]
-Gura_DeclareFunctionAlias(template_, "template")
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "src", VTYPE_stream, OCCUR_Once, FLAG_Read);
-	DeclareArg(env, "dst", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
-	DeclareAttr(Gura_Symbol(noindent));
-	DeclareAttr(Gura_Symbol(lasteol));
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementFunction(template_)
-{
-	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
-	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
-	Stream &streamSrc = args.GetStream(0);
-	if (args.Is_stream(1)) {
-		Stream &streamDst = args.GetStream(1);
-		Template::Parser(autoIndentFlag, appendLastEOLFlag).
-					EvalStream(env, sig, streamSrc, streamDst);
-		return Value::Null;
-	} else {
-		String strDst;
-		SimpleStream_StringWriter streamDst(strDst);
-		if (!Template::Parser(autoIndentFlag, appendLastEOLFlag).
-					EvalStream(env, sig, streamSrc, streamDst)) return Value::Null;
-		return Value(strDst);
-	}
-}
-
 // readlines(stream?:stream:r):[chop] {block?}
 Gura_DeclareFunction(readlines)
 {
@@ -580,35 +550,6 @@ Gura_ImplementMethod(stream, parse)
 	return ReturnValue(env, sig, args, Value(new Object_expr(env, pExprRoot.release())));
 }
 
-// stream#template(dst?:stream:w):map:[noindent,lasteol]
-Gura_DeclareMethodAlias(stream, template_, "template")
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "dst", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
-	DeclareAttr(Gura_Symbol(noindent));
-	DeclareAttr(Gura_Symbol(lasteol));
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(stream, template_)
-{
-	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
-	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
-	Stream &streamSrc = Object_stream::GetThisObj(args)->GetStream();
-	if (args.Is_stream(0)) {
-		Stream &streamDst = args.GetStream(0);
-		Template::Parser(autoIndentFlag, appendLastEOLFlag).
-					EvalStream(env, sig, streamSrc, streamDst);
-		return Value::Null;
-	} else {
-		String strDst;
-		SimpleStream_StringWriter streamDst(strDst);
-		if (!Template::Parser(autoIndentFlag, appendLastEOLFlag).
-					EvalStream(env, sig, streamSrc, streamDst)) return Value::Null;
-		return Value(strDst);
-	}
-}
-
 // stream#print(values*):map:void
 Gura_DeclareMethod(stream, print)
 {
@@ -743,7 +684,6 @@ void Class_stream::Prepare(Environment &env)
 	Gura_AssignFunctionEx(stream, "open");
 	Gura_AssignFunction(stream);
 	Gura_AssignFunction(copy);
-	Gura_AssignFunction(template_);
 	Gura_AssignFunction(readlines);
 	Gura_AssignBinaryOperator(Shl, stream, any);
 	Gura_AssignMethod(stream, close);
@@ -764,7 +704,6 @@ void Class_stream::Prepare(Environment &env)
 	Gura_AssignMethod(stream, readlines);
 	Gura_AssignMethod(stream, readtext);
 	Gura_AssignMethod(stream, parse);
-	Gura_AssignMethod(stream, template_);
 	Gura_AssignMethod(stream, print);
 	Gura_AssignMethod(stream, println);
 	Gura_AssignMethod(stream, printf);

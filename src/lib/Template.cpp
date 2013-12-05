@@ -10,7 +10,14 @@ Template::Template() : _pExprOwnerForInit(new ExprOwner()),
 {
 }
 
-bool Template::Eval(Environment &env, Signal sig, SimpleStream *pStreamDst)
+bool Template::Read(Environment &env, Signal sig,
+			SimpleStream &streamSrc, bool autoIndentFlag, bool appendLastEOLFlag)
+{
+	Parser parser(autoIndentFlag, appendLastEOLFlag);
+	return parser.ParseStream(env, sig, this, streamSrc);
+}
+
+bool Template::Render(Environment &env, Signal sig, SimpleStream *pStreamDst)
 {
 	Template *pTemplateTop = NULL;
 	for (Template *pTemplate = this; pTemplate != NULL;
@@ -61,15 +68,8 @@ Template::Parser::Parser(bool autoIndentFlag, bool appendLastEOLFlag) :
 {
 }
 
-bool Template::Parser::EvalStream(Environment &env, Signal sig,
-							SimpleStream &streamSrc, SimpleStream &streamDst)
-{
-	AutoPtr<Template> pTemplate(ParseStream(env, sig, streamSrc));
-	if (pTemplate.IsNull()) return false;
-	return pTemplate->Eval(env, sig, &streamDst);
-}
-
-Template *Template::Parser::ParseStream(Environment &env, Signal sig, SimpleStream &streamSrc)
+bool Template::Parser::ParseStream(Environment &env, Signal sig,
+								Template *pTemplate, SimpleStream &streamSrc)
 {
 	AutoPtr<StringRef> pSourceName(new StringRef(streamSrc.GetName()));
 	char chPrefix = '$';
@@ -84,11 +84,10 @@ Template *Template::Parser::ParseStream(Environment &env, Signal sig, SimpleStre
 	int cntLineTop = 0;
 	int nDepth = 0;
 	_exprCallerStack.clear();
-	AutoPtr<Template> pTemplate(new Template());
 	AutoPtr<Expr_Block> pExprBlockRoot(new Expr_Block());
 	for (;;) {
 		int chRaw = streamSrc.GetChar(sig);
-		if (sig.IsSignalled()) return NULL;
+		if (sig.IsSignalled()) return false;
 		if (chRaw < 0) break;
 		char ch = static_cast<char>(chRaw);
 		bool continueFlag = false;
@@ -137,7 +136,7 @@ Template *Template::Parser::ParseStream(Environment &env, Signal sig, SimpleStre
 						ExprOwner &exprOwner = _exprCallerStack.empty()?
 							pExprBlockRoot->GetExprOwner() :
 							_exprCallerStack.back()->GetBlock()->GetExprOwner();
-						Expr *pExpr = new Expr_TmplString(pTemplate.get(), str);
+						Expr *pExpr = new Expr_TmplString(pTemplate, str);
 						pExpr->SetSourceInfo(pSourceName->Reference(), 0, 0);
 						exprOwner.push_back(pExpr);
 						str.clear();
@@ -180,8 +179,8 @@ Template *Template::Parser::ParseStream(Environment &env, Signal sig, SimpleStre
 				const char *strPost = (ch == '\n')? "\n" : "";
 				if (!CreateTmplScript(env, sig,
 						strIndent.c_str(), strTmplScript.c_str(), strPost,
-						pTemplate.get(), pExprBlockRoot.get(),
-						pSourceName.get(), cntLineTop, cntLine)) return NULL;
+						pTemplate, pExprBlockRoot.get(),
+						pSourceName.get(), cntLineTop, cntLine)) return false;
 				strIndent.clear();
 				strTmplScript.clear();
 				if (ch == '\n') {
@@ -201,15 +200,15 @@ Template *Template::Parser::ParseStream(Environment &env, Signal sig, SimpleStre
 		const char *strPost = "";
 		if (!CreateTmplScript(env, sig,
 				strIndent.c_str(), strTmplScript.c_str(), strPost,
-				pTemplate.get(), pExprBlockRoot.get(),
-				pSourceName.get(), cntLineTop, cntLine)) return NULL;
+				pTemplate, pExprBlockRoot.get(),
+				pSourceName.get(), cntLineTop, cntLine)) return false;
 	}
 	if (!_exprCallerStack.empty()) {
 		sig.SetError(ERR_SyntaxError, "lacking end statement for block expression");
-		return NULL;
+		return false;
 	}
 	if (!str.empty()) {
-		Expr *pExpr = new Expr_TmplString(pTemplate.get(), str);
+		Expr *pExpr = new Expr_TmplString(pTemplate, str);
 		pExpr->SetSourceInfo(pSourceName->Reference(), 0, 0);
 		pExprBlockRoot->GetExprOwner().push_back(pExpr);
 		str.clear();
@@ -217,10 +216,10 @@ Template *Template::Parser::ParseStream(Environment &env, Signal sig, SimpleStre
 	pExprBlockRoot->SetSourceInfo(pSourceName->Reference(), cntLineTop + 1, cntLine + 1);
 	FunctionCustom *pFuncBlock = FunctionCustom::CreateBlockFunc(env, sig,
 				Gura_Symbol(_anonymous_), pExprBlockRoot.get(), FUNCTYPE_Function);
-	if (pFuncBlock == NULL) return NULL;
+	if (pFuncBlock == NULL) return false;
 	pTemplate->SetFuncForBody(pFuncBlock);
-	if (!pTemplate->Prepare(env, sig)) return NULL;
-	return pTemplate.release();
+	if (!pTemplate->Prepare(env, sig)) return false;
+	return true;
 }
 
 bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,

@@ -400,7 +400,7 @@ createMsi(fileNames) = {
 	fs.chdir(path.join(dirNameScript, '..')) {
 		version = sys.version
 		components.add('ComponentReg')
-		textTemplate.template(open(fileNameWxs, 'w', 'utf-8'))
+		textTemplate.template().render(open(fileNameWxs, 'w', 'utf-8'))
 		try {
 			(os.exec('candle', '-o', fileNameWixobj, fileNameWxs) != 0) && sys.exit(1)
 			(os.exec('light', '-ext', 'WixUIExtension', '-spdb'
