@@ -13,23 +13,14 @@ Template::Template() : _pExprOwnerForInit(new ExprOwner()),
 bool Template::Eval(Environment &env, Signal sig, SimpleStream *pStreamDst)
 {
 	Template *pTemplateTop = NULL;
-	Template *pTemplateNext = NULL;
 	for (Template *pTemplate = this; pTemplate != NULL;
 							pTemplate = pTemplate->GetTemplateSuper()) {
 		pTemplate->SetStreamDst(pStreamDst);
-		pTemplateNext = pTemplateTop;
 		pTemplateTop = pTemplate;
 	}
 	if (pTemplateTop->GetFuncForBody() == NULL) return true;
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetThis(Value(new Object_template(env, Reference())));
-	ValueMap *pValMapHiddenArg = new ValueMap();
-	if (pTemplateNext == NULL) {
-		(*pValMapHiddenArg)[Gura_Symbol(next)] = Value::Null;
-	} else {
-		(*pValMapHiddenArg)[Gura_Symbol(next)] = Value(new Object_template(env, pTemplateNext->Reference()));
-	}
-	pArgs->SetValueMapHiddenArg(pValMapHiddenArg);
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
 	pTemplateTop->GetFuncForBody()->Eval(*pEnvBlock, sig, *pArgs);
 	for (Template *pTemplate = this; pTemplate != NULL;
@@ -240,7 +231,7 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 	Class *pClass = env.LookupClass(VTYPE_template);
 	Expr *pExprLast = NULL;
 	AutoPtr<Expr_TmplScript> pExprTmplScript(new Expr_TmplScript(
-		pTemplate, strIndent, strPost, _autoIndentFlag, _appendLastEOLFlag));
+			pTemplate, strIndent, strPost, _autoIndentFlag, _appendLastEOLFlag));
 	pExprTmplScript->SetSourceInfo(pSourceName->Reference(), cntLineTop + 1, cntLineBtm + 1);
 	if (*strTmplScript == '=') {
 		strTmplScript++;
