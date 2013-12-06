@@ -28,6 +28,7 @@ public:
 									Expr *pExprBody, FunctionType funcType);
 	virtual ~FunctionCustom();
 	virtual bool IsCustom() const;
+	inline Expr *GetExprBody() { return _pExprBody.get(); }
 	inline const Expr *GetExprBody() const { return _pExprBody.get(); }
 	inline void SetExprBody(Expr *pExprBody) { _pExprBody.reset(pExprBody); }
 	virtual Expr *DiffUnary(Environment &env, Signal sig,

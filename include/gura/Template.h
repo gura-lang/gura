@@ -53,7 +53,8 @@ public:
 	inline const Template *GetTemplateSuper() const { return _pTemplateSuper.get(); }
 	inline void SetFuncForBody(FunctionCustom *pFuncForBody) { _pFuncForBody.reset(pFuncForBody); }
 	inline ExprOwner &GetExprOwnerForInit() { return *_pExprOwnerForInit; }
-	inline const FunctionCustom *GetFuncForBody() { return _pFuncForBody.get(); }
+	inline FunctionCustom *GetFuncForBody() { return _pFuncForBody.get(); }
+	inline const FunctionCustom *GetFuncForBody() const { return _pFuncForBody.get(); }
 	inline ValueMap &GetValueMap() { return *_pValueMap; }
 	inline const ValueMap &GetValueMap() const { return *_pValueMap; }
 	inline void SetStreamDst(SimpleStream *pStreamDst) { _pStreamDst = pStreamDst; }

@@ -85,7 +85,13 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 	int cntLineTop = 0;
 	int nDepth = 0;
 	_exprLeaderStack.clear();
-	AutoPtr<Expr_Block> pExprBlockRoot(new Expr_Block());
+	if (pTemplate->GetFuncForBody() == NULL) {
+		AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
+				Gura_Symbol(_anonymous_), new Expr_Block(), FUNCTYPE_Function));
+		pTemplate->SetFuncForBody(pFunc.release());
+	}
+	Expr_Block *pExprBlockRoot = dynamic_cast<Expr_Block *>(
+									pTemplate->GetFuncForBody()->GetExprBody());
 	for (;;) {
 		int chRaw = streamSrc.GetChar(sig);
 		if (sig.IsSignalled()) return false;
@@ -180,7 +186,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 				const char *strPost = (ch == '\n')? "\n" : "";
 				if (!CreateTmplScript(env, sig,
 						strIndent.c_str(), strTmplScript.c_str(), strPost,
-						pTemplate, pExprBlockRoot.get(),
+						pTemplate, pExprBlockRoot,
 						pSourceName.get(), cntLineTop, cntLine)) return false;
 				strIndent.clear();
 				strTmplScript.clear();
@@ -201,7 +207,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 		const char *strPost = "";
 		if (!CreateTmplScript(env, sig,
 				strIndent.c_str(), strTmplScript.c_str(), strPost,
-				pTemplate, pExprBlockRoot.get(),
+				pTemplate, pExprBlockRoot,
 				pSourceName.get(), cntLineTop, cntLine)) return false;
 	}
 	if (!_exprLeaderStack.empty()) {
@@ -214,10 +220,6 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 		pExprBlockRoot->GetExprOwner().push_back(pExpr);
 		str.clear();
 	}
-	pExprBlockRoot->SetSourceInfo(pSourceName->Reference(), cntLineTop + 1, cntLine + 1);
-	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
-			Gura_Symbol(_anonymous_), pExprBlockRoot.release(), FUNCTYPE_Function));
-	pTemplate->SetFuncForBody(pFunc.release());
 	return true;
 }
 
