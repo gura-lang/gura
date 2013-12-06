@@ -83,7 +83,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 	int cntLine = 0;
 	int cntLineTop = 0;
 	int nDepth = 0;
-	_exprCallerStack.clear();
+	_exprLeaderStack.clear();
 	AutoPtr<Expr_Block> pExprBlockRoot(new Expr_Block());
 	for (;;) {
 		int chRaw = streamSrc.GetChar(sig);
@@ -133,9 +133,9 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 			case STAT_ScriptPre: {
 				if (ch == '{') {
 					if (!str.empty()) {
-						ExprOwner &exprOwner = _exprCallerStack.empty()?
+						ExprOwner &exprOwner = _exprLeaderStack.empty()?
 							pExprBlockRoot->GetExprOwner() :
-							_exprCallerStack.back()->GetBlock()->GetExprOwner();
+							_exprLeaderStack.back()->GetBlock()->GetExprOwner();
 						Expr *pExpr = new Expr_TmplString(pTemplate, str);
 						pExpr->SetSourceInfo(pSourceName->Reference(), 0, 0);
 						exprOwner.push_back(pExpr);
@@ -203,7 +203,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 				pTemplate, pExprBlockRoot.get(),
 				pSourceName.get(), cntLineTop, cntLine)) return false;
 	}
-	if (!_exprCallerStack.empty()) {
+	if (!_exprLeaderStack.empty()) {
 		sig.SetError(ERR_SyntaxError, "lacking end statement for block expression");
 		return false;
 	}
@@ -245,9 +245,9 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 			if (!parser.ParseString(env, sig, exprOwner, "this.present_", false)) return false;
 			if (!parser.ParseString(env, sig, exprOwner, strTmplScript, true)) return false;
 		} while (0);
-		ExprOwner &exprOwnerForPresent = _exprCallerStack.empty()?
+		ExprOwner &exprOwnerForPresent = _exprLeaderStack.empty()?
 				pExprBlockRoot->GetExprOwner() :
-				_exprCallerStack.back()->GetBlock()->GetExprOwner();
+				_exprLeaderStack.back()->GetBlock()->GetExprOwner();
 		exprOwnerForPresent.push_back(Expr::Reference(pExprTmplScript.get()));
 		foreach (ExprOwner, ppExpr, *pExprOwnerPart) {
 			Expr *pExpr = *ppExpr;
@@ -272,10 +272,10 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 			if (pCallable != NULL && pCallable->GetBlockOccurPattern() == OCCUR_Once) {
 				Expr_Block *pExprBlock = new Expr_Block();
 				pExprLastCaller->SetBlock(pExprBlock);
-				_exprCallerStack.push_back(pExprLastCaller);
+				_exprLeaderStack.push_back(pExprLastCaller);
 			}
 		} else if (pExprLastCaller->GetBlock()->GetExprOwner().empty()) {
-			_exprCallerStack.push_back(pExprLastCaller);
+			_exprLeaderStack.push_back(pExprLastCaller);
 		}
 	} else {
 		AutoPtr<ExprOwner> pExprOwnerPart(new ExprOwner());
@@ -290,7 +290,7 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 			sig.ClearSignal();
 			if (pCallable != NULL && pCallable->IsTrailer()) {
 				pExprTmplScript->SetStringIndent("");
-				if (_exprCallerStack.empty()) {
+				if (_exprLeaderStack.empty()) {
 					sig.SetError(ERR_SyntaxError, "unmatching trailer expression");
 					sig.AddExprCause(pExprTmplScript.get());
 					return false;
@@ -304,10 +304,10 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 						pExprCaller->SetSourceInfo(pSourceName->Reference(),
 										pExpr->GetLineNoTop(), pExpr->GetLineNoBtm());
 					}
-					_exprCallerStack.back()->SetTrailer(pExprCaller);
+					_exprLeaderStack.back()->SetTrailer(pExprCaller);
 					pExprLast = pExprCaller;
 				}
-				_exprCallerStack.pop_back();
+				_exprLeaderStack.pop_back();
 				ppExpr++;
 			}
 		}
@@ -317,9 +317,9 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 				pExprTmplScript->GetExprOwner().push_back(Expr::Reference(pExpr));
 				pExprLast = pExpr;
 			}
-			ExprOwner &exprOwnerForPresent = _exprCallerStack.empty()?
+			ExprOwner &exprOwnerForPresent = _exprLeaderStack.empty()?
 					pExprBlockRoot->GetExprOwner() :
-					_exprCallerStack.back()->GetBlock()->GetExprOwner();
+					_exprLeaderStack.back()->GetBlock()->GetExprOwner();
 			exprOwnerForPresent.push_back(Expr::Reference(pExprTmplScript.get()));
 		}
 		if (pExprLast == NULL) return true;
@@ -341,12 +341,12 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 			if (pCallable != NULL && pCallable->GetBlockOccurPattern() == OCCUR_Once) {
 				Expr_Block *pExprBlock = new Expr_Block();
 				pExprLastCaller->SetBlock(pExprBlock);
-				_exprCallerStack.push_back(pExprLastCaller);
+				_exprLeaderStack.push_back(pExprLastCaller);
 				pExprTmplScript->SetStringIndent("");
 				pExprTmplScript->SetStringPost("");
 			}
 		} else if (pExprLastCaller->GetBlock()->GetExprOwner().empty()) {
-			_exprCallerStack.push_back(pExprLastCaller);
+			_exprLeaderStack.push_back(pExprLastCaller);
 			pExprTmplScript->SetStringIndent("");
 			pExprTmplScript->SetStringPost("");
 		}

@@ -12,11 +12,11 @@ class GURA_DLLDECLARE Template {
 public:
 	class GURA_DLLDECLARE Parser {
 	public:
-		typedef std::vector<Expr_Caller *> ExprCallerStack;
+		typedef std::vector<Expr_Caller *> ExprLeaderStack;
 	private:
 		bool _autoIndentFlag;
 		bool _appendLastEOLFlag;
-		ExprCallerStack _exprCallerStack;
+		ExprLeaderStack _exprLeaderStack;
 	public:
 		Parser(bool autoIndentFlag, bool appendLastEOLFlag);
 		bool ParseStream(Environment &env, Signal sig,
