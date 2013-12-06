@@ -213,7 +213,7 @@ ${end}
 '''.template().render(sys.stdout)
 }
 //-----------------------------------------------------------------------------
-testcase('inheritance') {
+testcase('test of inheritance') {
 	// base1 template
 	base1 = R'''
 === ${=block(`head)}base1-head${end} ===
@@ -256,7 +256,7 @@ ${=inherit(base3)}
 '''.template().render(sys.stdout)
 }
 //-----------------------------------------------------------------------------
-testcase('scope') {
+testcase('test of scope') {
 	x = '${value}\n'.template()
 	try {
 		x.render(sys.stdout)
@@ -308,4 +308,34 @@ ${end}
 		title = 'Member List'
 		tmpl.render(sys.stdout)
 	}
+}
+//-----------------------------------------------------------------------------
+testcase('test of comment') {
+	tmpl = R'''
+1st line
+2nd line
+3rd line
+${==}
+*comment-out*
+*comment-out*
+*comment-out*
+${==}
+4th line
+${==}
+*comment-out*
+${=*comment-out*
+*comment-out*
+${==}
+5th line
+${==}
+${==*comment-out*
+${==}
+6th line
+${==}*comment-out*${==}
+7th line
+8th line
+9th ${==}*comment-out*${==}line
+10th line
+11th line
+'''.template().render(sys.stdout)
 }

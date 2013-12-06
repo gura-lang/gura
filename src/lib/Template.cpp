@@ -76,7 +76,14 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 	char chPrefix = '$';
 	enum {
 		STAT_LineTop, STAT_Indent, STAT_String,
-		STAT_ScriptPre, STAT_Script, STAT_ScriptPost,
+		STAT_ScriptPre, STAT_ScriptFirst, STAT_ScriptSecond,
+		STAT_Script, STAT_ScriptPost,
+		STAT_CommentBegin_SeekR,
+		STAT_Comment,
+		STAT_CommentEnd_SeekL,
+		STAT_CommentEnd_First, STAT_CommentEnd_Second,
+		STAT_CommentEnd_SeekR,
+		STAT_CommentPost,
 	} stat = STAT_LineTop;
 	String str;
 	String strTmplScript;
@@ -152,7 +159,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 					cntLineTop = cntLine;
 					nDepth = 1;
 					strTmplScript.clear();
-					stat = STAT_Script;
+					stat = STAT_ScriptFirst;
 				} else if (ch == chPrefix) {
 					str += strIndent;
 					strIndent.clear();
@@ -164,6 +171,25 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 					str += ch;
 					continueFlag = true;
 					stat = STAT_String;
+				}
+				break;
+			}
+			case STAT_ScriptFirst: {
+				if (ch == '=') {
+					stat = STAT_ScriptSecond;
+				} else {
+					continueFlag = true;
+					stat = STAT_Script;
+				}
+				break;
+			}
+			case STAT_ScriptSecond: {
+				if (ch == '=') {
+					stat = STAT_CommentBegin_SeekR;
+				} else {
+					strTmplScript += '=';
+					continueFlag = true;
+					stat = STAT_Script;
 				}
 				break;
 			}
@@ -191,6 +217,64 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 						pSourceName.get(), cntLineTop, cntLine)) return false;
 				strIndent.clear();
 				strTmplScript.clear();
+				if (ch == '\n') {
+					continueFlag = false;
+					stat = STAT_LineTop;
+				} else {
+					continueFlag = true;
+					stat = STAT_String;
+				}
+				break;
+			}
+			case STAT_CommentBegin_SeekR: {
+				if (ch == '}') {
+					stat = STAT_Comment;
+				} else {
+					// nothing to do
+				}
+				break;
+			}
+			case STAT_Comment: {
+				if (ch == chPrefix) {
+					stat = STAT_CommentEnd_SeekL;
+				} else {
+					// nothing to do
+				}
+				break;
+			}
+			case STAT_CommentEnd_SeekL: {
+				if (ch == '{') {
+					stat = STAT_CommentEnd_First;
+				} else {
+					stat = STAT_Comment;
+				}
+				break;
+			}
+			case STAT_CommentEnd_First: {
+				if (ch == '=') {
+					stat = STAT_CommentEnd_Second;
+				} else {
+					stat = STAT_Comment;
+				}
+				break;
+			}
+			case STAT_CommentEnd_Second: {
+				if (ch == '=') {
+					stat = STAT_CommentEnd_SeekR;
+				} else {
+					stat = STAT_Comment;
+				}
+				break;
+			}
+			case STAT_CommentEnd_SeekR: {
+				if (ch == '}') {
+					stat = STAT_CommentPost;
+				} else {
+					// nothing to do
+				}
+				break;
+			}
+			case STAT_CommentPost: {
 				if (ch == '\n') {
 					continueFlag = false;
 					stat = STAT_LineTop;

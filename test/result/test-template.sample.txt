@@ -349,7 +349,7 @@ hoge
     hoge 10
 
 
-======== #14 inheritance ========
+======== #14 test of inheritance ========
 
 inherit from base1
 === base1-head ===
@@ -366,7 +366,7 @@ inherit from base3
 base3-body
 <end-of-body>
 
-======== #15 scope ========
+======== #15 test of scope ========
 
 expected error occurs: ValueError: undefined symbol 'value'
 hoge
@@ -398,3 +398,17 @@ hoge-inside-inside
   <tr><td>2</td><td>Honda</td><td>21</td></tr>
   <tr><td>3</td><td>Tanaka</td><td>24</td></tr>
 </table>
+
+======== #17 test of comment ========
+
+1st line
+2nd line
+3rd line
+4th line
+5th line
+6th line
+7th line
+8th line
+9th line
+10th line
+11th line
