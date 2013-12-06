@@ -281,17 +281,23 @@ testcase {
 <p>number of people: ${people.len()}</p>
 
 <table>
-<tr><th>No</th><th>Name</th><th>Age</th></tr>
+  <tr><th>No</th><th>Name</th><th>Age</th></tr>
 ${for (person in people) {|i|}}
   <tr><td>${i + 1}</td><td>${person.name}</td><td>${person.age}</td></tr>
 ${end}
 </table>
 
 <table>
-<tr><th>No</th><th>Name</th><th>Age</th></tr>
+  <tr><th>No</th><th>Name</th><th>Age</th></tr>
 ${people.each {|person, i|}}
   <tr><td>${i + 1}</td><td>${person.name}</td><td>${person.age}</td></tr>
 ${end}
+</table>
+
+<table>
+  <tr><th>No</th><th>Name</th><th>Age</th></tr>
+  ${format('<tr><td>%d</td><td>%s</td><td>%d</td></tr>\n',
+  										1.., people:*name, people:*age)}
 </table>
 '''.template()
 	scope {
