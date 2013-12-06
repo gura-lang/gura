@@ -202,8 +202,7 @@ hello world
     B
   ${end}
   ${for (x in 1..10)}
-    ${for (y in 1..10)}XXX${end}
-
+    ${for (y in 1..10)}XXX${end, ''}
   ${end}
 hoge
 
@@ -214,7 +213,7 @@ ${end}
 '''.template().render(sys.stdout)
 }
 //-----------------------------------------------------------------------------
-testcase {
+testcase('inheritance') {
 	// base1 template
 	base1 = R'''
 === ${=block(`head)}base1-head${end} ===
@@ -257,3 +256,50 @@ ${=inherit(base3)}
 '''.template().render(sys.stdout)
 }
 //-----------------------------------------------------------------------------
+testcase('scope') {
+	x = '${value}\n'.template()
+	try {
+		x.render(sys.stdout)
+	} catch {|e|
+		println('expected error occurs: ', e.text)
+	}
+	value = 'hoge'
+	x.render(sys.stdout)
+	scope {
+		value = 'hoge-inside'
+		x.render(sys.stdout)
+		scope {
+			value = 'hoge-inside-inside'
+			x.render(sys.stdout)
+		}
+	}
+}
+//-----------------------------------------------------------------------------
+testcase {
+	tmpl = R'''
+<h2>${title}</h2>
+<p>number of people: ${people.len()}</p>
+
+<table>
+<tr><th>No</th><th>Name</th><th>Age</th></tr>
+${for (person in people) {|i|}}
+  <tr><td>${i + 1}</td><td>${person.name}</td><td>${person.age}</td></tr>
+${end}
+</table>
+
+<table>
+<tr><th>No</th><th>Name</th><th>Age</th></tr>
+${people.each {|person, i|}}
+  <tr><td>${i + 1}</td><td>${person.name}</td><td>${person.age}</td></tr>
+${end}
+</table>
+'''.template()
+	scope {
+		Person = struct(name:string, age:number)
+		people = @(Person) {
+			{'Yamada', 23}, {'Honda', 21}, {'Tanaka', 24}
+		}
+		title = 'Member List'
+		tmpl.render(sys.stdout)
+	}
+}

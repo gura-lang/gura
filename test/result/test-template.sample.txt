@@ -349,7 +349,7 @@ hoge
     hoge 10
 
 
-======== #14 ========
+======== #14 inheritance ========
 
 inherit from base1
 === base1-head ===
@@ -365,3 +365,29 @@ inherit from base3
 <start-of-body>
 base3-body
 <end-of-body>
+
+======== #15 scope ========
+
+expected error occurs: ValueError: undefined symbol 'value'
+hoge
+hoge-inside
+hoge-inside-inside
+
+======== #16 ========
+
+<h2>Member List</h2>
+<p>number of people: 3</p>
+
+<table>
+<tr><th>No</th><th>Name</th><th>Age</th></tr>
+  <tr><td>1</td><td>Yamada</td><td>23</td></tr>
+  <tr><td>2</td><td>Honda</td><td>21</td></tr>
+  <tr><td>3</td><td>Tanaka</td><td>24</td></tr>
+</table>
+
+<table>
+<tr><th>No</th><th>Name</th><th>Age</th></tr>
+  <tr><td>1</td><td>Yamada</td><td>23</td></tr>
+  <tr><td>2</td><td>Honda</td><td>21</td></tr>
+  <tr><td>3</td><td>Tanaka</td><td>24</td></tr>
+</table>
