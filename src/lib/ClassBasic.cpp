@@ -974,12 +974,13 @@ Gura_ImplementMethod(string, strip)
 	return Value(Strip(args.GetThis().GetString(), args.GetAttrs()));
 }
 
-// string#template():[noindent,lasteol]
+// string#template():[noindent,lasteol] {block?}
 Gura_DeclareMethodAlias(string, template_, "template")
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(noindent));
 	DeclareAttr(Gura_Symbol(lasteol));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Evaluate script coded that is embedded in a string.");
 }
