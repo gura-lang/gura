@@ -214,9 +214,6 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 		str.clear();
 	}
 	pExprBlockRoot->SetSourceInfo(pSourceName->Reference(), cntLineTop + 1, cntLine + 1);
-	//FunctionCustom *pFuncBlock = FunctionCustom::CreateBlockFunc(env, sig,
-	//			Gura_Symbol(_anonymous_), pExprBlockRoot.get(), FUNCTYPE_Function);
-	//if (pFuncBlock == NULL) return false;
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 			Gura_Symbol(_anonymous_), pExprBlockRoot.release(), FUNCTYPE_Function));
 	pTemplate->SetFuncForBody(pFunc.release());
