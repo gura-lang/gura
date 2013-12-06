@@ -348,3 +348,20 @@ hoge
     hoge 9
     hoge 10
 
+
+======== #14 ========
+
+inherit from base1
+=== base1-head ===
+<start-of-body>
+base1-body
+<end-of-body>
+inherit from base2
+=== base2-head ===
+<start-of-body>
+<end-of-body>
+inherit from base3
+=== base3-head ===
+<start-of-body>
+base3-body
+<end-of-body>
