@@ -5,7 +5,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Template
 //-----------------------------------------------------------------------------
-Template::Template() : _pExprOwnerForInit(new ExprOwner()),
+Template::Template() : _cntRef(1), _pExprOwnerForInit(new ExprOwner()),
 								_pValueMap(new ValueMap()), _pStreamDst(NULL)
 {
 }
