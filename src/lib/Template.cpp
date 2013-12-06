@@ -22,6 +22,7 @@ bool Template::Render(Environment &env, Signal sig, SimpleStream *pStreamDst)
 	Template *pTemplateTop = NULL;
 	for (Template *pTemplate = this; pTemplate != NULL;
 							pTemplate = pTemplate->GetTemplateSuper()) {
+		if (!pTemplate->Prepare(env, sig)) return false;
 		pTemplate->SetStreamDst(pStreamDst);
 		pTemplateTop = pTemplate;
 	}
@@ -217,7 +218,6 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
 			Gura_Symbol(_anonymous_), pExprBlockRoot.release(), FUNCTYPE_Function));
 	pTemplate->SetFuncForBody(pFunc.release());
-	if (!pTemplate->Prepare(env, sig)) return false;
 	return true;
 }
 

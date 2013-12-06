@@ -90,24 +90,18 @@ Gura_ImplementMethod(template_, block)
 	return Value::Null;
 }
 
-// template#inherit(stream:stream):void:[lasteol,noindent]
+// template#inherit(super:template):void
 Gura_DeclareMethod(template_, inherit)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "stream", VTYPE_stream);
-	DeclareAttr(Gura_Symbol(lasteol));
-	DeclareAttr(Gura_Symbol(noindent));
+	DeclareArg(env, "super", VTYPE_template);
 }
 
 Gura_ImplementMethod(template_, inherit)
 {
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
-	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
-	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
-	Template::Parser parser(autoIndentFlag, appendLastEOLFlag);
-	AutoPtr<Template> pTemplateSuper(new Template());
-	if (!parser.ParseStream(env, sig, pTemplateSuper.get(), args.GetStream(0))) return Value::Null;
-	pTemplate->SetTemplateSuper(pTemplateSuper.release());
+	Template *pTemplateSuper = Object_template::GetObject(args, 0)->GetTemplate();
+	pTemplate->SetTemplateSuper(pTemplateSuper->Reference());
 	return Value::Null;
 }
 
@@ -200,6 +194,21 @@ void Class_template::Prepare(Environment &env)
 	Gura_AssignMethod(template_, present_inherit);
 	Gura_AssignMethod(template_, read);
 	Gura_AssignMethod(template_, render);
+}
+
+bool Class_template::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+{
+	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, value, pDecl);
+	if (value.Is_stream()) {
+		bool autoIndentFlag = true;
+		bool appendLastEOLFlag = false;
+		AutoPtr<Template> pTemplate(new Template());
+		if (!pTemplate->Read(env, sig, value.GetStream(),
+							autoIndentFlag, appendLastEOLFlag)) return false;
+		value = Value(new Object_template(env, pTemplate.release()));
+		return true;
+	}
+	return false;
 }
 
 Object *Class_template::CreateDescendant(Environment &env, Signal sig, Class *pClass)
