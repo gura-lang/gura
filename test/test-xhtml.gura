@@ -9,7 +9,7 @@ e = xhtml {
 	body {
 		'hello world', span {'abcdefg'}
 		table {
-			tr { td {'col-1'} td {'col-2'} td {'col-3'} }
+			tr { td {'col-1'}, td {'col-2'}, td {'col-3'} }
 		}
 	}
 }

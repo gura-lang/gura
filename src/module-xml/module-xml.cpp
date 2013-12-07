@@ -1290,6 +1290,7 @@ Gura_ImplementFunction(element)
 			}
 		}
 	}
+	args.QuitTrailer();
 	return Value(new Object_element(pElement));
 }
 
@@ -1303,6 +1304,7 @@ Gura_DeclareFunction(comment)
 Gura_ImplementFunction(comment)
 {
 	Element *pElement = new Element(Element::TYPE_Comment, args.GetStringSTL(0));
+	args.QuitTrailer();
 	return Value(new Object_element(pElement));
 }
 
