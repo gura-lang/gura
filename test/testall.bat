@@ -42,27 +42,30 @@ set files=%files% test-stream.gura
 set files=%files% test-string.gura
 set files=%files% test-template.gura
 set files=%files% test-value.gura
+rem set files=%files% test-xml.gura
 set files=%files% test-yaml.gura
 
-if "%1" == "clean" goto clean
+if "%1" == "" goto all
 if "%1" == "genscript" goto genscript
-for %%F in (%files%) do %PROGRAM_GURA% --printcmdline %%F > result\%%~nF.result.txt
-if "%1" == "print" goto print
 if "%1" == "update" goto update
-goto diff
-:print
-for %%F in (%files%) do type result\%%~nF.result.txt
+if "%1" == "clean" goto clean
+set files=test-%1.gura
+rem --------
+:all
+for %%F in (%files%) do %PROGRAM_GURA% --printcmdline %%F > result\%%~nF.result.txt
+for %%F in (%files%) do diff -u result\%%~nF.sample.txt result\%%~nF.result.txt
 goto done
-:update
-for %%F in (%files%) do copy result\%%~nF.result.txt result\%%~nF.sample.txt >NUL
-goto done
+rem --------
 :genscript
 for %%F in (%files%) do %PROGRAM_GURA% --printcmdline genscript.gura --eval %%F > result\%%~nF.result.txt
-goto diff
+for %%F in (%files%) do diff -u result\%%~nF.sample.txt result\%%~nF.result.txt
+goto done
+rem --------
+:update
+for %%F in (%files%) do %PROGRAM_GURA% --printcmdline %%F > result\%%~nF.sample.txt
+goto done
+rem --------
 :clean
 for %%F in (%files%) do del result\%%~nF.result.txt
-goto done
-:diff
-for %%F in (%files%) do diff -u result\%%~nF.sample.txt result\%%~nF.result.txt
 goto done
 :done
