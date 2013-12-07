@@ -1275,12 +1275,18 @@ Gura_ImplementFunction(element)
 	if (pExprBlock != NULL) {
 		foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {
 			SeqPostHandler *pSeqPostHandler = NULL;
-			const Expr *pExpr = *ppExpr;
-			Value value = pExpr->Exec2(env, sig, pSeqPostHandler);
-			if (sig.IsSignalled()) return Value::Null;
-			if (!pElement->AddChild(env, sig, value)) {
-				sig.AddExprCause(pExpr);
-				return Value::Null;
+			for (const Expr *pExpr = *ppExpr; pExpr != NULL; ) {
+				Value value = pExpr->Exec2(env, sig, pSeqPostHandler);
+				if (sig.IsSignalled()) return Value::Null;
+				if (!pElement->AddChild(env, sig, value)) {
+					sig.AddExprCause(pExpr);
+					return Value::Null;
+				}
+				if (pExpr->IsCaller()) {
+					pExpr = dynamic_cast<const Expr_Caller *>(pExpr)->GetTrailer();
+				} else {
+					pExpr = NULL;
+				}
 			}
 		}
 	}
