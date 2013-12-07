@@ -79,12 +79,13 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 		STAT_ScriptPre, STAT_ScriptFirst, STAT_ScriptSecond,
 		STAT_Script, STAT_ScriptPost,
 		STAT_CommentBegin_SeekR,
-		STAT_Comment,
+		STAT_Comment, STAT_Comment_LineTop,
 		STAT_CommentEnd_SeekL,
 		STAT_CommentEnd_First, STAT_CommentEnd_Second,
 		STAT_CommentEnd_SeekR,
 		STAT_CommentPost,
 	} stat = STAT_LineTop;
+	bool stringAheadFlag = false;
 	String str;
 	String strTmplScript;
 	String strIndent;
@@ -115,7 +116,10 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 				} else if (IsWhite(ch)) {
 					continueFlag = true;
 					stat = STAT_Indent;
+				} else if (ch == chPrefix) {
+					stat = STAT_ScriptPre;
 				} else {
+					stringAheadFlag = true;
 					continueFlag = true;
 					stat = STAT_String;
 				}
@@ -129,6 +133,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 				} else {
 					str += strIndent;
 					strIndent.clear();
+					stringAheadFlag = true;
 					continueFlag = true;
 					stat = STAT_String;
 				}
@@ -139,6 +144,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 					stat = STAT_ScriptPre;
 				} else if (ch == '\n') {
 					str += ch;
+					stringAheadFlag = false;
 					stat = STAT_LineTop;
 				} else {
 					str += ch;
@@ -164,11 +170,13 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 					str += strIndent;
 					strIndent.clear();
 					str += ch;
+					stringAheadFlag = true;
 					stat = STAT_String;
 				} else {
 					str += strIndent;
 					strIndent.clear();
 					str += ch;
+					stringAheadFlag = true;
 					continueFlag = true;
 					stat = STAT_String;
 				}
@@ -218,9 +226,10 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 				strIndent.clear();
 				strTmplScript.clear();
 				if (ch == '\n') {
-					continueFlag = false;
+					stringAheadFlag = false;
 					stat = STAT_LineTop;
 				} else {
+					stringAheadFlag = true;
 					continueFlag = true;
 					stat = STAT_String;
 				}
@@ -237,8 +246,24 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 			case STAT_Comment: {
 				if (ch == chPrefix) {
 					stat = STAT_CommentEnd_SeekL;
+				} else if (ch == '\n') {
+					stringAheadFlag = false;
+					stat = STAT_Comment_LineTop;
 				} else {
 					// nothing to do
+				}
+				break;
+			}
+			case STAT_Comment_LineTop: {
+				if (ch == chPrefix) {
+					stat = STAT_CommentEnd_SeekL;
+				} else if (ch == '\n') {
+					// nothing to do
+				} else if (IsWhite(ch)) {
+					// nothing to do
+				} else {
+					stringAheadFlag = true;
+					stat = STAT_Comment;
 				}
 				break;
 			}
@@ -246,6 +271,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 				if (ch == '{') {
 					stat = STAT_CommentEnd_First;
 				} else {
+					stringAheadFlag = true;
 					stat = STAT_Comment;
 				}
 				break;
@@ -254,6 +280,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 				if (ch == '=') {
 					stat = STAT_CommentEnd_Second;
 				} else {
+					stringAheadFlag = true;
 					stat = STAT_Comment;
 				}
 				break;
@@ -262,6 +289,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 				if (ch == '=') {
 					stat = STAT_CommentEnd_SeekR;
 				} else {
+					stringAheadFlag = true;
 					stat = STAT_Comment;
 				}
 				break;
@@ -275,10 +303,12 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 				break;
 			}
 			case STAT_CommentPost: {
-				if (ch == '\n') {
+				if (!stringAheadFlag && ch == '\n') {
+					stringAheadFlag = false;
 					continueFlag = false;
 					stat = STAT_LineTop;
 				} else {
+					stringAheadFlag = true;
 					continueFlag = true;
 					stat = STAT_String;
 				}

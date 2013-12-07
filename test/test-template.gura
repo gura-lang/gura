@@ -335,7 +335,7 @@ ${==}*comment-out*${==}
 7th line
 8th line
 9th ${==}*comment-out*${==}line
-10th line
+10th line${==}*comment-out*${==}
 11th line
 '''.template().render(sys.stdout)
 }
