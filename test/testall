@@ -41,10 +41,29 @@ files="$files test-template.gura"
 files="$files test-value.gura"
 files="$files test-yaml.gura"
 
-for file in $files
-do
-  echo $file
-  gura $file > result/${file%.gura}.result.txt
-  #gura genscript.gura --eval $file > result/${file%.gura}.result.txt
-  diff -u --strip-trailing-cr result/${file%.gura}.sample.txt result/${file%.gura}.result.txt
-done
+if [ "$1" = "" ]; then
+	for file in $files
+	do
+		echo $file
+		gura $file > result/${file%.gura}.result.txt
+		diff -u --strip-trailing-cr result/${file%.gura}.sample.txt result/${file%.gura}.result.txt
+	done	
+elif [ "$1" = "genscript" ]; then
+	for file in $files
+	do
+		echo $file
+		gura genscript.gura --eval $file > result/${file%.gura}.result.txt
+		diff -u --strip-trailing-cr result/${file%.gura}.sample.txt result/${file%.gura}.result.txt
+	done	
+elif [ "$1" = "update" ]; then
+	for file in $files
+	do
+		echo $file
+		gura $file > result/${file%.gura}.sample.txt
+	done	
+else
+	file="test-$1.gura"
+	echo $file
+	gura $file > result/${file%.gura}.result.txt
+	diff -u --strip-trailing-cr result/${file%.gura}.sample.txt result/${file%.gura}.result.txt
+fi

@@ -48,7 +48,6 @@ set files=%files% test-yaml.gura
 if "%1" == "" goto all
 if "%1" == "genscript" goto genscript
 if "%1" == "update" goto update
-if "%1" == "clean" goto clean
 set files=test-%1.gura
 rem --------
 :all
@@ -63,9 +62,5 @@ goto done
 rem --------
 :update
 for %%F in (%files%) do %PROGRAM_GURA% --printcmdline %%F > result\%%~nF.sample.txt
-goto done
-rem --------
-:clean
-for %%F in (%files%) do del result\%%~nF.result.txt
 goto done
 :done
