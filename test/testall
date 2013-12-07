@@ -39,7 +39,8 @@ files="$files test-stream.gura"
 files="$files test-string.gura"
 files="$files test-template.gura"
 files="$files test-value.gura"
-#files="$files test-xml.gura"
+files="$files test-xml.gura"
+files="$files test-xhtml.gura"
 files="$files test-yaml.gura"
 
 if [ "$1" = "" ]; then

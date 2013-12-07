@@ -1,6 +1,6 @@
 #!/usr/bin/env gura
-import(xml)
 import(testutil) {*}
+import(xml)
 
 testcase {
 	Parser = class(xml.parser) {

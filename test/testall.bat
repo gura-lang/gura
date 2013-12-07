@@ -42,7 +42,8 @@ set files=%files% test-stream.gura
 set files=%files% test-string.gura
 set files=%files% test-template.gura
 set files=%files% test-value.gura
-rem set files=%files% test-xml.gura
+set files=%files% test-xml.gura
+set files=%files% test-xhtml.gura
 set files=%files% test-yaml.gura
 
 if "%1" == "" goto all
