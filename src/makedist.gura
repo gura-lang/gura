@@ -14,6 +14,41 @@ fileNameWxs		= path.join(dirNameDst, prefix + '-win32.wxs')
 fileNameWixobj	= path.join(dirNameDst, prefix + '-win32.wixobj')
 fileNameMsi		= path.join(dirNameDst, prefix + '-win32.msi')
 
+gatherFiles() = {
+	fileNames = [
+		'lib/libguracore-x86.lib'
+		'bin-x86/gura.exe'
+		'bin-x86/guraw.exe'
+		'bin-x86/libguracore-x86.dll'
+		//'bin-x86/guri.exe'
+		//'bin-x86/guraole.dll'
+	]
+	fs.chdir(path.join(dirNameScript, '..')) {
+		buff = binary()
+		os.redirect(nil, buff) {
+			os.exec('git', 'ls-files', '--full-name')
+		}
+		lines = readlines(buff):chop
+		fileNames.append(lines.filter(lines:*startswith([
+			'bin-x86', 'module/', 'application/', 'sample/', 'include/'
+		]):*or()))
+		fileNames.append(path.glob('doc/*.pdf'))
+		fileNames.append(path.glob('module/*.gurd'))
+		fileNames.append(path.glob('gura-guest/tcl/bin/*.dll'))
+		fileNames.append(path.walk('gura-guest/tcl/lib', nil):file)
+		fileNames.append(path.glob('gura-guest/bin-x86/*.dll'))
+	}
+	set(path.regulate(fileNames)).sort()
+}
+
+main() = {
+	if (sys.argv.len() >= 2 && sys.argv[1] == 'clean') {
+		clean()
+	} else {
+		create()
+	}
+}
+
 if (sys.platform == `mswin) {
 	create() = {
 		fileNames = gatherFiles()
@@ -49,14 +84,9 @@ clean() = {
 	}
 }
 
-main() = {
-	if (sys.argv.len() >= 2 && sys.argv[1] == 'clean') {
-		clean()
-	} else {
-		create()
-	}
-}
-
+//-----------------------------------------------------------------------------
+// Tempalate text for WiX configurator
+//-----------------------------------------------------------------------------
 textTemplate = R"""
 <?xml version='1.0' encoding="utf-8"?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
@@ -242,79 +272,6 @@ textTemplate = R"""
 </Wix>
 """
 
-gatherFiles() = {
-	if (sys.build == `msc) {
-		fileNames = [
-			'bin-x86\\gura.exe'
-			//'bin-x86\\guri.exe'
-			'bin-x86\\guraw.exe'
-			'bin-x86\\gura.ico'
-			//'bin-x86\\guraole.dll'
-			'bin-x86\\msvcp100.dll'
-			'bin-x86\\msvcr100.dll'
-			'bin-x86\\libguracore-x86.dll'
-			'lib\\libguracore-x86.lib'
-		]
-	}
-	fs.chdir(path.join(dirNameScript, '..')) {
-		fileNames.append(path.glob([
-			'module/*.gura'
-			'module/*.gurd'
-			'module/site/readme.txt'
-			//----------------------------------
-			'doc/gura-*.pdf'
-			//----------------------------------
-			'application/getterphoto/*.gura'
-			'application/getterphoto/*.gurcw'
-			'application/getterphoto/*.guraw'
-			'application/getterphoto/*.ico'
-			'application/guraplot/*.gura'
-			'application/guraplot/*.gurcw'
-			'application/guraplot/*.guraw'
-			'application/guraplot/*.ico'
-			'application/guradrill/*.gura'
-			'application/guradrill/*.gurcw'
-			'application/guradrill/*.guraw'
-			'application/guradrill/*.ico'
-			//----------------------------------
-			'sample/cairo/cairo-*.gura'
-			'sample/cairo/cairo-*.guraw'
-			'sample/canvas/canvas-*.gura'
-			'sample/curl/curl-*.gura'
-			'sample/freetype/freetype-*.gura'
-			'sample/http/http-*.gura'
-			'sample/http/proxy_setting.sample.gura'
-			'sample/misc/*.gura'
-			'sample/opengl/gl-*.guraw'
-			'sample/opengl/*.rgb'
-			'sample/resource/readme.txt'
-			'sample/resource/*.ico'
-			'sample/resource/*.gif'
-			'sample/resource/*.jpg'
-			'sample/resource/*.bmp'
-			'sample/resource/*.png'
-			'sample/resource/*.ttf'
-			'sample/resource/*.zip'
-			'sample/sdl/sdl-*.guraw'
-			'sample/tk/tk-*.guraw'
-			'sample/mswin/mswin-*.gura'
-			'sample/wx/resource.gura'
-			'sample/wx/wx-*.guraw'
-			'sample/wx/original/wxutil.gura'
-			'sample/wx/original/wx-*.guraw'
-			//----------------------------------
-			'gura-guest/bin-x86/*.dll'
-			//----------------------------------
-			'include/*.h'
-			'include/gura/*.h'
-			'include/gura/helper/*.h'
-		]):list)
-		fileNames.append(path.glob('gura-guest/tcl/bin/*.dll'):list)
-		fileNames.append(path.walk('gura-guest/tcl/lib', nil):file)
-	}
-	fileNames
-}
-
 //-----------------------------------------------------------------------------
 // ZIP file creator
 //-----------------------------------------------------------------------------
@@ -420,7 +377,7 @@ createMsi(fileNames) = {
 // tar-ball creator
 //-----------------------------------------------------------------------------
 createSrcPackage() = {
-	fs.chdir('..') {
+	fs.chdir(path.join(dirNameScript, '..')) {
 		(os.exec('git', 'archive', '--format=tar.gz', '--prefix=' + prefix + '/',
 				 '--output=' + fileNameSrcTar, 'HEAD') != 0) || \
 		(os.exec('git', 'archive', '--format=zip', '--prefix=' + prefix + '/',
