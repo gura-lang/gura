@@ -1,0 +1,2 @@
+#!/bin/sh
+program-gura/gura -I @GURA_MODULE_DIR@ @PROJECT_SOURCE_DIR@/build-modules.gura $*
