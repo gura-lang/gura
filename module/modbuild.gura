@@ -25,6 +25,7 @@ BuilderBase = class {
 			p.addFlag('hint',		'H', 'print hint')
 			p.addFlag('rebuild',	'r', 'clean output files before building')
 			p.addParam('basedir',	'b', 'specify basement output directory', 'DIR', '')
+			p.addParam('incdir',	'I', 'specify include directory', 'DIR')
 			try {
 				[this.cfg, argv] = p.parse(sys.argv)
 			} catch {|e|
@@ -54,6 +55,8 @@ BuilderBase = class {
 		this.errorFlag = false
 		this.debFiles = nil
 		this.rpmFiles = nil
+		this.incDirs = []
+		this.cfg['incdir'] && this.incDirs.append(this.cfg['incdir'])
 		this.hint = nil
 		this.skipErrorFlag = false
 		this.verboseFlag = this.cfg['verbose']
@@ -160,7 +163,6 @@ if (sys.build == `msc) {
 	guestDir:public = path.join(guraDir, 'gura-guest')
 	Builder = class(BuilderBase) {
 		__init__() = {|'msc'|
-			this.incDirs = []
 			this.cflags = [
 				'/nologo', '/DGURA_MODULE_SEPARATED'
 				'/EHsc', '/MD'
@@ -273,7 +275,6 @@ if (sys.build == `msc) {
 } elsif (sys.build == `gnuc) {
 	Builder = class(BuilderBase) {
 		__init__() = {|'gnuc'|
-			this.incDirs = []
 			this.cflags = ['-DGURA_MODULE_SEPARATED', '-fPIC']
 			this.ldflags = ['-shared']
 			this.libs = []
