@@ -36,6 +36,15 @@ configure_file(
   ${GURA_ROOT_DIR}/include/gura/config.h.in
   ${GURA_ROOT_DIR}/include/gura/config.h)
 
+configure_file(
+  ${PROJECT_SOURCE_DIR}/build-modules.in
+  ${PROJECT_SOURCE_DIR}/build-modules)
+
+file(COPY
+  ${PROJECT_SOURCE_DIR}/build-modules
+  DESTINATION .
+  FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ)
+
 include_directories(
   ${GURA_ROOT_DIR}/include
   ${PROJECT_SOURCE_DIR}/lib
