@@ -1,6 +1,7 @@
 /ipch
 /bin-x86-dbg/
 /src/ipch
+/src/build-modules
 /guest/*.zip
 /guest/*.tar.gz
 /guest/README
