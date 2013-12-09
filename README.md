@@ -37,7 +37,7 @@ Build for Linux
 
         $ sudo yum install gcc gcc-c++ make cmake readline-devel
 
-2. Run the following commands to build gura library and executable.
+2. Run the following commands to build **Gura** library and executable.
 
         $ git clone https://github.com/ypsitau/gura.git
         $ cd gura
