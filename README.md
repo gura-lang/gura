@@ -43,10 +43,18 @@ Build for Linux
         $ cd gura
         $ mkdir build
         $ cd build
-        $ ../src/configure
+        $ ../configure
         $ make
 
-3. Make packages of Debian and RPM. Installation of following packages is necessary.
+3. Run the following command to build **Gura** modules.
+
+        $ ./build-modules
+
+  This may occur an error because of lacking packages. The script `build-modules.gura`
+  generates shell scripts so that you can easily setup necessary packages.
+  Run `install-deb.sh` for Ubuntu and `install-rpm.sh` for RedHat.
+
+4. Make packages of Debian and RPM. Installation of following packages is necessary.
 
         $ sudo apt-get install rpm
 
@@ -64,17 +72,9 @@ Build for Linux
 
         $ sudo rpm -i gura-x.x.x-Linux.rpm
 
-4. Run the following command to build gura modules.
+5. Do the following command to install **Gura** module files.
 
-        $ ../src/build-modules.gura
-
-  This may occur an error because of lacking packages. The script `build-modules.gura`
-  generates shell scripts so that you can easily setup necessary packages.
-  Run `install-deb.sh` for Ubuntu and `install-rpm.sh` for RedHat.
-
-5. After you successfully build modules, do the following command to install them.
-
-        $ sudo ../src/build-modules.gura install
+        $ sudo ./build-modules install
 
 Source URLs of Guest Libraries
 ------------------------------
