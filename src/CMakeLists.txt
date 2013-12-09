@@ -173,7 +173,7 @@ install(FILES
 install(FILES
   ${GURA_INCLUDE_SRCDIR}/gura/helper/BZLibHelper.h
   ${GURA_INCLUDE_SRCDIR}/gura/helper/ZLibHelper.h
-  DESTINATION include/gura/helper)
+  DESTINATION ${GURA_PKGINCDIR}/gura/helper)
 
 set(CPACK_GENERATOR "DEB;RPM")
 set(CPACK_SET_DESTDIR true)
