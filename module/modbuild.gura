@@ -128,9 +128,9 @@ BuilderBase = class {
 	}
 	doInstall(target:string, siteFlag:boolean) = {
 		if (siteFlag) {
-			targetPath = path.join(sys.libdir, 'site', target)
+			targetPath = path.join(sys.moddir, 'site', target)
 		} else {
-			targetPath = path.join(sys.libdir, target)
+			targetPath = path.join(sys.moddir, target)
 		}
 		dirName = path.dirname(targetPath)
 		!path.exists(dirName) && fs.mkdir(dirName):tree
@@ -166,7 +166,7 @@ if (sys.build == `msc) {
 			this.cflags = [
 				'/nologo', '/DGURA_MODULE_SEPARATED'
 				'/EHsc', '/MD'
-				'/I' + path.join(guraDir, 'include')
+				'/I' + sys.incdir
 				'/I' + path.join(guestDir, 'include')
 			]
 			this.ldflags = [
@@ -275,7 +275,10 @@ if (sys.build == `msc) {
 } elsif (sys.build == `gnuc) {
 	Builder = class(BuilderBase) {
 		__init__() = {|'gnuc'|
-			this.cflags = ['-DGURA_MODULE_SEPARATED', '-fPIC']
+			this.cflags = [
+				'-DGURA_MODULE_SEPARATED', '-fPIC',
+				'-I' + sys.incdir
+			]
 			this.ldflags = ['-shared']
 			this.libs = []
 			this.precompile = nil

@@ -66,7 +66,8 @@ Gura_ModuleEntry()
 	} while (0);
 	Gura_AssignValue(executable, Value(OAL::GetExecutable()));
 	Gura_AssignValue(datadir, Value(OAL::GetDataDir()));
-	Gura_AssignValue(libdir, Value(OAL::GetLibDir()));
+	Gura_AssignValue(moddir, Value(OAL::GetModuleDir()));
+	Gura_AssignValue(incdir, Value(OAL::GetIncludeDir()));
 	Gura_AssignValue(localdir, Value(OAL::GetLocalDir()));
 	// function assignment
 	Gura_AssignFunction(echo);

@@ -723,9 +723,14 @@ String GetDataDir()
 	return GetBaseDir();
 }
 
-String GetLibDir()
+String GetModuleDir()
 {
 	return JoinPathName(GetBaseDir().c_str(), "module");
+}
+
+String GetIncludeDir()
+{
+	return JoinPathName(GetBaseDir().c_str(), "include");
 }
 
 String GetLocalDir()
@@ -1336,9 +1341,14 @@ String GetDataDir()
 	return GetBaseDir();
 }
 
-String GetLibDir()
+String GetModuleDir()
 {
 	return JoinPathName(GURA_PKGLIBDIR, "module");
+}
+
+String GetIncludeDir()
+{
+	return GURA_PKGINCDIR;
 }
 
 String GetLocalDir()
