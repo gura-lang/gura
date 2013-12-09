@@ -27,7 +27,7 @@ import(modbuild)
 
 builder = modbuild.Builder()
 builder.build('${dotName}', ['module-${ubarName}.cpp'])
-'''.template(open(fileBuild, 'w').addcr(false))
+'''.template().render(open(fileBuild, 'w').addcr(false))
 fs.chmod('a+x', fileBuild)
 
 //======== Generate Test Script ========
@@ -36,7 +36,7 @@ R'''
 import(${dotName})
 
 println(${dotName}.test(3, 4))
-'''.template(open(fileTest, 'w').addcr(false))
+'''.template().render(open(fileTest, 'w').addcr(false))
 fs.chmod('a+x', fileTest)
 
 //======== Generate Precompiled Header File ========
@@ -45,7 +45,7 @@ R'''
 #define ${incOnceMacroNameAfx}
 #include "${fileHdr}"
 #endif
-'''.template(open(fileAfx, 'w').addcr(false))
+'''.template().render(open(fileAfx, 'w').addcr(false))
 
 //======== Generate Header File ========
 R'''
@@ -60,7 +60,7 @@ Gura_BeginModuleHeader(${ubarName})
 Gura_EndModuleHeader(${ubarName})
 
 #endif
-'''.template(open(fileHdr, 'w').addcr(false))
+'''.template().render(open(fileHdr, 'w').addcr(false))
 
 //======== Generate Source File ========
 R'''
@@ -106,12 +106,12 @@ Gura_ModuleTerminate()
 Gura_EndModuleBody(${ubarName}, ${baseName})
 
 Gura_RegisterModule(${ubarName})
-'''.template(open(fileSrc, 'w').addcr(false))
+'''.template().render(open(fileSrc, 'w').addcr(false))
 
 R'''
 Following files were generated.
 - Build Script: ${fileBuild}
 - Test Script:  ${fileTest}
 - Source Files: ${fileAfx}, ${fileHdr}, ${fileSrc}
-'''.template(sys.stdout)
+'''.template().render(sys.stdout)
 sys.exit(0)

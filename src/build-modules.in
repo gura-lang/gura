@@ -1,2 +1,2 @@
 #!/bin/sh
-program-gura/gura -I @GURA_MODULE_DIR@ @PROJECT_SOURCE_DIR@/build-modules.gura -I @PROJECT_SOURCE_DIR@/../include $*
+program-gura/gura -I @GURA_MODULE_SRCDIR@ @PROJECT_SOURCE_DIR@/build-modules.gura -I @GURA_INCLUDE_SRCDIR@ $*
