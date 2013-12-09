@@ -755,7 +755,6 @@ String GetExecutable()
 void SetupModulePath(StringList &strList)
 {
 	String dirBase = GetBaseDir();
-	strList.push_back(".");
 	String str = GetEnv("GURAPATH");
 	if (!str.empty()) {
 		SplitPathList(str.c_str(), strList);
@@ -1373,7 +1372,6 @@ String GetExecutable()
 
 void SetupModulePath(StringList &strList)
 {
-	strList.push_back(".");
 	String str = GetEnv("GURAPATH");
 	if (!str.empty()) {
 		SplitPathList(str.c_str(), strList);

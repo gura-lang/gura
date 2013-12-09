@@ -22,7 +22,7 @@ int Main(int argc, const char *argv[])
 		{ "help",			'h', false	},
 		{ "interactive",	't', false	},
 		{ "import",			'i', true	},
-		{ "import-dir",		'I', true	},
+		{ "import-dir",		'I', true	},	// used in sys module initialization
 		{ "command",		'c', true	},
 		{ "template",		'T', true	},
 		{ "directory",		'C', true	},
@@ -59,9 +59,6 @@ int Main(int argc, const char *argv[])
 		::fprintf(stderr, "\n");
 	}
 	bool interactiveFlag = true;
-	if (opt.IsSet("import-dir")) {
-		env.AddModuleSearchPath(sig, opt.GetStringList("import-dir"));
-	}
 	if (opt.IsSet("import")) {
 		foreach_const (StringList, pModuleNames, opt.GetStringList("import")) {
 			if (!env.ImportModules(sig, pModuleNames->c_str(), false, false)) {

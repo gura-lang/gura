@@ -134,8 +134,15 @@ bool SetCmdLineArgs(Module *pModule, Signal sig, int argc, const char *argv[])
 		env.AssignValue(Symbol::Add("argv"), value, EXTRA_Public);
 	} while (0);
 	do {
+		Option &opt = env.GetOption();
 		Value value;
 		ValueList &valList = value.InitAsList(env);
+		valList.push_back(Value("."));
+		if (opt.IsSet("import-dir")) {
+			foreach_const (StringList, pStr, opt.GetStringList("import-dir")) {
+				valList.push_back(Value(*pStr));
+			}
+		}
 		StringList strList;
 		OAL::SetupModulePath(strList);
 		foreach (StringList, pStr, strList) {
