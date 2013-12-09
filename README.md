@@ -50,9 +50,10 @@ Build for Linux
 
         $ ./build-modules
 
-  This may occur an error because of lacking packages. The script `build-modules.gura`
-  generates shell scripts so that you can easily setup necessary packages.
-  Run `install-deb.sh` for Ubuntu and `install-rpm.sh` for RedHat.
+  This may occur an error because of lacking packages.
+  In such a case, the script `build-modules` generates shell
+  with which you can easily setup necessary packages.
+  Run `guest-install-deb.sh` for Ubuntu and `guest-install-rpm.sh` for RedHat.
 
 4. Run the following command to install **Gura** library and executable.
 
