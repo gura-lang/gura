@@ -735,6 +735,9 @@ String GetLocalDir()
 	String dirName = FromNativeString(buff);
 	dirName += "\\Gura";
 	MakeDir(dirName.c_str());
+	dirName += "\\";
+	dirName += GURA_VERSION;
+	MakeDir(dirName.c_str());
 	do {
 		String dirNameSub(dirName);
 		dirNameSub += "\\module";
@@ -1342,6 +1345,9 @@ String GetLocalDir()
 {
 	String dirName = GetEnv("HOME");
 	dirName += "/.gura";
+	MakeDir(dirName.c_str());
+	dirName += "/";
+	dirName += GURA_VERSION;
 	MakeDir(dirName.c_str());
 	do {
 		String dirNameSub(dirName);

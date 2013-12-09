@@ -25,8 +25,8 @@ set(GURA_SAMPLE_DIR		${GURA_ROOT_DIR}/sample)
 set(GURA_MODULE_DIR		${GURA_ROOT_DIR}/module)
 
 set(GURA_BINDIR			${CMAKE_INSTALL_PREFIX}/bin)
-set(GURA_PKGDATADIR		${CMAKE_INSTALL_PREFIX}/share/gura-${GURA_VERSION})
-set(GURA_PKGLIBDIR		${CMAKE_INSTALL_PREFIX}/lib/gura-${GURA_VERSION})
+set(GURA_PKGDATADIR		${CMAKE_INSTALL_PREFIX}/share/gura/${GURA_VERSION})
+set(GURA_PKGLIBDIR		${CMAKE_INSTALL_PREFIX}/lib/gura/${GURA_VERSION})
 
 configure_file(
   ${GURA_ROOT_DIR}/include/gura/Version.h.in
@@ -73,7 +73,7 @@ install(FILES
   ${GURA_SAMPLE_DIR}/resource/kangaroo.gif
   ${GURA_SAMPLE_DIR}/resource/zippedfont.zip
   ${GURA_SAMPLE_DIR}/resource/chicken256.bmp
-  DESTINATION share/gura/sample/resource)
+  DESTINATION share/gura/${GURA_VERSION}/sample/resource)
 
 install(FILES
   ${GURA_MODULE_DIR}/argopt.gura
@@ -91,7 +91,7 @@ install(FILES
   ${GURA_MODULE_DIR}/units.gura
   ${GURA_MODULE_DIR}/wx.show.gura
   ${GURA_MODULE_DIR}/xhtml.gura
-  DESTINATION lib/gura)
+  DESTINATION lib/gura/${GURA_VERSION}/module)
 
 install(FILES
   ${GURA_INCLUDE_DIR}/gura.h
