@@ -54,27 +54,35 @@ Build for Linux
   generates shell scripts so that you can easily setup necessary packages.
   Run `install-deb.sh` for Ubuntu and `install-rpm.sh` for RedHat.
 
-4. Make packages of Debian and RPM. Installation of following packages is necessary.
+4. Run the following command to install **Gura** library and executable.
 
-        $ sudo apt-get install rpm
+        $ sudo make install
 
-   Run the following command.
-
-        $ make package
-
-   You can install package using an appropriate package manager.
-
-   For Ubuntu:
-
-        $ sudo dpkg -i gura-x.x.x-Linux.deb
-
-   For RedHat:
-
-        $ sudo rpm -i gura-x.x.x-Linux.rpm
-
-5. Do the following command to install **Gura** module files.
+5. Run the following command to install **Gura** module files.
 
         $ sudo ./build-modules install
+
+Build Install Packages for Linux
+--------------------------------
+Generated Makefile is capable of creating both Debian and RPM install packages.
+
+If you use Ubuntu, you have to install rpm package as following.
+
+    $ sudo apt-get install rpm
+
+Run the following command to create Debian and RPM packages.
+
+    $ make package
+
+You can install the package using an appropriate package manager as following.
+
+For Ubuntu:
+
+    $ sudo dpkg -i gura-x.x.x-Linux.deb
+
+For RedHat:
+
+    $ sudo rpm -i gura-x.x.x-Linux.rpm
 
 Source URLs of Guest Libraries
 ------------------------------
