@@ -33,7 +33,7 @@ Build for Linux
 
         $ sudo apt-get install build-essential cmake libreadline-dev
 
-   For Fedora, do the following command.
+   For RedHat, do the following command.
 
         $ sudo yum install gcc gcc-c++ make cmake readline-devel
 
