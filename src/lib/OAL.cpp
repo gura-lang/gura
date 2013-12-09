@@ -725,9 +725,7 @@ String GetDataDir()
 
 String GetLibDir()
 {
-	String dirName = GetBaseDir();
-	dirName += "\\module";
-	return dirName;
+	return JoinPathName(GetBaseDir().c_str(), "module");
 }
 
 String GetLocalDir()
@@ -759,22 +757,10 @@ void SetupModulePath(StringList &strList)
 	if (!str.empty()) {
 		SplitPathList(str.c_str(), strList);
 	}
-	do {
-		String dirNameSub(GetLocalDir());
-		dirNameSub += "\\module";
-		strList.push_back(dirNameSub);
-	} while (0);
+	strList.push_back(JoinPathName(GetLocalDir().c_str(), "module"));
 	strList.push_back(dirBase);
-	do {
-		String dirName = dirBase;
-		dirName += "\\module";
-		strList.push_back(dirName);
-	} while (0);
-	do {
-		String dirName = dirBase;
-		dirName += "\\module\\site";
-		strList.push_back(dirName);
-	} while (0);
+	strList.push_back(JoinPathName(dirBase.c_str(), "module"));
+	strList.push_back(JoinPathName(dirBase.c_str(), "module/site"));
 }
 
 void SetupExecutablePath()
@@ -1349,7 +1335,7 @@ String GetDataDir()
 
 String GetLibDir()
 {
-	return String(GURA_PKGLIBDIR);
+	return JoinPathName(GURA_PKGLIBDIR, "module");
 }
 
 String GetLocalDir()
@@ -1376,13 +1362,10 @@ void SetupModulePath(StringList &strList)
 	if (!str.empty()) {
 		SplitPathList(str.c_str(), strList);
 	}
-	do {
-		String dirNameSub(GetLocalDir());
-		dirNameSub += "/module";
-		strList.push_back(dirNameSub);
-	} while (0);
+	strList.push_back(JoinPathName(GetLocalDir().c_str(), "module"));
 	strList.push_back(GURA_PKGLIBDIR);
-	strList.push_back(GURA_PKGLIBDIR "/site");
+	strList.push_back(JoinPathName(GURA_PKGLIBDIR, "module"));
+	strList.push_back(JoinPathName(GURA_PKGLIBDIR, "module/site"));
 }
 
 void SetupExecutablePath()
