@@ -15,7 +15,7 @@ argopt.Parser {|p|
 		sys.exit(1)
 	}
 	if (cfg['help']) {
-		r"usage: makedist.gura [options] [cmd]"		'\n' \
+		r"usage: create-dist.gura [options] [cmd]"	'\n' \
 		r"options:"									'\n' \
 		r"  ${p.formatHelp() + '\n'}"				'\n' \
 		r"cmd:"										'\n' \
@@ -84,8 +84,14 @@ gatherFiles() = {
 }
 
 main() = {
-	if (argv.len() >= 1 && argv[0] == 'clean') {
-		clean()
+	if (argv.len() >= 1) {
+		cmd = argv[0]
+		if (cmd == 'clean') {
+			clean()
+		} elsif (cmd == 'clean-create') {
+			clean()
+			create()
+		}
 	} else {
 		create()
 	}
