@@ -78,11 +78,8 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 		STAT_LineTop, STAT_Indent, STAT_String,
 		STAT_ScriptPre, STAT_ScriptFirst, STAT_ScriptSecond,
 		STAT_Script, STAT_ScriptPost,
-		STAT_CommentBegin_SeekR,
 		STAT_Comment, STAT_Comment_LineTop,
-		STAT_CommentEnd_SeekL,
-		STAT_CommentEnd_First, STAT_CommentEnd_Second,
-		STAT_CommentEnd_SeekR,
+		STAT_CommentEnd_Second, STAT_CommentEnd_SeekR,
 		STAT_CommentPost,
 	} stat = STAT_LineTop;
 	bool stringAheadFlag = false;
@@ -193,7 +190,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 			}
 			case STAT_ScriptSecond: {
 				if (ch == '=') {
-					stat = STAT_CommentBegin_SeekR;
+					stat = STAT_Comment;
 				} else {
 					strTmplScript += '=';
 					continueFlag = true;
@@ -235,17 +232,9 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 				}
 				break;
 			}
-			case STAT_CommentBegin_SeekR: {
-				if (ch == '}') {
-					stat = STAT_Comment;
-				} else {
-					// nothing to do
-				}
-				break;
-			}
 			case STAT_Comment: {
-				if (ch == chPrefix) {
-					stat = STAT_CommentEnd_SeekL;
+				if (ch == '=') {
+					stat = STAT_CommentEnd_Second;
 				} else if (ch == '\n') {
 					stringAheadFlag = false;
 					stat = STAT_Comment_LineTop;
@@ -255,30 +244,12 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 				break;
 			}
 			case STAT_Comment_LineTop: {
-				if (ch == chPrefix) {
-					stat = STAT_CommentEnd_SeekL;
+				if (ch == '=') {
+					stat = STAT_CommentEnd_Second;
 				} else if (ch == '\n') {
 					// nothing to do
 				} else if (IsWhite(ch)) {
 					// nothing to do
-				} else {
-					stringAheadFlag = true;
-					stat = STAT_Comment;
-				}
-				break;
-			}
-			case STAT_CommentEnd_SeekL: {
-				if (ch == '{') {
-					stat = STAT_CommentEnd_First;
-				} else {
-					stringAheadFlag = true;
-					stat = STAT_Comment;
-				}
-				break;
-			}
-			case STAT_CommentEnd_First: {
-				if (ch == '=') {
-					stat = STAT_CommentEnd_Second;
 				} else {
 					stringAheadFlag = true;
 					stat = STAT_Comment;
@@ -298,7 +269,8 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 				if (ch == '}') {
 					stat = STAT_CommentPost;
 				} else {
-					// nothing to do
+					stringAheadFlag = true;
+					stat = STAT_Comment;
 				}
 				break;
 			}
