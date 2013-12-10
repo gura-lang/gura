@@ -1,4 +1,5 @@
 /ipch
+/dist
 /bin-x86-dbg/
 /src/ipch
 /src/build-modules
