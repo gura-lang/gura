@@ -34,15 +34,15 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <NMakeBuildCommandLine>$(SolutionDir)..\bin-x86\gura.exe makedist.gura</NMakeBuildCommandLine>
-    <NMakeCleanCommandLine>$(SolutionDir)..\bin-x86\gura.exe makedist.gura clean</NMakeCleanCommandLine>
-    <NMakeReBuildCommandLine>$(SolutionDir)..\bin-x86\gura.exe makedist.gura</NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine>$(SolutionDir)..\bin-x86\gura.exe create-dist.gura</NMakeBuildCommandLine>
+    <NMakeCleanCommandLine>$(SolutionDir)..\bin-x86\gura.exe create-dist.gura clean</NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>$(SolutionDir)..\bin-x86\gura.exe create-dist.gura clean-create</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <NMakeBuildCommandLine>$(SolutionDir)..\bin-x86\gura.exe makedist.gura</NMakeBuildCommandLine>
-    <NMakeCleanCommandLine>$(SolutionDir)..\bin-x86\gura.exe makedist.gura clean</NMakeCleanCommandLine>
-    <NMakeReBuildCommandLine>$(SolutionDir)..\bin-x86\gura.exe makedist.gura</NMakeReBuildCommandLine>
+    <NMakeBuildCommandLine>$(SolutionDir)..\bin-x86\gura.exe create-dist.gura</NMakeBuildCommandLine>
+    <NMakeCleanCommandLine>$(SolutionDir)..\bin-x86\gura.exe create-dist.gura clean</NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>$(SolutionDir)..\bin-x86\gura.exe create-dist.gura clean-create</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
   </PropertyGroup>
   <ItemDefinitionGroup>
