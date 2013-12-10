@@ -426,12 +426,12 @@ createSrcPackage() = {
 	fs.chdir(path.join(dirNameScript, '..')) {
 		(os.exec('git', 'archive', '--format=tar.gz', '--prefix=' + prefix + '/',
 				 '--output=' + fileNameSrcTar, 'HEAD') != 0) || \
-		(os.exec('git', 'archive', '--format=zip', '--prefix=' + prefix + '/',
-				 '--output=' + fileNameSrcZip, 'HEAD') != 0)
+		//(os.exec('git', 'archive', '--format=zip', '--prefix=' + prefix + '/',
+		//		 '--output=' + fileNameSrcZip, 'HEAD') != 0)
 	} && sys.exit(1)
 	conio.setcolor(`bright_red) {
 		printf('generated: %s\n', path.filename(fileNameSrcTar))
-		printf('generated: %s\n', path.filename(fileNameSrcZip))
+		//printf('generated: %s\n', path.filename(fileNameSrcZip))
 	}
 }
 
