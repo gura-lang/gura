@@ -30,7 +30,7 @@ argopt.Parser {|p|
 prefix = 'gura-' + sys.version
 
 dirNameScript = path.dirname(sys.argv[0])
-dirNameDst = path.join(dirNameScript)
+dirNameDst = '.'
 if (cfg['outdir']) {
 	dirNameDst = path.absname(cfg['outdir'])
 	fs.mkdir(dirNameDst):tree
