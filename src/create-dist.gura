@@ -30,7 +30,7 @@ argopt.Parser {|p|
 prefix = 'gura-' + sys.version
 
 dirNameScript = path.dirname(sys.argv[0])
-dirNameDst = '.'
+dirNameDst = fs.getcwd()
 if (cfg['outdir']) {
 	dirNameDst = path.absname(cfg['outdir'])
 	fs.mkdir(dirNameDst):tree
@@ -425,7 +425,7 @@ createMsi(fileNames) = {
 createSrcPackage() = {
 	fs.chdir(path.join(dirNameScript, '..')) {
 		(os.exec('git', 'archive', '--format=tar.gz', '--prefix=' + prefix + '/',
-				 '--output=' + fileNameSrcTar, 'HEAD') != 0) || \
+				 '--output=' + fileNameSrcTar, 'HEAD') != 0)
 		//(os.exec('git', 'archive', '--format=zip', '--prefix=' + prefix + '/',
 		//		 '--output=' + fileNameSrcZip, 'HEAD') != 0)
 	} && sys.exit(1)
