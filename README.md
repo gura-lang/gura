@@ -21,7 +21,7 @@ Build for Windows
    The batch file may occur an error that says it cannot find vcvarsall.bat.
    In such a case, you have to edit gura\gura-guest\setup.bat
    and modify VCVARSALL variable so that it points to a right directory of Visual Studio.
-3. Open gura\src\gura.sln with Visual Studio 2010, switch the configuration to Release
+3. Open gura\gura.sln with Visual Studio 2010, switch the configuration to Release
    and build it.
 
 Build for Linux
