@@ -53,7 +53,7 @@ Build for Linux
   This may occur an error because of lacking packages.
   In such a case, the script `build-modules` generates shell
   with which you can easily setup necessary packages.
-  Run `guest-install-deb.sh` for Ubuntu and `guest-install-rpm.sh` for RedHat.
+  Run `setup-gura-guest-deb.sh` for Ubuntu and `setup-gura-guest-rpm.sh` for RedHat.
 
 4. Run the following command to install **Gura** library and executable.
 
