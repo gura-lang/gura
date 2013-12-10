@@ -1,18 +1,60 @@
 #!/usr/bin/env gura
 # encoding: utf-8
+import(argopt)
+
+//-----------------------------------------------------------------------------
+// main
+//-----------------------------------------------------------------------------
+argopt.Parser {|p|
+	p.addFlag('help',		'h', 'print help')
+	p.addParam('outdir',	'o', 'specify output directory', 'DIR')
+	try {
+		[cfg, argv] = p.parse(sys.argv)
+	} catch {|e|
+		println(e.text)
+		sys.exit(1)
+	}
+	if (cfg['help']) {
+		r"usage: makedist.gura [options] [cmd]"		'\n' \
+		r"options:"									'\n' \
+		r"  ${p.formatHelp() + '\n'}"				'\n' \
+		r"cmd:"										'\n' \
+		r"  clean .. delete all generated files"	'\n' \
+		"".template().render(sys.stderr)
+		sys.exit()
+	}
+}
 
 //[langId, codePage] = ['1041', '932']	// jp-JP
 [langId, codePage] = ['1033', '1252']	// en-US
+prefix = 'gura-' + sys.version
+
 dirNameScript = path.dirname(sys.argv[0])
 dirNameDst = path.join(dirNameScript)
-prefix = 'gura-' + sys.version
-fileNameSrcTar	= path.join(dirNameDst, prefix + '-src.tar.gz')
-fileNameSrcZip 	= path.join(dirNameDst, prefix + '-src.zip')
-fileNameBinZip	= path.join(dirNameDst, prefix + '-win32.zip')
-fileNameList	= path.join(dirNameDst, prefix + '-win32.list.txt')
-fileNameWxs		= path.join(dirNameDst, prefix + '-win32.wxs')
-fileNameWixobj	= path.join(dirNameDst, prefix + '-win32.wixobj')
-fileNameMsi		= path.join(dirNameDst, prefix + '-win32.msi')
+if (cfg['outdir']) {
+	dirNameDst = path.absname(cfg['outdir'])
+	fs.mkdir(dirNameDst):tree
+}
+
+makeFileNames(prefix:string) = [
+	path.join(dirNameDst, prefix + '-src.tar.gz')
+	path.join(dirNameDst, prefix + '-src.zip')
+	path.join(dirNameDst, prefix + '-win32.zip')
+	path.join(dirNameDst, prefix + '-win32.list.txt')
+	path.join(dirNameDst, prefix + '-win32.wxs')
+	path.join(dirNameDst, prefix + '-win32.wixobj')
+	path.join(dirNameDst, prefix + '-win32.msi')
+]
+
+[
+	fileNameSrcTar
+	fileNameSrcZip
+	fileNameBinZip
+	fileNameList
+	fileNameWxs
+	fileNameWixobj
+	fileNameMsi
+] = makeFileNames(prefix)
 
 gatherFiles() = {
 	fileNames = [
@@ -42,7 +84,7 @@ gatherFiles() = {
 }
 
 main() = {
-	if (sys.argv.len() >= 2 && sys.argv[1] == 'clean') {
+	if (argv.len() >= 1 && argv[0] == 'clean') {
 		clean()
 	} else {
 		create()
@@ -65,16 +107,8 @@ if (sys.platform == `mswin) {
 }
 
 clean() = {
-	fileNames = [
-		fileNameSrcTar
-		fileNameSrcZip
-		fileNameBinZip
-		fileNameList
-		fileNameWxs
-		fileNameWixobj
-		fileNameMsi
-	]
-	fileNames.each {|fileName|
+	fileNamesToDelete = path.glob(makeFileNames('gura-*')):flat:list
+	fileNamesToDelete.each {|fileName|
 		try {
 			fs.remove(fileName)
 			conio.setcolor(`bright_red) {
@@ -279,6 +313,9 @@ createZip(fileNames) = {
 	(fs.chdir(path.join(dirNameScript, '..', '..')) {
 		fileNames = path.join('gura', fileNames)
 		open(fileNameList, 'w', 'shift_jis').println(fileNames)
+		conio.setcolor(`bright_red) {
+			printf('generated: %s\n', path.filename(fileNameList))
+		}
 		try { fs.remove(fileNameBinZip) } catch {}
 		os.exec('7z', 'a', '-r-', fileNameBinZip, '@' + fileNameList)
 	} != 0) && sys.exit(1)
@@ -358,6 +395,9 @@ createMsi(fileNames) = {
 		version = sys.version
 		components.add('ComponentReg')
 		textTemplate.template().render(open(fileNameWxs, 'w', 'utf-8'))
+		conio.setcolor(`bright_red) {
+			printf('generated: %s\n', path.filename(fileNameWxs))
+		}
 		try {
 			(os.exec('candle', '-o', fileNameWixobj, fileNameWxs) != 0) && sys.exit(1)
 			(os.exec('light', '-ext', 'WixUIExtension', '-spdb'
