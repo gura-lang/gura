@@ -66,7 +66,7 @@ testcase {
 	['arrow-green-u.gif', 'arrow-green-l.gif',
 	 'arrow-green-d.gif', 'arrow-green-r.gif'].each {|fileName|
 		img = image(I(fileName), `rgb)
-		if (charLines.isnil()) {
+		if (!charLines?) {
 			charLines = repeat (img.height):list {''}
 		}
 		charLines = for (charLine in charLines, row in img.each():*gray.fold(img.width)):list {
