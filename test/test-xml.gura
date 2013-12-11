@@ -55,7 +55,7 @@ testcase {
 		NotStandalone() = {
 		}
 	}
-	Parser().parse('test.xml');
+	Parser().parse('test-xml/test.xml');
 }
 scope {
 	text = R'''
@@ -87,7 +87,15 @@ scope {
   </ChartOwner>
 </Document>
 '''
+	xml.document {|doc|
+		doc.read(text.reader())
+		doc.write(sys.stdout)
+	}
 	xml.document(text.reader()) {|doc|
+		doc.write(sys.stdout)
+	}
+	xml.document {|doc|
+		doc.parse(text)
 		doc.write(sys.stdout)
 	}
 }

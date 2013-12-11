@@ -19,7 +19,7 @@ function(fileNameEmf:string) {
 		}
 	}
 	printf('%s was generated\n', fileNameEmf)
-}('plot-population.emf')
+}('test-graph/plot-population.emf')
 function(fileNameEmf:string) {
 	point2d = struct(x:number, y:number)
 	bezier(xs[]:number, ys[]:number, nsamples:number):map = {
@@ -57,7 +57,7 @@ function(fileNameEmf:string) {
 		graph.draw(c, graphItems*)
 	}
 	printf('%s was generated\n', fileNameEmf)
-}('plot-bezier1.emf')
+}('test-graph/plot-bezier1.emf')
 function(fileNameEmf:string) {
 	// position data is from http://www.geocities.jp/s2412502/bezier3H.html
 	[xOff, yOff] = [-20, 16]
@@ -84,7 +84,7 @@ function(fileNameEmf:string) {
 		}
 	}
 	printf('%s was generated\n', fileNameEmf)
-}('plot-bezier2.emf')
+}('test-graph/plot-bezier2.emf')
 function(fileNameEmf:string) {
 	xs = [8, 3.6, 3.5, 6.8, 3.3, 8.8, 0.9, 4.9, 8.9, 6.9,
 		6.2, 3.5, 4.7, 5.9, 3.9, 1.2, 3.4, 3.1, 9.8, 9.3]
@@ -104,7 +104,7 @@ function(fileNameEmf:string) {
 		}
 	}
 	printf('%s was generated\n', fileNameEmf)
-}('plot-leastsquare.emf')
+}('test-graph/plot-leastsquare.emf')
 function(fileNameEmf:string) {
 	x = interval(-10, 10, 1000)
 	graph.create_emf(fileNameEmf, 150, 150) {|c|
@@ -117,7 +117,7 @@ function(fileNameEmf:string) {
 		}
 	}
 	printf('%s was generated\n', fileNameEmf)
-}('plot-parabola.emf')
+}('test-graph/plot-parabola.emf')
 function(fileNameEmf:string) {
 	Table = struct(day, Site01, Site02, Site03)
 	read_table(filename:string, header:boolean => true) = {
@@ -139,7 +139,7 @@ function(fileNameEmf:string) {
 		}
 	}
 	printf('%s was generated\n', fileNameEmf)
-}('plot-temperature.emf')
+}('test-graph/plot-temperature.emf')
 function(fileNameEmf:string) {
 	x = interval(0, 2 * math.pi * 6, 1000)
 	y1 = math.sin(x)
@@ -157,7 +157,7 @@ function(fileNameEmf:string) {
 		}
 	}
 	printf('%s was generated\n', fileNameEmf)
-}('plot-sin-1.emf')
+}('test-graph/plot-sin-1.emf')
 function(fileNameEmf:string) {
 	graph.create_emf(fileNameEmf, 150, 150) {|c|
 		x = interval(0, 8 * math.pi, 1000)
@@ -172,4 +172,4 @@ function(fileNameEmf:string) {
 		}
 	}
 	printf('%s was generated\n', fileNameEmf)
-}('plot-sin-2.emf')
+}('test-graph/plot-sin-2.emf')

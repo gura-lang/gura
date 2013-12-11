@@ -24,7 +24,7 @@
 /test/result/*.result.txt
 /test/50records-en.sqlite3
 /test/50records-jp.sqlite3
-/test/*.emf
+/test/test-graph/*.emf
 /src/*.tar.gz
 /src/Program_*/*.obj
 /src/Program_*/Makefile
