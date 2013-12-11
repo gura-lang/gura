@@ -138,6 +138,25 @@ Gura_ImplementMethod(template_, present_inherit)
 	return Value::Null;
 }
 
+// template#parse(str:string):void:[noindent,lasteol]
+Gura_DeclareMethod(template_, parse)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "str", VTYPE_string);
+	DeclareAttr(Gura_Symbol(noindent));
+	DeclareAttr(Gura_Symbol(lasteol));
+}
+
+Gura_ImplementMethod(template_, parse)
+{
+	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	bool autoIndentFlag = !args.IsSet(Gura_Symbol(noindent));
+	bool appendLastEOLFlag = args.IsSet(Gura_Symbol(lasteol));
+	SimpleStream_CStringReader streamSrc(args.GetString(0));
+	pTemplate->Read(env, sig, streamSrc, autoIndentFlag, appendLastEOLFlag);
+	return Value::Null;
+}
+
 // template#read(src:stream:r):void:[noindent,lasteol]
 Gura_DeclareMethod(template_, read)
 {
@@ -190,6 +209,7 @@ void Class_template::Prepare(Environment &env)
 	Gura_AssignFunction(template_);
 	Gura_AssignMethod(template_, block);
 	Gura_AssignMethod(template_, inherit);
+	Gura_AssignMethod(template_, parse);
 	Gura_AssignMethod(template_, present_block);
 	Gura_AssignMethod(template_, present_inherit);
 	Gura_AssignMethod(template_, read);

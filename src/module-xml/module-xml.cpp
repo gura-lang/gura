@@ -1131,33 +1131,77 @@ String Object_document::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_document
 //-----------------------------------------------------------------------------
-// xml.document#gendoc(stream?:stream:w, fancy?:boolean)
-Gura_DeclareMethod(document, gendoc)
+#if 0
+// xml.document#parse(str:string):void
+Gura_DeclareMethod(document, parse)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "str", VTYPE_string);
+}
+
+Gura_ImplementMethod(document, parse)
+{
+	Object_document *pObj = Object_document::GetThisObj(args);
+	
+	pObj->GetDocument()->Parse(sig, args.GetStream(0));
+	return Value::Null;
+}
+#endif
+
+// xml.document#read(stream:stream:r):void
+Gura_DeclareMethod(document, read)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
+}
+
+Gura_ImplementMethod(document, read)
+{
+	Object_document *pObj = Object_document::GetThisObj(args);
+	//pObj->GetDocument()->Parse(sig, args.GetStream(0));
+	return Value::Null;
+}
+
+// xml.document#textize(fancy?:boolean)
+Gura_DeclareMethod(document, textize)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 	DeclareArg(env, "fancy", VTYPE_boolean, OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(document, gendoc)
+Gura_ImplementMethod(document, textize)
+{
+	Object_document *pObj = Object_document::GetThisObj(args);
+	bool fancyFlag = args.GetBoolean(0);
+	String strDst;
+	SimpleStream_StringWriter streamDst(strDst);
+	pObj->GetDocument()->Write(sig, streamDst, fancyFlag);
+	return Value(strDst);
+}
+
+// xml.document#write(stream:stream:w, fancy?:boolean):void
+Gura_DeclareMethod(document, write)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
+	DeclareArg(env, "fancy", VTYPE_boolean, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(document, write)
 {
 	Object_document *pObj = Object_document::GetThisObj(args);
 	bool fancyFlag = args.GetBoolean(1);
-	if (args.Is_stream(0)) {
-		pObj->GetDocument()->Write(sig, args.GetStream(0), fancyFlag);
-		return Value::Null;
-	} else {
-		String strDst;
-		SimpleStream_StringWriter streamDst(strDst);
-		pObj->GetDocument()->Write(sig, streamDst, fancyFlag);
-		return Value(strDst);
-	}
+	pObj->GetDocument()->Write(sig, args.GetStream(0), fancyFlag);
+	return Value::Null;
 }
 
 // implementation of class document
 Gura_ImplementUserClass(document)
 {
-	Gura_AssignMethod(document, gendoc);
+	//Gura_AssignMethod(document, parse);
+	Gura_AssignMethod(document, read);
+	Gura_AssignMethod(document, textize);
+	Gura_AssignMethod(document, write);
 }
 
 //-----------------------------------------------------------------------------

@@ -2112,6 +2112,23 @@ String Object_document::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for markdown.document
 //-----------------------------------------------------------------------------
+// markdown.document#parse(str:string):void
+Gura_DeclareMethod(document, parse)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "str", VTYPE_string);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	""
+	);
+}
+
+Gura_ImplementMethod(document, parse)
+{
+	Document *pDocument = Object_document::GetThisObj(args)->GetDocument();
+	pDocument->ParseString(sig, args.GetString(0));
+	return Value::Null;
+}
+
 // markdown.document#read(stream:stream:r):void
 Gura_DeclareMethod(document, read)
 {
@@ -2152,6 +2169,7 @@ Gura_ImplementMethod(document, print)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClass(document)
 {
+	Gura_AssignMethod(document, parse);
 	Gura_AssignMethod(document, read);
 	Gura_AssignMethod(document, print);
 }

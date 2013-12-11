@@ -88,7 +88,7 @@ scope {
 </Document>
 '''
 	xml.document(text.reader()) {|doc|
-		doc.gendoc(sys.stdout)
+		doc.write(sys.stdout)
 	}
 }
 scope {
@@ -132,5 +132,5 @@ scope {
 		println('expected error occurs: ', e.text)
 	}
 	println('== result output ==')
-	doc.gendoc(sys.stdout, fancy => true)
+	doc.write(sys.stdout, fancy => true)
 }
