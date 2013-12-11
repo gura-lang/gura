@@ -1,6 +1,5 @@
 #!/usr/bin/env gura
 import(japanize)
-import(testutil) {*}
 
 くだもの = 構造(なまえ, ねだん)
 りんご = くだもの('りんご', 100)
