@@ -24,6 +24,8 @@ public:
 	virtual const char *GetName() const = 0;
 	virtual int GetChar(Signal sig) = 0;
 	virtual void PutChar(Signal sig, char ch) = 0;
+	virtual size_t Read(Signal sig, void *buff, size_t len) = 0;
+	virtual size_t Write(Signal sig, const void *buff, size_t len) = 0;
 };
 
 //-----------------------------------------------------------------------------
@@ -107,8 +109,8 @@ public:
 	inline void SetAppend(bool flag) {
 		_attr = (_attr & ~ATTR_Append) | (flag? ATTR_Append : 0);
 	}
-	size_t Read(Signal sig, void *buff, size_t len);
-	size_t Write(Signal sig, const void *buff, size_t len);
+	virtual size_t Read(Signal sig, void *buff, size_t len);
+	virtual size_t Write(Signal sig, const void *buff, size_t len);
 	size_t Peek(Signal sig, void *buff, size_t len);
 	bool Seek(Signal sig, long offset, SeekMode seekMode);
 	inline size_t Tell() { return _offsetCur; }

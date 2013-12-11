@@ -13,4 +13,4 @@ e = xhtml {
 		}
 	}
 }
-e.gendoc(sys.stdout, fancy => true)
+e.write(sys.stdout, fancy => true)

@@ -41,7 +41,7 @@ Parser::~Parser()
 	::XML_ParserFree(_parser);
 }
 
-bool Parser::Parse(Signal sig, Stream &stream)
+bool Parser::Parse(Signal sig, SimpleStream &stream)
 {
 	const size_t bytesToRead = 1024 * 8;
 	for (;;) {
@@ -1000,29 +1000,18 @@ String Object_element::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_element
 //-----------------------------------------------------------------------------
-// xml.element#gendoc(stream?:stream:w, fancy?:boolean, indentLevel?:number)
-Gura_DeclareMethod(element, gendoc)
+// xml.element#addchild(value):void:map
+Gura_DeclareMethod(element, addchild)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
-	DeclareArg(env, "fancy", VTYPE_boolean, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "indentLevel", VTYPE_number, OCCUR_ZeroOrOnce);
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "value", VTYPE_any);
 }
 
-Gura_ImplementMethod(element, gendoc)
+Gura_ImplementMethod(element, addchild)
 {
 	Object_element *pObj = Object_element::GetThisObj(args);
-	bool fancyFlag = args.GetBoolean(1);
-	int indentLevel = args.Is_number(2)? args.GetInt(2) : 0;
-	if (args.Is_stream(0)) {
-		pObj->GetElement()->Write(sig, args.GetStream(0), fancyFlag, indentLevel);
-		return Value::Null;
-	} else {
-		String strDst;
-		SimpleStream_StringWriter streamDst(strDst);
-		pObj->GetElement()->Write(sig, streamDst, fancyFlag, indentLevel);
-		return Value(strDst);
-	}
+	pObj->GetElement()->AddChild(env, sig, args.GetValue(0));
+	return Value::Null;
 }
 
 // xml.element#gettext()
@@ -1039,17 +1028,40 @@ Gura_ImplementMethod(element, gettext)
 	return Value(str);
 }
 
-// xml.element#addchild(value):void:map
-Gura_DeclareMethod(element, addchild)
+// xml.element#textize(fancy?:boolean, indentLevel?:number)
+Gura_DeclareMethod(element, textize)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "value", VTYPE_any);
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "fancy", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "indentLevel", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(element, addchild)
+Gura_ImplementMethod(element, textize)
 {
 	Object_element *pObj = Object_element::GetThisObj(args);
-	pObj->GetElement()->AddChild(env, sig, args.GetValue(0));
+	bool fancyFlag = args.GetBoolean(0);
+	int indentLevel = args.Is_number(1)? args.GetInt(1) : 0;
+	String strDst;
+	SimpleStream_StringWriter streamDst(strDst);
+	pObj->GetElement()->Write(sig, streamDst, fancyFlag, indentLevel);
+	return Value(strDst);
+}
+
+// xml.element#write(stream:stream:w, fancy?:boolean, indentLevel?:number):void
+Gura_DeclareMethod(element, write)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
+	DeclareArg(env, "fancy", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "indentLevel", VTYPE_number, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(element, write)
+{
+	Object_element *pObj = Object_element::GetThisObj(args);
+	bool fancyFlag = args.GetBoolean(1);
+	int indentLevel = args.Is_number(2)? args.GetInt(2) : 0;
+	pObj->GetElement()->Write(sig, args.GetStream(0), fancyFlag, indentLevel);
 	return Value::Null;
 }
 
@@ -1064,9 +1076,10 @@ Gura_ImplementBinaryOperator(Shl, element, any)
 // implementation of class Element
 Gura_ImplementUserClass(element)
 {
-	Gura_AssignMethod(element, gendoc);
-	Gura_AssignMethod(element, gettext);
 	Gura_AssignMethod(element, addchild);
+	Gura_AssignMethod(element, gettext);
+	Gura_AssignMethod(element, textize);
+	Gura_AssignMethod(element, write);
 	// operator assignment
 	Gura_AssignBinaryOperator(Shl, element, any);
 }
@@ -1131,7 +1144,6 @@ String Object_document::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_document
 //-----------------------------------------------------------------------------
-#if 0
 // xml.document#parse(str:string):void
 Gura_DeclareMethod(document, parse)
 {
@@ -1142,11 +1154,10 @@ Gura_DeclareMethod(document, parse)
 Gura_ImplementMethod(document, parse)
 {
 	Object_document *pObj = Object_document::GetThisObj(args);
-	
-	pObj->GetDocument()->Parse(sig, args.GetStream(0));
+	SimpleStream_CStringReader streamSrc(args.GetString(0));
+	pObj->GetDocument()->Parse(sig, streamSrc);
 	return Value::Null;
 }
-#endif
 
 // xml.document#read(stream:stream:r):void
 Gura_DeclareMethod(document, read)
@@ -1158,7 +1169,7 @@ Gura_DeclareMethod(document, read)
 Gura_ImplementMethod(document, read)
 {
 	Object_document *pObj = Object_document::GetThisObj(args);
-	//pObj->GetDocument()->Parse(sig, args.GetStream(0));
+	pObj->GetDocument()->Parse(sig, args.GetStream(0));
 	return Value::Null;
 }
 
@@ -1198,7 +1209,7 @@ Gura_ImplementMethod(document, write)
 // implementation of class document
 Gura_ImplementUserClass(document)
 {
-	//Gura_AssignMethod(document, parse);
+	Gura_AssignMethod(document, parse);
 	Gura_AssignMethod(document, read);
 	Gura_AssignMethod(document, textize);
 	Gura_AssignMethod(document, write);

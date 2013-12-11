@@ -18,6 +18,8 @@ public:
 	virtual const char *GetName() const;
 	virtual int GetChar(Signal sig);
 	virtual void PutChar(Signal sig, char ch);
+	virtual size_t Read(Signal sig, void *buff, size_t len);
+	virtual size_t Write(Signal sig, const void *buff, size_t len);
 };
 
 //-----------------------------------------------------------------------------
@@ -33,6 +35,8 @@ public:
 	virtual const char *GetName() const;
 	virtual int GetChar(Signal sig);
 	virtual void PutChar(Signal sig, char ch);
+	virtual size_t Read(Signal sig, void *buff, size_t len);
+	virtual size_t Write(Signal sig, const void *buff, size_t len);
 };
 
 //-----------------------------------------------------------------------------
@@ -46,6 +50,8 @@ public:
 	virtual const char *GetName() const;
 	virtual int GetChar(Signal sig);
 	virtual void PutChar(Signal sig, char ch);
+	virtual size_t Read(Signal sig, void *buff, size_t len);
+	virtual size_t Write(Signal sig, const void *buff, size_t len);
 };
 
 //-----------------------------------------------------------------------------

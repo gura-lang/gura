@@ -22,6 +22,20 @@ void SimpleStream_CStringReader::PutChar(Signal sig, char ch)
 	// nothing to do
 }
 
+size_t SimpleStream_CStringReader::Read(Signal sig, void *buff, size_t len)
+{
+	size_t lenRest = (_pEnd == NULL)? ::strlen(_pStr) : _pEnd - _pStr;
+	size_t lenToCopy = ChooseMin(lenRest, len);
+	::memcpy(buff, _pStr, lenToCopy);
+	_pStr += lenToCopy;
+	return lenToCopy;
+}
+
+size_t SimpleStream_CStringReader::Write(Signal sig, const void *buff, size_t len)
+{
+	return 0;
+}
+
 //-----------------------------------------------------------------------------
 // SimpleStream_StringReader
 //-----------------------------------------------------------------------------
@@ -42,6 +56,21 @@ void SimpleStream_StringReader::PutChar(Signal sig, char ch)
 	// nothing to do
 }
 
+size_t SimpleStream_StringReader::Read(Signal sig, void *buff, size_t len)
+{
+	char *p = reinterpret_cast<char *>(buff);
+	size_t lenCopied = 0;
+	for ( ; _pStr != _pEnd && lenCopied < len; lenCopied++) {
+		*p++ = *_pStr++;
+	}
+	return lenCopied;
+}
+
+size_t SimpleStream_StringReader::Write(Signal sig, const void *buff, size_t len)
+{
+	return 0;
+}
+
 //-----------------------------------------------------------------------------
 // SimpleStream_StringWriter
 //-----------------------------------------------------------------------------
@@ -58,6 +87,16 @@ int SimpleStream_StringWriter::GetChar(Signal sig)
 void SimpleStream_StringWriter::PutChar(Signal sig, char ch)
 {
 	_str += ch;
+}
+
+size_t SimpleStream_StringWriter::Read(Signal sig, void *buff, size_t len)
+{
+	return 0;
+}
+
+size_t SimpleStream_StringWriter::Write(Signal sig, const void *buff, size_t len)
+{
+	return 0;
 }
 
 //-----------------------------------------------------------------------------

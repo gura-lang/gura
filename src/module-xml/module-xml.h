@@ -50,7 +50,7 @@ private:
 public:
 	Parser();
 	virtual ~Parser();
-	bool Parse(Signal sig, Stream &stream);
+	bool Parse(Signal sig, SimpleStream &stream);
 	inline void StopParser() { ::XML_StopParser(_parser, XML_FALSE); }
 private:
 	static void XMLCALL StartElementHandler(void *userData, const XML_Char *name, const XML_Char **atts);
