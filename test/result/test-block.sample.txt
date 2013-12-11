@@ -62,7 +62,7 @@ colsPerLines: [87, 84, 78, 83, 80, 80, 82, 82, 81, 87, 86, 77, 89, 87, 89, 93, 8
 
 ======== #7 ========
 
-lines of 50records-en.csv is 48
+lines of data/50records-en.csv is 48
 
 ======== #8 ========
 

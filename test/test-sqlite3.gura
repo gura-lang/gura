@@ -6,9 +6,10 @@ import(testutil) {*}
 
 sys.stdout.setcodec('shift_jis').addcr(false)
 
+fileName = 'test-sqlite3/50records-en.sqlite3'
 testcase {
-	try {fs.remove('50records-en.sqlite3')} catch {}
-	sqlite3.db('50records-en.sqlite3') {|db|
+	try {fs.remove(fileName)} catch {}
+	sqlite3.db(fileName) {|db|
 		db.exec('''\
 			create table people (
 				name     text,
@@ -21,7 +22,7 @@ testcase {
 		''')
 		Person = struct(name:string, email:string,
 				gender:string, age:number, birthday:string, mobile:string)
-		people = Person * csv.reader('50records-en.csv')
+		people = Person * csv.reader('data/50records-en.csv')
 		db.transaction {
 			for (person in people) {
 				db.exec("insert into people values ('%s', '%s', '%s', %d, '%s', '%s')" % \
@@ -33,7 +34,7 @@ testcase {
 testcase {
 	Person = struct(name:string, email:string,
 				gender:string, age:number, birthday:string, mobile:string)
-	db = sqlite3.db('50records-en.sqlite3')
+	db = sqlite3.db(fileName)
 	println()
 	println('column names: ', db.getcolnames('select * from people').join(', '))
 	println(Person * db.query('select * from people'))
@@ -42,15 +43,16 @@ testcase {
 testcase {
 	Person = struct(name:string, email:string,
 				gender:string, age:number, birthday:string, mobile:string)
-	sqlite3.db('50records-en.sqlite3') {|db|
+	sqlite3.db(fileName) {|db|
 		println()
 		println('column names: ', db.getcolnames('select * from people').join(', '))
 		println(Person * db.query('select * from people'))
 	}
 }
+fileName = 'test-sqlite3/50records-jp.sqlite3'
 testcase {
-	try {fs.remove('50records-jp.sqlite3')} catch {}
-	sqlite3.db('50records-jp.sqlite3') {|db|
+	try {fs.remove(fileName)} catch {}
+	sqlite3.db(fileName) {|db|
 		db.exec('''\
 			create table people (
 				名前       text,
@@ -70,7 +72,7 @@ testcase {
 				gender:string, age:number, birthday:string,
 				married:string, prefecture:string, mobile:string,
 				mobile_career:string, habit:string)
-		people = Person * csv.reader(open('50records-jp.csv', 'r', 'shift_jis'))
+		people = Person * csv.reader(open('data/50records-jp.csv', 'r', 'shift_jis'))
 		db.transaction {
 			for (person in people) {
 				db.exec('insert into people values (' \
@@ -85,7 +87,7 @@ testcase {
 			gender:string, age:number, birthday:string,
 			married:string, prefecture:string, mobile:string,
 			mobile_career:string, habit:string)
-	sqlite3.db('50records-jp.sqlite3') {|db|
+	sqlite3.db(fileName) {|db|
 		println()
 		println('column names: ', db.getcolnames('select * from people').join(', '))
 		println(Person * \
@@ -94,9 +96,10 @@ testcase {
 					'携帯電話, 携帯会社, くせ from people'))
 	}
 }
+fileName = 'test-sqlite3/temperature.sqlite3'
 function {
-	try {fs.remove('temperature.sqlite3')} catch {}
-	sqlite3.db('temperature.sqlite3') {|db|
+	try {fs.remove(fileName)} catch {}
+	sqlite3.db(fileName) {|db|
 		db.exec('''\
 			create table sites (
 				day      integer,
@@ -106,7 +109,7 @@ function {
 			)
 		''')
 		items = struct(day:number, temps*:number) * \
-			re.split(r'\s+', (readlines('temperature.txt'):chop).offset(1)):list
+			re.split(r'\s+', (readlines('test-sqlite3/temperature.txt'):chop).offset(1)):list
 		db.transaction {
 			for (item in items) {
 				db.exec('insert into sites values (%d, %f, %f, %f)' % \

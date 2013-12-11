@@ -8,7 +8,7 @@ function(fileNameEmf:string) {
 	graph.create_emf(fileNameEmf, 150, 150) {|c|
 		Record = struct(year_j, year:number, total_n:number, total:number,
 						age_0_14:number, age_15_64:number, age_65_:number, rest*)
-		tbl = Record * csv.reader(open('ipss.go.jp-report-1.csv', 'r', 'shift_jis')):iter
+		tbl = Record * csv.reader(open('data/ipss.go.jp-report-1.csv', 'r', 'shift_jis')):iter
 		graph.draw(c,
 				graph.item(tbl:*year, tbl:*age_0_14, `solid, `black)
 				graph.item(tbl:*year, tbl:*age_15_64, `solid, `green)
@@ -128,7 +128,7 @@ function(fileNameEmf:string) {
 		}
 	}
 	graph.create_emf(fileNameEmf, 150, 150) {|c|
-		tbl = read_table('temperature.txt', header => true)
+		tbl = read_table('data/temperature.txt', header => true)
 		graph.draw(c,
 				graph.item(tbl:*day, tbl:*Site01, `solid)
 				graph.item(tbl:*day, tbl:*Site02, `solid)

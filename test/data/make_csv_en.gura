@@ -1,0 +1,16 @@
+#!/usr/bin/env gura
+import(csv)
+import(re)
+
+Person = struct(name_j:string, kana:string, email:string, gender:string, age:number,
+	birthday:string, marriage:string, prefecture:string,
+	mobilephone:string, mobilecarrier:string, custom:string, rest*)
+
+csv.reader(sys.argv[1]) {|line|
+	person = Person * line
+	m = re.pattern('([^_]+)_([^@]+)@.*').match(person.email)
+	name_e = m[1].capitalize() + ' ' + m[2].capitalize()
+	csv.writer(sys.stdout).write(name_e, person.email,
+		cond(person.gender == '’j', 'male', 'female'),
+		person.age, person.birthday, person.mobilephone)
+}

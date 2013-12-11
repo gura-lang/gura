@@ -46,7 +46,7 @@ testcase {
 	}
 }
 testcase {
-	fileName = '50records-en.csv'
+	fileName = 'data/50records-en.csv'
 	open(fileName) {|f|
 		repeat(10) {|i|
 			printf('%3d  %s\n', i + 1, f.readline():chop)
@@ -54,7 +54,7 @@ testcase {
 	}
 }
 testcase {
-	fileName = '50records-en.csv'
+	fileName = 'data/50records-en.csv'
 	open(fileName) {|f|
 		lines = [f.readlines(10):chop]
 		lineNums = [1..lines.len()]
@@ -62,18 +62,18 @@ testcase {
 	}
 }
 testcase {
-	fileName = '50records-en.csv'
+	fileName = 'data/50records-en.csv'
 	for (line in open(fileName).readlines(10):chop) {|i|
 		printf('%3d  %s\n', i + 1, line)
 	}
 }
 testcase {
-	fileName = '50records-en.csv'
+	fileName = 'data/50records-en.csv'
 	colsPerLines = for (line in open(fileName).readlines():chop):list { line.len() }
 	printf('colsPerLines: %s\n', colsPerLines):nomap
 }
 testcase {
-	fileName = '50records-en.csv'
+	fileName = 'data/50records-en.csv'
 	nLines = 0
 	for (line in open(fileName).readlines():chop) {
 		nLines += 1		# this implementation is just for a test of scope
