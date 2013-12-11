@@ -63,7 +63,8 @@ if (sys.build == `msc) {
 */
 testcase {
 	charLines = nil
-	for (fileName in ['arrow-green-u.gif', 'arrow-green-l.gif', 'arrow-green-d.gif', 'arrow-green-r.gif']) {
+	['arrow-green-u.gif', 'arrow-green-l.gif',
+	 'arrow-green-d.gif', 'arrow-green-r.gif'].each {|fileName|
 		img = image(I(fileName), `rgb)
 		if (charLines.isnil()) {
 			charLines = repeat (img.height):list {''}
