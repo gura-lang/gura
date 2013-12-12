@@ -58,12 +58,12 @@ Build for Linux
    It may be a better idea to make package files of Debian or RPM for installation.
    See the section below to know how to do it.
 
-4. Run the following command to build **Gura** modules.
+4. Run the following command to build **Gura** modules files.
 
         $ ./build-modules
 
   This may occur an error because of lacking packages.
-  In such a case, the script `build-modules` generates shell
+  In such a case, the script `build-modules` generates shell scripts
   with which you can easily setup necessary packages.
   Run `setup-gura-guest-deb.sh` for Ubuntu and `setup-gura-guest-rpm.sh` for RedHat.
 
@@ -76,7 +76,8 @@ Build Install Packages for Linux
 --------------------------------
 Generated Makefile is capable of creating both Debian and RPM install packages.
 
-If you use Ubuntu, you have to install rpm package as following.
+If you use Ubuntu, you have to install additional packages as following
+so that the Makefile can make RPM package.
 
     $ sudo apt-get install rpm
 
