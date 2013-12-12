@@ -1,0 +1,5 @@
+import(msxls)
+
+msxls.read('50records-jp.xlsx') {|cols|
+	println(cols[0])
+}

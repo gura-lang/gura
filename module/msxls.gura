@@ -6,7 +6,7 @@ import(mswin)
 
 progid = 'Excel.Application'
 
-reader(filename:string, sheetindex => 1) = {
+read(filename:string, sheetindex => 1) {`block?} = {
 	app = mswin.ole(progid)
 	wb = app.Workbooks.Open(path.absname(filename))
 	ws = wb.WorkSheets(sheetindex)
@@ -17,6 +17,7 @@ reader(filename:string, sheetindex => 1) = {
 			ws.Cells(iRow, iCol).Value
 		}
 	}
+	block && return(iter.each() {|block|})
 	iter
 }
 
@@ -65,8 +66,15 @@ writer = class {
 		this.app.Quit()
 	}
 }
+
+read.addhelp(`en, 'markdown', 'Return an iterator that reads each line of Excel file.')
+
 writer.start.addhelp(`en, 'markdown', 'Set start point to write values.')
+
 writer.write.addhelp(`en, 'markdown', 'Append value of fields into Excel sheet.')
+
 writer.clear.addhelp(`en, 'markdown', 'Clear contents of Excel sheet.')
+
 writer.autofit.addhelp(`en, 'markdown', 'Fits column width by calculating maximum width of each column.')
+
 writer.close.addhelp(`en, 'markdown', 'Save file and exit Excel application.')
