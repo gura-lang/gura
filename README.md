@@ -13,16 +13,19 @@ Official Site
 -------------
 http://www.gura-lang.org/
 
+
 Build for Windows
 -----------------
 1. Check if Visual Studio 2010 has been installed. You can use Express version as well.
-2. Run a batch file gura\src\setup-gura-guest.bat, which downloads necessary packages
+
+2. Run a batch file `gura\src\setup-gura-guest.bat`, which downloads necessary packages
    from Git repository (https://github.com/ypsitau/gura-guest.git) and build them.
 
-   The batch file may occur an error that says it cannot find vcvarsall.bat.
-   In such a case, you have to edit gura\gura-guest\setup.bat
-   and modify VCVARSALL variable so that it points to a right directory of Visual Studio.
-3. Open gura\gura.sln with Visual Studio 2010, switch the configuration to Release
+   The batch file may occur an error that says it cannot find `vcvarsall.bat`.
+   In such a case, you have to edit `gura\gura-guest\setup.bat`
+   and modify `VCVARSALL` variable so that it points to a right directory of Visual Studio.
+
+3. Open `gura\gura.sln` with Visual Studio 2010, switch the configuration to Release
    and build it.
 
 
@@ -90,12 +93,3 @@ For Ubuntu:
 For RedHat:
 
     $ sudo rpm -i gura-x.x.x-Linux.rpm
-
-
-Source URLs of Guest Libraries
-------------------------------
-
-<table>
-<tr><td>dSFMT-src-2.2.1.zip</td><td>http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/SFMT/index.html</td></tr>
-<tr><td>combination.hpp</td><td>http://photon.poly.edu/~hbr/boost/combinations.html</td></tr>
-</table>
