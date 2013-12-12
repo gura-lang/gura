@@ -147,15 +147,15 @@ Gura_ImplementFunction(parse)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// csv.reader(stream:stream:r) {block?}
-Gura_DeclareFunction(reader)
+// csv.read(stream:stream:r) {block?}
+Gura_DeclareFunction(read)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(reader)
+Gura_ImplementFunction(read)
 {
 	Object_stream *pObjStream = Object_stream::GetObject(args, 0);
 	Iterator *pIterator = new Iterator_reader(new ReaderStream(
@@ -185,14 +185,14 @@ Gura_ImplementFunction(writer)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_stream
 //-----------------------------------------------------------------------------
-// stream#csvreader() {block?}
-Gura_DeclareMethod(stream, csvreader)
+// stream#csvread() {block?}
+Gura_DeclareMethod(stream, csvread)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(stream, csvreader)
+Gura_ImplementMethod(stream, csvread)
 {
 	Object_stream *pThis = Object_stream::GetThisObj(args);
 	Iterator *pIterator = new Iterator_reader(new ReaderStream(
@@ -225,10 +225,10 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(writer, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(parse);
-	Gura_AssignFunction(reader);
+	Gura_AssignFunction(read);
 	Gura_AssignFunction(writer);
 	// method assignment to stream type
-	Gura_AssignMethodTo(VTYPE_stream, stream, csvreader);
+	Gura_AssignMethodTo(VTYPE_stream, stream, csvread);
 	Gura_AssignMethodTo(VTYPE_stream, stream, csvwriter);
 	// value assignment
 	Gura_AssignValue(format, Value(DEFAULT_FORMAT));

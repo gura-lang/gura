@@ -22,7 +22,7 @@ testcase {
 		''')
 		Person = struct(name:string, email:string,
 				gender:string, age:number, birthday:string, mobile:string)
-		people = Person * csv.reader('data/50records-en.csv')
+		people = Person * csv.read('data/50records-en.csv')
 		db.transaction {
 			for (person in people) {
 				db.exec("insert into people values ('%s', '%s', '%s', %d, '%s', '%s')" % \
@@ -72,7 +72,7 @@ testcase {
 				gender:string, age:number, birthday:string,
 				married:string, prefecture:string, mobile:string,
 				mobile_career:string, habit:string)
-		people = Person * csv.reader(open('data/50records-jp.csv', 'r', 'shift_jis'))
+		people = Person * csv.read(open('data/50records-jp.csv', 'r', 'shift_jis'))
 		db.transaction {
 			for (person in people) {
 				db.exec('insert into people values (' \

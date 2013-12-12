@@ -61,7 +61,7 @@ testcase {
 }
 testcase {
 	Person = struct(name:string, email:string, gender:string, age:number, rest*)
-	people = Person * csv.reader('data/50records-en.csv')
+	people = Person * csv.read('data/50records-en.csv')
 	tester(`people::name.sort(`ascend):stable:list)
 	tester(`people::name.sort(`ascend, people::name):stable:list)
 	tester(`(people.sort(&{$p1.age <=> $p2.age}):stable)::name)
@@ -98,31 +98,31 @@ testcase {
 }
 testcase {
 	f = open('data/50records-en.csv')
-	for (line in csv.reader(f)) {|i|
+	for (line in csv.read(f)) {|i|
 		printf('%3d %s\n', i + 1, line):nomap
 	}
 }
 testcase {
-	csv.reader('data/50records-en.csv') {|line, i|
+	csv.read('data/50records-en.csv') {|line, i|
 		printf('%3d %s\n', i + 1, line):nomap
 	}
 }
 testcase {
 	Person = struct(name:string, email:string,
 					gender:string, age:string, birthday:string, mobile:string)
-	people = Person * csv.reader('data/50records-en.csv')
+	people = Person * csv.read('data/50records-en.csv')
 	println(people)
 	csv.writer(sys.stdout).write(people:*name, people:*email,
 				people:*gender, people:*age, people:*birthday, people:*mobile)
 }
 testcase {
 	Person = struct(name:string, email:string, rest*)
-	people = for (line in csv.reader('data/50records-en.csv')):iter { Person * line }
+	people = for (line in csv.read('data/50records-en.csv')):iter { Person * line }
 	println(people)
 }
 testcase {
 	Person = struct(name:string, email:string, gender:string, age:number, rest*)
-	people = Person * csv.reader('data/50records-en.csv')
+	people = Person * csv.read('data/50records-en.csv')
 	familyNames = (people:*name:*split(' '):list)::get(0).sort():stable
 	familyNameSet = set(familyNames)
 	printf('%s(%d),', familyNameSet, familyNames.count(familyNameSet):map)
@@ -153,8 +153,8 @@ function {
 						X0_14:number, X15_64:number, X65_:number, rest*)
 	Record2 = struct(yearj, year:number, total:number,
 						X0_14:number, X15_64:number, X65_:number, rest*)
-	recs1 = Record1 * csv.reader('data/ipss.go.jp-report-1.csv')
-	recs2 = Record2 * csv.reader('data/ipss.go.jp-report-2.csv')
+	recs1 = Record1 * csv.read('data/ipss.go.jp-report-1.csv')
+	recs2 = Record2 * csv.read('data/ipss.go.jp-report-2.csv')
 	Record = struct(year:number, total:number, X0_14:number, X15_64:number, X65_:number)
 	recs = Record * list(
 		zipv(recs1::year, recs1::total, recs1::X0_14, recs1::X15_64, recs1::X65_),
