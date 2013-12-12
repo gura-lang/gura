@@ -18,11 +18,13 @@ Build for Windows
 1. Check if Visual Studio 2010 has been installed. You can use Express version as well.
 2. Run a batch file gura\src\setup-gura-guest.bat, which downloads necessary packages
    from Git repository (https://github.com/ypsitau/gura-guest.git) and build them.
+
    The batch file may occur an error that says it cannot find vcvarsall.bat.
    In such a case, you have to edit gura\gura-guest\setup.bat
    and modify VCVARSALL variable so that it points to a right directory of Visual Studio.
 3. Open gura\gura.sln with Visual Studio 2010, switch the configuration to Release
    and build it.
+
 
 Build for Linux
 -----------------
@@ -46,7 +48,14 @@ Build for Linux
         $ ../configure
         $ make
 
-3. Run the following command to build **Gura** modules.
+3. Run the following command to install **Gura** library and executable.
+
+        $ sudo make install
+
+   It may be a better idea to make package files of Debian or RPM for installation.
+   See the section below to know how to do it.
+
+4. Run the following command to build **Gura** modules.
 
         $ ./build-modules
 
@@ -55,13 +64,10 @@ Build for Linux
   with which you can easily setup necessary packages.
   Run `setup-gura-guest-deb.sh` for Ubuntu and `setup-gura-guest-rpm.sh` for RedHat.
 
-4. Run the following command to install **Gura** library and executable.
-
-        $ sudo make install
-
 5. Run the following command to install **Gura** module files.
 
         $ sudo ./build-modules install
+
 
 Build Install Packages for Linux
 --------------------------------
@@ -84,6 +90,7 @@ For Ubuntu:
 For RedHat:
 
     $ sudo rpm -i gura-x.x.x-Linux.rpm
+
 
 Source URLs of Guest Libraries
 ------------------------------
