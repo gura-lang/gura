@@ -1,5 +1,9 @@
 import(msxls)
 
-msxls.read('50records-jp.xlsx') {|cols|
-	println(cols[0])
-}
+Person = struct(name:string, hiragana:string, roman:string, gender:string,
+	age:number, birthday:datetime, mariage:string, prefecture:string,
+	mobile:string, mobile_career:string, custom:string)
+
+people = Person * msxls.read('50records-jp.xlsx')
+printf('%s (%s), %d, %s\n', people:*name, people:*hiragana,
+					people:*age, people:*birthday:*format('%Y-%m-%d'))

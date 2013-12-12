@@ -12,13 +12,17 @@ read(filename:string, sheetindex => 1) {`block?} = {
 	ws = wb.WorkSheets(sheetindex)
 	lastCell = ws.Range('A1').SpecialCells(app.xlCellTypeLastCell)
 	[nCols, nRows] = [lastCell.Column, lastCell.Row]
-	iter = for (iRow in 1..nRows):iter {
-		for (iCol in 1..nCols):list {
-			ws.Cells(iRow, iCol).Value
+	try {
+		tbl = for (iRow in 1..nRows):list {
+			for (iCol in 1..nCols):list {
+				ws.Cells(iRow, iCol).Value
+			}
 		}
-	}
-	block && return(iter.each() {|block|})
-	iter
+	} catch {}
+	wb.Close(0)
+	app.Quit()
+	block && return(tbl.each {|block|})
+	tbl.each()
 }
 
 writer = class {
