@@ -42,7 +42,7 @@ public:
 		STAT_ShebangLine,
 		STAT_CommentBlock, STAT_CommentBlockEnd, STAT_CommentBlockNest,
 		STAT_StringFirst, STAT_StringSecond,
-		STAT_String, STAT_MString, STAT_MStringFirst,
+		STAT_String, STAT_MString, STAT_MStringWise, STAT_MStringLineHead,
 		STAT_StringEsc, STAT_StringEscHex, STAT_StringEscOct,
 		STAT_StringInCommentBlock, STAT_StringEscInCommentBlock,
 		STAT_MStringEndFirst, STAT_MStringEndSecond,
@@ -133,12 +133,13 @@ public:
 	typedef std::map<ElemType, int> ElemTypeToIndexMap;
 	struct StringInfo {
 		char chBorder;
-		bool rawFlag;			// prefixed by 'r' or 'R'
-		bool binaryFlag;		// prefixed by 'b' or 'B'
-		bool skipFirstEOLFlag;	// prefixed by 'R'
+		bool rawFlag;		// prefixed by 'r' or 'R'
+		bool binaryFlag;	// prefixed by 'b' or 'B'
+		bool wiseFlag;		// prefixed by 'R'
 		Stat statRtn;
 		int cntRest;
 		ULong accum;
+		String strIndentRef;
 	};
 	class GURA_DLLDECLARE Element {
 	private:
@@ -207,6 +208,7 @@ public:
 	};
 private:
 	Stat _stat;
+	bool _lineHeadFlag;
 	MagicCommentParser _magicCommentParser;
 	bool _appearShebangFlag;
 	bool _blockParamFlag;
@@ -219,6 +221,7 @@ private:
 	StringInfo _stringInfo;
 	ElemTypeToIndexMap _elemTypeToIndexMap;
 	CharConverter _charConverter;
+	String _strIndent;
 	static const ElemTypeInfo _elemTypeInfoTbl[];
 public:
 	Parser(const String &sourceName, int cntLineStart = 0);

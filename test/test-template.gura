@@ -8,48 +8,48 @@ sys.stdout.setcodec('shift_jis').addcr(false)
 //-----------------------------------------------------------------------------
 testcase {
 	R'''
-  ${// comment}
-  line.1
-    ${# comment}
-  line.2
-      ${/* comment */}
-  line.3
-  line.4${//comment}
-
-'''.template().render(sys.stdout)
+	  ${// comment}
+	  line.1
+	    ${# comment}
+	  line.2
+	      ${/* comment */}
+	  line.3
+	  line.4${//comment}
+	
+	'''.template().render(sys.stdout)
 }
 //-----------------------------------------------------------------------------
 testcase {
 	R'''
-${(1..10).each() {|i|}}
-  ${i}
-${end}
-'''.template().render(sys.stdout)
+	${(1..10).each() {|i|}}
+	  ${i}
+	${end}
+	'''.template().render(sys.stdout)
 }
 //-----------------------------------------------------------------------------
 testcase {
 	R'''
-hello
-${
-nil
-}
-${
--
-}
-${nil}
-${-}
-gura
-${''}
-world
-
-hello ${nil}world
-hello ${-}world
-hello ${(1..10) + ','} world
-hello ${(1..10) + '\n'} world
-foo${nil}bar
-foo${-}bar
-foo${''}bar
-'''.template().render(sys.stdout)
+	hello
+	${
+	nil
+	}
+	${
+	-
+	}
+	${nil}
+	${-}
+	gura
+	${''}
+	world
+	
+	hello ${nil}world
+	hello ${-}world
+	hello ${(1..10) + ','} world
+	hello ${(1..10) + '\n'} world
+	foo${nil}bar
+	foo${-}bar
+	foo${''}bar
+	'''.template().render(sys.stdout)
 }
 //-----------------------------------------------------------------------------
 testcase {
@@ -57,47 +57,47 @@ testcase {
 	products = ['apple', 'grape', 'orange']
 	// iteration with for function
 	R'''
-[Companies]
-${for (company in companies)}
-  ${if (company)}
-    Company: ${company}
-  ${else}
-    Company: (not defined)
-  ${end}
-${end}
-[Products]
-${for (product in products)}
-- ${product}
-${end}
-'''.template().render(sys.stdout)
+	[Companies]
+	${for (company in companies)}
+	  ${if (company)}
+	    Company: ${company}
+	  ${else}
+	    Company: (not defined)
+	  ${end}
+	${end}
+	[Products]
+	${for (product in products)}
+	- ${product}
+	${end}
+	'''.template().render(sys.stdout)
 	// iteration with each method
 	R'''
-[Companies]
-${companies.each {|company|}}
-  ${if (company)}
-    Company: ${company}
-  ${else}
-    Company: (not defined)
-  ${end}
-${end}
-[Products]
-${products.each {|product|}}
-- ${product}
-${end}
-'''.template().render(sys.stdout)
+	[Companies]
+	${companies.each {|company|}}
+	  ${if (company)}
+	    Company: ${company}
+	  ${else}
+	    Company: (not defined)
+	  ${end}
+	${end}
+	[Products]
+	${products.each {|product|}}
+	- ${product}
+	${end}
+	'''.template().render(sys.stdout)
 }
 testcase {
 	R'''
-${for (i in 1..10)}
-  ${if (i < 5)}
-    ${i} is less than five
-  ${elsif (i < 8)}
-    ${i} is less than eight
-  ${else}
-    ${i} is greater or equal to eight
-  ${end}
-${end}
-'''.template().render(sys.stdout)
+	${for (i in 1..10)}
+	  ${if (i < 5)}
+	    ${i} is less than five
+	  ${elsif (i < 8)}
+	    ${i} is less than eight
+	  ${else}
+	    ${i} is greater or equal to eight
+	  ${end}
+	${end}
+	'''.template().render(sys.stdout)
 }
 //-----------------------------------------------------------------------------
 testcase {
@@ -105,7 +105,7 @@ testcase {
 }
 //-----------------------------------------------------------------------------
 testcase {
-	tmpl = R'''
+tmpl = R'''
 ${if (company) {R"""
 Company: ${company}
 """.template().render()} else {R"""
@@ -129,20 +129,20 @@ ${R"""
 testcase {
 	x = format('embedded #%d line\n', 1..4)
 	tmpl = R'''
-space 1
- ${x}
-space 2
-  ${x}
-space 3
-   ${x}
-space 4
-    ${x}
-tab 1
-	${x}
-tab 2
+	space 1
+	 ${x}
+	space 2
+	  ${x}
+	space 3
+	   ${x}
+	space 4
+	    ${x}
+	tab 1
 		${x}
-not line top:  ${x}
-'''
+	tab 2
+			${x}
+	not line top:  ${x}
+	'''
 	println('** auto-indent **')
 	tmpl.template().render(sys.stdout)
 	template(tmpl.reader()).render(sys.stdout)
@@ -192,68 +192,68 @@ testcase {
 //-----------------------------------------------------------------------------
 testcase {
 	R'''
-${x = 10}
-${x}
-hello world
-  ${x = 100, -}
-  ${if (x < 10)}
-    A
-  ${else}
-    B
-  ${end}
-  ${for (x in 1..10)}
-    ${for (y in 1..10)}XXX${end, ''}
-  ${end}
-hoge
-
-${for (x in 1..10)}
-    hoge ${x}
-${end}
-
-'''.template().render(sys.stdout)
+	${x = 10}
+	${x}
+	hello world
+	  ${x = 100, -}
+	  ${if (x < 10)}
+	    A
+	  ${else}
+	    B
+	  ${end}
+	  ${for (x in 1..10)}
+	    ${for (y in 1..10)}XXX${end, ''}
+	  ${end}
+	hoge
+	
+	${for (x in 1..10)}
+	    hoge ${x}
+	${end}
+	
+	'''.template().render(sys.stdout)
 }
 //-----------------------------------------------------------------------------
 testcase('test of inheritance') {
 	// base1 template
 	base1 = R'''
-=== ${=block(`head)}base1-head${end} ===
-<start-of-body>
-${=block(`body)}
-base1-body
-${end}
-<end-of-body>
-'''.template()
+	=== ${=block(`head)}base1-head${end} ===
+	<start-of-body>
+	${=block(`body)}
+	base1-body
+	${end}
+	<end-of-body>
+	'''.template()
 	// base2 template
 	base2 = R'''
-${=inherit(base1)}
-
-${=block(`head)}base2-head${end}
-
-${=block(`body)}
-${end}
-'''.template()
+	${=inherit(base1)}
+	
+	${=block(`head)}base2-head${end}
+	
+	${=block(`body)}
+	${end}
+	'''.template()
 	// base3 template
 	base3 = R'''
-${=inherit(base2)}
-
-${=block(`head)}base3-head${end}
-
-${=block(`body)}
-base3-body
-${end}
-'''.template()
+	${=inherit(base2)}
+	
+	${=block(`head)}base3-head${end}
+	
+	${=block(`body)}
+	base3-body
+	${end}
+	'''.template()
 	println('inherit from base1')
 	R'''
-${=inherit(base1)}
-'''.template().render(sys.stdout)
+	${=inherit(base1)}
+	'''.template().render(sys.stdout)
 	println('inherit from base2')
 	R'''
-${=inherit(base2)}
-'''.template().render(sys.stdout)
+	${=inherit(base2)}
+	'''.template().render(sys.stdout)
 	println('inherit from base3')
 	R'''
-${=inherit(base3)}
-'''.template().render(sys.stdout)
+	${=inherit(base3)}
+	'''.template().render(sys.stdout)
 }
 //-----------------------------------------------------------------------------
 testcase('test of scope') {
@@ -277,29 +277,29 @@ testcase('test of scope') {
 //-----------------------------------------------------------------------------
 testcase {
 	tmpl = R'''
-<h2>${title}</h2>
-<p>number of people: ${people.len()}</p>
-
-<table>
-  <tr><th>No</th><th>Name</th><th>Age</th></tr>
-${for (person in people) {|i|}}
-  <tr><td>${i + 1}</td><td>${person.name}</td><td>${person.age}</td></tr>
-${end}
-</table>
-
-<table>
-  <tr><th>No</th><th>Name</th><th>Age</th></tr>
-${people.each {|person, i|}}
-  <tr><td>${i + 1}</td><td>${person.name}</td><td>${person.age}</td></tr>
-${end}
-</table>
-
-<table>
-  <tr><th>No</th><th>Name</th><th>Age</th></tr>
-  ${format('<tr><td>%d</td><td>%s</td><td>%d</td></tr>\n',
-  										1.., people:*name, people:*age)}
-</table>
-'''.template()
+	<h2>${title}</h2>
+	<p>number of people: ${people.len()}</p>
+	
+	<table>
+	  <tr><th>No</th><th>Name</th><th>Age</th></tr>
+	${for (person in people) {|i|}}
+	  <tr><td>${i + 1}</td><td>${person.name}</td><td>${person.age}</td></tr>
+	${end}
+	</table>
+	
+	<table>
+	  <tr><th>No</th><th>Name</th><th>Age</th></tr>
+	${people.each {|person, i|}}
+	  <tr><td>${i + 1}</td><td>${person.name}</td><td>${person.age}</td></tr>
+	${end}
+	</table>
+	
+	<table>
+	  <tr><th>No</th><th>Name</th><th>Age</th></tr>
+	  ${format('<tr><td>%d</td><td>%s</td><td>%d</td></tr>\n',
+	  										1.., people:*name, people:*age)}
+	</table>
+	'''.template()
 	scope {
 		Person = struct(name:string, age:number)
 		people = @(Person) {
@@ -312,32 +312,32 @@ ${end}
 //-----------------------------------------------------------------------------
 testcase('test of comment') {
 	tmpl = R'''
-1st line
-2nd line
-3rd line
-${==
-*comment-out*
-*comment-out*
-*comment-out*
-==}
-4th line
-${==
-*comment-out*
-${=*comment-out*
-*comment-out*==
-*comment-out*=}
-*comment-out*
-==}
-5th line
-${==
-${==*comment-out*
-==}
-6th line
-${==*comment-out*==}
-7th line
-8th line
-9th ${==*comment-out*==}line
-10th line${==*comment-out*==}
-11th line
-'''.template().render(sys.stdout)
+	1st line
+	2nd line
+	3rd line
+	${==
+	*comment-out*
+	*comment-out*
+	*comment-out*
+	==}
+	4th line
+	${==
+	*comment-out*
+	${=*comment-out*
+	*comment-out*==
+	*comment-out*=}
+	*comment-out*
+	==}
+	5th line
+	${==
+	${==*comment-out*
+	==}
+	6th line
+	${==*comment-out*==}
+	7th line
+	8th line
+	9th ${==*comment-out*==}line
+	10th line${==*comment-out*==}
+	11th line
+	'''.template().render(sys.stdout)
 }

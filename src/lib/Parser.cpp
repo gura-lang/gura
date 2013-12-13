@@ -7,7 +7,8 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Parser
 //-----------------------------------------------------------------------------
-Parser::Parser(const String &sourceName, int cntLineStart) : _stat(STAT_Start),
+Parser::Parser(const String &sourceName, int cntLineStart) :
+		_stat(STAT_Start), _lineHeadFlag(true),
 		_appearShebangFlag(false), _blockParamFlag(false),
 		_pSourceName(new StringRef(sourceName)),
 		_cntLine(cntLineStart), _cntCol(0), _commentNestLevel(0)
@@ -26,6 +27,7 @@ Parser::~Parser()
 void Parser::Reset()
 {
 	_stat = STAT_Start;
+	_lineHeadFlag = true;
 	InitStack();
 }
 
@@ -40,6 +42,13 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 	if (ch == '\r') return NULL;
 	bool continueFlag;
 	Expr *pExpr = NULL;
+	if (_lineHeadFlag) {
+		if (IsWhite(ch)) {
+			_strIndent.push_back(ch);
+		} else {
+			_lineHeadFlag = false;
+		}
+	}
 	do {
 	continueFlag = false;
 	switch (_stat) {
@@ -66,7 +75,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_stringInfo.chBorder = ch;
 			_stringInfo.rawFlag = false;
 			_stringInfo.binaryFlag = false;
-			_stringInfo.skipFirstEOLFlag = false;
+			_stringInfo.wiseFlag = false;
 			_token.clear();
 			_stat = STAT_StringFirst;
 		} else if (ch == '\\') {
@@ -623,7 +632,12 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 	}
 	case STAT_StringSecond: {
 		if (ch == _stringInfo.chBorder) {
-			_stat = _stringInfo.skipFirstEOLFlag? STAT_MStringFirst : STAT_MString;
+			if (_stringInfo.wiseFlag) {
+				_stringInfo.strIndentRef = _strIndent;
+				_stat = STAT_MStringWise;
+			} else {
+				_stat = STAT_MString;
+			}
 		} else {
 			ElemType elemType = ElemTypeForString(_stringInfo);
 			pExpr = FeedElement(env, sig, Element(elemType, GetLineNo(), _token));
@@ -648,13 +662,13 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 		}
 		break;
 	}
-	case STAT_MStringFirst: {
+	case STAT_MStringWise: {
 		if (ch == '\n') {
-			// nothing to do
+			_stat = STAT_MStringLineHead;
 		} else {
 			continueFlag = true;
+			_stat = STAT_MString;
 		}
-		_stat = STAT_MString;
 		break;
 	}
 	case STAT_MString: {
@@ -666,8 +680,26 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 		} else if (ch == '\0') {
 			SetError(sig, ERR_SyntaxError, "string is not terminated correctly");
 			_stat = STAT_Error;
+		} else if (ch == '\n' && _stringInfo.wiseFlag) {
+			_token.push_back(ch);
+			_stat = STAT_MStringLineHead;
 		} else {
 			_token.push_back(ch);
+		}
+		break;
+	}
+	case STAT_MStringLineHead: {
+		if (IsWhite(ch)) {
+			if (_strIndent.size() == _stringInfo.strIndentRef.size()) {
+				if (_strIndent != _stringInfo.strIndentRef) {
+					_token += _strIndent;
+				}
+				_stat = STAT_MString;
+			}
+		} else {
+			_token += _strIndent;
+			continueFlag = true;
+			_stat = STAT_MString;
 		}
 		break;
 	}
@@ -761,6 +793,8 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 	}
 	} } while (continueFlag);
 	if (ch == '\n') {
+		_lineHeadFlag = true;
+		_strIndent.clear();
 		_cntLine++;
 		_cntCol = 0;
 	} else {
@@ -793,7 +827,7 @@ bool Parser::CheckStringPrefix(StringInfo &stringInfo, const String &token)
 {
 	stringInfo.rawFlag = false;
 	stringInfo.binaryFlag = false;
-	stringInfo.skipFirstEOLFlag = false;
+	stringInfo.wiseFlag = false;
 	foreach_const (String, p, token) {
 		char ch = *p;
 		if (ch == 'r') {
@@ -802,14 +836,14 @@ bool Parser::CheckStringPrefix(StringInfo &stringInfo, const String &token)
 		} else if (ch == 'R') {
 			if (stringInfo.rawFlag) return false;
 			stringInfo.rawFlag = true;
-			stringInfo.skipFirstEOLFlag = true;
+			stringInfo.wiseFlag = true;
 		} else if (ch == 'b') {
 			if (stringInfo.binaryFlag) return false;
 			stringInfo.binaryFlag = true;
 		} else if (ch == 'B') {
 			if (stringInfo.binaryFlag) return false;
 			stringInfo.binaryFlag = true;
-			stringInfo.skipFirstEOLFlag = true;
+			stringInfo.wiseFlag = true;
 		} else {
 			return false;
 		}
