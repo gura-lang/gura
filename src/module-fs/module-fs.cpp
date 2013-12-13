@@ -149,6 +149,10 @@ bool Stream_File::GetAttribute(Attribute &attr)
 Stream_File::Stream_File(Environment &env, Signal sig) :
 	Stream(env, sig, ATTR_BwdSeekable), _hFile(INVALID_HANDLE_VALUE), _needCloseFlag(false)
 {
+	_map.hFileMappingObject = NULL;
+	_map.buff = NULL;
+	_map.bytes = 0;
+	_map.offset = 0;
 }
 
 bool Stream_File::Open(Signal sig, const char *fileName, ULong attr)
