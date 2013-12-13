@@ -1165,17 +1165,26 @@ bool Copy(const char *src, const char *dst, bool failIfExistsFlag)
 		size_t bytesSrc = statSrc.st_size;
 		void *addrSrc = ::mmap(NULL, bytesSrc, PROT_READ, MAP_PRIVATE, fdSrc, 0);
 		if (addrSrc == MAP_FAILED) {
-			::close(fdSrc);
-			::close(fdDst);
-			return false;
-		}
-		if (::write(fdDst, addrSrc, bytesSrc) < bytesSrc) {
+			const size_t bytesBuff = 65536;
+			void *buff = ::malloc(bytesBuff);
+			for (;;) {
+				ssize_t bytesRead = ::read(fdSrc, buff, bytesBuff);
+				if (bytesRead == 0) break;
+				if (::write(fdDst, buff, bytesRead) < bytesRead) {
+					::close(fdSrc);
+					::close(fdDst);
+					return false;
+				}
+			}
+		} else {
+			if (::write(fdDst, addrSrc, bytesSrc) < bytesSrc) {
+				::munmap(addrSrc, bytesSrc);
+				::close(fdSrc);
+				::close(fdDst);
+				return false;
+			}
 			::munmap(addrSrc, bytesSrc);
-			::close(fdSrc);
-			::close(fdDst);
-			return false;
 		}
-		::munmap(addrSrc, bytesSrc);
 		::close(fdSrc);
 		::close(fdDst);
 		return true;
