@@ -1140,11 +1140,16 @@ void PutEnv(const char *name, const char *value)
 
 bool Copy(const char *src, const char *dst, bool failIfExistsFlag)
 {
+	bool copySymLinkFlag = true;
 	int fdSrc = -1, fdDst = -1;
 	struct stat statSrc, statDst;
 	String srcNative = ToNativeString(src);
 	String dstNative = ToNativeString(dst);
-	if (::stat(srcNative.c_str(), &statSrc) < 0) return false;
+	if (copySymLinkFlag) {
+		if (::lstat(srcNative.c_str(), &statSrc) < 0) return false;
+	} else {
+		if (::stat(srcNative.c_str(), &statSrc) < 0) return false;
+	}
 	if (S_ISREG(statSrc.st_mode)) {
 		if (::stat(dstNative.c_str(), &statDst) < 0) {
 			// nothing to do
@@ -1197,7 +1202,21 @@ bool Copy(const char *src, const char *dst, bool failIfExistsFlag)
 	} else if (S_ISFIFO(statSrc.st_mode)) {
 		// nothing to do
 	} else if (S_ISLNK(statSrc.st_mode)) {
-		// nothing to do
+		// still buggy
+		if (::stat(dstNative.c_str(), &statDst) < 0) {
+			// nothing to do
+		} else if (failIfExistsFlag) {
+			return false;
+		} else if (!Remove(dst)) {
+			//ChangeMode("u+w", dst);
+			//if (!Remove(dst)) return false;
+			return false;
+		}
+		char *tgt = new char [statSrc.st_size];
+		if (::readlink(srcNative.c_str(), tgt, statSrc.st_size) < 0) return false;
+		if (::symlink(tgt, dstNative.c_str()) < 0) return false;
+		delete[] tgt;
+		return true;
 	} else if (S_ISSOCK(statSrc.st_mode)) {
 		// nothing to do
 	}
