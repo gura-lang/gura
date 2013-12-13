@@ -52,6 +52,7 @@ GURA_DLLDECLARE String Strip(const char *str, bool stripLeftFlag = true, bool st
 GURA_DLLDECLARE String Strip(const char *str, const SymbolSet &attrs);
 GURA_DLLDECLARE String Chop(const char *str, bool eolOnlyFlag);
 GURA_DLLDECLARE size_t Length(const char *str);
+GURA_DLLDECLARE size_t Width(const char *str);
 GURA_DLLDECLARE size_t CalcCharPos(const char *str, size_t idx);
 GURA_DLLDECLARE const char *Forward(const char *str, size_t len, size_t *pLenForward = NULL);
 GURA_DLLDECLARE String::const_iterator Forward(String::const_iterator str, String::const_iterator strEnd, size_t len, size_t *pLenForward = NULL);

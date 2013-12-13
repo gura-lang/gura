@@ -321,7 +321,7 @@ void FormatterBase::PutString(const Flags &flags, const char *p, int cntMax)
 {
 	int cnt = static_cast<int>(::strlen(p));
 	if (cntMax >= 0 && cnt > cntMax) cnt = cntMax;
-	int cntPadding = flags.fieldMinWidth - static_cast<int>(::strlen(p));
+	int cntPadding = flags.fieldMinWidth - static_cast<int>(Width(p));
 	if (flags.leftAlignFlag) {
 		for ( ; cnt > 0; p++, cnt--) PutChar(*p);
 		while (cntPadding-- > 0) PutChar(flags.charPadding);

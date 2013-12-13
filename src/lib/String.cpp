@@ -653,6 +653,24 @@ size_t Length(const char *str)
 	return len;
 }
 
+size_t Width(const char *str)
+{
+	size_t width = 0;
+	for ( ; *str != '\0'; ) {
+		int ch = static_cast<UChar>(*str);
+		str++;
+		if (IsUTF8First(ch)) {
+			while (IsUTF8Follower(*str)) str++;
+			// East-asian characters are twice as wide as other characters.
+			// See http://www.unicode.org/reports/tr11/.
+			width += 1;
+		} else {
+			width += 1;
+		}
+	}
+	return width;
+}
+
 size_t CalcCharPos(const char *str, size_t idx)
 {
 	size_t len = 0;
