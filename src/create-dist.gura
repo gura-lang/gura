@@ -15,12 +15,13 @@ argopt.Parser {|p|
 		sys.exit(1)
 	}
 	if (cfg['help']) {
-		r"usage: create-dist.gura [options] [cmd]"	'\n' \
-		r"options:"									'\n' \
-		r"  ${p.formatHelp() + '\n'}"				'\n' \
-		r"cmd:"										'\n' \
-		r"  clean .. delete all generated files"	'\n' \
-		"".template().render(sys.stderr)
+		R'''
+		usage: create-dist.gura [options] [cmd]
+		options:
+		  ${p.formatHelp() + '\n'}
+		cmd:
+		  clean .. delete all generated files
+		'''.template().render(sys.stderr)
 		sys.exit()
 	}
 }
