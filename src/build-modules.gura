@@ -70,13 +70,15 @@ argopt.Parser {|p|
 	command = if (argv.len() == 0) {
 		`build
 	} elsif (argv[0] == 'help') {
-		sys.stderr.printf('usage: %s [options] command\n', path.filename(sys.argv[0]))
-		sys.stderr.println('command:')
-		sys.stderr.println(' clean          clean output files')
-		sys.stderr.println(' install        install built files to root directory')
-		sys.stderr.println(' build-install  build and install files to root directory')
-		sys.stderr.println('options:')
-		sys.stderr.println(' ', p.formatHelp())
+		R'''
+		usage: ${path.filename(sys.argv[0])} [options] command
+		command:
+		 clean          clean output files
+		 install        install built files to root directory
+		 build-install  build and install files to root directory
+		options:
+		 ${p.formatHelp() + '\n'}
+		'''.template().render(sys.stderr)
 		sys.exit(1)
 	} elsif (argv[0] == 'clean') {
 		`clean
