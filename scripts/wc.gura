@@ -10,9 +10,11 @@ argopt.Parser {|p|
 		sys.exit(1)
 	}
 	if (argv.len() < 1) {
-		sys.stderr.println('usage: wc.gura [options] file [file..]')
-		println('options:')
-		println('  ', p.formatHelp())
+		R'''
+		usage: wc.gura [options] file [file..]
+		options:
+		  ${p.formatHelp() + '\n'}
+		'''.template().render(sys.stderr)
 		sys.exit(1)
 	}
 }

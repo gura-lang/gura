@@ -15,9 +15,11 @@ argopt.Parser {|p|
 		sys.exit(1)
 	}
 	if (argv.len() < 2) {
-		sys.stderr.println('usage: grep.gura [options] pattern file ...')
-		println('options:')
-		println('  ', p.formatHelp())
+		R'''
+		usage: grep.gura [options] pattern file ...
+		options:
+		  ${p.formatHelp() + '\n'}
+		'''.template().render(sys.stderr)
 		sys.exit(1)
 	}
 	pattern = argv[0]
