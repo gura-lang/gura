@@ -1,67 +1,67 @@
 @echo off
 set PROGRAM_GURA=..\bin-x86\gura.exe
-set files=
-set files=%files% test-application.gura
-set files=%files% test-binary.gura
-set files=%files% test-block.gura
-rem set files=%files% test-canvas.gura
-set files=%files% test-codec.gura
-set files=%files% test-color.gura
-set files=%files% test-complex.gura
-set files=%files% test-csv.gura
-set files=%files% test-datetime.gura
-set files=%files% test-declaration.gura
-set files=%files% test-dict.gura
-set files=%files% test-diff.gura
-set files=%files% test-error.gura
-set files=%files% test-expr.gura
-set files=%files% test-filter.gura
-set files=%files% test-formatter.gura
-set files=%files% test-fraction.gura
-set files=%files% test-fs.gura
-set files=%files% test-function.gura
-set files=%files% test-graph.gura
-set files=%files% test-hash.gura
-set files=%files% test-image.gura
-set files=%files% test-list-iterator.gura
-set files=%files% test-map.gura
-set files=%files% test-markdown.gura
-set files=%files% test-matrix.gura
-set files=%files% test-math.gura
-rem set files=%files% test-midi.gura
-set files=%files% test-module.gura
-set files=%files% test-object.gura
-set files=%files% test-opengl.gura
-set files=%files% test-operator.gura
-set files=%files% test-optimize.gura
-set files=%files% test-path.gura
-set files=%files% test-re.gura
-set files=%files% test-repeater.gura
-set files=%files% test-sqlite3.gura
-set files=%files% test-stream.gura
-set files=%files% test-string.gura
-set files=%files% test-template.gura
-set files=%files% test-value.gura
-set files=%files% test-xml.gura
-set files=%files% test-xhtml.gura
-set files=%files% test-yaml.gura
+set cases=
+set cases=%cases% application
+set cases=%cases% binary
+set cases=%cases% block
+rem set cases=%cases% canvas
+set cases=%cases% codec
+set cases=%cases% color
+set cases=%cases% complex
+set cases=%cases% csv
+set cases=%cases% datetime
+set cases=%cases% declaration
+set cases=%cases% dict
+set cases=%cases% diff
+set cases=%cases% error
+set cases=%cases% expr
+set cases=%cases% filter
+set cases=%cases% formatter
+set cases=%cases% fraction
+set cases=%cases% fs
+set cases=%cases% function
+set cases=%cases% graph
+set cases=%cases% hash
+set cases=%cases% image
+set cases=%cases% list-iterator
+set cases=%cases% map
+set cases=%cases% markdown
+set cases=%cases% matrix
+set cases=%cases% math
+rem set cases=%cases% midi
+set cases=%cases% module
+set cases=%cases% object
+set cases=%cases% opengl
+set cases=%cases% operator
+set cases=%cases% optimize
+set cases=%cases% path
+set cases=%cases% re
+set cases=%cases% repeater
+set cases=%cases% sqlite3
+set cases=%cases% stream
+set cases=%cases% string
+set cases=%cases% template
+set cases=%cases% value
+set cases=%cases% xml
+set cases=%cases% xhtml
+set cases=%cases% yaml
 
 if "%1" == "" goto all
 if "%1" == "genscript" goto genscript
 if "%1" == "update" goto update
-set files=test-%1.gura
+set cases=%1
 rem --------
 :all
-for %%F in (%files%) do %PROGRAM_GURA% --printcmdline %%F > result\%%~nF.result.txt
-for %%F in (%files%) do diff -u result\%%~nF.sample.txt result\%%~nF.result.txt
+for %%C in (%cases%) do %PROGRAM_GURA% --printcmdline test-%%C.gura > result\test-%%C.result.txt
+for %%C in (%cases%) do diff -u result\test-%%C.sample.txt result\test-%%C.result.txt
 goto done
 rem --------
 :genscript
-for %%F in (%files%) do %PROGRAM_GURA% --printcmdline genscript.gura --eval %%F > result\%%~nF.result.txt
-for %%F in (%files%) do diff -u result\%%~nF.sample.txt result\%%~nF.result.txt
+for %%C in (%cases%) do %PROGRAM_GURA% --printcmdline genscript.gura --eval test-%%C.gura > result\test-%%C.result.txt
+for %%C in (%cases%) do diff -u result\test-%%C.sample.txt result\test-%%C.result.txt
 goto done
 rem --------
 :update
-for %%F in (%files%) do %PROGRAM_GURA% --printcmdline %%F > result\%%~nF.sample.txt
+for %%C in (%cases%) do %PROGRAM_GURA% --printcmdline test-%%C.gura > result\test-%%C.sample.txt
 goto done
 :done

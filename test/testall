@@ -1,71 +1,71 @@
 #!/bin/bash
-files=
-files="$files test-application.gura"
-files="$files test-binary.gura"
-files="$files test-block.gura"
-files="$files test-codec.gura"
-files="$files test-color.gura"
-files="$files test-complex.gura"
-files="$files test-csv.gura"
-files="$files test-datetime.gura"
-files="$files test-declaration.gura"
-files="$files test-dict.gura"
-files="$files test-diff.gura"
-files="$files test-error.gura"
-files="$files test-expr.gura"
-files="$files test-filter.gura"
-files="$files test-formatter.gura"
-files="$files test-fraction.gura"
-files="$files test-fs.gura"
-files="$files test-function.gura"
-files="$files test-hash.gura"
-files="$files test-image.gura"
-files="$files test-list-iterator.gura"
-files="$files test-map.gura"
-files="$files test-markdown.gura"
-files="$files test-math.gura"
-files="$files test-matrix.gura"
-#files="$files test-midi.gura"
-files="$files test-module.gura"
-files="$files test-object.gura"
-files="$files test-opengl.gura"
-files="$files test-operator.gura"
-files="$files test-optimize.gura"
-files="$files test-path.gura"
-files="$files test-re.gura"
-files="$files test-repeater.gura"
-files="$files test-sqlite3.gura"
-files="$files test-stream.gura"
-files="$files test-string.gura"
-files="$files test-template.gura"
-files="$files test-value.gura"
-files="$files test-xml.gura"
-files="$files test-xhtml.gura"
-files="$files test-yaml.gura"
+cases=
+cases="$cases test-application.gura"
+cases="$cases test-binary.gura"
+cases="$cases test-block.gura"
+cases="$cases test-codec.gura"
+cases="$cases test-color.gura"
+cases="$cases test-complex.gura"
+cases="$cases test-csv.gura"
+cases="$cases test-datetime.gura"
+cases="$cases test-declaration.gura"
+cases="$cases test-dict.gura"
+cases="$cases test-diff.gura"
+cases="$cases test-error.gura"
+cases="$cases test-expr.gura"
+cases="$cases test-filter.gura"
+cases="$cases test-formatter.gura"
+cases="$cases test-fraction.gura"
+cases="$cases test-fs.gura"
+cases="$cases test-function.gura"
+cases="$cases test-hash.gura"
+cases="$cases test-image.gura"
+cases="$cases test-list-iterator.gura"
+cases="$cases test-map.gura"
+cases="$cases test-markdown.gura"
+cases="$cases test-math.gura"
+cases="$cases test-matrix.gura"
+#cases="$cases test-midi.gura"
+cases="$cases test-module.gura"
+cases="$cases test-object.gura"
+cases="$cases test-opengl.gura"
+cases="$cases test-operator.gura"
+cases="$cases test-optimize.gura"
+cases="$cases test-path.gura"
+cases="$cases test-re.gura"
+cases="$cases test-repeater.gura"
+cases="$cases test-sqlite3.gura"
+cases="$cases test-stream.gura"
+cases="$cases test-string.gura"
+cases="$cases test-template.gura"
+cases="$cases test-value.gura"
+cases="$cases test-xml.gura"
+cases="$cases test-xhtml.gura"
+cases="$cases test-yaml.gura"
 
 if [ "$1" = "" ]; then
-	for file in $files
+	for case in $cases
 	do
-		echo $file
-		gura $file > result/${file%.gura}.result.txt
-		diff -u --strip-trailing-cr result/${file%.gura}.sample.txt result/${file%.gura}.result.txt
+		echo $case
+		gura test-$case.gura > result/test-$case.result.txt
+		diff -u --strip-trailing-cr result/test-$case.sample.txt result/test-$case.result.txt
 	done	
 elif [ "$1" = "genscript" ]; then
-	for file in $files
+	for case in $cases
 	do
-		echo $file
-		gura genscript.gura --eval $file > result/${file%.gura}.result.txt
-		diff -u --strip-trailing-cr result/${file%.gura}.sample.txt result/${file%.gura}.result.txt
+		echo $case
+		gura genscript.gura --eval test-$case.gura > result/test-$case.result.txt
+		diff -u --strip-trailing-cr result/test-$case.sample.txt result/test-$case.result.txt
 	done	
 elif [ "$1" = "update" ]; then
-	for file in $files
+	for case in $cases
 	do
-		echo $file
-		gura $file > result/${file%.gura}.sample.txt
+		echo $case
+		gura test-$case.gura > result/test-$case.sample.txt
 	done	
 else
-	file="test-$1.gura"
-	echo $file
-	gura $file > result/${file%.gura}.result.txt
-	diff -u --strip-trailing-cr result/${file%.gura}.sample.txt result/${file%.gura}.result.txt
+	case="$1"
+	echo $case
+	gura test-$case.gura > result/test-$case.result.txt
+	diff -u --strip-trailing-cr result/test-$case.sample.txt result/test-$case.result.txt
 fi

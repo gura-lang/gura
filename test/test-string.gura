@@ -318,3 +318,70 @@ testcase {
 	tester(`str.fold(6, 3):list:neat)
 	tester(`str.fold(3, 6):list:neat)
 }
+testcase {
+R'''
+'''.print(sys.stdout)
+//-------------------------------
+  R'''
+  '''.print(sys.stdout)
+//-------------------------------
+R'''
+hello world #1
+hello world #1
+hello world #1
+'''.print(sys.stdout)
+//-------------------------------
+R'''hello world #2
+hello world #2
+hello world #2
+'''.print(sys.stdout)
+//-------------------------------
+x = R'''
+hello world #3
+hello world #3
+hello world #3
+'''
+print(x)
+//-------------------------------
+	x = R'''
+	hello world #4
+	hello world #4
+	hello world #4
+	'''
+print(x)
+//-------------------------------
+	x = R'''
+hello world #5
+hello world #5
+hello world #5
+'''
+print(x)
+//-------------------------------
+	x = R'''
+hello world #6
+hello world #6
+hello world #6
+'''
+print(x)
+//-------------------------------
+	x = R'''
+  hello world #7
+  hello world #7
+  hello world #7
+'''
+print(x)
+//-------------------------------
+	x = R'''
+	  hello world #8
+	  hello world #8
+	  hello world #8
+	'''
+print(x)
+//-------------------------------
+  x = R'''
+    hello world #9
+    hello world #9
+    hello world #9
+  '''
+print(x)
+}
