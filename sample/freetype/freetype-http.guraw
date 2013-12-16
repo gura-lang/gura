@@ -1,6 +1,6 @@
 #!/usr/bin/env gura
 # encoding: shift_jis
-import(wx.show)
+import(show)
 import(freetype, ft)
 import(curl)
 

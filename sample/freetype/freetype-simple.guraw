@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(wx.show)
+import(show)
 import(freetype, ft)
 
 fileName = ft.sysfontpath('arial.ttf')

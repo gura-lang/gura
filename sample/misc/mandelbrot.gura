@@ -76,11 +76,7 @@ main() = {
 		img.write(fileName)
 		sys.stderr.println(fileName, ' was created')
 	} else {
-		try {
-			import(wx.show)
-		} catch {
-			import(tk.show)
-		}
+		import(show)
 		img.show()
 	}
 }
