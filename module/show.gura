@@ -1,0 +1,7 @@
+#!/usr/bin/env gura
+
+try {
+	import(wx.show)
+} catch {
+	import(tk.show)
+}

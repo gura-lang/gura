@@ -1,9 +1,9 @@
 # encoding: shift_jis
-import(wx.show)
+import(show)
 import(png)
 import(freetype, ft)
 
-F(filename:string) = path.join(sys.datadir, 'test', filename)
+F(filename:string) = path.join(sys.datadir, 'test/test-string', filename)
 
 scope {
 	lines = (open(F('chars-cp932.txt'), 'r', 'cp932').readlines():chop):list
