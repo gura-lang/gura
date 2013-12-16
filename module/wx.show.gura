@@ -1,9 +1,15 @@
 #!/usr/bin/env gura
 //-----------------------------------------------------------------------------
-// image#show() implementation using tk
+// image#show() implementation using wx
 //-----------------------------------------------------------------------------
 import(wx)
+import(png)
+import(jpeg)
+import(bmp)
 
+//-----------------------------------------------------------------------------
+// Panel
+//-----------------------------------------------------------------------------
 Panel = class(wx.Panel) {
 	__init__(parent:wx.Window) = {|parent|
 		vbox = wx.BoxSizer(wx.VERTICAL)
@@ -40,20 +46,59 @@ Panel = class(wx.Panel) {
 			}
 		}
 	}
-}
-
-Frame = class(wx.Frame) {
-	__init__(parent:wx.Window) = {|parent, wx.ID_ANY,
-					'Image Viewer', size => wx.Size(App.width, App.height)|
-		wx.Panel(this) {|panel|
-			wx.BoxSizer(wx.VERTICAL) {|vbox|
-				panel.SetSizer(vbox)
-				vbox.Add(Panel(panel), wx.SizerFlags(2).Expand())
-			}
+	SaveImage(pathName:string) = {
+		try {
+			this.img.write(pathName)
+		} catch {
+			wx.MessageBox('Failed to write image file',
+								'Error', wx.OK | wx.ICON_ERROR, this)
 		}
 	}
 }
 
+//-----------------------------------------------------------------------------
+// Frame
+//-----------------------------------------------------------------------------
+Frame = class(wx.Frame) {
+	//[
+	//] = wx.NewIds()
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY,
+					'Image Viewer', size => wx.Size(App.width, App.height)|
+		menuBar = wx.MenuBar(wx.MB_DOCKABLE)
+		this.SetMenuBar(menuBar)
+		wx.Menu() {|menu|
+			menuBar.Append(menu, '&File')
+			menu.Append(wx.ID_SAVE, '&Save\tCtrl-S', 'Save as image file')
+			menu.AppendSeparator()
+			menu.Append(wx.ID_EXIT, 'E&xit\tAlt-X', 'Quit viewer')
+		}
+		
+		wx.Panel(this) {|panel|
+			wx.BoxSizer(wx.VERTICAL) {|vbox|
+				panel.SetSizer(vbox)
+				this.panel = Panel(panel)
+				vbox.Add(this.panel, wx.SizerFlags(2).Expand())
+			}
+		}
+		
+		this.Bind(wx.EVT_MENU, wx.ID_SAVE) {|event|
+			dlg = wx.FileDialog(this,
+				'Save image file',
+				wx.EmptyString,
+				'image',
+				'PNG files (*.png)|*.png|JPEG files (*.jpg)|*.jpg|BMP files (*.bmp)|*.bmp',
+				wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT)
+			if (dlg.ShowModal() == wx.ID_OK) {
+				this.panel.SaveImage(dlg.GetPath())
+			}
+		}
+		this.Bind(wx.EVT_MENU, wx.ID_EXIT) {|event| this.Close(true) }
+	}
+}
+
+//-----------------------------------------------------------------------------
+// App
+//-----------------------------------------------------------------------------
 App = class(wx.App) {
 	OnInit() = {
 		frame = Frame(nil)
@@ -63,7 +108,9 @@ App = class(wx.App) {
 	}
 }
 
+//-----------------------------------------------------------------------------
 // expansion to image class
+//-----------------------------------------------------------------------------
 classref(`root.image).show(width => 640, height => 480) = {
 	[App.width:public, App.height:public] = [width, height]
 	Panel.img = this
