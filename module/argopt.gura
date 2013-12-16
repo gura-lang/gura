@@ -111,9 +111,10 @@ Parser = class {
 	addFlag(longName:string, shortName?:string, help?:string) = {
 		this.entries.add(Entry(`flag, longName, shortName, help, nil, false))
 	}
-	formatHelp(longNameFlag:boolean => true, shortNameFlag:boolean => true) = {
+	formatHelp(longNameFlag:boolean => true, shortNameFlag:boolean => true):[linefeed] = {
 		helpIndices = this.entries:*makeHelpIndex(longNameFlag, shortNameFlag)
-		format('%-*s  %s', helpIndices:*len().max(), helpIndices, this.entries:*help)
+		str = format('%-*s  %s%s', helpIndices:*len().max(), helpIndices,
+					this.entries:*help, cond(__args__.isset(`linefeed), '\n', ''))
 	}
 }
 

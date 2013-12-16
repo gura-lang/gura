@@ -23,9 +23,11 @@ main() = {
 			sys.exit(1)
 		}
 		if (cfg['help']) {
-			sys.stderr.printf('usage: %s [options]\n', path.filename(sys.argv[0]))
-			sys.stderr.println('options:')
-			sys.stderr.println(' ', p.formatHelp())
+			R'''
+			usage: ${path.filename(sys.argv[0])} [options]
+			options:
+			 ${p.formatHelp():linefeed}
+			'''.template().render(sys.stderr)
 			sys.exit(0)
 		}
 		if (value = cfg['canvas']) {
