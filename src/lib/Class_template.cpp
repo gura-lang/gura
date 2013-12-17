@@ -86,6 +86,10 @@ Gura_ImplementMethod(template_, block)
 	const Function *pFunc = args.GetBlockFunc(env, sig, pSymbol);
 	if (pFunc == NULL) return Value::Null;
 	ValueMap &valueMap = pTemplate->GetValueMap();
+	if (valueMap.find(pSymbol) != valueMap.end()) {
+		sig.SetError(ERR_KeyError, "duplicated symbol: %s", pSymbol->GetName());
+		return Value::Null;
+	}
 	valueMap[pSymbol] = Value(new Object_function(env, pFunc->Reference()));
 	return Value::Null;
 }
@@ -177,14 +181,27 @@ Gura_ImplementMethod(template_, render)
 	}
 }
 
-// template#render_block(symbol:symbol):void
-Gura_DeclareMethod(template_, render_block)
+// template#super(symbol):void
+Gura_DeclareMethod(template_, super)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "super", VTYPE_any);
+}
+
+Gura_ImplementMethod(template_, super)
+{
+	// nothing to do
+	return Value::Null;
+}
+
+// template#_R_block(symbol:symbol):void
+Gura_DeclareMethod(template_, _R_block)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "symbol", VTYPE_symbol);
 }
 
-Gura_ImplementMethod(template_, render_block)
+Gura_ImplementMethod(template_, _R_block)
 {
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
@@ -196,14 +213,14 @@ Gura_ImplementMethod(template_, render_block)
 	return Value::Null;
 }
 
-// template#render_embed(template:template):void
-Gura_DeclareMethod(template_, render_embed)
+// template#_R_embed(template:template):void
+Gura_DeclareMethod(template_, _R_embed)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "template", VTYPE_template);
 }
 
-Gura_ImplementMethod(template_, render_embed)
+Gura_ImplementMethod(template_, _R_embed)
 {
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	Template *pTemplateToEmbed = Object_template::GetObject(args, 0)->GetTemplate();
@@ -212,8 +229,8 @@ Gura_ImplementMethod(template_, render_embed)
 	return Value::Null;
 }
 
-// template#render_inherit(stream:stream):void:[lasteol,noindent]
-Gura_DeclareMethod(template_, render_inherit)
+// template#_R_inherit(stream:stream):void:[lasteol,noindent]
+Gura_DeclareMethod(template_, _R_inherit)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream);
@@ -221,9 +238,30 @@ Gura_DeclareMethod(template_, render_inherit)
 	DeclareAttr(Gura_Symbol(noindent));
 }
 
-Gura_ImplementMethod(template_, render_inherit)
+Gura_ImplementMethod(template_, _R_inherit)
 {
 	// nothing to do
+	return Value::Null;
+}
+
+// template#_R_super(symbol:symbol):void
+Gura_DeclareMethod(template_, _R_super)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "symbol", VTYPE_symbol);
+}
+
+Gura_ImplementMethod(template_, _R_super)
+{
+	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	const Symbol *pSymbol = args.GetSymbol(0);
+	Template *pTemplateSuper = pTemplate->GetTemplateSuper();
+	if (pTemplateSuper == NULL) return Value::Null;
+	const ValueEx *pValue = pTemplateSuper->LookupValue(pSymbol);
+	if (pValue == NULL) return Value::Null;
+	if (!pValue->Is_function()) return Value::Null;
+	AutoPtr<Args> pArgs(new Args());
+	pValue->GetFunction()->Eval(env, sig, *pArgs);
 	return Value::Null;
 }
 
@@ -243,9 +281,11 @@ void Class_template::Prepare(Environment &env)
 	Gura_AssignMethod(template_, parse);
 	Gura_AssignMethod(template_, read);
 	Gura_AssignMethod(template_, render);
-	Gura_AssignMethod(template_, render_block);
-	Gura_AssignMethod(template_, render_embed);
-	Gura_AssignMethod(template_, render_inherit);
+	Gura_AssignMethod(template_, super);
+	Gura_AssignMethod(template_, _R_block);
+	Gura_AssignMethod(template_, _R_embed);
+	Gura_AssignMethod(template_, _R_inherit);
+	Gura_AssignMethod(template_, _R_super);
 }
 
 bool Class_template::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)

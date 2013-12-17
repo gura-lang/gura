@@ -44,6 +44,7 @@ bool Template::Prepare(Environment &env, Signal sig)
 	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
 	pEnvBlock->AssignValue(Gura_Symbol(this_),
 				Value(new Object_template(env, Reference())), EXTRA_Public);
+	_pValueMap->clear();
 	pProcessor->PushSequence(new Expr::SequenceRoot(pEnvBlock.release(),
 									_pExprOwnerForInit->Reference()));
 	pProcessor->Run(sig);
@@ -349,7 +350,7 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 		do {
 			ExprOwner &exprOwner = pExprTmplScript->GetExprOwner();
 			Gura::Parser parser(pSourceName->GetString(), cntLineTop);
-			if (!parser.ParseString(env, sig, exprOwner, "this.render_", false)) return false;
+			if (!parser.ParseString(env, sig, exprOwner, "this._R_", false)) return false;
 			if (!parser.ParseString(env, sig, exprOwner, strTmplScript, true)) return false;
 		} while (0);
 		ExprOwner &exprOwnerForPresent = _exprLeaderStack.empty()?
