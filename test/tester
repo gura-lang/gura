@@ -43,30 +43,31 @@ cases="$cases xml"
 cases="$cases xhtml"
 cases="$cases yaml"
 
-if [ $# = 0 ]; then
-	echo usage: tester all/casename [genscript/update]
+if [ $# -eq 0 ]; then
+	echo "usage: tester all/casename [genscript/update]"
+	exit
 fi
-if [ "$1" -ne "all" ]; then
+if [ "$1" != "all" ]; then
 	cases="$1"
 fi
-if [ $# = 1 ]; then
+if [ $# -eq 1 ]; then
 	for case in $cases
 	do
-		echo $case
+		echo "$case"
 		gura test-$case.gura > result/test-$case.result.txt
 		diff -u --strip-trailing-cr result/test-$case.sample.txt result/test-$case.result.txt
 	done	
 elif [ "$2" = "genscript" ]; then
 	for case in $cases
 	do
-		echo $case
+		echo "genscript: $case"
 		gura genscript.gura --eval test-$case.gura > result/test-$case.result.txt
 		diff -u --strip-trailing-cr result/test-$case.sample.txt result/test-$case.result.txt
 	done	
 elif [ "$2" = "update" ]; then
 	for case in $cases
 	do
-		echo $case
+		echo "update: $case"
 		gura test-$case.gura > result/test-$case.sample.txt
 	done
 fi
