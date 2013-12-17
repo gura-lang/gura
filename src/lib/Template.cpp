@@ -331,7 +331,7 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 		do {
 			ExprOwner &exprOwner = pExprTmplScript->GetExprOwner();
 			Gura::Parser parser(pSourceName->GetString(), cntLineTop);
-			if (!parser.ParseString(env, sig, exprOwner, "this.present_", false)) return false;
+			if (!parser.ParseString(env, sig, exprOwner, "this.render_", false)) return false;
 			if (!parser.ParseString(env, sig, exprOwner, strTmplScript, true)) return false;
 		} while (0);
 		ExprOwner &exprOwnerForPresent = _exprLeaderStack.empty()?

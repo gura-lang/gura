@@ -341,3 +341,43 @@ testcase('test of comment') {
 	11th line
 	'''.template().render(sys.stdout)
 }
+//-----------------------------------------------------------------------------
+testcase('test of embed') {
+	//--------
+	tmpl1 = R'''
+	This is a rendering result of tmpl1
+	'''.template()
+	//--------
+	tmpl2 = R'''
+	This is a rendering result of tmpl2
+	'''.template()
+	//--------
+	tmpl3 = R'''
+	This is a rendering result of tmpl3
+	'''.template()
+	//--------
+	R'''
+	embed tmpl1
+	${=embed(tmpl1)}
+	embed tmpl2
+	${=embed(tmpl2)}
+	embed tmpl3
+	${=embed(tmpl3)}
+	'''.template().render(sys.stdout)
+}
+//-----------------------------------------------------------------------------
+testcase('test of local variable in embed') {
+	//--------
+	tmpl = R'''
+	${x = 'embed', -}
+	x = ${x}
+	'''.template()
+	//--------
+	R'''
+	${x = 'body', -}
+	x = ${x}
+	embed tmpl
+	${=embed(tmpl)}
+	x = ${x}
+	'''.template().render(sys.stdout)
+}

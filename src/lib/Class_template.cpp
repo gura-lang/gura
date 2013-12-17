@@ -90,6 +90,19 @@ Gura_ImplementMethod(template_, block)
 	return Value::Null;
 }
 
+// template#embed(template):void
+Gura_DeclareMethod(template_, embed)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "template", VTYPE_any);
+}
+
+Gura_ImplementMethod(template_, embed)
+{
+	// nothing to do
+	return Value::Null;
+}
+
 // template#inherit(super:template):void
 Gura_DeclareMethod(template_, inherit)
 {
@@ -102,39 +115,6 @@ Gura_ImplementMethod(template_, inherit)
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	Template *pTemplateSuper = Object_template::GetObject(args, 0)->GetTemplate();
 	pTemplate->SetTemplateSuper(pTemplateSuper->Reference());
-	return Value::Null;
-}
-
-// template#present_block(symbol:symbol):void
-Gura_DeclareMethod(template_, present_block)
-{
-	SetMode(RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "symbol", VTYPE_symbol);
-}
-
-Gura_ImplementMethod(template_, present_block)
-{
-	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
-	const Symbol *pSymbol = args.GetSymbol(0);
-	const ValueEx *pValue = pTemplate->LookupValue(pSymbol);
-	if (pValue == NULL) return Value::Null;
-	if (!pValue->Is_function()) return Value::Null;
-	AutoPtr<Args> pArgs(new Args());
-	pValue->GetFunction()->Eval(env, sig, *pArgs);
-	return Value::Null;
-}
-
-// template#present_inherit(stream:stream):void:[lasteol,noindent]
-Gura_DeclareMethod(template_, present_inherit)
-{
-	SetMode(RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "stream", VTYPE_stream);
-	DeclareAttr(Gura_Symbol(lasteol));
-	DeclareAttr(Gura_Symbol(noindent));
-}
-
-Gura_ImplementMethod(template_, present_inherit)
-{
 	return Value::Null;
 }
 
@@ -197,6 +177,56 @@ Gura_ImplementMethod(template_, render)
 	}
 }
 
+// template#render_block(symbol:symbol):void
+Gura_DeclareMethod(template_, render_block)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "symbol", VTYPE_symbol);
+}
+
+Gura_ImplementMethod(template_, render_block)
+{
+	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	const Symbol *pSymbol = args.GetSymbol(0);
+	const ValueEx *pValue = pTemplate->LookupValue(pSymbol);
+	if (pValue == NULL) return Value::Null;
+	if (!pValue->Is_function()) return Value::Null;
+	AutoPtr<Args> pArgs(new Args());
+	pValue->GetFunction()->Eval(env, sig, *pArgs);
+	return Value::Null;
+}
+
+// template#render_embed(template:template):void
+Gura_DeclareMethod(template_, render_embed)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "template", VTYPE_template);
+}
+
+Gura_ImplementMethod(template_, render_embed)
+{
+	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	Template *pTemplateToEmbed = Object_template::GetObject(args, 0)->GetTemplate();
+	SimpleStream *pStreamDst = pTemplate->GetStreamDst();
+	pTemplateToEmbed->Render(env, sig, pStreamDst);
+	return Value::Null;
+}
+
+// template#render_inherit(stream:stream):void:[lasteol,noindent]
+Gura_DeclareMethod(template_, render_inherit)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream);
+	DeclareAttr(Gura_Symbol(lasteol));
+	DeclareAttr(Gura_Symbol(noindent));
+}
+
+Gura_ImplementMethod(template_, render_inherit)
+{
+	// nothing to do
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // Classs implementation
 //-----------------------------------------------------------------------------
@@ -208,12 +238,14 @@ void Class_template::Prepare(Environment &env)
 {
 	Gura_AssignFunction(template_);
 	Gura_AssignMethod(template_, block);
+	Gura_AssignMethod(template_, embed);
 	Gura_AssignMethod(template_, inherit);
 	Gura_AssignMethod(template_, parse);
-	Gura_AssignMethod(template_, present_block);
-	Gura_AssignMethod(template_, present_inherit);
 	Gura_AssignMethod(template_, read);
 	Gura_AssignMethod(template_, render);
+	Gura_AssignMethod(template_, render_block);
+	Gura_AssignMethod(template_, render_embed);
+	Gura_AssignMethod(template_, render_inherit);
 }
 
 bool Class_template::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)

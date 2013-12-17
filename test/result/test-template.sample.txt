@@ -412,3 +412,19 @@ hoge-inside-inside
 9th line
 10th line
 11th line
+
+======== #18 test of embed ========
+
+embed tmpl1
+This is a rendering result of tmpl1
+embed tmpl2
+This is a rendering result of tmpl2
+embed tmpl3
+This is a rendering result of tmpl3
+
+======== #19 test of local variable in embed ========
+
+x = body
+embed tmpl
+x = embed
+x = body
