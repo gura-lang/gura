@@ -558,10 +558,11 @@ Gura_ImplementFunction(else_)
 	return pExprBlock->Exec2(*pEnvBlock, sig, pSeqPostHandler);
 }
 
-// end ():void:symbol_func:trailer:end_marker
+// end (dummy*):void:symbol_func:trailer:end_marker
 Gura_DeclareFunction(end)
 {
 	SetMode(RSLTMODE_Void, FLAG_SymbolFunc | FLAG_Trailer | FLAG_EndMarker);
+	DeclareArg(env, "dummy", VTYPE_any, OCCUR_ZeroOrMore);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Specify an end of a sequence. It just works as a marker.\n");
 }
