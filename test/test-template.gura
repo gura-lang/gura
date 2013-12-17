@@ -319,7 +319,7 @@ testcase('test of comment') {
 	*comment-out*
 	*comment-out*
 	*comment-out*
-	==}
+	==}$
 	4th line
 	${==
 	*comment-out*
@@ -327,17 +327,17 @@ testcase('test of comment') {
 	*comment-out*==
 	*comment-out*=}
 	*comment-out*
-	==}
+	==}$
 	5th line
 	${==
 	${==*comment-out*
-	==}
+	==}$
 	6th line
-	${==*comment-out*==}
+	${==*comment-out*==}$
 	7th line
 	8th line
-	9th ${==*comment-out*==}line
-	10th line${==*comment-out*==}
+	9th ${==*comment-out*==}$line
+	10th line${==*comment-out*==}$
 	11th line
 	'''.template().render(sys.stdout)
 }

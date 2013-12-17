@@ -73,13 +73,13 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 								Template *pTemplate, SimpleStream &streamSrc)
 {
 	AutoPtr<StringRef> pSourceName(new StringRef(streamSrc.GetName()));
-	char chPrefix = '$';
+	char chMarker = '$';
 	enum {
 		STAT_LineTop, STAT_Indent, STAT_String,
 		STAT_ScriptPre, STAT_ScriptFirst, STAT_ScriptSecond,
 		STAT_Script, STAT_ScriptPost,
 		STAT_Comment, STAT_Comment_LineTop,
-		STAT_CommentEnd_Second, STAT_CommentEnd_SeekR,
+		STAT_CommentEnd_Second, STAT_CommentEnd_SeekR, STAT_CommentEnd_Marker,
 		STAT_CommentPost,
 	} stat = STAT_LineTop;
 	bool stringAheadFlag = false;
@@ -113,7 +113,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 				} else if (IsWhite(ch)) {
 					continueFlag = true;
 					stat = STAT_Indent;
-				} else if (ch == chPrefix) {
+				} else if (ch == chMarker) {
 					stat = STAT_ScriptPre;
 				} else {
 					stringAheadFlag = true;
@@ -125,7 +125,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 			case STAT_Indent: {
 				if (IsWhite(ch)) {
 					strIndent += ch;
-				} else if (ch == chPrefix) {
+				} else if (ch == chMarker) {
 					stat = STAT_ScriptPre;
 				} else {
 					str += strIndent;
@@ -137,7 +137,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 				break;
 			}
 			case STAT_String: {
-				if (ch == chPrefix) {
+				if (ch == chMarker) {
 					stat = STAT_ScriptPre;
 				} else if (ch == '\n') {
 					str += ch;
@@ -163,7 +163,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 					nDepth = 1;
 					strTmplScript.clear();
 					stat = STAT_ScriptFirst;
-				} else if (ch == chPrefix) {
+				} else if (ch == chMarker) {
 					str += strIndent;
 					strIndent.clear();
 					str += ch;
@@ -259,6 +259,9 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 			case STAT_CommentEnd_Second: {
 				if (ch == '=') {
 					stat = STAT_CommentEnd_SeekR;
+				} else if (ch == '\n') {
+					stringAheadFlag = false;
+					stat = STAT_Comment_LineTop;
 				} else {
 					stringAheadFlag = true;
 					stat = STAT_Comment;
@@ -267,7 +270,22 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 			}
 			case STAT_CommentEnd_SeekR: {
 				if (ch == '}') {
+					stat = STAT_CommentEnd_Marker;
+				} else if (ch == '\n') {
+					stringAheadFlag = false;
+					stat = STAT_Comment_LineTop;
+				} else {
+					stringAheadFlag = true;
+					stat = STAT_Comment;
+				}
+				break;
+			}
+			case STAT_CommentEnd_Marker: {
+				if (ch == chMarker) {
 					stat = STAT_CommentPost;
+				} else if (ch == '\n') {
+					stringAheadFlag = false;
+					stat = STAT_Comment_LineTop;
 				} else {
 					stringAheadFlag = true;
 					stat = STAT_Comment;
