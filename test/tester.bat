@@ -46,22 +46,35 @@ set cases=%cases% xml
 set cases=%cases% xhtml
 set cases=%cases% yaml
 
-if "%1" == "" goto all
-if "%1" == "genscript" goto genscript
-if "%1" == "update" goto update
+if "%1" == "" goto usage
+if "%1" == "all" goto all
 set cases=%1
-rem --------
 :all
-for %%C in (%cases%) do %PROGRAM_GURA% --printcmdline test-%%C.gura > result\test-%%C.result.txt
-for %%C in (%cases%) do diff -u result\test-%%C.sample.txt result\test-%%C.result.txt
+if "%2" == "genscript" goto genscript
+if "%2" == "update" goto update
+rem --------
+for %%C in (%cases%) do (
+	echo %%C
+	%PROGRAM_GURA% test-%%C.gura > result\test-%%C.result.txt
+	diff -u result\test-%%C.sample.txt result\test-%%C.result.txt
+)
 goto done
 rem --------
 :genscript
-for %%C in (%cases%) do %PROGRAM_GURA% --printcmdline genscript.gura --eval test-%%C.gura > result\test-%%C.result.txt
-for %%C in (%cases%) do diff -u result\test-%%C.sample.txt result\test-%%C.result.txt
+for %%C in (%cases%) do (
+	echo genscript: %%C
+	%PROGRAM_GURA% genscript.gura --eval test-%%C.gura > result\test-%%C.result.txt
+	diff -u result\test-%%C.sample.txt result\test-%%C.result.txt
+)
 goto done
 rem --------
 :update
-for %%C in (%cases%) do %PROGRAM_GURA% --printcmdline test-%%C.gura > result\test-%%C.sample.txt
+for %%C in (%cases%) do (
+	echo update: %%C
+	%PROGRAM_GURA% test-%%C.gura > result\test-%%C.sample.txt
+)
 goto done
+rem --------
+:usage
+echo usage: tester all/casename [genscript/update]
 :done
