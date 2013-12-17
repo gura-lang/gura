@@ -381,3 +381,18 @@ testcase('test of local variable in embed') {
 	x = ${x}
 	'''.template().render(sys.stdout)
 }
+//-----------------------------------------------------------------------------
+testcase('test of detecting duplicated symbol') {
+	tmpl = R'''
+	${=block(`hoge1)}${end}
+	${=block(`hoge2)}${end}
+	${=block(`hoge3)}${end}
+	${=block(`hoge4)}${end}
+	${=block(`hoge1)}${end}
+	'''.template()
+	try {
+		tmpl.render(sys.stdout)
+	} catch {|e|
+		println('expected error occurs: ', e.text)
+	}
+}

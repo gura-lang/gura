@@ -428,3 +428,7 @@ x = body
 embed tmpl
 x = embed
 x = body
+
+======== #20 test of detecting duplicated symbol ========
+
+expected error occurs: KeyError: duplicated symbol: hoge1
