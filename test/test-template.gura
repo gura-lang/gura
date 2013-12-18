@@ -396,3 +396,44 @@ testcase('test of detecting duplicated symbol') {
 		println('expected error occurs: ', e.text)
 	}
 }
+//-----------------------------------------------------------------------------
+testcase('test of inheritance') {
+	// this sample came from an example in http://jinja.pocoo.org/.
+	base = R'''
+	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+	<html lang="en">
+	<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+	    ${=block(`head)}
+	    <link rel="stylesheet" href="style.css" />
+	    <title>${=block(`title)}${end} - My Webpage</title>
+	    ${end}
+	</head>
+	<body>
+	    <div id="content">
+	    ${=block(`content)}${end}
+	    </div>
+	    <div id="footer">
+	        ${=block(`footer)}
+	        &copy; Copyright 2008 by <a href="http://domain.invalid/">you</a>.
+	        ${end}
+	    </div>
+	</body>
+	'''.template()
+	R'''
+	${=inherit(base)}
+	${=block(`title)}Index${end}
+	${=block(`head)}
+	    ${=super(`head)}
+	    <style type="text/css">
+	        .important { color: #336699; }
+	    </style>
+	${end}
+	${=block(`content)}
+	    <h1>Index</h1>
+	    <p class="important">
+	      Welcome on my awesome homepage.
+	    </p>
+	${end}
+	'''.template().render(sys.stdout)
+}
