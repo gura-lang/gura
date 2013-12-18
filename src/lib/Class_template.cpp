@@ -83,8 +83,11 @@ Gura_ImplementMethod(template_, block)
 {
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
-	const Function *pFunc = args.GetBlockFunc(env, sig, pSymbol);
-	if (pFunc == NULL) return Value::Null;
+	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	if (sig.IsSignalled()) return Value::Null;
+	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
+						pSymbol, Expr::Reference(pExprBlock), FUNCTYPE_Function));
+	pFunc->SetMode(RSLTMODE_Void, FLAG_DynamicScope);
 	ValueMap &valueMap = pTemplate->GetValueMap();
 	if (valueMap.find(pSymbol) != valueMap.end()) {
 		sig.SetError(ERR_KeyError, "duplicated symbol: %s", pSymbol->GetName());
@@ -209,6 +212,7 @@ Gura_ImplementMethod(template_, _R_block)
 	if (pValue == NULL) return Value::Null;
 	if (!pValue->Is_function()) return Value::Null;
 	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetThis(args.GetThis());
 	pValue->GetFunction()->Eval(env, sig, *pArgs);
 	return Value::Null;
 }
@@ -261,6 +265,7 @@ Gura_ImplementMethod(template_, _R_super)
 	if (pValue == NULL) return Value::Null;
 	if (!pValue->Is_function()) return Value::Null;
 	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetThis(args.GetThis());
 	pValue->GetFunction()->Eval(env, sig, *pArgs);
 	return Value::Null;
 }
