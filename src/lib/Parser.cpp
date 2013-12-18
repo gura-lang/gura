@@ -1158,6 +1158,10 @@ Expr *Parser::FeedElement(Environment &env, Signal sig, const Element &elem)
 				InitStack();
 				break;
 			}
+		} else if (elem.IsCloseElement()) {
+			SetError(sig, ERR_SyntaxError, "unmatched closing character");
+			InitStack();
+			break;
 		} else {
 			SetError_InvalidElement(sig, __LINE__);
 			InitStack();

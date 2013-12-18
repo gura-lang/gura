@@ -110,14 +110,14 @@ Gura_ImplementMethod(template_, embed)
 	return Value::Null;
 }
 
-// template#inherit(super:template):void
-Gura_DeclareMethod(template_, inherit)
+// template#extends(super:template):void
+Gura_DeclareMethod(template_, extends)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "super", VTYPE_template);
 }
 
-Gura_ImplementMethod(template_, inherit)
+Gura_ImplementMethod(template_, extends)
 {
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	Template *pTemplateSuper = Object_template::GetObject(args, 0)->GetTemplate();
@@ -233,8 +233,8 @@ Gura_ImplementMethod(template_, _R_embed)
 	return Value::Null;
 }
 
-// template#_R_inherit(stream:stream):void:[lasteol,noindent]
-Gura_DeclareMethod(template_, _R_inherit)
+// template#_R_extends(stream:stream):void:[lasteol,noindent]
+Gura_DeclareMethod(template_, _R_extends)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream);
@@ -242,7 +242,7 @@ Gura_DeclareMethod(template_, _R_inherit)
 	DeclareAttr(Gura_Symbol(noindent));
 }
 
-Gura_ImplementMethod(template_, _R_inherit)
+Gura_ImplementMethod(template_, _R_extends)
 {
 	// nothing to do
 	return Value::Null;
@@ -282,14 +282,14 @@ void Class_template::Prepare(Environment &env)
 	Gura_AssignFunction(template_);
 	Gura_AssignMethod(template_, block);
 	Gura_AssignMethod(template_, embed);
-	Gura_AssignMethod(template_, inherit);
+	Gura_AssignMethod(template_, extends);
 	Gura_AssignMethod(template_, parse);
 	Gura_AssignMethod(template_, read);
 	Gura_AssignMethod(template_, render);
 	Gura_AssignMethod(template_, super);
 	Gura_AssignMethod(template_, _R_block);
 	Gura_AssignMethod(template_, _R_embed);
-	Gura_AssignMethod(template_, _R_inherit);
+	Gura_AssignMethod(template_, _R_extends);
 	Gura_AssignMethod(template_, _R_super);
 }
 

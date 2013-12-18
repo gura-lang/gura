@@ -225,7 +225,7 @@ testcase('test of inheritance') {
 	'''.template()
 	// base2 template
 	base2 = R'''
-	${=inherit(base1)}
+	${=extends(base1)}
 	
 	${=block(`head)}base2-head${end}
 	
@@ -234,7 +234,7 @@ testcase('test of inheritance') {
 	'''.template()
 	// base3 template
 	base3 = R'''
-	${=inherit(base2)}
+	${=extends(base2)}
 	
 	${=block(`head)}base3-head${end}
 	
@@ -244,15 +244,15 @@ testcase('test of inheritance') {
 	'''.template()
 	println('inherit from base1')
 	R'''
-	${=inherit(base1)}
+	${=extends(base1)}
 	'''.template().render(sys.stdout)
 	println('inherit from base2')
 	R'''
-	${=inherit(base2)}
+	${=extends(base2)}
 	'''.template().render(sys.stdout)
 	println('inherit from base3')
 	R'''
-	${=inherit(base3)}
+	${=extends(base3)}
 	'''.template().render(sys.stdout)
 }
 //-----------------------------------------------------------------------------
@@ -421,7 +421,7 @@ testcase('test of inheritance') {
 	</body>
 	'''.template()
 	R'''
-	${=inherit(base)}
+	${=extends(base)}
 	${=block(`title)}Index${end}
 	${=block(`head)}
 	    ${=super(`head)}
