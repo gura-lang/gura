@@ -12,10 +12,36 @@ listSymbols(skipWords:list, indent:number => 0, m?:module) = {
 	for (word in tostring(dir(m))) {
 		if (word in skipWords) { continue }
 		value = locals(m).lookup(tosymbol(word))
-		printf('%*s%s:%s = %s\n', indent * 2, '', word, typename(value), value)
+		printf('%*s', indent * 2, '')
+		if (isfunction(value)) {
+			printf('%s\n', value)
+		} elsif (islist(value)) {
+			printf('%s = [%s]\n', word, value.join(','))
+		} else {
+			printf('%s:%s = %s\n', word, typename(value), value)
+		}
 		if (ismodule(value)) {
 			listSymbols(skipWordsMap.get(word, []), indent + 1, value)
 		}
 	}
 }
 listSymbols(['break', 'return', 'continue', 'listSymbols', 'testutil', '*'])
+scope {
+	indent = 0
+	dirtype().each {|symbol|
+		(symbol in [`Sequence, `class, `module, `environment, `error]) && continue
+		printf('%*s%s\n', indent * 2, '', symbol)
+		c = classref(symbol)
+		for (word in tostring(dir(c):noesc)) {
+			value = c.getprop!(tosymbol(word))
+			printf('  %*s', indent * 2, '')
+			if (isfunction(value)) {
+				printf('%s\n', value)
+			} elsif (islist(value)) {
+				printf('%s = [%s]\n', word, value.join(','))
+			} else {
+				printf('%s:%s = %s\n', word, typename(value), value)
+			}
+		}
+	}
+}
