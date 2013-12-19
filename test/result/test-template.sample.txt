@@ -456,3 +456,18 @@ expected error occurs: KeyError: duplicated symbol: hoge1
         &copy; Copyright 2008 by <a href="http://domain.invalid/">you</a>.
     </div>
 </body>
+
+======== #22 test of inheritance and loop ========
+
+<html>
+<body>
+  <ul>
+    <li><a href="iwai_michiko@example.com">Iwai Michiko</a></li>
+    <li><a href="kasai_satoshi@example.com">Kasai Satoshi</a></li>
+    <li><a href="shima_masashi@example.com">Shima Masashi</a></li>
+    <li><a href="suenaga_rena@example.com">Suenaga Rena</a></li>
+    <li><a href="yokokawa_fumiyo@example.com">Yokokawa Fumiyo</a></li>
+    <li><a href="yamanaka_mayuko@example.com">Yamanaka Mayuko</a></li>
+  </ul>
+</body>
+</html>

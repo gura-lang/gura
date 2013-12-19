@@ -398,7 +398,7 @@ testcase('test of detecting duplicated symbol') {
 }
 //-----------------------------------------------------------------------------
 testcase('test of inheritance') {
-	// this sample came from an example in http://jinja.pocoo.org/.
+	// this sample originated from an example in http://jinja.pocoo.org/.
 	base = R'''
 	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 	<html lang="en">
@@ -434,6 +434,36 @@ testcase('test of inheritance') {
 	    <p class="important">
 	      Welcome on my awesome homepage.
 	    </p>
+	${end}
+	'''.template().render(sys.stdout)
+}
+//-----------------------------------------------------------------------------
+testcase('test of inheritance and loop') {
+	// this sample originated from an example in http://jinja.pocoo.org/.
+	Users = struct(username:string, url:string)
+	users = @(Users) {
+		{ 'Iwai Michiko',		'iwai_michiko@example.com'		},
+		{ 'Kasai Satoshi',		'kasai_satoshi@example.com'		},
+		{ 'Shima Masashi',		'shima_masashi@example.com'		},
+		{ 'Suenaga Rena',		'suenaga_rena@example.com'		},
+		{ 'Yokokawa Fumiyo',	'yokokawa_fumiyo@example.com'	},
+		{ 'Yamanaka Mayuko',	'yamanaka_mayuko@example.com'	},
+	}
+	layout = R'''
+	<html>
+	<body>
+	${=block(`body)}${end}
+	</body>
+	</html>
+	'''.template()
+	R'''
+	${=extends(layout)}
+	${=block(`body)}
+	  <ul>
+	  ${for (user in users)}
+	    <li><a href="${user.url}">${user.username}</a></li>
+	  ${end}
+	  </ul>
 	${end}
 	'''.template().render(sys.stdout)
 }
