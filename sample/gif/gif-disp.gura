@@ -12,7 +12,7 @@ createHatchImage(width:number, height:number, wdHatch:number, htHatch:number) = 
 	img = image(`rgb, width, height)
 	repeat (height / htHatch + 1) {|iRow|
 		img.fillrect(iCols * wdHatch, iRow * htHatch, wdHatch, htHatch,
-								colors.round().offset(iRow % 2))
+								colors.cycle().offset(iRow % 2))
 	}
 	img
 }
@@ -21,7 +21,7 @@ imgHatch = createHatchImage(imgs[0].width, imgs[0].height, 8, 8)
 
 sdl.Init(sdl.INIT_EVERYTHING)
 screen = sdl.SetVideoMode(imgs[0].width, imgs[0].height, 16, sdl.SWSURFACE)
-imgIter = imgs.round()
+imgIter = imgs.cycle()
 tickPrev = os.clock()
 delayTime = 0
 sdl.AddTimer(5) {

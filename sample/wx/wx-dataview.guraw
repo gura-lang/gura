@@ -20,8 +20,8 @@ import(resource)
 MyTextModel = class(wx.DataViewListModel) {
 	__init__() = {
 		this.m_list = dim(1000) {'Test'}
-		this.m_bools = [false, true].round(1000):list
-		this.m_colours = ['red', 'green'].round(1000):list
+		this.m_bools = [false, true].cycle(1000):list
+		this.m_colours = ['red', 'green'].cycle(1000):list
 		this.m_progress = [int(range(1000)) / 10]
 		this.m_dates = dim(1000) {wx.DateTime.Now()}
 	}

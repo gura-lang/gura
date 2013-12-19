@@ -50,10 +50,10 @@ Chicken = class {
 		[this.x, this.y] = [x, y]
 		if (dir == `right) {
 			this.xDir = xStep
-			this.imageIter = imagesR.round()
+			this.imageIter = imagesR.cycle()
 		} else {
 			this.xDir = -xStep
-			this.imageIter = imagesL.round()
+			this.imageIter = imagesL.cycle()
 		}
 	}
 	doAction() = {
@@ -62,11 +62,11 @@ Chicken = class {
 		this.x += this.xDir
 		if (this.x + wdImage > wdScreen) {
 			this.xDir = -xStep
-			this.imageIter = imagesL.round()
+			this.imageIter = imagesL.cycle()
 		}
 		if (this.x < 0) {
 			this.xDir = xStep
-			this.imageIter = imagesR.round()
+			this.imageIter = imagesR.cycle()
 		}
 	}
 }

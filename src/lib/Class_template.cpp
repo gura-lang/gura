@@ -322,11 +322,11 @@ Gura_ImplementMethod(template_, _R_embed)
 	return Value::Null;
 }
 
-// template#_R_extends(stream:stream):void:[lasteol,noindent]
+// template#_R_extends(super):void:[lasteol,noindent]
 Gura_DeclareMethod(template_, _R_extends)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "stream", VTYPE_stream);
+	DeclareArg(env, "super", VTYPE_any);
 	DeclareAttr(Gura_Symbol(lasteol));
 	DeclareAttr(Gura_Symbol(noindent));
 }

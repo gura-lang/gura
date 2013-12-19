@@ -12,7 +12,7 @@ calendar(year:number, weekoffset:number => 0, ncols:number => 3) = {
 		'July', 'August', 'September', 'October', 'November', 'December',
 	]
 	weekAbbrs = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
-	weekAbbrs = weekAbbrs.round(7 + weekoffset).offset(weekoffset):list
+	weekAbbrs = weekAbbrs.cycle(7 + weekoffset).offset(weekoffset):list
 	weekLine = weekAbbrs.join(' ')
 	wdPerMonth = 3 * 7 - 1
 	wdSep = 6

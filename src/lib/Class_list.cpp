@@ -260,18 +260,18 @@ void Object_list::IteratorReverse::GatherFollower(Environment::Frame *pFrame, En
 }
 
 //-----------------------------------------------------------------------------
-// Object_list::IteratorRound
+// Object_list::IteratorCycle
 //-----------------------------------------------------------------------------
-Object_list::IteratorRound::~IteratorRound()
+Object_list::IteratorCycle::~IteratorCycle()
 {
 }
 
-Iterator *Object_list::IteratorRound::GetSource()
+Iterator *Object_list::IteratorCycle::GetSource()
 {
 	return NULL;
 }
 
-bool Object_list::IteratorRound::DoNext(Environment &env, Signal sig, Value &value)
+bool Object_list::IteratorCycle::DoNext(Environment &env, Signal sig, Value &value)
 {
 	ValueList &valList = _pObj->GetList();
 	if (_pValue == valList.end() || _cnt == 0) return false;
@@ -282,12 +282,12 @@ bool Object_list::IteratorRound::DoNext(Environment &env, Signal sig, Value &val
 	return true;
 }
 
-String Object_list::IteratorRound::ToString() const
+String Object_list::IteratorCycle::ToString() const
 {
-	return String("list#round");
+	return String("list#cycle");
 }
 
-void Object_list::IteratorRound::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+void Object_list::IteratorCycle::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 }
 
@@ -1844,20 +1844,20 @@ Gura_ImplementMethod(list, reverse)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// list#round(n?:number) {block?}
-Gura_DeclareMethod(list, round)
+// list#cycle(n?:number) {block?}
+Gura_DeclareMethod(list, cycle)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(list, round)
+Gura_ImplementMethod(list, cycle)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
 	int cnt = args.Is_number(0)? args.GetInt(0) : -1;
 	Object_list *pObj = Object_list::Reference(pThis);
-	Iterator *pIterator = new Object_list::IteratorRound(pObj, cnt);
+	Iterator *pIterator = new Object_list::IteratorCycle(pObj, cnt);
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -1974,7 +1974,7 @@ void Class_list::Prepare(Environment &env)
 	Gura_AssignMethod(list, head);
 	Gura_AssignMethod(list, tail);
 	Gura_AssignMethod(list, reverse);
-	Gura_AssignMethod(list, round);
+	Gura_AssignMethod(list, cycle);
 	Gura_AssignMethod(list, pingpong);
 	Gura_AssignMethod(list, fold);
 }

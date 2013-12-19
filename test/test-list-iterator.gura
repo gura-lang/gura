@@ -351,7 +351,7 @@ testcase {
 }
 testcase {
 	tbl = [0..255]
-	for (row in tbl.round(500).fold(16)) {|iRow|
+	for (row in tbl.cycle(500).fold(16)) {|iRow|
 		printf('%06x', iRow * 16)
 		for (rowHalf in row.fold(8)) {
 			printf('  %s', hex(rowHalf, 2).join(' '))
@@ -408,15 +408,15 @@ testcase {
 	tester(`[list.reverse()].join(' '))
 	list = ['apple', 'orange', 'grape']
 	tester(`list)
-	tester(`[list.round(13)].join(' '))
+	tester(`[list.cycle(13)].join(' '))
 	tester(`[(0..10).offset(2)])
 	tester(`[(0..10).skip(1)])
 	tester(`[(0..10).offset(2).skip(1)])
 	tester(`[(0..5).align(10)])
 	tester(`[(0..5).align(3)])
 	tester(`[(0..5).align(10, 0)])
-	tester(`[(0..3).round(20)])
-	tester(`[(0..3).round().head(20)])
+	tester(`[(0..3).cycle(20)])
+	tester(`[(0..3).cycle().head(20)])
 	tester(`[(0..3).pingpong(20)])
 	tester(`[(0..3).pingpong(20):sticky])
 	tester(`[(0..3).pingpong(20):sticky_l:sticky_r])
@@ -430,10 +430,10 @@ testcase {
 	tester(`[[0..10].offset(2).skip(1)])
 	tester(`[[0..5].align(10)])
 	tester(`[[0..5].align(10, 0)])
-	tester(`[[0].round(10)])
-	tester(`[[0, 1].round(10)])
-	tester(`[[0..3].round(20)])
-	tester(`[[0..3].round().head(20)])
+	tester(`[[0].cycle(10)])
+	tester(`[[0, 1].cycle(10)])
+	tester(`[[0..3].cycle(20)])
+	tester(`[[0..3].cycle().head(20)])
 	tester(`[[0].pingpong(10)])
 	tester(`[[0].pingpong(10):sticky])
 	tester(`[[0, 1].pingpong(10)])
@@ -455,7 +455,7 @@ testcase {
 	// stress test
 	repeat (100) { (1..9).tail(6).join() }
 	repeat (100) { (1..9).reverse().join() }
-	repeat (100) { (1..9).round(100).join() }
+	repeat (100) { (1..9).cycle(100).join() }
 	repeat (100) { (1..9).pingpong(100).join() }
 }
 testcase {

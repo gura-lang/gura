@@ -24,11 +24,11 @@ Chicken = class {
 	}
 	turnRight():void = {
 		this.xDir = xStep
-		this.imageIter = imagesR.round()
+		this.imageIter = imagesR.cycle()
 	}
 	turnLeft():void = {
 		this.xDir = -xStep
-		this.imageIter = imagesL.round()
+		this.imageIter = imagesL.cycle()
 	}
 	doAction():void = {
 		image = this.imageIter.next()

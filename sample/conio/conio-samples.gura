@@ -38,7 +38,7 @@ scope {
 scope {
 	conio.clear()
 	[w, h] = conio.getwinsize()
-	txt = chr(0x30 + [0..9].round(w - 4)).join()
+	txt = chr(0x30 + [0..9].cycle(w - 4)).join()
 	for (region in [`left, `right, `line]) {
 		conio.clear()
 		range(h) {|y|

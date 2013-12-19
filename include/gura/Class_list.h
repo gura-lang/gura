@@ -62,15 +62,15 @@ public:
 		virtual String ToString() const;
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
-	class IteratorRound : public Iterator {
+	class IteratorCycle : public Iterator {
 	private:
 		AutoPtr<Object_list> _pObj;
 		int _cnt;
 		ValueList::iterator _pValue;
 	public:
-		inline IteratorRound(Object_list *pObj, int cnt) :
+		inline IteratorCycle(Object_list *pObj, int cnt) :
 			Iterator(cnt < 0), _pObj(pObj), _pValue(pObj->GetList().begin()), _cnt(cnt) {}
-		virtual ~IteratorRound();
+		virtual ~IteratorCycle();
 		virtual Iterator *GetSource();
 		virtual bool DoNext(Environment &env, Signal sig, Value &value);
 		virtual String ToString() const;

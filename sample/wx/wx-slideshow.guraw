@@ -11,7 +11,7 @@ Panel = class(wx.Panel) {
 	__init__(parent:wx.Window) = {|parent|
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		this.SetSizer(vbox)
-		this.pathNames = path.glob(I('*.jpg')).round()
+		this.pathNames = path.glob(I('*.jpg')).cycle()
 		this.image = nil
 		wx.StaticText(this, wx.ID_ANY, '', style => wx.BORDER_SUNKEN | wx.ST_NO_AUTORESIZE) {|ctrl|
 			vbox.Add(ctrl, wx.SizerFlags().Expand())

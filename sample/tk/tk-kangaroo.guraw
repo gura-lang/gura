@@ -40,7 +40,7 @@ Kangaroo = class {
 		[x1, y1, x2, y2] = this._item.bbox()
 		[wdItem, htItem] = [x2 - x1, y2 - y1]
 		[x, xdir] = [this._x0, this._xdir]
-		iter_y = squTbl.round() * htJump + this._y0
+		iter_y = squTbl.cycle() * htJump + this._y0
 		imageIter = nil
 		this._c.bindtimer(0, 40) {
 			wdCanvas = this._c.winfo$width()

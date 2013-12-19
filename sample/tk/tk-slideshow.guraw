@@ -4,7 +4,7 @@ import(jpeg)
 
 imgfile(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
 tk.mainwindow() {|mw|
-	fileNames = path.glob(imgfile('*.jpg')).round()
+	fileNames = path.glob(imgfile('*.jpg')).cycle()
 	img = nil
 	fileNameVar = tk.variable('')
 	mw.Frame {|f|

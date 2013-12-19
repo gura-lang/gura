@@ -1064,15 +1064,15 @@ Gura_ImplementMethod(iterator, reverse)
 							new Object_list::IteratorReverse(pObj));
 }
 
-// iterator#round(n?:number) {block?}
-Gura_DeclareMethod(iterator, round)
+// iterator#cycle(n?:number) {block?}
+Gura_DeclareMethod(iterator, cycle)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(iterator, round)
+Gura_ImplementMethod(iterator, cycle)
 {
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
 	int cnt = args.Is_number(0)? args.GetInt(0) : -1;
@@ -1083,7 +1083,7 @@ Gura_ImplementMethod(iterator, round)
 	//Object_list *pObj = dynamic_cast<Object_list *>(value.GetListObj()->Clone());
 	Object_list *pObj = Object_list::Reference(Object_list::GetObject(value));
 	return ReturnIterator(env, sig, args,
-							new Object_list::IteratorRound(pObj, cnt));
+							new Object_list::IteratorCycle(pObj, cnt));
 }
 
 // iterator#pingpong(n?:number):[sticky,sticky_l,sticky_r] {block?}
@@ -1206,7 +1206,7 @@ void Class_iterator::Prepare(Environment &env)
 	Gura_AssignMethod(iterator, head);
 	Gura_AssignMethod(iterator, tail);
 	Gura_AssignMethod(iterator, reverse);
-	Gura_AssignMethod(iterator, round);
+	Gura_AssignMethod(iterator, cycle);
 	Gura_AssignMethod(iterator, pingpong);
 	Gura_AssignMethod(iterator, fold);
 	Gura_AssignMethod(iterator, repeater);

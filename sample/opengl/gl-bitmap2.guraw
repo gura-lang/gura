@@ -628,7 +628,7 @@ Draw() = {
 		[1.0, 1.0, 1.0]
 	}
     repeat (7) {|i|
-		for (color in colors.round(40)) {|j|
+		for (color in colors.cycle(40)) {|j|
 			glColor3fv(color)
 		    glRasterPos3i((j * 3) % 5, (j * 3) % 8, 0)
 		    if (useLists) {
