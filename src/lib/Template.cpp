@@ -93,7 +93,7 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 	_exprLeaderStack.clear();
 	if (pTemplate->GetFuncForBody() == NULL) {
 		AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
-				Gura_Symbol(_anonymous_), new Expr_Block(), FUNCTYPE_Function));
+				Gura_Symbol(_anonymous_), new Expr_Block(), FUNCTYPE_Instance));
 		pFunc->SetMode(RSLTMODE_Void, FLAG_DynamicScope);
 		pTemplate->SetFuncForBody(pFunc.release());
 	}

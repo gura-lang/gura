@@ -86,8 +86,59 @@ Gura_ImplementMethod(template_, block)
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
-						pSymbol, Expr::Reference(pExprBlock), FUNCTYPE_Function));
+						pSymbol, Expr::Reference(pExprBlock), FUNCTYPE_Instance));
 	pFunc->SetMode(RSLTMODE_Void, FLAG_DynamicScope);
+	ValueMap &valueMap = pTemplate->GetValueMap();
+	if (valueMap.find(pSymbol) != valueMap.end()) {
+		sig.SetError(ERR_KeyError, "duplicated symbol: %s", pSymbol->GetName());
+		return Value::Null;
+	}
+	valueMap[pSymbol] = Value(new Object_function(env, pFunc->Reference()));
+	return Value::Null;
+}
+
+// template#call(symbol:symbol, args*):void
+Gura_DeclareMethod(template_, call)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "symbol", VTYPE_symbol);
+	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrMore);
+}
+
+Gura_ImplementMethod(template_, call)
+{
+	// nothing to do
+	return Value::Null;
+}
+
+// template#def(symbol:symbol, `args*):void {block}
+Gura_DeclareMethod(template_, def)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "symbol", VTYPE_symbol);
+	DeclareArg(env, "args", VTYPE_quote, OCCUR_ZeroOrMore);
+	DeclareBlock(OCCUR_Once);
+}
+
+Gura_ImplementMethod(template_, def)
+{
+	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	const Symbol *pSymbol = args.GetSymbol(0);
+	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
+	if (sig.IsSignalled()) return Value::Null;
+	AutoPtr<FunctionCustom> pFunc(new FunctionCustom(env,
+						pSymbol, Expr::Reference(pExprBlock), FUNCTYPE_Instance));
+	pFunc->SetMode(RSLTMODE_Void, FLAG_DynamicScope);
+	AutoPtr<Args> pArgsSub(new Args());
+	do {
+		AutoPtr<ExprOwner> pExprOwnerArg(new ExprOwner());
+		foreach_const (ValueList, pValue, args.GetList(1)) {
+			pExprOwnerArg->push_back(pValue->GetExpr()->Reference());
+		}
+		pArgsSub->SetExprOwnerArg(pExprOwnerArg.release());
+	} while (0);
+	//pArgsSub->SetAttrs(args.GetAttrs());
+	if (!pFunc->CustomDeclare(env, sig, SymbolSet::Null, *pArgsSub)) return Value::Null;
 	ValueMap &valueMap = pTemplate->GetValueMap();
 	if (valueMap.find(pSymbol) != valueMap.end()) {
 		sig.SetError(ERR_KeyError, "duplicated symbol: %s", pSymbol->GetName());
@@ -209,11 +260,49 @@ Gura_ImplementMethod(template_, _R_block)
 	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
 	const Symbol *pSymbol = args.GetSymbol(0);
 	const ValueEx *pValue = pTemplate->LookupValue(pSymbol);
-	if (pValue == NULL) return Value::Null;
-	if (!pValue->Is_function()) return Value::Null;
+	if (pValue == NULL || !pValue->Is_function()) {
+		return Value::Null;
+	}
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetThis(args.GetThis());
 	pValue->GetFunction()->Eval(env, sig, *pArgs);
+	return Value::Null;
+}
+
+// template#_R_call(symbol:symbol, args*):void
+Gura_DeclareMethod(template_, _R_call)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "symbol", VTYPE_symbol);
+	DeclareArg(env, "args", VTYPE_any, OCCUR_ZeroOrMore);
+}
+
+Gura_ImplementMethod(template_, _R_call)
+{
+	Template *pTemplate = Object_template::GetThisObj(args)->GetTemplate();
+	const Symbol *pSymbol = args.GetSymbol(0);
+	const ValueEx *pValue = pTemplate->LookupValue(pSymbol);
+	if (pValue == NULL || !pValue->Is_function()) {
+		return Value::Null;
+	}
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetThis(args.GetThis());
+	pArgs->SetValueListArg(args.GetList(1));
+	pValue->GetFunction()->Eval(env, sig, *pArgs);
+	return Value::Null;
+}
+
+// template#_R_def(symbol:symbol, `args*):void
+Gura_DeclareMethod(template_, _R_def)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "symbol", VTYPE_symbol);
+	DeclareArg(env, "args", VTYPE_quote, OCCUR_ZeroOrMore);
+}
+
+Gura_ImplementMethod(template_, _R_def)
+{
+	// nothing to do
 	return Value::Null;
 }
 
@@ -281,6 +370,8 @@ void Class_template::Prepare(Environment &env)
 {
 	Gura_AssignFunction(template_);
 	Gura_AssignMethod(template_, block);
+	Gura_AssignMethod(template_, call);
+	Gura_AssignMethod(template_, def);
 	Gura_AssignMethod(template_, embed);
 	Gura_AssignMethod(template_, extends);
 	Gura_AssignMethod(template_, parse);
@@ -288,6 +379,8 @@ void Class_template::Prepare(Environment &env)
 	Gura_AssignMethod(template_, render);
 	Gura_AssignMethod(template_, super);
 	Gura_AssignMethod(template_, _R_block);
+	Gura_AssignMethod(template_, _R_call);
+	Gura_AssignMethod(template_, _R_def);
 	Gura_AssignMethod(template_, _R_embed);
 	Gura_AssignMethod(template_, _R_extends);
 	Gura_AssignMethod(template_, _R_super);
