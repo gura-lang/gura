@@ -723,49 +723,6 @@ Gura_ImplementFunction(ListInit)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_list
 //-----------------------------------------------------------------------------
-// list#clear():reduce
-Gura_DeclareMethod(list, clear)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Clear the content of the list.");
-}
-
-Gura_ImplementMethod(list, clear)
-{
-	Object_list *pThis = Object_list::GetThisObj(args);
-	pThis->GetList().clear();
-	return args.GetThis();
-}
-
-// list#isempty()
-Gura_DeclareMethod(list, isempty)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Return true if the list is empty.");
-}
-
-Gura_ImplementMethod(list, isempty)
-{
-	Object_list *pThis = Object_list::GetThisObj(args);
-	return Value(pThis->GetList().empty());
-}
-
-// list#shuffle():reduce
-Gura_DeclareMethod(list, shuffle)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Shuffle the order of the list content based on random numbers.");
-}
-
-Gura_ImplementMethod(list, shuffle)
-{
-	Object_list *pThis = Object_list::GetThisObj(args);
-	ValueList &valList = pThis->GetList();
-	RandomGenerator randomGenerator;
-	std::random_shuffle(valList.begin(), valList.end(), randomGenerator);
-	return args.GetThis();
-}
-
 // list#add(elem+):reduce
 Gura_DeclareMethod(list, add)
 {
@@ -780,31 +737,6 @@ Gura_ImplementMethod(list, add)
 	ValueList &valList = pThis->GetList();
 	foreach_const (ValueList, pValue, args.GetList(0)) {
 		valList.push_back(*pValue);
-	}
-	return args.GetThis();
-}
-
-// list#insert(idx:number, elem+):reduce
-Gura_DeclareMethod(list, insert)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "idx", VTYPE_number);
-	DeclareArg(env, "elem", VTYPE_any, OCCUR_OnceOrMore);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Insert specified items to the list from the selected index.");
-}
-
-Gura_ImplementMethod(list, insert)
-{
-	Object_list *pThis = Object_list::GetThisObj(args);
-	ValueList &valList = pThis->GetList();
-	size_t idx = args.GetSizeT(0);
-	if (idx > valList.size()) {
-		sig.SetError(ERR_IndexError, "index is out of range");
-		return Value::Null;
-	}
-	foreach_const (ValueList, pValue, args.GetList(1)) {
-		valList.insert(valList.begin() + idx, *pValue);
-		idx++;
 	}
 	return args.GetThis();
 }
@@ -843,31 +775,44 @@ Gura_ImplementMethod(list, append)
 	return args.GetThis();
 }
 
-// list#shift():[raise]
-Gura_DeclareMethod(list, shift)
+// list#clear():reduce
+Gura_DeclareMethod(list, clear)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareAttr(Gura_Symbol(raise));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Shifts the elements of the list. If the content of the list is [1, 2, 3, 4],\n"
-	"it becomes [2, 3, 4] after calling this method. In default, no error occurs\n"
-	"even when the list is empty. To raise an error for executing this method on\n"
-	"an empty list, specify :raise attribute.");
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Clear the content of the list.");
 }
 
-Gura_ImplementMethod(list, shift)
+Gura_ImplementMethod(list, clear)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	ValueList &valList = pThis->GetList();
-	if (valList.empty()) {
-		if (args.IsSet(Gura_Symbol(raise))) {
-			sig.SetError(ERR_ValueError, "no items");
-		}
+	pThis->GetList().clear();
+	return args.GetThis();
+}
+
+// list#combination(n:number) {block?}
+Gura_DeclareMethod(list, combination)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "n", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Creates an iterator that generates lists that contain elements picked up\n"
+	"from the original list in a combination manner.\n"
+	GURA_ITERATOR_HELP
+	"Block parameter format: |value:list, idx:number|");
+}
+
+Gura_ImplementMethod(list, combination)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	int cnt = args.GetInt(0);
+	if (pThis->GetList().size() < static_cast<size_t>(cnt)) {
+		sig.SetError(ERR_ValueError, "specified size is out of range");
 		return Value::Null;
 	}
-	Value result = valList.front();
-	valList.erase(valList.begin());
-	return result;
+	Object_list *pObj = Object_list::Reference(pThis);
+	Iterator *pIterator = new Object_list::IteratorCombination(pObj, cnt);
+	return ReturnIterator(env, sig, args, pIterator);
 }
 
 // list#erase(idx*:number):reduce
@@ -899,22 +844,6 @@ Gura_ImplementMethod(list, erase)
 	return args.GetThis();
 }
 
-// list#get(index:number):map:flat
-Gura_DeclareMethod(list, get)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map | FLAG_Flat);
-	DeclareArg(env, "index", VTYPE_number);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a value stored at the specified index in the list.\n"
-	"An error occurs when the index is out of range.");
-}
-
-Gura_ImplementMethod(list, get)
-{
-	Object_list *pThis = Object_list::GetThisObj(args);
-	return pThis->IndexGet(env, sig, args.GetValue(0));
-}
-
 // list#first()
 Gura_DeclareMethod(list, first)
 {
@@ -932,6 +861,76 @@ Gura_ImplementMethod(list, first)
 		return Value::Null;
 	}
 	return valList.front();
+}
+
+// list#flat()
+Gura_DeclareMethod(list, flat)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the flattened list.");
+}
+
+Gura_ImplementMethod(list, flat)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	Value result;
+	ValueList &valList = result.InitAsList(env);
+	pThis->GetList().ExtractFlat(valList);
+	return result;
+}
+
+// list#get(index:number):map:flat
+Gura_DeclareMethod(list, get)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map | FLAG_Flat);
+	DeclareArg(env, "index", VTYPE_number);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Returns a value stored at the specified index in the list.\n"
+	"An error occurs when the index is out of range.");
+}
+
+Gura_ImplementMethod(list, get)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	return pThis->IndexGet(env, sig, args.GetValue(0));
+}
+
+// list#insert(idx:number, elem+):reduce
+Gura_DeclareMethod(list, insert)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "idx", VTYPE_number);
+	DeclareArg(env, "elem", VTYPE_any, OCCUR_OnceOrMore);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Insert specified items to the list from the selected index.");
+}
+
+Gura_ImplementMethod(list, insert)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	ValueList &valList = pThis->GetList();
+	size_t idx = args.GetSizeT(0);
+	if (idx > valList.size()) {
+		sig.SetError(ERR_IndexError, "index is out of range");
+		return Value::Null;
+	}
+	foreach_const (ValueList, pValue, args.GetList(1)) {
+		valList.insert(valList.begin() + idx, *pValue);
+		idx++;
+	}
+	return args.GetThis();
+}
+
+// list#isempty()
+Gura_DeclareMethod(list, isempty)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Return true if the list is empty.");
+}
+
+Gura_ImplementMethod(list, isempty)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	return Value(pThis->GetList().empty());
 }
 
 // list#last()
@@ -979,48 +978,6 @@ Gura_ImplementMethod(list, permutation)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// list#combination(n:number) {block?}
-Gura_DeclareMethod(list, combination)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "n", VTYPE_number);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Creates an iterator that generates lists that contain elements picked up\n"
-	"from the original list in a combination manner.\n"
-	GURA_ITERATOR_HELP
-	"Block parameter format: |value:list, idx:number|");
-}
-
-Gura_ImplementMethod(list, combination)
-{
-	Object_list *pThis = Object_list::GetThisObj(args);
-	int cnt = args.GetInt(0);
-	if (pThis->GetList().size() < static_cast<size_t>(cnt)) {
-		sig.SetError(ERR_ValueError, "specified size is out of range");
-		return Value::Null;
-	}
-	Object_list *pObj = Object_list::Reference(pThis);
-	Iterator *pIterator = new Object_list::IteratorCombination(pObj, cnt);
-	return ReturnIterator(env, sig, args, pIterator);
-}
-
-// list#flat()
-Gura_DeclareMethod(list, flat)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the flattened list.");
-}
-
-Gura_ImplementMethod(list, flat)
-{
-	Object_list *pThis = Object_list::GetThisObj(args);
-	Value result;
-	ValueList &valList = result.InitAsList(env);
-	pThis->GetList().ExtractFlat(valList);
-	return result;
-}
-
 // list#printf(format:string, stream?:stream:w):void
 Gura_DeclareMethod(list, printf)
 {
@@ -1041,142 +998,92 @@ Gura_ImplementMethod(list, printf)
 	return Value::Null;
 }
 
-// list#len()
-Gura_DeclareMethod(list, len)
+// list#shuffle():reduce
+Gura_DeclareMethod(list, shuffle)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the length of the list.");
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Shuffle the order of the list content based on random numbers.");
 }
 
-Gura_ImplementMethod(list, len)
+Gura_ImplementMethod(list, shuffle)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	size_t cnt = pThis->GetList().size();
-	return Value(static_cast<UInt>(cnt));
+	ValueList &valList = pThis->GetList();
+	RandomGenerator randomGenerator;
+	std::random_shuffle(valList.begin(), valList.end(), randomGenerator);
+	return args.GetThis();
 }
 
-// list#min():[index,last_index,indices]
-Gura_DeclareMethod(list, min)
+// list#shift():[raise]
+Gura_DeclareMethod(list, shift)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareAttr(Gura_Symbol(index));
-	DeclareAttr(Gura_Symbol(last_index));
-	DeclareAttr(Gura_Symbol(indices));
+	DeclareAttr(Gura_Symbol(raise));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns the minimum value in the list when no attribute is specified.\n"
-	"With an attribute :index, it returns an index of the minimum value.\n"
-	"With an attribute :last_index, it returns the last index of the minimum value\n"
-	"when more than one elements have the same value.\n"
-	"With an attribute :indices, it returns a list of indices of elements that\n"
-	"has the minimum value.");
+	"Shifts the elements of the list. If the content of the list is [1, 2, 3, 4],\n"
+	"it becomes [2, 3, 4] after calling this method. In default, no error occurs\n"
+	"even when the list is empty. To raise an error for executing this method on\n"
+	"an empty list, specify :raise attribute.");
 }
 
-Gura_ImplementMethod(list, min)
+Gura_ImplementMethod(list, shift)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
-	if (sig.IsSignalled()) return Value::Null;
-	Value result = pIterator->MinMax(env, sig, false, args.GetAttrs());
-	if (sig.IsSignalled()) return Value::Null;
+	ValueList &valList = pThis->GetList();
+	if (valList.empty()) {
+		if (args.IsSet(Gura_Symbol(raise))) {
+			sig.SetError(ERR_ValueError, "no items");
+		}
+		return Value::Null;
+	}
+	Value result = valList.front();
+	valList.erase(valList.begin());
 	return result;
 }
 
-// list#max():[index,last_index,indices]
-Gura_DeclareMethod(list, max)
+// list#after(criteria) {block?}
+Gura_DeclareMethod(list, after)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareAttr(Gura_Symbol(index));
-	DeclareAttr(Gura_Symbol(last_index));
-	DeclareAttr(Gura_Symbol(indices));
+	DeclareArg(env, "criteria", VTYPE_any);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns the maximum value in the list when no attribute is specified.\n"
-	"With an attribute :index, it returns an index of the maximum value.\n"
-	"With an attribute :last_index, it returns the last index of the maximum value\n"
-	"when more than one elements have the same value.\n"
-	"With an attribute :indices, it returns a list of indices of elements that\n"
-	"has the maximum value.");
+	"Creates an iterator that picks up each element in the list after criteria\n"
+	"is evaluated as true. You can specify a function object, a list or an iterator\n"
+	"as the criteria.\n"
+	GURA_ITERATOR_HELP
+	"Block parameter format: |value:list, idx:number|");
 }
 
-Gura_ImplementMethod(list, max)
+Gura_ImplementMethod(list, after)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
+	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
 	if (sig.IsSignalled()) return Value::Null;
-	Value result = pIterator->MinMax(env, sig, true, args.GetAttrs());
-	if (sig.IsSignalled()) return Value::Null;
-	return result;
+	Iterator *pIterator = pIteratorSrc->Since(env, sig, args.GetValue(0), false);
+	if (sig.IsSignalled()) {
+		Iterator::Delete(pIteratorSrc);
+		return Value::Null;
+	}
+	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// list#sum()
-Gura_DeclareMethod(list, sum)
+// list#align(n:number, value?):map {block?}
+Gura_DeclareMethod(list, align)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a sum of values in the list.");
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "n", VTYPE_number);
+	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(list, sum)
-{
-	Object_list *pThis = Object_list::GetThisObj(args);
-	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
-	if (sig.IsSignalled()) return Value::Null;
-	size_t cnt;
-	Value result = pIterator->Sum(env, sig, cnt);
-	if (sig.IsSignalled()) return Value::Null;
-	return result;
-}
-
-// list#average()
-Gura_DeclareMethod(list, average)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns an average of values in the list.");
-}
-
-Gura_ImplementMethod(list, average)
+Gura_ImplementMethod(list, align)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
-	if (sig.IsSignalled()) return Value::Null;
-	size_t cnt;
-	Value result = pIterator->Average(env, sig, cnt);
-	if (sig.IsSignalled()) return Value::Null;
-	return result;
-}
-
-// list#variance()
-Gura_DeclareMethod(list, variance)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a variance of values in the list.");
-}
-
-Gura_ImplementMethod(list, variance)
-{
-	Object_list *pThis = Object_list::GetThisObj(args);
-	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
-	if (sig.IsSignalled()) return Value::Null;
-	size_t cnt;
-	Value result = pIterator->Variance(env, sig, cnt);
-	if (sig.IsSignalled()) return Value::Null;
-	return result;
-}
-
-// list#stddev()
-Gura_DeclareMethod(list, stddev)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a standard deviation of values in the list.");
-}
-
-Gura_ImplementMethod(list, stddev)
-{
-	Object_list *pThis = Object_list::GetThisObj(args);
-	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
-	if (sig.IsSignalled()) return Value::Null;
-	size_t cnt;
-	Value result = pIterator->StandardDeviation(env, sig, cnt);
-	if (sig.IsSignalled()) return Value::Null;
-	return result;
+	Object_list *pObj = Object_list::Reference(pThis);
+	Iterator *pIterator = new Object_list::IteratorEach(pObj);
+	pIterator = new Iterator_Align(pIterator, args.GetInt(0), args.GetValue(1));
+	return ReturnIterator(env, sig, args, pIterator);
 }
 
 // list#and()
@@ -1199,24 +1106,49 @@ Gura_ImplementMethod(list, and_)
 	return result;
 }
 
-// list#or()
-Gura_DeclareMethodAlias(list, or_, "or")
+// list#average()
+Gura_DeclareMethod(list, average)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Calculates a logical OR result of all the values in the list.\n"
-	"Values of boolean type's false and nil are recognized as false\n"
-	"while others are true.");
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns an average of values in the list.");
 }
 
-Gura_ImplementMethod(list, or_)
+Gura_ImplementMethod(list, average)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
 	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Null;
-	Value result = pIterator->Or(env, sig);
+	size_t cnt;
+	Value result = pIterator->Average(env, sig, cnt);
 	if (sig.IsSignalled()) return Value::Null;
 	return result;
+}
+
+// list#before(criteria) {block?}
+Gura_DeclareMethod(list, before)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "criteria", VTYPE_any);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Creates an iterator that picks up each element in the list before criteria\n"
+	"is evaluated as true. You can specify a function object, a list or an iterator\n"
+	"as the criteria.\n"
+	GURA_ITERATOR_HELP
+	"Block parameter format: |value:list, idx:number|");
+}
+
+Gura_ImplementMethod(list, before)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
+	if (sig.IsSignalled()) return Value::Null;
+	Iterator *pIterator = pIteratorSrc->Until(env, sig, args.GetValue(0), false);
+	if (sig.IsSignalled()) {
+		Iterator::Delete(pIteratorSrc);
+		return Value::Null;
+	}
+	return ReturnIterator(env, sig, args, pIterator);
 }
 
 // list#contains(value)
@@ -1236,6 +1168,65 @@ Gura_ImplementMethod(list, contains)
 	bool result = pIterator->DoesContain(env, sig, args.GetValue(0));
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(result);
+}
+
+// list#count(criteria?)
+Gura_DeclareMethod(list, count)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "criteria", VTYPE_any, OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Returns a number of elements that matches the given criteria which is a single-argument\n"
+	"function or a value. When a function is applied, it counts the number of true after\n"
+	"evaluating element value with the function. If a value is applied, it counts the number\n"
+	"of elements that are equal to the value.");
+}
+
+Gura_ImplementMethod(list, count)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
+	if (sig.IsSignalled()) return Value::Null;
+	size_t cnt = args.IsValid(0)?
+		pIterator->Count(env, sig, args.GetValue(0)) : pIterator->CountTrue(env, sig);
+	if (sig.IsSignalled()) return Value::Null;
+	return Value(static_cast<UInt>(cnt));
+}
+
+// list#cycle(n?:number) {block?}
+Gura_DeclareMethod(list, cycle)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(list, cycle)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	int cnt = args.Is_number(0)? args.GetInt(0) : -1;
+	Object_list *pObj = Object_list::Reference(pThis);
+	Iterator *pIterator = new Object_list::IteratorCycle(pObj, cnt);
+	return ReturnIterator(env, sig, args, pIterator);
+}
+
+// list#each() {block?}
+Gura_DeclareMethod(list, each)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Creates an iterator that iterates each element in the list.\n"
+	GURA_ITERATOR_HELP
+	"Block parameter format: |value, idx:number|");
+}
+
+Gura_ImplementMethod(list, each)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	Object_list *pObj = Object_list::Reference(pThis);
+	Iterator *pIterator = new Object_list::IteratorEach(pObj);
+	return ReturnIterator(env, sig, args, pIterator);
 }
 
 // list#filter(criteria?) {block?}
@@ -1268,139 +1259,110 @@ Gura_ImplementMethod(list, filter)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// list#while(criteria) {block?}
-Gura_DeclareMethodAlias(list, while_, "while")
+// list#find(criteria?):[index]
+Gura_DeclareMethod(list, find)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "criteria", VTYPE_any);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Creates an iterator that picks up each element in the list while criteria\n"
-	"is evaluated as true. You can specify a function object, a list or an iterator\n"
-	"as the criteria.\n"
-	GURA_ITERATOR_HELP
-	"Block parameter format: |value:list, idx:number|");
+	DeclareAttr(Gura_Symbol(index));
+	DeclareArg(env, "criteria", VTYPE_any, OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(list, while_)
+Gura_ImplementMethod(list, find)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
+	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Null;
-	Iterator *pIterator = pIteratorSrc->While(env, sig, args.GetValue(0));
-	if (sig.IsSignalled()) {
-		Iterator::Delete(pIteratorSrc);
-		return Value::Null;
-	}
+	Value value;
+	size_t idx = args.IsValid(0)?
+			pIterator->Find(env, sig, args.GetValue(0), value) :
+			pIterator->FindTrue(env, sig, value);
+	if (idx == InvalidSize) return Value::Null;
+	if (args.IsSet(Gura_Symbol(index))) return Value(static_cast<UInt>(idx));
+	return value;
+}
+
+// list#fold(n:number, nstep?:number):[iteritem] {block?}
+Gura_DeclareMethod(list, fold)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "n", VTYPE_number);
+	DeclareArg(env, "nstep", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(iteritem));
+}
+
+Gura_ImplementMethod(list, fold)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	size_t cnt = args.GetSizeT(0);
+	size_t cntStep = args.Is_number(1)? args.GetSizeT(1) : cnt;
+	bool listItemFlag = !args.IsSet(Gura_Symbol(iteritem));
+	Object_list *pObj = Object_list::Reference(pThis);
+	Iterator *pIterator = new Object_list::IteratorFold(pObj, cnt, cntStep, listItemFlag);
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// list#since(criteria) {block?}
-Gura_DeclareMethod(list, since)
+// list#format(format:string):map
+Gura_DeclareMethod(list, format)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "criteria", VTYPE_any);
-	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "format", VTYPE_string);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Creates an iterator that picks up each element in the list since criteria\n"
-	"is evaluated as true. You can specify a function object, a list or an iterator\n"
-	"as the criteria.\n"
-	GURA_ITERATOR_HELP
-	"Block parameter format: |value:list, idx:number|");
+	"Applies element values in the list to format string that contains C printf"
+	"specifiers	and returns a formatted string.");
 }
 
-Gura_ImplementMethod(list, since)
+Gura_ImplementMethod(list, format)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
-	if (sig.IsSignalled()) return Value::Null;
-	Iterator *pIterator = pIteratorSrc->Since(env, sig, args.GetValue(0), true);
-	if (sig.IsSignalled()) {
-		Iterator::Delete(pIteratorSrc);
-		return Value::Null;
-	}
+	return Value(Formatter::Format(sig, args.GetString(0), pThis->GetList()));
+}
+
+// list#head(n:number):map {block?}
+Gura_DeclareMethod(list, head)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "n", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(list, head)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	Object_list *pObj = Object_list::Reference(pThis);
+	int cnt = args.GetInt(0);
+	Iterator *pIterator = new Object_list::IteratorEach(pObj, 0, cnt);
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// list#after(criteria) {block?}
-Gura_DeclareMethod(list, after)
+// list#join(sep:string => "")
+Gura_DeclareMethod(list, join)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "criteria", VTYPE_any);
-	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "sep", VTYPE_string, OCCUR_Once, FLAG_None, new Expr_String(""));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Creates an iterator that picks up each element in the list after criteria\n"
-	"is evaluated as true. You can specify a function object, a list or an iterator\n"
-	"as the criteria.\n"
-	GURA_ITERATOR_HELP
-	"Block parameter format: |value:list, idx:number|");
+	"Returns a string that joins strings of elements with the specified separator.");
 }
 
-Gura_ImplementMethod(list, after)
+Gura_ImplementMethod(list, join)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
-	if (sig.IsSignalled()) return Value::Null;
-	Iterator *pIterator = pIteratorSrc->Since(env, sig, args.GetValue(0), false);
-	if (sig.IsSignalled()) {
-		Iterator::Delete(pIteratorSrc);
-		return Value::Null;
-	}
-	return ReturnIterator(env, sig, args, pIterator);
+	ValueList &valList = pThis->GetList();
+	return Value(Join(valList, args.GetString(0)));
 }
 
-// list#until(criteria) {block?}
-Gura_DeclareMethod(list, until)
+// list#len()
+Gura_DeclareMethod(list, len)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "criteria", VTYPE_any);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Creates an iterator that picks up each element in the list until criteria\n"
-	"is evaluated as true. You can specify a function object, a list or an iterator\n"
-	"as the criteria.\n"
-	GURA_ITERATOR_HELP
-	"Block parameter format: |value:list, idx:number|");
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the length of the list.");
 }
 
-Gura_ImplementMethod(list, until)
+Gura_ImplementMethod(list, len)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
-	if (sig.IsSignalled()) return Value::Null;
-	Iterator *pIterator = pIteratorSrc->Until(env, sig, args.GetValue(0), true);
-	if (sig.IsSignalled()) {
-		Iterator::Delete(pIteratorSrc);
-		return Value::Null;
-	}
-	return ReturnIterator(env, sig, args, pIterator);
-}
-
-// list#before(criteria) {block?}
-Gura_DeclareMethod(list, before)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "criteria", VTYPE_any);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Creates an iterator that picks up each element in the list before criteria\n"
-	"is evaluated as true. You can specify a function object, a list or an iterator\n"
-	"as the criteria.\n"
-	GURA_ITERATOR_HELP
-	"Block parameter format: |value:list, idx:number|");
-}
-
-Gura_ImplementMethod(list, before)
-{
-	Object_list *pThis = Object_list::GetThisObj(args);
-	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
-	if (sig.IsSignalled()) return Value::Null;
-	Iterator *pIterator = pIteratorSrc->Until(env, sig, args.GetValue(0), false);
-	if (sig.IsSignalled()) {
-		Iterator::Delete(pIteratorSrc);
-		return Value::Null;
-	}
-	return ReturnIterator(env, sig, args, pIterator);
+	size_t cnt = pThis->GetList().size();
+	return Value(static_cast<UInt>(cnt));
 }
 
 // list#map(func:function) {block?}
@@ -1426,170 +1388,110 @@ Gura_ImplementMethod(list, map)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// list#reduce(accum) {block}
-Gura_DeclareMethod(list, reduce)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "accum", VTYPE_any);
-	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Evaluates a block with a parameter format |value, accum| and leaves the result\n"
-	"as the next accum value. It returns the final accum value as its result.");
-}
-
-Gura_ImplementMethod(list, reduce)
-{
-	Object_list *pThis = Object_list::GetThisObj(args);
-	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
-	if (sig.IsSignalled()) return Value::Null;
-	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	const Function *pFuncBlock =
-						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
-	if (pFuncBlock == NULL) {
-		return Value::Null;
-	}
-	return pIterator->Reduce(env, sig, args.GetValue(0), pFuncBlock);
-}
-
-// list#find(criteria?):[index]
-Gura_DeclareMethod(list, find)
+// list#max():[index,last_index,indices]
+Gura_DeclareMethod(list, max)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(index));
-	DeclareArg(env, "criteria", VTYPE_any, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(last_index));
+	DeclareAttr(Gura_Symbol(indices));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Returns the maximum value in the list when no attribute is specified.\n"
+	"With an attribute :index, it returns an index of the maximum value.\n"
+	"With an attribute :last_index, it returns the last index of the maximum value\n"
+	"when more than one elements have the same value.\n"
+	"With an attribute :indices, it returns a list of indices of elements that\n"
+	"has the maximum value.");
 }
 
-Gura_ImplementMethod(list, find)
+Gura_ImplementMethod(list, max)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
 	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Null;
-	Value value;
-	size_t idx = args.IsValid(0)?
-			pIterator->Find(env, sig, args.GetValue(0), value) :
-			pIterator->FindTrue(env, sig, value);
-	if (idx == InvalidSize) return Value::Null;
-	if (args.IsSet(Gura_Symbol(index))) return Value(static_cast<UInt>(idx));
-	return value;
+	Value result = pIterator->MinMax(env, sig, true, args.GetAttrs());
+	if (sig.IsSignalled()) return Value::Null;
+	return result;
 }
 
-// list#count(criteria?)
-Gura_DeclareMethod(list, count)
+// list#min():[index,last_index,indices]
+Gura_DeclareMethod(list, min)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "criteria", VTYPE_any, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(index));
+	DeclareAttr(Gura_Symbol(last_index));
+	DeclareAttr(Gura_Symbol(indices));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a number of elements that matches the given criteria which is a single-argument\n"
-	"function or a value. When a function is applied, it counts the number of true after\n"
-	"evaluating element value with the function. If a value is applied, it counts the number\n"
-	"of elements that are equal to the value.");
+	"Returns the minimum value in the list when no attribute is specified.\n"
+	"With an attribute :index, it returns an index of the minimum value.\n"
+	"With an attribute :last_index, it returns the last index of the minimum value\n"
+	"when more than one elements have the same value.\n"
+	"With an attribute :indices, it returns a list of indices of elements that\n"
+	"has the minimum value.");
 }
 
-Gura_ImplementMethod(list, count)
+Gura_ImplementMethod(list, min)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
 	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
 	if (sig.IsSignalled()) return Value::Null;
-	size_t cnt = args.IsValid(0)?
-		pIterator->Count(env, sig, args.GetValue(0)) : pIterator->CountTrue(env, sig);
+	Value result = pIterator->MinMax(env, sig, false, args.GetAttrs());
 	if (sig.IsSignalled()) return Value::Null;
-	return Value(static_cast<UInt>(cnt));
+	return result;
 }
 
-// list#sort(directive?, keys[]?):[stable] {block?}
-Gura_DeclareMethod(list, sort)
+// list#nilto(replace) {block?}
+Gura_DeclareMethod(list, nilto)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "directive", VTYPE_any, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "keys", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_List);
-	DeclareAttr(Gura_Symbol(stable));
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns an iterator of elements after sorting them.\n"
-	"In default, they are sorted in an ascending order. You can specify the following\n"
-	"directives for sorting.\n"
-	"\n"
-	"- `` `ascend`` .. ascending order\n"
-	"- `` `descend`` .. descending order\n"
-	"- function .. it takes two element values x and y and returns zero for x == y,\n"
-	"           plus value for x < y and minus value for x > y.\n"
-	"\n"
-	"If keys is specified, it shall be used as a key instead of element values.\n"
-	"When an attribute :stable is specified, the original order shall be kept for\n"
-	"elements that are determined as the same.");
+	DeclareArg(env, "replace", VTYPE_any);
 }
 
-Gura_ImplementMethod(list, sort)
+Gura_ImplementMethod(list, nilto)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	Object_list *pObj = pThis->SortRank(sig, args.GetValue(0),
-						args.Is_list(1)? &args.GetList(1) : NULL,
-						false, args.IsSet(Gura_Symbol(stable)));
-	if (sig.IsSignalled()) return Value::Null;
+	Object_list *pObj = Object_list::Reference(pThis);
 	Iterator *pIterator = new Object_list::IteratorEach(pObj);
+	pIterator = new Iterator_ReplaceInvalid(pIterator, args.GetValue(0));
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// list#rank(directive?):[stable]
-Gura_DeclareMethod(list, rank)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "directive", VTYPE_any, OCCUR_ZeroOrOnce);
-	DeclareAttr(Gura_Symbol(stable));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a list of rank numbers for elements after sorting them.\n"
-	"In default, they are sorted in an ascending order. You can specify the following\n"
-	"directives for sorting.\n"
-	"\n"
-	"- `` `ascend`` .. ascending order\n"
-	"- `` `descend`` .. descending order\n"
-	"- function .. it takes two element values x and y and returns zero for x == y,\n"
-	"           plus value for x < y and minus value for x > y.\n"
-	"\n"
-	"When an attribute :stable is specified, the original order shall be kept for\n"
-	"elements that are determined as the same.");
-}
-
-Gura_ImplementMethod(list, rank)
-{
-	Object_list *pThis = Object_list::GetThisObj(args);
-	Object_list *pObj = pThis->SortRank(sig, args.GetValue(0), NULL,
-							true, args.IsSet(Gura_Symbol(stable)));
-	if (sig.IsSignalled()) return Value::Null;
-	Iterator *pIterator = new Object_list::IteratorEach(pObj);
-	return ReturnIterator(env, sig, args, pIterator);
-}
-
-// list#join(sep:string => "")
-Gura_DeclareMethod(list, join)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "sep", VTYPE_string, OCCUR_Once, FLAG_None, new Expr_String(""));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a string that joins strings of elements with the specified separator.");
-}
-
-Gura_ImplementMethod(list, join)
-{
-	Object_list *pThis = Object_list::GetThisObj(args);
-	ValueList &valList = pThis->GetList();
-	return Value(Join(valList, args.GetString(0)));
-}
-
-// list#format(format:string):map
-Gura_DeclareMethod(list, format)
+// list#offset(n:number):map {block?}
+Gura_DeclareMethod(list, offset)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "format", VTYPE_string);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Applies element values in the list to format string that contains C printf"
-	"specifiers	and returns a formatted string.");
+	DeclareBlock(OCCUR_Once);
+	DeclareArg(env, "n", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(list, format)
+Gura_ImplementMethod(list, offset)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	return Value(Formatter::Format(sig, args.GetString(0), pThis->GetList()));
+	size_t offset = args.GetSizeT(0);
+	Object_list *pObj = Object_list::Reference(pThis);
+	Iterator *pIterator = new Object_list::IteratorEach(pObj, offset);
+	return ReturnIterator(env, sig, args, pIterator);
+}
+
+// list#or()
+Gura_DeclareMethodAlias(list, or_, "or")
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Calculates a logical OR result of all the values in the list.\n"
+	"Values of boolean type's false and nil are recognized as false\n"
+	"while others are true.");
+}
+
+Gura_ImplementMethod(list, or_)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
+	if (sig.IsSignalled()) return Value::Null;
+	Value result = pIterator->Or(env, sig);
+	if (sig.IsSignalled()) return Value::Null;
+	return result;
 }
 
 // list#pack(format:string)
@@ -1637,40 +1539,134 @@ Gura_ImplementMethod(list, pack)
 	return Value(pObjBinary.release());
 }
 
-// list#each() {block?}
-Gura_DeclareMethod(list, each)
+// list#pingpong(n?:number):[sticky,sticky_l,sticky_r] {block?}
+Gura_DeclareMethod(list, pingpong)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Creates an iterator that iterates each element in the list.\n"
-	GURA_ITERATOR_HELP
-	"Block parameter format: |value, idx:number|");
+	DeclareAttr(Gura_Symbol(sticky));
+	DeclareAttr(Gura_Symbol(sticky_l));
+	DeclareAttr(Gura_Symbol(sticky_r));
 }
 
-Gura_ImplementMethod(list, each)
+Gura_ImplementMethod(list, pingpong)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
+	int cnt = args.Is_number(0)? args.GetInt(0) : -1;
+	bool stickyFlagL = args.IsSet(Gura_Symbol(sticky)) ||
+						args.IsSet(Gura_Symbol(sticky_l));
+	bool stickyFlagR = args.IsSet(Gura_Symbol(sticky)) ||
+						args.IsSet(Gura_Symbol(sticky_r));
 	Object_list *pObj = Object_list::Reference(pThis);
+	Iterator *pIterator =
+		new Object_list::IteratorPingpong(pObj, cnt, stickyFlagL, stickyFlagR);
+	return ReturnIterator(env, sig, args, pIterator);
+}
+
+// list#rank(directive?):[stable]
+Gura_DeclareMethod(list, rank)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "directive", VTYPE_any, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(stable));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Returns a list of rank numbers for elements after sorting them.\n"
+	"In default, they are sorted in an ascending order. You can specify the following\n"
+	"directives for sorting.\n"
+	"\n"
+	"- `` `ascend`` .. ascending order\n"
+	"- `` `descend`` .. descending order\n"
+	"- function .. it takes two element values x and y and returns zero for x == y,\n"
+	"           plus value for x < y and minus value for x > y.\n"
+	"\n"
+	"When an attribute :stable is specified, the original order shall be kept for\n"
+	"elements that are determined as the same.");
+}
+
+Gura_ImplementMethod(list, rank)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	Object_list *pObj = pThis->SortRank(sig, args.GetValue(0), NULL,
+							true, args.IsSet(Gura_Symbol(stable)));
+	if (sig.IsSignalled()) return Value::Null;
 	Iterator *pIterator = new Object_list::IteratorEach(pObj);
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// list#offset(n:number):map {block?}
-Gura_DeclareMethod(list, offset)
+// list#reduce(accum) {block}
+Gura_DeclareMethod(list, reduce)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "accum", VTYPE_any);
 	DeclareBlock(OCCUR_Once);
-	DeclareArg(env, "n", VTYPE_number);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Evaluates a block with a parameter format |value, accum| and leaves the result\n"
+	"as the next accum value. It returns the final accum value as its result.");
+}
+
+Gura_ImplementMethod(list, reduce)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
+	if (sig.IsSignalled()) return Value::Null;
+	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
+	const Function *pFuncBlock =
+						args.GetBlockFunc(*pEnvBlock, sig, GetSymbolForBlock());
+	if (pFuncBlock == NULL) {
+		return Value::Null;
+	}
+	return pIterator->Reduce(env, sig, args.GetValue(0), pFuncBlock);
+}
+
+// list#replace(value, replace) {block?}
+Gura_DeclareMethod(list, replace)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "value", VTYPE_any);
+	DeclareArg(env, "replace", VTYPE_any);
+}
+
+Gura_ImplementMethod(list, replace)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	Object_list *pObj = Object_list::Reference(pThis);
+	Iterator *pIterator = new Object_list::IteratorEach(pObj);
+	pIterator = new Iterator_Replace(pIterator,
+								args.GetValue(0), args.GetValue(1));
+	return ReturnIterator(env, sig, args, pIterator);
+}
+
+// list#reverse() {block?}
+Gura_DeclareMethod(list, reverse)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(list, offset)
+Gura_ImplementMethod(list, reverse)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	size_t offset = args.GetSizeT(0);
 	Object_list *pObj = Object_list::Reference(pThis);
-	Iterator *pIterator = new Object_list::IteratorEach(pObj, offset);
+	Iterator *pIterator = new Object_list::IteratorReverse(pObj);
+	return ReturnIterator(env, sig, args, pIterator);
+}
+
+// list#roundoff(threshold:number => 1e-10) {block?}
+Gura_DeclareMethod(list, roundoff)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "threshold", VTYPE_number, OCCUR_Once, FLAG_None,
+											new Expr_Value(RoundOffThreshold));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(list, roundoff)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	Object_list *pObj = Object_list::Reference(pThis);
+	Iterator *pIterator = new Object_list::IteratorEach(pObj);
+	pIterator = new Iterator_RoundOff(pIterator, args.GetNumber(0));
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -1690,21 +1686,30 @@ Gura_ImplementMethod(list, runlength)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// list#align(n:number, value?):map {block?}
-Gura_DeclareMethod(list, align)
+// list#since(criteria) {block?}
+Gura_DeclareMethod(list, since)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "n", VTYPE_number);
-	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Creates an iterator that picks up each element in the list since criteria\n"
+	"is evaluated as true. You can specify a function object, a list or an iterator\n"
+	"as the criteria.\n"
+	GURA_ITERATOR_HELP
+	"Block parameter format: |value:list, idx:number|");
 }
 
-Gura_ImplementMethod(list, align)
+Gura_ImplementMethod(list, since)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	Object_list *pObj = Object_list::Reference(pThis);
-	Iterator *pIterator = new Object_list::IteratorEach(pObj);
-	pIterator = new Iterator_Align(pIterator, args.GetInt(0), args.GetValue(1));
+	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
+	if (sig.IsSignalled()) return Value::Null;
+	Iterator *pIterator = pIteratorSrc->Since(env, sig, args.GetValue(0), true);
+	if (sig.IsSignalled()) {
+		Iterator::Delete(pIteratorSrc);
+		return Value::Null;
+	}
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -1741,73 +1746,74 @@ Gura_ImplementMethod(list, skipnil)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// list#roundoff(threshold:number => 1e-10) {block?}
-Gura_DeclareMethod(list, roundoff)
+// list#sort(directive?, keys[]?):[stable] {block?}
+Gura_DeclareMethod(list, sort)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "threshold", VTYPE_number, OCCUR_Once, FLAG_None,
-											new Expr_Value(RoundOffThreshold));
+	DeclareArg(env, "directive", VTYPE_any, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "keys", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_List);
+	DeclareAttr(Gura_Symbol(stable));
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Returns an iterator of elements after sorting them.\n"
+	"In default, they are sorted in an ascending order. You can specify the following\n"
+	"directives for sorting.\n"
+	"\n"
+	"- `` `ascend`` .. ascending order\n"
+	"- `` `descend`` .. descending order\n"
+	"- function .. it takes two element values x and y and returns zero for x == y,\n"
+	"           plus value for x < y and minus value for x > y.\n"
+	"\n"
+	"If keys is specified, it shall be used as a key instead of element values.\n"
+	"When an attribute :stable is specified, the original order shall be kept for\n"
+	"elements that are determined as the same.");
 }
 
-Gura_ImplementMethod(list, roundoff)
+Gura_ImplementMethod(list, sort)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	Object_list *pObj = Object_list::Reference(pThis);
+	Object_list *pObj = pThis->SortRank(sig, args.GetValue(0),
+						args.Is_list(1)? &args.GetList(1) : NULL,
+						false, args.IsSet(Gura_Symbol(stable)));
+	if (sig.IsSignalled()) return Value::Null;
 	Iterator *pIterator = new Object_list::IteratorEach(pObj);
-	pIterator = new Iterator_RoundOff(pIterator, args.GetNumber(0));
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// list#nilto(replace) {block?}
-Gura_DeclareMethod(list, nilto)
+// list#stddev()
+Gura_DeclareMethod(list, stddev)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "replace", VTYPE_any);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a standard deviation of values in the list.");
 }
 
-Gura_ImplementMethod(list, nilto)
+Gura_ImplementMethod(list, stddev)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	Object_list *pObj = Object_list::Reference(pThis);
-	Iterator *pIterator = new Object_list::IteratorEach(pObj);
-	pIterator = new Iterator_ReplaceInvalid(pIterator, args.GetValue(0));
-	return ReturnIterator(env, sig, args, pIterator);
+	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
+	if (sig.IsSignalled()) return Value::Null;
+	size_t cnt;
+	Value result = pIterator->StandardDeviation(env, sig, cnt);
+	if (sig.IsSignalled()) return Value::Null;
+	return result;
 }
 
-// list#replace(value, replace) {block?}
-Gura_DeclareMethod(list, replace)
+// list#sum()
+Gura_DeclareMethod(list, sum)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "value", VTYPE_any);
-	DeclareArg(env, "replace", VTYPE_any);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a sum of values in the list.");
 }
 
-Gura_ImplementMethod(list, replace)
+Gura_ImplementMethod(list, sum)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	Object_list *pObj = Object_list::Reference(pThis);
-	Iterator *pIterator = new Object_list::IteratorEach(pObj);
-	pIterator = new Iterator_Replace(pIterator,
-								args.GetValue(0), args.GetValue(1));
-	return ReturnIterator(env, sig, args, pIterator);
-}
-
-// list#head(n:number):map {block?}
-Gura_DeclareMethod(list, head)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "n", VTYPE_number);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(list, head)
-{
-	Object_list *pThis = Object_list::GetThisObj(args);
-	Object_list *pObj = Object_list::Reference(pThis);
-	int cnt = args.GetInt(0);
-	Iterator *pIterator = new Object_list::IteratorEach(pObj, 0, cnt);
-	return ReturnIterator(env, sig, args, pIterator);
+	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
+	if (sig.IsSignalled()) return Value::Null;
+	size_t cnt;
+	Value result = pIterator->Sum(env, sig, cnt);
+	if (sig.IsSignalled()) return Value::Null;
+	return result;
 }
 
 // list#tail(n:number):map {block?}
@@ -1829,81 +1835,75 @@ Gura_ImplementMethod(list, tail)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// list#reverse() {block?}
-Gura_DeclareMethod(list, reverse)
+// list#until(criteria) {block?}
+Gura_DeclareMethod(list, until)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Creates an iterator that picks up each element in the list until criteria\n"
+	"is evaluated as true. You can specify a function object, a list or an iterator\n"
+	"as the criteria.\n"
+	GURA_ITERATOR_HELP
+	"Block parameter format: |value:list, idx:number|");
 }
 
-Gura_ImplementMethod(list, reverse)
+Gura_ImplementMethod(list, until)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	Object_list *pObj = Object_list::Reference(pThis);
-	Iterator *pIterator = new Object_list::IteratorReverse(pObj);
+	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
+	if (sig.IsSignalled()) return Value::Null;
+	Iterator *pIterator = pIteratorSrc->Until(env, sig, args.GetValue(0), true);
+	if (sig.IsSignalled()) {
+		Iterator::Delete(pIteratorSrc);
+		return Value::Null;
+	}
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// list#cycle(n?:number) {block?}
-Gura_DeclareMethod(list, cycle)
+// list#variance()
+Gura_DeclareMethod(list, variance)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a variance of values in the list.");
 }
 
-Gura_ImplementMethod(list, cycle)
+Gura_ImplementMethod(list, variance)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	int cnt = args.Is_number(0)? args.GetInt(0) : -1;
-	Object_list *pObj = Object_list::Reference(pThis);
-	Iterator *pIterator = new Object_list::IteratorCycle(pObj, cnt);
-	return ReturnIterator(env, sig, args, pIterator);
+	AutoPtr<Iterator> pIterator(pThis->CreateIterator(sig));
+	if (sig.IsSignalled()) return Value::Null;
+	size_t cnt;
+	Value result = pIterator->Variance(env, sig, cnt);
+	if (sig.IsSignalled()) return Value::Null;
+	return result;
 }
 
-// list#pingpong(n?:number):[sticky,sticky_l,sticky_r] {block?}
-Gura_DeclareMethod(list, pingpong)
+// list#while(criteria) {block?}
+Gura_DeclareMethodAlias(list, while_, "while")
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	DeclareAttr(Gura_Symbol(sticky));
-	DeclareAttr(Gura_Symbol(sticky_l));
-	DeclareAttr(Gura_Symbol(sticky_r));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Creates an iterator that picks up each element in the list while criteria\n"
+	"is evaluated as true. You can specify a function object, a list or an iterator\n"
+	"as the criteria.\n"
+	GURA_ITERATOR_HELP
+	"Block parameter format: |value:list, idx:number|");
 }
 
-Gura_ImplementMethod(list, pingpong)
+Gura_ImplementMethod(list, while_)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	int cnt = args.Is_number(0)? args.GetInt(0) : -1;
-	bool stickyFlagL = args.IsSet(Gura_Symbol(sticky)) ||
-						args.IsSet(Gura_Symbol(sticky_l));
-	bool stickyFlagR = args.IsSet(Gura_Symbol(sticky)) ||
-						args.IsSet(Gura_Symbol(sticky_r));
-	Object_list *pObj = Object_list::Reference(pThis);
-	Iterator *pIterator =
-		new Object_list::IteratorPingpong(pObj, cnt, stickyFlagL, stickyFlagR);
-	return ReturnIterator(env, sig, args, pIterator);
-}
-
-// list#fold(n:number, nstep?:number):[iteritem] {block?}
-Gura_DeclareMethod(list, fold)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "n", VTYPE_number);
-	DeclareArg(env, "nstep", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	DeclareAttr(Gura_Symbol(iteritem));
-}
-
-Gura_ImplementMethod(list, fold)
-{
-	Object_list *pThis = Object_list::GetThisObj(args);
-	size_t cnt = args.GetSizeT(0);
-	size_t cntStep = args.Is_number(1)? args.GetSizeT(1) : cnt;
-	bool listItemFlag = !args.IsSet(Gura_Symbol(iteritem));
-	Object_list *pObj = Object_list::Reference(pThis);
-	Iterator *pIterator = new Object_list::IteratorFold(pObj, cnt, cntStep, listItemFlag);
+	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
+	if (sig.IsSignalled()) return Value::Null;
+	Iterator *pIterator = pIteratorSrc->While(env, sig, args.GetValue(0));
+	if (sig.IsSignalled()) {
+		Iterator::Delete(pIteratorSrc);
+		return Value::Null;
+	}
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -1921,62 +1921,63 @@ void Class_list::Prepare(Environment &env)
 	Gura_AssignFunctionEx(set_xset, "set");
 	Gura_AssignFunctionEx(set_xset, "xset");
 	Gura_AssignFunctionEx(ListInit, "@");
-	Gura_AssignMethod(list, clear);
-	Gura_AssignMethod(list, isempty);
-	Gura_AssignMethod(list, shuffle);
+	// assignment of methods
 	Gura_AssignMethod(list, add);
-	Gura_AssignMethod(list, insert);
 	Gura_AssignMethod(list, append);
-	Gura_AssignMethod(list, shift);
+	Gura_AssignMethod(list, clear);
+	Gura_AssignMethod(list, combination);
 	Gura_AssignMethod(list, erase);
-	Gura_AssignMethod(list, get);
 	Gura_AssignMethod(list, first);
+	Gura_AssignMethod(list, flat);
+	Gura_AssignMethod(list, get);
+	Gura_AssignMethod(list, insert);
+	Gura_AssignMethod(list, isempty);
 	Gura_AssignMethod(list, last);
 	Gura_AssignMethod(list, permutation);
-	Gura_AssignMethod(list, combination);
-	Gura_AssignMethod(list, flat);
 	Gura_AssignMethod(list, printf);
-	// common operations with iterator
-	Gura_AssignMethod(list, len);
-	Gura_AssignMethod(list, min);
-	Gura_AssignMethod(list, max);
-	Gura_AssignMethod(list, sum);
-	Gura_AssignMethod(list, average);
-	Gura_AssignMethod(list, variance);
-	Gura_AssignMethod(list, stddev);
-	Gura_AssignMethod(list, and_);
-	Gura_AssignMethod(list, or_);
-	Gura_AssignMethod(list, contains);
-	Gura_AssignMethod(list, filter);
-	Gura_AssignMethod(list, while_);
-	Gura_AssignMethod(list, since);
+	Gura_AssignMethod(list, shift);
+	Gura_AssignMethod(list, shuffle);
+	// assignment of common methods with iterator
 	Gura_AssignMethod(list, after);
-	Gura_AssignMethod(list, until);
-	Gura_AssignMethod(list, before);
-	Gura_AssignMethod(list, map);
-	Gura_AssignMethod(list, reduce);
-	Gura_AssignMethod(list, find);
-	Gura_AssignMethod(list, count);
-	Gura_AssignMethod(list, sort);
-	Gura_AssignMethod(list, rank);
-	Gura_AssignMethod(list, join);
-	Gura_AssignMethod(list, format);
-	Gura_AssignMethod(list, pack);
-	Gura_AssignMethod(list, each);
-	Gura_AssignMethod(list, offset);
-	Gura_AssignMethod(list, runlength);
 	Gura_AssignMethod(list, align);
+	Gura_AssignMethod(list, and_);
+	Gura_AssignMethod(list, average);
+	Gura_AssignMethod(list, before);
+	Gura_AssignMethod(list, contains);
+	Gura_AssignMethod(list, count);
+	Gura_AssignMethod(list, cycle);
+	Gura_AssignMethod(list, each);
+	Gura_AssignMethod(list, filter);
+	Gura_AssignMethod(list, find);
+	Gura_AssignMethod(list, fold);
+	Gura_AssignMethod(list, format);
+	Gura_AssignMethod(list, head);
+	Gura_AssignMethod(list, join);
+	Gura_AssignMethod(list, len);
+	Gura_AssignMethod(list, map);
+	Gura_AssignMethod(list, max);
+	Gura_AssignMethod(list, min);
+	Gura_AssignMethod(list, nilto);
+	Gura_AssignMethod(list, offset);
+	Gura_AssignMethod(list, or_);
+	Gura_AssignMethod(list, pack);
+	Gura_AssignMethod(list, pingpong);
+	Gura_AssignMethod(list, rank);
+	Gura_AssignMethod(list, reduce);
+	Gura_AssignMethod(list, replace);
+	Gura_AssignMethod(list, reverse);
+	Gura_AssignMethod(list, roundoff);
+	Gura_AssignMethod(list, runlength);
+	Gura_AssignMethod(list, since);
 	Gura_AssignMethod(list, skip);
 	Gura_AssignMethod(list, skipnil);
-	Gura_AssignMethod(list, roundoff);
-	Gura_AssignMethod(list, nilto);
-	Gura_AssignMethod(list, replace);
-	Gura_AssignMethod(list, head);
+	Gura_AssignMethod(list, sort);
+	Gura_AssignMethod(list, stddev);
+	Gura_AssignMethod(list, sum);
 	Gura_AssignMethod(list, tail);
-	Gura_AssignMethod(list, reverse);
-	Gura_AssignMethod(list, cycle);
-	Gura_AssignMethod(list, pingpong);
-	Gura_AssignMethod(list, fold);
+	Gura_AssignMethod(list, until);
+	Gura_AssignMethod(list, variance);
+	Gura_AssignMethod(list, while_);
 }
 
 bool Class_list::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
