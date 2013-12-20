@@ -10,15 +10,15 @@ fileName = 'test-sqlite3/50records-en.sqlite3'
 testcase {
 	try {fs.remove(fileName)} catch {}
 	sqlite3.db(fileName) {|db|
-		db.exec('''\
-			create table people (
-				name     text,
-				email    text,
-				gender   text,
-				age      integer,
-				birthday text,
-				mobile   text
-			)
+		db.exec(R'''
+		create table people (
+			name     text,
+			email    text,
+			gender   text,
+			age      integer,
+			birthday text,
+			mobile   text
+		)
 		''')
 		Person = struct(name:string, email:string,
 				gender:string, age:number, birthday:string, mobile:string)
@@ -53,20 +53,20 @@ fileName = 'test-sqlite3/50records-jp.sqlite3'
 testcase {
 	try {fs.remove(fileName)} catch {}
 	sqlite3.db(fileName) {|db|
-		db.exec('''\
-			create table people (
-				名前       text,
-				ふりがな   text,
-				電子メール text,
-				性別       text,
-				年齢       integer,
-				誕生日     text,
-				結婚       text,
-				出身県     text,
-				携帯電話   text,
-				携帯会社   text,
-				くせ       text
-			)
+		db.exec(R'''
+		create table people (
+			名前       text,
+			ふりがな   text,
+			電子メール text,
+			性別       text,
+			年齢       integer,
+			誕生日     text,
+			結婚       text,
+			出身県     text,
+			携帯電話   text,
+			携帯会社   text,
+			くせ       text
+		)
 		''')
 		Person = struct(name:string, name_ruby:string, email:string,
 				gender:string, age:number, birthday:string,
@@ -100,13 +100,13 @@ fileName = 'test-sqlite3/temperature.sqlite3'
 function {
 	try {fs.remove(fileName)} catch {}
 	sqlite3.db(fileName) {|db|
-		db.exec('''\
-			create table sites (
-				day      integer,
-				temp1    float,
-				temp2    float,
-				temp3    float
-			)
+		db.exec(R'''
+		create table sites (
+			day      integer,
+			temp1    float,
+			temp2    float,
+			temp3    float
+		)
 		''')
 		items = struct(day:number, temps*:number) * \
 			re.split(r'\s+', (readlines('test-sqlite3/temperature.txt'):chop).offset(1)):list
