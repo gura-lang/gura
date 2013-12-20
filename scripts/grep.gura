@@ -18,7 +18,7 @@ argopt.Parser {|p|
 		R'''
 		usage: grep.gura [options] pattern file ...
 		options:
-		  ${p.formatHelp() + '\n'}
+		  ${p.formatHelp():linefeed}
 		'''.template().render(sys.stderr)
 		sys.exit(1)
 	}
