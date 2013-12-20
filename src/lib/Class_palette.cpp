@@ -1,7 +1,6 @@
-//
-// Object_palette
-//
-
+//=============================================================================
+// Gura class: palette
+//=============================================================================
 #include "stdafx.h"
 
 namespace Gura {
@@ -80,7 +79,7 @@ String Object_palette::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Global functions
+// Implementation of functions
 //-----------------------------------------------------------------------------
 // palette(type) {block?}
 Gura_DeclareFunction(palette)
@@ -114,7 +113,7 @@ Gura_ImplementFunction(palette)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_palette
+// Implementation of methods
 //-----------------------------------------------------------------------------
 // palette#each() {block?}
 Gura_DeclareMethod(palette, each)
@@ -209,7 +208,7 @@ Gura_ImplementMethod(palette, shrink)
 }
 
 //-----------------------------------------------------------------------------
-// Classs implementation
+// Implementation of class
 //-----------------------------------------------------------------------------
 Class_palette::Class_palette(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_palette)
 {

@@ -1,7 +1,6 @@
-//
-// Object_function
-//
-
+//=============================================================================
+// Gura class: function
+//=============================================================================
 #include "stdafx.h"
 
 namespace Gura {
@@ -195,12 +194,13 @@ String Object_function::MakePrefix(Signal sig) const
 }
 
 //-----------------------------------------------------------------------------
-// Global functions
+// Implementation of functions
 //-----------------------------------------------------------------------------
-// func = function(`args*) {block}
+// function(`args*) {block}
 Gura_DeclareFunction(function)
 {
 	DeclareArg(env, "args", VTYPE_quote, OCCUR_ZeroOrMore);
+	SetClassToConstruct(env.LookupClass(VTYPE_function));
 	DeclareBlock(OCCUR_Once);
 }
 
@@ -234,7 +234,7 @@ Gura_ImplementFunction(function)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_function
+// Implementation of methods
 //-----------------------------------------------------------------------------
 // function#addhelp(lang:symbol, format:string, help:string):map
 Gura_DeclareMethod(function, addhelp)
@@ -332,7 +332,7 @@ Gura_ImplementMethod(function, help)
 }
 
 //-----------------------------------------------------------------------------
-// Classs implementation
+// Implementation of class
 //-----------------------------------------------------------------------------
 Class_function::Class_function(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_function)
 {

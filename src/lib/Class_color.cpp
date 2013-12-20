@@ -1,5 +1,5 @@
 //=============================================================================
-// color class
+// Gura class: color
 //=============================================================================
 #include "stdafx.h"
 
@@ -922,7 +922,7 @@ Object_color *Object_color::CreateNamedColor(Environment &env,
 }
 
 //-----------------------------------------------------------------------------
-// Global functions
+// Implementation of functions
 //-----------------------------------------------------------------------------
 // color(args+) {block?}
 Gura_DeclareFunction(color)
@@ -968,7 +968,7 @@ Gura_ImplementFunction(color)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_color
+// Implementation of methods
 //-----------------------------------------------------------------------------
 // color#html()
 Gura_DeclareMethod(color, html)
@@ -1005,7 +1005,7 @@ Gura_ImplementMethod(color, tolist)
 }
 
 //-----------------------------------------------------------------------------
-// Classs implementation
+// Implementation of class
 //-----------------------------------------------------------------------------
 Class_color::Class_color(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_color)
 {

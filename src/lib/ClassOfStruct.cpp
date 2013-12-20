@@ -1,7 +1,6 @@
-//
-// ClassOfStruct
-//
-
+//=============================================================================
+// Gura class: Struct
+//=============================================================================
 #include "stdafx.h"
 
 namespace Gura {
@@ -61,7 +60,7 @@ const DeclarationList &ObjectOfStruct::GetDeclList() const
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for ObjectOfStruct
+// Implementation of methods
 //-----------------------------------------------------------------------------
 // struct#tolist()
 Gura_DeclareMethod(Struct, tolist)
@@ -90,7 +89,7 @@ Gura_ImplementMethod(Struct, tolist)
 }
 
 //-----------------------------------------------------------------------------
-// Classs implementation
+// Implementation of class
 //-----------------------------------------------------------------------------
 ClassOfStruct::ClassOfStruct(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_Struct)
 {

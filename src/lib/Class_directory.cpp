@@ -1,6 +1,6 @@
-//-----------------------------------------------------------------------------
-// Gura directory class
-//-----------------------------------------------------------------------------
+//=============================================================================
+// Gura class: directory
+//=============================================================================
 #include "stdafx.h"
 
 namespace Gura {
@@ -31,7 +31,7 @@ String Object_directory::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for directory
+// Implementation of functions
 //-----------------------------------------------------------------------------
 // directory(pathname:string):map {block?}
 Gura_DeclareFunction(directory)
@@ -53,7 +53,7 @@ Gura_ImplementFunction(directory)
 }
 
 //-----------------------------------------------------------------------------
-// Class implementation
+// Implementation of class
 //-----------------------------------------------------------------------------
 Class_directory::Class_directory(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_directory)
 {

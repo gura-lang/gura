@@ -1,13 +1,48 @@
-//
-// Object_args
-//
-
+//=============================================================================
+// Gura class: args
+//=============================================================================
 #include "stdafx.h"
 
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for args
+// Object_args
+//-----------------------------------------------------------------------------
+Object *Object_args::Clone() const
+{
+	return new Object_args(*this);
+}
+
+bool Object_args::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_Symbol(values));
+	return true;
+}
+
+Value Object_args::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_Symbol(values))) {
+		Value rtn;
+		rtn.InitAsList(env, _pArgs->GetValueListArg());
+		return rtn;
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+String Object_args::ToString(bool exprFlag)
+{
+	String str;
+	str += "<args:";
+	str += ">";
+	return str;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of methods
 //-----------------------------------------------------------------------------
 // args#isset(symbol:symbol)
 Gura_DeclareMethod(args, isset)
@@ -49,44 +84,8 @@ Gura_ImplementMethod(args, finalize_trailer)
 	return Value::Null;
 }
 
-//-----------------------------------------------------------------------------
-// Object implementation for args
-//-----------------------------------------------------------------------------
-Object *Object_args::Clone() const
-{
-	return new Object_args(*this);
-}
-
-bool Object_args::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
-{
-	if (!Object::DoDirProp(env, sig, symbols)) return false;
-	symbols.insert(Gura_Symbol(values));
-	return true;
-}
-
-Value Object_args::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
-							const SymbolSet &attrs, bool &evaluatedFlag)
-{
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(values))) {
-		Value rtn;
-		rtn.InitAsList(env, _pArgs->GetValueListArg());
-		return rtn;
-	}
-	evaluatedFlag = false;
-	return Value::Null;
-}
-
-String Object_args::ToString(bool exprFlag)
-{
-	String str;
-	str += "<args:";
-	str += ">";
-	return str;
-}
-
 //----------------------------------------------------------------------------
-// Class implementation for args
+// Implementation of class
 //----------------------------------------------------------------------------
 Class_args::Class_args(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_args)
 {

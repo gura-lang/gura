@@ -1,5 +1,5 @@
 //=============================================================================
-// template class
+// Gura class: template
 //=============================================================================
 #include "stdafx.h"
 
@@ -45,7 +45,7 @@ String Object_template::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for template
+// Implementation of functions
 //-----------------------------------------------------------------------------
 // template(src?:stream:r):map:[noindent,lasteol] {block?}
 Gura_DeclareFunctionAlias(template_, "template")
@@ -71,6 +71,9 @@ Gura_ImplementFunction(template_)
 					Value(new Object_template(env, pTemplate.release())));
 }
 
+//-----------------------------------------------------------------------------
+// Implementation of methods
+//-----------------------------------------------------------------------------
 // template#block(symbol:symbol):void {block}
 Gura_DeclareMethod(template_, block)
 {
@@ -360,7 +363,7 @@ Gura_ImplementMethod(template_, _R_super)
 }
 
 //-----------------------------------------------------------------------------
-// Classs implementation
+// Implementation of class
 //-----------------------------------------------------------------------------
 Class_template::Class_template(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_template)
 {

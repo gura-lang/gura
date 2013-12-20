@@ -1,3 +1,6 @@
+//=============================================================================
+// Gura class: binary
+//=============================================================================
 #include "stdafx.h"
 
 namespace Gura {
@@ -191,7 +194,7 @@ void Object_binary::IteratorUnpack::GatherFollower(Environment::Frame *pFrame, E
 }
 
 //-----------------------------------------------------------------------------
-// Global Functions
+// Implementation of functions
 //-----------------------------------------------------------------------------
 // binary(buff*) {block?}
 Gura_DeclareFunction(binary)
@@ -220,7 +223,7 @@ Gura_ImplementFunction(binary)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_binary
+// Implementation of methods
 //-----------------------------------------------------------------------------
 // binary#len()
 Gura_DeclareMethod(binary, len)
@@ -485,7 +488,7 @@ Gura_ImplementMethod(binary, encodeuri)
 }
 
 //-----------------------------------------------------------------------------
-// Classs implementation
+// Implementation of class
 //-----------------------------------------------------------------------------
 Class_binary::Class_binary(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_binary)
 {

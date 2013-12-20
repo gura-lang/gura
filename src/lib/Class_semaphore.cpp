@@ -1,5 +1,5 @@
 //=============================================================================
-// semaphore class
+// Gura class: semaphore
 //=============================================================================
 #include "stdafx.h"
 
@@ -31,7 +31,7 @@ String Object_semaphore::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Global functions
+// Implementation of functions
 //-----------------------------------------------------------------------------
 // semaphore()
 Gura_DeclareFunction(semaphore)
@@ -47,24 +47,8 @@ Gura_ImplementFunction(semaphore)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_semaphore
+// Implementation of methods
 //-----------------------------------------------------------------------------
-// semaphore#wait()
-Gura_DeclareMethod(semaphore, wait)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Watis for the semaphore being released by other threads, and ghen grabs\n"
-	"that ownership.");
-}
-
-Gura_ImplementMethod(semaphore, wait)
-{
-	Object_semaphore *pThis = Object_semaphore::GetThisObj(args);
-	pThis->GetSemaphore().Wait();
-	return Value::Null;
-}
-
 // semaphore#release()
 Gura_DeclareMethod(semaphore, release)
 {
@@ -105,8 +89,24 @@ Gura_ImplementMethod(semaphore, session)
 	return result;
 }
 
+// semaphore#wait()
+Gura_DeclareMethod(semaphore, wait)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Watis for the semaphore being released by other threads, and ghen grabs\n"
+	"that ownership.");
+}
+
+Gura_ImplementMethod(semaphore, wait)
+{
+	Object_semaphore *pThis = Object_semaphore::GetThisObj(args);
+	pThis->GetSemaphore().Wait();
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
-// Classs implementation
+// Implementation of class
 //-----------------------------------------------------------------------------
 Class_semaphore::Class_semaphore(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_semaphore)
 {
@@ -115,9 +115,9 @@ Class_semaphore::Class_semaphore(Environment *pEnvOuter) : Class(pEnvOuter, VTYP
 void Class_semaphore::Prepare(Environment &env)
 {
 	Gura_AssignFunction(semaphore);
-	Gura_AssignMethod(semaphore, wait);
 	Gura_AssignMethod(semaphore, release);
 	Gura_AssignMethod(semaphore, session);
+	Gura_AssignMethod(semaphore, wait);
 }
 
 Object *Class_semaphore::CreateDescendant(Environment &env, Signal sig, Class *pClass)

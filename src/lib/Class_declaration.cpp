@@ -1,17 +1,12 @@
-//
-// Object_declaration
-//
-
+//=============================================================================
+// Gura class: declaration
+//=============================================================================
 #include "stdafx.h"
 
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for declaration
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-// Object implementation for declaration
+// Object_declaration
 //-----------------------------------------------------------------------------
 Object *Object_declaration::Clone() const
 {
@@ -54,7 +49,7 @@ String Object_declaration::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Class implementation for declaration
+// Implementation of class
 //----------------------------------------------------------------------------
 Class_declaration::Class_declaration(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_declaration)
 {

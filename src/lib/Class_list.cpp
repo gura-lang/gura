@@ -1,7 +1,6 @@
-//
-// Object_list
-//
-
+//=============================================================================
+// Gura class: list
+//=============================================================================
 #include "stdafx.h"
 #include "combination.hpp"
 
@@ -494,7 +493,7 @@ bool Object_list::Comparator_Custom::
 }
 
 //-----------------------------------------------------------------------------
-// Global functions
+// Implementation of functions
 //-----------------------------------------------------------------------------
 // list(value+)
 Gura_DeclareFunction(list)
@@ -701,19 +700,6 @@ Gura_ImplementFunction(ListInit)
 			valList.push_back(valueElem);
 		}
 	} else {
-#if 0
-		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
-		ValueList &valList = result.InitAsList(env);
-		foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
-			SeqPostHandler *pSeqPostHandler = NULL;
-			Value value = (*ppExpr)->Exec2(*pEnvLister, sig, pSeqPostHandler);
-			if (sig.IsSignalled()) {
-				sig.AddExprCause(*ppExpr);
-				return Value::Null;
-			}
-			valList.push_back(value);
-		}
-#endif
 		AutoPtr<Environment> pEnvLister(new Environment(&env, ENVTYPE_lister));
 		result = pExprBlock->Exec(*pEnvLister, sig, NULL);
 	}
@@ -721,7 +707,7 @@ Gura_ImplementFunction(ListInit)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_list
+// Implementation of methods
 //-----------------------------------------------------------------------------
 // list#add(elem+):reduce
 Gura_DeclareMethod(list, add)
@@ -1908,7 +1894,7 @@ Gura_ImplementMethod(list, while_)
 }
 
 //-----------------------------------------------------------------------------
-// Classs implementation
+// Implementation of class
 //-----------------------------------------------------------------------------
 Class_list::Class_list(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_list)
 {

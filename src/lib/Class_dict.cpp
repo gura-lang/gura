@@ -1,6 +1,6 @@
-//
-// Object_dict
-//
+//=============================================================================
+// Gura class: dict
+//=============================================================================
 #include "stdafx.h"
 
 namespace Gura {
@@ -214,7 +214,7 @@ void Object_dict::IteratorGet::GatherFollower(Environment::Frame *pFrame, Enviro
 }
 
 //-----------------------------------------------------------------------------
-// Global functions
+// Implementation of functions
 //-----------------------------------------------------------------------------
 // dict(elem[]?):[icase] {block?}, %{block}
 Gura_DeclareFunction(dict)
@@ -255,18 +255,33 @@ Gura_ImplementFunction(dict)
 }
 
 //-----------------------------------------------------------------------------
-// Gura Interface
+// Implementation of methods
 //-----------------------------------------------------------------------------
-// dict#len()
-Gura_DeclareMethod(dict, len)
+// dict#clear()
+Gura_DeclareMethod(dict, clear)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 }
 
-Gura_ImplementMethod(dict, len)
+Gura_ImplementMethod(dict, clear)
 {
 	Object_dict *pThis = Object_dict::GetThisObj(args);
-	return Value(static_cast<Number>(pThis->GetDict().size()));
+	pThis->GetDict().clear();
+	return Value::Null;
+}
+
+// dict#erase(key):map
+Gura_DeclareMethod(dict, erase)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "key", VTYPE_any);
+}
+
+Gura_ImplementMethod(dict, erase)
+{
+	Object_dict *pThis = Object_dict::GetThisObj(args);
+	pThis->GetDict().erase(args.GetValue(0));
+	return Value::Null;
 }
 
 // dict#get(key, default?:nomap):map:[raise]
@@ -319,6 +334,63 @@ Gura_ImplementMethod(dict, gets)
 		const Value &value = args.GetValue(1);
 		return value;
 	}
+}
+
+// dict#haskey(key):map
+Gura_DeclareMethod(dict, haskey)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "key", VTYPE_any);
+}
+
+Gura_ImplementMethod(dict, haskey)
+{
+	Object_dict *pThis = Object_dict::GetThisObj(args);
+	const Value &valueIdx = args.GetValue(0);
+	const Value *pValue = pThis->Find(sig, valueIdx);
+	return Value(pValue != NULL);
+}
+
+// dict#items() {block?}
+Gura_DeclareMethod(dict, items)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(dict, items)
+{
+	Object_dict *pThis = Object_dict::GetThisObj(args);
+	Object_dict *pObj = Object_dict::Reference(pThis);
+	return ReturnIterator(env, sig, args,
+							new Object_dict::IteratorItems(pObj));
+}
+
+// dict#keys() {block?}
+Gura_DeclareMethod(dict, keys)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(dict, keys)
+{
+	Object_dict *pThis = Object_dict::GetThisObj(args);
+	Object_dict *pObj = Object_dict::Reference(pThis);
+	return ReturnIterator(env, sig, args,
+							new Object_dict::IteratorKeys(pObj));
+}
+
+// dict#len()
+Gura_DeclareMethod(dict, len)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(dict, len)
+{
+	Object_dict *pThis = Object_dict::GetThisObj(args);
+	return Value(static_cast<Number>(pThis->GetDict().size()));
 }
 
 // dict#set(key, value:nomap):map:reduce
@@ -419,36 +491,6 @@ Gura_ImplementMethod(dict, store)
 	return args.GetThis();
 }
 
-// dict#haskey(key):map
-Gura_DeclareMethod(dict, haskey)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "key", VTYPE_any);
-}
-
-Gura_ImplementMethod(dict, haskey)
-{
-	Object_dict *pThis = Object_dict::GetThisObj(args);
-	const Value &valueIdx = args.GetValue(0);
-	const Value *pValue = pThis->Find(sig, valueIdx);
-	return Value(pValue != NULL);
-}
-
-// dict#keys() {block?}
-Gura_DeclareMethod(dict, keys)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(dict, keys)
-{
-	Object_dict *pThis = Object_dict::GetThisObj(args);
-	Object_dict *pObj = Object_dict::Reference(pThis);
-	return ReturnIterator(env, sig, args,
-							new Object_dict::IteratorKeys(pObj));
-}
-
 // dict#values() {block?}
 Gura_DeclareMethod(dict, values)
 {
@@ -464,50 +506,8 @@ Gura_ImplementMethod(dict, values)
 							new Object_dict::IteratorValues(pObj));
 }
 
-// dict#items() {block?}
-Gura_DeclareMethod(dict, items)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(dict, items)
-{
-	Object_dict *pThis = Object_dict::GetThisObj(args);
-	Object_dict *pObj = Object_dict::Reference(pThis);
-	return ReturnIterator(env, sig, args,
-							new Object_dict::IteratorItems(pObj));
-}
-
-// dict#clear()
-Gura_DeclareMethod(dict, clear)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(dict, clear)
-{
-	Object_dict *pThis = Object_dict::GetThisObj(args);
-	pThis->GetDict().clear();
-	return Value::Null;
-}
-
-// dict#erase(key):map
-Gura_DeclareMethod(dict, erase)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "key", VTYPE_any);
-}
-
-Gura_ImplementMethod(dict, erase)
-{
-	Object_dict *pThis = Object_dict::GetThisObj(args);
-	pThis->GetDict().erase(args.GetValue(0));
-	return Value::Null;
-}
-
 //-----------------------------------------------------------------------------
-// Classs implementation
+// Implementation of class
 //-----------------------------------------------------------------------------
 Class_dict::Class_dict(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_dict)
 {
@@ -517,19 +517,19 @@ void Class_dict::Prepare(Environment &env)
 {
 	Gura_AssignFunction(dict);
 	Gura_AssignFunctionEx(dict, "%");
-	Gura_AssignMethod(dict, len);
-	Gura_AssignMethod(dict, get);
-	Gura_AssignMethod(dict, gets);
-	Gura_AssignMethod(dict, set);
-	Gura_AssignMethod(dict, sets);
-	Gura_AssignMethod(dict, store);
-	Gura_AssignMethod(dict, setdefault);
-	Gura_AssignMethod(dict, haskey);
-	Gura_AssignMethod(dict, keys);
-	Gura_AssignMethod(dict, values);
-	Gura_AssignMethod(dict, items);
 	Gura_AssignMethod(dict, clear);
 	Gura_AssignMethod(dict, erase);
+	Gura_AssignMethod(dict, get);
+	Gura_AssignMethod(dict, gets);
+	Gura_AssignMethod(dict, haskey);
+	Gura_AssignMethod(dict, items);
+	Gura_AssignMethod(dict, keys);
+	Gura_AssignMethod(dict, len);
+	Gura_AssignMethod(dict, set);
+	Gura_AssignMethod(dict, setdefault);
+	Gura_AssignMethod(dict, sets);
+	Gura_AssignMethod(dict, store);
+	Gura_AssignMethod(dict, values);
 }
 
 bool Class_dict::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const

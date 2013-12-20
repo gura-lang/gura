@@ -1,3 +1,6 @@
+//=============================================================================
+// Gura class: pointer
+//=============================================================================
 #include "stdafx.h"
 
 namespace Gura {
@@ -48,19 +51,21 @@ bool Object_pointer::Pack(Signal sig,
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_pointer
+// Implementation of methods
 //-----------------------------------------------------------------------------
-// pointer#reset()
-Gura_DeclareMethod(pointer, reset)
+// pointer#forward(distance:number):reduce
+Gura_DeclareMethod(pointer, forward)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "distance", VTYPE_number);
 }
 
-Gura_ImplementMethod(pointer, reset)
+Gura_ImplementMethod(pointer, forward)
 {
 	Object_pointer *pThis = Object_pointer::GetThisObj(args);
-	pThis->Reset();
-	return Value::Null;
+	bool exeedErrorFlag = true;
+	pThis->UnpackForward(sig, args.GetInt(0), exeedErrorFlag);
+	return args.GetThis();
 }
 
 // pointer#pack(format:string, value+):reduce:[stay]
@@ -82,6 +87,19 @@ Gura_ImplementMethod(pointer, pack)
 	bool forwardFlag = !args.IsSet(Gura_Symbol(stay));
 	pThis->Pack(sig, forwardFlag, args.GetString(0), args.GetList(1));
 	return args.GetThis();
+}
+
+// pointer#reset()
+Gura_DeclareMethod(pointer, reset)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(pointer, reset)
+{
+	Object_pointer *pThis = Object_pointer::GetThisObj(args);
+	pThis->Reset();
+	return Value::Null;
 }
 
 // pointer#unpack(format:string, values*:number):[nil,stay]
@@ -120,23 +138,8 @@ Gura_ImplementMethod(pointer, unpacks)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// pointer#forward(distance:number):reduce
-Gura_DeclareMethod(pointer, forward)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "distance", VTYPE_number);
-}
-
-Gura_ImplementMethod(pointer, forward)
-{
-	Object_pointer *pThis = Object_pointer::GetThisObj(args);
-	bool exeedErrorFlag = true;
-	pThis->UnpackForward(sig, args.GetInt(0), exeedErrorFlag);
-	return args.GetThis();
-}
-
 //-----------------------------------------------------------------------------
-// Classs implementation
+// Implementation of class
 //-----------------------------------------------------------------------------
 Class_pointer::Class_pointer(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_pointer)
 {
@@ -144,11 +147,11 @@ Class_pointer::Class_pointer(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_po
 
 void Class_pointer::Prepare(Environment &env)
 {
-	Gura_AssignMethod(pointer, reset);
+	Gura_AssignMethod(pointer, forward);
 	Gura_AssignMethod(pointer, pack);
+	Gura_AssignMethod(pointer, reset);
 	Gura_AssignMethod(pointer, unpack);
 	Gura_AssignMethod(pointer, unpacks);
-	Gura_AssignMethod(pointer, forward);
 }
 
 Object *Class_pointer::CreateDescendant(Environment &env, Signal sig, Class *pClass)

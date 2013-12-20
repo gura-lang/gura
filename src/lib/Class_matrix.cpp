@@ -1,7 +1,6 @@
-//
-// Object_matrix
-//
-
+//=============================================================================
+// Gura class: matrix
+//=============================================================================
 #include "stdafx.h"
 
 namespace Gura {
@@ -153,7 +152,7 @@ String Object_matrix::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Global functions
+// Implementation of functions
 //-----------------------------------------------------------------------------
 // matrix(nrows:number, ncols:number, value?) {block?}
 Gura_DeclareFunction(matrix)
@@ -215,7 +214,7 @@ Gura_ImplementFunction(MatrixInit)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_matrix
+// Implementation of methods
 //-----------------------------------------------------------------------------
 // matrix.identity(n:number):static:map {block?}
 Gura_DeclareClassMethod(matrix, identity)
@@ -646,7 +645,7 @@ Gura_ImplementMethod(matrix, invert)
 }
 
 //-----------------------------------------------------------------------------
-// Classs implementation
+// Implementation of class
 //-----------------------------------------------------------------------------
 Class_matrix::Class_matrix(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_matrix)
 {

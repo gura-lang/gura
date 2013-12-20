@@ -1,6 +1,6 @@
-//-----------------------------------------------------------------------------
-// Gura datetime class
-//-----------------------------------------------------------------------------
+//=============================================================================
+// Gura class: datetime
+//=============================================================================
 #include "stdafx.h"
 
 namespace Gura {
@@ -155,7 +155,7 @@ String Object_datetime::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for datetime
+// Implementation of functions
 //-----------------------------------------------------------------------------
 // datetime(year:number, month:number, day:number,
 //           hour:number => 0, min:number => 0, sec:number => 0, usec:number => 0,
@@ -193,6 +193,9 @@ Gura_ImplementFunction(datetime)
 		Value(new Object_datetime(env, DateTime(year, month, day, sec, usec, secsOffset))));
 }
 
+//-----------------------------------------------------------------------------
+// Implementation of methods
+//-----------------------------------------------------------------------------
 // datetime.monthdays(year:number, month:number):map
 Gura_DeclareClassMethod(datetime, monthdays)
 {
@@ -435,7 +438,7 @@ Gura_ImplementMethod(datetime, isleap)
 #endif
 
 //-----------------------------------------------------------------------------
-// Classs implementation
+// Implementation of class
 //-----------------------------------------------------------------------------
 Class_datetime::Class_datetime(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_datetime)
 {

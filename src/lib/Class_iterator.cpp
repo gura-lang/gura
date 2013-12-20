@@ -1,7 +1,6 @@
-//
-// Object_iterator
-//
-
+//=============================================================================
+// Gura class: iterator
+//=============================================================================
 #include "stdafx.h"
 
 namespace Gura {
@@ -46,7 +45,7 @@ void Object_iterator::GatherFollower(Environment::Frame *pFrame, EnvironmentSet 
 }
 
 //-----------------------------------------------------------------------------
-// Global functions
+// Implementation of functions
 //-----------------------------------------------------------------------------
 // iterator(value+) {block?}
 Gura_DeclareFunction(iterator)
@@ -232,7 +231,7 @@ Gura_ImplementFunction(rands)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_iterator
+// Implementation of methods
 //-----------------------------------------------------------------------------
 // iterator#delay(delay:number) {block?}
 Gura_DeclareMethod(iterator, delay)
@@ -1147,7 +1146,7 @@ Gura_ImplementMethod(iterator, while_)
 }
 
 //-----------------------------------------------------------------------------
-// Classs implementation
+// Implementation of class
 //-----------------------------------------------------------------------------
 Class_iterator::Class_iterator(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_iterator)
 {

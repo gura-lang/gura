@@ -1,7 +1,6 @@
-//
-// Object_expr
-//
-
+//=============================================================================
+// Gura class: expr
+//=============================================================================
 #include "stdafx.h"
 
 #define ImplementTypeChecker(funcName, func) \
@@ -200,7 +199,7 @@ String Object_expr::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_expr
+// Implementation of expr
 //-----------------------------------------------------------------------------
 // expr#eval()
 Gura_DeclareMethod(expr, eval)
@@ -331,7 +330,7 @@ ImplementTypeChecker(issymbol,		IsSymbol)
 ImplementTypeChecker(isstring,		IsString)
 
 //-----------------------------------------------------------------------------
-// Classs implementation
+// Implementation of class
 //-----------------------------------------------------------------------------
 Class_expr::Class_expr(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_expr)
 {

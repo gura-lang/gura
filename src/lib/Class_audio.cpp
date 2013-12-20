@@ -1,13 +1,12 @@
-//
-// Object_audio
-//
-
+//=============================================================================
+// Gura class: audio
+//=============================================================================
 #include "stdafx.h"
 
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Object implementation for audio
+// Object_audio
 //-----------------------------------------------------------------------------
 Object_audio::Object_audio(Environment &env, Audio *pAudio) :
 			Object(env.LookupClass(VTYPE_audio)), _pAudio(pAudio)
@@ -90,7 +89,7 @@ String Object_audio::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Global functions
+// Implementation of functions
 //-----------------------------------------------------------------------------
 // audio(args+):map {block?}
 Gura_DeclareFunction(audio)
@@ -149,7 +148,7 @@ Gura_ImplementFunction(audio)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for audio
+// Implementation of methods
 //-----------------------------------------------------------------------------
 // audio#sinewave(channel:number, freq:number, len:number, amplitude?:number):reduce:map
 Gura_DeclareMethod(audio, sinewave)
@@ -277,7 +276,7 @@ Gura_ImplementMethod(audio, store)
 }
 
 //-----------------------------------------------------------------------------
-// Class implementation for audio
+// Implementation of class
 //-----------------------------------------------------------------------------
 Class_audio::Class_audio(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_audio)
 {

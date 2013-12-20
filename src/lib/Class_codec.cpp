@@ -1,7 +1,6 @@
-//
-// Object_codec
-//
-
+//=============================================================================
+// Gura class: codec
+//=============================================================================
 #include "stdafx.h"
 
 namespace Gura {
@@ -35,7 +34,7 @@ String Object_codec::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Global functions
+// Implementation of functions
 //-----------------------------------------------------------------------------
 // codec(encoding:string) {block?}
 Gura_DeclareFunction(codec)
@@ -54,7 +53,7 @@ Gura_ImplementFunction(codec)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_codec
+// Implementation of methods
 //-----------------------------------------------------------------------------
 // codec.dir()
 Gura_DeclareClassMethod(codec, dir)
@@ -142,7 +141,7 @@ Gura_ImplementMethod(codec, decode)
 }
 
 //-----------------------------------------------------------------------------
-// Classs implementation
+// Implementation of class
 //-----------------------------------------------------------------------------
 Class_codec::Class_codec(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_codec)
 {

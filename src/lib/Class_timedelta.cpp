@@ -1,7 +1,6 @@
-//
-// Object_timedelta
-//
-
+//=============================================================================
+// Gura class: timedelta
+//=============================================================================
 #include "stdafx.h"
 
 namespace Gura {
@@ -75,7 +74,7 @@ String Object_timedelta::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_timedelta
+// Implementation of functions
 //-----------------------------------------------------------------------------
 // timedelta(days:number => 0, secs:number => 0, usecs:number => 0):map {block?}
 Gura_DeclareFunction(timedelta)
@@ -100,7 +99,7 @@ Gura_ImplementFunction(timedelta)
 }
 
 //-----------------------------------------------------------------------------
-// Classs implementation
+// Implementation of class
 //-----------------------------------------------------------------------------
 Class_timedelta::Class_timedelta(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_timedelta)
 {

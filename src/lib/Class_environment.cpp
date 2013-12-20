@@ -1,7 +1,6 @@
-//
-// Object_environment
-//
-
+//=============================================================================
+// Gura class: environment
+//=============================================================================
 #include "stdafx.h"
 
 namespace Gura {
@@ -57,7 +56,7 @@ String Object_environment::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_environment
+// Implementation of methods
 //-----------------------------------------------------------------------------
 // environment#getprop!(symbol:symbol):map
 Gura_DeclareMethodAlias(environment, getprop_X, "getprop!")
@@ -134,7 +133,7 @@ Gura_ImplementMethod(environment, lookup)
 }
 
 //-----------------------------------------------------------------------------
-// Classs implementation
+// Implementation of class
 //-----------------------------------------------------------------------------
 Class_environment::Class_environment(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_environment)
 {

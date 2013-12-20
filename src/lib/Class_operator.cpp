@@ -1,6 +1,6 @@
-//-----------------------------------------------------------------------------
-// Gura operator class
-//-----------------------------------------------------------------------------
+//=============================================================================
+// Gura class: operator
+//=============================================================================
 #include "stdafx.h"
 
 namespace Gura {
@@ -88,7 +88,7 @@ const Symbol *Object_operator::GetSymbol() const
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for operator
+// Implementation of functions
 //-----------------------------------------------------------------------------
 // operator(op:symbol) {block?}
 Gura_DeclareFunctionAlias(operator_, "operator")
@@ -115,6 +115,9 @@ Gura_ImplementFunction(operator_)
 	return ReturnValue(env, sig, args, Value(pObj));
 }
 
+//-----------------------------------------------------------------------------
+// Implementation of methods
+//-----------------------------------------------------------------------------
 // operator#assign(type_l:expr, type_r?:expr):map:void {block}
 Gura_DeclareMethod(operator_, assign)
 {

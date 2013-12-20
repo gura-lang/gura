@@ -1,7 +1,7 @@
-//
-// Object_uri
+//=============================================================================
+// Gura class: uri
 // reference: RFC1738 (Uniform Resource Locators)
-
+//=============================================================================
 #include "stdafx.h"
 
 namespace Gura {
@@ -238,7 +238,7 @@ void Object_uri::SetError_InvalidURIFormat(Signal sig)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_uri
+// Implementation of functions
 //-----------------------------------------------------------------------------
 // uri(str:string):map {block?}
 Gura_DeclareFunction(uri)
@@ -256,7 +256,7 @@ Gura_ImplementFunction(uri)
 }
 
 //-----------------------------------------------------------------------------
-// Classs implementation
+// Implementation of class
 //-----------------------------------------------------------------------------
 Class_uri::Class_uri(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_uri)
 {

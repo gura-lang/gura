@@ -1,5 +1,6 @@
-// Object_image
-
+//=============================================================================
+// Gura class: image
+//=============================================================================
 #include "stdafx.h"
 
 namespace Gura {
@@ -93,7 +94,7 @@ String Object_image::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Global functions
+// Implementation of functions
 //-----------------------------------------------------------------------------
 // image(args+):map {block?}
 Gura_DeclareFunction(image)
@@ -176,7 +177,7 @@ Gura_ImplementFunction(image)
 }
 
 //-----------------------------------------------------------------------------
-// Gura interfaces for Object_image
+// Implementation of methods
 //-----------------------------------------------------------------------------
 // image#allocbuff(width:number, height:number, color?:color):void
 Gura_DeclareMethod(image, allocbuff)
@@ -777,7 +778,7 @@ Gura_ImplementMethod(image, write)
 }
 
 //-----------------------------------------------------------------------------
-// Classs implementation
+// Implementation of class
 //-----------------------------------------------------------------------------
 Class_image::Class_image(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_image)
 {
