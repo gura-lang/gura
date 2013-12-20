@@ -85,7 +85,7 @@ Frame = class(wx.Frame) {
 			dlg = wx.FileDialog(this,
 				'Save image file',
 				wx.EmptyString,
-				'image',
+				'image.png',
 				'PNG files (*.png)|*.png|JPEG files (*.jpg)|*.jpg|BMP files (*.bmp)|*.bmp',
 				wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT)
 			if (dlg.ShowModal() == wx.ID_OK) {
