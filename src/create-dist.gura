@@ -18,7 +18,7 @@ argopt.Parser {|p|
 		R'''
 		usage: create-dist.gura [options] [cmd]
 		options:
-		  ${p.formatHelp() + '\n'}
+		  ${p.formatHelp():linefeed}
 		cmd:
 		  clean .. delete all generated files
 		'''.template().render(sys.stderr)
