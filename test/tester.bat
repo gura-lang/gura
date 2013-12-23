@@ -4,6 +4,7 @@ set cases=
 set cases=%cases% application
 set cases=%cases% binary
 set cases=%cases% block
+set cases=%cases% bzip2
 rem set cases=%cases% canvas
 set cases=%cases% codec
 set cases=%cases% color
