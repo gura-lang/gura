@@ -12,7 +12,7 @@ namespace BZLib {
 //-----------------------------------------------------------------------------
 class Stream_Decompressor : public Stream {
 private:
-	Stream *_pStream;
+	AutoPtr<Stream> _pStream;
 	AutoPtr<Memory> _pMemory;
 	size_t _bytesSrc;
 	size_t _bytesBuff;
@@ -21,15 +21,15 @@ private:
 	bz_stream _bzstrm;
 	char *_buffOut;
 	char *_buffIn;
+	bool _doneFlag;
 public:
 	Stream_Decompressor(Environment &env, Signal sig, Stream *pStream, size_t bytesSrc, size_t bytesBuff = 32768) :
 			Stream(env, sig, ATTR_Readable), _pStream(pStream), _bytesSrc(bytesSrc),
 			_bytesBuff(bytesBuff), _bytesOut(0),
-			_offsetOut(0), _buffOut(NULL), _buffIn(NULL) {
+			_offsetOut(0), _buffOut(NULL), _buffIn(NULL), _doneFlag(false) {
 		CopyCodec(pStream);
 	}
 	~Stream_Decompressor() {
-		Stream::Delete(_pStream);
 		::BZ2_bzDecompressEnd(&_bzstrm);
 	}
 	bool Initialize(Signal sig, int verbosity, int small) {
@@ -48,49 +48,56 @@ public:
 		return true;
 	}
 	virtual const char *GetName() const {
-		return (_pStream == NULL)? "(invalid)" : _pStream->GetName();
+		return (_pStream.IsNull())? "(invalid)" : _pStream->GetName();
 	}
 	virtual const char *GetIdentifier() const {
-		return (_pStream == NULL)? NULL : _pStream->GetIdentifier();
+		return (_pStream.IsNull())? NULL : _pStream->GetIdentifier();
 	}
 	virtual size_t DoWrite(Signal sig, const void *buff, size_t len) {
 		return 0;
 	}
 	virtual size_t DoRead(Signal sig, void *buff, size_t bytes) {
+		if (_doneFlag) return 0;
 		size_t bytesRead = 0;
 		char *buffp = reinterpret_cast<char *>(buff);
 		bool continueFlag = true;
 		for (size_t bytesRest = bytes; bytesRest > 0 && continueFlag; ) {
 			if (_offsetOut >= _bytesOut) {
-				if (_bzstrm.avail_in == 0) {
-					size_t bytesRead = _pStream->Read(sig,
-									_buffIn, ChooseMin(_bytesBuff, _bytesSrc));
-					if (sig.IsSignalled()) {
+				_offsetOut = 0;
+				for (_bytesOut = 0; _bytesOut == 0; ) {
+					if (_bzstrm.avail_in == 0) {
+						size_t bytesRead = _pStream->Read(sig,
+										_buffIn, ChooseMin(_bytesBuff, _bytesSrc));
+						if (sig.IsSignalled()) {
+							::BZ2_bzDecompressEnd(&_bzstrm);
+							return 0;
+						}
+						if (bytesRead == 0) {
+							sig.SetError(ERR_IOError, "unexpected end of bzip stream");
+							return 0;
+						}
+						if (_bytesSrc != InvalidSize) {
+							_bytesSrc -= bytesRead;
+						}
+						_bzstrm.avail_in = static_cast<unsigned int>(bytesRead);
+						_bzstrm.next_in = _buffIn;
+					}
+					_bzstrm.avail_out = static_cast<unsigned int>(_bytesBuff);
+					_bzstrm.next_out = _buffOut;
+					int ret = ::BZ2_bzDecompress(&_bzstrm);
+					_bytesOut = _bytesBuff - _bzstrm.avail_out;
+					if (ret == BZ_OK) {
+						// nothing to do
+					} else if (ret == BZ_STREAM_END) {
+						_doneFlag = true;
+						continueFlag = false;
+						break;
+					} else {
+						sig.SetError(ERR_IOError, "bzlib error");
 						::BZ2_bzDecompressEnd(&_bzstrm);
 						return 0;
 					}
-					if (bytesRead == 0) break;
-					if (_bytesSrc != InvalidSize) {
-						_bytesSrc -= bytesRead;
-					}
-					_bzstrm.avail_in = static_cast<unsigned int>(bytesRead);
-					_bzstrm.next_in = _buffIn;
 				}
-				_bzstrm.avail_out = static_cast<unsigned int>(_bytesBuff);
-				_bzstrm.next_out = _buffOut;
-				int ret = ::BZ2_bzDecompress(&_bzstrm);
-				if (ret == BZ_OK) {
-					// nothing to do
-				} else if (ret == BZ_STREAM_END) {
-					continueFlag = false;
-				} else {
-					sig.SetError(ERR_IOError, "bzlib error");
-					::BZ2_bzDecompressEnd(&_bzstrm);
-					return 0;
-				}
-				_bytesOut = _bytesBuff - _bzstrm.avail_out;
-				_offsetOut = 0;
-				if (_bytesOut == 0) break;
 			}
 			size_t bytesToCopy = _bytesOut - _offsetOut;
 			if (bytesToCopy > bytesRest) bytesToCopy = bytesRest;
@@ -133,7 +140,7 @@ public:
 //-----------------------------------------------------------------------------
 class Stream_Compressor : public Stream {
 private:
-	Stream *_pStream;
+	AutoPtr<Stream> _pStream;
 	AutoPtr<Memory> _pMemory;
 	size_t _bytesBuff;
 	size_t _offsetOut;
@@ -166,13 +173,13 @@ public:
 		return true;
 	}
 	virtual const char *GetName() const {
-		return (_pStream == NULL)? "(invalid)" : _pStream->GetName();
+		return (_pStream.IsNull())? "(invalid)" : _pStream->GetName();
 	}
 	virtual const char *GetIdentifier() const {
-		return (_pStream == NULL)? NULL : _pStream->GetIdentifier();
+		return (_pStream.IsNull())? NULL : _pStream->GetIdentifier();
 	}
 	virtual size_t DoWrite(Signal sig, const void *buff, size_t len) {
-		if (_pStream == NULL) return 0;
+		if (_pStream.IsNull()) return 0;
 		_bzstrm.next_in = reinterpret_cast<char *>(const_cast<void *>(buff));
 		_bzstrm.avail_in = static_cast<unsigned int>(len);
 		while (_bzstrm.avail_in > 0) {
@@ -194,7 +201,7 @@ public:
 		return DoClose(sig);
 	}
 	virtual bool DoClose(Signal sig) {
-		if (_pStream == NULL) return true;
+		if (_pStream.IsNull()) return true;
 		for (;;) {
 			if (_bzstrm.avail_out == 0) {
 				_pStream->Write(sig, _buffOut, _bytesBuff);
@@ -216,8 +223,7 @@ public:
 		::BZ2_bzCompressEnd(&_bzstrm);
 		if (sig.IsSignalled()) return false;
 		bool rtn = _pStream->Flush(sig);
-		Stream::Delete(_pStream);
-		_pStream = NULL;
+		_pStream.reset(NULL);
 		return rtn;
 	}
 	virtual size_t DoRead(Signal sig, void *buff, size_t bytes) {
