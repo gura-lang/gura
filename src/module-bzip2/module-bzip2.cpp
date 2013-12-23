@@ -24,18 +24,24 @@ Gura_ImplementFunction(reader)
 	return ReturnValue(env, sig, args, Value(pObjStream));
 }
 
-// bzip2.writer(stream:stream:w) {block?}
+// bzip2.writer(stream:stream:w, blockSize100k?:number) {block?}
 Gura_DeclareFunction(writer)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
+	DeclareArg(env, "blockSize100k", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(writer)
 {
 	Stream &stream = args.GetStream(0);
-	Object_stream *pObjStream = GenerateCompressor(env, sig, stream);
+	int blockSize100k = args.Is_number(1)? args.GetInt(1) : 9;
+	if (blockSize100k < 1 || 9 < blockSize100k) {
+		sig.SetError(ERR_ValueError, "blockSize100k must be specified between 1 and 9");
+		return Value::Null;
+	}
+	Object_stream *pObjStream = GenerateCompressor(env, sig, stream, blockSize100k);
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, sig, args, Value(pObjStream));
 }
@@ -58,17 +64,23 @@ Gura_ImplementMethod(stream, bzip2reader)
 	return ReturnValue(env, sig, args, Value(pObjStream));
 }
 
-// stream#bzip2writer() {block?}
+// stream#bzip2writer(blockSize100k?:number) {block?}
 Gura_DeclareMethod(stream, bzip2writer)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "blockSize100k", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(stream, bzip2writer)
 {
+	int blockSize100k = args.Is_number(0)? args.GetInt(0) : 9;
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
-	Object_stream *pObjStream = GenerateCompressor(env, sig, stream);
+	if (blockSize100k < 1 || 9 < blockSize100k) {
+		sig.SetError(ERR_ValueError, "blockSize100k must be specified between 1 and 9");
+		return Value::Null;
+	}
+	Object_stream *pObjStream = GenerateCompressor(env, sig, stream, blockSize100k);
 	if (sig.IsSignalled()) return Value::Null;
 	return ReturnValue(env, sig, args, Value(pObjStream));
 }
@@ -93,17 +105,21 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 Object_stream *GenerateDecompressor(Environment &env, Signal sig, Stream &stream)
 {
+	int verbosity = 0;
+	int small = 0;
 	AutoPtr<BZLib::Stream_Decompressor> pStream(
 		new BZLib::Stream_Decompressor(env, sig, stream.Reference(), InvalidSize));
-	if (!pStream->Initialize(sig, 0, 0)) return NULL;
+	if (!pStream->Initialize(sig, verbosity, small)) return NULL;
 	return new Object_stream(env, pStream.release());
 }
 
-Object_stream *GenerateCompressor(Environment &env, Signal sig, Stream &stream)
+Object_stream *GenerateCompressor(Environment &env, Signal sig, Stream &stream, int blockSize100k)
 {
+	int verbosity = 0;
+	int workFactor = 0;
 	AutoPtr<BZLib::Stream_Compressor> pStream(
 		new BZLib::Stream_Compressor(env, sig, stream.Reference()));
-	if (!pStream->Initialize(sig, 9, 0, 0)) return NULL;
+	if (!pStream->Initialize(sig, blockSize100k, verbosity, workFactor)) return NULL;
 	return new Object_stream(env, pStream.release());
 }
 

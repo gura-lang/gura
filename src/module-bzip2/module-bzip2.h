@@ -12,7 +12,7 @@ Gura_BeginModuleHeader(bzip2)
 // utilities
 //-----------------------------------------------------------------------------
 Object_stream *GenerateDecompressor(Environment &env, Signal sig, Stream &stream);
-Object_stream *GenerateCompressor(Environment &env, Signal sig, Stream &stream);
+Object_stream *GenerateCompressor(Environment &env, Signal sig, Stream &stream, int blockSize100k);
 
 Gura_EndModuleHeader(bzip2)
 

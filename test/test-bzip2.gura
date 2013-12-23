@@ -1,0 +1,11 @@
+#!/usr/bin/env gura
+import(testutil) {*}
+import(bzip2)
+
+fs.chdir('test-bzip2')
+testcase {
+	//buff = binary()
+	bzip2.writer('hoge1.rb2', 1).copyfrom('sample1.ref')
+	bzip2.writer('hoge2.rb2', 2).copyfrom('sample2.ref')
+	bzip2.writer('hoge3.rb2', 3).copyfrom('sample3.ref')
+}

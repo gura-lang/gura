@@ -1,6 +1,5 @@
 #!/usr/bin/env gura
 import(testutil) {*}
-sys.echo(false)
 
 testcase {
 	@var = 3
