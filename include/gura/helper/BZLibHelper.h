@@ -57,14 +57,15 @@ public:
 		return 0;
 	}
 	virtual size_t DoRead(Signal sig, void *buff, size_t bytes) {
-		if (_doneFlag) return 0;
 		size_t bytesRead = 0;
 		char *buffp = reinterpret_cast<char *>(buff);
 		bool continueFlag = true;
 		for (size_t bytesRest = bytes; bytesRest > 0 && continueFlag; ) {
 			if (_offsetOut >= _bytesOut) {
 				_offsetOut = 0;
-				for (_bytesOut = 0; _bytesOut == 0; ) {
+				_bytesOut = 0;
+				if (_doneFlag) break;
+				while (_bytesOut == 0) {
 					if (_bzstrm.avail_in == 0) {
 						size_t bytesRead = _pStream->Read(sig,
 										_buffIn, ChooseMin(_bytesBuff, _bytesSrc));
