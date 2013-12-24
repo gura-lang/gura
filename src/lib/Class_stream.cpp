@@ -114,7 +114,7 @@ Gura_ImplementFunction(stream)
 	return result;
 }
 
-// copy(src:stream:r, dst:stream:w, bytesunit:number => 65536):map:void {block?}
+// copy(src:stream:r, dst:stream:w, bytesunit:number => 65536):map:void:[finalize] {block?}
 Gura_DeclareFunction(copy)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
@@ -122,12 +122,13 @@ Gura_DeclareFunction(copy)
 	DeclareArg(env, "dst", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "bytesunit", VTYPE_number,
 					OCCUR_Once, FLAG_None, new Expr_Value(65536));
+	DeclareAttr(Gura_Symbol(finalize));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementFunction(copy)
 {
-	bool finalizeFlag = true;
+	bool finalizeFlag = args.IsSet(Gura_Symbol(finalize));
 	Stream &streamSrc = args.GetStream(0);
 	Stream &streamDst = args.GetStream(1);
 	size_t bytesUnit = args.GetSizeT(2);
@@ -217,19 +218,20 @@ Gura_ImplementMethod(stream, compare)
 	return Value(sameFlag);
 }
 
-// stream#copyfrom(stream:stream:r, bytesunit:number => 65536):map:reduce {block?}
+// stream#copyfrom(stream:stream:r, bytesunit:number => 65536):map:reduce:[finalize] {block?}
 Gura_DeclareMethod(stream, copyfrom)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareArg(env, "bytesunit", VTYPE_number,
 					OCCUR_Once, FLAG_None, new Expr_Value(65536));
+	DeclareAttr(Gura_Symbol(finalize));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(stream, copyfrom)
 {
-	bool finalizeFlag = true;
+	bool finalizeFlag = args.IsSet(Gura_Symbol(finalize));
 	Stream &streamDst = Object_stream::GetThisObj(args)->GetStream();
 	Stream &streamSrc = args.GetStream(0);
 	size_t bytesUnit = args.GetSizeT(1);
@@ -252,12 +254,13 @@ Gura_DeclareMethod(stream, copyto)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "bytesunit", VTYPE_number,
 					OCCUR_Once, FLAG_None, new Expr_Value(65536));
+	DeclareAttr(Gura_Symbol(finalize));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(stream, copyto)
 {
-	bool finalizeFlag = true;
+	bool finalizeFlag = args.IsSet(Gura_Symbol(finalize));
 	Stream &streamSrc = Object_stream::GetThisObj(args)->GetStream();
 	Stream &streamDst = args.GetStream(0);
 	size_t bytesUnit = args.GetSizeT(1);

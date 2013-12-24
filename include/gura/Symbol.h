@@ -223,6 +223,7 @@ public:
 	Gura_DeclareSymbol(false_);
 	Gura_DeclareSymbol(fancy);
 	Gura_DeclareSymbol(file);
+	Gura_DeclareSymbol(finalize);
 	Gura_DeclareSymbol(finalizer);
 	Gura_DeclareSymbol(firsteol);
 	Gura_DeclareSymbol(flat);
