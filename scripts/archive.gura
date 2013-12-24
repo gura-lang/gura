@@ -40,30 +40,30 @@ DoCreate(fileNameArc:string, patterns[]:string) = {
 }
 
 DoExtract(fileNameArc:string) = {
-	streams = PrepareStreams(fileNameArc)
-	streams.each() {|stream|
-		println('Extracting  ', RegulateName(stream.stat.filename))
-		[dirName, fileName] = path.split(stream.stat.filename)
+	entries = PrepareEntries(fileNameArc)
+	entries.each {|entry|
+		println('Extracting  ', RegulateName(entry.stat.filename))
+		[dirName, fileName] = path.split(entry.stat.filename)
 		!path.exists(dirName) && fs.mkdir(dirName):tree
-		!fileName.isempty() && copy(stream, stream.stat.filename):finalize
+		!fileName.isempty() && copy(entry, entry.stat.filename):finalize
 	}
 }
 
 DoList(fileNameArc:string) = {
-	streams = PrepareStreams(fileNameArc)
-	println(RegulateName(streams:*stat:*filename))
+	entries = PrepareEntries(fileNameArc)
+	println(RegulateName(entries:*stat:*filename))
 }
 
-PrepareStreams(fileNameArc:string) = {
+PrepareEntries(fileNameArc:string) = {
 	if (fileNameArc.endswith(['.tar.gz', '.tar.bz2', '.tar']).or()) {
-		streams = tar.reader(fileNameArc).entries()
+		entries = tar.reader(fileNameArc).entries()
 	} elsif (fileNameArc.endswith('.zip')) {
-		streams = zip.reader(fileNameArc).entries()
+		entries = zip.reader(fileNameArc).entries()
 	} else {
 		sys.stderr.println('unknown archive type')
 		sys.exit(1)
 	}
-	streams
+	entries
 }
 
 PrepareWriter(fileNameArc:string) = {
