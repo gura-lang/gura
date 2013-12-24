@@ -1,0 +1,39 @@
+#!/usr/bin/env gura
+import(testutil) {*}
+import(jpeg)
+
+PrintIFD(ifd:jpeg.ifd, indentLevel:number => 0) = {
+	ifd.each {|tag|
+		printf('%s[%04x] %-32s %s\n', '  ' * indentLevel, tag.id, tag.name, tag.value):nomap
+	}
+}
+
+testcase {
+	pathNames = path.glob('test-jpeg/*.jpg').sort()
+	pathNames.each {|pathName, i|
+		(i > 0) && println()
+		printf('[%s]\n', path.filename(pathName))
+		exif = jpeg.exif(pathName)
+		if (!exif) {
+			println("exif doesn't exist")
+			continue
+		}
+		println('endian: ', exif.endian)
+		println('= ifd0 =')
+		PrintIFD(exif.ifd0)
+		println('= ifd0.Exif =')
+		PrintIFD(exif.ifd0.Exif)
+		println('= ifd0.Exif.Interoperability =')
+		try {
+			PrintIFD(exif.ifd0.Exif.Interoperability)
+		} catch {}
+		if (exif.ifd1) {
+			println('= ifd1 =')
+			PrintIFD(exif.ifd1)
+		}
+		if (exif.thumbnail) {
+			println(exif.thumbnail)
+			println(exif.thumbnail_jpeg)
+		}
+	}
+}
