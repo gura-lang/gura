@@ -46,8 +46,8 @@ DoCreate(fileNameArc:string, patterns[]:string) = {
 }
 
 DoExtract(fileNameArc:string) = {
-	entries = PrepareEntries(fileNameArc)
-	entries.each {|entry|
+	reader = PrepareReader(fileNameArc)
+	reader.entries {|entry|
 		println('Extracting  ', RegulateName(entry.stat.filename))
 		[dirName, fileName] = path.split(entry.stat.filename)
 		!path.exists(dirName) && fs.mkdir(dirName):tree
@@ -56,20 +56,20 @@ DoExtract(fileNameArc:string) = {
 }
 
 DoList(fileNameArc:string) = {
-	entries = PrepareEntries(fileNameArc)
-	println(RegulateName(entries:*stat:*filename))
+	reader = PrepareReader(fileNameArc)
+	println(RegulateName(reader.entries():*stat:*filename))
 }
 
-PrepareEntries(fileNameArc:string) = {
+PrepareReader(fileNameArc:string) = {
 	if (fileNameArc.endswith(['.tar.gz', '.tar.bz2', '.tar']).or()) {
-		entries = tar.reader(fileNameArc).entries()
+		reader = tar.reader(fileNameArc)
 	} elsif (fileNameArc.endswith('.zip')) {
-		entries = zip.reader(fileNameArc).entries()
+		reader = zip.reader(fileNameArc)
 	} else {
 		sys.stderr.println('unknown archive type')
 		sys.exit(1)
 	}
-	entries
+	reader
 }
 
 PrepareWriter(fileNameArc:string) = {
