@@ -4,7 +4,7 @@ import(gzip)
 import(bzip2)
 
 fs.chdir('test-gzip-bzip2')
-testcase {
+testcase('test of compression/decompression by gzip') {
 	['sample1', 'sample2', 'sample3'].each {|prefix|
 		buff = binary()
 		gzip.writer(buff).copyfrom(prefix + '.ref')
@@ -15,8 +15,7 @@ testcase {
 			gzip.reader(prefix + '.gz').read() == open(prefix + '.ref').read())
 	}
 }
-sys.exit()
-testcase {
+testcase('test of compression/decompression by bzip2') {
 	['sample1', 'sample2', 'sample3'].each {|prefix, i|
 		buff = binary()
 		bzip2.writer(buff, i + 1).copyfrom(prefix + '.ref')
