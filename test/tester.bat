@@ -24,6 +24,7 @@ set cases=%cases% function
 set cases=%cases% graph
 set cases=%cases% hash
 set cases=%cases% image
+set cases=%cases% jpeg
 set cases=%cases% list-iterator
 set cases=%cases% map
 set cases=%cases% markdown
