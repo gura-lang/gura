@@ -1,4 +1,13 @@
-======== #1 ========
+======== #1 test of compression/decompression by gzip ========
+
+compression: sample1 true
+compression: sample2 true
+compression: sample3 true
+decompression: sample1 true
+decompression: sample2 true
+decompression: sample3 true
+
+======== #2 test of compression/decompression by bzip2 ========
 
 compression: sample1 true
 compression: sample2 true

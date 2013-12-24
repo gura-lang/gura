@@ -73,7 +73,7 @@ pathNames.each {|pathName|
 			fs.rename(pathName, pathNameUniq)
 			printf('rename: %-*s -> %s\n', nPads, pathName, pathNameUniq)
 		} else {
-			copy(pathName, pathNameUniq)
+			copy(pathName, pathNameUniq):finalize
 			printf('create: %-*s -> %s\n', nPads, pathName, pathNameUniq)
 		}
 	}

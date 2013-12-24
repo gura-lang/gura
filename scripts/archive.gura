@@ -45,7 +45,7 @@ DoExtract(fileNameArc:string) = {
 		println('Extracting  ', RegulateName(stream.stat.filename))
 		[dirName, fileName] = path.split(stream.stat.filename)
 		!path.exists(dirName) && fs.mkdir(dirName):tree
-		!fileName.isempty() && copy(stream, stream.stat.filename)
+		!fileName.isempty() && copy(stream, stream.stat.filename):finalize
 	}
 }
 
