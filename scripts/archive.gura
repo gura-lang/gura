@@ -4,7 +4,13 @@ import(tar)
 
 main() = {
 	if (sys.argv.len() < 3) {
-		sys.stderr.println('usage: gura archive.gura cmd file [args..]')
+		R'''
+		usage: gura archive.gura cmd file [args..]
+		cmd:
+		  c  create a new archive file
+		  x  extract all entries
+		  l  list all entries
+		'''.template().render(sys.stderr)
 		sys.exit(1)
 	}
 	[cmd, fileNameArc] = sys.argv[1, 2]
