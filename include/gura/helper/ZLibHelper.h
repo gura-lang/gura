@@ -167,7 +167,7 @@ private:
 //-----------------------------------------------------------------------------
 class Stream_Inflater : public Stream {
 private:
-	Stream *_pStream;
+	AutoPtr<Stream> _pStream;
 	AutoPtr<Memory> _pMemory;
 	size_t _bytesSrc;
 	size_t _bytesBuff;
@@ -176,15 +176,15 @@ private:
 	z_stream _zstrm;
 	unsigned char *_buffOut;
 	unsigned char *_buffIn;
+	bool _doneFlag;
 public:
 	Stream_Inflater(Environment &env, Signal sig, Stream *pStream, size_t bytesSrc, size_t bytesBuff = 32768) :
 			Stream(env, sig, ATTR_Readable), _pStream(pStream), _bytesSrc(bytesSrc),
 			_bytesBuff(bytesBuff), _bytesOut(0),
-			_offsetOut(0), _buffOut(NULL), _buffIn(NULL) {
+			_offsetOut(0), _buffOut(NULL), _buffIn(NULL), _doneFlag(false) {
 		CopyCodec(pStream);
 	}
 	~Stream_Inflater() {
-		Stream::Delete(_pStream);
 		::inflateEnd(&_zstrm);
 	}
 	bool Initialize(Signal sig, int windowBits = 15) {
@@ -204,10 +204,10 @@ public:
 		return true;
 	}
 	virtual const char *GetName() const {
-		return (_pStream == NULL)? "(invalid)" : _pStream->GetName();
+		return (_pStream.IsNull())? "(invalid)" : _pStream->GetName();
 	}
 	virtual const char *GetIdentifier() const {
-		return (_pStream == NULL)? NULL : _pStream->GetIdentifier();
+		return (_pStream.IsNull())? NULL : _pStream->GetIdentifier();
 	}
 	virtual size_t DoWrite(Signal sig, const void *buff, size_t len) {
 		return 0;
@@ -218,36 +218,43 @@ public:
 		bool continueFlag = true;
 		for (size_t bytesRest = bytes; bytesRest > 0 && continueFlag; ) {
 			if (_offsetOut >= _bytesOut) {
-				if (_zstrm.avail_in == 0) {
-					size_t bytesRead = _pStream->Read(sig,
-									_buffIn, ChooseMin(_bytesBuff, _bytesSrc));
-					if (sig.IsSignalled()) {
+				_offsetOut = 0;
+				_bytesOut = 0;
+				if (_doneFlag) break;
+				while (_bytesOut == 0) {
+					if (_zstrm.avail_in == 0) {
+						size_t bytesRead = _pStream->Read(sig,
+										_buffIn, ChooseMin(_bytesBuff, _bytesSrc));
+						if (sig.IsSignalled()) {
+							::inflateEnd(&_zstrm);
+							return 0;
+						}
+						if (bytesRead == 0) {
+							sig.SetError(ERR_IOError, "unexpected end of gzip stream");
+							return 0;
+						}
+						if (_bytesSrc != InvalidSize) {
+							_bytesSrc -= bytesRead;
+						}
+						_zstrm.avail_in = static_cast<uInt>(bytesRead);
+						_zstrm.next_in = _buffIn;
+					}
+					_zstrm.avail_out = static_cast<uInt>(_bytesBuff);
+					_zstrm.next_out = _buffOut;
+					int ret = ::inflate(&_zstrm, Z_NO_FLUSH);
+					_bytesOut = _bytesBuff - _zstrm.avail_out;
+					if (ret == Z_OK) {
+						// nothing to do
+					} else if (ret == Z_STREAM_END) {
+						_doneFlag = true;
+						continueFlag = false;
+					} else {
+						sig.SetError(ERR_IOError, "%s",
+							(_zstrm.msg == NULL)? "zlib error" : _zstrm.msg);
 						::inflateEnd(&_zstrm);
 						return 0;
 					}
-					if (bytesRead == 0) break;
-					if (_bytesSrc != InvalidSize) {
-						_bytesSrc -= bytesRead;
-					}
-					_zstrm.avail_in = static_cast<uInt>(bytesRead);
-					_zstrm.next_in = _buffIn;
 				}
-				_zstrm.avail_out = static_cast<uInt>(_bytesBuff);
-				_zstrm.next_out = _buffOut;
-				int ret = ::inflate(&_zstrm, Z_NO_FLUSH);
-				if (ret == Z_OK) {
-					// nothing to do
-				} else if (ret == Z_STREAM_END) {
-					continueFlag = false;
-				} else {
-					sig.SetError(ERR_IOError, "%s",
-						(_zstrm.msg == NULL)? "zlib error" : _zstrm.msg);
-					::inflateEnd(&_zstrm);
-					return 0;
-				}
-				_bytesOut = _bytesBuff - _zstrm.avail_out;
-				_offsetOut = 0;
-				if (_bytesOut == 0) break;
 			}
 			size_t bytesToCopy = _bytesOut - _offsetOut;
 			if (bytesToCopy > bytesRest) bytesToCopy = bytesRest;
@@ -290,7 +297,7 @@ public:
 //-----------------------------------------------------------------------------
 class Stream_Deflater : public Stream {
 private:
-	Stream *_pStream;
+	AutoPtr<Stream> _pStream;
 	AutoPtr<Memory> _pMemory;
 	size_t _bytesBuff;
 	size_t _offsetOut;
@@ -325,13 +332,13 @@ public:
 		return true;
 	}
 	virtual const char *GetName() const {
-		return (_pStream == NULL)? "(invalid)" : _pStream->GetName();
+		return (_pStream.IsNull())? "(invalid)" : _pStream->GetName();
 	}
 	virtual const char *GetIdentifier() const {
-		return (_pStream == NULL)? NULL : _pStream->GetIdentifier();
+		return (_pStream.IsNull())? NULL : _pStream->GetIdentifier();
 	}
 	virtual size_t DoWrite(Signal sig, const void *buff, size_t len) {
-		if (_pStream == NULL) return 0;
+		if (_pStream.IsNull()) return 0;
 		_zstrm.next_in = reinterpret_cast<Bytef *>(const_cast<void *>(buff));
 		_zstrm.avail_in = static_cast<uInt>(len);
 		while (_zstrm.avail_in > 0) {
@@ -353,7 +360,7 @@ public:
 		return DoClose(sig);
 	}
 	virtual bool DoClose(Signal sig) {
-		if (_pStream == NULL) return true;
+		if (_pStream.IsNull()) return true;
 		for (;;) {
 			if (_zstrm.avail_out == 0) {
 				_pStream->Write(sig, _buffOut, _bytesBuff);
@@ -376,8 +383,7 @@ public:
 		::deflateEnd(&_zstrm);
 		if (sig.IsSignalled()) return false;
 		bool rtn = _pStream->Flush(sig);
-		Stream::Delete(_pStream);
-		_pStream = NULL;
+		_pStream.reset(NULL);
 		return rtn;
 	}
 	virtual size_t DoRead(Signal sig, void *buff, size_t bytes) {
@@ -390,4 +396,5 @@ public:
 
 }
 }
+
 #endif
