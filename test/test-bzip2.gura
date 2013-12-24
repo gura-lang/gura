@@ -1,8 +1,21 @@
 #!/usr/bin/env gura
 import(testutil) {*}
+import(gzip)
 import(bzip2)
 
-fs.chdir('test-bzip2')
+fs.chdir('test-gzip-bzip2')
+testcase {
+	['sample1', 'sample2', 'sample3'].each {|prefix|
+		buff = binary()
+		gzip.writer(buff).copyfrom(prefix + '.ref')
+		printf('compression: %s %s\n', prefix, buff == open(prefix + '.gz').read())
+	}
+	['sample1', 'sample2', 'sample3'].each {|prefix|
+		printf('decompression: %s %s\n', prefix,
+			gzip.reader(prefix + '.gz').read() == open(prefix + '.ref').read())
+	}
+}
+sys.exit()
 testcase {
 	['sample1', 'sample2', 'sample3'].each {|prefix, i|
 		buff = binary()
