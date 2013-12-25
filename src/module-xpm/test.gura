@@ -410,5 +410,5 @@ zebra_xpm = @{
 };
 
 img = image(`rgba).xpmdata(zebra_xpm)
-import(tk)
+import(show)
 img.show()
