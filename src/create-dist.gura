@@ -145,7 +145,7 @@ textTemplate = R"""
       <Component Id='ComponentReg' Guid='${uuid.generate()}'>
         <Environment Id='PATH' Name='PATH' Action='set'
             Permanent='yes' System='yes' Part='last' Value='[INSTALLDIR]bin' />
-        <RegistryKey Root='HKLM' Key='SOFTWARE\Classes\Gura.ScriptFile' Action='createAndRemoveOnUninstall'>
+        <RegistryKey Root='HKLM' Key='SOFTWARE\Classes\Gura.ScriptFile'>
           <RegistryKey Key='Shell'>
             <RegistryKey Key='Open'>
               <RegistryKey Key='Command'>
@@ -157,7 +157,7 @@ textTemplate = R"""
             <RegistryValue Value='[INSTALLDIR]bin\gura.ico' Type='string' />
           </RegistryKey>
         </RegistryKey>
-        <RegistryKey Root='HKLM' Key='SOFTWARE\Classes\Gura.WinScriptFile' Action='createAndRemoveOnUninstall'>
+        <RegistryKey Root='HKLM' Key='SOFTWARE\Classes\Gura.WinScriptFile'>
           <RegistryKey Key='Shell'>
             <RegistryKey Key='Open'>
               <RegistryKey Key='Command'>
@@ -169,7 +169,7 @@ textTemplate = R"""
             <RegistryValue Value='[INSTALLDIR]bin\gura.ico' Type='string' />
           </RegistryKey>
         </RegistryKey>
-        <RegistryKey Root='HKLM' Key='SOFTWARE\Classes\Gura.CompositeFile' Action='createAndRemoveOnUninstall'>
+        <RegistryKey Root='HKLM' Key='SOFTWARE\Classes\Gura.CompositeFile'>
           <RegistryKey Key='Shell'>
             <RegistryKey Key='Open'>
               <RegistryKey Key='Command'>
@@ -181,7 +181,7 @@ textTemplate = R"""
             <RegistryValue Value='[INSTALLDIR]bin\gura.ico' Type='string' />
           </RegistryKey>
         </RegistryKey>
-        <RegistryKey Root='HKLM' Key='SOFTWARE\Classes\Gura.WinCompositeFile' Action='createAndRemoveOnUninstall'>
+        <RegistryKey Root='HKLM' Key='SOFTWARE\Classes\Gura.WinCompositeFile'>
           <RegistryKey Key='Shell'>
             <RegistryKey Key='Open'>
               <RegistryKey Key='Command'>
@@ -193,19 +193,19 @@ textTemplate = R"""
             <RegistryValue Value='[INSTALLDIR]bin\gura.ico' Type='string' />
           </RegistryKey>
         </RegistryKey>
-        <RegistryKey Root='HKLM' Key='SOFTWARE\Classes\.gura' Action='createAndRemoveOnUninstall'>
+        <RegistryKey Root='HKLM' Key='SOFTWARE\Classes\.gura'>
           <RegistryValue Value='Gura.ScriptFile' Type='string' />
           <RegistryValue Name='Content Type' Value='text/plain' Type='string' />
         </RegistryKey>
-        <RegistryKey Root='HKLM' Key='SOFTWARE\Classes\.guraw' Action='createAndRemoveOnUninstall'>
+        <RegistryKey Root='HKLM' Key='SOFTWARE\Classes\.guraw'>
           <RegistryValue Value='Gura.WinScriptFile' Type='string' />
           <RegistryValue Name='Content Type' Value='text/plain' Type='string' />
         </RegistryKey>
-        <RegistryKey Root='HKLM' Key='SOFTWARE\Classes\.gurc' Action='createAndRemoveOnUninstall'>
+        <RegistryKey Root='HKLM' Key='SOFTWARE\Classes\.gurc'>
           <RegistryValue Value='Gura.CompositeFile' Type='string' />
           <RegistryValue Name='Content Type' Value='text/plain' Type='string' />
         </RegistryKey>
-        <RegistryKey Root='HKLM' Key='SOFTWARE\Classes\.gurcw' Action='createAndRemoveOnUninstall'>
+        <RegistryKey Root='HKLM' Key='SOFTWARE\Classes\.gurcw'>
           <RegistryValue Value='Gura.WinCompositeFile' Type='string' />
           <RegistryValue Name='Content Type' Value='text/plain' Type='string' />
         </RegistryKey>
@@ -324,7 +324,7 @@ createZip(fileNames) = {
 			printf('generated: %s\n', path.filename(fileNameList))
 		}
 		try { fs.remove(fileNameBinZip) } catch {}
-		os.exec('7z', 'a', '-r-', fileNameBinZip, '@' + fileNameList)
+		os.exec('7za', 'a', '-r-', fileNameBinZip, '@' + fileNameList)
 	} != 0) && sys.exit(1)
 	conio.setcolor(`bright_red) {
 		printf('generated: %s\n', path.filename(fileNameBinZip))
