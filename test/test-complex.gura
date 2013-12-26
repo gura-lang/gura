@@ -30,6 +30,6 @@ testcase {
 		`(2j / (1 + 1j))
 		`(2 / (1 - 1j) ** 2)
 	].each {|test|
-		printf('%s .. %s\n', test, eval(test).roundoff()):nomap
+		printf('%s .. %s\n', test, test.eval().roundoff()):nomap
 	}
 }

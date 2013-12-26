@@ -63,12 +63,31 @@ bool Class_undefined::Deserialize(Environment &env, Signal sig, Stream &stream, 
 //-----------------------------------------------------------------------------
 // Class_symbol
 //-----------------------------------------------------------------------------
+// symbol#eval(env?:environment)
+Gura_DeclareMethod(symbol, eval)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "env", VTYPE_environment, OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Evaluate a symbol object.");
+}
+
+Gura_ImplementMethod(symbol, eval)
+{
+	const Symbol *pSymbol = args.GetThis().GetSymbol();
+	AutoPtr<Expr> pExpr(new Expr_Symbol(pSymbol));
+	Environment *pEnv = args.Is_environment(0)?
+			Object_environment::GetObject(args, 0)->GetEnv().Reference() :
+			new Environment(&env, ENVTYPE_block);
+	return Processor::Run(pEnv, sig, pExpr.get());
+}
+
 Class_symbol::Class_symbol(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_symbol)
 {
 }
 
 void Class_symbol::Prepare(Environment &env)
 {
+	Gura_AssignMethod(symbol, eval);	// primitive method
 }
 
 bool Class_symbol::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)

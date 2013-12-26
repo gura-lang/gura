@@ -132,12 +132,12 @@ testcase {
 		`['123456', '789012', '3.141', '123e+10', '0xabc', '0312', 'abcde', '123x']::tonumber():zero
 		`['123456', '789012', '3.141', '123e+10', '0xabc', '0312', 'abcde', '123x']::tonumber():strict
 	}) {
-		printf('%s .. %s\n', test, eval(test)):nomap
+		printf('%s .. %s\n', test, test.eval()):nomap
 	}
 	a = 2
 	printf('a = %d\n', a)
 	for (test in [`(a += 3), `(a *= 3), `(a /= 3), `(a -= 3), `(a **= 3)]) {
-		printf('%s .. %s\n', test, eval(test)):nomap
+		printf('%s .. %s\n', test, test.eval()):nomap
 	}
 }
 testcase {

@@ -61,6 +61,6 @@ testcase {
 		`(fraction(4, 3) / fraction(3, 2))
 		`(fraction(13, 7) / 2)
 	].each {|test|
-		printf('%s .. %s\n', test, eval(test)):nomap
+		printf('%s .. %s\n', test, test.eval()):nomap
 	}
 }

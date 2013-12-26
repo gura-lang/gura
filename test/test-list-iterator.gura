@@ -2,7 +2,7 @@
 import(testutil) {*}
 
 assign_tester(container):dynamic_scope {`block} = {
-	eval(block)
+	block.eval()
 	println(block, ' .. ', container):nomap
 	container.clear()
 }
@@ -558,7 +558,7 @@ testcase('Test of list operation (1)') {
 	tester(`x1)
 	tester(`x2)
 	for (test in [`(x1 == x2), `(x1 != x2), `(x1 < x2), `(x1 > x2), `(x1 <= x2), `(x1 >= x2)]) {
-		print(test, ' .. ', eval(test).tostring(), '\n')
+		print(test, ' .. ', test.eval().tostring(), '\n')
 	}
 	for (x in ('Yamada', 'Sato')):list {
 		for (y in ['Taro', 'Yoshiko', 'Kenta']):list { x + ' ' + y }

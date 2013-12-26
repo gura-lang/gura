@@ -201,29 +201,21 @@ String Object_expr::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of expr
 //-----------------------------------------------------------------------------
-// expr#eval()
+// expr#eval(env?:environment)
 Gura_DeclareMethod(expr, eval)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "env", VTYPE_environment, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Evaluate an expr object.");
 }
 
 Gura_ImplementMethod(expr, eval)
 {
 	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
-	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	AutoPtr<Processor> pProcessor(new Processor());
-	if (pExpr->IsRoot()) {
-		const Expr_Root *pExprRoot = dynamic_cast<const Expr_Root *>(pExpr);
-		pProcessor->PushSequence(new Expr::SequenceRoot(
-					pEnvBlock->Reference(), pExprRoot->GetExprOwner().Reference()));
-	} else {
-		AutoPtr<ExprOwner> pExprOwner(new ExprOwner());
-		pExprOwner->push_back(pExpr->Reference());
-		pProcessor->PushSequence(new Expr::SequenceRoot(
-								pEnvBlock->Reference(), pExprOwner->Reference()));
-	}
-	return pProcessor->Run(sig);
+	Environment *pEnv = args.Is_environment(0)?
+			Object_environment::GetObject(args, 0)->GetEnv().Reference() :
+			new Environment(&env, ENVTYPE_block);
+	return Processor::Run(pEnv, sig, pExpr);
 }
 
 // expr#genscript(dst?:stream:w, style?:symbol)

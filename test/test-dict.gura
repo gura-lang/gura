@@ -152,7 +152,7 @@ testcase {
 	}
 	sys.echo(true)
 	for (test in (`nestedDict['key-1']['key-1-1'], `nestedDict['key-3']['key-3-1'])) {
-		print(test, ' .. ', eval(test), '\n')
+		print(test, ' .. ', test.eval(), '\n')
 	}
 	println('--------')
 	for (d in nestedDict[nestedDict.keys()]) {

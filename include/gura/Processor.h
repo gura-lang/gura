@@ -77,6 +77,7 @@ public:
 	inline void PushSequence(Sequence *pSequence) { _sequenceStack.push_back(pSequence); }
 	inline bool CheckDone() const { return _sequenceStack.empty(); }
 	Value Run(Signal sig);
+	static Value Run(Environment *pEnv, Signal sig, const Expr *pExpr);
 };
 
 }

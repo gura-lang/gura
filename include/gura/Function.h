@@ -558,6 +558,7 @@ public:
 	inline bool Is_declaration(size_t idxArg) const		{ return GetValue(idxArg).Is_declaration();		}
 	inline bool Is_dict(size_t idxArg) const			{ return GetValue(idxArg).Is_dict();			}
 	inline bool Is_directory(size_t idxArg) const		{ return GetValue(idxArg).Is_directory();		}
+	inline bool Is_environment(size_t idxArg) const		{ return GetValue(idxArg).Is_environment();		}
 	inline bool Is_error(size_t idxArg) const			{ return GetValue(idxArg).Is_error();			}
 	inline bool Is_expr(size_t idxArg) const			{ return GetValue(idxArg).Is_expr();			}
 	inline bool Is_function(size_t idxArg) const		{ return GetValue(idxArg).Is_function();		}

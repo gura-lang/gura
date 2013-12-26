@@ -104,7 +104,7 @@ Graph = class {
 		cr.save {
 			for (plot in this.plots) {
 				t = interval(plot.tMin, plot.tMax, this.cntSamples)
-				cr.line_to(this.coordX(eval(plot.x)), this.coordY(eval(plot.y)))
+				cr.line_to(this.coordX(plot.x.eval()), this.coordY(plot.y.eval()))
 				cr.stroke()
 			}
 		}
@@ -287,7 +287,7 @@ tk.mainwindow() {|mw|
 					try {
 						expr = varCommand.string.parse()
 						if (expr) {
-							rtn = eval(expr)
+							rtn = expr.eval()
 							if (rtn.istype(`function)) {
 								graph.addFunc(rtn)
 								item = treeview.Item(values => [rtn.tostring(), 'function'])

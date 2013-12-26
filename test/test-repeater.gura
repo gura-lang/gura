@@ -256,11 +256,11 @@ testcase {
 testcase {
 	a = `(x * 2)
 	x = 1
-	println(eval(a))
+	println(a.eval())
 	x = 2
-	println(eval(a))
+	println(a.eval())
 	x = 3
-	println(eval(a))
+	println(a.eval())
 	tbl = [range(1, 11)]
 	tbl[0, [1, [2, 3, 4, [5, 6, 7]]]]
 	for (x in range(0, 11)) {

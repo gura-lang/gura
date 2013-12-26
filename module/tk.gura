@@ -191,7 +191,7 @@ Widget = class {
 			method = genCommand('tk_' + str.mid(3))
 		} elsif (this.widgetCreatorDict.haskey(symbol)) {
 			[cmd, constructor] = this.widgetCreatorDict[symbol]
-			method = genWidgetCreator(eval(constructor), cmd)
+			method = genWidgetCreator(constructor.eval(), cmd)
 		} else {
 			method = genWidgetMethod(str.split('$'):list*)
 		}

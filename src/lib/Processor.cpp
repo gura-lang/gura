@@ -94,4 +94,19 @@ Value Processor::Run(Signal sig)
 	return result;
 }
 
+Value Processor::Run(Environment *pEnv, Signal sig, const Expr *pExpr)
+{
+	AutoPtr<Processor> pProcessor(new Processor());
+	if (pExpr->IsRoot()) {
+		const Expr_Root *pExprRoot = dynamic_cast<const Expr_Root *>(pExpr);
+		pProcessor->PushSequence(new Expr::SequenceRoot(
+							pEnv, pExprRoot->GetExprOwner().Reference()));
+	} else {
+		AutoPtr<ExprOwner> pExprOwner(new ExprOwner());
+		pExprOwner->push_back(pExpr->Reference());
+		pProcessor->PushSequence(new Expr::SequenceRoot(pEnv, pExprOwner->Reference()));
+	}
+	return pProcessor->Run(sig);
+}
+
 }

@@ -84,7 +84,7 @@ testcase {
 	tester(`'  fj,  jfkdjfd,  dkfjdkj  '.split(','):*strip().join(','))
 }
 testcase {
-	tester(test):map = printf('%-14s .. %s\n', test, eval(test)):nomap
+	tester(test):map = printf('%-14s .. %s\n', test, test.eval()):nomap
 	ident(x):map = x
 	x = [nil, nil, 3, 1, 4, 1, nil, 5, nil, 9, 2, 6, 5, 3]
 	tester(`x)

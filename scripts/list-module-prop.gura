@@ -11,7 +11,7 @@ try {
 	sys.stderr.println(e.text)
 	sys.exit(1)
 }
-m = eval(moduleSymbol)
+m = moduleSymbol.eval()
 strBorder = '-' * 78
 dirtype(m).each {|type, i|
 	(i > 0) && println()

@@ -220,22 +220,6 @@ Gura_ImplementFunction(import_)
 	return Value::Null;
 }
 
-// eval(expr:expr):map
-Gura_DeclareFunction(eval)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "expr", VTYPE_expr);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Evaluate an expr object.");
-}
-
-Gura_ImplementFunction(eval)
-{
-	SeqPostHandler *pSeqPostHandler = NULL;
-	AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_block));
-	return args.GetExpr(0)->Exec2(*pEnvBlock, sig, pSeqPostHandler);
-}
-
 // scope(target?) {block}
 Gura_DeclareFunction(scope)
 {
@@ -1628,7 +1612,6 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(cond);
 	Gura_AssignFunction(conds);
 	Gura_AssignFunction(import_);
-	Gura_AssignFunction(eval);
 	Gura_AssignFunction(scope);
 	Gura_AssignFunction(locals);
 	Gura_AssignFunction(outers);
