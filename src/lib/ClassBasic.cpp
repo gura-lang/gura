@@ -814,23 +814,6 @@ Gura_ImplementMethod(string, mid)
 						args.Is_number(1)? args.GetInt(1) : -1));
 }
 
-// string#parse() {block?}
-Gura_DeclareMethod(string, parse)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Parse a string returns an expr object.");
-}
-
-Gura_ImplementMethod(string, parse)
-{
-	AutoPtr<Expr_Block> pExpr(new Expr_Block());
-	Parser parser(SRCNAME_string);
-	if (!parser.ParseString(env, sig, pExpr->GetExprOwner(),
-						args.GetThis().GetString(), true)) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_expr(env, pExpr.release())));
-}
-
 // string#print(stream?:stream:w):void
 Gura_DeclareMethodPrimitive(string, print)
 {
@@ -1078,7 +1061,6 @@ void Class_string::Prepare(Environment &env)
 	Gura_AssignMethod(string, len);
 	Gura_AssignMethod(string, lower);
 	Gura_AssignMethod(string, mid);
-	Gura_AssignMethod(string, parse);
 	Gura_AssignMethod(string, print);
 	Gura_AssignMethod(string, println);
 	Gura_AssignMethod(string, reader);

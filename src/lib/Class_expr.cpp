@@ -201,6 +201,57 @@ String Object_expr::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of expr
 //-----------------------------------------------------------------------------
+// expr() {block?}
+Gura_DeclareFunction(expr)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetClassToConstruct(env.LookupClass(VTYPE_expr));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(expr)
+{
+	return Value::Null;
+}
+
+// expr.parse(script:string) {block?}
+Gura_DeclareClassMethod(expr, parse)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "script", VTYPE_string);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Parse a string returns an expr object.");
+}
+
+Gura_ImplementClassMethod(expr, parse)
+{
+	AutoPtr<Expr_Block> pExpr(new Expr_Block());
+	Parser parser(SRCNAME_string);
+	if (!parser.ParseString(env, sig, pExpr->GetExprOwner(),
+								args.GetString(0), true)) return Value::Null;
+	return ReturnValue(env, sig, args, Value(new Object_expr(env, pExpr.release())));
+}
+
+// expr.read(src:stream:r) {block?}
+Gura_DeclareClassMethod(expr, read)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "src", VTYPE_stream, OCCUR_Once, FLAG_Read);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Parse a content of a script stream and returns an expr object.");
+}
+
+Gura_ImplementClassMethod(expr, read)
+{
+	Stream &stream = Object_stream::GetObject(args, 0)->GetStream();
+	Parser parser(stream.GetName());
+	AutoPtr<Expr_Root> pExprRoot(parser.ParseStream(env, sig, stream));
+	if (pExprRoot.IsNull()) return Value::Null;
+	return ReturnValue(env, sig, args, Value(new Object_expr(env, pExprRoot.release())));
+}
+
 // expr#eval(env?:environment)
 Gura_DeclareMethod(expr, eval)
 {
@@ -330,6 +381,9 @@ Class_expr::Class_expr(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_expr)
 
 void Class_expr::Prepare(Environment &env)
 {
+	Gura_AssignFunction(expr);
+	Gura_AssignMethod(expr, parse);
+	Gura_AssignMethod(expr, read);
 	Gura_AssignMethod(expr, eval);
 	Gura_AssignMethod(expr, genscript);
 	Gura_AssignMethod(expr, tofunction);

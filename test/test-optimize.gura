@@ -2,7 +2,7 @@
 import(testutil) {*}
 
 testcase {
-	exprs = [
+	tests = [
 		// neg
 		`(-4)
 		`(-(-x))
@@ -112,5 +112,5 @@ testcase {
 		`((-x) ** 5)
 		`((-x) ** 6)
 	]
-	printf('%s -> %s\n', exprs:*tostring(), math.optimize(exprs):*tostring())
+	printf('%s -> %s\n', tests:*tostring(), math.optimize(tests):*tostring())
 }

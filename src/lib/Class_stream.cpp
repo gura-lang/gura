@@ -319,22 +319,6 @@ Gura_ImplementMethod(stream, flush)
 	return Value::Null;
 }
 
-// stream#parse() {block?}
-Gura_DeclareMethod(stream, parse)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Parse a content of a script stream and returns an expr object.");
-}
-
-Gura_ImplementMethod(stream, parse)
-{
-	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
-	AutoPtr<Expr_Root> pExprRoot(Parser(stream.GetName()).ParseStream(env, sig, stream));
-	if (pExprRoot.IsNull()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_expr(env, pExprRoot.release())));
-}
-
 // stream#peek(len:number)
 Gura_DeclareMethod(stream, peek)
 {
@@ -696,7 +680,6 @@ void Class_stream::Prepare(Environment &env)
 	Gura_AssignMethod(stream, delcr);
 	Gura_AssignMethod(stream, deserialize);
 	Gura_AssignMethod(stream, flush);
-	Gura_AssignMethod(stream, parse);
 	Gura_AssignMethod(stream, peek);
 	//Gura_AssignMethod(stream, prefetch);
 	Gura_AssignMethod(stream, print);

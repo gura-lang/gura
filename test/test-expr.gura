@@ -3,20 +3,20 @@ import(testutil) {*}
 
 testcase {
 	shortBool(flag:boolean) = cond(flag, 'y', 'n')
-	for (expr in [`(-x), `(`x), `(x*), `(x + y), `(x = y),
+	for (test in [`(-x), `(`x), `(x*), `(x + y), `(x = y),
 	              `(x => y), `(x::y), `{}, `3, `[], `x[y], `x(y, z)]) {
-		printf('%-8s %s %s %s %s %s %s %s %s %s %s %s\n', expr.tostring(),
-				shortBool(expr.isunaryop()),
-				shortBool(expr.isquote()),
-				shortBool(expr.isbinaryop()),
-				shortBool(expr.isassign()),
-				shortBool(expr.ismember()),
-				shortBool(expr.isblock()),
-				shortBool(expr.islister()),
-				shortBool(expr.isvalue()),
-				shortBool(expr.issymbol()),
-				shortBool(expr.isindexer()),
-				shortBool(expr.iscaller()))
+		printf('%-8s %s %s %s %s %s %s %s %s %s %s %s\n', test.tostring(),
+				shortBool(test.isunaryop()),
+				shortBool(test.isquote()),
+				shortBool(test.isbinaryop()),
+				shortBool(test.isassign()),
+				shortBool(test.ismember()),
+				shortBool(test.isblock()),
+				shortBool(test.islister()),
+				shortBool(test.isvalue()),
+				shortBool(test.issymbol()),
+				shortBool(test.isindexer()),
+				shortBool(test.iscaller()))
 	}
 }
 testcase {

@@ -13,33 +13,33 @@ testcase {
 }
 testcase {
 	scope {
-		expr = `{x + y + z + 2}
-		print_func(expr)
-		f = expr.tofunction(x, y, z)
+		test = `{x + y + z + 2}
+		print_func(test)
+		f = test.tofunction(x, y, z)
 		print_func(f)
 	}
 	scope {
-		expr = `{x + y + z + 2}
-		print_func(expr)
-		f = expr.tofunction(x:number, y:number, z:number)
+		test = `{x + y + z + 2}
+		print_func(test)
+		f = test.tofunction(x:number, y:number, z:number)
 		print_func(f)
 	}
 	scope {
-		expr = `{|x, y, z| x + y + y + 2}
-		print_func(expr)
-		f = expr.tofunction()
+		test = `{|x, y, z| x + y + y + 2}
+		print_func(test)
+		f = test.tofunction()
 		print_func(f)
 	}
 	scope {
-		expr = `{|x:number, y:number, z:number| x + y + y + 2}
-		print_func(expr)
-		f = expr.tofunction()
+		test = `{|x:number, y:number, z:number| x + y + y + 2}
+		print_func(test)
+		f = test.tofunction()
 		print_func(f)
 	}
 	try {
-		expr = `{|x, y, z| x + y + y + 2}
-		print_func(expr)
-		f = expr.tofunction(x, y, z)
+		test = `{|x, y, z| x + y + y + 2}
+		print_func(test)
+		f = test.tofunction(x, y, z)
 		print_func(f)
 	} catch (error.TypeError) {|e|
 		println('expected error occurs: ', e.text)

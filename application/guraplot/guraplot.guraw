@@ -285,9 +285,9 @@ tk.mainwindow() {|mw|
 				w.bind('<Return>') {
 					varIndicator.string = ''
 					try {
-						expr = varCommand.string.parse()
-						if (expr) {
-							rtn = expr.eval()
+						ex = expr.parse(varCommand.string)
+						if (ex) {
+							rtn = ex.eval()
 							if (rtn.istype(`function)) {
 								graph.addFunc(rtn)
 								item = treeview.Item(values => [rtn.tostring(), 'function'])

@@ -149,9 +149,9 @@ testcase {
 }
 testcase {
 	import(xml)
-	test_errmsg(expr:expr):map = {
+	test_errmsg(test:expr):map = {
 		try {
-			expr.eval()
+			test.eval()
 		} catch {|e|
 			println(e.text)
 			trace = [e.trace]
@@ -159,7 +159,7 @@ testcase {
 			printf('  [%d] %s\n', 1.., trace)
 		}
 	}
-	exprs = [
+	tests = [
 		`{
 			for (x in b1..10) {
 				b
@@ -195,7 +195,7 @@ testcase {
 			}
 		}
 	]
-	test_errmsg(exprs)
+	test_errmsg(tests)
 }
 try {
 	raise(error.ValueError, 'unhandled error')

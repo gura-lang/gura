@@ -80,6 +80,7 @@ else():trailer {block}
 elsif (`cond):leader:trailer {block}
 end(dummy*):symbol_func:trailer:end_marker:void
 error:class = <class:error>
+expr():map {block?}
 extern(`syms+)
 false:boolean = false
 finally():trailer:finalizer {block}
@@ -378,6 +379,8 @@ expr
   isunary()
   isunaryop()
   isvalue()
+  parse(script:string):static:map {block?}
+  read(src:stream:r):static:map {block?}
   tofunction(`args*)
   unquote()
 fraction
@@ -584,7 +587,6 @@ stream
   delcr(flag?:boolean):reduce
   deserialize()
   flush():void
-  parse():map {block?}
   peek(len?:number)
   print(values*):map:void
   printf(format:string, values*):map:void
@@ -619,7 +621,6 @@ string
   len()
   lower()
   mid(pos:number => 0, len?:number):map
-  parse():map {block?}
   print(stream?:stream:w):void
   println(stream?:stream:w):void
   reader() {block?}

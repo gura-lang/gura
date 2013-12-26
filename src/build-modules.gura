@@ -130,7 +130,7 @@ for (moduleName in moduleNames) {
 	sys.argv.append('--basedir=' + path.join(fs.getcwd(), 'module-' + moduleName))
 	fs.chdir(pathName) {
 		scope {
-			builder = open('build.gura').parse().eval()
+			builder = expr.read('build.gura').eval()
 			builder.errorFlag && moduleNamesError.append(moduleName)
 			builder.debFiles && debFiles.append(builder.debFiles)
 			builder.rpmFiles && rpmFiles.append(builder.rpmFiles)
