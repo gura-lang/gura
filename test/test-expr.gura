@@ -27,5 +27,5 @@ testcase {
 		`(f(x) = {})
 		`(f(x) = {|a, b| c})
 	]
-	printf('%-16s %s\n', x:*typename, x:*genscript(style => `oneline))
+	printf('%-16s %s\n', x:*typename, x:*textize(`oneline))
 }

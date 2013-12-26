@@ -17,8 +17,8 @@ if (argv.len() == 0) {
 fileName = argv[0]
 if (cfg['eval']) {
 	buff = binary()
-	open(fileName).parse().genscript(buff)
-	buff.reader().parse().eval()
+	expr(fileName).write(buff)
+	expr(buff).eval()
 } else {
-	open(fileName).parse().genscript(sys.stdout)
+	expr(fileName).write(sys.stdout)
 }

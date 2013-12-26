@@ -221,6 +221,23 @@ Gura_ImplementFunction(expr)
 	return ReturnValue(env, sig, args, Value(new Object_expr(env, pExprRoot.release())));
 }
 
+// expr#eval(env?:environment)
+Gura_DeclareMethod(expr, eval)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "env", VTYPE_environment, OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Evaluate an expr object.");
+}
+
+Gura_ImplementMethod(expr, eval)
+{
+	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
+	Environment *pEnv = args.Is_environment(0)?
+			Object_environment::GetObject(args, 0)->GetEnv().Reference() :
+			new Environment(&env, ENVTYPE_block);
+	return Processor::Run(pEnv, sig, pExpr);
+}
+
 // expr.parse(script:string) {block?}
 Gura_DeclareClassMethod(expr, parse)
 {
@@ -239,40 +256,21 @@ Gura_ImplementClassMethod(expr, parse)
 	return ReturnValue(env, sig, args, Value(new Object_expr(env, pExpr.release())));
 }
 
-// expr#eval(env?:environment)
-Gura_DeclareMethod(expr, eval)
+// expr#textize(style?:symbol)
+Gura_DeclareMethod(expr, textize)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "env", VTYPE_environment, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Evaluate an expr object.");
-}
-
-Gura_ImplementMethod(expr, eval)
-{
-	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
-	Environment *pEnv = args.Is_environment(0)?
-			Object_environment::GetObject(args, 0)->GetEnv().Reference() :
-			new Environment(&env, ENVTYPE_block);
-	return Processor::Run(pEnv, sig, pExpr);
-}
-
-// expr#genscript(dst?:stream:w, style?:symbol)
-Gura_DeclareMethod(expr, genscript)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "dst", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 	DeclareArg(env, "style", VTYPE_symbol, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Outputs a script that describes the expression to the specified `stream`.\n"
-	"If `stream` is omitted, script shall be written into standard output.\n");
+	"");
 }
 
-Gura_ImplementMethod(expr, genscript)
+Gura_ImplementMethod(expr, textize)
 {
 	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
 	Expr::ScriptStyle scriptStyle = Expr::SCRSTYLE_Fancy;
-	if (args.Is_symbol(1)) {
-		const Symbol *pSymbol = args.GetSymbol(1);
+	if (args.Is_symbol(0)) {
+		const Symbol *pSymbol = args.GetSymbol(0);
 		scriptStyle = Expr::SymbolToScriptStyle(pSymbol);
 		if (scriptStyle == Expr::SCRSTYLE_None) {
 			sig.SetError(ERR_ValueError,
@@ -280,15 +278,10 @@ Gura_ImplementMethod(expr, genscript)
 			return Value::Null;
 		}
 	}
-	if (args.Is_stream(0)) {
-		pExpr->GenerateScript(sig, args.GetStream(0), scriptStyle, 0);
-		return Value::Null;
-	} else {
-		String strDst;
-		SimpleStream_StringWriter streamDst(strDst);
-		if (!pExpr->GenerateScript(sig, streamDst, scriptStyle, 0)) return Value::Null;
-		return Value(strDst);
-	}
+	String strDst;
+	SimpleStream_StringWriter streamDst(strDst);
+	if (!pExpr->GenerateScript(sig, streamDst, scriptStyle, 0)) return Value::Null;
+	return Value(strDst);
 }
 
 // expr#tofunction(`args*)
@@ -335,6 +328,33 @@ Gura_ImplementMethod(expr, unquote)
 	return Value(pObj);
 }
 
+// expr#write(dst:stream:w, style?:symbol)
+Gura_DeclareMethod(expr, write)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "dst", VTYPE_stream, OCCUR_Once, FLAG_Write);
+	DeclareArg(env, "style", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"Outputs a script that describes the expression to the specified `stream`.\n");
+}
+
+Gura_ImplementMethod(expr, write)
+{
+	const Expr *pExpr = Object_expr::GetThisObj(args)->GetExpr();
+	Expr::ScriptStyle scriptStyle = Expr::SCRSTYLE_Fancy;
+	if (args.Is_symbol(1)) {
+		const Symbol *pSymbol = args.GetSymbol(1);
+		scriptStyle = Expr::SymbolToScriptStyle(pSymbol);
+		if (scriptStyle == Expr::SCRSTYLE_None) {
+			sig.SetError(ERR_ValueError,
+					"invalid symbol for script style: %s", pSymbol->GetName());
+			return Value::Null;
+		}
+	}
+	pExpr->GenerateScript(sig, args.GetStream(0), scriptStyle, 0);
+	return Value::Null;
+}
+
 // type chekers - Unary and descendants
 ImplementTypeChecker(isunary,		IsUnary)
 ImplementTypeChecker(isunaryop,		IsUnaryOp)
@@ -369,11 +389,12 @@ Class_expr::Class_expr(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_expr)
 void Class_expr::Prepare(Environment &env)
 {
 	Gura_AssignFunction(expr);
-	Gura_AssignMethod(expr, parse);
 	Gura_AssignMethod(expr, eval);
-	Gura_AssignMethod(expr, genscript);
+	Gura_AssignMethod(expr, parse);
+	Gura_AssignMethod(expr, textize);
 	Gura_AssignMethod(expr, tofunction);
 	Gura_AssignMethod(expr, unquote);
+	Gura_AssignMethod(expr, write);
 	// type chekers - Unary and descendants
 	Gura_AssignMethod(expr,	isunary);
 	Gura_AssignMethod(expr,	isunaryop);

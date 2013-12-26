@@ -360,7 +360,6 @@ dict
 directory
 expr
   eval(env?:environment)
-  genscript(dst?:stream:w, style?:symbol)
   isassign()
   isbinary()
   isbinaryop()
@@ -380,8 +379,10 @@ expr
   isunaryop()
   isvalue()
   parse(script:string):static:map {block?}
+  textize(style?:symbol)
   tofunction(`args*)
   unquote()
+  write(dst:stream:w, style?:symbol)
 fraction
   reduce()
 function
