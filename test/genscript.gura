@@ -16,9 +16,7 @@ if (argv.len() == 0) {
 }
 fileName = argv[0]
 if (cfg['eval']) {
-	buff = binary()
-	expr(fileName).write(buff)
-	expr(buff).eval()
+	expr.parse(expr(fileName).textize()).eval()
 } else {
 	expr(fileName).write(sys.stdout)
 }
