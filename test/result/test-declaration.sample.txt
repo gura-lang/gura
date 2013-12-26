@@ -80,7 +80,7 @@ else():trailer {block}
 elsif (`cond):leader:trailer {block}
 end(dummy*):symbol_func:trailer:end_marker:void
 error:class = <class:error>
-expr():map {block?}
+expr(src:stream:r):map {block?}
 extern(`syms+)
 false:boolean = false
 finally():trailer:finalizer {block}
@@ -380,7 +380,6 @@ expr
   isunaryop()
   isvalue()
   parse(script:string):static:map {block?}
-  read(src:stream:r):static:map {block?}
   tofunction(`args*)
   unquote()
 fraction
