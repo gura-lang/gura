@@ -201,19 +201,24 @@ String Object_expr::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of expr
 //-----------------------------------------------------------------------------
-// expr() {block?}
+// expr(src:stream:r) {block?}
 Gura_DeclareFunction(expr)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "src", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_expr));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"");
+	"Parse a content of a script stream and returns an expr object.");
 }
 
 Gura_ImplementFunction(expr)
 {
-	return Value::Null;
+	Stream &stream = Object_stream::GetObject(args, 0)->GetStream();
+	Parser parser(stream.GetName());
+	AutoPtr<Expr_Root> pExprRoot(parser.ParseStream(env, sig, stream));
+	if (pExprRoot.IsNull()) return Value::Null;
+	return ReturnValue(env, sig, args, Value(new Object_expr(env, pExprRoot.release())));
 }
 
 // expr.parse(script:string) {block?}
@@ -232,24 +237,6 @@ Gura_ImplementClassMethod(expr, parse)
 	if (!parser.ParseString(env, sig, pExpr->GetExprOwner(),
 								args.GetString(0), true)) return Value::Null;
 	return ReturnValue(env, sig, args, Value(new Object_expr(env, pExpr.release())));
-}
-
-// expr.read(src:stream:r) {block?}
-Gura_DeclareClassMethod(expr, read)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "src", VTYPE_stream, OCCUR_Once, FLAG_Read);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Parse a content of a script stream and returns an expr object.");
-}
-
-Gura_ImplementClassMethod(expr, read)
-{
-	Stream &stream = Object_stream::GetObject(args, 0)->GetStream();
-	Parser parser(stream.GetName());
-	AutoPtr<Expr_Root> pExprRoot(parser.ParseStream(env, sig, stream));
-	if (pExprRoot.IsNull()) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_expr(env, pExprRoot.release())));
 }
 
 // expr#eval(env?:environment)
@@ -383,7 +370,6 @@ void Class_expr::Prepare(Environment &env)
 {
 	Gura_AssignFunction(expr);
 	Gura_AssignMethod(expr, parse);
-	Gura_AssignMethod(expr, read);
 	Gura_AssignMethod(expr, eval);
 	Gura_AssignMethod(expr, genscript);
 	Gura_AssignMethod(expr, tofunction);
@@ -415,9 +401,20 @@ void Class_expr::Prepare(Environment &env)
 
 bool Class_expr::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
-	if (value.Is_symbol()) {		// cast Symbol to Expr
+	if (value.Is_symbol()) {
+		// cast symbol to expr
 		const Symbol *pSymbol = value.GetSymbol();
 		value = Value(new Object_expr(env, new Expr_Symbol(pSymbol)));
+		return true;
+	}
+	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, value, pDecl);
+	if (value.Is_stream()) {
+		Stream &stream = value.GetStream();
+		Parser parser(stream.GetName());
+		AutoPtr<Expr_Root> pExprRoot(parser.ParseStream(env, sig, stream));
+		value = Value::Null; // delete stream instance
+		if (pExprRoot.IsNull()) return false;
+		value = Value(new Object_expr(env, pExprRoot.release()));
 		return true;
 	}
 	return false;
