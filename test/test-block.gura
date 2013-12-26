@@ -83,10 +83,10 @@ testcase {
 testcase {
 	c_like_for(`init, `cond, `next):dynamic_scope {block:inside_scope} = {
 		env = outers()
-		env.eval(init)
-		while (env.eval(cond)) {
+		init.eval(env)
+		while (cond.eval(env)) {
 			block()
-			env.eval(next)
+			next.eval(env)
 		}
 	}
 	scope {

@@ -93,21 +93,6 @@ Gura_ImplementMethod(environment, setprop_X)
 	return Value::Null;
 }
 
-// environment#eval(expr:expr):map
-Gura_DeclareMethod(environment, eval)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "expr", VTYPE_expr);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Evaluates the expr instance in the environment and returns its result.");
-}
-
-Gura_ImplementMethod(environment, eval)
-{
-	SeqPostHandler *pSeqPostHandler = NULL;
-	Object_environment *pThis = Object_environment::GetThisObj(args);
-	return args.GetExpr(0)->Exec2(pThis->GetEnv(), sig, pSeqPostHandler);
-}
-
 // environment#lookup(symbol:symbol, escalate:boolean => true):map
 Gura_DeclareMethod(environment, lookup)
 {
@@ -143,7 +128,6 @@ void Class_environment::Prepare(Environment &env)
 {
 	Gura_AssignMethod(environment, getprop_X);
 	Gura_AssignMethod(environment, setprop_X);
-	Gura_AssignMethod(environment, eval);
 	Gura_AssignMethod(environment, lookup);
 }
 

@@ -66,7 +66,7 @@ lines of data/50records-en.csv is 48
 
 ======== #8 ========
 
-c_like_for(`init, `cond, `next):dynamic_scope {block:inside_scope} = { env = outers(), env.eval(init), while (env.eval(cond)) { block(), env.eval(next) } }
+c_like_for(`init, `cond, `next):dynamic_scope {block:inside_scope} = { env = outers(), init.eval(env), while (cond.eval(env)) { block(), next.eval(env) } }
   0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19
  19 18 17 16 15 14 13 12 11 10  9  8  7  6  5  4  3  2  1  0
 hello   0

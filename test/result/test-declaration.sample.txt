@@ -80,7 +80,6 @@ else():trailer {block}
 elsif (`cond):leader:trailer {block}
 end(dummy*):symbol_func:trailer:end_marker:void
 error:class = <class:error>
-eval(expr:expr):map
 extern(`syms+)
 false:boolean = false
 finally():trailer:finalizer {block}
@@ -359,7 +358,7 @@ dict
   values() {block?}
 directory
 expr
-  eval()
+  eval(env?:environment)
   genscript(dst?:stream:w, style?:symbol)
   isassign()
   isbinary()
@@ -636,6 +635,7 @@ string
 struct
   tolist()
 symbol
+  eval(env?:environment)
 template
   _R_block(symbol:symbol):void
   _R_call(symbol:symbol, args*):void
