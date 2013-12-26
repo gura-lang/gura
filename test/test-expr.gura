@@ -26,6 +26,7 @@ testcase {
 		`(f(x))
 		`(f(x) = {})
 		`(f(x) = {|a, b| c})
+		`(f(x):attr)[0]
 	]
 	printf('%-16s %s\n', x:*typename, x:*textize(`oneline))
 }

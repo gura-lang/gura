@@ -25,7 +25,7 @@ listSymbols(skipWords:list, indent:number => 0, m?:module) = {
 		}
 	}
 }
-listSymbols(['break', 'return', 'continue', 'listSymbols', 'testutil', '*'])
+listSymbols(['break', 'return', 'continue', 'listSymbols', 'testutil', '*', 'argopt'])
 scope {
 	indent = 0
 	dirtype().each {|symbol|

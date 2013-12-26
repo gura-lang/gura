@@ -20,3 +20,4 @@ binaryop         3 + 4
 caller           f(x)
 assign           f(x) = {}
 assign           f(x) = {|a, b| c }
+indexer          (f(x):attr)[0]

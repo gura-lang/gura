@@ -1805,7 +1805,20 @@ bool Expr_Indexer::GenerateScript(Signal sig, SimpleStream &stream,
 		if (!pExprSymbol->GenerateScriptTail(sig, stream, scriptStyle, nestLevel)) return false;
 		return true;
 	} else {
+		bool needParenthesisFlag = false;
+		if (GetCar()->IsCaller()) {
+			const Expr_Caller *pExprCaller = dynamic_cast<const Expr_Caller *>(GetCar());
+			needParenthesisFlag = !pExprCaller->GetAttrs().empty();
+		}
+		if (needParenthesisFlag) {
+			stream.PutChar(sig, '(');
+			if (sig.IsSignalled()) return false;
+		}
 		if (!GetCar()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+		if (needParenthesisFlag) {
+			stream.PutChar(sig, ')');
+			if (sig.IsSignalled()) return false;
+		}
 		stream.PutChar(sig, '[');
 		if (sig.IsSignalled()) return false;
 		if (GetExprOwner().empty()) {
