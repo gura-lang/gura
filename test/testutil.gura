@@ -3,7 +3,7 @@ sys.stdout.addcr(false)
 
 print_func(func:function) = printf('%s = %s\n', func, func.expr)
 tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, test.eval()):nomap
-I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+I(filename:string) = path.join(sys.datadir, 'sample/resource', filename)
 
 _idxTestCase = 0
 testcase(title?:string) {`block} = {
