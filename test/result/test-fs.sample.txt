@@ -68,13 +68,13 @@ dir-6-0
 dir-6-0-0
 dir-6-0-0-0
 dir-6-0-0-0-0
-asdend: dir-0                           
-asdend: dir-1                           
-asdend: dir-2                           
-asdend: dir-3                           
-asdend: dir-4                           
-asdend: dir-5                           
-asdend: dir-6                           
+ascend: dir-0                           
+ascend: dir-1                           
+ascend: dir-2                           
+ascend: dir-3                           
+ascend: dir-4                           
+ascend: dir-5                           
+ascend: dir-6                           
 descend: dir-6                           
 descend: dir-5                           
 descend: dir-4                           

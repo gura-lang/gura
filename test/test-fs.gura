@@ -28,7 +28,7 @@ testcase {
 	println((path.walk('dirbase'):stat):*filename.sort())
 	stats = path.dir('dirbase'):list:stat
 	statsSorted = stats.sort(&{$s1.filename <=> $s2.filename})
-	printf('asdend: %-32s\n', statsSorted:*filename)
+	printf('ascend: %-32s\n', statsSorted:*filename)
 	statsSorted = stats.sort(&{-($s1.filename <=> $s2.filename)})
 	printf('descend: %-32s\n', statsSorted:*filename)
 	println((path.dir('dirbase'):iter {|filename| '%s' % [filename.replace('\\', '/')]}).sort())
