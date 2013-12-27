@@ -20,7 +20,7 @@ testcase {
 	 'arrow-green-d.gif', 'arrow-green-r.gif'].each {|fileName|
 		img = image(I(fileName), `rgb)
 		if (!charLines?) {
-			charLines = repeat (img.height):list {''}
+			charLines = dim(img.height) {''}
 		}
 		charLines = for (charLine in charLines, row in img.scan():*gray.fold(img.width)):list {
 			charLine + ' ' + choose(int(row / 64), '@', '*', '.', ' ').join()

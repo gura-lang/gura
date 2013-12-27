@@ -46,7 +46,8 @@ function(nRange:number, nTrial:number) {
 	item = struct(num:number, mark:string):map
 	printbar(numList+:number):map = {
 		itemList = item(numList, ['*', '+', '#', '-', '&'])
-		itemList = itemList.sort(&{$item1.num <=> $item2.num})
+		//itemList = itemList.sort(&{$item1.num <=> $item2.num})
+		itemList = itemList.sort(`ascend, itemList::num)
 		numPrev = 0
 		for (item in itemList) {
 			print(item.mark * (item.num - numPrev))
@@ -56,8 +57,8 @@ function(nRange:number, nTrial:number) {
 	}
 	regular_distrib(nSamples:number) = {
 		hist = repeat(nRange):list { 0 }
-		repeat(nTrial) {
-			x = (repeat(nSamples):list { rand(nRange) }).average()
+		repeat (nTrial) {
+			x = (dim(nSamples) {rand(nRange)}).average()
 			hist[int(x)] += 1
 		}
 		hist
@@ -118,8 +119,8 @@ testcase {
 			list(left, [pivot], right)
 		}
 	}
-	repeat(10) {
-		println(quicksort(repeat(20):list { rand(10) })):nomap
+	repeat (10) {
+		println(quicksort(dim(20) {rand(10)})):nomap
 	}
 }
 testcase {
