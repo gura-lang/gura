@@ -179,10 +179,10 @@ Gura_ImplementFunction(image)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// image#allocbuff(width:number, height:number, color?:color):void
+// image#allocbuff(width:number, height:number, color?:color):reduce
 Gura_DeclareMethod(image, allocbuff)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "width", VTYPE_number);
 	DeclareArg(env, "height", VTYPE_number);
 	DeclareArg(env, "color", VTYPE_color, OCCUR_ZeroOrOnce);
@@ -194,15 +194,16 @@ Gura_ImplementMethod(image, allocbuff)
 	if (!pThis->GetImage()->CheckEmpty(sig)) return Value::Null;
 	pThis->GetImage()->AllocBuffer(sig, args.GetSizeT(0), args.GetSizeT(1), 0x00);
 	if (args.Is_color(2)) pThis->GetImage()->Fill(Object_color::GetObject(args, 2)->GetColor());
-	return Value::Null;
+	return args.GetThis();
 }
 
-// image#blur(radius:number, sigma:number)
+// image#blur(radius:number, sigma:number) {block?}
 Gura_DeclareMethod(image, blur)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "radius", VTYPE_number);
 	DeclareArg(env, "sigma", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(image, blur)
@@ -212,13 +213,13 @@ Gura_ImplementMethod(image, blur)
 	Number sigma = args.Is_number(1)? args.GetNumber(1) : 1.5;
 	AutoPtr<Image> pImage(pThis->GetImage()->Blur(sig, radius, sigma));
 	if (sig.IsSignalled()) return Value::Null;
-	return Value(new Object_image(env, pImage.release()));
+	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
 }
 
-// image#clear():void
+// image#clear():reduce
 Gura_DeclareMethod(image, clear)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Reduce, FLAG_None);
 }
 
 Gura_ImplementMethod(image, clear)
@@ -226,10 +227,10 @@ Gura_ImplementMethod(image, clear)
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	pThis->GetImage()->Fill(Color::Zero);
-	return Value::Null;
+	return args.GetThis();
 }
 
-// image#crop(x:number, y:number, width?:number, height?:number):map
+// image#crop(x:number, y:number, width?:number, height?:number):map {block?}
 Gura_DeclareMethod(image, crop)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -237,6 +238,7 @@ Gura_DeclareMethod(image, crop)
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(image, crop)
@@ -251,7 +253,7 @@ Gura_ImplementMethod(image, crop)
 	if (!pThis->GetImage()->CheckCoord(sig, x + width - 1, y + height - 1)) return Value::Null;
 	AutoPtr<Image> pImage(pThis->GetImage()->Crop(sig, x, y, width, height));
 	if (sig.IsSignalled()) return Value::Null;
-	return Value(new Object_image(env, pImage.release()));
+	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
 }
 
 // image#delpalette():reduce
@@ -297,10 +299,10 @@ Gura_ImplementMethod(image, each)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// image#extract(x:number, y:number, width:number, height:number, element:symbol, dst):void
+// image#extract(x:number, y:number, width:number, height:number, element:symbol, dst):reduce
 Gura_DeclareMethod(image, extract)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "width", VTYPE_number);
@@ -328,13 +330,13 @@ Gura_ImplementMethod(image, extract)
 		sig.SetError(ERR_ValueError, "invalid object for image's destination");
 		return Value::Null;
 	}
-	return Value::Null;
+	return args.GetThis();
 }
 
-// image#fill(color:color):void
+// image#fill(color:color):reduce
 Gura_DeclareMethod(image, fill)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "color", VTYPE_color);
 }
 
@@ -343,13 +345,13 @@ Gura_ImplementMethod(image, fill)
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	pThis->GetImage()->Fill(Object_color::GetObject(args, 0)->GetColor());
-	return Value::Null;
+	return args.GetThis();
 }
 
-// image#fillrect(x:number, y:number, width:number, height:number, color:color):map:void
+// image#fillrect(x:number, y:number, width:number, height:number, color:color):map:reduce
 Gura_DeclareMethod(image, fillrect)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "width", VTYPE_number);
@@ -365,14 +367,15 @@ Gura_ImplementMethod(image, fillrect)
 	int width = args.GetInt(2), height = args.GetInt(3);
 	if (!pThis->GetImage()->AdjustCoord(x, y, width, height)) return Value::Null;
 	pThis->GetImage()->FillRect(x, y, width, height, Object_color::GetObject(args, 4)->GetColor());
-	return Value::Null;
+	return args.GetThis();
 }
 
-// image#flip(orient:symbol):map
+// image#flip(orient:symbol):map {block?}
 Gura_DeclareMethod(image, flip)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "orient", VTYPE_symbol);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(image, flip)
@@ -393,15 +396,16 @@ Gura_ImplementMethod(image, flip)
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	AutoPtr<Image> pImage(pThis->GetImage()->Flip(sig, horzFlag, vertFlag));
 	if (sig.IsSignalled()) return Value::Null;
-	return Value(new Object_image(env, pImage.release()));
+	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
 }
 
-// image#getpixel(x:number, y:number):map
+// image#getpixel(x:number, y:number):map {block?}
 Gura_DeclareMethod(image, getpixel)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(image, getpixel)
@@ -413,13 +417,14 @@ Gura_ImplementMethod(image, getpixel)
 	UChar *p = pThis->GetImage()->GetPointer(x, y);
 	Color color;
 	pThis->GetImage()->GetPixel(p, color);
-	return Value(new Object_color(env, color));
+	return ReturnValue(env, sig, args, Value(new Object_color(env, color)));
 }
 
-// image#grayscale()
+// image#grayscale() {block?}
 Gura_DeclareMethod(image, grayscale)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(image, grayscale)
@@ -427,7 +432,7 @@ Gura_ImplementMethod(image, grayscale)
 	Object_image *pThis = Object_image::GetThisObj(args);
 	AutoPtr<Image> pImage(pThis->GetImage()->GrayScale(sig));
 	if (sig.IsSignalled()) return Value::Null;
-	return Value(new Object_image(env, pImage.release()));
+	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
 }
 
 // image#paste(x:number, y:number, src:image, width?:number, height?:number,
@@ -473,10 +478,10 @@ Gura_ImplementMethod(image, paste)
 	return args.GetThis();
 }
 
-// image#putpixel(x:number, y:number, color:color):map:void
+// image#putpixel(x:number, y:number, color:color):map:reduce
 Gura_DeclareMethod(image, putpixel)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "color", VTYPE_color);
@@ -490,7 +495,7 @@ Gura_ImplementMethod(image, putpixel)
 	if (!pThis->GetImage()->CheckCoord(sig, x, y)) return Value::Null;
 	UChar *p = pThis->GetImage()->GetPointer(x, y);
 	pThis->GetImage()->PutPixel(p, Object_color::GetObject(args, 2)->GetColor());
-	return Value::Null;
+	return args.GetThis();
 }
 
 // image#read(stream:stream:r, imagetype?:string):map:reduce
@@ -510,11 +515,12 @@ Gura_ImplementMethod(image, read)
 	return args.GetThis();
 }
 
-// image#reducecolor(palette?:palette)
+// image#reducecolor(palette?:palette) {block?}
 Gura_DeclareMethod(image, reducecolor)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "palette", VTYPE_palette, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(image, reducecolor)
@@ -529,13 +535,13 @@ Gura_ImplementMethod(image, reducecolor)
 	}
 	AutoPtr<Image> pImage(pThis->GetImage()->ReduceColor(sig, pPalette));
 	if (sig.IsSignalled()) return Value::Null;
-	return Value(new Object_image(env, pImage.release()));
+	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
 }
 
-// image#replacecolor(colorOrg:color, color:color, tolerance?:number):void
+// image#replacecolor(colorOrg:color, color:color, tolerance?:number):reduce
 Gura_DeclareMethod(image, replacecolor)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "colorOrg", VTYPE_color);
 	DeclareArg(env, "color", VTYPE_color);
 	DeclareArg(env, "tolerance", VTYPE_number, OCCUR_ZeroOrOnce);
@@ -548,16 +554,17 @@ Gura_ImplementMethod(image, replacecolor)
 	double tolerance = args.Is_number(2)? args.GetDouble(2) : 0.;
 	pThis->GetImage()->ReplaceColor(Object_color::GetObject(args, 0)->GetColor(),
 					Object_color::GetObject(args, 1)->GetColor(), tolerance);
-	return Value::Null;
+	return args.GetThis();
 }
 
-// image#resize(width?:number, height?:number):map:[box]
+// image#resize(width?:number, height?:number):map:[box] {block?}
 Gura_DeclareMethod(image, resize)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(box));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(image, resize)
@@ -589,15 +596,16 @@ Gura_ImplementMethod(image, resize)
 	}
 	AutoPtr<Image> pImage(pThis->GetImage()->Resize(sig, width, height));
 	if (sig.IsSignalled()) return Value::Null;
-	return Value(new Object_image(env, pImage.release()));
+	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
 }
 
-// image#rotate(angle:number, background?:color):map
+// image#rotate(angle:number, background?:color):map {block?}
 Gura_DeclareMethod(image, rotate)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "rotate", VTYPE_number);
 	DeclareArg(env, "background", VTYPE_color, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(image, rotate)
@@ -610,7 +618,7 @@ Gura_ImplementMethod(image, rotate)
 	}
 	AutoPtr<Image> pImage(pThis->GetImage()->Rotate(sig, args.GetNumber(0), color));
 	if (sig.IsSignalled()) return Value::Null;
-	return Value(new Object_image(env, pImage.release()));
+	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
 }
 
 // image#setalpha(alpha:number, color?:color, tolerance?:number):reduce
@@ -656,10 +664,10 @@ Gura_ImplementMethod(image, size)
 	return result;
 }
 
-// image#store(x:number, y:number, width:number, height:number, element:symbol, src):void
+// image#store(x:number, y:number, width:number, height:number, element:symbol, src):reduce
 Gura_DeclareMethod(image, store)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "x", VTYPE_number);
 	DeclareArg(env, "y", VTYPE_number);
 	DeclareArg(env, "width", VTYPE_number);
@@ -687,16 +695,17 @@ Gura_ImplementMethod(image, store)
 		sig.SetError(ERR_ValueError, "invalid object for image's source");
 		return Value::Null;
 	}
-	return Value::Null;
+	return args.GetThis();
 }
 
-// image#thumbnail(width?:number, height?:number):map:[box]
+// image#thumbnail(width?:number, height?:number):map:[box] {block?}
 Gura_DeclareMethod(image, thumbnail)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(box));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(image, thumbnail)
@@ -723,7 +732,7 @@ Gura_ImplementMethod(image, thumbnail)
 				if (sig.IsSignalled()) return Value::Null;
 				pObj = new Object_image(env, pImage.release());
 			}
-			return Value(pObj);
+			return ReturnValue(env, sig, args, Value(pObj));
 		}
 	} else if (!args.Is_number(0) && args.Is_number(1)) {
 		height = args.GetSizeT(1);
@@ -738,7 +747,7 @@ Gura_ImplementMethod(image, thumbnail)
 				if (sig.IsSignalled()) return Value::Null;
 				pObj = new Object_image(env, pImage.release());
 			}
-			return Value(pObj);
+			return ReturnValue(env, sig, args, Value(pObj));
 		}
 	} else {
 		width = args.GetSizeT(0);
@@ -757,7 +766,7 @@ Gura_ImplementMethod(image, thumbnail)
 		if (sig.IsSignalled()) return Value::Null;
 		pObj = new Object_image(env, pImage.release());
 	}
-	return Value(pObj);
+	return ReturnValue(env, sig, args, Value(pObj));
 }
 
 // image#write(stream:stream:w, imagetype?:string):map:reduce

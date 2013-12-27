@@ -16,6 +16,7 @@
 <color:#ff00ff,alpha:ff>
 <color:#00ffff,alpha:ff>
 <color:#ffffff,alpha:ff>
+<color:#000000,alpha:00>
 
 ======== #2 ========
 
