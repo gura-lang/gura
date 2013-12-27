@@ -1,5 +1,4 @@
 #!/usr/bin/env gura
-import(sdl)
 import(bmp)
 import(msico)
 import(jpeg)
@@ -7,60 +6,14 @@ import(png)
 import(gif)
 import(xpm)
 import(hash)
-import(freetype, ft)
 import(testutil) {*}
 
-tester_image(image:image, comment:string, hexdigestExpect:string):map:void = {
-	printf('%-20s %3dx%3d\n', comment, image.width, image.height)
-	sdl.Init(sdl.INIT_EVERYTHING)
-	screen = sdl.SetVideoMode(image.width, image.height, 16, sdl.SWSURFACE)
-	screen.PutSurface(image)
-	screen.UpdateRect()
-	repeat {
-		event = sdl.WaitEvent()
-		(event.type == sdl.QUIT) && sys.exit()
-		(event.type == sdl.KEYDOWN && event.sym == sdl.K_SPACE) && break
-	}
-}
 tester_image(image:image, comment:string, hexdigestExpect:string):map:void = {
 	md5 = hash.md5()
 	image.bmpwrite(md5)
 	printf('%-20s %3dx%3d %s\n', comment, image.width, image.height,
 		   md5.hexdigest in hexdigestExpect.split(';') || md5.hexdigest)
 }
-
-/*
-if (sys.build == `msc) {
-	scope {
-		img = image(`rgb, 32, 32, `black)
-		font = ft.font(ft.sysfontpath('msgothic.ttc'))
-		font.height = 16, font.color = `white
-		str = '\xe5\x9c\x92' // kanji 'en'
-		img.drawtext(font, -4, 12, str)
-		img.drawtext(font, 24, 12, str)
-		img.drawtext(font, -4, 36, str)
-		img.drawtext(font, 24, 36, str)
-		tester_image(img, 'msgothic 16pix', '6aa748f92f68768b5656d6eb2c682293')
-	}
-	scope {
-		img = image(`rgb, 32, 32, `black)
-		font = ft.font(ft.sysfontpath('arial.ttf'))
-		font.height = 16, font.color = `white
-		img.drawtext(font, -8, 8, '@')
-		img.drawtext(font, 24, 8, '@')
-		img.drawtext(font, -8, 36, '@')
-		img.drawtext(font, 24, 36, '@')
-		tester_image(img, 'arial 16pix', '17baea59b0b0f5cbcef0058aad60c89e')
-	}
-	scope {
-		img = image(`rgb, 320, 320, `black)
-		font = ft.font(ft.sysfontpath('arial.ttf'))
-		font.height = 320, font.color = `white
-		img.drawtext(font, 0, 240, '@')
-		tester_image(img, 'arial 320pix', 'cb43efeb7d4ad5d16bec45af866b477e')
-	}
-}
-*/
 testcase {
 	charLines = nil
 	['arrow-green-u.gif', 'arrow-green-l.gif',
