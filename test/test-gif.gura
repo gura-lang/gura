@@ -1,0 +1,76 @@
+#!/usr/bin/env gura
+import(testutil) {*}
+import(gif)
+
+testcase {
+	g = gif.content(I('kangaroo.gif'), `rgba)
+	symPacks = @{
+		[`Header, [
+			`Signature
+			`Version
+		]]
+		[`LogicalScreenDescriptor, [
+			`LogicalScreenWidth
+			`LogicalScreenHeight
+			`GlobalColorTableFlag
+			`ColorResolution
+			`SortFlag
+			`SizeOfGlobalColorTable
+			`BackgroundColorIndex
+			`PixelAspectRatio
+		]]
+		[`CommentExtension, [
+			`CommentData
+		]]
+		[`PlainTextExtension, [
+			`TextGridLeftPosition
+			`TextGridTopPosition
+			`TextGridWidth
+			`TextGridHeight
+			`CharacterCellWidth
+			`CharacterCellHeight
+			`TextForegroundColorIndex
+			`TextBackgroundColorIndex
+			`PlainTextData
+		]]
+		[`ApplicationExtension, [
+			`ApplicationIdentifier
+			`AuthenticationCode
+			`ApplicationData
+		]]
+	}
+	symsGctl = @{
+		`DisposalMethod
+		`UserInputFlag
+		`TransparentColorFlag
+		`DelayTime
+		`TransparentColorIndex
+	}
+	symsDesc = @{
+		`ImageLeftPosition
+		`ImageTopPosition
+		`ImageWidth
+		`ImageHeight
+		`LocalColorTableFlag
+		`InterlaceFlag
+		`SortFlag
+		`SizeOfLocalColorTable
+	}
+	for ([sym, symsSub] in symPacks) {
+		obj = g.getprop!(sym)
+		!obj && continue
+		syms = sym.tostring() + '.' + symsSub:*tostring()
+		printf('%-*s %s\n', syms:*tostring():*len().max(),
+							syms:*tostring(), obj.getprop!(symsSub, '(not defined)'))
+	}
+	for (img in g.images) {|i|
+		printf("image#%d\n", i)
+		printf("gif.GraphicControl.%-*s %s\n", symsGctl:*tostring():*len().max(),
+			symsGctl:*tostring(), img.gif.GraphicControl.getprop!(symsGctl, '(not defined)'))
+		printf("gif.ImageDescriptor.%-*s %s\n", symsDesc:*tostring():*len().max(),
+			symsDesc:*tostring(), img.gif.ImageDescriptor.getprop!(symsDesc, '(not defined)'))
+	}
+	g.ApplicationExtension.ApplicationIdentifier.dump()
+	g.ApplicationExtension.AuthenticationCode.dump()
+	g.ApplicationExtension.ApplicationData.dump()
+}

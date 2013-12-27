@@ -1,0 +1,32 @@
+======== #1 ========
+
+Header.Signature <binary:RW:3byte:'GIF'>
+Header.Version   <binary:RW:3byte:'89a'>
+LogicalScreenDescriptor.LogicalScreenWidth     99
+LogicalScreenDescriptor.LogicalScreenHeight    54
+LogicalScreenDescriptor.GlobalColorTableFlag   1
+LogicalScreenDescriptor.ColorResolution        7
+LogicalScreenDescriptor.SortFlag               0
+LogicalScreenDescriptor.SizeOfGlobalColorTable 4
+LogicalScreenDescriptor.BackgroundColorIndex   23
+LogicalScreenDescriptor.PixelAspectRatio       0
+ApplicationExtension.ApplicationIdentifier <binary:RW:8byte:'NETSCAPE'>
+ApplicationExtension.AuthenticationCode    <binary:RW:3byte:'2.0'>
+ApplicationExtension.ApplicationData       <binary:RW:3byte:'\x01\x00\x00'>
+image#0
+gif.GraphicControl.DisposalMethod        keep
+gif.GraphicControl.UserInputFlag         false
+gif.GraphicControl.TransparentColorFlag  true
+gif.GraphicControl.DelayTime             250
+gif.GraphicControl.TransparentColorIndex 24
+gif.ImageDescriptor.ImageLeftPosition     1
+gif.ImageDescriptor.ImageTopPosition      1
+gif.ImageDescriptor.ImageWidth            97
+gif.ImageDescriptor.ImageHeight           52
+gif.ImageDescriptor.LocalColorTableFlag   false
+gif.ImageDescriptor.InterlaceFlag         false
+gif.ImageDescriptor.SortFlag              false
+gif.ImageDescriptor.SizeOfLocalColorTable 0
+4e 45 54 53 43 41 50 45                          NETSCAPE
+32 2e 30                                         2.0
+01 00 00                                         ...

@@ -21,6 +21,7 @@ set cases=%cases% formatter
 set cases=%cases% fraction
 set cases=%cases% fs
 set cases=%cases% function
+set cases=%cases% gif
 set cases=%cases% graph
 set cases=%cases% hash
 set cases=%cases% image
@@ -44,8 +45,9 @@ set cases=%cases% stream
 set cases=%cases% string
 set cases=%cases% template
 set cases=%cases% value
-set cases=%cases% xml
 set cases=%cases% xhtml
+set cases=%cases% xml
+set cases=%cases% xpm
 set cases=%cases% yaml
 
 if "%1" == "" goto usage
