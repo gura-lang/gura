@@ -69,7 +69,7 @@ testcase {
 		if (!charLines?) {
 			charLines = repeat (img.height):list {''}
 		}
-		charLines = for (charLine in charLines, row in img.each():*gray.fold(img.width)):list {
+		charLines = for (charLine in charLines, row in img.scan():*gray.fold(img.width)):list {
 			charLine + ' ' + choose(int(row / 64), '@', '*', '.', ' ').join()
 		}
 	}

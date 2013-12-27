@@ -269,36 +269,6 @@ Gura_ImplementMethod(image, delpalette)
 	return args.GetThis();
 }
 
-// image#each(x:number, y:number, width:number, height:number, scandir:symbol) {block?}
-Gura_DeclareMethod(image, each)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "x", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "y", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "height", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "scandir", VTYPE_symbol, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns an iterator that scans pixels in the image.");
-}
-
-Gura_ImplementMethod(image, each)
-{
-	Object_image *pThis = Object_image::GetThisObj(args);
-	size_t x = args.Is_number(0)? args.GetSizeT(0) : 0;
-	size_t y = args.Is_number(1)? args.GetSizeT(1) : 0;
-	size_t width = args.Is_number(2)? args.GetSizeT(2) : pThis->GetImage()->GetWidth();
-	size_t height = args.Is_number(3)? args.GetSizeT(3) : pThis->GetImage()->GetHeight();
-	Image::ScanDir scanDir = Image::SCAN_LeftTopHorz;
-	if (args.Is_symbol(4)) {
-		const Symbol *pSymbol = args.GetSymbol(4);
-		
-	}
-	Iterator *pIterator = new Image::IteratorEach(
-			Image::Reference(pThis->GetImage()), x, y, width, height, scanDir);
-	return ReturnIterator(env, sig, args, pIterator);
-}
-
 // image#extract(x:number, y:number, width:number, height:number, element:symbol, dst):reduce
 Gura_DeclareMethod(image, extract)
 {
@@ -621,6 +591,37 @@ Gura_ImplementMethod(image, rotate)
 	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
 }
 
+// image#scan(x?:number, y?:number, width?:number, height?:number, scandir?:symbol) {block?}
+Gura_DeclareMethod(image, scan)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "height", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "scandir", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"Returns an iterator that scans pixels in the image.");
+}
+
+Gura_ImplementMethod(image, scan)
+{
+	Object_image *pThis = Object_image::GetThisObj(args);
+	size_t x = args.Is_number(0)? args.GetSizeT(0) : 0;
+	size_t y = args.Is_number(1)? args.GetSizeT(1) : 0;
+	size_t width = args.Is_number(2)? args.GetSizeT(2) : pThis->GetImage()->GetWidth();
+	size_t height = args.Is_number(3)? args.GetSizeT(3) : pThis->GetImage()->GetHeight();
+	Image::ScanDir scanDir = Image::SCAN_LeftTopHorz;
+	if (args.Is_symbol(4)) {
+		const Symbol *pSymbol = args.GetSymbol(4);
+		
+	}
+	Iterator *pIterator = new Image::IteratorEach(
+			Image::Reference(pThis->GetImage()), x, y, width, height, scanDir);
+	return ReturnIterator(env, sig, args, pIterator);
+}
+
 // image#setalpha(alpha:number, color?:color, tolerance?:number):reduce
 Gura_DeclareMethod(image, setalpha)
 {
@@ -801,7 +802,6 @@ void Class_image::Prepare(Environment &env)
 	Gura_AssignMethod(image, clear);
 	Gura_AssignMethod(image, crop);
 	Gura_AssignMethod(image, delpalette);
-	Gura_AssignMethod(image, each);
 	Gura_AssignMethod(image, extract);
 	Gura_AssignMethod(image, fill);
 	Gura_AssignMethod(image, fillrect);
@@ -817,6 +817,7 @@ void Class_image::Prepare(Environment &env)
 	Gura_AssignMethod(image, replacecolor);
 	Gura_AssignMethod(image, resize);
 	Gura_AssignMethod(image, rotate);
+	Gura_AssignMethod(image, scan);
 	Gura_AssignMethod(image, setalpha);
 	Gura_AssignMethod(image, thumbnail);
 	Gura_AssignMethod(image, write);
