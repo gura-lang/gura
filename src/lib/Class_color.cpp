@@ -1043,6 +1043,7 @@ void Class_color::Prepare(Environment &env)
 	Gura_AssignClassValue(Fuchsia,	Value(new Object_color(env, Color::Fuchsia)));
 	Gura_AssignClassValue(Aqua,		Value(new Object_color(env, Color::Aqua)));
 	Gura_AssignClassValue(White,	Value(new Object_color(env, Color::White)));
+	Gura_AssignClassValue(Zero,		Value(new Object_color(env, Color::Zero)));
 }
 
 bool Class_color::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)

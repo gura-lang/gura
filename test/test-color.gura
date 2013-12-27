@@ -20,6 +20,7 @@ testcase {
 		color.Fuchsia
 		color.Aqua
 		color.White
+		color.Zero
 	]
 	println(colors)
 }
