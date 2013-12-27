@@ -5,4 +5,4 @@ if (sys.argv.len() < 2) {
 	sys.stderr.println('usage: markdown-html file')
 	sys.exit(1)
 }
-markdown.document(sys.argv[1]).output_html(sys.stdout)
+markdown.document(sys.argv[1]).render_html(sys.stdout)

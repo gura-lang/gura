@@ -8,9 +8,16 @@ Renderer_html = class {
 	Render(doc:document):void = {
 		this.RenderItem(doc.root)
 	}
+	RenderHead():void = {
+		R'''
+		<head>
+		</head>
+		'''.template().render(this.out)
+	}
 	RenderItem(item:item):map:void = {
 		if (item.type == `root) {
 			this.out.print('<html>\n')
+			this.RenderHead()
 			this.out.print('<body>\n')
 			this.RenderItem(item.children)
 			this.out.print('</body>\n')

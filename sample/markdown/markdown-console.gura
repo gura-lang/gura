@@ -5,4 +5,4 @@ if (sys.argv.len() < 2) {
 	sys.stderr.println('usage: markdown-console file')
 	sys.exit(1)
 }
-markdown.document(sys.argv[1]).output_console()
+markdown.document(sys.argv[1]).render_console()
