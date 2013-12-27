@@ -265,6 +265,12 @@ public:
 	Gura_DeclareSymbol(lasteol);
 	Gura_DeclareSymbol(leader);
 	Gura_DeclareSymbol(left);
+	Gura_DeclareSymbol(left_bottom);
+	Gura_DeclareSymbol(left_bottom_horz);
+	Gura_DeclareSymbol(left_bottom_vert);
+	Gura_DeclareSymbol(left_top);
+	Gura_DeclareSymbol(left_top_horz);
+	Gura_DeclareSymbol(left_top_vert);
 	Gura_DeclareSymbol(len);
 	Gura_DeclareSymbol(line_);
 	Gura_DeclareSymbol(lineno);
@@ -347,6 +353,12 @@ public:
 	Gura_DeclareSymbol(rgba);
 	Gura_DeclareSymbol(rgbq);
 	Gura_DeclareSymbol(right);
+	Gura_DeclareSymbol(right_bottom);
+	Gura_DeclareSymbol(right_bottom_horz);
+	Gura_DeclareSymbol(right_bottom_vert);
+	Gura_DeclareSymbol(right_top);
+	Gura_DeclareSymbol(right_top_horz);
+	Gura_DeclareSymbol(right_top_vert);
 	Gura_DeclareSymbol(root);
 	Gura_DeclareSymbol(s16be);
 	Gura_DeclareSymbol(s16le);

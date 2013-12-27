@@ -278,6 +278,12 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(lasteol);
 	Gura_RealizeSymbol(leader);
 	Gura_RealizeSymbol(left);
+	Gura_RealizeSymbol(left_bottom);
+	Gura_RealizeSymbol(left_bottom_horz);
+	Gura_RealizeSymbol(left_bottom_vert);
+	Gura_RealizeSymbol(left_top);
+	Gura_RealizeSymbol(left_top_horz);
+	Gura_RealizeSymbol(left_top_vert);
 	Gura_RealizeSymbol(len);
 	Gura_RealizeSymbolAlias(line_,			"line");
 	Gura_RealizeSymbol(lineno);
@@ -360,6 +366,12 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(rgba);
 	Gura_RealizeSymbol(rgbq);
 	Gura_RealizeSymbol(right);
+	Gura_RealizeSymbol(right_bottom);
+	Gura_RealizeSymbol(right_bottom_horz);
+	Gura_RealizeSymbol(right_bottom_vert);
+	Gura_RealizeSymbol(right_top);
+	Gura_RealizeSymbol(right_top_horz);
+	Gura_RealizeSymbol(right_top_vert);
 	Gura_RealizeSymbol(root);
 	Gura_RealizeSymbol(s16be);
 	Gura_RealizeSymbol(s16le);

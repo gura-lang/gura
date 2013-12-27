@@ -24,6 +24,7 @@ public:
 		FORMAT_RGB, FORMAT_RGBA,
 	};
 	enum ScanDir {
+		SCAN_None,
 		SCAN_LeftTopHorz, SCAN_LeftTopVert,
 		SCAN_RightTopHorz, SCAN_RightTopVert,
 		SCAN_LeftBottomHorz, SCAN_LeftBottomVert,
@@ -149,12 +150,12 @@ public:
 			_pPixel[OffsetAlpha] = alpha;
 		}
 	};
-	class IteratorEach : public Iterator {
+	class IteratorScan : public Iterator {
 	private:
 		Scanner _scanner;
 		bool _doneFlag;
 	public:
-		inline IteratorEach(Image *pImage,
+		inline IteratorScan(Image *pImage,
 				size_t x, size_t y, size_t width, size_t height, ScanDir scanDir) :
 			Iterator(false),
 			_scanner(pImage, x, y, width, height, scanDir), _doneFlag(false) {}
@@ -285,6 +286,7 @@ public:
 	bool ReadDIB(Signal sig, Stream &stream,
 				int biWidth, int biHeight, int biBitCount, bool maskFlag);
 	bool WriteDIB(Signal sig, Stream &stream, int biBitCount, bool maskFlag);
+	static ScanDir SymbolToScanDir(const Symbol *pSymbol);
 	size_t SymbolToPixelOffset(Signal sig, const Symbol *pSymbol) const;
 	static Format SymbolToFormat(Signal sig, const Symbol *pSymbol);
 	static const Symbol *FormatToSymbol(Format format);

@@ -398,7 +398,6 @@ image
   clear():reduce
   crop(x:number, y:number, width?:number, height?:number):map {block?}
   delpalette():reduce
-  each(x?:number, y?:number, width?:number, height?:number, scandir?:symbol) {block?}
   extract(x:number, y:number, width:number, height:number, element:symbol, dst):reduce
   fill(color:color):reduce
   fillrect(x:number, y:number, width:number, height:number, color:color):map:reduce
@@ -412,6 +411,7 @@ image
   replacecolor(colorOrg:color, color:color, tolerance?:number):reduce
   resize(width?:number, height?:number):map:[box] {block?}
   rotate(rotate:number, background?:color):map {block?}
+  scan(x?:number, y?:number, width?:number, height?:number, scandir?:symbol) {block?}
   setalpha(alpha:number, color?:color, tolerance?:number):reduce
   size()
   store(x:number, y:number, width:number, height:number, element:symbol, src):reduce

@@ -614,10 +614,13 @@ Gura_ImplementMethod(image, scan)
 	size_t height = args.Is_number(3)? args.GetSizeT(3) : pThis->GetImage()->GetHeight();
 	Image::ScanDir scanDir = Image::SCAN_LeftTopHorz;
 	if (args.Is_symbol(4)) {
-		const Symbol *pSymbol = args.GetSymbol(4);
-		
+		scanDir = Image::SymbolToScanDir(args.GetSymbol(4));
+		if (scanDir == Image::SCAN_None) {
+			sig.SetError(ERR_ValueError, "invalid symbol for scandir");
+			return Value::Null;
+		}
 	}
-	Iterator *pIterator = new Image::IteratorEach(
+	Iterator *pIterator = new Image::IteratorScan(
 			Image::Reference(pThis->GetImage()), x, y, width, height, scanDir);
 	return ReturnIterator(env, sig, args, pIterator);
 }

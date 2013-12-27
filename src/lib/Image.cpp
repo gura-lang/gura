@@ -81,6 +81,29 @@ bool Image::CheckValid(Signal sig) const
 	return false;
 }
 
+Image::ScanDir Image::SymbolToScanDir(const Symbol *pSymbol)
+{
+	if (pSymbol->IsIdentical(Gura_Symbol(left_top_horz))) {
+		return SCAN_LeftTopHorz;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(left_top_vert))) {
+		return SCAN_LeftTopVert;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(left_bottom_horz))) {
+		return SCAN_LeftBottomHorz;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(left_bottom_vert))) {
+		return SCAN_LeftBottomVert;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(right_top_horz))) {
+		return SCAN_RightTopHorz;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(right_top_vert))) {
+		return SCAN_RightTopVert;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(right_bottom_horz))) {
+		return SCAN_RightBottomHorz;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(right_bottom_vert))) {
+		return SCAN_RightBottomVert;
+	} else {
+		return SCAN_None;
+	}
+}
+
 size_t Image::SymbolToPixelOffset(Signal sig, const Symbol *pSymbol) const
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(red))) {
@@ -1333,14 +1356,14 @@ Image::Scanner::~Scanner()
 }
 
 //-----------------------------------------------------------------------------
-// Image::IteratorEach
+// Image::IteratorScan
 //-----------------------------------------------------------------------------
-Iterator *Image::IteratorEach::GetSource()
+Iterator *Image::IteratorScan::GetSource()
 {
 	return NULL;
 }
 
-bool Image::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
+bool Image::IteratorScan::DoNext(Environment &env, Signal sig, Value &value)
 {
 	Image *pImage = _scanner.GetImage();
 	if (_doneFlag) return false;
@@ -1354,12 +1377,12 @@ bool Image::IteratorEach::DoNext(Environment &env, Signal sig, Value &value)
 	return true;
 }
 
-String Image::IteratorEach::ToString() const
+String Image::IteratorScan::ToString() const
 {
-	return String("image#each");
+	return String("image#scan");
 }
 
-void Image::IteratorEach::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+void Image::IteratorScan::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
 {
 }
 
