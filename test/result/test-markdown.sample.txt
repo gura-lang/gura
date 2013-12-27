@@ -1,3 +1,5 @@
+======== #1 print rendering items ========
+
 <root>
   <p>
     <text>'No Header ===hoge'
@@ -1032,3 +1034,19 @@
   <tag>'table'
   <tag>'br'
   <tag>'br'
+
+======== #2 print referee items ========
+
+<referee url='http://example-1.com' refid='1'>
+<referee url='http://example-2.com' title='title-2' refid='2'>
+<referee url='http://example-3.com' title='title-3' refid='3'>
+<referee url='http://example-4.com' title='title-4' refid='4'>
+<referee url='http://example-5.com' title='title-5' refid='  5  '>
+<referee url='http://example-6.com' title='title-6 "quoted"' refid='6'>
+<referee url='http://example-7.com' title='title-7 'quoted'' refid='7'>
+<referee url='http://example-8.com' title='title-8 (quoted)' refid='8'>
+<referee url='http://example-9.com' refid='9'>
+<referee url='http://example-ABCDEF.com' title='title-ABCDEF' refid='ABCDEF'>
+<referee url='http://example-sABCDEFs.com' title='title-sABCDEFs' refid='   ABCDEF  '>
+<referee url='http://example.com/' title='Title' refid='id1'>
+<referee url='/url/to/img.jpg' title='Title' refid='id2'>

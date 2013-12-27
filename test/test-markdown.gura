@@ -1,4 +1,5 @@
 #!/usr/bin/env gura
+import(testutil) {*}
 import(markdown)
 
 text = R'''
@@ -633,10 +634,16 @@ out << hogehoge
 <br/>
 '''
 
-sys.stdout.addcr(false)
-markdown.document {|doc|
-	doc << text
-	doc.print()
-	//doc.output_console()
-	//doc.output_html()
+testcase('print rendering items') {
+	markdown.document {|doc|
+		doc << text
+		doc.root.print()
+	}
+}
+
+testcase('print referee items') {
+	markdown.document {|doc|
+		doc << text
+		doc.refs:*print()
+	}
 }

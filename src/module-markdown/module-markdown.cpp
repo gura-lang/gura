@@ -2146,24 +2146,6 @@ Gura_ImplementMethod(document, read)
 	return Value::Null;
 }
 
-// markdown.document#print():void
-Gura_DeclareMethod(document, print)
-{
-	SetMode(RSLTMODE_Void, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	""
-	);
-}
-
-Gura_ImplementMethod(document, print)
-{
-	Document *pDocument = Object_document::GetThisObj(args)->GetDocument();
-	pDocument->ResolveReference();
-	const Item *pItem = pDocument->GetItemRoot();
-	pItem->Print(sig, *env.GetConsole(), 0);
-	return Value::Null;
-}
-
 //-----------------------------------------------------------------------------
 // Class implementation for markdown.document
 //-----------------------------------------------------------------------------
@@ -2171,7 +2153,6 @@ Gura_ImplementUserClass(document)
 {
 	Gura_AssignMethod(document, parse);
 	Gura_AssignMethod(document, read);
-	Gura_AssignMethod(document, print);
 }
 
 //-----------------------------------------------------------------------------
