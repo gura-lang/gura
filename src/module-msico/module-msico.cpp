@@ -246,7 +246,7 @@ Gura_DeclareFunction(content)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareArg(env, "format", VTYPE_symbol, OCCUR_Once,
-						FLAG_None, new Expr_Symbol(Gura_Symbol(rgba)));
+				FLAG_None, new Expr_Quote(new Expr_Symbol(Gura_Symbol(rgba))));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 

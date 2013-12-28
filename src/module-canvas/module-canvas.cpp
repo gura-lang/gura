@@ -526,11 +526,11 @@ Gura_DeclareMethod(Canvas, setfont)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "height", VTYPE_number);
 	DeclareArg(env, "family", VTYPE_symbol, OCCUR_Once, FLAG_None,
-								new Expr_Symbol(Gura_UserSymbol(default)));
+				new Expr_Quote(new Expr_Symbol(Gura_UserSymbol(default))));
 	DeclareArg(env, "style", VTYPE_symbol, OCCUR_Once, FLAG_None,
-								new Expr_Symbol(Gura_UserSymbol(normal)));
+				new Expr_Quote(new Expr_Symbol(Gura_UserSymbol(normal))));
 	DeclareArg(env, "weight", VTYPE_symbol, OCCUR_Once, FLAG_None,
-								new Expr_Symbol(Gura_UserSymbol(normal)));
+				new Expr_Quote(new Expr_Symbol(Gura_UserSymbol(normal))));
 	DeclareArg(env, "facename", VTYPE_string, OCCUR_ZeroOrOnce);
 }
 
@@ -565,7 +565,7 @@ Gura_DeclareMethod(Canvas, setpen)
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None,
 								new Expr_Value(1));
 	DeclareArg(env, "style", VTYPE_symbol, OCCUR_Once, FLAG_None,
-								new Expr_Symbol(Gura_UserSymbol(solid)));
+					new Expr_Quote(new Expr_Symbol(Gura_UserSymbol(solid))));
 }
 
 Gura_ImplementMethod(Canvas, setpen)
@@ -582,7 +582,7 @@ Gura_DeclareMethod(Canvas, setbrush)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "color", VTYPE_any);
 	DeclareArg(env, "style", VTYPE_symbol, OCCUR_Once, FLAG_None,
-								new Expr_Symbol(Gura_UserSymbol(solid)));
+					new Expr_Quote(new Expr_Symbol(Gura_UserSymbol(solid))));
 }
 
 Gura_ImplementMethod(Canvas, setbrush)

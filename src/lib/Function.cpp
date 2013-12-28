@@ -860,19 +860,6 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 		} else if (pDecl->IsQuote()) {
 			value = Value(new Object_expr(env, pExprArg->Reference()));
 			valListArg.push_back(value);
-		} else if (pDecl->IsType(VTYPE_symbol)) {
-			const Expr *pExpr = pExprArg.get();
-			if (pExpr->IsQuote()) {
-				pExpr = dynamic_cast<const Expr_Quote *>(pExpr)->GetChild();
-			}
-			if (!pExpr->IsSymbol()) {
-				sig.SetError(ERR_TypeError, "symbol is expected");
-				return false;
-			}
-			const Symbol *pSymbol =
-						dynamic_cast<const Expr_Symbol *>(pExpr)->GetSymbol();
-			value = Value(pSymbol);
-			valListArg.push_back(value);
 		} else {
 			AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_ValListArg(
 				env.Reference(), dynamic_cast<SequenceEx *>(Reference()), false));
