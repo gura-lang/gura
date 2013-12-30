@@ -61,7 +61,7 @@ private:
 	union {						// 8 bytes
 		bool flag;				// VTYPE_boolean
 		Complex *pComp;			// VTYPE_complex
-		Fraction *pFrac;		// VTYPE_fraction
+		Rational *pRatio;		// VTYPE_rational
 		Number num;				// VTYPE_number
 		StringRef *pStrRef;		// VTYPE_string
 		const Symbol *pSymbol;	// VTYPE_symbol
@@ -111,9 +111,9 @@ public:
 	inline Value(const Complex &comp) : _valType(VTYPE_complex), _valFlags(VFLAG_Owner) {
 		_u.pComp = new Complex(comp);
 	}
-	// VTYPE_fraction
-	inline Value(const Fraction &frac) : _valType(VTYPE_fraction), _valFlags(VFLAG_Owner) {
-		_u.pFrac = new Fraction(frac);
+	// VTYPE_rational
+	inline Value(const Rational &ratio) : _valType(VTYPE_rational), _valFlags(VFLAG_Owner) {
+		_u.pRatio = new Rational(ratio);
 	}
 	// VTYPE_number
 	inline Value(Number num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
@@ -186,7 +186,7 @@ public:
 	// primitive types
 	inline bool Is_boolean() const			{ return IsType(VTYPE_boolean);			}
 	inline bool Is_complex() const			{ return IsType(VTYPE_complex);			}
-	inline bool Is_fraction() const			{ return IsType(VTYPE_fraction);		}
+	inline bool Is_rational() const			{ return IsType(VTYPE_rational);		}
 	inline bool Is_number() const			{ return IsType(VTYPE_number);			}
 	inline bool Is_string() const			{ return IsType(VTYPE_string);			}
 	inline bool Is_symbol() const			{ return IsType(VTYPE_symbol);			}
@@ -233,7 +233,7 @@ public:
 	// primitive types
 	inline bool MustBe_boolean(Signal &sig) const		{ return MustBe(sig, Is_boolean(), 		"boolean");			}
 	inline bool MustBe_complex(Signal &sig) const		{ return MustBe(sig, Is_complex(), 		"complex");			}
-	inline bool MustBe_fraction(Signal &sig) const		{ return MustBe(sig, Is_fraction(), 	"fraction");		}
+	inline bool MustBe_rational(Signal &sig) const		{ return MustBe(sig, Is_rational(), 	"rational");		}
 	inline bool MustBe_number(Signal &sig) const		{ return MustBe(sig, Is_number(), 		"number");			}
 	inline bool MustBe_string(Signal &sig) const		{ return MustBe(sig, Is_string(), 		"string");			}
 	inline bool MustBe_symbol(Signal &sig) const		{ return MustBe(sig, Is_symbol(),		"symbol");			}
@@ -287,9 +287,9 @@ public:
 			 _valType = VTYPE_complex, _u.pComp = new Complex(comp);
 		}
 	}
-	inline void SetFraction(const Fraction &frac) {
+	inline void SetRational(const Rational &ratio) {
 		FreeResource();
-		_valType = VTYPE_fraction, _u.pFrac = new Fraction(frac);
+		_valType = VTYPE_rational, _u.pRatio = new Rational(ratio);
 	}
 	inline Number GetNumber() const {
 		return Is_number()? _u.num :
@@ -329,12 +329,12 @@ public:
 	inline const Complex *GetComplexPtr() const {
 		return _u.pComp;
 	}
-	// VTYPE_fraction
-	inline Fraction GetFraction() const {
-		return Is_fraction()? *_u.pFrac : Fraction::Zero;
+	// VTYPE_rational
+	inline Rational GetRational() const {
+		return Is_rational()? *_u.pRatio : Rational::Zero;
 	}
-	inline const Fraction *GetFractionPtr() const {
-		return _u.pFrac;
+	inline const Rational *GetRationalPtr() const {
+		return _u.pRatio;
 	}
 	// VTYPE_Module
 	inline Module *GetModule() { return IsModule()? _u.pModule : NULL; }

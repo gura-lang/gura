@@ -82,11 +82,11 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Class_fraction
+// Class_rational
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Class_fraction : public Class {
+class GURA_DLLDECLARE Class_rational : public Class {
 public:
-	Class_fraction(Environment *pEnvOuter);
+	Class_rational(Environment *pEnvOuter);
 	virtual void Prepare(Environment &env);
 	virtual Value GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
 			const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const;

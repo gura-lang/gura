@@ -2,7 +2,7 @@
 import(testutil) {*}
 
 testcase {
-	tester(`fraction(260, 364).reduce())
+	tester(`rational(260, 364).reduce())
 }
 testcase {
 	tester(`math.hypot(3, 4))

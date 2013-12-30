@@ -101,13 +101,13 @@ number number complex boolean module string list dict function symbol
 hoge           isdefined:false  undefined
 function       isdefined:true   function
 math.sin       isdefined:true   function
-0      number   defined:y symbol:n boolean:n number:y complex:y fraction:n string:n module:n class:n y
-3.14   number   defined:y symbol:n boolean:n number:y complex:y fraction:n string:n module:n class:n y
-1+2j   complex  defined:y symbol:n boolean:n number:n complex:y fraction:n string:n module:n class:n n
-1/3    fraction defined:y symbol:n boolean:n number:y complex:y fraction:y string:n module:n class:n n
-true   boolean  defined:y symbol:n boolean:y number:n complex:n fraction:n string:n module:n class:n n
-<module:sys:<integrated>> module   defined:y symbol:n boolean:n number:n complex:n fraction:n string:n module:y class:n n
-foo    string   defined:y symbol:n boolean:n number:n complex:n fraction:n string:y module:n class:n n
-%{}    dict     defined:y symbol:n boolean:n number:n complex:n fraction:n string:n module:n class:n n
-x()    function defined:y symbol:n boolean:n number:n complex:n fraction:n string:n module:n class:n n
-sym    symbol   defined:y symbol:y boolean:n number:n complex:n fraction:n string:n module:n class:n n
+0      number   defined:y symbol:n boolean:n number:y complex:y rational:n string:n module:n class:n y
+3.14   number   defined:y symbol:n boolean:n number:y complex:y rational:n string:n module:n class:n y
+1+2j   complex  defined:y symbol:n boolean:n number:n complex:y rational:n string:n module:n class:n n
+1/3    rational defined:y symbol:n boolean:n number:y complex:y rational:y string:n module:n class:n n
+true   boolean  defined:y symbol:n boolean:y number:n complex:n rational:n string:n module:n class:n n
+<module:sys:<integrated>> module   defined:y symbol:n boolean:n number:n complex:n rational:n string:n module:y class:n n
+foo    string   defined:y symbol:n boolean:n number:n complex:n rational:n string:y module:n class:n n
+%{}    dict     defined:y symbol:n boolean:n number:n complex:n rational:n string:n module:n class:n n
+x()    function defined:y symbol:n boolean:n number:n complex:n rational:n string:n module:n class:n n
+sym    symbol   defined:y symbol:y boolean:n number:n complex:n rational:n string:n module:n class:n n

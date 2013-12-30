@@ -28,8 +28,8 @@ Value::Value(const Value &value) : _valType(value._valType), _valFlags(value._va
 		_u.pSymbol = value._u.pSymbol;
 	} else if (value.Is_complex()) {
 		_u.pComp = new Complex(*value._u.pComp);
-	} else if (value.Is_fraction()) {
-		_u.pFrac = new Fraction(*value._u.pFrac);
+	} else if (value.Is_rational()) {
+		_u.pRatio = new Rational(*value._u.pRatio);
 	} else if (value.Is_string()) {
 		_u.pStrRef = value._u.pStrRef->Reference();
 	} else if (value.IsModule()) {
@@ -101,9 +101,9 @@ void Value::FreeResource()
 	} else if (Is_complex()) {
 		delete _u.pComp;
 		_u.pComp = NULL;
-	} else if (Is_fraction()) {
-		delete _u.pFrac;
-		_u.pFrac = NULL;
+	} else if (Is_rational()) {
+		delete _u.pRatio;
+		_u.pRatio = NULL;
 	} else if (Is_string()) {
 		StringRef::Delete(_u.pStrRef);
 		_u.pStrRef = NULL;
@@ -140,8 +140,8 @@ Value &Value::operator=(const Value &value)
 		_u.pSymbol = value._u.pSymbol;
 	} else if (value.Is_complex()) {
 		_u.pComp = new Complex(*value._u.pComp);
-	} else if (value.Is_fraction()) {
-		_u.pFrac = new Fraction(*value._u.pFrac);
+	} else if (value.Is_rational()) {
+		_u.pRatio = new Rational(*value._u.pRatio);
 	} else if (value.Is_string()) {
 		_u.pStrRef = value._u.pStrRef->Reference();
 	} else if (value.IsModule()) {
@@ -420,19 +420,19 @@ String Value::ToString(bool exprFlag) const
 			str += Gura_Symbol(j)->GetName();
 		}
 		return str;
-	} else if (Is_fraction()) {
-		const Fraction &frac = *_u.pFrac;
+	} else if (Is_rational()) {
+		const Rational &ratio = *_u.pRatio;
 		String str;
 		if (exprFlag) {
-			str += "fraction(";
-			str += NumberToString(frac.numer);
+			str += "rational(";
+			str += NumberToString(ratio.numer);
 			str += ", ";
-			str += NumberToString(frac.denom);
+			str += NumberToString(ratio.denom);
 			str += ")";
 		} else {
-			str += NumberToString(frac.numer);
+			str += NumberToString(ratio.numer);
 			str += "/";
-			str += NumberToString(frac.denom);
+			str += NumberToString(ratio.denom);
 		}
 		return str;
 	} else if (Is_string()) {
@@ -470,13 +470,13 @@ Number Value::ToNumber(bool allowPartFlag, bool &successFlag) const
 		}
 		successFlag = (p > str && (allowPartFlag || *p == '\0'));
 		return num;
-	} else if (Is_fraction()) {
-		const Fraction &frac = *_u.pFrac;
-		if (frac.denom == 0) {
+	} else if (Is_rational()) {
+		const Rational &ratio = *_u.pRatio;
+		if (ratio.denom == 0) {
 			successFlag = false;
 			return 0.;
 		}
-		return frac.numer / frac.denom;
+		return ratio.numer / ratio.denom;
 	} else {
 		successFlag = false;
 		return 0.;

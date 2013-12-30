@@ -271,32 +271,32 @@ typedef std::vector<Complex> ComplexList;
 typedef std::deque<Complex> ComplexDeque;
 
 //-----------------------------------------------------------------------------
-// Fraction
+// Rational
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Fraction {
+class GURA_DLLDECLARE Rational {
 public:
 	int numer;
 	int denom;
 public:
-	static const Fraction Zero;
+	static const Rational Zero;
 public:
-	inline Fraction() : numer(0), denom(1) {}
-	inline Fraction(int numer_, int denom_) : numer(numer_), denom(denom_) {}
-	inline Fraction(const Fraction &frac) : numer(frac.numer), denom(frac.denom) {}
-	Fraction Reduce() const;
-	static Fraction FromNumber(Number num);
+	inline Rational() : numer(0), denom(1) {}
+	inline Rational(int numer_, int denom_) : numer(numer_), denom(denom_) {}
+	inline Rational(const Rational &ratio) : numer(ratio.numer), denom(ratio.denom) {}
+	Rational Reduce() const;
+	static Rational FromNumber(Number num);
 	static void SetError_DenominatorZero(Signal &sig);
 };
 
-typedef std::vector<Fraction> FractionList;
-typedef std::deque<Fraction> FractionDeque;
+typedef std::vector<Rational> RationalList;
+typedef std::deque<Rational> RationalDeque;
 
-GURA_DLLDECLARE Fraction operator+(const Fraction &a);
-GURA_DLLDECLARE Fraction operator-(const Fraction &a);
-GURA_DLLDECLARE Fraction operator+(const Fraction &a, const Fraction &b);
-GURA_DLLDECLARE Fraction operator-(const Fraction &a, const Fraction &b);
-GURA_DLLDECLARE Fraction operator*(const Fraction &a, const Fraction &b);
-GURA_DLLDECLARE Fraction operator/(const Fraction &a, const Fraction &b);
+GURA_DLLDECLARE Rational operator+(const Rational &a);
+GURA_DLLDECLARE Rational operator-(const Rational &a);
+GURA_DLLDECLARE Rational operator+(const Rational &a, const Rational &b);
+GURA_DLLDECLARE Rational operator-(const Rational &a, const Rational &b);
+GURA_DLLDECLARE Rational operator*(const Rational &a, const Rational &b);
+GURA_DLLDECLARE Rational operator/(const Rational &a, const Rational &b);
 
 //-----------------------------------------------------------------------------
 // RandomGenerator

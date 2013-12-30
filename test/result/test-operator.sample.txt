@@ -32,15 +32,15 @@ func(a, b, c, d, e%, f*) = {}
 
 ======== #2 ========
 
-+ [`complex, `fraction, `number, `matrix, `timedelta]
-- [`complex, `fraction, `number, `matrix, `timedelta]
++ [`complex, `rational, `number, `matrix, `timedelta]
+- [`complex, `rational, `number, `matrix, `timedelta]
 ~ [`number]
 ! [`any]
 .. [`number]
-+ [[`complex, `complex], [`number, `complex], [`fraction, `fraction], [`number, `fraction], [`complex, `number], [`fraction, `number], [`number, `number], [`pointer, `number], [`string, `string], [`any, `string], [`binary, `string], [`string, `any], [`string, `binary], [`binary, `binary], [`timedelta, `datetime], [`matrix, `matrix], [`datetime, `timedelta], [`timedelta, `timedelta]]
-- [[`complex, `complex], [`number, `complex], [`fraction, `fraction], [`number, `fraction], [`complex, `number], [`fraction, `number], [`number, `number], [`pointer, `number], [`color, `color], [`datetime, `datetime], [`matrix, `matrix], [`pointer, `pointer], [`datetime, `timedelta], [`timedelta, `timedelta]]
-* [[`complex, `complex], [`number, `complex], [`fraction, `fraction], [`number, `fraction], [`complex, `number], [`fraction, `number], [`number, `number], [`string, `number], [`binary, `number], [`timedelta, `number], [`number, `string], [`function, `any], [`matrix, `any], [`number, `binary], [`matrix, `list], [`any, `matrix], [`list, `matrix], [`matrix, `matrix], [`number, `timedelta]]
-/ [[`complex, `complex], [`number, `complex], [`fraction, `fraction], [`number, `fraction], [`complex, `number], [`fraction, `number], [`number, `number], [`matrix, `any]]
++ [[`complex, `complex], [`number, `complex], [`rational, `rational], [`number, `rational], [`complex, `number], [`rational, `number], [`number, `number], [`pointer, `number], [`string, `string], [`any, `string], [`binary, `string], [`string, `any], [`string, `binary], [`binary, `binary], [`timedelta, `datetime], [`matrix, `matrix], [`datetime, `timedelta], [`timedelta, `timedelta]]
+- [[`complex, `complex], [`number, `complex], [`rational, `rational], [`number, `rational], [`complex, `number], [`rational, `number], [`number, `number], [`pointer, `number], [`color, `color], [`datetime, `datetime], [`matrix, `matrix], [`pointer, `pointer], [`datetime, `timedelta], [`timedelta, `timedelta]]
+* [[`complex, `complex], [`number, `complex], [`rational, `rational], [`number, `rational], [`complex, `number], [`rational, `number], [`number, `number], [`string, `number], [`binary, `number], [`timedelta, `number], [`number, `string], [`function, `any], [`matrix, `any], [`number, `binary], [`matrix, `list], [`any, `matrix], [`list, `matrix], [`matrix, `matrix], [`number, `timedelta]]
+/ [[`complex, `complex], [`number, `complex], [`rational, `rational], [`number, `rational], [`complex, `number], [`rational, `number], [`number, `number], [`matrix, `any]]
 % [[`number, `number]]
 ** [[`complex, `complex], [`number, `complex], [`complex, `number], [`number, `number]]
 == [[`any, `any]]

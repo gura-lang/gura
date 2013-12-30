@@ -18,7 +18,7 @@ Value RationalToValue(Signal sig, const RATIONAL_T &rational)
 		}
 		denominator = 1;
 	}
-	return Value(Fraction(numerator, denominator));
+	return Value(Rational(numerator, denominator));
 }
 
 template<typename RATIONAL_T>
@@ -33,7 +33,7 @@ Value SRationalToValue(Signal sig, const RATIONAL_T &rational)
 		}
 		denominator = 1;
 	}
-	return Value(Fraction(numerator, denominator));
+	return Value(Rational(numerator, denominator));
 }
 
 template<typename IFDHeader_T, typename TagRaw_T, typename ValueRaw_T, typename SHORT_T,

@@ -85,7 +85,6 @@ false:boolean = false
 finally():trailer:finalizer {block}
 for (`expr+) {block}
 format(format:string, values*):map
-fraction(numer:number, denom?:number):map {block?}
 fs:module = <module:fs:<integrated>>
   __name__:string = fs
   __source__:string = <integrated>
@@ -117,7 +116,6 @@ isdict(value)
 isenvironment(value)
 iserror(value)
 isexpr(value)
-isfraction(value)
 isfunction(value)
 isinstance(value, type+:expr):map
 isiterator(value)
@@ -126,6 +124,7 @@ ismatrix(value)
 ismodule(value)
 isnil(value)
 isnumber(value)
+isrational(value)
 issemaphore(value)
 isstring(value)
 issymbol(value)
@@ -228,6 +227,7 @@ rand(range?:number) {block?}
 rands(range?:number, num?:number) {block?}
 randseed(seed:number)
 range(num:number, num_end?:number, step?:number):map {block?}
+rational(numer:number, denom?:number):map {block?}
 readlines(stream?:stream:r):[chop] {block?}
 repeat (n?:number) {block}
 root:environment = <environment:root>
@@ -383,8 +383,6 @@ expr
   tofunction(`args*)
   unquote()
   write(dst:stream:w, style?:symbol)
-fraction
-  reduce()
 function
   addhelp(lang:symbol, format:string, help:string):map:void
   diff(var?:symbol):reduce
@@ -572,6 +570,8 @@ pointer
   unpack(format:string, values*:number):[nil,stay]
   unpacks(format:string, values*:number)
 quote
+rational
+  reduce()
 semaphore
   release()
   session() {block}

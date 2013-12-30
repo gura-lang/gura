@@ -538,7 +538,7 @@ public:
 	// primitive types
 	inline bool Is_boolean(size_t idxArg) const			{ return GetValue(idxArg).Is_boolean();			}
 	inline bool Is_complex(size_t idxArg) const			{ return GetValue(idxArg).Is_complex();			}
-	inline bool Is_fraction(size_t idxArg) const		{ return GetValue(idxArg).Is_fraction();		}
+	inline bool Is_rational(size_t idxArg) const		{ return GetValue(idxArg).Is_rational();		}
 	inline bool Is_number(size_t idxArg) const			{ return GetValue(idxArg).Is_number();			}
 	inline bool Is_string(size_t idxArg) const			{ return GetValue(idxArg).Is_string();			}
 	inline bool Is_symbol(size_t idxArg) const			{ return GetValue(idxArg).Is_symbol();			}

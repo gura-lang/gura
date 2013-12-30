@@ -220,9 +220,9 @@ Gura_ImplementMethod(Object, istype)
 	if (pValueTypeInfo == NULL) return Value::Null;
 	ValueType valType = args.GetThis().GetValueType();
 	ValueType valTypeCmp = pValueTypeInfo->GetValueType();
-	if ((valType == VTYPE_number || valType == VTYPE_fraction) &&
+	if ((valType == VTYPE_number || valType == VTYPE_rational) &&
 								valTypeCmp == VTYPE_complex) return Value(true);
-	if (valType == VTYPE_fraction && valTypeCmp == VTYPE_number) return Value(true);
+	if (valType == VTYPE_rational && valTypeCmp == VTYPE_number) return Value(true);
 	return Value(valType == valTypeCmp);
 }
 

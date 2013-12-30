@@ -38,7 +38,7 @@ GURA_DLLDECLARE extern ValueType VTYPE_undefined;
 // primitive types
 GURA_DLLDECLARE extern ValueType VTYPE_boolean;
 GURA_DLLDECLARE extern ValueType VTYPE_complex;
-GURA_DLLDECLARE extern ValueType VTYPE_fraction;
+GURA_DLLDECLARE extern ValueType VTYPE_rational;
 GURA_DLLDECLARE extern ValueType VTYPE_number;
 GURA_DLLDECLARE extern ValueType VTYPE_string;
 GURA_DLLDECLARE extern ValueType VTYPE_symbol;
@@ -131,7 +131,7 @@ public:
 	Gura_DeclareVTYPE(boolean);
 	Gura_DeclareVTYPE(number);
 	Gura_DeclareVTYPE(complex);
-	Gura_DeclareVTYPE(fraction);
+	Gura_DeclareVTYPE(rational);
 	Gura_DeclareVTYPE(string);
 	// for declaration
 	Gura_DeclareVTYPE(quote);

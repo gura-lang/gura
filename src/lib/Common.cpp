@@ -28,7 +28,7 @@ const Number Math_E = 2.71828182845904523536;
 const Number RoundOffThreshold = 1e-10;
 
 const Complex Complex::Zero;
-const Fraction Fraction::Zero;
+const Rational Rational::Zero;
 
 bool IsBigEndian()
 {
@@ -58,9 +58,9 @@ const char *GetOpening()
 }
 
 //-----------------------------------------------------------------------------
-// Fraction
+// Rational
 //-----------------------------------------------------------------------------
-Fraction Fraction::Reduce() const
+Rational Rational::Reduce() const
 {
 	if (numer == 0 || denom == 0) return *this;
 	int gcd = CalcGCD(numer, denom);
@@ -70,39 +70,39 @@ Fraction Fraction::Reduce() const
 		numerReduced = -numerReduced;
 		denomReduced = -denomReduced;
 	}
-	return Fraction(numerReduced, denomReduced);
+	return Rational(numerReduced, denomReduced);
 }
 
-Fraction Fraction::FromNumber(Number num)
+Rational Rational::FromNumber(Number num)
 {
 	int numInt = int(num);
-	if (num == numInt) return Fraction(numInt, 1);
+	if (num == numInt) return Rational(numInt, 1);
 	//char buff[64];
 	//::sprintf(buff, "%f", num);
-	return Fraction(0, 1);
+	return Rational(0, 1);
 }
 
-void Fraction::SetError_DenominatorZero(Signal &sig)
+void Rational::SetError_DenominatorZero(Signal &sig)
 {
 	sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
 }
 
-Fraction operator+(const Fraction &a)
+Rational operator+(const Rational &a)
 {
-	if (a.denom < 0) return Fraction(-a.numer, -a.denom);
+	if (a.denom < 0) return Rational(-a.numer, -a.denom);
 	return a;
 }
 
-Fraction operator-(const Fraction &a)
+Rational operator-(const Rational &a)
 {
-	if (a.denom < 0) return Fraction(a.numer, -a.denom);
-	return Fraction(-a.numer, a.denom);
+	if (a.denom < 0) return Rational(a.numer, -a.denom);
+	return Rational(-a.numer, a.denom);
 }
 
-Fraction operator+(const Fraction &a, const Fraction &b)
+Rational operator+(const Rational &a, const Rational &b)
 {
-	if (a.denom == 0 || b.denom == 0) return Fraction::Zero;
-	Fraction rtn;
+	if (a.denom == 0 || b.denom == 0) return Rational::Zero;
+	Rational rtn;
 	if (a.denom == b.denom) {
 		rtn.numer = a.numer + b.numer;
 		rtn.denom = a.denom;
@@ -113,10 +113,10 @@ Fraction operator+(const Fraction &a, const Fraction &b)
 	return rtn.Reduce();
 }
 
-Fraction operator-(const Fraction &a, const Fraction &b)
+Rational operator-(const Rational &a, const Rational &b)
 {
-	if (a.denom == 0 || b.denom == 0) return Fraction::Zero;
-	Fraction rtn;
+	if (a.denom == 0 || b.denom == 0) return Rational::Zero;
+	Rational rtn;
 	if (a.denom == b.denom) {
 		rtn.numer = a.numer - b.numer;
 		rtn.denom = a.denom;
@@ -127,16 +127,16 @@ Fraction operator-(const Fraction &a, const Fraction &b)
 	return rtn.Reduce();
 }
 
-Fraction operator*(const Fraction &a, const Fraction &b)
+Rational operator*(const Rational &a, const Rational &b)
 {
-	if (a.denom == 0 || b.denom == 0) return Fraction::Zero;
-	return Fraction(a.numer * b.numer, a.denom * b.denom).Reduce();
+	if (a.denom == 0 || b.denom == 0) return Rational::Zero;
+	return Rational(a.numer * b.numer, a.denom * b.denom).Reduce();
 }
 
-Fraction operator/(const Fraction &a, const Fraction &b)
+Rational operator/(const Rational &a, const Rational &b)
 {
-	if (a.denom == 0 || b.numer == 0) return Fraction::Zero;
-	return Fraction(a.numer * b.denom, a.denom * b.numer).Reduce();
+	if (a.denom == 0 || b.numer == 0) return Rational::Zero;
+	return Rational(a.numer * b.denom, a.denom * b.numer).Reduce();
 }
 
 //-----------------------------------------------------------------------------

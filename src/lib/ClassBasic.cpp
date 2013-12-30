@@ -326,7 +326,7 @@ bool Class_complex::CastFrom(Environment &env, Signal sig, Value &value, const D
 {
 	if (value.Is_number()) {		// cast number to complex
 		return true;
-	} else if (value.Is_fraction()) {
+	} else if (value.Is_rational()) {
 		bool allowPartFlag = false;
 		bool successFlag = false;
 		Number num = value.ToNumber(allowPartFlag, successFlag);
@@ -356,20 +356,20 @@ bool Class_complex::Deserialize(Environment &env, Signal sig, Stream &stream, Va
 }
 
 //-----------------------------------------------------------------------------
-// Class_fraction
+// Class_rational
 //-----------------------------------------------------------------------------
-// fraction(numer:number, denom?:number):map {block?}
-Gura_DeclareFunction(fraction)
+// rational(numer:number, denom?:number):map {block?}
+Gura_DeclareFunction(rational)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "numer", VTYPE_number);
 	DeclareArg(env, "denom", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetClassToConstruct(env.LookupClass(VTYPE_fraction));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Creates a fraction value.");
+	SetClassToConstruct(env.LookupClass(VTYPE_rational));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Creates a rational value.");
 }
 
-Gura_ImplementFunction(fraction)
+Gura_ImplementFunction(rational)
 {
 	int numer = args.GetInt(0);
 	int denom = args.Is_number(1)? args.GetInt(1) : 1;
@@ -380,63 +380,63 @@ Gura_ImplementFunction(fraction)
 	if (denom < 0) {
 		numer = -numer, denom = -denom;
 	}
-	return ReturnValue(env, sig, args, Value(Fraction(numer, denom)));
+	return ReturnValue(env, sig, args, Value(Rational(numer, denom)));
 }
 
-// fraction#reduce()
-Gura_DeclareMethodPrimitive(fraction, reduce)
+// rational#reduce()
+Gura_DeclareMethodPrimitive(rational, reduce)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 }
 
-Gura_ImplementMethod(fraction, reduce)
+Gura_ImplementMethod(rational, reduce)
 {
-	const Fraction &num = args.GetThis().GetFraction();
+	const Rational &num = args.GetThis().GetRational();
 	return Value(num.Reduce());
 }
 
-Class_fraction::Class_fraction(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_fraction)
+Class_rational::Class_rational(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_rational)
 {
 }
 
-void Class_fraction::Prepare(Environment &env)
+void Class_rational::Prepare(Environment &env)
 {
-	Gura_AssignFunction(fraction);
-	Gura_AssignMethod(fraction, reduce);		// primitive method
+	Gura_AssignFunction(rational);
+	Gura_AssignMethod(rational, reduce);		// primitive method
 }
 
-Value Class_fraction::GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
+Value Class_rational::GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
 				const Symbol *pSymbol, const SymbolSet &attrs, bool &evaluatedFlag) const
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(denom))) {
-		const Fraction &num = valueThis.GetFraction();
+		const Rational &num = valueThis.GetRational();
 		return Value(num.denom);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(numer))) {
-		const Fraction &num = valueThis.GetFraction();
+		const Rational &num = valueThis.GetRational();
 		return Value(num.numer);
 	}
 	evaluatedFlag = false;
 	return Value::Null;
 }
 
-bool Class_fraction::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+bool Class_rational::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
-	if (value.Is_number()) {		// cast number to fraction
+	if (value.Is_number()) {		// cast number to rational
 		return true;
 	}
 	return false;
 }
 
-bool Class_fraction::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
+bool Class_rational::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
 {
-	const Fraction *pFrac = value.GetFractionPtr();
-	if (!stream.SerializeDouble(sig, pFrac->numer)) return false;
-	if (!stream.SerializeDouble(sig, pFrac->denom)) return false;
+	const Rational *pRatio = value.GetRationalPtr();
+	if (!stream.SerializeDouble(sig, pRatio->numer)) return false;
+	if (!stream.SerializeDouble(sig, pRatio->denom)) return false;
 	return true;
 }
 
-bool Class_fraction::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
+bool Class_rational::Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const
 {
 	double numer = 0, denom = 0;
 	if (!stream.DeserializeDouble(sig, numer)) return false;
@@ -445,7 +445,7 @@ bool Class_fraction::Deserialize(Environment &env, Signal sig, Stream &stream, V
 		sig.SetError(ERR_ZeroDivisionError, "denominator can't be zero");
 		return false;
 	}
-	value = Value(Fraction(static_cast<int>(numer), static_cast<int>(denom)));
+	value = Value(Rational(static_cast<int>(numer), static_cast<int>(denom)));
 	return true;
 }
 

@@ -11,7 +11,7 @@ ValueType VTYPE_undefined		= static_cast<ValueType>(1);
 // primitive types
 ValueType VTYPE_boolean			= static_cast<ValueType>(2);
 ValueType VTYPE_complex			= static_cast<ValueType>(3);
-ValueType VTYPE_fraction		= static_cast<ValueType>(4);
+ValueType VTYPE_rational		= static_cast<ValueType>(4);
 ValueType VTYPE_number			= static_cast<ValueType>(5);
 ValueType VTYPE_string			= static_cast<ValueType>(6);
 ValueType VTYPE_symbol			= static_cast<ValueType>(7);
@@ -121,7 +121,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	// primitive types
 	Gura_RealizeVTYPE(boolean);		// must be at 3rd
 	Gura_RealizeVTYPE(complex);		// must be at 4th
-	Gura_RealizeVTYPE(fraction);	// must be at 5th
+	Gura_RealizeVTYPE(rational);	// must be at 5th
 	Gura_RealizeVTYPE(number);		// must be at 6th
 	Gura_RealizeVTYPE(string);		// must be at 7th
 	Gura_RealizeVTYPE(symbol);		// must be at 8th
@@ -171,7 +171,7 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_VTYPEInfo(boolean		)->SetClass(new Class_boolean(pClass));
 	Gura_VTYPEInfo(number		)->SetClass(new Class_number(pClass));
 	Gura_VTYPEInfo(complex		)->SetClass(new Class_complex(pClass));
-	Gura_VTYPEInfo(fraction		)->SetClass(new Class_fraction(pClass));
+	Gura_VTYPEInfo(rational		)->SetClass(new Class_rational(pClass));
 	Gura_VTYPEInfo(string		)->SetClass(new Class_string(pClass));
 	// for declaration
 	Gura_VTYPEInfo(quote		)->SetClass(new Class_quote(pClass));
@@ -215,7 +215,7 @@ void ValueTypePool::DoPrepareClass(Environment &env)
 	// primitive types
 	env.LookupClass(VTYPE_boolean)->Prepare(env);
 	env.LookupClass(VTYPE_complex)->Prepare(env);
-	env.LookupClass(VTYPE_fraction)->Prepare(env);
+	env.LookupClass(VTYPE_rational)->Prepare(env);
 	env.LookupClass(VTYPE_number)->Prepare(env);
 	env.LookupClass(VTYPE_string)->Prepare(env);
 	env.LookupClass(VTYPE_symbol)->Prepare(env);
