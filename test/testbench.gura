@@ -59,6 +59,6 @@ scriptNames.each {|scriptName|
 	if (cmd == `test) {
 		os.exec('diff', '-u', pathNameSample, pathNameResult)
 	} elsif (cmd == `update) {
-		copy(pathNameResult, pathNameSample)
+		stream.copy(pathNameResult, pathNameSample)
 	}
 }

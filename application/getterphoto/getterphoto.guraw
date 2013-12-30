@@ -177,7 +177,7 @@ Page_Getter = class(wx.Panel) {
 		this.listFileNames.EnsureVisible(index)
 		bytesProgress = 0
 		stat = path.stat(pathName)
-		copy(pathName, pathNameDst):finalize {|buff|
+		stream.copy(pathName, pathNameDst):finalize {|buff|
 			if (stat.size > 0) {
 				this.gauge.SetValue(bytesProgress * 100 / stat.size)
 				bytesProgress += buff.len()

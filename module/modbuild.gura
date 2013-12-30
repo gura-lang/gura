@@ -135,7 +135,7 @@ BuilderBase = class {
 		dirName = path.dirname(targetPath)
 		!path.exists(dirName) && fs.mkdir(dirName):tree
 		try {
-			copy(path.join(this.outDir, target), open(targetPath, 'w')):finalize
+			stream.copy(path.join(this.outDir, target), targetPath):finalize
 		} catch {
 			println('-- failed to install: ', targetPath)
 			return

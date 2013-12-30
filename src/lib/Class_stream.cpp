@@ -75,15 +75,17 @@ String Object_stream::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// stream(name:string, mode?:string, encoding?:string):map {block?}
+// stream(pathname:string, mode?:string, encoding?:string):map {block?}
 Gura_DeclareFunction(stream)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "name", VTYPE_string);
+	DeclareArg(env, "pathname", VTYPE_string);
 	DeclareArg(env, "mode", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "codec", VTYPE_codec, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_stream));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
 }
 
 Gura_ImplementFunction(stream)
@@ -114,35 +116,6 @@ Gura_ImplementFunction(stream)
 	return result;
 }
 
-// copy(src:stream:r, dst:stream:w, bytesunit:number => 65536):map:void:[finalize] {block?}
-Gura_DeclareFunction(copy)
-{
-	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "src", VTYPE_stream, OCCUR_Once, FLAG_Read);
-	DeclareArg(env, "dst", VTYPE_stream, OCCUR_Once, FLAG_Write);
-	DeclareArg(env, "bytesunit", VTYPE_number,
-					OCCUR_Once, FLAG_None, new Expr_Value(65536));
-	DeclareAttr(Gura_Symbol(finalize));
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementFunction(copy)
-{
-	bool finalizeFlag = args.IsSet(Gura_Symbol(finalize));
-	Stream &streamSrc = args.GetStream(0);
-	Stream &streamDst = args.GetStream(1);
-	size_t bytesUnit = args.GetSizeT(2);
-	const Function *pFuncFilter =
-					args.GetBlockFunc(env, sig, GetSymbolForBlock());
-	if (sig.IsSignalled()) return Value::Null;
-	if (bytesUnit == 0 || bytesUnit > 1024 * 1024) {
-		sig.SetError(ERR_ValueError, "wrong value for bytesunit");
-		return Value::Null;
-	}
-	streamSrc.ReadToStream(env, sig, streamDst, bytesUnit, finalizeFlag, pFuncFilter);
-	return Value::Null;
-}
-
 // readlines(stream?:stream:r):[chop] {block?}
 Gura_DeclareFunction(readlines)
 {
@@ -150,6 +123,8 @@ Gura_DeclareFunction(readlines)
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareAttr(Gura_Symbol(chop));
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
 }
 
 Gura_ImplementFunction(readlines)
@@ -179,6 +154,8 @@ Gura_DeclareMethod(stream, addcr)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
 }
 
 Gura_ImplementMethod(stream, addcr)
@@ -189,10 +166,12 @@ Gura_ImplementMethod(stream, addcr)
 	return args.GetThis();
 }
 
-// stream#close()
+// stream#close():void
 Gura_DeclareMethod(stream, close)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Void, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
 }
 
 Gura_ImplementMethod(stream, close)
@@ -207,6 +186,8 @@ Gura_DeclareMethod(stream, compare)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Read);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
 }
 
 Gura_ImplementMethod(stream, compare)
@@ -218,6 +199,37 @@ Gura_ImplementMethod(stream, compare)
 	return Value(sameFlag);
 }
 
+// stream.copy(src:stream:r, dst:stream:w, bytesunit:number => 65536):map:void:[finalize] {block?}
+Gura_DeclareClassMethod(stream, copy)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "src", VTYPE_stream, OCCUR_Once, FLAG_Read);
+	DeclareArg(env, "dst", VTYPE_stream, OCCUR_Once, FLAG_Write);
+	DeclareArg(env, "bytesunit", VTYPE_number,
+					OCCUR_Once, FLAG_None, new Expr_Value(65536));
+	DeclareAttr(Gura_Symbol(finalize));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementClassMethod(stream, copy)
+{
+	bool finalizeFlag = args.IsSet(Gura_Symbol(finalize));
+	Stream &streamSrc = args.GetStream(0);
+	Stream &streamDst = args.GetStream(1);
+	size_t bytesUnit = args.GetSizeT(2);
+	const Function *pFuncFilter =
+					args.GetBlockFunc(env, sig, GetSymbolForBlock());
+	if (sig.IsSignalled()) return Value::Null;
+	if (bytesUnit == 0 || bytesUnit > 1024 * 1024) {
+		sig.SetError(ERR_ValueError, "wrong value for bytesunit");
+		return Value::Null;
+	}
+	streamSrc.ReadToStream(env, sig, streamDst, bytesUnit, finalizeFlag, pFuncFilter);
+	return Value::Null;
+}
+
 // stream#copyfrom(stream:stream:r, bytesunit:number => 65536):map:reduce:[finalize] {block?}
 Gura_DeclareMethod(stream, copyfrom)
 {
@@ -227,6 +239,8 @@ Gura_DeclareMethod(stream, copyfrom)
 					OCCUR_Once, FLAG_None, new Expr_Value(65536));
 	DeclareAttr(Gura_Symbol(finalize));
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
 }
 
 Gura_ImplementMethod(stream, copyfrom)
@@ -256,6 +270,8 @@ Gura_DeclareMethod(stream, copyto)
 					OCCUR_Once, FLAG_None, new Expr_Value(65536));
 	DeclareAttr(Gura_Symbol(finalize));
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
 }
 
 Gura_ImplementMethod(stream, copyto)
@@ -281,6 +297,8 @@ Gura_DeclareMethod(stream, delcr)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
 }
 
 Gura_ImplementMethod(stream, delcr)
@@ -295,6 +313,8 @@ Gura_ImplementMethod(stream, delcr)
 Gura_DeclareMethod(stream, deserialize)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
 }
 
 Gura_ImplementMethod(stream, deserialize)
@@ -310,6 +330,8 @@ Gura_ImplementMethod(stream, deserialize)
 Gura_DeclareMethod(stream, flush)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
 }
 
 Gura_ImplementMethod(stream, flush)
@@ -324,6 +346,8 @@ Gura_DeclareMethod(stream, peek)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
 }
 
 Gura_ImplementMethod(stream, peek)
@@ -348,6 +372,8 @@ Gura_ImplementMethod(stream, peek)
 Gura_DeclareMethod(stream, prefetch)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
 }
 
 Gura_ImplementMethod(stream, prefetch)
@@ -364,6 +390,8 @@ Gura_DeclareMethod(stream, print)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
 }
 
 Gura_ImplementMethod(stream, print)
@@ -385,6 +413,8 @@ Gura_DeclareMethod(stream, printf)
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
 }
 
 Gura_ImplementMethod(stream, printf)
@@ -400,6 +430,8 @@ Gura_DeclareMethod(stream, println)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_ZeroOrMore);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
 }
 
 Gura_ImplementMethod(stream, println)
@@ -421,6 +453,8 @@ Gura_DeclareMethod(stream, read)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
 }
 
 Gura_ImplementMethod(stream, read)
@@ -462,6 +496,8 @@ Gura_ImplementMethod(stream, read)
 Gura_DeclareMethod(stream, readchar)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
 }
 
 Gura_ImplementMethod(stream, readchar)
@@ -478,6 +514,8 @@ Gura_DeclareMethod(stream, readline)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(chop));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
 }
 
 Gura_ImplementMethod(stream, readline)
@@ -509,6 +547,8 @@ Gura_DeclareMethod(stream, readlines)
 	DeclareAttr(Gura_Symbol(chop));
 	DeclareArg(env, "nlines", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
 }
 
 Gura_ImplementMethod(stream, readlines)
@@ -527,6 +567,8 @@ Gura_ImplementMethod(stream, readlines)
 Gura_DeclareMethod(stream, readtext)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
 }
 
 Gura_ImplementMethod(stream, readtext)
@@ -549,6 +591,8 @@ Gura_DeclareMethod(stream, seek)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "offset", VTYPE_number);
 	DeclareArg(env, "origin", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
 }
 
 Gura_ImplementMethod(stream, seek)
@@ -575,6 +619,8 @@ Gura_DeclareMethod(stream, serialize)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
 }
 
 Gura_ImplementMethod(stream, serialize)
@@ -591,6 +637,8 @@ Gura_DeclareMethod(stream, setcodec)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "codec", VTYPE_codec, OCCUR_Once, FLAG_Nil);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
 }
 
 Gura_ImplementMethod(stream, setcodec)
@@ -610,6 +658,8 @@ Gura_ImplementMethod(stream, setcodec)
 Gura_DeclareMethod(stream, tell)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
 }
 
 Gura_ImplementMethod(stream, tell)
@@ -624,6 +674,8 @@ Gura_DeclareMethod(stream, write)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "buff", VTYPE_binary);
 	DeclareArg(env, "len", VTYPE_number, OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
 }
 
 Gura_ImplementMethod(stream, write)
@@ -669,12 +721,12 @@ void Class_stream::Prepare(Environment &env)
 {
 	Gura_AssignFunctionEx(stream, "open");
 	Gura_AssignFunction(stream);
-	Gura_AssignFunction(copy);
 	Gura_AssignFunction(readlines);
 	Gura_AssignBinaryOperator(Shl, stream, any);
 	Gura_AssignMethod(stream, addcr);
 	Gura_AssignMethod(stream, close);
 	Gura_AssignMethod(stream, compare);
+	Gura_AssignMethod(stream, copy);
 	Gura_AssignMethod(stream, copyfrom);
 	Gura_AssignMethod(stream, copyto);
 	Gura_AssignMethod(stream, delcr);

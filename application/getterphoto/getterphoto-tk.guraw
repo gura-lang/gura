@@ -72,7 +72,7 @@ tk.mainwindow {|mw|
 		tv.see(item)
 		tk.update()
 		bytesProgress = 0
-		copy(item.filename, pathnameDst):finalize {|buff|
+		stream.copy(item.filename, pathnameDst):finalize {|buff|
 			if (stat.size > 0) {
 				var_progress.number = bytesProgress * 100 / stat.size
 				bytesProgress += buff.len()
