@@ -453,6 +453,8 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_stat = STAT_NumberExpAfterE;
 		} else if (ch == 'j') {
 			_stat = STAT_ImagNumber;
+		} else if (ch == 'r') {
+			_stat = STAT_RatioNumber;
 		} else {
 			pExpr = FeedElement(env, sig, Element(ETYPE_Number, GetLineNo(), _token));
 			continueFlag = true;
@@ -488,6 +490,8 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_token.push_back(ch);
 		} else if (ch == 'j') {
 			_stat = STAT_ImagNumber;
+		} else if (ch == 'j') {
+			_stat = STAT_RatioNumber;
 		} else {
 			pExpr = FeedElement(env, sig, Element(ETYPE_Number, GetLineNo(), _token));
 			continueFlag = true;
@@ -501,6 +505,17 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_stat = STAT_Error;
 		} else {
 			pExpr = FeedElement(env, sig, Element(ETYPE_ImagNumber, GetLineNo(), _token));
+			continueFlag = true;
+			_stat = STAT_Start;
+		}
+		break;
+	}
+	case STAT_RatioNumber: {
+		if (IsSymbolChar(ch)) {
+			SetError(sig, ERR_SyntaxError, "wrong format of number");
+			_stat = STAT_Error;
+		} else {
+			pExpr = FeedElement(env, sig, Element(ETYPE_RatioNumber, GetLineNo(), _token));
 			continueFlag = true;
 			_stat = STAT_Start;
 		}
@@ -1031,6 +1046,7 @@ const Parser::ElemTypeInfo Parser::_elemTypeInfoTbl[] = {
 	{ ETYPE_EOL,				26, "EOL",				"[EOL]",	OPTYPE_None		},	// \n
 	{ ETYPE_Number,				27, "Number",			"[Num]",	OPTYPE_None		},	// V
 	{ ETYPE_ImagNumber,			27, "ImagNumber",		"[iNm]",	OPTYPE_None		},
+	{ ETYPE_RatioNumber,		27, "RatioNumber",		"[rNm]",	OPTYPE_None		},
 	{ ETYPE_String,				27, "String",			"[Str]",	OPTYPE_None		},
 	{ ETYPE_Binary,				27, "Binary",			"[Bin]",	OPTYPE_None		},
 	{ ETYPE_Symbol,				28, "Symbol",			"[Sym]",	OPTYPE_None		},	// S
@@ -1184,6 +1200,11 @@ bool Parser::ReduceOneElem(Environment &env, Signal sig)
 		DBGPARSER(::printf("Reduce: Expr -> ImagNumber\n"));
 		Expr_Value *pExprEx = new Expr_Value(Complex(0, elem1.GetNumber()));
 		pExprEx->SetScript(elem1.GetStringSTL() + "j");
+		pExpr = pExprEx;
+	} else if (elem1.IsType(ETYPE_RatioNumber)) {
+		DBGPARSER(::printf("Reduce: Expr -> RatioNumber\n"));
+		Expr_Value *pExprEx = new Expr_Value(Rational::FromNumber(elem1.GetNumber()));
+		pExprEx->SetScript(elem1.GetStringSTL() + "r");
 		pExpr = pExprEx;
 	} else if (elem1.IsType(ETYPE_String)) {
 		DBGPARSER(::printf("Reduce: Expr -> String\n"));

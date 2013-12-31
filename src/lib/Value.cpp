@@ -423,17 +423,10 @@ String Value::ToString(bool exprFlag) const
 	} else if (Is_rational()) {
 		const Rational &ratio = *_u.pRatio;
 		String str;
-		if (exprFlag) {
-			str += "rational(";
-			str += NumberToString(ratio.numer);
-			str += ", ";
-			str += NumberToString(ratio.denom);
-			str += ")";
-		} else {
-			str += NumberToString(ratio.numer);
-			str += "/";
-			str += NumberToString(ratio.denom);
-		}
+		str += NumberToString(ratio.numer);
+		str += "/";
+		str += NumberToString(ratio.denom);
+		str += "r";
 		return str;
 	} else if (Is_string()) {
 		const char *str = GetString();
