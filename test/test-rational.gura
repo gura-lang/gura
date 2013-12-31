@@ -16,6 +16,16 @@ testcase {
 }
 testcase {
 	[
+		`(4 / 7r + 3 / 10r)
+		`(3 / 5r + 3 / 10r)
+		`(2 / 3r - 3 / 5r)
+		`(6 / 7r - 1 / 3r)
+	].each {|test|
+		printf('%s .. %s\n', test, test.eval()):nomap
+	}
+}
+testcase {
+	[
 		`(rational(4, 7) + rational(3, 10))
 		`(rational(3, 5) + rational(3, 10))
 		`(rational(4, 7) + rational(2, 5))
