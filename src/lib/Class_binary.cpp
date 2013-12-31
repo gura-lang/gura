@@ -225,17 +225,60 @@ Gura_ImplementFunction(binary)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// binary#len()
-Gura_DeclareMethod(binary, len)
+// binary#add(buff+:binary):map:reduce
+Gura_DeclareMethod(binary, add)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the length of the buffer in binary.");
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "buff", VTYPE_binary, OCCUR_OnceOrMore);
 }
 
-Gura_ImplementMethod(binary, len)
+Gura_ImplementMethod(binary, add)
 {
 	Object_binary *pThis = Object_binary::GetThisObj(args);
-	return Value(static_cast<UInt>(pThis->GetBinary().size()));
+	if (!pThis->IsWritable()) {
+		sig.SetError(ERR_ValueError, "not a writable binary");
+		return Value::Null;
+	}
+	foreach_const (ValueList, pValue, args.GetList(0)) {
+		pThis->GetBinary() += pValue->GetBinary();
+	}
+	return args.GetThis();
+}
+
+// binary#decode(codec:codec)
+Gura_DeclareMethodPrimitive(binary, decode)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "codec", VTYPE_codec);
+}
+
+Gura_ImplementMethod(binary, decode)
+{
+	Object_binary *pThis = Object_binary::GetThisObj(args);
+	Codec *pCodec = Object_codec::GetObject(args, 0)->GetCodec();
+	String str;
+	if (!pCodec->GetDecoder()->Decode(sig, str, pThis->GetBinary())) {
+		return Value::Null;
+	}
+	return Value(str);
+}
+
+// binary#dump(stream?:stream:w):void:[upper]
+Gura_DeclareMethod(binary, dump)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	DeclareAttr(Gura_Symbol(upper));
+}
+
+Gura_ImplementMethod(binary, dump)
+{
+	Stream *pStream = args.IsInstanceOf(0, VTYPE_stream)?
+								&args.GetStream(0) : env.GetConsole();
+	Object_binary *pThis = Object_binary::GetThisObj(args);
+	const Binary &buff = pThis->GetBinary();
+	pStream->Dump(sig, buff.data(), buff.size(), args.IsSet(Gura_Symbol(upper)));
+	return Value::Null;
 }
 
 // binary#each() {block?}
@@ -254,22 +297,62 @@ Gura_ImplementMethod(binary, each)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// binary#pointer(offset:number => 0)
-Gura_DeclareMethod(binary, pointer)
+// binary#encodeuri()
+Gura_DeclareMethod(binary, encodeuri)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "offset", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Returns a pointer instance that has an initial offset specified\n"
-	"by the argument.");
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Returns a string in which non-URIC characters are percent-encoded.");
 }
 
-Gura_ImplementMethod(binary, pointer)
+Gura_ImplementMethod(binary, encodeuri)
 {
 	Object_binary *pThis = Object_binary::GetThisObj(args);
-	Object_binary *pObjBinary = Object_binary::Reference(pThis);
-	size_t offset = args.GetSizeT(0);
-	return Value(new Object_pointer(env, pObjBinary, offset));
+	const Binary &binary = pThis->GetBinary();
+	return Value(EncodeURI(binary.data(), binary.size()));
+}
+
+// binary#hex():[upper,cstr,carray]
+Gura_DeclareMethod(binary, hex)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(upper));
+	DeclareAttr(Gura_Symbol(cstr));
+	DeclareAttr(Gura_Symbol(carray));
+}
+
+Gura_ImplementMethod(binary, hex)
+{
+	Object_binary *pThis = Object_binary::GetThisObj(args);
+	String rtn;
+	bool upperFlag = args.IsSet(Gura_Symbol(upper));
+	const char *sep = args.IsSet(Gura_Symbol(carray))? ", " : NULL;
+	const char *format =
+		args.IsSet(Gura_Symbol(cstr))? (upperFlag? "\\x%02X" : "\\x%02x") :
+		args.IsSet(Gura_Symbol(carray))? (upperFlag? "0x%02X" : "0x%02x") :
+		(upperFlag? "%02X" : "%02x");
+	const Binary &buff = pThis->GetBinary();
+	foreach_const (Binary, p, buff) {
+		UChar ch = static_cast<UChar>(*p);
+		if (sep != NULL && p != buff.begin()) rtn += sep;
+		char buff[32];
+		::sprintf(buff, format, ch);
+		rtn += buff;
+	}
+	return Value(rtn);
+}
+
+// binary#len()
+Gura_DeclareMethod(binary, len)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the length of the buffer in binary.");
+}
+
+Gura_ImplementMethod(binary, len)
+{
+	Object_binary *pThis = Object_binary::GetThisObj(args);
+	return Value(static_cast<UInt>(pThis->GetBinary().size()));
 }
 
 // binary.pack(format:string, value*):map
@@ -287,6 +370,71 @@ Gura_ImplementClassMethod(binary, pack)
 	pObjBinary->GetBinary().Pack(env, sig, offset, args.GetString(0), args.GetList(1));
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(pObjBinary.release());
+}
+
+// binary#pointer(offset:number => 0) {block?}
+Gura_DeclareMethod(binary, pointer)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "offset", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"Returns a pointer instance that has an initial offset specified\n"
+	"by the argument.");
+}
+
+Gura_ImplementMethod(binary, pointer)
+{
+	Object_binary *pThis = Object_binary::GetThisObj(args);
+	Object_binary *pObjBinary = Object_binary::Reference(pThis);
+	size_t offset = args.GetSizeT(0);
+	return ReturnValue(env, sig, args, Value(new Object_pointer(env, pObjBinary, offset)));
+}
+
+// binary#reader() {block?}
+Gura_DeclareMethod(binary, reader)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(binary, reader)
+{
+	Object_binary *pThis = Object_binary::GetThisObj(args);
+	Stream *pStream = new Stream_Binary(env, sig, Object_binary::Reference(pThis), false);
+	return ReturnValue(env, sig, args, Value(new Object_stream(env, pStream)));
+}
+
+// binary#store(offset:number, buff+:binary):map:reduce
+Gura_DeclareMethod(binary, store)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "offset", VTYPE_number);
+	DeclareArg(env, "buff", VTYPE_binary, OCCUR_OnceOrMore);
+}
+
+Gura_ImplementMethod(binary, store)
+{
+	Object_binary *pThis = Object_binary::GetThisObj(args);
+	if (!pThis->IsWritable()) {
+		sig.SetError(ERR_ValueError, "not a writable binary");
+		return Value::Null;
+	}
+	size_t offset = args.GetSizeT(0);
+	Binary &binary = pThis->GetBinary();
+	if (offset > binary.size()) {
+		binary.append(offset - binary.size(), '\0');
+	}
+	foreach_const (ValueList, pValue, args.GetList(1)) {
+		size_t sizeEach = pValue->GetBinary().size();
+		if (offset >= binary.size()) {
+			binary += pValue->GetBinary();
+		} else {
+			binary.replace(offset, sizeEach, pValue->GetBinary());
+		}
+		offset += sizeEach;
+	}
+	return args.GetThis();
 }
 
 // binary#unpack(format:string, values*:number):[nil]
@@ -326,120 +474,6 @@ Gura_ImplementMethod(binary, unpacks)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// binary#hex():[upper,cstr,carray]
-Gura_DeclareMethod(binary, hex)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareAttr(Gura_Symbol(upper));
-	DeclareAttr(Gura_Symbol(cstr));
-	DeclareAttr(Gura_Symbol(carray));
-}
-
-Gura_ImplementMethod(binary, hex)
-{
-	Object_binary *pThis = Object_binary::GetThisObj(args);
-	String rtn;
-	bool upperFlag = args.IsSet(Gura_Symbol(upper));
-	const char *sep = args.IsSet(Gura_Symbol(carray))? ", " : NULL;
-	const char *format =
-		args.IsSet(Gura_Symbol(cstr))? (upperFlag? "\\x%02X" : "\\x%02x") :
-		args.IsSet(Gura_Symbol(carray))? (upperFlag? "0x%02X" : "0x%02x") :
-		(upperFlag? "%02X" : "%02x");
-	const Binary &buff = pThis->GetBinary();
-	foreach_const (Binary, p, buff) {
-		UChar ch = static_cast<UChar>(*p);
-		if (sep != NULL && p != buff.begin()) rtn += sep;
-		char buff[32];
-		::sprintf(buff, format, ch);
-		rtn += buff;
-	}
-	return Value(rtn);
-}
-
-// binary#dump(stream?:stream:w):void:[upper]
-Gura_DeclareMethod(binary, dump)
-{
-	SetMode(RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
-	DeclareAttr(Gura_Symbol(upper));
-}
-
-Gura_ImplementMethod(binary, dump)
-{
-	Stream *pStream = args.IsInstanceOf(0, VTYPE_stream)?
-								&args.GetStream(0) : env.GetConsole();
-	Object_binary *pThis = Object_binary::GetThisObj(args);
-	const Binary &buff = pThis->GetBinary();
-	pStream->Dump(sig, buff.data(), buff.size(), args.IsSet(Gura_Symbol(upper)));
-	return Value::Null;
-}
-
-// binary#add(buff+:binary):map:reduce
-Gura_DeclareMethod(binary, add)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
-	DeclareArg(env, "buff", VTYPE_binary, OCCUR_OnceOrMore);
-}
-
-Gura_ImplementMethod(binary, add)
-{
-	Object_binary *pThis = Object_binary::GetThisObj(args);
-	if (!pThis->IsWritable()) {
-		sig.SetError(ERR_ValueError, "not a writable binary");
-		return Value::Null;
-	}
-	foreach_const (ValueList, pValue, args.GetList(0)) {
-		pThis->GetBinary() += pValue->GetBinary();
-	}
-	return args.GetThis();
-}
-
-// binary#store(offset:number, buff+:binary):map:reduce
-Gura_DeclareMethod(binary, store)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
-	DeclareArg(env, "offset", VTYPE_number);
-	DeclareArg(env, "buff", VTYPE_binary, OCCUR_OnceOrMore);
-}
-
-Gura_ImplementMethod(binary, store)
-{
-	Object_binary *pThis = Object_binary::GetThisObj(args);
-	if (!pThis->IsWritable()) {
-		sig.SetError(ERR_ValueError, "not a writable binary");
-		return Value::Null;
-	}
-	size_t offset = args.GetSizeT(0);
-	Binary &binary = pThis->GetBinary();
-	if (offset > binary.size()) {
-		binary.append(offset - binary.size(), '\0');
-	}
-	foreach_const (ValueList, pValue, args.GetList(1)) {
-		size_t sizeEach = pValue->GetBinary().size();
-		if (offset >= binary.size()) {
-			binary += pValue->GetBinary();
-		} else {
-			binary.replace(offset, sizeEach, pValue->GetBinary());
-		}
-		offset += sizeEach;
-	}
-	return args.GetThis();
-}
-
-// binary#reader() {block?}
-Gura_DeclareMethod(binary, reader)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(binary, reader)
-{
-	Object_binary *pThis = Object_binary::GetThisObj(args);
-	Stream *pStream = new Stream_Binary(env, sig, Object_binary::Reference(pThis), false);
-	return ReturnValue(env, sig, args, Value(new Object_stream(env, pStream)));
-}
-
 // binary#writer() {block?}
 Gura_DeclareMethod(binary, writer)
 {
@@ -454,39 +488,6 @@ Gura_ImplementMethod(binary, writer)
 	return ReturnValue(env, sig, args, Value(new Object_stream(env, pStream)));
 }
 
-// binary#decode(codec:codec)
-Gura_DeclareMethodPrimitive(binary, decode)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "codec", VTYPE_codec);
-}
-
-Gura_ImplementMethod(binary, decode)
-{
-	Object_binary *pThis = Object_binary::GetThisObj(args);
-	Codec *pCodec = Object_codec::GetObject(args, 0)->GetCodec();
-	String str;
-	if (!pCodec->GetDecoder()->Decode(sig, str, pThis->GetBinary())) {
-		return Value::Null;
-	}
-	return Value(str);
-}
-
-// binary#encodeuri()
-Gura_DeclareMethod(binary, encodeuri)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a string in which non-URIC characters are percent-encoded.");
-}
-
-Gura_ImplementMethod(binary, encodeuri)
-{
-	Object_binary *pThis = Object_binary::GetThisObj(args);
-	const Binary &binary = pThis->GetBinary();
-	return Value(EncodeURI(binary.data(), binary.size()));
-}
-
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
@@ -497,20 +498,20 @@ Class_binary::Class_binary(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_bina
 void Class_binary::Prepare(Environment &env)
 {
 	Gura_AssignFunction(binary);
-	Gura_AssignMethod(binary, len);
+	Gura_AssignMethod(binary, add);
+	Gura_AssignMethod(binary, decode);
+	Gura_AssignMethod(binary, dump);
 	Gura_AssignMethod(binary, each);
-	Gura_AssignMethod(binary, pointer);
+	Gura_AssignMethod(binary, encodeuri);
+	Gura_AssignMethod(binary, hex);
+	Gura_AssignMethod(binary, len);
 	Gura_AssignMethod(binary, pack);
+	Gura_AssignMethod(binary, pointer);
+	Gura_AssignMethod(binary, reader);
+	Gura_AssignMethod(binary, store);
 	Gura_AssignMethod(binary, unpack);
 	Gura_AssignMethod(binary, unpacks);
-	Gura_AssignMethod(binary, hex);
-	Gura_AssignMethod(binary, dump);
-	Gura_AssignMethod(binary, add);
-	Gura_AssignMethod(binary, store);
-	Gura_AssignMethod(binary, reader);
 	Gura_AssignMethod(binary, writer);
-	Gura_AssignMethod(binary, decode);
-	Gura_AssignMethod(binary, encodeuri);
 }
 
 bool Class_binary::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)

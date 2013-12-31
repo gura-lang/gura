@@ -6,28 +6,28 @@ endian: little
 [010f] Make                             Canon
 [0110] Model                            Canon DIGITAL IXUS
 [0112] Orientation                      LeftTopVert
-[011a] XResolution                      180/1
-[011b] YResolution                      180/1
+[011a] XResolution                      180/1r
+[011b] YResolution                      180/1r
 [0128] ResolutionUnit                   inches
 [0132] DateTime                         2001:06:09 15:17:32
 [0213] YCbCrPositioning                 centered
 [8769] ExifIFDPointer                   nil
 = ifd0.Exif =
-[829a] ExposureTime                     1/350
-[829d] FNumber                          40/10
+[829a] ExposureTime                     1/350r
+[829d] FNumber                          40/10r
 [9000] ExifVersion                      <binary:R:4byte:'0210'>
 [9003] DateTimeOriginal                 2001:06:09 15:17:32
 [9004] DateTimeDigitized                2001:06:09 15:17:32
 [9101] ComponentsConfiguration          <binary:R:4byte:'\x01\x02\x03\x00'>
-[9102] CompressedBitsPerPixel           3/1
-[9201] ShutterSpeedValue                553859/65536
-[9202] ApertureValue                    262144/65536
-[9204] ExposureBiasValue                0/3
-[9205] MaxApertureValue                 194698/65536
-[9206] SubjectDistance                  3750/1000
+[9102] CompressedBitsPerPixel           3/1r
+[9201] ShutterSpeedValue                553859/65536r
+[9202] ApertureValue                    262144/65536r
+[9204] ExposureBiasValue                0/3r
+[9205] MaxApertureValue                 194698/65536r
+[9206] SubjectDistance                  3750/1000r
 [9207] MeteringMode                     CenterWeightedAverage
 [9209] Flash                            FlashDidNotFire
-[920a] FocalLength                      346/32
+[920a] FocalLength                      346/32r
 [927c] MakerNote                        <binary:R:310byte>
 [9286] UserComment                      <binary:R:136byte>
 [a000] FlashPixVersion                  <binary:R:4byte:'0100'>
@@ -35,8 +35,8 @@ endian: little
 [a002] PixelXDimension                  640
 [a003] PixelYDimension                  480
 [a005] InteroperabilityIFDPointer       nil
-[a20e] FocalPlaneXResolution            640000/206
-[a20f] FocalPlaneYResolution            480000/155
+[a20e] FocalPlaneXResolution            640000/206r
+[a20f] FocalPlaneYResolution            480000/155r
 [a210] FocalPlaneResolutionUnit         inches
 [a217] SensingMethod                    OneChipColorAreaSensor
 [a300] FileSource                       <binary:R:1byte:'\x03'>
@@ -47,8 +47,8 @@ endian: little
 [1002] RelatedImageHeight               480
 = ifd1 =
 [0103] Compression                      JPEG
-[011a] XResolution                      180/1
-[011b] YResolution                      180/1
+[011a] XResolution                      180/1r
+[011b] YResolution                      180/1r
 [0128] ResolutionUnit                   inches
 [0201] JPEGInterchangeFormat            1524
 [0202] JPEGInterchangeFormatLength      5342
@@ -61,8 +61,8 @@ endian: little
 [010f] Make                             FUJIFILM
 [0110] Model                            DX-10
 [0112] Orientation                      LeftTopVert
-[011a] XResolution                      72/1
-[011b] YResolution                      72/1
+[011a] XResolution                      72/1r
+[011b] YResolution                      72/1r
 [0128] ResolutionUnit                   inches
 [0131] Software                         Digital Camera DX-10 Ver1.00
 [0132] DateTime                         2001:04:12 20:33:14
@@ -70,29 +70,29 @@ endian: little
 [8298] Copyright                        J P Bowen 
 [8769] ExifIFDPointer                   nil
 = ifd0.Exif =
-[829d] FNumber                          42/10
+[829d] FNumber                          42/10r
 [8822] ExposureProgram                  NormalProgram
 [8827] ISOSpeedRatings                  150
 [9000] ExifVersion                      <binary:R:4byte:'0210'>
 [9003] DateTimeOriginal                 2001:04:12 20:33:14
 [9004] DateTimeDigitized                2001:04:12 20:33:14
 [9101] ComponentsConfiguration          <binary:R:4byte:'\x01\x02\x03\x00'>
-[9102] CompressedBitsPerPixel           14/10
-[9201] ShutterSpeedValue                66/10
-[9202] ApertureValue                    41/10
-[9203] BrightnessValue                  -27/10
-[9204] ExposureBiasValue                0/10
-[9205] MaxApertureValue                 41/10
+[9102] CompressedBitsPerPixel           14/10r
+[9201] ShutterSpeedValue                66/10r
+[9202] ApertureValue                    41/10r
+[9203] BrightnessValue                  -27/10r
+[9204] ExposureBiasValue                0/10r
+[9205] MaxApertureValue                 41/10r
 [9207] MeteringMode                     Pattern
 [9209] Flash                            FlashFired
-[920a] FocalLength                      58/10
+[920a] FocalLength                      58/10r
 [a000] FlashPixVersion                  <binary:R:4byte:'0100'>
 [a001] ColorSpace                       sRGB
 [a002] PixelXDimension                  1024
 [a003] PixelYDimension                  768
 [a005] InteroperabilityIFDPointer       nil
-[a20e] FocalPlaneXResolution            2151/1
-[a20f] FocalPlaneYResolution            2151/1
+[a20e] FocalPlaneXResolution            2151/1r
+[a20f] FocalPlaneYResolution            2151/1r
 [a210] FocalPlaneResolutionUnit         centimeters
 [a217] SensingMethod                    OneChipColorAreaSensor
 [a300] FileSource                       <binary:R:1byte:'\x03'>
@@ -103,8 +103,8 @@ endian: little
 = ifd1 =
 [0103] Compression                      JPEG
 [0112] Orientation                      LeftTopVert
-[011a] XResolution                      72/1
-[011b] YResolution                      72/1
+[011a] XResolution                      72/1r
+[011b] YResolution                      72/1r
 [0128] ResolutionUnit                   inches
 [0201] JPEGInterchangeFormat            856
 [0202] JPEGInterchangeFormatLength      10274
@@ -118,8 +118,8 @@ endian: big
 [010f] Make                             FUJIFILM
 [0110] Model                            FinePix40i
 [0112] Orientation                      LeftTopVert
-[011a] XResolution                      72/1
-[011b] YResolution                      72/1
+[011a] XResolution                      72/1r
+[011b] YResolution                      72/1r
 [0128] ResolutionUnit                   inches
 [0131] Software                         Digital Camera FinePix40i Ver1.39
 [0132] DateTime                         2000:08:04 18:22:57
@@ -127,30 +127,30 @@ endian: big
 [8298] Copyright                                  
 [8769] ExifIFDPointer                   nil
 = ifd0.Exif =
-[829d] FNumber                          280/100
+[829d] FNumber                          280/100r
 [8822] ExposureProgram                  NormalProgram
 [8827] ISOSpeedRatings                  200
 [9000] ExifVersion                      <binary:R:4byte:'0210'>
 [9003] DateTimeOriginal                 2000:08:04 18:22:57
 [9004] DateTimeDigitized                2000:08:04 18:22:57
 [9101] ComponentsConfiguration          <binary:R:4byte:'\x01\x02\x03\x00'>
-[9102] CompressedBitsPerPixel           15/10
-[9201] ShutterSpeedValue                550/100
-[9202] ApertureValue                    300/100
-[9203] BrightnessValue                  26/100
-[9204] ExposureBiasValue                0/100
-[9205] MaxApertureValue                 300/100
+[9102] CompressedBitsPerPixel           15/10r
+[9201] ShutterSpeedValue                550/100r
+[9202] ApertureValue                    300/100r
+[9203] BrightnessValue                  26/100r
+[9204] ExposureBiasValue                0/100r
+[9205] MaxApertureValue                 300/100r
 [9207] MeteringMode                     Pattern
 [9209] Flash                            FlashFired
-[920a] FocalLength                      870/100
+[920a] FocalLength                      870/100r
 [927c] MakerNote                        <binary:R:214byte>
 [a000] FlashPixVersion                  <binary:R:4byte:'0100'>
 [a001] ColorSpace                       sRGB
 [a002] PixelXDimension                  2400
 [a003] PixelYDimension                  1800
 [a005] InteroperabilityIFDPointer       nil
-[a20e] FocalPlaneXResolution            2381/1
-[a20f] FocalPlaneYResolution            2381/1
+[a20e] FocalPlaneXResolution            2381/1r
+[a20f] FocalPlaneYResolution            2381/1r
 [a210] FocalPlaneResolutionUnit         centimeters
 [a217] SensingMethod                    OneChipColorAreaSensor
 [a300] FileSource                       <binary:R:1byte:'\x03'>
@@ -161,8 +161,8 @@ endian: big
 = ifd1 =
 [0103] Compression                      JPEG
 [0112] Orientation                      LeftTopVert
-[011a] XResolution                      72/1
-[011b] YResolution                      72/1
+[011a] XResolution                      72/1r
+[011b] YResolution                      72/1r
 [0128] ResolutionUnit                   inches
 [0201] JPEGInterchangeFormat            1074
 [0202] JPEGInterchangeFormatLength      8691
@@ -176,8 +176,8 @@ endian: little
 [010f] Make                             FUJIFILM
 [0110] Model                            MX-1700ZOOM
 [0112] Orientation                      LeftTopVert
-[011a] XResolution                      72/1
-[011b] YResolution                      72/1
+[011a] XResolution                      72/1r
+[011b] YResolution                      72/1r
 [0128] ResolutionUnit                   inches
 [0131] Software                         Digital Camera MX-1700ZOOM Ver1.00
 [0132] DateTime                         2000:09:02 14:30:10
@@ -185,29 +185,29 @@ endian: little
 [8298] Copyright                                  
 [8769] ExifIFDPointer                   nil
 = ifd0.Exif =
-[829d] FNumber                          70/10
+[829d] FNumber                          70/10r
 [8822] ExposureProgram                  NormalProgram
 [8827] ISOSpeedRatings                  125
 [9000] ExifVersion                      <binary:R:4byte:'0210'>
 [9003] DateTimeOriginal                 2000:09:02 14:30:10
 [9004] DateTimeDigitized                2000:09:02 14:30:10
 [9101] ComponentsConfiguration          <binary:R:4byte:'\x01\x02\x03\x00'>
-[9102] CompressedBitsPerPixel           2/1
-[9201] ShutterSpeedValue                74/10
-[9202] ApertureValue                    56/10
-[9203] BrightnessValue                  76/10
-[9204] ExposureBiasValue                0/10
-[9205] MaxApertureValue                 33/10
+[9102] CompressedBitsPerPixel           2/1r
+[9201] ShutterSpeedValue                74/10r
+[9202] ApertureValue                    56/10r
+[9203] BrightnessValue                  76/10r
+[9204] ExposureBiasValue                0/10r
+[9205] MaxApertureValue                 33/10r
 [9207] MeteringMode                     Pattern
 [9209] Flash                            FlashDidNotFire
-[920a] FocalLength                      99/10
+[920a] FocalLength                      99/10r
 [a000] FlashPixVersion                  <binary:R:4byte:'0100'>
 [a001] ColorSpace                       sRGB
 [a002] PixelXDimension                  640
 [a003] PixelYDimension                  480
 [a005] InteroperabilityIFDPointer       nil
-[a20e] FocalPlaneXResolution            1087/1
-[a20f] FocalPlaneYResolution            1087/1
+[a20e] FocalPlaneXResolution            1087/1r
+[a20f] FocalPlaneYResolution            1087/1r
 [a210] FocalPlaneResolutionUnit         centimeters
 [a217] SensingMethod                    OneChipColorAreaSensor
 [a300] FileSource                       <binary:R:1byte:'\x03'>
@@ -218,8 +218,8 @@ endian: little
 = ifd1 =
 [0103] Compression                      JPEG
 [0112] Orientation                      LeftTopVert
-[011a] XResolution                      72/1
-[011b] YResolution                      72/1
+[011a] XResolution                      72/1r
+[011b] YResolution                      72/1r
 [0128] ResolutionUnit                   inches
 [0201] JPEGInterchangeFormat            856
 [0202] JPEGInterchangeFormatLength      4354
@@ -234,29 +234,29 @@ endian: big
 [010f] Make                             Eastman Kodak Company
 [0110] Model                            DC210 Zoom (V05.00)
 [0112] Orientation                      LeftTopVert
-[011a] XResolution                      216/1
-[011b] YResolution                      216/1
+[011a] XResolution                      216/1r
+[011b] YResolution                      216/1r
 [0128] ResolutionUnit                   inches
 [0213] YCbCrPositioning                 centered
 [8298] Copyright                        
 [8769] ExifIFDPointer                   nil
 = ifd0.Exif =
-[829a] ExposureTime                     1/30
-[829d] FNumber                          40/10
+[829a] ExposureTime                     1/30r
+[829d] FNumber                          40/10r
 [9000] ExifVersion                      <binary:R:4byte:'0110'>
 [9003] DateTimeOriginal                 2000:10:26 16:46:51
 [9101] ComponentsConfiguration          <binary:R:4byte:'\x01\x02\x03\x00'>
-[9102] CompressedBitsPerPixel           0/1
-[9201] ShutterSpeedValue                50/10
-[9202] ApertureValue                    40/10
-[9203] BrightnessValue                  15/10
-[9204] ExposureBiasValue                0/10
-[9205] MaxApertureValue                 400/100
-[9206] SubjectDistance                  0/1
+[9102] CompressedBitsPerPixel           0/1r
+[9201] ShutterSpeedValue                50/10r
+[9202] ApertureValue                    40/10r
+[9203] BrightnessValue                  15/10r
+[9204] ExposureBiasValue                0/10r
+[9205] MaxApertureValue                 400/100r
+[9206] SubjectDistance                  0/1r
 [9207] MeteringMode                     CenterWeightedAverage
 [9208] LightSource                      unknown
 [9209] Flash                            FlashFired
-[920a] FocalLength                      44/10
+[920a] FocalLength                      44/10r
 [927c] MakerNote                        <binary:R:72byte>
 = ifd0.Exif.Interoperability =
 = ifd1 =
@@ -269,8 +269,8 @@ endian: big
 [0115] SamplesPerPixel                  3
 [0116] RowsPerStrip                     72
 [0117] StripByteCounts                  20736
-[011a] XResolution                      72/1
-[011b] YResolution                      72/1
+[011a] XResolution                      72/1r
+[011b] YResolution                      72/1r
 [0128] ResolutionUnit                   inches
 <image:rgba:96x72>
 
@@ -281,34 +281,34 @@ endian: big
 [010f] Make                             EASTMAN KODAK COMPANY
 [0110] Model                            KODAK DC240 ZOOM DIGITAL CAMERA
 [0112] Orientation                      LeftTopVert
-[011a] XResolution                      192/1
-[011b] YResolution                      192/1
+[011a] XResolution                      192/1r
+[011b] YResolution                      192/1r
 [0128] ResolutionUnit                   inches
 [0213] YCbCrPositioning                 centered
 [8298] Copyright                        KODAK DC240 ZOOM DIGITAL CAMERA 
 [8769] ExifIFDPointer                   nil
 = ifd0.Exif =
-[829a] ExposureTime                     1/30
-[829d] FNumber                          4/1
+[829a] ExposureTime                     1/30r
+[829d] FNumber                          4/1r
 [9000] ExifVersion                      <binary:R:4byte:'0210'>
 [9003] DateTimeOriginal                 1999:05:25 21:00:09
 [9004] DateTimeDigitized                1999:05:25 21:00:09
 [9101] ComponentsConfiguration          <binary:R:4byte:'\x01\x02\x03\x00'>
-[9201] ShutterSpeedValue                50/10
-[9202] ApertureValue                    40/10
-[9204] ExposureBiasValue                0/100
-[9205] MaxApertureValue                 38/10
+[9201] ShutterSpeedValue                50/10r
+[9202] ApertureValue                    40/10r
+[9204] ExposureBiasValue                0/100r
+[9205] MaxApertureValue                 38/10r
 [9207] MeteringMode                     Average
 [9208] LightSource                      unknown
 [9209] Flash                            FlashFired
-[920a] FocalLength                      140/10
+[920a] FocalLength                      140/10r
 [927c] MakerNote                        <binary:R:564byte>
 [a000] FlashPixVersion                  <binary:R:4byte:'0100'>
 [a001] ColorSpace                       sRGB
 [a002] PixelXDimension                  1280
 [a003] PixelYDimension                  960
 [a005] InteroperabilityIFDPointer       nil
-[a215] ExposureIndex                    140/1
+[a215] ExposureIndex                    140/1r
 [a217] SensingMethod                    OneChipColorAreaSensor
 [a300] FileSource                       <binary:R:1byte:'\x03'>
 [a301] SceneType                        <binary:R:1byte:'\x01'>
@@ -318,8 +318,8 @@ endian: big
 = ifd1 =
 [0103] Compression                      JPEG
 [0112] Orientation                      LeftTopVert
-[011a] XResolution                      72/1
-[011b] YResolution                      72/1
+[011a] XResolution                      72/1r
+[011b] YResolution                      72/1r
 [0128] ResolutionUnit                   inches
 [0201] JPEGInterchangeFormat            1480
 [0202] JPEGInterchangeFormatLength      6934
@@ -333,29 +333,29 @@ endian: little
 [010f] Make                             NIKON
 [0110] Model                            E950
 [0112] Orientation                      LeftTopVert
-[011a] XResolution                      300/1
-[011b] YResolution                      300/1
+[011a] XResolution                      300/1r
+[011b] YResolution                      300/1r
 [0128] ResolutionUnit                   inches
 [0131] Software                         v981-79
 [0132] DateTime                         2001:04:06 11:51:40
 [0213] YCbCrPositioning                 cosited
 [8769] ExifIFDPointer                   nil
 = ifd0.Exif =
-[829a] ExposureTime                     10/770
-[829d] FNumber                          55/10
+[829a] ExposureTime                     10/770r
+[829d] FNumber                          55/10r
 [8822] ExposureProgram                  NormalProgram
 [8827] ISOSpeedRatings                  80
 [9000] ExifVersion                      <binary:R:4byte:'0210'>
 [9003] DateTimeOriginal                 2001:04:06 11:51:40
 [9004] DateTimeDigitized                2001:04:06 11:51:40
 [9101] ComponentsConfiguration          <binary:R:4byte:'\x01\x02\x03\x00'>
-[9102] CompressedBitsPerPixel           4/1
-[9204] ExposureBiasValue                0/10
-[9205] MaxApertureValue                 26/10
+[9102] CompressedBitsPerPixel           4/1r
+[9204] ExposureBiasValue                0/10r
+[9205] MaxApertureValue                 26/10r
 [9207] MeteringMode                     Pattern
 [9208] LightSource                      unknown
 [9209] Flash                            FlashDidNotFire
-[920a] FocalLength                      128/10
+[920a] FocalLength                      128/10r
 [927c] MakerNote                        <binary:R:308byte>
 [9286] UserComment                      <binary:R:125byte>
 [a000] FlashPixVersion                  <binary:R:4byte:'0100'>
@@ -370,8 +370,8 @@ endian: little
 [0002] InteroperabilityVersion          <binary:R:4byte:'0100'>
 = ifd1 =
 [0103] Compression                      JPEG
-[011a] XResolution                      300/1
-[011b] YResolution                      300/1
+[011a] XResolution                      300/1r
+[011b] YResolution                      300/1r
 [0128] ResolutionUnit                   inches
 [0201] JPEGInterchangeFormat            2036
 [0202] JPEGInterchangeFormatLength      4662
@@ -385,29 +385,29 @@ endian: little
 [010f] Make                             OLYMPUS OPTICAL CO.,LTD
 [0110] Model                            C960Z,D460Z
 [0112] Orientation                      LeftTopVert
-[011a] XResolution                      72/1
-[011b] YResolution                      72/1
+[011a] XResolution                      72/1r
+[011b] YResolution                      72/1r
 [0128] ResolutionUnit                   inches
 [0131] Software                         OLYMPUS CAMEDIA Master
 [0132] DateTime                         2000:11:08 20:14:38
 [0213] YCbCrPositioning                 cosited
 [8769] ExifIFDPointer                   nil
 = ifd0.Exif =
-[829a] ExposureTime                     1/345
-[829d] FNumber                          80/10
+[829a] ExposureTime                     1/345r
+[829d] FNumber                          80/10r
 [8822] ExposureProgram                  NormalProgram
 [8827] ISOSpeedRatings                  125
 [9000] ExifVersion                      <binary:R:4byte:'0210'>
 [9003] DateTimeOriginal                 2000:11:07 10:41:43
 [9004] DateTimeDigitized                2000:11:07 10:41:43
 [9101] ComponentsConfiguration          <binary:R:4byte:'\x01\x02\x03\x00'>
-[9102] CompressedBitsPerPixel           1/1
-[9204] ExposureBiasValue                0/10
-[9205] MaxApertureValue                 3/1
+[9102] CompressedBitsPerPixel           1/1r
+[9204] ExposureBiasValue                0/10r
+[9205] MaxApertureValue                 3/1r
 [9207] MeteringMode                     Pattern
 [9208] LightSource                      unknown
 [9209] Flash                            FlashDidNotFire
-[920a] FocalLength                      56/10
+[920a] FocalLength                      56/10r
 [927c] MakerNote                        <binary:R:176byte>
 [9286] UserComment                      <binary:R:125byte>
 [a000] FlashPixVersion                  <binary:R:4byte:'0100'>
@@ -422,8 +422,8 @@ endian: little
 [0002] InteroperabilityVersion          <binary:R:4byte:'0100'>
 = ifd1 =
 [0103] Compression                      JPEG
-[011a] XResolution                      72/1
-[011b] YResolution                      72/1
+[011a] XResolution                      72/1r
+[011b] YResolution                      72/1r
 [0128] ResolutionUnit                   inches
 [0201] JPEGInterchangeFormat            2012
 [0202] JPEGInterchangeFormatLength      5145
@@ -439,8 +439,8 @@ endian: big
 [010f] Make                             RICOH      
 [0110] Model                            RDC-5300       
 [0112] Orientation                      LeftTopVert
-[011a] XResolution                      72/1
-[011b] YResolution                      72/1
+[011a] XResolution                      72/1r
+[011b] YResolution                      72/1r
 [0128] ResolutionUnit                   inches
 [0213] YCbCrPositioning                 cosited
 [8298] Copyright                        (C) by RDC-5300 User     
@@ -450,15 +450,15 @@ endian: big
 [9003] DateTimeOriginal                 2000:05:31 21:50:40
 [9004] DateTimeDigitized                2000:05:31 21:50:40
 [9101] ComponentsConfiguration          <binary:R:4byte:'\x01\x02\x03\x00'>
-[9102] CompressedBitsPerPixel           300/100
-[9201] ShutterSpeedValue                65/10
-[9202] ApertureValue                    40/10
-[9203] BrightnessValue                  -20/10
-[9204] ExposureBiasValue                0/10
-[9205] MaxApertureValue                 39/10
+[9102] CompressedBitsPerPixel           300/100r
+[9201] ShutterSpeedValue                65/10r
+[9202] ApertureValue                    40/10r
+[9203] BrightnessValue                  -20/10r
+[9204] ExposureBiasValue                0/10r
+[9205] MaxApertureValue                 39/10r
 [9208] LightSource                      unknown
 [9209] Flash                            FlashFired
-[920a] FocalLength                      133/10
+[920a] FocalLength                      133/10r
 [927c] MakerNote                        <binary:R:112byte>
 [9286] UserComment                      <binary:R:264byte>
 [a000] FlashPixVersion                  <binary:R:4byte:'0100'>
@@ -472,8 +472,8 @@ endian: big
 [0002] InteroperabilityVersion          <binary:R:4byte:'0100'>
 = ifd1 =
 [0103] Compression                      JPEG
-[011a] XResolution                      72/1
-[011b] YResolution                      72/1
+[011a] XResolution                      72/1r
+[011b] YResolution                      72/1r
 [0128] ResolutionUnit                   inches
 [0201] JPEGInterchangeFormat            1061
 [0202] JPEGInterchangeFormatLength      5046
@@ -487,27 +487,27 @@ endian: little
 [010f] Make                             SANYO Electric Co.,Ltd.
 [0110] Model                            SR6 
 [0112] Orientation                      LeftTopVert
-[011a] XResolution                      72/1
-[011b] YResolution                      72/1
+[011a] XResolution                      72/1r
+[011b] YResolution                      72/1r
 [0128] ResolutionUnit                   inches
 [0131] Software                         V06P-74
 [0132] DateTime                         1998:01:01 00:00:00
 [0213] YCbCrPositioning                 cosited
 [8769] ExifIFDPointer                   nil
 = ifd0.Exif =
-[829a] ExposureTime                     1/171
-[829d] FNumber                          80/10
+[829a] ExposureTime                     1/171r
+[829d] FNumber                          80/10r
 [9000] ExifVersion                      <binary:R:4byte:'0200'>
 [9003] DateTimeOriginal                 1998:01:01 00:00:00
 [9004] DateTimeDigitized                1998:01:01 00:00:00
 [9101] ComponentsConfiguration          <binary:R:4byte:'\x01\x02\x03\x00'>
-[9102] CompressedBitsPerPixel           17/10
-[9204] ExposureBiasValue                0/10
-[9205] MaxApertureValue                 3/1
+[9102] CompressedBitsPerPixel           17/10r
+[9204] ExposureBiasValue                0/10r
+[9205] MaxApertureValue                 3/1r
 [9207] MeteringMode                     CenterWeightedAverage
 [9208] LightSource                      unknown
 [9209] Flash                            FlashFired
-[920a] FocalLength                      60/10
+[920a] FocalLength                      60/10r
 [927c] MakerNote                        <binary:R:142byte>
 [a000] FlashPixVersion                  <binary:R:4byte:'0100'>
 [a001] ColorSpace                       uncalibrated
@@ -518,8 +518,8 @@ endian: little
 = ifd0.Exif.Interoperability =
 = ifd1 =
 [0103] Compression                      JPEG
-[011a] XResolution                      72/1
-[011b] YResolution                      72/1
+[011a] XResolution                      72/1r
+[011b] YResolution                      72/1r
 [0128] ResolutionUnit                   inches
 [0201] JPEGInterchangeFormat            877
 [0202] JPEGInterchangeFormatLength      3602
@@ -533,28 +533,28 @@ endian: little
 [010f] Make                             SANYO Electric Co.,Ltd.
 [0110] Model                            SX113 
 [0112] Orientation                      LeftTopVert
-[011a] XResolution                      72/1
-[011b] YResolution                      72/1
+[011a] XResolution                      72/1r
+[011b] YResolution                      72/1r
 [0128] ResolutionUnit                   inches
 [0131] Software                         V113p-73
 [0132] DateTime                         2000:11:18 21:14:19
 [0213] YCbCrPositioning                 cosited
 [8769] ExifIFDPointer                   nil
 = ifd0.Exif =
-[829a] ExposureTime                     10/483
-[829d] FNumber                          24/10
+[829a] ExposureTime                     10/483r
+[829d] FNumber                          24/10r
 [8827] ISOSpeedRatings                  400
 [9000] ExifVersion                      <binary:R:4byte:'0210'>
 [9003] DateTimeOriginal                 2000:11:18 21:14:19
 [9004] DateTimeDigitized                2000:11:18 21:14:19
 [9101] ComponentsConfiguration          <binary:R:4byte:'\x01\x02\x03\x00'>
-[9102] CompressedBitsPerPixel           17/10
-[9204] ExposureBiasValue                0/10
-[9205] MaxApertureValue                 3/1
+[9102] CompressedBitsPerPixel           17/10r
+[9204] ExposureBiasValue                0/10r
+[9205] MaxApertureValue                 3/1r
 [9207] MeteringMode                     CenterWeightedAverage
 [9208] LightSource                      unknown
 [9209] Flash                            FlashDidNotFire
-[920a] FocalLength                      60/10
+[920a] FocalLength                      60/10r
 [927c] MakerNote                        <binary:R:178byte>
 [9286] UserComment                      <binary:R:125byte>
 [a000] FlashPixVersion                  <binary:R:4byte:'0100'>
@@ -568,8 +568,8 @@ endian: little
 [0002] InteroperabilityVersion          <binary:R:4byte:'0100'>
 = ifd1 =
 [0103] Compression                      JPEG
-[011a] XResolution                      72/1
-[011b] YResolution                      72/1
+[011a] XResolution                      72/1r
+[011b] YResolution                      72/1r
 [0128] ResolutionUnit                   inches
 [0201] JPEGInterchangeFormat            1070
 [0202] JPEGInterchangeFormatLength      13234
@@ -583,28 +583,28 @@ endian: little
 [010f] Make                             SONY
 [0110] Model                            CYBERSHOT
 [0112] Orientation                      LeftTopVert
-[011a] XResolution                      72/1
-[011b] YResolution                      72/1
+[011a] XResolution                      72/1r
+[011b] YResolution                      72/1r
 [0128] ResolutionUnit                   inches
 [0132] DateTime                         2000:09:30 10:59:45
 [0213] YCbCrPositioning                 cosited
 [8769] ExifIFDPointer                   nil
 = ifd0.Exif =
-[829a] ExposureTime                     1/197
-[829d] FNumber                          40/10
+[829a] ExposureTime                     1/197r
+[829d] FNumber                          40/10r
 [8822] ExposureProgram                  NormalProgram
 [8827] ISOSpeedRatings                  100
 [9000] ExifVersion                      <binary:R:4byte:'0210'>
 [9003] DateTimeOriginal                 2000:09:30 10:59:45
 [9004] DateTimeDigitized                2000:09:30 10:59:45
 [9101] ComponentsConfiguration          <binary:R:4byte:'\x01\x02\x03\x00'>
-[9102] CompressedBitsPerPixel           2/1
-[9204] ExposureBiasValue                0/10
-[9205] MaxApertureValue                 3/1
+[9102] CompressedBitsPerPixel           2/1r
+[9204] ExposureBiasValue                0/10r
+[9205] MaxApertureValue                 3/1r
 [9207] MeteringMode                     CenterWeightedAverage
 [9208] LightSource                      unknown
 [9209] Flash                            FlashDidNotFire
-[920a] FocalLength                      216/10
+[920a] FocalLength                      216/10r
 [a000] FlashPixVersion                  <binary:R:4byte:'0100'>
 [a001] ColorSpace                       sRGB
 [a002] PixelXDimension                  640
@@ -620,8 +620,8 @@ endian: little
 [010f] Make                             SONY
 [0110] Model                            CYBERSHOT
 [0112] Orientation                      LeftTopVert
-[011a] XResolution                      72/1
-[011b] YResolution                      72/1
+[011a] XResolution                      72/1r
+[011b] YResolution                      72/1r
 [0128] ResolutionUnit                   inches
 [0132] DateTime                         2000:09:30 10:59:45
 [0201] JPEGInterchangeFormat            797
@@ -636,8 +636,8 @@ endian: big
 [010f] Make                             SONY
 [0110] Model                            DSC-D700
 [0112] Orientation                      LeftTopVert
-[011a] XResolution                      72/1
-[011b] YResolution                      72/1
+[011a] XResolution                      72/1r
+[011b] YResolution                      72/1r
 [0128] ResolutionUnit                   inches
 [0132] DateTime                         1998:12:01 14:22:36
 [0213] YCbCrPositioning                 centered
@@ -649,10 +649,10 @@ endian: big
 [9003] DateTimeOriginal                 1998:12:01 14:22:36
 [9004] DateTimeDigitized                1998:12:01 14:22:36
 [9101] ComponentsConfiguration          <binary:R:4byte:'\x01\x02\x03\x00'>
-[9102] CompressedBitsPerPixel           6/1
-[9201] ShutterSpeedValue                500/100
-[9202] ApertureValue                    250/100
-[9204] ExposureBiasValue                0/100
+[9102] CompressedBitsPerPixel           6/1r
+[9201] ShutterSpeedValue                500/100r
+[9202] ApertureValue                    250/100r
+[9204] ExposureBiasValue                0/100r
 [9207] MeteringMode                     CenterWeightedAverage
 [9209] Flash                            FlashDidNotFire
 [a000] FlashPixVersion                  <binary:R:4byte:'0100'>
@@ -670,8 +670,8 @@ endian: big
 [0115] SamplesPerPixel                  3
 [0116] RowsPerStrip                     60
 [0117] StripByteCounts                  14400
-[011a] XResolution                      72/1
-[011b] YResolution                      72/1
+[011a] XResolution                      72/1r
+[011b] YResolution                      72/1r
 [0128] ResolutionUnit                   inches
 <image:rgba:80x60>
 

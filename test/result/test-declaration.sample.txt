@@ -281,7 +281,7 @@ binary
   hex():[carray,cstr,upper]
   len()
   pack(format:string, value*):static:map
-  pointer(offset:number => 0)
+  pointer(offset:number => 0) {block?}
   reader() {block?}
   store(offset:number, buff+:binary):map:reduce
   unpack(format:string, values*:number):[nil]
