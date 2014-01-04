@@ -184,3 +184,35 @@ testcase {
 		println('expected error occurs: ', e.text)
 	}
 }
+testcase('test of scan') {
+	char_xpm = @{
+	"13 13 2 2 0 0",
+	"   c #000000",
+	"#  c #ffffff",
+	"          #               ",
+	"          #               ",
+	"  # # # # # # # # # #     ",
+	"          #               ",
+	"          #     #         ",
+	"        # # # # # #       ",
+	"      #   #     #   #     ",
+	"    #     #   #       #   ",
+	"  #       #   #       #   ",
+	"  #       #   #       #   ",
+	"  #       # #         #   ",
+	"    # # #           #     ",
+	"                # #       ",
+	}
+	img = image(`rgb).xpmdata(char_xpm)
+	doScan(scandirs[]) = {
+		lines = dim(img.height) {''}
+		scandirs.each {|scandir|
+			lines += img.scan(scandir => scandir):*gray.fold(img.width):list {|row|
+				choose(int(row / 64), ' ', '*', '.', '@').join()
+			}
+		}
+		println(lines)
+	}
+	doScan([`left_top_horz, `right_top_vert, `right_bottom_horz, `left_bottom_vert])
+	doScan([`left_top_vert, `right_top_horz, `right_bottom_vert, `left_bottom_horz])
+}
