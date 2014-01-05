@@ -196,114 +196,17 @@ Gura_ImplementFunction(datetime)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// datetime.monthdays(year:number, month:number):map
-Gura_DeclareClassMethod(datetime, monthdays)
+// datetime#clrtzoff():reduce
+Gura_DeclareMethod(datetime, clrtzoff)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "year", VTYPE_number);
-	DeclareArg(env, "month", VTYPE_number);
+	SetMode(RSLTMODE_Reduce, FLAG_None);
 }
 
-Gura_ImplementClassMethod(datetime, monthdays)
+Gura_ImplementMethod(datetime, clrtzoff)
 {
-	int year = args.GetInt(0);
-	int month = args.GetInt(1);
-	return Value(static_cast<Number>(DateTime::GetDaysOfMonth(year, month)));
-}
-
-// datetime.weekday(year:number, month:number, day:number):map
-Gura_DeclareClassMethod(datetime, weekday)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "year", VTYPE_number);
-	DeclareArg(env, "month", VTYPE_number);
-	DeclareArg(env, "day", VTYPE_number);
-}
-
-Gura_ImplementClassMethod(datetime, weekday)
-{
-	int year = args.GetInt(0);
-	int month = args.GetInt(1);
-	int day = args.GetInt(2);
-	return Value(static_cast<Number>(DateTime::GetDayOfWeek(year, month, day)));
-}
-
-// datetime.now():[utc]
-Gura_DeclareClassMethod(datetime, now)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareAttr(Gura_Symbol(utc));
-}
-
-Gura_ImplementClassMethod(datetime, now)
-{
-	DateTime dateTime = OAL::GetCurDateTime(args.IsSet(Gura_Symbol(utc)));
-	return Value(new Object_datetime(env, dateTime));
-}
-
-// datetime.today():[utc]
-Gura_DeclareClassMethod(datetime, today)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareAttr(Gura_Symbol(utc));
-}
-
-Gura_ImplementClassMethod(datetime, today)
-{
-	DateTime dateTime = OAL::GetCurDateTime(args.IsSet(Gura_Symbol(utc)));
-	dateTime.ClearTime();
-	return Value(new Object_datetime(env, dateTime));
-}
-
-// datetime.time(hour:number => 0, minute:number => 0, sec:number => 0, usec:number => 0):map
-Gura_DeclareClassMethod(datetime, time)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "hour", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "minute", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "sec", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "usec", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-}
-
-Gura_ImplementClassMethod(datetime, time)
-{
-	short year = 0;
-	char month = 1;
-	char day = 1;
-	long sec = static_cast<long>(args.GetNumber(0) * 3600 +
-						args.GetNumber(1) * 60 + args.GetNumber(2));
-	long usec = args.GetLong(3);
-	long secsOffset = OAL::GetSecsOffsetTZ();
-	return Value(new Object_datetime(env, DateTime(year, month, day, sec, usec, secsOffset)));
-}
-
-// datetime.parse(str:string):map
-Gura_DeclareClassMethod(datetime, parse)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "str", VTYPE_string);
-}
-
-Gura_ImplementClassMethod(datetime, parse)
-{
-	DateTime dateTime;
-	if (!dateTime.Parse(args.GetString(0))) {
-		sig.SetError(ERR_FormatError, "invalid time format");
-		return Value::Null;
-	}
-	return Value(new Object_datetime(env, dateTime));
-}
-
-// datetime.isleap(year:number):map
-Gura_DeclareClassMethod(datetime, isleap)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "year", VTYPE_number);
-}
-
-Gura_ImplementClassMethod(datetime, isleap)
-{
-	return Value(DateTime::IsLeapYear(args.GetShort(0)));
+	DateTime &dateTime = Object_datetime::GetThisObj(args)->GetDateTime();
+	dateTime.ClearTZOffset();
+	return args.GetThis();
 }
 
 // datetime#format(format => `w3c)
@@ -380,6 +283,81 @@ Gura_ImplementMethod(datetime, format)
 	return Value::Null;
 }
 
+// datetime.isleap(year:number):map
+Gura_DeclareClassMethod(datetime, isleap)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "year", VTYPE_number);
+}
+
+Gura_ImplementClassMethod(datetime, isleap)
+{
+	return Value(DateTime::IsLeapYear(args.GetShort(0)));
+}
+
+#if 0
+// datetime#isleap()
+Gura_DeclareMethod(datetime, isleap)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(datetime, isleap)
+{
+	const DateTime &dateTime = Object_datetime::GetThisObj(args)->GetDateTime();
+	return Value(dateTime.IsLeapYear());
+}
+#endif
+
+// datetime.monthdays(year:number, month:number):map {block?}
+Gura_DeclareClassMethod(datetime, monthdays)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "year", VTYPE_number);
+	DeclareArg(env, "month", VTYPE_number);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(datetime, monthdays)
+{
+	int year = args.GetInt(0);
+	int month = args.GetInt(1);
+	return ReturnValue(env, sig, args,
+			Value(static_cast<Number>(DateTime::GetDaysOfMonth(year, month))));
+}
+
+// datetime.now():[utc] {block?}
+Gura_DeclareClassMethod(datetime, now)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(utc));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(datetime, now)
+{
+	DateTime dateTime = OAL::GetCurDateTime(args.IsSet(Gura_Symbol(utc)));
+	return ReturnValue(env, sig, args, Value(new Object_datetime(env, dateTime)));
+}
+
+// datetime.parse(str:string):map {block?}
+Gura_DeclareClassMethod(datetime, parse)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "str", VTYPE_string);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(datetime, parse)
+{
+	DateTime dateTime;
+	if (!dateTime.Parse(args.GetString(0))) {
+		sig.SetError(ERR_FormatError, "invalid time format");
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_datetime(env, dateTime)));
+}
+
 // datetime#settzoff(mins:number):reduce
 Gura_DeclareMethod(datetime, settzoff)
 {
@@ -394,17 +372,43 @@ Gura_ImplementMethod(datetime, settzoff)
 	return args.GetThis();
 }
 
-// datetime#clrtzoff():reduce
-Gura_DeclareMethod(datetime, clrtzoff)
+// datetime.time(hour:number => 0, minute:number => 0, sec:number => 0, usec:number => 0):map {block?}
+Gura_DeclareClassMethod(datetime, time)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "hour", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "minute", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "sec", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareArg(env, "usec", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(datetime, clrtzoff)
+Gura_ImplementClassMethod(datetime, time)
 {
-	DateTime &dateTime = Object_datetime::GetThisObj(args)->GetDateTime();
-	dateTime.ClearTZOffset();
-	return args.GetThis();
+	short year = 0;
+	char month = 1;
+	char day = 1;
+	long sec = static_cast<long>(args.GetNumber(0) * 3600 +
+						args.GetNumber(1) * 60 + args.GetNumber(2));
+	long usec = args.GetLong(3);
+	long secsOffset = OAL::GetSecsOffsetTZ();
+	return ReturnValue(env, sig, args,
+		Value(new Object_datetime(env, DateTime(year, month, day, sec, usec, secsOffset))));
+}
+
+// datetime.today():[utc] {block?}
+Gura_DeclareClassMethod(datetime, today)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(utc));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(datetime, today)
+{
+	DateTime dateTime = OAL::GetCurDateTime(args.IsSet(Gura_Symbol(utc)));
+	dateTime.ClearTime();
+	return ReturnValue(env, sig, args, Value(new Object_datetime(env, dateTime)));
 }
 
 // datetime#utc()
@@ -423,19 +427,22 @@ Gura_ImplementMethod(datetime, utc)
 	return Value(new Object_datetime(env, dateTime.ToUTC()));
 }
 
-#if 0
-// datetime#isleap()
-Gura_DeclareMethod(datetime, isleap)
+// datetime.weekday(year:number, month:number, day:number):map
+Gura_DeclareClassMethod(datetime, weekday)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "year", VTYPE_number);
+	DeclareArg(env, "month", VTYPE_number);
+	DeclareArg(env, "day", VTYPE_number);
 }
 
-Gura_ImplementMethod(datetime, isleap)
+Gura_ImplementClassMethod(datetime, weekday)
 {
-	const DateTime &dateTime = Object_datetime::GetThisObj(args)->GetDateTime();
-	return Value(dateTime.IsLeapYear());
+	int year = args.GetInt(0);
+	int month = args.GetInt(1);
+	int day = args.GetInt(2);
+	return Value(static_cast<Number>(DateTime::GetDayOfWeek(year, month, day)));
 }
-#endif
 
 //-----------------------------------------------------------------------------
 // Implementation of class
@@ -456,18 +463,17 @@ void Class_datetime::Prepare(Environment &env)
 	Gura_AssignClassValue(Thursday,		Value(4));
 	Gura_AssignClassValue(Friday,		Value(5));
 	Gura_AssignClassValue(Saturday,		Value(6));
-	Gura_AssignMethod(datetime, monthdays);
-	Gura_AssignMethod(datetime, weekday);
-	Gura_AssignMethod(datetime, now);
-	Gura_AssignMethod(datetime, today);
-	Gura_AssignMethod(datetime, time);
-	Gura_AssignMethod(datetime, parse);
-	Gura_AssignMethod(datetime, isleap);
-	Gura_AssignMethod(datetime, format);
-	Gura_AssignMethod(datetime, settzoff);
 	Gura_AssignMethod(datetime, clrtzoff);
+	Gura_AssignMethod(datetime, format);
+	Gura_AssignMethod(datetime, isleap);
+	Gura_AssignMethod(datetime, monthdays);
+	Gura_AssignMethod(datetime, now);
+	Gura_AssignMethod(datetime, parse);
+	Gura_AssignMethod(datetime, settzoff);
+	Gura_AssignMethod(datetime, time);
+	Gura_AssignMethod(datetime, today);
 	Gura_AssignMethod(datetime, utc);
-	//Gura_AssignMethod(datetime, isleap);
+	Gura_AssignMethod(datetime, weekday);
 }
 
 Object *Class_datetime::CreateDescendant(Environment &env, Signal sig, Class *pClass)

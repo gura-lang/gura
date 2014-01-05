@@ -334,12 +334,12 @@ datetime
   clrtzoff():reduce
   format(format => `w3c)
   isleap(year:number):static:map
-  monthdays(year:number, month:number):static:map
-  now():static:[utc]
-  parse(str:string):static:map
+  monthdays(year:number, month:number):static:map {block?}
+  now():static:[utc] {block?}
+  parse(str:string):static:map {block?}
   settzoff(mins:number):reduce
-  time(hour:number => 0, minute:number => 0, sec:number => 0, usec:number => 0):static:map
-  today():static:[utc]
+  time(hour:number => 0, minute:number => 0, sec:number => 0, usec:number => 0):static:map {block?}
+  today():static:[utc] {block?}
   utc()
   weekday(year:number, month:number, day:number):static:map
 declaration
