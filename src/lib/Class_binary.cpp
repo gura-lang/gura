@@ -355,12 +355,13 @@ Gura_ImplementMethod(binary, len)
 	return Value(static_cast<UInt>(pThis->GetBinary().size()));
 }
 
-// binary.pack(format:string, value*):map
+// binary.pack(format:string, value*):map {block?}
 Gura_DeclareClassMethod(binary, pack)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrMore);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementClassMethod(binary, pack)
@@ -369,7 +370,7 @@ Gura_ImplementClassMethod(binary, pack)
 	size_t offset = 0;
 	pObjBinary->GetBinary().Pack(env, sig, offset, args.GetString(0), args.GetList(1));
 	if (sig.IsSignalled()) return Value::Null;
-	return Value(pObjBinary.release());
+	return ReturnValue(env, sig, args, Value(pObjBinary.release()));
 }
 
 // binary#pointer(offset:number => 0) {block?}

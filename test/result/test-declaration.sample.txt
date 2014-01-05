@@ -280,7 +280,7 @@ binary
   encodeuri()
   hex():[carray,cstr,upper]
   len()
-  pack(format:string, value*):static:map
+  pack(format:string, value*):static:map {block?}
   pointer(offset:number => 0) {block?}
   reader() {block?}
   store(offset:number, buff+:binary):map:reduce
