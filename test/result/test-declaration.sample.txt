@@ -181,7 +181,7 @@ min(values+):map
 module() {block}
 nil:nil = nil
 nomap(obj) {block?}
-object()
+object() {block?}
 open(pathname:string, mode?:string, codec?:codec):map {block?}
 operator(op:symbol):map {block?}
 ord(str:string):map
