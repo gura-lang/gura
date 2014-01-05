@@ -1553,18 +1553,6 @@ Gura_ImplementFunction(rand)
 	return ReturnValue(env, sig, args, Value(RandomGenerator::Real2()));
 }
 
-// object()
-Gura_DeclareFunction(object)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementFunction(object)
-{
-	Object *pObj = new Object(env.LookupClass(VTYPE_object));
-	return Value(pObj);
-}
-
 // Module entry
 Gura_ModuleEntry()
 {
@@ -1661,7 +1649,6 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(classref);
 	Gura_AssignFunction(randseed);
 	Gura_AssignFunction(rand);
-	Gura_AssignFunction(object);
 }
 
 Gura_ModuleTerminate()

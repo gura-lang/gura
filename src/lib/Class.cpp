@@ -196,6 +196,19 @@ String Object::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Class
 //-----------------------------------------------------------------------------
+// object() {block?}
+Gura_DeclareFunction(object)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(object)
+{
+	Object *pObj = new Object(env.LookupClass(VTYPE_object));
+	return ReturnValue(env, sig, args, Value(pObj));
+}
+
 // object#isnil()
 Gura_DeclareMethodPrimitive(Object, isnil)
 {
@@ -484,6 +497,7 @@ String Class::ToString(bool exprFlag)
 // assignment
 void Class::Prepare(Environment &env)
 {
+	Gura_AssignFunction(object);
 	Gura_AssignMethod(Object, isnil);		// primitive method
 	Gura_AssignMethod(Object, istype);		// primitive method
 	Gura_AssignMethod(Object, isinstance);	// primitive method
