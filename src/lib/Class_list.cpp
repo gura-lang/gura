@@ -496,60 +496,41 @@ bool Object_list::Comparator_Custom::
 // Implementation of functions
 //-----------------------------------------------------------------------------
 // list(value+)
-Gura_DeclareFunction(list)
+// xlist(value+)
+Gura_DeclareFunctionBegin(list_xlist)
+	bool _acceptInvalidFlag;
+Gura_DeclareFunctionEnd(list_xlist)
 {
+	_acceptInvalidFlag = (::strcmp(GetName(), "list") == 0);
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_OnceOrMore);
 	SetClassToConstruct(env.LookupClass(VTYPE_list));
 }
 
-Gura_ImplementFunction(list)
+Gura_ImplementFunction(list_xlist)
 {
 	Value result;
 	ValueList &valList = result.InitAsList(env);
-	foreach_const (ValueList, pValue, args.GetList(0)) {
-		Iterator *pIterator = NULL;
-		if (pValue->Is_list() || pValue->Is_iterator()) {
-			pIterator = pValue->CreateIterator(sig);
+	foreach_const (ValueList, pValueArg, args.GetList(0)) {
+		if (pValueArg->Is_list() || pValueArg->Is_iterator()) {
+			AutoPtr<Iterator> pIterator(pValueArg->CreateIterator(sig));
 			if (sig.IsSignalled()) return Value::Null;
+			if (pIterator->IsInfinite()) {
+				Iterator::SetError_InfiniteNotAllowed(sig);
+				return Value::Null;
+			}
+			Value value;
+			while (pIterator->Next(env, sig, value)) {
+				if (_acceptInvalidFlag || value.IsValid()) {
+					valList.push_back(value);
+				}
+			}
+			if (sig.IsSignalled()) return Value::Null;
+		} else if (_acceptInvalidFlag || pValueArg->IsValid()) {
+			valList.push_back(*pValueArg);
 		} else {
-			pIterator = new Iterator_OneShot(*pValue);
+			// nothing to do
 		}
-		if (pIterator->IsInfinite()) {
-			Iterator::SetError_InfiniteNotAllowed(sig);
-			return Value::Null;
-		}
-		Value value;
-		while (pIterator->Next(env, sig, value)) {
-			valList.push_back(value);
-		}
-		if (sig.IsSignalled()) return Value::Null;
-	}
-	return result;
-}
-
-// xlist(iter+:iterator)
-Gura_DeclareFunction(xlist)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "iter", VTYPE_iterator, OCCUR_OnceOrMore);
-}
-
-Gura_ImplementFunction(xlist)
-{
-	Value result;
-	ValueList &valList = result.InitAsList(env);
-	foreach_const (ValueList, pValue, args.GetList(0)) {
-		Value value;
-		Iterator *pIterator = pValue->GetIterator();
-		if (pIterator->IsInfinite()) {
-			Iterator::SetError_InfiniteNotAllowed(sig);
-			return Value::Null;
-		}
-		while (pIterator->Next(env, sig, value)) {
-			if (value.IsValid()) valList.push_back(value);
-		}
-		if (sig.IsSignalled()) return Value::Null;
 	}
 	return result;
 }
@@ -560,8 +541,8 @@ Gura_DeclareFunctionBegin(set_xset)
 	bool _acceptInvalidFlag;
 Gura_DeclareFunctionEnd(set_xset)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
 	_acceptInvalidFlag = (::strcmp(GetName(), "set") == 0);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "iter", VTYPE_iterator, OCCUR_OnceOrMore);
 	DeclareAttr(Gura_Symbol(or));
 	DeclareAttr(Gura_Symbol(and));
@@ -1902,8 +1883,8 @@ Class_list::Class_list(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_list)
 
 void Class_list::Prepare(Environment &env)
 {
-	Gura_AssignFunction(list);
-	Gura_AssignFunction(xlist);
+	Gura_AssignFunctionEx(list_xlist, "list");
+	Gura_AssignFunctionEx(list_xlist, "xlist");
 	Gura_AssignFunctionEx(set_xset, "set");
 	Gura_AssignFunctionEx(set_xset, "xset");
 	Gura_AssignFunctionEx(ListInit, "@");
