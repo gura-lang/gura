@@ -301,7 +301,9 @@ textTemplate = R"""
     <UIRef Id="WixUI_Common" />
     <UIRef Id='WixUI_ErrorProgressText' />
     <Property Id='WIXUI_INSTALLDIR' Value='INSTALLDIR' />
-    <!-- <WixVariable Id='WixUILicenseRtf' Value='..\src\COPYING.rtf' /> -->
+    <WixVariable Id='WixUIDialogBmp' Value='src\resource\WixUIDialogBmp.bmp' />
+    <WixVariable Id='WixUIBannerBmp' Value='src\resource\WixUIBannerBmp.bmp' />
+    <!-- <WixVariable Id='WixUILicenseRtf' Value='src\resource\COPYING.rtf' /> -->
     <MajorUpgrade
       AllowSameVersionUpgrades='yes'
       DowngradeErrorMessage='A later version of [ProductName] is already installed. Setup will now exit.' />
