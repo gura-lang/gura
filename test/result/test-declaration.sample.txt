@@ -258,7 +258,7 @@ typename(`value)
 undef(`symbol+):[raise]
 uri(str?:string):map {block?}
 while (`cond) {block}
-xlist(iter+:iterator)
+xlist(value+)
 xset(iter+:iterator):[and,or,xor]
 zipv(values+) {block?}
 any

@@ -83,7 +83,9 @@ Gura_DeclareFunction(stream)
 	DeclareArg(env, "mode", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "codec", VTYPE_codec, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	SetClassToConstruct(env.LookupClass(VTYPE_stream));
+	if (::strcmp(GetName(), "stream") == 0) {
+		SetClassToConstruct(env.LookupClass(VTYPE_stream));
+	}
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
