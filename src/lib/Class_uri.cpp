@@ -252,7 +252,7 @@ Gura_ImplementFunction(uri)
 {
 	AutoPtr<Object_uri> pObj(new Object_uri(env));
 	if (!pObj->Parse(sig, args.GetString(0))) return Value::Null;
-	return Value(pObj.release());
+	return ReturnValue(env, sig, args, Value(pObj.release()));
 }
 
 //-----------------------------------------------------------------------------

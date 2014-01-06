@@ -1,6 +1,7 @@
 #!/bin/bash
 cases=
 cases="$cases application"
+#cases="$cases audio"
 cases="$cases binary"
 cases="$cases block"
 cases="$cases gzip-bzip2"
