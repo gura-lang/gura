@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// Gura zip module
+// Gura module: zip
 // specification: http://www.pkware.com/documents/casestudies/APPNOTE.TXT
 //-----------------------------------------------------------------------------
 #ifndef __GURA_MODULE_ZIP_H__

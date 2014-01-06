@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// Gura ppm module
+// Gura module: ppm
 // PPM specification:
 // http://local.wasp.uwa.edu.au/~pbourke/dataformats/ppm/
 //-----------------------------------------------------------------------------

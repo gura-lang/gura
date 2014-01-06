@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// Gura tiff module
+// Gura module: tiff
 // http://www.libtiff.org/
 // Following site is useful with many samples.
 // http://www.ibm.com/developerworks/jp/linux/library/l-libtiff/

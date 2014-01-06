@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// Gura freetype module
+// Gura module: freetype
 //-----------------------------------------------------------------------------
 #ifndef __GURA_MODULE_FREETYPE_H__
 #define __GURA_MODULE_FREETYPE_H__

@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// Gura basement module
+// Gura module: basement
 //-----------------------------------------------------------------------------
 #ifndef __GURA_MODULE_BASEMENT_H__
 #define __GURA_MODULE_BASEMENT_H__

@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// Gura opengl module
+// Gura module: opengl
 // see http://www.opengl.org/sdk/docs/man/ for detailed information of each API
 //-----------------------------------------------------------------------------
 #include "stdafx.h"

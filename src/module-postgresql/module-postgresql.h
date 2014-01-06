@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// Gura postgresql module
+// Gura module: postgresql
 //-----------------------------------------------------------------------------
 #ifndef __GURA_MODULE_POSTGRESQL_H__
 #define __GURA_MODULE_POSTGRESQL_H__

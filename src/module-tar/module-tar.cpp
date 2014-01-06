@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// Gura tar module
+// Gura module: tar
 // http://www.gnu.org/software/tar/manual/html_node/Standard.html
 //-----------------------------------------------------------------------------
 #include "stdafx.h"

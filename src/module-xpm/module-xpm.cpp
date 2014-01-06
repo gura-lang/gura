@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// Gura xpm module
+// Gura module: xpm
 // As fot the XPM format, see http://www.fileformat.info/format/xpm/egff.htm
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
