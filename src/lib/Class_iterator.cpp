@@ -33,6 +33,7 @@ String Object_iterator::ToString(bool exprFlag)
 	String rtn;
 	rtn += "<iterator:";
 	rtn += _pIterator->ToString();
+	if (_pIterator->IsRepeater()) rtn += ":repeater";
 	rtn += ">";
 	return rtn;
 }
