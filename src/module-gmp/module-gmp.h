@@ -5,6 +5,7 @@
 #define __GURA_MODULE_GMP_H__
 #include <gura.h>
 #include <gmpxx.h>
+#include "Class_mpz.h"
 
 Gura_BeginModuleHeader(gmp)
 Gura_EndModuleHeader(gmp)

@@ -32,6 +32,8 @@ Gura_ImplementFunction(test)
 //-----------------------------------------------------------------------------
 Gura_ModuleEntry()
 {
+	// class realization
+	Gura_RealizeUserClass(mpz, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(test);
 }
