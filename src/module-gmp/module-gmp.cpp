@@ -12,21 +12,19 @@ Gura_BeginModuleBody(gmp)
 Gura_DeclareFunction(test)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "num1", VTYPE_number);
-	DeclareArg(env, "num2", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"This function adds two numbers and returns the result."
+	""
 	);
 }
 
 Gura_ImplementFunction(test)
 {
-	mpz_t a, b;
-	::mpz_init_set_str(a, "13342", 10);
-	::mpz_init_set_str(b, "123445", 10);
-	::mpz_add(a, a, b);
-	::printf("%s\n", ::mpz_get_str(NULL, 10, a));
-	return Value(args.GetNumber(0) + args.GetNumber(1));
+	mpz_class a, b, c;
+	a = 1234;
+	b = "-5678";
+	c = a + b;
+	::printf("%s\n", c.get_str().c_str());
+	return Value::Null;
 }
 
 //-----------------------------------------------------------------------------

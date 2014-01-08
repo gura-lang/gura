@@ -1,4 +1,4 @@
 #!/usr/bin/env gura
 import(gmp)
 
-println(gmp.test(3, 4))
+gmp.test()
