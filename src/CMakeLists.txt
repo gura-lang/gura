@@ -87,6 +87,7 @@ install(FILES
   ${GURA_MODULE_SRCDIR}/msxls.gura
   ${GURA_MODULE_SRCDIR}/sed.gura
   ${GURA_MODULE_SRCDIR}/show.gura
+  ${GURA_MODULE_SRCDIR}/testutil.gura
   ${GURA_MODULE_SRCDIR}/tk.gura
   ${GURA_MODULE_SRCDIR}/tk.show.gura
   ${GURA_MODULE_SRCDIR}/tokenizer.gura
