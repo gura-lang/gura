@@ -1,4 +1,21 @@
 #!/usr/bin/env gura
 import(gmp)
+import(testutil) {*}
 
-gmp.test()
+testcase {
+	tester(`gmp.mpz(0))
+	tester(`gmp.mpq(0))
+	tester(`gmp.mpf(0))
+	tester(`gmp.mpz(1))
+	tester(`gmp.mpq(1))
+	tester(`gmp.mpf(1))
+	tester(`gmp.mpz(314))
+	tester(`gmp.mpq(314))
+	tester(`gmp.mpf(314))
+	tester(`gmp.mpz('314'))
+	tester(`gmp.mpq('314'))
+	tester(`gmp.mpf('314'))
+	tester(`'314'.mpz())
+	tester(`'314'.mpq())
+	tester(`'314'.mpf())
+}
