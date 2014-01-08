@@ -1,0 +1,15 @@
+#!/usr/bin/env gura
+import(modbuild)
+
+builder = modbuild.Builder()
+if (sys.build == `msc) {
+	dirMpir = path.join(modbuild.guestDir, 'mpir-2.6.0/lib/win32/Release')
+	builder.incDirs.append(dirMpir)
+	builder.ldflags.append('/LIBPATH:' + dirMpir)
+	builder.libs.append(['mpir.lib', 'mpirxx.lib'])
+} elsif (sys.build == `gnuc) {
+	builder.libs.append(['gmp'])
+	builder.debFiles = ['libgmp-dev']
+	builder.rpmFiles = ['gmp-devel']
+}
+builder.build('gmp', ['module-gmp.cpp'])
