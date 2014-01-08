@@ -12,4 +12,4 @@ if (sys.build == `msc) {
 	builder.debFiles = ['libgmp-dev']
 	builder.rpmFiles = ['gmp-devel']
 }
-builder.build('gmp', ['module-gmp.cpp', 'Class_mpz.cpp'])
+builder.build('gmp', ['module-gmp.cpp', 'Class_mpz.cpp', 'Class_mpf.cpp'])

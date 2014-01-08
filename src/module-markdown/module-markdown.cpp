@@ -2295,6 +2295,9 @@ Gura_ImplementFunction(setpresenter)
 	return Value::Null;
 }
 
+//-----------------------------------------------------------------------------
+// Implementation of operators
+//-----------------------------------------------------------------------------
 // operator <<
 Gura_ImplementBinaryOperator(Shl, document, string)
 {
