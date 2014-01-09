@@ -1,17 +1,17 @@
 //=============================================================================
-// Suffix
+// SuffixHandler
 //=============================================================================
-#ifndef __GURA_SUFFIX_H__
-#define __GURA_SUFFIX_H__
+#ifndef __GURA_SUFFIXHANDLER_H__
+#define __GURA_SUFFIXHANDLER_H__
 
 #include "Common.h"
 
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Suffix
+// SuffixHandler
 //-----------------------------------------------------------------------------
-class Suffix {
+class SuffixHandler {
 };
 
 }

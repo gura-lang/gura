@@ -165,7 +165,7 @@ install(FILES
   ${GURA_INCLUDE_SRCDIR}/gura/Stream.h
   ${GURA_INCLUDE_SRCDIR}/gura/StreamBasic.h
   ${GURA_INCLUDE_SRCDIR}/gura/String.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Suffix.h
+  ${GURA_INCLUDE_SRCDIR}/gura/SuffixHandler.h
   ${GURA_INCLUDE_SRCDIR}/gura/Symbol.h
   ${GURA_INCLUDE_SRCDIR}/gura/Template.h
   ${GURA_INCLUDE_SRCDIR}/gura/Uri.h
