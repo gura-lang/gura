@@ -63,8 +63,10 @@ Signal.cpp
 Stream.cpp
 StreamBasic.cpp
 String.cpp
+Suffix.cpp
 Symbol.cpp
 Template.cpp
+Uri.cpp
 Value.cpp
 ValueType.cpp
 ../module-basement/module-basement.cpp
