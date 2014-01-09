@@ -45,6 +45,7 @@ set cases=%cases% sqlite3
 set cases=%cases% stream
 set cases=%cases% string
 set cases=%cases% template
+set cases=%cases% uri
 set cases=%cases% value
 set cases=%cases% xhtml
 set cases=%cases% xml

@@ -1,32 +1,5 @@
 ======== #1 ========
 
-telnet://user:password@host:port/
-  scheme:   telnet
-  user:     user
-  password: password
-  host:     host
-  port:     port
-  urlpath:  /
-  misc:     
-file://vms.host.edu/disk$user/my/notes/note12345.txt
-  scheme:   file
-  user:     
-  password: 
-  host:     vms.host.edu
-  port:     
-  urlpath:  /disk$user/my/notes/note12345.txt
-  misc:     
-http://host:port/path?searchpart
-  scheme:   http
-  user:     
-  password: 
-  host:     host
-  port:     port
-  urlpath:  /path?searchpart
-  misc:     
-
-======== #2 ========
-
 ''.chop() .. 
 'abcdef'.chop() .. abcde
 'abcdef'.chop('f') .. abcde
@@ -42,7 +15,7 @@ http://host:port/path?searchpart
 'abcdeg'.chop('f', 'g', 'h') .. abcde
 'abcdeh'.chop('f', 'g', 'h') .. abcde
 
-======== #3 ========
+======== #2 ========
 
 %01%01%02%03%04%05%06%07%08%09%0A%0B%0C%0D%0E%0F
 %10%11%12%13%14%15%16%17%18%19%1A%1B%1C%1D%1E%1F
@@ -67,7 +40,7 @@ PQRSTUVWXYZ[\]^_
 `abcdefghijklmno
 pqrstuvwxyz{|}~
 
-======== #4 ========
+======== #3 ========
 
 0a 31 73 74 20 6c 69 6e 65 0a 32 6e 64 20 6c 69  .1st line.2nd li
 6e 65 0a 33 72 64 20 6c 69 6e 65 0a              ne.3rd line.
@@ -76,31 +49,31 @@ pqrstuvwxyz{|}~
 61 0a 31 73 74 20 6c 69 6e 65 0a 32 6e 64 20 6c  a.1st line.2nd l
 69 6e 65 0a 33 72 64 20 6c 69 6e 65 0a           ine.3rd line.
 
-======== #5 ========
+======== #4 ========
 
 !""""#$%&'''()**+,,---../0123456789:;<<=>>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[[\]]^_``abcdefghijklmnopqrstuvwxyz{|}~~
 
+======== #5 ========
+
+‚`‚a‚b‚c‚d‚e‚f‚g‚h‚i‚j‚k‚l‚m‚n‚o‚p‚q‚r‚s‚t‚u‚v‚w‚x‚yCDFGHIMb
+‚`‚a‚b‚c‚d‚e‚f‚g‚h‚i‚j‚k‚l‚m‚n‚o‚p‚q‚r‚s‚t‚u‚v‚w‚x‚yCDFGHIMb
+‚‚‚‚ƒ‚„‚…‚†‚‡‚ˆ‚‰‚Š‚‹‚Œ‚‚‚‚‚‘‚’‚“‚”‚•‚–‚—‚˜‚™‚šCDFGHIMb
+‚‚‚‚ƒ‚„‚…‚†‚‡‚ˆ‚‰‚Š‚‹‚Œ‚‚‚‚‚‘‚’‚“‚”‚•‚–‚—‚˜‚™‚šCDFGHIMb
+
 ======== #6 ========
-
-‚`‚a‚b‚c‚d‚e‚f‚g‚h‚i‚j‚k‚l‚m‚n‚o‚p‚q‚r‚s‚t‚u‚v‚w‚x‚yCDFGHIMb
-‚`‚a‚b‚c‚d‚e‚f‚g‚h‚i‚j‚k‚l‚m‚n‚o‚p‚q‚r‚s‚t‚u‚v‚w‚x‚yCDFGHIMb
-‚‚‚‚ƒ‚„‚…‚†‚‡‚ˆ‚‰‚Š‚‹‚Œ‚‚‚‚‚‘‚’‚“‚”‚•‚–‚—‚˜‚™‚šCDFGHIMb
-‚‚‚‚ƒ‚„‚…‚†‚‡‚ˆ‚‰‚Š‚‹‚Œ‚‚‚‚‚‘‚’‚“‚”‚•‚–‚—‚˜‚™‚šCDFGHIMb
-
-======== #7 ========
 
 str.fold(10):list .. ['0123456789', '0123456789', '0123456789', '0123456789', '0123456789', '0123456789', '0123456789', '0123456789', '0123456789', '0123456789']
 str.fold(10, 5):list .. ['0123456789', '5678901234', '0123456789', '5678901234', '0123456789', '5678901234', '0123456789', '5678901234', '0123456789', '5678901234', '0123456789', '5678901234', '0123456789', '5678901234', '0123456789', '5678901234', '0123456789', '5678901234', '0123456789', '56789']
 str.fold(5, 10):list .. ['01234', '01234', '01234', '01234', '01234', '01234', '01234', '01234', '01234', '01234']
 
-======== #8 ========
+======== #7 ========
 
 '<hoge foo="abcdefg">'.escapehtml():quote .. &lt;hoge foo=&quot;abcdefg&quot;&gt;
 'x < 0 & y > 1'.escapehtml() .. x &lt; 0 &amp; y &gt; 1
 'x &lt; 0 &amp; y &gt; 1'.unescapehtml() .. x < 0 & y > 1
 '&quot;hello world&quot;'.unescapehtml() .. "hello world"
 
-======== #9 ========
+======== #8 ========
 
 str.align(16):center ..    hello world  
 str.align(16):left .. hello world     
@@ -109,7 +82,7 @@ str.align(16, '*'):center .. ***hello world**
 str.align(16, '*'):left .. hello world*****
 str.align(16, '*'):right .. *****hello world
 
-======== #10 ========
+======== #9 ========
 
 format('[%s]', str.strip():both) .. []
 format('[%s]', str.strip():left) .. []
@@ -121,7 +94,7 @@ format('[%s]', str.strip():both) .. [hello world]
 format('[%s]', str.strip():left) .. [hello world   ]
 format('[%s]', str.strip():right) .. [   hello world]
 
-======== #11 ========
+======== #10 ========
 
  !"#$%&'()*+,-./0123456789:;<=>?
 @ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_
@@ -1098,7 +1071,7 @@ format('[%s]', str.strip():right) .. [   hello world]
 îÔîÕîÖî×îØîÙîÚîÛîÜîİîŞîßîàîáîâîãîäîåîæîçîèîéîêîëîìîïîğîñîòîóîôîõ
 îöî÷îøÊîúîûîü
 
-======== #12 ========
+======== #11 ========
 
 str .. first line
 second line
@@ -1121,13 +1094,13 @@ str.eachline(2):list .. ['first line\r\n', 'second line\r\n']
 str.eachline():list:chop .. ['first line', 'second line', 'third line', 'fourth line', 'fifth line']
 str.eachline(2):list:chop .. ['first line', 'second line']
 
-======== #13 ========
+======== #12 ========
 
 chr(0x00 .. 0x7f):list .. ['', '\x01', '\x02', '\x03', '\x04', '\x05', '\x06', '\a', '\b', '\t', '\n', '\v', '\f', '\r', '\x0e', '\x0f', '\x10', '\x11', '\x12', '\x13', '\x14', '\x15', '\x16', '\x17', '\x18', '\x19', '\x1a', '\x1b', '\x1c', '\x1d', '\x1e', '\x1f', ' ', '!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=', '>', '?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', '\x7f']
 ord(chr(0x00 .. 0x7f)):list .. [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127]
 chr(ord('‚ ‚¢‚¤‚¦‚¨'.split())):list .. ['‚ ', '‚¢', '‚¤', '‚¦', '‚¨']
 
-======== #14 ========
+======== #13 ========
 
 str .. ‚ ‚¢‚¤‚¦‚¨
 str.len() .. 5
@@ -1178,7 +1151,7 @@ str.endswith('‚­‚¯‚±'):rest .. nil
 str.startswith('‚¤‚¦', 2):rest .. ‚¨
 str.endswith('‚¤‚¦', 4):rest .. ‚ ‚¢
 
-======== #15 ========
+======== #14 ========
 
 str .. abcdefghijklmn
 str.startswith('abcd') .. true
@@ -1202,13 +1175,38 @@ str.endswith('KLMN'):rest:icase .. abcdefghij
 str.startswith('defg', 3):rest .. hijklmn
 str.endswith('ghij', 10):rest .. abcdef
 
-======== #16 ========
+======== #15 ========
 
 'apple[sep]orange[sep]pear[sep]orange[sep]banana'.split('[sep]'):list .. ['apple', 'orange', 'pear', 'orange', 'banana']
 'apple|orange|pear|orange|banana'.split('|'):list .. ['apple', 'orange', 'pear', 'orange', 'banana']
 '|apple|orange||pear|orange|banana|'.split('|'):list .. ['', 'apple', 'orange', '', 'pear', 'orange', 'banana', '']
 ''.split('|'):list .. ['']
 ['apple', 'orange', 'pear', 'orange', 'banana'].join(';') .. apple;orange;pear;orange;banana
+
+======== #16 ========
+
+“ú–{ŒêSJISƒeƒXƒg
+\‚í‚È‚¢ .. contains 0x5c (\)
+Œ|”\ŠE .. contains 0x5c (\)
+Œ|”\ŠE
+this is the first line
+2nd line
+3rd line
+4th line
+5th line
+6th line
+this is the first line
+2nd line
+3rd line
+4th line
+5th line
+6th line
+raw mode \n \t \r \\ \'
+raw mode \n \t \r \\ \'
+raw mode \n \t \r \\ \'
+raw mode \n \t \r \\ \'
+regular expression: (\w+)\((\w+)(\w+)\)
+string concatenation test:  1st 2dn 3rd 4th 5th 6th 7th 8th
 
 ======== #17 ========
 
@@ -1237,31 +1235,6 @@ string concatenation test:  1st 2dn 3rd 4th 5th 6th 7th 8th
 
 ======== #18 ========
 
-“ú–{ŒêSJISƒeƒXƒg
-\‚í‚È‚¢ .. contains 0x5c (\)
-Œ|”\ŠE .. contains 0x5c (\)
-Œ|”\ŠE
-this is the first line
-2nd line
-3rd line
-4th line
-5th line
-6th line
-this is the first line
-2nd line
-3rd line
-4th line
-5th line
-6th line
-raw mode \n \t \r \\ \'
-raw mode \n \t \r \\ \'
-raw mode \n \t \r \\ \'
-raw mode \n \t \r \\ \'
-regular expression: (\w+)\((\w+)(\w+)\)
-string concatenation test:  1st 2dn 3rd 4th 5th 6th 7th 8th
-
-======== #19 ========
-
 math.sqrt * 2 .. 1.41421
 (math.sin * math.pi).roundoff() .. 0
 math.cos * math.pi .. -1
@@ -1275,7 +1248,7 @@ math.cos * math.pi .. -1
 'hello world hello hello'.find('Llo'):rev:icase .. 20
 'hello world hello hello'.find('Llo'):list:icase .. [2, 14, 20]
 
-======== #20 ========
+======== #19 ========
 
 str .. hello world
 str.left(nil) .. hello world
@@ -1294,7 +1267,7 @@ str.replace('', '*') .. *h*e*l*l*o* *w*o*r*l*d*
 str.replace('', '*', 0) .. hello world
 str.replace('', '*', 3) .. *h*e*llo world
 
-======== #21 ========
+======== #20 ========
 
 1 2 3 4 5
 3 4 2 1 nil
@@ -1302,7 +1275,7 @@ str.replace('', '*', 3) .. *h*e*llo world
 1 1 nil nil nil
 1 nil nil nil nil
 
-======== #22 ========
+======== #21 ========
 
 str.fold(6):list .. ['ABCDEF', 'GHIJKL', 'MNOPQR', 'STUVWX', 'YZ']
 str.fold(6, 3):list .. ['ABCDEF', 'DEFGHI', 'GHIJKL', 'JKLMNO', 'MNOPQR', 'PQRSTU', 'STUVWX', 'VWXYZ', 'YZ']
@@ -1311,7 +1284,7 @@ str.fold(6):list:neat .. ['ABCDEF', 'GHIJKL', 'MNOPQR', 'STUVWX']
 str.fold(6, 3):list:neat .. ['ABCDEF', 'DEFGHI', 'GHIJKL', 'JKLMNO', 'MNOPQR', 'PQRSTU', 'STUVWX']
 str.fold(3, 6):list:neat .. ['ABC', 'GHI', 'MNO', 'STU']
 
-======== #23 ========
+======== #22 ========
 
 hello world #1
 hello world #1

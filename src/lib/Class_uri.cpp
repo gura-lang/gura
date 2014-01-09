@@ -1,6 +1,5 @@
 //=============================================================================
 // Gura class: uri
-// reference: RFC1738 (Uniform Resource Locators)
 //=============================================================================
 #include "stdafx.h"
 
@@ -9,15 +8,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Object_uri
 //-----------------------------------------------------------------------------
-Object_uri::Object_uri(const Object_uri &obj) : Object(obj),
-	_userValidFlag(obj._userValidFlag), _scheme(obj._scheme),
-	_user(obj._user), _password(obj._password),
-	_host(obj._host), _port(obj._port), _urlpath(obj._urlpath), _misc(obj._misc)
-{
-	// ftp, http, gopher, mailto, news, nntp, telnet, wais, file, prospro
-}
-
-Object_uri::~Object_uri()
+Object_uri::Object_uri(const Object_uri &obj) : Object(obj), _uri(obj._uri)
 {
 }
 
@@ -44,19 +35,19 @@ Value Object_uri::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 {
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(scheme))) {
-		return Value(_scheme);
+		return Value(_uri.GetScheme());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(user))) {
-		return Value(_user);
+		return Value(_uri.GetUser());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(password))) {
-		return Value(_password);
+		return Value(_uri.GetPassword());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(host))) {
-		return Value(_host);
+		return Value(_uri.GetHost());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(port))) {
-		return Value(_port);
+		return Value(_uri.GetPort());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(urlpath))) {
-		return Value(_urlpath);
+		return Value(_uri.GetUrlPath());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(misc))) {
-		return Value(_misc);
+		return Value(_uri.GetMisc());
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -68,179 +59,45 @@ Value Object_uri::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(scheme))) {
 		if (!value.MustBe_string(sig)) return Value::Null;
-		_scheme = value.GetStringSTL();
-		return Value(_scheme);
+		_uri.SetScheme(value.GetString());
+		return value;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(user))) {
 		if (!value.MustBe_string(sig)) return Value::Null;
-		_user = value.GetStringSTL();
-		return Value(_user);
+		_uri.SetUser(value.GetString());
+		return value;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(password))) {
 		if (!value.MustBe_string(sig)) return Value::Null;
-		_password = value.GetStringSTL();
-		return Value(_password);
+		_uri.SetPassword(value.GetString());
+		return value;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(host))) {
 		if (!value.MustBe_string(sig)) return Value::Null;
-		_host = value.GetStringSTL();
-		return Value(_host);
+		_uri.SetHost(value.GetString());
+		return value;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(port))) {
 		if (!value.MustBe_string(sig)) return Value::Null;
-		_port = value.GetStringSTL();
-		return Value(_port);
+		_uri.SetPort(value.GetString());
+		return value;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(urlpath))) {
 		if (!value.MustBe_string(sig)) return Value::Null;
-		_urlpath = value.GetStringSTL();
-		return Value(_urlpath);
+		_uri.SetUrlPath(value.GetString());
+		return value;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(misc))) {
 		if (!value.MustBe_string(sig)) return Value::Null;
-		_misc = value.GetStringSTL();
-		return Value(_misc);
+		_uri.SetMisc(value.GetString());
+		return value;
 	}
 	return DoGetProp(env, sig, pSymbol, attrs, evaluatedFlag);
 }
 
-bool Object_uri::Parse(Signal sig, const char *str)
-{
-	enum {
-		STAT_Scheme,
-		STAT_Slash1, STAT_Slash2, STAT_Host, STAT_Port,
-		STAT_UrlPath,
-		STAT_MailTo,
-		STAT_News,
-	} stat = STAT_Scheme;
-	_userValidFlag = false;
-	_scheme.clear();
-	_user.clear();
-	_password.clear();
-	_host.clear();
-	_port.clear();
-	_urlpath.clear();
-	_misc.clear();
-	for (const char *p = str; *p != '\0'; p++) {
-		char ch = *p;
-		if (stat == STAT_Scheme) {
-			if (ch == ':') {
-				if (_scheme == "mailto") {
-					stat = STAT_MailTo;
-				} else if (_scheme == "news") {
-					stat = STAT_News;
-				} else {
-					stat = STAT_Slash1;
-				}
-			} else if ('a' <= ch && ch <= 'z' || ch == '+' || ch == '.' || ch == '-') {
-				_scheme += ch;
-			} else if ('A' <= ch && ch <= 'Z') {
-				_scheme += ch - 'A' + 'a';
-			} else {
-				sig.SetError(ERR_ValueError, "invalid scheme name");
-				return false;
-			}
-		} else if (stat == STAT_Slash1) {
-			if (ch == '/') {
-				stat = STAT_Slash2;
-			} else {
-				SetError_InvalidURIFormat(sig);
-				return false;
-			}
-		} else if (stat == STAT_Slash2) {
-			if (ch == '/') {
-				stat = STAT_Host;
-			} else {
-				SetError_InvalidURIFormat(sig);
-				return false;
-			}
-		} else if (stat == STAT_Host) {
-			if (ch == ':') {
-				stat = STAT_Port;
-			} else if (ch == '/') {
-				_urlpath += ch;
-				stat = STAT_UrlPath;
-			} else if (ch == '@') {
-				if (_userValidFlag) {
-					SetError_InvalidURIFormat(sig);
-					return false;
-				}
-				_userValidFlag = true;
-				_user = _host, _password = _port;
-				_host.clear(), _port.clear();
-			} else if (0x20 <= ch && ch < 0x7f) {
-				_host += ch;
-			} else {
-				SetError_InvalidURIFormat(sig);
-				return false;
-			}
-		} else if (stat == STAT_Port) {
-			if (ch == '/') {
-				_urlpath += ch;
-				stat = STAT_UrlPath;
-			} else if (ch == '@') {
-				if (_userValidFlag) {
-					SetError_InvalidURIFormat(sig);
-					return false;
-				}
-				_userValidFlag = true;
-				_user = _host, _password = _port;
-				_host.clear(), _port.clear();
-				stat = STAT_Host;
-			} else if (0x20 <= ch && ch < 0x7f) {
-				_port += ch;
-			} else {
-				SetError_InvalidURIFormat(sig);
-				return false;
-			}
-		} else if (stat == STAT_UrlPath) {
-			_urlpath += ch;
-		} else if (stat == STAT_MailTo) {
-			_misc += ch;
-		} else if (stat == STAT_News) {
-			_misc += ch;
-		}
-	}
-	return true;
-}
-
 String Object_uri::ToString(bool exprFlag)
 {
-	String rtn;
-	if (!_scheme.empty()) {
-		rtn += _scheme;
-		rtn += ":";
-		if (_scheme != "mailto" && _scheme != "news") {
-			rtn += "//";
-		}
-	}
-	if (_userValidFlag) {
-		if (!_user.empty()) {
-			rtn += _user;
-			if (!_password.empty()) {
-				rtn += ":";
-				rtn += _password;
-			}
-		}
-		rtn += "@";
-	}
-	rtn += _host;
-	if (!_port.empty()) {
-		rtn += ":";
-		rtn += _port;
-	}
-	if (!_urlpath.empty()) {
-		rtn += _urlpath;
-	}
-	if (!_misc.empty()) {
-		rtn += _misc;
-	}
-	return rtn;
-}
-
-void Object_uri::SetError_InvalidURIFormat(Signal sig)
-{
-	sig.SetError(ERR_ValueError, "invalid URI format");
+	return _uri.ToString();
 }
 
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// uri(str:string):map {block?}
+// uri(str?:string):map {block?}
 Gura_DeclareFunction(uri)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -251,7 +108,9 @@ Gura_DeclareFunction(uri)
 Gura_ImplementFunction(uri)
 {
 	AutoPtr<Object_uri> pObj(new Object_uri(env));
-	if (!pObj->Parse(sig, args.GetString(0))) return Value::Null;
+	if (args.Is_string(0)) {
+		if (!pObj->GetUri().Parse(sig, args.GetString(0))) return Value::Null;
+	}
 	return ReturnValue(env, sig, args, Value(pObj.release()));
 }
 
@@ -271,7 +130,7 @@ bool Class_uri::CastFrom(Environment &env, Signal sig, Value &value, const Decla
 {
 	if (value.Is_string()) {
 		AutoPtr<Object_uri> pObj(new Object_uri(env));
-		if (!pObj->Parse(sig, value.GetString())) return false;
+		if (!pObj->GetUri().Parse(sig, value.GetString())) return false;
 		value = Value(pObj.release());
 		return true;
 	}
