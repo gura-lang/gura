@@ -41,6 +41,7 @@ public:
 		STAT_NumberAfterDot, STAT_Number,
 		STAT_NumberExpAfterE, STAT_NumberExpAfterSign, STAT_NumberExp,
 		STAT_ImagNumber, STAT_RatioNumber,
+		STAT_SuffixedNumber,
 		STAT_Symbol, STAT_SymbolExclamation,
 		STAT_CommentLineTop, STAT_CommentLine, STAT_MagicCommentLine,
 		STAT_ShebangLine,
@@ -122,7 +123,7 @@ public:
 		ETYPE_EOF,
 		ETYPE_Symbol,
 		ETYPE_String,
-		ETYPE_SuffixedString,
+		ETYPE_SuffixedNumber,
 		ETYPE_Binary,
 		ETYPE_Expr,
 		ETYPE_DoubleChars,		// only used in tokenizing process
@@ -228,6 +229,7 @@ private:
 	int _commentNestLevel;
 	AutoPtr<StringRef> _pSourceName;
 	String _token;
+	String _suffix;
 	ElementStack _elemStack;
 	StringInfo _stringInfo;
 	ElemTypeToIndexMap _elemTypeToIndexMap;

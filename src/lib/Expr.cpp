@@ -14,20 +14,21 @@ const char *GetExprTypeName(ExprType exprType)
 		ExprType exprType;
 		const char *name;
 	} tbl[] = {
-		{ EXPRTYPE_UnaryOp,		"unaryop",		},
-		{ EXPRTYPE_Quote,		"quote",		},
-		{ EXPRTYPE_BinaryOp,	"binaryop",		},
-		{ EXPRTYPE_Assign,		"assign",		},
-		{ EXPRTYPE_Member,		"member",		},
-		{ EXPRTYPE_Root,		"root",			},
-		{ EXPRTYPE_Block,		"block",		},
-		{ EXPRTYPE_Lister,		"lister",		},
-		{ EXPRTYPE_Iterer,		"iterer",		},
-		{ EXPRTYPE_Indexer,		"indexer",		},
-		{ EXPRTYPE_Caller,		"caller",		},
-		{ EXPRTYPE_Value,		"value",		},
-		{ EXPRTYPE_Symbol,		"symbol",		},
-		{ EXPRTYPE_String,		"string",		},
+		{ EXPRTYPE_UnaryOp,			"unaryop",			},
+		{ EXPRTYPE_Quote,			"quote",			},
+		{ EXPRTYPE_BinaryOp,		"binaryop",			},
+		{ EXPRTYPE_Assign,			"assign",			},
+		{ EXPRTYPE_Member,			"member",			},
+		{ EXPRTYPE_Root,			"root",				},
+		{ EXPRTYPE_Block,			"block",			},
+		{ EXPRTYPE_Lister,			"lister",			},
+		{ EXPRTYPE_Iterer,			"iterer",			},
+		{ EXPRTYPE_Indexer,			"indexer",			},
+		{ EXPRTYPE_Caller,			"caller",			},
+		{ EXPRTYPE_Value,			"value",			},
+		{ EXPRTYPE_Symbol,			"symbol",			},
+		{ EXPRTYPE_String,			"string",			},
+		{ EXPRTYPE_SuffixedNumber,	"suffixednumber",	},
 	};
 	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].exprType == exprType) return tbl[i].name;
@@ -270,6 +271,7 @@ bool Expr::IsCaller() const			{ return false; }
 bool Expr::IsValue() const			{ return false; }
 bool Expr::IsSymbol() const			{ return false; }
 bool Expr::IsString() const			{ return false; }
+bool Expr::IsSuffixedNumber() const	{ return false; }
 
 bool Expr::IsParentOf(const Expr *pExpr) const
 {
@@ -1122,20 +1124,7 @@ Expr *Expr_String::Clone() const
 
 Value Expr_String::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
 {
-	Value result;
-	if (_pSymbolSuffix == NULL) {
-		result = Value(_str);
-	} else {
-		SuffixHandlerMap &suffixHandlerMap = env.GetGlobal()->GetSuffixHandlerMap();
-		SuffixHandlerMap::iterator iter = suffixHandlerMap.find(_pSymbolSuffix);
-		if (iter == suffixHandlerMap.end()) {
-			sig.SetError(ERR_SyntaxError, "unknown suffix %s", _pSymbolSuffix->GetName());
-			return Value::Null;
-		}
-		SuffixHandler *pSuffixHandler = iter->second;
-		result = pSuffixHandler->DoEval(env, sig, _str.c_str());
-		if (sig.IsSignalled()) return Value::Null;
-	}
+	Value result(_str);
 	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
 	return result;
 }
@@ -1158,6 +1147,53 @@ bool Expr_String::GenerateScript(Signal sig, SimpleStream &stream,
 		stream.Print(sig, "' .. '");
 	} else {
 		stream.Print(sig, MakeQuotedString(_str.c_str()).c_str());
+	}
+	if (sig.IsSignalled()) return false;
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// Expr_SuffixedNumber
+//-----------------------------------------------------------------------------
+bool Expr_SuffixedNumber::IsSuffixedNumber() const { return true; }
+
+Expr *Expr_SuffixedNumber::Clone() const
+{
+	return new Expr_SuffixedNumber(*this);
+}
+
+Value Expr_SuffixedNumber::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
+{
+	Value result;
+	SuffixHandler *pSuffixHandler = SuffixHandler::Lookup(env, _pSymbolSuffix);
+	if (pSuffixHandler == NULL) {
+		sig.SetError(ERR_SyntaxError, "unknown suffix %s", _pSymbolSuffix->GetName());
+		return Value::Null;
+	}
+	result = pSuffixHandler->DoEval(env, sig, _str.c_str());
+	if (sig.IsSignalled()) return Value::Null;
+	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
+	return result;
+}
+
+void Expr_SuffixedNumber::Accept(ExprVisitor &visitor) const
+{
+	visitor.Visit(this);
+}
+
+bool Expr_SuffixedNumber::GenerateCode(Environment &env, Signal sig, Stream &stream)
+{
+	stream.Println(sig, "SuffixedNumber");
+	return true;
+}
+
+bool Expr_SuffixedNumber::GenerateScript(Signal sig, SimpleStream &stream,
+								ScriptStyle scriptStyle, int nestLevel) const
+{
+	if (scriptStyle == SCRSTYLE_Brief && _str.size() > 32) {
+		stream.Print(sig, "' .. '");
+	} else {
+		stream.Print(sig, _str.c_str());
 	}
 	if (sig.IsSignalled()) return false;
 	return true;

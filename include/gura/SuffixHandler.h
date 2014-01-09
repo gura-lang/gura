@@ -17,14 +17,20 @@ class Environment;
 class SuffixHandler {
 public:
 	virtual Value DoEval(Environment &env, Signal sig, const char *str) const = 0;
+	static SuffixHandler *Lookup(Environment &env, const Symbol *pSymbolSuffix);
+	static void Register(Environment &env,
+				const Symbol *pSymbolSuffix, SuffixHandler *pSuffixHandler);
 };
 
 //-----------------------------------------------------------------------------
 // SuffixHandlerMap
 //-----------------------------------------------------------------------------
-class SuffixHandlerMap : public std::map<const Symbol *, SuffixHandler *> {
+class SuffixHandlerMap : public std::map<const Symbol *,
+							SuffixHandler *, Symbol::KeyCompare_UniqNumber> {
 public:
 	~SuffixHandlerMap();
+	void Register(const Symbol *pSymbolSuffix, SuffixHandler *pSuffixHandler);
+	SuffixHandler *Lookup(const Symbol *pSymbolSuffix);
 };
 
 }
