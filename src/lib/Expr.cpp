@@ -1122,7 +1122,20 @@ Expr *Expr_String::Clone() const
 
 Value Expr_String::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
 {
-	Value result(_str);
+	Value result;
+	if (_pSymbolSuffix == NULL) {
+		result = Value(_str);
+	} else {
+		SuffixHandlerMap &suffixHandlerMap = env.GetGlobal()->GetSuffixHandlerMap();
+		SuffixHandlerMap::iterator iter = suffixHandlerMap.find(_pSymbolSuffix);
+		if (iter == suffixHandlerMap.end()) {
+			sig.SetError(ERR_SyntaxError, "unknown suffix %s", _pSymbolSuffix->GetName());
+			return Value::Null;
+		}
+		SuffixHandler *pSuffixHandler = iter->second;
+		result = pSuffixHandler->DoEval(env, sig, _str.c_str());
+		if (sig.IsSignalled()) return Value::Null;
+	}
 	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
 	return result;
 }

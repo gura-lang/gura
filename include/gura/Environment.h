@@ -9,6 +9,7 @@
 #include "Operator.h"
 #include "Help.h"
 #include "Option.h"
+#include "SuffixHandler.h"
 
 //-----------------------------------------------------------------------------
 // macros
@@ -176,6 +177,7 @@ public:
 		IntegratedModuleMap _integratedModuleMap;
 		SeparatedModuleMap	_separatedModuleMap;
 		StringList			_workingDirList;
+		SuffixHandlerMap	_suffixHandlerMap;
 		PathManagerOwner	_pathManagerOwner;
 		HelpPresenterOwner	_helpPresenterOwner;
 		Operator			*_operatorTbl[OPTYPE_max];
@@ -198,6 +200,8 @@ public:
 		void RegisterSeparatedModule(const char *pathName, Module *pModule);
 		void UnregisterSeparatedModule(const char *pathName);
 		inline Option &GetOption() { return _opt; }
+		inline SuffixHandlerMap &GetSuffixHandlerMap() { return _suffixHandlerMap; }
+		inline const SuffixHandlerMap &GetSuffixHandlerMap() const { return _suffixHandlerMap; }
 		inline PathManagerOwner &GetPathManagerOwner() { return _pathManagerOwner; }
 		inline const PathManagerOwner &GetPathManagerOwner() const { return _pathManagerOwner; }
 		inline HelpPresenterOwner &GetHelpPresenterOwner() { return _helpPresenterOwner; }

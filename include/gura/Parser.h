@@ -122,6 +122,7 @@ public:
 		ETYPE_EOF,
 		ETYPE_Symbol,
 		ETYPE_String,
+		ETYPE_SuffixedString,
 		ETYPE_Binary,
 		ETYPE_Expr,
 		ETYPE_DoubleChars,		// only used in tokenizing process
@@ -151,6 +152,7 @@ public:
 		ElemType _elemType;
 		int _lineNo;
 		String _str;
+		String _suffix;
 		// _pExpr is only available for the following element types.
 		// ETYPE_Expr          (Expr)
 		// ETYPE_LParenthesis  (Expr_Lister)
@@ -167,6 +169,8 @@ public:
 					_elemType(elemType), _lineNo(lineNo), _pExpr(NULL) {}
 		inline Element(ElemType elemType, int lineNo, const String &str) :
 					_elemType(elemType), _lineNo(lineNo), _pExpr(NULL), _str(str) {}
+		inline Element(ElemType elemType, int lineNo, const String &str, const String &suffix) :
+					_elemType(elemType), _lineNo(lineNo), _pExpr(NULL), _str(str), _suffix(suffix) {}
 		inline Element(ElemType elemType, Expr *pExpr) :
 					_elemType(elemType), _lineNo(pExpr->GetLineNoTop()), _pExpr(pExpr) {}
 		inline Element &operator=(const Element &elem) {
@@ -197,7 +201,9 @@ public:
 		inline Expr *GetExpr() const { return _pExpr; }
 		inline void SetExpr(Expr *pExpr) { _pExpr = pExpr; }
 		inline const String &GetStringSTL() const { return _str; }
+		inline const String &GetSuffixSTL() const { return _suffix; }
 		inline const char *GetString() const { return _str.c_str(); }
+		inline const char *GetSuffix() const { return _suffix.c_str(); }
 		inline size_t GetStringSize() const { return _str.size(); }
 		inline void AddString(const String &str) { _str.append(str); }
 		Number GetNumber() const;

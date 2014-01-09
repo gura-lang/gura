@@ -493,7 +493,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_token.push_back(ch);
 		} else if (ch == 'j') {
 			_stat = STAT_ImagNumber;
-		} else if (ch == 'j') {
+		} else if (ch == 'r') {
 			_stat = STAT_RatioNumber;
 		} else {
 			pExpr = FeedElement(env, sig, Element(ETYPE_Number, GetLineNo(), _token));
@@ -1051,6 +1051,7 @@ const Parser::ElemTypeInfo Parser::_elemTypeInfoTbl[] = {
 	{ ETYPE_ImagNumber,			27, "ImagNumber",		"[iNm]",	OPTYPE_None		},
 	{ ETYPE_RatioNumber,		27, "RatioNumber",		"[rNm]",	OPTYPE_None		},
 	{ ETYPE_String,				27, "String",			"[Str]",	OPTYPE_None		},
+	{ ETYPE_SuffixedString,		27, "SuffixedString",	"[SSt]",	OPTYPE_None		},
 	{ ETYPE_Binary,				27, "Binary",			"[Bin]",	OPTYPE_None		},
 	{ ETYPE_Symbol,				28, "Symbol",			"[Sym]",	OPTYPE_None		},	// S
 	{ ETYPE_EOF,				29, "EOF",				"[EOF]",	OPTYPE_None		},	// E
@@ -1212,6 +1213,9 @@ bool Parser::ReduceOneElem(Environment &env, Signal sig)
 	} else if (elem1.IsType(ETYPE_String)) {
 		DBGPARSER(::printf("Reduce: Expr -> String\n"));
 		pExpr = new Expr_String(elem1.GetStringSTL());
+	} else if (elem1.IsType(ETYPE_SuffixedString)) {
+		DBGPARSER(::printf("Reduce: Expr -> SuffixedString\n"));
+		pExpr = new Expr_String(elem1.GetStringSTL(), Symbol::Add(elem1.GetSuffix()));
 	} else if (elem1.IsType(ETYPE_Binary)) {
 		DBGPARSER(::printf("Reduce: Expr -> Binary\n"));
 		Value value(new Object_binary(env,

@@ -472,10 +472,14 @@ public:
 class GURA_DLLDECLARE Expr_String : public Expr {
 protected:
 	String _str;
+	const Symbol *_pSymbolSuffix;
 public:
-	inline Expr_String(const String &str) : Expr(EXPRTYPE_String), _str(str) {}
-	inline Expr_String(const Expr_String &expr) : Expr(expr), _str(expr._str) {}
+	inline Expr_String(const String &str, const Symbol *pSymbolSuffix = NULL) :
+				Expr(EXPRTYPE_String), _str(str), _pSymbolSuffix(pSymbolSuffix) {}
+	inline Expr_String(const Expr_String &expr, const Symbol *pSymbolSuffix = NULL) :
+				Expr(expr), _str(expr._str), _pSymbolSuffix(pSymbolSuffix) {}
 	inline const char *GetString() const { return _str.c_str(); }
+	inline const Symbol *GetSymbolSuffix() const { return _pSymbolSuffix; }
 	inline static Expr_String *Reference(const Expr_String *pExpr) {
 		return dynamic_cast<Expr_String *>(Expr::Reference(pExpr));
 	}
