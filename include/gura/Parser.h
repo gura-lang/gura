@@ -165,7 +165,7 @@ public:
 		inline Element() : _elemType(ETYPE_Unknown), _lineNo(0), _pExpr(NULL) {}
 		inline Element(const Element &elem) :
 					_elemType(elem._elemType), _lineNo(elem._lineNo), _pExpr(elem._pExpr),
-					_str(elem._str) {}
+					_str(elem._str), _suffix(elem._suffix) {}
 		inline Element(ElemType elemType, int lineNo) :
 					_elemType(elemType), _lineNo(lineNo), _pExpr(NULL) {}
 		inline Element(ElemType elemType, int lineNo, const String &str) :
@@ -176,7 +176,7 @@ public:
 					_elemType(elemType), _lineNo(pExpr->GetLineNoTop()), _pExpr(pExpr) {}
 		inline Element &operator=(const Element &elem) {
 			_elemType = elem._elemType, _lineNo = elem._lineNo, _pExpr = elem._pExpr;
-			_str = elem._str;
+			_str = elem._str, _suffix = elem._suffix;
 			return *this;
 		}
 		~Element();
@@ -207,7 +207,6 @@ public:
 		inline const char *GetSuffix() const { return _suffix.c_str(); }
 		inline size_t GetStringSize() const { return _str.size(); }
 		inline void AddString(const String &str) { _str.append(str); }
-		Number GetNumber() const;
 		const char *GetTypeSymbol() const;
 	};
 	class GURA_DLLDECLARE ElementStack : public std::vector<Element> {

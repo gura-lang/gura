@@ -50,6 +50,19 @@ UShort GetCType(char ch)
 	return __ctypeTbl[static_cast<UChar>(ch)];
 }
 
+Number ToNumber(const char *str, bool *pSuccessFlag)
+{
+	Number num;
+	char *next = NULL;
+	if (str[0] == '0' && (str[1] == 'x' || str[1] == 'X' || IsOctDigit(str[1]))) {
+		num = ::strtoul(str, &next, 0);
+	} else {
+		num = ::strtod(str, &next);
+	}
+	if (pSuccessFlag != NULL) *pSuccessFlag = (*next == '\0');
+	return num;
+}
+
 char GetEscaped(char ch)
 {
 	static const struct {

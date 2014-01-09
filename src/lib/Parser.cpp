@@ -454,10 +454,10 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 		} else if (ch == 'e' || ch == 'E') {
 			_token.push_back(ch);
 			_stat = STAT_NumberExpAfterE;
-		//} else if (IsSymbolFirstChar(ch)) {
-		//	_suffix.clear();
-		//	_suffix.push_back(ch);
-		//	_stat = STAT_SuffixedNumber;
+		} else if (IsSymbolFirstChar(ch)) {
+			_suffix.clear();
+			_suffix.push_back(ch);
+			_stat = STAT_SuffixedNumber;
 		} else if (ch == 'j') {
 			_stat = STAT_ImagNumber;
 		} else if (ch == 'r') {
@@ -495,10 +495,10 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 	case STAT_NumberExp: {
 		if (IsDigit(ch)) {
 			_token.push_back(ch);
-		//} else if (IsSymbolFirstChar(ch)) {
-		//	_suffix.clear();
-		//	_suffix.push_back(ch);
-		//	_stat = STAT_SuffixedNumber;
+		} else if (IsSymbolFirstChar(ch)) {
+			_suffix.clear();
+			_suffix.push_back(ch);
+			_stat = STAT_SuffixedNumber;
 		} else if (ch == 'j') {
 			_stat = STAT_ImagNumber;
 		} else if (ch == 'r') {
@@ -1218,7 +1218,7 @@ bool Parser::ReduceOneElem(Environment &env, Signal sig)
 	Element &elem1 = _elemStack.Peek(0);
 	if (elem1.IsType(ETYPE_Number)) {
 		DBGPARSER(::printf("Reduce: Expr -> Number\n"));
-		Expr_Value *pExprEx = new Expr_Value(elem1.GetNumber());
+		Expr_Value *pExprEx = new Expr_Value(ToNumber(elem1.GetString()));
 		pExprEx->SetScript(elem1.GetStringSTL());
 		pExpr = pExprEx;
 	} else if (elem1.IsType(ETYPE_String)) {
@@ -1227,12 +1227,12 @@ bool Parser::ReduceOneElem(Environment &env, Signal sig)
 #if 1
 	} else if (elem1.IsType(ETYPE_ImagNumber)) {
 		DBGPARSER(::printf("Reduce: Expr -> ImagNumber\n"));
-		Expr_Value *pExprEx = new Expr_Value(Complex(0, elem1.GetNumber()));
+		Expr_Value *pExprEx = new Expr_Value(Complex(0, ToNumber(elem1.GetString())));
 		pExprEx->SetScript(elem1.GetStringSTL() + "j");
 		pExpr = pExprEx;
 	} else if (elem1.IsType(ETYPE_RatioNumber)) {
 		DBGPARSER(::printf("Reduce: Expr -> RatioNumber\n"));
-		Expr_Value *pExprEx = new Expr_Value(Rational::FromNumber(elem1.GetNumber()));
+		Expr_Value *pExprEx = new Expr_Value(Rational::FromNumber(ToNumber(elem1.GetString())));
 		pExprEx->SetScript(elem1.GetStringSTL() + "r");
 		pExpr = pExprEx;
 #endif
@@ -2230,16 +2230,6 @@ String Parser::ElementStack::ToString() const
 //-----------------------------------------------------------------------------
 Parser::Element::~Element()
 {
-}
-
-Number Parser::Element::GetNumber() const
-{
-	if (_str.size() > 2 && _str[0] == '0' &&
-			(_str[1] == 'x' || _str[1] == 'X' || IsOctDigit(_str[1]))) {
-		return ::strtoul(_str.c_str(), NULL, 0);
-	} else {
-		return ::strtod(_str.c_str(), NULL);
-	}
 }
 
 const char *Parser::Element::GetTypeSymbol() const

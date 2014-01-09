@@ -1196,6 +1196,8 @@ bool Expr_SuffixedNumber::GenerateScript(Signal sig, SimpleStream &stream,
 		stream.Print(sig, _str.c_str());
 	}
 	if (sig.IsSignalled()) return false;
+	stream.Print(sig, _pSymbolSuffix->GetName());
+	if (sig.IsSignalled()) return false;
 	return true;
 }
 

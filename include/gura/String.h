@@ -73,6 +73,7 @@ GURA_DLLDECLARE Value FindString(Environment &env, Signal sig,
 		const char *str, const char *sub, int start, const SymbolSet &attrs);
 
 GURA_DLLDECLARE UShort GetCType(char ch);
+GURA_DLLDECLARE Number ToNumber(const char *str, bool *pSuccessFlag = NULL);
 
 inline size_t CalcCharOffset(const char *str, size_t pos) {
 	return Forward(str, pos) - str;
