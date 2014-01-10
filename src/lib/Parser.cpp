@@ -458,10 +458,6 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_suffix.clear();
 			_suffix.push_back(ch);
 			_stat = STAT_SuffixedNumber;
-		} else if (ch == 'j') {
-			_stat = STAT_ImagNumber;
-		} else if (ch == 'r') {
-			_stat = STAT_RatioNumber;
 		} else {
 			pExpr = FeedElement(env, sig, Element(ETYPE_Number, GetLineNo(), _token));
 			continueFlag = true;
@@ -499,10 +495,6 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_suffix.clear();
 			_suffix.push_back(ch);
 			_stat = STAT_SuffixedNumber;
-		} else if (ch == 'j') {
-			_stat = STAT_ImagNumber;
-		} else if (ch == 'r') {
-			_stat = STAT_RatioNumber;
 		} else {
 			pExpr = FeedElement(env, sig, Element(ETYPE_Number, GetLineNo(), _token));
 			continueFlag = true;
@@ -521,30 +513,6 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 		}
 		break;
 	}
-#if 1
-	case STAT_ImagNumber: {
-		if (IsSymbolChar(ch)) {
-			SetError(sig, ERR_SyntaxError, "wrong format of number");
-			_stat = STAT_Error;
-		} else {
-			pExpr = FeedElement(env, sig, Element(ETYPE_ImagNumber, GetLineNo(), _token));
-			continueFlag = true;
-			_stat = STAT_Start;
-		}
-		break;
-	}
-	case STAT_RatioNumber: {
-		if (IsSymbolChar(ch)) {
-			SetError(sig, ERR_SyntaxError, "wrong format of number");
-			_stat = STAT_Error;
-		} else {
-			pExpr = FeedElement(env, sig, Element(ETYPE_RatioNumber, GetLineNo(), _token));
-			continueFlag = true;
-			_stat = STAT_Start;
-		}
-		break;
-	}
-#endif
 	case STAT_Symbol: {
 		if (IsSymbolChar(ch)) {
 			_token.push_back(ch);
@@ -1069,8 +1037,6 @@ const Parser::ElemTypeInfo Parser::_elemTypeInfoTbl[] = {
 	{ ETYPE_Semicolon,			25, "Semicolon",		";",		OPTYPE_None		},
 	{ ETYPE_EOL,				26, "EOL",				"[EOL]",	OPTYPE_None		},	// \n
 	{ ETYPE_Number,				27, "Number",			"[Num]",	OPTYPE_None		},	// V
-	{ ETYPE_ImagNumber,			27, "ImagNumber",		"[iNm]",	OPTYPE_None		},
-	{ ETYPE_RatioNumber,		27, "RatioNumber",		"[rNm]",	OPTYPE_None		},
 	{ ETYPE_String,				27, "String",			"[Str]",	OPTYPE_None		},
 	{ ETYPE_SuffixedNumber,		27, "SuffixedString",	"[sNm]",	OPTYPE_None		},
 	{ ETYPE_Binary,				27, "Binary",			"[Bin]",	OPTYPE_None		},
@@ -1224,18 +1190,6 @@ bool Parser::ReduceOneElem(Environment &env, Signal sig)
 	} else if (elem1.IsType(ETYPE_String)) {
 		DBGPARSER(::printf("Reduce: Expr -> String\n"));
 		pExpr = new Expr_String(elem1.GetStringSTL());
-#if 1
-	} else if (elem1.IsType(ETYPE_ImagNumber)) {
-		DBGPARSER(::printf("Reduce: Expr -> ImagNumber\n"));
-		Expr_Value *pExprEx = new Expr_Value(Complex(0, ToNumber(elem1.GetString())));
-		pExprEx->SetScript(elem1.GetStringSTL() + "j");
-		pExpr = pExprEx;
-	} else if (elem1.IsType(ETYPE_RatioNumber)) {
-		DBGPARSER(::printf("Reduce: Expr -> RatioNumber\n"));
-		Expr_Value *pExprEx = new Expr_Value(Rational::FromNumber(ToNumber(elem1.GetString())));
-		pExprEx->SetScript(elem1.GetStringSTL() + "r");
-		pExpr = pExprEx;
-#endif
 	} else if (elem1.IsType(ETYPE_SuffixedNumber)) {
 		DBGPARSER(::printf("Reduce: Expr -> SuffixedNumber\n"));
 		pExpr = new Expr_SuffixedNumber(elem1.GetStringSTL(), Symbol::Add(elem1.GetSuffix()));

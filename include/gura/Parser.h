@@ -40,7 +40,6 @@ public:
 		STAT_NumberPre, STAT_NumberHex, STAT_NumberOct,
 		STAT_NumberAfterDot, STAT_Number,
 		STAT_NumberExpAfterE, STAT_NumberExpAfterSign, STAT_NumberExp,
-		STAT_ImagNumber, STAT_RatioNumber,
 		STAT_SuffixedNumber,
 		STAT_Symbol, STAT_SymbolExclamation,
 		STAT_CommentLineTop, STAT_CommentLine, STAT_MagicCommentLine,
@@ -61,8 +60,6 @@ public:
 	enum ElemType {
 		ETYPE_Begin,
 		ETYPE_Number,
-		ETYPE_ImagNumber,
-		ETYPE_RatioNumber,
 		ETYPE_Quote,
 		ETYPE_Question,
 		ETYPE_Add,
