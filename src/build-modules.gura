@@ -19,7 +19,7 @@ moduleInfos = @(ModuleInfo) {
 	['fs',				`skip,	[`mswin,	`linux	]]	// integrated
 	['gif',				`build,	[`mswin,	`linux	]]
 	['glu',				`build,	[`mswin,	`linux	]]
-	['gmp',				`skip,	[`mswin,	`linux	]]	// not completed
+	['gmp',				`build,	[`mswin,	`linux	]]
 	['guri',			`build,	[`mswin,	`linux	]]
 	['gzip',			`build,	[`mswin,	`linux	]]
 	['hash',			`build,	[`mswin,	`linux	]]
