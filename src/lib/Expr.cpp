@@ -5,6 +5,9 @@
 
 namespace Gura {
 
+static const int MaxCharsForBriefStyle = 32;
+static const int MaxBytesForBriefStyle = 32;
+
 //-----------------------------------------------------------------------------
 // ExprType
 //-----------------------------------------------------------------------------
@@ -867,7 +870,7 @@ bool Expr_Value::GenerateScript(Signal sig, SimpleStream &stream,
 {
 	if (_value.Is_string()) {
 		const char *str = _value.GetString();
-		if (scriptStyle == SCRSTYLE_Brief && ::strlen(str) > 32) {
+		if (scriptStyle == SCRSTYLE_Brief && ::strlen(str) > MaxCharsForBriefStyle) {
 			stream.Print(sig, "' .. '");
 		} else {
 			stream.Print(sig, MakeQuotedString(str).c_str());
@@ -875,7 +878,7 @@ bool Expr_Value::GenerateScript(Signal sig, SimpleStream &stream,
 		if (sig.IsSignalled()) return false;
 	} else if (_value.Is_binary()) {
 		const Binary &binary = _value.GetBinary();
-		if (scriptStyle == SCRSTYLE_Brief && binary.size() > 32) {
+		if (scriptStyle == SCRSTYLE_Brief && binary.size() > MaxBytesForBriefStyle) {
 			stream.Print(sig, "b' .. '");
 		} else {
 			char buff[32];
@@ -1134,12 +1137,15 @@ Expr *Expr_Suffixed::Clone() const
 Value Expr_Suffixed::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
 {
 	Value result;
-	SuffixHandler *pSuffixHandler = SuffixHandler::Lookup(env, _pSymbolSuffix);
+	SuffixHandler *pSuffixHandler = _numberFlag?
+				SuffixHandler::LookupForNumber(env, _pSymbolSuffix) :
+				SuffixHandler::LookupForString(env, _pSymbolSuffix);
 	if (pSuffixHandler == NULL) {
-		sig.SetError(ERR_SyntaxError, "unknown suffix %s", _pSymbolSuffix->GetName());
+		sig.SetError(ERR_SyntaxError, "unknown suffix '%s' for %s",
+				_pSymbolSuffix->GetName(), _numberFlag? "number" : "string");
 		return Value::Null;
 	}
-	result = pSuffixHandler->DoEval(env, sig, _str.c_str());
+	result = pSuffixHandler->DoEval(env, sig, _body.c_str());
 	if (sig.IsSignalled()) return Value::Null;
 	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
 	return result;
@@ -1159,10 +1165,18 @@ bool Expr_Suffixed::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr_Suffixed::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
-	if (scriptStyle == SCRSTYLE_Brief && _str.size() > 32) {
-		stream.Print(sig, "' .. '");
+	if (_numberFlag) {
+		if (scriptStyle == SCRSTYLE_Brief && _body.size() > MaxCharsForBriefStyle) {
+			stream.Print(sig, "..");
+		} else {
+			stream.Print(sig, _body.c_str());
+		}
 	} else {
-		stream.Print(sig, _str.c_str());
+		if (scriptStyle == SCRSTYLE_Brief && _body.size() > MaxCharsForBriefStyle) {
+			stream.Print(sig, "' .. '");
+		} else {
+			stream.Print(sig, MakeQuotedString(_body.c_str()).c_str());
+		}
 	}
 	if (sig.IsSignalled()) return false;
 	stream.Print(sig, _pSymbolSuffix->GetName());

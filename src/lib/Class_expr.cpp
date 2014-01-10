@@ -141,10 +141,10 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		}
 		sig.SetError(ERR_ValueError, "expression is not a symbol");
 		return Value::Null;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(string))) {
+	} else if (pSymbol->IsIdentical(Gura_Symbol(body))) {
 		if (GetExpr()->IsSuffixed()) {
 			const Expr_Suffixed *pExpr = dynamic_cast<const Expr_Suffixed *>(GetExpr());
-			return Value(pExpr->GetString());
+			return Value(pExpr->GetBody());
 		}
 		sig.SetError(ERR_ValueError, "expression is not a suffixed");
 		return Value::Null;

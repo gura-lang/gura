@@ -8,15 +8,26 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // SuffixHandler
 //-----------------------------------------------------------------------------
-SuffixHandler *SuffixHandler::Lookup(Environment &env, const Symbol *pSymbolSuffix)
+SuffixHandler *SuffixHandler::LookupForString(Environment &env, const Symbol *pSymbolSuffix)
 {
-	return env.GetGlobal()->GetSuffixHandlerMap().Lookup(pSymbolSuffix);
+	return env.GetGlobal()->GetSuffixHandlerMapForString().Lookup(pSymbolSuffix);
 }
 
-void SuffixHandler::Register(Environment &env,
+SuffixHandler *SuffixHandler::LookupForNumber(Environment &env, const Symbol *pSymbolSuffix)
+{
+	return env.GetGlobal()->GetSuffixHandlerMapForNumber().Lookup(pSymbolSuffix);
+}
+
+void SuffixHandler::RegisterForString(Environment &env,
 				const Symbol *pSymbolSuffix, SuffixHandler *pSuffixHandler)
 {
-	env.GetGlobal()->GetSuffixHandlerMap().Register(pSymbolSuffix, pSuffixHandler);
+	env.GetGlobal()->GetSuffixHandlerMapForString().Register(pSymbolSuffix, pSuffixHandler);
+}
+
+void SuffixHandler::RegisterForNumber(Environment &env,
+				const Symbol *pSymbolSuffix, SuffixHandler *pSuffixHandler)
+{
+	env.GetGlobal()->GetSuffixHandlerMapForNumber().Register(pSymbolSuffix, pSuffixHandler);
 }
 
 //-----------------------------------------------------------------------------

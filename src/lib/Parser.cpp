@@ -1039,6 +1039,7 @@ const Parser::ElemTypeInfo Parser::_elemTypeInfoTbl[] = {
 	{ ETYPE_Number,				27, "Number",			"[Num]",	OPTYPE_None		},	// V
 	{ ETYPE_NumberSuffixed,		27, "NumberSuffixed",	"[NmS]",	OPTYPE_None		},
 	{ ETYPE_String,				27, "String",			"[Str]",	OPTYPE_None		},
+	{ ETYPE_StringSuffixed,		27, "StringSuffixed",	"[StS]",	OPTYPE_None		},
 	{ ETYPE_Binary,				27, "Binary",			"[Bin]",	OPTYPE_None		},
 	{ ETYPE_Symbol,				28, "Symbol",			"[Sym]",	OPTYPE_None		},	// S
 	{ ETYPE_EOF,				29, "EOF",				"[EOF]",	OPTYPE_None		},	// E
@@ -1201,7 +1202,10 @@ bool Parser::ReduceOneElem(Environment &env, Signal sig)
 		pExpr = new Expr_Symbol(pSymbol);
 	} else if (elem1.IsType(ETYPE_NumberSuffixed)) {
 		DBGPARSER(::printf("Reduce: Expr -> Suffixed\n"));
-		pExpr = new Expr_Suffixed(elem1.GetStringSTL(), Symbol::Add(elem1.GetSuffix()));
+		pExpr = new Expr_Suffixed(elem1.GetStringSTL(), true, Symbol::Add(elem1.GetSuffix()));
+	} else if (elem1.IsType(ETYPE_StringSuffixed)) {
+		DBGPARSER(::printf("Reduce: Expr -> Suffixed\n"));
+		pExpr = new Expr_Suffixed(elem1.GetStringSTL(), false, Symbol::Add(elem1.GetSuffix()));
 	} else if (elem1.IsType(ETYPE_Add)) {
 		DBGPARSER(::printf("Reduce: Expr -> '+'\n"));
 		pExpr = new Expr_Symbol(Gura_Symbol(Char_Add));

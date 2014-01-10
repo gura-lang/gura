@@ -16,9 +16,12 @@ class Environment;
 //-----------------------------------------------------------------------------
 class SuffixHandler {
 public:
-	virtual Value DoEval(Environment &env, Signal sig, const char *str) const = 0;
-	static SuffixHandler *Lookup(Environment &env, const Symbol *pSymbolSuffix);
-	static void Register(Environment &env,
+	virtual Value DoEval(Environment &env, Signal sig, const char *body) const = 0;
+	static SuffixHandler *LookupForString(Environment &env, const Symbol *pSymbolSuffix);
+	static SuffixHandler *LookupForNumber(Environment &env, const Symbol *pSymbolSuffix);
+	static void RegisterForString(Environment &env,
+				const Symbol *pSymbolSuffix, SuffixHandler *pSuffixHandler);
+	static void RegisterForNumber(Environment &env,
 				const Symbol *pSymbolSuffix, SuffixHandler *pSuffixHandler);
 };
 

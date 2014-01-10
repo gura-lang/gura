@@ -119,6 +119,7 @@ public:
 		ETYPE_Number,
 		ETYPE_NumberSuffixed,
 		ETYPE_String,
+		ETYPE_StringSuffixed,
 		ETYPE_Binary,
 		ETYPE_Symbol,
 		ETYPE_EOF,

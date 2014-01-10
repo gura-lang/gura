@@ -225,15 +225,15 @@ bool Class_number::Deserialize(Environment &env, Signal sig, Stream &stream, Val
 //-----------------------------------------------------------------------------
 // Class_complex
 //-----------------------------------------------------------------------------
-class SuffixHandler_j : public SuffixHandler {
+class SuffixHandler_Number_j : public SuffixHandler {
 public:
-	virtual Value DoEval(Environment &env, Signal sig, const char *str) const;
+	virtual Value DoEval(Environment &env, Signal sig, const char *body) const;
 };
 
-Value SuffixHandler_j::DoEval(Environment &env, Signal sig, const char *str) const
+Value SuffixHandler_Number_j::DoEval(Environment &env, Signal sig, const char *body) const
 {
 	bool successFlag = false;
-	Number num = ToNumber(str, &successFlag);
+	Number num = ToNumber(body, &successFlag);
 	if (!successFlag) {
 		sig.SetError(ERR_ValueError, "invalid number format");
 		return Value::Null;
@@ -310,7 +310,7 @@ void Class_complex::Prepare(Environment &env)
 	Gura_AssignFunction(complex);
 	Gura_AssignMethod(complex, polar);
 	Gura_AssignMethod(complex, roundoff);	// primitive method
-	SuffixHandler::Register(env, Gura_Symbol(j), new SuffixHandler_j());
+	SuffixHandler::RegisterForNumber(env, Gura_Symbol(j), new SuffixHandler_Number_j());
 }
 
 Value Class_complex::GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
@@ -375,15 +375,15 @@ bool Class_complex::Deserialize(Environment &env, Signal sig, Stream &stream, Va
 //-----------------------------------------------------------------------------
 // Class_rational
 //-----------------------------------------------------------------------------
-class SuffixHandler_r : public SuffixHandler {
+class SuffixHandler_Number_r : public SuffixHandler {
 public:
-	virtual Value DoEval(Environment &env, Signal sig, const char *str) const;
+	virtual Value DoEval(Environment &env, Signal sig, const char *body) const;
 };
 
-Value SuffixHandler_r::DoEval(Environment &env, Signal sig, const char *str) const
+Value SuffixHandler_Number_r::DoEval(Environment &env, Signal sig, const char *body) const
 {
 	bool successFlag = false;
-	Number num = ToNumber(str, &successFlag);
+	Number num = ToNumber(body, &successFlag);
 	if (!successFlag) {
 		sig.SetError(ERR_ValueError, "invalid number format");
 		return Value::Null;
@@ -436,7 +436,7 @@ void Class_rational::Prepare(Environment &env)
 {
 	Gura_AssignFunction(rational);
 	Gura_AssignMethod(rational, reduce);		// primitive method
-	SuffixHandler::Register(env, Gura_Symbol(r), new SuffixHandler_r());
+	SuffixHandler::RegisterForNumber(env, Gura_Symbol(r), new SuffixHandler_Number_r());
 }
 
 Value Class_rational::GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,

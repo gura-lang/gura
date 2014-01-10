@@ -469,14 +469,16 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Suffixed : public Expr {
 protected:
-	String _str;
+	String _body;
+	bool _numberFlag;
 	const Symbol *_pSymbolSuffix;
 public:
-	inline Expr_Suffixed(const String &str, const Symbol *pSymbolSuffix) :
-				Expr(EXPRTYPE_Suffixed), _str(str), _pSymbolSuffix(pSymbolSuffix) {}
+	inline Expr_Suffixed(const String &body, bool numberFlag, const Symbol *pSymbolSuffix) :
+		Expr(EXPRTYPE_Suffixed), _body(body), _numberFlag(numberFlag), _pSymbolSuffix(pSymbolSuffix) {}
 	inline Expr_Suffixed(const Expr_Suffixed &expr) :
-				Expr(expr), _str(expr._str), _pSymbolSuffix(expr._pSymbolSuffix) {}
-	inline const char *GetString() const { return _str.c_str(); }
+		Expr(expr), _body(expr._body), _numberFlag(expr._numberFlag), _pSymbolSuffix(expr._pSymbolSuffix) {}
+	inline bool IsNumber() const { return _numberFlag; }
+	inline const char *GetBody() const { return _body.c_str(); }
 	inline const Symbol *GetSymbolSuffix() const { return _pSymbolSuffix; }
 	inline static Expr_Suffixed *Reference(const Expr_Suffixed *pExpr) {
 		return dynamic_cast<Expr_Suffixed *>(Expr::Reference(pExpr));
