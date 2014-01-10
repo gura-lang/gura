@@ -27,7 +27,7 @@ const char *GetExprTypeName(ExprType exprType)
 		{ EXPRTYPE_Caller,			"caller",			},
 		{ EXPRTYPE_Value,			"value",			},
 		{ EXPRTYPE_Symbol,			"symbol",			},
-		{ EXPRTYPE_String,			"string",			},
+		//{ EXPRTYPE_String,			"string",			},
 		{ EXPRTYPE_SuffixedNumber,	"suffixednumber",	},
 	};
 	for (int i = 0; i < ArraySizeOf(tbl); i++) {
@@ -52,6 +52,7 @@ const char *GetExprTypeName(ExprType exprType)
 //        |                   `- Expr_Caller
 //        +- Expr_Value
 //        +- Expr_Symbol
+//        +- Expr_SuffixedNumber
 //        `- Expr_String
 //-----------------------------------------------------------------------------
 Expr::Expr(ExprType exprType) : _exprType(exprType),
@@ -270,7 +271,7 @@ bool Expr::IsCaller() const			{ return false; }
 // type chekers - others
 bool Expr::IsValue() const			{ return false; }
 bool Expr::IsSymbol() const			{ return false; }
-bool Expr::IsString() const			{ return false; }
+//bool Expr::IsString() const			{ return false; }
 bool Expr::IsSuffixedNumber() const	{ return false; }
 
 bool Expr::IsParentOf(const Expr *pExpr) const
@@ -1123,6 +1124,7 @@ bool Expr_Symbol::GenerateScriptTail(Signal sig, SimpleStream &stream,
 	return true;
 }
 
+#if 0
 //-----------------------------------------------------------------------------
 // Expr_String
 //-----------------------------------------------------------------------------
@@ -1162,6 +1164,7 @@ bool Expr_String::GenerateScript(Signal sig, SimpleStream &stream,
 	if (sig.IsSignalled()) return false;
 	return true;
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Expr_SuffixedNumber

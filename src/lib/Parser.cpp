@@ -1184,12 +1184,12 @@ bool Parser::ReduceOneElem(Environment &env, Signal sig)
 	Element &elem1 = _elemStack.Peek(0);
 	if (elem1.IsType(ETYPE_Number)) {
 		DBGPARSER(::printf("Reduce: Expr -> Number\n"));
-		Expr_Value *pExprEx = new Expr_Value(ToNumber(elem1.GetString()));
+		Expr_Value *pExprEx = new Expr_Value(Value(ToNumber(elem1.GetString())));
 		pExprEx->SetScript(elem1.GetStringSTL());
 		pExpr = pExprEx;
 	} else if (elem1.IsType(ETYPE_String)) {
 		DBGPARSER(::printf("Reduce: Expr -> String\n"));
-		pExpr = new Expr_String(elem1.GetStringSTL());
+		pExpr = new Expr_Value(Value(elem1.GetStringSTL()));
 	} else if (elem1.IsType(ETYPE_SuffixedNumber)) {
 		DBGPARSER(::printf("Reduce: Expr -> SuffixedNumber\n"));
 		pExpr = new Expr_SuffixedNumber(elem1.GetStringSTL(), Symbol::Add(elem1.GetSuffix()));

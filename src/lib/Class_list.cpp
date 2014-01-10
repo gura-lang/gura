@@ -1306,7 +1306,7 @@ Gura_ImplementMethod(list, head)
 Gura_DeclareMethod(list, join)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "sep", VTYPE_string, OCCUR_Once, FLAG_None, new Expr_String(""));
+	DeclareArg(env, "sep", VTYPE_string, OCCUR_Once, FLAG_None, new Expr_Value(Value("")));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Returns a string that joins strings of elements with the specified separator.");
 }

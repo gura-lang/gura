@@ -1774,7 +1774,7 @@ Gura_DeclareMethod(request, response)
 	DeclareArg(env, "reason", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "body", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareArg(env, "version", VTYPE_string,
-				OCCUR_Once, FLAG_None, new Expr_String(HTTP_VERSION));
+				OCCUR_Once, FLAG_None, new Expr_Value(Value(HTTP_VERSION)));
 	DeclareDictArg("header");
 }
 
@@ -1798,7 +1798,7 @@ Gura_DeclareMethod(request, respchunk)
 	DeclareArg(env, "code", VTYPE_string);
 	DeclareArg(env, "reason", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "version", VTYPE_string,
-				OCCUR_Once, FLAG_None, new Expr_String(HTTP_VERSION));
+				OCCUR_Once, FLAG_None, new Expr_Value(Value(HTTP_VERSION)));
 	DeclareDictArg("header");
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2340,7 +2340,7 @@ Gura_DeclareMethod(client, request)
 	DeclareArg(env, "uri", VTYPE_string);
 	DeclareArg(env, "body", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareArg(env, "version", VTYPE_string,
-					OCCUR_Once, FLAG_None, new Expr_String(HTTP_VERSION));
+					OCCUR_Once, FLAG_None, new Expr_Value(Value(HTTP_VERSION)));
 	DeclareDictArg("header");
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -2364,7 +2364,7 @@ Gura_DeclareMethod(client, _request)
 	DeclareArg(env, "uri", VTYPE_string);
 	DeclareArg(env, "body", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Read);
 	DeclareArg(env, "version", VTYPE_string,
-					OCCUR_Once, FLAG_None, new Expr_String(HTTP_VERSION));
+					OCCUR_Once, FLAG_None, new Expr_Value(Value(HTTP_VERSION)));
 	DeclareDictArg("header");
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }

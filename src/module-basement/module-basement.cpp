@@ -809,7 +809,7 @@ Gura_DeclareFunction(raise)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "error", VTYPE_error);
-	DeclareArg(env, "msg", VTYPE_string, OCCUR_Once, FLAG_None, new Expr_String("error"));
+	DeclareArg(env, "msg", VTYPE_string, OCCUR_Once, FLAG_None, new Expr_Value(Value("error")));
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Raises an error signal with a specified error object, a message string and\n"

@@ -779,10 +779,8 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 			if (pExprLeft->IsSymbol()) {
 				const Symbol *pSymbol = dynamic_cast<const Expr_Symbol *>(pExprLeft)->GetSymbol();
 				_exprMap[pSymbol] = pExprRight->Reference();
-			} else if (pExprLeft->IsValue() || pExprLeft->IsString()) {
-				Value valueKey = pExprLeft->IsValue()?
-					dynamic_cast<const Expr_Value *>(pExprLeft)->GetValue() :
-					 Value(dynamic_cast<const Expr_String *>(pExprLeft)->GetString());
+			} else if (pExprLeft->IsValue()) {
+				Value valueKey = dynamic_cast<const Expr_Value *>(pExprLeft)->GetValue();
 				AutoPtr<SeqPostHandler> pSeqPostHandler(new SeqPostHandler_StoreDict(
 							env.Reference(), dynamic_cast<SequenceEx *>(Reference()),
 							valueKey));

@@ -707,8 +707,9 @@ Value Object_ole::CallableOLE::DoCall(Environment &env, Signal sig, Args &argsEx
 			if (pExprLeft->IsSymbol()) {
 				const Symbol *pSymbol = dynamic_cast<const Expr_Symbol *>(pExprLeft)->GetSymbol();
 				argNames.push_back(pSymbol->GetName());
-			} else if (pExprLeft->IsString()) {
-				const char *str = dynamic_cast<const Expr_String *>(pExprLeft)->GetString();
+			} else if (pExprLeft->IsValue() &&
+					dynamic_cast<const Expr_Value *>(pExprLeft)->GetValue().Is_string()) {
+				const char *str = dynamic_cast<const Expr_Value *>(pExprLeft)->GetValue().GetString();
 				argNames.push_back(str);
 			} else {
 				sig.SetError(ERR_ValueError,

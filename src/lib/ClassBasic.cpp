@@ -491,7 +491,7 @@ Gura_DeclareMethod(string, align)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "len", VTYPE_number);
-	DeclareArg(env, "padding", VTYPE_string, OCCUR_Once, FLAG_None, new Expr_String(" "));
+	DeclareArg(env, "padding", VTYPE_string, OCCUR_Once, FLAG_None, new Expr_Value(Value(" ")));
 	DeclareAttr(Gura_Symbol(center));
 	DeclareAttr(Gura_Symbol(left));
 	DeclareAttr(Gura_Symbol(right));

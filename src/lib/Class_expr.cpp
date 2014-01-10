@@ -132,13 +132,6 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		}
 		sig.SetError(ERR_ValueError, "expression is not a value");
 		return Value::Null;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(string))) {
-		if (GetExpr()->IsString()) {
-			const Expr_String *pExpr = dynamic_cast<const Expr_String *>(GetExpr());
-			return Value(pExpr->GetString());
-		}
-		sig.SetError(ERR_ValueError, "expression is not a string");
-		return Value::Null;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(symbol))) {
 		if (GetExpr()->IsSymbol()) {
 			const Expr_Symbol *pExpr = dynamic_cast<const Expr_Symbol *>(GetExpr());
@@ -377,7 +370,6 @@ ImplementTypeChecker(iscaller,		IsCaller)
 // type chekers - others
 ImplementTypeChecker(isvalue,		IsValue)
 ImplementTypeChecker(issymbol,		IsSymbol)
-ImplementTypeChecker(isstring,		IsString)
 
 //-----------------------------------------------------------------------------
 // Implementation of class
@@ -417,7 +409,6 @@ void Class_expr::Prepare(Environment &env)
 	// type chekers - others
 	Gura_AssignMethod(expr,	isvalue);
 	Gura_AssignMethod(expr,	issymbol);
-	Gura_AssignMethod(expr,	isstring);
 }
 
 bool Class_expr::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
