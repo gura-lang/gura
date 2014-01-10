@@ -8,34 +8,31 @@ Gura_BeginModuleBody(gmp)
 //-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
-// gmp.test(num1:number, num2:number)
-Gura_DeclareFunction(test)
+// gmp.gcd(num1:gmp.mpz, num2:gmp.mpz)
+Gura_DeclareFunction(gcd)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "num1", VTYPE_mpz);
+	DeclareArg(env, "num2", VTYPE_mpz);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	""
 	);
 }
 
-Gura_ImplementFunction(test)
+Gura_ImplementFunction(gcd)
 {
-	mpz_class a, b, c;
-	a = 1234;
-	b = "-5678";
-	c = a + b;
-	::printf("%s\n", c.get_str().c_str());
-	return Value::Null;
+	const mpz_class &num1 = Object_mpz::GetEntity(args, 0);
+	const mpz_class &num2 = Object_mpz::GetEntity(args, 1);
+	mpz_t num;
+	::mpz_init(num);
+	::mpz_gcd(num, num1.get_mpz_t(), num2.get_mpz_t());
+	return Value(new Object_mpz(num));
 }
 
 //-----------------------------------------------------------------------------
 // Suffix handlers
 //-----------------------------------------------------------------------------
-class SuffixHandler_Number_L : public SuffixHandler {
-public:
-	virtual Value DoEval(Environment &env, Signal sig, const char *body) const;
-};
-
-Value SuffixHandler_Number_L::DoEval(Environment &env, Signal sig, const char *body) const
+Gura_ImplementSuffixHandlerForNumber(L)
 {
 	if (::strchr(body, '.') != NULL || ::strchr(body, 'e') != NULL || ::strchr(body, 'E') != NULL) {
 		mpf_t numf;
@@ -52,6 +49,16 @@ Value SuffixHandler_Number_L::DoEval(Environment &env, Signal sig, const char *b
 	return false;
 }
 
+Gura_ImplementSuffixHandlerForNumber(Lr)
+{
+	mpq_t numq;
+	::mpq_init(numq);
+	if (::mpq_set_str(numq, body, 0) == 0) return Value(new Object_mpq(numq));
+	::mpq_clear(numq);
+	sig.SetError(ERR_ValueError, "invalid string format for gmp number");
+	return false;
+}
+
 //-----------------------------------------------------------------------------
 // Module entry
 //-----------------------------------------------------------------------------
@@ -62,9 +69,10 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(mpq, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(mpf, env.LookupClass(VTYPE_object));
 	// function assignment
-	Gura_AssignFunction(test);
+	Gura_AssignFunction(gcd);
 	// suffix handler registration
-	SuffixHandler::RegisterForNumber(env, Symbol::Add("L"), new SuffixHandler_Number_L());
+	Gura_RegisterSuffixHandlerForNumber(L);
+	Gura_RegisterSuffixHandlerForNumber(Lr);
 }
 
 Gura_ModuleTerminate()

@@ -15,18 +15,34 @@ Object_mpq::Object_mpq(mpq_t num) : Object(Gura_UserClass(mpq)), _num(num)
 bool Object_mpq::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_Symbol(numer));
+	symbols.insert(Gura_Symbol(denom));
 	return true;
 }
 
 Value Object_mpq::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_Symbol(numer))) {
+		return Value(new Object_mpz(_num.get_num_mpz_t()));
+	} else if (pSymbol->IsIdentical(Gura_Symbol(denom))) {
+		return Value(new Object_mpz(_num.get_den_mpz_t()));
+	}
+	evaluatedFlag = false;
 	return Value::Null;
 }
 
 String Object_mpq::ToString(bool exprFlag)
 {
-	return _num.get_str();
+	String str;
+	str += _num.get_num().get_str();
+	if (_num.get_den() != 1) {
+		str += "/";
+		str += _num.get_den().get_str();
+	}
+	str += "Lr";
+	return str;
 }
 
 //-----------------------------------------------------------------------------

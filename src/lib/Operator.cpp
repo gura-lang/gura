@@ -32,8 +32,8 @@ const char *Operator::_mathSymbolTbl[] = {
 	"<=",	// OPTYPE_Le
 	"<=>",	// OPTYPE_Cmp
 	"in",	// OPTYPE_Contains
-	"|",	// OPTYPE_Or
 	"&",	// OPTYPE_And
+	"|",	// OPTYPE_Or
 	"^",	// OPTYPE_Xor
 	"<<",	// OPTYPE_Shl
 	">>",	// OPTYPE_Shr
@@ -1046,11 +1046,11 @@ Value Operator_Contains::EvalMapBinary(Environment &env, Signal sig,
 }
 
 //-----------------------------------------------------------------------------
-// Operator_Or
+// Operator_And
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// Operator_And
+// Operator_Or
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
@@ -1877,29 +1877,6 @@ Gura_ImplementBinaryOperator(Contains, any, any)
 }
 
 //-----------------------------------------------------------------------------
-// BinaryOperator(Or, *, *)
-//-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(Or, number, number)
-{
-	return Value(valueLeft.GetULong() | valueRight.GetULong());
-}
-
-Gura_ImplementBinaryOperator(Or, boolean, boolean)
-{
-	return Value(valueLeft.GetBoolean() || valueRight.GetBoolean());
-}
-
-Gura_ImplementBinaryOperator(Or, nil, any)
-{
-	return valueRight;	// nil | any -> any
-}
-
-Gura_ImplementBinaryOperator(Or, any, nil)
-{
-	return valueLeft;	// any | nil -> any
-}
-
-//-----------------------------------------------------------------------------
 // BinaryOperator(And, *, *)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(And, number, number)
@@ -1921,6 +1898,29 @@ Gura_ImplementBinaryOperator(And, nil, any)
 Gura_ImplementBinaryOperator(And, any, nil)
 {
 	return Value::Null;	// any & nil -> nil
+}
+
+//-----------------------------------------------------------------------------
+// BinaryOperator(Or, *, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(Or, number, number)
+{
+	return Value(valueLeft.GetULong() | valueRight.GetULong());
+}
+
+Gura_ImplementBinaryOperator(Or, boolean, boolean)
+{
+	return Value(valueLeft.GetBoolean() || valueRight.GetBoolean());
+}
+
+Gura_ImplementBinaryOperator(Or, nil, any)
+{
+	return valueRight;	// nil | any -> any
+}
+
+Gura_ImplementBinaryOperator(Or, any, nil)
+{
+	return valueLeft;	// any | nil -> any
 }
 
 //-----------------------------------------------------------------------------
@@ -2035,8 +2035,8 @@ void Operator::AssignOperators(Environment &env)
 	env.SetOperator(OPTYPE_Le, new Operator_Le());
 	env.SetOperator(OPTYPE_Cmp, new Operator_Cmp());
 	env.SetOperator(OPTYPE_Contains, new Operator_Contains());
-	env.SetOperator(OPTYPE_Or, new Operator_Or());
 	env.SetOperator(OPTYPE_And, new Operator_And());
+	env.SetOperator(OPTYPE_Or, new Operator_Or());
 	env.SetOperator(OPTYPE_Xor, new Operator_Xor());
 	env.SetOperator(OPTYPE_Shl, new Operator_Shl());
 	env.SetOperator(OPTYPE_Shr, new Operator_Shr());
@@ -2130,14 +2130,14 @@ void Operator::AssignOperators(Environment &env)
 	Gura_AssignBinaryOperator(Le, any, any);
 	Gura_AssignBinaryOperator(Cmp, any, any);
 	Gura_AssignBinaryOperator(Contains, any, any);
-	Gura_AssignBinaryOperator(Or, number, number);
-	Gura_AssignBinaryOperator(Or, boolean, boolean);
-	Gura_AssignBinaryOperator(Or, nil, any);
-	Gura_AssignBinaryOperator(Or, any, nil);
 	Gura_AssignBinaryOperator(And, number, number);
 	Gura_AssignBinaryOperator(And, boolean, boolean);
 	Gura_AssignBinaryOperator(And, nil, any);
 	Gura_AssignBinaryOperator(And, any, nil);
+	Gura_AssignBinaryOperator(Or, number, number);
+	Gura_AssignBinaryOperator(Or, boolean, boolean);
+	Gura_AssignBinaryOperator(Or, nil, any);
+	Gura_AssignBinaryOperator(Or, any, nil);
 	Gura_AssignBinaryOperator(Xor, number, number);
 	Gura_AssignBinaryOperator(Xor, boolean, boolean);
 	Gura_AssignBinaryOperator(Shl, number, number);
