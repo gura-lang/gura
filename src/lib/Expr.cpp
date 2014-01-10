@@ -867,20 +867,31 @@ bool Expr_Value::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr_Value::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
-	if (_value.Is_binary()) {
-		char buff[32];
-		const Binary &binary = _value.GetBinary();
-		stream.Print(sig, "b'");
-		if (sig.IsSignalled()) return false;
-		foreach_const (Binary, p, binary) {
-			unsigned char ch = static_cast<unsigned char>(*p);
-			::sprintf(buff, "\\x%02x", ch);
-			stream.Print(sig, buff);
-			if (sig.IsSignalled()) return false;
+	if (_value.Is_string()) {
+		const char *str = _value.GetString();
+		if (scriptStyle == SCRSTYLE_Brief && ::strlen(str) > 32) {
+			stream.Print(sig, "' .. '");
+		} else {
+			stream.Print(sig, MakeQuotedString(str).c_str());
 		}
-		stream.Print(sig, "'");
 		if (sig.IsSignalled()) return false;
-		return true;
+	} else if (_value.Is_binary()) {
+		const Binary &binary = _value.GetBinary();
+		if (scriptStyle == SCRSTYLE_Brief && binary.size() > 32) {
+			stream.Print(sig, "b' .. '");
+		} else {
+			char buff[32];
+			stream.Print(sig, "b'");
+			if (sig.IsSignalled()) return false;
+			foreach_const (Binary, p, binary) {
+				unsigned char ch = static_cast<unsigned char>(*p);
+				::sprintf(buff, "\\x%02x", ch);
+				stream.Print(sig, buff);
+				if (sig.IsSignalled()) return false;
+			}
+			stream.Print(sig, "'");
+		}
+		if (sig.IsSignalled()) return false;
 	} else {
 		String str;
 		if (_pScript.get() == NULL) {
@@ -894,8 +905,8 @@ bool Expr_Value::GenerateScript(Signal sig, SimpleStream &stream,
 		}
 		stream.Print(sig, str.c_str());
 		if (sig.IsSignalled()) return false;
-		return true;
 	}
+	return true;
 }
 
 //-----------------------------------------------------------------------------

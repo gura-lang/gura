@@ -30,3 +30,11 @@ testcase {
 	]
 	printf('%-16s %s\n', x:*typename, x:*textize(`oneline))
 }
+testcase {
+	x = [
+		`'0123456789012345678901234567890123456789'
+		`b'0123456789012345678901234567890123456789'
+	]
+	println(x:*textize(`oneline))
+	println(x:*textize(`brief))
+}
