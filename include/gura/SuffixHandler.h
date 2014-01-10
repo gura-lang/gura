@@ -7,6 +7,26 @@
 #include "Common.h"
 #include "Signal.h"
 
+#define Gura_ImplementSuffixHandlerForNumber(suffix)								\
+class SuffixHandler_Number_##suffix : public SuffixHandler {						\
+public:																				\
+	virtual Value DoEval(Environment &env, Signal sig, const char *body) const;		\
+};																					\
+Value SuffixHandler_Number_##suffix::DoEval(Environment &env, Signal sig, const char *body) const
+
+#define Gura_ImplementSuffixHandlerForString(suffix)								\
+class SuffixHandler_String_##suffix : public SuffixHandler {						\
+public:																				\
+	virtual Value DoEval(Environment &env, Signal sig, const char *body) const;		\
+};																					\
+Value SuffixHandler_String_##suffix::DoEval(Environment &env, Signal sig, const char *body) const
+
+#define Gura_RegisterSuffixHandlerForNumber(suffix)									\
+SuffixHandler::RegisterForNumber(env, Symbol::Add(#suffix), new SuffixHandler_Number_##suffix());
+
+#define Gura_RegisterSuffixHandlerForString(suffix)									\
+SuffixHandler::RegisterForString(env, Symbol::Add(#suffix), new SuffixHandler_String_##suffix());
+
 namespace Gura {
 
 class Environment;
