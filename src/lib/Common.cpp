@@ -76,6 +76,18 @@ Rational Rational::Reduce() const
 	return Rational(numerReduced, denomReduced);
 }
 
+String Rational::ToString() const
+{
+	String str;
+	str += NumberToString(numer);
+	if (denom != 1) {
+		str += "/";
+		str += NumberToString(denom);
+	}
+	str += "r";
+	return str;
+}
+
 Rational Rational::FromNumber(Number num)
 {
 	int numInt = int(num);

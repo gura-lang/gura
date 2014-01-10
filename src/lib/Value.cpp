@@ -425,12 +425,7 @@ String Value::ToString(bool exprFlag) const
 		return str;
 	} else if (Is_rational()) {
 		const Rational &ratio = *_u.pRatio;
-		String str;
-		str += NumberToString(ratio.numer);
-		str += "/";
-		str += NumberToString(ratio.denom);
-		str += "r";
-		return str;
+		return ratio.ToString();
 	} else if (Is_string()) {
 		const char *str = GetString();
 		if (exprFlag) return MakeQuotedString(str);

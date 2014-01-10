@@ -287,6 +287,7 @@ public:
 	inline Rational(int numer_, int denom_) : numer(numer_), denom(denom_) {}
 	inline Rational(const Rational &ratio) : numer(ratio.numer), denom(ratio.denom) {}
 	Rational Reduce() const;
+	String ToString() const;
 	static Rational FromNumber(Number num);
 	static void SetError_DenominatorZero(Signal &sig);
 };
