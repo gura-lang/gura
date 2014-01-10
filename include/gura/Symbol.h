@@ -333,6 +333,7 @@ public:
 	Gura_DeclareSymbol(pl);
 	Gura_DeclareSymbol(port);
 	Gura_DeclareSymbol(postext);
+	Gura_DeclareSymbol(prefix);
 	Gura_DeclareSymbol(prev);
 	Gura_DeclareSymbol(private_);
 	Gura_DeclareSymbol(privileged);
@@ -399,6 +400,7 @@ public:
 	Gura_DeclareSymbol(stream);
 	Gura_DeclareSymbol(strict);
 	Gura_DeclareSymbol(string);
+	Gura_DeclareSymbol(suffix);
 	Gura_DeclareSymbol(sunday);
 	Gura_DeclareSymbol(super);
 	Gura_DeclareSymbol(sv);

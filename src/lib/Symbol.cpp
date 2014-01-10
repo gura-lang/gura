@@ -346,6 +346,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(pl);
 	Gura_RealizeSymbol(port);
 	Gura_RealizeSymbol(postext);
+	Gura_RealizeSymbol(prefix);
 	Gura_RealizeSymbol(prev);
 	Gura_RealizeSymbolAlias(private_,		"private");
 	Gura_RealizeSymbol(privileged);
@@ -412,6 +413,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(stream);
 	Gura_RealizeSymbol(strict);
 	Gura_RealizeSymbol(string);
+	Gura_RealizeSymbol(suffix);
 	Gura_RealizeSymbol(sunday);
 	Gura_RealizeSymbol(super);
 	Gura_RealizeSymbol(sv);

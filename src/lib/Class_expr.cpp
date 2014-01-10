@@ -42,7 +42,10 @@ bool Object_expr::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	symbols.insert(Gura_Symbol(block));
 	symbols.insert(Gura_Symbol(value));
 	symbols.insert(Gura_Symbol(symbol));
+	symbols.insert(Gura_Symbol(string));
+	symbols.insert(Gura_Symbol(suffix));
 	symbols.insert(Gura_Symbol(blockparam));
+	symbols.insert(Gura_Symbol(operator_));
 	return true;
 }
 
@@ -137,6 +140,20 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 			return Value(pExpr->GetSymbol());
 		}
 		sig.SetError(ERR_ValueError, "expression is not a symbol");
+		return Value::Null;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(string))) {
+		if (GetExpr()->IsSuffixed()) {
+			const Expr_Suffixed *pExpr = dynamic_cast<const Expr_Suffixed *>(GetExpr());
+			return Value(pExpr->GetString());
+		}
+		sig.SetError(ERR_ValueError, "expression is not a suffixed");
+		return Value::Null;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(suffix))) {
+		if (GetExpr()->IsSuffixed()) {
+			const Expr_Suffixed *pExpr = dynamic_cast<const Expr_Suffixed *>(GetExpr());
+			return Value(pExpr->GetSymbolSuffix());
+		}
+		sig.SetError(ERR_ValueError, "expression is not a suffixed");
 		return Value::Null;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(blockparam))) {
 		if (GetExpr()->IsBlock()) {
@@ -369,6 +386,7 @@ ImplementTypeChecker(iscaller,		IsCaller)
 // type chekers - others
 ImplementTypeChecker(isvalue,		IsValue)
 ImplementTypeChecker(issymbol,		IsSymbol)
+ImplementTypeChecker(issuffixed,	IsSuffixed)
 
 //-----------------------------------------------------------------------------
 // Implementation of class
@@ -408,6 +426,7 @@ void Class_expr::Prepare(Environment &env)
 	// type chekers - others
 	Gura_AssignMethod(expr,	isvalue);
 	Gura_AssignMethod(expr,	issymbol);
+	Gura_AssignMethod(expr,	issuffixed);
 }
 
 bool Class_expr::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)

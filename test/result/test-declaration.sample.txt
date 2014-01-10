@@ -373,7 +373,7 @@ expr
   ismember()
   isquote()
   isroot()
-  isstring()
+  issuffixed()
   issymbol()
   isunary()
   isunaryop()
