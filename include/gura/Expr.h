@@ -35,7 +35,7 @@ enum ExprType {
 	EXPRTYPE_Caller,
 	EXPRTYPE_Value,
 	EXPRTYPE_Symbol,
-	EXPRTYPE_SuffixedNumber,
+	EXPRTYPE_Suffixed,
 };
 
 GURA_DLLDECLARE const char *GetExprTypeName(ExprType exprType);
@@ -92,7 +92,7 @@ public:
 //        |                   `- Expr_Caller
 //        +- Expr_Value
 //        +- Expr_Symbol
-//        `- Expr_SuffixedNumber
+//        `- Expr_Suffixed
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr {
 public:
@@ -221,7 +221,7 @@ public:
 	// type chekers - others
 	virtual bool IsValue() const;
 	virtual bool IsSymbol() const;
-	virtual bool IsSuffixedNumber() const;
+	virtual bool IsSuffixed() const;
 	bool IsConstNumber(Number num) const;
 	bool IsConstEvenNumber() const;
 	bool IsConstNegNumber() const;
@@ -465,23 +465,23 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Expr_SuffixedNumber
+// Expr_Suffixed
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_SuffixedNumber : public Expr {
+class GURA_DLLDECLARE Expr_Suffixed : public Expr {
 protected:
 	String _str;
 	const Symbol *_pSymbolSuffix;
 public:
-	inline Expr_SuffixedNumber(const String &str, const Symbol *pSymbolSuffix) :
-				Expr(EXPRTYPE_SuffixedNumber), _str(str), _pSymbolSuffix(pSymbolSuffix) {}
-	inline Expr_SuffixedNumber(const Expr_SuffixedNumber &expr) :
+	inline Expr_Suffixed(const String &str, const Symbol *pSymbolSuffix) :
+				Expr(EXPRTYPE_Suffixed), _str(str), _pSymbolSuffix(pSymbolSuffix) {}
+	inline Expr_Suffixed(const Expr_Suffixed &expr) :
 				Expr(expr), _str(expr._str), _pSymbolSuffix(expr._pSymbolSuffix) {}
 	inline const char *GetString() const { return _str.c_str(); }
 	inline const Symbol *GetSymbolSuffix() const { return _pSymbolSuffix; }
-	inline static Expr_SuffixedNumber *Reference(const Expr_SuffixedNumber *pExpr) {
-		return dynamic_cast<Expr_SuffixedNumber *>(Expr::Reference(pExpr));
+	inline static Expr_Suffixed *Reference(const Expr_Suffixed *pExpr) {
+		return dynamic_cast<Expr_Suffixed *>(Expr::Reference(pExpr));
 	}
-	virtual bool IsSuffixedNumber() const;
+	virtual bool IsSuffixed() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
 	virtual void Accept(ExprVisitor &visitor) const;

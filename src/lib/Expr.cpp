@@ -27,7 +27,7 @@ const char *GetExprTypeName(ExprType exprType)
 		{ EXPRTYPE_Caller,			"caller",			},
 		{ EXPRTYPE_Value,			"value",			},
 		{ EXPRTYPE_Symbol,			"symbol",			},
-		{ EXPRTYPE_SuffixedNumber,	"suffixednumber",	},
+		{ EXPRTYPE_Suffixed,		"suffixed",			},
 	};
 	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].exprType == exprType) return tbl[i].name;
@@ -51,7 +51,7 @@ const char *GetExprTypeName(ExprType exprType)
 //        |                   `- Expr_Caller
 //        +- Expr_Value
 //        +- Expr_Symbol
-//        `- Expr_SuffixedNumber
+//        `- Expr_Suffixed
 //-----------------------------------------------------------------------------
 Expr::Expr(ExprType exprType) : _exprType(exprType),
 	_cntRef(1), _lineNoTop(0), _lineNoBtm(0), _pExprParent(NULL)
@@ -269,7 +269,7 @@ bool Expr::IsCaller() const			{ return false; }
 // type chekers - others
 bool Expr::IsValue() const			{ return false; }
 bool Expr::IsSymbol() const			{ return false; }
-bool Expr::IsSuffixedNumber() const	{ return false; }
+bool Expr::IsSuffixed() const		{ return false; }
 
 bool Expr::IsParentOf(const Expr *pExpr) const
 {
@@ -1122,16 +1122,16 @@ bool Expr_Symbol::GenerateScriptTail(Signal sig, SimpleStream &stream,
 }
 
 //-----------------------------------------------------------------------------
-// Expr_SuffixedNumber
+// Expr_Suffixed
 //-----------------------------------------------------------------------------
-bool Expr_SuffixedNumber::IsSuffixedNumber() const { return true; }
+bool Expr_Suffixed::IsSuffixed() const { return true; }
 
-Expr *Expr_SuffixedNumber::Clone() const
+Expr *Expr_Suffixed::Clone() const
 {
-	return new Expr_SuffixedNumber(*this);
+	return new Expr_Suffixed(*this);
 }
 
-Value Expr_SuffixedNumber::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Suffixed::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
 {
 	Value result;
 	SuffixHandler *pSuffixHandler = SuffixHandler::Lookup(env, _pSymbolSuffix);
@@ -1145,18 +1145,18 @@ Value Expr_SuffixedNumber::DoExec(Environment &env, Signal sig, SeqPostHandler *
 	return result;
 }
 
-void Expr_SuffixedNumber::Accept(ExprVisitor &visitor) const
+void Expr_Suffixed::Accept(ExprVisitor &visitor) const
 {
 	visitor.Visit(this);
 }
 
-bool Expr_SuffixedNumber::GenerateCode(Environment &env, Signal sig, Stream &stream)
+bool Expr_Suffixed::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
-	stream.Println(sig, "SuffixedNumber");
+	stream.Println(sig, "Suffixed");
 	return true;
 }
 
-bool Expr_SuffixedNumber::GenerateScript(Signal sig, SimpleStream &stream,
+bool Expr_Suffixed::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
 	if (scriptStyle == SCRSTYLE_Brief && _str.size() > 32) {
