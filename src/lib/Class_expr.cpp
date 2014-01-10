@@ -41,7 +41,6 @@ bool Object_expr::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	symbols.insert(Gura_Symbol(cdr));
 	symbols.insert(Gura_Symbol(block));
 	symbols.insert(Gura_Symbol(value));
-	symbols.insert(Gura_Symbol(string));
 	symbols.insert(Gura_Symbol(symbol));
 	symbols.insert(Gura_Symbol(blockparam));
 	return true;

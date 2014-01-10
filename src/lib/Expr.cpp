@@ -27,7 +27,6 @@ const char *GetExprTypeName(ExprType exprType)
 		{ EXPRTYPE_Caller,			"caller",			},
 		{ EXPRTYPE_Value,			"value",			},
 		{ EXPRTYPE_Symbol,			"symbol",			},
-		//{ EXPRTYPE_String,			"string",			},
 		{ EXPRTYPE_SuffixedNumber,	"suffixednumber",	},
 	};
 	for (int i = 0; i < ArraySizeOf(tbl); i++) {
@@ -52,8 +51,7 @@ const char *GetExprTypeName(ExprType exprType)
 //        |                   `- Expr_Caller
 //        +- Expr_Value
 //        +- Expr_Symbol
-//        +- Expr_SuffixedNumber
-//        `- Expr_String
+//        `- Expr_SuffixedNumber
 //-----------------------------------------------------------------------------
 Expr::Expr(ExprType exprType) : _exprType(exprType),
 	_cntRef(1), _lineNoTop(0), _lineNoBtm(0), _pExprParent(NULL)
@@ -271,7 +269,6 @@ bool Expr::IsCaller() const			{ return false; }
 // type chekers - others
 bool Expr::IsValue() const			{ return false; }
 bool Expr::IsSymbol() const			{ return false; }
-//bool Expr::IsString() const			{ return false; }
 bool Expr::IsSuffixedNumber() const	{ return false; }
 
 bool Expr::IsParentOf(const Expr *pExpr) const
@@ -1123,48 +1120,6 @@ bool Expr_Symbol::GenerateScriptTail(Signal sig, SimpleStream &stream,
 	}
 	return true;
 }
-
-#if 0
-//-----------------------------------------------------------------------------
-// Expr_String
-//-----------------------------------------------------------------------------
-bool Expr_String::IsString() const { return true; }
-
-Expr *Expr_String::Clone() const
-{
-	return new Expr_String(*this);
-}
-
-Value Expr_String::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
-{
-	Value result(_str);
-	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
-	return result;
-}
-
-void Expr_String::Accept(ExprVisitor &visitor) const
-{
-	visitor.Visit(this);
-}
-
-bool Expr_String::GenerateCode(Environment &env, Signal sig, Stream &stream)
-{
-	stream.Println(sig, "String");
-	return true;
-}
-
-bool Expr_String::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
-{
-	if (scriptStyle == SCRSTYLE_Brief && _str.size() > 32) {
-		stream.Print(sig, "' .. '");
-	} else {
-		stream.Print(sig, MakeQuotedString(_str.c_str()).c_str());
-	}
-	if (sig.IsSignalled()) return false;
-	return true;
-}
-#endif
 
 //-----------------------------------------------------------------------------
 // Expr_SuffixedNumber

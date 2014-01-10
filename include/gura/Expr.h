@@ -35,7 +35,6 @@ enum ExprType {
 	EXPRTYPE_Caller,
 	EXPRTYPE_Value,
 	EXPRTYPE_Symbol,
-	//EXPRTYPE_String,
 	EXPRTYPE_SuffixedNumber,
 };
 
@@ -93,7 +92,7 @@ public:
 //        |                   `- Expr_Caller
 //        +- Expr_Value
 //        +- Expr_Symbol
-//        `- Expr_String
+//        `- Expr_SuffixedNumber
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr {
 public:
@@ -222,7 +221,6 @@ public:
 	// type chekers - others
 	virtual bool IsValue() const;
 	virtual bool IsSymbol() const;
-	//virtual bool IsString() const;
 	virtual bool IsSuffixedNumber() const;
 	bool IsConstNumber(Number num) const;
 	bool IsConstEvenNumber() const;
@@ -405,8 +403,6 @@ protected:
 	Value _value;
 	std::auto_ptr<String> _pScript;
 public:
-	//inline Expr_Value(Number num) : Expr(EXPRTYPE_Value), _value(num) {}
-	//inline Expr_Value(const Complex &comp) : Expr(EXPRTYPE_Value), _value(comp) {}
 	inline Expr_Value(const Value &value) : Expr(EXPRTYPE_Value), _value(value) {}
 	inline Expr_Value(const Expr_Value &expr) : Expr(expr), _value(expr._value) {}
 	inline const Value &GetValue() const { return _value; }
@@ -467,30 +463,6 @@ public:
 	bool GenerateScriptTail(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
 };
-
-#if 0
-//-----------------------------------------------------------------------------
-// Expr_String
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_String : public Expr {
-protected:
-	String _str;
-public:
-	inline Expr_String(const String &str) : Expr(EXPRTYPE_String), _str(str) {}
-	inline Expr_String(const Expr_String &expr) : Expr(expr), _str(expr._str) {}
-	inline const char *GetString() const { return _str.c_str(); }
-	inline static Expr_String *Reference(const Expr_String *pExpr) {
-		return dynamic_cast<Expr_String *>(Expr::Reference(pExpr));
-	}
-	virtual bool IsString() const;
-	virtual Expr *Clone() const;
-	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
-	virtual void Accept(ExprVisitor &visitor) const;
-	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
-	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
-};
-#endif
 
 //-----------------------------------------------------------------------------
 // Expr_SuffixedNumber
