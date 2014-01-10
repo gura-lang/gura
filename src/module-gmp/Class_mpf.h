@@ -23,6 +23,9 @@ public:
 	inline static const mpf_class &GetEntity(const Value &value) {
 		return GetObject(value)->GetEntity();
 	}
+	inline static const mpf_class &GetEntity(Args &args, size_t idx) {
+		return GetObject(args, idx)->GetEntity();
+	}
 };
 
 Gura_EndModuleScope(gmp)
