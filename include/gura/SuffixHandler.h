@@ -14,7 +14,7 @@ class Environment;
 //-----------------------------------------------------------------------------
 // SuffixHandler
 //-----------------------------------------------------------------------------
-class SuffixHandler {
+class GURA_DLLDECLARE SuffixHandler {
 public:
 	virtual Value DoEval(Environment &env, Signal sig, const char *body) const = 0;
 	static SuffixHandler *LookupForString(Environment &env, const Symbol *pSymbolSuffix);
@@ -28,7 +28,7 @@ public:
 //-----------------------------------------------------------------------------
 // SuffixHandlerMap
 //-----------------------------------------------------------------------------
-class SuffixHandlerMap : public std::map<const Symbol *,
+class GURA_DLLDECLARE SuffixHandlerMap : public std::map<const Symbol *,
 							SuffixHandler *, Symbol::KeyCompare_UniqNumber> {
 public:
 	~SuffixHandlerMap();

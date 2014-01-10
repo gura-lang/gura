@@ -28,6 +28,31 @@ Gura_ImplementFunction(test)
 }
 
 //-----------------------------------------------------------------------------
+// Suffix handlers
+//-----------------------------------------------------------------------------
+class SuffixHandler_Number_L : public SuffixHandler {
+public:
+	virtual Value DoEval(Environment &env, Signal sig, const char *body) const;
+};
+
+Value SuffixHandler_Number_L::DoEval(Environment &env, Signal sig, const char *body) const
+{
+	if (::strchr(body, '.') != NULL || ::strchr(body, 'e') != NULL || ::strchr(body, 'E') != NULL) {
+		mpf_t numf;
+		::mpf_init(numf);
+		if (::mpf_set_str(numf, body, 0) == 0) return Value(new Object_mpf(numf));
+		::mpf_clear(numf);
+	} else {
+		mpz_t numz;
+		::mpz_init(numz);
+		if (::mpz_set_str(numz, body, 0) == 0) return Value(new Object_mpz(numz));
+		::mpz_clear(numz);
+	}
+	sig.SetError(ERR_ValueError, "invalid string format for gmp number");
+	return false;
+}
+
+//-----------------------------------------------------------------------------
 // Module entry
 //-----------------------------------------------------------------------------
 Gura_ModuleEntry()
@@ -38,6 +63,8 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(mpf, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(test);
+	// suffix handler registration
+	SuffixHandler::RegisterForNumber(env, Symbol::Add("L"), new SuffixHandler_Number_L());
 }
 
 Gura_ModuleTerminate()

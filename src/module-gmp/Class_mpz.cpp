@@ -26,7 +26,9 @@ Value Object_mpz::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 
 String Object_mpz::ToString(bool exprFlag)
 {
-	return _num.get_str();
+	String str = _num.get_str();
+	str += "L";
+	return str;
 }
 
 //-----------------------------------------------------------------------------

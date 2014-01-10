@@ -26,8 +26,11 @@ Value Object_mpf::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 
 String Object_mpf::ToString(bool exprFlag)
 {
-	mp_exp_t exp;
-	return _num.get_str(exp);
+	char *p = NULL;
+	::gmp_asprintf(&p, "%.FfL", _num.get_mpf_t());
+	String str = p;
+	::free(p);
+	return str;
 }
 
 //-----------------------------------------------------------------------------

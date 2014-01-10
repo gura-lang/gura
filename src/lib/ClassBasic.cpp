@@ -310,6 +310,7 @@ void Class_complex::Prepare(Environment &env)
 	Gura_AssignFunction(complex);
 	Gura_AssignMethod(complex, polar);
 	Gura_AssignMethod(complex, roundoff);	// primitive method
+	// suffix handler registration
 	SuffixHandler::RegisterForNumber(env, Gura_Symbol(j), new SuffixHandler_Number_j());
 }
 
@@ -436,6 +437,7 @@ void Class_rational::Prepare(Environment &env)
 {
 	Gura_AssignFunction(rational);
 	Gura_AssignMethod(rational, reduce);		// primitive method
+	// suffix handler registration
 	SuffixHandler::RegisterForNumber(env, Gura_Symbol(r), new SuffixHandler_Number_r());
 }
 
