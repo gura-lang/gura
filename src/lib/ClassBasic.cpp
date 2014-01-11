@@ -1,7 +1,6 @@
-//
+//=============================================================================
 // ClassBasic
-//
-
+//=============================================================================
 #include "stdafx.h"
 
 namespace Gura {
@@ -225,7 +224,7 @@ bool Class_number::Deserialize(Environment &env, Signal sig, Stream &stream, Val
 //-----------------------------------------------------------------------------
 // Class_complex
 //-----------------------------------------------------------------------------
-Gura_ImplementSuffixHandlerForNumber(j)
+Gura_ImplementSuffixManagerForNumber(j)
 {
 	bool successFlag = false;
 	Number num = ToNumber(body, &successFlag);
@@ -306,7 +305,7 @@ void Class_complex::Prepare(Environment &env)
 	Gura_AssignMethod(complex, polar);
 	Gura_AssignMethod(complex, roundoff);	// primitive method
 	// suffix handler registration
-	Gura_RegisterSuffixHandlerForNumber(j);
+	Gura_RegisterSuffixManagerForNumber(j);
 }
 
 Value Class_complex::GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
@@ -371,7 +370,7 @@ bool Class_complex::Deserialize(Environment &env, Signal sig, Stream &stream, Va
 //-----------------------------------------------------------------------------
 // Class_rational
 //-----------------------------------------------------------------------------
-Gura_ImplementSuffixHandlerForNumber(r)
+Gura_ImplementSuffixManagerForNumber(r)
 {
 	bool successFlag = false;
 	Number num = ToNumber(body, &successFlag);
@@ -428,7 +427,7 @@ void Class_rational::Prepare(Environment &env)
 	Gura_AssignFunction(rational);
 	Gura_AssignMethod(rational, reduce);		// primitive method
 	// suffix handler registration
-	Gura_RegisterSuffixHandlerForNumber(r);
+	Gura_RegisterSuffixManagerForNumber(r);
 }
 
 Value Class_rational::GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,

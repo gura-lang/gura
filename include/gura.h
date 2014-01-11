@@ -49,7 +49,7 @@
 #include "gura/Stream.h"
 #include "gura/StreamBasic.h"
 #include "gura/String.h"
-#include "gura/SuffixHandler.h"
+#include "gura/SuffixManager.h"
 #include "gura/Template.h"
 #include "gura/Uri.h"
 

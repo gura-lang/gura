@@ -9,7 +9,7 @@
 #include "Operator.h"
 #include "Help.h"
 #include "Option.h"
-#include "SuffixHandler.h"
+#include "SuffixManager.h"
 
 //-----------------------------------------------------------------------------
 // macros
@@ -177,8 +177,8 @@ public:
 		IntegratedModuleMap _integratedModuleMap;
 		SeparatedModuleMap	_separatedModuleMap;
 		StringList			_workingDirList;
-		SuffixHandlerMap	_suffixHandlerMapForString;
-		SuffixHandlerMap	_suffixHandlerMapForNumber;
+		SuffixManagerMap	_SuffixManagerMapForString;
+		SuffixManagerMap	_SuffixManagerMapForNumber;
 		PathManagerOwner	_pathManagerOwner;
 		HelpPresenterOwner	_helpPresenterOwner;
 		Operator			*_operatorTbl[OPTYPE_max];
@@ -201,10 +201,10 @@ public:
 		void RegisterSeparatedModule(const char *pathName, Module *pModule);
 		void UnregisterSeparatedModule(const char *pathName);
 		inline Option &GetOption() { return _opt; }
-		inline SuffixHandlerMap &GetSuffixHandlerMapForString() { return _suffixHandlerMapForString; }
-		inline const SuffixHandlerMap &GetSuffixHandlerMapForString() const { return _suffixHandlerMapForString; }
-		inline SuffixHandlerMap &GetSuffixHandlerMapForNumber() { return _suffixHandlerMapForNumber; }
-		inline const SuffixHandlerMap &GetSuffixHandlerMapForNumber() const { return _suffixHandlerMapForNumber; }
+		inline SuffixManagerMap &GetSuffixManagerMapForString() { return _SuffixManagerMapForString; }
+		inline const SuffixManagerMap &GetSuffixManagerMapForString() const { return _SuffixManagerMapForString; }
+		inline SuffixManagerMap &GetSuffixManagerMapForNumber() { return _SuffixManagerMapForNumber; }
+		inline const SuffixManagerMap &GetSuffixManagerMapForNumber() const { return _SuffixManagerMapForNumber; }
 		inline PathManagerOwner &GetPathManagerOwner() { return _pathManagerOwner; }
 		inline const PathManagerOwner &GetPathManagerOwner() const { return _pathManagerOwner; }
 		inline HelpPresenterOwner &GetHelpPresenterOwner() { return _helpPresenterOwner; }

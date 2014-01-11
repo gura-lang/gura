@@ -63,7 +63,7 @@ Signal.cpp
 Stream.cpp
 StreamBasic.cpp
 String.cpp
-SuffixHandler.cpp
+SuffixManager.cpp
 Symbol.cpp
 Template.cpp
 Uri.cpp
