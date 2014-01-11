@@ -169,6 +169,22 @@ Gura_ImplementBinaryOperator(Add, number, mpq)
 	return Value(new Object_mpq(numResult.get_mpq_t()));
 }
 
+Gura_ImplementBinaryOperator(Add, mpq, rational)
+{
+	mpq_class numLeft = Object_mpq::GetEntity(valueLeft);
+	mpq_class numRight = FromRational(valueRight.GetRational());
+	mpq_class numResult = numLeft + numRight;
+	return Value(new Object_mpq(numResult.get_mpq_t()));
+}
+
+Gura_ImplementBinaryOperator(Add, rational, mpq)
+{
+	mpq_class numLeft = FromRational(valueLeft.GetRational());
+	mpq_class numRight = Object_mpq::GetEntity(valueRight);
+	mpq_class numResult = numLeft + numRight;
+	return Value(new Object_mpq(numResult.get_mpq_t()));
+}
+
 Gura_ImplementBinaryOperator(Add, rational, mpz)
 {
 	mpq_class numLeft = FromRational(valueLeft.GetRational());
@@ -221,6 +237,22 @@ Gura_ImplementBinaryOperator(Sub, mpq, number)
 Gura_ImplementBinaryOperator(Sub, number, mpq)
 {
 	double numLeft = valueLeft.GetDouble();
+	mpq_class numRight = Object_mpq::GetEntity(valueRight);
+	mpq_class numResult = numLeft - numRight;
+	return Value(new Object_mpq(numResult.get_mpq_t()));
+}
+
+Gura_ImplementBinaryOperator(Sub, mpq, rational)
+{
+	mpq_class numLeft = Object_mpq::GetEntity(valueLeft);
+	mpq_class numRight = FromRational(valueRight.GetRational());
+	mpq_class numResult = numLeft - numRight;
+	return Value(new Object_mpq(numResult.get_mpq_t()));
+}
+
+Gura_ImplementBinaryOperator(Sub, rational, mpq)
+{
+	mpq_class numLeft = FromRational(valueLeft.GetRational());
 	mpq_class numRight = Object_mpq::GetEntity(valueRight);
 	mpq_class numResult = numLeft - numRight;
 	return Value(new Object_mpq(numResult.get_mpq_t()));
@@ -283,6 +315,22 @@ Gura_ImplementBinaryOperator(Mul, number, mpq)
 	return Value(new Object_mpq(numResult.get_mpq_t()));
 }
 
+Gura_ImplementBinaryOperator(Mul, mpq, rational)
+{
+	mpq_class numLeft = Object_mpq::GetEntity(valueLeft);
+	mpq_class numRight = FromRational(valueRight.GetRational());
+	mpq_class numResult = numLeft * numRight;
+	return Value(new Object_mpq(numResult.get_mpq_t()));
+}
+
+Gura_ImplementBinaryOperator(Mul, rational, mpq)
+{
+	mpq_class numLeft = FromRational(valueLeft.GetRational());
+	mpq_class numRight = Object_mpq::GetEntity(valueRight);
+	mpq_class numResult = numLeft * numRight;
+	return Value(new Object_mpq(numResult.get_mpq_t()));
+}
+
 Gura_ImplementBinaryOperator(Mul, rational, mpz)
 {
 	mpq_class numLeft = FromRational(valueLeft.GetRational());
@@ -340,6 +388,22 @@ Gura_ImplementBinaryOperator(Div, number, mpq)
 	return Value(new Object_mpq(numResult.get_mpq_t()));
 }
 
+Gura_ImplementBinaryOperator(Div, mpq, rational)
+{
+	mpq_class numLeft = Object_mpq::GetEntity(valueLeft);
+	mpq_class numRight = FromRational(valueRight.GetRational());
+	mpq_class numResult = numLeft / numRight;
+	return Value(new Object_mpq(numResult.get_mpq_t()));
+}
+
+Gura_ImplementBinaryOperator(Div, rational, mpq)
+{
+	mpq_class numLeft = FromRational(valueLeft.GetRational());
+	mpq_class numRight = Object_mpq::GetEntity(valueRight);
+	mpq_class numResult = numLeft / numRight;
+	return Value(new Object_mpq(numResult.get_mpq_t()));
+}
+
 Gura_ImplementBinaryOperator(Div, rational, mpz)
 {
 	mpq_class numLeft = FromRational(valueLeft.GetRational());
@@ -373,6 +437,8 @@ Gura_ImplementUserClassWithCast(mpq)
 	Gura_AssignBinaryOperator(Add, mpz, mpq);
 	Gura_AssignBinaryOperator(Add, mpq, number);
 	Gura_AssignBinaryOperator(Add, number, mpq);
+	Gura_AssignBinaryOperator(Add, mpq, rational);
+	Gura_AssignBinaryOperator(Add, rational, mpq);
 	Gura_AssignBinaryOperator(Add, rational, mpz);
 	Gura_AssignBinaryOperator(Add, mpz, rational);
 	Gura_AssignBinaryOperator(Sub, mpq, mpq);
@@ -380,6 +446,8 @@ Gura_ImplementUserClassWithCast(mpq)
 	Gura_AssignBinaryOperator(Sub, mpz, mpq);
 	Gura_AssignBinaryOperator(Sub, mpq, number);
 	Gura_AssignBinaryOperator(Sub, number, mpq);
+	Gura_AssignBinaryOperator(Sub, rational, mpq);
+	Gura_AssignBinaryOperator(Sub, rational, mpz);
 	Gura_AssignBinaryOperator(Sub, rational, mpz);
 	Gura_AssignBinaryOperator(Sub, mpz, rational);
 	Gura_AssignBinaryOperator(Mul, mpq, mpq);
@@ -387,6 +455,8 @@ Gura_ImplementUserClassWithCast(mpq)
 	Gura_AssignBinaryOperator(Mul, mpz, mpq);
 	Gura_AssignBinaryOperator(Mul, mpq, number);
 	Gura_AssignBinaryOperator(Mul, number, mpq);
+	Gura_AssignBinaryOperator(Mul, rational, mpq);
+	Gura_AssignBinaryOperator(Mul, rational, mpz);
 	Gura_AssignBinaryOperator(Mul, rational, mpz);
 	Gura_AssignBinaryOperator(Mul, mpz, rational);
 	Gura_AssignBinaryOperator(Div, mpq, mpq);
@@ -394,6 +464,8 @@ Gura_ImplementUserClassWithCast(mpq)
 	Gura_AssignBinaryOperator(Div, mpz, mpq);
 	Gura_AssignBinaryOperator(Div, mpq, number);
 	Gura_AssignBinaryOperator(Div, number, mpq);
+	Gura_AssignBinaryOperator(Div, rational, mpq);
+	Gura_AssignBinaryOperator(Div, rational, mpz);
 	Gura_AssignBinaryOperator(Div, rational, mpz);
 	Gura_AssignBinaryOperator(Div, mpz, rational);
 }
