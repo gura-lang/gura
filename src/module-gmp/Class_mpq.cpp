@@ -5,6 +5,8 @@
 
 Gura_BeginModuleScope(gmp)
 
+void FromRational(mpq_t num, const Rational &ratio);
+
 //-----------------------------------------------------------------------------
 // Object_mpq
 //-----------------------------------------------------------------------------
@@ -48,12 +50,12 @@ String Object_mpq::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// gmp.mpq(numer?, denom?) {block?}
+// gmp.mpq(numer?, denom?:number) {block?}
 Gura_DeclareFunction(mpq)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "numer", VTYPE_any, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "denom", VTYPE_any, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "denom", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_mpq));
 }
@@ -65,7 +67,10 @@ Gura_ImplementFunction(mpq)
 	if (args.IsInvalid(0)) {
 		// nothing to do
 	} else if (args.Is_number(0)) {
-		::mpq_set_d(num, args.GetDouble(0));
+		::mpz_set_si(mpq_numref(num), args.GetInt(0));
+		if (args.Is_number(1)) {
+			::mpz_set_si(mpq_denref(num), args.GetInt(1));
+		}
 	} else if (args.Is_string(0)) {
 		if (::mpq_set_str(num, args.GetString(0), 0) < 0) {
 			::mpq_clear(num);
@@ -339,6 +344,11 @@ Gura_ImplementCastFrom(mpq)
 		}
 		value = Value(new Object_mpq(num));
 		return true;
+	} else if (value.Is_rational()) {
+		mpq_t num;
+		FromRational(num, value.GetRational());
+		value = Value(new Object_mpq(num));
+		return true;
 	}
 	return false;
 }
@@ -351,6 +361,13 @@ Gura_ImplementCastTo(mpq)
 		return true;
 	}
 	return false;
+}
+
+void FromRational(mpq_t num, const Rational &ratio)
+{
+	::mpq_init(num);
+	::mpz_set_si(mpq_numref(num), ratio.numer);
+	::mpz_set_si(mpq_denref(num), ratio.denom);
 }
 
 Gura_EndModuleScope(gmp)
