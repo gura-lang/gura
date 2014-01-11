@@ -29,6 +29,27 @@ Gura_ImplementFunction(gcd)
 	return Value(new Object_mpz(num));
 }
 
+// gmp.lcm(num1:gmp.mpz, num2:gmp.mpz)
+Gura_DeclareFunction(lcm)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "num1", VTYPE_mpz);
+	DeclareArg(env, "num2", VTYPE_mpz);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	""
+	);
+}
+
+Gura_ImplementFunction(lcm)
+{
+	const mpz_class &num1 = Object_mpz::GetEntity(args, 0);
+	const mpz_class &num2 = Object_mpz::GetEntity(args, 1);
+	mpz_t num;
+	::mpz_init(num);
+	::mpz_lcm(num, num1.get_mpz_t(), num2.get_mpz_t());
+	return Value(new Object_mpz(num));
+}
+
 //-----------------------------------------------------------------------------
 // Suffix handlers
 //-----------------------------------------------------------------------------
@@ -70,6 +91,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(mpf, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(gcd);
+	Gura_AssignFunction(lcm);
 	// suffix handler registration
 	Gura_RegisterSuffixHandlerForNumber(L);
 	Gura_RegisterSuffixHandlerForNumber(Lr);
