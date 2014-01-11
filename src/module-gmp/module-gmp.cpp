@@ -53,7 +53,7 @@ Gura_ImplementFunction(lcm)
 //-----------------------------------------------------------------------------
 // Suffix handlers
 //-----------------------------------------------------------------------------
-Gura_ImplementSuffixHandlerForNumber(L)
+Gura_ImplementSuffixManagerForNumber(L)
 {
 	if (::strchr(body, '.') != NULL || ::strchr(body, 'e') != NULL || ::strchr(body, 'E') != NULL) {
 		mpf_t numf;
@@ -70,7 +70,7 @@ Gura_ImplementSuffixHandlerForNumber(L)
 	return false;
 }
 
-Gura_ImplementSuffixHandlerForNumber(Lr)
+Gura_ImplementSuffixManagerForNumber(Lr)
 {
 	mpq_t numq;
 	::mpq_init(numq);
@@ -93,8 +93,8 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(gcd);
 	Gura_AssignFunction(lcm);
 	// suffix handler registration
-	Gura_RegisterSuffixHandlerForNumber(L);
-	Gura_RegisterSuffixHandlerForNumber(Lr);
+	Gura_RegisterSuffixManagerForNumber(L);
+	Gura_RegisterSuffixManagerForNumber(Lr);
 }
 
 Gura_ModuleTerminate()
