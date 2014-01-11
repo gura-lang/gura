@@ -92,7 +92,7 @@ Gura_ImplementMethod(string, mpz)
 //-----------------------------------------------------------------------------
 // Implementation of operators
 //-----------------------------------------------------------------------------
-// operator +
+// unary operator +
 Gura_ImplementUnaryOperator(Pos, mpz)
 {
 	mpz_class num = Object_mpz::GetEntity(value);
@@ -100,7 +100,7 @@ Gura_ImplementUnaryOperator(Pos, mpz)
 	return Value(new Object_mpz(numResult.get_mpz_t()));
 }
 
-// operator -
+// unary operator -
 Gura_ImplementUnaryOperator(Neg, mpz)
 {
 	mpz_class num = Object_mpz::GetEntity(value);
@@ -108,7 +108,7 @@ Gura_ImplementUnaryOperator(Neg, mpz)
 	return Value(new Object_mpz(numResult.get_mpz_t()));
 }
 
-// operator ~
+// unary operator ~
 Gura_ImplementUnaryOperator(Inv, mpz)
 {
 	mpz_class num = Object_mpz::GetEntity(value);
@@ -116,7 +116,7 @@ Gura_ImplementUnaryOperator(Inv, mpz)
 	return Value(new Object_mpz(numResult.get_mpz_t()));
 }
 
-// operator +
+// binary operator +
 Gura_ImplementBinaryOperator(Add, mpz, mpz)
 {
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
@@ -141,7 +141,7 @@ Gura_ImplementBinaryOperator(Add, number, mpz)
 	return Value(new Object_mpz(numResult.get_mpz_t()));
 }
 
-// operator -
+// binary operator -
 Gura_ImplementBinaryOperator(Sub, mpz, mpz)
 {
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
@@ -166,7 +166,7 @@ Gura_ImplementBinaryOperator(Sub, number, mpz)
 	return Value(new Object_mpz(numResult.get_mpz_t()));
 }
 
-// operator *
+// binary operator *
 Gura_ImplementBinaryOperator(Mul, mpz, mpz)
 {
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
@@ -191,7 +191,7 @@ Gura_ImplementBinaryOperator(Mul, number, mpz)
 	return Value(new Object_mpz(numResult.get_mpz_t()));
 }
 
-// operator /
+// binary operator /
 Gura_ImplementBinaryOperator(Div, mpz, mpz)
 {
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
@@ -216,7 +216,7 @@ Gura_ImplementBinaryOperator(Div, number, mpz)
 	return Value(new Object_mpz(numResult.get_mpz_t()));
 }
 
-// operator %
+// binary operator %
 Gura_ImplementBinaryOperator(Mod, mpz, mpz)
 {
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
@@ -241,7 +241,7 @@ Gura_ImplementBinaryOperator(Mod, number, mpz)
 	return Value(new Object_mpz(numResult.get_mpz_t()));
 }
 
-// operator ==
+// binary operator ==
 Gura_ImplementBinaryOperator(Eq, mpz, mpz)
 {
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
@@ -266,7 +266,7 @@ Gura_ImplementBinaryOperator(Eq, number, mpz)
 	return Value(numResult);
 }
 
-// operator !=
+// binary operator !=
 Gura_ImplementBinaryOperator(Ne, mpz, mpz)
 {
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
@@ -291,7 +291,7 @@ Gura_ImplementBinaryOperator(Ne, number, mpz)
 	return Value(numResult);
 }
 
-// operator >
+// binary operator >
 Gura_ImplementBinaryOperator(Gt, mpz, mpz)
 {
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
@@ -316,7 +316,7 @@ Gura_ImplementBinaryOperator(Gt, number, mpz)
 	return Value(numResult);
 }
 
-// operator <
+// binary operator <
 Gura_ImplementBinaryOperator(Lt, mpz, mpz)
 {
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
@@ -341,7 +341,7 @@ Gura_ImplementBinaryOperator(Lt, number, mpz)
 	return Value(numResult);
 }
 
-// operator >=
+// binary operator >=
 Gura_ImplementBinaryOperator(Ge, mpz, mpz)
 {
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
@@ -366,7 +366,7 @@ Gura_ImplementBinaryOperator(Ge, number, mpz)
 	return Value(numResult);
 }
 
-// operator <=
+// binary operator <=
 Gura_ImplementBinaryOperator(Le, mpz, mpz)
 {
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
@@ -391,7 +391,7 @@ Gura_ImplementBinaryOperator(Le, number, mpz)
 	return Value(numResult);
 }
 
-// operator <=>
+// binary operator <=>
 Gura_ImplementBinaryOperator(Cmp, mpz, mpz)
 {
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
@@ -416,7 +416,7 @@ Gura_ImplementBinaryOperator(Cmp, number, mpz)
 	return Value(numResult);
 }
 
-// operator &
+// binary operator &
 Gura_ImplementBinaryOperator(And, mpz, mpz)
 {
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
@@ -441,7 +441,7 @@ Gura_ImplementBinaryOperator(And, number, mpz)
 	return Value(new Object_mpz(numResult.get_mpz_t()));
 }
 
-// operator |
+// binary operator |
 Gura_ImplementBinaryOperator(Or, mpz, mpz)
 {
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
@@ -466,7 +466,7 @@ Gura_ImplementBinaryOperator(Or, number, mpz)
 	return Value(new Object_mpz(numResult.get_mpz_t()));
 }
 
-// operator ^
+// binary operator ^
 Gura_ImplementBinaryOperator(Xor, mpz, mpz)
 {
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
