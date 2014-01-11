@@ -447,7 +447,7 @@ Gura_ImplementUserClassWithCast(mpq)
 	Gura_AssignBinaryOperator(Sub, mpq, number);
 	Gura_AssignBinaryOperator(Sub, number, mpq);
 	Gura_AssignBinaryOperator(Sub, rational, mpq);
-	Gura_AssignBinaryOperator(Sub, rational, mpz);
+	Gura_AssignBinaryOperator(Sub, mpq, rational);
 	Gura_AssignBinaryOperator(Sub, rational, mpz);
 	Gura_AssignBinaryOperator(Sub, mpz, rational);
 	Gura_AssignBinaryOperator(Mul, mpq, mpq);
@@ -456,7 +456,7 @@ Gura_ImplementUserClassWithCast(mpq)
 	Gura_AssignBinaryOperator(Mul, mpq, number);
 	Gura_AssignBinaryOperator(Mul, number, mpq);
 	Gura_AssignBinaryOperator(Mul, rational, mpq);
-	Gura_AssignBinaryOperator(Mul, rational, mpz);
+	Gura_AssignBinaryOperator(Mul, mpq, rational);
 	Gura_AssignBinaryOperator(Mul, rational, mpz);
 	Gura_AssignBinaryOperator(Mul, mpz, rational);
 	Gura_AssignBinaryOperator(Div, mpq, mpq);
@@ -465,7 +465,7 @@ Gura_ImplementUserClassWithCast(mpq)
 	Gura_AssignBinaryOperator(Div, mpq, number);
 	Gura_AssignBinaryOperator(Div, number, mpq);
 	Gura_AssignBinaryOperator(Div, rational, mpq);
-	Gura_AssignBinaryOperator(Div, rational, mpz);
+	Gura_AssignBinaryOperator(Div, mpq, rational);
 	Gura_AssignBinaryOperator(Div, rational, mpz);
 	Gura_AssignBinaryOperator(Div, mpz, rational);
 }
