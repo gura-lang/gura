@@ -396,20 +396,28 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 	case STAT_NumberHex: {
 		if (IsHexDigit(ch)) {
 			_token.push_back(ch);
-		} else if (_token.size() > 2) {
-			pExpr = FeedElement(env, sig, Element(ETYPE_Number, GetLineNo(), _token));
-			continueFlag = true;
-			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
-		} else {
+		} else if (_token.size() <= 2) {
 			SetError(sig, ERR_SyntaxError, "wrong format of hexadecimal number");
 			continueFlag = true;
 			_stat = STAT_Error;
+		} else if (IsSymbolFirstChar(ch)) {
+			_suffix.clear();
+			_suffix.push_back(ch);
+			_stat = STAT_NumberSuffixed;
+		} else {
+			pExpr = FeedElement(env, sig, Element(ETYPE_Number, GetLineNo(), _token));
+			continueFlag = true;
+			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
 	}
 	case STAT_NumberOct: {
 		if (IsOctDigit(ch)) {
 			_token.push_back(ch);
+		} else if (IsSymbolFirstChar(ch)) {
+			_suffix.clear();
+			_suffix.push_back(ch);
+			_stat = STAT_NumberSuffixed;
 		} else {
 			pExpr = FeedElement(env, sig, Element(ETYPE_Number, GetLineNo(), _token));
 			continueFlag = true;
@@ -420,14 +428,18 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 	case STAT_NumberBin: {
 		if (IsBinDigit(ch)) {
 			_token.push_back(ch);
-		} else if (_token.size() > 2) {
-			pExpr = FeedElement(env, sig, Element(ETYPE_Number, GetLineNo(), _token));
-			continueFlag = true;
-			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
-		} else {
+		} else if (_token.size() <= 2) {
 			SetError(sig, ERR_SyntaxError, "wrong format of binary number");
 			continueFlag = true;
 			_stat = STAT_Error;
+		} else if (IsSymbolFirstChar(ch)) {
+			_suffix.clear();
+			_suffix.push_back(ch);
+			_stat = STAT_NumberSuffixed;
+		} else {
+			pExpr = FeedElement(env, sig, Element(ETYPE_Number, GetLineNo(), _token));
+			continueFlag = true;
+			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
 	}
