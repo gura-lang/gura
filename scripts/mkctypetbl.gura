@@ -2,77 +2,92 @@
 //
 // make a ctype table
 //
-funcTbl = []
+import(re)
 
-funcTbl.add(IsAlpha(ch) = (ord("a") <= ch && ch <= ord("z") || ord("A") <= ch && ch <= ord("Z")))
+Aligner = class {
+	__init__(strs[]:string, wdTab => 4) = {
+		this.wdTab = wdTab
+		this.nTabs = int(strs:*len().max() / this.wdTab) + 1
+	}
+	mktab(str:string):map = {
+		'\t' * (this.nTabs - int(str.len() / this.wdTab))
+	}
+}
 
-funcTbl.add(IsDigit(ch) = (ord("0") <= ch && ch <= ord("9")))
+funcTbl = [
+	IsAlpha(ch) = {
+		ord('a') <= ch && ch <= ord('z') || ord('A') <= ch && ch <= ord('Z')
+	}
+	IsDigit(ch) = {
+		ord('0') <= ch && ch <= ord('9')
+	}
+	IsHexDigit(ch) = {
+		ord('0') <= ch && ch <= ord('9') || \
+		ord('A') <= ch && ch <= ord('F') || \
+		ord('a') <= ch && ch <= ord('f')
+	}
+	IsOctDigit(ch) = {
+		ord('0') <= ch && ch <= ord('7')
+	}
+	IsBinDigit(ch) = {
+		ch in [ord('0'), ord('1')]
+	}
+	IsWhite(ch) = {
+		ch == ord(' ') || ch == ord('\t')
+	}
+	IsSpace(ch) = {
+		ch == ord(' ') || ch == ord('\t') || ch == ord('\r') || ch == ord('\n')
+	}
+	IsSJISFirst(ch) = {
+		(0x81 <= ch && ch <= 0x9f) || \
+		(0xe0 <= ch && ch <= 0xef) || \
+		(0xfa <= ch && ch <= 0xfc)
+	}
+	IsSJISSecond(ch) = {
+		(0x40 <= ch && ch <= 0x7e) || (0x80 <= ch && ch <= 0xfc)
+	}
+	IsUTF8First(ch) = {
+		(ch & 0xc0) == 0xc0
+	}
+	IsUTF8Follower(ch) = {
+		(ch & 0xc0) == 0x80
+	}
+	IsSymbolExtra(ch) = {
+		ch == ord('_') || ch == ord('$') || ch == ord('@')
+	}
+	IsLower(ch) = {
+		ord('a') <= ch && ch <= ord('z')
+	}
+	IsUpper(ch) = {
+		ord('A') <= ch && ch <= ord('Z')
+	}
+	// RFC2396 URI Component
+	IsURIC(ch) = {
+		(ord('0') <= ch && ch <= ord('9')) || \
+		(ord('A') <= ch && ch <= ord('Z')) || \
+		(ord('a') <= ch && ch <= ord('z')) || \
+		(ch in ord([';', '/', '?', ':', '@', '&', '=', '+', '$', ','])) || \
+		(ch in ord(['-', '_', '.', '!', '~', '*', "'", '(', ')']))
+	}
+]
 
-funcTbl.add(IsHexDigit(ch) = {
-	ord("0") <= ch && ch <= ord("9") || \
-	ord("A") <= ch && ch <= ord("F") || \
-	ord("a") <= ch && ch <= ord("f")
-})
-
-funcTbl.add(IsOctDigit(ch) = (ord("0") <= ch && ch <= ord("7")))
-
-funcTbl.add(IsWhite(ch) = (ch == ord(" ") || ch == ord("\t")))
-
-funcTbl.add(IsSpace(ch) = {
-	(ch == ord(" ") || ch == ord("\t") || ch == ord("\r") || ch == ord("\n"))
-})
-
-funcTbl.add(IsSJISFirst(ch) = {
-	((0x81 <= ch && ch <= 0x9f) || \
-	 (0xe0 <= ch && ch <= 0xef) || \
-	 (0xfa <= ch && ch <= 0xfc))
-})
-
-funcTbl.add(IsSJISSecond(ch) = {
-	((0x40 <= ch && ch <= 0x7e) || (0x80 <= ch && ch <= 0xfc))
-})
-
-funcTbl.add(IsUTF8First(ch) = ((ch & 0xc0) == 0xc0))
-
-funcTbl.add(IsUTF8Follower(ch) = ((ch & 0xc0) == 0x80))
-
-funcTbl.add(IsSymbolExtra(ch) = {
-	ch == ord("_") || ch == ord("$") || ch == ord("@")
-})
-
-funcTbl.add(IsLower(ch) = (ord("a") <= ch && ch <= ord("z")))
-
-funcTbl.add(IsUpper(ch) = (ord("A") <= ch && ch <= ord("Z")))
-
-// RFC2396 URI Component
-funcTbl.add(IsURIC(ch) = {
-	(ord("0") <= ch && ch <= ord("9")) || \
-	(ord("A") <= ch && ch <= ord("Z")) || \
-	(ord("a") <= ch && ch <= ord("z")) || \
-	(ch in ord([";", "/", "?", ":", "@", "&", "=", "+", "$", ","])) || \
-	(ch in ord(["-", "_", ".", "!", "~", "*", "'", "(", ")"]))
-})
-
-println("static const unsigned short __ctypeTbl[] = {")
+println('static const UShort __ctypeTbl[] = {')
 for (ch in 0..255) {|i|
-	(i % 8 == 0) && print("\t")
+	(i % 8 == 0) && print('\t')
 	bitPat = 0x0000
 	for (func in funcTbl) {|iBit|
 		if (func(ch)) {
 			bitPat |= (1 << iBit)
 		}
 	}
-	printf("0x%04x", bitPat)
-	print(if ((i + 1) % 8 == 0) { ",\n" } else { ", " })
+	printf('0x%04x', bitPat)
+	print(if ((i + 1) % 8 == 0) { ',\n' } else { ', ' })
 }
-println("};")
-
-import(re)
-
-for (func in funcTbl) {|iBit|
-	println()
-	varName = "CTYPE_" + re.sub("^Is", "", func.name())
-	printf("#define %s (1 << %d)\n", varName, iBit)
-	printf("inline bool %s(char ch) { return (GetCType(ch) & %s) != 0; }\n",
-														func.name(), varName)
-}
+println('};')
+varNames = 'CTYPE_' + re.sub('^Is', '', funcTbl:*name)
+aligner = Aligner(varNames, 4)
+printf('enum {\n')
+printf('\t%s%s= (1 << %d),\n', varNames, aligner.mktab(varNames), 0..)
+printf('};\n')
+printf('inline bool %s(char ch) { return (GetCType(ch) & %s) != 0; }\n',
+													funcTbl:*name, varNames)
