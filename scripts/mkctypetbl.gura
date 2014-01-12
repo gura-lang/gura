@@ -3,16 +3,7 @@
 // make a ctype table
 //
 import(re)
-
-Aligner = class {
-	__init__(strs[]:string, wdTab => 4) = {
-		this.wdTab = wdTab
-		this.nTabs = int(strs:*len().max() / this.wdTab) + 1
-	}
-	mktab(str:string):map = {
-		'\t' * (this.nTabs - int(str.len() / this.wdTab))
-	}
-}
+import(utils)
 
 funcTbl = [
 	IsAlpha(ch) = {
@@ -85,9 +76,9 @@ for (ch in 0..255) {|i|
 }
 println('};')
 varNames = 'CTYPE_' + re.sub('^Is', '', funcTbl:*name)
-aligner = Aligner(varNames, 4)
+tabAligner = utils.TabAligner(varNames, 4)
 printf('enum {\n')
-printf('\t%s%s= (1 << %d),\n', varNames, aligner.mktab(varNames), 0..)
+printf('\t%s%s= (1 << %d),\n', varNames, tabAligner.mktab(varNames), 0..)
 printf('};\n')
 printf('inline bool %s(char ch) { return (GetCType(ch) & %s) != 0; }\n',
 													funcTbl:*name, varNames)
