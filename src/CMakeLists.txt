@@ -92,6 +92,7 @@ install(FILES
   ${GURA_MODULE_SRCDIR}/tk.show.gura
   ${GURA_MODULE_SRCDIR}/tokenizer.gura
   ${GURA_MODULE_SRCDIR}/units.gura
+  ${GURA_MODULE_SRCDIR}/utils.gura
   ${GURA_MODULE_SRCDIR}/wx.show.gura
   ${GURA_MODULE_SRCDIR}/xhtml.gura
   DESTINATION lib/gura/${GURA_VERSION}/module)
