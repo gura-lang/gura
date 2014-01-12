@@ -381,6 +381,9 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 		if (ch == 'x' || ch == 'X') {
 			_token.push_back(ch);
 			_stat = STAT_NumberHex;
+		} else if (ch == 'b' || ch == 'B') {
+			_token.push_back(ch);
+			_stat = STAT_NumberBin;
 		} else if(IsOctDigit(ch)) {
 			_token.push_back(ch);
 			_stat = STAT_NumberOct;
@@ -411,6 +414,20 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			pExpr = FeedElement(env, sig, Element(ETYPE_Number, GetLineNo(), _token));
 			continueFlag = true;
 			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
+		}
+		break;
+	}
+	case STAT_NumberBin: {
+		if (IsBinDigit(ch)) {
+			_token.push_back(ch);
+		} else if (_token.size() > 2) {
+			pExpr = FeedElement(env, sig, Element(ETYPE_Number, GetLineNo(), _token));
+			continueFlag = true;
+			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
+		} else {
+			SetError(sig, ERR_SyntaxError, "wrong format of binary number");
+			continueFlag = true;
+			_stat = STAT_Error;
 		}
 		break;
 	}

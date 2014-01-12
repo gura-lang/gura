@@ -84,16 +84,17 @@ enum {
 	CTYPE_Digit				= (1 << 1),
 	CTYPE_HexDigit			= (1 << 2),
 	CTYPE_OctDigit			= (1 << 3),
-	CTYPE_White				= (1 << 4),
-	CTYPE_Space				= (1 << 5),
-	CTYPE_SJISFirst			= (1 << 6),
-	CTYPE_SJISSecond		= (1 << 7),
-	CTYPE_UTF8First			= (1 << 8),
-	CTYPE_UTF8Follower		= (1 << 9),
-	CTYPE_SymbolExtra		= (1 << 10),
-	CTYPE_Lower				= (1 << 11),
-	CTYPE_Upper				= (1 << 12),
-	CTYPE_URIC				= (1 << 13),
+	CTYPE_BinDigit			= (1 << 4),
+	CTYPE_White				= (1 << 5),
+	CTYPE_Space				= (1 << 6),
+	CTYPE_SJISFirst			= (1 << 7),
+	CTYPE_SJISSecond		= (1 << 8),
+	CTYPE_UTF8First			= (1 << 9),
+	CTYPE_UTF8Follower		= (1 << 10),
+	CTYPE_SymbolExtra		= (1 << 11),
+	CTYPE_Lower				= (1 << 12),
+	CTYPE_Upper				= (1 << 13),
+	CTYPE_URIC				= (1 << 14),
 	CTYPE_SymbolFirstChar	= (CTYPE_Alpha | CTYPE_SymbolExtra | CTYPE_UTF8First),
 	CTYPE_SymbolChar		= (CTYPE_SymbolFirstChar | CTYPE_Digit | CTYPE_UTF8Follower),
 };
@@ -102,6 +103,7 @@ inline bool IsAlpha(char ch) { return (GetCType(ch) & CTYPE_Alpha) != 0; }
 inline bool IsDigit(char ch) { return (GetCType(ch) & CTYPE_Digit) != 0; }
 inline bool IsHexDigit(char ch) { return (GetCType(ch) & CTYPE_HexDigit) != 0; }
 inline bool IsOctDigit(char ch) { return (GetCType(ch) & CTYPE_OctDigit) != 0; }
+inline bool IsBinDigit(char ch) { return (GetCType(ch) & CTYPE_BinDigit) != 0; }
 inline bool IsWhite(char ch) { return (GetCType(ch) & CTYPE_White) != 0; }
 inline bool IsSpace(char ch) { return (GetCType(ch) & CTYPE_Space) != 0; }
 inline bool IsSJISFirst(char ch) { return (GetCType(ch) & CTYPE_SJISFirst) != 0; }
@@ -124,6 +126,10 @@ inline char ConvHexDigit(char ch) {
 
 inline char ConvOctDigit(char ch) {
 	return ('0' <= ch && ch <= '7')? ch - '0' : 0;
+}
+
+inline char ConvBinDigit(char ch) {
+	return ('0' <= ch && ch <= '1')? ch - '0' : 0;
 }
 
 inline char ToUpper(char ch) {

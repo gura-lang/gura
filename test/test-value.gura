@@ -2,6 +2,21 @@
 import(testutil) {*}
 
 testcase {
+	tests = [
+		`0
+		`00
+		`0x0
+		`0b0
+		`99999999
+		`077777777
+		`0b11111111
+		`0B11111111
+		`0xffffffff
+		`0Xffffffff
+	]
+	tester(tests)
+}
+testcase {
 	@var = 3
 	@var@ = 2
 	println('@var = ', @var)
@@ -94,7 +109,7 @@ testcase {
 }
 testcase {
 	f(x) = math.sin(x / 180 * math.pi)
-	for (test in @{
+	tests = [
 		`(-3 + 4)
 		`(-3 * 4)
 		`('3' * 4)
@@ -131,9 +146,8 @@ testcase {
 		`['123456', '789012', '3.141', '123e+10', '0xabc', '0312', 'abcde', '123x']::tonumber()
 		`['123456', '789012', '3.141', '123e+10', '0xabc', '0312', 'abcde', '123x']::tonumber():zero
 		`['123456', '789012', '3.141', '123e+10', '0xabc', '0312', 'abcde', '123x']::tonumber():strict
-	}) {
-		printf('%s .. %s\n', test, test.eval()):nomap
-	}
+	]
+	tester(tests)
 	a = 2
 	printf('a = %d\n', a)
 	for (test in [`(a += 3), `(a *= 3), `(a /= 3), `(a -= 3), `(a **= 3)]) {
