@@ -2,39 +2,90 @@
 import(gmp)
 import(testutil) {*}
 
-testcase {
-	tester(`gmp.mpz(0))
-	tester(`gmp.mpq(0))
-	tester(`gmp.mpf(0))
-	tester(`0L)
-	tester(`0Lr)
-	tester(`0.L)
-	tester(`gmp.mpz(1))
-	tester(`gmp.mpq(1))
-	tester(`gmp.mpf(1))
-	tester(`1L)
-	tester(`1Lr)
-	tester(`1.L)
-	tester(`gmp.mpz(-1))
-	tester(`gmp.mpq(-1))
-	tester(`gmp.mpf(-1))
-	tester(`(-1L))
-	tester(`(-1Lr))
-	tester(`(-1.L))
-	tester(`gmp.mpz(314))
-	tester(`gmp.mpq(314))
-	tester(`gmp.mpf(314))
-	tester(`314L)
-	tester(`314Lr)
-	tester(`314.L)
-	tester(`gmp.mpz('314'))
-	tester(`gmp.mpq('314'))
-	tester(`gmp.mpf('314'))
-	tester(`'314'.mpz())
-	tester(`'314'.mpq())
-	tester(`'314'.mpf())
-	tester(`3.14L)
-	//tester(`3.14Lr)
-	tester(`123456789012345678901234567890123456789012345678901234567890L)
-	tester(`123456789012345678901234567890123456789012345678901234567890Lr)
+testcase('declaration') {
+	tests = [
+		`gmp.mpz(0)
+		`gmp.mpq(0)
+		`gmp.mpf(0)
+		`0L
+		`0Lr
+		`0.L
+		`gmp.mpz(1)
+		`gmp.mpq(1)
+		`gmp.mpf(1)
+		`1L
+		`1Lr
+		`1.L
+		`gmp.mpz(-1)
+		`gmp.mpq(-1)
+		`gmp.mpf(-1)
+		`(-1L)
+		`(-1Lr)
+		`(-1.L)
+		`gmp.mpz(314)
+		`gmp.mpq(314)
+		`gmp.mpf(314)
+		`314L
+		`314Lr
+		`314.L
+		`gmp.mpz('314')
+		`gmp.mpq('314')
+		`gmp.mpf('314')
+		`'314'.mpz()
+		`'314'.mpq()
+		`'314'.mpf()
+		`3.14L
+		//`3.14Lr
+		`123456789012345678901234567890123456789012345678901234567890L
+		`123456789012345678901234567890123456789012345678901234567890Lr
+		`0777777
+		`0xffffffff
+	]
+	tester(tests)
+}
+testcase('operation for mpz') {
+	tests = [
+		`(+3L)
+		`(-3L)
+		`(3L + 4L)
+		`(3L + 4)
+		`(3 + 4L)
+		`(3L - 4L)
+		`(3L - 4)
+		`(3 - 4L)
+		`(3L * 4L)
+		`(3L * 4)
+		`(3 * 4L)
+		`(12L / 4L)
+		`(12L / 4)
+		`(12 / 4L)
+		`(3L == 4L)
+		`(3L == 4)
+		`(3 == 4L)
+		`(3L == 3L)
+		`(3L == 3)
+		`(3 == 3L)
+		`(3L < 4L)
+		`(3L < 4)
+		`(3 < 4L)
+		`(5L < 4L)
+		`(5L < 4)
+		`(5 < 4L)
+		`(3L > 4L)
+		`(3L > 4)
+		`(3 > 4L)
+		`(5L > 4L)
+		`(5L > 4)
+		`(5 > 4L)
+		`(3L <=> 4L)
+		`(3L <=> 4)
+		`(3 <=> 4L)
+		`(3L <=> 3L)
+		`(3L <=> 3)
+		`(3 <=> 3L)
+		`(5L <=> 4L)
+		`(5L <=> 4)
+		`(5 <=> 4L)
+	]
+	tester(tests)
 }
