@@ -93,7 +93,7 @@ Gura_ImplementFunction(mpf)
 }
 
 //-----------------------------------------------------------------------------
-// Implementation of methods
+// Implementation of class methods
 //-----------------------------------------------------------------------------
 // gmp.mpf.get_defaul_prec()
 Gura_DeclareClassMethod(mpf, get_default_prec)
@@ -121,6 +121,9 @@ Gura_ImplementClassMethod(mpf, set_default_prec)
 	return Value::Null;
 }
 
+//-----------------------------------------------------------------------------
+// Implementation of instance methods
+//-----------------------------------------------------------------------------
 // string#mpf(base?:number):map {block?}
 Gura_DeclareMethod(string, mpf)
 {
@@ -527,13 +530,15 @@ Gura_ImplementBinaryOperator(Cmp, number, mpf)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClassWithCast(mpf)
 {
-	// function assignment
+	// assignment of function
 	Gura_AssignFunction(mpf);
-	// method assignment
+	// assignment of class methods
 	Gura_AssignMethod(mpf, get_default_prec);
 	Gura_AssignMethod(mpf, set_default_prec);
+	// assignment of instance methods
+	
 	Gura_AssignMethodTo(VTYPE_string, string, mpf);
-	// operator assignment
+	// assignment of operators
 	Gura_AssignUnaryOperator(Pos, mpf);
 	Gura_AssignUnaryOperator(Neg, mpf);
 	Gura_AssignBinaryOperator(Add, mpf, mpf);

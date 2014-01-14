@@ -50,6 +50,33 @@ Gura_ImplementFunction(lcm)
 	return Value(new Object_mpz(num));
 }
 
+// gmp.sqrt(num)
+Gura_DeclareFunction(sqrt)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "num", VTYPE_any);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	""
+	);
+}
+
+Gura_ImplementFunction(sqrt)
+{
+	if (args.IsType(0, VTYPE_mpz)) {
+		const mpz_class &num = Object_mpz::GetEntity(args, 0);
+		mpz_class result = ::sqrt(num);
+		return Value(new Object_mpz(result.get_mpz_t()));
+	} else if (args.IsType(0, VTYPE_mpf)) {
+		const mpf_class &num = Object_mpf::GetEntity(args, 0);
+		mpf_class result = ::sqrt(num);
+		return Value(new Object_mpf(result.get_mpf_t()));
+	}
+	
+	
+	
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // Suffix handlers
 //-----------------------------------------------------------------------------
@@ -92,6 +119,7 @@ Gura_ModuleEntry()
 	// function assignment
 	Gura_AssignFunction(gcd);
 	Gura_AssignFunction(lcm);
+	Gura_AssignFunction(sqrt);
 	// suffix manager assignment
 	Gura_AssignSuffixManagerForNumber(L);
 	Gura_AssignSuffixManagerForNumber(Lr);

@@ -459,11 +459,11 @@ Gura_ImplementBinaryOperator(Div, mpz, rational)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClassWithCast(mpq)
 {
-	// function assignment
+	// assignment of functions
 	Gura_AssignFunction(mpq);
-	// method assignment
+	// assignment of methods
 	Gura_AssignMethodTo(VTYPE_string, string, mpq);
-	// operator assignment
+	// assingment of operators
 	Gura_AssignUnaryOperator(Pos, mpq);
 	Gura_AssignUnaryOperator(Neg, mpq);
 	Gura_AssignBinaryOperator(Add, mpq, mpq);

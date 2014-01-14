@@ -508,11 +508,11 @@ Gura_ImplementBinaryOperator(Xor, number, mpz)
 //-----------------------------------------------------------------------------
 Gura_ImplementUserClassWithCast(mpz)
 {
-	// function assignment
+	// assignment of functions
 	Gura_AssignFunction(mpz);
-	// method assignment
+	// assignment of methods
 	Gura_AssignMethodTo(VTYPE_string, string, mpz);
-	// operator assignment
+	// assignment of operator
 	Gura_AssignUnaryOperator(Pos, mpz);
 	Gura_AssignUnaryOperator(Neg, mpz);
 	Gura_AssignUnaryOperator(Inv, mpz);
