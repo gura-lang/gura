@@ -121,6 +121,14 @@ mpf_class MpfFromMpz(const mpz_class &numz)
 	return mpf_class(num);
 }
 
+mpf_class MpfFromMpq(const mpq_class &numq)
+{
+	mpf_t num;
+	::mpf_init(num);
+	::mpf_set_q(num, numq.get_mpq_t());
+	return mpf_class(num);
+}
+
 Gura_EndModuleBody(gmp, gmp)
 
 Gura_RegisterModule(gmp)

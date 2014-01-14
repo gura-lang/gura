@@ -13,6 +13,7 @@ Gura_BeginModuleHeader(gmp)
 
 mpq_class MpqFromRational(const Rational &ratio);
 mpf_class MpfFromMpz(const mpz_class &numz);
+mpf_class MpfFromMpq(const mpq_class &numq);
 
 Gura_EndModuleHeader(gmp)
 
