@@ -25,10 +25,10 @@
 /test/test-graph/*.emf
 /test/test-sqlite3/*.sqlite3
 /src/*.tar.gz
-/src/Program_*/*.obj
-/src/Program_*/Makefile
-/src/Program_gura/gura
-/src/Program_guri/guri
+/src/program-*/*.obj
+/src/program-*/Makefile
+/src/program-gura/gura
+/src/program-guri/guri
 /src/lib/Makefile
 /build
 /gura-guest
@@ -66,8 +66,4 @@ install-rpm.sh
 *.gch
 *.so
 *.so.*
-*.list.txt
-*.msi
-*.wxs
-*.zip
 *.swp
