@@ -21,11 +21,11 @@ public:																				\
 };																					\
 Value SuffixManager_String_##suffix::DoEval(Environment &env, Signal sig, const char *body) const
 
-#define Gura_RegisterSuffixManagerForNumber(suffix)									\
-SuffixManager::RegisterForNumber(env, Symbol::Add(#suffix), new SuffixManager_Number_##suffix());
+#define Gura_AssignSuffixManagerForNumber(suffix)									\
+SuffixManager::AssignForNumber(env, Symbol::Add(#suffix), new SuffixManager_Number_##suffix());
 
-#define Gura_RegisterSuffixManagerForString(suffix)									\
-SuffixManager::RegisterForString(env, Symbol::Add(#suffix), new SuffixManager_String_##suffix());
+#define Gura_AssignSuffixManagerForString(suffix)									\
+SuffixManager::AssignForString(env, Symbol::Add(#suffix), new SuffixManager_String_##suffix());
 
 namespace Gura {
 
@@ -39,9 +39,9 @@ public:
 	virtual Value DoEval(Environment &env, Signal sig, const char *body) const = 0;
 	static SuffixManager *LookupForString(Environment &env, const Symbol *pSymbolSuffix);
 	static SuffixManager *LookupForNumber(Environment &env, const Symbol *pSymbolSuffix);
-	static void RegisterForString(Environment &env,
+	static void AssignForString(Environment &env,
 				const Symbol *pSymbolSuffix, SuffixManager *pSuffixManager);
-	static void RegisterForNumber(Environment &env,
+	static void AssignForNumber(Environment &env,
 				const Symbol *pSymbolSuffix, SuffixManager *pSuffixManager);
 };
 
@@ -52,7 +52,7 @@ class GURA_DLLDECLARE SuffixManagerMap : public std::map<const Symbol *,
 							SuffixManager *, Symbol::KeyCompare_UniqNumber> {
 public:
 	~SuffixManagerMap();
-	void Register(const Symbol *pSymbolSuffix, SuffixManager *pSuffixManager);
+	void Assign(const Symbol *pSymbolSuffix, SuffixManager *pSuffixManager);
 	SuffixManager *Lookup(const Symbol *pSymbolSuffix);
 };
 

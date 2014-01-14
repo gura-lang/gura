@@ -92,9 +92,9 @@ Gura_ModuleEntry()
 	// function assignment
 	Gura_AssignFunction(gcd);
 	Gura_AssignFunction(lcm);
-	// suffix handler registration
-	Gura_RegisterSuffixManagerForNumber(L);
-	Gura_RegisterSuffixManagerForNumber(Lr);
+	// suffix manager assignment
+	Gura_AssignSuffixManagerForNumber(L);
+	Gura_AssignSuffixManagerForNumber(Lr);
 }
 
 Gura_ModuleTerminate()

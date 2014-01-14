@@ -18,16 +18,16 @@ SuffixManager *SuffixManager::LookupForNumber(Environment &env, const Symbol *pS
 	return env.GetGlobal()->GetSuffixManagerMapForNumber().Lookup(pSymbolSuffix);
 }
 
-void SuffixManager::RegisterForString(Environment &env,
+void SuffixManager::AssignForString(Environment &env,
 				const Symbol *pSymbolSuffix, SuffixManager *pSuffixManager)
 {
-	env.GetGlobal()->GetSuffixManagerMapForString().Register(pSymbolSuffix, pSuffixManager);
+	env.GetGlobal()->GetSuffixManagerMapForString().Assign(pSymbolSuffix, pSuffixManager);
 }
 
-void SuffixManager::RegisterForNumber(Environment &env,
+void SuffixManager::AssignForNumber(Environment &env,
 				const Symbol *pSymbolSuffix, SuffixManager *pSuffixManager)
 {
-	env.GetGlobal()->GetSuffixManagerMapForNumber().Register(pSymbolSuffix, pSuffixManager);
+	env.GetGlobal()->GetSuffixManagerMapForNumber().Assign(pSymbolSuffix, pSuffixManager);
 }
 
 //-----------------------------------------------------------------------------
@@ -40,7 +40,7 @@ SuffixManagerMap::~SuffixManagerMap()
 	}
 }
 
-void SuffixManagerMap::Register(const Symbol *pSymbolSuffix, SuffixManager *pSuffixManager)
+void SuffixManagerMap::Assign(const Symbol *pSymbolSuffix, SuffixManager *pSuffixManager)
 {
 	iterator iter = find(pSymbolSuffix);
 	if (iter == end()) {

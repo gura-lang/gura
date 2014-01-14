@@ -86,6 +86,7 @@ Class_symbol::Class_symbol(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_symb
 
 void Class_symbol::Prepare(Environment &env)
 {
+	// method assignment
 	Gura_AssignMethod(symbol, eval);	// primitive method
 }
 
@@ -170,6 +171,7 @@ Class_number::Class_number(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_numb
 
 void Class_number::Prepare(Environment &env)
 {
+	// method assignment
 	Gura_AssignMethod(number, roundoff);	// primitive method
 }
 
@@ -301,11 +303,13 @@ Class_complex::Class_complex(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_co
 
 void Class_complex::Prepare(Environment &env)
 {
+	// function assignment
 	Gura_AssignFunction(complex);
+	// methods assignment
 	Gura_AssignMethod(complex, polar);
 	Gura_AssignMethod(complex, roundoff);	// primitive method
-	// suffix handler registration
-	Gura_RegisterSuffixManagerForNumber(j);
+	// suffix manager assignment
+	Gura_AssignSuffixManagerForNumber(j);
 }
 
 Value Class_complex::GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
@@ -424,10 +428,12 @@ Class_rational::Class_rational(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_
 
 void Class_rational::Prepare(Environment &env)
 {
+	// function assignment
 	Gura_AssignFunction(rational);
+	// method assignment
 	Gura_AssignMethod(rational, reduce);		// primitive method
-	// suffix handler registration
-	Gura_RegisterSuffixManagerForNumber(r);
+	// suffix manager assignment
+	Gura_AssignSuffixManagerForNumber(r);
 }
 
 Value Class_rational::GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
@@ -1067,6 +1073,7 @@ Class_string::Class_string(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_stri
 
 void Class_string::Prepare(Environment &env)
 {
+	// method assignment
 	Gura_AssignMethod(string, align);
 	Gura_AssignMethod(string, binary);
 	Gura_AssignMethod(string, capitalize);
