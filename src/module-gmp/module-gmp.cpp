@@ -101,6 +101,26 @@ Gura_ModuleTerminate()
 {
 }
 
+//-----------------------------------------------------------------------------
+// utility functions
+//-----------------------------------------------------------------------------
+mpq_class MpqFromRational(const Rational &ratio)
+{
+	mpq_t num;
+	::mpq_init(num);
+	::mpz_set_si(mpq_numref(num), ratio.numer);
+	::mpz_set_si(mpq_denref(num), ratio.denom);
+	return mpq_class(num);
+}
+
+mpf_class MpfFromMpz(const mpz_class &numz)
+{
+	mpf_t num;
+	::mpf_init(num);
+	::mpf_set_z(num, numz.get_mpz_t());
+	return mpf_class(num);
+}
+
 Gura_EndModuleBody(gmp, gmp)
 
 Gura_RegisterModule(gmp)

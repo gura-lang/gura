@@ -2,6 +2,35 @@
 import(gmp)
 import(testutil) {*}
 
+testcase('zero-division') {
+	f(test:expr):map = {
+		println(test)
+		try {
+			test.eval()
+		} catch {|e|
+			println('expected error occurs: ', e.text)
+		}
+	}
+	tests = [
+		`(3 / 0)
+		`(3 / 0L)
+		`(3 / 0.L)
+		`(3 / 0Lr)
+		`(3L / 0)
+		`(3L / 0L)
+		`(3L / 0.L)
+		`(3L / 0Lr)
+		`(3.L / 0)
+		`(3.L / 0L)
+		`(3.L / 0.L)
+		//`(3.L / 0Lr)
+		`(3Lr / 0)
+		`(3Lr / 0L)
+		//`(3Lr / 0.L)
+		`(3Lr / 0Lr)
+	]
+	f(tests)
+}
 testcase('declaration') {
 	tests = [
 		`gmp.mpz(0)

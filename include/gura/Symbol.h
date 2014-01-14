@@ -333,6 +333,7 @@ public:
 	Gura_DeclareSymbol(pl);
 	Gura_DeclareSymbol(port);
 	Gura_DeclareSymbol(postext);
+	Gura_DeclareSymbol(prec);
 	Gura_DeclareSymbol(prefix);
 	Gura_DeclareSymbol(prev);
 	Gura_DeclareSymbol(private_);

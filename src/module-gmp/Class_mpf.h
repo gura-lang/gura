@@ -17,7 +17,9 @@ public:
 	Object_mpf(mpf_t num);
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
-								const SymbolSet &attrs, bool &evaluatedFlag);
+							const SymbolSet &attrs, bool &evaluatedFlag);
+	virtual Value DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
+							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	inline const mpf_class &GetEntity() const { return _num; }
 	inline static const mpf_class &GetEntity(const Value &value) {

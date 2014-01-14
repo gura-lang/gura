@@ -5,8 +5,6 @@
 
 Gura_BeginModuleScope(gmp)
 
-mpq_class FromRational(const Rational &ratio);
-
 //-----------------------------------------------------------------------------
 // Object_mpq
 //-----------------------------------------------------------------------------
@@ -172,14 +170,14 @@ Gura_ImplementBinaryOperator(Add, number, mpq)
 Gura_ImplementBinaryOperator(Add, mpq, rational)
 {
 	mpq_class numLeft = Object_mpq::GetEntity(valueLeft);
-	mpq_class numRight = FromRational(valueRight.GetRational());
+	mpq_class numRight = MpqFromRational(valueRight.GetRational());
 	mpq_class numResult = numLeft + numRight;
 	return Value(new Object_mpq(numResult.get_mpq_t()));
 }
 
 Gura_ImplementBinaryOperator(Add, rational, mpq)
 {
-	mpq_class numLeft = FromRational(valueLeft.GetRational());
+	mpq_class numLeft = MpqFromRational(valueLeft.GetRational());
 	mpq_class numRight = Object_mpq::GetEntity(valueRight);
 	mpq_class numResult = numLeft + numRight;
 	return Value(new Object_mpq(numResult.get_mpq_t()));
@@ -187,7 +185,7 @@ Gura_ImplementBinaryOperator(Add, rational, mpq)
 
 Gura_ImplementBinaryOperator(Add, rational, mpz)
 {
-	mpq_class numLeft = FromRational(valueLeft.GetRational());
+	mpq_class numLeft = MpqFromRational(valueLeft.GetRational());
 	mpz_class numRight = Object_mpz::GetEntity(valueRight);
 	mpq_class numResult = numLeft + numRight;
 	return Value(new Object_mpq(numResult.get_mpq_t()));
@@ -196,7 +194,7 @@ Gura_ImplementBinaryOperator(Add, rational, mpz)
 Gura_ImplementBinaryOperator(Add, mpz, rational)
 {
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
-	mpq_class numRight = FromRational(valueRight.GetRational());
+	mpq_class numRight = MpqFromRational(valueRight.GetRational());
 	mpq_class numResult = numLeft + numRight;
 	return Value(new Object_mpq(numResult.get_mpq_t()));
 }
@@ -245,14 +243,14 @@ Gura_ImplementBinaryOperator(Sub, number, mpq)
 Gura_ImplementBinaryOperator(Sub, mpq, rational)
 {
 	mpq_class numLeft = Object_mpq::GetEntity(valueLeft);
-	mpq_class numRight = FromRational(valueRight.GetRational());
+	mpq_class numRight = MpqFromRational(valueRight.GetRational());
 	mpq_class numResult = numLeft - numRight;
 	return Value(new Object_mpq(numResult.get_mpq_t()));
 }
 
 Gura_ImplementBinaryOperator(Sub, rational, mpq)
 {
-	mpq_class numLeft = FromRational(valueLeft.GetRational());
+	mpq_class numLeft = MpqFromRational(valueLeft.GetRational());
 	mpq_class numRight = Object_mpq::GetEntity(valueRight);
 	mpq_class numResult = numLeft - numRight;
 	return Value(new Object_mpq(numResult.get_mpq_t()));
@@ -260,7 +258,7 @@ Gura_ImplementBinaryOperator(Sub, rational, mpq)
 
 Gura_ImplementBinaryOperator(Sub, rational, mpz)
 {
-	mpq_class numLeft = FromRational(valueLeft.GetRational());
+	mpq_class numLeft = MpqFromRational(valueLeft.GetRational());
 	mpz_class numRight = Object_mpz::GetEntity(valueRight);
 	mpq_class numResult = numLeft - numRight;
 	return Value(new Object_mpq(numResult.get_mpq_t()));
@@ -269,7 +267,7 @@ Gura_ImplementBinaryOperator(Sub, rational, mpz)
 Gura_ImplementBinaryOperator(Sub, mpz, rational)
 {
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
-	mpq_class numRight = FromRational(valueRight.GetRational());
+	mpq_class numRight = MpqFromRational(valueRight.GetRational());
 	mpq_class numResult = numLeft - numRight;
 	return Value(new Object_mpq(numResult.get_mpq_t()));
 }
@@ -318,14 +316,14 @@ Gura_ImplementBinaryOperator(Mul, number, mpq)
 Gura_ImplementBinaryOperator(Mul, mpq, rational)
 {
 	mpq_class numLeft = Object_mpq::GetEntity(valueLeft);
-	mpq_class numRight = FromRational(valueRight.GetRational());
+	mpq_class numRight = MpqFromRational(valueRight.GetRational());
 	mpq_class numResult = numLeft * numRight;
 	return Value(new Object_mpq(numResult.get_mpq_t()));
 }
 
 Gura_ImplementBinaryOperator(Mul, rational, mpq)
 {
-	mpq_class numLeft = FromRational(valueLeft.GetRational());
+	mpq_class numLeft = MpqFromRational(valueLeft.GetRational());
 	mpq_class numRight = Object_mpq::GetEntity(valueRight);
 	mpq_class numResult = numLeft * numRight;
 	return Value(new Object_mpq(numResult.get_mpq_t()));
@@ -333,7 +331,7 @@ Gura_ImplementBinaryOperator(Mul, rational, mpq)
 
 Gura_ImplementBinaryOperator(Mul, rational, mpz)
 {
-	mpq_class numLeft = FromRational(valueLeft.GetRational());
+	mpq_class numLeft = MpqFromRational(valueLeft.GetRational());
 	mpz_class numRight = Object_mpz::GetEntity(valueRight);
 	mpq_class numResult = numLeft * numRight;
 	return Value(new Object_mpq(numResult.get_mpq_t()));
@@ -342,7 +340,7 @@ Gura_ImplementBinaryOperator(Mul, rational, mpz)
 Gura_ImplementBinaryOperator(Mul, mpz, rational)
 {
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
-	mpq_class numRight = FromRational(valueRight.GetRational());
+	mpq_class numRight = MpqFromRational(valueRight.GetRational());
 	mpq_class numResult = numLeft * numRight;
 	return Value(new Object_mpq(numResult.get_mpq_t()));
 }
@@ -352,6 +350,10 @@ Gura_ImplementBinaryOperator(Div, mpq, mpq)
 {
 	mpq_class numLeft = Object_mpq::GetEntity(valueLeft);
 	mpq_class numRight = Object_mpq::GetEntity(valueRight);
+	if (numRight == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return Value::Null;
+	}
 	mpq_class numResult = numLeft / numRight;
 	return Value(new Object_mpq(numResult.get_mpq_t()));
 }
@@ -360,6 +362,10 @@ Gura_ImplementBinaryOperator(Div, mpq, mpz)
 {
 	mpq_class numLeft = Object_mpq::GetEntity(valueLeft);
 	mpz_class numRight = Object_mpz::GetEntity(valueRight);
+	if (numRight == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return Value::Null;
+	}
 	mpq_class numResult = numLeft / numRight;
 	return Value(new Object_mpq(numResult.get_mpq_t()));
 }
@@ -368,6 +374,10 @@ Gura_ImplementBinaryOperator(Div, mpz, mpq)
 {
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
 	mpq_class numRight = Object_mpq::GetEntity(valueRight);
+	if (numRight == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return Value::Null;
+	}
 	mpq_class numResult = numLeft / numRight;
 	return Value(new Object_mpq(numResult.get_mpq_t()));
 }
@@ -376,6 +386,10 @@ Gura_ImplementBinaryOperator(Div, mpq, number)
 {
 	mpq_class numLeft = Object_mpq::GetEntity(valueLeft);
 	double numRight = valueRight.GetDouble();
+	if (numRight == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return Value::Null;
+	}
 	mpq_class numResult = numLeft / numRight;
 	return Value(new Object_mpq(numResult.get_mpq_t()));
 }
@@ -384,6 +398,10 @@ Gura_ImplementBinaryOperator(Div, number, mpq)
 {
 	double numLeft = valueLeft.GetDouble();
 	mpq_class numRight = Object_mpq::GetEntity(valueRight);
+	if (numRight == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return Value::Null;
+	}
 	mpq_class numResult = numLeft / numRight;
 	return Value(new Object_mpq(numResult.get_mpq_t()));
 }
@@ -391,23 +409,35 @@ Gura_ImplementBinaryOperator(Div, number, mpq)
 Gura_ImplementBinaryOperator(Div, mpq, rational)
 {
 	mpq_class numLeft = Object_mpq::GetEntity(valueLeft);
-	mpq_class numRight = FromRational(valueRight.GetRational());
+	mpq_class numRight = MpqFromRational(valueRight.GetRational());
+	if (numRight == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return Value::Null;
+	}
 	mpq_class numResult = numLeft / numRight;
 	return Value(new Object_mpq(numResult.get_mpq_t()));
 }
 
 Gura_ImplementBinaryOperator(Div, rational, mpq)
 {
-	mpq_class numLeft = FromRational(valueLeft.GetRational());
+	mpq_class numLeft = MpqFromRational(valueLeft.GetRational());
 	mpq_class numRight = Object_mpq::GetEntity(valueRight);
+	if (numRight == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return Value::Null;
+	}
 	mpq_class numResult = numLeft / numRight;
 	return Value(new Object_mpq(numResult.get_mpq_t()));
 }
 
 Gura_ImplementBinaryOperator(Div, rational, mpz)
 {
-	mpq_class numLeft = FromRational(valueLeft.GetRational());
+	mpq_class numLeft = MpqFromRational(valueLeft.GetRational());
 	mpz_class numRight = Object_mpz::GetEntity(valueRight);
+	if (numRight == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return Value::Null;
+	}
 	mpq_class numResult = numLeft / numRight;
 	return Value(new Object_mpq(numResult.get_mpq_t()));
 }
@@ -415,7 +445,11 @@ Gura_ImplementBinaryOperator(Div, rational, mpz)
 Gura_ImplementBinaryOperator(Div, mpz, rational)
 {
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
-	mpq_class numRight = FromRational(valueRight.GetRational());
+	mpq_class numRight = MpqFromRational(valueRight.GetRational());
+	if (numRight == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return Value::Null;
+	}
 	mpq_class numResult = numLeft / numRight;
 	return Value(new Object_mpq(numResult.get_mpq_t()));
 }
@@ -489,7 +523,7 @@ Gura_ImplementCastFrom(mpq)
 		value = Value(new Object_mpq(num));
 		return true;
 	} else if (value.Is_rational()) {
-		mpq_class num = FromRational(value.GetRational());
+		mpq_class num = MpqFromRational(value.GetRational());
 		value = Value(new Object_mpq(num.get_mpq_t()));
 		return true;
 	}
@@ -504,15 +538,6 @@ Gura_ImplementCastTo(mpq)
 		return true;
 	}
 	return false;
-}
-
-mpq_class FromRational(const Rational &ratio)
-{
-	mpq_t num;
-	::mpq_init(num);
-	::mpz_set_si(mpq_numref(num), ratio.numer);
-	::mpz_set_si(mpq_denref(num), ratio.denom);
-	return mpq_class(num);
 }
 
 Gura_EndModuleScope(gmp)

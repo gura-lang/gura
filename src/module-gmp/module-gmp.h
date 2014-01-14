@@ -10,6 +10,10 @@
 #include "Class_mpf.h"
 
 Gura_BeginModuleHeader(gmp)
+
+mpq_class MpqFromRational(const Rational &ratio);
+mpf_class MpfFromMpz(const mpz_class &numz);
+
 Gura_EndModuleHeader(gmp)
 
 #endif

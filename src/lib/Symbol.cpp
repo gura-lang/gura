@@ -346,6 +346,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(pl);
 	Gura_RealizeSymbol(port);
 	Gura_RealizeSymbol(postext);
+	Gura_RealizeSymbol(prec);
 	Gura_RealizeSymbol(prefix);
 	Gura_RealizeSymbol(prev);
 	Gura_RealizeSymbolAlias(private_,		"private");
