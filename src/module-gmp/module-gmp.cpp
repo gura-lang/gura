@@ -112,15 +112,17 @@ Gura_ImplementSuffixManagerForNumber(Lr)
 //-----------------------------------------------------------------------------
 Gura_ModuleEntry()
 {
-	// class realization
+	// realization of classes
 	Gura_RealizeUserClass(mpz, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(mpq, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(mpf, env.LookupClass(VTYPE_object));
-	// function assignment
+	// assignment of functions
 	Gura_AssignFunction(gcd);
 	Gura_AssignFunction(lcm);
 	Gura_AssignFunction(sqrt);
-	// suffix manager assignment
+	// assignment of operators
+	AssignOperators(env);
+	// assignment of suffix managers
 	Gura_AssignSuffixManagerForNumber(L);
 	Gura_AssignSuffixManagerForNumber(Lr);
 }

@@ -64,42 +64,30 @@ testcase('declaration') {
 	]
 	tester(tests)
 }
-testcase('unary operators') {
+testcase('generic test for unary operators') {
 	ops = [
 		`+, `-, `~, `!, `.., `?
 	]
-	println('---')
-	TestUnaryOperators(ops, 3L)
-	println('---')
-	TestUnaryOperators(ops, -3L)
+	for (x in [3L, 3.L, 3Lr]) {
+		printf('%s\n', typename(x))
+		TestUnaryOperators(ops, x)
+	}
 }
-testcase('binary operators') {
+testcase('generic test for binary operators') {
 	ops = [
 		`+, `-, `*, `/, `%, `**,
 		`==, `<, `>, `<=, `>=, `<=>, `in,
 		`&, `|, `^, `<<, `>>, `||, `&&, `=>
 	]
-	println('---')
-	TestBinaryOperators(ops, 3L, 4)
-	println('---')
-	TestBinaryOperators(ops, 3L, 4L)
-	println('---')
-	TestBinaryOperators(ops, 3.L, 4)
-	println('---')
-	TestBinaryOperators(ops, 3L, 4L)
+	cross (x in [3, 3L, 3.L, 3Lr], y in [4, 4L, 4.L, 4Lr]) {
+		printf('%s, %s\n', typename(x), typename(y))
+		TestBinaryOperators(ops, x, y)
+	}
 }
 testcase('zero-division') {
 	ops = [`/, `%]
-	println('---')
-	TestBinaryOperators(ops, 3L, 0L)
-	println('---')
-	TestBinaryOperators(ops, 3L, 0)
-	println('---')
-	TestBinaryOperators(ops, 3, 0L)
-	println('---')
-	TestBinaryOperators(ops, 3.L, 0L)
-	println('---')
-	TestBinaryOperators(ops, 3.L, 0)
-	println('---')
-	TestBinaryOperators(ops, 3, 0.L)
+	cross (x in [3, 3L, 3.L, 3Lr], y in [0, 0L, 0.L, 0Lr]) {
+		printf('%s, %s\n', typename(x), typename(y))
+		TestBinaryOperators(ops, x, y)
+	}
 }
