@@ -116,8 +116,8 @@ Gura_ImplementBinaryOperator(Add, mpz, mpq)
 
 Gura_ImplementBinaryOperator(Add, mpq, mpf)
 {
-	mpq_class numLeft = Object_mpq::GetEntity(valueLeft);
-	mpq_class numRight = Object_mpf::GetEntity(valueRight);
+	mpf_class numLeft = Object_mpq::GetEntity(valueLeft);
+	mpf_class numRight = Object_mpf::GetEntity(valueRight);
 	mpq_class numResult = numLeft + numRight;
 	return Value(new Object_mpq(numResult));
 }
@@ -271,8 +271,8 @@ Gura_ImplementBinaryOperator(Sub, mpz, mpq)
 
 Gura_ImplementBinaryOperator(Sub, mpq, mpf)
 {
-	mpq_class numLeft = Object_mpq::GetEntity(valueLeft);
-	mpq_class numRight = Object_mpf::GetEntity(valueRight);
+	mpf_class numLeft = Object_mpq::GetEntity(valueLeft);
+	mpf_class numRight = Object_mpf::GetEntity(valueRight);
 	mpq_class numResult = numLeft - numRight;
 	return Value(new Object_mpq(numResult));
 }
@@ -426,8 +426,8 @@ Gura_ImplementBinaryOperator(Mul, mpz, mpq)
 
 Gura_ImplementBinaryOperator(Mul, mpq, mpf)
 {
-	mpq_class numLeft = Object_mpq::GetEntity(valueLeft);
-	mpq_class numRight = Object_mpf::GetEntity(valueRight);
+	mpf_class numLeft = Object_mpq::GetEntity(valueLeft);
+	mpf_class numRight = Object_mpf::GetEntity(valueRight);
 	mpq_class numResult = numLeft * numRight;
 	return Value(new Object_mpq(numResult));
 }
@@ -605,8 +605,8 @@ Gura_ImplementBinaryOperator(Div, mpz, mpq)
 
 Gura_ImplementBinaryOperator(Div, mpq, mpf)
 {
-	mpq_class numLeft = Object_mpq::GetEntity(valueLeft);
-	mpq_class numRight = Object_mpf::GetEntity(valueRight);
+	mpf_class numLeft = Object_mpq::GetEntity(valueLeft);
+	mpf_class numRight = Object_mpf::GetEntity(valueRight);
 	if (numRight == 0) {
 		Operator::SetError_DivideByZero(sig);
 		return Value::Null;
@@ -1629,9 +1629,9 @@ Gura_ImplementBinaryOperator(Cmp, number, mpq)
 
 Gura_ImplementBinaryOperator(Cmp, mpq, mpf)
 {
-	mpq_class numLeft = Object_mpq::GetEntity(valueLeft);
-	mpq_class numRight = Object_mpf::GetEntity(valueRight);
-	int numResult = ::mpq_cmp(numLeft.get_mpq_t(), numRight.get_mpq_t());
+	mpf_class numLeft = Object_mpq::GetEntity(valueLeft);
+	mpf_class numRight = Object_mpf::GetEntity(valueRight);
+	int numResult = ::mpf_cmp(numLeft.get_mpf_t(), numRight.get_mpf_t());
 	return Value(numResult);
 }
 
