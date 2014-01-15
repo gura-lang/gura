@@ -198,38 +198,38 @@ Gura_ImplementBinaryOperator(Mul, number, mpz)
 // binary operator /
 Gura_ImplementBinaryOperator(Div, mpz, mpz)
 {
-	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
-	mpz_class numRight = Object_mpz::GetEntity(valueRight);
+	mpf_class numLeft = Object_mpz::GetEntity(valueLeft);
+	mpf_class numRight = Object_mpz::GetEntity(valueRight);
 	if (numRight == 0) {
 		Operator::SetError_DivideByZero(sig);
 		return Value::Null;
 	}
-	mpz_class numResult = numLeft / numRight;
-	return Value(new Object_mpz(numResult));
+	mpf_class numResult = numLeft / numRight;
+	return Value(new Object_mpf(numResult));
 }
 
 Gura_ImplementBinaryOperator(Div, mpz, number)
 {
-	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
+	mpf_class numLeft = Object_mpz::GetEntity(valueLeft);
 	double numRight = valueRight.GetDouble();
 	if (numRight == 0) {
 		Operator::SetError_DivideByZero(sig);
 		return Value::Null;
 	}
-	mpz_class numResult = numLeft / numRight;
-	return Value(new Object_mpz(numResult));
+	mpf_class numResult = numLeft / numRight;
+	return Value(new Object_mpf(numResult));
 }
 
 Gura_ImplementBinaryOperator(Div, number, mpz)
 {
 	double numLeft = valueLeft.GetDouble();
-	mpz_class numRight = Object_mpz::GetEntity(valueRight);
+	mpf_class numRight = Object_mpz::GetEntity(valueRight);
 	if (numRight == 0) {
 		Operator::SetError_DivideByZero(sig);
 		return Value::Null;
 	}
-	mpz_class numResult = numLeft / numRight;
-	return Value(new Object_mpz(numResult));
+	mpf_class numResult = numLeft / numRight;
+	return Value(new Object_mpf(numResult));
 }
 
 // binary operator %
