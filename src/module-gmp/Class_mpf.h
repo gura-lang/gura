@@ -15,6 +15,7 @@ public:
 	Gura_DeclareObjectAccessor(mpf)
 public:
 	Object_mpf(mpf_t num);
+	Object_mpf(const mpf_class &num);
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							const SymbolSet &attrs, bool &evaluatedFlag);

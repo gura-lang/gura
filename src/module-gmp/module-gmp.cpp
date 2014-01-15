@@ -141,22 +141,6 @@ mpq_class MpqFromRational(const Rational &ratio)
 	return mpq_class(num);
 }
 
-mpf_class MpfFromMpz(const mpz_class &numz)
-{
-	mpf_t num;
-	::mpf_init(num);
-	::mpf_set_z(num, numz.get_mpz_t());
-	return mpf_class(num);
-}
-
-mpf_class MpfFromMpq(const mpq_class &numq)
-{
-	mpf_t num;
-	::mpf_init(num);
-	::mpf_set_q(num, numq.get_mpq_t());
-	return mpf_class(num);
-}
-
 Gura_EndModuleBody(gmp, gmp)
 
 Gura_RegisterModule(gmp)

@@ -15,6 +15,7 @@ public:
 	Gura_DeclareObjectAccessor(mpz)
 public:
 	Object_mpz(mpz_t num);
+	Object_mpz(const mpz_class &num);
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);

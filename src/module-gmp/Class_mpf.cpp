@@ -12,6 +12,10 @@ Object_mpf::Object_mpf(mpf_t num) : Object(Gura_UserClass(mpf)), _num(num)
 {
 }
 
+Object_mpf::Object_mpf(const mpf_class &num) : Object(Gura_UserClass(mpf)), _num(num)
+{
+}
+
 bool Object_mpf::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
@@ -153,7 +157,7 @@ Gura_ImplementUnaryOperator(Pos, mpf)
 {
 	mpf_class num = Object_mpf::GetEntity(value);
 	mpf_class numResult = +num;
-	return Value(new Object_mpf(numResult.get_mpf_t()));
+	return Value(new Object_mpf(numResult));
 }
 
 // unary operator -
@@ -161,7 +165,7 @@ Gura_ImplementUnaryOperator(Neg, mpf)
 {
 	mpf_class num = Object_mpf::GetEntity(value);
 	mpf_class numResult = -num;
-	return Value(new Object_mpf(numResult.get_mpf_t()));
+	return Value(new Object_mpf(numResult));
 }
 
 // binary operator +
@@ -170,7 +174,7 @@ Gura_ImplementBinaryOperator(Add, mpf, mpf)
 	mpf_class numLeft = Object_mpf::GetEntity(valueLeft);
 	mpf_class numRight = Object_mpf::GetEntity(valueRight);
 	mpf_class numResult = numLeft + numRight;
-	return Value(new Object_mpf(numResult.get_mpf_t()));
+	return Value(new Object_mpf(numResult));
 }
 
 Gura_ImplementBinaryOperator(Add, mpf, number)
@@ -178,7 +182,7 @@ Gura_ImplementBinaryOperator(Add, mpf, number)
 	mpf_class numLeft = Object_mpf::GetEntity(valueLeft);
 	double numRight = valueRight.GetDouble();
 	mpf_class numResult = numLeft + numRight;
-	return Value(new Object_mpf(numResult.get_mpf_t()));
+	return Value(new Object_mpf(numResult));
 }
 
 Gura_ImplementBinaryOperator(Add, number, mpf)
@@ -186,23 +190,23 @@ Gura_ImplementBinaryOperator(Add, number, mpf)
 	double numLeft = valueLeft.GetDouble();
 	mpf_class numRight = Object_mpf::GetEntity(valueRight);
 	mpf_class numResult = numLeft + numRight;
-	return Value(new Object_mpf(numResult.get_mpf_t()));
+	return Value(new Object_mpf(numResult));
 }
 
 Gura_ImplementBinaryOperator(Add, mpf, mpz)
 {
 	mpf_class numLeft = Object_mpf::GetEntity(valueLeft);
-	mpf_class numRight = MpfFromMpz(Object_mpz::GetEntity(valueRight));
+	mpf_class numRight = Object_mpz::GetEntity(valueRight);
 	mpf_class numResult = numLeft + numRight;
-	return Value(new Object_mpf(numResult.get_mpf_t()));
+	return Value(new Object_mpf(numResult));
 }
 
 Gura_ImplementBinaryOperator(Add, mpz, mpf)
 {
-	mpf_class numLeft = MpfFromMpz(Object_mpz::GetEntity(valueLeft));
+	mpf_class numLeft = Object_mpz::GetEntity(valueLeft);
 	mpf_class numRight = Object_mpf::GetEntity(valueRight);
 	mpf_class numResult = numLeft + numRight;
-	return Value(new Object_mpf(numResult.get_mpf_t()));
+	return Value(new Object_mpf(numResult));
 }
 
 // binary operator -
@@ -211,7 +215,7 @@ Gura_ImplementBinaryOperator(Sub, mpf, mpf)
 	mpf_class numLeft = Object_mpf::GetEntity(valueLeft);
 	mpf_class numRight = Object_mpf::GetEntity(valueRight);
 	mpf_class numResult = numLeft - numRight;
-	return Value(new Object_mpf(numResult.get_mpf_t()));
+	return Value(new Object_mpf(numResult));
 }
 
 Gura_ImplementBinaryOperator(Sub, mpf, number)
@@ -219,7 +223,7 @@ Gura_ImplementBinaryOperator(Sub, mpf, number)
 	mpf_class numLeft = Object_mpf::GetEntity(valueLeft);
 	double numRight = valueRight.GetDouble();
 	mpf_class numResult = numLeft - numRight;
-	return Value(new Object_mpf(numResult.get_mpf_t()));
+	return Value(new Object_mpf(numResult));
 }
 
 Gura_ImplementBinaryOperator(Sub, number, mpf)
@@ -227,23 +231,23 @@ Gura_ImplementBinaryOperator(Sub, number, mpf)
 	double numLeft = valueLeft.GetDouble();
 	mpf_class numRight = Object_mpf::GetEntity(valueRight);
 	mpf_class numResult = numLeft - numRight;
-	return Value(new Object_mpf(numResult.get_mpf_t()));
+	return Value(new Object_mpf(numResult));
 }
 
 Gura_ImplementBinaryOperator(Sub, mpf, mpz)
 {
 	mpf_class numLeft = Object_mpf::GetEntity(valueLeft);
-	mpf_class numRight = MpfFromMpz(Object_mpz::GetEntity(valueRight));
+	mpf_class numRight = Object_mpz::GetEntity(valueRight);
 	mpf_class numResult = numLeft - numRight;
-	return Value(new Object_mpf(numResult.get_mpf_t()));
+	return Value(new Object_mpf(numResult));
 }
 
 Gura_ImplementBinaryOperator(Sub, mpz, mpf)
 {
-	mpf_class numLeft = MpfFromMpz(Object_mpz::GetEntity(valueLeft));
+	mpf_class numLeft = Object_mpz::GetEntity(valueLeft);
 	mpf_class numRight = Object_mpf::GetEntity(valueRight);
 	mpf_class numResult = numLeft - numRight;
-	return Value(new Object_mpf(numResult.get_mpf_t()));
+	return Value(new Object_mpf(numResult));
 }
 
 // binary operator *
@@ -252,7 +256,7 @@ Gura_ImplementBinaryOperator(Mul, mpf, mpf)
 	mpf_class numLeft = Object_mpf::GetEntity(valueLeft);
 	mpf_class numRight = Object_mpf::GetEntity(valueRight);
 	mpf_class numResult = numLeft * numRight;
-	return Value(new Object_mpf(numResult.get_mpf_t()));
+	return Value(new Object_mpf(numResult));
 }
 
 Gura_ImplementBinaryOperator(Mul, mpf, number)
@@ -260,7 +264,7 @@ Gura_ImplementBinaryOperator(Mul, mpf, number)
 	mpf_class numLeft = Object_mpf::GetEntity(valueLeft);
 	double numRight = valueRight.GetDouble();
 	mpf_class numResult = numLeft * numRight;
-	return Value(new Object_mpf(numResult.get_mpf_t()));
+	return Value(new Object_mpf(numResult));
 }
 
 Gura_ImplementBinaryOperator(Mul, number, mpf)
@@ -268,23 +272,23 @@ Gura_ImplementBinaryOperator(Mul, number, mpf)
 	double numLeft = valueLeft.GetDouble();
 	mpf_class numRight = Object_mpf::GetEntity(valueRight);
 	mpf_class numResult = numLeft * numRight;
-	return Value(new Object_mpf(numResult.get_mpf_t()));
+	return Value(new Object_mpf(numResult));
 }
 
 Gura_ImplementBinaryOperator(Mul, mpf, mpz)
 {
 	mpf_class numLeft = Object_mpf::GetEntity(valueLeft);
-	mpf_class numRight = MpfFromMpz(Object_mpz::GetEntity(valueRight));
+	mpf_class numRight = Object_mpz::GetEntity(valueRight);
 	mpf_class numResult = numLeft * numRight;
-	return Value(new Object_mpf(numResult.get_mpf_t()));
+	return Value(new Object_mpf(numResult));
 }
 
 Gura_ImplementBinaryOperator(Mul, mpz, mpf)
 {
-	mpf_class numLeft = MpfFromMpz(Object_mpz::GetEntity(valueLeft));
+	mpf_class numLeft = Object_mpz::GetEntity(valueLeft);
 	mpf_class numRight = Object_mpf::GetEntity(valueRight);
 	mpf_class numResult = numLeft * numRight;
-	return Value(new Object_mpf(numResult.get_mpf_t()));
+	return Value(new Object_mpf(numResult));
 }
 
 // binary operator /
@@ -297,7 +301,7 @@ Gura_ImplementBinaryOperator(Div, mpf, mpf)
 		return Value::Null;
 	}
 	mpf_class numResult = numLeft / numRight;
-	return Value(new Object_mpf(numResult.get_mpf_t()));
+	return Value(new Object_mpf(numResult));
 }
 
 Gura_ImplementBinaryOperator(Div, mpf, number)
@@ -309,7 +313,7 @@ Gura_ImplementBinaryOperator(Div, mpf, number)
 		return Value::Null;
 	}
 	mpf_class numResult = numLeft / numRight;
-	return Value(new Object_mpf(numResult.get_mpf_t()));
+	return Value(new Object_mpf(numResult));
 }
 
 Gura_ImplementBinaryOperator(Div, number, mpf)
@@ -321,34 +325,33 @@ Gura_ImplementBinaryOperator(Div, number, mpf)
 		return Value::Null;
 	}
 	mpf_class numResult = numLeft / numRight;
-	return Value(new Object_mpf(numResult.get_mpf_t()));
+	return Value(new Object_mpf(numResult));
 }
 
 Gura_ImplementBinaryOperator(Div, mpf, mpz)
 {
 	mpf_class numLeft = Object_mpf::GetEntity(valueLeft);
-	mpf_class numRight = MpfFromMpz(Object_mpz::GetEntity(valueRight));
+	mpf_class numRight = Object_mpz::GetEntity(valueRight);
 	if (numRight == 0) {
 		Operator::SetError_DivideByZero(sig);
 		return Value::Null;
 	}
 	mpf_class numResult = numLeft / numRight;
-	return Value(new Object_mpf(numResult.get_mpf_t()));
+	return Value(new Object_mpf(numResult));
 }
 
 Gura_ImplementBinaryOperator(Div, mpz, mpf)
 {
-	mpf_class numLeft = MpfFromMpz(Object_mpz::GetEntity(valueLeft));
+	mpf_class numLeft = Object_mpz::GetEntity(valueLeft);
 	mpf_class numRight = Object_mpf::GetEntity(valueRight);
 	if (numRight == 0) {
 		Operator::SetError_DivideByZero(sig);
 		return Value::Null;
 	}
 	mpf_class numResult = numLeft / numRight;
-	return Value(new Object_mpf(numResult.get_mpf_t()));
+	return Value(new Object_mpf(numResult));
 }
 
-#if 0
 // binary operator ==
 Gura_ImplementBinaryOperator(Eq, mpf, mpf)
 {
@@ -369,6 +372,22 @@ Gura_ImplementBinaryOperator(Eq, mpf, number)
 Gura_ImplementBinaryOperator(Eq, number, mpf)
 {
 	double numLeft = valueLeft.GetDouble();
+	mpf_class numRight = Object_mpf::GetEntity(valueRight);
+	bool numResult = (numLeft == numRight);
+	return Value(numResult);
+}
+
+Gura_ImplementBinaryOperator(Eq, mpf, mpz)
+{
+	mpf_class numLeft = Object_mpf::GetEntity(valueLeft);
+	mpf_class numRight = Object_mpz::GetEntity(valueRight);
+	bool numResult = (numLeft == numRight);
+	return Value(numResult);
+}
+
+Gura_ImplementBinaryOperator(Eq, mpz, mpf)
+{
+	mpf_class numLeft = Object_mpz::GetEntity(valueLeft);
 	mpf_class numRight = Object_mpf::GetEntity(valueRight);
 	bool numResult = (numLeft == numRight);
 	return Value(numResult);
@@ -399,6 +418,22 @@ Gura_ImplementBinaryOperator(Ne, number, mpf)
 	return Value(numResult);
 }
 
+Gura_ImplementBinaryOperator(Ne, mpf, mpz)
+{
+	mpf_class numLeft = Object_mpf::GetEntity(valueLeft);
+	mpf_class numRight = Object_mpz::GetEntity(valueRight);
+	bool numResult = (numLeft != numRight);
+	return Value(numResult);
+}
+
+Gura_ImplementBinaryOperator(Ne, mpz, mpf)
+{
+	mpf_class numLeft = Object_mpz::GetEntity(valueLeft);
+	mpf_class numRight = Object_mpf::GetEntity(valueRight);
+	bool numResult = (numLeft != numRight);
+	return Value(numResult);
+}
+
 // binary operator >
 Gura_ImplementBinaryOperator(Gt, mpf, mpf)
 {
@@ -419,6 +454,22 @@ Gura_ImplementBinaryOperator(Gt, mpf, number)
 Gura_ImplementBinaryOperator(Gt, number, mpf)
 {
 	double numLeft = valueLeft.GetDouble();
+	mpf_class numRight = Object_mpf::GetEntity(valueRight);
+	bool numResult = (numLeft > numRight);
+	return Value(numResult);
+}
+
+Gura_ImplementBinaryOperator(Gt, mpf, mpz)
+{
+	mpf_class numLeft = Object_mpf::GetEntity(valueLeft);
+	mpf_class numRight = Object_mpz::GetEntity(valueRight);
+	bool numResult = (numLeft > numRight);
+	return Value(numResult);
+}
+
+Gura_ImplementBinaryOperator(Gt, mpz, mpf)
+{
+	mpf_class numLeft = Object_mpz::GetEntity(valueLeft);
 	mpf_class numRight = Object_mpf::GetEntity(valueRight);
 	bool numResult = (numLeft > numRight);
 	return Value(numResult);
@@ -449,6 +500,22 @@ Gura_ImplementBinaryOperator(Lt, number, mpf)
 	return Value(numResult);
 }
 
+Gura_ImplementBinaryOperator(Lt, mpf, mpz)
+{
+	mpf_class numLeft = Object_mpf::GetEntity(valueLeft);
+	mpf_class numRight = Object_mpz::GetEntity(valueRight);
+	bool numResult = (numLeft < numRight);
+	return Value(numResult);
+}
+
+Gura_ImplementBinaryOperator(Lt, mpz, mpf)
+{
+	mpf_class numLeft = Object_mpz::GetEntity(valueLeft);
+	mpf_class numRight = Object_mpf::GetEntity(valueRight);
+	bool numResult = (numLeft < numRight);
+	return Value(numResult);
+}
+
 // binary operator >=
 Gura_ImplementBinaryOperator(Ge, mpf, mpf)
 {
@@ -469,6 +536,22 @@ Gura_ImplementBinaryOperator(Ge, mpf, number)
 Gura_ImplementBinaryOperator(Ge, number, mpf)
 {
 	double numLeft = valueLeft.GetDouble();
+	mpf_class numRight = Object_mpf::GetEntity(valueRight);
+	bool numResult = (numLeft >= numRight);
+	return Value(numResult);
+}
+
+Gura_ImplementBinaryOperator(Ge, mpf, mpz)
+{
+	mpf_class numLeft = Object_mpf::GetEntity(valueLeft);
+	mpf_class numRight = Object_mpz::GetEntity(valueRight);
+	bool numResult = (numLeft >= numRight);
+	return Value(numResult);
+}
+
+Gura_ImplementBinaryOperator(Ge, mpz, mpf)
+{
+	mpf_class numLeft = Object_mpz::GetEntity(valueLeft);
 	mpf_class numRight = Object_mpf::GetEntity(valueRight);
 	bool numResult = (numLeft >= numRight);
 	return Value(numResult);
@@ -499,6 +582,22 @@ Gura_ImplementBinaryOperator(Le, number, mpf)
 	return Value(numResult);
 }
 
+Gura_ImplementBinaryOperator(Le, mpf, mpz)
+{
+	mpf_class numLeft = Object_mpf::GetEntity(valueLeft);
+	mpf_class numRight = Object_mpz::GetEntity(valueRight);
+	bool numResult = (numLeft <= numRight);
+	return Value(numResult);
+}
+
+Gura_ImplementBinaryOperator(Le, mpz, mpf)
+{
+	mpf_class numLeft = Object_mpz::GetEntity(valueLeft);
+	mpf_class numRight = Object_mpf::GetEntity(valueRight);
+	bool numResult = (numLeft <= numRight);
+	return Value(numResult);
+}
+
 // binary operator <=>
 Gura_ImplementBinaryOperator(Cmp, mpf, mpf)
 {
@@ -523,7 +622,22 @@ Gura_ImplementBinaryOperator(Cmp, number, mpf)
 	int numResult = -::mpf_cmp_d(numRight.get_mpf_t(), numLeft);
 	return Value(numResult);
 }
-#endif
+
+Gura_ImplementBinaryOperator(Cmp, mpf, mpz)
+{
+	mpf_class numLeft = Object_mpf::GetEntity(valueLeft);
+	mpf_class numRight = Object_mpz::GetEntity(valueRight);
+	int numResult = ::mpf_cmp(numLeft.get_mpf_t(), numRight.get_mpf_t());
+	return Value(numResult);
+}
+
+Gura_ImplementBinaryOperator(Cmp, mpz, mpf)
+{
+	mpf_class numLeft = Object_mpz::GetEntity(valueLeft);
+	mpf_class numRight = Object_mpf::GetEntity(valueRight);
+	int numResult = ::mpf_cmp(numLeft.get_mpf_t(), numRight.get_mpf_t());
+	return Value(numResult);
+}
 
 //-----------------------------------------------------------------------------
 // Implementation of class
@@ -561,29 +675,41 @@ Gura_ImplementUserClassWithCast(mpf)
 	Gura_AssignBinaryOperator(Div, number, mpf);
 	Gura_AssignBinaryOperator(Div, mpf, mpz);
 	Gura_AssignBinaryOperator(Div, mpz, mpf);
-#if 0
 	Gura_AssignBinaryOperator(Eq, mpf, mpf);
 	Gura_AssignBinaryOperator(Eq, mpf, number);
 	Gura_AssignBinaryOperator(Eq, number, mpf);
+	Gura_AssignBinaryOperator(Eq, mpf, mpz);
+	Gura_AssignBinaryOperator(Eq, mpz, mpf);
 	Gura_AssignBinaryOperator(Ne, mpf, mpf);
 	Gura_AssignBinaryOperator(Ne, mpf, number);
 	Gura_AssignBinaryOperator(Ne, number, mpf);
+	Gura_AssignBinaryOperator(Ne, mpf, mpz);
+	Gura_AssignBinaryOperator(Ne, mpz, mpf);
 	Gura_AssignBinaryOperator(Gt, mpf, mpf);
 	Gura_AssignBinaryOperator(Gt, mpf, number);
 	Gura_AssignBinaryOperator(Gt, number, mpf);
+	Gura_AssignBinaryOperator(Gt, mpf, mpz);
+	Gura_AssignBinaryOperator(Gt, mpz, mpf);
 	Gura_AssignBinaryOperator(Lt, mpf, mpf);
 	Gura_AssignBinaryOperator(Lt, mpf, number);
 	Gura_AssignBinaryOperator(Lt, number, mpf);
+	Gura_AssignBinaryOperator(Lt, mpf, mpz);
+	Gura_AssignBinaryOperator(Lt, mpz, mpf);
 	Gura_AssignBinaryOperator(Ge, mpf, mpf);
 	Gura_AssignBinaryOperator(Ge, mpf, number);
 	Gura_AssignBinaryOperator(Ge, number, mpf);
+	Gura_AssignBinaryOperator(Ge, mpf, mpz);
+	Gura_AssignBinaryOperator(Ge, mpz, mpf);
 	Gura_AssignBinaryOperator(Le, mpf, mpf);
 	Gura_AssignBinaryOperator(Le, mpf, number);
 	Gura_AssignBinaryOperator(Le, number, mpf);
+	Gura_AssignBinaryOperator(Le, mpf, mpz);
+	Gura_AssignBinaryOperator(Le, mpz, mpf);
 	Gura_AssignBinaryOperator(Cmp, mpf, mpf);
 	Gura_AssignBinaryOperator(Cmp, mpf, number);
 	Gura_AssignBinaryOperator(Cmp, number, mpf);
-#endif
+	Gura_AssignBinaryOperator(Cmp, mpf, mpz);
+	Gura_AssignBinaryOperator(Cmp, mpz, mpf);
 }
 
 Gura_ImplementCastFrom(mpf)
@@ -604,6 +730,10 @@ Gura_ImplementCastFrom(mpf)
 		}
 		value = Value(new Object_mpf(num));
 		return true;
+	} else if (value.IsType(VTYPE_mpz)) {
+		
+	} else if (value.IsType(VTYPE_mpq)) {
+		
 	}
 	return false;
 }

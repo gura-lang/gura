@@ -15,6 +15,7 @@ public:
 	Gura_DeclareObjectAccessor(mpq)
 public:
 	Object_mpq(mpq_t num);
+	Object_mpq(const mpq_class &num);
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag);
