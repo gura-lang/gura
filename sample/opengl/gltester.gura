@@ -57,7 +57,7 @@ mainloop(width:number, height:number, delay:number, drawTrigger:symbol) {`block}
 	[onKeyDown, onKeyUp, onKeyPoll] = d.get([`onKeyDown, `onKeyUp, `onKeyPoll]):list
 	[onMouseMotion, onMouseButtonDown, onMouseButtonUp] = \
 			d.get([`onMouseMotion, `onMouseButtonDown, `onMouseButtonUp]):list
-	items = zipv(keycodeToSymbol.values(), keycodeToSymbol.keys())
+	items = list.zip(keycodeToSymbol.values(), keycodeToSymbol.keys())
 	symbolToKeycode = dict(items)
 	sdl.Init(sdl.INIT_VIDEO)
 	bpp = sdl.GetVideoInfo().vfmt.BitsPerPixel
