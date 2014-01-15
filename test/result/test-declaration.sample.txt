@@ -260,7 +260,6 @@ uri(str?:string):map {block?}
 while (`cond) {block}
 xlist(value+)
 xset(iter+:iterator):[and,or,xor]
-zipv(values+) {block?}
 any
 args
   finalize_trailer():void
@@ -519,6 +518,7 @@ list
   until(criteria) {block?}
   variance()
   while (criteria) {block?}
+  zip(values+):static {block?}
 matrix
   col(col:number):map
   colsize()
