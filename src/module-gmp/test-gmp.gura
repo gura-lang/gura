@@ -2,24 +2,30 @@
 import(gmp)
 import(testutil) {*}
 
-TestUnaryOperators(ops[]:symbol, value) = {
-	operator(ops) {|op|
-		try {
-			result = op(value).tostring()
-		} catch {|e|
-			result = e.text
+TestUnaryOperators(ops[]:symbol, values[]) = {
+	for (value in values) {
+		printf('%s\n', typename(value))
+		operator(ops) {|op|
+			try {
+				result = op(value).tostring()
+			} catch {|e|
+				result = e.text
+			}
+			printf('%s%s .. %s\n', op.symbol, value, result)
 		}
-		printf('%s%s .. %s\n', op.symbol, value, result)
 	}
 }
-TestBinaryOperators(ops[]:symbol, valueL, valueR) = {
-	operator(ops) {|op|
-		try {
-			result = op(valueL, valueR).tostring()
-		} catch {|e|
-			result = e.text
+TestBinaryOperators(ops[]:symbol, valueLs[], valueRs[]) = {
+	cross (valueL in valueLs, valueR in valueRs) {
+		printf('%s, %s\n', typename(valueL), typename(valueR))
+		operator(ops) {|op|
+			try {
+				result = op(valueL, valueR).tostring()
+			} catch {|e|
+				result = e.text
+			}
+			printf('%s %s %s .. %s\n', valueL, op.symbol, valueR, result)
 		}
-		printf('%s %s %s .. %s\n', valueL, op.symbol, valueR, result)
 	}
 }
 testcase('declaration') {
@@ -65,29 +71,32 @@ testcase('declaration') {
 	tester(tests)
 }
 testcase('generic test for unary operators') {
-	ops = [
-		`+, `-, `~, `!, `.., `?
-	]
-	for (x in [3L, 3.L, 3Lr]) {
-		printf('%s\n', typename(x))
-		TestUnaryOperators(ops, x)
-	}
+	ops = [`+, `-, `~, `!, `.., `?]
+	values = [3L, 3.L, 3Lr]
+	TestUnaryOperators(ops, values)
 }
 testcase('generic test for binary operators') {
 	ops = [
 		`+, `-, `*, `/, `%, `**,
-		`==, `<, `>, `<=, `>=, `<=>, `in,
-		`&, `|, `^, `<<, `>>, `||, `&&, `=>
+		`==, `<, `>, `<=, `>=, `<=>,
+		`in, `&, `|, `^, `<<, `>>, `||, `&&, `=>
 	]
-	cross (x in [3, 3L, 3.L, 3Lr], y in [4, 4L, 4.L, 4Lr]) {
-		printf('%s, %s\n', typename(x), typename(y))
-		TestBinaryOperators(ops, x, y)
-	}
+	valueLs = [3, 3L, 3.L, 3Lr]
+	valueRs = [4, 4L, 4.L, 4Lr]
+	TestBinaryOperators(ops, valueLs, valueRs)
 }
 testcase('zero-division') {
 	ops = [`/, `%]
-	cross (x in [3, 3L, 3.L, 3Lr], y in [0, 0L, 0.L, 0Lr]) {
-		printf('%s, %s\n', typename(x), typename(y))
-		TestBinaryOperators(ops, x, y)
-	}
+	valueLs = [3, 3L, 3.L, 3Lr]
+	valueRs = [0, 0L, 0.L, 0Lr]
+	TestBinaryOperators(ops, valueLs, valueRs)
+}
+testcase('comparator') {
+	ops = [
+		`==, `<, `>, `<=, `>=, `<=>,
+	]
+	valueLs = [3, 3L, 3.L, 3Lr, 4, 4L, 4.L, 4Lr, 5, 5L, 5.L, 5Lr]
+	valueRs = [4, 4L, 4.L, 4Lr]
+	TestBinaryOperators(ops, valueLs, valueRs)
+	
 }
