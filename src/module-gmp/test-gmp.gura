@@ -2,6 +2,33 @@
 import(gmp)
 import(testutil) {*}
 
+TestUnaryOperators(value) = {
+	operator([`+, `-, `~, `!, `.., `?]) {|op|
+		try {
+			result = op(value).tostring()
+		} catch {|e|
+			result = e.text
+		}
+		printf('%s%s .. %s\n', op.symbol, value, result)
+	}
+}
+TestBinaryOperators(valueL, valueR) = {
+	operator([`+, `-, `*, `/, `%, `**, `==, `<, `>, `<=, `>=, `<=>, `in,
+				`&, `|, `^, `<<, `>>, `||, `&&, `=>]) {|op|
+		try {
+			result = op(valueL, valueR).tostring()
+		} catch {|e|
+			result = e.text
+		}
+		printf('%s %s %s .. %s\n', valueL, op.symbol, valueR, result)
+	}
+}
+TestBinaryOperators(3L, 4)
+TestBinaryOperators(3L, 4L)
+TestBinaryOperators(3.L, 4)
+TestBinaryOperators(3L, 4L)
+sys.exit()
+
 testcase('zero-division') {
 	f(test:expr):map = {
 		println(test)
