@@ -690,6 +690,58 @@ Gura_ImplementFunction(ListInit)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
+// list.zip(values+) {block?}
+Gura_DeclareClassMethod(list, zip)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "values", VTYPE_any, OCCUR_OnceOrMore);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Creates an iterator generating lists that bind given argument values.\n"
+	"When the value is a list or an iterator, each item in it would be zipped.\n"
+	GURA_ITERATOR_HELP);
+}
+
+Gura_ImplementClassMethod(list, zip)
+{
+	IteratorOwner iterOwner;
+	bool listFlag = false;
+	bool iteratorFlag = false;
+	foreach_const (ValueList, pValue, args.GetList(0)) {
+		if (pValue->Is_list()) {
+			listFlag = true;
+		} else if (pValue->Is_iterator()) {
+			iteratorFlag = true;
+			break;
+		}
+	}
+	if (!listFlag && !iteratorFlag) {
+		Value result;
+		ValueList &valList = result.InitAsList(env);
+		foreach_const (ValueList, pValue, args.GetList(0)) {
+			valList.push_back(*pValue);
+		}
+		return ReturnValue(env, sig, args, result);
+	}
+	foreach_const (ValueList, pValue, args.GetList(0)) {
+		Iterator *pIteratorArg = NULL;
+		if (pValue->Is_list() || pValue->Is_iterator()) {
+			pIteratorArg = pValue->CreateIterator(sig);
+			if (sig.IsSignalled()) return Value::Null;
+		} else {
+			pIteratorArg = new Iterator_Constant(*pValue);
+		}
+		iterOwner.push_back(pIteratorArg);
+	}
+	AutoPtr<Iterator> pIterator(new Iterator_Zipv(iterOwner));
+	if (iteratorFlag) return ReturnIterator(env, sig, args, pIterator.release());
+	Value result = pIterator->ToList(env, sig, true, false);
+	return ReturnValue(env, sig, args, result);
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of instance methods
+//-----------------------------------------------------------------------------
 // list#add(elem+):reduce
 Gura_DeclareMethod(list, add)
 {
@@ -1888,7 +1940,9 @@ void Class_list::Prepare(Environment &env)
 	Gura_AssignFunctionEx(set_xset, "set");
 	Gura_AssignFunctionEx(set_xset, "xset");
 	Gura_AssignFunctionEx(ListInit, "@");
-	// assignment of methods
+	// assignment of class methods
+	Gura_AssignMethod(list, zip);
+	// assignment of instance methods
 	Gura_AssignMethod(list, add);
 	Gura_AssignMethod(list, append);
 	Gura_AssignMethod(list, clear);

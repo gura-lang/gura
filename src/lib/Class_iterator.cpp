@@ -150,50 +150,6 @@ Gura_ImplementFunction(interval)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// zipv(values+) {block?}
-Gura_DeclareFunction(zipv)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "values", VTYPE_any, OCCUR_OnceOrMore);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Creates an iterator generating lists that bind given argument values.\n"
-	"When the value is a list or an iterator, each item in it would be zipped.\n"
-	GURA_ITERATOR_HELP);
-}
-
-Gura_ImplementFunction(zipv)
-{
-	IteratorOwner iterOwner;
-	bool iteratorFlag = false;
-	foreach_const (ValueList, pValue, args.GetList(0)) {
-		if (pValue->Is_list() || pValue->Is_iterator()) {
-			iteratorFlag = true;
-			break;
-		}
-	}
-	if (!iteratorFlag) {
-		Value result;
-		ValueList &valList = result.InitAsList(env);
-		foreach_const (ValueList, pValue, args.GetList(0)) {
-			valList.push_back(*pValue);
-		}
-		return result;
-	}
-	foreach_const (ValueList, pValue, args.GetList(0)) {
-		Iterator *pIteratorArg = NULL;
-		if (pValue->Is_list() || pValue->Is_iterator()) {
-			pIteratorArg = pValue->CreateIterator(sig);
-			if (sig.IsSignalled()) return Value::Null;
-		} else {
-			pIteratorArg = new Iterator_Constant(*pValue);
-		}
-		iterOwner.push_back(pIteratorArg);
-	}
-	Iterator *pIterator = new Iterator_Zipv(iterOwner);
-	return ReturnIterator(env, sig, args, pIterator);
-}
-
 // consts(value, num?:number) {block?}
 Gura_DeclareFunction(consts)
 {
@@ -1158,7 +1114,6 @@ void Class_iterator::Prepare(Environment &env)
 	Gura_AssignFunction(iterator);
 	Gura_AssignFunction(range);
 	Gura_AssignFunction(interval);
-	Gura_AssignFunction(zipv);
 	Gura_AssignFunction(consts);
 	Gura_AssignFunction(rands);
 	// assignement of methods

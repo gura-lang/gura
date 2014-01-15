@@ -1383,21 +1383,6 @@ Gura_ImplementFunction(document)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_stream
 //-----------------------------------------------------------------------------
-// stream#xmlread() {block?}
-Gura_DeclareMethod(stream, xmlread)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(stream, xmlread)
-{
-	Object_stream *pThis = Object_stream::GetThisObj(args);
-	AutoPtr<Document> pDocument(new Document());
-	if (!pDocument->Parse(sig, pThis->GetStream())) return Value::Null;
-	return ReturnValue(env, sig, args, Value(new Object_document(pDocument.release())));
-}
-
 // Module entry
 Gura_ModuleEntry()
 {
@@ -1443,8 +1428,6 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(element);
 	Gura_AssignFunction(comment);
 	Gura_AssignFunction(document);
-	// method assignment to stream type
-	Gura_AssignMethodTo(VTYPE_stream, stream, xmlread);
 }
 
 Gura_ModuleTerminate()

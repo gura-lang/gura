@@ -157,6 +157,6 @@ function {
 	recs2 = Record2 * csv.read('data/ipss.go.jp-report-2.csv')
 	Record = struct(year:number, total:number, X0_14:number, X15_64:number, X65_:number)
 	recs = Record * list(
-		zipv(recs1::year, recs1::total, recs1::X0_14, recs1::X15_64, recs1::X65_),
-		zipv(recs2::year, recs2::total, recs2::X0_14, recs2::X15_64, recs2::X65_).offset(1))
+		list.zip(recs1::year, recs1::total, recs1::X0_14, recs1::X15_64, recs1::X65_),
+		list.zip(recs2::year, recs2::total, recs2::X0_14, recs2::X15_64, recs2::X65_).offset(1))
 }

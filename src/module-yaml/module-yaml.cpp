@@ -77,44 +77,6 @@ Gura_ImplementFunction(compose)
 	return Value(str);
 }
 
-//-----------------------------------------------------------------------------
-// Gura interfaces for Object_stream
-//-----------------------------------------------------------------------------
-// stream#yamlread()
-Gura_DeclareMethod(stream, yamlread)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(stream, yamlread)
-{
-	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
-	Iterator_FromStream *pIterator = new Iterator_FromStream(sig, stream.Reference());
-	if (args.IsRsltMulti()) {
-		return ReturnIterator(env, sig, args, pIterator);
-	}
-	Value value;
-	pIterator->Next(env, sig, value);
-	Iterator::Delete(pIterator);
-	return value;
-}
-
-// stream#yamlwrite(obj):reduce
-Gura_DeclareMethod(stream, yamlwrite)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "obj", VTYPE_any);
-}
-
-Gura_ImplementMethod(stream, yamlwrite)
-{
-	Object_stream *pThis = Object_stream::GetThisObj(args);
-	if (!WriterToStream::Write(env, sig, pThis->GetStream(), args.GetValue(0))) {
-		return Value::Null;
-	}
-	return args.GetThis();
-}
-
 // Module entry
 Gura_ModuleEntry()
 {
@@ -123,9 +85,6 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(write);
 	Gura_AssignFunction(parse);
 	Gura_AssignFunction(compose);
-	// method assignment to stream type
-	Gura_AssignMethodTo(VTYPE_stream, stream, yamlread);
-	Gura_AssignMethodTo(VTYPE_stream, stream, yamlwrite);
 }
 
 Gura_ModuleTerminate()
