@@ -237,6 +237,10 @@ Gura_ImplementBinaryOperator(Mod, mpz, mpz)
 {
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
 	mpz_class numRight = Object_mpz::GetEntity(valueRight);
+	if (numRight == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return Value::Null;
+	}
 	mpz_class numResult = numLeft % numRight;
 	return Value(new Object_mpz(numResult));
 }
@@ -245,6 +249,10 @@ Gura_ImplementBinaryOperator(Mod, mpz, number)
 {
 	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
 	double numRight = valueRight.GetDouble();
+	if (numRight == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return Value::Null;
+	}
 	mpz_class numResult = numLeft % numRight;
 	return Value(new Object_mpz(numResult));
 }
@@ -253,6 +261,10 @@ Gura_ImplementBinaryOperator(Mod, number, mpz)
 {
 	double numLeft = valueLeft.GetDouble();
 	mpz_class numRight = Object_mpz::GetEntity(valueRight);
+	if (numRight == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return Value::Null;
+	}
 	mpz_class numResult = numLeft % numRight;
 	return Value(new Object_mpz(numResult));
 }
@@ -507,6 +519,24 @@ Gura_ImplementBinaryOperator(Xor, number, mpz)
 	return Value(new Object_mpz(numResult));
 }
 
+// binary operator <<
+Gura_ImplementBinaryOperator(Shl, mpz, number)
+{
+	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
+	double numRight = valueRight.GetDouble();
+	mpz_class numResult = numLeft << numRight;
+	return Value(new Object_mpz(numResult));
+}
+
+// binary operator <<
+Gura_ImplementBinaryOperator(Shr, mpz, number)
+{
+	mpz_class numLeft = Object_mpz::GetEntity(valueLeft);
+	double numRight = valueRight.GetDouble();
+	mpz_class numResult = numLeft >> numRight;
+	return Value(new Object_mpz(numResult));
+}
+
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
@@ -565,6 +595,8 @@ Gura_ImplementUserClassWithCast(mpz)
 	Gura_AssignBinaryOperator(Xor, mpz, mpz);
 	Gura_AssignBinaryOperator(Xor, mpz, number);
 	Gura_AssignBinaryOperator(Xor, number, mpz);
+	Gura_AssignBinaryOperator(Shl, mpz, number);
+	Gura_AssignBinaryOperator(Shr, mpz, number);
 }
 
 Gura_ImplementCastFrom(mpz)

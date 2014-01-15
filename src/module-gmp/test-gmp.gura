@@ -2,8 +2,8 @@
 import(gmp)
 import(testutil) {*}
 
-TestUnaryOperators(value) = {
-	operator([`+, `-, `~, `!, `.., `?]) {|op|
+TestUnaryOperators(ops[]:symbol, value) = {
+	operator(ops) {|op|
 		try {
 			result = op(value).tostring()
 		} catch {|e|
@@ -12,9 +12,8 @@ TestUnaryOperators(value) = {
 		printf('%s%s .. %s\n', op.symbol, value, result)
 	}
 }
-TestBinaryOperators(valueL, valueR) = {
-	operator([`+, `-, `*, `/, `%, `**, `==, `<, `>, `<=, `>=, `<=>, `in,
-				`&, `|, `^, `<<, `>>, `||, `&&, `=>]) {|op|
+TestBinaryOperators(ops[]:symbol, valueL, valueR) = {
+	operator(ops) {|op|
 		try {
 			result = op(valueL, valueR).tostring()
 		} catch {|e|
@@ -22,41 +21,6 @@ TestBinaryOperators(valueL, valueR) = {
 		}
 		printf('%s %s %s .. %s\n', valueL, op.symbol, valueR, result)
 	}
-}
-TestBinaryOperators(3L, 4)
-TestBinaryOperators(3L, 4L)
-TestBinaryOperators(3.L, 4)
-TestBinaryOperators(3L, 4L)
-sys.exit()
-
-testcase('zero-division') {
-	f(test:expr):map = {
-		println(test)
-		try {
-			test.eval()
-		} catch {|e|
-			println('expected error occurs: ', e.text)
-		}
-	}
-	tests = [
-		`(3 / 0)
-		`(3 / 0L)
-		`(3 / 0.L)
-		`(3 / 0Lr)
-		`(3L / 0)
-		`(3L / 0L)
-		`(3L / 0.L)
-		`(3L / 0Lr)
-		`(3.L / 0)
-		`(3.L / 0L)
-		`(3.L / 0.L)
-		//`(3.L / 0Lr)
-		`(3Lr / 0)
-		`(3Lr / 0L)
-		//`(3Lr / 0.L)
-		`(3Lr / 0Lr)
-	]
-	f(tests)
 }
 testcase('declaration') {
 	tests = [
@@ -95,53 +59,47 @@ testcase('declaration') {
 		`123456789012345678901234567890123456789012345678901234567890L
 		`123456789012345678901234567890123456789012345678901234567890Lr
 		`0777777
+		`0b10101010
 		`0xffffffff
 	]
 	tester(tests)
 }
-testcase('operation for mpz') {
-	tests = [
-		`(+3L)
-		`(-3L)
-		`(3L + 4L)
-		`(3L + 4)
-		`(3 + 4L)
-		`(3L - 4L)
-		`(3L - 4)
-		`(3 - 4L)
-		`(3L * 4L)
-		`(3L * 4)
-		`(3 * 4L)
-		`(12L / 4L)
-		`(12L / 4)
-		`(12 / 4L)
-		`(3L == 4L)
-		`(3L == 4)
-		`(3 == 4L)
-		`(3L == 3L)
-		`(3L == 3)
-		`(3 == 3L)
-		`(3L < 4L)
-		`(3L < 4)
-		`(3 < 4L)
-		`(5L < 4L)
-		`(5L < 4)
-		`(5 < 4L)
-		`(3L > 4L)
-		`(3L > 4)
-		`(3 > 4L)
-		`(5L > 4L)
-		`(5L > 4)
-		`(5 > 4L)
-		`(3L <=> 4L)
-		`(3L <=> 4)
-		`(3 <=> 4L)
-		`(3L <=> 3L)
-		`(3L <=> 3)
-		`(3 <=> 3L)
-		`(5L <=> 4L)
-		`(5L <=> 4)
-		`(5 <=> 4L)
+testcase('unary operators') {
+	ops = [
+		`+, `-, `~, `!, `.., `?
 	]
-	tester(tests)
+	println('---')
+	TestUnaryOperators(ops, 3L)
+	println('---')
+	TestUnaryOperators(ops, -3L)
+}
+testcase('binary operators') {
+	ops = [
+		`+, `-, `*, `/, `%, `**,
+		`==, `<, `>, `<=, `>=, `<=>, `in,
+		`&, `|, `^, `<<, `>>, `||, `&&, `=>
+	]
+	println('---')
+	TestBinaryOperators(ops, 3L, 4)
+	println('---')
+	TestBinaryOperators(ops, 3L, 4L)
+	println('---')
+	TestBinaryOperators(ops, 3.L, 4)
+	println('---')
+	TestBinaryOperators(ops, 3L, 4L)
+}
+testcase('zero-division') {
+	ops = [`/, `%]
+	println('---')
+	TestBinaryOperators(ops, 3L, 0L)
+	println('---')
+	TestBinaryOperators(ops, 3L, 0)
+	println('---')
+	TestBinaryOperators(ops, 3, 0L)
+	println('---')
+	TestBinaryOperators(ops, 3.L, 0L)
+	println('---')
+	TestBinaryOperators(ops, 3.L, 0)
+	println('---')
+	TestBinaryOperators(ops, 3, 0.L)
 }
