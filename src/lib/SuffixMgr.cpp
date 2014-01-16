@@ -6,34 +6,13 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// SuffixMgr
+// SuffixMgrEntry
 //-----------------------------------------------------------------------------
-SuffixMgr *SuffixMgr::LookupForString(Environment &env, const Symbol *pSymbolSuffix)
-{
-	return env.GetGlobal()->GetSuffixMgrMapForString().Lookup(pSymbolSuffix);
-}
-
-SuffixMgr *SuffixMgr::LookupForNumber(Environment &env, const Symbol *pSymbolSuffix)
-{
-	return env.GetGlobal()->GetSuffixMgrMapForNumber().Lookup(pSymbolSuffix);
-}
-
-void SuffixMgr::AssignForString(Environment &env,
-				const Symbol *pSymbolSuffix, SuffixMgr *pSuffixMgr)
-{
-	env.GetGlobal()->GetSuffixMgrMapForString().Assign(pSymbolSuffix, pSuffixMgr);
-}
-
-void SuffixMgr::AssignForNumber(Environment &env,
-				const Symbol *pSymbolSuffix, SuffixMgr *pSuffixMgr)
-{
-	env.GetGlobal()->GetSuffixMgrMapForNumber().Assign(pSymbolSuffix, pSuffixMgr);
-}
 
 //-----------------------------------------------------------------------------
-// SuffixMgrCustom
+// SuffixMgrEntryCustom
 //-----------------------------------------------------------------------------
-Value SuffixMgrCustom::DoEval(Environment &env, Signal sig, const char *body) const
+Value SuffixMgrEntryCustom::DoEval(Environment &env, Signal sig, const char *body) const
 {
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetValue(Value(body));
@@ -41,31 +20,52 @@ Value SuffixMgrCustom::DoEval(Environment &env, Signal sig, const char *body) co
 }
 
 //-----------------------------------------------------------------------------
-// SuffixMgrMap
+// SuffixMgr
 //-----------------------------------------------------------------------------
-SuffixMgrMap::~SuffixMgrMap()
+SuffixMgr::~SuffixMgr()
 {
-	foreach (SuffixMgrMap, iter, *this) {
+	foreach (Map, iter, _map) {
 		delete iter->second;
 	}
 }
 
-void SuffixMgrMap::Assign(const Symbol *pSymbolSuffix, SuffixMgr *pSuffixMgr)
+void SuffixMgr::Assign(const Symbol *pSymbolSuffix, SuffixMgrEntry *pSuffixMgrEntry)
 {
-	iterator iter = find(pSymbolSuffix);
-	if (iter == end()) {
-		(*this)[pSymbolSuffix] = pSuffixMgr;
+	Map::iterator iter = _map.find(pSymbolSuffix);
+	if (iter == _map.end()) {
+		_map[pSymbolSuffix] = pSuffixMgrEntry;
 	} else {
 		delete iter->second;
-		iter->second = pSuffixMgr;
+		iter->second = pSuffixMgrEntry;
 	}
 }
 
-SuffixMgr *SuffixMgrMap::Lookup(const Symbol *pSymbolSuffix)
+SuffixMgrEntry *SuffixMgr::Lookup(const Symbol *pSymbolSuffix)
 {
-	iterator iter = find(pSymbolSuffix);
-	return (iter == end())? NULL : iter->second;
+	Map::iterator iter = _map.find(pSymbolSuffix);
+	return (iter == _map.end())? NULL : iter->second;
 }
 
+SuffixMgrEntry *SuffixMgr::LookupForString(Environment &env, const Symbol *pSymbolSuffix)
+{
+	return env.GetGlobal()->GetSuffixMgrForString().Lookup(pSymbolSuffix);
+}
+
+SuffixMgrEntry *SuffixMgr::LookupForNumber(Environment &env, const Symbol *pSymbolSuffix)
+{
+	return env.GetGlobal()->GetSuffixMgrForNumber().Lookup(pSymbolSuffix);
+}
+
+void SuffixMgr::AssignForString(Environment &env,
+				const Symbol *pSymbolSuffix, SuffixMgrEntry *pSuffixMgrEntry)
+{
+	env.GetGlobal()->GetSuffixMgrForString().Assign(pSymbolSuffix, pSuffixMgrEntry);
+}
+
+void SuffixMgr::AssignForNumber(Environment &env,
+				const Symbol *pSymbolSuffix, SuffixMgrEntry *pSuffixMgrEntry)
+{
+	env.GetGlobal()->GetSuffixMgrForNumber().Assign(pSymbolSuffix, pSuffixMgrEntry);
+}
 
 }

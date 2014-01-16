@@ -1137,15 +1137,15 @@ Expr *Expr_Suffixed::Clone() const
 Value Expr_Suffixed::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
 {
 	Value result;
-	SuffixMgr *pSuffixMgr = _numberFlag?
+	SuffixMgrEntry *pSuffixMgrEntry = _numberFlag?
 				SuffixMgr::LookupForNumber(env, _pSymbolSuffix) :
 				SuffixMgr::LookupForString(env, _pSymbolSuffix);
-	if (pSuffixMgr == NULL) {
+	if (pSuffixMgrEntry == NULL) {
 		sig.SetError(ERR_SyntaxError, "unknown suffix '%s' for %s",
 				_pSymbolSuffix->GetName(), _numberFlag? "number" : "string");
 		return Value::Null;
 	}
-	result = pSuffixMgr->DoEval(env, sig, _body.c_str());
+	result = pSuffixMgrEntry->DoEval(env, sig, _body.c_str());
 	if (sig.IsSignalled()) return Value::Null;
 	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
 	return result;

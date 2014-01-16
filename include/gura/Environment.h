@@ -177,8 +177,8 @@ public:
 		IntegratedModuleMap _integratedModuleMap;
 		SeparatedModuleMap	_separatedModuleMap;
 		StringList			_workingDirList;
-		SuffixMgrMap		_suffixMgrMapForString;
-		SuffixMgrMap		_suffixMgrMapForNumber;
+		SuffixMgr			_suffixMgrForString;
+		SuffixMgr			_suffixMgrForNumber;
 		PathMgrOwner		_pathMgrOwner;
 		HelpPresenterOwner	_helpPresenterOwner;
 		Operator			*_operatorTbl[OPTYPE_max];
@@ -201,10 +201,10 @@ public:
 		void RegisterSeparatedModule(const char *pathName, Module *pModule);
 		void UnregisterSeparatedModule(const char *pathName);
 		inline Option &GetOption() { return _opt; }
-		inline SuffixMgrMap &GetSuffixMgrMapForString() { return _suffixMgrMapForString; }
-		inline const SuffixMgrMap &GetSuffixMgrMapForString() const { return _suffixMgrMapForString; }
-		inline SuffixMgrMap &GetSuffixMgrMapForNumber() { return _suffixMgrMapForNumber; }
-		inline const SuffixMgrMap &GetSuffixMgrMapForNumber() const { return _suffixMgrMapForNumber; }
+		inline SuffixMgr &GetSuffixMgrForString() { return _suffixMgrForString; }
+		inline const SuffixMgr &GetSuffixMgrForString() const { return _suffixMgrForString; }
+		inline SuffixMgr &GetSuffixMgrForNumber() { return _suffixMgrForNumber; }
+		inline const SuffixMgr &GetSuffixMgrForNumber() const { return _suffixMgrForNumber; }
 		inline PathMgrOwner &GetPathMgrOwner() { return _pathMgrOwner; }
 		inline const PathMgrOwner &GetPathMgrOwner() const { return _pathMgrOwner; }
 		inline HelpPresenterOwner &GetHelpPresenterOwner() { return _helpPresenterOwner; }

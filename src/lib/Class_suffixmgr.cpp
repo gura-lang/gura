@@ -8,13 +8,13 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Object_suffixmgr
 //-----------------------------------------------------------------------------
-Object_suffixmgr::Object_suffixmgr(Environment &env, SuffixMgrMap &suffixMgrMap) :
-			Object(env.LookupClass(VTYPE_suffixmgr)), _suffixMgrMap(suffixMgrMap)
+Object_suffixmgr::Object_suffixmgr(Environment &env, SuffixMgr &suffixMgr) :
+			Object(env.LookupClass(VTYPE_suffixmgr)), _suffixMgr(suffixMgr)
 {
 }
 
-Object_suffixmgr::Object_suffixmgr(Class *pClass, SuffixMgrMap &suffixMgrMap) :
-			Object(pClass), _suffixMgrMap(suffixMgrMap)
+Object_suffixmgr::Object_suffixmgr(Class *pClass, SuffixMgr &suffixMgr) :
+			Object(pClass), _suffixMgr(suffixMgr)
 {
 }
 
@@ -69,10 +69,10 @@ Gura_ImplementFunction(suffixmgr)
 	AutoPtr<Object_suffixmgr> pObj;
 	if (pSymbol->IsIdentical(Gura_Symbol(number))) {
 		pObj.reset(new Object_suffixmgr(env,
-						env.GetGlobal()->GetSuffixMgrMapForNumber()));
+						env.GetGlobal()->GetSuffixMgrForNumber()));
 	} else if (pSymbol->IsIdentical(Gura_Symbol(string))) {
 		pObj.reset(new Object_suffixmgr(env,
-						env.GetGlobal()->GetSuffixMgrMapForString()));
+						env.GetGlobal()->GetSuffixMgrForString()));
 	} else {
 		sig.SetError(ERR_ValueError, "target must be `number or `string");
 		return Value::Null;
@@ -94,16 +94,17 @@ Gura_DeclareMethod(suffixmgr, assign)
 
 Gura_ImplementMethod(suffixmgr, assign)
 {
-	SuffixMgrMap &suffixMgrMap = Object_suffixmgr::GetThisObj(args)->GetSuffixMgrMap();
+	SuffixMgr &suffixMgr = Object_suffixmgr::GetThisObj(args)->GetSuffixMgr();
 	const Function *pFuncBlock = args.GetBlockFunc(env, sig, GetSymbolForBlock());
 	if (pFuncBlock == NULL) return Value::Null;
 	const Symbol *pSymbol = args.GetSymbol(0);
-	if (!args.IsSet(Gura_Symbol(force)) && suffixMgrMap.Lookup(pSymbol) != NULL) {
+	if (!args.IsSet(Gura_Symbol(force)) && suffixMgr.Lookup(pSymbol) != NULL) {
 		sig.SetError(ERR_ValueError, "suffix '%s' has already been assigned", pSymbol->GetName());
 		return Value::Null;
 	}
-	SuffixMgrCustom *pSuffixMgr = new SuffixMgrCustom(Function::Reference(pFuncBlock));
-	suffixMgrMap.Assign(pSymbol, pSuffixMgr);
+	SuffixMgrEntryCustom *pSuffixMgrEntry =
+					new SuffixMgrEntryCustom(Function::Reference(pFuncBlock));
+	suffixMgr.Assign(pSymbol, pSuffixMgrEntry);
 	return Value::Null;
 }
 
