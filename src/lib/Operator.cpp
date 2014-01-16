@@ -2011,6 +2011,24 @@ Gura_ImplementBinaryOperator(Pair, number, any)
 }
 
 //-----------------------------------------------------------------------------
+// OperatorEntryCustom
+//-----------------------------------------------------------------------------
+Value OperatorEntryCustom::DoEval(Environment &env, Signal sig, const Value &value) const
+{
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValue(value);
+	return _pFunc->Eval(env, sig, *pArgs);
+}
+
+Value OperatorEntryCustom::DoEval(Environment &env, Signal sig,
+					const Value &valueLeft, const Value &valueRight) const
+{
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetValues(valueLeft, valueRight);
+	return _pFunc->Eval(env, sig, *pArgs);
+}
+
+//-----------------------------------------------------------------------------
 // Operator assignment
 //-----------------------------------------------------------------------------
 void Operator::AssignOperators(Environment &env)

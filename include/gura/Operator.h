@@ -55,8 +55,6 @@ Operator::Assign(env, new OperatorEntry_##op##_##typeL##_##typeR())
 
 namespace Gura {
 
-class Expr_Value;
-
 // the order of Operator::_mathSymbolTbl depends on OpType numbers.
 enum OpType {
 	OPTYPE_None,
@@ -96,6 +94,8 @@ enum OpType {
 	OPTYPE_max,
 };
 
+class Expr_Value;
+class Function;
 class OperatorEntry;
 
 //-----------------------------------------------------------------------------
@@ -471,6 +471,20 @@ public:
 					const Value &valueLeft, const Value &valueRight) const;
 	void SetError_InvalidValueType(Signal &sig, const Value &value, bool suffixFlag) const;
 	void SetError_InvalidValueType(Signal &sig, const Value &valueLeft, const Value &valueRight) const;
+};
+
+//-----------------------------------------------------------------------------
+// OperatorEntryCustom
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE OperatorEntryCustom : public OperatorEntry {
+private:
+	AutoPtr<Function> _pFunc;
+public:
+	inline OperatorEntryCustom(OpType opType, ValueType valTypeL, ValueType valTypeR, Function *pFunc) :
+					OperatorEntry(opType, valTypeL, valTypeR), _pFunc(pFunc) {}
+	virtual Value DoEval(Environment &env, Signal sig, const Value &value) const;
+	virtual Value DoEval(Environment &env, Signal sig,
+				const Value &valueLeft, const Value &valueRight) const;
 };
 
 }

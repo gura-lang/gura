@@ -42,20 +42,6 @@ public:
 	inline OpType GetBinaryOpType() const { return _opTypeBinary; }
 };
 
-//-----------------------------------------------------------------------------
-// CustomOperatorEntry
-//-----------------------------------------------------------------------------
-class CustomOperatorEntry : public OperatorEntry {
-private:
-	AutoPtr<Function> _pFunc;
-public:
-	inline CustomOperatorEntry(OpType opType, ValueType valTypeL, ValueType valTypeR, Function *pFunc) :
-					OperatorEntry(opType, valTypeL, valTypeR), _pFunc(pFunc) {}
-	virtual Value DoEval(Environment &env, Signal sig, const Value &value) const;
-	virtual Value DoEval(Environment &env, Signal sig,
-				const Value &valueLeft, const Value &valueRight) const;
-};
-
 }
 
 #endif

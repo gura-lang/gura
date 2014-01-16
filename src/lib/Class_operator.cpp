@@ -132,7 +132,7 @@ Gura_ImplementMethod(operator_, assign)
 	Object_operator *pThis = Object_operator::GetThisObj(args);
 	const Function *pFuncBlock = args.GetBlockFunc(env, sig, GetSymbolForBlock());
 	if (pFuncBlock == NULL) return Value::Null;
-	CustomOperatorEntry *pOperatorEntry = NULL;
+	OperatorEntryCustom *pOperatorEntry = NULL;
 	if (args.IsValid(1)) {
 		// assign binary operator
 		OpType opType = pThis->GetBinaryOpType();
@@ -145,7 +145,7 @@ Gura_ImplementMethod(operator_, assign)
 		if (pValueTypeInfoL == NULL) return Value::Null;
 		const ValueTypeInfo *pValueTypeInfoR = env.LookupValueType(sig, args.GetExpr(1));
 		if (pValueTypeInfoR == NULL) return Value::Null;
-		pOperatorEntry = new CustomOperatorEntry(opType,
+		pOperatorEntry = new OperatorEntryCustom(opType,
 					pValueTypeInfoL->GetValueType(), pValueTypeInfoR->GetValueType(),
 					Function::Reference(pFuncBlock));
 	} else {
@@ -158,7 +158,7 @@ Gura_ImplementMethod(operator_, assign)
 		}
 		const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetExpr(0));
 		if (pValueTypeInfo == NULL) return Value::Null;
-		pOperatorEntry = new CustomOperatorEntry(opType,
+		pOperatorEntry = new OperatorEntryCustom(opType,
 					pValueTypeInfo->GetValueType(), VTYPE_undefined,
 					Function::Reference(pFuncBlock));
 	}
@@ -236,24 +236,6 @@ Object *Class_operator::CreateDescendant(Environment &env, Signal sig, Class *pC
 {
 	GURA_ERROREND(env, "this function must not be called");
 	return NULL;
-}
-
-//-----------------------------------------------------------------------------
-// CustomOperatorEntry
-//-----------------------------------------------------------------------------
-Value CustomOperatorEntry::DoEval(Environment &env, Signal sig, const Value &value) const
-{
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValue(value);
-	return _pFunc->Eval(env, sig, *pArgs);
-}
-
-Value CustomOperatorEntry::DoEval(Environment &env, Signal sig,
-					const Value &valueLeft, const Value &valueRight) const
-{
-	AutoPtr<Args> pArgs(new Args());
-	pArgs->SetValues(valueLeft, valueRight);
-	return _pFunc->Eval(env, sig, *pArgs);
 }
 
 }
