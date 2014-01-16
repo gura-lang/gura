@@ -46,6 +46,17 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// SuffixMgrCustom
+//-----------------------------------------------------------------------------
+class SuffixMgrCustom : public SuffixMgr {
+private:
+	AutoPtr<Function> _pFunc;
+public:
+	inline SuffixMgrCustom(Function *pFunc) : _pFunc(pFunc) {}
+	virtual Value DoEval(Environment &env, Signal sig, const char *body) const;
+};
+
+//-----------------------------------------------------------------------------
 // SuffixMgrMap
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE SuffixMgrMap : public std::map<const Symbol *,

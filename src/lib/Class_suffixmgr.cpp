@@ -26,21 +26,12 @@ Object *Object_suffixmgr::Clone() const
 bool Object_suffixmgr::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
-	symbols.insert(Gura_Symbol(format));
-	symbols.insert(Gura_Symbol(lang));
-	symbols.insert(Gura_Symbol(text));
 	return true;
 }
 
 Value Object_suffixmgr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 								const SymbolSet &attrs, bool &evaluatedFlag)
 {
-#if 0
-	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(format))) {
-	}
-#endif
-	evaluatedFlag = false;
 	return Value::Null;
 }
 
@@ -104,7 +95,15 @@ Gura_DeclareMethod(suffixmgr, assign)
 Gura_ImplementMethod(suffixmgr, assign)
 {
 	SuffixMgrMap &suffixMgrMap = Object_suffixmgr::GetThisObj(args)->GetSuffixMgrMap();
-	
+	const Function *pFuncBlock = args.GetBlockFunc(env, sig, GetSymbolForBlock());
+	if (pFuncBlock == NULL) return Value::Null;
+	const Symbol *pSymbol = args.GetSymbol(0);
+	if (!args.IsSet(Gura_Symbol(force)) && suffixMgrMap.Lookup(pSymbol) != NULL) {
+		sig.SetError(ERR_ValueError, "suffix '%s' has already been assigned", pSymbol->GetName());
+		return Value::Null;
+	}
+	SuffixMgrCustom *pSuffixMgr = new SuffixMgrCustom(Function::Reference(pFuncBlock));
+	suffixMgrMap.Assign(pSymbol, pSuffixMgr);
 	return Value::Null;
 }
 
