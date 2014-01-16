@@ -53,17 +53,17 @@ void IntegratedModuleOwner::Clear()
 }
 
 //-----------------------------------------------------------------------------
-// PathManagerOwner
+// PathMgrOwner
 //-----------------------------------------------------------------------------
-PathManagerOwner::~PathManagerOwner()
+PathMgrOwner::~PathMgrOwner()
 {
 	Clear();
 }
 
-void PathManagerOwner::Clear()
+void PathMgrOwner::Clear()
 {
-	foreach (PathManagerOwner, ppPathManager, *this) {
-		delete *ppPathManager;
+	foreach (PathMgrOwner, ppPathMgr, *this) {
+		delete *ppPathMgr;
 	}
 	clear();
 }
@@ -771,7 +771,7 @@ bool Environment::SearchSeparatedModuleFile(Signal sig, String &pathName,
 			pathNameBase += '.';
 			foreach_const (StringList, pExtName, extNameList) {
 				pathName = pathNameBase + *pExtName;
-				if (PathManager::DoesExist(env, sig, pathName.c_str())) return true;
+				if (PathMgr::DoesExist(env, sig, pathName.c_str())) return true;
 				if (sig.IsSignalled()) return false;
 			}
 		} while (0);
@@ -836,7 +836,7 @@ Module *Environment::ImportSeparatedModule_Binary(Signal sig, Environment *pEnvO
 
 bool Environment::IsBinaryModule(const char *pathName)
 {
-	return ::strcasecmp(PathManager::SeekExtName(pathName), EXTNAME_BinModule) == 0;
+	return ::strcasecmp(PathMgr::SeekExtName(pathName), EXTNAME_BinModule) == 0;
 }
 
 bool Environment::AddModuleSearchPath(Signal sig, const StringList &strList)

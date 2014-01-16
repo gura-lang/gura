@@ -101,9 +101,9 @@ protected:
 };
 
 //-----------------------------------------------------------------------------
-// PathManager_FileSys declaration
+// PathMgr_FileSys declaration
 //-----------------------------------------------------------------------------
-class PathManager_FileSys : public PathManager {
+class PathMgr_FileSys : public PathMgr {
 public:
 	virtual bool IsResponsible(Environment &env, Signal sig,
 					const Directory *pParent, const char *pathName);

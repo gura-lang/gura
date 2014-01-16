@@ -80,7 +80,7 @@ Gura_ImplementFunction(sqrt)
 //-----------------------------------------------------------------------------
 // Suffix handlers
 //-----------------------------------------------------------------------------
-Gura_ImplementSuffixManagerForNumber(L)
+Gura_ImplementSuffixMgrForNumber(L)
 {
 	if (::strchr(body, '.') != NULL || ::strchr(body, 'e') != NULL || ::strchr(body, 'E') != NULL) {
 		mpf_t numf;
@@ -97,7 +97,7 @@ Gura_ImplementSuffixManagerForNumber(L)
 	return false;
 }
 
-Gura_ImplementSuffixManagerForNumber(Lr)
+Gura_ImplementSuffixMgrForNumber(Lr)
 {
 	mpq_t numq;
 	::mpq_init(numq);
@@ -123,8 +123,8 @@ Gura_ModuleEntry()
 	// assignment of operators
 	AssignOperators(env);
 	// assignment of suffix managers
-	Gura_AssignSuffixManagerForNumber(L);
-	Gura_AssignSuffixManagerForNumber(Lr);
+	Gura_AssignSuffixMgrForNumber(L);
+	Gura_AssignSuffixMgrForNumber(Lr);
 }
 
 Gura_ModuleTerminate()

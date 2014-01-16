@@ -80,24 +80,24 @@ Object *Directory::DoGetStatObj(Signal sig)
 }
 
 Directory *Directory::Open(Environment &env, Signal sig,
-				const char *pathName, PathManager::NotFoundMode notFoundMode)
+				const char *pathName, PathMgr::NotFoundMode notFoundMode)
 {
 	return Open(env, sig, NULL, &pathName, notFoundMode);
 }
 
 Directory *Directory::Open(Environment &env, Signal sig, Directory *pParent,
-				const char **pPathName, PathManager::NotFoundMode notFoundMode)
+				const char **pPathName, PathMgr::NotFoundMode notFoundMode)
 {
 	Directory *pDirectory = pParent;
 	do {
-		PathManager *pPathManager =
-				PathManager::FindResponsible(env, sig, pDirectory, *pPathName);
+		PathMgr *pPathMgr =
+				PathMgr::FindResponsible(env, sig, pDirectory, *pPathName);
 		if (sig.IsSignalled()) return NULL;
-		if (pPathManager == NULL) {
+		if (pPathMgr == NULL) {
 			sig.SetError(ERR_ValueError, "unsupported directory name");
 			return NULL;
 		}
-		pDirectory = pPathManager->DoOpenDirectory(env, sig,
+		pDirectory = pPathMgr->DoOpenDirectory(env, sig,
 									pDirectory, pPathName, notFoundMode);
 		if (sig.IsSignalled() || pDirectory == NULL) return NULL;
 	} while (**pPathName != '\0');
@@ -156,7 +156,7 @@ bool Directory::Iterator_Walk::DoNext(Environment &env, Signal sig, Value &value
 		if (typeMatchFlag) {
 			bool matchFlag = false;
 			foreach_const (StringList, pPattern, _patterns) {
-				if (PathManager::DoesMatchName(pPattern->c_str(),
+				if (PathMgr::DoesMatchName(pPattern->c_str(),
 									pDirectoryChild->GetName(), _ignoreCaseFlag)) {
 					matchFlag = true;
 					break;
@@ -216,7 +216,7 @@ bool Directory::Iterator_Glob::Init(Environment &env, Signal sig, const char *pa
 			patternTop++;
 			pathName += ch;
 			field.clear();
-		} else if (PathManager::IsWildCardChar(ch)) {
+		} else if (PathMgr::IsWildCardChar(ch)) {
 			break;
 		} else {
 			field += ch;
@@ -233,7 +233,7 @@ bool Directory::Iterator_Glob::Init(Environment &env, Signal sig, const char *pa
 		}
 	}
 	AutoPtr<Directory> pDirectory(Directory::Open(env, sig,
-									pathName.c_str(), PathManager::NF_Signal));
+									pathName.c_str(), PathMgr::NF_Signal));
 	if (sig.IsSignalled()) return false;
 	_directoryQue.push_back(pDirectory.release());
 	_depthQue.push_back(0);
@@ -275,7 +275,7 @@ bool Directory::Iterator_Glob::DoNext(Environment &env, Signal sig, Value &value
 			}
 		}
 		if (sig.IsSignalled()) return false;
-		if (PathManager::DoesMatchName(_patternSegs[_depth].c_str(),
+		if (PathMgr::DoesMatchName(_patternSegs[_depth].c_str(),
 								pDirectoryChild->GetName(), _ignoreCaseFlag)) {
 			bool typeMatchFlag =
 					(pDirectoryChild->IsContainer() && _dirFlag) ||
@@ -378,7 +378,7 @@ Record *Structure::AddRecord(const char *pathName)
 }
 
 Directory *Structure::GenerateDirectory(Signal sig, Directory *pParent,
-				const char **pPathName, PathManager::NotFoundMode notFoundMode)
+				const char **pPathName, PathMgr::NotFoundMode notFoundMode)
 {
 	Directory *pDirectory = NULL;
 	const char *p = *pPathName;
@@ -403,7 +403,7 @@ Directory *Structure::GenerateDirectory(Signal sig, Directory *pParent,
 			pRecord = pRecordParent->Find(field.c_str());
 			if (pRecord != NULL) {
 				// nothing to do
-			} else if (notFoundMode == PathManager::NF_NoSignal) {
+			} else if (notFoundMode == PathMgr::NF_NoSignal) {
 				pDirectory = NULL;
 				break;
 			} else {

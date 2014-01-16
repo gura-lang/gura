@@ -328,7 +328,7 @@ bool ImageStreamer_xpm::WriteStream(Environment &env, Signal sig, Image *pImage,
 	String varName = "noname";
 	do {
 		String baseName;
-		PathManager::SplitFileName(stream.GetName(), NULL, &baseName);
+		PathMgr::SplitFileName(stream.GetName(), NULL, &baseName);
 		String str;
 		foreach (String, p, baseName) {
 			char ch = *p;

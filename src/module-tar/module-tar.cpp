@@ -350,7 +350,7 @@ Gura_ImplementMethod(writer, add)
 			sig.SetError(ERR_ValueError, "stream doesn't have an identifier");
 			return Value::Null;
 		}
-		PathManager::SplitFileName(identifier, NULL, &fileName);
+		PathMgr::SplitFileName(identifier, NULL, &fileName);
 	}
 	if (!pThis->Add(args.GetStream(0), fileName.c_str())) return Value::Null;
 	return args.GetThis();
@@ -670,9 +670,9 @@ Directory *Record_TAR::DoGenerateDirectory(Directory *pParent, Directory::Type t
 }
 
 //-----------------------------------------------------------------------------
-// PathManager_TAR implementation
+// PathMgr_TAR implementation
 //-----------------------------------------------------------------------------
-bool PathManager_TAR::IsResponsible(Environment &env, Signal sig,
+bool PathMgr_TAR::IsResponsible(Environment &env, Signal sig,
 						const Directory *pParent, const char *pathName)
 {
 	return pParent != NULL && !pParent->IsContainer() &&
@@ -680,7 +680,7 @@ bool PathManager_TAR::IsResponsible(Environment &env, Signal sig,
 										IsGZippedTar(pParent->GetName()));
 }
 
-Directory *PathManager_TAR::DoOpenDirectory(Environment &env, Signal sig,
+Directory *PathMgr_TAR::DoOpenDirectory(Environment &env, Signal sig,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode)
 {
 	AutoPtr<Stream> pStream(pParent->DoOpenStream(env, sig, Stream::ATTR_Readable));
@@ -833,7 +833,7 @@ const char XGLTYPE			= 'g';		// Global extended header
 	Gura_AssignFunction(reader);
 	Gura_AssignFunction(writer);
 	// registration of directory factory
-	PathManager::Register(env, new PathManager_TAR());
+	PathMgr::Register(env, new PathMgr_TAR());
 }
 
 Gura_ModuleTerminate()

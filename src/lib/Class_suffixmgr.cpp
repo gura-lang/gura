@@ -8,13 +8,13 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Object implementation for suffixmgr
 //-----------------------------------------------------------------------------
-Object_suffixmgr::Object_suffixmgr(Environment &env, SuffixManagerMap &suffixManagerMap) :
-			Object(env.LookupClass(VTYPE_suffixmgr)), _suffixManagerMap(suffixManagerMap)
+Object_suffixmgr::Object_suffixmgr(Environment &env, SuffixMgrMap &suffixMgrMap) :
+			Object(env.LookupClass(VTYPE_suffixmgr)), _suffixMgrMap(suffixMgrMap)
 {
 }
 
-Object_suffixmgr::Object_suffixmgr(Class *pClass, SuffixManagerMap &suffixManagerMap) :
-			Object(pClass), _suffixManagerMap(suffixManagerMap)
+Object_suffixmgr::Object_suffixmgr(Class *pClass, SuffixMgrMap &suffixMgrMap) :
+			Object(pClass), _suffixMgrMap(suffixMgrMap)
 {
 }
 

@@ -677,8 +677,8 @@ Stream *Stream::Open(Environment &env, Signal sig, const char *pathName, ULong a
 			attr |= ATTR_Append;
 		}
 	}
-	PathManager::NotFoundMode notFoundMode = (attr & ATTR_Writable)?
-								PathManager::NF_Wouldbe : PathManager::NF_Signal;
+	PathMgr::NotFoundMode notFoundMode = (attr & ATTR_Writable)?
+								PathMgr::NF_Wouldbe : PathMgr::NF_Signal;
 	AutoPtr<Directory> pDirectory(Directory::Open(env, sig, pathName, notFoundMode));
 	if (sig.IsSignalled()) return NULL;
 	return pDirectory->DoOpenStream(env, sig, attr);

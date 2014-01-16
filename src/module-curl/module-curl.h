@@ -128,9 +128,9 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// PathManager_cURL declaration
+// PathMgr_cURL declaration
 //-----------------------------------------------------------------------------
-class PathManager_cURL : public PathManager {
+class PathMgr_cURL : public PathMgr {
 public:
 	virtual bool IsResponsible(Environment &env, Signal sig,
 					const Directory *pParent, const char *pathName);

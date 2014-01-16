@@ -35,7 +35,7 @@ Gura_DeclareFunction(exists)
 
 Gura_ImplementFunction(exists)
 {
-	bool existFlag = PathManager::DoesExist(env, sig, args.GetString(0));
+	bool existFlag = PathMgr::DoesExist(env, sig, args.GetString(0));
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(existFlag);
 }
@@ -71,7 +71,7 @@ Gura_ImplementFunction(dir)
 	if (args.Is_directory(0)) {
 		pDirectory.reset(Directory::Reference(args.GetDirectory(0)));
 	} else {
-		pDirectory.reset(Directory::Open(env, sig, "", PathManager::NF_Signal));
+		pDirectory.reset(Directory::Open(env, sig, "", PathMgr::NF_Signal));
 		if (pDirectory.IsNull()) return Value::Null;
 	}
 	Directory::Iterator_Walk *pIterator = new Directory::Iterator_Walk(
@@ -112,7 +112,7 @@ Gura_ImplementFunction(walk)
 	if (args.Is_directory(0)) {
 		pDirectory.reset(Directory::Reference(args.GetDirectory(0)));
 	} else {
-		pDirectory.reset(Directory::Open(env, sig, "", PathManager::NF_Signal));
+		pDirectory.reset(Directory::Open(env, sig, "", PathMgr::NF_Signal));
 		if (pDirectory.IsNull()) return Value::Null;
 	}
 	Directory::Iterator_Walk *pIterator = new Directory::Iterator_Walk(
@@ -171,7 +171,7 @@ Gura_ImplementFunction(match)
 	const char *pattern = args.GetString(0);
 	const char *name = args.GetString(1);
 	bool ignoreCaseFlag = args.IsSet(Gura_Symbol(icase));
-	return Value(PathManager::DoesMatchName(pattern, name, ignoreCaseFlag));
+	return Value(PathMgr::DoesMatchName(pattern, name, ignoreCaseFlag));
 }
 
 // path.split(pathname:string):map:[bottom]
@@ -190,9 +190,9 @@ Gura_ImplementFunction(split)
 {
 	String first, second;
 	if (args.IsSet(Gura_Symbol(bottom))) {
-		PathManager::SplitBottom(args.GetString(0), &first, &second);
+		PathMgr::SplitBottom(args.GetString(0), &first, &second);
 	} else {
-		PathManager::SplitFileName(args.GetString(0), &first, &second);
+		PathMgr::SplitFileName(args.GetString(0), &first, &second);
 	}
 	Value result;
 	ValueList &valList = result.InitAsList(env);
@@ -213,7 +213,7 @@ Gura_DeclareFunction(dirname)
 Gura_ImplementFunction(dirname)
 {
 	String dirName;
-	PathManager::SplitFileName(args.GetString(0), &dirName, NULL);
+	PathMgr::SplitFileName(args.GetString(0), &dirName, NULL);
 	return Value(dirName);
 }
 
@@ -229,7 +229,7 @@ Gura_DeclareFunction(filename)
 Gura_ImplementFunction(filename)
 {
 	String fileName;
-	PathManager::SplitFileName(args.GetString(0), NULL, &fileName);
+	PathMgr::SplitFileName(args.GetString(0), NULL, &fileName);
 	return Value(fileName);
 }
 
@@ -245,7 +245,7 @@ Gura_DeclareFunction(bottom)
 Gura_ImplementFunction(bottom)
 {
 	String bottom;
-	PathManager::SplitBottom(args.GetString(0), NULL, &bottom);
+	PathMgr::SplitBottom(args.GetString(0), NULL, &bottom);
 	return Value(bottom);
 }
 
@@ -261,7 +261,7 @@ Gura_DeclareFunction(cutbottom)
 Gura_ImplementFunction(cutbottom)
 {
 	String top;
-	PathManager::SplitBottom(args.GetString(0), &top, NULL);
+	PathMgr::SplitBottom(args.GetString(0), &top, NULL);
 	return Value(top);
 }
 
@@ -331,7 +331,7 @@ Gura_DeclareFunction(splitext)
 Gura_ImplementFunction(splitext)
 {
 	const char *pathName = args.GetString(0);
-	const char *p = PathManager::SeekExtName(pathName);
+	const char *p = PathMgr::SeekExtName(pathName);
 	Value result;
 	ValueList &valList = result.InitAsList(env);
 	size_t lenLeft = p - pathName;

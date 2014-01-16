@@ -65,11 +65,11 @@ Value Object_Stat::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		return Value(_fileStat.GetPathName());
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(dirname))) {
 		String dirName;
-		PathManager::SplitFileName(_fileStat.GetPathName(), &dirName, NULL);
+		PathMgr::SplitFileName(_fileStat.GetPathName(), &dirName, NULL);
 		return Value(dirName);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(filename))) {
 		String fileName;
-		PathManager::SplitFileName(_fileStat.GetPathName(), NULL, &fileName);
+		PathMgr::SplitFileName(_fileStat.GetPathName(), NULL, &fileName);
 		return Value(fileName);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(size))) {
 		return Value(static_cast<Number>(_fileStat.GetSize()));
@@ -601,9 +601,9 @@ Stream *Directory_FileSys::DoOpenStream(Environment &env, Signal sig, ULong attr
 }
 
 //-----------------------------------------------------------------------------
-// PathManager_FileSys implementation
+// PathMgr_FileSys implementation
 //-----------------------------------------------------------------------------
-bool PathManager_FileSys::IsResponsible(Environment &env, Signal sig,
+bool PathMgr_FileSys::IsResponsible(Environment &env, Signal sig,
 								const Directory *pParent, const char *pathName)
 {
 	if (pParent != NULL) return false;
@@ -611,7 +611,7 @@ bool PathManager_FileSys::IsResponsible(Environment &env, Signal sig,
 	return true;
 }
 
-Directory *PathManager_FileSys::DoOpenDirectory(Environment &env, Signal sig,
+Directory *PathMgr_FileSys::DoOpenDirectory(Environment &env, Signal sig,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode)
 {
 	Directory *pDirectory = NULL;
@@ -876,7 +876,7 @@ Gura_ModuleEntry()
 	// class realization
 	Gura_RealizeUserClassEx(Stat, "stat", env.LookupClass(VTYPE_object));
 	// symbol realization
-	PathManager::Register(env, new PathManager_FileSys());
+	PathMgr::Register(env, new PathMgr_FileSys());
 	// assign symbols in sys module
 	Module *pModuleSys = env.GetGlobal()->GetModule_sys();
 	do {

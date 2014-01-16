@@ -9,7 +9,7 @@
 #include "Operator.h"
 #include "Help.h"
 #include "Option.h"
-#include "SuffixManager.h"
+#include "SuffixMgr.h"
 
 //-----------------------------------------------------------------------------
 // macros
@@ -75,7 +75,7 @@ class Class_semaphore;
 class Class_Struct;
 
 class Module;
-class PathManager;
+class PathMgr;
 
 class Callable;
 class FunctionCustom;
@@ -158,11 +158,11 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// PathManagerOwner
+// PathMgrOwner
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE PathManagerOwner : public std::vector<PathManager *> {
+class GURA_DLLDECLARE PathMgrOwner : public std::vector<PathMgr *> {
 public:
-	~PathManagerOwner();
+	~PathMgrOwner();
 	void Clear();
 };
 
@@ -177,9 +177,9 @@ public:
 		IntegratedModuleMap _integratedModuleMap;
 		SeparatedModuleMap	_separatedModuleMap;
 		StringList			_workingDirList;
-		SuffixManagerMap	_SuffixManagerMapForString;
-		SuffixManagerMap	_SuffixManagerMapForNumber;
-		PathManagerOwner	_pathManagerOwner;
+		SuffixMgrMap		_suffixMgrMapForString;
+		SuffixMgrMap		_suffixMgrMapForNumber;
+		PathMgrOwner		_pathMgrOwner;
 		HelpPresenterOwner	_helpPresenterOwner;
 		Operator			*_operatorTbl[OPTYPE_max];
 		SymbolPool			*_pSymbolPool;
@@ -201,12 +201,12 @@ public:
 		void RegisterSeparatedModule(const char *pathName, Module *pModule);
 		void UnregisterSeparatedModule(const char *pathName);
 		inline Option &GetOption() { return _opt; }
-		inline SuffixManagerMap &GetSuffixManagerMapForString() { return _SuffixManagerMapForString; }
-		inline const SuffixManagerMap &GetSuffixManagerMapForString() const { return _SuffixManagerMapForString; }
-		inline SuffixManagerMap &GetSuffixManagerMapForNumber() { return _SuffixManagerMapForNumber; }
-		inline const SuffixManagerMap &GetSuffixManagerMapForNumber() const { return _SuffixManagerMapForNumber; }
-		inline PathManagerOwner &GetPathManagerOwner() { return _pathManagerOwner; }
-		inline const PathManagerOwner &GetPathManagerOwner() const { return _pathManagerOwner; }
+		inline SuffixMgrMap &GetSuffixMgrMapForString() { return _suffixMgrMapForString; }
+		inline const SuffixMgrMap &GetSuffixMgrMapForString() const { return _suffixMgrMapForString; }
+		inline SuffixMgrMap &GetSuffixMgrMapForNumber() { return _suffixMgrMapForNumber; }
+		inline const SuffixMgrMap &GetSuffixMgrMapForNumber() const { return _suffixMgrMapForNumber; }
+		inline PathMgrOwner &GetPathMgrOwner() { return _pathMgrOwner; }
+		inline const PathMgrOwner &GetPathMgrOwner() const { return _pathMgrOwner; }
 		inline HelpPresenterOwner &GetHelpPresenterOwner() { return _helpPresenterOwner; }
 		inline const HelpPresenterOwner &GetHelpPresenterOwner() const { return _helpPresenterOwner; }
 		inline void SetOperator(OpType opType, Operator *pOperator) { _operatorTbl[opType] = pOperator; }

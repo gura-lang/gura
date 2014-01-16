@@ -66,13 +66,13 @@ Operator.cpp \
 Option.cpp \
 Palette.cpp \
 Parser.cpp \
-PathManager.cpp \
+PathMgr.cpp \
 Processor.cpp \
 Signal.cpp \
 Stream.cpp \
 StreamBasic.cpp \
 String.cpp \
-SuffixManager.cpp \
+SuffixMgr.cpp \
 Symbol.cpp \
 Template.cpp \
 Uri.cpp \

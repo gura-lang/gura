@@ -24,12 +24,12 @@ class GURA_DLLDECLARE Object_suffixmgr : public Object {
 public:
 	Gura_DeclareObjectAccessor(suffixmgr)
 private:
-	SuffixManagerMap &_suffixManagerMap;
+	SuffixMgrMap &_suffixMgrMap;
 public:
-	Object_suffixmgr(Environment &env, SuffixManagerMap &suffixManagerMap);
-	Object_suffixmgr(Class *pClass, SuffixManagerMap &suffixManagerMap);
-	inline SuffixManagerMap &GetSuffixManagerMap() { return _suffixManagerMap; }
-	inline const SuffixManagerMap &GetSuffixManagerMap() const { return _suffixManagerMap; }
+	Object_suffixmgr(Environment &env, SuffixMgrMap &suffixMgrMap);
+	Object_suffixmgr(Class *pClass, SuffixMgrMap &suffixMgrMap);
+	inline SuffixMgrMap &GetSuffixMgrMap() { return _suffixMgrMap; }
+	inline const SuffixMgrMap &GetSuffixMgrMap() const { return _suffixMgrMap; }
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,

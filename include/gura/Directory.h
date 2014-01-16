@@ -4,7 +4,7 @@
 #ifndef __GURA_DIRECTORY_H__
 #define __GURA_DIRECTORY_H__
 
-#include "PathManager.h"
+#include "PathMgr.h"
 
 namespace Gura {
 
@@ -101,7 +101,7 @@ public:
 			_type == TYPE_BoundaryContainer || _type == TYPE_RootContainer;
 	}
 	inline bool DoesMatchName(const char *pattern, bool ignoreCaseFlag) const {
-		return PathManager::DoesMatchName(pattern, GetName(), ignoreCaseFlag);
+		return PathMgr::DoesMatchName(pattern, GetName(), ignoreCaseFlag);
 	}
 	Directory *Next(Environment &env, Signal sig);
 	inline Object *GetStatObj(Signal sig) { return DoGetStatObj(sig); }
@@ -110,9 +110,9 @@ public:
 	virtual Stream *DoOpenStream(Environment &env, Signal sig, ULong attr) = 0;
 public:
 	static Directory *Open(Environment &env, Signal sig,
-					const char *pathName, PathManager::NotFoundMode notFoundMode);
+					const char *pathName, PathMgr::NotFoundMode notFoundMode);
 	static Directory *Open(Environment &env, Signal sig, Directory *pParent,
-					const char **pPathName, PathManager::NotFoundMode notFoundMode);
+					const char **pPathName, PathMgr::NotFoundMode notFoundMode);
 protected:
 	virtual Directory *DoNext(Environment &env, Signal sig) = 0;
 	virtual Object *DoGetStatObj(Signal sig);
@@ -188,7 +188,7 @@ public:
 	inline Record *GetRoot() { return _pRecordRoot; }
 	Record *AddRecord(const char *pathName);
 	Directory *GenerateDirectory(Signal sig, Directory *pParent,
-				const char **pPathName, PathManager::NotFoundMode notFoundMode);
+				const char **pPathName, PathMgr::NotFoundMode notFoundMode);
 };
 
 }

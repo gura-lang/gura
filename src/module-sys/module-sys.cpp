@@ -80,7 +80,7 @@ Gura_ModuleTerminate()
 
 bool IsCompositeFile(const char *pathName)
 {
-	const char *extName = PathManager::SeekExtName(pathName);
+	const char *extName = PathMgr::SeekExtName(pathName);
 	return ::strcasecmp(extName, ".gurc") == 0 ||
 			::strcasecmp(extName, ".gurcw") == 0;
 }
@@ -162,7 +162,7 @@ bool SetCmdLineArgs(Module *pModule, Signal sig, int argc, const char *argv[])
 			str = OAL::MakeAbsPathName(OAL::FileSeparator, fileNameScript.c_str());
 			if (!IsCompositeFile(fileNameScript.c_str())) {
 				String dirName;
-				PathManager::SplitFileName(str.c_str(), &dirName, NULL);
+				PathMgr::SplitFileName(str.c_str(), &dirName, NULL);
 				str = dirName;
 			}
 		}

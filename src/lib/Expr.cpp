@@ -327,7 +327,7 @@ String Expr::MakePosText() const
 		str += SRCNAME_unknown;
 	} else {
 		String fileName;
-		PathManager::SplitFileName(sourceName, NULL, &fileName);
+		PathMgr::SplitFileName(sourceName, NULL, &fileName);
 		str += fileName;
 	}
 	char buff[64];
@@ -1137,15 +1137,15 @@ Expr *Expr_Suffixed::Clone() const
 Value Expr_Suffixed::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
 {
 	Value result;
-	SuffixManager *pSuffixManager = _numberFlag?
-				SuffixManager::LookupForNumber(env, _pSymbolSuffix) :
-				SuffixManager::LookupForString(env, _pSymbolSuffix);
-	if (pSuffixManager == NULL) {
+	SuffixMgr *pSuffixMgr = _numberFlag?
+				SuffixMgr::LookupForNumber(env, _pSymbolSuffix) :
+				SuffixMgr::LookupForString(env, _pSymbolSuffix);
+	if (pSuffixMgr == NULL) {
 		sig.SetError(ERR_SyntaxError, "unknown suffix '%s' for %s",
 				_pSymbolSuffix->GetName(), _numberFlag? "number" : "string");
 		return Value::Null;
 	}
-	result = pSuffixManager->DoEval(env, sig, _body.c_str());
+	result = pSuffixMgr->DoEval(env, sig, _body.c_str());
 	if (sig.IsSignalled()) return Value::Null;
 	if (pSeqPostHandler != NULL && !pSeqPostHandler->DoPost(sig, result)) return Value::Null;
 	return result;

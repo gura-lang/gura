@@ -1,20 +1,20 @@
 //=============================================================================
-// PathManager
+// PathMgr
 //=============================================================================
 #include "stdafx.h"
 
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// PathManager
+// PathMgr
 //-----------------------------------------------------------------------------
-void PathManager::Register(Environment &env, PathManager *pPathManager)
+void PathMgr::Register(Environment &env, PathMgr *pPathMgr)
 {
-	PathManagerOwner &pathManagerOwner = env.GetGlobal()->GetPathManagerOwner();
-	pathManagerOwner.push_back(pPathManager);
+	PathMgrOwner &pathMgrOwner = env.GetGlobal()->GetPathMgrOwner();
+	pathMgrOwner.push_back(pPathMgr);
 }
 
-void PathManager::SplitFileName(const char *pathName, String *pDirName, String *pFileName)
+void PathMgr::SplitFileName(const char *pathName, String *pDirName, String *pFileName)
 {
 	const char *p = pathName + ::strlen(pathName);
 	for ( ; p > pathName; p--) {
@@ -24,7 +24,7 @@ void PathManager::SplitFileName(const char *pathName, String *pDirName, String *
 	if (pFileName != NULL) *pFileName = String(p);
 }
 
-void PathManager::SplitBottom(const char *pathName, String *pTop, String *pBottom)
+void PathMgr::SplitBottom(const char *pathName, String *pTop, String *pBottom)
 {
 	const char *p = pathName + ::strlen(pathName);
 	if (p > pathName && IsFileSeparator(*(p - 1))) p--;
@@ -36,7 +36,7 @@ void PathManager::SplitBottom(const char *pathName, String *pTop, String *pBotto
 	if (pBottom != NULL) *pBottom = String(p, pEnd);
 }
 
-const char *PathManager::SeekExtName(const char *pathName)
+const char *PathMgr::SeekExtName(const char *pathName)
 {
 	const char *pBtm = pathName + ::strlen(pathName);
 	for (const char *p = pBtm; p >= pathName; p--) {
@@ -48,7 +48,7 @@ const char *PathManager::SeekExtName(const char *pathName)
 	return pBtm;
 }
 
-bool PathManager::HasWildCard(const char *pathName)
+bool PathMgr::HasWildCard(const char *pathName)
 {
 	for (const char *p = pathName; *p != '\0'; p++) {
 		if (IsWildCardChar(*p)) return true;
@@ -56,7 +56,7 @@ bool PathManager::HasWildCard(const char *pathName)
 	return false;
 }
 
-bool PathManager::DoesMatchName(const char *pattern, const char *fileName, bool ignoreCaseFlag)
+bool PathMgr::DoesMatchName(const char *pattern, const char *fileName, bool ignoreCaseFlag)
 {
 	if (*pattern == '!') {
 		return !DoesMatchNameSub(pattern + 1, fileName, ignoreCaseFlag);
@@ -64,7 +64,7 @@ bool PathManager::DoesMatchName(const char *pattern, const char *fileName, bool 
 	return DoesMatchNameSub(pattern, fileName, ignoreCaseFlag);
 }
 	
-bool PathManager::DoesMatchNameSub(const char *pattern, const char *fileName, bool ignoreCaseFlag)
+bool PathMgr::DoesMatchNameSub(const char *pattern, const char *fileName, bool ignoreCaseFlag)
 {
 	if (*pattern == '\0') {
 		return *fileName == '\0';
@@ -95,29 +95,29 @@ bool PathManager::DoesMatchNameSub(const char *pattern, const char *fileName, bo
 	}
 }
 
-PathManager *PathManager::FindResponsible(Environment &env, Signal sig,
+PathMgr *PathMgr::FindResponsible(Environment &env, Signal sig,
 								const Directory *pParent, const char *pathName)
 {
-	PathManagerOwner &pathManagerOwner = env.GetGlobal()->GetPathManagerOwner();
-	// The last-registered PathManager is searched first.
-	foreach_reverse (PathManagerOwner, ppPathManager, pathManagerOwner) {
-		PathManager *pPathManager = *ppPathManager;
-		if (pPathManager->IsResponsible(env, sig, pParent, pathName)) {
-			return pPathManager;
+	PathMgrOwner &pathMgrOwner = env.GetGlobal()->GetPathMgrOwner();
+	// The last-registered PathMgr is searched first.
+	foreach_reverse (PathMgrOwner, ppPathMgr, pathMgrOwner) {
+		PathMgr *pPathMgr = *ppPathMgr;
+		if (pPathMgr->IsResponsible(env, sig, pParent, pathName)) {
+			return pPathMgr;
 		}
 		if (sig.IsSignalled()) break;
 	}
 	return NULL;
 }
 
-bool PathManager::DoesExist(Environment &env, Signal sig, const char *pathName)
+bool PathMgr::DoesExist(Environment &env, Signal sig, const char *pathName)
 {
 	if (*pathName == '\0') return false;
 	AutoPtr<Directory> pDirectory(Directory::Open(env, sig, pathName, NF_NoSignal));
 	return !pDirectory.IsNull();
 }
 
-bool PathManager::IsContainer(Environment &env, Signal sig, const char *pathName)
+bool PathMgr::IsContainer(Environment &env, Signal sig, const char *pathName)
 {
 	if (*pathName == '\0') return false;
 	AutoPtr<Directory> pDirectory(Directory::Open(env, sig, pathName, NF_NoSignal));

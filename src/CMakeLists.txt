@@ -161,13 +161,13 @@ install(FILES
   ${GURA_INCLUDE_SRCDIR}/gura/PackedNumber.h
   ${GURA_INCLUDE_SRCDIR}/gura/Palette.h
   ${GURA_INCLUDE_SRCDIR}/gura/Parser.h
-  ${GURA_INCLUDE_SRCDIR}/gura/PathManager.h
+  ${GURA_INCLUDE_SRCDIR}/gura/PathMgr.h
   ${GURA_INCLUDE_SRCDIR}/gura/Processor.h
   ${GURA_INCLUDE_SRCDIR}/gura/Signal.h
   ${GURA_INCLUDE_SRCDIR}/gura/Stream.h
   ${GURA_INCLUDE_SRCDIR}/gura/StreamBasic.h
   ${GURA_INCLUDE_SRCDIR}/gura/String.h
-  ${GURA_INCLUDE_SRCDIR}/gura/SuffixManager.h
+  ${GURA_INCLUDE_SRCDIR}/gura/SuffixMgr.h
   ${GURA_INCLUDE_SRCDIR}/gura/Symbol.h
   ${GURA_INCLUDE_SRCDIR}/gura/Template.h
   ${GURA_INCLUDE_SRCDIR}/gura/Uri.h

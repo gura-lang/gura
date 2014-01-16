@@ -226,7 +226,7 @@ bool Class_number::Deserialize(Environment &env, Signal sig, Stream &stream, Val
 //-----------------------------------------------------------------------------
 // Class_complex
 //-----------------------------------------------------------------------------
-Gura_ImplementSuffixManagerForNumber(j)
+Gura_ImplementSuffixMgrForNumber(j)
 {
 	bool successFlag = false;
 	Number num = ToNumber(body, &successFlag);
@@ -309,7 +309,7 @@ void Class_complex::Prepare(Environment &env)
 	Gura_AssignMethod(complex, polar);
 	Gura_AssignMethod(complex, roundoff);	// primitive method
 	// suffix manager assignment
-	Gura_AssignSuffixManagerForNumber(j);
+	Gura_AssignSuffixMgrForNumber(j);
 }
 
 Value Class_complex::GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,
@@ -374,7 +374,7 @@ bool Class_complex::Deserialize(Environment &env, Signal sig, Stream &stream, Va
 //-----------------------------------------------------------------------------
 // Class_rational
 //-----------------------------------------------------------------------------
-Gura_ImplementSuffixManagerForNumber(r)
+Gura_ImplementSuffixMgrForNumber(r)
 {
 	bool successFlag = false;
 	Number num = ToNumber(body, &successFlag);
@@ -433,7 +433,7 @@ void Class_rational::Prepare(Environment &env)
 	// method assignment
 	Gura_AssignMethod(rational, reduce);		// primitive method
 	// suffix manager assignment
-	Gura_AssignSuffixManagerForNumber(r);
+	Gura_AssignSuffixMgrForNumber(r);
 }
 
 Value Class_rational::GetPropPrimitive(Environment &env, Signal sig, const Value &valueThis,

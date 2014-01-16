@@ -49,7 +49,7 @@ bool IsMatchedName(const char *name1, const char *name2);
 
 ULong SeekCentralDirectory(Signal sig, Stream *pStream);
 Directory *CreateDirectory(Environment &env, Signal sig, Stream *pStreamSrc,
-	Directory *pParent, const char **pPathName, PathManager::NotFoundMode notFoundMode);
+	Directory *pParent, const char **pPathName, PathMgr::NotFoundMode notFoundMode);
 Stream *CreateStream(Environment &env, Signal sig, Stream *pStreamSrc, const CentralFileHeader *pHdr);
 
 bool SkipStream(Signal sig, Stream &stream, size_t bytes);
@@ -850,9 +850,9 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// PathManager_ZIP declaration
+// PathMgr_ZIP declaration
 //-----------------------------------------------------------------------------
-class PathManager_ZIP : public PathManager {
+class PathMgr_ZIP : public PathMgr {
 public:
 	virtual bool IsResponsible(Environment &env, Signal sig,
 					const Directory *pParent, const char *pathName);

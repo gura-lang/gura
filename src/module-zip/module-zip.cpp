@@ -386,7 +386,7 @@ Gura_ImplementMethod(writer, add)
 			sig.SetError(ERR_ValueError, "stream doesn't have an identifier");
 			return Value::Null;
 		}
-		PathManager::SplitFileName(identifier, NULL, &fileName);
+		PathMgr::SplitFileName(identifier, NULL, &fileName);
 	}
 	UShort compressionMethod = args.Is_symbol(2)?
 						SymbolToCompressionMethod(args.GetSymbol(2)) :
@@ -559,7 +559,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(writer);
 	Gura_AssignFunction(test);
 	// registration of stream/directory factory
-	PathManager::Register(env, new PathManager_ZIP());
+	PathMgr::Register(env, new PathMgr_ZIP());
 }
 
 Gura_ModuleTerminate()
@@ -908,9 +908,9 @@ Object *Directory_ZIP::DoGetStatObj(Signal sig)
 }
 
 //-----------------------------------------------------------------------------
-// PathManager_ZIP implementation
+// PathMgr_ZIP implementation
 //-----------------------------------------------------------------------------
-bool PathManager_ZIP::IsResponsible(Environment &env, Signal sig,
+bool PathMgr_ZIP::IsResponsible(Environment &env, Signal sig,
 						const Directory *pParent, const char *pathName)
 {
 	return pParent != NULL && !pParent->IsContainer() &&
@@ -919,7 +919,7 @@ bool PathManager_ZIP::IsResponsible(Environment &env, Signal sig,
 			 EndsWith(pParent->GetName(), ".gurcw", true));
 }
 
-Directory *PathManager_ZIP::DoOpenDirectory(Environment &env, Signal sig,
+Directory *PathMgr_ZIP::DoOpenDirectory(Environment &env, Signal sig,
 		Directory *pParent, const char **pPathName, NotFoundMode notFoundMode)
 {
 	AutoPtr<Stream> pStreamSrc(pParent->DoOpenStream(env, sig, Stream::ATTR_Readable));
@@ -1054,7 +1054,7 @@ ULong SeekCentralDirectory(Signal sig, Stream *pStream)
 }
 
 Directory *CreateDirectory(Environment &env, Signal sig, Stream *pStreamSrc,
-	Directory *pParent, const char **pPathName, PathManager::NotFoundMode notFoundMode)
+	Directory *pParent, const char **pPathName, PathMgr::NotFoundMode notFoundMode)
 {
 	if (!pStreamSrc->IsBwdSeekable()) {
 		Stream *pStreamPrefetch = Stream::Prefetch(env, sig, pStreamSrc, true);

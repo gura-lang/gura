@@ -924,8 +924,8 @@ Expr_Root *Parser::ParseStream(Environment &env, Signal sig, const char *pathNam
 	do {
 		bool zippedFlag = false;
 		std::string fileName;
-		PathManager::SplitFileName(pathName, NULL, &fileName);
-		const char *extName = PathManager::SeekExtName(fileName.c_str());
+		PathMgr::SplitFileName(pathName, NULL, &fileName);
+		const char *extName = PathMgr::SeekExtName(fileName.c_str());
 		std::string baseName = std::string(fileName.c_str(), extName);
 		if (::strcasecmp(extName, EXTNAME_Compound) == 0) {
 			pathNameMod = OAL::JoinPathName(pathName, baseName.c_str());
@@ -2137,7 +2137,7 @@ void Parser::SetError(Signal sig, ErrorType errType, const char *format, ...)
 	String textPre(" at ");
 	if (!_pSourceName->GetStringSTL().empty()) {
 		String fileName;
-		PathManager::SplitFileName(_pSourceName->GetString(), NULL, &fileName);
+		PathMgr::SplitFileName(_pSourceName->GetString(), NULL, &fileName);
 		textPre += fileName;
 	}
 	do {

@@ -672,9 +672,9 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// PathManager_Http declaration
+// PathMgr_Http declaration
 //-----------------------------------------------------------------------------
-class PathManager_Http : public PathManager {
+class PathMgr_Http : public PathMgr {
 public:
 	virtual bool IsResponsible(Environment &env, Signal sig,
 					const Directory *pParent, const char *pathName);

@@ -231,9 +231,9 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// PathManager_TAR declaration
+// PathMgr_TAR declaration
 //-----------------------------------------------------------------------------
-class PathManager_TAR : public PathManager {
+class PathMgr_TAR : public PathMgr {
 public:
 	virtual bool IsResponsible(Environment &env, Signal sig,
 					const Directory *pParent, const char *pathName);
