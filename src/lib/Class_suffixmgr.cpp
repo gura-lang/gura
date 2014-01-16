@@ -6,7 +6,7 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// Object implementation for suffixmgr
+// Object_suffixmgr
 //-----------------------------------------------------------------------------
 Object_suffixmgr::Object_suffixmgr(Environment &env, SuffixMgrMap &suffixMgrMap) :
 			Object(env.LookupClass(VTYPE_suffixmgr)), _suffixMgrMap(suffixMgrMap)
@@ -53,9 +53,59 @@ Value Object_suffixmgr::DoSetProp(Environment &env, Signal sig, const Symbol *pS
 String Object_suffixmgr::ToString(bool exprFlag)
 {
 	String rtn;
-	rtn += "<suffixmgr:";
+	rtn += "<suffixmgr";
 	rtn += ">";
 	return rtn;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of functions
+//-----------------------------------------------------------------------------
+// suffixmgr(target:symbol) {block?}
+Gura_DeclareFunction(suffixmgr)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "target", VTYPE_symbol);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetClassToConstruct(env.LookupClass(VTYPE_suffixmgr));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(suffixmgr)
+{
+	const Symbol *pSymbol = args.GetSymbol(0);
+	AutoPtr<Object_suffixmgr> pObj;
+	if (pSymbol->IsIdentical(Gura_Symbol(number))) {
+		pObj.reset(new Object_suffixmgr(env,
+						env.GetGlobal()->GetSuffixMgrMapForNumber()));
+	} else if (pSymbol->IsIdentical(Gura_Symbol(string))) {
+		pObj.reset(new Object_suffixmgr(env,
+						env.GetGlobal()->GetSuffixMgrMapForString()));
+	} else {
+		sig.SetError(ERR_ValueError, "target must be `number or `string");
+		return Value::Null;
+	}
+	return Value(pObj.release());
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of methods
+//-----------------------------------------------------------------------------
+// suffixmgr#assign(suffix:symbol):void:[force] {block}
+Gura_DeclareMethod(suffixmgr, assign)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "suffix", VTYPE_symbol);
+	DeclareAttr(Gura_Symbol(force));
+	DeclareBlock(OCCUR_Once);
+}
+
+Gura_ImplementMethod(suffixmgr, assign)
+{
+	SuffixMgrMap &suffixMgrMap = Object_suffixmgr::GetThisObj(args)->GetSuffixMgrMap();
+	
+	return Value::Null;
 }
 
 //-----------------------------------------------------------------------------
@@ -63,10 +113,13 @@ String Object_suffixmgr::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 Class_suffixmgr::Class_suffixmgr(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_suffixmgr)
 {
+
 }
 
 void Class_suffixmgr::Prepare(Environment &env)
 {
+	Gura_AssignFunction(suffixmgr);
+	Gura_AssignMethod(suffixmgr, assign);
 }
 
 }

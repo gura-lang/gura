@@ -236,6 +236,7 @@ semaphore()
 set(iter+:iterator):[and,or,xor]
 stream(pathname:string, mode?:string, codec?:codec):map {block?}
 struct(`args+):[loose] {block?}
+suffixmgr(target:symbol) {block?}
 super(obj):map {block?}
 switch() {block}
 sys:module = <module:sys:<integrated>>
@@ -637,6 +638,7 @@ string
 struct
   tolist()
 suffixmgr
+  assign(suffix:symbol):void:[force] {block}
 symbol
   eval(env?:environment)
 template
