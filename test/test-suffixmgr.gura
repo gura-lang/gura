@@ -1,0 +1,47 @@
+#!/usr/bin/env gura
+# -*- coding: utf-8 -*-
+import(testutil) {*}
+
+testcase {
+	tester(`suffixmgr(`string))
+	tester(`suffixmgr(`number))
+	try {
+		suffixmgr(`hoge)
+	} catch {|e|
+		println('expected error occurs: ', e.text)
+	}
+}
+testcase {
+	suffixmgr(`number).assign(`foo) {|str| '*' + str + '*'}
+	suffixmgr(`string).assign(`foo) {|str| '#' + str + '#'}
+	tester(`1234foo)
+	tester(`'hello'foo)
+	try {
+		suffixmgr(`number).assign(`foo) {|str| '*' + str + '*'}
+	} catch {|e|
+		println('expected error occurs: ', e.text)
+	}
+	try {
+		suffixmgr(`string).assign(`foo) {|str| '#' + str + '#'}
+	} catch {|e|
+		println('expected error occurs: ', e.text)
+	}
+	suffixmgr(`number).assign(`foo):force {|str| '**' + str + '**'}
+	suffixmgr(`string).assign(`foo):force {|str| '##' + str + '##'}
+	tester(`1234foo)
+	tester(`'hello'foo)
+}
+testcase {
+	suffixmgr(`string).assign(`foo):force {|str| '#' + str + '#'}
+	tester(`'test'foo)
+	tester(`''foo)
+	tester(`""foo)
+	tester(`''''''foo)
+	tester(`""""""foo)
+	tester(`r''''''foo)
+	tester(`r""""""foo)
+	tester(`R"""
+	line.1
+	line.2
+	"""foo)
+}

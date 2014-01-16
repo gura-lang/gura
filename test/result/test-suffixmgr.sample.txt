@@ -1,0 +1,27 @@
+======== #1 ========
+
+suffixmgr(`string) .. <suffixmgr>
+suffixmgr(`number) .. <suffixmgr>
+expected error occurs: ValueError: target must be `number or `string
+
+======== #2 ========
+
+1234foo .. *1234*
+'hello'foo .. #hello#
+expected error occurs: ValueError: suffix 'foo' has already been assigned
+expected error occurs: ValueError: suffix 'foo' has already been assigned
+1234foo .. **1234**
+'hello'foo .. ##hello##
+
+======== #3 ========
+
+'test'foo .. #test#
+''foo .. ##
+''foo .. ##
+''foo .. ##
+''foo .. ##
+''foo .. ##
+''foo .. ##
+'line.1\nline.2\n'foo .. #line.1
+line.2
+#
