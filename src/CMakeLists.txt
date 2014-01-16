@@ -129,6 +129,7 @@ install(FILES
   ${GURA_INCLUDE_SRCDIR}/gura/Class_pointer.h
   ${GURA_INCLUDE_SRCDIR}/gura/Class_semaphore.h
   ${GURA_INCLUDE_SRCDIR}/gura/Class_stream.h
+  ${GURA_INCLUDE_SRCDIR}/gura/Class_suffixmgr.h
   ${GURA_INCLUDE_SRCDIR}/gura/Class_template.h
   ${GURA_INCLUDE_SRCDIR}/gura/Class_timedelta.h
   ${GURA_INCLUDE_SRCDIR}/gura/Class_uri.h

@@ -207,6 +207,7 @@
     <ClCompile Include="Class_stream.cpp" />
     <ClCompile Include="Class_directory.cpp" />
     <ClCompile Include="Class_template.cpp" />
+    <ClCompile Include="Class_suffixmgr.cpp" />
     <ClCompile Include="Class_timedelta.cpp" />
     <ClCompile Include="Class_uri.cpp" />
     <ClCompile Include="Class_declaration.cpp" />
@@ -300,6 +301,7 @@
     <ClInclude Include="..\..\include\gura\Class_semaphore.h" />
     <ClInclude Include="..\..\include\gura\Class_stream.h" />
     <ClInclude Include="..\..\include\gura\Class_directory.h" />
+    <ClInclude Include="..\..\include\gura\Class_suffixmgr.h" />
     <ClInclude Include="..\..\include\gura\Class_template.h" />
     <ClInclude Include="..\..\include\gura\Class_timedelta.h" />
     <ClInclude Include="..\..\include\gura\Class_uri.h" />

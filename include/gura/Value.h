@@ -225,6 +225,8 @@ public:
 	inline bool Is_pointer() const			{ return IsType(VTYPE_pointer);			}
 	inline bool Is_semaphore() const		{ return IsType(VTYPE_semaphore);		}
 	inline bool Is_stream() const			{ return IsType(VTYPE_stream);			}
+	inline bool Is_suffixmgr() const		{ return IsType(VTYPE_suffixmgr);		}
+	inline bool Is_template() const			{ return IsType(VTYPE_template);		}
 	inline bool Is_timedelta() const		{ return IsType(VTYPE_timedelta);		}
 	inline bool Is_uri() const				{ return IsType(VTYPE_uri);				}
 	inline bool IsListOrIterator() const	{ return Is_list() || Is_iterator();	}
@@ -271,6 +273,8 @@ public:
 	inline bool MustBe_pointer(Signal &sig) const		{ return MustBe(sig, Is_pointer(), 		"pointer");			}
 	inline bool MustBe_semaphore(Signal &sig) const		{ return MustBe(sig, Is_semaphore(), 	"semaphore");		}
 	inline bool MustBe_stream(Signal &sig) const		{ return MustBe(sig, Is_stream(), 		"stream");			}
+	inline bool MustBe_suffixmgr(Signal &sig) const		{ return MustBe(sig, Is_suffixmgr(), 	"suffixmgr");		}
+	inline bool MustBe_template(Signal &sig) const		{ return MustBe(sig, Is_template(), 	"template");		}
 	inline bool MustBe_timedelta(Signal &sig) const		{ return MustBe(sig, Is_timedelta(), 	"timedelta");		}
 	inline bool MustBe_uri(Signal &sig) const			{ return MustBe(sig, Is_uri(), 			"uri");				}
 	inline void SetSymbol(const Symbol *pSymbol) {

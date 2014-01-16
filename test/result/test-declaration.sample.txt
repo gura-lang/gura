@@ -636,6 +636,7 @@ string
   zentohan()
 struct
   tolist()
+suffixmgr
 symbol
   eval(env?:environment)
 template

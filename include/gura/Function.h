@@ -575,6 +575,8 @@ public:
 	inline bool Is_pointer(size_t idxArg) const			{ return GetValue(idxArg).Is_pointer();			}
 	inline bool Is_semaphore(size_t idxArg) const		{ return GetValue(idxArg).Is_semaphore();		}
 	inline bool Is_stream(size_t idxArg) const			{ return GetValue(idxArg).Is_stream();			}
+	inline bool Is_suffixmgr(size_t idxArg) const		{ return GetValue(idxArg).Is_suffixmgr();		}
+	inline bool Is_template(size_t idxArg) const		{ return GetValue(idxArg).Is_template();		}
 	inline bool Is_timedelta(size_t idxArg) const		{ return GetValue(idxArg).Is_timedelta();		}
 	inline bool Is_uri(size_t idxArg) const				{ return GetValue(idxArg).Is_uri();				}
 	inline bool IsInstanceOf(size_t idxArg, ValueType valType) { return GetValue(idxArg).IsInstanceOf(valType); }

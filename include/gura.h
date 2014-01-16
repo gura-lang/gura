@@ -80,6 +80,7 @@
 #include "gura/Class_pointer.h"
 #include "gura/Class_semaphore.h"
 #include "gura/Class_stream.h"
+#include "gura/Class_suffixmgr.h"
 #include "gura/Class_template.h"
 #include "gura/Class_timedelta.h"
 #include "gura/Class_uri.h"

@@ -26,6 +26,7 @@ Class_palette.cpp
 Class_pointer.cpp
 Class_semaphore.cpp
 Class_stream.cpp
+Class_suffixmgr.cpp
 Class_template.cpp
 Class_timedelta.cpp
 Class_uri.cpp
