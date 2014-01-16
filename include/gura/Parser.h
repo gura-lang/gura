@@ -50,6 +50,7 @@ public:
 		STAT_StringEsc, STAT_StringEscHex, STAT_StringEscOct,
 		STAT_StringInCommentBlock, STAT_StringEscInCommentBlock,
 		STAT_MStringEndFirst, STAT_MStringEndSecond,
+		STAT_StringPost, STAT_StringSuffixed,
 	};
 	enum Precedence {
 		PREC_LT,

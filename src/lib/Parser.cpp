@@ -538,7 +538,7 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			pExpr = FeedElement(env, sig, Element(ETYPE_NumberSuffixed,
 												GetLineNo(), _token, _suffix));
 			continueFlag = true;
-			_stat = STAT_Start;
+			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
 	}
@@ -674,6 +674,10 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			} else {
 				_stat = STAT_MString;
 			}
+		} else if (IsSymbolFirstChar(ch)) {
+			_suffix.clear();
+			_suffix.push_back(ch);
+			_stat = STAT_StringSuffixed;
 		} else {
 			ElemType elemType = ElemTypeForString(_stringInfo);
 			pExpr = FeedElement(env, sig, Element(elemType, GetLineNo(), _token));
@@ -684,9 +688,10 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 	}
 	case STAT_String: {
 		if (ch == _stringInfo.chBorder) {
-			ElemType elemType = ElemTypeForString(_stringInfo);
-			pExpr = FeedElement(env, sig, Element(elemType, GetLineNo(), _token));
-			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
+			//ElemType elemType = ElemTypeForString(_stringInfo);
+			//pExpr = FeedElement(env, sig, Element(elemType, GetLineNo(), _token));
+			//_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
+			_stat = STAT_StringPost;
 		} else if (ch == '\\') {
 			_stringInfo.statRtn = STAT_String;
 			_stat = STAT_StringEsc;
@@ -816,14 +821,39 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 	}
 	case STAT_MStringEndSecond: {
 		if (ch == _stringInfo.chBorder) {
-			ElemType elemType = ElemTypeForString(_stringInfo);
-			pExpr = FeedElement(env, sig, Element(elemType, GetLineNo(), _token));
-			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
+			//ElemType elemType = ElemTypeForString(_stringInfo);
+			//pExpr = FeedElement(env, sig, Element(elemType, GetLineNo(), _token));
+			//_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
+			_stat = STAT_StringPost;
 		} else {
 			_token.push_back(_stringInfo.chBorder);
 			_token.push_back(_stringInfo.chBorder);
 			continueFlag = true;
 			_stat = STAT_MString;
+		}
+		break;
+	}
+	case STAT_StringPost: {
+		if (IsSymbolFirstChar(ch)) {
+			_suffix.clear();
+			_suffix.push_back(ch);
+			_stat = STAT_StringSuffixed;
+		} else {
+			ElemType elemType = ElemTypeForString(_stringInfo);
+			pExpr = FeedElement(env, sig, Element(elemType, GetLineNo(), _token));
+			continueFlag = true;
+			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
+		}
+		break;
+	}
+	case STAT_StringSuffixed: {
+		if (IsSymbolChar(ch)) {
+			_suffix.push_back(ch);
+		} else {
+			pExpr = FeedElement(env, sig, Element(ETYPE_StringSuffixed,
+												GetLineNo(), _token, _suffix));
+			continueFlag = true;
+			_stat = sig.IsSignalled()? STAT_Error : STAT_Start;
 		}
 		break;
 	}
