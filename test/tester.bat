@@ -22,6 +22,7 @@ set cases=%cases% formatter
 set cases=%cases% fs
 set cases=%cases% function
 set cases=%cases% gif
+set cases=%cases% gmp
 set cases=%cases% graph
 set cases=%cases% hash
 set cases=%cases% image

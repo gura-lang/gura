@@ -1,0 +1,807 @@
+======== #1 declaration ========
+
+gmp.mpz(0) .. 0L
+gmp.mpq(0) .. 0Lr
+gmp.mpf(0) .. 0.L
+0L .. 0L
+0Lr .. 0Lr
+0.L .. 0.L
+gmp.mpz(1) .. 1L
+gmp.mpq(1) .. 1Lr
+gmp.mpf(1) .. 1.L
+1L .. 1L
+1Lr .. 1Lr
+1.L .. 1.L
+gmp.mpz(-1) .. -1L
+gmp.mpq(-1) .. -1Lr
+gmp.mpf(-1) .. -1.L
+-1L .. -1L
+-1Lr .. -1Lr
+-1.L .. -1.L
+gmp.mpz(314) .. 314L
+gmp.mpq(314) .. 314Lr
+gmp.mpf(314) .. 314.L
+314L .. 314L
+314Lr .. 314Lr
+314.L .. 314.L
+gmp.mpz('314') .. 314L
+gmp.mpq('314') .. 314Lr
+gmp.mpf('314') .. 314.L
+'314'.mpz() .. 314L
+'314'.mpq() .. 314Lr
+'314'.mpf() .. 314.L
+3.14L .. 3.14L
+123456789012345678901234567890123456789012345678901234567890L .. 123456789012345678901234567890123456789012345678901234567890L
+123456789012345678901234567890123456789012345678901234567890Lr .. 123456789012345678901234567890123456789012345678901234567890Lr
+0777777 .. 262143
+0b10101010 .. 170
+0xffffffff .. 4294967295
+
+======== #2 generic test for unary operators ========
+
+gmp.mpz
++3L .. 3L
+-3L .. -3L
+~3L .. -4L
+!3L .. false
+..3L .. TypeError: can't evaluate (.. gmp.mpz)
+?3L .. TypeError: can't evaluate (? gmp.mpz)
+gmp.mpf
++3.L .. 3.L
+-3.L .. -3.L
+~3.L .. TypeError: can't evaluate (~ gmp.mpf)
+!3.L .. false
+..3.L .. TypeError: can't evaluate (.. gmp.mpf)
+?3.L .. TypeError: can't evaluate (? gmp.mpf)
+gmp.mpq
++3Lr .. 3Lr
+-3Lr .. -3Lr
+~3Lr .. TypeError: can't evaluate (~ gmp.mpq)
+!3Lr .. false
+..3Lr .. TypeError: can't evaluate (.. gmp.mpq)
+?3Lr .. TypeError: can't evaluate (? gmp.mpq)
+
+======== #3 generic test for binary operators ========
+
+number, number
+3 + 4 .. 7
+3 - 4 .. -1
+3 * 4 .. 12
+3 / 4 .. 0.75
+3 % 4 .. 3
+3 ** 4 .. 81
+3 == 4 .. false
+3 < 4 .. true
+3 > 4 .. false
+3 <= 4 .. true
+3 >= 4 .. false
+3 <=> 4 .. -1
+3 in 4 .. false
+3 & 4 .. 0
+3 | 4 .. 7
+3 ^ 4 .. 7
+3 << 4 .. 48
+3 >> 4 .. 0
+3 || 4 .. 3
+3 && 4 .. 4
+3 => 4 .. [3, 4]
+number, gmp.mpz
+3 + 4L .. 7L
+3 - 4L .. -1L
+3 * 4L .. 12L
+3 / 4L .. 0.75L
+3 % 4L .. 3L
+3 ** 4L .. TypeError: can't evaluate (number ** gmp.mpz)
+3 == 4L .. false
+3 < 4L .. true
+3 > 4L .. false
+3 <= 4L .. true
+3 >= 4L .. false
+3 <=> 4L .. -1
+3 in 4L .. false
+3 & 4L .. 0L
+3 | 4L .. 7L
+3 ^ 4L .. 7L
+3 << 4L .. TypeError: can't evaluate (number << gmp.mpz)
+3 >> 4L .. TypeError: can't evaluate (number >> gmp.mpz)
+3 || 4L .. 3
+3 && 4L .. 4L
+3 => 4L .. [3, 4L]
+number, gmp.mpf
+3 + 4.L .. 7.L
+3 - 4.L .. -1.L
+3 * 4.L .. 12.L
+3 / 4.L .. 0.75L
+3 % 4.L .. TypeError: can't evaluate (number % gmp.mpf)
+3 ** 4.L .. TypeError: can't evaluate (number ** gmp.mpf)
+3 == 4.L .. false
+3 < 4.L .. true
+3 > 4.L .. false
+3 <= 4.L .. true
+3 >= 4.L .. false
+3 <=> 4.L .. -1
+3 in 4.L .. false
+3 & 4.L .. TypeError: can't evaluate (number & gmp.mpf)
+3 | 4.L .. TypeError: can't evaluate (number | gmp.mpf)
+3 ^ 4.L .. TypeError: can't evaluate (number ^ gmp.mpf)
+3 << 4.L .. TypeError: can't evaluate (number << gmp.mpf)
+3 >> 4.L .. TypeError: can't evaluate (number >> gmp.mpf)
+3 || 4.L .. 3
+3 && 4.L .. 4.L
+3 => 4.L .. [3, 4.L]
+number, gmp.mpq
+3 + 4Lr .. 7Lr
+3 - 4Lr .. -1Lr
+3 * 4Lr .. 12Lr
+3 / 4Lr .. 3/4Lr
+3 % 4Lr .. TypeError: can't evaluate (number % gmp.mpq)
+3 ** 4Lr .. TypeError: can't evaluate (number ** gmp.mpq)
+3 == 4Lr .. false
+3 < 4Lr .. true
+3 > 4Lr .. false
+3 <= 4Lr .. true
+3 >= 4Lr .. false
+3 <=> 4Lr .. -1
+3 in 4Lr .. false
+3 & 4Lr .. TypeError: can't evaluate (number & gmp.mpq)
+3 | 4Lr .. TypeError: can't evaluate (number | gmp.mpq)
+3 ^ 4Lr .. TypeError: can't evaluate (number ^ gmp.mpq)
+3 << 4Lr .. TypeError: can't evaluate (number << gmp.mpq)
+3 >> 4Lr .. TypeError: can't evaluate (number >> gmp.mpq)
+3 || 4Lr .. 3
+3 && 4Lr .. 4Lr
+3 => 4Lr .. [3, 4Lr]
+gmp.mpz, number
+3L + 4 .. 7L
+3L - 4 .. -1L
+3L * 4 .. 12L
+3L / 4 .. 0.75L
+3L % 4 .. 3L
+3L ** 4 .. TypeError: can't evaluate (gmp.mpz ** number)
+3L == 4 .. false
+3L < 4 .. true
+3L > 4 .. false
+3L <= 4 .. true
+3L >= 4 .. false
+3L <=> 4 .. -1
+3L in 4 .. false
+3L & 4 .. 0L
+3L | 4 .. 7L
+3L ^ 4 .. 7L
+3L << 4 .. 48L
+3L >> 4 .. 0L
+3L || 4 .. 3L
+3L && 4 .. 4
+3L => 4 .. TypeError: can't evaluate (gmp.mpz => number)
+gmp.mpz, gmp.mpz
+3L + 4L .. 7L
+3L - 4L .. -1L
+3L * 4L .. 12L
+3L / 4L .. 0.75L
+3L % 4L .. 3L
+3L ** 4L .. TypeError: can't evaluate (gmp.mpz ** gmp.mpz)
+3L == 4L .. false
+3L < 4L .. true
+3L > 4L .. false
+3L <= 4L .. true
+3L >= 4L .. false
+3L <=> 4L .. -1
+3L in 4L .. false
+3L & 4L .. 0L
+3L | 4L .. 7L
+3L ^ 4L .. 7L
+3L << 4L .. TypeError: can't evaluate (gmp.mpz << gmp.mpz)
+3L >> 4L .. TypeError: can't evaluate (gmp.mpz >> gmp.mpz)
+3L || 4L .. 3L
+3L && 4L .. 4L
+3L => 4L .. TypeError: can't evaluate (gmp.mpz => gmp.mpz)
+gmp.mpz, gmp.mpf
+3L + 4.L .. 7.L
+3L - 4.L .. -1.L
+3L * 4.L .. 12.L
+3L / 4.L .. 0.75L
+3L % 4.L .. TypeError: can't evaluate (gmp.mpz % gmp.mpf)
+3L ** 4.L .. TypeError: can't evaluate (gmp.mpz ** gmp.mpf)
+3L == 4.L .. false
+3L < 4.L .. true
+3L > 4.L .. false
+3L <= 4.L .. true
+3L >= 4.L .. false
+3L <=> 4.L .. -1
+3L in 4.L .. false
+3L & 4.L .. TypeError: can't evaluate (gmp.mpz & gmp.mpf)
+3L | 4.L .. TypeError: can't evaluate (gmp.mpz | gmp.mpf)
+3L ^ 4.L .. TypeError: can't evaluate (gmp.mpz ^ gmp.mpf)
+3L << 4.L .. TypeError: can't evaluate (gmp.mpz << gmp.mpf)
+3L >> 4.L .. TypeError: can't evaluate (gmp.mpz >> gmp.mpf)
+3L || 4.L .. 3L
+3L && 4.L .. 4.L
+3L => 4.L .. TypeError: can't evaluate (gmp.mpz => gmp.mpf)
+gmp.mpz, gmp.mpq
+3L + 4Lr .. 7Lr
+3L - 4Lr .. -1Lr
+3L * 4Lr .. 12Lr
+3L / 4Lr .. 3/4Lr
+3L % 4Lr .. TypeError: can't evaluate (gmp.mpz % gmp.mpq)
+3L ** 4Lr .. TypeError: can't evaluate (gmp.mpz ** gmp.mpq)
+3L == 4Lr .. false
+3L < 4Lr .. true
+3L > 4Lr .. false
+3L <= 4Lr .. true
+3L >= 4Lr .. false
+3L <=> 4Lr .. -1
+3L in 4Lr .. false
+3L & 4Lr .. TypeError: can't evaluate (gmp.mpz & gmp.mpq)
+3L | 4Lr .. TypeError: can't evaluate (gmp.mpz | gmp.mpq)
+3L ^ 4Lr .. TypeError: can't evaluate (gmp.mpz ^ gmp.mpq)
+3L << 4Lr .. TypeError: can't evaluate (gmp.mpz << gmp.mpq)
+3L >> 4Lr .. TypeError: can't evaluate (gmp.mpz >> gmp.mpq)
+3L || 4Lr .. 3L
+3L && 4Lr .. 4Lr
+3L => 4Lr .. TypeError: can't evaluate (gmp.mpz => gmp.mpq)
+gmp.mpf, number
+3.L + 4 .. 7.L
+3.L - 4 .. -1.L
+3.L * 4 .. 12.L
+3.L / 4 .. 0.75L
+3.L % 4 .. TypeError: can't evaluate (gmp.mpf % number)
+3.L ** 4 .. TypeError: can't evaluate (gmp.mpf ** number)
+3.L == 4 .. false
+3.L < 4 .. true
+3.L > 4 .. false
+3.L <= 4 .. true
+3.L >= 4 .. false
+3.L <=> 4 .. -1
+3.L in 4 .. false
+3.L & 4 .. TypeError: can't evaluate (gmp.mpf & number)
+3.L | 4 .. TypeError: can't evaluate (gmp.mpf | number)
+3.L ^ 4 .. TypeError: can't evaluate (gmp.mpf ^ number)
+3.L << 4 .. TypeError: can't evaluate (gmp.mpf << number)
+3.L >> 4 .. TypeError: can't evaluate (gmp.mpf >> number)
+3.L || 4 .. 3.L
+3.L && 4 .. 4
+3.L => 4 .. TypeError: can't evaluate (gmp.mpf => number)
+gmp.mpf, gmp.mpz
+3.L + 4L .. 7.L
+3.L - 4L .. -1.L
+3.L * 4L .. 12.L
+3.L / 4L .. 0.75L
+3.L % 4L .. TypeError: can't evaluate (gmp.mpf % gmp.mpz)
+3.L ** 4L .. TypeError: can't evaluate (gmp.mpf ** gmp.mpz)
+3.L == 4L .. false
+3.L < 4L .. true
+3.L > 4L .. false
+3.L <= 4L .. true
+3.L >= 4L .. false
+3.L <=> 4L .. -1
+3.L in 4L .. false
+3.L & 4L .. TypeError: can't evaluate (gmp.mpf & gmp.mpz)
+3.L | 4L .. TypeError: can't evaluate (gmp.mpf | gmp.mpz)
+3.L ^ 4L .. TypeError: can't evaluate (gmp.mpf ^ gmp.mpz)
+3.L << 4L .. TypeError: can't evaluate (gmp.mpf << gmp.mpz)
+3.L >> 4L .. TypeError: can't evaluate (gmp.mpf >> gmp.mpz)
+3.L || 4L .. 3.L
+3.L && 4L .. 4L
+3.L => 4L .. TypeError: can't evaluate (gmp.mpf => gmp.mpz)
+gmp.mpf, gmp.mpf
+3.L + 4.L .. 7.L
+3.L - 4.L .. -1.L
+3.L * 4.L .. 12.L
+3.L / 4.L .. 0.75L
+3.L % 4.L .. TypeError: can't evaluate (gmp.mpf % gmp.mpf)
+3.L ** 4.L .. TypeError: can't evaluate (gmp.mpf ** gmp.mpf)
+3.L == 4.L .. false
+3.L < 4.L .. true
+3.L > 4.L .. false
+3.L <= 4.L .. true
+3.L >= 4.L .. false
+3.L <=> 4.L .. -1
+3.L in 4.L .. false
+3.L & 4.L .. TypeError: can't evaluate (gmp.mpf & gmp.mpf)
+3.L | 4.L .. TypeError: can't evaluate (gmp.mpf | gmp.mpf)
+3.L ^ 4.L .. TypeError: can't evaluate (gmp.mpf ^ gmp.mpf)
+3.L << 4.L .. TypeError: can't evaluate (gmp.mpf << gmp.mpf)
+3.L >> 4.L .. TypeError: can't evaluate (gmp.mpf >> gmp.mpf)
+3.L || 4.L .. 3.L
+3.L && 4.L .. 4.L
+3.L => 4.L .. TypeError: can't evaluate (gmp.mpf => gmp.mpf)
+gmp.mpf, gmp.mpq
+3.L + 4Lr .. 7.L
+3.L - 4Lr .. -1.L
+3.L * 4Lr .. 12.L
+3.L / 4Lr .. 7.L
+3.L % 4Lr .. TypeError: can't evaluate (gmp.mpf % gmp.mpq)
+3.L ** 4Lr .. TypeError: can't evaluate (gmp.mpf ** gmp.mpq)
+3.L == 4Lr .. false
+3.L < 4Lr .. true
+3.L > 4Lr .. false
+3.L <= 4Lr .. true
+3.L >= 4Lr .. false
+3.L <=> 4Lr .. -1
+3.L in 4Lr .. false
+3.L & 4Lr .. TypeError: can't evaluate (gmp.mpf & gmp.mpq)
+3.L | 4Lr .. TypeError: can't evaluate (gmp.mpf | gmp.mpq)
+3.L ^ 4Lr .. TypeError: can't evaluate (gmp.mpf ^ gmp.mpq)
+3.L << 4Lr .. TypeError: can't evaluate (gmp.mpf << gmp.mpq)
+3.L >> 4Lr .. TypeError: can't evaluate (gmp.mpf >> gmp.mpq)
+3.L || 4Lr .. 3.L
+3.L && 4Lr .. 4Lr
+3.L => 4Lr .. TypeError: can't evaluate (gmp.mpf => gmp.mpq)
+gmp.mpq, number
+3Lr + 4 .. 7Lr
+3Lr - 4 .. -1Lr
+3Lr * 4 .. 12Lr
+3Lr / 4 .. 3/4Lr
+3Lr % 4 .. TypeError: can't evaluate (gmp.mpq % number)
+3Lr ** 4 .. TypeError: can't evaluate (gmp.mpq ** number)
+3Lr == 4 .. false
+3Lr < 4 .. true
+3Lr > 4 .. false
+3Lr <= 4 .. true
+3Lr >= 4 .. false
+3Lr <=> 4 .. -1
+3Lr in 4 .. false
+3Lr & 4 .. TypeError: can't evaluate (gmp.mpq & number)
+3Lr | 4 .. TypeError: can't evaluate (gmp.mpq | number)
+3Lr ^ 4 .. TypeError: can't evaluate (gmp.mpq ^ number)
+3Lr << 4 .. TypeError: can't evaluate (gmp.mpq << number)
+3Lr >> 4 .. TypeError: can't evaluate (gmp.mpq >> number)
+3Lr || 4 .. 3Lr
+3Lr && 4 .. 4
+3Lr => 4 .. TypeError: can't evaluate (gmp.mpq => number)
+gmp.mpq, gmp.mpz
+3Lr + 4L .. 7Lr
+3Lr - 4L .. -1Lr
+3Lr * 4L .. 12Lr
+3Lr / 4L .. 3/4Lr
+3Lr % 4L .. TypeError: can't evaluate (gmp.mpq % gmp.mpz)
+3Lr ** 4L .. TypeError: can't evaluate (gmp.mpq ** gmp.mpz)
+3Lr == 4L .. false
+3Lr < 4L .. true
+3Lr > 4L .. false
+3Lr <= 4L .. true
+3Lr >= 4L .. false
+3Lr <=> 4L .. -1
+3Lr in 4L .. false
+3Lr & 4L .. TypeError: can't evaluate (gmp.mpq & gmp.mpz)
+3Lr | 4L .. TypeError: can't evaluate (gmp.mpq | gmp.mpz)
+3Lr ^ 4L .. TypeError: can't evaluate (gmp.mpq ^ gmp.mpz)
+3Lr << 4L .. TypeError: can't evaluate (gmp.mpq << gmp.mpz)
+3Lr >> 4L .. TypeError: can't evaluate (gmp.mpq >> gmp.mpz)
+3Lr || 4L .. 3Lr
+3Lr && 4L .. 4L
+3Lr => 4L .. TypeError: can't evaluate (gmp.mpq => gmp.mpz)
+gmp.mpq, gmp.mpf
+3Lr + 4.L .. 7.L
+3Lr - 4.L .. -1.L
+3Lr * 4.L .. 12.L
+3Lr / 4.L .. 7.L
+3Lr % 4.L .. TypeError: can't evaluate (gmp.mpq % gmp.mpf)
+3Lr ** 4.L .. TypeError: can't evaluate (gmp.mpq ** gmp.mpf)
+3Lr == 4.L .. false
+3Lr < 4.L .. true
+3Lr > 4.L .. false
+3Lr <= 4.L .. true
+3Lr >= 4.L .. false
+3Lr <=> 4.L .. -1
+3Lr in 4.L .. false
+3Lr & 4.L .. TypeError: can't evaluate (gmp.mpq & gmp.mpf)
+3Lr | 4.L .. TypeError: can't evaluate (gmp.mpq | gmp.mpf)
+3Lr ^ 4.L .. TypeError: can't evaluate (gmp.mpq ^ gmp.mpf)
+3Lr << 4.L .. TypeError: can't evaluate (gmp.mpq << gmp.mpf)
+3Lr >> 4.L .. TypeError: can't evaluate (gmp.mpq >> gmp.mpf)
+3Lr || 4.L .. 3Lr
+3Lr && 4.L .. 4.L
+3Lr => 4.L .. TypeError: can't evaluate (gmp.mpq => gmp.mpf)
+gmp.mpq, gmp.mpq
+3Lr + 4Lr .. 7Lr
+3Lr - 4Lr .. -1Lr
+3Lr * 4Lr .. 12Lr
+3Lr / 4Lr .. 3/4Lr
+3Lr % 4Lr .. TypeError: can't evaluate (gmp.mpq % gmp.mpq)
+3Lr ** 4Lr .. TypeError: can't evaluate (gmp.mpq ** gmp.mpq)
+3Lr == 4Lr .. false
+3Lr < 4Lr .. true
+3Lr > 4Lr .. false
+3Lr <= 4Lr .. true
+3Lr >= 4Lr .. false
+3Lr <=> 4Lr .. -1
+3Lr in 4Lr .. false
+3Lr & 4Lr .. TypeError: can't evaluate (gmp.mpq & gmp.mpq)
+3Lr | 4Lr .. TypeError: can't evaluate (gmp.mpq | gmp.mpq)
+3Lr ^ 4Lr .. TypeError: can't evaluate (gmp.mpq ^ gmp.mpq)
+3Lr << 4Lr .. TypeError: can't evaluate (gmp.mpq << gmp.mpq)
+3Lr >> 4Lr .. TypeError: can't evaluate (gmp.mpq >> gmp.mpq)
+3Lr || 4Lr .. 3Lr
+3Lr && 4Lr .. 4Lr
+3Lr => 4Lr .. TypeError: can't evaluate (gmp.mpq => gmp.mpq)
+
+======== #4 zero-division ========
+
+number, number
+3 / 0 .. ZeroDivisionError: divide by zero
+3 % 0 .. -1.#IND
+number, gmp.mpz
+3 / 0L .. ZeroDivisionError: divide by zero
+3 % 0L .. ZeroDivisionError: divide by zero
+number, gmp.mpf
+3 / 0.L .. ZeroDivisionError: divide by zero
+3 % 0.L .. TypeError: can't evaluate (number % gmp.mpf)
+number, gmp.mpq
+3 / 0Lr .. ZeroDivisionError: divide by zero
+3 % 0Lr .. TypeError: can't evaluate (number % gmp.mpq)
+gmp.mpz, number
+3L / 0 .. ZeroDivisionError: divide by zero
+3L % 0 .. ZeroDivisionError: divide by zero
+gmp.mpz, gmp.mpz
+3L / 0L .. ZeroDivisionError: divide by zero
+3L % 0L .. ZeroDivisionError: divide by zero
+gmp.mpz, gmp.mpf
+3L / 0.L .. ZeroDivisionError: divide by zero
+3L % 0.L .. TypeError: can't evaluate (gmp.mpz % gmp.mpf)
+gmp.mpz, gmp.mpq
+3L / 0Lr .. ZeroDivisionError: divide by zero
+3L % 0Lr .. TypeError: can't evaluate (gmp.mpz % gmp.mpq)
+gmp.mpf, number
+3.L / 0 .. ZeroDivisionError: divide by zero
+3.L % 0 .. TypeError: can't evaluate (gmp.mpf % number)
+gmp.mpf, gmp.mpz
+3.L / 0L .. ZeroDivisionError: divide by zero
+3.L % 0L .. TypeError: can't evaluate (gmp.mpf % gmp.mpz)
+gmp.mpf, gmp.mpf
+3.L / 0.L .. ZeroDivisionError: divide by zero
+3.L % 0.L .. TypeError: can't evaluate (gmp.mpf % gmp.mpf)
+gmp.mpf, gmp.mpq
+3.L / 0Lr .. ZeroDivisionError: divide by zero
+3.L % 0Lr .. TypeError: can't evaluate (gmp.mpf % gmp.mpq)
+gmp.mpq, number
+3Lr / 0 .. ZeroDivisionError: divide by zero
+3Lr % 0 .. TypeError: can't evaluate (gmp.mpq % number)
+gmp.mpq, gmp.mpz
+3Lr / 0L .. ZeroDivisionError: divide by zero
+3Lr % 0L .. TypeError: can't evaluate (gmp.mpq % gmp.mpz)
+gmp.mpq, gmp.mpf
+3Lr / 0.L .. ZeroDivisionError: divide by zero
+3Lr % 0.L .. TypeError: can't evaluate (gmp.mpq % gmp.mpf)
+gmp.mpq, gmp.mpq
+3Lr / 0Lr .. ZeroDivisionError: divide by zero
+3Lr % 0Lr .. TypeError: can't evaluate (gmp.mpq % gmp.mpq)
+
+======== #5 comparator ========
+
+number, number
+3 == 4 .. false
+3 < 4 .. true
+3 > 4 .. false
+3 <= 4 .. true
+3 >= 4 .. false
+3 <=> 4 .. -1
+number, gmp.mpz
+3 == 4L .. false
+3 < 4L .. true
+3 > 4L .. false
+3 <= 4L .. true
+3 >= 4L .. false
+3 <=> 4L .. -1
+number, gmp.mpf
+3 == 4.L .. false
+3 < 4.L .. true
+3 > 4.L .. false
+3 <= 4.L .. true
+3 >= 4.L .. false
+3 <=> 4.L .. -1
+number, gmp.mpq
+3 == 4Lr .. false
+3 < 4Lr .. true
+3 > 4Lr .. false
+3 <= 4Lr .. true
+3 >= 4Lr .. false
+3 <=> 4Lr .. -1
+gmp.mpz, number
+3L == 4 .. false
+3L < 4 .. true
+3L > 4 .. false
+3L <= 4 .. true
+3L >= 4 .. false
+3L <=> 4 .. -1
+gmp.mpz, gmp.mpz
+3L == 4L .. false
+3L < 4L .. true
+3L > 4L .. false
+3L <= 4L .. true
+3L >= 4L .. false
+3L <=> 4L .. -1
+gmp.mpz, gmp.mpf
+3L == 4.L .. false
+3L < 4.L .. true
+3L > 4.L .. false
+3L <= 4.L .. true
+3L >= 4.L .. false
+3L <=> 4.L .. -1
+gmp.mpz, gmp.mpq
+3L == 4Lr .. false
+3L < 4Lr .. true
+3L > 4Lr .. false
+3L <= 4Lr .. true
+3L >= 4Lr .. false
+3L <=> 4Lr .. -1
+gmp.mpf, number
+3.L == 4 .. false
+3.L < 4 .. true
+3.L > 4 .. false
+3.L <= 4 .. true
+3.L >= 4 .. false
+3.L <=> 4 .. -1
+gmp.mpf, gmp.mpz
+3.L == 4L .. false
+3.L < 4L .. true
+3.L > 4L .. false
+3.L <= 4L .. true
+3.L >= 4L .. false
+3.L <=> 4L .. -1
+gmp.mpf, gmp.mpf
+3.L == 4.L .. false
+3.L < 4.L .. true
+3.L > 4.L .. false
+3.L <= 4.L .. true
+3.L >= 4.L .. false
+3.L <=> 4.L .. -1
+gmp.mpf, gmp.mpq
+3.L == 4Lr .. false
+3.L < 4Lr .. true
+3.L > 4Lr .. false
+3.L <= 4Lr .. true
+3.L >= 4Lr .. false
+3.L <=> 4Lr .. -1
+gmp.mpq, number
+3Lr == 4 .. false
+3Lr < 4 .. true
+3Lr > 4 .. false
+3Lr <= 4 .. true
+3Lr >= 4 .. false
+3Lr <=> 4 .. -1
+gmp.mpq, gmp.mpz
+3Lr == 4L .. false
+3Lr < 4L .. true
+3Lr > 4L .. false
+3Lr <= 4L .. true
+3Lr >= 4L .. false
+3Lr <=> 4L .. -1
+gmp.mpq, gmp.mpf
+3Lr == 4.L .. false
+3Lr < 4.L .. true
+3Lr > 4.L .. false
+3Lr <= 4.L .. true
+3Lr >= 4.L .. false
+3Lr <=> 4.L .. -1
+gmp.mpq, gmp.mpq
+3Lr == 4Lr .. false
+3Lr < 4Lr .. true
+3Lr > 4Lr .. false
+3Lr <= 4Lr .. true
+3Lr >= 4Lr .. false
+3Lr <=> 4Lr .. -1
+number, number
+4 == 4 .. true
+4 < 4 .. false
+4 > 4 .. false
+4 <= 4 .. true
+4 >= 4 .. true
+4 <=> 4 .. 0
+number, gmp.mpz
+4 == 4L .. true
+4 < 4L .. false
+4 > 4L .. false
+4 <= 4L .. true
+4 >= 4L .. true
+4 <=> 4L .. 0
+number, gmp.mpf
+4 == 4.L .. true
+4 < 4.L .. false
+4 > 4.L .. false
+4 <= 4.L .. true
+4 >= 4.L .. true
+4 <=> 4.L .. 0
+number, gmp.mpq
+4 == 4Lr .. true
+4 < 4Lr .. false
+4 > 4Lr .. false
+4 <= 4Lr .. true
+4 >= 4Lr .. true
+4 <=> 4Lr .. 0
+gmp.mpz, number
+4L == 4 .. true
+4L < 4 .. false
+4L > 4 .. false
+4L <= 4 .. true
+4L >= 4 .. true
+4L <=> 4 .. 0
+gmp.mpz, gmp.mpz
+4L == 4L .. true
+4L < 4L .. false
+4L > 4L .. false
+4L <= 4L .. true
+4L >= 4L .. true
+4L <=> 4L .. 0
+gmp.mpz, gmp.mpf
+4L == 4.L .. true
+4L < 4.L .. false
+4L > 4.L .. false
+4L <= 4.L .. true
+4L >= 4.L .. true
+4L <=> 4.L .. 0
+gmp.mpz, gmp.mpq
+4L == 4Lr .. true
+4L < 4Lr .. false
+4L > 4Lr .. false
+4L <= 4Lr .. true
+4L >= 4Lr .. true
+4L <=> 4Lr .. 0
+gmp.mpf, number
+4.L == 4 .. true
+4.L < 4 .. false
+4.L > 4 .. false
+4.L <= 4 .. true
+4.L >= 4 .. true
+4.L <=> 4 .. 0
+gmp.mpf, gmp.mpz
+4.L == 4L .. true
+4.L < 4L .. false
+4.L > 4L .. false
+4.L <= 4L .. true
+4.L >= 4L .. true
+4.L <=> 4L .. 0
+gmp.mpf, gmp.mpf
+4.L == 4.L .. true
+4.L < 4.L .. false
+4.L > 4.L .. false
+4.L <= 4.L .. true
+4.L >= 4.L .. true
+4.L <=> 4.L .. 0
+gmp.mpf, gmp.mpq
+4.L == 4Lr .. true
+4.L < 4Lr .. false
+4.L > 4Lr .. false
+4.L <= 4Lr .. true
+4.L >= 4Lr .. true
+4.L <=> 4Lr .. 0
+gmp.mpq, number
+4Lr == 4 .. true
+4Lr < 4 .. false
+4Lr > 4 .. false
+4Lr <= 4 .. true
+4Lr >= 4 .. true
+4Lr <=> 4 .. 0
+gmp.mpq, gmp.mpz
+4Lr == 4L .. true
+4Lr < 4L .. false
+4Lr > 4L .. false
+4Lr <= 4L .. true
+4Lr >= 4L .. true
+4Lr <=> 4L .. 0
+gmp.mpq, gmp.mpf
+4Lr == 4.L .. true
+4Lr < 4.L .. false
+4Lr > 4.L .. false
+4Lr <= 4.L .. true
+4Lr >= 4.L .. true
+4Lr <=> 4.L .. 0
+gmp.mpq, gmp.mpq
+4Lr == 4Lr .. true
+4Lr < 4Lr .. false
+4Lr > 4Lr .. false
+4Lr <= 4Lr .. true
+4Lr >= 4Lr .. true
+4Lr <=> 4Lr .. 0
+number, number
+5 == 4 .. false
+5 < 4 .. false
+5 > 4 .. true
+5 <= 4 .. false
+5 >= 4 .. true
+5 <=> 4 .. 1
+number, gmp.mpz
+5 == 4L .. false
+5 < 4L .. false
+5 > 4L .. true
+5 <= 4L .. false
+5 >= 4L .. true
+5 <=> 4L .. 1
+number, gmp.mpf
+5 == 4.L .. false
+5 < 4.L .. false
+5 > 4.L .. true
+5 <= 4.L .. false
+5 >= 4.L .. true
+5 <=> 4.L .. 1
+number, gmp.mpq
+5 == 4Lr .. false
+5 < 4Lr .. false
+5 > 4Lr .. true
+5 <= 4Lr .. false
+5 >= 4Lr .. true
+5 <=> 4Lr .. 1
+gmp.mpz, number
+5L == 4 .. false
+5L < 4 .. false
+5L > 4 .. true
+5L <= 4 .. false
+5L >= 4 .. true
+5L <=> 4 .. 1
+gmp.mpz, gmp.mpz
+5L == 4L .. false
+5L < 4L .. false
+5L > 4L .. true
+5L <= 4L .. false
+5L >= 4L .. true
+5L <=> 4L .. 1
+gmp.mpz, gmp.mpf
+5L == 4.L .. false
+5L < 4.L .. false
+5L > 4.L .. true
+5L <= 4.L .. false
+5L >= 4.L .. true
+5L <=> 4.L .. 1
+gmp.mpz, gmp.mpq
+5L == 4Lr .. false
+5L < 4Lr .. false
+5L > 4Lr .. true
+5L <= 4Lr .. false
+5L >= 4Lr .. true
+5L <=> 4Lr .. 1
+gmp.mpf, number
+5.L == 4 .. false
+5.L < 4 .. false
+5.L > 4 .. true
+5.L <= 4 .. false
+5.L >= 4 .. true
+5.L <=> 4 .. 1
+gmp.mpf, gmp.mpz
+5.L == 4L .. false
+5.L < 4L .. false
+5.L > 4L .. true
+5.L <= 4L .. false
+5.L >= 4L .. true
+5.L <=> 4L .. 1
+gmp.mpf, gmp.mpf
+5.L == 4.L .. false
+5.L < 4.L .. false
+5.L > 4.L .. true
+5.L <= 4.L .. false
+5.L >= 4.L .. true
+5.L <=> 4.L .. 1
+gmp.mpf, gmp.mpq
+5.L == 4Lr .. false
+5.L < 4Lr .. false
+5.L > 4Lr .. true
+5.L <= 4Lr .. false
+5.L >= 4Lr .. true
+5.L <=> 4Lr .. 1
+gmp.mpq, number
+5Lr == 4 .. false
+5Lr < 4 .. false
+5Lr > 4 .. true
+5Lr <= 4 .. false
+5Lr >= 4 .. true
+5Lr <=> 4 .. 1
+gmp.mpq, gmp.mpz
+5Lr == 4L .. false
+5Lr < 4L .. false
+5Lr > 4L .. true
+5Lr <= 4L .. false
+5Lr >= 4L .. true
+5Lr <=> 4L .. 1
+gmp.mpq, gmp.mpf
+5Lr == 4.L .. false
+5Lr < 4.L .. false
+5Lr > 4.L .. true
+5Lr <= 4.L .. false
+5Lr >= 4.L .. true
+5Lr <=> 4.L .. 1
+gmp.mpq, gmp.mpq
+5Lr == 4Lr .. false
+5Lr < 4Lr .. false
+5Lr > 4Lr .. true
+5Lr <= 4Lr .. false
+5Lr >= 4Lr .. true
+5Lr <=> 4Lr .. 1
