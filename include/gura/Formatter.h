@@ -51,21 +51,21 @@ private:
 	inline static void SetError_NumberIsExpected(Signal &sig, const char *qualifier) {
 		sig.SetError(ERR_ValueError, "number is expected for %s", qualifier);
 	}
-	static const char *Conv_d(const Flags &flags, int value,
+	static const char *Format_d(const Flags &flags, int value,
 							char *buff, size_t size);
-	static const char *Conv_u(const Flags &flags, UInt value,
+	static const char *Format_u(const Flags &flags, UInt value,
 							char *buff, size_t size);
-	static const char *Conv_b(const Flags &flags, UInt value,
+	static const char *Format_b(const Flags &flags, UInt value,
 							char *buff, size_t size);
-	static const char *Conv_o(const Flags &flags, UInt value,
+	static const char *Format_o(const Flags &flags, UInt value,
 							char *buff, size_t size);
-	static const char *Conv_x(const Flags &flags, UInt value,
+	static const char *Format_x(const Flags &flags, UInt value,
 							char *buff, size_t size, bool upperFlag);
-	static const char *Conv_e(const Flags &flags, double value,
+	static const char *Format_e(const Flags &flags, double value,
 							char *buff, size_t size, bool upperFlag);
-	static const char *Conv_f(const Flags &flags, double value,
+	static const char *Format_f(const Flags &flags, double value,
 							char *buff, size_t size, bool upperFlag);
-	static const char *Conv_g(const Flags &flags, double value,
+	static const char *Format_g(const Flags &flags, double value,
 							char *buff, size_t size, bool upperFlag);
 	static char *FillZeroDigit(char *dstp, char *dstpEnd, int cnt);
 	static char *CopyDigits(char *dstp, char *dstpEnd, const char *srcp);
@@ -75,7 +75,7 @@ private:
 //-----------------------------------------------------------------------------
 // Formatter
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Formatter : public FormatterBase {
+class GURA_DLLDECLARE FormatterString : public FormatterBase {
 private:
 	String _str;
 public:

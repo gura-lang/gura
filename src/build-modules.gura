@@ -139,24 +139,22 @@ for (moduleName in moduleNames) {
 		sys.argv = argvOrg
 	}
 }
-if (sys.argv.len() < 2 || !(command in [`install, `build_install])) {
-	if (!moduleNamesError.isempty()) {
-		println()
-		conio.setcolor(`bright_red) {
-			println('**** error while building ', moduleNamesError)
-		}
-		if (!debFiles.isempty()) {
-			fileName = 'setup-gura-guest-deb.sh'
-			open(fileName, 'w').println('apt-get install -y ', set(debFiles))
-			fs.chmod('a+x', fileName)
-			println('Execute ', fileName, ' to install necessary guest packages of Debian.')
-		}
-		if (!rpmFiles.isempty()) {
-			fileName = 'setup-gura-guest-rpm.sh'
-			open(fileName, 'w').println('yum install -y ', set(rpmFiles))
-			fs.chmod('a+x', fileName)
-				println('Execute ', fileName, ' to install necessary guest packages of RPM.')
-		}
-		sys.exit(1)
+if (!moduleNamesError.isempty()) {
+	println()
+	conio.setcolor(`bright_red) {
+		println('**** error while building ', moduleNamesError)
 	}
+	if (!debFiles.isempty()) {
+		fileName = 'setup-gura-guest-deb.sh'
+		open(fileName, 'w').println('apt-get install -y ', set(debFiles))
+		fs.chmod('a+x', fileName)
+		println('Execute ', fileName, ' to install necessary guest packages of Debian.')
+	}
+	if (!rpmFiles.isempty()) {
+		fileName = 'setup-gura-guest-rpm.sh'
+		open(fileName, 'w').println('yum install -y ', set(rpmFiles))
+		fs.chmod('a+x', fileName)
+			println('Execute ', fileName, ' to install necessary guest packages of RPM.')
+	}
+	sys.exit(1)
 }

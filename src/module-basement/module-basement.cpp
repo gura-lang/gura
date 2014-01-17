@@ -1123,10 +1123,10 @@ Gura_ImplementFunction(hex)
 	bool upperFlag = args.IsSet(Gura_Symbol(upper));
 	String str;
 	if (digits <= 0) {
-		str = Formatter::Format(sig, upperFlag? "%X" : "%x",
+		str = FormatterString::Format(sig, upperFlag? "%X" : "%x",
 						ValueList(args.GetValue(0)));
 	} else {
-		str = Formatter::Format(sig, upperFlag? "%0*X" : "%0*x",
+		str = FormatterString::Format(sig, upperFlag? "%0*X" : "%0*x",
 						ValueList(Value(digits), args.GetValue(0)));
 	}
 	if (sig.IsSignalled()) return Value::Null;
@@ -1231,7 +1231,7 @@ Gura_DeclareFunction(format)
 
 Gura_ImplementFunction(format)
 {
-	return Value(Formatter::Format(sig, args.GetString(0), args.GetList(1)));
+	return Value(FormatterString::Format(sig, args.GetString(0), args.GetList(1)));
 }
 
 // dir(obj?):[noesc]

@@ -102,12 +102,12 @@ bool FormatterBase::DoFormat(Signal sig, const char *format, const ValueList &va
 					pValue++;
 					stat = STAT_Start;
 				} else if (pValue->Is_number()) {
-					PutString(flags, Conv_d(flags,
+					PutString(flags, Format_d(flags,
 						static_cast<int>(pValue->GetNumber()), buff, sizeof(buff)));
 					pValue++;
 					stat = STAT_Start;
 				} else if (pValue->Is_boolean()) {
-					PutString(flags, Conv_d(flags,
+					PutString(flags, Format_d(flags,
 						static_cast<int>(pValue->GetBoolean()), buff, sizeof(buff)));
 					pValue++;
 					stat = STAT_Start;
@@ -121,7 +121,7 @@ bool FormatterBase::DoFormat(Signal sig, const char *format, const ValueList &va
 					pValue++;
 					stat = STAT_Start;
 				} else if (pValue->Is_number()) {
-					PutString(flags, Conv_u(flags,
+					PutString(flags, Format_u(flags,
 						static_cast<UInt>(pValue->GetNumber()), buff, sizeof(buff)));
 					pValue++;
 					stat = STAT_Start;
@@ -135,7 +135,7 @@ bool FormatterBase::DoFormat(Signal sig, const char *format, const ValueList &va
 					pValue++;
 					stat = STAT_Start;
 				} else if (pValue->Is_number()) {
-					PutString(flags, Conv_b(flags,
+					PutString(flags, Format_b(flags,
 						static_cast<UInt>(pValue->GetNumber()), buff, sizeof(buff)));
 					pValue++;
 					stat = STAT_Start;
@@ -149,7 +149,7 @@ bool FormatterBase::DoFormat(Signal sig, const char *format, const ValueList &va
 					pValue++;
 					stat = STAT_Start;
 				} else if (pValue->Is_number()) {
-					PutString(flags, Conv_o(flags,
+					PutString(flags, Format_o(flags,
 						static_cast<UInt>(pValue->GetNumber()), buff, sizeof(buff)));
 					pValue++;
 					stat = STAT_Start;
@@ -163,7 +163,7 @@ bool FormatterBase::DoFormat(Signal sig, const char *format, const ValueList &va
 					pValue++;
 					stat = STAT_Start;
 				} else if (pValue->Is_number()) {
-					PutString(flags, Conv_x(flags,
+					PutString(flags, Format_x(flags,
 						static_cast<UInt>(pValue->GetNumber()), buff, sizeof(buff),
 						ch == 'X'));
 					pValue++;
@@ -178,16 +178,16 @@ bool FormatterBase::DoFormat(Signal sig, const char *format, const ValueList &va
 					pValue++;
 					stat = STAT_Start;
 				} else if (pValue->Is_number()) {
-					PutString(flags, Conv_e(flags,
+					PutString(flags, Format_e(flags,
 						pValue->GetNumber(), buff, sizeof(buff), ch == 'E'));
 					pValue++;
 					stat = STAT_Start;
 				} else if (pValue->Is_complex()) {
-					PutString(flags, Conv_e(flags,
+					PutString(flags, Format_e(flags,
 						pValue->GetComplex().real(), buff, sizeof(buff), ch == 'E'));
 					PlusMode plusMode = flags.plusMode;
 					flags.plusMode = PLUSMODE_Plus;
-					PutString(flags, Conv_e(flags,
+					PutString(flags, Format_e(flags,
 						pValue->GetComplex().imag(), buff, sizeof(buff), ch == 'E'));
 					flags.plusMode = plusMode;
 					PutChar('j');
@@ -203,16 +203,16 @@ bool FormatterBase::DoFormat(Signal sig, const char *format, const ValueList &va
 					pValue++;
 					stat = STAT_Start;
 				} else if (pValue->Is_number()) {
-					PutString(flags, Conv_f(flags,
+					PutString(flags, Format_f(flags,
 						pValue->GetNumber(), buff, sizeof(buff), ch == 'F'));
 					pValue++;
 					stat = STAT_Start;
 				} else if (pValue->Is_complex()) {
-					PutString(flags, Conv_f(flags,
+					PutString(flags, Format_f(flags,
 						pValue->GetComplex().real(), buff, sizeof(buff), ch == 'F'));
 					PlusMode plusMode = flags.plusMode;
 					flags.plusMode = PLUSMODE_Plus;
-					PutString(flags, Conv_f(flags,
+					PutString(flags, Format_f(flags,
 						pValue->GetComplex().imag(), buff, sizeof(buff), ch == 'F'));
 					flags.plusMode = plusMode;
 					PutChar('j');
@@ -228,16 +228,16 @@ bool FormatterBase::DoFormat(Signal sig, const char *format, const ValueList &va
 					pValue++;
 					stat = STAT_Start;
 				} else if (pValue->Is_number()) {
-					PutString(flags, Conv_g(flags,
+					PutString(flags, Format_g(flags,
 						pValue->GetNumber(), buff, sizeof(buff), ch == 'G'));
 					pValue++;
 					stat = STAT_Start;
 				} else if (pValue->Is_complex()) {
-					PutString(flags, Conv_g(flags,
+					PutString(flags, Format_g(flags,
 						pValue->GetComplex().real(), buff, sizeof(buff), ch == 'G'));
 					PlusMode plusMode = flags.plusMode;
 					flags.plusMode = PLUSMODE_Plus;
-					PutString(flags, Conv_g(flags,
+					PutString(flags, Format_g(flags,
 						pValue->GetComplex().imag(), buff, sizeof(buff), ch == 'G'));
 					flags.plusMode = plusMode;
 					PutChar('j');
@@ -344,7 +344,7 @@ void FormatterBase::PutInvalid(const Flags &flags)
 	PutString(flags, str.c_str());
 }
 
-const char *FormatterBase::Conv_d(const Flags &flags, int value,
+const char *FormatterBase::Format_d(const Flags &flags, int value,
 												char *buff, size_t size)
 {
 	char *p = buff + size - 1;
@@ -398,7 +398,7 @@ const char *FormatterBase::Conv_d(const Flags &flags, int value,
 	return p;
 }
 
-const char *FormatterBase::Conv_u(const Flags &flags, UInt value,
+const char *FormatterBase::Format_u(const Flags &flags, UInt value,
 												char *buff, size_t size)
 {
 	char *p = buff + size - 1;
@@ -428,7 +428,7 @@ const char *FormatterBase::Conv_u(const Flags &flags, UInt value,
 	return p;
 }
 
-const char *FormatterBase::Conv_b(const Flags &flags, UInt value,
+const char *FormatterBase::Format_b(const Flags &flags, UInt value,
 												char *buff, size_t size)
 {
 	char *p = buff + size - 1;
@@ -463,7 +463,7 @@ const char *FormatterBase::Conv_b(const Flags &flags, UInt value,
 	return p;
 }
 
-const char *FormatterBase::Conv_o(const Flags &flags, UInt value,
+const char *FormatterBase::Format_o(const Flags &flags, UInt value,
 												char *buff, size_t size)
 {
 	char *p = buff + size - 1;
@@ -496,7 +496,7 @@ const char *FormatterBase::Conv_o(const Flags &flags, UInt value,
 	return p;
 }
 
-const char *FormatterBase::Conv_x(const Flags &flags, UInt value,
+const char *FormatterBase::Format_x(const Flags &flags, UInt value,
 									char *buff, size_t size, bool upperFlag)
 {
 	char *p = buff + size - 1;
@@ -534,7 +534,7 @@ const char *FormatterBase::Conv_x(const Flags &flags, UInt value,
 	return p;
 }
 
-const char *FormatterBase::Conv_e(const Flags &flags, double value,
+const char *FormatterBase::Format_e(const Flags &flags, double value,
 							char *buff, size_t size, bool upperFlag)
 {
 	int count = (flags.precision < 0)? 6 : flags.precision;
@@ -569,7 +569,7 @@ const char *FormatterBase::Conv_e(const Flags &flags, double value,
 	return buff;
 }
 
-const char *FormatterBase::Conv_f(const Flags &flags, double value,
+const char *FormatterBase::Format_f(const Flags &flags, double value,
 							char *buff, size_t size, bool upperFlag)
 {
 	int count = (flags.precision < 0)? 6 : flags.precision;
@@ -598,7 +598,7 @@ const char *FormatterBase::Conv_f(const Flags &flags, double value,
 	return buff;
 }
 
-const char *FormatterBase::Conv_g(const Flags &flags, double value,
+const char *FormatterBase::Format_g(const Flags &flags, double value,
 							char *buff, size_t size, bool upperFlag)
 {
 	char *buffRaw = new char[size];
@@ -661,17 +661,17 @@ char *FormatterBase::CopyDigits(char *dstp, char *dstpEnd, const char *srcp, int
 }
 
 //-----------------------------------------------------------------------------
-// Formatter
+// FormatterString
 //-----------------------------------------------------------------------------
-String Formatter::Format(Signal sig,
+String FormatterString::Format(Signal sig,
 						const char *format, const ValueList &valList)
 {
-	Formatter formatter;
+	FormatterString formatter;
 	formatter.DoFormat(sig, format, valList);
 	return formatter._str;
 }
 
-Value Formatter::Format(Environment &env, Signal sig,
+Value FormatterString::Format(Environment &env, Signal sig,
 						const char *format, IteratorOwner &iterOwner)
 {
 	Value result;
@@ -686,7 +686,7 @@ Value Formatter::Format(Environment &env, Signal sig,
 	return result;
 }
 
-void Formatter::PutChar(char ch)
+void FormatterString::PutChar(char ch)
 {
 	_str += ch;
 }
