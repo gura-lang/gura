@@ -1477,10 +1477,10 @@ bool Iterator_Format::DoNext(Environment &env, Signal sig, Value &value)
 	if (!_pIterator->Next(env, sig, valueSrc)) return false;
 	String str;
 	if (valueSrc.Is_list()) {
-		str = FormatterString::Format(sig, _format.c_str(), valueSrc.GetList());
+		str = Formatter::Format(sig, _format.c_str(), valueSrc.GetList());
 	} else {
 		ValueList valList(valueSrc);
-		str = FormatterString::Format(sig, _format.c_str(), valList);
+		str = Formatter::Format(sig, _format.c_str(), valList);
 	}
 	value = Value(str);
 	return true;

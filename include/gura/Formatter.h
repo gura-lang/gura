@@ -13,9 +13,9 @@ class Environment;
 class Value;
 
 //-----------------------------------------------------------------------------
-// FormatterBase
+// Formatter
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE FormatterBase {
+class GURA_DLLDECLARE Formatter {
 private:
 	bool _nilVisibleFlag;
 	const char *_lineSep;
@@ -29,12 +29,16 @@ private:
 		char charPadding;
 	};
 public:
-	inline FormatterBase(bool nilVisibleFlag = true) :
+	inline Formatter(bool nilVisibleFlag = true) :
 					_nilVisibleFlag(nilVisibleFlag), _lineSep("\n") {}
 	bool DoFormat(Signal sig, const char *format, const ValueList &valList);
 	void PutString(const Flags &flags, const char *p, int cntMax = -1);
 	void PutInvalid(const Flags &flags);
 	virtual void PutChar(char ch) = 0;
+	static String Format(Signal sig,
+							const char *format, const ValueList &valList);
+	static Value Format(Environment &env, Signal sig,
+							const char *format, IteratorOwner &iterOwner);
 private:
 	inline static void SetError_WrongFormat(Signal &sig) {
 		sig.SetError(ERR_ValueError, "wrong format for formatter");
@@ -73,17 +77,14 @@ private:
 };
 
 //-----------------------------------------------------------------------------
-// Formatter
+// FormatterString
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE FormatterString : public FormatterBase {
+class GURA_DLLDECLARE FormatterString : public Formatter {
 private:
 	String _str;
 public:
-	static String Format(Signal sig,
-							const char *format, const ValueList &valList);
-	static Value Format(Environment &env, Signal sig,
-							const char *format, IteratorOwner &iterOwner);
 	virtual void PutChar(char ch);
+	inline const String &GetStringSTL() const { return _str; }
 };
 
 }

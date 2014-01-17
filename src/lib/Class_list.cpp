@@ -1334,7 +1334,7 @@ Gura_DeclareMethod(list, format)
 Gura_ImplementMethod(list, format)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
-	return Value(FormatterString::Format(sig, args.GetString(0), pThis->GetList()));
+	return Value(Formatter::Format(sig, args.GetString(0), pThis->GetList()));
 }
 
 // list#head(n:number):map {block?}

@@ -6,9 +6,9 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// FormatterBase
+// Formatter
 //-----------------------------------------------------------------------------
-bool FormatterBase::DoFormat(Signal sig, const char *format, const ValueList &valList)
+bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valList)
 {
 	bool eatNextFlag;
 	const char *formatp = format;
@@ -320,7 +320,7 @@ bool FormatterBase::DoFormat(Signal sig, const char *format, const ValueList &va
 	return !sig.IsSignalled();
 }
 
-void FormatterBase::PutString(const Flags &flags, const char *p, int cntMax)
+void Formatter::PutString(const Flags &flags, const char *p, int cntMax)
 {
 	int cnt = static_cast<int>(::strlen(p));
 	if (cntMax >= 0 && cnt > cntMax) cnt = cntMax;
@@ -334,7 +334,7 @@ void FormatterBase::PutString(const Flags &flags, const char *p, int cntMax)
 	}
 }
 
-void FormatterBase::PutInvalid(const Flags &flags)
+void Formatter::PutInvalid(const Flags &flags)
 {
 	if (!_nilVisibleFlag) return;
 	std::string str;
@@ -344,7 +344,30 @@ void FormatterBase::PutInvalid(const Flags &flags)
 	PutString(flags, str.c_str());
 }
 
-const char *FormatterBase::Format_d(const Flags &flags, int value,
+String Formatter::Format(Signal sig,
+						const char *format, const ValueList &valList)
+{
+	FormatterString formatter;
+	formatter.DoFormat(sig, format, valList);
+	return formatter.GetStringSTL();
+}
+
+Value Formatter::Format(Environment &env, Signal sig,
+						const char *format, IteratorOwner &iterOwner)
+{
+	Value result;
+	ValueList &valListResult = result.InitAsList(env);
+	ValueList valList;
+	while (iterOwner.Next(env, sig, valList)) {
+		String str = Format(sig, format, valList);
+		if (sig.IsSignalled()) return Value::Null;
+		valListResult.push_back(Value(str));
+	}
+	if (sig.IsSignalled()) return Value::Null;
+	return result;
+}
+
+const char *Formatter::Format_d(const Flags &flags, int value,
 												char *buff, size_t size)
 {
 	char *p = buff + size - 1;
@@ -398,7 +421,7 @@ const char *FormatterBase::Format_d(const Flags &flags, int value,
 	return p;
 }
 
-const char *FormatterBase::Format_u(const Flags &flags, UInt value,
+const char *Formatter::Format_u(const Flags &flags, UInt value,
 												char *buff, size_t size)
 {
 	char *p = buff + size - 1;
@@ -428,7 +451,7 @@ const char *FormatterBase::Format_u(const Flags &flags, UInt value,
 	return p;
 }
 
-const char *FormatterBase::Format_b(const Flags &flags, UInt value,
+const char *Formatter::Format_b(const Flags &flags, UInt value,
 												char *buff, size_t size)
 {
 	char *p = buff + size - 1;
@@ -463,7 +486,7 @@ const char *FormatterBase::Format_b(const Flags &flags, UInt value,
 	return p;
 }
 
-const char *FormatterBase::Format_o(const Flags &flags, UInt value,
+const char *Formatter::Format_o(const Flags &flags, UInt value,
 												char *buff, size_t size)
 {
 	char *p = buff + size - 1;
@@ -496,7 +519,7 @@ const char *FormatterBase::Format_o(const Flags &flags, UInt value,
 	return p;
 }
 
-const char *FormatterBase::Format_x(const Flags &flags, UInt value,
+const char *Formatter::Format_x(const Flags &flags, UInt value,
 									char *buff, size_t size, bool upperFlag)
 {
 	char *p = buff + size - 1;
@@ -534,7 +557,7 @@ const char *FormatterBase::Format_x(const Flags &flags, UInt value,
 	return p;
 }
 
-const char *FormatterBase::Format_e(const Flags &flags, double value,
+const char *Formatter::Format_e(const Flags &flags, double value,
 							char *buff, size_t size, bool upperFlag)
 {
 	int count = (flags.precision < 0)? 6 : flags.precision;
@@ -569,7 +592,7 @@ const char *FormatterBase::Format_e(const Flags &flags, double value,
 	return buff;
 }
 
-const char *FormatterBase::Format_f(const Flags &flags, double value,
+const char *Formatter::Format_f(const Flags &flags, double value,
 							char *buff, size_t size, bool upperFlag)
 {
 	int count = (flags.precision < 0)? 6 : flags.precision;
@@ -598,7 +621,7 @@ const char *FormatterBase::Format_f(const Flags &flags, double value,
 	return buff;
 }
 
-const char *FormatterBase::Format_g(const Flags &flags, double value,
+const char *Formatter::Format_g(const Flags &flags, double value,
 							char *buff, size_t size, bool upperFlag)
 {
 	char *buffRaw = new char[size];
@@ -630,7 +653,7 @@ const char *FormatterBase::Format_g(const Flags &flags, double value,
 	return buff;
 }
 
-char *FormatterBase::FillZeroDigit(char *dstp, char *dstpEnd, int cnt)
+char *Formatter::FillZeroDigit(char *dstp, char *dstpEnd, int cnt)
 {
 	for ( ; cnt > 0 && dstp < dstpEnd - 1; cnt--, dstp++) {
 		*dstp = '0';
@@ -639,7 +662,7 @@ char *FormatterBase::FillZeroDigit(char *dstp, char *dstpEnd, int cnt)
 	return dstp;
 }
 
-char *FormatterBase::CopyDigits(char *dstp, char *dstpEnd, const char *srcp)
+char *Formatter::CopyDigits(char *dstp, char *dstpEnd, const char *srcp)
 {
 	for ( ; *srcp != '\0' && dstp < dstpEnd - 1; srcp++, dstp++) {
 		*dstp = static_cast<char>(*srcp);
@@ -648,7 +671,7 @@ char *FormatterBase::CopyDigits(char *dstp, char *dstpEnd, const char *srcp)
 	return dstp;
 }
 
-char *FormatterBase::CopyDigits(char *dstp, char *dstpEnd, const char *srcp, int cnt)
+char *Formatter::CopyDigits(char *dstp, char *dstpEnd, const char *srcp, int cnt)
 {
 	for ( ; *srcp != '\0' && dstp < dstpEnd - 1 && cnt > 0; srcp++, dstp++, cnt--) {
 		*dstp = static_cast<char>(*srcp);
@@ -663,29 +686,6 @@ char *FormatterBase::CopyDigits(char *dstp, char *dstpEnd, const char *srcp, int
 //-----------------------------------------------------------------------------
 // FormatterString
 //-----------------------------------------------------------------------------
-String FormatterString::Format(Signal sig,
-						const char *format, const ValueList &valList)
-{
-	FormatterString formatter;
-	formatter.DoFormat(sig, format, valList);
-	return formatter._str;
-}
-
-Value FormatterString::Format(Environment &env, Signal sig,
-						const char *format, IteratorOwner &iterOwner)
-{
-	Value result;
-	ValueList &valListResult = result.InitAsList(env);
-	ValueList valList;
-	while (iterOwner.Next(env, sig, valList)) {
-		String str = Format(sig, format, valList);
-		if (sig.IsSignalled()) return Value::Null;
-		valListResult.push_back(Value(str));
-	}
-	if (sig.IsSignalled()) return Value::Null;
-	return result;
-}
-
 void FormatterString::PutChar(char ch)
 {
 	_str += ch;

@@ -4156,7 +4156,7 @@ Gura_ImplementFunction(LogError)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	const char *formatString = args.GetString(0);
-	wxString str = wxString::FromUTF8(FormatterString::Format(
+	wxString str = wxString::FromUTF8(Formatter::Format(
 								sig, formatString, args.GetList(1)).c_str());
 	wxLogError(wxT("%s"), str.c_str());
 	return Value::Null;
@@ -4173,7 +4173,7 @@ Gura_ImplementFunction(LogFatalError)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	const char *formatString = args.GetString(0);
-	wxString str = wxString::FromUTF8(FormatterString::Format(
+	wxString str = wxString::FromUTF8(Formatter::Format(
 								sig, formatString, args.GetList(1)).c_str());
 	wxLogFatalError(wxT("%s"), str.c_str());
 	return Value::Null;
@@ -4190,7 +4190,7 @@ Gura_ImplementFunction(LogWarning)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	const char *formatString = args.GetString(0);
-	wxString str = wxString::FromUTF8(FormatterString::Format(
+	wxString str = wxString::FromUTF8(Formatter::Format(
 								sig, formatString, args.GetList(1)).c_str());
 	wxLogWarning(wxT("%s"), str.c_str());
 	return Value::Null;
@@ -4207,7 +4207,7 @@ Gura_ImplementFunction(LogMessage)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	const char *formatString = args.GetString(0);
-	wxString str = wxString::FromUTF8(FormatterString::Format(
+	wxString str = wxString::FromUTF8(Formatter::Format(
 								sig, formatString, args.GetList(1)).c_str());
 	wxLogMessage(wxT("%s"), str.c_str());
 	return Value::Null;
@@ -4224,7 +4224,7 @@ Gura_ImplementFunction(LogVerbose)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	const char *formatString = args.GetString(0);
-	wxString str = wxString::FromUTF8(FormatterString::Format(
+	wxString str = wxString::FromUTF8(Formatter::Format(
 								sig, formatString, args.GetList(1)).c_str());
 	wxLogVerbose(wxT("%s"), str.c_str());
 	return Value::Null;
@@ -4241,7 +4241,7 @@ Gura_ImplementFunction(LogStatus)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	const char *formatString = args.GetString(0);
-	wxString str = wxString::FromUTF8(FormatterString::Format(
+	wxString str = wxString::FromUTF8(Formatter::Format(
 								sig, formatString, args.GetList(1)).c_str());
 	wxLogStatus(wxT("%s"), str.c_str());
 	return Value::Null;
@@ -4260,7 +4260,7 @@ Gura_ImplementFunction(LogStatusEx)
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxFrame *frame = Object_wx_Frame::GetObject(args, 0)->GetEntity();
 	const char *formatString = args.GetString(1);
-	wxString str = wxString::FromUTF8(FormatterString::Format(
+	wxString str = wxString::FromUTF8(Formatter::Format(
 								sig, formatString, args.GetList(2)).c_str());
 	wxLogStatus(frame, wxT("%s"), str.c_str());
 	return Value::Null;
@@ -4277,7 +4277,7 @@ Gura_ImplementFunction(LogSysError)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	const char *formatString = args.GetString(0);
-	wxString str = wxString::FromUTF8(FormatterString::Format(
+	wxString str = wxString::FromUTF8(Formatter::Format(
 								sig, formatString, args.GetList(1)).c_str());
 	wxLogSysError(wxT("%s"), str.c_str());
 	return Value::Null;
@@ -4294,7 +4294,7 @@ Gura_ImplementFunction(LogDebug)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	const char *formatString = args.GetString(0);
-	wxString str = wxString::FromUTF8(FormatterString::Format(
+	wxString str = wxString::FromUTF8(Formatter::Format(
 								sig, formatString, args.GetList(1)).c_str());
 	wxLogDebug(wxT("%s"), str.c_str());
 	return Value::Null;
@@ -4311,7 +4311,7 @@ Gura_ImplementFunction(LogTrace)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	const char *formatString = args.GetString(0);
-	wxString str = wxString::FromUTF8(FormatterString::Format(
+	wxString str = wxString::FromUTF8(Formatter::Format(
 								sig, formatString, args.GetList(1)).c_str());
 	wxLogTrace(wxT("%s"), str.c_str());
 	return Value::Null;
