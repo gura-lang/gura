@@ -1,0 +1,30 @@
+#!/usr/bin/env gura
+import(testutil) {*}
+import(hash)
+import(msico)
+import(bmp)
+
+tester_image(image:image, comment:string, hexdigestExpect:string):map:void = {
+	md5 = hash.md5()
+	image.bmpwrite(md5)
+	printf('%-20s %3dx%3d %s\n', comment, image.width, image.height,
+		   md5.hexdigest in hexdigestExpect.split(';') || md5.hexdigest)
+}
+
+testcase {
+	imgs = msico.content(I('msnms.ico'), `rgba).images
+	tester_image(imgs:*delpalette(), format('msnms #%d', 0..), [
+		'aace9f35d873a4cc1cfae1103bd4974c'
+		'cbfb14ff7fb82963623f3b0277534497'
+		'd3c561201deb9ca0e10102b8d4c588a8'
+		'06e4ecbfb5f979a65522a473ecfd923d'
+		'6de331ca32438f103905a45e51bb25c7'
+		'f475425f60a5c06ff64099509b183535'
+		'998776220e6c0aafaeb4d375fa9bcf7d'
+		'd2a4aea5b5012f32f95d002008983f66'
+		'ad0f8518aded94095c2f07db2c020a1d'
+	])
+	md5 = hash.md5()
+	msico.content().addimage(imgs).write(md5)
+	printf('icon output: %s\n', md5.hexdigest == 'f8189920672cdde0d5fd5a141d7f7d23' || md5.hexdigest)
+}

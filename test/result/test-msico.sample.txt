@@ -1,0 +1,12 @@
+======== #1 ========
+
+msnms #0              48x 48 true
+msnms #1              32x 32 true
+msnms #2              16x 16 true
+msnms #3              48x 48 true
+msnms #4              32x 32 true
+msnms #5              16x 16 true
+msnms #6              48x 48 true
+msnms #7              32x 32 true
+msnms #8              16x 16 true
+icon output: true

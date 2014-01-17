@@ -34,6 +34,7 @@ set cases=%cases% matrix
 set cases=%cases% math
 rem set cases=%cases% midi
 set cases=%cases% module
+set cases=%cases% msico
 set cases=%cases% object
 set cases=%cases% opengl
 set cases=%cases% operator

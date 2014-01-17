@@ -21,19 +21,6 @@
 
 ======== #2 ========
 
-msnms #0              48x 48 true
-msnms #1              32x 32 true
-msnms #2              16x 16 true
-msnms #3              48x 48 true
-msnms #4              32x 32 true
-msnms #5              16x 16 true
-msnms #6              48x 48 true
-msnms #7              32x 32 true
-msnms #8              16x 16 true
-icon output: true
-
-======== #3 ========
-
 chicken #0            51x 62 true
 chicken #1            53x 60 true
 chicken #2            51x 60 true
@@ -41,7 +28,7 @@ chicken #3            51x 62 true
 chicken #4            53x 60 true
 chicken #5            51x 60 true
 
-======== #4 ========
+======== #3 ========
 
 reducecolor          800x600 true
 normal kangaroo       97x 52 true
@@ -63,11 +50,11 @@ rotate 270            52x 97 true
 rotate 300            93x110 true
 rotate 330           110x 93 true
 
-======== #5 ========
+======== #4 ========
 
 image written in script binary: true
 
-======== #6 ========
+======== #5 ========
 
 chicken256.bmp to BMP: true
 chicken16.bmp to BMP: true
@@ -84,7 +71,7 @@ expected error occurs: FormatError: Not a JPEG file: starts with 0x89 0x50
 expected error occurs: FormatError: Not a GIF file
 expected error occurs: FormatError: Not a BMP file
 
-======== #7 test of scan ========
+======== #6 test of scan ========
 
      @                       @@                     
      @              @@@@    @     @@@    @@@     @  
