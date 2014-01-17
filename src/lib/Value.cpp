@@ -228,16 +228,6 @@ const Binary &Value::GetBinary() const
 	return dynamic_cast<Object_binary *>(_u.pObj)->GetBinary();
 }
 
-const DateTime &Value::GetDateTime() const
-{
-	return dynamic_cast<Object_datetime *>(_u.pObj)->GetDateTime();
-}
-
-const TimeDelta &Value::GetTimeDelta() const
-{
-	return dynamic_cast<Object_timedelta *>(_u.pObj)->GetTimeDelta();
-}
-
 Value Value::EmptyIndexGet(Environment &env, Signal sig) const
 {
 	if (IsPrimitive()) {
@@ -341,11 +331,6 @@ Iterator *Value::GetIterator() const
 Stream &Value::GetStream() const
 {
 	return dynamic_cast<Object_stream *>(_u.pObj)->GetStream();
-}
-
-Directory *Value::GetDirectory() const
-{
-	return dynamic_cast<Object_directory *>(_u.pObj)->GetDirectory();
 }
 
 const Expr *Value::GetExpr() const
@@ -508,11 +493,13 @@ int Value::Compare(const Value &value1, const Value &value2, bool ignoreCaseFlag
 			rtn = ::memcmp(buff1.data(), buff2.data(), buff1.size());
 		}
 	} else if (value1.Is_datetime()) {
-		const DateTime &dt1 = value1.GetDateTime();
-		const DateTime &dt2 = value2.GetDateTime();
+		const DateTime &dt1 = Object_datetime::GetObject(value1)->GetDateTime();
+		const DateTime &dt2 = Object_datetime::GetObject(value2)->GetDateTime();
 		rtn = DateTime::Compare(dt1, dt2);
 	} else if (value1.Is_timedelta()) {
-		rtn = TimeDelta::Compare(value1.GetTimeDelta(), value2.GetTimeDelta());
+		const TimeDelta &td1 = Object_timedelta::GetObject(value1)->GetTimeDelta();
+		const TimeDelta &td2 = Object_timedelta::GetObject(value2)->GetTimeDelta();
+		rtn = TimeDelta::Compare(td1, td2);
 	} else if (value1.Is_list()) {
 		bool emptyFlag1 = value1.GetList().empty();
 		bool emptyFlag2 = value2.GetList().empty();

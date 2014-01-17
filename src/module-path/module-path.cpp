@@ -19,7 +19,7 @@ Gura_DeclareFunction(stat)
 
 Gura_ImplementFunction(stat)
 {
-	Directory *pDirectory = args.GetDirectory(0);
+	Directory *pDirectory = Object_directory::GetObject(args, 0)->GetDirectory();
 	AutoPtr<Object> pObj(pDirectory->GetStatObj(sig));
 	if (sig.IsSignalled()) return Value::Null;
 	return Value(pObj.release());
@@ -69,7 +69,7 @@ Gura_ImplementFunction(dir)
 	if (!args.GetList(1).ToStringList(sig, patterns)) return Value::Null;
 	AutoPtr<Directory> pDirectory;
 	if (args.Is_directory(0)) {
-		pDirectory.reset(Directory::Reference(args.GetDirectory(0)));
+		pDirectory.reset(Directory::Reference(Object_directory::GetObject(args, 0)->GetDirectory()));
 	} else {
 		pDirectory.reset(Directory::Open(env, sig, "", PathMgr::NF_Signal));
 		if (pDirectory.IsNull()) return Value::Null;
@@ -110,7 +110,7 @@ Gura_ImplementFunction(walk)
 	if (!args.GetList(2).ToStringList(sig, patterns)) return Value::Null;
 	AutoPtr<Directory> pDirectory;
 	if (args.Is_directory(0)) {
-		pDirectory.reset(Directory::Reference(args.GetDirectory(0)));
+		pDirectory.reset(Directory::Reference(Object_directory::GetObject(args, 0)->GetDirectory()));
 	} else {
 		pDirectory.reset(Directory::Open(env, sig, "", PathMgr::NF_Signal));
 		if (pDirectory.IsNull()) return Value::Null;

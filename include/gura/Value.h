@@ -370,12 +370,6 @@ public:
 	const ValueDict &GetDict() const;
 	// VTYPE_stream
 	Stream &GetStream() const;
-	// VTYPE_directory
-	Directory *GetDirectory() const;
-	// VTYPE_datetime
-	const DateTime &GetDateTime() const;
-	// VTYPE_timedelta
-	const TimeDelta &GetTimeDelta() const;
 	// VTYPE_iterator
 	Iterator *GetIterator() const;
 	// VTYPE_expr

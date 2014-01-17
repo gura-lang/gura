@@ -1129,7 +1129,7 @@ bool ValueToVariant(Signal sig, VARIANT &var, const Value &value)
 		var.vt = VT_DISPATCH;
 		var.pdispVal = pDispatch;
 	} else if (value.Is_datetime()) {
-		const DateTime &dateTime = value.GetDateTime();
+		const DateTime &dateTime = Object_datetime::GetObject(value)->GetDateTime();
 		COleDateTime oledt(dateTime.GetYear(), dateTime.GetMonth(), dateTime.GetDay(),
 				dateTime.GetHour(), dateTime.GetMin(), dateTime.GetSec());
 		var.vt = VT_DATE;

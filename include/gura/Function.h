@@ -613,10 +613,6 @@ public:
 	inline Stream &GetStream(size_t idxArg) const		{
 		return const_cast<Args *>(this)->GetValue(idxArg).GetStream();
 	}
-	inline Directory *GetDirectory(size_t idxArg)		{ return GetValue(idxArg).GetDirectory();}
-	inline Directory *GetDirectory(size_t idxArg) const	{
-		return const_cast<Args *>(this)->GetValue(idxArg).GetDirectory();
-	}
 	inline const Expr *GetExpr(size_t idxArg) const		{ return GetValue(idxArg).GetExpr();	}
 	inline Function *GetFunction(size_t idxArg)			{ return GetValue(idxArg).GetFunction(); }
 	inline const Function *GetFunction(size_t idxArg) const	{ return GetValue(idxArg).GetFunction(); }

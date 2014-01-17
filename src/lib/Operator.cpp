@@ -1176,7 +1176,7 @@ Gura_ImplementUnaryOperator(Neg, matrix)
 
 Gura_ImplementUnaryOperator(Neg, timedelta)
 {
-	TimeDelta td = value.GetTimeDelta();
+	TimeDelta td = Object_timedelta::GetObject(value)->GetTimeDelta();
 	return Value(new Object_timedelta(env, TimeDelta(-td.GetDays(), -td.GetSecsRaw(), -td.GetUSecs())));
 }
 
@@ -1286,22 +1286,24 @@ Gura_ImplementBinaryOperator(Add, matrix, matrix)
 
 Gura_ImplementBinaryOperator(Add, datetime, timedelta)
 {
-	DateTime dateTime = valueLeft.GetDateTime();
-	dateTime.Plus(valueRight.GetTimeDelta());
+	DateTime dateTime = Object_datetime::GetObject(valueLeft)->GetDateTime();
+	const TimeDelta &timeDelta = Object_timedelta::GetObject(valueRight)->GetTimeDelta();
+	dateTime.Plus(timeDelta);
 	return Value(new Object_datetime(env, dateTime));
 }
 
 Gura_ImplementBinaryOperator(Add, timedelta, datetime)
 {
-	DateTime dateTime = valueRight.GetDateTime();
-	dateTime.Plus(valueLeft.GetTimeDelta());
+	const TimeDelta &timeDelta = Object_timedelta::GetObject(valueLeft)->GetTimeDelta();
+	DateTime dateTime = Object_datetime::GetObject(valueRight)->GetDateTime();
+	dateTime.Plus(timeDelta);
 	return Value(new Object_datetime(env, dateTime));
 }
 
 Gura_ImplementBinaryOperator(Add, timedelta, timedelta)
 {
-	TimeDelta td1 = valueLeft.GetTimeDelta();
-	TimeDelta td2 = valueRight.GetTimeDelta();
+	TimeDelta td1 = Object_timedelta::GetObject(valueLeft)->GetTimeDelta();
+	TimeDelta td2 = Object_timedelta::GetObject(valueRight)->GetTimeDelta();
 	return Value(new Object_timedelta(env, TimeDelta(
 			td1.GetDays() + td2.GetDays(),
 			td1.GetSecsRaw() + td2.GetSecsRaw(),
@@ -1431,15 +1433,15 @@ Gura_ImplementBinaryOperator(Sub, matrix, matrix)
 
 Gura_ImplementBinaryOperator(Sub, datetime, timedelta)
 {
-	DateTime dateTime = valueLeft.GetDateTime();
-	dateTime.Minus(valueRight.GetTimeDelta());
+	DateTime dateTime = Object_datetime::GetObject(valueLeft)->GetDateTime();
+	dateTime.Minus(Object_timedelta::GetObject(valueRight)->GetTimeDelta());
 	return Value(new Object_datetime(env, dateTime));
 }
 
 Gura_ImplementBinaryOperator(Sub, datetime, datetime)
 {
-	const DateTime &dt1 = valueLeft.GetDateTime();
-	const DateTime &dt2 = valueRight.GetDateTime();
+	const DateTime &dt1 = Object_datetime::GetObject(valueLeft)->GetDateTime();
+	const DateTime &dt2 = Object_datetime::GetObject(valueRight)->GetDateTime();
 	if ((dt1.HasTZOffset() && !dt2.HasTZOffset()) ||
 								(!dt1.HasTZOffset() && dt2.HasTZOffset())) {
 		sig.SetError(ERR_ValueError, "failed to calculate datetime difference");
@@ -1450,8 +1452,8 @@ Gura_ImplementBinaryOperator(Sub, datetime, datetime)
 
 Gura_ImplementBinaryOperator(Sub, timedelta, timedelta)
 {
-	TimeDelta td1 = valueLeft.GetTimeDelta();
-	TimeDelta td2 = valueRight.GetTimeDelta();
+	TimeDelta td1 = Object_timedelta::GetObject(valueLeft)->GetTimeDelta();
+	TimeDelta td2 = Object_timedelta::GetObject(valueRight)->GetTimeDelta();
 	return Value(new Object_timedelta(env, TimeDelta(
 			td1.GetDays() - td2.GetDays(),
 			td1.GetSecsRaw() - td2.GetSecsRaw(),
@@ -1583,7 +1585,7 @@ Gura_ImplementBinaryOperator(Mul, matrix, any)
 
 Gura_ImplementBinaryOperator(Mul, timedelta, number)
 {
-	const TimeDelta &td = valueLeft.GetTimeDelta();
+	const TimeDelta &td = Object_timedelta::GetObject(valueLeft)->GetTimeDelta();
 	long num = valueRight.GetLong();
 	return Value(new Object_timedelta(env,
 		TimeDelta(td.GetDays() * num, td.GetSecsRaw() * num, td.GetUSecs() * num)));
@@ -1591,7 +1593,7 @@ Gura_ImplementBinaryOperator(Mul, timedelta, number)
 
 Gura_ImplementBinaryOperator(Mul, number, timedelta)
 {
-	const TimeDelta &td = valueRight.GetTimeDelta();
+	const TimeDelta &td = Object_timedelta::GetObject(valueRight)->GetTimeDelta();
 	long num = valueLeft.GetLong();
 	return Value(new Object_timedelta(env,
 		TimeDelta(td.GetDays() * num, td.GetSecsRaw() * num, td.GetUSecs() * num)));
