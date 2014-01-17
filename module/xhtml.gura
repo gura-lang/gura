@@ -1,6 +1,7 @@
 #!/usr/bin/env gura
 import(xml)
 
+// See HTML 4.01 Specification (http://www.w3.org/TR/html401/)
 xhtml(attrs%) {`block} = {
 	root = xml.element('html', attrs%)
 	a(attrs%)			{`block?} = xml.element('a',			attrs%) {|block|}
