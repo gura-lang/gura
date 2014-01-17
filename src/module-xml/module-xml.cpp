@@ -5,6 +5,8 @@
 
 Gura_BeginModuleBody(xml)
 
+String MakeIndentUnit(int cntSpace);
+
 //-----------------------------------------------------------------------------
 // Parser
 //-----------------------------------------------------------------------------
@@ -325,9 +327,9 @@ Element::Element(Type type, const String &str, const char **atts) :
 	}
 }
 
-bool Element::Write(Signal sig, SimpleStream &stream, bool fancyFlag, int indentLevel) const
+bool Element::Write(Signal sig, SimpleStream &stream,
+				bool fancyFlag, int indentLevel, const char *indentUnit) const
 {
-	const char *indentUnit = "  ";
 	String indent;
 	for (int i = 0; i < indentLevel; i++) indent += indentUnit;
 	if (fancyFlag) stream.Print(sig, indent.c_str());
@@ -366,7 +368,7 @@ bool Element::Write(Signal sig, SimpleStream &stream, bool fancyFlag, int indent
 			}
 			foreach_const (ElementOwner, ppChild, *GetChildren()) {
 				const Element *pChild = *ppChild;
-				if (!pChild->Write(sig, stream, fancyFlag, indentLevel + 1)) return false;
+				if (!pChild->Write(sig, stream, fancyFlag, indentLevel + 1, indentUnit)) return false;
 			}
 			if (fancyFlag) {
 				stream.Print(sig, indent.c_str());
@@ -479,7 +481,8 @@ Document::Document() : _cntRef(1), _version("1.0"), _encoding("utf-8"), _standal
 {
 }
 
-bool Document::Write(Signal sig, SimpleStream &stream, bool fancyFlag) const
+bool Document::Write(Signal sig, SimpleStream &stream,
+								bool fancyFlag, const char *indentUnit) const
 {
 	stream.Print(sig, "<?xml version=\"");
 	if (sig.IsSignalled()) return false;
@@ -498,7 +501,7 @@ bool Document::Write(Signal sig, SimpleStream &stream, bool fancyFlag) const
 	stream.Print(sig, "\"?>\n");
 	if (sig.IsSignalled()) return false;
 	if (!_pRoot.IsNull()) {
-		if (!_pRoot->Write(sig, stream, fancyFlag, 0)) return false;
+		if (!_pRoot->Write(sig, stream, fancyFlag, 0, indentUnit)) return false;
 	}
 	return true;
 }
@@ -1028,40 +1031,46 @@ Gura_ImplementMethod(element, gettext)
 	return Value(str);
 }
 
-// xml.element#textize(fancy?:boolean, indentLevel?:number)
+// xml.element#textize(fancy?:boolean, indentLevel?:number, tabs?:number)
 Gura_DeclareMethod(element, textize)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "fancy", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "indentLevel", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "tabs", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(element, textize)
 {
 	Object_element *pObj = Object_element::GetThisObj(args);
-	bool fancyFlag = args.GetBoolean(0);
+	bool fancyFlag = args.IsValid(0)? args.GetBoolean(0) : false;
 	int indentLevel = args.Is_number(1)? args.GetInt(1) : 0;
+	int cntSpace = args.Is_number(2)? args.GetInt(2) : 2;
 	String strDst;
 	SimpleStream_StringWriter streamDst(strDst);
-	pObj->GetElement()->Write(sig, streamDst, fancyFlag, indentLevel);
+	pObj->GetElement()->Write(sig, streamDst, fancyFlag,
+					indentLevel, MakeIndentUnit(cntSpace).c_str());
 	return Value(strDst);
 }
 
-// xml.element#write(stream:stream:w, fancy?:boolean, indentLevel?:number):void
+// xml.element#write(stream:stream:w, fancy?:boolean, indentLevel?:number, tabs?:number):void
 Gura_DeclareMethod(element, write)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "fancy", VTYPE_boolean, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "indentLevel", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "tabs", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(element, write)
 {
 	Object_element *pObj = Object_element::GetThisObj(args);
-	bool fancyFlag = args.GetBoolean(1);
+	bool fancyFlag = args.IsValid(1)? args.GetBoolean(1) : false;
 	int indentLevel = args.Is_number(2)? args.GetInt(2) : 0;
-	pObj->GetElement()->Write(sig, args.GetStream(0), fancyFlag, indentLevel);
+	int cntSpace = args.Is_number(3)? args.GetInt(3) : 2;
+	pObj->GetElement()->Write(sig, args.GetStream(0),
+				fancyFlag, indentLevel, MakeIndentUnit(cntSpace).c_str());
 	return Value::Null;
 }
 
@@ -1173,36 +1182,42 @@ Gura_ImplementMethod(document, read)
 	return Value::Null;
 }
 
-// xml.document#textize(fancy?:boolean)
+// xml.document#textize(fancy?:boolean, tabs?:number)
 Gura_DeclareMethod(document, textize)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "fancy", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "tabs", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(document, textize)
 {
 	Object_document *pObj = Object_document::GetThisObj(args);
-	bool fancyFlag = args.GetBoolean(0);
+	bool fancyFlag = args.IsValid(0)? args.GetBoolean(0) : false;
+	int cntSpace = args.Is_number(1)? args.GetInt(1) : 2;
 	String strDst;
 	SimpleStream_StringWriter streamDst(strDst);
-	pObj->GetDocument()->Write(sig, streamDst, fancyFlag);
+	pObj->GetDocument()->Write(sig, streamDst,
+						fancyFlag, MakeIndentUnit(cntSpace).c_str());
 	return Value(strDst);
 }
 
-// xml.document#write(stream:stream:w, fancy?:boolean):void
+// xml.document#write(stream:stream:w, fancy?:boolean, tabs?:number):void
 Gura_DeclareMethod(document, write)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "fancy", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "tabs", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(document, write)
 {
 	Object_document *pObj = Object_document::GetThisObj(args);
-	bool fancyFlag = args.GetBoolean(1);
-	pObj->GetDocument()->Write(sig, args.GetStream(0), fancyFlag);
+	bool fancyFlag = args.IsValid(1)? args.GetBoolean(1) : false;
+	int cntSpace = args.Is_number(2)? args.GetInt(2) : 2;
+	pObj->GetDocument()->Write(sig, args.GetStream(0),
+						fancyFlag, MakeIndentUnit(cntSpace).c_str());
 	return Value::Null;
 }
 
@@ -1432,6 +1447,16 @@ Gura_ModuleEntry()
 
 Gura_ModuleTerminate()
 {
+}
+
+//-----------------------------------------------------------------------------
+// utility functions
+//-----------------------------------------------------------------------------
+String MakeIndentUnit(int cntSpace)
+{
+	String str;
+	while (cntSpace-- > 0) str += ' ';
+	return str;
 }
 
 Gura_EndModuleBody(xml, xml)
