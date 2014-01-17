@@ -420,7 +420,7 @@ gmp.mpq, gmp.mpq
 
 number, number
 3 / 0 .. ZeroDivisionError: divide by zero
-3 % 0 .. -1.#IND
+3 % 0 .. ZeroDivisionError: divide by zero
 number, gmp.mpz
 3 / 0L .. ZeroDivisionError: divide by zero
 3 % 0L .. ZeroDivisionError: divide by zero

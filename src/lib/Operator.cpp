@@ -1742,7 +1742,12 @@ Gura_ImplementBinaryOperator(Div, matrix, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Mod, number, number)
 {
-	return Value(::fmod(valueLeft.GetNumber(), valueRight.GetNumber()));
+	Number numRight = valueRight.GetNumber();
+	if (numRight == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return Value::Null;
+	}
+	return Value(::fmod(valueLeft.GetNumber(), numRight));
 }
 
 //-----------------------------------------------------------------------------
