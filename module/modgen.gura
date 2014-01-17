@@ -33,10 +33,12 @@ fs.chmod('a+x', fileBuild)
 //======== Generate Test Script ========
 R'''
 #!/usr/bin/env gura
-import(testutil)
+import(testutil) {*}
 import(${dotName})
 
-println(${dotName}.test(3, 4))
+testcase {
+	println(${dotName}.test(3, 4))
+}
 '''.template().render(open(fileTest, 'w').addcr(false))
 fs.chmod('a+x', fileTest)
 
