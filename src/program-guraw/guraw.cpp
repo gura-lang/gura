@@ -9,6 +9,8 @@ static HINSTANCE g_hInst = NULL;
 
 namespace Gura {
 
+const char *g_szTitle = "Gura Executable for Windows";
+
 //-----------------------------------------------------------------------------
 // UsageWindow
 //-----------------------------------------------------------------------------
@@ -64,8 +66,11 @@ int MainW(int argc, const char *argv[])
 		UsageWindow().Show();
 		return 0;
 	}
-	if (opt.IsSet("directory")) {
-		OAL::ChangeCurDir(opt.GetString("directory", ""));
+	if (opt.IsSet("directory") && !OAL::ChangeCurDir(opt.GetString("directory", ""))) {
+		::MessageBox(NULL,
+			"failed to change the current directory",
+			g_szTitle, MB_ICONERROR);
+		return 1;
 	}
 	bool interactiveFlag = true;
 	if (opt.IsSet("import")) {
@@ -148,7 +153,7 @@ LRESULT UsageWindow::Show(const char *strErr)
 	wc.lpszClassName	= lpClassName;
 	wc.hIconSm			= ::LoadIcon(NULL, IDI_APPLICATION);
 	::RegisterClassEx(&wc);
-	HWND hwnd = ::CreateWindow(lpClassName, "Gura Executable for Windows",
+	HWND hwnd = ::CreateWindow(lpClassName, g_szTitle,
 				WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
 				540, 300, NULL, NULL, g_hInst, NULL);
 	::SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG>(this));

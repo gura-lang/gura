@@ -53,8 +53,9 @@ int Main(int argc, const char *argv[])
 		PrintHelp(stderr);
 		return 0;
 	}
-	if (opt.IsSet("directory")) {
-		OAL::ChangeCurDir(opt.GetString("directory", ""));
+	if (opt.IsSet("directory") && !OAL::ChangeCurDir(opt.GetString("directory", ""))) {
+		::fprintf(stderr, "failed to change the current directory");
+		return 1;
 	}
 	if (opt.IsSet("printcmdline") && argc > 1) {
 		for (int i = 1; i < argc; i++) {
