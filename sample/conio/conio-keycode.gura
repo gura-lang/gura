@@ -8,9 +8,9 @@ keyDict = %{
 	conio.K_CTRL_E		=> 'CTRL-E'
 	conio.K_CTRL_F		=> 'CTRL-F'
 	conio.K_CTRL_G		=> 'CTRL-G'
-	conio.K_CTRL_H		=> 'CTRL-H'
-	conio.K_CTRL_I		=> 'CTRL-I'
-	conio.K_CTRL_J		=> 'CTRL-J'
+	//conio.K_CTRL_H	=> 'CTRL-H'
+	//conio.K_CTRL_I	=> 'CTRL-I'
+	//conio.K_CTRL_J	=> 'CTRL-J'
 	conio.K_CTRL_K		=> 'CTRL-K'
 	conio.K_CTRL_L		=> 'CTRL-L'
 	conio.K_CTRL_M		=> 'CTRL-M'
@@ -49,6 +49,8 @@ repeat {
 	keyName = keyDict.get(ch)
 	if (keyName) {
 		printf('0x%02x %s\n', ch, keyName)
+	} elsif (!(str = chr(ch)).isempty()) {
+		printf('0x%02x \'%s\'\n', ch, str)
 	} else {
 		printf('0x%02x\n', ch)
 	}
