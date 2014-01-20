@@ -18,7 +18,7 @@ binary(buff*) {block?}
 case(`cond) {block}
 catch(errors*:error):leader:trailer {block}
 choose(index:number, values+):map
-chr(num:number):map
+chr(num:number):map:[nil]
 class(superclass?:function) {block?}
 classref(type+:expr):map {block?}
 codec(encoding:string) {block?}
@@ -43,7 +43,33 @@ complex(real:number, imag?:number):map {block?}
 cond(flag:boolean, value1:nomap, value2?:nomap):map
 conds(flag:boolean, value1, value2?):map
 conio:module = <module:conio:<integrated>>
-  K_BACKSPACE:number = 127
+  K_BACKSPACE:number = 8
+  K_CTRL_A:number = 1
+  K_CTRL_B:number = 2
+  K_CTRL_C:number = 3
+  K_CTRL_D:number = 4
+  K_CTRL_E:number = 5
+  K_CTRL_F:number = 6
+  K_CTRL_G:number = 7
+  K_CTRL_H:number = 8
+  K_CTRL_I:number = 9
+  K_CTRL_J:number = 10
+  K_CTRL_K:number = 11
+  K_CTRL_L:number = 12
+  K_CTRL_M:number = 13
+  K_CTRL_N:number = 14
+  K_CTRL_O:number = 15
+  K_CTRL_P:number = 16
+  K_CTRL_Q:number = 17
+  K_CTRL_R:number = 18
+  K_CTRL_S:number = 19
+  K_CTRL_T:number = 20
+  K_CTRL_U:number = 21
+  K_CTRL_V:number = 22
+  K_CTRL_W:number = 23
+  K_CTRL_X:number = 24
+  K_CTRL_Y:number = 25
+  K_CTRL_Z:number = 26
   K_DELETE:number = 137
   K_DOWN:number = 129
   K_END:number = 134

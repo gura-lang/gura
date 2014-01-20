@@ -1084,11 +1084,12 @@ Gura_ImplementFunction(ord)
 	return Value(num);
 }
 
-// chr(num:number):map
+// chr(num:number):map:[nil]
 Gura_DeclareFunction(chr)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_number);
+	DeclareAttr(Gura_Symbol(nil));
 }
 
 Gura_ImplementFunction(chr)
@@ -1102,8 +1103,12 @@ Gura_ImplementFunction(chr)
 		buff[i++] = static_cast<UChar>(num & 0xff);
 	}
 	String str;
-	for ( ; i > 0; i--) {
-		str.push_back(buff[i - 1]);
+	if (i != 1 || (0x20 <= buff[0] && buff[0] < 0x7f)) {
+		for ( ; i > 0; i--) {
+			str.push_back(buff[i - 1]);
+		}
+	} else if (args.IsSet(Gura_Symbol(nil))) {
+		return Value::Null;
 	}
 	return Value(str);
 }
