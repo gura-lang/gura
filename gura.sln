@@ -13,7 +13,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libguracore", "src\lib\libg
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "build-modules", "src\build-modules.vcxproj", "{EC848C55-B52D-4F07-BE3C-078966186BDD}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "create-dist", "src\create-dist.vcxproj", "{3FB39483-D052-4C77-AF7D-84DF62D147F7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "build-dist", "src\build-dist.vcxproj", "{3FB39483-D052-4C77-AF7D-84DF62D147F7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{086B9E0B-69C2-4A38-8945-3D5C9A820E58} = {086B9E0B-69C2-4A38-8945-3D5C9A820E58}
 		{EC848C55-B52D-4F07-BE3C-078966186BDD} = {EC848C55-B52D-4F07-BE3C-078966186BDD}

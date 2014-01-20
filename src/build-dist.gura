@@ -16,7 +16,7 @@ argopt.Parser {|p|
 	}
 	if (cfg['help']) {
 		R'''
-		usage: create-dist.gura [options] [cmd]
+		usage: build-dist.gura [options] [cmd]
 		options:
 		  ${p.formatHelp():linefeed}
 		cmd:
