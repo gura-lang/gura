@@ -25,7 +25,8 @@ drawContent(cr:cairo.context) = {
 	cr.set_line_width(.1)
 	cr.move_to(20, 20)
 	[x, y] = [20, 20]
-	for (ch in 'おじさんの家に遊びに行きます。あいうえお、かきくけこ。') {
+	text = 'おじさんの家に遊びに行きます。あいうえお、かきくけこ。'
+	text.each {|ch|
 		extents = cr.text_extents(ch)
 		if (ch == '、' || ch == '。') {
 			cr.move_to(x + extents.width * 1.2, y + extents.y_bearing * 3)
