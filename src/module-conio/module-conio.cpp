@@ -450,6 +450,9 @@ Gura_ImplementFunction(waitkey)
 		if (stat == STAT_None) {
 			if (ch == 0x1b) {
 				stat = STAT_ESC;
+			} else if (ch == 0x7f) {
+				chRtn = K_BACKSPACE;
+				break;
 			} else if (raiseFlag && ch == 0x03) {
 				sig.SetSignal(SIGTYPE_Terminate, Value::Null);
 				::tcsetattr(STDIN_FILENO, TCSANOW, &termios_org);
