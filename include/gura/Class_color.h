@@ -28,7 +28,7 @@ class GURA_DLLDECLARE Object_color : public Object {
 public:
 	struct ElementEntry {
 		const char *name;
-		UChar red, green, blue;
+		UChar r, g, b;
 	};
 public:
 	static const ElementEntry ElementEntries[];
@@ -40,23 +40,22 @@ private:
 public:
 	inline Object_color(const Object_color &obj) : Object(obj),
 					_color(obj._color) {}
-	inline Object_color(Environment &env, UChar red, UChar green,
-									UChar blue, UChar alpha) :
-			Object(env.LookupClass(VTYPE_color)), _color(red, green, blue, alpha) {}
+	inline Object_color(Environment &env, UChar r, UChar g, UChar b, UChar a) :
+			Object(env.LookupClass(VTYPE_color)), _color(r, g, b, a) {}
 	inline Object_color(Environment &env, const Color &color = Color::Black) :
 			Object(env.LookupClass(VTYPE_color)), _color(color) {}
 	inline Object_color(Class *pClass) : Object(pClass) {}
 	inline void SetColor(const Color &color) { _color = color; }
 	inline Color &GetColor() { return _color; }
 	inline const Color &GetColor() const { return _color; }
-	inline UChar GetRed() const { return _color.GetRed(); }
-	inline UChar GetGreen() const { return _color.GetGreen(); }
-	inline UChar GetBlue() const { return _color.GetBlue(); }
-	inline UChar GetAlpha() const { return _color.GetAlpha(); }
-	inline void SetRed(UChar red) { _color.SetRed(red); }
-	inline void SetGreen(UChar green) { _color.SetGreen(green); }
-	inline void SetBlue(UChar blue) { _color.SetBlue(blue); }
-	inline void SetAlpha(UChar alpha) { _color.SetAlpha(alpha); }
+	inline UChar GetR() const { return _color.GetR(); }
+	inline UChar GetG() const { return _color.GetG(); }
+	inline UChar GetB() const { return _color.GetB(); }
+	inline UChar GetA() const { return _color.GetA(); }
+	inline void SetR(UChar r) { _color.SetR(r); }
+	inline void SetG(UChar g) { _color.SetG(g); }
+	inline void SetB(UChar b) { _color.SetB(b); }
+	inline void SetA(UChar a) { _color.SetA(a); }
 	virtual ~Object_color();
 	virtual Object *Clone() const;
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
@@ -66,14 +65,14 @@ public:
 							const SymbolSet &attrs, bool &evaluatedFlag);
 	virtual String ToString(bool exprFlag);
 	String GetHTML() const;
-	inline size_t CalcDistSqu(UChar red, UChar green, UChar blue) const {
-		return _color.CalcDistSqu(red, green, blue);
+	inline size_t CalcDistSqu(UChar r, UChar g, UChar b) const {
+		return _color.CalcDistSqu(r, g, b);
 	}
 	inline size_t CalcDistSqu(const Object_color *pObjColor) const {
-		return _color.CalcDistSqu(pObjColor->GetRed(), pObjColor->GetGreen(), pObjColor->GetBlue());
+		return _color.CalcDistSqu(pObjColor->GetR(), pObjColor->GetG(), pObjColor->GetB());
 	}
 	static Object_color *CreateNamedColor(Environment &env,
-						Signal sig, const char *name, UChar alpha);
+								Signal sig, const char *name, UChar a);
 };
 
 }

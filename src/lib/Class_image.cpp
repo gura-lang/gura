@@ -406,7 +406,7 @@ Gura_ImplementMethod(image, grayscale)
 }
 
 // image#paste(x:number, y:number, src:image, width?:number, height?:number,
-//     xoffset:number => 0, yoffset:number => 0, alpha:number => 255):map:reduce
+//     xoffset:number => 0, yoffset:number => 0, a:number => 255):map:reduce
 Gura_DeclareMethod(image, paste)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
@@ -417,7 +417,7 @@ Gura_DeclareMethod(image, paste)
 	DeclareArg(env, "height", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "xoffset", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
 	DeclareArg(env, "yoffset", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(0));
-	DeclareArg(env, "alpha", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(255));
+	DeclareArg(env, "a", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(255));
 }
 
 Gura_ImplementMethod(image, paste)
@@ -441,9 +441,9 @@ Gura_ImplementMethod(image, paste)
 	}
 	if (x + width > pThis->GetImage()->GetWidth()) width = pThis->GetImage()->GetWidth() - x;
 	if (y + height > pThis->GetImage()->GetHeight()) height = pThis->GetImage()->GetHeight() - y;
-	UChar alpha = args.GetUChar(7);
+	UChar a = args.GetUChar(7);
 	pThis->GetImage()->Paste(x, y, pObjImg->GetImage(),
-							width, height, xOffset, yOffset, alpha);
+							width, height, xOffset, yOffset, a);
 	if (sig.IsSignalled()) return Value::Null;
 	return args.GetThis();
 }
@@ -625,11 +625,11 @@ Gura_ImplementMethod(image, scan)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// image#setalpha(alpha:number, color?:color, tolerance?:number):reduce
+// image#setalpha(a:number, color?:color, tolerance?:number):reduce
 Gura_DeclareMethod(image, setalpha)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "alpha", VTYPE_number);
+	DeclareArg(env, "a", VTYPE_number);
 	DeclareArg(env, "color", VTYPE_color, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "tolerance", VTYPE_number, OCCUR_ZeroOrOnce);
 }

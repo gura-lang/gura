@@ -795,10 +795,10 @@ Object *Object_color::Clone() const
 bool Object_color::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
-	symbols.insert(Gura_Symbol(red));
-	symbols.insert(Gura_Symbol(green));
-	symbols.insert(Gura_Symbol(blue));
-	symbols.insert(Gura_Symbol(alpha));
+	symbols.insert(Gura_Symbol(r));
+	symbols.insert(Gura_Symbol(g));
+	symbols.insert(Gura_Symbol(b));
+	symbols.insert(Gura_Symbol(a));
 	symbols.insert(Gura_Symbol(gray));
 	return true;
 }
@@ -807,16 +807,16 @@ Value Object_color::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(red))) {
-		return Value(_color.GetRed());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(green))) {
-		return Value(_color.GetGreen());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(blue))) {
-		return Value(_color.GetBlue());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(alpha))) {
-		return Value(_color.GetAlpha());
+	if (pSymbol->IsIdentical(Gura_Symbol(r))) {
+		return Value(_color.GetR());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(g))) {
+		return Value(_color.GetG());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(b))) {
+		return Value(_color.GetB());
+	} else if (pSymbol->IsIdentical(Gura_Symbol(a))) {
+		return Value(_color.GetA());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(gray))) {
-		return Value(_color.GetGray());
+		return Value(_color.GetG());
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -825,26 +825,26 @@ Value Object_color::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 Value Object_color::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
-	if (pSymbol->IsIdentical(Gura_Symbol(red))) {
+	if (pSymbol->IsIdentical(Gura_Symbol(r))) {
 		evaluatedFlag = true;
-		UChar red = value.GetUChar();
-		_color.SetRed(red);
-		return Value(red);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(green))) {
+		UChar r = value.GetUChar();
+		_color.SetR(r);
+		return Value(r);
+	} else if (pSymbol->IsIdentical(Gura_Symbol(g))) {
 		evaluatedFlag = true;
-		UChar green = value.GetUChar();
-		_color.SetGreen(green);
-		return Value(green);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(blue))) {
+		UChar g = value.GetUChar();
+		_color.SetG(g);
+		return Value(g);
+	} else if (pSymbol->IsIdentical(Gura_Symbol(b))) {
 		evaluatedFlag = true;
-		UChar blue = value.GetUChar();
-		_color.SetBlue(blue);
-		return Value(blue);
-	} else if (pSymbol->IsIdentical(Gura_Symbol(alpha))) {
+		UChar b = value.GetUChar();
+		_color.SetB(b);
+		return Value(b);
+	} else if (pSymbol->IsIdentical(Gura_Symbol(a))) {
 		evaluatedFlag = true;
-		UChar alpha = value.GetUChar();
-		_color.SetAlpha(alpha);
-		return Value(alpha);
+		UChar a = value.GetUChar();
+		_color.SetA(a);
+		return Value(a);
 	}
 	return Value::Null;
 }
@@ -855,7 +855,7 @@ String Object_color::ToString(bool exprFlag)
 	str += "<color:";
 	str += _color.GetHTML();
 	char buff[32];
-	::sprintf(buff, ",alpha:%02x", _color.GetAlpha());
+	::sprintf(buff, ",a:%02x", _color.GetA());
 	str += buff;
 	str += ">";
 	return str;
@@ -867,7 +867,7 @@ String Object_color::GetHTML() const
 }
 
 Object_color *Object_color::CreateNamedColor(Environment &env,
-					Signal sig, const char *name, UChar alpha)
+							Signal sig, const char *name, UChar a)
 {
 	if (*name == '#') {
 		name++;
@@ -886,28 +886,28 @@ Object_color *Object_color::CreateNamedColor(Environment &env,
 				return NULL;
 			}
 		}
-		UChar red, green, blue;
+		UChar r, g, b;
 		if (nCols == 3) {
-			red = static_cast<UChar>((num >> 8) & 0xf) * 0x11;
-			green = static_cast<UChar>((num >> 4) & 0xf) * 0x11;
-			blue = static_cast<UChar>((num >> 0) & 0xf) * 0x11;
+			r = static_cast<UChar>((num >> 8) & 0xf) * 0x11;
+			g = static_cast<UChar>((num >> 4) & 0xf) * 0x11;
+			b = static_cast<UChar>((num >> 0) & 0xf) * 0x11;
 		} else if (nCols == 6) {
-			red = static_cast<UChar>((num >> 16) & 0xff);
-			green = static_cast<UChar>((num >> 8) & 0xff);
-			blue = static_cast<UChar>((num >> 0) & 0xff);
+			r = static_cast<UChar>((num >> 16) & 0xff);
+			g = static_cast<UChar>((num >> 8) & 0xff);
+			b = static_cast<UChar>((num >> 0) & 0xff);
 		} else {
 			sig.SetError(ERR_ValueError, "invalid color name");
 			return NULL;
 		}
-		return new Object_color(env, red, green, blue, alpha);
+		return new Object_color(env, r, g, b, a);
 	}
 	if (_pColorMap == NULL) {
 		_pColorMap = new ColorMap();
 		for (int i = 0; i < ArraySizeOf(ElementEntries); i++) {
 			const ElementEntry &elementEntry = ElementEntries[i];
 			const Symbol *pSymbol = Symbol::Add(elementEntry.name);
-			(*_pColorMap)[pSymbol] = Color(elementEntry.red,
-									elementEntry.green, elementEntry.blue);
+			(*_pColorMap)[pSymbol] = Color(elementEntry.r,
+										elementEntry.g, elementEntry.b);
 		}
 	}
 	const Symbol *pSymbol = Symbol::Add(Lower(name).c_str());
@@ -917,8 +917,7 @@ Object_color *Object_color::CreateNamedColor(Environment &env,
 		return NULL;
 	}
 	const Color &color = iter->second;
-	return new Object_color(env,
-			color.GetRed(), color.GetGreen(), color.GetBlue(), alpha);
+	return new Object_color(env, color.GetR(), color.GetG(), color.GetB(), a);
 }
 
 //-----------------------------------------------------------------------------
@@ -932,7 +931,7 @@ Gura_DeclareFunction(color)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_color));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Gets either of a color symbol or a list of elements of red, green, blue and alpha,\n"
+	"Gets either of a color symbol or a list of elements of r, g, b and a,\n"
 	"and returns an color object.");
 }
 
@@ -940,28 +939,28 @@ Gura_ImplementFunction(color)
 {
 	const ValueList &valList = args.GetList(0);
 	if (valList[0].Is_string()) {
-		UChar alpha = (valList.size() < 2)? 255 : valList[1].GetUChar();
+		UChar a = (valList.size() < 2)? 255 : valList[1].GetUChar();
 		Object_color *pObj = Object_color::CreateNamedColor(env,
-					sig, valList[0].GetString(), alpha);
+										sig, valList[0].GetString(), a);
 		if (sig.IsSignalled()) return Value::Null;
 		return ReturnValue(env, sig, args, Value(pObj));
 	} else if (valList[0].Is_symbol()) {
-		UChar alpha = (valList.size() < 2)? 255 : valList[1].GetUChar();
+		UChar a = (valList.size() < 2)? 255 : valList[1].GetUChar();
 		Object_color *pObj = Object_color::CreateNamedColor(env,
-					sig, valList[0].GetSymbol()->GetName(), alpha);
+					sig, valList[0].GetSymbol()->GetName(), a);
 		if (sig.IsSignalled()) return Value::Null;
 		return ReturnValue(env, sig, args, Value(pObj));
 	} else if (valList[0].Is_number()) {
-		UChar red = valList[0].GetUChar();
+		UChar r = valList[0].GetUChar();
 		if (valList.size() < 3) {
 			Declaration::SetError_InvalidArgument(sig);
 			return Value::Null;
 		}
-		UChar green = valList[1].GetUChar();
-		UChar blue = valList[2].GetUChar();
-		UChar alpha = (valList.size() < 4)? 255 : valList[3].GetUChar();
+		UChar g = valList[1].GetUChar();
+		UChar b = valList[2].GetUChar();
+		UChar a = (valList.size() < 4)? 255 : valList[3].GetUChar();
 		return ReturnValue(env, sig, args,
-					Value(new Object_color(env, red, green, blue, alpha)));
+					Value(new Object_color(env, r, g, b, a)));
 	}
 	Declaration::SetError_InvalidArgument(sig);
 	return Value::Null;
@@ -995,12 +994,12 @@ Gura_ImplementMethod(color, tolist)
 	bool alphaIncludeFlag = args.IsSet(Gura_Symbol(alpha));
 	if (alphaIncludeFlag) {
 		return Value::CreateAsList(env,
-					Value(pThis->GetRed()), Value(pThis->GetGreen()),
-					Value(pThis->GetBlue()), Value(pThis->GetAlpha()));
+					Value(pThis->GetR()), Value(pThis->GetG()),
+					Value(pThis->GetB()), Value(pThis->GetA()));
 	} else {
 		return Value::CreateAsList(env,
-					Value(pThis->GetRed()), Value(pThis->GetGreen()),
-					Value(pThis->GetBlue()));
+					Value(pThis->GetR()), Value(pThis->GetG()),
+					Value(pThis->GetB()));
 	}
 }
 

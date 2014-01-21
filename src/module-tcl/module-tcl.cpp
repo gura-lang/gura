@@ -711,10 +711,10 @@ Gura_ImplementMethod(image, readtcl)
 	photoImageBlock.height = height;
 	photoImageBlock.pitch = static_cast<int>(pImage->GetBytesPerLine());
 	photoImageBlock.pixelSize = static_cast<int>(pImage->GetBytesPerPixel());
-	photoImageBlock.offset[0] = Image::OffsetRed;
-	photoImageBlock.offset[1] = Image::OffsetGreen;
-	photoImageBlock.offset[2] = Image::OffsetBlue;
-	photoImageBlock.offset[3] = Image::OffsetAlpha;
+	photoImageBlock.offset[0] = Image::OffsetR;
+	photoImageBlock.offset[1] = Image::OffsetG;
+	photoImageBlock.offset[2] = Image::OffsetB;
+	photoImageBlock.offset[3] = Image::OffsetA;
 	::Tk_PhotoGetImage(handle, &photoImageBlock);
 	return args.GetThis();
 }
@@ -749,10 +749,10 @@ Gura_ImplementMethod(image, writetcl)
 	photoImageBlock.height = height;
 	photoImageBlock.pitch = static_cast<int>(pImage->GetBytesPerLine());
 	photoImageBlock.pixelSize = static_cast<int>(pImage->GetBytesPerPixel());
-	photoImageBlock.offset[0] = Image::OffsetRed;
-	photoImageBlock.offset[1] = Image::OffsetGreen;
-	photoImageBlock.offset[2] = Image::OffsetBlue;
-	photoImageBlock.offset[3] = Image::OffsetAlpha;
+	photoImageBlock.offset[0] = Image::OffsetR;
+	photoImageBlock.offset[1] = Image::OffsetG;
+	photoImageBlock.offset[2] = Image::OffsetB;
+	photoImageBlock.offset[3] = Image::OffsetA;
 	::Tk_PhotoPutBlock(interp, handle, &photoImageBlock,
 							0, 0, width, height, TK_PHOTO_COMPOSITE_SET);
 	return args.GetThis();

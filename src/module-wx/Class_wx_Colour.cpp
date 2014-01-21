@@ -338,8 +338,8 @@ Gura_ImplementCastFrom(wx_Colour)
 	if (value.Is_color()) {
 		const Object_color *pObjColor = Object_color::GetObject(value);
 		wx_Colour *pEntity = new wx_Colour(
-						pObjColor->GetRed(), pObjColor->GetGreen(),
-						pObjColor->GetBlue(), pObjColor->GetAlpha());
+						pObjColor->GetR(), pObjColor->GetG(),
+						pObjColor->GetB(), pObjColor->GetA());
 		Object_wx_Colour *pObj = new Object_wx_Colour(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
 		value = Value(pObj);
@@ -349,8 +349,8 @@ Gura_ImplementCastFrom(wx_Colour)
 				Object_color::CreateNamedColor(env, sig, value.GetString(), 255));
 		if (sig.IsSignalled()) return false;
 		wx_Colour *pEntity = new wx_Colour(
-						pObjColor->GetRed(), pObjColor->GetGreen(),
-						pObjColor->GetBlue(), pObjColor->GetAlpha());
+						pObjColor->GetR(), pObjColor->GetG(),
+						pObjColor->GetB(), pObjColor->GetA());
 		Object_wx_Colour *pObj = new Object_wx_Colour(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
 		value = Value(pObj);

@@ -245,7 +245,7 @@ Gura_ImplementMethod(image, xpmdata)
 						return Value::Null;
 					}
 					const Color &color = iter->second;
-					pScannerDst->StorePixel(color.GetRed(), color.GetGreen(), color.GetBlue(), 255);
+					pScannerDst->StorePixel(color.GetR(), color.GetG(), color.GetB(), 255);
 				}
 				pScannerDst->Next();
 				x++;
@@ -364,9 +364,9 @@ bool ImageStreamer_xpm::WriteStream(Environment &env, Signal sig, Image *pImage,
 		buff[0] = '"';
 		::memcpy(buff + 1, convTbl + i * nCharsPerPixel, nCharsPerPixel);
 		::sprintf(buff + 1 + nCharsPerPixel, " c #%02x%02x%02x\",",
-					entry[Image::OffsetRed],
-					entry[Image::OffsetGreen],
-					entry[Image::OffsetBlue]);
+					entry[Image::OffsetR],
+					entry[Image::OffsetG],
+					entry[Image::OffsetB]);
 		stream.Println(sig, buff);
 	} while (0);
 	if (sig.IsSignalled()) return false;
@@ -374,7 +374,7 @@ bool ImageStreamer_xpm::WriteStream(Environment &env, Signal sig, Image *pImage,
 	String str = "\"";
 	bool hasAlphaFlag = (pImage->GetFormat() == Image::FORMAT_RGBA);
 	for (;;) {
-		if (hasAlphaFlag && pScanner->GetAlpha() < 128) {
+		if (hasAlphaFlag && pScanner->GetA() < 128) {
 			str += "  ";
 		} else {
 			int idx = static_cast<int>(pPalette->LookupNearest(pScanner->GetPointer()));

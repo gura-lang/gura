@@ -107,18 +107,18 @@ Image::ScanDir Image::SymbolToScanDir(const Symbol *pSymbol)
 
 size_t Image::SymbolToPixelOffset(Signal sig, const Symbol *pSymbol) const
 {
-	if (pSymbol->IsIdentical(Gura_Symbol(red))) {
-		return OffsetRed;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(green))) {
-		return OffsetGreen;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(blue))) {
-		return OffsetBlue;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(alpha))) {
+	if (pSymbol->IsIdentical(Gura_Symbol(r))) {
+		return OffsetR;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(g))) {
+		return OffsetG;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(b))) {
+		return OffsetB;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(a))) {
 		if (GetFormat() != FORMAT_RGBA) {
 			sig.SetError(ERR_FormatError, "only RGBA format contains alpha element");
 			return 0;
 		}
-		return OffsetAlpha;
+		return OffsetA;
 	}
 	sig.SetError(ERR_FormatError, "unsupported image element '%s'", pSymbol->GetName());
 	return 0;
@@ -204,14 +204,14 @@ bool Image::AdjustCoord(int &x, int &y, int &width, int &height) const
 void Image::PutPixel(UChar *buff, const Color &color)
 {
 	if (_format == FORMAT_RGB) {
-		*(buff + OffsetRed)		= color.GetRed();
-		*(buff + OffsetGreen)	= color.GetGreen();
-		*(buff + OffsetBlue)	= color.GetBlue();
+		*(buff + OffsetR)		= color.GetR();
+		*(buff + OffsetG)	= color.GetG();
+		*(buff + OffsetB)	= color.GetB();
 	} else if (_format == FORMAT_RGBA) {
-		*(buff + OffsetRed)		= color.GetRed();
-		*(buff + OffsetGreen)	= color.GetGreen();
-		*(buff + OffsetBlue)	= color.GetBlue();
-		*(buff + OffsetAlpha)	= color.GetAlpha();
+		*(buff + OffsetR)		= color.GetR();
+		*(buff + OffsetG)	= color.GetG();
+		*(buff + OffsetB)	= color.GetB();
+		*(buff + OffsetA)	= color.GetA();
 	}
 }
 
@@ -341,8 +341,8 @@ void Image::ReplaceColorRect(size_t x, size_t y, size_t width, size_t height,
 		if (_format == FORMAT_RGBA) {
 			do {
 				double dist = Color::CalcDistSqu(
-						pScanner->GetRed(), pScanner->GetGreen(), pScanner->GetBlue(),
-						color.GetRed(), color.GetGreen(), color.GetBlue());
+						pScanner->GetR(), pScanner->GetG(), pScanner->GetB(),
+						color.GetR(), color.GetG(), color.GetB());
 				if (dist <= toleranceSqu) {
 					StorePixelRGB(pScanner->GetPointer(), buff);
 				}
@@ -350,8 +350,8 @@ void Image::ReplaceColorRect(size_t x, size_t y, size_t width, size_t height,
 		} else {
 			do {
 				double dist = Color::CalcDistSqu(
-						pScanner->GetRed(), pScanner->GetGreen(), pScanner->GetBlue(),
-						color.GetRed(), color.GetGreen(), color.GetBlue());
+						pScanner->GetR(), pScanner->GetG(), pScanner->GetB(),
+						color.GetR(), color.GetG(), color.GetB());
 				if (dist <= toleranceSqu) {
 					StorePixelRGB(pScanner->GetPointer(), buff);
 				}
@@ -378,17 +378,17 @@ void Image::FillRect(size_t x, size_t y, size_t width, size_t height,
 }
 
 void Image::FillRectAlpha(size_t x, size_t y,
-					size_t width, size_t height, UChar alpha)
+					size_t width, size_t height, UChar a)
 {
 	std::auto_ptr<Scanner> pScanner(CreateScanner(x, y, width, height));
 	do {
 		UChar *pPixel = pScanner->GetPointer();
-		*(pPixel + OffsetAlpha) = alpha;
+		*(pPixel + OffsetA) = a;
 	} while (pScanner->Next());
 }
 
 void Image::FillRectAlpha(size_t x, size_t y,
-	size_t width, size_t height, UChar alpha, const Color &color, double tolerance)
+	size_t width, size_t height, UChar a, const Color &color, double tolerance)
 {
 	std::auto_ptr<Scanner> pScanner(CreateScanner(x, y, width, height));
 	if (tolerance == 0.) {
@@ -397,18 +397,18 @@ void Image::FillRectAlpha(size_t x, size_t y,
 		do {
 			UChar *pPixel = pScanner->GetPointer();
 			if (::memcmp(pPixel, buff, 3) == 0) {
-				*(pPixel + OffsetAlpha) = alpha;
+				*(pPixel + OffsetA) = a;
 			}
 		} while (pScanner->Next());
 	} else {
 		double toleranceSqu = tolerance * tolerance;
 		do {
 			double dist = Color::CalcDistSqu(
-					pScanner->GetRed(), pScanner->GetGreen(), pScanner->GetBlue(),
-					color.GetRed(), color.GetGreen(), color.GetBlue());
+					pScanner->GetR(), pScanner->GetG(), pScanner->GetB(),
+					color.GetR(), color.GetG(), color.GetB());
 			if (dist <= toleranceSqu) {
 				UChar *pPixel = pScanner->GetPointer();
-				*(pPixel + OffsetAlpha) = alpha;
+				*(pPixel + OffsetA) = a;
 			}
 		} while (pScanner->Next());
 	}
@@ -425,7 +425,7 @@ Image *Image::ReduceColor(Signal sig, const Palette *pPalette)
 		do {
 			size_t idx = pPalette->LookupNearest(pScannerSrc->GetPointer());
 			StorePixelRGBA(pScannerDst->GetPointer(),
-						pPalette->GetEntry(idx), pScannerSrc->GetAlpha());
+						pPalette->GetEntry(idx), pScannerSrc->GetA());
 		} while (pScannerSrc->Next(*pScannerDst));
 	} else {
 		do {
@@ -445,7 +445,7 @@ Image *Image::GrayScale(Signal sig)
 	if (_format == FORMAT_RGBA) {
 		do {
 			UChar gray = GetPixelGray(pScannerSrc->GetPointer());
-			pScannerDst->StorePixel(gray, gray, gray, pScannerSrc->GetAlpha());
+			pScannerDst->StorePixel(gray, gray, gray, pScannerSrc->GetA());
 		} while (pScannerSrc->Next(*pScannerDst));
 	} else {
 		do {
@@ -503,38 +503,38 @@ Image *Image::Blur(Signal sig, int radius, Number sigma)
 		// image processing around border has not been implemented yet.
 		//
 		do {
-			Number red = 0, green = 0, blue = 0;
-			UChar alpha = 255;
+			Number r = 0, g = 0, b = 0;
+			UChar a = 255;
 			Number *p = kernel;
 			pScanner->SetPointer(pScannerSrc->GetPointer());
 			pScanner->ResetIndex();
 			do {
-				red += *p * pScanner->GetRed();
-				green += *p * pScanner->GetGreen();
-				blue += *p * pScanner->GetBlue();
+				r += *p * pScanner->GetR();
+				g += *p * pScanner->GetG();
+				b += *p * pScanner->GetB();
 				p++;
 			} while (pScanner->Next());
 			pScannerDst->StorePixel(
-					static_cast<UChar>(red),
-					static_cast<UChar>(green),
-					static_cast<UChar>(blue), alpha);
+					static_cast<UChar>(r),
+					static_cast<UChar>(g),
+					static_cast<UChar>(b), a);
 		} while (pScannerSrc->Next(*pScannerDst));
 	} else {
 		do {
-			Number red = 0, green = 0, blue = 0;
+			Number r = 0, g = 0, b = 0;
 			Number *p = kernel;
 			pScanner->SetPointer(pScannerSrc->GetPointer());
 			pScanner->ResetIndex();
 			do {
-				red += *p * pScanner->GetRed();
-				green += *p * pScanner->GetGreen();
-				blue += *p * pScanner->GetBlue();
+				r += *p * pScanner->GetR();
+				g += *p * pScanner->GetG();
+				b += *p * pScanner->GetB();
 				p++;
 			} while (pScanner->Next());
 			pScannerDst->StorePixel(
-					static_cast<UChar>(red),
-					static_cast<UChar>(green),
-					static_cast<UChar>(blue));
+					static_cast<UChar>(r),
+					static_cast<UChar>(g),
+					static_cast<UChar>(b));
 		} while (pScannerSrc->Next(*pScannerDst));
 	}
 	return pImage.release();
@@ -714,19 +714,19 @@ Image *Image::Resize(Signal sig, size_t width, size_t height)
 					} else if (cnt == 1) {
 						pAccumPrev = pAccum;
 					} else if (cnt == 2) {
-						pAccum->red >>= 1;
-						pAccum->green >>= 1;
-						pAccum->blue >>= 1;
+						pAccum->r >>= 1;
+						pAccum->g >>= 1;
+						pAccum->b >>= 1;
 						pAccumPrev = pAccum;
 					} else if (cnt == 4) {
-						pAccum->red >>= 2;
-						pAccum->green >>= 2;
-						pAccum->blue >>= 2;
+						pAccum->r >>= 2;
+						pAccum->g >>= 2;
+						pAccum->b >>= 2;
 						pAccumPrev = pAccum;
 					} else {
-						pAccum->red /= cnt;
-						pAccum->green /= cnt;
-						pAccum->blue /= cnt;
+						pAccum->r /= cnt;
+						pAccum->g /= cnt;
+						pAccum->b /= cnt;
 						pAccumPrev = pAccum;
 					}
 				}
@@ -771,22 +771,22 @@ Image *Image::Resize(Signal sig, size_t width, size_t height)
 					} else if (cnt == 1) {
 						pAccumPrev = pAccum;
 					} else if (cnt == 2) {
-						pAccum->red >>= 1;
-						pAccum->green >>= 1;
-						pAccum->blue >>= 1;
-						pAccum->alpha >>= 1;
+						pAccum->r >>= 1;
+						pAccum->g >>= 1;
+						pAccum->b >>= 1;
+						pAccum->a >>= 1;
 						pAccumPrev = pAccum;
 					} else if (cnt == 4) {
-						pAccum->red >>= 2;
-						pAccum->green >>= 2;
-						pAccum->blue >>= 2;
-						pAccum->alpha >>= 2;
+						pAccum->r >>= 2;
+						pAccum->g >>= 2;
+						pAccum->b >>= 2;
+						pAccum->a >>= 2;
 						pAccumPrev = pAccum;
 					} else {
-						pAccum->red /= cnt;
-						pAccum->green /= cnt;
-						pAccum->blue /= cnt;
-						pAccum->alpha /= cnt;
+						pAccum->r /= cnt;
+						pAccum->g /= cnt;
+						pAccum->b /= cnt;
+						pAccum->a /= cnt;
 						pAccumPrev = pAccum;
 					}
 				}
@@ -807,7 +807,7 @@ Image *Image::Resize(Signal sig, size_t width, size_t height)
 }
 
 void Image::Paste(size_t x, size_t y, Image *pImage,
-	size_t width, size_t height, size_t xOffset, size_t yOffset, UChar alpha)
+	size_t width, size_t height, size_t xOffset, size_t yOffset, UChar a)
 {
 	const UChar *pLineSrc = pImage->GetPointer(xOffset, yOffset);
 	UChar *pLineDst = GetPointer(x, y);
@@ -841,7 +841,7 @@ void Image::Paste(size_t x, size_t y, Image *pImage,
 				*pPixelDst++ = *pPixelSrc++;
 				*pPixelDst++ = *pPixelSrc++;
 				*pPixelDst++ = *pPixelSrc++;
-				*pPixelDst++ = alpha;
+				*pPixelDst++ = a;
 			}
 			pLineSrc += bytesPerLineSrc;
 			pLineDst += bytesPerLineDst;
@@ -1119,7 +1119,7 @@ bool Image::ReadDIB(Signal sig, Stream &stream,
 				}
 				UChar idx = ch >> 7;
 				ch <<= 1, bitsRest--;
-				pPixel[OffsetAlpha] = idx? 0 : 255;
+				pPixel[OffsetA] = idx? 0 : 255;
 				pPixel += GetBytesPerPixel();
 				iPixel++;
 			}
@@ -1217,9 +1217,9 @@ bool Image::WriteDIB(Signal sig, Stream &stream, int biBitCount, bool maskFlag)
 		UChar buff[3];
 		std::auto_ptr<Scanner> pScanner(CreateScanner(SCAN_LeftBottomHorz));
 		for (;;) {
-			buff[0] = pScanner->GetBlue();
-			buff[1] = pScanner->GetGreen();
-			buff[2] = pScanner->GetRed();
+			buff[0] = pScanner->GetB();
+			buff[1] = pScanner->GetG();
+			buff[2] = pScanner->GetR();
 			stream.Write(sig, buff, 3);
 			if (sig.IsSignalled()) return false;
 			if (!pScanner->NextPixel()) {
@@ -1232,10 +1232,10 @@ bool Image::WriteDIB(Signal sig, Stream &stream, int biBitCount, bool maskFlag)
 		UChar buff[4];
 		std::auto_ptr<Scanner> pScanner(CreateScanner(SCAN_LeftBottomHorz));
 		for (;;) {
-			buff[0] = pScanner->GetBlue();
-			buff[1] = pScanner->GetGreen();
-			buff[2] = pScanner->GetRed();
-			buff[3] = pScanner->GetAlpha();
+			buff[0] = pScanner->GetB();
+			buff[1] = pScanner->GetG();
+			buff[2] = pScanner->GetR();
+			buff[3] = pScanner->GetA();
 			stream.Write(sig, buff, 4);
 			if (sig.IsSignalled()) return false;
 			if (!pScanner->Next()) break;
@@ -1254,7 +1254,7 @@ bool Image::WriteDIB(Signal sig, Stream &stream, int biBitCount, bool maskFlag)
 			UChar chAccum = 0x00;
 			std::auto_ptr<Scanner> pScanner(CreateScanner(SCAN_LeftBottomHorz));
 			for (;;) {
-				UChar ch = (pScanner->GetAlpha() < 128)? 1 : 0;
+				UChar ch = (pScanner->GetA() < 128)? 1 : 0;
 				chAccum |= ch << ((8 - 1) - bitsAccum);
 				bitsAccum += 1;
 				if (bitsAccum >= 8) {
@@ -1368,12 +1368,11 @@ bool Image::IteratorScan::DoNext(Environment &env, Signal sig, Value &value)
 {
 	Image *pImage = _scanner.GetImage();
 	if (_doneFlag) return false;
-	UChar red = _scanner.GetRed();
-	UChar green = _scanner.GetGreen();
-	UChar blue = _scanner.GetBlue();
-	UChar alpha = (pImage->GetFormat() == FORMAT_RGBA)?
-											_scanner.GetAlpha() : 0xff;
-	value = Value(new Object_color(env, red, green, blue, alpha));
+	UChar r = _scanner.GetR();
+	UChar g = _scanner.GetG();
+	UChar b = _scanner.GetB();
+	UChar a = (pImage->GetFormat() == FORMAT_RGBA)? _scanner.GetA() : 0xff;
+	value = Value(new Object_color(env, r, g, b, a));
 	_doneFlag = !_scanner.Next();
 	return true;
 }

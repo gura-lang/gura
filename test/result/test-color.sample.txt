@@ -1,29 +1,29 @@
 ======== #1 ========
 
-<color:#000000,alpha:ff>
-<color:#800000,alpha:ff>
-<color:#008000,alpha:ff>
-<color:#808000,alpha:ff>
-<color:#000080,alpha:ff>
-<color:#800080,alpha:ff>
-<color:#008080,alpha:ff>
-<color:#808080,alpha:ff>
-<color:#c0c0c0,alpha:ff>
-<color:#ff0000,alpha:ff>
-<color:#00ff00,alpha:ff>
-<color:#ffff00,alpha:ff>
-<color:#0000ff,alpha:ff>
-<color:#ff00ff,alpha:ff>
-<color:#00ffff,alpha:ff>
-<color:#ffffff,alpha:ff>
-<color:#000000,alpha:00>
+<color:#000000,a:ff>
+<color:#800000,a:ff>
+<color:#008000,a:ff>
+<color:#808000,a:ff>
+<color:#000080,a:ff>
+<color:#800080,a:ff>
+<color:#008080,a:ff>
+<color:#808080,a:ff>
+<color:#c0c0c0,a:ff>
+<color:#ff0000,a:ff>
+<color:#00ff00,a:ff>
+<color:#ffff00,a:ff>
+<color:#0000ff,a:ff>
+<color:#ff00ff,a:ff>
+<color:#00ffff,a:ff>
+<color:#ffffff,a:ff>
+<color:#000000,a:00>
 
 ======== #2 ========
 
-<color:#ff0000,alpha:ff>
-<color:#0000ff,alpha:ff>
-<color:#808000,alpha:ff>
-<color:#ffffff,alpha:40>
+<color:#ff0000,a:ff>
+<color:#0000ff,a:ff>
+<color:#808000,a:ff>
+<color:#ffffff,a:40>
 
 ======== #3 ========
 
@@ -48,10 +48,10 @@ palette(`websafe).each():*html().join(',') .. #000000,#330000,#660000,#990000,#c
 
 expected error occurs: SyntaxError: invalid argument
 expected error occurs: SyntaxError: invalid argument
-color * [1, 2, 3] .. <color:#010203,alpha:ff>
-color * [1, 2, 3, 4] .. <color:#010203,alpha:04>
-color * [1, 2, 3, 4, 5] .. <color:#010203,alpha:04>
-color * [[1, 2, 3], [4, 5, 6], [7, 8, 9], [13, 14, 15, 16]] .. [<color:#010203,alpha:ff>, <color:#040506,alpha:ff>, <color:#070809,alpha:ff>, <color:#0d0e0f,alpha:10>]
+color * [1, 2, 3] .. <color:#010203,a:ff>
+color * [1, 2, 3, 4] .. <color:#010203,a:04>
+color * [1, 2, 3, 4, 5] .. <color:#010203,a:04>
+color * [[1, 2, 3], [4, 5, 6], [7, 8, 9], [13, 14, 15, 16]] .. [<color:#010203,a:ff>, <color:#040506,a:ff>, <color:#070809,a:ff>, <color:#0d0e0f,a:10>]
 
 ======== #6 ========
 
@@ -71,24 +71,24 @@ plt.each()::tolist():alpha .. [[0, 0, 0, 255], [128, 0, 0, 255], [0, 128, 0, 255
 
 ======== #8 ========
 
-black   <color:#000000,alpha:ff> 0
-maroon  <color:#800000,alpha:ff> 1
-green   <color:#008000,alpha:ff> 2
-olive   <color:#808000,alpha:ff> 3
-navy    <color:#000080,alpha:ff> 4
-purple  <color:#800080,alpha:ff> 5
-teal    <color:#008080,alpha:ff> 6
-gray    <color:#808080,alpha:ff> 7
-silver  <color:#c0c0c0,alpha:ff> 8
-red     <color:#ff0000,alpha:ff> 9
-lime    <color:#00ff00,alpha:ff> 10
-yellow  <color:#ffff00,alpha:ff> 11
-blue    <color:#0000ff,alpha:ff> 12
-fuchsia <color:#ff00ff,alpha:ff> 13
-aqua    <color:#00ffff,alpha:ff> 14
-white   <color:#ffffff,alpha:ff> 15
-#ff0000 <color:#ff0000,alpha:ff> 9
-#00ff00 <color:#00ff00,alpha:ff> 10
-#0000ff <color:#0000ff,alpha:ff> 12
-#123456 <color:#123456,alpha:ff> 4
-#123    <color:#112233,alpha:ff> 0
+black   <color:#000000,a:ff> 0
+maroon  <color:#800000,a:ff> 1
+green   <color:#008000,a:ff> 2
+olive   <color:#808000,a:ff> 3
+navy    <color:#000080,a:ff> 4
+purple  <color:#800080,a:ff> 5
+teal    <color:#008080,a:ff> 6
+gray    <color:#808080,a:ff> 7
+silver  <color:#c0c0c0,a:ff> 8
+red     <color:#ff0000,a:ff> 9
+lime    <color:#00ff00,a:ff> 10
+yellow  <color:#ffff00,a:ff> 11
+blue    <color:#0000ff,a:ff> 12
+fuchsia <color:#ff00ff,a:ff> 13
+aqua    <color:#00ffff,a:ff> 14
+white   <color:#ffffff,a:ff> 15
+#ff0000 <color:#ff0000,a:ff> 9
+#00ff00 <color:#00ff00,a:ff> 10
+#0000ff <color:#0000ff,a:ff> 12
+#123456 <color:#123456,a:ff> 4
+#123    <color:#112233,a:ff> 0

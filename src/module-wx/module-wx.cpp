@@ -3380,9 +3380,9 @@ void ConvertToWxImage(Image *pImageGura, wxImage *pImage)
 		unsigned char *pBuffDst = pImage->GetData();
 		do {
 			unsigned char *pPixel = pScanner->GetPointer();
-			*(pBuffDst + 0) = *(pPixel + Image::OffsetRed);
-			*(pBuffDst + 1) = *(pPixel + Image::OffsetGreen);
-			*(pBuffDst + 2) = *(pPixel + Image::OffsetBlue);
+			*(pBuffDst + 0) = *(pPixel + Image::OffsetR);
+			*(pBuffDst + 1) = *(pPixel + Image::OffsetG);
+			*(pBuffDst + 2) = *(pPixel + Image::OffsetB);
 			pBuffDst += 3;
 		} while (pScanner->Next());
 	} while (0);
@@ -3392,7 +3392,7 @@ void ConvertToWxImage(Image *pImageGura, wxImage *pImage)
 		unsigned char *pBuffDst = pImage->GetAlpha();
 		do {
 			unsigned char *pPixel = pScanner->GetPointer();
-			*pBuffDst = *(pPixel + Image::OffsetAlpha);
+			*pBuffDst = *(pPixel + Image::OffsetA);
 			pBuffDst++;
 		} while (pScanner->Next());
 	}

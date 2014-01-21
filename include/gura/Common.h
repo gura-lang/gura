@@ -344,7 +344,7 @@ struct BitmapInfoHeader {
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Color {
 private:
-	UChar _red, _green, _blue, _alpha;
+	UChar _r, _g, _b, _a;
 public:
 	static const Color Zero;
 	static const Color Black;
@@ -364,56 +364,53 @@ public:
 	static const Color Aqua;
 	static const Color White;
 public:
-	inline Color() : _red(0), _green(0), _blue(0), _alpha(0) {}
-	inline Color(const Color &color) : _red(color._red), _green(color._green),
-					_blue(color._blue), _alpha(color._alpha) {}
-	inline Color(UChar red, UChar green, UChar blue) :
-					_red(red), _green(green), _blue(blue), _alpha(0) {}
-	inline Color(UChar red, UChar green, UChar blue, UChar alpha) :
-					_red(red), _green(green), _blue(blue), _alpha(alpha) {}
-	inline UChar GetRed() const { return _red; }
-	inline UChar GetGreen() const { return _green; }
-	inline UChar GetBlue() const { return _blue; }
-	inline UChar GetAlpha() const { return _alpha; }
-	inline void SetRed(UChar red) { _red = red; }
-	inline void SetGreen(UChar green) { _green = green; }
-	inline void SetBlue(UChar blue) { _blue = blue; }
-	inline void SetAlpha(UChar alpha) { _alpha = alpha; }
+	inline Color() : _r(0), _g(0), _b(0), _a(0) {}
+	inline Color(const Color &color) : _r(color._r), _g(color._g), _b(color._b), _a(color._a) {}
+	inline Color(UChar r, UChar g, UChar b) : _r(r), _g(g), _b(b), _a(0) {}
+	inline Color(UChar r, UChar g, UChar b, UChar a) : _r(r), _g(g), _b(b), _a(a) {}
+	inline UChar GetR() const { return _r; }
+	inline UChar GetG() const { return _g; }
+	inline UChar GetB() const { return _b; }
+	inline UChar GetA() const { return _a; }
+	inline void SetR(UChar r) { _r = r; }
+	inline void SetG(UChar g) { _g = g; }
+	inline void SetB(UChar b) { _b = b; }
+	inline void SetA(UChar a) { _a = a; }
 	inline UChar GetGray() const {
-		return CalcGray(GetRed(), GetGreen(), GetBlue());
+		return CalcGray(GetR(), GetG(), GetB());
 	}
 	inline ULong GetARGB() const {
 		return
-			(static_cast<ULong>(GetAlpha()) << 24) +
-			(static_cast<ULong>(GetRed()) << 16) +
-			(static_cast<ULong>(GetGreen()) << 8) +
-			(static_cast<ULong>(GetBlue()) << 0);
+			(static_cast<ULong>(GetA()) << 24) +
+			(static_cast<ULong>(GetR()) << 16) +
+			(static_cast<ULong>(GetG()) << 8) +
+			(static_cast<ULong>(GetB()) << 0);
 	}
 	inline ULong GetABGR() const {
 		return
-			(static_cast<ULong>(GetAlpha()) << 24) +
-			(static_cast<ULong>(GetBlue()) << 16) +
-			(static_cast<ULong>(GetGreen()) << 8) +
-			(static_cast<ULong>(GetRed()) << 0);
+			(static_cast<ULong>(GetA()) << 24) +
+			(static_cast<ULong>(GetB()) << 16) +
+			(static_cast<ULong>(GetG()) << 8) +
+			(static_cast<ULong>(GetR()) << 0);
 	}
 	inline ULong GetRGB() const {
 		return
-			(static_cast<ULong>(GetRed()) << 16) +
-			(static_cast<ULong>(GetGreen()) << 8) +
-			(static_cast<ULong>(GetBlue()) << 0);
+			(static_cast<ULong>(GetR()) << 16) +
+			(static_cast<ULong>(GetG()) << 8) +
+			(static_cast<ULong>(GetB()) << 0);
 	}
 	inline ULong GetBGR() const {
 		return
-			(static_cast<ULong>(GetBlue()) << 16) +
-			(static_cast<ULong>(GetGreen()) << 8) +
-			(static_cast<ULong>(GetRed()) << 0);
+			(static_cast<ULong>(GetB()) << 16) +
+			(static_cast<ULong>(GetG()) << 8) +
+			(static_cast<ULong>(GetR()) << 0);
 	}
 	inline bool operator<(const Color &c) const { return GetRGB() < c.GetRGB(); }
-	inline size_t CalcDistSqu(UChar red, UChar green, UChar blue) const {
-		return CalcDistSqu(GetRed(), GetGreen(), GetBlue(), red, green, blue);
+	inline size_t CalcDistSqu(UChar r, UChar g, UChar b) const {
+		return CalcDistSqu(GetR(), GetG(), GetB(), r, g, b);
 	}
 	inline size_t CalcDistSqu(const Color &c) const {
-		return CalcDistSqu(GetRed(), GetGreen(), GetBlue(), c.GetRed(), c.GetGreen(), c.GetBlue());
+		return CalcDistSqu(GetR(), GetG(), GetB(), c.GetR(), c.GetG(), c.GetB());
 	}
 	inline String GetHTML() const {
 		char buff[32];
@@ -421,19 +418,18 @@ public:
 		return String(buff);
 	}
 	static inline size_t CalcDistSqu(
-				UChar red1, UChar green1, UChar blue1,
-				UChar red2, UChar green2, UChar blue2) {
-		Long distR = static_cast<Long>(red1) - static_cast<Long>(red2);
-		Long distG = static_cast<Long>(green1) - static_cast<Long>(green2);
-		Long distB = static_cast<Long>(blue1) - static_cast<Long>(blue2);
+				UChar r1, UChar g1, UChar b1, UChar r2, UChar g2, UChar b2) {
+		Long distR = static_cast<Long>(r1) - static_cast<Long>(r2);
+		Long distG = static_cast<Long>(g1) - static_cast<Long>(g2);
+		Long distB = static_cast<Long>(b1) - static_cast<Long>(b2);
 		return distR * distR + distG * distG + distB * distB;
 	}
 	// revise this equation to convert a color into gray scale.
-	static inline UChar CalcGray(UChar red, UChar green, UChar blue) {
+	static inline UChar CalcGray(UChar r, UChar g, UChar b) {
 		return static_cast<UChar>(
-			(static_cast<ULong>(red) * 299 +
-			 static_cast<ULong>(green) * 587 +
-			 static_cast<ULong>(blue) * 114) / 1000);
+			(static_cast<ULong>(r) * 299 +
+			 static_cast<ULong>(g) * 587 +
+			 static_cast<ULong>(b) * 114) / 1000);
 	}
 };
 

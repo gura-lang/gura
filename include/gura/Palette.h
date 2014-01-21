@@ -54,16 +54,15 @@ public:
 	inline size_t GetBuffSize() const { return CalcBuffSize(_nEntries); }
 	inline UChar *GetEntry(size_t idx) { return _buff + idx * 4; }
 	inline const UChar *GetEntry(size_t idx) const { return _buff + idx * 4; }
-	inline void SetEntry(size_t idx, UChar red,
-			UChar green, UChar blue, UChar alpha = 255) {
+	inline void SetEntry(size_t idx, UChar r, UChar g, UChar b, UChar a = 255) {
 		UChar *entry = GetEntry(idx);
-		entry[Image::OffsetRed] = red;
-		entry[Image::OffsetGreen] = green;
-		entry[Image::OffsetBlue] = blue;
-		entry[Image::OffsetAlpha] = alpha;
+		entry[Image::OffsetR] = r;
+		entry[Image::OffsetG] = g;
+		entry[Image::OffsetB] = b;
+		entry[Image::OffsetA] = a;
 	}
-	inline void SetEntry(size_t idx, const Color &c, UChar alpha = 255) {
-		SetEntry(idx, c.GetRed(), c.GetGreen(), c.GetBlue(), alpha);
+	inline void SetEntry(size_t idx, const Color &c, UChar a = 255) {
+		SetEntry(idx, c.GetR(), c.GetG(), c.GetB(), a);
 	}
 	inline size_t CountEntries() const { return _nEntries; }
 	void AllocBuff(size_t nEntries);
@@ -71,17 +70,17 @@ public:
 	bool Prepare(Signal sig, const Symbol *pSymbol);
 	Value GetColorValue(Environment &env, size_t idx);
 	void SetColor(size_t idx, const Color &color);
-	size_t LookupNearest(UChar red, UChar green, UChar blue) const;
+	size_t LookupNearest(UChar r, UChar g, UChar b) const;
 	bool UpdateByImage(const Image *pImage, ShrinkMode shrinkMode);
 	bool UpdateByImage(Signal sig, const Image *pImage, ShrinkMode shrinkMode);
 	bool UpdateByPalette(const Palette *pPalette, ShrinkMode shrinkMode);
 	bool UpdateByPalette(Signal sig, const Palette *pPalette, ShrinkMode shrinkMode);
 	void Shrink(size_t nEntries, bool alignFlag);
 	inline size_t LookupNearest(const UChar *pPixel) const {
-		return LookupNearest(pPixel[Image::OffsetRed], pPixel[Image::OffsetGreen], pPixel[Image::OffsetBlue]);
+		return LookupNearest(pPixel[Image::OffsetR], pPixel[Image::OffsetG], pPixel[Image::OffsetB]);
 	}
 	inline size_t LookupNearest(const Color &color) const {
-		return LookupNearest(color.GetRed(), color.GetGreen(), color.GetBlue());
+		return LookupNearest(color.GetR(), color.GetG(), color.GetB());
 	}
 	size_t NextBlankIndex() const;
 	size_t NextBlankIndex(ColorSet &colorSet) const;

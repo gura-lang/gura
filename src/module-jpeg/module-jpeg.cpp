@@ -674,9 +674,9 @@ bool ImageStreamer_JPEG::ReadStream(Environment &env, Signal sig, Image *pImage,
 		const UChar *srcp = scanlines[0];
 		UChar *dstp = pImage->GetPointer(0, cinfo.output_scanline - 1);
 		for (UInt i = 0; i < cinfo.image_width; i++) {
-			*(dstp + Image::OffsetRed) = *srcp++;
-			*(dstp + Image::OffsetGreen) = *srcp++;
-			*(dstp + Image::OffsetBlue) = *srcp++;
+			*(dstp + Image::OffsetR) = *srcp++;
+			*(dstp + Image::OffsetG) = *srcp++;
+			*(dstp + Image::OffsetB) = *srcp++;
 			dstp += pImage->GetBytesPerPixel();
 		}
 	}
@@ -712,9 +712,9 @@ bool ImageStreamer_JPEG::WriteStream(Environment &env, Signal sig,
 		const UChar *srcp = pImage->GetPointer(0, cinfo.next_scanline);
 		UChar *dstp = scanlines[0];
 		for (UInt i = 0; i < cinfo.image_width; i++) {
-			*dstp++ = *(srcp + Image::OffsetRed);
-			*dstp++ = *(srcp + Image::OffsetGreen);
-			*dstp++ = *(srcp + Image::OffsetBlue);
+			*dstp++ = *(srcp + Image::OffsetR);
+			*dstp++ = *(srcp + Image::OffsetG);
+			*dstp++ = *(srcp + Image::OffsetB);
 			srcp += pImage->GetBytesPerPixel();
 		}
 		::jpeg_write_scanlines(&cinfo, scanlines, 1);

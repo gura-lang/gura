@@ -162,9 +162,9 @@ bool Object_font::DrawOnImage(Environment &env, Signal sig, Image *pImage,
 				int x, int y, const String &str, const Function *pFuncDeco)
 {
 	const Color &color = _pObjColor->GetColor();
-	unsigned long redFg = color.GetRed();
-	unsigned long greenFg = color.GetGreen();
-	unsigned long blueFg = color.GetBlue();
+	unsigned long redFg = color.GetR();
+	unsigned long greenFg = color.GetG();
+	unsigned long blueFg = color.GetB();
 	String::const_iterator p = str.begin();
 	int xShifted = x << 6, yShifted = y << 6;
 	size_t idx = 0;
@@ -297,9 +297,9 @@ void Object_font::DrawMonoOnImage(Image *pImage, int x, int y,
 				int xOffset, int yOffset)
 {
 	const Color &color = _pObjColor->GetColor();
-	unsigned char red = color.GetRed();
-	unsigned char green = color.GetGreen();
-	unsigned char blue = color.GetBlue();
+	unsigned char red = color.GetR();
+	unsigned char green = color.GetG();
+	unsigned char blue = color.GetB();
 	std::auto_ptr<Image::Scanner>
 				pScanner(pImage->CreateScanner(x, y, width, height));
 	int bitOffset = xOffset % 8;
@@ -336,9 +336,9 @@ void Object_font::DrawGrayOnImage(Image *pImage, int x, int y,
 				int xOffset, int yOffset)
 {
 	const Color &color = _pObjColor->GetColor();
-	unsigned long redFg = color.GetRed();
-	unsigned long greenFg = color.GetGreen();
-	unsigned long blueFg = color.GetBlue();
+	unsigned long redFg = color.GetR();
+	unsigned long greenFg = color.GetG();
+	unsigned long blueFg = color.GetB();
 	std::auto_ptr<Image::Scanner>
 				pScanner(pImage->CreateScanner(x, y, width, height));
 	const unsigned char *pLine = buffer + xOffset + yOffset * pitch;
@@ -347,7 +347,7 @@ void Object_font::DrawGrayOnImage(Image *pImage, int x, int y,
 	for (;;) {
 		if (_mode == MODE_Alpha) {
 			if (alphaFlag) {
-				if (pScanner->GetAlpha() < *pPixel) {
+				if (pScanner->GetA() < *pPixel) {
 					pScanner->StorePixel(
 						static_cast<unsigned char>(redFg),
 						static_cast<unsigned char>(greenFg),
@@ -363,9 +363,9 @@ void Object_font::DrawGrayOnImage(Image *pImage, int x, int y,
 		} else { // _mode == MODE_Blend;
 			unsigned long ratioFg = *pPixel;
 			unsigned long ratioBg = 255 - ratioFg;
-			unsigned long redBg = pScanner->GetRed();
-			unsigned long greenBg = pScanner->GetGreen();
-			unsigned long blueBg = pScanner->GetBlue();
+			unsigned long redBg = pScanner->GetR();
+			unsigned long greenBg = pScanner->GetG();
+			unsigned long blueBg = pScanner->GetB();
 			unsigned long red = redFg * ratioFg + redBg * ratioBg;
 			unsigned long green = greenFg * ratioFg + greenBg * ratioBg;
 			unsigned long blue = blueFg * ratioFg + blueBg * ratioBg;

@@ -397,9 +397,9 @@ Gura_ImplementMethod(context, set_source_color)
 	cairo_t *cr = pThis->GetEntity();
 	if (IsInvalid(sig, cr)) return Value::Null;
 	const Color &color = Object_color::GetObject(args, 0)->GetColor();
-	double red = static_cast<double>(color.GetRed()) / 255;
-	double green = static_cast<double>(color.GetGreen()) / 255;
-	double blue = static_cast<double>(color.GetBlue()) / 255;
+	double red = static_cast<double>(color.GetR()) / 255;
+	double green = static_cast<double>(color.GetG()) / 255;
+	double blue = static_cast<double>(color.GetB()) / 255;
 	if (args.Is_number(1)) {
 		double alpha = args.GetDouble(1);
 		::cairo_set_source_rgba(cr, red, green, blue, alpha);

@@ -821,9 +821,9 @@ bool GIF::WriteColorTable(Signal sig, Stream &stream, const Palette *pPalette)
 	int idx = 0;
 	for ( ; idx < nEntries; idx++) {
 		const UChar *pEntry = pPalette->GetEntry(idx);
-		buff[0] = *(pEntry + Image::OffsetRed);
-		buff[1] = *(pEntry + Image::OffsetGreen);
-		buff[2] = *(pEntry + Image::OffsetBlue);
+		buff[0] = *(pEntry + Image::OffsetR);
+		buff[1] = *(pEntry + Image::OffsetG);
+		buff[2] = *(pEntry + Image::OffsetB);
 		if (!GIF::WriteBuff(sig, stream, buff, 3)) return false;
 	}
 	int nBits = 0;

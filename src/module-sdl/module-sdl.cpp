@@ -567,9 +567,9 @@ Gura_ImplementCastFrom(Color)
 	if (value.IsType(VTYPE_color)) {
 		Gura::Object_color *pObjColor = Object_color::GetObject(value);
 		SDL_Color color;
-		color.r = pObjColor->GetRed();
-		color.g = pObjColor->GetGreen();
-		color.b = pObjColor->GetBlue();
+		color.r = pObjColor->GetR();
+		color.g = pObjColor->GetG();
+		color.b = pObjColor->GetB();
 		color.unused = 0;
 		value = Value(new Object_Color(color));
 		return true;

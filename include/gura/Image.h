@@ -17,10 +17,10 @@ class Palette;
 class GURA_DLLDECLARE Image {
 public:
 	enum {
-		OffsetRed	= 2,
-		OffsetGreen	= 1,
-		OffsetBlue	= 0,
-		OffsetAlpha	= 3,
+		OffsetR	= 2,
+		OffsetG	= 1,
+		OffsetB	= 0,
+		OffsetA	= 3,
 	};
 	enum Format {
 		FORMAT_None,
@@ -35,36 +35,36 @@ public:
 	};
 public:
 	struct Accum {
-		size_t red;
-		size_t green;
-		size_t blue;
-		size_t alpha;
+		size_t r;
+		size_t g;
+		size_t b;
+		size_t a;
 		size_t cnt;
 		inline void AddRGB(const UChar *pPixel) {
-			red   += Image::GetPixelR(pPixel);
-			green += Image::GetPixelG(pPixel);
-			blue  += Image::GetPixelB(pPixel);
+			r += Image::GetPixelR(pPixel);
+			g += Image::GetPixelG(pPixel);
+			b += Image::GetPixelB(pPixel);
 			cnt++;
 		}
 		inline void AddRGBA(const UChar *pPixel) {
-			red   += Image::GetPixelR(pPixel);
-			green += Image::GetPixelG(pPixel);
-			blue  += Image::GetPixelB(pPixel);
-			alpha += Image::GetPixelA(pPixel);
+			r += Image::GetPixelR(pPixel);
+			g += Image::GetPixelG(pPixel);
+			b += Image::GetPixelB(pPixel);
+			a += Image::GetPixelA(pPixel);
 			cnt++;
 		}
 		inline void StoreRGB(UChar *pPixel) {
 			StorePixel(pPixel,
-				static_cast<UChar>(red),
-				static_cast<UChar>(green),
-				static_cast<UChar>(blue));
+				static_cast<UChar>(r),
+				static_cast<UChar>(g),
+				static_cast<UChar>(b));
 		}
 		inline void StoreRGBA(UChar *pPixel) {
 			StorePixel(pPixel,
-				static_cast<UChar>(red),
-				static_cast<UChar>(green),
-				static_cast<UChar>(blue),
-				static_cast<UChar>(alpha));
+				static_cast<UChar>(r),
+				static_cast<UChar>(g),
+				static_cast<UChar>(b),
+				static_cast<UChar>(a));
 		}
 	};
 	class GURA_DLLDECLARE Scanner {
@@ -83,10 +83,10 @@ public:
 		inline void ResetIndex() { _iPixel = 0, _iLine = 0; }
 		inline Image *GetImage() { return _pImage.get(); }
 		inline UChar *GetPointer() { return _pPixel; }
-		inline UChar GetRed() const { return _pPixel[OffsetRed]; }
-		inline UChar GetGreen() const { return _pPixel[OffsetGreen]; }
-		inline UChar GetBlue() const { return _pPixel[OffsetBlue]; }
-		inline UChar GetAlpha() const { return _pPixel[OffsetAlpha]; }
+		inline UChar GetR() const { return _pPixel[OffsetR]; }
+		inline UChar GetG() const { return _pPixel[OffsetG]; }
+		inline UChar GetB() const { return _pPixel[OffsetB]; }
+		inline UChar GetA() const { return _pPixel[OffsetA]; }
 		inline void FwdPixel() {
 			_iPixel++;
 			_pPixel += _pitchPixel;
@@ -141,16 +141,16 @@ public:
 		inline size_t CountLines() const { return _nLines; }
 		inline size_t GetPixelIdx() const { return _iPixel; }
 		inline size_t GetLineIdx() const { return _iLine; }
-		inline void StorePixel(UChar red, UChar green, UChar blue) {
-			_pPixel[OffsetRed] = red;
-			_pPixel[OffsetGreen] = green;
-			_pPixel[OffsetBlue] = blue;
+		inline void StorePixel(UChar r, UChar g, UChar b) {
+			_pPixel[OffsetR] = r;
+			_pPixel[OffsetG] = g;
+			_pPixel[OffsetB] = b;
 		}
-		inline void StorePixel(UChar red, UChar green, UChar blue, UChar alpha) {
-			_pPixel[OffsetRed] = red;
-			_pPixel[OffsetGreen] = green;
-			_pPixel[OffsetBlue] = blue;
-			_pPixel[OffsetAlpha] = alpha;
+		inline void StorePixel(UChar r, UChar g, UChar b, UChar a) {
+			_pPixel[OffsetR] = r;
+			_pPixel[OffsetG] = g;
+			_pPixel[OffsetB] = b;
+			_pPixel[OffsetA] = a;
 		}
 	};
 	class IteratorScan : public Iterator {
@@ -296,16 +296,16 @@ public:
 	static inline UChar GetPixelGray(UChar *buff) {
 		return Color::CalcGray(GetPixelR(buff), GetPixelG(buff), GetPixelB(buff));
 	}
-	static inline void StorePixel(UChar *buff, UChar red, UChar green, UChar blue) {
-		*(buff + OffsetRed) = red;
-		*(buff + OffsetGreen) = green;
-		*(buff + OffsetBlue) = blue;
+	static inline void StorePixel(UChar *buff, UChar r, UChar g, UChar b) {
+		*(buff + OffsetR) = r;
+		*(buff + OffsetG) = g;
+		*(buff + OffsetB) = b;
 	}
-	static inline void StorePixel(UChar *buff, UChar red, UChar green, UChar blue, UChar alpha) {
-		*(buff + OffsetRed) = red;
-		*(buff + OffsetGreen) = green;
-		*(buff + OffsetBlue) = blue;
-		*(buff + OffsetAlpha) = alpha;
+	static inline void StorePixel(UChar *buff, UChar r, UChar g, UChar b, UChar a) {
+		*(buff + OffsetR) = r;
+		*(buff + OffsetG) = g;
+		*(buff + OffsetB) = b;
+		*(buff + OffsetA) = a;
 	}
 	static inline void StorePixel(UChar *pPixelDst, const UChar *pPixelSrc, bool alphaFlag) {
 		*pPixelDst++ = *pPixelSrc++;
@@ -324,23 +324,23 @@ public:
 		*pPixelDst++ = *pPixelSrc++;
 		*pPixelDst++ = *pPixelSrc++;
 	}
-	static inline void StorePixelRGBA(UChar *pPixelDst, const UChar *pPixelSrc, UChar alpha) {
+	static inline void StorePixelRGBA(UChar *pPixelDst, const UChar *pPixelSrc, UChar a) {
 		*pPixelDst++ = *pPixelSrc++;
 		*pPixelDst++ = *pPixelSrc++;
 		*pPixelDst++ = *pPixelSrc++;
-		*pPixelDst++ = alpha;
+		*pPixelDst++ = a;
 	}
 	static inline UChar GetPixelR(const UChar *buff) {
-		return *(buff + OffsetRed);
+		return *(buff + OffsetR);
 	}
 	static inline UChar GetPixelG(const UChar *buff) {
-		return *(buff + OffsetGreen);
+		return *(buff + OffsetG);
 	}
 	static inline UChar GetPixelB(const UChar *buff) {
-		return *(buff + OffsetBlue);
+		return *(buff + OffsetB);
 	}
 	static inline UChar GetPixelA(const UChar *buff) {
-		return *(buff + OffsetAlpha);
+		return *(buff + OffsetA);
 	}
 	static inline void RotateCoord(int &xm, int &ym,
 							int x, int y, int cos1024, int sin1024) {
