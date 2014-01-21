@@ -14,9 +14,16 @@ testcase {
 		printf('  misc:     %s\n', u.misc)
 	}
 	tbl = [
+		''
 		'telnet://user:password@host:port/'
 		'file://vms.host.edu/disk$user/my/notes/note12345.txt'
 		'http://host:port/path?searchpart'
+		'http://www.ics.uci.edu/pub/ietf/uri/#Related'
+		'http://www.ics.uci.edu/pub/ietf/uri/?hoge?foo?bar#Related'
+		'http://www.ics.uci.edu/pub/ietf/uri/?hoge=first?foo=second?bar=third#Related'
+		//'/pub/ietf/uri/?hoge=first?foo=second?bar=third#Related'
+		//'/?hoge=first?foo=second?bar=third#Related'
+		//'?hoge=first?foo=second?bar=third#Related'
 	]
 	f(tbl)
 }

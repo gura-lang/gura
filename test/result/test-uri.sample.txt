@@ -1,5 +1,13 @@
 ======== #1 ========
 
+
+  scheme:   
+  user:     
+  password: 
+  host:     
+  port:     
+  urlpath:  
+  misc:     
 telnet://user:password@host:port/
   scheme:   telnet
   user:     user
@@ -23,4 +31,28 @@ http://host:port/path?searchpart
   host:     host
   port:     port
   urlpath:  /path?searchpart
+  misc:     
+http://www.ics.uci.edu/pub/ietf/uri/#Related
+  scheme:   http
+  user:     
+  password: 
+  host:     www.ics.uci.edu
+  port:     
+  urlpath:  /pub/ietf/uri/#Related
+  misc:     
+http://www.ics.uci.edu/pub/ietf/uri/?hoge?foo?bar#Related
+  scheme:   http
+  user:     
+  password: 
+  host:     www.ics.uci.edu
+  port:     
+  urlpath:  /pub/ietf/uri/?hoge?foo?bar#Related
+  misc:     
+http://www.ics.uci.edu/pub/ietf/uri/?hoge=first?foo=second?bar=third#Related
+  scheme:   http
+  user:     
+  password: 
+  host:     www.ics.uci.edu
+  port:     
+  urlpath:  /pub/ietf/uri/?hoge=first?foo=second?bar=third#Related
   misc:     

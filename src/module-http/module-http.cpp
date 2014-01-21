@@ -2453,87 +2453,6 @@ Gura_ImplementUserClass(proxy)
 //-----------------------------------------------------------------------------
 // Gura module functions: http
 //-----------------------------------------------------------------------------
-// http.uri(scheme:string, authority:string, path:string, query?:string, fragment?:string)
-Gura_DeclareFunction(uri)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "scheme", VTYPE_string);
-	DeclareArg(env, "authority", VTYPE_string);
-	DeclareArg(env, "path", VTYPE_string);
-	DeclareArg(env, "query", VTYPE_string, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "fragment", VTYPE_string, OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementFunction(uri)
-{
-	String str;
-	if (*args.GetString(0) != '\0') {
-		str += QuoteURI(args.GetString(0));
-		str += "://";
-	}
-	str += QuoteURI(args.GetString(1));
-	const char *path = args.GetString(2);
-	if (*path != '/') str += "/";
-	str += QuoteURI(path);
-	if (args.Is_string(3)) {
-		str += "?";
-		str += args.GetString(3);
-	}
-	if (args.Is_string(4)) {
-		str += "#";
-		str += QuoteURI(args.GetString(4));
-	}
-	return Value(str);
-}
-
-// http.splituri(uri:string)
-Gura_DeclareFunction(splituri)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "uri", VTYPE_string);
-}
-
-Gura_ImplementFunction(splituri)
-{
-	const char *uri = args.GetString(0);
-	Value result;
-	ValueList &valList = result.InitAsList(env);
-	do {
-		String str = ExtractURIScheme(sig, uri, NULL);
-		if (sig.IsSignalled()) return Value::Null;
-		String strUnquote = UnquoteURI(sig, str.c_str());
-		if (sig.IsSignalled()) return Value::Null;
-		valList.push_back(Value(strUnquote));
-	} while (0);
-	do {
-		String str = ExtractURIAuthority(sig, uri, NULL);
-		if (sig.IsSignalled()) return Value::Null;
-		String strUnquote = UnquoteURI(sig, str.c_str());
-		if (sig.IsSignalled()) return Value::Null;
-		valList.push_back(Value(strUnquote));
-	} while (0);
-	do {
-		String str = ExtractURIPath(sig, uri);
-		if (sig.IsSignalled()) return Value::Null;
-		String strUnquote = UnquoteURI(sig, str.c_str());
-		if (sig.IsSignalled()) return Value::Null;
-		valList.push_back(Value(strUnquote));
-	} while (0);
-	do {
-		String str = ExtractURIQuery(sig, uri);
-		if (sig.IsSignalled()) return Value::Null;
-		valList.push_back(Value(str));
-	} while (0);
-	do {
-		String str = ExtractURIFragment(sig, uri);
-		if (sig.IsSignalled()) return Value::Null;
-		String strUnquote = UnquoteURI(sig, str.c_str());
-		if (sig.IsSignalled()) return Value::Null;
-		valList.push_back(Value(strUnquote));
-	} while (0);
-	return result;
-}
-
 // http.parsequery(query:string)
 Gura_DeclareFunction(parsequery)
 {
@@ -2812,8 +2731,6 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(client, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(proxy, env.LookupClass(VTYPE_object));
 	// function assignment
-	Gura_AssignFunction(uri);
-	Gura_AssignFunction(splituri);
 	Gura_AssignFunction(parsequery);
 	Gura_AssignFunction(addproxy);
 	Gura_AssignFunction(server);
