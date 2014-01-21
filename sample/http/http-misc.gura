@@ -1,8 +1,7 @@
 #!/usr/bin/env gura
 import(http)
 
-tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, eval(test)):nomap
-
+tester(test:expr):map:dynamic_scope = printf('%s .. %s\n', test, test.eval()):nomap
 scope {
 	tester(`http.splituri(''))
 	tester(`http.splituri('http://www.ics.uci.edu/pub/ietf/uri/#Related'))

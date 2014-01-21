@@ -1,9 +1,9 @@
 #!/usr/bin/env gura
-import(tk)
 import(jpeg)
 import(http)
+import(show)
 
 path.exists('proxy_setting.gura') && import(proxy_setting)
-
 src = 'http://sourceforge.jp/projects/gura/svn/view/trunk/sample/resource/Winter.jpg?revision=2696&root=gura'
+println('connecting: ', src)
 image(src).show()
