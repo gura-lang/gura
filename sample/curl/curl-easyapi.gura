@@ -1,14 +1,15 @@
 #!/usr/bin/env gura
+import(re)
 import(curl)
 
-tbl = [
-	['ftp://ftp.debian.org/debian/README.html', 'debian.html'	]
-	['http://example.com/',						'example.html'	]
-	['https://www.verisign.com/',				'verisign.html'	]
-	['http://www.google.com/',					'google.html'	]
+urls = [
+	'ftp://ftp.debian.org/debian/README.html'
+	'http://example.com/'
+	'https://www.verisign.com/'
+	'http://www.google.com/'
 ]
-tbl.each {|item|
-	[url, fileName] = item
+urls.each {|url|
+	fileName = url.sub('/$', '.html').sub(r'(://|/+)', '-')
 	c = curl.easy_init()
 	c.setopt(curl.OPT_URL, url)
 	c.setopt(curl.OPT_FOLLOWLOCATION, 1)
@@ -16,5 +17,5 @@ tbl.each {|item|
 	//c.setopt(curl.OPT_CONNECT_ONLY, 1)
 	c.perform(fileName)
 	respCode = c.getinfo(curl.INFO_RESPONSE_CODE)
-	printf('%-40s %-15s response_code = %d\n', url, fileName, respCode)
+	printf('created: %s, response_code = %d\n', fileName, respCode)
 }
