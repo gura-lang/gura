@@ -151,95 +151,6 @@ error_done:
 	return String("");
 }
 
-bool DecodeURIQuery(Signal sig, const char *str, StringList &stringList)
-{
-	enum {
-		STAT_Key, STAT_Value,
-		STAT_Hex1, STAT_Hex2,
-	} stat = STAT_Key, statNext = STAT_Key;
-	String token;
-	UChar chHex = 0x00;
-	for (const char *p = str; ; p++) {
-		const char ch = *p;
-		switch (stat) {
-		case STAT_Key: {
-			if (ch == '=') {
-				stringList.push_back(token);
-				token.clear();
-				stat = STAT_Value;
-			} else if (ch == '&' || ch == '\0') {
-				stringList.push_back(token);
-				stringList.push_back("");
-				token.clear();
-			} else if (ch == '+') {
-				token += ' ';
-			} else if (ch == '%') {
-				statNext = STAT_Key;
-				stat = STAT_Hex1;
-			} else {
-				token += ch;
-			}
-			break;
-		}
-		case STAT_Value: {
-			if (ch == '&' || ch == '\0') {
-				stringList.push_back(token);
-				token.clear();
-				stat = STAT_Key;
-			} else if (ch == '+') {
-				token += ' ';
-			} else if (ch == '%') {
-				statNext = STAT_Value;
-				stat = STAT_Hex1;
-			} else {
-				token += ch;
-			}
-			break;
-		}
-		case STAT_Hex1: {
-			if (IsHexDigit(ch)) {
-				chHex = ConvHexDigit(ch);
-				stat = STAT_Hex2;
-			} else {
-				goto error_done;
-			}
-			break;
-		}
-		case STAT_Hex2: {
-			if (IsHexDigit(ch)) {
-				chHex = (chHex << 4) + ConvHexDigit(ch);
-				token += static_cast<char>(chHex);
-				stat = statNext;
-			} else {
-				goto error_done;
-			}
-			break;
-		}
-		}
-		if (ch == '\0') break;
-	}
-	return true;
-error_done:
-	sig.SetError(ERR_FormatError, "invalid format of URI");
-	return false;
-}
-
-Value DecodeURIQuery(Environment &env, Signal sig, const char *str)
-{
-	StringList stringList;
-	if (!DecodeURIQuery(sig, str, stringList)) return Value::Null;
-	Value result;
-	ValueDict &valDict = result.InitAsDict(env, true);
-	for (StringList::iterator pStr = stringList.begin();
-											pStr != stringList.end(); ) {
-		const String &key = *pStr++;
-		if (pStr == stringList.end()) break;
-		const String &value = *pStr++;
-		valDict[Value(key)] = Value(value);
-	}
-	return result;
-}
-
 //-----------------------------------------------------------------------------
 // Chunk implementation
 //-----------------------------------------------------------------------------
@@ -2453,18 +2364,6 @@ Gura_ImplementUserClass(proxy)
 //-----------------------------------------------------------------------------
 // Gura module functions: http
 //-----------------------------------------------------------------------------
-// http.parsequery(query:string)
-Gura_DeclareFunction(parsequery)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "query", VTYPE_string);
-}
-
-Gura_ImplementFunction(parsequery)
-{
-	return DecodeURIQuery(env, sig, args.GetString(0));
-}
-
 // http.addproxy(addr:string, port:number, userid?:string, password?:string) {criteria?}
 Gura_DeclareFunction(addproxy)
 {
@@ -2731,7 +2630,6 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(client, env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(proxy, env.LookupClass(VTYPE_object));
 	// function assignment
-	Gura_AssignFunction(parsequery);
 	Gura_AssignFunction(addproxy);
 	Gura_AssignFunction(server);
 	Gura_AssignFunction(client);
