@@ -2,9 +2,14 @@
 import(sdl)
 import(gif)
 
-I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
-
-gif.content(I('kangaroo.gif'), `rgba) {|g|
+if (sys.argv.len() < 2) {
+	sys.stderr.print(R'''
+	usage: gif-header.gura file
+	Print header information in GIF file
+	''')
+	sys.exit(1)
+}
+gif.content(sys.argv[1], `rgba) {|g|
 	symPacks = @{
 		[`Header, [
 			`Signature
@@ -64,7 +69,7 @@ gif.content(I('kangaroo.gif'), `rgba) {|g|
 							symsSub:*tostring(), obj.getprop!(symsSub, '(not defined)'))
 	}
 	for (img in g.images) {|i|
-		printf("image#%d\n", i)
+		printf("[image#%d]\n", i)
 		printf("gif.GraphicControl.%-*s %s\n", symsGctl:*tostring():*len().max(),
 			symsGctl:*tostring(), img.gif.GraphicControl.getprop!(symsGctl, '(not defined)'))
 		printf("gif.ImageDescriptor.%-*s %s\n", symsDesc:*tostring():*len().max(),
@@ -73,17 +78,4 @@ gif.content(I('kangaroo.gif'), `rgba) {|g|
 	g.ApplicationExtension.ApplicationIdentifier.dump()
 	g.ApplicationExtension.AuthenticationCode.dump()
 	g.ApplicationExtension.ApplicationData.dump()
-	g.write('a.gif')
-}
-sdl.Init(sdl.INIT_EVERYTHING)
-img = image(`rgba).gifread('a.gif').resize(400)
-//img = image(`rgba).gifread(I('kangaroo.gif')).resize(400)
-sdl.SetVideoMode(img.width, img.height, 16, sdl.SWSURFACE) {|screen|
-	screen.PutSurface(img, 0, 0)
-	screen.UpdateRect()
-}
-repeat {
-	event = sdl.WaitEvent()
-	if (event.type == sdl.QUIT || \
-		(event.type == sdl.KEYDOWN && event.sym == sdl.K_ESCAPE)) { break }
 }

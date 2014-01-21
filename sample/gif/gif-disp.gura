@@ -2,6 +2,10 @@
 import(sdl)
 import(gif)
 
+if (sys.argv.len() < 2) {
+	sys.stderr.println('usage: gif-disp.gura file')
+	sys.exit(1)
+}
 gif.content(sys.argv[1], `rgba) {|g|
 	imgs = g.images::resize(300)
 	imgs:*delayTime:public = g.images:*gif:*GraphicControl:*DelayTime / 100
