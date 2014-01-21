@@ -110,8 +110,9 @@ testcase {
 	tester(`str.eachline(2):list:chop)
 }
 testcase {
-	tester(`chr(0x00..0x7f):list)
-	tester(`ord(chr(0x00..0x7f)):list)
+	tester(`chr(0x00..0xff):list:nil)
+	tester(`chr(0x00..0xff):list)
+	tester(`ord(chr(0x00..0xff)):list)
 	tester(`chr(ord('あいうえお'.split())):list)
 }
 testcase {
