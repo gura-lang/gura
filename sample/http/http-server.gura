@@ -69,7 +69,7 @@ http.server(port => port).wait {|req|
 		//stream = req.respchunk('200', nil, headerCommon%,
 		//	'Connection'	=> 'Keep-Alive'
 		//	'Content-Type'	=> 'text/html; charset:utf-8')
-		//copy(html.encode('utf-8'), stream, 16)
+		//stream.copy(html.encode('utf-8'), stream, 16)
 	} elsif (req.ismethod('POST')) {
 		println(http.parsequery(req.body.readline()))
 		req.response('301',
