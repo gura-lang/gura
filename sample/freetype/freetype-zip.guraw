@@ -4,17 +4,15 @@ import(freetype)
 import(zip)
 
 I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
-
-img = image(`rgb, 160, 120, `black)
-
+img = image(`rgb, 480, 120, `black)
 freetype.font(I('zippedfont.zip/Kaufmann_Bold_BT.ttf')) {|font|
 	font.height = 32
 	font.color = `white
-	img.drawtext(font, 0, font.height, 'Hello world')
+	img.drawtext(font, 0, font.height, 'text using font in ZIP file')
 }
 freetype.font(I('Kaufmann_Bold_BT.ttf')) {|font|
 	font.height = 32
 	font.color = `white
-	img.drawtext(font, 0, font.height * 2, 'Hello world')
+	img.drawtext(font, 0, font.height * 2, 'text using font in normal file')
 }
 img.show()
