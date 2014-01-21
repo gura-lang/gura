@@ -133,6 +133,7 @@ public:
 	Gura_DeclareSymbol(__str__);
 	Gura_DeclareSymbol(__symbol__);
 	Gura_DeclareSymbol(_anonymous_);
+	Gura_DeclareSymbol(a);
 	Gura_DeclareSymbol(abs);
 	Gura_DeclareSymbol(align);
 	Gura_DeclareSymbol(alpha);
@@ -147,6 +148,7 @@ public:
 	Gura_DeclareSymbol(asctime);
 	Gura_DeclareSymbol(audiotype);
 	Gura_DeclareSymbol(autoindent);
+	Gura_DeclareSymbol(b);
 	Gura_DeclareSymbol(backward);
 	Gura_DeclareSymbol(basic);
 	Gura_DeclareSymbol(bcc);
@@ -178,6 +180,7 @@ public:
 	Gura_DeclareSymbol(bright_white);
 	Gura_DeclareSymbol(bright_yellow);
 	Gura_DeclareSymbol(bytespersample);
+	Gura_DeclareSymbol(c);
 	Gura_DeclareSymbol(car);
 	Gura_DeclareSymbol(carray);
 	Gura_DeclareSymbol(cast);
@@ -199,6 +202,7 @@ public:
 	Gura_DeclareSymbol(cstr);
 	Gura_DeclareSymbol(cur);
 	Gura_DeclareSymbol(cyan);
+	Gura_DeclareSymbol(d);
 	Gura_DeclareSymbol(day);
 	Gura_DeclareSymbol(days);
 	Gura_DeclareSymbol(de);
@@ -223,6 +227,7 @@ public:
 	Gura_DeclareSymbol(exp);
 	Gura_DeclareSymbol(expr);
 	Gura_DeclareSymbol(extern_);
+	Gura_DeclareSymbol(f);
 	Gura_DeclareSymbol(false_);
 	Gura_DeclareSymbol(fancy);
 	Gura_DeclareSymbol(file);
@@ -240,15 +245,18 @@ public:
 	Gura_DeclareSymbol(ftp);
 	Gura_DeclareSymbol(fullname);
 	Gura_DeclareSymbol(func_scope);
+	Gura_DeclareSymbol(g);
 	Gura_DeclareSymbol(gnuc);
 	Gura_DeclareSymbol(gray);
 	Gura_DeclareSymbol(green);
+	Gura_DeclareSymbol(h);
 	Gura_DeclareSymbol(height);
 	Gura_DeclareSymbol(help);
 	Gura_DeclareSymbol(horz);
 	Gura_DeclareSymbol(host);
 	Gura_DeclareSymbol(hour);
 	Gura_DeclareSymbol(http);
+	Gura_DeclareSymbol(i);
 	Gura_DeclareSymbol(icase);
 	Gura_DeclareSymbol(identifier);
 	Gura_DeclareSymbol(if_);
@@ -262,7 +270,9 @@ public:
 	Gura_DeclareSymbol(iteritem);
 	Gura_DeclareSymbol(j);
 	Gura_DeclareSymbol(ja);
+	Gura_DeclareSymbol(k);
 	Gura_DeclareSymbol(ka);
+	Gura_DeclareSymbol(l);
 	Gura_DeclareSymbol(lang);
 	Gura_DeclareSymbol(last_index);
 	Gura_DeclareSymbol(lasteol);
@@ -285,6 +295,7 @@ public:
 	Gura_DeclareSymbol(log);
 	Gura_DeclareSymbol(loose);
 	Gura_DeclareSymbol(lower);
+	Gura_DeclareSymbol(m);
 	Gura_DeclareSymbol(magenta);
 	Gura_DeclareSymbol(map);
 	Gura_DeclareSymbol(math);
@@ -301,6 +312,7 @@ public:
 	Gura_DeclareSymbol(msecs);
 	Gura_DeclareSymbol(mswin);
 	Gura_DeclareSymbol(multi);
+	Gura_DeclareSymbol(n);
 	Gura_DeclareSymbol(name);
 	Gura_DeclareSymbol(neat);
 	Gura_DeclareSymbol(next);
@@ -316,6 +328,7 @@ public:
 	Gura_DeclareSymbol(nsecs);
 	Gura_DeclareSymbol(number);
 	Gura_DeclareSymbol(numer);
+	Gura_DeclareSymbol(o);
 	Gura_DeclareSymbol(oneline);
 	Gura_DeclareSymbol(open);
 	Gura_DeclareSymbol(open_l);
@@ -323,6 +336,7 @@ public:
 	Gura_DeclareSymbol(operator_);
 	Gura_DeclareSymbol(or);
 	Gura_DeclareSymbol(overwrite);
+	Gura_DeclareSymbol(p);
 	Gura_DeclareSymbol(palette);
 	Gura_DeclareSymbol(parent);
 	Gura_DeclareSymbol(parents);
@@ -343,6 +357,7 @@ public:
 	Gura_DeclareSymbol(ps2);
 	Gura_DeclareSymbol(public_);
 	Gura_DeclareSymbol(purple);
+	Gura_DeclareSymbol(q);
 	Gura_DeclareSymbol(quote);
 	Gura_DeclareSymbol(r);
 	Gura_DeclareSymbol(raise);
@@ -365,6 +380,7 @@ public:
 	Gura_DeclareSymbol(right_top_horz);
 	Gura_DeclareSymbol(right_top_vert);
 	Gura_DeclareSymbol(root);
+	Gura_DeclareSymbol(s);
 	Gura_DeclareSymbol(s16be);
 	Gura_DeclareSymbol(s16le);
 	Gura_DeclareSymbol(s32be);
@@ -407,6 +423,7 @@ public:
 	Gura_DeclareSymbol(sv);
 	Gura_DeclareSymbol(symbol);
 	Gura_DeclareSymbol(symbol_func);
+	Gura_DeclareSymbol(t);
 	Gura_DeclareSymbol(text);
 	Gura_DeclareSymbol(this_);
 	Gura_DeclareSymbol(thursday);
@@ -418,6 +435,7 @@ public:
 	Gura_DeclareSymbol(tuesday);
 	Gura_DeclareSymbol(typename_);
 	Gura_DeclareSymbol(typesym);
+	Gura_DeclareSymbol(u);
 	Gura_DeclareSymbol(u16be);
 	Gura_DeclareSymbol(u16le);
 	Gura_DeclareSymbol(u32be);
@@ -438,6 +456,7 @@ public:
 	Gura_DeclareSymbol(utf16);
 	Gura_DeclareSymbol(utf32);
 	Gura_DeclareSymbol(utf8);
+	Gura_DeclareSymbol(v);
 	Gura_DeclareSymbol(value);
 	Gura_DeclareSymbol(values);
 	Gura_DeclareSymbol(vert);
