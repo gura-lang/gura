@@ -1,16 +1,16 @@
 #!/usr/bin/env gura
-import(tk)
 import(png)
 import(http)
+import(show)
 
 uri = 'http://maps.googleapis.com/maps/api/staticmap?' + [
 	//'center=Brooklyn+Bridge,New+York,NY'
 	'center=大阪'
 	'zoom=15'
 	'size=640x640'
-	'maptype=roadmap'
+	//'maptype=roadmap'
+	'maptype=hybrid'
 	//'maptype=satellite'
-	//'maptype=hybrid'
 	//'maptype=terrain'
 	//'markers=color:blue|label:S|40.702147,-74.015794'
 	//'markers=color:green|label:G|40.711614,-74.012318'
