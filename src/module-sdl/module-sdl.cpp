@@ -565,11 +565,11 @@ Gura_ImplementUserClassWithCast(Color)
 Gura_ImplementCastFrom(Color)
 {
 	if (value.IsType(VTYPE_color)) {
-		Gura::Object_color *pObjColor = Object_color::GetObject(value);
+		const Color &colorGura = Object_color::GetObject(value)->GetColor();
 		SDL_Color color;
-		color.r = pObjColor->GetR();
-		color.g = pObjColor->GetG();
-		color.b = pObjColor->GetB();
+		color.r = colorGura.GetR();
+		color.g = colorGura.GetG();
+		color.b = colorGura.GetB();
 		color.unused = 0;
 		value = Value(new Object_Color(color));
 		return true;

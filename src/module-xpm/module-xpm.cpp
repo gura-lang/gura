@@ -209,10 +209,9 @@ Gura_ImplementMethod(image, xpmdata)
 		if (::strcasecmp(value.c_str(), "None") == 0) {
 			symbolNull = symbol;
 		} else {
-			AutoPtr<Object_color> pObj(
-				Object_color::CreateNamedColor(env, sig, value.c_str(), 255));
-			if (pObj.IsNull()) return Value::Null;
-			colorMap[symbol] = pObj->GetColor();
+			Color color = Color::CreateNamedColor(sig, value.c_str(), 255);
+			if (sig.IsSignalled()) return Value::Null;
+			colorMap[symbol] = color;
 		}
 		//::printf("%s .. %s\n", symbol.c_str(), value.c_str());
 	}

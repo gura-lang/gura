@@ -336,21 +336,16 @@ Gura_ImplementUserInheritableClassWithCast(wx_Colour)
 Gura_ImplementCastFrom(wx_Colour)
 {
 	if (value.Is_color()) {
-		const Object_color *pObjColor = Object_color::GetObject(value);
-		wx_Colour *pEntity = new wx_Colour(
-						pObjColor->GetR(), pObjColor->GetG(),
-						pObjColor->GetB(), pObjColor->GetA());
+		const Color &color = Object_color::GetObject(value)->GetColor();
+		wx_Colour *pEntity = new wx_Colour(color.GetR(), color.GetG(), color.GetB(), color.GetA());
 		Object_wx_Colour *pObj = new Object_wx_Colour(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
 		value = Value(pObj);
 		return true;
 	} else if (value.Is_string()) {
-		AutoPtr<Object_color> pObjColor(
-				Object_color::CreateNamedColor(env, sig, value.GetString(), 255));
+		Color color = Color::CreateNamedColor(sig, value.GetString(), 255);
 		if (sig.IsSignalled()) return false;
-		wx_Colour *pEntity = new wx_Colour(
-						pObjColor->GetR(), pObjColor->GetG(),
-						pObjColor->GetB(), pObjColor->GetA());
+		wx_Colour *pEntity = new wx_Colour(color.GetR(), color.GetG(), color.GetB(), color.GetA());
 		Object_wx_Colour *pObj = new Object_wx_Colour(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
 		value = Value(pObj);

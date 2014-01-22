@@ -339,12 +339,22 @@ struct BitmapInfoHeader {
 	Gura_PackedULong_LE(biClrImportant);
 };
 
+class Symbol;
+class ColorMap;
+
 //-----------------------------------------------------------------------------
 // Color
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Color {
+public:
+	struct ElementEntry {
+		const char *name;
+		UChar r, g, b;
+	};
 private:
 	UChar _r, _g, _b, _a;
+	static ColorMap *_pColorMap;
+	static const ElementEntry _elementEntries[];
 public:
 	static const Color Zero;
 	static const Color Black;
@@ -429,6 +439,11 @@ public:
 			 static_cast<ULong>(g) * 587 +
 			 static_cast<ULong>(b) * 114) / 1000);
 	}
+	static Color CreateNamedColor(Signal sig, const char *name, UChar a);
+	static const ElementEntry *GetElementEntries(size_t *pCnt);
+};
+
+class ColorMap : public std::map<const Symbol *, Color> {
 };
 
 typedef std::vector<Color> ColorList;
