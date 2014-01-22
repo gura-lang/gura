@@ -60,8 +60,8 @@ bool Object_content::Read(Environment &env, Signal sig,
 	foreach (LongList, pImageOffset, imageOffsets) {
 		long imageOffset = *pImageOffset;
 		if (!stream.Seek(sig, imageOffset, Stream::SeekSet)) return false;
-		BitmapInfoHeader bih;
-		if (stream.Read(sig, &bih, BitmapInfoHeader::Size) < BitmapInfoHeader::Size) {
+		Image::BitmapInfoHeader bih;
+		if (stream.Read(sig, &bih, Image::BitmapInfoHeader::Size) < Image::BitmapInfoHeader::Size) {
 			sig.SetError(ERR_FormatError, "invalid ICO format");
 			return false;
 		}
@@ -101,7 +101,7 @@ bool Object_content::Write(Environment &env, Signal sig, Stream &stream)
 		}
 		int biBitCount = pImage->CalcDIBBitCount();
 		ULong dwBytesInRes = static_cast<ULong>(
-						BitmapInfoHeader::Size +
+						Image::BitmapInfoHeader::Size +
 						Image::CalcDIBPaletteSize(biBitCount) +
 						pImage->CalcDIBImageSize(biBitCount, true));
 		IconDirEntry iconDirEntry;
@@ -125,9 +125,9 @@ bool Object_content::Write(Environment &env, Signal sig, Stream &stream)
 		Image *pImage = Object_image::GetObject(*pValue)->GetImage();
 		size_t width = pImage->GetWidth(), height = pImage->GetHeight();
 		int biBitCount = pImage->CalcDIBBitCount();
-		BitmapInfoHeader bih;
+		Image::BitmapInfoHeader bih;
 		::memset(&bih, 0x00, sizeof(bih));
-		Gura_PackULong(bih.biSize,			BitmapInfoHeader::Size);
+		Gura_PackULong(bih.biSize,			Image::BitmapInfoHeader::Size);
 		Gura_PackLong(bih.biWidth,			width);
 		Gura_PackLong(bih.biHeight,			height * 2);
 		Gura_PackUShort(bih.biPlanes,		1);
@@ -138,7 +138,7 @@ bool Object_content::Write(Environment &env, Signal sig, Stream &stream)
 		Gura_PackLong(bih.biYPelsPerMeter,	0);	// just set to zero
 		Gura_PackULong(bih.biClrUsed,		0);	// just set to zero
 		Gura_PackULong(bih.biClrImportant,	0);	// just set to zero
-		stream.Write(sig, &bih, BitmapInfoHeader::Size);
+		stream.Write(sig, &bih, Image::BitmapInfoHeader::Size);
 		if (sig.IsSignalled()) return false;
 		if (!pImage->WriteDIBPalette(env, sig, stream, biBitCount)) return false;
 		if (!pImage->WriteDIB(sig, stream, biBitCount, true)) return false;
@@ -332,8 +332,8 @@ bool ImageStreamer_ICO::ReadStream(Environment &env, Signal sig,
 	} while (0);
 	do {
 		if (!stream.Seek(sig, dwImageOffset, Stream::SeekSet)) return false;
-		BitmapInfoHeader bih;
-		if (stream.Read(sig, &bih, BitmapInfoHeader::Size) < BitmapInfoHeader::Size) {
+		Image::BitmapInfoHeader bih;
+		if (stream.Read(sig, &bih, Image::BitmapInfoHeader::Size) < Image::BitmapInfoHeader::Size) {
 			sig.SetError(ERR_FormatError, "invalid ICO format");
 			return false;
 		}
