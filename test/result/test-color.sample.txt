@@ -1,22 +1,22 @@
 ======== #1 ========
 
-<color:#000000,a:ff>
-<color:#800000,a:ff>
-<color:#008000,a:ff>
-<color:#808000,a:ff>
-<color:#000080,a:ff>
-<color:#800080,a:ff>
-<color:#008080,a:ff>
-<color:#808080,a:ff>
-<color:#c0c0c0,a:ff>
-<color:#ff0000,a:ff>
-<color:#00ff00,a:ff>
-<color:#ffff00,a:ff>
-<color:#0000ff,a:ff>
-<color:#ff00ff,a:ff>
-<color:#00ffff,a:ff>
-<color:#ffffff,a:ff>
-<color:#000000,a:00>
+#000000 ff .. gray:0
+#800000 ff .. gray:38
+#008000 ff .. gray:75
+#808000 ff .. gray:113
+#000080 ff .. gray:14
+#800080 ff .. gray:52
+#008080 ff .. gray:89
+#808080 ff .. gray:128
+#c0c0c0 ff .. gray:192
+#ff0000 ff .. gray:76
+#00ff00 ff .. gray:149
+#ffff00 ff .. gray:225
+#0000ff ff .. gray:29
+#ff00ff ff .. gray:105
+#00ffff ff .. gray:178
+#ffffff ff .. gray:255
+#000000 00 .. gray:0
 
 ======== #2 ========
 

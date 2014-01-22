@@ -22,7 +22,8 @@ testcase {
 		color.white
 		color.zero
 	]
-	println(colors)
+	//println(colors)
+	printf('#%02x%02x%02x %02x .. gray:%d\n', colors:*r, colors:*g, colors:*b, colors:*a, colors:*getgray())
 }
 testcase {
 	['red', `blue, [128, 128, 0], [255, 255, 255, 64]].each() {|d|
