@@ -40,7 +40,7 @@ Value Object_mpf::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	evaluatedFlag = true;
 	if (pSymbol->IsIdentical(Gura_Symbol(prec))) {
 		if (!value.MustBe_number(sig)) return Value::Null;
-		mp_bitcnt_t prec = value.GetInt();
+		ULong prec = value.GetULong();
 		_num.set_prec(prec);
 		return Value(prec);
 	}
@@ -109,7 +109,7 @@ Gura_DeclareClassMethod(mpf, get_default_prec)
 
 Gura_ImplementClassMethod(mpf, get_default_prec)
 {
-	mp_bitcnt_t prec = ::mpf_get_default_prec();
+	ULong prec = static_cast<ULong>(::mpf_get_default_prec());
 	return Value(prec);
 }
 
@@ -122,7 +122,7 @@ Gura_DeclareClassMethod(mpf, set_default_prec)
 
 Gura_ImplementClassMethod(mpf, set_default_prec)
 {
-	mp_bitcnt_t prec = args.GetInt(0);
+	ULong prec = args.GetULong(0);
 	::mpf_set_default_prec(prec);
 	return Value::Null;
 }
