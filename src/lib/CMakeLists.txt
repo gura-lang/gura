@@ -35,7 +35,9 @@ ClassCustom.cpp
 ClassOfStruct.cpp
 Codec.cpp
 CodecJapanese.cpp
+Color.cpp
 Common.cpp
+Complex.cpp
 DateTime.cpp
 Declaration.cpp
 Directory.cpp
@@ -60,6 +62,8 @@ Palette.cpp
 Parser.cpp
 PathMgr.cpp
 Processor.cpp
+Random.cpp
+Rational.cpp
 Signal.cpp
 Stream.cpp
 StreamBasic.cpp
@@ -70,6 +74,7 @@ Template.cpp
 Uri.cpp
 Value.cpp
 ValueType.cpp
+Version.cpp
 ../module-basement/module-basement.cpp
 ../module-sys/module-sys.cpp
 ../module-base64/module-base64.cpp

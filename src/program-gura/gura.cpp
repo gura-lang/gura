@@ -158,7 +158,7 @@ int Main(int argc, const char *argv[])
 
 void PrintVersion(FILE *fp)
 {
-	::fprintf(fp, "%s\n", GetOpening());
+	::fprintf(fp, "%s\n", Version::GetOpening());
 }
 
 void PrintHelp(FILE *fp)

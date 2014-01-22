@@ -217,7 +217,9 @@
     <ClCompile Include="ClassOfStruct.cpp" />
     <ClCompile Include="Codec.cpp" />
     <ClCompile Include="CodecJapanese.cpp" />
+    <ClCompile Include="Color.cpp" />
     <ClCompile Include="Common.cpp" />
+    <ClCompile Include="Complex.cpp" />
     <ClCompile Include="DateTime.cpp" />
     <ClCompile Include="Declaration.cpp" />
     <ClCompile Include="Directory.cpp" />
@@ -243,6 +245,8 @@
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="PathMgr.cpp" />
     <ClCompile Include="Processor.cpp" />
+    <ClCompile Include="Random.cpp" />
+    <ClCompile Include="Rational.cpp" />
     <ClCompile Include="Signal.cpp" />
     <ClCompile Include="Stream.cpp" />
     <ClCompile Include="StreamBasic.cpp" />
@@ -253,6 +257,7 @@
     <ClCompile Include="Uri.cpp" />
     <ClCompile Include="Value.cpp" />
     <ClCompile Include="ValueType.cpp" />
+    <ClCompile Include="Version.cpp" />
     <ClCompile Include="..\module-basement\module-basement.cpp" />
     <ClCompile Include="..\module-sys\module-sys.cpp" />
     <ClCompile Include="..\module-base64\module-base64.cpp" />
@@ -275,7 +280,6 @@
     <ClInclude Include="..\..\include\gura\stdafx.h" />
     <ClInclude Include="..\..\include\gura.h" />
     <ClInclude Include="..\..\include\gura\Algorithm.h" />
-    <ClInclude Include="..\..\include\gura\BZLibHelper.h" />
     <ClInclude Include="..\..\include\gura\Class.h" />
     <ClInclude Include="..\..\include\gura\Class_args.h" />
     <ClInclude Include="..\..\include\gura\Class_audio.h" />
@@ -308,7 +312,9 @@
     <ClInclude Include="..\..\include\gura\ClassBasic.h" />
     <ClInclude Include="..\..\include\gura\ClassOfStruct.h" />
     <ClInclude Include="..\..\include\gura\Codec.h" />
+    <ClInclude Include="..\..\include\gura\Color.h" />
     <ClInclude Include="..\..\include\gura\Common.h" />
+    <ClInclude Include="..\..\include\gura\Complex.h" />
     <ClInclude Include="..\..\include\gura\DateTime.h" />
     <ClInclude Include="..\..\include\gura\Declaration.h" />
     <ClInclude Include="..\..\include\gura\Directory.h" />
@@ -329,6 +335,8 @@
     <ClInclude Include="..\..\include\gura\PackedNumber.h" />
     <ClInclude Include="..\..\include\gura\Parser.h" />
     <ClInclude Include="..\..\include\gura\PathMgr.h" />
+    <ClInclude Include="..\..\include\gura\Random.h" />
+    <ClInclude Include="..\..\include\gura\Rational.h" />
     <ClInclude Include="..\..\include\gura\Signal.h" />
     <ClInclude Include="..\..\include\gura\Stream.h" />
     <ClInclude Include="..\..\include\gura\StreamBasic.h" />
@@ -339,7 +347,9 @@
     <ClInclude Include="..\..\include\gura\Uri.h" />
     <ClInclude Include="..\..\include\gura\Value.h" />
     <ClInclude Include="..\..\include\gura\ValueType.h" />
-    <ClInclude Include="..\..\include\gura\ZLibHelper.h" />
+    <ClInclude Include="..\..\include\gura\Version.h" />
+    <ClInclude Include="..\..\include\gura\helper\BZLibHelper.h" />
+    <ClInclude Include="..\..\include\gura\helper\ZLibHelper.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

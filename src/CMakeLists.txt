@@ -137,7 +137,9 @@ install(FILES
   ${GURA_INCLUDE_SRCDIR}/gura/ClassCustom.h
   ${GURA_INCLUDE_SRCDIR}/gura/ClassOfStruct.h
   ${GURA_INCLUDE_SRCDIR}/gura/Codec.h
+  ${GURA_INCLUDE_SRCDIR}/gura/Color.h
   ${GURA_INCLUDE_SRCDIR}/gura/Common.h
+  ${GURA_INCLUDE_SRCDIR}/gura/Complex.h
   ${GURA_INCLUDE_SRCDIR}/gura/DateTime.h
   ${GURA_INCLUDE_SRCDIR}/gura/Declaration.h
   ${GURA_INCLUDE_SRCDIR}/gura/Directory.h
@@ -163,6 +165,8 @@ install(FILES
   ${GURA_INCLUDE_SRCDIR}/gura/Parser.h
   ${GURA_INCLUDE_SRCDIR}/gura/PathMgr.h
   ${GURA_INCLUDE_SRCDIR}/gura/Processor.h
+  ${GURA_INCLUDE_SRCDIR}/gura/Random.h
+  ${GURA_INCLUDE_SRCDIR}/gura/Rational.h
   ${GURA_INCLUDE_SRCDIR}/gura/Signal.h
   ${GURA_INCLUDE_SRCDIR}/gura/Stream.h
   ${GURA_INCLUDE_SRCDIR}/gura/StreamBasic.h

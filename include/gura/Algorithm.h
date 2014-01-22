@@ -5,6 +5,7 @@
 #define __GURA_ALGORITHM_H__
 
 #include "Common.h"
+#include "Complex.h"
 
 namespace Gura {
 

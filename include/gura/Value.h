@@ -9,6 +9,8 @@
 #include "Stream.h"
 #include "DateTime.h"
 #include "ValueType.h"
+#include "Complex.h"
+#include "Rational.h"
 
 namespace Gura {
 

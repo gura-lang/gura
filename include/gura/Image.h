@@ -380,6 +380,33 @@ public:
 	static ImageStreamer *FindByImageType(const char *imageType);
 };
 
+//-----------------------------------------------------------------------------
+// Data structure for Windows BMP format
+//-----------------------------------------------------------------------------
+struct BitmapFileHeader {
+	enum { Size = 14 };
+	Gura_PackedUShort_LE(bfType);
+	Gura_PackedULong_LE(bfSize);
+	Gura_PackedUShort_LE(bfReserved1);
+	Gura_PackedUShort_LE(bfReserved2);
+	Gura_PackedULong_LE(bfOffBits);
+};
+
+struct BitmapInfoHeader {
+	enum { Size = 40 };
+	Gura_PackedULong_LE(biSize);
+	Gura_PackedLong_LE(biWidth);
+	Gura_PackedLong_LE(biHeight);
+	Gura_PackedUShort_LE(biPlanes);
+	Gura_PackedUShort_LE(biBitCount);
+	Gura_PackedULong_LE(biCompression);
+	Gura_PackedULong_LE(biSizeImage);
+	Gura_PackedLong_LE(biXPelsPerMeter);
+	Gura_PackedLong_LE(biYPelsPerMeter);
+	Gura_PackedULong_LE(biClrUsed);
+	Gura_PackedULong_LE(biClrImportant);
+};
+
 }
 
 #endif

@@ -158,7 +158,7 @@ LRESULT UsageWindow::Show(const char *strErr)
 				540, 300, NULL, NULL, g_hInst, NULL);
 	::SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG>(this));
 	do {
-		_hwndLabel = ::CreateWindow("static", GetOpening(),
+		_hwndLabel = ::CreateWindow("static", Version::GetOpening(),
 				WS_CHILD | WS_VISIBLE,
 				CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
 				hwnd, reinterpret_cast<HMENU>(IDC_Label), g_hInst, NULL);
