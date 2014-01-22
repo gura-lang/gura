@@ -147,8 +147,8 @@ bool Iterator_Rand::DoNext(Environment &env, Signal sig, Value &value)
 		_idx++;
 	}
 	value = Value((_range > 0)?
-		static_cast<Number>(static_cast<int>(RandomGenerator::Real2() * _range)) :
-		static_cast<Number>(RandomGenerator::Real2()));
+		static_cast<Number>(static_cast<int>(Random::Real2() * _range)) :
+		static_cast<Number>(Random::Real2()));
 	return true;
 }
 

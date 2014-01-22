@@ -7,9 +7,9 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
-// RandomGenerator
+// Random
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE RandomGenerator {
+class GURA_DLLDECLARE Random {
 public:
 	static void Initialize(ULong seed);
 	static double Real2();

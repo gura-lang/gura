@@ -26,7 +26,6 @@ const Number Math_PI = 3.14159265358979323846;
 const Number Math_E = 2.71828182845904523536;
 const Number RoundOffThreshold = 1e-10;
 
-
 bool IsBigEndian()
 {
 	long num = 0x12345678;

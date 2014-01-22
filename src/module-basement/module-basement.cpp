@@ -1536,7 +1536,7 @@ Gura_DeclareFunction(randseed)
 
 Gura_ImplementFunction(randseed)
 {
-	RandomGenerator::Initialize(args.GetULong(0));
+	Random::Initialize(args.GetULong(0));
 	return Value::Null;
 }
 
@@ -1552,10 +1552,10 @@ Gura_ImplementFunction(rand)
 {
 	if (args.Is_number(0)) {
 		ULong num = args.GetULong(0);
-		Number result = static_cast<ULong>(RandomGenerator::Real2() * num);
+		Number result = static_cast<ULong>(Random::Real2() * num);
 		return Value(result);
 	}
-	return ReturnValue(env, sig, args, Value(RandomGenerator::Real2()));
+	return ReturnValue(env, sig, args, Value(Random::Real2()));
 }
 
 // Module entry

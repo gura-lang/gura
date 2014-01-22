@@ -1028,8 +1028,8 @@ Gura_ImplementMethod(list, shuffle)
 {
 	Object_list *pThis = Object_list::GetThisObj(args);
 	ValueList &valList = pThis->GetList();
-	RandomGenerator randomGenerator;
-	std::random_shuffle(valList.begin(), valList.end(), randomGenerator);
+	Random random;
+	std::random_shuffle(valList.begin(), valList.end(), random);
 	return args.GetThis();
 }
 

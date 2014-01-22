@@ -120,7 +120,7 @@ bool Environment::InitializeAsRoot(Signal sig, int &argc, const char *argv[],
 	SymbolPool::Initialize();
 	Codec::Initialize();
 	_frameOwner.push_back(new Frame(ENVTYPE_root, new Global()));
-	RandomGenerator::Initialize(1234);	// initialize random generator SFMT
+	Random::Initialize(1234);	// initialize random generator SFMT
 	ValueTypePool::Initialize(env);
 	GetGlobal()->Prepare(env, sig);
 	Operator::AssignOperators(env);
