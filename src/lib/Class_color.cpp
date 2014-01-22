@@ -799,7 +799,6 @@ bool Object_color::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	symbols.insert(Gura_Symbol(g));
 	symbols.insert(Gura_Symbol(b));
 	symbols.insert(Gura_Symbol(a));
-	symbols.insert(Gura_Symbol(gray));
 	return true;
 }
 
@@ -815,8 +814,6 @@ Value Object_color::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 		return Value(_color.GetB());
 	} else if (pSymbol->IsIdentical(Gura_Symbol(a))) {
 		return Value(_color.GetA());
-	} else if (pSymbol->IsIdentical(Gura_Symbol(gray))) {
-		return Value(_color.GetG());
 	}
 	evaluatedFlag = false;
 	return Value::Null;
@@ -969,6 +966,18 @@ Gura_ImplementFunction(color)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
+// color#getgray()
+Gura_DeclareMethod(color, getgray)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(color, getgray)
+{
+	const Color &color = Object_color::GetThisObj(args)->GetColor();
+	return Value(color.GetGray());
+}
+
 // color#html()
 Gura_DeclareMethod(color, html)
 {
@@ -977,8 +986,8 @@ Gura_DeclareMethod(color, html)
 
 Gura_ImplementMethod(color, html)
 {
-	Object_color *pThis = Object_color::GetThisObj(args);
-	return Value(pThis->GetHTML());
+	const Color &color = Object_color::GetThisObj(args)->GetColor();
+	return Value(color.GetHTML());
 }
 
 // color#tolist():[alpha]
@@ -990,16 +999,16 @@ Gura_DeclareMethod(color, tolist)
 
 Gura_ImplementMethod(color, tolist)
 {
-	Object_color *pThis = Object_color::GetThisObj(args);
+	const Color &color = Object_color::GetThisObj(args)->GetColor();
 	bool alphaIncludeFlag = args.IsSet(Gura_Symbol(alpha));
 	if (alphaIncludeFlag) {
 		return Value::CreateAsList(env,
-					Value(pThis->GetR()), Value(pThis->GetG()),
-					Value(pThis->GetB()), Value(pThis->GetA()));
+					Value(color.GetR()), Value(color.GetG()),
+					Value(color.GetB()), Value(color.GetA()));
 	} else {
 		return Value::CreateAsList(env,
-					Value(pThis->GetR()), Value(pThis->GetG()),
-					Value(pThis->GetB()));
+					Value(color.GetR()), Value(color.GetG()),
+					Value(color.GetB()));
 	}
 }
 
@@ -1012,6 +1021,7 @@ Class_color::Class_color(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_color)
 
 void Class_color::Prepare(Environment &env)
 {
+	Gura_AssignMethod(color, getgray);
 	Gura_AssignMethod(color, html);
 	Gura_AssignMethod(color, tolist);
 	do {
@@ -1026,23 +1036,23 @@ void Class_color::Prepare(Environment &env)
 		Gura_AssignValue(names, value);
 	} while (0);
 	Gura_AssignFunction(color);
-	Gura_AssignClassValue(Black,	Value(new Object_color(env, Color::Black)));
-	Gura_AssignClassValue(Maroon,	Value(new Object_color(env, Color::Maroon)));
-	Gura_AssignClassValue(Green,	Value(new Object_color(env, Color::Green)));
-	Gura_AssignClassValue(Olive,	Value(new Object_color(env, Color::Olive)));
-	Gura_AssignClassValue(Navy,		Value(new Object_color(env, Color::Navy)));
-	Gura_AssignClassValue(Purple,	Value(new Object_color(env, Color::Purple)));
-	Gura_AssignClassValue(Teal,		Value(new Object_color(env, Color::Teal)));
-	Gura_AssignClassValue(Gray,		Value(new Object_color(env, Color::Gray)));
-	Gura_AssignClassValue(Silver,	Value(new Object_color(env, Color::Silver)));
-	Gura_AssignClassValue(Red,		Value(new Object_color(env, Color::Red)));
-	Gura_AssignClassValue(Lime,		Value(new Object_color(env, Color::Lime)));
-	Gura_AssignClassValue(Yellow,	Value(new Object_color(env, Color::Yellow)));
-	Gura_AssignClassValue(Blue,		Value(new Object_color(env, Color::Blue)));
-	Gura_AssignClassValue(Fuchsia,	Value(new Object_color(env, Color::Fuchsia)));
-	Gura_AssignClassValue(Aqua,		Value(new Object_color(env, Color::Aqua)));
-	Gura_AssignClassValue(White,	Value(new Object_color(env, Color::White)));
-	Gura_AssignClassValue(Zero,		Value(new Object_color(env, Color::Zero)));
+	Gura_AssignClassValue(black,	Value(new Object_color(env, Color::Black)));
+	Gura_AssignClassValue(maroon,	Value(new Object_color(env, Color::Maroon)));
+	Gura_AssignClassValue(green,	Value(new Object_color(env, Color::Green)));
+	Gura_AssignClassValue(olive,	Value(new Object_color(env, Color::Olive)));
+	Gura_AssignClassValue(navy,		Value(new Object_color(env, Color::Navy)));
+	Gura_AssignClassValue(purple,	Value(new Object_color(env, Color::Purple)));
+	Gura_AssignClassValue(teal,		Value(new Object_color(env, Color::Teal)));
+	Gura_AssignClassValue(gray,		Value(new Object_color(env, Color::Gray)));
+	Gura_AssignClassValue(silver,	Value(new Object_color(env, Color::Silver)));
+	Gura_AssignClassValue(red,		Value(new Object_color(env, Color::Red)));
+	Gura_AssignClassValue(lime,		Value(new Object_color(env, Color::Lime)));
+	Gura_AssignClassValue(yellow,	Value(new Object_color(env, Color::Yellow)));
+	Gura_AssignClassValue(blue,		Value(new Object_color(env, Color::Blue)));
+	Gura_AssignClassValue(fuchsia,	Value(new Object_color(env, Color::Fuchsia)));
+	Gura_AssignClassValue(aqua,		Value(new Object_color(env, Color::Aqua)));
+	Gura_AssignClassValue(white,	Value(new Object_color(env, Color::White)));
+	Gura_AssignClassValue(zero,		Value(new Object_color(env, Color::Zero)));
 }
 
 bool Class_color::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)

@@ -376,9 +376,7 @@ public:
 	inline void SetG(UChar g) { _g = g; }
 	inline void SetB(UChar b) { _b = b; }
 	inline void SetA(UChar a) { _a = a; }
-	inline UChar GetGray() const {
-		return CalcGray(GetR(), GetG(), GetB());
-	}
+	inline UChar GetGray() const { return CalcGray(GetR(), GetG(), GetB()); }
 	inline ULong GetARGB() const {
 		return
 			(static_cast<ULong>(GetA()) << 24) +

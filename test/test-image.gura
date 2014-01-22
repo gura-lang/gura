@@ -22,7 +22,7 @@ testcase {
 		if (!charLines?) {
 			charLines = dim(img.height) {''}
 		}
-		charLines = for (charLine in charLines, row in img.scan():*gray.fold(img.width)):list {
+		charLines = for (charLine in charLines, row in img.scan():*getgray().fold(img.width)):list {
 			charLine + ' ' + choose(int(row / 64), '@', '*', '.', ' ').join()
 		}
 	}
@@ -190,7 +190,7 @@ testcase('test of scan') {
 	doScan(scandirs[]) = {
 		lines = dim(img.height) {''}
 		scandirs.each {|scandir|
-			lines += img.scan(scandir => scandir):*gray.fold(img.width):list {|row|
+			lines += img.scan(scandir => scandir):*getgray().fold(img.width):list {|row|
 				choose(int(row / 64), ' ', '*', '.', '@').join()
 			}
 		}

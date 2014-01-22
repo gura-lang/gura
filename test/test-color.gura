@@ -4,23 +4,23 @@ import(testutil) {*}
 
 testcase {
 	colors = [
-		color.Black
-		color.Maroon
-		color.Green
-		color.Olive
-		color.Navy
-		color.Purple
-		color.Teal
-		color.Gray
-		color.Silver
-		color.Red
-		color.Lime
-		color.Yellow
-		color.Blue
-		color.Fuchsia
-		color.Aqua
-		color.White
-		color.Zero
+		color.black
+		color.maroon
+		color.green
+		color.olive
+		color.navy
+		color.purple
+		color.teal
+		color.gray
+		color.silver
+		color.red
+		color.lime
+		color.yellow
+		color.blue
+		color.fuchsia
+		color.aqua
+		color.white
+		color.zero
 	]
 	println(colors)
 }
