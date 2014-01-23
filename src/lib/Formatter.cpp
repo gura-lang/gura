@@ -20,7 +20,6 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 		STAT_PrecisionPre, STAT_Precision,
 		STAT_Padding,
 	} stat = STAT_Start;
-	char buff[128];
 	for (;;) {
 		char ch = *formatp;
 		eatNextFlag = true;
@@ -97,201 +96,49 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 			} else if (ch == 'l') {
 				// just ignore it
 			} else if (ch == 'd' || ch == 'i') {
-				if (pValue->IsInvalid()) {
-					PutInvalid(flags);
-					pValue++;
-					stat = STAT_Start;
-				} else if (pValue->Is_number()) {
-					PutAlignedString(flags, Format_d(flags,
-						static_cast<int>(pValue->GetNumber()), buff, sizeof(buff)));
-					pValue++;
-					stat = STAT_Start;
-				} else if (pValue->Is_boolean()) {
-					PutAlignedString(flags, Format_d(flags,
-						static_cast<int>(pValue->GetBoolean()), buff, sizeof(buff)));
-					pValue++;
-					stat = STAT_Start;
-				} else if (pValue->GetClass()->Format_d(sig, this, flags, *pValue)) {
-					pValue++;
-					stat = STAT_Start;
-				} else {
-					break;
-				}
+				if (!pValue->GetClass()->Format_d(sig, this, flags, *pValue)) break;
+				pValue++;
+				stat = STAT_Start;
 			} else if (ch == 'u') {
-				if (pValue->IsInvalid()) {
-					PutInvalid(flags);
-					pValue++;
-					stat = STAT_Start;
-				} else if (pValue->Is_number()) {
-					PutAlignedString(flags, Format_u(flags,
-						static_cast<UInt>(pValue->GetNumber()), buff, sizeof(buff)));
-					pValue++;
-					stat = STAT_Start;
-				} else if (pValue->GetClass()->Format_u(sig, this, flags, *pValue)) {
-					pValue++;
-					stat = STAT_Start;
-				} else {
-					break;
-				}
+				if (!pValue->GetClass()->Format_u(sig, this, flags, *pValue)) break;
+				pValue++;
+				stat = STAT_Start;
 			} else if (ch == 'b') {
-				if (pValue->IsInvalid()) {
-					PutInvalid(flags);
-					pValue++;
-					stat = STAT_Start;
-				} else if (pValue->Is_number()) {
-					PutAlignedString(flags, Format_b(flags,
-						static_cast<UInt>(pValue->GetNumber()), buff, sizeof(buff)));
-					pValue++;
-					stat = STAT_Start;
-				} else if (pValue->GetClass()->Format_b(sig, this, flags, *pValue)) {
-					pValue++;
-					stat = STAT_Start;
-				} else {
-					break;
-				}
+				if (!pValue->GetClass()->Format_b(sig, this, flags, *pValue)) break;
+				pValue++;
+				stat = STAT_Start;
 			} else if (ch == 'o') {
-				if (pValue->IsInvalid()) {
-					PutInvalid(flags);
-					pValue++;
-					stat = STAT_Start;
-				} else if (pValue->Is_number()) {
-					PutAlignedString(flags, Format_o(flags,
-						static_cast<UInt>(pValue->GetNumber()), buff, sizeof(buff)));
-					pValue++;
-					stat = STAT_Start;
-				} else if (pValue->GetClass()->Format_o(sig, this, flags, *pValue)) {
-					pValue++;
-					stat = STAT_Start;
-				} else {
-					break;
-				}
+				if (!pValue->GetClass()->Format_o(sig, this, flags, *pValue)) break;
+				pValue++;
+				stat = STAT_Start;
 			} else if (ch == 'x' || ch == 'X') {
 				flags.upperCaseFlag = (ch == 'X');
-				if (pValue->IsInvalid()) {
-					PutInvalid(flags);
-					pValue++;
-					stat = STAT_Start;
-				} else if (pValue->Is_number()) {
-					PutAlignedString(flags, Format_x(flags,
-						static_cast<UInt>(pValue->GetNumber()), buff, sizeof(buff)));
-					pValue++;
-					stat = STAT_Start;
-				} else if (pValue->GetClass()->Format_x(sig, this, flags, *pValue)) {
-					pValue++;
-					stat = STAT_Start;
-				} else {
-					break;
-				}
+				if (!pValue->GetClass()->Format_x(sig, this, flags, *pValue)) break;
+				pValue++;
+				stat = STAT_Start;
 			} else if (ch == 'e' || ch == 'E') {
 				flags.upperCaseFlag = (ch == 'E');
-				if (pValue->IsInvalid()) {
-					PutInvalid(flags);
-					pValue++;
-					stat = STAT_Start;
-				} else if (pValue->Is_number()) {
-					PutAlignedString(flags, Format_e(flags,
-								pValue->GetNumber(), buff, sizeof(buff)));
-					pValue++;
-					stat = STAT_Start;
-				} else if (pValue->Is_complex()) {
-					PutAlignedString(flags, Format_e(flags,
-								pValue->GetComplex().real(), buff, sizeof(buff)));
-					PlusMode plusMode = flags.plusMode;
-					flags.plusMode = PLUSMODE_Plus;
-					PutAlignedString(flags, Format_e(flags,
-								pValue->GetComplex().imag(), buff, sizeof(buff)));
-					flags.plusMode = plusMode;
-					PutChar('j');
-					pValue++;
-					stat = STAT_Start;
-				} else if (pValue->GetClass()->Format_e(sig, this, flags, *pValue)) {
-					pValue++;
-					stat = STAT_Start;
-				} else {
-					break;
-				}
+				if (!pValue->GetClass()->Format_e(sig, this, flags, *pValue)) break;
+				pValue++;
+				stat = STAT_Start;
 			} else if (ch == 'f' || ch == 'F') {
 				flags.upperCaseFlag = (ch == 'F');
-				if (pValue->IsInvalid()) {
-					PutInvalid(flags);
-					pValue++;
-					stat = STAT_Start;
-				} else if (pValue->Is_number()) {
-					PutAlignedString(flags, Format_f(flags,
-								pValue->GetNumber(), buff, sizeof(buff)));
-					pValue++;
-					stat = STAT_Start;
-				} else if (pValue->Is_complex()) {
-					PutAlignedString(flags, Format_f(flags,
-								pValue->GetComplex().real(), buff, sizeof(buff)));
-					PlusMode plusMode = flags.plusMode;
-					flags.plusMode = PLUSMODE_Plus;
-					PutAlignedString(flags, Format_f(flags,
-								pValue->GetComplex().imag(), buff, sizeof(buff)));
-					flags.plusMode = plusMode;
-					PutChar('j');
-					pValue++;
-					stat = STAT_Start;
-				} else if (pValue->GetClass()->Format_f(sig, this, flags, *pValue)) {
-					pValue++;
-					stat = STAT_Start;
-				} else {
-					break;
-				}
+				if (!pValue->GetClass()->Format_f(sig, this, flags, *pValue)) break;
+				pValue++;
+				stat = STAT_Start;
 			} else if (ch == 'g' || ch == 'G') {
 				flags.upperCaseFlag = (ch == 'G');
-				if (pValue->IsInvalid()) {
-					PutInvalid(flags);
-					pValue++;
-					stat = STAT_Start;
-				} else if (pValue->Is_number()) {
-					PutAlignedString(flags, Format_g(flags,
-								pValue->GetNumber(), buff, sizeof(buff)));
-					pValue++;
-					stat = STAT_Start;
-				} else if (pValue->Is_complex()) {
-					PutAlignedString(flags, Format_g(flags,
-								pValue->GetComplex().real(), buff, sizeof(buff)));
-					PlusMode plusMode = flags.plusMode;
-					flags.plusMode = PLUSMODE_Plus;
-					PutAlignedString(flags, Format_g(flags,
-								pValue->GetComplex().imag(), buff, sizeof(buff)));
-					flags.plusMode = plusMode;
-					PutChar('j');
-					pValue++;
-					stat = STAT_Start;
-				} else if (pValue->GetClass()->Format_g(sig, this, flags, *pValue)) {
-					pValue++;
-					stat = STAT_Start;
-				} else {
-					break;
-				}
+				if (!pValue->GetClass()->Format_g(sig, this, flags, *pValue)) break;
+				pValue++;
+				stat = STAT_Start;
 			} else if (ch == 's') {
-				if (pValue->IsInvalid()) {
-					PutInvalid(flags);
-					pValue++;
-					stat = STAT_Start;
-				} else if (pValue->GetClass()->Format_s(sig, this, flags, *pValue)) {
-					pValue++;
-					stat = STAT_Start;
-				} else {
-					break;
-				}
+				if (!pValue->GetClass()->Format_s(sig, this, flags, *pValue)) break;
+				pValue++;
+				stat = STAT_Start;
 			} else if (ch == 'c') {
-				if (pValue->IsInvalid()) {
-					PutInvalid(flags);
-					pValue++;
-					stat = STAT_Start;
-				} else if (pValue->Is_number()) {
-					PutChar(static_cast<char>(pValue->GetNumber()));
-					pValue++;
-					stat = STAT_Start;
-				} else if (pValue->GetClass()->Format_c(sig, this, flags, *pValue)) {
-					pValue++;
-					stat = STAT_Start;
-				} else {
-					break;
-				}
+				if (!pValue->GetClass()->Format_c(sig, this, flags, *pValue)) break;
+				pValue++;
+				stat = STAT_Start;
 			} else {
 				SetError_WrongFormat(sig);
 				break;

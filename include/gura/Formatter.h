@@ -43,9 +43,6 @@ public:
 							const char *format, const ValueList &valList);
 	static Value Format(Environment &env, Signal sig,
 							const char *format, IteratorOwner &iterOwner);
-private:
-	static void SetError_WrongFormat(Signal &sig);
-	static void SetError_NotEnoughArguments(Signal &sig);
 	static const char *Format_d(const Flags &flags, int value, char *buff, size_t size);
 	static const char *Format_u(const Flags &flags, UInt value, char *buff, size_t size);
 	static const char *Format_b(const Flags &flags, UInt value, char *buff, size_t size);
@@ -54,6 +51,9 @@ private:
 	static const char *Format_e(const Flags &flags, double value, char *buff, size_t size);
 	static const char *Format_f(const Flags &flags, double value, char *buff, size_t size);
 	static const char *Format_g(const Flags &flags, double value, char *buff, size_t size);
+private:
+	static void SetError_WrongFormat(Signal &sig);
+	static void SetError_NotEnoughArguments(Signal &sig);
 	static char *FillZeroDigit(char *dstp, char *dstpEnd, int cnt);
 	static char *CopyDigits(char *dstp, char *dstpEnd, const char *srcp);
 	static char *CopyDigits(char *dstp, char *dstpEnd, const char *srcp, int cnt);

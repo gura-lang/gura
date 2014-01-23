@@ -18,6 +18,16 @@ public:
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
+	virtual bool Format_d(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_u(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_b(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_o(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_x(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_e(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_f(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_g(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_s(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_c(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -30,6 +40,16 @@ public:
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
+	virtual bool Format_d(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_u(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_b(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_o(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_x(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_e(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_f(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_g(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_s(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_c(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -54,6 +74,8 @@ public:
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
+	virtual bool Format_d(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_u(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -68,6 +90,15 @@ public:
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
+	virtual bool Format_d(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_u(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_b(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_o(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_x(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_e(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_f(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_g(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_c(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -82,6 +113,9 @@ public:
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
+	virtual bool Format_e(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_f(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_g(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -96,6 +130,7 @@ public:
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
+	virtual bool Format_d(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
 };
 
 //-----------------------------------------------------------------------------
