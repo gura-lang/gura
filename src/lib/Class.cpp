@@ -525,6 +525,94 @@ bool Class::Deserialize(Environment &env, Signal sig, Stream &stream, Value &val
 	return false;
 }
 
+bool Class::Format_d(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	sig.SetError(ERR_ValueError,
+			"value type %s can not be formatted with %d qualifier",
+			MakeValueTypeName().c_str());
+	return false;
+}
+
+bool Class::Format_u(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	sig.SetError(ERR_ValueError,
+			"value type %s can not be formatted with %u qualifier",
+			MakeValueTypeName().c_str());
+	return false;
+}
+
+bool Class::Format_b(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	sig.SetError(ERR_ValueError,
+			"value type %s can not be formatted with %b qualifier",
+			MakeValueTypeName().c_str());
+	return false;
+}
+
+bool Class::Format_o(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	sig.SetError(ERR_ValueError,
+			"value type %s can not be formatted with %o qualifier",
+			MakeValueTypeName().c_str());
+	return false;
+}
+
+bool Class::Format_x(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	sig.SetError(ERR_ValueError,
+			"value type %s can not be formatted with %x qualifier",
+			MakeValueTypeName().c_str());
+	return false;
+}
+
+bool Class::Format_e(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	sig.SetError(ERR_ValueError,
+			"value type %s can not be formatted with %e qualifier",
+			MakeValueTypeName().c_str());
+	return false;
+}
+
+bool Class::Format_f(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	sig.SetError(ERR_ValueError,
+			"value type %s can not be formatted with %f qualifier",
+			MakeValueTypeName().c_str());
+	return false;
+}
+
+bool Class::Format_g(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	sig.SetError(ERR_ValueError,
+			"value type %s can not be formatted with %g qualifier",
+			MakeValueTypeName().c_str());
+	return false;
+}
+
+bool Class::Format_s(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	pFormatter->PutAlignedString(flags, value.ToString(false).c_str(), flags.precision);
+	return true;
+}
+
+bool Class::Format_c(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	sig.SetError(ERR_ValueError,
+			"value type %s can not be formatted with %c qualifier",
+			MakeValueTypeName().c_str());
+	return false;
+}
+
 bool Class::BuildContent(Environment &env, Signal sig, const Value &valueThis,
 			const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable)
 {

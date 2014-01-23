@@ -46,6 +46,7 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 					break;
 				}
 				// initialize flags
+				flags.upperCaseFlag = false;
 				flags.leftAlignFlag = false;
 				flags.sharpFlag = false;
 				flags.fieldMinWidth = 0;
@@ -101,18 +102,19 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 					pValue++;
 					stat = STAT_Start;
 				} else if (pValue->Is_number()) {
-					PutString(flags, Format_d(flags,
+					PutAlignedString(flags, Format_d(flags,
 						static_cast<int>(pValue->GetNumber()), buff, sizeof(buff)));
 					pValue++;
 					stat = STAT_Start;
 				} else if (pValue->Is_boolean()) {
-					PutString(flags, Format_d(flags,
+					PutAlignedString(flags, Format_d(flags,
 						static_cast<int>(pValue->GetBoolean()), buff, sizeof(buff)));
 					pValue++;
 					stat = STAT_Start;
+				} else if (pValue->GetClass()->Format_d(sig, this, flags, *pValue)) {
+					pValue++;
+					stat = STAT_Start;
 				} else {
-					//pValue->GetValueTypeInfo()->
-					SetError_WrongQualifier(sig, *pValue, ch);
 					break;
 				}
 			} else if (ch == 'u') {
@@ -121,12 +123,14 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 					pValue++;
 					stat = STAT_Start;
 				} else if (pValue->Is_number()) {
-					PutString(flags, Format_u(flags,
+					PutAlignedString(flags, Format_u(flags,
 						static_cast<UInt>(pValue->GetNumber()), buff, sizeof(buff)));
 					pValue++;
 					stat = STAT_Start;
+				} else if (pValue->GetClass()->Format_u(sig, this, flags, *pValue)) {
+					pValue++;
+					stat = STAT_Start;
 				} else {
-					SetError_WrongQualifier(sig, *pValue, ch);
 					break;
 				}
 			} else if (ch == 'b') {
@@ -135,12 +139,14 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 					pValue++;
 					stat = STAT_Start;
 				} else if (pValue->Is_number()) {
-					PutString(flags, Format_b(flags,
+					PutAlignedString(flags, Format_b(flags,
 						static_cast<UInt>(pValue->GetNumber()), buff, sizeof(buff)));
 					pValue++;
 					stat = STAT_Start;
+				} else if (pValue->GetClass()->Format_b(sig, this, flags, *pValue)) {
+					pValue++;
+					stat = STAT_Start;
 				} else {
-					SetError_WrongQualifier(sig, *pValue, ch);
 					break;
 				}
 			} else if (ch == 'o') {
@@ -149,102 +155,115 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 					pValue++;
 					stat = STAT_Start;
 				} else if (pValue->Is_number()) {
-					PutString(flags, Format_o(flags,
+					PutAlignedString(flags, Format_o(flags,
 						static_cast<UInt>(pValue->GetNumber()), buff, sizeof(buff)));
 					pValue++;
 					stat = STAT_Start;
+				} else if (pValue->GetClass()->Format_o(sig, this, flags, *pValue)) {
+					pValue++;
+					stat = STAT_Start;
 				} else {
-					SetError_WrongQualifier(sig, *pValue, ch);
 					break;
 				}
 			} else if (ch == 'x' || ch == 'X') {
+				flags.upperCaseFlag = (ch == 'X');
 				if (pValue->IsInvalid()) {
 					PutInvalid(flags);
 					pValue++;
 					stat = STAT_Start;
 				} else if (pValue->Is_number()) {
-					PutString(flags, Format_x(flags,
-						static_cast<UInt>(pValue->GetNumber()), buff, sizeof(buff),
-						ch == 'X'));
+					PutAlignedString(flags, Format_x(flags,
+						static_cast<UInt>(pValue->GetNumber()), buff, sizeof(buff)));
+					pValue++;
+					stat = STAT_Start;
+				} else if (pValue->GetClass()->Format_x(sig, this, flags, *pValue)) {
 					pValue++;
 					stat = STAT_Start;
 				} else {
-					SetError_WrongQualifier(sig, *pValue, ch);
 					break;
 				}
 			} else if (ch == 'e' || ch == 'E') {
+				flags.upperCaseFlag = (ch == 'E');
 				if (pValue->IsInvalid()) {
 					PutInvalid(flags);
 					pValue++;
 					stat = STAT_Start;
 				} else if (pValue->Is_number()) {
-					PutString(flags, Format_e(flags,
-						pValue->GetNumber(), buff, sizeof(buff), ch == 'E'));
+					PutAlignedString(flags, Format_e(flags,
+								pValue->GetNumber(), buff, sizeof(buff)));
 					pValue++;
 					stat = STAT_Start;
 				} else if (pValue->Is_complex()) {
-					PutString(flags, Format_e(flags,
-						pValue->GetComplex().real(), buff, sizeof(buff), ch == 'E'));
+					PutAlignedString(flags, Format_e(flags,
+								pValue->GetComplex().real(), buff, sizeof(buff)));
 					PlusMode plusMode = flags.plusMode;
 					flags.plusMode = PLUSMODE_Plus;
-					PutString(flags, Format_e(flags,
-						pValue->GetComplex().imag(), buff, sizeof(buff), ch == 'E'));
+					PutAlignedString(flags, Format_e(flags,
+								pValue->GetComplex().imag(), buff, sizeof(buff)));
 					flags.plusMode = plusMode;
 					PutChar('j');
 					pValue++;
 					stat = STAT_Start;
+				} else if (pValue->GetClass()->Format_e(sig, this, flags, *pValue)) {
+					pValue++;
+					stat = STAT_Start;
 				} else {
-					SetError_WrongQualifier(sig, *pValue, ch);
 					break;
 				}
 			} else if (ch == 'f' || ch == 'F') {
+				flags.upperCaseFlag = (ch == 'F');
 				if (pValue->IsInvalid()) {
 					PutInvalid(flags);
 					pValue++;
 					stat = STAT_Start;
 				} else if (pValue->Is_number()) {
-					PutString(flags, Format_f(flags,
-						pValue->GetNumber(), buff, sizeof(buff), ch == 'F'));
+					PutAlignedString(flags, Format_f(flags,
+								pValue->GetNumber(), buff, sizeof(buff)));
 					pValue++;
 					stat = STAT_Start;
 				} else if (pValue->Is_complex()) {
-					PutString(flags, Format_f(flags,
-						pValue->GetComplex().real(), buff, sizeof(buff), ch == 'F'));
+					PutAlignedString(flags, Format_f(flags,
+								pValue->GetComplex().real(), buff, sizeof(buff)));
 					PlusMode plusMode = flags.plusMode;
 					flags.plusMode = PLUSMODE_Plus;
-					PutString(flags, Format_f(flags,
-						pValue->GetComplex().imag(), buff, sizeof(buff), ch == 'F'));
+					PutAlignedString(flags, Format_f(flags,
+								pValue->GetComplex().imag(), buff, sizeof(buff)));
 					flags.plusMode = plusMode;
 					PutChar('j');
 					pValue++;
 					stat = STAT_Start;
+				} else if (pValue->GetClass()->Format_f(sig, this, flags, *pValue)) {
+					pValue++;
+					stat = STAT_Start;
 				} else {
-					SetError_WrongQualifier(sig, *pValue, ch);
 					break;
 				}
 			} else if (ch == 'g' || ch == 'G') {
+				flags.upperCaseFlag = (ch == 'G');
 				if (pValue->IsInvalid()) {
 					PutInvalid(flags);
 					pValue++;
 					stat = STAT_Start;
 				} else if (pValue->Is_number()) {
-					PutString(flags, Format_g(flags,
-						pValue->GetNumber(), buff, sizeof(buff), ch == 'G'));
+					PutAlignedString(flags, Format_g(flags,
+								pValue->GetNumber(), buff, sizeof(buff)));
 					pValue++;
 					stat = STAT_Start;
 				} else if (pValue->Is_complex()) {
-					PutString(flags, Format_g(flags,
-						pValue->GetComplex().real(), buff, sizeof(buff), ch == 'G'));
+					PutAlignedString(flags, Format_g(flags,
+								pValue->GetComplex().real(), buff, sizeof(buff)));
 					PlusMode plusMode = flags.plusMode;
 					flags.plusMode = PLUSMODE_Plus;
-					PutString(flags, Format_g(flags,
-						pValue->GetComplex().imag(), buff, sizeof(buff), ch == 'G'));
+					PutAlignedString(flags, Format_g(flags,
+								pValue->GetComplex().imag(), buff, sizeof(buff)));
 					flags.plusMode = plusMode;
 					PutChar('j');
 					pValue++;
 					stat = STAT_Start;
+				} else if (pValue->GetClass()->Format_g(sig, this, flags, *pValue)) {
+					pValue++;
+					stat = STAT_Start;
 				} else {
-					SetError_WrongQualifier(sig, *pValue, ch);
 					break;
 				}
 			} else if (ch == 's') {
@@ -252,20 +271,26 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 					PutInvalid(flags);
 					pValue++;
 					stat = STAT_Start;
-				} else {
-					PutString(flags, pValue->ToString(false).c_str(), flags.precision);
+				} else if (pValue->GetClass()->Format_s(sig, this, flags, *pValue)) {
 					pValue++;
 					stat = STAT_Start;
+				} else {
+					break;
 				}
 			} else if (ch == 'c') {
 				if (pValue->IsInvalid()) {
 					PutInvalid(flags);
 					pValue++;
 					stat = STAT_Start;
-				} else {
+				} else if (pValue->Is_number()) {
 					PutChar(static_cast<char>(pValue->GetNumber()));
 					pValue++;
 					stat = STAT_Start;
+				} else if (pValue->GetClass()->Format_c(sig, this, flags, *pValue)) {
+					pValue++;
+					stat = STAT_Start;
+				} else {
+					break;
 				}
 			} else {
 				SetError_WrongFormat(sig);
@@ -319,7 +344,7 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 	return !sig.IsSignalled();
 }
 
-void Formatter::PutString(const Flags &flags, const char *p, int cntMax)
+void Formatter::PutAlignedString(const Flags &flags, const char *p, int cntMax)
 {
 	int cnt = static_cast<int>(::strlen(p));
 	if (cntMax >= 0 && cnt > cntMax) cnt = cntMax;
@@ -337,10 +362,8 @@ void Formatter::PutInvalid(const Flags &flags)
 {
 	if (!_nilVisibleFlag) return;
 	std::string str;
-	//str += '(';
 	str += Gura_Symbol(nil)->GetName();
-	//str += ')';
-	PutString(flags, str.c_str());
+	PutAlignedString(flags, str.c_str());
 }
 
 String Formatter::Format(Signal sig,
@@ -366,8 +389,7 @@ Value Formatter::Format(Environment &env, Signal sig,
 	return result;
 }
 
-const char *Formatter::Format_d(const Flags &flags, int value,
-												char *buff, size_t size)
+const char *Formatter::Format_d(const Flags &flags, int value, char *buff, size_t size)
 {
 	char *p = buff + size - 1;
 	*p = '\0';
@@ -420,8 +442,7 @@ const char *Formatter::Format_d(const Flags &flags, int value,
 	return p;
 }
 
-const char *Formatter::Format_u(const Flags &flags, UInt value,
-												char *buff, size_t size)
+const char *Formatter::Format_u(const Flags &flags, UInt value, char *buff, size_t size)
 {
 	char *p = buff + size - 1;
 	*p = '\0';
@@ -450,8 +471,7 @@ const char *Formatter::Format_u(const Flags &flags, UInt value,
 	return p;
 }
 
-const char *Formatter::Format_b(const Flags &flags, UInt value,
-												char *buff, size_t size)
+const char *Formatter::Format_b(const Flags &flags, UInt value, char *buff, size_t size)
 {
 	char *p = buff + size - 1;
 	*p = '\0';
@@ -485,8 +505,7 @@ const char *Formatter::Format_b(const Flags &flags, UInt value,
 	return p;
 }
 
-const char *Formatter::Format_o(const Flags &flags, UInt value,
-												char *buff, size_t size)
+const char *Formatter::Format_o(const Flags &flags, UInt value, char *buff, size_t size)
 {
 	char *p = buff + size - 1;
 	*p = '\0';
@@ -518,12 +537,11 @@ const char *Formatter::Format_o(const Flags &flags, UInt value,
 	return p;
 }
 
-const char *Formatter::Format_x(const Flags &flags, UInt value,
-									char *buff, size_t size, bool upperFlag)
+const char *Formatter::Format_x(const Flags &flags, UInt value, char *buff, size_t size)
 {
 	char *p = buff + size - 1;
 	*p = '\0';
-	const char *convTbl = upperFlag?
+	const char *convTbl = flags.upperCaseFlag?
 						"0123456789ABCDEF" : "0123456789abcdef";
 	if (value == 0) {
 		if (flags.precision == 0) {
@@ -548,7 +566,7 @@ const char *Formatter::Format_x(const Flags &flags, UInt value,
 		}
 		if (flags.sharpFlag) {
 			p--;
-			*p = upperFlag? 'X' : 'x';
+			*p = flags.upperCaseFlag? 'X' : 'x';
 			p--;
 			*p = '0';
 		}
@@ -556,8 +574,7 @@ const char *Formatter::Format_x(const Flags &flags, UInt value,
 	return p;
 }
 
-const char *Formatter::Format_e(const Flags &flags, double value,
-							char *buff, size_t size, bool upperFlag)
+const char *Formatter::Format_e(const Flags &flags, double value, char *buff, size_t size)
 {
 	int count = (flags.precision < 0)? 6 : flags.precision;
 	int dec, sign;
@@ -577,7 +594,7 @@ const char *Formatter::Format_e(const Flags &flags, double value,
 		dstp = CopyDigits(dstp, buff + size, srcp);
 	}
 	if (dstp < buff + size - 5) {
-		*dstp++ = upperFlag? 'E' : 'e';
+		*dstp++ = flags.upperCaseFlag? 'E' : 'e';
 		if (dec >= 0) {
 			*dstp++ = '+';
 		} else {
@@ -591,8 +608,7 @@ const char *Formatter::Format_e(const Flags &flags, double value,
 	return buff;
 }
 
-const char *Formatter::Format_f(const Flags &flags, double value,
-							char *buff, size_t size, bool upperFlag)
+const char *Formatter::Format_f(const Flags &flags, double value, char *buff, size_t size)
 {
 	int count = (flags.precision < 0)? 6 : flags.precision;
 	int dec, sign;
@@ -620,8 +636,7 @@ const char *Formatter::Format_f(const Flags &flags, double value,
 	return buff;
 }
 
-const char *Formatter::Format_g(const Flags &flags, double value,
-							char *buff, size_t size, bool upperFlag)
+const char *Formatter::Format_g(const Flags &flags, double value, char *buff, size_t size)
 {
 	char *buffRaw = new char[size];
 	int digits = (flags.precision < 0)? 6 : flags.precision;
@@ -640,7 +655,7 @@ const char *Formatter::Format_g(const Flags &flags, double value,
 		char ch = *srcp;
 		if (ch == 'e' || ch == 'E') {
 			if (chPrev == '.') dstp--;
-			*dstp = upperFlag? 'E' : 'e';
+			*dstp = flags.upperCaseFlag? 'E' : 'e';
 		} else {
 			*dstp = ch;
 		}
@@ -690,13 +705,6 @@ void Formatter::SetError_WrongFormat(Signal &sig)
 void Formatter::SetError_NotEnoughArguments(Signal &sig)
 {
 	sig.SetError(ERR_TypeError, "not enough arguments for formatter");
-}
-
-void Formatter::SetError_WrongQualifier(Signal &sig, const Value &value, const char ch)
-{
-	sig.SetError(ERR_ValueError,
-			"value type %s can not be formatted with %%%c qualifier",
-			value.MakeValueTypeName().c_str(), ch);
 }
 
 //-----------------------------------------------------------------------------

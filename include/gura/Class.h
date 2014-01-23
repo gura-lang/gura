@@ -9,6 +9,7 @@
 #include "Function.h"
 #include "Iterator.h"
 #include "Fundamental.h"
+#include "Formatter.h"
 
 //-----------------------------------------------------------------------------
 // macros
@@ -180,6 +181,12 @@ public:
 	inline const char *GetName() const { return _pSymbol->GetName(); }
 	inline void SetValueType(ValueType valType) { _valType = valType; }
 	inline ValueType GetValueType() const { return _valType; }
+	inline ValueTypeInfo *GetValueTypeInfo() const {
+		return ValueTypePool::GetInstance()->Lookup(_valType);
+	}
+	inline String MakeValueTypeName() const {
+		return ValueTypePool::GetInstance()->Lookup(_valType)->MakeFullName();
+	}
 	inline Class *GetClassSuper() { return _pClassSuper.get(); }
 	inline const Class *GetClassSuper() const { return _pClassSuper.get(); }
 	inline void SetConstructor(Function *pConstructor) {
@@ -198,6 +205,16 @@ public:
 	virtual String ToString(bool exprFlag);
 	virtual bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value) const;
+	virtual bool Format_d(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_u(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_b(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_o(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_x(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_e(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_f(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_g(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_s(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_c(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
 	bool BuildContent(Environment &env, Signal sig, const Value &valueThis,
 		const Expr_Block *pExprBlock, const SymbolSet *pSymbolsAssignable = NULL);
 };

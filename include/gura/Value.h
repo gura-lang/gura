@@ -178,11 +178,11 @@ public:
 	inline ValueTypeInfo *GetValueTypeInfo() const {
 		return ValueTypePool::GetInstance()->Lookup(_valType);
 	}
-	inline Class *GetClass() const {
-		return ValueTypePool::GetInstance()->Lookup(_valType)->GetClass();
-	}
 	inline String MakeValueTypeName() const {
 		return ValueTypePool::GetInstance()->Lookup(_valType)->MakeFullName();
+	}
+	inline Class *GetClass() const {
+		return ValueTypePool::GetInstance()->Lookup(_valType)->GetClass();
 	}
 	inline bool IsType(ValueType valType) const { return _valType == valType;	}
 	inline bool IsObject() const			{ return _valType >= VTYPE_object && !GetTinyBuffFlag(); }
