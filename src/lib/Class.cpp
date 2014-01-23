@@ -529,7 +529,7 @@ bool Class::Format_d(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const Value &value) const
 {
 	sig.SetError(ERR_ValueError,
-			"value type %s can not be formatted with %d qualifier",
+			"value type %s can not be formatted with %%d qualifier",
 			MakeValueTypeName().c_str());
 	return false;
 }
@@ -538,7 +538,7 @@ bool Class::Format_u(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const Value &value) const
 {
 	sig.SetError(ERR_ValueError,
-			"value type %s can not be formatted with %u qualifier",
+			"value type %s can not be formatted with %%u qualifier",
 			MakeValueTypeName().c_str());
 	return false;
 }
@@ -547,7 +547,7 @@ bool Class::Format_b(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const Value &value) const
 {
 	sig.SetError(ERR_ValueError,
-			"value type %s can not be formatted with %b qualifier",
+			"value type %s can not be formatted with %%b qualifier",
 			MakeValueTypeName().c_str());
 	return false;
 }
@@ -556,7 +556,7 @@ bool Class::Format_o(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const Value &value) const
 {
 	sig.SetError(ERR_ValueError,
-			"value type %s can not be formatted with %o qualifier",
+			"value type %s can not be formatted with %%o qualifier",
 			MakeValueTypeName().c_str());
 	return false;
 }
@@ -565,7 +565,7 @@ bool Class::Format_x(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const Value &value) const
 {
 	sig.SetError(ERR_ValueError,
-			"value type %s can not be formatted with %x qualifier",
+			"value type %s can not be formatted with %%x qualifier",
 			MakeValueTypeName().c_str());
 	return false;
 }
@@ -574,7 +574,7 @@ bool Class::Format_e(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const Value &value) const
 {
 	sig.SetError(ERR_ValueError,
-			"value type %s can not be formatted with %e qualifier",
+			"value type %s can not be formatted with %%e qualifier",
 			MakeValueTypeName().c_str());
 	return false;
 }
@@ -583,7 +583,7 @@ bool Class::Format_f(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const Value &value) const
 {
 	sig.SetError(ERR_ValueError,
-			"value type %s can not be formatted with %f qualifier",
+			"value type %s can not be formatted with %%f qualifier",
 			MakeValueTypeName().c_str());
 	return false;
 }
@@ -592,7 +592,7 @@ bool Class::Format_g(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const Value &value) const
 {
 	sig.SetError(ERR_ValueError,
-			"value type %s can not be formatted with %g qualifier",
+			"value type %s can not be formatted with %%g qualifier",
 			MakeValueTypeName().c_str());
 	return false;
 }
@@ -608,7 +608,7 @@ bool Class::Format_c(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const Value &value) const
 {
 	sig.SetError(ERR_ValueError,
-			"value type %s can not be formatted with %c qualifier",
+			"value type %s can not be formatted with %%c qualifier",
 			MakeValueTypeName().c_str());
 	return false;
 }
