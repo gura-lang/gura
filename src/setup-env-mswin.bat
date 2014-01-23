@@ -1,10 +1,14 @@
 @echo off
 rem ==========================================================================
-rem Setup libraries necessary to build Gura modules
+rem Setup development environment
 rem ==========================================================================
-if exist ..\gura-guest\setup.bat goto update
-if exist ..\gura-guest rmdir /s /q ..\gura-guest
 pushd ..
+if exist gura-doc rmdir /s /q gura-doc
+git clone https://github.com/ypsitau/gura-doc.git
+popd
+if exist ..\gura-guest\setup.bat goto update
+pushd ..
+if exist gura-guest rmdir /s /q gura-guest
 git clone https://github.com/ypsitau/gura-guest.git
 popd
 pushd ..\gura-guest

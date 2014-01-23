@@ -18,8 +18,8 @@ Build for Windows
 -----------------
 1. Check if Visual Studio 2010 has been installed. You can use Express version as well.
 
-2. Run a batch file `gura\src\setup-gura-guest.bat`, which downloads necessary packages
-   from Git repository (https://github.com/ypsitau/gura-guest.git) and build them.
+2. Run a batch file `gura\src\setup-env-mswin.bat`, which downloads document files
+   and necessary packages from Git repository and build libraries.
 
    The batch file may occur an error that says it cannot find `vcvarsall.bat`.
    In such a case, you have to edit `gura\gura-guest\setup.bat`

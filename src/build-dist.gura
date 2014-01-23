@@ -75,7 +75,7 @@ gatherFiles() = {
 		fileNames.append(lines.filter(lines:*startswith([
 			'bin-x86', 'module/', 'application/', 'sample/', 'include/'
 		]):*or()))
-		fileNames.append(path.glob('doc/*.pdf'))
+		fileNames.append(path.glob('gura-doc/*.pdf'))
 		fileNames.append(path.glob('module/*.gurd'))
 		fileNames.append(path.glob('gura-guest/tcl/bin/*.dll'))
 		fileNames.append(path.walk('gura-guest/tcl/lib', nil):file)
@@ -377,7 +377,8 @@ createMsi(fileNames) = {
 			this.dirRecs.items() {|item|
 				[dirName, dirRec] = item
 				text += indent
-				dirName = dirName.replace('bin-x86', 'bin').replace('bin-x64', 'bin')
+				dirName = dirName.replace('bin-x86', 'bin').\
+						replace('bin-x64', 'bin').replace('gura-doc', 'doc')
 				text += format("<Directory Id='Directory%d' Name='%s'>\n",
 														directoryId, dirName)
 				directoryId += 1
