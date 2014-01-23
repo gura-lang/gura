@@ -178,6 +178,9 @@ public:
 	inline ValueTypeInfo *GetValueTypeInfo() const {
 		return ValueTypePool::GetInstance()->Lookup(_valType);
 	}
+	inline Class *GetClass() const {
+		return ValueTypePool::GetInstance()->Lookup(_valType)->GetClass();
+	}
 	inline String MakeValueTypeName() const {
 		return ValueTypePool::GetInstance()->Lookup(_valType)->MakeFullName();
 	}
@@ -349,8 +352,8 @@ public:
 	inline Module *GetModule() { return IsModule()? _u.pModule : NULL; }
 	inline const Module *GetModule() const { return IsModule()? _u.pModule : NULL; }
 	// VTYPE_Class
-	inline Class *GetClass() { return IsClass()? _u.pClass : NULL; }
-	inline const Class *GetClass() const { return IsClass()? _u.pClass : NULL; }
+	inline Class *GetClassItself() { return IsClass()? _u.pClass : NULL; }
+	inline const Class *GetClassItself() const { return IsClass()? _u.pClass : NULL; }
 	// VTYPE_Sequence
 	inline Sequence *GetSequence() { return IsSequence()? _u.pSequence : NULL; }
 	inline const Sequence *GetSequence() const { return IsSequence()? _u.pSequence : NULL; }

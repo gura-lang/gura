@@ -174,7 +174,7 @@ Fundamental *Value::ExtractFundamental(Signal sig)
 	if (IsModule()) {
 		return GetModule();
 	} else if (IsClass()) {
-		return GetClass();
+		return GetClassItself();
 	} else if (IsObject()) {
 		Fundamental *pFund = GetFundamental();
 		if (pFund->IsFunction()) {
@@ -273,7 +273,7 @@ bool Value::DirProp(Environment &env, Signal sig, SymbolSet &symbols, bool escal
 	if (IsModule()) {
 		return GetModule()->DirProp(env, sig, symbols);
 	} else if (IsClass()) {
-		return GetClass()->DirProp(env, sig, symbols, escalateFlag);
+		return GetClassItself()->DirProp(env, sig, symbols, escalateFlag);
 	} else if (Is_function()) {
 		Class *pClass = GetFunction()->GetClassToConstruct();
 		if (pClass != NULL) {

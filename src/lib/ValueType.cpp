@@ -169,18 +169,24 @@ void ValueTypePool::_Initialize(Environment &env)
 	Gura_RealizeVTYPEEx(Struct,		"struct");
 	Class *pClass = new Class(&env, VTYPE_object);
 	Gura_VTYPEInfo(object		)->SetClass(pClass);
-	// classes for primitive types
+	// nil / undefined
 	Gura_VTYPEInfo(nil			)->SetClass(new Class_nil(pClass));
 	Gura_VTYPEInfo(undefined	)->SetClass(new Class_undefined(pClass));
-	Gura_VTYPEInfo(symbol		)->SetClass(new Class_symbol(pClass));
+	// primitive types
 	Gura_VTYPEInfo(boolean		)->SetClass(new Class_boolean(pClass));
-	Gura_VTYPEInfo(number		)->SetClass(new Class_number(pClass));
 	Gura_VTYPEInfo(complex		)->SetClass(new Class_complex(pClass));
 	Gura_VTYPEInfo(rational		)->SetClass(new Class_rational(pClass));
+	Gura_VTYPEInfo(number		)->SetClass(new Class_number(pClass));
 	Gura_VTYPEInfo(string		)->SetClass(new Class_string(pClass));
+	Gura_VTYPEInfo(symbol		)->SetClass(new Class_symbol(pClass));
 	// for declaration
 	Gura_VTYPEInfo(quote		)->SetClass(new Class_quote(pClass));
 	Gura_VTYPEInfo(any			)->SetClass(new Class_any(pClass));
+	// container types
+	Gura_VTYPEInfo(Module		)->SetClass(new Class_Module(pClass));
+	Gura_VTYPEInfo(Class		)->SetClass(new Class_Class(pClass));
+	// sequence
+	Gura_VTYPEInfo(Sequence		)->SetClass(new Class_Sequence(pClass));
 	// other built-in object classes
 	Gura_VTYPEInfo(args			)->SetClass(new Class_args(pClass));
 	Gura_VTYPEInfo(audio		)->SetClass(new Class_audio(pClass));

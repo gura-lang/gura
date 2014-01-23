@@ -244,7 +244,7 @@ Gura_ImplementFunction(scope)
 		if (args.IsModule(0)) {
 			pEnv = args.GetModule(0);
 		} else if (args.IsClass(0)) {
-			pEnv = args.GetClass(0);
+			pEnv = args.GetValue(0).GetClassItself();
 		} else if (args.Is_function(0)) {
 			pEnv = args.GetFunction(0)->GetClassToConstruct();
 		} else if (args.IsType(0, VTYPE_environment)) {
@@ -1435,10 +1435,10 @@ Gura_ImplementFunction(classref)
 {
 	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetList(0));
 	if (pValueTypeInfo == NULL) return Value::Null;
-	if (pValueTypeInfo->GetClass() == NULL) {
-		sig.SetError(ERR_ValueError, "not a class type");
-		return Value::Null;
-	}
+	//if (pValueTypeInfo->GetClass() == NULL) {
+	//	sig.SetError(ERR_ValueError, "not a class type");
+	//	return Value::Null;
+	//}
 	Value result(Class::Reference(pValueTypeInfo->GetClass()));
 	return ReturnValue(env, sig, args, result);
 }
@@ -1508,7 +1508,7 @@ Gura_ImplementFunction(undef_)
 				if (pValue->IsModule()) {
 					pEnv = pValue->GetModule();
 				} else if (pValue->IsClass()) {
-					pEnv = pValue->GetClass();
+					pEnv = pValue->GetClassItself();
 				} else if (pValue->IsObject()) {
 					pEnv = pValue->GetObject();
 				} else {

@@ -699,7 +699,7 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 				"object is expected as l-value of field");
 			return false;
 		} else if (_pFunc->GetType() == FUNCTYPE_Class &&
-				_pArgs->GetThisClass() == NULL && _pArgs->GetThisObj() == NULL) {
+				_pArgs->GetThis().GetClassItself() == NULL && _pArgs->GetThisObj() == NULL) {
 			sig.SetError(ERR_ValueError,
 				"class or object is expected as l-value of field");
 			return false;

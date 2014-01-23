@@ -74,8 +74,7 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 				flags.plusMode = PLUSMODE_Plus;
 			} else if (ch == '*') {
 				if (!pValue->Is_number()) {
-					SetError_NumberIsExpected(sig,
-									"*, specifier of variable field length");
+					sig.SetError(ERR_ValueError, "number is expected for * specifier");
 					break;
 				}
 				flags.fieldMinWidth = static_cast<int>(pValue->GetNumber());
@@ -112,7 +111,8 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 					pValue++;
 					stat = STAT_Start;
 				} else {
-					SetError_NumberIsExpected(sig, ch);
+					//pValue->GetValueTypeInfo()->
+					SetError_WrongQualifier(sig, *pValue, ch);
 					break;
 				}
 			} else if (ch == 'u') {
@@ -126,7 +126,7 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 					pValue++;
 					stat = STAT_Start;
 				} else {
-					SetError_NumberIsExpected(sig, ch);
+					SetError_WrongQualifier(sig, *pValue, ch);
 					break;
 				}
 			} else if (ch == 'b') {
@@ -140,7 +140,7 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 					pValue++;
 					stat = STAT_Start;
 				} else {
-					SetError_NumberIsExpected(sig, ch);
+					SetError_WrongQualifier(sig, *pValue, ch);
 					break;
 				}
 			} else if (ch == 'o') {
@@ -154,7 +154,7 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 					pValue++;
 					stat = STAT_Start;
 				} else {
-					SetError_NumberIsExpected(sig, ch);
+					SetError_WrongQualifier(sig, *pValue, ch);
 					break;
 				}
 			} else if (ch == 'x' || ch == 'X') {
@@ -169,7 +169,7 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 					pValue++;
 					stat = STAT_Start;
 				} else {
-					SetError_NumberIsExpected(sig, ch);
+					SetError_WrongQualifier(sig, *pValue, ch);
 					break;
 				}
 			} else if (ch == 'e' || ch == 'E') {
@@ -194,7 +194,7 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 					pValue++;
 					stat = STAT_Start;
 				} else {
-					SetError_NumberOrComplexIsExpected(sig, ch);
+					SetError_WrongQualifier(sig, *pValue, ch);
 					break;
 				}
 			} else if (ch == 'f' || ch == 'F') {
@@ -219,7 +219,7 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 					pValue++;
 					stat = STAT_Start;
 				} else {
-					SetError_NumberOrComplexIsExpected(sig, ch);
+					SetError_WrongQualifier(sig, *pValue, ch);
 					break;
 				}
 			} else if (ch == 'g' || ch == 'G') {
@@ -244,7 +244,7 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 					pValue++;
 					stat = STAT_Start;
 				} else {
-					SetError_NumberOrComplexIsExpected(sig, ch);
+					SetError_WrongQualifier(sig, *pValue, ch);
 					break;
 				}
 			} else if (ch == 's') {
@@ -289,8 +289,7 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 		} else if (stat == STAT_PrecisionPre) {
 			if (ch == '*') {
 				if (!pValue->Is_number()) {
-					SetError_NumberIsExpected(sig,
-									"*, specifier of variable precision");
+					sig.SetError(ERR_ValueError, "number is expected for * specifier");
 					break;
 				}
 				flags.precision = static_cast<int>(pValue->GetNumber());
@@ -681,6 +680,23 @@ char *Formatter::CopyDigits(char *dstp, char *dstpEnd, const char *srcp, int cnt
 	}
 	*dstp = '\0';
 	return dstp;
+}
+
+void Formatter::SetError_WrongFormat(Signal &sig)
+{
+	sig.SetError(ERR_ValueError, "wrong format for formatter");
+}
+
+void Formatter::SetError_NotEnoughArguments(Signal &sig)
+{
+	sig.SetError(ERR_TypeError, "not enough arguments for formatter");
+}
+
+void Formatter::SetError_WrongQualifier(Signal &sig, const Value &value, const char ch)
+{
+	sig.SetError(ERR_ValueError,
+			"value type %s can not be formatted with %%%c qualifier",
+			value.MakeValueTypeName().c_str(), ch);
 }
 
 //-----------------------------------------------------------------------------

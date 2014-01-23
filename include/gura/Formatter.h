@@ -40,21 +40,9 @@ public:
 	static Value Format(Environment &env, Signal sig,
 							const char *format, IteratorOwner &iterOwner);
 private:
-	inline static void SetError_WrongFormat(Signal &sig) {
-		sig.SetError(ERR_ValueError, "wrong format for formatter");
-	}
-	inline static void SetError_NotEnoughArguments(Signal &sig) {
-		sig.SetError(ERR_TypeError, "not enough arguments for formatter");
-	}
-	inline static void SetError_NumberIsExpected(Signal &sig, const char ch) {
-		sig.SetError(ERR_ValueError, "number is expected for %%%c qualifier", ch);
-	}
-	inline static void SetError_NumberOrComplexIsExpected(Signal &sig, const char ch) {
-		sig.SetError(ERR_ValueError, "number or complex is expected for %%%c qualifier", ch);
-	}
-	inline static void SetError_NumberIsExpected(Signal &sig, const char *qualifier) {
-		sig.SetError(ERR_ValueError, "number is expected for %s", qualifier);
-	}
+	static void SetError_WrongFormat(Signal &sig);
+	static void SetError_NotEnoughArguments(Signal &sig);
+	static void SetError_WrongQualifier(Signal &sig, const Value &value, const char ch);
 	static const char *Format_d(const Flags &flags, int value,
 							char *buff, size_t size);
 	static const char *Format_u(const Flags &flags, UInt value,

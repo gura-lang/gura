@@ -145,10 +145,10 @@ const char *GetFuncTypeName(FunctionType funcType);
 class GURA_DLLDECLARE Function {
 public:
 	enum {
-		MAP_Off				= (0 << 0),	// 
-		MAP_On				= (1 << 0),	// 
-		FLAT_Off			= (0 << 1),	// 
-		FLAT_On				= (1 << 1),	// 
+		MAP_Off				= (0 << 0),
+		MAP_On				= (1 << 0),
+		FLAT_Off			= (0 << 1),
+		FLAT_On				= (1 << 1),
 	};
 	enum BlockScope {
 		BLKSCOPE_Through,
@@ -448,8 +448,6 @@ public:
 	inline void SetThis(const Value &valueThis) { _valueThis = valueThis; }
 	inline Value &GetThis() { return _valueThis; }
 	inline const Value &GetThis() const { return _valueThis; }
-	inline Class *GetThisClass() { return _valueThis.GetClass(); }
-	inline const Class *GetThisClass() const { return _valueThis.GetClass(); }
 	inline Object *GetThisObj() { return _valueThis.GetObject(); }
 	inline const Object *GetThisObj() const { return _valueThis.GetObject(); }
 	inline Fundamental *GetThisFundamental() { return _valueThis.GetFundamental(); }
@@ -604,8 +602,6 @@ public:
 	inline Complex GetComplex(size_t idxArg) const		{ return GetValue(idxArg).GetComplex();	}
 	inline Module *GetModule(size_t idxArg)				{ return GetValue(idxArg).GetModule();	}
 	inline const Module *GetModule(size_t idxArg) const	{ return GetValue(idxArg).GetModule();	}
-	inline Class *GetClass(size_t idxArg)				{ return GetValue(idxArg).GetClass();	}
-	inline const Class *GetClass(size_t idxArg) const	{ return GetValue(idxArg).GetClass();	}
 	inline const ValueList &GetList(size_t idxArg) const{ return GetValue(idxArg).GetList();	}
 	inline const ValueDict &GetDict(size_t idxArg) const{ return GetValue(idxArg).GetDict();	}
 	inline Iterator *GetIterator(size_t idxArg) const	{ return GetValue(idxArg).GetIterator();}

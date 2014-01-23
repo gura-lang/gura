@@ -999,8 +999,8 @@ Value Expr_Symbol::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
 			pModule->SetSymbol(GetSymbol());
 		}
 		extra = EXTRA_Public;
-	} else if (valueAssigned.IsClass() && valueAssigned.GetClass()->IsCustom()) {
-		ClassCustom *pClass = dynamic_cast<ClassCustom *>(valueAssigned.GetClass());
+	} else if (valueAssigned.IsClass() && valueAssigned.GetClassItself()->IsCustom()) {
+		ClassCustom *pClass = dynamic_cast<ClassCustom *>(valueAssigned.GetClassItself());
 		if (pClass->IsAnonymous()) {
 			ValueTypeInfo *pValueTypeInfo =
 							ValueTypePool::GetInstance()->Add(GetSymbol());
