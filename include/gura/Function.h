@@ -12,6 +12,17 @@
 #include "Help.h"
 
 // DeclareFunction
+#define Gura_DeclareFunctionBegin(name) \
+class Func_##name : public Function {
+
+#define Gura_DeclareFunctionEnd(name) \
+public: \
+	Func_##name(Environment &env, const char *name = #name); \
+	virtual Value DoEval(Environment &env, Signal sig, Args &args) const; \
+}; \
+Func_##name::Func_##name(Environment &env, const char *name) : \
+					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
+
 #define Gura_DeclareFunctionAlias(name, nameAlias) \
 class Func_##name : public Function { \
 public: \
@@ -101,17 +112,6 @@ Expr *Func_##name::DiffUnary(Environment &env, Signal sig, const Expr *pExprArg,
 #define Gura_Function(name) Func_##name
 
 #define Gura_Method(className, name) Func_##className##__##name
-
-#define Gura_DeclareFunctionBegin(name) \
-class Func_##name : public Function {
-
-#define Gura_DeclareFunctionEnd(name) \
-public: \
-	Func_##name(Environment &env, const char *name = #name); \
-	virtual Value DoEval(Environment &env, Signal sig, Args &args) const; \
-}; \
-Func_##name::Func_##name(Environment &env, const char *name) : \
-					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
 
 namespace Gura {
 

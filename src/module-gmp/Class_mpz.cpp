@@ -137,4 +137,34 @@ Gura_ImplementCastTo(mpz)
 	return false;
 }
 
+bool Gura_ClassName(mpz)::Format_d(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	return false;
+}
+
+bool Gura_ClassName(mpz)::Format_u(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	return false;
+}
+
+bool Gura_ClassName(mpz)::Format_b(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	return false;
+}
+
+bool Gura_ClassName(mpz)::Format_o(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	return false;
+}
+
+bool Gura_ClassName(mpz)::Format_x(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	return false;
+}
+
 Gura_EndModuleScope(gmp)
