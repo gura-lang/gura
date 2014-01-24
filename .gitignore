@@ -31,6 +31,7 @@
 /src/program-guri/guri
 /src/lib/Makefile
 /build
+/gura-doc
 /gura-guest
 msc/
 gnuc/

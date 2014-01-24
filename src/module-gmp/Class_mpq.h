@@ -6,7 +6,8 @@ Gura_BeginModuleScope(gmp)
 //-----------------------------------------------------------------------------
 // Object_mpq declaration
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(mpq);
+Gura_DeclareUserClassBegin(mpq)
+Gura_DeclareUserClassEnd(mpq)
 
 class Object_mpq : public Object {
 private:

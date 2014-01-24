@@ -202,4 +202,22 @@ Gura_ImplementCastTo(mpf)
 	return false;
 }
 
+bool Gura_ClassName(mpf)::Format_e(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	return false;
+}
+
+bool Gura_ClassName(mpf)::Format_f(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	return false;
+}
+
+bool Gura_ClassName(mpf)::Format_g(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	return false;
+}
+
 Gura_EndModuleScope(gmp)

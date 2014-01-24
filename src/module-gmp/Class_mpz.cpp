@@ -137,4 +137,61 @@ Gura_ImplementCastTo(mpz)
 	return false;
 }
 
+
+bool Gura_ClassName(mpz)::Format_d(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	const mpz_class &num = Object_mpz::GetEntity(value);
+	char *str = NULL;
+	::gmp_asprintf(&str, ComposeFormat(flags, "Zd").c_str(), num.get_mpz_t());
+	pFormatter->PutString(str);
+	::free(str);
+	return true;
+}
+
+bool Gura_ClassName(mpz)::Format_u(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	const mpz_class &num = Object_mpz::GetEntity(value);
+	char *str = NULL;
+	::gmp_asprintf(&str, ComposeFormat(flags, "Zu").c_str(), num.get_mpz_t());
+	pFormatter->PutString(str);
+	::free(str);
+	return true;
+}
+
+bool Gura_ClassName(mpz)::Format_b(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	const mpz_class &num = Object_mpz::GetEntity(value);
+	char *str = NULL;
+	::gmp_asprintf(&str, ComposeFormat(flags, "Zb").c_str(), num.get_mpz_t());
+	pFormatter->PutString(str);
+	::free(str);
+	return true;
+}
+
+bool Gura_ClassName(mpz)::Format_o(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	const mpz_class &num = Object_mpz::GetEntity(value);
+	char *str = NULL;
+	::gmp_asprintf(&str, ComposeFormat(flags, "Zo").c_str(), num.get_mpz_t());
+	pFormatter->PutString(str);
+	::free(str);
+	return true;
+}
+
+bool Gura_ClassName(mpz)::Format_x(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	const mpz_class &num = Object_mpz::GetEntity(value);
+	char *str = NULL;
+	::gmp_asprintf(&str, ComposeFormat(flags,
+				flags.upperCaseFlag? "ZX" : "Zx").c_str(), num.get_mpz_t());
+	pFormatter->PutString(str);
+	::free(str);
+	return true;
+}
+
 Gura_EndModuleScope(gmp)

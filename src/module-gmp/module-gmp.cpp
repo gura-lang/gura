@@ -134,6 +134,22 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // utility functions
 //-----------------------------------------------------------------------------
+String ComposeFormat(const Formatter::Flags &flags, char *qualifier)
+{
+	String fmt = "%";
+#if 0
+	bool upperCaseFlag;
+	bool leftAlignFlag;
+	bool sharpFlag;
+	int fieldMinWidth;
+	int precision;
+	PlusMode plusMode;
+	char charPadding;
+#endif
+	fmt += qualifier;
+	return fmt;
+}
+
 mpq_class MpqFromRational(const Rational &ratio)
 {
 	mpq_t num;

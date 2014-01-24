@@ -6,7 +6,12 @@ Gura_BeginModuleScope(gmp)
 //-----------------------------------------------------------------------------
 // Object_mpf declaration
 //-----------------------------------------------------------------------------
-Gura_DeclareUserClass(mpf);
+Gura_DeclareUserClassBegin(mpf)
+public:
+	virtual bool Format_e(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_f(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_g(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+Gura_DeclareUserClassEnd(mpf)
 
 class Object_mpf : public Object {
 private:

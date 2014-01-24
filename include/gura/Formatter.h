@@ -36,6 +36,7 @@ public:
 	inline Formatter(bool nilVisibleFlag = true) :
 					_nilVisibleFlag(nilVisibleFlag), _lineSep("\n") {}
 	bool DoFormat(Signal sig, const char *format, const ValueList &valList);
+	void PutString(const char *p);
 	void PutAlignedString(const Flags &flags, const char *p, int cntMax = -1);
 	void PutInvalid(const Flags &flags);
 	virtual void PutChar(char ch) = 0;

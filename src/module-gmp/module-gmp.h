@@ -12,6 +12,7 @@
 
 Gura_BeginModuleHeader(gmp)
 
+String ComposeFormat(const Formatter::Flags &flags, char *qualifier);
 mpq_class MpqFromRational(const Rational &ratio);
 
 Gura_EndModuleHeader(gmp)

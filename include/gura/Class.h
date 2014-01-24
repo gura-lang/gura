@@ -14,24 +14,32 @@
 //-----------------------------------------------------------------------------
 // macros
 //-----------------------------------------------------------------------------
+#define Gura_ClassName(name) Class_##name
+
 #define Gura_UserClass(name) \
 (Class_##name::_pValueTypeInfo->GetClass())
 
 #define Gura_ImplementClass(name) \
 Class_##name::Class_##name(Environment *pEnvOuter) : Class(pEnvOuter)
 
-#define Gura_DeclareUserClass(name) \
+#define Gura_DeclareUserClassBegin(name) \
+GURA_DLLEXPORT extern ValueType VTYPE_##name; \
 class GURA_DLLEXPORT Class_##name : public Class { \
+public: \
+	static ValueTypeInfo *_pValueTypeInfo; \
 public: \
 	inline Class_##name(Environment *pEnvOuter, ValueType valType) : Class(pEnvOuter, valType) {} \
 	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl); \
 	virtual bool CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl); \
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass); \
-	virtual void Prepare(Environment &env); \
-public: \
-	static ValueTypeInfo *_pValueTypeInfo; \
-}; \
-GURA_DLLEXPORT extern ValueType VTYPE_##name;
+	virtual void Prepare(Environment &env);
+
+#define Gura_DeclareUserClassEnd(name) \
+};
+
+#define Gura_DeclareUserClass(name) \
+Gura_DeclareUserClassBegin(name) \
+Gura_DeclareUserClassEnd(name)
 
 #define Gura_ImplementUserClass(name) \
 ValueTypeInfo *Class_##name::_pValueTypeInfo = NULL; \
