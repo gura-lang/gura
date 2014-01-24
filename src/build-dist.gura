@@ -29,6 +29,7 @@ argopt.Parser {|p|
 //[langId, codePage] = ['1041', '932']	// jp-JP
 [langId, codePage] = ['1033', '1252']	// en-US
 prefix = 'gura-' + sys.version
+prefixDoc = 'gura-doc-' + sys.version
 
 dirNameScript = path.dirname(sys.argv[0])
 dirNameDst = fs.getcwd()
@@ -37,25 +38,25 @@ if (cfg['outdir']) {
 	fs.mkdir(dirNameDst):tree
 }
 
-makeFileNames(prefix:string) = [
+makeFileNames(prefix:string, prefixDoc:string) = [
 	path.join(dirNameDst, prefix + '-src.tar.gz')
-	path.join(dirNameDst, prefix + '-src.zip')
 	path.join(dirNameDst, prefix + '-win32.zip')
 	path.join(dirNameDst, prefix + '-win32.list.txt')
 	path.join(dirNameDst, prefix + '-win32.wxs')
 	path.join(dirNameDst, prefix + '-win32.wixobj')
 	path.join(dirNameDst, prefix + '-win32.msi')
+	path.join(dirNameDst, prefixDoc + '-src.zip')
 ]
 
 [
 	fileNameSrcTar
-	fileNameSrcZip
 	fileNameBinZip
 	fileNameList
 	fileNameWxs
 	fileNameWixobj
 	fileNameMsi
-] = makeFileNames(prefix)
+	fileNameDocSrcZip
+] = makeFileNames(prefix, prefixDoc)
 
 gatherFiles() = {
 	fileNames = [
@@ -114,7 +115,7 @@ if (sys.platform == `mswin) {
 }
 
 clean() = {
-	fileNamesToDelete = path.glob(makeFileNames('gura-*')):flat:list
+	fileNamesToDelete = path.glob(makeFileNames('gura-*', 'gura-doc-*')):flat:list
 	fileNamesToDelete.each {|fileName|
 		try {
 			fs.remove(fileName)
@@ -430,12 +431,14 @@ createSrcPackage() = {
 	fs.chdir(path.join(dirNameScript, '..')) {
 		(os.exec('git', 'archive', '--format=tar.gz', '--prefix=' + prefix + '/',
 				 '--output=' + fileNameSrcTar, 'HEAD') != 0)
-		//(os.exec('git', 'archive', '--format=zip', '--prefix=' + prefix + '/',
-		//		 '--output=' + fileNameSrcZip, 'HEAD') != 0)
+	} && sys.exit(1)
+	fs.chdir(path.join(dirNameScript, '../gura-doc')) {
+		(os.exec('git', 'archive', '--format=zip', '--prefix=' + prefixDoc + '/',
+				 '--output=' + fileNameDocSrcZip, 'HEAD') != 0)
 	} && sys.exit(1)
 	conio.setcolor(`bright_red) {
 		printf('generated: %s\n', path.filename(fileNameSrcTar))
-		//printf('generated: %s\n', path.filename(fileNameSrcZip))
+		printf('generated: %s\n', path.filename(fileNameDocSrcZip))
 	}
 }
 
