@@ -41,7 +41,7 @@ if (cfg['outdir']) {
 makeFileNames(prefix:string, prefixDoc:string) = [
 	path.join(dirNameDst, prefix + '-src.tar.gz')
 	path.join(dirNameDst, prefix + '-win32.zip')
-	path.join(dirNameDst, prefix + '-win32.list.txt')
+	path.join(dirNameDst, prefix + '-win32-list.txt')
 	path.join(dirNameDst, prefix + '-win32.wxs')
 	path.join(dirNameDst, prefix + '-win32.wixobj')
 	path.join(dirNameDst, prefix + '-win32.msi')
