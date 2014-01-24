@@ -1,0 +1,8 @@
+#!/usr/bin/make -f
+#
+
+include /usr/share/cdbs/1/rules/debhelper.mk
+
+install/gura-module::
+	install -pd $(DEB_DESTDIR)/usr/lib/gura/0.4.0/module
+	install -pm 755 hoge.gura $(DEB_DESTDIR)/usr/lib/gura/0.4.0/module/

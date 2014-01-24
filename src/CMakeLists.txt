@@ -38,13 +38,20 @@ configure_file(
   ${GURA_ROOT_SRCDIR}/include/gura/config.h)
 
 configure_file(
-  ${PROJECT_SOURCE_DIR}/build-modules.in
-  ${PROJECT_SOURCE_DIR}/build-modules)
+  ${PROJECT_SOURCE_DIR}/resource/build/build-modules.in
+  ${PROJECT_SOURCE_DIR}/resource/build/build-modules)
 
 file(COPY
-  ${PROJECT_SOURCE_DIR}/build-modules
+  ${PROJECT_SOURCE_DIR}/resource/build/build-modules
   DESTINATION .
   FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ)
+
+file(COPY
+  ${PROJECT_SOURCE_DIR}/resource/debian/changelog
+  ${PROJECT_SOURCE_DIR}/resource/debian/control
+  ${PROJECT_SOURCE_DIR}/resource/debian/copyright
+  ${PROJECT_SOURCE_DIR}/resource/debian/rules
+  DESTINATION debian)
 
 include_directories(
   ${GURA_ROOT_SRCDIR}/include
