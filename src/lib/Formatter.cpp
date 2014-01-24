@@ -191,6 +191,11 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 	return !sig.IsSignalled();
 }
 
+void Formatter::PutString(const char *p)
+{
+	for ( ; *p != '\0'; p++) PutChar(*p);
+}
+
 void Formatter::PutAlignedString(const Flags &flags, const char *p, int cntMax)
 {
 	int cnt = static_cast<int>(::strlen(p));
