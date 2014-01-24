@@ -5,4 +5,7 @@ include /usr/share/cdbs/1/rules/debhelper.mk
 
 install/gura-module::
 	install -pd $(DEB_DESTDIR)/usr/lib/gura/0.4.0/module
-	install -pm 755 hoge.gura $(DEB_DESTDIR)/usr/lib/gura/0.4.0/module/
+	install -pm 644 module-bmp/gnuc/bmp.gurd $(DEB_DESTDIR)/usr/lib/gura/0.4.0/module/
+	install -pm 644 module-bzip2/gnuc/bzip2.gurd $(DEB_DESTDIR)/usr/lib/gura/0.4.0/module/
+	install -pm 644 module-cairo/gnuc/cairo.gurd $(DEB_DESTDIR)/usr/lib/gura/0.4.0/module/
+	install -pm 644 module-csv/gnuc/csv.gurd $(DEB_DESTDIR)/usr/lib/gura/0.4.0/module/
