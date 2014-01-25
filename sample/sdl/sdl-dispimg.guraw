@@ -5,10 +5,14 @@ import(png)
 import(bmp)
 import(jpeg)
 
+if (sys.argv.len() < 2) {
+	sys.stderr.println('usage: sdl-dispimg.gura file')
+	sys.exit(1)
+}
 sdl.Init(sdl.INIT_EVERYTHING)
 img = image(sys.argv[1])
 screen = sdl.SetVideoMode(img.width, img.height, 16, sdl.SWSURFACE)
-screen.PutSurface(sdl.CreateRGBSurfaceFrom(img), 0, 0)
+sdl.BlitSurface(img, nil, screen, sdl.Rect(0, 0, 0, 0))
 screen.UpdateRect()
 repeat {
 	event = sdl.WaitEvent()
