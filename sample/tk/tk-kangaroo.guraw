@@ -1,5 +1,4 @@
 #!/usr/bin/env gura
-
 import(tk)
 import(png)
 //import(gif)
@@ -77,18 +76,18 @@ tk.mainwindow() {|mw|
 		c.bind('<1>') {|x:number, y:number|
 			if (!kangaroo) {
 				kangaroo = Kangaroo(c, x, y, `left)
-				tick = time.clock()
+				tick = os.clock()
 			}
 		}
 		c.bind('<3>') {|x:number, y:number|
 			if (!kangaroo) {
 				kangaroo = Kangaroo(c, x, y, `right)
-				tick = time.clock()
+				tick = os.clock()
 			}
 		}
 		c.bind('<ButtonRelease>') {
 			if (kangaroo) {
-				duration = time.clock() - tick
+				duration = os.clock() - tick
 				htJump = int(duration * 200)
 				htJump = min(max(htJump, 50), 200)
 				kangaroo.startJump(htJump)
