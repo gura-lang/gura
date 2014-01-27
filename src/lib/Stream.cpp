@@ -26,6 +26,16 @@ void SimpleStream::PrintFmt(Signal sig, const char *format, const ValueList &val
 	Print(sig, str.c_str());
 }
 
+void SimpleStream::Printf(Signal sig, const char *format, ...)
+{
+	va_list ap;
+	va_start(ap, format);
+	String str = Formatter::Format(sig, format, ap);
+	va_end(ap);
+	if (sig.IsSignalled()) return;
+	Print(sig, str.c_str());
+}
+
 void SimpleStream::Dump(Signal sig, const void *buff, size_t bytes, bool upperFlag)
 {
 	int iCol = 0;
