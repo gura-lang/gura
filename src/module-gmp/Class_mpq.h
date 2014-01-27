@@ -7,6 +7,11 @@ Gura_BeginModuleScope(gmp)
 // Object_mpq declaration
 //-----------------------------------------------------------------------------
 Gura_DeclareUserClassBegin(mpq)
+public:
+	virtual bool Format_d(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_b(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_o(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_x(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
 Gura_DeclareUserClassEnd(mpq)
 
 class Object_mpq : public Object {

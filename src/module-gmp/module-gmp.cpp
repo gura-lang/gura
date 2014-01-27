@@ -251,6 +251,47 @@ bool _Format_g(Signal sig, Formatter *pFormatter,
 	return true;
 }
 
+bool _Format_d(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const mpq_class &num)
+{
+	char *str = NULL;
+	::gmp_asprintf(&str, ComposeFormat(flags, "Qd").c_str(), num.get_mpq_t());
+	pFormatter->PutString(str);
+	::free(str);
+	return true;
+}
+
+bool _Format_b(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const mpq_class &num)
+{
+	char *str = NULL;
+	::gmp_asprintf(&str, ComposeFormat(flags, "Qb").c_str(), num.get_mpq_t());
+	pFormatter->PutString(str);
+	::free(str);
+	return true;
+}
+
+bool _Format_o(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const mpq_class &num)
+{
+	char *str = NULL;
+	::gmp_asprintf(&str, ComposeFormat(flags, "Qo").c_str(), num.get_mpq_t());
+	pFormatter->PutString(str);
+	::free(str);
+	return true;
+}
+
+bool _Format_x(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const mpq_class &num)
+{
+	char *str = NULL;
+	::gmp_asprintf(&str, ComposeFormat(flags,
+				flags.upperCaseFlag? "QX" : "Qx").c_str(), num.get_mpq_t());
+	pFormatter->PutString(str);
+	::free(str);
+	return true;
+}
+
 Gura_EndModuleBody(gmp, gmp)
 
 Gura_RegisterModule(gmp)
