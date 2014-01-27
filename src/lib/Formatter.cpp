@@ -10,10 +10,21 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valList)
 {
+	Source_ValueList source(valList);
+	return DoFormat(sig, format, source);
+}
+
+bool Formatter::DoFormat(Signal sig, const char *format, va_list ap)
+{
+	Source_va_list source(ap);
+	return DoFormat(sig, format, source);
+}
+
+bool Formatter::DoFormat(Signal sig, const char *format, Source &source)
+{
 	bool eatNextFlag;
 	const char *formatp = format;
 	Flags flags;
-	ValueList::const_iterator pValue = valList.begin();
 	enum {
 		STAT_Start,
 		STAT_FlagsPre, STAT_Flags, STAT_FlagsAfterWhite,
@@ -30,17 +41,17 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 				stat = STAT_FlagsPre;
 			} else if (ch == '\n') {
 				for (const char *p = _lineSep; *p != '\0'; p++) {
-					PutChar(*p);
+					if (!PutChar(sig, *p)) return false;
 				}
 			} else {
-				PutChar(ch);
+				if (!PutChar(sig, ch)) return false;
 			}
 		} else if (stat == STAT_FlagsPre) {
 			if (ch == '%') {
-				PutChar(ch);
+				if (!PutChar(sig, ch)) return false;
 				stat = STAT_Start;
 			} else {
-				if (pValue == valList.end()) {
+				if (source.IsEnd()) {
 					SetError_NotEnoughArguments(sig);
 					break;
 				}
@@ -73,17 +84,17 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 			} else if (ch == '+') {
 				flags.plusMode = PLUSMODE_Plus;
 			} else if (ch == '*') {
-				if (!pValue->Is_number()) {
+				Value value = source.GetInt();
+				if (!value.Is_number()) {
 					sig.SetError(ERR_ValueError, "number is expected for * specifier");
 					break;
 				}
-				flags.fieldMinWidth = static_cast<int>(pValue->GetNumber());
+				flags.fieldMinWidth = static_cast<int>(value.GetNumber());
 				if (flags.fieldMinWidth < 0) {
 					flags.leftAlignFlag = true;
 					flags.fieldMinWidth = -flags.fieldMinWidth;
 				}
-				pValue++;
-				if (pValue == valList.end()) {
+				if (source.IsEnd()) {
 					SetError_NotEnoughArguments(sig);
 					break;
 				}
@@ -96,48 +107,48 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 			} else if (ch == 'l') {
 				// just ignore it
 			} else if (ch == 'd' || ch == 'i') {
-				if (!pValue->GetClass()->Format_d(sig, this, flags, *pValue)) break;
-				pValue++;
+				Value value = source.GetInt();
+				if (!value.GetClass()->Format_d(sig, this, flags, value)) break;
 				stat = STAT_Start;
 			} else if (ch == 'u') {
-				if (!pValue->GetClass()->Format_u(sig, this, flags, *pValue)) break;
-				pValue++;
+				Value value = source.GetInt();
+				if (!value.GetClass()->Format_u(sig, this, flags, value)) break;
 				stat = STAT_Start;
 			} else if (ch == 'b') {
-				if (!pValue->GetClass()->Format_b(sig, this, flags, *pValue)) break;
-				pValue++;
+				Value value = source.GetInt();
+				if (!value.GetClass()->Format_b(sig, this, flags, value)) break;
 				stat = STAT_Start;
 			} else if (ch == 'o') {
-				if (!pValue->GetClass()->Format_o(sig, this, flags, *pValue)) break;
-				pValue++;
+				Value value = source.GetInt();
+				if (!value.GetClass()->Format_o(sig, this, flags, value)) break;
 				stat = STAT_Start;
 			} else if (ch == 'x' || ch == 'X') {
+				Value value = source.GetInt();
 				flags.upperCaseFlag = (ch == 'X');
-				if (!pValue->GetClass()->Format_x(sig, this, flags, *pValue)) break;
-				pValue++;
+				if (!value.GetClass()->Format_x(sig, this, flags, value)) break;
 				stat = STAT_Start;
 			} else if (ch == 'e' || ch == 'E') {
+				Value value = source.GetDouble();
 				flags.upperCaseFlag = (ch == 'E');
-				if (!pValue->GetClass()->Format_e(sig, this, flags, *pValue)) break;
-				pValue++;
+				if (!value.GetClass()->Format_e(sig, this, flags, value)) break;
 				stat = STAT_Start;
 			} else if (ch == 'f' || ch == 'F') {
+				Value value = source.GetDouble();
 				flags.upperCaseFlag = (ch == 'F');
-				if (!pValue->GetClass()->Format_f(sig, this, flags, *pValue)) break;
-				pValue++;
+				if (!value.GetClass()->Format_f(sig, this, flags, value)) break;
 				stat = STAT_Start;
 			} else if (ch == 'g' || ch == 'G') {
+				Value value = source.GetDouble();
 				flags.upperCaseFlag = (ch == 'G');
-				if (!pValue->GetClass()->Format_g(sig, this, flags, *pValue)) break;
-				pValue++;
+				if (!value.GetClass()->Format_g(sig, this, flags, value)) break;
 				stat = STAT_Start;
 			} else if (ch == 's') {
-				if (!pValue->GetClass()->Format_s(sig, this, flags, *pValue)) break;
-				pValue++;
+				Value value = source.GetString();
+				if (!value.GetClass()->Format_s(sig, this, flags, value)) break;
 				stat = STAT_Start;
 			} else if (ch == 'c') {
-				if (!pValue->GetClass()->Format_c(sig, this, flags, *pValue)) break;
-				pValue++;
+				Value value = source.GetInt();
+				if (!value.GetClass()->Format_c(sig, this, flags, value)) break;
 				stat = STAT_Start;
 			} else {
 				SetError_WrongFormat(sig);
@@ -160,14 +171,14 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 			}
 		} else if (stat == STAT_PrecisionPre) {
 			if (ch == '*') {
-				if (!pValue->Is_number()) {
+				Value value = source.GetInt();
+				if (!value.Is_number()) {
 					sig.SetError(ERR_ValueError, "number is expected for * specifier");
 					break;
 				}
-				flags.precision = static_cast<int>(pValue->GetNumber());
+				flags.precision = static_cast<int>(value.GetNumber());
 				if (flags.precision < 0) flags.precision = 0;
-				pValue++;
-				if (pValue == valList.end()) {
+				if (source.IsEnd()) {
 					SetError_NotEnoughArguments(sig);
 					break;
 				}
@@ -191,31 +202,33 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 	return !sig.IsSignalled();
 }
 
-void Formatter::PutString(const char *p)
+bool Formatter::PutString(Signal sig, const char *p)
 {
-	for ( ; *p != '\0'; p++) PutChar(*p);
+	for ( ; *p != '\0'; p++) if (!PutChar(sig, *p)) return false;
+	return true;
 }
 
-void Formatter::PutAlignedString(const Flags &flags, const char *p, int cntMax)
+bool Formatter::PutAlignedString(Signal sig, const Flags &flags, const char *p, int cntMax)
 {
 	int cnt = static_cast<int>(::strlen(p));
 	if (cntMax >= 0 && cnt > cntMax) cnt = cntMax;
 	int cntPadding = flags.fieldMinWidth - static_cast<int>(Width(p));
 	if (flags.leftAlignFlag) {
-		for ( ; cnt > 0; p++, cnt--) PutChar(*p);
-		while (cntPadding-- > 0) PutChar(flags.charPadding);
+		for ( ; cnt > 0; p++, cnt--) if (!PutChar(sig, *p)) return false;
+		while (cntPadding-- > 0) if (!PutChar(sig, flags.charPadding)) return false;
 	} else {
-		while (cntPadding-- > 0) PutChar(flags.charPadding);
-		for ( ; cnt > 0; p++, cnt--) PutChar(*p);
+		while (cntPadding-- > 0) if (!PutChar(sig, flags.charPadding)) return false;
+		for ( ; cnt > 0; p++, cnt--) if (!PutChar(sig, *p)) return false;
 	}
+	return true;
 }
 
-void Formatter::PutInvalid(const Flags &flags)
+bool Formatter::PutInvalid(Signal sig, const Flags &flags)
 {
-	if (!_nilVisibleFlag) return;
+	if (!_nilVisibleFlag) return true;
 	std::string str;
 	str += Gura_Symbol(nil)->GetName();
-	PutAlignedString(flags, str.c_str());
+	return PutAlignedString(sig, flags, str.c_str());
 }
 
 String Formatter::Format(Signal sig,
@@ -223,6 +236,13 @@ String Formatter::Format(Signal sig,
 {
 	FormatterString formatter;
 	formatter.DoFormat(sig, format, valList);
+	return formatter.GetStringSTL();
+}
+
+String Formatter::Format(Signal sig, const char *format, va_list ap)
+{
+	FormatterString formatter;
+	formatter.DoFormat(sig, format, ap);
 	return formatter.GetStringSTL();
 }
 
@@ -560,11 +580,61 @@ void Formatter::SetError_NotEnoughArguments(Signal &sig)
 }
 
 //-----------------------------------------------------------------------------
+// Formatter::Source_ValueList
+//-----------------------------------------------------------------------------
+bool Formatter::Source_ValueList::IsEnd()
+{
+	return _pValue == _valList.end();
+}
+
+Value Formatter::Source_ValueList::GetInt()
+{
+	return *_pValue++;
+}
+
+Value Formatter::Source_ValueList::GetDouble()
+{
+	return *_pValue++;
+}
+
+Value Formatter::Source_ValueList::GetString()
+{
+	return *_pValue++;
+}
+
+//-----------------------------------------------------------------------------
+// Formatter::Source_va_list
+//-----------------------------------------------------------------------------
+bool Formatter::Source_va_list::IsEnd()
+{
+	return false;
+}
+
+Value Formatter::Source_va_list::GetInt()
+{
+	int value = va_arg(_ap, int);
+	return Value(value);
+}
+
+Value Formatter::Source_va_list::GetDouble()
+{
+	double value = va_arg(_ap, double);
+	return Value(value);
+}
+
+Value Formatter::Source_va_list::GetString()
+{
+	char *value = va_arg(_ap, char *);
+	return Value(value);
+}
+
+//-----------------------------------------------------------------------------
 // FormatterString
 //-----------------------------------------------------------------------------
-void FormatterString::PutChar(char ch)
+bool FormatterString::PutChar(Signal slg, char ch)
 {
 	_str += ch;
+	return true;
 }
 
 }

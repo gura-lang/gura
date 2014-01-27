@@ -29,6 +29,37 @@ public:
 		PlusMode plusMode;
 		char charPadding;
 	};
+public:
+	class Source {
+	public:
+		virtual bool IsEnd() = 0;
+		virtual Value GetInt() = 0;
+		virtual Value GetDouble() = 0;
+		virtual Value GetString() = 0;
+	};
+	class Source_ValueList : public Source {
+	private:
+		const ValueList &_valList;
+		ValueList::const_iterator _pValue;
+	public:
+		inline Source_ValueList(const ValueList &valList) : _valList(valList) {
+			_pValue = _valList.begin();
+		}
+		virtual bool IsEnd();
+		virtual Value GetInt();
+		virtual Value GetDouble();
+		virtual Value GetString();
+	};
+	class Source_va_list : public Source {
+	private:
+		va_list _ap;
+	public:
+		inline Source_va_list(va_list ap) : _ap(ap) {}
+		virtual bool IsEnd();
+		virtual Value GetInt();
+		virtual Value GetDouble();
+		virtual Value GetString();
+	};
 private:
 	bool _nilVisibleFlag;
 	const char *_lineSep;
@@ -36,12 +67,14 @@ public:
 	inline Formatter(bool nilVisibleFlag = true) :
 					_nilVisibleFlag(nilVisibleFlag), _lineSep("\n") {}
 	bool DoFormat(Signal sig, const char *format, const ValueList &valList);
-	void PutString(const char *p);
-	void PutAlignedString(const Flags &flags, const char *p, int cntMax = -1);
-	void PutInvalid(const Flags &flags);
-	virtual void PutChar(char ch) = 0;
-	static String Format(Signal sig,
-							const char *format, const ValueList &valList);
+	bool DoFormat(Signal sig, const char *format, va_list ap);
+	bool DoFormat(Signal sig, const char *format, Source &source);
+	bool PutString(Signal sig, const char *p);
+	bool PutAlignedString(Signal sig, const Flags &flags, const char *p, int cntMax = -1);
+	bool PutInvalid(Signal sig, const Flags &flags);
+	virtual bool PutChar(Signal sig, char ch) = 0;
+	static String Format(Signal sig, const char *format, const ValueList &valList);
+	static String Format(Signal sig, const char *format, va_list ap);
 	static Value Format(Environment &env, Signal sig,
 							const char *format, IteratorOwner &iterOwner);
 	static const char *Format_d(const Flags &flags, int value, char *buff, size_t size);
@@ -67,7 +100,7 @@ class GURA_DLLDECLARE FormatterString : public Formatter {
 private:
 	String _str;
 public:
-	virtual void PutChar(char ch);
+	virtual bool PutChar(Signal sig, char ch);
 	inline const String &GetStringSTL() const { return _str; }
 };
 

@@ -2175,10 +2175,10 @@ void Parser::SetError(Signal sig, ErrorType errType, const char *format, ...)
 		::sprintf(buff, ":%d: ", GetLineNo());
 		textPre += buff;
 	} while (0);
-	va_list list;
-	va_start(list, format);
-	sig.SetErrorV(errType, format, list, textPre.c_str());
-	va_end(list);
+	va_list ap;
+	va_start(ap, format);
+	sig.SetErrorV(errType, format, ap, textPre.c_str());
+	va_end(ap);
 }
 
 void Parser::SetError_InvalidElement(Signal sig)

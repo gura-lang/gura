@@ -173,9 +173,9 @@ bool _Format_d(Signal sig, Formatter *pFormatter,
 {
 	char *str = NULL;
 	::gmp_asprintf(&str, ComposeFormat(flags, "Zd").c_str(), num.get_mpz_t());
-	pFormatter->PutString(str);
+	bool rtn = pFormatter->PutString(sig, str);
 	::free(str);
-	return true;
+	return rtn;
 }
 
 bool _Format_u(Signal sig, Formatter *pFormatter,
@@ -183,9 +183,9 @@ bool _Format_u(Signal sig, Formatter *pFormatter,
 {
 	char *str = NULL;
 	::gmp_asprintf(&str, ComposeFormat(flags, "Zu").c_str(), num.get_mpz_t());
-	pFormatter->PutString(str);
+	bool rtn = pFormatter->PutString(sig, str);
 	::free(str);
-	return true;
+	return rtn;
 }
 
 bool _Format_b(Signal sig, Formatter *pFormatter,
@@ -193,9 +193,9 @@ bool _Format_b(Signal sig, Formatter *pFormatter,
 {
 	char *str = NULL;
 	::gmp_asprintf(&str, ComposeFormat(flags, "Zb").c_str(), num.get_mpz_t());
-	pFormatter->PutString(str);
+	bool rtn = pFormatter->PutString(sig, str);
 	::free(str);
-	return true;
+	return rtn;
 }
 
 bool _Format_o(Signal sig, Formatter *pFormatter,
@@ -203,9 +203,9 @@ bool _Format_o(Signal sig, Formatter *pFormatter,
 {
 	char *str = NULL;
 	::gmp_asprintf(&str, ComposeFormat(flags, "Zo").c_str(), num.get_mpz_t());
-	pFormatter->PutString(str);
+	bool rtn = pFormatter->PutString(sig, str);
 	::free(str);
-	return true;
+	return rtn;
 }
 
 bool _Format_x(Signal sig, Formatter *pFormatter,
@@ -214,9 +214,9 @@ bool _Format_x(Signal sig, Formatter *pFormatter,
 	char *str = NULL;
 	::gmp_asprintf(&str, ComposeFormat(flags,
 				flags.upperCaseFlag? "ZX" : "Zx").c_str(), num.get_mpz_t());
-	pFormatter->PutString(str);
+	bool rtn = pFormatter->PutString(sig, str);
 	::free(str);
-	return true;
+	return rtn;
 }
 
 bool _Format_e(Signal sig, Formatter *pFormatter,
@@ -225,9 +225,9 @@ bool _Format_e(Signal sig, Formatter *pFormatter,
 	char *str = NULL;
 	::gmp_asprintf(&str, ComposeFormat(flags,
 				flags.upperCaseFlag? "Fe" : "FE").c_str(), num.get_mpf_t());
-	pFormatter->PutString(str);
+	bool rtn = pFormatter->PutString(sig, str);
 	::free(str);
-	return true;
+	return rtn;
 }
 
 bool _Format_f(Signal sig, Formatter *pFormatter,
@@ -235,9 +235,9 @@ bool _Format_f(Signal sig, Formatter *pFormatter,
 {
 	char *str = NULL;
 	::gmp_asprintf(&str, ComposeFormat(flags, "Ff").c_str(), num.get_mpf_t());
-	pFormatter->PutString(str);
+	bool rtn = pFormatter->PutString(sig, str);
 	::free(str);
-	return true;
+	return rtn;
 }
 
 bool _Format_g(Signal sig, Formatter *pFormatter,
@@ -246,9 +246,9 @@ bool _Format_g(Signal sig, Formatter *pFormatter,
 	char *str = NULL;
 	::gmp_asprintf(&str, ComposeFormat(flags,
 				flags.upperCaseFlag? "Fg" : "FG").c_str(), num.get_mpf_t());
-	pFormatter->PutString(str);
+	bool rtn = pFormatter->PutString(sig, str);
 	::free(str);
-	return true;
+	return rtn;
 }
 
 bool _Format_d(Signal sig, Formatter *pFormatter,
@@ -256,9 +256,9 @@ bool _Format_d(Signal sig, Formatter *pFormatter,
 {
 	char *str = NULL;
 	::gmp_asprintf(&str, ComposeFormat(flags, "Qd").c_str(), num.get_mpq_t());
-	pFormatter->PutString(str);
+	bool rtn = pFormatter->PutString(sig, str);
 	::free(str);
-	return true;
+	return rtn;
 }
 
 bool _Format_b(Signal sig, Formatter *pFormatter,
@@ -266,9 +266,9 @@ bool _Format_b(Signal sig, Formatter *pFormatter,
 {
 	char *str = NULL;
 	::gmp_asprintf(&str, ComposeFormat(flags, "Qb").c_str(), num.get_mpq_t());
-	pFormatter->PutString(str);
+	bool rtn = pFormatter->PutString(sig, str);
 	::free(str);
-	return true;
+	return rtn;
 }
 
 bool _Format_o(Signal sig, Formatter *pFormatter,
@@ -276,9 +276,9 @@ bool _Format_o(Signal sig, Formatter *pFormatter,
 {
 	char *str = NULL;
 	::gmp_asprintf(&str, ComposeFormat(flags, "Qo").c_str(), num.get_mpq_t());
-	pFormatter->PutString(str);
+	bool rtn = pFormatter->PutString(sig, str);
 	::free(str);
-	return true;
+	return rtn;
 }
 
 bool _Format_x(Signal sig, Formatter *pFormatter,
@@ -287,9 +287,9 @@ bool _Format_x(Signal sig, Formatter *pFormatter,
 	char *str = NULL;
 	::gmp_asprintf(&str, ComposeFormat(flags,
 				flags.upperCaseFlag? "QX" : "Qx").c_str(), num.get_mpq_t());
-	pFormatter->PutString(str);
+	bool rtn = pFormatter->PutString(sig, str);
 	::free(str);
-	return true;
+	return rtn;
 }
 
 Gura_EndModuleBody(gmp, gmp)

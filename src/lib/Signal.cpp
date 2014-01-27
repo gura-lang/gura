@@ -60,22 +60,18 @@ Signal::Shared::Shared() : sigType(SIGTYPE_None), pValue(new Value())
 
 void Signal::SetError(ErrorType errType, const char *format, ...)
 {
-	va_list list;
-	va_start(list, format);
-	SetErrorV(errType, format, list);
-	va_end(list);
+	va_list ap;
+	va_start(ap, format);
+	SetErrorV(errType, format, ap);
+	va_end(ap);
 }
 
 void Signal::SetErrorV(ErrorType errType,
-					const char *format, va_list list, const char *textPre)
+					const char *format, va_list ap, const char *textPre)
 {
+	Signal sig;
 	String text(textPre);
-	do {
-		char *buff = new char [2048];
-		::vsprintf(buff, format, list);
-		text += buff;
-		delete [] buff;
-	} while (0);
+	text += Formatter::Format(sig, format, ap);
 	_pShared->sigType = SIGTYPE_Error;
 	*_pShared->pValue = Value::Null;
 	_pShared->err.Set(errType, text);

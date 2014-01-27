@@ -281,11 +281,11 @@ bool Expr::IsParentOf(const Expr *pExpr) const
 
 void Expr::SetError(Signal sig, ErrorType errType, const char *format, ...) const
 {
-	va_list list;
-	va_start(list, format);
-	sig.SetErrorV(errType, format, list);
+	va_list ap;
+	va_start(ap, format);
+	sig.SetErrorV(errType, format, ap);
 	sig.AddExprCause(this);
-	va_end(list);
+	va_end(ap);
 }
 
 void Expr::SetError_NotAssignableSymbol(Signal sig, const Symbol *pSymbol) const

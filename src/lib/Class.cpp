@@ -600,8 +600,8 @@ bool Class::Format_g(Signal sig, Formatter *pFormatter,
 bool Class::Format_s(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const Value &value) const
 {
-	pFormatter->PutAlignedString(flags, value.ToString(false).c_str(), flags.precision);
-	return true;
+	return pFormatter->PutAlignedString(sig, flags,
+							value.ToString(false).c_str(), flags.precision);
 }
 
 bool Class::Format_c(Signal sig, Formatter *pFormatter,

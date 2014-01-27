@@ -84,7 +84,7 @@ public:
 	void AddExprCause(const Expr *pExpr);
 	void SetError(ErrorType errType, const char *format, ...);
 	void SetErrorV(ErrorType errType,
-			const char *format, va_list list, const char *textPre = ": ");
+			const char *format, va_list ap, const char *textPre = ": ");
 	void PrintSignal(SimpleStream &stream);
 	static const char *GetTypeName(SignalType sigType);
 };
