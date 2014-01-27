@@ -134,7 +134,7 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // utility functions
 //-----------------------------------------------------------------------------
-String ComposeFormat(const Formatter::Flags &flags, char *qualifier)
+String ComposeFormat(const Formatter::Flags &flags, const char *qualifier)
 {
 	String fmt = "%";
 	if (flags.leftAlignFlag) fmt += "-";
