@@ -16,6 +16,9 @@ public:
 	virtual bool Format_b(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
 	virtual bool Format_o(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
 	virtual bool Format_x(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_e(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_f(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_g(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const;
 Gura_DeclareUserClassEnd(mpz)
 
 class Object_mpz : public Object {

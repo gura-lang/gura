@@ -137,15 +137,24 @@ Gura_ModuleTerminate()
 String ComposeFormat(const Formatter::Flags &flags, char *qualifier)
 {
 	String fmt = "%";
-#if 0
-	bool upperCaseFlag;
-	bool leftAlignFlag;
-	bool sharpFlag;
-	int fieldMinWidth;
-	int precision;
-	PlusMode plusMode;
-	char charPadding;
-#endif
+	if (flags.leftAlignFlag) fmt += "-";
+	if (flags.sharpFlag) fmt += "#";
+	if (flags.charPadding == '0') fmt += '0';
+	if (flags.plusMode == Formatter::PLUSMODE_Space) {
+		fmt += " ";
+	} else if (flags.plusMode == Formatter::PLUSMODE_Plus) {
+		fmt += "+";
+	}
+	if (flags.fieldMinWidth > 0) {
+		char buff[64];
+		::sprintf(buff, "%d", flags.fieldMinWidth);
+		fmt += buff;
+	}
+	if (flags.precision >= 0) {
+		char buff[64];
+		::sprintf(buff, ".%d", flags.precision);
+		fmt += buff;
+	}
 	fmt += qualifier;
 	return fmt;
 }
@@ -157,6 +166,89 @@ mpq_class MpqFromRational(const Rational &ratio)
 	::mpz_set_si(mpq_numref(num), ratio.numer);
 	::mpz_set_si(mpq_denref(num), ratio.denom);
 	return mpq_class(num);
+}
+
+bool _Format_d(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const mpz_class &num)
+{
+	char *str = NULL;
+	::gmp_asprintf(&str, ComposeFormat(flags, "Zd").c_str(), num.get_mpz_t());
+	pFormatter->PutString(str);
+	::free(str);
+	return true;
+}
+
+bool _Format_u(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const mpz_class &num)
+{
+	char *str = NULL;
+	::gmp_asprintf(&str, ComposeFormat(flags, "Zu").c_str(), num.get_mpz_t());
+	pFormatter->PutString(str);
+	::free(str);
+	return true;
+}
+
+bool _Format_b(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const mpz_class &num)
+{
+	char *str = NULL;
+	::gmp_asprintf(&str, ComposeFormat(flags, "Zb").c_str(), num.get_mpz_t());
+	pFormatter->PutString(str);
+	::free(str);
+	return true;
+}
+
+bool _Format_o(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const mpz_class &num)
+{
+	char *str = NULL;
+	::gmp_asprintf(&str, ComposeFormat(flags, "Zo").c_str(), num.get_mpz_t());
+	pFormatter->PutString(str);
+	::free(str);
+	return true;
+}
+
+bool _Format_x(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const mpz_class &num)
+{
+	char *str = NULL;
+	::gmp_asprintf(&str, ComposeFormat(flags,
+				flags.upperCaseFlag? "ZX" : "Zx").c_str(), num.get_mpz_t());
+	pFormatter->PutString(str);
+	::free(str);
+	return true;
+}
+
+bool _Format_e(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const mpf_class &num)
+{
+	char *str = NULL;
+	::gmp_asprintf(&str, ComposeFormat(flags,
+				flags.upperCaseFlag? "Fe" : "FE").c_str(), num.get_mpf_t());
+	pFormatter->PutString(str);
+	::free(str);
+	return true;
+}
+
+bool _Format_f(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const mpf_class &num)
+{
+	char *str = NULL;
+	::gmp_asprintf(&str, ComposeFormat(flags, "Ff").c_str(), num.get_mpf_t());
+	pFormatter->PutString(str);
+	::free(str);
+	return true;
+}
+
+bool _Format_g(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const mpf_class &num)
+{
+	char *str = NULL;
+	::gmp_asprintf(&str, ComposeFormat(flags,
+				flags.upperCaseFlag? "Fg" : "FG").c_str(), num.get_mpf_t());
+	pFormatter->PutString(str);
+	::free(str);
+	return true;
 }
 
 Gura_EndModuleBody(gmp, gmp)

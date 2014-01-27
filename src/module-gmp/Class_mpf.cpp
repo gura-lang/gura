@@ -202,22 +202,52 @@ Gura_ImplementCastTo(mpf)
 	return false;
 }
 
+bool Gura_ClassName(mpf)::Format_d(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	return _Format_d(sig, pFormatter, flags, Object_mpf::GetEntity(value));
+}
+
+bool Gura_ClassName(mpf)::Format_u(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	return _Format_u(sig, pFormatter, flags, Object_mpf::GetEntity(value));
+}
+
+bool Gura_ClassName(mpf)::Format_b(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	return _Format_b(sig, pFormatter, flags, Object_mpf::GetEntity(value));
+}
+
+bool Gura_ClassName(mpf)::Format_o(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	return _Format_o(sig, pFormatter, flags, Object_mpf::GetEntity(value));
+}
+
+bool Gura_ClassName(mpf)::Format_x(Signal sig, Formatter *pFormatter,
+					const Formatter::Flags &flags, const Value &value) const
+{
+	return _Format_x(sig, pFormatter, flags, Object_mpf::GetEntity(value));
+}
+
 bool Gura_ClassName(mpf)::Format_e(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const Value &value) const
 {
-	return false;
+	return _Format_e(sig, pFormatter, flags, Object_mpf::GetEntity(value));
 }
 
 bool Gura_ClassName(mpf)::Format_f(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const Value &value) const
 {
-	return false;
+	return _Format_f(sig, pFormatter, flags, Object_mpf::GetEntity(value));
 }
 
 bool Gura_ClassName(mpf)::Format_g(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const Value &value) const
 {
-	return false;
+	return _Format_g(sig, pFormatter, flags, Object_mpf::GetEntity(value));
 }
 
 Gura_EndModuleScope(gmp)
