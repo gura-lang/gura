@@ -1,0 +1,17 @@
+import(gmp)
+import(testutil) {*}
+
+test_format(fmt:string, nums[]:number):map = {
+	printf('%-10s|%s\n', fmt, (format(fmt, nums):*align(20):left).join('|'))
+}
+
+testcase {
+	fmt = ['%d', '%u', '%b', '%o', '%x', '%e', '%f', '%g']
+	test_format(fmt, [0, 0L])
+	test_format(fmt, [0., 0.L])
+	test_format(fmt, [1, 1L])
+	test_format(fmt, [2, 2L])
+	test_format(fmt, [8, 8L])
+	test_format(fmt, [10, 10L])
+	test_format(fmt, [16, 16L])
+}
