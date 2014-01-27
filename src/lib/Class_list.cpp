@@ -1013,7 +1013,7 @@ Gura_ImplementMethod(list, printf)
 	Stream *pConsole = args.IsInstanceOf(1, VTYPE_stream)?
 				&args.GetStream(1) : env.GetConsole();
 	if (pConsole == NULL) return Value::Null;
-	pConsole->Printf(sig, args.GetString(0), pThis->GetList());
+	pConsole->PrintFmt(sig, args.GetString(0), pThis->GetList());
 	return Value::Null;
 }
 

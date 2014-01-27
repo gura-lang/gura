@@ -1222,7 +1222,7 @@ Gura_ImplementFunction(printf)
 {
 	Stream *pConsole = env.GetConsole();
 	if (pConsole == NULL) return Value::Null;
-	pConsole->Printf(sig, args.GetString(0), args.GetList(1));
+	pConsole->PrintFmt(sig, args.GetString(0), args.GetList(1));
 	return Value::Null;
 }
 

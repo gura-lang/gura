@@ -275,9 +275,9 @@ Gura_ImplementMethod(iterator, printf)
 	Value value;
 	while (pIterator->Next(env, sig, value)) {
 		if (value.Is_list()) {
-			pConsole->Printf(sig, format, value.GetList());
+			pConsole->PrintFmt(sig, format, value.GetList());
 		} else {
-			pConsole->Printf(sig, format, ValueList(value));
+			pConsole->PrintFmt(sig, format, ValueList(value));
 		}
 		if (sig.IsSignalled()) return Value::Null;
 	}

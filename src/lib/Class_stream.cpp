@@ -423,7 +423,7 @@ Gura_ImplementMethod(stream, printf)
 {
 	Stream &stream = Object_stream::GetThisObj(args)->GetStream();
 	if (!stream.CheckWritable(sig)) return Value::Null;
-	stream.Printf(sig, args.GetString(0), args.GetList(1));
+	stream.PrintFmt(sig, args.GetString(0), args.GetList(1));
 	return Value::Null;
 }
 

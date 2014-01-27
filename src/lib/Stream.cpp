@@ -19,7 +19,7 @@ void SimpleStream::Println(Signal sig, const char *str)
 	PutChar(sig, '\n');
 }
 
-void SimpleStream::Printf(Signal sig, const char *format, const ValueList &valList)
+void SimpleStream::PrintFmt(Signal sig, const char *format, const ValueList &valList)
 {
 	String str = Formatter::Format(sig, format, valList);
 	if (sig.IsSignalled()) return;
