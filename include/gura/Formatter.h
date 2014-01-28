@@ -20,6 +20,10 @@ public:
 	enum PlusMode {
 		PLUSMODE_None, PLUSMODE_Space, PLUSMODE_Plus,
 	};
+	enum {
+		PREC_Default	= -1,
+		PREC_Null		= -2,
+	};
 	struct Flags {
 		bool upperCaseFlag;
 		bool leftAlignFlag;

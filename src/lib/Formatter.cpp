@@ -60,7 +60,7 @@ bool Formatter::DoFormat(Signal sig, const char *format, Source &source)
 				flags.leftAlignFlag = false;
 				flags.sharpFlag = false;
 				flags.fieldMinWidth = 0;
-				flags.precision = -1;	// minus value means unspecified state
+				flags.precision = PREC_Default;
 				flags.plusMode = PLUSMODE_None;
 				flags.charPadding = ' ';
 				eatNextFlag = false;
@@ -102,7 +102,6 @@ bool Formatter::DoFormat(Signal sig, const char *format, Source &source)
 				eatNextFlag = false;
 				stat = STAT_Padding;
 			} else if (ch == '.') {
-				flags.precision = 0;
 				stat = STAT_PrecisionPre;
 			} else if (ch == 'l') {
 				// just ignore it
@@ -176,16 +175,19 @@ bool Formatter::DoFormat(Signal sig, const char *format, Source &source)
 					break;
 				}
 				flags.precision = static_cast<int>(value.GetNumber());
-				if (flags.precision < 0) flags.precision = 0;
+				if (flags.precision < 0) flags.precision = PREC_Default;
 				if (source.IsEnd()) {
 					SetError_NotEnoughArguments(sig);
 					break;
 				}
 				stat = STAT_Flags;
-			} else if ('0' < ch && ch <= '9') {
+			} else if ('0' <= ch && ch <= '9') {
+				flags.precision = 0;
 				eatNextFlag = false;
 				stat = STAT_Precision;
 			} else {
+				flags.precision = PREC_Null;
+				eatNextFlag = false;
 				stat = STAT_Flags;
 			}
 		} else if (stat == STAT_Precision) {
@@ -479,7 +481,9 @@ String Formatter::ComposeFlags(const Formatter::Flags &flags, const char *qualif
 		::sprintf(buff, "%d", flags.fieldMinWidth);
 		fmt += buff;
 	}
-	if (flags.precision >= 0) {
+	if (flags.precision == PREC_Null) {
+		fmt += '.';
+	} else if (flags.precision >= 0) {
 		char buff[64];
 		::sprintf(buff, ".%d", flags.precision);
 		fmt += buff;
