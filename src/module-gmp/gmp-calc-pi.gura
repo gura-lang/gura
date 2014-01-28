@@ -1,3 +1,4 @@
+#!/usr/bin/env gura
 // http://d.hatena.ne.jp/itchyny/20120304/1330870932
 import(gmp)
 
