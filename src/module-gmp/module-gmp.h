@@ -12,7 +12,6 @@
 
 Gura_BeginModuleHeader(gmp)
 
-String ComposeFormat(const Formatter::Flags &flags, const char *qualifier);
 mpq_class MpqFromRational(const Rational &ratio);
 bool _Format_d(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const mpz_class &num);
 bool _Format_u(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const mpz_class &num);

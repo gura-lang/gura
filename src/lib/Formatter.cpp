@@ -447,95 +447,45 @@ const char *Formatter::Format_x(const Flags &flags, UInt value, char *buff, size
 
 const char *Formatter::Format_e(const Flags &flags, double value, char *buff, size_t size)
 {
-	int count = (flags.precision < 0)? 6 : flags.precision + 1;
-	int dec, sign;
-	char *srcp = ::ecvt(value, count, &dec, &sign);
-	dec -= 1;
-	char *dstp = buff;
-	if (sign) {
-		*dstp++ = '-';
-	} else if (flags.plusMode == PLUSMODE_Space) {
-		*dstp++ = ' ';
-	} else if (flags.plusMode == PLUSMODE_Plus) {
-		*dstp++ = '+';
-	}
-	*dstp++ = static_cast<char>(*srcp++);
-	if (*srcp != '\0') {
-		*dstp++ = '.';
-		dstp = CopyDigits(dstp, buff + size, srcp);
-	}
-	if (dstp < buff + size - 5) {
-		*dstp++ = flags.upperCaseFlag? 'E' : 'e';
-		if (dec >= 0) {
-			*dstp++ = '+';
-		} else {
-			*dstp++ = '-';
-			dec = -dec;
-		}
-		*dstp++ = '0' + (dec / 10) % 10;
-		*dstp++ = '0' + (dec % 10);
-		*dstp++ = '\0';
-	}
+	::_snprintf(buff, size, ComposeFlags(flags, flags.upperCaseFlag? "E" : "e").c_str(), value);
 	return buff;
 }
 
 const char *Formatter::Format_f(const Flags &flags, double value, char *buff, size_t size)
 {
-	int count = (flags.precision < 0)? 6 : flags.precision;
-	int dec, sign;
-	char *srcp = ::fcvt(value, count, &dec, &sign);
-	char *dstp = buff;
-	if (sign) {
-		*dstp++ = '-';
-	} else if (flags.plusMode == PLUSMODE_Space) {
-		*dstp++ = ' ';
-	} else if (flags.plusMode == PLUSMODE_Plus) {
-		*dstp++ = '+';
-	}
-	if (dec <= 0) {
-		*dstp++ = '0';
-		*dstp++ = '.';
-		dstp = FillZeroDigit(dstp, buff + size, -dec);
-		CopyDigits(dstp, buff + size, srcp);
-	} else {
-		dstp = CopyDigits(dstp, buff + size, srcp, dec);
-		if (::strlen(srcp) > static_cast<size_t>(dec)) {
-			*dstp++ = '.';
-			CopyDigits(dstp, buff + size, srcp + dec);
-		}
-	}
+	::_snprintf(buff, size, ComposeFlags(flags, "f").c_str(), value);
 	return buff;
 }
 
 const char *Formatter::Format_g(const Flags &flags, double value, char *buff, size_t size)
 {
-	char *buffRaw = new char[size];
-	int count = (flags.precision < 0)? 6 : flags.precision;
-	char *srcp = ::gcvt(value, count, buffRaw);
-	char *dstp = buff;
-	if (*srcp == '-') {
-		// nothing to do
-	} else if (flags.plusMode == PLUSMODE_Space) {
-		*dstp++ = ' ';
-	} else if (flags.plusMode == PLUSMODE_Plus) {
-		*dstp++ = '+';
-	}
-	const char *dstpEnd = buff + size - 1;
-	char chPrev = '\0';
-	for ( ; *srcp != '\0' && dstp < dstpEnd; srcp++, dstp++) {
-		char ch = *srcp;
-		if (ch == 'e' || ch == 'E') {
-			if (chPrev == '.') dstp--;
-			*dstp = flags.upperCaseFlag? 'E' : 'e';
-		} else {
-			*dstp = ch;
-		}
-		chPrev = ch;
-	}
-	if (chPrev == '.') dstp--;
-	*dstp = '\0';
-	delete[] buffRaw;
+	::_snprintf(buff, size, ComposeFlags(flags, flags.upperCaseFlag? "G" : "g").c_str(), value);
 	return buff;
+}
+
+String Formatter::ComposeFlags(const Formatter::Flags &flags, const char *qualifier)
+{
+	String fmt = "%";
+	if (flags.leftAlignFlag) fmt += "-";
+	if (flags.sharpFlag) fmt += "#";
+	if (flags.charPadding == '0') fmt += '0';
+	if (flags.plusMode == Formatter::PLUSMODE_Space) {
+		fmt += " ";
+	} else if (flags.plusMode == Formatter::PLUSMODE_Plus) {
+		fmt += "+";
+	}
+	if (flags.fieldMinWidth > 0) {
+		char buff[64];
+		::sprintf(buff, "%d", flags.fieldMinWidth);
+		fmt += buff;
+	}
+	if (flags.precision >= 0) {
+		char buff[64];
+		::sprintf(buff, ".%d", flags.precision);
+		fmt += buff;
+	}
+	fmt += qualifier;
+	return fmt;
 }
 
 char *Formatter::FillZeroDigit(char *dstp, char *dstpEnd, int cnt)

@@ -85,6 +85,7 @@ public:
 	static const char *Format_e(const Flags &flags, double value, char *buff, size_t size);
 	static const char *Format_f(const Flags &flags, double value, char *buff, size_t size);
 	static const char *Format_g(const Flags &flags, double value, char *buff, size_t size);
+	static String ComposeFlags(const Formatter::Flags &flags, const char *qualifier);
 private:
 	static void SetError_WrongFormat(Signal &sig);
 	static void SetError_NotEnoughArguments(Signal &sig);

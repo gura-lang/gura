@@ -8,9 +8,7 @@
 #include "Signal.h"
 
 #if defined(GURA_ON_MSWIN)
-#define ecvt _ecvt
-#define fcvt _fcvt
-#define gcvt _gcvt
+
 #else
 #include <semaphore.h>
 #include <sys/types.h>
