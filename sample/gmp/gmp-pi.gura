@@ -1,0 +1,9 @@
+#!/usr/bin/env gura
+import(gmp)
+
+n = 1..10000
+C_1Lr = 1Lr
+C_4L = 4L
+pi = 4 * (-C_1Lr / (C_4L * n - 1) + C_1Lr / (C_4L * n + 1)).reduce(1Lr) {|x, accum| x + accum}
+gmp.mpf.set_default_prec(64)
+printf('%.16f\n', pi.numer / pi.denom)
