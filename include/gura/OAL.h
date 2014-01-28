@@ -8,7 +8,7 @@
 #include "Signal.h"
 
 #if defined(GURA_ON_MSWIN)
-
+#define snprintf _snprintf
 #else
 #include <semaphore.h>
 #include <sys/types.h>

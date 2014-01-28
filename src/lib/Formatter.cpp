@@ -447,19 +447,19 @@ const char *Formatter::Format_x(const Flags &flags, UInt value, char *buff, size
 
 const char *Formatter::Format_e(const Flags &flags, double value, char *buff, size_t size)
 {
-	::_snprintf(buff, size, ComposeFlags(flags, flags.upperCaseFlag? "E" : "e").c_str(), value);
+	::snprintf(buff, size, ComposeFlags(flags, flags.upperCaseFlag? "E" : "e").c_str(), value);
 	return buff;
 }
 
 const char *Formatter::Format_f(const Flags &flags, double value, char *buff, size_t size)
 {
-	::_snprintf(buff, size, ComposeFlags(flags, "f").c_str(), value);
+	::snprintf(buff, size, ComposeFlags(flags, "f").c_str(), value);
 	return buff;
 }
 
 const char *Formatter::Format_g(const Flags &flags, double value, char *buff, size_t size)
 {
-	::_snprintf(buff, size, ComposeFlags(flags, flags.upperCaseFlag? "G" : "g").c_str(), value);
+	::snprintf(buff, size, ComposeFlags(flags, flags.upperCaseFlag? "G" : "g").c_str(), value);
 	return buff;
 }
 
