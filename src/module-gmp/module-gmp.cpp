@@ -63,17 +63,19 @@ Gura_DeclareFunction(sqrt)
 Gura_ImplementFunction(sqrt)
 {
 	if (args.IsType(0, VTYPE_mpz)) {
-		const mpz_class &num = Object_mpz::GetEntity(args, 0);
-		mpz_class result = ::sqrt(num);
-		return Value(new Object_mpz(result.get_mpz_t()));
+		mpf_class num(Object_mpz::GetEntity(args, 0));
+		mpf_class result = ::sqrt(num);
+		return Value(new Object_mpf(result.get_mpf_t()));
 	} else if (args.IsType(0, VTYPE_mpf)) {
 		const mpf_class &num = Object_mpf::GetEntity(args, 0);
 		mpf_class result = ::sqrt(num);
 		return Value(new Object_mpf(result.get_mpf_t()));
+	} else if (args.Is_number(0)) {
+		mpf_class num(args.GetDouble(0));
+		mpf_class result = ::sqrt(num);
+		return Value(new Object_mpf(result.get_mpf_t()));
 	}
-	
-	
-	
+	SetError_ArgumentTypeByIndex(sig, args, 0);
 	return Value::Null;
 }
 

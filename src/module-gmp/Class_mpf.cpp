@@ -74,28 +74,28 @@ Gura_DeclareFunction(mpf)
 
 Gura_ImplementFunction(mpf)
 {
-	mpf_t num;
-	if (args.Is_number(1)) {
-		::mpf_init2(num, args.GetInt(1));
-	} else {
-		::mpf_init(num);
-	}
+	Value value;
+	ULong prec = args.Is_number(1)? args.GetInt(1) : ::mpf_get_default_prec();
 	if (args.IsInvalid(0)) {
-		// nothing to do
+		value = Value(new Object_mpf(mpf_class(0, prec)));
 	} else if (args.Is_number(0)) {
-		::mpf_set_d(num, args.GetDouble(0));
+		value = Value(new Object_mpf(mpf_class(args.GetDouble(0), prec)));
 	} else if (args.Is_string(0)) {
-		if (::mpf_set_str(num, args.GetString(0), 0) < 0) {
-			::mpf_clear(num);
+		mpf_class num;
+		num.set_prec(prec);
+		if (num.set_str(args.GetString(0), 0) < 0) {
 			sig.SetError(ERR_ValueError, "invalid string format for gmp.mpf");
 			return Value::Null;
 		}
+		value = Value(new Object_mpf(num));
+	} else if (args.IsType(0, VTYPE_mpz)) {
+		mpf_class num(Object_mpz::GetEntity(args, 0), prec);
+		value = Value(new Object_mpf(num));
 	} else {
-		::mpf_clear(num);
 		SetError_ArgumentTypeByIndex(sig, args, 0);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_mpf(num)));
+	return ReturnValue(env, sig, args, value);
 }
 
 //-----------------------------------------------------------------------------

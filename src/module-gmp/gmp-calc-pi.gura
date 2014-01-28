@@ -1,0 +1,41 @@
+// http://d.hatena.ne.jp/itchyny/20120304/1330870932
+import(gmp)
+
+[A, B, C, C3over24] = 0
+PQT = struct(P, Q, T)
+computePQT(n1:number, n2:number) = {
+	if (n1 + 1 == n2) {
+		P = -(2 * n2 - 1)
+		P *= (6 * n2 - 5)
+		P *= (6 * n2 - 1)
+		Q = C3over24 * n2 * n2 * n2
+		T = (A + B * n2) * P
+	} else {
+		m = int((n1 + n2) / 2);
+		PQT1 = computePQT(n1, m);
+		PQT2 = computePQT(m, n2);
+		P = PQT1.P * PQT2.P;
+		Q = PQT1.Q * PQT2.Q;
+		T = PQT1.T * PQT2.Q + PQT1.P * PQT2.T;
+	}
+	PQT(P, Q, T)
+}
+
+main() = {
+	extern(A, B, C, C3over24)
+	digits = 1000;
+	prec = int(digits * math.log(10) / math.log(2))
+	n = int(digits / 14)
+	A = 13591409L
+	B = 545140134L
+	C = 640320L
+	C3over24 = C * C * C / 24;
+	PQT = computePQT(0, n);
+	pi = gmp.mpf(C, prec);
+	pi = gmp.sqrt(pi);
+	pi *= C * PQT.Q;
+	pi /= (PQT.T + A * PQT.Q) * 12;
+	println(pi)
+}
+
+main()
