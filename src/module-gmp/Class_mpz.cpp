@@ -152,7 +152,8 @@ bool Gura_ClassName(mpz)::Format_u(Signal sig, Formatter *pFormatter,
 bool Gura_ClassName(mpz)::Format_b(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const Value &value) const
 {
-	return _Format_b(sig, pFormatter, flags, Object_mpz::GetEntity(value));
+	//return _Format_b(sig, pFormatter, flags, Object_mpz::GetEntity(value));
+	return Class::Format_b(sig, pFormatter, flags, value);
 }
 
 bool Gura_ClassName(mpz)::Format_o(Signal sig, Formatter *pFormatter,

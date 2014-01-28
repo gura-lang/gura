@@ -219,8 +219,9 @@ bool Gura_ClassName(mpf)::Format_u(Signal sig, Formatter *pFormatter,
 bool Gura_ClassName(mpf)::Format_b(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const Value &value) const
 {
-	mpz_class num(Object_mpf::GetEntity(value));
-	return _Format_b(sig, pFormatter, flags, num);
+	//mpz_class num(Object_mpf::GetEntity(value));
+	//return _Format_b(sig, pFormatter, flags, num);
+	return Class::Format_b(sig, pFormatter, flags, value);
 }
 
 bool Gura_ClassName(mpf)::Format_o(Signal sig, Formatter *pFormatter,

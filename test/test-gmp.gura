@@ -28,6 +28,9 @@ TestBinaryOperators(ops[]:symbol, valueLs[], valueRs[]) = {
 		}
 	}
 }
+test_format(fmt:string, nums[]):map:void = {
+	printf('%-10s|%s\n', fmt, (format(fmt, nums):*align(20):left).join('|'))
+}
 testcase('declaration') {
 	tests = [
 		`gmp.mpz(0)
@@ -99,4 +102,43 @@ testcase('comparator') {
 	valueRs = [4, 4L, 4.L, 4Lr]
 	TestBinaryOperators(ops, valueLs, valueRs)
 	
+}
+testcase('Formatter test - basic') {
+	fmts = ['%d', '%u', '%o', '%x', '%e', '%f', '%g']
+	test_format(fmts, [0, 0L])
+	test_format(fmts, [0., 0.L])
+	test_format(fmts, [1, 1L])
+	test_format(fmts, [2, 2L])
+	test_format(fmts, [8, 8L])
+	test_format(fmts, [10, 10L])
+	test_format(fmts, [16, 16L])
+}
+testcase('Formatter test - specifier in upper case') {
+	nums = [12345678, 12345678L]
+	test_format(['%x', '%X'], nums)
+	nums = [1.2345678e-10, 1.2345678e-10L]
+	test_format(['%e', '%E', '%g', '%G'], nums)
+}
+testcase('Formatter test - specifier d, u, o, x') {
+	fmtsOrg = ['%1?', '%10?', '%-10?$', '%010?', '%-010?', '%#?', '%#010?']
+	['d', 'u', 'o', 'x'].each {|specifier|
+		fmts = fmtsOrg:*replace('?', specifier)
+		nums = [12345678, 12345678L]
+		test_format(fmts, nums)
+	}
+}
+testcase('Formatter test - specifier e, f, g') {
+	fmtsOrg = ['%1?', '%10?', '%.0?', '%.1?', '%3.3?', '%13.3?', '%-13.3?$', '%013.3?']
+	['e', 'f', 'g'].each {|specifier|
+		fmts = fmtsOrg:*replace('?', specifier)
+		nums = [0, 0L]
+		test_format(fmts, nums)
+		nums = [1234567.89012345, 1234567.89012345L]
+		test_format(fmts, nums)
+	}
+}
+testcase('Formatter test - big numbers') {
+	num = 12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890L
+	fmts = ['%d', '%10d', '%100d', '%200d', '%201d', '%210d', '%-210d$', '%0210d']
+	test_format(fmts, [num])
 }

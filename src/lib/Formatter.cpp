@@ -134,7 +134,6 @@ bool Formatter::DoFormat(Signal sig, const char *format, Source &source)
 				stat = STAT_Start;
 			} else if (ch == 'f' || ch == 'F') {
 				Value value = source.GetDouble();
-				flags.upperCaseFlag = (ch == 'F');
 				if (!value.GetClass()->Format_f(sig, this, flags, value)) break;
 				stat = STAT_Start;
 			} else if (ch == 'g' || ch == 'G') {
@@ -448,7 +447,7 @@ const char *Formatter::Format_x(const Flags &flags, UInt value, char *buff, size
 
 const char *Formatter::Format_e(const Flags &flags, double value, char *buff, size_t size)
 {
-	int count = (flags.precision < 0)? 6 : flags.precision;
+	int count = (flags.precision < 0)? 6 : flags.precision + 1;
 	int dec, sign;
 	char *srcp = ::ecvt(value, count, &dec, &sign);
 	dec -= 1;
@@ -511,8 +510,8 @@ const char *Formatter::Format_f(const Flags &flags, double value, char *buff, si
 const char *Formatter::Format_g(const Flags &flags, double value, char *buff, size_t size)
 {
 	char *buffRaw = new char[size];
-	int digits = (flags.precision < 0)? 6 : flags.precision;
-	char *srcp = ::gcvt(value, digits, buffRaw);
+	int count = (flags.precision < 0)? 6 : flags.precision;
+	char *srcp = ::gcvt(value, count, buffRaw);
 	char *dstp = buff;
 	if (*srcp == '-') {
 		// nothing to do

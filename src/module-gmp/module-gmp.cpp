@@ -224,7 +224,7 @@ bool _Format_e(Signal sig, Formatter *pFormatter,
 {
 	char *str = NULL;
 	::gmp_asprintf(&str, ComposeFormat(flags,
-				flags.upperCaseFlag? "Fe" : "FE").c_str(), num.get_mpf_t());
+				flags.upperCaseFlag? "FE" : "Fe").c_str(), num.get_mpf_t());
 	bool rtn = pFormatter->PutString(sig, str);
 	::free(str);
 	return rtn;
@@ -245,7 +245,7 @@ bool _Format_g(Signal sig, Formatter *pFormatter,
 {
 	char *str = NULL;
 	::gmp_asprintf(&str, ComposeFormat(flags,
-				flags.upperCaseFlag? "Fg" : "FG").c_str(), num.get_mpf_t());
+				flags.upperCaseFlag? "FG" : "Fg").c_str(), num.get_mpf_t());
 	bool rtn = pFormatter->PutString(sig, str);
 	::free(str);
 	return rtn;
