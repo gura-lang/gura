@@ -101,7 +101,6 @@ testcase('comparator') {
 	valueLs = [3, 3L, 3.L, 3Lr, 4, 4L, 4.L, 4Lr, 5, 5L, 5.L, 5Lr]
 	valueRs = [4, 4L, 4.L, 4Lr]
 	TestBinaryOperators(ops, valueLs, valueRs)
-	
 }
 testcase('precision for mpf') {
 	prec = gmp.mpf.get_default_prec()
@@ -149,4 +148,11 @@ testcase('Formatter test - big numbers') {
 	num = 12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890L
 	fmts = ['%d', '%10d', '%100d', '%200d', '%201d', '%210d', '%-210d$', '%0210d']
 	test_format(fmts, [num])
+}
+testcase('sequence') {
+	tester(`format('%d', 1L..10L).join(','))
+	tester(`format('%d', 10L..1L).join(','))
+	tester(`format('%d', (1L..).head(10)).join(','))
+	tester(`format('%d', 1000000000000000L..1000000000000010L).join(','))
+	tester(`format('%d', (1000000000000000L..).head(10)).join(','))
 }
