@@ -49,24 +49,26 @@ Gura_DeclareFunction(mpz)
 
 Gura_ImplementFunction(mpz)
 {
-	mpz_t num;
-	::mpz_init(num);
+	Value value;
 	if (args.IsInvalid(0)) {
-		// nothing to do
+		value = Value(new Object_mpz(mpz_class(0)));
 	} else if (args.Is_number(0)) {
-		::mpz_set_d(num, args.GetDouble(0));
+		value = Value(new Object_mpz(mpz_class(args.GetDouble(0))));
 	} else if (args.Is_string(0)) {
-		if (::mpz_set_str(num, args.GetString(0), 0) < 0) {
-			::mpz_clear(num);
+		mpz_class num;
+		if (num.set_str(args.GetString(0), 0) < 0) {
 			sig.SetError(ERR_ValueError, "invalid string format for gmp.mpz");
 			return Value::Null;
 		}
+		value = Value(new Object_mpz(num));
+	} else if (args.IsType(0, VTYPE_mpf)) {
+		mpz_class num(Object_mpf::GetEntity(args, 0));
+		value = Value(new Object_mpz(num));
 	} else {
-		::mpz_clear(num);
 		SetError_ArgumentTypeByIndex(sig, args, 0);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_mpz(num)));
+	return ReturnValue(env, sig, args, value);
 }
 
 //-----------------------------------------------------------------------------
