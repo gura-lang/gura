@@ -1,8 +1,10 @@
 #!/usr/bin/env gura
 import(testutil) {*}
 
-sys.echo(false)
 println('======== formatter test ========')
+test_format(fmt:string, nums[]):map:void = {
+	printf('%-10s|%s\n', fmt, (format(fmt, nums):*align(28):left).join('|'))
+}
 testcase {
 	printf('%d\n', 0x7fffffff)
 	printf('%d\n', 0x80000000)
@@ -164,4 +166,12 @@ testcase {
 			println(test % [i, 'hello'])
 		}
 	}
+}
+testcase {
+	fmtsOrg = ['%1?', '%10?', '%.?', '%.0?', '%.1?', '%.6?', '%.10?', '%.20?', '%3.3?', '%13.3?', '%-13.3?$', '%013.3?']
+	['e', 'f', 'g'].each {|specifier|
+		fmts = fmtsOrg:*replace('?', specifier)
+		test_format(fmts, [math.pi, 1e-12])
+	}
+	sys.exit()
 }
