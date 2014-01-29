@@ -32,52 +32,52 @@ bool Class_nil::Deserialize(Environment &env, Signal sig, Stream &stream, Value 
 	return true;
 }
 
-bool Class_nil::Format_d(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_nil::Format_d(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	return pFormatter->PutInvalid(sig, flags);
 }
 
-bool Class_nil::Format_u(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_nil::Format_u(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	return pFormatter->PutInvalid(sig, flags);
 }
 
-bool Class_nil::Format_b(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_nil::Format_b(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	return pFormatter->PutInvalid(sig, flags);
 }
 
-bool Class_nil::Format_o(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_nil::Format_o(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	return pFormatter->PutInvalid(sig, flags);
 }
 
-bool Class_nil::Format_x(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_nil::Format_x(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	return pFormatter->PutInvalid(sig, flags);
 }
 
-bool Class_nil::Format_e(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_nil::Format_e(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	return pFormatter->PutInvalid(sig, flags);
 }
 
-bool Class_nil::Format_f(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_nil::Format_f(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	return pFormatter->PutInvalid(sig, flags);
 }
 
-bool Class_nil::Format_g(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_nil::Format_g(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	return pFormatter->PutInvalid(sig, flags);
 }
 
-bool Class_nil::Format_s(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_nil::Format_s(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	return pFormatter->PutInvalid(sig, flags);
 }
 
-bool Class_nil::Format_c(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_nil::Format_c(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	return pFormatter->PutInvalid(sig, flags);
 }
@@ -109,52 +109,52 @@ bool Class_undefined::Deserialize(Environment &env, Signal sig, Stream &stream, 
 	return true;
 }
 
-bool Class_undefined::Format_d(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_undefined::Format_d(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	return pFormatter->PutInvalid(sig, flags);
 }
 
-bool Class_undefined::Format_u(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_undefined::Format_u(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	return pFormatter->PutInvalid(sig, flags);
 }
 
-bool Class_undefined::Format_b(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_undefined::Format_b(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	return pFormatter->PutInvalid(sig, flags);
 }
 
-bool Class_undefined::Format_o(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_undefined::Format_o(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	return pFormatter->PutInvalid(sig, flags);
 }
 
-bool Class_undefined::Format_x(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_undefined::Format_x(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	return pFormatter->PutInvalid(sig, flags);
  }
 
-bool Class_undefined::Format_e(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_undefined::Format_e(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	return pFormatter->PutInvalid(sig, flags);
 }
 
-bool Class_undefined::Format_f(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_undefined::Format_f(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	return pFormatter->PutInvalid(sig, flags);
 }
 
-bool Class_undefined::Format_g(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_undefined::Format_g(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	return pFormatter->PutInvalid(sig, flags);
 }
 
-bool Class_undefined::Format_s(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_undefined::Format_s(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	return pFormatter->PutInvalid(sig, flags);
 }
 
-bool Class_undefined::Format_c(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_undefined::Format_c(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	return pFormatter->PutInvalid(sig, flags);
 }
@@ -246,14 +246,14 @@ bool Class_boolean::Deserialize(Environment &env, Signal sig, Stream &stream, Va
 	return true;
 }
 
-bool Class_boolean::Format_d(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_boolean::Format_d(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	char buff[128];
 	return pFormatter->PutAlignedString(sig, flags, Formatter::Format_d(flags,
 		static_cast<int>(value.GetBoolean()), buff, sizeof(buff)));
 }
 
-bool Class_boolean::Format_u(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_boolean::Format_u(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	char buff[128];
 	return pFormatter->PutAlignedString(sig, flags, Formatter::Format_d(flags,
@@ -337,63 +337,66 @@ bool Class_number::Deserialize(Environment &env, Signal sig, Stream &stream, Val
 	return true;
 }
 
-bool Class_number::Format_d(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_number::Format_d(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	char buff[128];
 	return pFormatter->PutAlignedString(sig, flags, Formatter::Format_d(flags,
 						static_cast<int>(value.GetNumber()), buff, sizeof(buff)));
 }
 
-bool Class_number::Format_u(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_number::Format_u(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	char buff[128];
 	return pFormatter->PutAlignedString(sig, flags, Formatter::Format_u(flags,
 						static_cast<UInt>(value.GetNumber()), buff, sizeof(buff)));
 }
 
-bool Class_number::Format_b(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_number::Format_b(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	char buff[128];
 	return pFormatter->PutAlignedString(sig, flags, Formatter::Format_b(flags,
 						static_cast<UInt>(value.GetNumber()), buff, sizeof(buff)));
 }
 
-bool Class_number::Format_o(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_number::Format_o(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	char buff[128];
 	return pFormatter->PutAlignedString(sig, flags, Formatter::Format_o(flags,
 						static_cast<UInt>(value.GetNumber()), buff, sizeof(buff)));
 }
 
-bool Class_number::Format_x(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_number::Format_x(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	char buff[128];
 	return pFormatter->PutAlignedString(sig, flags, Formatter::Format_x(flags,
 						static_cast<UInt>(value.GetNumber()), buff, sizeof(buff)));
 }
 
-bool Class_number::Format_e(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_number::Format_e(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	char buff[128];
+	if (flags.precision == Formatter::PREC_Null) flags.precision = Formatter::PREC_Default;
 	return pFormatter->PutAlignedString(sig, flags, Formatter::Format_e(flags,
 						value.GetNumber(), buff, sizeof(buff)));
 }
 
-bool Class_number::Format_f(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_number::Format_f(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	char buff[128];
+	if (flags.precision == Formatter::PREC_Null) flags.precision = Formatter::PREC_Default;
 	return pFormatter->PutAlignedString(sig, flags, Formatter::Format_f(flags,
 						value.GetNumber(), buff, sizeof(buff)));
 }
 
-bool Class_number::Format_g(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_number::Format_g(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	char buff[128];
+	if (flags.precision == Formatter::PREC_Null) flags.precision = Formatter::PREC_Default;
 	return pFormatter->PutAlignedString(sig, flags, Formatter::Format_g(flags,
 						value.GetNumber(), buff, sizeof(buff)));
 }
 
-bool Class_number::Format_c(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_number::Format_c(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	return pFormatter->PutChar(sig, static_cast<char>(value.GetNumber()));
 }
@@ -546,7 +549,7 @@ bool Class_complex::Deserialize(Environment &env, Signal sig, Stream &stream, Va
 	return true;
 }
 
-bool Class_complex::Format_e(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_complex::Format_e(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	char buff[128];
 	const Complex &num = value.GetComplex();
@@ -560,7 +563,7 @@ bool Class_complex::Format_e(Signal sig, Formatter *pFormatter, const Formatter:
 	return true;
 }
 
-bool Class_complex::Format_f(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_complex::Format_f(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	char buff[128];
 	const Complex &num = value.GetComplex();
@@ -574,7 +577,7 @@ bool Class_complex::Format_f(Signal sig, Formatter *pFormatter, const Formatter:
 	return true;
 }
 
-bool Class_complex::Format_g(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_complex::Format_g(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	char buff[128];
 	const Complex &num = value.GetComplex();
@@ -697,7 +700,7 @@ bool Class_rational::Deserialize(Environment &env, Signal sig, Stream &stream, V
 	return true;
 }
 
-bool Class_rational::Format_d(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const Value &value) const
+bool Class_rational::Format_d(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const
 {
 	char buff[128];
 	const Rational &num = value.GetRational();

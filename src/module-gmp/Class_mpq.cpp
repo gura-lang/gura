@@ -159,26 +159,26 @@ Gura_ImplementCastTo(mpq)
 }
 
 bool Gura_ClassName(mpq)::Format_d(Signal sig, Formatter *pFormatter,
-					const Formatter::Flags &flags, const Value &value) const
+					Formatter::Flags &flags, const Value &value) const
 {
 	return _Format_d(sig, pFormatter, flags, Object_mpq::GetEntity(value));
 }
 
 bool Gura_ClassName(mpq)::Format_b(Signal sig, Formatter *pFormatter,
-					const Formatter::Flags &flags, const Value &value) const
+					Formatter::Flags &flags, const Value &value) const
 {
 	//return _Format_b(sig, pFormatter, flags, Object_mpq::GetEntity(value));
 	return Class::Format_b(sig, pFormatter, flags, value);
 }
 
 bool Gura_ClassName(mpq)::Format_o(Signal sig, Formatter *pFormatter,
-					const Formatter::Flags &flags, const Value &value) const
+					Formatter::Flags &flags, const Value &value) const
 {
 	return _Format_o(sig, pFormatter, flags, Object_mpq::GetEntity(value));
 }
 
 bool Gura_ClassName(mpq)::Format_x(Signal sig, Formatter *pFormatter,
-					const Formatter::Flags &flags, const Value &value) const
+					Formatter::Flags &flags, const Value &value) const
 {
 	return _Format_x(sig, pFormatter, flags, Object_mpq::GetEntity(value));
 }

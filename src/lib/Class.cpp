@@ -526,7 +526,7 @@ bool Class::Deserialize(Environment &env, Signal sig, Stream &stream, Value &val
 }
 
 bool Class::Format_d(Signal sig, Formatter *pFormatter,
-					const Formatter::Flags &flags, const Value &value) const
+					Formatter::Flags &flags, const Value &value) const
 {
 	sig.SetError(ERR_ValueError,
 			"value type %s can not be formatted with %%d qualifier",
@@ -535,7 +535,7 @@ bool Class::Format_d(Signal sig, Formatter *pFormatter,
 }
 
 bool Class::Format_u(Signal sig, Formatter *pFormatter,
-					const Formatter::Flags &flags, const Value &value) const
+					Formatter::Flags &flags, const Value &value) const
 {
 	sig.SetError(ERR_ValueError,
 			"value type %s can not be formatted with %%u qualifier",
@@ -544,7 +544,7 @@ bool Class::Format_u(Signal sig, Formatter *pFormatter,
 }
 
 bool Class::Format_b(Signal sig, Formatter *pFormatter,
-					const Formatter::Flags &flags, const Value &value) const
+					Formatter::Flags &flags, const Value &value) const
 {
 	sig.SetError(ERR_ValueError,
 			"value type %s can not be formatted with %%b qualifier",
@@ -553,7 +553,7 @@ bool Class::Format_b(Signal sig, Formatter *pFormatter,
 }
 
 bool Class::Format_o(Signal sig, Formatter *pFormatter,
-					const Formatter::Flags &flags, const Value &value) const
+					Formatter::Flags &flags, const Value &value) const
 {
 	sig.SetError(ERR_ValueError,
 			"value type %s can not be formatted with %%o qualifier",
@@ -562,7 +562,7 @@ bool Class::Format_o(Signal sig, Formatter *pFormatter,
 }
 
 bool Class::Format_x(Signal sig, Formatter *pFormatter,
-					const Formatter::Flags &flags, const Value &value) const
+					Formatter::Flags &flags, const Value &value) const
 {
 	sig.SetError(ERR_ValueError,
 			"value type %s can not be formatted with %%x qualifier",
@@ -571,7 +571,7 @@ bool Class::Format_x(Signal sig, Formatter *pFormatter,
 }
 
 bool Class::Format_e(Signal sig, Formatter *pFormatter,
-					const Formatter::Flags &flags, const Value &value) const
+					Formatter::Flags &flags, const Value &value) const
 {
 	sig.SetError(ERR_ValueError,
 			"value type %s can not be formatted with %%e qualifier",
@@ -580,7 +580,7 @@ bool Class::Format_e(Signal sig, Formatter *pFormatter,
 }
 
 bool Class::Format_f(Signal sig, Formatter *pFormatter,
-					const Formatter::Flags &flags, const Value &value) const
+					Formatter::Flags &flags, const Value &value) const
 {
 	sig.SetError(ERR_ValueError,
 			"value type %s can not be formatted with %%f qualifier",
@@ -589,7 +589,7 @@ bool Class::Format_f(Signal sig, Formatter *pFormatter,
 }
 
 bool Class::Format_g(Signal sig, Formatter *pFormatter,
-					const Formatter::Flags &flags, const Value &value) const
+					Formatter::Flags &flags, const Value &value) const
 {
 	sig.SetError(ERR_ValueError,
 			"value type %s can not be formatted with %%g qualifier",
@@ -598,14 +598,14 @@ bool Class::Format_g(Signal sig, Formatter *pFormatter,
 }
 
 bool Class::Format_s(Signal sig, Formatter *pFormatter,
-					const Formatter::Flags &flags, const Value &value) const
+					Formatter::Flags &flags, const Value &value) const
 {
 	return pFormatter->PutAlignedString(sig, flags,
 							value.ToString(false).c_str(), flags.precision);
 }
 
 bool Class::Format_c(Signal sig, Formatter *pFormatter,
-					const Formatter::Flags &flags, const Value &value) const
+					Formatter::Flags &flags, const Value &value) const
 {
 	sig.SetError(ERR_ValueError,
 			"value type %s can not be formatted with %%c qualifier",

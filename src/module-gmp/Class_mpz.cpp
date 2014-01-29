@@ -138,50 +138,50 @@ Gura_ImplementCastTo(mpz)
 }
 
 bool Gura_ClassName(mpz)::Format_d(Signal sig, Formatter *pFormatter,
-					const Formatter::Flags &flags, const Value &value) const
+					Formatter::Flags &flags, const Value &value) const
 {
 	return _Format_d(sig, pFormatter, flags, Object_mpz::GetEntity(value));
 }
 
 bool Gura_ClassName(mpz)::Format_u(Signal sig, Formatter *pFormatter,
-					const Formatter::Flags &flags, const Value &value) const
+					Formatter::Flags &flags, const Value &value) const
 {
 	return _Format_u(sig, pFormatter, flags, Object_mpz::GetEntity(value));
 }
 
 bool Gura_ClassName(mpz)::Format_b(Signal sig, Formatter *pFormatter,
-					const Formatter::Flags &flags, const Value &value) const
+					Formatter::Flags &flags, const Value &value) const
 {
 	//return _Format_b(sig, pFormatter, flags, Object_mpz::GetEntity(value));
 	return Class::Format_b(sig, pFormatter, flags, value);
 }
 
 bool Gura_ClassName(mpz)::Format_o(Signal sig, Formatter *pFormatter,
-					const Formatter::Flags &flags, const Value &value) const
+					Formatter::Flags &flags, const Value &value) const
 {
 	return _Format_o(sig, pFormatter, flags, Object_mpz::GetEntity(value));
 }
 
 bool Gura_ClassName(mpz)::Format_x(Signal sig, Formatter *pFormatter,
-					const Formatter::Flags &flags, const Value &value) const
+					Formatter::Flags &flags, const Value &value) const
 {
 	return _Format_x(sig, pFormatter, flags, Object_mpz::GetEntity(value));
 }
 
 bool Gura_ClassName(mpz)::Format_e(Signal sig, Formatter *pFormatter,
-					const Formatter::Flags &flags, const Value &value) const
+					Formatter::Flags &flags, const Value &value) const
 {
 	return _Format_e(sig, pFormatter, flags, Object_mpz::GetEntity(value));
 }
 
 bool Gura_ClassName(mpz)::Format_f(Signal sig, Formatter *pFormatter,
-					const Formatter::Flags &flags, const Value &value) const
+					Formatter::Flags &flags, const Value &value) const
 {
 	return _Format_f(sig, pFormatter, flags, Object_mpz::GetEntity(value));
 }
 
 bool Gura_ClassName(mpz)::Format_g(Signal sig, Formatter *pFormatter,
-					const Formatter::Flags &flags, const Value &value) const
+					Formatter::Flags &flags, const Value &value) const
 {
 	return _Format_g(sig, pFormatter, flags, Object_mpz::GetEntity(value));
 }
