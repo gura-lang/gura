@@ -1763,6 +1763,26 @@ Gura_ImplementBinaryOperator(Shr, mpz, number)
 }
 
 //-----------------------------------------------------------------------------
+// unary operator ..
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperatorSuffix(SeqInf, mpz)
+{
+	mpz_class numBegin = Object_mpz::GetEntity(value);
+	return Value(new Object_iterator(env, new Iterator_GmpSeqInf(numBegin)));
+}
+
+//-----------------------------------------------------------------------------
+// binary operator ..
+//-----------------------------------------------------------------------------
+Gura_ImplementBinaryOperator(Seq, mpz, mpz)
+{
+	const mpz_class &numBegin = Object_mpz::GetEntity(valueLeft);
+	const mpz_class &numEnd = Object_mpz::GetEntity(valueRight);
+	mpz_class numStep = (numEnd >= numBegin)? +1 : -1;
+	return Value(new Object_iterator(env, new Iterator_GmpSeq(numBegin, numEnd, numStep)));
+}
+
+//-----------------------------------------------------------------------------
 // functions
 //-----------------------------------------------------------------------------
 void AssignOperators(Environment &env)
@@ -1989,6 +2009,10 @@ void AssignOperators(Environment &env)
 	Gura_AssignBinaryOperator(Shl, mpz, number);
 	// binary operator >>
 	Gura_AssignBinaryOperator(Shr, mpz, number);
+	// unary operator ..
+	Gura_AssignUnaryOperatorSuffix(SeqInf, mpz);
+	// binary operator ..
+	Gura_AssignBinaryOperator(Seq, mpz, mpz);
 }
 
 Gura_EndModuleScope(gmp)

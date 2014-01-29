@@ -13,5 +13,6 @@ if (sys.build == `msc) {
 	builder.rpmFiles = ['gmp-devel']
 }
 builder.build('gmp', [
-	'module-gmp.cpp', 'Class_mpz.cpp', 'Class_mpq.cpp', 'Class_mpf.cpp', 'Operators.cpp'
+	'module-gmp.cpp', 'Class_mpz.cpp', 'Class_mpq.cpp', 'Class_mpf.cpp',
+	'Operators.cpp', 'Iterator.cpp'
 ])

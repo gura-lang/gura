@@ -9,6 +9,7 @@
 #include "Class_mpq.h"
 #include "Class_mpf.h"
 #include "Operators.h"
+#include "Iterator.h"
 
 Gura_BeginModuleHeader(gmp)
 
