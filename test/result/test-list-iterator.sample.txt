@@ -166,10 +166,18 @@ expected error occurs: ValueError: no items
 
 [[1, 2, 3, nil, 4, 5, nil, 6, 7].each():xiter] .. [1, 2, 3, 4, 5, 6, 7]
 [[1, 2, 3], 4, 5, [6, 7, [8, 9, [10, 11]]]].flat() .. [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+[].sum() .. nil
+[].each().sum() .. nil
+[].average() .. nil
+[].each().average() .. nil
 [1 .. 10].sum() .. 55
 (1 .. 10).sum() .. 55
 [1 .. 10].average() .. 5.5
 (1 .. 10).average() .. 5.5
+complex(1 .. 10, 1 .. 10).sum() .. 55+55j
+complex(1 .. 10, 1 .. 10).average() .. 5.5+5.5j
+complex((-10) .. 10, (-10) .. 10).sum() .. 0
+complex((-10) .. 10, (-10) .. 10).average() .. 0
 [true, true, true].and() .. true
 [true, true, true, false].and() .. false
 [true, true, true, false].or() .. true

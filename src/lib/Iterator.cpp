@@ -231,50 +231,23 @@ Value Iterator::Sum(Environment &env, Signal sig, size_t &cnt)
 	cnt = 0;
 	Value value;
 	if (!Next(env, sig, value)) return Value::Null;
-	cnt++;
-	if (value.Is_number()) {
-		Number result = value.GetNumber();
-		while (Next(env, sig, value)) {
+	Number result = 0;
+	do {
+		if (value.Is_number()) {
+			result += value.GetNumber();
 			cnt++;
-			if (value.Is_number()) {
-				result += value.GetNumber();
-			} else if (value.Is_complex()) {
-				Complex resultEx = result;
-				while (Next(env, sig, value)) {
-					cnt++;
-					if (value.IsNumberOrComplex()) {
-						resultEx += value.GetComplex();
-					} else {
-						SetError_InvalidDataTypeOfElement(sig);
-						return Value::Null;
-					}
-				}
+		} else {
+			const Operator *pOperatorAdd = env.GetOperator(OPTYPE_Add);
+			Value valResult(result);
+			do {
+				valResult = pOperatorAdd->EvalBinary(env, sig, valResult, value);
+				cnt++;
 				if (sig.IsSignalled()) return Value::Null;
-				return Value(resultEx);
-			} else {
-				SetError_InvalidDataTypeOfElement(sig);
-				return Value::Null;
-			}
+			} while (Next(env, sig, value));
+			return valResult;
 		}
-		if (sig.IsSignalled()) return Value::Null;
-		return Value(result);
-	} else if (value.Is_complex()) {
-		Complex result = value.GetComplex();
-		while (Next(env, sig, value)) {
-			cnt++;
-			if (value.IsNumberOrComplex()) {
-				result += value.GetComplex();
-			} else {
-				SetError_InvalidDataTypeOfElement(sig);
-				return Value::Null;
-			}
-		}
-		if (sig.IsSignalled()) return Value::Null;
-		return Value(result);
-	} else {
-		SetError_InvalidDataTypeOfElement(sig);
-		return Value::Null;
-	}
+	} while (Next(env, sig, value));
+	return Value(result);
 }
 
 Value Iterator::Average(Environment &env, Signal sig, size_t &cnt)
@@ -284,12 +257,15 @@ Value Iterator::Average(Environment &env, Signal sig, size_t &cnt)
 		return Value::Null;
 	}
 	Value valueSum = Clone()->Sum(env, sig, cnt);
-	if (valueSum.Is_number()) {
+	if (valueSum.IsInvalid()) {
+		return Value::Null;
+	} else if (valueSum.Is_number()) {
 		return Value(valueSum.GetNumber() / static_cast<Number>(cnt));
 	} else if (valueSum.Is_complex()) {
 		return Value(valueSum.GetComplex() / static_cast<Number>(cnt));
 	} else {
-		return Value::Null;
+		const Operator *pOperatorDiv = env.GetOperator(OPTYPE_Div);
+		return pOperatorDiv->EvalBinary(env, sig, valueSum, Value(cnt));
 	}
 }
 
