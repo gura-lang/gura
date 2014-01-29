@@ -103,6 +103,14 @@ testcase('comparator') {
 	TestBinaryOperators(ops, valueLs, valueRs)
 	
 }
+testcase('precision for mpf') {
+	prec = gmp.mpf.get_default_prec()
+	[10, 100, 1000, 10000].each {|prec|
+		gmp.mpf.set_default_prec(prec)
+		printf('prec=%-5d %.f\n', prec, 355L / 113)
+	}
+	gmp.mpf.set_default_prec(prec)
+}
 testcase('Formatter test - basic') {
 	fmts = ['%d', '%u', '%o', '%x', '%e', '%f', '%g']
 	test_format(fmts, [0, 0L])
@@ -128,12 +136,12 @@ testcase('Formatter test - specifier d, u, o, x') {
 	}
 }
 testcase('Formatter test - specifier e, f, g') {
-	fmtsOrg = ['%1?', '%10?', '%.0?', '%.1?', '%3.3?', '%13.3?', '%-13.3?$', '%013.3?']
+	fmtsOrg = ['%1?', '%10?', '%.?', '%.0?', '%.1?', '%.6?', '%.10?', '%.20?', '%3.3?', '%13.3?', '%-13.3?$', '%013.3?']
 	['e', 'f', 'g'].each {|specifier|
 		fmts = fmtsOrg:*replace('?', specifier)
 		nums = [0, 0L]
 		test_format(fmts, nums)
-		nums = [1234567.89012345, 1234567.89012345L]
+		nums = [100000 / 7, 100000L / 7]
 		test_format(fmts, nums)
 	}
 }
