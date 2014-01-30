@@ -413,16 +413,14 @@ public:
 	ValueDict &InitAsDict(Environment &env, bool ignoreCaseFlag);
 	bool CastType(Environment &env, Signal sig, ValueType valType, Value &valueCasted) const;
 public:
-	static int Compare(const Value &value1, const Value &value2, bool ignoreCaseFlag = false);
+	static int Compare(Environment &env, Signal sig,
+			const Value &value1, const Value &value2, bool ignoreCaseFlag = false);
 	static int CompareBoolean(bool flag1, bool flag2);
 	static int CompareComplex(const Complex &comp1, const Complex &comp2);
 	static int CompareNumber(Number num1, Number num2);
 	static int CompareRational(const Rational &ratio1, const Rational &ratio2);
 	static int CompareString(const char *str1, const char *str2, bool ignoreCaseFlag);
 	static int CompareSymbol(const Symbol *pSymbol1, const Symbol *pSymbol2);
-	inline bool operator<(const Value &value) const {
-		return Compare(*this, value) < 0;
-	}
 	static Value CreateAsList(Environment &env, const Value &v1);
 	static Value CreateAsList(Environment &env, const Value &v1, const Value &v2);
 	static Value CreateAsList(Environment &env, const Value &v1, const Value &v2,
@@ -483,7 +481,7 @@ public:
 	}
 	ValueList(const ValueList &valList);
 	bool IsFlat() const;
-	bool DoesContain(const Value &value) const;
+	bool DoesContain(Environment &env, Signal sig, const Value &value) const;
 	bool DoesContainIterator() const;
 	bool CheckMatrix(size_t *pnRow, size_t *pnCol) const;
 	void ExtractFlat(ValueList &valList) const;

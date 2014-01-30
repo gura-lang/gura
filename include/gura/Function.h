@@ -157,7 +157,6 @@ public:
 	};
 	class GURA_DLLDECLARE ResultComposer {
 	private:
-		Environment &_env;
 		Args &_args;
 		Value &_result;
 		ValueList *_pValList;
@@ -166,8 +165,7 @@ public:
 		bool _setFlag;
 	public:
 		ResultComposer(Environment &env, Args &args, Value &result);
-		Environment &GetEnv() { return _env; }
-		void Store(const Value &value);
+		bool Store(Environment &env, Signal sig, const Value &value);
 	};
 	class GURA_DLLDECLARE ExprMap : public std::map<const Symbol *, Expr *, Symbol::KeyCompare_UniqNumber> {
 	public:

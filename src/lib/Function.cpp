@@ -309,7 +309,7 @@ Value Function::EvalMap(Environment &env, Signal sig, Args &args) const
 	Value value;
 	size_t n = 0;
 	for ( ; pIterator->Next(env, sig, value); n++) {
-		resultComposer.Store(value);
+		if (!resultComposer.Store(env, sig, value)) return Value::Null;
 	}
 	if (n == 0 && !args.IsRsltVoid()) {
 		result.InitAsList(env);
@@ -614,17 +614,17 @@ void Function::SetError_MathOptimizeError(Signal sig) const
 //   :void, :reduce, :xreduce, :list, :xlist, :set, :xet, :flat
 //-----------------------------------------------------------------------------
 Function::ResultComposer::ResultComposer(Environment &env, Args &args, Value &result) :
-	_env(env), _args(args), _result(result), _pValList(NULL), _cnt(0),
+	_args(args), _result(result), _pValList(NULL), _cnt(0),
 	_excludeNilFlag(args.IsRsltXList() || args.IsRsltXSet()),
 	_setFlag(args.IsRsltSet() || args.IsRsltXSet())
 {
 	if (_args.IsRsltList() || _args.IsRsltXList() ||
 							_args.IsRsltSet() || _args.IsRsltXSet()) {
-		_pValList = &_result.InitAsList(_env);
+		_pValList = &_result.InitAsList(env);
 	}
 }
 
-void Function::ResultComposer::Store(const Value &value)
+bool Function::ResultComposer::Store(Environment &env, Signal sig, const Value &value)
 {
 	if (_args.IsRsltVoid()) {
 		// nothing to do
@@ -635,27 +635,30 @@ void Function::ResultComposer::Store(const Value &value)
 	} else if (_args.IsRsltFlat() && value.Is_list()) {
 		const ValueList &valList = value.GetList();
 		foreach_const (ValueList, pValue, value.GetList()) {
-			Store(*pValue);
+			if (!Store(env, sig, *pValue)) return false;
 		}
 	} else {
 		if (_args.IsRsltList()) {
 			_pValList->push_back(value);
 		} else if (value.IsValid()) {
 			if (_pValList == NULL) {
-				_pValList = &_result.InitAsList(_env, _cnt, Value::Null);
+				_pValList = &_result.InitAsList(env, _cnt, Value::Null);
 			}
-			if (!_setFlag || !_pValList->DoesContain(value)) {
+			if (!_setFlag || !_pValList->DoesContain(env, sig, value)) {
 				_pValList->push_back(value);
 			}
+			if (sig.IsSignalled()) return false;
 		} else if (_excludeNilFlag) {
 			// nothing to do
 		} else if (_pValList != NULL) {
-			if (!_setFlag || !_pValList->DoesContain(value)) {
+			if (!_setFlag || !_pValList->DoesContain(env, sig, value)) {
 				_pValList->push_back(value);
 			}
+			if (sig.IsSignalled()) return false;
 		}
 		_cnt++;
 	}
+	return true;
 }
 
 //-----------------------------------------------------------------------------

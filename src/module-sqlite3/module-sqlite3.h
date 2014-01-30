@@ -53,6 +53,20 @@ private:
 	static int Callback(void *user, int argc, char **argv, char **azColName);
 };
 
+//-----------------------------------------------------------------------------
+// ResultComposerEx
+//-----------------------------------------------------------------------------
+class ResultComposerEx : public Function::ResultComposer {
+private:
+	Environment &_env;
+	Signal &_sig;
+public:
+	inline ResultComposerEx(Environment &env, Signal &sig, Args &args, Value &result) :
+					ResultComposer(env, args, result), _env(env), _sig(sig) {}
+	inline Environment &GetEnv() { return _env; }
+	inline Signal &GetSignal() { return _sig; }
+};
+
 Gura_EndModuleHeader(sqlite3)
 
 #endif

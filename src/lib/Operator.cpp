@@ -1778,7 +1778,9 @@ Gura_ImplementBinaryOperator(Pow, complex, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Eq, any, any)
 {
-	return Value(Value::Compare(valueLeft, valueRight) == 0);
+	int cmp = Value::Compare(env, sig, valueLeft, valueRight);
+	if (sig.IsSignalled()) return Value::Null;
+	return Value(cmp == 0);
 }
 
 //-----------------------------------------------------------------------------
@@ -1786,7 +1788,9 @@ Gura_ImplementBinaryOperator(Eq, any, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Ne, any, any)
 {
-	return Value(Value::Compare(valueLeft, valueRight) != 0);
+	int cmp = Value::Compare(env, sig, valueLeft, valueRight);
+	if (sig.IsSignalled()) return Value::Null;
+	return Value(cmp != 0);
 }
 
 //-----------------------------------------------------------------------------
@@ -1794,7 +1798,9 @@ Gura_ImplementBinaryOperator(Ne, any, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Gt, any, any)
 {
-	return Value(Value::Compare(valueLeft, valueRight) > 0);
+	int cmp = Value::Compare(env, sig, valueLeft, valueRight);
+	if (sig.IsSignalled()) return Value::Null;
+	return Value(cmp > 0);
 }
 
 //-----------------------------------------------------------------------------
@@ -1802,7 +1808,9 @@ Gura_ImplementBinaryOperator(Gt, any, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Lt, any, any)
 {
-	return Value(Value::Compare(valueLeft, valueRight) < 0);
+	int cmp = Value::Compare(env, sig, valueLeft, valueRight);
+	if (sig.IsSignalled()) return Value::Null;
+	return Value(cmp < 0);
 }
 
 //-----------------------------------------------------------------------------
@@ -1810,7 +1818,9 @@ Gura_ImplementBinaryOperator(Lt, any, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Ge, any, any)
 {
-	return Value(Value::Compare(valueLeft, valueRight) >= 0);
+	int cmp = Value::Compare(env, sig, valueLeft, valueRight);
+	if (sig.IsSignalled()) return Value::Null;
+	return Value(cmp >= 0);
 }
 
 //-----------------------------------------------------------------------------
@@ -1818,7 +1828,9 @@ Gura_ImplementBinaryOperator(Ge, any, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Le, any, any)
 {
-	return Value(Value::Compare(valueLeft, valueRight) <= 0);
+	int cmp = Value::Compare(env, sig, valueLeft, valueRight);
+	if (sig.IsSignalled()) return Value::Null;
+	return Value(cmp <= 0);
 }
 
 //-----------------------------------------------------------------------------
@@ -1826,7 +1838,9 @@ Gura_ImplementBinaryOperator(Le, any, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Cmp, any, any)
 {
-	return Value(Value::Compare(valueLeft, valueRight));
+	int cmp = Value::Compare(env, sig, valueLeft, valueRight);
+	if (sig.IsSignalled()) return Value::Null;
+	return Value(cmp);
 }
 
 Gura_ImplementBinaryOperator(Cmp, boolean, boolean)
@@ -1873,7 +1887,8 @@ Gura_ImplementBinaryOperator(Contains, any, any)
 			const ValueList &valListToFind = valueRight.GetList();
 			Value value;
 			while (pIterator->Next(env, sig, value)) {
-				valList.push_back(valListToFind.DoesContain(value));
+				valList.push_back(valListToFind.DoesContain(env, sig, value));
+				if (sig.IsSignalled()) return Value::Null;
 			}
 			if (sig.IsSignalled()) {
 				return Value::Null;
@@ -1893,7 +1908,9 @@ Gura_ImplementBinaryOperator(Contains, any, any)
 		} else {
 			Value value;
 			while (pIterator->Next(env, sig, value)) {
-				valList.push_back(Value::Compare(value, valueRight) == 0);
+				int cmp = Value::Compare(env, sig, value, valueRight);
+				if (sig.IsSignalled()) return Value::Null;
+				valList.push_back(cmp == 0);
 			}
 			if (sig.IsSignalled()) {
 				return Value::Null;
@@ -1901,7 +1918,9 @@ Gura_ImplementBinaryOperator(Contains, any, any)
 		}
 		return result;
 	} else if (valueRight.Is_list()) {
-		return Value(valueRight.GetList().DoesContain(valueLeft));
+		bool foundFlag = valueRight.GetList().DoesContain(env, sig, valueLeft);
+		if (sig.IsSignalled()) return Value::Null;
+		return Value(foundFlag);
 	} else if (valueRight.Is_iterator()) {
 		AutoPtr<Iterator> pIteratorToFind(valueRight.CreateIterator(sig));
 		if (pIteratorToFind.IsNull()) return Value::Null;
@@ -1909,7 +1928,9 @@ Gura_ImplementBinaryOperator(Contains, any, any)
 		if (sig.IsSignalled()) return Value::Null;
 		return Value(foundFlag);
 	} else {
-		return Value(Value::Compare(valueLeft, valueRight) == 0);
+		int cmp = Value::Compare(env, sig, valueLeft, valueRight);
+		if (sig.IsSignalled()) return Value::Null;
+		return Value(cmp == 0);
 	}
 }
 

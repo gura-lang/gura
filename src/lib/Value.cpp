@@ -459,7 +459,8 @@ Number Value::ToNumber(bool allowPartFlag, bool &successFlag) const
 	}
 }
 
-int Value::Compare(const Value &value1, const Value &value2, bool ignoreCaseFlag)
+int Value::Compare(Environment &env, Signal sig,
+			const Value &value1, const Value &value2, bool ignoreCaseFlag)
 {
 	int rtn = -1;
 	if (value1.GetValueType() != value2.GetValueType()) {
@@ -503,7 +504,8 @@ int Value::Compare(const Value &value1, const Value &value2, bool ignoreCaseFlag
 		if (emptyFlag1 || emptyFlag2) {
 			rtn = -(static_cast<int>(emptyFlag1) - static_cast<int>(emptyFlag2));
 		} else {
-			rtn = Value::Compare(value1.GetList().front(), value2.GetList().front());
+			rtn = Compare(env, sig, value1.GetList().front(), value2.GetList().front());
+			if (sig.IsSignalled()) return 0;
 		}
 	} else if (value1.IsObject() && value2.IsObject()) {
 		rtn = value1.GetObject()->Compare(value2.GetObject());
@@ -745,10 +747,12 @@ bool ValueList::IsFlat() const
 	return true;
 }
 
-bool ValueList::DoesContain(const Value &value) const
+bool ValueList::DoesContain(Environment &env, Signal sig, const Value &value) const
 {
 	foreach_const (ValueList, pValue, *this) {
-		if (Value::Compare(*pValue, value) == 0) return true;
+		int rtn = Value::Compare(env, sig, *pValue, value);
+		if (sig.IsSignalled()) return false;
+		if (rtn == 0) return true;
 	}
 	return false;
 }

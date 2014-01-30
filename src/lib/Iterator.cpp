@@ -106,7 +106,7 @@ Value Iterator::Eval(Environment &env, Signal sig, Args &args)
 	Value value, result;
 	Function::ResultComposer resultComposer(env, args, result);
 	while (Next(env, sig, value)) {
-		resultComposer.Store(value);
+		if (!resultComposer.Store(env, sig, value)) return Value::Null;
 	}
 	if (sig.IsSignalled()) return Value::Null;
 	return result;
@@ -160,7 +160,8 @@ Value Iterator::MinMax(Environment &env, Signal sig,
 		int idxHit = GetCountNext() - 1;
 		Value value;
 		while (Next(env, sig, value)) {
-			int cmp = Value::Compare(valueHit, value);
+			int cmp = Value::Compare(env, sig, valueHit, value);
+			if (sig.IsSignalled()) return Value::Null;
 			if (maxFlag) cmp = -cmp;
 			if (cmp > 0) {
 				valueHit = value;
@@ -173,7 +174,8 @@ Value Iterator::MinMax(Environment &env, Signal sig,
 		int idxHit = GetCountNext() - 1;
 		Value value;
 		while (Next(env, sig, value)) {
-			int cmp = Value::Compare(valueHit, value);
+			int cmp = Value::Compare(env, sig, valueHit, value);
+			if (sig.IsSignalled()) return Value::Null;
 			if (maxFlag) cmp = -cmp;
 			if (cmp >= 0) {
 				valueHit = value;
@@ -188,7 +190,8 @@ Value Iterator::MinMax(Environment &env, Signal sig,
 		resultList.push_back(Value(idxHit));
 		Value value;
 		while (Next(env, sig, value)) {
-			int cmp = Value::Compare(valueHit, value);
+			int cmp = Value::Compare(env, sig, valueHit, value);
+			if (sig.IsSignalled()) return Value::Null;
 			if (maxFlag) cmp = -cmp;
 			if (cmp > 0) {
 				int idxHit = GetCountNext() - 1;
@@ -204,7 +207,8 @@ Value Iterator::MinMax(Environment &env, Signal sig,
 	} else {
 		Value value;
 		while (Next(env, sig, value)) {
-			int cmp = Value::Compare(valueHit, value);
+			int cmp = Value::Compare(env, sig, valueHit, value);
+			if (sig.IsSignalled()) return Value::Null;
 			if (maxFlag) cmp = -cmp;
 			if (cmp > 0) {
 				valueHit = value;
@@ -407,7 +411,9 @@ size_t Iterator::Find(Environment &env, Signal sig, const Value &criteria, Value
 		return InvalidSize;
 	} else {
 		while (Next(env, sig, value)) {
-			if (Value::Compare(value, criteria) == 0) return GetCountNext() - 1;
+			int cmp = Value::Compare(env, sig, value, criteria);
+			if (sig.IsSignalled()) return InvalidSize;
+			if (cmp == 0) return GetCountNext() - 1;
 		}
 	}
 	return InvalidSize;
@@ -446,7 +452,9 @@ size_t Iterator::Count(Environment &env, Signal sig, const Value &criteria)
 	} else {
 		Value value;
 		while (Next(env, sig, value)) {
-			if (Value::Compare(value, criteria) == 0) cnt++;
+			int cmp = Value::Compare(env, sig, value, criteria);
+			if (sig.IsSignalled()) return 0;
+			if (cmp == 0) cnt++;
 		}
 	}
 	return cnt;
@@ -540,7 +548,9 @@ bool Iterator::DoesContain(Environment &env, Signal sig, const Value &value)
 	}
 	Value valueToFind;
 	while (Next(env, sig, valueToFind)) {
-		if (Value::Compare(value, valueToFind) == 0) return true;
+		int cmp = Value::Compare(env, sig, value, valueToFind);
+		if (sig.IsSignalled()) return false;
+		if (cmp == 0) return true;
 	}
 	return false;
 }

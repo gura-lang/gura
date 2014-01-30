@@ -136,18 +136,18 @@ Object_list *Object_list::SortRank(Signal sig, const Value &valDirective,
 	}
 	if (stableFlag) {
 		if (mode == MODE_Ascend) {
-			std::stable_sort(valPtrList.begin(), valPtrList.end(), Comparator_Ascend());
+			std::stable_sort(valPtrList.begin(), valPtrList.end(), Comparator_Ascend(env, sig));
 		} else if (mode == MODE_Descend) {
-			std::stable_sort(valPtrList.begin(), valPtrList.end(), Comparator_Descend());
+			std::stable_sort(valPtrList.begin(), valPtrList.end(), Comparator_Descend(env, sig));
 		} else { // mode == MODE_Custom
 			std::stable_sort(valPtrList.begin(), valPtrList.end(),
 											Comparator_Custom(env, sig, pFunc));
 		}
 	} else {
 		if (mode == MODE_Ascend) {
-			std::sort(valPtrList.begin(), valPtrList.end(), Comparator_Ascend());
+			std::sort(valPtrList.begin(), valPtrList.end(), Comparator_Ascend(env, sig));
 		} else if (mode == MODE_Descend) {
-			std::sort(valPtrList.begin(), valPtrList.end(), Comparator_Descend());
+			std::sort(valPtrList.begin(), valPtrList.end(), Comparator_Descend(env, sig));
 		} else { // mode == MODE_Custom
 			std::sort(valPtrList.begin(), valPtrList.end(),
 											Comparator_Custom(env, sig, pFunc));
@@ -159,7 +159,9 @@ Object_list *Object_list::SortRank(Signal sig, const Value &valDirective,
 		foreach_const (ValueList, pValue, valList) {
 			ValuePtrList::iterator ppValue = valPtrList.begin();
 			for ( ; ppValue != valPtrList.end(); ppValue++) {
-				if (Value::Compare(*pValue, **ppValue) == 0) break;
+				int rtn = Value::Compare(env, sig, *pValue, **ppValue);
+				if (sig.IsSignalled()) return NULL;
+				if (rtn == 0) break;
 			}
 			if (ppValue == valPtrList.end()) {
 				sig.SetError(ERR_SystemError, "fatal error in rank() operation");
@@ -560,9 +562,10 @@ Gura_ImplementFunction(set_xset)
 		for (Iterator *pIterator = pValueArg->GetIterator();
 											pIterator->Next(env, sig, value); ) {
 			if ((_acceptInvalidFlag || value.IsValid()) &&
-											!valList1.DoesContain(value)) {
+										!valList1.DoesContain(env, sig, value)) {
 				valList1.push_back(value);
 			}
+			if (sig.IsSignalled()) return Value::Null;
 		}
 		if (sig.IsSignalled()) return Value::Null;
 		pValueArg++;
@@ -573,9 +576,11 @@ Gura_ImplementFunction(set_xset)
 			Value value;
 			for (Iterator *pIterator = pValueArg->GetIterator();
 											pIterator->Next(env, sig, value); ) {
-				if (pValListAnd->DoesContain(value) && !pValListWork->DoesContain(value)) {
+				if (pValListAnd->DoesContain(env, sig, value) &&
+								!pValListWork->DoesContain(env, sig, value)) {
 					pValListWork->push_back(value);
 				}
+				if (sig.IsSignalled()) return Value::Null;
 			}
 			ValueList *pValListTmp = pValListAnd;
 			pValListAnd = pValListWork, pValListWork = pValListTmp;
@@ -592,11 +597,13 @@ Gura_ImplementFunction(set_xset)
 		Value value;
 		for (Iterator *pIterator = pValueArg->GetIterator();
 										pIterator->Next(env, sig, value); ) {
-			if (!valList1.DoesContain(value)) valList1.push_back(value);
+			if (!valList1.DoesContain(env, sig, value)) valList1.push_back(value);
+			if (sig.IsSignalled()) return Value::Null;
 			if ((_acceptInvalidFlag || value.IsValid()) &&
-											!valListOr.DoesContain(value)) {
+										!valListOr.DoesContain(env, sig, value)) {
 				valListOr.push_back(value);
 			}
+			if (sig.IsSignalled()) return Value::Null;
 		}
 		if (sig.IsSignalled()) return Value::Null;
 		pValueArg++;
@@ -606,11 +613,13 @@ Gura_ImplementFunction(set_xset)
 			Value value;
 			for (Iterator *pIterator = pValueArg->GetIterator();
 										pIterator->Next(env, sig, value); ) {
-				if (pValListAnd->DoesContain(value)) pValListWork->push_back(value);
+				if (pValListAnd->DoesContain(env, sig, value)) pValListWork->push_back(value);
+				if (sig.IsSignalled()) return Value::Null;
 				if ((_acceptInvalidFlag || value.IsValid()) &&
-												!valListOr.DoesContain(value)) {
+										!valListOr.DoesContain(env, sig, value)) {
 					valListOr.push_back(value);
 				}
+				if (sig.IsSignalled()) return Value::Null;
 			}
 			if (sig.IsSignalled()) return Value::Null;
 			ValueList *pValListTmp = pValListAnd;
@@ -618,9 +627,10 @@ Gura_ImplementFunction(set_xset)
 			pValListWork->clear();
 		}
 		foreach_const (ValueList, pValue, valListOr) {
-			if (!pValListAnd->DoesContain(*pValue)) {
+			if (!pValListAnd->DoesContain(env, sig, *pValue)) {
 				valList.push_back(*pValue);
 			}
+			if (sig.IsSignalled()) return Value::Null;
 		}
 	} else {										// OR combination
 		foreach_const (ValueList, pValue, args.GetList(0)) {
@@ -628,9 +638,10 @@ Gura_ImplementFunction(set_xset)
 			for (Iterator *pIterator = pValue->GetIterator();
 												pIterator->Next(env, sig, value); ) {
 				if ((_acceptInvalidFlag || value.IsValid()) &&
-												!valList.DoesContain(value)) {
+											!valList.DoesContain(env, sig, value)) {
 					valList.push_back(value);
 				}
+				if (sig.IsSignalled()) return Value::Null;
 			}
 			if (sig.IsSignalled()) return Value::Null;
 		}

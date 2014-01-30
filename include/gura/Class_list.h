@@ -146,15 +146,23 @@ public:
 		virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	};
 	class Comparator_Ascend {
+	private:
+		Environment &_env;
+		Signal &_sig;
 	public:
+		inline Comparator_Ascend(Environment &env, Signal &sig) : _env(env), _sig(sig) {}
 		inline bool operator()(const Value *pValue1, const Value *pValue2) const {
-			return Value::Compare(*pValue1, *pValue2) < 0;
+			return Value::Compare(_env, _sig, *pValue1, *pValue2) < 0;
 		}
 	};
 	class Comparator_Descend {
+	private:
+		Environment &_env;
+		Signal &_sig;
 	public:
+		inline Comparator_Descend(Environment &env, Signal &sig) : _env(env), _sig(sig) {}
 		inline bool operator()(const Value *pValue1, const Value *pValue2) const {
-			return Value::Compare(*pValue1, *pValue2) > 0;
+			return Value::Compare(_env, _sig, *pValue1, *pValue2) > 0;
 		}
 	};
 	class Comparator_Custom {
