@@ -52,9 +52,7 @@ public:
 		bool _ignoreCaseFlag;
 	public:
 		inline KeyCompare(bool ignoreCaseFlag = false) : _ignoreCaseFlag(ignoreCaseFlag) {}
-		inline bool operator()(const Value &value1, const Value &value2) const {
-			return Compare(value1, value2, _ignoreCaseFlag) < 0;
-		}
+		bool operator()(const Value &value1, const Value &value2) const;
 	};
 public:
 	enum {
@@ -235,6 +233,7 @@ public:
 	inline bool Is_timedelta() const		{ return IsType(VTYPE_timedelta);		}
 	inline bool Is_uri() const				{ return IsType(VTYPE_uri);				}
 	inline bool IsListOrIterator() const	{ return Is_list() || Is_iterator();	}
+	inline bool IsValidKey() const			{ return Is_number() || Is_string() || Is_symbol(); }
 	bool MustBe(Signal &sig, bool flag, const char *expected) const;
 	inline bool MustBeInvalid(Signal &sig) const		{ return MustBe(sig, IsInvalid(),		"invalid");			}
 	inline bool MustBeUndefined(Signal &sig) const		{ return MustBe(sig, IsUndefined(),		"undefined");		}
@@ -559,9 +558,6 @@ public:
 	bool Store(Signal sig, const ValueList &valList, StoreMode storeMode);
 	bool Store(Signal sig, const ValueDict &valDict, StoreMode storeMode);
 	bool Store(Signal sig, const Value &valueIdx, const Value &value, StoreMode storeMode);
-	inline static bool IsValidKey(const Value &value) {
-		return value.Is_number() || value.Is_string() || value.Is_symbol();
-	}
 	inline bool GetIgnoreCaseFlag() const { return _ignoreCaseFlag; }
 	bool Serialize(Environment &env, Signal sig, Stream &stream) const;
 	bool Deserialize(Environment &env, Signal sig, Stream &stream);

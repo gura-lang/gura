@@ -708,6 +708,22 @@ bool Value::Deserialize(Environment &env, Signal sig, Stream &stream, Value &val
 	return pValueTypeInfo->GetClass()->Deserialize(env, sig, stream, value);
 }
 
+bool Value::KeyCompare::operator()(const Value &value1, const Value &value2) const
+{
+	if (value1.GetValueType() != value2.GetValueType()) {
+		return value1.GetValueType() < value2.GetValueType();
+	} else if (value1.Is_number()) {
+		return value1.GetNumber() < value2.GetNumber();
+	} else if (value1.Is_string()) {
+		return _ignoreCaseFlag?
+			::strcasecmp(value1.GetString(), value2.GetString()) < 0 :
+			::strcmp(value1.GetString(), value2.GetString()) < 0;
+	} else if (value1.Is_symbol()) {
+		return value1.GetSymbol()->GetUniqNum() < value2.GetSymbol()->GetUniqNum();
+	}
+	return true;
+}
+
 //-----------------------------------------------------------------------------
 // ValueList
 //-----------------------------------------------------------------------------
@@ -879,7 +895,7 @@ bool ValueDict::Store(Signal sig, const ValueList &valList, StoreMode storeMode)
 				valueIdx = valListElem[0];
 				value = valListElem[1];
 			}
-			if (!ValueDict::IsValidKey(valueIdx)) {
+			if (!valueIdx.IsValidKey()) {
 				sig.SetError(ERR_KeyError, "invalid value type for key");
 				return false;
 			}
@@ -941,7 +957,7 @@ bool ValueDict::Store(Signal sig, const ValueDict &valDict, StoreMode storeMode)
 
 bool ValueDict::Store(Signal sig, const Value &valueIdx, const Value &value, StoreMode storeMode)
 {
-	if (!ValueDict::IsValidKey(valueIdx)) {
+	if (!valueIdx.IsValidKey()) {
 		sig.SetError(ERR_KeyError, "invalid value type for key");
 		return false;
 	}

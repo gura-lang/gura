@@ -27,7 +27,7 @@ Value Object_dict::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 
 void Object_dict::IndexSet(Environment &env, Signal sig, const Value &valueIdx, const Value &value)
 {
-	if (!ValueDict::IsValidKey(valueIdx)) {
+	if (!valueIdx.IsValidKey()) {
 		sig.SetError(ERR_KeyError, "invalid value type for key");
 		return;
 	}
@@ -65,7 +65,7 @@ String Object_dict::ToString(bool exprFlag)
 
 const Value *Object_dict::Find(Signal sig, const Value &valueIdx) const
 {
-	if (!ValueDict::IsValidKey(valueIdx)) {
+	if (!valueIdx.IsValidKey()) {
 		sig.SetError(ERR_KeyError, "invalid value type for key");
 		return NULL;
 	}
