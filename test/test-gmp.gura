@@ -156,3 +156,21 @@ testcase('sequence') {
 	tester(`format('%d', 1000000000000000L..1000000000000010L).join(','))
 	tester(`format('%d', (1000000000000000L..).head(10)).join(','))
 }
+testcase('sort') {
+	xOrg = [
+	36, 14, 88, 10, 23, 83, 33, 41,  7, 74, 64, 28, 48, 97, 52, 81, 84, 42, 22, 58
+	29, 38, 95, 13, 57, 66, 73, 19,  4,  3, 70, 24, 96,  1, 68,  0, 93, 60, 72,  5
+	69, 55, 11, 86, 59, 78, 87,  8, 89, 31, 12, 15, 75, 40, 39, 20, 32, 25, 17, 43
+	 9, 53,  2, 21, 44, 65, 92, 51, 62, 80, 77, 16, 85, 46, 54, 94, 61, 98, 90, 26
+	71, 50, 82, 47, 56, 37, 99, 45, 49, 34, 30, 35, 63, 76,  6, 79, 27, 91, 67, 18
+	]
+	x = gmp.mpz(xOrg)
+	println(x.sort().join(','))
+	println(x.sort(`descend).join(','))
+	x = gmp.mpf(xOrg)
+	println(x.sort().join(','))
+	println(x.sort(`descend).join(','))
+	x = gmp.mpq(xOrg)
+	println(x.sort().join(','))
+	println(x.sort(`descend).join(','))
+}

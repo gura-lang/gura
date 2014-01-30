@@ -52,10 +52,10 @@ String Object_mpq::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// gmp.mpq(numer?, denom?:number) {block?}
+// gmp.mpq(numer?, denom?:number):map {block?}
 Gura_DeclareFunction(mpq)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "numer", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "denom", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);

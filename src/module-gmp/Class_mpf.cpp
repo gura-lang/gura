@@ -62,10 +62,10 @@ String Object_mpf::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of functions
 //-----------------------------------------------------------------------------
-// gmp.mpf(value?, prec?:number) {block?}
+// gmp.mpf(value?, prec?:number):map {block?}
 Gura_DeclareFunction(mpf)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "prec", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
