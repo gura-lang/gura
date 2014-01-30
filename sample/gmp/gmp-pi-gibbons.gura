@@ -16,15 +16,7 @@ generate_pi() = {
 		y
 	}
 }
-nBlocks = 0
+digits = 1000000
 println('3')
-generate_pi().offset(1).head(10000).fold(10) {|n|
-	printf('%d', n)
-	nBlocks += 1
-	if (nBlocks == 10) {
-		println()
-		nBlocks = 0
-	} else {
-		printf(' ')
-	}
-}
+print(format('%d', generate_pi().offset(1).head(digits)).\
+	fold(10):*join().fold(10):*join(' ').fold(10):*join('\n'), '\n\n')
