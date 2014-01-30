@@ -66,8 +66,8 @@ private:
 	union {						// 8 bytes
 		bool flag;				// VTYPE_boolean
 		Complex *pComp;			// VTYPE_complex
-		Rational *pRatio;		// VTYPE_rational
 		Number num;				// VTYPE_number
+		Rational *pRatio;		// VTYPE_rational
 		StringRef *pStrRef;		// VTYPE_string
 		const Symbol *pSymbol;	// VTYPE_symbol
 		Module *pModule;		// VTYPE_module
@@ -116,10 +116,6 @@ public:
 	inline Value(const Complex &comp) : _valType(VTYPE_complex), _valFlags(VFLAG_Owner) {
 		_u.pComp = new Complex(comp);
 	}
-	// VTYPE_rational
-	inline Value(const Rational &ratio) : _valType(VTYPE_rational), _valFlags(VFLAG_Owner) {
-		_u.pRatio = new Rational(ratio);
-	}
 	// VTYPE_number
 	inline Value(Number num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = num;
@@ -154,6 +150,10 @@ public:
 	inline Value(UInt64 num) : _valType(VTYPE_number), _valFlags(VFLAG_Owner) {
 		_u.num = static_cast<Number>(num);
 	}
+	// VTYPE_rational
+	inline Value(const Rational &ratio) : _valType(VTYPE_rational), _valFlags(VFLAG_Owner) {
+		_u.pRatio = new Rational(ratio);
+	}
 	// VTYPE_string
 	Value(const String &str);
 	Value(const char *str);
@@ -185,7 +185,7 @@ public:
 		return ValueTypePool::GetInstance()->Lookup(_valType)->GetClass();
 	}
 	inline bool IsType(ValueType valType) const { return _valType == valType;	}
-	inline bool IsObject() const			{ return _valType >= VTYPE_object && !GetTinyBuffFlag(); }
+	inline bool IsObject() const			{ return _valType >= VTYPE_object;		}
 	inline bool IsPrimitive() const			{ return _valType <= VTYPE_symbol;		}
 	inline bool IsInvalid() const			{ return IsType(VTYPE_nil) || IsType(VTYPE_undefined); }
 	inline bool IsUndefined() const			{ return IsType(VTYPE_undefined);		}
@@ -194,8 +194,8 @@ public:
 	// primitive types
 	inline bool Is_boolean() const			{ return IsType(VTYPE_boolean);			}
 	inline bool Is_complex() const			{ return IsType(VTYPE_complex);			}
-	inline bool Is_rational() const			{ return IsType(VTYPE_rational);		}
 	inline bool Is_number() const			{ return IsType(VTYPE_number);			}
+	inline bool Is_rational() const			{ return IsType(VTYPE_rational);		}
 	inline bool Is_string() const			{ return IsType(VTYPE_string);			}
 	inline bool Is_symbol() const			{ return IsType(VTYPE_symbol);			}
 	inline bool IsNumberOrComplex() const	{ return Is_number() || Is_complex();	}
@@ -243,8 +243,8 @@ public:
 	// primitive types
 	inline bool MustBe_boolean(Signal &sig) const		{ return MustBe(sig, Is_boolean(), 		"boolean");			}
 	inline bool MustBe_complex(Signal &sig) const		{ return MustBe(sig, Is_complex(), 		"complex");			}
-	inline bool MustBe_rational(Signal &sig) const		{ return MustBe(sig, Is_rational(), 	"rational");		}
 	inline bool MustBe_number(Signal &sig) const		{ return MustBe(sig, Is_number(), 		"number");			}
+	inline bool MustBe_rational(Signal &sig) const		{ return MustBe(sig, Is_rational(), 	"rational");		}
 	inline bool MustBe_string(Signal &sig) const		{ return MustBe(sig, Is_string(), 		"string");			}
 	inline bool MustBe_symbol(Signal &sig) const		{ return MustBe(sig, Is_symbol(),		"symbol");			}
 	// container types
@@ -415,6 +415,12 @@ public:
 	bool CastType(Environment &env, Signal sig, ValueType valType, Value &valueCasted) const;
 public:
 	static int Compare(const Value &value1, const Value &value2, bool ignoreCaseFlag = false);
+	static int CompareBoolean(bool flag1, bool flag2);
+	static int CompareComplex(const Complex &comp1, const Complex &comp2);
+	static int CompareNumber(Number num1, Number num2);
+	static int CompareRational(const Rational &ratio1, const Rational &ratio2);
+	static int CompareString(const char *str1, const char *str2, bool ignoreCaseFlag);
+	static int CompareSymbol(const Symbol *pSymbol1, const Symbol *pSymbol2);
 	inline bool operator<(const Value &value) const {
 		return Compare(*this, value) < 0;
 	}

@@ -21,20 +21,20 @@ Value::Value(const Value &value) : _valType(value._valType), _valFlags(value._va
 {
 	if (value.GetTinyBuffFlag()) {
 		_u = value._u;
-	} else if (value.Is_number()) {
-		_u.num = value._u.num;
 	} else if (value.Is_boolean()) {
 		_u.flag = value._u.flag;
-	} else if (value.IsObject()) {
-		_u.pObj = Object::Reference(value._u.pObj);
-	} else if (value.Is_symbol()) {
-		_u.pSymbol = value._u.pSymbol;
 	} else if (value.Is_complex()) {
 		_u.pComp = new Complex(*value._u.pComp);
+	} else if (value.Is_number()) {
+		_u.num = value._u.num;
 	} else if (value.Is_rational()) {
 		_u.pRatio = new Rational(*value._u.pRatio);
 	} else if (value.Is_string()) {
 		_u.pStrRef = value._u.pStrRef->Reference();
+	} else if (value.Is_symbol()) {
+		_u.pSymbol = value._u.pSymbol;
+	} else if (value.IsObject()) {
+		_u.pObj = Object::Reference(value._u.pObj);
 	} else if (value.IsModule()) {
 		_u.pModule = Module::Reference(value._u.pModule);
 	} else if (value.IsClass()) {
@@ -110,6 +110,9 @@ void Value::FreeResource()
 	} else if (Is_string()) {
 		StringRef::Delete(_u.pStrRef);
 		_u.pStrRef = NULL;
+	} else if (IsObject()) {
+		if (IsOwner()) Object::Delete(_u.pObj);
+		_u.pObj = NULL;
 	} else if (IsModule()) {
 		if (IsOwner()) Module::Delete(_u.pModule);
 		_u.pModule = NULL;
@@ -119,9 +122,6 @@ void Value::FreeResource()
 	} else if (IsSequence()) {
 		if (IsOwner()) Sequence::Delete(_u.pSequence);
 		_u.pSequence = NULL;
-	} else if (IsObject()) {
-		if (IsOwner()) Object::Delete(_u.pObj);
-		_u.pObj = NULL;
 	} else { // Number, Boolean
 		// nothing to do
 	}
@@ -135,26 +135,26 @@ Value &Value::operator=(const Value &value)
 	_valFlags = value._valFlags;
 	if (GetTinyBuffFlag()) {
 		_u = value._u;
-	} else if (value.Is_number()) {
-		_u.num = value._u.num;
 	} else if (value.Is_boolean()) {
 		_u.flag = value._u.flag;
-	} else if (value.Is_symbol()) {
-		_u.pSymbol = value._u.pSymbol;
 	} else if (value.Is_complex()) {
 		_u.pComp = new Complex(*value._u.pComp);
+	} else if (value.Is_number()) {
+		_u.num = value._u.num;
 	} else if (value.Is_rational()) {
 		_u.pRatio = new Rational(*value._u.pRatio);
 	} else if (value.Is_string()) {
 		_u.pStrRef = value._u.pStrRef->Reference();
+	} else if (value.Is_symbol()) {
+		_u.pSymbol = value._u.pSymbol;
+	} else if (value.IsObject()) {
+		_u.pObj = Object::Reference(value._u.pObj);
 	} else if (value.IsModule()) {
 		_u.pModule = Module::Reference(value._u.pModule);
 	} else if (value.IsClass()) {
 		_u.pClass = Class::Reference(value._u.pClass);
 	} else if (value.IsSequence()) {
 		_u.pSequence = Sequence::Reference(value._u.pSequence);
-	} else if (value.IsObject()) {
-		_u.pObj = Object::Reference(value._u.pObj);
 	} else {
 		// nothing to do
 		//_valType = VTYPE_nil;
@@ -374,16 +374,9 @@ Iterator *Value::CreateIterator(Signal sig) const
 
 String Value::ToString(bool exprFlag) const
 {
-	if (Is_number()) {
-		return NumberToString(_u.num);
-	} else if (Is_boolean()) {
+	if (Is_boolean()) {
 		return String(_u.flag?
 			Gura_Symbol(true_)->GetName() : Gura_Symbol(false_)->GetName());
-	} else if (Is_symbol()) {
-		String str;
-		if (exprFlag) str += '`';
-		str += _u.pSymbol->GetName();
-		return str;
 	} else if (Is_complex()) {
 		const Complex &comp = *_u.pComp;
 		String str;
@@ -408,6 +401,8 @@ String Value::ToString(bool exprFlag) const
 			str += Gura_Symbol(j)->GetName();
 		}
 		return str;
+	} else if (Is_number()) {
+		return NumberToString(_u.num);
 	} else if (Is_rational()) {
 		const Rational &ratio = *_u.pRatio;
 		return ratio.ToString();
@@ -415,6 +410,11 @@ String Value::ToString(bool exprFlag) const
 		const char *str = GetString();
 		if (exprFlag) return MakeQuotedString(str);
 		return String(str);
+	} else if (Is_symbol()) {
+		String str;
+		if (exprFlag) str += '`';
+		str += _u.pSymbol->GetName();
+		return str;
 	} else if (IsModule()) {
 		return _u.pModule->ToString(exprFlag);
 	} else if (IsClass()) {
@@ -430,10 +430,17 @@ String Value::ToString(bool exprFlag) const
 Number Value::ToNumber(bool allowPartFlag, bool &successFlag) const
 {
 	successFlag = true;
-	if (Is_number()) {
-		return _u.num;
-	} else if (Is_boolean()) {
+	if (Is_boolean()) {
 		return _u.flag? 1. : 0.;
+	} else if (Is_number()) {
+		return _u.num;
+	} else if (Is_rational()) {
+		const Rational &ratio = *_u.pRatio;
+		if (ratio.denom == 0) {
+			successFlag = false;
+			return 0.;
+		}
+		return ratio.numer / ratio.denom;
 	} else if (Is_string()) {
 		const char *str = GetString();
 		Number num = 0.;
@@ -446,13 +453,6 @@ Number Value::ToNumber(bool allowPartFlag, bool &successFlag) const
 		}
 		successFlag = (p > str && (allowPartFlag || *p == '\0'));
 		return num;
-	} else if (Is_rational()) {
-		const Rational &ratio = *_u.pRatio;
-		if (ratio.denom == 0) {
-			successFlag = false;
-			return 0.;
-		}
-		return ratio.numer / ratio.denom;
 	} else {
 		successFlag = false;
 		return 0.;
@@ -465,23 +465,16 @@ int Value::Compare(const Value &value1, const Value &value2, bool ignoreCaseFlag
 	if (value1.GetValueType() != value2.GetValueType()) {
 		rtn = static_cast<int>(value1.GetValueType()) -
 								static_cast<int>(value2.GetValueType());
-	} else if (value1.Is_number()) {
-		rtn = (value1.GetNumber() == value2.GetNumber())? 0 :
-				(value1.GetNumber() < value2.GetNumber())? -1 : +1;
 	} else if (value1.Is_boolean()) {
-		rtn = static_cast<int>(value1.GetBoolean()) -
-								static_cast<int>(value2.GetBoolean());
+		rtn = CompareBoolean(value1.GetBoolean(), value2.GetBoolean());
+	} else if (value1.Is_number()) {
+		rtn = CompareNumber(value1.GetNumber(), value2.GetNumber());
 	} else if (value1.Is_complex()) {
-		rtn = (value1.GetComplex() == value2.GetComplex())? 0 : -1;
-	} else if (value1.Is_symbol()) {
-		rtn = static_cast<int>(value1.GetSymbol()->GetUniqNum()) -
-										value2.GetSymbol()->GetUniqNum();
+		rtn = CompareComplex(value1.GetComplex(), value2.GetComplex());
 	} else if (value1.Is_string()) {
-		if (ignoreCaseFlag) {
-			rtn = ::strcasecmp(value1.GetString(), value2.GetString());
-		} else {
-			rtn = ::strcmp(value1.GetString(), value2.GetString());
-		}
+		rtn = CompareString(value1.GetString(), value2.GetString(), ignoreCaseFlag);
+	} else if (value1.Is_symbol()) {
+		rtn = CompareSymbol(value1.GetSymbol(), value2.GetSymbol());
 	} else if (value1.Is_binary()) {
 		const Binary &buff1 = value1.GetBinary();
 		const Binary &buff2 = value2.GetBinary();
@@ -514,6 +507,37 @@ int Value::Compare(const Value &value1, const Value &value2, bool ignoreCaseFlag
 		rtn = 0;
 	}
 	return rtn;
+}
+
+int Value::CompareBoolean(bool flag1, bool flag2)
+{
+	return static_cast<int>(flag1) - static_cast<int>(flag2);
+}
+
+int Value::CompareComplex(const Complex &comp1, const Complex &comp2)
+{
+	return (comp1 == comp2)? 0 : -1;
+}
+
+int Value::CompareNumber(Number num1, Number num2)
+{
+	return (num1 == num2)? 0 : (num1 < num2)? -1 : +1;
+}
+
+int Value::CompareRational(const Rational &ratio1, const Rational &ratio2)
+{
+	return -1;
+}
+
+int Value::CompareString(const char *str1, const char *str2, bool ignoreCaseFlag)
+{
+	return ignoreCaseFlag? ::strcasecmp(str1, str2) : ::strcmp(str1, str2);
+}
+
+int Value::CompareSymbol(const Symbol *pSymbol1, const Symbol *pSymbol2)
+{
+	return (pSymbol1->GetUniqNum() == pSymbol2->GetUniqNum())? 0 :
+			(pSymbol1->GetUniqNum() < pSymbol2->GetUniqNum())? -1 : +1;
 }
 
 bool Value::Accept(ValueVisitor &visitor) const

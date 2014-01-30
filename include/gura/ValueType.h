@@ -41,8 +41,8 @@ GURA_DLLDECLARE extern ValueType VTYPE_undefined;
 // primitive types
 GURA_DLLDECLARE extern ValueType VTYPE_boolean;
 GURA_DLLDECLARE extern ValueType VTYPE_complex;
-GURA_DLLDECLARE extern ValueType VTYPE_rational;
 GURA_DLLDECLARE extern ValueType VTYPE_number;
+GURA_DLLDECLARE extern ValueType VTYPE_rational;
 GURA_DLLDECLARE extern ValueType VTYPE_string;
 GURA_DLLDECLARE extern ValueType VTYPE_symbol;
 // declaration
@@ -131,12 +131,12 @@ public:
 	// primitive types
 	Gura_DeclareVTYPE(nil);
 	Gura_DeclareVTYPE(undefined);
-	Gura_DeclareVTYPE(symbol);
 	Gura_DeclareVTYPE(boolean);
-	Gura_DeclareVTYPE(number);
 	Gura_DeclareVTYPE(complex);
+	Gura_DeclareVTYPE(number);
 	Gura_DeclareVTYPE(rational);
 	Gura_DeclareVTYPE(string);
+	Gura_DeclareVTYPE(symbol);
 	// for declaration
 	Gura_DeclareVTYPE(quote);
 	Gura_DeclareVTYPE(any);
