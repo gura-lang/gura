@@ -1829,6 +1829,36 @@ Gura_ImplementBinaryOperator(Cmp, any, any)
 	return Value(Value::Compare(valueLeft, valueRight));
 }
 
+Gura_ImplementBinaryOperator(Cmp, boolean, boolean)
+{
+	return Value(Value::CompareBoolean(valueLeft.GetBoolean(), valueRight.GetBoolean()));
+}
+
+Gura_ImplementBinaryOperator(Cmp, complex, complex)
+{
+	return Value(Value::CompareComplex(valueLeft.GetComplex(), valueRight.GetComplex()));
+}
+
+Gura_ImplementBinaryOperator(Cmp, number, number)
+{
+	return Value(Value::CompareNumber(valueLeft.GetNumber(), valueRight.GetNumber()));
+}
+
+Gura_ImplementBinaryOperator(Cmp, rational, rational)
+{
+	return Value(Value::CompareRational(valueLeft.GetRational(), valueRight.GetRational()));
+}
+
+Gura_ImplementBinaryOperator(Cmp, string, string)
+{
+	return Value(Value::CompareString(valueLeft.GetString(), valueRight.GetString(), false));
+}
+
+Gura_ImplementBinaryOperator(Cmp, symbol, symbol)
+{
+	return Value(Value::CompareSymbol(valueLeft.GetSymbol(), valueRight.GetSymbol()));
+}
+
 //-----------------------------------------------------------------------------
 // BinaryOperator(Contains, *, *)
 //-----------------------------------------------------------------------------
@@ -2154,6 +2184,12 @@ void Operator::AssignOperators(Environment &env)
 	Gura_AssignBinaryOperator(Ge, any, any);
 	Gura_AssignBinaryOperator(Le, any, any);
 	Gura_AssignBinaryOperator(Cmp, any, any);
+	Gura_AssignBinaryOperator(Cmp, boolean, boolean);
+	Gura_AssignBinaryOperator(Cmp, complex, complex);
+	Gura_AssignBinaryOperator(Cmp, number, number);
+	Gura_AssignBinaryOperator(Cmp, rational, rational);
+	Gura_AssignBinaryOperator(Cmp, string, string);
+	Gura_AssignBinaryOperator(Cmp, symbol, symbol);
 	Gura_AssignBinaryOperator(Contains, any, any);
 	Gura_AssignBinaryOperator(And, number, number);
 	Gura_AssignBinaryOperator(And, boolean, boolean);

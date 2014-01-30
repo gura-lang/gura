@@ -465,12 +465,16 @@ int Value::Compare(const Value &value1, const Value &value2, bool ignoreCaseFlag
 	if (value1.GetValueType() != value2.GetValueType()) {
 		rtn = static_cast<int>(value1.GetValueType()) -
 								static_cast<int>(value2.GetValueType());
+	} else if (value1.IsInvalid() && value2.IsInvalid()) {
+		rtn = 0;
 	} else if (value1.Is_boolean()) {
 		rtn = CompareBoolean(value1.GetBoolean(), value2.GetBoolean());
-	} else if (value1.Is_number()) {
-		rtn = CompareNumber(value1.GetNumber(), value2.GetNumber());
 	} else if (value1.Is_complex()) {
 		rtn = CompareComplex(value1.GetComplex(), value2.GetComplex());
+	} else if (value1.Is_number()) {
+		rtn = CompareNumber(value1.GetNumber(), value2.GetNumber());
+	} else if (value1.Is_rational()) {
+		rtn = CompareRational(value1.GetRational(), value2.GetRational());
 	} else if (value1.Is_string()) {
 		rtn = CompareString(value1.GetString(), value2.GetString(), ignoreCaseFlag);
 	} else if (value1.Is_symbol()) {
@@ -503,8 +507,6 @@ int Value::Compare(const Value &value1, const Value &value2, bool ignoreCaseFlag
 		}
 	} else if (value1.IsObject() && value2.IsObject()) {
 		rtn = value1.GetObject()->Compare(value2.GetObject());
-	} else if (value1.IsInvalid() && value2.IsInvalid()) {
-		rtn = 0;
 	}
 	return rtn;
 }
