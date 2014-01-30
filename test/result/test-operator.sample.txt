@@ -49,7 +49,7 @@ func(a, b, c, d, e%, f*) = {}
 < [[`any, `any]]
 >= [[`any, `any]]
 <= [[`any, `any]]
-<=> [[`any, `any]]
+<=> [[`boolean, `boolean], [`complex, `complex], [`number, `number], [`rational, `rational], [`string, `string], [`symbol, `symbol], [`any, `any]]
 in [[`any, `any]]
 | [[`any, `nil], [`boolean, `boolean], [`number, `number], [`nil, `any]]
 & [[`any, `nil], [`boolean, `boolean], [`number, `number], [`nil, `any]]
