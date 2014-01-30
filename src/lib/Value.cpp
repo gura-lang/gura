@@ -832,11 +832,6 @@ const ValueMap ValueMap::Null;
 //-----------------------------------------------------------------------------
 const ValueDict ValueDict::Null;
 
-void ValueDict::Store(Environment &env, const String &strIndex, const String &strValue)
-{
-	insert(ValueDict::value_type(Value(strIndex), Value(strValue)));
-}
-
 bool ValueDict::Store(Signal sig, const ValueList &valList, StoreMode storeMode)
 {
 	enum { FIELD_Key, FIELD_Value } field = FIELD_Key;
