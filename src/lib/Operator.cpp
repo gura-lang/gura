@@ -1836,13 +1836,6 @@ Gura_ImplementBinaryOperator(Le, any, any)
 //-----------------------------------------------------------------------------
 // BinaryOperator(Cmp, *, *)
 //-----------------------------------------------------------------------------
-Gura_ImplementBinaryOperator(Cmp, any, any)
-{
-	int cmp = Value::Compare(env, sig, valueLeft, valueRight);
-	if (sig.IsSignalled()) return Value::Null;
-	return Value(cmp);
-}
-
 Gura_ImplementBinaryOperator(Cmp, boolean, boolean)
 {
 	return Value(Value::CompareBoolean(valueLeft.GetBoolean(), valueRight.GetBoolean()));
@@ -1871,6 +1864,30 @@ Gura_ImplementBinaryOperator(Cmp, string, string)
 Gura_ImplementBinaryOperator(Cmp, symbol, symbol)
 {
 	return Value(Value::CompareSymbol(valueLeft.GetSymbol(), valueRight.GetSymbol()));
+}
+
+Gura_ImplementBinaryOperator(Cmp, binary, binary)
+{
+	const Binary &buff1 = valueLeft.GetBinary();
+	const Binary &buff2 = valueRight.GetBinary();
+	return
+		(buff1.size() < buff2.size())? -1 :
+		(buff1.size() > buff2.size())? +1 :
+		::memcmp(buff1.data(), buff2.data(), buff1.size());
+}
+
+Gura_ImplementBinaryOperator(Cmp, datetime, datetime)
+{
+	const DateTime &dt1 = Object_datetime::GetObject(valueLeft)->GetDateTime();
+	const DateTime &dt2 = Object_datetime::GetObject(valueRight)->GetDateTime();
+	return DateTime::Compare(dt1, dt2);
+}
+
+Gura_ImplementBinaryOperator(Cmp, timedelta, timedelta)
+{
+	const TimeDelta &td1 = Object_timedelta::GetObject(valueLeft)->GetTimeDelta();
+	const TimeDelta &td2 = Object_timedelta::GetObject(valueRight)->GetTimeDelta();
+	return TimeDelta::Compare(td1, td2);
 }
 
 //-----------------------------------------------------------------------------
@@ -2204,13 +2221,15 @@ void Operator::AssignOperators(Environment &env)
 	Gura_AssignBinaryOperator(Lt, any, any);
 	Gura_AssignBinaryOperator(Ge, any, any);
 	Gura_AssignBinaryOperator(Le, any, any);
-	Gura_AssignBinaryOperator(Cmp, any, any);
 	Gura_AssignBinaryOperator(Cmp, boolean, boolean);
 	Gura_AssignBinaryOperator(Cmp, complex, complex);
 	Gura_AssignBinaryOperator(Cmp, number, number);
 	Gura_AssignBinaryOperator(Cmp, rational, rational);
 	Gura_AssignBinaryOperator(Cmp, string, string);
 	Gura_AssignBinaryOperator(Cmp, symbol, symbol);
+	Gura_AssignBinaryOperator(Cmp, binary, binary);
+	Gura_AssignBinaryOperator(Cmp, datetime, datetime);
+	Gura_AssignBinaryOperator(Cmp, timedelta, timedelta);
 	Gura_AssignBinaryOperator(Contains, any, any);
 	Gura_AssignBinaryOperator(And, number, number);
 	Gura_AssignBinaryOperator(And, boolean, boolean);

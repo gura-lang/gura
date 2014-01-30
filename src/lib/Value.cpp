@@ -459,58 +459,18 @@ Number Value::ToNumber(bool allowPartFlag, bool &successFlag) const
 	}
 }
 
-int Value::Compare(Environment &env, Signal sig,
-			const Value &value1, const Value &value2, bool ignoreCaseFlag)
+int Value::Compare(Environment &env, Signal sig, const Value &value1, const Value &value2)
 {
-	int rtn = -1;
-	if (value1.GetValueType() != value2.GetValueType()) {
-		rtn = static_cast<int>(value1.GetValueType()) -
-								static_cast<int>(value2.GetValueType());
-	} else if (value1.IsInvalid() && value2.IsInvalid()) {
-		rtn = 0;
-	} else if (value1.Is_boolean()) {
-		rtn = CompareBoolean(value1.GetBoolean(), value2.GetBoolean());
-	} else if (value1.Is_complex()) {
-		rtn = CompareComplex(value1.GetComplex(), value2.GetComplex());
-	} else if (value1.Is_number()) {
-		rtn = CompareNumber(value1.GetNumber(), value2.GetNumber());
-	} else if (value1.Is_rational()) {
-		rtn = CompareRational(value1.GetRational(), value2.GetRational());
-	} else if (value1.Is_string()) {
-		rtn = CompareString(value1.GetString(), value2.GetString(), ignoreCaseFlag);
-	} else if (value1.Is_symbol()) {
-		rtn = CompareSymbol(value1.GetSymbol(), value2.GetSymbol());
-	} else if (value1.Is_binary()) {
-		const Binary &buff1 = value1.GetBinary();
-		const Binary &buff2 = value2.GetBinary();
-		if (buff1.size() < buff2.size()) {
-			rtn = -1;
-		} else if (buff1.size() > buff2.size()) {
-			rtn = 1;
-		} else {
-			rtn = ::memcmp(buff1.data(), buff2.data(), buff1.size());
-		}
-	} else if (value1.Is_datetime()) {
-		const DateTime &dt1 = Object_datetime::GetObject(value1)->GetDateTime();
-		const DateTime &dt2 = Object_datetime::GetObject(value2)->GetDateTime();
-		rtn = DateTime::Compare(dt1, dt2);
-	} else if (value1.Is_timedelta()) {
-		const TimeDelta &td1 = Object_timedelta::GetObject(value1)->GetTimeDelta();
-		const TimeDelta &td2 = Object_timedelta::GetObject(value2)->GetTimeDelta();
-		rtn = TimeDelta::Compare(td1, td2);
-	} else if (value1.Is_list()) {
-		bool emptyFlag1 = value1.GetList().empty();
-		bool emptyFlag2 = value2.GetList().empty();
-		if (emptyFlag1 || emptyFlag2) {
-			rtn = -(static_cast<int>(emptyFlag1) - static_cast<int>(emptyFlag2));
-		} else {
-			rtn = Compare(env, sig, value1.GetList().front(), value2.GetList().front());
-			if (sig.IsSignalled()) return 0;
-		}
-	} else if (value1.IsObject() && value2.IsObject()) {
-		rtn = value1.GetObject()->Compare(value2.GetObject());
+	if (value1.IsInvalid() && value2.IsInvalid()) return 0;
+	const OperatorEntry *pOperatorEntry = env.GetOperator(OPTYPE_Cmp)->
+						Lookup(value1.GetValueType(), value2.GetValueType());
+	if (pOperatorEntry != NULL) {
+		Value result = pOperatorEntry->DoEval(env, sig, value1, value2);
+		if (sig.IsSignalled()) return -1;
+		if (!result.Is_number()) return -1;
+		return result.GetInt();
 	}
-	return rtn;
+	return (value1.GetValueType() <= value2.GetValueType())? -1 : +1;
 }
 
 int Value::CompareBoolean(bool flag1, bool flag2)

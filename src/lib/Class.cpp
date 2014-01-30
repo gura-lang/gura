@@ -53,13 +53,6 @@ bool Object::IsInstanceOf(ValueType valType) const
 	return false;
 }
 
-int Object::Compare(const Object *pObj) const
-{
-	const char *p1 = reinterpret_cast<const char *>(this);
-	const char *p2 = reinterpret_cast<const char *>(pObj);
-	return (p1 < p2)? -1 : (p1 > p2)? +1 : 0;
-}
-
 Value Object::EmptyIndexGet(Environment &env, Signal sig)
 {
 	const Function *pFunc = LookupFunction(Gura_Symbol(__getitemx__), ENVREF_Escalate);

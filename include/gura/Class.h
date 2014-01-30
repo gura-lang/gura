@@ -145,7 +145,6 @@ public:
 	inline void SetClass(Class *pClass) { _pClass.reset(pClass); }
 	const char *GetClassName() const;
 	bool IsInstanceOf(ValueType valType) const;
-	virtual int Compare(const Object *pObj) const;
 	virtual Value EmptyIndexGet(Environment &env, Signal sig);
 	virtual void EmptyIndexSet(Environment &env, Signal sig, const Value &value);
 	virtual Value IndexGet(Environment &env, Signal sig, const Value &valueIdx);

@@ -413,8 +413,7 @@ public:
 	ValueDict &InitAsDict(Environment &env, bool ignoreCaseFlag);
 	bool CastType(Environment &env, Signal sig, ValueType valType, Value &valueCasted) const;
 public:
-	static int Compare(Environment &env, Signal sig,
-			const Value &value1, const Value &value2, bool ignoreCaseFlag = false);
+	static int Compare(Environment &env, Signal sig, const Value &value1, const Value &value2);
 	static int CompareBoolean(bool flag1, bool flag2);
 	static int CompareComplex(const Complex &comp1, const Complex &comp2);
 	static int CompareNumber(Number num1, Number num2);
