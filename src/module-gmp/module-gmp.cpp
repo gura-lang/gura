@@ -8,10 +8,10 @@ Gura_BeginModuleBody(gmp)
 //-----------------------------------------------------------------------------
 // Module functions
 //-----------------------------------------------------------------------------
-// gmp.gcd(num1:gmp.mpz, num2:gmp.mpz)
+// gmp.gcd(num1:gmp.mpz, num2:gmp.mpz):map
 Gura_DeclareFunction(gcd)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num1", VTYPE_mpz);
 	DeclareArg(env, "num2", VTYPE_mpz);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -29,10 +29,10 @@ Gura_ImplementFunction(gcd)
 	return Value(new Object_mpz(num));
 }
 
-// gmp.lcm(num1:gmp.mpz, num2:gmp.mpz)
+// gmp.lcm(num1:gmp.mpz, num2:gmp.mpz):map
 Gura_DeclareFunction(lcm)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num1", VTYPE_mpz);
 	DeclareArg(env, "num2", VTYPE_mpz);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -50,10 +50,10 @@ Gura_ImplementFunction(lcm)
 	return Value(new Object_mpz(num));
 }
 
-// gmp.sqrt(num)
+// gmp.sqrt(num):map
 Gura_DeclareFunction(sqrt)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	""
