@@ -309,7 +309,7 @@ gmp.mpf, gmp.mpq
 3.L + 4Lr .. 7.L
 3.L - 4Lr .. -1.L
 3.L * 4Lr .. 12.L
-3.L / 4Lr .. 7.L
+3.L / 4Lr .. 0.75L
 3.L % 4Lr .. TypeError: can't evaluate (gmp.mpf % gmp.mpq)
 3.L ** 4Lr .. TypeError: can't evaluate (gmp.mpf ** gmp.mpq)
 3.L == 4Lr .. false
@@ -375,7 +375,7 @@ gmp.mpq, gmp.mpf
 3Lr + 4.L .. 7.L
 3Lr - 4.L .. -1.L
 3Lr * 4.L .. 12.L
-3Lr / 4.L .. 7.L
+3Lr / 4.L .. 0.75L
 3Lr % 4.L .. TypeError: can't evaluate (gmp.mpq % gmp.mpf)
 3Lr ** 4.L .. TypeError: can't evaluate (gmp.mpq ** gmp.mpf)
 3Lr == 4.L .. false

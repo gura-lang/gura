@@ -14,6 +14,7 @@
 Gura_BeginModuleHeader(gmp)
 
 mpq_class MpqFromRational(const Rational &ratio);
+mpf_class MpfFromRational(Signal sig, const Rational &ratio);
 bool _Format_d(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const mpz_class &num);
 bool _Format_u(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const mpz_class &num);
 bool _Format_b(Signal sig, Formatter *pFormatter, const Formatter::Flags &flags, const mpz_class &num);

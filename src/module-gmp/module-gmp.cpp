@@ -145,6 +145,17 @@ mpq_class MpqFromRational(const Rational &ratio)
 	return mpq_class(num);
 }
 
+mpf_class MpfFromRational(Signal sig, const Rational &ratio)
+{
+	if (ratio.denom == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return mpf_class(0);
+	}
+	mpq_class numer(ratio.numer);
+	mpq_class denom(ratio.denom);
+	return numer / denom;
+}
+
 bool _Format_d(Signal sig, Formatter *pFormatter,
 					const Formatter::Flags &flags, const mpz_class &num)
 {
