@@ -74,8 +74,8 @@ testcase('declaration') {
 	tester(tests)
 }
 testcase('generic test for unary operators') {
-	ops = [`+, `-, `~, `!, `.., `?]
-	values = [3L, 3.L, 3Lr]
+	ops = [`+, `-, `~, `!]
+	values = [3L, 3Lr, 3.L]
 	TestUnaryOperators(ops, values)
 }
 testcase('generic test for binary operators') {
@@ -84,22 +84,22 @@ testcase('generic test for binary operators') {
 		`==, `<, `>, `<=, `>=, `<=>,
 		`in, `&, `|, `^, `<<, `>>, `||, `&&, `=>
 	]
-	valueLs = [3, 3L, 3.L, 3Lr]
-	valueRs = [4, 4L, 4.L, 4Lr]
+	valueLs = [3L, 3Lr, 3.L, 3, 3r]
+	valueRs = [4L, 4Lr, 4.L, 4, 4r]
 	TestBinaryOperators(ops, valueLs, valueRs)
 }
 testcase('zero-division') {
 	ops = [`/, `%]
-	valueLs = [3, 3L, 3.L, 3Lr]
-	valueRs = [0, 0L, 0.L, 0Lr]
+	valueLs = [3L, 3Lr, 3.L, 3, 3r]
+	valueRs = [0L, 0Lr, 0.L, 0, 0r]
 	TestBinaryOperators(ops, valueLs, valueRs)
 }
 testcase('comparator') {
 	ops = [
 		`==, `<, `>, `<=, `>=, `<=>,
 	]
-	valueLs = [3, 3L, 3.L, 3Lr, 4, 4L, 4.L, 4Lr, 5, 5L, 5.L, 5Lr]
-	valueRs = [4, 4L, 4.L, 4Lr]
+	valueLs = [3L, 3Lr, 3.L, 3, 3r, 4L, 4Lr, 4.L, 4, 4r, 5L, 5Lr, 5.L, 5, 5r]
+	valueRs = [4L, 4Lr, 4.L, 4, 4r]
 	TestBinaryOperators(ops, valueLs, valueRs)
 }
 testcase('precision for mpf') {
