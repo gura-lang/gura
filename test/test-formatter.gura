@@ -17,7 +17,7 @@ testcase {
 	print('%e\n' % (math.pi * 100))
 	print('%E\n' % (math.pi * 100))
 	print('%f\n' % (math.pi))
-	print('%20f\n' % math.pi)
+	print('%14f\n' % math.pi)
 	print('%.10f\n' % math.pi)
 	print('%g\n' % (math.pi * 100))
 	print('%g\n' % (math.pi * 1000000000))
@@ -168,7 +168,7 @@ testcase {
 	}
 }
 testcase {
-	fmtsOrg = ['%1?', '%10?', '%.?', '%.0?', '%.1?', '%.6?', '%.10?', '%.20?', '%3.3?', '%13.3?', '%-13.3?$', '%013.3?']
+	fmtsOrg = ['%1?', '%10?', '%.?', '%.0?', '%.1?', '%.6?', '%.10?', '%.14?', '%3.3?', '%13.3?', '%-13.3?$', '%013.3?']
 	['e', 'f', 'g'].each {|specifier|
 		fmts = fmtsOrg:*replace('?', specifier)
 		test_format(fmts, [math.pi, 1e-12])
