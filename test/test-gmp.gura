@@ -135,7 +135,7 @@ testcase('Formatter test - specifier d, u, o, x') {
 	}
 }
 testcase('Formatter test - specifier e, f, g') {
-	fmtsOrg = ['%1?', '%10?', '%.?', '%.0?', '%.1?', '%.6?', '%.10?', '%.20?', '%3.3?', '%13.3?', '%-13.3?$', '%013.3?']
+	fmtsOrg = ['%1?', '%10?', '%.?', '%.0?', '%.1?', '%.6?', '%.10?', '%.14?', '%3.3?', '%13.3?', '%-13.3?$', '%013.3?']
 	['e', 'f', 'g'].each {|specifier|
 		fmts = fmtsOrg:*replace('?', specifier)
 		nums = [0, 0L]
