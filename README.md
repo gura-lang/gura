@@ -1,9 +1,9 @@
 ![banner](http://www.gura-lang.org/images/banner.png)
 
-**Gura** is an iterator-oriented programming language that focuses on iterators
-with improved functions for calculation and data processing.
-It makes you be able to write an artificial code
-for what used to need a lot of codes of repeat syntax.
+**Gura** is an iterator-oriented programming language that focuses on
+iterators with improved functions for calculation and data processing.
+It makes you be able to write an artificial code for what used to need a lot
+of codes of repeat syntax.
 
 The following **Gura** code prints content of a text file with line numbers.
 
@@ -16,23 +16,25 @@ http://www.gura-lang.org/
 
 Build for Windows
 -----------------
-1. Check if Visual Studio 2010 has been installed. You can use Express version as well.
+1. Check if Visual Studio 2010 has been installed. You can use Express version
+   as well.
 
-2. Run a batch file `gura\src\setup-env-mswin.bat`, which downloads document files
-   and necessary packages from Git repository and build libraries.
+2. Run a batch file `gura\src\setup-env-mswin.bat`, which downloads document
+   files and necessary packages from Git repository and build libraries.
 
    The batch file may occur an error that says it cannot find `vcvarsall.bat`.
    In such a case, you have to edit `gura\gura-guest\setup.bat`
-   and modify `VCVARSALL` variable so that it points to a right directory of Visual Studio.
+   and modify `VCVARSALL` variable so that it points to a right directory of
+   Visual Studio.
 
-3. Open `gura\gura.sln` with Visual Studio 2010, switch the configuration to Release
-   and build it.
+3. Open `gura\gura.sln` with Visual Studio 2010, switch the configuration to
+   Release and build it.
 
 
 Build for Linux
 -----------------
-1. Check if build tools such as C++ compiler, make, cmake and necessary libraries
-   have been installed.
+1. Check if build tools such as C++ compiler, make, cmake and necessary
+   libraries have been installed.
 
    For Ubuntu, do the following command.
 
@@ -55,17 +57,17 @@ Build for Linux
 
         $ sudo make install
 
-   It may be a better idea to make package files of Debian or RPM for installation.
-   See the section below to know how to do it.
+   It may be a better idea to make package files of Debian or RPM for
+   installation. See the section below to know how to do it.
 
 4. Run the following command to build **Gura** modules files.
 
         $ ./build-modules
 
-  This may occur an error because of lacking packages.
-  In such a case, the script `build-modules` generates shell scripts
-  with which you can easily setup necessary packages.
-  Run `setup-gura-guest-deb.sh` for Ubuntu and `setup-gura-guest-rpm.sh` for RedHat.
+  This may occur an error because of lacking packages. In such a case, the
+  script `build-modules` generates shell scripts with which you can easily
+  setup necessary packages. Run `setup-gura-guest-deb.sh` for Ubuntu and
+  `setup-gura-guest-rpm.sh` for RedHat.
 
 5. Run the following command to install **Gura** module files.
 
