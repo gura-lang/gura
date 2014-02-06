@@ -482,13 +482,13 @@ number, rational
 3 / 4r .. 3/4r
 3 % 4r .. TypeError: can't evaluate (number % rational)
 3 ** 4r .. TypeError: can't evaluate (number ** rational)
-3 == 4r .. false
-3 < 4r .. true
-3 > 4r .. false
-3 <= 4r .. true
-3 >= 4r .. false
+3 == 4r .. TypeError: can't compare values between number and rational
+3 < 4r .. TypeError: can't compare values between number and rational
+3 > 4r .. TypeError: can't compare values between number and rational
+3 <= 4r .. TypeError: can't compare values between number and rational
+3 >= 4r .. TypeError: can't compare values between number and rational
 3 <=> 4r .. TypeError: can't evaluate (number <=> rational)
-3 in 4r .. false
+3 in 4r .. TypeError: can't compare values between number and rational
 3 & 4r .. TypeError: can't evaluate (number & rational)
 3 | 4r .. TypeError: can't evaluate (number | rational)
 3 ^ 4r .. TypeError: can't evaluate (number ^ rational)
@@ -570,13 +570,13 @@ rational, number
 3r / 4 .. 3/4r
 3r % 4 .. TypeError: can't evaluate (rational % number)
 3r ** 4 .. TypeError: can't evaluate (rational ** number)
-3r == 4 .. false
-3r < 4 .. false
-3r > 4 .. true
-3r <= 4 .. false
-3r >= 4 .. true
+3r == 4 .. TypeError: can't compare values between rational and number
+3r < 4 .. TypeError: can't compare values between rational and number
+3r > 4 .. TypeError: can't compare values between rational and number
+3r <= 4 .. TypeError: can't compare values between rational and number
+3r >= 4 .. TypeError: can't compare values between rational and number
 3r <=> 4 .. TypeError: can't evaluate (rational <=> number)
-3r in 4 .. false
+3r in 4 .. TypeError: can't compare values between rational and number
 3r & 4 .. TypeError: can't evaluate (rational & number)
 3r | 4 .. TypeError: can't evaluate (rational | number)
 3r ^ 4 .. TypeError: can't evaluate (rational ^ number)
@@ -822,11 +822,11 @@ number, number
 3 >= 4 .. false
 3 <=> 4 .. -1
 number, rational
-3 == 4r .. false
-3 < 4r .. true
-3 > 4r .. false
-3 <= 4r .. true
-3 >= 4r .. false
+3 == 4r .. TypeError: can't compare values between number and rational
+3 < 4r .. TypeError: can't compare values between number and rational
+3 > 4r .. TypeError: can't compare values between number and rational
+3 <= 4r .. TypeError: can't compare values between number and rational
+3 >= 4r .. TypeError: can't compare values between number and rational
 3 <=> 4r .. TypeError: can't evaluate (number <=> rational)
 rational, gmp.mpz
 3r == 4L .. false
@@ -850,11 +850,11 @@ rational, gmp.mpf
 3r >= 4.L .. false
 3r <=> 4.L .. -1
 rational, number
-3r == 4 .. false
-3r < 4 .. false
-3r > 4 .. true
-3r <= 4 .. false
-3r >= 4 .. true
+3r == 4 .. TypeError: can't compare values between rational and number
+3r < 4 .. TypeError: can't compare values between rational and number
+3r > 4 .. TypeError: can't compare values between rational and number
+3r <= 4 .. TypeError: can't compare values between rational and number
+3r >= 4 .. TypeError: can't compare values between rational and number
 3r <=> 4 .. TypeError: can't evaluate (rational <=> number)
 rational, rational
 3r == 4r .. false
@@ -997,11 +997,11 @@ number, number
 4 >= 4 .. true
 4 <=> 4 .. 0
 number, rational
-4 == 4r .. false
-4 < 4r .. true
-4 > 4r .. false
-4 <= 4r .. true
-4 >= 4r .. false
+4 == 4r .. TypeError: can't compare values between number and rational
+4 < 4r .. TypeError: can't compare values between number and rational
+4 > 4r .. TypeError: can't compare values between number and rational
+4 <= 4r .. TypeError: can't compare values between number and rational
+4 >= 4r .. TypeError: can't compare values between number and rational
 4 <=> 4r .. TypeError: can't evaluate (number <=> rational)
 rational, gmp.mpz
 4r == 4L .. true
@@ -1025,11 +1025,11 @@ rational, gmp.mpf
 4r >= 4.L .. true
 4r <=> 4.L .. 0
 rational, number
-4r == 4 .. false
-4r < 4 .. false
-4r > 4 .. true
-4r <= 4 .. false
-4r >= 4 .. true
+4r == 4 .. TypeError: can't compare values between rational and number
+4r < 4 .. TypeError: can't compare values between rational and number
+4r > 4 .. TypeError: can't compare values between rational and number
+4r <= 4 .. TypeError: can't compare values between rational and number
+4r >= 4 .. TypeError: can't compare values between rational and number
 4r <=> 4 .. TypeError: can't evaluate (rational <=> number)
 rational, rational
 4r == 4r .. false
@@ -1172,11 +1172,11 @@ number, number
 5 >= 4 .. true
 5 <=> 4 .. 1
 number, rational
-5 == 4r .. false
-5 < 4r .. true
-5 > 4r .. false
-5 <= 4r .. true
-5 >= 4r .. false
+5 == 4r .. TypeError: can't compare values between number and rational
+5 < 4r .. TypeError: can't compare values between number and rational
+5 > 4r .. TypeError: can't compare values between number and rational
+5 <= 4r .. TypeError: can't compare values between number and rational
+5 >= 4r .. TypeError: can't compare values between number and rational
 5 <=> 4r .. TypeError: can't evaluate (number <=> rational)
 rational, gmp.mpz
 5r == 4L .. false
@@ -1200,11 +1200,11 @@ rational, gmp.mpf
 5r >= 4.L .. true
 5r <=> 4.L .. 1
 rational, number
-5r == 4 .. false
-5r < 4 .. false
-5r > 4 .. true
-5r <= 4 .. false
-5r >= 4 .. true
+5r == 4 .. TypeError: can't compare values between rational and number
+5r < 4 .. TypeError: can't compare values between rational and number
+5r > 4 .. TypeError: can't compare values between rational and number
+5r <= 4 .. TypeError: can't compare values between rational and number
+5r >= 4 .. TypeError: can't compare values between rational and number
 5r <=> 4 .. TypeError: can't evaluate (rational <=> number)
 rational, rational
 5r == 4r .. false

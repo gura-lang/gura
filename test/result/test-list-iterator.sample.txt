@@ -581,3 +581,8 @@ t.each().rank(descend) 7 0 9 7 2 4 4 3 6 0
 
 ======== #35 Test of list operation (2) ========
 
+
+======== #36 sort list that contains list as its element ========
+
+[100], [3, 1], [1, 2, 3, 4], [3, 2, 1, 4], [1, 2, 3, 4, 5]
+[1, 2, 3, 4, 5], [3, 2, 1, 4], [1, 2, 3, 4], [3, 1], [100]
