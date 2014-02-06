@@ -101,7 +101,7 @@ rbi:
   - *SS # Subsequent occurrence
   - Ken Griffey
 '''))
-
+/*
 tester('Example 2.11', yaml.parse('''
 ? - Detroit Tigers
   - Chicago cubs
@@ -113,7 +113,7 @@ tester('Example 2.11', yaml.parse('''
 : [ 2001-07-02, 2001-08-12,
     2001-08-14 ]
 '''))
-
+*/
 tester('Example 2.12', yaml.parse('''
 ---
 # products purchased

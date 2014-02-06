@@ -686,6 +686,19 @@ bool Value::KeyCompare::operator()(const Value &value1, const Value &value2) con
 			::strcmp(value1.GetString(), value2.GetString()) < 0;
 	} else if (value1.Is_symbol()) {
 		return value1.GetSymbol()->GetUniqNum() < value2.GetSymbol()->GetUniqNum();
+	} else if (value1.Is_list()) {
+		const ValueList &valList1 = value1.GetList();
+		const ValueList &valList2 = value2.GetList();
+		if (valList1.size() < valList2.size()) return true;
+		if (valList1.size() > valList2.size()) return false;
+		ValueList::const_iterator pValue1 = valList1.begin();
+		ValueList::const_iterator pValue2 = valList2.begin();
+		for ( ; pValue1 != valList1.end(); pValue1++, pValue2++) {
+			int cmp = operator()(*pValue1, *pValue2);
+			if (cmp < 0) return true;
+			if (cmp > 0) return false;
+		}
+		return false;
 	}
 	return true;
 }
