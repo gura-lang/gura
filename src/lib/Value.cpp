@@ -470,7 +470,11 @@ int Value::Compare(Environment &env, Signal sig, const Value &value1, const Valu
 		if (!result.Is_number()) return -1;
 		return result.GetInt();
 	}
-	return (value1.GetValueType() <= value2.GetValueType())? -1 : +1;
+	if (value1.IsInvalid()) return -1;
+	if (value2.IsInvalid()) return +1;
+	sig.SetError(ERR_TypeError, "can't compare values between %s and %s",
+		value1.MakeValueTypeName().c_str(), value2.MakeValueTypeName().c_str());
+	return 0;
 }
 
 int Value::CompareBoolean(bool flag1, bool flag2)

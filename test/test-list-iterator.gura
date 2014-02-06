@@ -648,3 +648,8 @@ testcase('Test of list operation (2)') {
 	list_of_list = repeat(5):list { repeat(5):list { rand(10) } }
 	list_of_list_of_list = repeat(3):list { repeat(5):list { repeat(5):list { rand(10) } } }
 }
+testcase('sort list that contains list as its element') {
+	x = [[1, 2, 3, 4, 5], [1, 2, 3, 4], [3, 2, 1, 4], [3, 1], [100]]
+	println(x.sort().join(', '))
+	println(x.sort(`descend).join(', '))
+}

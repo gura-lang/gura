@@ -1883,6 +1883,23 @@ Gura_ImplementBinaryOperator(Cmp, datetime, datetime)
 	return DateTime::Compare(dt1, dt2);
 }
 
+Gura_ImplementBinaryOperator(Cmp, list, list)
+{
+	const ValueList &valList1 = valueLeft.GetList();
+	const ValueList &valList2 = valueRight.GetList();
+	if (valList1.size() < valList2.size()) return Value(-1);
+	if (valList1.size() > valList2.size()) return Value(+1);
+	ValueList::const_iterator pValue1 = valList1.begin();
+	ValueList::const_iterator pValue2 = valList2.begin();
+	for ( ; pValue1 != valList1.end(); pValue1++, pValue2++) {
+		int cmp = Value::Compare(env, sig, *pValue1, *pValue2);
+		if (sig.IsSignalled()) return Value::Null;
+		if (cmp < 0) return Value(-1);
+		if (cmp > 0) return Value(+1);
+	}
+	return Value(0);
+}
+
 Gura_ImplementBinaryOperator(Cmp, timedelta, timedelta)
 {
 	const TimeDelta &td1 = Object_timedelta::GetObject(valueLeft)->GetTimeDelta();
@@ -2229,6 +2246,7 @@ void Operator::AssignOperators(Environment &env)
 	Gura_AssignBinaryOperator(Cmp, symbol, symbol);
 	Gura_AssignBinaryOperator(Cmp, binary, binary);
 	Gura_AssignBinaryOperator(Cmp, datetime, datetime);
+	Gura_AssignBinaryOperator(Cmp, list, list);
 	Gura_AssignBinaryOperator(Cmp, timedelta, timedelta);
 	Gura_AssignBinaryOperator(Contains, any, any);
 	Gura_AssignBinaryOperator(And, number, number);
