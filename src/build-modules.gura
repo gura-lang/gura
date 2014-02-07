@@ -102,9 +102,7 @@ rpmFiles = []
 for (moduleName in moduleNames) {
 	if (moduleName in moduleNamesExcept) {
 		printf('[%s]', moduleName)
-		conio.setcolor(`bright_red) {
-			printf(' .. skipped\n')
-		}
+		printf(' .. skipped\n')
 		continue
 	}
 	printf('[%s]\n', moduleName)
@@ -141,9 +139,7 @@ for (moduleName in moduleNames) {
 }
 if (!moduleNamesError.isempty()) {
 	println()
-	conio.setcolor(`bright_red) {
-		println('**** error while building ', moduleNamesError)
-	}
+	println('**** error while building ', moduleNamesError)
 	if (!debFiles.isempty()) {
 		fileName = 'setup-gura-guest-deb.sh'
 		open(fileName, 'w').println('apt-get install -y ', set(debFiles))

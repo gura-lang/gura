@@ -1,4 +1,5 @@
 #!/usr/bin/env gura
+import(conio)
 import(markdown):binary:mixin_type {*}
 
 Renderer_html = class {
