@@ -174,3 +174,12 @@ testcase('sort') {
 	println(x.sort().join(','))
 	println(x.sort(`descend).join(','))
 }
+testcase('square root') {
+	prec = gmp.mpf.get_default_prec()
+	gmp.mpf.set_default_prec(128)
+	xOrg = [1..10]
+	for (x in [xOrg, gmp.mpz(xOrg), gmp.mpf(xOrg), gmp.mpq(xOrg)]) {
+		printf('sqrt(%4s) = %s\n', x, gmp.sqrt(x))
+	}
+	gmp.mpf.set_default_prec(prec)
+}

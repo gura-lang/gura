@@ -66,6 +66,10 @@ Gura_ImplementFunction(sqrt)
 		mpf_class num(Object_mpz::GetEntity(args, 0));
 		mpf_class result = ::sqrt(num);
 		return Value(new Object_mpf(result.get_mpf_t()));
+	} else if (args.IsType(0, VTYPE_mpq)) {
+		mpf_class num(Object_mpq::GetEntity(args, 0));
+		mpf_class result = ::sqrt(num);
+		return Value(new Object_mpf(result.get_mpf_t()));
 	} else if (args.IsType(0, VTYPE_mpf)) {
 		const mpf_class &num = Object_mpf::GetEntity(args, 0);
 		mpf_class result = ::sqrt(num);
