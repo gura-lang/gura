@@ -8,7 +8,6 @@
 #include "../module-codecs_basic/stdafx.h"
 #include "../module-codecs_iso8859/stdafx.h"
 #include "../module-codecs_japanese/stdafx.h"
-#include "../module-conio/stdafx.h"
 #include "../module-fs/stdafx.h"
 #include "../module-math/stdafx.h"
 #include "../module-os/stdafx.h"

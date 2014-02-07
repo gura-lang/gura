@@ -78,7 +78,6 @@ Version.cpp
 ../module-basement/module-basement.cpp
 ../module-sys/module-sys.cpp
 ../module-base64/module-base64.cpp
-../module-conio/module-conio.cpp
 ../module-codecs_basic/module-codecs_basic.cpp
 ../module-codecs_iso8859/module-codecs_iso8859.cpp
 ../module-codecs_japanese/module-codecs_japanese.cpp

@@ -1,4 +1,5 @@
 #!/usr/bin/env gura
+import(conio)
 
 keyDict = %{
 	conio.K_CTRL_A		=> 'CTRL-A'

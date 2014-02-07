@@ -264,7 +264,6 @@
     <ClCompile Include="..\module-codecs_basic\module-codecs_basic.cpp" />
     <ClCompile Include="..\module-codecs_iso8859\module-codecs_iso8859.cpp" />
     <ClCompile Include="..\module-codecs_japanese\module-codecs_japanese.cpp" />
-    <ClCompile Include="..\module-conio\module-conio.cpp" />
     <ClCompile Include="..\module-fs\module-fs.cpp" />
     <ClCompile Include="..\module-math\module-math.cpp" />
     <ClCompile Include="..\module-os\module-os.cpp" />
