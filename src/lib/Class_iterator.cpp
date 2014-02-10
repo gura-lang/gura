@@ -85,27 +85,48 @@ Gura_DeclareFunction(range)
 
 Gura_ImplementFunction(range)
 {
+	AutoPtr<Iterator> pIterator;
 	Number numBegin = 0.;
 	Number numEnd = 0.;
 	Number numStep = 1.;
-	if (args.GetValue(1).IsInvalid()) {
-		numEnd = args.GetValue(0).GetNumber();
+	if (args.IsInvalid(1)) {
+		if (args.IsValid(2)) {
+			numBegin = args.GetNumber(0);
+			numStep = args.GetNumber(2);
+			if (numStep == 0.) {
+				sig.SetError(ERR_ValueError, "step cannot be specified as zero");
+				return Value::Null;
+			}
+			pIterator.reset(new Iterator_SequenceInf(numBegin, numStep));
+		} else {
+			numEnd = args.GetNumber(0);
+			if (numBegin > numEnd) numStep = -1.;
+			pIterator.reset(new Iterator_Range(numBegin, numEnd, numStep));
+		}
+	} else if (args.IsInvalid(2)) {
+		numBegin = args.GetNumber(0);
+		numEnd = args.GetNumber(1);
 		if (numBegin > numEnd) numStep = -1.;
-	} else if (args.GetValue(2).IsInvalid()) {
-		numBegin = args.GetValue(0).GetNumber();
-		numEnd = args.GetValue(1).GetNumber();
-		if (numBegin > numEnd) numStep = -1.;
+		pIterator.reset(new Iterator_Range(numBegin, numEnd, numStep));
 	} else {
-		numBegin = args.GetValue(0).GetNumber();
-		numEnd = args.GetValue(1).GetNumber();
-		numStep = args.GetValue(2).GetNumber();
+		numBegin = args.GetNumber(0);
+		numEnd = args.GetNumber(1);
+		numStep = args.GetNumber(2);
 		if (numStep == 0.) {
 			sig.SetError(ERR_ValueError, "step cannot be specified as zero");
 			return Value::Null;
 		}
+		if (numBegin < numEnd && numStep < 0) {
+			sig.SetError(ERR_ValueError, "step value must be positive");
+			return Value::Null;
+		}
+		if (numBegin > numEnd && numStep > 0) {
+			sig.SetError(ERR_ValueError, "step value must be negative");
+			return Value::Null;
+		}
+		pIterator.reset(new Iterator_Range(numBegin, numEnd, numStep));
 	}
-	return ReturnIterator(env, sig, args,
-						new Iterator_Range(numBegin, numEnd, numStep));
+	return ReturnIterator(env, sig, args, pIterator.release());
 }
 
 // interval(a:number, b:number, samples:number):map:[open,open_l,open_r] {block?}

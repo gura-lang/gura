@@ -653,3 +653,31 @@ testcase('sort list that contains list as its element') {
 	println(x.sort().join(', '))
 	println(x.sort(`descend).join(', '))
 }
+testcase('range test') {
+	tester(`range(0).join(','))
+	tester(`range(1).join(','))
+	tester(`range(3).join(','))
+	tester(`range(10).join(','))
+	tester(`range(0, 10).join(','))
+	tester(`range(3, 10).join(','))
+	tester(`range(10, 3).join(','))
+	tester(`range(10, -3).join(','))
+	tester(`range(-3, 10).join(','))
+	tester(`range(-3, 10, 2).join(','))
+	tester(`range(10, -3, -2).join(','))
+	try {
+		range(-3, 10, -2)
+	} catch {|e|
+		println('expected error occurs: ', e.text)
+	}
+	try {
+		range(10, -3, 2)
+	} catch {|e|
+		println('expected error occurs: ', e.text)
+	}
+	tester(`range(3, nil, 2).head(10).join(','))
+	tester(`range(-3, nil, 2).head(10).join(','))
+	tester(`range(3, nil, -2).head(10).join(','))
+	tester(`range(-3, nil, -2).head(10).join(','))
+	sys.exit()
+}

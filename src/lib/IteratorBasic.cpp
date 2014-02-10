@@ -290,15 +290,25 @@ Iterator *Iterator_SequenceInf::GetSource()
 bool Iterator_SequenceInf::DoNext(Environment &env, Signal sig, Value &value)
 {
 	value = Value(_num);
-	_num += 1;
+	_num += _numStep;
 	return true;
 }
 
 String Iterator_SequenceInf::ToString() const
 {
 	String rtn;
-	rtn += NumberToString(_numBegin);
-	rtn += "..";
+	if (_numStep == 1) {
+		rtn += NumberToString(_numBegin);
+		rtn += "..";
+	} else {
+		rtn = "range(";
+		rtn += NumberToString(_numBegin);
+		rtn += ",";
+		rtn += "nil";
+		rtn += ",";
+		rtn += NumberToString(_numStep);
+		rtn += ")";
+	}
 	return rtn;
 }
 

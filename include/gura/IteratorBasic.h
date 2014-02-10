@@ -165,11 +165,12 @@ class GURA_DLLDECLARE Iterator_SequenceInf : public Iterator {
 private:
 	Number _num;
 	Number _numBegin;
+	Number _numStep;
 public:
-	inline Iterator_SequenceInf(Number numBegin) :
-					Iterator(true), _num(numBegin), _numBegin(numBegin) {}
+	inline Iterator_SequenceInf(Number numBegin, Number numStep = 1) :
+			Iterator(true), _num(numBegin), _numBegin(numBegin), _numStep(numStep) {}
 	inline Iterator_SequenceInf(const Iterator_SequenceInf &iter) :
-					Iterator(iter), _num(iter._num), _numBegin(iter._numBegin) {}
+			Iterator(iter), _num(iter._num), _numBegin(iter._numBegin), _numStep(iter._numStep) {}
 	virtual bool IsSequenceInf() const;
 	virtual Iterator *Clone() const;
 	virtual Iterator *GetSource();
@@ -177,6 +178,7 @@ public:
 	virtual String ToString() const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 	inline Number GetBegin() const { return _numBegin; }
+	inline Number GetStep() const { return _numStep; }
 };
 
 //-----------------------------------------------------------------------------
