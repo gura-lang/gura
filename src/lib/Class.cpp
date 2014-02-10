@@ -249,7 +249,21 @@ Gura_ImplementMethod(Object, isinstance)
 	return args.GetThis().IsInstanceOf(pValueTypeInfo->GetValueType());
 }
 
-// num = object#tonumber():[strict,raise,zero,nil]
+// object#nomap() {block?}
+Gura_DeclareMethodPrimitive(Object, nomap)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(Object, nomap)
+{
+	Value rtn(args.GetThis());
+	rtn.AddFlags(VFLAG_NoMap);
+	return ReturnValue(env, sig, args, rtn);
+}
+
+// object#tonumber():[strict,raise,zero,nil]
 Gura_DeclareMethodPrimitive(Object, tonumber)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -276,7 +290,7 @@ Gura_ImplementMethod(Object, tonumber)
 	}
 }
 
-// num = object#tostring()
+// object#tostring()
 Gura_DeclareMethodPrimitive(Object, tostring)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -497,6 +511,7 @@ void Class::Prepare(Environment &env)
 	Gura_AssignMethod(Object, isnil);		// primitive method
 	Gura_AssignMethod(Object, istype);		// primitive method
 	Gura_AssignMethod(Object, isinstance);	// primitive method
+	Gura_AssignMethod(Object, nomap);		// primitive method
 	Gura_AssignMethod(Object, tonumber);	// primitive method
 	Gura_AssignMethod(Object, tostring);	// primitive method
 	Gura_AssignMethod(Object, setprop_X);
