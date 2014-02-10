@@ -415,4 +415,8 @@ testcase {
 	f(2) println('trailer')
 	f(3) println('trailer')
 }
-
+testcase('nomap() test') {
+	f(x):map = println(x):nomap
+	f([1, 2, 3])
+	f([1, 2, 3].nomap())
+}

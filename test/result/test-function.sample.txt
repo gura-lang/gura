@@ -282,3 +282,10 @@ x is an even number, quit trailer
 trailer
 x is an even number, quit trailer
 trailer
+
+======== #39 nomap() test ========
+
+1
+2
+3
+[1, 2, 3]

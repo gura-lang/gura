@@ -68,7 +68,7 @@ public:
 				!IsType(VTYPE_any) && !IsType(VTYPE_list) && !GetListFlag();
 	}
 	inline bool ShouldImplicitMap(const Value &value) const {
-		return (value.Is_list() || value.Is_iterator()) && !GetNoMapFlag() &&
+		return (value.Is_list() || value.Is_iterator()) && !value.GetNoMapFlag() && !GetNoMapFlag() &&
 				!((IsType(VTYPE_list) || GetListFlag()) && value.IsFlatList());
 	}
 	String ToString() const;

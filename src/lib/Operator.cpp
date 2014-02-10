@@ -137,7 +137,7 @@ Value Operator::EvalBinary(Environment &env, Signal sig, const Value &valueLeft,
 
 Value Operator::EvalMapUnary(Environment &env, Signal sig, const Value &value, bool suffixFlag) const
 {
-	if (!_mapFlag || !value.IsListOrIterator()) {
+	if (!_mapFlag || !value.IsListOrIterator() || value.GetNoMapFlag()) {
 		return EvalUnary(env, sig, value, suffixFlag);
 	}
 	AutoPtr<Iterator> pIterator(new Iterator_UnaryOperatorMap(
@@ -151,7 +151,8 @@ Value Operator::EvalMapUnary(Environment &env, Signal sig, const Value &value, b
 Value Operator::EvalMapBinary(Environment &env, Signal sig,
 							const Value &valueLeft, const Value &valueRight) const
 {
-	if (!_mapFlag || (!valueLeft.IsListOrIterator() && !valueRight.IsListOrIterator())) {
+	if (!_mapFlag || ((!valueLeft.IsListOrIterator() || valueLeft.GetNoMapFlag()) &&
+				(!valueRight.IsListOrIterator() || valueRight.GetNoMapFlag()))) {
 		return EvalBinary(env, sig, valueLeft, valueRight);
 	}
 	AutoPtr<Iterator> pIterator(new Iterator_BinaryOperatorMap(new Environment(env), sig,

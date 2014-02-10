@@ -156,7 +156,6 @@ max(values+):map
 min(values+):map
 module() {block}
 nil:nil = nil
-nomap(obj) {block?}
 object() {block?}
 open(pathname:string, mode?:string, codec?:codec):map {block?}
 operator(op:symbol):map {block?}
@@ -530,6 +529,7 @@ object
   isinstance(type+:expr):map
   isnil():map
   istype(type+:expr):map
+  nomap() {block?}
   setprop!(symbol:symbol, value):static:map
   tonumber():[nil,raise,strict,zero]
   tostring()
