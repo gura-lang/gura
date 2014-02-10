@@ -190,7 +190,7 @@ String Object::ToString(bool exprFlag)
 }
 
 //-----------------------------------------------------------------------------
-// Class
+// Implementation of functions
 //-----------------------------------------------------------------------------
 // object() {block?}
 Gura_DeclareFunction(object)
@@ -205,6 +205,9 @@ Gura_ImplementFunction(object)
 	return ReturnValue(env, sig, args, Value(pObj));
 }
 
+//-----------------------------------------------------------------------------
+// Implementation of primitive methods
+//-----------------------------------------------------------------------------
 // object#isnil()
 Gura_DeclareMethodPrimitive(Object, isnil)
 {
@@ -303,41 +306,9 @@ Gura_ImplementMethod(Object, tostring)
 	return Value(str);
 }
 
-// object.getprop!(symbol:symbol, default?:nomap):map
-Gura_DeclareClassMethodAlias(Object, getprop_X, "getprop!")
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "symbol", VTYPE_symbol);
-	DeclareArg(env, "default", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_NoMap);
-}
-
-Gura_ImplementClassMethod(Object, getprop_X)
-{
-	Fundamental *pThis = args.GetThisFundamental();
-	const SymbolSet &attrs = SymbolSet::Null;
-	if (args.IsDefined(1)) {
-		Value value = args.GetValue(1);
-		return pThis->GetProp(env, sig, args.GetSymbol(0), attrs, &value);
-	} else {
-		return pThis->GetProp(env, sig, args.GetSymbol(0), attrs);
-	}
-}
-
-// object.setprop!(symbol:symbol, value):map
-Gura_DeclareClassMethodAlias(Object, setprop_X, "setprop!")
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "symbol", VTYPE_symbol);
-	DeclareArg(env, "value", VTYPE_any);
-}
-
-Gura_ImplementClassMethod(Object, setprop_X)
-{
-	Fundamental *pThis = args.GetThisFundamental();
-	pThis->AssignValue(args.GetSymbol(0), args.GetValue(1), EXTRA_Public);
-	return Value::Null;
-}
-
+//-----------------------------------------------------------------------------
+// Implementation of methods
+//-----------------------------------------------------------------------------
 // object.__call__(symbol:symbol, args*, dict%):map {block?}
 class Gura_Method(Object, __call__) : public Function {
 public:
@@ -402,6 +373,19 @@ Value Gura_Method(Object, __call__)::DoEval(Environment &env, Signal sig, Args &
 	return Value::Null;
 }
 
+// object#__iter__()
+Gura_DeclareMethod(Object, __iter__)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(Object, __iter__)
+{
+	Iterator *pIterator = args.GetThis().CreateIterator(sig);
+	if (sig.IsSignalled()) return Value::Null;
+	return Value(new Object_iterator(env, pIterator));
+}
+
 // object#clone()
 Gura_DeclareMethod(Object, clone)
 {
@@ -417,19 +401,44 @@ Gura_ImplementMethod(Object, clone)
 	return Value(pObj);
 }
 
-// num = object#__iter__()
-Gura_DeclareMethod(Object, __iter__)
+// object.getprop!(symbol:symbol, default?:nomap):map
+Gura_DeclareClassMethodAlias(Object, getprop_X, "getprop!")
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "symbol", VTYPE_symbol);
+	DeclareArg(env, "default", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_NoMap);
 }
 
-Gura_ImplementMethod(Object, __iter__)
+Gura_ImplementClassMethod(Object, getprop_X)
 {
-	Iterator *pIterator = args.GetThis().CreateIterator(sig);
-	if (sig.IsSignalled()) return Value::Null;
-	return Value(new Object_iterator(env, pIterator));
+	Fundamental *pThis = args.GetThisFundamental();
+	const SymbolSet &attrs = SymbolSet::Null;
+	if (args.IsDefined(1)) {
+		Value value = args.GetValue(1);
+		return pThis->GetProp(env, sig, args.GetSymbol(0), attrs, &value);
+	} else {
+		return pThis->GetProp(env, sig, args.GetSymbol(0), attrs);
+	}
 }
 
+// object.setprop!(symbol:symbol, value):map
+Gura_DeclareClassMethodAlias(Object, setprop_X, "setprop!")
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "symbol", VTYPE_symbol);
+	DeclareArg(env, "value", VTYPE_any);
+}
+
+Gura_ImplementClassMethod(Object, setprop_X)
+{
+	Fundamental *pThis = args.GetThisFundamental();
+	pThis->AssignValue(args.GetSymbol(0), args.GetValue(1), EXTRA_Public);
+	return Value::Null;
+}
+
+//-----------------------------------------------------------------------------
+// Implementation of class
+//-----------------------------------------------------------------------------
 bool Class::IsClass() const { return true; }
 bool Class::IsCustom() const { return false; }
 
@@ -514,11 +523,11 @@ void Class::Prepare(Environment &env)
 	Gura_AssignMethod(Object, nomap);		// primitive method
 	Gura_AssignMethod(Object, tonumber);	// primitive method
 	Gura_AssignMethod(Object, tostring);	// primitive method
-	Gura_AssignMethod(Object, setprop_X);
-	Gura_AssignMethod(Object, getprop_X);
 	Gura_AssignMethod(Object, __call__);
-	Gura_AssignMethod(Object, clone);
 	Gura_AssignMethod(Object, __iter__);
+	Gura_AssignMethod(Object, clone);
+	Gura_AssignMethod(Object, getprop_X);
+	Gura_AssignMethod(Object, setprop_X);
 }
 
 bool Class::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
