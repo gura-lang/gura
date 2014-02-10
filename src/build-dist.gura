@@ -119,9 +119,7 @@ clean() = {
 	fileNamesToDelete.each {|fileName|
 		try {
 			fs.remove(fileName)
-			conio.setcolor(`bright_red) {
-				printf('removed: %s\n', path.filename(fileName))
-			}
+			printf('removed: %s\n', path.filename(fileName))
 		} catch {}
 	}
 }
@@ -323,15 +321,11 @@ createZip(fileNames) = {
 	(fs.chdir(path.join(dirNameScript, '..', '..')) {
 		fileNames = path.join('gura', fileNames)
 		open(fileNameList, 'w', 'shift_jis').println(fileNames)
-		conio.setcolor(`bright_red) {
-			printf('generated: %s\n', path.filename(fileNameList))
-		}
+		printf('generated: %s\n', path.filename(fileNameList))
 		try { fs.remove(fileNameBinZip) } catch {}
 		os.exec('7za', 'a', '-r-', fileNameBinZip, '@' + fileNameList)
 	} != 0) && sys.exit(1)
-	conio.setcolor(`bright_red) {
-		printf('generated: %s\n', path.filename(fileNameBinZip))
-	}
+	printf('generated: %s\n', path.filename(fileNameBinZip))
 }
 
 //-----------------------------------------------------------------------------
@@ -406,9 +400,7 @@ createMsi(fileNames) = {
 		version = sys.version
 		components.add('ComponentReg')
 		textTemplate.template().render(open(fileNameWxs, 'w', 'utf-8'))
-		conio.setcolor(`bright_red) {
-			printf('generated: %s\n', path.filename(fileNameWxs))
-		}
+		printf('generated: %s\n', path.filename(fileNameWxs))
 		try {
 			(os.exec('candle', '-o', fileNameWixobj, fileNameWxs) != 0) && sys.exit(1)
 			(os.exec('light', '-ext', 'WixUIExtension', '-spdb'
@@ -419,9 +411,7 @@ createMsi(fileNames) = {
 		}
 		fs.remove(fileNameWixobj)
 	}
-	conio.setcolor(`bright_red) {
-		printf('generated: %s\n', path.filename(fileNameMsi))
-	}
+	printf('generated: %s\n', path.filename(fileNameMsi))
 }
 
 //-----------------------------------------------------------------------------
@@ -436,10 +426,8 @@ createSrcPackage() = {
 		(os.exec('git', 'archive', '--format=zip', '--prefix=' + prefixDoc + '/',
 				 '--output=' + fileNameDocSrcZip, 'HEAD') != 0)
 	} && sys.exit(1)
-	conio.setcolor(`bright_red) {
-		printf('generated: %s\n', path.filename(fileNameSrcTar))
-		printf('generated: %s\n', path.filename(fileNameDocSrcZip))
-	}
+	printf('generated: %s\n', path.filename(fileNameSrcTar))
+	printf('generated: %s\n', path.filename(fileNameDocSrcZip))
 }
 
 main()
