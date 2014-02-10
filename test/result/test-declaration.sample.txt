@@ -42,56 +42,6 @@ color(args+):map {block?}
 complex(real:number, imag?:number):map {block?}
 cond(flag:boolean, value1:nomap, value2?:nomap):map
 conds(flag:boolean, value1, value2?):map
-conio:module = <module:conio:<integrated>>
-  K_BACKSPACE:number = 8
-  K_CTRL_A:number = 1
-  K_CTRL_B:number = 2
-  K_CTRL_C:number = 3
-  K_CTRL_D:number = 4
-  K_CTRL_E:number = 5
-  K_CTRL_F:number = 6
-  K_CTRL_G:number = 7
-  K_CTRL_H:number = 8
-  K_CTRL_I:number = 9
-  K_CTRL_J:number = 10
-  K_CTRL_K:number = 11
-  K_CTRL_L:number = 12
-  K_CTRL_M:number = 13
-  K_CTRL_N:number = 14
-  K_CTRL_O:number = 15
-  K_CTRL_P:number = 16
-  K_CTRL_Q:number = 17
-  K_CTRL_R:number = 18
-  K_CTRL_S:number = 19
-  K_CTRL_T:number = 20
-  K_CTRL_U:number = 21
-  K_CTRL_V:number = 22
-  K_CTRL_W:number = 23
-  K_CTRL_X:number = 24
-  K_CTRL_Y:number = 25
-  K_CTRL_Z:number = 26
-  K_DELETE:number = 137
-  K_DOWN:number = 129
-  K_END:number = 134
-  K_ESCAPE:number = 27
-  K_HOME:number = 133
-  K_INSERT:number = 132
-  K_LEFT:number = 131
-  K_PAGEDOWN:number = 136
-  K_PAGEUP:number = 135
-  K_RETURN:number = 10
-  K_RIGHT:number = 130
-  K_SPACE:number = 32
-  K_TAB:number = 9
-  K_UP:number = 128
-  __name__:string = conio
-  __source__:string = <integrated>
-  __symbol__:symbol = conio
-  clear(region?:symbol):void
-  getwinsize()
-  moveto(x:number, y:number):map:void {block?}
-  setcolor(fg:symbol:nil, bg?:symbol):map:void {block?}
-  waitkey():[raise]
 consts(value, num?:number) {block?}
 cross (`expr+) {block}
 datetime(year:number, month:number, day:number, hour:number => 0, min:number => 0, sec:number => 0, usec:number => 0, minsoff?:number):map {block?}
@@ -273,7 +223,7 @@ sys:module = <module:sys:<integrated>>
   exit(status?:number)
   ps1:string = >>> 
   ps2:string = ... 
-  version:string = 0.4.0
+  version:string = 0.4.1
 template(src?:stream:r):map:[lasteol,noindent] {block?}
 timedelta(days:number => 0, secs:number => 0, usecs:number => 0):map {block?}
 tonumber(value):map:[nil,raise,strict,zero]

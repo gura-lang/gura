@@ -1856,6 +1856,26 @@ Gura_ImplementBinaryOperator(Cmp, rational, rational)
 	return Value(Value::CompareRational(valueLeft.GetRational(), valueRight.GetRational()));
 }
 
+Gura_ImplementBinaryOperator(Cmp, number, rational)
+{
+	const Rational &ratio = valueRight.GetRational();
+	if (ratio.denom == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return Value::Null;
+	}
+	return Value(Value::CompareNumber(valueLeft.GetNumber(), ratio.numer / ratio.denom));
+}
+
+Gura_ImplementBinaryOperator(Cmp, rational, number)
+{
+	const Rational &ratio = valueLeft.GetRational();
+	if (ratio.denom == 0) {
+		Operator::SetError_DivideByZero(sig);
+		return Value::Null;
+	}
+	return Value(Value::CompareNumber(ratio.numer / ratio.denom, valueRight.GetNumber()));
+}
+
 Gura_ImplementBinaryOperator(Cmp, string, string)
 {
 	return Value(Value::CompareString(valueLeft.GetString(), valueRight.GetString(), false));
@@ -2242,6 +2262,8 @@ void Operator::AssignOperators(Environment &env)
 	Gura_AssignBinaryOperator(Cmp, complex, complex);
 	Gura_AssignBinaryOperator(Cmp, number, number);
 	Gura_AssignBinaryOperator(Cmp, rational, rational);
+	Gura_AssignBinaryOperator(Cmp, number, rational);
+	Gura_AssignBinaryOperator(Cmp, rational, number);
 	Gura_AssignBinaryOperator(Cmp, string, string);
 	Gura_AssignBinaryOperator(Cmp, symbol, symbol);
 	Gura_AssignBinaryOperator(Cmp, binary, binary);

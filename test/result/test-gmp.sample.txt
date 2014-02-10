@@ -482,13 +482,13 @@ number, rational
 3 / 4r .. 3/4r
 3 % 4r .. TypeError: can't evaluate (number % rational)
 3 ** 4r .. TypeError: can't evaluate (number ** rational)
-3 == 4r .. TypeError: can't compare values between number and rational
-3 < 4r .. TypeError: can't compare values between number and rational
-3 > 4r .. TypeError: can't compare values between number and rational
-3 <= 4r .. TypeError: can't compare values between number and rational
-3 >= 4r .. TypeError: can't compare values between number and rational
-3 <=> 4r .. TypeError: can't evaluate (number <=> rational)
-3 in 4r .. TypeError: can't compare values between number and rational
+3 == 4r .. false
+3 < 4r .. true
+3 > 4r .. false
+3 <= 4r .. true
+3 >= 4r .. false
+3 <=> 4r .. -1
+3 in 4r .. false
 3 & 4r .. TypeError: can't evaluate (number & rational)
 3 | 4r .. TypeError: can't evaluate (number | rational)
 3 ^ 4r .. TypeError: can't evaluate (number ^ rational)
@@ -570,13 +570,13 @@ rational, number
 3r / 4 .. 3/4r
 3r % 4 .. TypeError: can't evaluate (rational % number)
 3r ** 4 .. TypeError: can't evaluate (rational ** number)
-3r == 4 .. TypeError: can't compare values between rational and number
-3r < 4 .. TypeError: can't compare values between rational and number
-3r > 4 .. TypeError: can't compare values between rational and number
-3r <= 4 .. TypeError: can't compare values between rational and number
-3r >= 4 .. TypeError: can't compare values between rational and number
-3r <=> 4 .. TypeError: can't evaluate (rational <=> number)
-3r in 4 .. TypeError: can't compare values between rational and number
+3r == 4 .. false
+3r < 4 .. true
+3r > 4 .. false
+3r <= 4 .. true
+3r >= 4 .. false
+3r <=> 4 .. -1
+3r in 4 .. false
 3r & 4 .. TypeError: can't evaluate (rational & number)
 3r | 4 .. TypeError: can't evaluate (rational | number)
 3r ^ 4 .. TypeError: can't evaluate (rational ^ number)
@@ -822,12 +822,12 @@ number, number
 3 >= 4 .. false
 3 <=> 4 .. -1
 number, rational
-3 == 4r .. TypeError: can't compare values between number and rational
-3 < 4r .. TypeError: can't compare values between number and rational
-3 > 4r .. TypeError: can't compare values between number and rational
-3 <= 4r .. TypeError: can't compare values between number and rational
-3 >= 4r .. TypeError: can't compare values between number and rational
-3 <=> 4r .. TypeError: can't evaluate (number <=> rational)
+3 == 4r .. false
+3 < 4r .. true
+3 > 4r .. false
+3 <= 4r .. true
+3 >= 4r .. false
+3 <=> 4r .. -1
 rational, gmp.mpz
 3r == 4L .. false
 3r < 4L .. true
@@ -850,12 +850,12 @@ rational, gmp.mpf
 3r >= 4.L .. false
 3r <=> 4.L .. -1
 rational, number
-3r == 4 .. TypeError: can't compare values between rational and number
-3r < 4 .. TypeError: can't compare values between rational and number
-3r > 4 .. TypeError: can't compare values between rational and number
-3r <= 4 .. TypeError: can't compare values between rational and number
-3r >= 4 .. TypeError: can't compare values between rational and number
-3r <=> 4 .. TypeError: can't evaluate (rational <=> number)
+3r == 4 .. false
+3r < 4 .. true
+3r > 4 .. false
+3r <= 4 .. true
+3r >= 4 .. false
+3r <=> 4 .. -1
 rational, rational
 3r == 4r .. false
 3r < 4r .. true
@@ -997,12 +997,12 @@ number, number
 4 >= 4 .. true
 4 <=> 4 .. 0
 number, rational
-4 == 4r .. TypeError: can't compare values between number and rational
-4 < 4r .. TypeError: can't compare values between number and rational
-4 > 4r .. TypeError: can't compare values between number and rational
-4 <= 4r .. TypeError: can't compare values between number and rational
-4 >= 4r .. TypeError: can't compare values between number and rational
-4 <=> 4r .. TypeError: can't evaluate (number <=> rational)
+4 == 4r .. true
+4 < 4r .. false
+4 > 4r .. false
+4 <= 4r .. true
+4 >= 4r .. true
+4 <=> 4r .. 0
 rational, gmp.mpz
 4r == 4L .. true
 4r < 4L .. false
@@ -1025,12 +1025,12 @@ rational, gmp.mpf
 4r >= 4.L .. true
 4r <=> 4.L .. 0
 rational, number
-4r == 4 .. TypeError: can't compare values between rational and number
-4r < 4 .. TypeError: can't compare values between rational and number
-4r > 4 .. TypeError: can't compare values between rational and number
-4r <= 4 .. TypeError: can't compare values between rational and number
-4r >= 4 .. TypeError: can't compare values between rational and number
-4r <=> 4 .. TypeError: can't evaluate (rational <=> number)
+4r == 4 .. true
+4r < 4 .. false
+4r > 4 .. false
+4r <= 4 .. true
+4r >= 4 .. true
+4r <=> 4 .. 0
 rational, rational
 4r == 4r .. false
 4r < 4r .. true
@@ -1172,12 +1172,12 @@ number, number
 5 >= 4 .. true
 5 <=> 4 .. 1
 number, rational
-5 == 4r .. TypeError: can't compare values between number and rational
-5 < 4r .. TypeError: can't compare values between number and rational
-5 > 4r .. TypeError: can't compare values between number and rational
-5 <= 4r .. TypeError: can't compare values between number and rational
-5 >= 4r .. TypeError: can't compare values between number and rational
-5 <=> 4r .. TypeError: can't evaluate (number <=> rational)
+5 == 4r .. false
+5 < 4r .. false
+5 > 4r .. true
+5 <= 4r .. false
+5 >= 4r .. true
+5 <=> 4r .. 1
 rational, gmp.mpz
 5r == 4L .. false
 5r < 4L .. false
@@ -1200,12 +1200,12 @@ rational, gmp.mpf
 5r >= 4.L .. true
 5r <=> 4.L .. 1
 rational, number
-5r == 4 .. TypeError: can't compare values between rational and number
-5r < 4 .. TypeError: can't compare values between rational and number
-5r > 4 .. TypeError: can't compare values between rational and number
-5r <= 4 .. TypeError: can't compare values between rational and number
-5r >= 4 .. TypeError: can't compare values between rational and number
-5r <=> 4 .. TypeError: can't evaluate (rational <=> number)
+5r == 4 .. false
+5r < 4 .. false
+5r > 4 .. true
+5r <= 4 .. false
+5r >= 4 .. true
+5r <=> 4 .. 1
 rational, rational
 5r == 4r .. false
 5r < 4r .. true
@@ -1415,3 +1415,46 @@ format('%d', (1000000000000000L..).head(10)).join(',') .. 1000000000000000,10000
 99.L,98.L,97.L,96.L,95.L,94.L,93.L,92.L,91.L,90.L,89.L,88.L,87.L,86.L,85.L,84.L,83.L,82.L,81.L,80.L,79.L,78.L,77.L,76.L,75.L,74.L,73.L,72.L,71.L,70.L,69.L,68.L,67.L,66.L,65.L,64.L,63.L,62.L,61.L,60.L,59.L,58.L,57.L,56.L,55.L,54.L,53.L,52.L,51.L,50.L,49.L,48.L,47.L,46.L,45.L,44.L,43.L,42.L,41.L,40.L,39.L,38.L,37.L,36.L,35.L,34.L,33.L,32.L,31.L,30.L,29.L,28.L,27.L,26.L,25.L,24.L,23.L,22.L,21.L,20.L,19.L,18.L,17.L,16.L,15.L,14.L,13.L,12.L,11.L,10.L,9.L,8.L,7.L,6.L,5.L,4.L,3.L,2.L,1.L,0.L
 0Lr,1Lr,2Lr,3Lr,4Lr,5Lr,6Lr,7Lr,8Lr,9Lr,10Lr,11Lr,12Lr,13Lr,14Lr,15Lr,16Lr,17Lr,18Lr,19Lr,20Lr,21Lr,22Lr,23Lr,24Lr,25Lr,26Lr,27Lr,28Lr,29Lr,30Lr,31Lr,32Lr,33Lr,34Lr,35Lr,36Lr,37Lr,38Lr,39Lr,40Lr,41Lr,42Lr,43Lr,44Lr,45Lr,46Lr,47Lr,48Lr,49Lr,50Lr,51Lr,52Lr,53Lr,54Lr,55Lr,56Lr,57Lr,58Lr,59Lr,60Lr,61Lr,62Lr,63Lr,64Lr,65Lr,66Lr,67Lr,68Lr,69Lr,70Lr,71Lr,72Lr,73Lr,74Lr,75Lr,76Lr,77Lr,78Lr,79Lr,80Lr,81Lr,82Lr,83Lr,84Lr,85Lr,86Lr,87Lr,88Lr,89Lr,90Lr,91Lr,92Lr,93Lr,94Lr,95Lr,96Lr,97Lr,98Lr,99Lr
 99Lr,98Lr,97Lr,96Lr,95Lr,94Lr,93Lr,92Lr,91Lr,90Lr,89Lr,88Lr,87Lr,86Lr,85Lr,84Lr,83Lr,82Lr,81Lr,80Lr,79Lr,78Lr,77Lr,76Lr,75Lr,74Lr,73Lr,72Lr,71Lr,70Lr,69Lr,68Lr,67Lr,66Lr,65Lr,64Lr,63Lr,62Lr,61Lr,60Lr,59Lr,58Lr,57Lr,56Lr,55Lr,54Lr,53Lr,52Lr,51Lr,50Lr,49Lr,48Lr,47Lr,46Lr,45Lr,44Lr,43Lr,42Lr,41Lr,40Lr,39Lr,38Lr,37Lr,36Lr,35Lr,34Lr,33Lr,32Lr,31Lr,30Lr,29Lr,28Lr,27Lr,26Lr,25Lr,24Lr,23Lr,22Lr,21Lr,20Lr,19Lr,18Lr,17Lr,16Lr,15Lr,14Lr,13Lr,12Lr,11Lr,10Lr,9Lr,8Lr,7Lr,6Lr,5Lr,4Lr,3Lr,2Lr,1Lr,0Lr
+
+======== #14 square root ========
+
+sqrt(   1) = 1.L
+sqrt(   2) = 1.414213562373095048801688724209698078569L
+sqrt(   3) = 1.732050807568877293527446341505872366942L
+sqrt(   4) = 2.L
+sqrt(   5) = 2.23606797749978969640917366873127623544L
+sqrt(   6) = 2.449489742783178098197284074705891391964L
+sqrt(   7) = 2.645751311064590590501615753639260425709L
+sqrt(   8) = 2.828427124746190097603377448419396157138L
+sqrt(   9) = 3.L
+sqrt(  10) = 3.162277660168379331998893544432718533717L
+sqrt(  1L) = 1.L
+sqrt(  2L) = 1.414213562373095048801688724209698078569L
+sqrt(  3L) = 1.732050807568877293527446341505872366942L
+sqrt(  4L) = 2.L
+sqrt(  5L) = 2.23606797749978969640917366873127623544L
+sqrt(  6L) = 2.449489742783178098197284074705891391964L
+sqrt(  7L) = 2.645751311064590590501615753639260425709L
+sqrt(  8L) = 2.828427124746190097603377448419396157138L
+sqrt(  9L) = 3.L
+sqrt( 10L) = 3.162277660168379331998893544432718533717L
+sqrt( 1.L) = 1.L
+sqrt( 2.L) = 1.414213562373095048801688724209698078569L
+sqrt( 3.L) = 1.732050807568877293527446341505872366942L
+sqrt( 4.L) = 2.L
+sqrt( 5.L) = 2.23606797749978969640917366873127623544L
+sqrt( 6.L) = 2.449489742783178098197284074705891391964L
+sqrt( 7.L) = 2.645751311064590590501615753639260425709L
+sqrt( 8.L) = 2.828427124746190097603377448419396157138L
+sqrt( 9.L) = 3.L
+sqrt(10.L) = 3.162277660168379331998893544432718533717L
+sqrt( 1Lr) = 1.L
+sqrt( 2Lr) = 1.414213562373095048801688724209698078569L
+sqrt( 3Lr) = 1.732050807568877293527446341505872366942L
+sqrt( 4Lr) = 2.L
+sqrt( 5Lr) = 2.23606797749978969640917366873127623544L
+sqrt( 6Lr) = 2.449489742783178098197284074705891391964L
+sqrt( 7Lr) = 2.645751311064590590501615753639260425709L
+sqrt( 8Lr) = 2.828427124746190097603377448419396157138L
+sqrt( 9Lr) = 3.L
+sqrt(10Lr) = 3.162277660168379331998893544432718533717L
