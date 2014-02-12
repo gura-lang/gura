@@ -201,13 +201,24 @@ bool Stream_File::Open(Signal sig, const char *fileName, ULong attr)
 	return true;
 }
 
+static Codec *CreateCodecForConsole(Signal &sig)
+{
+	UINT codePage = ::GetACP();
+	const char *encoding =
+		(codePage == 932)? "cp932" :
+		(codePage == 936)? "cp936" :
+		(codePage == 949)? "cp949" :
+		(codePage == 950)? "cp950" : "cp932";
+	return Codec::CreateCodec(sig, encoding, true, true);
+}
+
 bool Stream_File::OpenStdin()
 {
 	Close();
 	_hFile = ::GetStdHandle(STD_INPUT_HANDLE);
 	if (_hFile != INVALID_HANDLE_VALUE) {
 		_fileName = "stdin", SetReadable(true), SetWritable(false);
-		SetCodec(Codec::CreateCodec(_sig, "cp932", true, true));
+		SetCodec(CreateCodecForConsole(_sig));
 	}
 	return true;
 }
@@ -218,7 +229,7 @@ bool Stream_File::OpenStdout()
 	_hFile = ::GetStdHandle(STD_OUTPUT_HANDLE);
 	if (_hFile != INVALID_HANDLE_VALUE) {
 		_fileName = "stdout", SetReadable(false), SetWritable(true);
-		SetCodec(Codec::CreateCodec(_sig, "cp932", true, true));
+		SetCodec(CreateCodecForConsole(_sig));
 	}
 	return true;
 }
@@ -229,7 +240,7 @@ bool Stream_File::OpenStderr()
 	_hFile = ::GetStdHandle(STD_ERROR_HANDLE);
 	if (_hFile != INVALID_HANDLE_VALUE) {
 		_fileName = "stderr", SetReadable(false), SetWritable(true);
-		SetCodec(Codec::CreateCodec(_sig, "cp932", true, true));
+		SetCodec(CreateCodecForConsole(_sig));
 	}
 	return true;
 }

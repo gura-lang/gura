@@ -1,2 +1,8 @@
 #!/usr/bin/env gura
 import(testutil) {*}
+
+fs.chdir('test-chinese')
+
+open('a', 'w').addcr().print(readlines(open('list-cp936.txt', 'r', 'cp936')))
+//print(readlines(open('list-cp950.txt', 'r', 'cp950')
+//open('a', 'w').addcr().print(readlines(open('list-cp949.txt', 'r', 'euc-kr')))

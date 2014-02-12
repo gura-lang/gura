@@ -7,9 +7,11 @@ if (sys.argv.len() < 2) {
 }
 fileName = sys.argv[1]
 lines = readlines(fileName)
+codePrev = 0
 open('result.txt', 'w') {|fout|
 	for (m in lines:*match(r'^(0x\w+)\s+(0x\w+)').skipnil()) {|i|
 		code = m.group(1).tonumber()
+		(codePrev > 0 && int(code / 0x20) != int(codePrev / 0x20)) && fout.println()
 		if (code < 0x20) {
 			fout.printf('.')
 		} elsif (code < 0x100) {
@@ -17,7 +19,7 @@ open('result.txt', 'w') {|fout|
 		} else {
 			fout.printf('%c%c', (code >> 8) & 0xff, code & 0xff)
 		}
-		((i + 1) % 32 == 0) && fout.println()
+		codePrev = code
 	}
 }
 sys.stderr.println('result.txt was created')
