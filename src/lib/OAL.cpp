@@ -386,6 +386,71 @@ bool RemoveDirTree(const char *dirName)
 	return rtn;
 }
 
+#if defined(GURA_ON_MSWIN)
+
+const char *EncodingForConsole()
+{
+	UINT codePage = ::GetACP();
+	return
+		(codePage == 932)? "cp932" :
+		(codePage == 936)? "cp936" :
+		(codePage == 949)? "cp949" :
+		(codePage == 950)? "cp950" : "cp932";
+}
+
+#else
+
+const char *EncodingForConsole()
+{
+	const char *encodingDefault = "utf-8";
+	struct AssocInfo {
+		const char *key;
+		const char *value;
+	};
+	String str = OAL::GetEnv("LANG");
+	if (str.empty()) return encodingDefault;
+	const char *strp = str.c_str();
+	const char *p = ::strchr(strp, '.');
+	String langLeft, langRight;
+	if (p == NULL) {
+		langLeft = strp;
+	} else {
+		langLeft = String(strp, p - strp);
+		langRight = p + 1;
+	}
+	if (langRight.empty()) {
+		static const AssocInfo assocInfoTbl[] = {
+			{ "C",		"us-ascii" },
+			{ "en_US",	"us-ascii" },
+			{ "ja",	 	"euc-jp" },
+			{ "ja_JP",	"euc-jp" },
+		};
+		for (int i = 0; i < ArraySizeOf(assocInfoTbl); i++) {
+			if (::strcasecmp(langLeft.c_str(), assocInfoTbl[i].key) == 0) {
+				return assocInfoTbl[i].value;
+			}
+		}
+	} else {
+		static const AssocInfo assocInfoTbl[] = {
+			{ "eucJP",	"euc-jp" },
+			{ "ujis",	"euc-jp" },
+			{ "utf-8",	"utf-8" },
+			{ "utf8",	"utf-8" },
+			{ "utf-16",	"utf-16" },
+			{ "utf16",	"utf-16" },
+			{ "SJIS",	"shift_jis" },
+		};
+		for (int i = 0; i < ArraySizeOf(assocInfoTbl); i++) {
+			if (::strcasecmp(langRight.c_str(), assocInfoTbl[i].key) == 0) {
+				return assocInfoTbl[i].value;
+			}
+		}
+	}
+	return encodingDefault;
+}
+
+#endif
+
 static void AppendCmdLine(String &cmdLine, const char *arg)
 {
 	bool quoteFlag = (::strchr(arg, ' ') != NULL);
