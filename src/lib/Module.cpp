@@ -87,10 +87,14 @@ bool Module::ImportBuiltIns(Environment &env, Signal sig)
 		env.AssignModule(pModule);
 		// import(codecs.basic)
 		if (Gura_Module(codecs_basic)::Import(*pModule, sig) == NULL) return false;
+		// import(codecs.chinese)
+		if (Gura_Module(codecs_chinese)::Import(*pModule, sig) == NULL) return false;
 		// import(codecs.iso8859)
 		if (Gura_Module(codecs_iso8859)::Import(*pModule, sig) == NULL) return false;
 		// import(codecs.japanese)
 		if (Gura_Module(codecs_japanese)::Import(*pModule, sig) == NULL) return false;
+		// import(codecs.korean)
+		if (Gura_Module(codecs_korean)::Import(*pModule, sig) == NULL) return false;
 	} while (0);
 	// import(base64)
 	if (Gura_Module(base64)::Import(env, sig) == NULL) return false;

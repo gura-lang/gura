@@ -261,7 +261,7 @@ int Parser::Convert_shift_jis(void *data, const char *s)
 	UShort codeCP932 =
 		(static_cast<UShort>(static_cast<UChar>(s[0])) << 8) +
 		static_cast<UChar>(s[1]);
-	UShort codeUTF16 = Codec::CP932ToUTF16(codeCP932);
+	UShort codeUTF16 = CP932ToUTF16(codeCP932);
 	return (codeUTF16 == 0)? -1 : codeUTF16;
 }
 
@@ -270,8 +270,8 @@ int Parser::Convert_euc_jp(void *data, const char *s)
 	UShort codeEUCJP =
 		(static_cast<UShort>(static_cast<UChar>(s[0])) << 8) +
 		static_cast<UChar>(s[1]);
-	UShort codeCP932 = Codec::EUCJPToCP932(codeEUCJP);
-	UShort codeUTF16 = Codec::CP932ToUTF16(codeCP932);
+	UShort codeCP932 = EUCJPToCP932(codeEUCJP);
+	UShort codeUTF16 = CP932ToUTF16(codeCP932);
 	return (codeUTF16 == 0)? -1 : codeUTF16;
 }
 

@@ -59,6 +59,10 @@
 #include "gura/String.h"
 #include "gura/SuffixMgr.h"
 #include "gura/Template.h"
+#include "gura/Unicode-CP932.h"
+#include "gura/Unicode-CP936.h"
+#include "gura/Unicode-CP949.h"
+#include "gura/Unicode-CP950.h"
 #include "gura/Uri.h"
 
 #include "gura/Class_args.h"

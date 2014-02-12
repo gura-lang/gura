@@ -30,6 +30,10 @@ codecs:module = <module:codecs:<integrated>>
     __name__:string = basic
     __source__:string = <integrated>
     __symbol__:symbol = basic
+  chinese:module = <module:chinese:<integrated>>
+    __name__:string = chinese
+    __source__:string = <integrated>
+    __symbol__:symbol = chinese
   iso8859:module = <module:iso8859:<integrated>>
     __name__:string = iso8859
     __source__:string = <integrated>
@@ -38,6 +42,10 @@ codecs:module = <module:codecs:<integrated>>
     __name__:string = japanese
     __source__:string = <integrated>
     __symbol__:symbol = japanese
+  korean:module = <module:korean:<integrated>>
+    __name__:string = korean
+    __source__:string = <integrated>
+    __symbol__:symbol = korean
 color(args+):map {block?}
 complex(real:number, imag?:number):map {block?}
 cond(flag:boolean, value1:nomap, value2?:nomap):map

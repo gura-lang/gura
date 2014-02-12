@@ -181,6 +181,10 @@ install(FILES
   ${GURA_INCLUDE_SRCDIR}/gura/SuffixMgr.h
   ${GURA_INCLUDE_SRCDIR}/gura/Symbol.h
   ${GURA_INCLUDE_SRCDIR}/gura/Template.h
+  ${GURA_INCLUDE_SRCDIR}/gura/Unicode-CP932.h
+  ${GURA_INCLUDE_SRCDIR}/gura/Unicode-CP936.h
+  ${GURA_INCLUDE_SRCDIR}/gura/Unicode-CP949.h
+  ${GURA_INCLUDE_SRCDIR}/gura/Unicode-CP950.h
   ${GURA_INCLUDE_SRCDIR}/gura/Uri.h
   ${GURA_INCLUDE_SRCDIR}/gura/Value.h
   ${GURA_INCLUDE_SRCDIR}/gura/ValueType.h

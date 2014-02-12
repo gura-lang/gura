@@ -282,4 +282,46 @@ Codec::Result Codec_UTF::Encoder::FeedChar(char ch, char &chConv)
 	return rtn;
 }
 
+//-----------------------------------------------------------------------------
+// Codec_DBCS
+//-----------------------------------------------------------------------------
+Codec::Result Codec_DBCS::Decoder::FeedChar(char ch, char &chConv)
+{
+	ULong codeUTF32 = 0x00000000;
+	if (_codeDBCS == 0x0000) {
+		if (IsSJISFirst(ch)) {
+			_codeDBCS = static_cast<UChar>(ch);
+			return RESULT_None;
+		}
+		codeUTF32 = DBCSToUTF16(static_cast<UChar>(ch));
+	} else {
+		_codeDBCS = (_codeDBCS << 8) | static_cast<UChar>(ch);
+		codeUTF32 = DBCSToUTF16(_codeDBCS);
+		_codeDBCS = 0x0000;
+	}
+	if (GetDelcrFlag() && codeUTF32 == '\r') return RESULT_None;
+	return FeedUTF32(codeUTF32, chConv);
+}
+
+Codec::Result Codec_DBCS::Encoder::FeedUTF32(ULong codeUTF32, char &chConv)
+{
+	UShort codeDBCS = UTF16ToDBCS(static_cast<UShort>(codeUTF32));
+	if (codeDBCS == 0x0000) {
+		chConv = '\0';
+		return RESULT_Error;
+	} else if ((codeDBCS & ~0xff) == 0) {
+		char ch = static_cast<char>(codeDBCS & 0xff);
+		if (GetAddcrFlag() && ch == '\n') {
+			StoreChar('\n');
+			chConv = '\r';
+		} else {
+			chConv = ch;
+		}
+	} else {
+		StoreChar(static_cast<char>(codeDBCS & 0xff));
+		chConv = static_cast<char>(codeDBCS >> 8);
+	}
+	return RESULT_Complete;
+}
+
 }

@@ -41,7 +41,6 @@ ClassBasic.cpp \
 ClassCustom.cpp \
 ClassOfStruct.cpp \
 Codec.cpp \
-CodecJapanese.cpp \
 Color.cpp \
 Common.cpp \
 Complex.cpp \
@@ -79,6 +78,10 @@ String.cpp \
 SuffixMgr.cpp \
 Symbol.cpp \
 Template.cpp \
+Unicode-CP932.cpp \
+Unicode-CP936.cpp \
+Unicode-CP949.cpp \
+Unicode-CP950.cpp \
 Uri.cpp \
 Value.cpp \
 ValueType.cpp \
@@ -87,8 +90,10 @@ Version.cpp \
 ..\module-sys\module-sys.cpp \
 ..\module-base64\module-base64.cpp \
 ..\module-codecs_basic\module-codecs_basic.cpp \
+..\module-codecs_chinese\module-codecs_chinese.cpp \
 ..\module-codecs_iso8859\module-codecs_iso8859.cpp \
 ..\module-codecs_japanese\module-codecs_japanese.cpp \
+..\module-codecs_korean\module-codecs_korean.cpp \
 ..\module-fs\module-fs.cpp \
 ..\module-math\module-math.cpp \
 ..\module-os\module-os.cpp \

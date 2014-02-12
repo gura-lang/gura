@@ -3,7 +3,6 @@
 //=============================================================================
 #ifndef __GURA_CODEC_H__
 #define __GURA_CODEC_H__
-
 #include "Common.h"
 #include "Signal.h"
 
@@ -118,14 +117,6 @@ public:
 	static void Initialize();
 public:
 	static const char *EncodingFromLANG();
-public:
-	// Code converter for Japanese characters
-	static UShort CP932ToUTF16(UShort codeCP932);
-	static UShort UTF16ToCP932(UShort codeUTF16);
-	static UShort CP932ToJIS(UShort codeCP932);
-	static UShort JISToCP932(UShort codeJIS);
-	static UShort CP932ToEUCJP(UShort codeCP932);
-	static UShort EUCJPToCP932(UShort codeEUCJP);
 };
 
 //-----------------------------------------------------------------------------
@@ -165,6 +156,29 @@ public:
 		inline ULong GetUTF32() const { return _codeUTF32; }
 		virtual Result FeedChar(char ch, char &chConv);
 		virtual Result FeedUTF32(ULong codeUTF32, char &chConv) = 0;
+	};
+};
+
+//-----------------------------------------------------------------------------
+// Codec_DBCS
+//-----------------------------------------------------------------------------
+class Codec_DBCS : public Codec_UTF {
+public:
+	class Decoder : public Codec_UTF::Decoder {
+	private:
+		UShort _codeDBCS;
+	public:
+		inline Decoder(bool delcrFlag) :
+					Codec_UTF::Decoder(delcrFlag), _codeDBCS(0x0000) {}
+		virtual Result FeedChar(char ch, char &chConv);
+		virtual UShort DBCSToUTF16(UShort codeDBCS) = 0;
+	};
+	class Encoder : public Codec_UTF::Encoder {
+	public:
+		inline Encoder(bool addcrFlag) :
+					Codec_UTF::Encoder(addcrFlag) {}
+		virtual Result FeedUTF32(ULong codeUTF32, char &chConv);
+		virtual UShort UTF16ToDBCS(UShort codeUTF16) = 0;
 	};
 };
 

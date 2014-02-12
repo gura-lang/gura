@@ -2,7 +2,7 @@
 import(re)
 
 if (sys.argv.len() < 2) {
-	sys.stderr.println('usage: dbcs-list.gura CP932.TXT|CP936.TXT')
+	sys.stderr.println('usage: dbcs-list.gura CP932.TXT|CP936.TXT|CP949.TXT|CP950.TXT')
 	sys.exit(1)
 }
 fileName = sys.argv[1]

@@ -2,7 +2,7 @@
 import(re)
 
 if (sys.argv.len() < 2) {
-	sys.stderr.println('usage: dbcs-to-utf16.gura CP932.TXT|CP936.TXT')
+	sys.stderr.println('usage: dbcs-to-utf16.gura CP932.TXT|CP936.TXT|CP949.TXT|CP950.TXT')
 	sys.exit(1)
 }
 fileName = sys.argv[1]
@@ -31,7 +31,7 @@ for (m in pattern.match(open(fileName).readlines()).skipnil()) {
 for (tblRow in tblWhole) {|iRow|
 	(tblRow.len() == 0) && continue
 	varName = format('_row_%02X', iRow)
-	printf('static const unsigned short %s[] = {\n', varName)
+	printf('static const UShort %s[] = {\n', varName)
 	for (tblRowFolded in tblRow.fold(8)) {
 		print('\t', format('0x%04x', tblRowFolded).join(', '), ',\n')
 	}
@@ -40,7 +40,7 @@ for (tblRow in tblWhole) {|iRow|
 print('''\
 struct CodeRow {
 	int nCols;
-	const short *row;
+	const UShort *row;
 };
 ''')
 printf('static const CodeRow _codeRows[] = {\n');

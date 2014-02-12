@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// Gura codec.japanese module
+// Gura codecs.japanese module
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
 
@@ -8,43 +8,14 @@ Gura_BeginModuleBody(codecs_japanese)
 //-----------------------------------------------------------------------------
 // Codec_CP932
 //-----------------------------------------------------------------------------
-Codec::Result Codec_CP932::Decoder::FeedChar(char ch, char &chConv)
+UShort Codec_CP932::Decoder::DBCSToUTF16(UShort codeDBCS)
 {
-	ULong codeUTF32 = 0x00000000;
-	if (_codeCP932 == 0x0000) {
-		if (IsSJISFirst(ch)) {
-			_codeCP932 = static_cast<UChar>(ch);
-			return RESULT_None;
-		}
-		codeUTF32 = CP932ToUTF16(static_cast<UChar>(ch));
-	} else {
-		_codeCP932 = (_codeCP932 << 8) | static_cast<UChar>(ch);
-		codeUTF32 = CP932ToUTF16(_codeCP932);
-		_codeCP932 = 0x0000;
-	}
-	if (GetDelcrFlag() && codeUTF32 == '\r') return RESULT_None;
-	return FeedUTF32(codeUTF32, chConv);
+	return CP932ToUTF16(codeDBCS);
 }
 
-Codec::Result Codec_CP932::Encoder::FeedUTF32(ULong codeUTF32, char &chConv)
+UShort Codec_CP932::Encoder::UTF16ToDBCS(UShort codeUTF16)
 {
-	UShort codeCP932 = UTF16ToCP932(static_cast<UShort>(codeUTF32));
-	if (codeCP932 == 0x0000) {
-		chConv = '\0';
-		return RESULT_Error;
-	} else if ((codeCP932 & ~0xff) == 0) {
-		char ch = static_cast<char>(codeCP932 & 0xff);
-		if (GetAddcrFlag() && ch == '\n') {
-			StoreChar('\n');
-			chConv = '\r';
-		} else {
-			chConv = ch;
-		}
-	} else {
-		StoreChar(static_cast<char>(codeCP932 & 0xff));
-		chConv = static_cast<char>(codeCP932 >> 8);
-	}
-	return RESULT_Complete;
+	return UTF16ToCP932(codeUTF16);
 }
 
 //-----------------------------------------------------------------------------

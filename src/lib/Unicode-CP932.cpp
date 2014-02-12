@@ -1,5 +1,5 @@
 //=============================================================================
-// CodecJapanese
+// Unicode-CP932
 //=============================================================================
 #include "stdafx.h"
 
@@ -1221,7 +1221,7 @@ static const CodeRow _codeRows[] = {
 	{  12,  _row_FC }, {   0,     NULL }, {   0,     NULL }, {   0,     NULL },
 };
 
-UShort Codec::CP932ToUTF16(UShort codeCP932)
+UShort CP932ToUTF16(UShort codeCP932)
 {
 	int codeH = (codeCP932 >> 8) & 0xff;
 	int codeL = codeCP932 & 0xff;
@@ -1236,11 +1236,11 @@ UShort Codec::CP932ToUTF16(UShort codeCP932)
 	}
 }
 
-UShort Codec::UTF16ToCP932(UShort codeUTF16)
+UShort UTF16ToCP932(UShort codeUTF16)
 {
-	static Map *pMap = NULL;
+	static Codec::Map *pMap = NULL;
 	if (pMap == NULL) {
-		pMap = new Map();
+		pMap = new Codec::Map();
 		const CodeRow *pCodeRow = _codeRows;
 		for (int codeL = 0; codeL < pCodeRow->nCols; codeL++) {
 			UShort codeUTF16 = pCodeRow->row[codeL];
@@ -1264,11 +1264,11 @@ UShort Codec::UTF16ToCP932(UShort codeUTF16)
 			}
 		}
 	}
-	Map::iterator iter = pMap->find(codeUTF16);
+	Codec::Map::iterator iter = pMap->find(codeUTF16);
 	return (iter == pMap->end())? 0x0000 : iter->second;
 }
 
-UShort Codec::CP932ToJIS(UShort codeCP932)
+UShort CP932ToJIS(UShort codeCP932)
 {
 	if (codeCP932 < 0x80) return codeCP932;
 	if (codeCP932 < 0x100) return 0x0000;
@@ -1286,7 +1286,7 @@ UShort Codec::CP932ToJIS(UShort codeCP932)
 	return ((static_cast<UShort>(codeH) << 8) + codeL);
 }
 
-UShort Codec::JISToCP932(UShort codeJIS)
+UShort JISToCP932(UShort codeJIS)
 {
 	UChar codeH = static_cast<UChar>((codeJIS >> 8) & 0xff);
 	UChar codeL = static_cast<UChar>((codeJIS >> 0) & 0xff);
@@ -1302,7 +1302,7 @@ UShort Codec::JISToCP932(UShort codeJIS)
 	return (static_cast<UShort>(codeH) << 8) + codeL;
 }
 
-UShort Codec::CP932ToEUCJP(UShort codeCP932)
+UShort CP932ToEUCJP(UShort codeCP932)
 {
 	if (codeCP932 < 0x80) return codeCP932;
 	if (codeCP932 < 0x100) return 0x0000;
@@ -1320,7 +1320,7 @@ UShort Codec::CP932ToEUCJP(UShort codeCP932)
 	return ((static_cast<UShort>(codeH) << 8) + codeL) | 0x8080;
 }
 
-UShort Codec::EUCJPToCP932(UShort codeEUCJP)
+UShort EUCJPToCP932(UShort codeEUCJP)
 {
 	if (codeEUCJP < 0x100) return codeEUCJP;
 	UChar codeH = static_cast<UChar>((codeEUCJP >> 8) & 0xff);

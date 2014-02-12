@@ -216,7 +216,6 @@
     <ClCompile Include="ClassCustom.cpp" />
     <ClCompile Include="ClassOfStruct.cpp" />
     <ClCompile Include="Codec.cpp" />
-    <ClCompile Include="CodecJapanese.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="Complex.cpp" />
@@ -254,6 +253,10 @@
     <ClCompile Include="SuffixMgr.cpp" />
     <ClCompile Include="Symbol.cpp" />
     <ClCompile Include="Template.cpp" />
+    <ClCompile Include="Unicode-CP932.cpp" />
+    <ClCompile Include="Unicode-CP936.cpp" />
+    <ClCompile Include="Unicode-CP949.cpp" />
+    <ClCompile Include="Unicode-CP950.cpp" />
     <ClCompile Include="Uri.cpp" />
     <ClCompile Include="Value.cpp" />
     <ClCompile Include="ValueType.cpp" />
@@ -262,8 +265,10 @@
     <ClCompile Include="..\module-sys\module-sys.cpp" />
     <ClCompile Include="..\module-base64\module-base64.cpp" />
     <ClCompile Include="..\module-codecs_basic\module-codecs_basic.cpp" />
+    <ClCompile Include="..\module-codecs_chinese\module-codecs_chinese.cpp" />
     <ClCompile Include="..\module-codecs_iso8859\module-codecs_iso8859.cpp" />
     <ClCompile Include="..\module-codecs_japanese\module-codecs_japanese.cpp" />
+    <ClCompile Include="..\module-codecs_korean\module-codecs_korean.cpp" />
     <ClCompile Include="..\module-fs\module-fs.cpp" />
     <ClCompile Include="..\module-math\module-math.cpp" />
     <ClCompile Include="..\module-os\module-os.cpp" />
