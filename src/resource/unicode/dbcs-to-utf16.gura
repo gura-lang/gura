@@ -1,22 +1,27 @@
 #!/usr/bin/env gura
 import(re)
-fileName = 'CP932.TXT'
+
+if (sys.argv.len() < 2) {
+	sys.stderr.println('usage: dbcs-to-utf16.gura CP932.TXT|CP936.TXT')
+	sys.exit(1)
+}
+fileName = sys.argv[1]
 pattern = re.pattern(r'^(0x\w+)\s+(0x\w+)')
-tblWhole = repeat(256):list { [] }
+tblWhole = dim(256, 0)
 for (m in pattern.match(open(fileName).readlines()).skipnil()) {
-	codeSJIS = tonumber(m.group(1))
-	codeSJIS_H = codeSJIS >> 8
-	codeSJIS_L = codeSJIS & 0xff
+	codeDBCS = tonumber(m.group(1))
+	codeDBCS_H = codeDBCS >> 8
+	codeDBCS_L = codeDBCS & 0xff
 	codeUTF16 = tonumber(m.group(2))
-	if (codeSJIS_H == 0) {
-		iCol = codeSJIS_L
-	} elsif (codeSJIS_L < 0x40) {
-		sys.stderr.printf('%04x is not a shift-jis code\n', codeSJIS)
+	if (codeDBCS_H == 0) {
+		iCol = codeDBCS_L
+	} elsif (codeDBCS_L < 0x40) {
+		sys.stderr.printf('%04x is not a valid DBCS code\n', codeDBCS)
 		sys.exit(1)
 	} else {
-		iCol = codeSJIS_L - 0x40
+		iCol = codeDBCS_L - 0x40
 	}
-	tblRow = tblWhole[codeSJIS_H]
+	tblRow = tblWhole[codeDBCS_H]
 	nCols = tblRow.len()
 	if (nCols <= iCol) {
 		repeat(iCol - nCols + 1) { tblRow.add(0x0000) }
@@ -24,7 +29,7 @@ for (m in pattern.match(open(fileName).readlines()).skipnil()) {
 	tblRow[iCol] = codeUTF16
 }
 for (tblRow in tblWhole) {|iRow|
-	if (tblRow.len() == 0) { continue() }
+	(tblRow.len() == 0) && continue
 	varName = format('_row_%02X', iRow)
 	printf('static const unsigned short %s[] = {\n', varName)
 	for (tblRowFolded in tblRow.fold(8)) {

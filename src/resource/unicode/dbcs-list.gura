@@ -1,7 +1,12 @@
 #!/usr/bin/env gura
 import(re)
 
-lines = open('CP932.TXT').readlines()
+if (sys.argv.len() < 2) {
+	sys.stderr.println('usage: dbcs-list.gura CP932.TXT|CP936.TXT')
+	sys.exit(1)
+}
+fileName = sys.argv[1]
+lines = readlines(fileName)
 open('result.txt', 'w') {|fout|
 	for (m in lines:*match(r'^(0x\w+)\s+(0x\w+)').skipnil()) {|i|
 		code = m.group(1).tonumber()
