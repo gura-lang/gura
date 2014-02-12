@@ -2347,7 +2347,7 @@ UShort CP950ToUTF16(UShort codeCP950)
 	int codeL = codeCP950 & 0xff;
 	const CodeRow &codeRow = _codeRows[codeH];
 	if (codeH == 0) {
-		return codeRow.row[codeL];
+		return (codeL < codeRow.nCols)? codeRow.row[codeL] : 0x0000;
 	} else if (codeL < 0x40) {
 		return 0x0000;
 	} else {

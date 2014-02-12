@@ -25,7 +25,7 @@ public:
 	class Decoder : public Codec_DBCS::Decoder {
 	public:
 		inline Decoder(bool delcrFlag) : Codec_DBCS::Decoder(delcrFlag) {}
-		virtual bool IsFirstChar(char ch);
+		virtual bool IsLeadByte(UChar ch);
 		virtual UShort DBCSToUTF16(UShort codeDBCS);
 	};
 	class Encoder : public Codec_DBCS::Encoder {

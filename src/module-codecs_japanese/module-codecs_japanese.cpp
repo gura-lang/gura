@@ -8,7 +8,7 @@ Gura_BeginModuleBody(codecs_japanese)
 //-----------------------------------------------------------------------------
 // Codec_CP932
 //-----------------------------------------------------------------------------
-bool Codec_CP932::Decoder::IsFirstChar(char ch)
+bool Codec_CP932::Decoder::IsLeadByte(UChar ch)
 {
 	return IsSJISFirst(ch);
 }

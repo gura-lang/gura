@@ -1227,7 +1227,7 @@ UShort CP932ToUTF16(UShort codeCP932)
 	int codeL = codeCP932 & 0xff;
 	const CodeRow &codeRow = _codeRows[codeH];
 	if (codeH == 0) {
-		return codeRow.row[codeL];
+		return (codeL < codeRow.nCols)? codeRow.row[codeL] : 0x0000;
 	} else if (codeL < 0x40) {
 		return 0x0000;
 	} else {

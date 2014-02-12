@@ -171,7 +171,7 @@ public:
 		inline Decoder(bool delcrFlag) :
 					Codec_UTF::Decoder(delcrFlag), _codeDBCS(0x0000) {}
 		virtual Result FeedChar(char ch, char &chConv);
-		virtual bool IsFirstChar(char ch);
+		virtual bool IsLeadByte(UChar ch);
 		virtual UShort DBCSToUTF16(UShort codeDBCS) = 0;
 	};
 	class Encoder : public Codec_UTF::Encoder {

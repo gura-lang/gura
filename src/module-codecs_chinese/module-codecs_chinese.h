@@ -16,6 +16,24 @@ public:
 	class Decoder : public Codec_DBCS::Decoder {
 	public:
 		inline Decoder(bool delcrFlag) : Codec_DBCS::Decoder(delcrFlag) {}
+		virtual bool IsLeadByte(UChar ch);
+		virtual UShort DBCSToUTF16(UShort codeDBCS);
+	};
+	class Encoder : public Codec_DBCS::Encoder {
+	public:
+		inline Encoder(bool addcrFlag) : Codec_DBCS::Encoder(addcrFlag) {}
+		virtual UShort UTF16ToDBCS(UShort codeUTF16);
+	};
+};
+
+//-----------------------------------------------------------------------------
+// Codec_CP950
+//-----------------------------------------------------------------------------
+class Codec_CP950 : public Codec_DBCS {
+public:
+	class Decoder : public Codec_DBCS::Decoder {
+	public:
+		inline Decoder(bool delcrFlag) : Codec_DBCS::Decoder(delcrFlag) {}
 		virtual UShort DBCSToUTF16(UShort codeDBCS);
 	};
 	class Encoder : public Codec_DBCS::Encoder {
