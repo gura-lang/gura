@@ -285,11 +285,16 @@ Codec::Result Codec_UTF::Encoder::FeedChar(char ch, char &chConv)
 //-----------------------------------------------------------------------------
 // Codec_DBCS
 //-----------------------------------------------------------------------------
+bool Codec_DBCS::Decoder::IsFirstChar(char ch)
+{
+	return (ch & 0x80) != 0;
+}
+
 Codec::Result Codec_DBCS::Decoder::FeedChar(char ch, char &chConv)
 {
 	ULong codeUTF32 = 0x00000000;
 	if (_codeDBCS == 0x0000) {
-		if (IsSJISFirst(ch)) {
+		if (IsFirstChar(ch)) {
 			_codeDBCS = static_cast<UChar>(ch);
 			return RESULT_None;
 		}

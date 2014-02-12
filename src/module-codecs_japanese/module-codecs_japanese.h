@@ -25,6 +25,7 @@ public:
 	class Decoder : public Codec_DBCS::Decoder {
 	public:
 		inline Decoder(bool delcrFlag) : Codec_DBCS::Decoder(delcrFlag) {}
+		virtual bool IsFirstChar(char ch);
 		virtual UShort DBCSToUTF16(UShort codeDBCS);
 	};
 	class Encoder : public Codec_DBCS::Encoder {
@@ -37,21 +38,17 @@ public:
 //-----------------------------------------------------------------------------
 // Codec_EUCJP
 //-----------------------------------------------------------------------------
-class Codec_EUCJP : public Codec_UTF {
+class Codec_EUCJP : public Codec_DBCS {
 public:
-	class Decoder : public Codec_UTF::Decoder {
-	private:
-		UShort _codeEUCJP;
+	class Decoder : public Codec_DBCS::Decoder {
 	public:
-		inline Decoder(bool delcrFlag) :
-					Codec_UTF::Decoder(delcrFlag), _codeEUCJP(0x0000) {}
-		virtual Result FeedChar(char ch, char &chConv);
+		inline Decoder(bool delcrFlag) : Codec_DBCS::Decoder(delcrFlag) {}
+		virtual UShort DBCSToUTF16(UShort codeDBCS);
 	};
-	class Encoder : public Codec_UTF::Encoder {
+	class Encoder : public Codec_DBCS::Encoder {
 	public:
-		inline Encoder(bool addcrFlag) :
-					Codec_UTF::Encoder(addcrFlag) {}
-		virtual Result FeedUTF32(ULong codeUTF32, char &chConv);
+		inline Encoder(bool addcrFlag) : Codec_DBCS::Encoder(addcrFlag) {}
+		virtual UShort UTF16ToDBCS(UShort codeUTF16);
 	};
 };
 

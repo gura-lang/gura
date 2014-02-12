@@ -8,6 +8,11 @@ Gura_BeginModuleBody(codecs_japanese)
 //-----------------------------------------------------------------------------
 // Codec_CP932
 //-----------------------------------------------------------------------------
+bool Codec_CP932::Decoder::IsFirstChar(char ch)
+{
+	return IsSJISFirst(ch);
+}
+
 UShort Codec_CP932::Decoder::DBCSToUTF16(UShort codeDBCS)
 {
 	return CP932ToUTF16(codeDBCS);
@@ -21,45 +26,16 @@ UShort Codec_CP932::Encoder::UTF16ToDBCS(UShort codeUTF16)
 //-----------------------------------------------------------------------------
 // Codec_EUCJP
 //-----------------------------------------------------------------------------
-Codec::Result Codec_EUCJP::Decoder::FeedChar(char ch, char &chConv)
+UShort Codec_EUCJP::Decoder::DBCSToUTF16(UShort codeDBCS)
 {
-	ULong codeUTF32 = 0x00000000;
-	if (_codeEUCJP == 0x0000) {
-		if (ch & 0x80) {
-			_codeEUCJP = static_cast<UChar>(ch);
-			return RESULT_None;
-		}
-		codeUTF32 = CP932ToUTF16(static_cast<UChar>(ch));
-	} else {
-		_codeEUCJP = (_codeEUCJP << 8) | static_cast<UChar>(ch);
-		UShort codeCP932 = EUCJPToCP932(_codeEUCJP);
-		codeUTF32 = CP932ToUTF16(codeCP932);
-		_codeEUCJP = 0x0000;
-	}
-	if (GetDelcrFlag() && codeUTF32 == '\r') return RESULT_None;
-	return FeedUTF32(codeUTF32, chConv);
+	UShort codeCP932 = EUCJPToCP932(codeDBCS);
+	return CP932ToUTF16(codeCP932);
 }
 
-Codec::Result Codec_EUCJP::Encoder::FeedUTF32(ULong codeUTF32, char &chConv)
+UShort Codec_EUCJP::Encoder::UTF16ToDBCS(UShort codeUTF16)
 {
-	UShort codeCP932 = UTF16ToCP932(static_cast<UShort>(codeUTF32));
-	UShort codeEUCJP = CP932ToEUCJP(codeCP932);
-	if (codeEUCJP == 0x0000) {
-		chConv = '\0';
-		return RESULT_Error;
-	} else if ((codeEUCJP & ~0xff) == 0) {
-		char ch = static_cast<char>(codeEUCJP & 0xff);
-		if (GetAddcrFlag() && ch == '\n') {
-			StoreChar('\n');
-			chConv = '\r';
-		} else {
-			chConv = ch;
-		}
-	} else {
-		StoreChar(static_cast<char>(codeEUCJP & 0xff));
-		chConv = static_cast<char>(codeEUCJP >> 8);
-	}
-	return RESULT_Complete;
+	UShort codeCP932 = UTF16ToCP932(codeUTF16);
+	return CP932ToEUCJP(codeCP932);
 }
 
 //-----------------------------------------------------------------------------
