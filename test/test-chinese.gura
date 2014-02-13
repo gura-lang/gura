@@ -1,8 +1,13 @@
 #!/usr/bin/env gura
 import(testutil) {*}
+import(hash)
 
-fs.chdir('test-chinese')
-
-open('a', 'w').addcr().print(readlines(open('list-cp936.txt', 'r', 'cp936')))
-//print(readlines(open('list-cp950.txt', 'r', 'cp950')
-//open('a', 'w').addcr().print(readlines(open('list-cp949.txt', 'r', 'euc-kr')))
+testcase('cp936, cp950 character set') {
+	tester(fileName, encoding) = {
+		buff = binary()
+		buff.writer().print(open(fileName, 'r', encoding).readtext())
+		printf('%s .. %s\n', path.filename(fileName), hash.md5(buff).hexdigest)
+	}
+	tester('test-chinese/chars-cp936.txt', 'cp936')
+	tester('test-chinese/chars-cp950.txt', 'cp950')
+}

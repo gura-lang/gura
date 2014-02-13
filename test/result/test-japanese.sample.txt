@@ -1,0 +1,3 @@
+======== #1 cp932 character set ========
+
+chars-cp932.txt .. 1f7321b75caf75a35f5747492467f539

@@ -1,2 +1,12 @@
 #!/usr/bin/env gura
 import(testutil) {*}
+import(hash)
+
+testcase('cp932 character set') {
+	tester(fileName, encoding) = {
+		buff = binary()
+		buff.writer().print(open(fileName, 'r', encoding).readtext())
+		printf('%s .. %s\n', path.filename(fileName), hash.md5(buff).hexdigest)
+	}
+	tester('test-japanese/chars-cp932.txt', 'cp932')
+}

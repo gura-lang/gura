@@ -1,0 +1,4 @@
+======== #1 cp936, cp950 character set ========
+
+chars-cp936.txt .. 2ac391f8b111a04e7fd22ce6a919072d
+chars-cp950.txt .. d4ad94c167add16cf638c52ac605f65b
