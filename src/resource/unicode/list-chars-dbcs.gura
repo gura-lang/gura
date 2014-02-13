@@ -1,0 +1,32 @@
+#!/usr/bin/env gura
+import(re)
+
+if (sys.argv.len() < 2) {
+	sys.stderr.println('usage: list-chars-dbcs.gura CP932.TXT|CP936.TXT|CP949.TXT|CP950.TXT')
+	sys.exit(1)
+}
+fileName = sys.argv[1]
+fileNameOut = 'chars-' + path.splitext(fileName)[0] + '.txt'
+codesExtract = readlines(fileName):*match(r'^(0x\w+)\s+(0x\w+)').skipnil():*group(1):*tonumber().sort()
+codesAll = dim(65536) { nil }
+codesAll[codesExtract] = codesExtract
+nCols = 32
+open(fileNameOut, 'w') {|fout|
+	codesAll.fold(nCols) {|codes, i|
+		!codes.or() && continue
+		fout.printf('%04X ', i * nCols)
+		codes.each {|code|
+			if (!code) {
+				fout.print('  ')
+			} elsif (code < 0x20) {
+				fout.printf('. ')
+			} elsif (code < 0x100) {
+				fout.printf('%c ', code)
+			} else {
+				fout.printf('%c%c', (code >> 8) & 0xff, code & 0xff)
+			}
+		}
+		fout.println()
+	}
+}
+sys.stderr.println(fileNameOut, ' was created')
