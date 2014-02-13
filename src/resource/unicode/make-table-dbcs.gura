@@ -37,13 +37,7 @@ for (tblRow in tblWhole) {|iRow|
 	}
 	printf('};\n')
 }
-print('''\
-struct CodeRow {
-	int nCols;
-	const UShort *row;
-};
-''')
-printf('static const CodeRow _codeRows[] = {\n');
+printf('static const Codec::CodeRow _codeRows[] = {\n');
 for (tblRow in tblWhole) {|iRow|
 	if (iRow % 4 == 0) { print('\t') }
 	varName = format('_row_%02X', iRow)

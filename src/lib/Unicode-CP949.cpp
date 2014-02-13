@@ -3207,11 +3207,7 @@ static const UShort _row_FD[] = {
 	0x5b09, 0x5e0c, 0x6199, 0x6198, 0x6231, 0x665e, 0x66e6, 0x7199,
 	0x71b9, 0x71ba, 0x72a7, 0x79a7, 0x7a00, 0x7fb2, 0x8a70,
 };
-struct CodeRow {
-	int nCols;
-	const UShort *row;
-};
-static const CodeRow _codeRows[] = {
+static const Codec::CodeRow _codeRows[] = {
 	{ 128,  _row_00 }, {   0,     NULL }, {   0,     NULL }, {   0,     NULL },
 	{   0,     NULL }, {   0,     NULL }, {   0,     NULL }, {   0,     NULL },
 	{   0,     NULL }, {   0,     NULL }, {   0,     NULL }, {   0,     NULL },
@@ -3280,49 +3276,13 @@ static const CodeRow _codeRows[] = {
 
 UShort CP949ToUTF16(UShort codeCP949)
 {
-	int codeH = (codeCP949 >> 8) & 0xff;
-	int codeL = codeCP949 & 0xff;
-	const CodeRow &codeRow = _codeRows[codeH];
-	if (codeH == 0) {
-		return (codeL < codeRow.nCols)? codeRow.row[codeL] : 0x0000;
-	} else if (codeL < 0x40) {
-		return 0x0000;
-	} else {
-		int iCol = codeL - 0x40;
-		return (iCol < codeRow.nCols)? codeRow.row[iCol] : 0x0000;
-	}
+	return Codec::DBCSToUTF16(_codeRows, ArraySizeOf(_codeRows), codeCP949);
 }
 
 UShort UTF16ToCP949(UShort codeUTF16)
 {
 	static Codec::Map *pMap = NULL;
-	if (pMap == NULL) {
-		pMap = new Codec::Map();
-		const CodeRow *pCodeRow = _codeRows;
-		for (int codeL = 0; codeL < pCodeRow->nCols; codeL++) {
-			UShort codeUTF16 = pCodeRow->row[codeL];
-			UShort codeCP949 = static_cast<UShort>(codeL);
-			if (pMap->find(codeUTF16) == pMap->end()) {
-				(*pMap)[codeUTF16] = codeCP949;
-			}
-		}
-		pCodeRow++;
-		for (int codeH = 1; codeH < ArraySizeOf(_codeRows); codeH++, pCodeRow++) {
-			UShort codeCP949Base = static_cast<UShort>(codeH << 8);
-			for (int iCol = 0; iCol < pCodeRow->nCols; iCol++) {
-				UShort codeUTF16 = pCodeRow->row[iCol];
-				if (codeUTF16 == 0x0000) continue;
-				UShort codeL = static_cast<UShort>(iCol + 0x40);
-				UShort codeCP949 = codeCP949Base + codeL;
-				//printf("%04x -> %04x\n", codeUTF16, codeCP949);
-				if (pMap->find(codeUTF16) == pMap->end()) {
-					(*pMap)[codeUTF16] = codeCP949;
-				}
-			}
-		}
-	}
-	Codec::Map::iterator iter = pMap->find(codeUTF16);
-	return (iter == pMap->end())? 0x0000 : iter->second;
+	return Codec::UTF16ToDBCS(_codeRows, ArraySizeOf(_codeRows), codeUTF16, &pMap);
 }
 
 }

@@ -50,6 +50,10 @@ public:
 		RESULT_Error,
 	};
 	typedef std::map<UShort, UShort> Map;
+	struct CodeRow {
+		int nCols;
+		const UShort *row;
+	};
 public:
 	class GURA_DLLDECLARE DecEncBase {
 	protected:
@@ -115,6 +119,8 @@ public:
 	static Codec *CreateCodecNone(bool delcrFlag, bool addcrFlag);
 	static Codec *CreateCodec(Signal sig, const char *encoding, bool delcrFlag, bool addcrFlag);
 	static void Initialize();
+	static UShort DBCSToUTF16(const CodeRow codeRows[], int nCodeRows, UShort codeDBCS);
+	static UShort UTF16ToDBCS(const CodeRow codeRows[], int nCodeRows, UShort codeUTF16, Map **ppMap);
 public:
 	static const char *EncodingFromLANG();
 };

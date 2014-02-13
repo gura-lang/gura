@@ -50,6 +50,55 @@ void Codec::Initialize()
 	CodecFactory::Register(_pFactory_None);
 }
 
+UShort Codec::DBCSToUTF16(const CodeRow codeRows[], int nCodeRows, UShort codeDBCS)
+{
+	int codeH = (codeDBCS >> 8) & 0xff;
+	int codeL = codeDBCS & 0xff;
+	if (codeH >= nCodeRows) return 0x0000;
+	const CodeRow &codeRow = codeRows[codeH];
+	if (codeH == 0) {
+		return (codeL < codeRow.nCols)? codeRow.row[codeL] : 0x0000;
+	} else if (codeL < 0x40) {
+		return 0x0000;
+	} else {
+		int iCol = codeL - 0x40;
+		return (iCol < codeRow.nCols)? codeRow.row[iCol] : 0x0000;
+	}
+}
+
+UShort Codec::UTF16ToDBCS(const CodeRow codeRows[], int nCodeRows, UShort codeUTF16, Map **ppMap)
+{
+	Map *pMap = *ppMap;
+	if (*ppMap == NULL) {
+		*ppMap = new Map();
+		pMap = *ppMap;
+		const CodeRow *pCodeRow = codeRows;
+		for (int codeL = 0; codeL < pCodeRow->nCols; codeL++) {
+			UShort codeUTF16 = pCodeRow->row[codeL];
+			UShort codeDBCS = static_cast<UShort>(codeL);
+			if (pMap->find(codeUTF16) == pMap->end()) {
+				(*pMap)[codeUTF16] = codeDBCS;
+			}
+		}
+		pCodeRow++;
+		for (int codeH = 1; codeH < nCodeRows; codeH++, pCodeRow++) {
+			UShort codeDBCSBase = static_cast<UShort>(codeH << 8);
+			for (int iCol = 0; iCol < pCodeRow->nCols; iCol++) {
+				UShort codeUTF16 = pCodeRow->row[iCol];
+				if (codeUTF16 == 0x0000) continue;
+				UShort codeL = static_cast<UShort>(iCol + 0x40);
+				UShort codeDBCS = codeDBCSBase + codeL;
+				//printf("%04x -> %04x\n", codeUTF16, codeDBCS);
+				if (pMap->find(codeUTF16) == pMap->end()) {
+					(*pMap)[codeUTF16] = codeDBCS;
+				}
+			}
+		}
+	}
+	Map::iterator iter = pMap->find(codeUTF16);
+	return (iter == pMap->end())? 0x0000 : iter->second;
+}
+
 //-----------------------------------------------------------------------------
 // Codec::DecEncBase
 //-----------------------------------------------------------------------------
