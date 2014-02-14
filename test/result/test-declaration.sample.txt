@@ -230,7 +230,7 @@ sys:module = <module:sys:<integrated>>
   exit(status?:number)
   ps1:string = >>> 
   ps2:string = ... 
-  version:string = 0.4.1
+  version:string = 0.4.2
 template(src?:stream:r):map:[lasteol,noindent] {block?}
 timedelta(days:number => 0, secs:number => 0, usecs:number => 0):map {block?}
 tonumber(value):map:[nil,raise,strict,zero]

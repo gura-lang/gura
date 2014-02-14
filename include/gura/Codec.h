@@ -166,6 +166,30 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// Codec_SBCS
+//-----------------------------------------------------------------------------
+class Codec_SBCS : public Codec_UTF {
+public:
+	class Decoder : public Codec_UTF::Decoder {
+	private:
+		const UShort *_codeTbl;
+	public:
+		inline Decoder(bool delcrFlag, const UShort *codeTbl) :
+						Codec_UTF::Decoder(delcrFlag), _codeTbl(codeTbl) {}
+		virtual Result FeedChar(char ch, char &chConv);
+	};
+	class Encoder : public Codec_UTF::Encoder {
+	private:
+		const UShort *_codeTbl;
+		Map *&_pMap;
+	public:
+		inline Encoder(bool addcrFlag, const UShort *codeTbl, Map *&pMap) :
+						Codec_UTF::Encoder(addcrFlag), _codeTbl(codeTbl), _pMap(pMap) {}
+		virtual Result FeedUTF32(ULong codeUTF32, char &chConv);
+	};
+};
+
+//-----------------------------------------------------------------------------
 // Codec_DBCS
 //-----------------------------------------------------------------------------
 class Codec_DBCS : public Codec_UTF {

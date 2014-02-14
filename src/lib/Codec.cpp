@@ -283,6 +283,32 @@ Codec::Result Codec_UTF::Encoder::FeedChar(char ch, char &chConv)
 }
 
 //-----------------------------------------------------------------------------
+// Codec_SBCS
+//-----------------------------------------------------------------------------
+Codec::Result Codec_SBCS::Decoder::FeedChar(char ch, char &chConv)
+{
+	chConv = static_cast<UChar>(_codeTbl[static_cast<UChar>(ch)]);
+	return (chConv == '\0')? RESULT_Error : RESULT_Complete;
+}
+
+Codec::Result Codec_SBCS::Encoder::FeedUTF32(ULong codeUTF32, char &chConv)
+{
+	if (_pMap == NULL) {
+		_pMap = new Map();
+		for (int codeSBCS = 0; codeSBCS < 256; codeSBCS++) {
+			UShort codeUTF16 = _codeTbl[codeSBCS];
+			if (_pMap->find(codeUTF16) == _pMap->end()) {
+				(*_pMap)[codeUTF16] = codeSBCS;
+			}
+		}
+	}
+	Map::iterator iter = _pMap->find(static_cast<UShort>(codeUTF32));
+	if (iter == _pMap->end()) return RESULT_Error;
+	chConv = static_cast<UChar>(iter->second);
+	return RESULT_Complete;
+}
+
+//-----------------------------------------------------------------------------
 // Codec_DBCS
 //-----------------------------------------------------------------------------
 bool Codec_DBCS::Decoder::IsLeadByte(UChar ch)
