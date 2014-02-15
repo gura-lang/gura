@@ -468,6 +468,7 @@ static void AppendCmdLine(String &cmdLine, const char *arg)
 // Windows API
 //=============================================================================
 const char FileSeparator = '\\';
+const bool IgnoreCaseInPathNameFlag = true;
 
 int ExecProgram(Environment &env, Signal sig, const char *pathName,
 		const ValueList &valList, Stream *pStreamStdout, Stream *pStreamStderr,
@@ -1108,6 +1109,7 @@ void Event::Notify()
 // POSIX
 //=============================================================================
 const char FileSeparator = '/';
+const bool IgnoreCaseInPathNameFlag = false;
 
 int ExecProgram(Environment &env, Signal sig, const char *pathName,
 		const ValueList &valList, Stream *pStreamStdout, Stream *pStreamStderr,

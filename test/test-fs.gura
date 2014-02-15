@@ -35,8 +35,7 @@ testcase {
 	try { fs.rmdir('dirbase'):tree } catch {}
 }
 testcase {
-	tester(`path.match('foo*', ['foo', 'FOObar', 'bar']))
-	tester(`path.match('foo*', ['foo', 'FOObar', 'bar']):icase)
+	tester(`path.match('foo*', ['foo', 'foobar', 'bar']))
 }
 /*
 testcase {

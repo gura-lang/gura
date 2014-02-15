@@ -7,7 +7,7 @@ if (sys.argv.len() < 2) {
 		tonumber(fileName2.match(r'-(\d+)\.TXT').group(1))
 	})
 } else {
-	fileNames = path.glob(sys.argv[1..]):list:flat
+	fileNames = path.glob(sys.argv[1..]):list
 }
 codeNames = for (fileName in fileNames):list {
 	baseName = path.splitext(fileName)[0].replace('-', '_')

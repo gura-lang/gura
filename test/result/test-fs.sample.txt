@@ -92,5 +92,4 @@ dirbase/dir-6/
 
 ======== #2 ========
 
-path.match('foo*', ['foo', 'FOObar', 'bar']) .. [true, false, false]
-path.match('foo*', ['foo', 'FOObar', 'bar']):icase .. [true, true, false]
+path.match('foo*', ['foo', 'foobar', 'bar']) .. [true, true, false]

@@ -189,18 +189,18 @@ path:module = <module:path:<integrated>>
   absname(name:string):map:[uri]
   bottom(pathname:string):map
   cutbottom(pathname:string):map
-  dir(directory?:directory, pattern*:string):map:flat:[dir,file,icase,stat] {block?}
+  dir(directory?:directory, pattern*:string):map:flat:[dir,file,stat] {block?}
   dirname(pathname:string):map
   exists(pathname:string):map
   filename(pathname:string):map
-  glob(pattern:string):map:flat:[dir,file,icase,stat] {block?}
+  glob(pattern:string):map:flat:[dir,file,stat] {block?}
   join(paths+:string):map:[uri]
-  match(pattern:string, name:string):map:[icase]
+  match(pattern:string, name:string):map
   regulate(name:string):map:[uri]
   split(pathname:string):map:[bottom]
   splitext(pathname:string):map
   stat(directory:directory):map
-  walk(directory?:directory, maxdepth?:number, pattern*:string):map:flat:[dir,file,icase,stat] {block?}
+  walk(directory?:directory, maxdepth?:number, pattern*:string):map:flat:[dir,file,stat] {block?}
 print(values*):map:void
 printf(format:string, values*):map:void
 println(values*):map:void
