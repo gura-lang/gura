@@ -44,6 +44,7 @@ Gura_ModuleEntry()
 {
 	CodecFactory::Register(new CodecFactoryTmpl<Codec_CP936>("cp936"));
 	CodecFactory::Register(new CodecFactoryTmpl<Codec_CP936>("gb2312"));
+	CodecFactory::Register(new CodecFactoryTmpl<Codec_CP936>("gbk"));
 	CodecFactory::Register(new CodecFactoryTmpl<Codec_CP950>("cp950"));
 	CodecFactory::Register(new CodecFactoryTmpl<Codec_CP950>("big5"));
 }
