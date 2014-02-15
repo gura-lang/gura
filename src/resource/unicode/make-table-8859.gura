@@ -16,35 +16,44 @@ for (fileName in fileNames) {
 	index = fileName.match(r'-(\d+)\.TXT').group(1)
 	varName = '_codeTbl_ISO8859_' + index
 	println()
-	println('//-----------------------------------------------------------------------------')
-	printf('// ISO8859-%s\n', index)
-	println('//-----------------------------------------------------------------------------')
-	printf('static const unsigned short %s[] = {\n', varName)
-	for (tblFolded in tbl.fold(8)) {
-		print('\t', format('0x%04x', tblFolded).join(', '), ',\n')
-	}
-	printf('};\n')
-	println()
-	printf('static Codec::Map *_pMap_ISO8859_%s = NULL;\n', index);
-	println()
-	printf('Codec_Encoder_ISO8859_%s::Codec_Encoder_ISO8859_%s(bool processEOLFlag) :\n', index, index)
-	printf('\tCodec_Encoder_ISO8859(processEOLFlag, %s, _pMap_ISO8859_%s) {}\n', varName, index)
-	printf('Codec_Decoder_ISO8859_%s::Codec_Decoder_ISO8859_%s(bool processEOLFlag) :\n', index, index)
-	printf('\tCodec_Decoder_ISO8859(processEOLFlag, %s) {}\n', varName)
+	R'''
+	//-----------------------------------------------------------------------------
+	// Codec_ISO8859_${index}
+	//-----------------------------------------------------------------------------
+	static const unsigned short ${varName}[] = {
+	${for (tblFolded in tbl.fold(8))}
+		${format('0x%04x', tblFolded).join(', ') + ','}
+	${end}
+	};
+	
+	Codec::Map *Codec_ISO8859_${index}::Encoder::_pMapShared = NULL;
+
+	Codec_ISO8859_${index}::Decoder::Decoder(bool delcrFlag) :
+		Codec_SBCS::Decoder(delcrFlag, _codeTbl_ISO8859_${index}) {}
+
+	Codec_ISO8859_${index}::Encoder::Encoder(bool addcrFlag) :
+		Codec_SBCS::Encoder(addcrFlag, _codeTbl_ISO8859_${index}, _pMapShared) {}
+	'''.template().render(sys.stdout)
 }
 for (fileName in fileNames) {
 	index = fileName.match(r'-(\d+)\.TXT').group(1)
 	println()
-	println('//-----------------------------------------------------------------------------')
-	printf('// ISO8859-%s\n', index)
-	println('//-----------------------------------------------------------------------------')
-	printf('class Codec_Encoder_ISO8859_%s : public Codec_Encoder_ISO8859 {\n', index)
-	printf('public:\n')
-	printf('\tCodec_Encoder_ISO8859_%s(bool processEOLFlag);\n', index)
-	printf('};\n')
-	println()
-	printf('class Codec_Decoder_ISO8859_%s : public Codec_Decoder_ISO8859 {\n', index)
-	printf('public:\n')
-	printf('\tCodec_Decoder_ISO8859_%s(bool processEOLFlag);\n', index)
-	printf('};\n')
+	R'''
+	//-----------------------------------------------------------------------------
+	// Codec_ISO8859_${index}
+	//-----------------------------------------------------------------------------
+	class Codec_ISO8859_${index} : public Codec_SBCS {
+	public:
+		class Decoder : public Codec_SBCS::Decoder {
+		public:
+			Decoder(bool delcrFlag);
+		};
+		class Encoder : public Codec_SBCS::Encoder {
+		private:
+			static Map *_pMapShared;
+		public:
+			Encoder(bool addcrFlag);
+		};
+	};
+	'''.template().render(sys.stdout)
 }
