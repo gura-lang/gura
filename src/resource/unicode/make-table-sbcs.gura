@@ -1,0 +1,67 @@
+#!/usr/bin/env gura
+import(re)
+
+if (sys.argv.len() < 2) {
+	fileNames = (path.glob('8859-*.TXT'):list).sort(function(fileName1, fileName2) {
+		tonumber(fileName1.match(r'-(\d+)\.TXT').group(1)) <=> \
+		tonumber(fileName2.match(r'-(\d+)\.TXT').group(1))
+	})
+} else {
+	fileNames = path.glob(sys.argv[1..]):list:flat
+}
+codeNames = for (fileName in fileNames):list {
+	baseName = path.splitext(fileName)[0].replace('-', '_')
+	if (baseName.startswith('8859')) {
+		codeName = 'ISO' + baseName
+	} else {
+		codeName = baseName
+	}
+	tbl = consts(0x0000, 256):list
+	pattern = re.pattern(r'^(0x\w+)\s+(0x\w+)')
+	for (m in pattern.match(open(fileName).readlines()).skipnil()) {
+		codeSBCS = tonumber(m.group(1))
+		codeUTF16 = tonumber(m.group(2))
+		tbl[codeSBCS] = codeUTF16
+	}
+	println()
+	R'''
+	//-----------------------------------------------------------------------------
+	// Codec_${codeName}
+	//-----------------------------------------------------------------------------
+	static const unsigned short _codeTbl_${codeName}[] = {
+	${for (tblFolded in tbl.fold(8))}
+		${format('0x%04x', tblFolded).join(', ') + ','}
+	${end}
+	};
+	
+	Codec::Map *Codec_${codeName}::Encoder::_pMapShared = NULL;
+	
+	Codec_${codeName}::Decoder::Decoder(bool delcrFlag) :
+		Codec_SBCS::Decoder(delcrFlag, _codeTbl_${codeName}) {}
+	
+	Codec_${codeName}::Encoder::Encoder(bool addcrFlag) :
+		Codec_SBCS::Encoder(addcrFlag, _codeTbl_${codeName}, _pMapShared) {}
+	'''.template().render(sys.stdout)
+	codeName
+}
+for (codeName in codeNames) {
+	println()
+	R'''
+	//-----------------------------------------------------------------------------
+	// Codec_${codeName}
+	//-----------------------------------------------------------------------------
+	class Codec_${codeName} : public Codec_SBCS {
+	public:
+		class Decoder : public Codec_SBCS::Decoder {
+		public:
+			Decoder(bool delcrFlag);
+		};
+		class Encoder : public Codec_SBCS::Encoder {
+		private:
+			static Map *_pMapShared;
+		public:
+			Encoder(bool addcrFlag);
+		};
+	};
+	'''.template().render(sys.stdout)
+}
