@@ -30,8 +30,9 @@ public:
 // Parser
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Parser {
-public:
+private:
 	enum Stat {
+		STAT_BOF, STAT_BOF_2nd, STAT_BOF_3rd,
 		STAT_Start,
 		STAT_DoubleChars, STAT_TripleChars, STAT_Escape,
 		STAT_Colon,
@@ -52,6 +53,7 @@ public:
 		STAT_MStringEndFirst, STAT_MStringEndSecond,
 		STAT_StringPost, STAT_StringSuffixed,
 	};
+public:
 	enum Precedence {
 		PREC_LT,
 		PREC_EQ,

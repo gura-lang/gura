@@ -34,6 +34,7 @@ codecs:module = <module:codecs:<integrated>>
     __name__:string = chinese
     __source__:string = <integrated>
     __symbol__:symbol = chinese
+  dir()
   iso8859:module = <module:iso8859:<integrated>>
     __name__:string = iso8859
     __source__:string = <integrated>
@@ -280,7 +281,6 @@ codec
   bom_utf8:binary = <binary:R:3byte:'\xef\xbb\xbf'>
   decode(buff:binary):map
   delcr(flag?:boolean):reduce
-  dir():static
   encode(string:string):map
 color
   aqua:color = <color:#00ffff,a:ff>

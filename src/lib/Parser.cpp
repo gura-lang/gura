@@ -11,7 +11,7 @@ namespace Gura {
 // Parser
 //-----------------------------------------------------------------------------
 Parser::Parser(const String &sourceName, int cntLineStart) :
-		_stat(STAT_Start), _lineHeadFlag(true),
+		_stat(STAT_BOF), _lineHeadFlag(true),
 		_appearShebangFlag(false), _blockParamFlag(false),
 		_pSourceName(new StringRef(sourceName)),
 		_cntLine(cntLineStart), _cntCol(0), _commentNestLevel(0)
@@ -29,7 +29,7 @@ Parser::~Parser()
 
 void Parser::Reset()
 {
-	_stat = STAT_Start;
+	_stat = STAT_BOF;
 	_lineHeadFlag = true;
 	InitStack();
 }
@@ -55,6 +55,36 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 	do {
 	continueFlag = false;
 	switch (_stat) {
+	case STAT_BOF: {
+		if (ch == '\xef') {
+			_token.clear();
+			_token.push_back(ch);
+			_stat = STAT_BOF_2nd;
+		} else {
+			continueFlag = true;
+			_stat = STAT_Start;
+		}
+		break;
+	}
+	case STAT_BOF_2nd: {
+		if (ch == '\xbb') {
+			_token.push_back(ch);
+			_stat = STAT_BOF_3rd;
+		} else {
+			continueFlag = true;
+			_stat = STAT_Symbol;
+		}
+		break;
+	}
+	case STAT_BOF_3rd: {
+		if (ch == '\xbf') {
+			_stat = STAT_Start;
+		} else {
+			continueFlag = true;
+			_stat = STAT_Symbol;
+		}
+		break;
+	}
 	case STAT_Start: {
 		if (ch == '0') {
 			_token.clear();
@@ -233,8 +263,8 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			SetError(sig, ERR_SyntaxError, "unmatching comment description");
 			_stat = STAT_Error;
 		} else {
-			_stat = STAT_Start;
 			continueFlag = true;
+			_stat = STAT_Start;
 			for (int i = 0; i < ArraySizeOf(tbl); i++) {
 				if (tbl[i].chFirst != chFirst) continue;
 				ElemType elemType = tbl[i].elemType;
@@ -283,8 +313,8 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 				{ '=', ETYPE_AssignShr		},
 				{ '\0', ETYPE_Unknown		}, } },
 		};
-		_stat = STAT_Start;
 		continueFlag = true;
+		_stat = STAT_Start;
 		for (int i = 0; i < ArraySizeOf(tbl); i++) {
 			if (_token.compare(tbl[i].strFirst) != 0) continue;
 			ElemType elemType = tbl[i].elemType;

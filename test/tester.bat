@@ -5,6 +5,7 @@ set cases=%cases% application
 rem set cases=%cases% audio
 set cases=%cases% binary
 set cases=%cases% block
+set cases=%cases% bom
 set cases=%cases% gzip-bzip2
 rem set cases=%cases% canvas
 set cases=%cases% chinese

@@ -1,0 +1,2 @@
+﻿import(testutil) {*}
+println('This script file contains a BOM at the top.')
