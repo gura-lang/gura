@@ -207,7 +207,7 @@ bool Stream_File::OpenStdin()
 	_hFile = ::GetStdHandle(STD_INPUT_HANDLE);
 	if (_hFile != INVALID_HANDLE_VALUE) {
 		_fileName = "stdin", SetReadable(true), SetWritable(false);
-		SetCodec(Codec::CreateCodec(_sig, OAL::EncodingForConsole(), true, true));
+		SetCodec(Codec::CreateCodec(_sig, OAL::GetEncodingForConsole(), true, true));
 	}
 	return true;
 }
@@ -218,7 +218,7 @@ bool Stream_File::OpenStdout()
 	_hFile = ::GetStdHandle(STD_OUTPUT_HANDLE);
 	if (_hFile != INVALID_HANDLE_VALUE) {
 		_fileName = "stdout", SetReadable(false), SetWritable(true);
-		SetCodec(Codec::CreateCodec(_sig, OAL::EncodingForConsole(), true, true));
+		SetCodec(Codec::CreateCodec(_sig, OAL::GetEncodingForConsole(), true, true));
 	}
 	return true;
 }
@@ -229,7 +229,7 @@ bool Stream_File::OpenStderr()
 	_hFile = ::GetStdHandle(STD_ERROR_HANDLE);
 	if (_hFile != INVALID_HANDLE_VALUE) {
 		_fileName = "stderr", SetReadable(false), SetWritable(true);
-		SetCodec(Codec::CreateCodec(_sig, OAL::EncodingForConsole(), true, true));
+		SetCodec(Codec::CreateCodec(_sig, OAL::GetEncodingForConsole(), true, true));
 	}
 	return true;
 }
@@ -381,7 +381,7 @@ bool Stream_File::OpenStdin()
 {
 	_fp = stdin;
 	_fileName = "stdin", SetReadable(true), SetWritable(false);
-	SetCodec(Codec::CreateCodec(_sig, OAL::EncodingForConsole(), true, false));
+	SetCodec(Codec::CreateCodec(_sig, OAL::GetEncodingForConsole(), true, false));
 	return true;
 }
 
@@ -389,7 +389,7 @@ bool Stream_File::OpenStdout()
 {
 	_fp = stdout;
 	_fileName = "stdout", SetReadable(false), SetWritable(true);
-	SetCodec(Codec::CreateCodec(_sig, OAL::EncodingForConsole(), true, false));
+	SetCodec(Codec::CreateCodec(_sig, OAL::GetEncodingForConsole(), true, false));
 	return true;
 }
 
@@ -397,7 +397,7 @@ bool Stream_File::OpenStderr()
 {
 	_fp = stderr;
 	_fileName = "stderr", SetReadable(false), SetWritable(true);
-	SetCodec(Codec::CreateCodec(_sig, OAL::EncodingForConsole(), true, false));
+	SetCodec(Codec::CreateCodec(_sig, OAL::GetEncodingForConsole(), true, false));
 	return true;
 }
 

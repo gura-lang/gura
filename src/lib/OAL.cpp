@@ -388,7 +388,7 @@ bool RemoveDirTree(const char *dirName)
 
 #if defined(GURA_ON_MSWIN)
 
-const char *EncodingForConsole()
+const char *GetEncodingForConsole()
 {
 	UINT codePage = ::GetConsoleOutputCP();
 	return
@@ -405,7 +405,7 @@ const char *EncodingForConsole()
 
 #else
 
-const char *EncodingForConsole()
+const char *GetEncodingForConsole()
 {
 	const char *encodingDefault = "utf-8";
 	struct AssocInfo {
