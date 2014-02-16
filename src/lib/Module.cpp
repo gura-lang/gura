@@ -72,29 +72,28 @@ void Module::DirValueType(SymbolSet &symbols) const
 
 bool Module::ImportBuiltIns(Environment &env, Signal sig)
 {
+	Module *pModule = NULL;
 	do { // import(basement) {*}
 		Gura_Module(basement)::MixIn(env, sig);
 		if (sig.IsSignalled()) return false;
 	} while (0);
-	do { // import(sys) .. this module must be imported just after basement
-		Module *pModule = Gura_Module(sys)::Import(env, sig);
-		if (sig.IsSignalled()) return false;
-		env.GetGlobal()->SetModule_sys(pModule);
-	} while (0);
+	// import(sys) .. this module must be imported just after basement
+	if ((pModule = Gura_Module(sys)::Import(env, sig)) == NULL) return false;
+	env.GetGlobal()->SetModule_sys(pModule);
+	// import(codecs)
+	if ((pModule = Gura_Module(codecs)::Import(env, sig)) == NULL) return false;
 	do {
-		Module *pModule = new Module(&env, Gura_Symbol(codecs),
-											"<integrated>", NULL, NULL);
-		env.AssignModule(pModule);
+		Environment &env = *pModule;
 		// import(codecs.basic)
-		if (Gura_Module(codecs_basic)::Import(*pModule, sig) == NULL) return false;
+		if (Gura_Module(codecs_basic)::Import(env, sig) == NULL) return false;
 		// import(codecs.chinese)
-		if (Gura_Module(codecs_chinese)::Import(*pModule, sig) == NULL) return false;
+		if (Gura_Module(codecs_chinese)::Import(env, sig) == NULL) return false;
 		// import(codecs.iso8859)
-		if (Gura_Module(codecs_iso8859)::Import(*pModule, sig) == NULL) return false;
+		if (Gura_Module(codecs_iso8859)::Import(env, sig) == NULL) return false;
 		// import(codecs.japanese)
-		if (Gura_Module(codecs_japanese)::Import(*pModule, sig) == NULL) return false;
+		if (Gura_Module(codecs_japanese)::Import(env, sig) == NULL) return false;
 		// import(codecs.korean)
-		if (Gura_Module(codecs_korean)::Import(*pModule, sig) == NULL) return false;
+		if (Gura_Module(codecs_korean)::Import(env, sig) == NULL) return false;
 	} while (0);
 	// import(base64)
 	if (Gura_Module(base64)::Import(env, sig) == NULL) return false;

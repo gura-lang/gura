@@ -5,6 +5,7 @@
 #include "../module-basement/stdafx.h"
 #include "../module-sys/stdafx.h"
 #include "../module-base64/stdafx.h"
+#include "../module-codecs/stdafx.h"
 #include "../module-codecs_basic/stdafx.h"
 #include "../module-codecs_chinese/stdafx.h"
 #include "../module-codecs_iso8859/stdafx.h"

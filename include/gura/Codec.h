@@ -26,7 +26,7 @@ public:
 	virtual Codec *CreateCodec(bool delcrFlag, bool addcrFlag) = 0;
 	static void Register(CodecFactory *pFactory);
 	static CodecFactory *Lookup(const char *name);
-	static inline const List &GetList() { return *_pList; }
+	static inline const List *GetList() { return _pList; }
 };
 
 template<typename T>

@@ -55,25 +55,6 @@ Gura_ImplementFunction(codec)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// codec.dir()
-Gura_DeclareClassMethod(codec, dir)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a list of character codecs that are registered.");
-}
-
-Gura_ImplementClassMethod(codec, dir)
-{
-	Value result;
-	ValueList &valList = result.InitAsList(env);
-	foreach_const (CodecFactory::List, ppCodecFactory, CodecFactory::GetList()) {
-		const CodecFactory *pCodecFactory = *ppCodecFactory;
-		valList.push_back(Value(pCodecFactory->GetEncoding()));
-	}
-	return result;
-}
-
 // codec#addcr(flag?:boolean):reduce
 Gura_DeclareMethod(codec, addcr)
 {
@@ -150,7 +131,6 @@ Class_codec::Class_codec(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_codec)
 void Class_codec::Prepare(Environment &env)
 {
 	Gura_AssignFunction(codec);
-	Gura_AssignMethod(codec, dir);
 	Gura_AssignMethod(codec, addcr);
 	Gura_AssignMethod(codec, delcr);
 	Gura_AssignMethod(codec, encode);
