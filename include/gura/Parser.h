@@ -252,12 +252,10 @@ public:
 	}
 	void EvalConsoleChar(Environment &env, Signal sig, Expr_Root *pExprRoot, Stream *pConsole, char ch);
 	inline bool IsStackEmpty() const { return _elemStack.size() <= 1; }
-	inline bool IsContinued() const { return !IsStackEmpty() || _stat != STAT_Start; }
+	inline bool IsContinued() const { return !IsStackEmpty() || !(_stat == STAT_Start || _stat == STAT_BOF); }
 	inline int GetLineNo() const { return _cntLine + 1; }
 	inline int GetColPos() const { return _cntCol; }
-	inline int ElemTypeToIndex(ElemType elemType) {
-		return _elemTypeToIndexMap[elemType];
-	}
+	inline int ElemTypeToIndex(ElemType elemType) { return _elemTypeToIndexMap[elemType]; }
 	static const ElemTypeInfo *LookupElemTypeInfo(ElemType elemType);
 	static const ElemTypeInfo *LookupElemTypeInfoByOpType(OpType opType);
 	static Precedence LookupPrec(ElemType elemTypeLeft, ElemType elemTypeRight);

@@ -390,12 +390,17 @@ bool RemoveDirTree(const char *dirName)
 
 const char *EncodingForConsole()
 {
-	UINT codePage = ::GetACP();
+	UINT codePage = ::GetConsoleOutputCP();
 	return
-		(codePage == 932)? "cp932" :
-		(codePage == 936)? "cp936" :
-		(codePage == 949)? "cp949" :
-		(codePage == 950)? "cp950" : "cp932";
+		(codePage == 1252)?		"iso-8859-1" :
+		(codePage == 28592)?	"iso-8859-2" :
+		(codePage == 1255)?		"iso-8859-8" :
+		(codePage == 932)?		"shift_jis" :
+		(codePage == 936)?		"gbk" :
+		(codePage == 949)?		"euc-kr" :
+		(codePage == 950)?		"big5" :
+		(codePage == 65001)?	"utf-8" :
+		"iso-8859-1";
 }
 
 #else
@@ -420,10 +425,13 @@ const char *EncodingForConsole()
 	}
 	if (langRight.empty()) {
 		static const AssocInfo assocInfoTbl[] = {
-			{ "C",		"us-ascii" },
-			{ "en_US",	"us-ascii" },
-			{ "ja",	 	"euc-jp" },
-			{ "ja_JP",	"euc-jp" },
+			{ "C",		"us-ascii"	},
+			{ "en_US",	"us-ascii"	},
+			{ "ja",	 	"euc-jp"	},
+			{ "ja_JP",	"euc-jp"	},
+			{ "zh_CN",	"gbk"		},	// CP936
+			{ "ko_KR",	"euc-kr"	},	// CP949
+			{ "zh_TW",	"big5"		},	// CP950
 		};
 		for (int i = 0; i < ArraySizeOf(assocInfoTbl); i++) {
 			if (::strcasecmp(langLeft.c_str(), assocInfoTbl[i].key) == 0) {
@@ -432,13 +440,16 @@ const char *EncodingForConsole()
 		}
 	} else {
 		static const AssocInfo assocInfoTbl[] = {
-			{ "eucJP",	"euc-jp" },
-			{ "ujis",	"euc-jp" },
-			{ "utf-8",	"utf-8" },
-			{ "utf8",	"utf-8" },
-			{ "utf-16",	"utf-16" },
-			{ "utf16",	"utf-16" },
-			{ "SJIS",	"shift_jis" },
+			{ "eucJP",	"euc-jp"	},
+			{ "ujis",	"euc-jp"	},
+			{ "utf-8",	"utf-8"		},
+			{ "utf8",	"utf-8"		},
+			{ "utf-16",	"utf-16"	},
+			{ "utf16",	"utf-16"	},
+			{ "SJIS",	"shift_jis"	},	// CP932
+			{ "gbk",	"gbk"		},	// CP936
+			{ "eucKR",	"euc-kr"	},	// CP949
+			{ "big5",	"big5"		},	// CP950
 		};
 		for (int i = 0; i < ArraySizeOf(assocInfoTbl); i++) {
 			if (::strcasecmp(langRight.c_str(), assocInfoTbl[i].key) == 0) {
