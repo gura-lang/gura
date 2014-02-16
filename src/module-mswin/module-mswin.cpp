@@ -1046,6 +1046,7 @@ Gura_ModuleEntry()
 	} while (0);
 	// function assignment
 	Gura_AssignFunction(ole);
+	return true;
 }
 
 Gura_ModuleTerminate()

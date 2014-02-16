@@ -608,6 +608,7 @@ Gura_ModuleEntry()
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
 	} while (0);
+	return true;
 }
 
 Gura_ModuleTerminate()

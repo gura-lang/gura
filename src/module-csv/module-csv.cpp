@@ -232,6 +232,7 @@ Gura_ModuleEntry()
 	Gura_AssignMethodTo(VTYPE_stream, stream, csvwriter);
 	// value assignment
 	Gura_AssignValue(format, Value(DEFAULT_FORMAT));
+	return true;
 }
 
 Gura_ModuleTerminate()

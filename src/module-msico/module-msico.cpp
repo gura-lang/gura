@@ -276,6 +276,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(content);
 	// image streamer registration
 	ImageStreamer::Register(new ImageStreamer_ICO());
+	return true;
 }
 
 Gura_ModuleTerminate()

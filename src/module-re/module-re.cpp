@@ -807,6 +807,7 @@ Gura_ModuleEntry()
 	Gura_AssignMethodTo(VTYPE_string, string, scan);
 	Gura_AssignMethodTo(VTYPE_list, list, grep);
 	Gura_AssignMethodTo(VTYPE_iterator, iterator, grep);
+	return true;
 }
 
 Gura_ModuleTerminate()

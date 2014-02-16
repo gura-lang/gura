@@ -1319,6 +1319,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(gluNewQuadric);
 	Gura_AssignFunction(gluNewTess);
 	Gura_AssignFunction(gluNewNurbsRenderer);
+	return true;
 }
 
 Gura_ModuleTerminate()

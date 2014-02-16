@@ -2635,6 +2635,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(client);
 	// registration of directory factory
 	PathMgr::Register(env, new PathMgr_Http());
+	return true;
 }
 
 Gura_ModuleTerminate()

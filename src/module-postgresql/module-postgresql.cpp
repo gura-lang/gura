@@ -195,6 +195,7 @@ Gura_ModuleEntry()
 	// function assignment
 	Gura_AssignFunction(connect);
 	Gura_AssignFunction(test);
+	return true;
 }
 
 Gura_ModuleTerminate()

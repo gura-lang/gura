@@ -53,6 +53,7 @@ Gura_ModuleEntry()
 	Gura_AssignMethodTo(VTYPE_image, image, ppmread);
 	Gura_AssignMethodTo(VTYPE_image, image, ppmwrite);
 	ImageStreamer::Register(new ImageStreamer_PPM());
+	return true;
 }
 
 Gura_ModuleTerminate()

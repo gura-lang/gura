@@ -154,6 +154,7 @@ Gura_ModuleEntry()
 	// function assignment
 	Gura_AssignFunction(test);
 	Gura_AssignFunction(fibonacci);
+	return true;
 }
 
 Gura_ModuleTerminate()

@@ -317,6 +317,7 @@ Gura_ModuleEntry()
 {
 	ModuleEntrySub(env, sig);
 	Gura_AssignMethodTo(VTYPE_image, image, opengl);
+	return true;
 }
 
 Gura_ModuleTerminate()

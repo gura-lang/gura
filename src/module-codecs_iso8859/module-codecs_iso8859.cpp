@@ -716,6 +716,7 @@ Gura_ModuleEntry()
 	CodecFactory::Register(new CodecFactoryTmpl<Codec_ISO8859_14>("iso-8859-14"));
 	CodecFactory::Register(new CodecFactoryTmpl<Codec_ISO8859_15>("iso-8859-15"));
 	CodecFactory::Register(new CodecFactoryTmpl<Codec_ISO8859_16>("iso-8859-16"));
+	return true;
 }
 
 Gura_ModuleTerminate()

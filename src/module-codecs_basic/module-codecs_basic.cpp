@@ -98,6 +98,7 @@ Gura_ModuleEntry()
 	CodecFactory::Register(new CodecFactoryTmpl<Codec_UTF16<8, 0> >("utf-16"));
 	CodecFactory::Register(new CodecFactoryTmpl<Codec_UTF16<0, 8> >("utf-16le"));
 	CodecFactory::Register(new CodecFactoryTmpl<Codec_UTF16<8, 0> >("utf-16be"));
+	return true;
 }
 
 Gura_ModuleTerminate()

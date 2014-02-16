@@ -85,6 +85,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(write);
 	Gura_AssignFunction(parse);
 	Gura_AssignFunction(compose);
+	return true;
 }
 
 Gura_ModuleTerminate()

@@ -2372,6 +2372,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(soundfont);
 	Gura_AssignValue(synthesizer,	Value(Gura_UserClass(synthesizer)));
 	Gura_AssignFunction(test);
+	return true;
 }
 
 Gura_ModuleTerminate()

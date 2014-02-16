@@ -581,6 +581,7 @@ Gura_ModuleEntry()
 	Gura_AssignValueOf(K_PAGEUP);
 	Gura_AssignValueOf(K_PAGEDOWN);
 	Gura_AssignValueOf(K_DELETE);
+	return true;
 }
 
 Gura_ModuleTerminate()

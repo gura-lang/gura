@@ -60,6 +60,7 @@ Gura_ModuleEntry()
 #endif
 	// function assignment
 	Gura_AssignFunction(test);
+	return true;
 }
 
 Gura_ModuleTerminate()

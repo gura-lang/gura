@@ -2874,6 +2874,7 @@ _MS(PrepareClass(ThreadHelper));
 		Gura_AssignWxValue(PROPSHEET_TREEBOOK);
 		Gura_AssignWxValue(PROPSHEET_SHRINKTOFIT);
 	} while (0);
+	return true;
 }
 
 void InitializeObjects(Environment &env)

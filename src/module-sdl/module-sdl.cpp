@@ -4712,6 +4712,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(BUTTON);
 	// test function
 	Gura_AssignFunction(test);
+	return true;
 }
 
 Gura_ModuleTerminate()

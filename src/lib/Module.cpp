@@ -73,10 +73,8 @@ void Module::DirValueType(SymbolSet &symbols) const
 bool Module::ImportBuiltIns(Environment &env, Signal sig)
 {
 	Module *pModule = NULL;
-	do { // import(basement) {*}
-		Gura_Module(basement)::MixIn(env, sig);
-		if (sig.IsSignalled()) return false;
-	} while (0);
+	// import(basement) {*}
+	if (!Gura_Module(basement)::MixIn(env, sig)) return false;
 	// import(sys) .. this module must be imported just after basement
 	if ((pModule = Gura_Module(sys)::Import(env, sig)) == NULL) return false;
 	env.GetGlobal()->SetModule_sys(pModule);

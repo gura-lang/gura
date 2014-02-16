@@ -50,6 +50,7 @@ Gura_ModuleEntry()
 	Gura_AssignMethodTo(VTYPE_image, image, pngread);
 	Gura_AssignMethodTo(VTYPE_image, image, pngwrite);
 	ImageStreamer::Register(new ImageStreamer_PNG());
+	return true;
 }
 
 Gura_ModuleTerminate()

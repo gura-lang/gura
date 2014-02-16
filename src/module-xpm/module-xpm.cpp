@@ -265,6 +265,7 @@ Gura_ModuleEntry()
 	Gura_AssignMethodTo(VTYPE_image, image, xpmwrite);
 	Gura_AssignMethodTo(VTYPE_image, image, xpmdata);
 	ImageStreamer::Register(new ImageStreamer_xpm());
+	return true;
 }
 
 Gura_ModuleTerminate()

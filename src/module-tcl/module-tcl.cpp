@@ -811,6 +811,7 @@ Gura_ModuleEntry()
 	// method assignment to image class
 	Gura_AssignMethodTo(VTYPE_image, image, readtcl);
 	Gura_AssignMethodTo(VTYPE_image, image, writetcl);
+	return true;
 }
 
 Gura_ModuleTerminate()

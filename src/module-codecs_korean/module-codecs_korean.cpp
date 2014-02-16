@@ -26,6 +26,7 @@ Gura_ModuleEntry()
 {
 	CodecFactory::Register(new CodecFactoryTmpl<Codec_CP949>("cp949"));
 	CodecFactory::Register(new CodecFactoryTmpl<Codec_CP949>("euc-kr"));
+	return true;
 }
 
 Gura_ModuleTerminate()

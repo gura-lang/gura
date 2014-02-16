@@ -2397,6 +2397,7 @@ Gura_ModuleEntry()
 	Gura_AssignBinaryOperator(Shl, document, string);
 	// registoration of HelpPresenter
 	HelpPresenter::Register(env, new HelpPresenter_markdown());
+	return true;
 }
 
 Gura_ModuleTerminate()

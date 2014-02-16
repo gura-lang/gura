@@ -103,6 +103,7 @@ Gura_ModuleEntry()
 	//Gura_AssignMethodTo(VTYPE_image, image, tiffwrite);
 	// image streamer registration
 	ImageStreamer::Register(new ImageStreamer_TIFF());
+	return true;
 }
 
 Gura_ModuleTerminate()

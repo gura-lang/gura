@@ -159,6 +159,7 @@ Gura_ImplementFunction(test)
 Gura_ModuleEntry()
 {
 	Gura_AssignFunction(test);
+	return true;
 }
 
 Gura_ModuleTerminate()

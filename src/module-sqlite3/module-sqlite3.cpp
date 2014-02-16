@@ -323,6 +323,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(db, env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(db);
+	return true;
 }
 
 Gura_ModuleTerminate()

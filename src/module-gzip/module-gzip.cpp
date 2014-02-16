@@ -99,6 +99,7 @@ Gura_ModuleEntry()
 	// method assignment to stream type
 	Gura_AssignMethodTo(VTYPE_stream, stream, gzipreader);
 	Gura_AssignMethodTo(VTYPE_stream, stream, gzipwriter);
+	return true;
 }
 
 Gura_ModuleTerminate()

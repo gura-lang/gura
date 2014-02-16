@@ -131,6 +131,7 @@ Gura_ModuleEntry()
 	// assignment of suffix managers
 	Gura_AssignSuffixMgrForNumber(L);
 	Gura_AssignSuffixMgrForNumber(Lr);
+	return true;
 }
 
 Gura_ModuleTerminate()

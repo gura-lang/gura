@@ -69,6 +69,7 @@ Gura_ModuleEntry()
 	AudioStreamer::Register(new AudioStreamer_WAV());
 	// function assignment
 	Gura_AssignFunction(test);
+	return true;
 }
 
 Gura_ModuleTerminate()

@@ -318,6 +318,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(crc32);
 	// class realization
 	Gura_RealizeUserClass(accumulator, env.LookupClass(VTYPE_stream));
+	return true;
 }
 
 Gura_ModuleTerminate()

@@ -1640,6 +1640,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(classref);
 	Gura_AssignFunction(randseed);
 	Gura_AssignFunction(rand);
+	return true;
 }
 
 Gura_ModuleTerminate()

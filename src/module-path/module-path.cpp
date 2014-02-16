@@ -360,6 +360,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(regulate);
 	Gura_AssignFunction(join);
 	Gura_AssignFunction(splitext);
+	return true;
 }
 
 Gura_ModuleTerminate()

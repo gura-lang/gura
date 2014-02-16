@@ -38,6 +38,7 @@ Gura_ModuleEntry()
 {
 	// function assignment
 	Gura_AssignFunction(dir);
+	return true;
 }
 
 Gura_ModuleTerminate()

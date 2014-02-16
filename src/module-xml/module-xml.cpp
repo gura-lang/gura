@@ -1443,6 +1443,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(element);
 	Gura_AssignFunction(comment);
 	Gura_AssignFunction(document);
+	return true;
 }
 
 Gura_ModuleTerminate()

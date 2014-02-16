@@ -1505,6 +1505,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(content);
 	// image streamer registration
 	ImageStreamer::Register(new ImageStreamer_GIF());
+	return true;
 }
 
 Gura_ModuleTerminate()

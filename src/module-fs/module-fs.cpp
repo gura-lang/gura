@@ -907,6 +907,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(chdir);
 	Gura_AssignFunction(getcwd);
 	Gura_AssignFunction(chmod);
+	return true;
 }
 
 Gura_ModuleTerminate()

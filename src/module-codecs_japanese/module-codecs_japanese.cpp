@@ -207,6 +207,7 @@ Gura_ModuleEntry()
 	CodecFactory::Register(new CodecFactoryTmpl<Codec_CP932>("ms_kanji"));
 	CodecFactory::Register(new CodecFactoryTmpl<Codec_JIS>("jis"));
 	CodecFactory::Register(new CodecFactoryTmpl<Codec_JIS>("iso-2022-jp"));
+	return true;
 }
 
 Gura_ModuleTerminate()

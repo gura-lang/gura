@@ -880,6 +880,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClassEx(Canvas, "canvas", env.LookupClass(VTYPE_object));
 	// function assignment
 	Gura_AssignFunction(create_emf);
+	return true;
 }
 
 Gura_ModuleTerminate()

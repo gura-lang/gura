@@ -119,6 +119,7 @@ Gura_ModuleEntry()
 	// method assignment to stream type
 	Gura_AssignMethodTo(VTYPE_stream, stream, base64reader);
 	Gura_AssignMethodTo(VTYPE_stream, stream, base64writer);
+	return true;
 }
 
 Gura_ModuleTerminate()

@@ -591,6 +591,7 @@ Gura_ModuleEntry()
 	// function assignment
 	Gura_AssignFunction(test);
 	Gura_AssignFunction(sysfontpath);
+	return true;
 }
 
 Gura_ModuleTerminate()

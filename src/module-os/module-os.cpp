@@ -201,6 +201,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(tonative);
 	Gura_AssignFunction(getenv);
 	Gura_AssignFunction(putenv);
+	return true;
 }
 
 Gura_ModuleTerminate()

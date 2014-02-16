@@ -48,6 +48,7 @@ Gura_ModuleEntry()
 	Gura_AssignMethodTo(VTYPE_image, image, bmpread);
 	Gura_AssignMethodTo(VTYPE_image, image, bmpwrite);
 	ImageStreamer::Register(new ImageStreamer_BMP());
+	return true;
 }
 
 Gura_ModuleTerminate()

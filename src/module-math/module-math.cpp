@@ -1129,6 +1129,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(integral);
 	Gura_AssignFunction(gcd);
 	Gura_AssignFunction(lcm);
+	return true;
 }
 
 Gura_ModuleTerminate()

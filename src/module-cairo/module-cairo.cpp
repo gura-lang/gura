@@ -529,6 +529,7 @@ Gura_ModuleEntry()
 	Gura_AssignCairoStringValue(MIME_TYPE_PNG);
 	Gura_AssignCairoStringValue(MIME_TYPE_URI);
 	//Gura_AssignCairoStringValue(MIME_TYPE_UNIQUE_ID);
+	return true;
 }
 
 Gura_ModuleTerminate()

@@ -115,7 +115,7 @@ typedef std::map<String, Module *> SeparatedModuleMap;
 //-----------------------------------------------------------------------------
 // Module Entry Type
 //-----------------------------------------------------------------------------
-typedef void (*ModuleEntryType)(Environment &env, Signal sig);
+typedef bool (*ModuleEntryType)(Environment &env, Signal sig);
 typedef void (*ModuleTerminateType)(Module *pModule);
 
 //-----------------------------------------------------------------------------
@@ -130,8 +130,8 @@ public:
 	inline IntegratedModule(const char *name,
 			ModuleEntryType moduleEntry, ModuleTerminateType moduleTerminate) :
 		_name(name), _moduleEntry(moduleEntry), _moduleTerminate(moduleTerminate) {}
-	inline void ModuleEntry(Environment &env, Signal sig) {
-		(*_moduleEntry)(env, sig);
+	inline bool ModuleEntry(Environment &env, Signal sig) {
+		return (*_moduleEntry)(env, sig);
 	}
 	inline void ModuleTerminate(Module *pModule) {
 		(*_moduleTerminate)(pModule);

@@ -82,6 +82,7 @@ Gura_ModuleEntry()
 	// function assignment
 	Gura_AssignFunction(foo);
 	Gura_AssignFunction(adder);
+	return true;
 }
 
 Gura_ModuleTerminate()

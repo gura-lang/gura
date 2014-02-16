@@ -729,8 +729,7 @@ Module *Environment::ImportIntegratedModule(Signal sig, const Symbol *pSymbol)
 	Module *pModule = GetGlobal()->LookupIntegratedModule(id);
 	if (pModule == NULL) {
 		pModule = new Module(this, pSymbol, "<integrated>", NULL, NULL);
-		pIntegratedModule->ModuleEntry(*pModule, sig);
-		if (sig.IsSignalled()) {
+		if (!pIntegratedModule->ModuleEntry(*pModule, sig)) {
 			delete pModule;
 			return NULL;
 		}
@@ -825,8 +824,7 @@ Module *Environment::ImportSeparatedModule_Binary(Signal sig, Environment *pEnvO
 	ModuleTerminateType moduleTerminate = (ModuleTerminateType)(pFunc);
 	Module *pModule = new Module(pEnvOuter, pSymbol, pathName, NULL, moduleTerminate);
 	GetGlobal()->RegisterSeparatedModule(pathName, pModule);
-	(*moduleEntry)(*pModule, sig);
-	if (sig.IsSignalled()) {
+	if (!(*moduleEntry)(*pModule, sig)) {
 		GetGlobal()->UnregisterSeparatedModule(pathName);
 		delete pModule;
 		return NULL;
