@@ -391,6 +391,7 @@ bool RemoveDirTree(const char *dirName)
 const char *GetEncodingForConsole()
 {
 	UINT codePage = ::GetConsoleOutputCP();
+	if (codePage == 0) codePage = ::GetACP();
 	return
 		(codePage == 1252)?		"iso-8859-1" :
 		(codePage == 28592)?	"iso-8859-2" :
