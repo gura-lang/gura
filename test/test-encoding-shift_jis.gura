@@ -1,5 +1,6 @@
 # -*- coding: shift_jis -*-
 import(hash)
+import(testutil) {*}
 
 tester(text:string) = {
 	buff = binary()

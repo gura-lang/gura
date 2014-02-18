@@ -1,5 +1,6 @@
 # -*- coding: big5 -*-
 import(hash)
+import(testutil) {*}
 
 tester(text:string) = {
 	buff = binary()
