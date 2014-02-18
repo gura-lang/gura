@@ -1584,9 +1584,10 @@ Value Object_request::DoGetProp(Environment &env, Signal sig, const Symbol *pSym
 		if (sig.IsSignalled()) return Value::Null;
 		return Value(strUnquote);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(query))) {
-		String str = ExtractURIQuery(sig, request.GetRequestURI());
-		if (sig.IsSignalled()) return Value::Null;
-		return Value(str); // don't unescape query value
+		Value rtn;
+		ValueDict &valDict = rtn.InitAsDict(env, true);
+		Uri::ExtractQuery(request.GetRequestURI(), valDict);
+		return rtn;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(fragment))) {
 		String str = ExtractURIFragment(sig, request.GetRequestURI());
 		if (sig.IsSignalled()) return Value::Null;
