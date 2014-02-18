@@ -645,3 +645,6 @@ template
 timedelta
 undefined
 uri
+  getfragment()
+  getpath()
+  getquery()

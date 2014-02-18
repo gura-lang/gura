@@ -115,6 +115,49 @@ Gura_ImplementFunction(uri)
 }
 
 //-----------------------------------------------------------------------------
+// Implementation of methods
+//-----------------------------------------------------------------------------
+// uri#getpath()
+Gura_DeclareMethod(uri, getpath)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(uri, getpath)
+{
+	const Uri &uri = Object_uri::GetThisObj(args)->GetUri();
+	return Value(uri.ExtractPath(uri.GetUrlPath()));
+}
+
+// uri#getquery()
+Gura_DeclareMethod(uri, getquery)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(uri, getquery)
+{
+	const Uri &uri = Object_uri::GetThisObj(args)->GetUri();
+	StringList stringList;
+	Value result;
+	ValueDict &valDict = result.InitAsDict(env, true);
+	Uri::ExtractQuery(uri.GetUrlPath(), valDict);
+	return result;
+}
+
+// uri#getfragment()
+Gura_DeclareMethod(uri, getfragment)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(uri, getfragment)
+{
+	const Uri &uri = Object_uri::GetThisObj(args)->GetUri();
+	return Value(uri.ExtractFragment(uri.GetUrlPath()));
+}
+
+//-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
 Class_uri::Class_uri(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_uri)
@@ -124,6 +167,9 @@ Class_uri::Class_uri(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_uri)
 void Class_uri::Prepare(Environment &env)
 {
 	Gura_AssignFunction(uri);
+	Gura_AssignMethod(uri, getpath);
+	Gura_AssignMethod(uri, getquery);
+	Gura_AssignMethod(uri, getfragment);
 }
 
 bool Class_uri::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)

@@ -5,13 +5,16 @@ import(testutil) {*}
 testcase {
 	f(u:uri):map = {
 		printf('%s\n', u)
-		printf('  scheme:   %s\n', u.scheme)
-		printf('  user:     %s\n', u.user)
-		printf('  password: %s\n', u.password)
-		printf('  host:     %s\n', u.host)
-		printf('  port:     %s\n', u.port)
-		printf('  urlpath:  %s\n', u.urlpath)
-		printf('  misc:     %s\n', u.misc)
+		printf('  scheme     %s\n', u.scheme)
+		printf('  user       %s\n', u.user)
+		printf('  password   %s\n', u.password)
+		printf('  host       %s\n', u.host)
+		printf('  port       %s\n', u.port)
+		printf('  urlpath    %s\n', u.urlpath)
+		printf('    path     %s\n', u.getpath())
+		printf('    query    %s\n', u.getquery())
+		printf('    fragment %s\n', u.getfragment())
+		printf('  misc       %s\n', u.misc)
 	}
 	tbl = [
 		''

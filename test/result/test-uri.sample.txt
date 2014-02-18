@@ -1,58 +1,79 @@
 ======== #1 ========
 
 
-  scheme:   
-  user:     
-  password: 
-  host:     
-  port:     
-  urlpath:  
-  misc:     
+  scheme     
+  user       
+  password   
+  host       
+  port       
+  urlpath    
+    path     
+    query    %{}
+    fragment 
+  misc       
 telnet://user:password@host:port/
-  scheme:   telnet
-  user:     user
-  password: password
-  host:     host
-  port:     port
-  urlpath:  /
-  misc:     
+  scheme     telnet
+  user       user
+  password   password
+  host       host
+  port       port
+  urlpath    /
+    path     /
+    query    %{}
+    fragment 
+  misc       
 file://vms.host.edu/disk$user/my/notes/note12345.txt
-  scheme:   file
-  user:     
-  password: 
-  host:     vms.host.edu
-  port:     
-  urlpath:  /disk$user/my/notes/note12345.txt
-  misc:     
+  scheme     file
+  user       
+  password   
+  host       vms.host.edu
+  port       
+  urlpath    /disk$user/my/notes/note12345.txt
+    path     /disk$user/my/notes/note12345.txt
+    query    %{}
+    fragment 
+  misc       
 http://host:port/path?searchpart
-  scheme:   http
-  user:     
-  password: 
-  host:     host
-  port:     port
-  urlpath:  /path?searchpart
-  misc:     
+  scheme     http
+  user       
+  password   
+  host       host
+  port       port
+  urlpath    /path?searchpart
+    path     /path
+    query    %{'searchpart' => nil}
+    fragment 
+  misc       
 http://www.ics.uci.edu/pub/ietf/uri/#Related
-  scheme:   http
-  user:     
-  password: 
-  host:     www.ics.uci.edu
-  port:     
-  urlpath:  /pub/ietf/uri/#Related
-  misc:     
+  scheme     http
+  user       
+  password   
+  host       www.ics.uci.edu
+  port       
+  urlpath    /pub/ietf/uri/#Related
+    path     /pub/ietf/uri/
+    query    %{}
+    fragment Related
+  misc       
 http://www.ics.uci.edu/pub/ietf/uri/?hoge?foo?bar#Related
-  scheme:   http
-  user:     
-  password: 
-  host:     www.ics.uci.edu
-  port:     
-  urlpath:  /pub/ietf/uri/?hoge?foo?bar#Related
-  misc:     
+  scheme     http
+  user       
+  password   
+  host       www.ics.uci.edu
+  port       
+  urlpath    /pub/ietf/uri/?hoge?foo?bar#Related
+    path     /pub/ietf/uri/
+    query    %{'bar' => nil, 'foo' => nil, 'hoge' => nil}
+    fragment Related
+  misc       
 http://www.ics.uci.edu/pub/ietf/uri/?hoge=first?foo=second?bar=third#Related
-  scheme:   http
-  user:     
-  password: 
-  host:     www.ics.uci.edu
-  port:     
-  urlpath:  /pub/ietf/uri/?hoge=first?foo=second?bar=third#Related
-  misc:     
+  scheme     http
+  user       
+  password   
+  host       www.ics.uci.edu
+  port       
+  urlpath    /pub/ietf/uri/?hoge=first?foo=second?bar=third#Related
+    path     /pub/ietf/uri/
+    query    %{'bar' => 'third', 'foo' => 'second', 'hoge' => 'first'}
+    fragment Related
+  misc       

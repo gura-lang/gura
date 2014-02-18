@@ -358,6 +358,7 @@ public:
 	Gura_DeclareSymbol(public_);
 	Gura_DeclareSymbol(purple);
 	Gura_DeclareSymbol(q);
+	Gura_DeclareSymbol(query);
 	Gura_DeclareSymbol(quote);
 	Gura_DeclareSymbol(r);
 	Gura_DeclareSymbol(raise);
