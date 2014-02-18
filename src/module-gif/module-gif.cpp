@@ -1140,7 +1140,7 @@ Gura_ImplementMethod(content, write)
 	GIF &gif = Object_content::GetThisObj(args)->GetGIF();
 	Stream &stream = args.GetStream(0);
 	UShort loopCount = 0;
-	if (!gif.Write(env, sig, stream, Color::Zero, false, loopCount)) {
+	if (!gif.Write(env, sig, stream, Color::zero, false, loopCount)) {
 		return Value::Null;
 	}
 	return args.GetThis();
@@ -1392,7 +1392,7 @@ Gura_ImplementMethod(image, gifwrite)
 	GIF gif;
 	gif.AddImage(args.GetThis(), 0, 0, 0, 1);
 	UShort loopCount = 0;
-	if (!gif.Write(env, sig, stream, Color::Zero, false, loopCount)) {
+	if (!gif.Write(env, sig, stream, Color::zero, false, loopCount)) {
 		return Value::Null;
 	}
 	return args.GetThis();
@@ -1542,7 +1542,7 @@ bool ImageStreamer_GIF::Write(Environment &env, Signal sig,
 	Value value(new Object_image(env, Image::Reference(pImage)));
 	gif.AddImage(value, 0, 0, 0, 1);
 	UShort loopCount = 0;
-	return gif.Write(env, sig, stream, Color::Zero, false, loopCount);
+	return gif.Write(env, sig, stream, Color::zero, false, loopCount);
 }
 
 Gura_EndModuleBody(gif, gif)

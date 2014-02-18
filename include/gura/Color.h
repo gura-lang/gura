@@ -23,23 +23,23 @@ private:
 	static ColorMap *_pColorMap;
 	static const ElementEntry _elementEntries[];
 public:
-	static const Color Zero;
-	static const Color Black;
-	static const Color Maroon;
-	static const Color Green;
-	static const Color Olive;
-	static const Color Navy;
-	static const Color Purple;
-	static const Color Teal;
-	static const Color Gray;
-	static const Color Silver;
-	static const Color Red;
-	static const Color Lime;
-	static const Color Yellow;
-	static const Color Blue;
-	static const Color Fuchsia;
-	static const Color Aqua;
-	static const Color White;
+	static const Color zero;
+	static const Color black;
+	static const Color maroon;
+	static const Color green;
+	static const Color olive;
+	static const Color navy;
+	static const Color purple;
+	static const Color teal;
+	static const Color gray;
+	static const Color silver;
+	static const Color red;
+	static const Color lime;
+	static const Color yellow;
+	static const Color blue;
+	static const Color fuchsia;
+	static const Color aqua;
+	static const Color white;
 public:
 	inline Color() : _r(0), _g(0), _b(0), _a(0) {}
 	inline Color(const Color &color) : _r(color._r), _g(color._g), _b(color._b), _a(color._a) {}

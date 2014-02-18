@@ -12,7 +12,7 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // Uri
 //-----------------------------------------------------------------------------
-class Uri {
+class GURA_DLLDECLARE Uri {
 public:
 	bool _userValidFlag;
 	String _scheme;

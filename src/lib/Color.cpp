@@ -783,24 +783,24 @@ const Color::ElementEntry Color::_elementEntries[] = {
 	{ "LightGreen",				144, 238, 144 },
 };
 
-const Color Color::Zero;
+const Color Color::zero;
 
-const Color Color::Black(	  0,   0,   0, 255);
-const Color Color::Maroon(	128,   0,   0, 255);
-const Color Color::Green(	  0, 128,   0, 255);
-const Color Color::Olive(	128, 128,   0, 255);
-const Color Color::Navy(	  0,   0, 128, 255);
-const Color Color::Purple(	128,   0, 128, 255);
-const Color Color::Teal(	  0, 128, 128, 255);
-const Color Color::Gray(	128, 128, 128, 255);
-const Color Color::Silver(	192, 192, 192, 255);
-const Color Color::Red(		255,   0,   0, 255);
-const Color Color::Lime(	  0, 255,   0, 255);
-const Color Color::Yellow(	255, 255,   0, 255);
-const Color Color::Blue(	  0,   0, 255, 255);
-const Color Color::Fuchsia(	255,   0, 255, 255);
-const Color Color::Aqua(	  0, 255, 255, 255);
-const Color Color::White(	255, 255, 255, 255);
+const Color Color::black(	  0,   0,   0, 255);
+const Color Color::maroon(	128,   0,   0, 255);
+const Color Color::green(	  0, 128,   0, 255);
+const Color Color::olive(	128, 128,   0, 255);
+const Color Color::navy(	  0,   0, 128, 255);
+const Color Color::purple(	128,   0, 128, 255);
+const Color Color::teal(	  0, 128, 128, 255);
+const Color Color::gray(	128, 128, 128, 255);
+const Color Color::silver(	192, 192, 192, 255);
+const Color Color::red(		255,   0,   0, 255);
+const Color Color::lime(	  0, 255,   0, 255);
+const Color Color::yellow(	255, 255,   0, 255);
+const Color Color::blue(	  0,   0, 255, 255);
+const Color Color::fuchsia(	255,   0, 255, 255);
+const Color Color::aqua(	  0, 255, 255, 255);
+const Color Color::white(	255, 255, 255, 255);
 
 Color Color::CreateNamedColor(Signal sig, const char *name, UChar a)
 {
@@ -818,7 +818,7 @@ Color Color::CreateNamedColor(Signal sig, const char *name, UChar a)
 				num = (num << 4) + ch - 'A' + 10;
 			} else {
 				sig.SetError(ERR_ValueError, "invalid color name");
-				return Zero;
+				return zero;
 			}
 		}
 		UChar r, g, b;
@@ -832,7 +832,7 @@ Color Color::CreateNamedColor(Signal sig, const char *name, UChar a)
 			b = static_cast<UChar>((num >> 0) & 0xff);
 		} else {
 			sig.SetError(ERR_ValueError, "invalid color name");
-			return Zero;
+			return zero;
 		}
 		return Color(r, g, b, a);
 	}
@@ -849,7 +849,7 @@ Color Color::CreateNamedColor(Signal sig, const char *name, UChar a)
 	ColorMap::iterator iter = _pColorMap->find(pSymbol);
 	if (iter == _pColorMap->end()) {
 		sig.SetError(ERR_ValueError, "unknown color name %s\n", pSymbol->GetName());
-		return Zero;
+		return zero;
 	}
 	Color color = iter->second;
 	color.SetA(a);

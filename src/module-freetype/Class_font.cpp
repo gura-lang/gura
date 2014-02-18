@@ -119,7 +119,7 @@ String Object_font::ToString(bool exprFlag)
 
 void Object_font::ClearDeco()
 {
-	_pObjColor->SetColor(Color::Black);
+	_pObjColor->SetColor(Color::black);
 	_mode = MODE_Blend;
 	_width = 0, _height = 0; // default value is used when _height == 0.
 	_strength = 0.;

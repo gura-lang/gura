@@ -226,7 +226,7 @@ Gura_ImplementMethod(image, clear)
 {
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
-	pThis->GetImage()->Fill(Color::Zero);
+	pThis->GetImage()->Fill(Color::zero);
 	return args.GetThis();
 }
 

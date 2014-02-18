@@ -31,7 +31,7 @@ public:
 	inline Object_color(const Object_color &obj) : Object(obj), _color(obj._color) {}
 	inline Object_color(Environment &env, UChar r, UChar g, UChar b, UChar a) :
 			Object(env.LookupClass(VTYPE_color)), _color(r, g, b, a) {}
-	inline Object_color(Environment &env, const Color &color = Color::Black) :
+	inline Object_color(Environment &env, const Color &color = Color::black) :
 			Object(env.LookupClass(VTYPE_color)), _color(color) {}
 	inline Object_color(Class *pClass) : Object(pClass) {}
 	inline void SetColor(const Color &color) { _color = color; }

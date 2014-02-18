@@ -202,23 +202,23 @@ void Class_color::Prepare(Environment &env)
 		Gura_AssignValue(names, value);
 	} while (0);
 	Gura_AssignFunction(color);
-	Gura_AssignClassValue(black,	Value(new Object_color(env, Color::Black)));
-	Gura_AssignClassValue(maroon,	Value(new Object_color(env, Color::Maroon)));
-	Gura_AssignClassValue(green,	Value(new Object_color(env, Color::Green)));
-	Gura_AssignClassValue(olive,	Value(new Object_color(env, Color::Olive)));
-	Gura_AssignClassValue(navy,		Value(new Object_color(env, Color::Navy)));
-	Gura_AssignClassValue(purple,	Value(new Object_color(env, Color::Purple)));
-	Gura_AssignClassValue(teal,		Value(new Object_color(env, Color::Teal)));
-	Gura_AssignClassValue(gray,		Value(new Object_color(env, Color::Gray)));
-	Gura_AssignClassValue(silver,	Value(new Object_color(env, Color::Silver)));
-	Gura_AssignClassValue(red,		Value(new Object_color(env, Color::Red)));
-	Gura_AssignClassValue(lime,		Value(new Object_color(env, Color::Lime)));
-	Gura_AssignClassValue(yellow,	Value(new Object_color(env, Color::Yellow)));
-	Gura_AssignClassValue(blue,		Value(new Object_color(env, Color::Blue)));
-	Gura_AssignClassValue(fuchsia,	Value(new Object_color(env, Color::Fuchsia)));
-	Gura_AssignClassValue(aqua,		Value(new Object_color(env, Color::Aqua)));
-	Gura_AssignClassValue(white,	Value(new Object_color(env, Color::White)));
-	Gura_AssignClassValue(zero,		Value(new Object_color(env, Color::Zero)));
+	Gura_AssignClassValue(black,	Value(new Object_color(env, Color::black)));
+	Gura_AssignClassValue(maroon,	Value(new Object_color(env, Color::maroon)));
+	Gura_AssignClassValue(green,	Value(new Object_color(env, Color::green)));
+	Gura_AssignClassValue(olive,	Value(new Object_color(env, Color::olive)));
+	Gura_AssignClassValue(navy,		Value(new Object_color(env, Color::navy)));
+	Gura_AssignClassValue(purple,	Value(new Object_color(env, Color::purple)));
+	Gura_AssignClassValue(teal,		Value(new Object_color(env, Color::teal)));
+	Gura_AssignClassValue(gray,		Value(new Object_color(env, Color::gray)));
+	Gura_AssignClassValue(silver,	Value(new Object_color(env, Color::silver)));
+	Gura_AssignClassValue(red,		Value(new Object_color(env, Color::red)));
+	Gura_AssignClassValue(lime,		Value(new Object_color(env, Color::lime)));
+	Gura_AssignClassValue(yellow,	Value(new Object_color(env, Color::yellow)));
+	Gura_AssignClassValue(blue,		Value(new Object_color(env, Color::blue)));
+	Gura_AssignClassValue(fuchsia,	Value(new Object_color(env, Color::fuchsia)));
+	Gura_AssignClassValue(aqua,		Value(new Object_color(env, Color::aqua)));
+	Gura_AssignClassValue(white,	Value(new Object_color(env, Color::white)));
+	Gura_AssignClassValue(zero,		Value(new Object_color(env, Color::zero)));
 }
 
 bool Class_color::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
