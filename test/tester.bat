@@ -20,6 +20,7 @@ set cases=%cases% diff
 set cases=%cases% encoding-big5
 rem set cases=%cases% encoding-euc-kr
 set cases=%cases% encoding-gb2312
+set cases=%cases% encoding-gbk
 set cases=%cases% encoding-shift_jis
 set cases=%cases% error
 set cases=%cases% expr
