@@ -96,25 +96,3 @@ testcase {
 					'携帯電話, 携帯会社, くせ from people'))
 	}
 }
-fileName = 'test-sqlite3/temperature.sqlite3'
-function {
-	try {fs.remove(fileName)} catch {}
-	sqlite3.db(fileName) {|db|
-		db.exec(R'''
-		create table sites (
-			day      integer,
-			temp1    float,
-			temp2    float,
-			temp3    float
-		)
-		''')
-		items = struct(day:number, temps*:number) * \
-			re.split(r'\s+', (readlines('test-sqlite3/temperature.txt'):chop).offset(1)):list
-		db.transaction {
-			for (item in items) {
-				db.exec('insert into sites values (%d, %f, %f, %f)' % \
-					[item.day, item.temps[0], item.temps[1], item.temps[2]])
-			}
-		}
-	}
-}
