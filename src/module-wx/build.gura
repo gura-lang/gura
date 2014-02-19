@@ -587,9 +587,13 @@ builder = modbuild.Builder()
 if (sys.build == `msc) {
 	srcs.append(srcs_MSW)
 	dirWx = path.join(modbuild.guestDir, 'wxMSW-2.8.12')
+	//dirWx = path.join(modbuild.guestDir, 'wxWidgets-3.0.0')
 	builder.incDirs.append(
 		path.join(dirWx, 'include')
 		path.join(dirWx, 'lib', 'vc_lib', 'msw'))
+	//builder.incDirs.append(
+	//	path.join(dirWx, 'include')
+	//	path.join(dirWx, 'lib', 'vc_lib', 'mswu'))
 	builder.ldflags.append(
 		'/LIBPATH:' + path.join(dirWx, 'lib', 'vc_lib'))
 	builder.libs.append([
@@ -610,7 +614,35 @@ if (sys.build == `msc) {
 		'wxpng.lib'
 		'wxregex.lib'
 		'wxtiff.lib'
-		'wxzlib.lib'])
+		'wxzlib.lib'
+	])
+	/*
+ 	builder.libs.append([
+		'wxbase30u.lib'
+		'wxbase30u_net.lib'
+		'wxbase30u_xml.lib'
+		'wxmsw30u_adv.lib'
+		'wxmsw30u_aui.lib'
+		'wxmsw30u_core.lib'
+		'wxmsw30u_gl.lib'
+		'wxmsw30u_html.lib'
+		'wxmsw30u_media.lib'
+		'wxmsw30u_propgrid.lib'
+		'wxmsw30u_qa.lib'
+		'wxmsw30u_ribbon.lib'
+		'wxmsw30u_richtext.lib'
+		'wxmsw30u_stc.lib'
+		'wxmsw30u_webview.lib'
+		'wxmsw30u_xrc.lib'
+		'wxexpat.lib'
+		'wxjpeg.lib'
+		'wxpng.lib'
+		'wxregexu.lib'
+		'wxscintilla.lib'
+		'wxtiff.lib'
+		'wxzlib.lib'
+	])
+	*/
 } elsif (sys.build == `gnuc) {
 	IsExist(filename:string) = {
 		path.exists(path.join(os.getenv('PATH').split(':'), filename)).or()
