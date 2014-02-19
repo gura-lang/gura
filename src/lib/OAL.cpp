@@ -586,21 +586,30 @@ int ExecProgram(Environment &env, Signal sig, const char *pathName,
 	return static_cast<int>(exitCode);
 }
 
-String GetEnv(const char *name)
+String GetEnv(const char *name, bool *pFoundFlag)
 {
 	String nameEnc = ToNativeString(name);
 	DWORD len = ::GetEnvironmentVariable(nameEnc.c_str(), NULL, 0);
-	if (len == 0) return String("");
+	if (len == 0) {
+		if (pFoundFlag != NULL) *pFoundFlag = false;
+		return String("");
+	}
 	char *buff = new char [len];
 	::GetEnvironmentVariable(nameEnc.c_str(), buff, len);
 	String rtn(FromNativeString(buff));
 	delete[] buff;
+	if (pFoundFlag != NULL) *pFoundFlag = true;
 	return rtn;
 }
 
 void PutEnv(const char *name, const char *value)
 {
 	::SetEnvironmentVariable(ToNativeString(name).c_str(), ToNativeString(value).c_str());
+}
+
+void UnsetEnv(const char *name)
+{
+	::SetEnvironmentVariable(ToNativeString(name).c_str(), NULL);
 }
 
 bool Copy(const char *src, const char *dst, bool failIfExistsFlag)
@@ -1207,16 +1216,26 @@ done:
 	return exitCode;
 }
 
-String GetEnv(const char *name)
+String GetEnv(const char *name, bool *pFoundFlag)
 {
 	const char *str = ::getenv(ToNativeString(name).c_str());
-	if (str == NULL) return String("");
+	if (str == NULL) {
+		if (pFoundFlag != NULL) *pFoundFlag = false;
+		return String("");
+	}
+	if (pFoundFlag != NULL) *pFoundFlag = true;
 	return FromNativeString(str);
 }
 
 void PutEnv(const char *name, const char *value)
 {
-	::setenv(ToNativeString(name).c_str(), ToNativeString(value).c_str(), 1);
+	int overwrite = 1;
+	::setenv(ToNativeString(name).c_str(), ToNativeString(value).c_str(), overwrite);
+}
+
+void UnsetEnv(const char *name)
+{
+	::unsetenv(name);
 }
 
 bool Copy(const char *src, const char *dst, bool failIfExistsFlag)

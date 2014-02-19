@@ -142,17 +142,20 @@ Gura_ImplementFunction(tonative)
 	return Value(new Object_binary(env, buff.data(), buff.size(), true));
 }
 
-// os.getenv(name:string):map
+// os.getenv(name:string, default?:string):map
 Gura_DeclareFunction(getenv)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the value of a environment variable.");
+	DeclareArg(env, "default", VTYPE_string, OCCUR_ZeroOrOnce);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the value of an environment variable.");
 }
 
 Gura_ImplementFunction(getenv)
 {
-	String str = OAL::GetEnv(args.GetString(0));
+	bool foundFlag = false;
+	String str = OAL::GetEnv(args.GetString(0), &foundFlag);
+	if (!foundFlag) return args.IsValid(1)? args.GetValue(1) : Value::Null;
 	return Value(str);
 }
 
@@ -162,12 +165,26 @@ Gura_DeclareFunction(putenv)
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "name", VTYPE_string);
 	DeclareArg(env, "value", VTYPE_string);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Set the value of a environment variable.");
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Set the value of an environment variable.");
 }
 
 Gura_ImplementFunction(putenv)
 {
 	OAL::PutEnv(args.GetString(0), args.GetString(1));
+	return Value::Null;
+}
+
+// os.unsetenv(name:string):void
+Gura_DeclareFunction(unsetenv)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "name", VTYPE_string);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Unset an environment variable.");
+}
+
+Gura_ImplementFunction(unsetenv)
+{
+	OAL::UnsetEnv(args.GetString(0));
 	return Value::Null;
 }
 
@@ -201,6 +218,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(tonative);
 	Gura_AssignFunction(getenv);
 	Gura_AssignFunction(putenv);
+	Gura_AssignFunction(unsetenv);
 	return true;
 }
 

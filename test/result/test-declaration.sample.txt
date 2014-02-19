@@ -176,11 +176,12 @@ os:module = <module:os:<integrated>>
   clock()
   exec(pathname:string, args*:string):map:[fork]
   fromnative(buff:binary):map
-  getenv(name:string):map
+  getenv(name:string, default?:string):map
   putenv(name:string, value:string):void
   redirect(stdin:stream:nil:r, stdout:stream:nil:w, stderr?:stream:w) {block?}
   sleep(secs:number)
   tonative(str:string):map
+  unsetenv(name:string):void
 outers() {block?}
 palette(type) {block?}
 path:module = <module:path:<integrated>>
