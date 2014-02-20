@@ -33,7 +33,7 @@ bool Iterator_GmpSeqInf::DoNext(Environment &env, Signal sig, Value &value)
 String Iterator_GmpSeqInf::ToString() const
 {
 	String rtn;
-	rtn += _numBegin.get_str();
+	rtn += _numBegin.get_str().c_str();
 	rtn += "L";
 	rtn += "..";
 	return rtn;
@@ -70,18 +70,18 @@ String Iterator_GmpSeq::ToString() const
 {
 	String rtn;
 	if (_numStep == 1. || _numStep == -1.) {
-		rtn += _numBegin.get_str();
+		rtn += _numBegin.get_str().c_str();
 		rtn += "L";
 		rtn += "..";
-		rtn += _numEnd.get_str();
+		rtn += _numEnd.get_str().c_str();
 		rtn += "L";
 	} else {
 		rtn = "GmpSeq(";
-		rtn += _numBegin.get_str();
+		rtn += _numBegin.get_str().c_str();
 		rtn += ",";
-		rtn += _numEnd.get_str();
+		rtn += _numEnd.get_str().c_str();
 		rtn += ",";
-		rtn += _numStep.get_str();
+		rtn += _numStep.get_str().c_str();
 		rtn += ")";
 	}
 	return rtn;

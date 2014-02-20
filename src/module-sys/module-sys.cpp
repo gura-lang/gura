@@ -156,7 +156,7 @@ bool SetCmdLineArgs(Module *pModule, Signal sig, int argc, const char *argv[])
 		env.AssignValue(Symbol::Add("path"), value, EXTRA_Public);
 	} while (0);
 	do {
-		std::string str;
+		String str;
 		if (argc < 2) {
 			str = OAL::GetCurDir();
 		} else {

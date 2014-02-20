@@ -231,7 +231,9 @@ private:
 //-----------------------------------------------------------------------------
 // String
 //-----------------------------------------------------------------------------
-typedef std::basic_string<char> String;
+struct my_char_traits : public std::char_traits<char> {};
+
+typedef std::basic_string<char, my_char_traits> String;
 typedef std::deque<String> StringDeque;
 
 class GURA_DLLDECLARE StringRef {

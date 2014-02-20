@@ -40,10 +40,10 @@ Value Object_mpq::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 String Object_mpq::ToString(bool exprFlag)
 {
 	String str;
-	str += _num.get_num().get_str();
+	str += _num.get_num().get_str().c_str();
 	if (_num.get_den() != 1) {
 		str += "/";
-		str += _num.get_den().get_str();
+		str += _num.get_den().get_str().c_str();
 	}
 	str += "Lr";
 	return str;

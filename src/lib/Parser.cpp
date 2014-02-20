@@ -983,7 +983,7 @@ Expr_Root *Parser::ParseStream(Environment &env, Signal sig, const char *pathNam
 	String pathNameMod;
 	do {
 		bool zippedFlag = false;
-		std::string fileName;
+		String fileName;
 		PathMgr::SplitFileName(pathName, NULL, &fileName);
 		const char *extName = PathMgr::SeekExtName(fileName.c_str());
 		std::string baseName = std::string(fileName.c_str(), extName);

@@ -594,7 +594,7 @@ if (sys.build == `msc2) {
 		path.join(dirWx, 'lib', 'vc_lib', 'msw'))
 	builder.ldflags.append(
 		'/LIBPATH:' + path.join(dirWx, 'lib', 'vc_lib'))
-	builder.libs.append([
+	builder.libs.append(
 		'wxbase28.lib'
 		'wxbase28_net.lib'
 		'wxbase28_xml.lib'
@@ -612,8 +612,7 @@ if (sys.build == `msc2) {
 		'wxpng.lib'
 		'wxregex.lib'
 		'wxtiff.lib'
-		'wxzlib.lib'
-	])
+		'wxzlib.lib')
 } elsif (sys.build == `msc) {
 	srcs.append(srcs_MSW)
 	dirWx = path.join(modbuild.guestDir, 'wxWidgets-3.0.0')
@@ -622,7 +621,7 @@ if (sys.build == `msc2) {
 		path.join(dirWx, 'lib', 'vc_lib', 'mswu'))
 	builder.ldflags.append(
 		'/LIBPATH:' + path.join(dirWx, 'lib', 'vc_lib'))
- 	builder.libs.append([
+	builder.libs.append(
 		'wxbase30u.lib'
 		'wxbase30u_net.lib'
 		'wxbase30u_xml.lib'
@@ -645,8 +644,7 @@ if (sys.build == `msc2) {
 		'wxregexu.lib'
 		'wxscintilla.lib'
 		'wxtiff.lib'
-		'wxzlib.lib'
-	])
+		'wxzlib.lib')
 } elsif (sys.build == `gnuc) {
 	IsExist(filename:string) = {
 		path.exists(path.join(os.getenv('PATH').split(':'), filename)).or()
@@ -662,7 +660,7 @@ if (sys.build == `msc2) {
 			os.fromnative(buff).strip().split(' '):list
 		}
 		builder.cflags.append(cflags.filter(cflags != ''))
-			ldflags = scope {
+		ldflags = scope {
 			buff = binary()
 			os.redirect(nil, buff) {
 				os.exec('wx-config', '--libs', '--gl-libs')
