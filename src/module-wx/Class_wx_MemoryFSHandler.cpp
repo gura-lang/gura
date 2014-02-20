@@ -58,6 +58,7 @@ Gura_ImplementFunction(MemoryFSHandler)
 	return ReturnValue(env, sig, args, args.GetThis());
 }
 
+#if 0
 Gura_DeclareClassMethod(wx_MemoryFSHandler, AddFile)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
@@ -75,7 +76,9 @@ Gura_ImplementClassMethod(wx_MemoryFSHandler, AddFile)
 	wxMemoryFSHandler::AddFile(filename, *image, type);
 	return Value::Null;
 }
+#endif
 
+#if 0
 Gura_DeclareClassMethod(wx_MemoryFSHandler, AddFile_1)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
@@ -93,6 +96,7 @@ Gura_ImplementClassMethod(wx_MemoryFSHandler, AddFile_1)
 	wxMemoryFSHandler::AddFile(filename, *bitmap, type);
 	return Value::Null;
 }
+#endif
 
 Gura_DeclareClassMethod(wx_MemoryFSHandler, AddFileWithMimeType)
 {
@@ -183,8 +187,8 @@ String Object_wx_MemoryFSHandler::ToString(bool exprFlag)
 Gura_ImplementUserInheritableClass(wx_MemoryFSHandler)
 {
 	Gura_AssignFunction(MemoryFSHandler);
-	Gura_AssignMethod(wx_MemoryFSHandler, AddFile);
-	Gura_AssignMethod(wx_MemoryFSHandler, AddFile_1);
+	//Gura_AssignMethod(wx_MemoryFSHandler, AddFile);
+	//Gura_AssignMethod(wx_MemoryFSHandler, AddFile_1);
 	Gura_AssignMethod(wx_MemoryFSHandler, AddFileWithMimeType);
 	Gura_AssignMethod(wx_MemoryFSHandler, AddFileWithMimeType_1);
 	Gura_AssignMethod(wx_MemoryFSHandler, RemoveFile);
