@@ -15,14 +15,14 @@ Gura_DeclareUserClass(wx_Animation);
 //----------------------------------------------------------------------------
 // Object declaration for wxAnimation
 //----------------------------------------------------------------------------
-class Object_wx_Animation : public Object_wx_GDIObject {
+class Object_wx_Animation : public Object_wx_Object {
 public:
 	Gura_DeclareObjectAccessor(wx_Animation)
 public:
 	inline Object_wx_Animation(wxAnimation *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
-				Object_wx_GDIObject(Gura_UserClass(wx_Animation), pEntity, pObserver, ownerFlag) {}
+				Object_wx_Object(Gura_UserClass(wx_Animation), pEntity, pObserver, ownerFlag) {}
 	inline Object_wx_Animation(Class *pClass, wxAnimation *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
-				Object_wx_GDIObject(pClass, pEntity, pObserver, ownerFlag) {}
+				Object_wx_Object(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_Animation();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);

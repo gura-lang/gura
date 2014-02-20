@@ -15,14 +15,14 @@ Gura_DeclareUserClass(wx_BitmapComboBox);
 //----------------------------------------------------------------------------
 // Object declaration for wxBitmapComboBox
 //----------------------------------------------------------------------------
-class Object_wx_BitmapComboBox : public Object_wx_OwnerDrawnComboBox {
+class Object_wx_BitmapComboBox : public Object_wx_ComboBox {
 public:
 	Gura_DeclareObjectAccessor(wx_BitmapComboBox)
 public:
 	inline Object_wx_BitmapComboBox(wxBitmapComboBox *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
-				Object_wx_OwnerDrawnComboBox(Gura_UserClass(wx_BitmapComboBox), pEntity, pObserver, ownerFlag) {}
+				Object_wx_ComboBox(Gura_UserClass(wx_BitmapComboBox), pEntity, pObserver, ownerFlag) {}
 	inline Object_wx_BitmapComboBox(Class *pClass, wxBitmapComboBox *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
-				Object_wx_OwnerDrawnComboBox(pClass, pEntity, pObserver, ownerFlag) {}
+				Object_wx_ComboBox(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_BitmapComboBox();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);

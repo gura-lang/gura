@@ -1,6 +1,8 @@
 #ifndef __STDAFX_H__
 #define __STDAFX_H__
 #include <gura.h>
+#define LPCTSTR LPCWSTR
+#define LPFINDREPLACE LPFINDREPLACEW
 #include <wx/wx.h>
 #include <wx/aui/aui.h>
 #include <wx/aboutdlg.h>
@@ -492,7 +494,7 @@
 #include "Class_wx_TipWindow.h"							// derived from wxPopupTransientWindow
 #include "Class_wx_Control.h"							// derived from wxWindow
 #include "Class_wx_TextCtrlBase.h"						// derived from wxControl
-#include "Class_wx_RichTextCtrl.h"						// derived from wxTextCtrlBase
+#include "Class_wx_RichTextCtrl.h"						// derived from wxControl
 #include "Class_wx_BookCtrlBase.h"						// derived from wxControl
 #include "Class_wx_Choicebook.h"						// derived from wxBookCtrlBase
 #include "Class_wx_Toolbook.h"							// derived from wxBookCtrlBase
@@ -509,11 +511,11 @@
 #include "Class_wx_CollapsiblePane.h"					// derived from wxControl
 #include "Class_wx_ComboCtrl.h"							// derived from wxControl
 #include "Class_wx_OwnerDrawnComboBox.h"				// derived from wxComboCtrl
-#include "Class_wx_BitmapComboBox.h"					// derived from wxOwnerDrawnComboBox
 #include "Class_wx_RichTextStyleComboCtrl.h"			// derived from wxComboCtrl
 #include "Class_wx_ControlWithItems.h"					// derived from wxControl
 #include "Class_wx_Choice.h"							// derived from wxControlWithItems
 #include "Class_wx_ComboBox.h"							// derived from wxControlWithItems
+#include "Class_wx_BitmapComboBox.h"					// derived from wxComboBox
 #include "Class_wx_ListBox.h"							// derived from wxControlWithItems
 #include "Class_wx_CheckListBox.h"						// derived from wxListBox
 #include "Class_wx_DatePickerCtrl.h"					// derived from wxControl
@@ -604,7 +606,7 @@
 #include "Class_wx_FontData.h"							// derived from wxObject
 #include "Class_wx_FSFile.h"							// derived from wxObject
 #include "Class_wx_GDIObject.h"							// derived from wxObject
-#include "Class_wx_Animation.h"							// derived from wxGDIObject
+#include "Class_wx_Animation.h"							// derived from wxObject
 #include "Class_wx_Bitmap.h"							// derived from wxGDIObject
 #include "Class_wx_Brush.h"								// derived from wxGDIObject
 #include "Class_wx_Cursor.h"							// derived from wxGDIObject
@@ -691,11 +693,11 @@
 #include "Class_wx_URI.h"								// derived from wxObject
 #include "Class_wx_URL.h"								// derived from wxURI
 #include "Class_wx_Variant.h"							// derived from wxObject
-#include "Class_wx_VariantData.h"						// derived from wxObject
 #include "Class_wx_XmlDocument.h"						// derived from wxObject
 #include "Class_wx_XmlResource.h"						// derived from wxObject
 #include "Class_wx_XmlResourceHandler.h"				// derived from wxObject
 #include "Class_wx_ObjectRefData.h"
+#include "Class_wx_VariantData.h"						// derived from wxObjectRefData
 #include "Class_wx_PenList.h"
 #include "Class_wx_PlatformInfo.h"
 #include "Class_wx_Point.h"
@@ -804,6 +806,7 @@
 #include "Class_wx_DataObjectComposite.h"				// derived from wxDataObject
 #include "Class_wx_URLDataObject.h"						// derived from wxDataObjectComposite
 #include "Class_wx_DataOutputStream.h"
+#if 0
 #include "Class_wx_DataViewColumn.h"					// derived from wxObject
 #include "Class_wx_DataViewListModelNotifier.h"			// derived from wxObject
 #include "Class_wx_DataViewModel.h"						// derived from wxObject
@@ -818,6 +821,7 @@
 #include "Class_wx_DataViewCustomRenderer.h"			// derived from wxDataViewRenderer
 #include "Class_wx_DataViewEvent.h"						// derived from wxNotifyEvent
 #include "Class_wx_DataViewCtrl.h"						// derived from wxControl
+#endif
 #include "Class_wx_DDEConnection.h"						// derived from wxConnectionBase
 #include "Class_wx_DDEServer.h"							// derived from wxServerBase
 #include "Class_wx_DDEClient.h"							// derived from wxClientBase

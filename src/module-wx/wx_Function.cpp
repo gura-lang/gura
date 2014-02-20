@@ -1583,10 +1583,14 @@ Gura_DeclareFunction(StringEq)
 Gura_ImplementFunction(StringEq)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
+#if 0
 	wxString s1 = wxString::FromUTF8(args.GetString(0));
 	wxString s2 = wxString::FromUTF8(args.GetString(1));
 	bool rtn = wxStringEq(s1, s2);
 	return ReturnValue(env, sig, args, Value(rtn));
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
 }
 
 Gura_DeclareFunction(StringMatch)
@@ -4456,10 +4460,14 @@ Gura_DeclareFunction(GetElapsedTime)
 Gura_ImplementFunction(GetElapsedTime)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
+#if 0
 	bool resetTimer = true;
 	if (args.IsValid(0)) resetTimer = args.GetBoolean(0);
 	long rtn = wxGetElapsedTime(resetTimer);
 	return ReturnValue(env, sig, args, Value(rtn));
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
 }
 
 Gura_DeclareFunction(GetLocalTime)
@@ -4564,7 +4572,11 @@ Gura_DeclareFunction(StartTimer)
 Gura_ImplementFunction(StartTimer)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
+#if 0
 	wxStartTimer();
+	return Value::Null;
+#endif
+	SetError_NotImplemented(sig);
 	return Value::Null;
 }
 

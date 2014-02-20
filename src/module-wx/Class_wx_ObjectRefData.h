@@ -32,7 +32,9 @@ public:
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
 	inline void SetEntity(wxObjectRefData *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) {
-		if (_ownerFlag) delete _pEntity;
+		//*************************
+		//if (_ownerFlag) delete _pEntity;
+		
 		_pEntity = pEntity;
 		_pObserver = pObserver;
 		_ownerFlag = ownerFlag;

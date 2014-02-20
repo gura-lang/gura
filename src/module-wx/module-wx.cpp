@@ -182,6 +182,7 @@ _MS(RealizeDervClass(AutomationObject,					Object));
 	RealizeDervClass(Command,							Object);
 	RealizeDervClass(CommandProcessor,					Object);
 	RealizeDervClass(ContextHelp,						Object);
+#if 0
 _MS(RealizeDervClass(DataViewColumn,					Object));
 _MS(RealizeDervClass(DataViewListModelNotifier,			Object));
 _MS(RealizeDervClass(DataViewModel,						Object));
@@ -194,6 +195,7 @@ _MS(RealizeDervClass(DataViewToggleRenderer,			DataViewRenderer));
 _MS(RealizeDervClass(DataViewBitmapRenderer,			DataViewRenderer));
 _MS(RealizeDervClass(DataViewDateRenderer,				DataViewRenderer));
 _MS(RealizeDervClass(DataViewCustomRenderer,			DataViewRenderer));
+#endif
 	RealizeDervClass(DC,								Object);
 	RealizeDervClass(MemoryDC,							DC);
 	RealizeDervClass(BufferedDC,						MemoryDC);
@@ -232,7 +234,9 @@ _MS(RealizeDervClass(ActiveXEvent,						CommandEvent));
 	RealizeDervClass(NotifyEvent,						CommandEvent);
 	RealizeDervClass(BookCtrlBaseEvent,					NotifyEvent);
 	RealizeDervClass(TreebookEvent,						BookCtrlBaseEvent);
+#if 0
 _MS(RealizeDervClass(DataViewEvent,						NotifyEvent));
+#endif
 	RealizeDervClass(GridEvent,							NotifyEvent);
 	RealizeDervClass(GridRangeSelectEvent,				NotifyEvent);
 	RealizeDervClass(GridSizeEvent,						NotifyEvent);
@@ -298,7 +302,7 @@ _MS(RealizeDervClass(PowerEvent,						Event));
 _MS(RealizeDervClass(ActiveXContainer,					Window));
 	RealizeDervClass(Control,							Window);
 	RealizeDervClass(TextCtrlBase,						Control);
-	RealizeDervClass(RichTextCtrl,						TextCtrlBase);
+	RealizeDervClass(RichTextCtrl,						Control);
 	RealizeDervClass(BookCtrlBase,						Control);
 	RealizeDervClass(Choicebook,						BookCtrlBase);
 	RealizeDervClass(Toolbook,							BookCtrlBase);
@@ -315,14 +319,16 @@ _MS(RealizeDervClass(ActiveXContainer,					Window));
 	RealizeDervClass(CollapsiblePane,					Control);
 	RealizeDervClass(ComboCtrl,							Control);
 	RealizeDervClass(OwnerDrawnComboBox,				ComboCtrl);
-	RealizeDervClass(BitmapComboBox,					OwnerDrawnComboBox);
+	RealizeDervClass(BitmapComboBox,					ComboBox);
 	RealizeDervClass(RichTextStyleComboCtrl,			ComboCtrl);
 	RealizeDervClass(ControlWithItems,					Control);
 	RealizeDervClass(Choice,							ControlWithItems);
 	RealizeDervClass(ComboBox,							Control);
 	RealizeDervClass(ListBox,							ControlWithItems);
 	RealizeDervClass(CheckListBox,						ListBox);
+#if 0
 _MS(RealizeDervClass(DataViewCtrl,						Control));
+#endif
 	RealizeDervClass(DatePickerCtrl,					Control);
 	RealizeDervClass(Gauge,								Control);
 	RealizeDervClass(GenericDirCtrl,					Control);
@@ -412,7 +418,7 @@ _MS(RealizeDervClass(MediaCtrl,							Control));
 	RealizeDervClass(FontData,							Object);
 	RealizeDervClass(FSFile,							Object);
 	RealizeDervClass(GDIObject,							Object);
-	RealizeDervClass(Animation,							GDIObject);
+	RealizeDervClass(Animation,							Object);
 	RealizeDervClass(Bitmap,							GDIObject);
 	RealizeDervClass(Brush,								GDIObject);
 	RealizeDervClass(Cursor,							GDIObject);
@@ -435,7 +441,7 @@ _MS(RealizeDervClass(MediaCtrl,							Control));
 	RealizeDervClass(HtmlLinkInfo,						Object);
 	RealizeDervClass(HtmlParser,						Object);
 	RealizeDervClass(HtmlWinParser,						HtmlParser);
-	RealizeDervClass(HtmlTag,							Object);
+	RealizeBaseClass(HtmlTag);
 	RealizeDervClass(HtmlTagHandler,					Object);
 	RealizeDervClass(HtmlWinTagHandler,					HtmlTagHandler);
 	RealizeDervClass(Image,								Object);
@@ -500,11 +506,11 @@ _MS(RealizeDervClass(Metafile,							Object));
 	RealizeDervClass(URI,								Object);
 	RealizeDervClass(URL,								URI);
 	RealizeDervClass(Variant,							Object);
-	RealizeDervClass(VariantData,						Object);
 	RealizeDervClass(XmlDocument,						Object);
 	RealizeDervClass(XmlResource,						Object);
 	RealizeDervClass(XmlResourceHandler,				Object);
 	RealizeBaseClass(ObjectRefData);
+	RealizeDervClass(VariantData,						ObjectRefData);
 	RealizeBaseClass(PenList);
 	RealizeBaseClass(PlatformInfo);
 	RealizeBaseClass(Point);
@@ -740,6 +746,7 @@ _MS(PrepareClass(AutomationObject));
 	PrepareClass(Command);
 	PrepareClass(CommandProcessor);
 	PrepareClass(ContextHelp);
+#if 0
 _MS(PrepareClass(DataViewColumn));
 _MS(PrepareClass(DataViewListModelNotifier));
 _MS(PrepareClass(DataViewModel));
@@ -752,6 +759,7 @@ _MS(PrepareClass(DataViewToggleRenderer));
 _MS(PrepareClass(DataViewBitmapRenderer));
 _MS(PrepareClass(DataViewDateRenderer));
 _MS(PrepareClass(DataViewCustomRenderer));
+#endif
 	PrepareClass(DC);
 	PrepareClass(MemoryDC);
 	PrepareClass(BufferedDC);
@@ -790,7 +798,9 @@ _MS(PrepareClass(ActiveXEvent));
 	PrepareClass(NotifyEvent);
 	PrepareClass(BookCtrlBaseEvent);
 	PrepareClass(TreebookEvent);
+#if 0
 _MS(PrepareClass(DataViewEvent));
+#endif
 	PrepareClass(GridEvent);
 	PrepareClass(GridRangeSelectEvent);
 	PrepareClass(GridSizeEvent);
@@ -880,7 +890,9 @@ _MS(PrepareClass(ActiveXContainer));
 	PrepareClass(ComboBox);
 	PrepareClass(ListBox);
 	PrepareClass(CheckListBox);
+#if 0
 _MS(PrepareClass(DataViewCtrl));
+#endif
 	PrepareClass(DatePickerCtrl);
 	PrepareClass(Gauge);
 	PrepareClass(GenericDirCtrl);
@@ -1058,11 +1070,11 @@ _MS(PrepareClass(Metafile));
 	PrepareClass(URI);
 	PrepareClass(URL);
 	PrepareClass(Variant);
-	PrepareClass(VariantData);
 	PrepareClass(XmlDocument);
 	PrepareClass(XmlResource);
 	PrepareClass(XmlResourceHandler);
 	PrepareClass(ObjectRefData);
+	PrepareClass(VariantData);
 	PrepareClass(ClientBase);
 	PrepareClass(Client);
 _MS(PrepareClass(DDEClient));
@@ -2160,7 +2172,7 @@ _MS(PrepareClass(ThreadHelper));
 	} while (0);
 	do {
 		Gura_AssignWxValue(GA_HORIZONTAL);
-		Gura_AssignWxValue(GA_PROGRESSBAR);
+		//Gura_AssignWxValue(GA_PROGRESSBAR);
 		Gura_AssignWxValue(GA_SMOOTH);
 		Gura_AssignWxValue(GA_VERTICAL);
 	} while (0);
@@ -2268,7 +2280,7 @@ _MS(PrepareClass(ThreadHelper));
 		Gura_AssignWxValue(DEFAULT_FRAME_STYLE);
 		Gura_AssignWxValue(EXPAND);
 		Gura_AssignWxValue(FIXED_MINSIZE);
-		Gura_AssignWxValue(NO_3D);
+		//Gura_AssignWxValue(NO_3D);
 		Gura_AssignWxValue(NO_BORDER);
 		Gura_AssignWxValue(NO_FULL_REPAINT_ON_RESIZE);
 		Gura_AssignWxValue(MAXIMIZE);
@@ -2281,7 +2293,7 @@ _MS(PrepareClass(ThreadHelper));
 		Gura_AssignWxValue(WIZARD_EX_HELPBUTTON);
 		Gura_AssignWxValue(SYSTEM_MENU);
 		Gura_AssignWxValue(TAB_TRAVERSAL);
-		Gura_AssignWxValue(THICK_FRAME);
+		//Gura_AssignWxValue(THICK_FRAME);
 		Gura_AssignWxValue(TINY_CAPTION_HORIZ);
 		Gura_AssignWxValue(TINY_CAPTION_VERT);
 		Gura_AssignWxValue(TRANSPARENT_WINDOW);
@@ -2318,12 +2330,12 @@ _MS(PrepareClass(ThreadHelper));
 	do {
 		Gura_AssignWxValue(RA_SPECIFY_COLS);
 		Gura_AssignWxValue(RA_SPECIFY_ROWS);
-		Gura_AssignWxValue(RA_USE_CHECKBOX);
+		//Gura_AssignWxValue(RA_USE_CHECKBOX);
 	} while (0);
 	do {
 		Gura_AssignWxValue(RB_GROUP);
 		Gura_AssignWxValue(RB_SINGLE);
-		Gura_AssignWxValue(RB_USE_CHECKBOX);
+		//Gura_AssignWxValue(RB_USE_CHECKBOX);
 	} while (0);
 	do {
 		Gura_AssignWxValue(RESERVE_SPACE_EVEN_IF_HIDDEN);
@@ -2849,22 +2861,24 @@ _MS(PrepareClass(ThreadHelper));
 		Gura_AssignWxValue(FromEnd);
 		Gura_AssignWxValue(FromCurrent);
 	} while (0);
+#if 0
 	do {
-	_MS(Gura_AssignWxValue(DATAVIEW_COL_RESIZABLE));
-	_MS(Gura_AssignWxValue(DATAVIEW_COL_SORTABLE));
-	_MS(Gura_AssignWxValue(DATAVIEW_COL_HIDDEN));
+		_MS(Gura_AssignWxValue(DATAVIEW_COL_RESIZABLE));
+		_MS(Gura_AssignWxValue(DATAVIEW_COL_SORTABLE));
+		_MS(Gura_AssignWxValue(DATAVIEW_COL_HIDDEN));
 	} while (0);
 	do { // wxDataViewCellMode
-	_MS(Gura_AssignWxValue(DATAVIEW_CELL_INERT));
-	_MS(Gura_AssignWxValue(DATAVIEW_CELL_ACTIVATABLE));
-	_MS(Gura_AssignWxValue(DATAVIEW_CELL_EDITABLE));
+		_MS(Gura_AssignWxValue(DATAVIEW_CELL_INERT));
+		_MS(Gura_AssignWxValue(DATAVIEW_CELL_ACTIVATABLE));
+		_MS(Gura_AssignWxValue(DATAVIEW_CELL_EDITABLE));
 	} while (0);
 	do { // wxDataViewCellRenderState
-	_MS(Gura_AssignWxValue(DATAVIEW_CELL_SELECTED));
-	_MS(Gura_AssignWxValue(DATAVIEW_CELL_PRELIT));
-	_MS(Gura_AssignWxValue(DATAVIEW_CELL_INSENSITIVE));
-	_MS(Gura_AssignWxValue(DATAVIEW_CELL_FOCUSED));
+		_MS(Gura_AssignWxValue(DATAVIEW_CELL_SELECTED));
+		_MS(Gura_AssignWxValue(DATAVIEW_CELL_PRELIT));
+		_MS(Gura_AssignWxValue(DATAVIEW_CELL_INSENSITIVE));
+		_MS(Gura_AssignWxValue(DATAVIEW_CELL_FOCUSED));
 	} while (0);
+#endif
 	do { // wxPropertySheetDialog::SetSheetStyle
 		Gura_AssignWxValue(PROPSHEET_DEFAULT);
 		Gura_AssignWxValue(PROPSHEET_NOTEBOOK);
@@ -3165,10 +3179,12 @@ void InitializeObjects(Environment &env)
 		Gura_AssignWxEvent(EVT_COMMAND_RICHTEXT_CONTENT_DELETED,	EVT_RICHTEXT_CONTENT_DELETED,	RichTextEvent);
 		Gura_AssignWxEvent(EVT_COMMAND_RICHTEXT_BUFFER_RESET,		EVT_RICHTEXT_BUFFER_RESET,		RichTextEvent);
 		Gura_AssignWxEvent(EVT_COMMAND_COLLPANE_CHANGED,			EVT_COLLAPSIBLEPANE_CHANGED,	CollapsiblePaneEvent);
+#if 0
 	_MS(Gura_AssignWxEvent(EVT_COMMAND_DATAVIEW_ROW_SELECTED,		EVT_DATAVIEW_ROW_SELECTED,		DataViewEvent));
 	_MS(Gura_AssignWxEvent(EVT_COMMAND_DATAVIEW_ROW_ACTIVATED,		EVT_DATAVIEW_ROW_ACTIVATED,		DataViewEvent));
 	_MS(Gura_AssignWxEvent(EVT_COMMAND_DATAVIEW_COLUMN_HEADER_CLICK, EVT_DATAVIEW_COLUMN_HEADER_CLICK, DataViewEvent));
 	_MS(Gura_AssignWxEvent(EVT_COMMAND_DATAVIEW_COLUMN_HEADER_RIGHT_CLICK, EVT_DATAVIEW_COLUMN_HEADER_RIGHT_CLICK, DataViewEvent));
+#endif
 		Gura_AssignWxEvent(EVT_COMMAND_FIND,						EVT_FIND,						FindDialogEvent);
 		Gura_AssignWxEvent(EVT_COMMAND_FIND_NEXT,					EVT_FIND_NEXT,					FindDialogEvent);
 		Gura_AssignWxEvent(EVT_COMMAND_FIND_REPLACE,				EVT_FIND_REPLACE,				FindDialogEvent);
@@ -3310,7 +3326,7 @@ void SetError_InvalidWxObject(Signal sig, const char *name)
 
 void SetLogError(const Signal &sig)
 {
-	::wxLogError(wxString::FromUTF8(sig.GetError().MakeText(true).c_str()));
+	//::wxLogError(wxString::FromUTF8(sig.GetError().MakeText(true).c_str()));
 }
 
 wxArrayString *CreateArrayString(const ValueList &valList)

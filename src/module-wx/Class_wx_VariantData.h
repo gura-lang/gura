@@ -15,14 +15,14 @@ Gura_DeclareUserClass(wx_VariantData);
 //----------------------------------------------------------------------------
 // Object declaration for wxVariantData
 //----------------------------------------------------------------------------
-class Object_wx_VariantData : public Object_wx_Object {
+class Object_wx_VariantData : public Object_wx_ObjectRefData {
 public:
 	Gura_DeclareObjectAccessor(wx_VariantData)
 public:
 	inline Object_wx_VariantData(wxVariantData *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
-				Object_wx_Object(Gura_UserClass(wx_VariantData), pEntity, pObserver, ownerFlag) {}
+				Object_wx_ObjectRefData(Gura_UserClass(wx_VariantData), pEntity, pObserver, ownerFlag) {}
 	inline Object_wx_VariantData(Class *pClass, wxVariantData *pEntity, GuraObjectObserver *pObserver, bool ownerFlag) :
-				Object_wx_Object(pClass, pEntity, pObserver, ownerFlag) {}
+				Object_wx_ObjectRefData(pClass, pEntity, pObserver, ownerFlag) {}
 	virtual ~Object_wx_VariantData();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);

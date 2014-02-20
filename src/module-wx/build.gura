@@ -556,6 +556,7 @@ srcs_MSW = [
 	'Class_wx_DataObjectComposite.cpp'
 	'Class_wx_URLDataObject.cpp'
 	'Class_wx_DataOutputStream.cpp'
+	/*
 	'Class_wx_DataViewColumn.cpp'
 	'Class_wx_DataViewListModelNotifier.cpp'
 	'Class_wx_DataViewModel.cpp'
@@ -570,6 +571,7 @@ srcs_MSW = [
 	'Class_wx_DataViewCustomRenderer.cpp'
 	'Class_wx_DataViewEvent.cpp'
 	'Class_wx_DataViewCtrl.cpp'
+	*/
 	'Class_wx_DDEConnection.cpp'
 	'Class_wx_DDEServer.cpp'
 	'Class_wx_DDEClient.cpp'
@@ -584,7 +586,7 @@ srcs_MSW = [
 ]
 contFlag = true	   
 builder = modbuild.Builder()
-if (sys.build == `msc) {
+if (sys.build == `msc2) {
 	srcs.append(srcs_MSW)
 	dirWx = path.join(modbuild.guestDir, 'wxMSW-2.8.12')
 	builder.incDirs.append(
