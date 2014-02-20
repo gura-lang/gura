@@ -5,32 +5,6 @@
 
 Gura_BeginModuleScope(wx)
 
-Gura_DeclarePrivUserSymbol(CanCopy);
-Gura_DeclarePrivUserSymbol(CanCut);
-Gura_DeclarePrivUserSymbol(CanPaste);
-Gura_DeclarePrivUserSymbol(CanRedo);
-Gura_DeclarePrivUserSymbol(CanUndo);
-Gura_DeclarePrivUserSymbol(Clear);
-Gura_DeclarePrivUserSymbol(Copy);
-Gura_DeclarePrivUserSymbol(Cut);
-Gura_DeclarePrivUserSymbol(GetInsertionPoint);
-Gura_DeclarePrivUserSymbol(GetLastPosition);
-Gura_DeclarePrivUserSymbol(GetRange);
-Gura_DeclarePrivUserSymbol(GetSelection);
-Gura_DeclarePrivUserSymbol(GetStringSelection);
-Gura_DeclarePrivUserSymbol(Paste);
-Gura_DeclarePrivUserSymbol(Redo);
-Gura_DeclarePrivUserSymbol(Remove);
-Gura_DeclarePrivUserSymbol(Replace);
-Gura_DeclarePrivUserSymbol(SetEditable);
-Gura_DeclarePrivUserSymbol(SetInsertionPoint);
-Gura_DeclarePrivUserSymbol(SetInsertionPointEnd);
-Gura_DeclarePrivUserSymbol(SetMaxLength);
-Gura_DeclarePrivUserSymbol(SetSelection);
-Gura_DeclarePrivUserSymbol(SetValue);
-Gura_DeclarePrivUserSymbol(ChangeValue);
-Gura_DeclarePrivUserSymbol(Undo);
-
 //----------------------------------------------------------------------------
 // Class derivation
 //----------------------------------------------------------------------------
