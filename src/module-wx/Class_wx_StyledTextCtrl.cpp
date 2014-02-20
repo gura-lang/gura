@@ -152,6 +152,8 @@ String Object_wx_StyledTextCtrl::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StyledTextCtrl)
 {
+	Gura_AssignFunction(StyledTextCtrlEmpty);
+	Gura_AssignFunction(StyledTextCtrl);
 }
 
 Gura_ImplementDescendantCreator(wx_StyledTextCtrl)
