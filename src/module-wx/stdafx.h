@@ -448,6 +448,7 @@
 #include "Class_wx_WizardEvent.h"						// derived from wxNotifyEvent
 #include "Class_wx_SashEvent.h"							// derived from wxCommandEvent
 #include "Class_wx_ScrollEvent.h"						// derived from wxCommandEvent
+#include "Class_wx_StyledTextEvent.h"					// derived from wxCommandEvent
 #include "Class_wx_UpdateUIEvent.h"						// derived from wxCommandEvent
 #include "Class_wx_WindowCreateEvent.h"					// derived from wxCommandEvent
 #include "Class_wx_WindowDestroyEvent.h"				// derived from wxCommandEvent

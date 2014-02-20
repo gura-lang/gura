@@ -194,6 +194,7 @@ srcs = [
 	'Class_wx_WizardEvent.cpp'
 	'Class_wx_SashEvent.cpp'
 	'Class_wx_ScrollEvent.cpp'
+	'Class_wx_StyledTextEvent.cpp'
 	'Class_wx_UpdateUIEvent.cpp'
 	'Class_wx_WindowCreateEvent.cpp'
 	'Class_wx_WindowDestroyEvent.cpp'

@@ -2079,9 +2079,42 @@ Gura_ImplementUserInheritableClass(wx_StyledTextCtrl)
 	Gura_AssignWxValue(STC_CMD_MOVESELECTEDLINESDOWN);
 	Gura_AssignWxValue(STC_CMD_SCROLLTOSTART);
 	Gura_AssignWxValue(STC_CMD_SCROLLTOEND);
-	
+	// assignment of functions
 	Gura_AssignFunction(StyledTextCtrlEmpty);
 	Gura_AssignFunction(StyledTextCtrl);
+	// assignment of methods
+	
+	// assignment of events
+	Gura_AssignWxEvent(EVT_STC_CHANGE,					EVT_STC_CHANGE,					StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_STYLENEEDED,				EVT_STC_STYLENEEDED,			StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_CHARADDED,				EVT_STC_CHARADDED,				StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_SAVEPOINTREACHED,		EVT_STC_SAVEPOINTREACHED,		StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_SAVEPOINTLEFT,			EVT_STC_SAVEPOINTLEFT,			StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_ROMODIFYATTEMPT,			EVT_STC_ROMODIFYATTEMPT,		StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_KEY,						EVT_STC_KEY,					StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_DOUBLECLICK,				EVT_STC_DOUBLECLICK,			StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_UPDATEUI,				EVT_STC_UPDATEUI,				StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_MODIFIED,				EVT_STC_MODIFIED,				StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_MACRORECORD,				EVT_STC_MACRORECORD,			StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_MARGINCLICK,				EVT_STC_MARGINCLICK,			StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_NEEDSHOWN,				EVT_STC_NEEDSHOWN,				StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_PAINTED,					EVT_STC_PAINTED,				StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_USERLISTSELECTION,		EVT_STC_USERLISTSELECTION,		StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_URIDROPPED,				EVT_STC_URIDROPPED,				StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_DWELLSTART,				EVT_STC_DWELLSTART,				StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_DWELLEND,				EVT_STC_DWELLEND,				StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_START_DRAG,				EVT_STC_START_DRAG,				StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_DRAG_OVER,				EVT_STC_DRAG_OVER,				StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_DO_DROP,					EVT_STC_DO_DROP,				StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_ZOOM,					EVT_STC_ZOOM,					StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_HOTSPOT_CLICK,			EVT_STC_HOTSPOT_CLICK,			StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_HOTSPOT_DCLICK,			EVT_STC_HOTSPOT_DCLICK,			StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_CALLTIP_CLICK,			EVT_STC_CALLTIP_CLICK,			StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_AUTOCOMP_SELECTION,		EVT_STC_AUTOCOMP_SELECTION,		StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_INDICATOR_CLICK,			EVT_STC_INDICATOR_CLICK,		StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_INDICATOR_RELEASE,		EVT_STC_INDICATOR_RELEASE,		StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_AUTOCOMP_CANCELLED,		EVT_STC_AUTOCOMP_CANCELLED,		StyledTextEvent);
+	Gura_AssignWxEvent(EVT_STC_AUTOCOMP_CHAR_DELETED,	EVT_STC_AUTOCOMP_CHAR_DELETED,	StyledTextEvent);
 }
 
 Gura_ImplementDescendantCreator(wx_StyledTextCtrl)
