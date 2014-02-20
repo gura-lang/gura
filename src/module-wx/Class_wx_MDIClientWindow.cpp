@@ -15,7 +15,6 @@ private:
 	Object_wx_MDIClientWindow *_pObj;
 public:
 	inline wx_MDIClientWindow() : wxMDIClientWindow(), _sig(NULL), _pObj(NULL) {}
-	inline wx_MDIClientWindow(wxMDIParentFrame* parent, long style) : wxMDIClientWindow(parent, style), _sig(NULL), _pObj(NULL) {}
 	~wx_MDIClientWindow();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_MDIClientWindow *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -48,33 +47,6 @@ Gura_ImplementFunction(MDIClientWindowEmpty)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wx_MDIClientWindow *pEntity = new wx_MDIClientWindow();
-	Object_wx_MDIClientWindow *pObj = Object_wx_MDIClientWindow::GetThisObj(args);
-	if (pObj == NULL) {
-		pObj = new Object_wx_MDIClientWindow(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
-	}
-	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
-}
-
-Gura_DeclareFunction(MDIClientWindow)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	SetClassToConstruct(Gura_UserClass(wx_MDIClientWindow));
-	DeclareArg(env, "parent", VTYPE_wx_MDIParentFrame, OCCUR_Once);
-	DeclareArg(env, "style", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementFunction(MDIClientWindow)
-{
-	if (!CheckWxReady(sig)) return Value::Null;
-	wxMDIParentFrame *parent = Object_wx_MDIParentFrame::GetObject(args, 0)->GetEntity();
-	long style = 0;
-	if (args.IsValid(1)) style = args.GetLong(1);
-	wx_MDIClientWindow *pEntity = new wx_MDIClientWindow(parent, style);
 	Object_wx_MDIClientWindow *pObj = Object_wx_MDIClientWindow::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_MDIClientWindow(pEntity, pEntity, OwnerFalse);
@@ -136,7 +108,6 @@ String Object_wx_MDIClientWindow::ToString(bool exprFlag)
 Gura_ImplementUserInheritableClass(wx_MDIClientWindow)
 {
 	Gura_AssignFunction(MDIClientWindowEmpty);
-	Gura_AssignFunction(MDIClientWindow);
 	Gura_AssignMethod(wx_MDIClientWindow, CreateClient);
 }
 

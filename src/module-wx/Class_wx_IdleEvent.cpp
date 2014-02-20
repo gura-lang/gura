@@ -58,6 +58,7 @@ Gura_ImplementFunction(IdleEventEmpty)
 	return ReturnValue(env, sig, args, args.GetThis());
 }
 
+#if 0
 Gura_DeclareClassMethod(wx_IdleEvent, CanSend)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -72,6 +73,7 @@ Gura_ImplementClassMethod(wx_IdleEvent, CanSend)
 	bool rtn = wxIdleEvent::CanSend(window);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
+#endif
 
 Gura_DeclareClassMethod(wx_IdleEvent, GetMode)
 {
@@ -161,7 +163,7 @@ String Object_wx_IdleEvent::ToString(bool exprFlag)
 Gura_ImplementUserInheritableClass(wx_IdleEvent)
 {
 	Gura_AssignFunction(IdleEventEmpty);
-	Gura_AssignMethod(wx_IdleEvent, CanSend);
+	//Gura_AssignMethod(wx_IdleEvent, CanSend);
 	Gura_AssignMethod(wx_IdleEvent, GetMode);
 	Gura_AssignMethod(wx_IdleEvent, RequestMore);
 	Gura_AssignMethod(wx_IdleEvent, MoreRequested);

@@ -162,6 +162,7 @@ Gura_ImplementMethod(wx_CalendarCtrl, GetDate)
 	return ReturnValue(env, sig, args, Value(new Object_wx_DateTime(new wxDateTime(rtn), NULL, OwnerTrue)));
 }
 
+#if 0
 Gura_DeclareMethod(wx_CalendarCtrl, EnableYearChange)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
@@ -177,6 +178,7 @@ Gura_ImplementMethod(wx_CalendarCtrl, EnableYearChange)
 	pThis->GetEntity()->EnableYearChange(enable);
 	return Value::Null;
 }
+#endif
 
 Gura_DeclareMethod(wx_CalendarCtrl, EnableMonthChange)
 {
@@ -474,7 +476,7 @@ Gura_ImplementUserInheritableClass(wx_CalendarCtrl)
 	Gura_AssignMethod(wx_CalendarCtrl, Create);
 	Gura_AssignMethod(wx_CalendarCtrl, SetDate);
 	Gura_AssignMethod(wx_CalendarCtrl, GetDate);
-	Gura_AssignMethod(wx_CalendarCtrl, EnableYearChange);
+	//Gura_AssignMethod(wx_CalendarCtrl, EnableYearChange);
 	Gura_AssignMethod(wx_CalendarCtrl, EnableMonthChange);
 	Gura_AssignMethod(wx_CalendarCtrl, EnableHolidayDisplay);
 	Gura_AssignMethod(wx_CalendarCtrl, SetHeaderColours);

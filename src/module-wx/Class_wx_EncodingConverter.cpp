@@ -192,6 +192,7 @@ Gura_ImplementMethod(wx_EncodingConverter, Convert_3)
 	return Value::Null;
 }
 
+#if 0
 Gura_DeclareMethod(wx_EncodingConverter, Convert_4)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -207,6 +208,7 @@ Gura_ImplementMethod(wx_EncodingConverter, Convert_4)
 	bool rtn = pThis->GetEntity()->Convert(str);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
+#endif
 
 Gura_DeclareMethod(wx_EncodingConverter, Convert_5)
 {
@@ -328,7 +330,7 @@ Gura_ImplementUserInheritableClass(wx_EncodingConverter)
 	Gura_AssignMethod(wx_EncodingConverter, Convert_1);
 	Gura_AssignMethod(wx_EncodingConverter, Convert_2);
 	Gura_AssignMethod(wx_EncodingConverter, Convert_3);
-	Gura_AssignMethod(wx_EncodingConverter, Convert_4);
+	//Gura_AssignMethod(wx_EncodingConverter, Convert_4);
 	Gura_AssignMethod(wx_EncodingConverter, Convert_5);
 	Gura_AssignMethod(wx_EncodingConverter, Convert_6);
 	Gura_AssignMethod(wx_EncodingConverter, GetPlatformEquivalents);

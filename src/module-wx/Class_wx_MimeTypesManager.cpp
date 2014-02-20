@@ -123,6 +123,7 @@ Gura_ImplementMethod(wx_MimeTypesManager, IsOfType)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
+#if 0
 Gura_DeclareMethod(wx_MimeTypesManager, ReadMailcap)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -141,7 +142,9 @@ Gura_ImplementMethod(wx_MimeTypesManager, ReadMailcap)
 	bool rtn = pThis->GetEntity()->ReadMailcap(filename, fallback);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
+#endif
 
+#if 0
 Gura_DeclareMethod(wx_MimeTypesManager, ReadMimeTypes)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -157,6 +160,7 @@ Gura_ImplementMethod(wx_MimeTypesManager, ReadMimeTypes)
 	bool rtn = pThis->GetEntity()->ReadMimeTypes(filename);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
+#endif
 
 //----------------------------------------------------------------------------
 // Object implementation for wxMimeTypesManager
@@ -196,8 +200,8 @@ Gura_ImplementUserInheritableClass(wx_MimeTypesManager)
 	Gura_AssignMethod(wx_MimeTypesManager, GetFileTypeFromExtension);
 	Gura_AssignMethod(wx_MimeTypesManager, GetFileTypeFromMimeType);
 	Gura_AssignMethod(wx_MimeTypesManager, IsOfType);
-	Gura_AssignMethod(wx_MimeTypesManager, ReadMailcap);
-	Gura_AssignMethod(wx_MimeTypesManager, ReadMimeTypes);
+	//Gura_AssignMethod(wx_MimeTypesManager, ReadMailcap);
+	//Gura_AssignMethod(wx_MimeTypesManager, ReadMimeTypes);
 }
 
 Gura_ImplementDescendantCreator(wx_MimeTypesManager)

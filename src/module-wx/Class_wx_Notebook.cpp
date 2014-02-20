@@ -409,6 +409,7 @@ Gura_ImplementMethod(wx_Notebook, InsertPage)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
+#if 0
 Gura_DeclareMethod(wx_Notebook, OnSelChange)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
@@ -428,6 +429,7 @@ Gura_ImplementMethod(wx_Notebook, OnSelChange)
 	return Value::Null;
 #endif	
 }
+#endif
 
 Gura_DeclareMethod(wx_Notebook, RemovePage)
 {
@@ -595,7 +597,7 @@ Gura_ImplementUserInheritableClass(wx_Notebook)
 	Gura_AssignMethod(wx_Notebook, GetThemeBackgroundColour);
 	Gura_AssignMethod(wx_Notebook, HitTest);
 	Gura_AssignMethod(wx_Notebook, InsertPage);
-	Gura_AssignMethod(wx_Notebook, OnSelChange);
+	//Gura_AssignMethod(wx_Notebook, OnSelChange);
 	Gura_AssignMethod(wx_Notebook, RemovePage);
 	Gura_AssignMethod(wx_Notebook, SetImageList);
 	Gura_AssignMethod(wx_Notebook, SetPadding);

@@ -339,19 +339,32 @@ Gura_ImplementClassMethod(wx_Log, GetRepetitionCounting)
 Gura_DeclareClassMethod(wx_Log, SetTimestamp)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "format", VTYPE_string, OCCUR_Once, FLAG_Nil);
+	DeclareArg(env, "format", VTYPE_string, OCCUR_Once);
 }
 
 Gura_ImplementClassMethod(wx_Log, SetTimestamp)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 #if defined(__WXMSW__)
-	if (args.IsValid(0)) {
-		const char *format = args.GetString(0);
-		wxLog::SetTimestamp(format);
-	} else {
-		wxLog::SetTimestamp(NULL);
-	}
+	const char *format = args.GetString(0);
+	wxLog::SetTimestamp(format);
+	return Value::Null;
+#else
+	SetError_MSWOnly(sig);
+	return Value::Null;
+#endif	
+}
+
+Gura_DeclareClassMethod(wx_Log, DisableTimestamp)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+}
+
+Gura_ImplementClassMethod(wx_Log, DisableTimestamp)
+{
+	if (!CheckWxReady(sig)) return Value::Null;
+#if defined(__WXMSW__)
+	wxLog::DisableTimestamp();
 	return Value::Null;
 #else
 	SetError_MSWOnly(sig);
@@ -472,6 +485,7 @@ Gura_ImplementUserInheritableClass(wx_Log)
 	Gura_AssignMethod(wx_Log, SetRepetitionCounting);
 	Gura_AssignMethod(wx_Log, GetRepetitionCounting);
 	Gura_AssignMethod(wx_Log, SetTimestamp);
+	Gura_AssignMethod(wx_Log, DisableTimestamp);
 	Gura_AssignMethod(wx_Log, GetTimestamp);
 	Gura_AssignMethod(wx_Log, SetTraceMask);
 	Gura_AssignMethod(wx_Log, IsAllowedTraceMask);

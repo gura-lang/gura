@@ -135,6 +135,7 @@ Gura_ImplementMethod(wx_DocMDIParentFrame, Create)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
+#if 0
 Gura_DeclareMethod(wx_DocMDIParentFrame, OnCloseWindow)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
@@ -149,6 +150,7 @@ Gura_ImplementMethod(wx_DocMDIParentFrame, OnCloseWindow)
 	pThis->GetEntity()->OnCloseWindow(*event);
 	return Value::Null;
 }
+#endif
 
 //----------------------------------------------------------------------------
 // Object implementation for wxDocMDIParentFrame
@@ -183,7 +185,7 @@ Gura_ImplementUserInheritableClass(wx_DocMDIParentFrame)
 	Gura_AssignFunction(DocMDIParentFrameEmpty);
 	Gura_AssignFunction(DocMDIParentFrame);
 	Gura_AssignMethod(wx_DocMDIParentFrame, Create);
-	Gura_AssignMethod(wx_DocMDIParentFrame, OnCloseWindow);
+	//Gura_AssignMethod(wx_DocMDIParentFrame, OnCloseWindow);
 }
 
 Gura_ImplementDescendantCreator(wx_DocMDIParentFrame)

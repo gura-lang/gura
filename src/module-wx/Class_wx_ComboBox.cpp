@@ -659,6 +659,7 @@ Gura_ImplementMethod(wx_ComboBox, Insert)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
+#if 0
 Gura_DeclareMethod(wx_ComboBox, IsEmpty)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -672,6 +673,7 @@ Gura_ImplementMethod(wx_ComboBox, IsEmpty)
 	bool rtn = pThis->GetEntity()->IsEmpty();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
+#endif
 
 Gura_DeclareMethod(wx_ComboBox, Select)
 {
@@ -822,7 +824,7 @@ Gura_ImplementUserInheritableClass(wx_ComboBox)
 	Gura_AssignMethod(wx_ComboBox, GetStrings);
 	Gura_AssignMethod(wx_ComboBox, GetStringSelection);
 	Gura_AssignMethod(wx_ComboBox, Insert);
-	Gura_AssignMethod(wx_ComboBox, IsEmpty);
+	//Gura_AssignMethod(wx_ComboBox, IsEmpty);
 	Gura_AssignMethod(wx_ComboBox, Select);
 	Gura_AssignMethod(wx_ComboBox, SetClientObject);
 	Gura_AssignMethod(wx_ComboBox, SetSelection);

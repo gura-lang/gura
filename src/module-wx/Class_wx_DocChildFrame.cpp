@@ -108,6 +108,7 @@ Gura_ImplementMethod(wx_DocChildFrame, GetView)
 	return ReturnValue(env, sig, args, Value(new Object_wx_View(rtn, NULL, OwnerFalse)));
 }
 
+#if 0
 Gura_DeclareMethod(wx_DocChildFrame, OnActivate)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
@@ -122,7 +123,9 @@ Gura_ImplementMethod(wx_DocChildFrame, OnActivate)
 	pThis->GetEntity()->OnActivate(*event);
 	return Value::Null;
 }
+#endif
 
+#if 0
 Gura_DeclareMethod(wx_DocChildFrame, OnCloseWindow)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
@@ -137,6 +140,7 @@ Gura_ImplementMethod(wx_DocChildFrame, OnCloseWindow)
 	pThis->GetEntity()->OnCloseWindow(*event);
 	return Value::Null;
 }
+#endif
 
 Gura_DeclareMethod(wx_DocChildFrame, SetDocument)
 {
@@ -201,8 +205,8 @@ Gura_ImplementUserInheritableClass(wx_DocChildFrame)
 	Gura_AssignFunction(DocChildFrame);
 	Gura_AssignMethod(wx_DocChildFrame, GetDocument);
 	Gura_AssignMethod(wx_DocChildFrame, GetView);
-	Gura_AssignMethod(wx_DocChildFrame, OnActivate);
-	Gura_AssignMethod(wx_DocChildFrame, OnCloseWindow);
+	//Gura_AssignMethod(wx_DocChildFrame, OnActivate);
+	//Gura_AssignMethod(wx_DocChildFrame, OnCloseWindow);
 	Gura_AssignMethod(wx_DocChildFrame, SetDocument);
 	Gura_AssignMethod(wx_DocChildFrame, SetView);
 }

@@ -1653,13 +1653,15 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetUncombinedStyle)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long position = args.GetLong(0);
 	bool rtn = false;
+#if 0
 	if (args.IsInstanceOf(1, VTYPE_wx_TextAttrEx)) { // TextAttrEx must be checked before TextAttr
 		wxTextAttrEx *style = Object_wx_TextAttrEx::GetObject(args, 1)->GetEntity();
 		rtn = pThis->GetEntity()->GetUncombinedStyle(position, *style);
 	} else if (args.IsInstanceOf(1, VTYPE_wx_TextAttr)) {
 		wxTextAttr *style = Object_wx_TextAttr::GetObject(args, 1)->GetEntity();
 		rtn = pThis->GetEntity()->GetUncombinedStyle(position, *style);
-	} else if (args.IsInstanceOf(1, VTYPE_wx_RichTextAttr)) {
+#endif
+	if (args.IsInstanceOf(1, VTYPE_wx_RichTextAttr)) {
 		wxRichTextAttr *style = Object_wx_RichTextAttr::GetObject(args, 1)->GetEntity();
 		rtn = pThis->GetEntity()->GetUncombinedStyle(position, *style);
 	} else {
@@ -3274,6 +3276,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetStyleEx_1)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
+#if 0
 Gura_DeclareMethod(wx_RichTextCtrl, SetStyleEx_2)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -3296,6 +3299,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, SetStyleEx_2)
 	bool rtn = pThis->GetEntity()->SetStyleEx(start, end, *style, flags);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
+#endif
 
 Gura_DeclareMethod(wx_RichTextCtrl, SetStyleSheet)
 {
@@ -3451,7 +3455,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, WriteImageFile)
 	Object_wx_RichTextCtrl *pThis = Object_wx_RichTextCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
-	int bitmapType = args.GetInt(1);
+	wxBitmapType bitmapType = static_cast<wxBitmapType>(args.GetInt(1));
 	bool rtn = pThis->GetEntity()->WriteImage(filename, bitmapType);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -3485,8 +3489,8 @@ Gura_ImplementMethod(wx_RichTextCtrl, WriteBitmap)
 	Object_wx_RichTextCtrl *pThis = Object_wx_RichTextCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
-	int bitmapType = wxBITMAP_TYPE_PNG;
-	if (args.IsValid(1)) bitmapType = args.GetInt(1);
+	wxBitmapType bitmapType = wxBITMAP_TYPE_PNG;
+	if (args.IsValid(1)) bitmapType = static_cast<wxBitmapType>(args.GetInt(1));
 	bool rtn = pThis->GetEntity()->WriteImage(*bitmap, bitmapType);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -3504,8 +3508,8 @@ Gura_ImplementMethod(wx_RichTextCtrl, WriteImage)
 	Object_wx_RichTextCtrl *pThis = Object_wx_RichTextCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxImage *image = Object_wx_Image::GetObject(args, 0)->GetEntity();
-	int bitmapType = wxBITMAP_TYPE_PNG;
-	if (args.IsValid(1)) bitmapType = args.GetInt(1);
+	wxBitmapType bitmapType = wxBITMAP_TYPE_PNG;
+	if (args.IsValid(1)) bitmapType = static_cast<wxBitmapType>(args.GetInt(1));
 	bool rtn = pThis->GetEntity()->WriteImage(*image, bitmapType);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -3767,7 +3771,7 @@ Gura_ImplementUserInheritableClass(wx_RichTextCtrl)
 	Gura_AssignMethod(wx_RichTextCtrl, SetStyle_2);
 	Gura_AssignMethod(wx_RichTextCtrl, SetStyleEx);
 	Gura_AssignMethod(wx_RichTextCtrl, SetStyleEx_1);
-	Gura_AssignMethod(wx_RichTextCtrl, SetStyleEx_2);
+	//Gura_AssignMethod(wx_RichTextCtrl, SetStyleEx_2);
 	Gura_AssignMethod(wx_RichTextCtrl, SetStyleSheet);
 	Gura_AssignMethod(wx_RichTextCtrl, SetValue);
 	Gura_AssignMethod(wx_RichTextCtrl, SetupScrollbars);

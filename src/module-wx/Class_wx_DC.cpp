@@ -68,8 +68,8 @@ Gura_ImplementMethod(wx_DC, Blit)
 	wxDC *source = Object_wx_DC::GetObject(args, 4)->GetEntity();
 	wxCoord xsrc = static_cast<wxCoord>(args.GetInt(5));
 	wxCoord ysrc = static_cast<wxCoord>(args.GetInt(6));
-	int logicalFunc = wxCOPY;
-	if (args.IsValid(7)) logicalFunc = args.GetInt(7);
+	wxRasterOperationMode logicalFunc = wxCOPY;
+	if (args.IsValid(7)) logicalFunc = static_cast<wxRasterOperationMode>(args.GetInt(7));
 	bool useMask = false;
 	if (args.IsValid(8)) useMask = args.GetBoolean(8);
 	wxCoord xsrcMask = -1;
@@ -127,6 +127,7 @@ Gura_ImplementMethod(wx_DC, Clear)
 	return Value::Null;
 }
 
+#if 0
 Gura_DeclareClassMethod(wx_DC, ClearCache)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -143,7 +144,9 @@ Gura_ImplementClassMethod(wx_DC, ClearCache)
 	return Value::Null;
 #endif	
 }
+#endif
 
+#if 0
 Gura_DeclareMethod(wx_DC, ComputeScaleAndOrigin)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -156,6 +159,7 @@ Gura_ImplementMethod(wx_DC, ComputeScaleAndOrigin)
 	pThis->GetEntity()->ComputeScaleAndOrigin();
 	return Value::Null;
 }
+#endif
 
 Gura_DeclareMethod(wx_DC, CrossHair)
 {
@@ -577,8 +581,8 @@ Gura_ImplementMethod(wx_DC, DrawPolygon)
 	if (args.IsValid(1)) xoffset = static_cast<wxCoord>(args.GetInt(1));
 	wxCoord yoffset = 0;
 	if (args.IsValid(2)) yoffset = static_cast<wxCoord>(args.GetInt(2));
-	int fill_style = wxODDEVEN_RULE;
-	if (args.IsValid(3)) fill_style = args.GetInt(3);
+	wxPolygonFillMode fill_style = wxODDEVEN_RULE;
+	if (args.IsValid(3)) fill_style = static_cast<wxPolygonFillMode>(args.GetInt(3));
 	pThis->GetEntity()->DrawPolygon(points.Count(), points.Data(), xoffset, yoffset, fill_style);
 	return Value::Null;
 }
@@ -621,8 +625,8 @@ Gura_ImplementMethod(wx_DC, DrawPolyPolygon)
 	if (args.IsValid(1)) xoffset = static_cast<wxCoord>(args.GetInt(1));
 	wxCoord yoffset = 0;
 	if (args.IsValid(2)) yoffset = static_cast<wxCoord>(args.GetInt(2));
-	int fill_style = wxODDEVEN_RULE;
-	if (args.IsValid(3)) fill_style = args.GetInt(3);
+	wxPolygonFillMode fill_style = wxODDEVEN_RULE;
+	if (args.IsValid(3)) fill_style = static_cast<wxPolygonFillMode>(args.GetInt(3));
 	pThis->GetEntity()->DrawPolyPolygon(n, count, points, xoffset, yoffset, fill_style);
 	delete[] count;
 	delete[] points;
@@ -877,8 +881,8 @@ Gura_ImplementMethod(wx_DC, FloodFill)
 	wxCoord x = static_cast<wxCoord>(args.GetInt(0));
 	wxCoord y = static_cast<wxCoord>(args.GetInt(1));
 	wxColour *colour = Object_wx_Colour::GetObject(args, 2)->GetEntity();
-	int style = wxFLOOD_SURFACE;
-	if (args.IsValid(3)) style = args.GetInt(3);
+	wxFloodFillStyle style = wxFLOOD_SURFACE;
+	if (args.IsValid(3)) style = static_cast<wxFloodFillStyle>(args.GetInt(3));
 	bool rtn = pThis->GetEntity()->FloodFill(x, y, *colour, style);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -1448,6 +1452,7 @@ Gura_ImplementMethod(wx_DC, MinY)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
+#if 0
 Gura_DeclareMethod(wx_DC, Ok)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1461,6 +1466,7 @@ Gura_ImplementMethod(wx_DC, Ok)
 	bool rtn = pThis->GetEntity()->Ok();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
+#endif
 
 Gura_DeclareMethod(wx_DC, ResetBoundingBox)
 {
@@ -1662,7 +1668,7 @@ Gura_ImplementMethod(wx_DC, SetLogicalFunction)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	int function = args.GetInt(0);
+	wxRasterOperationMode function = static_cast<wxRasterOperationMode>(args.GetInt(0));
 	pThis->GetEntity()->SetLogicalFunction(function);
 	return Value::Null;
 }
@@ -1677,7 +1683,7 @@ Gura_ImplementMethod(wx_DC, SetMapMode)
 {
 	Object_wx_DC *pThis = Object_wx_DC::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	int mode = args.GetInt(0);
+	wxMappingMode mode = static_cast<wxMappingMode>(args.GetInt(0));
 	pThis->GetEntity()->SetMapMode(mode);
 	return Value::Null;
 }
@@ -1829,8 +1835,8 @@ Gura_ImplementUserInheritableClass(wx_DC)
 	Gura_AssignMethod(wx_DC, CacheEnabled);
 	Gura_AssignMethod(wx_DC, CalcBoundingBox);
 	Gura_AssignMethod(wx_DC, Clear);
-	Gura_AssignMethod(wx_DC, ClearCache);
-	Gura_AssignMethod(wx_DC, ComputeScaleAndOrigin);
+	//Gura_AssignMethod(wx_DC, ClearCache);
+	//Gura_AssignMethod(wx_DC, ComputeScaleAndOrigin);
 	Gura_AssignMethod(wx_DC, CrossHair);
 	Gura_AssignMethod(wx_DC, DestroyClippingRegion);
 	Gura_AssignMethod(wx_DC, DeviceToLogicalX);
@@ -1902,7 +1908,7 @@ Gura_ImplementUserInheritableClass(wx_DC)
 	Gura_AssignMethod(wx_DC, MaxY);
 	Gura_AssignMethod(wx_DC, MinX);
 	Gura_AssignMethod(wx_DC, MinY);
-	Gura_AssignMethod(wx_DC, Ok);
+	//Gura_AssignMethod(wx_DC, Ok);
 	Gura_AssignMethod(wx_DC, ResetBoundingBox);
 	Gura_AssignMethod(wx_DC, SetAxisOrientation);
 	Gura_AssignMethod(wx_DC, SetBackground);

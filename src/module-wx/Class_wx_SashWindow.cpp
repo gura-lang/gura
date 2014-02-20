@@ -169,6 +169,7 @@ Gura_ImplementMethod(wx_SashWindow, GetMinimumSizeY)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
+#if 0
 Gura_DeclareMethod(wx_SashWindow, HasBorder)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -184,6 +185,7 @@ Gura_ImplementMethod(wx_SashWindow, HasBorder)
 	bool rtn = pThis->GetEntity()->HasBorder(edge);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
+#endif
 
 Gura_DeclareMethod(wx_SashWindow, SetMaximumSizeX)
 {
@@ -262,6 +264,7 @@ Gura_ImplementMethod(wx_SashWindow, SetSashVisible)
 	return Value::Null;
 }
 
+#if 0
 Gura_DeclareMethod(wx_SashWindow, SetSashBorder)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
@@ -278,6 +281,7 @@ Gura_ImplementMethod(wx_SashWindow, SetSashBorder)
 	pThis->GetEntity()->SetSashBorder(edge, hasBorder);
 	return Value::Null;
 }
+#endif
 
 Gura_DeclareMethod(wx_SashWindow, GetEdgeMargin)
 {
@@ -391,13 +395,13 @@ Gura_ImplementUserInheritableClass(wx_SashWindow)
 	Gura_AssignMethod(wx_SashWindow, GetMaximumSizeY);
 	Gura_AssignMethod(wx_SashWindow, GetMinimumSizeX);
 	Gura_AssignMethod(wx_SashWindow, GetMinimumSizeY);
-	Gura_AssignMethod(wx_SashWindow, HasBorder);
+	//Gura_AssignMethod(wx_SashWindow, HasBorder);
 	Gura_AssignMethod(wx_SashWindow, SetMaximumSizeX);
 	Gura_AssignMethod(wx_SashWindow, SetMaximumSizeY);
 	Gura_AssignMethod(wx_SashWindow, SetMinimumSizeX);
 	Gura_AssignMethod(wx_SashWindow, SetMinimumSizeY);
 	Gura_AssignMethod(wx_SashWindow, SetSashVisible);
-	Gura_AssignMethod(wx_SashWindow, SetSashBorder);
+	//Gura_AssignMethod(wx_SashWindow, SetSashBorder);
 	Gura_AssignMethod(wx_SashWindow, GetEdgeMargin);
 	Gura_AssignMethod(wx_SashWindow, GetDefaultBorderSize);
 	Gura_AssignMethod(wx_SashWindow, GetExtraBorderSize);

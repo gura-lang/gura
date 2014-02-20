@@ -376,6 +376,7 @@ Gura_ImplementMethod(wx_VScrolledWindow, RefreshAll)
 	return Value::Null;
 }
 
+#if 0
 Gura_DeclareMethod(wx_VScrolledWindow, ScrollLines)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -391,7 +392,9 @@ Gura_ImplementMethod(wx_VScrolledWindow, ScrollLines)
 	bool rtn = pThis->GetEntity()->ScrollLines(lines);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
+#endif
 
+#if 0
 Gura_DeclareMethod(wx_VScrolledWindow, ScrollPages)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -407,6 +410,7 @@ Gura_ImplementMethod(wx_VScrolledWindow, ScrollPages)
 	bool rtn = pThis->GetEntity()->ScrollPages(pages);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
+#endif
 
 Gura_DeclareMethod(wx_VScrolledWindow, ScrollToLine)
 {
@@ -489,8 +493,8 @@ Gura_ImplementUserInheritableClass(wx_VScrolledWindow)
 	Gura_AssignMethod(wx_VScrolledWindow, RefreshLine);
 	Gura_AssignMethod(wx_VScrolledWindow, RefreshLines);
 	Gura_AssignMethod(wx_VScrolledWindow, RefreshAll);
-	Gura_AssignMethod(wx_VScrolledWindow, ScrollLines);
-	Gura_AssignMethod(wx_VScrolledWindow, ScrollPages);
+	//Gura_AssignMethod(wx_VScrolledWindow, ScrollLines);
+	//Gura_AssignMethod(wx_VScrolledWindow, ScrollPages);
 	Gura_AssignMethod(wx_VScrolledWindow, ScrollToLine);
 	Gura_AssignMethod(wx_VScrolledWindow, SetLineCount);
 }

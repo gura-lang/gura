@@ -225,8 +225,9 @@ Gura_ImplementMethod(wx_TreeCtrl, AssignImageList)
 {
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	wxImageList *imageList = Object_wx_ImageList::GetObject(args, 0)->GetEntity();
-	pThis->GetEntity()->AssignImageList(new wxImageList(*imageList));
+	wxImageList *imageList = new wxImageList();
+	imageList->Ref(*Object_wx_ImageList::GetObject(args, 0)->GetEntity());
+	pThis->GetEntity()->AssignImageList(imageList);
 	return Value::Null;
 }
 
@@ -240,8 +241,9 @@ Gura_ImplementMethod(wx_TreeCtrl, AssignStateImageList)
 {
 	Object_wx_TreeCtrl *pThis = Object_wx_TreeCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	wxImageList *imageList = Object_wx_ImageList::GetObject(args, 0)->GetEntity();
-	pThis->GetEntity()->AssignStateImageList(new wxImageList(*imageList));
+	wxImageList *imageList = new wxImageList();
+	imageList->Ref(*Object_wx_ImageList::GetObject(args, 0)->GetEntity());
+	pThis->GetEntity()->AssignStateImageList(imageList);
 	return Value::Null;
 }
 

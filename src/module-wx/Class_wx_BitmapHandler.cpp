@@ -178,7 +178,7 @@ Gura_ImplementMethod(wx_BitmapHandler, SaveFile)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxBitmap *bitmap = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
 	wxString name = wxString::FromUTF8(args.GetString(1));
-	int type = args.GetInt(2);
+	wxBitmapType type = static_cast<wxBitmapType>(args.GetInt(2));
 	wxPalette *palette = (wxPalette *)(NULL);
 	if (args.IsValid(3)) palette = Object_wx_Palette::GetObject(args, 3)->GetEntity();
 	bool rtn = pThis->GetEntity()->SaveFile(bitmap, name, type, palette);

@@ -434,12 +434,16 @@ Gura_DeclareMethod(wx_ConfigBase, Read)
 
 Gura_ImplementMethod(wx_ConfigBase, Read)
 {
+#if 0
 	Object_wx_ConfigBase *pThis = Object_wx_ConfigBase::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString key = wxString::FromUTF8(args.GetString(0));
 	wxString str = wxString::FromUTF8(args.GetString(1));
 	bool rtn = pThis->GetEntity()->Read(key, str);
 	return ReturnValue(env, sig, args, Value(rtn));
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
 }
 
 Gura_DeclareMethod(wx_ConfigBase, Read_1)

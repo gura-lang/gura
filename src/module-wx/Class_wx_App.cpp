@@ -659,6 +659,7 @@ Gura_ImplementMethod(wx_App, Pending)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
+#if 0
 Gura_DeclareMethod(wx_App, SendIdleEvents)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -676,6 +677,7 @@ Gura_ImplementMethod(wx_App, SendIdleEvents)
 	bool rtn = pThis->GetEntity()->SendIdleEvents(win, *event);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
+#endif
 
 Gura_DeclareMethod(wx_App, SetAppName)
 {
@@ -904,7 +906,7 @@ Gura_ImplementUserInheritableClass(wx_App)
 	Gura_AssignMethod(wx_App, OnUnhandledException);
 	Gura_AssignMethod(wx_App, ProcessMessage);
 	Gura_AssignMethod(wx_App, Pending);
-	Gura_AssignMethod(wx_App, SendIdleEvents);
+	//Gura_AssignMethod(wx_App, SendIdleEvents);
 	Gura_AssignMethod(wx_App, SetAppName);
 	Gura_AssignMethod(wx_App, SetClassName);
 	Gura_AssignMethod(wx_App, SetExitOnFrameDelete);

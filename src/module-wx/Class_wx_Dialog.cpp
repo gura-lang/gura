@@ -417,6 +417,7 @@ Gura_ImplementMethod(wx_Dialog, SetIcons)
 	return Value::Null;
 }
 
+#if 0
 Gura_DeclareMethod(wx_Dialog, SetModal)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
@@ -431,6 +432,7 @@ Gura_ImplementMethod(wx_Dialog, SetModal)
 	pThis->GetEntity()->SetModal(flag);
 	return Value::Null;
 }
+#endif
 
 Gura_DeclareMethod(wx_Dialog, SetReturnCode)
 {
@@ -529,7 +531,7 @@ Gura_ImplementUserInheritableClass(wx_Dialog)
 	Gura_AssignMethod(wx_Dialog, SetEscapeId);
 	Gura_AssignMethod(wx_Dialog, SetIcon);
 	Gura_AssignMethod(wx_Dialog, SetIcons);
-	Gura_AssignMethod(wx_Dialog, SetModal);
+	//Gura_AssignMethod(wx_Dialog, SetModal);
 	Gura_AssignMethod(wx_Dialog, SetReturnCode);
 	Gura_AssignMethod(wx_Dialog, Show);
 	Gura_AssignMethod(wx_Dialog, ShowModal);
