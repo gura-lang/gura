@@ -290,6 +290,7 @@ srcs = [
 	'Class_wx_StaticLine.cpp'
 	'Class_wx_StaticText.cpp'
 	'Class_wx_TextCtrl.cpp'
+	'Class_wx_StyledTextCtrl.cpp'
 	'Class_wx_ToggleButton.cpp'
 	'Class_wx_TreeCtrl.cpp'
 	'Class_wx_GLCanvas.cpp'

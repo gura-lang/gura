@@ -209,6 +209,7 @@
 #include <wx/statusbr.h>
 #include <wx/stopwatch.h>
 #include <wx/textctrl.h>
+#include <wx/stc/stc.h>
 #include <wx/string.h>
 #include <wx/sstream.h>
 #include <wx/tokenzr.h>
@@ -543,6 +544,7 @@
 #include "Class_wx_StaticLine.h"						// derived from wxControl
 #include "Class_wx_StaticText.h"						// derived from wxControl
 #include "Class_wx_TextCtrl.h"							// derived from wxControl
+#include "Class_wx_StyledTextCtrl.h"					// derived from wxControl
 #include "Class_wx_ToggleButton.h"						// derived from wxControl
 #include "Class_wx_TreeCtrl.h"							// derived from wxControl
 #include "Class_wx_GLCanvas.h"							// derived from wxWindow
