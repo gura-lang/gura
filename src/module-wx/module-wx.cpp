@@ -319,11 +319,11 @@ _MS(RealizeDervClass(ActiveXContainer,					Window));
 	RealizeDervClass(CollapsiblePane,					Control);
 	RealizeDervClass(ComboCtrl,							Control);
 	RealizeDervClass(OwnerDrawnComboBox,				ComboCtrl);
-	RealizeDervClass(BitmapComboBox,					ComboBox);
 	RealizeDervClass(RichTextStyleComboCtrl,			ComboCtrl);
 	RealizeDervClass(ControlWithItems,					Control);
 	RealizeDervClass(Choice,							ControlWithItems);
 	RealizeDervClass(ComboBox,							Control);
+	RealizeDervClass(BitmapComboBox,					ComboBox);
 	RealizeDervClass(ListBox,							ControlWithItems);
 	RealizeDervClass(CheckListBox,						ListBox);
 #if 0
