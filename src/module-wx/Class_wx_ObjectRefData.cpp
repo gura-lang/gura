@@ -101,7 +101,8 @@ Gura_ImplementMethod(wx_ObjectRefData, GetRefCount)
 Object_wx_ObjectRefData::~Object_wx_ObjectRefData()
 {
 	if (_pEntity != NULL) NotifyGuraObjectDeleted();
-	if (_ownerFlag) delete _pEntity;
+	//***************
+	//if (_ownerFlag) delete _pEntity;
 	_pEntity = NULL;
 }
 

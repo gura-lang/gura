@@ -15,7 +15,7 @@ private:
 	Object_wx_RichTextAttr *_pObj;
 public:
 	inline wx_RichTextAttr() : wxRichTextAttr(), _sig(NULL), _pObj(NULL) {}
-	inline wx_RichTextAttr(const wxColour& colText, const wxColour& colBack, wxTextAttrAlignment alignment) : wxRichTextAttr(colText, colBack, alignment), _sig(NULL), _pObj(NULL) {}
+	//inline wx_RichTextAttr(const wxColour& colText, const wxColour& colBack, wxTextAttrAlignment alignment) : wxRichTextAttr(colText, colBack, alignment), _sig(NULL), _pObj(NULL) {}
 	inline wx_RichTextAttr(const wxTextAttrEx& attr) : wxRichTextAttr(attr), _sig(NULL), _pObj(NULL) {}
 	~wx_RichTextAttr();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_RichTextAttr *pObj) {
@@ -60,6 +60,7 @@ Gura_ImplementFunction(RichTextAttr)
 	return ReturnValue(env, sig, args, args.GetThis());
 }
 
+#if 0
 Gura_DeclareFunction(RichTextAttr_2)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -89,6 +90,7 @@ Gura_ImplementFunction(RichTextAttr_2)
 	pEntity->AssocWithGura(sig, pObj);
 	return ReturnValue(env, sig, args, args.GetThis());
 }
+#endif
 
 Gura_DeclareFunction(RichTextAttr_1)
 {
@@ -133,6 +135,7 @@ Gura_ImplementMethod(wx_RichTextAttr, Apply)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
+#if 0
 Gura_DeclareMethod(wx_RichTextAttr, Combine)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -151,7 +154,9 @@ Gura_ImplementMethod(wx_RichTextAttr, Combine)
 	wxRichTextAttr rtn = pThis->GetEntity()->Combine(*style, compareWith);
 	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextAttr(new wxRichTextAttr(rtn), NULL, OwnerTrue)));
 }
+#endif
 
+#if 0
 Gura_DeclareMethod(wx_RichTextAttr, CreateFont)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -165,6 +170,7 @@ Gura_ImplementMethod(wx_RichTextAttr, CreateFont)
 	wxFont rtn = pThis->GetEntity()->CreateFont();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Font(new wxFont(rtn), NULL, OwnerTrue)));
 }
+#endif
 
 Gura_DeclareMethod(wx_RichTextAttr, GetAlignment)
 {
@@ -1171,7 +1177,7 @@ Gura_ImplementMethod(wx_RichTextAttr, SetFontStyle)
 {
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	int fontStyle = args.GetInt(0);
+	wxFontStyle fontStyle = static_cast<wxFontStyle>(args.GetInt(0));
 	pThis->GetEntity()->SetFontStyle(fontStyle);
 	return Value::Null;
 }
@@ -1201,7 +1207,7 @@ Gura_ImplementMethod(wx_RichTextAttr, SetFontWeight)
 {
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	int fontWeight = args.GetInt(0);
+	wxFontWeight fontWeight = static_cast<wxFontWeight>(args.GetInt(0));
 	pThis->GetEntity()->SetFontWeight(fontWeight);
 	return Value::Null;
 }
@@ -1420,6 +1426,7 @@ Gura_ImplementMethod(wx_RichTextAttr, SetURL)
 	return Value::Null;
 }
 
+#if 0
 Gura_DeclareMethod(wx_RichTextAttr, wxTextAttrEx)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1431,6 +1438,7 @@ Gura_ImplementMethod(wx_RichTextAttr, wxTextAttrEx)
 	Object_wx_RichTextAttr *pThis = Object_wx_RichTextAttr::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 }
+#endif
 
 //----------------------------------------------------------------------------
 // Object implementation for wxRichTextAttr
@@ -1466,11 +1474,11 @@ String Object_wx_RichTextAttr::ToString(bool exprFlag)
 Gura_ImplementUserInheritableClass(wx_RichTextAttr)
 {
 	Gura_AssignFunction(RichTextAttr);
-	Gura_AssignFunction(RichTextAttr_2);
+	//Gura_AssignFunction(RichTextAttr_2);
 	Gura_AssignFunction(RichTextAttr_1);
 	Gura_AssignMethod(wx_RichTextAttr, Apply);
-	Gura_AssignMethod(wx_RichTextAttr, Combine);
-	Gura_AssignMethod(wx_RichTextAttr, CreateFont);
+	//Gura_AssignMethod(wx_RichTextAttr, Combine);
+	//Gura_AssignMethod(wx_RichTextAttr, CreateFont);
 	Gura_AssignMethod(wx_RichTextAttr, GetAlignment);
 	Gura_AssignMethod(wx_RichTextAttr, GetBackgroundColour);
 	Gura_AssignMethod(wx_RichTextAttr, GetBulletFont);
@@ -1558,7 +1566,7 @@ Gura_ImplementUserInheritableClass(wx_RichTextAttr)
 	Gura_AssignMethod(wx_RichTextAttr, SetTextEffectFlags);
 	Gura_AssignMethod(wx_RichTextAttr, SetTextEffects);
 	Gura_AssignMethod(wx_RichTextAttr, SetURL);
-	Gura_AssignMethod(wx_RichTextAttr, wxTextAttrEx);
+	//Gura_AssignMethod(wx_RichTextAttr, wxTextAttrEx);
 }
 
 Gura_ImplementDescendantCreator(wx_RichTextAttr)

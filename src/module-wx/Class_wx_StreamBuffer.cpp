@@ -487,6 +487,7 @@ Gura_ImplementMethod(wx_StreamBuffer, GetDataLeft)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
+#if 0
 Gura_DeclareMethod(wx_StreamBuffer, Stream)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -500,6 +501,7 @@ Gura_ImplementMethod(wx_StreamBuffer, Stream)
 	wxStreamBase *rtn = (wxStreamBase *)pThis->GetEntity()->Stream();
 	return ReturnValue(env, sig, args, Value(new Object_wx_StreamBase(rtn, NULL, OwnerFalse)));
 }
+#endif
 
 //----------------------------------------------------------------------------
 // Object implementation for wxStreamBuffer
@@ -560,7 +562,7 @@ Gura_ImplementUserInheritableClass(wx_StreamBuffer)
 	Gura_AssignMethod(wx_StreamBuffer, FlushBuffer);
 	Gura_AssignMethod(wx_StreamBuffer, FillBuffer);
 	Gura_AssignMethod(wx_StreamBuffer, GetDataLeft);
-	Gura_AssignMethod(wx_StreamBuffer, Stream);
+	//Gura_AssignMethod(wx_StreamBuffer, Stream);
 }
 
 Gura_ImplementDescendantCreator(wx_StreamBuffer)

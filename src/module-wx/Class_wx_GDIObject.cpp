@@ -36,6 +36,7 @@ void wx_GDIObject::GuraObjectDeleted()
 //----------------------------------------------------------------------------
 // Gura interfaces for wxGDIObject
 //----------------------------------------------------------------------------
+#if 0
 Gura_DeclareFunction(GDIObjectEmpty)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -57,6 +58,7 @@ Gura_ImplementFunction(GDIObjectEmpty)
 	pEntity->AssocWithGura(sig, pObj);
 	return ReturnValue(env, sig, args, args.GetThis());
 }
+#endif
 
 //----------------------------------------------------------------------------
 // Object implementation for wxGDIObject
@@ -88,7 +90,7 @@ String Object_wx_GDIObject::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_GDIObject)
 {
-	Gura_AssignFunction(GDIObjectEmpty);
+	//Gura_AssignFunction(GDIObjectEmpty);
 }
 
 Gura_ImplementDescendantCreator(wx_GDIObject)

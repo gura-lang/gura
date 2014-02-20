@@ -22,7 +22,7 @@ public:
 	inline wx_Variant(long value, const wxString& name) : wxVariant(value, name), _sig(NULL), _pObj(NULL) {}
 	inline wx_Variant(bool value, const wxString& name) : wxVariant(value, name), _sig(NULL), _pObj(NULL) {}
 	inline wx_Variant(double value, const wxString& name) : wxVariant(value, name), _sig(NULL), _pObj(NULL) {}
-	inline wx_Variant(const wxList& value, const wxString& name) : wxVariant(value, name), _sig(NULL), _pObj(NULL) {}
+	//inline wx_Variant(const wxList& value, const wxString& name) : wxVariant(value, name), _sig(NULL), _pObj(NULL) {}
 	inline wx_Variant(void* value, const wxString& name) : wxVariant(value, name), _sig(NULL), _pObj(NULL) {}
 	inline wx_Variant(wxObject* value, const wxString& name) : wxVariant(value, name), _sig(NULL), _pObj(NULL) {}
 	inline wx_Variant(wxVariantData* data, const wxString& name) : wxVariant(data, name), _sig(NULL), _pObj(NULL) {}

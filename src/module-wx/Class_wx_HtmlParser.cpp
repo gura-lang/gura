@@ -140,6 +140,7 @@ Gura_ImplementMethod(wx_HtmlParser, AddWord)
 	return Value::Null;
 }
 
+#if 0
 Gura_DeclareMethod(wx_HtmlParser, DoParsing)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
@@ -156,6 +157,7 @@ Gura_ImplementMethod(wx_HtmlParser, DoParsing)
 	pThis->GetEntity()->DoParsing(begin_pos, end_pos);
 	return Value::Null;
 }
+#endif
 
 Gura_DeclareMethod(wx_HtmlParser, DoParsing_1)
 {
@@ -382,7 +384,7 @@ Gura_ImplementUserInheritableClass(wx_HtmlParser)
 	Gura_AssignMethod(wx_HtmlParser, AddTag);
 	Gura_AssignMethod(wx_HtmlParser, AddTagHandler);
 	Gura_AssignMethod(wx_HtmlParser, AddWord);
-	Gura_AssignMethod(wx_HtmlParser, DoParsing);
+	//Gura_AssignMethod(wx_HtmlParser, DoParsing);
 	Gura_AssignMethod(wx_HtmlParser, DoParsing_1);
 	Gura_AssignMethod(wx_HtmlParser, DoneParser);
 	Gura_AssignMethod(wx_HtmlParser, GetFS);

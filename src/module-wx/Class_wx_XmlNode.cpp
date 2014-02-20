@@ -298,6 +298,7 @@ Gura_ImplementMethod(wx_XmlNode, GetParent)
 	return ReturnValue(env, sig, args, Value(new Object_wx_XmlNode(rtn, NULL, OwnerFalse)));
 }
 
+#if 0
 Gura_DeclareMethod(wx_XmlNode, GetPropVal)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -333,6 +334,7 @@ Gura_ImplementMethod(wx_XmlNode, GetPropVal_1)
 	wxString rtn = pThis->GetEntity()->GetPropVal(propName, defaultVal);
 	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
+#endif
 
 Gura_DeclareMethod(wx_XmlNode, GetProperties)
 {
@@ -596,8 +598,8 @@ Gura_ImplementUserInheritableClass(wx_XmlNode)
 	Gura_AssignMethod(wx_XmlNode, GetName);
 	Gura_AssignMethod(wx_XmlNode, GetNext);
 	Gura_AssignMethod(wx_XmlNode, GetParent);
-	Gura_AssignMethod(wx_XmlNode, GetPropVal);
-	Gura_AssignMethod(wx_XmlNode, GetPropVal_1);
+	//Gura_AssignMethod(wx_XmlNode, GetPropVal);
+	//Gura_AssignMethod(wx_XmlNode, GetPropVal_1);
 	Gura_AssignMethod(wx_XmlNode, GetProperties);
 	Gura_AssignMethod(wx_XmlNode, GetType);
 	Gura_AssignMethod(wx_XmlNode, HasProp);

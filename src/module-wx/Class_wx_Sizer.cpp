@@ -706,10 +706,12 @@ Gura_ImplementMethod(wx_Sizer, Remove)
 	Object_wx_Sizer *pThis = Object_wx_Sizer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = false;
+#if 0
 	if (args.IsInstanceOf(0, VTYPE_wx_Window)) {
 		wxWindow *window = Object_wx_Window::GetObject(args, 0)->GetEntity();
 		rtn = pThis->GetEntity()->Remove(window);
-	} else if (args.IsInstanceOf(0, VTYPE_wx_Sizer)) {
+#endif
+	if (args.IsInstanceOf(0, VTYPE_wx_Sizer)) {
 		wxSizer *sizer = Object_wx_Sizer::GetObject(args, 0)->GetEntity();
 		rtn = pThis->GetEntity()->Remove(sizer);
 	} else if (args.Is_number(0)) {

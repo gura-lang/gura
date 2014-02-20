@@ -95,6 +95,7 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, CanSave)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
+#if 0
 Gura_DeclareMethod(wx_RichTextXMLHandler, CreateStyle)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -113,6 +114,7 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, CreateStyle)
 	wxString rtn = pThis->GetEntity()->CreateStyle(*attr, isPara);
 	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
+#endif
 
 Gura_DeclareMethod(wx_RichTextXMLHandler, DoLoadFile)
 {
@@ -166,8 +168,6 @@ Gura_DeclareMethod(wx_RichTextXMLHandler, ExportXML)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "stream", VTYPE_wx_OutputStream, OCCUR_Once);
-	DeclareArg(env, "convMem", VTYPE_wx_MBConv, OCCUR_Once);
-	DeclareArg(env, "convFile", VTYPE_wx_MBConv, OCCUR_Once);
 	DeclareArg(env, "obj", VTYPE_wx_RichTextObject, OCCUR_Once);
 	DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -178,14 +178,13 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, ExportXML)
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxOutputStream *stream = Object_wx_OutputStream::GetObject(args, 0)->GetEntity();
-	wxMBConv *convMem = Object_wx_MBConv::GetObject(args, 1)->GetEntity();
-	wxMBConv *convFile = Object_wx_MBConv::GetObject(args, 2)->GetEntity();
-	wxRichTextObject *obj = Object_wx_RichTextObject::GetObject(args, 3)->GetEntity();
-	int level = args.GetInt(4);
-	bool rtn = pThis->GetEntity()->ExportXML(*stream, convMem, convFile, *obj, level);
+	wxRichTextObject *obj = Object_wx_RichTextObject::GetObject(args, 1)->GetEntity();
+	int level = args.GetInt(2);
+	bool rtn = pThis->GetEntity()->ExportXML(*stream, *obj, level);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
+#if 0
 Gura_DeclareMethod(wx_RichTextXMLHandler, GetNodeContent)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -201,7 +200,9 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, GetNodeContent)
 	wxString rtn = pThis->GetEntity()->GetNodeContent(node);
 	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
+#endif
 
+#if 0
 Gura_DeclareMethod(wx_RichTextXMLHandler, GetParamNode)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -219,7 +220,9 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, GetParamNode)
 	wxXmlNode *rtn = (wxXmlNode *)pThis->GetEntity()->GetParamNode(node, param);
 	return ReturnValue(env, sig, args, Value(new Object_wx_XmlNode(rtn, NULL, OwnerFalse)));
 }
+#endif
 
+#if 0
 Gura_DeclareMethod(wx_RichTextXMLHandler, GetParamValue)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -237,7 +240,9 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, GetParamValue)
 	wxString rtn = pThis->GetEntity()->GetParamValue(node, param);
 	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
+#endif
 
+#if 0
 Gura_DeclareMethod(wx_RichTextXMLHandler, GetStyle)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -258,7 +263,9 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, GetStyle)
 	bool rtn = pThis->GetEntity()->GetStyle(*attr, node, isPara);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
+#endif
 
+#if 0
 Gura_DeclareMethod(wx_RichTextXMLHandler, GetText)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -280,7 +287,9 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, GetText)
 	wxString rtn = pThis->GetEntity()->GetText(node, param, translate);
 	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
+#endif
 
+#if 0
 Gura_DeclareMethod(wx_RichTextXMLHandler, HasParam)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -298,11 +307,13 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, HasParam)
 	bool rtn = pThis->GetEntity()->HasParam(node, param);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
+#endif
 
 Gura_DeclareMethod(wx_RichTextXMLHandler, ImportXML)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "buffer", VTYPE_wx_RichTextBuffer, OCCUR_Once);
+	DeclareArg(env, "obj", VTYPE_wx_RichTextObject, OCCUR_Once);
 	DeclareArg(env, "node", VTYPE_wx_XmlNode, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
@@ -312,8 +323,9 @@ Gura_ImplementMethod(wx_RichTextXMLHandler, ImportXML)
 	Object_wx_RichTextXMLHandler *pThis = Object_wx_RichTextXMLHandler::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRichTextBuffer *buffer = Object_wx_RichTextBuffer::GetObject(args, 0)->GetEntity();
-	wxXmlNode *node = Object_wx_XmlNode::GetObject(args, 1)->GetEntity();
-	bool rtn = pThis->GetEntity()->ImportXML(buffer, node);
+	wxRichTextObject *obj = Object_wx_RichTextObject::GetObject(args, 1)->GetEntity();
+	wxXmlNode *node = Object_wx_XmlNode::GetObject(args, 2)->GetEntity();
+	bool rtn = pThis->GetEntity()->ImportXML(buffer, obj, node);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -350,16 +362,16 @@ Gura_ImplementUserInheritableClass(wx_RichTextXMLHandler)
 	Gura_AssignFunction(RichTextXMLHandler);
 	Gura_AssignMethod(wx_RichTextXMLHandler, CanLoad);
 	Gura_AssignMethod(wx_RichTextXMLHandler, CanSave);
-	Gura_AssignMethod(wx_RichTextXMLHandler, CreateStyle);
+	//Gura_AssignMethod(wx_RichTextXMLHandler, CreateStyle);
 	Gura_AssignMethod(wx_RichTextXMLHandler, DoLoadFile);
 	Gura_AssignMethod(wx_RichTextXMLHandler, DoSaveFile);
 	Gura_AssignMethod(wx_RichTextXMLHandler, ExportXML);
-	Gura_AssignMethod(wx_RichTextXMLHandler, GetNodeContent);
-	Gura_AssignMethod(wx_RichTextXMLHandler, GetParamNode);
-	Gura_AssignMethod(wx_RichTextXMLHandler, GetParamValue);
-	Gura_AssignMethod(wx_RichTextXMLHandler, GetStyle);
-	Gura_AssignMethod(wx_RichTextXMLHandler, GetText);
-	Gura_AssignMethod(wx_RichTextXMLHandler, HasParam);
+	//Gura_AssignMethod(wx_RichTextXMLHandler, GetNodeContent);
+	//Gura_AssignMethod(wx_RichTextXMLHandler, GetParamNode);
+	//Gura_AssignMethod(wx_RichTextXMLHandler, GetParamValue);
+	//Gura_AssignMethod(wx_RichTextXMLHandler, GetStyle);
+	//Gura_AssignMethod(wx_RichTextXMLHandler, GetText);
+	//Gura_AssignMethod(wx_RichTextXMLHandler, HasParam);
 	Gura_AssignMethod(wx_RichTextXMLHandler, ImportXML);
 }
 

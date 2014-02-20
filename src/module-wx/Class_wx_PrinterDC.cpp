@@ -15,7 +15,7 @@ private:
 	Object_wx_PrinterDC *_pObj;
 public:
 	inline wx_PrinterDC(const wxPrintData& printData) : wxPrinterDC(printData), _sig(NULL), _pObj(NULL) {}
-	inline wx_PrinterDC(const wxString& driver, const wxString& device, const wxString& output, const bool interactive, int orientation) : wxPrinterDC(driver, device, output, interactive, orientation), _sig(NULL), _pObj(NULL) {}
+	//inline wx_PrinterDC(const wxString& driver, const wxString& device, const wxString& output, const bool interactive, int orientation) : wxPrinterDC(driver, device, output, interactive, orientation), _sig(NULL), _pObj(NULL) {}
 	~wx_PrinterDC();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_PrinterDC *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -61,6 +61,7 @@ Gura_ImplementFunction(PrinterDC)
 	return ReturnValue(env, sig, args, args.GetThis());
 }
 
+#if 0
 Gura_DeclareFunction(PrinterDC_1)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -94,6 +95,7 @@ Gura_ImplementFunction(PrinterDC_1)
 	pEntity->AssocWithGura(sig, pObj);
 	return ReturnValue(env, sig, args, args.GetThis());
 }
+#endif
 
 Gura_DeclareMethod(wx_PrinterDC, GetPaperRect)
 {
@@ -140,7 +142,7 @@ String Object_wx_PrinterDC::ToString(bool exprFlag)
 Gura_ImplementUserInheritableClass(wx_PrinterDC)
 {
 	Gura_AssignFunction(PrinterDC);
-	Gura_AssignFunction(PrinterDC_1);
+	//Gura_AssignFunction(PrinterDC_1);
 	Gura_AssignMethod(wx_PrinterDC, GetPaperRect);
 }
 

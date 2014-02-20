@@ -311,7 +311,7 @@ Gura_ImplementMethod(wx_Pen, SetCap)
 {
 	Object_wx_Pen *pThis = Object_wx_Pen::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	int capStyle = args.GetInt(0);
+	wxPenCap capStyle = static_cast<wxPenCap>(args.GetInt(0));
 	pThis->GetEntity()->SetCap(capStyle);
 	return Value::Null;
 }
@@ -390,7 +390,7 @@ Gura_ImplementMethod(wx_Pen, SetJoin)
 {
 	Object_wx_Pen *pThis = Object_wx_Pen::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	int join_style = args.GetInt(0);
+	wxPenJoin join_style = static_cast<wxPenJoin>(args.GetInt(0));
 	pThis->GetEntity()->SetJoin(join_style);
 	return Value::Null;
 }

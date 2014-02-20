@@ -226,6 +226,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetDC)
 	return ReturnValue(env, sig, args, Value(new Object_wx_DC(rtn, NULL, OwnerFalse)));
 }
 
+#if 0
 Gura_DeclareMethod(wx_HtmlWinParser, GetEncodingConverter)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -244,6 +245,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetEncodingConverter)
 	return Value::Null;
 #endif	
 }
+#endif
 
 Gura_DeclareMethod(wx_HtmlWinParser, GetFontBold)
 {
@@ -329,6 +331,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetFontUnderlined)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
+#if 0
 Gura_DeclareMethod(wx_HtmlWinParser, GetInputEncoding)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -347,6 +350,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetInputEncoding)
 	return Value::Null;
 #endif	
 }
+#endif
 
 Gura_DeclareMethod(wx_HtmlWinParser, GetLink)
 {
@@ -376,6 +380,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetLinkColor)
 	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
 }
 
+#if 0
 Gura_DeclareMethod(wx_HtmlWinParser, GetOutputEncoding)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -394,7 +399,9 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetOutputEncoding)
 	return Value::Null;
 #endif	
 }
+#endif
 
+#if 0
 Gura_DeclareMethod(wx_HtmlWinParser, GetWindow)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -408,6 +415,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, GetWindow)
 	wxHtmlWindow *rtn = (wxHtmlWindow *)pThis->GetEntity()->GetWindow();
 	return ReturnValue(env, sig, args, Value(new Object_wx_HtmlWindow(rtn, NULL, OwnerFalse)));
 }
+#endif
 
 Gura_DeclareMethod(wx_HtmlWinParser, OpenContainer)
 {
@@ -609,6 +617,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetFonts)
 	return Value::Null;
 }
 
+#if 0
 Gura_DeclareMethod(wx_HtmlWinParser, SetInputEncoding)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
@@ -628,6 +637,7 @@ Gura_ImplementMethod(wx_HtmlWinParser, SetInputEncoding)
 	return Value::Null;
 #endif	
 }
+#endif
 
 Gura_DeclareMethod(wx_HtmlWinParser, SetLink)
 {
@@ -702,18 +712,18 @@ Gura_ImplementUserInheritableClass(wx_HtmlWinParser)
 	Gura_AssignMethod(wx_HtmlWinParser, GetCharWidth);
 	Gura_AssignMethod(wx_HtmlWinParser, GetContainer);
 	Gura_AssignMethod(wx_HtmlWinParser, GetDC);
-	Gura_AssignMethod(wx_HtmlWinParser, GetEncodingConverter);
+	//Gura_AssignMethod(wx_HtmlWinParser, GetEncodingConverter);
 	Gura_AssignMethod(wx_HtmlWinParser, GetFontBold);
 	Gura_AssignMethod(wx_HtmlWinParser, GetFontFace);
 	Gura_AssignMethod(wx_HtmlWinParser, GetFontFixed);
 	Gura_AssignMethod(wx_HtmlWinParser, GetFontItalic);
 	Gura_AssignMethod(wx_HtmlWinParser, GetFontSize);
 	Gura_AssignMethod(wx_HtmlWinParser, GetFontUnderlined);
-	Gura_AssignMethod(wx_HtmlWinParser, GetInputEncoding);
+	//Gura_AssignMethod(wx_HtmlWinParser, GetInputEncoding);
 	Gura_AssignMethod(wx_HtmlWinParser, GetLink);
 	Gura_AssignMethod(wx_HtmlWinParser, GetLinkColor);
-	Gura_AssignMethod(wx_HtmlWinParser, GetOutputEncoding);
-	Gura_AssignMethod(wx_HtmlWinParser, GetWindow);
+	//Gura_AssignMethod(wx_HtmlWinParser, GetOutputEncoding);
+	//Gura_AssignMethod(wx_HtmlWinParser, GetWindow);
 	Gura_AssignMethod(wx_HtmlWinParser, OpenContainer);
 	Gura_AssignMethod(wx_HtmlWinParser, SetActualColor);
 	Gura_AssignMethod(wx_HtmlWinParser, SetAlign);
@@ -726,7 +736,7 @@ Gura_ImplementUserInheritableClass(wx_HtmlWinParser)
 	Gura_AssignMethod(wx_HtmlWinParser, SetFontSize);
 	Gura_AssignMethod(wx_HtmlWinParser, SetFontUnderlined);
 	Gura_AssignMethod(wx_HtmlWinParser, SetFonts);
-	Gura_AssignMethod(wx_HtmlWinParser, SetInputEncoding);
+	//Gura_AssignMethod(wx_HtmlWinParser, SetInputEncoding);
 	Gura_AssignMethod(wx_HtmlWinParser, SetLink);
 	Gura_AssignMethod(wx_HtmlWinParser, SetLinkColor);
 }

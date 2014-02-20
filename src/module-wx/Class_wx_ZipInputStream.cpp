@@ -16,7 +16,7 @@ private:
 public:
 	inline wx_ZipInputStream(wxInputStream& stream, wxMBConv& conv) : wxZipInputStream(stream, conv), _sig(NULL), _pObj(NULL) {}
 	inline wx_ZipInputStream(wxInputStream* stream, wxMBConv& conv) : wxZipInputStream(stream, conv), _sig(NULL), _pObj(NULL) {}
-	inline wx_ZipInputStream(const wxString& archive, const wxString& file) : wxZipInputStream(archive, file), _sig(NULL), _pObj(NULL) {}
+	//inline wx_ZipInputStream(const wxString& archive, const wxString& file) : wxZipInputStream(archive, file), _sig(NULL), _pObj(NULL) {}
 	~wx_ZipInputStream();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_ZipInputStream *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -92,6 +92,7 @@ Gura_ImplementFunction(ZipInputStream_1)
 	return ReturnValue(env, sig, args, args.GetThis());
 }
 
+#if 0
 Gura_DeclareFunction(ZipInputStream_2)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -117,6 +118,7 @@ Gura_ImplementFunction(ZipInputStream_2)
 	pEntity->AssocWithGura(sig, pObj);
 	return ReturnValue(env, sig, args, args.GetThis());
 }
+#endif
 
 Gura_DeclareMethod(wx_ZipInputStream, CloseEntry)
 {
@@ -222,7 +224,7 @@ Gura_ImplementUserInheritableClass(wx_ZipInputStream)
 {
 	Gura_AssignFunction(ZipInputStream);
 	Gura_AssignFunction(ZipInputStream_1);
-	Gura_AssignFunction(ZipInputStream_2);
+	//Gura_AssignFunction(ZipInputStream_2);
 	Gura_AssignMethod(wx_ZipInputStream, CloseEntry);
 	Gura_AssignMethod(wx_ZipInputStream, GetComment);
 	Gura_AssignMethod(wx_ZipInputStream, GetNextEntry);

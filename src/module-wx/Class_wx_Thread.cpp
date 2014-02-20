@@ -290,6 +290,7 @@ Gura_ImplementMethod(wx_Thread, Kill)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
+#if 0
 Gura_DeclareMethod(wx_Thread, OnExit)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -302,6 +303,7 @@ Gura_ImplementMethod(wx_Thread, OnExit)
 	pThis->GetEntity()->OnExit();
 	return Value::Null;
 }
+#endif
 
 Gura_DeclareMethod(wx_Thread, Pause)
 {
@@ -498,7 +500,7 @@ Gura_ImplementUserInheritableClass(wx_Thread)
 	Gura_AssignMethod(wx_Thread, IsPaused);
 	Gura_AssignMethod(wx_Thread, IsRunning);
 	Gura_AssignMethod(wx_Thread, Kill);
-	Gura_AssignMethod(wx_Thread, OnExit);
+	//Gura_AssignMethod(wx_Thread, OnExit);
 	Gura_AssignMethod(wx_Thread, Pause);
 	Gura_AssignMethod(wx_Thread, Run);
 	Gura_AssignMethod(wx_Thread, SetPriority);

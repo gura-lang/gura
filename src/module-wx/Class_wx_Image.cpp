@@ -753,6 +753,7 @@ Gura_ImplementMethod(wx_Image, GetGreen)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
+#if 0
 Gura_DeclareClassMethod(wx_Image, GetImageCount)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -770,7 +771,9 @@ Gura_ImplementClassMethod(wx_Image, GetImageCount)
 	int rtn = wxImage::GetImageCount(filename, type);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
+#endif
 
+#if 0
 Gura_DeclareClassMethod(wx_Image, GetImageCount_1)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -788,6 +791,7 @@ Gura_ImplementClassMethod(wx_Image, GetImageCount_1)
 	int rtn = wxImage::GetImageCount(*stream, type);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
+#endif
 
 Gura_DeclareClassMethod(wx_Image, GetHandlers)
 {
@@ -1337,8 +1341,8 @@ Gura_ImplementMethod(wx_Image, Rescale)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int width = args.GetInt(0);
 	int height = args.GetInt(1);
-	int quality = wxIMAGE_QUALITY_NORMAL;
-	if (args.IsValid(2)) quality = args.GetInt(2);
+	wxImageResizeQuality quality = wxIMAGE_QUALITY_NORMAL;
+	if (args.IsValid(2)) quality = static_cast<wxImageResizeQuality>(args.GetInt(2));
 	wxImage &rtn = pThis->GetEntity()->Rescale(width, height, quality);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Image(new wxImage(rtn), NULL, OwnerTrue)));
 }
@@ -1529,8 +1533,8 @@ Gura_ImplementMethod(wx_Image, Scale)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int width = args.GetInt(0);
 	int height = args.GetInt(1);
-	int quality = wxIMAGE_QUALITY_NORMAL;
-	if (args.IsValid(2)) quality = args.GetInt(2);
+	wxImageResizeQuality quality = wxIMAGE_QUALITY_NORMAL;
+	if (args.IsValid(2)) quality = static_cast<wxImageResizeQuality>(args.GetInt(2));
 	wxImage rtn = pThis->GetEntity()->Scale(width, height, quality);
 	return ReturnValue(env, sig, args, Value(new Object_wx_Image(new wxImage(rtn), NULL, OwnerTrue)));
 }
@@ -1839,8 +1843,8 @@ Gura_ImplementUserInheritableClassWithCast(wx_Image)
 	Gura_AssignMethod(wx_Image, GetBlue);
 	Gura_AssignMethod(wx_Image, GetData);
 	Gura_AssignMethod(wx_Image, GetGreen);
-	Gura_AssignMethod(wx_Image, GetImageCount);
-	Gura_AssignMethod(wx_Image, GetImageCount_1);
+	//Gura_AssignMethod(wx_Image, GetImageCount);
+	//Gura_AssignMethod(wx_Image, GetImageCount_1);
 	Gura_AssignMethod(wx_Image, GetHandlers);
 	Gura_AssignMethod(wx_Image, GetHeight);
 	Gura_AssignMethod(wx_Image, GetMaskBlue);

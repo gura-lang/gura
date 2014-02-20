@@ -212,6 +212,7 @@ Gura_ImplementMethod(wx_TextInputStream, ReadLine)
 	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
+#if 0
 Gura_DeclareMethod(wx_TextInputStream, ReadString)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -225,6 +226,7 @@ Gura_ImplementMethod(wx_TextInputStream, ReadString)
 	wxString rtn = pThis->GetEntity()->ReadString();
 	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
+#endif
 
 Gura_DeclareMethod(wx_TextInputStream, ReadWord)
 {
@@ -298,7 +300,7 @@ Gura_ImplementUserInheritableClass(wx_TextInputStream)
 	Gura_AssignMethod(wx_TextInputStream, GetChar);
 	Gura_AssignMethod(wx_TextInputStream, ReadDouble);
 	Gura_AssignMethod(wx_TextInputStream, ReadLine);
-	Gura_AssignMethod(wx_TextInputStream, ReadString);
+	//Gura_AssignMethod(wx_TextInputStream, ReadString);
 	Gura_AssignMethod(wx_TextInputStream, ReadWord);
 	Gura_AssignMethod(wx_TextInputStream, SetStringSeparators);
 }

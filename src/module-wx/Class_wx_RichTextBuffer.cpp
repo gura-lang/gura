@@ -995,6 +995,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, EndURL)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
+#if 0
 Gura_DeclareClassMethod(wx_RichTextBuffer, FindHandler)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -1041,6 +1042,7 @@ Gura_ImplementClassMethod(wx_RichTextBuffer, FindHandler_2)
 	wxRichTextFileHandler *rtn = (wxRichTextFileHandler *)wxRichTextBuffer::FindHandler(name);
 	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextFileHandler(rtn, NULL, OwnerFalse)));
 }
+#endif
 
 Gura_DeclareClassMethod(wx_RichTextBuffer, FindHandlerFilenameOrType)
 {
@@ -1054,7 +1056,7 @@ Gura_ImplementClassMethod(wx_RichTextBuffer, FindHandlerFilenameOrType)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
-	int imageType = args.GetInt(1);
+	wxRichTextFileType imageType = static_cast<wxRichTextFileType>(args.GetInt(1));
 	wxRichTextFileHandler *rtn = (wxRichTextFileHandler *)wxRichTextBuffer::FindHandlerFilenameOrType(filename, imageType);
 	return ReturnValue(env, sig, args, Value(new Object_wx_RichTextFileHandler(rtn, NULL, OwnerFalse)));
 }
@@ -1185,6 +1187,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, GetStyle)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
+#if 0
 Gura_DeclareMethod(wx_RichTextBuffer, GetStyle_1)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -1202,12 +1205,13 @@ Gura_ImplementMethod(wx_RichTextBuffer, GetStyle_1)
 	bool rtn = pThis->GetEntity()->GetStyle(position, *style);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
+#endif
 
 Gura_DeclareMethod(wx_RichTextBuffer, GetStyleForRange)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "range", VTYPE_wx_RichTextRange, OCCUR_Once);
-	DeclareArg(env, "style", VTYPE_wx_TextAttrEx, OCCUR_Once);
+	DeclareArg(env, "style", VTYPE_wx_RichTextAttr, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1216,7 +1220,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, GetStyleForRange)
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxRichTextRange *range = Object_wx_RichTextRange::GetObject(args, 0)->GetEntity();
-	wxTextAttrEx *style = Object_wx_TextAttrEx::GetObject(args, 1)->GetEntity();
+	wxRichTextAttr *style = Object_wx_RichTextAttr::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->GetStyleForRange(*range, *style);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -1271,7 +1275,7 @@ Gura_DeclareMethod(wx_RichTextBuffer, GetUncombinedStyle_1)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "position", VTYPE_number, OCCUR_Once);
-	DeclareArg(env, "style", VTYPE_wx_TextAttrEx, OCCUR_Once);
+	DeclareArg(env, "style", VTYPE_wx_RichTextAttr, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1280,11 +1284,12 @@ Gura_ImplementMethod(wx_RichTextBuffer, GetUncombinedStyle_1)
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long position = args.GetLong(0);
-	wxTextAttrEx *style = Object_wx_TextAttrEx::GetObject(args, 1)->GetEntity();
+	wxRichTextAttr *style = Object_wx_RichTextAttr::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->GetUncombinedStyle(position, *style);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
+#if 0
 Gura_DeclareMethod(wx_RichTextBuffer, HitTest)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -1304,6 +1309,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, HitTest)
 	int rtn = pThis->GetEntity()->HitTest(*dc, *pt, textPosition);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
+#endif
 
 Gura_DeclareMethod(wx_RichTextBuffer, Init)
 {
@@ -1416,6 +1422,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, IsModified)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
+#if 0
 Gura_DeclareMethod(wx_RichTextBuffer, LoadFile)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -1434,8 +1441,9 @@ Gura_ImplementMethod(wx_RichTextBuffer, LoadFile)
 	bool rtn = pThis->GetEntity()->LoadFile(*stream, type);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
+#endif
 
-Gura_DeclareMethod(wx_RichTextBuffer, LoadFile_1)
+Gura_DeclareMethod(wx_RichTextBuffer, LoadFile)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
@@ -1443,13 +1451,13 @@ Gura_DeclareMethod(wx_RichTextBuffer, LoadFile_1)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(wx_RichTextBuffer, LoadFile_1)
+Gura_ImplementMethod(wx_RichTextBuffer, LoadFile)
 {
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
-	int type = wxRICHTEXT_TYPE_ANY;
-	if (args.IsValid(1)) type = args.GetInt(1);
+	wxRichTextFileType type = wxRICHTEXT_TYPE_ANY;
+	if (args.IsValid(1)) type = static_cast<wxRichTextFileType>(args.GetInt(1));
 	bool rtn = pThis->GetEntity()->LoadFile(filename, type);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -1645,6 +1653,7 @@ Gura_ImplementMethod(wx_RichTextBuffer, ResetAndClearCommands)
 	return Value::Null;
 }
 
+#if 0
 Gura_DeclareMethod(wx_RichTextBuffer, SaveFile)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -1663,8 +1672,9 @@ Gura_ImplementMethod(wx_RichTextBuffer, SaveFile)
 	bool rtn = pThis->GetEntity()->SaveFile(*stream, type);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
+#endif
 
-Gura_DeclareMethod(wx_RichTextBuffer, SaveFile_1)
+Gura_DeclareMethod(wx_RichTextBuffer, SaveFile)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once);
@@ -1672,13 +1682,13 @@ Gura_DeclareMethod(wx_RichTextBuffer, SaveFile_1)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(wx_RichTextBuffer, SaveFile_1)
+Gura_ImplementMethod(wx_RichTextBuffer, SaveFile)
 {
 	Object_wx_RichTextBuffer *pThis = Object_wx_RichTextBuffer::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxString filename = wxString::FromUTF8(args.GetString(0));
-	int type = wxRICHTEXT_TYPE_ANY;
-	if (args.IsValid(1)) type = args.GetInt(1);
+	wxRichTextFileType type = wxRICHTEXT_TYPE_ANY;
+	if (args.IsValid(1)) type = static_cast<wxRichTextFileType>(args.GetInt(1));
 	bool rtn = pThis->GetEntity()->SaveFile(filename, type);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
@@ -1974,9 +1984,9 @@ Gura_ImplementUserInheritableClass(wx_RichTextBuffer)
 	Gura_AssignMethod(wx_RichTextBuffer, EndTextColour);
 	Gura_AssignMethod(wx_RichTextBuffer, EndUnderline);
 	Gura_AssignMethod(wx_RichTextBuffer, EndURL);
-	Gura_AssignMethod(wx_RichTextBuffer, FindHandler);
-	Gura_AssignMethod(wx_RichTextBuffer, FindHandler_1);
-	Gura_AssignMethod(wx_RichTextBuffer, FindHandler_2);
+	//Gura_AssignMethod(wx_RichTextBuffer, FindHandler);
+	//Gura_AssignMethod(wx_RichTextBuffer, FindHandler_1);
+	//Gura_AssignMethod(wx_RichTextBuffer, FindHandler_2);
 	Gura_AssignMethod(wx_RichTextBuffer, FindHandlerFilenameOrType);
 	Gura_AssignMethod(wx_RichTextBuffer, GetBasicStyle);
 	Gura_AssignMethod(wx_RichTextBuffer, GetBatchedCommand);
@@ -1986,13 +1996,13 @@ Gura_ImplementUserInheritableClass(wx_RichTextBuffer)
 	Gura_AssignMethod(wx_RichTextBuffer, GetHandlers);
 	Gura_AssignMethod(wx_RichTextBuffer, GetRenderer);
 	Gura_AssignMethod(wx_RichTextBuffer, GetStyle);
-	Gura_AssignMethod(wx_RichTextBuffer, GetStyle_1);
+	//Gura_AssignMethod(wx_RichTextBuffer, GetStyle_1);
 	Gura_AssignMethod(wx_RichTextBuffer, GetStyleForRange);
 	Gura_AssignMethod(wx_RichTextBuffer, GetStyleSheet);
 	Gura_AssignMethod(wx_RichTextBuffer, GetStyleStackSize);
 	Gura_AssignMethod(wx_RichTextBuffer, GetUncombinedStyle);
 	Gura_AssignMethod(wx_RichTextBuffer, GetUncombinedStyle_1);
-	Gura_AssignMethod(wx_RichTextBuffer, HitTest);
+	//Gura_AssignMethod(wx_RichTextBuffer, HitTest);
 	Gura_AssignMethod(wx_RichTextBuffer, Init);
 	Gura_AssignMethod(wx_RichTextBuffer, InitStandardHandlers);
 	Gura_AssignMethod(wx_RichTextBuffer, InsertHandler);
@@ -2001,7 +2011,7 @@ Gura_ImplementUserInheritableClass(wx_RichTextBuffer)
 	Gura_AssignMethod(wx_RichTextBuffer, InsertTextWithUndo);
 	Gura_AssignMethod(wx_RichTextBuffer, IsModified);
 	Gura_AssignMethod(wx_RichTextBuffer, LoadFile);
-	Gura_AssignMethod(wx_RichTextBuffer, LoadFile_1);
+	//Gura_AssignMethod(wx_RichTextBuffer, LoadFile_1);
 	Gura_AssignMethod(wx_RichTextBuffer, Modify);
 	Gura_AssignMethod(wx_RichTextBuffer, NumberList);
 	Gura_AssignMethod(wx_RichTextBuffer, Number);
@@ -2012,7 +2022,7 @@ Gura_ImplementUserInheritableClass(wx_RichTextBuffer)
 	Gura_AssignMethod(wx_RichTextBuffer, RemoveHandler);
 	Gura_AssignMethod(wx_RichTextBuffer, ResetAndClearCommands);
 	Gura_AssignMethod(wx_RichTextBuffer, SaveFile);
-	Gura_AssignMethod(wx_RichTextBuffer, SaveFile_1);
+	//Gura_AssignMethod(wx_RichTextBuffer, SaveFile_1);
 	Gura_AssignMethod(wx_RichTextBuffer, SetBasicStyle);
 	Gura_AssignMethod(wx_RichTextBuffer, SetBasicStyle_1);
 	Gura_AssignMethod(wx_RichTextBuffer, SetDefaultStyle);

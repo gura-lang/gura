@@ -171,6 +171,7 @@ Gura_ImplementMethod(wx_XmlDocument, DetachRoot)
 	return ReturnValue(env, sig, args, Value(new Object_wx_XmlNode(rtn, NULL, OwnerFalse)));
 }
 
+#if 0
 Gura_DeclareMethod(wx_XmlDocument, GetEncoding)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -189,6 +190,7 @@ Gura_ImplementMethod(wx_XmlDocument, GetEncoding)
 	return Value::Null;
 #endif	
 }
+#endif
 
 Gura_DeclareMethod(wx_XmlDocument, GetFileEncoding)
 {
@@ -328,6 +330,7 @@ Gura_ImplementMethod(wx_XmlDocument, Save_1)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
+#if 0
 Gura_DeclareMethod(wx_XmlDocument, SetEncoding)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
@@ -347,6 +350,7 @@ Gura_ImplementMethod(wx_XmlDocument, SetEncoding)
 	return Value::Null;
 #endif	
 }
+#endif
 
 Gura_DeclareMethod(wx_XmlDocument, SetFileEncoding)
 {
@@ -428,7 +432,7 @@ Gura_ImplementUserInheritableClass(wx_XmlDocument)
 	Gura_AssignFunction(XmlDocument_1);
 	Gura_AssignFunction(XmlDocument_2);
 	Gura_AssignMethod(wx_XmlDocument, DetachRoot);
-	Gura_AssignMethod(wx_XmlDocument, GetEncoding);
+	//Gura_AssignMethod(wx_XmlDocument, GetEncoding);
 	Gura_AssignMethod(wx_XmlDocument, GetFileEncoding);
 	Gura_AssignMethod(wx_XmlDocument, GetRoot);
 	Gura_AssignMethod(wx_XmlDocument, GetVersion);
@@ -437,7 +441,7 @@ Gura_ImplementUserInheritableClass(wx_XmlDocument)
 	Gura_AssignMethod(wx_XmlDocument, Load_1);
 	Gura_AssignMethod(wx_XmlDocument, Save);
 	Gura_AssignMethod(wx_XmlDocument, Save_1);
-	Gura_AssignMethod(wx_XmlDocument, SetEncoding);
+	//Gura_AssignMethod(wx_XmlDocument, SetEncoding);
 	Gura_AssignMethod(wx_XmlDocument, SetFileEncoding);
 	Gura_AssignMethod(wx_XmlDocument, SetRoot);
 	Gura_AssignMethod(wx_XmlDocument, SetVersion);

@@ -1279,7 +1279,7 @@ Gura_ImplementMethod(wx_String, Mid)
 	Object_wx_String *pThis = Object_wx_String::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	size_t first = args.GetSizeT(0);
-	size_t count = wxSTRING_MAXLEN;
+	size_t count = wxString::npos;
 	if (args.IsValid(1)) count = args.GetSizeT(1);
 	wxString rtn = pThis->GetEntity()->Mid(first, count);
 	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));

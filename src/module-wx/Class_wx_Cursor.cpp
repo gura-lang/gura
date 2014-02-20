@@ -15,9 +15,9 @@ private:
 	Object_wx_Cursor *_pObj;
 public:
 	inline wx_Cursor() : wxCursor(), _sig(NULL), _pObj(NULL) {}
-	inline wx_Cursor(const char bits[], int width, int height, int hotSpotX, int hotSpotY, const char maskBits[]) : wxCursor(bits, width, height, hotSpotX, hotSpotY, maskBits), _sig(NULL), _pObj(NULL) {}
+	//inline wx_Cursor(const char bits[], int width, int height, int hotSpotX, int hotSpotY, const char maskBits[]) : wxCursor(bits, width, height, hotSpotX, hotSpotY, maskBits), _sig(NULL), _pObj(NULL) {}
 #if defined(__WXMSW__)
-	inline wx_Cursor(const wxString& cursorName, long type, int hotSpotX, int hotSpotY) : wxCursor(cursorName, type, hotSpotX, hotSpotY), _sig(NULL), _pObj(NULL) {}
+	inline wx_Cursor(const wxString& cursorName, wxBitmapType type, int hotSpotX, int hotSpotY) : wxCursor(cursorName, type, hotSpotX, hotSpotY), _sig(NULL), _pObj(NULL) {}
 #endif
 	inline wx_Cursor(int cursorId) : wxCursor(cursorId), _sig(NULL), _pObj(NULL) {}
 	inline wx_Cursor(const wxImage& image) : wxCursor(image), _sig(NULL), _pObj(NULL) {}
@@ -83,6 +83,7 @@ Gura_DeclareFunction(Cursor)
 Gura_ImplementFunction(Cursor)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
+#if 0
 	const Binary &_bits = args.GetBinary(0);
 	const char *bits = _bits.data();
 	int width = args.GetInt(1);
@@ -119,6 +120,9 @@ Gura_ImplementFunction(Cursor)
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
 	return ReturnValue(env, sig, args, args.GetThis());
+#endif
+	SetError_NotImplemented(sig);
+	return Value::Null;
 }
 
 Gura_DeclareFunction(NamedCursor)
@@ -137,7 +141,7 @@ Gura_ImplementFunction(NamedCursor)
 	if (!CheckWxReady(sig)) return Value::Null;
 #if defined(__WXMSW__)
 	wxString cursorName = wxString::FromUTF8(args.GetString(0));
-	long type = args.GetLong(1);
+	wxBitmapType type = static_cast<wxBitmapType>(args.GetLong(1));
 	int hotSpotX = 0;
 	if (args.IsValid(2)) hotSpotX = args.GetInt(2);
 	int hotSpotY = 0;
