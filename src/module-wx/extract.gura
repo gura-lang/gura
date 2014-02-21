@@ -1,0 +1,464 @@
+#!/usr/bin/env gura
+import(re)
+
+funcTmpl = R'''
+Gura_DeclareMethod(${classNameMod}, ${funcName})
+{
+	SetMode(RSLTMODE_${cond(voidFlag, 'Void', 'Normal')}, FLAG_${mapFlag, 'Map', 'None'});
+	${if (!params.isempty()) { params:*declArg }}
+}
+
+Gura_ImplementMethod(${classNameMod}, ${funcName})
+{
+	Object_${classNameMod} *pThis = Object_${classNameMod}::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	${params:*varDecl}
+	pThis->GetEntity()->${funcName}(${params:*varInCallC.join(', ')});
+	return Value::Null;
+}
+'''.template()
+
+ClassNameToGuraClassName(className:string):map = {
+	if (className == 'wxColor') {
+		'wx_Colour'
+	} elsif (className == 'wxWindowBase') {
+		'wx_Window'
+	} else {
+		className.sub(r'^wx', 'wx_')
+	}
+}
+
+Accessor = struct(template, typeNameActual, typeGura, vtype)
+
+accessorMap = %{
+	'bool' => Accessor(
+		'args.GetBoolean(${idx})', 'bool', 'boolean', 'VTYPE_boolean')
+	'char' => Accessor(
+		'args.GetChar(${idx})', 'char', 'number', 'VTYPE_number')
+	'short' => Accessor(
+		'args.GetShort(${idx})', 'short', 'number', 'VTYPE_number')
+	'int' => Accessor(
+		'args.GetInt(${idx})', 'int', 'number', 'VTYPE_number')
+	'unsigned' => Accessor(
+		'args.GetInt(${idx})', 'unsigned', 'number', 'VTYPE_number')
+	'float' => Accessor(
+		'args.GetFloat(${idx})', 'float', 'number', 'VTYPE_number')
+	'double' => Accessor(
+		'args.GetDouble(${idx})', 'double', 'number', 'VTYPE_number')
+	'size_t' => Accessor(
+		'args.GetSizeT(${idx})', 'size_t', 'number', 'VTYPE_number')
+	'long' => Accessor(
+		'args.GetLong(${idx})', 'long', 'number', 'VTYPE_number')
+	'unsigned char' => Accessor(
+		'args.GetUChar(${idx})', 'unsigned char', 'number', 'VTYPE_number')
+	'unsigned short' => Accessor(
+		'args.GetUShort(${idx})', 'unsigned short', 'number', 'VTYPE_number')
+	'unsigned int' => Accessor(
+		'args.GetUInt(${idx})', 'unsigned int', 'number', 'VTYPE_number')
+	'unsigned long' => Accessor(
+		'args.GetULong(${idx})', 'unsigned long', 'number', 'VTYPE_number')
+	'wxString' => Accessor(
+		'wxString::FromUTF8(args.GetString(${idx}))', 'wxString', 'string', 'VTYPE_string')
+	'wxCondError' => Accessor(
+		'static_cast<wxCondError>(args.GetInt(${idx}))', 'wxCondError', 'number', 'VTYPE_number')
+	'wxChar' => Accessor(
+		'static_cast<wxChar>(args.GetInt(${idx}))', 'wxChar', 'number', 'VTYPE_number')
+	'wxDash' => Accessor(
+		'static_cast<wxDash>(args.GetChar(${idx}))', 'wxDash', 'number', 'VTYPE_number')
+	'wxInt8' => Accessor(
+		'static_cast<wxInt8>(args.GetUChar(${idx}))', 'wxInt8', 'number', 'VTYPE_number')
+	'wxInt16' => Accessor(
+		'static_cast<wxInt16>(args.GetUShort(${idx}))', 'wxInt16', 'number', 'VTYPE_number')
+	'wxInt32' => Accessor(
+		'static_cast<wxInt32>(args.GetULong(${idx}))', 'wxInt32', 'number', 'VTYPE_number')
+	'wxUint8' => Accessor(
+		'static_cast<wxUint8>(args.GetUChar(${idx}))', 'wxUint8', 'number', 'VTYPE_number')
+	'wxUint16' => Accessor(
+		'static_cast<wxUint16>(args.GetUShort(${idx}))', 'wxUint16', 'number', 'VTYPE_number')
+	'wxUint32' => Accessor(
+		'static_cast<wxUint32>(args.GetULong(${idx}))', 'wxUint32', 'number', 'VTYPE_number')
+	'wxCoord' => Accessor(
+		'static_cast<wxCoord>(args.GetInt(${idx}))', 'wxCoord', 'number', 'VTYPE_number')
+	'wxTextCoord' => Accessor(
+		'static_cast<wxTextCoord>(args.GetInt(${idx}))', 'wxTextCoord', 'number', 'VTYPE_number')
+	'wxWindowID' => Accessor(
+		'static_cast<wxWindowID>(args.GetInt(${idx}))', 'wxWindowID', 'number', 'VTYPE_number')
+	'wxPortId' => Accessor(
+		'static_cast<wxPortId>(args.GetInt(${idx}))', 'wxPortId', 'number', 'VTYPE_number')
+	'wxArtID' => Accessor(
+		'static_cast<wxArtID>(args.GetInt(${idx}))', 'wxArtID', 'number', 'VTYPE_number')
+	'wxCmdLineEntryType' => Accessor(
+		'static_cast<wxCmdLineEntryType>(args.GetInt(${idx}))', 'wxCmdLineEntryType', 'number', 'VTYPE_number')
+	'wxCmdLineParamType' => Accessor(
+		'static_cast<wxCmdLineParamType>(args.GetInt(${idx}))', 'wxCmdLineParamType', 'number', 'VTYPE_number')
+	'wxIPCFormat' => Accessor(
+		'static_cast<wxIPCFormat>(args.GetInt(${idx}))', 'wxIPCFormat', 'number', 'VTYPE_number')
+	'wxDirTraverseResult' => Accessor(
+		'static_cast<wxDirTraverseResult>(args.GetInt(${idx}))', 'wxDirTraverseResult', 'number', 'VTYPE_number')
+	'wxOrientation' => Accessor(
+		'static_cast<wxOrientation>(args.GetInt(${idx}))', 'wxOrientation', 'number', 'VTYPE_number')
+	'wxDirection' => Accessor(
+		'static_cast<wxDirection>(args.GetInt(${idx}))', 'wxDirection', 'number', 'VTYPE_number')
+	'wxLayoutDirection' => Accessor(
+		'static_cast<wxLayoutDirection>(args.GetInt(${idx}))', 'wxLayoutDirection', 'number', 'VTYPE_number')
+	'wxFontFamily' => Accessor(
+		'static_cast<wxFontFamily>(args.GetInt(${idx}))', 'wxFontFamily', 'number', 'VTYPE_number')
+	'wxFontWeight' => Accessor(
+		'static_cast<wxFontWeight>(args.GetInt(${idx}))', 'wxFontWeight', 'number', 'VTYPE_number')
+	'wxFontEncoding' => Accessor(
+		'static_cast<wxFontEncoding>(args.GetInt(${idx}))', 'wxFontEncoding', 'number', 'VTYPE_number')
+	'wxThreadKind' => Accessor(
+		'static_cast<wxThreadKind>(args.GetInt(${idx}))', 'wxThreadKind', 'number', 'VTYPE_number')
+	'wxThreadError' => Accessor(
+		'static_cast<wxThreadError>(args.GetInt(${idx}))', 'wxThreadError', 'number', 'VTYPE_number')
+	'wxStreamProtocolType' => Accessor(
+		'static_cast<wxStreamProtocolType>(args.GetInt(${idx}))', 'wxStreamProtocolType', 'number', 'VTYPE_number')
+	'wxPathFormat' => Accessor(
+		'static_cast<wxPathFormat>(args.GetInt(${idx}))', 'wxPathFormat', 'number', 'VTYPE_number')
+	'wxFileOffset' => Accessor(
+		'static_cast<wxFileOffset>(args.GetInt64(${idx}))', 'wxFileOffset', 'number', 'VTYPE_number')
+	'wxHelpSearchMode' => Accessor(
+		'static_cast<wxHelpSearchMode>(args.GetInt(${idx}))', 'wxHelpSearchMode', 'number', 'VTYPE_number')
+	'wxEventType' => Accessor(
+		'static_cast<wxEventType>(args.GetInt(${idx}))', 'wxEventType', 'number', 'VTYPE_number')
+	'wxMutexType' => Accessor(
+		'static_cast<wxMutexType>(args.GetInt(${idx}))', 'wxMutexType', 'number', 'VTYPE_number')
+	'wxMutexError' => Accessor(
+		'static_cast<wxMutexError>(args.GetInt(${idx}))', 'wxMutexError', 'number', 'VTYPE_number')
+	'wxSashEdgePosition' => Accessor(
+		'static_cast<wxSashEdgePosition>(args.GetInt(${idx}))', 'wxSashEdgePosition', 'number', 'VTYPE_number')
+	'wxUpdateUIMode' => Accessor(
+		'static_cast<wxUpdateUIMode>(args.GetInt(${idx}))', 'wxUpdateUIMode', 'number', 'VTYPE_number')
+	'wxIdleMode' => Accessor(
+		'static_cast<wxIdleMode>(args.GetInt(${idx}))', 'wxIdleMode', 'number', 'VTYPE_number')
+	'wxDataViewCellMode' => Accessor(
+		'static_cast<wxDataViewCellMode>(args.GetInt(${idx}))', 'wxDataViewCellMode', 'number', 'VTYPE_number')
+	'wxDataViewColumnFlags' => Accessor(
+		'static_cast<wxDataViewColumnFlags>(args.GetInt(${idx}))', 'wxDataViewColumnFlags', 'number', 'VTYPE_number')
+	'wxAlignment' => Accessor(
+		'static_cast<wxAlignment>(args.GetInt(${idx}))', 'wxAlignment', 'number', 'VTYPE_number')
+	'wxLayoutAlignment' => Accessor(
+		'static_cast<wxLayoutAlignment>(args.GetInt(${idx}))', 'wxLayoutAlignment', 'number', 'VTYPE_number')
+	'wxLayoutOrientation' => Accessor(
+		'static_cast<wxLayoutOrientation>(args.GetInt(${idx}))', 'wxLayoutOrientation', 'number', 'VTYPE_number')
+	'wxLogLevel' => Accessor(
+		'static_cast<wxLogLevel>(args.GetInt(${idx}))', 'wxLogLevel', 'number', 'VTYPE_number')
+	'wxItemKind' => Accessor(
+		'static_cast<wxItemKind>(args.GetInt(${idx}))', 'wxItemKind', 'number', 'VTYPE_number')
+	'wxSignal' => Accessor(
+		'static_cast<wxSignal>(args.GetInt(${idx}))', 'wxSignal', 'number', 'VTYPE_number')
+	'wxKillError' => Accessor(
+		'static_cast<wxKillError>(args.GetInt(${idx}))', 'wxKillError', 'number', 'VTYPE_number')
+	'wxAnimationType' => Accessor(
+		'static_cast<wxAnimationType>(args.GetInt(${idx}))', 'wxAnimationType', 'number', 'VTYPE_number')
+	'wxBitmapType' => Accessor(
+		'static_cast<wxBitmapType>(args.GetInt(${idx}))', 'wxBitmapType', 'number', 'VTYPE_number')
+	'wxCheckBoxState' => Accessor(
+		'static_cast<wxCheckBoxState>(args.GetInt(${idx}))', 'wxCheckBoxState', 'number', 'VTYPE_number')
+	'wxSeekMode' => Accessor(
+		'static_cast<wxSeekMode>(args.GetInt(${idx}))', 'wxSeekMode', 'number', 'VTYPE_number')
+	'wxTreeItemIcon' => Accessor(
+		'static_cast<wxTreeItemIcon>(args.GetInt(${idx}))', 'wxTreeItemIcon', 'number', 'VTYPE_number')
+	'wxTextAttrAlignment' => Accessor(
+		'static_cast<wxTextAttrAlignment>(args.GetInt(${idx}))', 'wxTextAttrAlignment', 'number', 'VTYPE_number')
+	'wxWindowVariant' => Accessor(
+		'static_cast<wxWindowVariant>(args.GetInt(${idx}))', 'wxWindowVariant', 'number', 'VTYPE_number')
+	'wxBackgroundStyle' => Accessor(
+		'static_cast<wxBackgroundStyle>(args.GetInt(${idx}))', 'wxBackgroundStyle', 'number', 'VTYPE_number')
+	'wxMediaCtrlPlayerControls' => Accessor(
+		'static_cast<wxMediaCtrlPlayerControls>(args.GetInt(${idx}))', 'wxMediaCtrlPlayerControls', 'number', 'VTYPE_number')
+	'wxMediaCtrlState' => Accessor(
+		'static_cast<wxMediaCtrlState>(args.GetInt(${idx}))', 'wxMediaCtrlState', 'number', 'VTYPE_number')
+	'wxHtmlURLType' => Accessor(
+		'static_cast<wxHtmlURLType>(args.GetInt(${idx}))', 'wxHtmlURLType', 'number', 'VTYPE_number')
+	'wxEdge' => Accessor(
+		'static_cast<wxEdge>(args.GetInt(${idx}))', 'wxEdge', 'number', 'VTYPE_number')
+	'wxRelationship' => Accessor(
+		'static_cast<wxRelationship>(args.GetInt(${idx}))', 'wxRelationship', 'number', 'VTYPE_number')
+	'wxListColumnFormat' => Accessor(
+		'static_cast<wxListColumnFormat>(args.GetInt(${idx}))', 'wxListColumnFormat', 'number', 'VTYPE_number')
+	'wxPaperSize' => Accessor(
+		'static_cast<wxPaperSize>(args.GetInt(${idx}))', 'wxPaperSize', 'number', 'VTYPE_number')
+	'wxPrintBin' => Accessor(
+		'static_cast<wxPrintBin>(args.GetInt(${idx}))', 'wxPrintBin', 'number', 'VTYPE_number')
+	'wxPrintQuality' => Accessor(
+		'static_cast<wxPrintQuality>(args.GetInt(${idx}))', 'wxPrintQuality', 'number', 'VTYPE_number')
+	'wxPrinterError' => Accessor(
+		'static_cast<wxPrinterError>(args.GetInt(${idx}))', 'wxPrinterError', 'number', 'VTYPE_number')
+	'wxDuplexMode' => Accessor(
+		'static_cast<wxDuplexMode>(args.GetInt(${idx}))', 'wxDuplexMode', 'number', 'VTYPE_number')
+	'wxRichTextOddEvenPage' => Accessor(
+		'static_cast<wxRichTextOddEvenPage>(args.GetInt(${idx}))', 'wxRichTextOddEvenPage', 'number', 'VTYPE_number')
+	'wxRichTextPageLocation' => Accessor(
+		'static_cast<wxRichTextPageLocation>(args.GetInt(${idx}))', 'wxRichTextPageLocation', 'number', 'VTYPE_number')
+	'wxFlexSizerGrowMode' => Accessor(
+		'static_cast<wxFlexSizerGrowMode>(args.GetInt(${idx}))', 'wxFlexSizerGrowMode', 'number', 'VTYPE_number')
+	'wxSocketFlags' => Accessor(
+		'static_cast<wxSocketFlags>(args.GetInt(${idx}))', 'wxSocketFlags', 'number', 'VTYPE_number')
+	'wxSocketEventFlags' => Accessor(
+		'static_cast<wxSocketEventFlags>(args.GetInt(${idx}))', 'wxSocketEventFlags', 'number', 'VTYPE_number')
+	'wxProtocolError' => Accessor(
+		'static_cast<wxProtocolError>(args.GetInt(${idx}))', 'wxProtocolError', 'number', 'VTYPE_number')
+	'wxStringTokenizerMode' => Accessor(
+		'static_cast<wxStringTokenizerMode>(args.GetInt(${idx}))', 'wxStringTokenizerMode', 'number', 'VTYPE_number')
+	'wxURLError' => Accessor(
+		'static_cast<wxURLError>(args.GetInt(${idx}))', 'wxURLError', 'number', 'VTYPE_number')
+	'wxOperatingSystemId' => Accessor(
+		'static_cast<wxOperatingSystemId>(args.GetInt(${idx}))', 'wxOperatingSystemId', 'number', 'VTYPE_number')
+	'wxArchitecture' => Accessor(
+		'static_cast<wxArchitecture>(args.GetInt(${idx}))', 'wxArchitecture', 'number', 'VTYPE_number')
+	'wxEndianness' => Accessor(
+		'static_cast<wxEndianness>(args.GetInt(${idx}))', 'wxEndianness', 'number', 'VTYPE_number')
+	'wxSemaError' => Accessor(
+		'static_cast<wxSemaError>(args.GetInt(${idx}))', 'wxSemaError', 'number', 'VTYPE_number')
+	'wxSystemColour' => Accessor(
+		'static_cast<wxSystemColour>(args.GetInt(${idx}))', 'wxSystemColour', 'number', 'VTYPE_number')
+	'wxSystemFont' => Accessor(
+		'static_cast<wxSystemFont>(args.GetInt(${idx}))', 'wxSystemFont', 'number', 'VTYPE_number')
+	'wxSystemMetric' => Accessor(
+		'static_cast<wxSystemMetric>(args.GetInt(${idx}))', 'wxSystemMetric', 'number', 'VTYPE_number')
+	'wxSystemScreenType' => Accessor(
+		'static_cast<wxSystemScreenType>(args.GetInt(${idx}))', 'wxSystemScreenType', 'number', 'VTYPE_number')
+	'wxTarFormat' => Accessor(
+		'static_cast<wxTarFormat>(args.GetInt(${idx}))', 'wxTarFormat', 'number', 'VTYPE_number')
+	'wxEOL' => Accessor(
+		'static_cast<wxEOL>(args.GetInt(${idx}))', 'wxEOL', 'number', 'VTYPE_number')
+	'wxXmlNodeType' => Accessor(
+		'static_cast<wxXmlNodeType>(args.GetInt(${idx}))', 'wxXmlNodeType', 'number', 'VTYPE_number')
+	'wxSashDragStatus' => Accessor(
+		'static_cast<wxSashDragStatus>(args.GetInt(${idx}))', 'wxSashDragStatus', 'number', 'VTYPE_number')
+	'NativeFormat' => Accessor(
+		'static_cast<wxDataFormat::NativeFormat>(args.GetInt(${idx}))', 'wxDataFormat::NativeFormat', 'number', 'VTYPE_number')
+	'ExitCode' => Accessor(
+		'static_cast<wxThread::ExitCode>(args.GetInt(${idx}))', 'wxThread::ExitCode', 'number', 'VTYPE_number')
+	'BufMode' => Accessor(
+		'static_cast<wxStreamBuffer::BufMode>(args.GetInt(${idx}))', 'wxStreamBuffer::BufMode', 'number', 'VTYPE_number')
+	'AccessMode' => Accessor(
+		'static_cast<wxRegKey::AccessMode>(args.GetInt(${idx}))', 'wxRegKey::AccessMode', 'number', 'VTYPE_number')
+	'wxCalendarDateBorder' => Accessor(
+		'static_cast<wxCalendarDateBorder>(args.GetInt(${idx}))', 'wxCalendarDateBorder', 'number', 'VTYPE_number')
+	'WXTYPE' => Accessor(
+		'static_cast<WXTYPE>(args.GetInt(${idx}))', 'WXTYPE', 'number', 'VTYPE_number')
+	'WXWPARAM' => Accessor(
+		'static_cast<WXWPARAM>(args.GetULong(${idx}))', 'WXWPARAM', 'number', 'VTYPE_number')
+	'WXLPARAM' => Accessor(
+		'static_cast<WXLPARAM>(args.GetULong(${idx}))', 'WXLPARAM', 'number', 'VTYPE_number')
+	'off_t' => Accessor(
+		'static_cast<off_t>(args.GetLong(${idx}))', 'off_t', 'number', 'VTYPE_number')
+	'wchar_t' => Accessor(
+		'static_cast<wchar_t>(args.GetUShort(${idx}))', 'wchar_t', 'number', 'VTYPE_number')
+
+	'void' => Accessor(
+		'args.GetInt(${idx})', 'int', 'number', 'VTYPE_number')
+	'ostream' => Accessor(
+		'args.GetStream(${idx})', 'Stream &', 'stream', 'VTYPE_stream')
+}
+
+Param = class {
+	public {
+		declArg
+		varDecl
+		varInCall
+		varDeclC
+		varInCallC
+	}
+	__init__(topLevelConstructorFlag:boolean,
+							funcName:string, varDecl:string, idx:number):map = {
+		fields = varDecl.split('=')::strip()
+		m = fields[0].match(r'(?<decl>.+[^\w])(?<varName>\w+)$')
+		decl = m['decl']
+		this.varName = m['varName']
+		if (fields.len() == 1) {
+			this.varInit = nil
+		} elsif (fields.len() == 2) {
+			this.varInit = fields[1]
+			if (m = this.varInit.match(r'^(``|")([^"]*)"$')) {
+				this.varInit = 'wxT("' + m[2] + '")'
+			}
+		}
+		if (m = decl.match(r'const\s+(\w.*)')) {
+			this.varAccess = `const
+			decl = m[1]
+		} else {
+			this.varAccess = nil
+		}
+		if (m = decl.match(r'([\s\w]+)([^\w]+)')) {
+			this.typeName = m[1].strip()
+			this.typeRef = m[2]
+		} else {
+			this.typeName = decl
+			this.typeRef = nil
+		}
+		this.declArg = ''
+		this.varDecl = ''
+		this.varInCall = ''
+		this.varDeclC = cond(this.varAccess == `const, 'const ', '') + \
+										decl + ' ' + this.varName
+		this.varInCallC = this.varName
+		if (this.typeName == 'wxChar' && this.typeRef == '*') {
+			varNameEx = '_' + this.varName;
+			if (this.varInit) {
+				this.declArg = \
+					'DeclareArg(env, "%s", VTYPE_string, OCCUR_ZeroOrOnce);\n' % \
+							[this.varName]
+				this.varDecl += 'wxString %s;\n' % [varNameEx]
+				if (this.varInit.startswith('"')) {
+					this.varDecl += 'const wxChar *%s = wxT(%s);\n' % \
+							[this.varName, this.varInit]
+				} else {
+					this.varDecl += 'const wxChar *%s = %s;\n' % \
+							[this.varName, this.varInit]
+				}
+				this.varDecl += 'if (args.IsValid(%d)) {\n' % [idx]
+				this.varDecl += '\t%s = wxString::FromUTF8(args.GetString(%d));\n' % \
+							[varNameEx, idx]
+				this.varDecl += '\t%s = %s;\n' % \
+							[this.varName, varNameEx]
+				this.varDecl += '}\n'
+				this.varInCall = this.varName
+			} else {
+				this.declArg = \
+					'DeclareArg(env, "%s", VTYPE_string, OCCUR_Once);\n' % \
+							[this.varName]
+				this.varDecl += 'wxString %s = wxString::FromUTF8(args.GetString(%d));\n' % \
+							[this.varName, idx]
+				this.varInCall = this.varName
+			}
+		} elsif (accessor = accessorMap.get(this.typeName)) {
+			if (this.varInit) {
+				this.declArg = \
+					'DeclareArg(env, "%s", %s, OCCUR_ZeroOrOnce);\n' % \
+							[this.varName, accessor.vtype]
+				this.varDecl += '%s %s = %s;\n' % \
+					[accessor.typeNameActual, this.varName, this.varInit]
+				this.varDecl += 'if (args.IsValid(%d)) %s = %s;\n' % \
+					[idx, this.varName, accessor.template.template().render()]
+			} else {
+				this.declArg = \
+					'DeclareArg(env, "%s", %s, OCCUR_Once);\n' % \
+							[this.varName, accessor.vtype]
+				this.varDecl += '%s %s = %s;\n' % \
+					[accessor.typeNameActual, this.varName, accessor.template.template().render()]
+			}
+			this.varInCall = this.varName
+		} elsif (this.typeName == 'wxArrayString') {
+			if (this.varInit) {
+				sys.stderr.println('wxArrayString is not expected to have initial value')
+			} else {
+				this.declArg = \
+					'DeclareArg(env, "%s", VTYPE_string, OCCUR_Once, FLAG_List);\n' % \
+							[this.varName]
+				this.varDecl += 'std::auto_ptr<wxArrayString> %s(CreateArrayString(args.GetList(%d)));\n' % \
+							[this.varName, idx]
+			}
+			this.varInCall = '*' + this.varName
+		} elsif (this.typeName == 'wxArrayInt') {
+			if (this.varInit) {
+				sys.stderr.println('wxArrayInt is not expected to have initial value')
+			} else {
+				this.declArg = \
+					'DeclareArg(env, "%s", VTYPE_number, OCCUR_Once, FLAG_List);\n' % \
+							[this.varName]
+				this.varDecl += 'std::auto_ptr<wxArrayInt> %s(CreateArrayInt(args.GetList(%d)));\n' % \
+							[this.varName, idx]
+			}
+			this.varInCall = '*' + this.varName
+		} elsif (m = this.typeName.match(r'wx(\w+)')) {
+			guraClassName = ClassNameToGuraClassName(this.typeName)
+			if (this.varInit) {
+				this.declArg = \
+					'DeclareArg(env, "%s", VTYPE_%s, OCCUR_ZeroOrOnce);\n' % \
+							[this.varName, guraClassName]
+				if (this.typeRef == '*') {
+					this.varDecl += '%s *%s = (%s *)(%s);\n' % \
+							[this.typeName, this.varName, this.typeName, this.varInit]
+				} else {
+					this.varDecl += '%s *%s = (%s *)(&%s);\n' % \
+							[this.typeName, this.varName, this.typeName, this.varInit]
+				}
+				this.varDecl += \
+					'if (args.IsValid(%s)) %s = Object_%s::GetObject(args, %d)->GetEntity();\n' % \
+							[idx, this.varName, guraClassName, idx]
+			} elsif (topLevelConstructorFlag && this.typeName == 'wxWindow' && idx == 0) {
+				this.declArg = \
+					'DeclareArg(env, "%s", VTYPE_%s, OCCUR_Once, FLAG_Nil);\n' % \
+							[this.varName, guraClassName]
+				this.varDecl += '%s *%s = args.IsValid(%d)?\n' % \
+							[this.typeName, this.varName, idx]
+				this.varDecl += '\t\tObject_%s::GetObject(args, %d)->GetEntity() : NULL;\n' % \
+							[guraClassName, idx]
+			} else {
+				this.declArg = \
+					'DeclareArg(env, "%s", VTYPE_%s, OCCUR_Once);\n' % \
+							[this.varName, guraClassName]
+				this.varDecl += \
+					'%s *%s = Object_%s::GetObject(args, %d)->GetEntity();\n' % \
+							[this.typeName, this.varName, guraClassName, idx]
+			}
+			if (this.typeRef == '*') {
+				this.varInCall = this.varName
+			} else {
+				this.varInCall = '*' + this.varName
+			}
+		} else {
+			sys.stderr.printf('can\'t handle "%s" in %s\n', this.typeName, funcName)
+			//sys.exit(1)
+		}
+	}
+	ToString() = this.varAccess + ' : ' + this.typeName + ' : ' + \
+			this.typeRef + ' : ' + this.varName + ' : ' + this.varInit
+}
+
+GenerateFunction(className:string, funcAttr:string, rtnType:string, funcName:string, argList:string) = {
+	classNameMod = className.sub('^wx', 'wx_')
+	voidFlag = (rtnType == 'void')
+	argList = argList.strip()
+	if (argList.isempty()) {
+		params = []
+	} else {
+		params = Param(false, funcName, argList.split(','), 0..):list
+	}
+	mapFlag = !params.isempty()
+	println()
+	funcTmpl.render(sys.stdout)
+}
+
+fileName = 'stc.h'
+lines = readlines(fileName):chop
+stat = `first
+lines.each {|line|
+	line = line.strip()
+	if (stat == `first) {
+		if (m = line.match(r'^\s*class\s+(\w+)')) {
+			className = m[1]
+			println()
+			println(className)
+			stat = `inside_class
+		}
+	} elsif (stat == `inside_class) {
+		if (m = line.match(r'^\s*((virtual|const|static|inline)\s+)*(\w+)\(')) {
+			// constructor
+		} elsif (m = line.match(r'^\s*(?<funcAttr>(virtual|const|static|inline)\s+)*(?<rtnType>(\w+\s*[\*&]*\s*)|(\w+\s+))(?<funcName>\w+)\((?<argList>.*)')) {
+			funcAttr = m['funcAttr']
+			rtnType = m['rtnType']
+			funcName = m['funcName']
+			argList = m['argList']
+			if (m = argList.match(r'([^\)]*)\)')) {
+				argList = m[1]
+				GenerateFunction(className, funcAttr, rtnType, funcName, argList)
+			} else {
+				stat = `func_cont
+			}
+		} elsif (m = line.match(r'};')) {
+			stat = `first
+		}
+	} elsif (stat == `func_cont) {
+		if (m = line.match(r'([^\)]*)\)')) {
+			argList += m[1]
+			GenerateFunction(className, funcAttr, rtnType, funcName, argList)
+			stat = `inside_class
+		} else {
+			argList += line
+		}
+	}
+}
