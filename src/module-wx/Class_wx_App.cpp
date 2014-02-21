@@ -534,6 +534,7 @@ Gura_ImplementMethod(wx_App, OnFatalException)
 	return Value::Null;
 }
 
+#if 0
 Gura_DeclareMethod(wx_App, OnIdle)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
@@ -548,6 +549,7 @@ Gura_ImplementMethod(wx_App, OnIdle)
 	pThis->GetEntity()->wxApp::OnIdle(*event);
 	return Value::Null;
 }
+#endif
 
 Gura_DeclareMethod(wx_App, OnEndSession)
 {
@@ -898,7 +900,7 @@ Gura_ImplementUserInheritableClass(wx_App)
 	Gura_AssignMethod(wx_App, OnExceptionInMainLoop);
 	Gura_AssignMethod(wx_App, OnExit);
 	Gura_AssignMethod(wx_App, OnFatalException);
-	Gura_AssignMethod(wx_App, OnIdle);
+	//Gura_AssignMethod(wx_App, OnIdle);
 	Gura_AssignMethod(wx_App, OnEndSession);
 	Gura_AssignMethod(wx_App, OnInit);
 	Gura_AssignMethod(wx_App, OnInitCmdLine);

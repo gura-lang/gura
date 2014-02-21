@@ -173,7 +173,7 @@ Gura_ImplementMethod(wx_Brush, GetColour)
 {
 	Object_wx_Brush *pThis = Object_wx_Brush::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	wxColour &rtn = pThis->GetEntity()->GetColour();
+	const wxColour &rtn = pThis->GetEntity()->GetColour();
 	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
 }
 

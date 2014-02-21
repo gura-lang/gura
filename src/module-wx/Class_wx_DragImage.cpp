@@ -18,11 +18,11 @@ private:
 	Object_wx_DragImage *_pObj;
 public:
 	inline wx_DragImage() : wxDragImage(), _sig(NULL), _pObj(NULL) {}
-	inline wx_DragImage(const wxBitmap& image, const wxCursor& cursor, const wxPoint& cursorHotspot) : wxDragImage(image, cursor, cursorHotspot), _sig(NULL), _pObj(NULL) {}
-	inline wx_DragImage(const wxIcon& image, const wxCursor& cursor, const wxPoint& cursorHotspot) : wxDragImage(image, cursor, cursorHotspot), _sig(NULL), _pObj(NULL) {}
-	inline wx_DragImage(const wxString& text, const wxCursor& cursor, const wxPoint& cursorHotspot) : wxDragImage(text, cursor, cursorHotspot), _sig(NULL), _pObj(NULL) {}
-	inline wx_DragImage(const wxTreeCtrl& treeCtrl, wxTreeItemId& id) : wxDragImage(treeCtrl, id), _sig(NULL), _pObj(NULL) {}
-	inline wx_DragImage(const wxListCtrl& treeCtrl, long id) : wxDragImage(treeCtrl, id), _sig(NULL), _pObj(NULL) {}
+	//inline wx_DragImage(const wxBitmap& image, const wxCursor& cursor, const wxPoint& cursorHotspot) : wxDragImage(image, cursor, cursorHotspot), _sig(NULL), _pObj(NULL) {}
+	//inline wx_DragImage(const wxIcon& image, const wxCursor& cursor, const wxPoint& cursorHotspot) : wxDragImage(image, cursor, cursorHotspot), _sig(NULL), _pObj(NULL) {}
+	//inline wx_DragImage(const wxString& text, const wxCursor& cursor, const wxPoint& cursorHotspot) : wxDragImage(text, cursor, cursorHotspot), _sig(NULL), _pObj(NULL) {}
+	//inline wx_DragImage(const wxTreeCtrl& treeCtrl, wxTreeItemId& id) : wxDragImage(treeCtrl, id), _sig(NULL), _pObj(NULL) {}
+	//inline wx_DragImage(const wxListCtrl& treeCtrl, long id) : wxDragImage(treeCtrl, id), _sig(NULL), _pObj(NULL) {}
 	//inline wx_DragImage(const wxCursor& cursor, const wxPoint& cursorHotspot) : wxDragImage(cursor, cursorHotspot), _sig(NULL), _pObj(NULL) {}
 	//virtual bool DoDrawImage(wxDC& dc, const wxPoint& pos);
 	//virtual wxRect GetImageRect(const wxPoint& pos);
@@ -69,6 +69,7 @@ Gura_ImplementFunction(DragImageEmpty)
 	return ReturnValue(env, sig, args, args.GetThis());
 }
 
+#if 0
 Gura_DeclareFunction(DragImage)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -244,6 +245,7 @@ Gura_ImplementFunction(DragImage_5)
 	SetError_NotImplemented(sig);
 	return Value::Null;
 }
+#endif
 
 Gura_DeclareMethod(wx_DragImage, BeginDrag)
 {
@@ -454,12 +456,12 @@ Gura_ImplementUserInheritableClass(wx_DragImage)
 	Gura_RealizeUserSymbol(DoDrawImage);
 	Gura_RealizeUserSymbol(GetImageRect);
 	Gura_AssignFunction(DragImageEmpty);
-	Gura_AssignFunction(DragImage);
-	Gura_AssignFunction(DragImage_1);
-	Gura_AssignFunction(DragImage_2);
-	Gura_AssignFunction(DragImage_3);
-	Gura_AssignFunction(DragImage_4);
-	Gura_AssignFunction(DragImage_5);
+	//Gura_AssignFunction(DragImage);
+	//Gura_AssignFunction(DragImage_1);
+	//Gura_AssignFunction(DragImage_2);
+	//Gura_AssignFunction(DragImage_3);
+	//Gura_AssignFunction(DragImage_4);
+	//Gura_AssignFunction(DragImage_5);
 	Gura_AssignMethod(wx_DragImage, BeginDrag);
 	Gura_AssignMethod(wx_DragImage, BeginDrag_1);
 	Gura_AssignMethod(wx_DragImage, DoDrawImage);
