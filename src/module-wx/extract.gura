@@ -12,7 +12,7 @@ Gura_ImplementMethod(${classNameMod}, ${funcName})
 {
 	Object_${classNameMod} *pThis = Object_${classNameMod}::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	${params:*varDecl}
+	${if (!params.isempty()) { params:*varDecl }}
 	pThis->GetEntity()->${funcName}(${params:*varInCallC.join(', ')});
 	return Value::Null;
 }
