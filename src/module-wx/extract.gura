@@ -5,15 +5,15 @@ funcTmpl = R'''
 Gura_DeclareMethod(${classNameMod}, ${funcName})
 {
 	SetMode(RSLTMODE_${cond(voidFlag, 'Void', 'Normal')}, FLAG_${mapFlag, 'Map', 'None'});
-	${if (!params.isempty()) { params:*declArg }}
+	${if (!paramInfos.isempty()) { paramInfos:*declArg }}
 }
 
 Gura_ImplementMethod(${classNameMod}, ${funcName})
 {
 	Object_${classNameMod} *pThis = Object_${classNameMod}::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	${if (!params.isempty()) { params:*varDecl }}
-	pThis->GetEntity()->${funcName}(${params:*varInCallC.join(', ')});
+	${if (!paramInfos.isempty()) { paramInfos:*varDecl }}
+	pThis->GetEntity()->${funcName}(${paramInfos:*varInCallC.join(', ')});
 	return Value::Null;
 }
 '''.template()
@@ -254,7 +254,73 @@ accessorMap = %{
 		'args.GetStream(${idx})', 'Stream &', 'stream', 'VTYPE_stream')
 }
 
-Param = class {
+FuncInfo = class {
+	__init__(funcAttr:string, funcRtn:string) = {
+		if (m = funcAttr.match(r'virtual')) {
+			this.funcType = `virtual
+		} elsif (m = funcAttr.match(r'static')) {
+			this.funcType = `static
+		} else {
+			this.funcType = nil
+		}
+		if (m = funcRtn.match(r'const\s+(\w.*)')) {
+			this.varAccess = `const
+			funcRtn = m[1]
+		} else {
+			this.varAccess = nil
+		}
+		if (m = funcRtn.match(r'(?<typeName>[\s\w]+)(?<typeRef>[^\w]+)')) {
+			this.typeName = m['typeName'].strip()
+			this.typeRef = m['typeRef']
+		} else {
+			this.typeName = funcRtn
+			this.typeRef = nil
+		}
+	}
+	GenerateCode(f:stream, funcName:string, funcCall:string) = {
+		varAccessStr = cond(this.varAccess == `const, 'const ', '')
+		if (this.typeName in ['void', '']) {
+			f.printf('\t%s;\n', funcCall)
+			f.printf('\treturn Value::Null;\n')
+		} elsif (m = this.typeName == 'wxString') {
+			f.printf('\t%s rtn = %s;\n', this.typeName, funcCall)
+			f.printf('\treturn ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));\n')
+		} elsif (m = this.typeName == 'wxArrayString') {
+			f.printf('\t%s rtn = %s;\n', this.typeName, funcCall)
+			f.printf('\treturn ReturnValue(env, sig, args, ArrayStringToValue(env, rtn));\n')
+		} elsif (m = this.typeName == 'wxArrayInt') {
+			f.printf('\t%s rtn = %s;\n', this.typeName, funcCall)
+			f.printf('\treturn ReturnValue(env, sig, args, ArrayIntToValue(env, rtn));\n')
+		} elsif (accessor = accessorMap.get(this.typeName)) {
+			f.printf('\t%s rtn = %s;\n', accessor.typeNameActual, funcCall)
+			f.printf('\treturn ReturnValue(env, sig, args, Value(rtn));\n')
+		} elsif (m = this.typeName.match(r'wx(\w+)')) {
+			guraClassName = ClassNameToGuraClassName(this.typeName)
+			if (!this.typeRef) {
+				f.printf('\t%s rtn = %s;\n', this.typeName, funcCall)
+				f.printf('\treturn ReturnValue(env, sig, args, Value(new Object_%s(new %s(rtn), NULL, OwnerTrue)));\n',
+										guraClassName, this.typeName)
+			} elsif (this.typeRef == '&') {
+				f.printf('\t%s%s &rtn = %s;\n', varAccessStr, this.typeName, funcCall)
+				f.printf('\treturn ReturnValue(env, sig, args, Value(new Object_%s(new %s(rtn), NULL, OwnerTrue)));\n',
+										guraClassName, this.typeName)
+			} elsif (this.typeRef == '*') {
+				f.printf('\t%s *rtn = (%s *)%s;\n',
+											this.typeName, this.typeName, funcCall)
+				f.printf('\treturn ReturnValue(env, sig, args, Value(new Object_%s(rtn, NULL, OwnerFalse)));\n',
+										guraClassName)
+			} else {
+				sys.stderr.printf('can\'t handle "%s" in %s\n', this.typeName, funcName)
+			}
+		} else {
+			sys.stderr.printf('can\'t handle "%s" in %s\n', this.typeName, funcName)
+		}
+	}
+	ToString() = this.funcType + ' : ' + this.varAccess + ' : ' + \
+									this.typeName + ' : ' + this.typeRef
+}
+
+ParamInfo = class {
 	public {
 		declArg
 		varDecl
@@ -409,16 +475,16 @@ Param = class {
 			this.typeRef + ' : ' + this.varName + ' : ' + this.varInit
 }
 
-GenerateFunction(className:string, funcAttr:string, rtnType:string, funcName:string, argList:string) = {
+GenerateFunction(className:string, funcAttr:string, funcRtn:string, funcName:string, argList:string) = {
 	classNameMod = className.sub('^wx', 'wx_')
-	voidFlag = (rtnType == 'void')
+	voidFlag = (funcRtn == 'void')
 	argList = argList.strip()
 	if (argList.isempty()) {
-		params = []
+		paramInfos = []
 	} else {
-		params = Param(false, funcName, argList.split(','), 0..):list
+		paramInfos = ParamInfo(false, funcName, argList.split(','), 0..):list
 	}
-	mapFlag = !params.isempty()
+	mapFlag = !paramInfos.isempty()
 	println()
 	funcTmpl.render(sys.stdout)
 }
@@ -438,14 +504,14 @@ lines.each {|line|
 	} elsif (stat == `inside_class) {
 		if (m = line.match(r'^\s*((virtual|const|static|inline)\s+)*(\w+)\(')) {
 			// constructor
-		} elsif (m = line.match(r'^\s*(?<funcAttr>(virtual|const|static|inline)\s+)*(?<rtnType>(\w+\s*[\*&]*\s*)|(\w+\s+))(?<funcName>\w+)\((?<argList>.*)')) {
+		} elsif (m = line.match(r'^\s*(?<funcAttr>(virtual|const|static|inline)\s+)*(?<funcRtn>(\w+\s*[\*&]*\s*)|(\w+\s+))(?<funcName>\w+)\((?<argList>.*)')) {
 			funcAttr = m['funcAttr']
-			rtnType = m['rtnType']
+			funcRtn = m['funcRtn']
 			funcName = m['funcName']
 			argList = m['argList']
 			if (m = argList.match(r'([^\)]*)\)')) {
 				argList = m[1]
-				GenerateFunction(className, funcAttr, rtnType, funcName, argList)
+				GenerateFunction(className, funcAttr, funcRtn, funcName, argList)
 			} else {
 				stat = `func_cont
 			}
@@ -455,7 +521,7 @@ lines.each {|line|
 	} elsif (stat == `func_cont) {
 		if (m = line.match(r'([^\)]*)\)')) {
 			argList += m[1]
-			GenerateFunction(className, funcAttr, rtnType, funcName, argList)
+			GenerateFunction(className, funcAttr, funcRtn, funcName, argList)
 			stat = `inside_class
 		} else {
 			argList += line
