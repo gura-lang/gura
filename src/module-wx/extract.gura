@@ -400,8 +400,8 @@ ArgInfo = class {
 				this.varInCall = '*' + this.varName
 			}
 		} else {
-			sys.stderr.printf('can\'t handle "%s" in %s\n', this.typeName, funcName)
-			//sys.exit(1)
+			sys.stderr.printf('can\'t handle "%s" in %s\'s %dth argument\n',
+											this.typeName, funcName, idx + 1)
 		}
 	}
 	ToString() = this.varAccess + ' : ' + this.typeName + ' : ' + \
