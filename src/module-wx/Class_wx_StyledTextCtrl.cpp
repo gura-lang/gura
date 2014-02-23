@@ -34,7 +34,7 @@ void wx_StyledTextCtrl::GuraObjectDeleted()
 }
 
 //----------------------------------------------------------------------------
-// Gura interfaces for wxStyledTextCtrl
+// Implementation of functions
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(StyledTextCtrlEmpty)
 {
@@ -100,7 +100,7 @@ Gura_ImplementFunction(StyledTextCtrl)
 }
 
 //----------------------------------------------------------------------------
-// Object implementation for wxStyledTextCtrl
+// Object_wxStyledTextCtrl
 //----------------------------------------------------------------------------
 Object_wx_StyledTextCtrl::~Object_wx_StyledTextCtrl()
 {
@@ -125,7 +125,182 @@ String Object_wx_StyledTextCtrl::ToString(bool exprFlag)
 }
 
 //----------------------------------------------------------------------------
-// Class implementation for wxStyledTextCtrl
+// Implementation of methods
+//----------------------------------------------------------------------------
+Gura_DeclareMethod(wx_StyledTextCtrl, AddText)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "text",	VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_StyledTextCtrl, AddText)
+{
+	Object_wx_StyledTextCtrl *pThis = Object_wx_StyledTextCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString text = wxString::FromUTF8(args.GetString(0));
+	pThis->GetEntity()->AddText(text);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_StyledTextCtrl, AddStyledText)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "data",	VTYPE_wx_MemoryBuffer, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_StyledTextCtrl, AddStyledText)
+{
+	Object_wx_StyledTextCtrl *pThis = Object_wx_StyledTextCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxMemoryBuffer *data = Object_wx_MemoryBuffer::GetObject(args, 0)->GetEntity();
+	pThis->GetEntity()->AddStyledText(*data);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_StyledTextCtrl, InsertText)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "pos",	VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "text",	VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_StyledTextCtrl, InsertText)
+{
+	Object_wx_StyledTextCtrl *pThis = Object_wx_StyledTextCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int pos = args.GetInt(0);
+	wxString text = wxString::FromUTF8(args.GetString(1));
+	pThis->GetEntity()->InsertText(pos, text);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_StyledTextCtrl, ClearAll)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_StyledTextCtrl, ClearAll)
+{
+	Object_wx_StyledTextCtrl *pThis = Object_wx_StyledTextCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->ClearAll();
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_StyledTextCtrl, DeleteRange)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "pos",			VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "deleteLength",	VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_StyledTextCtrl, DeleteRange)
+{
+	Object_wx_StyledTextCtrl *pThis = Object_wx_StyledTextCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int pos = args.GetInt(0);
+	int deleteLength = args.GetInt(1);
+	pThis->GetEntity()->DeleteRange(pos, deleteLength);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_StyledTextCtrl, ClearDocumentStyle)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_StyledTextCtrl, ClearDocumentStyle)
+{
+	Object_wx_StyledTextCtrl *pThis = Object_wx_StyledTextCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->ClearDocumentStyle();
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_StyledTextCtrl, GetLength)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_StyledTextCtrl, GetLength)
+{
+	Object_wx_StyledTextCtrl *pThis = Object_wx_StyledTextCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetLength();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_StyledTextCtrl, GetCharAt)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "pos",	VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_StyledTextCtrl, GetCharAt)
+{
+	Object_wx_StyledTextCtrl *pThis = Object_wx_StyledTextCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int pos = args.GetInt(0);
+	int rtn = pThis->GetEntity()->GetCharAt(pos);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_StyledTextCtrl, GetCurrentPos)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_StyledTextCtrl, GetCurrentPos)
+{
+	Object_wx_StyledTextCtrl *pThis = Object_wx_StyledTextCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetCurrentPos();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_StyledTextCtrl, GetAnchor)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_StyledTextCtrl, GetAnchor)
+{
+	Object_wx_StyledTextCtrl *pThis = Object_wx_StyledTextCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetAnchor();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_StyledTextCtrl, GetStyleAt)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "pos",	VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_StyledTextCtrl, GetStyleAt)
+{
+	Object_wx_StyledTextCtrl *pThis = Object_wx_StyledTextCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int pos = args.GetInt(0);
+	int rtn = pThis->GetEntity()->GetStyleAt(pos);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_StyledTextCtrl, Redo)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_StyledTextCtrl, Redo)
+{
+	Object_wx_StyledTextCtrl *pThis = Object_wx_StyledTextCtrl::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->Redo();
+	return Value::Null;
+}
+
+//----------------------------------------------------------------------------
+// Implementation of class
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_StyledTextCtrl)
 {

@@ -1,11 +1,16 @@
 #!/usr/bin/env gura
 import(re)
+import(utils)
 
-funcTmpl = R'''
+funcImplementTmpl = R'''
 Gura_DeclareMethod(${funcInfo.classNameMod}, ${funcInfo.funcName})
 {
 	SetMode(RSLTMODE_${cond(funcInfo.voidFlag, 'Void', 'Normal')}, FLAG_${funcInfo.mapFlag, 'Map', 'None'});
-	${if (!funcInfo.argInfos.isempty()) { funcInfo.argInfos:*declArg }}
+	${if (!funcInfo.argInfos.isempty()) {
+		strs = format('DeclareArg(env, "%s",', funcInfo.argInfos:*varName)
+		aligner = utils.Aligner(strs)
+		format('%s%s%s);\n', strs, aligner.tab(strs), funcInfo.argInfos:*declArg)
+	}}
 }
 
 Gura_ImplementMethod(${funcInfo.classNameMod}, ${funcInfo.funcName})
@@ -15,6 +20,10 @@ Gura_ImplementMethod(${funcInfo.classNameMod}, ${funcInfo.funcName})
 	${if (!funcInfo.argInfos.isempty()) { funcInfo.argInfos:*varDecl }}
 	${funcInfo.GenerateCallerCode()}
 }
+'''.template()
+
+funcAssignTmpl = R'''
+Gura_AssignMethod(${funcInfo.classNameMod}, ${funcInfo.funcName});
 '''.template()
 
 ClassNameToGuraClassName(className:string):map = {
@@ -260,6 +269,7 @@ ArgInfo = class {
 		varInCall
 		varDeclC
 		varInCallC
+		varName
 	}
 	__init__(topLevelConstructorFlag:boolean,
 							funcName:string, varDecl:string, idx:number):map = {
@@ -297,9 +307,7 @@ ArgInfo = class {
 		if (this.typeName == 'wxChar' && this.typeRef == '*') {
 			varNameEx = '_' + this.varName;
 			if (this.varInit) {
-				this.declArg = \
-					'DeclareArg(env, "%s", VTYPE_string, OCCUR_ZeroOrOnce);\n' % \
-							[this.varName]
+				this.declArg = 'VTYPE_string, OCCUR_ZeroOrOnce'
 				this.varDecl += 'wxString %s;\n' % [varNameEx]
 				if (this.varInit.startswith('"')) {
 					this.varDecl += 'const wxChar *%s = wxT(%s);\n' % \
@@ -316,26 +324,20 @@ ArgInfo = class {
 				this.varDecl += '}\n'
 				this.varInCall = this.varName
 			} else {
-				this.declArg = \
-					'DeclareArg(env, "%s", VTYPE_string, OCCUR_Once);\n' % \
-							[this.varName]
+				this.declArg = 'VTYPE_string, OCCUR_Once'
 				this.varDecl += 'wxString %s = wxString::FromUTF8(args.GetString(%d));\n' % \
 							[this.varName, idx]
 				this.varInCall = this.varName
 			}
 		} elsif (accessor = accessorMap.get(this.typeName)) {
 			if (this.varInit) {
-				this.declArg = \
-					'DeclareArg(env, "%s", %s, OCCUR_ZeroOrOnce);\n' % \
-							[this.varName, accessor.vtype]
+				this.declArg = '%s, OCCUR_ZeroOrOnce' % [accessor.vtype]
 				this.varDecl += '%s %s = %s;\n' % \
 					[accessor.typeNameActual, this.varName, this.varInit]
 				this.varDecl += 'if (args.IsValid(%d)) %s = %s;\n' % \
 					[idx, this.varName, accessor.template.template().render()]
 			} else {
-				this.declArg = \
-					'DeclareArg(env, "%s", %s, OCCUR_Once);\n' % \
-							[this.varName, accessor.vtype]
+				this.declArg = '%s, OCCUR_Once' % [accessor.vtype]
 				this.varDecl += '%s %s = %s;\n' % \
 					[accessor.typeNameActual, this.varName, accessor.template.template().render()]
 			}
@@ -344,9 +346,7 @@ ArgInfo = class {
 			if (this.varInit) {
 				sys.stderr.println('wxArrayString is not expected to have initial value')
 			} else {
-				this.declArg = \
-					'DeclareArg(env, "%s", VTYPE_string, OCCUR_Once, FLAG_List);\n' % \
-							[this.varName]
+				this.declArg = 'VTYPE_string, OCCUR_Once, FLAG_List'
 				this.varDecl += 'std::auto_ptr<wxArrayString> %s(CreateArrayString(args.GetList(%d)));\n' % \
 							[this.varName, idx]
 			}
@@ -355,9 +355,7 @@ ArgInfo = class {
 			if (this.varInit) {
 				sys.stderr.println('wxArrayInt is not expected to have initial value')
 			} else {
-				this.declArg = \
-					'DeclareArg(env, "%s", VTYPE_number, OCCUR_Once, FLAG_List);\n' % \
-							[this.varName]
+				this.declArg = 'VTYPE_number, OCCUR_Once, FLAG_List'
 				this.varDecl += 'std::auto_ptr<wxArrayInt> %s(CreateArrayInt(args.GetList(%d)));\n' % \
 							[this.varName, idx]
 			}
@@ -365,9 +363,7 @@ ArgInfo = class {
 		} elsif (m = this.typeName.match(r'wx(\w+)')) {
 			guraClassName = ClassNameToGuraClassName(this.typeName)
 			if (this.varInit) {
-				this.declArg = \
-					'DeclareArg(env, "%s", VTYPE_%s, OCCUR_ZeroOrOnce);\n' % \
-							[this.varName, guraClassName]
+				this.declArg = 'VTYPE_%s, OCCUR_ZeroOrOnce' % [guraClassName]
 				if (this.typeRef == '*') {
 					this.varDecl += '%s *%s = (%s *)(%s);\n' % \
 							[this.typeName, this.varName, this.typeName, this.varInit]
@@ -379,17 +375,13 @@ ArgInfo = class {
 					'if (args.IsValid(%s)) %s = Object_%s::GetObject(args, %d)->GetEntity();\n' % \
 							[idx, this.varName, guraClassName, idx]
 			} elsif (topLevelConstructorFlag && this.typeName == 'wxWindow' && idx == 0) {
-				this.declArg = \
-					'DeclareArg(env, "%s", VTYPE_%s, OCCUR_Once, FLAG_Nil);\n' % \
-							[this.varName, guraClassName]
+				this.declArg = 'VTYPE_%s, OCCUR_Once, FLAG_Nil' % [guraClassName]
 				this.varDecl += '%s *%s = args.IsValid(%d)?\n' % \
 							[this.typeName, this.varName, idx]
 				this.varDecl += '\t\tObject_%s::GetObject(args, %d)->GetEntity() : NULL;\n' % \
 							[guraClassName, idx]
 			} else {
-				this.declArg = \
-					'DeclareArg(env, "%s", VTYPE_%s, OCCUR_Once);\n' % \
-							[this.varName, guraClassName]
+				this.declArg = 'VTYPE_%s, OCCUR_Once' % [guraClassName]
 				this.varDecl += \
 					'%s *%s = Object_%s::GetObject(args, %d)->GetEntity();\n' % \
 							[this.typeName, this.varName, guraClassName, idx]
@@ -413,6 +405,7 @@ FuncInfo = class {
 		argInfos
 	}
 	__init__(className:string, funcAttr:string, funcRtn:string, funcName:string, argsStr:string) = {
+		funcRtn = funcRtn.strip()
 		argsStr = argsStr.strip()
 		this.classNameMod = className.sub('^wx', 'wx_')
 		this.funcName = funcName
@@ -447,7 +440,7 @@ FuncInfo = class {
 	GenerateCallerCode() = {
 		funcInfo = this
 		funcCall = R'''
-		pThis->GetEntity()->${funcInfo.funcName}(${funcInfo.argInfos:*varInCallC.join(', ')});
+		pThis->GetEntity()->${funcInfo.funcName}(${funcInfo.argInfos:*varInCall.join(', ')})
 		'''.template().render()
 		varAccessStr = cond(this.varAccess == `const, 'const ', '')
 		if (this.typeName in ['void', '']) {
@@ -493,31 +486,59 @@ FuncInfo = class {
 				return ReturnValue(env, sig, args, Value(new Object_${guraClassName}(rtn, NULL, OwnerFalse)));
 				'''.template().render()
 			} else {
-				sys.stderr.printf('can\'t handle "%s" in %s\n', this.typeName, this.funcName)
+				sys.stderr.printf('can\'t handle "%s" in %s\'s return value\n', this.typeName, this.funcName)
 			}
 		} else {
-			sys.stderr.printf('can\'t handle "%s" in %s\n', this.typeName, this.funcName)
+			sys.stderr.printf('can\'t handle "%s" in %s\'s return value\n', this.typeName, this.funcName)
 		}
 	}
 	ToString() = this.funcType + ' : ' + this.varAccess + ' : ' + \
 									this.typeName + ' : ' + this.typeRef
-	Render() = {
-		funcInfo = this
+	RenderImplement(stream?:stream) = {
 		println()
-		funcTmpl.render(sys.stdout)
+		funcInfo = this
+		funcImplementTmpl.render(stream)
+	}
+	RenderAssign(stream?:stream) = {
+		funcInfo = this
+		funcAssignTmpl.render(stream)
+	}
+}
+
+ClassInfo = class {
+	public {
+		funcInfos
+	}
+	__init__(className:string) = {
+		this.className = className
+		this.funcInfos = []
+	}
+	Render(stream:stream) = {
+		this.funcInfos::RenderImplement(stream)
+		stream.println()
+		classInfo = this
+		R'''
+		//----------------------------------------------------------------------------
+		// Implementation of class
+		//----------------------------------------------------------------------------
+		Gura_ImplementUserInheritableClass(wx_StyledTextCtrl)
+		{
+			${classInfo.funcInfos::RenderAssign()}
+		}
+		'''.template().render(stream)
 	}
 }
 
 fileName = 'stc.h'
 lines = readlines(fileName):chop
 stat = `first
+classInfos = []
 lines.each {|line|
 	line = line.strip()
 	if (stat == `first) {
 		if (m = line.match(r'^\s*class\s+(\w+)')) {
 			className = m[1]
-			println()
-			println(className)
+			classInfos.append(ClassInfo(className))
 			stat = `inside_class
 		}
 	} elsif (stat == `inside_class) {
@@ -530,7 +551,8 @@ lines.each {|line|
 			argsStr = m['argsStr']
 			if (m = argsStr.match(r'([^\)]*)\)')) {
 				argsStr = m[1]
-				FuncInfo(className, funcAttr, funcRtn, funcName, argsStr).Render()
+				funcInfo = FuncInfo(className, funcAttr, funcRtn, funcName, argsStr)
+ 				classInfos.last().funcInfos.append(funcInfo)
 			} else {
 				stat = `func_cont
 			}
@@ -540,10 +562,12 @@ lines.each {|line|
 	} elsif (stat == `func_cont) {
 		if (m = line.match(r'([^\)]*)\)')) {
 			argsStr += m[1]
-			FuncInfo(className, funcAttr, funcRtn, funcName, argsStr).Render()
+			funcInfo = FuncInfo(className, funcAttr, funcRtn, funcName, argsStr)
+			classInfos.last().funcInfos.append(funcInfo)
 			stat = `inside_class
 		} else {
 			argsStr += line
 		}
 	}
 }
+classInfos::Render(sys.stdout)
