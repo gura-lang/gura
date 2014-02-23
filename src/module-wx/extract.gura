@@ -2,18 +2,18 @@
 import(re)
 
 funcTmpl = R'''
-Gura_DeclareMethod(${classNameMod}, ${funcName})
+Gura_DeclareMethod(${funcInfo.classNameMod}, ${funcInfo.funcName})
 {
-	SetMode(RSLTMODE_${cond(voidFlag, 'Void', 'Normal')}, FLAG_${mapFlag, 'Map', 'None'});
-	${if (!paramInfos.isempty()) { paramInfos:*declArg }}
+	SetMode(RSLTMODE_${cond(funcInfo.voidFlag, 'Void', 'Normal')}, FLAG_${funcInfo.mapFlag, 'Map', 'None'});
+	${if (!funcInfo.argInfos.isempty()) { funcInfo.argInfos:*declArg }}
 }
 
-Gura_ImplementMethod(${classNameMod}, ${funcName})
+Gura_ImplementMethod(${funcInfo.classNameMod}, ${funcInfo.funcName})
 {
-	Object_${classNameMod} *pThis = Object_${classNameMod}::GetThisObj(args);
+	Object_${funcInfo.classNameMod} *pThis = Object_${funcInfo.classNameMod}::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	${if (!paramInfos.isempty()) { paramInfos:*varDecl }}
-	pThis->GetEntity()->${funcName}(${paramInfos:*varInCallC.join(', ')});
+	${if (!funcInfo.argInfos.isempty()) { funcInfo.argInfos:*varDecl }}
+	pThis->GetEntity()->${funcName}(${funcInfo.argInfos:*varInCallC.join(', ')});
 	return Value::Null;
 }
 '''.template()
@@ -254,73 +254,7 @@ accessorMap = %{
 		'args.GetStream(${idx})', 'Stream &', 'stream', 'VTYPE_stream')
 }
 
-FuncInfo = class {
-	__init__(funcAttr:string, funcRtn:string) = {
-		if (m = funcAttr.match(r'virtual')) {
-			this.funcType = `virtual
-		} elsif (m = funcAttr.match(r'static')) {
-			this.funcType = `static
-		} else {
-			this.funcType = nil
-		}
-		if (m = funcRtn.match(r'const\s+(\w.*)')) {
-			this.varAccess = `const
-			funcRtn = m[1]
-		} else {
-			this.varAccess = nil
-		}
-		if (m = funcRtn.match(r'(?<typeName>[\s\w]+)(?<typeRef>[^\w]+)')) {
-			this.typeName = m['typeName'].strip()
-			this.typeRef = m['typeRef']
-		} else {
-			this.typeName = funcRtn
-			this.typeRef = nil
-		}
-	}
-	GenerateCode(f:stream, funcName:string, funcCall:string) = {
-		varAccessStr = cond(this.varAccess == `const, 'const ', '')
-		if (this.typeName in ['void', '']) {
-			f.printf('\t%s;\n', funcCall)
-			f.printf('\treturn Value::Null;\n')
-		} elsif (m = this.typeName == 'wxString') {
-			f.printf('\t%s rtn = %s;\n', this.typeName, funcCall)
-			f.printf('\treturn ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));\n')
-		} elsif (m = this.typeName == 'wxArrayString') {
-			f.printf('\t%s rtn = %s;\n', this.typeName, funcCall)
-			f.printf('\treturn ReturnValue(env, sig, args, ArrayStringToValue(env, rtn));\n')
-		} elsif (m = this.typeName == 'wxArrayInt') {
-			f.printf('\t%s rtn = %s;\n', this.typeName, funcCall)
-			f.printf('\treturn ReturnValue(env, sig, args, ArrayIntToValue(env, rtn));\n')
-		} elsif (accessor = accessorMap.get(this.typeName)) {
-			f.printf('\t%s rtn = %s;\n', accessor.typeNameActual, funcCall)
-			f.printf('\treturn ReturnValue(env, sig, args, Value(rtn));\n')
-		} elsif (m = this.typeName.match(r'wx(\w+)')) {
-			guraClassName = ClassNameToGuraClassName(this.typeName)
-			if (!this.typeRef) {
-				f.printf('\t%s rtn = %s;\n', this.typeName, funcCall)
-				f.printf('\treturn ReturnValue(env, sig, args, Value(new Object_%s(new %s(rtn), NULL, OwnerTrue)));\n',
-										guraClassName, this.typeName)
-			} elsif (this.typeRef == '&') {
-				f.printf('\t%s%s &rtn = %s;\n', varAccessStr, this.typeName, funcCall)
-				f.printf('\treturn ReturnValue(env, sig, args, Value(new Object_%s(new %s(rtn), NULL, OwnerTrue)));\n',
-										guraClassName, this.typeName)
-			} elsif (this.typeRef == '*') {
-				f.printf('\t%s *rtn = (%s *)%s;\n',
-											this.typeName, this.typeName, funcCall)
-				f.printf('\treturn ReturnValue(env, sig, args, Value(new Object_%s(rtn, NULL, OwnerFalse)));\n',
-										guraClassName)
-			} else {
-				sys.stderr.printf('can\'t handle "%s" in %s\n', this.typeName, funcName)
-			}
-		} else {
-			sys.stderr.printf('can\'t handle "%s" in %s\n', this.typeName, funcName)
-		}
-	}
-	ToString() = this.funcType + ' : ' + this.varAccess + ' : ' + \
-									this.typeName + ' : ' + this.typeRef
-}
-
-ParamInfo = class {
+ArgInfo = class {
 	public {
 		declArg
 		varDecl
@@ -475,18 +409,88 @@ ParamInfo = class {
 			this.typeRef + ' : ' + this.varName + ' : ' + this.varInit
 }
 
-GenerateFunction(className:string, funcAttr:string, funcRtn:string, funcName:string, argList:string) = {
-	classNameMod = className.sub('^wx', 'wx_')
-	voidFlag = (funcRtn == 'void')
-	argList = argList.strip()
-	if (argList.isempty()) {
-		paramInfos = []
-	} else {
-		paramInfos = ParamInfo(false, funcName, argList.split(','), 0..):list
+FuncInfo = class {
+	public {
+		argInfos
 	}
-	mapFlag = !paramInfos.isempty()
-	println()
-	funcTmpl.render(sys.stdout)
+	__init__(className:string, funcAttr:string, funcRtn:string, funcName:string, argsStr:string) = {
+		argsStr = argsStr.strip()
+		this.classNameMod = className.sub('^wx', 'wx_')
+		this.funcName = funcName
+		if (m = funcAttr.match(r'virtual')) {
+			this.funcType = `virtual
+		} elsif (m = funcAttr.match(r'static')) {
+			this.funcType = `static
+		} else {
+			this.funcType = nil
+		}
+		if (m = funcRtn.match(r'const\s+(\w.*)')) {
+			this.varAccess = `const
+			funcRtn = m[1]
+		} else {
+			this.varAccess = nil
+		}
+		if (m = funcRtn.match(r'(?<typeName>[\s\w]+)(?<typeRef>[^\w]+)')) {
+			this.typeName = m['typeName'].strip()
+			this.typeRef = m['typeRef']
+		} else {
+			this.typeName = funcRtn
+			this.typeRef = nil
+		}
+		this.voidFlag = (this.typeName == 'void')
+		if (argsStr.isempty()) {
+			this.argInfos = []
+		} else {
+			this.argInfos = ArgInfo(false, funcName, argsStr.split(','), 0..):list
+		}
+		this.mapFlag = !this.argInfos.isempty()
+	}
+	GenerateCode(f:stream, funcName:string, funcCall:string) = {
+		varAccessStr = cond(this.varAccess == `const, 'const ', '')
+		if (this.typeName in ['void', '']) {
+			f.printf('\t%s;\n', funcCall)
+			f.printf('\treturn Value::Null;\n')
+		} elsif (m = this.typeName == 'wxString') {
+			f.printf('\t%s rtn = %s;\n', this.typeName, funcCall)
+			f.printf('\treturn ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));\n')
+		} elsif (m = this.typeName == 'wxArrayString') {
+			f.printf('\t%s rtn = %s;\n', this.typeName, funcCall)
+			f.printf('\treturn ReturnValue(env, sig, args, ArrayStringToValue(env, rtn));\n')
+		} elsif (m = this.typeName == 'wxArrayInt') {
+			f.printf('\t%s rtn = %s;\n', this.typeName, funcCall)
+			f.printf('\treturn ReturnValue(env, sig, args, ArrayIntToValue(env, rtn));\n')
+		} elsif (accessor = accessorMap.get(this.typeName)) {
+			f.printf('\t%s rtn = %s;\n', accessor.typeNameActual, funcCall)
+			f.printf('\treturn ReturnValue(env, sig, args, Value(rtn));\n')
+		} elsif (m = this.typeName.match(r'wx(\w+)')) {
+			guraClassName = ClassNameToGuraClassName(this.typeName)
+			if (!this.typeRef) {
+				f.printf('\t%s rtn = %s;\n', this.typeName, funcCall)
+				f.printf('\treturn ReturnValue(env, sig, args, Value(new Object_%s(new %s(rtn), NULL, OwnerTrue)));\n',
+										guraClassName, this.typeName)
+			} elsif (this.typeRef == '&') {
+				f.printf('\t%s%s &rtn = %s;\n', varAccessStr, this.typeName, funcCall)
+				f.printf('\treturn ReturnValue(env, sig, args, Value(new Object_%s(new %s(rtn), NULL, OwnerTrue)));\n',
+										guraClassName, this.typeName)
+			} elsif (this.typeRef == '*') {
+				f.printf('\t%s *rtn = (%s *)%s;\n',
+											this.typeName, this.typeName, funcCall)
+				f.printf('\treturn ReturnValue(env, sig, args, Value(new Object_%s(rtn, NULL, OwnerFalse)));\n',
+										guraClassName)
+			} else {
+				sys.stderr.printf('can\'t handle "%s" in %s\n', this.typeName, funcName)
+			}
+		} else {
+			sys.stderr.printf('can\'t handle "%s" in %s\n', this.typeName, funcName)
+		}
+	}
+	ToString() = this.funcType + ' : ' + this.varAccess + ' : ' + \
+									this.typeName + ' : ' + this.typeRef
+	Render() = {
+		funcInfo = this
+		println()
+		funcTmpl.render(sys.stdout)
+	}
 }
 
 fileName = 'stc.h'
@@ -504,14 +508,14 @@ lines.each {|line|
 	} elsif (stat == `inside_class) {
 		if (m = line.match(r'^\s*((virtual|const|static|inline)\s+)*(\w+)\(')) {
 			// constructor
-		} elsif (m = line.match(r'^\s*(?<funcAttr>(virtual|const|static|inline)\s+)*(?<funcRtn>(\w+\s*[\*&]*\s*)|(\w+\s+))(?<funcName>\w+)\((?<argList>.*)')) {
+		} elsif (m = line.match(r'^\s*(?<funcAttr>(virtual|const|static|inline)\s+)*(?<funcRtn>(\w+\s*[\*&]*\s*)|(\w+\s+))(?<funcName>\w+)\((?<argsStr>.*)')) {
 			funcAttr = m['funcAttr']
 			funcRtn = m['funcRtn']
 			funcName = m['funcName']
-			argList = m['argList']
-			if (m = argList.match(r'([^\)]*)\)')) {
-				argList = m[1]
-				GenerateFunction(className, funcAttr, funcRtn, funcName, argList)
+			argsStr = m['argsStr']
+			if (m = argsStr.match(r'([^\)]*)\)')) {
+				argsStr = m[1]
+				FuncInfo(className, funcAttr, funcRtn, funcName, argsStr).Render()
 			} else {
 				stat = `func_cont
 			}
@@ -520,11 +524,11 @@ lines.each {|line|
 		}
 	} elsif (stat == `func_cont) {
 		if (m = line.match(r'([^\)]*)\)')) {
-			argList += m[1]
-			GenerateFunction(className, funcAttr, funcRtn, funcName, argList)
+			argsStr += m[1]
+			FuncInfo(className, funcAttr, funcRtn, funcName, argsStr).Render()
 			stat = `inside_class
 		} else {
-			argList += line
+			argsStr += line
 		}
 	}
 }
