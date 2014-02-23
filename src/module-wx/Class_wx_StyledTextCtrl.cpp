@@ -85,9 +85,6 @@ Gura_ImplementFunction(StyledTextCtrl)
 	wxString name = wxSTCNameStr;
 	if (args.IsValid(5)) name = wxString::FromUTF8(args.GetString(5));
 	wx_StyledTextCtrl *pEntity = new wx_StyledTextCtrl(parent, id, *pos, *size, style, name);
-
-	pEntity->SetWrapIndentMode(wxSTC_WRAPINDENT_SAME);
-
 	Object_wx_StyledTextCtrl *pObj = Object_wx_StyledTextCtrl::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_StyledTextCtrl(pEntity, pEntity, OwnerFalse);
