@@ -13,8 +13,7 @@ Gura_ImplementMethod(${funcInfo.classNameMod}, ${funcInfo.funcName})
 	Object_${funcInfo.classNameMod} *pThis = Object_${funcInfo.classNameMod}::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	${if (!funcInfo.argInfos.isempty()) { funcInfo.argInfos:*varDecl }}
-	pThis->GetEntity()->${funcName}(${funcInfo.argInfos:*varInCallC.join(', ')});
-	return Value::Null;
+	${funcInfo.GenerateCallerCode()}
 }
 '''.template()
 
@@ -445,43 +444,59 @@ FuncInfo = class {
 		}
 		this.mapFlag = !this.argInfos.isempty()
 	}
-	GenerateCode(f:stream, funcName:string, funcCall:string) = {
+	GenerateCallerCode() = {
+		funcInfo = this
+		funcCall = R'''
+		pThis->GetEntity()->${funcInfo.funcName}(${funcInfo.argInfos:*varInCallC.join(', ')});
+		'''.template().render()
 		varAccessStr = cond(this.varAccess == `const, 'const ', '')
 		if (this.typeName in ['void', '']) {
-			f.printf('\t%s;\n', funcCall)
-			f.printf('\treturn Value::Null;\n')
+			R'''
+			${funcCall};
+			return Value::Null;
+			'''.template().render()
 		} elsif (m = this.typeName == 'wxString') {
-			f.printf('\t%s rtn = %s;\n', this.typeName, funcCall)
-			f.printf('\treturn ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));\n')
+			R'''
+			${funcInfo.typeName} rtn = ${funcCall};
+			return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
+			'''.template().render()
 		} elsif (m = this.typeName == 'wxArrayString') {
-			f.printf('\t%s rtn = %s;\n', this.typeName, funcCall)
-			f.printf('\treturn ReturnValue(env, sig, args, ArrayStringToValue(env, rtn));\n')
+			R'''
+			${funcInfo.typeName} rtn = ${funcCall};
+			return ReturnValue(env, sig, args, ArrayStringToValue(env, rtn));
+			'''.template().render()
 		} elsif (m = this.typeName == 'wxArrayInt') {
-			f.printf('\t%s rtn = %s;\n', this.typeName, funcCall)
-			f.printf('\treturn ReturnValue(env, sig, args, ArrayIntToValue(env, rtn));\n')
+			R'''
+			${funcInfo.typeName} rtn = ${funcCall}
+			return ReturnValue(env, sig, args, ArrayIntToValue(env, rtn));
+			'''.template().render()
 		} elsif (accessor = accessorMap.get(this.typeName)) {
-			f.printf('\t%s rtn = %s;\n', accessor.typeNameActual, funcCall)
-			f.printf('\treturn ReturnValue(env, sig, args, Value(rtn));\n')
+			R'''
+			${accessor.typeNameActual} rtn = ${funcCall};
+			return ReturnValue(env, sig, args, Value(rtn));
+			'''.template().render()
 		} elsif (m = this.typeName.match(r'wx(\w+)')) {
 			guraClassName = ClassNameToGuraClassName(this.typeName)
 			if (!this.typeRef) {
-				f.printf('\t%s rtn = %s;\n', this.typeName, funcCall)
-				f.printf('\treturn ReturnValue(env, sig, args, Value(new Object_%s(new %s(rtn), NULL, OwnerTrue)));\n',
-										guraClassName, this.typeName)
+				R'''
+				${funcInfo.typeName} rtn = ${funcCall};
+				return ReturnValue(env, sig, args, Value(new Object_${guraClassName}(new ${funcInfo.typeName}(rtn), NULL, OwnerTrue)));
+				'''.template().render()
 			} elsif (this.typeRef == '&') {
-				f.printf('\t%s%s &rtn = %s;\n', varAccessStr, this.typeName, funcCall)
-				f.printf('\treturn ReturnValue(env, sig, args, Value(new Object_%s(new %s(rtn), NULL, OwnerTrue)));\n',
-										guraClassName, this.typeName)
+				R'''
+				${varAccessStr}${funcInfo.typeName} &rtn = ${funcCall};
+				return ReturnValue(env, sig, args, Value(new Object_${guraClassName}(new ${funcInfo.typeName}(rtn), NULL, OwnerTrue)));
+				'''.template().render()
 			} elsif (this.typeRef == '*') {
-				f.printf('\t%s *rtn = (%s *)%s;\n',
-											this.typeName, this.typeName, funcCall)
-				f.printf('\treturn ReturnValue(env, sig, args, Value(new Object_%s(rtn, NULL, OwnerFalse)));\n',
-										guraClassName)
+				R'''
+				${funcInfo.typeName} *rtn = (${funcInfo.typeName} *)${funcCall};
+				return ReturnValue(env, sig, args, Value(new Object_${guraClassName}(rtn, NULL, OwnerFalse)));
+				'''.template().render()
 			} else {
-				sys.stderr.printf('can\'t handle "%s" in %s\n', this.typeName, funcName)
+				sys.stderr.printf('can\'t handle "%s" in %s\n', this.typeName, this.funcName)
 			}
 		} else {
-			sys.stderr.printf('can\'t handle "%s" in %s\n', this.typeName, funcName)
+			sys.stderr.printf('can\'t handle "%s" in %s\n', this.typeName, this.funcName)
 		}
 	}
 	ToString() = this.funcType + ' : ' + this.varAccess + ' : ' + \
