@@ -147,7 +147,7 @@ Page_Getter = class(wx.Panel) {
 			return
 		}
 		pathNames = path.dir(dirName, main.patternImgList*,
-								main.patternAviList*):icase:file:list
+								main.patternAviList*):file:list
 		this.pathNames = pathNames
 		pathNames.each {|pathName, idx|
 			wx.ListItem {|item|
@@ -283,7 +283,7 @@ Page_Stamper = class(wx.Panel) {
 		}
 		try {
 			pathNames = path.dir(dirName, main.patternImgList*,
-								main.patternAviList*):icase:file:list
+								main.patternAviList*):file:list
 		} catch {
 			pathNames = []
 		}
