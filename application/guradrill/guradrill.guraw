@@ -324,7 +324,7 @@ ComposerAttr = class {
 			this.kanjiFlag		= (cfg['kanjiFlag'] == 'true')
 			this.answerFlag		= (cfg['answerFlag'] == 'true')
 			this.scoreBoxFlag	= (cfg['scoreBoxFlag'] == 'true')
-			this.seed			= cfg['seed']
+			this.seed			= int(cfg['seed'])
 		} else {
 			this.name			= ''
 			this.fileNamePDF	= path.join(sys.localdir, 'guradrill.pdf')
