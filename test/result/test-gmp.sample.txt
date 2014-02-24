@@ -1032,12 +1032,12 @@ rational, number
 4r >= 4 .. true
 4r <=> 4 .. 0
 rational, rational
-4r == 4r .. false
-4r < 4r .. true
+4r == 4r .. true
+4r < 4r .. false
 4r > 4r .. false
 4r <= 4r .. true
-4r >= 4r .. false
-4r <=> 4r .. -1
+4r >= 4r .. true
+4r <=> 4r .. 0
 gmp.mpz, gmp.mpz
 5L == 4L .. false
 5L < 4L .. false
@@ -1208,11 +1208,11 @@ rational, number
 5r <=> 4 .. 1
 rational, rational
 5r == 4r .. false
-5r < 4r .. true
-5r > 4r .. false
-5r <= 4r .. true
-5r >= 4r .. false
-5r <=> 4r .. -1
+5r < 4r .. false
+5r > 4r .. true
+5r <= 4r .. false
+5r >= 4r .. true
+5r <=> 4r .. 1
 
 ======== #6 precision for mpf ========
 

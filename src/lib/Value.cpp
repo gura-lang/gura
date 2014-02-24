@@ -522,7 +522,8 @@ int Value::CompareNumber(Number num1, Number num2)
 
 int Value::CompareRational(const Rational &ratio1, const Rational &ratio2)
 {
-	return -1;
+	int ax = ratio1.numer * ratio2.denom, bx = ratio2.numer * ratio1.denom;
+	return (ax == bx)? 0 : (ax < bx)? -1 : +1;
 }
 
 int Value::CompareString(const char *str1, const char *str2, bool ignoreCaseFlag)
