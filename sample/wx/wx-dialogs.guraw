@@ -758,11 +758,11 @@ MyFrame = class(wx.Frame) {
 						DecodeFindDialogEventFlags(event.GetFlags()))
 		} elsif (type == wx.EVT_FIND_CLOSE.GetEventType()) {
 			dlg = event.GetDialog()
-			if (dlg == this.m_dlgFind ) {
+			if (dlg.is(this.m_dlgFind)) {
 				txt = 'Find'
 				idMenu = DIALOGS_FIND
 				this.m_dlgFind = nil
-			} elsif (dlg == this.m_dlgReplace) {
+			} elsif (dlg.is(this.m_dlgReplace)) {
 				txt = 'Replace'
 				idMenu = DIALOGS_REPLACE
 				this.m_dlgReplace = nil
@@ -865,15 +865,15 @@ MyModalDialog = class(wx.Dialog) {
 		this.Bind(wx.EVT_BUTTON) {|event| this.OnButton(event) }
 	}
 	OnButton(event:wx.CommandEvent) = {
-		if (event.GetEventObject() == this.m_btnDelete) {
+		if (event.GetEventObject().is(this.m_btnDelete)) {
 			this.m_btnModal.Destroy()
 			this.m_btnModal = nil
 			this.m_btnDelete.Disable()
-		} elsif (event.GetEventObject() == this.m_btnModal) {
+		} elsif (event.GetEventObject().is(this.m_btnModal)) {
 			wx.GetTextFromUser('Dummy prompt',
 							'Modal dialog called from dialog',
 							wx.EmptyString, this)
-		} elsif (event.GetEventObject() == this.m_btnModeless) {
+		} elsif (event.GetEventObject().is(this.m_btnModeless)) {
 			MyModelessDialog(this).Show()
 		} else {
 			event.Skip()
