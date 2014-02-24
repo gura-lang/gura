@@ -2503,6 +2503,13 @@ _MS(PrepareClass(ThreadHelper));
 		Gura_AssignWxValue(TE_WORDWRAP);
 	} while (0);
 	do {
+		Gura_AssignWxValue(TE_HT_UNKNOWN);
+		Gura_AssignWxValue(TE_HT_BEFORE);
+		Gura_AssignWxValue(TE_HT_ON_TEXT);
+		Gura_AssignWxValue(TE_HT_BELOW);
+		Gura_AssignWxValue(TE_HT_BEYOND);
+	} while (0);
+	do {
 		Gura_AssignWxValue(TR_NO_BUTTONS);
 		Gura_AssignWxValue(TR_HAS_BUTTONS);
 		Gura_AssignWxValue(TR_NO_LINES);
