@@ -798,6 +798,7 @@
 #include "Class_wx_RichTextImageBlock.h"
 #include "Class_wx_RichTextRenderer.h"
 #include "Class_wx_RichTextAction.h"
+#include "Class_wx_VersionInfo.h"
 #include "Class_wx_EventFactory.h"
 #if defined(__WXMSW__)
 #include "Class_wx_Thread.h"

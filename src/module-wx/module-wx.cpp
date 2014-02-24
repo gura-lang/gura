@@ -613,6 +613,7 @@ _MS(RealizeBaseClass(ThreadHelper));
 	RealizeBaseClass(RichTextImageBlock);
 	RealizeBaseClass(RichTextRenderer);
 	RealizeBaseClass(RichTextAction);
+	RealizeBaseClass(VersionInfo);
 	// Prepare classes
 	PrepareClass(AboutDialogInfo);
 	PrepareClass(LanguageInfo);
@@ -1183,6 +1184,7 @@ _MS(PrepareClass(ThreadHelper));
 	PrepareClass(RichTextImageBlock);
 	PrepareClass(RichTextRenderer);
 	PrepareClass(RichTextAction);
+	PrepareClass(VersionInfo);
 	RegisterFunctions(env, sig);
 	// value assignments
 	do {

@@ -521,7 +521,7 @@ ClassInfo = class {
 		//----------------------------------------------------------------------------
 		// Implementation of class
 		//----------------------------------------------------------------------------
-		Gura_ImplementUserInheritableClass(wx_StyledTextCtrl)
+		Gura_ImplementUserInheritableClass(${classInfo.className})
 		{
 			${classInfo.funcInfos::RenderAssign()}
 		}
@@ -529,7 +529,11 @@ ClassInfo = class {
 	}
 }
 
-fileName = 'stc.h'
+if (sys.argv.len() < 2) {
+	sys.stderr.println('usage: extract.gura file')
+	sys.exit(1)
+}
+fileName = sys.argv[1]
 lines = readlines(fileName):chop
 stat = `first
 classInfos = []

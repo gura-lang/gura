@@ -544,8 +544,8 @@ srcs = [
 	'Class_wx_RichTextImageBlock.cpp'
 	'Class_wx_RichTextRenderer.cpp'
 	'Class_wx_RichTextAction.cpp'
+	'Class_wx_VersionInfo.cpp'
 	'Class_wx_EventFactory.cpp'
-
 ]
 srcs_MSW = [
 	// revise this later
