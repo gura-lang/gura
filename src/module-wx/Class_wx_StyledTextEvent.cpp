@@ -399,18 +399,15 @@ Gura_ImplementMethod(wx_StyledTextEvent, SetDragFlags)
 Gura_DeclareMethod(wx_StyledTextEvent, SetDragResult)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
-	//DeclareArg(env, "val",	VTYPE_wx_DragResult, OCCUR_Once);
+	DeclareArg(env, "val",	VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_StyledTextEvent, SetDragResult)
 {
-#if 0
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	wxDragResult *val = Object_wx_DragResult::GetObject(args, 0)->GetEntity();
-	pThis->GetEntity()->SetDragResult(*val);
-#endif
-	SetError_NotImplemented(sig);
+	wxDragResult val = static_cast<wxDragResult>(args.GetInt(0));
+	pThis->GetEntity()->SetDragResult(val);
 	return Value::Null;
 }
 
@@ -707,14 +704,10 @@ Gura_DeclareMethod(wx_StyledTextEvent, GetDragResult)
 
 Gura_ImplementMethod(wx_StyledTextEvent, GetDragResult)
 {
-#if 0
 	Object_wx_StyledTextEvent *pThis = Object_wx_StyledTextEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxDragResult rtn = pThis->GetEntity()->GetDragResult();
-	return ReturnValue(env, sig, args, Value(new Object_wx_DragResult(new wxDragResult(rtn), NULL, OwnerTrue)));
-#endif
-	SetError_NotImplemented(sig);
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_StyledTextEvent, GetShift)

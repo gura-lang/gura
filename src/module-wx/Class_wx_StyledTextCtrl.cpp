@@ -9546,21 +9546,16 @@ Gura_ImplementMethod(wx_StyledTextCtrl, SelectNone)
 Gura_DeclareMethod(wx_StyledTextCtrl, GetSelection)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "from",	VTYPE_number, OCCUR_Once);
-	DeclareArg(env, "to",	VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_StyledTextCtrl, GetSelection)
 {
-#if 0
 	Object_wx_StyledTextCtrl *pThis = Object_wx_StyledTextCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	long from = args.GetLong(0);
-	long to = args.GetLong(1);
-	pThis->GetEntity()->GetSelection(from, to);
-#endif
-	SetError_NotImplemented(sig);
-	return Value::Null;
+	long from = 0;
+	long to = 0;
+	pThis->GetEntity()->GetSelection(&from, &to);
+	return ReturnValue(env, sig, args, Value::CreateAsList(env, Value(from), Value(to)));
 }
 
 Gura_DeclareMethod(wx_StyledTextCtrl, IsEditable)
@@ -9745,23 +9740,17 @@ Gura_DeclareMethod(wx_StyledTextCtrl, PositionToXY)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "pos",	VTYPE_number, OCCUR_Once);
-	DeclareArg(env, "x",	VTYPE_number, OCCUR_Once);
-	DeclareArg(env, "y",	VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_StyledTextCtrl, PositionToXY)
 {
-#if 0
 	Object_wx_StyledTextCtrl *pThis = Object_wx_StyledTextCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long pos = args.GetLong(0);
-	long x = args.GetLong(1);
-	long y = args.GetLong(2);
-	bool rtn = pThis->GetEntity()->PositionToXY(pos, x, y);
-	return ReturnValue(env, sig, args, Value(rtn));
-#endif
-	SetError_NotImplemented(sig);
-	return Value::Null;
+	long x = 0;
+	long y = 0;
+	bool rtn = pThis->GetEntity()->PositionToXY(pos, &x, &y);
+	return ReturnValue(env, sig, args, Value::CreateAsList(env, Value(rtn), Value(x), Value(y)));
 }
 
 Gura_DeclareMethod(wx_StyledTextCtrl, ShowPosition)
@@ -9783,44 +9772,33 @@ Gura_DeclareMethod(wx_StyledTextCtrl, HitTest)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "pt",	VTYPE_wx_Point, OCCUR_Once);
-	DeclareArg(env, "pos",	VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_StyledTextCtrl, HitTest)
 {
-#if 0
 	Object_wx_StyledTextCtrl *pThis = Object_wx_StyledTextCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
-	long pos = args.GetLong(1);
-	wxTextCtrlHitTestResult rtn = pThis->GetEntity()->HitTest(*pt, pos);
-	return ReturnValue(env, sig, args, Value(new Object_wx_TextCtrlHitTestResult(new wxTextCtrlHitTestResult(rtn), NULL, OwnerTrue)));
-#endif
-	SetError_NotImplemented(sig);
-	return Value::Null;
+	long pos = 0;
+	wxTextCtrlHitTestResult rtn = pThis->GetEntity()->HitTest(*pt, &pos);
+	return ReturnValue(env, sig, args, Value::CreateAsList(env, Value(rtn), Value(pos)));
 }
 
 Gura_DeclareMethod(wx_StyledTextCtrl, HitTestXY)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "pt",	VTYPE_wx_Point, OCCUR_Once);
-	DeclareArg(env, "col",	VTYPE_number, OCCUR_Once);
-	DeclareArg(env, "row",	VTYPE_number, OCCUR_Once);
 }
 
 Gura_ImplementMethod(wx_StyledTextCtrl, HitTestXY)
 {
-#if 0
 	Object_wx_StyledTextCtrl *pThis = Object_wx_StyledTextCtrl::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
-	wxTextCoord col = static_cast<wxTextCoord>(args.GetInt(1));
-	wxTextCoord row = static_cast<wxTextCoord>(args.GetInt(2));
-	wxTextCtrlHitTestResult rtn = pThis->GetEntity()->HitTest(*pt, col, row);
-	return ReturnValue(env, sig, args, Value(new Object_wx_TextCtrlHitTestResult(new wxTextCtrlHitTestResult(rtn), NULL, OwnerTrue)));
-#endif
-	SetError_NotImplemented(sig);
-	return Value::Null;
+	wxTextCoord col = 0;
+	wxTextCoord row = 0;
+	wxTextCtrlHitTestResult rtn = pThis->GetEntity()->HitTest(*pt, &col, &row);
+	return ReturnValue(env, sig, args, Value::CreateAsList(env, Value(rtn), Value(col), Value(row)));
 }
 
 //----------------------------------------------------------------------------
