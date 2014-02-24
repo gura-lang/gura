@@ -34,6 +34,12 @@ GURA_DLLDECLARE Rational operator+(const Rational &a, const Rational &b);
 GURA_DLLDECLARE Rational operator-(const Rational &a, const Rational &b);
 GURA_DLLDECLARE Rational operator*(const Rational &a, const Rational &b);
 GURA_DLLDECLARE Rational operator/(const Rational &a, const Rational &b);
+GURA_DLLDECLARE bool operator==(const Rational &a, const Rational &b);
+GURA_DLLDECLARE bool operator!=(const Rational &a, const Rational &b);
+GURA_DLLDECLARE bool operator<(const Rational &a, const Rational &b);
+GURA_DLLDECLARE bool operator>(const Rational &a, const Rational &b);
+GURA_DLLDECLARE bool operator<=(const Rational &a, const Rational &b);
+GURA_DLLDECLARE bool operator>=(const Rational &a, const Rational &b);
 
 }
 

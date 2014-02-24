@@ -208,6 +208,18 @@ Gura_ImplementFunction(object)
 //-----------------------------------------------------------------------------
 // Implementation of primitive methods
 //-----------------------------------------------------------------------------
+// object#is(obj)
+Gura_DeclareMethodPrimitive(Object, is)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "obj", VTYPE_any);
+}
+
+Gura_ImplementMethod(Object, is)
+{
+	return Value(args.GetThis().Is(args.GetValue(0)));
+}
+
 // object#isnil()
 Gura_DeclareMethodPrimitive(Object, isnil)
 {
@@ -517,6 +529,7 @@ String Class::ToString(bool exprFlag)
 void Class::Prepare(Environment &env)
 {
 	Gura_AssignFunction(object);
+	Gura_AssignMethod(Object, is);			// primitive method
 	Gura_AssignMethod(Object, isnil);		// primitive method
 	Gura_AssignMethod(Object, istype);		// primitive method
 	Gura_AssignMethod(Object, isinstance);	// primitive method

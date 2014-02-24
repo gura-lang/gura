@@ -535,6 +535,7 @@ object
   __iter__()
   clone()
   getprop!(symbol:symbol, default?:nomap):static:map
+  is(obj):map
   isinstance(type+:expr):map
   isnil():map
   istype(type+:expr):map

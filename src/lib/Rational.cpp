@@ -101,4 +101,40 @@ Rational operator/(const Rational &a, const Rational &b)
 	return Rational(a.numer * b.denom, a.denom * b.numer).Reduce();
 }
 
+bool operator==(const Rational &a, const Rational &b)
+{
+	int ax = a.numer * b.denom, bx = b.numer * a.denom;
+	return ax == bx;
+}
+
+bool operator!=(const Rational &a, const Rational &b)
+{
+	int ax = a.numer * b.denom, bx = b.numer * a.denom;
+	return ax != bx;
+}
+
+bool operator<(const Rational &a, const Rational &b)
+{
+	int ax = a.numer * b.denom, bx = b.numer * a.denom;
+	return ax < bx;
+}
+
+bool operator>(const Rational &a, const Rational &b)
+{
+	int ax = a.numer * b.denom, bx = b.numer * a.denom;
+	return ax > bx;
+}
+
+bool operator<=(const Rational &a, const Rational &b)
+{
+	int ax = a.numer * b.denom, bx = b.numer * a.denom;
+	return ax <= bx;
+}
+
+bool operator>=(const Rational &a, const Rational &b)
+{
+	int ax = a.numer * b.denom, bx = b.numer * a.denom;
+	return ax >=  bx;
+}
+
 }

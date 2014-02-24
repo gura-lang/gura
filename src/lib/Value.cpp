@@ -228,6 +228,34 @@ const Binary &Value::GetBinary() const
 	return dynamic_cast<Object_binary *>(_u.pObj)->GetBinary();
 }
 
+bool Value::Is(const Value &value) const
+{
+	if (_valType != value.GetValueType()) {
+		return false;
+	} else if (Is_boolean()) {
+		return GetBoolean() == value.GetBoolean();
+	} else if (Is_complex()) {
+		return GetComplex() == value.GetComplex();
+	} else if (Is_number()) {
+		return GetNumber() == value.GetNumber();
+	} else if (Is_rational()) {
+		return GetRational() == value.GetRational();
+	} else if (Is_string()) {
+		return ::strcmp(GetString(), value.GetString()) == 0;
+	} else if (Is_symbol()) {
+		return GetSymbol()->IsIdentical(value.GetSymbol());
+	} else if (IsModule()) {
+		return GetModule() == value.GetModule();
+	} else if (IsClass()) {
+		return GetClass() == value.GetClass();
+	} else if (IsSequence()) {
+		return GetSequence() == value.GetSequence();
+	} else if (IsObject()) {
+		return GetObject() == value.GetObject();
+	}
+	return false;
+}
+
 Value Value::EmptyIndexGet(Environment &env, Signal sig) const
 {
 	if (IsPrimitive()) {

@@ -379,6 +379,7 @@ public:
 	// VTYPE_expr
 	const Expr *GetExpr() const;
 	//-----------------------
+	bool Is(const Value &value) const;
 	Value EmptyIndexGet(Environment &env, Signal sig) const;
 	void EmptyIndexSet(Environment &env, Signal sig, const Value &value);
 	Value IndexGet(Environment &env, Signal sig, const Value &valueIdx) const;
