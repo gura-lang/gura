@@ -345,7 +345,7 @@ MyScrolledWindowSmart = class(MyScrolledWindowBase) {
 		s_redrawCount += 1
 		// update region is always in device coords, translate to logical ones
 		rectUpdate = this.GetUpdateRegion().GetBox()
-		[rectUpdate.x, rectUpdate.y] = this.CalcUnscrolledPosition(rectUpdate.x, rectUpdate.y)
+		[rectUpdate.x:public, rectUpdate.y:public] = this.CalcUnscrolledPosition(rectUpdate.x, rectUpdate.y)
 		lineFrom = rectUpdate.y / this.m_hLine
 		lineTo = rectUpdate.GetBottom() / this.m_hLine
 		if (lineTo > this.m_nLines - 1) {

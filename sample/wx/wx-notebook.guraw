@@ -553,7 +553,7 @@ MyFrame = class(wx.Frame) {
 		currBook = this.GetCurrentBook()
 		nPages = if (currBook) {currBook.GetPageCount()} else {0}
 		nSel = if (currBook) {currBook.GetSelection()} else {wx.NOT_FOUND}
-		if (nPages != s_nPages || nSel != s_nSel || s_currBook != currBook) {
+		if (nPages != s_nPages || nSel != s_nSel || !s_currBook.is(currBook)) {
 			s_nPages = nPages
 			s_nSel = nSel
 			s_currBook = currBook

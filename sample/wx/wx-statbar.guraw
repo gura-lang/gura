@@ -134,7 +134,7 @@ MyFrame = class(wx.Frame) {
 		// only allow the settings of the number of status fields for the default
 		// status bar
 		sb = this.GetStatusBar()
-		event.Enable(sb == this.m_statbarDefault)
+		event.Enable(sb.is(this.m_statbarDefault))
 	}
 	OnSetStatusFields(event:wx.CommandEvent) = {
 		sb = this.GetStatusBar()
