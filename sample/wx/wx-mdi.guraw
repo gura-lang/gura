@@ -150,16 +150,18 @@ MyFrame = class(wx.MDIParentFrame) {
 		subframe.SetStatusText(title)
 		[width, height] = subframe.GetClientSizeWH()
 		canvas = MyCanvas(subframe, wx.Point(0, 0), wx.Size(width, height))
-		canvas.SetCursor(wx.StockCursor(wx.CURSOR_PENCIL))
+		//canvas.SetCursor(wx.StockCursor(wx.CURSOR_PENCIL))
 		subframe.canvas = canvas
 		// Give it scrollbars
 		canvas.SetScrollbars(20, 20, 50, 50)
 		subframe.Show(true)
 	}
 	OnSize(event:wx.SizeEvent) = {
-		[w, h] = this.GetClientSizeWH()
-		this.textWindow.SetDimensions(0, 0, 200, h)
-		this.GetClientWindow().SetDimensions(200, 0, w - 200, h)
+		try {
+			[w, h] = this.GetClientSizeWH()
+			this.textWindow.SetDimensions(0, 0, 200, h)
+			this.GetClientWindow().SetDimensions(200, 0, w - 200, h)
+		} catch {}
 		event.Skip()
 	}
 	InitToolBar(toolBar:wx.ToolBar) = {
