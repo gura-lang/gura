@@ -104,7 +104,7 @@ MyApp = class(wx.App) {
 		if (lng != -1) {
 			// don't use wxLOCALE_LOAD_DEFAULT flag so that Init() doesn't return
 			// false just because it failed to load wxstd catalog
-			if (!this.m_locale.Init(langIds[lng], wx.LOCALE_CONV_ENCODING)) {
+			if (!this.m_locale.Init(langIds[lng], wx.LOCALE_LOAD_DEFAULT)) {
 				wx.LogError('This language is not supported by the system.')
 				return(false)
 			}
