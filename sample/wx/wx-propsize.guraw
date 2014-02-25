@@ -111,8 +111,7 @@ MyFrame = class(wx.Frame) {
 		hsizer3.AddLine(wx.VERTICAL)
 		hsizer3.AddButton('eight', wx.ALIGN_CENTER_HORIZONTAL | wx.ALIGN_BOTTOM)
 		hsizer3.AddLine(wx.VERTICAL)
-		// wxEXPAND should have no effect
-		hsizer3.AddButton('nine', wx.EXPAND | wx.ALIGN_RIGHT | wx.ALIGN_BOTTOM)
+		hsizer3.AddButton('nine', wx.ALIGN_RIGHT | wx.ALIGN_BOTTOM)
 		topsizer.Add(hsizer3, wx.SizerFlags(1).Expand())
 		// set frame to minimum size
 		topsizer.Fit(this)
