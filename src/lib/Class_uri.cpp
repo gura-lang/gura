@@ -103,6 +103,7 @@ Gura_DeclareFunction(uri)
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetClassToConstruct(env.LookupClass(VTYPE_uri));
 }
 
 Gura_ImplementFunction(uri)
@@ -138,7 +139,6 @@ Gura_DeclareMethod(uri, getquery)
 Gura_ImplementMethod(uri, getquery)
 {
 	const Uri &uri = Object_uri::GetThisObj(args)->GetUri();
-	StringList stringList;
 	Value result;
 	ValueDict &valDict = result.InitAsDict(env, true);
 	Uri::ExtractQuery(uri.GetUrlPath(), valDict);
@@ -157,6 +157,21 @@ Gura_ImplementMethod(uri, getfragment)
 	return Value(uri.ExtractFragment(uri.GetUrlPath()));
 }
 
+// uri.parsequery(query:string):map
+Gura_DeclareClassMethod(uri, parsequery)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "query", VTYPE_string);
+}
+
+Gura_ImplementClassMethod(uri, parsequery)
+{
+	Value result;
+	ValueDict &valDict = result.InitAsDict(env, true);
+	Uri::ExtractQuery(args.GetString(0), valDict, false);
+	return result;
+}
+
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
@@ -170,6 +185,7 @@ void Class_uri::Prepare(Environment &env)
 	Gura_AssignMethod(uri, getpath);
 	Gura_AssignMethod(uri, getquery);
 	Gura_AssignMethod(uri, getfragment);
+	Gura_AssignMethod(uri, parsequery);
 }
 
 bool Class_uri::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)

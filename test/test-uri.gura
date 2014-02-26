@@ -30,3 +30,9 @@ testcase {
 	]
 	f(tbl)
 }
+testcase {
+	println(uri.parsequery([
+		'hoge&foo&bar#Related'
+		'hoge=first&foo=second&bar=third'
+	]))
+}

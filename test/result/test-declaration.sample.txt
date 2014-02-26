@@ -650,3 +650,4 @@ uri
   getfragment()
   getpath()
   getquery()
+  parsequery(query:string):static:map

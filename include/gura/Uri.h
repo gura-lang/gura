@@ -44,7 +44,7 @@ public:
 	String ToString() const;
 	void SetError_InvalidURIFormat(Signal sig);
 	static String ExtractPath(const char *urlPath);
-	static void ExtractQuery(const char *urlPath, ValueDict &valDict);
+	static void ExtractQuery(const char *urlPath, ValueDict &valDict, bool skipPathFlag = true);
 	static String ExtractFragment(const char *urlPath);
 };
 

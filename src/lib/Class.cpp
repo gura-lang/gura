@@ -208,7 +208,7 @@ Gura_ImplementFunction(object)
 //-----------------------------------------------------------------------------
 // Implementation of primitive methods
 //-----------------------------------------------------------------------------
-// object#is(obj)
+// object#is(obj):map
 Gura_DeclareMethodPrimitive(Object, is)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);

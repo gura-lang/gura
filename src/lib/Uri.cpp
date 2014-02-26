@@ -166,11 +166,11 @@ String Uri::ExtractPath(const char *urlPath)
 	return String(urlPath, p);
 }
 
-void Uri::ExtractQuery(const char *urlPath, ValueDict &valDict)
+void Uri::ExtractQuery(const char *urlPath, ValueDict &valDict, bool skipPathFlag)
 {
 	enum {
 		STAT_Begin, STAT_Key, STAT_Value,
-	} stat = STAT_Begin;
+	} stat = skipPathFlag? STAT_Begin : STAT_Key;
 	String key, value;
 	UChar chHex = 0x00;
 	for (const char *p = urlPath; ; p++) {

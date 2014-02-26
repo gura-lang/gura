@@ -8,25 +8,25 @@ println('server started on port ', port)
 
 generateHtml(addedLines:string) = {
 	R'''
-<html>
-<div>漢字のテスト</div>
-<body>
-<form method="post" action="hoge" id="form-A">
-  <div>field-1: <input type="text" name="field-1" /></div>
-  <div>field-2: <input type="text" name="field-2" /></div>
-  <div>field-3: <input type="text" name="field-3" /></div>
-  <div><input type="submit" value="Submit" /></div>
-</form>
-<form method="post" action="hoge" id="form-B">
-  <div>field-1: <input type="text" name="field-1" /></div>
-  <div>field-2: <input type="text" name="field-2" /></div>
-  <div>field-3: <input type="text" name="field-3" /></div>
-  <div><input type="submit" value="Submit" /></div>
-</form>
-${addedLines}
-</body>
-</html>
-'''.template()
+	<html>
+	<div>漢字のテスト</div>
+	<body>
+	<form method="post" action="hoge" id="form-A">
+	  <div>field-1: <input type="text" name="field-1" /></div>
+	  <div>field-2: <input type="text" name="field-2" /></div>
+	  <div>field-3: <input type="text" name="field-3" /></div>
+	  <div><input type="submit" value="Submit" /></div>
+	</form>
+	<form method="post" action="hoge" id="form-B">
+	  <div>field-1: <input type="text" name="field-1" /></div>
+	  <div>field-2: <input type="text" name="field-2" /></div>
+	  <div>field-3: <input type="text" name="field-3" /></div>
+	  <div><input type="submit" value="Submit" /></div>
+	</form>
+	${addedLines}
+	</body>
+	</html>
+	'''.template().render()
 }
 
 headerCommon = %{
@@ -45,14 +45,14 @@ http.server(port => port).wait {|req|
 	sessions = req.session.server.sessions
 	println('-' * 78)
 	printf('number of sessions: %d\n', sessions.len())
-	printf('%s %-20s %s\n', cond(sessions == req.session, '*', ' '),
+	printf('%s %-20s %s\n', cond(sessions.is(req.session), '*', ' '),
 							sessions:*remote_ip, sessions:*date)
 	println('Remote IP       ', req.session.remote_ip)
 	println('Remote Host     ', req.session.remote_host)
 	println('Local IP        ', req.session.local_ip)
 	println('Local Host      ', req.session.local_host)
 	println(req.method, ' ', req.uri, ' ', req.version)
-	println(http.parsequery(req.query))
+	println(req.query)
 	println('Accept          ', req['Accept'])
 	println('Accept-Charset  ', req['Accept-Charset'])
 	println('Accept-Encoding ', req['Accept-Encoding'])
@@ -71,7 +71,7 @@ http.server(port => port).wait {|req|
 		//	'Content-Type'	=> 'text/html; charset:utf-8')
 		//stream.copy(html.encode('utf-8'), stream, 16)
 	} elsif (req.ismethod('POST')) {
-		println(http.parsequery(req.body.readline()))
+		println(uri.parsequery(req.body.readline()))
 		req.response('301',
 			'Connection'	=> 'Keep-Alive'
 			'Location'		=> 'http://127.0.0.1/')

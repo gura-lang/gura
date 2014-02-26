@@ -77,3 +77,8 @@ http://www.ics.uci.edu/pub/ietf/uri/?hoge=first?foo=second?bar=third#Related
     query    %{'bar' => 'third', 'foo' => 'second', 'hoge' => 'first'}
     fragment Related
   misc       
+
+======== #2 ========
+
+%{'bar' => nil, 'foo' => nil, 'hoge' => nil}
+%{'bar' => 'third', 'foo' => 'second', 'hoge' => 'first'}
