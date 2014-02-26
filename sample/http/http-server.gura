@@ -3,7 +3,7 @@
 import(re)
 import(http)
 
-port = cond(sys.platform == `windows, 80, 8000)
+port = cond(sys.platform == `mswin, 80, 8000)
 println('server started on port ', port)
 
 generateHtml(addedLines:string) = {
