@@ -11,14 +11,23 @@ prime() = {
 }
 
 prime_faster() = {
-	p = [2]
-	iterator(2, for (i in 0..):xiter {
-		n = i * 2 + 3
+	p = []
+	for (n in (2, range(3, nil, 2))):xiter {
+		if (!(n % p.each() == 0).or()) {
+			p.add(n)
+			n
+		}
+	}
+}
+
+prime_fastest() = {
+	p = []
+	for (n in (2, range(3, nil, 2))):xiter {
 		if (!(n % p.while(p.each() * p <= n) == 0).or()) {
 			p.add(n)
 			n
 		}
-	})
+	}
 }
 
-println(prime(), ' ', prime_faster())
+println(prime(), ' ', prime_faster(), ' ', prime_fastest())
