@@ -455,7 +455,7 @@ testList = @{
 }
 
 Canvas = class(wx.Panel) {
-	__init__(parent:tk.Window, style:number) = {|parent, style => style|
+	__init__(parent:tk.Window, style:number, size:wx.Size) = {|parent, style => style, size => size|
 		this.bmp = nil
 		this.Bind(wx.EVT_PAINT) {|event|
 			dc = wx.PaintDC(this)
@@ -473,8 +473,7 @@ Frame = class(wx.Frame) {
 		panel = wx.Panel(this)
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		panel.SetSizer(vbox)
-		canvas = Canvas(panel, wx.BORDER_STATIC)
-		canvas.SetClientSizeWH(wdCanvas, htCanvas)
+		canvas = Canvas(panel, wx.BORDER_STATIC, wx.Size(wdCanvas, htCanvas))
 		vbox.Add(canvas, wx.SizerFlags().Centre())
 		entries = [Entry * testList.fold(2)]
 		wx.ListCtrl(panel, wx.ID_ANY, style => wx.LC_REPORT | wx.LC_SINGLE_SEL) {|ctrl|
