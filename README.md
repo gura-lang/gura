@@ -46,7 +46,7 @@ Build for Linux
 
 2. Run the following commands to build **Gura** library and executable.
 
-        $ git clone https://github.com/ypsitau/gura.git
+        $ git clone https://github.com/gura-lang/gura.git
         $ cd gura
         $ mkdir build
         $ cd build
