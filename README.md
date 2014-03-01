@@ -16,8 +16,10 @@ http://www.gura-lang.org/
 
 Build for Windows
 -----------------
-1. Check if Visual Studio 2010 has been installed. You can use Express version
-   as well.
+1. Check if you have installed Visual Studio 2010 and applied Visual Studio 2010 Service Pack 1 on it.
+   Service Pack 1 is necessary to avoid LNK1123 error.
+   
+   You can use Express version of Visual Studio 2010 as well.
 
 2. Run a batch file `gura\src\setup-env-mswin.bat`, which downloads document
    files and necessary packages from Git repository and build libraries.
