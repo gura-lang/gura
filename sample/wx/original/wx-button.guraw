@@ -30,7 +30,7 @@ Panel = class(wx.Panel) {
 			vbox.Add(hbox, wx.SizerFlags().Border(wx.TOP, 4))
 			wx.Button(this, wx.ID_ANY, ['button1', 'button2', 'button3']) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Border(wx.RIGHT, 2))
-				ctrl.SetFont(wx.Font(10, flags => wx.FONTFLAG_ITALIC | wx.FONTFLAG_BOLD))
+				ctrl.SetFont(wx.Font(10, wx.FONTFAMILY_ROMAN, wx.FONTSTYLE_ITALIC, wx.FONTWEIGHT_BOLD))
 				ctrl.Bind(wx.EVT_SET_FOCUS) {|event|
 					log.WriteText('EVT_SET_FOCUS %s\n' % event.GetWindow())
 				}
@@ -150,5 +150,4 @@ App = class(wx.App) {
 	}
 }
 
-app = App()
-app.MainLoop()
+wx.IMPLEMENT_APP(App)

@@ -1,13 +1,15 @@
 #!/usr/bin/env gura
 import(wx)
 
-tester(test:expr):map:dynamic_scope = printf("%s .. %s\n", test, eval(test)):nomap
+PrintColour(x:wx.Colour):map = printf('#%02x%02x%02x\n', x.Red(), x.Green(), x.Blue())
 
-scope {
-	x = wx.Colour(0, 0, 0)
-	println(x)
-	x:wx.Colour = '#ffffff'
-	println(x)
-	x:wx.Colour = 'black'
-	println(x)
+App = class(wx.App) {
+	OnInit() = {
+		PrintColour(wx.Colour(0, 0, 0))
+		PrintColour('#ffffff')
+		PrintColour('black')
+		false
+	}
 }
+
+wx.IMPLEMENT_APP(App)
