@@ -585,6 +585,7 @@ srcs_MSW = [
 	'Class_wx_Metafile.cpp'
 	'Class_wx_PrinterDC.cpp'
 	'Class_wx_MetafileDC.cpp'
+	'module-wx.rc'
 ]
 contFlag = true	   
 builder = modbuild.Builder()

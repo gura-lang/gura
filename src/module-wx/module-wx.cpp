@@ -3,6 +3,19 @@
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
 
+#if defined(__WXMSW__)
+
+WXDLLIMPEXP_BASE void wxSetInstance(HINSTANCE hInst);
+
+BOOL WINAPI DllMain(HINSTANCE hInst, DWORD dwReason, LPVOID lpvReserved)
+{
+	// This is necessary to load resources correctly.
+	::wxSetInstance(hInst);
+	return TRUE;
+}
+
+#endif
+
 #undef BLACK_PEN
 #undef WHITE_PEN
 #undef BLACK_BRUSH
