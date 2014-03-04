@@ -12,24 +12,24 @@ Frame = class(wx.Frame) {
 			wx.Button(panel, wx.ID_ANY, 'Up') {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Expand())
 				ctrl.Bind(wx.EVT_BUTTON) {
-					panel.cntTick = 1
+					panel.cntTick:public = 1
 					panel.timer.Start(10)
 				}
 			}
 			wx.Button(panel, wx.ID_ANY, 'Down') {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.LEFT, 4))
 				ctrl.Bind(wx.EVT_BUTTON) {
-					panel.cntTick = -1
+					panel.cntTick:public = -1
 					panel.timer.Start(10)
 				}
 			}
 			wx.StaticText(panel, wx.ID_ANY, '', size => wx.Size(50, -1),
 						style => wx.BORDER_STATIC | wx.ALIGN_CENTRE | wx.ST_NO_AUTORESIZE) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.LEFT, 4))
-				panel.indicator = ctrl
+				panel.indicator:public = ctrl
 			}
 		}
-		panel.gauges = []
+		panel.gauges:public = []
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
 			vbox.Add(hbox, wx.SizerFlags(1).Expand().Border(wx.TOP, 4))
 			wx.Gauge(panel, wx.ID_ANY, 100, style => wx.GA_VERTICAL) {|ctrl|
@@ -52,9 +52,9 @@ Frame = class(wx.Frame) {
 				}
 			}
 		}
-		panel.cnt = 0
-		panel.cntTick = 0
-		panel.timer = wx.Timer(panel)
+		panel.cnt:public = 0
+		panel.cntTick:public = 0
+		panel.timer:public = wx.Timer(panel)
 		panel.Bind(wx.EVT_TIMER) {|event|
 			panel.indicator.SetLabel(panel.cnt)
 			panel.gauges::SetValue(panel.cnt)
@@ -80,5 +80,4 @@ App = class(wx.App) {
 	}
 }
 
-app = App()
-app.MainLoop()
+wx.IMPLEMENT_APP(App)

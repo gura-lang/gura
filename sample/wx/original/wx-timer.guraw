@@ -9,7 +9,7 @@ Frame = class(wx.Frame) {
 		panel = wx.Panel(this)
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		panel.SetSizer(vbox)
-		panel.timer = wx.Timer(panel)
+		panel.timer:public = wx.Timer(panel)
 		panel.Bind(wx.EVT_TIMER) {|event|
 			log.WriteText('EVT_TIMER %d\n' % event.GetId())
 		}
@@ -18,7 +18,7 @@ Frame = class(wx.Frame) {
 			wx.TextCtrl(panel, wx.ID_ANY, '300',
 						style => wx.TE_CENTRE, size => wx.Size(60, -1)) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Expand())
-				panel.text = ctrl
+				panel.text:public = ctrl
 				//println(panel.text.GetValue())
 			}
 			wx.StaticText(panel, wx.ID_ANY, 'msec') {|ctrl|
@@ -55,5 +55,4 @@ App = class(wx.App) {
 	}
 }
 
-app = App()
-app.MainLoop()
+wx.IMPLEMENT_APP(App)

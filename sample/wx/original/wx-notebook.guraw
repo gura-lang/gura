@@ -100,5 +100,4 @@ App = class(wx.App) {
 	}
 }
 
-app = App()
-app.MainLoop()
+wx.IMPLEMENT_APP(App)

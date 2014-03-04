@@ -21,7 +21,7 @@ Panel = class(wx.Panel) {
 				dc.SetPen(wx.Pen('green', 4, wx.SOLID))
 				dc.DrawLines(wx.Point * [[0, 0], [40, 40], [80, 20]], 0, 30)
 				dc.DrawLines([wx.Point(0, 0), wx.Point(40, 40), wx.Point(80, 20)], 20, 30)
-				dc.SetFont(wx.Font(20))
+				dc.SetFont(wx.Font(20, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL))
 				dc.DrawText('Hello World', 100, 50)
 				dc.DrawRotatedText('Hello World', 400, 150, (0..11) * 30)
 				dc.DrawPolygon(wx.Point * [[0, 0], [40, 40], [80, 20]], 30, 200)
@@ -95,5 +95,4 @@ App = class(wx.App) {
 	}
 }
 
-app = App()
-app.MainLoop()
+wx.IMPLEMENT_APP(App)
