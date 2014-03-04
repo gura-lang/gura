@@ -73,13 +73,13 @@ Frame = class(wx.Frame) {
 				ctrl.SetCursor(wx.StockCursor(cursorId))
 			}
 		}
-		this.cursor = wx.Cursor(down_bits.pack('128B'), 32, 32,
-										maskBits => down_mask.pack('128B'))
-		wx.StaticText(panel, wx.ID_ANY, 'custom',
-						style => wx.BORDER_STATIC | wx.ALIGN_CENTRE) {|ctrl|
-			grid.Add(ctrl, wx.SizerFlags(1).Expand())
-			ctrl.SetCursor(this.cursor)
-		}
+		//this.cursor = wx.Cursor(down_bits.pack('128B'), 32, 32,
+		//								maskBits => down_mask.pack('128B'))
+		//wx.StaticText(panel, wx.ID_ANY, 'custom',
+		//				style => wx.BORDER_STATIC | wx.ALIGN_CENTRE) {|ctrl|
+		//	grid.Add(ctrl, wx.SizerFlags(1).Expand())
+		//	ctrl.SetCursor(this.cursor)
+		//}
 	}
 }
 
