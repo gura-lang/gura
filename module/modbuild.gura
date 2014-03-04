@@ -186,7 +186,7 @@ if (sys.build == `msc) {
 		}
 		makeObjName(src:string):map = {
 			path.join(this.outDir, path.filename(src).\
-				replace('.cpp', '.obj').replace('.c', '.obj').replace('.h', '.obj'))
+				replace('.cpp', '.obj').replace('.c', '.obj').replace('.h', '.obj').replace('.rc', '.res'))
 		}
 		makeLibPath(lib:string):map = {
 			if (lib.find('/') || lib.find('\\')) {
@@ -220,23 +220,37 @@ if (sys.build == `msc) {
 			true
 		}
 		doCompile(src:string, idx:number, cnt:number):map = {
-			firstFlag = (idx == 0)
-			obj = this.makeObjName(src)
-			cflags = []
-			cflags.append('/I' + this.incDirs)
-			cflags.append(this.cflags)
-			this.debugFlag && cflags.append('/ZI')
-			if (firstFlag) {
-				cflags.append('/DGURA_MODULE_MAIN')
+			if (src.endswith('.rc'):icase) {
+				obj = this.makeObjName(src)
+				rcflags = []
+				rcflags.append('/I' + this.incDirs)
+				if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
+					this.progressFlag && printf('-- compiling: %*d/%d %s\n',
+										format('%d', cnt).len(), idx + 1, cnt, src)
+					if (!this.execute('rc', rcflags*, '/fo' + obj, src)) {
+						this.errorFlag = true
+						return(false)
+					}
+				}
 			} else {
-				this.precompile && cflags.append('/Yu' + this.precompile)
-			}
-			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
-				this.progressFlag && printf('-- compiling: %*d/%d %s\n',
-									format('%d', cnt).len(), idx + 1, cnt, src)
-				if (!this.execute('cl', cflags*, '/Fo' + obj, '/c', src)) {
-					this.errorFlag = true
-					return(false)
+				firstFlag = (idx == 0)
+				obj = this.makeObjName(src)
+				cflags = []
+				cflags.append('/I' + this.incDirs)
+				cflags.append(this.cflags)
+				this.debugFlag && cflags.append('/ZI')
+				if (firstFlag) {
+					cflags.append('/DGURA_MODULE_MAIN')
+				} else {
+					this.precompile && cflags.append('/Yu' + this.precompile)
+				}
+				if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
+					this.progressFlag && printf('-- compiling: %*d/%d %s\n',
+										format('%d', cnt).len(), idx + 1, cnt, src)
+					if (!this.execute('cl', cflags*, '/Fo' + obj, '/c', src)) {
+						this.errorFlag = true
+						return(false)
+					}
 				}
 			}
 			true
