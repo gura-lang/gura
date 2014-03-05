@@ -4,7 +4,7 @@ import(wxutil)
 import(gif)
 
 log = nil
-I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+I(filename:string) = path.join(sys.datadir, 'sample/resource', filename)
 
 Frame = class(wx.Frame) {
 	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
@@ -38,7 +38,6 @@ Frame = class(wx.Frame) {
 			grid.Add(ctrl, wx.SizerFlags().Align(wx.ALIGN_CENTER_VERTICAL))
 		}
 		wx.FontPickerCtrl(panel, wx.ID_ANY, style => wx.FNTP_DEFAULT_STYLE) {|ctrl|
-			ctrl.SetInternalMargin(2)
 			grid.Add(ctrl, wx.SizerFlags().Expand().Border(wx.TOP, 4))
 			ctrl.Bind(wx.EVT_FONTPICKER_CHANGED) {|event|
 				log.Printf('EVT_FONTPICKER_CHANGED: %s\n', event.GetFont())
@@ -48,7 +47,6 @@ Frame = class(wx.Frame) {
 			grid.Add(ctrl, wx.SizerFlags().Align(wx.ALIGN_CENTER_VERTICAL))
 		}
 		wx.ColourPickerCtrl(panel, wx.ID_ANY, style => wx.CLRP_DEFAULT_STYLE) {|ctrl|
-			ctrl.SetInternalMargin(2)
 			grid.Add(ctrl, wx.SizerFlags().Expand().Border(wx.TOP, 4))
 			ctrl.Bind(wx.EVT_COLOURPICKER_CHANGED) {|event|
 				log.Printf('EVT_COLOURPICKER_CHANGED: %s\n', event.GetColour())
