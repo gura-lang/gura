@@ -3,15 +3,14 @@ import(wx)
 import(wxutil)
 import(gif)
 
-log = nil
-I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
-
 Frame = class(wx.MDIParentFrame) {
 	__init__(parent:wx.Window) = {|parent, wx.ID_ANY,
 						path.filename(sys.argv[0]), size => wx.Size(640, 480)|
-		wx.MDIChildFrame(this, wx.ID_ANY, "Frame1", size => wx.Size(200, 200))
-		wx.MDIChildFrame(this, wx.ID_ANY, "Frame2", size => wx.Size(200, 200))
-		wx.MDIChildFrame(this, wx.ID_ANY, "Frame3", size => wx.Size(200, 200))
+		wx.MenuBar {|menuBar|
+			this.SetMenuBar(menuBar)
+		}
+		wx.MDIChildFrame(this, wx.ID_ANY, 'Frame' + (1..3), size => wx.Size(200, 200),
+				style => wx.DEFAULT_FRAME_STYLE | wx.NO_FULL_REPAINT_ON_RESIZE)
 	}
 }
 
