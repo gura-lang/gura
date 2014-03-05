@@ -219,7 +219,7 @@ MyFrame = class(wx.Frame) {
 		// associate the menu bar with the frame
 		this.SetMenuBar(menuBar)
 		// intercept all menu events and log them in this custom event handler
-		this.PushEventHandler(MyEvtHandler(this))
+		//this.PushEventHandler(MyEvtHandler(this))
 		// create the log text window
 		this.m_textctrl = wx.TextCtrl(this, wx.ID_ANY, wx.EmptyString,
 									wx.DefaultPosition, wx.DefaultSize,
@@ -636,6 +636,7 @@ MyFrame = class(wx.Frame) {
 MyEvtHandler = class(wx.EvtHandler) {
 	__init__(frame:MyFrame) = {
 		this.m_frame = frame
+		this.Bind(wx.EVT_MENU) {|event| this.OnMenuEvent(event) }
 	}
 	OnMenuEvent(event:wx.CommandEvent) = {
 		this.m_frame.LogMenuEvent(event)
