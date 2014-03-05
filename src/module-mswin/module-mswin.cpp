@@ -191,14 +191,16 @@ Gura_ImplementMethod(regkey, queryvalue)
 	DWORD dwType;
 	DWORD cbData;
 	DWORD dwErrCode = ::RegQueryValueEx(hKey,
-		OAL::ToNativeString(lpValueName).c_str(), NULL, &dwType, NULL, &cbData);
+		(lpValueName == NULL)? NULL : OAL::ToNativeString(lpValueName).c_str(),
+		NULL, &dwType, NULL, &cbData);
 	if (dwErrCode != ERROR_SUCCESS) {
 		SetError(sig, dwErrCode);
 		return Value::Null;
 	}
 	LPBYTE lpData = reinterpret_cast<LPBYTE>(::LocalAlloc(LMEM_FIXED, cbData));
 	dwErrCode = ::RegQueryValueEx(hKey,
-		OAL::ToNativeString(lpValueName).c_str(), NULL, &dwType, lpData, &cbData);
+		(lpValueName == NULL)? NULL : OAL::ToNativeString(lpValueName).c_str(),
+		NULL, &dwType, lpData, &cbData);
 	if (dwErrCode != ERROR_SUCCESS) {
 		::LocalFree(lpData);
 		SetError(sig, dwErrCode);
