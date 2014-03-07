@@ -124,15 +124,19 @@ int Main(int argc, const char *argv[])
 	}
 	if (opt.IsSet("template")) {
 		foreach_const (StringList, pPathName, opt.GetStringList("template")) {
+			String pathName = OAL::FromNativeString(pPathName->c_str());
 			AutoPtr<Stream> pStreamSrc(Stream::Open(env, sig,
-								pPathName->c_str(), Stream::ATTR_Readable));
-			
-			// encoding
-			
+								pathName.c_str(), Stream::ATTR_Readable));
 			if (sig.IsSignalled()) {
 				sig.PrintSignal(*env.GetConsoleErr());
 				return 1;
 			}
+			AutoPtr<Codec> pCodec(Codec::CreateCodec(sig, encoding, true, false));
+			if (sig.IsSignalled()) {
+				sig.PrintSignal(*env.GetConsoleErr());
+				return 1;
+			}
+			pStreamSrc->SetCodec(pCodec.release());
 			bool autoIndentFlag = true;
 			bool appendLastEOLFlag = false;
 			AutoPtr<Template> pTemplate(new Template());

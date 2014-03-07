@@ -1003,6 +1003,9 @@ Expr_Root *Parser::ParseStream(Environment &env, Signal sig, const char *pathNam
 	AutoPtr<Stream> pStream(Stream::Open(env, sig,
 									pathNameMod.c_str(), Stream::ATTR_Readable));
 	if (sig.IsSignalled()) return NULL;
+	AutoPtr<Codec> pCodec(Codec::CreateCodec(sig, encoding, true, false));
+	if (sig.IsSignalled()) return NULL;
+	pStream->SetCodec(pCodec.release());
 	return ParseStream(env, sig, *pStream);
 }
 
