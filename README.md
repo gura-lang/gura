@@ -76,8 +76,8 @@ Build for Linux
         $ sudo ./build-modules install
 
 
-Build Install Packages for Linux
---------------------------------
+Build Installation Packages for Linux
+-------------------------------------
 Generated Makefile is capable of creating both Debian and RPM install packages.
 
 If you use Ubuntu, you have to install additional packages as following
