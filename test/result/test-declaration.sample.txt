@@ -96,7 +96,7 @@ isboolean(value)
 isclass(value)
 iscomplex(value)
 isdatetime(value)
-isdefined(`symbol)
+isdefined(`identifier)
 isdict(value)
 isenvironment(value)
 iserror(value)
@@ -241,7 +241,7 @@ tosymbol(str:string):map
 true:boolean = true
 try():leader {block}
 typename(`value)
-undef(`symbol+):[raise]
+undef(`identifier+):[raise]
 uri(str?:string):map {block?}
 while (`cond) {block}
 xlist(value+)
@@ -352,6 +352,7 @@ expr
   iscaller()
   iscompound()
   iscontainer()
+  isidentifier()
   isindexer()
   isiterer()
   islister()
@@ -359,7 +360,6 @@ expr
   isquote()
   isroot()
   issuffixed()
-  issymbol()
   isunary()
   isunaryop()
   isvalue()
