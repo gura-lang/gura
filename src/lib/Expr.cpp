@@ -41,7 +41,10 @@ const char *GetExprTypeName(ExprType exprType)
 //-----------------------------------------------------------------------------
 // Expr
 // [class hierarchy under Expr]
-// Expr <-+- Expr_Unary <-----+- Expr_UnaryOp
+// Expr <-+- Expr_Value
+//        +- Expr_Identifier
+//        +- Expr_Suffixed
+//        +- Expr_Unary <-----+- Expr_UnaryOp
 //        |                   `- Expr_Quote
 //        +- Expr_Binary <----+- Expr_BinaryOp
 //        |                   +- Expr_Assign
@@ -50,11 +53,8 @@ const char *GetExprTypeName(ExprType exprType)
 //        |                   +- Expr_Block
 //        |                   +- Expr_Lister
 //        |                   `- Expr_Iterer
-//        +- Expr_Compound <--+- Expr_Indexer
-//        |                   `- Expr_Caller
-//        +- Expr_Value
-//        +- Expr_Identifier
-//        `- Expr_Suffixed
+//        `- Expr_Compound <--+- Expr_Indexer
+//                            `- Expr_Caller
 //-----------------------------------------------------------------------------
 Expr::Expr(ExprType exprType) : _exprType(exprType),
 	_cntRef(1), _lineNoTop(0), _lineNoBtm(0), _pExprParent(NULL)
@@ -705,124 +705,6 @@ bool ExprOwner::SequenceToList::SeqPostHandlerEach::DoPost(Signal sig, const Val
 }
 
 //-----------------------------------------------------------------------------
-// Expr_Unary
-//-----------------------------------------------------------------------------
-bool Expr_Unary::IsUnary() const { return true; }
-
-Expr_Unary::Expr_Unary(ExprType exprType, Expr *pExprChild) :
-								Expr(exprType), _pExprChild(pExprChild)
-{
-	if (pExprChild != NULL) pExprChild->SetParent(this);
-}
-
-Expr_Unary::Expr_Unary(const Expr_Unary &expr) : Expr(expr)
-{
-	if (expr.GetChild() != NULL) {
-		_pExprChild.reset(expr.GetChild()->Clone());
-		_pExprChild->SetParent(this);
-	}
-}
-
-Expr_Unary::~Expr_Unary()
-{
-	if (!_pExprChild.IsNull()) _pExprChild->SetParent(GetParent());
-}
-
-void Expr_Unary::Accept(ExprVisitor &visitor) const
-{
-	if (visitor.Visit(this) && !_pExprChild.IsNull()) {
-		_pExprChild->Accept(visitor);
-	}
-}
-
-bool Expr_Unary::IsParentOf(const Expr *pExpr) const
-{
-	return GetChild() == pExpr;
-}
-
-//-----------------------------------------------------------------------------
-// Expr_Binary
-//-----------------------------------------------------------------------------
-bool Expr_Binary::IsBinary() const { return true; }
-
-Expr_Binary::Expr_Binary(ExprType exprType, Expr *pExprLeft, Expr *pExprRight) :
-				Expr(exprType), _pExprLeft(pExprLeft), _pExprRight(pExprRight)
-{
-	if (!_pExprLeft.IsNull()) _pExprLeft->SetParent(this);
-	if (!_pExprRight.IsNull()) _pExprRight->SetParent(this);
-}
-
-Expr_Binary::Expr_Binary(const Expr_Binary &expr) : Expr(expr)
-{
-	if (expr.GetLeft() != NULL) {
-		_pExprLeft.reset(expr.GetLeft()->Clone());
-		_pExprLeft->SetParent(this);
-	}
-	if (expr.GetRight() != NULL) {
-		_pExprRight.reset(expr.GetRight()->Clone());
-		_pExprRight->SetParent(this);
-	}
-}
-
-Expr_Binary::~Expr_Binary()
-{
-	if (!_pExprLeft.IsNull()) _pExprLeft->SetParent(GetParent());
-	if (!_pExprRight.IsNull()) _pExprRight->SetParent(GetParent());
-}
-
-void Expr_Binary::Accept(ExprVisitor &visitor) const
-{
-	if (visitor.Visit(this)) {
-		if (!_pExprLeft.IsNull()) _pExprLeft->Accept(visitor);
-		if (!_pExprRight.IsNull()) _pExprRight->Accept(visitor);
-	}
-}
-
-bool Expr_Binary::IsParentOf(const Expr *pExpr) const
-{
-	return GetLeft() == pExpr || GetRight() == pExpr;
-}
-
-//-----------------------------------------------------------------------------
-// Expr_Container
-//-----------------------------------------------------------------------------
-bool Expr_Container::IsContainer() const { return true; }
-
-Expr_Container::Expr_Container(ExprType exprType) :
-						Expr(exprType), _pExprOwner(new ExprOwner())
-{
-}
-
-Expr_Container::Expr_Container(ExprType exprType, ExprOwner *pExprOwner) :
-						Expr(exprType), _pExprOwner(pExprOwner)
-{
-}
-
-Expr_Container::Expr_Container(const Expr_Container &expr) : Expr(expr), _pExprOwner(new ExprOwner())
-{
-	foreach_const (ExprOwner, ppExpr, expr.GetExprOwner()) {
-		AddExpr((*ppExpr)->Clone());
-	}
-}
-
-Expr_Container::~Expr_Container()
-{
-	GetExprOwner().SetParent(GetParent());
-}
-
-void Expr_Container::Accept(ExprVisitor &visitor) const
-{
-	if (visitor.Visit(this)) {
-		GetExprOwner().Accept(visitor);
-	}
-}
-
-bool Expr_Container::IsParentOf(const Expr *pExpr) const
-{
-	return GetExprOwner().IsContained(pExpr);
-}
-
-//-----------------------------------------------------------------------------
 // Expr_Value
 //-----------------------------------------------------------------------------
 bool Expr_Value::IsValue() const { return true; }
@@ -1182,6 +1064,124 @@ bool Expr_Suffixed::GenerateScript(Signal sig, SimpleStream &stream,
 	stream.Print(sig, _pSymbolSuffix->GetName());
 	if (sig.IsSignalled()) return false;
 	return true;
+}
+
+//-----------------------------------------------------------------------------
+// Expr_Unary
+//-----------------------------------------------------------------------------
+bool Expr_Unary::IsUnary() const { return true; }
+
+Expr_Unary::Expr_Unary(ExprType exprType, Expr *pExprChild) :
+								Expr(exprType), _pExprChild(pExprChild)
+{
+	if (pExprChild != NULL) pExprChild->SetParent(this);
+}
+
+Expr_Unary::Expr_Unary(const Expr_Unary &expr) : Expr(expr)
+{
+	if (expr.GetChild() != NULL) {
+		_pExprChild.reset(expr.GetChild()->Clone());
+		_pExprChild->SetParent(this);
+	}
+}
+
+Expr_Unary::~Expr_Unary()
+{
+	if (!_pExprChild.IsNull()) _pExprChild->SetParent(GetParent());
+}
+
+void Expr_Unary::Accept(ExprVisitor &visitor) const
+{
+	if (visitor.Visit(this) && !_pExprChild.IsNull()) {
+		_pExprChild->Accept(visitor);
+	}
+}
+
+bool Expr_Unary::IsParentOf(const Expr *pExpr) const
+{
+	return GetChild() == pExpr;
+}
+
+//-----------------------------------------------------------------------------
+// Expr_Binary
+//-----------------------------------------------------------------------------
+bool Expr_Binary::IsBinary() const { return true; }
+
+Expr_Binary::Expr_Binary(ExprType exprType, Expr *pExprLeft, Expr *pExprRight) :
+				Expr(exprType), _pExprLeft(pExprLeft), _pExprRight(pExprRight)
+{
+	if (!_pExprLeft.IsNull()) _pExprLeft->SetParent(this);
+	if (!_pExprRight.IsNull()) _pExprRight->SetParent(this);
+}
+
+Expr_Binary::Expr_Binary(const Expr_Binary &expr) : Expr(expr)
+{
+	if (expr.GetLeft() != NULL) {
+		_pExprLeft.reset(expr.GetLeft()->Clone());
+		_pExprLeft->SetParent(this);
+	}
+	if (expr.GetRight() != NULL) {
+		_pExprRight.reset(expr.GetRight()->Clone());
+		_pExprRight->SetParent(this);
+	}
+}
+
+Expr_Binary::~Expr_Binary()
+{
+	if (!_pExprLeft.IsNull()) _pExprLeft->SetParent(GetParent());
+	if (!_pExprRight.IsNull()) _pExprRight->SetParent(GetParent());
+}
+
+void Expr_Binary::Accept(ExprVisitor &visitor) const
+{
+	if (visitor.Visit(this)) {
+		if (!_pExprLeft.IsNull()) _pExprLeft->Accept(visitor);
+		if (!_pExprRight.IsNull()) _pExprRight->Accept(visitor);
+	}
+}
+
+bool Expr_Binary::IsParentOf(const Expr *pExpr) const
+{
+	return GetLeft() == pExpr || GetRight() == pExpr;
+}
+
+//-----------------------------------------------------------------------------
+// Expr_Container
+//-----------------------------------------------------------------------------
+bool Expr_Container::IsContainer() const { return true; }
+
+Expr_Container::Expr_Container(ExprType exprType) :
+						Expr(exprType), _pExprOwner(new ExprOwner())
+{
+}
+
+Expr_Container::Expr_Container(ExprType exprType, ExprOwner *pExprOwner) :
+						Expr(exprType), _pExprOwner(pExprOwner)
+{
+}
+
+Expr_Container::Expr_Container(const Expr_Container &expr) : Expr(expr), _pExprOwner(new ExprOwner())
+{
+	foreach_const (ExprOwner, ppExpr, expr.GetExprOwner()) {
+		AddExpr((*ppExpr)->Clone());
+	}
+}
+
+Expr_Container::~Expr_Container()
+{
+	GetExprOwner().SetParent(GetParent());
+}
+
+void Expr_Container::Accept(ExprVisitor &visitor) const
+{
+	if (visitor.Visit(this)) {
+		GetExprOwner().Accept(visitor);
+	}
+}
+
+bool Expr_Container::IsParentOf(const Expr *pExpr) const
+{
+	return GetExprOwner().IsContained(pExpr);
 }
 
 //-----------------------------------------------------------------------------

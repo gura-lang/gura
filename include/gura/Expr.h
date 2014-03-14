@@ -79,7 +79,10 @@ public:
 //-----------------------------------------------------------------------------
 // Expr
 // [class hierarchy under Expr]
-// Expr <-+- Expr_Unary <-----+- Expr_UnaryOp
+// Expr <-+- Expr_Value
+//        +- Expr_Identifier
+//        +- Expr_Suffixed
+//        +- Expr_Unary <-----+- Expr_UnaryOp
 //        |                   `- Expr_Quote
 //        +- Expr_Binary <----+- Expr_BinaryOp
 //        |                   +- Expr_Assign
@@ -88,11 +91,8 @@ public:
 //        |                   +- Expr_Block
 //        |                   +- Expr_Lister
 //        |                   `- Expr_Iterer
-//        +- Expr_Compound <--+- Expr_Indexer
-//        |                   `- Expr_Caller
-//        +- Expr_Value
-//        +- Expr_Identifier
-//        `- Expr_Suffixed
+//        `- Expr_Compound <--+- Expr_Indexer
+//                            `- Expr_Caller
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr {
 public:
@@ -328,74 +328,6 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Expr_Unary
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_Unary : public Expr {
-private:
-	AutoPtr<Expr> _pExprChild;
-public:
-	Expr_Unary(ExprType exprType, Expr *pExprChild);
-	Expr_Unary(const Expr_Unary &expr);
-	inline static Expr_Unary *Reference(const Expr_Unary *pExpr) {
-		return dynamic_cast<Expr_Unary *>(Expr::Reference(pExpr));
-	}
-	virtual ~Expr_Unary();
-	virtual bool IsUnary() const;
-	virtual void Accept(ExprVisitor &visitor) const;
-	virtual bool IsParentOf(const Expr *pExpr) const;
-	inline Expr *GetChild() { return _pExprChild.get(); }
-	inline const Expr *GetChild() const { return _pExprChild.get(); }
-};
-
-//-----------------------------------------------------------------------------
-// Expr_Binary
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_Binary : public Expr {
-private:
-	AutoPtr<Expr> _pExprLeft;
-	AutoPtr<Expr> _pExprRight;
-public:
-	Expr_Binary(ExprType exprType, Expr *pExprLeft, Expr *pExprRight);
-	Expr_Binary(const Expr_Binary &expr);
-	inline static Expr_Binary *Reference(const Expr_Binary *pExpr) {
-		return dynamic_cast<Expr_Binary *>(Expr::Reference(pExpr));
-	}
-	virtual ~Expr_Binary();
-	virtual bool IsBinary() const;
-	virtual void Accept(ExprVisitor &visitor) const;
-	virtual bool IsParentOf(const Expr *pExpr) const;
-	inline Expr *GetLeft() { return _pExprLeft.get(); }
-	inline Expr *GetRight() { return _pExprRight.get(); }
-	inline const Expr *GetLeft() const { return _pExprLeft.get(); }
-	inline const Expr *GetRight() const { return _pExprRight.get(); }
-};
-
-//-----------------------------------------------------------------------------
-// Expr_Container
-//-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_Container : public Expr {
-protected:
-	AutoPtr<ExprOwner> _pExprOwner;
-public:
-	Expr_Container(ExprType exprType);
-	Expr_Container(ExprType exprType, ExprOwner *pExprOwner);
-	Expr_Container(const Expr_Container &expr);
-	inline static Expr_Container *Reference(const Expr_Container *pExpr) {
-		return dynamic_cast<Expr_Container *>(Expr::Reference(pExpr));
-	}
-	virtual bool IsContainer() const;
-	virtual ~Expr_Container();
-	virtual void Accept(ExprVisitor &visitor) const;
-	virtual bool IsParentOf(const Expr *pExpr) const;
-	inline void AddExpr(Expr *pExpr) {
-		GetExprOwner().push_back(pExpr);
-		pExpr->SetParent(this);
-	}
-	inline ExprOwner &GetExprOwner() { return *_pExprOwner; }
-	inline const ExprOwner &GetExprOwner() const { return *_pExprOwner; }
-};
-
-//-----------------------------------------------------------------------------
 // Expr_Value
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr_Value : public Expr {
@@ -490,6 +422,74 @@ public:
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
+};
+
+//-----------------------------------------------------------------------------
+// Expr_Unary
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Expr_Unary : public Expr {
+private:
+	AutoPtr<Expr> _pExprChild;
+public:
+	Expr_Unary(ExprType exprType, Expr *pExprChild);
+	Expr_Unary(const Expr_Unary &expr);
+	inline static Expr_Unary *Reference(const Expr_Unary *pExpr) {
+		return dynamic_cast<Expr_Unary *>(Expr::Reference(pExpr));
+	}
+	virtual ~Expr_Unary();
+	virtual bool IsUnary() const;
+	virtual void Accept(ExprVisitor &visitor) const;
+	virtual bool IsParentOf(const Expr *pExpr) const;
+	inline Expr *GetChild() { return _pExprChild.get(); }
+	inline const Expr *GetChild() const { return _pExprChild.get(); }
+};
+
+//-----------------------------------------------------------------------------
+// Expr_Binary
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Expr_Binary : public Expr {
+private:
+	AutoPtr<Expr> _pExprLeft;
+	AutoPtr<Expr> _pExprRight;
+public:
+	Expr_Binary(ExprType exprType, Expr *pExprLeft, Expr *pExprRight);
+	Expr_Binary(const Expr_Binary &expr);
+	inline static Expr_Binary *Reference(const Expr_Binary *pExpr) {
+		return dynamic_cast<Expr_Binary *>(Expr::Reference(pExpr));
+	}
+	virtual ~Expr_Binary();
+	virtual bool IsBinary() const;
+	virtual void Accept(ExprVisitor &visitor) const;
+	virtual bool IsParentOf(const Expr *pExpr) const;
+	inline Expr *GetLeft() { return _pExprLeft.get(); }
+	inline Expr *GetRight() { return _pExprRight.get(); }
+	inline const Expr *GetLeft() const { return _pExprLeft.get(); }
+	inline const Expr *GetRight() const { return _pExprRight.get(); }
+};
+
+//-----------------------------------------------------------------------------
+// Expr_Container
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Expr_Container : public Expr {
+protected:
+	AutoPtr<ExprOwner> _pExprOwner;
+public:
+	Expr_Container(ExprType exprType);
+	Expr_Container(ExprType exprType, ExprOwner *pExprOwner);
+	Expr_Container(const Expr_Container &expr);
+	inline static Expr_Container *Reference(const Expr_Container *pExpr) {
+		return dynamic_cast<Expr_Container *>(Expr::Reference(pExpr));
+	}
+	virtual bool IsContainer() const;
+	virtual ~Expr_Container();
+	virtual void Accept(ExprVisitor &visitor) const;
+	virtual bool IsParentOf(const Expr *pExpr) const;
+	inline void AddExpr(Expr *pExpr) {
+		GetExprOwner().push_back(pExpr);
+		pExpr->SetParent(this);
+	}
+	inline ExprOwner &GetExprOwner() { return *_pExprOwner; }
+	inline const ExprOwner &GetExprOwner() const { return *_pExprOwner; }
 };
 
 //-----------------------------------------------------------------------------
