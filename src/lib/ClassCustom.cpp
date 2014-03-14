@@ -68,7 +68,7 @@ Function *ClassCustom::PrepareConstructor(Environment &env, Signal sig)
 		Expr_Block *pExprBlock = new Expr_Block();
 		ExprOwner *pExprOwnerParam = new ExprOwner();
 		foreach_const (DeclarationOwner, ppDecl, pConstructorSuper->GetDeclOwner()) {
-			Expr *pExpr = new Expr_Symbol((*ppDecl)->GetSymbol());
+			Expr *pExpr = new Expr_Identifier((*ppDecl)->GetSymbol());
 			pExprOwnerParam->push_back(pExpr);
 			pExpr->SetParent(pExprBlock);
 		}

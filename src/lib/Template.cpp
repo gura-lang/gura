@@ -371,8 +371,8 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 			Callable *pCallable = NULL;
 			if (pExprLastCaller->GetCar()->IsMember()) {
 				Expr_Member *pExprCar = dynamic_cast<Expr_Member *>(pExprLastCaller->GetCar());
-				if (pExprCar->GetLeft()->IsSymbol() &&
-						dynamic_cast<Expr_Symbol *>(pExprCar->GetLeft())->GetSymbol()->
+				if (pExprCar->GetLeft()->IsIdentifier() &&
+						dynamic_cast<Expr_Identifier *>(pExprCar->GetLeft())->GetSymbol()->
 														IsIdentical(Gura_Symbol(this_))) {
 					pCallable = pExprCar->GetRight()->LookupCallable(*pClass, sig);
 				}
@@ -440,8 +440,8 @@ bool Template::Parser::CreateTmplScript(Environment &env, Signal sig,
 			Callable *pCallable = NULL;
 			if (pExprLastCaller->GetCar()->IsMember()) {
 				Expr_Member *pExprCar = dynamic_cast<Expr_Member *>(pExprLastCaller->GetCar());
-				if (pExprCar->GetLeft()->IsSymbol() &&
-						dynamic_cast<Expr_Symbol *>(pExprCar->GetLeft())->GetSymbol()->
+				if (pExprCar->GetLeft()->IsIdentifier() &&
+						dynamic_cast<Expr_Identifier *>(pExprCar->GetLeft())->GetSymbol()->
 														IsIdentical(Gura_Symbol(this_))) {
 					pCallable = pExprCar->GetRight()->LookupCallable(*pClass, sig);
 				}

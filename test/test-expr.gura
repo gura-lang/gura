@@ -14,7 +14,7 @@ testcase {
 				shortBool(test.isblock()),
 				shortBool(test.islister()),
 				shortBool(test.isvalue()),
-				shortBool(test.issymbol()),
+				shortBool(test.isidentifier()),
 				shortBool(test.isindexer()),
 				shortBool(test.iscaller()))
 	}

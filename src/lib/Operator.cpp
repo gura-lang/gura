@@ -353,25 +353,25 @@ Expr *Operator_Add::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 			Expr::Reference(dynamic_cast<const Expr_UnaryOp *>(pExprRight)->GetChild());
 		Expr::Delete(pExprRight);
 		return Operator_Sub::OptimizeExpr(env, sig, pExprLeft, pExpr);
-	} else if (pExprLeft->IsSymbol() && pExprRight->IsSymbol()) {
+	} else if (pExprLeft->IsIdentifier() && pExprRight->IsIdentifier()) {
 		// n + n = n * 2
-		const Expr_Symbol *pExprSymbolL =
-							dynamic_cast<const Expr_Symbol *>(pExprLeft);
-		const Expr_Symbol *pExprSymbolR =
-							dynamic_cast<const Expr_Symbol *>(pExprRight);
-		if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
+		const Expr_Identifier *pExprIdentifierL =
+							dynamic_cast<const Expr_Identifier *>(pExprLeft);
+		const Expr_Identifier *pExprIdentifierR =
+							dynamic_cast<const Expr_Identifier *>(pExprRight);
+		if (pExprIdentifierL->GetSymbol()->IsIdentical(pExprIdentifierR->GetSymbol())) {
 			Expr::Delete(pExprRight);
 			return Operator_Mul::OptimizeExpr(env, sig, pExprLeft, new Expr_Value(2));
 		}
-	} else if (pExprLeft->IsSymbol() && pExprRight->IsOperatorMul()) {
-		const Expr_Symbol *pExprSymbolL =
-							dynamic_cast<const Expr_Symbol *>(pExprLeft);
+	} else if (pExprLeft->IsIdentifier() && pExprRight->IsOperatorMul()) {
+		const Expr_Identifier *pExprIdentifierL =
+							dynamic_cast<const Expr_Identifier *>(pExprLeft);
 		const Expr_BinaryOp *pExprBinOpR =
 							dynamic_cast<const Expr_BinaryOp *>(pExprRight);
-		if (pExprBinOpR->GetLeft()->IsSymbol()) {
-			const Expr_Symbol *pExprSymbolR =
-							dynamic_cast<const Expr_Symbol *>(pExprBinOpR->GetLeft());
-			if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
+		if (pExprBinOpR->GetLeft()->IsIdentifier()) {
+			const Expr_Identifier *pExprIdentifierR =
+							dynamic_cast<const Expr_Identifier *>(pExprBinOpR->GetLeft());
+			if (pExprIdentifierL->GetSymbol()->IsIdentical(pExprIdentifierR->GetSymbol())) {
 				// n + n * m = n * (1 + m)
 				Expr *pExprMulR = Expr::Reference(pExprBinOpR->GetRight());
 				Expr::Delete(pExprRight);
@@ -379,15 +379,15 @@ Expr *Operator_Add::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 					Operator_Add::OptimizeExpr(env, sig, new Expr_Value(1), pExprMulR));
 			}
 		}
-	} else if (pExprLeft->IsOperatorMul() && pExprRight->IsSymbol()) {
+	} else if (pExprLeft->IsOperatorMul() && pExprRight->IsIdentifier()) {
 		const Expr_BinaryOp *pExprBinOpL =
 							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
-		const Expr_Symbol *pExprSymbolR =
-							dynamic_cast<const Expr_Symbol *>(pExprRight);
-		if (pExprBinOpL->GetLeft()->IsSymbol()) {
-			const Expr_Symbol *pExprSymbolL =
-							dynamic_cast<const Expr_Symbol *>(pExprBinOpL->GetLeft());
-			if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
+		const Expr_Identifier *pExprIdentifierR =
+							dynamic_cast<const Expr_Identifier *>(pExprRight);
+		if (pExprBinOpL->GetLeft()->IsIdentifier()) {
+			const Expr_Identifier *pExprIdentifierL =
+							dynamic_cast<const Expr_Identifier *>(pExprBinOpL->GetLeft());
+			if (pExprIdentifierL->GetSymbol()->IsIdentical(pExprIdentifierR->GetSymbol())) {
 				// n * m + n = n * (m + 1)
 				Expr *pExprMulL = Expr::Reference(pExprBinOpL->GetRight());
 				Expr::Delete(pExprLeft);
@@ -400,12 +400,12 @@ Expr *Operator_Add::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
 		const Expr_BinaryOp *pExprBinOpR =
 							dynamic_cast<const Expr_BinaryOp *>(pExprRight);
-		if (pExprBinOpL->GetLeft()->IsSymbol() && pExprBinOpR->GetLeft()->IsSymbol()) {
-			const Expr_Symbol *pExprSymbolL =
-								dynamic_cast<const Expr_Symbol *>(pExprBinOpL->GetLeft());
-			const Expr_Symbol *pExprSymbolR =
-								dynamic_cast<const Expr_Symbol *>(pExprBinOpR->GetLeft());
-			if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
+		if (pExprBinOpL->GetLeft()->IsIdentifier() && pExprBinOpR->GetLeft()->IsIdentifier()) {
+			const Expr_Identifier *pExprIdentifierL =
+								dynamic_cast<const Expr_Identifier *>(pExprBinOpL->GetLeft());
+			const Expr_Identifier *pExprIdentifierR =
+								dynamic_cast<const Expr_Identifier *>(pExprBinOpR->GetLeft());
+			if (pExprIdentifierL->GetSymbol()->IsIdentical(pExprIdentifierR->GetSymbol())) {
 				// n * m + n * p = n * (m + p)
 				Expr *pExprBase = Expr::Reference(pExprBinOpL->GetLeft());
 				Expr *pExprMulL = Expr::Reference(pExprBinOpL->GetRight());
@@ -468,26 +468,26 @@ Expr *Operator_Sub::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 			Expr::Reference(dynamic_cast<const Expr_UnaryOp *>(pExprRight)->GetChild());
 		Expr::Delete(pExprRight);
 		return Operator_Add::OptimizeExpr(env, sig, pExprLeft, pExpr);
-	} else if (pExprLeft->IsSymbol() && pExprRight->IsSymbol()) {
+	} else if (pExprLeft->IsIdentifier() && pExprRight->IsIdentifier()) {
 		// n - n = 0
-		const Expr_Symbol *pExprSymbolL =
-							dynamic_cast<const Expr_Symbol *>(pExprLeft);
-		const Expr_Symbol *pExprSymbolR =
-							dynamic_cast<const Expr_Symbol *>(pExprRight);
-		if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
+		const Expr_Identifier *pExprIdentifierL =
+							dynamic_cast<const Expr_Identifier *>(pExprLeft);
+		const Expr_Identifier *pExprIdentifierR =
+							dynamic_cast<const Expr_Identifier *>(pExprRight);
+		if (pExprIdentifierL->GetSymbol()->IsIdentical(pExprIdentifierR->GetSymbol())) {
 			Expr::Delete(pExprLeft);
 			Expr::Delete(pExprRight);
 			return new Expr_Value(0);
 		}
-	} else if (pExprLeft->IsSymbol() && pExprRight->IsOperatorMul()) {
-		const Expr_Symbol *pExprSymbolL =
-							dynamic_cast<const Expr_Symbol *>(pExprLeft);
+	} else if (pExprLeft->IsIdentifier() && pExprRight->IsOperatorMul()) {
+		const Expr_Identifier *pExprIdentifierL =
+							dynamic_cast<const Expr_Identifier *>(pExprLeft);
 		const Expr_BinaryOp *pExprBinOpR =
 							dynamic_cast<const Expr_BinaryOp *>(pExprRight);
-		if (pExprBinOpR->GetLeft()->IsSymbol()) {
-			const Expr_Symbol *pExprSymbolR =
-							dynamic_cast<const Expr_Symbol *>(pExprBinOpR->GetLeft());
-			if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
+		if (pExprBinOpR->GetLeft()->IsIdentifier()) {
+			const Expr_Identifier *pExprIdentifierR =
+							dynamic_cast<const Expr_Identifier *>(pExprBinOpR->GetLeft());
+			if (pExprIdentifierL->GetSymbol()->IsIdentical(pExprIdentifierR->GetSymbol())) {
 				// n - n * m = n * (1 - m)
 				Expr *pExprMulR = Expr::Reference(pExprBinOpR->GetRight());
 				Expr::Delete(pExprRight);
@@ -495,15 +495,15 @@ Expr *Operator_Sub::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 					Operator_Sub::OptimizeExpr(env, sig, new Expr_Value(1), pExprMulR));
 			}
 		}
-	} else if (pExprLeft->IsOperatorMul() && pExprRight->IsSymbol()) {
+	} else if (pExprLeft->IsOperatorMul() && pExprRight->IsIdentifier()) {
 		const Expr_BinaryOp *pExprBinOpL =
 							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
-		const Expr_Symbol *pExprSymbolR =
-							dynamic_cast<const Expr_Symbol *>(pExprRight);
-		if (pExprBinOpL->GetLeft()->IsSymbol()) {
-			const Expr_Symbol *pExprSymbolL =
-							dynamic_cast<const Expr_Symbol *>(pExprBinOpL->GetLeft());
-			if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
+		const Expr_Identifier *pExprIdentifierR =
+							dynamic_cast<const Expr_Identifier *>(pExprRight);
+		if (pExprBinOpL->GetLeft()->IsIdentifier()) {
+			const Expr_Identifier *pExprIdentifierL =
+							dynamic_cast<const Expr_Identifier *>(pExprBinOpL->GetLeft());
+			if (pExprIdentifierL->GetSymbol()->IsIdentical(pExprIdentifierR->GetSymbol())) {
 				// n * m - n = n * (m - 1)
 				Expr *pExprMulL = Expr::Reference(pExprBinOpL->GetRight());
 				Expr::Delete(pExprLeft);
@@ -516,12 +516,12 @@ Expr *Operator_Sub::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
 		const Expr_BinaryOp *pExprBinOpR =
 							dynamic_cast<const Expr_BinaryOp *>(pExprRight);
-		if (pExprBinOpL->GetLeft()->IsSymbol() && pExprBinOpR->GetLeft()->IsSymbol()) {
-			const Expr_Symbol *pExprSymbolL =
-								dynamic_cast<const Expr_Symbol *>(pExprBinOpL->GetLeft());
-			const Expr_Symbol *pExprSymbolR =
-								dynamic_cast<const Expr_Symbol *>(pExprBinOpR->GetLeft());
-			if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
+		if (pExprBinOpL->GetLeft()->IsIdentifier() && pExprBinOpR->GetLeft()->IsIdentifier()) {
+			const Expr_Identifier *pExprIdentifierL =
+								dynamic_cast<const Expr_Identifier *>(pExprBinOpL->GetLeft());
+			const Expr_Identifier *pExprIdentifierR =
+								dynamic_cast<const Expr_Identifier *>(pExprBinOpR->GetLeft());
+			if (pExprIdentifierL->GetSymbol()->IsIdentical(pExprIdentifierR->GetSymbol())) {
 				// n * m - n * p = n * (m - p)
 				Expr *pExprBase = Expr::Reference(pExprBinOpL->GetLeft());
 				Expr *pExprMulL = Expr::Reference(pExprBinOpL->GetRight());
@@ -667,25 +667,25 @@ Expr *Operator_Mul::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 		Expr::Delete(pExprRight);
 		return Operator_Neg::OptimizeExpr(env, sig,
 			Operator_Mul::OptimizeExpr(env, sig, pExprLeft, pExpr));
-	} else if (pExprLeft->IsSymbol() && pExprRight->IsSymbol()) {
+	} else if (pExprLeft->IsIdentifier() && pExprRight->IsIdentifier()) {
 		// n * n = n ** 2
-		const Expr_Symbol *pExprSymbolL =
-							dynamic_cast<const Expr_Symbol *>(pExprLeft);
-		const Expr_Symbol *pExprSymbolR =
-							dynamic_cast<const Expr_Symbol *>(pExprRight);
-		if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
+		const Expr_Identifier *pExprIdentifierL =
+							dynamic_cast<const Expr_Identifier *>(pExprLeft);
+		const Expr_Identifier *pExprIdentifierR =
+							dynamic_cast<const Expr_Identifier *>(pExprRight);
+		if (pExprIdentifierL->GetSymbol()->IsIdentical(pExprIdentifierR->GetSymbol())) {
 			Expr::Delete(pExprRight);
 			return Operator_Pow::OptimizeExpr(env, sig, pExprLeft, new Expr_Value(2));
 		}
-	} else if (pExprLeft->IsSymbol() && pExprRight->IsOperatorPow()) {
-		const Expr_Symbol *pExprSymbolL =
-							dynamic_cast<const Expr_Symbol *>(pExprLeft);
+	} else if (pExprLeft->IsIdentifier() && pExprRight->IsOperatorPow()) {
+		const Expr_Identifier *pExprIdentifierL =
+							dynamic_cast<const Expr_Identifier *>(pExprLeft);
 		const Expr_BinaryOp *pExprBinOpR =
 							dynamic_cast<const Expr_BinaryOp *>(pExprRight);
-		if (pExprBinOpR->GetLeft()->IsSymbol()) {
-			const Expr_Symbol *pExprSymbolR =
-							dynamic_cast<const Expr_Symbol *>(pExprBinOpR->GetLeft());
-			if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
+		if (pExprBinOpR->GetLeft()->IsIdentifier()) {
+			const Expr_Identifier *pExprIdentifierR =
+							dynamic_cast<const Expr_Identifier *>(pExprBinOpR->GetLeft());
+			if (pExprIdentifierL->GetSymbol()->IsIdentical(pExprIdentifierR->GetSymbol())) {
 				// n * n ** m = n ** (m + 1)
 				Expr *pExprPowR = Expr::Reference(pExprBinOpR->GetRight());
 				Expr::Delete(pExprRight);
@@ -693,15 +693,15 @@ Expr *Operator_Mul::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 					Operator_Add::OptimizeExpr(env, sig, pExprPowR, new Expr_Value(1)));
 			}
 		}
-	} else if (pExprLeft->IsOperatorPow() && pExprRight->IsSymbol()) {
+	} else if (pExprLeft->IsOperatorPow() && pExprRight->IsIdentifier()) {
 		const Expr_BinaryOp *pExprBinOpL =
 							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
-		const Expr_Symbol *pExprSymbolR =
-							dynamic_cast<const Expr_Symbol *>(pExprRight);
-		if (pExprBinOpL->GetLeft()->IsSymbol()) {
-			const Expr_Symbol *pExprSymbolL =
-							dynamic_cast<const Expr_Symbol *>(pExprBinOpL->GetLeft());
-			if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
+		const Expr_Identifier *pExprIdentifierR =
+							dynamic_cast<const Expr_Identifier *>(pExprRight);
+		if (pExprBinOpL->GetLeft()->IsIdentifier()) {
+			const Expr_Identifier *pExprIdentifierL =
+							dynamic_cast<const Expr_Identifier *>(pExprBinOpL->GetLeft());
+			if (pExprIdentifierL->GetSymbol()->IsIdentical(pExprIdentifierR->GetSymbol())) {
 				// n ** m * n = n ** (m + 1)
 				Expr *pExprPowL = Expr::Reference(pExprBinOpL->GetRight());
 				Expr::Delete(pExprLeft);
@@ -714,12 +714,12 @@ Expr *Operator_Mul::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
 		const Expr_BinaryOp *pExprBinOpR =
 							dynamic_cast<const Expr_BinaryOp *>(pExprRight);
-		if (pExprBinOpL->GetLeft()->IsSymbol() && pExprBinOpR->GetLeft()->IsSymbol()) {
-			const Expr_Symbol *pExprSymbolL =
-								dynamic_cast<const Expr_Symbol *>(pExprBinOpL->GetLeft());
-			const Expr_Symbol *pExprSymbolR =
-								dynamic_cast<const Expr_Symbol *>(pExprBinOpR->GetLeft());
-			if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
+		if (pExprBinOpL->GetLeft()->IsIdentifier() && pExprBinOpR->GetLeft()->IsIdentifier()) {
+			const Expr_Identifier *pExprIdentifierL =
+								dynamic_cast<const Expr_Identifier *>(pExprBinOpL->GetLeft());
+			const Expr_Identifier *pExprIdentifierR =
+								dynamic_cast<const Expr_Identifier *>(pExprBinOpR->GetLeft());
+			if (pExprIdentifierL->GetSymbol()->IsIdentical(pExprIdentifierR->GetSymbol())) {
 				// n ** m * n ** p = n ** (m + p)
 				Expr *pExprBase = Expr::Reference(pExprBinOpL->GetLeft());
 				Expr *pExprPowL = Expr::Reference(pExprBinOpL->GetRight());
@@ -803,26 +803,26 @@ Expr *Operator_Div::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 		Expr::Delete(pExprRight);
 		return Operator_Neg::OptimizeExpr(env, sig,
 			Operator_Div::OptimizeExpr(env, sig, pExprLeft, pExpr));
-	} else if (pExprLeft->IsSymbol() && pExprRight->IsSymbol()) {
+	} else if (pExprLeft->IsIdentifier() && pExprRight->IsIdentifier()) {
 		// n / n = 1
-		const Expr_Symbol *pExprSymbolL =
-							dynamic_cast<const Expr_Symbol *>(pExprLeft);
-		const Expr_Symbol *pExprSymbolR =
-							dynamic_cast<const Expr_Symbol *>(pExprRight);
-		if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
+		const Expr_Identifier *pExprIdentifierL =
+							dynamic_cast<const Expr_Identifier *>(pExprLeft);
+		const Expr_Identifier *pExprIdentifierR =
+							dynamic_cast<const Expr_Identifier *>(pExprRight);
+		if (pExprIdentifierL->GetSymbol()->IsIdentical(pExprIdentifierR->GetSymbol())) {
 			Expr::Delete(pExprLeft);
 			Expr::Delete(pExprRight);
 			return new Expr_Value(1);
 		}
-	} else if (pExprLeft->IsSymbol() && pExprRight->IsOperatorPow()) {
-		const Expr_Symbol *pExprSymbolL =
-							dynamic_cast<const Expr_Symbol *>(pExprLeft);
+	} else if (pExprLeft->IsIdentifier() && pExprRight->IsOperatorPow()) {
+		const Expr_Identifier *pExprIdentifierL =
+							dynamic_cast<const Expr_Identifier *>(pExprLeft);
 		const Expr_BinaryOp *pExprBinOpR =
 							dynamic_cast<const Expr_BinaryOp *>(pExprRight);
-		if (pExprBinOpR->GetLeft()->IsSymbol()) {
-			const Expr_Symbol *pExprSymbolR =
-							dynamic_cast<const Expr_Symbol *>(pExprBinOpR->GetLeft());
-			if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
+		if (pExprBinOpR->GetLeft()->IsIdentifier()) {
+			const Expr_Identifier *pExprIdentifierR =
+							dynamic_cast<const Expr_Identifier *>(pExprBinOpR->GetLeft());
+			if (pExprIdentifierL->GetSymbol()->IsIdentical(pExprIdentifierR->GetSymbol())) {
 				// n / n ** m = n ** (1 - m)
 				Expr *pExprPowR = Expr::Reference(pExprBinOpR->GetRight());
 				Expr::Delete(pExprRight);
@@ -830,15 +830,15 @@ Expr *Operator_Div::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 					Operator_Sub::OptimizeExpr(env, sig, new Expr_Value(1), pExprPowR));
 			}
 		}
-	} else if (pExprLeft->IsOperatorPow() && pExprRight->IsSymbol()) {
+	} else if (pExprLeft->IsOperatorPow() && pExprRight->IsIdentifier()) {
 		const Expr_BinaryOp *pExprBinOpL =
 							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
-		const Expr_Symbol *pExprSymbolR =
-							dynamic_cast<const Expr_Symbol *>(pExprRight);
-		if (pExprBinOpL->GetLeft()->IsSymbol()) {
-			const Expr_Symbol *pExprSymbolL =
-							dynamic_cast<const Expr_Symbol *>(pExprBinOpL->GetLeft());
-			if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
+		const Expr_Identifier *pExprIdentifierR =
+							dynamic_cast<const Expr_Identifier *>(pExprRight);
+		if (pExprBinOpL->GetLeft()->IsIdentifier()) {
+			const Expr_Identifier *pExprIdentifierL =
+							dynamic_cast<const Expr_Identifier *>(pExprBinOpL->GetLeft());
+			if (pExprIdentifierL->GetSymbol()->IsIdentical(pExprIdentifierR->GetSymbol())) {
 				// n ** m / n = n ** (m - 1)
 				Expr *pExprPowL = Expr::Reference(pExprBinOpL->GetRight());
 				Expr::Delete(pExprLeft);
@@ -851,12 +851,12 @@ Expr *Operator_Div::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
 		const Expr_BinaryOp *pExprBinOpR =
 							dynamic_cast<const Expr_BinaryOp *>(pExprRight);
-		if (pExprBinOpL->GetLeft()->IsSymbol() && pExprBinOpR->GetLeft()->IsSymbol()) {
-			const Expr_Symbol *pExprSymbolL =
-								dynamic_cast<const Expr_Symbol *>(pExprBinOpL->GetLeft());
-			const Expr_Symbol *pExprSymbolR =
-								dynamic_cast<const Expr_Symbol *>(pExprBinOpR->GetLeft());
-			if (pExprSymbolL->GetSymbol()->IsIdentical(pExprSymbolR->GetSymbol())) {
+		if (pExprBinOpL->GetLeft()->IsIdentifier() && pExprBinOpR->GetLeft()->IsIdentifier()) {
+			const Expr_Identifier *pExprIdentifierL =
+								dynamic_cast<const Expr_Identifier *>(pExprBinOpL->GetLeft());
+			const Expr_Identifier *pExprIdentifierR =
+								dynamic_cast<const Expr_Identifier *>(pExprBinOpR->GetLeft());
+			if (pExprIdentifierL->GetSymbol()->IsIdentical(pExprIdentifierR->GetSymbol())) {
 				// n ** m / n ** p = n ** (m - p)
 				Expr *pExprBase = Expr::Reference(pExprBinOpL->GetLeft());
 				Expr *pExprPowL = Expr::Reference(pExprBinOpL->GetRight());

@@ -173,7 +173,7 @@ Gura_DeclareMethod(symbol, eval)
 Gura_ImplementMethod(symbol, eval)
 {
 	const Symbol *pSymbol = args.GetThis().GetSymbol();
-	AutoPtr<Expr> pExpr(new Expr_Symbol(pSymbol));
+	AutoPtr<Expr> pExpr(new Expr_Identifier(pSymbol));
 	Environment *pEnv = args.Is_environment(0)?
 			Object_environment::GetObject(args, 0)->GetEnv().Reference() :
 			new Environment(&env, ENVTYPE_block);

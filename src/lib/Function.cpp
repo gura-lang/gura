@@ -153,15 +153,15 @@ bool Function::CustomDeclare(Environment &env, Signal sig,
 		quoteFlag = true;
 		pExpr = pExprQuote->GetChild();
 	}
-	if (!pExpr->IsSymbol()) {
+	if (!pExpr->IsIdentifier()) {
 		sig.SetError(ERR_TypeError,
-				"content of block in a function declaration must be a symbol");
+				"content of block in a function declaration must be an identifier");
 		return false;
 	}
-	const Expr_Symbol *pExprSym = dynamic_cast<const Expr_Symbol *>(pExpr);
-	DeclareBlock(occurPattern, pExprSym->GetSymbol(),
+	const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExpr);
+	DeclareBlock(occurPattern, pExprIdentifier->GetSymbol(),
 										BLKSCOPE_Through, quoteFlag);
-	foreach_const (SymbolSet, ppSymbol, pExprSym->GetAttrs()) {
+	foreach_const (SymbolSet, ppSymbol, pExprIdentifier->GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
 		if (pSymbol->IsIdentical(Gura_Symbol(inside_scope))) {
 			_blockInfo.blockScope = BLKSCOPE_Inside;
@@ -779,8 +779,8 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 							dynamic_cast<const Expr_BinaryOp *>(pExprArg);
 			const Expr *pExprLeft = pExprBinaryOp->GetLeft()->Unquote();
 			const Expr *pExprRight = pExprBinaryOp->GetRight();
-			if (pExprLeft->IsSymbol()) {
-				const Symbol *pSymbol = dynamic_cast<const Expr_Symbol *>(pExprLeft)->GetSymbol();
+			if (pExprLeft->IsIdentifier()) {
+				const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(pExprLeft)->GetSymbol();
 				_exprMap[pSymbol] = pExprRight->Reference();
 			} else if (pExprLeft->IsValue()) {
 				Value valueKey = dynamic_cast<const Expr_Value *>(pExprLeft)->GetValue();
@@ -791,7 +791,7 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 				if (sig.IsSignalled()) return false;
 			} else {
 				pExprBinaryOp->SetError(sig, ERR_KeyError,
-					"l-value of dictionary assignment must be a symbol or a constant value");
+					"l-value of dictionary assignment must be an identifier or a constant value");
 				return false;
 			}
 		} else if (!quoteFlag && Expr_UnaryOp::IsSuffixed(pExprArg, Gura_Symbol(Char_Mod))) {
@@ -1053,12 +1053,12 @@ const Expr_Block *Args::GetBlock(Environment &env, Signal sig) const
 			break;
 		}
 		const ExprList &exprList = *pExprOwnerParam;
-		if (exprList.size() != 1 || !exprList.front()->IsSymbol()) {
+		if (exprList.size() != 1 || !exprList.front()->IsIdentifier()) {
 			break;
 		}
-		const Expr_Symbol *pExprSymbol =
-							dynamic_cast<const Expr_Symbol *>(exprList.front());
-		const Value *pValue = env.LookupValue(pExprSymbol->GetSymbol(), ENVREF_Escalate);
+		const Expr_Identifier *pExprIdentifier =
+							dynamic_cast<const Expr_Identifier *>(exprList.front());
+		const Value *pValue = env.LookupValue(pExprIdentifier->GetSymbol(), ENVREF_Escalate);
 		if (pValue == NULL) {
 			break;
 		} else if (pValue->Is_expr()) {

@@ -52,7 +52,7 @@ void Module::AssignValueType(ValueTypeInfo *pValueTypeInfo)
 
 Expr *Module::MakeExpr() const
 {
-	return new Expr_Symbol(_pSymbol);
+	return new Expr_Identifier(_pSymbol);
 }
 
 bool Module::DirProp(Environment &env, Signal sig, SymbolSet &symbols)

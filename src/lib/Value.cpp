@@ -375,7 +375,7 @@ Expr *Value::CloneExpr() const
 {
 	return
 		Is_expr()? Expr::Reference(dynamic_cast<Object_expr *>(_u.pObj)->GetExpr()) :
-		Is_symbol()? new Expr_Symbol(_u.pSymbol) : NULL;
+		Is_symbol()? new Expr_Identifier(_u.pSymbol) : NULL;
 }
 
 Fundamental *Value::GetFundamental()

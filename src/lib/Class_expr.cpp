@@ -156,11 +156,11 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		sig.SetError(ERR_ValueError, "expression is not a suffixed");
 		return Value::Null;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(symbol))) {
-		if (GetExpr()->IsSymbol()) {
-			const Expr_Symbol *pExpr = dynamic_cast<const Expr_Symbol *>(GetExpr());
+		if (GetExpr()->IsIdentifier()) {
+			const Expr_Identifier *pExpr = dynamic_cast<const Expr_Identifier *>(GetExpr());
 			return Value(pExpr->GetSymbol());
 		}
-		sig.SetError(ERR_ValueError, "expression is not a symbol");
+		sig.SetError(ERR_ValueError, "expression is not an identifier");
 		return Value::Null;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(trailer))) {
 		if (GetExpr()->IsCaller()) {
@@ -190,7 +190,7 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 String Object_expr::ToString(bool exprFlag)
 {
 	String str;
-	if (_pExpr->IsValue() || _pExpr->IsSymbol() || _pExpr->IsCaller()) {
+	if (_pExpr->IsValue() || _pExpr->IsIdentifier() || _pExpr->IsCaller()) {
 		if (exprFlag) str += '`';
 		str += _pExpr->ToString(Expr::SCRSTYLE_OneLine);
 	} else if (exprFlag) {
@@ -386,7 +386,7 @@ ImplementTypeChecker(isindexer,		IsIndexer)
 ImplementTypeChecker(iscaller,		IsCaller)
 // type chekers - others
 ImplementTypeChecker(isvalue,		IsValue)
-ImplementTypeChecker(issymbol,		IsSymbol)
+ImplementTypeChecker(isidentifier,	IsIdentifier)
 ImplementTypeChecker(issuffixed,	IsSuffixed)
 
 //-----------------------------------------------------------------------------
@@ -426,7 +426,7 @@ void Class_expr::Prepare(Environment &env)
 	Gura_AssignMethod(expr,	iscaller);
 	// type chekers - others
 	Gura_AssignMethod(expr,	isvalue);
-	Gura_AssignMethod(expr,	issymbol);
+	Gura_AssignMethod(expr,	isidentifier);
 	Gura_AssignMethod(expr,	issuffixed);
 }
 
@@ -435,7 +435,7 @@ bool Class_expr::CastFrom(Environment &env, Signal sig, Value &value, const Decl
 	if (value.Is_symbol()) {
 		// cast symbol to expr
 		const Symbol *pSymbol = value.GetSymbol();
-		value = Value(new Object_expr(env, new Expr_Symbol(pSymbol)));
+		value = Value(new Object_expr(env, new Expr_Identifier(pSymbol)));
 		return true;
 	}
 	env.LookupClass(VTYPE_stream)->CastFrom(env, sig, value, pDecl);

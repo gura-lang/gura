@@ -175,25 +175,25 @@ Gura_ImplementFunction(import_)
 		const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 		if (sig.IsSignalled()) return Value::Null;
 		foreach_const (ExprList, ppExpr, pExprBlock->GetExprOwner()) {
-			if (!(*ppExpr)->IsSymbol()) {
+			if (!(*ppExpr)->IsIdentifier()) {
 				sig.SetError(ERR_SyntaxError,
 					"wrong format for an element in import list");
 				return Value::Null;
 			}
-			const Expr_Symbol *pExprSymbol =
-							dynamic_cast<const Expr_Symbol *>(*ppExpr);
-			symbolsToMixIn.insert(pExprSymbol->GetSymbol());
+			const Expr_Identifier *pExprIdentifier =
+							dynamic_cast<const Expr_Identifier *>(*ppExpr);
+			symbolsToMixIn.insert(pExprIdentifier->GetSymbol());
 		}
 		pSymbolsToMixIn = &symbolsToMixIn;
 	}
 	const Symbol *pSymbolAlias = NULL;
 	if (!args.Is_expr(1)) {
 		// nothing to do
-	} else if (!args.GetExpr(1)->IsSymbol()) {
-		sig.SetError(ERR_ValueError, "symbol is expected as a module name");
+	} else if (!args.GetExpr(1)->IsIdentifier()) {
+		sig.SetError(ERR_ValueError, "identifier is expected as a module name");
 		return Value::Null;
 	} else {
-		pSymbolAlias = dynamic_cast<const Expr_Symbol *>(args.GetExpr(1))->GetSymbol();
+		pSymbolAlias = dynamic_cast<const Expr_Identifier *>(args.GetExpr(1))->GetSymbol();
 	}
 	bool overwriteFlag = args.IsSet(Gura_Symbol(overwrite));
 	bool binaryOnlyFlag = args.IsSet(Gura_Symbol(binary));
@@ -296,11 +296,11 @@ Gura_ImplementFunction(extern_)
 {
 	foreach_const (ValueList, pValue, args.GetList(0)) {
 		const Expr *pExpr = pValue->GetExpr();
-		if (!pExpr->IsSymbol()) {
-			sig.SetError(ERR_ValueError, "symbol must be specified");
+		if (!pExpr->IsIdentifier()) {
+			sig.SetError(ERR_ValueError, "identifier must be specified");
 			return Value::Null;
 		}
-		const Symbol *pSymbol = dynamic_cast<const Expr_Symbol *>(pExpr)->GetSymbol();
+		const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol();
 		if (env.LookupValue(pSymbol, ENVREF_Escalate) == NULL) {
 			sig.SetError(ERR_ValueError, "undefined symbol '%s'", pSymbol->GetName());
 		}
@@ -321,11 +321,11 @@ Gura_ImplementFunction(local)
 {
 	foreach_const (ValueList, pValue, args.GetList(0)) {
 		const Expr *pExpr = pValue->GetExpr();
-		if (!pExpr->IsSymbol()) {
-			sig.SetError(ERR_ValueError, "symbol must be specified");
+		if (!pExpr->IsIdentifier()) {
+			sig.SetError(ERR_ValueError, "identifier must be specified");
 			return Value::Null;
 		}
-		const Symbol *pSymbol = dynamic_cast<const Expr_Symbol *>(pExpr)->GetSymbol();
+		const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol();
 		if (env.LookupValue(pSymbol, ENVREF_NoEscalate) == NULL) {
 			env.AssignValue(pSymbol, Value::Null, EXTRA_Public);
 		}
@@ -347,17 +347,17 @@ Gura_ImplementFunction(public_)
 	const Expr_Block *pExprBlock = args.GetBlock(env, sig);
 	foreach_const (ExprOwner, ppExpr, pExprBlock->GetExprOwner()) {
 		const Expr *pExpr = *ppExpr;
-		if (pExpr->IsSymbol()) {
-			const Expr_Symbol *pExprSymbol = dynamic_cast<const Expr_Symbol *>(pExpr);
-			symbolsPublic.Insert(pExprSymbol->GetSymbol());
+		if (pExpr->IsIdentifier()) {
+			const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExpr);
+			symbolsPublic.Insert(pExprIdentifier->GetSymbol());
 		} else if (pExpr->IsAssign()) {
 			const Expr_Assign *pExprAssign = dynamic_cast<const Expr_Assign *>(pExpr);
-			if (!pExprAssign->GetLeft()->IsSymbol()) {
+			if (!pExprAssign->GetLeft()->IsIdentifier()) {
 				sig.SetError(ERR_ValueError, "invalid element for public");
 				return Value::Null;
 			}
-			const Expr_Symbol *pExprSymbol = dynamic_cast<const Expr_Symbol *>(pExprAssign->GetLeft());
-			symbolsPublic.Insert(pExprSymbol->GetSymbol());
+			const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExprAssign->GetLeft());
+			symbolsPublic.Insert(pExprIdentifier->GetSymbol());
 			pExpr->Exec2(env, sig, pSeqPostHandler);
 			if (sig.IsSignalled()) return Value::Null;
 		} else {
@@ -1321,25 +1321,25 @@ Gura_ImplementFunction(help)
 	return Value::Null;
 }
 
-// isdefined(`symbol)
+// isdefined(`identifier)
 Gura_DeclareFunction(isdefined)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "symbol", VTYPE_quote);
+	DeclareArg(env, "identifier", VTYPE_quote);
 }
 
 Gura_ImplementFunction(isdefined)
 {
 	bool definedFlag = false;
 	const Expr *pExpr = args.GetExpr(0);
-	if (pExpr->IsSymbol() || pExpr->IsMember()) {
+	if (pExpr->IsIdentifier() || pExpr->IsMember()) {
 		SeqPostHandler *pSeqPostHandler = NULL;
 		Value result = pExpr->Exec2(env, sig, pSeqPostHandler);
 		if (sig.IsSignalled() && !sig.IsError()) return Value::Null;
 		definedFlag = !sig.IsError() && result.IsDefined();
 		sig.ClearSignal();
 	} else {
-		sig.SetError(ERR_ValueError, "argument must be a symbol");
+		sig.SetError(ERR_ValueError, "argument must be an identifier");
 		return Value::Null;
 	}
 	return Value(definedFlag);
@@ -1441,7 +1441,7 @@ Gura_ImplementFunction(typename_)
 {
 	const Expr *pExpr = args.GetExpr(0);
 	String typeName = "unknown";
-	if (pExpr->IsSymbol() || pExpr->IsMember()) {
+	if (pExpr->IsIdentifier() || pExpr->IsMember()) {
 		SeqPostHandler *pSeqPostHandler = NULL;
 		Value value = pExpr->Exec2(env, sig, pSeqPostHandler);
 		if (sig.IsSignalled() && !sig.IsError()) return Value::Null;
@@ -1460,11 +1460,11 @@ Gura_ImplementFunction(typename_)
 	return Value(typeName);
 }
 
-// undef(`symbol+):[raise]
+// undef(`identifier+):[raise]
 Gura_DeclareFunctionAlias(undef_, "undef")
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "symbol", VTYPE_quote, OCCUR_OnceOrMore);
+	DeclareArg(env, "identifier", VTYPE_quote, OCCUR_OnceOrMore);
 	DeclareAttr(Gura_Symbol(raise));
 }
 
@@ -1475,12 +1475,12 @@ Gura_ImplementFunction(undef_)
 		const Expr *pExpr = pValueArg->GetExpr();
 		Environment *pEnv = &env;
 		const Symbol *pSymbol = NULL;
-		if (pExpr->IsSymbol()) {
-			pSymbol = dynamic_cast<const Expr_Symbol *>(pExpr)->GetSymbol();
+		if (pExpr->IsIdentifier()) {
+			pSymbol = dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol();
 		} else {
 			SymbolList symbolList;
 			if (!pExpr->GetChainedSymbolList(symbolList)) {
-				sig.SetError(ERR_ValueError, "invalid symbol name");
+				sig.SetError(ERR_ValueError, "invalid identifier name");
 				return Value::Null;
 			}
 			for (SymbolList::iterator ppSymbol = symbolList.begin();
@@ -1488,7 +1488,7 @@ Gura_ImplementFunction(undef_)
 				Value *pValue = pEnv->LookupValue(*ppSymbol, ENVREF_NoEscalate);
 				if (pValue == NULL) {
 					if (raiseFlag) {
-						sig.SetError(ERR_ValueError, "undefined symbol");
+						sig.SetError(ERR_ValueError, "undefined identifier");
 					}
 					return Value::Null;
 				}
@@ -1499,14 +1499,14 @@ Gura_ImplementFunction(undef_)
 				} else if (pValue->IsObject()) {
 					pEnv = pValue->GetObject();
 				} else {
-					sig.SetError(ERR_ValueError, "invalid symbol name");
+					sig.SetError(ERR_ValueError, "invalid identifier name");
 					return Value::Null;
 				}
 			}
 			pSymbol = symbolList.back();
 		}
 		if (raiseFlag && !pEnv->LookupValue(pSymbol, ENVREF_NoEscalate)) {
-			sig.SetError(ERR_ValueError, "undefined symbol");
+			sig.SetError(ERR_ValueError, "undefined identifier");
 			return Value::Null;
 		}
 		pEnv->RemoveValue(pSymbol);

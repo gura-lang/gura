@@ -34,7 +34,7 @@ enum ExprType {
 	EXPRTYPE_Indexer,
 	EXPRTYPE_Caller,
 	EXPRTYPE_Value,
-	EXPRTYPE_Symbol,
+	EXPRTYPE_Identifier,
 	EXPRTYPE_Suffixed,
 };
 
@@ -91,7 +91,7 @@ public:
 //        +- Expr_Compound <--+- Expr_Indexer
 //        |                   `- Expr_Caller
 //        +- Expr_Value
-//        +- Expr_Symbol
+//        +- Expr_Identifier
 //        `- Expr_Suffixed
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Expr {
@@ -220,7 +220,7 @@ public:
 	virtual bool IsCaller() const;
 	// type chekers - others
 	virtual bool IsValue() const;
-	virtual bool IsSymbol() const;
+	virtual bool IsIdentifier() const;
 	virtual bool IsSuffixed() const;
 	bool IsConstNumber(Number num) const;
 	bool IsConstEvenNumber() const;
@@ -423,22 +423,22 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Expr_Symbol
+// Expr_Identifier
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_Symbol : public Expr {
+class GURA_DLLDECLARE Expr_Identifier : public Expr {
 protected:
 	const Symbol *_pSymbol;
 	SymbolSet _attrs;
 	SymbolSet _attrsOpt;
 	SymbolList _attrFront;
 public:
-	inline Expr_Symbol(const Symbol *pSymbol) : Expr(EXPRTYPE_Symbol), _pSymbol(pSymbol) {}
-	inline Expr_Symbol(const Expr_Symbol &expr) : Expr(expr),
+	inline Expr_Identifier(const Symbol *pSymbol) : Expr(EXPRTYPE_Identifier), _pSymbol(pSymbol) {}
+	inline Expr_Identifier(const Expr_Identifier &expr) : Expr(expr),
 							_pSymbol(expr._pSymbol), _attrs(expr._attrs) {}
-	inline static Expr_Symbol *Reference(const Expr_Symbol *pExpr) {
-		return dynamic_cast<Expr_Symbol *>(Expr::Reference(pExpr));
+	inline static Expr_Identifier *Reference(const Expr_Identifier *pExpr) {
+		return dynamic_cast<Expr_Identifier *>(Expr::Reference(pExpr));
 	}
-	virtual bool IsSymbol() const;
+	virtual bool IsIdentifier() const;
 	virtual Expr *Clone() const;
 	virtual Callable *LookupCallable(Environment &env, Signal sig) const;
 	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;

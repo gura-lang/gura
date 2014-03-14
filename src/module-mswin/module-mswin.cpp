@@ -706,8 +706,8 @@ Value Object_ole::CallableOLE::DoCall(Environment &env, Signal sig, Args &argsEx
 			const Expr_BinaryOp *pExprBinaryOp =
 						dynamic_cast<const Expr_BinaryOp *>(pExpr);
 			const Expr *pExprLeft = pExprBinaryOp->GetLeft()->Unquote();
-			if (pExprLeft->IsSymbol()) {
-				const Symbol *pSymbol = dynamic_cast<const Expr_Symbol *>(pExprLeft)->GetSymbol();
+			if (pExprLeft->IsIdentifier()) {
+				const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(pExprLeft)->GetSymbol();
 				argNames.push_back(pSymbol->GetName());
 			} else if (pExprLeft->IsValue() &&
 					dynamic_cast<const Expr_Value *>(pExprLeft)->GetValue().Is_string()) {
@@ -715,7 +715,7 @@ Value Object_ole::CallableOLE::DoCall(Environment &env, Signal sig, Args &argsEx
 				argNames.push_back(str);
 			} else {
 				sig.SetError(ERR_ValueError,
-						"a key for named argument of OLE must be a string or symbol");
+						"a key for named argument of OLE must be a string or an identifier");
 				goto error_done;
 			}
 			SeqPostHandler *pSeqPostHandler = NULL;

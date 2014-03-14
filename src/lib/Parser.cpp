@@ -1291,7 +1291,7 @@ bool Parser::ReduceOneElem(Environment &env, Signal sig)
 	} else if (elem1.IsType(ETYPE_Symbol)) {
 		DBGPARSER(::printf("Reduce: Expr -> Symbol\n"));
 		const Symbol *pSymbol = Symbol::Add(elem1.GetString());
-		pExpr = new Expr_Symbol(pSymbol);
+		pExpr = new Expr_Identifier(pSymbol);
 	} else if (elem1.IsType(ETYPE_NumberSuffixed)) {
 		DBGPARSER(::printf("Reduce: Expr -> Suffixed\n"));
 		pExpr = new Expr_Suffixed(elem1.GetStringSTL(), true, Symbol::Add(elem1.GetSuffix()));
@@ -1300,16 +1300,16 @@ bool Parser::ReduceOneElem(Environment &env, Signal sig)
 		pExpr = new Expr_Suffixed(elem1.GetStringSTL(), false, Symbol::Add(elem1.GetSuffix()));
 	} else if (elem1.IsType(ETYPE_Add)) {
 		DBGPARSER(::printf("Reduce: Expr -> '+'\n"));
-		pExpr = new Expr_Symbol(Gura_Symbol(Char_Add));
+		pExpr = new Expr_Identifier(Gura_Symbol(Char_Add));
 	} else if (elem1.IsType(ETYPE_Mul)) {
 		DBGPARSER(::printf("Reduce: Expr -> '*'\n"));
-		pExpr = new Expr_Symbol(Gura_Symbol(Char_Mul));
+		pExpr = new Expr_Identifier(Gura_Symbol(Char_Mul));
 	} else if (elem1.IsType(ETYPE_Question)) {
 		DBGPARSER(::printf("Reduce: Expr -> '?'\n"));
-		pExpr = new Expr_Symbol(Gura_Symbol(Char_Question));
+		pExpr = new Expr_Identifier(Gura_Symbol(Char_Question));
 	} else if (elem1.IsType(ETYPE_Sub)) {
 		DBGPARSER(::printf("Reduce: Expr -> '-'\n"));
-		pExpr = new Expr_Symbol(Gura_Symbol(Char_Sub));
+		pExpr = new Expr_Identifier(Gura_Symbol(Char_Sub));
 	} else {
 		SetError_InvalidElement(sig, __LINE__);
 		return false;
@@ -1420,7 +1420,7 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 		// this is a special case of reducing
 		DBGPARSER(::printf("Reduce: Expr Expr -> Expr Symbol\n"));
 		const Symbol *pSymbol = Symbol::Add(elem2.GetString());
-		pExpr = new Expr_Symbol(pSymbol);
+		pExpr = new Expr_Identifier(pSymbol);
 		int lineNoTop = _elemStack.Peek(0).GetLineNo();
 		_elemStack.pop_back();
 		pExpr->SetSourceInfo(_pSourceName->Reference(), lineNoTop, GetLineNo());
@@ -1446,7 +1446,7 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 			DBGPARSER(::printf("Reduce: Expr -> '%' Expr\n"));
 			if (elem2.GetExpr()->IsBlock()) {
 				// %{..}
-				Expr *pExprCar = new Expr_Symbol(Gura_Symbol(Char_Mod));
+				Expr *pExprCar = new Expr_Identifier(Gura_Symbol(Char_Mod));
 				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
 				pExpr = new Expr_Caller(pExprCar, NULL, pExprBlock);
 			} else {
@@ -1456,7 +1456,7 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 			DBGPARSER(::printf("Reduce: Expr -> '%%' Expr\n"));
 			if (elem2.GetExpr()->IsBlock()) {
 				// %%{..}
-				Expr *pExprCar = new Expr_Symbol(Gura_Symbol(Char_ModMod));
+				Expr *pExprCar = new Expr_Identifier(Gura_Symbol(Char_ModMod));
 				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
 				pExpr = new Expr_Caller(pExprCar, NULL, pExprBlock);
 			} else {
@@ -1467,7 +1467,7 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 			DBGPARSER(::printf("Reduce: Expr -> '&' Expr\n"));
 			if (elem2.GetExpr()->IsBlock()) {
 				// &{..}
-				Expr *pExprCar = new Expr_Symbol(Gura_Symbol(Char_And));
+				Expr *pExprCar = new Expr_Identifier(Gura_Symbol(Char_And));
 				Expr_Block *pExprBlock = dynamic_cast<Expr_Block *>(elem2.GetExpr());
 				pExpr = new Expr_Caller(pExprCar, NULL, pExprBlock);
 			} else {
@@ -1796,15 +1796,15 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 			if (pExprDst->IsIndexer()) {
 				pExprDst = dynamic_cast<Expr_Indexer *>(pExprDst)->GetCar();
 			}
-			if (pExprRight->IsSymbol()) {
+			if (pExprRight->IsIdentifier()) {
 				const Symbol *pSymbol =
-						dynamic_cast<Expr_Symbol *>(pExprRight)->GetSymbol();
+						dynamic_cast<Expr_Identifier *>(pExprRight)->GetSymbol();
 				SymbolList *pAttrFront = NULL;
-				if (pExprDst->IsSymbol()) {
-					Expr_Symbol *pExprSymbol =
-									dynamic_cast<Expr_Symbol *>(pExprDst);
-					pExprSymbol->AddAttr(pSymbol);
-					pAttrFront = &pExprSymbol->GetAttrFront();
+				if (pExprDst->IsIdentifier()) {
+					Expr_Identifier *pExprIdentifier =
+									dynamic_cast<Expr_Identifier *>(pExprDst);
+					pExprIdentifier->AddAttr(pSymbol);
+					pAttrFront = &pExprIdentifier->GetAttrFront();
 				} else if (pExprDst->IsCaller()) {
 					Expr_Caller *pExprCaller =
 									dynamic_cast<Expr_Caller *>(pExprDst);
@@ -1821,10 +1821,10 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 				Expr::Delete(pExprRight);
 			} else if (pExprRight->IsMember()) {
 				SymbolList *pAttrFront = NULL;
-				if (pExprDst->IsSymbol()) {
-					Expr_Symbol *pExprSymbol =
-									dynamic_cast<Expr_Symbol *>(pExprDst);
-					pAttrFront = &pExprSymbol->GetAttrFront();
+				if (pExprDst->IsIdentifier()) {
+					Expr_Identifier *pExprIdentifier =
+									dynamic_cast<Expr_Identifier *>(pExprDst);
+					pAttrFront = &pExprIdentifier->GetAttrFront();
 				} else if (pExprDst->IsCaller()) {
 					Expr_Caller *pExprCaller =
 									dynamic_cast<Expr_Caller *>(pExprDst);
@@ -1849,9 +1849,9 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 			} else if (pExprRight->IsLister()) {
 				ExprList &exprList =
 							dynamic_cast<Expr_Lister *>(pExprRight)->GetExprOwner();
-				if (pExprDst->IsSymbol()) {
+				if (pExprDst->IsIdentifier()) {
 					sig.SetError(ERR_TypeError,
-									"symbols cannot declare optional attributes");
+									"identifiers cannot declare optional attributes");
 					return false;
 				} else if (pExprDst->IsCaller()) {
 					Expr_Caller *pExprCaller =
@@ -1859,12 +1859,12 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 					pExprCaller = pExprCaller->GetLastTrailer();
 					foreach (ExprList, ppExpr, exprList) {
 						Expr *pExpr = *ppExpr;
-						if (!pExpr->IsSymbol()) {
+						if (!pExpr->IsIdentifier()) {
 							SetError_InvalidElement(sig, __LINE__);
 							return false;
 						}
 						const Symbol *pSymbol =
-								dynamic_cast<Expr_Symbol *>(pExpr)->GetSymbol();
+								dynamic_cast<Expr_Identifier *>(pExpr)->GetSymbol();
 						pExprCaller->AddAttrOpt(pSymbol);
 					}
 				} else {

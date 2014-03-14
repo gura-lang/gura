@@ -632,7 +632,7 @@ Gura_DeclareFunction(least_square)
 	DeclareArg(env, "y", VTYPE_iterator);
 	DeclareArg(env, "dim", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(1));
 	DeclareArg(env, "var", VTYPE_symbol, OCCUR_Once, FLAG_None,
-								new Expr_Quote(new Expr_Symbol(Gura_Symbol(x))));
+								new Expr_Quote(new Expr_Identifier(Gura_Symbol(x))));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Calculates a least square method using a sequence of pairs of x and y,\n"
 	"and returns an expression of the fitted curve. You can specify the dimension\n"
@@ -724,7 +724,7 @@ Gura_ImplementFunction(least_square)
 		pAlpha++;
 		Expr *pExprLeft = new Expr_BinaryOp(env.GetOperator(OPTYPE_Mul),
 			new Expr_Value(*pAlpha),
-			new Expr_Symbol(pSymbolVar));
+			new Expr_Identifier(pSymbolVar));
 		pAlpha++;
 		pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Add), pExpr, pExprLeft);
 		for ( ; pAlpha != alphaList.end(); pAlpha++) {
@@ -732,7 +732,7 @@ Gura_ImplementFunction(least_square)
 			pExprLeft = new Expr_BinaryOp(env.GetOperator(OPTYPE_Mul),
 				new Expr_Value(*pAlpha),
 				new Expr_BinaryOp(env.GetOperator(OPTYPE_Pow),
-					new Expr_Symbol(pSymbolVar),
+					new Expr_Identifier(pSymbolVar),
 					new Expr_Value(n)));
 			pExpr = new Expr_BinaryOp(env.GetOperator(OPTYPE_Add), pExpr, pExprLeft);
 		}
@@ -1142,7 +1142,7 @@ Gura_ModuleTerminate()
 Expr_Caller *CreateExprCaller(const Symbol *pSymbol, Expr *pExprArg)
 {
 	return new Expr_Caller(
-		new Expr_Member(new Expr_Symbol(Gura_Symbol(math)), new Expr_Symbol(pSymbol)),
+		new Expr_Member(new Expr_Identifier(Gura_Symbol(math)), new Expr_Identifier(pSymbol)),
 		new Expr_Lister(pExprArg), NULL);
 }
 

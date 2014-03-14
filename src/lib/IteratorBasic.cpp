@@ -717,11 +717,11 @@ bool Iterator_MemberMap::DoNext(Environment &env, Signal sig, Value &value)
 		pFundEach = valueThisEach.ExtractFundamental(sig);
 		if (sig.IsSignalled()) return false;
 	}
-	if (_pExpr->IsSymbol()) {
+	if (_pExpr->IsIdentifier()) {
 		SeqPostHandler *pSeqPostHandler = NULL;
-		const Expr_Symbol *pExprSymbol =
-							dynamic_cast<const Expr_Symbol *>(_pExpr.get());
-		value = pExprSymbol->Exec(*pFundEach, sig, valueThisEach, pSeqPostHandler);
+		const Expr_Identifier *pExprIdentifier =
+							dynamic_cast<const Expr_Identifier *>(_pExpr.get());
+		value = pExprIdentifier->Exec(*pFundEach, sig, valueThisEach, pSeqPostHandler);
 	} else {
 		SeqPostHandler *pSeqPostHandler = NULL;
 		value = _pExpr->Exec2(*pFundEach, sig, pSeqPostHandler);

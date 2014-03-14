@@ -86,9 +86,9 @@ String ValueTypeInfo::MakeFullName() const
 Expr *ValueTypeInfo::MakeExpr() const
 {
 	if (_pModule == NULL) {
-		return new Expr_Symbol(_pSymbol);
+		return new Expr_Identifier(_pSymbol);
 	}
-	return new Expr_Member(_pModule->MakeExpr(), new Expr_Symbol(_pSymbol));
+	return new Expr_Member(_pModule->MakeExpr(), new Expr_Identifier(_pSymbol));
 }
 
 //-----------------------------------------------------------------------------

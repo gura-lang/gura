@@ -29,7 +29,7 @@ const char *GetExprTypeName(ExprType exprType)
 		{ EXPRTYPE_Indexer,			"indexer",			},
 		{ EXPRTYPE_Caller,			"caller",			},
 		{ EXPRTYPE_Value,			"value",			},
-		{ EXPRTYPE_Symbol,			"symbol",			},
+		{ EXPRTYPE_Identifier,		"identifier",		},
 		{ EXPRTYPE_Suffixed,		"suffixed",			},
 	};
 	for (int i = 0; i < ArraySizeOf(tbl); i++) {
@@ -53,7 +53,7 @@ const char *GetExprTypeName(ExprType exprType)
 //        +- Expr_Compound <--+- Expr_Indexer
 //        |                   `- Expr_Caller
 //        +- Expr_Value
-//        +- Expr_Symbol
+//        +- Expr_Identifier
 //        `- Expr_Suffixed
 //-----------------------------------------------------------------------------
 Expr::Expr(ExprType exprType) : _exprType(exprType),
@@ -166,17 +166,17 @@ bool Expr::GetChainedSymbolList(SymbolList &symbolList) const
 	for (const Expr *pExpr = this; ; ) {
 		if (pExpr->IsMember()) {
 			const Expr_Member *pExprMember = dynamic_cast<const Expr_Member *>(pExpr);
-			if (pExprMember->GetRight()->IsSymbol()) {
-				const Expr_Symbol *pExprSymbol =
-						dynamic_cast<const Expr_Symbol *>(pExprMember->GetRight());
-				symbolList.insert(symbolList.begin(), pExprSymbol->GetSymbol());
+			if (pExprMember->GetRight()->IsIdentifier()) {
+				const Expr_Identifier *pExprIdentifier =
+						dynamic_cast<const Expr_Identifier *>(pExprMember->GetRight());
+				symbolList.insert(symbolList.begin(), pExprIdentifier->GetSymbol());
 				pExpr = pExprMember->GetLeft();
 			} else {
 				return false;
 			}
-		} else if (pExpr->IsSymbol()) {
-			const Expr_Symbol *pExprSymbol = dynamic_cast<const Expr_Symbol *>(pExpr);
-			symbolList.insert(symbolList.begin(), pExprSymbol->GetSymbol());
+		} else if (pExpr->IsIdentifier()) {
+			const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExpr);
+			symbolList.insert(symbolList.begin(), pExprIdentifier->GetSymbol());
 			break;
 		} else {
 			return false;
@@ -271,7 +271,7 @@ bool Expr::IsIndexer() const		{ return false; }
 bool Expr::IsCaller() const			{ return false; }
 // type chekers - others
 bool Expr::IsValue() const			{ return false; }
-bool Expr::IsSymbol() const			{ return false; }
+bool Expr::IsIdentifier() const		{ return false; }
 bool Expr::IsSuffixed() const		{ return false; }
 
 bool Expr::IsParentOf(const Expr *pExpr) const
@@ -369,9 +369,9 @@ Expr::ScriptStyle Expr::SymbolToScriptStyle(const Symbol *pSymbol)
 //-----------------------------------------------------------------------------
 bool Expr::ExprVisitor_GatherSymbol::Visit(const Expr *pExpr)
 {
-	if (pExpr->IsSymbol()) {
-		const Expr_Symbol *pExprSym = dynamic_cast<const Expr_Symbol *>(pExpr);
-		_symbolSet.insert(pExprSym->GetSymbol());
+	if (pExpr->IsIdentifier()) {
+		const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExpr);
+		_symbolSet.insert(pExprIdentifier->GetSymbol());
 	}
 	return true;
 }
@@ -385,15 +385,15 @@ bool Expr::ExprVisitor_GatherSimpleLambdaArgs::Visit(const Expr *pExpr)
 		// avoid searching in a simple lambda inside
 		const Expr *pExprCar =
 					dynamic_cast<const Expr_Caller *>(pExpr)->GetCar();
-		if (pExprCar->IsSymbol()) {
+		if (pExprCar->IsIdentifier()) {
 			const Symbol *pSymbol =
-					dynamic_cast<const Expr_Symbol *>(pExprCar)->GetSymbol();
+					dynamic_cast<const Expr_Identifier *>(pExprCar)->GetSymbol();
 			if (pSymbol->IsIdentical(Gura_Symbol(Char_And))) return false;
 		}
 		
-	} else if (pExpr->IsSymbol()) {
+	} else if (pExpr->IsIdentifier()) {
 		const Symbol *pSymbol =
-						dynamic_cast<const Expr_Symbol *>(pExpr)->GetSymbol();
+						dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol();
 		if (pSymbol->GetName()[0] == '$' &&
 								_symbolSet.find(pSymbol) == _symbolSet.end()) {
 			_exprOwnerArg.push_back(pExpr->Reference());
@@ -911,16 +911,16 @@ bool Expr_Value::GenerateScript(Signal sig, SimpleStream &stream,
 }
 
 //-----------------------------------------------------------------------------
-// Expr_Symbol
+// Expr_Identifier
 //-----------------------------------------------------------------------------
-bool Expr_Symbol::IsSymbol() const { return true; }
+bool Expr_Identifier::IsIdentifier() const { return true; }
 
-Expr *Expr_Symbol::Clone() const
+Expr *Expr_Identifier::Clone() const
 {
-	return new Expr_Symbol(*this);
+	return new Expr_Identifier(*this);
 }
 
-Callable *Expr_Symbol::LookupCallable(Environment &env, Signal sig) const
+Callable *Expr_Identifier::LookupCallable(Environment &env, Signal sig) const
 {
 	Value rtn = env.GetProp(env, sig, GetSymbol(), GetAttrs());
 	if (sig.IsSignalled()) {
@@ -930,7 +930,7 @@ Callable *Expr_Symbol::LookupCallable(Environment &env, Signal sig) const
 	return rtn.GetObject();
 }
 
-Value Expr_Symbol::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
+Value Expr_Identifier::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
 {
 	Value result = env.GetProp(env, sig, GetSymbol(), GetAttrs());
 	if (sig.IsSignalled()) return Value::Null;
@@ -938,7 +938,7 @@ Value Expr_Symbol::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPost
 	return result;
 }
 
-Value Expr_Symbol::Exec(Environment &env, Signal sig,
+Value Expr_Identifier::Exec(Environment &env, Signal sig,
 				const Value &valueThis, SeqPostHandler *pSeqPostHandler) const
 {
 	if (valueThis.IsPrimitive()) {
@@ -959,7 +959,7 @@ Value Expr_Symbol::Exec(Environment &env, Signal sig,
 	return rtn;
 }
 
-Value Expr_Symbol::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
+Value Expr_Identifier::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const
 {
 	bool evaluatedFlag = false;
@@ -1039,29 +1039,29 @@ Value Expr_Symbol::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
 	return valueAssigned;
 }
 
-void Expr_Symbol::Accept(ExprVisitor &visitor) const
+void Expr_Identifier::Accept(ExprVisitor &visitor) const
 {
 	visitor.Visit(this);
 }
 
-Expr *Expr_Symbol::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
+Expr *Expr_Identifier::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
 {
 	Number num = GetSymbol()->IsIdentical(pSymbol)? 1 : 0;
 	return new Expr_Value(num);
 }
 
-Expr *Expr_Symbol::MathOptimize(Environment &env, Signal sig) const
+Expr *Expr_Identifier::MathOptimize(Environment &env, Signal sig) const
 {
 	return Clone();
 }
 
-bool Expr_Symbol::GenerateCode(Environment &env, Signal sig, Stream &stream)
+bool Expr_Identifier::GenerateCode(Environment &env, Signal sig, Stream &stream)
 {
-	stream.Println(sig, "Symbol");
+	stream.Println(sig, "Identifier");
 	return true;
 }
 
-bool Expr_Symbol::GenerateScript(Signal sig, SimpleStream &stream,
+bool Expr_Identifier::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
 	if (!GenerateScriptHead(sig, stream, scriptStyle, nestLevel)) return false;
@@ -1069,7 +1069,7 @@ bool Expr_Symbol::GenerateScript(Signal sig, SimpleStream &stream,
 	return true;
 }
 
-bool Expr_Symbol::GenerateScriptHead(Signal sig, SimpleStream &stream,
+bool Expr_Identifier::GenerateScriptHead(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
 	stream.Print(sig, GetSymbol()->GetName());
@@ -1077,7 +1077,7 @@ bool Expr_Symbol::GenerateScriptHead(Signal sig, SimpleStream &stream,
 	return true;
 }
 
-bool Expr_Symbol::GenerateScriptTail(Signal sig, SimpleStream &stream,
+bool Expr_Identifier::GenerateScriptTail(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
 	const Symbol *pSymbolFront = Gura_Symbol(Str_Empty);
@@ -1823,9 +1823,9 @@ bool Expr_Indexer::GenerateCode(Environment &env, Signal sig, Stream &stream)
 bool Expr_Indexer::GenerateScript(Signal sig, SimpleStream &stream,
 								ScriptStyle scriptStyle, int nestLevel) const
 {
-	if (GetCar()->IsSymbol()) {
-		const Expr_Symbol *pExprSymbol = dynamic_cast<const Expr_Symbol *>(GetCar());
-		if (!pExprSymbol->GenerateScriptHead(sig, stream, scriptStyle, nestLevel)) return false;
+	if (GetCar()->IsIdentifier()) {
+		const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(GetCar());
+		if (!pExprIdentifier->GenerateScriptHead(sig, stream, scriptStyle, nestLevel)) return false;
 		stream.PutChar(sig, '[');
 		if (sig.IsSignalled()) return false;
 		if (GetExprOwner().empty()) {
@@ -1839,7 +1839,7 @@ bool Expr_Indexer::GenerateScript(Signal sig, SimpleStream &stream,
 		}
 		stream.PutChar(sig, ']');
 		if (sig.IsSignalled()) return false;
-		if (!pExprSymbol->GenerateScriptTail(sig, stream, scriptStyle, nestLevel)) return false;
+		if (!pExprIdentifier->GenerateScriptTail(sig, stream, scriptStyle, nestLevel)) return false;
 		return true;
 	} else {
 		bool needParenthesisFlag = false;
@@ -2052,20 +2052,20 @@ Value Expr_Caller::EvalEach(Environment &env, Signal sig, const Value &valueThis
 			return Value::Null;
 		}
 	}
-	if (pExprRight->IsSymbol()) {
+	if (pExprRight->IsIdentifier()) {
 		pCallable = pFund->GetCallable(sig,
-					dynamic_cast<const Expr_Symbol *>(pExprRight)->GetSymbol());
+					dynamic_cast<const Expr_Identifier *>(pExprRight)->GetSymbol());
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(this);
 			return Value::Null;
 		}
 	}
 	if (pCallable == NULL) {
-		if (pExprRight->IsSymbol()) {
+		if (pExprRight->IsIdentifier()) {
 			SeqPostHandler *pSeqPostHandler = NULL;
-			const Expr_Symbol *pExprSymbol =
-								dynamic_cast<const Expr_Symbol *>(pExprRight);
-			valueCar = pExprSymbol->Exec(*pFund, sig, valueThis, pSeqPostHandler);
+			const Expr_Identifier *pExprIdentifier =
+								dynamic_cast<const Expr_Identifier *>(pExprRight);
+			valueCar = pExprIdentifier->Exec(*pFund, sig, valueThis, pSeqPostHandler);
 		} else {
 			SeqPostHandler *pSeqPostHandler = NULL;
 			valueCar = pExprRight->Exec2(*pFund, sig, pSeqPostHandler);
@@ -2104,15 +2104,15 @@ Value Expr_Caller::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
 	if (GetCar()->IsMember()) {
 		const Expr_Member *pExprMember =
 						dynamic_cast<const Expr_Member *>(GetCar());
-		if (pExprMember->GetRight()->IsSymbol()) {
-			const Expr_Symbol *pExprSym =
-						dynamic_cast<const Expr_Symbol *>(pExprMember->GetRight());
-			pSymbol = pExprSym->GetSymbol();
+		if (pExprMember->GetRight()->IsIdentifier()) {
+			const Expr_Identifier *pExprIdentifier =
+						dynamic_cast<const Expr_Identifier *>(pExprMember->GetRight());
+			pSymbol = pExprIdentifier->GetSymbol();
 		}
-	} else if (GetCar()->IsSymbol()) {
-		const Expr_Symbol *pExprSym =
-						dynamic_cast<const Expr_Symbol *>(GetCar());
-		pSymbol = pExprSym->GetSymbol();
+	} else if (GetCar()->IsIdentifier()) {
+		const Expr_Identifier *pExprIdentifier =
+						dynamic_cast<const Expr_Identifier *>(GetCar());
+		pSymbol = pExprIdentifier->GetSymbol();
 	} else {
 		SetError(sig, ERR_SyntaxError, "invalid function expression");
 		return Value::Null;
@@ -2209,8 +2209,8 @@ bool Expr_Caller::GenerateScript(Signal sig, SimpleStream &stream,
 {
 	bool argListFlag = !GetExprOwner().empty() ||
 									!_attrs.empty() || _pExprBlock.IsNull();
-	if (_pExprCar->IsSymbol()) {
-		const Symbol *pSymbol = dynamic_cast<const Expr_Symbol *>(GetCar())->GetSymbol();
+	if (_pExprCar->IsIdentifier()) {
+		const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(GetCar())->GetSymbol();
 		if (!_pExprCar->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
 		if (pSymbol->IsFlowControlSymbol() && argListFlag) {
 			stream.PutChar(sig, ' ');
@@ -2544,10 +2544,10 @@ const Expr *Expr_Quote::Unquote() const
 Value Expr_Quote::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const
 {
 	Value result;
-	if (GetChild()->IsSymbol()) {
-		const Expr_Symbol *pExprSym =
-						dynamic_cast<const Expr_Symbol *>(GetChild());
-		result.SetSymbol(pExprSym->GetSymbol());
+	if (GetChild()->IsIdentifier()) {
+		const Expr_Identifier *pExprIdentifier =
+						dynamic_cast<const Expr_Identifier *>(GetChild());
+		result.SetSymbol(pExprIdentifier->GetSymbol());
 	} else {
 		result = Value(new Object_expr(env, Expr::Reference(GetChild())));
 	}
@@ -2719,11 +2719,11 @@ Value Expr_Member::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPost
 	Mode mode = GetMode();
 	if (mode == MODE_Normal) {
 		const Expr *pExprRight = GetRight();
-		if (pExprRight->IsSymbol()) {
+		if (pExprRight->IsIdentifier()) {
 			SeqPostHandler *pSeqPostHandlerRight = NULL;
-			const Expr_Symbol *pExprSymbol =
-								dynamic_cast<const Expr_Symbol *>(pExprRight);
-			result = pExprSymbol->Exec(*pFund, sig, valueThis, pSeqPostHandlerRight);
+			const Expr_Identifier *pExprIdentifier =
+								dynamic_cast<const Expr_Identifier *>(pExprRight);
+			result = pExprIdentifier->Exec(*pFund, sig, valueThis, pSeqPostHandlerRight);
 		} else {
 			SeqPostHandler *pSeqPostHandlerRight = NULL;
 			result = pExprRight->Exec2(*pFund, sig, pSeqPostHandlerRight);
@@ -2817,9 +2817,9 @@ bool Expr_Member::GenerateScript(Signal sig, SimpleStream &stream,
 		const Expr_Indexer *pExprIndexer = dynamic_cast<const Expr_Indexer *>(pExprLeft);
 		pExprLeft = pExprIndexer->GetCar();
 	}
-	if (pExprLeft->IsSymbol()) {
-		const Expr_Symbol *pExprSymbol = dynamic_cast<const Expr_Symbol *>(pExprLeft);
-		needParenthesisFlag = !pExprSymbol->GetAttrs().empty();
+	if (pExprLeft->IsIdentifier()) {
+		const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExprLeft);
+		needParenthesisFlag = !pExprIdentifier->GetAttrs().empty();
 	} else if (pExprLeft->IsCaller()) {
 		const Expr_Caller *pExprCaller = dynamic_cast<const Expr_Caller *>(pExprLeft);
 		needParenthesisFlag = !pExprCaller->GetAttrs().empty();

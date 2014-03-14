@@ -67,12 +67,12 @@ Declaration *Declaration::Create(Environment &env, Signal sig, const Expr *pExpr
 		pExpr = dynamic_cast<const Expr_Indexer *>(pExpr)->GetCar();
 		flags |= FLAG_List;
 	}
-	if (!pExpr->IsSymbol()) {
+	if (!pExpr->IsIdentifier()) {
 		sig.SetError(ERR_SyntaxError, "invalid argument expression");
 		return NULL;
 	}
-	const Expr_Symbol *pExprSym = dynamic_cast<const Expr_Symbol *>(pExpr);
-	const SymbolList &attrFront = pExprSym->GetAttrFront();
+	const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExpr);
+	const SymbolList &attrFront = pExprIdentifier->GetAttrFront();
 	const Symbol *pSymbolForType = NULL;
 	if (!attrFront.empty()) {
 		if (valType != VTYPE_any) {
@@ -85,7 +85,7 @@ Declaration *Declaration::Create(Environment &env, Signal sig, const Expr *pExpr
 			valType = pValueTypeInfo->GetValueType();
 		}
 	}
-	foreach_const (SymbolSet, ppSymbol, pExprSym->GetAttrs()) {
+	foreach_const (SymbolSet, ppSymbol, pExprIdentifier->GetAttrs()) {
 		const Symbol *pSymbol = *ppSymbol;
 		if (pSymbol->IsIdentical(Gura_Symbol(nomap))) {
 			flags |= FLAG_NoMap;
@@ -104,7 +104,7 @@ Declaration *Declaration::Create(Environment &env, Signal sig, const Expr *pExpr
 				"cannot accept a symbol %s in argument declaration", pSymbol->GetName());
 		}
 	}
-	return new Declaration(pExprSym->GetSymbol(), valType, occurPattern, flags, pExprDefault);
+	return new Declaration(pExprIdentifier->GetSymbol(), valType, occurPattern, flags, pExprDefault);
 }
 
 // value will be casted only when that is valid for declaration.
@@ -313,12 +313,12 @@ bool DeclarationList::Compensate(Environment &env, Signal sig, ValueList &valLis
 			if (pExpr->IsQuote()) {
 				pExpr = dynamic_cast<const Expr_Quote *>(pExpr)->GetChild();
 			}
-			if (!pExpr->IsSymbol()) {
-				sig.SetError(ERR_TypeError, "symbol is expected");
+			if (!pExpr->IsIdentifier()) {
+				sig.SetError(ERR_TypeError, "identifier is expected");
 				return false;
 			}
 			const Symbol *pSymbol =
-						dynamic_cast<const Expr_Symbol *>(pExpr)->GetSymbol();
+						dynamic_cast<const Expr_Identifier *>(pExpr)->GetSymbol();
 			value = Value(pSymbol);
 		} else {
 			SeqPostHandler *pSeqPostHandler = NULL;
@@ -412,13 +412,13 @@ bool DeclarationOwner::Declare(Environment &env, Signal sig, const ExprList &exp
 			const Symbol *pSymbol = pExprUnaryOp->GetOperator()->GetSymbol();
 			if (pSymbol->IsIdentical(Gura_Symbol(Char_Mod))) {
 				const Expr *pExprChild = pExprUnaryOp->GetChild();
-				if (!pExprChild->IsSymbol()) {
+				if (!pExprChild->IsIdentifier()) {
 					sig.SetError(ERR_SyntaxError,
 									"invalid expression for declaration");
 					return false;
 				}
 				SetSymbolDict(
-						dynamic_cast<const Expr_Symbol *>(pExprChild)->GetSymbol());
+						dynamic_cast<const Expr_Identifier *>(pExprChild)->GetSymbol());
 				continue;
 			}
 		}
