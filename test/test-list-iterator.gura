@@ -1,10 +1,10 @@
 #!/usr/bin/env gura
 import(testutil) {*}
 
-assign_tester(container):dynamic_scope {`block} = {
+assign_tester(collection):dynamic_scope {`block} = {
 	block.eval()
-	println(block, ' .. ', container):nomap
-	container.clear()
+	println(block, ' .. ', collection):nomap
+	collection.clear()
 }
 testcase {
 	f(n):map = n

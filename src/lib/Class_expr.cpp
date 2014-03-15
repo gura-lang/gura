@@ -101,11 +101,11 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		sig.SetError(ERR_ValueError, "not a unary expression");
 		return Value::Null;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(children))) {
-		if (GetExpr()->IsContainer()) {
-			const Expr_Container *pExpr = dynamic_cast<const Expr_Container *>(GetExpr());
+		if (GetExpr()->IsCollector()) {
+			const Expr_Collector *pExpr = dynamic_cast<const Expr_Collector *>(GetExpr());
 			return Value(new Object_iterator(env, new ExprOwner::Iterator(pExpr->GetExprOwner().Reference())));
 		}
-		sig.SetError(ERR_ValueError, "not a container expression");
+		sig.SetError(ERR_ValueError, "not a collector expression");
 		return Value::Null;
 	} else if (pSymbol->IsIdentical(Gura_Symbol(left))) {
 		if (GetExpr()->IsBinary()) {
@@ -374,8 +374,8 @@ ImplementTypeChecker(isbinary,		IsBinary)
 ImplementTypeChecker(isbinaryop,	IsBinaryOp)
 ImplementTypeChecker(isassign,		IsAssign)
 ImplementTypeChecker(ismember,		IsMember)
-// type chekers - Container and descendants
-ImplementTypeChecker(iscontainer,	IsContainer)
+// type chekers - Collector and descendants
+ImplementTypeChecker(iscollector,	IsCollector)
 ImplementTypeChecker(isroot,		IsRoot)
 ImplementTypeChecker(isblock,		IsBlock)
 ImplementTypeChecker(islister,		IsLister)
@@ -414,8 +414,8 @@ void Class_expr::Prepare(Environment &env)
 	Gura_AssignMethod(expr,	isbinaryop);
 	Gura_AssignMethod(expr,	isassign);
 	Gura_AssignMethod(expr,	ismember);
-	// type chekers - Container and descendants
-	Gura_AssignMethod(expr,	iscontainer);
+	// type chekers - Collector and descendants
+	Gura_AssignMethod(expr,	iscollector);
 	Gura_AssignMethod(expr,	isroot);
 	Gura_AssignMethod(expr,	isblock);
 	Gura_AssignMethod(expr,	islister);

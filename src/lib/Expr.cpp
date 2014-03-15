@@ -49,7 +49,7 @@ const char *GetExprTypeName(ExprType exprType)
 //        +- Expr_Binary <----+- Expr_BinaryOp
 //        |                   +- Expr_Assign
 //        |                   `- Expr_Member
-//        +- Expr_Container <-+- Expr_Root
+//        +- Expr_Collector <-+- Expr_Root
 //        |                   +- Expr_Block
 //        |                   +- Expr_Lister
 //        |                   `- Expr_Iterer
@@ -259,8 +259,8 @@ bool Expr::IsBinary() const			{ return false; }
 bool Expr::IsBinaryOp() const		{ return false; }
 bool Expr::IsAssign() const			{ return false; }
 bool Expr::IsMember() const			{ return false; }
-// type chekers - Container and descendants
-bool Expr::IsContainer() const		{ return false; }
+// type chekers - Collector and descendants
+bool Expr::IsCollector() const		{ return false; }
 bool Expr::IsRoot() const			{ return false; }
 bool Expr::IsBlock() const			{ return false; }
 bool Expr::IsLister() const			{ return false; }
@@ -1146,40 +1146,40 @@ bool Expr_Binary::IsParentOf(const Expr *pExpr) const
 }
 
 //-----------------------------------------------------------------------------
-// Expr_Container
+// Expr_Collector
 //-----------------------------------------------------------------------------
-bool Expr_Container::IsContainer() const { return true; }
+bool Expr_Collector::IsCollector() const { return true; }
 
-Expr_Container::Expr_Container(ExprType exprType) :
+Expr_Collector::Expr_Collector(ExprType exprType) :
 						Expr(exprType), _pExprOwner(new ExprOwner())
 {
 }
 
-Expr_Container::Expr_Container(ExprType exprType, ExprOwner *pExprOwner) :
+Expr_Collector::Expr_Collector(ExprType exprType, ExprOwner *pExprOwner) :
 						Expr(exprType), _pExprOwner(pExprOwner)
 {
 }
 
-Expr_Container::Expr_Container(const Expr_Container &expr) : Expr(expr), _pExprOwner(new ExprOwner())
+Expr_Collector::Expr_Collector(const Expr_Collector &expr) : Expr(expr), _pExprOwner(new ExprOwner())
 {
 	foreach_const (ExprOwner, ppExpr, expr.GetExprOwner()) {
 		AddExpr((*ppExpr)->Clone());
 	}
 }
 
-Expr_Container::~Expr_Container()
+Expr_Collector::~Expr_Collector()
 {
 	GetExprOwner().SetParent(GetParent());
 }
 
-void Expr_Container::Accept(ExprVisitor &visitor) const
+void Expr_Collector::Accept(ExprVisitor &visitor) const
 {
 	if (visitor.Visit(this)) {
 		GetExprOwner().Accept(visitor);
 	}
 }
 
-bool Expr_Container::IsParentOf(const Expr *pExpr) const
+bool Expr_Collector::IsParentOf(const Expr *pExpr) const
 {
 	return GetExprOwner().IsContained(pExpr);
 }
@@ -1189,11 +1189,11 @@ bool Expr_Container::IsParentOf(const Expr *pExpr) const
 //-----------------------------------------------------------------------------
 bool Expr_Root::IsRoot() const { return true; }
 
-Expr_Root::Expr_Root() : Expr_Container(EXPRTYPE_Root)
+Expr_Root::Expr_Root() : Expr_Collector(EXPRTYPE_Root)
 {
 }
 
-Expr_Root::Expr_Root(const Expr_Root &expr) : Expr_Container(expr)
+Expr_Root::Expr_Root(const Expr_Root &expr) : Expr_Collector(expr)
 {
 }
 
@@ -1232,16 +1232,16 @@ bool Expr_Root::GenerateScript(Signal sig, SimpleStream &stream,
 //-----------------------------------------------------------------------------
 bool Expr_Block::IsBlock() const { return true; }
 
-Expr_Block::Expr_Block() : Expr_Container(EXPRTYPE_Block)
+Expr_Block::Expr_Block() : Expr_Collector(EXPRTYPE_Block)
 {
 }
 
 Expr_Block::Expr_Block(ExprOwner *pExprOwner, ExprOwner *pExprOwnerParam) :
-	Expr_Container(EXPRTYPE_Block, pExprOwner), _pExprOwnerParam(pExprOwnerParam)
+	Expr_Collector(EXPRTYPE_Block, pExprOwner), _pExprOwnerParam(pExprOwnerParam)
 {
 }
 
-Expr_Block::Expr_Block(const Expr_Block &expr) : Expr_Container(expr)
+Expr_Block::Expr_Block(const Expr_Block &expr) : Expr_Collector(expr)
 {
 	if (expr.GetExprOwnerParam() != NULL) {
 		SetExprOwnerParam(new ExprOwner());
@@ -1309,7 +1309,7 @@ Expr *Expr_Block::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) 
 void Expr_Block::Accept(ExprVisitor &visitor) const
 {
 	if (GetExprOwnerParam() != NULL) GetExprOwnerParam()->Accept(visitor);
-	Expr_Container::Accept(visitor);
+	Expr_Collector::Accept(visitor);
 }
 
 bool Expr_Block::GenerateCode(Environment &env, Signal sig, Stream &stream)

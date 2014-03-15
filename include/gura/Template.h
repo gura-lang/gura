@@ -91,7 +91,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_TmplScript
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_TmplScript : public Expr_Container {
+class GURA_DLLDECLARE Expr_TmplScript : public Expr_Collector {
 public:
 	class GURA_DLLDECLARE SequenceEx : public Sequence {
 	public:
@@ -109,11 +109,11 @@ public:
 	inline Expr_TmplScript(Template *pTemplate,
 							const String &strIndent, const String &strPost,
 							bool autoIndentFlag, bool appendLastEOLFlag) :
-			Expr_Container(EXPRTYPE_None), _pTemplate(pTemplate),
+			Expr_Collector(EXPRTYPE_None), _pTemplate(pTemplate),
 			_strIndent(strIndent), _strPost(strPost),
 			_autoIndentFlag(autoIndentFlag), _appendLastEOLFlag(appendLastEOLFlag) {}
 	inline Expr_TmplScript(const Expr_TmplScript &expr) :
-			Expr_Container(expr), _pTemplate(expr._pTemplate),
+			Expr_Collector(expr), _pTemplate(expr._pTemplate),
 			_strIndent(expr._strIndent), _strPost(expr._strPost),
 			_autoIndentFlag(expr._autoIndentFlag), _appendLastEOLFlag(expr._appendLastEOLFlag) {}
 	inline void SetStringIndent(const String &strIndent) { _strIndent = strIndent; }

@@ -87,7 +87,7 @@ public:
 //        +- Expr_Binary <----+- Expr_BinaryOp
 //        |                   +- Expr_Assign
 //        |                   `- Expr_Member
-//        +- Expr_Container <-+- Expr_Root
+//        +- Expr_Collector <-+- Expr_Root
 //        |                   +- Expr_Block
 //        |                   +- Expr_Lister
 //        |                   `- Expr_Iterer
@@ -208,8 +208,8 @@ public:
 	virtual bool IsBinaryOp() const;
 	virtual bool IsAssign() const;
 	virtual bool IsMember() const;
-	// type chekers - Container and descendants
-	virtual bool IsContainer() const;
+	// type chekers - Collector and descendants
+	virtual bool IsCollector() const;
 	virtual bool IsRoot() const;
 	virtual bool IsBlock() const;
 	virtual bool IsLister() const;
@@ -468,20 +468,20 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-// Expr_Container
+// Expr_Collector
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_Container : public Expr {
+class GURA_DLLDECLARE Expr_Collector : public Expr {
 protected:
 	AutoPtr<ExprOwner> _pExprOwner;
 public:
-	Expr_Container(ExprType exprType);
-	Expr_Container(ExprType exprType, ExprOwner *pExprOwner);
-	Expr_Container(const Expr_Container &expr);
-	inline static Expr_Container *Reference(const Expr_Container *pExpr) {
-		return dynamic_cast<Expr_Container *>(Expr::Reference(pExpr));
+	Expr_Collector(ExprType exprType);
+	Expr_Collector(ExprType exprType, ExprOwner *pExprOwner);
+	Expr_Collector(const Expr_Collector &expr);
+	inline static Expr_Collector *Reference(const Expr_Collector *pExpr) {
+		return dynamic_cast<Expr_Collector *>(Expr::Reference(pExpr));
 	}
-	virtual bool IsContainer() const;
-	virtual ~Expr_Container();
+	virtual bool IsCollector() const;
+	virtual ~Expr_Collector();
 	virtual void Accept(ExprVisitor &visitor) const;
 	virtual bool IsParentOf(const Expr *pExpr) const;
 	inline void AddExpr(Expr *pExpr) {
@@ -495,7 +495,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_Root
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_Root : public Expr_Container {
+class GURA_DLLDECLARE Expr_Root : public Expr_Collector {
 public:
 	Expr_Root();
 	Expr_Root(const Expr_Root &expr);
@@ -513,7 +513,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_Block
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_Block : public Expr_Container {
+class GURA_DLLDECLARE Expr_Block : public Expr_Collector {
 protected:
 	AutoPtr<ExprOwner> _pExprOwnerParam;		// this may be NULL
 public:
@@ -542,7 +542,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_Lister
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_Lister : public Expr_Container {
+class GURA_DLLDECLARE Expr_Lister : public Expr_Collector {
 public:
 	class GURA_DLLDECLARE SequenceEx : public Sequence {
 	public:
@@ -551,11 +551,11 @@ public:
 		virtual String ToString() const;
 	};
 public:
-	inline Expr_Lister() : Expr_Container(EXPRTYPE_Lister) {}
-	inline Expr_Lister(Expr *pExpr) : Expr_Container(EXPRTYPE_Lister) {
+	inline Expr_Lister() : Expr_Collector(EXPRTYPE_Lister) {}
+	inline Expr_Lister(Expr *pExpr) : Expr_Collector(EXPRTYPE_Lister) {
 		AddExpr(pExpr);
 	}
-	inline Expr_Lister(const Expr_Lister &expr) : Expr_Container(expr) {}
+	inline Expr_Lister(const Expr_Lister &expr) : Expr_Collector(expr) {}
 	inline static Expr_Lister *Reference(const Expr_Lister *pExpr) {
 		return dynamic_cast<Expr_Lister *>(Expr::Reference(pExpr));
 	}
@@ -572,7 +572,7 @@ public:
 //-----------------------------------------------------------------------------
 // Expr_Iterer
 //-----------------------------------------------------------------------------
-class GURA_DLLDECLARE Expr_Iterer : public Expr_Container {
+class GURA_DLLDECLARE Expr_Iterer : public Expr_Collector {
 public:
 	class GURA_DLLDECLARE SequenceEx : public Sequence {
 	public:
@@ -581,11 +581,11 @@ public:
 		virtual String ToString() const;
 	};
 public:
-	inline Expr_Iterer() : Expr_Container(EXPRTYPE_Iterer) {}
-	inline Expr_Iterer(Expr *pExpr) : Expr_Container(EXPRTYPE_Iterer) {
+	inline Expr_Iterer() : Expr_Collector(EXPRTYPE_Iterer) {}
+	inline Expr_Iterer(Expr *pExpr) : Expr_Collector(EXPRTYPE_Iterer) {
 		AddExpr(pExpr);
 	}
-	inline Expr_Iterer(const Expr_Iterer &expr) : Expr_Container(expr) {}
+	inline Expr_Iterer(const Expr_Iterer &expr) : Expr_Collector(expr) {}
 	inline static Expr_Iterer *Reference(const Expr_Iterer *pExpr) {
 		return dynamic_cast<Expr_Iterer *>(Expr::Reference(pExpr));
 	}
