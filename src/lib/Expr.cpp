@@ -1661,7 +1661,7 @@ Value Expr_Indexer::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPos
 	SeqPostHandler *pSeqPostHandlerCar = NULL;
 	Value valueCar = GetCar()->Exec2(env, sig, pSeqPostHandlerCar);
 	if (sig.IsSignalled()) return Value::Null;
-	const ExprList &exprList = GetLister()->GetExprOwner();
+	const ExprList &exprList = GetExprOwner();
 	Value result;
 	if (exprList.empty()) {
 		result = valueCar.EmptyIndexGet(env, sig);
@@ -1726,7 +1726,7 @@ Value Expr_Indexer::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
 	SeqPostHandler *pSeqPostHandlerCar = NULL;
 	Value valueCar = GetCar()->Exec2(env, sig, pSeqPostHandlerCar);
 	if (sig.IsSignalled()) return Value::Null;
-	const ExprList &exprList = GetLister()->GetExprOwner();
+	const ExprList &exprList = GetExprOwner();
 	if (exprList.empty()) {
 		valueCar.EmptyIndexSet(env, sig, valueAssigned);
 		if (sig.IsSignalled()) return Value::Null;
@@ -1810,7 +1810,7 @@ void Expr_Indexer::Accept(ExprVisitor &visitor) const
 {
 	if (visitor.Visit(this)) {
 		GetCar()->Accept(visitor);
-		GetLister()->Accept(visitor);
+		GetExprOwner().Accept(visitor);
 	}
 }
 
@@ -1834,7 +1834,7 @@ bool Expr_Indexer::GenerateScript(Signal sig, SimpleStream &stream,
 			stream.Print(sig, " .. ");
 			if (sig.IsSignalled()) return false;
 		} else {
-			if (!GetLister()->GetExprOwner().GenerateScript(sig, stream,
+			if (!GetExprOwner().GenerateScript(sig, stream,
 								scriptStyle, nestLevel, SEP_Comma)) return false;
 		}
 		stream.PutChar(sig, ']');
@@ -1864,7 +1864,7 @@ bool Expr_Indexer::GenerateScript(Signal sig, SimpleStream &stream,
 			stream.Print(sig, " .. ");
 			if (sig.IsSignalled()) return false;
 		} else {
-			if (!GetLister()->GetExprOwner().GenerateScript(sig, stream,
+			if (!GetExprOwner().GenerateScript(sig, stream,
 								scriptStyle, nestLevel, SEP_Comma)) return false;
 		}
 		stream.PutChar(sig, ']');

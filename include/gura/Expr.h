@@ -615,8 +615,6 @@ public:
 	virtual bool IsParentOf(const Expr *pExpr) const;
 	inline Expr *GetCar() { return _pExprCar.get(); }
 	inline const Expr *GetCar() const { return _pExprCar.get(); }
-	inline Expr_Lister *GetLister() { return _pExprLister.get(); }
-	inline const Expr_Lister *GetLister() const { return _pExprLister.get(); }
 	inline ExprOwner &GetExprOwner() { return _pExprLister->GetExprOwner(); }
 	inline const ExprOwner &GetExprOwner() const { return _pExprLister->GetExprOwner(); }
 };
