@@ -631,8 +631,7 @@ Gura_DeclareFunction(least_square)
 	DeclareArg(env, "x", VTYPE_iterator);
 	DeclareArg(env, "y", VTYPE_iterator);
 	DeclareArg(env, "dim", VTYPE_number, OCCUR_Once, FLAG_None, new Expr_Value(1));
-	DeclareArg(env, "var", VTYPE_symbol, OCCUR_Once, FLAG_None,
-								new Expr_Quote(new Expr_Identifier(Gura_Symbol(x))));
+	DeclareArg(env, "var", VTYPE_symbol, OCCUR_Once, FLAG_None, new Expr_Value(Gura_Symbol(x)));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Calculates a least square method using a sequence of pairs of x and y,\n"
 	"and returns an expression of the fitted curve. You can specify the dimension\n"
