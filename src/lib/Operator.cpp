@@ -17,6 +17,7 @@ const char *Operator::_mathSymbolTbl[] = {
 	"!",	// OPTYPE_Not
 	"..",	// OPTYPE_SeqInf
 	"?",	// OPTYPE_Question
+	"*",	// OPTYPE_Each
 	// binary operators
 	"+",	// OPTYPE_Add
 	"-",	// OPTYPE_Sub
@@ -303,6 +304,10 @@ Expr *Operator_Neg::OptimizeExpr(Environment &env, Signal sig, Expr *pExprChild)
 
 //-----------------------------------------------------------------------------
 // Operator_Question
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Operator_Each
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
@@ -1215,6 +1220,16 @@ Gura_ImplementUnaryOperatorSuffix(Question, any)
 {
 	bool rtn = value.GetBoolean();
 	return Value(rtn);
+}
+
+//-----------------------------------------------------------------------------
+// UnaryOperator(Each, *)
+//-----------------------------------------------------------------------------
+Gura_ImplementUnaryOperatorSuffix(Each, any)
+{
+	AutoPtr<Iterator> pIterator(value.CreateIterator(sig));
+	if (pIterator.IsNull()) return Value::Null;
+	return Value(new Object_iterator(env, pIterator.release()));
 }
 
 //-----------------------------------------------------------------------------
@@ -2152,6 +2167,7 @@ void Operator::AssignOperators(Environment &env)
 	env.SetOperator(OPTYPE_Not, new Operator_Not());
 	env.SetOperator(OPTYPE_SeqInf, new Operator_SeqInf());
 	env.SetOperator(OPTYPE_Question, new Operator_Question());
+	env.SetOperator(OPTYPE_Each, new Operator_Each());
 	env.SetOperator(OPTYPE_Add, new Operator_Add());
 	env.SetOperator(OPTYPE_Sub, new Operator_Sub());
 	env.SetOperator(OPTYPE_Mul, new Operator_Mul());
@@ -2189,6 +2205,7 @@ void Operator::AssignOperators(Environment &env)
 	Gura_AssignUnaryOperator(Not, any);
 	Gura_AssignUnaryOperatorSuffix(SeqInf, number);
 	Gura_AssignUnaryOperatorSuffix(Question, any);
+	Gura_AssignUnaryOperatorSuffix(Each, any);
 	Gura_AssignBinaryOperator(Add, number, number);
 	Gura_AssignBinaryOperator(Add, number, complex);
 	Gura_AssignBinaryOperator(Add, number, rational);

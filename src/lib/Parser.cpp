@@ -1486,7 +1486,7 @@ bool Parser::ReduceTwoElems(Environment &env, Signal sig)
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Add), elem1.GetExpr(), true);
 		} else if (elem2.IsType(ETYPE_Mul)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '*'\n"));
-			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Mul), elem1.GetExpr(), true);
+			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Each), elem1.GetExpr(), true);
 		} else if (elem2.IsType(ETYPE_Question)) {
 			DBGPARSER(::printf("Reduce: Expr -> Expr '?'\n"));
 			pExpr = new Expr_UnaryOp(env.GetOperator(OPTYPE_Question), elem1.GetExpr(), true);
