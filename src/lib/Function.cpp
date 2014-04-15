@@ -311,7 +311,7 @@ Value Function::EvalMap(Environment &env, Signal sig, Args &args) const
 	for ( ; pIterator->Next(env, sig, value); n++) {
 		if (!resultComposer.Store(env, sig, value)) return Value::Null;
 	}
-	if (n == 0 && !args.IsRsltVoid()) {
+	if (n == 0 && !args.IsRsltVoid() && !args.IsRsltReduce() && !args.IsRsltXReduce()) {
 		result.InitAsList(env);
 	}
 	return result;

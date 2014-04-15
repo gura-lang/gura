@@ -134,3 +134,20 @@ testcase {
 	tester(`ident(x):flat:set)
 	tester(`ident(x):flat:xset)
 }
+testcase {
+	ident(x):map = x
+	tester(`ident([]):reduce)
+	tester(`ident([nil]):reduce)
+	tester(`ident([nil, nil]):reduce)
+	tester(`ident([nil, nil, 3]):reduce)
+	tester(`ident([nil, nil, 3, 5]):reduce)
+	tester(`ident([nil, nil, 3, 5, 3]):reduce)
+	tester(`ident([nil, nil, 3, 5, 3, nil]):reduce)
+	tester(`ident([]):xreduce)
+	tester(`ident([nil]):xreduce)
+	tester(`ident([nil, nil]):xreduce)
+	tester(`ident([nil, nil, 3]):xreduce)
+	tester(`ident([nil, nil, 3, 5]):xreduce)
+	tester(`ident([nil, nil, 3, 5, 3]):xreduce)
+	tester(`ident([nil, nil, 3, 5, 3, nil]):xreduce)
+}

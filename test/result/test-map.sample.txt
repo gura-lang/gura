@@ -195,3 +195,20 @@ ident(x):flat:list .. [nil, nil, nil, nil, nil, 5]
 ident(x):flat:xlist .. [5]
 ident(x):flat:set .. [nil, 5]
 ident(x):flat:xset .. [5]
+
+======== #10 ========
+
+ident([]):reduce .. nil
+ident([nil]):reduce .. nil
+ident([nil, nil]):reduce .. nil
+ident([nil, nil, 3]):reduce .. 3
+ident([nil, nil, 3, 5]):reduce .. 5
+ident([nil, nil, 3, 5, 3]):reduce .. 3
+ident([nil, nil, 3, 5, 3, nil]):reduce .. nil
+ident([]):xreduce .. nil
+ident([nil]):xreduce .. nil
+ident([nil, nil]):xreduce .. nil
+ident([nil, nil, 3]):xreduce .. 3
+ident([nil, nil, 3, 5]):xreduce .. 5
+ident([nil, nil, 3, 5, 3]):xreduce .. 3
+ident([nil, nil, 3, 5, 3, nil]):xreduce .. 3
