@@ -1304,3 +1304,9 @@ hello world #6
   hello world #9
   hello world #9
   hello world #9
+
+======== #23 ========
+
+str.capitalize() .. Hello, WORLD
+str.upper() .. HELLO, WORLD
+str.lower() .. hello, world
