@@ -515,9 +515,10 @@ String Capitalize(const char *str)
 		rtn += ('a' <= *p && *p <= 'z')? *p - 'a' + 'A' : *p;
 		p++;
 	}
-	for ( ; *p != '\0'; p++) {
-		rtn += ('A' <= *p && *p <= 'Z')? *p - 'A' + 'a' : *p;
-	}
+	rtn += p;
+	//for ( ; *p != '\0'; p++) {
+	//	rtn += ('A' <= *p && *p <= 'Z')? *p - 'A' + 'a' : *p;
+	//}
 	return rtn;
 }
 

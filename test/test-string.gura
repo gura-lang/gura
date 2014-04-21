@@ -366,3 +366,9 @@ print(x)
   '''
 print(x)
 }
+testcase {
+	str = 'hello, WORLD'
+	tester(`str.capitalize())
+	tester(`str.upper())
+	tester(`str.lower())
+}
