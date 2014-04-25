@@ -423,7 +423,7 @@ iterator
   max():[index,indices,last_index]
   min():[index,indices,last_index]
   next()
-  nilto(replace)
+  nilto(replace) {block?}
   offset(n:number) {block?}
   or()
   pack(format:string) {block?}
@@ -434,7 +434,7 @@ iterator
   rank(directive?) {block?}
   reduce(accum) {block}
   repeater()
-  replace(value, replace)
+  replace(value, replace) {block?}
   reverse() {block?}
   roundoff(threshold:number => 1e-10) {block?}
   runlength() {block?}
@@ -479,16 +479,16 @@ list
   map(func:function) {block?}
   max():[index,indices,last_index]
   min():[index,indices,last_index]
-  nilto(replace)
+  nilto(replace) {block?}
   offset(n:number):map {block?}
   or()
   pack(format:string)
   permutation(n?:number) {block?}
   pingpong(n?:number):[sticky,sticky_l,sticky_r] {block?}
   printf(format:string, stream?:stream:w):void
-  rank(directive?):[stable]
+  rank(directive?):[stable] {block?}
   reduce(accum) {block}
-  replace(value, replace)
+  replace(value, replace) {block?}
   reverse() {block?}
   roundoff(threshold:number => 1e-10) {block?}
   runlength() {block?}

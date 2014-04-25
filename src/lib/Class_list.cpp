@@ -1475,6 +1475,7 @@ Gura_DeclareMethod(list, nilto)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "replace", VTYPE_any);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(list, nilto)
@@ -1594,11 +1595,12 @@ Gura_ImplementMethod(list, pingpong)
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
-// list#rank(directive?):[stable]
+// list#rank(directive?):[stable] {block?}
 Gura_DeclareMethod(list, rank)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "directive", VTYPE_any, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(stable));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
 	"Returns a list of rank numbers for elements after sorting them.\n"
@@ -1655,6 +1657,7 @@ Gura_DeclareMethod(list, replace)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any);
 	DeclareArg(env, "replace", VTYPE_any);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(list, replace)

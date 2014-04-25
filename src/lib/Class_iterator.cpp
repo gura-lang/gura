@@ -737,6 +737,7 @@ Gura_DeclareMethod(iterator, nilto)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "replace", VTYPE_any);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(iterator, nilto)
@@ -878,6 +879,7 @@ Gura_DeclareMethod(iterator, replace)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any);
 	DeclareArg(env, "replace", VTYPE_any);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
 Gura_ImplementMethod(iterator, replace)
@@ -1137,7 +1139,7 @@ void Class_iterator::Prepare(Environment &env)
 	Gura_AssignFunction(interval);
 	Gura_AssignFunction(consts);
 	Gura_AssignFunction(rands);
-	// assignement of methods
+	// assignment of methods
 	Gura_AssignMethod(iterator, delay);
 	Gura_AssignMethod(iterator, isinfinite);
 	Gura_AssignMethod(iterator, next);
