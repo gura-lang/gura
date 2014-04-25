@@ -37,10 +37,9 @@ Value Object_list::IndexGet(Environment &env, Signal sig, const Value &valueIdx)
 		sig.SetError(ERR_IndexError, "index must be a number for list");
 		return Value::Null;
 	}
-	//size_t idx = valueIdx.GetSizeT();
 	int idx = valueIdx.GetInt();
 	if (idx < 0) idx += _valList.size();
-	if (idx >= static_cast<int>(GetList().size())) {
+	if (idx < 0 || idx >= static_cast<int>(GetList().size())) {
 		sig.SetError(ERR_IndexError, "index is out of range");
 		return Value::Null;
 	}
@@ -53,10 +52,9 @@ void Object_list::IndexSet(Environment &env, Signal sig, const Value &valueIdx, 
 		sig.SetError(ERR_IndexError, "index must be a number for list");
 		return;
 	}
-	//size_t idx = valueIdx.GetSizeT();
 	int idx = valueIdx.GetInt();
 	if (idx < 0) idx += _valList.size();
-	if (idx >= static_cast<int>(GetList().size())) {
+	if (idx < 0 || idx >= static_cast<int>(GetList().size())) {
 		sig.SetError(ERR_IndexError, "index is out of range");
 		return;
 	}
