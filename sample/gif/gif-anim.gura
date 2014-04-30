@@ -1,0 +1,21 @@
+#!/usr/bin/env gura
+import(jpeg)
+import(png)
+import(bmp)
+import(gif)
+
+if (sys.argv.len() < 2) {
+	sys.stderr.println('usage: gif-anim.gura file')
+	sys.exit(1)
+}
+fileNameSrc = sys.argv[1]
+fileNameDst = path.splitext(path.filename(fileNameSrc))[0] + '.gif'
+delayTime = 12		// interval time in 1/100 seconds
+[nx, ny] = [6, 2]	// number to divide a source image
+img = image(fileNameSrc).reducecolor(`win256)
+[w, h] = [img.width / nx, img.height / ny]
+i = range(nx * ny)
+xs = (i % nx) * w
+ys = int(i / nx) * h
+imgFrames = img.crop(xs, ys, w, h)
+gif.content().addimage(imgFrames, delayTime).write(fileNameDst)
