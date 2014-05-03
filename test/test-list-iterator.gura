@@ -698,3 +698,10 @@ testcase {
 		println('expected error occurs: ', e.text)
 	}
 }
+testcase {
+	try {
+		(0..).len()
+	} catch {|e|
+		println('expected error occurs: ', e.text)
+	}
+}

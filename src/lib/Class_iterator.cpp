@@ -657,6 +657,10 @@ Gura_DeclareMethod(iterator, len)
 Gura_ImplementMethod(iterator, len)
 {
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	if (pThis->GetIterator()->IsInfinite()) {
+		Iterator::SetError_InfiniteNotAllowed(sig);
+		return Value::Null;
+	}
 	Value value;
 	int cnt;
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
