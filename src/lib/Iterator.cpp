@@ -240,6 +240,16 @@ Value Iterator::Sum(Environment &env, Signal sig, size_t &cnt)
 		if (value.Is_number()) {
 			result += value.GetNumber();
 			cnt++;
+		} else if (cnt == 0) {
+			const Operator *pOperatorAdd = env.GetOperator(OPTYPE_Add);
+			Value valResult(value);
+			cnt++;
+			while (Next(env, sig, value)) {
+				valResult = pOperatorAdd->EvalBinary(env, sig, valResult, value);
+				cnt++;
+				if (sig.IsSignalled()) return Value::Null;
+			}
+			return valResult;
 		} else {
 			const Operator *pOperatorAdd = env.GetOperator(OPTYPE_Add);
 			Value valResult(result);
