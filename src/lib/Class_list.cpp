@@ -1026,6 +1026,24 @@ Gura_ImplementMethod(list, printf)
 	return Value::Null;
 }
 
+// list#put(index:number, value:nomap):reduce:map
+Gura_DeclareMethod(list, put)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	DeclareArg(env, "index", VTYPE_number);
+	DeclareArg(env, "value", VTYPE_any, OCCUR_Once, FLAG_NoMap);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Stores a value at the specified index in the list.\n"
+	"An error occurs when the index is out of range.");
+}
+
+Gura_ImplementMethod(list, put)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	pThis->IndexSet(env, sig, args.GetValue(0), args.GetValue(1));
+	return args.GetThis();
+}
+
 // list#shuffle():reduce
 Gura_DeclareMethod(list, shuffle)
 {
@@ -1968,6 +1986,7 @@ void Class_list::Prepare(Environment &env)
 	Gura_AssignMethod(list, last);
 	Gura_AssignMethod(list, permutation);
 	Gura_AssignMethod(list, printf);
+	Gura_AssignMethod(list, put);
 	Gura_AssignMethod(list, shift);
 	Gura_AssignMethod(list, shuffle);
 	// assignment of common methods with iterator

@@ -705,3 +705,10 @@ testcase {
 		println('expected error occurs: ', e.text)
 	}
 }
+testcase('test of list#put()') {
+	x = [0..9]
+	println(x):nomap
+	println(x.put(3, 99)):nomap
+	println(x.put([2, 4, 6, 8], 99)):nomap
+	println(x.put(5, [1, 1, 1, 1])):nomap
+}

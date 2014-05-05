@@ -616,3 +616,10 @@ expected error occurs: IndexError: index is out of range
 ======== #39 ========
 
 expected error occurs: IteratorError: cannot evaluate infinite iterator
+
+======== #40 test of list#put() ========
+
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[0, 1, 2, 99, 4, 5, 6, 7, 8, 9]
+[0, 1, 99, 99, 99, 5, 99, 7, 99, 9]
+[0, 1, 99, 99, 99, [1, 1, 1, 1], 99, 7, 99, 9]
