@@ -623,3 +623,4 @@ expected error occurs: IteratorError: cannot evaluate infinite iterator
 [0, 1, 2, 99, 4, 5, 6, 7, 8, 9]
 [0, 1, 99, 99, 99, 5, 99, 7, 99, 9]
 [0, 1, 99, 99, 99, [1, 1, 1, 1], 99, 7, 99, 9]
+[[1, 2, 99], [4, 5, 99], [7, 8, 99]]
