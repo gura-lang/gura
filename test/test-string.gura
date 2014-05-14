@@ -19,8 +19,8 @@ testcase {
 	tester(`'abcdeg'.chop('f', 'g', 'h'))
 	tester(`'abcdeh'.chop('f', 'g', 'h'))
 }
-testcase {
-	println(chr(iterator(1, 1..0xff)).join().fold(16):*encodeuri())
+testcase('string#encodeuri() and string#decodeuri()') {
+	println(chr((1, 1..0xff)).join().fold(16):*encodeuri())
 	println(chr(0x20..0x7e).join().fold(16):*encodeuri():*decodeuri())
 }
 testcase {
@@ -109,7 +109,7 @@ testcase {
 	tester(`str.eachline():list:chop)
 	tester(`str.eachline(2):list:chop)
 }
-testcase {
+testcase('chr() and ord()') {
 	tester(`chr(0x00..0xff):list:nil)
 	tester(`chr(0x00..0xff):list)
 	tester(`ord(chr(0x00..0xff)):list)

@@ -1083,16 +1083,16 @@ Gura_ImplementFunction(chr)
 {
 	ULong num = args.GetULong(0);
 	int i = 0;
-	char buff[4];
+	UChar buff[4];
 	buff[i++] = static_cast<UChar>(num & 0xff);
 	num >>= 8;
 	for ( ; num != 0; num >>= 8) {
 		buff[i++] = static_cast<UChar>(num & 0xff);
 	}
 	String str;
-	if (i != 1 || (0x20 <= buff[0] && buff[0] < 0x7f)) {
+	if (i != 1 || (0x00 < buff[0] && buff[0] < 0x7f)) {
 		for ( ; i > 0; i--) {
-			str.push_back(buff[i - 1]);
+			str.push_back(static_cast<char>(buff[i - 1]));
 		}
 	} else if (args.IsSet(Gura_Symbol(nil))) {
 		return Value::Null;
