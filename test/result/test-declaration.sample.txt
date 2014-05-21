@@ -259,6 +259,7 @@ audio
   store(channel:number, offset:number, data:iterator):reduce
 binary
   add(buff+:binary):map:reduce
+  alloc(bytes:number, data?:number):static:map {block?}
   decode(codec:codec)
   dump(stream?:stream:w):void:[upper]
   each() {block?}

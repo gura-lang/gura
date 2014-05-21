@@ -245,6 +245,26 @@ Gura_ImplementMethod(binary, add)
 	return args.GetThis();
 }
 
+// binary.alloc(bytes:number, data?:number):map {block?}
+Gura_DeclareClassMethod(binary, alloc)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "bytes", VTYPE_number);
+	DeclareArg(env, "data", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementClassMethod(binary, alloc)
+{
+	AutoPtr<Object_binary> pObjBinary(new Object_binary(env));
+	Binary &buff = pObjBinary->GetBinary();
+	size_t bytes = args.GetSizeT(0);
+	UChar data = args.IsValid(1)? args.GetUChar(1) : 0;
+	buff.reserve(bytes);
+	buff.insert(0, bytes, static_cast<char>(data));
+	return ReturnValue(env, sig, args, Value(pObjBinary.release()));
+}
+
 // binary#decode(codec:codec)
 Gura_DeclareMethodPrimitive(binary, decode)
 {
@@ -500,6 +520,7 @@ void Class_binary::Prepare(Environment &env)
 {
 	Gura_AssignFunction(binary);
 	Gura_AssignMethod(binary, add);
+	Gura_AssignMethod(binary, alloc);
 	Gura_AssignMethod(binary, decode);
 	Gura_AssignMethod(binary, dump);
 	Gura_AssignMethod(binary, each);
