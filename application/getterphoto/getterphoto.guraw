@@ -30,7 +30,7 @@ main = module {
 			'yFrame'			=> -1
 			'wdFrame'			=> 480
 			'htFrame'			=> 680
-			'dirNamesSrc'		=> []
+			'dirNameSrc'		=> ''
 			'dirNameDstBase'	=> path.join(sys.localdir, 'getterphoto')
 			'dirNameStamperTgt'	=> ''
 		}
@@ -59,6 +59,10 @@ Page_Getter = class(wx.Panel) {
 			wx.ComboBox(this, wx.ID_ANY, '', style => wx.CB_READONLY) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags(1).Expand())
 				this.comboSourceDirNames = ctrl
+				ctrl.Bind(wx.EVT_COMBOBOX) {
+					main.cfg['dirNameSrc'] = ctrl.GetStringSelection()
+					this.UpdateFileNames()
+				}
 			}
 			wx.Button(this, wx.ID_ANY, 'Refresh') {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.LEFT, 2))
@@ -128,14 +132,15 @@ Page_Getter = class(wx.Panel) {
 		this.UpdateSourceDirNames()
 	}
 	UpdateSourceDirNames() = {
-		dirNames = path.join(chr(ord('A')..ord('K')) + ':', 'DCIM')
-		dirNames = path.dir(dirNames.filter(path.exists(dirNames))):dir:list
+		dirNames = path.join(main.charsAtoZ + ':', 'DCIM')
+		dirNames = dirNames.filter(path.exists(dirNames)):list
 		this.comboSourceDirNames.Clear()
 		if (dirNames.len() == 0) {
 			this.comboSourceDirNames.SetValue('')
 		} else {
 			this.comboSourceDirNames.Append(dirNames)
-			this.comboSourceDirNames.Select(0)
+			idx = dirNames.find(main.cfg['dirNameSrc']):index || 0
+			this.comboSourceDirNames.Select(idx)
 		}
 		this.UpdateFileNames()
 	}
@@ -146,7 +151,7 @@ Page_Getter = class(wx.Panel) {
 			this.btnGetPhoto.Enable(false)
 			return
 		}
-		pathNames = path.dir(dirName, main.patternImgList*,
+		pathNames = path.walk(dirName, nil, main.patternImgList*,
 								main.patternAviList*):file:list
 		this.pathNames = pathNames
 		pathNames.each {|pathName, idx|
