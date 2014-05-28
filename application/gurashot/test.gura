@@ -7,7 +7,7 @@ img = image('face.jpg')
 [wdMgn, htMgn] = [10.0, 10.0]
 [wdMM, htMM] = [127.0 - wdMgn, 89.0 - htMgn]
 cairo.create(cairo.pdf_surface.create('test.pdf', units.mm$pt(wdMM), units.mm$pt(htMM))) {|cr|
-	scale = units.mm$pt(wdMM) / wdMM
+	scale = 72 / 25.4
 	cr.scale(scale, scale)
 	cairo.pattern.create_for_surface(img) {|pattern|
 		cr.save {

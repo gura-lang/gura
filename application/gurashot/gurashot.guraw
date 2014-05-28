@@ -1,0 +1,34 @@
+#!/usr/bin/env gura
+import(wx)
+import(resource)
+
+App = class(wx.App) {
+	OnInit() = {
+		frame = Frame('gurashot')
+		frame.Show()
+		true
+	}
+}
+
+Panel = class(wx.Panel) {
+	__init__(parent:wx.Window) = {|parent|
+		outerBox = wx.BoxSizer(wx.VERTICAL)
+		this.SetSizer(outerBox)
+		wx.TextCtrl(this, wx.ID_ANY) {|ctrl|
+			outerBox.Add(ctrl, wx.SizerFlags(1).Expand())
+		}
+		wx.TextCtrl(this, wx.ID_ANY) {|ctrl|
+			outerBox.Add(ctrl, wx.SizerFlags(1).Expand())
+		}
+	}
+}
+
+Frame = class(wx.Frame) {
+	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
+			size:wx.Size => wx.DefaultSize) = {|nil, wx.ID_ANY, title, pos, size|
+		this.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+		Panel(this)
+	}
+}
+
+wx.IMPLEMENT_APP(App)
