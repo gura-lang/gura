@@ -167,12 +167,11 @@ Page_Getter = class(wx.Panel) {
 	GetPhoto(dirNameDstBase:string, index:number):map = {
 		pathName = this.pathNames[index]
 		pathNameDst = MakeUniqPathName(pathName, dirNameDstBase, true)
-		!pathNameDst && return
 		item = wx.ListItem()
 		item.SetMask(wx.LIST_MASK_TEXT | wx.LIST_MASK_STATE)
 		item.SetId(index)
 		item.SetColumn(1)
-		item.SetText(path.filename(pathNameDst))
+		item.SetText(path.filename(pathNameDst || '(copied one exists)'))
 		this.listFileNames.SetItem(item)
 		this.listFileNames.Refresh()
 		this.listFileNames.Update()
@@ -180,6 +179,7 @@ Page_Getter = class(wx.Panel) {
 					wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED,
 					wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED)
 		this.listFileNames.EnsureVisible(index)
+		!pathNameDst && return
 		bytesProgress = 0
 		stat = path.stat(pathName)
 		stream.copy(pathName, pathNameDst):finalize {|buff|
@@ -1037,7 +1037,7 @@ BoxDisabled_xpm = @{
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-MakeUniqPathName(pathName:string, dirNameDstBase:string, makeDirFlag:boolean):map = {
+MakeUniqPathName(pathName:string, dirNameDstBase:string, getterFlag:boolean):map = {
 	try {
 		stat = path.stat(pathName)
 	} catch { stat = nil }
@@ -1056,7 +1056,7 @@ MakeUniqPathName(pathName:string, dirNameDstBase:string, makeDirFlag:boolean):ma
 		[year, month, day, hour, min, sec] = \
 			[mtime.year, mtime.month, mtime.day, mtime.hour, mtime.min, mtime.sec]
 	}
-	if (makeDirFlag) {
+	if (getterFlag) {
 		dirNameDst = path.join(dirNameDstBase, '%04d%02d%02d xxxx' % [year, month, day])
 		!path.exists(dirNameDst) && fs.mkdir(dirNameDst):tree
 	} else {
@@ -1069,6 +1069,7 @@ MakeUniqPathName(pathName:string, dirNameDstBase:string, makeDirFlag:boolean):ma
 			year, month, day, hour, min, sec, upper, lower, extName)
 		pathNameUniq = path.join(dirNameDst, fileNameUniq)
 		!path.exists(pathNameUniq) && break
+		getterFlag && open(pathName).compare(pathNameUniq) && return(nil)
 		pathNameUniq = nil
 	}
 	pathNameUniq
