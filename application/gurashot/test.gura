@@ -1,0 +1,50 @@
+#!/usr/bin/env gura
+import(cairo)
+import(jpeg)
+import(units)
+
+img = image('face.jpg')
+[wdMgn, htMgn] = [10.0, 10.0]
+[wdMM, htMM] = [127.0 - wdMgn, 89.0 - htMgn]
+cairo.create(cairo.pdf_surface.create('test.pdf', units.mm$pt(wdMM), units.mm$pt(htMM))) {|cr|
+	scale = units.mm$pt(wdMM) / wdMM
+	cr.scale(scale, scale)
+	cairo.pattern.create_for_surface(img) {|pattern|
+		cr.save {
+			scale = 40.0 / img.height
+			cr.translate(10, 10)
+			cr.scale(scale, scale)
+			cr.set_source(pattern)
+			cr.paint()
+		}
+		cr.save {
+			cr.translate(127.0 / 2, 10)
+			scale = 50.0 / img.height
+			cr.scale(scale, scale)
+			cr.set_source(pattern)
+			cr.paint()
+		}
+	}
+	scope {
+		cr.set_line_width(.1)
+		cr.set_source_rgb(1, 0.2, 0.2)
+		cr.move_to(5, 10.0)
+		cr.line_to(wdMM - 5, 10.0)
+		cr.move_to(5, 50.0)
+		cr.line_to(wdMM - 5, 50.0)
+		cr.move_to(48.0, 10.0)
+		cr.line_to(48.0, 50.0)
+		cr.stroke()
+		
+	}
+	scope {
+		cr.select_font_face('Sans', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+		cr.set_source_rgb(0, 0, 0)
+		cr.set_font_size(3.0)
+		cr.move_to(70.0, 70.0)
+		cr.show_text('face-shot test')
+		cr.move_to(50.0, 30.0)
+		cr.show_text('40 mm')
+	}
+	cr.show_page()
+}
