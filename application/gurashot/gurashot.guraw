@@ -1,5 +1,6 @@
 #!/usr/bin/env gura
 import(wx)
+import(jpeg)
 import(resource)
 
 App = class(wx.App) {
@@ -10,11 +11,46 @@ App = class(wx.App) {
 	}
 }
 
+Extractor = class(wx.Panel) {
+	__init__(parent:wx.Window) = {|parent|
+		this.imgOrg = image('face.jpg')
+		this.imgOnScreen = nil
+		this.Bind(wx.EVT_ERASE_BACKGROUND) { /* nothing to do */ }
+		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event)}
+		this.Bind(wx.EVT_PAINT) {|event| this.OnPaint(event)}
+		this.Bind(wx.EVT_LEFT_DOWN) {|event| this.OnLeftDown(event)}
+		this.Bind(wx.EVT_LEFT_UP) {|event| this.OnLeftUp(event)}
+		this.Bind(wx.EVT_MOTION) {|event| this.OnMotion(event)}
+	}
+	OnSize(event:wx.SizeEvent) = {
+		this.Refresh()
+		[wdClient, htClient] = this.GetClientSizeWH()
+		this.imgOnScreen = this.imgOrg.thumbnail(wdClient, htClient)
+		event.Skip()
+	}
+	OnPaint(event:wx.PaintEvent) = {
+		dc = wx.PaintDC(this)
+		//dc.SetPen(wx.TRANSPARENT_PEN)
+		//dc.SetBrush(wx.Brush(wx.Colour(192, 192, 192)))
+		[wdClient, htClient] = this.GetClientSizeWH()
+		x = (wdClient - this.imgOnScreen.width) / 2
+		y = (htClient - this.imgOnScreen.height) / 2
+		dc.DrawBitmap(this.imgOnScreen, x, y, false)
+		dc = nil
+	}
+	OnLeftDown(event:wx.MouseEvent) = {
+	}
+	OnLeftUp(event:wx.MouseEvent) = {
+	}
+	OnMotion(event:wx.MouseEvent) = {
+	}
+}
+
 Panel = class(wx.Panel) {
 	__init__(parent:wx.Window) = {|parent|
 		outerBox = wx.BoxSizer(wx.VERTICAL)
 		this.SetSizer(outerBox)
-		wx.TextCtrl(this, wx.ID_ANY) {|ctrl|
+		Extractor(this) {|ctrl|
 			outerBox.Add(ctrl, wx.SizerFlags(1).Expand())
 		}
 		wx.TextCtrl(this, wx.ID_ANY) {|ctrl|
