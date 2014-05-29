@@ -3,6 +3,7 @@ import(wx)
 import(jpeg)
 import(cairo)
 import(resource)
+import(units)
 
 //-----------------------------------------------------------------------------
 // Global Variables
@@ -21,8 +22,9 @@ FaceRatio = struct(center:number, top:number, bottom:number)
 ComposeProduct(cr:cairo.context, imgOriginal:image, faceRatio:FaceRatio) = {
 	[wdMgn, htMgn] = [2, 2]
 	[wdGuide, htGuide] = [2, 2]
-	[wdImg, htImg, htTop, htFace] = [30, 40, 2, 30]
-	//[wdImg, htImg, htTop, htFace] = [35, 45, 4, 34]
+	[wdImg, htImg, htTop, htFace] = [30, 40, 2, 30] // resume
+	//[wdImg, htImg, htTop, htFace] = [35, 45, 4, 34] // passport
+	//[wdImg, htImg, htTop, htFace] = [24, 30, 2, 20] // driver license
 	htBottom = htImg - htTop - htFace
 	ratioBase = faceRatio.bottom - faceRatio.top
 	imgExtract = scope {
@@ -44,7 +46,9 @@ ComposeProduct(cr:cairo.context, imgOriginal:image, faceRatio:FaceRatio) = {
 	cr.line_to(wdPaper, y + htMgn)
 	cr.move_to(0, y + htImgEx - htMgn)
 	cr.line_to(wdPaper, y + htImgEx - htMgn)
-	repeat(3) {|i|
+	cr.stroke()
+	n = int(wdPaper / (wdImgEx + wdGuide))
+	repeat(1) {|i|
 		x = wdGuide + i * (wdImgEx + wdGuide)
 		cr.move_to(x + wdMgn, y - htGuide)
 		cr.line_to(x + wdMgn, y + htImgEx + htGuide)
@@ -115,6 +119,10 @@ ProductViewer = class(wx.Panel) {
 // Extractor
 //-----------------------------------------------------------------------------
 Extractor = class(wx.Panel) {
+	public {
+		faceRatio
+		imgOriginal
+	}
 	RatioCursor = .3
 	// constructor
 	__init__(parent:wx.Window, productViewer:ProductViewer) = {|parent, size => wx.Size(200, 200)|
@@ -250,10 +258,22 @@ Panel = class(wx.Panel) {
 			vbox.Add(ctrl, wx.SizerFlags().Expand())
 		}
 		productViewer = ProductViewer(this)
-		extractor = Extractor(this, productViewer)
+		this.extractor = Extractor(this, productViewer)
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
 			vbox.Add(hbox, wx.SizerFlags().Expand())
-			hbox.Add(extractor, wx.SizerFlags())
+			hbox.Add(this.extractor, wx.SizerFlags())
+			wx.Button(this, wx.ID_ANY, 'PDF') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 4))
+				ctrl.Bind(wx.EVT_BUTTON) {
+					cairo.create(cairo.pdf_surface.create('test.pdf',
+								units.mm$pt(wdPaper), units.mm$pt(htPaper))) {|cr|
+						scale = 72 / 25.4
+						cr.scale(scale, scale)
+						ComposeProduct(cr, this.extractor.imgOriginal, this.extractor.faceRatio)
+						cr.show_page()
+					}
+				}
+			}
 		}
 		wx.StaticLine(this, wx.ID_ANY, style => wx.HORIZONTAL) {|ctrl|
 			vbox.Add(ctrl, wx.SizerFlags().Expand())
