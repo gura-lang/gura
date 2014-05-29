@@ -11,10 +11,59 @@ App = class(wx.App) {
 	}
 }
 
-Extractor = class(wx.Panel) {
+ProductViewer = class(wx.Panel) {
+	//-------------------------------------------------------------------------
+	// constructor
+	//-------------------------------------------------------------------------
 	__init__(parent:wx.Window) = {|parent|
-		this.imgOrg = image('face.jpg')
 		this.imgScreen = nil
+		this.imgExtract = nil
+		// bind event handlers
+		this.Bind(wx.EVT_ERASE_BACKGROUND) { /* nothing to do */ }
+		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event)}
+		this.Bind(wx.EVT_PAINT) {|event| this.OnPaint(event)}
+	}
+	//-------------------------------------------------------------------------
+	// methods
+	//-------------------------------------------------------------------------
+	UpdateContent(imgExtract:image, refreshFlag:boolean) = {
+		this.imgExtract = imgExtract
+		
+		refreshFlag && this.Refresh()
+	}
+	//-------------------------------------------------------------------------
+	// event handler
+	//-------------------------------------------------------------------------
+	OnSize(event:wx.SizeEvent) = {
+		[wdClient, htClient] = this.GetClientSizeWH()
+		this.imgScreen = image(`rgb, wdClient, htClient, `gray)
+		this.imgExtract && this.imgScreen.paste(0, 0, this.imgExtract.thumbnail(wdClient, htClient))
+		this.Refresh()
+		event.Skip()
+	}
+	OnPaint(event:wx.PaintEvent) = {
+		dc = wx.PaintDC(this)
+		dc.DrawBitmap(this.imgScreen, 0, 0, false)
+		dc = nil
+	}
+}
+
+Extractor = class(wx.Panel) {
+	//-------------------------------------------------------------------------
+	// constructor
+	//-------------------------------------------------------------------------
+	__init__(parent:wx.Window, productViewer:ProductViewer) = {|parent|
+		this.productViewer = productViewer
+		this.leftRatio = .2
+		this.rightRatio = .8
+		this.topRatio = .1
+		this.bottomRatio = .6
+		this.imgOriginal = image('face.jpg')
+		this.imgScreen = nil
+		this.rcImg = wx.Rect(0, 0, 0, 0)
+		this.penBox = wx.Pen(wx.Colour(255, 0, 0), 2, wx.SHORT_DASH)
+		this.productViewer.UpdateContent(this.DoExtract(), false)
+		// bind event handlers
 		this.Bind(wx.EVT_ERASE_BACKGROUND) { /* nothing to do */ }
 		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event)}
 		this.Bind(wx.EVT_PAINT) {|event| this.OnPaint(event)}
@@ -22,18 +71,39 @@ Extractor = class(wx.Panel) {
 		this.Bind(wx.EVT_LEFT_UP) {|event| this.OnLeftUp(event)}
 		this.Bind(wx.EVT_MOTION) {|event| this.OnMotion(event)}
 	}
+	//-------------------------------------------------------------------------
+	// methods
+	//-------------------------------------------------------------------------
+	DoExtract() = {
+		xLeft = this.imgOriginal.width * this.leftRatio
+		xRight = this.imgOriginal.width * this.rightRatio
+		yTop = this.imgOriginal.height * this.topRatio
+		yBottom = this.imgOriginal.height * this.bottomRatio
+		this.imgOriginal.crop(xLeft, yTop, xRight - xLeft, yBottom - yTop)
+	}
+	//-------------------------------------------------------------------------
+	// event handler
+	//-------------------------------------------------------------------------
 	OnSize(event:wx.SizeEvent) = {
 		[wdClient, htClient] = this.GetClientSizeWH()
-		this.imgScreen = image(`rgb, wdClient, htClient)
-		img = this.imgOrg.thumbnail(wdClient, htClient)
+		this.imgScreen = image(`rgb, wdClient, htClient, `gray)
+		img = this.imgOriginal.thumbnail(wdClient, htClient)
 		[x, y] = [(wdClient - img.width) / 2, (htClient - img.height) / 2]
 		this.imgScreen.paste(x, y, img)
+		this.rcImg = wx.Rect(x, y, img.width, img.height)
 		this.Refresh()
 		event.Skip()
 	}
 	OnPaint(event:wx.PaintEvent) = {
 		dc = wx.PaintDC(this)
 		dc.DrawBitmap(this.imgScreen, 0, 0, false)
+		dc.SetBrush(wx.TRANSPARENT_BRUSH)
+		dc.SetPen(this.penBox)
+		xLeft = this.rcImg.x + this.rcImg.width * this.leftRatio
+		xRight = this.rcImg.x + this.rcImg.width * this.rightRatio
+		yTop = this.rcImg.y + this.rcImg.height * this.topRatio
+		yBottom = this.rcImg.y + this.rcImg.height * this.bottomRatio
+		dc.DrawRectangle(xLeft, yTop, xRight - xLeft, yBottom - yTop)
 		dc = nil
 	}
 	OnLeftDown(event:wx.MouseEvent) = {
@@ -48,12 +118,10 @@ Panel = class(wx.Panel) {
 	__init__(parent:wx.Window) = {|parent|
 		outerBox = wx.BoxSizer(wx.VERTICAL)
 		this.SetSizer(outerBox)
-		Extractor(this) {|ctrl|
-			outerBox.Add(ctrl, wx.SizerFlags(1).Expand())
-		}
-		wx.TextCtrl(this, wx.ID_ANY) {|ctrl|
-			outerBox.Add(ctrl, wx.SizerFlags(1).Expand())
-		}
+		productViewer = ProductViewer(this)
+		extractor = Extractor(this, productViewer)
+		outerBox.Add(extractor, wx.SizerFlags(1).Expand())
+		outerBox.Add(productViewer, wx.SizerFlags(1).Expand())
 	}
 }
 
