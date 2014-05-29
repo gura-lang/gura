@@ -26,9 +26,6 @@ FaceRatio = struct(center:number, top:number, bottom:number)
 ComposeProduct(cr:cairo.context, layout:Layout, imgOriginal:image, faceRatio:FaceRatio) = {
 	[wdMgn, htMgn] = [2, 2]
 	[wdGuide, htGuide] = [2, 2]
-	//[wdImg, htImg, htTop, htFace] = [30, 40, 2, 30] // resume
-	//[wdImg, htImg, htTop, htFace] = [35, 45, 4, 34] // passport
-	//[wdImg, htImg, htTop, htFace] = [24, 30, 2, 20] // driver license
 	htBottom = layout.htImg - layout.htTop - layout.htFace
 	ratioBase = faceRatio.bottom - faceRatio.top
 	imgExtract = scope {
@@ -209,12 +206,12 @@ Extractor = class(wx.Panel) {
 		!this.HasCapture() && this.CaptureMouse()
 	}
 	OnLeftUp(event:wx.MouseEvent) = {
+		this.HasCapture() && this.ReleaseMouse()
 		if (this.grabTgt) {
 			this.grabTgt = nil
 			this.productViewer.SetExtractedImage(this.imgOriginal, this.faceRatio)
 			this.productViewer.UpdateContent()
 		}
-		this.HasCapture() && this.ReleaseMouse()
 	}
 	OnMotion(event:wx.MouseEvent) = {
 		rtn = this.SenseBox(event.GetPosition())
