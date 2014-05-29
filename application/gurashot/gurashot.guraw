@@ -38,11 +38,11 @@ ComposeProduct(cr:cairo.context, layout:Layout, imgOrg:image, faceRatio:FaceRati
 		[wdDotMgn, htDotMgn] = imgOrg.height * ratioBase * [wdMgn, htMgn] / layout.htFace
 		[xCrop, yCrop] = [xLeft - wdDotMgn, yTop - htDotMgn]
 		[wdCrop, htCrop] = [width + wdDotMgn * 2, height + htDotMgn * 2]
-		imgSrc = image(`rgba, imgOrg.width * 2, imgOrg.height * 2, `gray)
-		imgSrc.paste(imgOrg.width / 2, imgOrg.height / 2, imgOrg)
-		imgSrc.paste(imgOrg.width / 2, 0,
-				imgOrg.crop(0, 0, imgOrg.width, imgOrg.height / 2).flip(`vert))
-		imgSrc.crop(xCrop + imgOrg.width / 2, yCrop + imgOrg.height / 2, wdCrop, htCrop)
+		[wdDummy, htDummy] = [imgOrg.width / 4, imgOrg.height / 4]
+		imgSrc = image(`rgba, imgOrg.width + wdDummy * 2, imgOrg.height + htDummy * 2, `gray)
+		imgSrc.paste(wdDummy, htDummy, imgOrg)
+		imgSrc.paste(wdDummy, 0, imgOrg.crop(0, 0, imgOrg.width, htDummy).flip(`vert))
+		imgSrc.crop(xCrop + wdDummy, yCrop + htDummy, wdCrop, htCrop)
 	}
 	cairo.pattern.create_for_surface(imgExtract) {|pattern|
 		[wdImgEx, htImgEx] = [layout.wdImg + wdMgn * 2,  layout.htImg + htMgn * 2]
