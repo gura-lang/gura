@@ -14,7 +14,7 @@ App = class(wx.App) {
 Extractor = class(wx.Panel) {
 	__init__(parent:wx.Window) = {|parent|
 		this.imgOrg = image('face.jpg')
-		this.imgOnScreen = nil
+		this.imgScreen = nil
 		this.Bind(wx.EVT_ERASE_BACKGROUND) { /* nothing to do */ }
 		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event)}
 		this.Bind(wx.EVT_PAINT) {|event| this.OnPaint(event)}
@@ -23,19 +23,17 @@ Extractor = class(wx.Panel) {
 		this.Bind(wx.EVT_MOTION) {|event| this.OnMotion(event)}
 	}
 	OnSize(event:wx.SizeEvent) = {
-		this.Refresh()
 		[wdClient, htClient] = this.GetClientSizeWH()
-		this.imgOnScreen = this.imgOrg.thumbnail(wdClient, htClient)
+		this.imgScreen = image(`rgb, wdClient, htClient)
+		img = this.imgOrg.thumbnail(wdClient, htClient)
+		[x, y] = [(wdClient - img.width) / 2, (htClient - img.height) / 2]
+		this.imgScreen.paste(x, y, img)
+		this.Refresh()
 		event.Skip()
 	}
 	OnPaint(event:wx.PaintEvent) = {
 		dc = wx.PaintDC(this)
-		//dc.SetPen(wx.TRANSPARENT_PEN)
-		//dc.SetBrush(wx.Brush(wx.Colour(192, 192, 192)))
-		[wdClient, htClient] = this.GetClientSizeWH()
-		x = (wdClient - this.imgOnScreen.width) / 2
-		y = (htClient - this.imgOnScreen.height) / 2
-		dc.DrawBitmap(this.imgOnScreen, x, y, false)
+		dc.DrawBitmap(this.imgScreen, 0, 0, false)
 		dc = nil
 	}
 	OnLeftDown(event:wx.MouseEvent) = {
