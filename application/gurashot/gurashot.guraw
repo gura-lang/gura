@@ -6,10 +6,12 @@ import(resource)
 import(units)
 
 //-----------------------------------------------------------------------------
-// Global Variables
+// Layout
 //-----------------------------------------------------------------------------
-[wdMgn, htMgn] = [10.0, 10.0]
-[wdPaper, htPaper] = [127.0 - wdMgn, 89.0 - wdMgn]
+Layout = struct(wdPaper:number, htPaper:number,
+			wdImg:number, htImg:number, htTop:number, htFace:number)
+
+layout = Layout(127 - 10, 89 - 10, 30, 40, 2, 30)
 
 //-----------------------------------------------------------------------------
 // FaceRatio
@@ -19,35 +21,35 @@ FaceRatio = struct(center:number, top:number, bottom:number)
 //-----------------------------------------------------------------------------
 // ComposeProduct
 //-----------------------------------------------------------------------------
-ComposeProduct(cr:cairo.context, imgOriginal:image, faceRatio:FaceRatio) = {
+ComposeProduct(cr:cairo.context, layout:Layout, imgOriginal:image, faceRatio:FaceRatio) = {
 	[wdMgn, htMgn] = [2, 2]
 	[wdGuide, htGuide] = [2, 2]
-	[wdImg, htImg, htTop, htFace] = [30, 40, 2, 30] // resume
+	//[wdImg, htImg, htTop, htFace] = [30, 40, 2, 30] // resume
 	//[wdImg, htImg, htTop, htFace] = [35, 45, 4, 34] // passport
 	//[wdImg, htImg, htTop, htFace] = [24, 30, 2, 20] // driver license
-	htBottom = htImg - htTop - htFace
+	htBottom = layout.htImg - layout.htTop - layout.htFace
 	ratioBase = faceRatio.bottom - faceRatio.top
 	imgExtract = scope {
-		yTop = imgOriginal.height * (faceRatio.top - ratioBase * htTop / htFace)
-		yBottom = imgOriginal.height * (faceRatio.bottom + ratioBase * htBottom / htFace)
+		yTop = imgOriginal.height * (faceRatio.top - ratioBase * layout.htTop / layout.htFace)
+		yBottom = imgOriginal.height * (faceRatio.bottom + ratioBase * htBottom / layout.htFace)
 		height = yBottom - yTop
-		width = height * wdImg / htImg
+		width = height * layout.wdImg / layout.htImg
 		xLeft = imgOriginal.width * faceRatio.center - width / 2
-		[wdDotMgn, htDotMgn] = imgOriginal.height * ratioBase * [wdMgn, htMgn] / htFace
+		[wdDotMgn, htDotMgn] = imgOriginal.height * ratioBase * [wdMgn, htMgn] / layout.htFace
 		imgOriginal.crop(xLeft - wdDotMgn, yTop - htDotMgn,
 						width + wdDotMgn * 2, height + htDotMgn * 2)
 	}
 	cairo.pattern.create_for_surface(imgExtract) {|pattern|
-		[wdImgEx, htImgEx] = [wdImg + wdMgn * 2,  htImg + htMgn * 2]
+		[wdImgEx, htImgEx] = [layout.wdImg + wdMgn * 2,  layout.htImg + htMgn * 2]
 		y = htGuide
 		cr.set_line_width(.1)
 		cr.set_source_rgb(.2, .2, 1)
 		cr.move_to(0, y + htMgn)
-		cr.line_to(wdPaper, y + htMgn)
+		cr.line_to(layout.wdPaper, y + htMgn)
 		cr.move_to(0, y + htImgEx - htMgn)
-		cr.line_to(wdPaper, y + htImgEx - htMgn)
+		cr.line_to(layout.wdPaper, y + htImgEx - htMgn)
 		cr.stroke()
-		n = int(wdPaper / (wdImgEx + wdGuide))
+		n = int(layout.wdPaper / (wdImgEx + wdGuide))
 		repeat(n) {|i|
 			x = wdGuide + i * (wdImgEx + wdGuide)
 			cr.move_to(x + wdMgn, y - htGuide)
@@ -89,12 +91,12 @@ ProductViewer = class(wx.Panel) {
 		!this.imgOriginal && return
 		[wdClient, htClient] = this.GetClientSizeWH()
 		this.imgScreen.fill(`gray)
-		wdImg = 600, htImg = int(wdImg * htPaper / wdPaper)
+		wdImg = 600, htImg = int(wdImg * layout.htPaper / layout.wdPaper)
 		img = image(`rgba, wdImg, htImg, `white)
 		img.cairo {|cr|
-			scale = wdImg / wdPaper
+			scale = wdImg / layout.wdPaper
 			cr.scale(scale, scale)
-			ComposeProduct(cr, this.imgOriginal, this.faceRatio)
+			ComposeProduct(cr, layout, this.imgOriginal, this.faceRatio)
 		}
 		//[x, y] = [(wdClient - img.width) / 2, (htClient - img.height) / 2]
 		[x, y] = [0, 0]
@@ -267,10 +269,10 @@ Panel = class(wx.Panel) {
 				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 4))
 				ctrl.Bind(wx.EVT_BUTTON) {
 					cairo.create(cairo.pdf_surface.create('test.pdf',
-								units.mm$pt(wdPaper), units.mm$pt(htPaper))) {|cr|
+								units.mm$pt(layout.wdPaper), units.mm$pt(layout.htPaper))) {|cr|
 						scale = 72 / 25.4
 						cr.scale(scale, scale)
-						ComposeProduct(cr, this.extractor.imgOriginal, this.extractor.faceRatio)
+						ComposeProduct(cr, layout, this.extractor.imgOriginal, this.extractor.faceRatio)
 						cr.show_page()
 					}
 				}
