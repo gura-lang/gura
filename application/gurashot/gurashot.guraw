@@ -3,6 +3,9 @@ import(wx)
 import(jpeg)
 import(resource)
 
+//-----------------------------------------------------------------------------
+// App
+//-----------------------------------------------------------------------------
 App = class(wx.App) {
 	OnInit() = {
 		frame = Frame('gurashot')
@@ -11,10 +14,11 @@ App = class(wx.App) {
 	}
 }
 
+//-----------------------------------------------------------------------------
+// ProductViewer
+//-----------------------------------------------------------------------------
 ProductViewer = class(wx.Panel) {
-	//-------------------------------------------------------------------------
 	// constructor
-	//-------------------------------------------------------------------------
 	__init__(parent:wx.Window) = {|parent|
 		this.imgScreen = nil
 		this.imgExtract = nil
@@ -23,9 +27,7 @@ ProductViewer = class(wx.Panel) {
 		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event)}
 		this.Bind(wx.EVT_PAINT) {|event| this.OnPaint(event)}
 	}
-	//-------------------------------------------------------------------------
 	// methods
-	//-------------------------------------------------------------------------
 	UpdateContent(imgExtract:image, refreshFlag:boolean) = {
 		this.imgExtract = imgExtract
 		if (refreshFlag) {
@@ -39,9 +41,7 @@ ProductViewer = class(wx.Panel) {
 		this.imgScreen.fill(`gray)
 		this.imgScreen.paste(0, 0, this.imgExtract.thumbnail(wdClient, htClient))
 	}
-	//-------------------------------------------------------------------------
 	// event handler
-	//-------------------------------------------------------------------------
 	OnSize(event:wx.SizeEvent) = {
 		[wdClient, htClient] = this.GetClientSizeWH()
 		this.imgScreen = image(`rgb, wdClient, htClient, `gray)
@@ -56,10 +56,11 @@ ProductViewer = class(wx.Panel) {
 	}
 }
 
+//-----------------------------------------------------------------------------
+// Extractor
+//-----------------------------------------------------------------------------
 Extractor = class(wx.Panel) {
-	//-------------------------------------------------------------------------
 	// constructor
-	//-------------------------------------------------------------------------
 	__init__(parent:wx.Window, productViewer:ProductViewer) = {|parent|
 		this.productViewer = productViewer
 		this.grabTgt = nil
@@ -81,9 +82,7 @@ Extractor = class(wx.Panel) {
 		this.Bind(wx.EVT_LEFT_UP) {|event| this.OnLeftUp(event)}
 		this.Bind(wx.EVT_MOTION) {|event| this.OnMotion(event)}
 	}
-	//-------------------------------------------------------------------------
 	// methods
-	//-------------------------------------------------------------------------
 	DoExtract() = {
 		xLeft = this.imgOriginal.width * this.leftRatio
 		xRight = this.imgOriginal.width * this.rightRatio
@@ -110,9 +109,7 @@ Extractor = class(wx.Panel) {
 		yBottom = this.rcImg.y + this.rcImg.height * this.bottomRatio
 		this.rcBox = wx.Rect(xLeft, yTop, xRight - xLeft, yBottom - yTop)
 	}
-	//-------------------------------------------------------------------------
 	// event handler
-	//-------------------------------------------------------------------------
 	OnSize(event:wx.SizeEvent) = {
 		[wdClient, htClient] = this.GetClientSizeWH()
 		this.imgScreen = image(`rgb, wdClient, htClient, `gray)
@@ -155,24 +152,47 @@ Extractor = class(wx.Panel) {
 		pt = event.GetPosition()
 		if (this.grabTgt == `left) {
 			this.leftRatio = (pt.x - this.rcImg.x) / this.rcImg.width
+			if (this.leftRatio < 0) {
+				this.leftRatio = 0
+			} elsif (this.leftRatio > this.rightRatio - .1) {
+				this.leftRatio = this.rightRatio - .1
+			}
 			this.UpdateRectBox()
 			this.Refresh()
 		} elsif (this.grabTgt == `right) {
 			this.rightRatio = (pt.x - this.rcImg.x) / this.rcImg.width
+			if (this.rightRatio > 1) {
+				this.rightRatio = 1
+			} elsif (this.rightRatio < this.leftRatio + .1) {
+				this.rightRatio = this.leftRatio + .1
+			}
 			this.UpdateRectBox()
 			this.Refresh()
 		} elsif (this.grabTgt == `top) {
 			this.topRatio = (pt.y - this.rcImg.y) / this.rcImg.height
+			if (this.topRatio < 0) {
+				this.topRatio = 0
+			} elsif (this.topRatio > this.bottomRatio - .1) {
+				this.topRatio = this.bottomRatio - .1
+			}
 			this.UpdateRectBox()
 			this.Refresh()
 		} elsif (this.grabTgt == `bottom) {
 			this.bottomRatio = (pt.y - this.rcImg.y) / this.rcImg.height
+			if (this.bottomRatio > 1) {
+				this.bottomRatio = 1
+			} elsif (this.bottomRatio < this.topRatio + .1) {
+				this.bottomRatio = this.topRatio + .1
+			}
 			this.UpdateRectBox()
 			this.Refresh()
 		}
 	}
 }
 
+//-----------------------------------------------------------------------------
+// Panel
+//-----------------------------------------------------------------------------
 Panel = class(wx.Panel) {
 	__init__(parent:wx.Window) = {|parent|
 		outerBox = wx.BoxSizer(wx.VERTICAL)
@@ -184,6 +204,9 @@ Panel = class(wx.Panel) {
 	}
 }
 
+//-----------------------------------------------------------------------------
+// Frame
+//-----------------------------------------------------------------------------
 Frame = class(wx.Frame) {
 	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
 			size:wx.Size => wx.DefaultSize) = {|nil, wx.ID_ANY, title, pos, size|
