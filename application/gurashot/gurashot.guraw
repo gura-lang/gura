@@ -12,6 +12,8 @@ Layout = struct(wdPaper:number, htPaper:number,
 			wdImg:number, htImg:number, htTop:number, htFace:number)
 
 layout = Layout(127 - 10, 89 - 10, 30, 40, 2, 30)
+layout = Layout(127 - 10, 89 - 10, 24, 30, 2, 20)
+//layout = Layout(89 - 10, 127 - 10, 30, 40, 2, 30)
 
 //-----------------------------------------------------------------------------
 // FaceRatio
@@ -41,28 +43,35 @@ ComposeProduct(cr:cairo.context, layout:Layout, imgOriginal:image, faceRatio:Fac
 	}
 	cairo.pattern.create_for_surface(imgExtract) {|pattern|
 		[wdImgEx, htImgEx] = [layout.wdImg + wdMgn * 2,  layout.htImg + htMgn * 2]
-		y = htGuide
 		cr.set_line_width(.1)
 		cr.set_source_rgb(.2, .2, 1)
-		cr.move_to(0, y + htMgn)
-		cr.line_to(layout.wdPaper, y + htMgn)
-		cr.move_to(0, y + htImgEx - htMgn)
-		cr.line_to(layout.wdPaper, y + htImgEx - htMgn)
-		cr.stroke()
-		n = int(layout.wdPaper / (wdImgEx + wdGuide))
-		repeat(n) {|i|
-			x = wdGuide + i * (wdImgEx + wdGuide)
-			cr.move_to(x + wdMgn, y - htGuide)
-			cr.line_to(x + wdMgn, y + htImgEx + htGuide)
-			cr.move_to(x + wdImgEx - wdMgn, y - htGuide)
-			cr.line_to(x + wdImgEx - wdMgn, y + htImgEx + htGuide)
+		nx = int((layout.wdPaper - wdGuide) / (wdImgEx + wdGuide))
+		ny = int((layout.htPaper - htGuide) / (htImgEx + htGuide))
+		wdFrame = layout.wdPaper / nx
+		htFrame = layout.htPaper / ny
+		repeat(ny) {|iy|
+			yFrame = htFrame * iy
+			y = yFrame + (htFrame - htImgEx) / 2
+			cr.move_to(0, y + htMgn)
+			cr.line_to(layout.wdPaper, y + htMgn)
+			cr.move_to(0, y + htImgEx - htMgn)
+			cr.line_to(layout.wdPaper, y + htImgEx - htMgn)
 			cr.stroke()
-			cr.save {
-				scale = htImgEx / imgExtract.height
-				cr.translate(x, y)
-				cr.scale(scale, scale)
-				cr.set_source(pattern)
-				cr.paint()
+			repeat(nx) {|ix|
+				xFrame = wdFrame * ix
+				x = xFrame + (wdFrame - wdImgEx) / 2
+				cr.move_to(x + wdMgn, y - htGuide)
+				cr.line_to(x + wdMgn, y + htImgEx + htGuide)
+				cr.move_to(x + wdImgEx - wdMgn, y - htGuide)
+				cr.line_to(x + wdImgEx - wdMgn, y + htImgEx + htGuide)
+				cr.stroke()
+				cr.save {
+					scale = htImgEx / imgExtract.height
+					cr.translate(x, y)
+					cr.scale(scale, scale)
+					cr.set_source(pattern)
+					cr.paint()
+				}
 			}
 		}
 	}
