@@ -11,32 +11,49 @@ import(resource)
 [wdPaper, htPaper] = [127.0 - wdMgn, 89.0 - wdMgn]
 
 //-----------------------------------------------------------------------------
-// ExtractRatio
+// FaceRatio
 //-----------------------------------------------------------------------------
-ExtractRatio = struct(center:number, top:number, bottom:number)
+FaceRatio = struct(center:number, top:number, bottom:number)
 
 //-----------------------------------------------------------------------------
 // ComposeProduct
 //-----------------------------------------------------------------------------
-ComposeProduct(cr:cairo.context, imgOriginal:image, extractRatio:ExtractRatio) = {
+ComposeProduct(cr:cairo.context, imgOriginal:image, faceRatio:FaceRatio) = {
+	[wdMgn, htMgn] = [2, 2]
+	[wdGuide, htGuide] = [2, 2]
+	[wdImg, htImg, htTop, htFace] = [30, 40, 2, 30]
+	//[wdImg, htImg, htTop, htFace] = [35, 45, 4, 34]
+	htBottom = htImg - htTop - htFace
+	ratioBase = faceRatio.bottom - faceRatio.top
 	imgExtract = scope {
-		xLeft = imgOriginal.width * (extractRatio.center - .3)
-		xRight = imgOriginal.width * (extractRatio.center + .3)
-		yTop = imgOriginal.height * extractRatio.top
-		yBottom = imgOriginal.height * extractRatio.bottom
-		imgOriginal.crop(xLeft, yTop, xRight - xLeft, yBottom - yTop)
+		yTop = imgOriginal.height * (faceRatio.top - ratioBase * htTop / htFace)
+		yBottom = imgOriginal.height * (faceRatio.bottom + ratioBase * htBottom / htFace)
+		height = yBottom - yTop
+		width = height * wdImg / htImg
+		xLeft = imgOriginal.width * faceRatio.center - width / 2
+		[wdDotMgn, htDotMgn] = imgOriginal.height * ratioBase * [wdMgn, htMgn] / htFace
+		imgOriginal.crop(xLeft - wdDotMgn, yTop - htDotMgn,
+						width + wdDotMgn * 2, height + htDotMgn * 2)
 	}
-	cairo.pattern.create_for_surface(imgExtract) {|pattern|
+	pattern = cairo.pattern.create_for_surface(imgExtract)
+	[wdImgEx, htImgEx] = [wdImg + wdMgn * 2,  htImg + htMgn * 2]
+	y = htGuide
+	cr.set_line_width(.1)
+	cr.set_source_rgb(.2, .2, 1)
+	cr.move_to(0, y + htMgn)
+	cr.line_to(wdPaper, y + htMgn)
+	cr.move_to(0, y + htImgEx - htMgn)
+	cr.line_to(wdPaper, y + htImgEx - htMgn)
+	repeat(3) {|i|
+		x = wdGuide + i * (wdImgEx + wdGuide)
+		cr.move_to(x + wdMgn, y - htGuide)
+		cr.line_to(x + wdMgn, y + htImgEx + htGuide)
+		cr.move_to(x + wdImgEx - wdMgn, y - htGuide)
+		cr.line_to(x + wdImgEx - wdMgn, y + htImgEx + htGuide)
+		cr.stroke()
 		cr.save {
-			scale = 40.0 / imgExtract.height
-			cr.translate(0, 0)
-			cr.scale(scale, scale)
-			cr.set_source(pattern)
-			cr.paint()
-		}
-		cr.save {
-			cr.translate(127.0 / 2, 10)
-			scale = 50.0 / imgExtract.height
+			scale = htImgEx / imgExtract.height
+			cr.translate(x, y)
 			cr.scale(scale, scale)
 			cr.set_source(pattern)
 			cr.paint()
@@ -52,16 +69,16 @@ ProductViewer = class(wx.Panel) {
 	__init__(parent:wx.Window) = {|parent|
 		this.imgScreen = nil
 		this.imgOriginal = nil
-		this.extractRatio = nil
+		this.faceRatio = nil
 		// bind event handlers
 		this.Bind(wx.EVT_ERASE_BACKGROUND) { /* nothing to do */ }
 		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event)}
 		this.Bind(wx.EVT_PAINT) {|event| this.OnPaint(event)}
 	}
 	// methods
-	SetExtractedImage(imgOriginal:image, extractRatio:ExtractRatio) = {
+	SetExtractedImage(imgOriginal:image, faceRatio:FaceRatio) = {
 		this.imgOriginal = imgOriginal
-		this.extractRatio = extractRatio
+		this.faceRatio = faceRatio
 	}
 	UpdateContent() = {
 		!this.imgOriginal && return
@@ -72,7 +89,7 @@ ProductViewer = class(wx.Panel) {
 		img.cairo {|cr|
 			scale = wdImg / wdPaper
 			cr.scale(scale, scale)
-			ComposeProduct(cr, this.imgOriginal, this.extractRatio)
+			ComposeProduct(cr, this.imgOriginal, this.faceRatio)
 		}
 		//[x, y] = [(wdClient - img.width) / 2, (htClient - img.height) / 2]
 		[x, y] = [0, 0]
@@ -103,13 +120,13 @@ Extractor = class(wx.Panel) {
 	__init__(parent:wx.Window, productViewer:ProductViewer) = {|parent, size => wx.Size(200, 200)|
 		this.productViewer = productViewer
 		this.grabTgt = nil
-		this.extractRatio = ExtractRatio(.5, .1, .6)
+		this.faceRatio = FaceRatio(.5, .1, .6)
 		this.imgOriginal = image('face.jpg')
 		this.imgScreen = nil
 		this.rcImg = wx.Rect(0, 0, 0, 0)
 		this.rcBox = wx.Rect(0, 0, 0, 0)
 		this.penBox = wx.Pen(wx.Colour(255, 0, 0), 2, wx.SHORT_DASH)
-		this.productViewer.SetExtractedImage(this.imgOriginal, this.extractRatio)
+		this.productViewer.SetExtractedImage(this.imgOriginal, this.faceRatio)
 		// bind event handlers
 		this.Bind(wx.EVT_ERASE_BACKGROUND) { /* nothing to do */ }
 		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event)}
@@ -139,10 +156,10 @@ Extractor = class(wx.Panel) {
 		this.UpdateRectBox()
 	}
 	UpdateRectBox() = {
-		xLeft = this.rcImg.x + this.rcImg.width * (this.extractRatio.center - RatioCursor / 2)
-		xRight = this.rcImg.x + this.rcImg.width * (this.extractRatio.center + RatioCursor / 2)
-		yTop = this.rcImg.y + this.rcImg.height * this.extractRatio.top
-		yBottom = this.rcImg.y + this.rcImg.height * this.extractRatio.bottom
+		xLeft = this.rcImg.x + this.rcImg.width * (this.faceRatio.center - RatioCursor / 2)
+		xRight = this.rcImg.x + this.rcImg.width * (this.faceRatio.center + RatioCursor / 2)
+		yTop = this.rcImg.y + this.rcImg.height * this.faceRatio.top
+		yBottom = this.rcImg.y + this.rcImg.height * this.faceRatio.bottom
 		this.rcBox = wx.Rect(xLeft, yTop, xRight - xLeft, yBottom - yTop)
 	}
 	// event handler
@@ -174,7 +191,7 @@ Extractor = class(wx.Panel) {
 	OnLeftUp(event:wx.MouseEvent) = {
 		if (this.grabTgt) {
 			this.grabTgt = nil
-			this.productViewer.SetExtractedImage(this.imgOriginal, this.extractRatio)
+			this.productViewer.SetExtractedImage(this.imgOriginal, this.faceRatio)
 			this.productViewer.UpdateContent()
 		}
 		this.HasCapture() && this.ReleaseMouse()
@@ -190,29 +207,29 @@ Extractor = class(wx.Panel) {
 		}
 		pt = event.GetPosition()
 		if (this.grabTgt == `center) {
-			this.extractRatio.center = (pt.x - this.rcImg.x) / this.rcImg.width
-			if (this.extractRatio.center > 1 - RatioCursor / 2) {
-				this.extractRatio.center = 1 - RatioCursor / 2
-			} elsif (this.extractRatio.center < RatioCursor / 2) {
-				this.extractRatio.center = RatioCursor / 2
+			this.faceRatio.center = (pt.x - this.rcImg.x) / this.rcImg.width
+			if (this.faceRatio.center > 1 - RatioCursor / 2) {
+				this.faceRatio.center = 1 - RatioCursor / 2
+			} elsif (this.faceRatio.center < RatioCursor / 2) {
+				this.faceRatio.center = RatioCursor / 2
 			}
 			this.UpdateRectBox()
 			this.Refresh()
 		} elsif (this.grabTgt == `top) {
-			this.extractRatio.top = (pt.y - this.rcImg.y) / this.rcImg.height
-			if (this.extractRatio.top < 0) {
-				this.extractRatio.top = 0
-			} elsif (this.extractRatio.top > this.extractRatio.bottom - .1) {
-				this.extractRatio.top = this.extractRatio.bottom - .1
+			this.faceRatio.top = (pt.y - this.rcImg.y) / this.rcImg.height
+			if (this.faceRatio.top < 0) {
+				this.faceRatio.top = 0
+			} elsif (this.faceRatio.top > this.faceRatio.bottom - .1) {
+				this.faceRatio.top = this.faceRatio.bottom - .1
 			}
 			this.UpdateRectBox()
 			this.Refresh()
 		} elsif (this.grabTgt == `bottom) {
-			this.extractRatio.bottom = (pt.y - this.rcImg.y) / this.rcImg.height
-			if (this.extractRatio.bottom > 1) {
-				this.extractRatio.bottom = 1
-			} elsif (this.extractRatio.bottom < this.extractRatio.top + .1) {
-				this.extractRatio.bottom = this.extractRatio.top + .1
+			this.faceRatio.bottom = (pt.y - this.rcImg.y) / this.rcImg.height
+			if (this.faceRatio.bottom > 1) {
+				this.faceRatio.bottom = 1
+			} elsif (this.faceRatio.bottom < this.faceRatio.top + .1) {
+				this.faceRatio.bottom = this.faceRatio.top + .1
 			}
 			this.UpdateRectBox()
 			this.Refresh()
@@ -250,7 +267,7 @@ Panel = class(wx.Panel) {
 //-----------------------------------------------------------------------------
 Frame = class(wx.Frame) {
 	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
-			size:wx.Size => wx.Size(800, 600)) = {|nil, wx.ID_ANY, title, pos, size|
+			size:wx.Size => wx.Size(800, 700)) = {|nil, wx.ID_ANY, title, pos, size|
 		this.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
 		wx.MenuBar() {|menuBar|
 			this.SetMenuBar(menuBar)
