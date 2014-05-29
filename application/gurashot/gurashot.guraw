@@ -29,7 +29,14 @@ ExtractRatio = struct(left:number, right:number, top:number, bottom:number)
 //-----------------------------------------------------------------------------
 // ComposeProduct
 //-----------------------------------------------------------------------------
-ComposeProduct(cr:cairo.context, imgExtract:image) = {
+ComposeProduct(cr:cairo.context, imgOriginal:image, extractRatio:ExtractRatio) = {
+	imgExtract = scope {
+		xLeft = imgOriginal.width * extractRatio.left
+		xRight = imgOriginal.width * extractRatio.right
+		yTop = imgOriginal.height * extractRatio.top
+		yBottom = imgOriginal.height * extractRatio.bottom
+		imgOriginal.crop(xLeft, yTop, xRight - xLeft, yBottom - yTop)
+	}
 	cairo.pattern.create_for_surface(imgExtract) {|pattern|
 		cr.save {
 			scale = 40.0 / imgExtract.height
@@ -55,18 +62,20 @@ ProductViewer = class(wx.Panel) {
 	// constructor
 	__init__(parent:wx.Window) = {|parent|
 		this.imgScreen = nil
-		this.imgExtract = nil
+		this.imgOriginal = nil
+		this.extractRatio = nil
 		// bind event handlers
 		this.Bind(wx.EVT_ERASE_BACKGROUND) { /* nothing to do */ }
 		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event)}
 		this.Bind(wx.EVT_PAINT) {|event| this.OnPaint(event)}
 	}
 	// methods
-	SetExtractedImage(imgExtract:image) = {
-		this.imgExtract = imgExtract
+	SetExtractedImage(imgOriginal:image, extractRatio:ExtractRatio) = {
+		this.imgOriginal = imgOriginal
+		this.extractRatio = extractRatio
 	}
 	UpdateContent() = {
-		!this.imgExtract && return
+		!this.imgOriginal && return
 		[wdClient, htClient] = this.GetClientSizeWH()
 		this.imgScreen.fill(`gray)
 		wdImg = 600, htImg = int(wdImg * htPaper / wdPaper)
@@ -74,7 +83,7 @@ ProductViewer = class(wx.Panel) {
 		img.cairo {|cr|
 			scale = wdImg / wdPaper
 			cr.scale(scale, scale)
-			ComposeProduct(cr, this.imgExtract)
+			ComposeProduct(cr, this.imgOriginal, this.extractRatio)
 		}
 		//[x, y] = [(wdClient - img.width) / 2, (htClient - img.height) / 2]
 		[x, y] = [0, 0]
@@ -110,7 +119,7 @@ Extractor = class(wx.Panel) {
 		this.rcImg = wx.Rect(0, 0, 0, 0)
 		this.rcBox = wx.Rect(0, 0, 0, 0)
 		this.penBox = wx.Pen(wx.Colour(255, 0, 0), 2, wx.SHORT_DASH)
-		this.productViewer.SetExtractedImage(this.DoExtract())
+		this.productViewer.SetExtractedImage(this.imgOriginal, this.extractRatio)
 		// bind event handlers
 		this.Bind(wx.EVT_ERASE_BACKGROUND) { /* nothing to do */ }
 		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event)}
@@ -120,13 +129,6 @@ Extractor = class(wx.Panel) {
 		this.Bind(wx.EVT_MOTION) {|event| this.OnMotion(event)}
 	}
 	// methods
-	DoExtract() = {
-		xLeft = this.imgOriginal.width * this.extractRatio.left
-		xRight = this.imgOriginal.width * this.extractRatio.right
-		yTop = this.imgOriginal.height * this.extractRatio.top
-		yBottom = this.imgOriginal.height * this.extractRatio.bottom
-		this.imgOriginal.crop(xLeft, yTop, xRight - xLeft, yBottom - yTop)
-	}
 	SenseBox(pt:wx.Point) = {
 		[wdSense, htSense] = [6, 6]
 		wx.Rect(this.rcBox.GetLeft() - wdSense / 2, this.rcBox.GetTop(),
@@ -179,7 +181,7 @@ Extractor = class(wx.Panel) {
 	OnLeftUp(event:wx.MouseEvent) = {
 		if (this.grabTgt) {
 			this.grabTgt = nil
-			this.productViewer.SetExtractedImage(this.DoExtract())
+			this.productViewer.SetExtractedImage(this.imgOriginal, this.extractRatio)
 			this.productViewer.UpdateContent()
 		}
 		this.HasCapture() && this.ReleaseMouse()
