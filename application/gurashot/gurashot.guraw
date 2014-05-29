@@ -130,15 +130,17 @@ Extractor = class(wx.Panel) {
 		dc = nil
 	}
 	OnLeftDown(event:wx.MouseEvent) = {
-		this.grabTgt = this.SenseBox(event.GetPosition())
-		this.CaptureMouse()
+		if (!this.grabTgt) {
+			this.grabTgt = this.SenseBox(event.GetPosition())
+		}
+		!this.HasCapture() && this.CaptureMouse()
 	}
 	OnLeftUp(event:wx.MouseEvent) = {
 		if (this.grabTgt) {
 			this.grabTgt = nil
 			this.productViewer.UpdateContent(this.DoExtract(), true)
 		}
-		this.ReleaseMouse()
+		this.HasCapture() && this.ReleaseMouse()
 	}
 	OnMotion(event:wx.MouseEvent) = {
 		rtn = this.SenseBox(event.GetPosition())
@@ -197,6 +199,9 @@ Panel = class(wx.Panel) {
 	__init__(parent:wx.Window) = {|parent|
 		outerBox = wx.BoxSizer(wx.VERTICAL)
 		this.SetSizer(outerBox)
+		wx.StaticLine(this, wx.ID_ANY, style => wx.HORIZONTAL) {|ctrl|
+			outerBox.Add(ctrl, wx.SizerFlags().Expand())
+		}
 		productViewer = ProductViewer(this)
 		extractor = Extractor(this, productViewer)
 		outerBox.Add(extractor, wx.SizerFlags(1).Expand())
@@ -211,6 +216,15 @@ Frame = class(wx.Frame) {
 	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
 			size:wx.Size => wx.DefaultSize) = {|nil, wx.ID_ANY, title, pos, size|
 		this.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+		wx.MenuBar() {|menuBar|
+			this.SetMenuBar(menuBar)
+			wx.Menu() {|menu|
+				menuBar.Append(menu, '&File')
+				//menu.Append(wx.ID_ANY, 'Save')
+				//menu.Append(wx.ID_ANY, 'Load')
+				//menu.Append(wx.ID_ANY, 'Exit')
+			}
+		}
 		Panel(this)
 	}
 }
