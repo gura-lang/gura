@@ -28,8 +28,16 @@ ProductViewer = class(wx.Panel) {
 	//-------------------------------------------------------------------------
 	UpdateContent(imgExtract:image, refreshFlag:boolean) = {
 		this.imgExtract = imgExtract
-		
-		refreshFlag && this.Refresh()
+		if (refreshFlag) {
+			this.ComposeImage()
+			this.Refresh()
+		}
+	}
+	ComposeImage() = {
+		!this.imgExtract && return
+		[wdClient, htClient] = this.GetClientSizeWH()
+		this.imgScreen.fill(`gray)
+		this.imgScreen.paste(0, 0, this.imgExtract.thumbnail(wdClient, htClient))
 	}
 	//-------------------------------------------------------------------------
 	// event handler
@@ -37,7 +45,7 @@ ProductViewer = class(wx.Panel) {
 	OnSize(event:wx.SizeEvent) = {
 		[wdClient, htClient] = this.GetClientSizeWH()
 		this.imgScreen = image(`rgb, wdClient, htClient, `gray)
-		this.imgExtract && this.imgScreen.paste(0, 0, this.imgExtract.thumbnail(wdClient, htClient))
+		this.ComposeImage()
 		this.Refresh()
 		event.Skip()
 	}
@@ -54,6 +62,7 @@ Extractor = class(wx.Panel) {
 	//-------------------------------------------------------------------------
 	__init__(parent:wx.Window, productViewer:ProductViewer) = {|parent|
 		this.productViewer = productViewer
+		this.grabTgt = nil
 		this.leftRatio = .2
 		this.rightRatio = .8
 		this.topRatio = .1
@@ -61,6 +70,7 @@ Extractor = class(wx.Panel) {
 		this.imgOriginal = image('face.jpg')
 		this.imgScreen = nil
 		this.rcImg = wx.Rect(0, 0, 0, 0)
+		this.rcBox = wx.Rect(0, 0, 0, 0)
 		this.penBox = wx.Pen(wx.Colour(255, 0, 0), 2, wx.SHORT_DASH)
 		this.productViewer.UpdateContent(this.DoExtract(), false)
 		// bind event handlers
@@ -81,6 +91,25 @@ Extractor = class(wx.Panel) {
 		yBottom = this.imgOriginal.height * this.bottomRatio
 		this.imgOriginal.crop(xLeft, yTop, xRight - xLeft, yBottom - yTop)
 	}
+	SenseBox(pt:wx.Point) = {
+		[wdSense, htSense] = [6, 6]
+		wx.Rect(this.rcBox.GetLeft() - wdSense / 2, this.rcBox.GetTop(),
+			wdSense, this.rcBox.height).Contains(pt) && return(`left)
+		wx.Rect(this.rcBox.GetRight() - wdSense / 2, this.rcBox.GetTop(),
+			wdSense, this.rcBox.height).Contains(pt) && return(`right)
+		wx.Rect(this.rcBox.GetLeft(), this.rcBox.GetTop() - htSense / 2,
+			this.rcBox.width, htSense).Contains(pt) && return(`top)
+		wx.Rect(this.rcBox.GetLeft(), this.rcBox.GetBottom() - htSense / 2,
+			this.rcBox.width, htSense).Contains(pt) && return(`bottom)
+		nil
+	}
+	UpdateRectBox() = {
+		xLeft = this.rcImg.x + this.rcImg.width * this.leftRatio
+		xRight = this.rcImg.x + this.rcImg.width * this.rightRatio
+		yTop = this.rcImg.y + this.rcImg.height * this.topRatio
+		yBottom = this.rcImg.y + this.rcImg.height * this.bottomRatio
+		this.rcBox = wx.Rect(xLeft, yTop, xRight - xLeft, yBottom - yTop)
+	}
 	//-------------------------------------------------------------------------
 	// event handler
 	//-------------------------------------------------------------------------
@@ -91,6 +120,7 @@ Extractor = class(wx.Panel) {
 		[x, y] = [(wdClient - img.width) / 2, (htClient - img.height) / 2]
 		this.imgScreen.paste(x, y, img)
 		this.rcImg = wx.Rect(x, y, img.width, img.height)
+		this.UpdateRectBox()
 		this.Refresh()
 		event.Skip()
 	}
@@ -99,18 +129,47 @@ Extractor = class(wx.Panel) {
 		dc.DrawBitmap(this.imgScreen, 0, 0, false)
 		dc.SetBrush(wx.TRANSPARENT_BRUSH)
 		dc.SetPen(this.penBox)
-		xLeft = this.rcImg.x + this.rcImg.width * this.leftRatio
-		xRight = this.rcImg.x + this.rcImg.width * this.rightRatio
-		yTop = this.rcImg.y + this.rcImg.height * this.topRatio
-		yBottom = this.rcImg.y + this.rcImg.height * this.bottomRatio
-		dc.DrawRectangle(xLeft, yTop, xRight - xLeft, yBottom - yTop)
+		dc.DrawRectangleRect(this.rcBox)
 		dc = nil
 	}
 	OnLeftDown(event:wx.MouseEvent) = {
+		this.grabTgt = this.SenseBox(event.GetPosition())
+		this.CaptureMouse()
 	}
 	OnLeftUp(event:wx.MouseEvent) = {
+		if (this.grabTgt) {
+			this.grabTgt = nil
+			this.productViewer.UpdateContent(this.DoExtract(), true)
+		}
+		this.ReleaseMouse()
 	}
 	OnMotion(event:wx.MouseEvent) = {
+		rtn = this.SenseBox(event.GetPosition())
+		if (rtn in [`left, `right]) {
+			this.SetCursor(wx.StockCursor(wx.CURSOR_SIZEWE))
+		} elsif (rtn in [`top, `bottom]) {
+			this.SetCursor(wx.StockCursor(wx.CURSOR_SIZENS))
+		} else {
+			this.SetCursor(wx.StockCursor(wx.CURSOR_ARROW))
+		}
+		pt = event.GetPosition()
+		if (this.grabTgt == `left) {
+			this.leftRatio = (pt.x - this.rcImg.x) / this.rcImg.width
+			this.UpdateRectBox()
+			this.Refresh()
+		} elsif (this.grabTgt == `right) {
+			this.rightRatio = (pt.x - this.rcImg.x) / this.rcImg.width
+			this.UpdateRectBox()
+			this.Refresh()
+		} elsif (this.grabTgt == `top) {
+			this.topRatio = (pt.y - this.rcImg.y) / this.rcImg.height
+			this.UpdateRectBox()
+			this.Refresh()
+		} elsif (this.grabTgt == `bottom) {
+			this.bottomRatio = (pt.y - this.rcImg.y) / this.rcImg.height
+			this.UpdateRectBox()
+			this.Refresh()
+		}
 	}
 }
 
