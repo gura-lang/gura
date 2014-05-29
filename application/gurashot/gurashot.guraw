@@ -14,6 +14,7 @@ Layout = struct(wdPaper:number, htPaper:number,
 layout = Layout(127 - 10, 89 - 10, 30, 40, 2, 30)
 layout = Layout(127 - 10, 89 - 10, 24, 30, 2, 20)
 //layout = Layout(89 - 10, 127 - 10, 30, 40, 2, 30)
+layout = Layout(127 - 10, 89 - 10, 35, 45, 4, 34)
 
 //-----------------------------------------------------------------------------
 // FaceRatio
@@ -23,20 +24,25 @@ FaceRatio = struct(center:number, top:number, bottom:number)
 //-----------------------------------------------------------------------------
 // ComposeProduct
 //-----------------------------------------------------------------------------
-ComposeProduct(cr:cairo.context, layout:Layout, imgOriginal:image, faceRatio:FaceRatio) = {
+ComposeProduct(cr:cairo.context, layout:Layout, imgOrg:image, faceRatio:FaceRatio) = {
 	[wdMgn, htMgn] = [2, 2]
 	[wdGuide, htGuide] = [2, 2]
 	htBottom = layout.htImg - layout.htTop - layout.htFace
 	ratioBase = faceRatio.bottom - faceRatio.top
 	imgExtract = scope {
-		yTop = imgOriginal.height * (faceRatio.top - ratioBase * layout.htTop / layout.htFace)
-		yBottom = imgOriginal.height * (faceRatio.bottom + ratioBase * htBottom / layout.htFace)
+		yTop = imgOrg.height * (faceRatio.top - ratioBase * layout.htTop / layout.htFace)
+		yBottom = imgOrg.height * (faceRatio.bottom + ratioBase * htBottom / layout.htFace)
 		height = yBottom - yTop
 		width = height * layout.wdImg / layout.htImg
-		xLeft = imgOriginal.width * faceRatio.center - width / 2
-		[wdDotMgn, htDotMgn] = imgOriginal.height * ratioBase * [wdMgn, htMgn] / layout.htFace
-		imgOriginal.crop(xLeft - wdDotMgn, yTop - htDotMgn,
-						width + wdDotMgn * 2, height + htDotMgn * 2)
+		xLeft = imgOrg.width * faceRatio.center - width / 2
+		[wdDotMgn, htDotMgn] = imgOrg.height * ratioBase * [wdMgn, htMgn] / layout.htFace
+		[xCrop, yCrop] = [xLeft - wdDotMgn, yTop - htDotMgn]
+		[wdCrop, htCrop] = [width + wdDotMgn * 2, height + htDotMgn * 2]
+		imgSrc = image(`rgba, imgOrg.width * 2, imgOrg.height * 2, `gray)
+		imgSrc.paste(imgOrg.width / 2, imgOrg.height / 2, imgOrg)
+		imgSrc.paste(imgOrg.width / 2, 0,
+				imgOrg.crop(0, 0, imgOrg.width, imgOrg.height / 2).flip(`vert))
+		imgSrc.crop(xCrop + imgOrg.width / 2, yCrop + imgOrg.height / 2, wdCrop, htCrop)
 	}
 	cairo.pattern.create_for_surface(imgExtract) {|pattern|
 		[wdImgEx, htImgEx] = [layout.wdImg + wdMgn * 2,  layout.htImg + htMgn * 2]
@@ -81,7 +87,7 @@ ProductViewer = class(wx.Panel) {
 	// constructor
 	__init__(parent:wx.Window) = {|parent|
 		this.imgScreen = nil
-		this.imgOriginal = nil
+		this.imgOrg = nil
 		this.faceRatio = nil
 		// bind event handlers
 		this.Bind(wx.EVT_ERASE_BACKGROUND) { /* nothing to do */ }
@@ -89,12 +95,12 @@ ProductViewer = class(wx.Panel) {
 		this.Bind(wx.EVT_PAINT) {|event| this.OnPaint(event)}
 	}
 	// methods
-	SetExtractedImage(imgOriginal:image, faceRatio:FaceRatio) = {
-		this.imgOriginal = imgOriginal
+	SetExtractedImage(imgOrg:image, faceRatio:FaceRatio) = {
+		this.imgOrg = imgOrg
 		this.faceRatio = faceRatio
 	}
 	UpdateContent() = {
-		!this.imgOriginal && return
+		!this.imgOrg && return
 		[wdClient, htClient] = this.GetClientSizeWH()
 		this.imgScreen.fill(`gray)
 		wdImg = 600, htImg = int(wdImg * layout.htPaper / layout.wdPaper)
@@ -102,7 +108,7 @@ ProductViewer = class(wx.Panel) {
 		img.cairo {|cr|
 			scale = wdImg / layout.wdPaper
 			cr.scale(scale, scale)
-			ComposeProduct(cr, layout, this.imgOriginal, this.faceRatio)
+			ComposeProduct(cr, layout, this.imgOrg, this.faceRatio)
 		}
 		//[x, y] = [(wdClient - img.width) / 2, (htClient - img.height) / 2]
 		[x, y] = [0, 0]
@@ -130,7 +136,7 @@ ProductViewer = class(wx.Panel) {
 Extractor = class(wx.Panel) {
 	public {
 		faceRatio
-		imgOriginal
+		imgOrg
 	}
 	RatioCursor = .3
 	// constructor
@@ -138,12 +144,12 @@ Extractor = class(wx.Panel) {
 		this.productViewer = productViewer
 		this.grabTgt = nil
 		this.faceRatio = FaceRatio(.5, .1, .6)
-		this.imgOriginal = image('face.jpg')
+		this.imgOrg = image('face.jpg')
 		this.imgScreen = nil
 		this.rcImg = wx.Rect(0, 0, 0, 0)
 		this.rcBox = wx.Rect(0, 0, 0, 0)
 		this.penBox = wx.Pen(wx.Colour(255, 0, 0), 2, wx.SHORT_DASH)
-		this.productViewer.SetExtractedImage(this.imgOriginal, this.faceRatio)
+		this.productViewer.SetExtractedImage(this.imgOrg, this.faceRatio)
 		// bind event handlers
 		this.Bind(wx.EVT_ERASE_BACKGROUND) { /* nothing to do */ }
 		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event)}
@@ -166,7 +172,7 @@ Extractor = class(wx.Panel) {
 	UpdateImageScreen() = {
 		[wdClient, htClient] = this.GetClientSizeWH()
 		this.imgScreen = image(`rgb, wdClient, htClient, `gray)
-		img = this.imgOriginal.thumbnail(wdClient, htClient)
+		img = this.imgOrg.thumbnail(wdClient, htClient)
 		[x, y] = [(wdClient - img.width) / 2, (htClient - img.height) / 2]
 		this.imgScreen.paste(x, y, img)
 		this.rcImg = wx.Rect(x, y, img.width, img.height)
@@ -209,7 +215,7 @@ Extractor = class(wx.Panel) {
 		this.HasCapture() && this.ReleaseMouse()
 		if (this.grabTgt) {
 			this.grabTgt = nil
-			this.productViewer.SetExtractedImage(this.imgOriginal, this.faceRatio)
+			this.productViewer.SetExtractedImage(this.imgOrg, this.faceRatio)
 			this.productViewer.UpdateContent()
 		}
 	}
@@ -278,7 +284,7 @@ Panel = class(wx.Panel) {
 								units.mm$pt(layout.wdPaper), units.mm$pt(layout.htPaper))) {|cr|
 						scale = 72 / 25.4
 						cr.scale(scale, scale)
-						ComposeProduct(cr, layout, this.extractor.imgOriginal, this.extractor.faceRatio)
+						ComposeProduct(cr, layout, this.extractor.imgOrg, this.extractor.faceRatio)
 						cr.show_page()
 					}
 				}
