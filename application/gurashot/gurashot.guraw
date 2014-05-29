@@ -13,15 +13,15 @@ import(resource)
 //-----------------------------------------------------------------------------
 // ExtractRatio
 //-----------------------------------------------------------------------------
-ExtractRatio = struct(left:number, right:number, top:number, bottom:number)
+ExtractRatio = struct(center:number, top:number, bottom:number)
 
 //-----------------------------------------------------------------------------
 // ComposeProduct
 //-----------------------------------------------------------------------------
 ComposeProduct(cr:cairo.context, imgOriginal:image, extractRatio:ExtractRatio) = {
 	imgExtract = scope {
-		xLeft = imgOriginal.width * extractRatio.left
-		xRight = imgOriginal.width * extractRatio.right
+		xLeft = imgOriginal.width * (extractRatio.center - .3)
+		xRight = imgOriginal.width * (extractRatio.center + .3)
 		yTop = imgOriginal.height * extractRatio.top
 		yBottom = imgOriginal.height * extractRatio.bottom
 		imgOriginal.crop(xLeft, yTop, xRight - xLeft, yBottom - yTop)
@@ -98,11 +98,12 @@ ProductViewer = class(wx.Panel) {
 // Extractor
 //-----------------------------------------------------------------------------
 Extractor = class(wx.Panel) {
+	RatioCursor = .3
 	// constructor
 	__init__(parent:wx.Window, productViewer:ProductViewer) = {|parent, size => wx.Size(200, 200)|
 		this.productViewer = productViewer
 		this.grabTgt = nil
-		this.extractRatio = ExtractRatio(.2, .8, .1, .6)
+		this.extractRatio = ExtractRatio(.5, .1, .6)
 		this.imgOriginal = image('face.jpg')
 		this.imgScreen = nil
 		this.rcImg = wx.Rect(0, 0, 0, 0)
@@ -120,10 +121,8 @@ Extractor = class(wx.Panel) {
 	// methods
 	SenseBox(pt:wx.Point) = {
 		[wdSense, htSense] = [6, 6]
-		wx.Rect(this.rcBox.GetLeft() - wdSense / 2, this.rcBox.GetTop(),
-			wdSense, this.rcBox.height).Contains(pt) && return(`left)
-		wx.Rect(this.rcBox.GetRight() - wdSense / 2, this.rcBox.GetTop(),
-			wdSense, this.rcBox.height).Contains(pt) && return(`right)
+		wx.Rect((this.rcBox.GetLeft() + this.rcBox.GetRight() - wdSense) / 2, this.rcBox.GetTop(),
+			wdSense, this.rcBox.height).Contains(pt) && return(`center)
 		wx.Rect(this.rcBox.GetLeft(), this.rcBox.GetTop() - htSense / 2,
 			this.rcBox.width, htSense).Contains(pt) && return(`top)
 		wx.Rect(this.rcBox.GetLeft(), this.rcBox.GetBottom() - htSense / 2,
@@ -140,8 +139,8 @@ Extractor = class(wx.Panel) {
 		this.UpdateRectBox()
 	}
 	UpdateRectBox() = {
-		xLeft = this.rcImg.x + this.rcImg.width * this.extractRatio.left
-		xRight = this.rcImg.x + this.rcImg.width * this.extractRatio.right
+		xLeft = this.rcImg.x + this.rcImg.width * (this.extractRatio.center - RatioCursor / 2)
+		xRight = this.rcImg.x + this.rcImg.width * (this.extractRatio.center + RatioCursor / 2)
 		yTop = this.rcImg.y + this.rcImg.height * this.extractRatio.top
 		yBottom = this.rcImg.y + this.rcImg.height * this.extractRatio.bottom
 		this.rcBox = wx.Rect(xLeft, yTop, xRight - xLeft, yBottom - yTop)
@@ -158,7 +157,12 @@ Extractor = class(wx.Panel) {
 		dc.DrawBitmap(this.imgScreen, 0, 0, false)
 		dc.SetBrush(wx.TRANSPARENT_BRUSH)
 		dc.SetPen(this.penBox)
-		dc.DrawRectangleRect(this.rcBox)
+		xCenter = (this.rcBox.GetLeft() + this.rcBox.GetRight()) / 2
+		dc.DrawLine(xCenter, this.rcBox.GetTop(), xCenter, this.rcBox.GetBottom())
+		dc.DrawLine(this.rcBox.GetLeft(), this.rcBox.GetTop(),
+						this.rcBox.GetRight(), this.rcBox.GetTop())
+		dc.DrawLine(this.rcBox.GetLeft(), this.rcBox.GetBottom(),
+						this.rcBox.GetRight(), this.rcBox.GetBottom())
 		dc = nil
 	}
 	OnLeftDown(event:wx.MouseEvent) = {
@@ -177,7 +181,7 @@ Extractor = class(wx.Panel) {
 	}
 	OnMotion(event:wx.MouseEvent) = {
 		rtn = this.SenseBox(event.GetPosition())
-		if (rtn in [`left, `right]) {
+		if (rtn == `center) {
 			this.SetCursor(wx.StockCursor(wx.CURSOR_SIZEWE))
 		} elsif (rtn in [`top, `bottom]) {
 			this.SetCursor(wx.StockCursor(wx.CURSOR_SIZENS))
@@ -185,21 +189,12 @@ Extractor = class(wx.Panel) {
 			this.SetCursor(wx.StockCursor(wx.CURSOR_ARROW))
 		}
 		pt = event.GetPosition()
-		if (this.grabTgt == `left) {
-			this.extractRatio.left = (pt.x - this.rcImg.x) / this.rcImg.width
-			if (this.extractRatio.left < 0) {
-				this.extractRatio.left = 0
-			} elsif (this.extractRatio.left > this.extractRatio.right - .1) {
-				this.extractRatio.left = this.extractRatio.right - .1
-			}
-			this.UpdateRectBox()
-			this.Refresh()
-		} elsif (this.grabTgt == `right) {
-			this.extractRatio.right = (pt.x - this.rcImg.x) / this.rcImg.width
-			if (this.extractRatio.right > 1) {
-				this.extractRatio.right = 1
-			} elsif (this.extractRatio.right < this.extractRatio.left + .1) {
-				this.extractRatio.right = this.extractRatio.left + .1
+		if (this.grabTgt == `center) {
+			this.extractRatio.center = (pt.x - this.rcImg.x) / this.rcImg.width
+			if (this.extractRatio.center > 1 - RatioCursor / 2) {
+				this.extractRatio.center = 1 - RatioCursor / 2
+			} elsif (this.extractRatio.center < RatioCursor / 2) {
+				this.extractRatio.center = RatioCursor / 2
 			}
 			this.UpdateRectBox()
 			this.Refresh()
