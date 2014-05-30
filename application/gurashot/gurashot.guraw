@@ -8,42 +8,43 @@ import(resource)
 import(units)
 
 //-----------------------------------------------------------------------------
-// Global variables
-//-----------------------------------------------------------------------------
-g_imgBlank = image(`rgba, 600, 800, color(240, 240, 255))
-g_imgBlank.cairo {|cr|
-	cr.set_source_rgb(.8, 0.8, 0.8)
-	cr.save {
-		cr.scale(1, 1.1)
-		cr.arc(300, 250, 180, 0, math.pi * 2)
-		cr.fill()
-	}
-	cr.save {
-		cr.scale(1, .6)
-		cr.arc(300, 1160, 400, 0, math.pi * 2)
-		cr.fill()
-	}
-	cr.set_source_rgb(.5, 0.5, 0.5)
-	cr.select_font_face('Sans', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-	cr.set_font_size(100.0)
-	cr.move_to(110, 400)
-	cr.show_text('no image')
-}
-
-//-----------------------------------------------------------------------------
 // Layout
 //-----------------------------------------------------------------------------
 Layout = struct(name:string, wdPaper:number, htPaper:number,
 			wdImg:number, htImg:number, htTop:number, htFace:number)
 
-g_layoutTbl = @(Layout) {
-	{ "Driver's license",				127 - 10, 89 - 10, 24, 30, 2, 20 }
-	{ 'Resume',							89 - 10, 127 - 10, 30, 40, 2, 30 }
-	{ 'Passport',						127 - 10, 89 - 10, 35, 45, 4, 34 }
-	{ "International Driver's license",	127 - 10, 89 - 10, 40, 50, 4, 38 }
+//-----------------------------------------------------------------------------
+// Global variables
+//-----------------------------------------------------------------------------
+g = module {
+	imgBlank:public = image(`rgba, 800, 800, color(240, 240, 255))
+	imgBlank.cairo {|cr|
+		cr.set_source_rgb(.8, 0.8, 0.8)
+		cr.save {
+			cr.scale(1, 1.1)
+			cr.arc(400, 250, 180, 0, math.pi * 2)
+			cr.fill()
+		}
+		cr.save {
+			cr.scale(1, 5)
+			cr.arc(400, 1090, 1000, 0, math.pi * 2)
+			cr.fill()
+		}
+		cr.set_source_rgb(.5, 0.5, 0.5)
+		cr.select_font_face('Sans', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+		cr.set_font_size(100.0)
+		cr.move_to(210, 400)
+		cr.show_text('no image')
+	}
+	layoutTbl:public = @(Layout) {
+		{ "Driver's license",				127 - 10, 89 - 10, 24, 30, 2, 20 }
+		{ 'Resume',							89 - 10, 127 - 10, 30, 40, 2, 30 }
+		{ 'Passport',						127 - 10, 89 - 10, 35, 45, 4, 34 }
+		{ "International driver's license",	127 - 10, 89 - 10, 40, 50, 4, 38 }
+		{ 'U.S. Visa',						127 - 10, 89 - 10, 50, 50, 4, 35 }
+	}
+	layoutCur:public = layoutTbl[0]
 }
-
-g_layoutCur = g_layoutTbl[0]
 
 //-----------------------------------------------------------------------------
 // FaceRatio
@@ -153,20 +154,29 @@ ProductViewer = class(wx.Panel) {
 	UpdateContent() = {
 		!this.imgOrg && return
 		[wdClient, htClient] = this.GetClientSizeWH()
-		this.imgScreen.fill(`gray)
-		if (g_layoutCur.wdPaper > g_layoutCur.htPaper) {
-			wdImg = 400, htImg = int(wdImg * g_layoutCur.htPaper / g_layoutCur.wdPaper)
+		this.imgScreen.fill(color(240, 240, 240))
+		if (g.layoutCur.wdPaper > g.layoutCur.htPaper) {
+			wdImg = 400, htImg = int(wdImg * g.layoutCur.htPaper / g.layoutCur.wdPaper)
 		} else {
-			htImg = 400, wdImg = int(htImg * g_layoutCur.wdPaper / g_layoutCur.htPaper)
+			htImg = 400, wdImg = int(htImg * g.layoutCur.wdPaper / g.layoutCur.htPaper)
 		}
 		img = image(`rgba, wdImg, htImg, `white)
 		img.cairo {|cr|
-			scale = wdImg / g_layoutCur.wdPaper
+			scale = wdImg / g.layoutCur.wdPaper
 			cr.scale(scale, scale)
-			ComposeProduct(cr, g_layoutCur, this.imgOrg, this.faceRatio)
+			ComposeProduct(cr, g.layoutCur, this.imgOrg, this.faceRatio)
 		}
 		//[x, y] = [(wdClient - img.width) / 2, (htClient - img.height) / 2]
-		[x, y] = [0, 0]
+		if (wdClient < img.width) {
+			x = 0
+		} else {
+			x = (wdClient - img.width) / 2
+		}
+		if (htClient < img.height) {
+			y = 0
+		} else {
+			y = (htClient - img.height) / 2
+		}
 		this.imgScreen.paste(x, y, img)
 		this.Refresh()
 	}
@@ -199,7 +209,7 @@ Extractor = class(wx.Panel) {
 		this.productViewer = productViewer
 		this.grabTgt = nil
 		this.faceRatio = FaceRatio()
-		this.imgOrg = g_imgBlank //image('face.jpg')
+		this.imgOrg = g.imgBlank //image('face.jpg')
 		this.imgScreen = nil
 		this.rcImg = wx.Rect(0, 0, 0, 0)
 		this.rcBox = wx.Rect(0, 0, 0, 0)
@@ -358,7 +368,7 @@ Panel = class(wx.Panel) {
 				font = ctrl.GetFont()
 				font.SetPointSize(12)
 				ctrl.SetFont(font)
-				ctrl.Append(g_layoutTbl:*name):void
+				ctrl.Append(g.layoutTbl:*name):void
 				ctrl.SetSelection(0)
 				this.listBox = ctrl
 				ctrl.Bind(wx.EVT_LISTBOX) {|event| this.OnListBox(event) }
@@ -375,15 +385,15 @@ Panel = class(wx.Panel) {
 	}
 	OnListBox(event:wx.CommandEvent) = {
 		idx = this.listBox.GetSelection()
-		g_layoutCur:extern = g_layoutTbl[idx]
+		g.layoutCur = g.layoutTbl[idx]
 		this.productViewer.UpdateContent()
 	}
 	OnButton_PDF(event:wx.CommandEvent) = {
 		cairo.create(cairo.pdf_surface.create('test.pdf',
-					units.mm$pt(g_layoutCur.wdPaper), units.mm$pt(g_layoutCur.htPaper))) {|cr|
+					units.mm$pt(g.layoutCur.wdPaper), units.mm$pt(g.layoutCur.htPaper))) {|cr|
 			scale = 72 / 25.4
 			cr.scale(scale, scale)
-			ComposeProduct(cr, g_layoutCur, this.extractor.imgOrg, this.extractor.faceRatio)
+			ComposeProduct(cr, g.layoutCur, this.extractor.imgOrg, this.extractor.faceRatio)
 			cr.show_page()
 		}
 	}
@@ -394,7 +404,7 @@ Panel = class(wx.Panel) {
 //-----------------------------------------------------------------------------
 Frame = class(wx.Frame) {
 	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
-			size:wx.Size => wx.Size(800, 700)) = {|nil, wx.ID_ANY, title, pos, size|
+			size:wx.Size => wx.Size(700, 680)) = {|nil, wx.ID_ANY, title, pos, size|
 		this.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
 		wx.MenuBar() {|menuBar|
 			this.SetMenuBar(menuBar)
