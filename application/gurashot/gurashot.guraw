@@ -1,5 +1,7 @@
 #!/usr/bin/env gura
 import(wx)
+import(gif)
+import(png)
 import(jpeg)
 import(cairo)
 import(resource)
@@ -269,7 +271,22 @@ Extractor = class(wx.Panel) {
 		}
 	}
 	OnDropFiles(event:wx.DropFilesEvent) = {
-		println(event.GetFiles())
+		fileNames = event.GetFiles()
+		try {
+			img = image(fileNames[0])
+		} catch {
+			wx.MessageDialog(this, 'Failed to read the image file',
+									'Error', wx.OK | wx.ICON_ERROR) {|dlg|
+				dlg.CentreOnParent()
+				dlg.ShowModal()
+			}
+			return
+		}
+		this.imgOrg = img
+		this.UpdateImageScreen()
+		this.Refresh()
+		this.productViewer.SetExtractedImage(this.imgOrg, this.faceRatio)
+		this.productViewer.UpdateContent()
 	}
 }
 
