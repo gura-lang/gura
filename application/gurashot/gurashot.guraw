@@ -158,6 +158,7 @@ Extractor = class(wx.Panel) {
 		this.rcBox = wx.Rect(0, 0, 0, 0)
 		this.penBox = wx.Pen(wx.Colour(255, 0, 0), 2, wx.SHORT_DASH)
 		this.productViewer.SetExtractedImage(this.imgOrg, this.faceRatio)
+		this.DragAcceptFiles(true)
 		// bind event handlers
 		this.Bind(wx.EVT_ERASE_BACKGROUND) { /* nothing to do */ }
 		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event)}
@@ -165,6 +166,7 @@ Extractor = class(wx.Panel) {
 		this.Bind(wx.EVT_LEFT_DOWN) {|event| this.OnLeftDown(event)}
 		this.Bind(wx.EVT_LEFT_UP) {|event| this.OnLeftUp(event)}
 		this.Bind(wx.EVT_MOTION) {|event| this.OnMotion(event)}
+		this.Bind(wx.EVT_DROP_FILES) {|event| this.OnDropFiles(event)}
 	}
 	// methods
 	SenseBox(pt:wx.Point) = {
@@ -265,6 +267,9 @@ Extractor = class(wx.Panel) {
 			this.UpdateRectBox()
 			this.Refresh()
 		}
+	}
+	OnDropFiles(event:wx.DropFilesEvent) = {
+		println(event.GetFiles())
 	}
 }
 

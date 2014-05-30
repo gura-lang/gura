@@ -42,8 +42,7 @@ Gura_DeclareFunction(DropFilesEvent)
 #if 0
 	SetClassToConstruct(Gura_UserClass(wx_DropFilesEvent));
 	DeclareArg(env, "id", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "noFiles", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "files", VTYPE_string, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "files", VTYPE_string, OCCUR_ZeroOrOnce, FLAG_List);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 #endif
 }
@@ -55,9 +54,12 @@ Gura_ImplementFunction(DropFilesEvent)
 	WXTYPE id = 0;
 	if (args.IsValid(0)) id = static_cast<WXTYPE>(args.GetInt(0));
 	int noFiles = 0;
-	if (args.IsValid(1)) noFiles = args.GetInt(1);
-	wxString files = NULL;
-	if (args.IsValid(2)) files = wxString::FromUTF8(args.GetString(2));
+	wxString *files = NULL;
+	std::auto_ptr<wxArrayString> pFilesArray;
+	if (args.IsValid(1)) {
+		pFilesArray.reset(CreateArrayString(args,GetList(1)));
+		files = pFilesArray->
+	}
 	wx_DropFilesEvent *pEntity = new wx_DropFilesEvent(id, noFiles, files);
 	Object_wx_DropFilesEvent *pObj = Object_wx_DropFilesEvent::GetThisObj(args);
 	if (pObj == NULL) {
@@ -81,14 +83,11 @@ Gura_DeclareMethod(wx_DropFilesEvent, GetFiles)
 
 Gura_ImplementMethod(wx_DropFilesEvent, GetFiles)
 {
-#if 0
 	Object_wx_DropFilesEvent *pThis = Object_wx_DropFilesEvent::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	wxString rtn = pThis->GetEntity()->GetFiles();
-	return ReturnValue(env, sig, args, Value(env, static_cast<const char *>(rtn.ToUTF8())));
-#endif
-	SetError_NotImplemented(sig);
-	return Value::Null;
+	wxString *rtn = pThis->GetEntity()->GetFiles();
+	int n = pThis->GetEntity()->GetNumberOfFiles();
+	return ReturnValue(env, sig, args, ArrayStringToValue(env, rtn, n));
 }
 
 Gura_DeclareMethod(wx_DropFilesEvent, GetNumberOfFiles)
