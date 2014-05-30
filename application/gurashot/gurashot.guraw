@@ -8,6 +8,29 @@ import(resource)
 import(units)
 
 //-----------------------------------------------------------------------------
+// Global variables
+//-----------------------------------------------------------------------------
+g_imgBlank = image(`rgba, 600, 800, color(240, 240, 255))
+g_imgBlank.cairo {|cr|
+	cr.set_source_rgb(.8, 0.8, 0.8)
+	cr.save {
+		cr.scale(1, 1.1)
+		cr.arc(300, 250, 180, 0, math.pi * 2)
+		cr.fill()
+	}
+	cr.save {
+		cr.scale(1, .6)
+		cr.arc(300, 1160, 400, 0, math.pi * 2)
+		cr.fill()
+	}
+	cr.set_source_rgb(.5, 0.5, 0.5)
+	cr.select_font_face('Sans', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+	cr.set_font_size(100.0)
+	cr.move_to(110, 400)
+	cr.show_text('no image')
+}
+
+//-----------------------------------------------------------------------------
 // Layout
 //-----------------------------------------------------------------------------
 Layout = struct(wdPaper:number, htPaper:number,
@@ -21,7 +44,21 @@ layout = Layout(127 - 10, 89 - 10, 24, 30, 2, 20)
 //-----------------------------------------------------------------------------
 // FaceRatio
 //-----------------------------------------------------------------------------
-FaceRatio = struct(center:number, top:number, bottom:number)
+FaceRatio = class {
+	public {
+		center
+		top
+		bottom
+	}
+	__init__() = {
+		this.Initialize()
+	}
+	Initialize() = {
+		this.center = .5
+		this.top = .1
+		this.bottom = .6
+	}
+}
 
 //-----------------------------------------------------------------------------
 // ComposeProduct
@@ -153,8 +190,8 @@ Extractor = class(wx.Panel) {
 	__init__(parent:wx.Window, productViewer:ProductViewer) = {|parent, size => wx.Size(200, 200)|
 		this.productViewer = productViewer
 		this.grabTgt = nil
-		this.faceRatio = FaceRatio(.5, .1, .6)
-		this.imgOrg = image('face.jpg')
+		this.faceRatio = FaceRatio()
+		this.imgOrg = g_imgBlank //image('face.jpg')
 		this.imgScreen = nil
 		this.rcImg = wx.Rect(0, 0, 0, 0)
 		this.rcBox = wx.Rect(0, 0, 0, 0)
@@ -283,6 +320,7 @@ Extractor = class(wx.Panel) {
 			return
 		}
 		this.imgOrg = img
+		this.faceRatio.Initialize()
 		this.UpdateImageScreen()
 		this.Refresh()
 		this.productViewer.SetExtractedImage(this.imgOrg, this.faceRatio)
