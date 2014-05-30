@@ -137,7 +137,7 @@ ComposeProduct(cr:cairo.context, layout:Layout, imgOrg:image, faceRatio:FaceRati
 //-----------------------------------------------------------------------------
 ProductViewer = class(wx.Panel) {
 	// constructor
-	__init__(parent:wx.Window) = {|parent|
+	__init__(parent:wx.Windowm, style:number) = {|parent, style => style|
 		this.imgScreen = nil
 		this.imgOrg = nil
 		this.faceRatio = nil
@@ -205,11 +205,13 @@ Extractor = class(wx.Panel) {
 	}
 	RatioCursor = .3
 	// constructor
-	__init__(parent:wx.Window, productViewer:ProductViewer) = {|parent, size => wx.Size(200, 200)|
+	__init__(parent:wx.Window, style:number, productViewer:ProductViewer) = \
+							{|parent, style => style, size => wx.Size(200, 200)|
 		this.productViewer = productViewer
 		this.grabTgt = nil
 		this.faceRatio = FaceRatio()
-		this.imgOrg = g.imgBlank //image('face.jpg')
+		//this.imgOrg = g.imgBlank
+		this.imgOrg = image('face.jpg')
 		this.imgScreen = nil
 		this.rcImg = wx.Rect(0, 0, 0, 0)
 		this.rcBox = wx.Rect(0, 0, 0, 0)
@@ -358,12 +360,12 @@ Panel = class(wx.Panel) {
 		wx.StaticLine(this, wx.ID_ANY, style => wx.HORIZONTAL) {|ctrl|
 			vbox.Add(ctrl, wx.SizerFlags().Expand())
 		}
-		this.productViewer = ProductViewer(this)
-		this.extractor = Extractor(this, this.productViewer)
+		this.productViewer = ProductViewer(this, wx.BORDER_SUNKEN)
+		this.extractor = Extractor(this, wx.BORDER_SUNKEN, this.productViewer)
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
 			vbox.Add(hbox, wx.SizerFlags().Expand())
 			hbox.Add(this.extractor, wx.SizerFlags())
-			wx.ListBox(this, wx.ID_ANY) {|ctrl|
+			wx.ListBox(this, wx.ID_ANY, style => wx.BORDER_SUNKEN) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.LEFT, 2))
 				font = ctrl.GetFont()
 				font.SetPointSize(12)
@@ -373,15 +375,22 @@ Panel = class(wx.Panel) {
 				this.listBox = ctrl
 				ctrl.Bind(wx.EVT_LISTBOX) {|event| this.OnListBox(event) }
 			}
+		}
+		//wx.StaticLine(this, wx.ID_ANY, style => wx.HORIZONTAL) {|ctrl|
+		//	vbox.Add(ctrl, wx.SizerFlags().Expand())
+		//}
+		vbox.Add(this.productViewer, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
+		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
+			vbox.Add(hbox, wx.SizerFlags().Expand().Border(wx.TOP, 2))
 			wx.Button(this, wx.ID_ANY, 'PDF') {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 2))
 				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_PDF(event) }
 			}
+			wx.Button(this, wx.ID_ANY, 'JPEG') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 2))
+				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_JPEG(event) }
+			}
 		}
-		wx.StaticLine(this, wx.ID_ANY, style => wx.HORIZONTAL) {|ctrl|
-			vbox.Add(ctrl, wx.SizerFlags().Expand())
-		}
-		vbox.Add(this.productViewer, wx.SizerFlags(1).Expand())
 	}
 	OnListBox(event:wx.CommandEvent) = {
 		idx = this.listBox.GetSelection()
@@ -397,6 +406,16 @@ Panel = class(wx.Panel) {
 			cr.show_page()
 		}
 	}
+	OnButton_JPEG(event:wx.CommandEvent) = {
+		[wdImg, htImg] = [g.layoutCur.wdPaper, g.layoutCur.htPaper] * 300 / 25.4
+		img = image(`rgba, wdImg, htImg, `white)
+		img.cairo {|cr|
+			scale = 300 / 25.4
+			cr.scale(scale, scale)
+			ComposeProduct(cr, g.layoutCur, this.extractor.imgOrg, this.extractor.faceRatio)
+		}
+		img.write('test.jpg')
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -404,7 +423,7 @@ Panel = class(wx.Panel) {
 //-----------------------------------------------------------------------------
 Frame = class(wx.Frame) {
 	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
-			size:wx.Size => wx.Size(700, 680)) = {|nil, wx.ID_ANY, title, pos, size|
+			size:wx.Size => wx.Size(500, 680)) = {|nil, wx.ID_ANY, title, pos, size|
 		this.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
 		wx.MenuBar() {|menuBar|
 			this.SetMenuBar(menuBar)
