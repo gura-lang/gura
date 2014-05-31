@@ -14,6 +14,25 @@ Layout = struct(name:string, wdPaper:number, htPaper:number,
 			wdImg:number, htImg:number, htTop:number, htFace:number)
 
 //-----------------------------------------------------------------------------
+// FaceRatio
+//-----------------------------------------------------------------------------
+FaceRatio = class {
+	public {
+		center
+		top
+		bottom
+	}
+	__init__() = {
+		this.Initialize()
+	}
+	Initialize() = {
+		this.center = .5
+		this.top = .1
+		this.bottom = .6
+	}
+}
+
+//-----------------------------------------------------------------------------
 // Global variables
 //-----------------------------------------------------------------------------
 g = module {
@@ -44,36 +63,20 @@ g = module {
 		{ 'U.S. Visa',						127 - 10, 89 - 10, 50, 50, 4, 35 }
 	}
 	layoutCur:public = layoutTbl[0]
-}
-
-//-----------------------------------------------------------------------------
-// FaceRatio
-//-----------------------------------------------------------------------------
-FaceRatio = class {
-	public {
-		center
-		top
-		bottom
-	}
-	__init__() = {
-		this.Initialize()
-	}
-	Initialize() = {
-		this.center = .5
-		this.top = .1
-		this.bottom = .6
-	}
+	faceRatio:public = FaceRatio()
+	//imgOrg:public = g.imgBlank
+	imgOrg:public = image('face.jpg')
 }
 
 //-----------------------------------------------------------------------------
 // ComposeProduct
 //-----------------------------------------------------------------------------
-ComposeProduct(cr:cairo.context, layout:Layout, imgOrg:image, faceRatio:FaceRatio) = {
+ComposeProduct(cr:cairo.context, layout:Layout) = {
 	[wdMgn, htMgn] = [2, 2]
 	[wdGuide, htGuide] = [2, 2]
 	htMessage = 5
 	htBottom = layout.htImg - layout.htTop - layout.htFace
-	ratioBase = faceRatio.bottom - faceRatio.top
+	ratioBase = g.faceRatio.bottom - g.faceRatio.top
 	scope {
 		cr.select_font_face('Sans', cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
 		cr.set_source_rgb(.2, .2, 1)
@@ -82,18 +85,18 @@ ComposeProduct(cr:cairo.context, layout:Layout, imgOrg:image, faceRatio:FaceRati
 		cr.show_text('gurashot - Powered by Gura (http://www.gura-lang.org/)')
 	}
 	imgExtract = scope {
-		yTop = imgOrg.height * (faceRatio.top - ratioBase * layout.htTop / layout.htFace)
-		yBottom = imgOrg.height * (faceRatio.bottom + ratioBase * htBottom / layout.htFace)
+		yTop = g.imgOrg.height * (g.faceRatio.top - ratioBase * layout.htTop / layout.htFace)
+		yBottom = g.imgOrg.height * (g.faceRatio.bottom + ratioBase * htBottom / layout.htFace)
 		height = yBottom - yTop
 		width = height * layout.wdImg / layout.htImg
-		xLeft = imgOrg.width * faceRatio.center - width / 2
-		[wdDotMgn, htDotMgn] = imgOrg.height * ratioBase * [wdMgn, htMgn] / layout.htFace
+		xLeft = g.imgOrg.width * g.faceRatio.center - width / 2
+		[wdDotMgn, htDotMgn] = g.imgOrg.height * ratioBase * [wdMgn, htMgn] / layout.htFace
 		[xCrop, yCrop] = [xLeft - wdDotMgn, yTop - htDotMgn]
 		[wdCrop, htCrop] = [width + wdDotMgn * 2, height + htDotMgn * 2]
-		[wdDummy, htDummy] = [imgOrg.width / 2, imgOrg.height / 2]
-		imgSrc = image(`rgba, imgOrg.width + wdDummy * 2, imgOrg.height + htDummy * 2, `gray)
-		imgSrc.paste(wdDummy, htDummy, imgOrg)
-		imgSrc.paste(wdDummy, 0, imgOrg.crop(0, 0, imgOrg.width, htDummy).flip(`vert))
+		[wdDummy, htDummy] = [g.imgOrg.width / 2, g.imgOrg.height / 2]
+		imgSrc = image(`rgba, g.imgOrg.width + wdDummy * 2, g.imgOrg.height + htDummy * 2, `gray)
+		imgSrc.paste(wdDummy, htDummy, g.imgOrg)
+		imgSrc.paste(wdDummy, 0, g.imgOrg.crop(0, 0, g.imgOrg.width, htDummy).flip(`vert))
 		imgSrc.crop(xCrop + wdDummy, yCrop + htDummy, wdCrop, htCrop)
 	}
 	cairo.pattern.create_for_surface(imgExtract) {|pattern|
@@ -139,20 +142,13 @@ ProductViewer = class(wx.Panel) {
 	// constructor
 	__init__(parent:wx.Windowm, style:number) = {|parent, style => style|
 		this.imgScreen = nil
-		this.imgOrg = nil
-		this.faceRatio = nil
 		// bind event handlers
 		this.Bind(wx.EVT_ERASE_BACKGROUND) { /* nothing to do */ }
 		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event)}
 		this.Bind(wx.EVT_PAINT) {|event| this.OnPaint(event)}
 	}
 	// methods
-	SetExtractedImage(imgOrg:image, faceRatio:FaceRatio) = {
-		this.imgOrg = imgOrg
-		this.faceRatio = faceRatio
-	}
 	UpdateContent() = {
-		!this.imgOrg && return
 		[wdClient, htClient] = this.GetClientSizeWH()
 		this.imgScreen.fill(color(240, 240, 240))
 		if (g.layoutCur.wdPaper > g.layoutCur.htPaper) {
@@ -164,7 +160,7 @@ ProductViewer = class(wx.Panel) {
 		img.cairo {|cr|
 			scale = wdImg / g.layoutCur.wdPaper
 			cr.scale(scale, scale)
-			ComposeProduct(cr, g.layoutCur, this.imgOrg, this.faceRatio)
+			ComposeProduct(cr, g.layoutCur)
 		}
 		//[x, y] = [(wdClient - img.width) / 2, (htClient - img.height) / 2]
 		if (wdClient < img.width) {
@@ -199,24 +195,16 @@ ProductViewer = class(wx.Panel) {
 // Extractor
 //-----------------------------------------------------------------------------
 Extractor = class(wx.Panel) {
-	public {
-		faceRatio
-		imgOrg
-	}
 	RatioCursor = .3
 	// constructor
 	__init__(parent:wx.Window, style:number, productViewer:ProductViewer) = \
 							{|parent, style => style, size => wx.Size(200, 200)|
 		this.productViewer = productViewer
 		this.grabTgt = nil
-		this.faceRatio = FaceRatio()
-		//this.imgOrg = g.imgBlank
-		this.imgOrg = image('face.jpg')
 		this.imgScreen = nil
 		this.rcImg = wx.Rect(0, 0, 0, 0)
 		this.rcBox = wx.Rect(0, 0, 0, 0)
 		this.penBox = wx.Pen(wx.Colour(255, 0, 0), 2, wx.SHORT_DASH)
-		this.productViewer.SetExtractedImage(this.imgOrg, this.faceRatio)
 		this.DragAcceptFiles(true)
 		// bind event handlers
 		this.Bind(wx.EVT_ERASE_BACKGROUND) { /* nothing to do */ }
@@ -241,17 +229,17 @@ Extractor = class(wx.Panel) {
 	UpdateImageScreen() = {
 		[wdClient, htClient] = this.GetClientSizeWH()
 		this.imgScreen = image(`rgb, wdClient, htClient, `gray)
-		img = this.imgOrg.thumbnail(wdClient, htClient)
+		img = g.imgOrg.thumbnail(wdClient, htClient)
 		[x, y] = [(wdClient - img.width) / 2, (htClient - img.height) / 2]
 		this.imgScreen.paste(x, y, img)
 		this.rcImg = wx.Rect(x, y, img.width, img.height)
 		this.UpdateRectBox()
 	}
 	UpdateRectBox() = {
-		xLeft = this.rcImg.x + this.rcImg.width * (this.faceRatio.center - RatioCursor / 2)
-		xRight = this.rcImg.x + this.rcImg.width * (this.faceRatio.center + RatioCursor / 2)
-		yTop = this.rcImg.y + this.rcImg.height * this.faceRatio.top
-		yBottom = this.rcImg.y + this.rcImg.height * this.faceRatio.bottom
+		xLeft = this.rcImg.x + this.rcImg.width * (g.faceRatio.center - RatioCursor / 2)
+		xRight = this.rcImg.x + this.rcImg.width * (g.faceRatio.center + RatioCursor / 2)
+		yTop = this.rcImg.y + this.rcImg.height * g.faceRatio.top
+		yBottom = this.rcImg.y + this.rcImg.height * g.faceRatio.bottom
 		this.rcBox = wx.Rect(xLeft, yTop, xRight - xLeft, yBottom - yTop)
 	}
 	// event handler
@@ -284,7 +272,6 @@ Extractor = class(wx.Panel) {
 		this.HasCapture() && this.ReleaseMouse()
 		if (this.grabTgt) {
 			this.grabTgt = nil
-			this.productViewer.SetExtractedImage(this.imgOrg, this.faceRatio)
 			this.productViewer.UpdateContent()
 		}
 	}
@@ -299,29 +286,29 @@ Extractor = class(wx.Panel) {
 		}
 		pt = event.GetPosition()
 		if (this.grabTgt == `center) {
-			this.faceRatio.center = (pt.x - this.rcImg.x) / this.rcImg.width
-			if (this.faceRatio.center > 1 - RatioCursor / 2) {
-				this.faceRatio.center = 1 - RatioCursor / 2
-			} elsif (this.faceRatio.center < RatioCursor / 2) {
-				this.faceRatio.center = RatioCursor / 2
+			g.faceRatio.center = (pt.x - this.rcImg.x) / this.rcImg.width
+			if (g.faceRatio.center > 1 - RatioCursor / 2) {
+				g.faceRatio.center = 1 - RatioCursor / 2
+			} elsif (g.faceRatio.center < RatioCursor / 2) {
+				g.faceRatio.center = RatioCursor / 2
 			}
 			this.UpdateRectBox()
 			this.Refresh()
 		} elsif (this.grabTgt == `top) {
-			this.faceRatio.top = (pt.y - this.rcImg.y) / this.rcImg.height
-			if (this.faceRatio.top < 0) {
-				this.faceRatio.top = 0
-			} elsif (this.faceRatio.top > this.faceRatio.bottom - .1) {
-				this.faceRatio.top = this.faceRatio.bottom - .1
+			g.faceRatio.top = (pt.y - this.rcImg.y) / this.rcImg.height
+			if (g.faceRatio.top < 0) {
+				g.faceRatio.top = 0
+			} elsif (g.faceRatio.top > g.faceRatio.bottom - .1) {
+				g.faceRatio.top = g.faceRatio.bottom - .1
 			}
 			this.UpdateRectBox()
 			this.Refresh()
 		} elsif (this.grabTgt == `bottom) {
-			this.faceRatio.bottom = (pt.y - this.rcImg.y) / this.rcImg.height
-			if (this.faceRatio.bottom > 1) {
-				this.faceRatio.bottom = 1
-			} elsif (this.faceRatio.bottom < this.faceRatio.top + .1) {
-				this.faceRatio.bottom = this.faceRatio.top + .1
+			g.faceRatio.bottom = (pt.y - this.rcImg.y) / this.rcImg.height
+			if (g.faceRatio.bottom > 1) {
+				g.faceRatio.bottom = 1
+			} elsif (g.faceRatio.bottom < g.faceRatio.top + .1) {
+				g.faceRatio.bottom = g.faceRatio.top + .1
 			}
 			this.UpdateRectBox()
 			this.Refresh()
@@ -339,11 +326,10 @@ Extractor = class(wx.Panel) {
 			}
 			return
 		}
-		this.imgOrg = img
-		this.faceRatio.Initialize()
+		g.imgOrg = img
+		g.faceRatio.Initialize()
 		this.UpdateImageScreen()
 		this.Refresh()
-		this.productViewer.SetExtractedImage(this.imgOrg, this.faceRatio)
 		this.productViewer.UpdateContent()
 	}
 }
@@ -402,7 +388,7 @@ Panel = class(wx.Panel) {
 					units.mm$pt(g.layoutCur.wdPaper), units.mm$pt(g.layoutCur.htPaper))) {|cr|
 			scale = 72 / 25.4
 			cr.scale(scale, scale)
-			ComposeProduct(cr, g.layoutCur, this.extractor.imgOrg, this.extractor.faceRatio)
+			ComposeProduct(cr, g.layoutCur)
 			cr.show_page()
 		}
 	}
@@ -412,7 +398,7 @@ Panel = class(wx.Panel) {
 		img.cairo {|cr|
 			scale = 300 / 25.4
 			cr.scale(scale, scale)
-			ComposeProduct(cr, g.layoutCur, this.extractor.imgOrg, this.extractor.faceRatio)
+			ComposeProduct(cr, g.layoutCur)
 		}
 		img.write('test.jpg')
 	}
