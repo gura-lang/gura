@@ -98,7 +98,10 @@ ComposeProduct(cr:cairo.context, layout:Layout) = {
 		[wdDummy, htDummy] = [g.imgOrg.width / 2, g.imgOrg.height / 2]
 		imgSrc = image(`rgba, g.imgOrg.width + wdDummy * 2, g.imgOrg.height + htDummy * 2, `gray)
 		imgSrc.paste(wdDummy, htDummy, g.imgOrg)
-		imgSrc.paste(wdDummy, 0, g.imgOrg.crop(0, 0, g.imgOrg.width, htDummy).flip(`vert))
+		imgSrc.paste(wdDummy, 0,
+			g.imgOrg.crop(0, 0, g.imgOrg.width, htDummy).flip(`vert))
+		imgSrc.paste(wdDummy, htDummy + g.imgOrg.height,
+			g.imgOrg.crop(0, g.imgOrg.height - htDummy, g.imgOrg.width, htDummy).flip(`vert))
 		imgSrc.crop(xCrop + wdDummy, yCrop + htDummy, wdCrop, htCrop)
 	}
 	cairo.pattern.create_for_surface(imgExtract) {|pattern|
@@ -368,9 +371,6 @@ Panel = class(wx.Panel) {
 				ctrl.Bind(wx.EVT_LISTBOX) {|event| this.OnListBox(event) }
 			}
 		}
-		//wx.StaticLine(this, wx.ID_ANY, style => wx.HORIZONTAL) {|ctrl|
-		//	vbox.Add(ctrl, wx.SizerFlags().Expand())
-		//}
 		vbox.Add(this.productViewer, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
 			vbox.Add(hbox, wx.SizerFlags().Expand().Border(wx.TOP, 2))
@@ -381,6 +381,14 @@ Panel = class(wx.Panel) {
 			wx.Button(this, wx.ID_ANY, 'JPEG') {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 2))
 				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_JPEG(event) }
+			}
+			wx.Button(this, wx.ID_ANY, 'Rotate-L') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 2))
+				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_RotateL(event) }
+			}
+			wx.Button(this, wx.ID_ANY, 'Rotate-R') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 2))
+				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_RotateR(event) }
 			}
 		}
 	}
@@ -407,6 +415,18 @@ Panel = class(wx.Panel) {
 			ComposeProduct(cr, g.layoutCur)
 		}
 		img.write('test.jpg')
+	}
+	OnButton_RotateL(event:wx.CommandEvent) = {
+		g.rotate = (g.rotate + 270) % 360
+		g.imgOrg = g.imgRaw.rotate(g.rotate)
+		this.extractor.UpdateContent()
+		this.productViewer.UpdateContent()
+	}
+	OnButton_RotateR(event:wx.CommandEvent) = {
+		g.rotate = (g.rotate + 90) % 360
+		g.imgOrg = g.imgRaw.rotate(g.rotate)
+		this.extractor.UpdateContent()
+		this.productViewer.UpdateContent()
 	}
 }
 
