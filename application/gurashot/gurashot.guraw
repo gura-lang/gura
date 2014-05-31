@@ -64,8 +64,10 @@ g = module {
 	}
 	layoutCur:public = layoutTbl[0]
 	faceRatio:public = FaceRatio()
-	//imgOrg:public = g.imgBlank
-	imgOrg:public = image('face.jpg')
+	//imgRaw:public = g.imgBlank
+	rotate:public = 0
+	imgRaw:public = image('face.jpg')
+	imgOrg:public = imgRaw //.rotate(0)
 }
 
 //-----------------------------------------------------------------------------
@@ -226,6 +228,10 @@ Extractor = class(wx.Panel) {
 			this.rcBox.width, htSense).Contains(pt) && return(`bottom)
 		nil
 	}
+	UpdateContent() = {
+		this.UpdateImageScreen()
+		this.Refresh()
+	}
 	UpdateImageScreen() = {
 		[wdClient, htClient] = this.GetClientSizeWH()
 		this.imgScreen = image(`rgb, wdClient, htClient, `gray)
@@ -244,8 +250,7 @@ Extractor = class(wx.Panel) {
 	}
 	// event handler
 	OnSize(event:wx.SizeEvent) = {
-		this.UpdateImageScreen()
-		this.Refresh()
+		this.UpdateContent()
 		event.Skip()
 	}
 	OnPaint(event:wx.PaintEvent) = {
@@ -326,10 +331,11 @@ Extractor = class(wx.Panel) {
 			}
 			return
 		}
-		g.imgOrg = img
+		g.rotate = 0
+		g.imgRaw = img
+		g.imgOrg = g.imgRaw
 		g.faceRatio.Initialize()
-		this.UpdateImageScreen()
-		this.Refresh()
+		this.UpdateContent()
 		this.productViewer.UpdateContent()
 	}
 }
