@@ -220,48 +220,29 @@ Gura_DeclareFunction(test)
 Gura_ImplementFunction(test)
 {
 #if 0
-	const char *driverName = "WINSPOOL\0";
-	const char *printerName = "";
-	char printerNameDefault[MAX_PATH];
-	BYTE printerInfoBuff[16384];
-	PRINTER_INFO_2 *pPrinterInfo2 = reinterpret_cast<PRINTER_INFO_2 *>(printerInfoBuff);
-	if (::strcmp(printerName, "") == 0) {
-		DWORD cch;
-		if (!::GetDefaultPrinter(printerNameDefault, &cch)) {
-			sig.SetError(ERR_IOError, "failed to get a default printer");
-			return Value::Null;
-		}
-		printerName = printerNameDefault;
+	HDC hdc;
+	char printerName[MAX_PATH];
+	DWORD cch = ArraySizeOf(printerName) - 1;
+	if (!::GetDefaultPrinter(printerName, &cch)) {
+		::printf("failed to get a default printer");
+		return Value::Null;
 	}
-	do {
-		HANDLE hPrinter;
-		if (!::OpenPrinter(const_cast<char *>(printerName), &hPrinter, NULL)) {
-			sig.SetError(ERR_IOError, "failed to open printer handler");
-			return Value::Null;
-		}
-		DWORD cbNeeded;
-		if (!::GetPrinter(hPrinter, 2, printerInfoBuff, sizeof(printerInfoBuff), &cbNeeded)) {
-			sig.SetError(ERR_IOError, "failed to get printer information");
-			return Value::Null;
-		}
-		::ClosePrinter(hPrinter);
-	} while (0);
-	double width = 100 * 20, height = 100 * 20;
-	RECT rc;
-	rc.left = 0, rc.top = 0;
-	rc.right = static_cast<long>(width * 20);	// unit: 1/20pt
-	rc.bottom = static_cast<long>(height * 20);	// unit: 1/20pt
-	HDC hdc = ::CreateDC(driverName, printerName, pPrinterInfo2->pPortName, NULL);
-	::SetMapMode(hdc, MM_TWIPS);				// 1 unit = 1/20pt
-	//::SetMapMode(hdc, MM_HIMETRIC);			// 1 unit = 0.01mm
-	cairo_surface_t *surface = ::cairo_win32_printing_surface_create(hdc);
-	cairo_t *cr = ::cairo_create(surface);
-	
-	
-	
-	::cairo_show_page(cr);
+	if (!(hdc = ::CreateDC(NULL, printerName, NULL , NULL))) {
+		::printf("error in CreateDC()\n");
+		return Value::Null;
+	}
+	DOCINFO diInfo;
+	::memset(&diInfo, 0x00, sizeof(diInfo));
+	diInfo.cbSize = sizeof (DOCINFO);
+	diInfo.lpszDocName = "title";
+	if (::StartDoc(hdc , &diInfo) > 0 && ::StartPage(hdc) > 0) {
+		::SetMapMode(hdc, MM_LOMETRIC);
+		::Ellipse(hdc , 0 , 0 , 500 , -500);
+		::TextOut(hdc , 0 , 0 , "test", 4);
+		::EndPage(hdc);
+		::EndDoc(hdc);
+	}
 	::DeleteDC(hdc);
-	::cairo_destroy(cr);
 #endif
 	return Value::Null;
 }
