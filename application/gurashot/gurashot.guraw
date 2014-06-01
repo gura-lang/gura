@@ -484,7 +484,7 @@ Panel = class(wx.Panel) {
 Frame = class(wx.Frame) {
 	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
 			size:wx.Size => wx.Size(g.cfg['wdFrame', 'htFrame']*)) = {|nil, wx.ID_ANY, title, pos, size|
-		this.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
+		this.SetIcon(wx.IconFromXPMData(resource.MainIcon_xpm))
 		wx.MenuBar() {|menuBar|
 			this.SetMenuBar(menuBar)
 			wx.Menu() {|menu|
