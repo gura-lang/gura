@@ -43,7 +43,7 @@ LoadConfig(fileNameCfg:string) = {
 	}
 	cfg.store():default {
 		'wdFrame'			=> 600
-		'htFrame'			=> 680
+		'htFrame'			=> 730
 		'fileNameImg'		=> ''
 	}
 	cfg
@@ -258,10 +258,10 @@ ProductViewer = class(wx.Panel) {
 // Extractor
 //-----------------------------------------------------------------------------
 Extractor = class(wx.Panel) {
-	RatioCursor = .3
+	EdgeSize = 20
 	// constructor
 	__init__(parent:wx.Window, style:number, productViewer:ProductViewer) = \
-							{|parent, style => style, size => wx.Size(200, 200)|
+							{|parent, style => style, size => wx.Size(250, 250)|
 		this.productViewer = productViewer
 		this.grabTgt = nil
 		this.imgScreen = nil
@@ -281,12 +281,12 @@ Extractor = class(wx.Panel) {
 	// methods
 	SenseBox(pt:wx.Point) = {
 		[wdSense, htSense] = [6, 6]
-		wx.Rect((this.rcBox.GetLeft() + this.rcBox.GetRight() - wdSense) / 2, this.rcBox.GetTop(),
-			wdSense, this.rcBox.height).Contains(pt) && return(`center)
 		wx.Rect(this.rcBox.GetLeft(), this.rcBox.GetTop() - htSense / 2,
 			this.rcBox.width, htSense).Contains(pt) && return(`top)
 		wx.Rect(this.rcBox.GetLeft(), this.rcBox.GetBottom() - htSense / 2,
 			this.rcBox.width, htSense).Contains(pt) && return(`bottom)
+		wx.Rect((this.rcBox.GetLeft() + this.rcBox.GetRight() - wdSense) / 2, this.rcBox.GetTop(),
+			wdSense, this.rcBox.height).Contains(pt) && return(`center)
 		nil
 	}
 	UpdateContent() = {
@@ -295,7 +295,7 @@ Extractor = class(wx.Panel) {
 	}
 	UpdateImageScreen() = {
 		[wdClient, htClient] = this.GetClientSizeWH()
-		this.imgScreen = image(`rgb, wdClient, htClient, `gray)
+		this.imgScreen = image(`rgb, wdClient, htClient + 1, `gray)
 		img = g.imgOrg.thumbnail(wdClient, htClient)
 		[x, y] = [(wdClient - img.width) / 2, (htClient - img.height) / 2]
 		this.imgScreen.paste(x, y, img)
@@ -303,8 +303,8 @@ Extractor = class(wx.Panel) {
 		this.UpdateRectBox()
 	}
 	UpdateRectBox() = {
-		xLeft = this.rcImg.x + this.rcImg.width * (g.faceRatio.center - RatioCursor / 2)
-		xRight = this.rcImg.x + this.rcImg.width * (g.faceRatio.center + RatioCursor / 2)
+		xLeft = this.rcImg.x + this.rcImg.width * g.faceRatio.center - EdgeSize / 2
+		xRight = this.rcImg.x + this.rcImg.width * g.faceRatio.center + EdgeSize / 2
 		yTop = this.rcImg.y + this.rcImg.height * g.faceRatio.top
 		yBottom = this.rcImg.y + this.rcImg.height * g.faceRatio.bottom
 		this.rcBox = wx.Rect(xLeft, yTop, xRight - xLeft, yBottom - yTop)
@@ -353,10 +353,10 @@ Extractor = class(wx.Panel) {
 		pt = event.GetPosition()
 		if (this.grabTgt == `center) {
 			g.faceRatio.center = (pt.x - this.rcImg.x) / this.rcImg.width
-			if (g.faceRatio.center > 1 - RatioCursor / 2) {
-				g.faceRatio.center = 1 - RatioCursor / 2
-			} elsif (g.faceRatio.center < RatioCursor / 2) {
-				g.faceRatio.center = RatioCursor / 2
+			if (g.faceRatio.center > 1) {
+				g.faceRatio.center = 1
+			} elsif (g.faceRatio.center < 0) {
+				g.faceRatio.center = 0
 			}
 			this.UpdateRectBox()
 			this.Refresh()
