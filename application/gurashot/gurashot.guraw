@@ -77,8 +77,9 @@ g = module {
 		cr.move_to(210, 400)
 		cr.show_text('no image')
 	}
-	imgRotateL:public = image(`rgba).xpmdata(resource.RotateL)
-	imgRotateR:public = image(`rgba).xpmdata(resource.RotateR)
+	imgOpen:public = image(`rgba).xpmdata(resource.Open_xpm)
+	imgRotateL:public = image(`rgba).xpmdata(resource.RotateL_xpm)
+	imgRotateR:public = image(`rgba).xpmdata(resource.RotateR_xpm)
 	layoutTbl:public = @(Layout) {
 		{ "Driver's license",				127 - 10, 89 - 10, 24, 30, 2, 20 }
 		{ 'Resume',							89 - 10, 127 - 10, 30, 40, 2, 30 }
@@ -422,8 +423,12 @@ Panel = class(wx.Panel) {
 			hbox.Add(this.extractor, wx.SizerFlags())
 			wx.BoxSizer(wx.VERTICAL) {|vbox|
 				hbox.Add(vbox, wx.SizerFlags().Border(wx.LEFT, 2))
-				wx.BitmapButton(this, wx.ID_ANY, g.imgRotateL) {|ctrl|
+				wx.BitmapButton(this, wx.ID_ANY, g.imgOpen) {|ctrl|
 					vbox.Add(ctrl, wx.SizerFlags().Border(wx.TOP, 2))
+					ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_Open(event) }
+				}
+				wx.BitmapButton(this, wx.ID_ANY, g.imgRotateL) {|ctrl|
+					vbox.Add(ctrl, wx.SizerFlags().Border(wx.TOP, 4))
 					ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_RotateL(event) }
 				}
 				wx.BitmapButton(this, wx.ID_ANY, g.imgRotateR) {|ctrl|
@@ -467,6 +472,8 @@ Panel = class(wx.Panel) {
 		fileName = 'test.pdf'
 		ComposeProductPDF(fileName, g.layoutCur)
 		OpenWithApp(fileName)
+	}
+	OnButton_Open(event:wx.CommandEvent) = {
 	}
 	OnButton_RotateL(event:wx.CommandEvent) = {
 		g.rotate = (g.rotate + 270) % 360
