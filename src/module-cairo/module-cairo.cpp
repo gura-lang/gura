@@ -624,6 +624,7 @@ Stream *Writer_EnhMetaFile::GetStream()
 //-----------------------------------------------------------------------------
 Writer_WindowsDC::~Writer_WindowsDC()
 {
+	::EndDoc(_hdc);
 	::DeleteDC(_hdc);
 }
 

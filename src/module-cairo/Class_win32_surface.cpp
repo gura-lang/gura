@@ -55,13 +55,13 @@ Gura_DeclareClassMethod(win32_surface, create_printing)
 
 Gura_ImplementClassMethod(win32_surface, create_printing)
 {
-	const char *driverName = "WINSPOOL\0";
+	const char *driverName = NULL;
 	const char *printerName = args.GetString(0);
 	char printerNameDefault[MAX_PATH];
 	BYTE printerInfoBuff[16384];
 	PRINTER_INFO_2 *pPrinterInfo2 = reinterpret_cast<PRINTER_INFO_2 *>(printerInfoBuff);
 	if (::strcmp(printerName, "") == 0) {
-		DWORD cch;
+		DWORD cch = ArraySizeOf(printerNameDefault) - 1;
 		if (!::GetDefaultPrinter(printerNameDefault, &cch)) {
 			sig.SetError(ERR_IOError, "failed to get a default printer");
 			return Value::Null;
@@ -69,12 +69,12 @@ Gura_ImplementClassMethod(win32_surface, create_printing)
 		printerName = printerNameDefault;
 	}
 	do {
-		HANDLE hPrinter;
+		HANDLE hPrinter = NULL;
 		if (!::OpenPrinter(const_cast<char *>(printerName), &hPrinter, NULL)) {
 			sig.SetError(ERR_IOError, "failed to open printer handler");
 			return Value::Null;
 		}
-		DWORD cbNeeded;
+		DWORD cbNeeded = sizeof(printerInfoBuff);
 		if (!::GetPrinter(hPrinter, 2, printerInfoBuff, sizeof(printerInfoBuff), &cbNeeded)) {
 			sig.SetError(ERR_IOError, "failed to get printer information");
 			return Value::Null;
@@ -87,6 +87,11 @@ Gura_ImplementClassMethod(win32_surface, create_printing)
 	rc.right = static_cast<long>(width * 20);	// unit: 1/20pt
 	rc.bottom = static_cast<long>(height * 20);	// unit: 1/20pt
 	HDC hdc = ::CreateDC(driverName, printerName, pPrinterInfo2->pPortName, NULL);
+	DOCINFO di;
+	::memset(&di, 0x00, sizeof(di));
+	di.cbSize = sizeof(DOCINFO);
+	di.lpszDocName = "cairo";
+	::StartDoc(hdc, &di);
 	::SetMapMode(hdc, MM_TWIPS);				// 1 unit = 1/20pt
 	//::SetMapMode(hdc, MM_HIMETRIC);			// 1 unit = 0.01mm
 	Writer_WindowsDC *pWriter = new Writer_WindowsDC(sig, width, height, hdc);

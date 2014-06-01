@@ -359,6 +359,17 @@ Panel = class(wx.Panel) {
 		this.extractor = Extractor(this, wx.BORDER_SUNKEN, this.productViewer)
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
 			vbox.Add(hbox, wx.SizerFlags().Expand())
+			wx.BoxSizer(wx.VERTICAL) {|vbox|
+				hbox.Add(vbox, wx.SizerFlags())
+				wx.Button(this, wx.ID_ANY, 'Rotate-L') {|ctrl|
+					vbox.Add(ctrl, wx.SizerFlags())
+					ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_RotateL(event) }
+				}
+				wx.Button(this, wx.ID_ANY, 'Rotate-R') {|ctrl|
+					vbox.Add(ctrl, wx.SizerFlags())
+					ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_RotateR(event) }
+				}
+			}
 			hbox.Add(this.extractor, wx.SizerFlags())
 			wx.ListBox(this, wx.ID_ANY, style => wx.BORDER_SUNKEN) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.LEFT, 2))
@@ -374,21 +385,13 @@ Panel = class(wx.Panel) {
 		vbox.Add(this.productViewer, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
 			vbox.Add(hbox, wx.SizerFlags().Expand().Border(wx.TOP, 2))
-			wx.Button(this, wx.ID_ANY, 'PDF') {|ctrl|
+			wx.Button(this, wx.ID_ANY, 'PDF', style => wx.BORDER_NONE) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 2))
 				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_PDF(event) }
 			}
 			wx.Button(this, wx.ID_ANY, 'JPEG') {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 2))
 				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_JPEG(event) }
-			}
-			wx.Button(this, wx.ID_ANY, 'Rotate-L') {|ctrl|
-				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 2))
-				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_RotateL(event) }
-			}
-			wx.Button(this, wx.ID_ANY, 'Rotate-R') {|ctrl|
-				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 2))
-				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_RotateR(event) }
 			}
 		}
 	}
