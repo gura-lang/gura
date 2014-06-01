@@ -1,12 +1,14 @@
 #!/usr/bin/env gura
 import(wx)
+import(re)
+import(yaml)
 import(gif)
 import(png)
 import(jpeg)
+import(xpm)
 import(cairo)
 import(resource)
 import(units)
-import(yaml)
 
 //-----------------------------------------------------------------------------
 // Layout
@@ -75,6 +77,8 @@ g = module {
 		cr.move_to(210, 400)
 		cr.show_text('no image')
 	}
+	imgRotateL:public = image(`rgba).xpmdata(resource.RotateL)
+	imgRotateR:public = image(`rgba).xpmdata(resource.RotateR)
 	layoutTbl:public = @(Layout) {
 		{ "Driver's license",				127 - 10, 89 - 10, 24, 30, 2, 20 }
 		{ 'Resume',							89 - 10, 127 - 10, 30, 40, 2, 30 }
@@ -101,15 +105,15 @@ g = module {
 //-----------------------------------------------------------------------------
 // OpenWithApp
 //-----------------------------------------------------------------------------
-OpenWithApp(filename:string) = {
+OpenWithApp(fileName:string) = {
 	import(mswin)
-	[basename, extname] = path.splitext(filename)
+	[basename, extname] = path.splitext(fileName)
 	keyName = mswin.HKEY_CLASSES_ROOT.openkey(
 			'.' + extname, mswin.KEY_QUERY_VALUE).queryvalue('')
 	cmdline = mswin.HKEY_CLASSES_ROOT.openkey(
 		keyName + r'\Shell\Open\Command', mswin.KEY_QUERY_VALUE).queryvalue('')
 	progname = cmdline.match(r'^\"([^\"]+)\"')[1]
-	os.exec(progname, filename):fork
+	os.exec(progname, fileName):fork
 }
 
 //-----------------------------------------------------------------------------
@@ -127,7 +131,8 @@ ComposeProduct(cr:cairo.context, layout:Layout) = {
 		cr.set_source_rgb(.2, .2, 1)
 		cr.set_font_size(2.0)
 		cr.move_to(0, layout.htPaper - 2)
-		cr.show_text('gurashot - Powered by Gura (http://www.gura-lang.org/)')
+		cr.show_text(format('%s [%dmm x %dmm] gurashot - Powered by Gura (http://www.gura-lang.org/)',
+								layout.name, layout.htImg, layout.wdImg))
 	}
 	imgExtract = scope {
 		yTop = g.imgOrg.height * (g.faceRatio.top - ratioBase * layout.htTop / layout.htFace)
@@ -180,6 +185,16 @@ ComposeProduct(cr:cairo.context, layout:Layout) = {
 				}
 			}
 		}
+	}
+}
+
+ComposeProductPDF(fileName:string, layout:Layout) = {
+	cairo.create(cairo.pdf_surface.create(fileName,
+			units.mm$pt(g.layoutCur.wdPaper), units.mm$pt(g.layoutCur.htPaper))) {|cr|
+		scale = 72 / 25.4
+		cr.scale(scale, scale)
+		ComposeProduct(cr, g.layoutCur)
+		cr.show_page()
 	}
 }
 
@@ -404,18 +419,18 @@ Panel = class(wx.Panel) {
 		this.extractor = Extractor(this, wx.BORDER_SUNKEN, this.productViewer)
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
 			vbox.Add(hbox, wx.SizerFlags().Expand())
+			hbox.Add(this.extractor, wx.SizerFlags())
 			wx.BoxSizer(wx.VERTICAL) {|vbox|
-				hbox.Add(vbox, wx.SizerFlags())
-				wx.Button(this, wx.ID_ANY, 'Rotate-L') {|ctrl|
-					vbox.Add(ctrl, wx.SizerFlags())
+				hbox.Add(vbox, wx.SizerFlags().Border(wx.LEFT, 2))
+				wx.BitmapButton(this, wx.ID_ANY, g.imgRotateL) {|ctrl|
+					vbox.Add(ctrl, wx.SizerFlags().Border(wx.TOP, 2))
 					ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_RotateL(event) }
 				}
-				wx.Button(this, wx.ID_ANY, 'Rotate-R') {|ctrl|
-					vbox.Add(ctrl, wx.SizerFlags())
+				wx.BitmapButton(this, wx.ID_ANY, g.imgRotateR) {|ctrl|
+					vbox.Add(ctrl, wx.SizerFlags().Border(wx.TOP, 4))
 					ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_RotateR(event) }
 				}
 			}
-			hbox.Add(this.extractor, wx.SizerFlags())
 			wx.ListBox(this, wx.ID_ANY, style => wx.BORDER_SUNKEN) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.LEFT, 2))
 				font = ctrl.GetFont()
@@ -430,13 +445,13 @@ Panel = class(wx.Panel) {
 		vbox.Add(this.productViewer, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
 			vbox.Add(hbox, wx.SizerFlags().Expand().Border(wx.TOP, 2))
-			wx.Button(this, wx.ID_ANY, 'PDF', style => wx.BORDER_NONE) {|ctrl|
+			wx.Button(this, wx.ID_ANY, 'Output PDF', style => wx.BORDER_NONE) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 2))
-				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_PDF(event) }
+				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_OutputPDF(event) }
 			}
-			wx.Button(this, wx.ID_ANY, 'JPEG') {|ctrl|
+			wx.Button(this, wx.ID_ANY, 'View PDF', style => wx.BORDER_NONE) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 2))
-				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_JPEG(event) }
+				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_ViewPDF(event) }
 			}
 		}
 	}
@@ -445,24 +460,13 @@ Panel = class(wx.Panel) {
 		g.layoutCur = g.layoutTbl[idx]
 		this.productViewer.UpdateContent()
 	}
-	OnButton_PDF(event:wx.CommandEvent) = {
-		cairo.create(cairo.pdf_surface.create('test.pdf',
-					units.mm$pt(g.layoutCur.wdPaper), units.mm$pt(g.layoutCur.htPaper))) {|cr|
-			scale = 72 / 25.4
-			cr.scale(scale, scale)
-			ComposeProduct(cr, g.layoutCur)
-			cr.show_page()
-		}
+	OnButton_OutputPDF(event:wx.CommandEvent) = {
+		ComposeProductPDF('test.pdf', g.layoutCur)
 	}
-	OnButton_JPEG(event:wx.CommandEvent) = {
-		[wdImg, htImg] = [g.layoutCur.wdPaper, g.layoutCur.htPaper] * 300 / 25.4
-		img = image(`rgba, wdImg, htImg, `white)
-		img.cairo {|cr|
-			scale = 300 / 25.4
-			cr.scale(scale, scale)
-			ComposeProduct(cr, g.layoutCur)
-		}
-		img.write('test.jpg')
+	OnButton_ViewPDF(event:wx.CommandEvent) = {
+		fileName = 'test.pdf'
+		ComposeProductPDF(fileName, g.layoutCur)
+		OpenWithApp(fileName)
 	}
 	OnButton_RotateL(event:wx.CommandEvent) = {
 		g.rotate = (g.rotate + 270) % 360
