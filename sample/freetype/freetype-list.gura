@@ -2,7 +2,7 @@
 import(mswin)
 import(freetype, ft)
 
-pathnames = path.dir(ft.sysfontpath(), '*.ttc', '*.ttf'):icase
+pathnames = path.dir(ft.sysfontpath(), '*.ttc', '*.ttf')
 filenames = path.filename(pathnames)
 fonts = ft.font(pathnames)
 printf('%-*s %s\n', filenames:*len().max(), filenames, fonts:*face:*family_name)
