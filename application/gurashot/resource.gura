@@ -1,149 +1,39 @@
-MainIcon_xpm:public = @{
-"32 32 6 1",
-"  c black",
-". c navy",
-"X c red",
-"o c yellow",
-"O c gray100",
-"+ c None",
-/* pixels */
-"++++++++++++++++++++++++++++++++",
-"++++++++++++++++++++++++++++++++",
-"++++++++++++++++++++++++++++++++",
-"++++++++++++++++++++++++++++++++",
-"++++++++++++++++++++++++++++++++",
-"++++++++              ++++++++++",
-"++++++++ ............ ++++++++++",
-"++++++++ ............ ++++++++++",
-"++++++++ .OO......... ++++++++++",
-"++++++++ .OO......... ++++++++++",
-"++++++++ .OO......... ++++++++++",
-"++++++++ .OO......              ",
-"++++++++ .OO...... oooooooooooo ",
-"         .OO...... oooooooooooo ",
-" XXXXXXX .OO...... oOOooooooooo ",
-" XXXXXXX .OO...... oOOooooooooo ",
-" XOOXXXX ......... oOOooooooooo ",
-" XOOXXXX ......... oOOooooooooo ",
-" XOOXXXX           oOOooooooooo ",
-" XOOXXXXXXXXX ++++ oOOooooooooo ",
-" XOOXXXXXXXXX ++++ oOOooooooooo ",
-" XOOXXXXXXXXX ++++ oOOooooooooo ",
-" XOOXXXXXXXXX ++++ oooooooooooo ",
-" XOOXXXXXXXXX ++++ oooooooooooo ",
-" XXXXXXXXXXXX ++++              ",
-" XXXXXXXXXXXX ++++++++++++++++++",
-"              ++++++++++++++++++",
-"++++++++++++++++++++++++++++++++",
-"++++++++++++++++++++++++++++++++",
-"++++++++++++++++++++++++++++++++",
-"++++++++++++++++++++++++++++++++",
-"++++++++++++++++++++++++++++++++"
-}
-
-Open_xpm:public = @{
-"16 16 19 2 0 0",
-"   c None",
-"!  c #000000",
-"#  c #ffffff",
-"$  c #60a0c0",
-"%  c #4080c0",
-"&  c #406080",
-"'  c #80a0c0",
-"(  c #6080c0",
-")  c #fffbf0",
-"*  c #a6caf0",
-"+  c #206080",
-",  c #c0c0c0",
-"-  c #c0dcc0",
-".  c #204080",
-"/  c #a0a0a4",
-"0  c #004080",
-"1  c #8080c0",
-"2  c #004040",
-"3  c #002040",
-"                                ",
-"                                ",
-"  $ ' ' ' ' '     $ $ ( ( ( &   ",
-"$ $ # # # ) * % % * # # # # + & ",
-"$ $ # , , , ) - ) # , , , # + & ",
-"$ $ # ) ) ) - , - ) ) ) - # . + ",
-"$ ( # , , , - / - ) , , , ) . + ",
-"$ ( # ) ) ) - / - ) ) ) - ) . + ",
-"$ % # , , , - / - ) , , , ) 0 . ",
-"( % # ) ) ) - / - ) ) ) - ) 0 . ",
-"( % # # # ) ) ) ) ) # ) ) ) 0 . ",
-"% & & & + + + 1 1 . . 0 0 0 2 . ",
-"% ( ( ( ( ( ( + . ( ( ( ( ( ( 0 ",
-"% & & & + + + & & . . 0 0 0 2 3 ",
-"            + . . +             ",
-"                                ",
-}
-
-RotateL_xpm:public = @{
-"16 16 14 2 0 0",
-"   c None",
-"!  c #000000",
-"#  c #ffffff",
-"$  c #60c080",
-"%  c #60c040",
-"&  c #60a040",
-"'  c #80c080",
-"(  c #a0e080",
-")  c #a0c080",
-"*  c #40a040",
-"+  c #60a080",
-",  c #408040",
-"-  c #206040",
-".  c #208040",
-"                                ",
-"                                ",
-"            % % % %             ",
-"        $ ' ( ( ( ) ' &         ",
-"      $ ' ( ( ( ( ) ( ' *       ",
-"      ' ( ( ( ' ' ) ) ) +       ",
-"    % ( ( ( & & & & ' ) ' ,     ",
-"    % ( ( ' &       * , , ,     ",
-"    % ( ( ' &     *             ",
-"    & ) ) ) * *   , ,           ",
-"      ' ) ) ' & , & & ,         ",
-"      & ' ' ' ' ' ' ' & ,       ",
-"        * & ' ' ' ' ' * -       ",
-"            , , , & * -         ",
-"                  . -           ",
-"                  -             ",
-}
-
-RotateR_xpm:public = @{
-"16 16 14 2 0 0",
-"   c None",
-"!  c #000000",
-"#  c #ffffff",
-"$  c #60c080",
-"%  c #60c040",
-"&  c #60a040",
-"'  c #80c080",
-"(  c #a0e080",
-")  c #a0c080",
-"*  c #40a040",
-"+  c #60a080",
-",  c #408040",
-"-  c #206040",
-".  c #208040",
-"                                ",
-"                                ",
-"            % % % %             ",
-"        $ ' ( ( ( ) ' &         ",
-"      $ ' ( ( ( ( ) ( ' *       ",
-"      ' ( ( ( ' ' ) ) ) +       ",
-"    % ( ( ) & & & & ' ' ' ,     ",
-"    % % & &       * + ' ' ,     ",
-"            &     * + ' ' ,     ",
-"          & *   * , ' ' ' ,     ",
-"        & + & , & ' ' ' &       ",
-"      & + ' ' ' ' ' ' & ,       ",
-"      * & ' ' ' ' ' & ,         ",
-"        , & & , , ,             ",
-"          , ,                   ",
-"            ,                   ",
-}
+arrow_rotate_anticlockwise_png:public = bR'''
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0
+U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAHySURBVDjLtZPvT1JxFMb5O/gHskVzrrV+
+mFZomDdEDGkYKSXlRleY6IzcFdQ7lBgYeaELBNjFEpbWi9psRU7JnCa3VYTV/WfY01davkFk0/Xi
+vDp7Ps/Zc86RAZAdpmT/BWDLmun+5ZuS5X0P+paMML82SKZXeroqYGDttty22it6Po8iWeCxIAlI
+/5pF9Osj3M8MwPCsXex8ekVeEWAlYn+OxaKUxNx2FKmfcTzfjiH2ncNsnsfIOzu00RZxT4B1pZee
+3GTw4vdfVyEfxkTWAdfyMMJfHiL2LYgImcSyeAstgQt0GeBuxiQl8iEIP/iSW/eCrtiV0rLXkm3s
+1ThVnN6cQkj0w511osl7TioD9L29QcaNY64QhWvlHrrmtey/niasclCcEqrp81B669HoPo0yAEma
+BBcpuTOZQegF9S6gdUaJqms0vdRL3JYXQdEHLueD9snlovpxc2qnd8nfiIues9gXYEx30INLFvAk
+sB1IIPcAd9LdaPY1oEcw4HqiE2ecJ7DvHegSlGh/Y0FgywP3uhPeDRae9TG4P7nArjHQ8W2oG1Kg
+IkATUcmpYJNonjeC+TCMyZJwFOMfR+BadaCdo3DcdhRVT5kkTZOkC/VjJ3GKqUNHSA3NTCsR1+BA
+z1RrPwaFtQYH/kZF/5GKa/wDDtK86rC6fMkAAAAASUVORK5CYII=
+'''
+arrow_rotate_clockwise_png:public = bR'''
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0
+U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAHsSURBVDjLtZPpTlpRFIV5Dt7AOESr1kYN
+ThGnSomIihPoNVi5Qp3RgBgvEERpRW1BRBAcMEDUtIkdjKk4otK0Jdr2vgxZ3kA0MYoaG3+cX2ev
+b529zt4sAKz/OawnASgCBNm5LaE7vjVDutkA4mMdLV4TkvcCuvba2Iqd1pDhWA33mQU+2oXVv07Y
+fpoxuNWFuqVXoeqFCnZcgJwRm04p+Gk3Fs9t8PyZx/K5Hfbf03CGLRj62g2+rSR0K0D+vZXUB1Xw
+/ou5usJWjAaU0Gz3w/rjHey/ZjDLvKTD34KSyXzyBkC2JaYd4feMqyNa3OQTREQePlXjrqSq5ssj
+5hMjTMd66ALDKDLm0jcA0s+NID6JIFmvQaNXANEKX3l5x7NyqTcb7Zg8GYtCOLoXuPcbha6XV0Vl
+U4WUzE9gPKjF2CGFbE3G3QAmafDnShETF3iKTZyIblcNza4Syi/deD6USscFCJwV6Fwn8NonQak5
+Hy1L9TAcjkJ/oAG1p0a1hYdnfcnkrQCBoxyyNYLp1YCJoB7GIwqGgxGod/oZsQoNDiHSepNCceeA
+N8uF1CvGxJE25rofc+3blKPqQ2VUnKxIYN85yty3eWh216LeKUTOSCayVGlIH0g5S+1JJB+8Cxxt
+1rWkH7WNTNIPAlwA9Gm7OcXUHxUAAAAASUVORK5CYII=
+'''
+book_open_png:public = bR'''
+iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0
+U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAIASURBVDjLpVPPaxNREJ6Vt01caH4oWk1T
+0ZKlGIo9RG+BUsEK4kEP/Q8qPXnpqRdPBf8A8Wahhx7FQ0GF9FJ6UksqwfTSBDGyB5HkkphC9tfb
+7jfbtyQQTx142byZ75v5ZnZWC4KALmICPy+2DkvKIX2f/POz83LxCL7nrz+WPNcll49DrhM9v7xd
+O9JW330DuXrrqkFSgig5iR2Cfv3t3gNxOnv5BwU+eZ5HuON5/PMPJZKJ+yKQfpW0S7TxdC6WJaWk
+yvff1LDaFRAeLZj05MHsiPTS6hua0PUqtwC5sHq9zv9RYWl+nu5cETcnJ1M0M5WlWq3GsX6/T+Vy
+mRzHDluZiGYAAsw0TQahV8uyyGq1qFgskm0bHIO/1+sx1rFtchJhArwEyIQ1Gg2WD2A6nWawHQJV
+DIWgIJfLhQowTIeE9D0mKAU8qPC0220afsWFQoH93W6X7yCDJ+DEBeBmsxnPIJVKxWQVUwry+XyU
+wBlKMKwA8jqdDhOVCqVAzQDVvXAXhOdGBFgymYwrGoZBmUyGjxCCdF0fSahaFdgoTHRxfTveMCXv
+WfkuE3Y+f40qhgT/nMitupzApdvT18bu+YeDQwY9Xl4aG9/d/URiMBhQq/dvZMeVghtT17lSZW9/
+rAKsvPa/r9Fc2dw+Pe0/xI6kM9mT5vtXy+Nw2kU/5zOGRpvuMIu0YAAAAABJRU5ErkJggg==
+'''

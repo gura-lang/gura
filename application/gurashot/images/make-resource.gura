@@ -1,0 +1,8 @@
+#!/usr/bin/gura
+fd = sys.stdout
+path.glob('*.png') {|fileName|
+	[baseName, extName] = path.splitext(fileName)
+	fd.printf("%s_png:public = bR'''\n", baseName)
+	stream.copy(fileName, fd.base64writer())
+	fd.println("'''")
+}
