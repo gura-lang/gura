@@ -1,0 +1,20 @@
+#!/usr/bin/env gura
+import(mswin)
+
+setup(launcherName:string, dirNameDst:string,
+		fileNameScript:string, fileNameIcon:string, fileNamesExtra[]:string) = {
+	fs.mkdir(dirNameDst):tree
+	list(fileNameScript, fileNameIcon, fileNamesExtra).each {|fileName|
+		fs.copy(fileName, path.join(dirNameDst, fileName)):overwrite
+	}
+	mswin.ole('Wscript.shell') {|wsh|
+		dirNameDesktop = wsh.SpecialFolders('Desktop')
+		shortCut = wsh.CreateShortcut(path.join(dirNameDesktop, launcherName + '.lnk'))
+		shortCut.WindowStyle = 4 // 3:Maximized, 4:Normal, 7:Minimized
+		shortCut.IconLocation = path.join(dirNameDst, fileNameIcon)
+		shortCut.TargetPath = path.join(path.dirname(sys.executable), 'guraw.exe')
+		shortCut.Arguments = path.join(dirNameDst, fileNameScript)
+		shortCut.WorkingDirectory = dirNameDst
+		shortCut.Save()
+	}
+}

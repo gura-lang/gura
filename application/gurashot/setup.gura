@@ -1,15 +1,10 @@
 #!/usr/bin/env gura
-import(mswin)
+import(setuptool)
 
-linkName = 'Gura Shot.lnk'
-targetPath = path.absname('gurashot.guraw')
-iconLocation = path.absname('gurashot.ico')
-mswin.ole('Wscript.shell') {|wsh|
-	dirNameDesktop = wsh.SpecialFolders('Desktop')
-	shortCut = wsh.CreateShortcut(path.join(dirNameDesktop, linkName))
-	shortCut.WindowStyle = 4 // 3:Maximized, 4:Normal, 7:Minimized
-	shortCut.IconLocation = iconLocation
-	shortCut.TargetPath = targetPath
-	shortCut.WorkingDirectory = path.dirname(targetPath)
-	shortCut.Save()
-}
+setuptool.setup(
+	launcherName	=> 'Gura Shot'
+	dirNameDst		=> path.join(sys.localdir, 'gurashot')
+	fileNameScript	=> 'gurashot.guraw'
+	fileNameIcon	=> 'gurashot.ico'
+	fileNamesExtra	=> ['resource.gura']
+)
