@@ -477,15 +477,39 @@ Panel = class(wx.Panel) {
 			}
 			wx.BoxSizer(wx.VERTICAL) {|vbox|
 				hbox.Add(vbox, wx.SizerFlags(1).Expand().Border(wx.LEFT, 2))
-				wx.ListBox(this, wx.ID_ANY, style => wx.BORDER_SUNKEN) {|ctrl|
+				wx.ListCtrl(this, wx.ID_ANY, style => wx.BORDER_SUNKEN | wx.LC_REPORT) {|ctrl|
 					vbox.Add(ctrl, wx.SizerFlags(1).Expand())
 					font = ctrl.GetFont()
-					font.SetPointSize(12)
+					font.SetPointSize(11)
 					ctrl.SetFont(font)
-					ctrl.Append(g.layoutTbl:*name):void
-					ctrl.SetSelection(0)
-					this.listBox = ctrl
-					ctrl.Bind(wx.EVT_LISTBOX) {|event| this.OnListBox(event) }
+					ctrl.InsertColumn(0.., ['Format', 'Size'])
+					ctrl.Bind(wx.EVT_SIZE) {|event|
+						size = event.GetSize()
+						width = size.GetWidth() - 10
+						wdColumn = 150
+						ctrl.SetColumnWidth(1, wdColumn)
+						width -= wdColumn
+						ctrl.SetColumnWidth(0, width)
+						event.Skip()
+					}
+					g.layoutTbl.each {|layout, idx|
+						wx.ListItem {|item|
+							item.SetId(idx)
+							item.SetText(layout.name)
+							//item.SetImage(App.IMG_Image)
+							ctrl.InsertItem(item)
+						}
+						wx.ListItem {|item|
+							item.SetId(idx)
+							item.SetColumn(1)
+							item.SetText('%dmm x %dmm' % [layout.htImg, layout.wdImg])
+							ctrl.SetItem(item)
+						}
+					}
+					ctrl.SetItemState(0,
+							wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED,
+							wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED)
+					ctrl.Bind(wx.EVT_LIST_ITEM_SELECTED) {|event| this.OnListItemSelected(event) }
 				}
 				wx.BoxSizer(wx.HORIZONTAL) {|hbox|
 					vbox.Add(hbox, wx.SizerFlags().Expand().Border(wx.TOP, 2))
@@ -502,8 +526,8 @@ Panel = class(wx.Panel) {
 		}
 		vbox.Add(this.productViewer, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
 	}
-	OnListBox(event:wx.CommandEvent) = {
-		idx = this.listBox.GetSelection()
+	OnListItemSelected(event:wx.ListEvent) = {
+		idx = event.GetIndex()
 		g.layoutCur = g.layoutTbl[idx]
 		this.productViewer.UpdateContent()
 	}
