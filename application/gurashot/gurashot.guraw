@@ -557,8 +557,6 @@ Frame = class(wx.Frame) {
 			this.SetMenuBar(menuBar)
 			wx.Menu() {|menu|
 				menuBar.Append(menu, '&File')
-				//menu.Append(wx.ID_ANY, 'Save')
-				//menu.Append(wx.ID_ANY, 'Load')
 				//menu.Append(wx.ID_ANY, 'Exit')
 			}
 		}
@@ -578,7 +576,7 @@ Frame = class(wx.Frame) {
 //-----------------------------------------------------------------------------
 App = class(wx.App) {
 	OnInit() = {
-		frame = Frame('gurashot')
+		frame = Frame('Gura Shot')
 		frame.Show()
 		true
 	}
