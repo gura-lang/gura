@@ -19,8 +19,8 @@ import(units)
 //-----------------------------------------------------------------------------
 // Layout
 //-----------------------------------------------------------------------------
-Layout = struct(name:string, wdPaper:number, htPaper:number,
-			wdImg:number, htImg:number, htTop:number, htFace:number)
+Layout = struct(htImg:number, wdImg:number, htTop:number, htFace:number,
+						purpose:string, htPaper:number, wdPaper:number)
 
 //-----------------------------------------------------------------------------
 // FaceRatio
@@ -100,11 +100,20 @@ g = module {
 	imgRotateL:public = image(base64.reader(resource.arrow_rotate_anticlockwise_png))
 	imgRotateR:public = image(base64.reader(resource.arrow_rotate_clockwise_png))
 	layoutTbl:public = @(Layout) {
-		{ "Driver's license",				127 - 10, 89 - 10, 24, 30, 2, 20 }
-		{ 'Resume',							89 - 10, 127 - 10, 30, 40, 2, 30 }
-		{ 'Passport',						127 - 10, 89 - 10, 35, 45, 4, 34 }
-		{ "International driver's license",	127 - 10, 89 - 10, 40, 50, 4, 38 }
-		{ 'U.S. Visa',						127 - 10, 89 - 10, 50, 50, 4, 35 }
+		{ 30, 24, 2, 21, "Driver's license",				 89 - 10, 127 - 10 }
+		{ 30, 25, 2, 22, '',								 89 - 10, 127 - 10 }
+		{ 30, 30, 2, 25, '',								 89 - 10, 127 - 10 }
+		{ 35, 24, 2, 32, '',								127 - 10,  89 - 10 }
+		{ 36, 24, 2, 32, '',								127 - 10,  89 - 10 }
+		{ 36, 25, 2, 32, '',								127 - 10,  89 - 10 }
+		{ 40, 30, 2, 30, 'Resume',							127 - 10,  89 - 10 }
+		{ 40, 40, 2, 32, '',								 89 - 10, 127 - 10 }
+		{ 45, 35, 4, 34, 'Passport',						 89 - 10, 127 - 10 }
+		{ 50, 40, 4, 38, "International driver's license",	 89 - 10, 127 - 10 }
+		{ 50, 50, 4, 35, 'Visa',							 89 - 10, 127 - 10 }
+		{ 55, 40, 2, 38, '',								 89 - 10, 127 - 10 }
+		{ 55, 45, 2, 40, '',								 89 - 10, 127 - 10 }
+		{ 60, 45, 2, 40, '',								 89 - 10, 127 - 10 }
 	}
 	layoutCur:public = layoutTbl[0]
 	faceRatio:public = FaceRatio()
@@ -179,10 +188,14 @@ ComposeProduct(cr:cairo.context, layout:Layout) = {
 	scope {
 		cr.select_font_face(fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
 		cr.set_source_rgb(.2, .2, 1)
-		cr.set_font_size(2.0)
-		cr.move_to(0, layout.htPaper - 2)
-		cr.show_text(format('%s [%dmm x %dmm] gurashot - Powered by Gura (http://www.gura-lang.org/)',
-								layout.name, layout.htImg, layout.wdImg))
+		cr.set_font_size(3.0)
+		cr.move_to(0, layout.htPaper - 1)
+		text = if (layout.purpose.isempty()) {
+			format('[%dmm x %dmm]', layout.htImg, layout.wdImg)
+		} else {
+			format('[%dmm x %dmm] for %s', layout.htImg, layout.wdImg, layout.purpose)
+		}
+		cr.show_text(text)
 	}
 	imgExtract = scope {
 		yTop = g.imgOrg.height * (g.faceRatio.top - ratioBase * layout.htTop / layout.htFace)
@@ -322,7 +335,7 @@ Extractor = class(wx.Panel) {
 		this.imgScreen = nil
 		this.rcImg = wx.Rect(0, 0, 0, 0)
 		this.rcBox = wx.Rect(0, 0, 0, 0)
-		this.penBox = wx.Pen(wx.Colour(255, 0, 0), 2, wx.SHORT_DASH)
+		this.penBox = wx.Pen(wx.Colour(2552, 128, 128), 3, wx.PENSTYLE_SOLID)
 		this.DragAcceptFiles(true)
 		// bind event handlers
 		this.Bind(wx.EVT_ERASE_BACKGROUND) { /* nothing to do */ }
@@ -482,27 +495,26 @@ Panel = class(wx.Panel) {
 					font = ctrl.GetFont()
 					font.SetPointSize(11)
 					ctrl.SetFont(font)
-					ctrl.InsertColumn(0.., ['Format', 'Size'])
+					ctrl.InsertColumn(0.., ['Size', 'Purpose'])
 					ctrl.Bind(wx.EVT_SIZE) {|event|
 						size = event.GetSize()
-						width = size.GetWidth() - 10
-						wdColumn = 120
-						ctrl.SetColumnWidth(1, wdColumn)
+						width = size.GetWidth() - 22
+						wdColumn = 150
+						ctrl.SetColumnWidth(0, wdColumn)
 						width -= wdColumn
-						ctrl.SetColumnWidth(0, width)
+						ctrl.SetColumnWidth(1, width)
 						event.Skip()
 					}
 					g.layoutTbl.each {|layout, idx|
 						wx.ListItem {|item|
 							item.SetId(idx)
-							item.SetText(layout.name)
-							//item.SetImage(App.IMG_Image)
+							item.SetText('%dmm x %dmm' % [layout.htImg, layout.wdImg])
 							ctrl.InsertItem(item)
 						}
 						wx.ListItem {|item|
 							item.SetId(idx)
 							item.SetColumn(1)
-							item.SetText('%dmm x %dmm' % [layout.htImg, layout.wdImg])
+							item.SetText(layout.purpose)
 							ctrl.SetItem(item)
 						}
 					}
@@ -512,7 +524,7 @@ Panel = class(wx.Panel) {
 					ctrl.Bind(wx.EVT_LIST_ITEM_SELECTED) {|event| this.OnListItemSelected(event) }
 				}
 				wx.BoxSizer(wx.HORIZONTAL) {|hbox|
-					vbox.Add(hbox, wx.SizerFlags().Expand().Border(wx.TOP, 2))
+					vbox.Add(hbox, wx.SizerFlags().Expand().Border(wx.TOP, 4))
 					wx.Button(this, wx.ID_ANY, 'Output PDF') {|ctrl|
 						hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 2))
 						ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_OutputPDF(event) }

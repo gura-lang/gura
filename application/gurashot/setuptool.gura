@@ -12,7 +12,8 @@ setup(launcherName:string, dirNameDst:string,
 		shortCut = wsh.CreateShortcut(path.join(dirNameDesktop, launcherName + '.lnk'))
 		shortCut.WindowStyle = 4 // 3:Maximized, 4:Normal, 7:Minimized
 		shortCut.IconLocation = path.join(dirNameDst, fileNameIcon)
-		shortCut.TargetPath = path.join(path.dirname(sys.executable), 'guraw.exe')
+		shortCut.TargetPath = path.join(path.dirname(sys.executable),
+			cond(fileNameScript.endswith('.gura'):icase, 'gura.exe', 'guraw.exe'))
 		shortCut.Arguments = path.join(dirNameDst, fileNameScript)
 		shortCut.WorkingDirectory = dirNameDst
 		shortCut.Save()
