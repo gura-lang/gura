@@ -446,9 +446,9 @@ Panel = class(wx.Panel) {
 		this.SetSizer(outerBox)
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		outerBox.Add(vbox, wx.SizerFlags(1).Expand())
-		wx.StaticLine(this, wx.ID_ANY, style => wx.HORIZONTAL) {|ctrl|
-			vbox.Add(ctrl, wx.SizerFlags().Expand())
-		}
+		//wx.StaticLine(this, wx.ID_ANY, style => wx.HORIZONTAL) {|ctrl|
+		//	vbox.Add(ctrl, wx.SizerFlags().Expand())
+		//}
 		this.productViewer = ProductViewer(this, wx.BORDER_SUNKEN)
 		this.extractor = Extractor(this, wx.BORDER_SUNKEN, this.productViewer)
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
