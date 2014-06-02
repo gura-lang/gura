@@ -486,7 +486,7 @@ Panel = class(wx.Panel) {
 					ctrl.Bind(wx.EVT_SIZE) {|event|
 						size = event.GetSize()
 						width = size.GetWidth() - 10
-						wdColumn = 150
+						wdColumn = 120
 						ctrl.SetColumnWidth(1, wdColumn)
 						width -= wdColumn
 						ctrl.SetColumnWidth(0, width)
