@@ -210,6 +210,15 @@ ComposeProduct(cr:cairo.context, layout:Layout) = {
 		ny = int((layout.htPaper - htGuide - htMessage) / (htImgEx + htGuide))
 		wdFrame = layout.wdPaper / nx
 		htFrame = (layout.htPaper - htMessage) / ny
+		repeat(nx) {|ix|
+			xFrame = wdFrame * ix
+			x = xFrame + (wdFrame - wdImgEx) / 2
+			cr.move_to(x + wdMgn, 0)
+			cr.line_to(x + wdMgn, layout.htPaper - htMessage)
+			cr.move_to(x + wdImgEx - wdMgn, 0)
+			cr.line_to(x + wdImgEx - wdMgn, layout.htPaper - htMessage)
+			cr.stroke()
+		}
 		repeat(ny) {|iy|
 			yFrame = htFrame * iy
 			y = yFrame + (htFrame - htImgEx) / 2
@@ -218,21 +227,18 @@ ComposeProduct(cr:cairo.context, layout:Layout) = {
 			cr.move_to(0, y + htImgEx - htMgn)
 			cr.line_to(layout.wdPaper, y + htImgEx - htMgn)
 			cr.stroke()
-			repeat(nx) {|ix|
-				xFrame = wdFrame * ix
-				x = xFrame + (wdFrame - wdImgEx) / 2
-				cr.move_to(x + wdMgn, y - htGuide)
-				cr.line_to(x + wdMgn, y + htImgEx + htGuide)
-				cr.move_to(x + wdImgEx - wdMgn, y - htGuide)
-				cr.line_to(x + wdImgEx - wdMgn, y + htImgEx + htGuide)
-				cr.stroke()
-				cr.save {
-					scale = htImgEx / imgExtract.height
-					cr.translate(x, y)
-					cr.scale(scale, scale)
-					cr.set_source(pattern)
-					cr.paint()
-				}
+		}
+		cross(ix in range(nx), iy in range(ny)) {
+			xFrame = wdFrame * ix
+			yFrame = htFrame * iy
+			x = xFrame + (wdFrame - wdImgEx) / 2
+			y = yFrame + (htFrame - htImgEx) / 2
+			cr.save {
+				scale = htImgEx / imgExtract.height
+				cr.translate(x, y)
+				cr.scale(scale, scale)
+				cr.set_source(pattern)
+				cr.paint()
 			}
 		}
 	}
