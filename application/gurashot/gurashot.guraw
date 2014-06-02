@@ -552,6 +552,7 @@ Frame = class(wx.Frame) {
 	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
 			size:wx.Size => wx.Size(g.cfg['wdFrame', 'htFrame']*)) = {|nil, wx.ID_ANY, title, pos, size|
 		this.SetIcon(wx.Icon(g.fileNameIcon, wx.BITMAP_TYPE_ICO))
+		/*
 		wx.MenuBar() {|menuBar|
 			this.SetMenuBar(menuBar)
 			wx.Menu() {|menu|
@@ -561,6 +562,7 @@ Frame = class(wx.Frame) {
 				//menu.Append(wx.ID_ANY, 'Exit')
 			}
 		}
+		*/
 		Panel(this)
 		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event) }
 	}
