@@ -504,7 +504,7 @@ Panel = class(wx.Panel) {
 	OnButton_OutputPDF(event:wx.CommandEvent) = {
 		filter = 'PDF file (*.pdf)|*.pdf|All files (*.*)|*.*'
 		dlg = wx.FileDialog(this, 'Choose a PDF file to output',
-									'', '', filter, wx.FD_SAVE)
+								'', '', filter, wx.FD_SAVE)
 		if (dlg.ShowModal() == wx.ID_OK) {
 			fileNamePDF = dlg.GetPath()
 			ComposeProductPDF(fileNamePDF, g.layoutCur)
@@ -525,7 +525,7 @@ Panel = class(wx.Panel) {
 	OnButton_Open(event:wx.CommandEvent) = {
 		filter = 'Image files (*.jpg;*.png;*.gif)|*.jpg;*.png;*.gif|All files (*.*)|*.*'
 		dlg = wx.FileDialog(this, 'Choose an image file',
-									'', '', filter, wx.FD_SAVE)
+								'', g.cfg['fileNameImg'], filter, wx.FD_OPEN)
 		if (dlg.ShowModal() == wx.ID_OK) {
 			fileNameImg = dlg.GetPath()
 			ReadImageFile(this, fileNameImg)
