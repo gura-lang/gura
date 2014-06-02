@@ -13,6 +13,7 @@ import(xpm)
 import(msico)
 import(cairo)
 import(resource)
+import(mswin)
 import(units)
 
 //-----------------------------------------------------------------------------
@@ -26,17 +27,20 @@ Layout = struct(name:string, wdPaper:number, htPaper:number,
 //-----------------------------------------------------------------------------
 FaceRatio = class {
 	public {
-		center
-		top
-		bottom
+		center,		center_init
+		top,		top_init
+		bottom,		bottom_init
 	}
+	center_init	= .5
+	top_init	= .1
+	bottom_init	= .6
 	__init__() = {
 		this.Initialize()
 	}
 	Initialize() = {
-		this.center = .5
-		this.top = .1
-		this.bottom = .6
+		this.center	= center_init
+		this.top	= top_init
+		this.bottom	= bottom_init
 	}
 }
 
@@ -50,19 +54,28 @@ LoadConfig(fileNameCfg:string) = {
 		'wdFrame'			=> 600
 		'htFrame'			=> 730
 		'fileNameImg'		=> ''
+		'rotate'			=> 0
+		'faceRatio_center'	=> FaceRatio.center_init
+		'faceRatio_top'		=> FaceRatio.top_init
+		'faceRatio_bottom'	=> FaceRatio.bottom_init
 	}
 	cfg
 }
 
 SaveConfig() = {
-	yaml.write(open(g.fileNameCfg, 'w'), g.cfg)
+	g.cfg['rotate'] = g.rotate
+	g.cfg['faceRatio_center'] = g.faceRatio.center
+	g.cfg['faceRatio_top'] = g.faceRatio.top
+	g.cfg['faceRatio_bottom'] = g.faceRatio.bottom
+	yaml.write(g.fileNameCfg, g.cfg)
 }
 
 //-----------------------------------------------------------------------------
 // Global variables
 //-----------------------------------------------------------------------------
 g = module {
-	fileNameCfg:public = 'gurashot.yaml'
+	fileNameTmpPDF:public = path.join(sys.localdir, 'gurashot.pdf')
+	fileNameCfg:public = path.join(sys.localdir, 'gurashot.yml')
 	fileNameIcon:public = 'gurashot.ico'
 	imgBlank:public = image(`rgba, 800, 800, color(240, 240, 255))
 	imgBlank.cairo {|cr|
@@ -95,8 +108,11 @@ g = module {
 	}
 	layoutCur:public = layoutTbl[0]
 	faceRatio:public = FaceRatio()
-	rotate:public = 0
 	cfg:public = LoadConfig(fileNameCfg)
+	rotate:public = cfg['rotate'].tonumber()
+	faceRatio.center = cfg['faceRatio_center'].tonumber()
+	faceRatio.top = cfg['faceRatio_top'].tonumber()
+	faceRatio.bottom = cfg['faceRatio_bottom'].tonumber()
 	imgRaw:public = imgBlank
 	fileNameImg = cfg['fileNameImg']
 	if (!fileNameImg.isempty()) {
@@ -106,21 +122,48 @@ g = module {
 			cfg['fileNameImg'] = ''
 		}
 	}
-	imgOrg:public = imgRaw
+	imgOrg:public = imgRaw.rotate(rotate)
+}
+
+//-----------------------------------------------------------------------------
+// ReadImageFile
+//-----------------------------------------------------------------------------
+ReadImageFile(parent:wx.Window, fileNameImg:string) = {
+	try {
+		img = image(fileNameImg)
+	} catch {
+		wx.MessageDialog(parent, 'Failed to read the image file',
+								'Error', wx.OK | wx.ICON_ERROR) {|dlg|
+			dlg.CentreOnParent()
+			dlg.ShowModal()
+		}
+		return
+	}
+	g.cfg['fileNameImg'] = fileNameImg
+	g.rotate = 0
+	g.imgRaw = img
+	g.imgOrg = g.imgRaw
+	g.faceRatio.Initialize()
+}
+
+//-----------------------------------------------------------------------------
+// RotateImageL / RotateImageR
+//-----------------------------------------------------------------------------
+RotateImageL() = {
+	g.rotate = (g.rotate + 270) % 360
+	g.imgOrg = g.imgRaw.rotate(g.rotate)
+}
+
+RotateImageR() = {
+	g.rotate = (g.rotate + 90) % 360
+	g.imgOrg = g.imgRaw.rotate(g.rotate)
 }
 
 //-----------------------------------------------------------------------------
 // OpenWithApp
 //-----------------------------------------------------------------------------
 OpenWithApp(fileName:string) = {
-	import(mswin)
-	[basename, extname] = path.splitext(fileName)
-	keyName = mswin.HKEY_CLASSES_ROOT.openkey(
-			'.' + extname, mswin.KEY_QUERY_VALUE).queryvalue('')
-	cmdline = mswin.HKEY_CLASSES_ROOT.openkey(
-		keyName + r'\Shell\Open\Command', mswin.KEY_QUERY_VALUE).queryvalue('')
-	progname = cmdline.match(r'^\"([^\"]+)\"')[1]
-	os.exec(progname, fileName):fork
+	mswin.ole('Wscript.shell') {|wsh| wsh.Run(fileName)}
 }
 
 //-----------------------------------------------------------------------------
@@ -232,7 +275,6 @@ ProductViewer = class(wx.Panel) {
 			cr.scale(scale, scale)
 			ComposeProduct(cr, g.layoutCur)
 		}
-		//[x, y] = [(wdClient - img.width) / 2, (htClient - img.height) / 2]
 		if (wdClient < img.width) {
 			x = 0
 		} else {
@@ -389,22 +431,7 @@ Extractor = class(wx.Panel) {
 	}
 	OnDropFiles(event:wx.DropFilesEvent) = {
 		fileNames = event.GetFiles()
-		fileNameImg = fileNames[0]
-		try {
-			img = image(fileNameImg)
-		} catch {
-			wx.MessageDialog(this, 'Failed to read the image file',
-									'Error', wx.OK | wx.ICON_ERROR) {|dlg|
-				dlg.CentreOnParent()
-				dlg.ShowModal()
-			}
-			return
-		}
-		g.cfg['fileNameImg'] = fileNameImg
-		g.rotate = 0
-		g.imgRaw = img
-		g.imgOrg = g.imgRaw
-		g.faceRatio.Initialize()
+		ReadImageFile(this, fileNames[0])
 		this.UpdateContent()
 		this.productViewer.UpdateContent()
 	}
@@ -442,29 +469,32 @@ Panel = class(wx.Panel) {
 					ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_RotateR(event) }
 				}
 			}
-			wx.ListBox(this, wx.ID_ANY, style => wx.BORDER_SUNKEN) {|ctrl|
-				hbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.LEFT, 2))
-				font = ctrl.GetFont()
-				font.SetPointSize(12)
-				ctrl.SetFont(font)
-				ctrl.Append(g.layoutTbl:*name):void
-				ctrl.SetSelection(0)
-				this.listBox = ctrl
-				ctrl.Bind(wx.EVT_LISTBOX) {|event| this.OnListBox(event) }
+			wx.BoxSizer(wx.VERTICAL) {|vbox|
+				hbox.Add(vbox, wx.SizerFlags(1).Expand().Border(wx.LEFT, 2))
+				wx.ListBox(this, wx.ID_ANY, style => wx.BORDER_SUNKEN) {|ctrl|
+					vbox.Add(ctrl, wx.SizerFlags(1).Expand())
+					font = ctrl.GetFont()
+					font.SetPointSize(12)
+					ctrl.SetFont(font)
+					ctrl.Append(g.layoutTbl:*name):void
+					ctrl.SetSelection(0)
+					this.listBox = ctrl
+					ctrl.Bind(wx.EVT_LISTBOX) {|event| this.OnListBox(event) }
+				}
+				wx.BoxSizer(wx.HORIZONTAL) {|hbox|
+					vbox.Add(hbox, wx.SizerFlags().Expand().Border(wx.TOP, 2))
+					wx.Button(this, wx.ID_ANY, 'Output PDF') {|ctrl|
+						hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 2))
+						ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_OutputPDF(event) }
+					}
+					wx.Button(this, wx.ID_ANY, 'View PDF') {|ctrl|
+						hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 2))
+						ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_ViewPDF(event) }
+					}
+				}
 			}
 		}
 		vbox.Add(this.productViewer, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
-		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
-			vbox.Add(hbox, wx.SizerFlags().Expand().Border(wx.TOP, 2))
-			wx.Button(this, wx.ID_ANY, 'Output PDF', style => wx.BORDER_NONE) {|ctrl|
-				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 2))
-				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_OutputPDF(event) }
-			}
-			wx.Button(this, wx.ID_ANY, 'View PDF', style => wx.BORDER_NONE) {|ctrl|
-				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 2))
-				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_ViewPDF(event) }
-			}
-		}
 	}
 	OnListBox(event:wx.CommandEvent) = {
 		idx = this.listBox.GetSelection()
@@ -472,24 +502,44 @@ Panel = class(wx.Panel) {
 		this.productViewer.UpdateContent()
 	}
 	OnButton_OutputPDF(event:wx.CommandEvent) = {
-		ComposeProductPDF('test.pdf', g.layoutCur)
+		filter = 'PDF file (*.pdf)|*.pdf|All files (*.*)|*.*'
+		dlg = wx.FileDialog(this, 'Choose a PDF file to output',
+									'', '', filter, wx.FD_SAVE)
+		if (dlg.ShowModal() == wx.ID_OK) {
+			fileNamePDF = dlg.GetPath()
+			ComposeProductPDF(fileNamePDF, g.layoutCur)
+		}
 	}
 	OnButton_ViewPDF(event:wx.CommandEvent) = {
-		fileName = 'test.pdf'
-		ComposeProductPDF(fileName, g.layoutCur)
-		OpenWithApp(fileName)
+		ComposeProductPDF(g.fileNameTmpPDF, g.layoutCur)
+		try {
+			OpenWithApp(g.fileNameTmpPDF)
+		} catch {
+			wx.MessageDialog(parent, 'Failed to launch PDF viewer',
+									'Error', wx.OK | wx.ICON_ERROR) {|dlg|
+				dlg.CentreOnParent()
+				dlg.ShowModal()
+			}
+		}
 	}
 	OnButton_Open(event:wx.CommandEvent) = {
+		filter = 'Image files (*.jpg;*.png;*.gif)|*.jpg;*.png;*.gif|All files (*.*)|*.*'
+		dlg = wx.FileDialog(this, 'Choose an image file',
+									'', '', filter, wx.FD_SAVE)
+		if (dlg.ShowModal() == wx.ID_OK) {
+			fileNameImg = dlg.GetPath()
+			ReadImageFile(this, fileNameImg)
+			this.extractor.UpdateContent()
+			this.productViewer.UpdateContent()
+		}
 	}
 	OnButton_RotateL(event:wx.CommandEvent) = {
-		g.rotate = (g.rotate + 270) % 360
-		g.imgOrg = g.imgRaw.rotate(g.rotate)
+		RotateImageL()
 		this.extractor.UpdateContent()
 		this.productViewer.UpdateContent()
 	}
 	OnButton_RotateR(event:wx.CommandEvent) = {
-		g.rotate = (g.rotate + 90) % 360
-		g.imgOrg = g.imgRaw.rotate(g.rotate)
+		RotateImageR()
 		this.extractor.UpdateContent()
 		this.productViewer.UpdateContent()
 	}
