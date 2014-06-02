@@ -1499,6 +1499,43 @@ _MS(PrepareClass(ThreadHelper));
 		Gura_AssignWxValue(HORIZONTAL_HATCH);
 		Gura_AssignWxValue(VERTICAL_HATCH);
 	} while (0);
+	do { // Styles for Pen
+		Gura_AssignWxValue(PENSTYLE_INVALID);
+		Gura_AssignWxValue(PENSTYLE_SOLID);
+		Gura_AssignWxValue(PENSTYLE_DOT);
+		Gura_AssignWxValue(PENSTYLE_LONG_DASH);
+		Gura_AssignWxValue(PENSTYLE_SHORT_DASH);
+		Gura_AssignWxValue(PENSTYLE_DOT_DASH);
+		Gura_AssignWxValue(PENSTYLE_USER_DASH);
+		Gura_AssignWxValue(PENSTYLE_TRANSPARENT);
+		Gura_AssignWxValue(PENSTYLE_STIPPLE_MASK_OPAQUE);
+		Gura_AssignWxValue(PENSTYLE_STIPPLE_MASK);
+		Gura_AssignWxValue(PENSTYLE_STIPPLE);
+		Gura_AssignWxValue(PENSTYLE_BDIAGONAL_HATCH);
+		Gura_AssignWxValue(PENSTYLE_CROSSDIAG_HATCH);
+		Gura_AssignWxValue(PENSTYLE_FDIAGONAL_HATCH);
+		Gura_AssignWxValue(PENSTYLE_CROSS_HATCH);
+		Gura_AssignWxValue(PENSTYLE_HORIZONTAL_HATCH);
+		Gura_AssignWxValue(PENSTYLE_VERTICAL_HATCH);
+		Gura_AssignWxValue(PENSTYLE_FIRST_HATCH);
+		Gura_AssignWxValue(PENSTYLE_LAST_HATCH);
+	} while (0);
+	do { // Styles for Brush
+		Gura_AssignWxValue(BRUSHSTYLE_INVALID);
+		Gura_AssignWxValue(BRUSHSTYLE_SOLID);
+		Gura_AssignWxValue(BRUSHSTYLE_TRANSPARENT);
+		Gura_AssignWxValue(BRUSHSTYLE_STIPPLE_MASK_OPAQUE);
+		Gura_AssignWxValue(BRUSHSTYLE_STIPPLE_MASK);
+		Gura_AssignWxValue(BRUSHSTYLE_STIPPLE);
+		Gura_AssignWxValue(BRUSHSTYLE_BDIAGONAL_HATCH);
+		Gura_AssignWxValue(BRUSHSTYLE_CROSSDIAG_HATCH);
+		Gura_AssignWxValue(BRUSHSTYLE_FDIAGONAL_HATCH);
+		Gura_AssignWxValue(BRUSHSTYLE_CROSS_HATCH);
+		Gura_AssignWxValue(BRUSHSTYLE_HORIZONTAL_HATCH);
+		Gura_AssignWxValue(BRUSHSTYLE_VERTICAL_HATCH);
+		Gura_AssignWxValue(BRUSHSTYLE_FIRST_HATCH);
+		Gura_AssignWxValue(BRUSHSTYLE_LAST_HATCH);
+	} while (0);
 	do { // wxBitmapType
 		Gura_AssignWxValue(BITMAP_TYPE_ICO);
 		Gura_AssignWxValue(BITMAP_TYPE_ICO_RESOURCE);
@@ -1757,6 +1794,7 @@ _MS(PrepareClass(ThreadHelper));
 		Gura_AssignWxValue(ICON_INFORMATION);
 	} while (0);
 	do {
+		Gura_AssignWxValue(JOIN_INVALID);
 		Gura_AssignWxValue(JOIN_BEVEL);
 		Gura_AssignWxValue(JOIN_ROUND);
 		Gura_AssignWxValue(JOIN_MITER);
@@ -3243,6 +3281,7 @@ void InitializeObjects(Environment &env)
 	} while (0);
 	do { // Predefined Objects of wxPen
 		Gura_AssignWxObjectEx(NullPen,			Pen, &wxNullPen);
+		Gura_AssignWxObject(BLACK_DASHED_PEN,	Pen);
 		Gura_AssignWxObject(RED_PEN,			Pen);
 		Gura_AssignWxObject(CYAN_PEN,			Pen);
 		Gura_AssignWxObject(GREEN_PEN,			Pen);
