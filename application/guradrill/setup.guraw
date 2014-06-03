@@ -1,0 +1,10 @@
+#!/usr/bin/env gura
+import(setuptool)
+
+setuptool.setup(
+	launcherName	=> 'Gura Drill'
+	dirNameDst		=> nil
+	fileNameScript	=> 'guradrill.guraw'
+	fileNameIcon	=> 'guradrill.ico'
+	fileNamesExtra	=> []
+)
