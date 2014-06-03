@@ -334,6 +334,40 @@ Gura_ImplementFunction(splitext)
 	return result;
 }
 
+// path.basename(pathname:string):map
+Gura_DeclareFunction(basename)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "pathname", VTYPE_string);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Removes a suffix part of a path name.");
+}
+
+Gura_ImplementFunction(basename)
+{
+	const char *pathName = args.GetString(0);
+	const char *p = PathMgr::SeekExtName(pathName);
+	size_t lenLeft = p - pathName;
+	return Value(pathName, lenLeft);
+}
+
+// path.extname(pathname:string):map
+Gura_DeclareFunction(extname)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "pathname", VTYPE_string);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Extracts a suffix part of a path name.");
+}
+
+Gura_ImplementFunction(extname)
+{
+	const char *pathName = args.GetString(0);
+	const char *p = PathMgr::SeekExtName(pathName);
+	size_t lenLeft = p - pathName;
+	return Value((*p == '.')? p + 1 : p);
+}
+
 // Module entry
 Gura_ModuleEntry()
 {
@@ -360,6 +394,8 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(regulate);
 	Gura_AssignFunction(join);
 	Gura_AssignFunction(splitext);
+	Gura_AssignFunction(basename);
+	Gura_AssignFunction(extname);
 	return true;
 }
 
