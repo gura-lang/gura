@@ -1,21 +1,100 @@
 #!/usr/bin/env gura
 import(mswin)
+import(wx)
 
+//-----------------------------------------------------------------------------
+// setup
+//-----------------------------------------------------------------------------
 setup(launcherName:string, dirNameDst:string,
 		fileNameScript:string, fileNameIcon:string, fileNamesExtra[]:string) = {
-	fs.mkdir(dirNameDst):tree
-	list(fileNameScript, fileNameIcon, fileNamesExtra).each {|fileName|
-		fs.copy(fileName, path.join(dirNameDst, fileName)):overwrite
+	Panel.launcherName = launcherName
+	Panel.dirNameDst = dirNameDst
+	Panel.fileNameScript = fileNameScript
+	Panel.fileNameIcon = fileNameIcon
+	Panel.fileNamesExtra = fileNamesExtra
+	Panel.errorMsg = nil
+	try {
+		fs.mkdir(dirNameDst):tree
+		fileNamesToCopy = [fileNameScript, fileNameIcon]
+		fileNamesToCopy.append(fileNamesExtra)
+		fs.copy(fileNamesToCopy, path.join(dirNameDst, fileNamesToCopy)):overwrite:void
+		mswin.ole('Wscript.shell') {|wsh|
+			dirNameDesktop = wsh.SpecialFolders('Desktop')
+			shortCut = wsh.CreateShortcut(path.join(dirNameDesktop, launcherName + '.lnk'))
+			shortCut.WindowStyle = 4 // 3:Maximized, 4:Normal, 7:Minimized
+			shortCut.IconLocation = path.join(dirNameDst, fileNameIcon)
+			shortCut.TargetPath = path.join(path.dirname(sys.executable),
+				cond(fileNameScript.endswith('.gura'):icase, 'gura.exe', 'guraw.exe'))
+			shortCut.Arguments = path.join(dirNameDst, fileNameScript)
+			shortCut.WorkingDirectory = dirNameDst
+			shortCut.Save()
+		}
+	} catch {|e|
+		Panel.errorMsg = e.text
 	}
-	mswin.ole('Wscript.shell') {|wsh|
-		dirNameDesktop = wsh.SpecialFolders('Desktop')
-		shortCut = wsh.CreateShortcut(path.join(dirNameDesktop, launcherName + '.lnk'))
-		shortCut.WindowStyle = 4 // 3:Maximized, 4:Normal, 7:Minimized
-		shortCut.IconLocation = path.join(dirNameDst, fileNameIcon)
-		shortCut.TargetPath = path.join(path.dirname(sys.executable),
-			cond(fileNameScript.endswith('.gura'):icase, 'gura.exe', 'guraw.exe'))
-		shortCut.Arguments = path.join(dirNameDst, fileNameScript)
-		shortCut.WorkingDirectory = dirNameDst
-		shortCut.Save()
+	wx.IMPLEMENT_APP(App)
+}
+
+//-----------------------------------------------------------------------------
+// Panel
+//-----------------------------------------------------------------------------
+Panel = class(wx.Panel) {
+	__init__(parent:wx.Window) = {|parent|
+		outerBox = wx.BoxSizer(wx.VERTICAL)
+		this.SetSizer(outerBox)
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		outerBox.Add(vbox, wx.SizerFlags(1).Expand().Border(wx.ALL, 4))
+		text = if (errorMsg) {
+			'Error occured.'
+		} else {
+			'Gura application has successfully been installed.'
+		}
+		wx.StaticText(this, wx.ID_ANY, text) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags().Expand())
+			font = ctrl.GetFont()
+			font.SetPointSize(12)
+			font.SetWeight(wx.FONTWEIGHT_BOLD)
+			ctrl.SetFont(font)
+		}
+		wx.TextCtrl(this, wx.ID_ANY, style => wx.TE_READONLY | \
+							wx.TE_MULTILINE | wx.BORDER_STATIC) {|ctrl|
+			font = ctrl.GetFont()
+			font.SetPointSize(12)
+			ctrl.SetFont(font)
+			vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 8))
+			if (errorMsg) {
+				ctrl.WriteText(errorMsg + '\n')
+			} else {
+				ctrl.WriteText('[Launcher] ' + launcherName + '\n')
+				ctrl.WriteText('[Destination] ' +  dirNameDst + '\n')
+				ctrl.WriteText('\n')
+				ctrl.WriteText('[Files]\n')
+				ctrl.WriteText(fileNameScript + '\n')
+				ctrl.WriteText(fileNameIcon + '\n')
+				ctrl.WriteText(fileNamesExtra + '\n')
+			}
+			ctrl.SetInsertionPoint(0)
+		}
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Frame
+//-----------------------------------------------------------------------------
+Frame = class(wx.Frame) {
+	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
+			size:wx.Size => wx.Size(640, 240)) = {|nil, wx.ID_ANY, title, pos, size|
+		Panel(this)
+	}
+}
+
+//-----------------------------------------------------------------------------
+// App
+//-----------------------------------------------------------------------------
+App = class(wx.App) {
+	OnInit() = {
+		frame = Frame('Gura Application Setup')
+		frame.Show()
+		true
 	}
 }
