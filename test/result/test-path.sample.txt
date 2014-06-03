@@ -54,6 +54,34 @@ path.splitext('/hoge/boke.txt') .. [/hoge/boke + txt]
 path.splitext('/hoge/aaaa/bbbb/ccc/boke.txt') .. [/hoge/aaaa/bbbb/ccc/boke + txt]
 path.splitext('/hoge/aaaa/bbbb/ccc.tt/boke.txt') .. [/hoge/aaaa/bbbb/ccc.tt/boke + txt]
 path.splitext('/hoge/aaaa/bbbb/ccc/.boke') .. [/hoge/aaaa/bbbb/ccc/.boke + ]
+path.basename('') .. 
+path.basename('hoge/boke') .. hoge/boke
+path.basename('hoge/boke/') .. hoge/boke/
+path.basename('hoge/boke.txt') .. hoge/boke
+path.basename('hoge/aaaa/bbbb/ccc/boke.txt') .. hoge/aaaa/bbbb/ccc/boke
+path.basename('hoge/aaaa/bbbb/ccc.tt/boke.txt') .. hoge/aaaa/bbbb/ccc.tt/boke
+path.basename('hoge/aaaa/bbbb/ccc/.boke') .. hoge/aaaa/bbbb/ccc/.boke
+path.basename('/') .. /
+path.basename('/hoge/boke') .. /hoge/boke
+path.basename('/hoge/boke/') .. /hoge/boke/
+path.basename('/hoge/boke.txt') .. /hoge/boke
+path.basename('/hoge/aaaa/bbbb/ccc/boke.txt') .. /hoge/aaaa/bbbb/ccc/boke
+path.basename('/hoge/aaaa/bbbb/ccc.tt/boke.txt') .. /hoge/aaaa/bbbb/ccc.tt/boke
+path.basename('/hoge/aaaa/bbbb/ccc/.boke') .. /hoge/aaaa/bbbb/ccc/.boke
+path.extname('') .. 
+path.extname('hoge/boke') .. 
+path.extname('hoge/boke/') .. 
+path.extname('hoge/boke.txt') .. txt
+path.extname('hoge/aaaa/bbbb/ccc/boke.txt') .. txt
+path.extname('hoge/aaaa/bbbb/ccc.tt/boke.txt') .. txt
+path.extname('hoge/aaaa/bbbb/ccc/.boke') .. 
+path.extname('/') .. 
+path.extname('/hoge/boke') .. 
+path.extname('/hoge/boke/') .. 
+path.extname('/hoge/boke.txt') .. txt
+path.extname('/hoge/aaaa/bbbb/ccc/boke.txt') .. txt
+path.extname('/hoge/aaaa/bbbb/ccc.tt/boke.txt') .. txt
+path.extname('/hoge/aaaa/bbbb/ccc/.boke') .. 
 path.split('') .. [ + ]
 path.split('hoge/boke') .. [hoge/ + boke]
 path.split('hoge/boke/') .. [hoge/boke/ + ]

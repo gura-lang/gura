@@ -3,7 +3,7 @@ import(setuptool)
 
 setuptool.setup(
 	launcherName	=> 'Gura Shot'
-	dirNameDst		=> path.join(sys.localdir, 'gurashot')
+	dirNameDst		=> nil
 	fileNameScript	=> 'gurashot.guraw'
 	fileNameIcon	=> 'gurashot.ico'
 	fileNamesExtra	=> ['resource.gura']

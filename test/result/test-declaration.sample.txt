@@ -189,11 +189,13 @@ path:module = <module:path:<integrated>>
   __source__:string = <integrated>
   __symbol__:symbol = path
   absname(name:string):map:[uri]
+  basename(pathname:string):map
   bottom(pathname:string):map
   cutbottom(pathname:string):map
   dir(directory?:directory, pattern*:string):map:flat:[dir,file,stat] {block?}
   dirname(pathname:string):map
   exists(pathname:string):map
+  extname(pathname:string):map
   filename(pathname:string):map
   glob(pattern:string):map:flat:[dir,file,stat] {block?}
   join(paths+:string):map:[uri]

@@ -1,15 +1,10 @@
 #!/usr/bin/env gura
-import(mswin)
+import(setuptool)
 
-linkName = 'Getter Photo.lnk'
-targetPath = path.absname('getterphoto.guraw')
-iconLocation = path.absname('getterphoto.ico')
-mswin.ole('Wscript.shell') {|wsh|
-	dirNameDesktop = wsh.SpecialFolders('Desktop')
-	shortCut = wsh.CreateShortcut(path.join(dirNameDesktop, linkName))
-	shortCut.WindowStyle = 4 // 3:Maximized, 4:Normal, 7:Minimized
-	shortCut.IconLocation = iconLocation
-	shortCut.TargetPath = targetPath
-	shortCut.WorkingDirectory = path.dirname(targetPath)
-	shortCut.Save()
-}
+setuptool.setup(
+	launcherName	=> 'Getter Photo'
+	dirNameDst		=> nil
+	fileNameScript	=> 'getterphoto.guraw'
+	fileNameIcon	=> 'getterphoto.ico'
+	fileNamesExtra	=> []
+)

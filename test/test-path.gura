@@ -56,6 +56,10 @@ testcase {
 	patternsEx = '/' + patterns
 	printf('path.splitext(\'%s\') .. [%s]\n', patterns, path.splitext(patterns):*join(' + '))
 	printf('path.splitext(\'%s\') .. [%s]\n', patternsEx, path.splitext(patternsEx):*join(' + '))
+	printf('path.basename(\'%s\') .. %s\n', patterns, path.basename(patterns))
+	printf('path.basename(\'%s\') .. %s\n', patternsEx, path.basename(patternsEx))
+	printf('path.extname(\'%s\') .. %s\n', patterns, path.extname(patterns))
+	printf('path.extname(\'%s\') .. %s\n', patternsEx, path.extname(patternsEx))
 	printf('path.split(\'%s\') .. [%s]\n', patterns, path.split(patterns):*join(' + '))
 	printf('path.split(\'%s\') .. [%s]\n', patternsEx, path.split(patternsEx):*join(' + '))
 	printf('path.split(\'%s\'):bottom .. [%s]\n', patterns, (path.split(patterns):bottom):*join(' + '))

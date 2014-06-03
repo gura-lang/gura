@@ -5,8 +5,10 @@ import(wx)
 //-----------------------------------------------------------------------------
 // setup
 //-----------------------------------------------------------------------------
-setup(launcherName:string, dirNameDst:string,
+setup(launcherName:string, dirNameDst:string:nil,
 		fileNameScript:string, fileNameIcon:string, fileNamesExtra[]:string) = {
+	dirNameDst = dirNameDst || path.join(sys.localdir,
+								path.basename(path.filename(fileNameScript)))
 	Panel.launcherName = launcherName
 	Panel.dirNameDst = dirNameDst
 	Panel.fileNameScript = fileNameScript
@@ -58,10 +60,10 @@ Panel = class(wx.Panel) {
 		}
 		wx.TextCtrl(this, wx.ID_ANY, style => wx.TE_READONLY | \
 							wx.TE_MULTILINE | wx.BORDER_STATIC) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 8))
 			font = ctrl.GetFont()
 			font.SetPointSize(12)
 			ctrl.SetFont(font)
-			vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 8))
 			if (errorMsg) {
 				ctrl.WriteText(errorMsg + '\n')
 			} else {
@@ -75,6 +77,11 @@ Panel = class(wx.Panel) {
 			}
 			ctrl.SetInsertionPoint(0)
 		}
+		wx.Button(this, wx.ID_CLOSE, 'OK') {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags().Center().Border(wx.TOP, 8))
+			ctrl.SetDefault()
+			ctrl.SetFocus()
+		}
 	}
 }
 
@@ -85,6 +92,7 @@ Frame = class(wx.Frame) {
 	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
 			size:wx.Size => wx.Size(640, 240)) = {|nil, wx.ID_ANY, title, pos, size|
 		Panel(this)
+		this.Bind(wx.EVT_BUTTON, wx.ID_CLOSE) {this.Close()}
 	}
 }
 
