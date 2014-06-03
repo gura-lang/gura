@@ -1,3 +1,10 @@
-Source URL:
+Source URLs
+-----------
+
 http://www.famfamfam.com/lab/icons/silk/preview.php
-http://blog.iconspedia.com/icons/100-free-icons-weby-icon-set-192/
+arrow_rotate_anticlockwise.png
+arrow_rotate_clockwise.png
+book_open.png
+
+http://www.designkindle.com/2011/10/07/build-icons/
+_0047_ID.png
