@@ -1,4 +1,4 @@
-import(testutil) {*}
+import(helper.test) {*}
 
 create_object() = {
 	[size, theta] = [rand(100) + 50, rand(2 * math.pi)]

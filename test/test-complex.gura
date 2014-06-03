@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(testutil) {*}
+import(helper.test) {*}
 
 testcase {
 	x = [3, 3 + 4j, 2 + 3j, 1 + 1j, 1 + math.sqrt(3) * 1j]

@@ -1,7 +1,7 @@
 #!/usr/bin/env gura
-import(setuptool)
+import(helper.setup)
 
-setuptool.setup(
+helper.setup.execute(
 	launcherName	=> 'Gura Shot'
 	dirNameDst		=> nil
 	fileNameScript	=> 'gurashot.guraw'

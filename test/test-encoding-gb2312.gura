@@ -1,6 +1,6 @@
 # -*- coding: gb2312 -*-
 import(hash)
-import(testutil) {*}
+import(helper.test) {*}
 
 tester(text:string) = {
 	buff = binary()

@@ -1,6 +1,6 @@
 #!/usr/bin/env gura
 import(re)
-import(testutil) {*}
+import(helper.test) {*}
 
 sys.stdout.setcodec('shift_jis').addcr(false)
 

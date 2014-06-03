@@ -2,7 +2,7 @@
 import(freetype, ft)
 import(hash)
 import(bmp)
-import(testutil) {*}
+import(helper.test) {*}
 
 tester_image(image:image, comment:string, hexdigestExpect:string):map:void = {
 	md5 = hash.md5()

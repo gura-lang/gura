@@ -4,7 +4,7 @@ import(tar)
 import(zip)
 import(gzip)
 import(bzip2)
-import(testutil) {*}
+import(helper.test) {*}
 
 testcase {
 	src = B'''

@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(testutil) {*}
+import(helper.test) {*}
 import(xhtml) {xhtml}
 
 e = xhtml {

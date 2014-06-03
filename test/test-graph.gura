@@ -2,7 +2,7 @@
 import(re)
 import(csv)
 import(graph)
-import(testutil) {*}
+import(helper.test) {*}
 
 function(fileNameEmf:string) {
 	graph.create_emf(fileNameEmf, 150, 150) {|c|

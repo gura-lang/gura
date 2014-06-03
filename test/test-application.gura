@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(testutil) {*}
+import(helper.test) {*}
 
 testcase {
 	hanoi(n:number, from:string, to:string, via:string) = {

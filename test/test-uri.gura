@@ -1,6 +1,6 @@
 #!/usr/bin/env gura
 # -*- coding: utf-8 -*-
-import(testutil) {*}
+import(helper.test) {*}
 
 testcase {
 	f(u:uri):map = {

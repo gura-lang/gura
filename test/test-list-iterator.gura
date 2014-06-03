@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(testutil) {*}
+import(helper.test) {*}
 
 assign_tester(collection):dynamic_scope {`block} = {
 	block.eval()

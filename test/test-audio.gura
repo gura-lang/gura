@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(testutil) {*}
+import(helper.test) {*}
 
 testcase {
 	audio(`u16le, 1, 1000) {|aud|

@@ -1,2 +1,2 @@
-﻿import(testutil) {*}
+﻿import(helper.test) {*}
 println('This script file contains a BOM at the top.')

@@ -4,7 +4,7 @@ import(hash)
 import(bmp)
 import(opengl) {*}
 import(glu) {*}
-import(testutil) {*}
+import(helper.test) {*}
 
 tester_image(image:image, comment:string, hexdigestExpect:string):map:void = {
 	printf('%-20s %3dx%3d\n', comment, image.width, image.height)

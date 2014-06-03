@@ -1,6 +1,6 @@
 #!/usr/bin/env gura
 import(csv)
-import(testutil) {*}
+import(helper.test) {*}
 
 testcase {
 patterns = @{

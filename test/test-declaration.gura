@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(testutil)
+import(helper.test)
 
 listSymbols(skipWords:list, indent:number => 0, m?:module) = {
 	skipWordsMap = %{
@@ -25,7 +25,7 @@ listSymbols(skipWords:list, indent:number => 0, m?:module) = {
 		}
 	}
 }
-listSymbols(['break', 'return', 'continue', 'listSymbols', 'testutil', '*', 'argopt'])
+listSymbols(['break', 'return', 'continue', 'listSymbols', 'helper', '*', 'argopt'])
 scope {
 	indent = 0
 	dirtype().each {|symbol|

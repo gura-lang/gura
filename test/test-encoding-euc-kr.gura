@@ -1,6 +1,6 @@
 # -*- coding: euc-kr -*-
 import(hash)
-import(testutil) {*}
+import(helper.test) {*}
 
 tester(text:string) = {
 	buff = binary()

@@ -3,9 +3,9 @@ import(mswin)
 import(wx)
 
 //-----------------------------------------------------------------------------
-// setup
+// execute
 //-----------------------------------------------------------------------------
-setup(launcherName:string, dirNameDst:string:nil,
+execute(launcherName:string, dirNameDst:string:nil,
 		fileNameScript:string, fileNameIcon:string, fileNamesExtra[]:string) = {
 	dirNameDst = dirNameDst || path.join(sys.localdir,
 								path.basename(path.filename(fileNameScript)))

@@ -1,5 +1,5 @@
 #!/usr/bin/env gura
-import(testutil) {*}
+import(helper.test) {*}
 
 testcase {
 	d = %{'a' => 3, 'b' => 2, 'c' => 1}
