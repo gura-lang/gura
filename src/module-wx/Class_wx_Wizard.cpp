@@ -390,6 +390,24 @@ Gura_ImplementMethod(wx_Wizard, SetPageSize)
 	return Value::Null;
 }
 
+Gura_DeclareMethod(wx_Wizard, ShowPage)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "page", VTYPE_wx_WizardPage, OCCUR_Once);
+	DeclareArg(env, "goingForward", VTYPE_boolean, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_Wizard, ShowPage)
+{
+	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxWizardPage *page = Object_wx_WizardPage::GetObject(args, 0)->GetEntity();
+	bool goingForward = args.IsValid(1)? args.GetBoolean(1) : true;
+	bool rtn = pThis->GetEntity()->ShowPage(page, goingForward);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
 //----------------------------------------------------------------------------
 // Object implementation for wxWizard
 //----------------------------------------------------------------------------
@@ -443,6 +461,7 @@ Gura_ImplementUserInheritableClass(wx_Wizard)
 	Gura_AssignMethod(wx_Wizard, SetBorder);
 	Gura_AssignMethod(wx_Wizard, SetMinimumBitmapWidth);
 	Gura_AssignMethod(wx_Wizard, SetPageSize);
+	Gura_AssignMethod(wx_Wizard, ShowPage);
 }
 
 Gura_ImplementDescendantCreator(wx_Wizard)

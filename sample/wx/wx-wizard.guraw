@@ -115,7 +115,7 @@ MyFrame = class(wx.Frame) {
 	}
 	OnRunWizardModeless(event:wx.CommandEvent) = {
 		wizard = MyWizard(this)
-		//wizard.ShowPage(wizard.GetFirstPage())
+		wizard.ShowPage(wizard.GetFirstPage())
 		wizard.Show(true)
 	}
 	OnWizardFinished(event:wx.WizardEvent) = {
@@ -152,9 +152,11 @@ MyWizard = class(wx.Wizard) {
 
 		wx.StaticText(this.m_page1, wx.ID_ANY,
 			R'''
-			This wizard doesn't help you\nto do anything at all.
+			This wizard doesn't help you
+			to do anything at all.
 			
-			The next pages will present you\nwith more useless controls.''',
+			The next pages will present you
+			with more useless controls.''',
 			wx.Point(5, 5)
 		)
 
@@ -195,6 +197,7 @@ MyWizard = class(wx.Wizard) {
 // It also shows how to use a different bitmap for one of the pages.
 wxValidationPage = class(wx.WizardPageSimple) {
 	__init__(parent:wx.Wizard) = {|parent|
+		this.EventHandler()
 		this.m_bitmap = wx.BitmapFromXPMData(resource.wiztest2_xpm)
 
 		this.m_checkbox = wx.CheckBox(this, wx.ID_ANY, '&Check me')
@@ -215,15 +218,17 @@ wxValidationPage = class(wx.WizardPageSimple) {
 		)
 		this.SetSizerAndFit(mainSizer)
 	}
-
-	TransferDataFromWindow() = {
+	EventHandler() = {
+		this.Bind(wx.EVT_WIZARD_PAGE_CHANGING, wx.ID_ANY) {|event| this.OnWizardPageChanging(event)}
+	}
+	OnWizardPageChanging(event:wx.WizardEvent) = {
 		if (!this.m_checkbox.GetValue()) {
 			wx.MessageBox('Check the checkbox first!', 'No way',
-		                 wx.ICON_WARNING | wx.OK, this)
-		    return(false)
+							wx.ICON_ERROR | wx.OK, this)
+			event.Veto()
 		}
-		true
 	}
+
 }
 
 // This is a more complicated example of validity checking: using events we may
@@ -286,7 +291,7 @@ wxRadioboxPage = class(wx.WizardPageSimple) {
 		}
 
 		wx.MessageBox("You can't go there", 'Not allowed',
-					wx.ICON_WARNING | wx.OK, this)
+					wx.ICON_ERROR | wx.OK, this)
 
 		event.Veto()
 	}

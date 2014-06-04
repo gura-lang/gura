@@ -7,8 +7,8 @@
 Gura_BeginModuleScope(wx)
 
 Gura_DeclarePrivUserSymbol(Clone);
+Gura_DeclarePrivUserSymbol(TransferFromWindow);
 Gura_DeclarePrivUserSymbol(TransferToWindow);
-Gura_DeclarePrivUserSymbol(TransferToWindow_1);
 Gura_DeclarePrivUserSymbol(Validate);
 
 //----------------------------------------------------------------------------
@@ -21,8 +21,8 @@ private:
 public:
 	inline wx_Validator() : wxValidator(), _sig(NULL), _pObj(NULL) {}
 	//virtual wxObject* Clone();
-	//virtual bool TransferToWindow();
-	//virtual bool TransferToWindow();
+	virtual bool TransferFromWindow();
+	virtual bool TransferToWindow();
 	//virtual bool Validate(wxWindow* parent);
 	~wx_Validator();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_Validator *pObj) {
@@ -41,6 +41,35 @@ void wx_Validator::GuraObjectDeleted()
 {
 	_pObj = NULL;
 }
+
+bool wx_Validator::TransferFromWindow()
+{
+	bool evaluatedFlag;
+	Value rtn = _pObj->EvalMethod(*_pObj, _sig,
+		Gura_UserSymbol(TransferFromWindow), ValueList::Null, evaluatedFlag);
+	if (_sig.IsSignalled()) {
+		SetLogError(_sig);
+		return false;
+	}
+	return rtn.GetBoolean();
+}
+
+bool wx_Validator::TransferToWindow()
+{
+	bool evaluatedFlag;
+	Value rtn = _pObj->EvalMethod(*_pObj, _sig,
+		Gura_UserSymbol(TransferToWindow), ValueList::Null, evaluatedFlag);
+	if (_sig.IsSignalled()) {
+		SetLogError(_sig);
+		return false;
+	}
+	return rtn.GetBoolean();
+}
+
+//bool wx_Validator::Validate(wxWindow* parent);
+//{
+//	
+//}
 
 //----------------------------------------------------------------------------
 // Gura interfaces for wxValidator
@@ -212,8 +241,8 @@ String Object_wx_Validator::ToString(bool exprFlag)
 Gura_ImplementUserInheritableClass(wx_Validator)
 {
 	Gura_RealizeUserSymbol(Clone);
+	Gura_RealizeUserSymbol(TransferFromWindow);
 	Gura_RealizeUserSymbol(TransferToWindow);
-	Gura_RealizeUserSymbol(TransferToWindow_1);
 	Gura_RealizeUserSymbol(Validate);
 	Gura_AssignFunction(Validator);
 	Gura_AssignMethod(wx_Validator, Clone);
