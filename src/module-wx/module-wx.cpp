@@ -2961,6 +2961,11 @@ _MS(PrepareClass(ThreadHelper));
 		Gura_AssignWxValue(WIZARD_HALIGN_RIGHT);
 		Gura_AssignWxValue(WIZARD_TILE);
 	} while (0);
+	do { // wxDialogLayoutAdaptationMode
+		Gura_AssignWxValue(DIALOG_ADAPTATION_MODE_DEFAULT);
+		Gura_AssignWxValue(DIALOG_ADAPTATION_MODE_ENABLED);
+		Gura_AssignWxValue(DIALOG_ADAPTATION_MODE_DISABLED);
+	} while (0);
 	return true;
 }
 

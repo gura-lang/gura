@@ -103,6 +103,35 @@ Gura_ImplementFunction(Dialog)
 	return ReturnValue(env, sig, args, args.GetThis());
 }
 
+Gura_DeclareMethod(wx_Dialog, AddMainButtonId)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Dialog, AddMainButtonId)
+{
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxWindowID id = static_cast<wxWindowID>(args.GetInt(0));
+	pThis->GetEntity()->AddMainButtonId(id);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_Dialog, CanDoLayoutAdaptation)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_Dialog, CanDoLayoutAdaptation)
+{
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->CanDoLayoutAdaptation();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
 Gura_DeclareMethod(wx_Dialog, Centre)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
@@ -200,6 +229,20 @@ Gura_ImplementMethod(wx_Dialog, CreateStdDialogButtonSizer)
 	return ReturnValue(env, sig, args, Value(new Object_wx_StdDialogButtonSizer(rtn, NULL, OwnerFalse)));
 }
 
+Gura_DeclareMethod(wx_Dialog, DoLayoutAdaptation)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_Dialog, DoLayoutAdaptation)
+{
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->DoLayoutAdaptation();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
 Gura_DeclareMethod(wx_Dialog, DoOK)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -261,6 +304,48 @@ Gura_ImplementMethod(wx_Dialog, GetEscapeId)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
+Gura_DeclareMethod(wx_Dialog, GetLayoutAdaptationDone)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_Dialog, GetLayoutAdaptationDone)
+{
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->GetLayoutAdaptationDone();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_Dialog, GetLayoutAdaptationLevel)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_Dialog, GetLayoutAdaptationLevel)
+{
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetLayoutAdaptationLevel();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_Dialog, GetLayoutAdaptationMode)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_Dialog, GetLayoutAdaptationMode)
+{
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxDialogLayoutAdaptationMode rtn = pThis->GetEntity()->GetLayoutAdaptationMode();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
 Gura_DeclareMethod(wx_Dialog, GetReturnCode)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -273,6 +358,20 @@ Gura_ImplementMethod(wx_Dialog, GetReturnCode)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->GetReturnCode();
 	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_Dialog, GetMainButtonIds)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_Dialog, GetMainButtonIds)
+{
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxArrayInt &rtn = pThis->GetEntity()->GetMainButtonIds();
+	return ReturnValue(env, sig, args, ArrayIntToValue(env, rtn));
 }
 
 Gura_DeclareMethod(wx_Dialog, GetToolBar)
@@ -319,6 +418,22 @@ Gura_ImplementMethod(wx_Dialog, IsIconized)
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	bool rtn = pThis->GetEntity()->IsIconized();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_Dialog, IsMainButtonId)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "id", VTYPE_number, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_Dialog, IsMainButtonId)
+{
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxWindowID id = static_cast<wxWindowID>(args.GetInt(0));
+	bool rtn = pThis->GetEntity()->IsMainButtonId(id);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -417,22 +532,50 @@ Gura_ImplementMethod(wx_Dialog, SetIcons)
 	return Value::Null;
 }
 
-#if 0
-Gura_DeclareMethod(wx_Dialog, SetModal)
+Gura_DeclareMethod(wx_Dialog, SetLayoutAdaptationDone)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "flag", VTYPE_boolean, OCCUR_Once);
+	DeclareArg(env, "done", VTYPE_boolean, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Dialog, SetModal)
+Gura_ImplementMethod(wx_Dialog, SetLayoutAdaptationDone)
 {
 	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	bool flag = args.GetBoolean(0);
-	pThis->GetEntity()->SetModal(flag);
+	bool done = args.GetBoolean(0);
+	pThis->GetEntity()->SetLayoutAdaptationDone(done);
 	return Value::Null;
 }
-#endif
+
+Gura_DeclareMethod(wx_Dialog, SetLayoutAdaptationLevel)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "level", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Dialog, SetLayoutAdaptationLevel)
+{
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int level = args.GetInt(0);
+	pThis->GetEntity()->SetLayoutAdaptationLevel(level);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_Dialog, SetLayoutAdaptationMode)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "mode", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Dialog, SetLayoutAdaptationMode)
+{
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxDialogLayoutAdaptationMode mode = static_cast<wxDialogLayoutAdaptationMode>(args.GetInt(0));
+	pThis->GetEntity()->SetLayoutAdaptationMode(mode);
+	return Value::Null;
+}
 
 Gura_DeclareMethod(wx_Dialog, SetReturnCode)
 {
@@ -479,6 +622,19 @@ Gura_ImplementMethod(wx_Dialog, ShowModal)
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
+Gura_DeclareMethod(wx_Dialog, ShowWindowModal)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_Dialog, ShowWindowModal)
+{
+	Object_wx_Dialog *pThis = Object_wx_Dialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	pThis->GetEntity()->ShowWindowModal();
+	return Value::Null;
+}
+
 //----------------------------------------------------------------------------
 // Object implementation for wxDialog
 //----------------------------------------------------------------------------
@@ -512,29 +668,40 @@ Gura_ImplementUserInheritableClass(wx_Dialog)
 	Gura_RealizeUserSymbol(DoOK);
 	Gura_AssignFunction(DialogEmpty);
 	Gura_AssignFunction(Dialog);
+	Gura_AssignMethod(wx_Dialog, AddMainButtonId);
+	Gura_AssignMethod(wx_Dialog, CanDoLayoutAdaptation);
 	Gura_AssignMethod(wx_Dialog, Centre);
 	Gura_AssignMethod(wx_Dialog, Create);
 	Gura_AssignMethod(wx_Dialog, CreateButtonSizer);
 	Gura_AssignMethod(wx_Dialog, CreateSeparatedButtonSizer);
 	Gura_AssignMethod(wx_Dialog, CreateStdDialogButtonSizer);
+	Gura_AssignMethod(wx_Dialog, DoLayoutAdaptation);
 	Gura_AssignMethod(wx_Dialog, DoOK);
 	Gura_AssignMethod(wx_Dialog, EndModal);
 	Gura_AssignMethod(wx_Dialog, GetAffirmativeId);
 	Gura_AssignMethod(wx_Dialog, GetEscapeId);
+	Gura_AssignMethod(wx_Dialog, GetLayoutAdaptationDone);
+	Gura_AssignMethod(wx_Dialog, GetLayoutAdaptationLevel);
+	Gura_AssignMethod(wx_Dialog, GetLayoutAdaptationMode);
+	Gura_AssignMethod(wx_Dialog, GetMainButtonIds);
 	Gura_AssignMethod(wx_Dialog, GetReturnCode);
 	Gura_AssignMethod(wx_Dialog, GetToolBar);
 	Gura_AssignMethod(wx_Dialog, Iconize);
 	Gura_AssignMethod(wx_Dialog, IsIconized);
+	Gura_AssignMethod(wx_Dialog, IsMainButtonId);
 	Gura_AssignMethod(wx_Dialog, IsModal);
 	Gura_AssignMethod(wx_Dialog, OnSysColourChanged);
 	Gura_AssignMethod(wx_Dialog, SetAffirmativeId);
 	Gura_AssignMethod(wx_Dialog, SetEscapeId);
 	Gura_AssignMethod(wx_Dialog, SetIcon);
 	Gura_AssignMethod(wx_Dialog, SetIcons);
-	//Gura_AssignMethod(wx_Dialog, SetModal);
+	Gura_AssignMethod(wx_Dialog, SetLayoutAdaptationDone);
+	Gura_AssignMethod(wx_Dialog, SetLayoutAdaptationLevel);
+	Gura_AssignMethod(wx_Dialog, SetLayoutAdaptationMode);
 	Gura_AssignMethod(wx_Dialog, SetReturnCode);
 	Gura_AssignMethod(wx_Dialog, Show);
 	Gura_AssignMethod(wx_Dialog, ShowModal);
+	Gura_AssignMethod(wx_Dialog, ShowWindowModal);
 }
 
 Gura_ImplementDescendantCreator(wx_Dialog)
