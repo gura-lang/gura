@@ -88,7 +88,6 @@ Gura_ImplementFunction(WizardPage)
 	return ReturnValue(env, sig, args, args.GetThis());
 }
 
-#if 0
 Gura_DeclareMethod(wx_WizardPage, GetPrev)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -116,7 +115,6 @@ Gura_ImplementMethod(wx_WizardPage, GetNext)
 	wxWizardPage *rtn = (wxWizardPage *)pThis->GetEntity()->GetNext();
 	return ReturnValue(env, sig, args, Value(new Object_wx_WizardPage(rtn, NULL, OwnerFalse)));
 }
-#endif
 
 Gura_DeclareMethod(wx_WizardPage, GetBitmap)
 {
@@ -165,8 +163,8 @@ Gura_ImplementUserInheritableClass(wx_WizardPage)
 	Gura_RealizeUserSymbol(GetNext);
 	Gura_RealizeUserSymbol(GetPrev);
 	Gura_AssignFunction(WizardPage);
-	//Gura_AssignMethod(wx_WizardPage, GetPrev);
-	//Gura_AssignMethod(wx_WizardPage, GetNext);
+	Gura_AssignMethod(wx_WizardPage, GetPrev);
+	Gura_AssignMethod(wx_WizardPage, GetNext);
 	Gura_AssignMethod(wx_WizardPage, GetBitmap);
 }
 
