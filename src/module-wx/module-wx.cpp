@@ -2952,6 +2952,15 @@ _MS(PrepareClass(ThreadHelper));
 		Gura_AssignWxValue(PROPSHEET_TREEBOOK);
 		Gura_AssignWxValue(PROPSHEET_SHRINKTOFIT);
 	} while (0);
+	do { // wxWizard::SetBitmapPlacement
+		Gura_AssignWxValue(WIZARD_VALIGN_TOP);
+		Gura_AssignWxValue(WIZARD_VALIGN_CENTRE);
+		Gura_AssignWxValue(WIZARD_VALIGN_BOTTOM);
+		Gura_AssignWxValue(WIZARD_HALIGN_LEFT);
+		Gura_AssignWxValue(WIZARD_HALIGN_CENTRE);
+		Gura_AssignWxValue(WIZARD_HALIGN_RIGHT);
+		Gura_AssignWxValue(WIZARD_TILE);
+	} while (0);
 	return true;
 }
 
