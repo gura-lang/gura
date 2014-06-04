@@ -51,6 +51,7 @@ MyApp = class(wx.App) {
 		// and show it (the frames, unlike simple controls, are not shown when
 		// created initially)
 		frame.Show(true)
+		MyApp.frame:public = frame
 		// we're done
 		true
 	}
@@ -336,8 +337,9 @@ wxCheckboxPage = class(wx.WizardPage) {
 		    wx.SizerFlags(0).Border(wx.ALL, 5))
 
 		textSize = wx.Size(150, 200)
-		//if (((wxFrame*) wxTheApp->GetTopWindow())->GetMenuBar()->IsChecked(Wizard_LargeWizard))
-		//    textSize = wxSize(150, wxGetClientDisplayRect().GetHeight() - 200)
+		if (MyApp.frame.GetMenuBar().IsChecked(Wizard_LargeWizard)) {
+			textSize = wx.Size(150, wx.GetClientDisplayRect().GetHeight() - 200)
+		}
 
 		textCtrl = wx.TextCtrl(this, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, textSize, wx.TE_MULTILINE)
 		mainSizer.Add(textCtrl, wx.SizerFlags(0).Expand().Border(wx.ALL, 5))
