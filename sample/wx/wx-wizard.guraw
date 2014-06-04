@@ -114,7 +114,7 @@ MyFrame = class(wx.Frame) {
 	}
 	OnRunWizardModeless(event:wx.CommandEvent) = {
 		wizard = MyWizard(this)
-		wizard.ShowPage(wizard.GetFirstPage())
+		//wizard.ShowPage(wizard.GetFirstPage())
 		wizard.Show(true)
 	}
 	OnWizardFinished(event:wx.WizardEvent) = {

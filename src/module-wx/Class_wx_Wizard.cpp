@@ -167,6 +167,34 @@ Gura_ImplementMethod(wx_Wizard, GetBitmap)
 	return ReturnValue(env, sig, args, Value(new Object_wx_Bitmap(new wxBitmap(rtn), NULL, OwnerTrue)));
 }
 
+Gura_DeclareMethod(wx_Wizard, GetBitmapBackgroundColour)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_Wizard, GetBitmapBackgroundColour)
+{
+	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	const wxColour &rtn = pThis->GetEntity()->GetBitmapBackgroundColour();
+	return ReturnValue(env, sig, args, Value(new Object_wx_Colour(new wxColour(rtn), NULL, OwnerTrue)));
+}
+
+Gura_DeclareMethod(wx_Wizard, GetBitmapPlacement)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_Wizard, GetBitmapPlacement)
+{
+	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetBitmapPlacement();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
 Gura_DeclareMethod(wx_Wizard, GetCurrentPage)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -178,7 +206,22 @@ Gura_ImplementMethod(wx_Wizard, GetCurrentPage)
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWizardPage *rtn = (wxWizardPage *)pThis->GetEntity()->GetCurrentPage();
+	if (rtn == NULL) return Value::Null;
 	return ReturnValue(env, sig, args, Value(new Object_wx_WizardPage(rtn, NULL, OwnerFalse)));
+}
+
+Gura_DeclareMethod(wx_Wizard, GetMinimumBitmapWidth)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_Wizard, GetMinimumBitmapWidth)
+{
+	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int rtn = pThis->GetEntity()->GetMinimumBitmapWidth();
+	return ReturnValue(env, sig, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_Wizard, GetPageAreaSizer)
@@ -272,18 +315,33 @@ Gura_ImplementMethod(wx_Wizard, SetBitmap)
 	return Value::Null;
 }
 
-Gura_DeclareMethod(wx_Wizard, SetPageSize)
+Gura_DeclareMethod(wx_Wizard, SetBitmapBackgroundColour)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "sizePage", VTYPE_wx_Size, OCCUR_Once);
+	DeclareArg(env, "colour", VTYPE_wx_Colour, OCCUR_Once);
 }
 
-Gura_ImplementMethod(wx_Wizard, SetPageSize)
+Gura_ImplementMethod(wx_Wizard, SetBitmapBackgroundColour)
 {
 	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	wxSize *sizePage = Object_wx_Size::GetObject(args, 0)->GetEntity();
-	pThis->GetEntity()->SetPageSize(*sizePage);
+	wxColour *colour = Object_wx_Colour::GetObject(args, 0)->GetEntity();
+	pThis->GetEntity()->SetBitmapBackgroundColour(*colour);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_Wizard, SetBitmapPlacement)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "placement", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Wizard, SetBitmapPlacement)
+{
+	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int placement = args.GetInt(0);
+	pThis->GetEntity()->SetBitmapPlacement(placement);
 	return Value::Null;
 }
 
@@ -299,6 +357,36 @@ Gura_ImplementMethod(wx_Wizard, SetBorder)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int border = args.GetInt(0);
 	pThis->GetEntity()->SetBorder(border);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_Wizard, SetMinimumBitmapWidth)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "width", VTYPE_number, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Wizard, SetMinimumBitmapWidth)
+{
+	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	int width = args.GetInt(0);
+	pThis->GetEntity()->SetMinimumBitmapWidth(width);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_Wizard, SetPageSize)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "sizePage", VTYPE_wx_Size, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_Wizard, SetPageSize)
+{
+	Object_wx_Wizard *pThis = Object_wx_Wizard::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxSize *sizePage = Object_wx_Size::GetObject(args, 0)->GetEntity();
+	pThis->GetEntity()->SetPageSize(*sizePage);
 	return Value::Null;
 }
 
@@ -340,15 +428,21 @@ Gura_ImplementUserInheritableClass(wx_Wizard)
 	Gura_AssignMethod(wx_Wizard, Create);
 	Gura_AssignMethod(wx_Wizard, FitToPage);
 	Gura_AssignMethod(wx_Wizard, GetBitmap);
+	Gura_AssignMethod(wx_Wizard, GetBitmapBackgroundColour);
+	Gura_AssignMethod(wx_Wizard, GetBitmapPlacement);
 	Gura_AssignMethod(wx_Wizard, GetCurrentPage);
+	Gura_AssignMethod(wx_Wizard, GetMinimumBitmapWidth);
 	Gura_AssignMethod(wx_Wizard, GetPageAreaSizer);
 	Gura_AssignMethod(wx_Wizard, GetPageSize);
 	Gura_AssignMethod(wx_Wizard, HasNextPage);
 	Gura_AssignMethod(wx_Wizard, HasPrevPage);
 	Gura_AssignMethod(wx_Wizard, RunWizard);
 	Gura_AssignMethod(wx_Wizard, SetBitmap);
-	Gura_AssignMethod(wx_Wizard, SetPageSize);
+	Gura_AssignMethod(wx_Wizard, SetBitmapBackgroundColour);
+	Gura_AssignMethod(wx_Wizard, SetBitmapPlacement);
 	Gura_AssignMethod(wx_Wizard, SetBorder);
+	Gura_AssignMethod(wx_Wizard, SetMinimumBitmapWidth);
+	Gura_AssignMethod(wx_Wizard, SetPageSize);
 }
 
 Gura_ImplementDescendantCreator(wx_Wizard)
