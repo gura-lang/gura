@@ -97,8 +97,8 @@ MyFrame = class(wx.Frame) {
 		this.Bind(wx.EVT_MENU, Wizard_RunModal) {|event| this.OnRunWizard(event)}
 		this.Bind(wx.EVT_MENU, Wizard_RunNoSizer) {|event| this.OnRunWizardNoSizer(event)}
 		this.Bind(wx.EVT_MENU, Wizard_RunModeless) {|event| this.OnRunWizardModeless(event)}
-		this.Bind(wx.EVT_WIZARD_CANCEL, wxID_ANY) {|event| this.OnWizardCancel(event)}
-		this.Bind(wx.EVT_WIZARD_FINISHED, wxID_ANY) {|event| this.OnWizardFinished(event)}
+		this.Bind(wx.EVT_WIZARD_CANCEL, wx.ID_ANY) {|event| this.OnWizardCancel(event)}
+		this.Bind(wx.EVT_WIZARD_FINISHED, wx.ID_ANY) {|event| this.OnWizardFinished(event)}
 	}
 	OnQuit(event:wx.CommandEvent) = {
 		// true is to force the frame to close
@@ -135,8 +135,8 @@ MyFrame = class(wx.Frame) {
 // ----------------------------------------------------------------------------
 
 MyWizard = class(wx.Wizard) {
-	__init__(frame:wx.Frame, useSizer:boolean) = {|frame, wx.ID_ANY, 'Absolutely Useless Wizard',
-							wx.Bitmap(wiztest_xpm), wx.DefaultPosition,
+	__init__(frame:wx.Frame, useSizer:boolean => true) = {|frame, wx.ID_ANY, 'Absolutely Useless Wizard',
+							wx.BitmapFromXPMData(resource.wiztest_xpm), wx.DefaultPosition,
 							(wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)|
 		this.SetExtraStyle(wx.WIZARD_EX_HELPBUTTON);
 		//this.SetIcon(wxICON(sample));
@@ -152,7 +152,7 @@ MyWizard = class(wx.Wizard) {
 		}
 
 		// a wizard page may be either an object of predefined class
-		this.m_page1 = wxWizardPageSimple(this);
+		this.m_page1 = wx.WizardPageSimple(this);
 
 		wx.StaticText(this.m_page1, wx.ID_ANY,
 			R'''
@@ -199,9 +199,9 @@ MyWizard = class(wx.Wizard) {
 // It also shows how to use a different bitmap for one of the pages.
 wxValidationPage = class(wx.WizardPageSimple) {
 	__init__(parent:wx.Wizard) = {|parent|
-		this.m_bitmap = wx.Bitmap(resource.wiztest2_xpm);
+		this.m_bitmap = wx.BitmapFromXPMData(resource.wiztest2_xpm);
 
-		this.m_checkbox = wxCheckBox(this, wx.ID_ANY, '&Check me');
+		this.m_checkbox = wx.CheckBox(this, wx.ID_ANY, '&Check me');
 
 		mainSizer = wx.BoxSizer(wx.VERTICAL);
 		mainSizer.Add(

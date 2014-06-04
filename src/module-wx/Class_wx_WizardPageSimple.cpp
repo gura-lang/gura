@@ -100,19 +100,34 @@ Gura_ImplementMethod(wx_WizardPageSimple, SetNext)
 	return Value::Null;
 }
 
-Gura_DeclareClassMethod(wx_WizardPageSimple, Chain)
+Gura_DeclareMethod(wx_WizardPageSimple, Chain)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "next", VTYPE_wx_WizardPageSimple, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_WizardPageSimple, Chain)
+{
+	Object_wx_WizardPageSimple *pThis = Object_wx_WizardPageSimple::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxWizardPageSimple *next = Object_wx_WizardPageSimple::GetObject(args, 0)->GetEntity();
+	pThis->GetEntity()->Chain(next);
+	return Value::Null;
+}
+
+Gura_DeclareClassMethod(wx_WizardPageSimple, ChainBoth)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "first", VTYPE_wx_WizardPageSimple, OCCUR_Once);
 	DeclareArg(env, "second", VTYPE_wx_WizardPageSimple, OCCUR_Once);
 }
 
-Gura_ImplementClassMethod(wx_WizardPageSimple, Chain)
+Gura_ImplementClassMethod(wx_WizardPageSimple, ChainBoth)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxWizardPageSimple *first = Object_wx_WizardPageSimple::GetObject(args, 0)->GetEntity();
 	wxWizardPageSimple *second = Object_wx_WizardPageSimple::GetObject(args, 1)->GetEntity();
-	wxWizardPageSimple::Chain(first, second);
+	wx_WizardPageSimple::Chain(first, second);
 	return Value::Null;
 }
 
@@ -150,6 +165,7 @@ Gura_ImplementUserInheritableClass(wx_WizardPageSimple)
 	Gura_AssignMethod(wx_WizardPageSimple, SetPrev);
 	Gura_AssignMethod(wx_WizardPageSimple, SetNext);
 	Gura_AssignMethod(wx_WizardPageSimple, Chain);
+	Gura_AssignMethod(wx_WizardPageSimple, ChainBoth);
 }
 
 Gura_ImplementDescendantCreator(wx_WizardPageSimple)
