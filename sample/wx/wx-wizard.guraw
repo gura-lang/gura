@@ -1,0 +1,360 @@
+#!/usr/bin/env gura
+/////////////////////////////////////////////////////////////////////////////
+// Name:        wizard.cpp
+// Purpose:     wxWidgets sample demonstrating wxWizard control
+// Author:      Vadim Zeitlin
+// Modified by: Robert Vazan (sizers)
+// Created:     15.08.99
+// Copyright:   (c) Vadim Zeitlin
+// Licence:     wxWindows licence
+/////////////////////////////////////////////////////////////////////////////
+// This Gura script has been ported from the original above by Yutaka SAITO.
+
+// ============================================================================
+// declarations
+// ============================================================================
+
+// ----------------------------------------------------------------------------
+// headers
+// ----------------------------------------------------------------------------
+import(wx)
+import(resource)
+
+//#include "wiztest.xpm"
+//#include "wiztest2.xpm"
+
+//#include "../sample.xpm"
+
+// ----------------------------------------------------------------------------
+// constants
+// ----------------------------------------------------------------------------
+
+// ids for menu items
+Wizard_About = wx.ID_ABOUT
+Wizard_Quit = wx.ID_EXIT
+Wizard_RunModal = wx.ID_HIGHEST
+
+[
+Wizard_RunNoSizer,
+Wizard_RunModeless,
+Wizard_LargeWizard,
+Wizard_ExpandBitmap
+] = (wx.ID_HIGHEST + 1)..
+
+// ----------------------------------------------------------------------------
+// private classes
+// ----------------------------------------------------------------------------
+
+// Define a new application type, each program should derive a class from wxApp
+MyApp = class(wx.App) {
+	// `Main program' equivalent: the program execution "starts" here
+	OnInit() = {
+		if (!super(this).OnInit()) {
+			return(false)
+		}
+		frame = MyFrame('wxWizard Sample')
+		// and show it (the frames, unlike simple controls, are not shown when
+		// created initially)
+		frame.Show(true)
+		// we're done
+		true
+	}
+};
+
+MyFrame = class(wx.Frame) {
+    // ctor(s)
+	__init__(title:string) = {|nil, wx.ID_ANY, title,
+							wx.DefaultPosition, wx.Size(250, 150)|  // small frame
+		this.EventHandler()
+		menuFile = wx.Menu();
+		menuFile.Append(Wizard_RunModal, '&Run wizard modal...\tCtrl-R');
+		menuFile.Append(Wizard_RunNoSizer, 'Run wizard &without sizer...');
+		menuFile.Append(Wizard_RunModeless, 'Run wizard &modeless...');
+		menuFile.AppendSeparator();
+		menuFile.Append(Wizard_Quit, 'E&xit\tAlt-X', 'Quit this program');
+
+		menuOptions = wx.Menu()
+		menuOptions.AppendCheckItem(Wizard_LargeWizard, '&Scroll Wizard Pages');
+		menuOptions.AppendCheckItem(Wizard_ExpandBitmap, 'Si&ze Bitmap To Page');
+
+		helpMenu = wx.Menu()
+		helpMenu.Append(Wizard_About, '&About\tF1', 'Show about dialog');
+
+		// now append the freshly created menu to the menu bar...
+		menuBar = wx.MenuBar();
+		menuBar.Append(menuFile, '&File');
+		menuBar.Append(menuOptions, '&Options');
+		menuBar.Append(helpMenu, '&Help');
+
+		// ... and attach this menu bar to the frame
+		this.SetMenuBar(menuBar);
+		// also create status bar which we use in OnWizardCancel
+		this.CreateStatusBar();
+	}
+	EventHandler() = {
+		this.Bind(wx.EVT_MENU, Wizard_Quit) {|event| this.OnQuit(event)}
+		this.Bind(wx.EVT_MENU, Wizard_About) {|event| this.OnAbout(event)}
+		this.Bind(wx.EVT_MENU, Wizard_RunModal) {|event| this.OnRunWizard(event)}
+		this.Bind(wx.EVT_MENU, Wizard_RunNoSizer) {|event| this.OnRunWizardNoSizer(event)}
+		this.Bind(wx.EVT_MENU, Wizard_RunModeless) {|event| this.OnRunWizardModeless(event)}
+		this.Bind(wx.EVT_WIZARD_CANCEL, wxID_ANY) {|event| this.OnWizardCancel(event)}
+		this.Bind(wx.EVT_WIZARD_FINISHED, wxID_ANY) {|event| this.OnWizardFinished(event)}
+	}
+	OnQuit(event:wx.CommandEvent) = {
+		// true is to force the frame to close
+		this.Close(true);
+	}
+	OnAbout(event:wx.CommandEvent) = {
+		wxMessageBox('Demo of wxWizard class\n' \
+					'(c) 1999, 2000 Vadim Zeitlin',
+					'About wxWizard sample', wx.OK | wx.ICON_INFORMATION, this);
+	}
+	OnRunWizard(event:wx.CommandEvent) = {
+		wizard = MyWizard(this);
+		wizard.RunWizard(wizard.GetFirstPage());
+	}
+	OnRunWizardNoSizer(event:wx.CommandEvent) = {
+		wizard = MyWizard(this, false);
+		wizard.RunWizard(wizard.GetFirstPage());
+	}
+	OnRunWizardModeless(event:wx.CommandEvent) = {
+		wizard = MyWizard(this);
+		wizard.ShowPage(wizard.GetFirstPage());
+		wizard.Show(true);
+	}
+	OnWizardFinished(event:wx.WizardEvent) = {
+		wx.MessageBox('The wizard finished successfully.', 'Wizard notification');
+	}
+	OnWizardCancel(event:wx.WizardEvent) = {
+		wx.MessageBox('The wizard was cancelled.', 'Wizard notification');
+	}
+};
+
+// ----------------------------------------------------------------------------
+// our wizard
+// ----------------------------------------------------------------------------
+
+MyWizard = class(wx.Wizard) {
+	__init__(frame:wx.Frame, useSizer:boolean) = {|frame, wx.ID_ANY, 'Absolutely Useless Wizard',
+							wx.Bitmap(wiztest_xpm), wx.DefaultPosition,
+							(wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)|
+		this.SetExtraStyle(wx.WIZARD_EX_HELPBUTTON);
+		//this.SetIcon(wxICON(sample));
+
+		// Allow the bitmap to be expanded to fit the page height
+		if (frame.GetMenuBar().IsChecked(Wizard_ExpandBitmap)) {
+			this.SetBitmapPlacement(wx.WIZARD_VALIGN_CENTRE);
+		}
+
+		// Enable scrolling adaptation
+		if (frame.GetMenuBar().IsChecked(Wizard_LargeWizard)) {
+			thils.SetLayoutAdaptationMode(wx.DIALOG_ADAPTATION_MODE_ENABLED);
+		}
+
+		// a wizard page may be either an object of predefined class
+		this.m_page1 = wxWizardPageSimple(this);
+
+		wx.StaticText(this.m_page1, wx.ID_ANY,
+			R'''
+			This wizard doesn't help you\nto do anything at all.
+			
+			The next pages will present you\nwith more useless controls.''',
+			wx.Point(5, 5)
+		);
+
+		// ... or a derived class
+		page3 = wxRadioboxPage(this);
+		page4 = wxValidationPage(this);
+
+		// set the page order using a convenience function - could also use
+		// SetNext/Prev directly as below, but Chain() is shorter, avoids the risk
+		// of an error and can itself be chained, e.g. you could write
+		// page3.Chain(page4).Chain(page5) and so on.
+		page3.Chain(page4);
+
+		// this page is not a wxWizardPageSimple, so we use SetNext/Prev to insert
+		// it into the chain of pages
+		page2 = wxCheckboxPage(this, this.m_page1, page3);
+		this.m_page1.SetNext(page2);
+		page3.SetPrev(page2);
+
+		if (useSizer) {
+		    // allow the wizard to size itself around the pages
+			this.GetPageAreaSizer().Add(this.m_page1);
+		}
+	}
+
+	GetFirstPage() = { this.m_page1 }
+};
+
+// ----------------------------------------------------------------------------
+// some pages for our wizard
+// ----------------------------------------------------------------------------
+
+// This shows how to simply control the validity of the user input by just
+// overriding TransferDataFromWindow() - of course, in a real program, the
+// check wouldn't be so trivial and the data will be probably saved somewhere
+// too.
+//
+// It also shows how to use a different bitmap for one of the pages.
+wxValidationPage = class(wx.WizardPageSimple) {
+	__init__(parent:wx.Wizard) = {|parent|
+		this.m_bitmap = wx.Bitmap(resource.wiztest2_xpm);
+
+		this.m_checkbox = wxCheckBox(this, wx.ID_ANY, '&Check me');
+
+		mainSizer = wx.BoxSizer(wx.VERTICAL);
+		mainSizer.Add(
+			wx.StaticText(this, wx.ID_ANY,
+							R'''
+							You need to check the checkbox
+							below before going to the next page
+							'''),
+			wx.SizerFlags(0).Border(wx.ALL, 5)
+		);
+
+		mainSizer.Add(
+			this.m_checkbox,
+			wx.SizerFlags(0).Border(wx.ALL, 5)
+		);
+		this.SetSizerAndFit(mainSizer);
+	}
+
+	TransferDataFromWindow() = {
+		if (!this.m_checkbox.GetValue()) {
+			wx.MessageBox('Check the checkbox first!', 'No way',
+		                 wx.ICON_WARNING | wx.OK, this);
+		    return(false)
+		}
+		true
+	}
+}
+
+// This is a more complicated example of validity checking: using events we may
+// allow to return to the previous page, but not to proceed. It also
+// demonstrates how to intercept [Cancel] button press.
+wxRadioboxPage = class(wx.WizardPageSimple) {
+    // directions in which we allow the user to proceed from this page
+	[Forward, Backward, Both, Neither] = 0..
+
+	__init__(parent:wx.Wizard) = {|parent|
+		this.EventHandler()
+		choices = [
+			'forward'
+			'backward'
+			'both'
+			'neither'
+		]
+		this.m_radio = wx.RadioBox(this, wx.ID_ANY, 'Allow to proceed:',
+									wx.DefaultPosition, wx.DefaultSize,
+									choices,
+									1, wx.RA_SPECIFY_COLS);
+		this.m_radio.SetSelection(Both);
+
+		mainSizer = wx.BoxSizer(wx.VERTICAL);
+		mainSizer.Add(
+		    this.m_radio,
+		    wx.SizerFlags(0).Border(wx.ALL, 5)
+		);
+
+		this.SetSizerAndFit(mainSizer);
+	}
+
+	EventHandler() = {
+		this.Bind(wx.EVT_WIZARD_PAGE_CHANGING, wx.ID_ANY) {|event| this.OnWizardPageChanging(event)}
+		this.Bind(wx.EVT_WIZARD_CANCEL, wx.ID_ANY) {|event| this.OnWizardCancel(event)}
+	}
+
+    // wizard event handlers
+	OnWizardCancel(event:wx.WizardEvent) = {
+		if (wx.MessageBox('Do you really want to cancel?', 'Question',
+						wx.ICON_QUESTION | wx.YES_NO, this) != wx.YES) {
+			// not confirmed
+			event.Veto()
+		}
+	}
+
+	OnWizardPageChanging(event:wx.WizardEvent) = {
+		sel = this.m_radio.GetSelection();
+
+		if (sel == Both) {
+			return
+		}
+
+		if (event.GetDirection() && sel == Forward) {
+			return
+		}
+
+		if (!event.GetDirection() && sel == Backward) {
+			return;
+		}
+
+		wx.MessageBox("You can't go there", 'Not allowed',
+					wx.ICON_WARNING | wx.OK, this);
+
+		event.Veto();
+	}
+};
+
+// This shows how to dynamically (i.e. during run-time) arrange the page order.
+wxCheckboxPage = class(wx.WizardPage) {
+	__init__(parent:wx.Wizard, prev:wx.WizardPage, next:wx.WizardPage) ={|parent|
+		this.m_prev = prev;
+		this.m_next = next;
+
+		mainSizer = wx.BoxSizer(wx.VERTICAL)
+
+		mainSizer.Add(
+		    wx.StaticText(this, wx.ID_ANY, 'Try checking the box below and\n' \
+										'then going back and clearing it'),
+			wx.SizerFlags(0).Border(wx.ALL, 5)
+		);
+
+		this.m_checkbox = wx.CheckBox(this, wx.ID_ANY, '&Skip the next page');
+		mainSizer.Add(
+			this.m_checkbox,
+			wx.SizerFlags(0).Border(wx.ALL, 5)
+		);
+
+		aszChoices = [
+			'Zeroth',
+			'First',
+			'Second',
+			'Third',
+			'Fourth',
+			'Fifth',
+			'Sixth',
+			'Seventh',
+			'Eighth',
+			'Nineth'
+		]
+
+		this.m_checklistbox = wx.CheckListBox(
+							this,
+							wx.ID_ANY,
+							wx.DefaultPosition,
+							wx.Size(100, 100),
+							aszChoices)
+
+		mainSizer.Add(
+			this.m_checklistbox,
+		    wx.SizerFlags(0).Border(wx.ALL, 5))
+
+		textSize = wx.Size(150, 200);
+		//if (((wxFrame*) wxTheApp->GetTopWindow())->GetMenuBar()->IsChecked(Wizard_LargeWizard))
+		//    textSize = wxSize(150, wxGetClientDisplayRect().GetHeight() - 200);
+
+		textCtrl = wx.TextCtrl(this, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, textSize, wx.TE_MULTILINE);
+		mainSizer.Add(textCtrl, wx.SizerFlags(0).Expand().Border(wx.ALL, 5))
+
+		this.SetSizerAndFit(mainSizer);
+	}
+
+    // implement wxWizardPage functions
+	GetPrev() = { this.m_prev }
+	GetNext() = {
+    	cond(this.m_checkbox.GetValue(), this.m_next.GetNext(), this.m_next)
+    }
+}
+
+wx.IMPLEMENT_APP(MyApp)
