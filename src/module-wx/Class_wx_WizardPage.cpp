@@ -6,6 +6,9 @@
 
 Gura_BeginModuleScope(wx)
 
+Gura_DeclarePrivUserSymbol(GetNext);
+Gura_DeclarePrivUserSymbol(GetPrev);
+
 //----------------------------------------------------------------------------
 // Class derivation
 //----------------------------------------------------------------------------
@@ -14,7 +17,9 @@ private:
 	Gura::Signal _sig;
 	Object_wx_WizardPage *_pObj;
 public:
-	//inline wx_WizardPage(wxWizard* parent, const wxBitmap& bitmap, const wxChar *resource) : wxWizardPage(parent, bitmap, *resource), _sig(NULL), _pObj(NULL) {}
+	inline wx_WizardPage(wxWizard* parent, const wxBitmap& bitmap) : wxWizardPage(parent, bitmap), _sig(NULL), _pObj(NULL) {}
+	virtual wxWizardPage *GetNext() const;
+	virtual wxWizardPage *GetPrev() const;
 	~wx_WizardPage();
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_WizardPage *pObj) {
 		_sig = sig, _pObj = pObj;
@@ -33,31 +38,45 @@ void wx_WizardPage::GuraObjectDeleted()
 	_pObj = NULL;
 }
 
+wxWizardPage *wx_WizardPage::GetNext() const
+{
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetNext);
+	if (pFunc == NULL) return NULL;
+	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
+	if (rtn.IsInvalid()) return NULL;
+	if (!CheckMethodResult(_sig, rtn, VTYPE_wx_WizardPage)) return 0;
+	return Object_wx_WizardPage::GetObject(rtn)->GetEntity();
+}
+
+wxWizardPage *wx_WizardPage::GetPrev() const
+{
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, GetPrev);
+	if (pFunc == NULL) return NULL;
+	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, ValueList::Null);
+	if (rtn.IsInvalid()) return NULL;
+	if (!CheckMethodResult(_sig, rtn, VTYPE_wx_WizardPage)) return 0;
+	return Object_wx_WizardPage::GetObject(rtn)->GetEntity();
+}
+
 //----------------------------------------------------------------------------
 // Gura interfaces for wxWizardPage
 //----------------------------------------------------------------------------
 Gura_DeclareFunction(WizardPage)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-#if 0
 	SetClassToConstruct(Gura_UserClass(wx_WizardPage));
 	DeclareArg(env, "parent", VTYPE_wx_Wizard, OCCUR_Once);
 	DeclareArg(env, "bitmap", VTYPE_wx_Bitmap, OCCUR_ZeroOrOnce);
-	DeclareArg(env, "*resource", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-#endif
 }
 
 Gura_ImplementFunction(WizardPage)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
-#if 0
 	wxWizard *parent = Object_wx_Wizard::GetObject(args, 0)->GetEntity();
 	wxBitmap *bitmap = (wxBitmap *)(&wxNullBitmap);
 	if (args.IsValid(1)) bitmap = Object_wx_Bitmap::GetObject(args, 1)->GetEntity();
-	wxChar *resource = NULL;
-	if (args.IsValid(2)) *resource = static_cast<wxChar>(args.GetInt(2));
-	wx_WizardPage *pEntity = new wx_WizardPage(parent, *bitmap, *resource);
+	wx_WizardPage *pEntity = new wx_WizardPage(parent, *bitmap);
 	Object_wx_WizardPage *pObj = Object_wx_WizardPage::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_WizardPage(pEntity, pEntity, OwnerFalse);
@@ -67,11 +86,9 @@ Gura_ImplementFunction(WizardPage)
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
 	return ReturnValue(env, sig, args, args.GetThis());
-#endif
-	SetError_NotImplemented(sig);
-	return Value::Null;
 }
 
+#if 0
 Gura_DeclareMethod(wx_WizardPage, GetPrev)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -99,6 +116,7 @@ Gura_ImplementMethod(wx_WizardPage, GetNext)
 	wxWizardPage *rtn = (wxWizardPage *)pThis->GetEntity()->GetNext();
 	return ReturnValue(env, sig, args, Value(new Object_wx_WizardPage(rtn, NULL, OwnerFalse)));
 }
+#endif
 
 Gura_DeclareMethod(wx_WizardPage, GetBitmap)
 {
@@ -144,9 +162,11 @@ String Object_wx_WizardPage::ToString(bool exprFlag)
 //----------------------------------------------------------------------------
 Gura_ImplementUserInheritableClass(wx_WizardPage)
 {
+	Gura_RealizeUserSymbol(GetNext);
+	Gura_RealizeUserSymbol(GetPrev);
 	Gura_AssignFunction(WizardPage);
-	Gura_AssignMethod(wx_WizardPage, GetPrev);
-	Gura_AssignMethod(wx_WizardPage, GetNext);
+	//Gura_AssignMethod(wx_WizardPage, GetPrev);
+	//Gura_AssignMethod(wx_WizardPage, GetNext);
 	Gura_AssignMethod(wx_WizardPage, GetBitmap);
 }
 
