@@ -102,7 +102,7 @@ Gura_ImplementMethod(wx_WizardPageSimple, SetNext)
 
 Gura_DeclareMethod(wx_WizardPageSimple, Chain)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "next", VTYPE_wx_WizardPageSimple, OCCUR_Once);
 }
 
@@ -112,7 +112,7 @@ Gura_ImplementMethod(wx_WizardPageSimple, Chain)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWizardPageSimple *next = Object_wx_WizardPageSimple::GetObject(args, 0)->GetEntity();
 	pThis->GetEntity()->Chain(next);
-	return Value::Null;
+	return args.GetThis();
 }
 
 Gura_DeclareClassMethod(wx_WizardPageSimple, ChainBoth)
