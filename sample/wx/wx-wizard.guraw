@@ -100,7 +100,7 @@ MyFrame = class(wx.Frame) {
 		this.Close(true)
 	}
 	OnAbout(event:wx.CommandEvent) = {
-		wxMessageBox('Demo of wxWizard class\n' \
+		wx.MessageBox('Demo of wxWizard class\n' \
 					'(c) 1999, 2000 Vadim Zeitlin',
 					'About wxWizard sample', wx.OK | wx.ICON_INFORMATION, this)
 	}
@@ -143,7 +143,7 @@ MyWizard = class(wx.Wizard) {
 
 		// Enable scrolling adaptation
 		if (frame.GetMenuBar().IsChecked(Wizard_LargeWizard)) {
-			thils.SetLayoutAdaptationMode(wx.DIALOG_ADAPTATION_MODE_ENABLED)
+			this.SetLayoutAdaptationMode(wx.DIALOG_ADAPTATION_MODE_ENABLED)
 		}
 
 		// a wizard page may be either an object of predefined class
