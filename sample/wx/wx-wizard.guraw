@@ -139,7 +139,7 @@ MyWizard = class(wx.Wizard) {
 							wx.BitmapFromXPMData(resource.wiztest_xpm), wx.DefaultPosition,
 							(wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)|
 		this.SetExtraStyle(wx.WIZARD_EX_HELPBUTTON);
-		//this.SetIcon(wxICON(sample));
+		this.SetIcon(wx.IconFromXPMData(resource.sample_xpm))
 
 		// Allow the bitmap to be expanded to fit the page height
 		if (frame.GetMenuBar().IsChecked(Wizard_ExpandBitmap)) {

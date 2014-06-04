@@ -80,8 +80,8 @@ Gura_ImplementMethod(wx_WizardPageSimple, SetPrev)
 {
 	Object_wx_WizardPageSimple *pThis = Object_wx_WizardPageSimple::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	wxWizardPage *prev = Object_wx_WizardPage::GetObject(args, 0)->GetEntity();
-	pThis->GetEntity()->SetPrev(prev);
+	Object_wx_WizardPage *prev = Object_wx_WizardPage::GetObject(args, 0);
+	pThis->SetPrev(prev);
 	return Value::Null;
 }
 
@@ -95,8 +95,8 @@ Gura_ImplementMethod(wx_WizardPageSimple, SetNext)
 {
 	Object_wx_WizardPageSimple *pThis = Object_wx_WizardPageSimple::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	wxWizardPage *next = Object_wx_WizardPage::GetObject(args, 0)->GetEntity();
-	pThis->GetEntity()->SetNext(next);
+	Object_wx_WizardPage *next = Object_wx_WizardPage::GetObject(args, 0);
+	pThis->SetNext(next);
 	return Value::Null;
 }
 
@@ -110,8 +110,9 @@ Gura_ImplementMethod(wx_WizardPageSimple, Chain)
 {
 	Object_wx_WizardPageSimple *pThis = Object_wx_WizardPageSimple::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	wxWizardPageSimple *next = Object_wx_WizardPageSimple::GetObject(args, 0)->GetEntity();
-	pThis->GetEntity()->Chain(next);
+	Object_wx_WizardPageSimple *next = Object_wx_WizardPageSimple::GetObject(args, 0);
+	pThis->SetNext(next);
+	next->SetPrev(pThis);
 	return args.GetThis();
 }
 
@@ -125,9 +126,10 @@ Gura_DeclareClassMethod(wx_WizardPageSimple, ChainBoth)
 Gura_ImplementClassMethod(wx_WizardPageSimple, ChainBoth)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
-	wxWizardPageSimple *first = Object_wx_WizardPageSimple::GetObject(args, 0)->GetEntity();
-	wxWizardPageSimple *second = Object_wx_WizardPageSimple::GetObject(args, 1)->GetEntity();
-	wx_WizardPageSimple::Chain(first, second);
+	Object_wx_WizardPageSimple *first = Object_wx_WizardPageSimple::GetObject(args, 0);
+	Object_wx_WizardPageSimple *second = Object_wx_WizardPageSimple::GetObject(args, 1);
+	first->SetNext(second);
+	second->SetPrev(first);
 	return Value::Null;
 }
 

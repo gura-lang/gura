@@ -16,6 +16,9 @@ Gura_DeclareUserClass(wx_WizardPageSimple);
 // Object declaration for wxWizardPageSimple
 //----------------------------------------------------------------------------
 class Object_wx_WizardPageSimple : public Object_wx_WizardPage {
+private:
+	AutoPtr<Object_wx_WizardPage> _pPrev;
+	AutoPtr<Object_wx_WizardPage> _pNext;
 public:
 	Gura_DeclareObjectAccessor(wx_WizardPageSimple)
 public:
@@ -38,6 +41,14 @@ public:
 		if (_pEntity != NULL) return false;
 		SetError_InvalidWxObject(sig, "wxWizardPageSimple");
 		return true;
+	}
+	inline void SetPrev(Object_wx_WizardPage *prev) {
+		_pPrev.reset(prev->Reference());
+		GetEntity()->SetPrev(prev->GetEntity());
+	}
+	inline void SetNext(Object_wx_WizardPage *next) {
+		_pNext.reset(next->Reference());
+		GetEntity()->SetNext(next->GetEntity());
 	}
 };
 
