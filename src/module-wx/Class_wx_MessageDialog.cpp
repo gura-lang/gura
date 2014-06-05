@@ -56,7 +56,7 @@ Gura_ImplementFunction(MessageDialog)
 	wxString message = wxString::FromUTF8(args.GetString(1));
 	wxString caption = wxT("Message box");
 	if (args.IsValid(2)) caption = wxString::FromUTF8(args.GetString(2));
-	long style = wxOK | wxCANCEL;
+	long style = wxOK | wxCENTRE;
 	if (args.IsValid(3)) style = args.GetLong(3);
 	wxPoint *pos = (wxPoint *)(&wxDefaultPosition);
 	if (args.IsValid(4)) pos = Object_wx_Point::GetObject(args, 4)->GetEntity();
