@@ -72,11 +72,11 @@ LoadConfig(fileNameCfg:string) = {
 
 SaveConfig() = {
 	g.cfg['imgInfo'] = %{
-		'fileName'	=> g.imgInfo.fileName
-		'rotate'	=> g.imgInfo.rotate
-		'center'	=> g.imgInfo.center
-		'top'		=> g.imgInfo.top
-		'bottom'	=> g.imgInfo.bottom
+		'fileName'	=> g.imgInfoCur.fileName
+		'rotate'	=> g.imgInfoCur.rotate
+		'center'	=> g.imgInfoCur.center
+		'top'		=> g.imgInfoCur.top
+		'bottom'	=> g.imgInfoCur.bottom
 	}
 	yaml.write(g.fileNameCfg, g.cfg)
 }
@@ -131,25 +131,25 @@ g = module {
 	}
 	layoutCur:public = layoutTbl[0]
 	cfg:public = LoadConfig(fileNameCfg)
-	imgInfo:public = ImageInfo()
+	imgInfoCur:public = ImageInfo()
 	try {
-		imgInfo.fileName	= cfg['imgInfo']['fileName']
-		imgInfo.rotate		= cfg['imgInfo']['rotate'].tonumber()
-		imgInfo.center		= cfg['imgInfo']['center'].tonumber()
-		imgInfo.top			= cfg['imgInfo']['top'].tonumber()
-		imgInfo.bottom		= cfg['imgInfo']['bottom'].tonumber()
+		imgInfoCur.fileName	= cfg['imgInfo']['fileName']
+		imgInfoCur.rotate		= cfg['imgInfo']['rotate'].tonumber()
+		imgInfoCur.center		= cfg['imgInfo']['center'].tonumber()
+		imgInfoCur.top			= cfg['imgInfo']['top'].tonumber()
+		imgInfoCur.bottom		= cfg['imgInfo']['bottom'].tonumber()
 	} catch {
-		imgInfo.Initialize()
+		imgInfoCur.Initialize()
 	}
 	imgRaw:public = imgBlank
-	if (!imgInfo.fileName.isempty()) {
+	if (!imgInfoCur.fileName.isempty()) {
 		try {
-			imgRaw = image(imgInfo.fileName)
+			imgRaw = image(imgInfoCur.fileName)
 		} catch {
-			imgInfo.fileName = ''
+			imgInfoCur.fileName = ''
 		}
 	}
-	imgOrg:public = imgRaw.rotate(imgInfo.rotate)
+	imgOrg:public = imgRaw.rotate(imgInfoCur.rotate)
 }
 
 //-----------------------------------------------------------------------------
@@ -166,8 +166,8 @@ ReadImageFile(parent:wx.Window, fileName:string) = {
 		}
 		return
 	}
-	g.imgInfo.Initialize()
-	g.imgInfo.fileName = fileName
+	g.imgInfoCur.Initialize()
+	g.imgInfoCur.fileName = fileName
 	g.imgRaw = img
 	g.imgOrg = g.imgRaw
 }
@@ -176,13 +176,13 @@ ReadImageFile(parent:wx.Window, fileName:string) = {
 // RotateImageL / RotateImageR
 //-----------------------------------------------------------------------------
 RotateImageL() = {
-	g.imgInfo.rotate = (g.imgInfo.rotate + 270) % 360
-	g.imgOrg = g.imgRaw.rotate(g.imgInfo.rotate)
+	g.imgInfoCur.rotate = (g.imgInfoCur.rotate + 270) % 360
+	g.imgOrg = g.imgRaw.rotate(g.imgInfoCur.rotate)
 }
 
 RotateImageR() = {
-	g.imgInfo.rotate = (g.imgInfo.rotate + 90) % 360
-	g.imgOrg = g.imgRaw.rotate(g.imgInfo.rotate)
+	g.imgInfoCur.rotate = (g.imgInfoCur.rotate + 90) % 360
+	g.imgOrg = g.imgRaw.rotate(g.imgInfoCur.rotate)
 }
 
 //-----------------------------------------------------------------------------
@@ -201,7 +201,7 @@ ComposeProduct(cr:cairo.context, layout:Layout) = {
 	[wdGuide, htGuide] = [2, 2]
 	htMessage = 5
 	htBottom = layout.htImg - layout.htTop - layout.htFace
-	ratioBase = g.imgInfo.bottom - g.imgInfo.top
+	ratioBase = g.imgInfoCur.bottom - g.imgInfoCur.top
 	scope {
 		cr.select_font_face(fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
 		cr.set_source_rgb(.2, .2, 1)
@@ -215,11 +215,11 @@ ComposeProduct(cr:cairo.context, layout:Layout) = {
 		cr.show_text(text)
 	}
 	imgExtract = scope {
-		yTop = g.imgOrg.height * (g.imgInfo.top - ratioBase * layout.htTop / layout.htFace)
-		yBottom = g.imgOrg.height * (g.imgInfo.bottom + ratioBase * htBottom / layout.htFace)
+		yTop = g.imgOrg.height * (g.imgInfoCur.top - ratioBase * layout.htTop / layout.htFace)
+		yBottom = g.imgOrg.height * (g.imgInfoCur.bottom + ratioBase * htBottom / layout.htFace)
 		height = yBottom - yTop
 		width = height * layout.wdImg / layout.htImg
-		xLeft = g.imgOrg.width * g.imgInfo.center - width / 2
+		xLeft = g.imgOrg.width * g.imgInfoCur.center - width / 2
 		[wdDotMgn, htDotMgn] = g.imgOrg.height * ratioBase * [wdMgn, htMgn] / layout.htFace
 		[xCrop, yCrop] = [xLeft - wdDotMgn, yTop - htDotMgn]
 		[wdCrop, htCrop] = [width + wdDotMgn * 2, height + htDotMgn * 2]
@@ -388,10 +388,10 @@ Extractor = class(wx.Panel) {
 		this.UpdateRectBox()
 	}
 	UpdateRectBox() = {
-		xLeft = this.rcImg.x + this.rcImg.width * g.imgInfo.center - EdgeSize / 2
-		xRight = this.rcImg.x + this.rcImg.width * g.imgInfo.center + EdgeSize / 2
-		yTop = this.rcImg.y + this.rcImg.height * g.imgInfo.top
-		yBottom = this.rcImg.y + this.rcImg.height * g.imgInfo.bottom
+		xLeft = this.rcImg.x + this.rcImg.width * g.imgInfoCur.center - EdgeSize / 2
+		xRight = this.rcImg.x + this.rcImg.width * g.imgInfoCur.center + EdgeSize / 2
+		yTop = this.rcImg.y + this.rcImg.height * g.imgInfoCur.top
+		yBottom = this.rcImg.y + this.rcImg.height * g.imgInfoCur.bottom
 		this.rcBox = wx.Rect(xLeft, yTop, xRight - xLeft, yBottom - yTop)
 	}
 	// event handler
@@ -437,29 +437,29 @@ Extractor = class(wx.Panel) {
 		}
 		pt = event.GetPosition()
 		if (this.grabTgt == `center) {
-			g.imgInfo.center = (pt.x - this.rcImg.x) / this.rcImg.width
-			if (g.imgInfo.center > 1) {
-				g.imgInfo.center = 1
-			} elsif (g.imgInfo.center < 0) {
-				g.imgInfo.center = 0
+			g.imgInfoCur.center = (pt.x - this.rcImg.x) / this.rcImg.width
+			if (g.imgInfoCur.center > 1) {
+				g.imgInfoCur.center = 1
+			} elsif (g.imgInfoCur.center < 0) {
+				g.imgInfoCur.center = 0
 			}
 			this.UpdateRectBox()
 			this.Refresh()
 		} elsif (this.grabTgt == `top) {
-			g.imgInfo.top = (pt.y - this.rcImg.y) / this.rcImg.height
-			if (g.imgInfo.top < 0) {
-				g.imgInfo.top = 0
-			} elsif (g.imgInfo.top > g.imgInfo.bottom - .1) {
-				g.imgInfo.top = g.imgInfo.bottom - .1
+			g.imgInfoCur.top = (pt.y - this.rcImg.y) / this.rcImg.height
+			if (g.imgInfoCur.top < 0) {
+				g.imgInfoCur.top = 0
+			} elsif (g.imgInfoCur.top > g.imgInfoCur.bottom - .1) {
+				g.imgInfoCur.top = g.imgInfoCur.bottom - .1
 			}
 			this.UpdateRectBox()
 			this.Refresh()
 		} elsif (this.grabTgt == `bottom) {
-			g.imgInfo.bottom = (pt.y - this.rcImg.y) / this.rcImg.height
-			if (g.imgInfo.bottom > 1) {
-				g.imgInfo.bottom = 1
-			} elsif (g.imgInfo.bottom < g.imgInfo.top + .1) {
-				g.imgInfo.bottom = g.imgInfo.top + .1
+			g.imgInfoCur.bottom = (pt.y - this.rcImg.y) / this.rcImg.height
+			if (g.imgInfoCur.bottom > 1) {
+				g.imgInfoCur.bottom = 1
+			} elsif (g.imgInfoCur.bottom < g.imgInfoCur.top + .1) {
+				g.imgInfoCur.bottom = g.imgInfoCur.top + .1
 			}
 			this.UpdateRectBox()
 			this.Refresh()
@@ -588,7 +588,7 @@ Panel = class(wx.Panel) {
 	OnButton_Open(event:wx.CommandEvent) = {
 		filter = 'Image files (*.jpg;*.png;*.gif)|*.jpg;*.png;*.gif|All files (*.*)|*.*'
 		dlg = wx.FileDialog(this, 'Choose an image file',
-								'', g.imgInfo.fileName, filter, wx.FD_OPEN)
+								'', g.imgInfoCur.fileName, filter, wx.FD_OPEN)
 		if (dlg.ShowModal() == wx.ID_OK) {
 			fileName = dlg.GetPath()
 			ReadImageFile(this, fileName)
