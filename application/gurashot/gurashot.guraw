@@ -582,6 +582,8 @@ Panel = class(wx.Panel) {
 		}
 	}
 	OnButton_ShowList(event:wx.CommandEvent) = {
+		dlg = ImageListDialog(this)
+		dlg.ShowModal()
 	}
 	OnButton_RotateL(event:wx.CommandEvent) = {
 		RotateImageL()
@@ -622,6 +624,47 @@ Frame = class(wx.Frame) {
 }
 
 //-----------------------------------------------------------------------------
+// ImageListPanel
+//-----------------------------------------------------------------------------
+ImageListPanel = class(wx.Panel) {
+	__init__(parent:wx.Window) = {|parent|
+		
+	}
+}
+
+//-----------------------------------------------------------------------------
+// ImageListDialog
+//-----------------------------------------------------------------------------
+ImageListDialog = class(wx.Dialog) {
+	__init__(parent:wx.Window, pos:wx.Point => wx.DefaultPosition,
+			size:wx.Size => wx.Size(640, 480)) = {|parent, wx.ID_ANY, 'Image List', pos, size|
+		this.SetIcon(wx.Icon(g.fileNameIcon, wx.BITMAP_TYPE_ICO))
+		panel = ImageListPanel(this)
+		outerBox = wx.BoxSizer(wx.VERTICAL)
+		this.SetSizer(outerBox)
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		outerBox.Add(vbox, wx.SizerFlags(1).Expand())
+		wx.ListCtrl(this, wx.ID_ANY, style => wx.LC_ICON) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags(1).Expand())
+		}
+		/*
+		wx.MenuBar() {|menuBar|
+			this.SetMenuBar(menuBar)
+			wx.Menu() {|menu|
+				menuBar.Append(menu, '&File')
+				//menu.Append(wx.ID_ANY, 'Exit')
+			}
+		}
+		*/
+	}
+	//OnSize(event:wx.SizeEvent) = {
+	//	size = event.GetSize()
+	//	g.cfg['wdFrame', 'htFrame'] = [size.GetWidth(), size.GetHeight()]
+	//	event.Skip()
+	//}
+}
+
+//-----------------------------------------------------------------------------
 // App
 //-----------------------------------------------------------------------------
 App = class(wx.App) {
@@ -629,6 +672,8 @@ App = class(wx.App) {
 		frame = Frame('Gura Shot')
 		frame.Show()
 		true
+		//ImageListDialog(nil).ShowModal()
+		//false
 	}
 	OnExit() = {
 		SaveConfig()
