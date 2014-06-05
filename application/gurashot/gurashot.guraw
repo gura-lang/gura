@@ -23,6 +23,25 @@ Layout = struct(htImg:number, wdImg:number, htTop:number, htFace:number,
 						purpose:string, htPaper:number, wdPaper:number)
 
 //-----------------------------------------------------------------------------
+// ImageInfo
+//-----------------------------------------------------------------------------
+ImageInfo = class {
+	public {
+		fileName,	fileName_init
+		rotate,		rotate_init
+	}
+	fileName_init	= ''
+	rotate_init		= 0
+	__init__() = {
+		this.Initialize()
+	}
+	Initialize() = {
+		this.fileName	= fileName_init
+		this.rotate		= rotate_init
+	}
+}
+
+//-----------------------------------------------------------------------------
 // FaceRatio
 //-----------------------------------------------------------------------------
 FaceRatio = class {
@@ -53,8 +72,10 @@ LoadConfig(fileNameCfg:string) = {
 	cfg.store():default {
 		'wdFrame'			=> 600
 		'htFrame'			=> 730
-		'fileNameImg'		=> ''
-		'rotate'			=> 0
+		'imgInfo'			=> %{
+			'fileName'		=> ''
+			'rotate'		=> 0
+		}
 		'faceRatio_center'	=> FaceRatio.center_init
 		'faceRatio_top'		=> FaceRatio.top_init
 		'faceRatio_bottom'	=> FaceRatio.bottom_init
@@ -63,7 +84,10 @@ LoadConfig(fileNameCfg:string) = {
 }
 
 SaveConfig() = {
-	g.cfg['rotate'] = g.rotate
+	g.cfg['imgInfo'] = %{
+		'fileName'	=> g.imgInfo.fileName
+		'rotate'	=> g.imgInfo.rotate
+	}
 	g.cfg['faceRatio_center'] = g.faceRatio.center
 	g.cfg['faceRatio_top'] = g.faceRatio.top
 	g.cfg['faceRatio_bottom'] = g.faceRatio.bottom
@@ -75,7 +99,8 @@ SaveConfig() = {
 //-----------------------------------------------------------------------------
 g = module {
 	fileNameTmpPDF:public = path.join(sys.localdir, 'gurashot.pdf')
-	fileNameCfg:public = path.join(sys.localdir, 'gurashot.yml')
+	//fileNameCfg:public = path.join(sys.localdir, 'gurashot.yml')
+	fileNameCfg:public = 'gurashot.yml'
 	fileNameIcon:public = 'gurashot.ico'
 	imgBlank:public = image(`rgba, 800, 800, color(240, 240, 255))
 	imgBlank.cairo {|cr|
@@ -120,28 +145,29 @@ g = module {
 	layoutCur:public = layoutTbl[0]
 	faceRatio:public = FaceRatio()
 	cfg:public = LoadConfig(fileNameCfg)
-	rotate:public = cfg['rotate'].tonumber()
+	imgInfo:public = ImageInfo()
+	imgInfo.fileName = cfg['imgInfo']['fileName']
+	imgInfo.rotate = cfg['imgInfo']['rotate'].tonumber()
 	faceRatio.center = cfg['faceRatio_center'].tonumber()
 	faceRatio.top = cfg['faceRatio_top'].tonumber()
 	faceRatio.bottom = cfg['faceRatio_bottom'].tonumber()
 	imgRaw:public = imgBlank
-	fileNameImg = cfg['fileNameImg']
-	if (!fileNameImg.isempty()) {
+	if (!imgInfo.fileName.isempty()) {
 		try {
-			imgRaw = image(fileNameImg)
+			imgRaw = image(imgInfo.fileName)
 		} catch {
-			cfg['fileNameImg'] = ''
+			imgInfo.fileName = ''
 		}
 	}
-	imgOrg:public = imgRaw.rotate(rotate)
+	imgOrg:public = imgRaw.rotate(imgInfo.rotate)
 }
 
 //-----------------------------------------------------------------------------
 // ReadImageFile
 //-----------------------------------------------------------------------------
-ReadImageFile(parent:wx.Window, fileNameImg:string) = {
+ReadImageFile(parent:wx.Window, fileName:string) = {
 	try {
-		img = image(fileNameImg)
+		img = image(fileName)
 	} catch {
 		wx.MessageDialog(parent, 'Failed to read the image file',
 								'Error', wx.OK | wx.ICON_ERROR) {|dlg|
@@ -150,8 +176,8 @@ ReadImageFile(parent:wx.Window, fileNameImg:string) = {
 		}
 		return
 	}
-	g.cfg['fileNameImg'] = fileNameImg
-	g.rotate = 0
+	g.imgInfo.fileName = fileName
+	g.imgInfo.rotate = 0
 	g.imgRaw = img
 	g.imgOrg = g.imgRaw
 	g.faceRatio.Initialize()
@@ -161,13 +187,13 @@ ReadImageFile(parent:wx.Window, fileNameImg:string) = {
 // RotateImageL / RotateImageR
 //-----------------------------------------------------------------------------
 RotateImageL() = {
-	g.rotate = (g.rotate + 270) % 360
-	g.imgOrg = g.imgRaw.rotate(g.rotate)
+	g.imgInfo.rotate = (g.imgInfo.rotate + 270) % 360
+	g.imgOrg = g.imgRaw.rotate(g.imgInfo.rotate)
 }
 
 RotateImageR() = {
-	g.rotate = (g.rotate + 90) % 360
-	g.imgOrg = g.imgRaw.rotate(g.rotate)
+	g.imgInfo.rotate = (g.imgInfo.rotate + 90) % 360
+	g.imgOrg = g.imgRaw.rotate(g.imgInfo.rotate)
 }
 
 //-----------------------------------------------------------------------------
@@ -573,10 +599,10 @@ Panel = class(wx.Panel) {
 	OnButton_Open(event:wx.CommandEvent) = {
 		filter = 'Image files (*.jpg;*.png;*.gif)|*.jpg;*.png;*.gif|All files (*.*)|*.*'
 		dlg = wx.FileDialog(this, 'Choose an image file',
-								'', g.cfg['fileNameImg'], filter, wx.FD_OPEN)
+								'', g.imgInfo.fileName, filter, wx.FD_OPEN)
 		if (dlg.ShowModal() == wx.ID_OK) {
-			fileNameImg = dlg.GetPath()
-			ReadImageFile(this, fileNameImg)
+			fileName = dlg.GetPath()
+			ReadImageFile(this, fileName)
 			this.extractor.UpdateContent()
 			this.productViewer.UpdateContent()
 		}
@@ -628,7 +654,28 @@ Frame = class(wx.Frame) {
 //-----------------------------------------------------------------------------
 ImageListPanel = class(wx.Panel) {
 	__init__(parent:wx.Window) = {|parent|
-		
+		outerBox = wx.BoxSizer(wx.VERTICAL)
+		this.SetSizer(outerBox)
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		outerBox.Add(vbox, wx.SizerFlags(1).Expand())
+		size = 128
+		imgList = wx.ImageList(size, size)
+		imgInfos.each {|imgInfo|
+			imgSrc = (image(imgInfo.fileName).thumbnail(size):box).rotate(imgInfo.rotate)
+			img = image(`rgb, size, size, `gray)
+			img.paste((size - imgSrc.width) / 2, (size - imgSrc.height) / 2, imgSrc)
+			imgList.Add(img)
+		}
+		wx.ListView(this, wx.ID_ANY, style => wx.LC_ICON) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags(1).Expand())
+			ctrl.SetImageList(imgList, wx.IMAGE_LIST_NORMAL)
+			n = imgInfos.len()
+			ctrl.InsertImageItem(0.., range(n)):void
+			ctrl.SetItemPosition(range(n), wx.Point(140 * (0..), 0)):void
+			ctrl.SetItemState(0,
+					wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED,
+					wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED)
+		}
 	}
 }
 
@@ -636,26 +683,12 @@ ImageListPanel = class(wx.Panel) {
 // ImageListDialog
 //-----------------------------------------------------------------------------
 ImageListDialog = class(wx.Dialog) {
-	__init__(parent:wx.Window, pos:wx.Point => wx.DefaultPosition,
-			size:wx.Size => wx.Size(640, 480)) = {|parent, wx.ID_ANY, 'Image List', pos, size|
+	__init__(parent:wx.Window, imgInfos[]:ImageInfo, pos:wx.Point => wx.DefaultPosition,
+			size:wx.Size => wx.Size(640, 480)) = {|parent, wx.ID_ANY,
+						'Image List', pos, size,
+						style => (wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)|
 		this.SetIcon(wx.Icon(g.fileNameIcon, wx.BITMAP_TYPE_ICO))
-		panel = ImageListPanel(this)
-		outerBox = wx.BoxSizer(wx.VERTICAL)
-		this.SetSizer(outerBox)
-		vbox = wx.BoxSizer(wx.VERTICAL)
-		outerBox.Add(vbox, wx.SizerFlags(1).Expand())
-		wx.ListCtrl(this, wx.ID_ANY, style => wx.LC_ICON) {|ctrl|
-			vbox.Add(ctrl, wx.SizerFlags(1).Expand())
-		}
-		/*
-		wx.MenuBar() {|menuBar|
-			this.SetMenuBar(menuBar)
-			wx.Menu() {|menu|
-				menuBar.Append(menu, '&File')
-				//menu.Append(wx.ID_ANY, 'Exit')
-			}
-		}
-		*/
+		ImageListPanel(this)
 	}
 	//OnSize(event:wx.SizeEvent) = {
 	//	size = event.GetSize()
@@ -672,8 +705,11 @@ App = class(wx.App) {
 		frame = Frame('Gura Shot')
 		frame.Show()
 		true
-		//ImageListDialog(nil).ShowModal()
-		//false
+		/*
+		imgInfos = ImageInfo(path.glob('*.jpg'), -90)
+		ImageListDialog(nil, imgInfos).ShowModal()
+		false
+		*/
 	}
 	OnExit() = {
 		SaveConfig()
