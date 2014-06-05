@@ -2,6 +2,8 @@
 import(mswin)
 import(wx)
 
+caption = 'Gura Application Setup'
+
 //-----------------------------------------------------------------------------
 // execute
 //-----------------------------------------------------------------------------
@@ -15,25 +17,6 @@ execute(launcherName:string, dirNameDst:string:nil,
 	Panel.fileNameIcon = fileNameIcon
 	Panel.fileNamesExtra = fileNamesExtra
 	Panel.errorMsg = nil
-	try {
-		fs.mkdir(dirNameDst):tree
-		fileNamesToCopy = [fileNameScript, fileNameIcon]
-		fileNamesToCopy.append(fileNamesExtra)
-		fs.copy(fileNamesToCopy, path.join(dirNameDst, fileNamesToCopy)):overwrite:void
-		mswin.ole('Wscript.shell') {|wsh|
-			dirNameDesktop = wsh.SpecialFolders('Desktop')
-			shortCut = wsh.CreateShortcut(path.join(dirNameDesktop, launcherName + '.lnk'))
-			shortCut.WindowStyle = 4 // 3:Maximized, 4:Normal, 7:Minimized
-			shortCut.IconLocation = path.join(dirNameDst, fileNameIcon)
-			shortCut.TargetPath = path.join(path.dirname(sys.executable),
-				cond(fileNameScript.endswith('.gura'):icase, 'gura.exe', 'guraw.exe'))
-			shortCut.Arguments = path.join(dirNameDst, fileNameScript)
-			shortCut.WorkingDirectory = dirNameDst
-			shortCut.Save()
-		}
-	} catch {|e|
-		Panel.errorMsg = e.text
-	}
 	wx.IMPLEMENT_APP(App)
 }
 
@@ -46,42 +29,117 @@ Panel = class(wx.Panel) {
 		this.SetSizer(outerBox)
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		outerBox.Add(vbox, wx.SizerFlags(1).Expand().Border(wx.ALL, 4))
-		text = if (errorMsg) {
-			'Error occured.'
-		} else {
-			'Gura application has successfully been installed.'
+		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
+			vbox.Add(hbox, wx.SizerFlags().Expand())
+			wx.StaticBitmap(this, wx.ID_ANY, wx.NullBitmap) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Expand())
+				ctrl.SetIcon(wx.Icon(fileNameIcon, wx.BITMAP_TYPE_ICO))
+			}
+			wx.StaticText(this, wx.ID_ANY, launcherName) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Centre().Border(wx.LEFT, 8))
+				font = ctrl.GetFont()
+				font.SetPointSize(12)
+				font.SetWeight(wx.FONTWEIGHT_BOLD)
+				ctrl.SetFont(font)
+			}
 		}
-		wx.StaticText(this, wx.ID_ANY, text) {|ctrl|
-			vbox.Add(ctrl, wx.SizerFlags().Expand())
-			font = ctrl.GetFont()
-			font.SetPointSize(12)
-			font.SetWeight(wx.FONTWEIGHT_BOLD)
-			ctrl.SetFont(font)
+		wx.StaticLine(this, wx.ID_ANY) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.TOP, 4))
 		}
+		wx.BoxSizer(wx.VERTICAL) {|vboxIn|
+			vbox.Add(vboxIn, wx.SizerFlags(1).Expand().Border(wx.TOP, 16))
+			wx.CheckBox(this, wx.ID_ANY, 'Copy files to the directory:') {|ctrl|
+				vboxIn.Add(ctrl, wx.SizerFlags().Expand())
+				ctrl.SetValue(true)
+				this.chkboxCopyFiles = ctrl
+			}
+			wx.StaticText(this, wx.ID_ANY, dirNameDst) {|ctrl|
+				vboxIn.AddSpacer(8)
+				vboxIn.Add(ctrl, wx.SizerFlags().Expand().Border(wx.LEFT, 16))
+			}
+		}
+		wx.CheckBox(this, wx.ID_ANY, 'Create a desktop icon') {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 8))
+			ctrl.SetValue(true)
+			this.chkboxDesktopIcon = ctrl
+		}
+		wx.CheckBox(this, wx.ID_ANY,
+				'Create a start menu icon (Gura\\Application\\%s)' % launcherName) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 8))
+			ctrl.SetValue(false)
+			this.chkboxStartMenuIcon = ctrl
+		}
+		/*
 		wx.TextCtrl(this, wx.ID_ANY, style => wx.TE_READONLY | \
 							wx.TE_MULTILINE | wx.BORDER_STATIC) {|ctrl|
 			vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 8))
-			font = ctrl.GetFont()
-			font.SetPointSize(12)
-			ctrl.SetFont(font)
-			if (errorMsg) {
-				ctrl.WriteText(errorMsg + '\n')
-			} else {
-				ctrl.WriteText('[Launcher] ' + launcherName + '\n')
-				ctrl.WriteText('[Destination] ' +  dirNameDst + '\n')
-				ctrl.WriteText('\n')
-				ctrl.WriteText('[Files]\n')
-				ctrl.WriteText(fileNameScript + '\n')
-				ctrl.WriteText(fileNameIcon + '\n')
-				ctrl.WriteText(fileNamesExtra + '\n')
-			}
+			ctrl.WriteText('[Files]\n')
+			ctrl.WriteText(fileNameScript + '\n')
+			ctrl.WriteText(fileNameIcon + '\n')
+			ctrl.WriteText(fileNamesExtra + '\n')
 			ctrl.SetInsertionPoint(0)
 		}
-		wx.Button(this, wx.ID_CLOSE, 'OK') {|ctrl|
-			vbox.Add(ctrl, wx.SizerFlags().Center().Border(wx.TOP, 8))
-			ctrl.SetDefault()
-			ctrl.SetFocus()
+		*/
+		wx.StaticLine(this, wx.ID_ANY) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.TOP, 16))
 		}
+		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
+			vbox.Add(hbox, wx.SizerFlags().Center().Border(wx.TOP, 8))
+			wx.Button(this, wx.ID_OK, 'Setup') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags())
+				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_Setup(event)}
+			}
+			wx.Button(this, wx.ID_CANCEL, 'Cancel') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 16))
+				ctrl.SetDefault()
+				ctrl.SetFocus()
+				ctrl.Bind(wx.EVT_BUTTON) {|event|
+					wx.App.GetInstance().GetTopWindow().Close()
+				}
+			}
+		}
+	}
+	OnButton_Setup(event:wx.CommandEvent) = {
+		frame = wx.App.GetInstance().GetTopWindow()
+		dlg = nil
+		try {
+			wsh = mswin.ole('Wscript.shell')
+			fs.mkdir(dirNameDst):tree
+			fileNamesToCopy = [fileNameScript, fileNameIcon]
+			fileNamesToCopy.append(fileNamesExtra)
+			if (this.chkboxCopyFiles.GetValue()) {
+				fs.copy(fileNamesToCopy, path.join(dirNameDst, fileNamesToCopy)):overwrite:void
+			} else {
+				dirNameDst = fs.getcwd()
+			}
+			dirNames = []
+			if (this.chkboxDesktopIcon.GetValue()) {
+				dirNames.add(wsh.SpecialFolders('Desktop'))
+			}
+			if (this.chkboxStartMenuIcon.GetValue()) {
+				dirName = path.join(wsh.SpecialFolders('StartMenu'), 'Gura/Application')
+				!path.exists(dirName) && fs.mkdir(dirName):tree
+				dirNames.add(dirName)
+			}
+			dirNames.each {|dirName|
+				shortCut = wsh.CreateShortcut(path.join(dirName, launcherName + '.lnk'))
+				shortCut.WindowStyle = 4 // 3:Maximized, 4:Normal, 7:Minimized
+				shortCut.IconLocation = path.join(dirNameDst, fileNameIcon)
+				shortCut.TargetPath = path.join(path.dirname(sys.executable),
+					cond(fileNameScript.endswith('.gura'):icase, 'gura.exe', 'guraw.exe'))
+				shortCut.Arguments = path.join(dirNameDst, fileNameScript)
+				shortCut.WorkingDirectory = dirNameDst
+				shortCut.Save()
+			}
+			dlg = wx.MessageDialog(frame, 'Setup has been done successfully.', caption,
+							wx.OK | wx.CENTRE | wx.ICON_INFORMATION)
+			wsh = nil
+		} catch {|e|
+			dlg = wx.MessageDialog(frame, e.lineno + ' ' + e.text, caption,
+							wx.OK | wx.CENTRE | wx.ICON_ERROR)
+		}
+		dlg.ShowModal()
+		frame.Close()
 	}
 }
 
@@ -89,10 +147,9 @@ Panel = class(wx.Panel) {
 // Frame
 //-----------------------------------------------------------------------------
 Frame = class(wx.Frame) {
-	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
-			size:wx.Size => wx.Size(640, 240)) = {|nil, wx.ID_ANY, title, pos, size|
+	__init__(title:string => caption, pos:wx.Point => wx.DefaultPosition,
+			size:wx.Size => wx.Size(480, 220)) = {|nil, wx.ID_ANY, title, pos, size|
 		Panel(this)
-		this.Bind(wx.EVT_BUTTON, wx.ID_CLOSE) {this.Close()}
 	}
 }
 
@@ -101,7 +158,7 @@ Frame = class(wx.Frame) {
 //-----------------------------------------------------------------------------
 App = class(wx.App) {
 	OnInit() = {
-		frame = Frame('Gura Application Setup')
+		frame = Frame()
 		frame.Show()
 		true
 	}
