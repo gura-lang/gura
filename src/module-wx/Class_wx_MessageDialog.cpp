@@ -72,6 +72,124 @@ Gura_ImplementFunction(MessageDialog)
 	return ReturnValue(env, sig, args, args.GetThis());
 }
 
+Gura_DeclareMethod(wx_MessageDialog, SetExtendedMessage)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "extendedMessage", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_MessageDialog, SetExtendedMessage)
+{
+	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString extendedMessage = wxString::FromUTF8(args.GetString(0));
+	pThis->GetEntity()->SetExtendedMessage(extendedMessage);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_MessageDialog, SetHelpLabel)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "help", VTYPE_string, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_MessageDialog, SetHelpLabel)
+{
+	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString help = wxString::FromUTF8(args.GetString(0));
+	bool rtn = pThis->GetEntity()->SetHelpLabel(help);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_MessageDialog, SetMessage)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareArg(env, "message", VTYPE_string, OCCUR_Once);
+}
+
+Gura_ImplementMethod(wx_MessageDialog, SetMessage)
+{
+	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString message = wxString::FromUTF8(args.GetString(0));
+	pThis->GetEntity()->SetMessage(message);
+	return Value::Null;
+}
+
+Gura_DeclareMethod(wx_MessageDialog, SetOKCancelLabels)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "ok", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "cancel", VTYPE_string, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_MessageDialog, SetOKCancelLabels)
+{
+	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString ok = wxString::FromUTF8(args.GetString(0));
+	wxString cancel = wxString::FromUTF8(args.GetString(1));
+	bool rtn = pThis->GetEntity()->SetOKCancelLabels(ok, cancel);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_MessageDialog, SetOKLabel)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "ok", VTYPE_string, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_MessageDialog, SetOKLabel)
+{
+	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString ok = wxString::FromUTF8(args.GetString(0));
+	bool rtn = pThis->GetEntity()->SetOKLabel(ok);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_MessageDialog, SetYesNoCancelLabels)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "yes", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "no", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "cancel", VTYPE_string, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_MessageDialog, SetYesNoCancelLabels)
+{
+	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString yes = wxString::FromUTF8(args.GetString(0));
+	wxString no = wxString::FromUTF8(args.GetString(1));
+	wxString cancel = wxString::FromUTF8(args.GetString(2));
+	bool rtn = pThis->GetEntity()->SetYesNoCancelLabels(yes, no, cancel);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_MessageDialog, SetYesNoLabels)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "yes", VTYPE_string, OCCUR_Once);
+	DeclareArg(env, "no", VTYPE_string, OCCUR_Once);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_MessageDialog, SetYesNoLabels)
+{
+	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString yes = wxString::FromUTF8(args.GetString(0));
+	wxString no = wxString::FromUTF8(args.GetString(1));
+	bool rtn = pThis->GetEntity()->SetYesNoLabels(yes, no);
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
 Gura_DeclareMethod(wx_MessageDialog, ShowModal)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -83,6 +201,160 @@ Gura_ImplementMethod(wx_MessageDialog, ShowModal)
 	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int rtn = pThis->GetEntity()->ShowModal();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_MessageDialog, GetCaption)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_MessageDialog, GetCaption)
+{
+	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetCaption();
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+}
+
+Gura_DeclareMethod(wx_MessageDialog, GetMessage)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_MessageDialog, GetMessage)
+{
+	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetMessage();
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+}
+
+Gura_DeclareMethod(wx_MessageDialog, GetExtendedMessage)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_MessageDialog, GetExtendedMessage)
+{
+	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetExtendedMessage();
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+}
+
+Gura_DeclareMethod(wx_MessageDialog, GetMessageDialogStyle)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_MessageDialog, GetMessageDialogStyle)
+{
+	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	long rtn = pThis->GetEntity()->GetMessageDialogStyle();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_MessageDialog, HasCustomLabels)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_MessageDialog, HasCustomLabels)
+{
+	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->HasCustomLabels();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
+Gura_DeclareMethod(wx_MessageDialog, GetYesLabel)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_MessageDialog, GetYesLabel)
+{
+	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetYesLabel();
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+}
+
+Gura_DeclareMethod(wx_MessageDialog, GetNoLabel)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_MessageDialog, GetNoLabel)
+{
+	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetNoLabel();
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+}
+
+Gura_DeclareMethod(wx_MessageDialog, GetOKLabel)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_MessageDialog, GetOKLabel)
+{
+	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetOKLabel();
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+}
+
+Gura_DeclareMethod(wx_MessageDialog, GetCancelLabel)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_MessageDialog, GetCancelLabel)
+{
+	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetCancelLabel();
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+}
+
+Gura_DeclareMethod(wx_MessageDialog, GetHelpLabel)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_MessageDialog, GetHelpLabel)
+{
+	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxString rtn = pThis->GetEntity()->GetHelpLabel();
+	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
+}
+
+Gura_DeclareMethod(wx_MessageDialog, GetEffectiveIcon)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_MessageDialog, GetEffectiveIcon)
+{
+	Object_wx_MessageDialog *pThis = Object_wx_MessageDialog::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	long rtn = pThis->GetEntity()->GetEffectiveIcon();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -117,7 +389,25 @@ String Object_wx_MessageDialog::ToString(bool exprFlag)
 Gura_ImplementUserInheritableClass(wx_MessageDialog)
 {
 	Gura_AssignFunction(MessageDialog);
+	Gura_AssignMethod(wx_MessageDialog, SetExtendedMessage);
+	Gura_AssignMethod(wx_MessageDialog, SetHelpLabel);
+	Gura_AssignMethod(wx_MessageDialog, SetMessage);
+	Gura_AssignMethod(wx_MessageDialog, SetOKCancelLabels);
+	Gura_AssignMethod(wx_MessageDialog, SetOKLabel);
+	Gura_AssignMethod(wx_MessageDialog, SetYesNoCancelLabels);
+	Gura_AssignMethod(wx_MessageDialog, SetYesNoLabels);
 	Gura_AssignMethod(wx_MessageDialog, ShowModal);
+	Gura_AssignMethod(wx_MessageDialog, GetCaption);
+	Gura_AssignMethod(wx_MessageDialog, GetMessage);
+	Gura_AssignMethod(wx_MessageDialog, GetExtendedMessage);
+	Gura_AssignMethod(wx_MessageDialog, GetMessageDialogStyle);
+	Gura_AssignMethod(wx_MessageDialog, HasCustomLabels);
+	Gura_AssignMethod(wx_MessageDialog, GetYesLabel);
+	Gura_AssignMethod(wx_MessageDialog, GetNoLabel);
+	Gura_AssignMethod(wx_MessageDialog, GetOKLabel);
+	Gura_AssignMethod(wx_MessageDialog, GetCancelLabel);
+	Gura_AssignMethod(wx_MessageDialog, GetHelpLabel);
+	Gura_AssignMethod(wx_MessageDialog, GetEffectiveIcon);
 }
 
 Gura_ImplementDescendantCreator(wx_MessageDialog)
