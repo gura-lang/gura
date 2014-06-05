@@ -39,9 +39,6 @@ ImageInfo = class {
 	top_init		= .1
 	bottom_init		= .6
 	__init__() = {
-		this.Initialize()
-	}
-	Initialize() = {
 		this.fileName	= fileName_init
 		this.rotate		= rotate_init
 		this.center		= center_init
@@ -57,26 +54,22 @@ LoadConfig(fileNameCfg:string) = {
 		cfg = %{}
 	}
 	cfg.store():default {
-		'wdFrame'			=> 600
-		'htFrame'			=> 730
-		'imgInfo'			=> %{
-			'fileName'		=> ImageInfo.fileName_init
-			'rotate'		=> ImageInfo.rotate_init
-			'center'		=> ImageInfo.center_init
-			'top'			=> ImageInfo.top_init
-			'bottom'		=> ImageInfo.bottom_init
-		}
+		'wdFrame'	=> 600
+		'htFrame'	=> 730
+		'imgInfos'	=> []
 	}
 	cfg
 }
 
 SaveConfig() = {
-	g.cfg['imgInfo'] = %{
-		'fileName'	=> g.imgInfoCur.fileName
-		'rotate'	=> g.imgInfoCur.rotate
-		'center'	=> g.imgInfoCur.center
-		'top'		=> g.imgInfoCur.top
-		'bottom'	=> g.imgInfoCur.bottom
+	g.cfg['imgInfos'] = g.imgInfos.each():list {|imgInfo|
+		%{
+			'fileName'	=> imgInfo.fileName
+			'rotate'	=> imgInfo.rotate
+			'center'	=> imgInfo.center
+			'top'		=> imgInfo.top
+			'bottom'	=> imgInfo.bottom
+		}
 	}
 	yaml.write(g.fileNameCfg, g.cfg)
 }
@@ -131,15 +124,22 @@ g = module {
 	}
 	layoutCur:public = layoutTbl[0]
 	cfg:public = LoadConfig(fileNameCfg)
-	imgInfoCur:public = ImageInfo()
-	try {
-		imgInfoCur.fileName	= cfg['imgInfo']['fileName']
-		imgInfoCur.rotate		= cfg['imgInfo']['rotate'].tonumber()
-		imgInfoCur.center		= cfg['imgInfo']['center'].tonumber()
-		imgInfoCur.top			= cfg['imgInfo']['top'].tonumber()
-		imgInfoCur.bottom		= cfg['imgInfo']['bottom'].tonumber()
-	} catch {
-		imgInfoCur.Initialize()
+	imgInfos:public = []
+	cfg['imgInfos'].each {|dict|
+		imgInfo = ImageInfo()
+		try {
+			imgInfo.fileName	= dict['fileName']
+			imgInfo.rotate		= dict['rotate'].tonumber()
+			imgInfo.center		= dict['center'].tonumber()
+			imgInfo.top			= dict['top'].tonumber()
+			imgInfo.bottom		= dict['bottom'].tonumber()
+			imgInfos.add(imgInfo)
+		} catch {}
+	}
+	imgInfoCur:public = if (imgInfos.isempty()) {
+		ImageInfo()
+	} else {
+		imgInfos.last()
 	}
 	imgRaw:public = imgBlank
 	if (!imgInfoCur.fileName.isempty()) {
@@ -166,10 +166,17 @@ ReadImageFile(parent:wx.Window, fileName:string) = {
 		}
 		return
 	}
-	g.imgInfoCur.Initialize()
-	g.imgInfoCur.fileName = fileName
+	idx = g.imgInfos:*fileName.find(fileName):index
+	if (idx) {
+		g.imgInfoCur = g.imgInfos[idx]
+		g.imgInfos.erase(idx)
+	} else {
+		g.imgInfoCur = ImageInfo()
+		g.imgInfoCur.fileName = fileName
+	}
+	g.imgInfos.add(g.imgInfoCur)
 	g.imgRaw = img
-	g.imgOrg = g.imgRaw
+	g.imgOrg = g.imgRaw.rotate(g.imgInfoCur.rotate)
 }
 
 //-----------------------------------------------------------------------------
@@ -597,8 +604,14 @@ Panel = class(wx.Panel) {
 		}
 	}
 	OnButton_ShowList(event:wx.CommandEvent) = {
-		dlg = ImageListDialog(this)
+		dlg = ImageListDialog(this, g.imgInfos)
 		dlg.ShowModal()
+		imgInfo = dlg.GetImageInfo()
+		if (imgInfo) {
+			ReadImageFile(this, imgInfo.fileName)
+			this.extractor.UpdateContent()
+			this.productViewer.UpdateContent()
+		}
 	}
 	OnButton_RotateL(event:wx.CommandEvent) = {
 		RotateImageL()
@@ -639,46 +652,65 @@ Frame = class(wx.Frame) {
 }
 
 //-----------------------------------------------------------------------------
-// ImageListPanel
-//-----------------------------------------------------------------------------
-ImageListPanel = class(wx.Panel) {
-	__init__(parent:wx.Window) = {|parent|
-		outerBox = wx.BoxSizer(wx.VERTICAL)
-		this.SetSizer(outerBox)
-		vbox = wx.BoxSizer(wx.VERTICAL)
-		outerBox.Add(vbox, wx.SizerFlags(1).Expand())
-		size = 128
-		imgList = wx.ImageList(size, size)
-		imgInfos.each {|imgInfo|
-			imgSrc = (image(imgInfo.fileName).thumbnail(size):box).rotate(imgInfo.rotate)
-			img = image(`rgb, size, size, `gray)
-			img.paste((size - imgSrc.width) / 2, (size - imgSrc.height) / 2, imgSrc)
-			imgList.Add(img)
-		}
-		wx.ListView(this, wx.ID_ANY, style => wx.LC_ICON) {|ctrl|
-			vbox.Add(ctrl, wx.SizerFlags(1).Expand())
-			ctrl.SetImageList(imgList, wx.IMAGE_LIST_NORMAL)
-			n = imgInfos.len()
-			ctrl.InsertImageItem(0.., range(n)):void
-			ctrl.SetItemPosition(range(n), wx.Point(140 * (0..), 0)):void
-			ctrl.SetItemState(0,
-					wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED,
-					wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED)
-		}
-	}
-}
-
-//-----------------------------------------------------------------------------
 // ImageListDialog
 //-----------------------------------------------------------------------------
 ImageListDialog = class(wx.Dialog) {
 	__init__(parent:wx.Window, imgInfos[]:ImageInfo, pos:wx.Point => wx.DefaultPosition,
 			size:wx.Size => wx.Size(640, 480)) = {|parent, wx.ID_ANY,
 						'Image List', pos, size,
-						style => (wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER)|
+						style => wx.DEFAULT_DIALOG_STYLE|
 		this.SetIcon(wx.Icon(g.fileNameIcon, wx.BITMAP_TYPE_ICO))
-		ImageListPanel(this)
+		outerBox = wx.BoxSizer(wx.VERTICAL)
+		this.SetSizer(outerBox)
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		outerBox.Add(vbox, wx.SizerFlags(1).Expand().Border(wx.ALL, 2))
+		size = 128
+		imgList = wx.ImageList(size, size)
+		this.imgInfos = imgInfos.reverse():list
+		this.imgInfoCur = nil
+		this.imgInfos.each {|imgInfo|
+			imgSrc = (image(imgInfo.fileName).thumbnail(size):box).rotate(imgInfo.rotate)
+			img = image(`rgb, size, size, `gray)
+			img.paste((size - imgSrc.width) / 2, (size - imgSrc.height) / 2, imgSrc)
+			imgList.Add(img)
+		}
+		wx.ListCtrl(this, wx.ID_ANY, style => wx.LC_ICON) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags(1).Expand())
+			ctrl.SetImageList(imgList, wx.IMAGE_LIST_NORMAL)
+			n = this.imgInfos.len()
+			ctrl.InsertImageItem(0.., range(n)):void
+			ctrl.SetItemPosition(range(n), wx.Point(140 * (0..), 0)):void
+			ctrl.SetItemState(0,
+					wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED,
+					wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED)
+			ctrl.Bind(wx.EVT_LIST_ITEM_ACTIVATED) {|event| this.OnListItemActivated(event)}
+			this.listCtrl = ctrl
+		}
+		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
+			vbox.Add(hbox, wx.SizerFlags().Border(wx.TOP, 4).Centre())
+			wx.Button(this, wx.ID_ANY, 'OK') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags())
+				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_OK()}
+				ctrl.SetDefault()
+			}
+			wx.Button(this, wx.ID_CLOSE, 'Cancel') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 16))
+				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_Cancel()}
+			}
+		}
 	}
+	OnButton_OK(event:wx.CommandEvent) = {
+		//this.listCtrl
+		this.Close()
+	}
+	OnButton_Cancel(event:wx.CommandEvent) = {
+		this.Close()
+	}
+	OnListItemActivated(event:wx.ListEvent) = {
+		this.imgInfoCur = this.imgInfos[event.GetIndex()]
+		this.Close()
+	}
+	GetImageInfo() = this.imgInfoCur
 	//OnSize(event:wx.SizeEvent) = {
 	//	size = event.GetSize()
 	//	g.cfg['wdFrame', 'htFrame'] = [size.GetWidth(), size.GetHeight()]
@@ -691,14 +723,14 @@ ImageListDialog = class(wx.Dialog) {
 //-----------------------------------------------------------------------------
 App = class(wx.App) {
 	OnInit() = {
-		frame = Frame('Gura Shot')
-		frame.Show()
-		true
-		/*
-		imgInfos = ImageInfo(path.glob('*.jpg'), -90)
-		ImageListDialog(nil, imgInfos).ShowModal()
-		false
-		*/
+		if (true) {
+			frame = Frame('Gura Shot')
+			frame.Show()
+			true
+		} else {
+			ImageListDialog(nil, []).ShowModal()
+			false
+		}
 	}
 	OnExit() = {
 		SaveConfig()
