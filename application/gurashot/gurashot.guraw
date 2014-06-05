@@ -96,9 +96,11 @@ g = module {
 		cr.move_to(210, 400)
 		cr.show_text('no image')
 	}
-	imgOpen:public = image(base64.reader(resource.book_open_png))
-	imgRotateL:public = image(base64.reader(resource.arrow_rotate_anticlockwise_png))
-	imgRotateR:public = image(base64.reader(resource.arrow_rotate_clockwise_png))
+	I(src:binary) = image(base64.reader(src))
+	imgOpen:public = I(resource.book_open_png)
+	imgRotateL:public = I(resource.arrow_rotate_anticlockwise_png)
+	imgRotateR:public = I(resource.arrow_rotate_clockwise_png)
+	imgShowList:public = I(resource.report_picture_png)
 	layoutTbl:public = @(Layout) {
 		{ 30, 24, 2, 23, "Driver's license",				 89 - 10, 127 - 10 }
 		{ 30, 25, 2, 23, '',								 89 - 10, 127 - 10 }
@@ -479,8 +481,12 @@ Panel = class(wx.Panel) {
 					vbox.Add(ctrl, wx.SizerFlags().Border(wx.TOP, 2))
 					ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_Open(event) }
 				}
-				wx.BitmapButton(this, wx.ID_ANY, g.imgRotateL) {|ctrl|
+				wx.BitmapButton(this, wx.ID_ANY, g.imgShowList) {|ctrl|
 					vbox.Add(ctrl, wx.SizerFlags().Border(wx.TOP, 4))
+					ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_ShowList(event) }
+				}
+				wx.BitmapButton(this, wx.ID_ANY, g.imgRotateL) {|ctrl|
+					vbox.Add(ctrl, wx.SizerFlags().Border(wx.TOP, 12))
 					ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_RotateL(event) }
 				}
 				wx.BitmapButton(this, wx.ID_ANY, g.imgRotateR) {|ctrl|
@@ -574,6 +580,8 @@ Panel = class(wx.Panel) {
 			this.extractor.UpdateContent()
 			this.productViewer.UpdateContent()
 		}
+	}
+	OnButton_ShowList(event:wx.CommandEvent) = {
 	}
 	OnButton_RotateL(event:wx.CommandEvent) = {
 		RotateImageL()
