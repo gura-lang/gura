@@ -29,37 +29,24 @@ ImageInfo = class {
 	public {
 		fileName,	fileName_init
 		rotate,		rotate_init
+		center,		center_init
+		top,		top_init
+		bottom,		bottom_init
 	}
 	fileName_init	= ''
 	rotate_init		= 0
+	center_init		= .5
+	top_init		= .1
+	bottom_init		= .6
 	__init__() = {
 		this.Initialize()
 	}
 	Initialize() = {
 		this.fileName	= fileName_init
 		this.rotate		= rotate_init
-	}
-}
-
-//-----------------------------------------------------------------------------
-// FaceRatio
-//-----------------------------------------------------------------------------
-FaceRatio = class {
-	public {
-		center,		center_init
-		top,		top_init
-		bottom,		bottom_init
-	}
-	center_init	= .5
-	top_init	= .1
-	bottom_init	= .6
-	__init__() = {
-		this.Initialize()
-	}
-	Initialize() = {
-		this.center	= center_init
-		this.top	= top_init
-		this.bottom	= bottom_init
+		this.center		= center_init
+		this.top		= top_init
+		this.bottom		= bottom_init
 	}
 }
 
@@ -73,12 +60,12 @@ LoadConfig(fileNameCfg:string) = {
 		'wdFrame'			=> 600
 		'htFrame'			=> 730
 		'imgInfo'			=> %{
-			'fileName'		=> ''
-			'rotate'		=> 0
+			'fileName'		=> ImageInfo.fileName_init
+			'rotate'		=> ImageInfo.rotate_init
+			'center'		=> ImageInfo.center_init
+			'top'			=> ImageInfo.top_init
+			'bottom'		=> ImageInfo.bottom_init
 		}
-		'faceRatio_center'	=> FaceRatio.center_init
-		'faceRatio_top'		=> FaceRatio.top_init
-		'faceRatio_bottom'	=> FaceRatio.bottom_init
 	}
 	cfg
 }
@@ -87,10 +74,10 @@ SaveConfig() = {
 	g.cfg['imgInfo'] = %{
 		'fileName'	=> g.imgInfo.fileName
 		'rotate'	=> g.imgInfo.rotate
+		'center'	=> g.imgInfo.center
+		'top'		=> g.imgInfo.top
+		'bottom'	=> g.imgInfo.bottom
 	}
-	g.cfg['faceRatio_center'] = g.faceRatio.center
-	g.cfg['faceRatio_top'] = g.faceRatio.top
-	g.cfg['faceRatio_bottom'] = g.faceRatio.bottom
 	yaml.write(g.fileNameCfg, g.cfg)
 }
 
@@ -143,14 +130,17 @@ g = module {
 		{ 60, 45, 2, 45, '',								 89 - 10, 127 - 10 }
 	}
 	layoutCur:public = layoutTbl[0]
-	faceRatio:public = FaceRatio()
 	cfg:public = LoadConfig(fileNameCfg)
 	imgInfo:public = ImageInfo()
-	imgInfo.fileName = cfg['imgInfo']['fileName']
-	imgInfo.rotate = cfg['imgInfo']['rotate'].tonumber()
-	faceRatio.center = cfg['faceRatio_center'].tonumber()
-	faceRatio.top = cfg['faceRatio_top'].tonumber()
-	faceRatio.bottom = cfg['faceRatio_bottom'].tonumber()
+	try {
+		imgInfo.fileName	= cfg['imgInfo']['fileName']
+		imgInfo.rotate		= cfg['imgInfo']['rotate'].tonumber()
+		imgInfo.center		= cfg['imgInfo']['center'].tonumber()
+		imgInfo.top			= cfg['imgInfo']['top'].tonumber()
+		imgInfo.bottom		= cfg['imgInfo']['bottom'].tonumber()
+	} catch {
+		imgInfo.Initialize()
+	}
 	imgRaw:public = imgBlank
 	if (!imgInfo.fileName.isempty()) {
 		try {
@@ -176,11 +166,10 @@ ReadImageFile(parent:wx.Window, fileName:string) = {
 		}
 		return
 	}
+	g.imgInfo.Initialize()
 	g.imgInfo.fileName = fileName
-	g.imgInfo.rotate = 0
 	g.imgRaw = img
 	g.imgOrg = g.imgRaw
-	g.faceRatio.Initialize()
 }
 
 //-----------------------------------------------------------------------------
@@ -212,7 +201,7 @@ ComposeProduct(cr:cairo.context, layout:Layout) = {
 	[wdGuide, htGuide] = [2, 2]
 	htMessage = 5
 	htBottom = layout.htImg - layout.htTop - layout.htFace
-	ratioBase = g.faceRatio.bottom - g.faceRatio.top
+	ratioBase = g.imgInfo.bottom - g.imgInfo.top
 	scope {
 		cr.select_font_face(fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
 		cr.set_source_rgb(.2, .2, 1)
@@ -226,11 +215,11 @@ ComposeProduct(cr:cairo.context, layout:Layout) = {
 		cr.show_text(text)
 	}
 	imgExtract = scope {
-		yTop = g.imgOrg.height * (g.faceRatio.top - ratioBase * layout.htTop / layout.htFace)
-		yBottom = g.imgOrg.height * (g.faceRatio.bottom + ratioBase * htBottom / layout.htFace)
+		yTop = g.imgOrg.height * (g.imgInfo.top - ratioBase * layout.htTop / layout.htFace)
+		yBottom = g.imgOrg.height * (g.imgInfo.bottom + ratioBase * htBottom / layout.htFace)
 		height = yBottom - yTop
 		width = height * layout.wdImg / layout.htImg
-		xLeft = g.imgOrg.width * g.faceRatio.center - width / 2
+		xLeft = g.imgOrg.width * g.imgInfo.center - width / 2
 		[wdDotMgn, htDotMgn] = g.imgOrg.height * ratioBase * [wdMgn, htMgn] / layout.htFace
 		[xCrop, yCrop] = [xLeft - wdDotMgn, yTop - htDotMgn]
 		[wdCrop, htCrop] = [width + wdDotMgn * 2, height + htDotMgn * 2]
@@ -399,10 +388,10 @@ Extractor = class(wx.Panel) {
 		this.UpdateRectBox()
 	}
 	UpdateRectBox() = {
-		xLeft = this.rcImg.x + this.rcImg.width * g.faceRatio.center - EdgeSize / 2
-		xRight = this.rcImg.x + this.rcImg.width * g.faceRatio.center + EdgeSize / 2
-		yTop = this.rcImg.y + this.rcImg.height * g.faceRatio.top
-		yBottom = this.rcImg.y + this.rcImg.height * g.faceRatio.bottom
+		xLeft = this.rcImg.x + this.rcImg.width * g.imgInfo.center - EdgeSize / 2
+		xRight = this.rcImg.x + this.rcImg.width * g.imgInfo.center + EdgeSize / 2
+		yTop = this.rcImg.y + this.rcImg.height * g.imgInfo.top
+		yBottom = this.rcImg.y + this.rcImg.height * g.imgInfo.bottom
 		this.rcBox = wx.Rect(xLeft, yTop, xRight - xLeft, yBottom - yTop)
 	}
 	// event handler
@@ -448,29 +437,29 @@ Extractor = class(wx.Panel) {
 		}
 		pt = event.GetPosition()
 		if (this.grabTgt == `center) {
-			g.faceRatio.center = (pt.x - this.rcImg.x) / this.rcImg.width
-			if (g.faceRatio.center > 1) {
-				g.faceRatio.center = 1
-			} elsif (g.faceRatio.center < 0) {
-				g.faceRatio.center = 0
+			g.imgInfo.center = (pt.x - this.rcImg.x) / this.rcImg.width
+			if (g.imgInfo.center > 1) {
+				g.imgInfo.center = 1
+			} elsif (g.imgInfo.center < 0) {
+				g.imgInfo.center = 0
 			}
 			this.UpdateRectBox()
 			this.Refresh()
 		} elsif (this.grabTgt == `top) {
-			g.faceRatio.top = (pt.y - this.rcImg.y) / this.rcImg.height
-			if (g.faceRatio.top < 0) {
-				g.faceRatio.top = 0
-			} elsif (g.faceRatio.top > g.faceRatio.bottom - .1) {
-				g.faceRatio.top = g.faceRatio.bottom - .1
+			g.imgInfo.top = (pt.y - this.rcImg.y) / this.rcImg.height
+			if (g.imgInfo.top < 0) {
+				g.imgInfo.top = 0
+			} elsif (g.imgInfo.top > g.imgInfo.bottom - .1) {
+				g.imgInfo.top = g.imgInfo.bottom - .1
 			}
 			this.UpdateRectBox()
 			this.Refresh()
 		} elsif (this.grabTgt == `bottom) {
-			g.faceRatio.bottom = (pt.y - this.rcImg.y) / this.rcImg.height
-			if (g.faceRatio.bottom > 1) {
-				g.faceRatio.bottom = 1
-			} elsif (g.faceRatio.bottom < g.faceRatio.top + .1) {
-				g.faceRatio.bottom = g.faceRatio.top + .1
+			g.imgInfo.bottom = (pt.y - this.rcImg.y) / this.rcImg.height
+			if (g.imgInfo.bottom > 1) {
+				g.imgInfo.bottom = 1
+			} elsif (g.imgInfo.bottom < g.imgInfo.top + .1) {
+				g.imgInfo.bottom = g.imgInfo.top + .1
 			}
 			this.UpdateRectBox()
 			this.Refresh()
