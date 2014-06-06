@@ -444,7 +444,10 @@ Extractor = class(wx.Panel) {
 		this.HasCapture() && this.ReleaseMouse()
 		if (this.grabTgt) {
 			this.grabTgt = nil
-			this.productViewer.UpdateContent()
+			wx.BusyCursor {
+				this.productViewer.UpdateContent(true)
+				this.productViewer.UpdateContent()
+			}
 		}
 	}
 	OnMotion(event:wx.MouseEvent) = {
@@ -505,7 +508,14 @@ Frame = class(wx.Frame) {
 			size:wx.Size => wx.Size(g.cfg['wdFrame', 'htFrame']*)) = {|nil, wx.ID_ANY, title, pos, size|
 		this.SetIcon(wx.Icon(g.fileNameIcon, wx.BITMAP_TYPE_ICO))
 	    toolBar = this.CreateToolBar()
-		toolBar.AddTool(ID_Open, 'Open', g.imgOpen, wx.NullBitmap, wx.ITEM_NORMAL)
+		toolBar.AddTool(ID_Open,		'Open',			g.imgOpen,		wx.NullBitmap, wx.ITEM_NORMAL)
+		toolBar.AddTool(ID_ShowList,	'Show List',	g.imgShowList,	wx.NullBitmap, wx.ITEM_NORMAL)
+		toolBar.AddSeparator()
+		toolBar.AddTool(ID_Prev,		'Previous',		g.imgPrev,		wx.NullBitmap, wx.ITEM_NORMAL)
+		toolBar.AddTool(ID_Next,		'Next',			g.imgNext,		wx.NullBitmap, wx.ITEM_NORMAL)
+		toolBar.AddSeparator()
+		toolBar.AddTool(ID_RotateL,		'Rotate Left',	g.imgRotateL,	wx.NullBitmap, wx.ITEM_NORMAL)
+		toolBar.AddTool(ID_RotateR,		'Rotate Right',	g.imgRotateR,	wx.NullBitmap, wx.ITEM_NORMAL)
 		toolBar.Realize()
 		panel = wx.Panel(this)
 		outerBox = wx.BoxSizer(wx.VERTICAL)
@@ -517,33 +527,6 @@ Frame = class(wx.Frame) {
 		//}
 		this.productViewer = ProductViewer(panel, wx.BORDER_SUNKEN)
 		this.extractor = Extractor(panel, wx.BORDER_SUNKEN, this.productViewer)
-		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
-			vbox.Add(hbox, wx.SizerFlags().Expand())
-			wx.BitmapButton(panel, wx.ID_ANY, g.imgOpen) {|ctrl|
-				hbox.Add(ctrl, wx.SizerFlags())
-				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_Open(event) }
-			}
-			wx.BitmapButton(panel, wx.ID_ANY, g.imgShowList) {|ctrl|
-				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 4))
-				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_ShowList(event) }
-			}
-			wx.BitmapButton(panel, wx.ID_ANY, g.imgPrev) {|ctrl|
-				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 12))
-				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_Prev(event) }
-			}
-			wx.BitmapButton(panel, wx.ID_ANY, g.imgNext) {|ctrl|
-				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 4))
-				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_Next(event) }
-			}
-			wx.BitmapButton(panel, wx.ID_ANY, g.imgRotateL) {|ctrl|
-				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 12))
-				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_RotateL(event) }
-			}
-			wx.BitmapButton(panel, wx.ID_ANY, g.imgRotateR) {|ctrl|
-				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 4))
-				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_RotateR(event) }
-			}
-		}
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
 			vbox.Add(hbox, wx.SizerFlags().Expand().Border(wx.TOP, 4))
 			hbox.Add(this.extractor, wx.SizerFlags())
@@ -597,6 +580,12 @@ Frame = class(wx.Frame) {
 		}
 		vbox.Add(this.productViewer, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
 		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event) }
+		this.Bind(wx.EVT_MENU, ID_Open)		{|event| this.OnMenu_Open(event)}
+		this.Bind(wx.EVT_MENU, ID_ShowList)	{|event| this.OnMenu_ShowList(event)}
+		this.Bind(wx.EVT_MENU, ID_Prev)		{|event| this.OnMenu_Prev(event)}
+		this.Bind(wx.EVT_MENU, ID_Next)		{|event| this.OnMenu_Next(event)}
+		this.Bind(wx.EVT_MENU, ID_RotateL)	{|event| this.OnMenu_RotateL(event)}
+		this.Bind(wx.EVT_MENU, ID_RotateR)	{|event| this.OnMenu_RotateR(event)}
 	}
 	OnSize(event:wx.SizeEvent) = {
 		size = event.GetSize()
@@ -617,7 +606,11 @@ Frame = class(wx.Frame) {
 	OnListItemSelected(event:wx.ListEvent) = {
 		idx = event.GetIndex()
 		g.layoutCur = g.layoutTbl[idx]
-		this.productViewer.UpdateContent()
+		this.Update()
+		wx.BusyCursor {
+			this.productViewer.UpdateContent(this)
+			this.productViewer.UpdateContent()
+		}
 	}
 	OnButton_OutputPDF(event:wx.CommandEvent) = {
 		filter = 'PDF file (*.pdf)|*.pdf|All files (*.*)|*.*'
@@ -640,7 +633,7 @@ Frame = class(wx.Frame) {
 			}
 		}
 	}
-	OnButton_Open(event:wx.CommandEvent) = {
+	OnMenu_Open(event:wx.CommandEvent) = {
 		filter = 'Image files (*.jpg;*.png;*.gif)|*.jpg;*.png;*.gif|All files (*.*)|*.*'
 		dlg = wx.FileDialog(this, 'Choose an image file',
 								'', g.imgInfoCur.fileName, filter, wx.FD_OPEN)
@@ -650,7 +643,7 @@ Frame = class(wx.Frame) {
 			this.UpdateWholeContent()
 		}
 	}
-	OnButton_ShowList(event:wx.CommandEvent) = {
+	OnMenu_ShowList(event:wx.CommandEvent) = {
 		dlg = ImageListDialog(this, g.imgInfos)
 		dlg.ShowModal()
 		imgInfo = dlg.GetImageInfo()
@@ -660,7 +653,7 @@ Frame = class(wx.Frame) {
 			}
 		}
 	}
-	OnButton_Prev(event:wx.CommandEvent) = {
+	OnMenu_Prev(event:wx.CommandEvent) = {
 		idx = g.imgInfos.find(g.imgInfoCur):index
 		if (idx && idx > 0) {
 			imgInfo = g.imgInfos[idx - 1]
@@ -669,7 +662,7 @@ Frame = class(wx.Frame) {
 			}
 		}
 	}
-	OnButton_Next(event:wx.CommandEvent) = {
+	OnMenu_Next(event:wx.CommandEvent) = {
 		idx = g.imgInfos.find(g.imgInfoCur):index
 		if (idx && idx < g.imgInfos.len() - 1) {
 			imgInfo = g.imgInfos[idx + 1]
@@ -678,12 +671,12 @@ Frame = class(wx.Frame) {
 			}
 		}
 	}
-	OnButton_RotateL(event:wx.CommandEvent) = {
+	OnMenu_RotateL(event:wx.CommandEvent) = {
 		this.ProcessImage {
 			RotateImageL()
 		}
 	}
-	OnButton_RotateR(event:wx.CommandEvent) = {
+	OnMenu_RotateR(event:wx.CommandEvent) = {
 		this.ProcessImage {
 			RotateImageR()
 		}
