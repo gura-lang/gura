@@ -675,7 +675,7 @@ ImageListDialog = class(wx.Dialog) {
 		}
 		this.PrepareContent()
 		this.Bind(wx.EVT_BUTTON, wx.ID_OK) {|event| this.OnButton_OK(event)}
-		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event)}
+		//this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event)}
 	}
 	PrepareContent() = {
 		size = 128
