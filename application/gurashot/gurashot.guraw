@@ -84,7 +84,7 @@ SaveConfig() = {
 g = module {
 	fileNameTmpPDF:public = path.join(sys.localdir, 'gurashot.pdf')
 	fileNameCfg:public = path.join(sys.localdir, 'gurashot.yml')
-	fileNameCfg:public = 'gurashot.yml'
+	//fileNameCfg:public = 'gurashot.yml'
 	fileNameIcon:public = 'gurashot.ico'
 	imgBlank:public = image(`rgba, 800, 800, color(240, 240, 255))
 	imgBlank.cairo {|cr|
@@ -676,8 +676,8 @@ Frame = class(wx.Frame) {
 	OnMenu_ShowList(event:wx.CommandEvent) = {
 		dlg = ImageListDialog(this, g.imgInfos, g.imgInfos.find(g.imgInfoCur):index)
 		dlg.ShowModal()
-		imgInfo = dlg.GetImageInfo()
-		if (imgInfo) {
+		g.imgInfos = dlg.GetImageInfos()
+		if (imgInfo = dlg.GetImageInfo()) {
 			this.ProcessImage {
 				ReadImageFile(this, imgInfo.fileName)
 				this.UpdateStatus()
@@ -758,6 +758,8 @@ ImageListDialog = class(wx.Dialog) {
 			vbox.Add(ctrl, wx.SizerFlags(1).Expand())
 			this.listCtrl = ctrl
 			ctrl.Bind(wx.EVT_LIST_ITEM_ACTIVATED) {|event| this.OnListItemActivated(event)}
+			ctrl.Bind(wx.EVT_LIST_ITEM_RIGHT_CLICK) {|event| this.OnListItemRightClick(event)}
+			ctrl.Bind(wx.EVT_LIST_KEY_DOWN) {|event| this.OnListKeyDown(event)}
 		}
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
 			vbox.Add(hbox, wx.SizerFlags().Border(wx.TOP, 4).Centre())
@@ -773,7 +775,6 @@ ImageListDialog = class(wx.Dialog) {
 			this.PrepareContent(idxSel)
 		}
 		this.Bind(wx.EVT_BUTTON, wx.ID_OK) {|event| this.OnButton_OK(event)}
-		//this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event)}
 	}
 	PrepareContent(idxSel:number) = {
 		size = 128
@@ -785,7 +786,10 @@ ImageListDialog = class(wx.Dialog) {
 			imgList.Add(img)
 		}
 		this.listCtrl.SetImageList(imgList, wx.IMAGE_LIST_NORMAL)
-		this.listCtrl.InsertImageStringItem(0.., this.imgInfos:*title, 0..):void
+		this.imgInfos.each {|imgInfo, idx|
+			this.listCtrl.InsertImageStringItem(idx, imgInfo.title, idx)
+			this.listCtrl.SetItemData(idx, idx)
+		}
 		this.listCtrl.SetItemState(0,
 				wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED, 0)
 		this.listCtrl.SetItemState(idxSel,
@@ -793,25 +797,37 @@ ImageListDialog = class(wx.Dialog) {
 				wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED)
 		this.listCtrl.EnsureVisible(idxSel)
 	}
+	GetImageInfos() = this.imgInfos
+	GetImageInfo() = this.imgInfoCur
+	UpdateImageInfos() = {
+		this.imgInfos = repeat (this.listCtrl.GetItemCount()):list {|idx|
+			idxImgInfo = this.listCtrl.GetItemData(idx)
+			this.imgInfos[idxImgInfo]
+		}
+	}
 	OnButton_OK(event:wx.CommandEvent) = {
-		idx = this.listCtrl.GetFirstSelected()
-		this.imgInfoCur = this.imgInfos[idx]
+		idxImgInfo = this.listCtrl.GetItemData(this.listCtrl.GetFirstSelected())
+		this.imgInfoCur = this.imgInfos[idxImgInfo]
+		this.UpdateImageInfos()
 		this.EndModal(wx.OK)
 	}
 	OnListItemActivated(event:wx.ListEvent) = {
-		this.imgInfoCur = this.imgInfos[event.GetIndex()]
+		idxImgInfo = this.listCtrl.GetItemData(event.GetIndex())
+		this.imgInfoCur = this.imgInfos[idxImgInfo]
+		this.UpdateImageInfos()
 		this.EndModal(wx.OK)
 	}
-	GetImageInfo() = this.imgInfoCur
-	OnSize(event:wx.SizeEvent) = {
-		itemSize = 140
-		size = event.GetSize()
-		n = this.listCtrl.GetItemCount()
-		nx = size.GetWidth() / itemSize
-		xs = (range(n) % nx) * itemSize
-		ys = (int(range(n) / nx)) * itemSize
-		this.listCtrl.SetItemPosition(range(n), wx.Point(xs, ys)):void
-		event.Skip()
+	OnListItemRightClick(event:wx.ListEvent) = {
+	}
+	OnListKeyDown(event:wx.ListEvent) = {
+		if (event.GetKeyCode() == wx.WXK_DELETE) {
+			idx = this.listCtrl.GetFirstSelected()
+			this.listCtrl.DeleteItem(idx)
+			//if (idx >= this.listCtrl.GetItemCount()) {
+			//	idx = this.listCtrl.GetItemCount() - 1
+			//}
+			this.listCtrl.Select(idx)
+		}
 	}
 }
 
@@ -820,13 +836,13 @@ ImageListDialog = class(wx.Dialog) {
 //-----------------------------------------------------------------------------
 App = class(wx.App) {
 	OnInit() = {
-		if (false) {
+		if (true) {
 			frame = Frame('Gura Shot')
 			frame.Show()
 			g.frame = frame
 			true
 		} else {
-			ImageListDialog(nil, [], 0).ShowModal()
+			ImageListDialog(nil, g.imgInfos, 0).ShowModal()
 			false
 		}
 	}
