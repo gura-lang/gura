@@ -219,6 +219,7 @@ srcs = [
 	'Class_wx_QueryLayoutInfoEvent.cpp'
 	'Class_wx_ScrollWinEvent.cpp'
 	'Class_wx_SetCursorEvent.cpp'
+	'Class_wx_ShowEvent.cpp'
 	'Class_wx_SizeEvent.cpp'
 	'Class_wx_SocketEvent.cpp'
 	'Class_wx_SysColourChangedEvent.cpp'

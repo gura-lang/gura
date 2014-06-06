@@ -664,47 +664,47 @@ ImageListDialog = class(wx.Dialog) {
 		this.SetSizer(outerBox)
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		outerBox.Add(vbox, wx.SizerFlags(1).Expand().Border(wx.ALL, 2))
-		size = 128
-		imgList = wx.ImageList(size, size)
 		this.imgInfos = imgInfos.reverse():list
 		this.imgInfoCur = nil
+		wx.ListCtrl(this, wx.ID_ANY, style => wx.LC_ICON) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags(1).Expand())
+			this.listCtrl = ctrl
+			
+			ctrl.Bind(wx.EVT_LIST_ITEM_ACTIVATED) {|event| this.OnListItemActivated(event)}
+		}
+		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
+			vbox.Add(hbox, wx.SizerFlags().Border(wx.TOP, 4).Centre())
+			wx.Button(this, wx.ID_OK, 'OK') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags())
+				ctrl.SetDefault()
+			}
+			wx.Button(this, wx.ID_CLOSE, 'Cancel') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 16))
+			}
+		}
+		this.Bind(wx.EVT_SHOW) {|event| this.OnShow(event)}
+		this.Bind(wx.EVT_BUTTON, wx.ID_OK) {|event| this.OnButton_OK(event)}
+	}
+	OnShow(event) = {
+		size = 128
+		imgList = wx.ImageList(size, size)
 		this.imgInfos.each {|imgInfo|
 			imgSrc = (image(imgInfo.fileName).thumbnail(size):box).rotate(imgInfo.rotate)
 			img = image(`rgb, size, size, `gray)
 			img.paste((size - imgSrc.width) / 2, (size - imgSrc.height) / 2, imgSrc)
 			imgList.Add(img)
 		}
-		wx.ListCtrl(this, wx.ID_ANY, style => wx.LC_ICON) {|ctrl|
-			vbox.Add(ctrl, wx.SizerFlags(1).Expand())
-			ctrl.SetImageList(imgList, wx.IMAGE_LIST_NORMAL)
-			n = this.imgInfos.len()
-			ctrl.InsertImageItem(0.., range(n)):void
-			ctrl.SetItemPosition(range(n), wx.Point(140 * (0..), 0)):void
-			ctrl.SetItemState(0,
-					wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED,
-					wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED)
-			ctrl.Bind(wx.EVT_LIST_ITEM_ACTIVATED) {|event| this.OnListItemActivated(event)}
-			this.listCtrl = ctrl
-		}
-		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
-			vbox.Add(hbox, wx.SizerFlags().Border(wx.TOP, 4).Centre())
-			wx.Button(this, wx.ID_ANY, 'OK') {|ctrl|
-				hbox.Add(ctrl, wx.SizerFlags())
-				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_OK()}
-				ctrl.SetDefault()
-			}
-			wx.Button(this, wx.ID_CLOSE, 'Cancel') {|ctrl|
-				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 16))
-				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_Cancel()}
-			}
-		}
+		this.listCtrl.SetImageList(imgList, wx.IMAGE_LIST_NORMAL)
+		n = this.imgInfos.len()
+		this.listCtrl.InsertImageItem(0.., range(n)):void
+		this.listCtrl.SetItemPosition(range(n), wx.Point(140 * (0..), 0)):void
+		this.listCtrl.SetItemState(0,
+				wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED,
+				wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED)
 	}
 	OnButton_OK(event:wx.CommandEvent) = {
 		//this.listCtrl
-		this.Close()
-	}
-	OnButton_Cancel(event:wx.CommandEvent) = {
-		this.Close()
+		this.EndModal(wx.OK)
 	}
 	OnListItemActivated(event:wx.ListEvent) = {
 		this.imgInfoCur = this.imgInfos[event.GetIndex()]

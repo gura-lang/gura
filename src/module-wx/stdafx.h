@@ -473,6 +473,7 @@
 #include "Class_wx_QueryLayoutInfoEvent.h"				// derived from wxEvent
 #include "Class_wx_ScrollWinEvent.h"					// derived from wxEvent
 #include "Class_wx_SetCursorEvent.h"					// derived from wxEvent
+#include "Class_wx_ShowEvent.h"							// derived from wxEvent
 #include "Class_wx_SizeEvent.h"							// derived from wxEvent
 #include "Class_wx_SocketEvent.h"						// derived from wxEvent
 #include "Class_wx_SysColourChangedEvent.h"				// derived from wxEvent
