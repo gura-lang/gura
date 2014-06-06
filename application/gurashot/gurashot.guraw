@@ -27,18 +27,21 @@ Layout = struct(htImg:number, wdImg:number, htTop:number, htFace:number,
 //-----------------------------------------------------------------------------
 ImageInfo = class {
 	public {
+		title,		title_init
 		fileName,	fileName_init
 		rotate,		rotate_init
 		center,		center_init
 		top,		top_init
 		bottom,		bottom_init
 	}
+	title_init		= ''
 	fileName_init	= ''
 	rotate_init		= 0
 	center_init		= .5
 	top_init		= .1
 	bottom_init		= .6
 	__init__() = {
+		this.title		= title_init
 		this.fileName	= fileName_init
 		this.rotate		= rotate_init
 		this.center		= center_init
@@ -64,6 +67,7 @@ LoadConfig(fileNameCfg:string) = {
 SaveConfig() = {
 	g.cfg['imgInfos'] = g.imgInfos.each():list {|imgInfo|
 		%{
+			'title'		=> imgInfo.title
 			'fileName'	=> imgInfo.fileName
 			'rotate'	=> imgInfo.rotate
 			'center'	=> imgInfo.center
@@ -130,6 +134,7 @@ g = module {
 	cfg['imgInfos'].each {|dict|
 		imgInfo = ImageInfo()
 		try {
+			imgInfo.title		= dict['title']
 			imgInfo.fileName	= dict['fileName']
 			imgInfo.rotate		= dict['rotate'].tonumber()
 			imgInfo.center		= dict['center'].tonumber()
@@ -152,6 +157,7 @@ g = module {
 		}
 	}
 	imgOrg:public = imgRaw.rotate(imgInfoCur.rotate)
+	frame:public = nil
 }
 
 //-----------------------------------------------------------------------------
@@ -174,6 +180,7 @@ ReadImageFile(parent:wx.Window, fileName:string) = {
 		//g.imgInfos.erase(idx)
 	} else {
 		g.imgInfoCur = ImageInfo()
+		g.imgInfoCur.title = path.basename(path.filename(fileName))
 		g.imgInfoCur.fileName = fileName
 		g.imgInfos.add(g.imgInfoCur)
 	}
@@ -492,6 +499,7 @@ Extractor = class(wx.Panel) {
 	OnDropFiles(event:wx.DropFilesEvent) = {
 		fileNames = event.GetFiles()
 		ReadImageFile(this, fileNames[0])
+		g.frame.UpdateStatus()
 		this.UpdateContent()
 		this.productViewer.UpdateContent()
 	}
@@ -613,6 +621,20 @@ Frame = class(wx.Frame) {
 		this.Bind(wx.EVT_MENU, ID_RotateL)		{|event| this.OnMenu_RotateL(event)}
 		this.Bind(wx.EVT_MENU, ID_RotateR)		{|event| this.OnMenu_RotateR(event)}
 		this.Bind(wx.EVT_MENU, wx.ID_ABOUT)		{|event| this.OnMenu_About(event)}
+		this.UpdateStatus()
+	}
+	UpdateStatus() = {
+		tb = this.GetToolBar()
+		idx = g.imgInfos.find(g.imgInfoCur):index
+		flagPrev = flagNext = true
+		if (!idx) {
+			flagPrev = falgNext = false
+		} else {
+			if (idx == 0) { flagPrev = false }
+			if (idx >= g.imgInfos.len() - 1) { flagNext = false }
+		}
+		tb.EnableTool(ID_Prev, flagPrev)
+		tb.EnableTool(ID_Next, flagNext)
 	}
 	OnSize(event:wx.SizeEvent) = {
 		size = event.GetSize()
@@ -638,6 +660,7 @@ Frame = class(wx.Frame) {
 			this.productViewer.UpdateContent(this)
 			this.productViewer.UpdateContent()
 		}
+		this.UpdateStatus()
 	}
 	OnMenu_Open(event:wx.CommandEvent) = {
 		filter = 'Image files (*.jpg;*.png;*.gif)|*.jpg;*.png;*.gif|All files (*.*)|*.*'
@@ -646,16 +669,18 @@ Frame = class(wx.Frame) {
 		if (dlg.ShowModal() == wx.ID_OK) {
 			fileName = dlg.GetPath()
 			ReadImageFile(this, fileName)
+			this.UpdateStatus()
 			this.UpdateWholeContent()
 		}
 	}
 	OnMenu_ShowList(event:wx.CommandEvent) = {
-		dlg = ImageListDialog(this, g.imgInfos)
+		dlg = ImageListDialog(this, g.imgInfos, g.imgInfos.find(g.imgInfoCur):index)
 		dlg.ShowModal()
 		imgInfo = dlg.GetImageInfo()
 		if (imgInfo) {
 			this.ProcessImage {
 				ReadImageFile(this, imgInfo.fileName)
+				this.UpdateStatus()
 			}
 		}
 	}
@@ -665,6 +690,7 @@ Frame = class(wx.Frame) {
 			imgInfo = g.imgInfos[idx - 1]
 			this.ProcessImage {
 				ReadImageFile(this, imgInfo.fileName)
+				this.UpdateStatus()
 			}
 		}
 	}
@@ -674,6 +700,7 @@ Frame = class(wx.Frame) {
 			imgInfo = g.imgInfos[idx + 1]
 			this.ProcessImage {
 				ReadImageFile(this, imgInfo.fileName)
+				this.UpdateStatus()
 			}
 		}
 	}
@@ -717,10 +744,9 @@ Frame = class(wx.Frame) {
 // ImageListDialog
 //-----------------------------------------------------------------------------
 ImageListDialog = class(wx.Dialog) {
-	__init__(parent:wx.Window, imgInfos[]:ImageInfo, pos:wx.Point => wx.DefaultPosition,
-			size:wx.Size => wx.Size(640, 480)) = {|parent, wx.ID_ANY,
-						'Image List', pos, size,
-						style => wx.DEFAULT_DIALOG_STYLE|
+	__init__(parent:wx.Window, imgInfos[]:ImageInfo, idxSel:number,
+			pos:wx.Point => wx.DefaultPosition, size:wx.Size => wx.Size(640, 480)) = {|parent, wx.ID_ANY,
+						'Image List', pos, size, style => wx.DEFAULT_DIALOG_STYLE|
 		this.SetIcon(wx.Icon(g.fileNameIcon, wx.BITMAP_TYPE_ICO))
 		outerBox = wx.BoxSizer(wx.VERTICAL)
 		this.SetSizer(outerBox)
@@ -728,10 +754,9 @@ ImageListDialog = class(wx.Dialog) {
 		outerBox.Add(vbox, wx.SizerFlags(1).Expand().Border(wx.ALL, 2))
 		this.imgInfos = imgInfos
 		this.imgInfoCur = nil
-		wx.ListView(this, wx.ID_ANY, style => wx.LC_ICON | wx.LC_SINGLE_SEL) {|ctrl|
+		wx.ListView(this, wx.ID_ANY, style => wx.LC_ICON | wx.LC_SINGLE_SEL | wx.LC_AUTOARRANGE) {|ctrl|
 			vbox.Add(ctrl, wx.SizerFlags(1).Expand())
 			this.listCtrl = ctrl
-			
 			ctrl.Bind(wx.EVT_LIST_ITEM_ACTIVATED) {|event| this.OnListItemActivated(event)}
 		}
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
@@ -745,12 +770,12 @@ ImageListDialog = class(wx.Dialog) {
 			}
 		}
 		wx.BusyCursor {
-			this.PrepareContent()
+			this.PrepareContent(idxSel)
 		}
 		this.Bind(wx.EVT_BUTTON, wx.ID_OK) {|event| this.OnButton_OK(event)}
 		//this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event)}
 	}
-	PrepareContent() = {
+	PrepareContent(idxSel:number) = {
 		size = 128
 		imgList = wx.ImageList(size, size)
 		this.imgInfos.each {|imgInfo|
@@ -760,11 +785,13 @@ ImageListDialog = class(wx.Dialog) {
 			imgList.Add(img)
 		}
 		this.listCtrl.SetImageList(imgList, wx.IMAGE_LIST_NORMAL)
-		n = this.imgInfos.len()
-		this.listCtrl.InsertImageItem(0.., range(n)):void
+		this.listCtrl.InsertImageStringItem(0.., this.imgInfos:*title, 0..):void
 		this.listCtrl.SetItemState(0,
+				wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED, 0)
+		this.listCtrl.SetItemState(idxSel,
 				wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED,
 				wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED)
+		this.listCtrl.EnsureVisible(idxSel)
 	}
 	OnButton_OK(event:wx.CommandEvent) = {
 		idx = this.listCtrl.GetFirstSelected()
@@ -796,9 +823,10 @@ App = class(wx.App) {
 		if (true) {
 			frame = Frame('Gura Shot')
 			frame.Show()
+			g.frame = frame
 			true
 		} else {
-			ImageListDialog(nil, []).ShowModal()
+			ImageListDialog(nil, [], 0).ShowModal()
 			false
 		}
 	}
