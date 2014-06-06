@@ -306,7 +306,7 @@ ProductViewer = class(wx.Panel) {
 		this.Bind(wx.EVT_PAINT) {|event| this.OnPaint(event)}
 	}
 	// methods
-	UpdateContent() = {
+	UpdateContent(blankFlag:boolean => false) = {
 		[wdClient, htClient] = this.GetClientSizeWH()
 		this.imgScreen.fill(color(240, 240, 240))
 		if (g.layoutCur.wdPaper > g.layoutCur.htPaper) {
@@ -315,10 +315,12 @@ ProductViewer = class(wx.Panel) {
 			htImg = 400, wdImg = int(htImg * g.layoutCur.wdPaper / g.layoutCur.htPaper)
 		}
 		img = image(`rgba, wdImg, htImg, `white)
-		img.cairo {|cr|
-			scale = wdImg / g.layoutCur.wdPaper
-			cr.scale(scale, scale)
-			ComposeProduct(cr, g.layoutCur)
+		if (!blankFlag) {
+			img.cairo {|cr|
+				scale = wdImg / g.layoutCur.wdPaper
+				cr.scale(scale, scale)
+				ComposeProduct(cr, g.layoutCur)
+			}
 		}
 		if (wdClient < img.width) {
 			x = 0
@@ -332,6 +334,7 @@ ProductViewer = class(wx.Panel) {
 		}
 		this.imgScreen.paste(x, y, img)
 		this.Refresh()
+		this.Update()
 	}
 	// event handler
 	OnSize(event:wx.SizeEvent) = {
@@ -383,9 +386,18 @@ Extractor = class(wx.Panel) {
 			wdSense, this.rcBox.height).Contains(pt) && return(`center)
 		nil
 	}
-	UpdateContent() = {
-		this.UpdateImageScreen()
+	UpdateContent(blankFlag:boolean => false) = {
+		if (blankFlag) {
+			this.BlankImageScreen()
+		} else {
+			this.UpdateImageScreen()
+		}
 		this.Refresh()
+		this.Update()
+	}
+	BlankImageScreen() = {
+		[wdClient, htClient] = this.GetClientSizeWH()
+		this.imgScreen = image(`rgb, wdClient, htClient + 1, `gray)
 	}
 	UpdateImageScreen() = {
 		[wdClient, htClient] = this.GetClientSizeWH()
@@ -576,6 +588,17 @@ Panel = class(wx.Panel) {
 		}
 		vbox.Add(this.productViewer, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
 	}
+	UpdateWholeContent(blankFlag:boolean => false) = {
+		this.extractor.UpdateContent(blankFlag)
+		this.productViewer.UpdateContent(blankFlag)
+	}
+	ProcessImage() {block} = {
+		wx.BusyCursor {
+			this.UpdateWholeContent(true)
+			block()
+			this.UpdateWholeContent()
+		}
+	}
 	OnListItemSelected(event:wx.ListEvent) = {
 		idx = event.GetIndex()
 		g.layoutCur = g.layoutTbl[idx]
@@ -609,8 +632,7 @@ Panel = class(wx.Panel) {
 		if (dlg.ShowModal() == wx.ID_OK) {
 			fileName = dlg.GetPath()
 			ReadImageFile(this, fileName)
-			this.extractor.UpdateContent()
-			this.productViewer.UpdateContent()
+			this.UpdateWholeContent()
 		}
 	}
 	OnButton_ShowList(event:wx.CommandEvent) = {
@@ -618,38 +640,38 @@ Panel = class(wx.Panel) {
 		dlg.ShowModal()
 		imgInfo = dlg.GetImageInfo()
 		if (imgInfo) {
-			ReadImageFile(this, imgInfo.fileName)
-			this.extractor.UpdateContent()
-			this.productViewer.UpdateContent()
+			this.ProcessImage {
+				ReadImageFile(this, imgInfo.fileName)
+			}
 		}
 	}
 	OnButton_Prev(event:wx.CommandEvent) = {
-		idx = g.imgInfos::fileName.find(g.imgInfoCur.fileName):index
+		idx = g.imgInfos.find(g.imgInfoCur):index
 		if (idx && idx > 0) {
 			imgInfo = g.imgInfos[idx - 1]
-			ReadImageFile(this, imgInfo.fileName)
-			this.extractor.UpdateContent()
-			this.productViewer.UpdateContent()
+			this.ProcessImage {
+				ReadImageFile(this, imgInfo.fileName)
+			}
 		}
 	}
 	OnButton_Next(event:wx.CommandEvent) = {
-		idx = g.imgInfos::fileName.find(g.imgInfoCur.fileName):index
+		idx = g.imgInfos.find(g.imgInfoCur):index
 		if (idx && idx < g.imgInfos.len() - 1) {
 			imgInfo = g.imgInfos[idx + 1]
-			ReadImageFile(this, imgInfo.fileName)
-			this.extractor.UpdateContent()
-			this.productViewer.UpdateContent()
+			this.ProcessImage {
+				ReadImageFile(this, imgInfo.fileName)
+			}
 		}
 	}
 	OnButton_RotateL(event:wx.CommandEvent) = {
-		RotateImageL()
-		this.extractor.UpdateContent()
-		this.productViewer.UpdateContent()
+		this.ProcessImage {
+			RotateImageL()
+		}
 	}
 	OnButton_RotateR(event:wx.CommandEvent) = {
-		RotateImageR()
-		this.extractor.UpdateContent()
-		this.productViewer.UpdateContent()
+		this.ProcessImage {
+			RotateImageR()
+		}
 	}
 }
 
@@ -701,7 +723,9 @@ ImageListDialog = class(wx.Dialog) {
 				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 16))
 			}
 		}
-		this.PrepareContent()
+		wx.BusyCursor {
+			this.PrepareContent()
+		}
 		this.Bind(wx.EVT_BUTTON, wx.ID_OK) {|event| this.OnButton_OK(event)}
 		//this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event)}
 	}
