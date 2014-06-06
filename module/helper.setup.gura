@@ -1,6 +1,7 @@
 #!/usr/bin/env gura
 import(mswin)
 import(wx)
+import(zip)
 
 caption = 'Gura Application Setup'
 
@@ -31,10 +32,10 @@ Panel = class(wx.Panel) {
 		outerBox.Add(vbox, wx.SizerFlags(1).Expand().Border(wx.ALL, 4))
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
 			vbox.Add(hbox, wx.SizerFlags().Expand())
-			wx.StaticBitmap(this, wx.ID_ANY, wx.NullBitmap) {|ctrl|
-				hbox.Add(ctrl, wx.SizerFlags().Expand())
-				ctrl.SetIcon(wx.Icon(fileNameIcon, wx.BITMAP_TYPE_ICO))
-			}
+			//wx.StaticBitmap(this, wx.ID_ANY, wx.NullBitmap) {|ctrl|
+			//	hbox.Add(ctrl, wx.SizerFlags().Expand())
+			//	ctrl.SetIcon(wx.Icon(fileNameIcon, wx.BITMAP_TYPE_ICO))
+			//}
 			wx.StaticText(this, wx.ID_ANY, launcherName) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Centre().Border(wx.LEFT, 8))
 				font = ctrl.GetFont()
@@ -69,17 +70,6 @@ Panel = class(wx.Panel) {
 			ctrl.SetValue(false)
 			this.chkboxStartMenuIcon = ctrl
 		}
-		/*
-		wx.TextCtrl(this, wx.ID_ANY, style => wx.TE_READONLY | \
-							wx.TE_MULTILINE | wx.BORDER_STATIC) {|ctrl|
-			vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 8))
-			ctrl.WriteText('[Files]\n')
-			ctrl.WriteText(fileNameScript + '\n')
-			ctrl.WriteText(fileNameIcon + '\n')
-			ctrl.WriteText(fileNamesExtra + '\n')
-			ctrl.SetInsertionPoint(0)
-		}
-		*/
 		wx.StaticLine(this, wx.ID_ANY) {|ctrl|
 			vbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.TOP, 16))
 		}
@@ -87,16 +77,16 @@ Panel = class(wx.Panel) {
 			vbox.Add(hbox, wx.SizerFlags().Center().Border(wx.TOP, 8))
 			wx.Button(this, wx.ID_OK, 'Setup') {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags())
-				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_Setup(event)}
 			}
 			wx.Button(this, wx.ID_CANCEL, 'Cancel') {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 16))
 				ctrl.SetDefault()
 				ctrl.SetFocus()
-				ctrl.Bind(wx.EVT_BUTTON) {|event|
-					wx.App.GetInstance().GetTopWindow().Close()
-				}
 			}
+		}
+		this.Bind(wx.EVT_BUTTON, wx.ID_OK) {|event| this.OnButton_Setup(event)}
+		this.Bind(wx.EVT_BUTTON, wx.ID_CANCEL) {|event|
+			wx.App.GetInstance().GetTopWindow().Close()
 		}
 	}
 	OnButton_Setup(event:wx.CommandEvent) = {
@@ -108,7 +98,8 @@ Panel = class(wx.Panel) {
 			fileNamesToCopy = [fileNameScript, fileNameIcon]
 			fileNamesToCopy.append(fileNamesExtra)
 			if (this.chkboxCopyFiles.GetValue()) {
-				fs.copy(fileNamesToCopy, path.join(dirNameDst, fileNamesToCopy)):overwrite:void
+				stream.copy(path.join(sys.maindir, fileNamesToCopy),
+							path.join(dirNameDst, fileNamesToCopy)):finalize
 			} else {
 				dirNameDst = fs.getcwd()
 			}
