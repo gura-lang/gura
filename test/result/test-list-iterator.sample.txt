@@ -71,6 +71,12 @@ x.each().roundoff(1e-8):list .. [1e-06, 1e-07, 1e-08, 0, 0, 0, 0, 0]
 [false, false, true, false, true].each().find():index .. 2
 [false, false, false, false].find():index .. nil
 [false, false, false, false].each().find():index .. nil
+x.find(a):index .. 0
+x.find(b):index .. 3
+x.find(c):index .. 7
+x.each().find(a):index .. 0
+x.each().find(b):index .. 3
+x.each().find(c):index .. 7
 
 ======== #9 ========
 

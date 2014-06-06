@@ -421,9 +421,10 @@ size_t Iterator::Find(Environment &env, Signal sig, const Value &criteria, Value
 		return InvalidSize;
 	} else {
 		while (Next(env, sig, value)) {
-			int cmp = Value::Compare(env, sig, value, criteria);
-			if (sig.IsSignalled()) return InvalidSize;
-			if (cmp == 0) return GetCountNext() - 1;
+			//int cmp = Value::Compare(env, sig, value, criteria);
+			//if (sig.IsSignalled()) return InvalidSize;
+			//if (cmp == 0) return GetCountNext() - 1;
+			if (value.Is(criteria)) return GetCountNext() - 1;
 		}
 	}
 	return InvalidSize;

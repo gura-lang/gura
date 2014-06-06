@@ -102,6 +102,15 @@ testcase {
 	tester(`[false, false, true, false, true].each().find():index)
 	tester(`[false, false, false, false].find():index)
 	tester(`[false, false, false, false].each().find():index)
+	A = class {}
+	[a, b, c] = dim(3) {A()}
+	x = [a, a, a, b, b, a, b, c, c, a, b, c]
+	tester(`x.find(a):index)
+	tester(`x.find(b):index)
+	tester(`x.find(c):index)
+	tester(`x.each().find(a):index)
+	tester(`x.each().find(b):index)
+	tester(`x.each().find(c):index)
 }
 testcase {
 	x = chr(ord('A')..ord('Z')):list
