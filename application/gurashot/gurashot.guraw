@@ -820,7 +820,7 @@ ImageListDialog = class(wx.Dialog) {
 //-----------------------------------------------------------------------------
 App = class(wx.App) {
 	OnInit() = {
-		if (true) {
+		if (false) {
 			frame = Frame('Gura Shot')
 			frame.Show()
 			g.frame = frame
