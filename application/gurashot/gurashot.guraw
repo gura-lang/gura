@@ -498,37 +498,67 @@ Extractor = class(wx.Panel) {
 }
 
 //-----------------------------------------------------------------------------
+// wx.Menu expansion
+//-----------------------------------------------------------------------------
+wx.Menu.AppendEx(id:number, text:string, img:image) = {
+	imgTmp = image(`rgba, img.width + 8, img.height)
+	imgTmp.paste(0, 0, img)
+	item = wx.MenuItem(this, id, text)
+	item.SetBitmap(imgTmp)
+	this.AppendItem(item)
+}
+
+//-----------------------------------------------------------------------------
 // Frame
 //-----------------------------------------------------------------------------
 Frame = class(wx.Frame) {
 	[
-		ID_Open, ID_ShowList, ID_Prev, ID_Next, ID_RotateL, ID_RotateR
+		ID_Open, ID_ShowList, ID_Prev, ID_Next,
+		ID_OutputPDF, ID_ViewPDF,
+		ID_RotateL, ID_RotateR
 	] = wx.ID_HIGHEST..
 	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
 			size:wx.Size => wx.Size(g.cfg['wdFrame', 'htFrame']*)) = {|nil, wx.ID_ANY, title, pos, size|
 		this.SetIcon(wx.Icon(g.fileNameIcon, wx.BITMAP_TYPE_ICO))
-	    toolBar = this.CreateToolBar()
-		toolBar.AddTool(ID_Open,		'Open',			g.imgOpen,		wx.NullBitmap, wx.ITEM_NORMAL)
-		toolBar.AddTool(ID_ShowList,	'Show List',	g.imgShowList,	wx.NullBitmap, wx.ITEM_NORMAL)
-		toolBar.AddSeparator()
-		toolBar.AddTool(ID_Prev,		'Previous',		g.imgPrev,		wx.NullBitmap, wx.ITEM_NORMAL)
-		toolBar.AddTool(ID_Next,		'Next',			g.imgNext,		wx.NullBitmap, wx.ITEM_NORMAL)
-		toolBar.AddSeparator()
-		toolBar.AddTool(ID_RotateL,		'Rotate Left',	g.imgRotateL,	wx.NullBitmap, wx.ITEM_NORMAL)
-		toolBar.AddTool(ID_RotateR,		'Rotate Right',	g.imgRotateR,	wx.NullBitmap, wx.ITEM_NORMAL)
-		toolBar.Realize()
+		menuBar = wx.MenuBar()
+		wx.Menu {|m|
+			menuBar.Append(m, '&File')
+			m.AppendEx(ID_Open,			'&Open...\tCtrl-O',			g.imgOpen)
+			m.AppendEx(ID_ShowList,		'&Show List...\tCtrl-S',	g.imgShowList)
+			m.AppendEx(ID_Prev,			'&Previous\tCtrl-P',		g.imgPrev)
+			m.AppendEx(ID_Next,			'&Next\tCtrl-N',			g.imgNext)
+			m.AppendSeparator()
+			m.Append(ID_OutputPDF,		'&Output PDF...\tCtrl-U')
+			m.Append(ID_ViewPDF,		'&View PDF...\tCtrl-V')
+			m.AppendSeparator()
+			m.Append(wx.ID_CLOSE,		'E&xit\tAlt-X')
+		}
+		wx.Menu {|m|
+			menuBar.Append(m, '&Edit')
+			m.AppendEx(ID_RotateL,	'Rotate &Left\tCtrl-L',		g.imgRotateL)
+			m.AppendEx(ID_RotateR,	'Rotate &Right\tCtrl-R',	g.imgRotateR)
+		}
+		this.SetMenuBar(menuBar)
+		this.CreateToolBar(wx.TB_FLAT) {|tb|
+			tb.AddTool(ID_Open,		'Open',			g.imgOpen,		wx.NullBitmap, wx.ITEM_NORMAL)
+			tb.AddTool(ID_ShowList,	'Show List',	g.imgShowList,	wx.NullBitmap, wx.ITEM_NORMAL)
+			tb.AddSeparator()
+			tb.AddTool(ID_Prev,		'Previous',		g.imgPrev,		wx.NullBitmap, wx.ITEM_NORMAL)
+			tb.AddTool(ID_Next,		'Next',			g.imgNext,		wx.NullBitmap, wx.ITEM_NORMAL)
+			tb.AddSeparator()
+			tb.AddTool(ID_RotateL,	'Rotate Left',	g.imgRotateL,	wx.NullBitmap, wx.ITEM_NORMAL)
+			tb.AddTool(ID_RotateR,	'Rotate Right',	g.imgRotateR,	wx.NullBitmap, wx.ITEM_NORMAL)
+			tb.Realize()
+		}
 		panel = wx.Panel(this)
 		outerBox = wx.BoxSizer(wx.VERTICAL)
 		panel.SetSizer(outerBox)
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		outerBox.Add(vbox, wx.SizerFlags(1).Expand())
-		//wx.StaticLine(this, wx.ID_ANY, style => wx.HORIZONTAL) {|ctrl|
-		//	vbox.Add(ctrl, wx.SizerFlags().Expand())
-		//}
 		this.productViewer = ProductViewer(panel, wx.BORDER_SUNKEN)
 		this.extractor = Extractor(panel, wx.BORDER_SUNKEN, this.productViewer)
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
-			vbox.Add(hbox, wx.SizerFlags().Expand().Border(wx.TOP, 4))
+			vbox.Add(hbox, wx.SizerFlags().Expand())
 			hbox.Add(this.extractor, wx.SizerFlags())
 			wx.BoxSizer(wx.VERTICAL) {|vbox|
 				hbox.Add(vbox, wx.SizerFlags(1).Expand().Border(wx.LEFT, 2))
@@ -565,27 +595,19 @@ Frame = class(wx.Frame) {
 							wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED)
 					ctrl.Bind(wx.EVT_LIST_ITEM_SELECTED) {|event| this.OnListItemSelected(event) }
 				}
-				wx.BoxSizer(wx.HORIZONTAL) {|hbox|
-					vbox.Add(hbox, wx.SizerFlags().Expand().Border(wx.TOP, 4))
-					wx.Button(panel, wx.ID_ANY, 'Output PDF') {|ctrl|
-						hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 2))
-						ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_OutputPDF(event) }
-					}
-					wx.Button(panel, wx.ID_ANY, 'View PDF') {|ctrl|
-						hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 2))
-						ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_ViewPDF(event) }
-					}
-				}
 			}
 		}
 		vbox.Add(this.productViewer, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
 		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event) }
-		this.Bind(wx.EVT_MENU, ID_Open)		{|event| this.OnMenu_Open(event)}
-		this.Bind(wx.EVT_MENU, ID_ShowList)	{|event| this.OnMenu_ShowList(event)}
-		this.Bind(wx.EVT_MENU, ID_Prev)		{|event| this.OnMenu_Prev(event)}
-		this.Bind(wx.EVT_MENU, ID_Next)		{|event| this.OnMenu_Next(event)}
-		this.Bind(wx.EVT_MENU, ID_RotateL)	{|event| this.OnMenu_RotateL(event)}
-		this.Bind(wx.EVT_MENU, ID_RotateR)	{|event| this.OnMenu_RotateR(event)}
+		this.Bind(wx.EVT_MENU, wx.ID_CLOSE)		{|event| this.Close()}
+		this.Bind(wx.EVT_MENU, ID_Open)			{|event| this.OnMenu_Open(event)}
+		this.Bind(wx.EVT_MENU, ID_ShowList)		{|event| this.OnMenu_ShowList(event)}
+		this.Bind(wx.EVT_MENU, ID_Prev)			{|event| this.OnMenu_Prev(event)}
+		this.Bind(wx.EVT_MENU, ID_Next)			{|event| this.OnMenu_Next(event)}
+		this.Bind(wx.EVT_MENU, ID_OutputPDF)	{|event| this.OnMenu_OutputPDF(event)}
+		this.Bind(wx.EVT_MENU, ID_ViewPDF)		{|event| this.OnMenu_ViewPDF(event)}
+		this.Bind(wx.EVT_MENU, ID_RotateL)		{|event| this.OnMenu_RotateL(event)}
+		this.Bind(wx.EVT_MENU, ID_RotateR)		{|event| this.OnMenu_RotateR(event)}
 	}
 	OnSize(event:wx.SizeEvent) = {
 		size = event.GetSize()
@@ -610,27 +632,6 @@ Frame = class(wx.Frame) {
 		wx.BusyCursor {
 			this.productViewer.UpdateContent(this)
 			this.productViewer.UpdateContent()
-		}
-	}
-	OnButton_OutputPDF(event:wx.CommandEvent) = {
-		filter = 'PDF file (*.pdf)|*.pdf|All files (*.*)|*.*'
-		dlg = wx.FileDialog(this, 'Choose a PDF file to output',
-								'', '', filter, wx.FD_SAVE)
-		if (dlg.ShowModal() == wx.ID_OK) {
-			fileNamePDF = dlg.GetPath()
-			ComposeProductPDF(fileNamePDF, g.layoutCur)
-		}
-	}
-	OnButton_ViewPDF(event:wx.CommandEvent) = {
-		ComposeProductPDF(g.fileNameTmpPDF, g.layoutCur)
-		try {
-			OpenWithApp(g.fileNameTmpPDF)
-		} catch {
-			wx.MessageDialog(parent, 'Failed to launch PDF viewer',
-									'Error', wx.OK | wx.ICON_ERROR) {|dlg|
-				dlg.CentreOnParent()
-				dlg.ShowModal()
-			}
 		}
 	}
 	OnMenu_Open(event:wx.CommandEvent) = {
@@ -668,6 +669,27 @@ Frame = class(wx.Frame) {
 			imgInfo = g.imgInfos[idx + 1]
 			this.ProcessImage {
 				ReadImageFile(this, imgInfo.fileName)
+			}
+		}
+	}
+	OnMenu_OutputPDF(event:wx.CommandEvent) = {
+		filter = 'PDF file (*.pdf)|*.pdf|All files (*.*)|*.*'
+		dlg = wx.FileDialog(this, 'Choose a PDF file to output',
+								'', '', filter, wx.FD_SAVE)
+		if (dlg.ShowModal() == wx.ID_OK) {
+			fileNamePDF = dlg.GetPath()
+			ComposeProductPDF(fileNamePDF, g.layoutCur)
+		}
+	}
+	OnMenu_ViewPDF(event:wx.CommandEvent) = {
+		ComposeProductPDF(g.fileNameTmpPDF, g.layoutCur)
+		try {
+			OpenWithApp(g.fileNameTmpPDF)
+		} catch {
+			wx.MessageDialog(parent, 'Failed to launch PDF viewer',
+									'Error', wx.OK | wx.ICON_ERROR) {|dlg|
+				dlg.CentreOnParent()
+				dlg.ShowModal()
 			}
 		}
 	}
