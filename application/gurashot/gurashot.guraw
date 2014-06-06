@@ -495,42 +495,51 @@ Extractor = class(wx.Panel) {
 }
 
 //-----------------------------------------------------------------------------
-// Panel
+// Frame
 //-----------------------------------------------------------------------------
-Panel = class(wx.Panel) {
-	__init__(parent:wx.Window) = {|parent|
+Frame = class(wx.Frame) {
+	[
+		ID_Open, ID_ShowList, ID_Prev, ID_Next, ID_RotateL, ID_RotateR
+	] = wx.ID_HIGHEST..
+	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
+			size:wx.Size => wx.Size(g.cfg['wdFrame', 'htFrame']*)) = {|nil, wx.ID_ANY, title, pos, size|
+		this.SetIcon(wx.Icon(g.fileNameIcon, wx.BITMAP_TYPE_ICO))
+	    toolBar = this.CreateToolBar()
+		toolBar.AddTool(ID_Open, 'Open', g.imgOpen, wx.NullBitmap, wx.ITEM_NORMAL)
+		toolBar.Realize()
+		panel = wx.Panel(this)
 		outerBox = wx.BoxSizer(wx.VERTICAL)
-		this.SetSizer(outerBox)
+		panel.SetSizer(outerBox)
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		outerBox.Add(vbox, wx.SizerFlags(1).Expand())
 		//wx.StaticLine(this, wx.ID_ANY, style => wx.HORIZONTAL) {|ctrl|
 		//	vbox.Add(ctrl, wx.SizerFlags().Expand())
 		//}
-		this.productViewer = ProductViewer(this, wx.BORDER_SUNKEN)
-		this.extractor = Extractor(this, wx.BORDER_SUNKEN, this.productViewer)
+		this.productViewer = ProductViewer(panel, wx.BORDER_SUNKEN)
+		this.extractor = Extractor(panel, wx.BORDER_SUNKEN, this.productViewer)
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
 			vbox.Add(hbox, wx.SizerFlags().Expand())
-			wx.BitmapButton(this, wx.ID_ANY, g.imgOpen) {|ctrl|
+			wx.BitmapButton(panel, wx.ID_ANY, g.imgOpen) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags())
 				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_Open(event) }
 			}
-			wx.BitmapButton(this, wx.ID_ANY, g.imgShowList) {|ctrl|
+			wx.BitmapButton(panel, wx.ID_ANY, g.imgShowList) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 4))
 				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_ShowList(event) }
 			}
-			wx.BitmapButton(this, wx.ID_ANY, g.imgPrev) {|ctrl|
+			wx.BitmapButton(panel, wx.ID_ANY, g.imgPrev) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 12))
 				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_Prev(event) }
 			}
-			wx.BitmapButton(this, wx.ID_ANY, g.imgNext) {|ctrl|
+			wx.BitmapButton(panel, wx.ID_ANY, g.imgNext) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 4))
 				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_Next(event) }
 			}
-			wx.BitmapButton(this, wx.ID_ANY, g.imgRotateL) {|ctrl|
+			wx.BitmapButton(panel, wx.ID_ANY, g.imgRotateL) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 12))
 				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_RotateL(event) }
 			}
-			wx.BitmapButton(this, wx.ID_ANY, g.imgRotateR) {|ctrl|
+			wx.BitmapButton(panel, wx.ID_ANY, g.imgRotateR) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 4))
 				ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_RotateR(event) }
 			}
@@ -540,7 +549,7 @@ Panel = class(wx.Panel) {
 			hbox.Add(this.extractor, wx.SizerFlags())
 			wx.BoxSizer(wx.VERTICAL) {|vbox|
 				hbox.Add(vbox, wx.SizerFlags(1).Expand().Border(wx.LEFT, 2))
-				wx.ListCtrl(this, wx.ID_ANY, style => wx.BORDER_SUNKEN | wx.LC_REPORT) {|ctrl|
+				wx.ListCtrl(panel, wx.ID_ANY, style => wx.BORDER_SUNKEN | wx.LC_REPORT) {|ctrl|
 					vbox.Add(ctrl, wx.SizerFlags(1).Expand())
 					font = ctrl.GetFont()
 					font.SetPointSize(11)
@@ -575,11 +584,11 @@ Panel = class(wx.Panel) {
 				}
 				wx.BoxSizer(wx.HORIZONTAL) {|hbox|
 					vbox.Add(hbox, wx.SizerFlags().Expand().Border(wx.TOP, 4))
-					wx.Button(this, wx.ID_ANY, 'Output PDF') {|ctrl|
+					wx.Button(panel, wx.ID_ANY, 'Output PDF') {|ctrl|
 						hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 2))
 						ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_OutputPDF(event) }
 					}
-					wx.Button(this, wx.ID_ANY, 'View PDF') {|ctrl|
+					wx.Button(panel, wx.ID_ANY, 'View PDF') {|ctrl|
 						hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 2))
 						ctrl.Bind(wx.EVT_BUTTON) {|event| this.OnButton_ViewPDF(event) }
 					}
@@ -587,6 +596,12 @@ Panel = class(wx.Panel) {
 			}
 		}
 		vbox.Add(this.productViewer, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
+		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event) }
+	}
+	OnSize(event:wx.SizeEvent) = {
+		size = event.GetSize()
+		g.cfg['wdFrame', 'htFrame'] = [size.GetWidth(), size.GetHeight()]
+		event.Skip()
 	}
 	UpdateWholeContent(blankFlag:boolean => false) = {
 		this.extractor.UpdateContent(blankFlag)
@@ -672,31 +687,6 @@ Panel = class(wx.Panel) {
 		this.ProcessImage {
 			RotateImageR()
 		}
-	}
-}
-
-//-----------------------------------------------------------------------------
-// Frame
-//-----------------------------------------------------------------------------
-Frame = class(wx.Frame) {
-	[
-		ID_Open, ID_ShowList, ID_Prev, ID_Next, ID_RotateL, ID_RotateR
-	] = wx.ID_HIGHEST..
-	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
-			size:wx.Size => wx.Size(g.cfg['wdFrame', 'htFrame']*)) = {|nil, wx.ID_ANY, title, pos, size|
-		this.SetIcon(wx.Icon(g.fileNameIcon, wx.BITMAP_TYPE_ICO))
-	    toolBar = this.CreateToolBar()
-		toolBar.AddTool(ID_Open, 'Open', g.imgOpen, wx.NullBitmap, wx.ITEM_NORMAL)
-		toolBar.Realize()
-		
-		Panel(this)
-		
-		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event) }
-	}
-	OnSize(event:wx.SizeEvent) = {
-		size = event.GetSize()
-		g.cfg['wdFrame', 'htFrame'] = [size.GetWidth(), size.GetHeight()]
-		event.Skip()
 	}
 }
 
