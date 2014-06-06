@@ -3,6 +3,9 @@ import(mswin)
 import(wx)
 import(zip)
 
+//-----------------------------------------------------------------------------
+// global variables
+//-----------------------------------------------------------------------------
 caption = 'Gura Application Setup'
 
 //-----------------------------------------------------------------------------
@@ -12,30 +15,33 @@ execute(launcherName:string, dirNameDst:string:nil,
 		fileNameScript:string, fileNameIcon:string, fileNamesExtra[]:string) = {
 	dirNameDst = dirNameDst || path.join(sys.localdir,
 								path.basename(path.filename(fileNameScript)))
-	Panel.launcherName = launcherName
-	Panel.dirNameDst = dirNameDst
-	Panel.fileNameScript = fileNameScript
-	Panel.fileNameIcon = fileNameIcon
-	Panel.fileNamesExtra = fileNamesExtra
-	Panel.errorMsg = nil
+	Dialog.launcherName = launcherName
+	Dialog.dirNameDst = dirNameDst
+	Dialog.fileNameScript = fileNameScript
+	Dialog.fileNameIcon = fileNameIcon
+	Dialog.fileNamesExtra = fileNamesExtra
+	Dialog.errorMsg = nil
 	wx.IMPLEMENT_APP(App)
 }
 
 //-----------------------------------------------------------------------------
-// Panel
+// Dialog
 //-----------------------------------------------------------------------------
-Panel = class(wx.Panel) {
-	__init__(parent:wx.Window) = {|parent|
+Dialog = class(wx.Dialog) {
+	__init__(title:string => caption, pos:wx.Point => wx.DefaultPosition,
+			size:wx.Size => wx.Size(480, 220)) = {|nil, wx.ID_ANY, title, pos, size|
 		outerBox = wx.BoxSizer(wx.VERTICAL)
 		this.SetSizer(outerBox)
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		outerBox.Add(vbox, wx.SizerFlags(1).Expand().Border(wx.ALL, 4))
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
 			vbox.Add(hbox, wx.SizerFlags().Expand())
-			//wx.StaticBitmap(this, wx.ID_ANY, wx.NullBitmap) {|ctrl|
-			//	hbox.Add(ctrl, wx.SizerFlags().Expand())
-			//	ctrl.SetIcon(wx.Icon(fileNameIcon, wx.BITMAP_TYPE_ICO))
-			//}
+			if (fileNameIcon) {
+				wx.StaticBitmap(this, wx.ID_ANY, wx.NullBitmap) {|ctrl|
+					hbox.Add(ctrl, wx.SizerFlags().Expand())
+					ctrl.SetIcon(wx.Icon(fileNameIcon, wx.BITMAP_TYPE_ICO))
+				}
+			}
 			wx.StaticText(this, wx.ID_ANY, launcherName) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Centre().Border(wx.LEFT, 8))
 				font = ctrl.GetFont()
@@ -52,6 +58,7 @@ Panel = class(wx.Panel) {
 			wx.CheckBox(this, wx.ID_ANY, 'Copy files to the directory:') {|ctrl|
 				vboxIn.Add(ctrl, wx.SizerFlags().Expand())
 				ctrl.SetValue(true)
+				ctrl.Bind(wx.EVT_CHECKBOX) {|even| this.UpdateStatus()}
 				this.chkboxCopyFiles = ctrl
 			}
 			wx.StaticText(this, wx.ID_ANY, dirNameDst) {|ctrl|
@@ -62,12 +69,14 @@ Panel = class(wx.Panel) {
 		wx.CheckBox(this, wx.ID_ANY, 'Create a desktop icon') {|ctrl|
 			vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 8))
 			ctrl.SetValue(true)
+			ctrl.Bind(wx.EVT_CHECKBOX) {|even| this.UpdateStatus()}
 			this.chkboxDesktopIcon = ctrl
 		}
 		wx.CheckBox(this, wx.ID_ANY,
 				'Create a start menu icon (Gura\\Application\\%s)' % launcherName) {|ctrl|
 			vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 8))
 			ctrl.SetValue(false)
+			ctrl.Bind(wx.EVT_CHECKBOX) {|even| this.UpdateStatus()}
 			this.chkboxStartMenuIcon = ctrl
 		}
 		wx.StaticLine(this, wx.ID_ANY) {|ctrl|
@@ -77,17 +86,23 @@ Panel = class(wx.Panel) {
 			vbox.Add(hbox, wx.SizerFlags().Center().Border(wx.TOP, 8))
 			wx.Button(this, wx.ID_OK, 'Setup') {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags())
+				this.btnSetup = ctrl
 			}
 			wx.Button(this, wx.ID_CANCEL, 'Cancel') {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 16))
 				ctrl.SetDefault()
 				ctrl.SetFocus()
+				this.btnCancel = ctrl
 			}
 		}
+		this.UpdateStatus()
 		this.Bind(wx.EVT_BUTTON, wx.ID_OK) {|event| this.OnButton_Setup(event)}
-		this.Bind(wx.EVT_BUTTON, wx.ID_CANCEL) {|event|
-			wx.App.GetInstance().GetTopWindow().Close()
-		}
+	}
+	UpdateStatus() = {
+		this.btnSetup.Enable(
+			this.chkboxCopyFiles.GetValue() || \
+			this.chkboxDesktopIcon.GetValue() || \
+			this.chkboxStartMenuIcon.GetValue())
 	}
 	OnButton_Setup(event:wx.CommandEvent) = {
 		frame = wx.App.GetInstance().GetTopWindow()
@@ -126,21 +141,11 @@ Panel = class(wx.Panel) {
 							wx.OK | wx.CENTRE | wx.ICON_INFORMATION)
 			wsh = nil
 		} catch {|e|
-			dlg = wx.MessageDialog(frame, e.lineno + ' ' + e.text, caption,
+			dlg = wx.MessageDialog(frame, e.text, caption,
 							wx.OK | wx.CENTRE | wx.ICON_ERROR)
 		}
 		dlg.ShowModal()
-		frame.Close()
-	}
-}
-
-//-----------------------------------------------------------------------------
-// Frame
-//-----------------------------------------------------------------------------
-Frame = class(wx.Frame) {
-	__init__(title:string => caption, pos:wx.Point => wx.DefaultPosition,
-			size:wx.Size => wx.Size(480, 220)) = {|nil, wx.ID_ANY, title, pos, size|
-		Panel(this)
+		this.Close()
 	}
 }
 
@@ -149,8 +154,7 @@ Frame = class(wx.Frame) {
 //-----------------------------------------------------------------------------
 App = class(wx.App) {
 	OnInit() = {
-		frame = Frame()
-		frame.Show()
-		true
+		Dialog().ShowModal()
+		false
 	}
 }
