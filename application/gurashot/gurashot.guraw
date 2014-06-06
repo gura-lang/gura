@@ -80,7 +80,7 @@ SaveConfig() = {
 g = module {
 	fileNameTmpPDF:public = path.join(sys.localdir, 'gurashot.pdf')
 	fileNameCfg:public = path.join(sys.localdir, 'gurashot.yml')
-	//fileNameCfg:public = 'gurashot.yml'
+	fileNameCfg:public = 'gurashot.yml'
 	fileNameIcon:public = 'gurashot.ico'
 	imgBlank:public = image(`rgba, 800, 800, color(240, 240, 255))
 	imgBlank.cairo {|cr|
@@ -538,6 +538,10 @@ Frame = class(wx.Frame) {
 			m.AppendEx(ID_RotateL,	'Rotate &Left\tCtrl-L',		g.imgRotateL)
 			m.AppendEx(ID_RotateR,	'Rotate &Right\tCtrl-R',	g.imgRotateR)
 		}
+		wx.Menu {|m|
+			menuBar.Append(m, '&Help')
+			m.Append(wx.ID_ABOUT,		'&About')
+		}
 		this.SetMenuBar(menuBar)
 		this.CreateToolBar(wx.TB_FLAT) {|tb|
 			tb.AddTool(ID_Open,		'Open',			g.imgOpen,		wx.NullBitmap, wx.ITEM_NORMAL)
@@ -608,6 +612,7 @@ Frame = class(wx.Frame) {
 		this.Bind(wx.EVT_MENU, ID_ViewPDF)		{|event| this.OnMenu_ViewPDF(event)}
 		this.Bind(wx.EVT_MENU, ID_RotateL)		{|event| this.OnMenu_RotateL(event)}
 		this.Bind(wx.EVT_MENU, ID_RotateR)		{|event| this.OnMenu_RotateR(event)}
+		this.Bind(wx.EVT_MENU, wx.ID_ABOUT)		{|event| this.OnMenu_About(event)}
 	}
 	OnSize(event:wx.SizeEvent) = {
 		size = event.GetSize()
@@ -702,6 +707,9 @@ Frame = class(wx.Frame) {
 		this.ProcessImage {
 			RotateImageR()
 		}
+	}
+	OnMenu_About(event:wx.CommandEvent) = {
+		
 	}
 }
 
