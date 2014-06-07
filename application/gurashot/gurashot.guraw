@@ -23,6 +23,11 @@ Layout = struct(htImg:number, wdImg:number, htTop:number, htFace:number,
 						purpose:string, htPaper:number, wdPaper:number)
 
 //-----------------------------------------------------------------------------
+// CursorCoord
+//-----------------------------------------------------------------------------
+CursorCoord = struct(xTop:number, xBtm:number, yTop:number, yBtm:number)
+
+//-----------------------------------------------------------------------------
 // ImageInfo
 //-----------------------------------------------------------------------------
 ImageInfo = class {
@@ -53,6 +58,13 @@ ImageInfo = class {
 		this.yrateTop	= yrateTop_init
 		this.yrateBtm	= yrateBtm_init
 		this.slantFlag	= slantFlag_init
+	}
+	GetCursorCoord(rcImg:wx.Rect) = {
+		CursorCoord(
+			rcImg.x + rcImg.width * this.xrateTop,
+			rcImg.x + rcImg.width * this.xrateBtm,
+			rcImg.y + rcImg.height * this.yrateTop,
+			rcImg.y + rcImg.height * this.yrateBtm)
 	}
 }
 
@@ -394,15 +406,10 @@ Extractor = class(wx.Panel) {
 	// methods
 	SenseBox(pt:wx.Point) = {
 		[wdSense, htSense] = [6, 6]
-		
-		xTop = this.rcImg.x + this.rcImg.width * g.imgInfoCur.xrateTop
-		xBtm = this.rcImg.x + this.rcImg.width * g.imgInfoCur.xrateBtm
-		yTop = this.rcImg.y + this.rcImg.height * g.imgInfoCur.yrateTop
-		yBtm = this.rcImg.y + this.rcImg.height * g.imgInfoCur.yrateBtm
-		
-		wx.Rect(xTop - EdgeSize / 2, yTop - htSense / 2, EdgeSize, htSense).Contains(pt) && return(`top)
-		wx.Rect(xTop, yBtm - htSense / 2, EdgeSize, htSense).Contains(pt) && return(`bottom)
-		wx.Rect(xTop - wdSense / 2, yTop, wdSense, yBtm - yTop).Contains(pt) && return(`center)
+		c = g.imgInfoCur.GetCursorCoord(this.rcImg)
+		wx.Rect(c.xTop - EdgeSize / 2, c.yTop - htSense / 2, EdgeSize, htSense).Contains(pt) && return(`top)
+		wx.Rect(c.xTop, c.yBtm - htSense / 2, EdgeSize, htSense).Contains(pt) && return(`bottom)
+		wx.Rect(c.xTop - wdSense / 2, c.yTop, wdSense, c.yBtm - c.yTop).Contains(pt) && return(`center)
 		nil
 	}
 	UpdateContent(blankFlag:boolean => false) = {
@@ -439,14 +446,11 @@ Extractor = class(wx.Panel) {
 		dc.SetBrush(wx.TRANSPARENT_BRUSH)
 		dc.SetPen(this.penBox)
 		
-		xTop = this.rcImg.x + this.rcImg.width * g.imgInfoCur.xrateTop
-		xBtm = this.rcImg.x + this.rcImg.width * g.imgInfoCur.xrateBtm
-		yTop = this.rcImg.y + this.rcImg.height * g.imgInfoCur.yrateTop
-		yBtm = this.rcImg.y + this.rcImg.height * g.imgInfoCur.yrateBtm
+		c = g.imgInfoCur.GetCursorCoord(this.rcImg)
 		
-		dc.DrawLine(xTop, yTop, xTop, yBtm)
-		dc.DrawLine(xTop - EdgeSize / 2, yTop, xTop + EdgeSize / 2, yTop)
-		dc.DrawLine(xBtm - EdgeSize / 2, yBtm, xBtm + EdgeSize / 2, yBtm)
+		dc.DrawLine(c.xTop, c.yTop, c.xTop, c.yBtm)
+		dc.DrawLine(c.xTop - EdgeSize / 2, c.yTop, c.xTop + EdgeSize / 2, c.yTop)
+		dc.DrawLine(c.xBtm - EdgeSize / 2, c.yBtm, c.xBtm + EdgeSize / 2, c.yBtm)
 		
 		dc = nil
 	}
