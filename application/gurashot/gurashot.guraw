@@ -380,7 +380,6 @@ Extractor = class(wx.Panel) {
 		this.grabTgt = nil
 		this.imgScreen = nil
 		this.rcImg = wx.Rect(0, 0, 0, 0)
-		this.rcBox = wx.Rect(0, 0, 0, 0)
 		this.penBox = wx.Pen(wx.Colour(2552, 128, 128), 3, wx.PENSTYLE_SOLID)
 		this.DragAcceptFiles(true)
 		// bind event handlers
@@ -395,12 +394,14 @@ Extractor = class(wx.Panel) {
 	// methods
 	SenseBox(pt:wx.Point) = {
 		[wdSense, htSense] = [6, 6]
-		wx.Rect(this.rcBox.GetLeft(), this.rcBox.GetTop() - htSense / 2,
-			this.rcBox.width, htSense).Contains(pt) && return(`top)
-		wx.Rect(this.rcBox.GetLeft(), this.rcBox.GetBottom() - htSense / 2,
-			this.rcBox.width, htSense).Contains(pt) && return(`bottom)
-		wx.Rect((this.rcBox.GetLeft() + this.rcBox.GetRight() - wdSense) / 2, this.rcBox.GetTop(),
-			wdSense, this.rcBox.height).Contains(pt) && return(`center)
+		xCenter = this.rcImg.x + this.rcImg.width * g.imgInfoCur.xrateTop
+		xLeft = xCenter - EdgeSize / 2
+		xRight = xCenter + EdgeSize / 2
+		yTop = this.rcImg.y + this.rcImg.height * g.imgInfoCur.yrateTop
+		yBottom = this.rcImg.y + this.rcImg.height * g.imgInfoCur.yrateBtm
+		wx.Rect(xLeft, yTop - htSense / 2, xRight - xLeft, htSense).Contains(pt) && return(`top)
+		wx.Rect(xLeft, yBottom - htSense / 2, xRight - xLeft, htSense).Contains(pt) && return(`bottom)
+		wx.Rect(xCenter - wdSense / 2, yTop, wdSense, yBottom - yTop).Contains(pt) && return(`center)
 		nil
 	}
 	UpdateContent(blankFlag:boolean => false) = {
@@ -423,14 +424,6 @@ Extractor = class(wx.Panel) {
 		[x, y] = [(wdClient - img.width) / 2, (htClient - img.height) / 2]
 		this.imgScreen.paste(x, y, img)
 		this.rcImg = wx.Rect(x, y, img.width, img.height)
-		this.UpdateRectBox()
-	}
-	UpdateRectBox() = {
-		xLeft = this.rcImg.x + this.rcImg.width * g.imgInfoCur.xrateTop - EdgeSize / 2
-		xRight = this.rcImg.x + this.rcImg.width * g.imgInfoCur.xrateTop + EdgeSize / 2
-		yTop = this.rcImg.y + this.rcImg.height * g.imgInfoCur.yrateTop
-		yBottom = this.rcImg.y + this.rcImg.height * g.imgInfoCur.yrateBtm
-		this.rcBox = wx.Rect(xLeft, yTop, xRight - xLeft, yBottom - yTop)
 	}
 	// event handler
 	OnSize(event:wx.SizeEvent) = {
@@ -441,14 +434,18 @@ Extractor = class(wx.Panel) {
 		dc = wx.PaintDC(this)
 		!this.imgScreen && this.UpdateImageScreen()
 		dc.DrawBitmap(this.imgScreen, 0, 0, false)
+		
 		dc.SetBrush(wx.TRANSPARENT_BRUSH)
 		dc.SetPen(this.penBox)
-		xCenter = (this.rcBox.GetLeft() + this.rcBox.GetRight()) / 2
-		dc.DrawLine(xCenter, this.rcBox.GetTop(), xCenter, this.rcBox.GetBottom())
-		dc.DrawLine(this.rcBox.GetLeft(), this.rcBox.GetTop(),
-						this.rcBox.GetRight(), this.rcBox.GetTop())
-		dc.DrawLine(this.rcBox.GetLeft(), this.rcBox.GetBottom(),
-						this.rcBox.GetRight(), this.rcBox.GetBottom())
+		xCenter = this.rcImg.x + this.rcImg.width * g.imgInfoCur.xrateTop
+		xLeft = xCenter - EdgeSize / 2
+		xRight = xCenter + EdgeSize / 2
+		yTop = this.rcImg.y + this.rcImg.height * g.imgInfoCur.yrateTop
+		yBottom = this.rcImg.y + this.rcImg.height * g.imgInfoCur.yrateBtm
+		dc.DrawLine(xCenter, yTop, xCenter, yBottom)
+		dc.DrawLine(xLeft, yTop, xRight, yTop)
+		dc.DrawLine(xLeft, yBottom, xRight, yBottom)
+		
 		dc = nil
 	}
 	OnLeftDown(event:wx.MouseEvent) = {
@@ -485,7 +482,6 @@ Extractor = class(wx.Panel) {
 				g.imgInfoCur.xrateTop = 0
 			}
 			g.imgInfoCur.xrateBtm = g.imgInfoCur.xrateTop
-			this.UpdateRectBox()
 			this.Refresh()
 		} elsif (this.grabTgt == `top) {
 			g.imgInfoCur.yrateTop = (pt.y - this.rcImg.y) / this.rcImg.height
@@ -494,7 +490,6 @@ Extractor = class(wx.Panel) {
 			} elsif (g.imgInfoCur.yrateTop > g.imgInfoCur.yrateBtm - .1) {
 				g.imgInfoCur.yrateTop = g.imgInfoCur.yrateBtm - .1
 			}
-			this.UpdateRectBox()
 			this.Refresh()
 		} elsif (this.grabTgt == `bottom) {
 			g.imgInfoCur.yrateBtm = (pt.y - this.rcImg.y) / this.rcImg.height
@@ -503,7 +498,6 @@ Extractor = class(wx.Panel) {
 			} elsif (g.imgInfoCur.yrateBtm < g.imgInfoCur.yrateTop + .1) {
 				g.imgInfoCur.yrateBtm = g.imgInfoCur.yrateTop + .1
 			}
-			this.UpdateRectBox()
 			this.Refresh()
 		}
 	}
