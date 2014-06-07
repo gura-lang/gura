@@ -226,7 +226,7 @@ ComposeProduct(cr:cairo.context, layout:Layout) = {
 	[wdMgn, htMgn] = [2, 2]
 	[wdGuide, htGuide] = [2, 2]
 	htMessage = 5
-	htBottom = layout.htImg - layout.htTop - layout.htFace
+	htBtm = layout.htImg - layout.htTop - layout.htFace
 	ratioBase = g.imgInfoCur.yrateBtm - g.imgInfoCur.yrateTop
 	scope {
 		cr.select_font_face(fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
@@ -242,8 +242,8 @@ ComposeProduct(cr:cairo.context, layout:Layout) = {
 	}
 	imgExtract = scope {
 		yTop = g.imgOrg.height * (g.imgInfoCur.yrateTop - ratioBase * layout.htTop / layout.htFace)
-		yBottom = g.imgOrg.height * (g.imgInfoCur.yrateBtm + ratioBase * htBottom / layout.htFace)
-		height = yBottom - yTop
+		yBtm = g.imgOrg.height * (g.imgInfoCur.yrateBtm + ratioBase * htBtm / layout.htFace)
+		height = yBtm - yTop
 		width = height * layout.wdImg / layout.htImg
 		xLeft = g.imgOrg.width * g.imgInfoCur.xrateTop - width / 2
 		[wdDotMgn, htDotMgn] = g.imgOrg.height * ratioBase * [wdMgn, htMgn] / layout.htFace
@@ -394,14 +394,15 @@ Extractor = class(wx.Panel) {
 	// methods
 	SenseBox(pt:wx.Point) = {
 		[wdSense, htSense] = [6, 6]
-		xCenter = this.rcImg.x + this.rcImg.width * g.imgInfoCur.xrateTop
-		xLeft = xCenter - EdgeSize / 2
-		xRight = xCenter + EdgeSize / 2
+		
+		xTop = this.rcImg.x + this.rcImg.width * g.imgInfoCur.xrateTop
+		xBtm = this.rcImg.x + this.rcImg.width * g.imgInfoCur.xrateBtm
 		yTop = this.rcImg.y + this.rcImg.height * g.imgInfoCur.yrateTop
-		yBottom = this.rcImg.y + this.rcImg.height * g.imgInfoCur.yrateBtm
-		wx.Rect(xLeft, yTop - htSense / 2, xRight - xLeft, htSense).Contains(pt) && return(`top)
-		wx.Rect(xLeft, yBottom - htSense / 2, xRight - xLeft, htSense).Contains(pt) && return(`bottom)
-		wx.Rect(xCenter - wdSense / 2, yTop, wdSense, yBottom - yTop).Contains(pt) && return(`center)
+		yBtm = this.rcImg.y + this.rcImg.height * g.imgInfoCur.yrateBtm
+		
+		wx.Rect(xTop - EdgeSize / 2, yTop - htSense / 2, EdgeSize, htSense).Contains(pt) && return(`top)
+		wx.Rect(xTop, yBtm - htSense / 2, EdgeSize, htSense).Contains(pt) && return(`bottom)
+		wx.Rect(xTop - wdSense / 2, yTop, wdSense, yBtm - yTop).Contains(pt) && return(`center)
 		nil
 	}
 	UpdateContent(blankFlag:boolean => false) = {
@@ -437,14 +438,15 @@ Extractor = class(wx.Panel) {
 		
 		dc.SetBrush(wx.TRANSPARENT_BRUSH)
 		dc.SetPen(this.penBox)
-		xCenter = this.rcImg.x + this.rcImg.width * g.imgInfoCur.xrateTop
-		xLeft = xCenter - EdgeSize / 2
-		xRight = xCenter + EdgeSize / 2
+		
+		xTop = this.rcImg.x + this.rcImg.width * g.imgInfoCur.xrateTop
+		xBtm = this.rcImg.x + this.rcImg.width * g.imgInfoCur.xrateBtm
 		yTop = this.rcImg.y + this.rcImg.height * g.imgInfoCur.yrateTop
-		yBottom = this.rcImg.y + this.rcImg.height * g.imgInfoCur.yrateBtm
-		dc.DrawLine(xCenter, yTop, xCenter, yBottom)
-		dc.DrawLine(xLeft, yTop, xRight, yTop)
-		dc.DrawLine(xLeft, yBottom, xRight, yBottom)
+		yBtm = this.rcImg.y + this.rcImg.height * g.imgInfoCur.yrateBtm
+		
+		dc.DrawLine(xTop, yTop, xTop, yBtm)
+		dc.DrawLine(xTop - EdgeSize / 2, yTop, xTop + EdgeSize / 2, yTop)
+		dc.DrawLine(xBtm - EdgeSize / 2, yBtm, xBtm + EdgeSize / 2, yBtm)
 		
 		dc = nil
 	}
