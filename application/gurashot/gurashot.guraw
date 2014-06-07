@@ -32,24 +32,27 @@ ImageInfo = class {
 		rotate,		rotate_init
 		xrateTop,	xrateTop_init
 		xrateBtm,	xrateBtm_init
-		top,		top_init
-		bottom,		bottom_init
+		yrateTop,	yrateTop_init
+		yrateBtm,	yrateBtm_init
+		slantFlag,	slantFlag_init
 	}
 	title_init		= ''
 	fileName_init	= ''
 	rotate_init		= 0
 	xrateTop_init	= .5
 	xrateBtm_init	= .5
-	top_init		= .1
-	bottom_init		= .6
+	yrateTop_init	= .1
+	yrateBtm_init	= .6
+	slantFlag_init	= false
 	__init__() = {
 		this.title		= title_init
 		this.fileName	= fileName_init
 		this.rotate		= rotate_init
 		this.xrateTop	= xrateTop_init
 		this.xrateBtm	= xrateBtm_init
-		this.top		= top_init
-		this.bottom		= bottom_init
+		this.yrateTop	= yrateTop_init
+		this.yrateBtm	= yrateBtm_init
+		this.slantFlag	= slantFlag_init
 	}
 }
 
@@ -75,8 +78,9 @@ SaveConfig() = {
 			'rotate'	=> imgInfo.rotate
 			'xrateTop'	=> imgInfo.xrateTop
 			'xrateBtm'	=> imgInfo.xrateBtm
-			'top'		=> imgInfo.top
-			'bottom'	=> imgInfo.bottom
+			'yrateTop'	=> imgInfo.yrateTop
+			'yrateBtm'	=> imgInfo.yrateBtm
+			'slantFlag'	=> imgInfo.slantFlag
 		}
 	}
 	yaml.write(g.fileNameCfg, g.cfg)
@@ -143,8 +147,9 @@ g = module {
 			imgInfo.rotate		= dict['rotate'].tonumber()
 			imgInfo.xrateTop	= dict['xrateTop'].tonumber()
 			imgInfo.xrateBtm	= dict['xrateBtm'].tonumber()
-			imgInfo.top			= dict['top'].tonumber()
-			imgInfo.bottom		= dict['bottom'].tonumber()
+			imgInfo.yrateTop	= dict['yrateTop'].tonumber()
+			imgInfo.yrateBtm	= dict['yrateBtm'].tonumber()
+			imgInfo.slantFlag	= dict['slantFlag']
 			imgInfos.add(imgInfo)
 		} catch {}
 	}
@@ -222,7 +227,7 @@ ComposeProduct(cr:cairo.context, layout:Layout) = {
 	[wdGuide, htGuide] = [2, 2]
 	htMessage = 5
 	htBottom = layout.htImg - layout.htTop - layout.htFace
-	ratioBase = g.imgInfoCur.bottom - g.imgInfoCur.top
+	ratioBase = g.imgInfoCur.yrateBtm - g.imgInfoCur.yrateTop
 	scope {
 		cr.select_font_face(fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
 		cr.set_source_rgb(.2, .2, 1)
@@ -236,8 +241,8 @@ ComposeProduct(cr:cairo.context, layout:Layout) = {
 		cr.show_text(text)
 	}
 	imgExtract = scope {
-		yTop = g.imgOrg.height * (g.imgInfoCur.top - ratioBase * layout.htTop / layout.htFace)
-		yBottom = g.imgOrg.height * (g.imgInfoCur.bottom + ratioBase * htBottom / layout.htFace)
+		yTop = g.imgOrg.height * (g.imgInfoCur.yrateTop - ratioBase * layout.htTop / layout.htFace)
+		yBottom = g.imgOrg.height * (g.imgInfoCur.yrateBtm + ratioBase * htBottom / layout.htFace)
 		height = yBottom - yTop
 		width = height * layout.wdImg / layout.htImg
 		xLeft = g.imgOrg.width * g.imgInfoCur.xrateTop - width / 2
@@ -423,8 +428,8 @@ Extractor = class(wx.Panel) {
 	UpdateRectBox() = {
 		xLeft = this.rcImg.x + this.rcImg.width * g.imgInfoCur.xrateTop - EdgeSize / 2
 		xRight = this.rcImg.x + this.rcImg.width * g.imgInfoCur.xrateTop + EdgeSize / 2
-		yTop = this.rcImg.y + this.rcImg.height * g.imgInfoCur.top
-		yBottom = this.rcImg.y + this.rcImg.height * g.imgInfoCur.bottom
+		yTop = this.rcImg.y + this.rcImg.height * g.imgInfoCur.yrateTop
+		yBottom = this.rcImg.y + this.rcImg.height * g.imgInfoCur.yrateBtm
 		this.rcBox = wx.Rect(xLeft, yTop, xRight - xLeft, yBottom - yTop)
 	}
 	// event handler
@@ -483,20 +488,20 @@ Extractor = class(wx.Panel) {
 			this.UpdateRectBox()
 			this.Refresh()
 		} elsif (this.grabTgt == `top) {
-			g.imgInfoCur.top = (pt.y - this.rcImg.y) / this.rcImg.height
-			if (g.imgInfoCur.top < 0) {
-				g.imgInfoCur.top = 0
-			} elsif (g.imgInfoCur.top > g.imgInfoCur.bottom - .1) {
-				g.imgInfoCur.top = g.imgInfoCur.bottom - .1
+			g.imgInfoCur.yrateTop = (pt.y - this.rcImg.y) / this.rcImg.height
+			if (g.imgInfoCur.yrateTop < 0) {
+				g.imgInfoCur.yrateTop = 0
+			} elsif (g.imgInfoCur.yrateTop > g.imgInfoCur.yrateBtm - .1) {
+				g.imgInfoCur.yrateTop = g.imgInfoCur.yrateBtm - .1
 			}
 			this.UpdateRectBox()
 			this.Refresh()
 		} elsif (this.grabTgt == `bottom) {
-			g.imgInfoCur.bottom = (pt.y - this.rcImg.y) / this.rcImg.height
-			if (g.imgInfoCur.bottom > 1) {
-				g.imgInfoCur.bottom = 1
-			} elsif (g.imgInfoCur.bottom < g.imgInfoCur.top + .1) {
-				g.imgInfoCur.bottom = g.imgInfoCur.top + .1
+			g.imgInfoCur.yrateBtm = (pt.y - this.rcImg.y) / this.rcImg.height
+			if (g.imgInfoCur.yrateBtm > 1) {
+				g.imgInfoCur.yrateBtm = 1
+			} elsif (g.imgInfoCur.yrateBtm < g.imgInfoCur.yrateTop + .1) {
+				g.imgInfoCur.yrateBtm = g.imgInfoCur.yrateTop + .1
 			}
 			this.UpdateRectBox()
 			this.Refresh()
