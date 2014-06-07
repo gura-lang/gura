@@ -30,21 +30,24 @@ ImageInfo = class {
 		title,		title_init
 		fileName,	fileName_init
 		rotate,		rotate_init
-		center,		center_init
+		xrateTop,	xrateTop_init
+		xrateBtm,	xrateBtm_init
 		top,		top_init
 		bottom,		bottom_init
 	}
 	title_init		= ''
 	fileName_init	= ''
 	rotate_init		= 0
-	center_init		= .5
+	xrateTop_init	= .5
+	xrateBtm_init	= .5
 	top_init		= .1
 	bottom_init		= .6
 	__init__() = {
 		this.title		= title_init
 		this.fileName	= fileName_init
 		this.rotate		= rotate_init
-		this.center		= center_init
+		this.xrateTop	= xrateTop_init
+		this.xrateBtm	= xrateBtm_init
 		this.top		= top_init
 		this.bottom		= bottom_init
 	}
@@ -70,7 +73,8 @@ SaveConfig() = {
 			'title'		=> imgInfo.title
 			'fileName'	=> imgInfo.fileName
 			'rotate'	=> imgInfo.rotate
-			'center'	=> imgInfo.center
+			'xrateTop'	=> imgInfo.xrateTop
+			'xrateBtm'	=> imgInfo.xrateBtm
 			'top'		=> imgInfo.top
 			'bottom'	=> imgInfo.bottom
 		}
@@ -84,7 +88,7 @@ SaveConfig() = {
 g = module {
 	fileNameTmpPDF:public = path.join(sys.localdir, 'gurashot.pdf')
 	fileNameCfg:public = path.join(sys.localdir, 'gurashot.yml')
-	//fileNameCfg:public = 'gurashot.yml'
+	fileNameCfg:public = 'gurashot.yml'
 	fileNameIcon:public = 'gurashot.ico'
 	imgBlank:public = image(`rgba, 800, 800, color(240, 240, 255))
 	imgBlank.cairo {|cr|
@@ -137,7 +141,8 @@ g = module {
 			imgInfo.title		= dict['title']
 			imgInfo.fileName	= dict['fileName']
 			imgInfo.rotate		= dict['rotate'].tonumber()
-			imgInfo.center		= dict['center'].tonumber()
+			imgInfo.xrateTop	= dict['xrateTop'].tonumber()
+			imgInfo.xrateBtm	= dict['xrateBtm'].tonumber()
 			imgInfo.top			= dict['top'].tonumber()
 			imgInfo.bottom		= dict['bottom'].tonumber()
 			imgInfos.add(imgInfo)
@@ -235,7 +240,7 @@ ComposeProduct(cr:cairo.context, layout:Layout) = {
 		yBottom = g.imgOrg.height * (g.imgInfoCur.bottom + ratioBase * htBottom / layout.htFace)
 		height = yBottom - yTop
 		width = height * layout.wdImg / layout.htImg
-		xLeft = g.imgOrg.width * g.imgInfoCur.center - width / 2
+		xLeft = g.imgOrg.width * g.imgInfoCur.xrateTop - width / 2
 		[wdDotMgn, htDotMgn] = g.imgOrg.height * ratioBase * [wdMgn, htMgn] / layout.htFace
 		[xCrop, yCrop] = [xLeft - wdDotMgn, yTop - htDotMgn]
 		[wdCrop, htCrop] = [width + wdDotMgn * 2, height + htDotMgn * 2]
@@ -416,8 +421,8 @@ Extractor = class(wx.Panel) {
 		this.UpdateRectBox()
 	}
 	UpdateRectBox() = {
-		xLeft = this.rcImg.x + this.rcImg.width * g.imgInfoCur.center - EdgeSize / 2
-		xRight = this.rcImg.x + this.rcImg.width * g.imgInfoCur.center + EdgeSize / 2
+		xLeft = this.rcImg.x + this.rcImg.width * g.imgInfoCur.xrateTop - EdgeSize / 2
+		xRight = this.rcImg.x + this.rcImg.width * g.imgInfoCur.xrateTop + EdgeSize / 2
 		yTop = this.rcImg.y + this.rcImg.height * g.imgInfoCur.top
 		yBottom = this.rcImg.y + this.rcImg.height * g.imgInfoCur.bottom
 		this.rcBox = wx.Rect(xLeft, yTop, xRight - xLeft, yBottom - yTop)
@@ -468,12 +473,13 @@ Extractor = class(wx.Panel) {
 		}
 		pt = event.GetPosition()
 		if (this.grabTgt == `center) {
-			g.imgInfoCur.center = (pt.x - this.rcImg.x) / this.rcImg.width
-			if (g.imgInfoCur.center > 1) {
-				g.imgInfoCur.center = 1
-			} elsif (g.imgInfoCur.center < 0) {
-				g.imgInfoCur.center = 0
+			g.imgInfoCur.xrateTop = (pt.x - this.rcImg.x) / this.rcImg.width
+			if (g.imgInfoCur.xrateTop > 1) {
+				g.imgInfoCur.xrateTop = 1
+			} elsif (g.imgInfoCur.xrateTop < 0) {
+				g.imgInfoCur.xrateTop = 0
 			}
+			g.imgInfoCur.xrateBtm = g.imgInfoCur.xrateTop
 			this.UpdateRectBox()
 			this.Refresh()
 		} elsif (this.grabTgt == `top) {
@@ -736,7 +742,9 @@ Frame = class(wx.Frame) {
 		}
 	}
 	OnMenu_About(event:wx.CommandEvent) = {
-		
+		dlg = AboutDialog(this)
+		dlg.CentreOnParent()
+		dlg.ShowModal()
 	}
 }
 
@@ -827,6 +835,50 @@ ImageListDialog = class(wx.Dialog) {
 			//	idx = this.listCtrl.GetItemCount() - 1
 			//}
 			this.listCtrl.Select(idx)
+		}
+	}
+}
+
+//-----------------------------------------------------------------------------
+// AboutDialog
+//-----------------------------------------------------------------------------
+AboutDialog = class(wx.Dialog) {
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, 'About', size => wx.Size(320, 180)|
+		icon = wx.Icon(g.fileNameIcon, wx.BITMAP_TYPE_ICO)
+		this.SetIcon(icon)
+		outerBox = wx.BoxSizer(wx.VERTICAL)
+		this.SetSizer(outerBox)
+		vbox = wx.BoxSizer(wx.VERTICAL)
+		outerBox.Add(vbox, wx.SizerFlags(1).Expand().Border(wx.ALL, 2))
+		vbox.AddStretchSpacer(1)
+		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
+			vbox.Add(hbox, wx.SizerFlags().Centre())
+			wx.StaticBitmap(this, wx.ID_ANY, wx.NullBitmap) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags())
+				ctrl.SetIcon(icon)
+			}
+			wx.StaticText(this, wx.ID_ANY, 'Gura Shot') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Centre().Border(wx.LEFT, 12))
+				font = ctrl.GetFont()
+				font.SetPointSize(12)
+				font.SetWeight(wx.FONTWEIGHT_BOLD)
+				ctrl.SetFont(font)
+			}
+		}
+		wx.StaticText(this, wx.ID_ANY, 'Version 0.0.0') {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags().Centre().Border(wx.TOP, 8))
+		}
+		vbox.AddStretchSpacer(1)
+		wx.StaticText(this, wx.ID_ANY, 'Copyright (C) 2014 ypsitau') {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags().Centre())
+		}
+		vbox.AddStretchSpacer(1)
+		wx.StaticLine(this, wx.ID_ANY) {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags().Expand())
+		}
+		//vbox.AddStretchSpacer(1)
+		wx.Button(this, wx.ID_OK, 'OK') {|ctrl|
+			vbox.Add(ctrl, wx.SizerFlags().Centre().Border(wx.TOP | wx.BOTTOM, 4))
 		}
 	}
 }
