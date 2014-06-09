@@ -95,6 +95,7 @@ SaveConfig() = {
 			'slantFlag'	=> imgInfo.slantFlag
 		}
 	}
+	g.cfg['idxImgInfoCur'] = g.imgInfos.find(g.imgInfoCur):index || -1
 	yaml.write(g.fileNameCfg, g.cfg)
 }
 
@@ -166,10 +167,15 @@ g = module {
 			imgInfos.add(imgInfo)
 		} catch {}
 	}
-	imgInfoCur:public = if (imgInfos.isempty()) {
-		ImageInfo()
+	imgInfoCur:public = nil
+	if (imgInfos.isempty()) {
+		imgInfoCur = ImageInfo()
 	} else {
-		imgInfos.last()
+		try {
+			imgInfoCur = imgInfos[cfg['idxImgInfoCur'].tonumber()]
+		} catch {|e|
+			imgInfoCur = imgInfos.last()
+		}
 	}
 	imgRaw:public = imgBlank
 	if (!imgInfoCur.fileName.isempty()) {
@@ -200,7 +206,6 @@ ReadImageFile(parent:wx.Window, fileName:string) = {
 	idx = g.imgInfos:*fileName.find(fileName):index
 	if (idx) {
 		g.imgInfoCur = g.imgInfos[idx]
-		//g.imgInfos.erase(idx)
 	} else {
 		g.imgInfoCur = ImageInfo()
 		g.imgInfoCur.title = path.basename(path.filename(fileName))
