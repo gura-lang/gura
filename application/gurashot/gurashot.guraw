@@ -282,8 +282,11 @@ ComposeProduct(cr:cairo.context, imgPhoto:image, layout:Layout) = {
 		imgPhoto.crop(0, imgPhoto.height - htDummy, imgPhoto.width, htDummy).flip(`vert))
 	xrateDiff = g.imgInfoCur.xrateBtm - g.imgInfoCur.xrateTop
 	yrateDiff = g.imgInfoCur.yrateBtm - g.imgInfoCur.yrateTop
+	xMarkTop = imgPhoto.width * (g.imgInfoCur.xrateTop - xrateDiff * layout.htTop / layout.htFace)
 	yMarkTop = imgPhoto.height * (g.imgInfoCur.yrateTop - yrateDiff * layout.htTop / layout.htFace)
+	xMarkBtm = imgPhoto.width * (g.imgInfoCur.xrateBtm + xrateDiff * htBtm / layout.htFace)
 	yMarkBtm = imgPhoto.height * (g.imgInfoCur.yrateBtm + yrateDiff * htBtm / layout.htFace)
+	htFrame = math.sqrt((xMarkBtm - xMarkTop) ** 2 + (yMarkBtm - yMarkTop) ** 2)
 	
 	//if (g.imgInfoCur.slantFlag) {
 	if (false) {
@@ -291,7 +294,6 @@ ComposeProduct(cr:cairo.context, imgPhoto:image, layout:Layout) = {
 		imgSrc = imgSrc.rotate(angleAdj, `gray)
 		
 	} else {
-		htFrame = yMarkBtm - yMarkTop
 		wdFrame = htFrame * layout.wdImg / layout.htImg
 		xFrameLeft = imgPhoto.width * g.imgInfoCur.xrateTop - wdFrame / 2
 		[wdDotMgn, htDotMgn] = imgPhoto.height * yrateDiff * [wdMgn, htMgn] / layout.htFace
