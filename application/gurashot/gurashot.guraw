@@ -177,17 +177,28 @@ g = module {
 			imgInfoCur = imgInfos.last()
 		}
 	}
-	imgRaw:public = imgBlank
+	imgPhotoRaw:public = imgBlank
 	if (!imgInfoCur.fileName.isempty()) {
 		try {
-			imgRaw = image(imgInfoCur.fileName)
+			imgPhotoRaw = image(imgInfoCur.fileName)
 		} catch {
 			imgInfoCur.fileName = ''
 		}
 	}
-	imgPhoto:public = imgRaw.rotate(imgInfoCur.rotate)
+	imgPhotoHighRes:public = nil
+	imgPhotoLowRes:public = nil
 	frame:public = nil
 }
+
+//-----------------------------------------------------------------------------
+// UpdateImagePhoto
+//-----------------------------------------------------------------------------
+UpdateImagePhoto() = {
+	g.imgPhotoHighRes = g.imgPhotoRaw.rotate(g.imgInfoCur.rotate)
+	g.imgPhotoLowRes = g.imgPhotoHighRes.thumbnail(1000):box
+}
+
+UpdateImagePhoto()
 
 //-----------------------------------------------------------------------------
 // ReadImageFile
@@ -212,8 +223,8 @@ ReadImageFile(parent:wx.Window, fileName:string) = {
 		g.imgInfoCur.fileName = fileName
 		g.imgInfos.add(g.imgInfoCur)
 	}
-	g.imgRaw = img
-	g.imgPhoto = g.imgRaw.rotate(g.imgInfoCur.rotate)
+	g.imgPhotoRaw = img
+	UpdateImagePhoto()
 }
 
 //-----------------------------------------------------------------------------
@@ -221,12 +232,12 @@ ReadImageFile(parent:wx.Window, fileName:string) = {
 //-----------------------------------------------------------------------------
 RotateImageL() = {
 	g.imgInfoCur.rotate = (g.imgInfoCur.rotate + 270) % 360
-	g.imgPhoto = g.imgRaw.rotate(g.imgInfoCur.rotate)
+	UpdateImagePhoto()
 }
 
 RotateImageR() = {
 	g.imgInfoCur.rotate = (g.imgInfoCur.rotate + 90) % 360
-	g.imgPhoto = g.imgRaw.rotate(g.imgInfoCur.rotate)
+	UpdateImagePhoto()
 }
 
 //-----------------------------------------------------------------------------
@@ -355,7 +366,7 @@ ProductViewer = class(wx.Panel) {
 			img.cairo {|cr|
 				scale = wdImg / g.layoutCur.wdPaper
 				cr.scale(scale, scale)
-				ComposeProduct(cr, g.imgPhoto, g.layoutCur)
+				ComposeProduct(cr, g.imgPhotoLowRes, g.layoutCur)
 			}
 		}
 		if (wdClient < img.width) {
@@ -442,7 +453,7 @@ Extractor = class(wx.Panel) {
 	UpdateImageScreen() = {
 		[wdClient, htClient] = this.GetClientSizeWH()
 		this.imgScreen = image(`rgb, wdClient, htClient + 1, `gray)
-		img = g.imgPhoto.thumbnail(wdClient, htClient)
+		img = g.imgPhotoLowRes.thumbnail(wdClient, htClient)
 		[x, y] = [(wdClient - img.width) / 2, (htClient - img.height) / 2]
 		this.imgScreen.paste(x, y, img)
 		this.rcImg = wx.Rect(x, y, img.width, img.height)
@@ -762,11 +773,11 @@ Frame = class(wx.Frame) {
 								'', '', filter, wx.FD_SAVE)
 		if (dlg.ShowModal() == wx.ID_OK) {
 			fileNamePDF = dlg.GetPath()
-			ComposeProductPDF(fileNamePDF, g.imgPhoto, g.layoutCur)
+			ComposeProductPDF(fileNamePDF, g.imgPhotoHighRes, g.layoutCur)
 		}
 	}
 	OnMenu_ViewPDF(event:wx.CommandEvent) = {
-		ComposeProductPDF(g.fileNameTmpPDF, g.imgPhoto, g.layoutCur)
+		ComposeProductPDF(g.fileNameTmpPDF, g.imgPhotoHighRes, g.layoutCur)
 		try {
 			OpenWithApp(g.fileNameTmpPDF)
 		} catch {
