@@ -502,6 +502,17 @@ Extractor = class(wx.Panel) {
 			dc.SetPen(this.penCursor)
 			dc.SetBrush(this.brushCursor)
 			dc.DrawLine(c.xTop, c.yTop, c.xBtm, c.yBtm)
+			angle = math.atan2(c.yBtm - c.yTop, c.xBtm - c.xTop)
+			[xOffset1, yOffset1] = [
+				math.cos(angle - math.pi / 2) * EdgeSize / 2
+				math.sin(angle - math.pi / 2) * EdgeSize / 2
+			]
+			[xOffset2, yOffset2] = [
+				math.cos(angle + math.pi / 2) * EdgeSize / 2
+				math.sin(angle + math.pi / 2) * EdgeSize / 2
+			]
+			dc.DrawLine(c.xTop + xOffset1, c.yTop + yOffset1, c.xTop + xOffset2, c.yTop + yOffset2)
+			dc.DrawLine(c.xBtm + xOffset1, c.yBtm + yOffset1, c.xBtm + xOffset2, c.yBtm + yOffset2)
 			dc.DrawCircle(c.xTop, c.yTop, 3)
 			dc.DrawCircle(c.xBtm, c.yBtm, 3)
 		} else {
