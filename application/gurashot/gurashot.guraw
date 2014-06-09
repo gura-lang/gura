@@ -32,32 +32,32 @@ CursorCoord = struct(xTop:number, xBtm:number, yTop:number, yBtm:number)
 //-----------------------------------------------------------------------------
 ImageInfo = class {
 	public {
-		title,		title_init
-		fileName,	fileName_init
-		rotate,		rotate_init
-		xrateTop,	xrateTop_init
-		xrateBtm,	xrateBtm_init
-		yrateTop,	yrateTop_init
-		yrateBtm,	yrateBtm_init
-		slantFlag,	slantFlag_init
+		title,			title_init
+		fileName,		fileName_init
+		rotate,			rotate_init
+		xrateTop,		xrateTop_init
+		xrateBtm,		xrateBtm_init
+		yrateTop,		yrateTop_init
+		yrateBtm,		yrateBtm_init
+		tiltAdjFlag,	tiltAdjFlag_init
 	}
-	title_init		= ''
-	fileName_init	= ''
-	rotate_init		= 0
-	xrateTop_init	= .5
-	xrateBtm_init	= .5
-	yrateTop_init	= .1
-	yrateBtm_init	= .6
-	slantFlag_init	= false
+	title_init			= ''
+	fileName_init		= ''
+	rotate_init			= 0
+	xrateTop_init		= .5
+	xrateBtm_init		= .5
+	yrateTop_init		= .1
+	yrateBtm_init		= .6
+	tiltAdjFlag_init	= false
 	__init__() = {
-		this.title		= title_init
-		this.fileName	= fileName_init
-		this.rotate		= rotate_init
-		this.xrateTop	= xrateTop_init
-		this.xrateBtm	= xrateBtm_init
-		this.yrateTop	= yrateTop_init
-		this.yrateBtm	= yrateBtm_init
-		this.slantFlag	= slantFlag_init
+		this.title			= title_init
+		this.fileName		= fileName_init
+		this.rotate			= rotate_init
+		this.xrateTop		= xrateTop_init
+		this.xrateBtm		= xrateBtm_init
+		this.yrateTop		= yrateTop_init
+		this.yrateBtm		= yrateBtm_init
+		this.tiltAdjFlag	= tiltAdjFlag_init
 	}
 	GetCursorCoord(rcImg:wx.Rect) = {
 		CursorCoord(
@@ -102,7 +102,7 @@ g = module {
 	imgPrev:public		= I(resource.resultset_previous_png)
 	imgRotateL:public	= I(resource.arrow_rotate_anticlockwise_png)
 	imgRotateR:public	= I(resource.arrow_rotate_clockwise_png)
-	imgSlant:public		= I(resource.slant_png)
+	imgTiltAdj:public	= I(resource.tilt_adj_png)
 	layoutTbl:public = @(Layout) {
 		{ 30, 24, 2, 23, "Driver's license",				 89 - 10, 127 - 10 }
 		{ 30, 25, 2, 23, '',								 89 - 10, 127 - 10 }
@@ -152,7 +152,7 @@ LoadConfig() = {
 			imgInfo.xrateBtm	= dict['xrateBtm'].tonumber()
 			imgInfo.yrateTop	= dict['yrateTop'].tonumber()
 			imgInfo.yrateBtm	= dict['yrateBtm'].tonumber()
-			imgInfo.slantFlag	= (dict['slantFlag'] == 'true')
+			imgInfo.tiltAdjFlag	= (dict['tiltAdjFlag'] == 'true')
 			g.imgInfos.add(imgInfo)
 		} catch {}
 	}
@@ -180,14 +180,14 @@ LoadConfig()
 SaveConfig() = {
 	g.cfg['imgInfos'] = g.imgInfos.each():list {|imgInfo|
 		%{
-			'title'		=> imgInfo.title
-			'fileName'	=> imgInfo.fileName
-			'rotate'	=> imgInfo.rotate
-			'xrateTop'	=> imgInfo.xrateTop
-			'xrateBtm'	=> imgInfo.xrateBtm
-			'yrateTop'	=> imgInfo.yrateTop
-			'yrateBtm'	=> imgInfo.yrateBtm
-			'slantFlag'	=> imgInfo.slantFlag
+			'title'			=> imgInfo.title
+			'fileName'		=> imgInfo.fileName
+			'rotate'		=> imgInfo.rotate
+			'xrateTop'		=> imgInfo.xrateTop
+			'xrateBtm'		=> imgInfo.xrateBtm
+			'yrateTop'		=> imgInfo.yrateTop
+			'yrateBtm'		=> imgInfo.yrateBtm
+			'tiltAdjFlag'	=> imgInfo.tiltAdjFlag
 		}
 	}
 	g.cfg['idxImgInfoCur'] = g.imgInfos.find(g.imgInfoCur):index || -1
@@ -304,7 +304,7 @@ ComposeProduct(cr:cairo.context, imgPhoto:image, layout:Layout) = {
 	htFrame = math.sqrt((xMarkBtm - xMarkTop) ** 2 + (yMarkBtm - yMarkTop) ** 2)
 	wdFrame = htFrame * layout.wdImg / layout.htImg
 	[wdDotMgn, htDotMgn] = htFrame * [wdMgn, htMgn] / layout.htImg
-	if (g.imgInfoCur.slantFlag) {
+	if (g.imgInfoCur.tiltAdjFlag) {
 		angleAdj = math.atan2(xMarkBtm - xMarkTop, yMarkBtm - yMarkTop):deg
 		[xCenter, yCenter] = [imgSrc.width / 2, imgSrc.height / 2]
 		imgSrc = imgSrc.rotate(angleAdj, `gray)
@@ -455,7 +455,7 @@ Extractor = class(wx.Panel) {
 	// methods
 	SenseBox(pt:wx.Point) = {
 		c = g.imgInfoCur.GetCursorCoord(this.rcImg)
-		if (g.imgInfoCur.slantFlag) {
+		if (g.imgInfoCur.tiltAdjFlag) {
 			[wdSense, htSense] = [6, 6]
 			wx.Rect(c.xTop - wdSense / 2, c.yTop - htSense / 2, wdSense, htSense).Contains(pt) && return (`topPoint)
 			wx.Rect(c.xBtm - wdSense / 2, c.yBtm - htSense / 2, wdSense, htSense).Contains(pt) && return (`btmPoint)
@@ -498,7 +498,7 @@ Extractor = class(wx.Panel) {
 		!this.imgScreen && this.UpdateImageScreen()
 		dc.DrawBitmap(this.imgScreen, 0, 0, false)
 		c = g.imgInfoCur.GetCursorCoord(this.rcImg)
-		if (g.imgInfoCur.slantFlag) {
+		if (g.imgInfoCur.tiltAdjFlag) {
 			dc.SetPen(this.penCursor)
 			dc.SetBrush(this.brushCursor)
 			dc.DrawLine(c.xTop, c.yTop, c.xBtm, c.yBtm)
@@ -621,7 +621,7 @@ Frame = class(wx.Frame) {
 	[
 		ID_Open, ID_ShowList, ID_Prev, ID_Next,
 		ID_OutputPDF, ID_ViewPDF,
-		ID_RotateL, ID_RotateR, ID_Slant,
+		ID_RotateL, ID_RotateR, ID_TiltAdj,
 	] = wx.ID_HIGHEST..
 	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
 			size:wx.Size => wx.Size(g.cfg['wdFrame', 'htFrame']*)) = {|nil, wx.ID_ANY, title, pos, size|
@@ -641,9 +641,9 @@ Frame = class(wx.Frame) {
 		}
 		wx.Menu {|m|
 			menuBar.Append(m, '&Edit')
-			m.AppendEx(ID_RotateL,	'Rotate &Left\tCtrl-L',		g.imgRotateL)
-			m.AppendEx(ID_RotateR,	'Rotate &Right\tCtrl-R',	g.imgRotateR)
-			m.AppendCheckItem(ID_Slant,	'Slan&t\tCtrl-T')
+			m.AppendEx(ID_RotateL,			'Rotate &Left\tCtrl-L',		g.imgRotateL)
+			m.AppendEx(ID_RotateR,			'Rotate &Right\tCtrl-R',	g.imgRotateR)
+			m.AppendCheckItem(ID_TiltAdj,	'Tilt AdjustSlan&t\tCtrl-T')
 		}
 		wx.Menu {|m|
 			menuBar.Append(m, '&Help')
@@ -659,7 +659,7 @@ Frame = class(wx.Frame) {
 			tb.AddSeparator()
 			tb.AddTool(ID_RotateL,	'Rotate Left',	g.imgRotateL,	wx.NullBitmap, wx.ITEM_NORMAL,	'Rotate Left')
 			tb.AddTool(ID_RotateR,	'Rotate Right',	g.imgRotateR,	wx.NullBitmap, wx.ITEM_NORMAL,	'Rotate Right')
-			tb.AddTool(ID_Slant,	'Slant',		g.imgSlant,		wx.NullBitmap, wx.ITEM_CHECK,	'Slant')
+			tb.AddTool(ID_TiltAdj,	'Tilt Adjust',	g.imgTiltAdj,	wx.NullBitmap, wx.ITEM_CHECK,	'Tilt Adjust')
 			tb.Realize()
 		}
 		panel = wx.Panel(this)
@@ -720,7 +720,7 @@ Frame = class(wx.Frame) {
 		this.Bind(wx.EVT_MENU, ID_ViewPDF)		{|event| this.OnMenu_ViewPDF(event)}
 		this.Bind(wx.EVT_MENU, ID_RotateL)		{|event| this.OnMenu_RotateL(event)}
 		this.Bind(wx.EVT_MENU, ID_RotateR)		{|event| this.OnMenu_RotateR(event)}
-		this.Bind(wx.EVT_MENU, ID_Slant)		{|event| this.OnMenu_Slant(event)}
+		this.Bind(wx.EVT_MENU, ID_TiltAdj)		{|event| this.OnMenu_TiltAdj(event)}
 		this.Bind(wx.EVT_MENU, wx.ID_ABOUT)		{|event| this.OnMenu_About(event)}
 		this.Bind(wx.EVT_UPDATE_UI,	ID_Prev) {|event|
 			idx = g.imgInfos.find(g.imgInfoCur):index
@@ -730,8 +730,8 @@ Frame = class(wx.Frame) {
 			idx = g.imgInfos.find(g.imgInfoCur):index
 			event.Enable(idx && idx < g.imgInfos.len() - 1)
 		}
-		this.Bind(wx.EVT_UPDATE_UI,	ID_Slant) {|event|
-			event.Check(g.imgInfoCur.slantFlag)
+		this.Bind(wx.EVT_UPDATE_UI,	ID_TiltAdj) {|event|
+			event.Check(g.imgInfoCur.tiltAdjFlag)
 		}
 	}
 	OnSize(event:wx.SizeEvent) = {
@@ -828,9 +828,9 @@ Frame = class(wx.Frame) {
 			RotateImageR()
 		}
 	}
-	OnMenu_Slant(event:wx.CommandEvent) = {
-		g.imgInfoCur.slantFlag = event.IsChecked()
-		if (g.imgInfoCur.slantFlag) {
+	OnMenu_TiltAdj(event:wx.CommandEvent) = {
+		g.imgInfoCur.tiltAdjFlag = event.IsChecked()
+		if (g.imgInfoCur.tiltAdjFlag) {
 			this.extractor.Refresh()
 		} else {
 			xrateMid = (g.imgInfoCur.xrateTop + g.imgInfoCur.xrateBtm) / 2
