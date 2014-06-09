@@ -258,6 +258,7 @@ ComposeProduct(cr:cairo.context, layout:Layout) = {
 		}
 		cr.show_text(text)
 	}
+	bgColor = `gray
 	imgExtract = scope {
 		yTop = g.imgOrg.height * (g.imgInfoCur.yrateTop - ratioBase * layout.htTop / layout.htFace)
 		yBtm = g.imgOrg.height * (g.imgInfoCur.yrateBtm + ratioBase * htBtm / layout.htFace)
@@ -268,7 +269,7 @@ ComposeProduct(cr:cairo.context, layout:Layout) = {
 		[xCrop, yCrop] = [xLeft - wdDotMgn, yTop - htDotMgn]
 		[wdCrop, htCrop] = [width + wdDotMgn * 2, height + htDotMgn * 2]
 		[wdDummy, htDummy] = [g.imgOrg.width / 2, g.imgOrg.height / 2]
-		imgSrc = image(`rgba, g.imgOrg.width + wdDummy * 2, g.imgOrg.height + htDummy * 2, `gray)
+		imgSrc = image(`rgba, g.imgOrg.width + wdDummy * 2, g.imgOrg.height + htDummy * 2, bgColor)
 		imgSrc.paste(wdDummy, htDummy, g.imgOrg)
 		imgSrc.paste(wdDummy, 0,
 			g.imgOrg.crop(0, 0, g.imgOrg.width, htDummy).flip(`vert))
@@ -788,11 +789,17 @@ Frame = class(wx.Frame) {
 	}
 	OnMenu_Slant(event:wx.CommandEvent) = {
 		g.imgInfoCur.slantFlag = event.IsChecked()
-		if (!g.imgInfoCur.slantFlag) {
+		if (g.imgInfoCur.slantFlag) {
+			this.extractor.Refresh()
+		} else {
 			xrateMid = (g.imgInfoCur.xrateTop + g.imgInfoCur.xrateBtm) / 2
 			g.imgInfoCur.xrateTop = g.imgInfoCur.xrateBtm = xrateMid
+			this.extractor.Refresh()
+			wx.BusyCursor {
+				this.productViewer.UpdateContent(this)
+				this.productViewer.UpdateContent()
+			}
 		}
-		this.extractor.Refresh()
 	}
 	OnMenu_About(event:wx.CommandEvent) = {
 		dlg = AboutDialog(this)
