@@ -68,37 +68,6 @@ ImageInfo = class {
 	}
 }
 
-LoadConfig(fileNameCfg:string) = {
-	try {
-		cfg = yaml.read(fileNameCfg)
-	} catch {|e|
-		cfg = %{}
-	}
-	cfg.store():default {
-		'wdFrame'	=> 600
-		'htFrame'	=> 730
-		'imgInfos'	=> []
-	}
-	cfg
-}
-
-SaveConfig() = {
-	g.cfg['imgInfos'] = g.imgInfos.each():list {|imgInfo|
-		%{
-			'title'		=> imgInfo.title
-			'fileName'	=> imgInfo.fileName
-			'rotate'	=> imgInfo.rotate
-			'xrateTop'	=> imgInfo.xrateTop
-			'xrateBtm'	=> imgInfo.xrateBtm
-			'yrateTop'	=> imgInfo.yrateTop
-			'yrateBtm'	=> imgInfo.yrateBtm
-			'slantFlag'	=> imgInfo.slantFlag
-		}
-	}
-	g.cfg['idxImgInfoCur'] = g.imgInfos.find(g.imgInfoCur):index || -1
-	yaml.write(g.fileNameCfg, g.cfg)
-}
-
 //-----------------------------------------------------------------------------
 // Global variables
 //-----------------------------------------------------------------------------
@@ -150,10 +119,30 @@ g = module {
 		{ 55, 45, 2, 41, '',								 89 - 10, 127 - 10 }
 		{ 60, 45, 2, 45, '',								 89 - 10, 127 - 10 }
 	}
-	layoutCur:public = layoutTbl[0]
-	cfg:public = LoadConfig(fileNameCfg)
-	imgInfos:public = []
-	cfg['imgInfos'].each {|dict|
+	layoutCur:public		= layoutTbl[0]
+	cfg:public				= %{}
+	imgInfos:public			= []
+	imgInfoCur:public		= nil
+	imgPhotoRaw:public		= imgBlank
+	imgPhotoHighRes:public	= nil
+	imgPhotoLowRes:public	= nil
+	frame:public			= nil
+
+}
+
+//-----------------------------------------------------------------------------
+// LoadConfig / SaveConfig
+//-----------------------------------------------------------------------------
+LoadConfig() = {
+	try {
+		g.cfg = yaml.read(g.fileNameCfg)
+	} catch {}
+	g.cfg.store():default {
+		'wdFrame'	=> 600
+		'htFrame'	=> 730
+		'imgInfos'	=> []
+	}
+	g.cfg['imgInfos'].each {|dict|
 		imgInfo = ImageInfo()
 		try {
 			imgInfo.title		= dict['title']
@@ -164,30 +153,44 @@ g = module {
 			imgInfo.yrateTop	= dict['yrateTop'].tonumber()
 			imgInfo.yrateBtm	= dict['yrateBtm'].tonumber()
 			imgInfo.slantFlag	= (dict['slantFlag'] == 'true')
-			imgInfos.add(imgInfo)
+			g.imgInfos.add(imgInfo)
 		} catch {}
 	}
-	imgInfoCur:public = nil
-	if (imgInfos.isempty()) {
-		imgInfoCur = ImageInfo()
+	if (g.imgInfos.isempty()) {
+		g.imgInfoCur = ImageInfo()
 	} else {
 		try {
-			imgInfoCur = imgInfos[cfg['idxImgInfoCur'].tonumber()]
+			g.imgInfoCur = g.imgInfos[g.cfg['idxImgInfoCur'].tonumber()]
 		} catch {|e|
-			imgInfoCur = imgInfos.last()
+			g.imgInfoCur = g.imgInfos.last()
 		}
 	}
-	imgPhotoRaw:public = imgBlank
-	if (!imgInfoCur.fileName.isempty()) {
+	if (!g.imgInfoCur.fileName.isempty()) {
 		try {
-			imgPhotoRaw = image(imgInfoCur.fileName)
+			g.imgPhotoRaw = image(g.imgInfoCur.fileName)
 		} catch {
-			imgInfoCur.fileName = ''
+			g.imgInfoCur.fileName = ''
 		}
 	}
-	imgPhotoHighRes:public = nil
-	imgPhotoLowRes:public = nil
-	frame:public = nil
+}
+
+LoadConfig()
+
+SaveConfig() = {
+	g.cfg['imgInfos'] = g.imgInfos.each():list {|imgInfo|
+		%{
+			'title'		=> imgInfo.title
+			'fileName'	=> imgInfo.fileName
+			'rotate'	=> imgInfo.rotate
+			'xrateTop'	=> imgInfo.xrateTop
+			'xrateBtm'	=> imgInfo.xrateBtm
+			'yrateTop'	=> imgInfo.yrateTop
+			'yrateBtm'	=> imgInfo.yrateBtm
+			'slantFlag'	=> imgInfo.slantFlag
+		}
+	}
+	g.cfg['idxImgInfoCur'] = g.imgInfos.find(g.imgInfoCur):index || -1
+	yaml.write(g.fileNameCfg, g.cfg)
 }
 
 //-----------------------------------------------------------------------------
