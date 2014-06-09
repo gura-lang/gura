@@ -185,7 +185,7 @@ g = module {
 			imgInfoCur.fileName = ''
 		}
 	}
-	imgOrg:public = imgRaw.rotate(imgInfoCur.rotate)
+	imgPhoto:public = imgRaw.rotate(imgInfoCur.rotate)
 	frame:public = nil
 }
 
@@ -213,7 +213,7 @@ ReadImageFile(parent:wx.Window, fileName:string) = {
 		g.imgInfos.add(g.imgInfoCur)
 	}
 	g.imgRaw = img
-	g.imgOrg = g.imgRaw.rotate(g.imgInfoCur.rotate)
+	g.imgPhoto = g.imgRaw.rotate(g.imgInfoCur.rotate)
 }
 
 //-----------------------------------------------------------------------------
@@ -221,12 +221,12 @@ ReadImageFile(parent:wx.Window, fileName:string) = {
 //-----------------------------------------------------------------------------
 RotateImageL() = {
 	g.imgInfoCur.rotate = (g.imgInfoCur.rotate + 270) % 360
-	g.imgOrg = g.imgRaw.rotate(g.imgInfoCur.rotate)
+	g.imgPhoto = g.imgRaw.rotate(g.imgInfoCur.rotate)
 }
 
 RotateImageR() = {
 	g.imgInfoCur.rotate = (g.imgInfoCur.rotate + 90) % 360
-	g.imgOrg = g.imgRaw.rotate(g.imgInfoCur.rotate)
+	g.imgPhoto = g.imgRaw.rotate(g.imgInfoCur.rotate)
 }
 
 //-----------------------------------------------------------------------------
@@ -239,7 +239,7 @@ OpenWithApp(fileName:string) = {
 //-----------------------------------------------------------------------------
 // ComposeProduct
 //-----------------------------------------------------------------------------
-ComposeProduct(cr:cairo.context, layout:Layout) = {
+ComposeProduct(cr:cairo.context, imgPhoto:image, layout:Layout) = {
 	fontName = 'Sans'
 	[wdMgn, htMgn] = [2, 2]
 	[wdGuide, htGuide] = [2, 2]
@@ -260,21 +260,21 @@ ComposeProduct(cr:cairo.context, layout:Layout) = {
 	}
 	bgColor = `gray
 	imgExtract = scope {
-		yTop = g.imgOrg.height * (g.imgInfoCur.yrateTop - ratioBase * layout.htTop / layout.htFace)
-		yBtm = g.imgOrg.height * (g.imgInfoCur.yrateBtm + ratioBase * htBtm / layout.htFace)
+		yTop = imgPhoto.height * (g.imgInfoCur.yrateTop - ratioBase * layout.htTop / layout.htFace)
+		yBtm = imgPhoto.height * (g.imgInfoCur.yrateBtm + ratioBase * htBtm / layout.htFace)
 		height = yBtm - yTop
 		width = height * layout.wdImg / layout.htImg
-		xLeft = g.imgOrg.width * g.imgInfoCur.xrateTop - width / 2
-		[wdDotMgn, htDotMgn] = g.imgOrg.height * ratioBase * [wdMgn, htMgn] / layout.htFace
+		xLeft = imgPhoto.width * g.imgInfoCur.xrateTop - width / 2
+		[wdDotMgn, htDotMgn] = imgPhoto.height * ratioBase * [wdMgn, htMgn] / layout.htFace
 		[xCrop, yCrop] = [xLeft - wdDotMgn, yTop - htDotMgn]
 		[wdCrop, htCrop] = [width + wdDotMgn * 2, height + htDotMgn * 2]
-		[wdDummy, htDummy] = [g.imgOrg.width / 2, g.imgOrg.height / 2]
-		imgSrc = image(`rgba, g.imgOrg.width + wdDummy * 2, g.imgOrg.height + htDummy * 2, bgColor)
-		imgSrc.paste(wdDummy, htDummy, g.imgOrg)
+		[wdDummy, htDummy] = [imgPhoto.width / 2, imgPhoto.height / 2]
+		imgSrc = image(`rgba, imgPhoto.width + wdDummy * 2, imgPhoto.height + htDummy * 2, bgColor)
+		imgSrc.paste(wdDummy, htDummy, imgPhoto)
 		imgSrc.paste(wdDummy, 0,
-			g.imgOrg.crop(0, 0, g.imgOrg.width, htDummy).flip(`vert))
-		imgSrc.paste(wdDummy, htDummy + g.imgOrg.height,
-			g.imgOrg.crop(0, g.imgOrg.height - htDummy, g.imgOrg.width, htDummy).flip(`vert))
+			imgPhoto.crop(0, 0, imgPhoto.width, htDummy).flip(`vert))
+		imgSrc.paste(wdDummy, htDummy + imgPhoto.height,
+			imgPhoto.crop(0, imgPhoto.height - htDummy, imgPhoto.width, htDummy).flip(`vert))
 		imgSrc.crop(xCrop + wdDummy, yCrop + htDummy, wdCrop, htCrop)
 	}
 	cairo.pattern.create_for_surface(imgExtract) {|pattern|
@@ -319,12 +319,12 @@ ComposeProduct(cr:cairo.context, layout:Layout) = {
 	}
 }
 
-ComposeProductPDF(fileName:string, layout:Layout) = {
+ComposeProductPDF(fileName:string, imgPhoto:image, layout:Layout) = {
 	cairo.create(cairo.pdf_surface.create(fileName,
-			units.mm$pt(g.layoutCur.wdPaper), units.mm$pt(g.layoutCur.htPaper))) {|cr|
+			units.mm$pt(layout.wdPaper), units.mm$pt(layout.htPaper))) {|cr|
 		scale = 72 / 25.4
 		cr.scale(scale, scale)
-		ComposeProduct(cr, g.layoutCur)
+		ComposeProduct(cr, imgPhoto, layout)
 		cr.show_page()
 	}
 }
@@ -355,7 +355,7 @@ ProductViewer = class(wx.Panel) {
 			img.cairo {|cr|
 				scale = wdImg / g.layoutCur.wdPaper
 				cr.scale(scale, scale)
-				ComposeProduct(cr, g.layoutCur)
+				ComposeProduct(cr, g.imgPhoto, g.layoutCur)
 			}
 		}
 		if (wdClient < img.width) {
@@ -442,7 +442,7 @@ Extractor = class(wx.Panel) {
 	UpdateImageScreen() = {
 		[wdClient, htClient] = this.GetClientSizeWH()
 		this.imgScreen = image(`rgb, wdClient, htClient + 1, `gray)
-		img = g.imgOrg.thumbnail(wdClient, htClient)
+		img = g.imgPhoto.thumbnail(wdClient, htClient)
 		[x, y] = [(wdClient - img.width) / 2, (htClient - img.height) / 2]
 		this.imgScreen.paste(x, y, img)
 		this.rcImg = wx.Rect(x, y, img.width, img.height)
@@ -762,11 +762,11 @@ Frame = class(wx.Frame) {
 								'', '', filter, wx.FD_SAVE)
 		if (dlg.ShowModal() == wx.ID_OK) {
 			fileNamePDF = dlg.GetPath()
-			ComposeProductPDF(fileNamePDF, g.layoutCur)
+			ComposeProductPDF(fileNamePDF, g.imgPhoto, g.layoutCur)
 		}
 	}
 	OnMenu_ViewPDF(event:wx.CommandEvent) = {
-		ComposeProductPDF(g.fileNameTmpPDF, g.layoutCur)
+		ComposeProductPDF(g.fileNameTmpPDF, g.imgPhoto, g.layoutCur)
 		try {
 			OpenWithApp(g.fileNameTmpPDF)
 		} catch {
