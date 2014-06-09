@@ -1,6 +1,6 @@
 #!/usr/bin/gura
 fd = sys.stdout
-path.glob('*.png') {|fileName|
+path.glob('*.png').filter(&{!($fileName in ['_0047_ID.png'])}) {|fileName|
 	[baseName, extName] = path.splitext(fileName)
 	fd.printf("%s_png:public = bR'''\n", baseName)
 	stream.copy(fileName, fd.base64writer())
