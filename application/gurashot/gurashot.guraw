@@ -72,10 +72,10 @@ ImageInfo = class {
 // Global variables
 //-----------------------------------------------------------------------------
 g = module {
-	fileNameTmpPDF:public = path.join(sys.localdir, 'gurashot.pdf')
-	fileNameCfg:public = path.join(sys.localdir, 'gurashot.yml')
-	fileNameCfg:public = 'gurashot.yml'
-	fileNameIcon:public = 'gurashot.ico'
+	fileNameTmpPDF:public	= path.join(sys.localdir, 'gurashot.pdf')
+	fileNameCfg:public		= path.join(sys.localdir, 'gurashot.yml')
+	fileNameCfg:public		= 'gurashot.yml'
+	fileNameIcon:public		= 'gurashot.ico'
 	imgBlank:public = image(`rgba, 800, 800, color(240, 240, 255))
 	imgBlank.cairo {|cr|
 		cr.set_source_rgb(.8, 0.8, 0.8)
@@ -96,13 +96,13 @@ g = module {
 		cr.show_text('no image')
 	}
 	I(src:binary) = image(base64.reader(src))
-	imgOpen:public = I(resource.folder_image_png)
-	imgShowList:public = I(resource.report_picture_png)
-	imgNext:public = I(resource.resultset_next_png)
-	imgPrev:public = I(resource.resultset_previous_png)
-	imgRotateL:public = I(resource.arrow_rotate_anticlockwise_png)
-	imgRotateR:public = I(resource.arrow_rotate_clockwise_png)
-	imgSlant:public = I(resource.slant_png)
+	imgOpen:public		= I(resource.folder_image_png)
+	imgShowList:public	= I(resource.report_picture_png)
+	imgNext:public		= I(resource.resultset_next_png)
+	imgPrev:public		= I(resource.resultset_previous_png)
+	imgRotateL:public	= I(resource.arrow_rotate_anticlockwise_png)
+	imgRotateR:public	= I(resource.arrow_rotate_clockwise_png)
+	imgSlant:public		= I(resource.slant_png)
 	layoutTbl:public = @(Layout) {
 		{ 30, 24, 2, 23, "Driver's license",				 89 - 10, 127 - 10 }
 		{ 30, 25, 2, 23, '',								 89 - 10, 127 - 10 }
