@@ -275,11 +275,26 @@ ComposeProduct(cr:cairo.context, imgPhoto:image, layout:Layout) = {
 	bgColor = `gray
 	[wdDummy, htDummy] = [imgPhoto.width / 2, imgPhoto.height / 2]
 	imgSrc = image(`rgba, imgPhoto.width + wdDummy * 2, imgPhoto.height + htDummy * 2, bgColor)
+	// +---+---+---+
+	// |   | N |   |
+	// +---+---+---+
+	// | W | c | E |
+	// +---+---+---+
+	// |   | S |   |
+	// +---+---+---+
 	imgSrc.paste(wdDummy, htDummy, imgPhoto)
+	// dummy-N
 	imgSrc.paste(wdDummy, 0,
 		imgPhoto.crop(0, 0, imgPhoto.width, htDummy).flip(`vert))
+	// dummy-S
 	imgSrc.paste(wdDummy, htDummy + imgPhoto.height,
 		imgPhoto.crop(0, imgPhoto.height - htDummy, imgPhoto.width, htDummy).flip(`vert))
+	// dummy-W
+	imgSrc.paste(0, htDummy,
+		imgPhoto.crop(0, 0, wdDummy, imgPhoto.height).flip(`horz))
+	// dummy-E
+	imgSrc.paste(wdDummy + imgPhoto.width, htDummy,
+		imgPhoto.crop(imgPhoto.width - wdDummy, 0, wdDummy, imgPhoto.height).flip(`horz))
 	xrateDiff = g.imgInfoCur.xrateBtm - g.imgInfoCur.xrateTop
 	yrateDiff = g.imgInfoCur.yrateBtm - g.imgInfoCur.yrateTop
 	xMarkTop = wdDummy + imgPhoto.width * (g.imgInfoCur.xrateTop - xrateDiff * layout.htTop / layout.htFace)
