@@ -288,18 +288,24 @@ ComposeProduct(cr:cairo.context, imgPhoto:image, layout:Layout) = {
 	yMarkBtm = imgPhoto.height * (g.imgInfoCur.yrateBtm + yrateDiff * htBtm / layout.htFace)
 	htFrame = math.sqrt((xMarkBtm - xMarkTop) ** 2 + (yMarkBtm - yMarkTop) ** 2)
 	wdFrame = htFrame * layout.wdImg / layout.htImg
-	
+	[wdDotMgn, htDotMgn] = htFrame * [wdMgn, htMgn] / layout.htImg
 	//if (g.imgInfoCur.slantFlag) {
 	if (false) {
-		angleAdj = math.atan2(yrateDiff, xrateDiff):deg
+		//angleAdj = math.atan2(xMarkBtm - xMarkTop, yMarkBtm - yMarkTop):deg
+		angleAdj = 0
+		[xCenter, yCenter] = [imgSrc.width / 2, imgSrc.height / 2]
 		imgSrc = imgSrc.rotate(angleAdj, `gray)
-		
+		[xPivot, yPivot] = matrix.rotation(angleAdj):deg * [-xMarkTop + xCenter, -yMarkTop + yCenter]
+		xPivot = xPivot + imgSrc.width / 2
+		yPivot = yPivot + imgSrc.height / 2
+		printf('%d, %d\n', xPivot, yPivot)
+		[xCrop, yCrop] = [xPivot - wdDotMgn, yPivot - htDotMgn]
 	} else {
-		[wdDotMgn, htDotMgn] = imgPhoto.height * yrateDiff * [wdMgn, htMgn] / layout.htFace
-		[xCrop, yCrop] = [xMarkTop - wdFrame / 2 - wdDotMgn + wdDummy, yMarkTop - htDotMgn + htDummy]
-		[wdCrop, htCrop] = [wdFrame + wdDotMgn * 2, htFrame + htDotMgn * 2]
-		imgExtract = imgSrc.crop(xCrop, yCrop, wdCrop, htCrop)
+		[xPivot, yPivot] = [xMarkTop, yMarkTop]
+		[xCrop, yCrop] = [xPivot - wdFrame / 2 - wdDotMgn + wdDummy, yPivot - htDotMgn + htDummy]
 	}
+	[wdCrop, htCrop] = [wdFrame + wdDotMgn * 2, htFrame + htDotMgn * 2]
+	imgExtract = imgSrc.crop(xCrop, yCrop, wdCrop, htCrop)
 	cairo.pattern.create_for_surface(imgExtract) {|pattern|
 		[wdImgEx, htImgEx] = [layout.wdImg + wdMgn * 2,  layout.htImg + htMgn * 2]
 		cr.set_line_width(.1)
