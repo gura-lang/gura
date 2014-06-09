@@ -584,7 +584,7 @@ Gura_ImplementMethod(image, rotate)
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	Color color;
 	if (args.Is_color(1)) {
-		color = Object_color::GetObject(1)->GetColor();
+		color = Object_color::GetObject(args, 1)->GetColor();
 	}
 	AutoPtr<Image> pImage(pThis->GetImage()->Rotate(sig, args.GetNumber(0), color));
 	if (sig.IsSignalled()) return Value::Null;
