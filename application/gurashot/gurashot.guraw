@@ -260,7 +260,6 @@ ComposeProduct(cr:cairo.context, imgPhoto:image, layout:Layout) = {
 	[wdGuide, htGuide] = [2, 2]
 	htMessage = 5
 	htBtm = layout.htImg - layout.htTop - layout.htFace
-	ratioBase = g.imgInfoCur.yrateBtm - g.imgInfoCur.yrateTop
 	scope {
 		cr.select_font_face(fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
 		cr.set_source_rgb(.2, .2, 1)
@@ -274,23 +273,24 @@ ComposeProduct(cr:cairo.context, imgPhoto:image, layout:Layout) = {
 		cr.show_text(text)
 	}
 	bgColor = `gray
+	[wdDummy, htDummy] = [imgPhoto.width / 2, imgPhoto.height / 2]
+	imgSrc = image(`rgba, imgPhoto.width + wdDummy * 2, imgPhoto.height + htDummy * 2, bgColor)
+	imgSrc.paste(wdDummy, htDummy, imgPhoto)
+	imgSrc.paste(wdDummy, 0,
+		imgPhoto.crop(0, 0, imgPhoto.width, htDummy).flip(`vert))
+	imgSrc.paste(wdDummy, htDummy + imgPhoto.height,
+		imgPhoto.crop(0, imgPhoto.height - htDummy, imgPhoto.width, htDummy).flip(`vert))
 	imgExtract = scope {
-		yTop = imgPhoto.height * (g.imgInfoCur.yrateTop - ratioBase * layout.htTop / layout.htFace)
-		yBtm = imgPhoto.height * (g.imgInfoCur.yrateBtm + ratioBase * htBtm / layout.htFace)
-		height = yBtm - yTop
-		width = height * layout.wdImg / layout.htImg
-		xLeft = imgPhoto.width * g.imgInfoCur.xrateTop - width / 2
+		ratioBase = g.imgInfoCur.yrateBtm - g.imgInfoCur.yrateTop
+		yFrameTop = imgPhoto.height * (g.imgInfoCur.yrateTop - ratioBase * layout.htTop / layout.htFace)
+		yFrameBtm = imgPhoto.height * (g.imgInfoCur.yrateBtm + ratioBase * htBtm / layout.htFace)
+		htFrame = yFrameBtm - yFrameTop
+		wdFrame = htFrame * layout.wdImg / layout.htImg
+		xFrameLeft = imgPhoto.width * g.imgInfoCur.xrateTop - wdFrame / 2
 		[wdDotMgn, htDotMgn] = imgPhoto.height * ratioBase * [wdMgn, htMgn] / layout.htFace
-		[xCrop, yCrop] = [xLeft - wdDotMgn, yTop - htDotMgn]
-		[wdCrop, htCrop] = [width + wdDotMgn * 2, height + htDotMgn * 2]
-		[wdDummy, htDummy] = [imgPhoto.width / 2, imgPhoto.height / 2]
-		imgSrc = image(`rgba, imgPhoto.width + wdDummy * 2, imgPhoto.height + htDummy * 2, bgColor)
-		imgSrc.paste(wdDummy, htDummy, imgPhoto)
-		imgSrc.paste(wdDummy, 0,
-			imgPhoto.crop(0, 0, imgPhoto.width, htDummy).flip(`vert))
-		imgSrc.paste(wdDummy, htDummy + imgPhoto.height,
-			imgPhoto.crop(0, imgPhoto.height - htDummy, imgPhoto.width, htDummy).flip(`vert))
-		imgSrc.crop(xCrop + wdDummy, yCrop + htDummy, wdCrop, htCrop)
+		[xCrop, yCrop] = [xFrameLeft - wdDotMgn + wdDummy, yFrameTop - htDotMgn + htDummy]
+		[wdCrop, htCrop] = [wdFrame + wdDotMgn * 2, htFrame + htDotMgn * 2]
+		imgSrc.crop(xCrop, yCrop, wdCrop, htCrop)
 	}
 	cairo.pattern.create_for_surface(imgExtract) {|pattern|
 		[wdImgEx, htImgEx] = [layout.wdImg + wdMgn * 2,  layout.htImg + htMgn * 2]
