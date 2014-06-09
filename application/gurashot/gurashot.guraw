@@ -160,7 +160,8 @@ LoadConfig() = {
 		g.imgInfoCur = ImageInfo()
 	} else {
 		try {
-			g.imgInfoCur = g.imgInfos[g.cfg['idxImgInfoCur'].tonumber()]
+			idxImgInfoCur = g.cfg['idxImgInfoCur'].tonumber()
+			g.imgInfoCur = g.imgInfos[idxImgInfoCur]
 		} catch {|e|
 			g.imgInfoCur = g.imgInfos.last()
 		}
