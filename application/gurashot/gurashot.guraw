@@ -282,27 +282,24 @@ ComposeProduct(cr:cairo.context, imgPhoto:image, layout:Layout) = {
 		imgPhoto.crop(0, imgPhoto.height - htDummy, imgPhoto.width, htDummy).flip(`vert))
 	xrateDiff = g.imgInfoCur.xrateBtm - g.imgInfoCur.xrateTop
 	yrateDiff = g.imgInfoCur.yrateBtm - g.imgInfoCur.yrateTop
-	xMarkTop = imgPhoto.width * (g.imgInfoCur.xrateTop - xrateDiff * layout.htTop / layout.htFace)
-	yMarkTop = imgPhoto.height * (g.imgInfoCur.yrateTop - yrateDiff * layout.htTop / layout.htFace)
-	xMarkBtm = imgPhoto.width * (g.imgInfoCur.xrateBtm + xrateDiff * htBtm / layout.htFace)
-	yMarkBtm = imgPhoto.height * (g.imgInfoCur.yrateBtm + yrateDiff * htBtm / layout.htFace)
+	xMarkTop = wdDummy + imgPhoto.width * (g.imgInfoCur.xrateTop - xrateDiff * layout.htTop / layout.htFace)
+	yMarkTop = htDummy + imgPhoto.height * (g.imgInfoCur.yrateTop - yrateDiff * layout.htTop / layout.htFace)
+	xMarkBtm = wdDummy + imgPhoto.width * (g.imgInfoCur.xrateBtm + xrateDiff * htBtm / layout.htFace)
+	yMarkBtm = htDummy + imgPhoto.height * (g.imgInfoCur.yrateBtm + yrateDiff * htBtm / layout.htFace)
 	htFrame = math.sqrt((xMarkBtm - xMarkTop) ** 2 + (yMarkBtm - yMarkTop) ** 2)
 	wdFrame = htFrame * layout.wdImg / layout.htImg
 	[wdDotMgn, htDotMgn] = htFrame * [wdMgn, htMgn] / layout.htImg
-	//if (g.imgInfoCur.slantFlag) {
-	if (false) {
-		//angleAdj = math.atan2(xMarkBtm - xMarkTop, yMarkBtm - yMarkTop):deg
-		angleAdj = 0
+	if (g.imgInfoCur.slantFlag) {
+		angleAdj = math.atan2(xMarkBtm - xMarkTop, yMarkBtm - yMarkTop):deg
 		[xCenter, yCenter] = [imgSrc.width / 2, imgSrc.height / 2]
 		imgSrc = imgSrc.rotate(angleAdj, `gray)
-		[xPivot, yPivot] = matrix.rotation(angleAdj):deg * [-xMarkTop + xCenter, -yMarkTop + yCenter]
+		[xPivot, yPivot] = [xMarkTop - xCenter, -yMarkTop + yCenter]
+		[yPivot, xPivot] = matrix.rotation(angleAdj):deg * [yPivot, xPivot]
 		xPivot = xPivot + imgSrc.width / 2
-		yPivot = yPivot + imgSrc.height / 2
-		printf('%d, %d\n', xPivot, yPivot)
-		[xCrop, yCrop] = [xPivot - wdDotMgn, yPivot - htDotMgn]
+		yPivot = -yPivot + imgSrc.height / 2
+		[xCrop, yCrop] = [xPivot - wdFrame / 2 - wdDotMgn, yPivot - htDotMgn]
 	} else {
-		[xPivot, yPivot] = [xMarkTop, yMarkTop]
-		[xCrop, yCrop] = [xPivot - wdFrame / 2 - wdDotMgn + wdDummy, yPivot - htDotMgn + htDummy]
+		[xCrop, yCrop] = [xMarkTop - wdFrame / 2 - wdDotMgn, yMarkTop - htDotMgn]
 	}
 	[wdCrop, htCrop] = [wdFrame + wdDotMgn * 2, htFrame + htDotMgn * 2]
 	imgExtract = imgSrc.crop(xCrop, yCrop, wdCrop, htCrop)
