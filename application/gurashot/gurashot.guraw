@@ -66,15 +66,15 @@ ImageInfo = class {
 			rcImg.y + rcImg.height * this.yrateTop,
 			rcImg.y + rcImg.height * this.yrateBtm)
 	}
-	CalcMarkCoord(img:image, layout:Layout) = {
+	CalcMarkCoord(rcImg:wx.Rect, layout:Layout) = {
 		htBtm = layout.htImg - layout.htTop - layout.htFace
 		xrateDiff = this.xrateBtm - this.xrateTop
 		yrateDiff = this.yrateBtm - this.yrateTop
 		CoordPair(
-			img.width * (this.xrateTop - xrateDiff * layout.htTop / layout.htFace)
-			img.width * (this.xrateBtm + xrateDiff * htBtm / layout.htFace)
-			img.height * (this.yrateTop - yrateDiff * layout.htTop / layout.htFace)
-			img.height * (this.yrateBtm + yrateDiff * htBtm / layout.htFace))
+			rcImg.x + rcImg.width * (this.xrateTop - xrateDiff * layout.htTop / layout.htFace),
+			rcImg.x + rcImg.width * (this.xrateBtm + xrateDiff * htBtm / layout.htFace),
+			rcImg.y + rcImg.height * (this.yrateTop - yrateDiff * layout.htTop / layout.htFace),
+			rcImg.y + rcImg.height * (this.yrateBtm + yrateDiff * htBtm / layout.htFace))
 	}
 }
 
@@ -316,7 +316,7 @@ ComposeProduct(cr:cairo.context, imgPhoto:image, layout:Layout) = {
 	// paste dummy on SE
 	imgSrc.paste(wdDummy + imgPhoto.width, htDummy + imgPhoto.height,
 		imgPhoto.crop(imgPhoto.width - wdDummy, imgPhoto.height - htDummy, wdDummy, htDummy).rotate(180))
-	c = g.imgInfoCur.CalcMarkCoord(imgPhoto, layout)
+	c = g.imgInfoCur.CalcMarkCoord(wx.Rect(wdDummy, htDummy, imgPhoto.width, imgPhoto.height), layout)
 	htFrame = math.sqrt((c.xBtm - c.xTop) ** 2 + (c.yBtm - c.yTop) ** 2)
 	wdFrame = htFrame * layout.wdImg / layout.htImg
 	[wdDotMgn, htDotMgn] = htFrame * [wdMgn, htMgn] / layout.htImg
@@ -324,13 +324,13 @@ ComposeProduct(cr:cairo.context, imgPhoto:image, layout:Layout) = {
 		angleAdj = math.atan2(c.xBtm - c.xTop, c.yBtm - c.yTop):deg
 		[xCenter, yCenter] = [imgSrc.width / 2, imgSrc.height / 2]
 		imgSrc = imgSrc.rotate(angleAdj, `gray)
-		[xPivot, yPivot] = [wdDummy + c.xTop - xCenter, -(htDummy + c.yTop) + yCenter]
+		[xPivot, yPivot] = [c.xTop - xCenter, -c.yTop + yCenter]
 		[yPivot, xPivot] = matrix.rotation(angleAdj):deg * [yPivot, xPivot]
 		xPivot = xPivot + imgSrc.width / 2
 		yPivot = -yPivot + imgSrc.height / 2
 		[xCrop, yCrop] = [xPivot - wdFrame / 2 - wdDotMgn, yPivot - htDotMgn]
 	} else {
-		[xCrop, yCrop] = [c.xTop + wdDummy - wdFrame / 2 - wdDotMgn, c.yTop + htDummy - htDotMgn]
+		[xCrop, yCrop] = [c.xTop + wdFrame / 2 - wdDotMgn, c.yTop + htDotMgn]
 	}
 	[wdCrop, htCrop] = [wdFrame + wdDotMgn * 2, htFrame + htDotMgn * 2]
 	imgExtract = imgSrc.crop(xCrop, yCrop, wdCrop, htCrop)
@@ -507,21 +507,17 @@ Extractor = class(wx.Panel) {
 		this.bmpScreen = wx.BitmapWH(wdClient, htClient)
 		img = g.imgPhotoLowRes.thumbnail(wdClient, htClient)
 		imgFrosted = img.mapcolorlevel(this.mapColorLevel)
-		[x, y] = [(wdClient - img.width) / 2, (htClient - img.height) / 2]
-		ptTbl = @(wx.Point) {
-			{x + 10, y + 10}
-			{x + 100, y + 100}
-			{x + 80, y + 20}
-		}
+		[xOffset, yOffset] = [(wdClient - img.width) / 2, (htClient - img.height) / 2]
+		this.rcImg = wx.Rect(xOffset, yOffset, img.width, img.height)
 		wx.MemoryDC(this.bmpScreen) {|dc|
 			dc.SetBackground(this.brushBg)
 			dc.Clear()
-			//dc.DrawBitmap(imgFrosted, x, y, false)
+			c = g.imgInfoCur.CalcMarkCoord(this.rcImg, g.layoutCur)
+			dc.DrawBitmap(imgFrosted, xOffset, yOffset, false)
 			//dc.SetClippingRegion(x + 10, y + 10, 100, 100)
 			//dc.SetClippingRegionAsRegion(wx.RegionPoints(ptTbl))
-			dc.DrawBitmap(img, x, y, false)
+			dc.DrawBitmap(img, xOffset, yOffset, false)
 		}
-		this.rcImg = wx.Rect(x, y, img.width, img.height)
 	}
 	// event handler
 	OnSize(event:wx.SizeEvent) = {
