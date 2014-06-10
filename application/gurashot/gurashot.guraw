@@ -453,7 +453,8 @@ ProductViewer = class(wx.Panel) {
 // Extractor
 //-----------------------------------------------------------------------------
 Extractor = class(wx.Panel) {
-	EdgeSize = 20
+	EdgeGuideSize	= 20
+	CenterGuideSize	= 40
 	// constructor
 	__init__(parent:wx.Window, style:number, productViewer:ProductViewer) = \
 							{|parent, style => style, size => wx.Size(250, 250)|
@@ -461,7 +462,8 @@ Extractor = class(wx.Panel) {
 		this.grabTgt = nil
 		this.bmpScreen = nil
 		this.rcImg = wx.Rect(0, 0, 0, 0)
-		this.penCursor = wx.Pen(wx.Colour(255, 128, 128), 3, wx.PENSTYLE_SOLID)
+		this.penCursor = wx.Pen(wx.Colour(255, 128, 128), 2, wx.PENSTYLE_SOLID)
+		this.penCenterGuide = wx.Pen(wx.Colour(255, 128, 128), 1, wx.PENSTYLE_SOLID)
 		this.brushBg = wx.Brush(wx.Colour(128, 128, 128), wx.BRUSHSTYLE_SOLID)
 		this.brushCursor = wx.Brush(wx.Colour(255, 255, 255), wx.BRUSHSTYLE_SOLID)
 		this.DragAcceptFiles(true)
@@ -484,8 +486,8 @@ Extractor = class(wx.Panel) {
 			wx.Rect(c.xBtm - wdSense / 2, c.yBtm - htSense / 2, wdSense, htSense).Contains(pt) && return (`btmPoint)
 		} else {
 			[wdSense, htSense] = [6, 6]
-			wx.Rect(c.xTop - EdgeSize / 2, c.yTop - htSense / 2, EdgeSize, htSense).Contains(pt) && return(`topLine)
-			wx.Rect(c.xTop - EdgeSize / 2, c.yBtm - htSense / 2, EdgeSize, htSense).Contains(pt) && return(`btmLine)
+			wx.Rect(c.xTop - EdgeGuideSize / 2, c.yTop - htSense / 2, EdgeGuideSize, htSense).Contains(pt) && return(`topLine)
+			wx.Rect(c.xTop - EdgeGuideSize / 2, c.yBtm - htSense / 2, EdgeGuideSize, htSense).Contains(pt) && return(`btmLine)
 			wx.Rect(c.xTop - wdSense / 2, c.yTop, wdSense, c.yBtm - c.yTop).Contains(pt) && return(`center)
 		}
 		nil
@@ -519,11 +521,20 @@ Extractor = class(wx.Panel) {
 			dc.Clear()
 			dc.DrawBitmap(imgFrosted, xOffset, yOffset, false)
 			f = g.imgInfoCur.CalcFrameCoord(this.rcImg, g.layoutCur)
+			angle = math.atan2(f.yBtm - f.yTop, f.xBtm - f.xTop)
+			[xOffset1, yOffset1] = [
+				math.cos(angle - math.pi / 2) * f.width / 2
+				math.sin(angle - math.pi / 2) * f.width / 2
+			]
+			[xOffset2, yOffset2] = [
+				math.cos(angle + math.pi / 2) * f.width / 2
+				math.sin(angle + math.pi / 2) * f.width / 2
+			]
 			ptTbl = @(wx.Point) {
-				{f.xTop - f.width / 2, f.yTop},
-				{f.xTop - f.width / 2, f.yTop + f.height},
-				{f.xTop + f.width / 2, f.yTop + f.height},
-				{f.xTop + f.width / 2, f.yTop},
+				{f.xTop + xOffset1, f.yTop + yOffset1},
+				{f.xTop + xOffset2, f.yTop + yOffset2},
+				{f.xBtm + xOffset2, f.yBtm + yOffset2},
+				{f.xBtm + xOffset1, f.yBtm + yOffset1},
 			}
 			dc.SetClippingRegionAsRegion(wx.RegionPoints(ptTbl))
 			dc.DrawBitmap(img, xOffset, yOffset, false)
@@ -537,32 +548,33 @@ Extractor = class(wx.Panel) {
 	}
 	OnPaint(event:wx.PaintEvent) = {
 		dc = wx.PaintDC(this)
-		//!this.bmpScreen && this.UpdateImageScreen()
 		this.UpdateImageScreen()
 		dc.DrawBitmap(this.bmpScreen, 0, 0, false)
 		c = g.imgInfoCur.CalcCursorCoord(this.rcImg)
+		dc.SetPen(this.penCursor)
+		dc.SetBrush(this.brushCursor)
+		angle = math.atan2(c.yBtm - c.yTop, c.xBtm - c.xTop)
+		[xOffset1, yOffset1, xOffset2, yOffset2] = [
+			math.cos(angle - math.pi / 2)
+			math.sin(angle - math.pi / 2)
+			math.cos(angle + math.pi / 2)
+			math.sin(angle + math.pi / 2)
+		] * EdgeGuideSize / 2
+		[xCenter, yCenter] = [(c.xTop + c.xBtm) / 2, (c.yTop + c.yBtm) / 2]
+		dc.DrawLine(c.xTop, c.yTop, c.xBtm, c.yBtm)
+		dc.DrawLine(c.xTop + xOffset1, c.yTop + yOffset1, c.xTop + xOffset2, c.yTop + yOffset2)
+		dc.DrawLine(c.xBtm + xOffset1, c.yBtm + yOffset1, c.xBtm + xOffset2, c.yBtm + yOffset2)
+		[xOffset1, yOffset1, xOffset2, yOffset2] = [
+			math.cos(angle - math.pi / 2)
+			math.sin(angle - math.pi / 2)
+			math.cos(angle + math.pi / 2)
+			math.sin(angle + math.pi / 2)
+		] * CenterGuideSize / 2
+		dc.SetPen(this.penCenterGuide)
+		dc.DrawLine(xCenter + xOffset1, yCenter + yOffset1, xCenter + xOffset2, yCenter + yOffset2)
 		if (g.imgInfoCur.tiltAdjFlag) {
-			dc.SetPen(this.penCursor)
-			dc.SetBrush(this.brushCursor)
-			dc.DrawLine(c.xTop, c.yTop, c.xBtm, c.yBtm)
-			angle = math.atan2(c.yBtm - c.yTop, c.xBtm - c.xTop)
-			[xOffset1, yOffset1] = [
-				math.cos(angle - math.pi / 2) * EdgeSize / 2
-				math.sin(angle - math.pi / 2) * EdgeSize / 2
-			]
-			[xOffset2, yOffset2] = [
-				math.cos(angle + math.pi / 2) * EdgeSize / 2
-				math.sin(angle + math.pi / 2) * EdgeSize / 2
-			]
-			dc.DrawLine(c.xTop + xOffset1, c.yTop + yOffset1, c.xTop + xOffset2, c.yTop + yOffset2)
-			dc.DrawLine(c.xBtm + xOffset1, c.yBtm + yOffset1, c.xBtm + xOffset2, c.yBtm + yOffset2)
 			dc.DrawCircle(c.xTop, c.yTop, 3)
 			dc.DrawCircle(c.xBtm, c.yBtm, 3)
-		} else {
-			dc.SetPen(this.penCursor)
-			dc.DrawLine(c.xTop, c.yTop, c.xBtm, c.yBtm)
-			dc.DrawLine(c.xTop - EdgeSize / 2, c.yTop, c.xTop + EdgeSize / 2, c.yTop)
-			dc.DrawLine(c.xBtm - EdgeSize / 2, c.yBtm, c.xBtm + EdgeSize / 2, c.yBtm)
 		}
 		dc = nil
 	}
