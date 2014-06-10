@@ -19,7 +19,7 @@ public:
 	inline wx_Region(const wxPoint& topLeft, const wxPoint& bottomRight) : wxRegion(topLeft, bottomRight), _sig(NULL), _pObj(NULL) {}
 	inline wx_Region(const wxRect& rect) : wxRegion(rect), _sig(NULL), _pObj(NULL) {}
 	inline wx_Region(const wxRegion& region) : wxRegion(region), _sig(NULL), _pObj(NULL) {}
-	//inline wx_Region(size_t n, const wxPoint *points, int fillStyle) : wxRegion(n, *points, fillStyle), _sig(NULL), _pObj(NULL) {}
+	inline wx_Region(size_t n, const wxPoint *points, wxPolygonFillMode fillStyle) : wxRegion(n, points, fillStyle), _sig(NULL), _pObj(NULL) {}
 	inline wx_Region(const wxBitmap& bmp) : wxRegion(bmp), _sig(NULL), _pObj(NULL) {}
 	inline wx_Region(const wxBitmap& bmp, const wxColour& transColour, int tolerance) : wxRegion(bmp, transColour, tolerance), _sig(NULL), _pObj(NULL) {}
 	~wx_Region();
@@ -121,7 +121,7 @@ Gura_ImplementFunction(Region_1)
 	return ReturnValue(env, sig, args, args.GetThis());
 }
 
-Gura_DeclareFunction(Region_2)
+Gura_DeclareFunction(RegionRect)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Region));
@@ -129,7 +129,7 @@ Gura_DeclareFunction(Region_2)
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(Region_2)
+Gura_ImplementFunction(RegionRect)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxRect *rect = Object_wx_Rect::GetObject(args, 0)->GetEntity();
@@ -145,51 +145,28 @@ Gura_ImplementFunction(Region_2)
 	return ReturnValue(env, sig, args, args.GetThis());
 }
 
-Gura_DeclareFunction(Region_3)
+Gura_DeclareFunction(RegionPoints)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Region));
-	DeclareArg(env, "region", VTYPE_wx_Region, OCCUR_Once);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementFunction(Region_3)
-{
-	if (!CheckWxReady(sig)) return Value::Null;
-	wxRegion *region = Object_wx_Region::GetObject(args, 0)->GetEntity();
-	wx_Region *pEntity = new wx_Region(*region);
-	Object_wx_Region *pObj = Object_wx_Region::GetThisObj(args);
-	if (pObj == NULL) {
-		pObj = new Object_wx_Region(pEntity, pEntity, OwnerFalse);
-		pEntity->AssocWithGura(sig, pObj);
-		return ReturnValue(env, sig, args, Value(pObj));
-	}
-	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
-	pEntity->AssocWithGura(sig, pObj);
-	return ReturnValue(env, sig, args, args.GetThis());
-}
-
-Gura_DeclareFunction(Region_4)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-#if 0
-	SetClassToConstruct(Gura_UserClass(wx_Region));
-	DeclareArg(env, "n", VTYPE_number, OCCUR_Once);
-	DeclareArg(env, "*points", VTYPE_wx_Point, OCCUR_Once);
+	DeclareArg(env, "points", VTYPE_wx_Point, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "fillStyle", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-#endif
 }
 
-Gura_ImplementFunction(Region_4)
+Gura_ImplementFunction(RegionPoints)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
-#if 0
-	size_t n = args.GetSizeT(0);
-	wxPoint **points = Object_wx_Point::GetObject(args, 1)->GetEntity();
-	int fillStyle = wxWINDING_RULE;
-	if (args.IsValid(2)) fillStyle = args.GetInt(2);
-	wx_Region *pEntity = new wx_Region(n, **points, fillStyle);
+	size_t n = args.GetList(0).size();
+	wxPoint *points = new wxPoint[n];
+	size_t i = 0;
+	foreach_const (ValueList, pValue, args.GetList(0)) {
+		points[i++] = *Object_wx_Point::GetObject(*pValue)->GetEntity();
+	}
+	wxPolygonFillMode fillStyle = wxWINDING_RULE;
+	if (args.IsValid(1)) fillStyle = static_cast<wxPolygonFillMode>(args.GetInt(1));
+	wx_Region *pEntity = new wx_Region(n, points, fillStyle);
+	delete[] points;
 	Object_wx_Region *pObj = Object_wx_Region::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Region(pEntity, pEntity, OwnerFalse);
@@ -199,24 +176,31 @@ Gura_ImplementFunction(Region_4)
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
 	return ReturnValue(env, sig, args, args.GetThis());
-#endif
-	SetError_NotImplemented(sig);
-	return Value::Null;
 }
 
-Gura_DeclareFunction(Region_5)
+Gura_DeclareFunction(RegionFromBitmap)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	SetClassToConstruct(Gura_UserClass(wx_Region));
 	DeclareArg(env, "bmp", VTYPE_wx_Bitmap, OCCUR_Once);
+	DeclareArg(env, "transColour", VTYPE_wx_Colour, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "tolerance", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementFunction(Region_5)
+Gura_ImplementFunction(RegionFromBitmap)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
 	wxBitmap *bmp = Object_wx_Bitmap::GetObject(args, 0)->GetEntity();
-	wx_Region *pEntity = new wx_Region(*bmp);
+	wx_Region *pEntity = NULL;
+	if (args.IsValid(1)) {
+		wxColour *transColour = Object_wx_Colour::GetObject(args, 1)->GetEntity();
+		int tolerance = 0;
+		if (args.IsValid(2)) tolerance = args.GetInt(2);
+		pEntity = new wx_Region(*bmp, *transColour, tolerance);
+	} else {
+		pEntity = new wx_Region(*bmp);
+	}
 	Object_wx_Region *pObj = Object_wx_Region::GetThisObj(args);
 	if (pObj == NULL) {
 		pObj = new Object_wx_Region(pEntity, pEntity, OwnerFalse);
@@ -228,6 +212,7 @@ Gura_ImplementFunction(Region_5)
 	return ReturnValue(env, sig, args, args.GetThis());
 }
 
+#if 0
 Gura_DeclareFunction(Region_6)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -256,6 +241,7 @@ Gura_ImplementFunction(Region_6)
 	pEntity->AssocWithGura(sig, pObj);
 	return ReturnValue(env, sig, args, args.GetThis());
 }
+#endif
 
 Gura_DeclareMethod(wx_Region, Clear)
 {
@@ -717,11 +703,10 @@ Gura_ImplementUserInheritableClass(wx_Region)
 	Gura_AssignFunction(RegionEmpty);
 	Gura_AssignFunction(Region);
 	Gura_AssignFunction(Region_1);
-	Gura_AssignFunction(Region_2);
-	Gura_AssignFunction(Region_3);
-	Gura_AssignFunction(Region_4);
-	Gura_AssignFunction(Region_5);
-	Gura_AssignFunction(Region_6);
+	Gura_AssignFunction(RegionRect);
+	Gura_AssignFunction(RegionPoints);
+	Gura_AssignFunction(RegionFromBitmap);
+	//Gura_AssignFunction(Region_6);
 	Gura_AssignMethod(wx_Region, Clear);
 	Gura_AssignMethod(wx_Region, Contains);
 	Gura_AssignMethod(wx_Region, ContainsPoint);
