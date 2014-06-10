@@ -23,9 +23,15 @@ Layout = struct(htImg:number, wdImg:number, htTop:number, htFace:number,
 						purpose:string, htPaper:number, wdPaper:number)
 
 //-----------------------------------------------------------------------------
-// CoordPair
+// CursorCoord
 //-----------------------------------------------------------------------------
-CoordPair = struct(xTop:number, xBtm:number, yTop:number, yBtm:number)
+CursorCoord = struct(xTop:number, xBtm:number, yTop:number, yBtm:number)
+
+//-----------------------------------------------------------------------------
+// FrameCoord
+//-----------------------------------------------------------------------------
+FrameCoord = struct(xTop:number, xBtm:number,
+				yTop:number, yBtm:number, width:number, height:number)
 
 //-----------------------------------------------------------------------------
 // ImageInfo
@@ -60,21 +66,23 @@ ImageInfo = class {
 		this.tiltAdjFlag	= tiltAdjFlag_init
 	}
 	CalcCursorCoord(rcImg:wx.Rect) = {
-		CoordPair(
+		CursorCoord(
 			rcImg.x + rcImg.width * this.xrateTop,
 			rcImg.x + rcImg.width * this.xrateBtm,
 			rcImg.y + rcImg.height * this.yrateTop,
 			rcImg.y + rcImg.height * this.yrateBtm)
 	}
-	CalcMarkCoord(rcImg:wx.Rect, layout:Layout) = {
+	CalcFrameCoord(rcImg:wx.Rect, layout:Layout) = {
 		htBtm = layout.htImg - layout.htTop - layout.htFace
 		xrateDiff = this.xrateBtm - this.xrateTop
 		yrateDiff = this.yrateBtm - this.yrateTop
-		CoordPair(
-			rcImg.x + rcImg.width * (this.xrateTop - xrateDiff * layout.htTop / layout.htFace),
-			rcImg.x + rcImg.width * (this.xrateBtm + xrateDiff * htBtm / layout.htFace),
-			rcImg.y + rcImg.height * (this.yrateTop - yrateDiff * layout.htTop / layout.htFace),
-			rcImg.y + rcImg.height * (this.yrateBtm + yrateDiff * htBtm / layout.htFace))
+		xTop = rcImg.x + rcImg.width * (this.xrateTop - xrateDiff * layout.htTop / layout.htFace),
+		xBtm = rcImg.x + rcImg.width * (this.xrateBtm + xrateDiff * htBtm / layout.htFace),
+		yTop = rcImg.y + rcImg.height * (this.yrateTop - yrateDiff * layout.htTop / layout.htFace),
+		yBtm = rcImg.y + rcImg.height * (this.yrateBtm + yrateDiff * htBtm / layout.htFace)
+		height = math.sqrt((xBtm - xTop) ** 2 + (yBtm - yTop) ** 2)
+		width = height * layout.wdImg / layout.htImg
+		FrameCoord(xTop, xBtm, yTop, yBtm, width, height)
 	}
 }
 
@@ -316,22 +324,20 @@ ComposeProduct(cr:cairo.context, imgPhoto:image, layout:Layout) = {
 	// paste dummy on SE
 	imgSrc.paste(wdDummy + imgPhoto.width, htDummy + imgPhoto.height,
 		imgPhoto.crop(imgPhoto.width - wdDummy, imgPhoto.height - htDummy, wdDummy, htDummy).rotate(180))
-	c = g.imgInfoCur.CalcMarkCoord(wx.Rect(wdDummy, htDummy, imgPhoto.width, imgPhoto.height), layout)
-	htFrame = math.sqrt((c.xBtm - c.xTop) ** 2 + (c.yBtm - c.yTop) ** 2)
-	wdFrame = htFrame * layout.wdImg / layout.htImg
-	[wdDotMgn, htDotMgn] = htFrame * [wdMgn, htMgn] / layout.htImg
+	f = g.imgInfoCur.CalcFrameCoord(wx.Rect(wdDummy, htDummy, imgPhoto.width, imgPhoto.height), layout)
+	[wdDotMgn, htDotMgn] = f.height * [wdMgn, htMgn] / layout.htImg
 	if (g.imgInfoCur.tiltAdjFlag) {
-		angleAdj = math.atan2(c.xBtm - c.xTop, c.yBtm - c.yTop):deg
+		angleAdj = math.atan2(f.xBtm - f.xTop, f.yBtm - f.yTop):deg
 		[xCenter, yCenter] = [imgSrc.width / 2, imgSrc.height / 2]
 		imgSrc = imgSrc.rotate(angleAdj, `gray)
-		[xPivot, yPivot] = [c.xTop - xCenter, -c.yTop + yCenter]
+		[xPivot, yPivot] = [f.xTop - xCenter, -f.yTop + yCenter]
 		[yPivot, xPivot] = matrix.rotation(angleAdj):deg * [yPivot, xPivot]
 		[xPivot, yPivot] = [xPivot + imgSrc.width / 2, -yPivot + imgSrc.height / 2]
 	} else {
-		[xPivot, yPivot] = [c.xTop, c.yTop]
+		[xPivot, yPivot] = [f.xTop, f.yTop]
 	}
-	[xCrop, yCrop] = [xPivot - wdFrame / 2 - wdDotMgn, yPivot - htDotMgn]
-	[wdCrop, htCrop] = [wdFrame + wdDotMgn * 2, htFrame + htDotMgn * 2]
+	[xCrop, yCrop] = [xPivot - f.width / 2 - wdDotMgn, yPivot - htDotMgn]
+	[wdCrop, htCrop] = [f.width + wdDotMgn * 2, f.height + htDotMgn * 2]
 	imgExtract = imgSrc.crop(xCrop, yCrop, wdCrop, htCrop)
 	cairo.pattern.create_for_surface(imgExtract) {|pattern|
 		[wdImgEx, htImgEx] = [layout.wdImg + wdMgn * 2,  layout.htImg + htMgn * 2]
@@ -511,8 +517,9 @@ Extractor = class(wx.Panel) {
 		wx.MemoryDC(this.bmpScreen) {|dc|
 			dc.SetBackground(this.brushBg)
 			dc.Clear()
-			c = g.imgInfoCur.CalcMarkCoord(this.rcImg, g.layoutCur)
 			dc.DrawBitmap(imgFrosted, xOffset, yOffset, false)
+			f = g.imgInfoCur.CalcFrameCoord(this.rcImg, g.layoutCur)
+			
 			//dc.SetClippingRegion(x + 10, y + 10, 100, 100)
 			//dc.SetClippingRegionAsRegion(wx.RegionPoints(ptTbl))
 			dc.DrawBitmap(img, xOffset, yOffset, false)
