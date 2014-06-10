@@ -283,16 +283,16 @@ ComposeProduct(cr:cairo.context, imgPhoto:image, layout:Layout) = {
 	// |   | S |   |
 	// +---+---+---+
 	imgSrc.paste(wdDummy, htDummy, imgPhoto)
-	// dummy-N
+	// paste dummy on N
 	imgSrc.paste(wdDummy, 0,
 		imgPhoto.crop(0, 0, imgPhoto.width, htDummy).flip(`vert))
-	// dummy-S
+	// paste dummy on S
 	imgSrc.paste(wdDummy, htDummy + imgPhoto.height,
 		imgPhoto.crop(0, imgPhoto.height - htDummy, imgPhoto.width, htDummy).flip(`vert))
-	// dummy-W
+	// paste dummy on W
 	imgSrc.paste(0, htDummy,
 		imgPhoto.crop(0, 0, wdDummy, imgPhoto.height).flip(`horz))
-	// dummy-E
+	// paste dummy on E
 	imgSrc.paste(wdDummy + imgPhoto.width, htDummy,
 		imgPhoto.crop(imgPhoto.width - wdDummy, 0, wdDummy, imgPhoto.height).flip(`horz))
 	xrateDiff = g.imgInfoCur.xrateBtm - g.imgInfoCur.xrateTop
@@ -438,11 +438,13 @@ Extractor = class(wx.Panel) {
 							{|parent, style => style, size => wx.Size(250, 250)|
 		this.productViewer = productViewer
 		this.grabTgt = nil
-		this.imgScreen = nil
+		this.bmpScreen = nil
 		this.rcImg = wx.Rect(0, 0, 0, 0)
 		this.penCursor = wx.Pen(wx.Colour(255, 128, 128), 3, wx.PENSTYLE_SOLID)
+		this.brushBg = wx.Brush(wx.Colour(128, 128, 128), wx.BRUSHSTYLE_SOLID)
 		this.brushCursor = wx.Brush(wx.Colour(255, 255, 255), wx.BRUSHSTYLE_SOLID)
 		this.DragAcceptFiles(true)
+		this.mapColorLevel = interval(64, 200, 256):list
 		// bind event handlers
 		this.Bind(wx.EVT_ERASE_BACKGROUND) { /* nothing to do */ }
 		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event)}
@@ -478,25 +480,43 @@ Extractor = class(wx.Panel) {
 	}
 	BlankImageScreen() = {
 		[wdClient, htClient] = this.GetClientSizeWH()
-		this.imgScreen = image(`rgb, wdClient, htClient + 1, `gray)
+		this.bmpScreen = wx.BitmapWH(wdClient, htClient)
+		wx.MemoryDC(this.bmpScreen) {|dc|
+			dc.SetBackground(this.brushBg)
+			dc.Clear()
+		}
 	}
 	UpdateImageScreen() = {
 		[wdClient, htClient] = this.GetClientSizeWH()
-		this.imgScreen = image(`rgb, wdClient, htClient + 1, `gray)
+		this.bmpScreen = wx.BitmapWH(wdClient, htClient)
 		img = g.imgPhotoLowRes.thumbnail(wdClient, htClient)
+		imgFrosted = img.mapcolorlevel(this.mapColorLevel)
 		[x, y] = [(wdClient - img.width) / 2, (htClient - img.height) / 2]
-		this.imgScreen.paste(x, y, img)
+		ptTbl = @(wx.Point) {
+			{x + 10, y + 10}
+			{x + 100, y + 100}
+			{x + 80, y + 20}
+		}
+		wx.MemoryDC(this.bmpScreen) {|dc|
+			dc.SetBackground(this.brushBg)
+			dc.Clear()
+			//dc.DrawBitmap(imgFrosted, x, y, false)
+			//dc.SetClippingRegion(x + 10, y + 10, 100, 100)
+			//dc.SetClippingRegionAsRegion(wx.RegionPoints(ptTbl))
+			dc.DrawBitmap(img, x, y, false)
+		}
 		this.rcImg = wx.Rect(x, y, img.width, img.height)
 	}
 	// event handler
 	OnSize(event:wx.SizeEvent) = {
 		this.UpdateContent()
+		[wdClient, htClient] = this.GetClientSizeWH()
 		event.Skip()
 	}
 	OnPaint(event:wx.PaintEvent) = {
 		dc = wx.PaintDC(this)
-		!this.imgScreen && this.UpdateImageScreen()
-		dc.DrawBitmap(this.imgScreen, 0, 0, false)
+		!this.bmpScreen && this.UpdateImageScreen()
+		dc.DrawBitmap(this.bmpScreen, 0, 0, false)
 		c = g.imgInfoCur.GetCursorCoord(this.rcImg)
 		if (g.imgInfoCur.tiltAdjFlag) {
 			dc.SetPen(this.penCursor)
