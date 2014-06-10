@@ -330,7 +330,7 @@ ComposeProduct(cr:cairo.context, imgPhoto:image, layout:Layout) = {
 		yPivot = -yPivot + imgSrc.height / 2
 		[xCrop, yCrop] = [xPivot - wdFrame / 2 - wdDotMgn, yPivot - htDotMgn]
 	} else {
-		[xCrop, yCrop] = [c.xTop + wdFrame / 2 - wdDotMgn, c.yTop + htDotMgn]
+		[xCrop, yCrop] = [c.xTop - wdFrame / 2 - wdDotMgn, c.yTop - htDotMgn]
 	}
 	[wdCrop, htCrop] = [wdFrame + wdDotMgn * 2, htFrame + htDotMgn * 2]
 	imgExtract = imgSrc.crop(xCrop, yCrop, wdCrop, htCrop)
