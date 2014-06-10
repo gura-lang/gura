@@ -99,3 +99,9 @@ expected error occurs: FormatError: Not a BMP file
   @   @    @  @    @@   @  @   @    @   @@@@@@@@@@  
        @@@@    @     @@@    @@@     @       @       
                 @@                          @       
+
+======== #7 ========
+
+mapcolorlevel        800x600 true
+mapcolorlevel        800x600 true
+mapcolorlevel        800x600 true

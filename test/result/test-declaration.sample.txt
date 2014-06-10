@@ -389,6 +389,7 @@ image
   flip(orient:symbol):map {block?}
   getpixel(x:number, y:number):map {block?}
   grayscale() {block?}
+  mapcolorlevel(map_r[]:number, map_g[]?:number, map_b[]?:number) {block?}
   paste(x:number, y:number, src:image, width?:number, height?:number, xoffset:number => 0, yoffset:number => 0, a:number => 255):map:reduce
   putpixel(x:number, y:number, color:color):map:reduce
   read(stream:stream:r, imagetype?:string):map:reduce

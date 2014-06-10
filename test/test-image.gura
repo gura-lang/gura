@@ -199,3 +199,13 @@ testcase('test of scan') {
 	doScan([`left_top_horz, `right_top_vert, `right_bottom_horz, `left_bottom_vert])
 	doScan([`left_top_vert, `right_top_horz, `right_bottom_vert, `left_bottom_horz])
 }
+testcase {
+	map = interval(128, 160, 256)
+	img = image(I('Water_lilies.jpg'), `rgb)
+	tester_image(img.mapcolorlevel(map), 'mapcolorlevel',
+		 'a948af90db644ab8cf2fd1c611bfaed3'):nomap
+	tester_image(img.mapcolorlevel(map, map), 'mapcolorlevel',
+		 'a948af90db644ab8cf2fd1c611bfaed3'):nomap
+	tester_image(img.mapcolorlevel(map, map, map), 'mapcolorlevel',
+		 'a948af90db644ab8cf2fd1c611bfaed3'):nomap
+}
