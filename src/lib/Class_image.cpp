@@ -405,6 +405,66 @@ Gura_ImplementMethod(image, grayscale)
 	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
 }
 
+// image#mapcolorlevel(map_r[]:number, map_g?[]:number, map_b?[]:number) {block?}
+Gura_DeclareMethod(image, mapcolorlevel)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "map_r", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "map_g", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_List);
+	DeclareArg(env, "map_b", VTYPE_number, OCCUR_ZeroOrOnce, FLAG_List);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+UChar *ValueListToMapTable(Signal sig, const ValueList &valList)
+{
+	if (valList.size() != 256) {
+		sig.SetError(ERR_ValueError, "the list of map table must contain %d elements");
+		return NULL;
+	}
+	UChar *mapBuff = new UChar[256];
+	UChar *p = mapBuff;
+	foreach_const (ValueList, pValue, valList) {
+		*p++ = pValue->GetUChar();
+	}
+	return mapBuff;
+}
+
+Gura_ImplementMethod(image, mapcolorlevel)
+{
+	Object_image *pThis = Object_image::GetThisObj(args);
+	UChar *mapBuffR = ValueListToMapTable(sig, args.GetList(0));
+	if (mapBuffR == NULL) return Value::Null;
+	UChar *mapBuffG = NULL;
+	UChar *mapBuffB = NULL;
+	const UChar *mapR = mapBuffR;
+	const UChar *mapG = mapBuffR;
+	const UChar *mapB = mapBuffR;
+	if (args.IsValid(1)) {
+		mapBuffG = ValueListToMapTable(sig, args.GetList(1));
+		if (mapBuffG == NULL) {
+			delete[] mapBuffR;
+			return Value::Null;
+		}
+		mapG = mapBuffG;
+		mapB = mapBuffG;
+	}
+	if (args.IsValid(2)) {
+		mapBuffB = ValueListToMapTable(sig, args.GetList(2));
+		if (mapBuffB == NULL) {
+			delete[] mapBuffR;
+			delete[] mapBuffG;
+			return Value::Null;
+		}
+		mapB = mapBuffB;
+	}
+	AutoPtr<Image> pImage(pThis->GetImage()->MapColorLevel(sig, mapR, mapG, mapB));
+	delete[] mapBuffR;
+	delete[] mapBuffG;
+	delete[] mapBuffB;
+	if (sig.IsSignalled()) return Value::Null;
+	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
+}
+
 // image#paste(x:number, y:number, src:image, width?:number, height?:number,
 //     xoffset:number => 0, yoffset:number => 0, a:number => 255):map:reduce
 Gura_DeclareMethod(image, paste)
@@ -811,6 +871,7 @@ void Class_image::Prepare(Environment &env)
 	Gura_AssignMethod(image, flip);
 	Gura_AssignMethod(image, getpixel);
 	Gura_AssignMethod(image, grayscale);
+	Gura_AssignMethod(image, mapcolorlevel);
 	Gura_AssignMethod(image, paste);
 	Gura_AssignMethod(image, putpixel);
 	Gura_AssignMethod(image, size);

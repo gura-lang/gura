@@ -456,6 +456,30 @@ Image *Image::GrayScale(Signal sig)
 	return pImage.release();
 }
 
+Image *Image::MapColorLevel(Signal sig, const UChar *mapR, const UChar *mapG, const UChar *mapB)
+{
+	AutoPtr<Image> pImage(CreateDerivation(sig, _width, _height));
+	if (sig.IsSignalled()) return NULL;
+	std::auto_ptr<Scanner> pScannerSrc(CreateScanner());
+	std::auto_ptr<Scanner> pScannerDst(pImage->CreateScanner());
+	if (_format == FORMAT_RGBA) {
+		do {
+			UChar r = mapR[pScannerSrc->GetR()];
+			UChar g = mapG[pScannerSrc->GetG()];
+			UChar b = mapB[pScannerSrc->GetB()];
+			pScannerDst->StorePixel(r, g, b, pScannerSrc->GetA());
+		} while (pScannerSrc->Next(*pScannerDst));
+	} else {
+		do {
+			UChar r = mapR[pScannerSrc->GetR()];
+			UChar g = mapG[pScannerSrc->GetG()];
+			UChar b = mapB[pScannerSrc->GetB()];
+			pScannerDst->StorePixel(r, g, b);
+		} while (pScannerSrc->Next(*pScannerDst));
+	}
+	return pImage.release();
+}
+
 Image *Image::Blur(Signal sig, int radius, Number sigma)
 {
 	int diameter = radius * 2 + 1;

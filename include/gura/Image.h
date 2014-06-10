@@ -290,6 +290,7 @@ public:
 	const Palette *GetPalette() const { return _pPalette.get(); }
 	Image *ReduceColor(Signal sig, const Palette *pPalette);
 	Image *GrayScale(Signal sig);
+	Image *MapColorLevel(Signal sig, const UChar *mapR, const UChar *mapG, const UChar *mapB);
 	Image *Blur(Signal sig, int radius, Number sigma);
 	Image *Flip(Signal sig, bool horzFlag, bool vertFlag);
 	Image *Rotate90(Signal sig, bool clockwiseFlag);
