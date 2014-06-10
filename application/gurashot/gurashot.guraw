@@ -23,9 +23,9 @@ Layout = struct(htImg:number, wdImg:number, htTop:number, htFace:number,
 						purpose:string, htPaper:number, wdPaper:number)
 
 //-----------------------------------------------------------------------------
-// CursorCoord
+// CoordPair
 //-----------------------------------------------------------------------------
-CursorCoord = struct(xTop:number, xBtm:number, yTop:number, yBtm:number)
+CoordPair = struct(xTop:number, xBtm:number, yTop:number, yBtm:number)
 
 //-----------------------------------------------------------------------------
 // ImageInfo
@@ -59,12 +59,22 @@ ImageInfo = class {
 		this.yrateBtm		= yrateBtm_init
 		this.tiltAdjFlag	= tiltAdjFlag_init
 	}
-	GetCursorCoord(rcImg:wx.Rect) = {
-		CursorCoord(
+	CalcCursorCoord(rcImg:wx.Rect) = {
+		CoordPair(
 			rcImg.x + rcImg.width * this.xrateTop,
 			rcImg.x + rcImg.width * this.xrateBtm,
 			rcImg.y + rcImg.height * this.yrateTop,
 			rcImg.y + rcImg.height * this.yrateBtm)
+	}
+	CalcMarkCoord(img:image, layout:Layout) = {
+		htBtm = layout.htImg - layout.htTop - layout.htFace
+		xrateDiff = this.xrateBtm - this.xrateTop
+		yrateDiff = this.yrateBtm - this.yrateTop
+		CoordPair(
+			img.width * (this.xrateTop - xrateDiff * layout.htTop / layout.htFace)
+			img.width * (this.xrateBtm + xrateDiff * htBtm / layout.htFace)
+			img.height * (this.yrateTop - yrateDiff * layout.htTop / layout.htFace)
+			img.height * (this.yrateBtm + yrateDiff * htBtm / layout.htFace))
 	}
 }
 
@@ -259,7 +269,6 @@ ComposeProduct(cr:cairo.context, imgPhoto:image, layout:Layout) = {
 	[wdMgn, htMgn] = [2, 2]
 	[wdGuide, htGuide] = [2, 2]
 	htMessage = 5
-	htBtm = layout.htImg - layout.htTop - layout.htFace
 	scope {
 		cr.select_font_face(fontName, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
 		cr.set_source_rgb(.2, .2, 1)
@@ -307,26 +316,21 @@ ComposeProduct(cr:cairo.context, imgPhoto:image, layout:Layout) = {
 	// paste dummy on SE
 	imgSrc.paste(wdDummy + imgPhoto.width, htDummy + imgPhoto.height,
 		imgPhoto.crop(imgPhoto.width - wdDummy, imgPhoto.height - htDummy, wdDummy, htDummy).rotate(180))
-	xrateDiff = g.imgInfoCur.xrateBtm - g.imgInfoCur.xrateTop
-	yrateDiff = g.imgInfoCur.yrateBtm - g.imgInfoCur.yrateTop
-	xMarkTop = imgPhoto.width * (g.imgInfoCur.xrateTop - xrateDiff * layout.htTop / layout.htFace)
-	yMarkTop = imgPhoto.height * (g.imgInfoCur.yrateTop - yrateDiff * layout.htTop / layout.htFace)
-	xMarkBtm = imgPhoto.width * (g.imgInfoCur.xrateBtm + xrateDiff * htBtm / layout.htFace)
-	yMarkBtm = imgPhoto.height * (g.imgInfoCur.yrateBtm + yrateDiff * htBtm / layout.htFace)
-	htFrame = math.sqrt((xMarkBtm - xMarkTop) ** 2 + (yMarkBtm - yMarkTop) ** 2)
+	c = g.imgInfoCur.CalcMarkCoord(imgPhoto, layout)
+	htFrame = math.sqrt((c.xBtm - c.xTop) ** 2 + (c.yBtm - c.yTop) ** 2)
 	wdFrame = htFrame * layout.wdImg / layout.htImg
 	[wdDotMgn, htDotMgn] = htFrame * [wdMgn, htMgn] / layout.htImg
 	if (g.imgInfoCur.tiltAdjFlag) {
-		angleAdj = math.atan2(xMarkBtm - xMarkTop, yMarkBtm - yMarkTop):deg
+		angleAdj = math.atan2(c.xBtm - c.xTop, c.yBtm - c.yTop):deg
 		[xCenter, yCenter] = [imgSrc.width / 2, imgSrc.height / 2]
 		imgSrc = imgSrc.rotate(angleAdj, `gray)
-		[xPivot, yPivot] = [wdDummy + xMarkTop - xCenter, -(htDummy + yMarkTop) + yCenter]
+		[xPivot, yPivot] = [wdDummy + c.xTop - xCenter, -(htDummy + c.yTop) + yCenter]
 		[yPivot, xPivot] = matrix.rotation(angleAdj):deg * [yPivot, xPivot]
 		xPivot = xPivot + imgSrc.width / 2
 		yPivot = -yPivot + imgSrc.height / 2
 		[xCrop, yCrop] = [xPivot - wdFrame / 2 - wdDotMgn, yPivot - htDotMgn]
 	} else {
-		[xCrop, yCrop] = [xMarkTop + wdDummy - wdFrame / 2 - wdDotMgn, yMarkTop + htDummy - htDotMgn]
+		[xCrop, yCrop] = [c.xTop + wdDummy - wdFrame / 2 - wdDotMgn, c.yTop + htDummy - htDotMgn]
 	}
 	[wdCrop, htCrop] = [wdFrame + wdDotMgn * 2, htFrame + htDotMgn * 2]
 	imgExtract = imgSrc.crop(xCrop, yCrop, wdCrop, htCrop)
@@ -468,7 +472,7 @@ Extractor = class(wx.Panel) {
 	}
 	// methods
 	SenseBox(pt:wx.Point) = {
-		c = g.imgInfoCur.GetCursorCoord(this.rcImg)
+		c = g.imgInfoCur.CalcCursorCoord(this.rcImg)
 		if (g.imgInfoCur.tiltAdjFlag) {
 			[wdSense, htSense] = [6, 6]
 			wx.Rect(c.xTop - wdSense / 2, c.yTop - htSense / 2, wdSense, htSense).Contains(pt) && return (`topPoint)
@@ -529,7 +533,7 @@ Extractor = class(wx.Panel) {
 		dc = wx.PaintDC(this)
 		!this.bmpScreen && this.UpdateImageScreen()
 		dc.DrawBitmap(this.bmpScreen, 0, 0, false)
-		c = g.imgInfoCur.GetCursorCoord(this.rcImg)
+		c = g.imgInfoCur.CalcCursorCoord(this.rcImg)
 		if (g.imgInfoCur.tiltAdjFlag) {
 			dc.SetPen(this.penCursor)
 			dc.SetBrush(this.brushCursor)
