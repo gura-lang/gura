@@ -275,13 +275,13 @@ ComposeProduct(cr:cairo.context, imgPhoto:image, layout:Layout) = {
 	bgColor = `gray
 	[wdDummy, htDummy] = [imgPhoto.width / 2, imgPhoto.height / 2]
 	imgSrc = image(`rgba, imgPhoto.width + wdDummy * 2, imgPhoto.height + htDummy * 2, bgColor)
-	// +---+---+---+
-	// |   | N |   |
-	// +---+---+---+
-	// | W | c | E |
-	// +---+---+---+
-	// |   | S |   |
-	// +---+---+---+
+	// +----+----+----+
+	// | NW | N  | NE |
+	// +----+----+----+
+	// | W  | c  | E  |
+	// +----+----+----+
+	// | SW | S  | SE |
+	// +----+----+----+
 	imgSrc.paste(wdDummy, htDummy, imgPhoto)
 	// paste dummy on N
 	imgSrc.paste(wdDummy, 0,
@@ -295,6 +295,18 @@ ComposeProduct(cr:cairo.context, imgPhoto:image, layout:Layout) = {
 	// paste dummy on E
 	imgSrc.paste(wdDummy + imgPhoto.width, htDummy,
 		imgPhoto.crop(imgPhoto.width - wdDummy, 0, wdDummy, imgPhoto.height).flip(`horz))
+	// paste dummy on NW
+	imgSrc.paste(0, 0,
+		imgPhoto.crop(0, 0, wdDummy, htDummy).rotate(180))
+	// paste dummy on NE
+	imgSrc.paste(wdDummy + imgPhoto.width, 0,
+		imgPhoto.crop(imgPhoto.width - wdDummy, 0, wdDummy, htDummy).rotate(180))
+	// paste dummy on SW
+	imgSrc.paste(0, htDummy + imgPhoto.height,
+		imgPhoto.crop(0, imgPhoto.height - htDummy, wdDummy, htDummy).rotate(180))
+	// paste dummy on SE
+	imgSrc.paste(wdDummy + imgPhoto.width, htDummy + imgPhoto.height,
+		imgPhoto.crop(imgPhoto.width - wdDummy, imgPhoto.height - htDummy, wdDummy, htDummy).rotate(180))
 	xrateDiff = g.imgInfoCur.xrateBtm - g.imgInfoCur.xrateTop
 	yrateDiff = g.imgInfoCur.yrateBtm - g.imgInfoCur.yrateTop
 	xMarkTop = wdDummy + imgPhoto.width * (g.imgInfoCur.xrateTop - xrateDiff * layout.htTop / layout.htFace)
