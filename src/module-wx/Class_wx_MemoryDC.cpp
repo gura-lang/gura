@@ -50,11 +50,11 @@ Gura_ImplementFunction(MemoryDCEmpty)
 	wx_MemoryDC *pEntity = new wx_MemoryDC();
 	Object_wx_MemoryDC *pObj = Object_wx_MemoryDC::GetThisObj(args);
 	if (pObj == NULL) {
-		pObj = new Object_wx_MemoryDC(pEntity, pEntity, OwnerFalse);
+		pObj = new Object_wx_MemoryDC(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
 	}
-	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
+	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
 	pEntity->AssocWithGura(sig, pObj);
 	return ReturnValue(env, sig, args, args.GetThis());
 }
@@ -74,11 +74,11 @@ Gura_ImplementFunction(MemoryDC)
 	wx_MemoryDC *pEntity = new wx_MemoryDC(*bitmap);
 	Object_wx_MemoryDC *pObj = Object_wx_MemoryDC::GetThisObj(args);
 	if (pObj == NULL) {
-		pObj = new Object_wx_MemoryDC(pEntity, pEntity, OwnerFalse);
+		pObj = new Object_wx_MemoryDC(pEntity, pEntity, OwnerTrue);
 		pEntity->AssocWithGura(sig, pObj);
 		return ReturnValue(env, sig, args, Value(pObj));
 	}
-	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
+	pObj->SetEntity(pEntity, pEntity, OwnerTrue);
 	pEntity->AssocWithGura(sig, pObj);
 	return ReturnValue(env, sig, args, args.GetThis());
 }
@@ -151,7 +151,7 @@ Gura_ImplementUserInheritableClass(wx_MemoryDC)
 
 Gura_ImplementDescendantCreator(wx_MemoryDC)
 {
-	return new Object_wx_MemoryDC((pClass == NULL)? this : pClass, NULL, NULL, OwnerFalse);
+	return new Object_wx_MemoryDC((pClass == NULL)? this : pClass, NULL, NULL, OwnerTrue);
 }
 
 Gura_EndModuleScope(wx)
