@@ -326,12 +326,11 @@ ComposeProduct(cr:cairo.context, imgPhoto:image, layout:Layout) = {
 		imgSrc = imgSrc.rotate(angleAdj, `gray)
 		[xPivot, yPivot] = [c.xTop - xCenter, -c.yTop + yCenter]
 		[yPivot, xPivot] = matrix.rotation(angleAdj):deg * [yPivot, xPivot]
-		xPivot = xPivot + imgSrc.width / 2
-		yPivot = -yPivot + imgSrc.height / 2
-		[xCrop, yCrop] = [xPivot - wdFrame / 2 - wdDotMgn, yPivot - htDotMgn]
+		[xPivot, yPivot] = [xPivot + imgSrc.width / 2, -yPivot + imgSrc.height / 2]
 	} else {
-		[xCrop, yCrop] = [c.xTop - wdFrame / 2 - wdDotMgn, c.yTop - htDotMgn]
+		[xPivot, yPivot] = [c.xTop, c.yTop]
 	}
+	[xCrop, yCrop] = [xPivot - wdFrame / 2 - wdDotMgn, yPivot - htDotMgn]
 	[wdCrop, htCrop] = [wdFrame + wdDotMgn * 2, htFrame + htDotMgn * 2]
 	imgExtract = imgSrc.crop(xCrop, yCrop, wdCrop, htCrop)
 	cairo.pattern.create_for_surface(imgExtract) {|pattern|
