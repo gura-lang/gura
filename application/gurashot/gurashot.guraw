@@ -465,7 +465,7 @@ Extractor = class(wx.Panel) {
 		this.brushBg = wx.Brush(wx.Colour(128, 128, 128), wx.BRUSHSTYLE_SOLID)
 		this.brushCursor = wx.Brush(wx.Colour(255, 255, 255), wx.BRUSHSTYLE_SOLID)
 		this.DragAcceptFiles(true)
-		this.mapColorLevel = interval(64, 200, 256):list
+		this.mapColorLevel = interval(64, 140, 256):list
 		// bind event handlers
 		this.Bind(wx.EVT_ERASE_BACKGROUND) { /* nothing to do */ }
 		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event)}
@@ -485,7 +485,7 @@ Extractor = class(wx.Panel) {
 		} else {
 			[wdSense, htSense] = [6, 6]
 			wx.Rect(c.xTop - EdgeSize / 2, c.yTop - htSense / 2, EdgeSize, htSense).Contains(pt) && return(`topLine)
-			wx.Rect(c.xTop, c.yBtm - htSense / 2, EdgeSize, htSense).Contains(pt) && return(`btmLine)
+			wx.Rect(c.xTop - EdgeSize / 2, c.yBtm - htSense / 2, EdgeSize, htSense).Contains(pt) && return(`btmLine)
 			wx.Rect(c.xTop - wdSense / 2, c.yTop, wdSense, c.yBtm - c.yTop).Contains(pt) && return(`center)
 		}
 		nil
@@ -519,9 +519,13 @@ Extractor = class(wx.Panel) {
 			dc.Clear()
 			dc.DrawBitmap(imgFrosted, xOffset, yOffset, false)
 			f = g.imgInfoCur.CalcFrameCoord(this.rcImg, g.layoutCur)
-			
-			//dc.SetClippingRegion(x + 10, y + 10, 100, 100)
-			//dc.SetClippingRegionAsRegion(wx.RegionPoints(ptTbl))
+			ptTbl = @(wx.Point) {
+				{f.xTop - f.width / 2, f.yTop},
+				{f.xTop - f.width / 2, f.yTop + f.height},
+				{f.xTop + f.width / 2, f.yTop + f.height},
+				{f.xTop + f.width / 2, f.yTop},
+			}
+			dc.SetClippingRegionAsRegion(wx.RegionPoints(ptTbl))
 			dc.DrawBitmap(img, xOffset, yOffset, false)
 		}
 	}
@@ -533,7 +537,8 @@ Extractor = class(wx.Panel) {
 	}
 	OnPaint(event:wx.PaintEvent) = {
 		dc = wx.PaintDC(this)
-		!this.bmpScreen && this.UpdateImageScreen()
+		//!this.bmpScreen && this.UpdateImageScreen()
+		this.UpdateImageScreen()
 		dc.DrawBitmap(this.bmpScreen, 0, 0, false)
 		c = g.imgInfoCur.CalcCursorCoord(this.rcImg)
 		if (g.imgInfoCur.tiltAdjFlag) {
