@@ -114,13 +114,15 @@ g = module {
 		cr.show_text('no image')
 	}
 	I(src:binary) = image(base64.reader(src))
-	imgOpen:public		= I(resource.folder_image_png)
-	imgShowList:public	= I(resource.report_picture_png)
-	imgNext:public		= I(resource.resultset_next_png)
-	imgPrev:public		= I(resource.resultset_previous_png)
-	imgRotateL:public	= I(resource.arrow_rotate_anticlockwise_png)
-	imgRotateR:public	= I(resource.arrow_rotate_clockwise_png)
-	imgTiltAdj:public	= I(resource.tilt_adj_png)
+	imgOpen:public			= I(resource.folder_image_png)
+	imgShowList:public		= I(resource.report_picture_png)
+	imgNext:public			= I(resource.resultset_next_png)
+	imgPrev:public			= I(resource.resultset_previous_png)
+	imgRotateL:public		= I(resource.arrow_rotate_anticlockwise_png)
+	imgRotateR:public		= I(resource.arrow_rotate_clockwise_png)
+	imgTiltAdj:public		= I(resource.tilt_adj_png)
+	imgCenterGuide:public	= I(resource.center_guide_png)
+	imgFrostFrame:public	= I(resource.user_frosted_png)
 	layoutTbl:public = @(Layout) {
 		{ 30, 24, 2, 23, "Driver's license",				 89 - 10, 127 - 10 }
 		{ 30, 25, 2, 23, '',								 89 - 10, 127 - 10 }
@@ -145,7 +147,8 @@ g = module {
 	imgPhotoHighRes:public	= nil
 	imgPhotoLowRes:public	= nil
 	frame:public			= nil
-
+	frostFrameFlag:public	= false
+	centerGuideFlag:public	= false
 }
 
 //-----------------------------------------------------------------------------
@@ -156,10 +159,15 @@ LoadConfig() = {
 		g.cfg = yaml.read(g.fileNameCfg)
 	} catch {}
 	g.cfg.store():default {
-		'wdFrame'	=> 600
-		'htFrame'	=> 730
-		'imgInfos'	=> []
+		'wdFrame'			=> 650
+		'htFrame'			=> 730
+		'frostFrameFlag'	=> 'false'
+		'centerGuideFlag'	=> 'false'
+		'idxImgInfoCur'		=> -1
+		'imgInfos'			=> []
 	}
+	g.frostFrameFlag = (g.cfg['frostFrameFlag'] == 'true')
+	g.centerGuideFlag = (g.cfg['centerGuideFlag'] == 'true')
 	g.cfg['imgInfos'].each {|dict|
 		imgInfo = ImageInfo()
 		try {
@@ -196,6 +204,8 @@ LoadConfig() = {
 LoadConfig()
 
 SaveConfig() = {
+	g.cfg['frostFrameFlag'] = g.frostFrameFlag
+	g.cfg['centerGuideFlag'] = g.centerGuideFlag
 	g.cfg['imgInfos'] = g.imgInfos.each():list {|imgInfo|
 		%{
 			'title'			=> imgInfo.title
@@ -519,24 +529,26 @@ Extractor = class(wx.Panel) {
 		wx.MemoryDC(this.bmpScreen) {|dc|
 			dc.SetBackground(this.brushBg)
 			dc.Clear()
-			dc.DrawBitmap(imgFrosted, xOffset, yOffset, false)
-			f = g.imgInfoCur.CalcFrameCoord(this.rcImg, g.layoutCur)
-			angle = math.atan2(f.yBtm - f.yTop, f.xBtm - f.xTop)
-			[xOffset1, yOffset1] = [
-				math.cos(angle - math.pi / 2) * f.width / 2
-				math.sin(angle - math.pi / 2) * f.width / 2
-			]
-			[xOffset2, yOffset2] = [
-				math.cos(angle + math.pi / 2) * f.width / 2
-				math.sin(angle + math.pi / 2) * f.width / 2
-			]
-			ptTbl = @(wx.Point) {
-				{f.xTop + xOffset1, f.yTop + yOffset1},
-				{f.xTop + xOffset2, f.yTop + yOffset2},
-				{f.xBtm + xOffset2, f.yBtm + yOffset2},
-				{f.xBtm + xOffset1, f.yBtm + yOffset1},
+			if (g.frostFrameFlag) {
+				dc.DrawBitmap(imgFrosted, xOffset, yOffset, false)
+				f = g.imgInfoCur.CalcFrameCoord(this.rcImg, g.layoutCur)
+				angle = math.atan2(f.yBtm - f.yTop, f.xBtm - f.xTop)
+				[xOffset1, yOffset1] = [
+					math.cos(angle - math.pi / 2) * f.width / 2
+					math.sin(angle - math.pi / 2) * f.width / 2
+				]
+				[xOffset2, yOffset2] = [
+					math.cos(angle + math.pi / 2) * f.width / 2
+					math.sin(angle + math.pi / 2) * f.width / 2
+				]
+				ptTbl = @(wx.Point) {
+					{f.xTop + xOffset1, f.yTop + yOffset1},
+					{f.xTop + xOffset2, f.yTop + yOffset2},
+					{f.xBtm + xOffset2, f.yBtm + yOffset2},
+					{f.xBtm + xOffset1, f.yBtm + yOffset1},
+				}
+				dc.SetClippingRegionAsRegion(wx.RegionPoints(ptTbl))
 			}
-			dc.SetClippingRegionAsRegion(wx.RegionPoints(ptTbl))
 			dc.DrawBitmap(img, xOffset, yOffset, false)
 		}
 	}
@@ -564,14 +576,16 @@ Extractor = class(wx.Panel) {
 		dc.DrawLine(c.xTop, c.yTop, c.xBtm, c.yBtm)
 		dc.DrawLine(c.xTop + xOffset1, c.yTop + yOffset1, c.xTop + xOffset2, c.yTop + yOffset2)
 		dc.DrawLine(c.xBtm + xOffset1, c.yBtm + yOffset1, c.xBtm + xOffset2, c.yBtm + yOffset2)
-		[xOffset1, yOffset1, xOffset2, yOffset2] = [
-			math.cos(angle - math.pi / 2)
-			math.sin(angle - math.pi / 2)
-			math.cos(angle + math.pi / 2)
-			math.sin(angle + math.pi / 2)
-		] * CenterGuideSize / 2
-		dc.SetPen(this.penCenterGuide)
-		dc.DrawLine(xCenter + xOffset1, yCenter + yOffset1, xCenter + xOffset2, yCenter + yOffset2)
+		if (g.centerGuideFlag) {
+			[xOffset1, yOffset1, xOffset2, yOffset2] = [
+				math.cos(angle - math.pi / 2)
+				math.sin(angle - math.pi / 2)
+				math.cos(angle + math.pi / 2)
+				math.sin(angle + math.pi / 2)
+			] * CenterGuideSize / 2
+			dc.SetPen(this.penCenterGuide)
+			dc.DrawLine(xCenter + xOffset1, yCenter + yOffset1, xCenter + xOffset2, yCenter + yOffset2)
+		}
 		if (g.imgInfoCur.tiltAdjFlag) {
 			dc.DrawCircle(c.xTop, c.yTop, 3)
 			dc.DrawCircle(c.xBtm, c.yBtm, 3)
@@ -688,6 +702,7 @@ Frame = class(wx.Frame) {
 		ID_Open, ID_ShowList, ID_Prev, ID_Next,
 		ID_OutputPDF, ID_ViewPDF,
 		ID_RotateL, ID_RotateR, ID_TiltAdj,
+		ID_FrostFrame, ID_CenterGuide,
 	] = wx.ID_HIGHEST..
 	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
 			size:wx.Size => wx.Size(g.cfg['wdFrame', 'htFrame']*)) = {|nil, wx.ID_ANY, title, pos, size|
@@ -706,10 +721,13 @@ Frame = class(wx.Frame) {
 			m.Append(wx.ID_CLOSE,		'E&xit\tAlt-X')
 		}
 		wx.Menu {|m|
-			menuBar.Append(m, '&Edit')
-			m.AppendEx(ID_RotateL,			'Rotate &Left\tCtrl-L',		g.imgRotateL)
-			m.AppendEx(ID_RotateR,			'Rotate &Right\tCtrl-R',	g.imgRotateR)
-			m.AppendCheckItem(ID_TiltAdj,	'Tilt AdjustSlan&t\tCtrl-T')
+			menuBar.Append(m, '&Image')
+			m.AppendEx(ID_RotateL,				'Rotate &Left\tCtrl-L',		g.imgRotateL)
+			m.AppendEx(ID_RotateR,				'Rotate &Right\tCtrl-R',	g.imgRotateR)
+			m.AppendCheckItem(ID_TiltAdj,		'Tilt AdjustSlan&t\tCtrl-T')
+			m.AppendSeparator()
+			m.AppendCheckItem(ID_FrostFrame,	'&Frost Frame')
+			m.AppendCheckItem(ID_CenterGuide,	'&Center Guide')
 		}
 		wx.Menu {|m|
 			menuBar.Append(m, '&Help')
@@ -717,15 +735,18 @@ Frame = class(wx.Frame) {
 		}
 		this.SetMenuBar(menuBar)
 		this.CreateToolBar(wx.TB_FLAT) {|tb|
-			tb.AddTool(ID_Open,		'Open',			g.imgOpen,		wx.NullBitmap, wx.ITEM_NORMAL,	'Open')
-			tb.AddTool(ID_ShowList,	'Show List',	g.imgShowList,	wx.NullBitmap, wx.ITEM_NORMAL,	'Show List')
+			tb.AddTool(ID_Open,			'Open',			g.imgOpen,			wx.NullBitmap, wx.ITEM_NORMAL,	'Open')
+			tb.AddTool(ID_ShowList,		'Show List',	g.imgShowList,		wx.NullBitmap, wx.ITEM_NORMAL,	'Show List')
 			tb.AddSeparator()
-			tb.AddTool(ID_Prev,		'Previous',		g.imgPrev,		wx.NullBitmap, wx.ITEM_NORMAL,	'Previous')
-			tb.AddTool(ID_Next,		'Next',			g.imgNext,		wx.NullBitmap, wx.ITEM_NORMAL,	'Next')
+			tb.AddTool(ID_Prev,			'Previous',		g.imgPrev,			wx.NullBitmap, wx.ITEM_NORMAL,	'Previous')
+			tb.AddTool(ID_Next,			'Next',			g.imgNext,			wx.NullBitmap, wx.ITEM_NORMAL,	'Next')
 			tb.AddSeparator()
-			tb.AddTool(ID_RotateL,	'Rotate Left',	g.imgRotateL,	wx.NullBitmap, wx.ITEM_NORMAL,	'Rotate Left')
-			tb.AddTool(ID_RotateR,	'Rotate Right',	g.imgRotateR,	wx.NullBitmap, wx.ITEM_NORMAL,	'Rotate Right')
-			tb.AddTool(ID_TiltAdj,	'Tilt Adjust',	g.imgTiltAdj,	wx.NullBitmap, wx.ITEM_CHECK,	'Tilt Adjust')
+			tb.AddTool(ID_RotateL,		'Rotate Left',	g.imgRotateL,		wx.NullBitmap, wx.ITEM_NORMAL,	'Rotate Left')
+			tb.AddTool(ID_RotateR,		'Rotate Right',	g.imgRotateR,		wx.NullBitmap, wx.ITEM_NORMAL,	'Rotate Right')
+			tb.AddTool(ID_TiltAdj,		'Tilt Adjust',	g.imgTiltAdj,		wx.NullBitmap, wx.ITEM_CHECK,	'Tilt Adjust')
+			tb.AddSeparator()
+			tb.AddTool(ID_FrostFrame,	'Frost Frame',	g.imgFrostFrame,	wx.NullBitmap, wx.ITEM_CHECK,	'Frost Frame')
+			tb.AddTool(ID_CenterGuide,	'Center Guide',	g.imgCenterGuide,	wx.NullBitmap, wx.ITEM_CHECK,	'Center Guide')
 			tb.Realize()
 		}
 		panel = wx.Panel(this)
@@ -787,6 +808,8 @@ Frame = class(wx.Frame) {
 		this.Bind(wx.EVT_MENU, ID_RotateL)		{|event| this.OnMenu_RotateL(event)}
 		this.Bind(wx.EVT_MENU, ID_RotateR)		{|event| this.OnMenu_RotateR(event)}
 		this.Bind(wx.EVT_MENU, ID_TiltAdj)		{|event| this.OnMenu_TiltAdj(event)}
+		this.Bind(wx.EVT_MENU, ID_FrostFrame)	{|event| this.OnMenu_FrostFrame(event)}
+		this.Bind(wx.EVT_MENU, ID_CenterGuide)	{|event| this.OnMenu_CenterGuide(event)}
 		this.Bind(wx.EVT_MENU, wx.ID_ABOUT)		{|event| this.OnMenu_About(event)}
 		this.Bind(wx.EVT_UPDATE_UI,	ID_Prev) {|event|
 			idx = g.imgInfos.find(g.imgInfoCur):index
@@ -798,6 +821,12 @@ Frame = class(wx.Frame) {
 		}
 		this.Bind(wx.EVT_UPDATE_UI,	ID_TiltAdj) {|event|
 			event.Check(g.imgInfoCur.tiltAdjFlag)
+		}
+		this.Bind(wx.EVT_UPDATE_UI,	ID_FrostFrame) {|event|
+			event.Check(g.frostFrameFlag)
+		}
+		this.Bind(wx.EVT_UPDATE_UI,	ID_CenterGuide) {|event|
+			event.Check(g.centerGuideFlag)
 		}
 	}
 	OnSize(event:wx.SizeEvent) = {
@@ -907,6 +936,14 @@ Frame = class(wx.Frame) {
 				this.productViewer.UpdateContent()
 			}
 		}
+	}
+	OnMenu_FrostFrame(event:wx.CommandEvent) = {
+		g.frostFrameFlag = event.IsChecked()
+		this.extractor.Refresh()
+	}
+	OnMenu_CenterGuide(event:wx.CommandEvent) = {
+		g.centerGuideFlag = event.IsChecked()
+		this.extractor.Refresh()
 	}
 	OnMenu_About(event:wx.CommandEvent) = {
 		dlg = AboutDialog(this)
