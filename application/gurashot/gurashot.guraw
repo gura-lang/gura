@@ -241,7 +241,7 @@ ReadImageFile(parent:wx.Window, fileName:string) = {
 		img = image(fileName)
 	} catch {
 		wx.MessageDialog(parent, _('Failed to read the image file'),
-								'Error', wx.OK | wx.ICON_ERROR) {|dlg|
+								_('Error'), wx.OK | wx.ICON_ERROR) {|dlg|
 			dlg.CentreOnParent()
 			dlg.ShowModal()
 		}
@@ -711,10 +711,10 @@ Frame = class(wx.Frame) {
 		menuBar = wx.MenuBar()
 		wx.Menu {|m|
 			menuBar.Append(m, _('&File'))
-			m.AppendEx(ID_Open,			_('&Open...\tCtrl-O'),		g.imgOpen)
-			m.AppendEx(ID_ShowList,		_('&Show List...\tCtrl-S'),	g.imgShowList)
-			m.AppendEx(ID_Prev,			_('&Previous\tCtrl-P'),		g.imgPrev)
-			m.AppendEx(ID_Next,			_('&Next\tCtrl-N'),			g.imgNext)
+			m.AppendEx(ID_Open,			_('&Open...\tCtrl-O'),				g.imgOpen)
+			m.AppendEx(ID_ShowList,		_('&Show Image List...\tCtrl-S'),	g.imgShowList)
+			m.AppendEx(ID_Prev,			_('&Previous\tCtrl-P'),				g.imgPrev)
+			m.AppendEx(ID_Next,			_('&Next\tCtrl-N'),					g.imgNext)
 			m.AppendSeparator()
 			m.Append(ID_OutputPDF,		_('&Output PDF...\tCtrl-U'))
 			m.Append(ID_ViewPDF,		_('&View PDF...\tCtrl-V'))
@@ -736,18 +736,18 @@ Frame = class(wx.Frame) {
 		}
 		this.SetMenuBar(menuBar)
 		this.CreateToolBar(wx.TB_FLAT) {|tb|
-			tb.AddTool(ID_Open,			_('Open'),			g.imgOpen,			wx.NullBitmap, wx.ITEM_NORMAL,	_('Open'))
-			tb.AddTool(ID_ShowList,		_('Show List'),	g.imgShowList,			wx.NullBitmap, wx.ITEM_NORMAL,	_('Show List'))
+			tb.AddTool(ID_Open,			_('Open'),				g.imgOpen,			wx.NullBitmap, wx.ITEM_NORMAL,		_('Open'))
+			tb.AddTool(ID_ShowList,		_('Show Image List'),	g.imgShowList,			wx.NullBitmap, wx.ITEM_NORMAL,	_('Show Image List'))
 			tb.AddSeparator()
-			tb.AddTool(ID_Prev,			_('Previous'),		g.imgPrev,			wx.NullBitmap, wx.ITEM_NORMAL,	_('Previous'))
-			tb.AddTool(ID_Next,			_('Next'),			g.imgNext,			wx.NullBitmap, wx.ITEM_NORMAL,	_('Next'))
+			tb.AddTool(ID_Prev,			_('Previous'),			g.imgPrev,			wx.NullBitmap, wx.ITEM_NORMAL,		_('Previous'))
+			tb.AddTool(ID_Next,			_('Next'),				g.imgNext,			wx.NullBitmap, wx.ITEM_NORMAL,		_('Next'))
 			tb.AddSeparator()
-			tb.AddTool(ID_RotateL,		_('Rotate Left'),	g.imgRotateL,		wx.NullBitmap, wx.ITEM_NORMAL,	_('Rotate Left'))
-			tb.AddTool(ID_RotateR,		_('Rotate Right'),	g.imgRotateR,		wx.NullBitmap, wx.ITEM_NORMAL,	_('Rotate Right'))
-			tb.AddTool(ID_TiltAdj,		_('Tilt Adjust'),	g.imgTiltAdj,		wx.NullBitmap, wx.ITEM_CHECK,	_('Tilt Adjust'))
+			tb.AddTool(ID_RotateL,		_('Rotate Left'),		g.imgRotateL,		wx.NullBitmap, wx.ITEM_NORMAL,		_('Rotate Left'))
+			tb.AddTool(ID_RotateR,		_('Rotate Right'),		g.imgRotateR,		wx.NullBitmap, wx.ITEM_NORMAL,		_('Rotate Right'))
+			tb.AddTool(ID_TiltAdj,		_('Tilt Adjust'),		g.imgTiltAdj,		wx.NullBitmap, wx.ITEM_CHECK,		_('Tilt Adjust'))
 			tb.AddSeparator()
-			tb.AddTool(ID_FrostFrame,	_('Frost Frame'),	g.imgFrostFrame,	wx.NullBitmap, wx.ITEM_CHECK,	_('Frost Frame'))
-			tb.AddTool(ID_CenterGuide,	_('Center Guide'),	g.imgCenterGuide,	wx.NullBitmap, wx.ITEM_CHECK,	_('Center Guide'))
+			tb.AddTool(ID_FrostFrame,	_('Frost Frame'),		g.imgFrostFrame,	wx.NullBitmap, wx.ITEM_CHECK,		_('Frost Frame'))
+			tb.AddTool(ID_CenterGuide,	_('Center Guide'),		g.imgCenterGuide,	wx.NullBitmap, wx.ITEM_CHECK,		_('Center Guide'))
 			tb.Realize()
 		}
 		panel = wx.Panel(this)
@@ -857,8 +857,8 @@ Frame = class(wx.Frame) {
 		}
 	}
 	OnMenu_Open(event:wx.CommandEvent) = {
-		filter = 'Image files (*.jpg;*.png;*.gif)|*.jpg;*.png;*.gif|All files (*.*)|*.*'
-		dlg = wx.FileDialog(this, 'Choose an image file',
+		filter = _('Image files (*.jpg;*.png;*.gif)|*.jpg;*.png;*.gif|All files (*.*)|*.*')
+		dlg = wx.FileDialog(this, _('Choose an image file'),
 								'', g.imgInfoCur.fileName, filter, wx.FD_OPEN)
 		if (dlg.ShowModal() == wx.ID_OK) {
 			fileName = dlg.GetPath()
@@ -895,8 +895,8 @@ Frame = class(wx.Frame) {
 		}
 	}
 	OnMenu_OutputPDF(event:wx.CommandEvent) = {
-		filter = 'PDF file (*.pdf)|*.pdf|All files (*.*)|*.*'
-		dlg = wx.FileDialog(this, 'Choose a PDF file to output',
+		filter = _('PDF file (*.pdf)|*.pdf|All files (*.*)|*.*')
+		dlg = wx.FileDialog(this, _('Specify a PDF file to output'),
 								'', '', filter, wx.FD_SAVE)
 		if (dlg.ShowModal() == wx.ID_OK) {
 			fileNamePDF = dlg.GetPath()
@@ -908,8 +908,8 @@ Frame = class(wx.Frame) {
 		try {
 			OpenWithApp(g.fileNameTmpPDF)
 		} catch {
-			wx.MessageDialog(parent, 'Failed to launch PDF viewer',
-									'Error', wx.OK | wx.ICON_ERROR) {|dlg|
+			wx.MessageDialog(parent, _('Failed to launch PDF viewer'),
+									_('Error'), wx.OK | wx.ICON_ERROR) {|dlg|
 				dlg.CentreOnParent()
 				dlg.ShowModal()
 			}
@@ -977,11 +977,11 @@ ImageListDialog = class(wx.Dialog) {
 		}
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
 			vbox.Add(hbox, wx.SizerFlags().Border(wx.TOP, 4).Centre())
-			wx.Button(this, wx.ID_OK, 'OK') {|ctrl|
+			wx.Button(this, wx.ID_OK, _('OK')) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags())
 				ctrl.SetDefault()
 			}
-			wx.Button(this, wx.ID_CANCEL, 'Cancel') {|ctrl|
+			wx.Button(this, wx.ID_CANCEL, _('Cancel')) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 16))
 			}
 		}
