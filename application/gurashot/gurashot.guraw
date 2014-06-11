@@ -15,6 +15,7 @@ import(cairo)
 import(resource)
 import(mswin)
 import(units)
+import(translate) {_}
 
 //-----------------------------------------------------------------------------
 // Layout
@@ -124,20 +125,20 @@ g = module {
 	imgCenterGuide:public	= I(resource.center_guide_png)
 	imgFrostFrame:public	= I(resource.user_frosted_png)
 	layoutTbl:public = @(Layout) {
-		{ 30, 24, 2, 23, "Driver's license",				 89 - 10, 127 - 10 }
-		{ 30, 25, 2, 23, '',								 89 - 10, 127 - 10 }
-		{ 30, 30, 2, 23, '',								 89 - 10, 127 - 10 }
-		{ 35, 24, 2, 26, '',								127 - 10,  89 - 10 }
-		{ 36, 24, 2, 27, '',								127 - 10,  89 - 10 }
-		{ 36, 25, 2, 27, '',								127 - 10,  89 - 10 }
-		{ 40, 30, 2, 30, 'Resume',							127 - 10,  89 - 10 }
-		{ 40, 40, 3, 31, '',								 89 - 10, 127 - 10 }
-		{ 45, 35, 4, 34, 'Passport',						 89 - 10, 127 - 10 }
-		{ 50, 40, 4, 38, "International driver's license",	 89 - 10, 127 - 10 }
-		{ 50, 50, 4, 35, 'Visa',							 89 - 10, 127 - 10 }
-		{ 55, 40, 2, 41, '',								 89 - 10, 127 - 10 }
-		{ 55, 45, 2, 41, '',								 89 - 10, 127 - 10 }
-		{ 60, 45, 2, 45, '',								 89 - 10, 127 - 10 }
+		{ 30, 24, 2, 23, _("Driver's license"),					 89 - 10, 127 - 10 }
+		{ 30, 25, 2, 23, '',									 89 - 10, 127 - 10 }
+		{ 30, 30, 2, 23, '',									 89 - 10, 127 - 10 }
+		{ 35, 24, 2, 26, '',									127 - 10,  89 - 10 }
+		{ 36, 24, 2, 27, '',									127 - 10,  89 - 10 }
+		{ 36, 25, 2, 27, '',									127 - 10,  89 - 10 }
+		{ 40, 30, 2, 30, _('Resume'),							127 - 10,  89 - 10 }
+		{ 40, 40, 3, 31, '',									 89 - 10, 127 - 10 }
+		{ 45, 35, 4, 34, _('Passport'),							 89 - 10, 127 - 10 }
+		{ 50, 40, 4, 38, _("International driver's license"),	 89 - 10, 127 - 10 }
+		{ 50, 50, 4, 35, _('Visa'),								 89 - 10, 127 - 10 }
+		{ 55, 40, 2, 41, '',									 89 - 10, 127 - 10 }
+		{ 55, 45, 2, 41, '',									 89 - 10, 127 - 10 }
+		{ 60, 45, 2, 45, '',									 89 - 10, 127 - 10 }
 	}
 	layoutCur:public		= layoutTbl[0]
 	cfg:public				= %{}
@@ -239,7 +240,7 @@ ReadImageFile(parent:wx.Window, fileName:string) = {
 	try {
 		img = image(fileName)
 	} catch {
-		wx.MessageDialog(parent, 'Failed to read the image file',
+		wx.MessageDialog(parent, _('Failed to read the image file'),
 								'Error', wx.OK | wx.ICON_ERROR) {|dlg|
 			dlg.CentreOnParent()
 			dlg.ShowModal()
@@ -709,44 +710,44 @@ Frame = class(wx.Frame) {
 		this.SetIcon(wx.Icon(g.fileNameIcon, wx.BITMAP_TYPE_ICO))
 		menuBar = wx.MenuBar()
 		wx.Menu {|m|
-			menuBar.Append(m, '&File')
-			m.AppendEx(ID_Open,			'&Open...\tCtrl-O',			g.imgOpen)
-			m.AppendEx(ID_ShowList,		'&Show List...\tCtrl-S',	g.imgShowList)
-			m.AppendEx(ID_Prev,			'&Previous\tCtrl-P',		g.imgPrev)
-			m.AppendEx(ID_Next,			'&Next\tCtrl-N',			g.imgNext)
+			menuBar.Append(m, _('&File'))
+			m.AppendEx(ID_Open,			_('&Open...\tCtrl-O'),		g.imgOpen)
+			m.AppendEx(ID_ShowList,		_('&Show List...\tCtrl-S'),	g.imgShowList)
+			m.AppendEx(ID_Prev,			_('&Previous\tCtrl-P'),		g.imgPrev)
+			m.AppendEx(ID_Next,			_('&Next\tCtrl-N'),			g.imgNext)
 			m.AppendSeparator()
-			m.Append(ID_OutputPDF,		'&Output PDF...\tCtrl-U')
-			m.Append(ID_ViewPDF,		'&View PDF...\tCtrl-V')
+			m.Append(ID_OutputPDF,		_('&Output PDF...\tCtrl-U'))
+			m.Append(ID_ViewPDF,		_('&View PDF...\tCtrl-V'))
 			m.AppendSeparator()
-			m.Append(wx.ID_CLOSE,		'E&xit\tAlt-X')
+			m.Append(wx.ID_CLOSE,		_('E&xit\tAlt-X'))
 		}
 		wx.Menu {|m|
-			menuBar.Append(m, '&Image')
-			m.AppendEx(ID_RotateL,				'Rotate &Left\tCtrl-L',		g.imgRotateL)
-			m.AppendEx(ID_RotateR,				'Rotate &Right\tCtrl-R',	g.imgRotateR)
-			m.AppendCheckItem(ID_TiltAdj,		'Tilt AdjustSlan&t\tCtrl-T')
+			menuBar.Append(m, _('&Image'))
+			m.AppendEx(ID_RotateL,				_('Rotate &Left\tCtrl-L'),		g.imgRotateL)
+			m.AppendEx(ID_RotateR,				_('Rotate &Right\tCtrl-R'),	g.imgRotateR)
+			m.AppendCheckItem(ID_TiltAdj,		_('&Tilt Adjust&t\tCtrl-T'))
 			m.AppendSeparator()
-			m.AppendCheckItem(ID_FrostFrame,	'&Frost Frame')
-			m.AppendCheckItem(ID_CenterGuide,	'&Center Guide')
+			m.AppendCheckItem(ID_FrostFrame,	_('&Frost Frame'))
+			m.AppendCheckItem(ID_CenterGuide,	_('&Center Guide'))
 		}
 		wx.Menu {|m|
-			menuBar.Append(m, '&Help')
-			m.Append(wx.ID_ABOUT,		'&About')
+			menuBar.Append(m, _('&Help'))
+			m.Append(wx.ID_ABOUT,		_('&About'))
 		}
 		this.SetMenuBar(menuBar)
 		this.CreateToolBar(wx.TB_FLAT) {|tb|
-			tb.AddTool(ID_Open,			'Open',			g.imgOpen,			wx.NullBitmap, wx.ITEM_NORMAL,	'Open')
-			tb.AddTool(ID_ShowList,		'Show List',	g.imgShowList,		wx.NullBitmap, wx.ITEM_NORMAL,	'Show List')
+			tb.AddTool(ID_Open,			_('Open'),			g.imgOpen,			wx.NullBitmap, wx.ITEM_NORMAL,	_('Open'))
+			tb.AddTool(ID_ShowList,		_('Show List'),	g.imgShowList,			wx.NullBitmap, wx.ITEM_NORMAL,	_('Show List'))
 			tb.AddSeparator()
-			tb.AddTool(ID_Prev,			'Previous',		g.imgPrev,			wx.NullBitmap, wx.ITEM_NORMAL,	'Previous')
-			tb.AddTool(ID_Next,			'Next',			g.imgNext,			wx.NullBitmap, wx.ITEM_NORMAL,	'Next')
+			tb.AddTool(ID_Prev,			_('Previous'),		g.imgPrev,			wx.NullBitmap, wx.ITEM_NORMAL,	_('Previous'))
+			tb.AddTool(ID_Next,			_('Next'),			g.imgNext,			wx.NullBitmap, wx.ITEM_NORMAL,	_('Next'))
 			tb.AddSeparator()
-			tb.AddTool(ID_RotateL,		'Rotate Left',	g.imgRotateL,		wx.NullBitmap, wx.ITEM_NORMAL,	'Rotate Left')
-			tb.AddTool(ID_RotateR,		'Rotate Right',	g.imgRotateR,		wx.NullBitmap, wx.ITEM_NORMAL,	'Rotate Right')
-			tb.AddTool(ID_TiltAdj,		'Tilt Adjust',	g.imgTiltAdj,		wx.NullBitmap, wx.ITEM_CHECK,	'Tilt Adjust')
+			tb.AddTool(ID_RotateL,		_('Rotate Left'),	g.imgRotateL,		wx.NullBitmap, wx.ITEM_NORMAL,	_('Rotate Left'))
+			tb.AddTool(ID_RotateR,		_('Rotate Right'),	g.imgRotateR,		wx.NullBitmap, wx.ITEM_NORMAL,	_('Rotate Right'))
+			tb.AddTool(ID_TiltAdj,		_('Tilt Adjust'),	g.imgTiltAdj,		wx.NullBitmap, wx.ITEM_CHECK,	_('Tilt Adjust'))
 			tb.AddSeparator()
-			tb.AddTool(ID_FrostFrame,	'Frost Frame',	g.imgFrostFrame,	wx.NullBitmap, wx.ITEM_CHECK,	'Frost Frame')
-			tb.AddTool(ID_CenterGuide,	'Center Guide',	g.imgCenterGuide,	wx.NullBitmap, wx.ITEM_CHECK,	'Center Guide')
+			tb.AddTool(ID_FrostFrame,	_('Frost Frame'),	g.imgFrostFrame,	wx.NullBitmap, wx.ITEM_CHECK,	_('Frost Frame'))
+			tb.AddTool(ID_CenterGuide,	_('Center Guide'),	g.imgCenterGuide,	wx.NullBitmap, wx.ITEM_CHECK,	_('Center Guide'))
 			tb.Realize()
 		}
 		panel = wx.Panel(this)
@@ -766,7 +767,7 @@ Frame = class(wx.Frame) {
 					font = ctrl.GetFont()
 					font.SetPointSize(11)
 					ctrl.SetFont(font)
-					ctrl.InsertColumn(0.., ['Size', 'Purpose'])
+					ctrl.InsertColumn(0.., [_('Size'), _('Purpose')])
 					ctrl.Bind(wx.EVT_SIZE) {|event|
 						size = event.GetSize()
 						width = size.GetWidth() - 22
@@ -957,7 +958,7 @@ Frame = class(wx.Frame) {
 ImageListDialog = class(wx.Dialog) {
 	__init__(parent:wx.Window, imgInfos[]:ImageInfo, idxSel:number,
 			pos:wx.Point => wx.DefaultPosition, size:wx.Size => wx.Size(640, 480)) = {|parent, wx.ID_ANY,
-						'Image List', pos, size, style => wx.DEFAULT_DIALOG_STYLE|
+						_('Image List'), pos, size, style => wx.DEFAULT_DIALOG_STYLE|
 		this.SetIcon(wx.Icon(g.fileNameIcon, wx.BITMAP_TYPE_ICO))
 		outerBox = wx.BoxSizer(wx.VERTICAL)
 		this.SetSizer(outerBox)
@@ -1046,7 +1047,7 @@ ImageListDialog = class(wx.Dialog) {
 // AboutDialog
 //-----------------------------------------------------------------------------
 AboutDialog = class(wx.Dialog) {
-	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, 'About', size => wx.Size(320, 200)|
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, _('About'), size => wx.Size(320, 200)|
 		icon = wx.Icon(g.fileNameIcon, wx.BITMAP_TYPE_ICO)
 		this.SetIcon(icon)
 		outerBox = wx.BoxSizer(wx.VERTICAL)
@@ -1104,7 +1105,7 @@ AboutDialog = class(wx.Dialog) {
 //-----------------------------------------------------------------------------
 App = class(wx.App) {
 	OnInit() = {
-		if (false) {
+		if (true) {
 			frame = Frame('Gura Shot')
 			frame.Show()
 			g.frame = frame

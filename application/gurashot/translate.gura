@@ -1,0 +1,42 @@
+tbl = %{
+	"Driver's license"					=> '運転免許証'
+	'Resume'							=> '履歴書'
+	'Passport'							=> 'パスポート'
+	"International driver's license"	=> '国際運転免許証'
+	'Visa'								=> 'ビザ'
+	'&File'								=> 'ファイル(&F)'
+	'&Open...\tCtrl-O'					=> '開く(&O)...\tCtrl-O'
+	'&Show List...\tCtrl-S'				=> 'リスト表示(&S)...\tCtrl-S'
+	'&Previous\tCtrl-P'					=> '前の画像(&P)\tCtrl-P'
+	'&Next\tCtrl-N'						=> '次の画像(&N)\tCtrl-N'
+	'&Output PDF...\tCtrl-U'			=> 'PDF出力(&O)...\tCtrl-U'
+	'&View PDF...\tCtrl-V'				=> 'PDFビューア(&V)...\tCtrl-V'
+	'E&xit\tAlt-X'						=> '閉じる(&X)\tAlt-X'
+	'&Image'							=> 'イメージ(&I)'
+	'Rotate &Left\tCtrl-L'				=> '左回転(&L)\tCtrl-L'
+	'Rotate &Right\tCtrl-R'				=> '右回転(&R)\tCtrl-R'
+	'&Tilt Adjust&t\tCtrl-T'			=> '傾き調整(&T)\tCtrl-T'
+	'&Frost Frame'						=> 'フレーム表示(&F)'
+	'&Center Guide'						=> '中心ガイド(&C)'
+	'&Help'								=> 'ヘルプ(&H)'
+	'&About'							=> 'バージョン情報(&A)'
+	'Open'								=> '開く'
+	'Show List'							=> 'リスト表示'
+	'Previous'							=> '前の画像'
+	'Next'								=> '次の画像'
+	'Rotate Left'						=> '左回転'
+	'Rotate Right'						=> '右回転'
+	'Tilt Adjust'						=> '傾き調整'
+	'Frost Frame'						=> 'フレーム表示'
+	'Center Guide'						=> '中心ガイド'
+	'Size'								=> 'サイズ'
+	'Purpose'							=> '目的'
+}
+hist = []
+_(x) = {
+	//if (!hist.find(x)) {
+	//	printf("'%s'\n", x)
+	//	hist.add(x)
+	//}
+	tbl.get(x, x)
+}
