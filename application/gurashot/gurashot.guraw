@@ -1046,7 +1046,7 @@ ImageListDialog = class(wx.Dialog) {
 // AboutDialog
 //-----------------------------------------------------------------------------
 AboutDialog = class(wx.Dialog) {
-	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, 'About', size => wx.Size(320, 180)|
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, 'About', size => wx.Size(320, 200)|
 		icon = wx.Icon(g.fileNameIcon, wx.BITMAP_TYPE_ICO)
 		this.SetIcon(icon)
 		outerBox = wx.BoxSizer(wx.VERTICAL)
@@ -1067,13 +1067,24 @@ AboutDialog = class(wx.Dialog) {
 				font.SetWeight(wx.FONTWEIGHT_BOLD)
 				ctrl.SetFont(font)
 			}
-		}
-		wx.StaticText(this, wx.ID_ANY, 'Version 0.0.0') {|ctrl|
-			vbox.Add(ctrl, wx.SizerFlags().Centre().Border(wx.TOP, 8))
+			wx.StaticText(this, wx.ID_ANY, 'Version 1.0.0') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Centre().Border(wx.LEFT, 12))
+			}
 		}
 		vbox.AddStretchSpacer(1)
 		wx.StaticText(this, wx.ID_ANY, 'Copyright (C) 2014 ypsitau') {|ctrl|
 			vbox.Add(ctrl, wx.SizerFlags().Centre())
+		}
+		vbox.AddStretchSpacer(1)
+		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
+			vbox.Add(hbox, wx.SizerFlags().Centre())
+			wx.StaticText(this, wx.ID_ANY, 'Powered by') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags())
+			}
+			wx.HyperlinkCtrl(this, wx.ID_ANY,
+					'Gura Programming Language', 'http://www.gura-lang.org') {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 4))
+			}
 		}
 		vbox.AddStretchSpacer(1)
 		wx.StaticLine(this, wx.ID_ANY) {|ctrl|
@@ -1082,6 +1093,8 @@ AboutDialog = class(wx.Dialog) {
 		//vbox.AddStretchSpacer(1)
 		wx.Button(this, wx.ID_OK, 'OK') {|ctrl|
 			vbox.Add(ctrl, wx.SizerFlags().Centre().Border(wx.TOP | wx.BOTTOM, 4))
+			ctrl.SetDefault()
+			ctrl.SetFocus()
 		}
 	}
 }
@@ -1091,13 +1104,13 @@ AboutDialog = class(wx.Dialog) {
 //-----------------------------------------------------------------------------
 App = class(wx.App) {
 	OnInit() = {
-		if (true) {
+		if (false) {
 			frame = Frame('Gura Shot')
 			frame.Show()
 			g.frame = frame
 			true
 		} else {
-			ImageListDialog(nil, g.imgInfos, 0).ShowModal()
+			AboutDialog(nil).ShowModal()
 			false
 		}
 	}
