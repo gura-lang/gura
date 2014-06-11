@@ -47,6 +47,7 @@ ImageInfo = class {
 		yrateTop,		yrateTop_init
 		yrateBtm,		yrateBtm_init
 		tiltAdjFlag,	tiltAdjFlag_init
+		imgPhotoRaw,
 	}
 	title_init			= ''
 	fileName_init		= ''
@@ -65,6 +66,7 @@ ImageInfo = class {
 		this.yrateTop		= yrateTop_init
 		this.yrateBtm		= yrateBtm_init
 		this.tiltAdjFlag	= tiltAdjFlag_init
+		this.imgPhotoRaw	= nil
 	}
 	CalcCursorCoord(rcImg:wx.Rect) = {
 		CursorCoord(
@@ -237,16 +239,6 @@ UpdateImagePhoto()
 // ReadImageFile
 //-----------------------------------------------------------------------------
 ReadImageFile(parent:wx.Window, fileName:string) = {
-	try {
-		img = image(fileName)
-	} catch {
-		wx.MessageDialog(parent, _('Failed to read the image file'),
-								_('Error'), wx.OK | wx.ICON_ERROR) {|dlg|
-			dlg.CentreOnParent()
-			dlg.ShowModal()
-		}
-		return
-	}
 	idx = g.imgInfos:*fileName.find(fileName):index
 	if (idx) {
 		g.imgInfoCur = g.imgInfos[idx]
@@ -256,7 +248,21 @@ ReadImageFile(parent:wx.Window, fileName:string) = {
 		g.imgInfoCur.fileName = fileName
 		g.imgInfos.add(g.imgInfoCur)
 	}
-	g.imgPhotoRaw = img
+	if (g.imgInfoCur.imgPhotoRaw) {
+		g.imgPhotoRaw = g.imgInfoCur.imgPhotoRaw
+	} else {
+		try {
+			imgPhotoRaw = image(fileName)
+		} catch {
+			wx.MessageDialog(parent, _('Failed to read the image file'),
+									_('Error'), wx.OK | wx.ICON_ERROR) {|dlg|
+				dlg.CentreOnParent()
+				dlg.ShowModal()
+			}
+			return
+		}
+		g.imgPhotoRaw = g.imgInfoCur.imgPhotoRaw = imgPhotoRaw
+	}
 	UpdateImagePhoto()
 }
 
@@ -994,7 +1000,11 @@ ImageListDialog = class(wx.Dialog) {
 		size = 128
 		imgList = wx.ImageList(size, size)
 		this.imgInfos.each {|imgInfo|
-			imgSrc = (image(imgInfo.fileName).thumbnail(size):box).rotate(imgInfo.rotate)
+			if (!imgInfo.imgPhotoRaw) {
+				imgInfo.imgPhotoRaw = image(imgInfo.fileName)
+			}
+			imgPhotoRaw = imgInfo.imgPhotoRaw
+			imgSrc = (imgPhotoRaw.thumbnail(size):box).rotate(imgInfo.rotate)
 			img = image(`rgb, size, size, `gray)
 			img.paste((size - imgSrc.width) / 2, (size - imgSrc.height) / 2, imgSrc)
 			imgList.Add(img)
