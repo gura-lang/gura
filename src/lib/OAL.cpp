@@ -857,6 +857,11 @@ String PrepareLocalDir()
 		dirNameSub += "\\config";
 		MakeDir(dirNameSub.c_str());
 	} while (0);
+	do {
+		String dirNameSub(dirName);
+		dirNameSub += "\\work";
+		MakeDir(dirNameSub.c_str());
+	} while (0);
 	return dirName;
 }
 
@@ -1528,6 +1533,11 @@ String PrepareLocalDir()
 	do {
 		String dirNameSub(dirName);
 		dirNameSub += "/config";
+		MakeDir(dirNameSub.c_str());
+	} while (0);
+	do {
+		String dirNameSub(dirName);
+		dirNameSub += "/work";
 		MakeDir(dirNameSub.c_str());
 	} while (0);
 	return dirName;

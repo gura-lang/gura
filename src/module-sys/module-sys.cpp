@@ -72,6 +72,7 @@ Gura_ModuleEntry()
 	Gura_AssignValue(localdir, Value(dirNameLocal));
 	Gura_AssignValue(appdir, Value(OAL::JoinPathName(dirNameLocal.c_str(), "application")));
 	Gura_AssignValue(cfgdir, Value(OAL::JoinPathName(dirNameLocal.c_str(), "config")));
+	Gura_AssignValue(workdir, Value(OAL::JoinPathName(dirNameLocal.c_str(), "work")));
 	// function assignment
 	Gura_AssignFunction(echo);
 	Gura_AssignFunction(exit);
