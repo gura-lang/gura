@@ -90,8 +90,8 @@ ImageInfo = class {
 // Global variables
 //-----------------------------------------------------------------------------
 g = module {
-	fileNameTmpPDF:public	= path.join(sys.localdir, 'gurashot.pdf')
-	fileNameCfg:public		= path.join(sys.localdir, 'gurashot.yml')
+	fileNameTmpPDF:public	= path.join(sys.cfgdir, 'gurashot.pdf')
+	fileNameCfg:public		= path.join(sys.cfgdir, 'gurashot.yml')
 	//fileNameCfg:public	= 'gurashot.yml'
 	fileNameIcon:public		= 'gurashot.ico'
 	imgBlank:public = image(`rgba, 800, 800, color(240, 240, 255))

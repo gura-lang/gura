@@ -13,7 +13,7 @@ caption = 'Gura Application Setup'
 //-----------------------------------------------------------------------------
 execute(launcherName:string, dirNameDst:string:nil,
 		fileNameScript:string, fileNameIcon:string, fileNamesExtra[]:string) = {
-	dirNameDst = dirNameDst || path.join(sys.localdir,
+	dirNameDst = dirNameDst || path.join(sys.appdir,
 								path.basename(path.filename(fileNameScript)))
 	Dialog.launcherName = launcherName
 	Dialog.dirNameDst = dirNameDst

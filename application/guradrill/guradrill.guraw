@@ -169,7 +169,7 @@ App = class(wx.App) {
 			this.IMG_Divide = this.imgList.Add(img)
 		}
 		if (sys.argv.len() < 2) {
-			this.fileNameCfg = path.join(sys.localdir, 'guradrill.yml')
+			this.fileNameCfg = path.join(sys.cfgdir, 'guradrill.yml')
 		} else {
 			this.fileNameCfg = sys.argv[1]
 		}
@@ -327,7 +327,7 @@ ComposerAttr = class {
 			this.seed			= int(cfg['seed'])
 		} else {
 			this.name			= ''
-			this.fileNamePDF	= path.join(sys.localdir, 'guradrill.pdf')
+			this.fileNamePDF	= path.join(sys.cfgdir, 'guradrill.pdf')
 			this.cntHorz		= 1
 			this.cntVert		= 1
 			this.nPages			= 10

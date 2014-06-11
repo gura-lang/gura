@@ -125,6 +125,7 @@ bool Environment::InitializeAsRoot(Signal sig, int &argc, const char *argv[],
 	GetGlobal()->Prepare(env, sig);
 	Operator::AssignOperators(env);
 	ValueTypePool::DoPrepareClass(env);
+	OAL::PrepareLocalDir();
 	OAL::SetupExecutablePath();
 	Module::ImportBuiltIns(env, sig);
 	// set command line argument into sys module

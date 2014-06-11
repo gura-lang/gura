@@ -14,7 +14,7 @@ classref(`cairo.context) {|ref|
 	}
 }
 
-fileNameCfg = path.join(sys.localdir, 'guraplot.yml')
+fileNameCfg = path.join(sys.cfgdir, 'guraplot.yml')
 try { cfg = yaml.read(fileNameCfg) } catch { cfg = %{} }
 cfg.store():default {
 	'width' => 740

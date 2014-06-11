@@ -5,7 +5,7 @@ import(msico)
 
 patternImgList = ['*.jpg']
 patternAviList = ['*.avi', '*.mov']
-fileNameCfg = path.join(sys.localdir, 'getterphoto.yml')
+fileNameCfg = path.join(sys.cfgdir, 'getterphoto.yml')
 //fileNameCfg = path.join(path.dirname(sys.argv[0]), 'getterphoto.yml')
 charsAtoZ = chr(ord('A')..ord('Z'))
 try { cfg = yaml.read(fileNameCfg) } catch { cfg = %{} }

@@ -827,6 +827,16 @@ String GetLocalDir()
 	char buff[MAX_PATH];
 	::SHGetSpecialFolderPath(NULL, buff, CSIDL_LOCAL_APPDATA, FALSE);
 	String dirName = FromNativeString(buff);
+	dirName += "\\Gura\\";
+	dirName += GURA_VERSION;
+	return dirName;
+}
+
+String PrepareLocalDir()
+{
+	char buff[MAX_PATH];
+	::SHGetSpecialFolderPath(NULL, buff, CSIDL_LOCAL_APPDATA, FALSE);
+	String dirName = FromNativeString(buff);
 	dirName += "\\Gura";
 	MakeDir(dirName.c_str());
 	dirName += "\\";
@@ -835,6 +845,16 @@ String GetLocalDir()
 	do {
 		String dirNameSub(dirName);
 		dirNameSub += "\\module";
+		MakeDir(dirNameSub.c_str());
+	} while (0);
+	do {
+		String dirNameSub(dirName);
+		dirNameSub += "\\application";
+		MakeDir(dirNameSub.c_str());
+	} while (0);
+	do {
+		String dirNameSub(dirName);
+		dirNameSub += "\\config";
 		MakeDir(dirNameSub.c_str());
 	} while (0);
 	return dirName;
@@ -1482,6 +1502,14 @@ String GetIncludeDir()
 String GetLocalDir()
 {
 	String dirName = GetEnv("HOME");
+	dirName += "/.gura/";
+	dirName += GURA_VERSION;
+	return dirName;
+}
+
+String PrepareLocalDir()
+{
+	String dirName = GetEnv("HOME");
 	dirName += "/.gura";
 	MakeDir(dirName.c_str());
 	dirName += "/";
@@ -1490,6 +1518,16 @@ String GetLocalDir()
 	do {
 		String dirNameSub(dirName);
 		dirNameSub += "/module";
+		MakeDir(dirNameSub.c_str());
+	} while (0);
+	do {
+		String dirNameSub(dirName);
+		dirNameSub += "/application";
+		MakeDir(dirNameSub.c_str());
+	} while (0);
+	do {
+		String dirNameSub(dirName);
+		dirNameSub += "/config";
 		MakeDir(dirNameSub.c_str());
 	} while (0);
 	return dirName;

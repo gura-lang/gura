@@ -15,7 +15,7 @@ main = module {
 	patternAviList:public = ['*.avi', '*.mov']
 	charsAtoZ:public = chr(ord('A')..ord('Z'))
 	if (sys.argv.len() < 2) {
-		fileNameCfg:public = path.join(sys.localdir, 'getterphoto.yml')
+		fileNameCfg:public = path.join(sys.cfgdir, 'getterphoto.yml')
 	} else {
 		fileNameCfg:public = sys.argv[1]
 	}
@@ -31,7 +31,7 @@ main = module {
 			'wdFrame'			=> 480
 			'htFrame'			=> 680
 			'dirNameSrc'		=> ''
-			'dirNameDstBase'	=> path.join(sys.localdir, 'getterphoto')
+			'dirNameDstBase'	=> path.join(sys.appdir, 'getterphoto')
 			'dirNameStamperTgt'	=> ''
 		}
 		wx.IMPLEMENT_APP(App)
