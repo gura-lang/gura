@@ -42,15 +42,13 @@ tbl = %{
 	'Image files (*.jpg;*.png;*.gif)|*.jpg;*.png;*.gif|All files (*.*)|*.*' \
 				=> 'イメージファイル (*.jpg;*.png;*.gif)|*.jpg;*.png;*.gif|すべてのファイル (*.*)|*.*'
 	'Failed to read the image file'			=> '画像ファイルの読み込み中にエラーが発生しました'
+	'Remove'								=> '削除'
 	'OK'									=> 'OK'
 	'Cancel'								=> 'キャンセル'
 	'Image List'							=> '画像一覧'
+	'Confirm'								=> '確認'
+	'Are you sure to remove the image from the list?' \
+				=> '選択した画像を一覧から削除しますか?'
 }
 hist = []
-_(x) = {
-	//if (!hist.find(x)) {
-	//	printf("'%s'\n", x)
-	//	hist.add(x)
-	//}
-	tbl.get(x, x)
-}
+_(x) = tbl.get(x, x)

@@ -18,6 +18,17 @@ import(units)
 import(translate) {_}
 
 //-----------------------------------------------------------------------------
+// Control ID
+//-----------------------------------------------------------------------------
+[
+	ID_Open, ID_ShowList, ID_Prev, ID_Next,
+	ID_OutputPDF, ID_ViewPDF,
+	ID_RotateL, ID_RotateR, ID_TiltAdj,
+	ID_FrostFrame, ID_CenterGuide,
+	ID_Remove,
+] = wx.ID_HIGHEST..
+
+//-----------------------------------------------------------------------------
 // Layout
 //-----------------------------------------------------------------------------
 Layout = struct(htImg:number, wdImg:number, htTop:number, htFace:number,
@@ -255,8 +266,7 @@ ReadImageFile(parent:wx.Window, fileName:string) = {
 			imgPhotoRaw = image(fileName)
 		} catch {
 			wx.MessageDialog(parent, _('Failed to read the image file'),
-									_('Error'), wx.OK | wx.ICON_ERROR) {|dlg|
-				dlg.CentreOnParent()
+							_('Error'), wx.OK | wx.ICON_ERROR | wx.CENTRE) {|dlg|
 				dlg.ShowModal()
 			}
 			return
@@ -705,12 +715,6 @@ wx.Menu.AppendEx(id:number, text:string, img:image, kind:number => wx.ITEM_NORMA
 // Frame
 //-----------------------------------------------------------------------------
 Frame = class(wx.Frame) {
-	[
-		ID_Open, ID_ShowList, ID_Prev, ID_Next,
-		ID_OutputPDF, ID_ViewPDF,
-		ID_RotateL, ID_RotateR, ID_TiltAdj,
-		ID_FrostFrame, ID_CenterGuide,
-	] = wx.ID_HIGHEST..
 	__init__(title:string, pos:wx.Point => wx.DefaultPosition,
 			size:wx.Size => wx.Size(g.cfg['wdFrame', 'htFrame']*)) = {|nil, wx.ID_ANY, title, pos, size|
 		this.SetIcon(wx.Icon(g.fileNameIcon, wx.BITMAP_TYPE_ICO))
@@ -915,8 +919,7 @@ Frame = class(wx.Frame) {
 			OpenWithApp(g.fileNameTmpPDF)
 		} catch {
 			wx.MessageDialog(parent, _('Failed to launch PDF viewer'),
-									_('Error'), wx.OK | wx.ICON_ERROR) {|dlg|
-				dlg.CentreOnParent()
+							_('Error'), wx.OK | wx.ICON_ERROR | wx.CENTRE) {|dlg|
 				dlg.ShowModal()
 			}
 		}
@@ -982,7 +985,12 @@ ImageListDialog = class(wx.Dialog) {
 			ctrl.Bind(wx.EVT_LIST_KEY_DOWN) {|event| this.OnListKeyDown(event)}
 		}
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
-			vbox.Add(hbox, wx.SizerFlags().Border(wx.TOP, 4).Centre())
+			vbox.Add(hbox, wx.SizerFlags().Border(wx.TOP, 4).Expand())
+			hbox.AddSpacer(16)
+			wx.Button(this, ID_Remove, _('Remove')) {|ctrl|
+				hbox.Add(ctrl, wx.SizerFlags())
+			}
+			hbox.AddStretchSpacer(1)
 			wx.Button(this, wx.ID_OK, _('OK')) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags())
 				ctrl.SetDefault()
@@ -990,11 +998,14 @@ ImageListDialog = class(wx.Dialog) {
 			wx.Button(this, wx.ID_CANCEL, _('Cancel')) {|ctrl|
 				hbox.Add(ctrl, wx.SizerFlags().Border(wx.LEFT, 16))
 			}
+			hbox.AddSpacer(16)
 		}
 		wx.BusyCursor {
 			this.PrepareContent(idxSel)
 		}
+		this.idxImgInfoProtected = idxSel
 		this.Bind(wx.EVT_BUTTON, wx.ID_OK) {|event| this.OnButton_OK(event)}
+		this.Bind(wx.EVT_BUTTON, ID_Remove) {|event| this.OnButton_Remove(event)}
 	}
 	PrepareContent(idxSel:number) = {
 		size = 128
@@ -1014,8 +1025,10 @@ ImageListDialog = class(wx.Dialog) {
 			this.listCtrl.InsertImageStringItem(idx, imgInfo.title, idx)
 			this.listCtrl.SetItemData(idx, idx)
 		}
-		this.listCtrl.SetItemState(0,
-				wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED, 0)
+		this.listCtrl.GetItemFont(idxSel) {|font|
+			font.SetWeight(wx.FONTWEIGHT_BOLD)
+			this.listCtrl.SetItemFont(idxSel, font)
+		}
 		this.listCtrl.SetItemState(idxSel,
 				wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED,
 				wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED)
@@ -1029,11 +1042,35 @@ ImageListDialog = class(wx.Dialog) {
 			this.imgInfos[idxImgInfo]
 		}
 	}
+	RemoveSelectedImage() = {
+		idx = this.listCtrl.GetFirstSelected()
+		idxImgInfo = this.listCtrl.GetItemData(idx)
+		if (idxImgInfo == this.idxImgInfoProtected) {
+			wx.Bell()
+			return
+		}
+		wx.MessageDialog(this, _('Are you sure to remove the image from the list?'),
+					_('Confirm'), wx.OK | wx.CANCEL | wx.OK_DEFAULT | \
+								wx.ICON_QUESTION | wx.CENTRE) {|dlg|
+			(dlg.ShowModal() != wx.ID_OK) && return
+		}
+		this.listCtrl.DeleteItem(idx)
+		this.listCtrl.Update()
+		if (idx >= this.listCtrl.GetItemCount()) {
+			idx = this.listCtrl.GetItemCount() - 1
+		}
+		this.listCtrl.SetItemState(idx,
+				wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED,
+				wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED)
+	}
 	OnButton_OK(event:wx.CommandEvent) = {
 		idxImgInfo = this.listCtrl.GetItemData(this.listCtrl.GetFirstSelected())
 		this.imgInfoCur = this.imgInfos[idxImgInfo]
 		this.UpdateImageInfos()
 		this.EndModal(wx.OK)
+	}
+	OnButton_Remove(event:wx.CommandEvent) = {
+		this.RemoveSelectedImage()
 	}
 	OnListItemActivated(event:wx.ListEvent) = {
 		idxImgInfo = this.listCtrl.GetItemData(event.GetIndex())
@@ -1045,12 +1082,7 @@ ImageListDialog = class(wx.Dialog) {
 	}
 	OnListKeyDown(event:wx.ListEvent) = {
 		if (event.GetKeyCode() == wx.WXK_DELETE) {
-			idx = this.listCtrl.GetFirstSelected()
-			this.listCtrl.DeleteItem(idx)
-			//if (idx >= this.listCtrl.GetItemCount()) {
-			//	idx = this.listCtrl.GetItemCount() - 1
-			//}
-			this.listCtrl.Select(idx)
+			this.RemoveSelectedImage()
 		}
 	}
 }
@@ -1117,13 +1149,13 @@ AboutDialog = class(wx.Dialog) {
 //-----------------------------------------------------------------------------
 App = class(wx.App) {
 	OnInit() = {
-		if (true) {
+		if (false) {
 			frame = Frame('Gura Shot')
 			frame.Show()
 			g.frame = frame
 			true
 		} else {
-			AboutDialog(nil).ShowModal()
+			ImageListDialog(nil, g.imgInfos, 0).ShowModal()
 			false
 		}
 	}
