@@ -3,7 +3,7 @@ import(helper.setup)
 
 helper.setup.execute(
 	launcherName	=> 'Getter Photo'
-	dirNameDst		=> nil
+	dirNameDst		=> path.join(sys.appdir, 'getterphoto')
 	fileNameScript	=> 'getterphoto.guraw'
 	fileNameIcon	=> 'getterphoto.ico'
 	fileNamesExtra	=> []

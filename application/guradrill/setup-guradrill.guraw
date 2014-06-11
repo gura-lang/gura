@@ -3,7 +3,7 @@ import(helper.setup)
 
 helper.setup.execute(
 	launcherName	=> 'Gura Drill'
-	dirNameDst		=> nil
+	dirNameDst		=> path.join(sys.appdir, 'guradrill')
 	fileNameScript	=> 'guradrill.guraw'
 	fileNameIcon	=> 'guradrill.ico'
 	fileNamesExtra	=> []
