@@ -1006,6 +1006,11 @@ ImageListDialog = class(wx.Dialog) {
 		this.idxImgInfoProtected = idxSel
 		this.Bind(wx.EVT_BUTTON, wx.ID_OK) {|event| this.OnButton_OK(event)}
 		this.Bind(wx.EVT_BUTTON, ID_Remove) {|event| this.OnButton_Remove(event)}
+		this.Bind(wx.EVT_UPDATE_UI, ID_Remove) {|event|
+			idx = this.listCtrl.GetFirstSelected()
+			idxImgInfo = this.listCtrl.GetItemData(idx)
+			event.Enable(idxImgInfo != this.idxImgInfoProtected)
+		}
 	}
 	PrepareContent(idxSel:number) = {
 		size = 128
