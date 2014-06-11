@@ -1781,19 +1781,23 @@ _MS(PrepareClass(ThreadHelper));
 	do {
 		Gura_AssignWxValue(OK);
 		Gura_AssignWxValue(CANCEL);
-		Gura_AssignWxValue(HELP);
 		Gura_AssignWxValue(YES_NO);
-		Gura_AssignWxValue(YES_DEFAULT);
+		Gura_AssignWxValue(HELP);
 		Gura_AssignWxValue(NO_DEFAULT);
+		Gura_AssignWxValue(CANCEL_DEFAULT);
+		Gura_AssignWxValue(YES_DEFAULT);
+		Gura_AssignWxValue(OK_DEFAULT);
 		Gura_AssignWxValue(YES);
 		Gura_AssignWxValue(NO);
 	} while (0);
 	do {
+		Gura_AssignWxValue(ICON_NONE);
 		Gura_AssignWxValue(ICON_EXCLAMATION);
 		Gura_AssignWxValue(ICON_HAND);
 		Gura_AssignWxValue(ICON_ERROR);
 		Gura_AssignWxValue(ICON_QUESTION);
 		Gura_AssignWxValue(ICON_INFORMATION);
+		Gura_AssignWxValue(ICON_AUTH_NEEDED);
 	} while (0);
 	do {
 		Gura_AssignWxValue(JOIN_INVALID);
