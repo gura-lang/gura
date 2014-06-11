@@ -125,20 +125,20 @@ g = module {
 	imgCenterGuide:public	= I(resource.center_guide_png)
 	imgFrostFrame:public	= I(resource.user_frosted_png)
 	layoutTbl:public = @(Layout) {
-		{ 30, 24, 2, 23, _("Driver's license"),					 89 - 10, 127 - 10 }
-		{ 30, 25, 2, 23, '',									 89 - 10, 127 - 10 }
-		{ 30, 30, 2, 23, '',									 89 - 10, 127 - 10 }
-		{ 35, 24, 2, 26, '',									127 - 10,  89 - 10 }
-		{ 36, 24, 2, 27, '',									127 - 10,  89 - 10 }
-		{ 36, 25, 2, 27, '',									127 - 10,  89 - 10 }
-		{ 40, 30, 2, 30, _('Resume'),							127 - 10,  89 - 10 }
-		{ 40, 40, 3, 31, '',									 89 - 10, 127 - 10 }
-		{ 45, 35, 4, 34, _('Passport'),							 89 - 10, 127 - 10 }
-		{ 50, 40, 4, 38, _("International driver's license"),	 89 - 10, 127 - 10 }
-		{ 50, 50, 4, 35, _('Visa'),								 89 - 10, 127 - 10 }
-		{ 55, 40, 2, 41, '',									 89 - 10, 127 - 10 }
-		{ 55, 45, 2, 41, '',									 89 - 10, 127 - 10 }
-		{ 60, 45, 2, 45, '',									 89 - 10, 127 - 10 }
+		{ 30, 24, 2, 23, _("Driver's license etc."),				 89 - 10, 127 - 10 }
+		{ 30, 25, 2, 23, _('Unemployment insurance etc.'),			 89 - 10, 127 - 10 }
+		{ 30, 30, 2, 23, _('Qualifications'),						 89 - 10, 127 - 10 }
+		{ 35, 24, 2, 26, _('Qualifications'),						127 - 10,  89 - 10 }
+		{ 36, 24, 2, 27, _('Qualifications'),						127 - 10,  89 - 10 }
+		{ 36, 25, 2, 27, _('Qualifications'),						127 - 10,  89 - 10 }
+		{ 40, 30, 2, 30, _('Resume etc.'),							127 - 10,  89 - 10 }
+		{ 40, 40, 3, 31, _('Qualifications'),						 89 - 10, 127 - 10 }
+		{ 45, 35, 4, 34, _('Passport etc.'),						 89 - 10, 127 - 10 }
+		{ 50, 40, 4, 38, _("International driver's license etc."),	 89 - 10, 127 - 10 }
+		{ 50, 50, 4, 35, _('Visa etc.'),							 89 - 10, 127 - 10 }
+		{ 55, 40, 2, 41, _('Qualifications'),						 89 - 10, 127 - 10 }
+		{ 55, 45, 2, 41, _('Qualifications'),						 89 - 10, 127 - 10 }
+		{ 60, 45, 2, 45, _('Qualifications'),						 89 - 10, 127 - 10 }
 	}
 	layoutCur:public		= layoutTbl[0]
 	cfg:public				= %{}
@@ -794,10 +794,12 @@ Frame = class(wx.Frame) {
 							wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED,
 							wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED)
 					ctrl.Bind(wx.EVT_LIST_ITEM_SELECTED) {|event| this.OnListItemSelected(event) }
+					this.listCtrlLayout = ctrl
 				}
 			}
 		}
 		vbox.Add(this.productViewer, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
+		this.listCtrlLayout.SetFocus()
 		this.Bind(wx.EVT_SIZE) {|event| this.OnSize(event) }
 		this.Bind(wx.EVT_MENU, wx.ID_CLOSE)		{|event| this.Close()}
 		this.Bind(wx.EVT_MENU, ID_Open)			{|event| this.OnMenu_Open(event)}
