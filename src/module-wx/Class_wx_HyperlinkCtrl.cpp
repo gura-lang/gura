@@ -62,9 +62,9 @@ Gura_ImplementFunction(HyperlinkCtrl)
 	if (args.IsValid(4)) pos = Object_wx_Point::GetObject(args, 4)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
 	if (args.IsValid(5)) size = Object_wx_Size::GetObject(args, 5)->GetEntity();
-	long style = 0;
+	long style = wxHL_DEFAULT_STYLE;
 	if (args.IsValid(6)) style = args.GetLong(6);
-	wxString name = wxT("hyperlink");
+	wxString name = wxHyperlinkCtrlNameStr;
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	wx_HyperlinkCtrl *pEntity = new wx_HyperlinkCtrl(parent, id, label, url, *pos, *size, style, name);
 	Object_wx_HyperlinkCtrl *pObj = Object_wx_HyperlinkCtrl::GetThisObj(args);
@@ -104,9 +104,9 @@ Gura_ImplementMethod(wx_HyperlinkCtrl, Create)
 	if (args.IsValid(4)) pos = Object_wx_Point::GetObject(args, 4)->GetEntity();
 	wxSize *size = (wxSize *)(&wxDefaultSize);
 	if (args.IsValid(5)) size = Object_wx_Size::GetObject(args, 5)->GetEntity();
-	long style = 0;
+	long style = wxHL_DEFAULT_STYLE;
 	if (args.IsValid(6)) style = args.GetLong(6);
-	wxString name = wxT("hyperlink");
+	wxString name = wxHyperlinkCtrlNameStr;
 	if (args.IsValid(7)) name = wxString::FromUTF8(args.GetString(7));
 	bool rtn = pThis->GetEntity()->Create(parent, id, label, url, *pos, *size, style, name);
 	return ReturnValue(env, sig, args, Value(rtn));
