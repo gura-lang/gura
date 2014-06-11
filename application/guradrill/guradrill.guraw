@@ -327,7 +327,7 @@ ComposerAttr = class {
 			this.seed			= int(cfg['seed'])
 		} else {
 			this.name			= ''
-			this.fileNamePDF	= path.join(sys.cfgdir, 'guradrill.pdf')
+			this.fileNamePDF	= path.join(sys.workdir, 'guradrill.pdf')
 			this.cntHorz		= 1
 			this.cntVert		= 1
 			this.nPages			= 10

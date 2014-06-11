@@ -90,7 +90,7 @@ ImageInfo = class {
 // Global variables
 //-----------------------------------------------------------------------------
 g = module {
-	fileNameTmpPDF:public	= path.join(sys.cfgdir, 'gurashot.pdf')
+	fileNameTmpPDF:public	= path.join(sys.workdir, 'gurashot.pdf')
 	fileNameCfg:public		= path.join(sys.cfgdir, 'gurashot.yml')
 	//fileNameCfg:public	= 'gurashot.yml'
 	fileNameIcon:public		= 'gurashot.ico'
