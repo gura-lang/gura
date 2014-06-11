@@ -137,6 +137,7 @@ g = module {
 	imgTiltAdj:public		= I(resource.tilt_adj_png)
 	imgCenterGuide:public	= I(resource.center_guide_png)
 	imgFrostFrame:public	= I(resource.user_frosted_png)
+	imgTick:public			= I(resource.tick_png)
 	layoutTbl:public = @(Layout) {
 		{ 30, 24, 2, 23, _("Driver's license etc."),				 89 - 10, 127 - 10 }
 		{ 30, 25, 2, 23, _('Unemployment insurance etc.'),			 89 - 10, 127 - 10 }
@@ -860,6 +861,7 @@ Frame = class(wx.Frame) {
 	}
 	OnListItemSelected(event:wx.ListEvent) = {
 		idx = event.GetIndex()
+		(idx < 0) && return
 		g.layoutCur = g.layoutTbl[idx]
 		this.Update()
 		wx.BusyCursor {
@@ -1006,10 +1008,18 @@ ImageListDialog = class(wx.Dialog) {
 		this.idxImgInfoProtected = idxSel
 		this.Bind(wx.EVT_BUTTON, wx.ID_OK) {|event| this.OnButton_OK(event)}
 		this.Bind(wx.EVT_BUTTON, ID_Remove) {|event| this.OnButton_Remove(event)}
+		this.Bind(wx.EVT_UPDATE_UI, wx.ID_OK) {|event|
+			idx = this.listCtrl.GetFirstSelected()
+			event.Enable(idx >= 0)
+		}
 		this.Bind(wx.EVT_UPDATE_UI, ID_Remove) {|event|
 			idx = this.listCtrl.GetFirstSelected()
-			idxImgInfo = this.listCtrl.GetItemData(idx)
-			event.Enable(idxImgInfo != this.idxImgInfoProtected)
+			if (idx < 0) {
+				event.Enable(false)
+			} else {
+				idxImgInfo = this.listCtrl.GetItemData(idx)
+				event.Enable(idxImgInfo != this.idxImgInfoProtected)
+			}
 		}
 	}
 	PrepareContent(idxSel:number) = {
@@ -1030,10 +1040,7 @@ ImageListDialog = class(wx.Dialog) {
 			this.listCtrl.InsertImageStringItem(idx, imgInfo.title, idx)
 			this.listCtrl.SetItemData(idx, idx)
 		}
-		this.listCtrl.GetItemFont(idxSel) {|font|
-			font.SetWeight(wx.FONTWEIGHT_BOLD)
-			this.listCtrl.SetItemFont(idxSel, font)
-		}
+		this.listCtrl.SetItemTextColour(idxSel, wx.Colour(128, 0, 0))
 		this.listCtrl.SetItemState(idxSel,
 				wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED,
 				wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED)
@@ -1049,6 +1056,10 @@ ImageListDialog = class(wx.Dialog) {
 	}
 	RemoveSelectedImage() = {
 		idx = this.listCtrl.GetFirstSelected()
+		if (idx < 0) {
+			wx.Bell()
+			return
+		}
 		idxImgInfo = this.listCtrl.GetItemData(idx)
 		if (idxImgInfo == this.idxImgInfoProtected) {
 			wx.Bell()
@@ -1069,7 +1080,9 @@ ImageListDialog = class(wx.Dialog) {
 				wx.LIST_STATE_FOCUSED | wx.LIST_STATE_SELECTED)
 	}
 	OnButton_OK(event:wx.CommandEvent) = {
-		idxImgInfo = this.listCtrl.GetItemData(this.listCtrl.GetFirstSelected())
+		idx = this.listCtrl.GetFirstSelected()
+		(idx < 0) && return
+		idxImgInfo = this.listCtrl.GetItemData(idx)
 		this.imgInfoCur = this.imgInfos[idxImgInfo]
 		this.UpdateImageInfos()
 		this.EndModal(wx.OK)
@@ -1078,7 +1091,9 @@ ImageListDialog = class(wx.Dialog) {
 		this.RemoveSelectedImage()
 	}
 	OnListItemActivated(event:wx.ListEvent) = {
-		idxImgInfo = this.listCtrl.GetItemData(event.GetIndex())
+		idx = event.GetIndex()
+		(idx < 0) && return
+		idxImgInfo = this.listCtrl.GetItemData(idx)
 		this.imgInfoCur = this.imgInfos[idxImgInfo]
 		this.UpdateImageInfos()
 		this.EndModal(wx.OK)
@@ -1154,7 +1169,7 @@ AboutDialog = class(wx.Dialog) {
 //-----------------------------------------------------------------------------
 App = class(wx.App) {
 	OnInit() = {
-		if (false) {
+		if (true) {
 			frame = Frame('Gura Shot')
 			frame.Show()
 			g.frame = frame
