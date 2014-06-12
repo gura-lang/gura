@@ -989,6 +989,17 @@ Gura_ImplementFunction(ole)
 	return ReturnValue(env, sig, args, Value(pObj.release()));
 }
 
+Gura_DeclareFunction(GetACP)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementFunction(GetACP)
+{
+	UINT rtn = ::GetACP();
+	return Value(rtn);
+}
+
 Gura_ModuleEntry()
 {
 	::CoInitialize(0);
@@ -1048,6 +1059,7 @@ Gura_ModuleEntry()
 	} while (0);
 	// function assignment
 	Gura_AssignFunction(ole);
+	Gura_AssignFunction(GetACP);
 	return true;
 }
 
