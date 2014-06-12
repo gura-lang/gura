@@ -695,6 +695,7 @@ size_t Stream_Base64Writer::DoWrite(Signal sig, const void *buff, size_t len)
 {
 	const UChar *buffp = reinterpret_cast<const UChar *>(buff);
 	size_t lenWritten = 0;
+	bool addcrFlag = _pStreamDst->GetCodec()->GetEncoder()->GetAddcrFlag();
 	for ( ; lenWritten < len; lenWritten++) {
 		_buffWork[_iBuffWork++] = buffp[lenWritten];
 		if (_iBuffWork < 3) continue;
@@ -709,9 +710,10 @@ size_t Stream_Base64Writer::DoWrite(Signal sig, const void *buff, size_t len)
 		buffDst[3] = _chars[(accum >> 0) & 0x3f];
 		_nChars += 4;
 		if (_nCharsPerLine > 0 && _nChars >= _nCharsPerLine) {
-			buffDst[4] = '\r';
-			buffDst[5] = '\n';
-			_pStreamDst->Write(sig, buffDst, 6);
+			size_t bytes = 4;
+			if (addcrFlag) buffDst[bytes++] = '\r';
+			buffDst[bytes++] = '\n';
+			_pStreamDst->Write(sig, buffDst, bytes);
 			_nChars = 0;
 		} else {
 			_pStreamDst->Write(sig, buffDst, 4);
@@ -730,11 +732,13 @@ bool Stream_Base64Writer::DoSeek(Signal sig, long offset, size_t offsetPrev, See
 bool Stream_Base64Writer::DoFlush(Signal sig)
 {
 	char buffDst[8];
+	bool addcrFlag = _pStreamDst->GetCodec()->GetEncoder()->GetAddcrFlag();
 	if (_iBuffWork == 0) {
 		if (_nChars > 0 && _nCharsPerLine > 0) {
-			buffDst[0] = '\r';
-			buffDst[1] = '\n';
-			_pStreamDst->Write(sig, buffDst, 2);
+			size_t bytes = 0;
+			if (addcrFlag) buffDst[bytes++] = '\r';
+			buffDst[bytes++] = '\n';
+			_pStreamDst->Write(sig, buffDst, bytes);
 		}
 		_nChars = 0;
 		_iBuffWork = 0;
@@ -765,9 +769,10 @@ bool Stream_Base64Writer::DoFlush(Signal sig)
 		buffDst[3] = _chars[(accum >> 0) & 0x3f];
 	}
 	if (_nCharsPerLine > 0) {
-		buffDst[4] = '\r';
-		buffDst[5] = '\n';
-		_pStreamDst->Write(sig, buffDst, 6);
+		size_t bytes = 4;
+		if (addcrFlag) buffDst[bytes++] = '\r';
+		buffDst[bytes++] = '\n';
+		_pStreamDst->Write(sig, buffDst, bytes);
 	} else {
 		_pStreamDst->Write(sig, buffDst, 4);
 	}
