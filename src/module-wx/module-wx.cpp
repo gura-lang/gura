@@ -2518,6 +2518,9 @@ _MS(PrepareClass(ThreadHelper));
 	do {
 		Gura_AssignWxValue(ST_NO_AUTORESIZE);
 		Gura_AssignWxValue(ST_SIZEGRIP);
+		Gura_AssignWxValue(ST_ELLIPSIZE_START);
+		Gura_AssignWxValue(ST_ELLIPSIZE_MIDDLE);
+		Gura_AssignWxValue(ST_ELLIPSIZE_END);
 	} while (0);
 	do {
 		Gura_AssignWxValue(SW_3D);

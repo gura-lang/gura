@@ -178,6 +178,20 @@ Gura_ImplementMethod(wx_StaticText, Wrap)
 	return Value::Null;
 }
 
+Gura_DeclareMethod(wx_StaticText, IsEllipsized)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(wx_StaticText, IsEllipsized)
+{
+	Object_wx_StaticText *pThis = Object_wx_StaticText::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	bool rtn = pThis->GetEntity()->IsEllipsized();
+	return ReturnValue(env, sig, args, Value(rtn));
+}
+
 //----------------------------------------------------------------------------
 // Object implementation for wxStaticText
 //----------------------------------------------------------------------------
@@ -216,6 +230,7 @@ Gura_ImplementUserInheritableClass(wx_StaticText)
 	Gura_AssignMethod(wx_StaticText, GetLabel);
 	Gura_AssignMethod(wx_StaticText, SetLabel);
 	Gura_AssignMethod(wx_StaticText, Wrap);
+	Gura_AssignMethod(wx_StaticText, IsEllipsized);
 }
 
 Gura_ImplementDescendantCreator(wx_StaticText)
