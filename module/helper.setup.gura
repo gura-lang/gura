@@ -7,17 +7,21 @@ import(zip)
 //-----------------------------------------------------------------------------
 // transalation
 //-----------------------------------------------------------------------------
-transTbl_ja = %{
-	'Gura Application Setup'				=> 'Gura アプリケーションセットアップ'
-	'Copy files to the directory:'			=> 'ファイルを以下のディレクトリにコピーする:'
-	'Create a desktop icon'					=> 'デスクトップアイコンを作成する'
-	'Create a start menu icon (Gura\\Application\\%s)' => \
-		'スタートメニューアイコンを作成する (Gura\\Application\\%s)'
-	'Setup has been done successfully.'		=> 'セットアップを完了しました'
-	'Setup'									=> 'セットアップ'
-	'Cancel'								=> 'キャンセル'
+_(x) = x
+
+if (mswin.GetACP() == 932) {
+	transTbl_ja = %{
+		'Gura Application Setup'				=> 'Gura アプリケーションセットアップ'
+		'Copy files to the directory:'			=> 'ファイルを以下のディレクトリにコピーする:'
+		'Create a desktop icon'					=> 'デスクトップアイコンを作成する'
+		'Create a start menu icon (Gura\\Application\\%s)' => \
+			'スタートメニューアイコンを作成する (Gura\\Application\\%s)'
+		'Setup has been done successfully.'		=> 'セットアップを完了しました'
+		'Setup'									=> 'セットアップ'
+		'Cancel'								=> 'キャンセル'
+	}
+	_(x) = transTbl_ja.get(x, x)
 }
-_(x) = transTbl_ja.get(x, x)
 
 //-----------------------------------------------------------------------------
 // global variables
@@ -70,30 +74,35 @@ Dialog = class(wx.Dialog) {
 			vbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.TOP, 4))
 		}
 		wx.BoxSizer(wx.VERTICAL) {|vboxIn|
-			vbox.Add(vboxIn, wx.SizerFlags(1).Expand().Border(wx.TOP, 16))
-			wx.CheckBox(this, wx.ID_ANY, _('Copy files to the directory:')) {|ctrl|
-				vboxIn.Add(ctrl, wx.SizerFlags().Expand())
+			vbox.Add(vboxIn, wx.SizerFlags(1).Expand().Border(wx.LEFT | wx.RIGHT, 8))
+			vbox:local = vboxIn
+			wx.BoxSizer(wx.VERTICAL) {|vboxIn|
+				vbox.Add(vboxIn, wx.SizerFlags(1).Expand().Border(wx.TOP, 16))
+				vbox:local = vboxIn
+				wx.CheckBox(this, wx.ID_ANY, _('Copy files to the directory:')) {|ctrl|
+					vbox.Add(ctrl, wx.SizerFlags().Expand())
+					ctrl.SetValue(true)
+					ctrl.Bind(wx.EVT_CHECKBOX) {|even| this.UpdateStatus()}
+					this.chkboxCopyFiles = ctrl
+				}
+				wx.StaticText(this, wx.ID_ANY, dirNameDst) {|ctrl|
+					vbox.AddSpacer(8)
+					vbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.LEFT, 16))
+				}
+			}
+			wx.CheckBox(this, wx.ID_ANY, _('Create a desktop icon')) {|ctrl|
+				vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 8))
 				ctrl.SetValue(true)
 				ctrl.Bind(wx.EVT_CHECKBOX) {|even| this.UpdateStatus()}
-				this.chkboxCopyFiles = ctrl
+				this.chkboxDesktopIcon = ctrl
 			}
-			wx.StaticText(this, wx.ID_ANY, dirNameDst) {|ctrl|
-				vboxIn.AddSpacer(8)
-				vboxIn.Add(ctrl, wx.SizerFlags().Expand().Border(wx.LEFT, 16))
+			wx.CheckBox(this, wx.ID_ANY,
+					_('Create a start menu icon (Gura\\Application\\%s)') % launcherName) {|ctrl|
+				vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 8))
+				ctrl.SetValue(false)
+				ctrl.Bind(wx.EVT_CHECKBOX) {|even| this.UpdateStatus()}
+				this.chkboxStartMenuIcon = ctrl
 			}
-		}
-		wx.CheckBox(this, wx.ID_ANY, _('Create a desktop icon')) {|ctrl|
-			vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 8))
-			ctrl.SetValue(true)
-			ctrl.Bind(wx.EVT_CHECKBOX) {|even| this.UpdateStatus()}
-			this.chkboxDesktopIcon = ctrl
-		}
-		wx.CheckBox(this, wx.ID_ANY,
-				_('Create a start menu icon (Gura\\Application\\%s)') % launcherName) {|ctrl|
-			vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 8))
-			ctrl.SetValue(false)
-			ctrl.Bind(wx.EVT_CHECKBOX) {|even| this.UpdateStatus()}
-			this.chkboxStartMenuIcon = ctrl
 		}
 		wx.StaticLine(this, wx.ID_ANY) {|ctrl|
 			vbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.TOP, 16))
