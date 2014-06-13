@@ -222,6 +222,7 @@ scope(target?) {block}
 semaphore()
 set(iter+:iterator):[and,or,xor]
 stream(pathname:string, mode?:string, codec?:codec):map {block?}
+string:class = <class:string>
 struct(`args+):[loose] {block?}
 suffixmgr(target:symbol) {block?}
 super(obj):map {block?}
@@ -624,6 +625,7 @@ string
   startswith(prefix:string, pos:number => 0):map:[icase,rest]
   strip():[both,left,right]
   template():[lasteol,noindent] {block?}
+  translator():static:void {block}
   unescapehtml()
   upper()
   zentohan()

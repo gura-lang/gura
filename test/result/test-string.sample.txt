@@ -1312,3 +1312,8 @@ hello world #6
 str.capitalize() .. Hello, WORLD
 str.upper() .. HELLO, WORLD
 str.lower() .. hello, world
+
+======== #24 ========
+
+'hello world'$ .. hello world
+'hello world'$ .. HELLO WORLD
