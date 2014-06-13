@@ -1,26 +1,25 @@
 #!/usr/bin/env gura
 # -*- coding: utf-8 -*-
-import(mswin)
 import(wx)
 import(zip)
 
 //-----------------------------------------------------------------------------
 // transalation
 //-----------------------------------------------------------------------------
-transTbl_ja = %{
-	'Gura Application Setup'				=> 'Gura アプリケーションセットアップ'
-	'Copy files to the directory:'			=> 'ファイルを以下のディレクトリにコピーする:'
-	'Create a desktop icon'					=> 'デスクトップアイコンを作成する'
-	'Create a start menu icon (Gura\\Application\\%s)' => \
-		'スタートメニューアイコンを作成する (Gura\\Application\\%s)'
-	'Setup has been done successfully.'		=> 'セットアップを完了しました'
-	'Setup'									=> 'セットアップ'
-	'Cancel'								=> 'キャンセル'
+transDicts = %{
+`ja => %{
+'Gura Application Setup'				=> 'Gura アプリケーションセットアップ'
+'Copy files to the directory:'			=> 'ファイルを以下のディレクトリにコピーする:'
+'Create a desktop icon'					=> 'デスクトップアイコンを作成する'
+'Create a start menu icon (Gura\\Application\\%s)' => \
+	'スタートメニューアイコンを作成する (Gura\\Application\\%s)'
+'Setup has been done successfully.'		=> 'セットアップを完了しました'
+'Setup'									=> 'セットアップ'
+'Cancel'								=> 'キャンセル'
+}
 }
 
-if (mswin.GetACP() == 932) {
-	string.translator {|x| transTbl_ja.get(x, x)}
-}
+(transDict = transDicts.get(sys.langcode)) && string.translator {|x| transDict.get(x, x)}
 
 //-----------------------------------------------------------------------------
 // global variables
@@ -129,6 +128,7 @@ Dialog = class(wx.Dialog) {
 			this.chkboxStartMenuIcon.GetValue())
 	}
 	OnButton_Setup(event:wx.CommandEvent) = {
+		import(mswin)
 		frame = wx.App.GetInstance().GetTopWindow()
 		dlg = nil
 		try {
