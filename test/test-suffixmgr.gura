@@ -26,13 +26,13 @@ testcase {
 	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
-	suffixmgr(`number).assign(`foo):force {|str| '**' + str + '**'}
-	suffixmgr(`string).assign(`foo):force {|str| '##' + str + '##'}
+	suffixmgr(`number).assign(`foo):overwrite {|str| '**' + str + '**'}
+	suffixmgr(`string).assign(`foo):overwrite {|str| '##' + str + '##'}
 	tester(`1234foo)
 	tester(`'hello'foo)
 }
 testcase {
-	suffixmgr(`string).assign(`foo):force {|str| '#' + str + '#'}
+	suffixmgr(`string).assign(`foo):overwrite {|str| '#' + str + '#'}
 	tester(`'test'foo)
 	tester(`''foo)
 	tester(`""foo)
@@ -44,4 +44,9 @@ testcase {
 	line.1
 	line.2
 	"""foo)
+}
+testcase {
+	tester(`'hello'$)
+	suffixmgr(`string).assign(`$):overwrite {|body| body.upper()}
+	tester(`'hello'$)
 }

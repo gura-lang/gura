@@ -83,12 +83,12 @@ Gura_ImplementFunction(suffixmgr)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// suffixmgr#assign(suffix:symbol):void:[force] {block}
+// suffixmgr#assign(suffix:symbol):void:[overwrite] {block}
 Gura_DeclareMethod(suffixmgr, assign)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "suffix", VTYPE_symbol);
-	DeclareAttr(Gura_Symbol(force));
+	DeclareAttr(Gura_Symbol(overwrite));
 	DeclareBlock(OCCUR_Once);
 }
 
@@ -98,7 +98,7 @@ Gura_ImplementMethod(suffixmgr, assign)
 	const Function *pFuncBlock = args.GetBlockFunc(env, sig, GetSymbolForBlock());
 	if (pFuncBlock == NULL) return Value::Null;
 	const Symbol *pSymbol = args.GetSymbol(0);
-	if (!args.IsSet(Gura_Symbol(force)) && suffixMgr.Lookup(pSymbol) != NULL) {
+	if (!args.IsSet(Gura_Symbol(overwrite)) && suffixMgr.Lookup(pSymbol) != NULL) {
 		sig.SetError(ERR_ValueError, "suffix '%s' has already been assigned", pSymbol->GetName());
 		return Value::Null;
 	}

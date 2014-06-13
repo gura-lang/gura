@@ -25,3 +25,8 @@ expected error occurs: ValueError: suffix 'foo' has already been assigned
 'line.1\nline.2\n'foo .. #line.1
 line.2
 #
+
+======== #4 ========
+
+'hello'$ .. hello
+'hello'$ .. HELLO

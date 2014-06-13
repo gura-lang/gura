@@ -716,6 +716,11 @@ bool Class_rational::Format_d(Signal sig, Formatter *pFormatter, Formatter::Flag
 //-----------------------------------------------------------------------------
 // Class_string
 //-----------------------------------------------------------------------------
+Gura_ImplementSuffixMgrForString($)
+{
+	return Value(body);
+}
+
 // string#align(len:number, padding:string => " "):map:[center,left,right]
 Gura_DeclareMethod(string, align)
 {
@@ -1338,6 +1343,8 @@ void Class_string::Prepare(Environment &env)
 	Gura_AssignMethod(string, unescapehtml);
 	Gura_AssignMethod(string, upper);
 	Gura_AssignMethod(string, zentohan);
+	// suffix manager assignment
+	Gura_AssignSuffixMgrForString($);
 }
 
 Value Class_string::IndexGetPrimitive(Environment &env, Signal sig,
