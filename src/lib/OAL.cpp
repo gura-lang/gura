@@ -484,9 +484,7 @@ const Symbol *GetLangCode()
 	const char *p = strp;
 	while (*p != '\0' && *p != '_' && *p != '.') p++;
 	String lang = String(strp, p - strp);
-	if (lang.empty()) {
-		lang = "xx";
-	} else if (lang == "C") {
+	if (lang.empty() || lang == "C") {
 		lang = "en";
 	}
 	return Symbol::Add(lang.c_str());
