@@ -372,3 +372,8 @@ testcase {
 	tester(`str.upper())
 	tester(`str.lower())
 }
+testcase {
+	tester(`'hello world'$)
+	string.translator {|x| x.upper()}
+	tester(`'hello world'$)
+}

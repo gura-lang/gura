@@ -4691,22 +4691,22 @@ Gura_ModuleEntry()
 	// SDL functions: TTF
 	//Gura_AssignFunction(OpenFont);
 	// Class reference assignment or object constructors
-	Gura_AssignValue(Cursor,		Value(Gura_UserClass(Cursor)));
-	Gura_AssignValue(Timer,			Value(Gura_UserClass(Timer)));
-	Gura_AssignValue(Event,			Value(Gura_UserClass(Event)));
+	Gura_AssignValue(Cursor,		Value(Gura_UserClass(Cursor)->Reference()));
+	Gura_AssignValue(Timer,			Value(Gura_UserClass(Timer)->Reference()));
+	Gura_AssignValue(Event,			Value(Gura_UserClass(Event)->Reference()));
 	Gura_AssignFunction(Rect);
 	Gura_AssignFunction(Color);
-	Gura_AssignValue(Palette,		Value(Gura_UserClass(Palette)));
-	Gura_AssignValue(PixelFormat,	Value(Gura_UserClass(PixelFormat)));
-	Gura_AssignValue(Surface,		Value(Gura_UserClass(Surface)));
-	Gura_AssignValue(Overlay,		Value(Gura_UserClass(Overlay)));
-	Gura_AssignValue(VideoInfo,		Value(Gura_UserClass(VideoInfo)));
-	//Gura_AssignValue(Font,		Value(Gura_UserClass(Font)));
-	Gura_AssignValue(Joystick,		Value(Gura_UserClass(Joystick)));
+	Gura_AssignValue(Palette,		Value(Gura_UserClass(Palette)->Reference()));
+	Gura_AssignValue(PixelFormat,	Value(Gura_UserClass(PixelFormat)->Reference()));
+	Gura_AssignValue(Surface,		Value(Gura_UserClass(Surface)->Reference()));
+	Gura_AssignValue(Overlay,		Value(Gura_UserClass(Overlay)->Reference()));
+	Gura_AssignValue(VideoInfo,		Value(Gura_UserClass(VideoInfo)->Reference()));
+	//Gura_AssignValue(Font,		Value(Gura_UserClass(Font)->Reference()));
+	Gura_AssignValue(Joystick,		Value(Gura_UserClass(Joystick)->Reference()));
 	Gura_AssignFunction(AudioSpec);
 	Gura_AssignFunctionEx(BuildAudioCVT, "AudioCVT");
-	//Gura_AssignValue(CDTrack,		Value(Gura_UserClass(CDTrack)));
-	Gura_AssignValue(CD,			Value(Gura_UserClass(CD)));
+	//Gura_AssignValue(CDTrack,		Value(Gura_UserClass(CDTrack)->Reference()));
+	Gura_AssignValue(CD,			Value(Gura_UserClass(CD)->Reference()));
 	// macros
 	Gura_AssignFunction(EVENTMASK);
 	Gura_AssignFunction(BUTTON);

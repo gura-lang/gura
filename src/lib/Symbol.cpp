@@ -125,6 +125,7 @@ void SymbolPool::_Initialize()
 {
 	Gura_RealizeSymbolAlias(Char_Add,		"+");
 	Gura_RealizeSymbolAlias(Char_And,		"&");
+	Gura_RealizeSymbolAlias(Char_Dollar,	"$");
 	Gura_RealizeSymbolAlias(Char_Mod,		"%");
 	Gura_RealizeSymbolAlias(Char_ModMod,	"%%");
 	Gura_RealizeSymbolAlias(Char_Mul,		"*");

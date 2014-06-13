@@ -1268,6 +1268,27 @@ Gura_ImplementMethod(string, template_)
 					Value(new Object_template(env, pTemplate.release())));
 }
 
+// string.translator():void {block}
+Gura_DeclareClassMethod(string, translator)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	DeclareBlock(OCCUR_Once);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"Register a string translator.");
+}
+
+Gura_ImplementClassMethod(string, translator)
+{
+	SuffixMgr &suffixMgr = env.GetGlobal()->GetSuffixMgrForString();
+	const Function *pFuncBlock = args.GetBlockFunc(env, sig, GetSymbolForBlock());
+	if (pFuncBlock == NULL) return Value::Null;
+	const Symbol *pSymbol = Gura_Symbol(Char_Dollar);
+	SuffixMgrEntryCustom *pSuffixMgrEntry =
+					new SuffixMgrEntryCustom(Function::Reference(pFuncBlock));
+	suffixMgr.Assign(pSymbol, pSuffixMgrEntry);
+	return Value::Null;
+}
+
 // string#unescapehtml()
 Gura_DeclareMethod(string, unescapehtml)
 {
@@ -1311,6 +1332,8 @@ Class_string::Class_string(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_stri
 
 void Class_string::Prepare(Environment &env)
 {
+	// function assignment
+	Gura_AssignValue(string, Value(Reference()));
 	// method assignment
 	Gura_AssignMethod(string, align);
 	Gura_AssignMethod(string, binary);
@@ -1340,6 +1363,7 @@ void Class_string::Prepare(Environment &env)
 	Gura_AssignMethod(string, startswith);
 	Gura_AssignMethod(string, strip);
 	Gura_AssignMethod(string, template_);
+	Gura_AssignMethod(string, translator);
 	Gura_AssignMethod(string, unescapehtml);
 	Gura_AssignMethod(string, upper);
 	Gura_AssignMethod(string, zentohan);

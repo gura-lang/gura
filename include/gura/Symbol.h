@@ -112,6 +112,7 @@ class GURA_DLLDECLARE SymbolPool {
 public:
 	Gura_DeclareSymbol(Char_Add);
 	Gura_DeclareSymbol(Char_And);
+	Gura_DeclareSymbol(Char_Dollar);
 	Gura_DeclareSymbol(Char_Mod);
 	Gura_DeclareSymbol(Char_ModMod);
 	Gura_DeclareSymbol(Char_Mul);

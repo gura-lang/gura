@@ -2361,16 +2361,16 @@ Gura_ModuleEntry()
 		Gura_AssignValue(programs, value);
 	} while (0);
 	// assignment of class reference or instance constructor
-	Gura_AssignValue(event,			Value(Gura_UserClass(event)));
-	Gura_AssignValue(track,			Value(Gura_UserClass(track)));
+	Gura_AssignValue(event,			Value(Gura_UserClass(event)->Reference()));
+	Gura_AssignValue(track,			Value(Gura_UserClass(track)->Reference()));
 	Gura_AssignFunction(sequence);
-	Gura_AssignValue(portinfo,		Value(Gura_UserClass(portinfo)));
+	Gura_AssignValue(portinfo,		Value(Gura_UserClass(portinfo)->Reference()));
 	Gura_AssignFunction(port);
-	Gura_AssignValue(player,		Value(Gura_UserClass(player)));
+	Gura_AssignValue(player,		Value(Gura_UserClass(player)->Reference()));
 	Gura_AssignFunction(controller);
 	Gura_AssignFunction(program);
 	Gura_AssignFunction(soundfont);
-	Gura_AssignValue(synthesizer,	Value(Gura_UserClass(synthesizer)));
+	Gura_AssignValue(synthesizer,	Value(Gura_UserClass(synthesizer)->Reference()));
 	Gura_AssignFunction(test);
 	return true;
 }
