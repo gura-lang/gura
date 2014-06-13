@@ -6,7 +6,7 @@ listSymbols(skipWords:list, indent:number => 0, m?:module) = {
 		'sys' => ['stdin', 'stdout', 'stderr', 'path', 'argv',
 				'executable', 'build', 'platform',
 				'datadir', 'libdir', 'localdir', 'maindir', 'moddir', 'incdir',
-				'appdir', 'cfgdir', 'workdir']
+				'appdir', 'cfgdir', 'workdir', 'langcode']
 		'path' => ['sep_file']
 		'os' => ['stdin', 'stdout', 'stderr']
 	}

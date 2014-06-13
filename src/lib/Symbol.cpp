@@ -286,6 +286,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(ja);
 	Gura_RealizeSymbol(k);
 	Gura_RealizeSymbol(ka);
+	Gura_RealizeSymbol(ko);
 	Gura_RealizeSymbol(l);
 	Gura_RealizeSymbol(lang);
 	Gura_RealizeSymbol(last_index);
@@ -501,6 +502,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(yellow);
 	Gura_RealizeSymbol(z);
 	Gura_RealizeSymbol(zero);
+	Gura_RealizeSymbol(zh);
 }
 
 const Symbol *SymbolPool::Add(const char *name)

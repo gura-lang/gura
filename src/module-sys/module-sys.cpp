@@ -64,6 +64,7 @@ Gura_ModuleEntry()
 		Gura_AssignValue(build, valueBuild);
 		Gura_AssignValue(platform, valuePlatform);
 	} while (0);
+	Gura_AssignValue(langcode, Value(OAL::GetLangCode()));
 	Gura_AssignValue(executable, Value(OAL::GetExecutable()));
 	Gura_AssignValue(datadir, Value(OAL::GetDataDir()));
 	Gura_AssignValue(moddir, Value(OAL::GetModuleDir()));

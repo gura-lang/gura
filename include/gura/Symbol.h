@@ -273,6 +273,7 @@ public:
 	Gura_DeclareSymbol(ja);
 	Gura_DeclareSymbol(k);
 	Gura_DeclareSymbol(ka);
+	Gura_DeclareSymbol(ko);
 	Gura_DeclareSymbol(l);
 	Gura_DeclareSymbol(lang);
 	Gura_DeclareSymbol(last_index);
@@ -488,6 +489,7 @@ public:
 	Gura_DeclareSymbol(yellow);
 	Gura_DeclareSymbol(z);
 	Gura_DeclareSymbol(zero);
+	Gura_DeclareSymbol(zh);
 private:
 	typedef std::set<Symbol *, Symbol::KeyCompare_Name> Content;
 private:

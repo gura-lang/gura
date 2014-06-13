@@ -404,6 +404,22 @@ const char *GetEncodingForConsole()
 		"iso-8859-1";
 }
 
+const Symbol *GetLangCode()
+{
+	// http://www.loc.gov/standards/iso639-2/php/code_list.php
+	UINT codePage = ::GetConsoleOutputCP();
+	if (codePage == 0) codePage = ::GetACP();
+	return
+		(codePage == 1252)?		Gura_Symbol(en) :
+		(codePage == 28592)?	Gura_Symbol(en) :
+		(codePage == 1255)?		Gura_Symbol(en) :
+		(codePage == 932)?		Gura_Symbol(ja) :
+		(codePage == 936)?		Gura_Symbol(zh) :
+		(codePage == 949)?		Gura_Symbol(ko) :
+		(codePage == 950)?		Gura_Symbol(zh) :
+		Gura_Symbol(en);
+}
+
 #else
 
 const char *GetEncodingForConsole()
@@ -459,6 +475,21 @@ const char *GetEncodingForConsole()
 		}
 	}
 	return encodingDefault;
+}
+
+const Symbol *GetLangCode()
+{
+	String str = OAL::GetEnv("LANG");
+	const char *strp = str.c_str();
+	const char *p = strp;
+	while (*p != '\0' && *p != '_' && *p != '.') p++;
+	String lang = String(strp, p - strp);
+	if (lang.empty()) {
+		lang = "xx";
+	} else if (lang == "C") {
+		lang = "en";
+	}
+	return Symbol::Add(lang.c_str());
 }
 
 #endif

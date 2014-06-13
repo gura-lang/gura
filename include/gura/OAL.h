@@ -48,6 +48,7 @@ inline String JoinPathName(const char *pathName, const char *name, size_t len) {
 }
 
 GURA_DLLDECLARE const char *GetEncodingForConsole();
+GURA_DLLDECLARE const Symbol *GetLangCode();
 
 GURA_DLLDECLARE int ExecProgram(Environment &env, Signal sig, const char *pathName,
 		const ValueList &valList, Stream *pStreamStdout, Stream *pStreamStderr,
