@@ -630,7 +630,7 @@ string
 struct
   tolist()
 suffixmgr
-  assign(suffix:symbol):void:[force] {block}
+  assign(suffix:symbol):void:[overwrite] {block}
 symbol
   eval(env?:environment)
 template
