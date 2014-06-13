@@ -4,33 +4,16 @@ import(wx)
 import(zip)
 
 //-----------------------------------------------------------------------------
-// transalation
-//-----------------------------------------------------------------------------
-transDicts = %{
-`ja => %{
-'Gura Application Setup'				=> 'Gura アプリケーションセットアップ'
-'Copy files to the directory:'			=> 'ファイルを以下のディレクトリにコピーする:'
-'Create a desktop icon'					=> 'デスクトップアイコンを作成する'
-'Create a start menu icon (Gura\\Application\\%s)' => \
-	'スタートメニューアイコンを作成する (Gura\\Application\\%s)'
-'Setup has been done successfully.'		=> 'セットアップを完了しました'
-'Setup'									=> 'セットアップ'
-'Cancel'								=> 'キャンセル'
-}
-}
-
-(transDict = transDicts.get(sys.langcode)) && string.translator {|x| transDict.get(x, x)}
-
-//-----------------------------------------------------------------------------
 // global variables
 //-----------------------------------------------------------------------------
-caption = 'Gura Application Setup'$
+caption = nil
 
 //-----------------------------------------------------------------------------
 // execute
 //-----------------------------------------------------------------------------
 execute(launcherName:string, dirNameDst:string:nil,
 		fileNameScript:string, fileNameIcon:string, fileNamesExtra[]:string) = {
+	caption:extern = 'Gura Application Setup'$
 	dirNameDst = dirNameDst || path.join(sys.appdir,
 								path.basename(path.filename(fileNameScript)))
 	Dialog.launcherName = launcherName
@@ -97,6 +80,7 @@ Dialog = class(wx.Dialog) {
 			wx.CheckBox(this, wx.ID_ANY,
 					'Create a start menu icon (Gura\\Application\\%s)'$ % launcherName) {|ctrl|
 				vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 8))
+				ctrl.Enable(false)
 				ctrl.SetValue(false)
 				ctrl.Bind(wx.EVT_CHECKBOX) {|even| this.UpdateStatus()}
 				this.chkboxStartMenuIcon = ctrl
@@ -182,3 +166,21 @@ App = class(wx.App) {
 		false
 	}
 }
+
+//-----------------------------------------------------------------------------
+// transalation
+//-----------------------------------------------------------------------------
+transDicts = %{
+`ja => %{
+'Gura Application Setup'				=> 'Gura アプリケーション セットアップ'
+'Copy files to the directory:'			=> 'ファイルを以下のディレクトリにコピーする:'
+'Create a desktop icon'					=> 'デスクトップアイコンを作成する'
+'Create a start menu icon (Gura\\Application\\%s)' => \
+	'スタートメニューアイコンを作成する (Gura\\Application\\%s)'
+'Setup has been done successfully.'		=> 'セットアップを完了しました'
+'Setup'									=> 'セットアップ'
+'Cancel'								=> 'キャンセル'
+}
+}
+
+(transDict = transDicts.get(sys.langcode)) && string.translator {|x| transDict.get(x, x)}
