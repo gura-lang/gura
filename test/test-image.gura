@@ -203,9 +203,9 @@ testcase {
 	map = interval(128, 160, 256)
 	img = image(I('Water_lilies.jpg'), `rgb)
 	tester_image(img.mapcolorlevel(map), 'mapcolorlevel',
-		 'a948af90db644ab8cf2fd1c611bfaed3'):nomap
+		 'a948af90db644ab8cf2fd1c611bfaed3;e7a3946628a295b1b72376688e4db31f'):nomap
 	tester_image(img.mapcolorlevel(map, map), 'mapcolorlevel',
-		 'a948af90db644ab8cf2fd1c611bfaed3'):nomap
+		 'a948af90db644ab8cf2fd1c611bfaed3;e7a3946628a295b1b72376688e4db31f'):nomap
 	tester_image(img.mapcolorlevel(map, map, map), 'mapcolorlevel',
-		 'a948af90db644ab8cf2fd1c611bfaed3'):nomap
+		 'a948af90db644ab8cf2fd1c611bfaed3;e7a3946628a295b1b72376688e4db31f'):nomap
 }
