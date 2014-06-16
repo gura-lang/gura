@@ -1268,6 +1268,17 @@ Gura_ImplementMethod(string, template_)
 					Value(new Object_template(env, pTemplate.release())));
 }
 
+// string#tosymbol()
+Gura_DeclareMethod(string, tosymbol)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(string, tosymbol)
+{
+	return Value(Symbol::Add(args.GetThis().GetString()));
+}
+
 // string.translator():void {block}
 Gura_DeclareClassMethod(string, translator)
 {
@@ -1363,6 +1374,7 @@ void Class_string::Prepare(Environment &env)
 	Gura_AssignMethod(string, startswith);
 	Gura_AssignMethod(string, strip);
 	Gura_AssignMethod(string, template_);
+	Gura_AssignMethod(string, tosymbol);
 	Gura_AssignMethod(string, translator);
 	Gura_AssignMethod(string, unescapehtml);
 	Gura_AssignMethod(string, upper);
