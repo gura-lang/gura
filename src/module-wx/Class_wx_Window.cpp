@@ -1389,7 +1389,7 @@ Gura_ImplementMethod(wx_Window, GetParent)
 
 Gura_DeclareMethod(wx_Window, GetPositionXY)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1449,7 +1449,7 @@ Gura_ImplementMethod(wx_Window, GetRect)
 
 Gura_DeclareMethod(wx_Window, GetScreenPositionXY)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -2692,7 +2692,7 @@ Gura_ImplementMethod(wx_Window, Reparent)
 
 Gura_DeclareMethod(wx_Window, ScreenToClientXY)
 {
-	SetMode(RSLTMODE_Void, FLAG_Map);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "y", VTYPE_number, OCCUR_Once);
 	DeclareBlock(OCCUR_ZeroOrOnce);
