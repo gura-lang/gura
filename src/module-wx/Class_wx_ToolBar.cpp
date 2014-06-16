@@ -101,6 +101,7 @@ Gura_DeclareMethod(wx_ToolBar, AddControl)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "control", VTYPE_wx_Control, OCCUR_Once);
+	DeclareArg(env, "label", VTYPE_string, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -109,21 +110,36 @@ Gura_ImplementMethod(wx_ToolBar, AddControl)
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxControl *control = Object_wx_Control::GetObject(args, 0)->GetEntity();
-	bool rtn = pThis->GetEntity()->AddControl(control);
+	wxString label = wxEmptyString;
+	if (args.IsValid(1)) label = wxString::FromUTF8(args.GetString(1));
+	bool rtn = pThis->GetEntity()->AddControl(control, label);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
 Gura_DeclareMethod(wx_ToolBar, AddSeparator)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 }
 
 Gura_ImplementMethod(wx_ToolBar, AddSeparator)
 {
 	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
-	pThis->GetEntity()->AddSeparator();
-	return Value::Null;
+	wxToolBarToolBase *rtn = pThis->GetEntity()->AddSeparator();
+	return ReturnValue(env, sig, args, Value(new Object_wx_ToolBarToolBase(rtn, NULL, OwnerFalse)));
+}
+
+Gura_DeclareMethod(wx_ToolBar, AddStretchableSpace)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(wx_ToolBar, AddStretchableSpace)
+{
+	Object_wx_ToolBar *pThis = Object_wx_ToolBar::GetThisObj(args);
+	if (pThis->IsInvalid(sig)) return Value::Null;
+	wxToolBarToolBase *rtn = pThis->GetEntity()->AddStretchableSpace();
+	return ReturnValue(env, sig, args, Value(new Object_wx_ToolBarToolBase(rtn, NULL, OwnerFalse)));
 }
 
 Gura_DeclareMethod(wx_ToolBar, AddTool_1)
@@ -968,6 +984,7 @@ Gura_ImplementUserInheritableClass(wx_ToolBar)
 	Gura_AssignFunction(ToolBar);
 	Gura_AssignMethod(wx_ToolBar, AddControl);
 	Gura_AssignMethod(wx_ToolBar, AddSeparator);
+	Gura_AssignMethod(wx_ToolBar, AddStretchableSpace);
 	Gura_AssignMethod(wx_ToolBar, AddTool);
 	Gura_AssignMethod(wx_ToolBar, AddTool_1);
 	Gura_AssignMethod(wx_ToolBar, AddTool_2);
