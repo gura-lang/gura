@@ -11,16 +11,16 @@ caption = nil
 //-----------------------------------------------------------------------------
 // execute
 //-----------------------------------------------------------------------------
-execute(launcherName:string, dirNameDst:string:nil,
+execute(launcherName:string, version:string, shortName:string,
 		fileNameScript:string, fileNameIcon:string, fileNamesExtra[]:string) = {
 	caption:extern = 'Gura Application Setup'$
-	dirNameDst = dirNameDst || path.join(sys.appdir,
-								path.basename(path.filename(fileNameScript)))
-	Dialog.launcherName = launcherName
-	Dialog.dirNameDst = dirNameDst
-	Dialog.fileNameScript = fileNameScript
-	Dialog.fileNameIcon = fileNameIcon
-	Dialog.fileNamesExtra = fileNamesExtra
+	Dialog.launcherName		= launcherName
+	Dialog.version			= version
+	Dialog.shortName		= shortName
+	Dialog.dirNameDst		= path.join(sys.appdir, shortName)
+	Dialog.fileNameScript	= fileNameScript
+	Dialog.fileNameIcon		= fileNameIcon
+	Dialog.fileNamesExtra	= fileNamesExtra
 	Dialog.errorMsg = nil
 	wx.IMPLEMENT_APP(App)
 }
@@ -29,6 +29,7 @@ execute(launcherName:string, dirNameDst:string:nil,
 // Dialog
 //-----------------------------------------------------------------------------
 Dialog = class(wx.Dialog) {
+	[ID_CreateZIP] = wx.ID_HIGHEST..
 	__init__(title:string => caption, pos:wx.Point => wx.DefaultPosition,
 			size:wx.Size => wx.Size(480, 220)) = {|nil, wx.ID_ANY, title, pos, size|
 		outerBox = wx.BoxSizer(wx.VERTICAL)
@@ -41,14 +42,27 @@ Dialog = class(wx.Dialog) {
 				wx.StaticBitmap(this, wx.ID_ANY, wx.NullBitmap) {|ctrl|
 					hbox.Add(ctrl, wx.SizerFlags().Expand())
 					ctrl.SetIcon(wx.Icon(fileNameIcon, wx.BITMAP_TYPE_ICO))
+					ctrl.Bind(wx.EVT_RIGHT_DOWN) {|event|
+						wx.Menu {|m|
+							m.Append(ID_CreateZIP, 'Create &ZIP')
+							this.PopupMenu(m)
+						}
+					}
 				}
 			}
-			wx.StaticText(this, wx.ID_ANY, launcherName) {|ctrl|
-				hbox.Add(ctrl, wx.SizerFlags().Centre().Border(wx.LEFT, 8))
-				font = ctrl.GetFont()
-				font.SetPointSize(12)
-				font.SetWeight(wx.FONTWEIGHT_BOLD)
-				ctrl.SetFont(font)
+			wx.BoxSizer(wx.HORIZONTAL) {|hboxIn|
+				hbox.Add(hboxIn, wx.SizerFlags().Centre().Border(wx.LEFT, 8))
+				hbox:local = hboxIn
+				wx.StaticText(this, wx.ID_ANY, launcherName) {|ctrl|
+					hbox.Add(ctrl, wx.SizerFlags())
+					font = ctrl.GetFont()
+					font.SetPointSize(12)
+					font.SetWeight(wx.FONTWEIGHT_BOLD)
+					ctrl.SetFont(font)
+				}
+				wx.StaticText(this, wx.ID_ANY, 'version ' + version) {|ctrl|
+					hbox.Add(ctrl, wx.SizerFlags().Align(wx.ALIGN_BOTTOM).Border(wx.LEFT, 8))
+				}
 			}
 		}
 		wx.StaticLine(this, wx.ID_ANY) {|ctrl|
@@ -104,6 +118,7 @@ Dialog = class(wx.Dialog) {
 		}
 		this.UpdateStatus()
 		this.Bind(wx.EVT_BUTTON, wx.ID_OK) {|event| this.OnButton_Setup(event)}
+		this.Bind(wx.EVT_MENU, ID_CreateZIP) {|event| this.OnMenu_CreateZIP(event)}
 	}
 	UpdateStatus() = {
 		this.btnSetup.Enable(
@@ -111,15 +126,18 @@ Dialog = class(wx.Dialog) {
 			this.chkboxDesktopIcon.GetValue() || \
 			this.chkboxStartMenuIcon.GetValue())
 	}
+	GetFileNamesToCopy() = {
+		fileNamesToCopy = [fileNameScript, fileNameIcon]
+		fileNamesToCopy.append(fileNamesExtra)
+		fileNamesToCopy
+	}
 	OnButton_Setup(event:wx.CommandEvent) = {
 		import(mswin)
-		frame = wx.App.GetInstance().GetTopWindow()
 		dlg = nil
 		try {
 			wsh = mswin.ole('Wscript.shell')
 			fs.mkdir(dirNameDst):tree
-			fileNamesToCopy = [fileNameScript, fileNameIcon]
-			fileNamesToCopy.append(fileNamesExtra)
+			fileNamesToCopy = this.GetFileNamesToCopy()
 			if (this.chkboxCopyFiles.GetValue()) {
 				stream.copy(path.join(sys.maindir, fileNamesToCopy),
 							path.join(dirNameDst, fileNamesToCopy)):finalize
@@ -145,15 +163,27 @@ Dialog = class(wx.Dialog) {
 				shortCut.WorkingDirectory = dirNameDst
 				shortCut.Save()
 			}
-			dlg = wx.MessageDialog(frame, 'Setup has been done successfully.'$, caption,
+			dlg = wx.MessageDialog(this, 'Setup has been done successfully.'$, caption,
 							wx.OK | wx.CENTRE | wx.ICON_INFORMATION)
 			wsh = nil
 		} catch {|e|
-			dlg = wx.MessageDialog(frame, e.text, caption,
+			dlg = wx.MessageDialog(this, e.text, caption,
 							wx.OK | wx.CENTRE | wx.ICON_ERROR)
 		}
 		dlg.ShowModal()
 		this.Close()
+	}
+	OnMenu_CreateZIP(event:wx.CommandEvent) = {
+		baseName = format('%s-%s', shortName, version)
+		fileNameZIP = baseName + '.zip'
+		fileNamesToCopy = this.GetFileNamesToCopy()
+		fileNamesToCopy.append(path.filename(sys.argv[0]))
+		writer = zip.writer(fileNameZIP)
+		writer.add(fileNamesToCopy, baseName + '\\' + fileNamesToCopy):void
+		writer.close()
+		dlg = wx.MessageDialog(this, 'ZIP file %s was created.'$ % fileNameZIP, caption,
+						wx.OK | wx.CENTRE | wx.ICON_INFORMATION)
+		dlg.ShowModal()
 	}
 }
 
@@ -180,6 +210,7 @@ transDicts = %{
 'Setup has been done successfully.'		=> 'セットアップを完了しました'
 'Setup'									=> 'セットアップ'
 'Cancel'								=> 'キャンセル'
+'ZIP file %s was created.'				=> 'ZIP ファイル %s を作成しました'
 }
 }
 
