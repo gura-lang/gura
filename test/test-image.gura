@@ -212,6 +212,5 @@ testcase {
 testcase('image#resize') {
 	img = image(I('Water_lilies.jpg'), `rgb)
 	tester_image(img.resize(100), 'resize',
-		 '36ff2e1bdb411c20fd76ee388a797dd5'):nomap
-	
+		 '36ff2e1bdb411c20fd76ee388a797dd5;87fd4678eea4d63ffefd8351af3f8f75'):nomap
 }
