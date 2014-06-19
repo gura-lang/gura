@@ -12,7 +12,8 @@ caption = nil
 // execute
 //-----------------------------------------------------------------------------
 execute(launcherName:string, version:string, shortName:string,
-		fileNameScript:string, fileNameIcon:string, fileNamesExtra[]:string) = {
+		fileNameScript:string, fileNameIcon:string,
+		fileNamesExtra[]:string, fileNamesClean[]:string) = {
 	caption:extern = 'Gura Application Setup'$
 	Dialog.launcherName		= launcherName
 	Dialog.version			= version
@@ -21,6 +22,7 @@ execute(launcherName:string, version:string, shortName:string,
 	Dialog.fileNameScript	= fileNameScript
 	Dialog.fileNameIcon		= fileNameIcon
 	Dialog.fileNamesExtra	= fileNamesExtra
+	Dialog.fileNamesClean	= fileNamesClean
 	Dialog.errorMsg = nil
 	wx.IMPLEMENT_APP(App)
 }
@@ -31,7 +33,7 @@ execute(launcherName:string, version:string, shortName:string,
 Dialog = class(wx.Dialog) {
 	[ID_CreateZIP] = wx.ID_HIGHEST..
 	__init__(title:string => caption, pos:wx.Point => wx.DefaultPosition,
-			size:wx.Size => wx.Size(480, 220)) = {|nil, wx.ID_ANY, title, pos, size|
+			size:wx.Size => wx.Size(480, 260)) = {|nil, wx.ID_ANY, title, pos, size|
 		outerBox = wx.BoxSizer(wx.VERTICAL)
 		this.SetSizer(outerBox)
 		vbox = wx.BoxSizer(wx.VERTICAL)
@@ -90,6 +92,12 @@ Dialog = class(wx.Dialog) {
 				ctrl.SetValue(true)
 				ctrl.Bind(wx.EVT_CHECKBOX) {|even| this.UpdateStatus()}
 				this.chkboxDesktopIcon = ctrl
+			}
+			wx.CheckBox(this, wx.ID_ANY, 'Clean old configuration files etc.'$) {|ctrl|
+				vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 8))
+				ctrl.Enable(!fileNamesClean.isempty())
+				ctrl.SetValue(false)
+				this.chkboxCleanFiles = ctrl
 			}
 			wx.CheckBox(this, wx.ID_ANY,
 					'Create a start menu icon (Gura\\Application\\%s)'$ % launcherName) {|ctrl|
@@ -163,6 +171,9 @@ Dialog = class(wx.Dialog) {
 				shortCut.WorkingDirectory = dirNameDst
 				shortCut.Save()
 			}
+			if (this.chkboxCleanFiles.GetValue()) {
+				fs.remove(fileNamesClean)
+			}
 			dlg = wx.MessageDialog(this, 'Setup has been done successfully.'$, caption,
 							wx.OK | wx.CENTRE | wx.ICON_INFORMATION)
 			wsh = nil
@@ -205,6 +216,7 @@ transDicts = %{
 'Gura Application Setup'				=> 'Gura アプリケーション セットアップ'
 'Copy files to the directory:'			=> 'ファイルを以下のディレクトリにコピーする:'
 'Create a desktop icon'					=> 'デスクトップアイコンを作成する'
+'Clean old configuration files etc.'	=> '古いコンフィグレーションファイルなどを消去する'
 'Create a start menu icon (Gura\\Application\\%s)' => \
 	'スタートメニューアイコンを作成する (Gura\\Application\\%s)'
 'Setup has been done successfully.'		=> 'セットアップを完了しました'
