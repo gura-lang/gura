@@ -3278,6 +3278,8 @@ void InitializeObjects(Environment &env)
 		Gura_AssignWxEvent(EVT_COMMAND_FIND_REPLACE,				EVT_FIND_REPLACE,				FindDialogEvent);
 		Gura_AssignWxEvent(EVT_COMMAND_FIND_REPLACE_ALL,			EVT_FIND_REPLACE_ALL,			FindDialogEvent);
 		Gura_AssignWxEvent(EVT_COMMAND_FIND_CLOSE,					EVT_FIND_CLOSE,					FindDialogEvent);
+	_MS(Gura_AssignWxEvent(EVT_MOUSE_CAPTURE_LOST,					EVT_MOUSE_CAPTURE_LOST,			MouseCaptureLostEvent));
+	_MS(Gura_AssignWxEvent(EVT_MOUSE_CAPTURE_CHANGED,				EVT_MOUSE_CAPTURE_CHANGED,		MouseCaptureChangedEvent));
 		Gura_AssignWxEventComplex(									EVT_JOYSTICK_EVENTS,			JoystickEvent);
 		Gura_AssignWxEventComplex(									EVT_SCROLL,						ScrollEvent);
 		Gura_AssignWxEventComplex(									EVT_SCROLLWIN,					ScrollWinEvent);
