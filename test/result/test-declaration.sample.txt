@@ -625,6 +625,7 @@ string
   startswith(prefix:string, pos:number => 0):map:[icase,rest]
   strip():[both,left,right]
   template():[lasteol,noindent] {block?}
+  tosymbol()
   translator():static:void {block}
   unescapehtml()
   upper()

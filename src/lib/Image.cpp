@@ -710,7 +710,7 @@ Image *Image::Resize(Signal sig, size_t width, size_t height)
 	::memset(accums, 0x00, accumsSize);
 	size_t numerY = 0;
 	if (_format == FORMAT_RGB) {
-		for (size_t ySrc = 0; ySrc < _height; ySrc++) {
+		for (size_t ySrc = 0; ySrc <= _height; ySrc++) {
 			if (ySrc < _height) {
 				const UChar *pPixelSrc = pLineSrc;
 				UChar *pPixelDst = pLineDst;
@@ -767,7 +767,7 @@ Image *Image::Resize(Signal sig, size_t width, size_t height)
 			}
 		}
 	} else if (_format == FORMAT_RGBA) {
-		for (size_t ySrc = 0; ySrc < _height; ySrc++) {
+		for (size_t ySrc = 0; ySrc <= _height; ySrc++) {
 			if (ySrc < _height) {
 				const UChar *pPixelSrc = pLineSrc;
 				UChar *pPixelDst = pLineDst;
