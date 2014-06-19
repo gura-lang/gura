@@ -209,3 +209,9 @@ testcase {
 	tester_image(img.mapcolorlevel(map, map, map), 'mapcolorlevel',
 		 'a948af90db644ab8cf2fd1c611bfaed3;e7a3946628a295b1b72376688e4db31f'):nomap
 }
+testcase('image#resize') {
+	img = image(I('Water_lilies.jpg'), `rgb)
+	tester_image(img.resize(100), 'resize',
+		 '36ff2e1bdb411c20fd76ee388a797dd5'):nomap
+	
+}
