@@ -45,7 +45,6 @@ Dialog = class(wx.Dialog) {
 				wx.StaticBitmap(this, wx.ID_ANY, wx.NullBitmap) {|ctrl|
 					hbox.Add(ctrl, wx.SizerFlags().Expand())
 					ctrl.SetBitmap(image(path.join(sys.maindir, fileNameIcon)).resize(32))
-					//ctrl.SetIcon(wx.Icon(fileNameIcon, wx.BITMAP_TYPE_ICO))
 					ctrl.Bind(wx.EVT_RIGHT_DOWN) {|event|
 						wx.Menu {|m|
 							m.Append(ID_CreateZIP, 'Create &ZIP')
@@ -100,6 +99,7 @@ Dialog = class(wx.Dialog) {
 				vbox.Add(ctrl, wx.SizerFlags(1).Expand().Border(wx.TOP, 8))
 				ctrl.Enable(!fileNamesClean.isempty())
 				ctrl.SetValue(false)
+				ctrl.Bind(wx.EVT_CHECKBOX) {|even| this.UpdateStatus()}
 				this.chkboxCleanFiles = ctrl
 			}
 			wx.CheckBox(this, wx.ID_ANY,
@@ -136,6 +136,7 @@ Dialog = class(wx.Dialog) {
 		this.btnSetup.Enable(
 			this.chkboxCopyFiles.GetValue() || \
 			this.chkboxDesktopIcon.GetValue() || \
+			this.chkboxCleanFiles.GetValue() || \
 			this.chkboxStartMenuIcon.GetValue())
 	}
 	GetFileNamesToCopy() = {
@@ -176,7 +177,9 @@ Dialog = class(wx.Dialog) {
 				shortCut.Save()
 			}
 			if (this.chkboxCleanFiles.GetValue()) {
-				fs.remove(fileNamesClean)
+				try {
+					fs.remove(fileNamesClean)
+				} catch {}
 			}
 			dlg = wx.MessageDialog(this, 'Setup has been done successfully.'$, caption,
 							wx.OK | wx.CENTRE | wx.ICON_INFORMATION)
