@@ -358,6 +358,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(password);
 	Gura_RealizeSymbol(path);
 	Gura_RealizeSymbol(pathname);
+	Gura_RealizeSymbol(percent);
 	Gura_RealizeSymbol(pi);
 	Gura_RealizeSymbol(pl);
 	Gura_RealizeSymbol(port);
@@ -377,6 +378,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(quote);
 	Gura_RealizeSymbol(r);
 	Gura_RealizeSymbol(raise);
+	Gura_RealizeSymbol(ratio);
 	Gura_RealizeSymbol(raw);
 	Gura_RealizeSymbol(readable);
 	Gura_RealizeSymbol(real);

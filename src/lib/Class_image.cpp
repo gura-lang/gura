@@ -587,13 +587,14 @@ Gura_ImplementMethod(image, replacecolor)
 	return args.GetThis();
 }
 
-// image#resize(width?:number, height?:number):map:[box] {block?}
+// image#resize(width?:number, height?:number):map:[box,ratio] {block?}
 Gura_DeclareMethod(image, resize)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(box));
+	DeclareAttr(Gura_Symbol(ratio));
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -602,27 +603,42 @@ Gura_ImplementMethod(image, resize)
 	Object_image *pThis = Object_image::GetThisObj(args);
 	if (!pThis->GetImage()->CheckValid(sig)) return Value::Null;
 	bool boxFlag = args.IsSet(Gura_Symbol(box));
+	bool ratioFlag = args.IsSet(Gura_Symbol(ratio));
 	size_t width, height;
 	if (!args.Is_number(0) && !args.Is_number(1)) {
 		sig.SetError(ERR_ValueError, "width or height must be specified");
 		return Value::Null;
 	}
 	if (args.Is_number(0) && !args.Is_number(1)) {
-		width = args.GetSizeT(0);
+		if (ratioFlag) {
+			width = static_cast<size_t>(pThis->GetImage()->GetWidth() * args.GetDouble(0));
+		} else {
+			width = args.GetSizeT(0);
+		}
 		if (boxFlag) {
 			height = width;
 		} else {
 			height = pThis->GetImage()->GetHeight() * width / pThis->GetImage()->GetWidth();
 		}
 	} else if (!args.Is_number(0) && args.Is_number(1)) {
-		height = args.GetSizeT(1);
+		if (ratioFlag) {
+			height = static_cast<size_t>(pThis->GetImage()->GetHeight() * args.GetDouble(1));
+		} else {
+			height = args.GetSizeT(1);
+		}
 		if (boxFlag) {
 			width = height;
 		} else {
 			width = pThis->GetImage()->GetWidth() * height / pThis->GetImage()->GetHeight();
 		}
 	} else {
-		width = args.GetSizeT(0), height = args.GetSizeT(1);
+		if (ratioFlag) {
+			width = static_cast<size_t>(pThis->GetImage()->GetWidth() * args.GetDouble(0));
+			height = static_cast<size_t>(pThis->GetImage()->GetHeight() * args.GetDouble(1));
+		} else {
+			width = args.GetSizeT(0);
+			height = args.GetSizeT(1);
+		}
 	}
 	AutoPtr<Image> pImage(pThis->GetImage()->Resize(sig, width, height));
 	if (sig.IsSignalled()) return Value::Null;

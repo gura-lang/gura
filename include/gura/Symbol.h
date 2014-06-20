@@ -345,6 +345,7 @@ public:
 	Gura_DeclareSymbol(password);
 	Gura_DeclareSymbol(path);
 	Gura_DeclareSymbol(pathname);
+	Gura_DeclareSymbol(percent);
 	Gura_DeclareSymbol(pi);
 	Gura_DeclareSymbol(pl);
 	Gura_DeclareSymbol(port);
@@ -364,6 +365,7 @@ public:
 	Gura_DeclareSymbol(quote);
 	Gura_DeclareSymbol(r);
 	Gura_DeclareSymbol(raise);
+	Gura_DeclareSymbol(ratio);
 	Gura_DeclareSymbol(raw);
 	Gura_DeclareSymbol(readable);
 	Gura_DeclareSymbol(real);
