@@ -395,7 +395,7 @@ image
   read(stream:stream:r, imagetype?:string):map:reduce
   reducecolor(palette?:palette) {block?}
   replacecolor(colorOrg:color, color:color, tolerance?:number):reduce
-  resize(width?:number, height?:number):map:[box] {block?}
+  resize(width?:number, height?:number):map:[box,ratio] {block?}
   rotate(rotate:number, background?:color):map {block?}
   scan(x?:number, y?:number, width?:number, height?:number, scandir?:symbol) {block?}
   setalpha(a:number, color?:color, tolerance?:number):reduce
