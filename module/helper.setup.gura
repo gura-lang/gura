@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import(wx)
 import(zip)
+import(msico)
 
 //-----------------------------------------------------------------------------
 // global variables
@@ -33,7 +34,7 @@ execute(launcherName:string, version:string, shortName:string,
 Dialog = class(wx.Dialog) {
 	[ID_CreateZIP] = wx.ID_HIGHEST..
 	__init__(title:string => caption, pos:wx.Point => wx.DefaultPosition,
-			size:wx.Size => wx.Size(480, 260)) = {|nil, wx.ID_ANY, title, pos, size|
+			size:wx.Size => wx.Size(480, 300)) = {|nil, wx.ID_ANY, title, pos, size|
 		outerBox = wx.BoxSizer(wx.VERTICAL)
 		this.SetSizer(outerBox)
 		vbox = wx.BoxSizer(wx.VERTICAL)
@@ -43,7 +44,8 @@ Dialog = class(wx.Dialog) {
 			if (fileNameIcon) {
 				wx.StaticBitmap(this, wx.ID_ANY, wx.NullBitmap) {|ctrl|
 					hbox.Add(ctrl, wx.SizerFlags().Expand())
-					ctrl.SetIcon(wx.Icon(fileNameIcon, wx.BITMAP_TYPE_ICO))
+					ctrl.SetBitmap(image(path.join(sys.maindir, fileNameIcon)).resize(32))
+					//ctrl.SetIcon(wx.Icon(fileNameIcon, wx.BITMAP_TYPE_ICO))
 					ctrl.Bind(wx.EVT_RIGHT_DOWN) {|event|
 						wx.Menu {|m|
 							m.Append(ID_CreateZIP, 'Create &ZIP')
@@ -70,11 +72,12 @@ Dialog = class(wx.Dialog) {
 		wx.StaticLine(this, wx.ID_ANY) {|ctrl|
 			vbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.TOP, 4))
 		}
+		vbox.AddStretchSpacer(1)
 		wx.BoxSizer(wx.VERTICAL) {|vboxIn|
 			vbox.Add(vboxIn, wx.SizerFlags(1).Expand().Border(wx.LEFT | wx.RIGHT, 8))
 			vbox:local = vboxIn
 			wx.BoxSizer(wx.VERTICAL) {|vboxIn|
-				vbox.Add(vboxIn, wx.SizerFlags(1).Expand().Border(wx.TOP, 16))
+				vbox.Add(vboxIn, wx.SizerFlags(1).Expand())
 				vbox:local = vboxIn
 				wx.CheckBox(this, wx.ID_ANY, 'Copy files to the directory:'$) {|ctrl|
 					vbox.Add(ctrl, wx.SizerFlags().Expand())
@@ -108,8 +111,9 @@ Dialog = class(wx.Dialog) {
 				this.chkboxStartMenuIcon = ctrl
 			}
 		}
+		vbox.AddStretchSpacer(1)
 		wx.StaticLine(this, wx.ID_ANY) {|ctrl|
-			vbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.TOP, 16))
+			vbox.Add(ctrl, wx.SizerFlags().Expand())
 		}
 		wx.BoxSizer(wx.HORIZONTAL) {|hbox|
 			vbox.Add(hbox, wx.SizerFlags().Center().Border(wx.TOP, 8))
