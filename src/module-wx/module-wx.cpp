@@ -3088,6 +3088,8 @@ void InitializeObjects(Environment &env)
 		Gura_AssignWxEvent(EVT_END_SESSION,							EVT_END_SESSION,				CloseEvent);
 		Gura_AssignWxEvent(EVT_COMMAND_COLOURPICKER_CHANGED,		EVT_COLOURPICKER_CHANGED,		ColourPickerEvent);
 		Gura_AssignWxEvent(EVT_COMMAND_COMBOBOX_SELECTED,			EVT_COMBOBOX,					CommandEvent);
+	_MS(Gura_AssignWxEvent(EVT_COMMAND_COMBOBOX_DROPDOWN,			EVT_COMBOBOX_DROPDOWN,			CommandEvent));
+	_MS(Gura_AssignWxEvent(EVT_COMMAND_COMBOBOX_CLOSEUP,			EVT_COMBOBOX_CLOSEUP,			CommandEvent));
 		Gura_AssignWxEvent(EVT_COMMAND_MENU_SELECTED,				EVT_MENU,						CommandEvent);
 		Gura_AssignWxEvent(EVT_COMMAND_MENU_SELECTED,				EVT_MENU_RANGE,					CommandEvent);
 		//Gura_AssignWxEvent(EVT_COMMAND_CONTEXT_MENU,				EVT_CONTEXT_MENU,				CommandEvent);
