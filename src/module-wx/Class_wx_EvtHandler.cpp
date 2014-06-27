@@ -48,6 +48,8 @@ void wx_EvtHandler::ObjectEventFunction(wxEvent &event)
 	pEventHandlerPack->Eval(event);
 	if (sig.IsSignalled()) {
 		SetLogError(sig);
+		wxWindow *window = wxDynamicCast(wxApp::GetInstance(), wxApp)->GetTopWindow();
+		if (window != NULL) window->Close(true);
 		wxDynamicCast(wxApp::GetInstance(), wxApp)->ExitMainLoop();
 	}
 }
