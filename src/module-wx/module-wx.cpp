@@ -3216,7 +3216,6 @@ void InitializeObjects(Environment &env)
 		Gura_AssignWxEvent(EVT_SCROLL_LINEUP,						EVT_SPIN_UP,					SpinEvent);
 		Gura_AssignWxEvent(EVT_SCROLL_LINEDOWN,						EVT_SPIN_DOWN,					SpinEvent);
 		Gura_AssignWxEvent(EVT_COMMAND_SPINCTRL_UPDATED,			EVT_SPINCTRL,					SpinEvent);
-		Gura_AssignWxEvent(EVT_COMMAND_SPINCTRL_UPDATED,			EVT_SPINCTRL,					CommandEvent);
 		Gura_AssignWxEvent(EVT_COMMAND_SPLITTER_SASH_POS_CHANGING,	EVT_SPLITTER_SASH_POS_CHANGING,	SplitterEvent);
 		Gura_AssignWxEvent(EVT_COMMAND_SPLITTER_SASH_POS_CHANGED,	EVT_SPLITTER_SASH_POS_CHANGED,	SplitterEvent);
 		Gura_AssignWxEvent(EVT_COMMAND_SPLITTER_UNSPLIT,			EVT_SPLITTER_UNSPLIT,			SplitterEvent);
