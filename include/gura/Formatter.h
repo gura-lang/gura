@@ -58,7 +58,7 @@ public:
 	private:
 		va_list _ap;
 	public:
-		inline Source_va_list(va_list ap) : _ap(ap) {}
+		inline Source_va_list(va_list ap) { _ap = ap; }
 		virtual bool IsEnd();
 		virtual Value GetInt();
 		virtual Value GetDouble();
