@@ -3368,7 +3368,7 @@ void InitializeObjects(Environment &env)
 		Gura_AssignWxObject(TheClipboard,		Clipboard);
 	} while (0);
 	do { // Predefined Objects of wxDataFormat
-		Gura_AssignWxObjectEx(DF_INVALID,		DataFormat, new wxDataFormat(wxDF_INVALID));
+		//Gura_AssignWxObjectEx(DF_INVALID,		DataFormat, new wxDataFormat(wxDF_INVALID));
 		Gura_AssignWxObjectEx(DF_TEXT,			DataFormat, new wxDataFormat(wxDF_TEXT));
 		Gura_AssignWxObjectEx(DF_BITMAP,		DataFormat, new wxDataFormat(wxDF_BITMAP));
 	_MS(Gura_AssignWxObjectEx(DF_METAFILE,		DataFormat, new wxDataFormat(wxDF_METAFILE)));
