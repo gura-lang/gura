@@ -63,7 +63,7 @@ Dialog = class(wx.Dialog) {
 				}
 			}
 		}
-		vbox.AddSpacer(8)
+		vbox.AddSpacer(4)
 		wx.StaticLine(this, wx.ID_ANY) {|ctrl|
 			vbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.TOP, 4))
 		}
