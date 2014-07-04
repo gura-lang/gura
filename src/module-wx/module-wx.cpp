@@ -3371,9 +3371,9 @@ void InitializeObjects(Environment &env)
 		Gura_AssignWxObjectEx(DF_INVALID,		DataFormat, new wxDataFormat(wxDF_INVALID));
 		Gura_AssignWxObjectEx(DF_TEXT,			DataFormat, new wxDataFormat(wxDF_TEXT));
 		Gura_AssignWxObjectEx(DF_BITMAP,		DataFormat, new wxDataFormat(wxDF_BITMAP));
-		Gura_AssignWxObjectEx(DF_METAFILE,		DataFormat, new wxDataFormat(wxDF_METAFILE));
+	_MS(Gura_AssignWxObjectEx(DF_METAFILE,		DataFormat, new wxDataFormat(wxDF_METAFILE)));
 		Gura_AssignWxObjectEx(DF_FILENAME,		DataFormat, new wxDataFormat(wxDF_FILENAME));
-		Gura_AssignWxObjectEx(DF_HTML,			DataFormat, new wxDataFormat(wxDF_HTML));
+	_MS(Gura_AssignWxObjectEx(DF_HTML,			DataFormat, new wxDataFormat(wxDF_HTML)));
 	} while (0);
 }
 
