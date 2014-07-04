@@ -627,15 +627,7 @@ if (sys.build == `msc) {
 		path.exists(path.join(os.getenv('PATH').split(':'), filename)).or()
 	}
 	builder.debFiles = [
-		'libwxbase3.0-0-unofficial'
-		'libwxbase3.0-dev'
-		'libwxgtk3.0-0-unofficial'
 		'libwxgtk3.0-dev'
-		'wx3.0-headers'
-		'wx-common'
-		'wx3.0-i18n'
-		'wx3.0-examples'
-		'wx3.0-doc'
 		//'libwxgtk2.8-dev', 'libgl1-mesa-dev', 'libglu1-mesa-dev'
 	]
 	builder.rpmFiles = [
