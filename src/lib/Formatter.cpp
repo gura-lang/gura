@@ -14,7 +14,7 @@ bool Formatter::DoFormat(Signal sig, const char *format, const ValueList &valLis
 	return DoFormat(sig, format, source);
 }
 
-bool Formatter::DoFormat(Signal sig, const char *format, va_list ap)
+bool Formatter::DoFormat(Signal sig, const char *format, va_list &ap)
 {
 	Source_va_list source(ap);
 	return DoFormat(sig, format, source);
@@ -240,7 +240,7 @@ String Formatter::Format(Signal sig,
 	return formatter.GetStringSTL();
 }
 
-String Formatter::Format(Signal sig, const char *format, va_list ap)
+String Formatter::Format(Signal sig, const char *format, va_list &ap)
 {
 	FormatterString formatter;
 	formatter.DoFormat(sig, format, ap);
