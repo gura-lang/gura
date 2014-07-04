@@ -49,7 +49,7 @@ moduleInfos = @(ModuleInfo) {
 	['time',			`skip,	[`mswin,	`linux	]]	// integrated
 	['uuid',			`build,	[`mswin,			]]
 	['wav',				`build,	[`mswin,	`linux	]]
-	['wx',				`build,	[`mswin,			]]
+	['wx',				`build,	[`mswin,	`linux	]]
 	['xml',				`build,	[`mswin,	`linux	]]
 	['xpm',				`build,	[`mswin,	`linux	]]
 	['yaml',			`build,	[`mswin,	`linux	]]
