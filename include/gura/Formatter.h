@@ -58,7 +58,11 @@ public:
 	private:
 		va_list _ap;
 	public:
-		inline Source_va_list(va_list ap) : _ap(ap) {}
+#if defined(va_copy)
+		inline Source_va_list(va_list ap) { va_copy(_ap, ap); }
+#else
+		inline Source_va_list(va_list ap) { _ap = ap; }
+#endif
 		virtual bool IsEnd();
 		virtual Value GetInt();
 		virtual Value GetDouble();
