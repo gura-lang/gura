@@ -88,7 +88,8 @@ Dialog = class(wx.Dialog) {
 			vbox.AddSpacer(12)
 			wx.CheckBox(this, wx.ID_ANY, 'Create a desktop icon'$) {|ctrl|
 				vbox.Add(ctrl, wx.SizerFlags().Expand().Border(wx.TOP, 8))
-				ctrl.SetValue(true)
+				ctrl.Enable(sys.platform == `mswin)
+				ctrl.SetValue(sys.platform == `mswin)
 				ctrl.Bind(wx.EVT_CHECKBOX) {|even| this.UpdateStatus()}
 				this.chkboxDesktopIcon = ctrl
 			}
