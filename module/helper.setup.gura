@@ -153,47 +153,30 @@ Dialog = class(wx.Dialog) {
 		}
 	}
 	OnButton_Setup(event:wx.CommandEvent) = {
-		import(mswin)
 		dlg = nil
 		try {
-			wsh = mswin.ole('Wscript.shell')
 			fs.mkdir(dirNameDst):tree
 			fileNamesToCopy = this.GetFileNamesToCopy()
 			if (this.chkboxCopyFiles.GetValue()) {
-				stream.copy(path.join(sys.maindir, fileNamesToCopy),
-							path.join(dirNameDst, fileNamesToCopy)):finalize
+				pathNamesSrc = path.join(sys.maindir, fileNamesToCopy)
+				pathNamesDst = path.join(dirNameDst, fileNamesToCopy)
+				stream.copy(pathNamesSrc, pathNamesDst):finalize
+				pathNamesExecutable = pathNamesDst.filter(
+						(pathNamesDst:*endswith(['.gura', '.guraw']):icase):*or())
+				fs.chmod('a+x', pathNamesExecutable)
 			} else {
 				dirNameDst = fs.getcwd()
-			}
-			dirNames = []
-			if (this.chkboxDesktopIcon.GetValue()) {
-				dirNames.add(wsh.SpecialFolders('Desktop'))
-			}
-			if (this.chkboxStartMenuIcon.GetValue()) {
-				dirName = path.join(wsh.SpecialFolders('StartMenu'), 'Gura/Application')
-				!path.exists(dirName) && fs.mkdir(dirName):tree
-				dirNames.add(dirName)
-			}
-			dirNames.each {|dirName|
-				shortCut = wsh.CreateShortcut(path.join(dirName, launcherName + '.lnk'))
-				shortCut.WindowStyle = 4 // 3:Maximized, 4:Normal, 7:Minimized
-				if (fileNameIcon) {
-					shortCut.IconLocation = path.join(dirNameDst, fileNameIcon)
-				}
-				shortCut.TargetPath = path.join(path.dirname(sys.executable),
-					cond(fileNameScript.endswith('.gura'):icase, 'gura.exe', 'guraw.exe'))
-				shortCut.Arguments = path.join(dirNameDst, fileNameScript)
-				shortCut.WorkingDirectory = dirNameDst
-				shortCut.Save()
 			}
 			if (this.chkboxCleanFiles.GetValue()) {
 				try {
 					fs.remove(fileNamesClean)
 				} catch {}
 			}
+			if (sys.platform == `mswin) {
+				this.CreateShortcut_MSWin(dirNameDst)
+			}
 			dlg = wx.MessageDialog(this, 'Setup has been done successfully.'$, caption,
 							wx.OK | wx.CENTRE | wx.ICON_INFORMATION)
-			wsh = nil
 		} catch {|e|
 			dlg = wx.MessageDialog(this, e.text, caption,
 							wx.OK | wx.CENTRE | wx.ICON_ERROR)
@@ -212,6 +195,32 @@ Dialog = class(wx.Dialog) {
 		dlg = wx.MessageDialog(this, 'ZIP file %s was created.'$ % fileNameZIP, caption,
 						wx.OK | wx.CENTRE | wx.ICON_INFORMATION)
 		dlg.ShowModal()
+	}
+	CreateShortcut_MSWin(dirNameDst:string) = {
+		import(mswin)
+		wsh = mswin.ole('Wscript.shell')
+		dirNames = []
+		if (this.chkboxDesktopIcon.GetValue()) {
+			dirNames.add(wsh.SpecialFolders('Desktop'))
+		}
+		if (this.chkboxStartMenuIcon.GetValue()) {
+			dirName = path.join(wsh.SpecialFolders('StartMenu'), 'Gura/Application')
+			!path.exists(dirName) && fs.mkdir(dirName):tree
+			dirNames.add(dirName)
+		}
+		dirNames.each {|dirName|
+			shortCut = wsh.CreateShortcut(path.join(dirName, launcherName + '.lnk'))
+			shortCut.WindowStyle = 4 // 3:Maximized, 4:Normal, 7:Minimized
+			if (fileNameIcon) {
+				shortCut.IconLocation = path.join(dirNameDst, fileNameIcon)
+			}
+			shortCut.TargetPath = path.join(path.dirname(sys.executable),
+				cond(fileNameScript.endswith('.gura'):icase, 'gura.exe', 'guraw.exe'))
+			shortCut.Arguments = path.join(dirNameDst, fileNameScript)
+			shortCut.WorkingDirectory = dirNameDst
+			shortCut.Save()
+		}
+		wsh = nil
 	}
 }
 
