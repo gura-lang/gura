@@ -645,7 +645,7 @@ if (sys.build == `msc) {
 		ldflags = scope {
 			buff = binary()
 			os.redirect(nil, buff) {
-				os.exec('wx-config', '--version=3.0', '--libs', '--gl-libs')
+				os.exec('wx-config', '--version=3.0', '--libs', 'all')
 			}
 			str = os.fromnative(buff).replace('\n', ' ')
 			str.strip().split(' '):list
