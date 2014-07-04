@@ -11,7 +11,7 @@ fgFont = color(`white)
 [wdScreen, htScreen] = [640, 480]
 sdl.Init(sdl.INIT_EVERYTHING)
 screen = sdl.SetVideoMode(wdScreen, htScreen, 16, sdl.SWSURFACE)
-fileNames = (path.dir(I(''), '*.jpg', '*.png', '*.bmp'):icase).cycle()
+fileNames = path.dir(I(''), '*.jpg', '*.png', '*.bmp').cycle()
 //font = sdl.OpenFont(path.join(os.getenv('SystemRoot'), 'Fonts', 'arial.ttf'), 32)
 screen.FillRect(sdl.Rect(0, 0, wdScreen, htScreen), bgColor)
 screen.UpdateRect()
