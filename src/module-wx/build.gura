@@ -592,7 +592,7 @@ contFlag = true
 builder = modbuild.Builder()
 if (sys.build == `msc) {
 	srcs.append(srcs_MSW)
-	dirWx = path.join(modbuild.guestDir, 'wxWidgets-3.0.0')
+	dirWx = path.join(modbuild.guestDir, 'wxWidgets-3.0.1')
 	builder.incDirs.append(
 		path.join(dirWx, 'include')
 		path.join(dirWx, 'lib', 'vc_lib', 'mswu'))
@@ -630,7 +630,7 @@ if (sys.build == `msc) {
 		'libwxgtk3.0-dev'
 	]
 	builder.rpmFiles = [
-		'wxGTK-devel', 'mesa-libGL-devel', 'mesa-libGLU-devel'
+		'wx-gtk2-unicode-devel'
 	]
 	if (IsExist('wx-config')) {
 		cflags = scope {
