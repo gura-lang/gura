@@ -630,7 +630,7 @@ if (sys.build == `msc) {
 		'libwxgtk3.0-dev'
 	]
 	builder.rpmFiles = [
-		'wx-gtk2-unicode-devel'
+		'wxGTK3-devel-3.0.0'
 	]
 	if (IsExist('wx-config')) {
 		cflags = scope {
@@ -644,7 +644,8 @@ if (sys.build == `msc) {
 		ldflags = scope {
 			buff = binary()
 			os.redirect(nil, buff) {
-				os.exec('wx-config', '--version=3.0', '--libs', 'all')
+				os.exec('wx-config', '--version=3.0', '--libs',
+					'xrc,stc,richtext,ribbon,propgrid,aui,gl,html,qa,adv,core,xml,net,base')
 			}
 			str = os.fromnative(buff).replace('\n', ' ')
 			str.strip().split(' '):list
