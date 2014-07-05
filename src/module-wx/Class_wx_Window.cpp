@@ -1243,7 +1243,7 @@ Gura_ImplementMethod(wx_Window, GetHandle)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	void *rtn = pThis->GetEntity()->GetHandle();
 	Value value;
-	if (rtn != NULL) value = Value(reinterpret_cast<int>(rtn));
+	if (rtn != NULL) value = Value(reinterpret_cast<size_t>(rtn));
 	return ReturnValue(env, sig, args, value);
 }
 
