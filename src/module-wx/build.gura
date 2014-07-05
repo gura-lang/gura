@@ -630,7 +630,7 @@ if (sys.build == `msc) {
 		'libwxgtk3.0-dev'
 	]
 	builder.rpmFiles = [
-		'wx-gtk2-unicode-devel'
+		'wxGTK3-devel-3.0.0'
 	]
 	if (IsExist('wx-config')) {
 		cflags = scope {
