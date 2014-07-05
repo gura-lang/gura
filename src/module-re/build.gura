@@ -8,6 +8,6 @@ if (sys.build == `msc) {
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('onig')
 	builder.debFiles = ['libonig-dev']
-	builder.rpmFIles = ['oniguruma-devel']
+	builder.rpmFiles = ['oniguruma-devel']
 }
 builder.build('re', ['module-re.cpp'])

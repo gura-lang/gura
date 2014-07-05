@@ -9,6 +9,6 @@ if (sys.build == `msc) {
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('png12')
 	builder.debFiles = ['libpng12-dev']
-	builder.rpmFiles = ['libpng-devel', 'zlib-devel']
+	builder.rpmFiles = ['libpng12-devel', 'zlib-devel']
 }
 builder.build('png', ['module-png.cpp'])
