@@ -160,6 +160,7 @@ Gura_ImplementMethod(wx_Colour, GetAsString)
 	return ReturnValue(env, sig, args, Value(static_cast<const char *>(rtn.ToUTF8())));
 }
 
+#if 0
 Gura_DeclareMethod(wx_Colour, GetPixel)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -173,6 +174,7 @@ Gura_ImplementMethod(wx_Colour, GetPixel)
 	long rtn = pThis->GetEntity()->GetPixel();
 	return ReturnValue(env, sig, args, Value(rtn));
 }
+#endif
 
 Gura_DeclareMethod(wx_Colour, Green)
 {
@@ -323,7 +325,7 @@ Gura_ImplementUserInheritableClassWithCast(wx_Colour)
 	Gura_AssignMethod(wx_Colour, Alpha);
 	Gura_AssignMethod(wx_Colour, Blue);
 	Gura_AssignMethod(wx_Colour, GetAsString);
-	Gura_AssignMethod(wx_Colour, GetPixel);
+	//Gura_AssignMethod(wx_Colour, GetPixel);
 	Gura_AssignMethod(wx_Colour, Green);
 	Gura_AssignMethod(wx_Colour, IsOk);
 	Gura_AssignMethodEx(wx_Colour, IsOk, "Ok");
