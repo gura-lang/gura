@@ -35,6 +35,7 @@ Dialog = class(wx.Dialog) {
 	[ID_CreateZIP] = wx.ID_HIGHEST..
 	__init__(title:string => caption) = {|nil, wx.ID_ANY, title|
 		outerBox = wx.BoxSizer(wx.VERTICAL)
+		outerBox.SetMinSize(480, -1)
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		outerBox.Add(vbox, wx.SizerFlags().Expand())
 		vbox.AddSpacer(8)
