@@ -188,6 +188,6 @@ if (command == `setup_guest) {
 	if (platform in [`ubuntu, `debian]) {
 		os.exec('apt-get', 'install', '-y', set(debFiles))
 	} elsif (platform in [`fedora, `centos, `redhat]) {
-		os.exec('yum', 'install', '-y ', set(rpmFiles))
+		os.exec('yum', 'install', '-y', set(rpmFiles))
 	}
 }
