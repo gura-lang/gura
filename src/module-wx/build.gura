@@ -652,7 +652,7 @@ if (sys.build == `msc) {
 		}
 		builder.ldflags.append(ldflags.filter(ldflags != ''))
 	} else {
-		builder.printHint()
+		//builder.printHint()
 		contFlag = false
 	}
 }
