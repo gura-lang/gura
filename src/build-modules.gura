@@ -3,95 +3,59 @@ import(argopt)
 
 ModuleInfo = struct(moduleName:string, action:symbol, platforms[]:symbol)
 moduleInfos = @(ModuleInfo) {
-	['base64',			`skip,	[`mswin,	`ubuntu ]]	// integrated
-	['bmp',				`build,	[`mswin,	`ubuntu	]]
-	['bzip2',			`build,	[`mswin,	`ubuntu	]]
-	['cairo',			`build,	[`mswin,	`ubuntu	]]
-	['canvas',			`build,	[`mswin,			]]
-	['codecs_basic',	`skip,	[`mswin,	`ubuntu	]]	// integrated
-	['codecs_iso8859',	`skip,	[`mswin,	`ubuntu	]]	// integrated
-	['codecs_japanese',	`skip,	[`mswin,	`ubuntu	]]	// integrated
-	['conio',			`build,	[`mswin,	`ubuntu	]]
-	['csv',				`build,	[`mswin,	`ubuntu	]]
-	['curl',			`build,	[`mswin,	`ubuntu	]]
-	['emf',				`skip,	[`mswin,	`ubuntu	]]	// not completed
-	['freetype',		`build,	[`mswin,	`ubuntu	]]
-	['fs',				`skip,	[`mswin,	`ubuntu	]]	// integrated
-	['gif',				`build,	[`mswin,	`ubuntu	]]
-	['glu',				`build,	[`mswin,	`ubuntu	]]
-	['gmp',				`build,	[`mswin,	`ubuntu	]]
-	['guri',			`build,	[`mswin,	`ubuntu	]]
-	['gzip',			`build,	[`mswin,	`ubuntu	]]
-	['hash',			`build,	[`mswin,	`ubuntu	]]
-	['http',			`build,	[`mswin,	`ubuntu	]]
-	['jpeg',			`build,	[`mswin,	`ubuntu	]]
-	['llvm',			`skip,	[`mswin,	`ubuntu	]]	// not completed
-	['markdown',		`build,	[`mswin,	`ubuntu	]]
-	['math',			`skip,	[`mswin,	`ubuntu	]]	// integrated
-	['midi',			`build,	[`mswin,	`ubuntu	]]
-	['msico',			`build,	[`mswin,	`ubuntu	]]
-	['mswin',			`build,	[`mswin,			]]
-	['mysql',			`skip,	[`mswin,	`ubuntu	]]	// not completed
-	['opengl',			`build,	[`mswin,	`ubuntu	]]
-	['os',				`skip,	[`mswin,	`ubuntu	]]	// integrated
-	['path',			`skip,	[`mswin,	`ubuntu	]]	// integrated
-	['png',				`build,	[`mswin,	`ubuntu	]]
-	['postgresql',		`skip,	[`mswin,	`ubuntu	]]	// not completed
-	['ppm',				`build,	[`mswin,	`ubuntu	]]
-	['re',				`build,	[`mswin,	`ubuntu	]]
-	['sample',			`build,	[`mswin,	`ubuntu	]]
-	['sdl',				`build,	[`mswin,	`ubuntu	]]
-	['sqlite3',			`build,	[`mswin,	`ubuntu	]]
-	['tar',				`build,	[`mswin,	`ubuntu	]]
-	['tcl',				`build,	[`mswin,	`ubuntu	]]
-	['tester',			`skip,	[`mswin,	`ubuntu	]]	// just for test
-	['tiff',			`build,	[`mswin,	`ubuntu	]]
-	['time',			`skip,	[`mswin,	`ubuntu	]]	// integrated
-	['uuid',			`build,	[`mswin,			]]
-	['wav',				`build,	[`mswin,	`ubuntu	]]
-	['wx',				`build,	[`mswin,	`ubuntu	]]
-	['xml',				`build,	[`mswin,	`ubuntu	]]
-	['xpm',				`build,	[`mswin,	`ubuntu	]]
-	['yaml',			`build,	[`mswin,	`ubuntu	]]
-	['zip',				`build,	[`mswin,	`ubuntu	]]
+	['base64',			`skip,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]	// integrated
+	['bmp',				`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['bzip2',			`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['cairo',			`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['canvas',			`build,	[`mswin,												]]
+	['codecs_basic',	`skip,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]	// integrated
+	['codecs_iso8859',	`skip,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]	// integrated
+	['codecs_japanese',	`skip,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]	// integrated
+	['conio',			`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['csv',				`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['curl',			`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['emf',				`skip,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]	// not completed
+	['freetype',		`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['fs',				`skip,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]	// integrated
+	['gif',				`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['glu',				`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['gmp',				`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['guri',			`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['gzip',			`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['hash',			`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['http',			`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['jpeg',			`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['llvm',			`skip,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]	// not completed
+	['markdown',		`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['math',			`skip,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]	// integrated
+	['midi',			`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['msico',			`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['mswin',			`build,	[`mswin,												]]
+	['mysql',			`skip,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]	// not completed
+	['opengl',			`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['os',				`skip,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]	// integrated
+	['path',			`skip,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]	// integrated
+	['png',				`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['postgresql',		`skip,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]	// not completed
+	['ppm',				`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['re',				`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['sample',			`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['sdl',				`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['sqlite3',			`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['tar',				`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['tcl',				`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['tester',			`skip,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]	// just for test
+	['tiff',			`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['time',			`skip,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]	// integrated
+	['uuid',			`build,	[`mswin,												]]
+	['wav',				`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['wx',				`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['xml',				`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['xpm',				`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['yaml',			`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
+	['zip',				`build,	[`mswin,	`ubuntu,	`fedora,	`centos,	redhat	]]
 }
 
-argopt.Parser {|p|
-	p.addFlag('verbose',	'v', 'verbose mode')
-	p.addFlag('debug',		'd', 'build module with debug information')
-	p.addFlag('rebuild',	'r', 'clean output files before building')
-	p.addParam('exclude',	'x', 'specify module to exclude', 'NAME', '')
-	p.addParam('incdir',	'I', 'specify include directory', 'DIR')
-	try {
-		[cfg, argv] = p.parse(sys.argv)
-	} catch {|e|
-		sys.stderr.println(e.text)
-		sys.exit(1)
-	}
-	command = if (argv.len() == 0) {
-		`build
-	} elsif (argv[0] == 'help') {
-		R'''
-		usage: ${path.filename(sys.argv[0])} [options] command
-		command:
-		 clean          clean output files
-		 install        install built files to root directory
-		 build-install  build and install files to root directory
-		options:
-		 ${p.formatHelp() + '\n'}
-		'''.template().render(sys.stderr)
-		sys.exit(1)
-	} elsif (argv[0] == 'clean') {
-		`clean
-	} elsif (argv[0] == 'install') {
-		`install
-	} elsif (argv[0] == 'build-install') {
-		`build_install
-	} else {
-		sys.stderr.println('unknown command: ', argv[0])
-		sys.exit(1)
-	}
-}
 if (sys.platform == `linux) {
 	platform = nil
 	!platform && path.exists(fileName = '/etc/lsb-release') && \
@@ -115,7 +79,7 @@ if (sys.platform == `linux) {
 	!platform && path.exists(fileName = '/etc/redhat-release') && \
 										readlines(fileName):chop {|line|
 		if (line.startswith('CentOS')) {
-			platform = `redhat
+			platform = `centos
 			break
 		} elsif (line.startswith('Red Hat')) {
 			platform = `redhat
@@ -125,8 +89,49 @@ if (sys.platform == `linux) {
 } else {
 	platform = sys.platform
 }
-println(platform)
-sys.exit()
+if (!(platform && platform in [`mswin, `ubuntu, `fedora])) {
+	println('unsupported platform')
+	sys.exit(1)
+}
+argopt.Parser {|p|
+	p.addFlag('verbose',	'v', 'verbose mode')
+	p.addFlag('debug',		'd', 'build module with debug information')
+	p.addFlag('rebuild',	'r', 'clean output files before building')
+	p.addParam('exclude',	'x', 'specify module to exclude', 'NAME', '')
+	p.addParam('incdir',	'I', 'specify include directory', 'DIR')
+	try {
+		[cfg, argv] = p.parse(sys.argv)
+	} catch {|e|
+		sys.stderr.println(e.text)
+		sys.exit(1)
+	}
+	command = if (argv.len() == 0) {
+		`build
+	} elsif (argv[0] == 'help') {
+		R'''
+		usage: ${path.filename(sys.argv[0])} [options] command
+		command:
+		 clean          clean output files
+		 install        install built files to root directory
+		 build-install  build and install files to root directory
+		 
+		options:
+		 ${p.formatHelp() + '\n'}
+		'''.template().render(sys.stderr)
+		sys.exit(1)
+	} elsif (argv[0] == 'clean') {
+		`clean
+	} elsif (argv[0] == 'install') {
+		`install
+	} elsif (argv[0] == 'build-install') {
+		`build_install
+	} elsif (argv[0] == 'guest') {
+		`guest
+	} else {
+		sys.stderr.println('unknown command: ', argv[0])
+		sys.exit(1)
+	}
+}
 moduleNamesExcept = cfg['exclude'].split(',')
 moduleNames = moduleInfos.filter(moduleInfos:*action == `build && \
 		moduleInfos:*platforms:*contains(platform))::moduleName
@@ -154,6 +159,8 @@ for (moduleName in moduleNames) {
 		sys.argv.append('install-root')
 	} elsif (command == `build_install) {
 		sys.argv.append('build-install-root')
+	} elsif (command == `guest) {
+		sys.argv.append('guest')
 	} else {
 		// nothing to do
 	}
@@ -175,6 +182,9 @@ for (moduleName in moduleNames) {
 if (!moduleNamesError.isempty()) {
 	println()
 	println('**** error while building ', moduleNamesError)
+	sys.exit(1)
+}
+if (command == `guest) {
 	if (!debFiles.isempty()) {
 		fileName = 'setup-gura-guest-deb.sh'
 		open(fileName, 'w').println('apt-get install -y ', set(debFiles))
@@ -187,5 +197,4 @@ if (!moduleNamesError.isempty()) {
 		fs.chmod('a+x', fileName)
 			println('Execute ', fileName, ' to install necessary guest packages of RPM.')
 	}
-	sys.exit(1)
 }
