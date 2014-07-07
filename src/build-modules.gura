@@ -3,57 +3,57 @@ import(argopt)
 
 ModuleInfo = struct(moduleName:string, action:symbol, platforms[]:symbol)
 moduleInfos = @(ModuleInfo) {
-	['base64',			`skip,	[`mswin,	`linux	]]	// integrated
-	['bmp',				`build,	[`mswin,	`linux	]]
-	['bzip2',			`build,	[`mswin,	`linux	]]
-	['cairo',			`build,	[`mswin,	`linux	]]
+	['base64',			`skip,	[`mswin,	`ubuntu ]]	// integrated
+	['bmp',				`build,	[`mswin,	`ubuntu	]]
+	['bzip2',			`build,	[`mswin,	`ubuntu	]]
+	['cairo',			`build,	[`mswin,	`ubuntu	]]
 	['canvas',			`build,	[`mswin,			]]
-	['codecs_basic',	`skip,	[`mswin,	`linux	]]	// integrated
-	['codecs_iso8859',	`skip,	[`mswin,	`linux	]]	// integrated
-	['codecs_japanese',	`skip,	[`mswin,	`linux	]]	// integrated
-	['conio',			`build,	[`mswin,	`linux	]]
-	['csv',				`build,	[`mswin,	`linux	]]
-	['curl',			`build,	[`mswin,	`linux	]]
-	['emf',				`skip,	[`mswin,	`linux	]]	// not completed
-	['freetype',		`build,	[`mswin,	`linux	]]
-	['fs',				`skip,	[`mswin,	`linux	]]	// integrated
-	['gif',				`build,	[`mswin,	`linux	]]
-	['glu',				`build,	[`mswin,	`linux	]]
-	['gmp',				`build,	[`mswin,	`linux	]]
-	['guri',			`build,	[`mswin,	`linux	]]
-	['gzip',			`build,	[`mswin,	`linux	]]
-	['hash',			`build,	[`mswin,	`linux	]]
-	['http',			`build,	[`mswin,	`linux	]]
-	['jpeg',			`build,	[`mswin,	`linux	]]
-	['llvm',			`skip,	[`mswin,	`linux	]]	// not completed
-	['markdown',		`build,	[`mswin,	`linux	]]
-	['math',			`skip,	[`mswin,	`linux	]]	// integrated
-	['midi',			`build,	[`mswin,	`linux	]]
-	['msico',			`build,	[`mswin,	`linux	]]
+	['codecs_basic',	`skip,	[`mswin,	`ubuntu	]]	// integrated
+	['codecs_iso8859',	`skip,	[`mswin,	`ubuntu	]]	// integrated
+	['codecs_japanese',	`skip,	[`mswin,	`ubuntu	]]	// integrated
+	['conio',			`build,	[`mswin,	`ubuntu	]]
+	['csv',				`build,	[`mswin,	`ubuntu	]]
+	['curl',			`build,	[`mswin,	`ubuntu	]]
+	['emf',				`skip,	[`mswin,	`ubuntu	]]	// not completed
+	['freetype',		`build,	[`mswin,	`ubuntu	]]
+	['fs',				`skip,	[`mswin,	`ubuntu	]]	// integrated
+	['gif',				`build,	[`mswin,	`ubuntu	]]
+	['glu',				`build,	[`mswin,	`ubuntu	]]
+	['gmp',				`build,	[`mswin,	`ubuntu	]]
+	['guri',			`build,	[`mswin,	`ubuntu	]]
+	['gzip',			`build,	[`mswin,	`ubuntu	]]
+	['hash',			`build,	[`mswin,	`ubuntu	]]
+	['http',			`build,	[`mswin,	`ubuntu	]]
+	['jpeg',			`build,	[`mswin,	`ubuntu	]]
+	['llvm',			`skip,	[`mswin,	`ubuntu	]]	// not completed
+	['markdown',		`build,	[`mswin,	`ubuntu	]]
+	['math',			`skip,	[`mswin,	`ubuntu	]]	// integrated
+	['midi',			`build,	[`mswin,	`ubuntu	]]
+	['msico',			`build,	[`mswin,	`ubuntu	]]
 	['mswin',			`build,	[`mswin,			]]
-	['mysql',			`skip,	[`mswin,	`linux	]]	// not completed
-	['opengl',			`build,	[`mswin,	`linux	]]
-	['os',				`skip,	[`mswin,	`linux	]]	// integrated
-	['path',			`skip,	[`mswin,	`linux	]]	// integrated
-	['png',				`build,	[`mswin,	`linux	]]
-	['postgresql',		`skip,	[`mswin,	`linux	]]	// not completed
-	['ppm',				`build,	[`mswin,	`linux	]]
-	['re',				`build,	[`mswin,	`linux	]]
-	['sample',			`build,	[`mswin,	`linux	]]
-	['sdl',				`build,	[`mswin,	`linux	]]
-	['sqlite3',			`build,	[`mswin,	`linux	]]
-	['tar',				`build,	[`mswin,	`linux	]]
-	['tcl',				`build,	[`mswin,	`linux	]]
-	['tester',			`skip,	[`mswin,	`linux	]]	// just for test
-	['tiff',			`build,	[`mswin,	`linux	]]
-	['time',			`skip,	[`mswin,	`linux	]]	// integrated
+	['mysql',			`skip,	[`mswin,	`ubuntu	]]	// not completed
+	['opengl',			`build,	[`mswin,	`ubuntu	]]
+	['os',				`skip,	[`mswin,	`ubuntu	]]	// integrated
+	['path',			`skip,	[`mswin,	`ubuntu	]]	// integrated
+	['png',				`build,	[`mswin,	`ubuntu	]]
+	['postgresql',		`skip,	[`mswin,	`ubuntu	]]	// not completed
+	['ppm',				`build,	[`mswin,	`ubuntu	]]
+	['re',				`build,	[`mswin,	`ubuntu	]]
+	['sample',			`build,	[`mswin,	`ubuntu	]]
+	['sdl',				`build,	[`mswin,	`ubuntu	]]
+	['sqlite3',			`build,	[`mswin,	`ubuntu	]]
+	['tar',				`build,	[`mswin,	`ubuntu	]]
+	['tcl',				`build,	[`mswin,	`ubuntu	]]
+	['tester',			`skip,	[`mswin,	`ubuntu	]]	// just for test
+	['tiff',			`build,	[`mswin,	`ubuntu	]]
+	['time',			`skip,	[`mswin,	`ubuntu	]]	// integrated
 	['uuid',			`build,	[`mswin,			]]
-	['wav',				`build,	[`mswin,	`linux	]]
-	['wx',				`build,	[`mswin,	`linux	]]
-	['xml',				`build,	[`mswin,	`linux	]]
-	['xpm',				`build,	[`mswin,	`linux	]]
-	['yaml',			`build,	[`mswin,	`linux	]]
-	['zip',				`build,	[`mswin,	`linux	]]
+	['wav',				`build,	[`mswin,	`ubuntu	]]
+	['wx',				`build,	[`mswin,	`ubuntu	]]
+	['xml',				`build,	[`mswin,	`ubuntu	]]
+	['xpm',				`build,	[`mswin,	`ubuntu	]]
+	['yaml',			`build,	[`mswin,	`ubuntu	]]
+	['zip',				`build,	[`mswin,	`ubuntu	]]
 }
 
 argopt.Parser {|p|
@@ -92,9 +92,44 @@ argopt.Parser {|p|
 		sys.exit(1)
 	}
 }
+if (sys.platform == `linux) {
+	platform = nil
+	!platform && path.exists(fileName = '/etc/lsb-release') && \
+										readlines(fileName):chop {|line|
+		fields = line.split('='):list
+		if (fields.len() == 2 && fields[0].strip() == 'DISTRIB_ID') {
+			value = fields[1].strip()
+			if (value == 'Ubuntu') {
+				platform = `ubuntu
+			}
+			break
+		}
+	}
+	!platform && path.exists(fileName = '/etc/system-release') && \
+										readlines(fileName):chop {|line|
+		if (line.startswith('Fedora')) {
+			platform = `fedora
+			break
+		}
+	}
+	!platform && path.exists(fileName = '/etc/redhat-release') && \
+										readlines(fileName):chop {|line|
+		if (line.startswith('CentOS')) {
+			platform = `redhat
+			break
+		} elsif (line.startswith('Red Hat')) {
+			platform = `redhat
+			break
+		}
+	}
+} else {
+	platform = sys.platform
+}
+println(platform)
+sys.exit()
 moduleNamesExcept = cfg['exclude'].split(',')
 moduleNames = moduleInfos.filter(moduleInfos:*action == `build && \
-		moduleInfos:*platforms:*contains(sys.platform))::moduleName
+		moduleInfos:*platforms:*contains(platform))::moduleName
 dirNamePre = path.dirname(sys.argv[0])
 moduleNamesError = []
 debFiles = []
