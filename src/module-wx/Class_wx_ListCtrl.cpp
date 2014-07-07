@@ -1215,6 +1215,7 @@ Gura_DeclareMethod(wx_ListCtrl, SetItemImage)
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "item", VTYPE_number, OCCUR_Once);
 	DeclareArg(env, "image", VTYPE_number, OCCUR_Once);
+	DeclareArg(env, "selImage", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
@@ -1224,7 +1225,8 @@ Gura_ImplementMethod(wx_ListCtrl, SetItemImage)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	long item = args.GetLong(0);
 	int image = args.GetInt(1);
-	bool rtn = pThis->GetEntity()->SetItemImage(item, image);
+	int selImage = args.IsValid(2)? args.GetInt(2) : -1;
+	bool rtn = pThis->GetEntity()->SetItemImage(item, image, selImage);
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
