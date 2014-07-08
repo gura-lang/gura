@@ -39,12 +39,15 @@ configure_file(
 
 configure_file(
   ${PROJECT_SOURCE_DIR}/resource/build/build-modules.in
-  ${PROJECT_SOURCE_DIR}/resource/build/build-modules)
+  build-modules~)
 
 file(COPY
-  ${PROJECT_SOURCE_DIR}/resource/build/build-modules
+  build-modules~
   DESTINATION .
   FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ)
+
+file(REMOVE
+  build-modules~)
 
 file(COPY
   ${PROJECT_SOURCE_DIR}/resource/debian/changelog
