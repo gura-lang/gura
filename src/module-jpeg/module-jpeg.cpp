@@ -318,14 +318,14 @@ Gura_ModuleEntry()
 	do {
 		const UShort tagId = TAG_Orientation;
 		static SymbolAssoc::Entry entryTbl[] = {
-			{ 1,		"LeftTopVert",					NULL,	},
-			{ 2,		"RightTopVert",					NULL,	},
-			{ 3,		"RightBottomVert",				NULL,	},
-			{ 4,		"LefBottomVert",				NULL,	},
-			{ 5,		"LeftTopHorz",					NULL,	},
-			{ 6,		"RightTopHorz",					NULL,	},
-			{ 7,		"RightBottomHorz",				NULL,	},
-			{ 8,		"LeftBottomHorz",				NULL,	},
+			{ 1,		"LeftTopHorz",					NULL,	},
+			{ 2,		"RightTopHorz",					NULL,	},
+			{ 3,		"RightBottomHorz",				NULL,	},
+			{ 4,		"LeftBottomHorz",				NULL,	},
+			{ 5,		"LeftTopVert",					NULL,	},
+			{ 6,		"LeftBottomVert",				NULL,	},
+			{ 7,		"RightBottomVert",				NULL,	},
+			{ 8,		"RightTopVert",					NULL,	},
 			{ 0,		NULL,							NULL,	},
 		};
 		g_symbolAssocOwner.push_back(new SymbolAssoc(tagId, entryTbl));
