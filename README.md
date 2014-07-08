@@ -40,11 +40,11 @@ Build for Linux
 
    For Ubuntu, do the following command.
 
-        $ sudo apt-get install build-essential cmake libreadline-dev
+        $ sudo apt-get install build-essential cmake libreadline-dev rpm
 
    For RedHat, do the following command.
 
-        $ sudo yum install gcc gcc-c++ make cmake readline-devel
+        $ sudo yum install gcc gcc-c++ make cmake readline-devel rpm-build
 
 2. Run the following commands to build **Gura** library and executable.
 
@@ -79,11 +79,6 @@ Build for Linux
 Build Installation Packages for Linux
 -------------------------------------
 Generated Makefile is capable of creating both Debian and RPM install packages.
-
-If you use Ubuntu, you have to install additional packages as following
-so that the Makefile can make RPM package.
-
-    $ sudo apt-get install rpm
 
 Run the following command to create Debian and RPM packages.
 
