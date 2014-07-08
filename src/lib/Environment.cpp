@@ -125,7 +125,6 @@ bool Environment::InitializeAsRoot(Signal sig, int &argc, const char *argv[],
 	GetGlobal()->Prepare(env, sig);
 	Operator::AssignOperators(env);
 	ValueTypePool::DoPrepareClass(env);
-	OAL::PrepareLocalDir();
 	OAL::SetupExecutablePath();
 	Module::ImportBuiltIns(env, sig);
 	// set command line argument into sys module
@@ -135,6 +134,9 @@ bool Environment::InitializeAsRoot(Signal sig, int &argc, const char *argv[],
 			sig.SetError(ERR_CommandError, "%s", strErr.c_str());
 			return false;
 		}
+	}
+	if (!GetOption().IsSet("no-local-dir")) {
+		OAL::PrepareLocalDir();
 	}
 	if (!Gura_Module(sys)::SetCmdLineArgs(GetGlobal()->GetModule_sys(), sig, argc, argv)) {
 		return false;

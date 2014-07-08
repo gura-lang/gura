@@ -35,6 +35,7 @@ int Main(int argc, const char *argv[])
 		{ "printcmdline",	'P', false	},
 		{ "version",		'v', false	},
 		{ "llvm",			'o', true	},
+		{ "no-local-dir",	'N', false	},
 	};
 	Signal sig;
 	AutoPtr<Environment> pEnv(new Environment());

@@ -1,2 +1,4 @@
 #!/bin/sh
-program-gura/gura -I @GURA_MODULE_SRCDIR@ @PROJECT_SOURCE_DIR@/build-modules.gura -I @GURA_INCLUDE_SRCDIR@ $*
+# This script may likely run with the right of the super user.
+# The option --no-local-dir avoids creation of the local directory with his ownership.
+program-gura/gura --no-local-dir -I @GURA_MODULE_SRCDIR@ @PROJECT_SOURCE_DIR@/build-modules.gura -I @GURA_INCLUDE_SRCDIR@ $*
