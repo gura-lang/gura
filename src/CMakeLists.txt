@@ -39,15 +39,21 @@ configure_file(
 
 configure_file(
   ${PROJECT_SOURCE_DIR}/resource/build/build-modules.in
-  build-modules~)
+  ${CMAKE_BINARY_DIR}/tmp/build-modules)
 
 file(COPY
-  build-modules~
-  DESTINATION .
+  ${CMAKE_BINARY_DIR}/tmp/build-modules
+  DESTINATION ${CMAKE_BINARY_DIR}
   FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ)
 
-file(REMOVE
-  build-modules~)
+configure_file(
+  ${PROJECT_SOURCE_DIR}/resource/build/setup-guest.in
+  ${CMAKE_BINARY_DIR}/tmp/setup-guest)
+
+file(COPY
+  ${CMAKE_BINARY_DIR}/tmp/setup-guest
+  DESTINATION ${CMAKE_BINARY_DIR}
+  FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ)
 
 file(COPY
   ${PROJECT_SOURCE_DIR}/resource/debian/changelog

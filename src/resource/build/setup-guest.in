@@ -1,0 +1,2 @@
+#!/bin/sh
+program-gura/gura -I @GURA_MODULE_SRCDIR@ @PROJECT_SOURCE_DIR@/build-modules.gura -I @GURA_INCLUDE_SRCDIR@ setup-guest
