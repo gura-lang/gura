@@ -89,7 +89,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 			const Symbol *pSymbol = Symbol::Add(pTagInfo->name);
 			pObjIFD->GetTagOwner().push_back(new Object_tag(tagId, type, pSymbol, pObjIFDSub.release()));
 		} else {
-			Value value;
+			Value value, valueCooked;
 			switch (type) {
 			case TYPE_BYTE: {
 				char *p = pValueRaw->BYTE;
@@ -102,6 +102,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 					p = buff + offset;
 				}
 				value = Value(new Object_binary(env, p, count, false));
+				valueCooked = value;
 				break;
 			}
 			case TYPE_ASCII: {
@@ -119,22 +120,25 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 				} else {
 					value = Value(p, count - 1);
 				}
+				valueCooked = value;
 				break;
 			}
 			case TYPE_SHORT: {
 				if (count == 1) {
 					unsigned short num = Gura_UnpackUShort(pValueRaw->SHORT.num);
 					const Symbol *pSymbol = g_symbolAssocOwner.NumToSymbol(tagId, num);
+					value = Value(num);
 					if (pSymbol == NULL) {
-						value = Value(num);
+						valueCooked = value;
 					} else {
-						value = Value(pSymbol);
+						valueCooked = Value(pSymbol);
 					}
 				} else if (count == 2) {
 					ValueList &valList = value.InitAsList(env);
 					valList.reserve(count);
 					valList.push_back(Value(Gura_UnpackUShort(pValueRaw->SHORT.num)));
 					valList.push_back(Value(Gura_UnpackUShort(pValueRaw->SHORT.second)));
+					valueCooked = value;
 				} else {
 					ValueList &valList = value.InitAsList(env);
 					valList.reserve(count);
@@ -147,6 +151,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 						SHORT_T *pShort = reinterpret_cast<SHORT_T *>(buff + offset);
 						valList.push_back(Value(Gura_UnpackUShort(pShort->num)));
 					}
+					valueCooked = value;
 				}
 				break;
 			}
@@ -166,6 +171,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 						valList.push_back(Value(Gura_UnpackULong(pLong->num)));
 					}
 				}
+				valueCooked = value;
 				break;
 			}
 			case TYPE_RATIONAL: {
@@ -193,6 +199,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 						valList.push_back(valueItem);
 					}
 				}
+				valueCooked = value;
 				break;
 			}
 			case TYPE_UNDEFINED: {
@@ -206,6 +213,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 					p = buff + offset;
 				}
 				value = Value(new Object_binary(env, p, count, false));
+				valueCooked = value;
 				break;
 			}
 			case TYPE_SLONG: {
@@ -224,6 +232,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 						valList.push_back(Value(Gura_UnpackULong(pLong->num)));
 					}
 				}
+				valueCooked = value;
 				break;
 			}
 			case TYPE_SRATIONAL: {
@@ -251,6 +260,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 						valList.push_back(valueItem);
 					}
 				}
+				valueCooked = value;
 				break;
 			}
 			default: {
@@ -260,7 +270,7 @@ Object_ifd *ParseIFD_T(Environment &env, Signal sig, const Symbol *pSymbolOfIFD,
 			}
 			const Symbol *pSymbol = (pTagInfo == NULL)?
 					Gura_Symbol(Str_Empty) : Symbol::Add(pTagInfo->name);
-			pObjIFD->GetTagOwner().push_back(new Object_tag(tagId, type, pSymbol, value));
+			pObjIFD->GetTagOwner().push_back(new Object_tag(tagId, type, pSymbol, value, valueCooked));
 		}
 	}
 	return pObjIFD.release();

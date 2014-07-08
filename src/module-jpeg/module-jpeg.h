@@ -21,6 +21,7 @@ Gura_DeclareUserSymbol(name);
 Gura_DeclareUserSymbol(symbol);
 Gura_DeclareUserSymbol(type);
 Gura_DeclareUserSymbol(value);
+Gura_DeclareUserSymbol(cooked);
 Gura_DeclareUserSymbol(ifd);
 Gura_DeclareUserSymbol(ifd0);
 Gura_DeclareUserSymbol(ifd1);

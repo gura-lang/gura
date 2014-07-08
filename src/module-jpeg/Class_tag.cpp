@@ -7,9 +7,10 @@ Gura_BeginModuleScope(jpeg)
 //-----------------------------------------------------------------------------
 // Object_tag implementation
 //-----------------------------------------------------------------------------
-Object_tag::Object_tag(unsigned short tagId, unsigned short type, const Symbol *pSymbol, const Value &value) :
-			Object(Gura_UserClass(tag)),
-			_tagId(tagId), _type(type), _pSymbol(pSymbol), _value(value)
+Object_tag::Object_tag(unsigned short tagId, unsigned short type, const Symbol *pSymbol,
+					const Value &value, const Value &valueCooked) :
+			Object(Gura_UserClass(tag)), _tagId(tagId), _type(type),
+			_pSymbol(pSymbol), _value(value), _valueCooked(valueCooked)
 {
 }
 
@@ -59,7 +60,11 @@ Value Object_tag::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {
 		return Value(_type);
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(value))) {
-		return _value;
+		if (attrs.IsSet(Gura_UserSymbol(cooked))) {
+			return _valueCooked;
+		} else {
+			return _value;
+		}
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(ifd))) {
 		if (IsIFDPointer()) return Value(Object_ifd::Reference(GetObjectIFD()));
 		return Value::Null;

@@ -276,6 +276,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(symbol);
 	Gura_RealizeUserSymbol(type);
 	Gura_RealizeUserSymbol(value);
+	Gura_RealizeUserSymbol(cooked);
 	Gura_RealizeUserSymbol(ifd);
 	Gura_RealizeUserSymbol(ifd0);
 	Gura_RealizeUserSymbol(ifd1);

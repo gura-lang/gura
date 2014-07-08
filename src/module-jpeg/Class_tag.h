@@ -17,11 +17,12 @@ private:
 	unsigned short _type;
 	const Symbol *_pSymbol;
 	Value _value;
+	Value _valueCooked;
 	AutoPtr<Object_ifd> _pObjIFD;	// this may be NULL
 public:
 	Gura_DeclareObjectAccessor(tag)
 public:
-	Object_tag(unsigned short tagId, unsigned short type, const Symbol *pSymbol, const Value &value);
+	Object_tag(unsigned short tagId, unsigned short type, const Symbol *pSymbol, const Value &value, const Value &valueCooked);
 	Object_tag(unsigned short tagId, unsigned short type, const Symbol *pSymbol, Object_ifd *pObjIFD);
 	virtual bool DoDirProp(Environment &env, Signal sig, SymbolSet &symbols);
 	virtual Value DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
@@ -32,6 +33,7 @@ public:
 	inline bool IsTypeSHORTorLONG() const { return _type == TYPE_SHORT || _type == TYPE_LONG; }
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
 	inline const Value &GetValue() const { return _value; }
+	inline const Value &GetValueCooked() const { return _valueCooked; }
 	inline bool IsIFDPointer() const { return _pObjIFD.get() != NULL; }
 	inline Object_ifd *GetObjectIFD() { return _pObjIFD.get(); }
 	inline const Object_ifd *GetObjectIFD() const { return _pObjIFD.get(); }
