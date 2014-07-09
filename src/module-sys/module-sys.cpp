@@ -148,7 +148,7 @@ bool SetCmdLineArgs(Module *pModule, Signal sig, int argc, const char *argv[])
 			String dirName, fileName;
 			PathMgr::SplitFileName(fileNameScript.c_str(), &dirName, &fileName);
 			if (!dirName.empty()) {
-				valList.push_back(Value(dirName));
+				valList.push_back(Value(OAL::MakeAbsPathName(OAL::FileSeparator, dirName.c_str())));
 			}
 		} while (0);
 		valList.push_back(Value("."));
