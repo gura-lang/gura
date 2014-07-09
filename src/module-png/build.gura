@@ -8,7 +8,7 @@ if (sys.build == `msc) {
 		'lpng1510/projects/vstudio/Release Library', ['libpng15.lib', 'zlib.lib']))
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('png')
-	builder.debFiles = ['libpng-dev']
-	builder.rpmFiles = ['libpng-devel', 'zlib-devel']
+	builder.debFilesDevel = ['libpng-dev']
+	builder.rpmFilesDevel = ['libpng-devel', 'zlib-devel']
 }
 builder.build('png', ['module-png.cpp'])

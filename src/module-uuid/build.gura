@@ -4,6 +4,6 @@ builder = modbuild.Builder()
 if (sys.build == `msc) {
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('uuid')
-	builder.debFiles = ['uuid-dev']
+	builder.debFilesDevel = ['uuid-dev']
 }
 builder.build('uuid', ['module-uuid.cpp'])

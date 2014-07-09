@@ -8,7 +8,7 @@ if (sys.build == `msc) {
 	builder.libs.append(path.join(baseDir, 'lib/libcurl_a.lib'))
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('curl')
-	builder.debFiles = ['libcurl4-openssl-dev']
-	builder.rpmFiles = ['curl-devel']
+	builder.debFilesDevel = ['libcurl4-openssl-dev']
+	builder.rpmFilesDevel = ['curl-devel']
 }
 builder.build('curl', ['module-curl.cpp'])

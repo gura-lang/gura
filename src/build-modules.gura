@@ -137,8 +137,8 @@ moduleNames = moduleInfos.filter(moduleInfos:*action == `build && \
 		moduleInfos:*platforms:*contains(platform))::moduleName
 dirNamePre = path.dirname(sys.argv[0])
 moduleNamesError = []
-debFiles = []
-rpmFiles = []
+debFilesDevel = []
+rpmFilesDevel = []
 for (moduleName in moduleNames) {
 	if (moduleName in moduleNamesExcept) {
 		printf('[%s]', moduleName)
@@ -173,8 +173,8 @@ for (moduleName in moduleNames) {
 		scope {
 			builder = expr('build.gura').eval()
 			builder.errorFlag && moduleNamesError.append(moduleName)
-			builder.debFiles && debFiles.append(builder.debFiles)
-			builder.rpmFiles && rpmFiles.append(builder.rpmFiles)
+			builder.debFilesDevel && debFilesDevel.append(builder.debFilesDevel)
+			builder.rpmFilesDevel && rpmFilesDevel.append(builder.rpmFilesDevel)
 		}
 		sys.argv = argvOrg
 	}
@@ -186,8 +186,8 @@ if (!moduleNamesError.isempty()) {
 }
 if (command == `setup_guest) {
 	if (platform in [`ubuntu, `debian]) {
-		os.exec('apt-get', 'install', '-y', set(debFiles))
+		os.exec('apt-get', 'install', '-y', set(debFilesDevel))
 	} elsif (platform in [`fedora, `centos, `redhat]) {
-		os.exec('yum', 'install', '-y', set(rpmFiles))
+		os.exec('yum', 'install', '-y', set(rpmFilesDevel))
 	}
 }

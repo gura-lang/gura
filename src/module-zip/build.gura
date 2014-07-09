@@ -8,7 +8,7 @@ if (sys.build == `msc) {
 					['zlib-1.2.7/zlib.lib', 'bzip2-1.0.6/libbz2.lib']))
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('z', 'bz2')
-	builder.debFiles = ['zlib1g-dev', 'libbz2-dev']
-	builder.rpmFiles = ['zlib-devel', 'bzip2-devel']
+	builder.debFilesDevel = ['zlib1g-dev', 'libbz2-dev']
+	builder.rpmFilesDevel = ['zlib-devel', 'bzip2-devel']
 }
 builder.build('zip', ['module-zip.cpp'])

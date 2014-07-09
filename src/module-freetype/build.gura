@@ -34,8 +34,8 @@ if (sys.build == `msc) {
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('freetype')
 	builder.incDirs.append('/usr/include/freetype2', '/usr/local/include/freetype2')
-	builder.debFiles = ['libfreetype6-dev']
-	builder.rpmFiles = ['freetype-devel']
+	builder.debFilesDevel = ['libfreetype6-dev']
+	builder.rpmFilesDevel = ['freetype-devel']
 }
 builder.precompile = 'stdafx.h'
 builder.progressFlag = true

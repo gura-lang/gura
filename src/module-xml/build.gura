@@ -9,7 +9,7 @@ if (sys.build == `msc) {
 		path.join(modbuild.guestDir, 'expat-2.0.1/win32/bin/release/libexpatMT.lib'))
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('expat')
-	builder.debFiles = ['libexpat1-dev']
-	builder.rpmFiles = ['expat-devel']
+	builder.debFilesDevel = ['libexpat1-dev']
+	builder.rpmFilesDevel = ['expat-devel']
 }
 builder.build('xml', ['module-xml.cpp'])

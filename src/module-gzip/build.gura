@@ -6,7 +6,7 @@ if (sys.build == `msc) {
 	builder.libs.append(path.join(modbuild.guestDir, 'zlib-1.2.7/zlib.lib'))
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('z')
-	builder.debFiles = ['zlib1g-dev']
-	builder.rpmFiles = ['zlib-devel']
+	builder.debFilesDevel = ['zlib1g-dev']
+	builder.rpmFilesDevel = ['zlib-devel']
 }
 builder.build('gzip', ['module-gzip.cpp'])

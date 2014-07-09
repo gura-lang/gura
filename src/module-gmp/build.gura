@@ -9,8 +9,8 @@ if (sys.build == `msc) {
 	builder.libs.append(['mpir.lib', 'mpirxx.lib'])
 } elsif (sys.build == `gnuc) {
 	builder.libs.append(['gmp'])
-	builder.debFiles = ['libgmp-dev']
-	builder.rpmFiles = ['gmp-devel']
+	builder.debFilesDevel = ['libgmp-dev']
+	builder.rpmFilesDevel = ['gmp-devel']
 }
 builder.build('gmp', [
 	'module-gmp.cpp', 'Class_mpz.cpp', 'Class_mpq.cpp', 'Class_mpf.cpp',

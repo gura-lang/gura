@@ -7,7 +7,7 @@ if (sys.build == `msc) {
 	builder.cflags.append('-DONIG_EXTERN=extern')
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('onig')
-	builder.debFiles = ['libonig-dev']
-	builder.rpmFiles = ['oniguruma-devel']
+	builder.debFilesDevel = ['libonig-dev']
+	builder.rpmFilesDevel = ['oniguruma-devel']
 }
 builder.build('re', ['module-re.cpp'])

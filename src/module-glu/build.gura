@@ -4,7 +4,7 @@ builder = modbuild.Builder()
 if (sys.build == `msc) {
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('GLU')
-	builder.debFiles = ['libgl1-mesa-dev', 'libglu1-mesa-dev']
-	builder.rpmFiles = ['mesa-libGL-devel', 'mesa-libGLU-devel']
+	builder.debFilesDevel = ['libgl1-mesa-dev', 'libglu1-mesa-dev']
+	builder.rpmFilesDevel = ['mesa-libGL-devel', 'mesa-libGLU-devel']
 }
 builder.build('glu', ['module-glu.cpp'])

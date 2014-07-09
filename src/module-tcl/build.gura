@@ -11,7 +11,7 @@ if (sys.build == `msc) {
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('tcl8.5', 'tk8.5')
 	builder.incDirs.append('/usr/include/tcl8.5')
-	builder.debFiles = ['tk8.5-dev']
-	builder.rpmFiles = ['tcl-devel', 'tk-devel']
+	builder.debFilesDevel = ['tk8.5-dev']
+	builder.rpmFilesDevel = ['tcl-devel', 'tk-devel']
 }
 builder.build('tcl', ['module-tcl.cpp'])

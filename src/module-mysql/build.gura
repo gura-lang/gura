@@ -9,6 +9,6 @@ if (sys.build == `msc) {
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('mysqlclient')
 	builder.incDirs.append('/usr/include/mysql', '/usr/local/include/mysql')
-	builder.debFiles = ['libmysqlclient-dev']
+	builder.debFilesDevel = ['libmysqlclient-dev']
 }
 builder.build('mysql', ['module-mysql.cpp'])
