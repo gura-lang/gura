@@ -12,9 +12,11 @@ cmake_minimum_required(VERSION 2.6)
 
 project(gura)
 
+# Modify content of include/gura/Version.h as well.
+
 set(GURA_VERSION_MAJOR	0)
 set(GURA_VERSION_MINOR	5)
-set(GURA_VERSION_PATCH	2)
+set(GURA_VERSION_PATCH	3)
 
 set(GURA_VERSION		${GURA_VERSION_MAJOR}.${GURA_VERSION_MINOR}.${GURA_VERSION_PATCH})
 set(GURA_VERSION_SO		${GURA_VERSION_MAJOR})
@@ -28,10 +30,6 @@ set(GURA_BINDIR			${CMAKE_INSTALL_PREFIX}/bin)
 set(GURA_PKGDATADIR		${CMAKE_INSTALL_PREFIX}/share/gura/${GURA_VERSION})
 set(GURA_PKGLIBDIR		${CMAKE_INSTALL_PREFIX}/lib/gura/${GURA_VERSION})
 set(GURA_PKGINCDIR		${CMAKE_INSTALL_PREFIX}/include/gura/${GURA_VERSION})
-
-configure_file(
-  ${GURA_ROOT_SRCDIR}/include/gura/Version.h.in
-  ${GURA_ROOT_SRCDIR}/include/gura/Version.h)
 
 configure_file(
   ${GURA_ROOT_SRCDIR}/include/gura/config.h.in
