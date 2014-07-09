@@ -5,7 +5,7 @@ endian: little
 = ifd0 =
 [010f] Make                             Canon
 [0110] Model                            Canon DIGITAL IXUS
-[0112] Orientation                      LeftTopVert
+[0112] Orientation                      LeftTopHorz
 [011a] XResolution                      180r
 [011b] YResolution                      180r
 [0128] ResolutionUnit                   inches
@@ -60,7 +60,7 @@ endian: little
 = ifd0 =
 [010f] Make                             FUJIFILM
 [0110] Model                            DX-10
-[0112] Orientation                      LeftTopVert
+[0112] Orientation                      LeftTopHorz
 [011a] XResolution                      72r
 [011b] YResolution                      72r
 [0128] ResolutionUnit                   inches
@@ -102,7 +102,7 @@ endian: little
 [0002] InteroperabilityVersion          <binary:R:4byte:'0100'>
 = ifd1 =
 [0103] Compression                      JPEG
-[0112] Orientation                      LeftTopVert
+[0112] Orientation                      LeftTopHorz
 [011a] XResolution                      72r
 [011b] YResolution                      72r
 [0128] ResolutionUnit                   inches
@@ -117,7 +117,7 @@ endian: big
 = ifd0 =
 [010f] Make                             FUJIFILM
 [0110] Model                            FinePix40i
-[0112] Orientation                      LeftTopVert
+[0112] Orientation                      LeftTopHorz
 [011a] XResolution                      72r
 [011b] YResolution                      72r
 [0128] ResolutionUnit                   inches
@@ -160,7 +160,7 @@ endian: big
 [0002] InteroperabilityVersion          <binary:R:4byte:'0100'>
 = ifd1 =
 [0103] Compression                      JPEG
-[0112] Orientation                      LeftTopVert
+[0112] Orientation                      LeftTopHorz
 [011a] XResolution                      72r
 [011b] YResolution                      72r
 [0128] ResolutionUnit                   inches
@@ -175,7 +175,7 @@ endian: little
 = ifd0 =
 [010f] Make                             FUJIFILM
 [0110] Model                            MX-1700ZOOM
-[0112] Orientation                      LeftTopVert
+[0112] Orientation                      LeftTopHorz
 [011a] XResolution                      72r
 [011b] YResolution                      72r
 [0128] ResolutionUnit                   inches
@@ -217,7 +217,7 @@ endian: little
 [0002] InteroperabilityVersion          <binary:R:4byte:'0100'>
 = ifd1 =
 [0103] Compression                      JPEG
-[0112] Orientation                      LeftTopVert
+[0112] Orientation                      LeftTopHorz
 [011a] XResolution                      72r
 [011b] YResolution                      72r
 [0128] ResolutionUnit                   inches
@@ -233,7 +233,7 @@ endian: big
 [010e] ImageDescription                 
 [010f] Make                             Eastman Kodak Company
 [0110] Model                            DC210 Zoom (V05.00)
-[0112] Orientation                      LeftTopVert
+[0112] Orientation                      LeftTopHorz
 [011a] XResolution                      216r
 [011b] YResolution                      216r
 [0128] ResolutionUnit                   inches
@@ -280,7 +280,7 @@ endian: big
 = ifd0 =
 [010f] Make                             EASTMAN KODAK COMPANY
 [0110] Model                            KODAK DC240 ZOOM DIGITAL CAMERA
-[0112] Orientation                      LeftTopVert
+[0112] Orientation                      LeftTopHorz
 [011a] XResolution                      192r
 [011b] YResolution                      192r
 [0128] ResolutionUnit                   inches
@@ -317,7 +317,7 @@ endian: big
 [0002] InteroperabilityVersion          <binary:R:4byte:'0100'>
 = ifd1 =
 [0103] Compression                      JPEG
-[0112] Orientation                      LeftTopVert
+[0112] Orientation                      LeftTopHorz
 [011a] XResolution                      72r
 [011b] YResolution                      72r
 [0128] ResolutionUnit                   inches
@@ -332,7 +332,7 @@ endian: little
 [010e] ImageDescription                           
 [010f] Make                             NIKON
 [0110] Model                            E950
-[0112] Orientation                      LeftTopVert
+[0112] Orientation                      LeftTopHorz
 [011a] XResolution                      300r
 [011b] YResolution                      300r
 [0128] ResolutionUnit                   inches
@@ -384,7 +384,7 @@ endian: little
 [010e] ImageDescription                 OLYMPUS DIGITAL CAMERA         
 [010f] Make                             OLYMPUS OPTICAL CO.,LTD
 [0110] Model                            C960Z,D460Z
-[0112] Orientation                      LeftTopVert
+[0112] Orientation                      LeftTopHorz
 [011a] XResolution                      72r
 [011b] YResolution                      72r
 [0128] ResolutionUnit                   inches
@@ -438,7 +438,7 @@ endian: big
 = ifd0 =
 [010f] Make                             RICOH      
 [0110] Model                            RDC-5300       
-[0112] Orientation                      LeftTopVert
+[0112] Orientation                      LeftTopHorz
 [011a] XResolution                      72r
 [011b] YResolution                      72r
 [0128] ResolutionUnit                   inches
@@ -486,7 +486,7 @@ endian: little
 [010e] ImageDescription                 SANYO DIGITAL CAMERA
 [010f] Make                             SANYO Electric Co.,Ltd.
 [0110] Model                            SR6 
-[0112] Orientation                      LeftTopVert
+[0112] Orientation                      LeftTopHorz
 [011a] XResolution                      72r
 [011b] YResolution                      72r
 [0128] ResolutionUnit                   inches
@@ -532,7 +532,7 @@ endian: little
 [010e] ImageDescription                 SANYO DIGITAL CAMERA
 [010f] Make                             SANYO Electric Co.,Ltd.
 [0110] Model                            SX113 
-[0112] Orientation                      LeftTopVert
+[0112] Orientation                      LeftTopHorz
 [011a] XResolution                      72r
 [011b] YResolution                      72r
 [0128] ResolutionUnit                   inches
@@ -582,7 +582,7 @@ endian: little
 [010e] ImageDescription                                                
 [010f] Make                             SONY
 [0110] Model                            CYBERSHOT
-[0112] Orientation                      LeftTopVert
+[0112] Orientation                      LeftTopHorz
 [011a] XResolution                      72r
 [011b] YResolution                      72r
 [0128] ResolutionUnit                   inches
@@ -619,7 +619,7 @@ endian: little
 [0103] Compression                      JPEG
 [010f] Make                             SONY
 [0110] Model                            CYBERSHOT
-[0112] Orientation                      LeftTopVert
+[0112] Orientation                      LeftTopHorz
 [011a] XResolution                      72r
 [011b] YResolution                      72r
 [0128] ResolutionUnit                   inches
@@ -635,7 +635,7 @@ endian: big
 [010e] ImageDescription                 
 [010f] Make                             SONY
 [0110] Model                            DSC-D700
-[0112] Orientation                      LeftTopVert
+[0112] Orientation                      LeftTopHorz
 [011a] XResolution                      72r
 [011b] YResolution                      72r
 [0128] ResolutionUnit                   inches

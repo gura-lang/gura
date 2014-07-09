@@ -171,13 +171,13 @@ Object_exif *Object_exif::ReadStream(Environment &env, Signal sig, Stream &strea
 	}
 	if (pObj->_pObj1stIFD.IsNull()) return pObj.release();
 	// extract thumbnail image
-	const Symbol *pSymbol_Compression = NULL;
+	UShort compression = 0;
 	Object_tag *pObjTag_Compression =
 		pObj->_pObj1stIFD->GetTagOwner().FindById(TAG_Compression);
 	if (pObjTag_Compression != NULL && pObjTag_Compression->GetType() == TYPE_SHORT) {
-		pSymbol_Compression = pObjTag_Compression->GetValue().GetSymbol();
+		compression = pObjTag_Compression->GetValue().GetUShort();
 	}
-	if (pSymbol_Compression == Gura_UserSymbol(uncompressed)) {
+	if (compression == 1) {	// uncompressed
 		Object_tag *pObjTag_ImageWidth =
 			pObj->_pObj1stIFD->GetTagOwner().FindById(TAG_ImageWidth);
 		Object_tag *pObjTag_ImageLength =
@@ -209,7 +209,7 @@ Object_exif *Object_exif::ReadStream(Environment &env, Signal sig, Stream &strea
 			pObj->_pObjBinaryThumbnail.reset(new Object_binary(env,
 								buff + offsetThumbnail, bytesThumbnail, false));
 		}
-	} else {
+	} else if (compression == 6) {	// JPEG compression
 		Object_tag *pObjTag_JPEGInterchangeFormat =
 			pObj->_pObj1stIFD->GetTagOwner().FindById(TAG_JPEGInterchangeFormat);
 		Object_tag *pObjTag_JPEGInterchangeFormatLength =
@@ -230,6 +230,9 @@ Object_exif *Object_exif::ReadStream(Environment &env, Signal sig, Stream &strea
 			pObj->_pObjBinaryThumbnail.reset(new Object_binary(env,
 								buff + offsetThumbnail, bytesThumbnail, false));
 		}
+	} else {
+		SetError_InvalidFormat(sig);
+		return NULL;
 	}
 	return pObj.release();
 }
