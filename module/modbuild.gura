@@ -7,8 +7,8 @@ import(argopt)
 BuilderBase = class {
 	public {
 		errorFlag
-		debFiles
-		rpmFiles
+		debFilesDevel
+		rpmFilesDevel
 		incDirs
 		cflags
 		ldflags
@@ -55,8 +55,8 @@ BuilderBase = class {
 			}
 		}
 		this.errorFlag = false
-		this.debFiles = nil
-		this.rpmFiles = nil
+		this.debFilesDevel = nil
+		this.rpmFilesDevel = nil
 		this.incDirs = []
 		this.cfg['incdir'] && this.incDirs.append(this.cfg['incdir'])
 		this.hint = nil
@@ -118,15 +118,15 @@ BuilderBase = class {
 	}
 	printHint() = {
 		this.hint && print(this.hint)
-		if (this.debFiles || this.rpmFiles) {
+		if (this.debFilesDevel || this.rpmFilesDevel) {
 			println('See the following steps to install necessary packages.')
-			if (this.debFiles) {
+			if (this.debFilesDevel) {
 				println('- Install Debian packages:')
-				println('  $ sudo apt-get install -y ', this.debFiles.join(' '))
+				println('  $ sudo apt-get install -y ', this.debFilesDevel.join(' '))
 			}
-			if (this.rpmFiles) {
+			if (this.rpmFilesDevel) {
 				println('- Install RPM packages:')
-				println('  $ sudo yum install -y ', this.rpmFiles.join(' '))
+				println('  $ sudo yum install -y ', this.rpmFilesDevel.join(' '))
 			}
 		}
 		true
