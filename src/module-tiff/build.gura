@@ -6,6 +6,8 @@ if (sys.build == `msc) {
 	builder.libs.append(path.join(modbuild.guestDir, 'tiff-3.8.2/libtiff/libtiff.lib'))
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('tiff')
+	builder.debFiles = ['libtiff4']
+	builder.rpmFiles = ['libtiff']
 	builder.debFilesDevel = ['libtiff4-dev']
 	builder.rpmFilesDevel = ['libtiff-devel']
 }
