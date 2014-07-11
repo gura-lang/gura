@@ -7,6 +7,8 @@ import(argopt)
 BuilderBase = class {
 	public {
 		errorFlag
+		debFiles
+		rpmFiles
 		debFilesDevel
 		rpmFilesDevel
 		incDirs
@@ -55,6 +57,8 @@ BuilderBase = class {
 			}
 		}
 		this.errorFlag = false
+		this.debFiles = nil
+		this.rpmFiles = nil
 		this.debFilesDevel = nil
 		this.rpmFilesDevel = nil
 		this.incDirs = []
