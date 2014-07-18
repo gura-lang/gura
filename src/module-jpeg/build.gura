@@ -7,6 +7,8 @@ if (sys.build == `msc) {
 	builder.libs.append(path.join(modbuild.guestDir, 'jpeg-8d/libjpeg.lib'))
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('jpeg')
+	builder.debFiles = ['libjpeg']
+	builder.rpmFiles = ['libjpeg']
 	builder.debFilesDevel = ['libjpeg-dev']
 	builder.rpmFilesDevel = ['libjpeg-devel']
 }

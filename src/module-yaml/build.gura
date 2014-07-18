@@ -7,6 +7,8 @@ if (sys.build == `msc) {
 					'yaml-0.1.4/win32/vs2010/Output/Release/lib/yaml.lib'))
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('yaml')
+	builder.debFiles = ['libyaml']
+	builder.rpmFiles = ['libyaml']
 	builder.debFilesDevel = ['libyaml-dev']
 	builder.rpmFilesDevel = ['libyaml-devel']
 	builder.hint = R'''

@@ -8,6 +8,7 @@ if (sys.build == `msc) {
 } elsif (sys.build == `gnuc) {
 	builder.incDirs.append('/usr/include/postgresql', '/usr/local/include/postgresql')
 	builder.libs.append('pq')
+	builder.debFiles = ['libpq']
 	builder.debFilesDevel = ['libpq-dev']
 }
 builder.build('postgresql', ['module-postgresql.cpp'])

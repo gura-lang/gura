@@ -840,23 +840,6 @@ bool Environment::IsBinaryModule(const char *pathName)
 	return ::strcasecmp(PathMgr::SeekExtName(pathName), EXTNAME_BinModule) == 0;
 }
 
-bool Environment::AddModuleSearchPath(Signal sig, const StringList &strList)
-{
-	Environment &env = *this;
-	Value *pValDirNameList = GetGlobal()->GetModule_sys()->
-						LookupValue(Gura_Symbol(path), ENVREF_NoEscalate);
-	if (pValDirNameList == NULL) {
-		sig.SetError(ERR_ImportError, "path variable is not specified");
-		return false;
-	}
-	ValueList &valList = pValDirNameList->GetList();
-	foreach_const (StringList, pStr, strList) {
-		Value value(*pStr);
-		valList.push_back(value);
-	}
-	return true;
-}
-
 const char *Environment::GetPrompt(bool indentFlag)
 {
 	Value *pValue = GetGlobal()->GetModule_sys()->LookupValue(

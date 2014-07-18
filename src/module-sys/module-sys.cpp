@@ -144,6 +144,13 @@ bool SetCmdLineArgs(Module *pModule, Signal sig, int argc, const char *argv[])
 		Option &opt = env.GetOption();
 		Value value;
 		ValueList &valList = value.InitAsList(env);
+		do {
+			String dirName, fileName;
+			PathMgr::SplitFileName(fileNameScript.c_str(), &dirName, &fileName);
+			if (!dirName.empty()) {
+				valList.push_back(Value(OAL::MakeAbsPathName(OAL::FileSeparator, dirName.c_str())));
+			}
+		} while (0);
 		valList.push_back(Value("."));
 		if (opt.IsSet("import-dir")) {
 			foreach_const (StringList, pStr, opt.GetStringList("import-dir")) {

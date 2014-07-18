@@ -7,6 +7,8 @@ if (sys.build == `msc) {
 	srcs.add(path.join(modbuild.guestDir, 'sqlite-amalgamation-3071000/sqlite3.c'))
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('sqlite3')
+	builder.debFiles = ['libsqlite3']
+	builder.rpmFiles = ['sqlite']
 	builder.debFilesDevel = ['libsqlite3-dev']
 	builder.rpmFilesDevel = ['sqlite-devel']
 }

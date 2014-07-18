@@ -626,12 +626,10 @@ if (sys.build == `msc) {
 	IsExist(filename:string) = {
 		path.exists(path.join(os.getenv('PATH').split(':'), filename)).or()
 	}
-	builder.debFilesDevel = [
-		'libwxgtk3.0-dev'
-	]
-	builder.rpmFilesDevel = [
-		'wxGTK3-devel-3.0.0'
-	]
+	builder.debFiles = ['libwxgtk3.0']
+	builder.rpmFiles = ['wxGTK3-3.0.0']
+	builder.debFilesDevel = ['libwxgtk3.0-dev']
+	builder.rpmFilesDevel = ['wxGTK3-devel-3.0.0']
 	if (IsExist('wx-config')) {
 		cflags = scope {
 			buff = binary()

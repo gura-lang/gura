@@ -64,6 +64,8 @@ To compile source code:
   $ sudo make install
   $ sudo ldconfig
 '''
+	builder.debFiles = ['libcairo2']
+	builder.rpmFiles = ['cairo']
 	builder.debFilesDevel = ['libcairo2-dev']
 	builder.rpmFilesDevel = ['cairo-devel']
 }

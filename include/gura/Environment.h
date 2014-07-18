@@ -358,7 +358,6 @@ public:
 			const Symbol *pSymbolAlias, const SymbolSet *pSymbolsToMixIn,
 			bool overwriteFlag, bool binaryOnlyFlag, bool mixinTypeFlag);
 	static bool IsBinaryModule(const char *pathName);
-	bool AddModuleSearchPath(Signal sig, const StringList &strList);
 	virtual bool IsModule() const;
 	virtual bool IsClass() const;
 	virtual bool IsObject() const;

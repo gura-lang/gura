@@ -8,6 +8,8 @@ if (sys.build == `msc) {
 } elsif (sys.build == `gnuc) {
 	builder.libs.append('SDL')
 	builder.incDirs.append('/usr/include/SDL', '/usr/local/include/SDL')
+	builder.debFiles = ['libsdl1.2']
+	builder.rpmFiles = ['SDL']
 	builder.debFilesDevel = ['libsdl1.2-dev']
 	builder.rpmFilesDevel = ['SDL-devel']
 }
