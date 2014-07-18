@@ -53,13 +53,6 @@ file(COPY
   DESTINATION ${CMAKE_BINARY_DIR}
   FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ)
 
-file(COPY
-  ${PROJECT_SOURCE_DIR}/resource/debian/changelog
-  ${PROJECT_SOURCE_DIR}/resource/debian/control
-  ${PROJECT_SOURCE_DIR}/resource/debian/copyright
-  ${PROJECT_SOURCE_DIR}/resource/debian/rules
-  DESTINATION debian)
-
 include_directories(
   ${GURA_ROOT_SRCDIR}/include
   ${PROJECT_SOURCE_DIR}/lib

@@ -1,9 +1,0 @@
-Source: gura-module
-Maintainer: ypsitau <ypsitau@nifty.com>
-Build-Depends: cdbs, debhelper
-Standards-Version: 3.9.4
-
-Package: gura-module
-Architecture: all
-Description: module files for Gura.
-
