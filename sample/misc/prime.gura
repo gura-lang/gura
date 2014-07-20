@@ -31,3 +31,6 @@ prime_fastest() = {
 }
 
 println(prime(), ' ', prime_faster(), ' ', prime_fastest())
+//primes = prime_fastest()
+//twins = primes.filter(primes + 2 == primes.offset(1)):iter {|n| [n, n + 2]}
+//println(twins)
