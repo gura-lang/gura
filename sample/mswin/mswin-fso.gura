@@ -1,0 +1,21 @@
+#!/usr/bin/env gura
+import(mswin)
+fso = mswin.ole('Scripting.FileSystemObject')
+driveTypeNames = %{
+	0 => 'unknown'
+	1 => 'Removable Disk'
+	2 => 'Harddisk'
+	3 => 'Network Drive'
+	4 => 'CD-ROM'
+	5 => 'RAM Disk'
+
+}
+for (drive in fso.Drives) {
+	if (drive.IsReady) {
+		printf('%s %-15s "%s" %.0f/%.0f "%s"\n',
+			drive.DriveLetter, driveTypeNames[drive.DriveType], drive.VolumeName,
+						drive.AvailableSpace, drive.TotalSize, drive.ShareName)
+	} else {
+		printf('%s %-15s (not ready)\n', drive.DriveLetter, driveTypeNames[drive.DriveType])
+	}
+}
