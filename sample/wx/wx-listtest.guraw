@@ -279,7 +279,8 @@ MyFrame = class(wx.Frame) {
 	RecreateList(flags:number, withText:boolean => true) = {
 		// we could avoid recreating it if we don't set/clear the wxLC_VIRTUAL
 		// style, but it is more trouble to do it than not
-		this.m_listCtrl && this.m_listCtrl.Destroy()
+		//this.m_listCtrl && this.m_listCtrl.Destroy()
+		listCtrlOld = this.m_listCtrl
 		this.m_listCtrl = MyListCtrl(this.m_panel, LIST_CTRL,
 									wx.DefaultPosition, wx.DefaultSize,
 									flags | \
@@ -302,6 +303,7 @@ MyFrame = class(wx.Frame) {
 		}
 		this.DoSize()
 		this.m_logWindow.Clear()
+		listCtrlOld && listCtrlOld.Destroy()
 	}
 	OnListView(event:wx.CommandEvent) = {
 		this.RecreateList(wx.LC_LIST)
