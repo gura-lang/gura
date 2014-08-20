@@ -14,17 +14,15 @@ doExtract(fileNameSrc:string):map = {
 	}
 	linesHdr = readlines(fileNameHdr):list
 	open(fileNameHdr, 'w') {|fout|
-		fout.print(linesHdr.until(linesHdr:*match(r'^Gura_BeginModuleScope')))
-		fout.println()
-		fout.printf('class Object_wx_%s;\n', fileNameSrc.match(r'Class_wx_(\w+)')[1])
+		fout.print(linesHdr.before(linesHdr:*match(r'^Gura_EndModuleScope')))
 		fout.print(R'''
-		
 		//----------------------------------------------------------------------------
 		// Class derivation
 		//----------------------------------------------------------------------------
 		''')
 		fout.print(linesExtract)
-		fout.print(linesHdr.after(linesHdr:*match(r'^Gura_BeginModuleScope')))
+		fout.println()
+		fout.print(linesHdr.since(linesHdr:*match(r'^Gura_EndModuleScope')))
 	}
 }
 
