@@ -21,9 +21,9 @@ tk.mainwindow() {|mw|
 		btnStart = f.Button(text => 'Start', width => 7) {|w|
 			w.pack(side => 'left')
 			w.bind(`command) {
-				clockStart = clockStart || time.clock()
+				clockStart = clockStart || os.clock()
 				timer:extern = w.bindtimer(10) {
-					timerVar.setValue(time.clock() - clockStart + clockOffset)
+					timerVar.setValue(os.clock() - clockStart + clockOffset)
 				}
 				btnStart[`state] = 'disabled'
 				btnStop[`state] = 'normal'
@@ -35,7 +35,7 @@ tk.mainwindow() {|mw|
 			w.bind(`command) {
 				timer && timer.cancel()
 				timer = nil
-				clockOffset = time.clock() - clockStart + clockOffset
+				clockOffset = os.clock() - clockStart + clockOffset
 				clockStart = nil
 				btnStart[`state] = 'normal'
 				btnStop[`state] = 'disabled'
