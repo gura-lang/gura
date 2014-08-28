@@ -196,6 +196,7 @@
     <ClCompile Include="Class_error.cpp" />
     <ClCompile Include="Class_expr.cpp" />
     <ClCompile Include="Class_help.cpp" />
+    <ClCompile Include="Class_formatter.cpp" />
     <ClCompile Include="Class_function.cpp" />
     <ClCompile Include="Class_operator.cpp" />
     <ClCompile Include="Class_image.cpp" />
@@ -300,6 +301,7 @@
     <ClInclude Include="..\..\include\gura\Class_error.h" />
     <ClInclude Include="..\..\include\gura\Class_expr.h" />
     <ClInclude Include="..\..\include\gura\Class_help.h" />
+    <ClInclude Include="..\..\include\gura\Class_formatter.h" />
     <ClInclude Include="..\..\include\gura\Class_function.h" />
     <ClInclude Include="..\..\include\gura\Class_operator.h" />
     <ClInclude Include="..\..\include\gura\Class_image.h" />

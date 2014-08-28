@@ -15,6 +15,7 @@ Class_directory.cpp
 Class_environment.cpp
 Class_error.cpp
 Class_expr.cpp
+Class_formatter.cpp
 Class_function.cpp
 Class_help.cpp
 Class_image.cpp

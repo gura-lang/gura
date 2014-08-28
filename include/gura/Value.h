@@ -217,6 +217,7 @@ public:
 	inline bool Is_environment() const		{ return IsType(VTYPE_environment);		}
 	inline bool Is_error() const			{ return IsType(VTYPE_error);			}
 	inline bool Is_expr() const				{ return IsType(VTYPE_expr);			}
+	inline bool Is_formatter() const		{ return IsType(VTYPE_formatter);		}
 	inline bool Is_function() const			{ return IsType(VTYPE_function);		}
 	inline bool Is_help() const				{ return IsType(VTYPE_help);			}
 	inline bool Is_image() const			{ return IsType(VTYPE_image);			}
@@ -266,6 +267,7 @@ public:
 	inline bool MustBe_environment(Signal &sig) const	{ return MustBe(sig, Is_environment(),	"environment");		}
 	inline bool MustBe_error(Signal &sig) const			{ return MustBe(sig, Is_error(), 		"error");			}
 	inline bool MustBe_expr(Signal &sig) const			{ return MustBe(sig, Is_expr(), 		"expr");			}
+	inline bool MustBe_formatter(Signal &sig) const		{ return MustBe(sig, Is_formatter(), 	"formatter");		}
 	inline bool MustBe_function(Signal &sig) const		{ return MustBe(sig, Is_function(), 	"function");		}
 	inline bool MustBe_help(Signal &sig) const			{ return MustBe(sig, Is_help(), 		"help");			}
 	inline bool MustBe_image(Signal &sig) const			{ return MustBe(sig, Is_image(), 		"image");			}

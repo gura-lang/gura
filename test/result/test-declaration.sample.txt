@@ -371,6 +371,7 @@ expr
   tofunction(`args*)
   unquote()
   write(dst:stream:w, style?:symbol)
+formatter
 function
   addhelp(lang:symbol, format:string, help:string):map:void
   diff(var?:symbol):reduce

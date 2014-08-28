@@ -77,6 +77,7 @@
 #include "gura/Class_environment.h"
 #include "gura/Class_error.h"
 #include "gura/Class_expr.h"
+#include "gura/Class_formatter.h"
 #include "gura/Class_function.h"
 #include "gura/Class_help.h"
 #include "gura/Class_image.h"

@@ -127,6 +127,7 @@ install(FILES
   ${GURA_INCLUDE_SRCDIR}/gura/Class_environment.h
   ${GURA_INCLUDE_SRCDIR}/gura/Class_error.h
   ${GURA_INCLUDE_SRCDIR}/gura/Class_expr.h
+  ${GURA_INCLUDE_SRCDIR}/gura/Class_formatter.h
   ${GURA_INCLUDE_SRCDIR}/gura/Class_function.h
   ${GURA_INCLUDE_SRCDIR}/gura/Class_help.h
   ${GURA_INCLUDE_SRCDIR}/gura/Class_image.h

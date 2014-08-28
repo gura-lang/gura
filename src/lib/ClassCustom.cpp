@@ -129,7 +129,7 @@ bool ClassCustom::Format_d(Signal sig, Formatter *pFormatter,
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__format_d__), ENVREF_NoEscalate));
-	if (pFunc == NULL) Class::Format_d(sig, pFormatter, flags, value);
+	if (pFunc == NULL) return Class::Format_d(sig, pFormatter, flags, value);
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
@@ -138,7 +138,7 @@ bool ClassCustom::Format_u(Signal sig, Formatter *pFormatter,
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__format_u__), ENVREF_NoEscalate));
-	if (pFunc == NULL) Class::Format_u(sig, pFormatter, flags, value);
+	if (pFunc == NULL) return Class::Format_u(sig, pFormatter, flags, value);
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
@@ -147,7 +147,7 @@ bool ClassCustom::Format_b(Signal sig, Formatter *pFormatter,
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__format_b__), ENVREF_NoEscalate));
-	if (pFunc == NULL) Class::Format_b(sig, pFormatter, flags, value);
+	if (pFunc == NULL) return Class::Format_b(sig, pFormatter, flags, value);
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
@@ -156,7 +156,7 @@ bool ClassCustom::Format_o(Signal sig, Formatter *pFormatter,
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__format_o__), ENVREF_NoEscalate));
-	if (pFunc == NULL) Class::Format_o(sig, pFormatter, flags, value);
+	if (pFunc == NULL) return Class::Format_o(sig, pFormatter, flags, value);
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
@@ -165,7 +165,7 @@ bool ClassCustom::Format_x(Signal sig, Formatter *pFormatter,
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__format_x__), ENVREF_NoEscalate));
-	if (pFunc == NULL) Class::Format_x(sig, pFormatter, flags, value);
+	if (pFunc == NULL) return Class::Format_x(sig, pFormatter, flags, value);
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
@@ -174,7 +174,7 @@ bool ClassCustom::Format_e(Signal sig, Formatter *pFormatter,
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__format_e__), ENVREF_NoEscalate));
-	if (pFunc == NULL) Class::Format_e(sig, pFormatter, flags, value);
+	if (pFunc == NULL) return Class::Format_e(sig, pFormatter, flags, value);
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
@@ -183,7 +183,7 @@ bool ClassCustom::Format_f(Signal sig, Formatter *pFormatter,
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__format_f__), ENVREF_NoEscalate));
-	if (pFunc == NULL) Class::Format_f(sig, pFormatter, flags, value);
+	if (pFunc == NULL) return Class::Format_f(sig, pFormatter, flags, value);
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
@@ -192,44 +192,39 @@ bool ClassCustom::Format_g(Signal sig, Formatter *pFormatter,
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__format_g__), ENVREF_NoEscalate));
-	if (pFunc == NULL) Class::Format_g(sig, pFormatter, flags, value);
+	if (pFunc == NULL) return Class::Format_g(sig, pFormatter, flags, value);
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
-#if 0
 bool ClassCustom::Format_s(Signal sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__format_s__), ENVREF_NoEscalate));
-	if (pFunc == NULL) Class::Format_s(sig, pFormatter, flags, value);
+	if (pFunc == NULL) return Class::Format_s(sig, pFormatter, flags, value);
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
-#endif
 
 bool ClassCustom::Format_c(Signal sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__format_c__), ENVREF_NoEscalate));
-	if (pFunc == NULL) Class::Format_c(sig, pFormatter, flags, value);
+	if (pFunc == NULL) return Class::Format_c(sig, pFormatter, flags, value);
 	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
 bool ClassCustom::Format_X(Signal sig, Formatter *pFormatter,
 	Formatter::Flags &flags, const Value &value, const FunctionCustom *pFunc) const
 {
-	::printf("check\n");
-	return false;
-#if 0
 	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetThis(value);
-	pArgs->SetValues(Value::Null, Value::Null);
-	pFunc->Call(*pEnvLocal, sig, *pArgs);
+	//pArgs->SetValue(Value::Null);
+	Value valueRtn = pFunc->Call(*pEnvLocal, sig, *pArgs);
 	if (sig.IsSignalled()) return false;
-	return true;
-#endif
+	if (!valueRtn.MustBe_string(sig)) return false;
+	return pFormatter->PutString(sig, valueRtn.GetString());
 }
 
 //-----------------------------------------------------------------------------

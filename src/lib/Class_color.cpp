@@ -48,21 +48,25 @@ Value Object_color::DoSetProp(Environment &env, Signal sig, const Symbol *pSymbo
 							const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	if (pSymbol->IsIdentical(Gura_Symbol(r))) {
+		if (!value.MustBe_number(sig)) return Value::Null;
 		evaluatedFlag = true;
 		UChar r = value.GetUChar();
 		_color.SetR(r);
 		return Value(r);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(g))) {
+		if (!value.MustBe_number(sig)) return Value::Null;
 		evaluatedFlag = true;
 		UChar g = value.GetUChar();
 		_color.SetG(g);
 		return Value(g);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(b))) {
+		if (!value.MustBe_number(sig)) return Value::Null;
 		evaluatedFlag = true;
 		UChar b = value.GetUChar();
 		_color.SetB(b);
 		return Value(b);
 	} else if (pSymbol->IsIdentical(Gura_Symbol(a))) {
+		if (!value.MustBe_number(sig)) return Value::Null;
 		evaluatedFlag = true;
 		UChar a = value.GetUChar();
 		_color.SetA(a);

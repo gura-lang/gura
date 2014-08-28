@@ -560,6 +560,7 @@ public:
 	inline bool Is_environment(size_t idxArg) const		{ return GetValue(idxArg).Is_environment();		}
 	inline bool Is_error(size_t idxArg) const			{ return GetValue(idxArg).Is_error();			}
 	inline bool Is_expr(size_t idxArg) const			{ return GetValue(idxArg).Is_expr();			}
+	inline bool Is_formatter(size_t idxArg) const		{ return GetValue(idxArg).Is_formatter();		}
 	inline bool Is_function(size_t idxArg) const		{ return GetValue(idxArg).Is_function();		}
 	inline bool Is_help(size_t idxArg) const			{ return GetValue(idxArg).Is_help();			}
 	inline bool Is_image(size_t idxArg) const			{ return GetValue(idxArg).Is_image();			}
