@@ -90,85 +90,146 @@ Function *ClassCustom::PrepareConstructor(Environment &env, Signal sig)
 
 bool ClassCustom::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
 {
+	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
+					LookupFunction(Gura_Symbol(__cast__), ENVREF_NoEscalate));
+	if (pFunc == NULL) return false;
+	
 	return false;
 }
 
 bool ClassCustom::CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl)
 {
+	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
+					LookupFunction(Gura_Symbol(__castto__), ENVREF_NoEscalate));
+	if (pFunc == NULL) return false;
+
 	return false;
 }
 
 bool ClassCustom::Serialize(Signal sig, Stream &stream, const Value &value) const
 {
+	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
+					LookupFunction(Gura_Symbol(__serialize__), ENVREF_NoEscalate));
+	if (pFunc == NULL) return false;
+
 	return false;
 }
 
 bool ClassCustom::Deserialize(Signal sig, Stream &stream, Value &value) const
 {
+	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
+					LookupFunction(Gura_Symbol(__deserialize__), ENVREF_NoEscalate));
+	if (pFunc == NULL) return false;
+
 	return false;
 }
 
 bool ClassCustom::Format_d(Signal sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
-	return Class::Format_d(sig, pFormatter, flags, value);
+	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
+					LookupFunction(Gura_Symbol(__format_d__), ENVREF_NoEscalate));
+	if (pFunc == NULL) Class::Format_d(sig, pFormatter, flags, value);
+	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
 bool ClassCustom::Format_u(Signal sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
-	return Class::Format_u(sig, pFormatter, flags, value);
+	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
+					LookupFunction(Gura_Symbol(__format_u__), ENVREF_NoEscalate));
+	if (pFunc == NULL) Class::Format_u(sig, pFormatter, flags, value);
+	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
 bool ClassCustom::Format_b(Signal sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
-	return Class::Format_b(sig, pFormatter, flags, value);
+	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
+					LookupFunction(Gura_Symbol(__format_b__), ENVREF_NoEscalate));
+	if (pFunc == NULL) Class::Format_b(sig, pFormatter, flags, value);
+	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
 bool ClassCustom::Format_o(Signal sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
-	return Class::Format_o(sig, pFormatter, flags, value);
+	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
+					LookupFunction(Gura_Symbol(__format_o__), ENVREF_NoEscalate));
+	if (pFunc == NULL) Class::Format_o(sig, pFormatter, flags, value);
+	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
 bool ClassCustom::Format_x(Signal sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
-	return Class::Format_x(sig, pFormatter, flags, value);
+	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
+					LookupFunction(Gura_Symbol(__format_x__), ENVREF_NoEscalate));
+	if (pFunc == NULL) Class::Format_x(sig, pFormatter, flags, value);
+	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
 bool ClassCustom::Format_e(Signal sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
-	return Class::Format_e(sig, pFormatter, flags, value);
+	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
+					LookupFunction(Gura_Symbol(__format_e__), ENVREF_NoEscalate));
+	if (pFunc == NULL) Class::Format_e(sig, pFormatter, flags, value);
+	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
 bool ClassCustom::Format_f(Signal sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
-	return Class::Format_f(sig, pFormatter, flags, value);
+	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
+					LookupFunction(Gura_Symbol(__format_f__), ENVREF_NoEscalate));
+	if (pFunc == NULL) Class::Format_f(sig, pFormatter, flags, value);
+	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
 bool ClassCustom::Format_g(Signal sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
-	return Class::Format_g(sig, pFormatter, flags, value);
+	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
+					LookupFunction(Gura_Symbol(__format_g__), ENVREF_NoEscalate));
+	if (pFunc == NULL) Class::Format_g(sig, pFormatter, flags, value);
+	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
 
+#if 0
 bool ClassCustom::Format_s(Signal sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
-	return Class::Format_s(sig, pFormatter, flags, value);
+	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
+					LookupFunction(Gura_Symbol(__format_s__), ENVREF_NoEscalate));
+	if (pFunc == NULL) Class::Format_s(sig, pFormatter, flags, value);
+	return Format_X(sig, pFormatter, flags, value, pFunc);
 }
+#endif
 
 bool ClassCustom::Format_c(Signal sig, Formatter *pFormatter,
 					Formatter::Flags &flags, const Value &value) const
 {
-	sig.SetError(ERR_ValueError,
-			"value type %s can not be formatted with %%c qualifier",
-			MakeValueTypeName().c_str());
+	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
+					LookupFunction(Gura_Symbol(__format_c__), ENVREF_NoEscalate));
+	if (pFunc == NULL) Class::Format_c(sig, pFormatter, flags, value);
+	return Format_X(sig, pFormatter, flags, value, pFunc);
+}
+
+bool ClassCustom::Format_X(Signal sig, Formatter *pFormatter,
+	Formatter::Flags &flags, const Value &value, const FunctionCustom *pFunc) const
+{
+	::printf("check\n");
 	return false;
+#if 0
+	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetThis(value);
+	pArgs->SetValues(Value::Null, Value::Null);
+	pFunc->Call(*pEnvLocal, sig, *pArgs);
+	if (sig.IsSignalled()) return false;
+	return true;
+#endif
 }
 
 //-----------------------------------------------------------------------------
