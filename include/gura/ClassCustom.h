@@ -37,8 +37,20 @@ public:
 	virtual Object *CreateDescendant(Environment &env, Signal sig, Class *pClass);
 	Function *PrepareConstructor(Environment &env, Signal sig);
 	inline Signal &GetSignal() { return _sig; }
+	virtual bool CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl);
+	virtual bool CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl);
 	virtual bool Serialize(Signal sig, Stream &stream, const Value &value) const;
 	virtual bool Deserialize(Signal sig, Stream &stream, Value &value) const;
+	virtual bool Format_d(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_u(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_b(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_o(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_x(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_e(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_f(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_g(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_s(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
+	virtual bool Format_c(Signal sig, Formatter *pFormatter, Formatter::Flags &flags, const Value &value) const;
 };
 
 }

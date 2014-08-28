@@ -88,6 +88,16 @@ Function *ClassCustom::PrepareConstructor(Environment &env, Signal sig)
 	return pFunc.release();
 }
 
+bool ClassCustom::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
+{
+	return false;
+}
+
+bool ClassCustom::CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl)
+{
+	return false;
+}
+
 bool ClassCustom::Serialize(Signal sig, Stream &stream, const Value &value) const
 {
 	return false;
@@ -95,6 +105,69 @@ bool ClassCustom::Serialize(Signal sig, Stream &stream, const Value &value) cons
 
 bool ClassCustom::Deserialize(Signal sig, Stream &stream, Value &value) const
 {
+	return false;
+}
+
+bool ClassCustom::Format_d(Signal sig, Formatter *pFormatter,
+					Formatter::Flags &flags, const Value &value) const
+{
+	return Class::Format_d(sig, pFormatter, flags, value);
+}
+
+bool ClassCustom::Format_u(Signal sig, Formatter *pFormatter,
+					Formatter::Flags &flags, const Value &value) const
+{
+	return Class::Format_u(sig, pFormatter, flags, value);
+}
+
+bool ClassCustom::Format_b(Signal sig, Formatter *pFormatter,
+					Formatter::Flags &flags, const Value &value) const
+{
+	return Class::Format_b(sig, pFormatter, flags, value);
+}
+
+bool ClassCustom::Format_o(Signal sig, Formatter *pFormatter,
+					Formatter::Flags &flags, const Value &value) const
+{
+	return Class::Format_o(sig, pFormatter, flags, value);
+}
+
+bool ClassCustom::Format_x(Signal sig, Formatter *pFormatter,
+					Formatter::Flags &flags, const Value &value) const
+{
+	return Class::Format_x(sig, pFormatter, flags, value);
+}
+
+bool ClassCustom::Format_e(Signal sig, Formatter *pFormatter,
+					Formatter::Flags &flags, const Value &value) const
+{
+	return Class::Format_e(sig, pFormatter, flags, value);
+}
+
+bool ClassCustom::Format_f(Signal sig, Formatter *pFormatter,
+					Formatter::Flags &flags, const Value &value) const
+{
+	return Class::Format_f(sig, pFormatter, flags, value);
+}
+
+bool ClassCustom::Format_g(Signal sig, Formatter *pFormatter,
+					Formatter::Flags &flags, const Value &value) const
+{
+	return Class::Format_g(sig, pFormatter, flags, value);
+}
+
+bool ClassCustom::Format_s(Signal sig, Formatter *pFormatter,
+					Formatter::Flags &flags, const Value &value) const
+{
+	return Class::Format_s(sig, pFormatter, flags, value);
+}
+
+bool ClassCustom::Format_c(Signal sig, Formatter *pFormatter,
+					Formatter::Flags &flags, const Value &value) const
+{
+	sig.SetError(ERR_ValueError,
+			"value type %s can not be formatted with %%c qualifier",
+			MakeValueTypeName().c_str());
 	return false;
 }
 
