@@ -220,8 +220,8 @@ bool ClassCustom::Format_X(Signal sig, Formatter *pFormatter,
 	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetThis(value);
-	//pArgs->SetValue(Value::Null);
-	Value valueRtn = pFunc->Call(*pEnvLocal, sig, *pArgs);
+	pArgs->SetValue(Value(new Object_formatter(*pEnvLocal, flags)));
+	Value valueRtn = pFunc->Eval(*pEnvLocal, sig, *pArgs);
 	if (sig.IsSignalled()) return false;
 	if (!valueRtn.MustBe_string(sig)) return false;
 	return pFormatter->PutString(sig, valueRtn.GetString());
