@@ -752,4 +752,35 @@ testcase {
 		println('expected error occurs')
 	}
 }
+/*
+testcase {
+	A = class {
+		__init__() = {
+			this.num = 0
+			this.str = ''
+		}
+		__cast__(value) = {
+			rtn = A()
+			if (isnumber(value)) {
+				rtn.num:public = value
+			} elsif (isstring(value)) {
+				rtn.str:public = value
+			} else {
+				raise(error.TypeError, 'number or string must be specified')
+			}
+			rtn
+		}
+		__format_d__(fmt:formatter) = this.num.tostring()
+		__format_s__(fmt:formatter) = this.str
+	}
+	a:A = 'hoge'
+	printf('%d\n', a)
+	a:A = 3
+	//printf('%d "%s"\n', a, a)
+	//printf('%d "%s"\n', a, a)
+	//try {
+	//	a:A = `x
+	//} catch {|e| println('expected error: ', e.text) }
+}
+*/
 println('<<end of script>>')
