@@ -2,5 +2,5 @@ scope {
 	A = class {}
 	a = A()
 	b = 3
-	a = A()
+	a = nil
 }
