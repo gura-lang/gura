@@ -93,8 +93,14 @@ bool ClassCustom::CastFrom(Environment &env, Signal sig, Value &value, const Dec
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__cast__), ENVREF_NoEscalate));
 	if (pFunc == NULL) return false;
-	
-	return false;
+	Value valueThis(this, VFLAG_NoOwner | VFLAG_Privileged);
+	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetThis(valueThis);
+	pArgs->SetValue(value);
+	value = pFunc->Eval(*pEnvLocal, sig, *pArgs);
+	if (sig.IsSignalled()) return false;
+	return true;
 }
 
 bool ClassCustom::CastTo(Environment &env, Signal sig, Value &value, const Declaration &decl)
@@ -102,8 +108,12 @@ bool ClassCustom::CastTo(Environment &env, Signal sig, Value &value, const Decla
 	FunctionCustom *pFunc = dynamic_cast<FunctionCustom *>(
 					LookupFunction(Gura_Symbol(__castto__), ENVREF_NoEscalate));
 	if (pFunc == NULL) return false;
-
-	return false;
+	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
+	AutoPtr<Args> pArgs(new Args());
+	pArgs->SetThis(value);
+	value = pFunc->Eval(*pEnvLocal, sig, *pArgs);
+	if (sig.IsSignalled()) return false;
+	return true;
 }
 
 bool ClassCustom::Serialize(Signal sig, Stream &stream, const Value &value) const
