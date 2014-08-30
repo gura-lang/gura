@@ -334,4 +334,10 @@ hello
 A.hoge = 1
 A.hoge = 2
 expected error occurs
+
+======== #34 ========
+
+0 "hoge"
+3 ""
+expected error: TypeError: number or string must be specified
 <<end of script>>
