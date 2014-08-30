@@ -1,6 +1,0 @@
-scope {
-	A = class {}
-	a = A()
-	b = 3
-	a = nil
-}
