@@ -1825,14 +1825,25 @@ bool Iterator_Repeater::DoNext(Environment &env, Signal sig, Value &value)
 		if (_pIteratorNest.IsNull()) {
 			Value valueSrc;
 			AutoPtr<Args> pArgs(new Args());
-			pArgs->AddValue(valueSrc);
 			// **** https://github.com/gura-lang/gura/issues/1 ****
+#if 1
+			pArgs->AddValue(valueSrc);
 			for (Iterator *pIteratorSrc = _pIteratorSrc.get();
 					pIteratorSrc != NULL; pIteratorSrc = pIteratorSrc->GetSource()) {
 				pArgs->AddValue(Value(static_cast<Number>(pIteratorSrc->GetCountNext())));
 			}
 			if (!_pIteratorSrc->Next(env, sig, valueSrc)) return false;
 			pArgs->GetValueListArg()[0] = valueSrc;
+#else
+			// The following code doesn't work well:
+			// (0..512).skip(1).skip(1).skip(1).skip(1) {|x, i1, i2, i3, i4, i5| .. }
+			if (!_pIteratorSrc->Next(env, sig, valueSrc)) return false;
+			pArgs->AddValue(valueSrc);
+			for (Iterator *pIteratorSrc = _pIteratorSrc.get();
+					pIteratorSrc != NULL; pIteratorSrc = pIteratorSrc->GetSource()) {
+				pArgs->AddValue(Value(static_cast<Number>(pIteratorSrc->GetCountNext() - 1)));
+			}
+#endif
 			value = _pFuncBlock->Eval(*_pEnv, sig, *pArgs);
 			_idx++;
 			if (sig.IsBreak()) {
