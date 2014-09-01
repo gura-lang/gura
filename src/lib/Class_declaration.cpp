@@ -48,6 +48,26 @@ String Object_declaration::ToString(bool exprFlag)
 	return str;
 }
 
+//-----------------------------------------------------------------------------
+// Implementation of methods
+//-----------------------------------------------------------------------------
+// declaration#istype(type+:expr)
+Gura_DeclareMethod(declaration, istype)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "type", VTYPE_expr, OCCUR_OnceOrMore);
+}
+
+Gura_ImplementMethod(declaration, istype)
+{
+	const Declaration *pDeclaration = Object_declaration::GetThisObj(args)->GetDeclaration();
+	const ValueTypeInfo *pValueTypeInfo = env.LookupValueType(sig, args.GetList(0));
+	if (pValueTypeInfo == NULL) return Value::Null;
+	ValueType valType = pDeclaration->GetValueType();
+	ValueType valTypeCmp = pValueTypeInfo->GetValueType();
+	return Value(valType == valTypeCmp);
+}
+
 //----------------------------------------------------------------------------
 // Implementation of class
 //----------------------------------------------------------------------------
@@ -57,6 +77,7 @@ Class_declaration::Class_declaration(Environment *pEnvOuter) : Class(pEnvOuter, 
 
 void Class_declaration::Prepare(Environment &env)
 {
+	Gura_AssignMethod(declaration, istype);
 }
 
 //-----------------------------------------------------------------------------

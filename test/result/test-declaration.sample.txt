@@ -331,6 +331,7 @@ datetime
   utc()
   weekday(year:number, month:number, day:number):static:map
 declaration
+  istype(type+:expr):map
 dict
   clear()
   erase(key):map

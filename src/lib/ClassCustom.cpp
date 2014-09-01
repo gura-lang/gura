@@ -111,6 +111,7 @@ bool ClassCustom::CastTo(Environment &env, Signal sig, Value &value, const Decla
 	AutoPtr<Environment> pEnvLocal(new Environment(this, ENVTYPE_local));
 	AutoPtr<Args> pArgs(new Args());
 	pArgs->SetThis(value);
+	pArgs->SetValue(Value(new Object_declaration(env, decl.Reference())));
 	value = pFunc->Eval(*pEnvLocal, sig, *pArgs);
 	if (sig.IsSignalled()) return false;
 	return true;
