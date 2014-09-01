@@ -1826,6 +1826,7 @@ bool Iterator_Repeater::DoNext(Environment &env, Signal sig, Value &value)
 			Value valueSrc;
 			AutoPtr<Args> pArgs(new Args());
 			pArgs->AddValue(valueSrc);
+			// **** https://github.com/gura-lang/gura/issues/1 ****
 			for (Iterator *pIteratorSrc = _pIteratorSrc.get();
 					pIteratorSrc != NULL; pIteratorSrc = pIteratorSrc->GetSource()) {
 				pArgs->AddValue(Value(static_cast<Number>(pIteratorSrc->GetCountNext())));
