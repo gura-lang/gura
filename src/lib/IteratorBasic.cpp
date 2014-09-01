@@ -1830,7 +1830,7 @@ bool Iterator_Repeater::DoNext(Environment &env, Signal sig, Value &value)
 			pArgs->AddValue(valueSrc);
 			for (Iterator *pIteratorSrc = _pIteratorSrc.get();
 					pIteratorSrc != NULL; pIteratorSrc = pIteratorSrc->GetSource()) {
-				pArgs->AddValue(Value(static_cast<Number>(pIteratorSrc->GetCountNext())));
+				pArgs->AddValue(Value(static_cast<Number>(pIteratorSrc->GetIndexNext())));
 			}
 			if (!_pIteratorSrc->Next(env, sig, valueSrc)) return false;
 			pArgs->GetValueListArg()[0] = valueSrc;
@@ -1841,7 +1841,7 @@ bool Iterator_Repeater::DoNext(Environment &env, Signal sig, Value &value)
 			pArgs->AddValue(valueSrc);
 			for (Iterator *pIteratorSrc = _pIteratorSrc.get();
 					pIteratorSrc != NULL; pIteratorSrc = pIteratorSrc->GetSource()) {
-				pArgs->AddValue(Value(static_cast<Number>(pIteratorSrc->GetCountNext() - 1)));
+				pArgs->AddValue(Value(static_cast<Number>(pIteratorSrc->GetIndexCur())));
 			}
 #endif
 			value = _pFuncBlock->Eval(*_pEnv, sig, *pArgs);

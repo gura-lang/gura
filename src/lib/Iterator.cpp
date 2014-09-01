@@ -157,7 +157,7 @@ Value Iterator::MinMax(Environment &env, Signal sig,
 	if (!Next(env, sig, valueHit)) return Value::Null;
 	Value result;
 	if (attrs.IsSet(Gura_Symbol(index))) {
-		int idxHit = GetCountNext() - 1;
+		int idxHit = GetIndexCur();
 		Value value;
 		while (Next(env, sig, value)) {
 			int cmp = Value::Compare(env, sig, valueHit, value);
@@ -165,13 +165,13 @@ Value Iterator::MinMax(Environment &env, Signal sig,
 			if (maxFlag) cmp = -cmp;
 			if (cmp > 0) {
 				valueHit = value;
-				idxHit = GetCountNext() - 1;
+				idxHit = GetIndexCur();
 			}
 		}
 		if (sig.IsSignalled()) return Value::Null;
 		result.SetNumber(idxHit);
 	} else if (attrs.IsSet(Gura_Symbol(last_index))) {
-		int idxHit = GetCountNext() - 1;
+		int idxHit = GetIndexCur();
 		Value value;
 		while (Next(env, sig, value)) {
 			int cmp = Value::Compare(env, sig, valueHit, value);
@@ -179,13 +179,13 @@ Value Iterator::MinMax(Environment &env, Signal sig,
 			if (maxFlag) cmp = -cmp;
 			if (cmp >= 0) {
 				valueHit = value;
-				idxHit = GetCountNext() - 1;
+				idxHit = GetIndexCur();
 			}
 		}
 		if (sig.IsSignalled()) return Value::Null;
 		result.SetNumber(idxHit);
 	} else if (attrs.IsSet(Gura_Symbol(indices))) {
-		int idxHit = GetCountNext() - 1;
+		int idxHit = GetIndexCur();
 		ValueList &resultList = result.InitAsList(env);
 		resultList.push_back(Value(idxHit));
 		Value value;
@@ -194,12 +194,12 @@ Value Iterator::MinMax(Environment &env, Signal sig,
 			if (sig.IsSignalled()) return Value::Null;
 			if (maxFlag) cmp = -cmp;
 			if (cmp > 0) {
-				int idxHit = GetCountNext() - 1;
+				int idxHit = GetIndexCur();
 				valueHit = value;
 				resultList.clear();
 				resultList.push_back(Value(idxHit));
 			} else if (cmp == 0) {
-				int idxHit = GetCountNext() - 1;
+				int idxHit = GetIndexCur();
 				resultList.push_back(Value(static_cast<Number>(idxHit)));
 			}
 		}
@@ -403,7 +403,7 @@ size_t Iterator::Find(Environment &env, Signal sig, const Value &criteria, Value
 			pArgs->SetValue(value);
 			Value valueFlag = pFunc->Eval(env, sig, *pArgs);
 			if (sig.IsSignalled()) return InvalidSize;
-			if (valueFlag.GetBoolean()) return GetCountNext() - 1;
+			if (valueFlag.GetBoolean()) return GetIndexCur();
 		}
 		if (sig.IsSignalled()) return InvalidSize;
 	} else if (criteria.Is_list() || criteria.Is_iterator()) {
@@ -416,15 +416,15 @@ size_t Iterator::Find(Environment &env, Signal sig, const Value &criteria, Value
 		while (Next(env, sig, value)) {
 			Value valueCriteria;
 			if (!pIteratorCriteria->Next(env, sig, valueCriteria)) break;
-			if (valueCriteria.GetBoolean()) return GetCountNext() - 1;
+			if (valueCriteria.GetBoolean()) return GetIndexCur();
 		}
 		return InvalidSize;
 	} else {
 		while (Next(env, sig, value)) {
 			//int cmp = Value::Compare(env, sig, value, criteria);
 			//if (sig.IsSignalled()) return InvalidSize;
-			//if (cmp == 0) return GetCountNext() - 1;
-			if (value.Is(criteria)) return GetCountNext() - 1;
+			//if (cmp == 0) return GetIndexCur();
+			if (value.Is(criteria)) return GetIndexCur();
 		}
 	}
 	return InvalidSize;
@@ -437,7 +437,7 @@ size_t Iterator::FindTrue(Environment &env, Signal sig, Value &value)
 		return 0;
 	}
 	while (Next(env, sig, value)) {
-		if (value.GetBoolean()) return GetCountNext() - 1;
+		if (value.GetBoolean()) return GetIndexCur();
 	}
 	return InvalidSize;
 }

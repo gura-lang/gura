@@ -49,7 +49,8 @@ public:
 	};
 protected:
 	int _cntRef;
-	int _cntNext;
+	int _idxCur;
+	int _idxNext;
 	std::auto_ptr<Share> _pShare;
 	bool _infiniteFlag;
 	bool _skipInvalidFlag;
@@ -58,16 +59,17 @@ public:
 	Gura_DeclareReferenceAccessor(Iterator);
 public:
 	inline Iterator(bool infiniteFlag, bool skipInvalidFlag = false, bool repeaterFlag = false) :
-			_cntRef(1), _cntNext(0), _pShare(NULL),
+			_cntRef(1), _idxCur(-1), _idxNext(0), _pShare(NULL),
 			_infiniteFlag(infiniteFlag), _skipInvalidFlag(skipInvalidFlag),
 			_repeaterFlag(repeaterFlag) {}
 	inline Iterator(const Iterator &iter) :
-			_cntRef(1), _cntNext(iter._cntNext), _pShare(NULL),
+			_cntRef(1), _idxCur(iter._idxCur), _idxNext(iter._idxNext), _pShare(NULL),
 			_infiniteFlag(iter._infiniteFlag), _skipInvalidFlag(iter._skipInvalidFlag),
 			_repeaterFlag(iter._repeaterFlag) {}
 	virtual ~Iterator();
-	inline int GetCountNext() const { return _cntNext; }
-	inline bool IsVirgin() const { return _cntNext == 0 && _pShare.get() == NULL; }
+	inline int GetIndexCur() const { return _idxCur; }
+	inline int GetIndexNext() const { return _idxNext; }
+	inline bool IsVirgin() const { return _idxNext == 0 && _pShare.get() == NULL; }
 	inline bool IsInfinite() const { return _infiniteFlag; }
 	inline bool IsSkipInvalid() const { return _skipInvalidFlag; }
 	inline bool IsRepeater() const { return _repeaterFlag; }
@@ -75,7 +77,8 @@ public:
 	inline void SetSkipInvalidFlag(bool skipInvalidFlag) { _skipInvalidFlag = skipInvalidFlag; }
 	inline void SetRepeaterFlag(bool repeaterFlag) { _repeaterFlag = repeaterFlag; }
 	inline bool Next(Environment &env, Signal sig, Value &value) {
-		_cntNext++;
+		_idxCur = _idxNext;
+		_idxNext++;
 		return NextShared(env, sig, 0, value);
 	}
 	bool NextShared(Environment &env, Signal sig, int id, Value &value);
