@@ -899,12 +899,23 @@ Iterator *Iterator_Skip::GetSource()
 
 bool Iterator_Skip::DoNext(Environment &env, Signal sig, Value &value)
 {
+	if (_firstFlag) {
+		_firstFlag = false;
+	} else {
+		for (int i = 0; i < _nSkip; i++) {
+			Value valueTmp;
+			if (!_pIterator->Next(env, sig, valueTmp)) break;
+		}
+	}
+	return _pIterator->Next(env, sig, value);
+#if 0
 	bool flag = _pIterator->Next(env, sig, value);
 	for (int i = 0; i < _nSkip; i++) {
 		Value valueTmp;
 		if (!_pIterator->Next(env, sig, valueTmp)) break;
 	}
 	return flag;
+#endif
 }
 
 String Iterator_Skip::ToString() const
@@ -1826,7 +1837,7 @@ bool Iterator_Repeater::DoNext(Environment &env, Signal sig, Value &value)
 			Value valueSrc;
 			AutoPtr<Args> pArgs(new Args());
 			// **** https://github.com/gura-lang/gura/issues/1 ****
-#if 1
+#if 0
 			pArgs->AddValue(valueSrc);
 			for (Iterator *pIteratorSrc = _pIteratorSrc.get();
 					pIteratorSrc != NULL; pIteratorSrc = pIteratorSrc->GetSource()) {
@@ -1835,8 +1846,6 @@ bool Iterator_Repeater::DoNext(Environment &env, Signal sig, Value &value)
 			if (!_pIteratorSrc->Next(env, sig, valueSrc)) return false;
 			pArgs->GetValueListArg()[0] = valueSrc;
 #else
-			// The following code doesn't work well:
-			// (0..512).skip(1).skip(1).skip(1).skip(1) {|x, i1, i2, i3, i4, i5| .. }
 			if (!_pIteratorSrc->Next(env, sig, valueSrc)) return false;
 			pArgs->AddValue(valueSrc);
 			for (Iterator *pIteratorSrc = _pIteratorSrc.get();

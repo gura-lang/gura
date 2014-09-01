@@ -272,7 +272,7 @@ expected error happens
 10 November
 11 December
  0  0 January
- 1  1 June
+ 1  5 June
  2  6 July
 
 ======== #27 ========

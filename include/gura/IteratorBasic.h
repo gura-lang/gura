@@ -413,9 +413,10 @@ class GURA_DLLDECLARE Iterator_Skip : public Iterator {
 private:
 	AutoPtr<Iterator> _pIterator;
 	int _nSkip;
+	bool _firstFlag;
 public:
 	inline Iterator_Skip(Iterator *pIterator, int nSkip) :
-		Iterator(pIterator->IsInfinite()), _pIterator(pIterator), _nSkip(nSkip) {}
+		Iterator(pIterator->IsInfinite()), _pIterator(pIterator), _nSkip(nSkip), _firstFlag(true) {}
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);
 	virtual String ToString() const;
