@@ -776,10 +776,10 @@ testcase {
 	// a class that is declared in a local scope (Aug.31, 2014).
 	a:A = 'hoge'
 	printf('%d "%s"\n', a, a)
-	b:A = 3
-	printf('%d "%s"\n', b, b)
+	a:A = 3
+	printf('%d "%s"\n', a, a)
 	try {
-		c:A = `x
+		a:A = `x
 	} catch {|e| println('expected error: ', e.text) }
 }
 println('<<end of script>>')

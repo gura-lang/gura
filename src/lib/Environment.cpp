@@ -967,6 +967,7 @@ Environment::Frame::~Frame()
 void Environment::Frame::Delete(Frame *pFrame)
 {
 	if (pFrame == NULL) return;
+#if 0
 	EnvType envType = pFrame->GetEnvType();
 	if (envType != ENVTYPE_root && envType != ENVTYPE_class &&
 										pFrame->_pValueMap.get() != NULL) {
@@ -975,7 +976,7 @@ void Environment::Frame::Delete(Frame *pFrame)
 		foreach_const (ValueMap, iter, valueMap) {
 			const Value &value = iter->second;
 			if (value.IsObject()) {
-				value.GetObject()->GatherFollower(pFrame, envSet);
+				//value.GetObject()->GatherFollower(pFrame, envSet);
 			}
 		}
 		int cntFollower = static_cast<int>(envSet.size());
@@ -987,8 +988,11 @@ void Environment::Frame::Delete(Frame *pFrame)
 		} else {
 			pFrame->DecRef();
 		}
-	
 	} else if (pFrame->DecRef() <= 0) {
+		delete pFrame;
+	}
+#endif
+	if (pFrame->DecRef() <= 0) {
 		delete pFrame;
 	}
 }
