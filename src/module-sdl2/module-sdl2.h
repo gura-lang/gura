@@ -5,6 +5,7 @@
 #define __GURA_MODULE_SDL2_H__
 #include <SDL.h>
 #include <gura.h>
+#include "Class_Window.h"
 
 Gura_BeginModuleHeader(sdl2)
 Gura_EndModuleHeader(sdl2)
