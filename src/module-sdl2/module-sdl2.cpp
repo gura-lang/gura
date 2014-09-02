@@ -3,6 +3,8 @@
 //=============================================================================
 #include "stdafx.h"
 
+#undef CreateWindow
+
 #define RealizeClass(className) \
 Gura_RealizeUserClassExWithoutPrepare(##className, #className, env.LookupClass(VTYPE_object))
 
@@ -14,10 +16,10 @@ Gura_BeginModuleBody(sdl2)
 //-----------------------------------------------------------------------------
 // Basics - Initialization and Shutdown
 //-----------------------------------------------------------------------------
-// sdl2.Init(flags:number)
+// sdl2.Init(flags:number):void
 Gura_DeclareFunction(Init)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -27,13 +29,16 @@ Gura_ImplementFunction(Init)
 {
 	Uint32 flags = args.GetULong(0);
 	int rtn = ::SDL_Init(flags);
-	return Value(rtn);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+	}
+	return Value::Null;
 }
 
-// sdl2.InitSubSystem(flags:number)
+// sdl2.InitSubSystem(flags:number):void
 Gura_DeclareFunction(InitSubSystem)
 {
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "flags", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -43,7 +48,10 @@ Gura_ImplementFunction(InitSubSystem)
 {
 	Uint32 flags = args.GetULong(0);
 	int rtn = ::SDL_InitSubSystem(flags);
-	return Value(rtn);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+	}
+	return Value::Null;
 }
 
 // sdl2.Quit():void
@@ -129,6 +137,58 @@ Gura_ImplementFunction(WasInit)
 //-----------------------------------------------------------------------------
 // Video - Display and Window Management
 //-----------------------------------------------------------------------------
+// sdl2.CreateWindow(title:string, x:number, y:number, w:number, h:number, flags:number)
+Gura_DeclareFunction(CreateWindow)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "title", VTYPE_string);
+	DeclareArg(env, "x", VTYPE_number);
+	DeclareArg(env, "y", VTYPE_number);
+	DeclareArg(env, "w", VTYPE_number);
+	DeclareArg(env, "h", VTYPE_number);
+	DeclareArg(env, "flags", VTYPE_number);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(CreateWindow)
+{
+	const char *title = args.GetString(0);
+	int x = args.GetInt(1);
+	int y = args.GetInt(2);
+	int w = args.GetInt(3);
+	int h = args.GetInt(4);
+	Uint32 flags = args.GetULong(5);
+	SDL_Window *rtn = ::SDL_CreateWindow(title, x, y, w, h, flags);
+	return Value(new Object_Window(rtn));
+}
+
+// sdl2.CreateWindowAndRenderer(w:number, h:number, window_flags:number)
+Gura_DeclareFunction(CreateWindowAndRenderer)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "w", VTYPE_number);
+	DeclareArg(env, "h", VTYPE_number);
+	DeclareArg(env, "window_flags", VTYPE_number);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(CreateWindowAndRenderer)
+{
+	int w = args.GetInt(0);
+	int h = args.GetInt(1);
+	Uint32 window_flags = args.GetULong(2);
+	SDL_Window *pWindow = NULL;
+	SDL_Renderer *pRenderer = NULL;
+	int rtn = ::SDL_CreateWindowAndRenderer(w, h, window_flags, &pWindow, &pRenderer);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::CreateAsList(env,
+		Value(new Object_Window(pWindow)), Value(new Object_Renderer(pRenderer)));
+}
 
 //-----------------------------------------------------------------------------
 // Video - 2D Accelerated Rendering
@@ -284,6 +344,7 @@ Gura_ModuleEntry()
 	RealizeClass(GameController);
 	RealizeClass(AudioCVT);
 	RealizeClass(AudioSpec);
+	RealizeClass(DisplayMode);
 	// class preparation
 	PrepareClass(Window);
 	PrepareClass(Renderer);
@@ -299,6 +360,7 @@ Gura_ModuleEntry()
 	PrepareClass(GameController);
 	PrepareClass(AudioCVT);
 	PrepareClass(AudioSpec);
+	PrepareClass(DisplayMode);
 	// function assignment
 	// Basics - Initialization and Shutdown
 	Gura_AssignFunction(Init);
@@ -312,6 +374,14 @@ Gura_ModuleEntry()
 
 Gura_ModuleTerminate()
 {
+}
+
+//-----------------------------------------------------------------------------
+// utilities
+//-----------------------------------------------------------------------------
+void SetError_SDL(Signal &sig)
+{
+	sig.SetError(ERR_RuntimeError, "%s", ::SDL_GetError());
 }
 
 Gura_EndModuleBody(sdl2, sdl2)

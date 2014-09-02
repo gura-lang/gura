@@ -19,8 +19,12 @@
 #include "Class_GameController.h"
 #include "Class_AudioCVT.h"
 #include "Class_AudioSpec.h"
+#include "Class_DisplayMode.h"
 
 Gura_BeginModuleHeader(sdl2)
+
+void SetError_SDL(Signal &sig);
+
 Gura_EndModuleHeader(sdl2)
 
 #endif
