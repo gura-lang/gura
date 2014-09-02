@@ -1,0 +1,10 @@
+#!/usr/bin/env gura
+import(modbuild)
+builder = modbuild.Builder()
+if (sys.build == `msc) {
+	dirBase = path.join(modbuild.guestDir, 'SDL2-2.0.3')
+	builder.incDirs.append(path.join(dirBase, 'include'))
+	builder.libs.append(path.join(dirBase, 'VisualC/SDL/Win32/Release/SDL2.lib'))
+} elsif (sys.build == `gnuc) {
+}
+builder.build('sdl2', ['module-sdl2.cpp'])
