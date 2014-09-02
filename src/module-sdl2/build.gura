@@ -1,5 +1,6 @@
 #!/usr/bin/env gura
 import(modbuild)
+
 builder = modbuild.Builder()
 if (sys.build == `msc) {
 	dirBase = path.join(modbuild.guestDir, 'SDL2-2.0.3')
