@@ -275,12 +275,30 @@ Gura_ModuleEntry()
 	RealizeClass(Event);
 	RealizeClass(Point);
 	RealizeClass(Rect);
+	RealizeClass(Color);
+	RealizeClass(Palette);
+	RealizeClass(PixelFormat);
+	RealizeClass(Keysym);
+	RealizeClass(Cursor);
+	RealizeClass(Joystick);
+	RealizeClass(GameController);
+	RealizeClass(AudioCVT);
+	RealizeClass(AudioSpec);
 	// class preparation
 	PrepareClass(Window);
 	PrepareClass(Renderer);
 	PrepareClass(Event);
 	PrepareClass(Point);
 	PrepareClass(Rect);
+	PrepareClass(Color);
+	PrepareClass(Palette);
+	PrepareClass(PixelFormat);
+	PrepareClass(Keysym);
+	PrepareClass(Cursor);
+	PrepareClass(Joystick);
+	PrepareClass(GameController);
+	PrepareClass(AudioCVT);
+	PrepareClass(AudioSpec);
 	// function assignment
 	// Basics - Initialization and Shutdown
 	Gura_AssignFunction(Init);

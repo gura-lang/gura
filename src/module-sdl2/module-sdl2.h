@@ -10,6 +10,15 @@
 #include "Class_Event.h"
 #include "Class_Point.h"
 #include "Class_Rect.h"
+#include "Class_Color.h"
+#include "Class_Palette.h"
+#include "Class_PixelFormat.h"
+#include "Class_Keysym.h"
+#include "Class_Cursor.h"
+#include "Class_Joystick.h"
+#include "Class_GameController.h"
+#include "Class_AudioCVT.h"
+#include "Class_AudioSpec.h"
 
 Gura_BeginModuleHeader(sdl2)
 Gura_EndModuleHeader(sdl2)
