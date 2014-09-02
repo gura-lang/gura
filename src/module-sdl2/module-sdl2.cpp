@@ -269,10 +269,14 @@ Gura_ImplementFunction(test)
 //-----------------------------------------------------------------------------
 Gura_ModuleEntry()
 {
+	// class realization
 	RealizeClass(Window);
 	RealizeClass(Renderer);
+	RealizeClass(Event);
+	// class preparation
 	PrepareClass(Window);
 	PrepareClass(Renderer);
+	PrepareClass(Event);
 	// function assignment
 	// Basics - Initialization and Shutdown
 	Gura_AssignFunction(Init);

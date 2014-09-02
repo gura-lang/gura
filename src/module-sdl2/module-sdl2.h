@@ -7,6 +7,7 @@
 #include <gura.h>
 #include "Class_Window.h"
 #include "Class_Renderer.h"
+#include "Class_Event.h"
 
 Gura_BeginModuleHeader(sdl2)
 Gura_EndModuleHeader(sdl2)
