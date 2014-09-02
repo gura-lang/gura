@@ -8,4 +8,4 @@ if (sys.build == `msc) {
 	builder.libs.append(path.join(dirBase, 'VisualC/SDL/Win32/Release/SDL2.lib'))
 } elsif (sys.build == `gnuc) {
 }
-builder.build('sdl2', ['module-sdl2.cpp', 'Class_Window.cpp'])
+builder.build('sdl2', ['module-sdl2.cpp', 'Class_Window.cpp', 'Class_Renderer.cpp'])

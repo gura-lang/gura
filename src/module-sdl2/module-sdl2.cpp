@@ -3,6 +3,12 @@
 //=============================================================================
 #include "stdafx.h"
 
+#define RealizeClass(className) \
+Gura_RealizeUserClassExWithoutPrepare(##className, #className, env.LookupClass(VTYPE_object))
+
+#define PrepareClass(className) \
+Gura_UserClass(className)->Prepare(env)
+
 Gura_BeginModuleBody(sdl2)
 
 //-----------------------------------------------------------------------------
@@ -263,6 +269,10 @@ Gura_ImplementFunction(test)
 //-----------------------------------------------------------------------------
 Gura_ModuleEntry()
 {
+	RealizeClass(Window);
+	RealizeClass(Renderer);
+	PrepareClass(Window);
+	PrepareClass(Renderer);
 	// function assignment
 	// Basics - Initialization and Shutdown
 	Gura_AssignFunction(Init);

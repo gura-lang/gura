@@ -6,6 +6,7 @@
 #include <SDL.h>
 #include <gura.h>
 #include "Class_Window.h"
+#include "Class_Renderer.h"
 
 Gura_BeginModuleHeader(sdl2)
 Gura_EndModuleHeader(sdl2)
