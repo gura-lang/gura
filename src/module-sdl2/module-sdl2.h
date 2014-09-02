@@ -3,6 +3,7 @@
 //=============================================================================
 #ifndef __GURA_MODULE_SDL2_H__
 #define __GURA_MODULE_SDL2_H__
+#include <SDL.h>
 #include <gura.h>
 
 Gura_BeginModuleHeader(sdl2)
