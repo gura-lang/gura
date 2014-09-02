@@ -273,10 +273,14 @@ Gura_ModuleEntry()
 	RealizeClass(Window);
 	RealizeClass(Renderer);
 	RealizeClass(Event);
+	RealizeClass(Point);
+	RealizeClass(Rect);
 	// class preparation
 	PrepareClass(Window);
 	PrepareClass(Renderer);
 	PrepareClass(Event);
+	PrepareClass(Point);
+	PrepareClass(Rect);
 	// function assignment
 	// Basics - Initialization and Shutdown
 	Gura_AssignFunction(Init);

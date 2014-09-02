@@ -9,4 +9,5 @@ if (sys.build == `msc) {
 } elsif (sys.build == `gnuc) {
 }
 builder.build('sdl2', ['module-sdl2.cpp',
-	'Class_Window.cpp', 'Class_Renderer.cpp', 'Class_Event.cpp'])
+	'Class_Window.cpp', 'Class_Renderer.cpp', 'Class_Event.cpp',
+	'Class_Point.cpp', 'Class_Rect.cpp'])
