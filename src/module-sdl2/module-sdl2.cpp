@@ -11,6 +11,8 @@ Gura_RealizeUserClassExWithoutPrepare(##className, #className, env.LookupClass(V
 #define PrepareClass(className) \
 Gura_UserClass(className)->Prepare(env)
 
+#define Gura_AssignValueSDL(name) Gura_AssignValue(name, Value(SDL_##name))
+
 Gura_BeginModuleBody(sdl2)
 
 //-----------------------------------------------------------------------------
@@ -361,7 +363,6 @@ Gura_ModuleEntry()
 	PrepareClass(AudioCVT);
 	PrepareClass(AudioSpec);
 	PrepareClass(DisplayMode);
-	// function assignment
 	// Basics - Initialization and Shutdown
 	Gura_AssignFunction(Init);
 	Gura_AssignFunction(InitSubSystem);
@@ -369,6 +370,169 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(QuitSubSystem);
 	Gura_AssignFunction(SetMainReady);
 	Gura_AssignFunction(test);
+	// Basics - Configuration Variables
+	// Basics - Error Handling
+	// Basics - Log Handling
+	// Basics - Assertions
+	// Basics - Querying SDL Version
+	// Video - Display and Window Management
+	Gura_AssignValueSDL(BLENDMODE_NONE);
+	Gura_AssignValueSDL(BLENDMODE_BLEND);
+	Gura_AssignValueSDL(BLENDMODE_ADD);
+	Gura_AssignValueSDL(BLENDMODE_MOD);
+	Gura_AssignValueSDL(GL_RED_SIZE);
+	Gura_AssignValueSDL(GL_GREEN_SIZE);
+	Gura_AssignValueSDL(GL_BLUE_SIZE);
+	Gura_AssignValueSDL(GL_ALPHA_SIZE);
+	Gura_AssignValueSDL(GL_BUFFER_SIZE);
+	Gura_AssignValueSDL(GL_DOUBLEBUFFER);
+	Gura_AssignValueSDL(GL_DEPTH_SIZE);
+	Gura_AssignValueSDL(GL_STENCIL_SIZE);
+	Gura_AssignValueSDL(GL_ACCUM_RED_SIZE);
+	Gura_AssignValueSDL(GL_ACCUM_GREEN_SIZE);
+	Gura_AssignValueSDL(GL_ACCUM_BLUE_SIZE);
+	Gura_AssignValueSDL(GL_ACCUM_ALPHA_SIZE);
+	Gura_AssignValueSDL(GL_STEREO);
+	Gura_AssignValueSDL(GL_MULTISAMPLEBUFFERS);
+	Gura_AssignValueSDL(GL_MULTISAMPLESAMPLES);
+	Gura_AssignValueSDL(GL_ACCELERATED_VISUAL);
+	Gura_AssignValueSDL(GL_RETAINED_BACKING);			// not used (deprecated)
+	Gura_AssignValueSDL(GL_CONTEXT_MAJOR_VERSION);
+	Gura_AssignValueSDL(GL_CONTEXT_MINOR_VERSION);
+	Gura_AssignValueSDL(GL_CONTEXT_FLAGS);
+	Gura_AssignValueSDL(GL_CONTEXT_PROFILE_MASK);
+	Gura_AssignValueSDL(GL_SHARE_WITH_CURRENT_CONTEXT);
+	Gura_AssignValueSDL(GL_FRAMEBUFFER_SRGB_CAPABLE);
+	Gura_AssignValueSDL(GL_CONTEXT_EGL);				// not used (deprecated)
+	Gura_AssignValueSDL(GL_CONTEXT_DEBUG_FLAG);
+	Gura_AssignValueSDL(GL_CONTEXT_FORWARD_COMPATIBLE_FLAG);
+	Gura_AssignValueSDL(GL_CONTEXT_ROBUST_ACCESS_FLAG);
+	Gura_AssignValueSDL(GL_CONTEXT_RESET_ISOLATION_FLAG);
+	Gura_AssignValueSDL(GL_CONTEXT_PROFILE_CORE);
+	Gura_AssignValueSDL(GL_CONTEXT_PROFILE_COMPATIBILITY);
+	Gura_AssignValueSDL(GL_CONTEXT_PROFILE_ES);
+	/* Draft
+	Gura_AssignValueSDL(HITTEST_NORMAL);
+	Gura_AssignValueSDL(HITTEST_DRAGGABLE);
+	Gura_AssignValueSDL(HITTEST_RESIZE_TOPLEFT);
+	Gura_AssignValueSDL(HITTEST_RESIZE_TOP);
+	Gura_AssignValueSDL(HITTEST_RESIZE_TOPRIGHT);
+	Gura_AssignValueSDL(HITTEST_RESIZE_RIGHT);
+	Gura_AssignValueSDL(HITTEST_RESIZE_BOTTOMRIGHT);
+	Gura_AssignValueSDL(HITTEST_RESIZE_BOTTOM);
+	Gura_AssignValueSDL(HITTEST_RESIZE_BOTTOMLEFT);
+	Gura_AssignValueSDL(HITTEST_RESIZE_LEFT);
+	*/
+	Gura_AssignValueSDL(WINDOWEVENT_NONE);				// (never used)
+	Gura_AssignValueSDL(WINDOWEVENT_SHOWN);
+	Gura_AssignValueSDL(WINDOWEVENT_HIDDEN);
+	Gura_AssignValueSDL(WINDOWEVENT_EXPOSED);
+	Gura_AssignValueSDL(WINDOWEVENT_MOVED);
+	Gura_AssignValueSDL(WINDOWEVENT_RESIZED);
+	Gura_AssignValueSDL(WINDOWEVENT_SIZE_CHANGED);
+	Gura_AssignValueSDL(WINDOWEVENT_MINIMIZED);
+	Gura_AssignValueSDL(WINDOWEVENT_MAXIMIZED);
+	Gura_AssignValueSDL(WINDOWEVENT_RESTORED);
+	Gura_AssignValueSDL(WINDOWEVENT_ENTER);
+	Gura_AssignValueSDL(WINDOWEVENT_LEAVE);
+	Gura_AssignValueSDL(WINDOWEVENT_FOCUS_GAINED);
+	Gura_AssignValueSDL(WINDOWEVENT_FOCUS_LOST);
+	Gura_AssignValueSDL(WINDOWEVENT_CLOSE);
+	Gura_AssignValueSDL(WINDOW_FULLSCREEN);
+	Gura_AssignValueSDL(WINDOW_FULLSCREEN_DESKTOP);
+	Gura_AssignValueSDL(WINDOW_OPENGL);
+	Gura_AssignValueSDL(WINDOW_SHOWN);
+	Gura_AssignValueSDL(WINDOW_HIDDEN);
+	Gura_AssignValueSDL(WINDOW_BORDERLESS);
+	Gura_AssignValueSDL(WINDOW_RESIZABLE);
+	Gura_AssignValueSDL(WINDOW_MINIMIZED);
+	Gura_AssignValueSDL(WINDOW_MAXIMIZED);
+	Gura_AssignValueSDL(WINDOW_INPUT_GRABBED);
+	Gura_AssignValueSDL(WINDOW_INPUT_FOCUS);
+	Gura_AssignValueSDL(WINDOW_MOUSE_FOCUS);
+	Gura_AssignValueSDL(WINDOW_FOREIGN);
+	Gura_AssignValueSDL(WINDOW_ALLOW_HIGHDPI);		// >= SDL 2.0.1
+	//Gura_AssignValueSDL(WINDOW_MOUSE_CAPTURE);	// >= SDL 2.0.4
+	Gura_AssignFunction(CreateWindow);
+	Gura_AssignFunction(CreateWindowAndRenderer);
+	// Video - 2D Accelerated Rendering
+	Gura_AssignValueSDL(RENDERER_SOFTWARE);
+	Gura_AssignValueSDL(RENDERER_ACCELERATED);
+	Gura_AssignValueSDL(RENDERER_PRESENTVSYNC);
+	Gura_AssignValueSDL(RENDERER_TARGETTEXTURE);
+	Gura_AssignValueSDL(FLIP_NONE);
+	Gura_AssignValueSDL(FLIP_HORIZONTAL);
+	Gura_AssignValueSDL(FLIP_VERTICAL);
+	Gura_AssignValueSDL(TEXTUREACCESS_STATIC);
+	Gura_AssignValueSDL(TEXTUREACCESS_STREAMING);
+	Gura_AssignValueSDL(TEXTUREACCESS_TARGET);
+	Gura_AssignValueSDL(TEXTUREMODULATE_NONE);
+	Gura_AssignValueSDL(TEXTUREMODULATE_COLOR);
+	Gura_AssignValueSDL(TEXTUREMODULATE_ALPHA);
+	// Video - Pixel Formats and Conversion Routines
+	Gura_AssignValueSDL(PIXELFORMAT_UNKNOWN);
+	Gura_AssignValueSDL(PIXELFORMAT_INDEX1LSB);
+	Gura_AssignValueSDL(PIXELFORMAT_INDEX1MSB);
+	Gura_AssignValueSDL(PIXELFORMAT_INDEX4LSB);
+	Gura_AssignValueSDL(PIXELFORMAT_INDEX4MSB);
+	Gura_AssignValueSDL(PIXELFORMAT_INDEX8);
+	Gura_AssignValueSDL(PIXELFORMAT_RGB332);
+	Gura_AssignValueSDL(PIXELFORMAT_RGB444);
+	Gura_AssignValueSDL(PIXELFORMAT_RGB555);
+	Gura_AssignValueSDL(PIXELFORMAT_BGR555);
+	Gura_AssignValueSDL(PIXELFORMAT_ARGB4444);
+	Gura_AssignValueSDL(PIXELFORMAT_RGBA4444);
+	Gura_AssignValueSDL(PIXELFORMAT_ABGR4444);
+	Gura_AssignValueSDL(PIXELFORMAT_BGRA4444);
+	Gura_AssignValueSDL(PIXELFORMAT_ARGB1555);
+	Gura_AssignValueSDL(PIXELFORMAT_RGBA5551);
+	Gura_AssignValueSDL(PIXELFORMAT_ABGR1555);
+	Gura_AssignValueSDL(PIXELFORMAT_BGRA5551);
+	Gura_AssignValueSDL(PIXELFORMAT_RGB565);
+	Gura_AssignValueSDL(PIXELFORMAT_BGR565);
+	Gura_AssignValueSDL(PIXELFORMAT_RGB24);
+	Gura_AssignValueSDL(PIXELFORMAT_BGR24);
+	Gura_AssignValueSDL(PIXELFORMAT_RGB888);
+	Gura_AssignValueSDL(PIXELFORMAT_RGBX8888);
+	Gura_AssignValueSDL(PIXELFORMAT_BGR888);
+	Gura_AssignValueSDL(PIXELFORMAT_BGRX8888);
+	Gura_AssignValueSDL(PIXELFORMAT_ARGB8888);
+	Gura_AssignValueSDL(PIXELFORMAT_RGBA8888);
+	Gura_AssignValueSDL(PIXELFORMAT_ABGR8888);
+	Gura_AssignValueSDL(PIXELFORMAT_BGRA8888);
+	Gura_AssignValueSDL(PIXELFORMAT_ARGB2101010);
+	Gura_AssignValueSDL(PIXELFORMAT_YV12);
+	Gura_AssignValueSDL(PIXELFORMAT_IYUV);
+	Gura_AssignValueSDL(PIXELFORMAT_YUY2);
+	Gura_AssignValueSDL(PIXELFORMAT_UYVY);
+	Gura_AssignValueSDL(PIXELFORMAT_YVYU);
+	// Video - Rectangle Functions
+	//Gura_AssignValueSDL();
+	//Gura_AssignValueSDL();
+	// Video - Surface Creation and Simple Drawing
+	// Video - Platform-specific Window Management
+	// Video - Clipboard Handling
+	// Input Events - Event Handling
+	// Input Events - Keyboard Support
+	// Input Events - Mouse Support
+	// Input Events - Joystick Support
+	// Input Events - Game Controller Support
+	// Force Feedback - Force Feedback Support
+	// Audio - Audio Device Management, Playing and Recording
+	// Threads - Thread Management
+	// Threads - Thread Synchronization Primitives
+	// Threads - Atomic Operations
+	// Timers - Timer Support
+	// File Abstraction - Filesystem Paths
+	// File Abstraction - File I/O Abstraction
+	// Shared Object Support - Shared Object Loading and Function Lookup
+	// Platform and CPU Information - Platform Detection
+	// Platform and CPU Information - CPU Feature Detection
+	// Platform and CPU Information - Byte Order and Byte Swapping
+	// Platform and CPU Information - Bit Manipulation
+	// Power Management - Power Management Status
+	// Additional - Platform-specific functionality
+	// Additional - Other
 	return true;
 }
 
