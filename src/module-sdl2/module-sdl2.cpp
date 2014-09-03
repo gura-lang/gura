@@ -507,12 +507,64 @@ Gura_ModuleEntry()
 	Gura_AssignValueSDL(PIXELFORMAT_UYVY);
 	Gura_AssignValueSDL(PIXELFORMAT_YVYU);
 	// Video - Rectangle Functions
-	//Gura_AssignValueSDL();
-	//Gura_AssignValueSDL();
 	// Video - Surface Creation and Simple Drawing
 	// Video - Platform-specific Window Management
+	/*
+	Gura_AssignValueSDL(SYSWM_UNKNOWN);
+	Gura_AssignValueSDL(SYSWM_WINDOWS);
+	Gura_AssignValueSDL(SYSWM_X11);
+	Gura_AssignValueSDL(SYSWM_DIRECTFB);
+	Gura_AssignValueSDL(SYSWM_COCOA);
+	Gura_AssignValueSDL(SYSWM_UIKIT);
+	Gura_AssignValueSDL(SYSWM_WAYLAND);
+	Gura_AssignValueSDL(SYSWM_MIR);
+	Gura_AssignValueSDL(SYSWM_WINRT);
+	Gura_AssignValueSDL(SYSWM_ANDROID);
+	*/
 	// Video - Clipboard Handling
 	// Input Events - Event Handling
+	Gura_AssignValueSDL(FIRSTEVENT);			// (unused)
+	Gura_AssignValueSDL(QUIT);
+	Gura_AssignValueSDL(APP_TERMINATING);
+	Gura_AssignValueSDL(APP_LOWMEMORY);
+	Gura_AssignValueSDL(APP_WILLENTERBACKGROUND);
+	Gura_AssignValueSDL(APP_DIDENTERBACKGROUND);
+	Gura_AssignValueSDL(APP_WILLENTERFOREGROUND);
+	Gura_AssignValueSDL(APP_DIDENTERFOREGROUND);
+	Gura_AssignValueSDL(WINDOWEVENT);
+	Gura_AssignValueSDL(SYSWMEVENT);
+	Gura_AssignValueSDL(KEYDOWN);
+	Gura_AssignValueSDL(KEYUP);
+	Gura_AssignValueSDL(TEXTEDITING);
+	Gura_AssignValueSDL(TEXTINPUT);
+	Gura_AssignValueSDL(MOUSEMOTION);
+	Gura_AssignValueSDL(MOUSEBUTTONDOWN);
+	Gura_AssignValueSDL(MOUSEBUTTONUP);
+	Gura_AssignValueSDL(MOUSEWHEEL);
+	Gura_AssignValueSDL(JOYAXISMOTION);
+	Gura_AssignValueSDL(JOYBALLMOTION);
+	Gura_AssignValueSDL(JOYHATMOTION);
+	Gura_AssignValueSDL(JOYBUTTONDOWN);
+	Gura_AssignValueSDL(JOYBUTTONUP);
+	Gura_AssignValueSDL(JOYDEVICEADDED);
+	Gura_AssignValueSDL(JOYDEVICEREMOVED);
+	Gura_AssignValueSDL(CONTROLLERAXISMOTION);
+	Gura_AssignValueSDL(CONTROLLERBUTTONDOWN);
+	Gura_AssignValueSDL(CONTROLLERBUTTONUP);
+	Gura_AssignValueSDL(CONTROLLERDEVICEADDED);
+	Gura_AssignValueSDL(CONTROLLERDEVICEREMOVED);
+	Gura_AssignValueSDL(CONTROLLERDEVICEREMAPPED);
+	Gura_AssignValueSDL(FINGERDOWN);
+	Gura_AssignValueSDL(FINGERUP);
+	Gura_AssignValueSDL(FINGERMOTION);
+	Gura_AssignValueSDL(DOLLARGESTURE);
+	Gura_AssignValueSDL(MULTIGESTURE);
+	Gura_AssignValueSDL(CLIPBOARDUPDATE);
+	Gura_AssignValueSDL(DROPFILE);
+	Gura_AssignValueSDL(RENDER_TARGETS_RESET);
+	//Gura_AssignValueSDL(RENDER_DEVICE_RESET);		// >= SDL 2.0.4
+	Gura_AssignValueSDL(USEREVENT);
+	Gura_AssignValueSDL(LASTEVENT);
 	// Input Events - Keyboard Support
 	// Input Events - Mouse Support
 	// Input Events - Joystick Support
