@@ -20,6 +20,7 @@
 #include "Class_AudioCVT.h"
 #include "Class_AudioSpec.h"
 #include "Class_DisplayMode.h"
+#include "Class_GLContext.h"
 
 Gura_BeginModuleHeader(sdl2)
 

@@ -2,6 +2,22 @@
 
 Gura_BeginModuleScope(sdl2)
 
+// sdl2.Window#CreateRenderer()
+Gura_DeclareMethod(Window, CreateRenderer)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementMethod(Window, CreateRenderer)
+{
+	//::SDL_CreateRenderer();
+	return Value::Null;
+}
+
+// SDL_GL_CreateContext
+
 //-----------------------------------------------------------------------------
 // Object_Window implementation
 //-----------------------------------------------------------------------------
@@ -26,6 +42,7 @@ String Object_Window::ToString(bool exprFlag)
 // implementation of class Window
 Gura_ImplementUserClass(Window)
 {
+	Gura_AssignMethod(Window, CreateRenderer);
 }
 
 Gura_EndModuleScope(sdl2)

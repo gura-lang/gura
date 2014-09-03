@@ -192,6 +192,71 @@ Gura_ImplementFunction(CreateWindowAndRenderer)
 		Value(new Object_Window(pWindow)), Value(new Object_Renderer(pRenderer)));
 }
 
+// sdl2.DisableScreenSaver():void
+Gura_DeclareFunction(DisableScreenSaver)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(DisableScreenSaver)
+{
+	::SDL_DisableScreenSaver();
+	return Value::Null;
+}
+
+// sdl2.EnableScreenSaver():void
+Gura_DeclareFunction(EnableScreenSaver)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(EnableScreenSaver)
+{
+	::SDL_EnableScreenSaver();
+	return Value::Null;
+}
+
+// sdl2.GL_ExtensionSupported(extension:string):map
+Gura_DeclareFunction(GL_ExtensionSupported)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "extension", VTYPE_string);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(GL_ExtensionSupported)
+{
+	const char *extension = args.GetString(0);
+	SDL_bool rtn = ::SDL_GL_ExtensionSupported(extension);
+	return Value(rtn == SDL_TRUE);
+}
+
+// sdl2.GL_GetAttribute(attr:number):map
+Gura_DeclareFunction(GL_GetAttribute)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "attr", VTYPE_number);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(GL_GetAttribute)
+{
+	SDL_GLattr attr = static_cast<SDL_GLattr>(args.GetInt(0));
+	int value = 0;
+	int rtn = ::SDL_GL_GetAttribute(attr, &value);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value(value);
+}
+
 //-----------------------------------------------------------------------------
 // Video - 2D Accelerated Rendering
 //-----------------------------------------------------------------------------
@@ -347,6 +412,7 @@ Gura_ModuleEntry()
 	RealizeClass(AudioCVT);
 	RealizeClass(AudioSpec);
 	RealizeClass(DisplayMode);
+	RealizeClass(GLContext);
 	// class preparation
 	PrepareClass(Window);
 	PrepareClass(Renderer);
@@ -363,6 +429,7 @@ Gura_ModuleEntry()
 	PrepareClass(AudioCVT);
 	PrepareClass(AudioSpec);
 	PrepareClass(DisplayMode);
+	PrepareClass(GLContext);
 	// Basics - Initialization and Shutdown
 	Gura_AssignFunction(Init);
 	Gura_AssignFunction(InitSubSystem);
@@ -455,6 +522,15 @@ Gura_ModuleEntry()
 	//Gura_AssignValueSDL(WINDOW_MOUSE_CAPTURE);	// >= SDL 2.0.4
 	Gura_AssignFunction(CreateWindow);
 	Gura_AssignFunction(CreateWindowAndRenderer);
+	Gura_AssignFunction(DisableScreenSaver);
+	Gura_AssignFunction(EnableScreenSaver);
+	Gura_AssignFunction(GL_ExtensionSupported);
+	Gura_AssignFunction(GL_GetAttribute);
+	
+	
+	
+	
+	
 	// Video - 2D Accelerated Rendering
 	Gura_AssignValueSDL(RENDERER_SOFTWARE);
 	Gura_AssignValueSDL(RENDERER_ACCELERATED);

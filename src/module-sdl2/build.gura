@@ -14,4 +14,4 @@ builder.build('sdl2', ['module-sdl2.cpp',
 	'Class_Palette.cpp', 'Class_PixelFormat.cpp', 'Class_Keysym.cpp',
 	'Class_Cursor.cpp', 'Class_Joystick.cpp', 'Class_GameController.cpp',
 	'Class_AudioCVT.cpp', 'Class_AudioSpec.cpp',
-	'Class_DisplayMode.cpp'])
+	'Class_DisplayMode.cpp', 'Class_GLContext.cpp'])
