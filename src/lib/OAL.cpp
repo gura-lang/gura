@@ -921,6 +921,7 @@ void SetupExecutablePath()
 	path += dirBase;
 	path += "\\gura-guest\\bin-x86"; // necessary for development phase
 	path += ";";
+	path += dirBase;
 	path += "\\gura-guest\\bin";
 	path += ";";
 	path += dirBase;
