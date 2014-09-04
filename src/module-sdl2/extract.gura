@@ -1,5 +1,9 @@
 import(re)
 
+test1 = R'''
+Init(Uint32 flags):error
+'''
+
 text = R'''
 //-----------------------------------------------------------------------------
 // Basics - Initialization and Shutdown
@@ -266,12 +270,92 @@ HasClipboardText
 SetClipboardText
 //-----------------------------------------------------------------------------
 // Input Events - Event Handling
+AddEventWatch
+DelEventWatch
+EventState
+FilterEvents
+FlushEvent
+FlushEvents
+GetEventFilter
+GetNumTouchDevices
+GetNumTouchFingers
+GetTouchDevice
+GetTouchFinger
+HasEvent
+HasEvents
+LoadDollarTemplates
+PeepEvents
+PollEvent
+PumpEvents
+PushEvent
+QuitRequested
+RecordGesture
+RegisterEvents
+SaveAllDollarTemplates
+SaveDollarTemplate
+SetEventFilter
+WaitEvent
+WaitEventTimeout
 //-----------------------------------------------------------------------------
 // Input Events - Keyboard Support
+GetKeyFromName
+GetKeyFromScancode
+GetKeyName
+GetKeyboardFocus
+GetKeyboardState
+GetModState
+GetScancodeFromKey
+GetScancodeFromName
+GetScancodeName
+HasScreenKeyboardSupport
+IsScreenKeyboardShown
+IsTextInputActive
+SetModState
+SetTextInputRect
+StartTextInput
+StopTextInput
 //-----------------------------------------------------------------------------
 // Input Events - Mouse Support
+CaptureMouse
+Surface#CreateColorCursor
+CreateCursor
+CreateSystemCursor
+Cursor#FreeCursor
+GetCursor
+GetDefaultCursor
+GetGlobalMouseState
+GetMouseFocus
+GetMouseState
+GetRelativeMouseMode
+GetRelativeMouseState
+SetCursor
+SetRelativeMouseMode
+ShowCursor
+WarpMouseGlobal
+Window#WarpMouseInWindow
 //-----------------------------------------------------------------------------
 // Input Events - Joystick Support
+Joystick#JoystickClose
+JoystickEventState
+Joystick#JoystickGetAttached
+Joystick#JoystickGetAxis
+Joystick#JoystickGetBall
+Joystick#JoystickGetButton
+JoystickGetDeviceGUID
+Joystick#JoystickGetGUID
+JoystickGetGUIDFromString
+JoystickGetGUIDString
+Joystick#JoystickGetHat
+Joystick#JoystickInstanceID
+Joystick#JoystickName
+JoystickNameForIndex
+Joystick#JoystickNumAxes
+Joystick#JoystickNumBalls
+Joystick#JoystickNumButtons
+Joystick#JoystickNumHats
+JoystickOpen
+JoystickUpdate
+NumJoysticks
 //-----------------------------------------------------------------------------
 // Input Events - Game Controller Support
 //-----------------------------------------------------------------------------
