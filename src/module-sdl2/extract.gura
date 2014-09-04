@@ -258,8 +258,12 @@ Surface#SetSurfaceRLE
 Surface#UnlockSurface
 //-----------------------------------------------------------------------------
 // Video - Platform-specific Window Management
+GetWindowWMInfo
 //-----------------------------------------------------------------------------
 // Video - Clipboard Handling
+GetClipboardText
+HasClipboardText
+SetClipboardText
 //-----------------------------------------------------------------------------
 // Input Events - Event Handling
 //-----------------------------------------------------------------------------
