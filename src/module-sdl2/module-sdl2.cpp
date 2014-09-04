@@ -690,6 +690,16 @@ void SetError_SDL(Signal &sig)
 	sig.SetError(ERR_RuntimeError, "%s", ::SDL_GetError());
 }
 
+void SetError_NotImpFunction(Signal &sig, const char *funcName)
+{
+	sig.SetError(ERR_RuntimeError, "not implemented function %s", funcName);
+}
+
+void SetError_NotImpMethod(Signal &sig, const char *className, const char *methodName)
+{
+	sig.SetError(ERR_RuntimeError, "not implemented method %s#methodName", className, methodName);
+}
+
 Gura_EndModuleBody(sdl2, sdl2)
 
 Gura_RegisterModule(sdl2)

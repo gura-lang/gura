@@ -27,6 +27,8 @@
 Gura_BeginModuleHeader(sdl2)
 
 void SetError_SDL(Signal &sig);
+void SetError_NotImpFunction(Signal &sig, const char *funcName);
+void SetError_NotImpMethod(Signal &sig, const char *className, const char *methodName);
 
 Gura_EndModuleHeader(sdl2)
 

@@ -23,6 +23,9 @@ SetError
 Log
 LogCritical
 LogDebug
+LogError
+LogGetOutputFunction
+LogGetPriority
 
 // Basics - Assertions
 // Basics - Querying SDL Version
@@ -214,6 +217,7 @@ Gura_DeclareFunction(${funcName})
 Gura_ImplementFunction(${funcName})
 {
 	//::SDL_${funcName}();
+	SetError_NotImpFunction(sig, "${funcName}");
 	return Value::Null;
 }
 '''.template()
@@ -230,6 +234,7 @@ Gura_DeclareMethod(${className}, ${methodName})
 Gura_ImplementMethod(${className}, ${methodName})
 {
 	//::SDL_${methodName}();
+	SetError_NotImpMethod(sig, "${className}", "${methodName}");
 	return Value::Null;
 }
 '''.template()
