@@ -20,7 +20,7 @@ public:
 	virtual ~Object_AudioSpec();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	inline SDL_AudioSpec &GetEntity() { return _spec; }
+	inline SDL_AudioSpec *GetEntity() { return &_spec; }
 };
 
 Gura_EndModuleScope(sdl2)

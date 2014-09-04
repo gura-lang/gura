@@ -19,7 +19,7 @@ public:
 	virtual ~Object_Keysym();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	inline SDL_Keysym &GetEntity() { return _keysym; }
+	inline SDL_Keysym *GetEntity() { return &_keysym; }
 };
 
 Gura_EndModuleScope(sdl2)

@@ -18,7 +18,7 @@ public:
 	virtual ~Object_AudioCVT();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	inline SDL_AudioCVT &GetEntity() { return _cvt; }
+	inline SDL_AudioCVT *GetEntity() { return &_cvt; }
 };
 
 Gura_EndModuleScope(sdl2)

@@ -1,10 +1,19 @@
 import(re)
 
 text = R'''
+// Basics - Initialization and Shutdown
 Init
 InitSubSystem
 Quit
 QuitSubSystem
+SetMainReady
+WasInit
+// Basics - Configuration Variables
+// Basics - Error Handling
+// Basics - Log Handling
+// Basics - Assertions
+// Basics - Querying SDL Version
+// Video - Display and Window Management
 CreateWindow
 CreateWindowAndRenderer
 CreateWindowFrom
@@ -36,8 +45,93 @@ GetDisplayMode
 GetDisplayName
 GetNumDisplayModes
 GetNumVideoDisplays
-
+GetNumVideoDrivers
+GetVideoDriver
+Window#GetWindowBrightness
+Window#GetWindowData
+Window#GetWindowDisplayIndex
+Window#GetWindowDisplayMode
+Window#GetWindowFlags
+GetWindowFromID
+Window#GetWindowGammaRamp
+Window#GetWindowGrab
+Window#GetWindowID
+Window#GetWindowMaximumSize
+Window#GetWindowMinimumSize
+Window#GetWindowPixelFormat
+Window#GetWindowPosition
+Window#GetWindowSize
+Window#GetWindowSurface
+Window#GetWindowTitle
+Window#GetWindowWMInfo
+Window#HideWindow
+IsScreenSaverEnabled
+Window#MaximizeWindow
+Window#MinimizeWindow
+Window#RaiseWindow
+Window#ResotoreWindow
+Window#SetWindowBordered
+Window#SetWindowBrightness
+Window#SetWindowData
+Window#SetWindowDisplayMode
+Window#SetWindowFullscreen
+Window#SetWindowGammaRamp
+Window#SetWindowGrab
+Window#SetWindowHitTest
+Window#SetWindowIcon
+Window#SetWindowMaximumSize
+Window#SetWindowMinimumSize
+Window#SetWindowPosition
+Window#SetWindowSize
+Window#SetWindowTitle
+//MessageBoxData#ShowMessageBox
+ShowSimpleMessageBox
+Window#ShowWindow
+Window#UpdateWindowSurface
+Window#UpdateWindowSurfaceRects
+VideoInit
+VideoQuit
+// Video - 2D Accelerated Rendering
 Window#CreateRenderer
+Surface#CreateSoftwareRenderer
+Renderer#CreateTexture
+Renderer#CreateTextureFromSurface
+//CreateWindowAndRenderer
+Renderer#DestroyRenderer
+Texture#DestroyTexture
+Texture#GL_BindTexture
+Texture#GL_UnbindTexture
+GetNumRenderDrivers
+Renderer#GetRenderDrawBlendMode
+Renderer#GetRenderDrawColor
+GetRenderDriverInfo
+// Video - Pixel Formats and Conversion Routines
+// Video - Rectangle Functions
+// Video - Surface Creation and Simple Drawing
+// Video - Platform-specific Window Management
+// Video - Clipboard Handling
+// Input Events - Event Handling
+// Input Events - Keyboard Support
+// Input Events - Mouse Support
+// Input Events - Joystick Support
+// Input Events - Game Controller Support
+// Force Feedback - Force Feedback Support
+// Audio - Audio Device Management, Playing and Recording
+// Threads - Thread Management
+// Threads - Thread Synchronization Primitives
+// Threads - Atomic Operations
+// Timers - Timer Support
+// File Abstraction - Filesystem Paths
+// File Abstraction - File I/O Abstraction
+// Shared Object Support - Shared Object Loading and Function Lookup
+// Platform and CPU Information - Platform Detection
+// Platform and CPU Information - CPU Feature Detection
+// Platform and CPU Information - Byte Order and Byte Swapping
+// Platform and CPU Information - Bit Manipulation
+// Power Management - Power Management Status
+// Additional - Platform-specific functionality
+// Additional - Other
+
 '''
 
 tmplImplementFunction = R'''
@@ -88,16 +182,25 @@ text.eachline {|line, i|
 	lineNo = i + 1
 	if (m = line.match(r'^(\w+)#(\w+)$')) {
 		className = m[1]
-		funcName = m[2]
+		methodName = m[2]
 		if (!classDict.haskey(className)) {
 			classDict[className] = []
 		}
-		classDict[className].add(funcName)
+		methodNames = classDict[className]
+		if (methodNames.find(methodName)) {
+			sys.stderr.printf('%d: duplicated method %s\n', lineNo, methodName)
+			sys.exit(1)
+		}
+		methodNames.add(methodName)
 	} elsif (m = line.match(r'^(\w+)$')) {
 		funcName = m[1]
+		if (funcNames.find(funcName)) {
+			sys.stderr.printf('%d: duplicated function %s\n', lineNo, funcName)
+			sys.exit(1)
+		}
 		funcNames.add(funcName)
 	} else {
-		sys.stderr.printf('error at %d\n', lineNo)
+		sys.stderr.printf('%d: invalid format\n', lineNo)
 		sys.exit(1)
 	}
 }

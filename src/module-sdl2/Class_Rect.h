@@ -19,7 +19,7 @@ public:
 	virtual ~Object_Rect();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	inline SDL_Rect &GetEntity() { return _rect; }
+	inline SDL_Rect *GetEntity() { return &_rect; }
 };
 
 Gura_EndModuleScope(sdl2)

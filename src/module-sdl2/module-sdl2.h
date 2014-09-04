@@ -7,6 +7,7 @@
 #include <gura.h>
 #include "Class_Window.h"
 #include "Class_Renderer.h"
+#include "Class_Texture.h"
 #include "Class_Event.h"
 #include "Class_Point.h"
 #include "Class_Rect.h"
@@ -19,6 +20,7 @@
 #include "Class_GameController.h"
 #include "Class_AudioCVT.h"
 #include "Class_AudioSpec.h"
+#include "Class_RendererInfo.h"
 #include "Class_DisplayMode.h"
 #include "Class_GLContext.h"
 

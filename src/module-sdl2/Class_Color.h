@@ -19,7 +19,7 @@ public:
 	virtual ~Object_Color();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	inline SDL_Color &GetEntity() { return _color; }
+	inline SDL_Color *GetEntity() { return &_color; }
 };
 
 Gura_EndModuleScope(sdl2)

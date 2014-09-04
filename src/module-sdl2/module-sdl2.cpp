@@ -399,6 +399,7 @@ Gura_ModuleEntry()
 	// class realization
 	RealizeClass(Window);
 	RealizeClass(Renderer);
+	RealizeClass(Texture);
 	RealizeClass(Event);
 	RealizeClass(Point);
 	RealizeClass(Rect);
@@ -411,11 +412,13 @@ Gura_ModuleEntry()
 	RealizeClass(GameController);
 	RealizeClass(AudioCVT);
 	RealizeClass(AudioSpec);
+	RealizeClass(RendererInfo);
 	RealizeClass(DisplayMode);
 	RealizeClass(GLContext);
 	// class preparation
 	PrepareClass(Window);
 	PrepareClass(Renderer);
+	PrepareClass(Texture);
 	PrepareClass(Event);
 	PrepareClass(Point);
 	PrepareClass(Rect);
@@ -428,6 +431,7 @@ Gura_ModuleEntry()
 	PrepareClass(GameController);
 	PrepareClass(AudioCVT);
 	PrepareClass(AudioSpec);
+	PrepareClass(RendererInfo);
 	PrepareClass(DisplayMode);
 	PrepareClass(GLContext);
 	// Basics - Initialization and Shutdown

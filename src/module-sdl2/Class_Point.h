@@ -19,7 +19,7 @@ public:
 	virtual ~Object_Point();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	inline SDL_Point &GetEntity() { return _point; }
+	inline SDL_Point *GetEntity() { return &_point; }
 };
 
 Gura_EndModuleScope(sdl2)

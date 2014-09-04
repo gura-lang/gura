@@ -18,7 +18,7 @@ public:
 	virtual ~Object_DisplayMode();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	inline SDL_DisplayMode &GetEntity() { return _mode; }
+	inline SDL_DisplayMode *GetEntity() { return &_mode; }
 };
 
 Gura_EndModuleScope(sdl2)
