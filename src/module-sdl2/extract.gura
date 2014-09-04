@@ -1,3 +1,5 @@
+import(re)
+
 text = R'''
 Init
 InitSubSystem
@@ -34,6 +36,7 @@ GetDisplayMode
 GetDisplayName
 GetNumDisplayModes
 GetNumVideoDisplays
+
 Window#CreateRenderer
 '''
 
@@ -79,16 +82,23 @@ tmplAssignMethod = R'''
 
 funcNames = []
 classDict = %{}
-text.eachline {|line|
-	fields = line.split('#'):list
-	if (fields.len() == 1) {
-		funcNames.add(fields[0])
-	} elsif (fields.len() == 2) {
-		className = fields[0]
+text.eachline {|line, i|
+	line = line.strip()
+	(line.startswith('//') || line.isempty()) && continue
+	lineNo = i + 1
+	if (m = line.match(r'^(\w+)#(\w+)$')) {
+		className = m[1]
+		funcName = m[2]
 		if (!classDict.haskey(className)) {
 			classDict[className] = []
 		}
-		classDict[className].add(fields[1])
+		classDict[className].add(funcName)
+	} elsif (m = line.match(r'^(\w+)$')) {
+		funcName = m[1]
+		funcNames.add(funcName)
+	} else {
+		sys.stderr.printf('error at %d\n', lineNo)
+		sys.exit(1)
 	}
 }
 
