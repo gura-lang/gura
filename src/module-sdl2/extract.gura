@@ -9,8 +9,21 @@ QuitSubSystem
 SetMainReady
 WasInit
 // Basics - Configuration Variables
+AddHintCallback
+ClearHints
+DelhintCallback
+GetHint
+SetHint
+SetHintWithPriority
 // Basics - Error Handling
+ClearError
+GetError
+SetError
 // Basics - Log Handling
+Log
+LogCritical
+LogDebug
+
 // Basics - Assertions
 // Basics - Querying SDL Version
 // Video - Display and Window Management

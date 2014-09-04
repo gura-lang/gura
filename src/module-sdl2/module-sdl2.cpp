@@ -394,6 +394,9 @@ Gura_ImplementFunction(test)
 //-----------------------------------------------------------------------------
 // Module entry
 //-----------------------------------------------------------------------------
+void AssignValues(Environment &env);
+void AssignFunctions(Environment &env);
+
 Gura_ModuleEntry()
 {
 	// class realization
@@ -434,13 +437,14 @@ Gura_ModuleEntry()
 	PrepareClass(RendererInfo);
 	PrepareClass(DisplayMode);
 	PrepareClass(GLContext);
+	AssignValues(env);
+	AssignFunctions(env);
+	return true;
+}
+
+void AssignValues(Environment &env)
+{
 	// Basics - Initialization and Shutdown
-	Gura_AssignFunction(Init);
-	Gura_AssignFunction(InitSubSystem);
-	Gura_AssignFunction(Quit);
-	Gura_AssignFunction(QuitSubSystem);
-	Gura_AssignFunction(SetMainReady);
-	Gura_AssignFunction(test);
 	// Basics - Configuration Variables
 	// Basics - Error Handling
 	// Basics - Log Handling
@@ -524,17 +528,6 @@ Gura_ModuleEntry()
 	Gura_AssignValueSDL(WINDOW_FOREIGN);
 	Gura_AssignValueSDL(WINDOW_ALLOW_HIGHDPI);		// >= SDL 2.0.1
 	//Gura_AssignValueSDL(WINDOW_MOUSE_CAPTURE);	// >= SDL 2.0.4
-	Gura_AssignFunction(CreateWindow);
-	Gura_AssignFunction(CreateWindowAndRenderer);
-	Gura_AssignFunction(DisableScreenSaver);
-	Gura_AssignFunction(EnableScreenSaver);
-	Gura_AssignFunction(GL_ExtensionSupported);
-	Gura_AssignFunction(GL_GetAttribute);
-	
-	
-	
-	
-	
 	// Video - 2D Accelerated Rendering
 	Gura_AssignValueSDL(RENDERER_SOFTWARE);
 	Gura_AssignValueSDL(RENDERER_ACCELERATED);
@@ -665,7 +658,24 @@ Gura_ModuleEntry()
 	// Power Management - Power Management Status
 	// Additional - Platform-specific functionality
 	// Additional - Other
-	return true;
+}
+
+void AssignFunctions(Environment &env)
+{
+	// Basics - Initialization and Shutdown
+	Gura_AssignFunction(Init);
+	Gura_AssignFunction(InitSubSystem);
+	Gura_AssignFunction(Quit);
+	Gura_AssignFunction(QuitSubSystem);
+	Gura_AssignFunction(SetMainReady);
+	Gura_AssignFunction(test);
+
+	Gura_AssignFunction(CreateWindow);
+	Gura_AssignFunction(CreateWindowAndRenderer);
+	Gura_AssignFunction(DisableScreenSaver);
+	Gura_AssignFunction(EnableScreenSaver);
+	Gura_AssignFunction(GL_ExtensionSupported);
+	Gura_AssignFunction(GL_GetAttribute);
 }
 
 Gura_ModuleTerminate()
