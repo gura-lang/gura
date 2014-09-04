@@ -1,6 +1,7 @@
 import(re)
 
 text = R'''
+//-----------------------------------------------------------------------------
 // Basics - Initialization and Shutdown
 Init
 InitSubSystem
@@ -8,6 +9,7 @@ Quit
 QuitSubSystem
 SetMainReady
 WasInit
+//-----------------------------------------------------------------------------
 // Basics - Configuration Variables
 AddHintCallback
 ClearHints
@@ -15,10 +17,12 @@ DelhintCallback
 GetHint
 SetHint
 SetHintWithPriority
+//-----------------------------------------------------------------------------
 // Basics - Error Handling
 ClearError
 GetError
 SetError
+//-----------------------------------------------------------------------------
 // Basics - Log Handling
 Log
 LogCritical
@@ -26,9 +30,32 @@ LogDebug
 LogError
 LogGetOutputFunction
 LogGetPriority
-
+LogInfo
+LogMessage
+LogMessageV
+LogResetPriorities
+LogSetAllPriority
+LogSetOutputFunction
+LogSetPriority
+LogVerbose
+LogWarn
+//-----------------------------------------------------------------------------
 // Basics - Assertions
+GetAssertionHandler
+GetAssertionReport
+GetDefaultAssertionHandler
+ResetAssertionReport
+SetAssertionHandler
+TriggerBreakpoint
+assert
+assert_paranoid
+assert_release
+//-----------------------------------------------------------------------------
 // Basics - Querying SDL Version
+GetRevision
+GetRevisionNumber
+GetVersion
+//-----------------------------------------------------------------------------
 // Video - Display and Window Management
 CreateWindow
 CreateWindowAndRenderer
@@ -107,6 +134,7 @@ Window#UpdateWindowSurface
 Window#UpdateWindowSurfaceRects
 VideoInit
 VideoQuit
+//-----------------------------------------------------------------------------
 // Video - 2D Accelerated Rendering
 Window#CreateRenderer
 Surface#CreateSoftwareRenderer
@@ -162,6 +190,7 @@ Texture#SetTextureColorMod
 Texture#UnlockTexture
 Texture#UpdateTexture
 Texture#UpdateYUVTexture
+//-----------------------------------------------------------------------------
 // Video - Pixel Formats and Conversion Routines
 AllocFormat
 AllocPalette
@@ -177,30 +206,55 @@ MasksToPixelFormatEnum
 PixelFormatEnumToMasks
 Palette#SetPaletteColors
 PixelFormat#SetPixelFormatPalette
+//-----------------------------------------------------------------------------
 // Video - Rectangle Functions
+//-----------------------------------------------------------------------------
 // Video - Surface Creation and Simple Drawing
+//-----------------------------------------------------------------------------
 // Video - Platform-specific Window Management
+//-----------------------------------------------------------------------------
 // Video - Clipboard Handling
+//-----------------------------------------------------------------------------
 // Input Events - Event Handling
+//-----------------------------------------------------------------------------
 // Input Events - Keyboard Support
+//-----------------------------------------------------------------------------
 // Input Events - Mouse Support
+//-----------------------------------------------------------------------------
 // Input Events - Joystick Support
+//-----------------------------------------------------------------------------
 // Input Events - Game Controller Support
+//-----------------------------------------------------------------------------
 // Force Feedback - Force Feedback Support
+//-----------------------------------------------------------------------------
 // Audio - Audio Device Management, Playing and Recording
+//-----------------------------------------------------------------------------
 // Threads - Thread Management
+//-----------------------------------------------------------------------------
 // Threads - Thread Synchronization Primitives
+//-----------------------------------------------------------------------------
 // Threads - Atomic Operations
+//-----------------------------------------------------------------------------
 // Timers - Timer Support
+//-----------------------------------------------------------------------------
 // File Abstraction - Filesystem Paths
+//-----------------------------------------------------------------------------
 // File Abstraction - File I/O Abstraction
+//-----------------------------------------------------------------------------
 // Shared Object Support - Shared Object Loading and Function Lookup
+//-----------------------------------------------------------------------------
 // Platform and CPU Information - Platform Detection
+//-----------------------------------------------------------------------------
 // Platform and CPU Information - CPU Feature Detection
+//-----------------------------------------------------------------------------
 // Platform and CPU Information - Byte Order and Byte Swapping
+//-----------------------------------------------------------------------------
 // Platform and CPU Information - Bit Manipulation
+//-----------------------------------------------------------------------------
 // Power Management - Power Management Status
+//-----------------------------------------------------------------------------
 // Additional - Platform-specific functionality
+//-----------------------------------------------------------------------------
 // Additional - Other
 
 '''

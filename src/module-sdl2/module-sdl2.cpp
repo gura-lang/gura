@@ -18,352 +18,1250 @@ Gura_BeginModuleBody(sdl2)
 //-----------------------------------------------------------------------------
 // Basics - Initialization and Shutdown
 //-----------------------------------------------------------------------------
-// sdl2.Init(flags:number):void
+// sdl2.Init()
 Gura_DeclareFunction(Init)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "flags", VTYPE_number);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(Init)
 {
-	Uint32 flags = args.GetULong(0);
-	int rtn = ::SDL_Init(flags);
-	if (rtn < 0) {
-		SetError_SDL(sig);
-	}
+	//::SDL_Init();
+	SetError_NotImpFunction(sig, "Init");
 	return Value::Null;
 }
 
-// sdl2.InitSubSystem(flags:number):void
+// sdl2.InitSubSystem()
 Gura_DeclareFunction(InitSubSystem)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "flags", VTYPE_number);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(InitSubSystem)
 {
-	Uint32 flags = args.GetULong(0);
-	int rtn = ::SDL_InitSubSystem(flags);
-	if (rtn < 0) {
-		SetError_SDL(sig);
-	}
+	//::SDL_InitSubSystem();
+	SetError_NotImpFunction(sig, "InitSubSystem");
 	return Value::Null;
 }
 
-// sdl2.Quit():void
+// sdl2.Quit()
 Gura_DeclareFunction(Quit)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(Quit)
 {
-	::SDL_Quit();
+	//::SDL_Quit();
+	SetError_NotImpFunction(sig, "Quit");
 	return Value::Null;
 }
 
-// sdl2.QuitSubSystem(flags:number):void
+// sdl2.QuitSubSystem()
 Gura_DeclareFunction(QuitSubSystem)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "flags", VTYPE_number);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(QuitSubSystem)
 {
-	Uint32 flags = args.GetULong(0);
-	::SDL_QuitSubSystem(flags);
+	//::SDL_QuitSubSystem();
+	SetError_NotImpFunction(sig, "QuitSubSystem");
 	return Value::Null;
 }
 
-// sdl2.SetMainReady():void
+// sdl2.SetMainReady()
 Gura_DeclareFunction(SetMainReady)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(SetMainReady)
 {
-	::SDL_SetMainReady();
+	//::SDL_SetMainReady();
+	SetError_NotImpFunction(sig, "SetMainReady");
 	return Value::Null;
 }
 
-// sdl2.WasInit(flags:number)
+// sdl2.WasInit()
 Gura_DeclareFunction(WasInit)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "flags", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(WasInit)
 {
-	Uint32 flags = args.GetULong(0);
-	Uint32 rtn = ::SDL_WasInit(flags);
-	return Value(rtn);
+	//::SDL_WasInit();
+	SetError_NotImpFunction(sig, "WasInit");
+	return Value::Null;
 }
 
-//-----------------------------------------------------------------------------
-// Basics - Configuration Variables
-//-----------------------------------------------------------------------------
+// sdl2.AddHintCallback()
+Gura_DeclareFunction(AddHintCallback)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
 
-//-----------------------------------------------------------------------------
-// Basics - Error Handling
-//-----------------------------------------------------------------------------
+Gura_ImplementFunction(AddHintCallback)
+{
+	//::SDL_AddHintCallback();
+	SetError_NotImpFunction(sig, "AddHintCallback");
+	return Value::Null;
+}
 
-//-----------------------------------------------------------------------------
-// Basics - Log Handling
-//-----------------------------------------------------------------------------
+// sdl2.ClearHints()
+Gura_DeclareFunction(ClearHints)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
 
-//-----------------------------------------------------------------------------
-// Basics - Assertions
-//-----------------------------------------------------------------------------
+Gura_ImplementFunction(ClearHints)
+{
+	//::SDL_ClearHints();
+	SetError_NotImpFunction(sig, "ClearHints");
+	return Value::Null;
+}
 
-//-----------------------------------------------------------------------------
-// Basics - Querying SDL Version
-//-----------------------------------------------------------------------------
+// sdl2.DelhintCallback()
+Gura_DeclareFunction(DelhintCallback)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
 
-//-----------------------------------------------------------------------------
-// Video - Display and Window Management
-//-----------------------------------------------------------------------------
-// sdl2.CreateWindow(title:string, x:number, y:number, w:number, h:number, flags:number)
+Gura_ImplementFunction(DelhintCallback)
+{
+	//::SDL_DelhintCallback();
+	SetError_NotImpFunction(sig, "DelhintCallback");
+	return Value::Null;
+}
+
+// sdl2.GetHint()
+Gura_DeclareFunction(GetHint)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(GetHint)
+{
+	//::SDL_GetHint();
+	SetError_NotImpFunction(sig, "GetHint");
+	return Value::Null;
+}
+
+// sdl2.SetHint()
+Gura_DeclareFunction(SetHint)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(SetHint)
+{
+	//::SDL_SetHint();
+	SetError_NotImpFunction(sig, "SetHint");
+	return Value::Null;
+}
+
+// sdl2.SetHintWithPriority()
+Gura_DeclareFunction(SetHintWithPriority)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(SetHintWithPriority)
+{
+	//::SDL_SetHintWithPriority();
+	SetError_NotImpFunction(sig, "SetHintWithPriority");
+	return Value::Null;
+}
+
+// sdl2.ClearError()
+Gura_DeclareFunction(ClearError)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(ClearError)
+{
+	//::SDL_ClearError();
+	SetError_NotImpFunction(sig, "ClearError");
+	return Value::Null;
+}
+
+// sdl2.GetError()
+Gura_DeclareFunction(GetError)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(GetError)
+{
+	//::SDL_GetError();
+	SetError_NotImpFunction(sig, "GetError");
+	return Value::Null;
+}
+
+// sdl2.SetError()
+Gura_DeclareFunction(SetError)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(SetError)
+{
+	//::SDL_SetError();
+	SetError_NotImpFunction(sig, "SetError");
+	return Value::Null;
+}
+
+// sdl2.Log()
+Gura_DeclareFunction(Log)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(Log)
+{
+	//::SDL_Log();
+	SetError_NotImpFunction(sig, "Log");
+	return Value::Null;
+}
+
+// sdl2.LogCritical()
+Gura_DeclareFunction(LogCritical)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(LogCritical)
+{
+	//::SDL_LogCritical();
+	SetError_NotImpFunction(sig, "LogCritical");
+	return Value::Null;
+}
+
+// sdl2.LogDebug()
+Gura_DeclareFunction(LogDebug)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(LogDebug)
+{
+	//::SDL_LogDebug();
+	SetError_NotImpFunction(sig, "LogDebug");
+	return Value::Null;
+}
+
+// sdl2.LogError()
+Gura_DeclareFunction(LogError)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(LogError)
+{
+	//::SDL_LogError();
+	SetError_NotImpFunction(sig, "LogError");
+	return Value::Null;
+}
+
+// sdl2.LogGetOutputFunction()
+Gura_DeclareFunction(LogGetOutputFunction)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(LogGetOutputFunction)
+{
+	//::SDL_LogGetOutputFunction();
+	SetError_NotImpFunction(sig, "LogGetOutputFunction");
+	return Value::Null;
+}
+
+// sdl2.LogGetPriority()
+Gura_DeclareFunction(LogGetPriority)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(LogGetPriority)
+{
+	//::SDL_LogGetPriority();
+	SetError_NotImpFunction(sig, "LogGetPriority");
+	return Value::Null;
+}
+
+// sdl2.LogInfo()
+Gura_DeclareFunction(LogInfo)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(LogInfo)
+{
+	//::SDL_LogInfo();
+	SetError_NotImpFunction(sig, "LogInfo");
+	return Value::Null;
+}
+
+// sdl2.LogMessage()
+Gura_DeclareFunction(LogMessage)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(LogMessage)
+{
+	//::SDL_LogMessage();
+	SetError_NotImpFunction(sig, "LogMessage");
+	return Value::Null;
+}
+
+// sdl2.LogMessageV()
+Gura_DeclareFunction(LogMessageV)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(LogMessageV)
+{
+	//::SDL_LogMessageV();
+	SetError_NotImpFunction(sig, "LogMessageV");
+	return Value::Null;
+}
+
+// sdl2.LogResetPriorities()
+Gura_DeclareFunction(LogResetPriorities)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(LogResetPriorities)
+{
+	//::SDL_LogResetPriorities();
+	SetError_NotImpFunction(sig, "LogResetPriorities");
+	return Value::Null;
+}
+
+// sdl2.LogSetAllPriority()
+Gura_DeclareFunction(LogSetAllPriority)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(LogSetAllPriority)
+{
+	//::SDL_LogSetAllPriority();
+	SetError_NotImpFunction(sig, "LogSetAllPriority");
+	return Value::Null;
+}
+
+// sdl2.LogSetOutputFunction()
+Gura_DeclareFunction(LogSetOutputFunction)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(LogSetOutputFunction)
+{
+	//::SDL_LogSetOutputFunction();
+	SetError_NotImpFunction(sig, "LogSetOutputFunction");
+	return Value::Null;
+}
+
+// sdl2.LogSetPriority()
+Gura_DeclareFunction(LogSetPriority)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(LogSetPriority)
+{
+	//::SDL_LogSetPriority();
+	SetError_NotImpFunction(sig, "LogSetPriority");
+	return Value::Null;
+}
+
+// sdl2.LogVerbose()
+Gura_DeclareFunction(LogVerbose)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(LogVerbose)
+{
+	//::SDL_LogVerbose();
+	SetError_NotImpFunction(sig, "LogVerbose");
+	return Value::Null;
+}
+
+// sdl2.LogWarn()
+Gura_DeclareFunction(LogWarn)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(LogWarn)
+{
+	//::SDL_LogWarn();
+	SetError_NotImpFunction(sig, "LogWarn");
+	return Value::Null;
+}
+
+// sdl2.GetAssertionHandler()
+Gura_DeclareFunction(GetAssertionHandler)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(GetAssertionHandler)
+{
+	//::SDL_GetAssertionHandler();
+	SetError_NotImpFunction(sig, "GetAssertionHandler");
+	return Value::Null;
+}
+
+// sdl2.GetAssertionReport()
+Gura_DeclareFunction(GetAssertionReport)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(GetAssertionReport)
+{
+	//::SDL_GetAssertionReport();
+	SetError_NotImpFunction(sig, "GetAssertionReport");
+	return Value::Null;
+}
+
+// sdl2.GetDefaultAssertionHandler()
+Gura_DeclareFunction(GetDefaultAssertionHandler)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(GetDefaultAssertionHandler)
+{
+	//::SDL_GetDefaultAssertionHandler();
+	SetError_NotImpFunction(sig, "GetDefaultAssertionHandler");
+	return Value::Null;
+}
+
+// sdl2.ResetAssertionReport()
+Gura_DeclareFunction(ResetAssertionReport)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(ResetAssertionReport)
+{
+	//::SDL_ResetAssertionReport();
+	SetError_NotImpFunction(sig, "ResetAssertionReport");
+	return Value::Null;
+}
+
+// sdl2.SetAssertionHandler()
+Gura_DeclareFunction(SetAssertionHandler)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(SetAssertionHandler)
+{
+	//::SDL_SetAssertionHandler();
+	SetError_NotImpFunction(sig, "SetAssertionHandler");
+	return Value::Null;
+}
+
+// sdl2.TriggerBreakpoint()
+Gura_DeclareFunction(TriggerBreakpoint)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(TriggerBreakpoint)
+{
+	//::SDL_TriggerBreakpoint();
+	SetError_NotImpFunction(sig, "TriggerBreakpoint");
+	return Value::Null;
+}
+
+// sdl2.assert()
+Gura_DeclareFunction(assert)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(assert)
+{
+	//::SDL_assert();
+	SetError_NotImpFunction(sig, "assert");
+	return Value::Null;
+}
+
+// sdl2.assert_paranoid()
+Gura_DeclareFunction(assert_paranoid)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(assert_paranoid)
+{
+	//::SDL_assert_paranoid();
+	SetError_NotImpFunction(sig, "assert_paranoid");
+	return Value::Null;
+}
+
+// sdl2.assert_release()
+Gura_DeclareFunction(assert_release)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(assert_release)
+{
+	//::SDL_assert_release();
+	SetError_NotImpFunction(sig, "assert_release");
+	return Value::Null;
+}
+
+// sdl2.GetRevision()
+Gura_DeclareFunction(GetRevision)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(GetRevision)
+{
+	//::SDL_GetRevision();
+	SetError_NotImpFunction(sig, "GetRevision");
+	return Value::Null;
+}
+
+// sdl2.GetRevisionNumber()
+Gura_DeclareFunction(GetRevisionNumber)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(GetRevisionNumber)
+{
+	//::SDL_GetRevisionNumber();
+	SetError_NotImpFunction(sig, "GetRevisionNumber");
+	return Value::Null;
+}
+
+// sdl2.GetVersion()
+Gura_DeclareFunction(GetVersion)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(GetVersion)
+{
+	//::SDL_GetVersion();
+	SetError_NotImpFunction(sig, "GetVersion");
+	return Value::Null;
+}
+
+// sdl2.CreateWindow()
 Gura_DeclareFunction(CreateWindow)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "title", VTYPE_string);
-	DeclareArg(env, "x", VTYPE_number);
-	DeclareArg(env, "y", VTYPE_number);
-	DeclareArg(env, "w", VTYPE_number);
-	DeclareArg(env, "h", VTYPE_number);
-	DeclareArg(env, "flags", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(CreateWindow)
 {
-	const char *title = args.GetString(0);
-	int x = args.GetInt(1);
-	int y = args.GetInt(2);
-	int w = args.GetInt(3);
-	int h = args.GetInt(4);
-	Uint32 flags = args.GetULong(5);
-	SDL_Window *rtn = ::SDL_CreateWindow(title, x, y, w, h, flags);
-	return Value(new Object_Window(rtn));
+	//::SDL_CreateWindow();
+	SetError_NotImpFunction(sig, "CreateWindow");
+	return Value::Null;
 }
 
-// sdl2.CreateWindowAndRenderer(w:number, h:number, window_flags:number)
+// sdl2.CreateWindowAndRenderer()
 Gura_DeclareFunction(CreateWindowAndRenderer)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "w", VTYPE_number);
-	DeclareArg(env, "h", VTYPE_number);
-	DeclareArg(env, "window_flags", VTYPE_number);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(CreateWindowAndRenderer)
 {
-	int w = args.GetInt(0);
-	int h = args.GetInt(1);
-	Uint32 window_flags = args.GetULong(2);
-	SDL_Window *pWindow = NULL;
-	SDL_Renderer *pRenderer = NULL;
-	int rtn = ::SDL_CreateWindowAndRenderer(w, h, window_flags, &pWindow, &pRenderer);
-	if (rtn < 0) {
-		SetError_SDL(sig);
-		return Value::Null;
-	}
-	return Value::CreateAsList(env,
-		Value(new Object_Window(pWindow)), Value(new Object_Renderer(pRenderer)));
+	//::SDL_CreateWindowAndRenderer();
+	SetError_NotImpFunction(sig, "CreateWindowAndRenderer");
+	return Value::Null;
 }
 
-// sdl2.DisableScreenSaver():void
+// sdl2.CreateWindowFrom()
+Gura_DeclareFunction(CreateWindowFrom)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(CreateWindowFrom)
+{
+	//::SDL_CreateWindowFrom();
+	SetError_NotImpFunction(sig, "CreateWindowFrom");
+	return Value::Null;
+}
+
+// sdl2.DisableScreenSaver()
 Gura_DeclareFunction(DisableScreenSaver)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(DisableScreenSaver)
 {
-	::SDL_DisableScreenSaver();
+	//::SDL_DisableScreenSaver();
+	SetError_NotImpFunction(sig, "DisableScreenSaver");
 	return Value::Null;
 }
 
-// sdl2.EnableScreenSaver():void
+// sdl2.EnableScreenSaver()
 Gura_DeclareFunction(EnableScreenSaver)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(EnableScreenSaver)
 {
-	::SDL_EnableScreenSaver();
+	//::SDL_EnableScreenSaver();
+	SetError_NotImpFunction(sig, "EnableScreenSaver");
 	return Value::Null;
 }
 
-// sdl2.GL_ExtensionSupported(extension:string):map
+// sdl2.GL_ExtensionSupported()
 Gura_DeclareFunction(GL_ExtensionSupported)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "extension", VTYPE_string);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(GL_ExtensionSupported)
 {
-	const char *extension = args.GetString(0);
-	SDL_bool rtn = ::SDL_GL_ExtensionSupported(extension);
-	return Value(rtn == SDL_TRUE);
+	//::SDL_GL_ExtensionSupported();
+	SetError_NotImpFunction(sig, "GL_ExtensionSupported");
+	return Value::Null;
 }
 
-// sdl2.GL_GetAttribute(attr:number):map
+// sdl2.GL_GetAttribute()
 Gura_DeclareFunction(GL_GetAttribute)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "attr", VTYPE_number);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(GL_GetAttribute)
 {
-	SDL_GLattr attr = static_cast<SDL_GLattr>(args.GetInt(0));
-	int value = 0;
-	int rtn = ::SDL_GL_GetAttribute(attr, &value);
-	if (rtn < 0) {
-		SetError_SDL(sig);
-		return Value::Null;
-	}
-	return Value(value);
+	//::SDL_GL_GetAttribute();
+	SetError_NotImpFunction(sig, "GL_GetAttribute");
+	return Value::Null;
 }
 
-//-----------------------------------------------------------------------------
-// Video - 2D Accelerated Rendering
-//-----------------------------------------------------------------------------
+// sdl2.GL_GetCurrentContext()
+Gura_DeclareFunction(GL_GetCurrentContext)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
 
-//-----------------------------------------------------------------------------
-// Video - Pixel Formats and Conversion Routines
-//-----------------------------------------------------------------------------
+Gura_ImplementFunction(GL_GetCurrentContext)
+{
+	//::SDL_GL_GetCurrentContext();
+	SetError_NotImpFunction(sig, "GL_GetCurrentContext");
+	return Value::Null;
+}
 
-//-----------------------------------------------------------------------------
-// Video - Rectangle Functions
-//-----------------------------------------------------------------------------
+// sdl2.GL_GetCurrentWindow()
+Gura_DeclareFunction(GL_GetCurrentWindow)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
 
-//-----------------------------------------------------------------------------
-// Video - Surface Creation and Simple Drawing
-//-----------------------------------------------------------------------------
+Gura_ImplementFunction(GL_GetCurrentWindow)
+{
+	//::SDL_GL_GetCurrentWindow();
+	SetError_NotImpFunction(sig, "GL_GetCurrentWindow");
+	return Value::Null;
+}
 
-//-----------------------------------------------------------------------------
-// Video - Platform-specific Window Management
-//-----------------------------------------------------------------------------
+// sdl2.GL_GetDrawableSize()
+Gura_DeclareFunction(GL_GetDrawableSize)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
 
-//-----------------------------------------------------------------------------
-// Video - Clipboard Handling
-//-----------------------------------------------------------------------------
+Gura_ImplementFunction(GL_GetDrawableSize)
+{
+	//::SDL_GL_GetDrawableSize();
+	SetError_NotImpFunction(sig, "GL_GetDrawableSize");
+	return Value::Null;
+}
 
-//-----------------------------------------------------------------------------
-// Input Events - Event Handling
-//-----------------------------------------------------------------------------
+// sdl2.GL_GetProcAddress()
+Gura_DeclareFunction(GL_GetProcAddress)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
 
-//-----------------------------------------------------------------------------
-// Input Events - Keyboard Support
-//-----------------------------------------------------------------------------
+Gura_ImplementFunction(GL_GetProcAddress)
+{
+	//::SDL_GL_GetProcAddress();
+	SetError_NotImpFunction(sig, "GL_GetProcAddress");
+	return Value::Null;
+}
 
-//-----------------------------------------------------------------------------
-// Input Events - Mouse Support
-//-----------------------------------------------------------------------------
+// sdl2.GL_GetSwapInterval()
+Gura_DeclareFunction(GL_GetSwapInterval)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
 
-//-----------------------------------------------------------------------------
-// Input Events - Joystick Support
-//-----------------------------------------------------------------------------
+Gura_ImplementFunction(GL_GetSwapInterval)
+{
+	//::SDL_GL_GetSwapInterval();
+	SetError_NotImpFunction(sig, "GL_GetSwapInterval");
+	return Value::Null;
+}
 
-//-----------------------------------------------------------------------------
-// Input Events - Game Controller Support
-//-----------------------------------------------------------------------------
+// sdl2.GL_LoadLibrary()
+Gura_DeclareFunction(GL_LoadLibrary)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
 
-//-----------------------------------------------------------------------------
-// Force Feedback - Force Feedback Support
-//-----------------------------------------------------------------------------
+Gura_ImplementFunction(GL_LoadLibrary)
+{
+	//::SDL_GL_LoadLibrary();
+	SetError_NotImpFunction(sig, "GL_LoadLibrary");
+	return Value::Null;
+}
 
-//-----------------------------------------------------------------------------
-// Audio - Audio Device Management, Playing and Recording
-//-----------------------------------------------------------------------------
+// sdl2.GL_ResetAttributes()
+Gura_DeclareFunction(GL_ResetAttributes)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
 
-//-----------------------------------------------------------------------------
-// Threads - Thread Management
-//-----------------------------------------------------------------------------
+Gura_ImplementFunction(GL_ResetAttributes)
+{
+	//::SDL_GL_ResetAttributes();
+	SetError_NotImpFunction(sig, "GL_ResetAttributes");
+	return Value::Null;
+}
 
-//-----------------------------------------------------------------------------
-// Threads - Thread Synchronization Primitives
-//-----------------------------------------------------------------------------
+// sdl2.GL_SetAttribute()
+Gura_DeclareFunction(GL_SetAttribute)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
 
-//-----------------------------------------------------------------------------
-// Threads - Atomic Operations
-//-----------------------------------------------------------------------------
+Gura_ImplementFunction(GL_SetAttribute)
+{
+	//::SDL_GL_SetAttribute();
+	SetError_NotImpFunction(sig, "GL_SetAttribute");
+	return Value::Null;
+}
 
-//-----------------------------------------------------------------------------
-// Timers - Timer Support
-//-----------------------------------------------------------------------------
+// sdl2.GL_SetSwapInterval()
+Gura_DeclareFunction(GL_SetSwapInterval)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
 
-//-----------------------------------------------------------------------------
-// File Abstraction - Filesystem Paths
-//-----------------------------------------------------------------------------
+Gura_ImplementFunction(GL_SetSwapInterval)
+{
+	//::SDL_GL_SetSwapInterval();
+	SetError_NotImpFunction(sig, "GL_SetSwapInterval");
+	return Value::Null;
+}
 
-//-----------------------------------------------------------------------------
-// File Abstraction - File I/O Abstraction
-//-----------------------------------------------------------------------------
+// sdl2.GL_UnloadLibrary()
+Gura_DeclareFunction(GL_UnloadLibrary)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
 
-//-----------------------------------------------------------------------------
-// Shared Object Support - Shared Object Loading and Function Lookup
-//-----------------------------------------------------------------------------
+Gura_ImplementFunction(GL_UnloadLibrary)
+{
+	//::SDL_GL_UnloadLibrary();
+	SetError_NotImpFunction(sig, "GL_UnloadLibrary");
+	return Value::Null;
+}
 
-//-----------------------------------------------------------------------------
-// Platform and CPU Information - Platform Detection
-//-----------------------------------------------------------------------------
+// sdl2.GetClosestDisplayMode()
+Gura_DeclareFunction(GetClosestDisplayMode)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
 
-//-----------------------------------------------------------------------------
-// Platform and CPU Information - CPU Feature Detection
-//-----------------------------------------------------------------------------
+Gura_ImplementFunction(GetClosestDisplayMode)
+{
+	//::SDL_GetClosestDisplayMode();
+	SetError_NotImpFunction(sig, "GetClosestDisplayMode");
+	return Value::Null;
+}
 
-//-----------------------------------------------------------------------------
-// Platform and CPU Information - Byte Order and Byte Swapping
-//-----------------------------------------------------------------------------
+// sdl2.GetCurrentDisplayMode()
+Gura_DeclareFunction(GetCurrentDisplayMode)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
 
-//-----------------------------------------------------------------------------
-// Platform and CPU Information - Bit Manipulation
-//-----------------------------------------------------------------------------
+Gura_ImplementFunction(GetCurrentDisplayMode)
+{
+	//::SDL_GetCurrentDisplayMode();
+	SetError_NotImpFunction(sig, "GetCurrentDisplayMode");
+	return Value::Null;
+}
 
-//-----------------------------------------------------------------------------
-// Power Management - Power Management Status
-//-----------------------------------------------------------------------------
+// sdl2.GetCurrentVideoDriver()
+Gura_DeclareFunction(GetCurrentVideoDriver)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
 
-//-----------------------------------------------------------------------------
-// Additional - Platform-specific functionality
-//-----------------------------------------------------------------------------
+Gura_ImplementFunction(GetCurrentVideoDriver)
+{
+	//::SDL_GetCurrentVideoDriver();
+	SetError_NotImpFunction(sig, "GetCurrentVideoDriver");
+	return Value::Null;
+}
 
-//-----------------------------------------------------------------------------
-// Additional - Other
-//-----------------------------------------------------------------------------
+// sdl2.GetDesktopDisplayMode()
+Gura_DeclareFunction(GetDesktopDisplayMode)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(GetDesktopDisplayMode)
+{
+	//::SDL_GetDesktopDisplayMode();
+	SetError_NotImpFunction(sig, "GetDesktopDisplayMode");
+	return Value::Null;
+}
+
+// sdl2.GetDisplayBounds()
+Gura_DeclareFunction(GetDisplayBounds)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(GetDisplayBounds)
+{
+	//::SDL_GetDisplayBounds();
+	SetError_NotImpFunction(sig, "GetDisplayBounds");
+	return Value::Null;
+}
+
+// sdl2.GetDisplayMode()
+Gura_DeclareFunction(GetDisplayMode)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(GetDisplayMode)
+{
+	//::SDL_GetDisplayMode();
+	SetError_NotImpFunction(sig, "GetDisplayMode");
+	return Value::Null;
+}
+
+// sdl2.GetDisplayName()
+Gura_DeclareFunction(GetDisplayName)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(GetDisplayName)
+{
+	//::SDL_GetDisplayName();
+	SetError_NotImpFunction(sig, "GetDisplayName");
+	return Value::Null;
+}
+
+// sdl2.GetNumDisplayModes()
+Gura_DeclareFunction(GetNumDisplayModes)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(GetNumDisplayModes)
+{
+	//::SDL_GetNumDisplayModes();
+	SetError_NotImpFunction(sig, "GetNumDisplayModes");
+	return Value::Null;
+}
+
+// sdl2.GetNumVideoDisplays()
+Gura_DeclareFunction(GetNumVideoDisplays)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(GetNumVideoDisplays)
+{
+	//::SDL_GetNumVideoDisplays();
+	SetError_NotImpFunction(sig, "GetNumVideoDisplays");
+	return Value::Null;
+}
+
+// sdl2.GetNumVideoDrivers()
+Gura_DeclareFunction(GetNumVideoDrivers)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(GetNumVideoDrivers)
+{
+	//::SDL_GetNumVideoDrivers();
+	SetError_NotImpFunction(sig, "GetNumVideoDrivers");
+	return Value::Null;
+}
+
+// sdl2.GetVideoDriver()
+Gura_DeclareFunction(GetVideoDriver)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(GetVideoDriver)
+{
+	//::SDL_GetVideoDriver();
+	SetError_NotImpFunction(sig, "GetVideoDriver");
+	return Value::Null;
+}
+
+// sdl2.GetWindowFromID()
+Gura_DeclareFunction(GetWindowFromID)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(GetWindowFromID)
+{
+	//::SDL_GetWindowFromID();
+	SetError_NotImpFunction(sig, "GetWindowFromID");
+	return Value::Null;
+}
+
+// sdl2.IsScreenSaverEnabled()
+Gura_DeclareFunction(IsScreenSaverEnabled)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(IsScreenSaverEnabled)
+{
+	//::SDL_IsScreenSaverEnabled();
+	SetError_NotImpFunction(sig, "IsScreenSaverEnabled");
+	return Value::Null;
+}
+
+// sdl2.ShowSimpleMessageBox()
+Gura_DeclareFunction(ShowSimpleMessageBox)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(ShowSimpleMessageBox)
+{
+	//::SDL_ShowSimpleMessageBox();
+	SetError_NotImpFunction(sig, "ShowSimpleMessageBox");
+	return Value::Null;
+}
+
+// sdl2.VideoInit()
+Gura_DeclareFunction(VideoInit)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(VideoInit)
+{
+	//::SDL_VideoInit();
+	SetError_NotImpFunction(sig, "VideoInit");
+	return Value::Null;
+}
+
+// sdl2.VideoQuit()
+Gura_DeclareFunction(VideoQuit)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(VideoQuit)
+{
+	//::SDL_VideoQuit();
+	SetError_NotImpFunction(sig, "VideoQuit");
+	return Value::Null;
+}
+
+// sdl2.GetNumRenderDrivers()
+Gura_DeclareFunction(GetNumRenderDrivers)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(GetNumRenderDrivers)
+{
+	//::SDL_GetNumRenderDrivers();
+	SetError_NotImpFunction(sig, "GetNumRenderDrivers");
+	return Value::Null;
+}
+
+// sdl2.GetRenderDriverInfo()
+Gura_DeclareFunction(GetRenderDriverInfo)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(GetRenderDriverInfo)
+{
+	//::SDL_GetRenderDriverInfo();
+	SetError_NotImpFunction(sig, "GetRenderDriverInfo");
+	return Value::Null;
+}
+
+// sdl2.AllocFormat()
+Gura_DeclareFunction(AllocFormat)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(AllocFormat)
+{
+	//::SDL_AllocFormat();
+	SetError_NotImpFunction(sig, "AllocFormat");
+	return Value::Null;
+}
+
+// sdl2.AllocPalette()
+Gura_DeclareFunction(AllocPalette)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(AllocPalette)
+{
+	//::SDL_AllocPalette();
+	SetError_NotImpFunction(sig, "AllocPalette");
+	return Value::Null;
+}
+
+// sdl2.CalculateGammaRamp()
+Gura_DeclareFunction(CalculateGammaRamp)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(CalculateGammaRamp)
+{
+	//::SDL_CalculateGammaRamp();
+	SetError_NotImpFunction(sig, "CalculateGammaRamp");
+	return Value::Null;
+}
+
+// sdl2.GetPixelFormatName()
+Gura_DeclareFunction(GetPixelFormatName)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(GetPixelFormatName)
+{
+	//::SDL_GetPixelFormatName();
+	SetError_NotImpFunction(sig, "GetPixelFormatName");
+	return Value::Null;
+}
+
+// sdl2.MasksToPixelFormatEnum()
+Gura_DeclareFunction(MasksToPixelFormatEnum)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(MasksToPixelFormatEnum)
+{
+	//::SDL_MasksToPixelFormatEnum();
+	SetError_NotImpFunction(sig, "MasksToPixelFormatEnum");
+	return Value::Null;
+}
+
+// sdl2.PixelFormatEnumToMasks()
+Gura_DeclareFunction(PixelFormatEnumToMasks)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(PixelFormatEnumToMasks)
+{
+	//::SDL_PixelFormatEnumToMasks();
+	SetError_NotImpFunction(sig, "PixelFormatEnumToMasks");
+	return Value::Null;
+}
 
 // sdl2.test(num1:number, num2:number)
 Gura_DeclareFunction(test)
@@ -450,6 +1348,11 @@ void AssignValues(Environment &env)
 	// Basics - Log Handling
 	// Basics - Assertions
 	// Basics - Querying SDL Version
+	Gura_AssignValueSDL(COMPILEDVERSION);
+	//Gura_AssignValueSDL(REVISION);
+	//Gura_AssignValueSDL(VERSION);
+	//Gura_AssignValueSDL(VERSIONNUM);
+	//Gura_AssignValueSDL(VERSION_ATLEAST);
 	// Video - Display and Window Management
 	Gura_AssignValueSDL(BLENDMODE_NONE);
 	Gura_AssignValueSDL(BLENDMODE_BLEND);
@@ -662,20 +1565,89 @@ void AssignValues(Environment &env)
 
 void AssignFunctions(Environment &env)
 {
-	// Basics - Initialization and Shutdown
 	Gura_AssignFunction(Init);
 	Gura_AssignFunction(InitSubSystem);
 	Gura_AssignFunction(Quit);
 	Gura_AssignFunction(QuitSubSystem);
 	Gura_AssignFunction(SetMainReady);
-	Gura_AssignFunction(test);
-
+	Gura_AssignFunction(WasInit);
+	Gura_AssignFunction(AddHintCallback);
+	Gura_AssignFunction(ClearHints);
+	Gura_AssignFunction(DelhintCallback);
+	Gura_AssignFunction(GetHint);
+	Gura_AssignFunction(SetHint);
+	Gura_AssignFunction(SetHintWithPriority);
+	Gura_AssignFunction(ClearError);
+	Gura_AssignFunction(GetError);
+	Gura_AssignFunction(SetError);
+	Gura_AssignFunction(Log);
+	Gura_AssignFunction(LogCritical);
+	Gura_AssignFunction(LogDebug);
+	Gura_AssignFunction(LogError);
+	Gura_AssignFunction(LogGetOutputFunction);
+	Gura_AssignFunction(LogGetPriority);
+	Gura_AssignFunction(LogInfo);
+	Gura_AssignFunction(LogMessage);
+	Gura_AssignFunction(LogMessageV);
+	Gura_AssignFunction(LogResetPriorities);
+	Gura_AssignFunction(LogSetAllPriority);
+	Gura_AssignFunction(LogSetOutputFunction);
+	Gura_AssignFunction(LogSetPriority);
+	Gura_AssignFunction(LogVerbose);
+	Gura_AssignFunction(LogWarn);
+	Gura_AssignFunction(GetAssertionHandler);
+	Gura_AssignFunction(GetAssertionReport);
+	Gura_AssignFunction(GetDefaultAssertionHandler);
+	Gura_AssignFunction(ResetAssertionReport);
+	Gura_AssignFunction(SetAssertionHandler);
+	Gura_AssignFunction(TriggerBreakpoint);
+	Gura_AssignFunction(assert);
+	Gura_AssignFunction(assert_paranoid);
+	Gura_AssignFunction(assert_release);
+	Gura_AssignFunction(GetRevision);
+	Gura_AssignFunction(GetRevisionNumber);
+	Gura_AssignFunction(GetVersion);
 	Gura_AssignFunction(CreateWindow);
 	Gura_AssignFunction(CreateWindowAndRenderer);
+	Gura_AssignFunction(CreateWindowFrom);
 	Gura_AssignFunction(DisableScreenSaver);
 	Gura_AssignFunction(EnableScreenSaver);
 	Gura_AssignFunction(GL_ExtensionSupported);
 	Gura_AssignFunction(GL_GetAttribute);
+	Gura_AssignFunction(GL_GetCurrentContext);
+	Gura_AssignFunction(GL_GetCurrentWindow);
+	Gura_AssignFunction(GL_GetDrawableSize);
+	Gura_AssignFunction(GL_GetProcAddress);
+	Gura_AssignFunction(GL_GetSwapInterval);
+	Gura_AssignFunction(GL_LoadLibrary);
+	Gura_AssignFunction(GL_ResetAttributes);
+	Gura_AssignFunction(GL_SetAttribute);
+	Gura_AssignFunction(GL_SetSwapInterval);
+	Gura_AssignFunction(GL_UnloadLibrary);
+	Gura_AssignFunction(GetClosestDisplayMode);
+	Gura_AssignFunction(GetCurrentDisplayMode);
+	Gura_AssignFunction(GetCurrentVideoDriver);
+	Gura_AssignFunction(GetDesktopDisplayMode);
+	Gura_AssignFunction(GetDisplayBounds);
+	Gura_AssignFunction(GetDisplayMode);
+	Gura_AssignFunction(GetDisplayName);
+	Gura_AssignFunction(GetNumDisplayModes);
+	Gura_AssignFunction(GetNumVideoDisplays);
+	Gura_AssignFunction(GetNumVideoDrivers);
+	Gura_AssignFunction(GetVideoDriver);
+	Gura_AssignFunction(GetWindowFromID);
+	Gura_AssignFunction(IsScreenSaverEnabled);
+	Gura_AssignFunction(ShowSimpleMessageBox);
+	Gura_AssignFunction(VideoInit);
+	Gura_AssignFunction(VideoQuit);
+	Gura_AssignFunction(GetNumRenderDrivers);
+	Gura_AssignFunction(GetRenderDriverInfo);
+	Gura_AssignFunction(AllocFormat);
+	Gura_AssignFunction(AllocPalette);
+	Gura_AssignFunction(CalculateGammaRamp);
+	Gura_AssignFunction(GetPixelFormatName);
+	Gura_AssignFunction(MasksToPixelFormatEnum);
+	Gura_AssignFunction(PixelFormatEnumToMasks);
 }
 
 Gura_ModuleTerminate()
