@@ -43,6 +43,10 @@ HelpPresenter::HelpPresenter(const String &formatName) : _formatName(formatName)
 {
 }
 
+HelpPresenter::~HelpPresenter()
+{
+}
+
 void HelpPresenter::Register(Environment &env, HelpPresenter *pHelpPresenter)
 {
 	env.GetGlobal()->GetHelpPresenterOwner().push_back(pHelpPresenter);

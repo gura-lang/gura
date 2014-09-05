@@ -28,6 +28,7 @@ public:
 	Gura_DeclareReferenceAccessor(PathMgr);
 public:
 	inline PathMgr() : _cntRef(1) {}
+	virtual ~PathMgr();
 	virtual bool IsResponsible(Environment &env, Signal sig,
 								const Directory *pParent, const char *pathName) = 0;
 public:

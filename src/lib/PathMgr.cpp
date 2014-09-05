@@ -8,6 +8,10 @@ namespace Gura {
 //-----------------------------------------------------------------------------
 // PathMgr
 //-----------------------------------------------------------------------------
+PathMgr::~PathMgr()
+{
+}
+
 void PathMgr::Register(Environment &env, PathMgr *pPathMgr)
 {
 	PathMgrOwner &pathMgrOwner = env.GetGlobal()->GetPathMgrOwner();

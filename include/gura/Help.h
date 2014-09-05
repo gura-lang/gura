@@ -56,6 +56,7 @@ private:
 	String _formatName;
 public:
 	HelpPresenter(const String &formatName);
+	virtual ~HelpPresenter();
 	const char *GetFormatName() const { return _formatName.c_str(); }
 	virtual bool DoPresent(Environment &env, Signal sig, const char *title, const Help *pHelp) const = 0;
 public:

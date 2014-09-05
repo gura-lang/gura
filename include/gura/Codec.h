@@ -29,16 +29,6 @@ public:
 	static inline const List *GetList() { return _pList; }
 };
 
-template<typename T>
-class CodecFactoryTmpl : public CodecFactory {
-public:
-	inline CodecFactoryTmpl(const char *encoding) : CodecFactory(encoding) {}
-	virtual Codec *CreateCodec(bool delcrFlag, bool addcrFlag) {
-		return new Codec(this, new typename T::Decoder(delcrFlag),
-								new typename T::Encoder(addcrFlag));
-	}
-};
-
 //-----------------------------------------------------------------------------
 // Codec
 //-----------------------------------------------------------------------------
@@ -123,6 +113,19 @@ public:
 	static UShort UTF16ToDBCS(const CodeRow codeRows[], int nCodeRows, UShort codeUTF16, Map **ppMap);
 public:
 	static const char *EncodingFromLANG();
+};
+
+//-----------------------------------------------------------------------------
+// CodecFactoryTmpl
+//-----------------------------------------------------------------------------
+template<typename T>
+class CodecFactoryTmpl : public CodecFactory {
+public:
+	inline CodecFactoryTmpl(const char *encoding) : CodecFactory(encoding) {}
+	virtual Codec *CreateCodec(bool delcrFlag, bool addcrFlag) {
+		return new Codec(this, new typename T::Decoder(delcrFlag),
+								new typename T::Encoder(addcrFlag));
+	}
 };
 
 //-----------------------------------------------------------------------------
