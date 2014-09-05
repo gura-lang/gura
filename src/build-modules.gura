@@ -11,7 +11,7 @@ moduleInfos = @(ModuleInfo) {
 	['codecs_basic',	`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
 	['codecs_iso8859',	`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
 	['codecs_japanese',	`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
-	['conio',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['conio',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['csv',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['curl',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['emf',				`skip,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]	// not completed
