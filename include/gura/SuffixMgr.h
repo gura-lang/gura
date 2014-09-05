@@ -36,6 +36,7 @@ class Environment;
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE SuffixMgrEntry {
 public:
+	virtual ~SuffixMgrEntry();
 	virtual Value DoEval(Environment &env, Signal sig, const char *body) const = 0;
 };
 

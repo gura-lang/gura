@@ -74,7 +74,7 @@ bool PathMgr::DoesMatchNameSub(const char *pattern, const char *fileName, bool i
 		return *fileName == '\0';
 	} else if (*pattern == '*') {
 		return DoesMatchNameSub(pattern + 1, fileName, ignoreCaseFlag) ||
-			*fileName != '\0' && DoesMatchNameSub(pattern, fileName + 1, ignoreCaseFlag);
+			(*fileName != '\0' && DoesMatchNameSub(pattern, fileName + 1, ignoreCaseFlag));
 	} else if (*pattern == '?') {
 		return *fileName != '\0' && DoesMatchNameSub(pattern + 1, fileName + 1, ignoreCaseFlag);
 	} else if (*pattern == '[') {

@@ -48,7 +48,7 @@ bool Uri::Parse(Signal sig, const char *str)
 				} else {
 					stat = STAT_Slash1;
 				}
-			} else if ('a' <= ch && ch <= 'z' || ch == '+' || ch == '.' || ch == '-') {
+			} else if (('a' <= ch && ch <= 'z') || ch == '+' || ch == '.' || ch == '-') {
 				_scheme += ch;
 			} else if ('A' <= ch && ch <= 'Z') {
 				_scheme += ch - 'A' + 'a';

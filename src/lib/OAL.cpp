@@ -1421,7 +1421,8 @@ bool ChangeCurDir(const char *pathName)
 
 String GetCurDir()
 {
-	char *pathName = ::get_current_dir_name();
+	//char *pathName = ::get_current_dir_name();
+	char *pathName = ::getcwd(NULL, 0);
 	String rtn = FromNativeString(pathName);
 	::free(pathName);
 	if (!rtn.empty() && !IsFileSeparator(rtn[rtn.size() - 1])) {
