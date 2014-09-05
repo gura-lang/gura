@@ -13,23 +13,23 @@ moduleInfos = @(ModuleInfo) {
 	['codecs_japanese',	`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
 	['conio',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['csv',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
-	['curl',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['curl',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['emf',				`skip,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]	// not completed
 	['freetype',		`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['fs',				`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
-	['gif',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['gif',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['glu',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['gmp',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['guri',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
-	['gzip',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
-	['hash',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['gzip',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['hash',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['http',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['jpeg',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['llvm',			`skip,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]	// not completed
 	['markdown',		`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['math',			`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
 	['midi',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
-	['msico',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['msico',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['mswin',			`build,	[`mswin,															]]
 	['mysql',			`skip,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]	// not completed
 	['opengl',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
@@ -37,23 +37,23 @@ moduleInfos = @(ModuleInfo) {
 	['path',			`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
 	['png',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['postgresql',		`skip,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]	// not completed
-	['ppm',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['ppm',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['re',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['sample',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['sdl',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
-	['sqlite3',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
-	['tar',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['sqlite3',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['tar',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['tcl',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
-	['tester',			`skip,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]	// just for test
+	['tester',			`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// just for test
 	['tiff',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['time',			`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
 	['uuid',			`build,	[`mswin,															]]
-	['wav',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['wav',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['wx',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
-	['xml',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
-	['xpm',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['xml',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['xpm',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['yaml',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
-	['zip',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['zip',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 }
 
 if (sys.platform == `linux) {
