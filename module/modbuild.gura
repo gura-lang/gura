@@ -353,7 +353,7 @@ if (sys.build == `msc) {
 				fileNameCmd = path.join(this.outDir, 'linker.cmd')
 				open(fileNameCmd, 'w').println(objs)
 				if (!this.execute('gcc', '-o' + target,
-										'@' + fileNameCmd, libs*, ldflags*)) {
+								  '@' + fileNameCmd, libs*, '-lstdc++', '-lguracore', ldflags*)) {
 					this.errorFlag = true
 					return(false)
 				}
