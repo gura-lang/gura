@@ -1,6 +1,6 @@
 import(re)
 
-test1 = R'''
+text1 = R'''
 Init(Uint32 flags):error
 '''
 
@@ -358,6 +358,28 @@ JoystickUpdate
 NumJoysticks
 //-----------------------------------------------------------------------------
 // Input Events - Game Controller Support
+GameControllerAddMapping
+GameControllerAddMappingsFromFile
+GameControllerAddMappingsFromRW
+GameController#GameControllerClose
+GameControllerEventState
+GameController#GameControllerGetAttached
+GameController#GameControllerGetAxis
+GameControllerGetAxisFromString
+GameController#GameControllerGetBindForAxis
+GameController#GameControllerGetBindForButton
+GameController#GameControllerGetButton
+GameControllerGetButtonFromString
+GameController#GameControllerGetJoystick
+GameControllerGetStringForAxis
+GameControllerGetStringForButton
+GameController#GameControllerMapping
+GameControllerMappingForGUID
+GameController#GameControllerName
+GameControllerNameForIndex
+GameControllerOpen
+GameControllerUpdate
+IsGameController
 //-----------------------------------------------------------------------------
 // Force Feedback - Force Feedback Support
 //-----------------------------------------------------------------------------
@@ -394,72 +416,84 @@ NumJoysticks
 '''
 
 tmplImplementFunction = R'''
-// sdl2.${funcName}()
-Gura_DeclareFunction(${funcName})
+// sdl2.${funcInfo.funcName}()
+Gura_DeclareFunction(${funcInfo.funcName})
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
-Gura_ImplementFunction(${funcName})
+Gura_ImplementFunction(${funcInfo.funcName})
 {
-	//::SDL_${funcName}();
-	SetError_NotImpFunction(sig, "${funcName}");
+	//::SDL_${funcInfo.funcName}();
+	SetError_NotImpFunction(sig, "${funcInfo.funcName}");
 	return Value::Null;
 }
 '''.template()
 
 tmplImplementMethod = R'''
-// sdl2.${className}#${methodName}()
-Gura_DeclareMethod(${className}, ${methodName})
+// sdl2.${className}#${funcInfo.funcName}()
+Gura_DeclareMethod(${className}, ${funcInfo.funcName})
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
-Gura_ImplementMethod(${className}, ${methodName})
+Gura_ImplementMethod(${className}, ${funcInfo.funcName})
 {
-	//::SDL_${methodName}();
-	SetError_NotImpMethod(sig, "${className}", "${methodName}");
+	//::SDL_${funcInfo.funcName}();
+	SetError_NotImpMethod(sig, "${className}", "${funcInfo.funcName}");
 	return Value::Null;
 }
 '''.template()
 
 tmplAssignFunction = R'''
-	Gura_AssignFunction(${funcName});
+	Gura_AssignFunction(${funcInfo.funcName});
 '''.template()
 
 tmplAssignMethod = R'''
-	Gura_AssignMethod(${className}, ${methodName});
+	Gura_AssignMethod(${className}, ${funcInfo.funcName});
 '''.template()
 
-funcNames = []
+FuncInfo = struct(funcName:string, argsList:string:nil, returnType:string:nil)
+
+funcInfos = []
 classDict = %{}
 text.eachline {|line, i|
 	line = line.strip()
 	(line.startswith('//') || line.isempty()) && continue
 	lineNo = i + 1
-	if (m = line.match(r'^(\w+)#(\w+)$')) {
+	restPart = line
+	fields = restPart.split(':')
+	argsList = nil
+	returnType = nil
+	if (fields.len() > 1) {
+		[restPart, returnType] = fields
+	}
+	if (m = restPart.match(r'(.*)\(([^\)]*)\)')) {
+		[restPart, argsList] = m[1, 2]
+	}
+	if (m = restPart.match(r'^(\w+)#(\w+)$')) {
 		className = m[1]
-		methodName = m[2]
+		funcName = m[2]
 		if (!classDict.haskey(className)) {
 			classDict[className] = []
 		}
-		methodNames = classDict[className]
-		if (methodNames.find(methodName)) {
-			sys.stderr.printf('%d: duplicated method %s\n', lineNo, methodName)
+		funcInfosLocal = classDict[className]
+		if (funcInfosLocal:*funcName.find(funcName)) {
+			sys.stderr.printf('%d: duplicated method %s\n', lineNo, funcName)
 			sys.exit(1)
 		}
-		methodNames.add(methodName)
-	} elsif (m = line.match(r'^(\w+)$')) {
+		funcInfosLocal.add(FuncInfo(funcName, argsList, returnType))
+	} elsif (m = restPart.match(r'^(\w+)$')) {
 		funcName = m[1]
-		if (funcNames.find(funcName)) {
+		if (funcInfos:*funcName.find(funcName)) {
 			sys.stderr.printf('%d: duplicated function %s\n', lineNo, funcName)
 			sys.exit(1)
 		}
-		funcNames.add(funcName)
+		funcInfos.add(FuncInfo(funcName, argsList, returnType))
 	} else {
 		sys.stderr.printf('%d: invalid format\n', lineNo)
 		sys.exit(1)
@@ -467,23 +501,23 @@ text.eachline {|line, i|
 }
 
 println('--------')
-funcNames.each {|funcName|
+funcInfos.each {|funcInfo|
 	tmplImplementFunction.render(sys.stdout)
 	println()
 }
 classDict.keys {|className|
 	println('--------')
-	classDict[className].each {|methodName|
+	classDict[className].each {|funcInfo|
 		tmplImplementMethod.render(sys.stdout)
 	}
 }
 println('--------')
-funcNames.each {|funcName|
+funcInfos.each {|funcInfo|
 	tmplAssignFunction.render(sys.stdout)
 }
 println('--------')
 classDict.keys {|className|
-	classDict[className].each {|methodName|
+	classDict[className].each {|funcInfo|
 		tmplAssignMethod.render(sys.stdout)
 	}
 }

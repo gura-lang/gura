@@ -1316,6 +1316,7 @@ Gura_ModuleEntry()
 	RealizeClass(RendererInfo);
 	RealizeClass(DisplayMode);
 	RealizeClass(GLContext);
+	RealizeClass(Haptic);
 	// class preparation
 	PrepareClass(Window);
 	PrepareClass(Renderer);
@@ -1335,8 +1336,10 @@ Gura_ModuleEntry()
 	PrepareClass(RendererInfo);
 	PrepareClass(DisplayMode);
 	PrepareClass(GLContext);
+	PrepareClass(Haptic);
 	AssignValues(env);
 	AssignFunctions(env);
+	Gura_AssignFunction(test);
 	return true;
 }
 
