@@ -3,7 +3,7 @@
 #include "module-conio.h"
 #if defined(GURA_ON_MSWIN)
 #include <conio.h>
-#elif defined(GURA_ON_LINUX)
+#elif defined(GURA_ON_LINUX) || defined(GURA_ON_DARWIN)
 #include <sys/ioctl.h>
 #include <termios.h>
 #include <unistd.h>

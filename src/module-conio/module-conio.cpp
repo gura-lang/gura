@@ -328,7 +328,7 @@ Gura_ImplementFunction(waitkey)
 	return Value(chRtn);
 }
 
-#elif defined(GURA_ON_LINUX)
+#elif defined(GURA_ON_LINUX) || defined(GURA_ON_DARWIN)
 
 Gura_ImplementFunction(clear)
 {
@@ -615,7 +615,7 @@ bool SymbolToNumber(Signal sig, const Symbol *pSymbol, int *pNum)
 		(pSymbol == Gura_Symbol(bright_magenta))?	13 :
 		(pSymbol == Gura_Symbol(bright_yellow))?	14 :
 		(pSymbol == Gura_Symbol(bright_white))?		15 : -1;
-#elif defined(GURA_ON_LINUX)
+#elif defined(GURA_ON_LINUX) || defined(GURA_ON_DARWIN)
 	int num =
 		(pSymbol == Gura_Symbol(black))?			0 :
 		(pSymbol == Gura_Symbol(red))?				1 :

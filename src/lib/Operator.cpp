@@ -585,8 +585,8 @@ Value Operator_Mul::EvalMapBinary(Environment &env, Signal sig,
 				return pIteratorFuncBinder->Eval(env, sig, *pArgsSub);
 			}
 		}
-	} else if (valueLeft.Is_matrix() && valueRight.Is_list() ||
-			   valueLeft.Is_list() && valueRight.Is_matrix()) {
+	} else if ((valueLeft.Is_matrix() && valueRight.Is_list()) ||
+			   (valueLeft.Is_list() && valueRight.Is_matrix())) {
 		return EvalBinary(env, sig, valueLeft, valueRight);
 	}
 	return Operator::EvalMapBinary(env, sig, valueLeft, valueRight);

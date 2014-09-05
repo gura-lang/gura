@@ -58,6 +58,8 @@ Gura_ModuleEntry()
 		valuePlatform = Value(Gura_Symbol(mswin));
 #elif defined(GURA_ON_LINUX)
 		valuePlatform = Value(Gura_Symbol(linux));
+#elif defined(GURA_ON_DARWIN)
+		valuePlatform = Value(Gura_Symbol(darwin));
 #else
 		valuePlatform = Value::Null;
 #endif

@@ -431,7 +431,7 @@ bool Stream::SerializeBoolean(Signal sig, bool num)
 bool Stream::DeserializeBoolean(Signal sig, bool &num)
 {
 	UChar numRaw = 0;
-	if (!Read(sig, &numRaw, sizeof(numRaw)) == sizeof(numRaw)) return false;
+	if (Read(sig, &numRaw, sizeof(numRaw)) != sizeof(numRaw)) return false;
 	num = (numRaw != 0);
 	return true;
 }

@@ -18,6 +18,15 @@ namespace Gura {
 
 #if defined(_MSC_VER)
 #define GURA_ON_MSWIN
+#elif defined(__linux__)
+#define GURA_ON_LINUX
+#elif defined(__APPLE__)
+#define GURA_ON_DARWIN
+#else
+#define GURA_ON_UNKNOWN
+#endif
+
+#if defined(GURA_ON_MSWIN)
 #undef SetProp
 #undef GetProp
 #undef GetObject
@@ -25,11 +34,6 @@ namespace Gura {
 #pragma warning(disable:4275)
 #pragma warning(disable:4355)
 #pragma warning(disable:4996)
-#else
-#define GURA_ON_LINUX
-#endif
-
-#if defined(GURA_ON_MSWIN)
 #define GURA_DLLIMPORT __declspec(dllimport)
 #define GURA_DLLEXPORT __declspec(dllexport)
 #if defined(gura_EXPORTS)

@@ -207,7 +207,7 @@ void ReadEvalPrintLoop(Environment &env, Signal sig)
 	Parser parser(SRCNAME_interactive);
 	char *lineBuff = NULL;
 	Stream *pConsole = env.GetConsole();
-	while (lineBuff = readline(env.GetPrompt(parser.IsContinued()))) {
+	while ((lineBuff = readline(env.GetPrompt(parser.IsContinued()))) != NULL) {
 		for (char *p = lineBuff; ; p++) {
 			char ch = (*p == '\0')? '\n' : *p;
 			parser.EvalConsoleChar(env, sig, pExprRoot.get(), pConsole, ch);
