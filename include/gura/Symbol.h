@@ -218,6 +218,7 @@ public:
 	Gura_DeclareSymbol(cur);
 	Gura_DeclareSymbol(cyan);
 	Gura_DeclareSymbol(d);
+	Gura_DeclareSymbol(darwin);
 	Gura_DeclareSymbol(day);
 	Gura_DeclareSymbol(days);
 	Gura_DeclareSymbol(de);

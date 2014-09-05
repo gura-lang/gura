@@ -231,6 +231,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(cur);
 	Gura_RealizeSymbol(cyan);
 	Gura_RealizeSymbol(d);
+	Gura_RealizeSymbol(darwin);
 	Gura_RealizeSymbol(day);
 	Gura_RealizeSymbol(days);
 	Gura_RealizeSymbol(de);
