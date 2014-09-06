@@ -6,11 +6,22 @@ popd
 #---------------------------------------------------------------------------
 tar xfz SDL2-2.0.3.tar.gz
 pushd SDL2-2.0.3
+./configure
+make
 popd
+rm -f include/SDL2
+rm -f lib/SDL2
+ln -sf ../SDL2-2.0.3/ include/SDL2
+ln -sf ../SDL2-2.0.3/build/ lib/SDL2
 #---------------------------------------------------------------------------
 tar xfy gmp-6.0.0a.tar.bz2
 pushd gmp-6.0.0
+./configure
+make
 popd
+rm -f include/gmp
+ln -sf ../gmp-6.0.0/ include/gmp
+ln -sf ../gmp-6.0.0/.libs/libgmp.a lib/libgmp.a
 #---------------------------------------------------------------------------
 tar xfz jpegsrc.v9a.tar.gz
 pushd jpeg-9a
