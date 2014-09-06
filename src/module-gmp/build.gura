@@ -8,11 +8,15 @@ if (sys.platform == `mswin) {
 	builder.ldflags.append('/LIBPATH:' + dirMpir)
 	builder.libs.append(['mpir.lib', 'mpirxx.lib'])
 } elsif (sys.platform == `linux) {
-	builder.libs.append(['gmp'])
+	builder.libs.append('gmp')
 	builder.debFiles = ['libgmp']
 	builder.rpmFiles = ['gmp']
 	builder.debFilesDevel = ['libgmp-dev']
 	builder.rpmFilesDevel = ['gmp-devel']
+} elsif (sys.platform == `darwin) {
+	builder.libs.append('gmp')
+	builder.incDirs.append('guests/include/gmp')
+	builder.libDirs.append('guests/lib/gmp')
 }
 builder.build('gmp', [
 	'module-gmp.cpp', 'Class_mpz.cpp', 'Class_mpq.cpp', 'Class_mpf.cpp',

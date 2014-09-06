@@ -20,8 +20,9 @@ pushd gmp-6.0.0
 make
 popd
 rm -f include/gmp
+rm -f lib/gmp
 ln -sf ../gmp-6.0.0/ include/gmp
-ln -sf ../gmp-6.0.0/.libs/libgmp.a lib/libgmp.a
+ln -sf ../gmp-6.0.0/.libs/ lib/gmp
 #---------------------------------------------------------------------------
 tar xfz jpegsrc.v9a.tar.gz
 pushd jpeg-9a
