@@ -15,7 +15,7 @@ moduleInfos = @(ModuleInfo) {
 	['csv',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['curl',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['emf',				`skip,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]	// not completed
-	['freetype',		`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['freetype',		`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['fs',				`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
 	['gif',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['glu',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
