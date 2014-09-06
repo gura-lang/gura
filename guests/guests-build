@@ -1,0 +1,8 @@
+#/bin/sh
+tar xvfz onig-5.9.5.tar.gz
+pushd onig-5.9.5
+./configure
+make
+popd
+ln -s ../onig-5.9.5/ include/onig
+ln -s ../onig-5.9.5/.libs/libonig.a lib/libonig.a

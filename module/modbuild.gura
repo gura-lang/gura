@@ -12,6 +12,7 @@ BuilderBase = class {
 		debFilesDevel
 		rpmFilesDevel
 		incDirs
+		libDirs
 		cflags
 		ldflags
 		libs
@@ -28,6 +29,7 @@ BuilderBase = class {
 			p.addFlag('rebuild',	'r', 'clean output files before building')
 			p.addParam('basedir',	'b', 'specify basement output directory', 'DIR', '')
 			p.addParam('incdir',	'I', 'specify include directory', 'DIR')
+			p.addParam('libdir',	'L', 'specify library directory', 'DIR')
 			try {
 				[this.cfg, argv] = p.parse(sys.argv)
 			} catch {|e|
@@ -62,7 +64,9 @@ BuilderBase = class {
 		this.debFilesDevel = nil
 		this.rpmFilesDevel = nil
 		this.incDirs = []
+		this.libDirs = []
 		this.cfg['incdir'] && this.incDirs.append(this.cfg['incdir'])
+		this.cfg['libdir'] && this.libDirs.append(this.cfg['libdir'])
 		this.hint = nil
 		this.skipErrorFlag = false
 		this.verboseFlag = this.cfg['verbose']
@@ -267,6 +271,7 @@ if (sys.build == `msc) {
 		doLink(target:string, objs[]:string) = {
 			target = path.join(this.outDir, target)
 			ldflags = this.ldflags.clone()
+			ldflags.append('/LIBPATH:' + this.libDirs)
 			libs = this.libs.clone()
 			objsEx = []
 			this.precompile && objsEx.append(this.makeObjName(this.precompile))
@@ -345,6 +350,7 @@ if (sys.build == `msc) {
 		doLink(target:string, objs[]:string) = {
 			target = path.join(this.outDir, target)
 			ldflags = this.ldflags.clone()
+			ldflags.append('-L' + this.libDirs)
 			libs = '-l' + this.libs.clone()
 			objsEx = []
 			this.precompile && objsEx.append(this.makeObjName(this.precompile))
