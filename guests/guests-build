@@ -1,10 +1,55 @@
 #/bin/sh
 #---------------------------------------------------------------------------
-tar xvfz onig-5.9.5.tar.gz
+tar xfz SDL-1.2.15.tar.gz
+pushd SDL-1.2.15
+popd
+#---------------------------------------------------------------------------
+tar xfz SDL2-2.0.3.tar.gz
+pushd SDL2-2.0.3
+popd
+#---------------------------------------------------------------------------
+tar xfy gmp-6.0.0a.tar.bz2
+pushd gmp-6.0.0
+popd
+#---------------------------------------------------------------------------
+tar xfz jpegsrc.v9a.tar.gz
+pushd jpeg-9a
+./configure
+make
+popd
+rm -f include/jpeg
+ln -sf ../jpeg-9a/ include/jpeg
+ln -sf ../jpeg-9a/.libs/libjpeg.a lib/libjpeg.a
+#---------------------------------------------------------------------------
+tar xfz libpng-1.6.12.tar.gz
+pushd libpng-1.6.12
+./configure
+make
+popd
+rm -f include/png
+ln -sf ../libpng-1.6.12/ include/png
+ln -sf ../libpng-1.6.12/.libs/libpng16.a lib/libpng16.a
+#---------------------------------------------------------------------------
+tar xfz onig-5.9.5.tar.gz
 pushd onig-5.9.5
 ./configure
 make
 popd
-rm include/onig
-ln -s ../onig-5.9.5/ include/onig
+rm -f include/onig
+ln -sf ../onig-5.9.5/ include/onig
 ln -sf ../onig-5.9.5/.libs/libonig.a lib/libonig.a
+#---------------------------------------------------------------------------
+tar xfy wxWidgets-3.0.1.tar.bz2
+pushd wxWidgets-3.0.1
+#./configure
+#make
+popd
+#---------------------------------------------------------------------------
+tar xfz yaml-0.1.5.tar.gz
+pushd yaml-0.1.5
+./configure
+make
+popd
+rm -f include/yaml
+ln -sf ../yaml-0.1.5/include/ include/yaml
+ln -sf ../yaml-0.1.5/src/.libs/libyaml.a lib/libyaml.a
