@@ -14,6 +14,15 @@ rm -f lib/SDL2
 ln -sf ../SDL2-2.0.3/ include/SDL2
 ln -sf ../SDL2-2.0.3/build/ lib/SDL2
 #---------------------------------------------------------------------------
+tar xfy freetype-2.5.3.tar.bz2
+pushd freetype-2.5.3
+./configure
+make
+popd
+rm -f include/freetype
+ln -sf ../freetype-2.5.3/include/ include/freetype
+ln -sf ../freetype-2.5.3/objs/.libs/libfreetype.a lib/libfreetype.a
+#---------------------------------------------------------------------------
 tar xfy gmp-6.0.0a.tar.bz2
 pushd gmp-6.0.0
 ./configure
