@@ -1,15 +1,19 @@
 #!/usr/bin/env gura
 import(modbuild)
 builder = modbuild.Builder()
-if (sys.build == `msc) {
+if (sys.platform == `mswin) {
 	incDirs = builder.incDirs
 	builder.incDirs.append(path.join(modbuild.guestDir, 'jpeg-8d'))
 	builder.libs.append(path.join(modbuild.guestDir, 'jpeg-8d/libjpeg.lib'))
-} elsif (sys.build == `gnuc) {
+} elsif (sys.platform == `linux) {
 	builder.libs.append('jpeg')
 	builder.debFiles = ['libjpeg']
 	builder.rpmFiles = ['libjpeg']
 	builder.debFilesDevel = ['libjpeg-dev']
 	builder.rpmFilesDevel = ['libjpeg-devel']
+} elsif (sys.platform == `darwin) {
+	builder.libs.append('jpeg')
+	builder.incDirs.append('guests/include/jpeg')
+	builder.libDirs.append('guests/lib')
 }
 builder.build('jpeg', ['module-jpeg.cpp', 'Class_exif.cpp', 'Class_ifd.cpp', 'Class_tag.cpp'])
