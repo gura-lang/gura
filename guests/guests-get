@@ -5,4 +5,3 @@ do
 	echo $file
 	curl -O http://www.gura-lang.org/guests/$file
 done
-
