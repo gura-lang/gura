@@ -1,14 +1,16 @@
 #!/usr/bin/env gura
 import(modbuild)
 builder = modbuild.Builder()
-if (sys.build == `msc) {
+if (sys.platform == `mswin) {
 	builder.incDirs.append(path.join(modbuild.guestDir, 'bzip2-1.0.6'))
 	builder.libs.append(path.join(modbuild.guestDir, 'bzip2-1.0.6/libbz2.lib'))
-} elsif (sys.build == `gnuc) {
+} elsif (sys.platform == `linux) {
 	builder.libs.append('bz2')
 	builder.debFiles = ['libbz2']
 	builder.rpmFiles = ['bzip2']
 	builder.debFilesDevel = ['libbz2-dev']
 	builder.rpmFilesDevel = ['bzip2-devel']
+} elsif (sys.platform == `darwin) {
+	builder.libs.append('bz2')
 }
 builder.build('bzip2', ['module-bzip2.cpp'])

@@ -1,11 +1,11 @@
 #!/usr/bin/env gura
 import(modbuild)
 builder = modbuild.Builder()
-if (sys.build == `msc) {
+if (sys.platform == `mswin) {
 	dirBase = path.join(modbuild.guestDir, 'SDL-1.2.15')
 	builder.incDirs.append(path.join(dirBase, 'include'))
 	builder.libs.append(path.join(dirBase, 'VisualC/Release/SDL.lib'))
-} elsif (sys.build == `gnuc) {
+} elsif (sys.platform == `linux) {
 	builder.libs.append('SDL')
 	builder.incDirs.append('/usr/include/SDL', '/usr/local/include/SDL')
 	builder.debFiles = ['libsdl1.2']

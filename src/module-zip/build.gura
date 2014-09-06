@@ -1,16 +1,18 @@
 #!/usr/bin/env gura
 import(modbuild)
 builder = modbuild.Builder()
-if (sys.build == `msc) {
+if (sys.platform == `mswin) {
 	builder.incDirs.append(path.join(modbuild.guestDir,
 					['zlib-1.2.7', 'bzip2-1.0.6']))
 	builder.libs.append(path.join(modbuild.guestDir,
 					['zlib-1.2.7/zlib.lib', 'bzip2-1.0.6/libbz2.lib']))
-} elsif (sys.build == `gnuc) {
+} elsif (sys.platform == `linux) {
 	builder.libs.append('z', 'bz2')
 	builder.debFiles = ['zlib1g', 'libbz2']
 	builder.rpmFiles = ['zlib', 'bzip2']
 	builder.debFilesDevel = ['zlib1g-dev', 'libbz2-dev']
 	builder.rpmFilesDevel = ['zlib-devel', 'bzip2-devel']
+} elsif (sys.platform == `darwin) {
+	builder.libs.append('z', 'bz2')
 }
 builder.build('zip', ['module-zip.cpp'])

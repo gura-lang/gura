@@ -1,17 +1,19 @@
 #!/usr/bin/env gura
 import(modbuild)
 builder = modbuild.Builder()
-if (sys.build == `msc) {
+if (sys.platform == `mswin) {
 	builder.incDirs.append(
 		path.join(modbuild.guestDir, 'expat-2.0.1/lib'))
 	builder.cflags.append('/DXML_STATIC')
 	builder.libs.append(
 		path.join(modbuild.guestDir, 'expat-2.0.1/win32/bin/release/libexpatMT.lib'))
-} elsif (sys.build == `gnuc) {
+} elsif (sys.platform == `linux) {
 	builder.libs.append('expat')
 	builder.debFiles = ['libexpat1']
 	builder.rpmFiles = ['expat']
 	builder.debFilesDevel = ['libexpat1-dev']
 	builder.rpmFilesDevel = ['expat-devel']
+} elsif (sys.platform == `darwin) {
+	builder.libs.append('expat')
 }
 builder.build('xml', ['module-xml.cpp'])

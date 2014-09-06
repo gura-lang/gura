@@ -1,8 +1,9 @@
 #!/usr/bin/env gura
 import(modbuild)
 builder = modbuild.Builder()
-if (sys.build == `msc) {
-} elsif (sys.build == `gnuc) {
+if (sys.platform == `mswin) {
+	// nothing to do
+} elsif (sys.platform == `linux) {
 	builder.libs.append('GLU')
 	builder.debFiles = ['libgl1-mesa', 'libglu1-mesa']
 	builder.rpmFiles = ['mesa-libGL', 'mesa-libGLU']

@@ -24,7 +24,7 @@ moduleInfos = @(ModuleInfo) {
 	['gzip',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['hash',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['http',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
-	['jpeg',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['jpeg',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['llvm',			`skip,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]	// not completed
 	['markdown',		`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['math',			`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
@@ -35,10 +35,10 @@ moduleInfos = @(ModuleInfo) {
 	['opengl',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['os',				`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
 	['path',			`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
-	['png',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['png',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['postgresql',		`skip,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]	// not completed
 	['ppm',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
-	['re',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['re',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['sample',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['sdl',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['sdl2',			`skip,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
@@ -53,7 +53,7 @@ moduleInfos = @(ModuleInfo) {
 	['wx',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['xml',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['xpm',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
-	['yaml',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['yaml',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['zip',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 }
 

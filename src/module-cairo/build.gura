@@ -37,14 +37,14 @@ srcs = [
 'Class_text_cluster.cpp'
 ]
 builder = modbuild.Builder()
-if (sys.build == `msc) {
+if (sys.platform == `mswin) {
 	dirCairo = path.join(modbuild.guestDir, 'cairo-1.12.12/src')
 	dirPNG = path.join(modbuild.guestDir, 'lpng1510/projects/vstudio/Release Library')
 	builder.libs.append(path.join(dirCairo, 'release/cairo-static.lib'))
 	builder.libs.append(path.join(dirPNG, ['libpng15.lib', 'zlib.lib']))
 	builder.libs.append('msimg32.lib')
 	builder.incDirs.append(dirCairo)
-} elsif (sys.build == `gnuc) {
+} elsif (sys.platform == `linux) {
 	builder.libs.append('cairo')
 	builder.incDirs.append('/usr/local/include/cairo', '/usr/include/cairo')
 	builder.hint = '''\
@@ -68,6 +68,7 @@ To compile source code:
 	builder.rpmFiles = ['cairo']
 	builder.debFilesDevel = ['libcairo2-dev']
 	builder.rpmFilesDevel = ['cairo-devel']
+} elsif (sys.platform == `darwin) {
 }
 builder.precompile = 'stdafx.h'
 builder.progressFlag = true
