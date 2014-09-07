@@ -9,7 +9,7 @@ if (sys.platform == `mswin) {
 } elsif (sys.platform == `linux) {
 } elsif (sys.platform == `darwin) {
 	builder.incDirs.append('guests/include/SDL2')
-	builder.libDirs.append('guests/SDL2-2.0.3/build/.libs')
+	builder.libDirs.append('guests/lib/SDL2')
 	builder.libs.append('SDL2')
 }
 builder.build('sdl2', ['module-sdl2.cpp',

@@ -6,7 +6,7 @@ popd
 #---------------------------------------------------------------------------
 tar xfz SDL2-2.0.3.tar.gz
 pushd SDL2-2.0.3
-./configure
+./configure --libdir=/usr/lib/gura/guests
 make
 popd
 rm -f include/SDL2
