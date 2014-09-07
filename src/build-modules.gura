@@ -46,7 +46,7 @@ moduleInfos = @(ModuleInfo) {
 	['tar',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['tcl',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['tester',			`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// just for test
-	['tiff',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['tiff',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['time',			`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
 	['uuid',			`build,	[`mswin,															]]
 	['wav',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
