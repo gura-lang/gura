@@ -19,7 +19,7 @@ moduleInfos = @(ModuleInfo) {
 	['fs',				`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
 	['gif',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['glu',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
-	['gmp',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['gmp',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['guri',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['gzip',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['hash',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
@@ -41,7 +41,7 @@ moduleInfos = @(ModuleInfo) {
 	['re',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['sample',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['sdl',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
-	['sdl2',			`skip,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['sdl2',			`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['sqlite3',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['tar',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['tcl',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
