@@ -7,6 +7,10 @@ if (sys.platform == `mswin) {
 	builder.incDirs.append(path.join(dirBase, 'include'))
 	builder.libs.append(path.join(dirBase, 'VisualC/SDL/Win32/Release/SDL2.lib'))
 } elsif (sys.platform == `linux) {
+} elsif (sys.platform == `darwin) {
+	builder.incDirs.append('guests/include/SDL2')
+	builder.libDirs.append('guests/lib/SDL2')
+	builder.libs.append('SDL2')
 }
 builder.build('sdl2', ['module-sdl2.cpp',
 	'Class_Window.cpp', 'Class_Renderer.cpp', 'Class_Texture.cpp',

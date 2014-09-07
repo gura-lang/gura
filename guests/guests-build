@@ -11,7 +11,7 @@ make
 popd
 rm -f include/SDL2
 rm -f lib/SDL2
-ln -sf ../SDL2-2.0.3/ include/SDL2
+ln -sf ../SDL2-2.0.3/include/ include/SDL2
 ln -sf ../SDL2-2.0.3/build/ lib/SDL2
 #---------------------------------------------------------------------------
 tar xfy freetype-2.5.3.tar.bz2
