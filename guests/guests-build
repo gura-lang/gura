@@ -19,12 +19,18 @@ cp SDL2-2.0.3/build/.lib/*.dylib dylib
 #---------------------------------------------------------------------------
 tar xfy freetype-2.5.3.tar.bz2
 pushd freetype-2.5.3
-./configure
+./configure --libdir=/usr/lib/gura/guests
 make
 popd
 rm -f include/freetype
 ln -sf ../freetype-2.5.3/include/ include/freetype
 ln -sf ../freetype-2.5.3/objs/.libs/libfreetype.a lib/libfreetype.a
+#---------------------------------------------------------------------------
+#tar xfJ cairo-1.12.16.tar.xz
+#pushd cairo-1.12.16
+#./configure --libdir=/usr/lib/gura/guests
+#make
+#popd
 #---------------------------------------------------------------------------
 tar xfy gmp-6.0.0a.tar.bz2
 pushd gmp-6.0.0
@@ -39,7 +45,7 @@ cp gmp-6.0.0/.libs/*.dylib dylib
 #---------------------------------------------------------------------------
 tar xfz jpegsrc.v9a.tar.gz
 pushd jpeg-9a
-./configure
+./configure --libdir=/usr/lib/gura/guests
 make
 popd
 rm -f include/jpeg
@@ -48,7 +54,7 @@ ln -sf ../jpeg-9a/.libs/libjpeg.a lib/libjpeg.a
 #---------------------------------------------------------------------------
 tar xfz libpng-1.6.12.tar.gz
 pushd libpng-1.6.12
-./configure
+./configure --libdir=/usr/lib/gura/guests
 make
 popd
 rm -f include/png
@@ -57,22 +63,41 @@ ln -sf ../libpng-1.6.12/.libs/libpng16.a lib/libpng16.a
 #---------------------------------------------------------------------------
 tar xfz onig-5.9.5.tar.gz
 pushd onig-5.9.5
-./configure
+./configure --libdir=/usr/lib/gura/guests
 make
 popd
 rm -f include/onig
 ln -sf ../onig-5.9.5/ include/onig
 ln -sf ../onig-5.9.5/.libs/libonig.a lib/libonig.a
 #---------------------------------------------------------------------------
+#tar xfz pixman-0.32.6.tar.gz
+#pushd pixman-0.32.6
+#./configure --libdir=/usr/lib/gura/guests
+#make
+#popd
+#---------------------------------------------------------------------------
+tar xfz tiff-3.8.2.tar.gz
+cd tiff-3.8.2
+./configure --libdir=/usr/lib/gura/guests
+make
+popd
+rm -f include/tiff
+ln -sf ../tiff-3.8.2/libtiff/ include/tiff
+ln -sf ../tiff-3.8.2/libtiff/.libs/libtiff.a lib/libtiff.a
+#---------------------------------------------------------------------------
 tar xfy wxWidgets-3.0.1.tar.bz2
 pushd wxWidgets-3.0.1
-#./configure
+#./configure --libdir=/usr/lib/gura/guests
 #make
-popd
+#popd
+#rm -f include/wx
+#ln -sf ../wxWidgets-3.0.1/include/ include/wx
+#ln -sf ../wxWidgets-3.0.1/lib/ lib/wx
+#cp wxWidgets-3.0.1/lib/*.dylib dylib
 #---------------------------------------------------------------------------
 tar xfz yaml-0.1.5.tar.gz
 pushd yaml-0.1.5
-./configure
+./configure --libdir=/usr/lib/gura/guests
 make
 popd
 rm -f include/yaml

@@ -10,5 +10,9 @@ if (sys.platform == `mswin) {
 	builder.rpmFiles = ['libtiff']
 	builder.debFilesDevel = ['libtiff4-dev']
 	builder.rpmFilesDevel = ['libtiff-devel']
+} elsif (sys.platform == `darwin) {
+	builder.libs.append('tiff', 'z')
+	builder.incDirs.append('guests/include/tiff')
+	builder.libDirs.append('guests/lib')
 }
 builder.build('tiff', ['module-tiff.cpp'])
