@@ -16,7 +16,7 @@ rm -f include/SDL2
 rm -f lib/SDL2
 ln -sf ../SDL2-2.0.3/include/ include/SDL2
 ln -sf ../SDL2-2.0.3/build/ lib/SDL2
-cp -a SDL2-2.0.3/build/.lib/*.dylib dylib
+cp -a SDL2-2.0.3/build/.libs/*.dylib dylib
 #---------------------------------------------------------------------------
 tar xfz expat-2.1.0.tar.gz
 pushd expat-2.1.0
