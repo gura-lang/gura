@@ -6,7 +6,7 @@ moduleInfos = @(ModuleInfo) {
 	['base64',			`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
 	['bmp',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['bzip2',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
-	['cairo',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['cairo',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['canvas',			`build,	[`mswin,															]]
 	['codecs_basic',	`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
 	['codecs_iso8859',	`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
