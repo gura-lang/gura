@@ -1,0 +1,5 @@
+#!/bin/sh
+# Thanks: http://www.kyngchaos.com/macosx/build/cairo
+if [ "$1" = "--atleast-pkgconfig-version" ] ; then
+echo 1
+fi
