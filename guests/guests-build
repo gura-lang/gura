@@ -17,6 +17,15 @@ ln -sf ../SDL2-2.0.3/include/ include/SDL2
 ln -sf ../SDL2-2.0.3/build/ lib/SDL2
 cp SDL2-2.0.3/build/.lib/*.dylib dylib
 #---------------------------------------------------------------------------
+tar xfz expat-2.1.0.tar.gz
+pushd expat-2.1.0
+./configure --libdir=/usr/lib/gura/guests
+make
+popd
+rm -f include/expat
+ln -sf ../expat-2.1.0/lib/ include/expat
+ln -sf ../expat-2.1.0/.libs/libexpat.a lib/libexpat.a
+#---------------------------------------------------------------------------
 tar xfy freetype-2.5.3.tar.bz2
 pushd freetype-2.5.3
 ./configure --libdir=/usr/lib/gura/guests
@@ -26,11 +35,22 @@ rm -f include/freetype
 ln -sf ../freetype-2.5.3/include/ include/freetype
 ln -sf ../freetype-2.5.3/objs/.libs/libfreetype.a lib/libfreetype.a
 #---------------------------------------------------------------------------
-#tar xfJ cairo-1.12.16.tar.xz
-#pushd cairo-1.12.16
-#./configure --libdir=/usr/lib/gura/guests
-#make
-#popd
+# depends on: expat freetype
+tar xfy fontconfig-2.11.1.tar.bz2
+pushd fontconfig-2.11.1
+./configure --libdir=/usr/lib/gura/guests ¥
+PKG_CONFIG=../pkg-config-fake ¥
+FREETYPE_CFLAGS=-I../../include/freetype ¥
+FREETYPE_LIBS="-L../../lib -lfreetype -lz -lbz2" ¥
+EXPAT_CFLAGS=-I../../include/expat ¥
+EXPAT_LIBS="-L../../lib -lexpat"
+make
+popd
+rm -f include/fontconfig
+rm -f lib/fontconfig
+ln -sf ../fontconfig-2.11.1/ include/fontconfig
+ln -sf ../fontconfig-2.11.1/src/.libs/ lib/fontconfig
+cp fontconfig-2.11.1/src/.libs/*.dylib dylib
 #---------------------------------------------------------------------------
 tar xfy gmp-6.0.0a.tar.bz2
 pushd gmp-6.0.0
@@ -70,11 +90,14 @@ rm -f include/onig
 ln -sf ../onig-5.9.5/ include/onig
 ln -sf ../onig-5.9.5/.libs/libonig.a lib/libonig.a
 #---------------------------------------------------------------------------
-#tar xfz pixman-0.32.6.tar.gz
-#pushd pixman-0.32.6
-#./configure --libdir=/usr/lib/gura/guests
-#make
-#popd
+tar xfz pixman-0.32.6.tar.gz
+pushd pixman-0.32.6
+./configure --libdir=/usr/lib/gura/guests
+make
+popd
+rm -f include/pixman
+ln -sf ../pixman-0.32.6/pixman/ include/pixman
+ln -sf ../pixman-0.32.6/pixman/.libs/libpixman-1.a lib/libpixman-1.a
 #---------------------------------------------------------------------------
 tar xfz tiff-3.8.2.tar.gz
 cd tiff-3.8.2
@@ -103,3 +126,10 @@ popd
 rm -f include/yaml
 ln -sf ../yaml-0.1.5/include/ include/yaml
 ln -sf ../yaml-0.1.5/src/.libs/libyaml.a lib/libyaml.a
+#---------------------------------------------------------------------------
+# depends on: fontconfig, freetype, pixman, png
+#tar xfJ cairo-1.12.16.tar.xz
+#pushd cairo-1.12.16
+#./configure --libdir=/usr/lib/gura/guests
+#make
+#popd

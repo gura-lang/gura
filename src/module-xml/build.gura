@@ -15,5 +15,7 @@ if (sys.platform == `mswin) {
 	builder.rpmFilesDevel = ['expat-devel']
 } elsif (sys.platform == `darwin) {
 	builder.libs.append('expat')
+	builder.incDirs.append('guests/include/expat')
+	builder.libDirs.append('guests/lib')
 }
 builder.build('xml', ['module-xml.cpp'])
