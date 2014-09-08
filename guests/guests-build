@@ -102,7 +102,7 @@ ln -sf ../pixman-0.32.6/pixman/ include/pixman
 ln -sf ../pixman-0.32.6/pixman/.libs/libpixman-1.a lib/libpixman-1.a
 #---------------------------------------------------------------------------
 tar xfz tiff-3.8.2.tar.gz
-cd tiff-3.8.2
+pushd tiff-3.8.2
 ./configure --libdir=$prefix/lib/gura/guests
 make
 popd
@@ -110,8 +110,8 @@ rm -f include/tiff
 ln -sf ../tiff-3.8.2/libtiff/ include/tiff
 ln -sf ../tiff-3.8.2/libtiff/.libs/libtiff.a lib/libtiff.a
 #---------------------------------------------------------------------------
-tar xfy wxWidgets-3.0.1.tar.bz2
-pushd wxWidgets-3.0.1
+#tar xfy wxWidgets-3.0.1.tar.bz2
+#pushd wxWidgets-3.0.1
 #./configure --libdir=$prefix/lib/gura/guests
 #make
 #popd
