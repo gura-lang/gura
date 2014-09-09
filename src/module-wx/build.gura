@@ -56,7 +56,6 @@ srcs = [
 	'Class_wx_DebugReportUpload.cpp'
 	'Class_wx_DebugReportPreview.cpp'
 	'Class_wx_DebugReportPreviewStd.cpp'
-	'Class_wx_DialUpManager.cpp'
 	'Class_wx_Dir.cpp'
 	'Class_wx_DirTraverser.cpp'
 	'Class_wx_Display.cpp'
@@ -198,7 +197,6 @@ srcs = [
 	'Class_wx_UpdateUIEvent.cpp'
 	'Class_wx_WindowCreateEvent.cpp'
 	'Class_wx_WindowDestroyEvent.cpp'
-	'Class_wx_DialUpEvent.cpp'
 	'Class_wx_DropFilesEvent.cpp'
 	'Class_wx_EraseEvent.cpp'
 	'Class_wx_FocusEvent.cpp'
@@ -260,7 +258,6 @@ srcs = [
 	'Class_wx_CollapsiblePane.cpp'
 	'Class_wx_ComboCtrl.cpp'
 	'Class_wx_OwnerDrawnComboBox.cpp'
-	'Class_wx_BitmapComboBox.cpp'
 	'Class_wx_RichTextStyleComboCtrl.cpp'
 	'Class_wx_ControlWithItems.cpp'
 	'Class_wx_Choice.cpp'
@@ -548,6 +545,13 @@ srcs = [
 	'Class_wx_VersionInfo.cpp'
 	'Class_wx_EventFactory.cpp'
 ]
+if (sys.platform != `darwin) {
+	srcs.append(
+		'Class_wx_DialUpManager.cpp'
+		'Class_wx_DialUpEvent.cpp'
+		'Class_wx_BitmapComboBox.cpp'
+	)
+}
 srcs_MSW = [
 	// revise this later
 	'Class_wx_Thread.cpp'
@@ -650,9 +654,43 @@ if (sys.platform == `mswin) {
 		}
 		builder.ldflags.append(ldflags.filter(ldflags != ''))
 	} else {
-		//builder.printHint()
 		contFlag = false
 	}
+} elsif (sys.platform == `darwin) {
+//-I/usr/lib/gura/guests/wx/include/osx_cocoa-unicode-3.0 -I/Users/ypsitau/gura/guests/wxWidgets-3.0.1/include -D_FILE_OFFSET_BITS=64 -DWXUSINGDLL -D__WXMAC__ -D__WXOSX__ -D__WXOSX_COCOA__
+	builder.incDirs.append(
+		'guests/lib/wx/wx/include/osx_cocoa-unicode-3.0',
+		'guests/include/wx')
+	builder.cflags.append(
+		'-D_FILE_OFFSET_BITS=64',
+		'-DWXUSINGDLL',
+		'-D__WXMAC__',
+		'-D__WXOSX__',
+		'-D__WXOSX_COCOA__')
+	builder.libDirs.append('guests/lib/wx')
+	builder.ldflags.append(
+		'-framework', 'IOKit',
+		'-framework', 'Carbon',
+		'-framework', 'Cocoa',
+		'-framework', 'AudioToolbox'
+		'-framework', 'System'
+		'-framework', 'OpenGL')
+	builder.libs.append(		
+		'wx_osx_cocoau_xrc-3.0',
+		'wx_osx_cocoau_webview-3.0',
+		'wx_osx_cocoau_stc-3.0',
+		'wx_osx_cocoau_richtext-3.0',
+		'wx_osx_cocoau_ribbon-3.0',
+		//'wx_osx_cocoau_proggrid-3.0',
+		'wx_osx_cocoau_aui-3.0',
+		'wx_osx_cocoau_gl-3.0',
+		'wx_osx_cocoau_html-3.0',
+		'wx_osx_cocoau_qa-3.0',
+		'wx_osx_cocoau_adv-3.0',
+		'wx_osx_cocoau_core-3.0',
+		'wx_baseu_xml-3.0',
+		'wx_baseu_net-3.0',
+		'wx_baseu-3.0')
 }
 if (contFlag) {
 	builder.precompile = 'stdafx.h'

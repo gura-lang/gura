@@ -3,6 +3,9 @@
 #include <gura.h>
 #define LPCTSTR LPCWSTR
 #define LPFINDREPLACE LPFINDREPLACEW
+#if defined(__WXMAC__)
+#define HAVE_TYPE_TRAITS
+#endif
 #include <wx/wx.h>
 #include <wx/aui/aui.h>
 #include <wx/aboutdlg.h>
@@ -309,7 +312,9 @@
 #include "Class_wx_DebugReportUpload.h"					// derived from wxDebugReportCompress
 #include "Class_wx_DebugReportPreview.h"
 #include "Class_wx_DebugReportPreviewStd.h"				// derived from wxDebugReportPreview
+#if !defined(__WXMAC__)
 #include "Class_wx_DialUpManager.h"
+#endif
 #include "Class_wx_Dir.h"
 #include "Class_wx_DirTraverser.h"
 #include "Class_wx_Display.h"
@@ -452,7 +457,9 @@
 #include "Class_wx_UpdateUIEvent.h"						// derived from wxCommandEvent
 #include "Class_wx_WindowCreateEvent.h"					// derived from wxCommandEvent
 #include "Class_wx_WindowDestroyEvent.h"				// derived from wxCommandEvent
+#if !defined(__WXMAC__)
 #include "Class_wx_DialUpEvent.h"						// derived from wxEvent
+#endif
 #include "Class_wx_DropFilesEvent.h"					// derived from wxEvent
 #include "Class_wx_EraseEvent.h"						// derived from wxEvent
 #include "Class_wx_FocusEvent.h"						// derived from wxEvent
@@ -518,7 +525,9 @@
 #include "Class_wx_ControlWithItems.h"					// derived from wxControl
 #include "Class_wx_Choice.h"							// derived from wxControlWithItems
 #include "Class_wx_ComboBox.h"							// derived from wxControlWithItems
+#if !defined(__WXMAC__)
 #include "Class_wx_BitmapComboBox.h"					// derived from wxComboBox
+#endif
 #include "Class_wx_ListBox.h"							// derived from wxControlWithItems
 #include "Class_wx_CheckListBox.h"						// derived from wxListBox
 #include "Class_wx_DatePickerCtrl.h"					// derived from wxControl
