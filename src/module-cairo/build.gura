@@ -38,6 +38,7 @@ srcs = [
 ]
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
+	builder.precompile = 'stdafx.h'
 	dirCairo = path.join(modbuild.guestDir, 'cairo-1.12.12/src')
 	dirPNG = path.join(modbuild.guestDir, 'lpng1510/projects/vstudio/Release Library')
 	builder.libs.append(path.join(dirCairo, 'release/cairo-static.lib'))
@@ -45,6 +46,7 @@ if (sys.platform == `mswin) {
 	builder.libs.append('msimg32.lib')
 	builder.incDirs.append(dirCairo)
 } elsif (sys.platform == `linux) {
+	builder.precompile = 'stdafx.h'
 	builder.libs.append('cairo')
 	builder.incDirs.append('/usr/local/include/cairo', '/usr/include/cairo')
 	builder.debFiles = ['libcairo2']
@@ -52,10 +54,10 @@ if (sys.platform == `mswin) {
 	builder.debFilesDevel = ['libcairo2-dev']
 	builder.rpmFilesDevel = ['cairo-devel']
 } elsif (sys.platform == `darwin) {
+	//builder.precompile = 'stdafx.h'
 	builder.libs.append('cairo')
 	builder.incDirs.append('guests/include/cairo')
 	builder.libDirs.append('guests/lib/cairo')
 }
-builder.precompile = 'stdafx.h'
 builder.progressFlag = true
 builder.build('cairo', srcs)
