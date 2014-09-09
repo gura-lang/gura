@@ -595,6 +595,7 @@ srcs_MSW = [
 contFlag = true	   
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
+	builder.precompile = 'stdafx.h'
 	srcs.append(srcs_MSW)
 	dirWx = path.join(modbuild.guestDir, 'wxWidgets-3.0.1')
 	builder.incDirs.append(
@@ -627,6 +628,7 @@ if (sys.platform == `mswin) {
 		'wxtiff.lib'
 		'wxzlib.lib')
 } elsif (sys.platform == `linux) {
+	builder.precompile = 'stdafx.h'
 	IsExist(filename:string) = {
 		path.exists(path.join(os.getenv('PATH').split(':'), filename)).or()
 	}
@@ -657,7 +659,7 @@ if (sys.platform == `mswin) {
 		contFlag = false
 	}
 } elsif (sys.platform == `darwin) {
-//-I/usr/lib/gura/guests/wx/include/osx_cocoa-unicode-3.0 -I/Users/ypsitau/gura/guests/wxWidgets-3.0.1/include -D_FILE_OFFSET_BITS=64 -DWXUSINGDLL -D__WXMAC__ -D__WXOSX__ -D__WXOSX_COCOA__
+	//builder.precompile = 'stdafx.h'
 	builder.incDirs.append(
 		'guests/lib/wx/wx/include/osx_cocoa-unicode-3.0',
 		'guests/include/wx')
@@ -693,7 +695,6 @@ if (sys.platform == `mswin) {
 		'wx_baseu-3.0')
 }
 if (contFlag) {
-	builder.precompile = 'stdafx.h'
 	builder.progressFlag = true
 	builder.build('wx', srcs)
 }
