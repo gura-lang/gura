@@ -392,9 +392,11 @@ _MS(RealizeDervClass(MediaCtrl,							Control));
 	RealizeDervClass(PreviewCanvas,						ScrolledWindow);
 	RealizeDervClass(VScrolledWindow,					Panel);
 	RealizeDervClass(VListBox,							VScrolledWindow);
+#if !defined(__WXMAC__)
 	RealizeDervClass(HtmlListBox,						VListBox);
 	RealizeDervClass(SimpleHtmlListBox,					HtmlListBox);
 	RealizeDervClass(RichTextStyleListBox,				HtmlListBox);
+#endif
 	RealizeDervClass(WizardPage,						Panel);
 	RealizeDervClass(WizardPageSimple,					WizardPage);
 	RealizeDervClass(SashWindow,						Window);
@@ -966,9 +968,11 @@ _MS(PrepareClass(MediaCtrl));
 	PrepareClass(PreviewCanvas);
 	PrepareClass(VScrolledWindow);
 	PrepareClass(VListBox);
+#if !defined(__WXMAC__)
 	PrepareClass(HtmlListBox);
 	PrepareClass(SimpleHtmlListBox);
 	PrepareClass(RichTextStyleListBox);
+#endif
 	PrepareClass(WizardPage);
 	PrepareClass(WizardPageSimple);
 	PrepareClass(SashWindow);
