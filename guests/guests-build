@@ -110,15 +110,16 @@ rm -f include/tiff
 ln -sf ../tiff-3.8.2/libtiff/ include/tiff
 ln -sf ../tiff-3.8.2/libtiff/.libs/libtiff.a lib/libtiff.a
 #---------------------------------------------------------------------------
-#tar xfy wxWidgets-3.0.1.tar.bz2
-#pushd wxWidgets-3.0.1
-#./configure --libdir=$prefix/lib/gura/guests
-#make
-#popd
-#rm -f include/wx
-#ln -sf ../wxWidgets-3.0.1/include/ include/wx
-#ln -sf ../wxWidgets-3.0.1/lib/ lib/wx
-#cp -a wxWidgets-3.0.1/lib/*.dylib dylib
+tar xfy wxWidgets-3.0.1.tar.bz2
+pushd wxWidgets-3.0.1
+./configure --libdir=$prefix/lib/gura/guests
+make
+popd
+rm -f include/wx
+rm -f lib/wx
+ln -sf ../wxWidgets-3.0.1/include/ include/wx
+ln -sf ../wxWidgets-3.0.1/lib/ lib/wx
+cp -a wxWidgets-3.0.1/lib/*.dylib dylib
 #---------------------------------------------------------------------------
 tar xfz yaml-0.1.5.tar.gz
 pushd yaml-0.1.5
