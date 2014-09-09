@@ -9,5 +9,8 @@ if (sys.platform == `mswin) {
 	builder.rpmFiles = ['mesa-libGL', 'mesa-libGLU']
 	builder.debFilesDevel = ['libgl1-mesa-dev', 'libglu1-mesa-dev']
 	builder.rpmFilesDevel = ['mesa-libGL-devel', 'mesa-libGLU-devel']
+} elsif (sys.platform == `darwin) {
+	builder.cflags.append('-framework', 'OpenGL')
+	builder.ldflags.append('-framework', 'OpenGL')
 }
 builder.build('glu', ['module-glu.cpp'])
