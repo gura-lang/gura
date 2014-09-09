@@ -659,7 +659,7 @@ if (sys.platform == `mswin) {
 		contFlag = false
 	}
 } elsif (sys.platform == `darwin) {
-	//builder.precompile = 'stdafx.h'
+	builder.precompile = 'stdafx.h'
 	builder.incDirs.append(
 		'guests/lib/wx/wx/include/osx_cocoa-unicode-3.0',
 		'guests/include/wx')

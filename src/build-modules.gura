@@ -18,7 +18,7 @@ moduleInfos = @(ModuleInfo) {
 	['freetype',		`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['fs',				`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
 	['gif',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
-	['glu',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['glu',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['gmp',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['guri',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['gzip',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
@@ -32,7 +32,7 @@ moduleInfos = @(ModuleInfo) {
 	['msico',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['mswin',			`build,	[`mswin,															]]
 	['mysql',			`skip,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]	// not completed
-	['opengl',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['opengl',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['os',				`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
 	['path',			`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
 	['png',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
