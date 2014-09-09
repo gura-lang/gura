@@ -317,10 +317,15 @@ if (sys.build == `msc) {
 		}
 		doPrecompile() = {
 			src = this.precompile
-			obj = src + '.gch'
 			cflags = this.cflags.clone()
 			cflags.append('-I' + this.incDirs)
 			this.debugFlag && cflags.append('-g')
+			if (sys.platform == `darwin) {
+				obj = src + '.pch'
+				cflags.append('-emit-pch', '-o', obj)
+			} else {
+				obj = src + '.gch'
+			}
 			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
 				this.progressFlag && println('-- compiling: ', src)
 				if (!this.execute('gcc', cflags*, '-x', 'c++-header', src)) {
@@ -335,6 +340,9 @@ if (sys.build == `msc) {
 			obj = this.makeObjName(src)
 			cflags = this.cflags.clone()
 			cflags.append('-I' + this.incDirs)
+			if (sys.platform == `darwin && this.precompile) {
+				cflags.append('-include-pch', this.precompile + '.pch')
+			}
 			this.debugFlag && cflags.append('-g')
 			firstFlag && cflags.append('-DGURA_MODULE_MAIN')
 			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
@@ -373,7 +381,7 @@ if (sys.build == `msc) {
 			} else {
 				fileNames = []
 			}
-			fileNames.append(path.dir('.', '*.gch'))
+			fileNames.append(path.dir('.', '*.gch', '*.pch'))
 			fileNames.isempty() && return
 			fileNames.each {|fileName|
 				fs.remove(fileName)
