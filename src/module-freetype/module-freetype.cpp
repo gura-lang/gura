@@ -2,6 +2,7 @@
 // Gura module: freetype
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
+#include "DeclareSymbols.h"
 
 #define Gura_AssignRawValue(name) \
 Gura_AssignValueEx(#name, Value(static_cast<double>(name)))

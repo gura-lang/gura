@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "DeclareSymbols.h"
 
 Gura_BeginModuleScope(freetype)
 
