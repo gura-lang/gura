@@ -305,6 +305,9 @@ srcs = [
 	'Class_wx_PreviewCanvas.cpp'
 	'Class_wx_VScrolledWindow.cpp'
 	'Class_wx_VListBox.cpp'
+	'Class_wx_HtmlListBox.cpp'
+	'Class_wx_SimpleHtmlListBox.cpp'
+	'Class_wx_RichTextStyleListBox.cpp'
 	'Class_wx_WizardPage.cpp'
 	'Class_wx_WizardPageSimple.cpp'
 	'Class_wx_SashWindow.cpp'
@@ -544,9 +547,6 @@ srcs = [
 ]
 if (sys.platform != `darwin) {
 	srcs.append(
-		'Class_wx_HtmlListBox.cpp'
-		'Class_wx_SimpleHtmlListBox.cpp'
-		'Class_wx_RichTextStyleListBox.cpp'
 		'Class_wx_DialUpManager.cpp'
 		'Class_wx_DialUpEvent.cpp'
 		'Class_wx_BitmapComboBox.cpp'
