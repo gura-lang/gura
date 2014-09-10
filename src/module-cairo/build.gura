@@ -54,7 +54,7 @@ if (sys.platform == `mswin) {
 	builder.debFilesDevel = ['libcairo2-dev']
 	builder.rpmFilesDevel = ['cairo-devel']
 } elsif (sys.platform == `darwin) {
-	//builder.precompile = 'stdafx.h'
+	builder.precompile = 'stdafx.h'
 	builder.libs.append('cairo')
 	builder.incDirs.append('guests/include/cairo')
 	builder.libDirs.append('guests/lib/cairo')
