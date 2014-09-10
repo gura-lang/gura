@@ -3,9 +3,6 @@
 #include <gura.h>
 #define LPCTSTR LPCWSTR
 #define LPFINDREPLACE LPFINDREPLACEW
-#if defined(__WXMAC__)
-#define HAVE_TYPE_TRAITS
-#endif
 #include <wx/wx.h>
 #include <wx/aui/aui.h>
 #include <wx/aboutdlg.h>
