@@ -60,7 +60,7 @@ include_directories(
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/lib)
 add_subdirectory(${PROJECT_SOURCE_DIR}/program-gura)
-add_subdirectory(${PROJECT_SOURCE_DIR}/program-guri)
+#add_subdirectory(${PROJECT_SOURCE_DIR}/program-guri)
 
 install(FILES
   ${GURA_SAMPLE_SRCDIR}/resource/Winter.jpg
