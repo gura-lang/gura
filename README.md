@@ -33,6 +33,37 @@ Build for Windows
    Release and build it.
 
 
+Build for Mac
+-----------------
+1. Install Xcode and Command Line Tools.
+
+2. Download Gura source code from repository.
+
+        $ git clone https://github.com/gura-lang/gura.git
+
+3. Run the following commands to build guest libraries and copy their dynamic libraries
+   to the specified directory.
+
+        $ pushd gura/guests
+        $ ./build
+		$ sudo ./build install
+        $ popd
+
+4. Run the following commands to build **Gura** library and executable.
+
+		$ cd gura
+        $ mkdir build
+        $ cd build
+        $ ../configure
+        $ make
+        $ ./build-modules
+
+5. Run the following command to install **Gura** library and executable.
+
+        $ sudo make install
+        $ sudo ./build-modules install
+
+
 Build for Linux
 -----------------
 1. Check if build tools such as C++ compiler, make, cmake and necessary
@@ -42,9 +73,9 @@ Build for Linux
 
         $ sudo apt-get install build-essential cmake libreadline-dev rpm
 
-   For RedHat, do the following command.
+   For Fedora, do the following command.
 
-        $ sudo yum install gcc gcc-c++ make cmake readline-devel rpm-build
+        # yum install gcc gcc-c++ make cmake readline-devel rpm-build
 
 2. Run the following commands to build **Gura** library and executable.
 
@@ -54,30 +85,19 @@ Build for Linux
         $ cd build
         $ ../configure
         $ make
-
-3. Run the following command to install **Gura** library and executable.
-
-        $ sudo make install
-
-   It may be a better idea to make package files of Debian or RPM for
-   installation. See the section below to know how to do it.
+        $ sudo ./setup-guest
+        $ ./build-modules
 
 4. Run the following command to build **Gura** modules files.
 
         $ ./build-modules
 
-  This may occur an error because of lacking packages. In such a case, the
-  script `build-modules` generates shell scripts with which you can easily
-  setup necessary packages. Run `setup-gura-guest-deb.sh` for Ubuntu and
-  `setup-gura-guest-rpm.sh` for RedHat.
+3. Run the following command to install **Gura** library and executable.
 
-5. Run the following command to install **Gura** module files.
-
+        $ sudo make install
+        $ sudo ldconfig     # only necessary for the first install
         $ sudo ./build-modules install
 
-
-Build Installation Packages for Linux
--------------------------------------
 Generated Makefile is capable of creating both Debian and RPM install packages.
 
 Run the following command to create Debian and RPM packages.
@@ -90,6 +110,6 @@ For Ubuntu:
 
     $ sudo dpkg -i gura-x.x.x-Linux.deb
 
-For RedHat:
+For Fedora:
 
     $ sudo rpm -i gura-x.x.x-Linux.rpm

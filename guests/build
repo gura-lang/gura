@@ -1,5 +1,10 @@
 #/bin/sh
 prefix=/usr
+if [ "$1" == "install" ] ; then
+    mkdir -p $prefix/lib/gura/guests
+	cp -a ../guests/dylib/* $prefix/lib/gura/guests
+    exit
+fi
 #---------------------------------------------------------------------------
 files=""
 files="$files SDL-1.2.15.tar.gz"
