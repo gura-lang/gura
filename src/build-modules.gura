@@ -23,7 +23,7 @@ moduleInfos = @(ModuleInfo) {
 	['guri',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['gzip',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['hash',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
-	['http',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['http',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['jpeg',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['llvm',			`skip,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]	// not completed
 	['markdown',		`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
