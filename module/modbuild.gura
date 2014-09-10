@@ -339,11 +339,12 @@ if (sys.build == `msc) {
 			obj = this.makeObjName(src)
 			cflags = this.cflags.clone()
 			cflags.append('-I' + this.incDirs)
-			if (sys.platform == `darwin && this.precompile) {
+			this.debugFlag && cflags.append('-g')
+			if (firstFlag) {
+				cflags.append('-DGURA_MODULE_MAIN')
+			} elsif (sys.platform == `darwin && this.precompile) {
 				cflags.append('-include', this.precompile)
 			}
-			this.debugFlag && cflags.append('-g')
-			firstFlag && cflags.append('-DGURA_MODULE_MAIN')
 			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
 				this.progressFlag && printf('-- compiling: %*d/%d %s\n',
 									format('%d', cnt).len(), idx + 1, cnt, src)

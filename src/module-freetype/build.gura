@@ -41,7 +41,7 @@ if (sys.platform == `mswin) {
 	builder.debFilesDevel = ['libfreetype6-dev']
 	builder.rpmFilesDevel = ['freetype-devel']
 } elsif (sys.platform == `darwin) {
-	//builder.precompile = 'stdafx.h'
+	builder.precompile = 'stdafx.h'
 	builder.libs.append('freetype', 'z', 'bz2')
 	builder.incDirs.append('guests/include/freetype')
 	builder.libDirs.append('guests/lib')
