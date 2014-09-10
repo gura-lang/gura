@@ -35,7 +35,7 @@ Build for Windows
 
 Build for Mac
 -----------------
-1. Install Xcode and Command Line Tools.
+1. Install Xcode and Command Line Developer Tools.
 
 2. Download Gura source code from repository.
 
