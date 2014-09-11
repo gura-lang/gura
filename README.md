@@ -30,7 +30,7 @@ Build for Windows
    Visual Studio.
 
 3. Open `gura\gura.sln` with Visual Studio 2010, switch the configuration to
-   Release and build it.
+   `Release` and build it.
 
 
 Build for Mac OSX
@@ -69,7 +69,6 @@ Build for Mac OSX
         $ ../configure
         $ make
         $ sudo make install
-
 
 5. Run the following commands to build and install **Gura** modules.
    *You can skip this process if you just want to try Gura interpreter itself.*
@@ -115,26 +114,46 @@ Build for Linux
 
         # yum install gcc gcc-c++ make cmake readline-devel rpm-build
 
-2. Run the following commands to build **Gura** library and executable.
+2. Clone Gura source code from GitHub repository.
 
         $ git clone https://github.com/gura-lang/gura.git
-        $ cd gura
+
+   I'm afraid that would take much time as it tries to retrieve all the history.
+   The following command could save your important time.
+   
+        $ git clone https://github.com/gura-lang/gura.git --depth 1
+
+3. Run the following commands to build and install **Gura** interpreter.
+
+		$ cd gura
         $ mkdir build
         $ cd build
         $ ../configure
         $ make
-        $ sudo ./setup-guest
-        $ ./build-modules
-
-4. Run the following command to build **Gura** modules files.
-
-        $ ./build-modules
-
-3. Run the following command to install **Gura** library and executable.
-
         $ sudo make install
         $ sudo ldconfig     # only necessary for the first install
+
+4. Run the following commands to build and install **Gura** modules.
+   *You can skip this process if you just want to try Gura interpreter itself.*
+
+        $ sudo ./setup-guest
+        $ ./build-modules
         $ sudo ./build-modules install
+
+5. Execute `gura` to check if it's been properly built.
+
+        $ gura
+		Gura x.x.x [GNUC v.x.x, xxx xx xxxx] Copyright (C) 2011-2014 ypsitau
+		>>>
+
+   Enter a short script:
+   
+		>>> println(1..5)
+		1
+		2
+		3
+		4
+		5
 
 Generated Makefile is capable of creating both Debian and RPM install packages.
 
