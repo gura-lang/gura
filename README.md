@@ -47,7 +47,7 @@ Build for Mac OSX
 
         $ git clone https://github.com/gura-lang/gura.git
 
-   I'm afraid it would take much time as it tries to retrieve all the history.
+   I'm afraid that would take much time as it tries to retrieve all the history.
    The following command could save your important time.
    
         $ git clone https://github.com/gura-lang/gura.git --depth 1
