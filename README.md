@@ -14,7 +14,6 @@ Official Site
 http://www.gura-lang.org/
 
 
-<a name="build-for-windows"></a>
 Build for Windows
 -----------------
 1. Check if you have installed Visual Studio 2010 and applied Visual Studio 2010 Service Pack 1 on it.
@@ -34,7 +33,6 @@ Build for Windows
    Release and build it.
 
 
-<a name="build-for-macosx"></a>
 Build for Mac OSX
 -----------------
 1. Install Xcode, Command Line Developer Tools and [CMake](http://www.cmake.org/download/).
@@ -66,9 +64,8 @@ Build for Mac OSX
         $ sudo ./build-modules install
 
 
-<a name="build-for-linux"></a>
 Build for Linux
------------------
+---------------
 1. Check if build tools such as C++ compiler, make, cmake and necessary
    libraries have been installed.
 
