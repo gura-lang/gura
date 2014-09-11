@@ -43,25 +43,27 @@ Build for Mac OSX
         $ git clone https://github.com/gura-lang/gura.git
 
 3. Run the following commands to build guest libraries and copy their dynamic libraries
-   to the specified directory.
+   to a specified directory.
+   *You can skip this process if you just want to try Gura interpreter.*
 
         $ pushd gura/guests
         $ ./prepare-for-darwin
 		$ sudo ./prepare-for-darwin install
         $ popd
 
-4. Run the following commands to build **Gura** library, executable and modules.
+4. Run the following commands to build and install **Gura** interpreter.
 
 		$ cd gura
         $ mkdir build
         $ cd build
         $ ../configure
         $ make
-        $ ./build-modules
-
-5. Run the following commands to install **Gura** library, executable and modules.
-
         $ sudo make install
+
+5. Run the following commands to build and install **Gura** modules.
+   *You can skip this process if you just want to try Gura interpreter.*
+
+        $ ./build-modules
         $ sudo ./build-modules install
 
 Installed files are shown below. Remove them when you need to uninstall Gura.
