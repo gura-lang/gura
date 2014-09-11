@@ -50,7 +50,7 @@ Build for Mac OSX
 		$ sudo ./prepare-for-darwin install
         $ popd
 
-4. Run the following commands to build **Gura** library and executable.
+4. Run the following commands to build **Gura** library, executable and modules.
 
 		$ cd gura
         $ mkdir build
@@ -59,10 +59,18 @@ Build for Mac OSX
         $ make
         $ ./build-modules
 
-5. Run the following command to install **Gura** library and executable.
+5. Run the following commands to install **Gura** library, executable and modules.
 
         $ sudo make install
         $ sudo ./build-modules install
+
+Installed files are shown below. Remove them when you need to uninstall Gura.
+
+    /usr/bin/gura
+    /usr/lib/libguracore.*
+    /usr/lib/gura/
+    /usr/include/gura/
+    /usr/share/gura/
 
 
 Build for Linux

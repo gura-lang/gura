@@ -2,7 +2,7 @@
 prefix=/usr
 if [ "$1" == "install" ] ; then
     mkdir -p $prefix/lib/gura/guests
-	cp -a ../guests/dylib/* $prefix/lib/gura/guests
+	cp -v -a dylib/* $prefix/lib/gura/guests
     exit
 fi
 #---------------------------------------------------------------------------
