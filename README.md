@@ -35,7 +35,8 @@ Build for Windows
 
 Build for Mac OSX
 -----------------
-1. Install Xcode, Command Line Developer Tools and [CMake](http://www.cmake.org/download/).
+1. Make sure that Xcode, Command Line Developer Tools
+   and [CMake](http://www.cmake.org/download/) have been installed in your system.
 
 2. Download Gura source code from GitHub repository.
 
