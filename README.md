@@ -14,6 +14,7 @@ Official Site
 http://www.gura-lang.org/
 
 
+<a name="build-for-windows"></a>
 Build for Windows
 -----------------
 1. Check if you have installed Visual Studio 2010 and applied Visual Studio 2010 Service Pack 1 on it.
@@ -33,11 +34,12 @@ Build for Windows
    Release and build it.
 
 
-Build for Mac
+<a name="build-for-macosx"></a>
+Build for Mac OSX
 -----------------
-1. Install Xcode and Command Line Developer Tools.
+1. Install Xcode, Command Line Developer Tools and [CMake](http://www.cmake.org/download/).
 
-2. Download Gura source code from repository.
+2. Download Gura source code from GitHub repository.
 
         $ git clone https://github.com/gura-lang/gura.git
 
@@ -45,8 +47,8 @@ Build for Mac
    to the specified directory.
 
         $ pushd gura/guests
-        $ ./build
-		$ sudo ./build install
+        $ ./prepare-for-darwin
+		$ sudo ./prepare-for-darwin install
         $ popd
 
 4. Run the following commands to build **Gura** library and executable.
@@ -64,6 +66,7 @@ Build for Mac
         $ sudo ./build-modules install
 
 
+<a name="build-for-linux"></a>
 Build for Linux
 -----------------
 1. Check if build tools such as C++ compiler, make, cmake and necessary
