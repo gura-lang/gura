@@ -77,7 +77,8 @@ Build for Mac OSX
         $ ./build-modules
         $ sudo ./build-modules install
 
-Installed files are shown below. Remove them when you need to uninstall Gura.
+Installed files and directories are shown below.
+Remove them when you need to uninstall Gura.
 
     /usr/bin/gura
     /usr/lib/libguracore.*
