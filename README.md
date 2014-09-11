@@ -77,6 +77,23 @@ Build for Mac OSX
         $ ./build-modules
         $ sudo ./build-modules install
 
+6. Execute `gura` to check if it's been properly built.
+
+        $ gura
+		Gura x.x.x [GNUC v.x.x, xxx xx xxxx] Copyright (C) 2011-2014 ypsitau
+		>>>
+
+   Enter a short script:
+   
+		>>> println(1..5)
+		1
+		2
+		3
+		4
+		5
+
+   Conguratulations! Enjoy various iterator operations and other features.
+
 Installed files and directories are shown below.
 Remove them when you need to uninstall Gura.
 
