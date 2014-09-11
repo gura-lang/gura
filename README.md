@@ -49,7 +49,7 @@ Build for Mac OSX
 
 3. Run the following commands to build guest libraries and copy their dynamic libraries
    to a specified directory.
-   *You can skip this process if you just want to try Gura interpreter.*
+   *You can skip this process if you just want to try Gura interpreter itself.*
 
         $ pushd gura/guests
         $ ./prepare-for-darwin
@@ -66,7 +66,7 @@ Build for Mac OSX
         $ sudo make install
 
 5. Run the following commands to build and install **Gura** modules.
-   *You can skip this process if you just want to try Gura interpreter.*
+   *You can skip this process if you just want to try Gura interpreter itself.*
 
         $ ./build-modules
         $ sudo ./build-modules install
