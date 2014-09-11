@@ -65,6 +65,7 @@ Build for Mac OSX
         $ make
         $ sudo make install
 
+
 5. Run the following commands to build and install **Gura** modules.
    *You can skip this process if you just want to try Gura interpreter itself.*
 
