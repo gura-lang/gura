@@ -92,8 +92,6 @@ Build for Mac OSX
 		4
 		5
 
-   Conguratulations! Enjoy various iterator operations and other features.
-
 Installed files and directories are shown below.
 Remove them when you need to uninstall Gura.
 
