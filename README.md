@@ -38,6 +38,11 @@ Build for Mac OSX
 1. Make sure that Xcode, Command Line Developer Tools
    and [CMake](http://www.cmake.org/download/) have been installed in your system.
 
+   If you've installed CMake by a Disk Image File (*.dmg),
+   create a link to the `cmake` executable in a directory that is in your PATH.
+
+        $ sudo ln -s /Applications/CMake.app/Contents/bin/cmake /usr/bin/cmake
+
 2. Download Gura source code from GitHub repository.
 
         $ git clone https://github.com/gura-lang/gura.git
