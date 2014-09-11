@@ -43,9 +43,14 @@ Build for Mac OSX
 
         $ sudo ln -s /Applications/CMake.app/Contents/bin/cmake /usr/bin/cmake
 
-2. Download Gura source code from GitHub repository.
+2. Clone Gura source code from GitHub repository.
 
         $ git clone https://github.com/gura-lang/gura.git
+
+   I'm afraid it would take much time as it tries to retrieve all the history.
+   The following command could save your important time.
+   
+        $ git clone https://github.com/gura-lang/gura.git --depth 1
 
 3. Run the following commands to build guest libraries and copy their dynamic libraries
    to a specified directory.
