@@ -5,7 +5,11 @@
 #ifndef __GURA_MODULE_OPENGL_H__
 #define __GURA_MODULE_OPENGL_H__
 #include <gura.h>
+#if defined(GURA_ON_DARWIN)
+#include <OpenGL/gl.h>
+#else
 #include <GL/gl.h>
+#endif
 
 Gura_BeginModuleHeader(opengl)
 

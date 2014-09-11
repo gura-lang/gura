@@ -11,7 +11,7 @@ See the following step(s) to resolve this problem.
   # yum install llvm-2.8 llvm-devel-2.8
 '''
 successFlag = true
-if (sys.build == `msc) {
+if (sys.platform == `mswin) {
 	cflagsLLVM = []
 	ldflagsLLVM = []
 	libsLLVM = [
@@ -43,7 +43,7 @@ if (sys.build == `msc) {
 		'LLVMExecutionEngine.lib'
 		'LLVMJIT.lib'
 	]
-} elsif (sys.build == `gnuc) {
+} elsif (sys.platform == `linux) {
 	IsExist(filename:string) = {
 		path.exists(path.join(os.getenv('PATH').split(':'), filename)).or()
 	}

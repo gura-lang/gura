@@ -2,13 +2,13 @@
 import(modbuild)
 
 builder = modbuild.Builder()
-if (sys.build == `msc) {
+if (sys.platform == `mswin) {
 	builder.libs.append(
 		path.join(modbuild.guestDir, 'tcl', 'lib', 'tcl85.lib')
 		path.join(modbuild.guestDir, 'tcl', 'lib', 'tk85.lib'))
 	builder.incDirs.append(
 		path.join(modbuild.guestDir, 'tcl', 'include'))
-} elsif (sys.build == `gnuc) {
+} elsif (sys.platform == `linux) {
 	builder.libs.append('tcl8.5', 'tk8.5')
 	builder.incDirs.append('/usr/include/tcl8.5')
 	builder.debFiles = ['tk8.5']

@@ -30,11 +30,79 @@ Build for Windows
    Visual Studio.
 
 3. Open `gura\gura.sln` with Visual Studio 2010, switch the configuration to
-   Release and build it.
+   `Release` and build it.
+
+
+Build for Mac OSX
+-----------------
+1. Make sure that Xcode, Command Line Developer Tools
+   and [CMake](http://www.cmake.org/download/) have been installed in your system.
+
+   If you've installed CMake by a Disk Image File (*.dmg),
+   create a link to the `cmake` executable in a directory that is in your PATH.
+
+        $ sudo ln -s /Applications/CMake.app/Contents/bin/cmake /usr/bin/cmake
+
+2. Clone Gura source code from GitHub repository.
+
+        $ git clone https://github.com/gura-lang/gura.git
+
+   I'm afraid that would take much time as it tries to retrieve all the history.
+   The following command could save your important time.
+   
+        $ git clone https://github.com/gura-lang/gura.git --depth 1
+
+3. Run the following commands to build guest libraries and copy their dynamic libraries
+   to a specified directory.
+   *You can skip this process if you just want to try Gura interpreter itself.*
+
+        $ pushd gura/guests
+        $ ./prepare-for-darwin
+		$ sudo ./prepare-for-darwin install
+        $ popd
+
+4. Run the following commands to build and install **Gura** interpreter.
+
+		$ cd gura
+        $ mkdir build
+        $ cd build
+        $ ../configure
+        $ make
+        $ sudo make install
+
+5. Run the following commands to build and install **Gura** modules.
+   *You can skip this process if you just want to try Gura interpreter itself.*
+
+        $ ./build-modules
+        $ sudo ./build-modules install
+
+6. Execute `gura` to check if it's been properly built.
+
+        $ gura
+		Gura x.x.x [GNUC v.x.x, xxx xx xxxx] Copyright (C) 2011-2014 ypsitau
+		>>>
+
+   Enter a short script:
+   
+		>>> println(1..5)
+		1
+		2
+		3
+		4
+		5
+
+Installed files and directories are shown below.
+Remove them when you need to uninstall Gura.
+
+    /usr/bin/gura
+    /usr/lib/libguracore.*
+    /usr/lib/gura/
+    /usr/include/gura/
+    /usr/share/gura/
 
 
 Build for Linux
------------------
+---------------
 1. Check if build tools such as C++ compiler, make, cmake and necessary
    libraries have been installed.
 
@@ -42,42 +110,51 @@ Build for Linux
 
         $ sudo apt-get install build-essential cmake libreadline-dev rpm
 
-   For RedHat, do the following command.
+   For Fedora, do the following command.
 
-        $ sudo yum install gcc gcc-c++ make cmake readline-devel rpm-build
+        # yum install gcc gcc-c++ make cmake readline-devel rpm-build
 
-2. Run the following commands to build **Gura** library and executable.
+2. Clone Gura source code from GitHub repository.
 
         $ git clone https://github.com/gura-lang/gura.git
-        $ cd gura
+
+   I'm afraid that would take much time as it tries to retrieve all the history.
+   The following command could save your important time.
+   
+        $ git clone https://github.com/gura-lang/gura.git --depth 1
+
+3. Run the following commands to build and install **Gura** interpreter.
+
+		$ cd gura
         $ mkdir build
         $ cd build
         $ ../configure
         $ make
-
-3. Run the following command to install **Gura** library and executable.
-
         $ sudo make install
+        $ sudo ldconfig     # only necessary for the first install
 
-   It may be a better idea to make package files of Debian or RPM for
-   installation. See the section below to know how to do it.
+4. Run the following commands to build and install **Gura** modules.
+   *You can skip this process if you just want to try Gura interpreter itself.*
 
-4. Run the following command to build **Gura** modules files.
-
+        $ sudo ./setup-guest
         $ ./build-modules
-
-  This may occur an error because of lacking packages. In such a case, the
-  script `build-modules` generates shell scripts with which you can easily
-  setup necessary packages. Run `setup-gura-guest-deb.sh` for Ubuntu and
-  `setup-gura-guest-rpm.sh` for RedHat.
-
-5. Run the following command to install **Gura** module files.
-
         $ sudo ./build-modules install
 
+5. Execute `gura` to check if it's been properly built.
 
-Build Installation Packages for Linux
--------------------------------------
+        $ gura
+		Gura x.x.x [GNUC v.x.x, xxx xx xxxx] Copyright (C) 2011-2014 ypsitau
+		>>>
+
+   Enter a short script:
+   
+		>>> println(1..5)
+		1
+		2
+		3
+		4
+		5
+
 Generated Makefile is capable of creating both Debian and RPM install packages.
 
 Run the following command to create Debian and RPM packages.
@@ -90,6 +167,6 @@ For Ubuntu:
 
     $ sudo dpkg -i gura-x.x.x-Linux.deb
 
-For RedHat:
+For Fedora:
 
     $ sudo rpm -i gura-x.x.x-Linux.rpm

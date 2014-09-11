@@ -1,25 +1,19 @@
 #!/usr/bin/env gura
 import(modbuild)
 builder = modbuild.Builder()
-if (sys.build == `msc) {
+if (sys.platform == `mswin) {
 	builder.incDirs.append(path.join(modbuild.guestDir, 'yaml-0.1.4/include'))
 	builder.libs.append(path.join(modbuild.guestDir,
 					'yaml-0.1.4/win32/vs2010/Output/Release/lib/yaml.lib'))
-} elsif (sys.build == `gnuc) {
+} elsif (sys.platform == `linux) {
 	builder.libs.append('yaml')
 	builder.debFiles = ['libyaml']
 	builder.rpmFiles = ['libyaml']
 	builder.debFilesDevel = ['libyaml-dev']
 	builder.rpmFilesDevel = ['libyaml-devel']
-	builder.hint = R'''
-To compile source code:
-  $ wget http://pyyaml.org/download/libyaml/yaml-0.1.3.tar.gz
-  $ tar xvfz yaml-0.1.3.tar.gz
-  $ cd yaml-0.1.3
-  $ ./configure
-  $ make
-  $ sudo make install
-  $ sudo ldconfig
-'''
+} elsif (sys.platform == `darwin) {
+	builder.libs.append('yaml')
+	builder.incDirs.append('guests/include/yaml')
+	builder.libDirs.append('guests/lib')
 }
 builder.build('yaml', ['module-yaml.cpp'])

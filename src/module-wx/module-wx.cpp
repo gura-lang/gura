@@ -103,7 +103,9 @@ _MS(RealizeBaseClass(DataOutputStream));
 	RealizeDervClass(DebugReportUpload,					DebugReportCompress);
 	RealizeBaseClass(DebugReportPreview);
 	RealizeDervClass(DebugReportPreviewStd,				DebugReportPreview);
+#if !defined(__WXMAC__)
 	RealizeBaseClass(DialUpManager);
+#endif
 	RealizeBaseClass(Dir);
 	RealizeBaseClass(DirTraverser);
 	RealizeBaseClass(Display);
@@ -270,7 +272,9 @@ _MS(RealizeDervClass(MediaEvent,						NotifyEvent));
 	RealizeDervClass(UpdateUIEvent,						CommandEvent);
 	RealizeDervClass(WindowCreateEvent,					CommandEvent);
 	RealizeDervClass(WindowDestroyEvent,				CommandEvent);
+#if !defined(__WXMAC__)
 	RealizeDervClass(DialUpEvent,						Event);
+#endif
 	RealizeDervClass(DropFilesEvent,					Event);
 	RealizeDervClass(EraseEvent,						Event);
 	RealizeDervClass(FocusEvent,						Event);
@@ -338,7 +342,9 @@ _MS(RealizeDervClass(ActiveXContainer,					Window));
 	RealizeDervClass(ControlWithItems,					Control);
 	RealizeDervClass(Choice,							ControlWithItems);
 	RealizeDervClass(ComboBox,							Control);
+#if !defined(__WXMAC__)
 	RealizeDervClass(BitmapComboBox,					ComboBox);
+#endif
 	RealizeDervClass(ListBox,							ControlWithItems);
 	RealizeDervClass(CheckListBox,						ListBox);
 #if 0
@@ -675,7 +681,9 @@ _MS(PrepareClass(DataOutputStream));
 	PrepareClass(DebugReportUpload);
 	PrepareClass(DebugReportPreview);
 	PrepareClass(DebugReportPreviewStd);
+#if !defined(__WXMAC__)
 	PrepareClass(DialUpManager);
+#endif
 	PrepareClass(Dir);
 	PrepareClass(DirTraverser);
 	PrepareClass(Display);
@@ -838,7 +846,9 @@ _MS(PrepareClass(MediaEvent));
 	PrepareClass(UpdateUIEvent);
 	PrepareClass(WindowCreateEvent);
 	PrepareClass(WindowDestroyEvent);
+#if !defined(__WXMAC__)
 	PrepareClass(DialUpEvent);
+#endif
 	PrepareClass(DropFilesEvent);
 	PrepareClass(EraseEvent);
 	PrepareClass(FocusEvent);
@@ -902,7 +912,9 @@ _MS(PrepareClass(ActiveXContainer));
 	PrepareClass(CollapsiblePane);
 	PrepareClass(ComboCtrl);
 	PrepareClass(OwnerDrawnComboBox);
+#if !defined(__WXMAC__)
 	PrepareClass(BitmapComboBox);
+#endif
 	PrepareClass(RichTextStyleComboCtrl);
 	PrepareClass(ControlWithItems);
 	PrepareClass(Choice);

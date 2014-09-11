@@ -26,19 +26,25 @@ srcs = [
 'Class_font.cpp'
 ]
 builder = modbuild.Builder()
-if (sys.build == `msc) {
+if (sys.platform == `mswin) {
+	builder.precompile = 'stdafx.h'
 	builder.libs.append(path.join(modbuild.guestDir,
 				'freetype-2.4.11/objs/win32/vc2010/freetype2411.lib'))
 	builder.incDirs.append(path.join(modbuild.guestDir,
 				'freetype-2.4.11/include'))
-} elsif (sys.build == `gnuc) {
+} elsif (sys.platform == `linux) {
+	builder.precompile = 'stdafx.h'
 	builder.libs.append('freetype')
 	builder.incDirs.append('/usr/include/freetype2', '/usr/local/include/freetype2')
 	builder.debFiles = ['libfreetype6']
 	builder.rpmFiles = ['freetype']
 	builder.debFilesDevel = ['libfreetype6-dev']
 	builder.rpmFilesDevel = ['freetype-devel']
+} elsif (sys.platform == `darwin) {
+	builder.precompile = 'stdafx.h'
+	builder.libs.append('freetype', 'z', 'bz2')
+	builder.incDirs.append('guests/include/freetype')
+	builder.libDirs.append('guests/lib')
 }
-builder.precompile = 'stdafx.h'
 builder.progressFlag = true
 builder.build('freetype', srcs)

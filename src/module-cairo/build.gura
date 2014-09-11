@@ -21,7 +21,7 @@ srcs = [
 'Class_image_surface.cpp'
 'Class_Writer_surface.cpp'
 'Class_pdf_surface.cpp'
-'Class_ps_surface.cpp'
+//'Class_ps_surface.cpp'
 'Class_recording_surface.cpp'
 'Class_win32_surface.cpp'
 'Class_svg_surface.cpp'
@@ -37,38 +37,27 @@ srcs = [
 'Class_text_cluster.cpp'
 ]
 builder = modbuild.Builder()
-if (sys.build == `msc) {
+if (sys.platform == `mswin) {
+	builder.precompile = 'stdafx.h'
 	dirCairo = path.join(modbuild.guestDir, 'cairo-1.12.12/src')
 	dirPNG = path.join(modbuild.guestDir, 'lpng1510/projects/vstudio/Release Library')
 	builder.libs.append(path.join(dirCairo, 'release/cairo-static.lib'))
 	builder.libs.append(path.join(dirPNG, ['libpng15.lib', 'zlib.lib']))
 	builder.libs.append('msimg32.lib')
 	builder.incDirs.append(dirCairo)
-} elsif (sys.build == `gnuc) {
+} elsif (sys.platform == `linux) {
+	builder.precompile = 'stdafx.h'
 	builder.libs.append('cairo')
 	builder.incDirs.append('/usr/local/include/cairo', '/usr/include/cairo')
-	builder.hint = '''\
-To compile source code:
-  $ wget http://cairographics.org/releases/pixman-0.21.4.tar.gz
-  $ tar xvfz pixman-0.21.4.tar.gz
-  $ cd pixman-0.21.4
-  $ ./configure
-  $ make
-  $ sudo make install
-  $ cd ..
-  $ wget http://cairographics.org/releases/cairo-1.10.2.tar.gz
-  $ tar xvfz cairo-1.10.2.tar.gz
-  $ cd cairo-1.10.2
-  $ ./configure
-  $ make
-  $ sudo make install
-  $ sudo ldconfig
-'''
 	builder.debFiles = ['libcairo2']
 	builder.rpmFiles = ['cairo']
 	builder.debFilesDevel = ['libcairo2-dev']
 	builder.rpmFilesDevel = ['cairo-devel']
+} elsif (sys.platform == `darwin) {
+	builder.precompile = 'stdafx.h'
+	builder.libs.append('cairo')
+	builder.incDirs.append('guests/include/cairo')
+	builder.libDirs.append('guests/lib/cairo')
 }
-builder.precompile = 'stdafx.h'
 builder.progressFlag = true
 builder.build('cairo', srcs)

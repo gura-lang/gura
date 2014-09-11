@@ -2,11 +2,15 @@
 import(modbuild)
 
 builder = modbuild.Builder()
-if (sys.build == `msc) {
+if (sys.platform == `mswin) {
 	dirBase = path.join(modbuild.guestDir, 'SDL2-2.0.3')
 	builder.incDirs.append(path.join(dirBase, 'include'))
 	builder.libs.append(path.join(dirBase, 'VisualC/SDL/Win32/Release/SDL2.lib'))
-} elsif (sys.build == `gnuc) {
+} elsif (sys.platform == `linux) {
+} elsif (sys.platform == `darwin) {
+	builder.incDirs.append('guests/include/SDL2')
+	builder.libDirs.append('guests/lib/SDL2')
+	builder.libs.append('SDL2')
 }
 builder.build('sdl2', ['module-sdl2.cpp',
 	'Class_Window.cpp', 'Class_Renderer.cpp', 'Class_Texture.cpp',

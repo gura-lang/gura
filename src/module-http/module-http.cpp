@@ -1915,7 +1915,7 @@ bool Object_server::Prepare(Signal sig, const char *addr, short port)
 		return false;
 	}
 	::memset(&_saddrServer, 0x00, sizeof(_saddrServer));
-	ULong addrNum = ::htonl(INADDR_ANY);
+	ULong addrNum = htonl(INADDR_ANY);
 	_saddrServer.sin_family = AF_INET;
 	if (addr != NULL) {
 		addrNum = ::inet_addr(addr);
@@ -1930,7 +1930,7 @@ bool Object_server::Prepare(Signal sig, const char *addr, short port)
 		}
 	}
 	_saddrServer.sin_addr.s_addr = addrNum;
-	_saddrServer.sin_port = ::htons(port);
+	_saddrServer.sin_port = htons(port);
 	if (::bind(_sockListen, reinterpret_cast<sockaddr *>(&_saddrServer), sizeof(_saddrServer)) < 0) {
 		sig.SetError(ERR_IOError, "failed to bind address to socket");
 		return false;
@@ -2159,7 +2159,7 @@ bool Object_client::Prepare(Signal sig, const char *addr, short port,
 		saddrServer.sin_family = AF_INET;
 	}
 	saddrServer.sin_addr.s_addr = addrNum;
-	saddrServer.sin_port = ::htons(portToConnect);
+	saddrServer.sin_port = htons(portToConnect);
 	if (::connect(_sock, reinterpret_cast<sockaddr *>(&saddrServer), sizeof(saddrServer)) < 0) {
 		sig.SetError(ERR_IOError, "failed to connect to%s host %s",
 							IsViaProxy()? " proxy" : "", addrToConnect);

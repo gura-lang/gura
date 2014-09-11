@@ -5246,13 +5246,16 @@ void ModuleEntrySub(Environment &env, Signal sig)
 	Gura_AssignValue(GL_T2F_N3F_V3F,                     Value(GL_T2F_N3F_V3F));
 	Gura_AssignValue(GL_T2F_C4F_N3F_V3F,                 Value(GL_T2F_C4F_N3F_V3F));
 	Gura_AssignValue(GL_T4F_C4F_N3F_V4F,                 Value(GL_T4F_C4F_N3F_V4F));
+#if !defined(GURA_ON_DARWIN)
 	Gura_AssignValue(GL_EXT_vertex_array,                Value(GL_EXT_vertex_array));
 	Gura_AssignValue(GL_EXT_bgra,                        Value(GL_EXT_bgra));
 	Gura_AssignValue(GL_EXT_paletted_texture,            Value(GL_EXT_paletted_texture));
+#endif
 #if 0
 	Gura_AssignValue(GL_WIN_swap_hint,                   Value(GL_WIN_swap_hint));
 	Gura_AssignValue(GL_WIN_draw_range_elements,         Value(GL_WIN_draw_range_elements));
 #endif
+#if !defined(GURA_ON_DARWIN)
 	Gura_AssignValue(GL_VERTEX_ARRAY_EXT,                Value(GL_VERTEX_ARRAY_EXT));
 	Gura_AssignValue(GL_NORMAL_ARRAY_EXT,                Value(GL_NORMAL_ARRAY_EXT));
 	Gura_AssignValue(GL_COLOR_ARRAY_EXT,                 Value(GL_COLOR_ARRAY_EXT));
@@ -5313,6 +5316,7 @@ void ModuleEntrySub(Environment &env, Signal sig)
 	Gura_AssignValue(GL_FOG_SPECULAR_TEXTURE_WIN,        Value(GL_FOG_SPECULAR_TEXTURE_WIN));
 	Gura_AssignValue(GL_LOGIC_OP,                        Value(GL_LOGIC_OP));
 	Gura_AssignValue(GL_TEXTURE_COMPONENTS,              Value(GL_TEXTURE_COMPONENTS));
+#endif
 	// function assignment
 	Gura_AssignFunction(glAccum);
 	Gura_AssignFunction(glAlphaFunc);

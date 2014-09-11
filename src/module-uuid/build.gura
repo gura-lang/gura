@@ -1,8 +1,8 @@
 #!/usr/bin/env gura
 import(modbuild)
 builder = modbuild.Builder()
-if (sys.build == `msc) {
-} elsif (sys.build == `gnuc) {
+if (sys.build == `mswin) {
+} elsif (sys.platform == `linux) {
 	builder.libs.append('uuid')
 	builder.debFiles = ['uuid']
 	builder.debFilesDevel = ['uuid-dev']

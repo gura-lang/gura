@@ -5,6 +5,8 @@
 #if defined(GURA_ON_MSWIN)
 #elif defined(GURA_ON_LINUX)
 #include <alsa/asoundlib.h>
+#elif defined(GURA_ON_DARWIN)
+#include <CoreMIDI/CoreMIDI.h>
 #else
 #error unknown platform
 #endif
@@ -117,6 +119,63 @@ public:
 					UChar msg4) {
 		UChar buff[4] = { msg1, msg2, msg3, msg4 };
 		::snd_rawmidi_write(_out_rmidi, buff, sizeof(buff));
+	}
+};
+
+#elif defined(GURA_ON_DARWIN)
+
+class Port {
+private:
+	int _cntRef;
+	MIDIPortRef _port;
+public:
+	Gura_DeclareReferenceAccessor(Port);
+public:
+	inline Port() : _cntRef(1), _port(0) {}
+protected:
+	inline ~Port() {
+		Reset();
+		Close();
+	}
+public:
+	static inline int GetNumDevs() {
+		return ::MIDIGetNumberOfDevices();
+	}
+	inline bool Open(int id) {
+		if (_port != 0) Close();
+		MIDIClientRef client;
+		char *portName;
+		return ::MIDIOutputPortCreate(client, portName, &_port) == MMSYSERR_NOERROR;
+	}
+	inline void Close() {
+		if (_port != NULL) ::MIDIPortDispose(&_port);
+		_hMIDI = NULL;
+	}
+	inline void Reset() {
+		if (_hMIDI != NULL) ::midiOutReset(_hMIDI);
+	}
+	inline void Send(UChar msg1) {
+		::midiOutShortMsg(_hMIDI,
+					(static_cast<DWORD>(msg1) << 0));
+	}
+	inline void Send(UChar msg1, UChar msg2) {
+		::midiOutShortMsg(_hMIDI,
+					(static_cast<DWORD>(msg1) << 0) +
+					(static_cast<DWORD>(msg2) << 8));
+	}
+	inline void Send(UChar msg1, UChar msg2, UChar msg3) {
+		::midiOutShortMsg(_hMIDI,
+					(static_cast<DWORD>(msg1) << 0) +
+					(static_cast<DWORD>(msg2) << 8) +
+					(static_cast<DWORD>(msg3) << 16));
+	}
+	inline void Send(UChar msg1, UChar msg2, UChar msg3,
+					UChar msg4) {
+		::midiOutShortMsg(_hMIDI,
+					(static_cast<DWORD>(msg1) << 0) +
+					(static_cast<DWORD>(msg2) << 8) +
+					(static_cast<DWORD>(msg3) << 16) +
+					(static_cast<DWORD>(msg4) << 24));
 	}
 };
 

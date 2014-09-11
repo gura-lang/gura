@@ -10,7 +10,7 @@
 #endif
 #include <cairo.h>
 #include <cairo-pdf.h>
-#include <cairo-ps.h>
+//#include <cairo-ps.h>
 #include <cairo-svg.h>
 #if defined(GURA_ON_MSWIN)
 #include <cairo-win32.h>

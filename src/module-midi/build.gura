@@ -2,10 +2,13 @@
 import(modbuild)
 
 builder = modbuild.Builder()
-if (sys.build == `msc) {
+if (sys.platform == `mswin) {
 	// nothing to do
-} elsif (sys.build == `gnuc) {
+} elsif (sys.platform == `linux) {
 	builder.libs.append('asound')
+} elsif (sys.platform == `darwin) {
+	builder.cflags.append('-framework', 'CoreMIDI')
+	builder.ldflags.append('-framework', 'CoreMIDI')
 }
 builder.build('midi', ['module-midi.cpp',
 	'Port.cpp', 'Event.cpp', 'Player.cpp', 'Track.cpp',

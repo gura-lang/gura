@@ -39,6 +39,9 @@ Gura_BeginModuleHeader(freetype)
 
 extern FT_Library g_lib;
 
+//-----------------------------------------------------------------------------
+// Symbols
+//-----------------------------------------------------------------------------
 Gura_DeclareUserSymbol(face);
 Gura_DeclareUserSymbol(pixel);
 Gura_DeclareUserSymbol(xMin);
