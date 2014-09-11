@@ -33,7 +33,7 @@ Build for Windows
    `Release` and build it.
 
 4. Now, you can find an installer file named like `gura-x.x.x-win32.msi`
-   created under `gura\dist` directory.
+   has been created under `gura\dist` directory.
 
 
 Build for Mac OSX
