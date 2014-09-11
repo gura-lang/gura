@@ -78,7 +78,7 @@ Gura_ImplementFunction(pdf_get_versions)
 	return rtn;
 }
 
-#if 0
+#if !defined(GURA_ON_DARWIN)
 //#void cairo_ps_get_levels(cairo_ps_level_t const **levels, int *num_levels);
 // cairo.ps_get_levels()
 Gura_DeclareFunction(ps_get_levels)
@@ -100,6 +100,21 @@ Gura_ImplementFunction(ps_get_levels)
 		}
 	}
 	return rtn;
+}
+
+// cairo.ps_level_to_string(level:number)
+Gura_DeclareFunction(ps_level_to_string)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "level", VTYPE_number);
+}
+
+Gura_ImplementFunction(ps_level_to_string)
+{
+	cairo_ps_level_t level = static_cast<cairo_ps_level_t>(args.GetInt(0));
+	const char *rtn = ::cairo_ps_level_to_string(level);
+	if (rtn == NULL) return Value::Null;
+	return Value(rtn);
 }
 #endif
 
@@ -124,23 +139,6 @@ Gura_ImplementFunction(svg_get_versions)
 	}
 	return rtn;
 }
-
-#if 0
-// cairo.ps_level_to_string(level:number)
-Gura_DeclareFunction(ps_level_to_string)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "level", VTYPE_number);
-}
-
-Gura_ImplementFunction(ps_level_to_string)
-{
-	cairo_ps_level_t level = static_cast<cairo_ps_level_t>(args.GetInt(0));
-	const char *rtn = ::cairo_ps_level_to_string(level);
-	if (rtn == NULL) return Value::Null;
-	return Value(rtn);
-}
-#endif
 
 // cairo.pdf_version_to_string(version:number)
 Gura_DeclareFunction(pdf_version_to_string)
@@ -286,7 +284,9 @@ Gura_ModuleEntry()
 	Gura_RealizeUserClass(surface,			env.LookupClass(VTYPE_object));
 	Gura_RealizeUserClass(image_surface,	Gura_UserClass(surface));
 	Gura_RealizeUserClass(pdf_surface,		Gura_UserClass(surface));
-	//Gura_RealizeUserClass(ps_surface,		Gura_UserClass(surface));
+#if !defined(GURA_ON_DARWIN)
+	Gura_RealizeUserClass(ps_surface,		Gura_UserClass(surface));
+#endif
 	Gura_RealizeUserClass(recording_surface,Gura_UserClass(surface));
 	Gura_RealizeUserClass(win32_surface,	Gura_UserClass(surface));
 	Gura_RealizeUserClass(svg_surface,		Gura_UserClass(surface));
@@ -321,7 +321,9 @@ Gura_ModuleEntry()
 	Gura_AssignValue(surface,				Value(Gura_UserClass(surface)->Reference()));
 	Gura_AssignValue(image_surface,			Value(Gura_UserClass(image_surface)->Reference()));
 	Gura_AssignValue(pdf_surface,			Value(Gura_UserClass(pdf_surface)->Reference()));
-	//Gura_AssignValue(ps_surface,			Value(Gura_UserClass(ps_surface)->Reference()));
+#if !defined(GURA_ON_DARWIN)
+	Gura_AssignValue(ps_surface,			Value(Gura_UserClass(ps_surface)->Reference()));
+#endif
 	Gura_AssignValue(recording_surface,		Value(Gura_UserClass(recording_surface)->Reference()));
 	Gura_AssignValue(win32_surface,			Value(Gura_UserClass(win32_surface)->Reference()));
 	Gura_AssignValue(svg_surface,			Value(Gura_UserClass(svg_surface)->Reference()));
@@ -339,10 +341,12 @@ Gura_ModuleEntry()
 	Gura_AssignValue(context,				Value(Gura_UserClass(context)->Reference()));
 	// function assignment
 	Gura_AssignFunction(create);
-	//Gura_AssignFunction(ps_get_levels);
+#if !defined(GURA_ON_DARWIN)
+	Gura_AssignFunction(ps_get_levels);
+	Gura_AssignFunction(ps_level_to_string);
+#endif
 	Gura_AssignFunction(pdf_get_versions);
 	Gura_AssignFunction(svg_get_versions);
-	//Gura_AssignFunction(ps_level_to_string);
 	Gura_AssignFunction(pdf_version_to_string);
 	Gura_AssignFunction(svg_version_to_string);
 	Gura_AssignFunction(status_to_string);
@@ -499,9 +503,11 @@ Gura_ModuleEntry()
 	Gura_AssignCairoValue(DEVICE_TYPE_WIN32);
 #endif
 	//Gura_AssignCairoValue(DEVICE_TYPE_INVALID);
+#if !defined(GURA_ON_DARWIN)
 	// cairo_ps_level_t
-	//Gura_AssignCairoValue(PS_LEVEL_2);
-	//Gura_AssignCairoValue(PS_LEVEL_3);
+	Gura_AssignCairoValue(PS_LEVEL_2);
+	Gura_AssignCairoValue(PS_LEVEL_3);
+#endif
 	// cairo_pdf_version_t
 	Gura_AssignCairoValue(PDF_VERSION_1_4);
 	Gura_AssignCairoValue(PDF_VERSION_1_5);

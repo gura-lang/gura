@@ -10,7 +10,9 @@
 #endif
 #include <cairo.h>
 #include <cairo-pdf.h>
-//#include <cairo-ps.h>
+#if !defined(GURA_ON_DARWIN)
+#include <cairo-ps.h>
+#endif
 #include <cairo-svg.h>
 #if defined(GURA_ON_MSWIN)
 #include <cairo-win32.h>
