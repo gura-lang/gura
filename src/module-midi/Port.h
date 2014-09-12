@@ -61,8 +61,7 @@ public:
 					(static_cast<DWORD>(msg2) << 8) +
 					(static_cast<DWORD>(msg3) << 16));
 	}
-	inline void Send(UChar msg1, UChar msg2, UChar msg3,
-					UChar msg4) {
+	inline void Send(UChar msg1, UChar msg2, UChar msg3, UChar msg4) {
 		::midiOutShortMsg(_hMIDI,
 					(static_cast<DWORD>(msg1) << 0) +
 					(static_cast<DWORD>(msg2) << 8) +
@@ -115,8 +114,7 @@ public:
 		UChar buff[3] = { msg1, msg2, msg3 };
 		::snd_rawmidi_write(_out_rmidi, buff, sizeof(buff));
 	}
-	inline void Send(UChar msg1, UChar msg2, UChar msg3,
-					UChar msg4) {
+	inline void Send(UChar msg1, UChar msg2, UChar msg3, UChar msg4) {
 		UChar buff[4] = { msg1, msg2, msg3, msg4 };
 		::snd_rawmidi_write(_out_rmidi, buff, sizeof(buff));
 	}
@@ -143,39 +141,19 @@ public:
 	}
 	inline bool Open(int id) {
 		if (_port != 0) Close();
-		MIDIClientRef client;
-		char *portName;
-		return ::MIDIOutputPortCreate(client, portName, &_port) == MMSYSERR_NOERROR;
+		return false;
 	}
 	inline void Close() {
-		if (_port != NULL) ::MIDIPortDispose(&_port);
-		_hMIDI = NULL;
 	}
 	inline void Reset() {
-		if (_hMIDI != NULL) ::midiOutReset(_hMIDI);
 	}
 	inline void Send(UChar msg1) {
-		::midiOutShortMsg(_hMIDI,
-					(static_cast<DWORD>(msg1) << 0));
 	}
 	inline void Send(UChar msg1, UChar msg2) {
-		::midiOutShortMsg(_hMIDI,
-					(static_cast<DWORD>(msg1) << 0) +
-					(static_cast<DWORD>(msg2) << 8));
 	}
 	inline void Send(UChar msg1, UChar msg2, UChar msg3) {
-		::midiOutShortMsg(_hMIDI,
-					(static_cast<DWORD>(msg1) << 0) +
-					(static_cast<DWORD>(msg2) << 8) +
-					(static_cast<DWORD>(msg3) << 16));
 	}
-	inline void Send(UChar msg1, UChar msg2, UChar msg3,
-					UChar msg4) {
-		::midiOutShortMsg(_hMIDI,
-					(static_cast<DWORD>(msg1) << 0) +
-					(static_cast<DWORD>(msg2) << 8) +
-					(static_cast<DWORD>(msg3) << 16) +
-					(static_cast<DWORD>(msg4) << 24));
+	inline void Send(UChar msg1, UChar msg2, UChar msg3, UChar msg4) {
 	}
 };
 

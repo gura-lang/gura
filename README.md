@@ -32,6 +32,9 @@ Build for Windows
 3. Open `gura\gura.sln` with Visual Studio 2010, switch the configuration to
    `Release` and build it.
 
+4. Now, you can find an installer file named like `gura-x.x.x-win32.msi`
+   has been created under `gura\dist` directory.
+
 
 Build for Mac OSX
 -----------------

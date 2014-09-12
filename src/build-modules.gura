@@ -28,7 +28,7 @@ moduleInfos = @(ModuleInfo) {
 	['llvm',			`skip,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]	// not completed
 	['markdown',		`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['math',			`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]	// integrated
-	['midi',			`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['midi',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['msico',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['mswin',			`build,	[`mswin,															]]
 	['mysql',			`skip,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]	// not completed
