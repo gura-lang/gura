@@ -1,13 +1,10 @@
 @echo off
-set VCVARSALL="C:\Program Files\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
 set BASEDIR=%~dp0
 set UNZIP="%BASEDIR%buildtools-mswin\7za920\7za.exe"
 set GNUMAKE="%BASEDIR%buildtools-mswin\UnxUtils\make.exe"
 set CURL="%BASEDIR%buildtools-mswin\curl\curl.exe"
-
-goto skip
-
-
+rem ---------------------------------------------------------------------------
+set VCVARSALL="C:\Program Files\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
 if not exist %VCVARSALL% set VCVARSALL="D:\Program Files\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
 if not exist %VCVARSALL% set VCVARSALL="E:\Program Files\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
 if not exist %VCVARSALL% set VCVARSALL="F:\Program Files\Microsoft Visual Studio 10.0\VC\vcvarsall.bat"
@@ -20,6 +17,7 @@ if not exist %VCVARSALL% set VCVARSALL="G:\Program Files (x86)\Microsoft Visual 
 if not exist %VCVARSALL% goto err_vcvarsall_not_found
 call %VCVARSALL%
 rem ---------------------------------------------------------------------------
+git clone https://github.com/gura-lang/buildtools-mswin.git
 %UNZIP% x -y -obuildtools-mswin\UnxUtils buildtools-mswin\UnxUpdates.zip
 %UNZIP% x -y -obuildtools-mswin\wix38-binaries buildtools-mswin\wix38-binaries.zip
 %UNZIP% x -y -obuildtools-mswin\curl buildtools-mswin\curl_737_1.zip
@@ -42,7 +40,7 @@ set BASEURL=http://www.gura-lang.org/guests
 %CURL% -O %BASEURL%/tcl8516-src.zip
 %CURL% -O %BASEURL%/tiff-3.8.2.zip
 %CURL% -O %BASEURL%/tk8516-src.zip
-%CURL% -O %BASEURL%/wxWidgets-3.0.1.zip
+%CURL% -O %BASEURL%/wxWidgets-3.0.1.7z
 %CURL% -O %BASEURL%/yaml-0.1.5.tar.gz
 %CURL% -O %BASEURL%/zlib-1.2.8.tar.gz
 rem ---------------------------------------------------------------------------
