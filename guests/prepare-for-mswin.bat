@@ -1,4 +1,5 @@
 @echo off
+set GUESTSURL=http://www.gura-lang.org/guests
 set BASEDIR=%~dp0
 set UNZIP="%BASEDIR%buildtools-mswin\7za920\7za.exe"
 set GNUMAKE="%BASEDIR%buildtools-mswin\UnxUtils\make.exe"
@@ -17,32 +18,31 @@ if not exist %VCVARSALL% set VCVARSALL="G:\Program Files (x86)\Microsoft Visual 
 if not exist %VCVARSALL% goto err_vcvarsall_not_found
 call %VCVARSALL%
 rem ---------------------------------------------------------------------------
-git clone https://github.com/gura-lang/buildtools-mswin.git
+if not exist buildtools-mswin git clone https://github.com/gura-lang/buildtools-mswin.git
 %UNZIP% x -y -obuildtools-mswin\UnxUtils buildtools-mswin\UnxUpdates.zip
 %UNZIP% x -y -obuildtools-mswin\wix38-binaries buildtools-mswin\wix38-binaries.zip
 %UNZIP% x -y -obuildtools-mswin\curl buildtools-mswin\curl_737_1.zip
 rem ---------------------------------------------------------------------------
-set BASEURL=http://www.gura-lang.org/guests
-%CURL% -O %BASEURL%/bzip2-1.0.6.tar.gz
-%CURL% -O %BASEURL%/cairo-1.12.16.tar.xz
-%CURL% -O %BASEURL%/curl-7.38.0.zip
-%CURL% -O %BASEURL%/expat-2.1.0.tar.gz
-%CURL% -O %BASEURL%/fontconfig-2.11.tar.bz2
-%CURL% -O %BASEURL%/freetype-2.5.3.tar.bz2
-%CURL% -O %BASEURL%/jpegsrc.v9a.tar.gz
-%CURL% -O %BASEURL%/lpng1612.zip
-%CURL% -O %BASEURL%/mpir-2.6.0.tar.bz2
-%CURL% -O %BASEURL%/onig-5.9.5.tar.gz
-%CURL% -O %BASEURL%/pixman-0.32.6.tar.gz
-%CURL% -O %BASEURL%/SDL-1.2.15.zip
-%CURL% -O %BASEURL%/SDL2-2.0.3.zip
-%CURL% -O %BASEURL%/sqlite-amalgamation-201409011821.zip
-%CURL% -O %BASEURL%/tcl8516-src.zip
-%CURL% -O %BASEURL%/tiff-3.8.2.zip
-%CURL% -O %BASEURL%/tk8516-src.zip
-%CURL% -O %BASEURL%/wxWidgets-3.0.1.7z
-%CURL% -O %BASEURL%/yaml-0.1.5.tar.gz
-%CURL% -O %BASEURL%/zlib-1.2.8.tar.gz
+%CURL% -O %GUESTSURL%/bzip2-1.0.6.tar.gz
+%CURL% -O %GUESTSURL%/cairo-1.12.16.tar.xz
+%CURL% -O %GUESTSURL%/curl-7.38.0.zip
+%CURL% -O %GUESTSURL%/expat-2.1.0.tar.gz
+%CURL% -O %GUESTSURL%/fontconfig-2.11.tar.bz2
+%CURL% -O %GUESTSURL%/freetype-2.5.3.tar.bz2
+%CURL% -O %GUESTSURL%/jpegsrc.v9a.tar.gz
+%CURL% -O %GUESTSURL%/lpng1612.zip
+%CURL% -O %GUESTSURL%/mpir-2.6.0.tar.bz2
+%CURL% -O %GUESTSURL%/onig-5.9.5.tar.gz
+%CURL% -O %GUESTSURL%/pixman-0.32.6.tar.gz
+%CURL% -O %GUESTSURL%/SDL-1.2.15.zip
+%CURL% -O %GUESTSURL%/SDL2-2.0.3.zip
+%CURL% -O %GUESTSURL%/sqlite-amalgamation-201409011821.zip
+%CURL% -O %GUESTSURL%/tcl8516-src.zip
+%CURL% -O %GUESTSURL%/tiff-3.8.2.zip
+%CURL% -O %GUESTSURL%/tk8516-src.zip
+%CURL% -O %GUESTSURL%/wxWidgets-3.0.1.7z
+%CURL% -O %GUESTSURL%/yaml-0.1.5.tar.gz
+%CURL% -O %GUESTSURL%/zlib-1.2.8.tar.gz
 rem ---------------------------------------------------------------------------
 %UNZIP% x -y -osqlite-amalgamation sqlite-amalgamation-201409011821.zip
 rem ---------------------------------------------------------------------------
