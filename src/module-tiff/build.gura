@@ -2,8 +2,10 @@
 import(modbuild)
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
-	builder.incDirs.append(path.join(modbuild.guestDir, 'tiff-3.8.2/libtiff'))
-	builder.libs.append(path.join(modbuild.guestDir, 'tiff-3.8.2/libtiff/libtiff.lib'))
+	baseDir = path.join(modbuild.guestsDir, 'tiff-3.8.2/libtiff')
+	builder.incDirs.append(baseDir)
+	builder.libDirs.append(baseDir)
+	builder.libs.append('libtiff.lib')
 } elsif (sys.platform == `linux) {
 	builder.libs.append('tiff')
 	builder.debFiles = ['libtiff4']
@@ -11,8 +13,8 @@ if (sys.platform == `mswin) {
 	builder.debFilesDevel = ['libtiff4-dev']
 	builder.rpmFilesDevel = ['libtiff-devel']
 } elsif (sys.platform == `darwin) {
-	builder.libs.append('tiff', 'z')
 	builder.incDirs.append('guests/include/tiff')
 	builder.libDirs.append('guests/lib')
+	builder.libs.append('tiff', 'z')
 }
 builder.build('tiff', ['module-tiff.cpp'])

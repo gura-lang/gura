@@ -28,10 +28,10 @@ srcs = [
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
 	builder.precompile = 'stdafx.h'
-	builder.libs.append(path.join(modbuild.guestDir,
-				'freetype-2.4.11/objs/win32/vc2010/freetype2411.lib'))
-	builder.incDirs.append(path.join(modbuild.guestDir,
-				'freetype-2.4.11/include'))
+	builder.libs.append(path.join(modbuild.guestsDir,
+				'freetype-2.5.3/objs/win32/vc2010/freetype253.lib'))
+	builder.incDirs.append(path.join(modbuild.guestsDir,
+				'freetype-2.5.3/include'))
 } elsif (sys.platform == `linux) {
 	builder.precompile = 'stdafx.h'
 	builder.libs.append('freetype')

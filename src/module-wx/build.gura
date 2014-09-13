@@ -592,17 +592,16 @@ srcs_MSW = [
 	'Class_wx_MetafileDC.cpp'
 	'module-wx.rc'
 ]
-contFlag = true	   
+contFlag = true
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
 	builder.precompile = 'stdafx.h'
 	srcs.append(srcs_MSW)
-	dirWx = path.join(modbuild.guestDir, 'wxWidgets-3.0.1')
+	dirBase = path.join(modbuild.guestsDir, 'wxWidgets-3.0.1')
 	builder.incDirs.append(
-		path.join(dirWx, 'include')
-		path.join(dirWx, 'lib', 'vc_lib', 'mswu'))
-	builder.ldflags.append(
-		'/LIBPATH:' + path.join(dirWx, 'lib', 'vc_lib'))
+		path.join(dirBase, 'include')
+		path.join(dirBase, 'lib/vc_lib/mswu'))
+	builder.libDirs.append(path.join(dirBase, 'lib/vc_lib'))
 	builder.libs.append(
 		'wxbase30u.lib'
 		'wxbase30u_net.lib'

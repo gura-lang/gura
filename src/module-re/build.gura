@@ -2,8 +2,8 @@
 import(modbuild)
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
-	builder.incDirs.append(path.join(modbuild.guestDir, 'onig-5.9.2'))
-	builder.libDirs.append(path.join(modbuild.guestDir, 'onig-5.9.2'))
+	builder.incDirs.append(path.join(modbuild.guestsDir, 'onig-5.9.5'))
+	builder.libDirs.append(path.join(modbuild.guestsDir, 'onig-5.9.5'))
 	builder.libs.append('onig_s.lib')
 	builder.cflags.append('-DONIG_EXTERN=extern')
 } elsif (sys.platform == `linux) {

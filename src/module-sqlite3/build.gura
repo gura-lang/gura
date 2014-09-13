@@ -3,8 +3,9 @@ import(modbuild)
 builder = modbuild.Builder()
 srcs = ['module-sqlite3.cpp']
 if (sys.platform == `mswin) {
-	builder.incDirs.append(path.join(modbuild.guestDir, 'sqlite-amalgamation-3071000'))
-	srcs.add(path.join(modbuild.guestDir, 'sqlite-amalgamation-3071000/sqlite3.c'))
+	baseDir = path.join(modbuild.guestsDir, 'sqlite-amalgamation')
+	builder.incDirs.append(baseDir)
+	srcs.add(path.join(baseDir, 'sqlite3.c'))
 } elsif (sys.platform == `linux) {
 	builder.libs.append('sqlite3')
 	builder.debFiles = ['libsqlite3']

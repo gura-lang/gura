@@ -2,10 +2,10 @@
 import(modbuild)
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
-	//builder.dlls.append('libpng12-0.dll')
-	builder.incDirs.append(path.join(modbuild.guestDir, 'lpng1510'))
-	builder.libs.append(path.join(modbuild.guestDir,
-		'lpng1510/projects/vstudio/Release Library', ['libpng15.lib', 'zlib.lib']))
+	builder.incDirs.append(path.join(modbuild.guestsDir, 'lpng1612'))
+	builder.libDirs.append(path.join(modbuild.guestsDir,
+							'lpng1612/projects/vstudio/Release Library'))
+	builder.libs.append('libpng16.lib', 'zlib.lib')
 } elsif (sys.platform == `linux) {
 	builder.libs.append('png')
 	builder.debFiles = ['libpng']
@@ -14,7 +14,7 @@ if (sys.platform == `mswin) {
 	builder.rpmFilesDevel = ['libpng-devel', 'zlib-devel']
 } elsif (sys.platform == `darwin) {
 	builder.libs.append('png16', 'z')
-	builder.incDirs.append('guests/include/png')		
+	builder.incDirs.append('guests/include/png')
 	builder.libDirs.append('guests/lib')
 }
 builder.build('png', ['module-png.cpp'])

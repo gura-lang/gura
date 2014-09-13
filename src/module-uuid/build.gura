@@ -1,10 +1,13 @@
 #!/usr/bin/env gura
 import(modbuild)
 builder = modbuild.Builder()
-if (sys.build == `mswin) {
+if (sys.platform == `mswin) {
+	// nothing to do
 } elsif (sys.platform == `linux) {
 	builder.libs.append('uuid')
 	builder.debFiles = ['uuid']
 	builder.debFilesDevel = ['uuid-dev']
+} elsif (sys.platform == `darwin) {
+	// nothing to do
 }
 builder.build('uuid', ['module-uuid.cpp'])

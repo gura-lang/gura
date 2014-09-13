@@ -2,9 +2,10 @@
 import(modbuild)
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
-	builder.incDirs.append(path.join(modbuild.guestDir, 'yaml-0.1.4/include'))
-	builder.libs.append(path.join(modbuild.guestDir,
-					'yaml-0.1.4/win32/vs2010/Output/Release/lib/yaml.lib'))
+	baseDir = path.join(modbuild.guestsDir, 'yaml-0.1.5')
+	builder.incDirs.append(path.join(baseDir, 'include'))
+	builder.libDirs.append(path.join(baseDir, 'win32/vs2010/Output/Release/lib'))
+	builder.libs.append('yaml.lib')
 } elsif (sys.platform == `linux) {
 	builder.libs.append('yaml')
 	builder.debFiles = ['libyaml']
@@ -12,8 +13,8 @@ if (sys.platform == `mswin) {
 	builder.debFilesDevel = ['libyaml-dev']
 	builder.rpmFilesDevel = ['libyaml-devel']
 } elsif (sys.platform == `darwin) {
-	builder.libs.append('yaml')
 	builder.incDirs.append('guests/include/yaml')
 	builder.libDirs.append('guests/lib')
+	builder.libs.append('yaml')
 }
 builder.build('yaml', ['module-yaml.cpp'])

@@ -2,8 +2,8 @@
 import(modbuild)
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
-	baseDir = path.join(modbuild.guestDir,
-		'curl-7.30.0/builds/libcurl-vc-x86-release-static-zlib-static-ipv6-sspi-spnego-winssl')
+	baseDir = path.join(modbuild.guestsDir,
+		'curl-7.38.0/builds/libcurl-vc-x86-release-static-zlib-static-ipv6-sspi-winssl')
 	builder.incDirs.append(path.join(baseDir, 'include'))
 	builder.libs.append(path.join(baseDir, 'lib/libcurl_a.lib'))
 } elsif (sys.platform == `linux) {
