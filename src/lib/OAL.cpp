@@ -919,13 +919,10 @@ void SetupExecutablePath()
 	String dirBase = GetBaseDir();
 	String path;
 	path += dirBase;
-	path += "\\gura-guest\\bin-x86"; // necessary for development phase
+	path += "\\guests\\dylib";
 	path += ";";
 	path += dirBase;
-	path += "\\gura-guest\\bin";
-	path += ";";
-	path += dirBase;
-	path += "\\gura-guest\\tcl\\bin";
+	path += "\\guests\\tcl\\bin";
 	path += ";";
 	path += GetEnv("PATH");
 	PutEnv("PATH", path.c_str());

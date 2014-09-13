@@ -147,12 +147,12 @@ rem ---------------------------------------------------------------------------
 %UNZIP% x -y SDL-1.2.15.zip
 %UNZIP% x -y SDL-1.2.15-gurapatch.zip
 msbuild SDL-1.2.15\VisualC\SDL.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
-copy SDL-1.2.15\VisualC\SDL\Release\SDL.dll bin-x86
+copy SDL-1.2.15\VisualC\SDL\Release\SDL.dll dylib
 rem ---------------------------------------------------------------------------
 %UNZIP% x -y SDL2-2.0.3.zip
 %UNZIP% x -y SDL2-2.0.3-gurapatch.zip
 msbuild SDL2-2.0.3\VisualC\SDL_VS2010.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
-copy SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.dll bin-x86
+copy SDL2-2.0.3\VisualC\SDL\Win32\Release\SDL2.dll dylib
 rem ---------------------------------------------------------------------------
 mkdir deps
 mkdir deps\lib
