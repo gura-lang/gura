@@ -173,14 +173,13 @@ BuilderBase = class {
 //-----------------------------------------------------------------------------
 if (sys.build == `msc) {
 	guraDir:local = sys.datadir
-	guestDir:public = path.join(guraDir, 'gura-guest')
+	guestsDir:public = path.join(guraDir, 'guests')
 	Builder = class(BuilderBase) {
 		__init__() = {|'msc'|
 			this.cflags = [
 				'/nologo', '/DGURA_MODULE_SEPARATED'
 				'/EHsc', '/MD'
 				'/I' + sys.incdir
-				'/I' + path.join(guestDir, 'include')
 			]
 			this.ldflags = [
 				'/INCREMENTAL:NO', '/NOLOGO', '/DLL',

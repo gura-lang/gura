@@ -2,8 +2,8 @@
 import(modbuild)
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
-	builder.incDirs.append(path.join(modbuild.guestDir, 'bzip2-1.0.6'))
-	builder.libs.append(path.join(modbuild.guestDir, 'bzip2-1.0.6/libbz2.lib'))
+	builder.incDirs.append(path.join(modbuild.guestsDir, 'bzip2-1.0.6'))
+	builder.libs.append(path.join(modbuild.guestsDir, 'bzip2-1.0.6/libbz2.lib'))
 } elsif (sys.platform == `linux) {
 	builder.libs.append('bz2')
 	builder.debFiles = ['libbz2']

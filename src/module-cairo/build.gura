@@ -41,10 +41,10 @@ if (sys.platform != `darwin) {
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
 	builder.precompile = 'stdafx.h'
-	dirCairo = path.join(modbuild.guestDir, 'cairo-1.12.12/src')
-	dirPNG = path.join(modbuild.guestDir, 'lpng1510/projects/vstudio/Release Library')
+	dirCairo = path.join(modbuild.guestsDir, 'cairo-1.12.16/src')
+	dirPNG = path.join(modbuild.guestsDir, 'lpng1612/projects/vstudio/Release Library')
 	builder.libs.append(path.join(dirCairo, 'release/cairo-static.lib'))
-	builder.libs.append(path.join(dirPNG, ['libpng15.lib', 'zlib.lib']))
+	builder.libs.append(path.join(dirPNG, ['libpng16.lib', 'zlib.lib']))
 	builder.libs.append('msimg32.lib')
 	builder.incDirs.append(dirCairo)
 } elsif (sys.platform == `linux) {

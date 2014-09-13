@@ -25,8 +25,10 @@ if not exist buildtools-mswin git clone https://github.com/gura-lang/buildtools-
 rem ---------------------------------------------------------------------------
 %CURL% -O %GUESTSURL%/bzip2-1.0.6.tar.gz
 %CURL% -O %GUESTSURL%/cairo-1.12.16.tar.xz
+%CURL% -O %GUESTSURL%/cairo-1.12.16-gurapatch.zip
 %CURL% -O %GUESTSURL%/curl-7.38.0.zip
 %CURL% -O %GUESTSURL%/expat-2.1.0.tar.gz
+%CURL% -O %GUESTSURL%/expat-2.1.0-gurapatch.zip
 %CURL% -O %GUESTSURL%/fontconfig-2.11.tar.bz2
 %CURL% -O %GUESTSURL%/freetype-2.5.3.tar.bz2
 %CURL% -O %GUESTSURL%/jpegsrc.v9a.tar.gz
@@ -35,13 +37,17 @@ rem ---------------------------------------------------------------------------
 %CURL% -O %GUESTSURL%/onig-5.9.5.tar.gz
 %CURL% -O %GUESTSURL%/pixman-0.32.6.tar.gz
 %CURL% -O %GUESTSURL%/SDL-1.2.15.zip
+%CURL% -O %GUESTSURL%/SDL-1.2.15-gurapatch.zip
 %CURL% -O %GUESTSURL%/SDL2-2.0.3.zip
+%CURL% -O %GUESTSURL%/SDL2-2.0.3-gurapatch.zip
 %CURL% -O %GUESTSURL%/sqlite-amalgamation-201409011821.zip
 %CURL% -O %GUESTSURL%/tcl8516-src.zip
 %CURL% -O %GUESTSURL%/tiff-3.8.2.zip
+%CURL% -O %GUESTSURL%/tiff-3.8.2-gurapatch.zip
 %CURL% -O %GUESTSURL%/tk8516-src.zip
 %CURL% -O %GUESTSURL%/wxWidgets-3.0.1.7z
 %CURL% -O %GUESTSURL%/yaml-0.1.5.tar.gz
+%CURL% -O %GUESTSURL%/yaml-0.1.5-gurapatch.zip
 %CURL% -O %GUESTSURL%/zlib-1.2.8.tar.gz
 rem ---------------------------------------------------------------------------
 %UNZIP% x -y -osqlite-amalgamation sqlite-amalgamation-201409011821.zip
