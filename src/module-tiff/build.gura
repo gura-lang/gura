@@ -2,7 +2,7 @@
 import(modbuild)
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
-	baseDir = path.join(modbuild.guestsDir, 'tiff-3.8.2/libtiff')
+	baseDir = path.join(builder.guestsDir, 'tiff-3.8.2/libtiff')
 	builder.incDirs.append(baseDir)
 	builder.libDirs.append(baseDir)
 	builder.libs.append('libtiff.lib')

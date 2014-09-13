@@ -3,10 +3,10 @@ import(modbuild)
 
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
-	dirMpir = path.join(modbuild.guestsDir, 'mpir-2.6.0/lib/win32/Release')
-	builder.incDirs.append(dirMpir)
-	builder.libDirs.append(dirMpir)
-	builder.libs.append(['mpir.lib', 'mpirxx.lib'])
+	dirBase = path.join(builder.guestsDir, 'mpir-2.6.0/lib/win32/Release')
+	builder.incDirs.append(dirBase)
+	builder.libDirs.append(dirBase)
+	builder.libs.append('mpir.lib', 'mpirxx.lib')
 } elsif (sys.platform == `linux) {
 	builder.libs.append('gmp')
 	builder.debFiles = ['libgmp']
@@ -14,9 +14,9 @@ if (sys.platform == `mswin) {
 	builder.debFilesDevel = ['libgmp-dev']
 	builder.rpmFilesDevel = ['gmp-devel']
 } elsif (sys.platform == `darwin) {
-	builder.libs.append('gmp')
 	builder.incDirs.append('guests/include/gmp')
 	builder.libDirs.append('guests/lib/gmp')
+	builder.libs.append('gmp')
 }
 builder.build('gmp', [
 	'module-gmp.cpp', 'Class_mpz.cpp', 'Class_mpq.cpp', 'Class_mpf.cpp',

@@ -2,8 +2,10 @@
 import(modbuild)
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
-	builder.incDirs.append(path.join(modbuild.guestsDir, 'zlib-1.2.8'))
-	builder.libs.append(path.join(modbuild.guestsDir, 'zlib-1.2.8/zlib.lib'))
+	baseDir = path.join(builder.guestsDir, 'zlib-1.2.8')
+	builder.incDirs.append(baseDir)
+	builder.libDirs.append(baseDir)
+	builder.libs.append('zlib.lib')
 } elsif (sys.platform == `linux) {
 	builder.libs.append('z')
 	builder.debFiles = ['zlib1g']

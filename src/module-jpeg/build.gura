@@ -2,9 +2,10 @@
 import(modbuild)
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
-	incDirs = builder.incDirs
-	builder.incDirs.append(path.join(modbuild.guestsDir, 'jpeg-9a'))
-	builder.libs.append(path.join(modbuild.guestsDir, 'jpeg-9a/libjpeg.lib'))
+	baseDir = path.join(builder.guestsDir, 'jpeg-9a')
+	builder.incDirs.append(baseDir)
+	builder.libDirs.append(baseDir)
+	builder.libs.append('libjpeg.lib')
 } elsif (sys.platform == `linux) {
 	builder.libs.append('jpeg')
 	builder.debFiles = ['libjpeg']

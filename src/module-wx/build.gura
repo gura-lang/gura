@@ -597,7 +597,7 @@ builder = modbuild.Builder()
 if (sys.platform == `mswin) {
 	builder.precompile = 'stdafx.h'
 	srcs.append(srcs_MSW)
-	dirBase = path.join(modbuild.guestsDir, 'wxWidgets-3.0.1')
+	dirBase = path.join(builder.guestsDir, 'wxWidgets-3.0.1')
 	builder.incDirs.append(
 		path.join(dirBase, 'include')
 		path.join(dirBase, 'lib/vc_lib/mswu'))

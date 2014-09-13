@@ -2,10 +2,11 @@
 import(modbuild)
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
-	baseDir = path.join(modbuild.guestsDir,
+	baseDir = path.join(builder.guestsDir,
 		'curl-7.38.0/builds/libcurl-vc-x86-release-static-zlib-static-ipv6-sspi-winssl')
 	builder.incDirs.append(path.join(baseDir, 'include'))
-	builder.libs.append(path.join(baseDir, 'lib/libcurl_a.lib'))
+	builder.libDirs.append(path.join(baseDir, 'lib'))
+	builder.libs.append('libcurl_a.lib')
 } elsif (sys.platform == `linux) {
 	builder.libs.append('curl')
 	builder.debFiles = ['libcurl4-openssl']

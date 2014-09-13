@@ -3,7 +3,7 @@ import(modbuild)
 
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
-	dirBase = path.join(modbuild.guestsDir, 'SDL2-2.0.3')
+	dirBase = path.join(builder.guestsDir, 'SDL2-2.0.3')
 	builder.incDirs.append(path.join(dirBase, 'include'))
 	builder.libDirs.append(path.join(dirBase, 'VisualC/SDL/Win32/Release'))
 	builder.libs.append('SDL2.lib')

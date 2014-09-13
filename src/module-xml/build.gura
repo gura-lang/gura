@@ -2,7 +2,7 @@
 import(modbuild)
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
-	baseDir = path.join(modbuild.guestsDir, 'expat-2.1.0')
+	baseDir = path.join(builder.guestsDir, 'expat-2.1.0')
 	builder.incDirs.append(path.join(baseDir, 'lib'))
 	builder.libDirs.append(path.join(baseDir, 'win32/bin/release'))
 	builder.libs.append('libexpatMT.lib')

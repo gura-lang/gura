@@ -2,7 +2,7 @@
 import(modbuild)
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
-	baseDir = path.join(modbuild.guestsDir, 'yaml-0.1.5')
+	baseDir = path.join(builder.guestsDir, 'yaml-0.1.5')
 	builder.incDirs.append(path.join(baseDir, 'include'))
 	builder.libDirs.append(path.join(baseDir, 'win32/vs2010/Output/Release/lib'))
 	builder.libs.append('yaml.lib')
