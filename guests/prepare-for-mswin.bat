@@ -19,9 +19,11 @@ if not exist %VCVARSALL% goto err_vcvarsall_not_found
 call %VCVARSALL%
 rem ---------------------------------------------------------------------------
 if not exist buildtools-mswin git clone https://github.com/gura-lang/buildtools-mswin.git
+%UNZIP% x -y -obuildtools-mswin\curl buildtools-mswin\curl_737_1.zip
+%CURL% %GUESTSURL%/buildtools-mswin/UnxUpdates.zip -o buildtools-mswin\UnxUpdates.zip
+%CURL% %GUESTSURL%/buildtools-mswin/wix38-binaries.zip -o buildtools-mswin\wix38-binaries.zip
 %UNZIP% x -y -obuildtools-mswin\UnxUtils buildtools-mswin\UnxUpdates.zip
 %UNZIP% x -y -obuildtools-mswin\wix38-binaries buildtools-mswin\wix38-binaries.zip
-%UNZIP% x -y -obuildtools-mswin\curl buildtools-mswin\curl_737_1.zip
 rem ---------------------------------------------------------------------------
 %CURL% -O %GUESTSURL%/bzip2-1.0.6.tar.gz
 %CURL% -O %GUESTSURL%/cairo-1.12.16.tar.xz
