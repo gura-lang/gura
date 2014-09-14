@@ -710,6 +710,7 @@ Image *Image::Resize(Signal sig, size_t width, size_t height)
 	::memset(accums, 0x00, accumsSize);
 	size_t numerY = 0;
 	if (_format == FORMAT_RGB) {
+		size_t yDst = 0;
 		for (size_t ySrc = 0; ySrc <= _height; ySrc++) {
 			if (ySrc < _height) {
 				const UChar *pPixelSrc = pLineSrc;
@@ -754,7 +755,7 @@ Image *Image::Resize(Signal sig, size_t width, size_t height)
 						pAccumPrev = pAccum;
 					}
 				}
-				for ( ; numerY > _height; numerY -= _height) {
+				for ( ; numerY > _height && yDst < height; numerY -= _height, yDst++) {
 					Accum *pAccum = accums;
 					UChar *pPixelDst = pLineDst;
 					for (size_t xDst = 0; xDst < width;
@@ -767,6 +768,7 @@ Image *Image::Resize(Signal sig, size_t width, size_t height)
 			}
 		}
 	} else if (_format == FORMAT_RGBA) {
+		size_t yDst = 0;
 		for (size_t ySrc = 0; ySrc <= _height; ySrc++) {
 			if (ySrc < _height) {
 				const UChar *pPixelSrc = pLineSrc;
@@ -814,7 +816,7 @@ Image *Image::Resize(Signal sig, size_t width, size_t height)
 						pAccumPrev = pAccum;
 					}
 				}
-				for ( ; numerY > _height; numerY -= _height) {
+				for ( ; numerY > _height && yDst < height; numerY -= _height, yDst++) {
 					Accum *pAccum = accums;
 					UChar *pPixelDst = pLineDst;
 					for (size_t xDst = 0; xDst < width;
