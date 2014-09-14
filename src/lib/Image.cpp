@@ -716,19 +716,20 @@ Image *Image::Resize(Signal sig, size_t width, size_t height)
 				const UChar *pPixelSrc = pLineSrc;
 				UChar *pPixelDst = pLineDst;
 				Accum *pAccum = accums;
+				size_t xDst = 0;
 				size_t numerX = 0;
 				for (size_t xSrc = 0; xSrc < _width; xSrc++) {
 					pAccum->AddRGB(pPixelSrc);
 					pPixelSrc += bytesPerPixel;
 					numerX += width;
-					for ( ; numerX > _width; numerX -= _width) {
+					for ( ; numerX >= _width && xDst < width; numerX -= _width, xDst++) {
 						pAccum++;
 					}
 				}
 				pLineSrc += bytesPerLineSrc;
 			}
 			numerY += height;
-			if (numerY > _height) {
+			if (numerY >= _height) {
 				if (accums[0].cnt == 0) accums[0].cnt = 0; // this must not happen
 				Accum *pAccum = accums;
 				Accum *pAccumPrev = accums;
@@ -755,7 +756,7 @@ Image *Image::Resize(Signal sig, size_t width, size_t height)
 						pAccumPrev = pAccum;
 					}
 				}
-				for ( ; numerY > _height && yDst < height; numerY -= _height, yDst++) {
+				for ( ; numerY >= _height && yDst < height; numerY -= _height, yDst++) {
 					Accum *pAccum = accums;
 					UChar *pPixelDst = pLineDst;
 					for (size_t xDst = 0; xDst < width;
@@ -774,19 +775,20 @@ Image *Image::Resize(Signal sig, size_t width, size_t height)
 				const UChar *pPixelSrc = pLineSrc;
 				UChar *pPixelDst = pLineDst;
 				Accum *pAccum = accums;
+				size_t xDst = 0;
 				size_t numerX = 0;
 				for (size_t xSrc = 0; xSrc < _width; xSrc++) {
 					pAccum->AddRGBA(pPixelSrc);
 					pPixelSrc += bytesPerPixel;
 					numerX += width;
-					for ( ; numerX > _width; numerX -= _width) {
+					for ( ; numerX >= _width && xDst < width; numerX -= _width, xDst++) {
 						pAccum++;
 					}
 				}
 				pLineSrc += bytesPerLineSrc;
 			}
 			numerY += height;
-			if (numerY > _height) {
+			if (numerY >= _height) {
 				if (accums[0].cnt == 0) accums[0].cnt = 0; // this must not happen
 				Accum *pAccum = accums;
 				Accum *pAccumPrev = accums;
@@ -816,7 +818,7 @@ Image *Image::Resize(Signal sig, size_t width, size_t height)
 						pAccumPrev = pAccum;
 					}
 				}
-				for ( ; numerY > _height && yDst < height; numerY -= _height, yDst++) {
+				for ( ; numerY >= _height && yDst < height; numerY -= _height, yDst++) {
 					Accum *pAccum = accums;
 					UChar *pPixelDst = pLineDst;
 					for (size_t xDst = 0; xDst < width;

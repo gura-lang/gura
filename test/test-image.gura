@@ -203,14 +203,28 @@ testcase {
 	map = interval(128, 160, 256)
 	img = image(I('Water_lilies.jpg'), `rgb)
 	tester_image(img.mapcolorlevel(map), 'mapcolorlevel',
-		 'a948af90db644ab8cf2fd1c611bfaed3;e7a3946628a295b1b72376688e4db31f'):nomap
+		 '725dcff116c476633f1bca699cb437cb;e7a3946628a295b1b72376688e4db31f'):nomap
 	tester_image(img.mapcolorlevel(map, map), 'mapcolorlevel',
-		 'a948af90db644ab8cf2fd1c611bfaed3;e7a3946628a295b1b72376688e4db31f'):nomap
+		 '725dcff116c476633f1bca699cb437cb;e7a3946628a295b1b72376688e4db31f'):nomap
 	tester_image(img.mapcolorlevel(map, map, map), 'mapcolorlevel',
-		 'a948af90db644ab8cf2fd1c611bfaed3;e7a3946628a295b1b72376688e4db31f'):nomap
+		 '725dcff116c476633f1bca699cb437cb;e7a3946628a295b1b72376688e4db31f'):nomap
 }
 testcase('image#resize') {
 	img = image(I('Water_lilies.jpg'), `rgb)
-	tester_image(img.resize(100), 'resize',
-		 '36ff2e1bdb411c20fd76ee388a797dd5;87fd4678eea4d63ffefd8351af3f8f75'):nomap
+	tester_image(img.resize(100), 'resize - smaller',
+		 '5b383946166ac8ff913738d7246e80d5;87fd4678eea4d63ffefd8351af3f8f75'):nomap
+	img = image(I('chicken-anim.gif'), `rgb)
+	tester_image(img, 'resize - original',
+		'f9b52fb52a4133c74d831a724e9d5810'):nomap
+	tester_image(img.resize(img.width, img.height), 'resize - same',
+		'f9b52fb52a4133c74d831a724e9d5810'):nomap
+	tester_image(img.resize(500), 'resize - larger',
+		'cec7e321ced90540096172df0f9eb25f'):nomap
+	img = image(I('chicken-anim.gif'), `rgba)
+	tester_image(img, 'resize - original',
+		'bdd6fbb4f3eaff784351e13d35a9e944'):nomap
+	tester_image(img.resize(img.width, img.height), 'resize - same',
+		'bdd6fbb4f3eaff784351e13d35a9e944'):nomap
+	tester_image(img.resize(500), 'resize - larger',
+		'bb8ddfaf65c61218a36f35cdc8733c41'):nomap
 }

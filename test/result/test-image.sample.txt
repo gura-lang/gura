@@ -108,4 +108,10 @@ mapcolorlevel        800x600 true
 
 ======== #8 image#resize ========
 
-resize               100x 75 true
+resize - smaller     100x 75 true
+resize - original     51x 62 true
+resize - same         51x 62 true
+resize - larger      500x607 true
+resize - original     51x 62 true
+resize - same         51x 62 true
+resize - larger      500x607 true
