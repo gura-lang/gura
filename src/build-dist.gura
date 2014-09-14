@@ -365,7 +365,8 @@ createMsi(fileNames) = {
 			this.dirRecs.items() {|item|
 				[dirName, dirRec] = item
 				text += indent
-				dirName = dirName.replace('gura-doc', 'doc')
+				dirName = dirName.replace('bin-x86', 'bin').\
+						replace('bin-x64', 'bin').replace('gura-doc', 'doc')
 				text += format("<Directory Id='Directory%d' Name='%s'>\n",
 														directoryId, dirName)
 				directoryId += 1
