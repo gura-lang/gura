@@ -1,8 +1,9 @@
 #/bin/sh
 prefix=/usr
+libdir_guests=$prefix/lib/gura/guests
 if [ "$1" == "install" ] ; then
-    mkdir -p $prefix/lib/gura/guests
-	cp -v -a dylib/* $prefix/lib/gura/guests
+    mkdir -p $libdir_guests
+	cp -v -a dylib/* $libdir_guests
     exit
 fi
 #---------------------------------------------------------------------------
@@ -28,13 +29,12 @@ done
 #---------------------------------------------------------------------------
 #tar xfz SDL-1.2.15.tar.gz
 #pushd SDL-1.2.15
+#./configure --libdir=$libdir_guests --disable-video-x11
 #popd
-# the following error occurs
-# 'X11/Xlib.h' file not found
 #---------------------------------------------------------------------------
 tar xfz SDL2-2.0.3.tar.gz
 pushd SDL2-2.0.3
-./configure --libdir=$prefix/lib/gura/guests
+./configure --libdir=$libdir_guests
 make
 popd
 rm -f include/SDL2
@@ -45,7 +45,7 @@ cp -a SDL2-2.0.3/build/.libs/*.dylib dylib
 #---------------------------------------------------------------------------
 tar xfz expat-2.1.0.tar.gz
 pushd expat-2.1.0
-./configure --libdir=$prefix/lib/gura/guests
+./configure --libdir=$libdir_guests
 make
 popd
 rm -f include/expat
@@ -54,7 +54,7 @@ ln -sf ../expat-2.1.0/.libs/libexpat.a lib/libexpat.a
 #---------------------------------------------------------------------------
 tar xfy freetype-2.5.3.tar.bz2
 pushd freetype-2.5.3
-./configure --libdir=$prefix/lib/gura/guests
+./configure --libdir=$libdir_guests
 make
 popd
 rm -f include/freetype
@@ -64,7 +64,7 @@ ln -sf ../freetype-2.5.3/objs/.libs/libfreetype.a lib/libfreetype.a
 # depends on: expat, freetype
 tar xfy fontconfig-2.11.1.tar.bz2
 pushd fontconfig-2.11.1
-./configure --libdir=$prefix/lib/gura/guests PKG_CONFIG=../pkg-config-fake FREETYPE_CFLAGS=-I../../include/freetype FREETYPE_LIBS="-L../../lib -lfreetype -lz -lbz2" EXPAT_CFLAGS=-I../../include/expat EXPAT_LIBS="-L../../lib -lexpat"
+./configure --libdir=$libdir_guests PKG_CONFIG=../pkg-config-fake FREETYPE_CFLAGS=-I../../include/freetype FREETYPE_LIBS="-L../../lib -lfreetype -lz -lbz2" EXPAT_CFLAGS=-I../../include/expat EXPAT_LIBS="-L../../lib -lexpat"
 make
 popd
 rm -f include/fontconfig
@@ -75,7 +75,7 @@ cp -a fontconfig-2.11.1/src/.libs/*.dylib dylib
 #---------------------------------------------------------------------------
 tar xfy gmp-6.0.0a.tar.bz2
 pushd gmp-6.0.0
-./configure --libdir=$prefix/lib/gura/guests
+./configure --libdir=$libdir_guests
 make
 popd
 rm -f include/gmp
@@ -86,7 +86,7 @@ cp -a gmp-6.0.0/.libs/*.dylib dylib
 #---------------------------------------------------------------------------
 tar xfz jpegsrc.v9a.tar.gz
 pushd jpeg-9a
-./configure --libdir=$prefix/lib/gura/guests
+./configure --libdir=$libdir_guests
 make
 popd
 rm -f include/jpeg
@@ -95,7 +95,7 @@ ln -sf ../jpeg-9a/.libs/libjpeg.a lib/libjpeg.a
 #---------------------------------------------------------------------------
 tar xfz libpng-1.6.12.tar.gz
 pushd libpng-1.6.12
-./configure --libdir=$prefix/lib/gura/guests
+./configure --libdir=$libdir_guests
 make
 popd
 rm -f include/png
@@ -110,7 +110,7 @@ ln -sf ../libpng-1.6.12/.libs/libpng16.a lib/libpng16.a
 #---------------------------------------------------------------------------
 tar xfz onig-5.9.5.tar.gz
 pushd onig-5.9.5
-./configure --libdir=$prefix/lib/gura/guests
+./configure --libdir=$libdir_guests
 make
 popd
 rm -f include/onig
@@ -119,7 +119,7 @@ ln -sf ../onig-5.9.5/.libs/libonig.a lib/libonig.a
 #---------------------------------------------------------------------------
 tar xfz pixman-0.32.6.tar.gz
 pushd pixman-0.32.6
-./configure --libdir=$prefix/lib/gura/guests
+./configure --libdir=$libdir_guests
 make
 popd
 rm -f include/pixman
@@ -128,7 +128,7 @@ ln -sf ../pixman-0.32.6/pixman/.libs/libpixman-1.a lib/libpixman-1.a
 #---------------------------------------------------------------------------
 tar xfz tiff-3.8.2.tar.gz
 pushd tiff-3.8.2
-./configure --libdir=$prefix/lib/gura/guests
+./configure --libdir=$libdir_guests
 make
 popd
 rm -f include/tiff
@@ -137,7 +137,7 @@ ln -sf ../tiff-3.8.2/libtiff/.libs/libtiff.a lib/libtiff.a
 #---------------------------------------------------------------------------
 tar xfy wxWidgets-3.0.1.tar.bz2
 pushd wxWidgets-3.0.1
-./configure --libdir=$prefix/lib/gura/guests --with-macosx-version-min=10.9
+./configure --libdir=$libdir_guests --with-macosx-version-min=10.9
 make
 popd
 rm -f include/wx
@@ -148,7 +148,7 @@ cp -a wxWidgets-3.0.1/lib/*.dylib dylib
 #---------------------------------------------------------------------------
 tar xfz yaml-0.1.5.tar.gz
 pushd yaml-0.1.5
-./configure --libdir=$prefix/lib/gura/guests
+./configure --libdir=$libdir_guests
 make
 popd
 rm -f include/yaml
@@ -158,7 +158,7 @@ ln -sf ../yaml-0.1.5/src/.libs/libyaml.a lib/libyaml.a
 # depends on: fontconfig, freetype, pixman, png
 tar xfJ cairo-1.12.16.tar.xz
 pushd cairo-1.12.16
-./configure --libdir=$prefix/lib/gura/guests pixman_CFLAGS=-I`pwd`/../include/pixman pixman_LIBS="-L`pwd`/../lib -lpixman-1" PKG_CONFIG=../pkg-config-fake png_CFLAGS=-I`pwd`/../include/png png_LIBS="-L`pwd`/../lib -lpng16" FONTCONFIG_CFLAGS=-I`pwd`/../include/fontconfig FONTCONFIG_LDFLAGS="-L`pwd`/../lib/fontconfig -lfontconfig" FREETYPE_CFLAGS=-I`pwd`/../include/freetype FREETYPE_LIBS="-L`pwd`/../lib -lfreetype -lbz2" --disable-xlib --disable-xcb --disable-gobject --disable-fc --disable-ps
+./configure --libdir=$libdir_guests pixman_CFLAGS=-I`pwd`/../include/pixman pixman_LIBS="-L`pwd`/../lib -lpixman-1" PKG_CONFIG=../pkg-config-fake png_CFLAGS=-I`pwd`/../include/png png_LIBS="-L`pwd`/../lib -lpng16" FONTCONFIG_CFLAGS=-I`pwd`/../include/fontconfig FONTCONFIG_LDFLAGS="-L`pwd`/../lib/fontconfig -lfontconfig" FREETYPE_CFLAGS=-I`pwd`/../include/freetype FREETYPE_LIBS="-L`pwd`/../lib -lfreetype -lbz2" --disable-xlib --disable-xcb --disable-gobject --disable-fc --disable-ps
 make
 popd
 rm -f include/cairo

@@ -13,5 +13,9 @@ if (sys.platform == `mswin) {
 	builder.rpmFiles = ['SDL']
 	builder.debFilesDevel = ['libsdl1.2-dev']
 	builder.rpmFilesDevel = ['SDL-devel']
+} elsif (sys.platform == `darwin) {
+	builder.incDirs.append('guests/include/SDL')
+	builder.libDirs.append('guests/lib/SDL')
+	builder.libs.append('SDL')
 }
 builder.build('sdl', ['module-sdl.cpp'])
