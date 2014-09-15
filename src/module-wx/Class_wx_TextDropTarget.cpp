@@ -17,7 +17,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_TextDropTarget *_pObj;
 public:
-	//inline wx_TextDropTarget() : wxTextDropTarget(), _sig(NULL), _pObj(NULL) {}
+	inline wx_TextDropTarget() : wxTextDropTarget(), _sig(NULL), _pObj(NULL) {}
 	~wx_TextDropTarget();
 	virtual bool OnDrop(wxCoord x, wxCoord y);
 	virtual bool OnDropText(wxCoord x, wxCoord y, const wxString& data);
@@ -68,19 +68,16 @@ bool wx_TextDropTarget::OnDropText(wxCoord x, wxCoord y, const wxString& data)
 //----------------------------------------------------------------------------
 // Gura interfaces for wxTextDropTarget
 //----------------------------------------------------------------------------
-Gura_DeclareFunction(TextDropTargetEmpty)
+Gura_DeclareFunction(TextDropTarget)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-#if 0
 	SetClassToConstruct(Gura_UserClass(wx_TextDropTarget));
 	DeclareBlock(OCCUR_ZeroOrOnce);
-#endif
 }
 
-Gura_ImplementFunction(TextDropTargetEmpty)
+Gura_ImplementFunction(TextDropTarget)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
-#if 0
 	wx_TextDropTarget *pEntity = new wx_TextDropTarget();
 	Object_wx_TextDropTarget *pObj = Object_wx_TextDropTarget::GetThisObj(args);
 	if (pObj == NULL) {
@@ -91,9 +88,6 @@ Gura_ImplementFunction(TextDropTargetEmpty)
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
 	return ReturnValue(env, sig, args, args.GetThis());
-#endif
-	SetError_NotImplemented(sig);
-	return Value::Null;
 }
 
 Gura_DeclareMethod(wx_TextDropTarget, OnDrop)
@@ -176,7 +170,7 @@ Gura_ImplementUserInheritableClass(wx_TextDropTarget)
 {
 	Gura_RealizeUserSymbol(OnDrop);
 	Gura_RealizeUserSymbol(OnDropText);
-	Gura_AssignFunction(TextDropTargetEmpty);
+	Gura_AssignFunction(TextDropTarget);
 	Gura_AssignMethod(wx_TextDropTarget, OnDrop);
 	Gura_AssignMethod(wx_TextDropTarget, OnDropText);
 }

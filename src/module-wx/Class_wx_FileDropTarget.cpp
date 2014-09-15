@@ -17,7 +17,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_FileDropTarget *_pObj;
 public:
-	//inline wx_FileDropTarget() : wxFileDropTarget(), _sig(NULL), _pObj(NULL) {}
+	inline wx_FileDropTarget() : wxFileDropTarget(), _sig(NULL), _pObj(NULL) {}
 	virtual bool OnDrop(wxCoord x, wxCoord y);
 	virtual bool OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames);
 	~wx_FileDropTarget();
@@ -68,19 +68,16 @@ bool wx_FileDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& f
 //----------------------------------------------------------------------------
 // Gura interfaces for wxFileDropTarget
 //----------------------------------------------------------------------------
-Gura_DeclareFunction(FileDropTargetEmpty)
+Gura_DeclareFunction(FileDropTarget)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-#if 0
 	SetClassToConstruct(Gura_UserClass(wx_FileDropTarget));
 	DeclareBlock(OCCUR_ZeroOrOnce);
-#endif
 }
 
-Gura_ImplementFunction(FileDropTargetEmpty)
+Gura_ImplementFunction(FileDropTarget)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
-#if 0
 	wx_FileDropTarget *pEntity = new wx_FileDropTarget();
 	Object_wx_FileDropTarget *pObj = Object_wx_FileDropTarget::GetThisObj(args);
 	if (pObj == NULL) {
@@ -91,9 +88,6 @@ Gura_ImplementFunction(FileDropTargetEmpty)
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
 	return ReturnValue(env, sig, args, args.GetThis());
-#endif
-	SetError_NotImplemented(sig);
-	return Value::Null;
 }
 
 Gura_DeclareMethod(wx_FileDropTarget, OnDrop)
@@ -176,7 +170,7 @@ Gura_ImplementUserInheritableClass(wx_FileDropTarget)
 {
 	Gura_RealizeUserSymbol(OnDrop);
 	Gura_RealizeUserSymbol(OnDropFiles);
-	Gura_AssignFunction(FileDropTargetEmpty);
+	Gura_AssignFunction(FileDropTarget);
 	Gura_AssignMethod(wx_FileDropTarget, OnDrop);
 	Gura_AssignMethod(wx_FileDropTarget, OnDropFiles);
 }

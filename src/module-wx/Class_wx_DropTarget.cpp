@@ -21,7 +21,7 @@ private:
 	Gura::Signal _sig;
 	Object_wx_DropTarget *_pObj;
 public:
-	//inline wx_DropTarget(wxDataObject* data) : wxDropTarget(data), _sig(NULL), _pObj(NULL) {}
+	inline wx_DropTarget(wxDataObject* data) : wxDropTarget(data), _sig(NULL), _pObj(NULL) {}
 	virtual bool GetData();
 	virtual wxDragResult OnData(wxCoord x, wxCoord y, wxDragResult def);
 	virtual bool OnDrop(wxCoord x, wxCoord y);
@@ -123,17 +123,14 @@ void wx_DropTarget::OnLeave()
 Gura_DeclareFunction(DropTarget)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
-#if 0
 	SetClassToConstruct(Gura_UserClass(wx_DropTarget));
 	DeclareArg(env, "data", VTYPE_wx_DataObject, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-#endif
 }
 
 Gura_ImplementFunction(DropTarget)
 {
 	if (!CheckWxReady(sig)) return Value::Null;
-#if 0
 	wxDataObject *data = (wxDataObject *)(NULL);
 	if (args.IsValid(0)) data = Object_wx_DataObject::GetObject(args, 0)->GetEntity();
 	wx_DropTarget *pEntity = new wx_DropTarget(data);
@@ -146,9 +143,6 @@ Gura_ImplementFunction(DropTarget)
 	pObj->SetEntity(pEntity, pEntity, OwnerFalse);
 	pEntity->AssocWithGura(sig, pObj);
 	return ReturnValue(env, sig, args, args.GetThis());
-#endif
-	SetError_NotImplemented(sig);
-	return Value::Null;
 }
 
 Gura_DeclareMethod(wx_DropTarget, GetData)
