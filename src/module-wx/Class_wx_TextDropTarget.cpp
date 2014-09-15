@@ -18,9 +18,9 @@ private:
 	Object_wx_TextDropTarget *_pObj;
 public:
 	//inline wx_TextDropTarget() : wxTextDropTarget(), _sig(NULL), _pObj(NULL) {}
-	//virtual bool OnDrop(long x, long y, const void *data, size_t size);
-	//virtual bool OnDropText(wxCoord x, wxCoord y, const wxString& data);
 	~wx_TextDropTarget();
+	virtual bool OnDrop(wxCoord x, wxCoord y);
+	virtual bool OnDropText(wxCoord x, wxCoord y, const wxString& data);
 	inline void AssocWithGura(Gura::Signal &sig, Object_wx_TextDropTarget *pObj) {
 		_sig = sig, _pObj = pObj;
 	}
@@ -38,6 +38,33 @@ void wx_TextDropTarget::GuraObjectDeleted()
 	_pObj = NULL;
 }
 
+bool wx_TextDropTarget::OnDrop(wxCoord x, wxCoord y)
+{
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnDrop);
+	if (pFunc == NULL) return wxTextDropTarget::OnDrop(x, y);
+	Environment &env = *_pObj;
+	ValueList valList;
+	valList.push_back(Value(x));
+	valList.push_back(Value(y));
+	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
+	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
+	return rtn.GetBoolean();
+}
+
+bool wx_TextDropTarget::OnDropText(wxCoord x, wxCoord y, const wxString& data)
+{
+	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnDropText);
+	if (pFunc == NULL) return false;
+	Environment &env = *_pObj;
+	ValueList valList;
+	valList.push_back(Value(x));
+	valList.push_back(Value(y));
+	valList.push_back(Value(data.ToUTF8()));
+	Value rtn = _pObj->EvalMethod(*_pObj, _sig, pFunc, valList);
+	if (!CheckMethodResult(_sig, rtn, VTYPE_boolean)) return false;
+	return rtn.GetBoolean();
+}
+	
 //----------------------------------------------------------------------------
 // Gura interfaces for wxTextDropTarget
 //----------------------------------------------------------------------------
