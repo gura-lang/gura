@@ -307,6 +307,7 @@ if (sys.build == `msc) {
 				'-DGURA_MODULE_SEPARATED', '-fPIC',
 				'-I' + sys.incdir
 			]
+			// It seems that Mac's clang supports -shared option.
 			this.ldflags = ['-shared']
 			this.libs = []
 			this.precompile = nil
