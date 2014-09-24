@@ -173,12 +173,4 @@
 						   (eq line-cur (line-number-at-pos)))
 					  column-param-start))))))))
 		  
-(defun foo()
-  (interactive)
-  (message "%s" (gura-check-block-param-p)))
-
-(defun foo()
-  (interactive)
-  (message "%s %s %s" (looking-at "{\\s-*|") (match-beginning 0) (match-end 0)))
- 
 (provide 'gura-mode)
