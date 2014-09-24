@@ -2,9 +2,6 @@
 
 ;;; Copyright (C) 2014 ypsitau
 
-(add-to-list 'auto-mode-alist '("\\.gura$" . gura-mode))
-(add-to-list 'auto-mode-alist '("\\.guraw$" . gura-mode))
-
 ;;(makunbound 'gura-mode-map)
 ;;(makunbound 'gura-mode-syntax-table)
 ;;(makunbound 'gura-font-lock-keywords)
@@ -70,7 +67,7 @@
 (defvar gura-outline-regexp
   )
 
-(define-derived-mode gura-mode prog-mode "Gura"
+(define-derived-mode gura-mode fundamental-mode "Gura"
   "Major mode for editing Gura programming language."
   (set-syntax-table gura-mode-syntax-table)
   (use-local-map (nconc (make-sparse-keymap) gura-mode-map))
@@ -141,18 +138,21 @@
 			indent-offset)))))
 
 (defun gura-insert-close-p (ch)
-  (insert-char ch)
+  (insert-char ch 1)
   (save-excursion (gura-indent-line))
   (blink-matching-open))
   
 (defun gura-end-of-statement-p ()
   "Move to end of statement without a comment."
   (beginning-of-line)
-  (if (looking-at "[ \t]*$")
+  (if (looking-at "[ \\t]*$")
 	  (end-of-line)
 	(progn
 	  (forward-line)
 	  (forward-comment -1)
-	  (skip-syntax-backward "\s-"))))
+	  (skip-syntax-backward "\\s-"))))
+
+(add-to-list 'auto-mode-alist '("\\.gura$" . gura-mode))
+(add-to-list 'auto-mode-alist '("\\.guraw$" . gura-mode))
 
 (provide 'gura-mode)
