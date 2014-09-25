@@ -1,3 +1,5 @@
+# CMake Configuration for libguracore
+
 add_library(guracore SHARED
 Algorithm.cpp
 Audio.cpp
@@ -97,12 +99,20 @@ Version.cpp
 
 target_link_libraries(guracore dl pthread)
 
-set_property(TARGET guracore PROPERTY COMPILE_DEFINITIONS HAVE_CONFIG_H)
-set_property(SOURCE Random.cpp PROPERTY COMPILE_DEFINITIONS DSFMT_MEXP=19937)
-set_property(SOURCE ../dSFMT-src-2.2.1/dSFMT.c PROPERTY COMPILE_DEFINITIONS DSFMT_MEXP=19937)
+set_property(TARGET guracore PROPERTY
+  COMPILE_DEFINITIONS HAVE_CONFIG_H)
+
+set_property(SOURCE Random.cpp ../dSFMT-src-2.2.1/dSFMT.c PROPERTY
+  COMPILE_DEFINITIONS DSFMT_MEXP=19937)
+
+#set(CMAKE_SKIP_BUILD_RPATH            FALSE)
+#set(CMAKE_BUILD_WITH_INSTALL_RPATH    TRUE)
+#set(CMAKE_INSTALL_RPATH               "@loader_path/../lib")
+#set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 set_target_properties(guracore PROPERTIES
-  VERSION ${GURA_VERSION}
-  SOVERSION ${GURA_VERSION_SO})
+  VERSION      ${GURA_VERSION}
+  SOVERSION    ${GURA_VERSION_SO}
+  MACOSX_RPATH "@loader_path/../lib")
 
 install(TARGETS guracore DESTINATION lib)
