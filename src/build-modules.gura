@@ -100,6 +100,7 @@ argopt.Parser {|p|
 	p.addFlag('rebuild',	'r', 'clean output files before building')
 	p.addParam('exclude',	'x', 'specify module to exclude', 'NAME', '')
 	p.addParam('incdir',	'I', 'specify include directory', 'DIR')
+	p.addParam('moddir',	'M', 'specify directory to which module is installed', 'DIR')
 	try {
 		[cfg, argv] = p.parse(sys.argv)
 	} catch {|e|
@@ -169,6 +170,7 @@ for (moduleName in moduleNames) {
 	cfg['debug'] && sys.argv.append('--debug')
 	cfg['rebuild'] && sys.argv.append('--rebuild')
 	cfg['incdir'] && sys.argv.append('--incdir=' + cfg['incdir'])
+	cfg['moddir'] && sys.argv.append('--moddir=' + cfg['moddir'])
 	sys.argv.append('--basedir=' + path.join(fs.getcwd(), 'module-' + moduleName))
 	fs.chdir(pathName) {
 		scope {

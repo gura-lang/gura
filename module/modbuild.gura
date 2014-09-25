@@ -31,6 +31,7 @@ BuilderBase = class {
 			p.addParam('basedir',	'b', 'specify basement output directory', 'DIR', '')
 			p.addParam('incdir',	'I', 'specify include directory', 'DIR')
 			p.addParam('libdir',	'L', 'specify library directory', 'DIR')
+			p.addParam('moddir',	'M', 'specify directory to which module is installed', 'DIR')
 			try {
 				[this.cfg, argv] = p.parse(sys.argv)
 			} catch {|e|
@@ -68,6 +69,7 @@ BuilderBase = class {
 		this.libDirs = []
 		this.cfg['incdir'] && this.incDirs.append(this.cfg['incdir'])
 		this.cfg['libdir'] && this.libDirs.append(this.cfg['libdir'])
+		this.modDir = this.cfg['moddir'] || sys.moddir
 		this.hint = nil
 		this.skipErrorFlag = false
 		this.verboseFlag = this.cfg['verbose']
@@ -142,9 +144,9 @@ BuilderBase = class {
 	}
 	doInstall(target:string, siteFlag:boolean) = {
 		if (siteFlag) {
-			targetPath = path.join(sys.moddir, 'site', target)
+			targetPath = path.join(this.modDir, 'site', target)
 		} else {
-			targetPath = path.join(sys.moddir, target)
+			targetPath = path.join(this.modDir, target)
 		}
 		dirName = path.dirname(targetPath)
 		!path.exists(dirName) && fs.mkdir(dirName):tree
