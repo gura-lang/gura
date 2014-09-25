@@ -39,19 +39,19 @@ configure_file(
   ${PROJECT_SOURCE_DIR}/resource/build/build-modules.in
   ${CMAKE_BINARY_DIR}/tmp/build-modules)
 
-file(COPY
-  ${CMAKE_BINARY_DIR}/tmp/build-modules
+file(COPY ${CMAKE_BINARY_DIR}/tmp/build-modules
   DESTINATION ${CMAKE_BINARY_DIR}
-  FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ)
+  FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
+                   GROUP_READ GROUP_EXECUTE WORLD_READ)
 
 configure_file(
   ${PROJECT_SOURCE_DIR}/resource/build/setup-guest.in
   ${CMAKE_BINARY_DIR}/tmp/setup-guest)
 
-file(COPY
-  ${CMAKE_BINARY_DIR}/tmp/setup-guest
+file(COPY ${CMAKE_BINARY_DIR}/tmp/setup-guest
   DESTINATION ${CMAKE_BINARY_DIR}
-  FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ)
+  FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
+                   GROUP_READ GROUP_EXECUTE WORLD_READ)
 
 include_directories(
   ${GURA_ROOT_SRCDIR}/include
@@ -62,148 +62,23 @@ add_subdirectory(${PROJECT_SOURCE_DIR}/lib)
 add_subdirectory(${PROJECT_SOURCE_DIR}/program-gura)
 #add_subdirectory(${PROJECT_SOURCE_DIR}/program-guri)
 
-install(FILES
-  ${GURA_SAMPLE_SRCDIR}/resource/Winter.jpg
-  ${GURA_SAMPLE_SRCDIR}/resource/readme.txt
-  ${GURA_SAMPLE_SRCDIR}/resource/arrow-green-u.gif
-  ${GURA_SAMPLE_SRCDIR}/resource/arrow-green-d.gif
-  ${GURA_SAMPLE_SRCDIR}/resource/msnms.ico
-  ${GURA_SAMPLE_SRCDIR}/resource/arrow-green-r.gif
-  ${GURA_SAMPLE_SRCDIR}/resource/Kaufmann_Bold_BT.ttf
-  ${GURA_SAMPLE_SRCDIR}/resource/banner-small.png
-  ${GURA_SAMPLE_SRCDIR}/resource/Water_lilies.jpg
-  ${GURA_SAMPLE_SRCDIR}/resource/Sunset.jpg
-  ${GURA_SAMPLE_SRCDIR}/resource/chicken16.bmp
-  ${GURA_SAMPLE_SRCDIR}/resource/chicken-anim.gif
-  ${GURA_SAMPLE_SRCDIR}/resource/Blue_hills.jpg
-  ${GURA_SAMPLE_SRCDIR}/resource/kangaroo.png
-  ${GURA_SAMPLE_SRCDIR}/resource/arrow-green-l.gif
-  ${GURA_SAMPLE_SRCDIR}/resource/kangaroo.gif
-  ${GURA_SAMPLE_SRCDIR}/resource/zippedfont.zip
-  ${GURA_SAMPLE_SRCDIR}/resource/chicken256.bmp
-  DESTINATION share/gura/${GURA_VERSION}/sample/resource)
+install(DIRECTORY ${GURA_SAMPLE_SRCDIR}/resource/
+  DESTINATION share/gura/${GURA_VERSION}/sample/resource
+  FILES_MATCHING PATTERN "*")
 
-install(FILES
-  ${GURA_MODULE_SRCDIR}/argopt.gura
-  ${GURA_MODULE_SRCDIR}/calendar.gura
-  ${GURA_MODULE_SRCDIR}/graph.gura
-  ${GURA_MODULE_SRCDIR}/gurcbuild.gura
-  ${GURA_MODULE_SRCDIR}/helper.gura
-  ${GURA_MODULE_SRCDIR}/helper.setup.gura
-  ${GURA_MODULE_SRCDIR}/helper.test.gura
-  ${GURA_MODULE_SRCDIR}/markdown.gura
-  ${GURA_MODULE_SRCDIR}/modbuild.gura
-  ${GURA_MODULE_SRCDIR}/modgen.gura
-  ${GURA_MODULE_SRCDIR}/msxls.gura
-  ${GURA_MODULE_SRCDIR}/sed.gura
-  ${GURA_MODULE_SRCDIR}/show.gura
-  ${GURA_MODULE_SRCDIR}/tk.gura
-  ${GURA_MODULE_SRCDIR}/tk.show.gura
-  ${GURA_MODULE_SRCDIR}/tokenizer.gura
-  ${GURA_MODULE_SRCDIR}/units.gura
-  ${GURA_MODULE_SRCDIR}/utils.gura
-  ${GURA_MODULE_SRCDIR}/wx.show.gura
-  ${GURA_MODULE_SRCDIR}/xhtml.gura
-  DESTINATION lib/gura/${GURA_VERSION}/module)
+install(DIRECTORY ${GURA_MODULE_SRCDIR}/
+  DESTINATION lib/gura/${GURA_VERSION}/module
+  FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
+                   GROUP_READ GROUP_EXECUTE WORLD_READ
+  FILES_MATCHING PATTERN "*.gura" PATTERN "*.gurd")
 
-install(FILES
-  ${GURA_INCLUDE_SRCDIR}/gura.h
-  DESTINATION ${GURA_PKGINCDIR})
+install(DIRECTORY ${GURA_INCLUDE_SRCDIR}/
+  DESTINATION ${GURA_PKGINCDIR}
+  FILES_MATCHING PATTERN "*.h")
 
-install(FILES
-  ${GURA_INCLUDE_SRCDIR}/gura/Algorithm.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Audio.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Binary.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_args.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_audio.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_binary.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_codec.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_color.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_datetime.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_declaration.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_dict.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_directory.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_environment.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_error.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_expr.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_formatter.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_function.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_help.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_image.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_iterator.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_list.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_matrix.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_operator.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_palette.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_pointer.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_semaphore.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_stream.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_suffixmgr.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_template.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_timedelta.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Class_uri.h
-  ${GURA_INCLUDE_SRCDIR}/gura/ClassBasic.h
-  ${GURA_INCLUDE_SRCDIR}/gura/ClassCustom.h
-  ${GURA_INCLUDE_SRCDIR}/gura/ClassOfStruct.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Codec.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Color.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Common.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Complex.h
-  ${GURA_INCLUDE_SRCDIR}/gura/DateTime.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Declaration.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Directory.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Environment.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Error.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Expr.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Formatter.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Function.h
-  ${GURA_INCLUDE_SRCDIR}/gura/FunctionCustom.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Fundamental.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Help.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Image.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Iterator.h
-  ${GURA_INCLUDE_SRCDIR}/gura/IteratorBasic.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Matrix.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Memory.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Module.h
-  ${GURA_INCLUDE_SRCDIR}/gura/OAL.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Operator.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Option.h
-  ${GURA_INCLUDE_SRCDIR}/gura/PackedNumber.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Palette.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Parser.h
-  ${GURA_INCLUDE_SRCDIR}/gura/PathMgr.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Processor.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Random.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Rational.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Signal.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Stream.h
-  ${GURA_INCLUDE_SRCDIR}/gura/StreamBasic.h
-  ${GURA_INCLUDE_SRCDIR}/gura/String.h
-  ${GURA_INCLUDE_SRCDIR}/gura/SuffixMgr.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Symbol.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Template.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Unicode-CP932.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Unicode-CP936.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Unicode-CP949.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Unicode-CP950.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Uri.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Value.h
-  ${GURA_INCLUDE_SRCDIR}/gura/ValueType.h
-  ${GURA_INCLUDE_SRCDIR}/gura/Version.h
-  DESTINATION ${GURA_PKGINCDIR}/gura)
-
-install(FILES
-  ${GURA_INCLUDE_SRCDIR}/gura/helper/BZLibHelper.h
-  ${GURA_INCLUDE_SRCDIR}/gura/helper/ZLibHelper.h
-  DESTINATION ${GURA_PKGINCDIR}/gura/helper)
-
-
-
-set(CPACK_GENERATOR "DEB;RPM")
-set(CPACK_SET_DESTDIR true)
-set(CPACK_PACKAGE_RELOCATABLE false)
+set(CPACK_GENERATOR                     "DEB;RPM")
+set(CPACK_SET_DESTDIR                   true)
+set(CPACK_PACKAGE_RELOCATABLE           false)
 
 set(CPACK_PACKAGE_NAME					"gura")
 set(CPACK_PACKAGE_CONTACT				"Yutaka Saito <ypsitau@nifty.com>")
