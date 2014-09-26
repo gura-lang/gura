@@ -151,7 +151,6 @@ rm -f include/wx
 rm -f lib/wx
 ln -sf ../wxWidgets-3.0.1/include/ include/wx
 ln -sf ../wxWidgets-3.0.1/lib/ lib/wx
-#setup_dylib wxWidgets-3.0.1/lib dylib
 #---------------------------------------------------------------------------
 tar xfz yaml-0.1.5.tar.gz
 pushd yaml-0.1.5
