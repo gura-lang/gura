@@ -361,6 +361,9 @@ if (sys.build == `msc) {
 		doLink(target:string, objs[]:string) = {
 			target = path.join(this.outDir, target)
 			ldflags = this.ldflags.clone()
+			if (sys.platform == `darwin) {
+				ldflags.append('-install_name', path.filename(target))
+			}
 			ldflags.append('-L' + this.libDirs)
 			libs = '-l' + this.libs.clone()
 			objsEx = []
