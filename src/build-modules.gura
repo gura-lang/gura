@@ -100,6 +100,7 @@ argopt.Parser {|p|
 	p.addFlag('rebuild',	'r', 'clean output files before building')
 	p.addParam('exclude',	'x', 'specify module to exclude', 'NAME', '')
 	p.addParam('incdir',	'I', 'specify include directory', 'DIR')
+	p.addParam('libdir',	'L', 'specify library directory', 'DIR')
 	p.addParam('moddir',	'M', 'specify directory to which module is installed', 'DIR')
 	try {
 		[cfg, argv] = p.parse(sys.argv)
@@ -108,15 +109,14 @@ argopt.Parser {|p|
 		sys.exit(1)
 	}
 	command = if (argv.len() == 0) {
-		`build
+		cond(cfg['moddir'], `build_install, `build)
 	} elsif (argv[0] == 'help') {
 		R'''
 		usage: ${path.filename(sys.argv[0])} [options] command
 		command:
 		 clean          clean output files
 		 install        install built files to root directory
-		 build-install  build and install files to root directory
-		 
+
 		options:
 		 ${p.formatHelp() + '\n'}
 		'''.template().render(sys.stderr)
@@ -125,8 +125,6 @@ argopt.Parser {|p|
 		`clean
 	} elsif (argv[0] == 'install') {
 		`install
-	} elsif (argv[0] == 'build-install') {
-		`build_install
 	} elsif (argv[0] == 'setup-guest') {
 		`setup_guest
 	} else {
@@ -170,6 +168,7 @@ for (moduleName in moduleNames) {
 	cfg['debug'] && sys.argv.append('--debug')
 	cfg['rebuild'] && sys.argv.append('--rebuild')
 	cfg['incdir'] && sys.argv.append('--incdir=' + cfg['incdir'])
+	cfg['libdir'] && sys.argv.append('--libdir=' + cfg['libdir'])
 	cfg['moddir'] && sys.argv.append('--moddir=' + cfg['moddir'])
 	sys.argv.append('--basedir=' + path.join(fs.getcwd(), 'module-' + moduleName))
 	fs.chdir(pathName) {

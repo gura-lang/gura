@@ -34,7 +34,7 @@ function setup_dylib() {
 	for file in $srcdir/*.dylib
 	do
 		if [ ! -h $file ] ; then
-			install_name_tool -id "@loader_path/../lib/gura/guests/`basename $file`" $file
+			install_name_tool -id "@executable_path/../lib/gura/guests/`basename $file`" $file
 		fi
 		cp -a $file $dstdir
 	done
