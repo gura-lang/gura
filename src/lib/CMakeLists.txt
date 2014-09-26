@@ -113,6 +113,7 @@ set_property(SOURCE Random.cpp ../dSFMT-src-2.2.1/dSFMT.c PROPERTY
 set_target_properties(guracore PROPERTIES
   VERSION      ${GURA_VERSION}
   SOVERSION    ${GURA_VERSION_SO}
-  MACOSX_RPATH "@loader_path/../lib")
+  BUILD_WITH_INSTALL_RPATH 1
+  INSTALL_NAME_DIR "@loader_path/../lib")
 
 install(TARGETS guracore DESTINATION lib)
