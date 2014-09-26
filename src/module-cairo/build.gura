@@ -57,7 +57,7 @@ if (sys.platform == `mswin) {
 } elsif (sys.platform == `darwin) {
 	builder.precompile = 'stdafx.h'
 	builder.incDirs.append('guests/include/cairo')
-	builder.libDirs.append('guests/lib/cairo')
+	builder.libDirs.append('guests/dylib')
 	builder.libs.append('cairo')
 }
 builder.progressFlag = true

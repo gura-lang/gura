@@ -668,7 +668,7 @@ if (sys.platform == `mswin) {
 		'-D__WXMAC__',
 		'-D__WXOSX__',
 		'-D__WXOSX_COCOA__')
-	builder.libDirs.append('guests/lib/wx')
+	builder.libDirs.append('guests/dylib')
 	builder.ldflags.append(
 		'-framework', 'IOKit',
 		'-framework', 'Carbon',
