@@ -108,7 +108,12 @@
 		(if (and pos-block-start (eq (char-after pos-block-start) ?\())
 			(save-excursion
 			  (goto-char pos-block-start)
-			  (+ (current-column) 1))))
+			  (gura-end-of-statement-p)
+			  (if (eq (+ pos-block-start 1) (point))
+				  (+ (current-indentation) (* 2 default-tab-width)) ;; no elements after parenthesis
+				(progn
+				  (goto-char pos-block-start)
+				  (+ (current-column) 1)))))) ;; elements exist at the same line
 	  (save-excursion
 		(gura-end-of-statement-p)
 		(let* ((line-cur (line-number-at-pos)) (pos-cur (point))
