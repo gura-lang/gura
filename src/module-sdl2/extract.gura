@@ -8,11 +8,8 @@ Init(Uint32 flags):error
 InitSubSystem(Uint32 flags):error
 Quit()
 QuitSubSystem(Uint32 flags)
-SetMainReady
+SetMainReady()
 WasInit(Uint32 flags):Uint32
-'''
-
-text2 = R'''
 //-----------------------------------------------------------------------------
 // Basics - Configuration Variables
 AddHintCallback
@@ -23,8 +20,8 @@ SetHint
 SetHintWithPriority
 //-----------------------------------------------------------------------------
 // Basics - Error Handling
-ClearError
-GetError
+ClearError()
+GetError():const char*
 SetError
 //-----------------------------------------------------------------------------
 // Basics - Log Handling
@@ -61,8 +58,11 @@ GetRevisionNumber
 GetVersion
 //-----------------------------------------------------------------------------
 // Video - Display and Window Management
-CreateWindow
-CreateWindowAndRenderer
+CreateWindow(const char* title, int x, int y, int w, int h, Uint32 flags):SDL_Window *
+'''
+
+text2 = R'''
+CreateWindowAndRenderer(int width, int height, Uint32 window_flags, SDL_Window** window, SDL_Renderer** renderer):error
 CreateWindowFrom
 DestroyWindow
 DisableScreenSaver
@@ -565,21 +565,21 @@ Gura_ImplementFunction(${funcName})
 {
 	${if (args)}
 	${for (arg in args) {|idx|}}
-	${arg.typeC} ${arg.name} = ${arg.GetArg(idx)};
+	${arg.typeC.sub(r'(\w)$', r'\1 ') + arg.name} = ${arg.GetArg(idx)};
 	${end}
 	${argsJoined = args:*name.join(', '), -}
-	${if (!rtnTypeC)}
+	${if (!rtnInfo)}
 	::SDL_${funcName}(${argsJoined});
 	return Value::Null;
-	${elsif (rtnTypeC == 'error')}
+	${elsif (rtnInfo.typeC == 'error')}
 	int rtn = ::SDL_${funcName}(${argsJoined});
 	if (rtn < 0) {
 		// errror handling
 	}
 	return Value::Null;
 	${else}
-	${rtnTypeC} rtn = ::SDL_${funcName}(${argsJoined});
-	return Value::Null;
+	${rtnInfo.typeC.sub(r'(\w)$', r'\1 ')}rtn = ::SDL_${funcName}(${argsJoined});
+	return ${rtnInfo.fmtReturn};
 	${end}
 	${else}
 	//::SDL_${funcName}();
@@ -597,51 +597,76 @@ ArgInfo = struct(name:string, typeC:string, typeGura:string, fmtGetter:string) {
 	GetArg(idx:number) = format(this.fmtGetter, idx)
 }
 
-ArgConv = struct(typeGura:string, fmtGetter:string)
+ReturnInfo = struct(typeC:string, typeGura:string:nil, fmtReturn:string:nil) {
+	
+}
 
-argConvDict = %{
-	'Uint32' => ArgConv('number', 'args.GetULong(%d)')
+TypeConv = struct(typeGura:string, fmtGetter:string, fmtReturn:string)
+
+typeConvDict = %{
+	'int' => TypeConv('number', 'args.GetInt(%d)', 'Value(rtn)')
+	'Uint32' => TypeConv('number', 'args.GetULong(%d)', 'Value(rtn)')
+	'char *' => TypeConv('string', 'args.GetString(%d)', 'Value(rtn)')
+	'const char *' => TypeConv('string', 'args.GetString(%d)', 'Value(rtn)')
+	'SDL_Window *' => TypeConv('Window', 'Class_Window::GetObject(%d)', 'Value(new Object_Window(rtn))')
 }
 
 FuncInfo = class {
-	__init__(funcName:string, argsRaw:string:nil, rtnRaw:string:nil) = {
+	__init__(lineNo:number, funcName:string, argsRaw:string:nil, rtnRaw:string:nil) = {
 		this.funcName:public = funcName
 		this.argsRaw = argsRaw
 		this.rtnRaw = rtnRaw
 		this.args = nil
-		this.rtnTypeC = nil
-		this.rtnTypeGura = nil
+		this.rtnInfo = nil
 		if (this.argsRaw) {
-		
 			this.args = this.argsRaw.split(',').each():xlist {|argRaw|
-				argsRaw = argRaw.strip()
-				argsRaw.isempty() && continue
-				if (m = argsRaw.match(r'^(\w+)\s+(\w+)$')) {
+				argRaw = argRaw.strip()
+				argRaw.isempty() && continue
+				if (m = argRaw.match(r'^(\w+)\s+(\w+)$')) {
 					[typeC, name] = m[1, 2]
+				} elsif (m = argRaw.match(r'^(\w+)\s*\*\s*(\w+)$')) {
+					[typeC, name] = [m[1] + ' *', m[2]]
+				} elsif (m = argRaw.match(r'^const\s+(\w+)\s*\*\s*(\w+)$')) {
+					[typeC, name] = ['const ' + m[1] + ' *', m[2]]
 				} else {
 					sys.stderr.printf('%d: invalid argument "%s"\n', lineNo, argRaw)
 					sys.exit(1)
 				}
-				argConv = argConvDict.get(typeC)
-				if (!argConv) {
+				typeConv = typeConvDict.get(typeC)
+				if (!typeConv) {
 					sys.stderr.printf('%d: invalid argument "%s"\n', lineNo, argRaw)
 					sys.exit(1)
 				}
-				ArgInfo(name, typeC, argConv.typeGura, argConv.fmtGetter)
+				ArgInfo(name, typeC, typeConv.typeGura, typeConv.fmtGetter)
 			}
 		}
-		if (this.rtnRaw) {
-			if (this.rtnRaw == 'error') {
-				this.rtnTypeC = 'error'
-				this.rtnTypeGura = nil
+		if (!this.rtnRaw) {
+			// nothing to do
+		} elsif (this.rtnRaw == 'error') {
+			this.rtnInfo = ReturnInfo('error', nil, nil)
+		} else {
+			if (m = rtnRaw.match(r'^(\w+)$')) {
+				typeC = m[1]
+			} elsif (m = rtnRaw.match(r'^(\w+)\s*\*\s*$')) {
+				typeC = m[1] + ' *'
+			} elsif (m = rtnRaw.match(r'^const\s+(\w+)\s*\*\s*$')) {
+				typeC = 'const ' + m[1] + ' *'
+			} else {
+				sys.stderr.printf('%d: invalid return type "%s"\n', lineNo, rtnRaw)
+				sys.exit(1)
 			}
+			typeConv = typeConvDict.get(typeC)
+			if (!typeConv) {
+				sys.stderr.printf('%d: invalid return type "%s"\n', lineNo, rtnRaw)
+				sys.exit(1)
+			}
+			this.rtnInfo = ReturnInfo(typeC, typeConv.typeGura, typeConv.fmtReturn)
 		}
 	}
 	RenderImplementation(stream:stream) = {
 		funcName = this.funcName
 		args = this.args
-		rtnTypeC = this.rtnTypeC
-		rtnTypeGura = this.rtnTypeGura
+		rtnInfo = this.rtnInfo
 		tmplImplementation.render(stream)
 	}
 	RenderAssignment(stream:stream) = {
@@ -672,7 +697,7 @@ text.eachline {|line, i|
 			sys.stderr.printf('%d: duplicated function %s\n', lineNo, funcName)
 			sys.exit(1)
 		}
-		funcInfos.add(FuncInfo(funcName, argsRaw, rtnRaw))
+		funcInfos.add(FuncInfo(lineNo, funcName, argsRaw, rtnRaw))
 	} else {
 		sys.stderr.printf('%d: invalid format\n', lineNo)
 		sys.exit(1)
