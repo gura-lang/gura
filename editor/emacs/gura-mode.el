@@ -103,44 +103,50 @@
 			(setq indent-offset gura-continued-line-offset)
 		  (setq cont-flag nil)))))
   ;; Indentation for block
-  (or (let* ((syntax (syntax-ppss (line-beginning-position)))
-			 (pos-block-start (nth 1 syntax)))
-		(if (and pos-block-start (eq (char-after pos-block-start) ?\())
-			(save-excursion
+  (or
+   (let* ((syntax (syntax-ppss (line-beginning-position)))
+		  (pos-block-start (nth 1 syntax)) (pos-comment-or-string-start (nth 8 syntax)))
+	 (or
+	  (when pos-comment-or-string-start
+		(save-excursion
+		  (forward-line -1)
+		  (current-indentation))) ;; inside comment or string
+	  (when (and pos-block-start (eq (char-after pos-block-start) ?\())
+		(save-excursion
+		  (goto-char pos-block-start)
+		  (gura-end-of-statement-p)
+		  (if (eq (+ pos-block-start 1) (point))
+			  (+ (current-indentation) (* 2 default-tab-width)) ;; no elements after parenthesis
+			(progn
 			  (goto-char pos-block-start)
-			  (gura-end-of-statement-p)
-			  (if (eq (+ pos-block-start 1) (point))
-				  (+ (current-indentation) (* 2 default-tab-width)) ;; no elements after parenthesis
-				(progn
-				  (goto-char pos-block-start)
-				  (+ (current-column) 1)))))) ;; elements exist at the same line
-	  (save-excursion
-		(gura-end-of-statement-p)
-		(let* ((line-cur (line-number-at-pos)) (pos-cur (point))
-			   (syntax (syntax-ppss)) (pos-block-start (nth 1 syntax)))
-		  (if pos-block-start
+			  (+ (current-column) 1))))))) ;; elements exist at the same line
+   (save-excursion
+	 (gura-end-of-statement-p)
+	 (let* ((line-cur (line-number-at-pos)) (pos-cur (point))
+			(syntax (syntax-ppss)) (pos-block-start (nth 1 syntax)))
+	   (if pos-block-start
+		   (progn
+			 (goto-char pos-block-start)
+			 (or
+			  (if (looking-at (rx "{" (0+ space) "|"))
+				  (save-excursion
+					(goto-char (match-end 0))
+					(let ((line-param-start (line-number-at-pos))
+						  (column-param-start (current-column)))
+					  (forward-sexp)
+					  (while (and (not (eq (char-before) ?|)) (< (point) pos-cur))
+						(forward-sexp))
+					  (if (and (not (eq line-cur line-param-start))
+							   (<= line-cur (line-number-at-pos)))
+						  column-param-start))))
+			  (if (= line-cur (line-number-at-pos))
+				  (+ (current-indentation) indent-offset))
 			  (progn
-				(goto-char pos-block-start)
-				(or
-				 (if (looking-at (rx "{" (0+ space) "|"))
-					 (save-excursion
-					   (goto-char (match-end 0))
-					   (let ((line-param-start (line-number-at-pos))
-							 (column-param-start (current-column)))
-						 (forward-sexp)
-						 (while (and (not (eq (char-before) ?|)) (< (point) pos-cur))
-						   (forward-sexp))
-						 (if (and (not (eq line-cur line-param-start))
-								  (<= line-cur (line-number-at-pos)))
-							 column-param-start))))
-				 (if (= line-cur (line-number-at-pos))
-					 (+ (current-indentation) indent-offset))
-				 (progn
-				   (backward-sexp)
-				   (if (eq (char-after) ?=)
-					   (backward-sexp))
-				   (+ (current-indentation) default-tab-width indent-offset))))
-			indent-offset)))))
+				(backward-sexp)
+				(if (eq (char-after) ?=)
+					(backward-sexp))
+				(+ (current-indentation) default-tab-width indent-offset))))
+		 indent-offset)))))
 
 (defun gura-insert-close-p (ch)
   (insert-char ch 1)
