@@ -108,9 +108,10 @@
 		  (pos-block-start (nth 1 syntax)) (pos-comment-or-string-start (nth 8 syntax)))
 	 (or
 	  (when pos-comment-or-string-start
-		(save-excursion
-		  (forward-line -1)
-		  (current-indentation))) ;; inside comment or string
+		(let ((indent (current-indentation)))
+		  (save-excursion
+			(forward-line -1)
+			(max indent (current-indentation))))) ;; inside comment or string
 	  (when (and pos-block-start (eq (char-after pos-block-start) ?\())
 		(save-excursion
 		  (goto-char pos-block-start)
