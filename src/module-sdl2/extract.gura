@@ -548,19 +548,44 @@ WriteLE64
 '''
 
 tmplImplementation = R'''
-// sdl2.${funcName}()
+// sdl2.${funcName}(${if (args) {(args:*name + ':' + args:*typeGura).join(', ')}})
 Gura_DeclareFunction(${funcName})
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	${if (args)}
+	${for (arg in args)}
+	DeclareArgs(env, "${arg.name}", VTYPE_${arg.typeGura});
+	${end}
+	${end}
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(${funcName})
 {
+	${if (args)}
+	${for (arg in args) {|idx|}}
+	${arg.typeC} ${arg.name} = ${arg.GetArg(idx)};
+	${end}
+	${argsJoined = args:*name.join(', '), -}
+	${if (!rtnTypeC)}
+	::SDL_${funcName}(${argsJoined});
+	return Value::Null;
+	${elsif (rtnTypeC == 'error')}
+	int rtn = ::SDL_${funcName}(${argsJoined});
+	if (rtn < 0) {
+		// errror handling
+	}
+	return Value::Null;
+	${else}
+	${rtnTypeC} rtn = ::SDL_${funcName}(${argsJoined});
+	return Value::Null;
+	${end}
+	${else}
 	//::SDL_${funcName}();
 	SetError_NotImpFunction(sig, "${funcName}");
 	return Value::Null;
+	${end}
 }
 '''.template()
 
@@ -568,13 +593,60 @@ tmplAssignment = R'''
 	Gura_AssignFunction(${funcName});
 '''.template()
 
-FuncInfo = struct(funcName:string, argsList:string:nil, returnType:string:nil) {
+ArgInfo = struct(name:string, typeC:string, typeGura:string, fmtGetter:string) {
+	GetArg(idx:number) = format(this.fmtGetter, idx)
+}
+
+ArgConv = struct(typeGura:string, fmtGetter:string)
+
+argConvDict = %{
+	'Uint32' => ArgConv('number', 'args.GetULong(%d)')
+}
+
+FuncInfo = class {
+	__init__(funcName:string, argsRaw:string:nil, rtnRaw:string:nil) = {
+		this.funcName:public = funcName
+		this.argsRaw = argsRaw
+		this.rtnRaw = rtnRaw
+		this.args = nil
+		this.rtnTypeC = nil
+		this.rtnTypeGura = nil
+		if (this.argsRaw) {
+		
+			this.args = this.argsRaw.split(',').each():xlist {|argRaw|
+				argsRaw = argRaw.strip()
+				argsRaw.isempty() && continue
+				if (m = argsRaw.match(r'^(\w+)\s+(\w+)$')) {
+					[typeC, name] = m[1, 2]
+				} else {
+					sys.stderr.printf('%d: invalid argument "%s"\n', lineNo, argRaw)
+					sys.exit(1)
+				}
+				argConv = argConvDict.get(typeC)
+				if (!argConv) {
+					sys.stderr.printf('%d: invalid argument "%s"\n', lineNo, argRaw)
+					sys.exit(1)
+				}
+				ArgInfo(name, typeC, argConv.typeGura, argConv.fmtGetter)
+			}
+		}
+		if (this.rtnRaw) {
+			if (this.rtnRaw == 'error') {
+				this.rtnTypeC = 'error'
+				this.rtnTypeGura = nil
+			}
+		}
+	}
 	RenderImplementation(stream:stream) = {
 		funcName = this.funcName
+		args = this.args
+		rtnTypeC = this.rtnTypeC
+		rtnTypeGura = this.rtnTypeGura
 		tmplImplementation.render(stream)
 	}
 	RenderAssignment(stream:stream) = {
 		funcName = this.funcName
+		args = this.args
 		tmplAssignment.render(stream)
 	}
 }
@@ -586,13 +658,13 @@ text.eachline {|line, i|
 	lineNo = i + 1
 	restPart = line
 	fields = restPart.split(':')
-	argsList = nil
-	returnType = nil
+	argsRaw = nil
+	rtnRaw = nil
 	if (fields.len() > 1) {
-		[restPart, returnType] = fields
+		[restPart, rtnRaw] = fields
 	}
 	if (m = restPart.match(r'(.*)\(([^\)]*)\)')) {
-		[restPart, argsList] = m[1, 2]
+		[restPart, argsRaw] = m[1, 2]
 	}
 	if (m = restPart.match(r'^(\w+)$')) {
 		funcName = m[1]
@@ -600,7 +672,7 @@ text.eachline {|line, i|
 			sys.stderr.printf('%d: duplicated function %s\n', lineNo, funcName)
 			sys.exit(1)
 		}
-		funcInfos.add(FuncInfo(funcName, argsList, returnType))
+		funcInfos.add(FuncInfo(funcName, argsRaw, rtnRaw))
 	} else {
 		sys.stderr.printf('%d: invalid format\n', lineNo)
 		sys.exit(1)
