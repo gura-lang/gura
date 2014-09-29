@@ -58,7 +58,7 @@ bool wx_DropTarget::GetData()
 wxDragResult wx_DropTarget::OnData(wxCoord x, wxCoord y, wxDragResult def)
 {
 	const Function *pFunc = Gura_LookupWxMethod(_pObj, OnData);
-	if (pFunc == NULL) return wxDropTarget::OnData(x, y, def);
+	if (pFunc == NULL) return def;
 	Environment &env = *_pObj;
 	ValueList valList;
 	valList.push_back(Value(x));
