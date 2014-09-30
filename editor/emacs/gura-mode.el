@@ -90,6 +90,7 @@
 
 (defun gura-calculate-indentation ()
   "Return the column to which the current line should be indented."
+  (interactive)
   (setq indent-offset 0)
   ;; Check if preceding lines end with a backslash
   (save-excursion
@@ -122,7 +123,8 @@
 			  (goto-char pos-block-start)
 			  (+ (current-column) 1))))))) ;; elements exist at the same line
    (save-excursion
-	 (gura-end-of-statement-p)
+	 ;;(gura-end-of-statement-p)
+	 (end-of-line)
 	 (let* ((line-cur (line-number-at-pos)) (pos-cur (point))
 			(syntax (syntax-ppss)) (pos-block-start (nth 1 syntax)))
 	   (if pos-block-start
@@ -143,9 +145,10 @@
 			  (when (= line-cur (line-number-at-pos))
 				(+ (current-indentation) indent-offset))
 			  (progn
-				(backward-sexp)
-				(when (eq (char-after) ?=)
-					(backward-sexp))
+				(when (not (eq (current-column) 0))
+				  (backward-sexp)
+				  (when (eq (char-after) ?=)
+					(backward-sexp)))
 				(+ (current-indentation) default-tab-width indent-offset))))
 		 indent-offset)))))
 
@@ -156,13 +159,14 @@
   
 (defun gura-end-of-statement-p ()
   "Move to end of statement without a comment."
-  (beginning-of-line)
-  (if (looking-at "[ \\t]*$")
-	  (end-of-line)
-	(progn
-	  (forward-line)
-	  (forward-comment -1)
-	  (skip-syntax-backward "\\s-"))))
+  (when (not (eobp))
+	(beginning-of-line)
+	(if (looking-at "[ \\t]*$")
+		(end-of-line)
+	  (progn
+		(forward-line)
+		(forward-comment -1)
+		(skip-syntax-backward "\\s-")))))
 
 (add-to-list 'auto-mode-alist '("\\.gura$" . gura-mode))
 (add-to-list 'auto-mode-alist '("\\.guraw$" . gura-mode))
