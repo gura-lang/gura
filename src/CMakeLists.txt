@@ -82,7 +82,25 @@ install(DIRECTORY ${GURA_INCLUDE_SRCDIR}/
   DESTINATION ${GURA_PKGINCDIR}
   FILES_MATCHING PATTERN "*.h")
 
-set(CPACK_GENERATOR                     "DEB;RPM")
+find_program(DPKG NAMES dpkg-deb PATHS "/usr/bin")
+find_program(RPMBUILD NAMES rpmbuild PATHS "/usr/bin")
+
+if (DPKG)
+  get_filename_component(DPKG_PATH ${DPKG} ABSOLUTE)
+  message(STATUS "Packaging deb using ${DPKG_PATH}: OK")
+  set(CPACK_GENERATOR "DEB")
+endif ()
+
+if (RPMBUILD)
+  get_filename_component(RPMBUILD_PATH ${RPMBUILD} ABSOLUTE)
+  message(STATUS "Packaging rpm using ${RPMBUILD_PATH}: OK")
+  if (DEFINED CPACK_GENERATOR)
+	set(CPACK_GENERATOR "${CPACK_GENERATOR};RPM")
+  else ()
+	set(CPACK_GENERATOR "RPM")
+  endif ()
+endif ()
+
 set(CPACK_SET_DESTDIR                   true)
 set(CPACK_PACKAGE_RELOCATABLE           false)
 
