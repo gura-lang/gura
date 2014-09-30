@@ -61,8 +61,11 @@ GetVersion
 CreateWindow(const char* title, int x, int y, int w, int h, Uint32 flags):SDL_Window *
 '''
 
-text2 = R'''
-CreateWindowAndRenderer(int width, int height, Uint32 window_flags, SDL_Window** window, SDL_Renderer** renderer):error
+text = R'''
+CreateWindowAndRenderer(int width, int height, Uint32 window_flags, SDL_Window** #window, SDL_Renderer** #renderer):error
+'''
+
+R'''
 CreateWindowFrom
 DestroyWindow
 DisableScreenSaver
@@ -548,52 +551,52 @@ WriteLE64
 '''
 
 tmplImplementation = R'''
-// sdl2.${funcName}(${if (args) {(args:*name + ':' + args:*typeGura).join(', ')}})
-Gura_DeclareFunction(${funcName})
+// sdl2.${fi.funcName}(${(fi.argsGura:*name + ':' + fi.argsGura:*typeGura).join(', ')})
+Gura_DeclareFunction(${fi.funcName})
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	${if (args)}
-	${for (arg in args)}
+	${for (arg in fi.argsGura)}
 	DeclareArgs(env, "${arg.name}", VTYPE_${arg.typeGura});
-	${end}
 	${end}
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
-Gura_ImplementFunction(${funcName})
+Gura_ImplementFunction(${fi.funcName})
 {
-	${if (args)}
-	${for (arg in args) {|idx|}}
-	${arg.typeC.sub(r'(\w)$', r'\1 ') + arg.name} = ${arg.GetArg(idx)};
+	${if (!fi.validFlag)}
+#if 0
 	${end}
-	${argsJoined = args:*name.join(', '), -}
-	${if (!rtnInfo)}
-	::SDL_${funcName}(${argsJoined});
+	${argsCJoined = fi.argsC:*name.join(', '), -}
+	${for (argC in fi.argsC) {|idx|}}
+	${argC.typeC.sub(r'(\w)$', r'\1 ') + argC.name} = ${argC.GetArg(idx)};
+	${end}
+	${if (!fi.rtnInfo)}
+	::SDL_${fi.funcName}(${argsCJoined});
 	return Value::Null;
-	${elsif (rtnInfo.typeC == 'error')}
-	int rtn = ::SDL_${funcName}(${argsJoined});
+	${elsif (fi.rtnInfo.typeC == 'error')}
+	int rtn = ::SDL_${fi.funcName}(${argsCJoined});
 	if (rtn < 0) {
 		// errror handling
 	}
 	return Value::Null;
 	${else}
-	${rtnInfo.typeC.sub(r'(\w)$', r'\1 ')}rtn = ::SDL_${funcName}(${argsJoined});
-	return ${rtnInfo.fmtReturn};
+	${fi.rtnInfo.typeC.sub(r'(\w)$', r'\1 ')}rtn = ::SDL_${fi.funcName}(${argsCJoined});
+	return ${fi.rtnInfo.fmtReturn};
 	${end}
-	${else}
-	//::SDL_${funcName}();
-	SetError_NotImpFunction(sig, "${funcName}");
+	${if (!fi.validFlag)}
+#endif
+	SetError_NotImpFunction(sig, "${fi.funcName}");
 	return Value::Null;
 	${end}
 }
 '''.template()
 
 tmplAssignment = R'''
-	Gura_AssignFunction(${funcName});
+	Gura_AssignFunction(${fi.funcName});
 '''.template()
 
-ArgInfo = struct(name:string, typeC:string, typeGura:string, fmtGetter:string) {
+ArgInfo = struct(name:string, typeC:string, typeGura:string:nil, fmtGetter:string:nil) {
 	GetArg(idx:number) = format(this.fmtGetter, idx)
 }
 
@@ -612,32 +615,44 @@ typeConvDict = %{
 }
 
 FuncInfo = class {
+	public {
+		funcName, argsC, argsGura, rtnInfo, validFlag
+	}
 	__init__(lineNo:number, funcName:string, argsRaw:string:nil, rtnRaw:string:nil) = {
-		this.funcName:public = funcName
+		this.funcName = funcName
 		this.argsRaw = argsRaw
 		this.rtnRaw = rtnRaw
-		this.args = nil
+		this.argsC = []
+		this.argsGura = []
 		this.rtnInfo = nil
+		this.validFlag = this.argsRaw
 		if (this.argsRaw) {
-			this.args = this.argsRaw.split(',').each():xlist {|argRaw|
+			this.argsC = this.argsRaw.split(',').each():xlist {|argRaw|
 				argRaw = argRaw.strip()
 				argRaw.isempty() && continue
-				if (m = argRaw.match(r'^(\w+)\s+(\w+)$')) {
+				if (m = argRaw.match(r'^(\w+)\s+(#?\w+)$')) {
 					[typeC, name] = m[1, 2]
-				} elsif (m = argRaw.match(r'^(\w+)\s*\*\s*(\w+)$')) {
-					[typeC, name] = [m[1] + ' *', m[2]]
-				} elsif (m = argRaw.match(r'^const\s+(\w+)\s*\*\s*(\w+)$')) {
-					[typeC, name] = ['const ' + m[1] + ' *', m[2]]
+				} elsif (m = argRaw.match(r'^(\w+)\s*(\*+)\s*(#?\w+)$')) {
+					[typeC, name] = [m[1] + ' ' + m[2], m[3]]
+				} elsif (m = argRaw.match(r'^const\s+(\w+)\s*(\*+)\s*(#?\w+)$')) {
+					[typeC, name] = ['const ' + m[1] + ' ' + m[2], m[3]]
 				} else {
 					sys.stderr.printf('%d: invalid argument "%s"\n', lineNo, argRaw)
 					sys.exit(1)
 				}
-				typeConv = typeConvDict.get(typeC)
-				if (!typeConv) {
-					sys.stderr.printf('%d: invalid argument "%s"\n', lineNo, argRaw)
-					sys.exit(1)
+				if (name.startswith('#')) {
+					this.validFlag = false
+					ArgInfo(name.replace('#', ''), typeC, nil, 'NULL')
+				} else {
+					typeConv = typeConvDict.get(typeC)
+					if (!typeConv) {
+						sys.stderr.printf(
+								'%d: proper conversion not found in table "%s"\n',
+								lineNo, argRaw)
+						sys.exit(1)
+					}
+					ArgInfo(name, typeC, typeConv.typeGura, typeConv.fmtGetter)
 				}
-				ArgInfo(name, typeC, typeConv.typeGura, typeConv.fmtGetter)
 			}
 		}
 		if (!this.rtnRaw) {
@@ -662,16 +677,14 @@ FuncInfo = class {
 			}
 			this.rtnInfo = ReturnInfo(typeC, typeConv.typeGura, typeConv.fmtReturn)
 		}
+		this.argsGura = this.argsC.filter(this.argsC:*typeGura):list
 	}
 	RenderImplementation(stream:stream) = {
-		funcName = this.funcName
-		args = this.args
-		rtnInfo = this.rtnInfo
+		fi = this
 		tmplImplementation.render(stream)
 	}
 	RenderAssignment(stream:stream) = {
-		funcName = this.funcName
-		args = this.args
+		fi = this
 		tmplAssignment.render(stream)
 	}
 }
