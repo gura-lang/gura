@@ -53,56 +53,52 @@ assert_paranoid
 assert_release
 //-----------------------------------------------------------------------------
 // Basics - Querying SDL Version
-GetRevision
-GetRevisionNumber
+GetRevision():const char*
+GetRevisionNumber():int
 GetVersion
 //-----------------------------------------------------------------------------
 // Video - Display and Window Management
-CreateWindow(const char* title, int x, int y, int w, int h, Uint32 flags):SDL_Window *
-'''
-
-text = R'''
+CreateWindow(const char* title, int x, int y, int w, int h, Uint32 flags):SDL_Window*
 CreateWindowAndRenderer(int width, int height, Uint32 window_flags, SDL_Window** #window, SDL_Renderer** #renderer):error
-'''
-
-R'''
 CreateWindowFrom
-DestroyWindow
-DisableScreenSaver
-EnableScreenSaver
-GL_CreateContext
-DeleteContext
-GL_ExtensionSupported
-GL_GetAttribute
-GL_GetCurrentContext
-GL_GetCurrentWindow
-GL_GetDrawableSize
+DestroyWindow(SDL_Window* window)
+DisableScreenSaver()
+EnableScreenSaver()
+GL_CreateContext(SDL_Window* window):SDL_GLContext
+DeleteContext(SDL_GLContext context)
+GL_ExtensionSupported(const char* extension):SDL_bool
+GL_GetAttribute(SDL_GLattr attr, int* #value):error
+GL_GetCurrentContext():SDL_GLContext
+GL_GetCurrentWindow():SDL_Window*
+GL_GetDrawableSize(SDL_Window* window, int* #w, int* #h)
 GL_GetProcAddress
-GL_GetSwapInterval
-GL_LoadLibrary
-GL_MakeCurrent
-GL_ResetAttributes
-GL_SetAttribute
-GL_SetSwapInterval
-GL_SwapWindow
-GL_UnloadLibrary
-GetClosestDisplayMode
-GetCurrentDisplayMode
-GetCurrentVideoDriver
-GetDesktopDisplayMode
-GetDisplayBounds
-GetDisplayMode
-GetDisplayName
-GetNumDisplayModes
-GetNumVideoDisplays
-GetNumVideoDrivers
-GetVideoDriver
-GetWindowBrightness
-GetWindowData
+GL_GetSwapInterval():int
+GL_LoadLibrary(const char* path):error
+GL_MakeCurrent(SDL_Window* window, SDL_GLContext context):error
+GL_ResetAttributes()
+GL_SetAttribute(SDL_GLattr attr, int value):error
+GL_SetSwapInterval(int interval):error
+GL_SwapWindow(SDL_Window* window)
+GL_UnloadLibrary()
+GetClosestDisplayMode(int displayIndex, const SDL_DisplayMode* mode, SDL_DisplayMode* #closest)
+GetCurrentDisplayMode(int displayIndex, SDL_DisplayMode* #mode):error
+GetCurrentVideoDriver():const char*
+GetDesktopDisplayMode(int displayIndex, SDL_DisplayMode* #mode):error
+GetDisplayBounds(int displayIndex, SDL_Rect* #rect):error
+GetDisplayMode(int displayIndex, int modeIndex, SDL_DisplayMode* #mode):error
+GetDisplayName(int dipslayIndex):const char*
+''', text = R'''
+GetNumDisplayModes(int displayIndex):int
+GetNumVideoDisplays():int
+GetNumVideoDrivers():int
+GetVideoDriver(int index):const char*
+GetWindowBrightness(SDL_Window* window):float
+GetWindowData(SDL_Window* window, const char* #name)
 GetWindowDisplayIndex
 GetWindowDisplayMode
 GetWindowFlags
 GetWindowFromID
+''', R'''
 GetWindowGammaRamp
 GetWindowGrab
 GetWindowID
@@ -577,7 +573,8 @@ Gura_ImplementFunction(${fi.funcName})
 	${elsif (fi.rtnInfo.typeC == 'error')}
 	int rtn = ::SDL_${fi.funcName}(${argsCJoined});
 	if (rtn < 0) {
-		// errror handling
+		SetError_SDL(sig);
+		return Value::Null;
 	}
 	return Value::Null;
 	${else}
@@ -605,13 +602,37 @@ ReturnInfo = struct(typeC:string, typeGura:string:nil, fmtReturn:string:nil) {
 }
 
 TypeConv = struct(typeGura:string, fmtGetter:string, fmtReturn:string)
-
 typeConvDict = %{
+	'char' => TypeConv('number', 'args.GetChar(%d)', 'Value(rtn)')
 	'int' => TypeConv('number', 'args.GetInt(%d)', 'Value(rtn)')
+	'short' => TypeConv('number', 'args.GetShort(%d)', 'Value(rtn)')
+	'float' => TypeConv('number', 'args.GetFloat(%d)', 'Value(rtn)')
+	'double' => TypeConv('number', 'args.GetDouble(%d)', 'Value(rtn)')
 	'Uint32' => TypeConv('number', 'args.GetULong(%d)', 'Value(rtn)')
 	'char *' => TypeConv('string', 'args.GetString(%d)', 'Value(rtn)')
 	'const char *' => TypeConv('string', 'args.GetString(%d)', 'Value(rtn)')
-	'SDL_Window *' => TypeConv('Window', 'Class_Window::GetObject(%d)', 'Value(new Object_Window(rtn))')
+	'SDL_GLContext' => TypeConv('number', 'args.GetSizeT(%d)', 'Value(rtn)')
+	'SDL_bool' => TypeConv('boolean', 'args.GetBoolean(%d)', 'Value(rtn != 0)')
+	'SDL_GLattr' => TypeConv(
+			'number',
+			'static_cast<SDL_GLattr>(args.GetInt(%d))',
+			'Value(rtn)')
+	'SDL_Rect *' => TypeConv(
+			'Rect',
+			'Object_Rect::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_Rect(rtn))')
+	'SDL_Window *' => TypeConv(
+			'Window',
+			'Object_Window::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_Window(rtn))')
+	'SDL_DisplayMode *' => TypeConv(
+			'DisplayMode',
+			'Object_DisplayMode::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_DisplayMode(rtn))')
+	'const SDL_DisplayMode *' => TypeConv(
+			'DisplayMode',
+			'Object_DisplayMode::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_DisplayMode(rtn))')
 }
 
 FuncInfo = class {
