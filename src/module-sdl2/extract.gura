@@ -234,7 +234,6 @@ GetColorKey(SDL_Surface* surface, Uint32* #key):error
 GetSurfaceAlphaMod(SDL_Surface* surface, Uint8* #alpha):error
 GetSurfaceBlendMode(SDL_Surface* surface, SDL_BlendMode* #blendMode):error
 GetSurfaceColorMod(SDL_Surface* surface, Uint8* #r, Uint8* #g, Uint8* #b):error
-''', text = R'''
 LoadBMP(const char* file):SDL_Surface*
 LoadBMP_RW(SDL_RWops* src, int freesrc):SDL_Surface*
 LockSurface(SDL_Surface* surface):error
@@ -251,45 +250,45 @@ SetSurfaceColorMod(SDL_Surface* surface, Uint8 r, Uint8 g, Uint8 b):error
 SetSurfacePalette(SDL_Surface* surface, SDL_Palette* palette):error
 SetSurfaceRLE(SDL_Surface* surface, int flag):error
 UnlockSurface(SDL_Surface* surface)
-''', R'''
 //-----------------------------------------------------------------------------
 // Video - Platform-specific Window Management
-GetWindowWMInfo
+GetWindowWMInfo(SDL_Window* window, SDL_SysWMinfo* #info):SDL_bool
 //-----------------------------------------------------------------------------
 // Video - Clipboard Handling
-GetClipboardText
-HasClipboardText
-SetClipboardText
+#GetClipboardText():char*
+HasClipboardText():SDL_bool
+SetClipboardText(const char* text):error
 //-----------------------------------------------------------------------------
 // Input Events - Event Handling
-AddEventWatch
-DelEventWatch
-EventState
-FilterEvents
-FlushEvent
-FlushEvents
-GetEventFilter
-GetNumTouchDevices
-GetNumTouchFingers
-GetTouchDevice
-GetTouchFinger
-HasEvent
-HasEvents
-LoadDollarTemplates
-PeepEvents
-PollEvent
-PumpEvents
-PushEvent
-QuitRequested
-RecordGesture
-RegisterEvents
-SaveAllDollarTemplates
-SaveDollarTemplate
-SetEventFilter
-WaitEvent
-WaitEventTimeout
+#AddEventWatch()
+#DelEventWatch()
+EventState(Uint32 type, int state):Uint8
+#FilterEvents()
+FlushEvent(Uint32 type)
+FlushEvents(Uint32 minType, Uint32 maxType)
+#GetEventFilter()
+GetNumTouchDevices():int
+GetNumTouchFingers(SDL_TouchID touchId):int
+GetTouchDevice(int index):SDL_TouchID
+GetTouchFinger(SDL_TouchID touchId, int index):SDL_Finger*
+HasEvent(Uint32 type):SDL_bool
+HasEvents(Uint32 minType, Uint32 maxType):SDL_bool
+LoadDollarTemplates(SDL_TouchID touchId, SDL_RWops* src):error_number
+PeepEvents(SDL_Event* #events, int #numevents, SDL_eventaction action, Uint32 minType, Uint32 maxType):error
+PollEvent(SDL_Event* #event):int
+PumpEvents()
+PushEvent(SDL_Event* event):error_number
+QuitRequested():SDL_bool
+RecordGesture(SDL_TouchID touchId):error
+RegisterEvents(int numevents):Uint32
+SaveAllDollarTemplates(SDL_RWops* dst):error
+SaveDollarTemplate(SDL_GestureID gestureId, SDL_RWops* dst):error
+#SetEventFilter()
+WaitEvent(SDL_Event* #event):error
+WaitEventTimeout(SDL_Event* #event, int timeout):error
 //-----------------------------------------------------------------------------
 // Input Events - Keyboard Support
+''', text = R'''
 GetKeyFromName
 GetKeyFromScancode
 GetKeyName
@@ -306,6 +305,7 @@ SetModState
 SetTextInputRect
 StartTextInput
 StopTextInput
+''', R'''
 //-----------------------------------------------------------------------------
 // Input Events - Mouse Support
 CaptureMouse
@@ -638,9 +638,21 @@ typeConvDict = %{
 	'const char *' => TypeConv(nil, 'string', 'args.GetString(%d)', 'Value(rtn)')
 	'SDL_GLContext' => TypeConv(nil, 'number', 'args.GetSizeT(%d)', 'Value(rtn)')
 	'SDL_bool' => TypeConv(nil, 'boolean', 'args.GetBoolean(%d)', 'Value(rtn != 0)')
+	'SDL_eventaction' => TypeConv(
+			nil, 'number',
+			'static_cast<SDL_eventaction>(args.GetInt(%d))',
+			'Value(rtn)')
 	'SDL_GLattr' => TypeConv(
 			nil, 'number',
 			'static_cast<SDL_GLattr>(args.GetInt(%d))',
+			'Value(rtn)')
+	'SDL_TouchID' => TypeConv(
+			nil, 'number',
+			'static_cast<SDL_TouchID>(args.GetInt(%d))',
+			'Value(rtn)')
+	'SDL_GestureID' => TypeConv(
+			nil, 'number',
+			'static_cast<SDL_GestureID>(args.GetInt(%d))',
 			'Value(rtn)')
 	'SDL_RendererFlip' => TypeConv(
 			nil, 'number',
@@ -650,6 +662,14 @@ typeConvDict = %{
 			nil, 'number',
 			'static_cast<SDL_BlendMode>(args.GetInt(%d))',
 			'Value(rtn)')
+	'SDL_Finger *' => TypeConv(
+			'sdl2', 'Finger',
+			'Object_Finger::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_Finger(rtn))')
+	'SDL_Event *' => TypeConv(
+			'sdl2', 'Event',
+			'Object_Event::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_Event(rtn))')
 	'SDL_Rect *' => TypeConv(
 			'sdl2', 'Rect',
 			'Object_Rect::GetObject(args, %d)->GetEntity()',
