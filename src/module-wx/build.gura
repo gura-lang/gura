@@ -628,6 +628,55 @@ if (sys.platform == `mswin) {
 		'wxzlib.lib')
 } elsif (sys.platform == `linux) {
 	builder.precompile = 'stdafx.h'
+	builder.incDirs.append(
+		'guests/lib/wx/wx/include/gtk2-unicode-static-3.0',
+		'guests/include/wx')
+	builder.cflags.append(
+		'-D_FILE_OFFSET_BITS=64',
+		'-D__WXGTK__',
+		'-pthread')
+	builder.libDirs.append('guests/lib/wx')
+	builder.libs.append(		
+		'wx_gtk2u_xrc-3.0',
+		'wx_gtk2u_qa-3.0',
+		'wx_baseu_net-3.0',
+		'wx_gtk2u_html-3.0',
+		'wx_gtk2u_propgrid-3.0',
+		'wx_gtk2u_ribbon-3.0',
+		'wx_gtk2u_richtext-3.0',
+		'wx_gtk2u_stc-3.0',
+		'wx_gtk2u_adv-3.0',
+		'wx_gtk2u_aui-3.0',
+		'wx_gtk2u_core-3.0',
+		'wx_baseu_xml-3.0',
+		'wx_baseu-3.0',
+		'gthread-2.0',
+		'X11',
+		'SM',
+		'gtk-x11-2.0',
+		'gdk-x11-2.0',
+		'atk-1.0',
+		'gio-2.0',
+		'pangoft2-1.0',
+		'pangocairo-1.0',
+		'gdk_pixbuf-2.0',
+		'cairo',
+		'pango-1.0',
+		'fontconfig',
+		'gobject-2.0',
+		'glib-2.0',
+		'freetype',
+		'png',
+		'expat',
+		'wxregexu-3.0',
+		'wxtiff-3.0',
+		'wxjpeg-3.0',
+		'wxscintilla-3.0',
+		'z',
+		'dl',
+		'm ')
+} elsif (sys.platform == `linux_foo) {
+	builder.precompile = 'stdafx.h'
 	IsExist(filename:string) = {
 		path.exists(path.join(os.getenv('PATH').split(':'), filename)).or()
 	}
