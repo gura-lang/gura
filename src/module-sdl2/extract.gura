@@ -87,7 +87,6 @@ GetDesktopDisplayMode(int displayIndex, SDL_DisplayMode* #mode):error
 GetDisplayBounds(int displayIndex, SDL_Rect* #rect):error
 GetDisplayMode(int displayIndex, int modeIndex, SDL_DisplayMode* #mode):error
 GetDisplayName(int dipslayIndex):const char*
-''', text = R'''
 GetNumDisplayModes(int displayIndex):int
 GetNumVideoDisplays():int
 GetNumVideoDrivers():int
@@ -95,70 +94,71 @@ GetVideoDriver(int index):const char*
 GetWindowBrightness(SDL_Window* window):float
 #GetWindowData(SDL_Window* window, const char* name)
 GetWindowDisplayIndex(SDL_Window* window):error_number
-GetWindowDisplayMode
-GetWindowFlags
-GetWindowFromID
-''', R'''
-GetWindowGammaRamp
-GetWindowGrab
-GetWindowID
-GetWindowMaximumSize
-GetWindowMinimumSize
-GetWindowPixelFormat
-GetWindowPosition
-GetWindowSize
-GetWindowSurface
-GetWindowTitle
-GetWindowWMInfo
-HideWindow
-IsScreenSaverEnabled
-MaximizeWindow
-MinimizeWindow
-RaiseWindow
-ResotoreWindow
-SetWindowBordered
-SetWindowBrightness
-SetWindowData
-SetWindowDisplayMode
-SetWindowFullscreen
-SetWindowGammaRamp
-SetWindowGrab
-SetWindowHitTest
-SetWindowIcon
-SetWindowMaximumSize
-SetWindowMinimumSize
-SetWindowPosition
-SetWindowSize
-SetWindowTitle
-//ShowMessageBox
-ShowSimpleMessageBox
-ShowWindow
-UpdateWindowSurface
-UpdateWindowSurfaceRects
-VideoInit
-VideoQuit
+GetWindowDisplayMode(SDL_Window* window, SDL_DisplayMode* mode):error
+GetWindowFlags(SDL_Window* window):Uint32
+GetWindowFromID(Uint32 id):SDL_Window*
+GetWindowGammaRamp(SDL_Window* window, Uint16* #red, Uint16* #green, Uint16* #blue):error
+GetWindowGrab(SDL_Window* window):SDL_bool
+GetWindowID(SDL_Window* window):Uint32
+GetWindowMaximumSize(SDL_Window* window, int* #w, int* #h)
+GetWindowMinimumSize(SDL_Window* window, int* #w, int* #h)
+GetWindowPixelFormat(SDL_Window* window):Uint32
+GetWindowPosition(SDL_Window* window, int* #x, int* #y)
+GetWindowSize(SDL_Window*window, int* #w, int* #h)
+GetWindowSurface(SDL_Window* window):SDL_Surface*
+GetWindowTitle(SDL_Window* window):const char*
+GetWindowWMInfo(SDL_Window* window, SDL_SysWMinfo* #info):SDL_bool
+HideWindow(SDL_Window* window)
+IsScreenSaverEnabled():SDL_bool
+MaximizeWindow(SDL_Window* window)
+MinimizeWindow(SDL_Window* window)
+RaiseWindow(SDL_Window* window)
+ResotoreWindow(SDL_Window* window)
+SetWindowBordered(SDL_Window* window, SDL_bool bordered)
+SetWindowBrightness(SDL_Window* window, float brightness):error
+#SetWindowData(SDL_Window* window, const char* name, void* #userdata)
+SetWindowDisplayMode(SDL_Window* window, const SDL_DisplayMode* mode):error
+SetWindowFullscreen(SDL_Window* window, Uint32 flags):error
+SetWindowGammaRamp(SDL_Window* window, const Uint16* #red, const Uint16* #green, const Uint16* #blue):error
+SetWindowGrab(SDL_Window* window, SDL_bool grabbed)
+SetWindowHitTest(SDL_Window* window, SDL_HitTest #callback, void* #callback_data):error
+SetWindowIcon(SDL_Window* window, SDL_Surface* icon)
+SetWindowMaximumSize(SDL_Window* window, int max_w, int max_h)
+SetWindowMinimumSize(SDL_Window* window, int min_w, int min_h)
+SetWindowPosition(SDL_Window* window, int x, int y)
+SetWindowSize(SDL_Window* window, int w, int h)
+SetWindowTitle(SDL_Window* window, const char* title)
+#ShowMessageBox(const SDL_MessageBoxData* #messageboxdata, int* #buttonid):error
+ShowSimpleMessageBox(Uint32 flags, const char* title, const char* message, SDL_Window* window):error
+ShowWindow(SDL_Window* window)
+UpdateWindowSurface(SDL_Window* window):error
+UpdateWindowSurfaceRects(SDL_Window* window, const SDL_Rect* rects, int #numrects):error
+VideoInit(const char* driver_name):error
+VideoQuit()
 //-----------------------------------------------------------------------------
 // Video - 2D Accelerated Rendering
-CreateRenderer
-CreateSoftwareRenderer
-CreateTexture
-CreateTextureFromSurface
-//CreateWindowAndRenderer
-DestroyRenderer
-DestroyTexture
-GL_BindTexture
-GL_UnbindTexture
-GetNumRenderDrivers
-GetRenderDrawBlendMode
-GetRenderDrawColor
-GetRenderDriverInfo
-GetRenderTarget
-GetRenderer
-GetRenderInfo
-GetRenderOutputSize
-GetTextureAlphaMod
-GetTextureBlendMode
-GetTextureColorMod
+CreateRenderer(SDL_Window* window, int index, Uint32 flags):SDL_Renderer*
+CreateSoftwareRenderer(SDL_Surface* surface):SDL_Renderer*
+CreateTexture(SDL_Renderer* renderer, Uint32 format, int access, int w, int h):SDL_Texture*
+CreateTextureFromSurface(SDL_Renderer* renderer, SDL_Surface* surface):SDL_Texture*
+CreateWindowAndRenderer(int width, int height, Uint32 window_flags, SDL_Window** #window, SDL_Renderer** #renderer):error
+DestroyRenderer(SDL_Renderer* renderer)
+DestroyTexture(SDL_Texture* texture)
+GL_BindTexture(SDL_Texture* texture, float* #texw, float* #texh):error
+GL_UnbindTexture(SDL_Texture* texture):error
+''', text = R'''
+GetNumRenderDrivers():int
+GetRenderDrawBlendMode(SDL_Renderer* renderer, SDL_BlendMode* #blendMode):error
+GetRenderDrawColor(SDL_Renderer* renderer, Uint8* #r, Uint8* #g, Uint8* #b, Uint8* #a)
+GetRenderDriverInfo(int index, SDL_RendererInfo* #info):error
+GetRenderTarget(SDL_Renderer* renderer) SDL_Texture*
+GetRenderer(SDL_Window* window):SDL_Renderer*
+GetRenderInfo(SDL_Renderer* renderer, SDL_RendererInfo* #info):error
+GetRenderOutputSize(SDL_Renderer* renderer, int* #w, int* #h):error
+GetTextureAlphaMod(SDL_Texture* texture, Uint8* #alpha):error
+GetTextureBlendMode(SDL_Texture* texture, SDL_BlendMode* #blendMode):error
+GetTextureColorMod(SDL_Texture* texture, Uint8* #r, Uint8* #g, Uint8* #b):error
+''', R'''
 LockTexture
 QueryTexture
 RenderClear
@@ -548,7 +548,7 @@ WriteLE64
 
 tmplImplementation = R'''
 // sdl2.${fi.funcName}(${
-	(fi.argsGura:*name + ':' + fi.argsGura:*typeGura).join(', ')
+	(fi.argsGura:*name + ':' + fi.argsGura:*GetFullTypeGura()).join(', ')
 })${
 	cond(fi.voidFlag, ':void', '')
 }
@@ -608,44 +608,67 @@ tmplAssignment = R'''
 	Gura_AssignFunction(${fi.funcName});
 '''.template()
 
-ArgInfo = struct(name:string, typeC:string, typeGura:string:nil, fmtGetter:string:nil) {
+ArgInfo = struct(name:string, typeC:string,
+				 moduleName:string:nil, typeGura:string:nil, fmtGetter:string:nil) {
 	GetArg(idx:number) = format(this.fmtGetter, idx)
+	GetFullTypeGura() = cond(this.moduleName,
+							 this.moduleName + '.' + this.typeGura, this.typeGura)
 }
 
 ReturnInfo = struct(typeC:string, typeGura:string:nil, fmtReturn:string:nil) {
 	
 }
 
-TypeConv = struct(typeGura:string, fmtGetter:string, fmtReturn:string)
+TypeConv = struct(moduleName:string:nil, typeGura:string, fmtGetter:string, fmtReturn:string)
 typeConvDict = %{
-	'char' => TypeConv('number', 'args.GetChar(%d)', 'Value(rtn)')
-	'int' => TypeConv('number', 'args.GetInt(%d)', 'Value(rtn)')
-	'short' => TypeConv('number', 'args.GetShort(%d)', 'Value(rtn)')
-	'float' => TypeConv('number', 'args.GetFloat(%d)', 'Value(rtn)')
-	'double' => TypeConv('number', 'args.GetDouble(%d)', 'Value(rtn)')
-	'Uint32' => TypeConv('number', 'args.GetULong(%d)', 'Value(rtn)')
-	'char *' => TypeConv('string', 'args.GetString(%d)', 'Value(rtn)')
-	'const char *' => TypeConv('string', 'args.GetString(%d)', 'Value(rtn)')
-	'SDL_GLContext' => TypeConv('number', 'args.GetSizeT(%d)', 'Value(rtn)')
-	'SDL_bool' => TypeConv('boolean', 'args.GetBoolean(%d)', 'Value(rtn != 0)')
+	'char' => TypeConv(nil, 'number', 'args.GetChar(%d)', 'Value(rtn)')
+	'int' => TypeConv(nil, 'number', 'args.GetInt(%d)', 'Value(rtn)')
+	'short' => TypeConv(nil, 'number', 'args.GetShort(%d)', 'Value(rtn)')
+	'float' => TypeConv(nil, 'number', 'args.GetFloat(%d)', 'Value(rtn)')
+	'double' => TypeConv(nil, 'number', 'args.GetDouble(%d)', 'Value(rtn)')
+	'Uint32' => TypeConv(nil, 'number', 'args.GetULong(%d)', 'Value(rtn)')
+	'char *' => TypeConv(nil, 'string', 'args.GetString(%d)', 'Value(rtn)')
+	'const char *' => TypeConv(nil, 'string', 'args.GetString(%d)', 'Value(rtn)')
+	'SDL_GLContext' => TypeConv(nil, 'number', 'args.GetSizeT(%d)', 'Value(rtn)')
+	'SDL_bool' => TypeConv(nil, 'boolean', 'args.GetBoolean(%d)', 'Value(rtn != 0)')
 	'SDL_GLattr' => TypeConv(
-			'number',
+			nil, 'number',
 			'static_cast<SDL_GLattr>(args.GetInt(%d))',
 			'Value(rtn)')
 	'SDL_Rect *' => TypeConv(
-			'Rect',
+			'sdl2', 'Rect',
+			'Object_Rect::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_Rect(rtn))')
+	'const SDL_Rect *' => TypeConv(
+			'sdl2', 'Rect',
 			'Object_Rect::GetObject(args, %d)->GetEntity()',
 			'Value(new Object_Rect(rtn))')
 	'SDL_Window *' => TypeConv(
-			'Window',
+			'sdl2', 'Window',
 			'Object_Window::GetObject(args, %d)->GetEntity()',
 			'Value(new Object_Window(rtn))')
+	'SDL_Surface *' => TypeConv(
+			'sdl2', 'Surface',
+			'Object_Surface::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_Surface(rtn))')
+	'SDL_Renderer *' => TypeConv(
+			'sdl2', 'Renderer',
+			'Object_Renderer::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_Renderer(rtn))')
+	'SDL_Texture *' => TypeConv(
+			'sdl2', 'Texture',
+			'Object_Texture::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_Texture(rtn))')
+	'SDL_SysWMinfo *' => TypeConv(
+			'sdl2', 'SysWMinfo',
+			'Object_SysWMinfo::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_SysWMinfo(rtn))')
 	'SDL_DisplayMode *' => TypeConv(
-			'DisplayMode',
+			'sdl2', 'DisplayMode',
 			'Object_DisplayMode::GetObject(args, %d)->GetEntity()',
 			'Value(new Object_DisplayMode(rtn))')
 	'const SDL_DisplayMode *' => TypeConv(
-			'DisplayMode',
+			'sdl2', 'DisplayMode',
 			'Object_DisplayMode::GetObject(args, %d)->GetEntity()',
 			'Value(new Object_DisplayMode(rtn))')
 }
@@ -684,7 +707,7 @@ FuncInfo = class {
 				}
 				if (name.startswith('#')) {
 					this.validFlag = false
-					ArgInfo(name.replace('#', ''), typeC, nil, 'NULL')
+					ArgInfo(name.replace('#', ''), typeC, nil, nil, 'NULL')
 				} else {
 					typeConv = typeConvDict.get(typeC)
 					if (!typeConv) {
@@ -693,7 +716,8 @@ FuncInfo = class {
 								lineNo, argRaw)
 						sys.exit(1)
 					}
-					ArgInfo(name, typeC, typeConv.typeGura, typeConv.fmtGetter)
+					ArgInfo(name, typeC, typeConv.moduleName,
+							typeConv.typeGura, typeConv.fmtGetter)
 				}
 			}
 		}
