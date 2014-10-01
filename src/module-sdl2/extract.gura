@@ -219,39 +219,39 @@ RectEquals(const SDL_Rect* a, const SDL_Rect* b):SDL_bool
 UnionRect(const SDL_Rect* A, const SDL_Rect* B, SDL_Rect* #result)
 //-----------------------------------------------------------------------------
 // Video - Surface Creation and Simple Drawing
+BlitScaled(SDL_Surface* src, const SDL_Rect* srcrect, SDL_Surface*dst, SDL_Rect* dstrect):error
+BlitSurface(SDL_Surface* src, const SDL_Rect* srcrect, SDL_Surface*dst, SDL_Rect* dstrect):error
+ConvertPixels(int width, int height, Uint32 src_format, const void* #src, int #src_pitch, Uint32 dst_format, void* #dst, int #dst_pitch):error
+ConvertSurface(SDL_Surface* src, const SDL_PixelFormat* fmt, Uint32 flags):SDL_Surface*
+ConvertSurfaceFormat(SDL_Surface* src, Uint32 pixel_format, Uint32 flags):SDL_Surface*
+CreateRGBSurface(Uint32 flags, int width, int height, int depth, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask):SDL_Surface*
+CreateRGBSurfaceFrom(void* #pixels, int width, int height, int depth, int pitch, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask):SDL_Surface*
+FillRect(SDL_Surface* dst, const SDL_Rect* rect, Uint32 color):error
+FillRects(SDL_Surface* dst, const SDL_Rect* #rects, int #count, Uint32 color):error
+FreeSurface(SDL_Surface* surface)
+GetClipRect(SDL_Surface* surface, SDL_Rect* rect)
+GetColorKey(SDL_Surface* surface, Uint32* #key):error
+GetSurfaceAlphaMod(SDL_Surface* surface, Uint8* #alpha):error
+GetSurfaceBlendMode(SDL_Surface* surface, SDL_BlendMode* #blendMode):error
+GetSurfaceColorMod(SDL_Surface* surface, Uint8* #r, Uint8* #g, Uint8* #b):error
 ''', text = R'''
-BlitScaled
-BlitSurface
-ConvertPixels
-ConvertSurface
-ConvertSurfaceFormat
-CreateRGBSurface
-CreateRGBSurfaceFrom
-FillRect
-FillRects
-FreeSurface
-GetClipRect
-GetColorKey
-GetSurfaceAlphaMod
-GetSurfaceBlendMode
-GetSurfaceColorMod
+LoadBMP(const char* file):SDL_Surface*
+LoadBMP_RW(SDL_RWops* src, int freesrc):SDL_Surface*
+LockSurface(SDL_Surface* surface):error
+LowerBlit(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect):error
+LowerBlitScaled(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect):error
+MUSTLOCK(SDL_Surface* surface):SDL_bool
+SaveBMP(SDL_Surface* surface, const char* file):error
+SaveBMP_RW(SDL_Surface* surface, SDL_RWops* dst, int freedst):error
+SetClipRect(SDL_Surface* surface, const SDL_Rect* rect):SDL_bool
+SetColorKey(SDL_Surface* surface, int flag, Uint32 key):error
+SetSurfaceAlphaMod(SDL_Surface* surface, Uint8 alpha):error
+SetSurfaceBlendMode(SDL_Surface* surface, SDL_BlendMode blendMode):error
+SetSurfaceColorMod(SDL_Surface* surface, Uint8 r, Uint8 g, Uint8 b):error
+SetSurfacePalette(SDL_Surface* surface, SDL_Palette* palette):error
+SetSurfaceRLE(SDL_Surface* surface, int flag):error
+UnlockSurface(SDL_Surface* surface)
 ''', R'''
-LoadBMP
-LoadBMP_RW
-LockSurface
-LowerBlit
-LowerBlitScaled
-MUSTLOCK
-SaveBMP
-SaveBMP_RW
-SetClipRect
-SetColorKey
-SetSurfaceAlphaMod
-SetSurfaceBlendMode
-SetSurfaceColorMod
-SetSurfacePalette
-SetSurfaceRLE
-UnlockSurface
 //-----------------------------------------------------------------------------
 // Video - Platform-specific Window Management
 GetWindowWMInfo
@@ -553,7 +553,7 @@ Gura_DeclareFunction(${fi.funcName})
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	${end}
 	${for (arg in fi.argsGura)}
-	DeclareArgs(env, "${arg.name}", VTYPE_${arg.typeGura});
+	DeclareArg(env, "${arg.name}", VTYPE_${arg.typeGura}, OCCUR_Once, FLAG_None);
 	${end}
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -566,7 +566,13 @@ Gura_ImplementFunction(${fi.funcName})
 	${end}
 	${argsCJoined = fi.argsC:*name.join(', '), -}
 	${for (argC in fi.argsC) {|idx|}}
-	${argC.typeC.sub(r'(\w)$', r'\1 ') + argC.name} = ${argC.GetArg(idx)};
+	${argC.typeC.sub(r'(\w)$', r'\1 ') + argC.name} = ${
+		if (argC.typeC.endswith('*')) {
+			'args.IsValid(idx)? ' + argC.GetArg(idx) + ' : NULL'
+		} else {
+			argC.GetArg(idx)
+		}
+	};
 	${end}
 	${if (!fi.rtnInfo)}
 	::SDL_${fi.funcName}(${argsCJoined});
@@ -668,6 +674,10 @@ typeConvDict = %{
 			'sdl2', 'Surface',
 			'Object_Surface::GetObject(args, %d)->GetEntity()',
 			'Value(new Object_Surface(rtn))')
+	'SDL_RWops *' => TypeConv(
+			'sdl2', 'RWops',
+			'Object_RWops::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_RWops(rtn))')
 	'SDL_Renderer *' => TypeConv(
 			'sdl2', 'Renderer',
 			'Object_Renderer::GetObject(args, %d)->GetEntity()',
