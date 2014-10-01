@@ -93,8 +93,8 @@ GetNumVideoDisplays():int
 GetNumVideoDrivers():int
 GetVideoDriver(int index):const char*
 GetWindowBrightness(SDL_Window* window):float
-GetWindowData(SDL_Window* window, const char* #name)
-GetWindowDisplayIndex
+#GetWindowData(SDL_Window* window, const char* name)
+GetWindowDisplayIndex(SDL_Window* window):error_number
 GetWindowDisplayMode
 GetWindowFlags
 GetWindowFromID
@@ -547,10 +547,18 @@ WriteLE64
 '''
 
 tmplImplementation = R'''
-// sdl2.${fi.funcName}(${(fi.argsGura:*name + ':' + fi.argsGura:*typeGura).join(', ')})
+// sdl2.${fi.funcName}(${
+	(fi.argsGura:*name + ':' + fi.argsGura:*typeGura).join(', ')
+})${
+	cond(fi.voidFlag, ':void', '')
+}
 Gura_DeclareFunction(${fi.funcName})
 {
+	${if (fi.voidFlag)}
+	SetMode(RSLTMODE_Void, FLAG_None);
+	${else}
 	SetMode(RSLTMODE_Normal, FLAG_None);
+	${end}
 	${for (arg in fi.argsGura)}
 	DeclareArgs(env, "${arg.name}", VTYPE_${arg.typeGura});
 	${end}
@@ -577,6 +585,13 @@ Gura_ImplementFunction(${fi.funcName})
 		return Value::Null;
 	}
 	return Value::Null;
+	${elsif (fi.rtnInfo.typeC == 'error_number')}
+	int rtn = ::SDL_${fi.funcName}(${argsCJoined});
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value(rtn);
 	${else}
 	${fi.rtnInfo.typeC.sub(r'(\w)$', r'\1 ')}rtn = ::SDL_${fi.funcName}(${argsCJoined});
 	return ${fi.rtnInfo.fmtReturn};
@@ -637,16 +652,22 @@ typeConvDict = %{
 
 FuncInfo = class {
 	public {
-		funcName, argsC, argsGura, rtnInfo, validFlag
+		funcName, argsC, argsGura, rtnInfo, validFlag, voidFlag
 	}
 	__init__(lineNo:number, funcName:string, argsRaw:string:nil, rtnRaw:string:nil) = {
-		this.funcName = funcName
 		this.argsRaw = argsRaw
+		this.validFlag = this.argsRaw?
+		if (funcName.startswith('#')) {
+			this.funcName = funcName.replace('#', '')
+			this.validFlag = false
+		} else {
+			this.funcName = funcName
+		}
 		this.rtnRaw = rtnRaw
 		this.argsC = []
 		this.argsGura = []
 		this.rtnInfo = nil
-		this.validFlag = this.argsRaw
+		this.voidFlag = false
 		if (this.argsRaw) {
 			this.argsC = this.argsRaw.split(',').each():xlist {|argRaw|
 				argRaw = argRaw.strip()
@@ -680,6 +701,8 @@ FuncInfo = class {
 			// nothing to do
 		} elsif (this.rtnRaw == 'error') {
 			this.rtnInfo = ReturnInfo('error', nil, nil)
+		} elsif (this.rtnRaw == 'error_number') {
+			this.rtnInfo = ReturnInfo('error_number', nil, nil)
 		} else {
 			if (m = rtnRaw.match(r'^(\w+)$')) {
 				typeC = m[1]
@@ -699,6 +722,7 @@ FuncInfo = class {
 			this.rtnInfo = ReturnInfo(typeC, typeConv.typeGura, typeConv.fmtReturn)
 		}
 		this.argsGura = this.argsC.filter(this.argsC:*typeGura):list
+		this.voidFlag = (!this.rtnInfo || this.rtnInfo.typeC == 'error')
 	}
 	RenderImplementation(stream:stream) = {
 		fi = this
@@ -725,7 +749,7 @@ text.eachline {|line, i|
 	if (m = restPart.match(r'(.*)\(([^\)]*)\)')) {
 		[restPart, argsRaw] = m[1, 2]
 	}
-	if (m = restPart.match(r'^(\w+)$')) {
+	if (m = restPart.match(r'^(#?\w+)$')) {
 		funcName = m[1]
 		if (funcInfos:*funcName.find(funcName)) {
 			sys.stderr.printf('%d: duplicated function %s\n', lineNo, funcName)
