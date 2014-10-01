@@ -191,7 +191,6 @@ SetTextureColorMod(SDL_Texture* texture, Uint8 r, Uint8 g, Uint8 b):error
 UnlockTexture(SDL_Texture* texture)
 UpdateTexture(SDL_Texture* texture, const SDL_Rect* rect, const void* #pixels, int pitch):error
 UpdateYUVTexture(SDL_Texture* texture, const SDL_Rect* rect, const Uint8* #Yplane, int #Ypitch, const Uint8* #Uplane, int #Upitch, const Uint8* #Vplane, int #Vpitch):error
-''', text = R'''
 //-----------------------------------------------------------------------------
 // Video - Pixel Formats and Conversion Routines
 AllocFormat(Uint32 pixel_format):SDL_PixelFormat*
@@ -208,26 +207,19 @@ MasksToPixelFormatEnum(int bpp, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32
 PixelFormatEnumToMasks(Uint32 format, int* #bpp, Uint32* #Rmask, Uint32* #Gmask, Uint32* #Bmask, Uint32* #Amask):SDL_bool
 SetPaletteColors(SDL_Palette* palette, const SDL_Color* #colors, int firstcolor, int #ncolors):error
 SetPixelFormatPalette(SDL_PixelFormat* format, SDL_Palette* palette):error
-''', R'''
 //-----------------------------------------------------------------------------
 // Video - Rectangle Functions
-EnclosePoints
-HasIntersection
-HasIntersection
-IntersectRect
-IntersectRect
-IntersectRectAndLine
-IntersectRectAndLine
-PointInRect
-PointInRect
-RectEmpty
-RectEmpty
-RectEquals
-RectEquals
-UnionRect
-UnionRect
+EnclosePoints(const SDL_Point* #points, int #count, const SDL_Rect* clip, SDL_Rect* #result):SDL_bool
+HasIntersection(const SDL_Rect* A, const SDL_Rect* B):SDL_bool
+IntersectRect(const SDL_Rect* A, const SDL_Rect* B, SDL_Rect* #result):SDL_bool
+#IntersectRectAndLine(const SDL_Rect* rect, int X1, int Y1, int X2, int Y2):SDL_bool
+PointInRect(const SDL_Point* p, const SDL_Rect* r):SDL_bool
+RectEmpty(const SDL_Rect* r):SDL_bool
+RectEquals(const SDL_Rect* a, const SDL_Rect* b):SDL_bool
+UnionRect(const SDL_Rect* A, const SDL_Rect* B, SDL_Rect* #result)
 //-----------------------------------------------------------------------------
 // Video - Surface Creation and Simple Drawing
+''', text = R'''
 BlitScaled
 BlitSurface
 ConvertPixels
@@ -243,6 +235,7 @@ GetColorKey
 GetSurfaceAlphaMod
 GetSurfaceBlendMode
 GetSurfaceColorMod
+''', R'''
 LoadBMP
 LoadBMP_RW
 LockSurface
