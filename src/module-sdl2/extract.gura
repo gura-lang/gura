@@ -182,7 +182,6 @@ RenderSetLogicalSize(SDL_Renderer* renderer, int w, int h):error
 RenderSetScale(SDL_Renderer* renderer, float scaleX, float scaleY):error
 RenderSetViewport(SDL_Renderer* renderer, const SDL_Rect* rect):error
 RenderTargetSupported(SDL_Renderer* renderer):SDL_bool
-''', text = R'''
 SetRenderDrawBlendMode(SDL_Renderer* renderer, SDL_BlendMode blendMode)
 SetRenderDrawColor(SDL_Renderer* renderer, Uint8 r, Uint8 g, Uint8 b, Uint8 a):error
 SetRenderTarget(SDL_Renderer* renderer, SDL_Texture *texture):error
@@ -192,10 +191,10 @@ SetTextureColorMod(SDL_Texture* texture, Uint8 r, Uint8 g, Uint8 b):error
 UnlockTexture(SDL_Texture* texture)
 UpdateTexture(SDL_Texture* texture, const SDL_Rect* rect, const void* #pixels, int pitch):error
 UpdateYUVTexture(SDL_Texture* texture, const SDL_Rect* rect, const Uint8* #Yplane, int #Ypitch, const Uint8* #Uplane, int #Upitch, const Uint8* #Vplane, int #Vpitch):error
-''', R'''
+''', text = R'''
 //-----------------------------------------------------------------------------
 // Video - Pixel Formats and Conversion Routines
-AllocFormat
+AllocFormat(Uint32 pixel_format):SDL_PixelFormat*
 AllocPalette
 CalculateGammaRamp
 FreeFormat
@@ -209,6 +208,7 @@ MasksToPixelFormatEnum
 PixelFormatEnumToMasks
 SetPaletteColors
 SetPixelFormatPalette
+''', R'''
 //-----------------------------------------------------------------------------
 // Video - Rectangle Functions
 EnclosePoints
@@ -594,6 +594,12 @@ Gura_ImplementFunction(${fi.funcName})
 	return Value(rtn);
 	${else}
 	${fi.rtnInfo.typeC.sub(r'(\w)$', r'\1 ')}rtn = ::SDL_${fi.funcName}(${argsCJoined});
+	${if (fi.rtnInfo.typeC.endswith('*'))}
+	if (rtn == NULL) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	${end}
 	return ${fi.rtnInfo.fmtReturn};
 	${end}
 	${if (!fi.validFlag)}
@@ -681,6 +687,10 @@ typeConvDict = %{
 			'sdl2', 'SysWMinfo',
 			'Object_SysWMinfo::GetObject(args, %d)->GetEntity()',
 			'Value(new Object_SysWMinfo(rtn))')
+	'SDL_PixelFormat *' => TypeConv(
+			'sdl2', 'PixelFormat',
+			'Object_PixelFormat::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_PixelFormat(rtn))')
 	'SDL_DisplayMode *' => TypeConv(
 			'sdl2', 'DisplayMode',
 			'Object_DisplayMode::GetObject(args, %d)->GetEntity()',
