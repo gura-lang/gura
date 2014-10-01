@@ -626,7 +626,7 @@ if (sys.platform == `mswin) {
 		'wxscintilla.lib'
 		'wxtiff.lib'
 		'wxzlib.lib')
-} elsif (sys.platform == `linux) {
+} elsif (sys.platform == `linux_a) {
 	builder.precompile = 'stdafx.h'
 	builder.incDirs.append(
 		'guests/lib/wx/wx/include/gtk2-unicode-static-3.0',
@@ -675,12 +675,12 @@ if (sys.platform == `mswin) {
 		'z',
 		'dl',
 		'm ')
-} elsif (sys.platform == `linux_foo) {
+} elsif (sys.platform == `linux) {
 	builder.precompile = 'stdafx.h'
 	IsExist(filename:string) = {
 		path.exists(path.join(os.getenv('PATH').split(':'), filename)).or()
 	}
-	builder.debFiles = ['libwxgtk3.0']
+	builder.debFiles = ['libwxgtk3.0-dev']
 	builder.rpmFiles = ['wxGTK3-3.0.0']
 	builder.debFilesDevel = ['libwxgtk3.0-dev']
 	builder.rpmFilesDevel = ['wxGTK3-devel-3.0.0']
