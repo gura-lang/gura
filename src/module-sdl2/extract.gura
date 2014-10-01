@@ -146,7 +146,6 @@ DestroyRenderer(SDL_Renderer* renderer)
 DestroyTexture(SDL_Texture* texture)
 GL_BindTexture(SDL_Texture* texture, float* #texw, float* #texh):error
 GL_UnbindTexture(SDL_Texture* texture):error
-''', text = R'''
 GetNumRenderDrivers():int
 GetRenderDrawBlendMode(SDL_Renderer* renderer, SDL_BlendMode* #blendMode):error
 GetRenderDrawColor(SDL_Renderer* renderer, Uint8* #r, Uint8* #g, Uint8* #b, Uint8* #a)
@@ -158,41 +157,42 @@ GetRenderOutputSize(SDL_Renderer* renderer, int* #w, int* #h):error
 GetTextureAlphaMod(SDL_Texture* texture, Uint8* #alpha):error
 GetTextureBlendMode(SDL_Texture* texture, SDL_BlendMode* #blendMode):error
 GetTextureColorMod(SDL_Texture* texture, Uint8* #r, Uint8* #g, Uint8* #b):error
+LockTexture(SDL_Texture* texture, const SDL_Rect* rect, void** #pixels, int* #pitch):error
+QueryTexture(SDL_Texture* texture, Uint32* #format, int* #access, int* #w, int* #h):error
+RenderClear(SDL_Renderer* renderer):error
+RenderCopy(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect):error
+RenderCopyEx(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect, double angle, const SDL_Point* center, SDL_RendererFlip flip):error
+DrawLine(SDL_Renderer* renderer, int x1, int y1, int x2, int y2):error
+DrawLines(SDL_Renderer* renderer, const SDL_Point* #points, int #count):error
+DrawPoint(SDL_Renderer* renderer, int x, int y):error
+DrawPoints(SDL_Renderer* renderer, const SDL_Point* #points, int #count):error
+RenderDrawRect(SDL_Renderer* renderer, const SDL_Rect* rect):error
+RenderDrawRects(SDL_Renderer* renderer, const SDL_Rect* #rects, int #count):error
+RenderFillRect(SDL_Renderer* renderer, const SDL_Rect* rect):error
+RenderFillRects(SDL_Renderer* renderer, const SDL_Rect* #rects, int #count):error
+RenderGetClipRect(SDL_Renderer* renderer, SDL_Rect* #rect)
+RenderGetLogicalSize(SDL_Renderer* renderer, int* #w, int* #h)
+RenderGetScale(SDL_Renderer* renderer, float* #scaleX, float* #scaleY)
+RenderGetViewport(SDL_Renderer* renderer, SDL_Rect* #rect)
+RenderIsClipEnabled(SDL_Renderer* renderer):SDL_bool
+RenderPresent(SDL_Renderer* renderer)
+RenderReadPixels(SDL_Renderer* renderer, const SDL_Rect* rect, Uint32 format, void* #pixels, int pitch):error
+RenderSetClipRect(SDL_Renderer* renderer, const SDL_Rect* rect):error
+RenderSetLogicalSize(SDL_Renderer* renderer, int w, int h):error
+RenderSetScale(SDL_Renderer* renderer, float scaleX, float scaleY):error
+RenderSetViewport(SDL_Renderer* renderer, const SDL_Rect* rect):error
+RenderTargetSupported(SDL_Renderer* renderer):SDL_bool
+''', text = R'''
+SetRenderDrawBlendMode(SDL_Renderer* renderer, SDL_BlendMode blendMode)
+SetRenderDrawColor(SDL_Renderer* renderer, Uint8 r, Uint8 g, Uint8 b, Uint8 a):error
+SetRenderTarget(SDL_Renderer* renderer, SDL_Texture *texture):error
+SetTextureAlphaMod(SDL_Texture* texture, Uint8 alpha):error
+SetTextureBlendMode(SDL_Texture* texture, SDL_BlendMode blendMode):error
+SetTextureColorMod(SDL_Texture* texture, Uint8 r, Uint8 g, Uint8 b):error
+UnlockTexture(SDL_Texture* texture)
+UpdateTexture(SDL_Texture* texture, const SDL_Rect* rect, const void* #pixels, int pitch):error
+UpdateYUVTexture(SDL_Texture* texture, const SDL_Rect* rect, const Uint8* #Yplane, int #Ypitch, const Uint8* #Uplane, int #Upitch, const Uint8* #Vplane, int #Vpitch):error
 ''', R'''
-LockTexture
-QueryTexture
-RenderClear
-RenderCopy
-RenderCopyEx
-DrawLine
-DrawLines
-DrawPoint
-DrawPoints
-RenderDrawRect
-RenderDrawRects
-RenderFillRect
-RenderFillRects
-RenderGetClipRect
-RenderGetLogicalSize
-RenderGetScale
-RenderGetViewport
-RenderIsClipEnabled
-RenderPresent
-RenderReadPixels
-RenderSetClipRect
-RenderSetLogicalSize
-RenderSetScale
-RenderSetViewport
-RenderTargetSupported
-SetRenderDrawBlendMode
-SetRenderDrawColor
-SetRenderTarget
-SetTextureAlphaMod
-SetTextureBlendMode
-SetTextureColorMod
-UnlockTexture
-UpdateTexture
-UpdateYUVTexture
 //-----------------------------------------------------------------------------
 // Video - Pixel Formats and Conversion Routines
 AllocFormat
@@ -626,6 +626,8 @@ typeConvDict = %{
 	'short' => TypeConv(nil, 'number', 'args.GetShort(%d)', 'Value(rtn)')
 	'float' => TypeConv(nil, 'number', 'args.GetFloat(%d)', 'Value(rtn)')
 	'double' => TypeConv(nil, 'number', 'args.GetDouble(%d)', 'Value(rtn)')
+	'Uint8' => TypeConv(nil, 'number', 'args.GetUChar(%d)', 'Value(rtn)')
+	'Uint16' => TypeConv(nil, 'number', 'args.GetUShort(%d)', 'Value(rtn)')
 	'Uint32' => TypeConv(nil, 'number', 'args.GetULong(%d)', 'Value(rtn)')
 	'char *' => TypeConv(nil, 'string', 'args.GetString(%d)', 'Value(rtn)')
 	'const char *' => TypeConv(nil, 'string', 'args.GetString(%d)', 'Value(rtn)')
@@ -635,14 +637,30 @@ typeConvDict = %{
 			nil, 'number',
 			'static_cast<SDL_GLattr>(args.GetInt(%d))',
 			'Value(rtn)')
+	'SDL_RendererFlip' => TypeConv(
+			nil, 'number',
+			'static_cast<SDL_RendererFlip>(args.GetInt(%d))',
+			'Value(rtn)')
+	'SDL_BlendMode' => TypeConv(
+			nil, 'number',
+			'static_cast<SDL_BlendMode>(args.GetInt(%d))',
+			'Value(rtn)')
 	'SDL_Rect *' => TypeConv(
 			'sdl2', 'Rect',
 			'Object_Rect::GetObject(args, %d)->GetEntity()',
 			'Value(new Object_Rect(rtn))')
+	'SDL_Point *' => TypeConv(
+			'sdl2', 'Point',
+			'Object_Point::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_Point(rtn))')
 	'const SDL_Rect *' => TypeConv(
 			'sdl2', 'Rect',
 			'Object_Rect::GetObject(args, %d)->GetEntity()',
 			'Value(new Object_Rect(rtn))')
+	'const SDL_Point *' => TypeConv(
+			'sdl2', 'Point',
+			'Object_Point::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_Point(rtn))')
 	'SDL_Window *' => TypeConv(
 			'sdl2', 'Window',
 			'Object_Window::GetObject(args, %d)->GetEntity()',
