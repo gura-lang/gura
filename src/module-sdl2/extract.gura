@@ -195,19 +195,19 @@ UpdateYUVTexture(SDL_Texture* texture, const SDL_Rect* rect, const Uint8* #Yplan
 //-----------------------------------------------------------------------------
 // Video - Pixel Formats and Conversion Routines
 AllocFormat(Uint32 pixel_format):SDL_PixelFormat*
-AllocPalette
-CalculateGammaRamp
-FreeFormat
-FreePalette
-GetPixelFormatName
-GetRGB
-GetRGBA
-MapRGB
-MapRGBA
-MasksToPixelFormatEnum
-PixelFormatEnumToMasks
-SetPaletteColors
-SetPixelFormatPalette
+AllocPalette(int ncolors):SDL_Palette*
+CalculateGammaRamp(float gamma, Uint16* #ramp)
+FreeFormat(SDL_PixelFormat* format)
+FreePalette(SDL_Palette* palette)
+GetPixelFormatName(Uint32 format):const char*
+GetRGB(Uint32 pixel, const SDL_PixelFormat* format, Uint8* #r, Uint8* #g, Uint8* #b)
+GetRGBA(Uint32 pixel, const SDL_PixelFormat* format, Uint8* #r, Uint8* #g, Uint8* #b, Uint8* #a)
+MapRGB(const SDL_PixelFormat* format, Uint8 r, Uint8 g, Uint8 b):Uint32
+MapRGBA(const SDL_PixelFormat* format, Uint8 r, Uint8 g, Uint8 b, Uint8 a):Uint32
+MasksToPixelFormatEnum(int bpp, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask):Uint32
+PixelFormatEnumToMasks(Uint32 format, int* #bpp, Uint32* #Rmask, Uint32* #Gmask, Uint32* #Bmask, Uint32* #Amask):SDL_bool
+SetPaletteColors(SDL_Palette* palette, const SDL_Color* #colors, int firstcolor, int #ncolors):error
+SetPixelFormatPalette(SDL_PixelFormat* format, SDL_Palette* palette):error
 ''', R'''
 //-----------------------------------------------------------------------------
 // Video - Rectangle Functions
@@ -691,6 +691,14 @@ typeConvDict = %{
 			'sdl2', 'PixelFormat',
 			'Object_PixelFormat::GetObject(args, %d)->GetEntity()',
 			'Value(new Object_PixelFormat(rtn))')
+	'const SDL_PixelFormat *' => TypeConv(
+			'sdl2', 'PixelFormat',
+			'Object_PixelFormat::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_PixelFormat(rtn))')
+	'SDL_Palette *' => TypeConv(
+			'sdl2', 'Palette',
+			'Object_Palette::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_Palette(rtn))')
 	'SDL_DisplayMode *' => TypeConv(
 			'sdl2', 'DisplayMode',
 			'Object_DisplayMode::GetObject(args, %d)->GetEntity()',
