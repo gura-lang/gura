@@ -288,66 +288,66 @@ WaitEvent(SDL_Event* #event):error
 WaitEventTimeout(SDL_Event* #event, int timeout):error
 //-----------------------------------------------------------------------------
 // Input Events - Keyboard Support
-''', text = R'''
-GetKeyFromName
-GetKeyFromScancode
-GetKeyName
-GetKeyboardFocus
-GetKeyboardState
-GetModState
-GetScancodeFromKey
-GetScancodeFromName
-GetScancodeName
-HasScreenKeyboardSupport
-IsScreenKeyboardShown
-IsTextInputActive
-SetModState
-SetTextInputRect
-StartTextInput
-StopTextInput
-''', R'''
+GetKeyFromName(const char* name):SDL_Keycode
+GetKeyFromScancode(SDL_Scancode scancode):SDL_Keycode
+GetKeyName(SDL_Keycode key):const char*
+GetKeyboardFocus():SDL_Window*
+#GetKeyboardState(int* #numkeys):const Uint8*
+GetModState():SDL_Keymod
+GetScancodeFromKey(SDL_Keycode key):SDL_Scancode
+GetScancodeFromName(const char* name):SDL_Scancode
+GetScancodeName(SDL_Scancode scancode):const char*
+HasScreenKeyboardSupport():SDL_bool
+IsScreenKeyboardShown(SDL_Window* window):SDL_bool
+IsTextInputActive():SDL_bool
+SetModState(SDL_Keymod modstate)
+SetTextInputRect(SDL_Rect* rect)
+StartTextInput()
+StopTextInput()
 //-----------------------------------------------------------------------------
 // Input Events - Mouse Support
-CaptureMouse
-CreateColorCursor
-CreateCursor
-CreateSystemCursor
-FreeCursor
-GetCursor
-GetDefaultCursor
-GetGlobalMouseState
-GetMouseFocus
-GetMouseState
-GetRelativeMouseMode
-GetRelativeMouseState
-SetCursor
-SetRelativeMouseMode
-ShowCursor
-WarpMouseGlobal
-WarpMouseInWindow
+CaptureMouse(SDL_bool enalbed):error
+CreateColorCursor(SDL_Surface* surface, int hot_x, int hot_y):SDL_Cursor*
+CreateCursor(const Uint8* #data, const Uint8* mask, int w, int h, int hot_x, int hot_y):SDL_Cursor*
+CreateSystemCursor(SDL_SystemCursor id):SDL_Cursor*
+FreeCursor(SDL_Cursor* cursor)
+GetCursor():SDL_Cursor*
+GetDefaultCursor():SDL_Cursor*
+GetGlobalMouseState(int* #x, int* #y):Uint32
+GetMouseFocus():SDL_Window*
+GetMouseState(int* #x, int* #y):Uint32
+GetRelativeMouseMode():SDL_bool
+GetRelativeMouseState(int* #x, int* #y):Uint32
+SetCursor(SDL_Cursor* cursor)
+SetRelativeMouseMode(SDL_bool enabled):error
+ShowCursor(int toggle):error
+WarpMouseGlobal(int x, int y)
+WarpMouseInWindow(SDL_Window* window, int x, int y)
 //-----------------------------------------------------------------------------
 // Input Events - Joystick Support
-JoystickClose
-JoystickEventState
-JoystickGetAttached
-JoystickGetAxis
-JoystickGetBall
-JoystickGetButton
-JoystickGetDeviceGUID
-JoystickGetGUID
-JoystickGetGUIDFromString
-JoystickGetGUIDString
-JoystickGetHat
-JoystickInstanceID
-JoystickName
-JoystickNameForIndex
-JoystickNumAxes
-JoystickNumBalls
-JoystickNumButtons
-JoystickNumHats
-JoystickOpen
-JoystickUpdate
-NumJoysticks
+''', text = R'''
+JoystickClose(SDL_Joystick* joystick)
+JoystickEventState(int state):error_number
+JoystickGetAttached(SDL_Joystick* joystick):SDL_bool
+JoystickGetAxis(SDL_Joystick* joystick, int axis):Sint16
+JoystickGetBall(SDL_Joystick* joystick, int ball, int* #dx, int* #dy):error
+JoystickGetButton(SDL_Joystick* joystick, int button):Uint8
+#JoystickGetDeviceGUID(int device_index):int
+#JoystickGetGUID(SDL_Joystick* joystick):int
+#JoystickGetGUIDFromString(const char* pchGUID):int
+#JoystickGetGUIDString()
+JoystickGetHat(SDL_Joystick* joystick, int hat):Uint8
+JoystickInstanceID(SDL_Joystick* joystick):SDL_JoystickID
+JoystickName(SDL_Joystick* joystick):const char*
+JoystickNameForIndex(int device_index):const char*
+JoystickNumAxes(SDL_Joystick* joystick):error_number
+JoystickNumBalls(SDL_Joystick* joystick):error_number
+JoystickNumButtons(SDL_Joystick* joystick):error_number
+JoystickNumHats(SDL_Joystick* joystick):error_number
+JoystickOpen(int device_index):SDL_Joystick*
+JoystickUpdate()
+NumJoysticks():error_number
+''', R'''
 //-----------------------------------------------------------------------------
 // Input Events - Game Controller Support
 GameControllerAddMapping
@@ -568,7 +568,7 @@ Gura_ImplementFunction(${fi.funcName})
 	${for (argC in fi.argsC) {|idx|}}
 	${argC.typeC.sub(r'(\w)$', r'\1 ') + argC.name} = ${
 		if (argC.typeC.endswith('*')) {
-			'args.IsValid(idx)? ' + argC.GetArg(idx) + ' : NULL'
+			format('args.IsValid(%d)? ', idx) + argC.GetArg(idx) + ' : NULL'
 		} else {
 			argC.GetArg(idx)
 		}
@@ -634,8 +634,12 @@ typeConvDict = %{
 	'Uint8' => TypeConv(nil, 'number', 'args.GetUChar(%d)', 'Value(rtn)')
 	'Uint16' => TypeConv(nil, 'number', 'args.GetUShort(%d)', 'Value(rtn)')
 	'Uint32' => TypeConv(nil, 'number', 'args.GetULong(%d)', 'Value(rtn)')
+	'Sint8' => TypeConv(nil, 'number', 'args.GetChar(%d)', 'Value(rtn)')
+	'Sint16' => TypeConv(nil, 'number', 'args.GetShort(%d)', 'Value(rtn)')
+	'Sint32' => TypeConv(nil, 'number', 'args.GetLong(%d)', 'Value(rtn)')
 	'char *' => TypeConv(nil, 'string', 'args.GetString(%d)', 'Value(rtn)')
 	'const char *' => TypeConv(nil, 'string', 'args.GetString(%d)', 'Value(rtn)')
+	'const Uint8 *' => TypeConv(nil, 'number', 'args.GetList(%d)', 'Value::Null')
 	'SDL_GLContext' => TypeConv(nil, 'number', 'args.GetSizeT(%d)', 'Value(rtn)')
 	'SDL_bool' => TypeConv(nil, 'boolean', 'args.GetBoolean(%d)', 'Value(rtn != 0)')
 	'SDL_eventaction' => TypeConv(
@@ -650,6 +654,10 @@ typeConvDict = %{
 			nil, 'number',
 			'static_cast<SDL_TouchID>(args.GetInt(%d))',
 			'Value(rtn)')
+	'SDL_JoystickID' => TypeConv(
+			nil, 'number',
+			'static_cast<SDL_JoystickID>(args.GetInt(%d))',
+			'Value(rtn)')
 	'SDL_GestureID' => TypeConv(
 			nil, 'number',
 			'static_cast<SDL_GestureID>(args.GetInt(%d))',
@@ -661,6 +669,22 @@ typeConvDict = %{
 	'SDL_BlendMode' => TypeConv(
 			nil, 'number',
 			'static_cast<SDL_BlendMode>(args.GetInt(%d))',
+			'Value(rtn)')
+	'SDL_Keycode' => TypeConv(
+			nil, 'number',
+			'static_cast<SDL_Keycode>(args.GetInt(%d))',
+			'Value(rtn)')
+	'SDL_Scancode' => TypeConv(
+			nil, 'number',
+			'static_cast<SDL_Scancode>(args.GetInt(%d))',
+			'Value(rtn)')
+	'SDL_Keymod' => TypeConv(
+			nil, 'number',
+			'static_cast<SDL_Keymod>(args.GetInt(%d))',
+			'Value(rtn)')
+	'SDL_SystemCursor' => TypeConv(
+			nil, 'number',
+			'static_cast<SDL_SystemCursor(args.GetInt(%d))',
 			'Value(rtn)')
 	'SDL_Finger *' => TypeConv(
 			'sdl2', 'Finger',
@@ -722,6 +746,14 @@ typeConvDict = %{
 			'sdl2', 'Palette',
 			'Object_Palette::GetObject(args, %d)->GetEntity()',
 			'Value(new Object_Palette(rtn))')
+	'SDL_Cursor *' => TypeConv(
+			'sdl2', 'Cursor',
+			'Object_Cursor::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_Cursor(rtn))')
+	'SDL_Joystick *' => TypeConv(
+			'sdl2', 'Joystick',
+			'Object_Joystick::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_Joystick(rtn))')
 	'SDL_DisplayMode *' => TypeConv(
 			'sdl2', 'DisplayMode',
 			'Object_DisplayMode::GetObject(args, %d)->GetEntity()',
