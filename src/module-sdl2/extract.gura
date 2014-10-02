@@ -325,7 +325,6 @@ WarpMouseGlobal(int x, int y)
 WarpMouseInWindow(SDL_Window* window, int x, int y)
 //-----------------------------------------------------------------------------
 // Input Events - Joystick Support
-''', text = R'''
 JoystickClose(SDL_Joystick* joystick)
 JoystickEventState(int state):error_number
 JoystickGetAttached(SDL_Joystick* joystick):SDL_bool
@@ -347,36 +346,36 @@ JoystickNumHats(SDL_Joystick* joystick):error_number
 JoystickOpen(int device_index):SDL_Joystick*
 JoystickUpdate()
 NumJoysticks():error_number
-''', R'''
 //-----------------------------------------------------------------------------
 // Input Events - Game Controller Support
-GameControllerAddMapping
-GameControllerAddMappingsFromFile
-GameControllerAddMappingsFromRW
-GameControllerClose
-GameControllerEventState
-GameControllerGetAttached
-GameControllerGetAxis
-GameControllerGetAxisFromString
-GameControllerGetBindForAxis
-GameControllerGetBindForButton
-GameControllerGetButton
-GameControllerGetButtonFromString
-GameControllerGetJoystick
-GameControllerGetStringForAxis
-GameControllerGetStringForButton
-GameControllerMapping
-GameControllerMappingForGUID
-GameControllerName
-GameControllerNameForIndex
-GameControllerOpen
-GameControllerUpdate
-IsGameController
+GameControllerAddMapping(const char* mappingString):error_number
+GameControllerAddMappingsFromFile(const char* filename):error_number
+GameControllerAddMappingsFromRW(SDL_RWops* rw, int freerw):error_number
+GameControllerClose(SDL_GameController* gamecontroller)
+GameControllerEventState(int state):int
+GameControllerGetAttached(SDL_GameController* gamecontroller):SDL_bool
+GameControllerGetAxis(SDL_GameController* gamecontroller, SDL_GameControllerAxis axis):Sint16
+GameControllerGetAxisFromString(const char* pchString):SDL_GameControllerAxis
+GameControllerGetBindForAxis(SDL_GameController* gamecontroller, SDL_GameControllerAxis axis):SDL_GameControllerButtonBind
+GameControllerGetBindForButton(SDL_GameController* gamecontroller, SDL_GameControllerButton button):SDL_GameControllerButtonBind
+GameControllerGetButton(SDL_GameController* gamecontroller, SDL_GameControllerButton button):Uint8
+GameControllerGetButtonFromString(const char* pchString):SDL_GameControllerButton
+GameControllerGetJoystick(SDL_GameController* gamecontroller):SDL_Joystick*
+GameControllerGetStringForAxis(SDL_GameControllerAxis axis):const char*
+GameControllerGetStringForButton(SDL_GameControllerButton button):const char*
+GameControllerMapping(SDL_GameController* gamecontroller):const char*
+#GameControllerMappingForGUID(int guid):const char*
+GameControllerName(SDL_GameController* gamecontroller):const char*
+GameControllerNameForIndex(int joystick_index):const char*
+GameControllerOpen(int joystick_index):SDL_GameController*
+GameControllerUpdate()
+IsGameController(int joystick_index):SDL_bool
 //-----------------------------------------------------------------------------
 // Force Feedback - Force Feedback Support
-HapticClose
-HapticDestroyEffect
-HapticEffectSupported
+''', text = R'''
+HapticClose(SDL_Haptic* haptic)
+HapticDestroyEffect(SDL_Haptic* haptic, int effect)
+//HapticEffectSupported(SDL_Haptic* haptic, SDL_HapticEffect* effect)
 HapticGetEffectStatus
 HapticIndex
 HapticName
@@ -404,6 +403,7 @@ HapticUpdateEffect
 JoystickIsHaptic
 MouseIsHaptic
 NumHaptics
+''', R'''
 //-----------------------------------------------------------------------------
 // Audio - Audio Device Management, Playing and Recording
 AudioInit
@@ -684,7 +684,19 @@ typeConvDict = %{
 			'Value(rtn)')
 	'SDL_SystemCursor' => TypeConv(
 			nil, 'number',
-			'static_cast<SDL_SystemCursor(args.GetInt(%d))',
+			'static_cast<SDL_SystemCursor>(args.GetInt(%d))',
+			'Value(rtn)')
+	'SDL_GameControllerAxis' => TypeConv(
+			nil, 'number',
+			'static_cast<SDL_GameControllerAxis>(args.GetInt(%d))',
+			'Value(rtn)')
+	'SDL_GameControllerButton' => TypeConv(
+			nil, 'number',
+			'static_cast<SDL_GameControllerButton>(args.GetInt(%d))',
+			'Value(rtn)')
+	'SDL_GameControllerButtonBind' => TypeConv(
+			nil, 'number',
+			'static_cast<SDL_GameControllerButtonBind>(args.GetInt(%d))',
 			'Value(rtn)')
 	'SDL_Finger *' => TypeConv(
 			'sdl2', 'Finger',
@@ -754,6 +766,10 @@ typeConvDict = %{
 			'sdl2', 'Joystick',
 			'Object_Joystick::GetObject(args, %d)->GetEntity()',
 			'Value(new Object_Joystick(rtn))')
+	'SDL_GameController *' => TypeConv(
+			'sdl2', 'GameController',
+			'Object_GameController::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_GameController(rtn))')
 	'SDL_DisplayMode *' => TypeConv(
 			'sdl2', 'DisplayMode',
 			'Object_DisplayMode::GetObject(args, %d)->GetEntity()',
