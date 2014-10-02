@@ -87,13 +87,13 @@ GURA_DLLDECLARE DateTime ToDateTime(time_t t, bool utcFlag = false);
 static inline bool IsPathSeparator(char ch) { return ch == ';' || ch == ':'; }
 #endif
 GURA_DLLDECLARE int GetSecsOffsetTZ();
+GURA_DLLDECLARE String GetExecutable();
 GURA_DLLDECLARE String GetBaseDir();
 GURA_DLLDECLARE String GetDataDir();
 GURA_DLLDECLARE String GetModuleDir();
 GURA_DLLDECLARE String GetIncludeDir();
 GURA_DLLDECLARE String GetLocalDir();
 GURA_DLLDECLARE String PrepareLocalDir();
-GURA_DLLDECLARE String GetExecutable();
 GURA_DLLDECLARE void SetupModulePath(StringList &strList);
 GURA_DLLDECLARE void SetupExecutablePath();
 GURA_DLLDECLARE String ToNativeString(const char *str, int len = -1);

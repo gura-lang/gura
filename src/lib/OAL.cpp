@@ -31,6 +31,10 @@ typedef int mode_t;
 #include <sys/types.h>
 #endif
 
+#if defined(GURA_ON_DARWIN)
+#include <mach-o/dyld.h>
+#endif
+
 namespace Gura {
 namespace OAL {
 
@@ -811,6 +815,13 @@ void SetModuleHandle(HMODULE hModule)
 	g_hModule = hModule;
 }
 
+String GetExecutable()
+{
+	char pathName[512];
+	::GetModuleFileName(NULL, pathName, ArraySizeOf(pathName)); // Win32 API
+	return FromNativeString(pathName);
+}
+
 String GetBaseDir()
 {
 	do {
@@ -892,13 +903,6 @@ String PrepareLocalDir()
 		MakeDir(dirNameSub.c_str());
 	} while (0);
 	return dirName;
-}
-
-String GetExecutable()
-{
-	char pathName[512];
-	::GetModuleFileName(NULL, pathName, ArraySizeOf(pathName)); // Win32 API
-	return FromNativeString(pathName);
 }
 
 void SetupModulePath(StringList &strList)
@@ -1512,6 +1516,67 @@ int GetSecsOffsetTZ()
 	return -tz.tz_minuteswest * 60;
 }
 
+#if 0
+
+String GetExecutable()
+{
+	char pathName[1024];
+	uint32_t size = sizeof(pathName);
+	// This API returns a path name to the executable even if the path is a symbolic link.
+	::_NSGetExecutablePath(pathName, &size);
+	return FromNativeString(pathName);
+}
+
+String GetBaseDir()
+{
+	char pathName[1024];
+	uint32_t size = sizeof(pathName);
+	::_NSGetExecutablePath(pathName, &size);
+	char *p = pathName + ::strlen(pathName);
+	for ( ; p >= pathName; p--) {
+		if (*p == '/') {
+			*p = '\0';
+			break;
+		}
+	}
+	if (p > pathName) p--;
+	for ( ; p >= pathName; p--) {
+		if (*p == '/') {
+			*p = '\0';
+			break;
+		}
+	}
+	return FromNativeString(pathName);
+}
+
+String GetDataDir()
+{
+	char dirName[128];
+	::sprintf(dirName, "share/gura/%s", GURA_VERSION);
+	return JoinPathName(GetBaseDir().c_str(), dirName);
+}
+
+String GetModuleDir()
+{
+	char dirName[128];
+	::sprintf(dirName, "lib/gura/%s/module", GURA_VERSION);
+	return JoinPathName(GetBaseDir().c_str(), dirName);
+}
+
+String GetIncludeDir()
+{
+	char dirName[128];
+	::sprintf(dirName, "include/gura/%s", GURA_VERSION);
+	return JoinPathName(GetBaseDir().c_str(), dirName);
+}
+
+#else
+
+String GetExecutable()
+{
+	return JoinPathName(GURA_BINDIR, "gura");
+}
+
 String GetBaseDir()
 {
 	return String(GURA_PKGDATADIR);
@@ -1531,6 +1596,8 @@ String GetIncludeDir()
 {
 	return GURA_PKGINCDIR;
 }
+
+#endif
 
 String GetLocalDir()
 {
@@ -1571,11 +1638,6 @@ String PrepareLocalDir()
 	return dirName;
 }
 
-String GetExecutable()
-{
-	return String(GURA_BINDIR "/gura");
-}
-
 void SetupModulePath(StringList &strList)
 {
 	String str = GetEnv("GURAPATH");
@@ -1583,9 +1645,8 @@ void SetupModulePath(StringList &strList)
 		SplitPathList(str.c_str(), strList);
 	}
 	strList.push_back(JoinPathName(GetLocalDir().c_str(), "module"));
-	strList.push_back(GURA_PKGLIBDIR);
-	strList.push_back(JoinPathName(GURA_PKGLIBDIR, "module"));
-	strList.push_back(JoinPathName(GURA_PKGLIBDIR, "module/site"));
+	strList.push_back(GetModuleDir());
+	strList.push_back(JoinPathName(GetModuleDir().c_str(), "site"));
 }
 
 void SetupExecutablePath()
