@@ -141,7 +141,7 @@ CreateRenderer(SDL_Window* window, int index, Uint32 flags):SDL_Renderer*
 CreateSoftwareRenderer(SDL_Surface* surface):SDL_Renderer*
 CreateTexture(SDL_Renderer* renderer, Uint32 format, int access, int w, int h):SDL_Texture*
 CreateTextureFromSurface(SDL_Renderer* renderer, SDL_Surface* surface):SDL_Texture*
-CreateWindowAndRenderer(int width, int height, Uint32 window_flags, SDL_Window** #window, SDL_Renderer** #renderer):negerr
+//CreateWindowAndRenderer(int width, int height, Uint32 window_flags, SDL_Window** #window, SDL_Renderer** #renderer):negerr
 DestroyRenderer(SDL_Renderer* renderer)
 DestroyTexture(SDL_Texture* texture)
 GL_BindTexture(SDL_Texture* texture, float* #texw, float* #texh):negerr
@@ -252,7 +252,7 @@ SetSurfaceRLE(SDL_Surface* surface, int flag):negerr
 UnlockSurface(SDL_Surface* surface)
 //-----------------------------------------------------------------------------
 // Video - Platform-specific Window Management
-GetWindowWMInfo(SDL_Window* window, SDL_SysWMinfo* #info):SDL_bool
+//GetWindowWMInfo(SDL_Window* window, SDL_SysWMinfo* #info):SDL_bool // duplicated
 //-----------------------------------------------------------------------------
 // Video - Clipboard Handling
 #GetClipboardText():char*
@@ -404,9 +404,6 @@ MouseIsHaptic():negerr_boolean
 NumHaptics():negerr_number
 //-----------------------------------------------------------------------------
 // Audio - Audio Device Management, Playing and Recording
-'''
-
-text = R'''
 AudioInit(const char* driver_name):negerr
 AudioQuit()
 BuildAudioCVT(SDL_AudioCVT* cvt, SDL_AudioFormat src_format, Uint8 src_channels, int src_rate, SDL_AudioFormat dst_format, Uint8 dst_channels, int dst_rate):negerr_boolean
@@ -436,7 +433,6 @@ PauseAudioDevice(SDL_AudioDeviceID dev, int pause_on)
 QueueAudio(SDL_AudioDeviceID dev, const void* #data, Uint32 #len):negerr
 UnlockAudio()
 UnlockAudioDevice(SDL_AudioDeviceID dev)
-''', R'''
 //-----------------------------------------------------------------------------
 // Threads - Thread Management
 CreateThread
@@ -486,17 +482,17 @@ AtomicUnlock
 CompilerBarrier
 //-----------------------------------------------------------------------------
 // Timers - Timer Support
-AddTimer
-Delay
-GetPerformanceCounter
-GetPerformanceFrequency
-GetTicks
-RemoveTimer
-TICKS_PASSED
+AddTimer(Uint32 interval, SDL_TimerCallback #callback, void* #param):SDL_TimerID
+Delay(Uint32 ms)
+GetPerformanceCounter():Uint64
+GetPerformanceFrequency():Uint64
+GetTicks():Uint32
+RemoveTimer(SDL_TimerID id):SDL_bool
+TICKS_PASSED(Uint32 A, Uint32 B):SDL_bool
 //-----------------------------------------------------------------------------
 // File Abstraction - Filesystem Paths
-GetBasePath
-GetPrefPath
+#GetBasePath():char*
+#GetPrefPath(const char* org, const char* app):char*
 //-----------------------------------------------------------------------------
 // File Abstraction - File I/O Abstraction
 AllocRW
@@ -526,19 +522,53 @@ WriteLE64
 // Shared Object Support - Shared Object Loading and Function Lookup
 //-----------------------------------------------------------------------------
 // Platform and CPU Information - Platform Detection
+GetPlatform():const char*
 //-----------------------------------------------------------------------------
 // Platform and CPU Information - CPU Feature Detection
+GetCPUCacheLineSize():int
+GetCPUCount():int
+GetSystemRAM():int
+Has3DNow():SDL_bool
+HasAVX():SDL_bool
+HasAVX2():SDL_bool
+HasAltiVec():SDL_bool
+HasMMX():SDL_bool
+HasRDTSC():SDL_bool
+HasSSE():SDL_bool
+HasSSE2():SDL_bool
+HasSSE3():SDL_bool
+HasSSE41():SDL_bool
+HasSSE42():SDL_bool
 //-----------------------------------------------------------------------------
 // Platform and CPU Information - Byte Order and Byte Swapping
+Swap16
+Swap32
+Swap64
+SwapBE16
+SwapBE32
+SwapBE64
+SwapFloat
+SwapFloatBE
+SwapFloatLE
+SwapLE16
+SwapLE32
+SwapLE64
 //-----------------------------------------------------------------------------
 // Platform and CPU Information - Bit Manipulation
+MostSignificantBitIndex32(Uint32 x):int
 //-----------------------------------------------------------------------------
 // Power Management - Power Management Status
+SDL_GetPowerInfo(int* #secs, int* #pct):SDL_PowerState
 //-----------------------------------------------------------------------------
 // Additional - Platform-specific functionality
+AndroidGetActivity
+AndroidGetExternalStoragePath
+AndroidGetExternalStorageState
+AndroidGetInternalStoragePath
+AndroidGetJNIEnv
 //-----------------------------------------------------------------------------
 // Additional - Other
-
+acos(double x):double
 '''
 
 tmplImplementation = R'''
@@ -641,7 +671,7 @@ ReturnInfo = struct(typeC:string, typeGura:string:nil, fmtReturn:string:nil) {
 }
 
 TypeConv = struct(moduleName:string:nil, typeGura:string, fmtGetter:string, fmtReturn:string)
-
+
 typeConvDict = %{
 	'char' => TypeConv(nil, 'number', 'args.GetChar(%d)', 'Value(rtn)')
 	'int' => TypeConv(nil, 'number', 'args.GetInt(%d)', 'Value(rtn)')
@@ -652,6 +682,7 @@ typeConvDict = %{
 	'Uint8' => TypeConv(nil, 'number', 'args.GetUChar(%d)', 'Value(rtn)')
 	'Uint16' => TypeConv(nil, 'number', 'args.GetUShort(%d)', 'Value(rtn)')
 	'Uint32' => TypeConv(nil, 'number', 'args.GetULong(%d)', 'Value(rtn)')
+	'Uint64' => TypeConv(nil, 'number', 'static_cast<Uint64>(args.GetDouble(%d))', 'Value(rtn)')
 	'Sint8' => TypeConv(nil, 'number', 'args.GetChar(%d)', 'Value(rtn)')
 	'Sint16' => TypeConv(nil, 'number', 'args.GetShort(%d)', 'Value(rtn)')
 	'Sint32' => TypeConv(nil, 'number', 'args.GetLong(%d)', 'Value(rtn)')
@@ -676,6 +707,10 @@ typeConvDict = %{
 			nil, 'number',
 			'static_cast<SDL_AudioStatus>(args.GetInt(%d))',
 			'Value(rtn)')
+	'SDL_PowerState' => TypeConv(
+			nil, 'number',
+			'static_cast<SDL_PowerState>(args.GetInt(%d))',
+			'Value(rtn)')
 	'SDL_TouchID' => TypeConv(
 			nil, 'number',
 			'static_cast<SDL_TouchID>(args.GetInt(%d))',
@@ -687,6 +722,10 @@ typeConvDict = %{
 	'SDL_GestureID' => TypeConv(
 			nil, 'number',
 			'static_cast<SDL_GestureID>(args.GetInt(%d))',
+			'Value(rtn)')
+	'SDL_TimerID' => TypeConv(
+			nil, 'number',
+			'static_cast<SDL_TimerID>(args.GetInt(%d))',
 			'Value(rtn)')
 	'SDL_RendererFlip' => TypeConv(
 			nil, 'number',
@@ -913,13 +952,13 @@ FuncInfo = class {
 		this.argsGura = this.argsC.filter(this.argsC:*typeGura):list
 		this.voidFlag = (!this.rtnInfo || this.rtnInfo.typeC in ['negerr', 'boolerr'])
 	}
-	RenderImplementation(stream:stream) = {
+	RenderImplementation() = {
 		fi = this
-		tmplImplementation.render(stream)
+		tmplImplementation.render()
 	}
-	RenderAssignment(stream:stream) = {
+	RenderAssignment() = {
 		fi = this
-		tmplAssignment.render(stream)
+		tmplAssignment.render()
 	}
 }
 
@@ -951,12 +990,7 @@ text.eachline {|line, i|
 	}
 }
 
-println('--------')
-funcInfos.each {|funcInfo|
-	funcInfo.RenderImplementation(sys.stdout)
-	println()
-}
-println('--------')
-funcInfos.each {|funcInfo|
-	funcInfo.RenderAssignment(sys.stdout)
-}
+fileNameSrc = 'module-sdl2.cpp.tmpl'
+fileNameDst = 'module-sdl2.cpp'
+template(fileNameSrc).render(fileNameDst)
+println(fileNameDst, ' was created')
