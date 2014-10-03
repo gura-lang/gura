@@ -65,7 +65,7 @@ DestroyWindow(SDL_Window* window)
 DisableScreenSaver()
 EnableScreenSaver()
 GL_CreateContext(SDL_Window* window):SDL_GLContext
-DeleteContext(SDL_GLContext context)
+GL_DeleteContext(SDL_GLContext context)
 GL_ExtensionSupported(const char* extension):SDL_bool
 GL_GetAttribute(SDL_GLattr attr, int* #value):negerr
 GL_GetCurrentContext():SDL_GLContext
@@ -113,7 +113,7 @@ IsScreenSaverEnabled():SDL_bool
 MaximizeWindow(SDL_Window* window)
 MinimizeWindow(SDL_Window* window)
 RaiseWindow(SDL_Window* window)
-ResotoreWindow(SDL_Window* window)
+RestoreWindow(SDL_Window* window)
 SetWindowBordered(SDL_Window* window, SDL_bool bordered)
 SetWindowBrightness(SDL_Window* window, float brightness):negerr
 #SetWindowData(SDL_Window* window, const char* name, void* #userdata)
@@ -162,10 +162,10 @@ QueryTexture(SDL_Texture* texture, Uint32* #format, int* #access, int* #w, int* 
 RenderClear(SDL_Renderer* renderer):negerr
 RenderCopy(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect):negerr
 RenderCopyEx(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect, double angle, const SDL_Point* center, SDL_RendererFlip flip):negerr
-DrawLine(SDL_Renderer* renderer, int x1, int y1, int x2, int y2):negerr
-DrawLines(SDL_Renderer* renderer, const SDL_Point* #points, int #count):negerr
-DrawPoint(SDL_Renderer* renderer, int x, int y):negerr
-DrawPoints(SDL_Renderer* renderer, const SDL_Point* #points, int #count):negerr
+RenderDrawLine(SDL_Renderer* renderer, int x1, int y1, int x2, int y2):negerr
+RenderDrawLines(SDL_Renderer* renderer, const SDL_Point* #points, int #count):negerr
+RenderDrawPoint(SDL_Renderer* renderer, int x, int y):negerr
+RenderDrawPoints(SDL_Renderer* renderer, const SDL_Point* #points, int #count):negerr
 RenderDrawRect(SDL_Renderer* renderer, const SDL_Rect* rect):negerr
 RenderDrawRects(SDL_Renderer* renderer, const SDL_Rect* #rects, int #count):negerr
 RenderFillRect(SDL_Renderer* renderer, const SDL_Rect* rect):negerr
@@ -174,7 +174,7 @@ RenderGetClipRect(SDL_Renderer* renderer, SDL_Rect* #rect)
 RenderGetLogicalSize(SDL_Renderer* renderer, int* #w, int* #h)
 RenderGetScale(SDL_Renderer* renderer, float* #scaleX, float* #scaleY)
 RenderGetViewport(SDL_Renderer* renderer, SDL_Rect* #rect)
-RenderIsClipEnabled(SDL_Renderer* renderer):SDL_bool
+#RenderIsClipEnabled(SDL_Renderer* renderer):SDL_bool
 RenderPresent(SDL_Renderer* renderer)
 RenderReadPixels(SDL_Renderer* renderer, const SDL_Rect* rect, Uint32 format, void* #pixels, int pitch):negerr
 RenderSetClipRect(SDL_Renderer* renderer, const SDL_Rect* rect):negerr
@@ -213,7 +213,7 @@ EnclosePoints(const SDL_Point* #points, int #count, const SDL_Rect* clip, SDL_Re
 HasIntersection(const SDL_Rect* A, const SDL_Rect* B):SDL_bool
 IntersectRect(const SDL_Rect* A, const SDL_Rect* B, SDL_Rect* #result):SDL_bool
 #IntersectRectAndLine(const SDL_Rect* rect, int X1, int Y1, int X2, int Y2):SDL_bool
-PointInRect(const SDL_Point* p, const SDL_Rect* r):SDL_bool
+#PointInRect(const SDL_Point* p, const SDL_Rect* r):SDL_bool
 RectEmpty(const SDL_Rect* r):SDL_bool
 RectEquals(const SDL_Rect* a, const SDL_Rect* b):SDL_bool
 UnionRect(const SDL_Rect* A, const SDL_Rect* B, SDL_Rect* #result)
@@ -235,13 +235,13 @@ GetSurfaceAlphaMod(SDL_Surface* surface, Uint8* #alpha):negerr
 GetSurfaceBlendMode(SDL_Surface* surface, SDL_BlendMode* #blendMode):negerr
 GetSurfaceColorMod(SDL_Surface* surface, Uint8* #r, Uint8* #g, Uint8* #b):negerr
 LoadBMP(const char* file):SDL_Surface*
-LoadBMP_RW(SDL_RWops* src, int freesrc):SDL_Surface*
+#LoadBMP_RW(SDL_RWops* src, int freesrc):SDL_Surface*
 LockSurface(SDL_Surface* surface):negerr
 LowerBlit(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect):negerr
 LowerBlitScaled(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect):negerr
 MUSTLOCK(SDL_Surface* surface):SDL_bool
 SaveBMP(SDL_Surface* surface, const char* file):negerr
-SaveBMP_RW(SDL_Surface* surface, SDL_RWops* dst, int freedst):negerr
+#SaveBMP_RW(SDL_Surface* surface, SDL_RWops* dst, int freedst):negerr
 SetClipRect(SDL_Surface* surface, const SDL_Rect* rect):SDL_bool
 SetColorKey(SDL_Surface* surface, int flag, Uint32 key):negerr
 SetSurfaceAlphaMod(SDL_Surface* surface, Uint8 alpha):negerr
@@ -273,7 +273,7 @@ GetTouchDevice(int index):SDL_TouchID
 GetTouchFinger(SDL_TouchID touchId, int index):SDL_Finger*
 HasEvent(Uint32 type):SDL_bool
 HasEvents(Uint32 minType, Uint32 maxType):SDL_bool
-LoadDollarTemplates(SDL_TouchID touchId, SDL_RWops* src):negerr_number
+#LoadDollarTemplates(SDL_TouchID touchId, SDL_RWops* src):negerr_number
 PeepEvents(SDL_Event* #events, int #numevents, SDL_eventaction action, Uint32 minType, Uint32 maxType):negerr
 PollEvent(SDL_Event* #event):int
 PumpEvents()
@@ -281,8 +281,8 @@ PushEvent(SDL_Event* event):negerr_number
 QuitRequested():SDL_bool
 RecordGesture(SDL_TouchID touchId):negerr
 RegisterEvents(int numevents):Uint32
-SaveAllDollarTemplates(SDL_RWops* dst):negerr
-SaveDollarTemplate(SDL_GestureID gestureId, SDL_RWops* dst):negerr
+#SaveAllDollarTemplates(SDL_RWops* dst):negerr
+#SaveDollarTemplate(SDL_GestureID gestureId, SDL_RWops* dst):negerr
 #SetEventFilter()
 WaitEvent(SDL_Event* #event):negerr
 WaitEventTimeout(SDL_Event* #event, int timeout):negerr
@@ -350,7 +350,7 @@ NumJoysticks():negerr_number
 // Input Events - Game Controller Support
 GameControllerAddMapping(const char* mappingString):negerr_number
 GameControllerAddMappingsFromFile(const char* filename):negerr_number
-GameControllerAddMappingsFromRW(SDL_RWops* rw, int freerw):negerr_number
+#GameControllerAddMappingsFromRW(SDL_RWops* rw, int freerw):negerr_number
 GameControllerClose(SDL_GameController* gamecontroller)
 GameControllerEventState(int state):int
 GameControllerGetAttached(SDL_GameController* gamecontroller):SDL_bool
@@ -421,7 +421,7 @@ GetNumAudioDevices(int iscapture):negerr_number
 GetNumAudioDrivers():int
 GetQueuedAudioSize(SDL_AudioDeviceID dev):Uint32
 LoadWAV(const char* file, SDL_AudioSpec* spec, Uint8** #audio_buf, Uint32* #audio_len):SDL_AudioSpec*
-LoadWAV_RW(SDL_RWops* src, int freesrc, SDL_AudioSpec* spec, Uint8** #audio_buf, Uint32* #audio_len):SDL_AudioSpec*
+#LoadWAV_RW(SDL_RWops* src, int freesrc, SDL_AudioSpec* spec, Uint8** #audio_buf, Uint32* #audio_len):SDL_AudioSpec*
 LockAudio()
 LockAudioDevice(SDL_AudioDeviceID dev)
 MixAudio(Uint8* #dst, const Uint8* #src, Uint32 #len, int volume)
@@ -689,8 +689,7 @@ typeConvDict = %{
 	'char *' => TypeConv(nil, 'string', 'args.GetString(%d)', 'Value(rtn)')
 	'const char *' => TypeConv(nil, 'string', 'args.GetString(%d)', 'Value(rtn)')
 	'const Uint8 *' => TypeConv(nil, 'number', 'args.GetList(%d)', 'Value::Null')
-	'SDL_GLContext' => TypeConv(nil, 'number', 'args.GetSizeT(%d)', 'Value(rtn)')
-	'SDL_bool' => TypeConv(nil, 'boolean', 'args.GetBoolean(%d)', 'Value(rtn != 0)')
+	'SDL_bool' => TypeConv(nil, 'boolean', '(args.GetBoolean(%d)? SDL_TRUE : SDL_FALSE)', 'Value(rtn != SDL_FALSE)')
 	'SDL_eventaction' => TypeConv(
 			nil, 'number',
 			'static_cast<SDL_eventaction>(args.GetInt(%d))',
@@ -767,6 +766,10 @@ typeConvDict = %{
 			nil, 'number',
 			'static_cast<SDL_AudioFormat>(args.GetInt(%d))',
 			'Value(rtn)')
+	'SDL_GLContext' => TypeConv(
+			'sdl2', 'GLContext',
+			'Object_GLContext::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_GLContext(rtn))')
 	'SDL_AudioCVT *' => TypeConv(
 			'sdl2', 'AudioCVT',
 			'Object_AudioCVT::GetObject(args, %d)->GetEntity()',

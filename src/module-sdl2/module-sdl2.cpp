@@ -890,22 +890,22 @@ Gura_ImplementFunction(GL_CreateContext)
 {
 	SDL_Window *window = args.IsValid(0)? Object_Window::GetObject(args, 0)->GetEntity() : NULL;
 	SDL_GLContext rtn = ::SDL_GL_CreateContext(window);
-	return Value(rtn);
+	return Value(new Object_GLContext(rtn));
 }
 
-// sdl2.DeleteContext(context:number):void
-Gura_DeclareFunction(DeleteContext)
+// sdl2.GL_DeleteContext(context:sdl2.GLContext):void
+Gura_DeclareFunction(GL_DeleteContext)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "context", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "context", VTYPE_GLContext, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
-Gura_ImplementFunction(DeleteContext)
+Gura_ImplementFunction(GL_DeleteContext)
 {
-	SDL_GLContext context = args.GetSizeT(0);
-	::SDL_DeleteContext(context);
+	SDL_GLContext context = Object_GLContext::GetObject(args, 0)->GetEntity();
+	::SDL_GL_DeleteContext(context);
 	return Value::Null;
 }
 
@@ -922,7 +922,7 @@ Gura_ImplementFunction(GL_ExtensionSupported)
 {
 	const char *extension = args.IsValid(0)? args.GetString(0) : NULL;
 	SDL_bool rtn = ::SDL_GL_ExtensionSupported(extension);
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.GL_GetAttribute(attr:number):void
@@ -961,7 +961,7 @@ Gura_DeclareFunction(GL_GetCurrentContext)
 Gura_ImplementFunction(GL_GetCurrentContext)
 {
 	SDL_GLContext rtn = ::SDL_GL_GetCurrentContext();
-	return Value(rtn);
+	return Value(new Object_GLContext(rtn));
 }
 
 // sdl2.GL_GetCurrentWindow()
@@ -1056,12 +1056,12 @@ Gura_ImplementFunction(GL_LoadLibrary)
 	return Value::Null;
 }
 
-// sdl2.GL_MakeCurrent(window:sdl2.Window, context:number):void
+// sdl2.GL_MakeCurrent(window:sdl2.Window, context:sdl2.GLContext):void
 Gura_DeclareFunction(GL_MakeCurrent)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "context", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "context", VTYPE_GLContext, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
@@ -1069,7 +1069,7 @@ Gura_DeclareFunction(GL_MakeCurrent)
 Gura_ImplementFunction(GL_MakeCurrent)
 {
 	SDL_Window *window = args.IsValid(0)? Object_Window::GetObject(args, 0)->GetEntity() : NULL;
-	SDL_GLContext context = args.GetSizeT(1);
+	SDL_GLContext context = Object_GLContext::GetObject(args, 1)->GetEntity();
 	int rtn = ::SDL_GL_MakeCurrent(window, context);
 	if (rtn < 0) {
 		SetError_SDL(sig);
@@ -1547,7 +1547,7 @@ Gura_ImplementFunction(GetWindowGrab)
 {
 	SDL_Window *window = args.IsValid(0)? Object_Window::GetObject(args, 0)->GetEntity() : NULL;
 	SDL_bool rtn = ::SDL_GetWindowGrab(window);
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.GetWindowID(window:sdl2.Window)
@@ -1725,7 +1725,7 @@ Gura_ImplementFunction(GetWindowWMInfo)
 	SDL_Window *window = args.IsValid(0)? Object_Window::GetObject(args, 0)->GetEntity() : NULL;
 	SDL_SysWMinfo *info = args.IsValid(1)? NULL : NULL;
 	SDL_bool rtn = ::SDL_GetWindowWMInfo(window, info);
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 #endif
 	SetError_NotImpFunction(sig, "GetWindowWMInfo");
 	return Value::Null;
@@ -1758,7 +1758,7 @@ Gura_DeclareFunction(IsScreenSaverEnabled)
 Gura_ImplementFunction(IsScreenSaverEnabled)
 {
 	SDL_bool rtn = ::SDL_IsScreenSaverEnabled();
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.MaximizeWindow(window:sdl2.Window):void
@@ -1809,8 +1809,8 @@ Gura_ImplementFunction(RaiseWindow)
 	return Value::Null;
 }
 
-// sdl2.ResotoreWindow(window:sdl2.Window):void
-Gura_DeclareFunction(ResotoreWindow)
+// sdl2.RestoreWindow(window:sdl2.Window):void
+Gura_DeclareFunction(RestoreWindow)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
@@ -1818,10 +1818,10 @@ Gura_DeclareFunction(ResotoreWindow)
 	"");
 }
 
-Gura_ImplementFunction(ResotoreWindow)
+Gura_ImplementFunction(RestoreWindow)
 {
 	SDL_Window *window = args.IsValid(0)? Object_Window::GetObject(args, 0)->GetEntity() : NULL;
-	::SDL_ResotoreWindow(window);
+	::SDL_RestoreWindow(window);
 	return Value::Null;
 }
 
@@ -1838,7 +1838,7 @@ Gura_DeclareFunction(SetWindowBordered)
 Gura_ImplementFunction(SetWindowBordered)
 {
 	SDL_Window *window = args.IsValid(0)? Object_Window::GetObject(args, 0)->GetEntity() : NULL;
-	SDL_bool bordered = args.GetBoolean(1);
+	SDL_bool bordered = (args.GetBoolean(1)? SDL_TRUE : SDL_FALSE);
 	::SDL_SetWindowBordered(window, bordered);
 	return Value::Null;
 }
@@ -1972,7 +1972,7 @@ Gura_DeclareFunction(SetWindowGrab)
 Gura_ImplementFunction(SetWindowGrab)
 {
 	SDL_Window *window = args.IsValid(0)? Object_Window::GetObject(args, 0)->GetEntity() : NULL;
-	SDL_bool grabbed = args.GetBoolean(1);
+	SDL_bool grabbed = (args.GetBoolean(1)? SDL_TRUE : SDL_FALSE);
 	::SDL_SetWindowGrab(window, grabbed);
 	return Value::Null;
 }
@@ -2824,8 +2824,8 @@ Gura_ImplementFunction(RenderCopyEx)
 	return Value::Null;
 }
 
-// sdl2.DrawLine(renderer:sdl2.Renderer, x1:number, y1:number, x2:number, y2:number):void
-Gura_DeclareFunction(DrawLine)
+// sdl2.RenderDrawLine(renderer:sdl2.Renderer, x1:number, y1:number, x2:number, y2:number):void
+Gura_DeclareFunction(RenderDrawLine)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
@@ -2837,14 +2837,14 @@ Gura_DeclareFunction(DrawLine)
 	"");
 }
 
-Gura_ImplementFunction(DrawLine)
+Gura_ImplementFunction(RenderDrawLine)
 {
 	SDL_Renderer *renderer = args.IsValid(0)? Object_Renderer::GetObject(args, 0)->GetEntity() : NULL;
 	int x1 = args.GetInt(1);
 	int y1 = args.GetInt(2);
 	int x2 = args.GetInt(3);
 	int y2 = args.GetInt(4);
-	int rtn = ::SDL_DrawLine(renderer, x1, y1, x2, y2);
+	int rtn = ::SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
@@ -2852,8 +2852,8 @@ Gura_ImplementFunction(DrawLine)
 	return Value::Null;
 }
 
-// sdl2.DrawLines(renderer:sdl2.Renderer):void
-Gura_DeclareFunction(DrawLines)
+// sdl2.RenderDrawLines(renderer:sdl2.Renderer):void
+Gura_DeclareFunction(RenderDrawLines)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
@@ -2861,25 +2861,25 @@ Gura_DeclareFunction(DrawLines)
 	"");
 }
 
-Gura_ImplementFunction(DrawLines)
+Gura_ImplementFunction(RenderDrawLines)
 {
 #if 0
 	SDL_Renderer *renderer = args.IsValid(0)? Object_Renderer::GetObject(args, 0)->GetEntity() : NULL;
 	const SDL_Point *points = args.IsValid(1)? NULL : NULL;
 	int count = NULL;
-	int rtn = ::SDL_DrawLines(renderer, points, count);
+	int rtn = ::SDL_RenderDrawLines(renderer, points, count);
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
 	return Value::Null;
 #endif
-	SetError_NotImpFunction(sig, "DrawLines");
+	SetError_NotImpFunction(sig, "RenderDrawLines");
 	return Value::Null;
 }
 
-// sdl2.DrawPoint(renderer:sdl2.Renderer, x:number, y:number):void
-Gura_DeclareFunction(DrawPoint)
+// sdl2.RenderDrawPoint(renderer:sdl2.Renderer, x:number, y:number):void
+Gura_DeclareFunction(RenderDrawPoint)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
@@ -2889,12 +2889,12 @@ Gura_DeclareFunction(DrawPoint)
 	"");
 }
 
-Gura_ImplementFunction(DrawPoint)
+Gura_ImplementFunction(RenderDrawPoint)
 {
 	SDL_Renderer *renderer = args.IsValid(0)? Object_Renderer::GetObject(args, 0)->GetEntity() : NULL;
 	int x = args.GetInt(1);
 	int y = args.GetInt(2);
-	int rtn = ::SDL_DrawPoint(renderer, x, y);
+	int rtn = ::SDL_RenderDrawPoint(renderer, x, y);
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
@@ -2902,8 +2902,8 @@ Gura_ImplementFunction(DrawPoint)
 	return Value::Null;
 }
 
-// sdl2.DrawPoints(renderer:sdl2.Renderer):void
-Gura_DeclareFunction(DrawPoints)
+// sdl2.RenderDrawPoints(renderer:sdl2.Renderer):void
+Gura_DeclareFunction(RenderDrawPoints)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
@@ -2911,20 +2911,20 @@ Gura_DeclareFunction(DrawPoints)
 	"");
 }
 
-Gura_ImplementFunction(DrawPoints)
+Gura_ImplementFunction(RenderDrawPoints)
 {
 #if 0
 	SDL_Renderer *renderer = args.IsValid(0)? Object_Renderer::GetObject(args, 0)->GetEntity() : NULL;
 	const SDL_Point *points = args.IsValid(1)? NULL : NULL;
 	int count = NULL;
-	int rtn = ::SDL_DrawPoints(renderer, points, count);
+	int rtn = ::SDL_RenderDrawPoints(renderer, points, count);
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
 	return Value::Null;
 #endif
-	SetError_NotImpFunction(sig, "DrawPoints");
+	SetError_NotImpFunction(sig, "RenderDrawPoints");
 	return Value::Null;
 }
 
@@ -3121,9 +3121,13 @@ Gura_DeclareFunction(RenderIsClipEnabled)
 
 Gura_ImplementFunction(RenderIsClipEnabled)
 {
+#if 0
 	SDL_Renderer *renderer = args.IsValid(0)? Object_Renderer::GetObject(args, 0)->GetEntity() : NULL;
 	SDL_bool rtn = ::SDL_RenderIsClipEnabled(renderer);
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
+#endif
+	SetError_NotImpFunction(sig, "RenderIsClipEnabled");
+	return Value::Null;
 }
 
 // sdl2.RenderPresent(renderer:sdl2.Renderer):void
@@ -3278,7 +3282,7 @@ Gura_ImplementFunction(RenderTargetSupported)
 {
 	SDL_Renderer *renderer = args.IsValid(0)? Object_Renderer::GetObject(args, 0)->GetEntity() : NULL;
 	SDL_bool rtn = ::SDL_RenderTargetSupported(renderer);
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.SetRenderDrawBlendMode(renderer:sdl2.Renderer, blendMode:number):void
@@ -3749,7 +3753,7 @@ Gura_ImplementFunction(PixelFormatEnumToMasks)
 	Uint32 *Bmask = args.IsValid(4)? NULL : NULL;
 	Uint32 *Amask = args.IsValid(5)? NULL : NULL;
 	SDL_bool rtn = ::SDL_PixelFormatEnumToMasks(format, bpp, Rmask, Gmask, Bmask, Amask);
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 #endif
 	SetError_NotImpFunction(sig, "PixelFormatEnumToMasks");
 	return Value::Null;
@@ -3822,7 +3826,7 @@ Gura_ImplementFunction(EnclosePoints)
 	const SDL_Rect *clip = args.IsValid(2)? Object_Rect::GetObject(args, 2)->GetEntity() : NULL;
 	SDL_Rect *result = args.IsValid(3)? NULL : NULL;
 	SDL_bool rtn = ::SDL_EnclosePoints(points, count, clip, result);
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 #endif
 	SetError_NotImpFunction(sig, "EnclosePoints");
 	return Value::Null;
@@ -3843,7 +3847,7 @@ Gura_ImplementFunction(HasIntersection)
 	const SDL_Rect *A = args.IsValid(0)? Object_Rect::GetObject(args, 0)->GetEntity() : NULL;
 	const SDL_Rect *B = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
 	SDL_bool rtn = ::SDL_HasIntersection(A, B);
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.IntersectRect(A:sdl2.Rect, B:sdl2.Rect)
@@ -3863,7 +3867,7 @@ Gura_ImplementFunction(IntersectRect)
 	const SDL_Rect *B = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
 	SDL_Rect *result = args.IsValid(2)? NULL : NULL;
 	SDL_bool rtn = ::SDL_IntersectRect(A, B, result);
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 #endif
 	SetError_NotImpFunction(sig, "IntersectRect");
 	return Value::Null;
@@ -3891,7 +3895,7 @@ Gura_ImplementFunction(IntersectRectAndLine)
 	int X2 = args.GetInt(3);
 	int Y2 = args.GetInt(4);
 	SDL_bool rtn = ::SDL_IntersectRectAndLine(rect, X1, Y1, X2, Y2);
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 #endif
 	SetError_NotImpFunction(sig, "IntersectRectAndLine");
 	return Value::Null;
@@ -3909,10 +3913,14 @@ Gura_DeclareFunction(PointInRect)
 
 Gura_ImplementFunction(PointInRect)
 {
+#if 0
 	const SDL_Point *p = args.IsValid(0)? Object_Point::GetObject(args, 0)->GetEntity() : NULL;
 	const SDL_Rect *r = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
 	SDL_bool rtn = ::SDL_PointInRect(p, r);
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
+#endif
+	SetError_NotImpFunction(sig, "PointInRect");
+	return Value::Null;
 }
 
 // sdl2.RectEmpty(r:sdl2.Rect)
@@ -3928,7 +3936,7 @@ Gura_ImplementFunction(RectEmpty)
 {
 	const SDL_Rect *r = args.IsValid(0)? Object_Rect::GetObject(args, 0)->GetEntity() : NULL;
 	SDL_bool rtn = ::SDL_RectEmpty(r);
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.RectEquals(a:sdl2.Rect, b:sdl2.Rect)
@@ -3946,7 +3954,7 @@ Gura_ImplementFunction(RectEquals)
 	const SDL_Rect *a = args.IsValid(0)? Object_Rect::GetObject(args, 0)->GetEntity() : NULL;
 	const SDL_Rect *b = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
 	SDL_bool rtn = ::SDL_RectEquals(a, b);
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.UnionRect(A:sdl2.Rect, B:sdl2.Rect):void
@@ -4399,6 +4407,7 @@ Gura_DeclareFunction(LoadBMP_RW)
 
 Gura_ImplementFunction(LoadBMP_RW)
 {
+#if 0
 	SDL_RWops *src = args.IsValid(0)? Object_RWops::GetObject(args, 0)->GetEntity() : NULL;
 	int freesrc = args.GetInt(1);
 	SDL_Surface *rtn = ::SDL_LoadBMP_RW(src, freesrc);
@@ -4407,6 +4416,9 @@ Gura_ImplementFunction(LoadBMP_RW)
 		return Value::Null;
 	}
 	return Value(new Object_Surface(rtn));
+#endif
+	SetError_NotImpFunction(sig, "LoadBMP_RW");
+	return Value::Null;
 }
 
 // sdl2.LockSurface(surface:sdl2.Surface):void
@@ -4494,7 +4506,7 @@ Gura_ImplementFunction(MUSTLOCK)
 {
 	SDL_Surface *surface = args.IsValid(0)? Object_Surface::GetObject(args, 0)->GetEntity() : NULL;
 	SDL_bool rtn = ::SDL_MUSTLOCK(surface);
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.SaveBMP(surface:sdl2.Surface, file:string):void
@@ -4532,6 +4544,7 @@ Gura_DeclareFunction(SaveBMP_RW)
 
 Gura_ImplementFunction(SaveBMP_RW)
 {
+#if 0
 	SDL_Surface *surface = args.IsValid(0)? Object_Surface::GetObject(args, 0)->GetEntity() : NULL;
 	SDL_RWops *dst = args.IsValid(1)? Object_RWops::GetObject(args, 1)->GetEntity() : NULL;
 	int freedst = args.GetInt(2);
@@ -4540,6 +4553,9 @@ Gura_ImplementFunction(SaveBMP_RW)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
+	return Value::Null;
+#endif
+	SetError_NotImpFunction(sig, "SaveBMP_RW");
 	return Value::Null;
 }
 
@@ -4558,7 +4574,7 @@ Gura_ImplementFunction(SetClipRect)
 	SDL_Surface *surface = args.IsValid(0)? Object_Surface::GetObject(args, 0)->GetEntity() : NULL;
 	const SDL_Rect *rect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
 	SDL_bool rtn = ::SDL_SetClipRect(surface, rect);
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.SetColorKey(surface:sdl2.Surface, flag:number, key:number):void
@@ -4748,7 +4764,7 @@ Gura_DeclareFunction(HasClipboardText)
 Gura_ImplementFunction(HasClipboardText)
 {
 	SDL_bool rtn = ::SDL_HasClipboardText();
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.SetClipboardText(text:string):void
@@ -4976,7 +4992,7 @@ Gura_ImplementFunction(HasEvent)
 {
 	Uint32 type = args.GetULong(0);
 	SDL_bool rtn = ::SDL_HasEvent(type);
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.HasEvents(minType:number, maxType:number)
@@ -4994,7 +5010,7 @@ Gura_ImplementFunction(HasEvents)
 	Uint32 minType = args.GetULong(0);
 	Uint32 maxType = args.GetULong(1);
 	SDL_bool rtn = ::SDL_HasEvents(minType, maxType);
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.LoadDollarTemplates(touchId:number, src:sdl2.RWops)
@@ -5009,6 +5025,7 @@ Gura_DeclareFunction(LoadDollarTemplates)
 
 Gura_ImplementFunction(LoadDollarTemplates)
 {
+#if 0
 	SDL_TouchID touchId = static_cast<SDL_TouchID>(args.GetInt(0));
 	SDL_RWops *src = args.IsValid(1)? Object_RWops::GetObject(args, 1)->GetEntity() : NULL;
 	int rtn = ::SDL_LoadDollarTemplates(touchId, src);
@@ -5017,6 +5034,9 @@ Gura_ImplementFunction(LoadDollarTemplates)
 		return Value::Null;
 	}
 	return Value(rtn);
+#endif
+	SetError_NotImpFunction(sig, "LoadDollarTemplates");
+	return Value::Null;
 }
 
 // sdl2.PeepEvents(action:number, minType:number, maxType:number):void
@@ -5113,7 +5133,7 @@ Gura_DeclareFunction(QuitRequested)
 Gura_ImplementFunction(QuitRequested)
 {
 	SDL_bool rtn = ::SDL_QuitRequested();
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.RecordGesture(touchId:number):void
@@ -5163,12 +5183,16 @@ Gura_DeclareFunction(SaveAllDollarTemplates)
 
 Gura_ImplementFunction(SaveAllDollarTemplates)
 {
+#if 0
 	SDL_RWops *dst = args.IsValid(0)? Object_RWops::GetObject(args, 0)->GetEntity() : NULL;
 	int rtn = ::SDL_SaveAllDollarTemplates(dst);
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
+	return Value::Null;
+#endif
+	SetError_NotImpFunction(sig, "SaveAllDollarTemplates");
 	return Value::Null;
 }
 
@@ -5184,6 +5208,7 @@ Gura_DeclareFunction(SaveDollarTemplate)
 
 Gura_ImplementFunction(SaveDollarTemplate)
 {
+#if 0
 	SDL_GestureID gestureId = static_cast<SDL_GestureID>(args.GetInt(0));
 	SDL_RWops *dst = args.IsValid(1)? Object_RWops::GetObject(args, 1)->GetEntity() : NULL;
 	int rtn = ::SDL_SaveDollarTemplate(gestureId, dst);
@@ -5191,6 +5216,9 @@ Gura_ImplementFunction(SaveDollarTemplate)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
+	return Value::Null;
+#endif
+	SetError_NotImpFunction(sig, "SaveDollarTemplate");
 	return Value::Null;
 }
 
@@ -5430,7 +5458,7 @@ Gura_DeclareFunction(HasScreenKeyboardSupport)
 Gura_ImplementFunction(HasScreenKeyboardSupport)
 {
 	SDL_bool rtn = ::SDL_HasScreenKeyboardSupport();
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.IsScreenKeyboardShown(window:sdl2.Window)
@@ -5446,7 +5474,7 @@ Gura_ImplementFunction(IsScreenKeyboardShown)
 {
 	SDL_Window *window = args.IsValid(0)? Object_Window::GetObject(args, 0)->GetEntity() : NULL;
 	SDL_bool rtn = ::SDL_IsScreenKeyboardShown(window);
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.IsTextInputActive()
@@ -5460,7 +5488,7 @@ Gura_DeclareFunction(IsTextInputActive)
 Gura_ImplementFunction(IsTextInputActive)
 {
 	SDL_bool rtn = ::SDL_IsTextInputActive();
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.SetModState(modstate:number):void
@@ -5534,7 +5562,7 @@ Gura_DeclareFunction(CaptureMouse)
 
 Gura_ImplementFunction(CaptureMouse)
 {
-	SDL_bool enalbed = args.GetBoolean(0);
+	SDL_bool enalbed = (args.GetBoolean(0)? SDL_TRUE : SDL_FALSE);
 	int rtn = ::SDL_CaptureMouse(enalbed);
 	if (rtn < 0) {
 		SetError_SDL(sig);
@@ -5741,7 +5769,7 @@ Gura_DeclareFunction(GetRelativeMouseMode)
 Gura_ImplementFunction(GetRelativeMouseMode)
 {
 	SDL_bool rtn = ::SDL_GetRelativeMouseMode();
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.GetRelativeMouseState()
@@ -5791,7 +5819,7 @@ Gura_DeclareFunction(SetRelativeMouseMode)
 
 Gura_ImplementFunction(SetRelativeMouseMode)
 {
-	SDL_bool enabled = args.GetBoolean(0);
+	SDL_bool enabled = (args.GetBoolean(0)? SDL_TRUE : SDL_FALSE);
 	int rtn = ::SDL_SetRelativeMouseMode(enabled);
 	if (rtn < 0) {
 		SetError_SDL(sig);
@@ -5907,7 +5935,7 @@ Gura_ImplementFunction(JoystickGetAttached)
 {
 	SDL_Joystick *joystick = args.IsValid(0)? Object_Joystick::GetObject(args, 0)->GetEntity() : NULL;
 	SDL_bool rtn = ::SDL_JoystickGetAttached(joystick);
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.JoystickGetAxis(joystick:sdl2.Joystick, axis:number)
@@ -6310,6 +6338,7 @@ Gura_DeclareFunction(GameControllerAddMappingsFromRW)
 
 Gura_ImplementFunction(GameControllerAddMappingsFromRW)
 {
+#if 0
 	SDL_RWops *rw = args.IsValid(0)? Object_RWops::GetObject(args, 0)->GetEntity() : NULL;
 	int freerw = args.GetInt(1);
 	int rtn = ::SDL_GameControllerAddMappingsFromRW(rw, freerw);
@@ -6318,6 +6347,9 @@ Gura_ImplementFunction(GameControllerAddMappingsFromRW)
 		return Value::Null;
 	}
 	return Value(rtn);
+#endif
+	SetError_NotImpFunction(sig, "GameControllerAddMappingsFromRW");
+	return Value::Null;
 }
 
 // sdl2.GameControllerClose(gamecontroller:sdl2.GameController):void
@@ -6365,7 +6397,7 @@ Gura_ImplementFunction(GameControllerGetAttached)
 {
 	SDL_GameController *gamecontroller = args.IsValid(0)? Object_GameController::GetObject(args, 0)->GetEntity() : NULL;
 	SDL_bool rtn = ::SDL_GameControllerGetAttached(gamecontroller);
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.GameControllerGetAxis(gamecontroller:sdl2.GameController, axis:number)
@@ -6663,7 +6695,7 @@ Gura_ImplementFunction(IsGameController)
 {
 	int joystick_index = args.GetInt(0);
 	SDL_bool rtn = ::SDL_IsGameController(joystick_index);
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.HapticClose(haptic:sdl2.Haptic):void
@@ -8674,7 +8706,7 @@ Gura_ImplementFunction(RemoveTimer)
 {
 	SDL_TimerID id = static_cast<SDL_TimerID>(args.GetInt(0));
 	SDL_bool rtn = ::SDL_RemoveTimer(id);
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.TICKS_PASSED(A:number, B:number)
@@ -8692,7 +8724,7 @@ Gura_ImplementFunction(TICKS_PASSED)
 	Uint32 A = args.GetULong(0);
 	Uint32 B = args.GetULong(1);
 	SDL_bool rtn = ::SDL_TICKS_PASSED(A, B);
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.GetBasePath()
@@ -9228,7 +9260,7 @@ Gura_DeclareFunction(Has3DNow)
 Gura_ImplementFunction(Has3DNow)
 {
 	SDL_bool rtn = ::SDL_Has3DNow();
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.HasAVX()
@@ -9242,7 +9274,7 @@ Gura_DeclareFunction(HasAVX)
 Gura_ImplementFunction(HasAVX)
 {
 	SDL_bool rtn = ::SDL_HasAVX();
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.HasAVX2()
@@ -9256,7 +9288,7 @@ Gura_DeclareFunction(HasAVX2)
 Gura_ImplementFunction(HasAVX2)
 {
 	SDL_bool rtn = ::SDL_HasAVX2();
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.HasAltiVec()
@@ -9270,7 +9302,7 @@ Gura_DeclareFunction(HasAltiVec)
 Gura_ImplementFunction(HasAltiVec)
 {
 	SDL_bool rtn = ::SDL_HasAltiVec();
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.HasMMX()
@@ -9284,7 +9316,7 @@ Gura_DeclareFunction(HasMMX)
 Gura_ImplementFunction(HasMMX)
 {
 	SDL_bool rtn = ::SDL_HasMMX();
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.HasRDTSC()
@@ -9298,7 +9330,7 @@ Gura_DeclareFunction(HasRDTSC)
 Gura_ImplementFunction(HasRDTSC)
 {
 	SDL_bool rtn = ::SDL_HasRDTSC();
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.HasSSE()
@@ -9312,7 +9344,7 @@ Gura_DeclareFunction(HasSSE)
 Gura_ImplementFunction(HasSSE)
 {
 	SDL_bool rtn = ::SDL_HasSSE();
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.HasSSE2()
@@ -9326,7 +9358,7 @@ Gura_DeclareFunction(HasSSE2)
 Gura_ImplementFunction(HasSSE2)
 {
 	SDL_bool rtn = ::SDL_HasSSE2();
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.HasSSE3()
@@ -9340,7 +9372,7 @@ Gura_DeclareFunction(HasSSE3)
 Gura_ImplementFunction(HasSSE3)
 {
 	SDL_bool rtn = ::SDL_HasSSE3();
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.HasSSE41()
@@ -9354,7 +9386,7 @@ Gura_DeclareFunction(HasSSE41)
 Gura_ImplementFunction(HasSSE41)
 {
 	SDL_bool rtn = ::SDL_HasSSE41();
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.HasSSE42()
@@ -9368,7 +9400,7 @@ Gura_DeclareFunction(HasSSE42)
 Gura_ImplementFunction(HasSSE42)
 {
 	SDL_bool rtn = ::SDL_HasSSE42();
-	return Value(rtn != 0);
+	return Value(rtn != SDL_FALSE);
 }
 
 // sdl2.Swap16():void
@@ -9784,6 +9816,7 @@ Gura_ModuleEntry()
 	RealizeClass(DisplayMode);
 	RealizeClass(GLContext);
 	RealizeClass(Haptic);
+	RealizeClass(Surface);
 	// class preparation
 	PrepareClass(Window);
 	PrepareClass(Renderer);
@@ -9804,6 +9837,7 @@ Gura_ModuleEntry()
 	PrepareClass(DisplayMode);
 	PrepareClass(GLContext);
 	PrepareClass(Haptic);
+	PrepareClass(Surface);
 	AssignValues(env);
 	AssignFunctions(env);
 	Gura_AssignFunction(test);
@@ -10084,7 +10118,7 @@ void AssignFunctions(Environment &env)
 		Gura_AssignFunction(DisableScreenSaver);
 		Gura_AssignFunction(EnableScreenSaver);
 		Gura_AssignFunction(GL_CreateContext);
-		Gura_AssignFunction(DeleteContext);
+		Gura_AssignFunction(GL_DeleteContext);
 		Gura_AssignFunction(GL_ExtensionSupported);
 		Gura_AssignFunction(GL_GetAttribute);
 		Gura_AssignFunction(GL_GetCurrentContext);
@@ -10132,7 +10166,7 @@ void AssignFunctions(Environment &env)
 		Gura_AssignFunction(MaximizeWindow);
 		Gura_AssignFunction(MinimizeWindow);
 		Gura_AssignFunction(RaiseWindow);
-		Gura_AssignFunction(ResotoreWindow);
+		Gura_AssignFunction(RestoreWindow);
 		Gura_AssignFunction(SetWindowBordered);
 		Gura_AssignFunction(SetWindowBrightness);
 		Gura_AssignFunction(SetWindowData);
@@ -10178,10 +10212,10 @@ void AssignFunctions(Environment &env)
 		Gura_AssignFunction(RenderClear);
 		Gura_AssignFunction(RenderCopy);
 		Gura_AssignFunction(RenderCopyEx);
-		Gura_AssignFunction(DrawLine);
-		Gura_AssignFunction(DrawLines);
-		Gura_AssignFunction(DrawPoint);
-		Gura_AssignFunction(DrawPoints);
+		Gura_AssignFunction(RenderDrawLine);
+		Gura_AssignFunction(RenderDrawLines);
+		Gura_AssignFunction(RenderDrawPoint);
+		Gura_AssignFunction(RenderDrawPoints);
 		Gura_AssignFunction(RenderDrawRect);
 		Gura_AssignFunction(RenderDrawRects);
 		Gura_AssignFunction(RenderFillRect);

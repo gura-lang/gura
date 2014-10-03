@@ -24,6 +24,7 @@
 #include "Class_DisplayMode.h"
 #include "Class_GLContext.h"
 #include "Class_Haptic.h"
+#include "Class_Surface.h"
 
 Gura_BeginModuleHeader(sdl2)
 
