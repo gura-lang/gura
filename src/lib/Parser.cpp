@@ -100,6 +100,8 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_stat = STAT_NumberAfterDot;
 		} else if (IsWhite(ch)) {
 			// nothing to do
+		} else if (ch == '\x0c') { // page-break
+			// nothing to do
 		} else if (IsSymbolFirstChar(ch)) {
 			_token.clear();
 			_token.push_back(ch);
