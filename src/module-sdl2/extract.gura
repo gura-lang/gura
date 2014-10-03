@@ -667,7 +667,6 @@ ArgInfo = struct(name:string, typeC:string,
 }
 
 ReturnInfo = struct(typeC:string, typeGura:string:nil, fmtReturn:string:nil) {
-	
 }
 
 TypeConv = struct(moduleName:string:nil, typeGura:string, fmtGetter:string, fmtReturn:string)
