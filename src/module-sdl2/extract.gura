@@ -4,8 +4,8 @@ import(re)
 text = R'''
 //-----------------------------------------------------------------------------
 // Basics - Initialization and Shutdown
-Init(Uint32 flags):error
-InitSubSystem(Uint32 flags):error
+Init(Uint32 flags):negerr
+InitSubSystem(Uint32 flags):negerr
 Quit()
 QuitSubSystem(Uint32 flags)
 SetMainReady()
@@ -59,7 +59,7 @@ GetVersion
 //-----------------------------------------------------------------------------
 // Video - Display and Window Management
 CreateWindow(const char* title, int x, int y, int w, int h, Uint32 flags):SDL_Window*
-CreateWindowAndRenderer(int width, int height, Uint32 window_flags, SDL_Window** #window, SDL_Renderer** #renderer):error
+CreateWindowAndRenderer(int width, int height, Uint32 window_flags, SDL_Window** #window, SDL_Renderer** #renderer):negerr
 CreateWindowFrom
 DestroyWindow(SDL_Window* window)
 DisableScreenSaver()
@@ -67,25 +67,25 @@ EnableScreenSaver()
 GL_CreateContext(SDL_Window* window):SDL_GLContext
 DeleteContext(SDL_GLContext context)
 GL_ExtensionSupported(const char* extension):SDL_bool
-GL_GetAttribute(SDL_GLattr attr, int* #value):error
+GL_GetAttribute(SDL_GLattr attr, int* #value):negerr
 GL_GetCurrentContext():SDL_GLContext
 GL_GetCurrentWindow():SDL_Window*
 GL_GetDrawableSize(SDL_Window* window, int* #w, int* #h)
 GL_GetProcAddress
 GL_GetSwapInterval():int
-GL_LoadLibrary(const char* path):error
-GL_MakeCurrent(SDL_Window* window, SDL_GLContext context):error
+GL_LoadLibrary(const char* path):negerr
+GL_MakeCurrent(SDL_Window* window, SDL_GLContext context):negerr
 GL_ResetAttributes()
-GL_SetAttribute(SDL_GLattr attr, int value):error
-GL_SetSwapInterval(int interval):error
+GL_SetAttribute(SDL_GLattr attr, int value):negerr
+GL_SetSwapInterval(int interval):negerr
 GL_SwapWindow(SDL_Window* window)
 GL_UnloadLibrary()
 GetClosestDisplayMode(int displayIndex, const SDL_DisplayMode* mode, SDL_DisplayMode* #closest)
-GetCurrentDisplayMode(int displayIndex, SDL_DisplayMode* #mode):error
+GetCurrentDisplayMode(int displayIndex, SDL_DisplayMode* #mode):negerr
 GetCurrentVideoDriver():const char*
-GetDesktopDisplayMode(int displayIndex, SDL_DisplayMode* #mode):error
-GetDisplayBounds(int displayIndex, SDL_Rect* #rect):error
-GetDisplayMode(int displayIndex, int modeIndex, SDL_DisplayMode* #mode):error
+GetDesktopDisplayMode(int displayIndex, SDL_DisplayMode* #mode):negerr
+GetDisplayBounds(int displayIndex, SDL_Rect* #rect):negerr
+GetDisplayMode(int displayIndex, int modeIndex, SDL_DisplayMode* #mode):negerr
 GetDisplayName(int dipslayIndex):const char*
 GetNumDisplayModes(int displayIndex):int
 GetNumVideoDisplays():int
@@ -93,11 +93,11 @@ GetNumVideoDrivers():int
 GetVideoDriver(int index):const char*
 GetWindowBrightness(SDL_Window* window):float
 #GetWindowData(SDL_Window* window, const char* name)
-GetWindowDisplayIndex(SDL_Window* window):error_number
-GetWindowDisplayMode(SDL_Window* window, SDL_DisplayMode* mode):error
+GetWindowDisplayIndex(SDL_Window* window):negerr_number
+GetWindowDisplayMode(SDL_Window* window, SDL_DisplayMode* mode):negerr
 GetWindowFlags(SDL_Window* window):Uint32
 GetWindowFromID(Uint32 id):SDL_Window*
-GetWindowGammaRamp(SDL_Window* window, Uint16* #red, Uint16* #green, Uint16* #blue):error
+GetWindowGammaRamp(SDL_Window* window, Uint16* #red, Uint16* #green, Uint16* #blue):negerr
 GetWindowGrab(SDL_Window* window):SDL_bool
 GetWindowID(SDL_Window* window):Uint32
 GetWindowMaximumSize(SDL_Window* window, int* #w, int* #h)
@@ -115,25 +115,25 @@ MinimizeWindow(SDL_Window* window)
 RaiseWindow(SDL_Window* window)
 ResotoreWindow(SDL_Window* window)
 SetWindowBordered(SDL_Window* window, SDL_bool bordered)
-SetWindowBrightness(SDL_Window* window, float brightness):error
+SetWindowBrightness(SDL_Window* window, float brightness):negerr
 #SetWindowData(SDL_Window* window, const char* name, void* #userdata)
-SetWindowDisplayMode(SDL_Window* window, const SDL_DisplayMode* mode):error
-SetWindowFullscreen(SDL_Window* window, Uint32 flags):error
-SetWindowGammaRamp(SDL_Window* window, const Uint16* #red, const Uint16* #green, const Uint16* #blue):error
+SetWindowDisplayMode(SDL_Window* window, const SDL_DisplayMode* mode):negerr
+SetWindowFullscreen(SDL_Window* window, Uint32 flags):negerr
+SetWindowGammaRamp(SDL_Window* window, const Uint16* #red, const Uint16* #green, const Uint16* #blue):negerr
 SetWindowGrab(SDL_Window* window, SDL_bool grabbed)
-SetWindowHitTest(SDL_Window* window, SDL_HitTest #callback, void* #callback_data):error
+SetWindowHitTest(SDL_Window* window, SDL_HitTest #callback, void* #callback_data):negerr
 SetWindowIcon(SDL_Window* window, SDL_Surface* icon)
 SetWindowMaximumSize(SDL_Window* window, int max_w, int max_h)
 SetWindowMinimumSize(SDL_Window* window, int min_w, int min_h)
 SetWindowPosition(SDL_Window* window, int x, int y)
 SetWindowSize(SDL_Window* window, int w, int h)
 SetWindowTitle(SDL_Window* window, const char* title)
-#ShowMessageBox(const SDL_MessageBoxData* #messageboxdata, int* #buttonid):error
-ShowSimpleMessageBox(Uint32 flags, const char* title, const char* message, SDL_Window* window):error
+#ShowMessageBox(const SDL_MessageBoxData* #messageboxdata, int* #buttonid):negerr
+ShowSimpleMessageBox(Uint32 flags, const char* title, const char* message, SDL_Window* window):negerr
 ShowWindow(SDL_Window* window)
-UpdateWindowSurface(SDL_Window* window):error
-UpdateWindowSurfaceRects(SDL_Window* window, const SDL_Rect* rects, int #numrects):error
-VideoInit(const char* driver_name):error
+UpdateWindowSurface(SDL_Window* window):negerr
+UpdateWindowSurfaceRects(SDL_Window* window, const SDL_Rect* rects, int #numrects):negerr
+VideoInit(const char* driver_name):negerr
 VideoQuit()
 //-----------------------------------------------------------------------------
 // Video - 2D Accelerated Rendering
@@ -141,56 +141,56 @@ CreateRenderer(SDL_Window* window, int index, Uint32 flags):SDL_Renderer*
 CreateSoftwareRenderer(SDL_Surface* surface):SDL_Renderer*
 CreateTexture(SDL_Renderer* renderer, Uint32 format, int access, int w, int h):SDL_Texture*
 CreateTextureFromSurface(SDL_Renderer* renderer, SDL_Surface* surface):SDL_Texture*
-CreateWindowAndRenderer(int width, int height, Uint32 window_flags, SDL_Window** #window, SDL_Renderer** #renderer):error
+CreateWindowAndRenderer(int width, int height, Uint32 window_flags, SDL_Window** #window, SDL_Renderer** #renderer):negerr
 DestroyRenderer(SDL_Renderer* renderer)
 DestroyTexture(SDL_Texture* texture)
-GL_BindTexture(SDL_Texture* texture, float* #texw, float* #texh):error
-GL_UnbindTexture(SDL_Texture* texture):error
+GL_BindTexture(SDL_Texture* texture, float* #texw, float* #texh):negerr
+GL_UnbindTexture(SDL_Texture* texture):negerr
 GetNumRenderDrivers():int
-GetRenderDrawBlendMode(SDL_Renderer* renderer, SDL_BlendMode* #blendMode):error
+GetRenderDrawBlendMode(SDL_Renderer* renderer, SDL_BlendMode* #blendMode):negerr
 GetRenderDrawColor(SDL_Renderer* renderer, Uint8* #r, Uint8* #g, Uint8* #b, Uint8* #a)
-GetRenderDriverInfo(int index, SDL_RendererInfo* #info):error
+GetRenderDriverInfo(int index, SDL_RendererInfo* #info):negerr
 GetRenderTarget(SDL_Renderer* renderer) SDL_Texture*
 GetRenderer(SDL_Window* window):SDL_Renderer*
-GetRenderInfo(SDL_Renderer* renderer, SDL_RendererInfo* #info):error
-GetRenderOutputSize(SDL_Renderer* renderer, int* #w, int* #h):error
-GetTextureAlphaMod(SDL_Texture* texture, Uint8* #alpha):error
-GetTextureBlendMode(SDL_Texture* texture, SDL_BlendMode* #blendMode):error
-GetTextureColorMod(SDL_Texture* texture, Uint8* #r, Uint8* #g, Uint8* #b):error
-LockTexture(SDL_Texture* texture, const SDL_Rect* rect, void** #pixels, int* #pitch):error
-QueryTexture(SDL_Texture* texture, Uint32* #format, int* #access, int* #w, int* #h):error
-RenderClear(SDL_Renderer* renderer):error
-RenderCopy(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect):error
-RenderCopyEx(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect, double angle, const SDL_Point* center, SDL_RendererFlip flip):error
-DrawLine(SDL_Renderer* renderer, int x1, int y1, int x2, int y2):error
-DrawLines(SDL_Renderer* renderer, const SDL_Point* #points, int #count):error
-DrawPoint(SDL_Renderer* renderer, int x, int y):error
-DrawPoints(SDL_Renderer* renderer, const SDL_Point* #points, int #count):error
-RenderDrawRect(SDL_Renderer* renderer, const SDL_Rect* rect):error
-RenderDrawRects(SDL_Renderer* renderer, const SDL_Rect* #rects, int #count):error
-RenderFillRect(SDL_Renderer* renderer, const SDL_Rect* rect):error
-RenderFillRects(SDL_Renderer* renderer, const SDL_Rect* #rects, int #count):error
+GetRenderInfo(SDL_Renderer* renderer, SDL_RendererInfo* #info):negerr
+GetRenderOutputSize(SDL_Renderer* renderer, int* #w, int* #h):negerr
+GetTextureAlphaMod(SDL_Texture* texture, Uint8* #alpha):negerr
+GetTextureBlendMode(SDL_Texture* texture, SDL_BlendMode* #blendMode):negerr
+GetTextureColorMod(SDL_Texture* texture, Uint8* #r, Uint8* #g, Uint8* #b):negerr
+LockTexture(SDL_Texture* texture, const SDL_Rect* rect, void** #pixels, int* #pitch):negerr
+QueryTexture(SDL_Texture* texture, Uint32* #format, int* #access, int* #w, int* #h):negerr
+RenderClear(SDL_Renderer* renderer):negerr
+RenderCopy(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect):negerr
+RenderCopyEx(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect, double angle, const SDL_Point* center, SDL_RendererFlip flip):negerr
+DrawLine(SDL_Renderer* renderer, int x1, int y1, int x2, int y2):negerr
+DrawLines(SDL_Renderer* renderer, const SDL_Point* #points, int #count):negerr
+DrawPoint(SDL_Renderer* renderer, int x, int y):negerr
+DrawPoints(SDL_Renderer* renderer, const SDL_Point* #points, int #count):negerr
+RenderDrawRect(SDL_Renderer* renderer, const SDL_Rect* rect):negerr
+RenderDrawRects(SDL_Renderer* renderer, const SDL_Rect* #rects, int #count):negerr
+RenderFillRect(SDL_Renderer* renderer, const SDL_Rect* rect):negerr
+RenderFillRects(SDL_Renderer* renderer, const SDL_Rect* #rects, int #count):negerr
 RenderGetClipRect(SDL_Renderer* renderer, SDL_Rect* #rect)
 RenderGetLogicalSize(SDL_Renderer* renderer, int* #w, int* #h)
 RenderGetScale(SDL_Renderer* renderer, float* #scaleX, float* #scaleY)
 RenderGetViewport(SDL_Renderer* renderer, SDL_Rect* #rect)
 RenderIsClipEnabled(SDL_Renderer* renderer):SDL_bool
 RenderPresent(SDL_Renderer* renderer)
-RenderReadPixels(SDL_Renderer* renderer, const SDL_Rect* rect, Uint32 format, void* #pixels, int pitch):error
-RenderSetClipRect(SDL_Renderer* renderer, const SDL_Rect* rect):error
-RenderSetLogicalSize(SDL_Renderer* renderer, int w, int h):error
-RenderSetScale(SDL_Renderer* renderer, float scaleX, float scaleY):error
-RenderSetViewport(SDL_Renderer* renderer, const SDL_Rect* rect):error
+RenderReadPixels(SDL_Renderer* renderer, const SDL_Rect* rect, Uint32 format, void* #pixels, int pitch):negerr
+RenderSetClipRect(SDL_Renderer* renderer, const SDL_Rect* rect):negerr
+RenderSetLogicalSize(SDL_Renderer* renderer, int w, int h):negerr
+RenderSetScale(SDL_Renderer* renderer, float scaleX, float scaleY):negerr
+RenderSetViewport(SDL_Renderer* renderer, const SDL_Rect* rect):negerr
 RenderTargetSupported(SDL_Renderer* renderer):SDL_bool
 SetRenderDrawBlendMode(SDL_Renderer* renderer, SDL_BlendMode blendMode)
-SetRenderDrawColor(SDL_Renderer* renderer, Uint8 r, Uint8 g, Uint8 b, Uint8 a):error
-SetRenderTarget(SDL_Renderer* renderer, SDL_Texture *texture):error
-SetTextureAlphaMod(SDL_Texture* texture, Uint8 alpha):error
-SetTextureBlendMode(SDL_Texture* texture, SDL_BlendMode blendMode):error
-SetTextureColorMod(SDL_Texture* texture, Uint8 r, Uint8 g, Uint8 b):error
+SetRenderDrawColor(SDL_Renderer* renderer, Uint8 r, Uint8 g, Uint8 b, Uint8 a):negerr
+SetRenderTarget(SDL_Renderer* renderer, SDL_Texture *texture):negerr
+SetTextureAlphaMod(SDL_Texture* texture, Uint8 alpha):negerr
+SetTextureBlendMode(SDL_Texture* texture, SDL_BlendMode blendMode):negerr
+SetTextureColorMod(SDL_Texture* texture, Uint8 r, Uint8 g, Uint8 b):negerr
 UnlockTexture(SDL_Texture* texture)
-UpdateTexture(SDL_Texture* texture, const SDL_Rect* rect, const void* #pixels, int pitch):error
-UpdateYUVTexture(SDL_Texture* texture, const SDL_Rect* rect, const Uint8* #Yplane, int #Ypitch, const Uint8* #Uplane, int #Upitch, const Uint8* #Vplane, int #Vpitch):error
+UpdateTexture(SDL_Texture* texture, const SDL_Rect* rect, const void* #pixels, int pitch):negerr
+UpdateYUVTexture(SDL_Texture* texture, const SDL_Rect* rect, const Uint8* #Yplane, int #Ypitch, const Uint8* #Uplane, int #Upitch, const Uint8* #Vplane, int #Vpitch):negerr
 //-----------------------------------------------------------------------------
 // Video - Pixel Formats and Conversion Routines
 AllocFormat(Uint32 pixel_format):SDL_PixelFormat*
@@ -205,8 +205,8 @@ MapRGB(const SDL_PixelFormat* format, Uint8 r, Uint8 g, Uint8 b):Uint32
 MapRGBA(const SDL_PixelFormat* format, Uint8 r, Uint8 g, Uint8 b, Uint8 a):Uint32
 MasksToPixelFormatEnum(int bpp, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask):Uint32
 PixelFormatEnumToMasks(Uint32 format, int* #bpp, Uint32* #Rmask, Uint32* #Gmask, Uint32* #Bmask, Uint32* #Amask):SDL_bool
-SetPaletteColors(SDL_Palette* palette, const SDL_Color* #colors, int firstcolor, int #ncolors):error
-SetPixelFormatPalette(SDL_PixelFormat* format, SDL_Palette* palette):error
+SetPaletteColors(SDL_Palette* palette, const SDL_Color* #colors, int firstcolor, int #ncolors):negerr
+SetPixelFormatPalette(SDL_PixelFormat* format, SDL_Palette* palette):negerr
 //-----------------------------------------------------------------------------
 // Video - Rectangle Functions
 EnclosePoints(const SDL_Point* #points, int #count, const SDL_Rect* clip, SDL_Rect* #result):SDL_bool
@@ -219,36 +219,36 @@ RectEquals(const SDL_Rect* a, const SDL_Rect* b):SDL_bool
 UnionRect(const SDL_Rect* A, const SDL_Rect* B, SDL_Rect* #result)
 //-----------------------------------------------------------------------------
 // Video - Surface Creation and Simple Drawing
-BlitScaled(SDL_Surface* src, const SDL_Rect* srcrect, SDL_Surface*dst, SDL_Rect* dstrect):error
-BlitSurface(SDL_Surface* src, const SDL_Rect* srcrect, SDL_Surface*dst, SDL_Rect* dstrect):error
-ConvertPixels(int width, int height, Uint32 src_format, const void* #src, int #src_pitch, Uint32 dst_format, void* #dst, int #dst_pitch):error
+BlitScaled(SDL_Surface* src, const SDL_Rect* srcrect, SDL_Surface*dst, SDL_Rect* dstrect):negerr
+BlitSurface(SDL_Surface* src, const SDL_Rect* srcrect, SDL_Surface*dst, SDL_Rect* dstrect):negerr
+ConvertPixels(int width, int height, Uint32 src_format, const void* #src, int #src_pitch, Uint32 dst_format, void* #dst, int #dst_pitch):negerr
 ConvertSurface(SDL_Surface* src, const SDL_PixelFormat* fmt, Uint32 flags):SDL_Surface*
 ConvertSurfaceFormat(SDL_Surface* src, Uint32 pixel_format, Uint32 flags):SDL_Surface*
 CreateRGBSurface(Uint32 flags, int width, int height, int depth, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask):SDL_Surface*
 CreateRGBSurfaceFrom(void* #pixels, int width, int height, int depth, int pitch, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask):SDL_Surface*
-FillRect(SDL_Surface* dst, const SDL_Rect* rect, Uint32 color):error
-FillRects(SDL_Surface* dst, const SDL_Rect* #rects, int #count, Uint32 color):error
+FillRect(SDL_Surface* dst, const SDL_Rect* rect, Uint32 color):negerr
+FillRects(SDL_Surface* dst, const SDL_Rect* #rects, int #count, Uint32 color):negerr
 FreeSurface(SDL_Surface* surface)
 GetClipRect(SDL_Surface* surface, SDL_Rect* rect)
-GetColorKey(SDL_Surface* surface, Uint32* #key):error
-GetSurfaceAlphaMod(SDL_Surface* surface, Uint8* #alpha):error
-GetSurfaceBlendMode(SDL_Surface* surface, SDL_BlendMode* #blendMode):error
-GetSurfaceColorMod(SDL_Surface* surface, Uint8* #r, Uint8* #g, Uint8* #b):error
+GetColorKey(SDL_Surface* surface, Uint32* #key):negerr
+GetSurfaceAlphaMod(SDL_Surface* surface, Uint8* #alpha):negerr
+GetSurfaceBlendMode(SDL_Surface* surface, SDL_BlendMode* #blendMode):negerr
+GetSurfaceColorMod(SDL_Surface* surface, Uint8* #r, Uint8* #g, Uint8* #b):negerr
 LoadBMP(const char* file):SDL_Surface*
 LoadBMP_RW(SDL_RWops* src, int freesrc):SDL_Surface*
-LockSurface(SDL_Surface* surface):error
-LowerBlit(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect):error
-LowerBlitScaled(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect):error
+LockSurface(SDL_Surface* surface):negerr
+LowerBlit(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect):negerr
+LowerBlitScaled(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect):negerr
 MUSTLOCK(SDL_Surface* surface):SDL_bool
-SaveBMP(SDL_Surface* surface, const char* file):error
-SaveBMP_RW(SDL_Surface* surface, SDL_RWops* dst, int freedst):error
+SaveBMP(SDL_Surface* surface, const char* file):negerr
+SaveBMP_RW(SDL_Surface* surface, SDL_RWops* dst, int freedst):negerr
 SetClipRect(SDL_Surface* surface, const SDL_Rect* rect):SDL_bool
-SetColorKey(SDL_Surface* surface, int flag, Uint32 key):error
-SetSurfaceAlphaMod(SDL_Surface* surface, Uint8 alpha):error
-SetSurfaceBlendMode(SDL_Surface* surface, SDL_BlendMode blendMode):error
-SetSurfaceColorMod(SDL_Surface* surface, Uint8 r, Uint8 g, Uint8 b):error
-SetSurfacePalette(SDL_Surface* surface, SDL_Palette* palette):error
-SetSurfaceRLE(SDL_Surface* surface, int flag):error
+SetColorKey(SDL_Surface* surface, int flag, Uint32 key):negerr
+SetSurfaceAlphaMod(SDL_Surface* surface, Uint8 alpha):negerr
+SetSurfaceBlendMode(SDL_Surface* surface, SDL_BlendMode blendMode):negerr
+SetSurfaceColorMod(SDL_Surface* surface, Uint8 r, Uint8 g, Uint8 b):negerr
+SetSurfacePalette(SDL_Surface* surface, SDL_Palette* palette):negerr
+SetSurfaceRLE(SDL_Surface* surface, int flag):negerr
 UnlockSurface(SDL_Surface* surface)
 //-----------------------------------------------------------------------------
 // Video - Platform-specific Window Management
@@ -257,7 +257,7 @@ GetWindowWMInfo(SDL_Window* window, SDL_SysWMinfo* #info):SDL_bool
 // Video - Clipboard Handling
 #GetClipboardText():char*
 HasClipboardText():SDL_bool
-SetClipboardText(const char* text):error
+SetClipboardText(const char* text):negerr
 //-----------------------------------------------------------------------------
 // Input Events - Event Handling
 #AddEventWatch()
@@ -273,19 +273,19 @@ GetTouchDevice(int index):SDL_TouchID
 GetTouchFinger(SDL_TouchID touchId, int index):SDL_Finger*
 HasEvent(Uint32 type):SDL_bool
 HasEvents(Uint32 minType, Uint32 maxType):SDL_bool
-LoadDollarTemplates(SDL_TouchID touchId, SDL_RWops* src):error_number
-PeepEvents(SDL_Event* #events, int #numevents, SDL_eventaction action, Uint32 minType, Uint32 maxType):error
+LoadDollarTemplates(SDL_TouchID touchId, SDL_RWops* src):negerr_number
+PeepEvents(SDL_Event* #events, int #numevents, SDL_eventaction action, Uint32 minType, Uint32 maxType):negerr
 PollEvent(SDL_Event* #event):int
 PumpEvents()
-PushEvent(SDL_Event* event):error_number
+PushEvent(SDL_Event* event):negerr_number
 QuitRequested():SDL_bool
-RecordGesture(SDL_TouchID touchId):error
+RecordGesture(SDL_TouchID touchId):negerr
 RegisterEvents(int numevents):Uint32
-SaveAllDollarTemplates(SDL_RWops* dst):error
-SaveDollarTemplate(SDL_GestureID gestureId, SDL_RWops* dst):error
+SaveAllDollarTemplates(SDL_RWops* dst):negerr
+SaveDollarTemplate(SDL_GestureID gestureId, SDL_RWops* dst):negerr
 #SetEventFilter()
-WaitEvent(SDL_Event* #event):error
-WaitEventTimeout(SDL_Event* #event, int timeout):error
+WaitEvent(SDL_Event* #event):negerr
+WaitEventTimeout(SDL_Event* #event, int timeout):negerr
 //-----------------------------------------------------------------------------
 // Input Events - Keyboard Support
 GetKeyFromName(const char* name):SDL_Keycode
@@ -306,7 +306,7 @@ StartTextInput()
 StopTextInput()
 //-----------------------------------------------------------------------------
 // Input Events - Mouse Support
-CaptureMouse(SDL_bool enalbed):error
+CaptureMouse(SDL_bool enalbed):negerr
 CreateColorCursor(SDL_Surface* surface, int hot_x, int hot_y):SDL_Cursor*
 CreateCursor(const Uint8* #data, const Uint8* mask, int w, int h, int hot_x, int hot_y):SDL_Cursor*
 CreateSystemCursor(SDL_SystemCursor id):SDL_Cursor*
@@ -319,17 +319,17 @@ GetMouseState(int* #x, int* #y):Uint32
 GetRelativeMouseMode():SDL_bool
 GetRelativeMouseState(int* #x, int* #y):Uint32
 SetCursor(SDL_Cursor* cursor)
-SetRelativeMouseMode(SDL_bool enabled):error
-ShowCursor(int toggle):error
+SetRelativeMouseMode(SDL_bool enabled):negerr
+ShowCursor(int toggle):negerr
 WarpMouseGlobal(int x, int y)
 WarpMouseInWindow(SDL_Window* window, int x, int y)
 //-----------------------------------------------------------------------------
 // Input Events - Joystick Support
 JoystickClose(SDL_Joystick* joystick)
-JoystickEventState(int state):error_number
+JoystickEventState(int state):negerr_number
 JoystickGetAttached(SDL_Joystick* joystick):SDL_bool
 JoystickGetAxis(SDL_Joystick* joystick, int axis):Sint16
-JoystickGetBall(SDL_Joystick* joystick, int ball, int* #dx, int* #dy):error
+JoystickGetBall(SDL_Joystick* joystick, int ball, int* #dx, int* #dy):negerr
 JoystickGetButton(SDL_Joystick* joystick, int button):Uint8
 #JoystickGetDeviceGUID(int device_index):int
 #JoystickGetGUID(SDL_Joystick* joystick):int
@@ -339,18 +339,18 @@ JoystickGetHat(SDL_Joystick* joystick, int hat):Uint8
 JoystickInstanceID(SDL_Joystick* joystick):SDL_JoystickID
 JoystickName(SDL_Joystick* joystick):const char*
 JoystickNameForIndex(int device_index):const char*
-JoystickNumAxes(SDL_Joystick* joystick):error_number
-JoystickNumBalls(SDL_Joystick* joystick):error_number
-JoystickNumButtons(SDL_Joystick* joystick):error_number
-JoystickNumHats(SDL_Joystick* joystick):error_number
+JoystickNumAxes(SDL_Joystick* joystick):negerr_number
+JoystickNumBalls(SDL_Joystick* joystick):negerr_number
+JoystickNumButtons(SDL_Joystick* joystick):negerr_number
+JoystickNumHats(SDL_Joystick* joystick):negerr_number
 JoystickOpen(int device_index):SDL_Joystick*
 JoystickUpdate()
-NumJoysticks():error_number
+NumJoysticks():negerr_number
 //-----------------------------------------------------------------------------
 // Input Events - Game Controller Support
-GameControllerAddMapping(const char* mappingString):error_number
-GameControllerAddMappingsFromFile(const char* filename):error_number
-GameControllerAddMappingsFromRW(SDL_RWops* rw, int freerw):error_number
+GameControllerAddMapping(const char* mappingString):negerr_number
+GameControllerAddMappingsFromFile(const char* filename):negerr_number
+GameControllerAddMappingsFromRW(SDL_RWops* rw, int freerw):negerr_number
 GameControllerClose(SDL_GameController* gamecontroller)
 GameControllerEventState(int state):int
 GameControllerGetAttached(SDL_GameController* gamecontroller):SDL_bool
@@ -372,47 +372,48 @@ GameControllerUpdate()
 IsGameController(int joystick_index):SDL_bool
 //-----------------------------------------------------------------------------
 // Force Feedback - Force Feedback Support
-''', text = R'''
 HapticClose(SDL_Haptic* haptic)
 HapticDestroyEffect(SDL_Haptic* haptic, int effect)
-//HapticEffectSupported(SDL_Haptic* haptic, SDL_HapticEffect* effect)
-HapticGetEffectStatus
-HapticIndex
-HapticName
-HapticNewEffect
-HapticNumAxes
-HapticNumEffects
-HapticNumEffectsPlaying
-HapticOpen
-HapticOpenFromJoystick
-HapticOpenFromMouse
-HapticOpend
-HapticPause
-HapticQuery
-HapticRumbleInit
-HapticRumblePlay
-HapticRumbleStop
-HapticRumbleSupported
-HapticRunEffect
-HapticSetAutocenter
-HapticSetGain
-HapticStopAll
-HapticStopEffect
-HapticUnpause
-HapticUpdateEffect
-JoystickIsHaptic
-MouseIsHaptic
-NumHaptics
-''', R'''
+HapticEffectSupported(SDL_Haptic* haptic, SDL_HapticEffect* effect):negerr_boolean
+HapticGetEffectStatus(SDL_Haptic* haptic, int effect):negerr_boolean
+HapticIndex(SDL_Haptic* haptic):negerr_number
+HapticName(int device_index):const char*
+HapticNewEffect(SDL_Haptic* haptic, SDL_HapticEffect* effect):negerr_number
+HapticNumAxes(SDL_Haptic* haptic):negerr_number
+HapticNumEffects(SDL_Haptic* haptic):negerr_number
+HapticNumEffectsPlaying(SDL_Haptic* haptic):negerr_number
+HapticOpen(int device_index):SDL_Haptic*
+HapticOpenFromJoystick(SDL_Joystick* joystick):SDL_Haptic*
+HapticOpenFromMouse():SDL_Haptic*
+HapticOpend(int device_index):negerr_boolean
+HapticPause(SDL_Haptic* haptic):negerr
+HapticQuery(SDL_Haptic* haptic):unsigned int
+HapticRumbleInit(SDL_Haptic* haptic):negerr
+HapticRumblePlay(SDL_Haptic* haptic, float strength, Uint32 length):negerr
+HapticRumbleStop(SDL_Haptic* haptic):negerr
+HapticRumbleSupported(SDL_Haptic* haptic):negerr_boolean
+HapticRunEffect(SDL_Haptic* haptic, int effect, Uint32 iterations):negerr
+HapticSetAutocenter(SDL_Haptic* haptic, int autocenter):negerr
+HapticSetGain(SDL_Haptic* haptic, int gain):negerr
+HapticStopAll(SDL_Haptic* haptic):negerr
+HapticStopEffect(SDL_Haptic* haptic, int effect):negerr
+HapticUnpause(SDL_Haptic* haptic):negerr
+HapticUpdateEffect(SDL_Haptic* haptic, int effect, SDL_HapticEffect* data):negerr
+JoystickIsHaptic(SDL_Joystick* joystick):negerr_boolean
+MouseIsHaptic():negerr_boolean
+NumHaptics():negerr_number
 //-----------------------------------------------------------------------------
 // Audio - Audio Device Management, Playing and Recording
+'''
+
+text = R'''
 AudioInit
 AudioQuit
 BuildAudioCVT
 ClearQueuedAudio
 CloseAudio
 CloseAudioDevice
-AudioCVT#ConvertAudio
+ConvertAudio
 FreeWAV
 GetAudioDeviceName
 GetAudioDeviceStatus
@@ -435,6 +436,7 @@ PauseAudioDevice
 QueueAudio
 UnlockAudio
 UnlockAudioDevice
+''', R'''
 //-----------------------------------------------------------------------------
 // Threads - Thread Management
 CreateThread
@@ -577,20 +579,34 @@ Gura_ImplementFunction(${fi.funcName})
 	${if (!fi.rtnInfo)}
 	::SDL_${fi.funcName}(${argsCJoined});
 	return Value::Null;
-	${elsif (fi.rtnInfo.typeC == 'error')}
+	${elsif (fi.rtnInfo.typeC == 'negerr')}
 	int rtn = ::SDL_${fi.funcName}(${argsCJoined});
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
 	return Value::Null;
-	${elsif (fi.rtnInfo.typeC == 'error_number')}
+	${elsif (fi.rtnInfo.typeC == 'boolerr')}
+	int rtn = ::SDL_${fi.funcName}(${argsCJoined});
+	if (rtn == 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::Null;
+	${elsif (fi.rtnInfo.typeC == 'negerr_number')}
 	int rtn = ::SDL_${fi.funcName}(${argsCJoined});
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
 	return Value(rtn);
+	${elsif (fi.rtnInfo.typeC == 'negerr_boolean')}
+	int rtn = ::SDL_${fi.funcName}(${argsCJoined});
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value(rtn != 0);
 	${else}
 	${fi.rtnInfo.typeC.sub(r'(\w)$', r'\1 ')}rtn = ::SDL_${fi.funcName}(${argsCJoined});
 	${if (fi.rtnInfo.typeC.endswith('*'))}
@@ -625,9 +641,11 @@ ReturnInfo = struct(typeC:string, typeGura:string:nil, fmtReturn:string:nil) {
 }
 
 TypeConv = struct(moduleName:string:nil, typeGura:string, fmtGetter:string, fmtReturn:string)
+
 typeConvDict = %{
 	'char' => TypeConv(nil, 'number', 'args.GetChar(%d)', 'Value(rtn)')
 	'int' => TypeConv(nil, 'number', 'args.GetInt(%d)', 'Value(rtn)')
+	'unsigned int' => TypeConv(nil, 'number', 'args.GetUInt(%d)', 'Value(rtn)')
 	'short' => TypeConv(nil, 'number', 'args.GetShort(%d)', 'Value(rtn)')
 	'float' => TypeConv(nil, 'number', 'args.GetFloat(%d)', 'Value(rtn)')
 	'double' => TypeConv(nil, 'number', 'args.GetDouble(%d)', 'Value(rtn)')
@@ -702,6 +720,14 @@ typeConvDict = %{
 			'sdl2', 'Finger',
 			'Object_Finger::GetObject(args, %d)->GetEntity()',
 			'Value(new Object_Finger(rtn))')
+	'SDL_Haptic *' => TypeConv(
+			'sdl2', 'Haptic',
+			'Object_Haptic::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_Haptic(rtn))')
+	'SDL_HapticEffect *' => TypeConv(
+			'sdl2', 'HapticEffect',
+			'Object_HapticEffect::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_HapticEffect(rtn))')
 	'SDL_Event *' => TypeConv(
 			'sdl2', 'Event',
 			'Object_Event::GetObject(args, %d)->GetEntity()',
@@ -804,6 +830,8 @@ FuncInfo = class {
 				argRaw.isempty() && continue
 				if (m = argRaw.match(r'^(\w+)\s+(#?\w+)$')) {
 					[typeC, name] = m[1, 2]
+				} elsif (m = argRaw.match(r'^unsigned\s+(\w+)\s+(#?\w+)$')) {
+					[typeC, name] = ['unsigned ' + m[1], m[2]]
 				} elsif (m = argRaw.match(r'^(\w+)\s*(\*+)\s*(#?\w+)$')) {
 					[typeC, name] = [m[1] + ' ' + m[2], m[3]]
 				} elsif (m = argRaw.match(r'^const\s+(\w+)\s*(\*+)\s*(#?\w+)$')) {
@@ -830,13 +858,19 @@ FuncInfo = class {
 		}
 		if (!this.rtnRaw) {
 			// nothing to do
-		} elsif (this.rtnRaw == 'error') {
-			this.rtnInfo = ReturnInfo('error', nil, nil)
-		} elsif (this.rtnRaw == 'error_number') {
-			this.rtnInfo = ReturnInfo('error_number', nil, nil)
+		} elsif (this.rtnRaw == 'negerr') {
+			this.rtnInfo = ReturnInfo('negerr', nil, nil)
+		} elsif (this.rtnRaw == 'boolerr') {
+			this.rtnInfo = ReturnInfo('boolerr', nil, nil)
+		} elsif (this.rtnRaw == 'negerr_number') {
+			this.rtnInfo = ReturnInfo('negerr_number', nil, nil)
+		} elsif (this.rtnRaw == 'negerr_boolean') {
+			this.rtnInfo = ReturnInfo('negerr_boolean', nil, nil)
 		} else {
 			if (m = rtnRaw.match(r'^(\w+)$')) {
 				typeC = m[1]
+			} elsif (m = rtnRaw.match(r'^unsigned\s+(\w+)$')) {
+				typeC = 'unsigned ' + m[1]
 			} elsif (m = rtnRaw.match(r'^(\w+)\s*\*\s*$')) {
 				typeC = m[1] + ' *'
 			} elsif (m = rtnRaw.match(r'^const\s+(\w+)\s*\*\s*$')) {
@@ -853,7 +887,7 @@ FuncInfo = class {
 			this.rtnInfo = ReturnInfo(typeC, typeConv.typeGura, typeConv.fmtReturn)
 		}
 		this.argsGura = this.argsC.filter(this.argsC:*typeGura):list
-		this.voidFlag = (!this.rtnInfo || this.rtnInfo.typeC == 'error')
+		this.voidFlag = (!this.rtnInfo || this.rtnInfo.typeC in ['negerr', 'boolerr'])
 	}
 	RenderImplementation(stream:stream) = {
 		fi = this
