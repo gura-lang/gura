@@ -407,35 +407,35 @@ NumHaptics():negerr_number
 '''
 
 text = R'''
-AudioInit
-AudioQuit
-BuildAudioCVT
-ClearQueuedAudio
-CloseAudio
-CloseAudioDevice
-ConvertAudio
-FreeWAV
-GetAudioDeviceName
-GetAudioDeviceStatus
-GetAudioDriver
-GetAudioStatus
-GetCurrentAudioDriver
-GetNumAudioDevices
-GetNumAudioDrivers
-GetQueuedAudioSize
-LoadWAV
-LoadWAV_RW
-LockAudio
-LockAudioDevice
-MixAudio
-MixAudioFormat
-OpenAudio
-OpenAudioDevice
-PauseAudio
-PauseAudioDevice
-QueueAudio
-UnlockAudio
-UnlockAudioDevice
+AudioInit(const char* driver_name):negerr
+AudioQuit()
+BuildAudioCVT(SDL_AudioCVT* cvt, SDL_AudioFormat src_format, Uint8 src_channels, int src_rate, SDL_AudioFormat dst_format, Uint8 dst_channels, int dst_rate):negerr_boolean
+ClearQueuedAudio(SDL_AudioDeviceID dev)
+CloseAudio()
+CloseAudioDevice(SDL_AudioDeviceID dev)
+ConvertAudio(SDL_AudioCVT* cvt):negerr
+FreeWAV(Uint8* #audio_buf)
+GetAudioDeviceName(int index, int iscapture):const char*
+GetAudioDeviceStatus(SDL_AudioDeviceID dev):SDL_AudioStatus
+GetAudioDriver(int index):const char*
+GetAudioStatus():SDL_AudioStatus
+GetCurrentAudioDriver():const char*
+GetNumAudioDevices(int iscapture):negerr_number
+GetNumAudioDrivers():int
+GetQueuedAudioSize(SDL_AudioDeviceID dev):Uint32
+LoadWAV(const char* file, SDL_AudioSpec* spec, Uint8** #audio_buf, Uint32* #audio_len):SDL_AudioSpec*
+LoadWAV_RW(SDL_RWops* src, int freesrc, SDL_AudioSpec* spec, Uint8** #audio_buf, Uint32* #audio_len):SDL_AudioSpec*
+LockAudio()
+LockAudioDevice(SDL_AudioDeviceID dev)
+MixAudio(Uint8* #dst, const Uint8* #src, Uint32 #len, int volume)
+MixAudioFormat(Uint8* #dst, const Uint8* #src, SDL_AudioFormat format, Uint32 #len, int volume)
+OpenAudio(SDL_AudioSpec* desired, SDL_AudioSpec* #obtained):negerr
+OpenAudioDevice(const char* device, int iscapture, const SDL_AudioSpec* desired, SDL_AudioSpec* #obtained, int allowed_changes):SDL_AudioDeviceID
+PauseAudio(int pause_on)
+PauseAudioDevice(SDL_AudioDeviceID dev, int pause_on)
+QueueAudio(SDL_AudioDeviceID dev, const void* #data, Uint32 #len):negerr
+UnlockAudio()
+UnlockAudioDevice(SDL_AudioDeviceID dev)
 ''', R'''
 //-----------------------------------------------------------------------------
 // Threads - Thread Management
@@ -668,6 +668,14 @@ typeConvDict = %{
 			nil, 'number',
 			'static_cast<SDL_GLattr>(args.GetInt(%d))',
 			'Value(rtn)')
+	'SDL_AudioDeviceID' => TypeConv(
+			nil, 'number',
+			'static_cast<SDL_AudioDeviceID>(args.GetInt(%d))',
+			'Value(rtn)')
+	'SDL_AudioStatus' => TypeConv(
+			nil, 'number',
+			'static_cast<SDL_AudioStatus>(args.GetInt(%d))',
+			'Value(rtn)')
 	'SDL_TouchID' => TypeConv(
 			nil, 'number',
 			'static_cast<SDL_TouchID>(args.GetInt(%d))',
@@ -716,6 +724,22 @@ typeConvDict = %{
 			nil, 'number',
 			'static_cast<SDL_GameControllerButtonBind>(args.GetInt(%d))',
 			'Value(rtn)')
+	'SDL_AudioFormat' => TypeConv(
+			nil, 'number',
+			'static_cast<SDL_AudioFormat>(args.GetInt(%d))',
+			'Value(rtn)')
+	'SDL_AudioCVT *' => TypeConv(
+			'sdl2', 'AudioCVT',
+			'Object_AudioCVT::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_AudioCVT(rtn))')
+	'SDL_AudioSpec *' => TypeConv(
+			'sdl2', 'AudioSpec',
+			'Object_AudioSpec::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_AudioSpec(rtn))')
+	'const SDL_AudioSpec *' => TypeConv(
+			'sdl2', 'AudioSpec',
+			'Object_AudioSpec::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_AudioSpec(rtn))')
 	'SDL_Finger *' => TypeConv(
 			'sdl2', 'Finger',
 			'Object_Finger::GetObject(args, %d)->GetEntity()',
