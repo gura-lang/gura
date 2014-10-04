@@ -1,0 +1,17 @@
+#!/usr/bin/env gura
+import(sdl2)
+
+sdl2.Init(sdl2.INIT_VIDEO)
+window = sdl2.CreateWindow('Hey',
+				sdl2.WINDOWPOS_CENTERED, sdl2.WINDOWPOS_CENTERED, 640, 480, 0)
+renderer = sdl2.CreateRenderer(window, -1, 0)
+repeat {
+	sdl2.SetRenderDrawColor(renderer, 0, 0, 0, 255)
+	sdl2.RenderClear(renderer)
+	if (ev = sdl2.PollEvent()) {
+		(ev.type == sdl2.QUIT) && break
+	}
+	sdl2.SetRenderDrawColor(renderer, 255, 0, 0, 255)
+	sdl2.RenderDrawLine(renderer, 10, 10, 400, 400)
+	sdl2.RenderPresent(renderer)
+}

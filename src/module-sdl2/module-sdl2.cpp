@@ -9817,6 +9817,78 @@ void AssignFunctions(Environment &env);
 
 Gura_ModuleEntry()
 {
+	// symbols in SDL_Event
+	Gura_RealizeUserSymbol(type);
+	Gura_RealizeUserSymbol(gain);
+	Gura_RealizeUserSymbol(state);
+	Gura_RealizeUserSymbol(scancode);
+	Gura_RealizeUserSymbol(sym);
+	Gura_RealizeUserSymbol(mod);
+	Gura_RealizeUserSymbol(unicode);
+	Gura_RealizeUserSymbol(x);
+	Gura_RealizeUserSymbol(y);
+	Gura_RealizeUserSymbol(xrel);
+	Gura_RealizeUserSymbol(yrel);
+	Gura_RealizeUserSymbol(axis);
+	Gura_RealizeUserSymbol(value);
+	Gura_RealizeUserSymbol(button);
+	Gura_RealizeUserSymbol(which);
+	Gura_RealizeUserSymbol(hat);
+	Gura_RealizeUserSymbol(ball);
+	Gura_RealizeUserSymbol(w);
+	Gura_RealizeUserSymbol(h);
+	// symbols in SDL_Color
+	Gura_RealizeUserSymbol(r)
+	Gura_RealizeUserSymbol(g)
+	Gura_RealizeUserSymbol(b)
+	// symbols in SDL_PixelFormat
+	Gura_RealizeUserSymbol(palette);
+	Gura_RealizeUserSymbol(BitsPerPixel);
+	Gura_RealizeUserSymbol(BytesPerPixel);
+	Gura_RealizeUserSymbol(Rloss);
+	Gura_RealizeUserSymbol(Gloss);
+	Gura_RealizeUserSymbol(Bloss);
+	Gura_RealizeUserSymbol(Aloss);
+	Gura_RealizeUserSymbol(Rshift);
+	Gura_RealizeUserSymbol(Gshift);
+	Gura_RealizeUserSymbol(Bshift);
+	Gura_RealizeUserSymbol(Ashift);
+	Gura_RealizeUserSymbol(Rmask);
+	Gura_RealizeUserSymbol(Gmask);
+	Gura_RealizeUserSymbol(Bmask);
+	Gura_RealizeUserSymbol(Amask);
+	Gura_RealizeUserSymbol(colorkey);
+	Gura_RealizeUserSymbol(alpha);
+	// symbols in SDL_Surface
+	Gura_RealizeUserSymbol(flags)
+	Gura_RealizeUserSymbol(format)
+	Gura_RealizeUserSymbol(pitch)
+	Gura_RealizeUserSymbol(pixels)
+	Gura_RealizeUserSymbol(clip_rect)
+	Gura_RealizeUserSymbol(refcount)
+	// symbols in SDL_VideoInfo
+	Gura_RealizeUserSymbol(hw_available);
+	Gura_RealizeUserSymbol(wm_available);
+	Gura_RealizeUserSymbol(blit_hw);
+	Gura_RealizeUserSymbol(blit_hw_CC);
+	Gura_RealizeUserSymbol(blit_hw_A);
+	Gura_RealizeUserSymbol(blit_sw);
+	Gura_RealizeUserSymbol(blit_sw_CC);
+	Gura_RealizeUserSymbol(blit_sw_A);
+	Gura_RealizeUserSymbol(blit_fill);
+	Gura_RealizeUserSymbol(video_mem);
+	Gura_RealizeUserSymbol(vfmt);
+	// symbols in SDL_CDtrack
+	Gura_RealizeUserSymbol(id)
+	Gura_RealizeUserSymbol(length)
+	Gura_RealizeUserSymbol(offset)
+	// symbols in SDL_CD
+	Gura_RealizeUserSymbol(status)
+	Gura_RealizeUserSymbol(numtracks)
+	Gura_RealizeUserSymbol(cur_track)
+	Gura_RealizeUserSymbol(cur_frame)
+	// symbols for other purposes
+	Gura_RealizeUserSymbolAlias(thread_, "thread")
 	// class realization
 	RealizeClass(Window);
 	RealizeClass(Renderer);
