@@ -15,7 +15,6 @@ Gura_UserClass(className)->Prepare(env)
 
 Gura_BeginModuleBody(sdl2)
 
-#if 0
 // sdl2.Init(flags:number):void
 Gura_DeclareFunction(Init)
 {
@@ -4506,8 +4505,8 @@ Gura_DeclareFunction(MUSTLOCK)
 Gura_ImplementFunction(MUSTLOCK)
 {
 	SDL_Surface *surface = args.IsValid(0)? Object_Surface::GetObject(args, 0)->GetEntity() : NULL;
-	SDL_bool rtn = SDL_MUSTLOCK(surface);
-	return Value(rtn != SDL_FALSE);
+	bool rtn = SDL_MUSTLOCK(surface);
+	return Value(rtn);
 }
 
 // sdl2.SaveBMP(surface:sdl2.Surface, file:string):void
@@ -5133,8 +5132,8 @@ Gura_DeclareFunction(QuitRequested)
 
 Gura_ImplementFunction(QuitRequested)
 {
-	SDL_bool rtn = SDL_QuitRequested();
-	return Value(rtn != SDL_FALSE);
+	bool rtn = SDL_QuitRequested();
+	return Value(rtn);
 }
 
 // sdl2.RecordGesture(touchId:number):void
@@ -5563,12 +5562,16 @@ Gura_DeclareFunction(CaptureMouse)
 
 Gura_ImplementFunction(CaptureMouse)
 {
+#if 0
 	SDL_bool enalbed = (args.GetBoolean(0)? SDL_TRUE : SDL_FALSE);
 	int rtn = SDL_CaptureMouse(enalbed);
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
+	return Value::Null;
+#endif
+	SetError_NotImpFunction(sig, "CaptureMouse");
 	return Value::Null;
 }
 
@@ -5593,7 +5596,7 @@ Gura_ImplementFunction(CreateColorCursor)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value(new Object_Cursor(rtn));
+	return Value(new Object_Cursor(rtn, false));
 }
 
 // sdl2.CreateCursor(mask:number, w:number, h:number, hot_x:number, hot_y:number)
@@ -5623,7 +5626,7 @@ Gura_ImplementFunction(CreateCursor)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value(new Object_Cursor(rtn));
+	return Value(new Object_Cursor(rtn, false));
 #endif
 	SetError_NotImpFunction(sig, "CreateCursor");
 	return Value::Null;
@@ -5646,7 +5649,7 @@ Gura_ImplementFunction(CreateSystemCursor)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value(new Object_Cursor(rtn));
+	return Value(new Object_Cursor(rtn, false));
 }
 
 // sdl2.FreeCursor(cursor:sdl2.Cursor):void
@@ -5680,7 +5683,7 @@ Gura_ImplementFunction(GetCursor)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value(new Object_Cursor(rtn));
+	return Value(new Object_Cursor(rtn, false));
 }
 
 // sdl2.GetDefaultCursor()
@@ -5698,7 +5701,7 @@ Gura_ImplementFunction(GetDefaultCursor)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value(new Object_Cursor(rtn));
+	return Value(new Object_Cursor(rtn, false));
 }
 
 // sdl2.GetGlobalMouseState()
@@ -5861,9 +5864,13 @@ Gura_DeclareFunction(WarpMouseGlobal)
 
 Gura_ImplementFunction(WarpMouseGlobal)
 {
+#if 0
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	SDL_WarpMouseGlobal(x, y);
+	return Value::Null;
+#endif
+	SetError_NotImpFunction(sig, "WarpMouseGlobal");
 	return Value::Null;
 }
 
@@ -6450,7 +6457,7 @@ Gura_ImplementFunction(GameControllerGetBindForAxis)
 	SDL_GameController *gamecontroller = args.IsValid(0)? Object_GameController::GetObject(args, 0)->GetEntity() : NULL;
 	SDL_GameControllerAxis axis = static_cast<SDL_GameControllerAxis>(args.GetInt(1));
 	SDL_GameControllerButtonBind rtn = SDL_GameControllerGetBindForAxis(gamecontroller, axis);
-	return Value(rtn);
+	return Value(new Object_GameControllerButtonBind(rtn));
 }
 
 // sdl2.GameControllerGetBindForButton(gamecontroller:sdl2.GameController, button:number)
@@ -6468,7 +6475,7 @@ Gura_ImplementFunction(GameControllerGetBindForButton)
 	SDL_GameController *gamecontroller = args.IsValid(0)? Object_GameController::GetObject(args, 0)->GetEntity() : NULL;
 	SDL_GameControllerButton button = static_cast<SDL_GameControllerButton>(args.GetInt(1));
 	SDL_GameControllerButtonBind rtn = SDL_GameControllerGetBindForButton(gamecontroller, button);
-	return Value(rtn);
+	return Value(new Object_GameControllerButtonBind(rtn));
 }
 
 // sdl2.GameControllerGetButton(gamecontroller:sdl2.GameController, button:number)
@@ -6957,8 +6964,8 @@ Gura_ImplementFunction(HapticOpenFromMouse)
 	return Value(new Object_Haptic(rtn));
 }
 
-// sdl2.HapticOpend(device_index:number)
-Gura_DeclareFunction(HapticOpend)
+// sdl2.HapticOpened(device_index:number)
+Gura_DeclareFunction(HapticOpened)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "device_index", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -6966,10 +6973,10 @@ Gura_DeclareFunction(HapticOpend)
 	"");
 }
 
-Gura_ImplementFunction(HapticOpend)
+Gura_ImplementFunction(HapticOpened)
 {
 	int device_index = args.GetInt(0);
-	int rtn = SDL_HapticOpend(device_index);
+	int rtn = SDL_HapticOpened(device_index);
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
@@ -7384,8 +7391,12 @@ Gura_DeclareFunction(ClearQueuedAudio)
 
 Gura_ImplementFunction(ClearQueuedAudio)
 {
+#if 0
 	SDL_AudioDeviceID dev = static_cast<SDL_AudioDeviceID>(args.GetInt(0));
 	SDL_ClearQueuedAudio(dev);
+	return Value::Null;
+#endif
+	SetError_NotImpFunction(sig, "ClearQueuedAudio");
 	return Value::Null;
 }
 
@@ -7593,9 +7604,13 @@ Gura_DeclareFunction(GetQueuedAudioSize)
 
 Gura_ImplementFunction(GetQueuedAudioSize)
 {
+#if 0
 	SDL_AudioDeviceID dev = static_cast<SDL_AudioDeviceID>(args.GetInt(0));
 	Uint32 rtn = SDL_GetQueuedAudioSize(dev);
 	return Value(rtn);
+#endif
+	SetError_NotImpFunction(sig, "GetQueuedAudioSize");
+	return Value::Null;
 }
 
 // sdl2.LoadWAV(file:string, spec:sdl2.AudioSpec)
@@ -8724,8 +8739,8 @@ Gura_ImplementFunction(TICKS_PASSED)
 {
 	Uint32 A = args.GetULong(0);
 	Uint32 B = args.GetULong(1);
-	SDL_bool rtn = SDL_TICKS_PASSED(A, B);
-	return Value(rtn != SDL_FALSE);
+	bool rtn = SDL_TICKS_PASSED(A, B);
+	return Value(rtn);
 }
 
 // sdl2.GetBasePath()
@@ -9288,8 +9303,12 @@ Gura_DeclareFunction(HasAVX2)
 
 Gura_ImplementFunction(HasAVX2)
 {
+#if 0
 	SDL_bool rtn = SDL_HasAVX2();
 	return Value(rtn != SDL_FALSE);
+#endif
+	SetError_NotImpFunction(sig, "HasAVX2");
+	return Value::Null;
 }
 
 // sdl2.HasAltiVec()
@@ -9631,9 +9650,13 @@ Gura_DeclareFunction(MostSignificantBitIndex32)
 
 Gura_ImplementFunction(MostSignificantBitIndex32)
 {
+#if 0
 	Uint32 x = args.GetULong(0);
 	int rtn = SDL_MostSignificantBitIndex32(x);
 	return Value(rtn);
+#endif
+	SetError_NotImpFunction(sig, "MostSignificantBitIndex32");
+	return Value::Null;
 }
 
 // sdl2.SDL_GetPowerInfo()
@@ -9762,7 +9785,6 @@ Gura_ImplementFunction(acos)
 	return Value(rtn);
 }
 
-#endif
 
 // sdl2.test(num1:number, num2:number)
 Gura_DeclareFunction(test)
@@ -9812,13 +9834,16 @@ Gura_ModuleEntry()
 	RealizeClass(Cursor);
 	RealizeClass(Joystick);
 	RealizeClass(GameController);
+	RealizeClass(GameControllerButtonBind);
 	RealizeClass(AudioCVT);
 	RealizeClass(AudioSpec);
 	RealizeClass(RendererInfo);
 	RealizeClass(DisplayMode);
 	RealizeClass(GLContext);
 	RealizeClass(Haptic);
+	RealizeClass(HapticEffect);
 	RealizeClass(Surface);
+	RealizeClass(Finger);
 	// class preparation
 	PrepareClass(Window);
 	PrepareClass(Renderer);
@@ -9833,13 +9858,15 @@ Gura_ModuleEntry()
 	PrepareClass(Cursor);
 	PrepareClass(Joystick);
 	PrepareClass(GameController);
+	PrepareClass(GameControllerButtonBind);
 	PrepareClass(AudioCVT);
 	PrepareClass(AudioSpec);
 	PrepareClass(RendererInfo);
 	PrepareClass(DisplayMode);
 	PrepareClass(GLContext);
-	PrepareClass(Haptic);
+	PrepareClass(HapticEffect);
 	PrepareClass(Surface);
+	PrepareClass(Finger);
 	AssignValues(env);
 	AssignFunctions(env);
 	Gura_AssignFunction(test);
@@ -10071,7 +10098,6 @@ void AssignValues(Environment &env)
 
 void AssignFunctions(Environment &env)
 {
-#if 0
 		Gura_AssignFunction(Init);
 		Gura_AssignFunction(InitSubSystem);
 		Gura_AssignFunction(Quit);
@@ -10415,7 +10441,7 @@ void AssignFunctions(Environment &env)
 		Gura_AssignFunction(HapticOpen);
 		Gura_AssignFunction(HapticOpenFromJoystick);
 		Gura_AssignFunction(HapticOpenFromMouse);
-		Gura_AssignFunction(HapticOpend);
+		Gura_AssignFunction(HapticOpened);
 		Gura_AssignFunction(HapticPause);
 		Gura_AssignFunction(HapticQuery);
 		Gura_AssignFunction(HapticRumbleInit);
@@ -10569,7 +10595,6 @@ void AssignFunctions(Environment &env)
 		Gura_AssignFunction(AndroidGetInternalStoragePath);
 		Gura_AssignFunction(AndroidGetJNIEnv);
 		Gura_AssignFunction(acos);
-#endif
 }
 
 Gura_ModuleTerminate()

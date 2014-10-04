@@ -15,9 +15,7 @@ Gura_UserClass(className)->Prepare(env)
 
 Gura_BeginModuleBody(sdl2)
 
-#if 0
 ${funcInfos:*RenderImplementation() + '\n'}
-#endif
 
 // sdl2.test(num1:number, num2:number)
 Gura_DeclareFunction(test)
@@ -67,13 +65,16 @@ Gura_ModuleEntry()
 	RealizeClass(Cursor);
 	RealizeClass(Joystick);
 	RealizeClass(GameController);
+	RealizeClass(GameControllerButtonBind);
 	RealizeClass(AudioCVT);
 	RealizeClass(AudioSpec);
 	RealizeClass(RendererInfo);
 	RealizeClass(DisplayMode);
 	RealizeClass(GLContext);
 	RealizeClass(Haptic);
+	RealizeClass(HapticEffect);
 	RealizeClass(Surface);
+	RealizeClass(Finger);
 	// class preparation
 	PrepareClass(Window);
 	PrepareClass(Renderer);
@@ -88,13 +89,15 @@ Gura_ModuleEntry()
 	PrepareClass(Cursor);
 	PrepareClass(Joystick);
 	PrepareClass(GameController);
+	PrepareClass(GameControllerButtonBind);
 	PrepareClass(AudioCVT);
 	PrepareClass(AudioSpec);
 	PrepareClass(RendererInfo);
 	PrepareClass(DisplayMode);
 	PrepareClass(GLContext);
-	PrepareClass(Haptic);
+	PrepareClass(HapticEffect);
 	PrepareClass(Surface);
+	PrepareClass(Finger);
 	AssignValues(env);
 	AssignFunctions(env);
 	Gura_AssignFunction(test);
@@ -326,9 +329,7 @@ void AssignValues(Environment &env)
 
 void AssignFunctions(Environment &env)
 {
-#if 0
 	${funcInfos:*RenderAssignment()}
-#endif
 }
 
 Gura_ModuleTerminate()

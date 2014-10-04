@@ -18,13 +18,16 @@
 #include "Class_Cursor.h"
 #include "Class_Joystick.h"
 #include "Class_GameController.h"
+#include "Class_GameControllerButtonBind.h"
 #include "Class_AudioCVT.h"
 #include "Class_AudioSpec.h"
 #include "Class_RendererInfo.h"
 #include "Class_DisplayMode.h"
 #include "Class_GLContext.h"
 #include "Class_Haptic.h"
+#include "Class_HapticEffect.h"
 #include "Class_Surface.h"
+#include "Class_Finger.h"
 
 Gura_BeginModuleHeader(sdl2)
 

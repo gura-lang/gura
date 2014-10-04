@@ -239,7 +239,7 @@ LoadBMP(const char* file):SDL_Surface*
 LockSurface(SDL_Surface* surface):negerr
 LowerBlit(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect):negerr
 LowerBlitScaled(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect):negerr
-MUSTLOCK(SDL_Surface* surface):SDL_bool
+MUSTLOCK(SDL_Surface* surface):bool
 SaveBMP(SDL_Surface* surface, const char* file):negerr
 #SaveBMP_RW(SDL_Surface* surface, SDL_RWops* dst, int freedst):negerr
 SetClipRect(SDL_Surface* surface, const SDL_Rect* rect):SDL_bool
@@ -278,7 +278,7 @@ PeepEvents(SDL_Event* #events, int #numevents, SDL_eventaction action, Uint32 mi
 PollEvent(SDL_Event* #event):int
 PumpEvents()
 PushEvent(SDL_Event* event):negerr_number
-QuitRequested():SDL_bool
+QuitRequested():bool
 RecordGesture(SDL_TouchID touchId):negerr
 RegisterEvents(int numevents):Uint32
 #SaveAllDollarTemplates(SDL_RWops* dst):negerr
@@ -306,7 +306,7 @@ StartTextInput()
 StopTextInput()
 //-----------------------------------------------------------------------------
 // Input Events - Mouse Support
-CaptureMouse(SDL_bool enalbed):negerr
+#CaptureMouse(SDL_bool enalbed):negerr
 CreateColorCursor(SDL_Surface* surface, int hot_x, int hot_y):SDL_Cursor*
 CreateCursor(const Uint8* #data, const Uint8* mask, int w, int h, int hot_x, int hot_y):SDL_Cursor*
 CreateSystemCursor(SDL_SystemCursor id):SDL_Cursor*
@@ -321,7 +321,7 @@ GetRelativeMouseState(int* #x, int* #y):Uint32
 SetCursor(SDL_Cursor* cursor)
 SetRelativeMouseMode(SDL_bool enabled):negerr
 ShowCursor(int toggle):negerr
-WarpMouseGlobal(int x, int y)
+#WarpMouseGlobal(int x, int y)
 WarpMouseInWindow(SDL_Window* window, int x, int y)
 //-----------------------------------------------------------------------------
 // Input Events - Joystick Support
@@ -385,7 +385,7 @@ HapticNumEffectsPlaying(SDL_Haptic* haptic):negerr_number
 HapticOpen(int device_index):SDL_Haptic*
 HapticOpenFromJoystick(SDL_Joystick* joystick):SDL_Haptic*
 HapticOpenFromMouse():SDL_Haptic*
-HapticOpend(int device_index):negerr_boolean
+HapticOpened(int device_index):negerr_boolean
 HapticPause(SDL_Haptic* haptic):negerr
 HapticQuery(SDL_Haptic* haptic):unsigned int
 HapticRumbleInit(SDL_Haptic* haptic):negerr
@@ -407,7 +407,7 @@ NumHaptics():negerr_number
 AudioInit(const char* driver_name):negerr
 AudioQuit()
 BuildAudioCVT(SDL_AudioCVT* cvt, SDL_AudioFormat src_format, Uint8 src_channels, int src_rate, SDL_AudioFormat dst_format, Uint8 dst_channels, int dst_rate):negerr_boolean
-ClearQueuedAudio(SDL_AudioDeviceID dev)
+#ClearQueuedAudio(SDL_AudioDeviceID dev)
 CloseAudio()
 CloseAudioDevice(SDL_AudioDeviceID dev)
 ConvertAudio(SDL_AudioCVT* cvt):negerr
@@ -419,7 +419,7 @@ GetAudioStatus():SDL_AudioStatus
 GetCurrentAudioDriver():const char*
 GetNumAudioDevices(int iscapture):negerr_number
 GetNumAudioDrivers():int
-GetQueuedAudioSize(SDL_AudioDeviceID dev):Uint32
+#GetQueuedAudioSize(SDL_AudioDeviceID dev):Uint32
 LoadWAV(const char* file, SDL_AudioSpec* spec, Uint8** #audio_buf, Uint32* #audio_len):SDL_AudioSpec*
 #LoadWAV_RW(SDL_RWops* src, int freesrc, SDL_AudioSpec* spec, Uint8** #audio_buf, Uint32* #audio_len):SDL_AudioSpec*
 LockAudio()
@@ -488,7 +488,7 @@ GetPerformanceCounter():Uint64
 GetPerformanceFrequency():Uint64
 GetTicks():Uint32
 RemoveTimer(SDL_TimerID id):SDL_bool
-TICKS_PASSED(Uint32 A, Uint32 B):SDL_bool
+TICKS_PASSED(Uint32 A, Uint32 B):bool
 //-----------------------------------------------------------------------------
 // File Abstraction - Filesystem Paths
 #GetBasePath():char*
@@ -530,7 +530,7 @@ GetCPUCount():int
 GetSystemRAM():int
 Has3DNow():SDL_bool
 HasAVX():SDL_bool
-HasAVX2():SDL_bool
+#HasAVX2():SDL_bool
 HasAltiVec():SDL_bool
 HasMMX():SDL_bool
 HasRDTSC():SDL_bool
@@ -555,7 +555,7 @@ SwapLE32
 SwapLE64
 //-----------------------------------------------------------------------------
 // Platform and CPU Information - Bit Manipulation
-MostSignificantBitIndex32(Uint32 x):int
+#MostSignificantBitIndex32(Uint32 x):int
 //-----------------------------------------------------------------------------
 // Power Management - Power Management Status
 SDL_GetPowerInfo(int* #secs, int* #pct):SDL_PowerState
@@ -688,6 +688,7 @@ typeConvDict = %{
 	'char *' => TypeConv(nil, 'string', 'args.GetString(%d)', 'Value(rtn)')
 	'const char *' => TypeConv(nil, 'string', 'args.GetString(%d)', 'Value(rtn)')
 	'const Uint8 *' => TypeConv(nil, 'number', 'args.GetList(%d)', 'Value::Null')
+	'bool' => TypeConv(nil, 'boolean', 'args.GetBoolean(%d)', 'Value(rtn)')
 	'SDL_bool' => TypeConv(nil, 'boolean', '(args.GetBoolean(%d)? SDL_TRUE : SDL_FALSE)', 'Value(rtn != SDL_FALSE)')
 	'SDL_eventaction' => TypeConv(
 			nil, 'number',
@@ -756,10 +757,6 @@ typeConvDict = %{
 	'SDL_GameControllerButton' => TypeConv(
 			nil, 'number',
 			'static_cast<SDL_GameControllerButton>(args.GetInt(%d))',
-			'Value(rtn)')
-	'SDL_GameControllerButtonBind' => TypeConv(
-			nil, 'number',
-			'static_cast<SDL_GameControllerButtonBind>(args.GetInt(%d))',
 			'Value(rtn)')
 	'SDL_AudioFormat' => TypeConv(
 			nil, 'number',
@@ -852,7 +849,7 @@ typeConvDict = %{
 	'SDL_Cursor *' => TypeConv(
 			'sdl2', 'Cursor',
 			'Object_Cursor::GetObject(args, %d)->GetEntity()',
-			'Value(new Object_Cursor(rtn))')
+			'Value(new Object_Cursor(rtn, false))')
 	'SDL_Joystick *' => TypeConv(
 			'sdl2', 'Joystick',
 			'Object_Joystick::GetObject(args, %d)->GetEntity()',
@@ -861,6 +858,10 @@ typeConvDict = %{
 			'sdl2', 'GameController',
 			'Object_GameController::GetObject(args, %d)->GetEntity()',
 			'Value(new Object_GameController(rtn))')
+	'SDL_GameControllerButtonBind' => TypeConv(
+			'sdl2', 'GameControllerButtonBind',
+			'Object_GameControllerButtonBind::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_GameControllerButtonBind(rtn))')
 	'SDL_DisplayMode *' => TypeConv(
 			'sdl2', 'DisplayMode',
 			'Object_DisplayMode::GetObject(args, %d)->GetEntity()',
@@ -992,7 +993,9 @@ text.eachline {|line, i|
 	}
 }
 
-doExtract(fileNameTmpl:string, fileNameOut:string) = {
+scope {
+	fileNameTmpl = 'module-sdl2.cpp.tmpl'
+	fileNameOut = 'module-sdl2.cpp'
 	template(fileNameTmpl).render(fileNameOut)
 	println(fileNameOut, ' was created')
 }

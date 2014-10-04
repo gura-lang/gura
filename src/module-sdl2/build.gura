@@ -1,13 +1,6 @@
 #!/usr/bin/env gura
 import(modbuild)
-import(extract)
 
-scope {
-	fileNameTmpl = 'module-sdl2.cpp.tmpl'
-	fileNameOut = 'module-sdl2.cpp'
-	modbuild.update_needed(fileNameTmpl, fileNameOut) && \
-							extract.doExtract(fileNameTmpl, fileNameOut)
-}
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
 	dirBase = path.join(builder.guestsDir, 'SDL2-2.0.3')
@@ -26,8 +19,9 @@ builder.build('sdl2', ['module-sdl2.cpp',
 	'Class_Surface.cpp', 'Class_Event.cpp',
 	'Class_Point.cpp', 'Class_Rect.cpp', 'Class_Color.cpp',
 	'Class_Palette.cpp', 'Class_PixelFormat.cpp', 'Class_Keysym.cpp',
-	'Class_Cursor.cpp', 'Class_Joystick.cpp', 'Class_GameController.cpp',
+	'Class_Cursor.cpp', 'Class_Joystick.cpp',
+	'Class_GameController.cpp', 'Class_GameControllerButtonBind.cpp',
 	'Class_AudioCVT.cpp', 'Class_AudioSpec.cpp',
 	'Class_RendererInfo.cpp',
 	'Class_DisplayMode.cpp', 'Class_GLContext.cpp',
-	'Class_Haptic.cpp'])
+	'Class_Haptic.cpp', 'Class_HapticEffect.cpp', 'Class_Finger.cpp'])
