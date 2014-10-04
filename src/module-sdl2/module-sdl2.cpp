@@ -15,6 +15,7 @@ Gura_UserClass(className)->Prepare(env)
 
 Gura_BeginModuleBody(sdl2)
 
+#if 0
 // sdl2.Init(flags:number):void
 Gura_DeclareFunction(Init)
 {
@@ -9761,6 +9762,7 @@ Gura_ImplementFunction(acos)
 	return Value(rtn);
 }
 
+#endif
 
 // sdl2.test(num1:number, num2:number)
 Gura_DeclareFunction(test)
@@ -10069,6 +10071,7 @@ void AssignValues(Environment &env)
 
 void AssignFunctions(Environment &env)
 {
+#if 0
 		Gura_AssignFunction(Init);
 		Gura_AssignFunction(InitSubSystem);
 		Gura_AssignFunction(Quit);
@@ -10566,6 +10569,7 @@ void AssignFunctions(Environment &env)
 		Gura_AssignFunction(AndroidGetInternalStoragePath);
 		Gura_AssignFunction(AndroidGetJNIEnv);
 		Gura_AssignFunction(acos);
+#endif
 }
 
 Gura_ModuleTerminate()

@@ -7,7 +7,7 @@ Gura_BeginModuleScope(sdl2)
 //-----------------------------------------------------------------------------
 Object_Surface::~Object_Surface()
 {
-	::SDL_DestroySurface(_pSurface);
+	//::SDL_DestroySurface(_pSurface);
 }
 
 Object *Object_Surface::Clone() const

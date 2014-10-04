@@ -15,7 +15,9 @@ Gura_UserClass(className)->Prepare(env)
 
 Gura_BeginModuleBody(sdl2)
 
+#if 0
 ${funcInfos:*RenderImplementation() + '\n'}
+#endif
 
 // sdl2.test(num1:number, num2:number)
 Gura_DeclareFunction(test)
@@ -324,7 +326,9 @@ void AssignValues(Environment &env)
 
 void AssignFunctions(Environment &env)
 {
+#if 0
 	${funcInfos:*RenderAssignment()}
+#endif
 }
 
 Gura_ModuleTerminate()
