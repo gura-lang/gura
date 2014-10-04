@@ -400,3 +400,10 @@ if (sys.build == `msc) {
 	sys.stderr.println('unsupported build system')
 	sys.exit(1)
 }
+
+//-----------------------------------------------------------------------------
+// utilities
+//-----------------------------------------------------------------------------
+update_needed(src:string, dst:string):map = {
+	!path.exists(dst) || path.stat(dst).mtime < path.stat(src).mtime
+}

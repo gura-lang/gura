@@ -1,6 +1,13 @@
 #!/usr/bin/env gura
 import(modbuild)
+import(extract)
 
+scope {
+	fileNameTmpl = 'module-sdl2.cpp.tmpl'
+	fileNameOut = 'module-sdl2.cpp'
+	modbuild.update_needed(fileNameTmpl, fileNameOut) && \
+							extract.doExtract(fileNameTmpl, fileNameOut)
+}
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
 	dirBase = path.join(builder.guestsDir, 'SDL2-2.0.3')

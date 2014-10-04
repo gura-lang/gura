@@ -607,38 +607,38 @@ Gura_ImplementFunction(${fi.funcName})
 	};
 	${end}
 	${if (!fi.rtnInfo)}
-	::SDL_${fi.funcName}(${argsCJoined});
+	SDL_${fi.funcName}(${argsCJoined});
 	return Value::Null;
 	${elsif (fi.rtnInfo.typeC == 'negerr')}
-	int rtn = ::SDL_${fi.funcName}(${argsCJoined});
+	int rtn = SDL_${fi.funcName}(${argsCJoined});
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
 	return Value::Null;
 	${elsif (fi.rtnInfo.typeC == 'boolerr')}
-	int rtn = ::SDL_${fi.funcName}(${argsCJoined});
+	int rtn = SDL_${fi.funcName}(${argsCJoined});
 	if (rtn == 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
 	return Value::Null;
 	${elsif (fi.rtnInfo.typeC == 'negerr_number')}
-	int rtn = ::SDL_${fi.funcName}(${argsCJoined});
+	int rtn = SDL_${fi.funcName}(${argsCJoined});
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
 	return Value(rtn);
 	${elsif (fi.rtnInfo.typeC == 'negerr_boolean')}
-	int rtn = ::SDL_${fi.funcName}(${argsCJoined});
+	int rtn = SDL_${fi.funcName}(${argsCJoined});
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
 	return Value(rtn != 0);
 	${else}
-	${fi.rtnInfo.typeC.sub(r'(\w)$', r'\1 ')}rtn = ::SDL_${fi.funcName}(${argsCJoined});
+	${fi.rtnInfo.typeC.sub(r'(\w)$', r'\1 ')}rtn = SDL_${fi.funcName}(${argsCJoined});
 	${if (fi.rtnInfo.typeC.endswith('*'))}
 	if (rtn == NULL) {
 		SetError_SDL(sig);
@@ -822,9 +822,9 @@ typeConvDict = %{
 			'Object_Surface::GetObject(args, %d)->GetEntity()',
 			'Value(new Object_Surface(rtn))')
 	'SDL_RWops *' => TypeConv(
-			'sdl2', 'RWops',
-			'Object_RWops::GetObject(args, %d)->GetEntity()',
-			'Value(new Object_RWops(rtn))')
+			'sdl2', 'nil',
+			'NULL',
+			'Value::Null')
 	'SDL_Renderer *' => TypeConv(
 			'sdl2', 'Renderer',
 			'Object_Renderer::GetObject(args, %d)->GetEntity()',
@@ -992,7 +992,7 @@ text.eachline {|line, i|
 	}
 }
 
-fileNameSrc = 'module-sdl2.cpp.tmpl'
-fileNameDst = 'module-sdl2.cpp'
-template(fileNameSrc).render(fileNameDst)
-println(fileNameDst, ' was created')
+doExtract(fileNameTmpl:string, fileNameOut:string) = {
+	template(fileNameTmpl).render(fileNameOut)
+	println(fileNameOut, ' was created')
+}
