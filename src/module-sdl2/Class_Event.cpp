@@ -21,95 +21,132 @@ String Object_Event::ToString(bool exprFlag)
 	String str;
 	str += "<sdl.Event:";
 	str += GetEventTypeName(_event.type);
-	char buff[80];
+	char buff[256];
 	if (_event.type == SDL_WINDOWEVENT) {
 		const SDL_WindowEvent &event = _event.window;
-
+		::sprintf(buff, "(timestamp=%d, windowID=%d, event=%d, data1=%d, data2=0x%04x)",
+				  event.timestamp, event.windowID,
+				  event.event, event.data1, event.data2);
+		str += buff;
 	} else if (_event.type == SDL_KEYDOWN || _event.type == SDL_KEYUP) {
 		const SDL_KeyboardEvent &event = _event.key;
-		::sprintf(buff, "(state=%d, scancode=%d, sym=%d, mod=0x%04x)",
-				event.state, event.keysym.scancode, event.keysym.sym,
-				event.keysym.mod);
+		::sprintf(buff, "(timestamp=%d, windowID=%d, state=%d, repeat=%d, scancode=%d, sym=%d, mod=0x%04x)",
+				  event.timestamp, event.windowID,
+				  event.state, event.repeat,
+				  event.keysym.scancode, event.keysym.sym, event.keysym.mod);
 		str += buff;
 	} else if (_event.type == SDL_TEXTEDITING) {
 		const SDL_TextEditingEvent &event = _event.edit;
-
+		::sprintf(buff, "(timestamp=%d, windowID=%d, text=\"%s\", start=%d, length=%d)",
+				  event.timestamp, event.windowID,
+				  event.text, event.start, event.length);
 	} else if (_event.type == SDL_TEXTINPUT) {
 		const SDL_TextInputEvent &event = _event.text;
-
+		::sprintf(buff, "(timestamp=%d, windowID=%d, text=\"%s\")",
+				  event.timestamp, event.windowID, event.text);
 	} else if (_event.type == SDL_MOUSEMOTION) {
 		const SDL_MouseMotionEvent &event = _event.motion;
-		::sprintf(buff, "(state=%d, x=%d, y=%d, xrel=%d, yrel=%d)",
-			event.state, event.x, event.y, event.xrel, event.yrel);
+		::sprintf(buff, "(timestamp=%d, windowID=%d, which=%d, state=%d, x=%d, y=%d, xrel=%d, yrel=%d)",
+				  event.timestamp, event.windowID, event.which,
+				  event.state, event.x, event.y, event.xrel, event.yrel);
 		str += buff;
 	} else if (_event.type == SDL_MOUSEBUTTONDOWN || _event.type == SDL_MOUSEBUTTONUP) {
 		const SDL_MouseButtonEvent &event = _event.button;
-		::sprintf(buff, "(button=%d, state=%d, x=%d, y=%d)",
-			event.button, event.state, event.x, event.y);
+		::sprintf(buff, "(timestamp=%d, windowID=%d, which=%d, button=%d, state=%d, clicks=%d, x=%d, y=%d)",
+				  event.timestamp, event.windowID, event.which,
+				  event.button, event.state, event.clicks, event.x, event.y);
 		str += buff;
 	} else if (_event.type == SDL_MOUSEWHEEL) {
 		const SDL_MouseWheelEvent &event = _event.wheel;
-
+		::sprintf(buff, "(timestamp=%d, windowID=%d, which=%d, x=%d, y=%d",
+				  event.timestamp, event.windowID, event.which,
+				  event.x, event.y);
+		str += buff;
 	} else if (_event.type == SDL_JOYAXISMOTION) {
 		const SDL_JoyAxisEvent &event = _event.jaxis;
-		::sprintf(buff, "(which=%d, axis=%d, value=%d)",
-			event.which, event.axis, event.value);
+		::sprintf(buff, "(timestamp=%d, which=%d, axis=%d, value=%d)",
+				  event.timestamp, event.which, event.axis, event.value);
 		str += buff;
 	} else if (_event.type == SDL_JOYBALLMOTION) {
 		const SDL_JoyBallEvent &event = _event.jball;
-		::sprintf(buff, "(which=%d, ball=%d, xrel=%d, yrel=%d)",
-			event.which, event.ball, event.xrel, event.yrel);
+		::sprintf(buff, "(timestamp=%d, which=%d, ball=%d, xrel=%d, yrel=%d)",
+				  event.timestamp, event.which, event.ball, event.xrel, event.yrel);
 		str += buff;
 	} else if (_event.type == SDL_JOYHATMOTION) {
 		const SDL_JoyHatEvent &event = _event.jhat;
-		::sprintf(buff, "(which=%d, hat=%d, value=%d)",
-			event.which, event.hat, event.value);
+		::sprintf(buff, "(timestamp=%d, which=%d, hat=%d, value=%d)",
+				  event.timestamp, event.which, event.hat, event.value);
 		str += buff;
 	} else if (_event.type == SDL_JOYBUTTONDOWN ||
 			   _event.type == SDL_JOYBUTTONUP) {
 		const SDL_JoyButtonEvent &event = _event.jbutton;
-		::sprintf(buff, "(which=%d, button=%d, state=%d)",
-			event.which, event.button, event.state);
+		::sprintf(buff, "(timestamp=%d, which=%d, button=%d, state=%d)",
+				  event.timestamp, event.which, event.button, event.state);
 		str += buff;
 	} else if (_event.type == SDL_JOYDEVICEADDED ||
 			   _event.type == SDL_JOYDEVICEREMOVED) {
 		const SDL_JoyDeviceEvent &event = _event.jdevice;
-
+		::sprintf(buff, "(timestamp=%d, which=%d)",
+				  event.timestamp, event.which);
+		str += buff;
 	} else if (_event.type == SDL_CONTROLLERAXISMOTION) {
 		const SDL_ControllerAxisEvent &event = _event.caxis;
-
+		::sprintf(buff, "(timestamp=%d, which=%d, axis=%d, value=%d)",
+				  event.timestamp, event.which, event.axis, event.value);
+		str += buff;
 	} else if (_event.type == SDL_CONTROLLERBUTTONDOWN ||
 			   _event.type == SDL_CONTROLLERBUTTONUP) {
 		const SDL_ControllerButtonEvent &event = _event.cbutton;
-
+		::sprintf(buff, "(timestamp=%d, which=%d, button=%d, state=%d)",
+				  event.timestamp, event.which, event.button, event.state);
+		str += buff;
 	} else if (_event.type == SDL_CONTROLLERDEVICEADDED ||
 			   _event.type == SDL_CONTROLLERDEVICEREMOVED ||
 			   _event.type == SDL_CONTROLLERDEVICEREMAPPED) {
 		const SDL_ControllerDeviceEvent &event = _event.cdevice;
-
+		::sprintf(buff, "(timestamp=%d, which=%d)",
+				  event.timestamp, event.which);
+		str += buff;
 	} else if (_event.type == SDL_QUIT) {
-		//const SDL_QuitEvent &event = _event.quit;
-		// nothing to do
+		const SDL_QuitEvent &event = _event.quit;
+		::sprintf(buff, "(timestamp=%d)",
+				  event.timestamp);
+		str += buff;
 	} else if (_event.type == SDL_USEREVENT) {
-		//const SDL_UserEvent &event = _event.user;
-		// nothing to do
+		const SDL_UserEvent &event = _event.user;
+		::sprintf(buff, "(timestamp=%d, windowID=%d, code=%d, data1=%d, data2=0x%04x)",
+				  event.timestamp, event.windowID,
+				  event.code, event.data1, event.data2);
+		str += buff;
 	} else if (_event.type == SDL_SYSWMEVENT) {
-		//const SDL_SysWMEvent &event = _event.syswm;
-		// nothing to do
+		const SDL_SysWMEvent &event = _event.syswm;
+		::sprintf(buff, "(timestamp=%d)",
+				  event.timestamp);
+		str += buff;
 	} else if (_event.type == SDL_FINGERMOTION ||
 			   _event.type == SDL_FINGERDOWN ||
 			   _event.type == SDL_FINGERUP) {
 		const SDL_TouchFingerEvent &event = _event.tfinger;
-
+		::sprintf(buff, "(timestamp=%d, fingerId=%d, x=%d, y=%d, dx=%d, dy=%d, pressure=%d)",
+				  event.timestamp, event.fingerId,
+				  event.x, event.y, event.dx, event.dy, event.pressure);
+		str += buff;
 	} else if (_event.type == SDL_MULTIGESTURE) {
 		const SDL_MultiGestureEvent &event = _event.mgesture;
-
+		::sprintf(buff, "(timestamp=%d, touchId=%d, dTheta=%d, dDist=%d, x=%d, y=%d, numFingers=%d)",
+				  event.timestamp, event.touchId,
+				  event.dTheta, event.dDist, event.x, event.y, event.numFingers);
+		str += buff;
 	} else if (_event.type == SDL_DOLLARGESTURE) {
 		const SDL_DollarGestureEvent &event = _event.dgesture;
-
+		::sprintf(buff, "(timestamp=%d, touchId=%d, gestureId=%d, numFingers=%d, error=%d, x=%d, y=%d)",
+				  event.timestamp, event.touchId, event.gestureId,
+				  event.numFingers, event.error, event.x, event.y);
+		str += buff;
 	} else if (_event.type == SDL_DROPFILE) {
 		const SDL_DropEvent &event = _event.drop;
-
+		::sprintf(buff, "(timestamp=%d, file=\"%s\")",
+				  event.timestamp, event.file);
 	}
 	str += ">";
 	return str;
