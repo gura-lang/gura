@@ -58,6 +58,21 @@ Gura_DeclareUserSymbol(data1);
 Gura_DeclareUserSymbol(data2);
 Gura_DeclareUserSymbol(text);
 Gura_DeclareUserSymbol(start);
+Gura_DeclareUserSymbol(repeat);
+
+Gura_DeclareUserSymbol(clicks);
+Gura_DeclareUserSymbol(code);
+Gura_DeclareUserSymbol(touchId);
+Gura_DeclareUserSymbol(fingerId);
+Gura_DeclareUserSymbol(gestureId);
+Gura_DeclareUserSymbol(dx);
+Gura_DeclareUserSymbol(dy);
+Gura_DeclareUserSymbol(pressure);
+Gura_DeclareUserSymbol(dTheta);
+Gura_DeclareUserSymbol(dDist);
+Gura_DeclareUserSymbol(numFingers);
+Gura_DeclareUserSymbol(error);
+Gura_DeclareUserSymbol(file);
 
 // symbols in SDL_Color
 Gura_DeclareUserSymbol(r)

@@ -276,10 +276,10 @@ HasEvents(Uint32 minType, Uint32 maxType):SDL_bool
 #LoadDollarTemplates(SDL_TouchID touchId, SDL_RWops* src):negerr_number
 PeepEvents(SDL_Event* #events, int #numevents, SDL_eventaction action, Uint32 minType, Uint32 maxType):negerr
 PollEvent():SDL_Event {
-	AutoPtr<Object_Event> pObj(new Object_Event());
-	int rtn = SDL_PollEvent(pObj->GetEntity());
+	SDL_Event event;
+	int rtn = SDL_PollEvent(&event);
 	if (rtn == 0) return Value::Null;
-	return Value(pObj.release());
+	return Value(new Object_Event(event));
 }
 PumpEvents()
 PushEvent(SDL_Event* event):negerr_number

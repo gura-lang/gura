@@ -215,8 +215,14 @@ Value Object_Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 		}
 	} else if (_event.type == SDL_KEYDOWN || _event.type == SDL_KEYUP) {
 		const SDL_KeyboardEvent &event = _event.key;
-		if (pSymbol->IsIdentical(Gura_UserSymbol(state))) {
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(windowID))) {
+			return Value(event.windowID);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(state))) {
 			return Value(event.state);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(repeat))) {
+			return Value(event.repeat);
 		} else if (pSymbol->IsIdentical(Gura_UserSymbol(scancode))) {
 			return Value(event.keysym.scancode);
 		} else if (pSymbol->IsIdentical(Gura_UserSymbol(sym))) {
@@ -248,7 +254,13 @@ Value Object_Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 		}
 	} else if (_event.type == SDL_MOUSEMOTION) {
 		const SDL_MouseMotionEvent &event = _event.motion;
-		if (pSymbol->IsIdentical(Gura_UserSymbol(state))) {
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(windowID))) {
+			return Value(event.windowID);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(which))) {
+			return Value(event.state);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(state))) {
 			return Value(event.state);
 		} else if (pSymbol->IsIdentical(Gura_UserSymbol(x))) {
 			return Value(event.x);
@@ -261,10 +273,18 @@ Value Object_Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 		}
 	} else if (_event.type == SDL_MOUSEBUTTONDOWN || _event.type == SDL_MOUSEBUTTONUP) {
 		const SDL_MouseButtonEvent &event = _event.button;
-		if (pSymbol->IsIdentical(Gura_UserSymbol(button))) {
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(windowID))) {
+			return Value(event.windowID);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(which))) {
+			return Value(event.which);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(button))) {
 			return Value(event.button);
 		} else if (pSymbol->IsIdentical(Gura_UserSymbol(state))) {
 			return Value(event.state);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(clicks))) {
+			return Value(event.clicks);
 		} else if (pSymbol->IsIdentical(Gura_UserSymbol(x))) {
 			return Value(event.x);
 		} else if (pSymbol->IsIdentical(Gura_UserSymbol(y))) {
@@ -272,10 +292,22 @@ Value Object_Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 		}
 	} else if (_event.type == SDL_MOUSEWHEEL) {
 		const SDL_MouseWheelEvent &event = _event.wheel;
-
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(windowID))) {
+			return Value(event.windowID);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(which))) {
+			return Value(event.which);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(x))) {
+			return Value(event.x);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(y))) {
+			return Value(event.y);
+		}
 	} else if (_event.type == SDL_JOYAXISMOTION) {
 		const SDL_JoyAxisEvent &event = _event.jaxis;
-		if (pSymbol->IsIdentical(Gura_UserSymbol(which))) {
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(which))) {
 			return Value(event.which);
 		} else if (pSymbol->IsIdentical(Gura_UserSymbol(axis))) {
 			return Value(event.axis);
@@ -284,7 +316,9 @@ Value Object_Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 		}
 	} else if (_event.type == SDL_JOYBALLMOTION) {
 		const SDL_JoyBallEvent &event = _event.jball;
-		if (pSymbol->IsIdentical(Gura_UserSymbol(which))) {
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(which))) {
 			return Value(event.which);
 		} else if (pSymbol->IsIdentical(Gura_UserSymbol(ball))) {
 			return Value(event.ball);
@@ -295,7 +329,9 @@ Value Object_Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 		}
 	} else if (_event.type == SDL_JOYHATMOTION) {
 		const SDL_JoyHatEvent &event = _event.jhat;
-		if (pSymbol->IsIdentical(Gura_UserSymbol(which))) {
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(which))) {
 			return Value(event.which);
 		} else if (pSymbol->IsIdentical(Gura_UserSymbol(hat))) {
 			return Value(event.hat);
@@ -305,7 +341,9 @@ Value Object_Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	} else if (_event.type == SDL_JOYBUTTONDOWN ||
 			   _event.type == SDL_JOYBUTTONUP) {
 		const SDL_JoyButtonEvent &event = _event.jbutton;
-		if (pSymbol->IsIdentical(Gura_UserSymbol(which))) {
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(which))) {
 			return Value(event.which);
 		} else if (pSymbol->IsIdentical(Gura_UserSymbol(button))) {
 			return Value(event.button);
@@ -315,42 +353,128 @@ Value Object_Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	} else if (_event.type == SDL_JOYDEVICEADDED ||
 			   _event.type == SDL_JOYDEVICEREMOVED) {
 		const SDL_JoyDeviceEvent &event = _event.jdevice;
-
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(which))) {
+			return Value(event.which);
+		}
 	} else if (_event.type == SDL_CONTROLLERAXISMOTION) {
 		const SDL_ControllerAxisEvent &event = _event.caxis;
-
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(which))) {
+			return Value(event.which);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(axis))) {
+			return Value(event.axis);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(value))) {
+			return Value(event.value);
+		}
 	} else if (_event.type == SDL_CONTROLLERBUTTONDOWN ||
 			   _event.type == SDL_CONTROLLERBUTTONUP) {
 		const SDL_ControllerButtonEvent &event = _event.cbutton;
-
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(which))) {
+			return Value(event.which);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(button))) {
+			return Value(event.button);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(state))) {
+			return Value(event.state);
+		}
 	} else if (_event.type == SDL_CONTROLLERDEVICEADDED ||
 			   _event.type == SDL_CONTROLLERDEVICEREMOVED ||
 			   _event.type == SDL_CONTROLLERDEVICEREMAPPED) {
 		const SDL_ControllerDeviceEvent &event = _event.cdevice;
-
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(which))) {
+			return Value(event.which);
+		}
 	} else if (_event.type == SDL_QUIT) {
-		//const SDL_QuitEvent &event = _event.quit;
-		// nothing to do
+		const SDL_QuitEvent &event = _event.quit;
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
+		}
 	} else if (_event.type == SDL_USEREVENT) {
-		//const SDL_UserEvent &event = _event.user;
-		// nothing to do
+		const SDL_UserEvent &event = _event.user;
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(windowID))) {
+			return Value(event.windowID);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(code))) {
+			return Value(event.code);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(data1))) {
+			return Value(event.data1);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(data2))) {
+			return Value(event.data2);
+		}
 	} else if (_event.type == SDL_SYSWMEVENT) {
-		//const SDL_SysWMEvent &event = _event.syswm;
-		// nothing to do
+		const SDL_SysWMEvent &event = _event.syswm;
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
+		}
 	} else if (_event.type == SDL_FINGERMOTION ||
 			   _event.type == SDL_FINGERDOWN ||
 			   _event.type == SDL_FINGERUP) {
 		const SDL_TouchFingerEvent &event = _event.tfinger;
-
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(touchId))) {
+			return Value(event.touchId);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(fingerId))) {
+			return Value(event.fingerId);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(x))) {
+			return Value(event.x);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(y))) {
+			return Value(event.y);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(dx))) {
+			return Value(event.dx);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(dy))) {
+			return Value(event.dy);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(pressure))) {
+			return Value(event.pressure);
+		}
 	} else if (_event.type == SDL_MULTIGESTURE) {
 		const SDL_MultiGestureEvent &event = _event.mgesture;
-
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(touchId))) {
+			return Value(event.touchId);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(dTheta))) {
+			return Value(event.dTheta);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(dDist))) {
+			return Value(event.dDist);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(x))) {
+			return Value(event.x);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(y))) {
+			return Value(event.y);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(numFingers))) {
+			return Value(event.numFingers);
+		}
 	} else if (_event.type == SDL_DOLLARGESTURE) {
 		const SDL_DollarGestureEvent &event = _event.dgesture;
-
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(touchId))) {
+			return Value(event.touchId);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(gestureId))) {
+			return Value(event.gestureId);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(numFingers))) {
+			return Value(event.numFingers);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(error))) {
+			return Value(event.error);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(x))) {
+			return Value(event.x);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(y))) {
+			return Value(event.y);
+		}
 	} else if (_event.type == SDL_DROPFILE) {
 		const SDL_DropEvent &event = _event.drop;
-
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(file))) {
+			return Value(event.file);
+		}
 	}
 	evaluatedFlag = false;
 	return Value::Null;

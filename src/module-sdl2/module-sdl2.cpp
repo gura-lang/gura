@@ -5079,10 +5079,10 @@ Gura_DeclareFunction(PollEvent)
 
 Gura_ImplementFunction(PollEvent)
 {
-	AutoPtr<Object_Event> pObj(new Object_Event());
-	int rtn = SDL_PollEvent(pObj->GetEntity());
+	SDL_Event event;
+	int rtn = SDL_PollEvent(&event);
 	if (rtn == 0) return Value::Null;
-	return Value(pObj.release());
+	return Value(new Object_Event(event));
 }
 
 // sdl2.PumpEvents():void
@@ -9842,6 +9842,20 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(data1);
 	Gura_RealizeUserSymbol(text);
 	Gura_RealizeUserSymbol(start);
+	Gura_RealizeUserSymbol(repeat);
+	Gura_RealizeUserSymbol(clicks);
+	Gura_RealizeUserSymbol(code);
+	Gura_RealizeUserSymbol(touchId);
+	Gura_RealizeUserSymbol(fingerId);
+	Gura_RealizeUserSymbol(gestureId);
+	Gura_RealizeUserSymbol(dx);
+	Gura_RealizeUserSymbol(dy);
+	Gura_RealizeUserSymbol(pressure);
+	Gura_RealizeUserSymbol(dTheta);
+	Gura_RealizeUserSymbol(dDist);
+	Gura_RealizeUserSymbol(numFingers);
+	Gura_RealizeUserSymbol(error);
+	Gura_RealizeUserSymbol(file);
 	// symbols in SDL_Color
 	Gura_RealizeUserSymbol(r)
 	Gura_RealizeUserSymbol(g)
