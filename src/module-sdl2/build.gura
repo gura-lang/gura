@@ -14,6 +14,8 @@ if (sys.platform == `mswin) {
 	builder.libDirs.append('guests/dylib')
 	builder.libs.append('SDL2')
 }
+builder.precompile = 'stdafx.h'
+builder.progressFlag = true
 builder.build('sdl2', ['module-sdl2.cpp',
 	'Class_Window.cpp', 'Class_Renderer.cpp', 'Class_Texture.cpp',
 	'Class_Surface.cpp', 'Class_Event.cpp',
