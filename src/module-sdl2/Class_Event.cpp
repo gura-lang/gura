@@ -24,6 +24,7 @@ String Object_Event::ToString(bool exprFlag)
 	char buff[80];
 	if (_event.type == SDL_WINDOWEVENT) {
 		const SDL_WindowEvent &event = _event.window;
+
 	} else if (_event.type == SDL_KEYDOWN || _event.type == SDL_KEYUP) {
 		const SDL_KeyboardEvent &event = _event.key;
 		::sprintf(buff, "(state=%d, scancode=%d, sym=%d, mod=0x%04x)",
@@ -32,8 +33,10 @@ String Object_Event::ToString(bool exprFlag)
 		str += buff;
 	} else if (_event.type == SDL_TEXTEDITING) {
 		const SDL_TextEditingEvent &event = _event.edit;
-	//} else if (_event.type == SDL_TEXTINPUT) {
-	//	const SDL_TextEditingEvent &event = _event.text;
+
+	} else if (_event.type == SDL_TEXTINPUT) {
+		const SDL_TextInputEvent &event = _event.text;
+
 	} else if (_event.type == SDL_MOUSEMOTION) {
 		const SDL_MouseMotionEvent &event = _event.motion;
 		::sprintf(buff, "(state=%d, x=%d, y=%d, xrel=%d, yrel=%d)",
@@ -46,6 +49,7 @@ String Object_Event::ToString(bool exprFlag)
 		str += buff;
 	} else if (_event.type == SDL_MOUSEWHEEL) {
 		const SDL_MouseWheelEvent &event = _event.wheel;
+
 	} else if (_event.type == SDL_JOYAXISMOTION) {
 		const SDL_JoyAxisEvent &event = _event.jaxis;
 		::sprintf(buff, "(which=%d, axis=%d, value=%d)",
@@ -61,19 +65,28 @@ String Object_Event::ToString(bool exprFlag)
 		::sprintf(buff, "(which=%d, hat=%d, value=%d)",
 			event.which, event.hat, event.value);
 		str += buff;
-	} else if (_event.type == SDL_JOYBUTTONDOWN || _event.type == SDL_JOYBUTTONUP) {
+	} else if (_event.type == SDL_JOYBUTTONDOWN ||
+			   _event.type == SDL_JOYBUTTONUP) {
 		const SDL_JoyButtonEvent &event = _event.jbutton;
 		::sprintf(buff, "(which=%d, button=%d, state=%d)",
 			event.which, event.button, event.state);
 		str += buff;
-	//} else if (_event.type == SDL_JOYDEVICEADD || _event.type == SDL_JOYDEVICEREMOVED) {
-		//const SDL_JoyButtonEvent &event = _event.hoge;
-	//} else if (_event.type == SDL_CONTROLLERAXISMOTION) {
-		//const SDL_ControllerAxisEvent &event = _event.hoge;
-	//} else if (_event.type == SDL_CONTROLLERBUTTONDOWN || _event.type == SDL_CONTROLLERBUTTONUP) {
-		//const SDL_ControllerButtonEvent &event = _event.hoge;
-	//} else if (_event.type == SDL_CONTROLLERDEVICEADDED || _event.type == SDL_CONTROLLERDEVICEREMOVED || _event.type == SDL_CONTROLLERDEVICEREMAPPED) {
-		//const SDL_ControllerDeviceEvent &event = _event.hoge;
+	} else if (_event.type == SDL_JOYDEVICEADDED ||
+			   _event.type == SDL_JOYDEVICEREMOVED) {
+		const SDL_JoyDeviceEvent &event = _event.jdevice;
+
+	} else if (_event.type == SDL_CONTROLLERAXISMOTION) {
+		const SDL_ControllerAxisEvent &event = _event.caxis;
+
+	} else if (_event.type == SDL_CONTROLLERBUTTONDOWN ||
+			   _event.type == SDL_CONTROLLERBUTTONUP) {
+		const SDL_ControllerButtonEvent &event = _event.cbutton;
+
+	} else if (_event.type == SDL_CONTROLLERDEVICEADDED ||
+			   _event.type == SDL_CONTROLLERDEVICEREMOVED ||
+			   _event.type == SDL_CONTROLLERDEVICEREMAPPED) {
+		const SDL_ControllerDeviceEvent &event = _event.cdevice;
+
 	} else if (_event.type == SDL_QUIT) {
 		//const SDL_QuitEvent &event = _event.quit;
 		// nothing to do
@@ -83,6 +96,20 @@ String Object_Event::ToString(bool exprFlag)
 	} else if (_event.type == SDL_SYSWMEVENT) {
 		//const SDL_SysWMEvent &event = _event.syswm;
 		// nothing to do
+	} else if (_event.type == SDL_FINGERMOTION ||
+			   _event.type == SDL_FINGERDOWN ||
+			   _event.type == SDL_FINGERUP) {
+		const SDL_TouchFingerEvent &event = _event.tfinger;
+
+	} else if (_event.type == SDL_MULTIGESTURE) {
+		const SDL_MultiGestureEvent &event = _event.mgesture;
+
+	} else if (_event.type == SDL_DOLLARGESTURE) {
+		const SDL_DollarGestureEvent &event = _event.dgesture;
+
+	} else if (_event.type == SDL_DROPFILE) {
+		const SDL_DropEvent &event = _event.drop;
+
 	}
 	str += ">";
 	return str;
@@ -92,12 +119,18 @@ bool Object_Event::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(type));
-	if (_event.type == SDL_KEYDOWN || _event.type == SDL_KEYUP) {
+	if (_event.type == SDL_WINDOWEVENT) {
+		
+	} else if (_event.type == SDL_KEYDOWN || _event.type == SDL_KEYUP) {
 		symbols.insert(Gura_UserSymbol(state));
 		symbols.insert(Gura_UserSymbol(scancode));
 		symbols.insert(Gura_UserSymbol(sym));
 		symbols.insert(Gura_UserSymbol(mod));
 		symbols.insert(Gura_UserSymbol(unicode));
+	} else if (_event.type == SDL_TEXTEDITING) {
+
+	} else if (_event.type == SDL_TEXTINPUT) {
+
 	} else if (_event.type == SDL_MOUSEMOTION) {
 		symbols.insert(Gura_UserSymbol(state));
 		symbols.insert(Gura_UserSymbol(x));
@@ -109,32 +142,54 @@ bool Object_Event::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 		symbols.insert(Gura_UserSymbol(state));
 		symbols.insert(Gura_UserSymbol(x));
 		symbols.insert(Gura_UserSymbol(y));
+	} else if (_event.type == SDL_MOUSEWHEEL) {
+
 	} else if (_event.type == SDL_JOYAXISMOTION) {
 		symbols.insert(Gura_UserSymbol(which));
 		symbols.insert(Gura_UserSymbol(axis));
-		symbols.insert(Gura_UserSymbol(value));
-	} else if (_event.type == SDL_JOYBUTTONDOWN || _event.type == SDL_JOYBUTTONUP) {
-		symbols.insert(Gura_UserSymbol(which));
-		symbols.insert(Gura_UserSymbol(button));
-		symbols.insert(Gura_UserSymbol(state));
-	} else if (_event.type == SDL_JOYHATMOTION) {
-		symbols.insert(Gura_UserSymbol(which));
-		symbols.insert(Gura_UserSymbol(hat));
 		symbols.insert(Gura_UserSymbol(value));
 	} else if (_event.type == SDL_JOYBALLMOTION) {
 		symbols.insert(Gura_UserSymbol(which));
 		symbols.insert(Gura_UserSymbol(ball));
 		symbols.insert(Gura_UserSymbol(xrel));
 		symbols.insert(Gura_UserSymbol(yrel));
+	} else if (_event.type == SDL_JOYHATMOTION) {
+		symbols.insert(Gura_UserSymbol(which));
+		symbols.insert(Gura_UserSymbol(hat));
+		symbols.insert(Gura_UserSymbol(value));
+	} else if (_event.type == SDL_JOYBUTTONDOWN ||
+			   _event.type == SDL_JOYBUTTONUP) {
+		symbols.insert(Gura_UserSymbol(which));
+		symbols.insert(Gura_UserSymbol(button));
+		symbols.insert(Gura_UserSymbol(state));
+	} else if (_event.type == SDL_JOYDEVICEADDED ||
+			   _event.type == SDL_JOYDEVICEREMOVED) {
+
+	} else if (_event.type == SDL_CONTROLLERAXISMOTION) {
+
+	} else if (_event.type == SDL_CONTROLLERBUTTONDOWN ||
+			   _event.type == SDL_CONTROLLERBUTTONUP) {
+
+	} else if (_event.type == SDL_CONTROLLERDEVICEADDED ||
+			   _event.type == SDL_CONTROLLERDEVICEREMOVED ||
+			   _event.type == SDL_CONTROLLERDEVICEREMAPPED) {
+
 	} else if (_event.type == SDL_QUIT) {
-		//const SDL_QuitEvent &event = _event.quit;
 		// nothing to do
 	} else if (_event.type == SDL_USEREVENT) {
-		//const SDL_UserEvent &event = _event.user;
 		// nothing to do
 	} else if (_event.type == SDL_SYSWMEVENT) {
-		//const SDL_SysWMEvent &event = _event.syswm;
 		// nothing to do
+	} else if (_event.type == SDL_FINGERMOTION ||
+			   _event.type == SDL_FINGERDOWN ||
+			   _event.type == SDL_FINGERUP) {
+
+	} else if (_event.type == SDL_MULTIGESTURE) {
+
+	} else if (_event.type == SDL_DOLLARGESTURE) {
+
+	} else if (_event.type == SDL_DROPFILE) {
+
 	}
 	return true;
 }
@@ -146,7 +201,10 @@ Value Object_Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {
 		return Value(_event.type);
 	}
-	if (_event.type == SDL_KEYDOWN || _event.type == SDL_KEYUP) {
+	if (_event.type == SDL_WINDOWEVENT) {
+		const SDL_WindowEvent &event = _event.window;
+		
+	} else if (_event.type == SDL_KEYDOWN || _event.type == SDL_KEYUP) {
 		const SDL_KeyboardEvent &event = _event.key;
 		if (pSymbol->IsIdentical(Gura_UserSymbol(state))) {
 			return Value(event.state);
@@ -157,6 +215,12 @@ Value Object_Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 		} else if (pSymbol->IsIdentical(Gura_UserSymbol(mod))) {
 			return Value(static_cast<int>(event.keysym.mod));
 		}
+	} else if (_event.type == SDL_TEXTEDITING) {
+		const SDL_TextEditingEvent &event = _event.edit;
+
+	} else if (_event.type == SDL_TEXTINPUT) {
+		const SDL_TextInputEvent &event = _event.text;
+
 	} else if (_event.type == SDL_MOUSEMOTION) {
 		const SDL_MouseMotionEvent &event = _event.motion;
 		if (pSymbol->IsIdentical(Gura_UserSymbol(state))) {
@@ -181,30 +245,15 @@ Value Object_Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 		} else if (pSymbol->IsIdentical(Gura_UserSymbol(y))) {
 			return Value(event.y);
 		}
+	} else if (_event.type == SDL_MOUSEWHEEL) {
+		const SDL_MouseWheelEvent &event = _event.wheel;
+
 	} else if (_event.type == SDL_JOYAXISMOTION) {
 		const SDL_JoyAxisEvent &event = _event.jaxis;
 		if (pSymbol->IsIdentical(Gura_UserSymbol(which))) {
 			return Value(event.which);
 		} else if (pSymbol->IsIdentical(Gura_UserSymbol(axis))) {
 			return Value(event.axis);
-		} else if (pSymbol->IsIdentical(Gura_UserSymbol(value))) {
-			return Value(event.value);
-		}
-	} else if (_event.type == SDL_JOYBUTTONDOWN || _event.type == SDL_JOYBUTTONUP) {
-		const SDL_JoyButtonEvent &event = _event.jbutton;
-		if (pSymbol->IsIdentical(Gura_UserSymbol(which))) {
-			return Value(event.which);
-		} else if (pSymbol->IsIdentical(Gura_UserSymbol(button))) {
-			return Value(event.button);
-		} else if (pSymbol->IsIdentical(Gura_UserSymbol(state))) {
-			return Value(event.state);
-		}
-	} else if (_event.type == SDL_JOYHATMOTION) {
-		const SDL_JoyHatEvent &event = _event.jhat;
-		if (pSymbol->IsIdentical(Gura_UserSymbol(which))) {
-			return Value(event.which);
-		} else if (pSymbol->IsIdentical(Gura_UserSymbol(hat))) {
-			return Value(event.hat);
 		} else if (pSymbol->IsIdentical(Gura_UserSymbol(value))) {
 			return Value(event.value);
 		}
@@ -219,6 +268,41 @@ Value Object_Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 		} else if (pSymbol->IsIdentical(Gura_UserSymbol(yrel))) {
 			return Value(event.yrel);
 		}
+	} else if (_event.type == SDL_JOYHATMOTION) {
+		const SDL_JoyHatEvent &event = _event.jhat;
+		if (pSymbol->IsIdentical(Gura_UserSymbol(which))) {
+			return Value(event.which);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(hat))) {
+			return Value(event.hat);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(value))) {
+			return Value(event.value);
+		}
+	} else if (_event.type == SDL_JOYBUTTONDOWN ||
+			   _event.type == SDL_JOYBUTTONUP) {
+		const SDL_JoyButtonEvent &event = _event.jbutton;
+		if (pSymbol->IsIdentical(Gura_UserSymbol(which))) {
+			return Value(event.which);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(button))) {
+			return Value(event.button);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(state))) {
+			return Value(event.state);
+		}
+	} else if (_event.type == SDL_JOYDEVICEADDED ||
+			   _event.type == SDL_JOYDEVICEREMOVED) {
+		const SDL_JoyDeviceEvent &event = _event.jdevice;
+
+	} else if (_event.type == SDL_CONTROLLERAXISMOTION) {
+		const SDL_ControllerAxisEvent &event = _event.caxis;
+
+	} else if (_event.type == SDL_CONTROLLERBUTTONDOWN ||
+			   _event.type == SDL_CONTROLLERBUTTONUP) {
+		const SDL_ControllerButtonEvent &event = _event.cbutton;
+
+	} else if (_event.type == SDL_CONTROLLERDEVICEADDED ||
+			   _event.type == SDL_CONTROLLERDEVICEREMOVED ||
+			   _event.type == SDL_CONTROLLERDEVICEREMAPPED) {
+		const SDL_ControllerDeviceEvent &event = _event.cdevice;
+
 	} else if (_event.type == SDL_QUIT) {
 		//const SDL_QuitEvent &event = _event.quit;
 		// nothing to do
@@ -228,6 +312,20 @@ Value Object_Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	} else if (_event.type == SDL_SYSWMEVENT) {
 		//const SDL_SysWMEvent &event = _event.syswm;
 		// nothing to do
+	} else if (_event.type == SDL_FINGERMOTION ||
+			   _event.type == SDL_FINGERDOWN ||
+			   _event.type == SDL_FINGERUP) {
+		const SDL_TouchFingerEvent &event = _event.tfinger;
+
+	} else if (_event.type == SDL_MULTIGESTURE) {
+		const SDL_MultiGestureEvent &event = _event.mgesture;
+
+	} else if (_event.type == SDL_DOLLARGESTURE) {
+		const SDL_DollarGestureEvent &event = _event.dgesture;
+
+	} else if (_event.type == SDL_DROPFILE) {
+		const SDL_DropEvent &event = _event.drop;
+
 	}
 	evaluatedFlag = false;
 	return Value::Null;
