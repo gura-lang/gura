@@ -9873,6 +9873,15 @@ Gura_ModuleEntry()
 void AssignValues(Environment &env)
 {
 	// Basics - Initialization and Shutdown
+	Gura_AssignValueSDL(INIT_TIMER);
+	Gura_AssignValueSDL(INIT_AUDIO);
+	Gura_AssignValueSDL(INIT_VIDEO);
+	Gura_AssignValueSDL(INIT_JOYSTICK);
+	Gura_AssignValueSDL(INIT_HAPTIC);
+	Gura_AssignValueSDL(INIT_GAMECONTROLLER);
+	Gura_AssignValueSDL(INIT_EVENTS);
+	Gura_AssignValueSDL(INIT_EVERYTHING);
+	Gura_AssignValueSDL(INIT_NOPARACHUTE);
 	// Basics - Configuration Variables
 	// Basics - Error Handling
 	// Basics - Log Handling
@@ -9884,6 +9893,18 @@ void AssignValues(Environment &env)
 	//Gura_AssignValueSDL(VERSIONNUM);
 	//Gura_AssignValueSDL(VERSION_ATLEAST);
 	// Video - Display and Window Management
+	Gura_AssignValueSDL(WINDOWPOS_CENTERED);
+	Gura_AssignValueSDL(WINDOWPOS_UNDEFINED);
+	Gura_AssignValueSDL(WINDOW_FULLSCREEN);
+	Gura_AssignValueSDL(WINDOW_FULLSCREEN_DESKTOP);
+	Gura_AssignValueSDL(WINDOW_OPENGL);
+	Gura_AssignValueSDL(WINDOW_HIDDEN);
+	Gura_AssignValueSDL(WINDOW_BORDERLESS);
+	Gura_AssignValueSDL(WINDOW_RESIZABLE);
+	Gura_AssignValueSDL(WINDOW_MINIMIZED);
+	Gura_AssignValueSDL(WINDOW_MAXIMIZED);
+	Gura_AssignValueSDL(WINDOW_INPUT_GRABBED);
+	Gura_AssignValueSDL(WINDOW_ALLOW_HIGHDPI);
 	Gura_AssignValueSDL(BLENDMODE_NONE);
 	Gura_AssignValueSDL(BLENDMODE_BLEND);
 	Gura_AssignValueSDL(BLENDMODE_ADD);
