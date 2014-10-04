@@ -12,6 +12,12 @@ Gura_RealizeUserClassExWithoutPrepare(className, #className, env.LookupClass(VTY
 Gura_UserClass(className)->Prepare(env)
 
 #define Gura_AssignValueSDL(name) Gura_AssignValue(name, Value(SDL_##name))
+#define Gura_AssignValueKeycode(name) \
+Gura_AssignValue(SCANCODE_##name, Value(SDL_SCANCODE_##name));	\
+Gura_AssignValue(K_##name, Value(SDLK_##name))
+#define Gura_AssignValueKeycodeEx(nameScancode, nameKeycode) \
+Gura_AssignValue(SCANCODE_##nameScancode, Value(SDL_SCANCODE_##nameScancode));	\
+Gura_AssignValue(K_##nameKeycode, Value(SDLK_##nameKeycode))
 
 Gura_BeginModuleBody(sdl2)
 
@@ -10137,6 +10143,124 @@ void AssignValues(Environment &env)
 	Gura_AssignValueSDL(USEREVENT);
 	Gura_AssignValueSDL(LASTEVENT);
 	// Input Events - Keyboard Support
+	Gura_AssignValueKeycode(0);
+	Gura_AssignValueKeycode(1);
+	Gura_AssignValueKeycode(2);
+	Gura_AssignValueKeycode(3);
+	Gura_AssignValueKeycode(4);
+	Gura_AssignValueKeycode(5);
+	Gura_AssignValueKeycode(6);
+	Gura_AssignValueKeycode(7);
+	Gura_AssignValueKeycode(8);
+	Gura_AssignValueKeycode(9);
+	Gura_AssignValueKeycodeEx(A, a);
+	Gura_AssignValueKeycode(AC_BACK);
+	Gura_AssignValueKeycode(AC_BOOKMARKS);
+	Gura_AssignValueKeycode(AC_FORWARD);
+	Gura_AssignValueKeycode(AC_HOME);
+	Gura_AssignValueKeycode(AC_REFRESH);
+	Gura_AssignValueKeycode(AC_SEARCH);
+	Gura_AssignValueKeycode(AC_STOP);
+	Gura_AssignValueKeycode(AGAIN);
+	Gura_AssignValueKeycode(ALTERASE);
+	Gura_AssignValueKeycodeEx(APOSTROPHE, QUOTE);
+	Gura_AssignValueKeycode(APPLICATION);
+	Gura_AssignValueKeycode(AUDIOMUTE);
+	Gura_AssignValueKeycode(AUDIONEXT);
+	Gura_AssignValueKeycode(AUDIOPLAY);
+	Gura_AssignValueKeycode(AUDIOPREV);
+	Gura_AssignValueKeycode(AUDIOSTOP);
+	Gura_AssignValueKeycodeEx(B, b);
+	Gura_AssignValueKeycode(BACKSLASH);
+	Gura_AssignValueKeycode(BACKSPACE);
+	Gura_AssignValueKeycode(BRIGHTNESSDOWN);
+	Gura_AssignValueKeycode(BRIGHTNESSUP);
+	Gura_AssignValueKeycodeEx(C, c);
+	Gura_AssignValueKeycode(CALCULATOR);
+	Gura_AssignValueKeycode(CANCEL);
+	Gura_AssignValueKeycode(CAPSLOCK);
+	Gura_AssignValueKeycode(CLEAR);
+	Gura_AssignValueKeycode(CLEARAGAIN);
+	Gura_AssignValueKeycode(COMMA);
+	Gura_AssignValueKeycode(COMPUTER);
+	Gura_AssignValueKeycode(COPY);
+	Gura_AssignValueKeycode(CRSEL);
+	Gura_AssignValueKeycode(CURRENCYSUBUNIT);
+	Gura_AssignValueKeycode(CURRENCYUNIT);
+	Gura_AssignValueKeycode(CUT);
+	Gura_AssignValueKeycodeEx(D, d);
+	Gura_AssignValueKeycode(DECIMALSEPARATOR);
+	Gura_AssignValueKeycode(DELETE);
+	Gura_AssignValueKeycode(DISPLAYSWITCH);
+	Gura_AssignValueKeycode(DOWN);
+	Gura_AssignValueKeycodeEx(E, e);
+	Gura_AssignValueKeycode(EJECT);
+	Gura_AssignValueKeycode(END);
+	Gura_AssignValueKeycode(EQUALS);
+	Gura_AssignValueKeycode(ESCAPE);
+	Gura_AssignValueKeycode(EXECUTE);
+	Gura_AssignValueKeycode(EXSEL);
+	Gura_AssignValueKeycodeEx(F, f);
+	Gura_AssignValueKeycode(F1);
+	Gura_AssignValueKeycode(F10);
+	Gura_AssignValueKeycode(F11);
+	Gura_AssignValueKeycode(F12);
+	Gura_AssignValueKeycode(F13);
+	Gura_AssignValueKeycode(F14);
+	Gura_AssignValueKeycode(F15);
+	Gura_AssignValueKeycode(F16);
+	Gura_AssignValueKeycode(F17);
+	Gura_AssignValueKeycode(F18);
+	Gura_AssignValueKeycode(F19);
+	Gura_AssignValueKeycode(F2);
+	Gura_AssignValueKeycode(F20);
+	Gura_AssignValueKeycode(F21);
+	Gura_AssignValueKeycode(F22);
+	Gura_AssignValueKeycode(F23);
+	Gura_AssignValueKeycode(F24);
+	Gura_AssignValueKeycode(F3);
+	Gura_AssignValueKeycode(F4);
+	Gura_AssignValueKeycode(F5);
+	Gura_AssignValueKeycode(F6);
+	Gura_AssignValueKeycode(F7);
+	Gura_AssignValueKeycode(F8);
+	Gura_AssignValueKeycode(F9);
+	Gura_AssignValueKeycode(FIND);
+	Gura_AssignValueKeycodeEx(G, g);
+	Gura_AssignValueKeycodeEx(GRAVE, BACKQUOTE);
+	Gura_AssignValueKeycodeEx(H, h);
+	Gura_AssignValueKeycode(HELP);
+	Gura_AssignValueKeycode(HOME);
+	Gura_AssignValueKeycodeEx(I, i);
+	Gura_AssignValueKeycode(INSERT);
+	Gura_AssignValueKeycodeEx(J, j);
+	Gura_AssignValueKeycodeEx(K, k);
+	Gura_AssignValueKeycode(KBDILLUMDOWN);
+	Gura_AssignValueKeycode(KBDILLUMTOGGLE);
+	Gura_AssignValueKeycode(KBDILLUMUP);
+	Gura_AssignValueKeycode(KP_0);
+	Gura_AssignValueKeycode(KP_00);
+	Gura_AssignValueKeycode(KP_000);
+	Gura_AssignValueKeycode(KP_1);
+	Gura_AssignValueKeycode(KP_2);
+	Gura_AssignValueKeycode(KP_3);
+	Gura_AssignValueKeycode(KP_4);
+	Gura_AssignValueKeycode(KP_5);
+	Gura_AssignValueKeycode(KP_6);
+	Gura_AssignValueKeycode(KP_7);
+	Gura_AssignValueKeycode(KP_8);
+	Gura_AssignValueKeycode(KP_9);
+	Gura_AssignValueKeycode(KP_A);
+	Gura_AssignValueKeycode(KP_AMPERSAND);
+	Gura_AssignValueKeycode(KP_AT);
+	Gura_AssignValueKeycode(KP_B);
+
+
+
+
+
+
+
 	// Input Events - Mouse Support
 	// Input Events - Joystick Support
 	// Input Events - Game Controller Support

@@ -2,16 +2,16 @@
 import(sdl2)
 
 sdl2.Init(sdl2.INIT_VIDEO)
-window = sdl2.CreateWindow('Hey',
+window = sdl2.CreateWindow('saimple',
 				sdl2.WINDOWPOS_CENTERED, sdl2.WINDOWPOS_CENTERED, 640, 480, 0)
 renderer = sdl2.CreateRenderer(window, -1, 0)
+sdl2.SetRenderDrawColor(renderer, 0, 0, 0, 255)
+sdl2.RenderClear(renderer)
+sdl2.SetRenderDrawColor(renderer, 255, 0, 0, 255)
+sdl2.RenderDrawLine(renderer, 10, 10, 400, 400)
+sdl2.RenderPresent(renderer)
 repeat {
-	sdl2.SetRenderDrawColor(renderer, 0, 0, 0, 255)
-	sdl2.RenderClear(renderer)
-	if (ev = sdl2.PollEvent()) {
-		(ev.type == sdl2.QUIT) && break
-	}
-	sdl2.SetRenderDrawColor(renderer, 255, 0, 0, 255)
-	sdl2.RenderDrawLine(renderer, 10, 10, 400, 400)
-	sdl2.RenderPresent(renderer)
+	event = sdl2.WaitEvent()
+	if (event.type == sdl2.QUIT || \
+		(event.type == sdl2.KEYDOWN && event.sym == sdl2.K_ESCAPE)) { break }
 }
