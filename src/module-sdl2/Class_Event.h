@@ -10,16 +10,15 @@ Gura_DeclareUserClass(Event);
 
 class Object_Event : public Object {
 private:
-	SDL_Event *_pEvent;
+	SDL_Event _event;
 public:
 	Gura_DeclareObjectAccessor(Event)
 public:
-	inline Object_Event(SDL_Event *pEvent) :
-						Object(Gura_UserClass(Event)), _pEvent(pEvent) {}
+	inline Object_Event() : Object(Gura_UserClass(Event)) {}
 	virtual ~Object_Event();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
-	inline SDL_Event *GetEntity() { return _pEvent; }
+	inline SDL_Event *GetEntity() { return &_event; }
 };
 
 Gura_EndModuleScope(sdl2)

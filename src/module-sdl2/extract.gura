@@ -275,7 +275,12 @@ HasEvent(Uint32 type):SDL_bool
 HasEvents(Uint32 minType, Uint32 maxType):SDL_bool
 #LoadDollarTemplates(SDL_TouchID touchId, SDL_RWops* src):negerr_number
 PeepEvents(SDL_Event* #events, int #numevents, SDL_eventaction action, Uint32 minType, Uint32 maxType):negerr
-PollEvent(SDL_Event* #event):int
+PollEvent():SDL_Event {
+	AutoPtr<Object_Event> pObj(new Object_Event());
+	int rtn = SDL_PollEvent(pObj->GetEntity());
+	if (rtn == 0) return Value::Null;
+	return Value(pObj.release());
+}
 PumpEvents()
 PushEvent(SDL_Event* event):negerr_number
 QuitRequested():bool
@@ -606,7 +611,9 @@ Gura_ImplementFunction(${fi.funcName})
 		}
 	};
 	${end}
-	${if (!fi.rtnInfo)}
+	${if (fi.linesCustom)}
+	${fi.linesCustom}
+	${elsif (!fi.rtnInfo)}
 	SDL_${fi.funcName}(${argsCJoined});
 	return Value::Null;
 	${elsif (fi.rtnInfo.typeC == 'negerr')}
@@ -790,10 +797,14 @@ typeConvDict = %{
 			'sdl2', 'HapticEffect',
 			'Object_HapticEffect::GetObject(args, %d)->GetEntity()',
 			'Value(new Object_HapticEffect(rtn))')
+	'SDL_Event' => TypeConv(
+			'sdl2', 'Event',
+			'*Object_Event::GetObject(args, %d)->GetEntity()',
+			nil)
 	'SDL_Event *' => TypeConv(
 			'sdl2', 'Event',
 			'Object_Event::GetObject(args, %d)->GetEntity()',
-			'Value(new Object_Event(rtn))')
+			nil)
 	'SDL_Rect *' => TypeConv(
 			'sdl2', 'Rect',
 			'Object_Rect::GetObject(args, %d)->GetEntity()',
@@ -874,7 +885,7 @@ typeConvDict = %{
 
 FuncInfo = class {
 	public {
-		funcName, argsC, argsGura, rtnInfo, validFlag, voidFlag
+		funcName, argsC, argsGura, rtnInfo, validFlag, voidFlag, linesCustom
 	}
 	__init__(lineNo:number, funcName:string, argsRaw:string:nil, rtnRaw:string:nil) = {
 		this.argsRaw = argsRaw
@@ -885,11 +896,13 @@ FuncInfo = class {
 		} else {
 			this.funcName = funcName
 		}
+		if (rtnRaw && rtnRaw.isempty()) { rtnRaw = nil }
 		this.rtnRaw = rtnRaw
 		this.argsC = []
 		this.argsGura = []
 		this.rtnInfo = nil
 		this.voidFlag = false
+		this.linesCustom = nil
 		if (this.argsRaw) {
 			this.argsC = this.argsRaw.split(',').each():xlist {|argRaw|
 				argRaw = argRaw.strip()
@@ -955,6 +968,9 @@ FuncInfo = class {
 		this.argsGura = this.argsC.filter(this.argsC:*typeGura):list
 		this.voidFlag = (!this.rtnInfo || this.rtnInfo.typeC in ['negerr', 'boolerr'])
 	}
+	SetLinesCustom(linesCustom:string) = {
+		this.linesCustom = linesCustom
+	}
 	RenderImplementation() = {
 		fi = this
 		tmplImplementation.render()
@@ -966,30 +982,48 @@ FuncInfo = class {
 }
 
 funcInfos = []
+stat = `init
+linesCustom = ''
 text.eachline {|line, i|
-	line = line.strip()
-	(line.startswith('//') || line.isempty()) && continue
-	lineNo = i + 1
-	restPart = line
-	fields = restPart.split(':')
-	argsRaw = nil
-	rtnRaw = nil
-	if (fields.len() > 1) {
-		[restPart, rtnRaw] = fields
-	}
-	if (m = restPart.match(r'(.*)\(([^\)]*)\)')) {
-		[restPart, argsRaw] = m[1, 2]
-	}
-	if (m = restPart.match(r'^(#?\w+)$')) {
-		funcName = m[1]
-		if (funcInfos:*funcName.find(funcName)) {
-			sys.stderr.printf('%d: duplicated function %s\n', lineNo, funcName)
+	if (stat == `init) {
+		line = line.strip()
+		(line.startswith('//') || line.isempty()) && continue
+		lineNo = i + 1
+		restPart = line
+		fields = restPart.split(':')
+		argsRaw = nil
+		rtnRaw = nil
+		if (fields.len() > 1) {
+			[restPart, rtnRaw] = fields
+		}
+		if (m = restPart.match(r'(.*)\(([^\)]*)\)')) {
+			[restPart, argsRaw] = m[1, 2]
+		}
+		if (m = restPart.match(r'^(#?\w+)$')) {
+			funcName = m[1]
+			if (funcInfos:*funcName.find(funcName)) {
+				sys.stderr.printf('%d: duplicated function %s\n', lineNo, funcName)
+				sys.exit(1)
+			}
+			if (rtnRaw && (m = rtnRaw.match(r'(\w+)\s*{$'))) {
+				rtnRaw = m[1]
+				linesCustom = ''
+				stat = `custom
+			}
+			funcInfo = FuncInfo(lineNo, funcName, argsRaw, rtnRaw)
+			funcInfos.add(funcInfo)
+		} else {
+			sys.stderr.printf('%d: invalid format\n', lineNo)
 			sys.exit(1)
 		}
-		funcInfos.add(FuncInfo(lineNo, funcName, argsRaw, rtnRaw))
-	} else {
-		sys.stderr.printf('%d: invalid format\n', lineNo)
-		sys.exit(1)
+	} elsif (stat == `custom) {
+		if (line.match(r'^}$')) {
+			funcInfo.SetLinesCustom(linesCustom)
+			stat = `init
+		} else {
+			line = line.sub('(^\t|    )', '')
+			linesCustom += line
+		}
 	}
 }
 

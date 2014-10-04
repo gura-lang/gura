@@ -5079,13 +5079,10 @@ Gura_DeclareFunction(PollEvent)
 
 Gura_ImplementFunction(PollEvent)
 {
-#if 0
-	SDL_Event *event = args.IsValid(0)? NULL : NULL;
-	int rtn = SDL_PollEvent(event);
-	return Value(rtn);
-#endif
-	SetError_NotImpFunction(sig, "PollEvent");
-	return Value::Null;
+	AutoPtr<Object_Event> pObj(new Object_Event());
+	int rtn = SDL_PollEvent(pObj->GetEntity());
+	if (rtn == 0) return Value::Null;
+	return Value(pObj.release());
 }
 
 // sdl2.PumpEvents():void
