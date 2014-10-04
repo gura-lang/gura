@@ -38,7 +38,6 @@ Gura_DeclareUserSymbol(state);
 Gura_DeclareUserSymbol(scancode);
 Gura_DeclareUserSymbol(sym);
 Gura_DeclareUserSymbol(mod);
-Gura_DeclareUserSymbol(unicode);
 Gura_DeclareUserSymbol(x);
 Gura_DeclareUserSymbol(y);
 Gura_DeclareUserSymbol(xrel);
@@ -51,6 +50,15 @@ Gura_DeclareUserSymbol(hat);
 Gura_DeclareUserSymbol(ball);
 Gura_DeclareUserSymbol(w);
 Gura_DeclareUserSymbol(h);
+
+Gura_DeclareUserSymbol(timestamp);
+Gura_DeclareUserSymbol(windowID);
+Gura_DeclareUserSymbol(event);
+Gura_DeclareUserSymbol(data1);
+Gura_DeclareUserSymbol(data2);
+Gura_DeclareUserSymbol(text);
+Gura_DeclareUserSymbol(start);
+
 // symbols in SDL_Color
 Gura_DeclareUserSymbol(r)
 Gura_DeclareUserSymbol(g)

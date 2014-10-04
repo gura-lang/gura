@@ -126,7 +126,6 @@ bool Object_Event::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 		symbols.insert(Gura_UserSymbol(scancode));
 		symbols.insert(Gura_UserSymbol(sym));
 		symbols.insert(Gura_UserSymbol(mod));
-		symbols.insert(Gura_UserSymbol(unicode));
 	} else if (_event.type == SDL_TEXTEDITING) {
 
 	} else if (_event.type == SDL_TEXTINPUT) {
@@ -203,7 +202,17 @@ Value Object_Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	}
 	if (_event.type == SDL_WINDOWEVENT) {
 		const SDL_WindowEvent &event = _event.window;
-		
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(windowID))) {
+			return Value(event.windowID);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(event))) {
+			return Value(event.event);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(data1))) {
+			return Value(event.data1);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(data2))) {
+			return Value(event.data2);
+		}
 	} else if (_event.type == SDL_KEYDOWN || _event.type == SDL_KEYUP) {
 		const SDL_KeyboardEvent &event = _event.key;
 		if (pSymbol->IsIdentical(Gura_UserSymbol(state))) {
@@ -217,10 +226,26 @@ Value Object_Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 		}
 	} else if (_event.type == SDL_TEXTEDITING) {
 		const SDL_TextEditingEvent &event = _event.edit;
-
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(windowID))) {
+			return Value(event.windowID);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
+			return Value(event.text);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(start))) {
+			return Value(event.start);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(length))) {
+			return Value(event.length);
+		}
 	} else if (_event.type == SDL_TEXTINPUT) {
 		const SDL_TextInputEvent &event = _event.text;
-
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(windowID))) {
+			return Value(event.windowID);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(text))) {
+			return Value(event.text);
+		}
 	} else if (_event.type == SDL_MOUSEMOTION) {
 		const SDL_MouseMotionEvent &event = _event.motion;
 		if (pSymbol->IsIdentical(Gura_UserSymbol(state))) {

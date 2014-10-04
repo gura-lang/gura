@@ -9824,7 +9824,6 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(scancode);
 	Gura_RealizeUserSymbol(sym);
 	Gura_RealizeUserSymbol(mod);
-	Gura_RealizeUserSymbol(unicode);
 	Gura_RealizeUserSymbol(x);
 	Gura_RealizeUserSymbol(y);
 	Gura_RealizeUserSymbol(xrel);
@@ -9837,6 +9836,12 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(ball);
 	Gura_RealizeUserSymbol(w);
 	Gura_RealizeUserSymbol(h);
+	Gura_RealizeUserSymbol(timestamp);
+	Gura_RealizeUserSymbol(windowID);
+	Gura_RealizeUserSymbol(event);
+	Gura_RealizeUserSymbol(data1);
+	Gura_RealizeUserSymbol(text);
+	Gura_RealizeUserSymbol(start);
 	// symbols in SDL_Color
 	Gura_RealizeUserSymbol(r)
 	Gura_RealizeUserSymbol(g)
