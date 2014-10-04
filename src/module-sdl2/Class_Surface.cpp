@@ -92,8 +92,26 @@ Object_Surface *Object_Surface::CreateSurfaceFromImage(Signal sig, Image *pImage
 // Gura interfaces for Surface
 //-----------------------------------------------------------------------------
 // implementation of class Surface
-Gura_ImplementUserClass(Surface)
+Gura_ImplementUserClassWithCast(Surface)
 {
+}
+
+Gura_ImplementCastFrom(Surface)
+{
+	if (value.Is_image()) {
+		Image *pImage = Object_image::GetObject(value)->GetImage();
+		Object_Surface *pObjSurface =
+					Object_Surface::CreateSurfaceFromImage(sig, pImage);
+		if (sig.IsSignalled()) return false;
+		value = Value(pObjSurface);
+		return true;
+	}
+	return false;
+}
+
+Gura_ImplementCastTo(Surface)
+{
+	return false;
 }
 
 Gura_EndModuleScope(sdl2)

@@ -453,7 +453,10 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 void SetError_SDL(Signal &sig)
 {
-	sig.SetError(ERR_RuntimeError, "%s", ::SDL_GetError());
+	const char *msg = ::SDL_GetError();
+	if (*msg == '\0') {
+		sig.SetError(ERR_RuntimeError, "%s", msg);
+	}
 }
 
 void SetError_NotImpFunction(Signal &sig, const char *funcName)

@@ -225,7 +225,13 @@ ConvertPixels(int width, int height, Uint32 src_format, const void* #src, int #s
 ConvertSurface(SDL_Surface* src, const SDL_PixelFormat* fmt, Uint32 flags):SDL_Surface*
 ConvertSurfaceFormat(SDL_Surface* src, Uint32 pixel_format, Uint32 flags):SDL_Surface*
 CreateRGBSurface(Uint32 flags, int width, int height, int depth, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask):SDL_Surface*
-CreateRGBSurfaceFrom(void* #pixels, int width, int height, int depth, int pitch, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask):SDL_Surface*
+
+
+
+//CreateRGBSurfaceFrom(gura#Image pImage):SDL_Surface*
+
+
+
 FillRect(SDL_Surface* dst, const SDL_Rect* rect, Uint32 color):negerr
 FillRects(SDL_Surface* dst, const SDL_Rect* #rects, int #count, Uint32 color):negerr
 FreeSurface(SDL_Surface* surface)
@@ -289,8 +295,24 @@ RegisterEvents(int numevents):Uint32
 #SaveAllDollarTemplates(SDL_RWops* dst):negerr
 #SaveDollarTemplate(SDL_GestureID gestureId, SDL_RWops* dst):negerr
 #SetEventFilter()
-WaitEvent(SDL_Event* #event):negerr
-WaitEventTimeout(SDL_Event* #event, int timeout):negerr
+WaitEvent():SDL_Event {
+	SDL_Event event;
+	int rtn = SDL_WaitEvent(&event);
+	if (rtn == 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value(new Object_Event(event));
+}
+WaitEventTimeout(int timeout):SDL_Event {
+	SDL_Event event;
+	int rtn = SDL_WaitEventTimeout(&event, timeout);
+	if (rtn == 0) {
+		SetError_SDL(sig); // no signal if timeout
+		return Value::Null;
+	}
+	return Value(new Object_Event(event));
+}
 //-----------------------------------------------------------------------------
 // Input Events - Keyboard Support
 GetKeyFromName(const char* name):SDL_Keycode
@@ -773,6 +795,10 @@ typeConvDict = %{
 			'sdl2', 'GLContext',
 			'Object_GLContext::GetObject(args, %d)->GetEntity()',
 			'Value(new Object_GLContext(rtn))')
+	'gura#Image *' => TypeConv(
+			'sdl2', 'Image',
+			'Object_Image::GetObject(args, %d)->GetImage()',
+			'Value(new Object_Image(env, rtn))')
 	'SDL_AudioCVT *' => TypeConv(
 			'sdl2', 'AudioCVT',
 			'Object_AudioCVT::GetObject(args, %d)->GetEntity()',

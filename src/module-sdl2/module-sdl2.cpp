@@ -4148,45 +4148,6 @@ Gura_ImplementFunction(CreateRGBSurface)
 	return Value(new Object_Surface(rtn));
 }
 
-// sdl2.CreateRGBSurfaceFrom(width:number, height:number, depth:number, pitch:number, Rmask:number, Gmask:number, Bmask:number, Amask:number)
-Gura_DeclareFunction(CreateRGBSurfaceFrom)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "height", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "depth", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "pitch", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "Rmask", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "Gmask", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "Bmask", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "Amask", VTYPE_number, OCCUR_Once, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"");
-}
-
-Gura_ImplementFunction(CreateRGBSurfaceFrom)
-{
-#if 0
-	void *pixels = args.IsValid(0)? NULL : NULL;
-	int width = args.GetInt(1);
-	int height = args.GetInt(2);
-	int depth = args.GetInt(3);
-	int pitch = args.GetInt(4);
-	Uint32 Rmask = args.GetULong(5);
-	Uint32 Gmask = args.GetULong(6);
-	Uint32 Bmask = args.GetULong(7);
-	Uint32 Amask = args.GetULong(8);
-	SDL_Surface *rtn = SDL_CreateRGBSurfaceFrom(pixels, width, height, depth, pitch, Rmask, Gmask, Bmask, Amask);
-	if (rtn == NULL) {
-		SetError_SDL(sig);
-		return Value::Null;
-	}
-	return Value(new Object_Surface(rtn));
-#endif
-	SetError_NotImpFunction(sig, "CreateRGBSurfaceFrom");
-	return Value::Null;
-}
-
 // sdl2.FillRect(dst:sdl2.Surface, rect:sdl2.Rect, color:number):void
 Gura_DeclareFunction(FillRect)
 {
@@ -5237,33 +5198,29 @@ Gura_ImplementFunction(SetEventFilter)
 	return Value::Null;
 }
 
-// sdl2.WaitEvent():void
+// sdl2.WaitEvent()
 Gura_DeclareFunction(WaitEvent)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(WaitEvent)
 {
-#if 0
-	SDL_Event *event = args.IsValid(0)? NULL : NULL;
-	int rtn = SDL_WaitEvent(event);
-	if (rtn < 0) {
+	SDL_Event event;
+	int rtn = SDL_WaitEvent(&event);
+	if (rtn == 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "WaitEvent");
-	return Value::Null;
+	return Value(new Object_Event(event));
 }
 
-// sdl2.WaitEventTimeout(timeout:number):void
+// sdl2.WaitEventTimeout(timeout:number)
 Gura_DeclareFunction(WaitEventTimeout)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "timeout", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -5271,18 +5228,14 @@ Gura_DeclareFunction(WaitEventTimeout)
 
 Gura_ImplementFunction(WaitEventTimeout)
 {
-#if 0
-	SDL_Event *event = args.IsValid(0)? NULL : NULL;
-	int timeout = args.GetInt(1);
-	int rtn = SDL_WaitEventTimeout(event, timeout);
-	if (rtn < 0) {
-		SetError_SDL(sig);
+	int timeout = args.GetInt(0);
+	SDL_Event event;
+	int rtn = SDL_WaitEventTimeout(&event, timeout);
+	if (rtn == 0) {
+		SetError_SDL(sig); // no signal if timeout
 		return Value::Null;
 	}
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "WaitEventTimeout");
-	return Value::Null;
+	return Value(new Object_Event(event));
 }
 
 // sdl2.GetKeyFromName(name:string)
@@ -10407,7 +10360,6 @@ void AssignFunctions(Environment &env)
 		Gura_AssignFunction(ConvertSurface);
 		Gura_AssignFunction(ConvertSurfaceFormat);
 		Gura_AssignFunction(CreateRGBSurface);
-		Gura_AssignFunction(CreateRGBSurfaceFrom);
 		Gura_AssignFunction(FillRect);
 		Gura_AssignFunction(FillRects);
 		Gura_AssignFunction(FreeSurface);
@@ -10715,7 +10667,10 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 void SetError_SDL(Signal &sig)
 {
-	sig.SetError(ERR_RuntimeError, "%s", ::SDL_GetError());
+	const char *msg = ::SDL_GetError();
+	if (*msg == '\0') {
+		sig.SetError(ERR_RuntimeError, "%s", msg);
+	}
 }
 
 void SetError_NotImpFunction(Signal &sig, const char *funcName)
