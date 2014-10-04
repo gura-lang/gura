@@ -120,75 +120,134 @@ bool Object_Event::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(type));
 	if (_event.type == SDL_WINDOWEVENT) {
-		
+		symbols.insert(Gura_UserSymbol(timestamp));
+		symbols.insert(Gura_UserSymbol(windowID));
+		symbols.insert(Gura_UserSymbol(event));
+		symbols.insert(Gura_UserSymbol(data1));
+		symbols.insert(Gura_UserSymbol(data2));
 	} else if (_event.type == SDL_KEYDOWN || _event.type == SDL_KEYUP) {
+		symbols.insert(Gura_UserSymbol(timestamp));
+		symbols.insert(Gura_UserSymbol(windowID));
 		symbols.insert(Gura_UserSymbol(state));
+		symbols.insert(Gura_UserSymbol(repeat));
 		symbols.insert(Gura_UserSymbol(scancode));
 		symbols.insert(Gura_UserSymbol(sym));
 		symbols.insert(Gura_UserSymbol(mod));
 	} else if (_event.type == SDL_TEXTEDITING) {
-
+		symbols.insert(Gura_UserSymbol(timestamp));
+		symbols.insert(Gura_UserSymbol(windowID));
+		symbols.insert(Gura_UserSymbol(text));
+		symbols.insert(Gura_UserSymbol(start));
+		symbols.insert(Gura_UserSymbol(length));
 	} else if (_event.type == SDL_TEXTINPUT) {
-
+		symbols.insert(Gura_UserSymbol(timestamp));
+		symbols.insert(Gura_UserSymbol(windowID));
+		symbols.insert(Gura_UserSymbol(text));
 	} else if (_event.type == SDL_MOUSEMOTION) {
+		symbols.insert(Gura_UserSymbol(timestamp));
+		symbols.insert(Gura_UserSymbol(windowID));
+		symbols.insert(Gura_UserSymbol(which));
 		symbols.insert(Gura_UserSymbol(state));
 		symbols.insert(Gura_UserSymbol(x));
 		symbols.insert(Gura_UserSymbol(y));
 		symbols.insert(Gura_UserSymbol(xrel));
 		symbols.insert(Gura_UserSymbol(yrel));
 	} else if (_event.type == SDL_MOUSEBUTTONDOWN || _event.type == SDL_MOUSEBUTTONUP) {
+		symbols.insert(Gura_UserSymbol(timestamp));
+		symbols.insert(Gura_UserSymbol(windowID));
+		symbols.insert(Gura_UserSymbol(which));
 		symbols.insert(Gura_UserSymbol(button));
 		symbols.insert(Gura_UserSymbol(state));
+		symbols.insert(Gura_UserSymbol(clicks));
 		symbols.insert(Gura_UserSymbol(x));
 		symbols.insert(Gura_UserSymbol(y));
 	} else if (_event.type == SDL_MOUSEWHEEL) {
-
+		symbols.insert(Gura_UserSymbol(timestamp));
+		symbols.insert(Gura_UserSymbol(windowID));
+		symbols.insert(Gura_UserSymbol(which));
+		symbols.insert(Gura_UserSymbol(x));
+		symbols.insert(Gura_UserSymbol(y));
 	} else if (_event.type == SDL_JOYAXISMOTION) {
+		symbols.insert(Gura_UserSymbol(timestamp));
 		symbols.insert(Gura_UserSymbol(which));
 		symbols.insert(Gura_UserSymbol(axis));
 		symbols.insert(Gura_UserSymbol(value));
 	} else if (_event.type == SDL_JOYBALLMOTION) {
+		symbols.insert(Gura_UserSymbol(timestamp));
 		symbols.insert(Gura_UserSymbol(which));
 		symbols.insert(Gura_UserSymbol(ball));
 		symbols.insert(Gura_UserSymbol(xrel));
 		symbols.insert(Gura_UserSymbol(yrel));
 	} else if (_event.type == SDL_JOYHATMOTION) {
+		symbols.insert(Gura_UserSymbol(timestamp));
 		symbols.insert(Gura_UserSymbol(which));
 		symbols.insert(Gura_UserSymbol(hat));
 		symbols.insert(Gura_UserSymbol(value));
 	} else if (_event.type == SDL_JOYBUTTONDOWN ||
 			   _event.type == SDL_JOYBUTTONUP) {
+		symbols.insert(Gura_UserSymbol(timestamp));
 		symbols.insert(Gura_UserSymbol(which));
 		symbols.insert(Gura_UserSymbol(button));
 		symbols.insert(Gura_UserSymbol(state));
 	} else if (_event.type == SDL_JOYDEVICEADDED ||
 			   _event.type == SDL_JOYDEVICEREMOVED) {
-
+		symbols.insert(Gura_UserSymbol(timestamp));
+		symbols.insert(Gura_UserSymbol(which));
 	} else if (_event.type == SDL_CONTROLLERAXISMOTION) {
-
+		symbols.insert(Gura_UserSymbol(timestamp));
+		symbols.insert(Gura_UserSymbol(which));
+		symbols.insert(Gura_UserSymbol(axis));
+		symbols.insert(Gura_UserSymbol(value));
 	} else if (_event.type == SDL_CONTROLLERBUTTONDOWN ||
 			   _event.type == SDL_CONTROLLERBUTTONUP) {
-
+		symbols.insert(Gura_UserSymbol(timestamp));
+		symbols.insert(Gura_UserSymbol(which));
+		symbols.insert(Gura_UserSymbol(button));
+		symbols.insert(Gura_UserSymbol(state));
 	} else if (_event.type == SDL_CONTROLLERDEVICEADDED ||
 			   _event.type == SDL_CONTROLLERDEVICEREMOVED ||
 			   _event.type == SDL_CONTROLLERDEVICEREMAPPED) {
-
+		symbols.insert(Gura_UserSymbol(timestamp));
+		symbols.insert(Gura_UserSymbol(which));
 	} else if (_event.type == SDL_QUIT) {
-		// nothing to do
+		symbols.insert(Gura_UserSymbol(timestamp));
 	} else if (_event.type == SDL_USEREVENT) {
-		// nothing to do
+		symbols.insert(Gura_UserSymbol(timestamp));
+		symbols.insert(Gura_UserSymbol(windowID));
+		symbols.insert(Gura_UserSymbol(code));
+		symbols.insert(Gura_UserSymbol(data1));
+		symbols.insert(Gura_UserSymbol(data2));
 	} else if (_event.type == SDL_SYSWMEVENT) {
-		// nothing to do
+		symbols.insert(Gura_UserSymbol(timestamp));
 	} else if (_event.type == SDL_FINGERMOTION ||
 			   _event.type == SDL_FINGERDOWN ||
 			   _event.type == SDL_FINGERUP) {
-
+		symbols.insert(Gura_UserSymbol(timestamp));
+		symbols.insert(Gura_UserSymbol(fingerId));
+		symbols.insert(Gura_UserSymbol(x));
+		symbols.insert(Gura_UserSymbol(y));
+		symbols.insert(Gura_UserSymbol(dx));
+		symbols.insert(Gura_UserSymbol(dy));
+		symbols.insert(Gura_UserSymbol(pressure));
 	} else if (_event.type == SDL_MULTIGESTURE) {
-
+		symbols.insert(Gura_UserSymbol(timestamp));
+		symbols.insert(Gura_UserSymbol(touchId));
+		symbols.insert(Gura_UserSymbol(dTheta));
+		symbols.insert(Gura_UserSymbol(dDist));
+		symbols.insert(Gura_UserSymbol(x));
+		symbols.insert(Gura_UserSymbol(y));
+		symbols.insert(Gura_UserSymbol(numFingers));
 	} else if (_event.type == SDL_DOLLARGESTURE) {
-
+		symbols.insert(Gura_UserSymbol(timestamp));
+		symbols.insert(Gura_UserSymbol(touchId));
+		symbols.insert(Gura_UserSymbol(gestureId));
+		symbols.insert(Gura_UserSymbol(numFingers));
+		symbols.insert(Gura_UserSymbol(error));
+		symbols.insert(Gura_UserSymbol(x));
+		symbols.insert(Gura_UserSymbol(y));
 	} else if (_event.type == SDL_DROPFILE) {
-
+		symbols.insert(Gura_UserSymbol(timestamp));
+		symbols.insert(Gura_UserSymbol(file));
 	}
 	return true;
 }
