@@ -1,17 +1,17 @@
 #!/usr/bin/env gura
-import(sdl2)
+import(sdl2, sdl)
 
-sdl2.Init(sdl2.INIT_VIDEO)
-window = sdl2.CreateWindow('sample',
-	sdl2.WINDOWPOS_CENTERED, sdl2.WINDOWPOS_CENTERED, 640, 480, 0)
-renderer = sdl2.CreateRenderer(window, -1, 0)
-sdl2.SetRenderDrawColor(renderer, 0, 0, 0, 255)
-sdl2.RenderClear(renderer)
-sdl2.SetRenderDrawColor(renderer, 255, 0, 0, 255)
-sdl2.RenderDrawLine(renderer, 10, 10, 400, 400)
-sdl2.RenderPresent(renderer)
+sdl.Init(sdl.INIT_VIDEO)
+window = sdl.CreateWindow('sample',
+	sdl.WINDOWPOS_CENTERED, sdl.WINDOWPOS_CENTERED, 640, 480, 0)
+renderer = sdl.CreateRenderer(window, -1, 0)
+sdl.SetRenderDrawColor(renderer, 0, 0, 0, 255)
+sdl.RenderClear(renderer)
+sdl.SetRenderDrawColor(renderer, 255, 0, 0, 255)
+sdl.RenderDrawLine(renderer, 10, 10, 400, 400)
+sdl.RenderPresent(renderer)
 repeat {
-	event = sdl2.WaitEvent()
-	(event.type == sdl2.QUIT) && break
-	(event.type == sdl2.KEYDOWN && event.sym == sdl2.K_ESCAPE) && break
+	event = sdl.WaitEvent()
+	(event.type == sdl.QUIT) && break
+	(event.type == sdl.KEYDOWN && event.sym == sdl.K_ESCAPE) && break
 }
