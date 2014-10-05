@@ -55,11 +55,30 @@ assert_release
 // Basics - Querying SDL Version
 GetRevision():const char*
 GetRevisionNumber():int
-GetVersion
+GetVersion():custom {
+	SDL_version ver;
+	SDL_GetVersion(&ver);
+	return Value::CreateAsList(env, Value(ver.major), Value(ver.minor), Value(ver.patch));
+}
+VERSION():custom {
+	SDL_version ver;
+	SDL_VERSION(&ver);
+	return Value::CreateAsList(env, Value(ver.major), Value(ver.minor), Value(ver.patch));
+}
+VERSION_ATLEAST(int X, int Y, int Z):bool
 //-----------------------------------------------------------------------------
 // Video - Display and Window Management
 CreateWindow(const char* title, int x, int y, int w, int h, Uint32 flags):SDL_Window*
-CreateWindowAndRenderer(int width, int height, Uint32 window_flags, SDL_Window** #window, SDL_Renderer** #renderer):negerr
+CreateWindowAndRenderer(int width, int height, Uint32 window_flags):custom {
+	SDL_Window *window = NULL;
+	SDL_Renderer *renderer = NULL;
+	int rtn = SDL_CreateWindowAndRenderer(width, height, window_flags, &window, &renderer);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::CreateAsList(env, Value(new Object_Window(window)), Value(new Object_Renderer(renderer)));
+}
 CreateWindowFrom
 DestroyWindow(SDL_Window* window)
 DisableScreenSaver()
@@ -97,17 +116,55 @@ GetWindowDisplayIndex(SDL_Window* window):negerr_number
 GetWindowDisplayMode(SDL_Window* window, SDL_DisplayMode* mode):negerr
 GetWindowFlags(SDL_Window* window):Uint32
 GetWindowFromID(Uint32 id):SDL_Window*
-GetWindowGammaRamp(SDL_Window* window, Uint16* #red, Uint16* #green, Uint16* #blue):negerr
+GetWindowGammaRamp(SDL_Window* window):custom {
+	Uint16 red = 0;
+	Uint16 green = 0;
+	Uint16 blue = 0;
+	int rtn = SDL_GetWindowGammaRamp(window, &red, &green, &blue);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::CreateAsList(env, Value(red), Value(green), Value(blue));
+}
 GetWindowGrab(SDL_Window* window):SDL_bool
 GetWindowID(SDL_Window* window):Uint32
-GetWindowMaximumSize(SDL_Window* window, int* #w, int* #h)
-GetWindowMinimumSize(SDL_Window* window, int* #w, int* #h)
+GetWindowMaximumSize(SDL_Window* window):custom {
+	int w = 0;
+	int h = 0;
+	SDL_GetWindowMaximumSize(window, &w, &h);
+	return Value::CreateAsList(env, Value(w), Value(h));
+}
+GetWindowMinimumSize(SDL_Window* window):custom {
+	int w = 0;
+	int h = 0;
+	SDL_GetWindowMinimumSize(window, &w, &h);
+	return Value::CreateAsList(env, Value(w), Value(h));
+}
 GetWindowPixelFormat(SDL_Window* window):Uint32
-GetWindowPosition(SDL_Window* window, int* #x, int* #y)
-GetWindowSize(SDL_Window*window, int* #w, int* #h)
+GetWindowPosition(SDL_Window* window):custom {
+	int x = 0;
+	int y = 0;
+	SDL_GetWindowPosition(window, &x, &y);
+	return Value::CreateAsList(env, Value(x), Value(y));
+}
+GetWindowSize(SDL_Window*window):custom {
+	int w = 0;
+	int h = 0;
+	SDL_GetWindowSize(window, &w, &h);
+	return Value::CreateAsList(env, Value(w), Value(h));
+}
 GetWindowSurface(SDL_Window* window):SDL_Surface*
 GetWindowTitle(SDL_Window* window):const char*
-GetWindowWMInfo(SDL_Window* window, SDL_SysWMinfo* #info):SDL_bool
+#GetWindowWMInfo(SDL_Window* window):custom {
+	SDL_SysWMinfo info;
+	SDL_bool rtn = SDL_GetWindowWMInfo(window, &info);
+	if (rtn != SDL_TRUE) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value(new Object_SysWMinfo(info));
+}
 HideWindow(SDL_Window* window)
 IsScreenSaverEnabled():SDL_bool
 MaximizeWindow(SDL_Window* window)
@@ -141,22 +198,80 @@ CreateRenderer(SDL_Window* window, int index, Uint32 flags):SDL_Renderer*
 CreateSoftwareRenderer(SDL_Surface* surface):SDL_Renderer*
 CreateTexture(SDL_Renderer* renderer, Uint32 format, int access, int w, int h):SDL_Texture*
 CreateTextureFromSurface(SDL_Renderer* renderer, SDL_Surface* surface):SDL_Texture*
-//CreateWindowAndRenderer(int width, int height, Uint32 window_flags, SDL_Window** #window, SDL_Renderer** #renderer):negerr
 DestroyRenderer(SDL_Renderer* renderer)
 DestroyTexture(SDL_Texture* texture)
-GL_BindTexture(SDL_Texture* texture, float* #texw, float* #texh):negerr
+GL_BindTexture(SDL_Texture* texture):custom {
+	float texw = 0;
+	float texh = 0;
+	SDL_GL_BindTexture(texture, &texw, &texh);
+	return Value::CreateAsList(env, Value(texw), Value(texh));
+}
 GL_UnbindTexture(SDL_Texture* texture):negerr
 GetNumRenderDrivers():int
-GetRenderDrawBlendMode(SDL_Renderer* renderer, SDL_BlendMode* #blendMode):negerr
-GetRenderDrawColor(SDL_Renderer* renderer, Uint8* #r, Uint8* #g, Uint8* #b, Uint8* #a)
+GetRenderDrawBlendMode(SDL_Renderer* renderer):custom {
+	SDL_BlendMode blendMode = SDL_BLENDMODE_NONE;
+	int rtn = SDL_GetRenderDrawBlendMode(renderer, &blendMode);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value(blendMode);
+}
+GetRenderDrawColor(SDL_Renderer* renderer):custom {
+	Uint8 r = 0;
+	Uint8 g = 0;
+	Uint8 b = 0;
+	Uint8 a = 0;
+	int rtn = SDL_GetRenderDrawColor(renderer, &r, &g, &b, &a);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::CreateAsList(env, Value(r), Value(g), Value(b), Value(a));
+}
 GetRenderDriverInfo(int index, SDL_RendererInfo* #info):negerr
 GetRenderTarget(SDL_Renderer* renderer) SDL_Texture*
 GetRenderer(SDL_Window* window):SDL_Renderer*
 GetRenderInfo(SDL_Renderer* renderer, SDL_RendererInfo* #info):negerr
-GetRenderOutputSize(SDL_Renderer* renderer, int* #w, int* #h):negerr
-GetTextureAlphaMod(SDL_Texture* texture, Uint8* #alpha):negerr
-GetTextureBlendMode(SDL_Texture* texture, SDL_BlendMode* #blendMode):negerr
-GetTextureColorMod(SDL_Texture* texture, Uint8* #r, Uint8* #g, Uint8* #b):negerr
+GetRenderOutputSize(SDL_Renderer* renderer):custom {
+	int w = 0;
+	int h = 0;
+	int rtn = SDL_GetRendererOutputSize(renderer, &w, &h);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::CreateAsList(env, Value(w), Value(h));
+}
+GetTextureAlphaMod(SDL_Texture* texture):custom {
+	Uint8 alpha = 0;
+	int rtn = SDL_GetTextureAlphaMod(texture, &alpha);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value(alpha);
+}
+GetTextureBlendMode(SDL_Texture* texture):custom {
+	SDL_BlendMode blendMode = SDL_BLENDMODE_NONE;
+	int rtn = SDL_GetTextureBlendMode(texture, &blendMode);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value(blendMode);
+}
+GetTextureColorMod(SDL_Texture* texture):custom {
+	Uint8 r = 0;
+	Uint8 g = 0;
+	Uint8 b = 0;
+	int rtn = SDL_GetTextureColorMod(texture, &r, &g, &b);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::CreateAsList(env, Value(r), Value(g), Value(b));
+}
 LockTexture(SDL_Texture* texture, const SDL_Rect* rect, void** #pixels, int* #pitch):negerr
 QueryTexture(SDL_Texture* texture, Uint32* #format, int* #access, int* #w, int* #h):negerr
 RenderClear(SDL_Renderer* renderer):negerr
@@ -281,7 +396,7 @@ HasEvent(Uint32 type):SDL_bool
 HasEvents(Uint32 minType, Uint32 maxType):SDL_bool
 #LoadDollarTemplates(SDL_TouchID touchId, SDL_RWops* src):negerr_number
 PeepEvents(SDL_Event* #events, int #numevents, SDL_eventaction action, Uint32 minType, Uint32 maxType):negerr
-PollEvent():SDL_Event {
+PollEvent():custom {
 	SDL_Event event;
 	int rtn = SDL_PollEvent(&event);
 	if (rtn == 0) return Value::Null;
@@ -295,7 +410,7 @@ RegisterEvents(int numevents):Uint32
 #SaveAllDollarTemplates(SDL_RWops* dst):negerr
 #SaveDollarTemplate(SDL_GestureID gestureId, SDL_RWops* dst):negerr
 #SetEventFilter()
-WaitEvent():SDL_Event {
+WaitEvent():custom {
 	SDL_Event event;
 	int rtn = SDL_WaitEvent(&event);
 	if (rtn == 0) {
@@ -304,7 +419,7 @@ WaitEvent():SDL_Event {
 	}
 	return Value(new Object_Event(event));
 }
-WaitEventTimeout(int timeout):SDL_Event {
+WaitEventTimeout(int timeout):custom {
 	SDL_Event event;
 	int rtn = SDL_WaitEventTimeout(&event, timeout);
 	if (rtn == 0) {
@@ -460,6 +575,13 @@ PauseAudioDevice(SDL_AudioDeviceID dev, int pause_on)
 QueueAudio(SDL_AudioDeviceID dev, const void* #data, Uint32 #len):negerr
 UnlockAudio()
 UnlockAudioDevice(SDL_AudioDeviceID dev)
+AUDIO_BITSIZE(Uint16 x):Uint16
+AUDIO_ISFLOAT(Uint16 x):Uint16_boolean
+AUDIO_ISBIGENDIAN(Uint16 x):Uint16_boolean
+AUDIO_ISSIGNED(Uint16 x):Uint16_boolean
+AUDIO_ISINT(Uint16 x):bool
+AUDIO_ISLITTLEENDIAN(Uint16 x):bool
+AUDIO_ISUNSIGNED(Uint16 x):bool
 //-----------------------------------------------------------------------------
 // Threads - Thread Management
 CreateThread
@@ -665,6 +787,9 @@ Gura_ImplementFunction(${fi.funcName})
 		SetError_SDL(sig);
 		return Value::Null;
 	}
+	return Value(rtn != 0);
+	${elsif (fi.rtnInfo.typeC == 'Uint16_boolean')}
+	Uint16 rtn = SDL_${fi.funcName}(${argsCJoined});
 	return Value(rtn != 0);
 	${else}
 	${fi.rtnInfo.typeC.sub(r'(\w)$', r'\1 ')}rtn = SDL_${fi.funcName}(${argsCJoined});
@@ -963,14 +1088,9 @@ FuncInfo = class {
 		}
 		if (!this.rtnRaw) {
 			// nothing to do
-		} elsif (this.rtnRaw == 'negerr') {
-			this.rtnInfo = ReturnInfo('negerr', nil, nil)
-		} elsif (this.rtnRaw == 'boolerr') {
-			this.rtnInfo = ReturnInfo('boolerr', nil, nil)
-		} elsif (this.rtnRaw == 'negerr_number') {
-			this.rtnInfo = ReturnInfo('negerr_number', nil, nil)
-		} elsif (this.rtnRaw == 'negerr_boolean') {
-			this.rtnInfo = ReturnInfo('negerr_boolean', nil, nil)
+		} elsif (this.rtnRaw in ['custom', 'custom_void', 'negerr',
+ 					'boolerr', 'negerr_number', 'negerr_boolean', 'Uint16_boolean']) {
+			this.rtnInfo = ReturnInfo(this.rtnRaw, nil, nil)
 		} else {
 			if (m = rtnRaw.match(r'^(\w+)$')) {
 				typeC = m[1]
@@ -992,7 +1112,8 @@ FuncInfo = class {
 			this.rtnInfo = ReturnInfo(typeC, typeConv.typeGura, typeConv.fmtReturn)
 		}
 		this.argsGura = this.argsC.filter(this.argsC:*typeGura):list
-		this.voidFlag = (!this.rtnInfo || this.rtnInfo.typeC in ['negerr', 'boolerr'])
+		this.voidFlag = (!this.rtnInfo || \
+						 this.rtnInfo.typeC in ['custom_void', 'negerr', 'boolerr'])
 	}
 	SetLinesCustom(linesCustom:string) = {
 		this.linesCustom = linesCustom
@@ -1043,7 +1164,7 @@ text.eachline {|line, i|
 			sys.exit(1)
 		}
 	} elsif (stat == `custom) {
-		if (line.match(r'^}$')) {
+		if (line.match(r'^}\s*$')) {
 			funcInfo.SetLinesCustom(linesCustom)
 			stat = `init
 		} else {

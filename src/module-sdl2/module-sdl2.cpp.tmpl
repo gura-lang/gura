@@ -230,9 +230,7 @@ void AssignValues(Environment &env)
 	// Basics - Querying SDL Version
 	Gura_AssignValueSDL(COMPILEDVERSION);
 	//Gura_AssignValueSDL(REVISION);
-	//Gura_AssignValueSDL(VERSION);
 	//Gura_AssignValueSDL(VERSIONNUM);
-	//Gura_AssignValueSDL(VERSION_ATLEAST);
 	// Video - Display and Window Management
 	Gura_AssignValueSDL(WINDOWPOS_CENTERED);
 	Gura_AssignValueSDL(WINDOWPOS_UNDEFINED);
@@ -337,6 +335,10 @@ void AssignValues(Environment &env)
 	Gura_AssignValueSDL(TEXTUREMODULATE_NONE);
 	Gura_AssignValueSDL(TEXTUREMODULATE_COLOR);
 	Gura_AssignValueSDL(TEXTUREMODULATE_ALPHA);
+	Gura_AssignValueSDL(BLENDMODE_NONE);
+	Gura_AssignValueSDL(BLENDMODE_BLEND);
+	Gura_AssignValueSDL(BLENDMODE_ADD);
+	Gura_AssignValueSDL(BLENDMODE_MOD);
 	// Video - Pixel Formats and Conversion Routines
 	Gura_AssignValueSDL(PIXELFORMAT_UNKNOWN);
 	Gura_AssignValueSDL(PIXELFORMAT_INDEX1LSB);
@@ -804,8 +806,16 @@ void AssignValues(Environment &env)
 	// Platform and CPU Information - Platform Detection
 	// Platform and CPU Information - CPU Feature Detection
 	// Platform and CPU Information - Byte Order and Byte Swapping
+	Gura_AssignValueSDL(BYTEORDER);
+	Gura_AssignValueSDL(LIL_ENDIAN);
+	Gura_AssignValueSDL(BIG_ENDIAN);
 	// Platform and CPU Information - Bit Manipulation
 	// Power Management - Power Management Status
+	Gura_AssignValueSDL(POWERSTATE_UNKNOWN);
+	Gura_AssignValueSDL(POWERSTATE_ON_BATTERY);
+	Gura_AssignValueSDL(POWERSTATE_NO_BATTERY);
+	Gura_AssignValueSDL(POWERSTATE_CHARGING);
+	Gura_AssignValueSDL(POWERSTATE_CHARGED);
 	// Additional - Platform-specific functionality
 	// Additional - Other
 }
