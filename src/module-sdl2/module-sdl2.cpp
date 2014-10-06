@@ -1029,7 +1029,7 @@ Gura_ImplementFunction(GL_GetCurrentWindow)
 // sdl2.GL_GetDrawableSize
 Gura_DeclareFunction(GL_GetDrawableSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -1037,15 +1037,11 @@ Gura_DeclareFunction(GL_GetDrawableSize)
 
 Gura_ImplementFunction(GL_GetDrawableSize)
 {
-#if 0
 	SDL_Window *window = args.IsValid(0)? Object_Window::GetObject(args, 0)->GetEntity() : NULL;
-	int *w = args.IsValid(1)? NULL : NULL;
-	int *h = args.IsValid(2)? NULL : NULL;
-	SDL_GL_GetDrawableSize(window, w, h);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "GL_GetDrawableSize");
-	return Value::Null;
+	int w = 0;
+	int h = 0;
+	SDL_GL_GetDrawableSize(window, &w, &h);
+	return Value::CreateList(env, Value(w), Value(h));
 }
 
 // sdl2.GL_GetProcAddress
@@ -1211,7 +1207,7 @@ Gura_ImplementFunction(GL_UnloadLibrary)
 // sdl2.GetClosestDisplayMode
 Gura_DeclareFunction(GetClosestDisplayMode)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "displayIndex", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "mode", VTYPE_DisplayMode, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1220,21 +1216,21 @@ Gura_DeclareFunction(GetClosestDisplayMode)
 
 Gura_ImplementFunction(GetClosestDisplayMode)
 {
-#if 0
 	int displayIndex = args.GetInt(0);
 	const SDL_DisplayMode *mode = args.IsValid(1)? Object_DisplayMode::GetObject(args, 1)->GetEntity() : NULL;
-	SDL_DisplayMode *closest = args.IsValid(2)? NULL : NULL;
-	SDL_GetClosestDisplayMode(displayIndex, mode, closest);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "GetClosestDisplayMode");
-	return Value::Null;
+	SDL_DisplayMode closest;
+	SDL_DisplayMode* rtn = SDL_GetClosestDisplayMode(displayIndex, mode, &closest);
+	if (rtn == NULL) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value(new Object_DisplayMode(closest));
 }
 
 // sdl2.GetCurrentDisplayMode
 Gura_DeclareFunction(GetCurrentDisplayMode)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "displayIndex", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -1242,18 +1238,14 @@ Gura_DeclareFunction(GetCurrentDisplayMode)
 
 Gura_ImplementFunction(GetCurrentDisplayMode)
 {
-#if 0
 	int displayIndex = args.GetInt(0);
-	SDL_DisplayMode *mode = args.IsValid(1)? NULL : NULL;
-	int rtn = SDL_GetCurrentDisplayMode(displayIndex, mode);
+	SDL_DisplayMode mode;
+	int rtn = SDL_GetCurrentDisplayMode(displayIndex, &mode);
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "GetCurrentDisplayMode");
-	return Value::Null;
+	return Value(new Object_DisplayMode(mode));
 }
 
 // sdl2.GetCurrentVideoDriver
@@ -1277,7 +1269,7 @@ Gura_ImplementFunction(GetCurrentVideoDriver)
 // sdl2.GetDesktopDisplayMode
 Gura_DeclareFunction(GetDesktopDisplayMode)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "displayIndex", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -1285,24 +1277,20 @@ Gura_DeclareFunction(GetDesktopDisplayMode)
 
 Gura_ImplementFunction(GetDesktopDisplayMode)
 {
-#if 0
 	int displayIndex = args.GetInt(0);
-	SDL_DisplayMode *mode = args.IsValid(1)? NULL : NULL;
-	int rtn = SDL_GetDesktopDisplayMode(displayIndex, mode);
+	SDL_DisplayMode mode;
+	int rtn = SDL_GetDesktopDisplayMode(displayIndex, &mode);
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "GetDesktopDisplayMode");
-	return Value::Null;
+	return Value(new Object_DisplayMode(mode));
 }
 
 // sdl2.GetDisplayBounds
 Gura_DeclareFunction(GetDisplayBounds)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "displayIndex", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -1310,24 +1298,20 @@ Gura_DeclareFunction(GetDisplayBounds)
 
 Gura_ImplementFunction(GetDisplayBounds)
 {
-#if 0
 	int displayIndex = args.GetInt(0);
-	SDL_Rect *rect = args.IsValid(1)? NULL : NULL;
-	int rtn = SDL_GetDisplayBounds(displayIndex, rect);
+	SDL_Rect rect;
+	int rtn = SDL_GetDisplayBounds(displayIndex, &rect);
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "GetDisplayBounds");
-	return Value::Null;
+	return Value(new Object_Rect(rect));
 }
 
 // sdl2.GetDisplayMode
 Gura_DeclareFunction(GetDisplayMode)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "displayIndex", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "modeIndex", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -1336,19 +1320,15 @@ Gura_DeclareFunction(GetDisplayMode)
 
 Gura_ImplementFunction(GetDisplayMode)
 {
-#if 0
 	int displayIndex = args.GetInt(0);
 	int modeIndex = args.GetInt(1);
-	SDL_DisplayMode *mode = args.IsValid(2)? NULL : NULL;
-	int rtn = SDL_GetDisplayMode(displayIndex, modeIndex, mode);
+	SDL_DisplayMode mode;
+	int rtn = SDL_GetDisplayMode(displayIndex, modeIndex, &mode);
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "GetDisplayMode");
-	return Value::Null;
+	return Value(new Object_DisplayMode(mode));
 }
 
 // sdl2.GetDisplayName
@@ -1963,27 +1943,30 @@ Gura_ImplementFunction(SetWindowFullscreen)
 // sdl2.SetWindowGammaRamp
 Gura_DeclareFunction(SetWindowGammaRamp)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "green", VTYPE_number, OCCUR_Once, FLAG_List);
+	DeclareArg(env, "blue", VTYPE_number, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(SetWindowGammaRamp)
 {
-#if 0
 	SDL_Window *window = args.IsValid(0)? Object_Window::GetObject(args, 0)->GetEntity() : NULL;
-	const Uint16 *red = args.IsValid(1)? NULL : NULL;
-	const Uint16 *green = args.IsValid(2)? NULL : NULL;
-	const Uint16 *blue = args.IsValid(3)? NULL : NULL;
+	CArray<Uint16> red(args.GetList(1));
+	CArray<Uint16> green(args.GetList(2));
+	CArray<Uint16> blue(args.GetList(3));
+	if (red.GetSize() != 256 || green.GetSize() != 256 || blue.GetSize() != 256) {
+		sig.SetError(ERR_ValueError, "red, green and blue must have 256 elements");
+		return Value::Null;
+	}
 	int rtn = SDL_SetWindowGammaRamp(window, red, green, blue);
-	if (rtn < 0) {
+	if (rtn != SDL_TRUE) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "SetWindowGammaRamp");
 	return Value::Null;
 }
 
@@ -2236,27 +2219,23 @@ Gura_ImplementFunction(UpdateWindowSurface)
 // sdl2.UpdateWindowSurfaceRects
 Gura_DeclareFunction(UpdateWindowSurfaceRects)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(UpdateWindowSurfaceRects)
 {
-#if 0
 	SDL_Window *window = args.IsValid(0)? Object_Window::GetObject(args, 0)->GetEntity() : NULL;
-	const SDL_Rect *rects = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
-	int numrects = NULL;
+	CArray<SDL_Rect> rects(CreateCArrayOfRect(args.GetList(1)));
+	int numrects = static_cast<int>(rects.GetSize());
 	int rtn = SDL_UpdateWindowSurfaceRects(window, rects, numrects);
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "UpdateWindowSurfaceRects");
 	return Value::Null;
 }
 
@@ -2520,7 +2499,7 @@ Gura_ImplementFunction(GetRenderDrawColor)
 // sdl2.GetRenderDriverInfo
 Gura_DeclareFunction(GetRenderDriverInfo)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "index", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -2528,18 +2507,14 @@ Gura_DeclareFunction(GetRenderDriverInfo)
 
 Gura_ImplementFunction(GetRenderDriverInfo)
 {
-#if 0
 	int index = args.GetInt(0);
-	SDL_RendererInfo *info = args.IsValid(1)? NULL : NULL;
-	int rtn = SDL_GetRenderDriverInfo(index, info);
+	SDL_RendererInfo info;
+	int rtn = SDL_GetRenderDriverInfo(index, &info);
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "GetRenderDriverInfo");
-	return Value::Null;
+	return Value(new Object_RendererInfo(info));
 }
 
 // sdl2.GetRenderTarget
@@ -2578,29 +2553,25 @@ Gura_ImplementFunction(GetRenderer)
 	return Value(new Object_Renderer(rtn));
 }
 
-// sdl2.GetRenderInfo
-Gura_DeclareFunction(GetRenderInfo)
+// sdl2.GetRendererInfo
+Gura_DeclareFunction(GetRendererInfo)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
-Gura_ImplementFunction(GetRenderInfo)
+Gura_ImplementFunction(GetRendererInfo)
 {
-#if 0
 	SDL_Renderer *renderer = args.IsValid(0)? Object_Renderer::GetObject(args, 0)->GetEntity() : NULL;
-	SDL_RendererInfo *info = args.IsValid(1)? NULL : NULL;
-	int rtn = SDL_GetRenderInfo(renderer, info);
+	SDL_RendererInfo info;
+	int rtn = SDL_GetRendererInfo(renderer, &info);
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "GetRenderInfo");
-	return Value::Null;
+	return Value(new Object_RendererInfo(info));
 }
 
 // sdl2.GetRenderOutputSize
@@ -2721,7 +2692,7 @@ Gura_ImplementFunction(LockTexture)
 // sdl2.QueryTexture
 Gura_DeclareFunction(QueryTexture)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -2729,21 +2700,17 @@ Gura_DeclareFunction(QueryTexture)
 
 Gura_ImplementFunction(QueryTexture)
 {
-#if 0
 	SDL_Texture *texture = args.IsValid(0)? Object_Texture::GetObject(args, 0)->GetEntity() : NULL;
-	Uint32 *format = args.IsValid(1)? NULL : NULL;
-	int *access = args.IsValid(2)? NULL : NULL;
-	int *w = args.IsValid(3)? NULL : NULL;
-	int *h = args.IsValid(4)? NULL : NULL;
-	int rtn = SDL_QueryTexture(texture, format, access, w, h);
+	Uint32 format = 0;
+	int access = 0;
+	int w = 0;
+	int h = 0;
+	int rtn = SDL_QueryTexture(texture, &format, &access, &w, &h);
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "QueryTexture");
-	return Value::Null;
+	return Value::CreateList(env, Value(format), Value(access), Value(w), Value(h));
 }
 
 // sdl2.RenderClear
@@ -4202,13 +4169,8 @@ Gura_ImplementFunction(FillRects)
 {
 	SDL_Surface *dst = args.IsValid(0)? Object_Surface::GetObject(args, 0)->GetEntity() : NULL;
 	Uint32 color = args.GetULong(2);
-	const ValueList &_rects = args.GetList(1);
-	CArray<SDL_Rect> rects(_rects.size());
-	SDL_Rect *p = rects;
-	foreach_const (ValueList, pValue, _rects) {
-		*p++ = *Object_Rect::GetObject(*pValue)->GetEntity();
-	}
-	int count = static_cast<int>(_rects.size());
+	CArray<SDL_Rect> rects(CreateCArrayOfRect(args.GetList(1)));
+	int count = static_cast<int>(rects.GetSize());
 	int rtn = SDL_FillRects(dst, rects, count, color);
 	if (rtn < 0) {
 		SetError_SDL(sig);
@@ -10789,7 +10751,7 @@ void AssignFunctions(Environment &env)
 		Gura_AssignFunction(GetRenderDriverInfo);
 		Gura_AssignFunction(GetRenderTarget);
 		Gura_AssignFunction(GetRenderer);
-		Gura_AssignFunction(GetRenderInfo);
+		Gura_AssignFunction(GetRendererInfo);
 		Gura_AssignFunction(GetRenderOutputSize);
 		Gura_AssignFunction(GetTextureAlphaMod);
 		Gura_AssignFunction(GetTextureBlendMode);
@@ -11169,6 +11131,26 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
+CArray<SDL_Point> CreateCArrayOfPoint(const ValueList &valList)
+{
+	CArray<SDL_Point> rtn(valList.size());
+	SDL_Point *p = rtn;
+	foreach_const (ValueList, pValue, valList) {
+		*p++ = *Object_Point::GetObject(*pValue)->GetEntity();
+	}
+	return rtn;
+}
+
+CArray<SDL_Rect> CreateCArrayOfRect(const ValueList &valList)
+{
+	CArray<SDL_Rect> rtn(valList.size());
+	SDL_Rect *p = rtn;
+	foreach_const (ValueList, pValue, valList) {
+		*p++ = *Object_Rect::GetObject(*pValue)->GetEntity();
+	}
+	return rtn;
+}
+
 void SetError_SDL(Signal &sig)
 {
 	const char *msg = ::SDL_GetError();

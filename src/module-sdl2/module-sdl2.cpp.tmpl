@@ -832,6 +832,26 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
+CArray<SDL_Point> CreateCArrayOfPoint(const ValueList &valList)
+{
+	CArray<SDL_Point> rtn(valList.size());
+	SDL_Point *p = rtn;
+	foreach_const (ValueList, pValue, valList) {
+		*p++ = *Object_Point::GetObject(*pValue)->GetEntity();
+	}
+	return rtn;
+}
+
+CArray<SDL_Rect> CreateCArrayOfRect(const ValueList &valList)
+{
+	CArray<SDL_Rect> rtn(valList.size());
+	SDL_Rect *p = rtn;
+	foreach_const (ValueList, pValue, valList) {
+		*p++ = *Object_Rect::GetObject(*pValue)->GetEntity();
+	}
+	return rtn;
+}
+
 void SetError_SDL(Signal &sig)
 {
 	const char *msg = ::SDL_GetError();

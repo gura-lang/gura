@@ -155,6 +155,9 @@ Gura_DeclareUserSymbol(cur_frame)
 // symbols for other purposes
 Gura_DeclareUserSymbol(thread_);
 
+CArray<SDL_Point> CreateCArrayOfPoint(const ValueList &valList);
+CArray<SDL_Rect> CreateCArrayOfRect(const ValueList &valList);
+
 void SetError_SDL(Signal &sig);
 void SetError_NotImpFunction(Signal &sig, const char *funcName);
 void SetError_NotImpMethod(Signal &sig, const char *className, const char *methodName);

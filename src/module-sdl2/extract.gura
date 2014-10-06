@@ -89,7 +89,12 @@ GL_ExtensionSupported(const char* extension):SDL_bool
 GL_GetAttribute(SDL_GLattr attr, int* #value):negerr
 GL_GetCurrentContext():SDL_GLContext
 GL_GetCurrentWindow():SDL_Window*
-GL_GetDrawableSize(SDL_Window* window, int* #w, int* #h)
+GL_GetDrawableSize(SDL_Window* window):custom {
+	int w = 0;
+	int h = 0;
+	SDL_GL_GetDrawableSize(window, &w, &h);
+	return Value::CreateList(env, Value(w), Value(h));
+}
 GL_GetProcAddress
 GL_GetSwapInterval():int
 GL_LoadLibrary(const char* path):negerr
@@ -99,12 +104,52 @@ GL_SetAttribute(SDL_GLattr attr, int value):negerr
 GL_SetSwapInterval(int interval):negerr
 GL_SwapWindow(SDL_Window* window)
 GL_UnloadLibrary()
-GetClosestDisplayMode(int displayIndex, const SDL_DisplayMode* mode, SDL_DisplayMode* #closest)
-GetCurrentDisplayMode(int displayIndex, SDL_DisplayMode* #mode):negerr
+GetClosestDisplayMode(int displayIndex, const SDL_DisplayMode* mode):custom {
+	SDL_DisplayMode closest;
+	SDL_DisplayMode* rtn = SDL_GetClosestDisplayMode(displayIndex, mode, &closest);
+	if (rtn == NULL) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value(new Object_DisplayMode(closest));
+}
+GetCurrentDisplayMode(int displayIndex):custom {
+	SDL_DisplayMode mode;
+	int rtn = SDL_GetCurrentDisplayMode(displayIndex, &mode);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value(new Object_DisplayMode(mode));
+}
 GetCurrentVideoDriver():const char*
-GetDesktopDisplayMode(int displayIndex, SDL_DisplayMode* #mode):negerr
-GetDisplayBounds(int displayIndex, SDL_Rect* #rect):negerr
-GetDisplayMode(int displayIndex, int modeIndex, SDL_DisplayMode* #mode):negerr
+GetDesktopDisplayMode(int displayIndex):custom {
+	SDL_DisplayMode mode;
+	int rtn = SDL_GetDesktopDisplayMode(displayIndex, &mode);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value(new Object_DisplayMode(mode));
+}
+GetDisplayBounds(int displayIndex):custom {
+	SDL_Rect rect;
+	int rtn = SDL_GetDisplayBounds(displayIndex, &rect);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value(new Object_Rect(rect));
+}
+GetDisplayMode(int displayIndex, int modeIndex):custom {
+	SDL_DisplayMode mode;
+	int rtn = SDL_GetDisplayMode(displayIndex, modeIndex, &mode);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value(new Object_DisplayMode(mode));
+}
 GetDisplayName(int dipslayIndex):const char*
 GetNumDisplayModes(int displayIndex):int
 GetNumVideoDisplays():int
@@ -176,7 +221,21 @@ SetWindowBrightness(SDL_Window* window, float brightness):negerr
 #SetWindowData(SDL_Window* window, const char* name, void* #userdata)
 SetWindowDisplayMode(SDL_Window* window, const SDL_DisplayMode* mode):negerr
 SetWindowFullscreen(SDL_Window* window, Uint32 flags):negerr
-SetWindowGammaRamp(SDL_Window* window, const Uint16* #red, const Uint16* #green, const Uint16* #blue):negerr
+SetWindowGammaRamp(SDL_Window* window, [number;Once;List] red, [number;Once;List] green, [number;Once;List] blue):custom {
+	CArray<Uint16> red(args.GetList(1));
+	CArray<Uint16> green(args.GetList(2));
+	CArray<Uint16> blue(args.GetList(3));
+	if (red.GetSize() != 256 || green.GetSize() != 256 || blue.GetSize() != 256) {
+		sig.SetError(ERR_ValueError, "red, green and blue must have 256 elements");
+		return Value::Null;
+	}
+	int rtn = SDL_SetWindowGammaRamp(window, red, green, blue);
+	if (rtn != SDL_TRUE) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::Null;
+}
 SetWindowGrab(SDL_Window* window, SDL_bool grabbed)
 SetWindowHitTest(SDL_Window* window, SDL_HitTest #callback, void* #callback_data):negerr
 SetWindowIcon(SDL_Window* window, SDL_Surface* icon)
@@ -189,7 +248,16 @@ SetWindowTitle(SDL_Window* window, const char* title)
 ShowSimpleMessageBox(Uint32 flags, const char* title, const char* message, SDL_Window* window):negerr
 ShowWindow(SDL_Window* window)
 UpdateWindowSurface(SDL_Window* window):negerr
-UpdateWindowSurfaceRects(SDL_Window* window, const SDL_Rect* rects, int #numrects):negerr
+UpdateWindowSurfaceRects(SDL_Window* window, [Rect;Once;List] rects):custom {
+	CArray<SDL_Rect> rects(CreateCArrayOfRect(args.GetList(1)));
+	int numrects = static_cast<int>(rects.GetSize());
+	int rtn = SDL_UpdateWindowSurfaceRects(window, rects, numrects);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::Null;
+}
 VideoInit(const char* driver_name):negerr
 VideoQuit()
 //-----------------------------------------------------------------------------
@@ -229,10 +297,26 @@ GetRenderDrawColor(SDL_Renderer* renderer):custom {
 	}
 	return Value::CreateList(env, Value(r), Value(g), Value(b), Value(a));
 }
-GetRenderDriverInfo(int index, SDL_RendererInfo* #info):negerr
+GetRenderDriverInfo(int index):custom {
+	SDL_RendererInfo info;
+	int rtn = SDL_GetRenderDriverInfo(index, &info);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value(new Object_RendererInfo(info));
+}
 GetRenderTarget(SDL_Renderer* renderer) SDL_Texture*
 GetRenderer(SDL_Window* window):SDL_Renderer*
-GetRenderInfo(SDL_Renderer* renderer, SDL_RendererInfo* #info):negerr
+GetRendererInfo(SDL_Renderer* renderer):custom {
+	SDL_RendererInfo info;
+	int rtn = SDL_GetRendererInfo(renderer, &info);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value(new Object_RendererInfo(info));
+}
 GetRenderOutputSize(SDL_Renderer* renderer):custom {
 	int w = 0;
 	int h = 0;
@@ -273,22 +357,40 @@ GetTextureColorMod(SDL_Texture* texture):custom {
 	return Value::CreateList(env, Value(r), Value(g), Value(b));
 }
 LockTexture(SDL_Texture* texture, const SDL_Rect* rect, void** #pixels, int* #pitch):negerr
-QueryTexture(SDL_Texture* texture, Uint32* #format, int* #access, int* #w, int* #h):negerr
+QueryTexture(SDL_Texture* texture):custom {
+	Uint32 format = 0;
+	int access = 0;
+	int w = 0;
+	int h = 0;
+	int rtn = SDL_QueryTexture(texture, &format, &access, &w, &h);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::CreateList(env, Value(format), Value(access), Value(w), Value(h));
+}
 RenderClear(SDL_Renderer* renderer):negerr
 RenderCopy(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect):negerr
 RenderCopyEx(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect, double angle, const SDL_Point* center, SDL_RendererFlip flip):negerr
 RenderDrawLine(SDL_Renderer* renderer, int x1, int y1, int x2, int y2):negerr
 RenderDrawLines(SDL_Renderer* renderer, const SDL_Point* #points, int #count):negerr
+
 RenderDrawPoint(SDL_Renderer* renderer, int x, int y):negerr
 RenderDrawPoints(SDL_Renderer* renderer, const SDL_Point* #points, int #count):negerr
+
 RenderDrawRect(SDL_Renderer* renderer, const SDL_Rect* rect):negerr
 RenderDrawRects(SDL_Renderer* renderer, const SDL_Rect* #rects, int #count):negerr
+
 RenderFillRect(SDL_Renderer* renderer, const SDL_Rect* rect):negerr
 RenderFillRects(SDL_Renderer* renderer, const SDL_Rect* #rects, int #count):negerr
+
 RenderGetClipRect(SDL_Renderer* renderer, SDL_Rect* #rect)
 RenderGetLogicalSize(SDL_Renderer* renderer, int* #w, int* #h)
+
 RenderGetScale(SDL_Renderer* renderer, float* #scaleX, float* #scaleY)
+
 RenderGetViewport(SDL_Renderer* renderer, SDL_Rect* #rect)
+
 #RenderIsClipEnabled(SDL_Renderer* renderer):SDL_bool
 RenderPresent(SDL_Renderer* renderer)
 RenderReadPixels(SDL_Renderer* renderer, const SDL_Rect* rect, Uint32 format, void* #pixels, int pitch):negerr
@@ -348,13 +450,8 @@ CreateRGBSurfaceFrom([image;Once;None] image):custom {
 
 FillRect(SDL_Surface* dst, const SDL_Rect* rect, Uint32 color):negerr
 FillRects(SDL_Surface* dst, [Rect;Once;List] rects, Uint32 color):custom {
-	const ValueList &_rects = args.GetList(1);
-	CArray<SDL_Rect> rects(_rects.size());
-	int count = static_cast<int>(_rects.size());
-	SDL_Rect *p = rects;
-	foreach_const (ValueList, pValue, _rects) {
-		*p++ = *Object_Rect::GetObject(*pValue)->GetEntity();
-	}
+	CArray<SDL_Rect> rects(CreateCArrayOfRect(args.GetList(1)));
+	int count = static_cast<int>(rects.GetSize());
 	int rtn = SDL_FillRects(dst, rects, count, color);
 	if (rtn < 0) {
 		SetError_SDL(sig);

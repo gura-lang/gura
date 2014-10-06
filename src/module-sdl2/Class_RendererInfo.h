@@ -14,7 +14,8 @@ private:
 public:
 	Gura_DeclareObjectAccessor(RendererInfo)
 public:
-	inline Object_RendererInfo() : Object(Gura_UserClass(RendererInfo)) {}
+	inline Object_RendererInfo(const SDL_RendererInfo &info) :
+						Object(Gura_UserClass(RendererInfo)), _info(info) {}
 	virtual ~Object_RendererInfo();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);

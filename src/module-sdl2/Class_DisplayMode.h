@@ -14,7 +14,8 @@ private:
 public:
 	Gura_DeclareObjectAccessor(DisplayMode)
 public:
-	inline Object_DisplayMode() : Object(Gura_UserClass(DisplayMode)) {}
+	inline Object_DisplayMode(const SDL_DisplayMode &mode) :
+					Object(Gura_UserClass(DisplayMode)), _mode(mode) {}
 	virtual ~Object_DisplayMode();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);
