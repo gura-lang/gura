@@ -31,7 +31,7 @@ Gura_AssignValue(K_##name, Value(SDLK_##name))
 
 Gura_BeginModuleBody(sdl2)
 
-// sdl2.Init(flags:number):void
+// sdl2.Init
 Gura_DeclareFunction(Init)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -51,7 +51,7 @@ Gura_ImplementFunction(Init)
 	return Value::Null;
 }
 
-// sdl2.InitSubSystem(flags:number):void
+// sdl2.InitSubSystem
 Gura_DeclareFunction(InitSubSystem)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -71,7 +71,7 @@ Gura_ImplementFunction(InitSubSystem)
 	return Value::Null;
 }
 
-// sdl2.Quit():void
+// sdl2.Quit
 Gura_DeclareFunction(Quit)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -85,7 +85,7 @@ Gura_ImplementFunction(Quit)
 	return Value::Null;
 }
 
-// sdl2.QuitSubSystem(flags:number):void
+// sdl2.QuitSubSystem
 Gura_DeclareFunction(QuitSubSystem)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -101,7 +101,7 @@ Gura_ImplementFunction(QuitSubSystem)
 	return Value::Null;
 }
 
-// sdl2.SetMainReady():void
+// sdl2.SetMainReady
 Gura_DeclareFunction(SetMainReady)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -115,7 +115,7 @@ Gura_ImplementFunction(SetMainReady)
 	return Value::Null;
 }
 
-// sdl2.WasInit(flags:number)
+// sdl2.WasInit
 Gura_DeclareFunction(WasInit)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -131,7 +131,7 @@ Gura_ImplementFunction(WasInit)
 	return Value(rtn);
 }
 
-// sdl2.AddHintCallback():void
+// sdl2.AddHintCallback
 Gura_DeclareFunction(AddHintCallback)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -149,7 +149,7 @@ Gura_ImplementFunction(AddHintCallback)
 	return Value::Null;
 }
 
-// sdl2.ClearHints():void
+// sdl2.ClearHints
 Gura_DeclareFunction(ClearHints)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -167,7 +167,7 @@ Gura_ImplementFunction(ClearHints)
 	return Value::Null;
 }
 
-// sdl2.DelhintCallback():void
+// sdl2.DelhintCallback
 Gura_DeclareFunction(DelhintCallback)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -185,7 +185,7 @@ Gura_ImplementFunction(DelhintCallback)
 	return Value::Null;
 }
 
-// sdl2.GetHint():void
+// sdl2.GetHint
 Gura_DeclareFunction(GetHint)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -203,7 +203,7 @@ Gura_ImplementFunction(GetHint)
 	return Value::Null;
 }
 
-// sdl2.SetHint():void
+// sdl2.SetHint
 Gura_DeclareFunction(SetHint)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -221,7 +221,7 @@ Gura_ImplementFunction(SetHint)
 	return Value::Null;
 }
 
-// sdl2.SetHintWithPriority():void
+// sdl2.SetHintWithPriority
 Gura_DeclareFunction(SetHintWithPriority)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -239,7 +239,7 @@ Gura_ImplementFunction(SetHintWithPriority)
 	return Value::Null;
 }
 
-// sdl2.ClearError():void
+// sdl2.ClearError
 Gura_DeclareFunction(ClearError)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -253,7 +253,7 @@ Gura_ImplementFunction(ClearError)
 	return Value::Null;
 }
 
-// sdl2.GetError()
+// sdl2.GetError
 Gura_DeclareFunction(GetError)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -271,7 +271,7 @@ Gura_ImplementFunction(GetError)
 	return Value(rtn);
 }
 
-// sdl2.SetError():void
+// sdl2.SetError
 Gura_DeclareFunction(SetError)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -289,7 +289,7 @@ Gura_ImplementFunction(SetError)
 	return Value::Null;
 }
 
-// sdl2.Log():void
+// sdl2.Log
 Gura_DeclareFunction(Log)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -307,7 +307,7 @@ Gura_ImplementFunction(Log)
 	return Value::Null;
 }
 
-// sdl2.LogCritical():void
+// sdl2.LogCritical
 Gura_DeclareFunction(LogCritical)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -325,7 +325,7 @@ Gura_ImplementFunction(LogCritical)
 	return Value::Null;
 }
 
-// sdl2.LogDebug():void
+// sdl2.LogDebug
 Gura_DeclareFunction(LogDebug)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -343,7 +343,7 @@ Gura_ImplementFunction(LogDebug)
 	return Value::Null;
 }
 
-// sdl2.LogError():void
+// sdl2.LogError
 Gura_DeclareFunction(LogError)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -361,7 +361,7 @@ Gura_ImplementFunction(LogError)
 	return Value::Null;
 }
 
-// sdl2.LogGetOutputFunction():void
+// sdl2.LogGetOutputFunction
 Gura_DeclareFunction(LogGetOutputFunction)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -379,7 +379,7 @@ Gura_ImplementFunction(LogGetOutputFunction)
 	return Value::Null;
 }
 
-// sdl2.LogGetPriority():void
+// sdl2.LogGetPriority
 Gura_DeclareFunction(LogGetPriority)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -397,7 +397,7 @@ Gura_ImplementFunction(LogGetPriority)
 	return Value::Null;
 }
 
-// sdl2.LogInfo():void
+// sdl2.LogInfo
 Gura_DeclareFunction(LogInfo)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -415,7 +415,7 @@ Gura_ImplementFunction(LogInfo)
 	return Value::Null;
 }
 
-// sdl2.LogMessage():void
+// sdl2.LogMessage
 Gura_DeclareFunction(LogMessage)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -433,7 +433,7 @@ Gura_ImplementFunction(LogMessage)
 	return Value::Null;
 }
 
-// sdl2.LogMessageV():void
+// sdl2.LogMessageV
 Gura_DeclareFunction(LogMessageV)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -451,7 +451,7 @@ Gura_ImplementFunction(LogMessageV)
 	return Value::Null;
 }
 
-// sdl2.LogResetPriorities():void
+// sdl2.LogResetPriorities
 Gura_DeclareFunction(LogResetPriorities)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -469,7 +469,7 @@ Gura_ImplementFunction(LogResetPriorities)
 	return Value::Null;
 }
 
-// sdl2.LogSetAllPriority():void
+// sdl2.LogSetAllPriority
 Gura_DeclareFunction(LogSetAllPriority)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -487,7 +487,7 @@ Gura_ImplementFunction(LogSetAllPriority)
 	return Value::Null;
 }
 
-// sdl2.LogSetOutputFunction():void
+// sdl2.LogSetOutputFunction
 Gura_DeclareFunction(LogSetOutputFunction)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -505,7 +505,7 @@ Gura_ImplementFunction(LogSetOutputFunction)
 	return Value::Null;
 }
 
-// sdl2.LogSetPriority():void
+// sdl2.LogSetPriority
 Gura_DeclareFunction(LogSetPriority)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -523,7 +523,7 @@ Gura_ImplementFunction(LogSetPriority)
 	return Value::Null;
 }
 
-// sdl2.LogVerbose():void
+// sdl2.LogVerbose
 Gura_DeclareFunction(LogVerbose)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -541,7 +541,7 @@ Gura_ImplementFunction(LogVerbose)
 	return Value::Null;
 }
 
-// sdl2.LogWarn():void
+// sdl2.LogWarn
 Gura_DeclareFunction(LogWarn)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -559,7 +559,7 @@ Gura_ImplementFunction(LogWarn)
 	return Value::Null;
 }
 
-// sdl2.GetAssertionHandler():void
+// sdl2.GetAssertionHandler
 Gura_DeclareFunction(GetAssertionHandler)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -577,7 +577,7 @@ Gura_ImplementFunction(GetAssertionHandler)
 	return Value::Null;
 }
 
-// sdl2.GetAssertionReport():void
+// sdl2.GetAssertionReport
 Gura_DeclareFunction(GetAssertionReport)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -595,7 +595,7 @@ Gura_ImplementFunction(GetAssertionReport)
 	return Value::Null;
 }
 
-// sdl2.GetDefaultAssertionHandler():void
+// sdl2.GetDefaultAssertionHandler
 Gura_DeclareFunction(GetDefaultAssertionHandler)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -613,7 +613,7 @@ Gura_ImplementFunction(GetDefaultAssertionHandler)
 	return Value::Null;
 }
 
-// sdl2.ResetAssertionReport():void
+// sdl2.ResetAssertionReport
 Gura_DeclareFunction(ResetAssertionReport)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -631,7 +631,7 @@ Gura_ImplementFunction(ResetAssertionReport)
 	return Value::Null;
 }
 
-// sdl2.SetAssertionHandler():void
+// sdl2.SetAssertionHandler
 Gura_DeclareFunction(SetAssertionHandler)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -649,7 +649,7 @@ Gura_ImplementFunction(SetAssertionHandler)
 	return Value::Null;
 }
 
-// sdl2.TriggerBreakpoint():void
+// sdl2.TriggerBreakpoint
 Gura_DeclareFunction(TriggerBreakpoint)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -667,7 +667,7 @@ Gura_ImplementFunction(TriggerBreakpoint)
 	return Value::Null;
 }
 
-// sdl2.assert():void
+// sdl2.assert
 Gura_DeclareFunction(assert)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -685,7 +685,7 @@ Gura_ImplementFunction(assert)
 	return Value::Null;
 }
 
-// sdl2.assert_paranoid():void
+// sdl2.assert_paranoid
 Gura_DeclareFunction(assert_paranoid)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -703,7 +703,7 @@ Gura_ImplementFunction(assert_paranoid)
 	return Value::Null;
 }
 
-// sdl2.assert_release():void
+// sdl2.assert_release
 Gura_DeclareFunction(assert_release)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -721,7 +721,7 @@ Gura_ImplementFunction(assert_release)
 	return Value::Null;
 }
 
-// sdl2.GetRevision()
+// sdl2.GetRevision
 Gura_DeclareFunction(GetRevision)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -739,7 +739,7 @@ Gura_ImplementFunction(GetRevision)
 	return Value(rtn);
 }
 
-// sdl2.GetRevisionNumber()
+// sdl2.GetRevisionNumber
 Gura_DeclareFunction(GetRevisionNumber)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -753,7 +753,7 @@ Gura_ImplementFunction(GetRevisionNumber)
 	return Value(rtn);
 }
 
-// sdl2.GetVersion()
+// sdl2.GetVersion
 Gura_DeclareFunction(GetVersion)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -768,7 +768,7 @@ Gura_ImplementFunction(GetVersion)
 	return Value::CreateList(env, Value(ver.major), Value(ver.minor), Value(ver.patch));
 }
 
-// sdl2.VERSION()
+// sdl2.VERSION
 Gura_DeclareFunction(VERSION)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -783,7 +783,7 @@ Gura_ImplementFunction(VERSION)
 	return Value::CreateList(env, Value(ver.major), Value(ver.minor), Value(ver.patch));
 }
 
-// sdl2.VERSION_ATLEAST(X:number, Y:number, Z:number)
+// sdl2.VERSION_ATLEAST
 Gura_DeclareFunction(VERSION_ATLEAST)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -803,7 +803,7 @@ Gura_ImplementFunction(VERSION_ATLEAST)
 	return Value(rtn);
 }
 
-// sdl2.CreateWindow(title:string, x:number, y:number, w:number, h:number, flags:number)
+// sdl2.CreateWindow
 Gura_DeclareFunction(CreateWindow)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -833,7 +833,7 @@ Gura_ImplementFunction(CreateWindow)
 	return Value(new Object_Window(rtn));
 }
 
-// sdl2.CreateWindowAndRenderer(width:number, height:number, window_flags:number)
+// sdl2.CreateWindowAndRenderer
 Gura_DeclareFunction(CreateWindowAndRenderer)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -859,7 +859,7 @@ Gura_ImplementFunction(CreateWindowAndRenderer)
 	return Value::CreateList(env, Value(new Object_Window(window)), Value(new Object_Renderer(renderer)));
 }
 
-// sdl2.CreateWindowFrom():void
+// sdl2.CreateWindowFrom
 Gura_DeclareFunction(CreateWindowFrom)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -877,7 +877,7 @@ Gura_ImplementFunction(CreateWindowFrom)
 	return Value::Null;
 }
 
-// sdl2.DestroyWindow(window:sdl2.Window):void
+// sdl2.DestroyWindow
 Gura_DeclareFunction(DestroyWindow)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -893,7 +893,7 @@ Gura_ImplementFunction(DestroyWindow)
 	return Value::Null;
 }
 
-// sdl2.DisableScreenSaver():void
+// sdl2.DisableScreenSaver
 Gura_DeclareFunction(DisableScreenSaver)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -907,7 +907,7 @@ Gura_ImplementFunction(DisableScreenSaver)
 	return Value::Null;
 }
 
-// sdl2.EnableScreenSaver():void
+// sdl2.EnableScreenSaver
 Gura_DeclareFunction(EnableScreenSaver)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -921,7 +921,7 @@ Gura_ImplementFunction(EnableScreenSaver)
 	return Value::Null;
 }
 
-// sdl2.GL_CreateContext(window:sdl2.Window)
+// sdl2.GL_CreateContext
 Gura_DeclareFunction(GL_CreateContext)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -937,7 +937,7 @@ Gura_ImplementFunction(GL_CreateContext)
 	return Value(new Object_GLContext(rtn));
 }
 
-// sdl2.GL_DeleteContext(context:sdl2.GLContext):void
+// sdl2.GL_DeleteContext
 Gura_DeclareFunction(GL_DeleteContext)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -953,7 +953,7 @@ Gura_ImplementFunction(GL_DeleteContext)
 	return Value::Null;
 }
 
-// sdl2.GL_ExtensionSupported(extension:string)
+// sdl2.GL_ExtensionSupported
 Gura_DeclareFunction(GL_ExtensionSupported)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -969,7 +969,7 @@ Gura_ImplementFunction(GL_ExtensionSupported)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.GL_GetAttribute(attr:number):void
+// sdl2.GL_GetAttribute
 Gura_DeclareFunction(GL_GetAttribute)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -994,7 +994,7 @@ Gura_ImplementFunction(GL_GetAttribute)
 	return Value::Null;
 }
 
-// sdl2.GL_GetCurrentContext()
+// sdl2.GL_GetCurrentContext
 Gura_DeclareFunction(GL_GetCurrentContext)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1008,7 +1008,7 @@ Gura_ImplementFunction(GL_GetCurrentContext)
 	return Value(new Object_GLContext(rtn));
 }
 
-// sdl2.GL_GetCurrentWindow()
+// sdl2.GL_GetCurrentWindow
 Gura_DeclareFunction(GL_GetCurrentWindow)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1026,7 +1026,7 @@ Gura_ImplementFunction(GL_GetCurrentWindow)
 	return Value(new Object_Window(rtn));
 }
 
-// sdl2.GL_GetDrawableSize(window:sdl2.Window):void
+// sdl2.GL_GetDrawableSize
 Gura_DeclareFunction(GL_GetDrawableSize)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1048,7 +1048,7 @@ Gura_ImplementFunction(GL_GetDrawableSize)
 	return Value::Null;
 }
 
-// sdl2.GL_GetProcAddress():void
+// sdl2.GL_GetProcAddress
 Gura_DeclareFunction(GL_GetProcAddress)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1066,7 +1066,7 @@ Gura_ImplementFunction(GL_GetProcAddress)
 	return Value::Null;
 }
 
-// sdl2.GL_GetSwapInterval()
+// sdl2.GL_GetSwapInterval
 Gura_DeclareFunction(GL_GetSwapInterval)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1080,7 +1080,7 @@ Gura_ImplementFunction(GL_GetSwapInterval)
 	return Value(rtn);
 }
 
-// sdl2.GL_LoadLibrary(path:string):void
+// sdl2.GL_LoadLibrary
 Gura_DeclareFunction(GL_LoadLibrary)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1100,7 +1100,7 @@ Gura_ImplementFunction(GL_LoadLibrary)
 	return Value::Null;
 }
 
-// sdl2.GL_MakeCurrent(window:sdl2.Window, context:sdl2.GLContext):void
+// sdl2.GL_MakeCurrent
 Gura_DeclareFunction(GL_MakeCurrent)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1122,7 +1122,7 @@ Gura_ImplementFunction(GL_MakeCurrent)
 	return Value::Null;
 }
 
-// sdl2.GL_ResetAttributes():void
+// sdl2.GL_ResetAttributes
 Gura_DeclareFunction(GL_ResetAttributes)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1136,7 +1136,7 @@ Gura_ImplementFunction(GL_ResetAttributes)
 	return Value::Null;
 }
 
-// sdl2.GL_SetAttribute(attr:number, value:number):void
+// sdl2.GL_SetAttribute
 Gura_DeclareFunction(GL_SetAttribute)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1158,7 +1158,7 @@ Gura_ImplementFunction(GL_SetAttribute)
 	return Value::Null;
 }
 
-// sdl2.GL_SetSwapInterval(interval:number):void
+// sdl2.GL_SetSwapInterval
 Gura_DeclareFunction(GL_SetSwapInterval)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1178,7 +1178,7 @@ Gura_ImplementFunction(GL_SetSwapInterval)
 	return Value::Null;
 }
 
-// sdl2.GL_SwapWindow(window:sdl2.Window):void
+// sdl2.GL_SwapWindow
 Gura_DeclareFunction(GL_SwapWindow)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1194,7 +1194,7 @@ Gura_ImplementFunction(GL_SwapWindow)
 	return Value::Null;
 }
 
-// sdl2.GL_UnloadLibrary():void
+// sdl2.GL_UnloadLibrary
 Gura_DeclareFunction(GL_UnloadLibrary)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1208,7 +1208,7 @@ Gura_ImplementFunction(GL_UnloadLibrary)
 	return Value::Null;
 }
 
-// sdl2.GetClosestDisplayMode(displayIndex:number, mode:sdl2.DisplayMode):void
+// sdl2.GetClosestDisplayMode
 Gura_DeclareFunction(GetClosestDisplayMode)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1231,7 +1231,7 @@ Gura_ImplementFunction(GetClosestDisplayMode)
 	return Value::Null;
 }
 
-// sdl2.GetCurrentDisplayMode(displayIndex:number):void
+// sdl2.GetCurrentDisplayMode
 Gura_DeclareFunction(GetCurrentDisplayMode)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1256,7 +1256,7 @@ Gura_ImplementFunction(GetCurrentDisplayMode)
 	return Value::Null;
 }
 
-// sdl2.GetCurrentVideoDriver()
+// sdl2.GetCurrentVideoDriver
 Gura_DeclareFunction(GetCurrentVideoDriver)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1274,7 +1274,7 @@ Gura_ImplementFunction(GetCurrentVideoDriver)
 	return Value(rtn);
 }
 
-// sdl2.GetDesktopDisplayMode(displayIndex:number):void
+// sdl2.GetDesktopDisplayMode
 Gura_DeclareFunction(GetDesktopDisplayMode)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1299,7 +1299,7 @@ Gura_ImplementFunction(GetDesktopDisplayMode)
 	return Value::Null;
 }
 
-// sdl2.GetDisplayBounds(displayIndex:number):void
+// sdl2.GetDisplayBounds
 Gura_DeclareFunction(GetDisplayBounds)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1324,7 +1324,7 @@ Gura_ImplementFunction(GetDisplayBounds)
 	return Value::Null;
 }
 
-// sdl2.GetDisplayMode(displayIndex:number, modeIndex:number):void
+// sdl2.GetDisplayMode
 Gura_DeclareFunction(GetDisplayMode)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1351,7 +1351,7 @@ Gura_ImplementFunction(GetDisplayMode)
 	return Value::Null;
 }
 
-// sdl2.GetDisplayName(dipslayIndex:number)
+// sdl2.GetDisplayName
 Gura_DeclareFunction(GetDisplayName)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1371,7 +1371,7 @@ Gura_ImplementFunction(GetDisplayName)
 	return Value(rtn);
 }
 
-// sdl2.GetNumDisplayModes(displayIndex:number)
+// sdl2.GetNumDisplayModes
 Gura_DeclareFunction(GetNumDisplayModes)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1387,7 +1387,7 @@ Gura_ImplementFunction(GetNumDisplayModes)
 	return Value(rtn);
 }
 
-// sdl2.GetNumVideoDisplays()
+// sdl2.GetNumVideoDisplays
 Gura_DeclareFunction(GetNumVideoDisplays)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1401,7 +1401,7 @@ Gura_ImplementFunction(GetNumVideoDisplays)
 	return Value(rtn);
 }
 
-// sdl2.GetNumVideoDrivers()
+// sdl2.GetNumVideoDrivers
 Gura_DeclareFunction(GetNumVideoDrivers)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1415,7 +1415,7 @@ Gura_ImplementFunction(GetNumVideoDrivers)
 	return Value(rtn);
 }
 
-// sdl2.GetVideoDriver(index:number)
+// sdl2.GetVideoDriver
 Gura_DeclareFunction(GetVideoDriver)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1435,7 +1435,7 @@ Gura_ImplementFunction(GetVideoDriver)
 	return Value(rtn);
 }
 
-// sdl2.GetWindowBrightness(window:sdl2.Window)
+// sdl2.GetWindowBrightness
 Gura_DeclareFunction(GetWindowBrightness)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1451,7 +1451,7 @@ Gura_ImplementFunction(GetWindowBrightness)
 	return Value(rtn);
 }
 
-// sdl2.GetWindowData(window:sdl2.Window, name:string):void
+// sdl2.GetWindowData
 Gura_DeclareFunction(GetWindowData)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1473,7 +1473,7 @@ Gura_ImplementFunction(GetWindowData)
 	return Value::Null;
 }
 
-// sdl2.GetWindowDisplayIndex(window:sdl2.Window)
+// sdl2.GetWindowDisplayIndex
 Gura_DeclareFunction(GetWindowDisplayIndex)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1493,7 +1493,7 @@ Gura_ImplementFunction(GetWindowDisplayIndex)
 	return Value(rtn);
 }
 
-// sdl2.GetWindowDisplayMode(window:sdl2.Window, mode:sdl2.DisplayMode):void
+// sdl2.GetWindowDisplayMode
 Gura_DeclareFunction(GetWindowDisplayMode)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1515,7 +1515,7 @@ Gura_ImplementFunction(GetWindowDisplayMode)
 	return Value::Null;
 }
 
-// sdl2.GetWindowFlags(window:sdl2.Window)
+// sdl2.GetWindowFlags
 Gura_DeclareFunction(GetWindowFlags)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1531,7 +1531,7 @@ Gura_ImplementFunction(GetWindowFlags)
 	return Value(rtn);
 }
 
-// sdl2.GetWindowFromID(id:number)
+// sdl2.GetWindowFromID
 Gura_DeclareFunction(GetWindowFromID)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1551,7 +1551,7 @@ Gura_ImplementFunction(GetWindowFromID)
 	return Value(new Object_Window(rtn));
 }
 
-// sdl2.GetWindowGammaRamp(window:sdl2.Window)
+// sdl2.GetWindowGammaRamp
 Gura_DeclareFunction(GetWindowGammaRamp)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1574,7 +1574,7 @@ Gura_ImplementFunction(GetWindowGammaRamp)
 	return Value::CreateList(env, Value(red), Value(green), Value(blue));
 }
 
-// sdl2.GetWindowGrab(window:sdl2.Window)
+// sdl2.GetWindowGrab
 Gura_DeclareFunction(GetWindowGrab)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1590,7 +1590,7 @@ Gura_ImplementFunction(GetWindowGrab)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.GetWindowID(window:sdl2.Window)
+// sdl2.GetWindowID
 Gura_DeclareFunction(GetWindowID)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1606,7 +1606,7 @@ Gura_ImplementFunction(GetWindowID)
 	return Value(rtn);
 }
 
-// sdl2.GetWindowMaximumSize(window:sdl2.Window)
+// sdl2.GetWindowMaximumSize
 Gura_DeclareFunction(GetWindowMaximumSize)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1624,7 +1624,7 @@ Gura_ImplementFunction(GetWindowMaximumSize)
 	return Value::CreateList(env, Value(w), Value(h));
 }
 
-// sdl2.GetWindowMinimumSize(window:sdl2.Window)
+// sdl2.GetWindowMinimumSize
 Gura_DeclareFunction(GetWindowMinimumSize)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1642,7 +1642,7 @@ Gura_ImplementFunction(GetWindowMinimumSize)
 	return Value::CreateList(env, Value(w), Value(h));
 }
 
-// sdl2.GetWindowPixelFormat(window:sdl2.Window)
+// sdl2.GetWindowPixelFormat
 Gura_DeclareFunction(GetWindowPixelFormat)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1658,7 +1658,7 @@ Gura_ImplementFunction(GetWindowPixelFormat)
 	return Value(rtn);
 }
 
-// sdl2.GetWindowPosition(window:sdl2.Window)
+// sdl2.GetWindowPosition
 Gura_DeclareFunction(GetWindowPosition)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1676,7 +1676,7 @@ Gura_ImplementFunction(GetWindowPosition)
 	return Value::CreateList(env, Value(x), Value(y));
 }
 
-// sdl2.GetWindowSize(window:sdl2.Window)
+// sdl2.GetWindowSize
 Gura_DeclareFunction(GetWindowSize)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1694,7 +1694,7 @@ Gura_ImplementFunction(GetWindowSize)
 	return Value::CreateList(env, Value(w), Value(h));
 }
 
-// sdl2.GetWindowSurface(window:sdl2.Window)
+// sdl2.GetWindowSurface
 Gura_DeclareFunction(GetWindowSurface)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1714,7 +1714,7 @@ Gura_ImplementFunction(GetWindowSurface)
 	return Value(new Object_Surface(rtn));
 }
 
-// sdl2.GetWindowTitle(window:sdl2.Window)
+// sdl2.GetWindowTitle
 Gura_DeclareFunction(GetWindowTitle)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1734,7 +1734,7 @@ Gura_ImplementFunction(GetWindowTitle)
 	return Value(rtn);
 }
 
-// sdl2.GetWindowWMInfo(window:sdl2.Window)
+// sdl2.GetWindowWMInfo
 Gura_DeclareFunction(GetWindowWMInfo)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1759,7 +1759,7 @@ Gura_ImplementFunction(GetWindowWMInfo)
 	return Value::Null;
 }
 
-// sdl2.HideWindow(window:sdl2.Window):void
+// sdl2.HideWindow
 Gura_DeclareFunction(HideWindow)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1775,7 +1775,7 @@ Gura_ImplementFunction(HideWindow)
 	return Value::Null;
 }
 
-// sdl2.IsScreenSaverEnabled()
+// sdl2.IsScreenSaverEnabled
 Gura_DeclareFunction(IsScreenSaverEnabled)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -1789,7 +1789,7 @@ Gura_ImplementFunction(IsScreenSaverEnabled)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.MaximizeWindow(window:sdl2.Window):void
+// sdl2.MaximizeWindow
 Gura_DeclareFunction(MaximizeWindow)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1805,7 +1805,7 @@ Gura_ImplementFunction(MaximizeWindow)
 	return Value::Null;
 }
 
-// sdl2.MinimizeWindow(window:sdl2.Window):void
+// sdl2.MinimizeWindow
 Gura_DeclareFunction(MinimizeWindow)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1821,7 +1821,7 @@ Gura_ImplementFunction(MinimizeWindow)
 	return Value::Null;
 }
 
-// sdl2.RaiseWindow(window:sdl2.Window):void
+// sdl2.RaiseWindow
 Gura_DeclareFunction(RaiseWindow)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1837,7 +1837,7 @@ Gura_ImplementFunction(RaiseWindow)
 	return Value::Null;
 }
 
-// sdl2.RestoreWindow(window:sdl2.Window):void
+// sdl2.RestoreWindow
 Gura_DeclareFunction(RestoreWindow)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1853,7 +1853,7 @@ Gura_ImplementFunction(RestoreWindow)
 	return Value::Null;
 }
 
-// sdl2.SetWindowBordered(window:sdl2.Window, bordered:boolean):void
+// sdl2.SetWindowBordered
 Gura_DeclareFunction(SetWindowBordered)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1871,7 +1871,7 @@ Gura_ImplementFunction(SetWindowBordered)
 	return Value::Null;
 }
 
-// sdl2.SetWindowBrightness(window:sdl2.Window, brightness:number):void
+// sdl2.SetWindowBrightness
 Gura_DeclareFunction(SetWindowBrightness)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1893,7 +1893,7 @@ Gura_ImplementFunction(SetWindowBrightness)
 	return Value::Null;
 }
 
-// sdl2.SetWindowData(window:sdl2.Window, name:string):void
+// sdl2.SetWindowData
 Gura_DeclareFunction(SetWindowData)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1916,7 +1916,7 @@ Gura_ImplementFunction(SetWindowData)
 	return Value::Null;
 }
 
-// sdl2.SetWindowDisplayMode(window:sdl2.Window, mode:sdl2.DisplayMode):void
+// sdl2.SetWindowDisplayMode
 Gura_DeclareFunction(SetWindowDisplayMode)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1938,7 +1938,7 @@ Gura_ImplementFunction(SetWindowDisplayMode)
 	return Value::Null;
 }
 
-// sdl2.SetWindowFullscreen(window:sdl2.Window, flags:number):void
+// sdl2.SetWindowFullscreen
 Gura_DeclareFunction(SetWindowFullscreen)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1960,7 +1960,7 @@ Gura_ImplementFunction(SetWindowFullscreen)
 	return Value::Null;
 }
 
-// sdl2.SetWindowGammaRamp(window:sdl2.Window):void
+// sdl2.SetWindowGammaRamp
 Gura_DeclareFunction(SetWindowGammaRamp)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -1987,7 +1987,7 @@ Gura_ImplementFunction(SetWindowGammaRamp)
 	return Value::Null;
 }
 
-// sdl2.SetWindowGrab(window:sdl2.Window, grabbed:boolean):void
+// sdl2.SetWindowGrab
 Gura_DeclareFunction(SetWindowGrab)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2005,7 +2005,7 @@ Gura_ImplementFunction(SetWindowGrab)
 	return Value::Null;
 }
 
-// sdl2.SetWindowHitTest(window:sdl2.Window):void
+// sdl2.SetWindowHitTest
 Gura_DeclareFunction(SetWindowHitTest)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2031,7 +2031,7 @@ Gura_ImplementFunction(SetWindowHitTest)
 	return Value::Null;
 }
 
-// sdl2.SetWindowIcon(window:sdl2.Window, icon:sdl2.Surface):void
+// sdl2.SetWindowIcon
 Gura_DeclareFunction(SetWindowIcon)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2049,7 +2049,7 @@ Gura_ImplementFunction(SetWindowIcon)
 	return Value::Null;
 }
 
-// sdl2.SetWindowMaximumSize(window:sdl2.Window, max_w:number, max_h:number):void
+// sdl2.SetWindowMaximumSize
 Gura_DeclareFunction(SetWindowMaximumSize)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2069,7 +2069,7 @@ Gura_ImplementFunction(SetWindowMaximumSize)
 	return Value::Null;
 }
 
-// sdl2.SetWindowMinimumSize(window:sdl2.Window, min_w:number, min_h:number):void
+// sdl2.SetWindowMinimumSize
 Gura_DeclareFunction(SetWindowMinimumSize)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2089,7 +2089,7 @@ Gura_ImplementFunction(SetWindowMinimumSize)
 	return Value::Null;
 }
 
-// sdl2.SetWindowPosition(window:sdl2.Window, x:number, y:number):void
+// sdl2.SetWindowPosition
 Gura_DeclareFunction(SetWindowPosition)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2109,7 +2109,7 @@ Gura_ImplementFunction(SetWindowPosition)
 	return Value::Null;
 }
 
-// sdl2.SetWindowSize(window:sdl2.Window, w:number, h:number):void
+// sdl2.SetWindowSize
 Gura_DeclareFunction(SetWindowSize)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2129,7 +2129,7 @@ Gura_ImplementFunction(SetWindowSize)
 	return Value::Null;
 }
 
-// sdl2.SetWindowTitle(window:sdl2.Window, title:string):void
+// sdl2.SetWindowTitle
 Gura_DeclareFunction(SetWindowTitle)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2147,7 +2147,7 @@ Gura_ImplementFunction(SetWindowTitle)
 	return Value::Null;
 }
 
-// sdl2.ShowMessageBox():void
+// sdl2.ShowMessageBox
 Gura_DeclareFunction(ShowMessageBox)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2171,7 +2171,7 @@ Gura_ImplementFunction(ShowMessageBox)
 	return Value::Null;
 }
 
-// sdl2.ShowSimpleMessageBox(flags:number, title:string, message:string, window:sdl2.Window):void
+// sdl2.ShowSimpleMessageBox
 Gura_DeclareFunction(ShowSimpleMessageBox)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2197,7 +2197,7 @@ Gura_ImplementFunction(ShowSimpleMessageBox)
 	return Value::Null;
 }
 
-// sdl2.ShowWindow(window:sdl2.Window):void
+// sdl2.ShowWindow
 Gura_DeclareFunction(ShowWindow)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2213,7 +2213,7 @@ Gura_ImplementFunction(ShowWindow)
 	return Value::Null;
 }
 
-// sdl2.UpdateWindowSurface(window:sdl2.Window):void
+// sdl2.UpdateWindowSurface
 Gura_DeclareFunction(UpdateWindowSurface)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2233,7 +2233,7 @@ Gura_ImplementFunction(UpdateWindowSurface)
 	return Value::Null;
 }
 
-// sdl2.UpdateWindowSurfaceRects(window:sdl2.Window, rects:sdl2.Rect):void
+// sdl2.UpdateWindowSurfaceRects
 Gura_DeclareFunction(UpdateWindowSurfaceRects)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2260,7 +2260,7 @@ Gura_ImplementFunction(UpdateWindowSurfaceRects)
 	return Value::Null;
 }
 
-// sdl2.VideoInit(driver_name:string):void
+// sdl2.VideoInit
 Gura_DeclareFunction(VideoInit)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2280,7 +2280,7 @@ Gura_ImplementFunction(VideoInit)
 	return Value::Null;
 }
 
-// sdl2.VideoQuit():void
+// sdl2.VideoQuit
 Gura_DeclareFunction(VideoQuit)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2294,7 +2294,7 @@ Gura_ImplementFunction(VideoQuit)
 	return Value::Null;
 }
 
-// sdl2.CreateRenderer(window:sdl2.Window, index:number, flags:number)
+// sdl2.CreateRenderer
 Gura_DeclareFunction(CreateRenderer)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -2318,7 +2318,7 @@ Gura_ImplementFunction(CreateRenderer)
 	return Value(new Object_Renderer(rtn));
 }
 
-// sdl2.CreateSoftwareRenderer(surface:sdl2.Surface)
+// sdl2.CreateSoftwareRenderer
 Gura_DeclareFunction(CreateSoftwareRenderer)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -2338,7 +2338,7 @@ Gura_ImplementFunction(CreateSoftwareRenderer)
 	return Value(new Object_Renderer(rtn));
 }
 
-// sdl2.CreateTexture(renderer:sdl2.Renderer, format:number, access:number, w:number, h:number)
+// sdl2.CreateTexture
 Gura_DeclareFunction(CreateTexture)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -2366,7 +2366,7 @@ Gura_ImplementFunction(CreateTexture)
 	return Value(new Object_Texture(rtn));
 }
 
-// sdl2.CreateTextureFromSurface(renderer:sdl2.Renderer, surface:sdl2.Surface)
+// sdl2.CreateTextureFromSurface
 Gura_DeclareFunction(CreateTextureFromSurface)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -2388,7 +2388,7 @@ Gura_ImplementFunction(CreateTextureFromSurface)
 	return Value(new Object_Texture(rtn));
 }
 
-// sdl2.DestroyRenderer(renderer:sdl2.Renderer):void
+// sdl2.DestroyRenderer
 Gura_DeclareFunction(DestroyRenderer)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2404,7 +2404,7 @@ Gura_ImplementFunction(DestroyRenderer)
 	return Value::Null;
 }
 
-// sdl2.DestroyTexture(texture:sdl2.Texture):void
+// sdl2.DestroyTexture
 Gura_DeclareFunction(DestroyTexture)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2420,7 +2420,7 @@ Gura_ImplementFunction(DestroyTexture)
 	return Value::Null;
 }
 
-// sdl2.GL_BindTexture(texture:sdl2.Texture)
+// sdl2.GL_BindTexture
 Gura_DeclareFunction(GL_BindTexture)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -2438,7 +2438,7 @@ Gura_ImplementFunction(GL_BindTexture)
 	return Value::CreateList(env, Value(texw), Value(texh));
 }
 
-// sdl2.GL_UnbindTexture(texture:sdl2.Texture):void
+// sdl2.GL_UnbindTexture
 Gura_DeclareFunction(GL_UnbindTexture)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2458,7 +2458,7 @@ Gura_ImplementFunction(GL_UnbindTexture)
 	return Value::Null;
 }
 
-// sdl2.GetNumRenderDrivers()
+// sdl2.GetNumRenderDrivers
 Gura_DeclareFunction(GetNumRenderDrivers)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -2472,7 +2472,7 @@ Gura_ImplementFunction(GetNumRenderDrivers)
 	return Value(rtn);
 }
 
-// sdl2.GetRenderDrawBlendMode(renderer:sdl2.Renderer)
+// sdl2.GetRenderDrawBlendMode
 Gura_DeclareFunction(GetRenderDrawBlendMode)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -2493,7 +2493,7 @@ Gura_ImplementFunction(GetRenderDrawBlendMode)
 	return Value(blendMode);
 }
 
-// sdl2.GetRenderDrawColor(renderer:sdl2.Renderer)
+// sdl2.GetRenderDrawColor
 Gura_DeclareFunction(GetRenderDrawColor)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -2517,7 +2517,7 @@ Gura_ImplementFunction(GetRenderDrawColor)
 	return Value::CreateList(env, Value(r), Value(g), Value(b), Value(a));
 }
 
-// sdl2.GetRenderDriverInfo(index:number):void
+// sdl2.GetRenderDriverInfo
 Gura_DeclareFunction(GetRenderDriverInfo)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2542,7 +2542,7 @@ Gura_ImplementFunction(GetRenderDriverInfo)
 	return Value::Null;
 }
 
-// sdl2.GetRenderTarget(renderer:sdl2.Renderer):void
+// sdl2.GetRenderTarget
 Gura_DeclareFunction(GetRenderTarget)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2558,7 +2558,7 @@ Gura_ImplementFunction(GetRenderTarget)
 	return Value::Null;
 }
 
-// sdl2.GetRenderer(window:sdl2.Window)
+// sdl2.GetRenderer
 Gura_DeclareFunction(GetRenderer)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -2578,7 +2578,7 @@ Gura_ImplementFunction(GetRenderer)
 	return Value(new Object_Renderer(rtn));
 }
 
-// sdl2.GetRenderInfo(renderer:sdl2.Renderer):void
+// sdl2.GetRenderInfo
 Gura_DeclareFunction(GetRenderInfo)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2603,7 +2603,7 @@ Gura_ImplementFunction(GetRenderInfo)
 	return Value::Null;
 }
 
-// sdl2.GetRenderOutputSize(renderer:sdl2.Renderer)
+// sdl2.GetRenderOutputSize
 Gura_DeclareFunction(GetRenderOutputSize)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -2625,7 +2625,7 @@ Gura_ImplementFunction(GetRenderOutputSize)
 	return Value::CreateList(env, Value(w), Value(h));
 }
 
-// sdl2.GetTextureAlphaMod(texture:sdl2.Texture)
+// sdl2.GetTextureAlphaMod
 Gura_DeclareFunction(GetTextureAlphaMod)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -2646,7 +2646,7 @@ Gura_ImplementFunction(GetTextureAlphaMod)
 	return Value(alpha);
 }
 
-// sdl2.GetTextureBlendMode(texture:sdl2.Texture)
+// sdl2.GetTextureBlendMode
 Gura_DeclareFunction(GetTextureBlendMode)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -2667,7 +2667,7 @@ Gura_ImplementFunction(GetTextureBlendMode)
 	return Value(blendMode);
 }
 
-// sdl2.GetTextureColorMod(texture:sdl2.Texture)
+// sdl2.GetTextureColorMod
 Gura_DeclareFunction(GetTextureColorMod)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -2690,7 +2690,7 @@ Gura_ImplementFunction(GetTextureColorMod)
 	return Value::CreateList(env, Value(r), Value(g), Value(b));
 }
 
-// sdl2.LockTexture(texture:sdl2.Texture, rect:sdl2.Rect):void
+// sdl2.LockTexture
 Gura_DeclareFunction(LockTexture)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2718,7 +2718,7 @@ Gura_ImplementFunction(LockTexture)
 	return Value::Null;
 }
 
-// sdl2.QueryTexture(texture:sdl2.Texture):void
+// sdl2.QueryTexture
 Gura_DeclareFunction(QueryTexture)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2746,7 +2746,7 @@ Gura_ImplementFunction(QueryTexture)
 	return Value::Null;
 }
 
-// sdl2.RenderClear(renderer:sdl2.Renderer):void
+// sdl2.RenderClear
 Gura_DeclareFunction(RenderClear)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2766,7 +2766,7 @@ Gura_ImplementFunction(RenderClear)
 	return Value::Null;
 }
 
-// sdl2.RenderCopy(renderer:sdl2.Renderer, texture:sdl2.Texture, srcrect:sdl2.Rect, dstrect:sdl2.Rect):void
+// sdl2.RenderCopy
 Gura_DeclareFunction(RenderCopy)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2792,7 +2792,7 @@ Gura_ImplementFunction(RenderCopy)
 	return Value::Null;
 }
 
-// sdl2.RenderCopyEx(renderer:sdl2.Renderer, texture:sdl2.Texture, srcrect:sdl2.Rect, dstrect:sdl2.Rect, angle:number, center:sdl2.Point, flip:number):void
+// sdl2.RenderCopyEx
 Gura_DeclareFunction(RenderCopyEx)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2824,7 +2824,7 @@ Gura_ImplementFunction(RenderCopyEx)
 	return Value::Null;
 }
 
-// sdl2.RenderDrawLine(renderer:sdl2.Renderer, x1:number, y1:number, x2:number, y2:number):void
+// sdl2.RenderDrawLine
 Gura_DeclareFunction(RenderDrawLine)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2852,7 +2852,7 @@ Gura_ImplementFunction(RenderDrawLine)
 	return Value::Null;
 }
 
-// sdl2.RenderDrawLines(renderer:sdl2.Renderer):void
+// sdl2.RenderDrawLines
 Gura_DeclareFunction(RenderDrawLines)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2878,7 +2878,7 @@ Gura_ImplementFunction(RenderDrawLines)
 	return Value::Null;
 }
 
-// sdl2.RenderDrawPoint(renderer:sdl2.Renderer, x:number, y:number):void
+// sdl2.RenderDrawPoint
 Gura_DeclareFunction(RenderDrawPoint)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2902,7 +2902,7 @@ Gura_ImplementFunction(RenderDrawPoint)
 	return Value::Null;
 }
 
-// sdl2.RenderDrawPoints(renderer:sdl2.Renderer):void
+// sdl2.RenderDrawPoints
 Gura_DeclareFunction(RenderDrawPoints)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2928,7 +2928,7 @@ Gura_ImplementFunction(RenderDrawPoints)
 	return Value::Null;
 }
 
-// sdl2.RenderDrawRect(renderer:sdl2.Renderer, rect:sdl2.Rect):void
+// sdl2.RenderDrawRect
 Gura_DeclareFunction(RenderDrawRect)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2950,7 +2950,7 @@ Gura_ImplementFunction(RenderDrawRect)
 	return Value::Null;
 }
 
-// sdl2.RenderDrawRects(renderer:sdl2.Renderer):void
+// sdl2.RenderDrawRects
 Gura_DeclareFunction(RenderDrawRects)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2976,7 +2976,7 @@ Gura_ImplementFunction(RenderDrawRects)
 	return Value::Null;
 }
 
-// sdl2.RenderFillRect(renderer:sdl2.Renderer, rect:sdl2.Rect):void
+// sdl2.RenderFillRect
 Gura_DeclareFunction(RenderFillRect)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -2998,7 +2998,7 @@ Gura_ImplementFunction(RenderFillRect)
 	return Value::Null;
 }
 
-// sdl2.RenderFillRects(renderer:sdl2.Renderer):void
+// sdl2.RenderFillRects
 Gura_DeclareFunction(RenderFillRects)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3024,7 +3024,7 @@ Gura_ImplementFunction(RenderFillRects)
 	return Value::Null;
 }
 
-// sdl2.RenderGetClipRect(renderer:sdl2.Renderer):void
+// sdl2.RenderGetClipRect
 Gura_DeclareFunction(RenderGetClipRect)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3045,7 +3045,7 @@ Gura_ImplementFunction(RenderGetClipRect)
 	return Value::Null;
 }
 
-// sdl2.RenderGetLogicalSize(renderer:sdl2.Renderer):void
+// sdl2.RenderGetLogicalSize
 Gura_DeclareFunction(RenderGetLogicalSize)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3067,7 +3067,7 @@ Gura_ImplementFunction(RenderGetLogicalSize)
 	return Value::Null;
 }
 
-// sdl2.RenderGetScale(renderer:sdl2.Renderer):void
+// sdl2.RenderGetScale
 Gura_DeclareFunction(RenderGetScale)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3089,7 +3089,7 @@ Gura_ImplementFunction(RenderGetScale)
 	return Value::Null;
 }
 
-// sdl2.RenderGetViewport(renderer:sdl2.Renderer):void
+// sdl2.RenderGetViewport
 Gura_DeclareFunction(RenderGetViewport)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3110,7 +3110,7 @@ Gura_ImplementFunction(RenderGetViewport)
 	return Value::Null;
 }
 
-// sdl2.RenderIsClipEnabled(renderer:sdl2.Renderer)
+// sdl2.RenderIsClipEnabled
 Gura_DeclareFunction(RenderIsClipEnabled)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -3130,7 +3130,7 @@ Gura_ImplementFunction(RenderIsClipEnabled)
 	return Value::Null;
 }
 
-// sdl2.RenderPresent(renderer:sdl2.Renderer):void
+// sdl2.RenderPresent
 Gura_DeclareFunction(RenderPresent)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3146,7 +3146,7 @@ Gura_ImplementFunction(RenderPresent)
 	return Value::Null;
 }
 
-// sdl2.RenderReadPixels(renderer:sdl2.Renderer, rect:sdl2.Rect, format:number, pitch:number):void
+// sdl2.RenderReadPixels
 Gura_DeclareFunction(RenderReadPixels)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3177,7 +3177,7 @@ Gura_ImplementFunction(RenderReadPixels)
 	return Value::Null;
 }
 
-// sdl2.RenderSetClipRect(renderer:sdl2.Renderer, rect:sdl2.Rect):void
+// sdl2.RenderSetClipRect
 Gura_DeclareFunction(RenderSetClipRect)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3199,7 +3199,7 @@ Gura_ImplementFunction(RenderSetClipRect)
 	return Value::Null;
 }
 
-// sdl2.RenderSetLogicalSize(renderer:sdl2.Renderer, w:number, h:number):void
+// sdl2.RenderSetLogicalSize
 Gura_DeclareFunction(RenderSetLogicalSize)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3223,7 +3223,7 @@ Gura_ImplementFunction(RenderSetLogicalSize)
 	return Value::Null;
 }
 
-// sdl2.RenderSetScale(renderer:sdl2.Renderer, scaleX:number, scaleY:number):void
+// sdl2.RenderSetScale
 Gura_DeclareFunction(RenderSetScale)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3247,7 +3247,7 @@ Gura_ImplementFunction(RenderSetScale)
 	return Value::Null;
 }
 
-// sdl2.RenderSetViewport(renderer:sdl2.Renderer, rect:sdl2.Rect):void
+// sdl2.RenderSetViewport
 Gura_DeclareFunction(RenderSetViewport)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3269,7 +3269,7 @@ Gura_ImplementFunction(RenderSetViewport)
 	return Value::Null;
 }
 
-// sdl2.RenderTargetSupported(renderer:sdl2.Renderer)
+// sdl2.RenderTargetSupported
 Gura_DeclareFunction(RenderTargetSupported)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -3285,7 +3285,7 @@ Gura_ImplementFunction(RenderTargetSupported)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.SetRenderDrawBlendMode(renderer:sdl2.Renderer, blendMode:number):void
+// sdl2.SetRenderDrawBlendMode
 Gura_DeclareFunction(SetRenderDrawBlendMode)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3303,7 +3303,7 @@ Gura_ImplementFunction(SetRenderDrawBlendMode)
 	return Value::Null;
 }
 
-// sdl2.SetRenderDrawColor(renderer:sdl2.Renderer, r:number, g:number, b:number, a:number):void
+// sdl2.SetRenderDrawColor
 Gura_DeclareFunction(SetRenderDrawColor)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3331,7 +3331,7 @@ Gura_ImplementFunction(SetRenderDrawColor)
 	return Value::Null;
 }
 
-// sdl2.SetRenderTarget(renderer:sdl2.Renderer, texture:sdl2.Texture):void
+// sdl2.SetRenderTarget
 Gura_DeclareFunction(SetRenderTarget)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3353,7 +3353,7 @@ Gura_ImplementFunction(SetRenderTarget)
 	return Value::Null;
 }
 
-// sdl2.SetTextureAlphaMod(texture:sdl2.Texture, alpha:number):void
+// sdl2.SetTextureAlphaMod
 Gura_DeclareFunction(SetTextureAlphaMod)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3375,7 +3375,7 @@ Gura_ImplementFunction(SetTextureAlphaMod)
 	return Value::Null;
 }
 
-// sdl2.SetTextureBlendMode(texture:sdl2.Texture, blendMode:number):void
+// sdl2.SetTextureBlendMode
 Gura_DeclareFunction(SetTextureBlendMode)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3397,7 +3397,7 @@ Gura_ImplementFunction(SetTextureBlendMode)
 	return Value::Null;
 }
 
-// sdl2.SetTextureColorMod(texture:sdl2.Texture, r:number, g:number, b:number):void
+// sdl2.SetTextureColorMod
 Gura_DeclareFunction(SetTextureColorMod)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3423,7 +3423,7 @@ Gura_ImplementFunction(SetTextureColorMod)
 	return Value::Null;
 }
 
-// sdl2.UnlockTexture(texture:sdl2.Texture):void
+// sdl2.UnlockTexture
 Gura_DeclareFunction(UnlockTexture)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3439,7 +3439,7 @@ Gura_ImplementFunction(UnlockTexture)
 	return Value::Null;
 }
 
-// sdl2.UpdateTexture(texture:sdl2.Texture, rect:sdl2.Rect, pitch:number):void
+// sdl2.UpdateTexture
 Gura_DeclareFunction(UpdateTexture)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3468,7 +3468,7 @@ Gura_ImplementFunction(UpdateTexture)
 	return Value::Null;
 }
 
-// sdl2.UpdateYUVTexture(texture:sdl2.Texture, rect:sdl2.Rect):void
+// sdl2.UpdateYUVTexture
 Gura_DeclareFunction(UpdateYUVTexture)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3500,7 +3500,7 @@ Gura_ImplementFunction(UpdateYUVTexture)
 	return Value::Null;
 }
 
-// sdl2.AllocFormat(pixel_format:number)
+// sdl2.AllocFormat
 Gura_DeclareFunction(AllocFormat)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -3520,7 +3520,7 @@ Gura_ImplementFunction(AllocFormat)
 	return Value(new Object_PixelFormat(rtn));
 }
 
-// sdl2.AllocPalette(ncolors:number)
+// sdl2.AllocPalette
 Gura_DeclareFunction(AllocPalette)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -3540,7 +3540,7 @@ Gura_ImplementFunction(AllocPalette)
 	return Value(new Object_Palette(rtn));
 }
 
-// sdl2.CalculateGammaRamp(gamma:number):void
+// sdl2.CalculateGammaRamp
 Gura_DeclareFunction(CalculateGammaRamp)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3561,7 +3561,7 @@ Gura_ImplementFunction(CalculateGammaRamp)
 	return Value::Null;
 }
 
-// sdl2.FreeFormat(format:sdl2.PixelFormat):void
+// sdl2.FreeFormat
 Gura_DeclareFunction(FreeFormat)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3577,7 +3577,7 @@ Gura_ImplementFunction(FreeFormat)
 	return Value::Null;
 }
 
-// sdl2.FreePalette(palette:sdl2.Palette):void
+// sdl2.FreePalette
 Gura_DeclareFunction(FreePalette)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3593,7 +3593,7 @@ Gura_ImplementFunction(FreePalette)
 	return Value::Null;
 }
 
-// sdl2.GetPixelFormatName(format:number)
+// sdl2.GetPixelFormatName
 Gura_DeclareFunction(GetPixelFormatName)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -3613,7 +3613,7 @@ Gura_ImplementFunction(GetPixelFormatName)
 	return Value(rtn);
 }
 
-// sdl2.GetRGB(pixel:number, format:sdl2.PixelFormat):void
+// sdl2.GetRGB
 Gura_DeclareFunction(GetRGB)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3638,7 +3638,7 @@ Gura_ImplementFunction(GetRGB)
 	return Value::Null;
 }
 
-// sdl2.GetRGBA(pixel:number, format:sdl2.PixelFormat):void
+// sdl2.GetRGBA
 Gura_DeclareFunction(GetRGBA)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3664,7 +3664,7 @@ Gura_ImplementFunction(GetRGBA)
 	return Value::Null;
 }
 
-// sdl2.MapRGB(format:sdl2.PixelFormat, r:number, g:number, b:number)
+// sdl2.MapRGB
 Gura_DeclareFunction(MapRGB)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -3686,7 +3686,7 @@ Gura_ImplementFunction(MapRGB)
 	return Value(rtn);
 }
 
-// sdl2.MapRGBA(format:sdl2.PixelFormat, r:number, g:number, b:number, a:number)
+// sdl2.MapRGBA
 Gura_DeclareFunction(MapRGBA)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -3710,7 +3710,7 @@ Gura_ImplementFunction(MapRGBA)
 	return Value(rtn);
 }
 
-// sdl2.MasksToPixelFormatEnum(bpp:number, Rmask:number, Gmask:number, Bmask:number, Amask:number)
+// sdl2.MasksToPixelFormatEnum
 Gura_DeclareFunction(MasksToPixelFormatEnum)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -3734,7 +3734,7 @@ Gura_ImplementFunction(MasksToPixelFormatEnum)
 	return Value(rtn);
 }
 
-// sdl2.PixelFormatEnumToMasks(format:number)
+// sdl2.PixelFormatEnumToMasks
 Gura_DeclareFunction(PixelFormatEnumToMasks)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -3759,7 +3759,7 @@ Gura_ImplementFunction(PixelFormatEnumToMasks)
 	return Value::Null;
 }
 
-// sdl2.SetPaletteColors(palette:sdl2.Palette, firstcolor:number):void
+// sdl2.SetPaletteColors
 Gura_DeclareFunction(SetPaletteColors)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3787,7 +3787,7 @@ Gura_ImplementFunction(SetPaletteColors)
 	return Value::Null;
 }
 
-// sdl2.SetPixelFormatPalette(format:sdl2.PixelFormat, palette:sdl2.Palette):void
+// sdl2.SetPixelFormatPalette
 Gura_DeclareFunction(SetPixelFormatPalette)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3809,7 +3809,7 @@ Gura_ImplementFunction(SetPixelFormatPalette)
 	return Value::Null;
 }
 
-// sdl2.EnclosePoints(clip:sdl2.Rect)
+// sdl2.EnclosePoints
 Gura_DeclareFunction(EnclosePoints)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -3832,7 +3832,7 @@ Gura_ImplementFunction(EnclosePoints)
 	return Value::Null;
 }
 
-// sdl2.HasIntersection(A:sdl2.Rect, B:sdl2.Rect)
+// sdl2.HasIntersection
 Gura_DeclareFunction(HasIntersection)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -3850,7 +3850,7 @@ Gura_ImplementFunction(HasIntersection)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.IntersectRect(A:sdl2.Rect, B:sdl2.Rect)
+// sdl2.IntersectRect
 Gura_DeclareFunction(IntersectRect)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -3873,7 +3873,7 @@ Gura_ImplementFunction(IntersectRect)
 	return Value::Null;
 }
 
-// sdl2.IntersectRectAndLine(rect:sdl2.Rect, X1:number, Y1:number, X2:number, Y2:number)
+// sdl2.IntersectRectAndLine
 Gura_DeclareFunction(IntersectRectAndLine)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -3901,7 +3901,7 @@ Gura_ImplementFunction(IntersectRectAndLine)
 	return Value::Null;
 }
 
-// sdl2.PointInRect(p:sdl2.Point, r:sdl2.Rect)
+// sdl2.PointInRect
 Gura_DeclareFunction(PointInRect)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -3923,7 +3923,7 @@ Gura_ImplementFunction(PointInRect)
 	return Value::Null;
 }
 
-// sdl2.RectEmpty(r:sdl2.Rect)
+// sdl2.RectEmpty
 Gura_DeclareFunction(RectEmpty)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -3939,7 +3939,7 @@ Gura_ImplementFunction(RectEmpty)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.RectEquals(a:sdl2.Rect, b:sdl2.Rect)
+// sdl2.RectEquals
 Gura_DeclareFunction(RectEquals)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -3957,7 +3957,7 @@ Gura_ImplementFunction(RectEquals)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.UnionRect(A:sdl2.Rect, B:sdl2.Rect):void
+// sdl2.UnionRect
 Gura_DeclareFunction(UnionRect)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -3980,7 +3980,7 @@ Gura_ImplementFunction(UnionRect)
 	return Value::Null;
 }
 
-// sdl2.BlitScaled(src:sdl2.Surface, srcrect:sdl2.Rect, dst:sdl2.Surface, dstrect:sdl2.Rect):void
+// sdl2.BlitScaled
 Gura_DeclareFunction(BlitScaled)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4006,7 +4006,7 @@ Gura_ImplementFunction(BlitScaled)
 	return Value::Null;
 }
 
-// sdl2.BlitSurface(src:sdl2.Surface, srcrect:sdl2.Rect, dst:sdl2.Surface, dstrect:sdl2.Rect):void
+// sdl2.BlitSurface
 Gura_DeclareFunction(BlitSurface)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4032,7 +4032,7 @@ Gura_ImplementFunction(BlitSurface)
 	return Value::Null;
 }
 
-// sdl2.ConvertPixels(width:number, height:number, src_format:number, dst_format:number):void
+// sdl2.ConvertPixels
 Gura_DeclareFunction(ConvertPixels)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4066,7 +4066,7 @@ Gura_ImplementFunction(ConvertPixels)
 	return Value::Null;
 }
 
-// sdl2.ConvertSurface(src:sdl2.Surface, fmt:sdl2.PixelFormat, flags:number)
+// sdl2.ConvertSurface
 Gura_DeclareFunction(ConvertSurface)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -4090,7 +4090,7 @@ Gura_ImplementFunction(ConvertSurface)
 	return Value(new Object_Surface(rtn));
 }
 
-// sdl2.ConvertSurfaceFormat(src:sdl2.Surface, pixel_format:number, flags:number)
+// sdl2.ConvertSurfaceFormat
 Gura_DeclareFunction(ConvertSurfaceFormat)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -4114,7 +4114,7 @@ Gura_ImplementFunction(ConvertSurfaceFormat)
 	return Value(new Object_Surface(rtn));
 }
 
-// sdl2.CreateRGBSurface(flags:number, width:number, height:number, depth:number, Rmask:number, Gmask:number, Bmask:number, Amask:number)
+// sdl2.CreateRGBSurface
 Gura_DeclareFunction(CreateRGBSurface)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -4148,7 +4148,22 @@ Gura_ImplementFunction(CreateRGBSurface)
 	return Value(new Object_Surface(rtn));
 }
 
-// sdl2.FillRect(dst:sdl2.Surface, rect:sdl2.Rect, color:number):void
+// sdl2.CreateRGBSurfaceFrom
+Gura_DeclareFunction(CreateRGBSurfaceFrom)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "image", VTYPE_image, OCCUR_Once, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(CreateRGBSurfaceFrom)
+{
+	
+	return Value::Null;
+}
+
+// sdl2.FillRect
 Gura_DeclareFunction(FillRect)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4172,11 +4187,12 @@ Gura_ImplementFunction(FillRect)
 	return Value::Null;
 }
 
-// sdl2.FillRects(dst:sdl2.Surface, color:number):void
+// sdl2.FillRects
 Gura_DeclareFunction(FillRects)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "dst", VTYPE_Surface, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "color", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -4184,23 +4200,24 @@ Gura_DeclareFunction(FillRects)
 
 Gura_ImplementFunction(FillRects)
 {
-#if 0
 	SDL_Surface *dst = args.IsValid(0)? Object_Surface::GetObject(args, 0)->GetEntity() : NULL;
-	const SDL_Rect *rects = args.IsValid(1)? NULL : NULL;
-	int count = NULL;
-	Uint32 color = args.GetULong(3);
+	Uint32 color = args.GetULong(2);
+	const ValueList &_rects = args.GetList(1);
+	CArray<SDL_Rect> rects(_rects.size());
+	SDL_Rect *p = rects;
+	foreach_const (ValueList, pValue, _rects) {
+		*p++ = *Object_Rect::GetObject(*pValue)->GetEntity();
+	}
+	int count = static_cast<int>(_rects.size());
 	int rtn = SDL_FillRects(dst, rects, count, color);
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
 	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "FillRects");
-	return Value::Null;
 }
 
-// sdl2.FreeSurface(surface:sdl2.Surface):void
+// sdl2.FreeSurface
 Gura_DeclareFunction(FreeSurface)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4216,7 +4233,7 @@ Gura_ImplementFunction(FreeSurface)
 	return Value::Null;
 }
 
-// sdl2.GetClipRect(surface:sdl2.Surface, rect:sdl2.Rect):void
+// sdl2.GetClipRect
 Gura_DeclareFunction(GetClipRect)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4234,7 +4251,7 @@ Gura_ImplementFunction(GetClipRect)
 	return Value::Null;
 }
 
-// sdl2.GetColorKey(surface:sdl2.Surface):void
+// sdl2.GetColorKey
 Gura_DeclareFunction(GetColorKey)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4259,7 +4276,7 @@ Gura_ImplementFunction(GetColorKey)
 	return Value::Null;
 }
 
-// sdl2.GetSurfaceAlphaMod(surface:sdl2.Surface):void
+// sdl2.GetSurfaceAlphaMod
 Gura_DeclareFunction(GetSurfaceAlphaMod)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4284,7 +4301,7 @@ Gura_ImplementFunction(GetSurfaceAlphaMod)
 	return Value::Null;
 }
 
-// sdl2.GetSurfaceBlendMode(surface:sdl2.Surface):void
+// sdl2.GetSurfaceBlendMode
 Gura_DeclareFunction(GetSurfaceBlendMode)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4309,7 +4326,7 @@ Gura_ImplementFunction(GetSurfaceBlendMode)
 	return Value::Null;
 }
 
-// sdl2.GetSurfaceColorMod(surface:sdl2.Surface):void
+// sdl2.GetSurfaceColorMod
 Gura_DeclareFunction(GetSurfaceColorMod)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4336,7 +4353,7 @@ Gura_ImplementFunction(GetSurfaceColorMod)
 	return Value::Null;
 }
 
-// sdl2.LoadBMP(file:string)
+// sdl2.LoadBMP
 Gura_DeclareFunction(LoadBMP)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -4356,7 +4373,7 @@ Gura_ImplementFunction(LoadBMP)
 	return Value(new Object_Surface(rtn));
 }
 
-// sdl2.LoadBMP_RW(src:sdl2.nil, freesrc:number)
+// sdl2.LoadBMP_RW
 Gura_DeclareFunction(LoadBMP_RW)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -4382,7 +4399,7 @@ Gura_ImplementFunction(LoadBMP_RW)
 	return Value::Null;
 }
 
-// sdl2.LockSurface(surface:sdl2.Surface):void
+// sdl2.LockSurface
 Gura_DeclareFunction(LockSurface)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4402,7 +4419,7 @@ Gura_ImplementFunction(LockSurface)
 	return Value::Null;
 }
 
-// sdl2.LowerBlit(src:sdl2.Surface, srcrect:sdl2.Rect, dst:sdl2.Surface, dstrect:sdl2.Rect):void
+// sdl2.LowerBlit
 Gura_DeclareFunction(LowerBlit)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4428,7 +4445,7 @@ Gura_ImplementFunction(LowerBlit)
 	return Value::Null;
 }
 
-// sdl2.LowerBlitScaled(src:sdl2.Surface, srcrect:sdl2.Rect, dst:sdl2.Surface, dstrect:sdl2.Rect):void
+// sdl2.LowerBlitScaled
 Gura_DeclareFunction(LowerBlitScaled)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4454,7 +4471,7 @@ Gura_ImplementFunction(LowerBlitScaled)
 	return Value::Null;
 }
 
-// sdl2.MUSTLOCK(surface:sdl2.Surface)
+// sdl2.MUSTLOCK
 Gura_DeclareFunction(MUSTLOCK)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -4470,7 +4487,7 @@ Gura_ImplementFunction(MUSTLOCK)
 	return Value(rtn);
 }
 
-// sdl2.SaveBMP(surface:sdl2.Surface, file:string):void
+// sdl2.SaveBMP
 Gura_DeclareFunction(SaveBMP)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4492,7 +4509,7 @@ Gura_ImplementFunction(SaveBMP)
 	return Value::Null;
 }
 
-// sdl2.SaveBMP_RW(surface:sdl2.Surface, dst:sdl2.nil, freedst:number):void
+// sdl2.SaveBMP_RW
 Gura_DeclareFunction(SaveBMP_RW)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4520,7 +4537,7 @@ Gura_ImplementFunction(SaveBMP_RW)
 	return Value::Null;
 }
 
-// sdl2.SetClipRect(surface:sdl2.Surface, rect:sdl2.Rect)
+// sdl2.SetClipRect
 Gura_DeclareFunction(SetClipRect)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -4538,7 +4555,7 @@ Gura_ImplementFunction(SetClipRect)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.SetColorKey(surface:sdl2.Surface, flag:number, key:number):void
+// sdl2.SetColorKey
 Gura_DeclareFunction(SetColorKey)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4562,7 +4579,7 @@ Gura_ImplementFunction(SetColorKey)
 	return Value::Null;
 }
 
-// sdl2.SetSurfaceAlphaMod(surface:sdl2.Surface, alpha:number):void
+// sdl2.SetSurfaceAlphaMod
 Gura_DeclareFunction(SetSurfaceAlphaMod)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4584,7 +4601,7 @@ Gura_ImplementFunction(SetSurfaceAlphaMod)
 	return Value::Null;
 }
 
-// sdl2.SetSurfaceBlendMode(surface:sdl2.Surface, blendMode:number):void
+// sdl2.SetSurfaceBlendMode
 Gura_DeclareFunction(SetSurfaceBlendMode)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4606,7 +4623,7 @@ Gura_ImplementFunction(SetSurfaceBlendMode)
 	return Value::Null;
 }
 
-// sdl2.SetSurfaceColorMod(surface:sdl2.Surface, r:number, g:number, b:number):void
+// sdl2.SetSurfaceColorMod
 Gura_DeclareFunction(SetSurfaceColorMod)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4632,7 +4649,7 @@ Gura_ImplementFunction(SetSurfaceColorMod)
 	return Value::Null;
 }
 
-// sdl2.SetSurfacePalette(surface:sdl2.Surface, palette:sdl2.Palette):void
+// sdl2.SetSurfacePalette
 Gura_DeclareFunction(SetSurfacePalette)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4654,7 +4671,7 @@ Gura_ImplementFunction(SetSurfacePalette)
 	return Value::Null;
 }
 
-// sdl2.SetSurfaceRLE(surface:sdl2.Surface, flag:number):void
+// sdl2.SetSurfaceRLE
 Gura_DeclareFunction(SetSurfaceRLE)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4676,7 +4693,7 @@ Gura_ImplementFunction(SetSurfaceRLE)
 	return Value::Null;
 }
 
-// sdl2.UnlockSurface(surface:sdl2.Surface):void
+// sdl2.UnlockSurface
 Gura_DeclareFunction(UnlockSurface)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4692,7 +4709,7 @@ Gura_ImplementFunction(UnlockSurface)
 	return Value::Null;
 }
 
-// sdl2.GetClipboardText()
+// sdl2.GetClipboardText
 Gura_DeclareFunction(GetClipboardText)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -4714,7 +4731,7 @@ Gura_ImplementFunction(GetClipboardText)
 	return Value::Null;
 }
 
-// sdl2.HasClipboardText()
+// sdl2.HasClipboardText
 Gura_DeclareFunction(HasClipboardText)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -4728,7 +4745,7 @@ Gura_ImplementFunction(HasClipboardText)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.SetClipboardText(text:string):void
+// sdl2.SetClipboardText
 Gura_DeclareFunction(SetClipboardText)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4748,7 +4765,7 @@ Gura_ImplementFunction(SetClipboardText)
 	return Value::Null;
 }
 
-// sdl2.AddEventWatch():void
+// sdl2.AddEventWatch
 Gura_DeclareFunction(AddEventWatch)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4766,7 +4783,7 @@ Gura_ImplementFunction(AddEventWatch)
 	return Value::Null;
 }
 
-// sdl2.DelEventWatch():void
+// sdl2.DelEventWatch
 Gura_DeclareFunction(DelEventWatch)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4784,7 +4801,7 @@ Gura_ImplementFunction(DelEventWatch)
 	return Value::Null;
 }
 
-// sdl2.EventState(type:number, state:number)
+// sdl2.EventState
 Gura_DeclareFunction(EventState)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -4802,7 +4819,7 @@ Gura_ImplementFunction(EventState)
 	return Value(rtn);
 }
 
-// sdl2.FilterEvents():void
+// sdl2.FilterEvents
 Gura_DeclareFunction(FilterEvents)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4820,7 +4837,7 @@ Gura_ImplementFunction(FilterEvents)
 	return Value::Null;
 }
 
-// sdl2.FlushEvent(type:number):void
+// sdl2.FlushEvent
 Gura_DeclareFunction(FlushEvent)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4836,7 +4853,7 @@ Gura_ImplementFunction(FlushEvent)
 	return Value::Null;
 }
 
-// sdl2.FlushEvents(minType:number, maxType:number):void
+// sdl2.FlushEvents
 Gura_DeclareFunction(FlushEvents)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4854,7 +4871,7 @@ Gura_ImplementFunction(FlushEvents)
 	return Value::Null;
 }
 
-// sdl2.GetEventFilter():void
+// sdl2.GetEventFilter
 Gura_DeclareFunction(GetEventFilter)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -4872,7 +4889,7 @@ Gura_ImplementFunction(GetEventFilter)
 	return Value::Null;
 }
 
-// sdl2.GetNumTouchDevices()
+// sdl2.GetNumTouchDevices
 Gura_DeclareFunction(GetNumTouchDevices)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -4886,7 +4903,7 @@ Gura_ImplementFunction(GetNumTouchDevices)
 	return Value(rtn);
 }
 
-// sdl2.GetNumTouchFingers(touchId:number)
+// sdl2.GetNumTouchFingers
 Gura_DeclareFunction(GetNumTouchFingers)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -4902,7 +4919,7 @@ Gura_ImplementFunction(GetNumTouchFingers)
 	return Value(rtn);
 }
 
-// sdl2.GetTouchDevice(index:number)
+// sdl2.GetTouchDevice
 Gura_DeclareFunction(GetTouchDevice)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -4918,7 +4935,7 @@ Gura_ImplementFunction(GetTouchDevice)
 	return Value(rtn);
 }
 
-// sdl2.GetTouchFinger(touchId:number, index:number)
+// sdl2.GetTouchFinger
 Gura_DeclareFunction(GetTouchFinger)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -4940,7 +4957,7 @@ Gura_ImplementFunction(GetTouchFinger)
 	return Value(new Object_Finger(rtn));
 }
 
-// sdl2.HasEvent(type:number)
+// sdl2.HasEvent
 Gura_DeclareFunction(HasEvent)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -4956,7 +4973,7 @@ Gura_ImplementFunction(HasEvent)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.HasEvents(minType:number, maxType:number)
+// sdl2.HasEvents
 Gura_DeclareFunction(HasEvents)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -4974,7 +4991,7 @@ Gura_ImplementFunction(HasEvents)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.LoadDollarTemplates(touchId:number, src:sdl2.nil)
+// sdl2.LoadDollarTemplates
 Gura_DeclareFunction(LoadDollarTemplates)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5000,7 +5017,7 @@ Gura_ImplementFunction(LoadDollarTemplates)
 	return Value::Null;
 }
 
-// sdl2.PeepEvents(action:number, minType:number, maxType:number):void
+// sdl2.PeepEvents
 Gura_DeclareFunction(PeepEvents)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -5030,7 +5047,7 @@ Gura_ImplementFunction(PeepEvents)
 	return Value::Null;
 }
 
-// sdl2.PollEvent()
+// sdl2.PollEvent
 Gura_DeclareFunction(PollEvent)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5046,7 +5063,7 @@ Gura_ImplementFunction(PollEvent)
 	return Value(new Object_Event(event));
 }
 
-// sdl2.PumpEvents():void
+// sdl2.PumpEvents
 Gura_DeclareFunction(PumpEvents)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -5060,7 +5077,7 @@ Gura_ImplementFunction(PumpEvents)
 	return Value::Null;
 }
 
-// sdl2.PushEvent(event:sdl2.Event)
+// sdl2.PushEvent
 Gura_DeclareFunction(PushEvent)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5080,7 +5097,7 @@ Gura_ImplementFunction(PushEvent)
 	return Value(rtn);
 }
 
-// sdl2.QuitRequested()
+// sdl2.QuitRequested
 Gura_DeclareFunction(QuitRequested)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5094,7 +5111,7 @@ Gura_ImplementFunction(QuitRequested)
 	return Value(rtn);
 }
 
-// sdl2.RecordGesture(touchId:number):void
+// sdl2.RecordGesture
 Gura_DeclareFunction(RecordGesture)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -5114,7 +5131,7 @@ Gura_ImplementFunction(RecordGesture)
 	return Value::Null;
 }
 
-// sdl2.RegisterEvents(numevents:number)
+// sdl2.RegisterEvents
 Gura_DeclareFunction(RegisterEvents)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5130,7 +5147,7 @@ Gura_ImplementFunction(RegisterEvents)
 	return Value(rtn);
 }
 
-// sdl2.SaveAllDollarTemplates(dst:sdl2.nil):void
+// sdl2.SaveAllDollarTemplates
 Gura_DeclareFunction(SaveAllDollarTemplates)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -5154,7 +5171,7 @@ Gura_ImplementFunction(SaveAllDollarTemplates)
 	return Value::Null;
 }
 
-// sdl2.SaveDollarTemplate(gestureId:number, dst:sdl2.nil):void
+// sdl2.SaveDollarTemplate
 Gura_DeclareFunction(SaveDollarTemplate)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -5180,7 +5197,7 @@ Gura_ImplementFunction(SaveDollarTemplate)
 	return Value::Null;
 }
 
-// sdl2.SetEventFilter():void
+// sdl2.SetEventFilter
 Gura_DeclareFunction(SetEventFilter)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -5198,7 +5215,7 @@ Gura_ImplementFunction(SetEventFilter)
 	return Value::Null;
 }
 
-// sdl2.WaitEvent()
+// sdl2.WaitEvent
 Gura_DeclareFunction(WaitEvent)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5217,7 +5234,7 @@ Gura_ImplementFunction(WaitEvent)
 	return Value(new Object_Event(event));
 }
 
-// sdl2.WaitEventTimeout(timeout:number)
+// sdl2.WaitEventTimeout
 Gura_DeclareFunction(WaitEventTimeout)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5238,7 +5255,7 @@ Gura_ImplementFunction(WaitEventTimeout)
 	return Value(new Object_Event(event));
 }
 
-// sdl2.GetKeyFromName(name:string)
+// sdl2.GetKeyFromName
 Gura_DeclareFunction(GetKeyFromName)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5254,7 +5271,7 @@ Gura_ImplementFunction(GetKeyFromName)
 	return Value(rtn);
 }
 
-// sdl2.GetKeyFromScancode(scancode:number)
+// sdl2.GetKeyFromScancode
 Gura_DeclareFunction(GetKeyFromScancode)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5270,7 +5287,7 @@ Gura_ImplementFunction(GetKeyFromScancode)
 	return Value(rtn);
 }
 
-// sdl2.GetKeyName(key:number)
+// sdl2.GetKeyName
 Gura_DeclareFunction(GetKeyName)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5290,7 +5307,7 @@ Gura_ImplementFunction(GetKeyName)
 	return Value(rtn);
 }
 
-// sdl2.GetKeyboardFocus()
+// sdl2.GetKeyboardFocus
 Gura_DeclareFunction(GetKeyboardFocus)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5308,7 +5325,7 @@ Gura_ImplementFunction(GetKeyboardFocus)
 	return Value(new Object_Window(rtn));
 }
 
-// sdl2.GetKeyboardState()
+// sdl2.GetKeyboardState
 Gura_DeclareFunction(GetKeyboardState)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5331,7 +5348,7 @@ Gura_ImplementFunction(GetKeyboardState)
 	return Value::Null;
 }
 
-// sdl2.GetModState()
+// sdl2.GetModState
 Gura_DeclareFunction(GetModState)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5345,7 +5362,7 @@ Gura_ImplementFunction(GetModState)
 	return Value(rtn);
 }
 
-// sdl2.GetScancodeFromKey(key:number)
+// sdl2.GetScancodeFromKey
 Gura_DeclareFunction(GetScancodeFromKey)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5361,7 +5378,7 @@ Gura_ImplementFunction(GetScancodeFromKey)
 	return Value(rtn);
 }
 
-// sdl2.GetScancodeFromName(name:string)
+// sdl2.GetScancodeFromName
 Gura_DeclareFunction(GetScancodeFromName)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5377,7 +5394,7 @@ Gura_ImplementFunction(GetScancodeFromName)
 	return Value(rtn);
 }
 
-// sdl2.GetScancodeName(scancode:number)
+// sdl2.GetScancodeName
 Gura_DeclareFunction(GetScancodeName)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5397,7 +5414,7 @@ Gura_ImplementFunction(GetScancodeName)
 	return Value(rtn);
 }
 
-// sdl2.HasScreenKeyboardSupport()
+// sdl2.HasScreenKeyboardSupport
 Gura_DeclareFunction(HasScreenKeyboardSupport)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5411,7 +5428,7 @@ Gura_ImplementFunction(HasScreenKeyboardSupport)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.IsScreenKeyboardShown(window:sdl2.Window)
+// sdl2.IsScreenKeyboardShown
 Gura_DeclareFunction(IsScreenKeyboardShown)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5427,7 +5444,7 @@ Gura_ImplementFunction(IsScreenKeyboardShown)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.IsTextInputActive()
+// sdl2.IsTextInputActive
 Gura_DeclareFunction(IsTextInputActive)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5441,7 +5458,7 @@ Gura_ImplementFunction(IsTextInputActive)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.SetModState(modstate:number):void
+// sdl2.SetModState
 Gura_DeclareFunction(SetModState)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -5457,7 +5474,7 @@ Gura_ImplementFunction(SetModState)
 	return Value::Null;
 }
 
-// sdl2.SetTextInputRect(rect:sdl2.Rect):void
+// sdl2.SetTextInputRect
 Gura_DeclareFunction(SetTextInputRect)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -5473,7 +5490,7 @@ Gura_ImplementFunction(SetTextInputRect)
 	return Value::Null;
 }
 
-// sdl2.StartTextInput():void
+// sdl2.StartTextInput
 Gura_DeclareFunction(StartTextInput)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -5487,7 +5504,7 @@ Gura_ImplementFunction(StartTextInput)
 	return Value::Null;
 }
 
-// sdl2.StopTextInput():void
+// sdl2.StopTextInput
 Gura_DeclareFunction(StopTextInput)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -5501,7 +5518,7 @@ Gura_ImplementFunction(StopTextInput)
 	return Value::Null;
 }
 
-// sdl2.CaptureMouse(enalbed:boolean):void
+// sdl2.CaptureMouse
 Gura_DeclareFunction(CaptureMouse)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -5525,7 +5542,7 @@ Gura_ImplementFunction(CaptureMouse)
 	return Value::Null;
 }
 
-// sdl2.CreateColorCursor(surface:sdl2.Surface, hot_x:number, hot_y:number)
+// sdl2.CreateColorCursor
 Gura_DeclareFunction(CreateColorCursor)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5549,7 +5566,7 @@ Gura_ImplementFunction(CreateColorCursor)
 	return Value(new Object_Cursor(rtn, false));
 }
 
-// sdl2.CreateCursor(mask:number, w:number, h:number, hot_x:number, hot_y:number)
+// sdl2.CreateCursor
 Gura_DeclareFunction(CreateCursor)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5582,7 +5599,7 @@ Gura_ImplementFunction(CreateCursor)
 	return Value::Null;
 }
 
-// sdl2.CreateSystemCursor(id:number)
+// sdl2.CreateSystemCursor
 Gura_DeclareFunction(CreateSystemCursor)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5602,7 +5619,7 @@ Gura_ImplementFunction(CreateSystemCursor)
 	return Value(new Object_Cursor(rtn, false));
 }
 
-// sdl2.FreeCursor(cursor:sdl2.Cursor):void
+// sdl2.FreeCursor
 Gura_DeclareFunction(FreeCursor)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -5618,7 +5635,7 @@ Gura_ImplementFunction(FreeCursor)
 	return Value::Null;
 }
 
-// sdl2.GetCursor()
+// sdl2.GetCursor
 Gura_DeclareFunction(GetCursor)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5636,7 +5653,7 @@ Gura_ImplementFunction(GetCursor)
 	return Value(new Object_Cursor(rtn, false));
 }
 
-// sdl2.GetDefaultCursor()
+// sdl2.GetDefaultCursor
 Gura_DeclareFunction(GetDefaultCursor)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5654,7 +5671,7 @@ Gura_ImplementFunction(GetDefaultCursor)
 	return Value(new Object_Cursor(rtn, false));
 }
 
-// sdl2.GetGlobalMouseState()
+// sdl2.GetGlobalMouseState
 Gura_DeclareFunction(GetGlobalMouseState)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5674,7 +5691,7 @@ Gura_ImplementFunction(GetGlobalMouseState)
 	return Value::Null;
 }
 
-// sdl2.GetMouseFocus()
+// sdl2.GetMouseFocus
 Gura_DeclareFunction(GetMouseFocus)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5692,7 +5709,7 @@ Gura_ImplementFunction(GetMouseFocus)
 	return Value(new Object_Window(rtn));
 }
 
-// sdl2.GetMouseState()
+// sdl2.GetMouseState
 Gura_DeclareFunction(GetMouseState)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5712,7 +5729,7 @@ Gura_ImplementFunction(GetMouseState)
 	return Value::Null;
 }
 
-// sdl2.GetRelativeMouseMode()
+// sdl2.GetRelativeMouseMode
 Gura_DeclareFunction(GetRelativeMouseMode)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5726,7 +5743,7 @@ Gura_ImplementFunction(GetRelativeMouseMode)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.GetRelativeMouseState()
+// sdl2.GetRelativeMouseState
 Gura_DeclareFunction(GetRelativeMouseState)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5746,7 +5763,7 @@ Gura_ImplementFunction(GetRelativeMouseState)
 	return Value::Null;
 }
 
-// sdl2.SetCursor(cursor:sdl2.Cursor):void
+// sdl2.SetCursor
 Gura_DeclareFunction(SetCursor)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -5762,7 +5779,7 @@ Gura_ImplementFunction(SetCursor)
 	return Value::Null;
 }
 
-// sdl2.SetRelativeMouseMode(enabled:boolean):void
+// sdl2.SetRelativeMouseMode
 Gura_DeclareFunction(SetRelativeMouseMode)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -5782,7 +5799,7 @@ Gura_ImplementFunction(SetRelativeMouseMode)
 	return Value::Null;
 }
 
-// sdl2.ShowCursor(toggle:number):void
+// sdl2.ShowCursor
 Gura_DeclareFunction(ShowCursor)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -5802,7 +5819,7 @@ Gura_ImplementFunction(ShowCursor)
 	return Value::Null;
 }
 
-// sdl2.WarpMouseGlobal(x:number, y:number):void
+// sdl2.WarpMouseGlobal
 Gura_DeclareFunction(WarpMouseGlobal)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -5824,7 +5841,7 @@ Gura_ImplementFunction(WarpMouseGlobal)
 	return Value::Null;
 }
 
-// sdl2.WarpMouseInWindow(window:sdl2.Window, x:number, y:number):void
+// sdl2.WarpMouseInWindow
 Gura_DeclareFunction(WarpMouseInWindow)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -5844,7 +5861,7 @@ Gura_ImplementFunction(WarpMouseInWindow)
 	return Value::Null;
 }
 
-// sdl2.JoystickClose(joystick:sdl2.Joystick):void
+// sdl2.JoystickClose
 Gura_DeclareFunction(JoystickClose)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -5860,7 +5877,7 @@ Gura_ImplementFunction(JoystickClose)
 	return Value::Null;
 }
 
-// sdl2.JoystickEventState(state:number)
+// sdl2.JoystickEventState
 Gura_DeclareFunction(JoystickEventState)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5880,7 +5897,7 @@ Gura_ImplementFunction(JoystickEventState)
 	return Value(rtn);
 }
 
-// sdl2.JoystickGetAttached(joystick:sdl2.Joystick)
+// sdl2.JoystickGetAttached
 Gura_DeclareFunction(JoystickGetAttached)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5896,7 +5913,7 @@ Gura_ImplementFunction(JoystickGetAttached)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.JoystickGetAxis(joystick:sdl2.Joystick, axis:number)
+// sdl2.JoystickGetAxis
 Gura_DeclareFunction(JoystickGetAxis)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5914,7 +5931,7 @@ Gura_ImplementFunction(JoystickGetAxis)
 	return Value(rtn);
 }
 
-// sdl2.JoystickGetBall(joystick:sdl2.Joystick, ball:number):void
+// sdl2.JoystickGetBall
 Gura_DeclareFunction(JoystickGetBall)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -5942,7 +5959,7 @@ Gura_ImplementFunction(JoystickGetBall)
 	return Value::Null;
 }
 
-// sdl2.JoystickGetButton(joystick:sdl2.Joystick, button:number)
+// sdl2.JoystickGetButton
 Gura_DeclareFunction(JoystickGetButton)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5960,7 +5977,7 @@ Gura_ImplementFunction(JoystickGetButton)
 	return Value(rtn);
 }
 
-// sdl2.JoystickGetDeviceGUID(device_index:number)
+// sdl2.JoystickGetDeviceGUID
 Gura_DeclareFunction(JoystickGetDeviceGUID)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -5980,7 +5997,7 @@ Gura_ImplementFunction(JoystickGetDeviceGUID)
 	return Value::Null;
 }
 
-// sdl2.JoystickGetGUID(joystick:sdl2.Joystick)
+// sdl2.JoystickGetGUID
 Gura_DeclareFunction(JoystickGetGUID)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6000,7 +6017,7 @@ Gura_ImplementFunction(JoystickGetGUID)
 	return Value::Null;
 }
 
-// sdl2.JoystickGetGUIDFromString(pchGUID:string)
+// sdl2.JoystickGetGUIDFromString
 Gura_DeclareFunction(JoystickGetGUIDFromString)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6020,7 +6037,7 @@ Gura_ImplementFunction(JoystickGetGUIDFromString)
 	return Value::Null;
 }
 
-// sdl2.JoystickGetGUIDString():void
+// sdl2.JoystickGetGUIDString
 Gura_DeclareFunction(JoystickGetGUIDString)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -6038,7 +6055,7 @@ Gura_ImplementFunction(JoystickGetGUIDString)
 	return Value::Null;
 }
 
-// sdl2.JoystickGetHat(joystick:sdl2.Joystick, hat:number)
+// sdl2.JoystickGetHat
 Gura_DeclareFunction(JoystickGetHat)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6056,7 +6073,7 @@ Gura_ImplementFunction(JoystickGetHat)
 	return Value(rtn);
 }
 
-// sdl2.JoystickInstanceID(joystick:sdl2.Joystick)
+// sdl2.JoystickInstanceID
 Gura_DeclareFunction(JoystickInstanceID)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6072,7 +6089,7 @@ Gura_ImplementFunction(JoystickInstanceID)
 	return Value(rtn);
 }
 
-// sdl2.JoystickName(joystick:sdl2.Joystick)
+// sdl2.JoystickName
 Gura_DeclareFunction(JoystickName)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6092,7 +6109,7 @@ Gura_ImplementFunction(JoystickName)
 	return Value(rtn);
 }
 
-// sdl2.JoystickNameForIndex(device_index:number)
+// sdl2.JoystickNameForIndex
 Gura_DeclareFunction(JoystickNameForIndex)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6112,7 +6129,7 @@ Gura_ImplementFunction(JoystickNameForIndex)
 	return Value(rtn);
 }
 
-// sdl2.JoystickNumAxes(joystick:sdl2.Joystick)
+// sdl2.JoystickNumAxes
 Gura_DeclareFunction(JoystickNumAxes)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6132,7 +6149,7 @@ Gura_ImplementFunction(JoystickNumAxes)
 	return Value(rtn);
 }
 
-// sdl2.JoystickNumBalls(joystick:sdl2.Joystick)
+// sdl2.JoystickNumBalls
 Gura_DeclareFunction(JoystickNumBalls)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6152,7 +6169,7 @@ Gura_ImplementFunction(JoystickNumBalls)
 	return Value(rtn);
 }
 
-// sdl2.JoystickNumButtons(joystick:sdl2.Joystick)
+// sdl2.JoystickNumButtons
 Gura_DeclareFunction(JoystickNumButtons)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6172,7 +6189,7 @@ Gura_ImplementFunction(JoystickNumButtons)
 	return Value(rtn);
 }
 
-// sdl2.JoystickNumHats(joystick:sdl2.Joystick)
+// sdl2.JoystickNumHats
 Gura_DeclareFunction(JoystickNumHats)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6192,7 +6209,7 @@ Gura_ImplementFunction(JoystickNumHats)
 	return Value(rtn);
 }
 
-// sdl2.JoystickOpen(device_index:number)
+// sdl2.JoystickOpen
 Gura_DeclareFunction(JoystickOpen)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6212,7 +6229,7 @@ Gura_ImplementFunction(JoystickOpen)
 	return Value(new Object_Joystick(rtn));
 }
 
-// sdl2.JoystickUpdate():void
+// sdl2.JoystickUpdate
 Gura_DeclareFunction(JoystickUpdate)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -6226,7 +6243,7 @@ Gura_ImplementFunction(JoystickUpdate)
 	return Value::Null;
 }
 
-// sdl2.NumJoysticks()
+// sdl2.NumJoysticks
 Gura_DeclareFunction(NumJoysticks)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6244,7 +6261,7 @@ Gura_ImplementFunction(NumJoysticks)
 	return Value(rtn);
 }
 
-// sdl2.GameControllerAddMapping(mappingString:string)
+// sdl2.GameControllerAddMapping
 Gura_DeclareFunction(GameControllerAddMapping)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6264,7 +6281,7 @@ Gura_ImplementFunction(GameControllerAddMapping)
 	return Value(rtn);
 }
 
-// sdl2.GameControllerAddMappingsFromFile(filename:string)
+// sdl2.GameControllerAddMappingsFromFile
 Gura_DeclareFunction(GameControllerAddMappingsFromFile)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6284,7 +6301,7 @@ Gura_ImplementFunction(GameControllerAddMappingsFromFile)
 	return Value(rtn);
 }
 
-// sdl2.GameControllerAddMappingsFromRW(rw:sdl2.nil, freerw:number)
+// sdl2.GameControllerAddMappingsFromRW
 Gura_DeclareFunction(GameControllerAddMappingsFromRW)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6310,7 +6327,7 @@ Gura_ImplementFunction(GameControllerAddMappingsFromRW)
 	return Value::Null;
 }
 
-// sdl2.GameControllerClose(gamecontroller:sdl2.GameController):void
+// sdl2.GameControllerClose
 Gura_DeclareFunction(GameControllerClose)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -6326,7 +6343,7 @@ Gura_ImplementFunction(GameControllerClose)
 	return Value::Null;
 }
 
-// sdl2.GameControllerEventState(state:number)
+// sdl2.GameControllerEventState
 Gura_DeclareFunction(GameControllerEventState)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6342,7 +6359,7 @@ Gura_ImplementFunction(GameControllerEventState)
 	return Value(rtn);
 }
 
-// sdl2.GameControllerGetAttached(gamecontroller:sdl2.GameController)
+// sdl2.GameControllerGetAttached
 Gura_DeclareFunction(GameControllerGetAttached)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6358,7 +6375,7 @@ Gura_ImplementFunction(GameControllerGetAttached)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.GameControllerGetAxis(gamecontroller:sdl2.GameController, axis:number)
+// sdl2.GameControllerGetAxis
 Gura_DeclareFunction(GameControllerGetAxis)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6376,7 +6393,7 @@ Gura_ImplementFunction(GameControllerGetAxis)
 	return Value(rtn);
 }
 
-// sdl2.GameControllerGetAxisFromString(pchString:string)
+// sdl2.GameControllerGetAxisFromString
 Gura_DeclareFunction(GameControllerGetAxisFromString)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6392,7 +6409,7 @@ Gura_ImplementFunction(GameControllerGetAxisFromString)
 	return Value(rtn);
 }
 
-// sdl2.GameControllerGetBindForAxis(gamecontroller:sdl2.GameController, axis:number)
+// sdl2.GameControllerGetBindForAxis
 Gura_DeclareFunction(GameControllerGetBindForAxis)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6410,7 +6427,7 @@ Gura_ImplementFunction(GameControllerGetBindForAxis)
 	return Value(new Object_GameControllerButtonBind(rtn));
 }
 
-// sdl2.GameControllerGetBindForButton(gamecontroller:sdl2.GameController, button:number)
+// sdl2.GameControllerGetBindForButton
 Gura_DeclareFunction(GameControllerGetBindForButton)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6428,7 +6445,7 @@ Gura_ImplementFunction(GameControllerGetBindForButton)
 	return Value(new Object_GameControllerButtonBind(rtn));
 }
 
-// sdl2.GameControllerGetButton(gamecontroller:sdl2.GameController, button:number)
+// sdl2.GameControllerGetButton
 Gura_DeclareFunction(GameControllerGetButton)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6446,7 +6463,7 @@ Gura_ImplementFunction(GameControllerGetButton)
 	return Value(rtn);
 }
 
-// sdl2.GameControllerGetButtonFromString(pchString:string)
+// sdl2.GameControllerGetButtonFromString
 Gura_DeclareFunction(GameControllerGetButtonFromString)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6462,7 +6479,7 @@ Gura_ImplementFunction(GameControllerGetButtonFromString)
 	return Value(rtn);
 }
 
-// sdl2.GameControllerGetJoystick(gamecontroller:sdl2.GameController)
+// sdl2.GameControllerGetJoystick
 Gura_DeclareFunction(GameControllerGetJoystick)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6482,7 +6499,7 @@ Gura_ImplementFunction(GameControllerGetJoystick)
 	return Value(new Object_Joystick(rtn));
 }
 
-// sdl2.GameControllerGetStringForAxis(axis:number)
+// sdl2.GameControllerGetStringForAxis
 Gura_DeclareFunction(GameControllerGetStringForAxis)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6502,7 +6519,7 @@ Gura_ImplementFunction(GameControllerGetStringForAxis)
 	return Value(rtn);
 }
 
-// sdl2.GameControllerGetStringForButton(button:number)
+// sdl2.GameControllerGetStringForButton
 Gura_DeclareFunction(GameControllerGetStringForButton)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6522,7 +6539,7 @@ Gura_ImplementFunction(GameControllerGetStringForButton)
 	return Value(rtn);
 }
 
-// sdl2.GameControllerMapping(gamecontroller:sdl2.GameController)
+// sdl2.GameControllerMapping
 Gura_DeclareFunction(GameControllerMapping)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6542,7 +6559,7 @@ Gura_ImplementFunction(GameControllerMapping)
 	return Value(rtn);
 }
 
-// sdl2.GameControllerMappingForGUID(guid:number)
+// sdl2.GameControllerMappingForGUID
 Gura_DeclareFunction(GameControllerMappingForGUID)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6566,7 +6583,7 @@ Gura_ImplementFunction(GameControllerMappingForGUID)
 	return Value::Null;
 }
 
-// sdl2.GameControllerName(gamecontroller:sdl2.GameController)
+// sdl2.GameControllerName
 Gura_DeclareFunction(GameControllerName)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6586,7 +6603,7 @@ Gura_ImplementFunction(GameControllerName)
 	return Value(rtn);
 }
 
-// sdl2.GameControllerNameForIndex(joystick_index:number)
+// sdl2.GameControllerNameForIndex
 Gura_DeclareFunction(GameControllerNameForIndex)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6606,7 +6623,7 @@ Gura_ImplementFunction(GameControllerNameForIndex)
 	return Value(rtn);
 }
 
-// sdl2.GameControllerOpen(joystick_index:number)
+// sdl2.GameControllerOpen
 Gura_DeclareFunction(GameControllerOpen)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6626,7 +6643,7 @@ Gura_ImplementFunction(GameControllerOpen)
 	return Value(new Object_GameController(rtn));
 }
 
-// sdl2.GameControllerUpdate():void
+// sdl2.GameControllerUpdate
 Gura_DeclareFunction(GameControllerUpdate)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -6640,7 +6657,7 @@ Gura_ImplementFunction(GameControllerUpdate)
 	return Value::Null;
 }
 
-// sdl2.IsGameController(joystick_index:number)
+// sdl2.IsGameController
 Gura_DeclareFunction(IsGameController)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6656,7 +6673,7 @@ Gura_ImplementFunction(IsGameController)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.HapticClose(haptic:sdl2.Haptic):void
+// sdl2.HapticClose
 Gura_DeclareFunction(HapticClose)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -6672,7 +6689,7 @@ Gura_ImplementFunction(HapticClose)
 	return Value::Null;
 }
 
-// sdl2.HapticDestroyEffect(haptic:sdl2.Haptic, effect:number):void
+// sdl2.HapticDestroyEffect
 Gura_DeclareFunction(HapticDestroyEffect)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -6690,7 +6707,7 @@ Gura_ImplementFunction(HapticDestroyEffect)
 	return Value::Null;
 }
 
-// sdl2.HapticEffectSupported(haptic:sdl2.Haptic, effect:sdl2.HapticEffect)
+// sdl2.HapticEffectSupported
 Gura_DeclareFunction(HapticEffectSupported)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6712,7 +6729,7 @@ Gura_ImplementFunction(HapticEffectSupported)
 	return Value(rtn != 0);
 }
 
-// sdl2.HapticGetEffectStatus(haptic:sdl2.Haptic, effect:number)
+// sdl2.HapticGetEffectStatus
 Gura_DeclareFunction(HapticGetEffectStatus)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6734,7 +6751,7 @@ Gura_ImplementFunction(HapticGetEffectStatus)
 	return Value(rtn != 0);
 }
 
-// sdl2.HapticIndex(haptic:sdl2.Haptic)
+// sdl2.HapticIndex
 Gura_DeclareFunction(HapticIndex)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6754,7 +6771,7 @@ Gura_ImplementFunction(HapticIndex)
 	return Value(rtn);
 }
 
-// sdl2.HapticName(device_index:number)
+// sdl2.HapticName
 Gura_DeclareFunction(HapticName)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6774,7 +6791,7 @@ Gura_ImplementFunction(HapticName)
 	return Value(rtn);
 }
 
-// sdl2.HapticNewEffect(haptic:sdl2.Haptic, effect:sdl2.HapticEffect)
+// sdl2.HapticNewEffect
 Gura_DeclareFunction(HapticNewEffect)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6796,7 +6813,7 @@ Gura_ImplementFunction(HapticNewEffect)
 	return Value(rtn);
 }
 
-// sdl2.HapticNumAxes(haptic:sdl2.Haptic)
+// sdl2.HapticNumAxes
 Gura_DeclareFunction(HapticNumAxes)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6816,7 +6833,7 @@ Gura_ImplementFunction(HapticNumAxes)
 	return Value(rtn);
 }
 
-// sdl2.HapticNumEffects(haptic:sdl2.Haptic)
+// sdl2.HapticNumEffects
 Gura_DeclareFunction(HapticNumEffects)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6836,7 +6853,7 @@ Gura_ImplementFunction(HapticNumEffects)
 	return Value(rtn);
 }
 
-// sdl2.HapticNumEffectsPlaying(haptic:sdl2.Haptic)
+// sdl2.HapticNumEffectsPlaying
 Gura_DeclareFunction(HapticNumEffectsPlaying)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6856,7 +6873,7 @@ Gura_ImplementFunction(HapticNumEffectsPlaying)
 	return Value(rtn);
 }
 
-// sdl2.HapticOpen(device_index:number)
+// sdl2.HapticOpen
 Gura_DeclareFunction(HapticOpen)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6876,7 +6893,7 @@ Gura_ImplementFunction(HapticOpen)
 	return Value(new Object_Haptic(rtn));
 }
 
-// sdl2.HapticOpenFromJoystick(joystick:sdl2.Joystick)
+// sdl2.HapticOpenFromJoystick
 Gura_DeclareFunction(HapticOpenFromJoystick)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6896,7 +6913,7 @@ Gura_ImplementFunction(HapticOpenFromJoystick)
 	return Value(new Object_Haptic(rtn));
 }
 
-// sdl2.HapticOpenFromMouse()
+// sdl2.HapticOpenFromMouse
 Gura_DeclareFunction(HapticOpenFromMouse)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6914,7 +6931,7 @@ Gura_ImplementFunction(HapticOpenFromMouse)
 	return Value(new Object_Haptic(rtn));
 }
 
-// sdl2.HapticOpened(device_index:number)
+// sdl2.HapticOpened
 Gura_DeclareFunction(HapticOpened)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6934,7 +6951,7 @@ Gura_ImplementFunction(HapticOpened)
 	return Value(rtn != 0);
 }
 
-// sdl2.HapticPause(haptic:sdl2.Haptic):void
+// sdl2.HapticPause
 Gura_DeclareFunction(HapticPause)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -6954,7 +6971,7 @@ Gura_ImplementFunction(HapticPause)
 	return Value::Null;
 }
 
-// sdl2.HapticQuery(haptic:sdl2.Haptic)
+// sdl2.HapticQuery
 Gura_DeclareFunction(HapticQuery)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -6970,7 +6987,7 @@ Gura_ImplementFunction(HapticQuery)
 	return Value(rtn);
 }
 
-// sdl2.HapticRumbleInit(haptic:sdl2.Haptic):void
+// sdl2.HapticRumbleInit
 Gura_DeclareFunction(HapticRumbleInit)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -6990,7 +7007,7 @@ Gura_ImplementFunction(HapticRumbleInit)
 	return Value::Null;
 }
 
-// sdl2.HapticRumblePlay(haptic:sdl2.Haptic, strength:number, length:number):void
+// sdl2.HapticRumblePlay
 Gura_DeclareFunction(HapticRumblePlay)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7014,7 +7031,7 @@ Gura_ImplementFunction(HapticRumblePlay)
 	return Value::Null;
 }
 
-// sdl2.HapticRumbleStop(haptic:sdl2.Haptic):void
+// sdl2.HapticRumbleStop
 Gura_DeclareFunction(HapticRumbleStop)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7034,7 +7051,7 @@ Gura_ImplementFunction(HapticRumbleStop)
 	return Value::Null;
 }
 
-// sdl2.HapticRumbleSupported(haptic:sdl2.Haptic)
+// sdl2.HapticRumbleSupported
 Gura_DeclareFunction(HapticRumbleSupported)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -7054,7 +7071,7 @@ Gura_ImplementFunction(HapticRumbleSupported)
 	return Value(rtn != 0);
 }
 
-// sdl2.HapticRunEffect(haptic:sdl2.Haptic, effect:number, iterations:number):void
+// sdl2.HapticRunEffect
 Gura_DeclareFunction(HapticRunEffect)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7078,7 +7095,7 @@ Gura_ImplementFunction(HapticRunEffect)
 	return Value::Null;
 }
 
-// sdl2.HapticSetAutocenter(haptic:sdl2.Haptic, autocenter:number):void
+// sdl2.HapticSetAutocenter
 Gura_DeclareFunction(HapticSetAutocenter)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7100,7 +7117,7 @@ Gura_ImplementFunction(HapticSetAutocenter)
 	return Value::Null;
 }
 
-// sdl2.HapticSetGain(haptic:sdl2.Haptic, gain:number):void
+// sdl2.HapticSetGain
 Gura_DeclareFunction(HapticSetGain)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7122,7 +7139,7 @@ Gura_ImplementFunction(HapticSetGain)
 	return Value::Null;
 }
 
-// sdl2.HapticStopAll(haptic:sdl2.Haptic):void
+// sdl2.HapticStopAll
 Gura_DeclareFunction(HapticStopAll)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7142,7 +7159,7 @@ Gura_ImplementFunction(HapticStopAll)
 	return Value::Null;
 }
 
-// sdl2.HapticStopEffect(haptic:sdl2.Haptic, effect:number):void
+// sdl2.HapticStopEffect
 Gura_DeclareFunction(HapticStopEffect)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7164,7 +7181,7 @@ Gura_ImplementFunction(HapticStopEffect)
 	return Value::Null;
 }
 
-// sdl2.HapticUnpause(haptic:sdl2.Haptic):void
+// sdl2.HapticUnpause
 Gura_DeclareFunction(HapticUnpause)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7184,7 +7201,7 @@ Gura_ImplementFunction(HapticUnpause)
 	return Value::Null;
 }
 
-// sdl2.HapticUpdateEffect(haptic:sdl2.Haptic, effect:number, data:sdl2.HapticEffect):void
+// sdl2.HapticUpdateEffect
 Gura_DeclareFunction(HapticUpdateEffect)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7208,7 +7225,7 @@ Gura_ImplementFunction(HapticUpdateEffect)
 	return Value::Null;
 }
 
-// sdl2.JoystickIsHaptic(joystick:sdl2.Joystick)
+// sdl2.JoystickIsHaptic
 Gura_DeclareFunction(JoystickIsHaptic)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -7228,7 +7245,7 @@ Gura_ImplementFunction(JoystickIsHaptic)
 	return Value(rtn != 0);
 }
 
-// sdl2.MouseIsHaptic()
+// sdl2.MouseIsHaptic
 Gura_DeclareFunction(MouseIsHaptic)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -7246,7 +7263,7 @@ Gura_ImplementFunction(MouseIsHaptic)
 	return Value(rtn != 0);
 }
 
-// sdl2.NumHaptics()
+// sdl2.NumHaptics
 Gura_DeclareFunction(NumHaptics)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -7264,7 +7281,7 @@ Gura_ImplementFunction(NumHaptics)
 	return Value(rtn);
 }
 
-// sdl2.AudioInit(driver_name:string):void
+// sdl2.AudioInit
 Gura_DeclareFunction(AudioInit)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7284,7 +7301,7 @@ Gura_ImplementFunction(AudioInit)
 	return Value::Null;
 }
 
-// sdl2.AudioQuit():void
+// sdl2.AudioQuit
 Gura_DeclareFunction(AudioQuit)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7298,7 +7315,7 @@ Gura_ImplementFunction(AudioQuit)
 	return Value::Null;
 }
 
-// sdl2.BuildAudioCVT(cvt:sdl2.AudioCVT, src_format:number, src_channels:number, src_rate:number, dst_format:number, dst_channels:number, dst_rate:number)
+// sdl2.BuildAudioCVT
 Gura_DeclareFunction(BuildAudioCVT)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -7330,7 +7347,7 @@ Gura_ImplementFunction(BuildAudioCVT)
 	return Value(rtn != 0);
 }
 
-// sdl2.ClearQueuedAudio(dev:number):void
+// sdl2.ClearQueuedAudio
 Gura_DeclareFunction(ClearQueuedAudio)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7350,7 +7367,7 @@ Gura_ImplementFunction(ClearQueuedAudio)
 	return Value::Null;
 }
 
-// sdl2.CloseAudio():void
+// sdl2.CloseAudio
 Gura_DeclareFunction(CloseAudio)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7364,7 +7381,7 @@ Gura_ImplementFunction(CloseAudio)
 	return Value::Null;
 }
 
-// sdl2.CloseAudioDevice(dev:number):void
+// sdl2.CloseAudioDevice
 Gura_DeclareFunction(CloseAudioDevice)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7380,7 +7397,7 @@ Gura_ImplementFunction(CloseAudioDevice)
 	return Value::Null;
 }
 
-// sdl2.ConvertAudio(cvt:sdl2.AudioCVT):void
+// sdl2.ConvertAudio
 Gura_DeclareFunction(ConvertAudio)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7400,7 +7417,7 @@ Gura_ImplementFunction(ConvertAudio)
 	return Value::Null;
 }
 
-// sdl2.FreeWAV():void
+// sdl2.FreeWAV
 Gura_DeclareFunction(FreeWAV)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7419,7 +7436,7 @@ Gura_ImplementFunction(FreeWAV)
 	return Value::Null;
 }
 
-// sdl2.GetAudioDeviceName(index:number, iscapture:number)
+// sdl2.GetAudioDeviceName
 Gura_DeclareFunction(GetAudioDeviceName)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -7441,7 +7458,7 @@ Gura_ImplementFunction(GetAudioDeviceName)
 	return Value(rtn);
 }
 
-// sdl2.GetAudioDeviceStatus(dev:number)
+// sdl2.GetAudioDeviceStatus
 Gura_DeclareFunction(GetAudioDeviceStatus)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -7457,7 +7474,7 @@ Gura_ImplementFunction(GetAudioDeviceStatus)
 	return Value(rtn);
 }
 
-// sdl2.GetAudioDriver(index:number)
+// sdl2.GetAudioDriver
 Gura_DeclareFunction(GetAudioDriver)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -7477,7 +7494,7 @@ Gura_ImplementFunction(GetAudioDriver)
 	return Value(rtn);
 }
 
-// sdl2.GetAudioStatus()
+// sdl2.GetAudioStatus
 Gura_DeclareFunction(GetAudioStatus)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -7491,7 +7508,7 @@ Gura_ImplementFunction(GetAudioStatus)
 	return Value(rtn);
 }
 
-// sdl2.GetCurrentAudioDriver()
+// sdl2.GetCurrentAudioDriver
 Gura_DeclareFunction(GetCurrentAudioDriver)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -7509,7 +7526,7 @@ Gura_ImplementFunction(GetCurrentAudioDriver)
 	return Value(rtn);
 }
 
-// sdl2.GetNumAudioDevices(iscapture:number)
+// sdl2.GetNumAudioDevices
 Gura_DeclareFunction(GetNumAudioDevices)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -7529,7 +7546,7 @@ Gura_ImplementFunction(GetNumAudioDevices)
 	return Value(rtn);
 }
 
-// sdl2.GetNumAudioDrivers()
+// sdl2.GetNumAudioDrivers
 Gura_DeclareFunction(GetNumAudioDrivers)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -7543,7 +7560,7 @@ Gura_ImplementFunction(GetNumAudioDrivers)
 	return Value(rtn);
 }
 
-// sdl2.GetQueuedAudioSize(dev:number)
+// sdl2.GetQueuedAudioSize
 Gura_DeclareFunction(GetQueuedAudioSize)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -7563,7 +7580,7 @@ Gura_ImplementFunction(GetQueuedAudioSize)
 	return Value::Null;
 }
 
-// sdl2.LoadWAV(file:string, spec:sdl2.AudioSpec)
+// sdl2.LoadWAV
 Gura_DeclareFunction(LoadWAV)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -7591,7 +7608,7 @@ Gura_ImplementFunction(LoadWAV)
 	return Value::Null;
 }
 
-// sdl2.LoadWAV_RW(src:sdl2.nil, freesrc:number, spec:sdl2.AudioSpec)
+// sdl2.LoadWAV_RW
 Gura_DeclareFunction(LoadWAV_RW)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -7621,7 +7638,7 @@ Gura_ImplementFunction(LoadWAV_RW)
 	return Value::Null;
 }
 
-// sdl2.LockAudio():void
+// sdl2.LockAudio
 Gura_DeclareFunction(LockAudio)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7635,7 +7652,7 @@ Gura_ImplementFunction(LockAudio)
 	return Value::Null;
 }
 
-// sdl2.LockAudioDevice(dev:number):void
+// sdl2.LockAudioDevice
 Gura_DeclareFunction(LockAudioDevice)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7651,7 +7668,7 @@ Gura_ImplementFunction(LockAudioDevice)
 	return Value::Null;
 }
 
-// sdl2.MixAudio(volume:number):void
+// sdl2.MixAudio
 Gura_DeclareFunction(MixAudio)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7674,7 +7691,7 @@ Gura_ImplementFunction(MixAudio)
 	return Value::Null;
 }
 
-// sdl2.MixAudioFormat(format:number, volume:number):void
+// sdl2.MixAudioFormat
 Gura_DeclareFunction(MixAudioFormat)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7699,7 +7716,7 @@ Gura_ImplementFunction(MixAudioFormat)
 	return Value::Null;
 }
 
-// sdl2.OpenAudio(desired:sdl2.AudioSpec):void
+// sdl2.OpenAudio
 Gura_DeclareFunction(OpenAudio)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7724,7 +7741,7 @@ Gura_ImplementFunction(OpenAudio)
 	return Value::Null;
 }
 
-// sdl2.OpenAudioDevice(device:string, iscapture:number, desired:sdl2.AudioSpec, allowed_changes:number)
+// sdl2.OpenAudioDevice
 Gura_DeclareFunction(OpenAudioDevice)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -7751,7 +7768,7 @@ Gura_ImplementFunction(OpenAudioDevice)
 	return Value::Null;
 }
 
-// sdl2.PauseAudio(pause_on:number):void
+// sdl2.PauseAudio
 Gura_DeclareFunction(PauseAudio)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7767,7 +7784,7 @@ Gura_ImplementFunction(PauseAudio)
 	return Value::Null;
 }
 
-// sdl2.PauseAudioDevice(dev:number, pause_on:number):void
+// sdl2.PauseAudioDevice
 Gura_DeclareFunction(PauseAudioDevice)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7785,7 +7802,7 @@ Gura_ImplementFunction(PauseAudioDevice)
 	return Value::Null;
 }
 
-// sdl2.QueueAudio(dev:number):void
+// sdl2.QueueAudio
 Gura_DeclareFunction(QueueAudio)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7811,7 +7828,7 @@ Gura_ImplementFunction(QueueAudio)
 	return Value::Null;
 }
 
-// sdl2.UnlockAudio():void
+// sdl2.UnlockAudio
 Gura_DeclareFunction(UnlockAudio)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7825,7 +7842,7 @@ Gura_ImplementFunction(UnlockAudio)
 	return Value::Null;
 }
 
-// sdl2.UnlockAudioDevice(dev:number):void
+// sdl2.UnlockAudioDevice
 Gura_DeclareFunction(UnlockAudioDevice)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7841,7 +7858,7 @@ Gura_ImplementFunction(UnlockAudioDevice)
 	return Value::Null;
 }
 
-// sdl2.AUDIO_BITSIZE(x:number)
+// sdl2.AUDIO_BITSIZE
 Gura_DeclareFunction(AUDIO_BITSIZE)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -7857,7 +7874,7 @@ Gura_ImplementFunction(AUDIO_BITSIZE)
 	return Value(rtn);
 }
 
-// sdl2.AUDIO_ISFLOAT(x:number)
+// sdl2.AUDIO_ISFLOAT
 Gura_DeclareFunction(AUDIO_ISFLOAT)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -7873,7 +7890,7 @@ Gura_ImplementFunction(AUDIO_ISFLOAT)
 	return Value(rtn != 0);
 }
 
-// sdl2.AUDIO_ISBIGENDIAN(x:number)
+// sdl2.AUDIO_ISBIGENDIAN
 Gura_DeclareFunction(AUDIO_ISBIGENDIAN)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -7889,7 +7906,7 @@ Gura_ImplementFunction(AUDIO_ISBIGENDIAN)
 	return Value(rtn != 0);
 }
 
-// sdl2.AUDIO_ISSIGNED(x:number)
+// sdl2.AUDIO_ISSIGNED
 Gura_DeclareFunction(AUDIO_ISSIGNED)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -7905,7 +7922,7 @@ Gura_ImplementFunction(AUDIO_ISSIGNED)
 	return Value(rtn != 0);
 }
 
-// sdl2.AUDIO_ISINT(x:number)
+// sdl2.AUDIO_ISINT
 Gura_DeclareFunction(AUDIO_ISINT)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -7921,7 +7938,7 @@ Gura_ImplementFunction(AUDIO_ISINT)
 	return Value(rtn);
 }
 
-// sdl2.AUDIO_ISLITTLEENDIAN(x:number)
+// sdl2.AUDIO_ISLITTLEENDIAN
 Gura_DeclareFunction(AUDIO_ISLITTLEENDIAN)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -7937,7 +7954,7 @@ Gura_ImplementFunction(AUDIO_ISLITTLEENDIAN)
 	return Value(rtn);
 }
 
-// sdl2.AUDIO_ISUNSIGNED(x:number)
+// sdl2.AUDIO_ISUNSIGNED
 Gura_DeclareFunction(AUDIO_ISUNSIGNED)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -7953,7 +7970,7 @@ Gura_ImplementFunction(AUDIO_ISUNSIGNED)
 	return Value(rtn);
 }
 
-// sdl2.CreateThread():void
+// sdl2.CreateThread
 Gura_DeclareFunction(CreateThread)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7971,7 +7988,7 @@ Gura_ImplementFunction(CreateThread)
 	return Value::Null;
 }
 
-// sdl2.DetachThread():void
+// sdl2.DetachThread
 Gura_DeclareFunction(DetachThread)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -7989,7 +8006,7 @@ Gura_ImplementFunction(DetachThread)
 	return Value::Null;
 }
 
-// sdl2.GetThreadID():void
+// sdl2.GetThreadID
 Gura_DeclareFunction(GetThreadID)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8007,7 +8024,7 @@ Gura_ImplementFunction(GetThreadID)
 	return Value::Null;
 }
 
-// sdl2.GetThreadName():void
+// sdl2.GetThreadName
 Gura_DeclareFunction(GetThreadName)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8025,7 +8042,7 @@ Gura_ImplementFunction(GetThreadName)
 	return Value::Null;
 }
 
-// sdl2.GetThreadPriority():void
+// sdl2.GetThreadPriority
 Gura_DeclareFunction(GetThreadPriority)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8043,7 +8060,7 @@ Gura_ImplementFunction(GetThreadPriority)
 	return Value::Null;
 }
 
-// sdl2.TLSCreate():void
+// sdl2.TLSCreate
 Gura_DeclareFunction(TLSCreate)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8061,7 +8078,7 @@ Gura_ImplementFunction(TLSCreate)
 	return Value::Null;
 }
 
-// sdl2.TLSGet():void
+// sdl2.TLSGet
 Gura_DeclareFunction(TLSGet)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8079,7 +8096,7 @@ Gura_ImplementFunction(TLSGet)
 	return Value::Null;
 }
 
-// sdl2.TLSSet():void
+// sdl2.TLSSet
 Gura_DeclareFunction(TLSSet)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8097,7 +8114,7 @@ Gura_ImplementFunction(TLSSet)
 	return Value::Null;
 }
 
-// sdl2.ThreadID():void
+// sdl2.ThreadID
 Gura_DeclareFunction(ThreadID)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8115,7 +8132,7 @@ Gura_ImplementFunction(ThreadID)
 	return Value::Null;
 }
 
-// sdl2.WaitThread():void
+// sdl2.WaitThread
 Gura_DeclareFunction(WaitThread)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8133,7 +8150,7 @@ Gura_ImplementFunction(WaitThread)
 	return Value::Null;
 }
 
-// sdl2.CondBroadcast():void
+// sdl2.CondBroadcast
 Gura_DeclareFunction(CondBroadcast)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8151,7 +8168,7 @@ Gura_ImplementFunction(CondBroadcast)
 	return Value::Null;
 }
 
-// sdl2.CondSignal():void
+// sdl2.CondSignal
 Gura_DeclareFunction(CondSignal)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8169,7 +8186,7 @@ Gura_ImplementFunction(CondSignal)
 	return Value::Null;
 }
 
-// sdl2.CondWait():void
+// sdl2.CondWait
 Gura_DeclareFunction(CondWait)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8187,7 +8204,7 @@ Gura_ImplementFunction(CondWait)
 	return Value::Null;
 }
 
-// sdl2.CondWaitTimeout():void
+// sdl2.CondWaitTimeout
 Gura_DeclareFunction(CondWaitTimeout)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8205,7 +8222,7 @@ Gura_ImplementFunction(CondWaitTimeout)
 	return Value::Null;
 }
 
-// sdl2.CreateCond():void
+// sdl2.CreateCond
 Gura_DeclareFunction(CreateCond)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8223,7 +8240,7 @@ Gura_ImplementFunction(CreateCond)
 	return Value::Null;
 }
 
-// sdl2.CreateMutex():void
+// sdl2.CreateMutex
 Gura_DeclareFunction(CreateMutex)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8241,7 +8258,7 @@ Gura_ImplementFunction(CreateMutex)
 	return Value::Null;
 }
 
-// sdl2.CreateSemaphore():void
+// sdl2.CreateSemaphore
 Gura_DeclareFunction(CreateSemaphore)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8259,7 +8276,7 @@ Gura_ImplementFunction(CreateSemaphore)
 	return Value::Null;
 }
 
-// sdl2.DestroyCond():void
+// sdl2.DestroyCond
 Gura_DeclareFunction(DestroyCond)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8277,7 +8294,7 @@ Gura_ImplementFunction(DestroyCond)
 	return Value::Null;
 }
 
-// sdl2.DestroyMutex():void
+// sdl2.DestroyMutex
 Gura_DeclareFunction(DestroyMutex)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8295,7 +8312,7 @@ Gura_ImplementFunction(DestroyMutex)
 	return Value::Null;
 }
 
-// sdl2.DestroySemaphore():void
+// sdl2.DestroySemaphore
 Gura_DeclareFunction(DestroySemaphore)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8313,7 +8330,7 @@ Gura_ImplementFunction(DestroySemaphore)
 	return Value::Null;
 }
 
-// sdl2.LockMutex():void
+// sdl2.LockMutex
 Gura_DeclareFunction(LockMutex)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8331,7 +8348,7 @@ Gura_ImplementFunction(LockMutex)
 	return Value::Null;
 }
 
-// sdl2.SemPost():void
+// sdl2.SemPost
 Gura_DeclareFunction(SemPost)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8349,7 +8366,7 @@ Gura_ImplementFunction(SemPost)
 	return Value::Null;
 }
 
-// sdl2.SemTryWait():void
+// sdl2.SemTryWait
 Gura_DeclareFunction(SemTryWait)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8367,7 +8384,7 @@ Gura_ImplementFunction(SemTryWait)
 	return Value::Null;
 }
 
-// sdl2.SemValue():void
+// sdl2.SemValue
 Gura_DeclareFunction(SemValue)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8385,7 +8402,7 @@ Gura_ImplementFunction(SemValue)
 	return Value::Null;
 }
 
-// sdl2.SemWait():void
+// sdl2.SemWait
 Gura_DeclareFunction(SemWait)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8403,7 +8420,7 @@ Gura_ImplementFunction(SemWait)
 	return Value::Null;
 }
 
-// sdl2.SemWaitTimeout():void
+// sdl2.SemWaitTimeout
 Gura_DeclareFunction(SemWaitTimeout)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8421,7 +8438,7 @@ Gura_ImplementFunction(SemWaitTimeout)
 	return Value::Null;
 }
 
-// sdl2.TryLockMutex():void
+// sdl2.TryLockMutex
 Gura_DeclareFunction(TryLockMutex)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8439,7 +8456,7 @@ Gura_ImplementFunction(TryLockMutex)
 	return Value::Null;
 }
 
-// sdl2.UnlockMutex():void
+// sdl2.UnlockMutex
 Gura_DeclareFunction(UnlockMutex)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8457,7 +8474,7 @@ Gura_ImplementFunction(UnlockMutex)
 	return Value::Null;
 }
 
-// sdl2.AtomicAdd():void
+// sdl2.AtomicAdd
 Gura_DeclareFunction(AtomicAdd)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8475,7 +8492,7 @@ Gura_ImplementFunction(AtomicAdd)
 	return Value::Null;
 }
 
-// sdl2.AtomicCAS():void
+// sdl2.AtomicCAS
 Gura_DeclareFunction(AtomicCAS)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8493,7 +8510,7 @@ Gura_ImplementFunction(AtomicCAS)
 	return Value::Null;
 }
 
-// sdl2.AtomicCASPtr():void
+// sdl2.AtomicCASPtr
 Gura_DeclareFunction(AtomicCASPtr)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8511,7 +8528,7 @@ Gura_ImplementFunction(AtomicCASPtr)
 	return Value::Null;
 }
 
-// sdl2.AtomicDecRef():void
+// sdl2.AtomicDecRef
 Gura_DeclareFunction(AtomicDecRef)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8529,7 +8546,7 @@ Gura_ImplementFunction(AtomicDecRef)
 	return Value::Null;
 }
 
-// sdl2.AtomicGet():void
+// sdl2.AtomicGet
 Gura_DeclareFunction(AtomicGet)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8547,7 +8564,7 @@ Gura_ImplementFunction(AtomicGet)
 	return Value::Null;
 }
 
-// sdl2.AtomicGetPtr():void
+// sdl2.AtomicGetPtr
 Gura_DeclareFunction(AtomicGetPtr)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8565,7 +8582,7 @@ Gura_ImplementFunction(AtomicGetPtr)
 	return Value::Null;
 }
 
-// sdl2.AtomicIncRef():void
+// sdl2.AtomicIncRef
 Gura_DeclareFunction(AtomicIncRef)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8583,7 +8600,7 @@ Gura_ImplementFunction(AtomicIncRef)
 	return Value::Null;
 }
 
-// sdl2.AtomicLock():void
+// sdl2.AtomicLock
 Gura_DeclareFunction(AtomicLock)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8601,7 +8618,7 @@ Gura_ImplementFunction(AtomicLock)
 	return Value::Null;
 }
 
-// sdl2.AtomicSet():void
+// sdl2.AtomicSet
 Gura_DeclareFunction(AtomicSet)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8619,7 +8636,7 @@ Gura_ImplementFunction(AtomicSet)
 	return Value::Null;
 }
 
-// sdl2.AtomicSetPtr():void
+// sdl2.AtomicSetPtr
 Gura_DeclareFunction(AtomicSetPtr)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8637,7 +8654,7 @@ Gura_ImplementFunction(AtomicSetPtr)
 	return Value::Null;
 }
 
-// sdl2.AtomicTryLock():void
+// sdl2.AtomicTryLock
 Gura_DeclareFunction(AtomicTryLock)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8655,7 +8672,7 @@ Gura_ImplementFunction(AtomicTryLock)
 	return Value::Null;
 }
 
-// sdl2.AtomicUnlock():void
+// sdl2.AtomicUnlock
 Gura_DeclareFunction(AtomicUnlock)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8673,7 +8690,7 @@ Gura_ImplementFunction(AtomicUnlock)
 	return Value::Null;
 }
 
-// sdl2.CompilerBarrier():void
+// sdl2.CompilerBarrier
 Gura_DeclareFunction(CompilerBarrier)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8691,7 +8708,7 @@ Gura_ImplementFunction(CompilerBarrier)
 	return Value::Null;
 }
 
-// sdl2.AddTimer(interval:number)
+// sdl2.AddTimer
 Gura_DeclareFunction(AddTimer)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -8713,7 +8730,7 @@ Gura_ImplementFunction(AddTimer)
 	return Value::Null;
 }
 
-// sdl2.Delay(ms:number):void
+// sdl2.Delay
 Gura_DeclareFunction(Delay)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8729,7 +8746,7 @@ Gura_ImplementFunction(Delay)
 	return Value::Null;
 }
 
-// sdl2.GetPerformanceCounter()
+// sdl2.GetPerformanceCounter
 Gura_DeclareFunction(GetPerformanceCounter)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -8743,7 +8760,7 @@ Gura_ImplementFunction(GetPerformanceCounter)
 	return Value(rtn);
 }
 
-// sdl2.GetPerformanceFrequency()
+// sdl2.GetPerformanceFrequency
 Gura_DeclareFunction(GetPerformanceFrequency)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -8757,7 +8774,7 @@ Gura_ImplementFunction(GetPerformanceFrequency)
 	return Value(rtn);
 }
 
-// sdl2.GetTicks()
+// sdl2.GetTicks
 Gura_DeclareFunction(GetTicks)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -8771,7 +8788,7 @@ Gura_ImplementFunction(GetTicks)
 	return Value(rtn);
 }
 
-// sdl2.RemoveTimer(id:number)
+// sdl2.RemoveTimer
 Gura_DeclareFunction(RemoveTimer)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -8787,7 +8804,7 @@ Gura_ImplementFunction(RemoveTimer)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.TICKS_PASSED(A:number, B:number)
+// sdl2.TICKS_PASSED
 Gura_DeclareFunction(TICKS_PASSED)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -8805,7 +8822,7 @@ Gura_ImplementFunction(TICKS_PASSED)
 	return Value(rtn);
 }
 
-// sdl2.GetBasePath()
+// sdl2.GetBasePath
 Gura_DeclareFunction(GetBasePath)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -8827,7 +8844,7 @@ Gura_ImplementFunction(GetBasePath)
 	return Value::Null;
 }
 
-// sdl2.GetPrefPath(org:string, app:string)
+// sdl2.GetPrefPath
 Gura_DeclareFunction(GetPrefPath)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -8853,7 +8870,7 @@ Gura_ImplementFunction(GetPrefPath)
 	return Value::Null;
 }
 
-// sdl2.AllocRW():void
+// sdl2.AllocRW
 Gura_DeclareFunction(AllocRW)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8871,7 +8888,7 @@ Gura_ImplementFunction(AllocRW)
 	return Value::Null;
 }
 
-// sdl2.FreeRW():void
+// sdl2.FreeRW
 Gura_DeclareFunction(FreeRW)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8889,7 +8906,7 @@ Gura_ImplementFunction(FreeRW)
 	return Value::Null;
 }
 
-// sdl2.RWFromConstMem():void
+// sdl2.RWFromConstMem
 Gura_DeclareFunction(RWFromConstMem)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8907,7 +8924,7 @@ Gura_ImplementFunction(RWFromConstMem)
 	return Value::Null;
 }
 
-// sdl2.RWFromFP():void
+// sdl2.RWFromFP
 Gura_DeclareFunction(RWFromFP)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8925,7 +8942,7 @@ Gura_ImplementFunction(RWFromFP)
 	return Value::Null;
 }
 
-// sdl2.RWFromFile():void
+// sdl2.RWFromFile
 Gura_DeclareFunction(RWFromFile)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8943,7 +8960,7 @@ Gura_ImplementFunction(RWFromFile)
 	return Value::Null;
 }
 
-// sdl2.RWFromMem():void
+// sdl2.RWFromMem
 Gura_DeclareFunction(RWFromMem)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8961,7 +8978,7 @@ Gura_ImplementFunction(RWFromMem)
 	return Value::Null;
 }
 
-// sdl2.RWclose():void
+// sdl2.RWclose
 Gura_DeclareFunction(RWclose)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8979,7 +8996,7 @@ Gura_ImplementFunction(RWclose)
 	return Value::Null;
 }
 
-// sdl2.RWread():void
+// sdl2.RWread
 Gura_DeclareFunction(RWread)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -8997,7 +9014,7 @@ Gura_ImplementFunction(RWread)
 	return Value::Null;
 }
 
-// sdl2.RWseek():void
+// sdl2.RWseek
 Gura_DeclareFunction(RWseek)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9015,7 +9032,7 @@ Gura_ImplementFunction(RWseek)
 	return Value::Null;
 }
 
-// sdl2.RWtell():void
+// sdl2.RWtell
 Gura_DeclareFunction(RWtell)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9033,7 +9050,7 @@ Gura_ImplementFunction(RWtell)
 	return Value::Null;
 }
 
-// sdl2.RWwrite():void
+// sdl2.RWwrite
 Gura_DeclareFunction(RWwrite)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9051,7 +9068,7 @@ Gura_ImplementFunction(RWwrite)
 	return Value::Null;
 }
 
-// sdl2.ReadBE16():void
+// sdl2.ReadBE16
 Gura_DeclareFunction(ReadBE16)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9069,7 +9086,7 @@ Gura_ImplementFunction(ReadBE16)
 	return Value::Null;
 }
 
-// sdl2.ReadBE32():void
+// sdl2.ReadBE32
 Gura_DeclareFunction(ReadBE32)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9087,7 +9104,7 @@ Gura_ImplementFunction(ReadBE32)
 	return Value::Null;
 }
 
-// sdl2.ReadBE64():void
+// sdl2.ReadBE64
 Gura_DeclareFunction(ReadBE64)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9105,7 +9122,7 @@ Gura_ImplementFunction(ReadBE64)
 	return Value::Null;
 }
 
-// sdl2.ReadLE16():void
+// sdl2.ReadLE16
 Gura_DeclareFunction(ReadLE16)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9123,7 +9140,7 @@ Gura_ImplementFunction(ReadLE16)
 	return Value::Null;
 }
 
-// sdl2.ReadLE32():void
+// sdl2.ReadLE32
 Gura_DeclareFunction(ReadLE32)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9141,7 +9158,7 @@ Gura_ImplementFunction(ReadLE32)
 	return Value::Null;
 }
 
-// sdl2.ReadLE64():void
+// sdl2.ReadLE64
 Gura_DeclareFunction(ReadLE64)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9159,7 +9176,7 @@ Gura_ImplementFunction(ReadLE64)
 	return Value::Null;
 }
 
-// sdl2.WriteBE16():void
+// sdl2.WriteBE16
 Gura_DeclareFunction(WriteBE16)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9177,7 +9194,7 @@ Gura_ImplementFunction(WriteBE16)
 	return Value::Null;
 }
 
-// sdl2.WriteBE32():void
+// sdl2.WriteBE32
 Gura_DeclareFunction(WriteBE32)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9195,7 +9212,7 @@ Gura_ImplementFunction(WriteBE32)
 	return Value::Null;
 }
 
-// sdl2.WriteBE64():void
+// sdl2.WriteBE64
 Gura_DeclareFunction(WriteBE64)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9213,7 +9230,7 @@ Gura_ImplementFunction(WriteBE64)
 	return Value::Null;
 }
 
-// sdl2.WriteLE16():void
+// sdl2.WriteLE16
 Gura_DeclareFunction(WriteLE16)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9231,7 +9248,7 @@ Gura_ImplementFunction(WriteLE16)
 	return Value::Null;
 }
 
-// sdl2.WriteLE32():void
+// sdl2.WriteLE32
 Gura_DeclareFunction(WriteLE32)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9249,7 +9266,7 @@ Gura_ImplementFunction(WriteLE32)
 	return Value::Null;
 }
 
-// sdl2.WriteLE64():void
+// sdl2.WriteLE64
 Gura_DeclareFunction(WriteLE64)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9267,7 +9284,7 @@ Gura_ImplementFunction(WriteLE64)
 	return Value::Null;
 }
 
-// sdl2.GetPlatform()
+// sdl2.GetPlatform
 Gura_DeclareFunction(GetPlatform)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -9285,7 +9302,7 @@ Gura_ImplementFunction(GetPlatform)
 	return Value(rtn);
 }
 
-// sdl2.GetCPUCacheLineSize()
+// sdl2.GetCPUCacheLineSize
 Gura_DeclareFunction(GetCPUCacheLineSize)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -9299,7 +9316,7 @@ Gura_ImplementFunction(GetCPUCacheLineSize)
 	return Value(rtn);
 }
 
-// sdl2.GetCPUCount()
+// sdl2.GetCPUCount
 Gura_DeclareFunction(GetCPUCount)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -9313,7 +9330,7 @@ Gura_ImplementFunction(GetCPUCount)
 	return Value(rtn);
 }
 
-// sdl2.GetSystemRAM()
+// sdl2.GetSystemRAM
 Gura_DeclareFunction(GetSystemRAM)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -9327,7 +9344,7 @@ Gura_ImplementFunction(GetSystemRAM)
 	return Value(rtn);
 }
 
-// sdl2.Has3DNow()
+// sdl2.Has3DNow
 Gura_DeclareFunction(Has3DNow)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -9341,7 +9358,7 @@ Gura_ImplementFunction(Has3DNow)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.HasAVX()
+// sdl2.HasAVX
 Gura_DeclareFunction(HasAVX)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -9355,7 +9372,7 @@ Gura_ImplementFunction(HasAVX)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.HasAVX2()
+// sdl2.HasAVX2
 Gura_DeclareFunction(HasAVX2)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -9373,7 +9390,7 @@ Gura_ImplementFunction(HasAVX2)
 	return Value::Null;
 }
 
-// sdl2.HasAltiVec()
+// sdl2.HasAltiVec
 Gura_DeclareFunction(HasAltiVec)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -9387,7 +9404,7 @@ Gura_ImplementFunction(HasAltiVec)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.HasMMX()
+// sdl2.HasMMX
 Gura_DeclareFunction(HasMMX)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -9401,7 +9418,7 @@ Gura_ImplementFunction(HasMMX)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.HasRDTSC()
+// sdl2.HasRDTSC
 Gura_DeclareFunction(HasRDTSC)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -9415,7 +9432,7 @@ Gura_ImplementFunction(HasRDTSC)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.HasSSE()
+// sdl2.HasSSE
 Gura_DeclareFunction(HasSSE)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -9429,7 +9446,7 @@ Gura_ImplementFunction(HasSSE)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.HasSSE2()
+// sdl2.HasSSE2
 Gura_DeclareFunction(HasSSE2)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -9443,7 +9460,7 @@ Gura_ImplementFunction(HasSSE2)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.HasSSE3()
+// sdl2.HasSSE3
 Gura_DeclareFunction(HasSSE3)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -9457,7 +9474,7 @@ Gura_ImplementFunction(HasSSE3)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.HasSSE41()
+// sdl2.HasSSE41
 Gura_DeclareFunction(HasSSE41)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -9471,7 +9488,7 @@ Gura_ImplementFunction(HasSSE41)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.HasSSE42()
+// sdl2.HasSSE42
 Gura_DeclareFunction(HasSSE42)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -9485,7 +9502,7 @@ Gura_ImplementFunction(HasSSE42)
 	return Value(rtn != SDL_FALSE);
 }
 
-// sdl2.Swap16():void
+// sdl2.Swap16
 Gura_DeclareFunction(Swap16)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9503,7 +9520,7 @@ Gura_ImplementFunction(Swap16)
 	return Value::Null;
 }
 
-// sdl2.Swap32():void
+// sdl2.Swap32
 Gura_DeclareFunction(Swap32)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9521,7 +9538,7 @@ Gura_ImplementFunction(Swap32)
 	return Value::Null;
 }
 
-// sdl2.Swap64():void
+// sdl2.Swap64
 Gura_DeclareFunction(Swap64)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9539,7 +9556,7 @@ Gura_ImplementFunction(Swap64)
 	return Value::Null;
 }
 
-// sdl2.SwapBE16():void
+// sdl2.SwapBE16
 Gura_DeclareFunction(SwapBE16)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9557,7 +9574,7 @@ Gura_ImplementFunction(SwapBE16)
 	return Value::Null;
 }
 
-// sdl2.SwapBE32():void
+// sdl2.SwapBE32
 Gura_DeclareFunction(SwapBE32)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9575,7 +9592,7 @@ Gura_ImplementFunction(SwapBE32)
 	return Value::Null;
 }
 
-// sdl2.SwapBE64():void
+// sdl2.SwapBE64
 Gura_DeclareFunction(SwapBE64)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9593,7 +9610,7 @@ Gura_ImplementFunction(SwapBE64)
 	return Value::Null;
 }
 
-// sdl2.SwapFloat():void
+// sdl2.SwapFloat
 Gura_DeclareFunction(SwapFloat)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9611,7 +9628,7 @@ Gura_ImplementFunction(SwapFloat)
 	return Value::Null;
 }
 
-// sdl2.SwapFloatBE():void
+// sdl2.SwapFloatBE
 Gura_DeclareFunction(SwapFloatBE)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9629,7 +9646,7 @@ Gura_ImplementFunction(SwapFloatBE)
 	return Value::Null;
 }
 
-// sdl2.SwapFloatLE():void
+// sdl2.SwapFloatLE
 Gura_DeclareFunction(SwapFloatLE)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9647,7 +9664,7 @@ Gura_ImplementFunction(SwapFloatLE)
 	return Value::Null;
 }
 
-// sdl2.SwapLE16():void
+// sdl2.SwapLE16
 Gura_DeclareFunction(SwapLE16)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9665,7 +9682,7 @@ Gura_ImplementFunction(SwapLE16)
 	return Value::Null;
 }
 
-// sdl2.SwapLE32():void
+// sdl2.SwapLE32
 Gura_DeclareFunction(SwapLE32)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9683,7 +9700,7 @@ Gura_ImplementFunction(SwapLE32)
 	return Value::Null;
 }
 
-// sdl2.SwapLE64():void
+// sdl2.SwapLE64
 Gura_DeclareFunction(SwapLE64)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9701,7 +9718,7 @@ Gura_ImplementFunction(SwapLE64)
 	return Value::Null;
 }
 
-// sdl2.MostSignificantBitIndex32(x:number)
+// sdl2.MostSignificantBitIndex32
 Gura_DeclareFunction(MostSignificantBitIndex32)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -9721,7 +9738,7 @@ Gura_ImplementFunction(MostSignificantBitIndex32)
 	return Value::Null;
 }
 
-// sdl2.SDL_GetPowerInfo()
+// sdl2.SDL_GetPowerInfo
 Gura_DeclareFunction(SDL_GetPowerInfo)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -9741,7 +9758,7 @@ Gura_ImplementFunction(SDL_GetPowerInfo)
 	return Value::Null;
 }
 
-// sdl2.AndroidGetActivity():void
+// sdl2.AndroidGetActivity
 Gura_DeclareFunction(AndroidGetActivity)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9759,7 +9776,7 @@ Gura_ImplementFunction(AndroidGetActivity)
 	return Value::Null;
 }
 
-// sdl2.AndroidGetExternalStoragePath():void
+// sdl2.AndroidGetExternalStoragePath
 Gura_DeclareFunction(AndroidGetExternalStoragePath)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9777,7 +9794,7 @@ Gura_ImplementFunction(AndroidGetExternalStoragePath)
 	return Value::Null;
 }
 
-// sdl2.AndroidGetExternalStorageState():void
+// sdl2.AndroidGetExternalStorageState
 Gura_DeclareFunction(AndroidGetExternalStorageState)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9795,7 +9812,7 @@ Gura_ImplementFunction(AndroidGetExternalStorageState)
 	return Value::Null;
 }
 
-// sdl2.AndroidGetInternalStoragePath():void
+// sdl2.AndroidGetInternalStoragePath
 Gura_DeclareFunction(AndroidGetInternalStoragePath)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9813,7 +9830,7 @@ Gura_ImplementFunction(AndroidGetInternalStoragePath)
 	return Value::Null;
 }
 
-// sdl2.AndroidGetJNIEnv():void
+// sdl2.AndroidGetJNIEnv
 Gura_DeclareFunction(AndroidGetJNIEnv)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
@@ -9831,7 +9848,7 @@ Gura_ImplementFunction(AndroidGetJNIEnv)
 	return Value::Null;
 }
 
-// sdl2.acos(x:number)
+// sdl2.acos
 Gura_DeclareFunction(acos)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -10839,6 +10856,7 @@ void AssignFunctions(Environment &env)
 		Gura_AssignFunction(ConvertSurface);
 		Gura_AssignFunction(ConvertSurfaceFormat);
 		Gura_AssignFunction(CreateRGBSurface);
+		Gura_AssignFunction(CreateRGBSurfaceFrom);
 		Gura_AssignFunction(FillRect);
 		Gura_AssignFunction(FillRects);
 		Gura_AssignFunction(FreeSurface);
