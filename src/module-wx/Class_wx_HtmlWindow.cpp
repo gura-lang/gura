@@ -492,7 +492,7 @@ Gura_ImplementMethod(wx_HtmlWindow, OnOpeningURL)
 	wxString url = wxString::FromUTF8(args.GetString(1));
 	wxString redirect;
 	wxHtmlOpeningStatus rtn = ((wx_HtmlWindow *)pThis->GetEntity())->_OnOpeningURL(type, url, &redirect);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env,
+	return ReturnValue(env, sig, args, Value::CreateList(env,
 							Value(rtn), Value(redirect.ToUTF8())));
 }
 

@@ -1163,7 +1163,7 @@ Gura_ImplementFunction(SplitPath)
 	wxString name;
 	wxString ext;
 	wxSplitPath(fullname, &path, &name, &ext);
-	return Value::CreateAsList(env, Value(path.ToUTF8()),
+	return Value::CreateList(env, Value(path.ToUTF8()),
 					Value(name.ToUTF8()), Value(ext.ToUTF8()));
 }
 
@@ -1323,7 +1323,7 @@ Gura_ImplementFunction(GetOsVersion)
 	int minor = 0;
 	wxOperatingSystemId rtn = wxGetOsVersion(&major, &minor);
 	return ReturnValue(env, sig, args,
-			Value::CreateAsList(env, Value(rtn), Value(major), Value(minor)));
+			Value::CreateList(env, Value(rtn), Value(major), Value(minor)));
 }
 
 Gura_DeclareFunction(IsPlatformLittleEndian)

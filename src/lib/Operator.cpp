@@ -2119,7 +2119,7 @@ Gura_ImplementBinaryOperator(Seq, number, number)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Pair, symbol, any)
 {
-	return Value::CreateAsList(env, valueLeft, valueRight);
+	return Value::CreateList(env, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -2127,7 +2127,7 @@ Gura_ImplementBinaryOperator(Pair, symbol, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Pair, string, any)
 {
-	return Value::CreateAsList(env, valueLeft, valueRight);
+	return Value::CreateList(env, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------
@@ -2135,7 +2135,7 @@ Gura_ImplementBinaryOperator(Pair, string, any)
 //-----------------------------------------------------------------------------
 Gura_ImplementBinaryOperator(Pair, number, any)
 {
-	return Value::CreateAsList(env, valueLeft, valueRight);
+	return Value::CreateList(env, valueLeft, valueRight);
 }
 
 //-----------------------------------------------------------------------------

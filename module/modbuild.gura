@@ -307,7 +307,6 @@ if (sys.build == `msc) {
 		__init__() = {|'gnuc'|
 			this.cflags = [
 				'-DGURA_MODULE_SEPARATED', '-fPIC',
-				'-I' + sys.incdir
 			]
 			// It seems that Mac's clang supports -shared option.
 			this.ldflags = ['-shared']
@@ -322,6 +321,7 @@ if (sys.build == `msc) {
 			src = this.precompile
 			cflags = this.cflags.clone()
 			cflags.append('-I' + this.incDirs)
+			cflags.append('-I' + sys.incdir)
 			this.debugFlag && cflags.append('-g')
 			if (sys.platform == `darwin) {
 				obj = src + '.pch'
@@ -342,6 +342,7 @@ if (sys.build == `msc) {
 			obj = this.makeObjName(src)
 			cflags = this.cflags.clone()
 			cflags.append('-I' + this.incDirs)
+			cflags.append('-I' + sys.incdir)
 			this.debugFlag && cflags.append('-g')
 			if (firstFlag) {
 				cflags.append('-DGURA_MODULE_MAIN')

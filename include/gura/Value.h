@@ -423,15 +423,15 @@ public:
 	static int CompareRational(const Rational &ratio1, const Rational &ratio2);
 	static int CompareString(const char *str1, const char *str2, bool ignoreCaseFlag);
 	static int CompareSymbol(const Symbol *pSymbol1, const Symbol *pSymbol2);
-	static Value CreateAsList(Environment &env, const Value &v1);
-	static Value CreateAsList(Environment &env, const Value &v1, const Value &v2);
-	static Value CreateAsList(Environment &env, const Value &v1, const Value &v2,
+	static Value CreateList(Environment &env, const Value &v1);
+	static Value CreateList(Environment &env, const Value &v1, const Value &v2);
+	static Value CreateList(Environment &env, const Value &v1, const Value &v2,
 			const Value &v3);
-	static Value CreateAsList(Environment &env, const Value &v1, const Value &v2,
+	static Value CreateList(Environment &env, const Value &v1, const Value &v2,
 			const Value &v3, const Value &v4);
-	static Value CreateAsList(Environment &env, const Value &v1, const Value &v2,
+	static Value CreateList(Environment &env, const Value &v1, const Value &v2,
 			const Value &v3, const Value &v4, const Value &v5);
-	static Value CreateAsList(Environment &env, const Value &v1, const Value &v2,
+	static Value CreateList(Environment &env, const Value &v1, const Value &v2,
 			const Value &v3, const Value &v4, const Value &v5, const Value &v6);
 	static bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value);
 	static bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value, bool mustBeValidFlag);

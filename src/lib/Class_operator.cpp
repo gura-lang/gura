@@ -193,7 +193,7 @@ Gura_ImplementMethod(operator_, entries)
 			ValueType valTypeRight = Operator::ExtractValueTypeRight(key);
 			Expr *pExprLeft = ValueTypePool::GetInstance()->Lookup(valTypeLeft)->MakeExpr();
 			Expr *pExprRight = ValueTypePool::GetInstance()->Lookup(valTypeRight)->MakeExpr();
-			valList.push_back(Value::CreateAsList(env,
+			valList.push_back(Value::CreateList(env,
 				Value(new Object_expr(env, pExprLeft)), Value(new Object_expr(env, pExprRight))));
 		}
 	} else if (args.GetSymbol(0)->IsIdentical(Gura_Symbol(unary))) {

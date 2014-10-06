@@ -58,12 +58,12 @@ GetRevisionNumber():int
 GetVersion():custom {
 	SDL_version ver;
 	SDL_GetVersion(&ver);
-	return Value::CreateAsList(env, Value(ver.major), Value(ver.minor), Value(ver.patch));
+	return Value::CreateList(env, Value(ver.major), Value(ver.minor), Value(ver.patch));
 }
 VERSION():custom {
 	SDL_version ver;
 	SDL_VERSION(&ver);
-	return Value::CreateAsList(env, Value(ver.major), Value(ver.minor), Value(ver.patch));
+	return Value::CreateList(env, Value(ver.major), Value(ver.minor), Value(ver.patch));
 }
 VERSION_ATLEAST(int X, int Y, int Z):bool
 //-----------------------------------------------------------------------------
@@ -77,7 +77,7 @@ CreateWindowAndRenderer(int width, int height, Uint32 window_flags):custom {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::CreateAsList(env, Value(new Object_Window(window)), Value(new Object_Renderer(renderer)));
+	return Value::CreateList(env, Value(new Object_Window(window)), Value(new Object_Renderer(renderer)));
 }
 CreateWindowFrom
 DestroyWindow(SDL_Window* window)
@@ -125,7 +125,7 @@ GetWindowGammaRamp(SDL_Window* window):custom {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::CreateAsList(env, Value(red), Value(green), Value(blue));
+	return Value::CreateList(env, Value(red), Value(green), Value(blue));
 }
 GetWindowGrab(SDL_Window* window):SDL_bool
 GetWindowID(SDL_Window* window):Uint32
@@ -133,26 +133,26 @@ GetWindowMaximumSize(SDL_Window* window):custom {
 	int w = 0;
 	int h = 0;
 	SDL_GetWindowMaximumSize(window, &w, &h);
-	return Value::CreateAsList(env, Value(w), Value(h));
+	return Value::CreateList(env, Value(w), Value(h));
 }
 GetWindowMinimumSize(SDL_Window* window):custom {
 	int w = 0;
 	int h = 0;
 	SDL_GetWindowMinimumSize(window, &w, &h);
-	return Value::CreateAsList(env, Value(w), Value(h));
+	return Value::CreateList(env, Value(w), Value(h));
 }
 GetWindowPixelFormat(SDL_Window* window):Uint32
 GetWindowPosition(SDL_Window* window):custom {
 	int x = 0;
 	int y = 0;
 	SDL_GetWindowPosition(window, &x, &y);
-	return Value::CreateAsList(env, Value(x), Value(y));
+	return Value::CreateList(env, Value(x), Value(y));
 }
 GetWindowSize(SDL_Window*window):custom {
 	int w = 0;
 	int h = 0;
 	SDL_GetWindowSize(window, &w, &h);
-	return Value::CreateAsList(env, Value(w), Value(h));
+	return Value::CreateList(env, Value(w), Value(h));
 }
 GetWindowSurface(SDL_Window* window):SDL_Surface*
 GetWindowTitle(SDL_Window* window):const char*
@@ -204,7 +204,7 @@ GL_BindTexture(SDL_Texture* texture):custom {
 	float texw = 0;
 	float texh = 0;
 	SDL_GL_BindTexture(texture, &texw, &texh);
-	return Value::CreateAsList(env, Value(texw), Value(texh));
+	return Value::CreateList(env, Value(texw), Value(texh));
 }
 GL_UnbindTexture(SDL_Texture* texture):negerr
 GetNumRenderDrivers():int
@@ -227,7 +227,7 @@ GetRenderDrawColor(SDL_Renderer* renderer):custom {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::CreateAsList(env, Value(r), Value(g), Value(b), Value(a));
+	return Value::CreateList(env, Value(r), Value(g), Value(b), Value(a));
 }
 GetRenderDriverInfo(int index, SDL_RendererInfo* #info):negerr
 GetRenderTarget(SDL_Renderer* renderer) SDL_Texture*
@@ -241,7 +241,7 @@ GetRenderOutputSize(SDL_Renderer* renderer):custom {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::CreateAsList(env, Value(w), Value(h));
+	return Value::CreateList(env, Value(w), Value(h));
 }
 GetTextureAlphaMod(SDL_Texture* texture):custom {
 	Uint8 alpha = 0;
@@ -270,7 +270,7 @@ GetTextureColorMod(SDL_Texture* texture):custom {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::CreateAsList(env, Value(r), Value(g), Value(b));
+	return Value::CreateList(env, Value(r), Value(g), Value(b));
 }
 LockTexture(SDL_Texture* texture, const SDL_Rect* rect, void** #pixels, int* #pitch):negerr
 QueryTexture(SDL_Texture* texture, Uint32* #format, int* #access, int* #w, int* #h):negerr

@@ -1614,7 +1614,7 @@ bool Iterator_RunLength::DoNext(Environment &env, Signal sig, Value &value)
 			if (cmp == 0) {
 				_cnt++;
 			} else {
-				value = Value::CreateAsList(env, Value(_cnt), _valuePrev);
+				value = Value::CreateList(env, Value(_cnt), _valuePrev);
 				_cnt = 1;
 				_valuePrev = valueCur;
 				return true;
@@ -1622,7 +1622,7 @@ bool Iterator_RunLength::DoNext(Environment &env, Signal sig, Value &value)
 		}
 	}
 	if (_cnt == 0) return false;
-	value = Value::CreateAsList(env, Value(_cnt), _valuePrev);
+	value = Value::CreateList(env, Value(_cnt), _valuePrev);
 	_cnt = 0;
 	_doneFlag = true;
 	return true;

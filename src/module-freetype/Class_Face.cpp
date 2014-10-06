@@ -90,7 +90,7 @@ Value Object_Face::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(generic))) {
 		return Value::Null;
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(bbox))) {
-		return Value::CreateAsList(env,
+		return Value::CreateList(env,
 				Value(_face->bbox.xMin), Value(_face->bbox.yMin),
 				Value(_face->bbox.xMax), Value(_face->bbox.yMax)); // font_units
 	} else if (pSymbol->IsIdentical(Gura_UserSymbol(units_per_EM))) {
@@ -314,7 +314,7 @@ Gura_ImplementMethod(Face, Get_Kerning)
 		SetError_Freetype(sig, err);
 		return Value::Null;
 	}
-	return Value::CreateAsList(env,
+	return Value::CreateList(env,
 				Value(static_cast<double>(akerning.x) / (1 << 6)),
 				Value(static_cast<double>(akerning.x) / (1 << 6)));
 }

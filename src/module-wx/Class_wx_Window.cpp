@@ -459,7 +459,7 @@ Gura_ImplementMethod(wx_Window, ClientToScreenXY)
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	pThis->GetEntity()->ClientToScreen(&x, &y);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, x, y));
+	return ReturnValue(env, sig, args, Value::CreateList(env, x, y));
 }
 
 Gura_DeclareMethod(wx_Window, ClientToScreen)
@@ -1060,7 +1060,7 @@ Gura_ImplementMethod(wx_Window, GetClientSizeWH)
 	int width;
 	int height;
 	pThis->GetEntity()->GetClientSize(&width, &height);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, width, height));
+	return ReturnValue(env, sig, args, Value::CreateList(env, width, height));
 }
 
 Gura_DeclareMethod(wx_Window, GetClientSize)
@@ -1400,7 +1400,7 @@ Gura_ImplementMethod(wx_Window, GetPositionXY)
 	int x;
 	int y;
 	pThis->GetEntity()->GetPosition(&x, &y);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, x, y));
+	return ReturnValue(env, sig, args, Value::CreateList(env, x, y));
 }
 
 Gura_DeclareMethod(wx_Window, GetPosition)
@@ -1460,7 +1460,7 @@ Gura_ImplementMethod(wx_Window, GetScreenPositionXY)
 	int x;
 	int y;
 	pThis->GetEntity()->GetScreenPosition(&x, &y);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, x, y));
+	return ReturnValue(env, sig, args, Value::CreateList(env, x, y));
 }
 
 Gura_DeclareMethod(wx_Window, GetScreenPosition)
@@ -1552,7 +1552,7 @@ Gura_ImplementMethod(wx_Window, GetSizeWH)
 	int width;
 	int height;
 	pThis->GetEntity()->GetSize(&width, &height);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, width, height));
+	return ReturnValue(env, sig, args, Value::CreateList(env, width, height));
 }
 
 Gura_DeclareMethod(wx_Window, GetSize)
@@ -1605,7 +1605,7 @@ Gura_ImplementMethod(wx_Window, GetTextExtent)
 	int descent;
 	int externalLeading;
 	pThis->GetEntity()->GetTextExtent(string, &x, &y, &descent, &externalLeading, font);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, x, y, descent, externalLeading));
+	return ReturnValue(env, sig, args, Value::CreateList(env, x, y, descent, externalLeading));
 }
 
 Gura_DeclareMethod(wx_Window, GetToolTip)
@@ -1667,7 +1667,7 @@ Gura_ImplementMethod(wx_Window, GetVirtualSizeWH)
 	int width;
 	int height;
 	pThis->GetEntity()->GetVirtualSize(&width, &height);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, width, height));
+	return ReturnValue(env, sig, args, Value::CreateList(env, width, height));
 }
 
 Gura_DeclareMethod(wx_Window, GetVirtualSize)
@@ -2705,7 +2705,7 @@ Gura_ImplementMethod(wx_Window, ScreenToClientXY)
 	int x = args.GetInt(0);
 	int y = args.GetInt(1);
 	pThis->GetEntity()->ScreenToClient(&x, &y);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, x, y));
+	return ReturnValue(env, sig, args, Value::CreateList(env, x, y));
 }
 
 Gura_DeclareMethod(wx_Window, ScreenToClient)

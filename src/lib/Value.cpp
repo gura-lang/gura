@@ -605,7 +605,7 @@ bool Value::CastType(Environment &env, Signal sig, ValueType valType, Value &val
 	return env.LookupClass(valType)->CastFrom(env, sig, valueCasted, pDecl.get());
 }
 
-Value Value::CreateAsList(Environment &env, const Value &v1)
+Value Value::CreateList(Environment &env, const Value &v1)
 {
 	Value rtn;
 	ValueList &valList = rtn.InitAsList(env);
@@ -614,7 +614,7 @@ Value Value::CreateAsList(Environment &env, const Value &v1)
 	return rtn;
 }
 
-Value Value::CreateAsList(Environment &env, const Value &v1, const Value &v2)
+Value Value::CreateList(Environment &env, const Value &v1, const Value &v2)
 {
 	Value rtn;
 	ValueList &valList = rtn.InitAsList(env);
@@ -624,7 +624,7 @@ Value Value::CreateAsList(Environment &env, const Value &v1, const Value &v2)
 	return rtn;
 }
 
-Value Value::CreateAsList(Environment &env, const Value &v1, const Value &v2,
+Value Value::CreateList(Environment &env, const Value &v1, const Value &v2,
 			const Value &v3)
 {
 	Value rtn;
@@ -636,7 +636,7 @@ Value Value::CreateAsList(Environment &env, const Value &v1, const Value &v2,
 	return rtn;
 }
 
-Value Value::CreateAsList(Environment &env, const Value &v1, const Value &v2,
+Value Value::CreateList(Environment &env, const Value &v1, const Value &v2,
 			const Value &v3, const Value &v4)
 {
 	Value rtn;
@@ -649,7 +649,7 @@ Value Value::CreateAsList(Environment &env, const Value &v1, const Value &v2,
 	return rtn;
 }
 
-Value Value::CreateAsList(Environment &env, const Value &v1, const Value &v2,
+Value Value::CreateList(Environment &env, const Value &v1, const Value &v2,
 			const Value &v3, const Value &v4, const Value &v5)
 {
 	Value rtn;
@@ -663,7 +663,7 @@ Value Value::CreateAsList(Environment &env, const Value &v1, const Value &v2,
 	return rtn;
 }
 
-Value Value::CreateAsList(Environment &env, const Value &v1, const Value &v2,
+Value Value::CreateList(Environment &env, const Value &v1, const Value &v2,
 			const Value &v3, const Value &v4, const Value &v5, const Value &v6)
 {
 	Value rtn;

@@ -68,7 +68,7 @@ Gura_ImplementClassMethod(wx_DateTime, GetAmPmStrings)
 	wxString am;
 	wxString pm;
 	wxDateTime::GetAmPmStrings(&am, &pm);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env,
+	return ReturnValue(env, sig, args, Value::CreateList(env,
 				Value(static_cast<const char *>(am.ToUTF8())),
 				Value(static_cast<const char *>(pm.ToUTF8()))));
 }

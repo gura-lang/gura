@@ -380,7 +380,7 @@ Gura_ImplementMethod(wx_Notebook, HitTest)
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	long flags = 0;
 	int rtn = pThis->GetEntity()->HitTest(*pt, &flags);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, rtn, flags));
+	return ReturnValue(env, sig, args, Value::CreateList(env, rtn, flags));
 }
 
 Gura_DeclareMethod(wx_Notebook, InsertPage)

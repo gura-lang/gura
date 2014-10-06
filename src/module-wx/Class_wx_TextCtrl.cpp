@@ -462,7 +462,7 @@ Gura_ImplementMethod(wx_TextCtrl, GetSelection)
 	long from;
 	long to;
 	pThis->GetEntity()->GetSelection(&from, &to);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, from, to));
+	return ReturnValue(env, sig, args, Value::CreateList(env, from, to));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, GetStringSelection)
@@ -526,7 +526,7 @@ Gura_ImplementMethod(wx_TextCtrl, HitTest)
 	wxTextCoord col;
 	wxTextCoord row;
 	wxTextCtrlHitTestResult rtn = pThis->GetEntity()->HitTest(*pt, &col, &row);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, rtn, col, row));
+	return ReturnValue(env, sig, args, Value::CreateList(env, rtn, col, row));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, IsEditable)
@@ -690,7 +690,7 @@ Gura_ImplementMethod(wx_TextCtrl, PositionToXY)
 	long y;
 	bool rtn = pThis->GetEntity()->PositionToXY(pos, &x, &y);
 	if (!rtn) return Value::Null;
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, x, y));
+	return ReturnValue(env, sig, args, Value::CreateList(env, x, y));
 }
 
 Gura_DeclareMethod(wx_TextCtrl, Redo)

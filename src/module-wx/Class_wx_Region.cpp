@@ -357,7 +357,7 @@ Gura_ImplementMethod(wx_Region, GetBoxRectDim)
 	wxCoord width;
 	wxCoord height;
 	pThis->GetEntity()->GetBox(x, y, width, height);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env,
+	return ReturnValue(env, sig, args, Value::CreateList(env,
 						Value(x), Value(y), Value(width), Value(height)));
 }
 

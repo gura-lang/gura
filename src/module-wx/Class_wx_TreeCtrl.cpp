@@ -527,7 +527,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetFirstChild)
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxTreeItemIdValue cookie;
 	wxTreeItemId rtn = pThis->GetEntity()->GetFirstChild(*item, cookie);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env,
+	return ReturnValue(env, sig, args, Value::CreateList(env,
 		Value(new Object_wx_TreeItemId(new wxTreeItemId(rtn), NULL, OwnerTrue)),
 		Value(reinterpret_cast<size_t>(cookie))));
 }
@@ -758,7 +758,7 @@ Gura_ImplementMethod(wx_TreeCtrl, GetNextChild)
 	wxTreeItemId *item = Object_wx_TreeItemId::GetObject(args, 0)->GetEntity();
 	wxTreeItemIdValue cookie = reinterpret_cast<wxTreeItemIdValue>(args.GetInt(1));
 	wxTreeItemId rtn = pThis->GetEntity()->GetNextChild(*item, cookie);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env,
+	return ReturnValue(env, sig, args, Value::CreateList(env,
 		Value(new Object_wx_TreeItemId(new wxTreeItemId(rtn), NULL, OwnerTrue)),
 		Value(reinterpret_cast<size_t>(cookie))));
 }

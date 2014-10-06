@@ -378,7 +378,7 @@ Gura_ImplementMethod(wx_GridCellAttr, GetAlignment)
 	int hAlign = 0;
 	int vAlign = 0;
 	pThis->GetEntity()->GetAlignment(&hAlign, &vAlign);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, hAlign, vAlign));
+	return ReturnValue(env, sig, args, Value::CreateList(env, hAlign, vAlign));
 }
 
 Gura_DeclareMethod(wx_GridCellAttr, GetRenderer)

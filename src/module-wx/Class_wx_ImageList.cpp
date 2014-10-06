@@ -258,7 +258,7 @@ Gura_ImplementMethod(wx_ImageList, GetSize)
 	int height;
 	bool rtn = pThis->GetEntity()->GetSize(index, width, height);
 	Value value;
-	if (rtn) value = Value::CreateAsList(env, width, height);
+	if (rtn) value = Value::CreateList(env, width, height);
 	return ReturnValue(env, sig, args, value);
 }
 

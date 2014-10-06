@@ -308,7 +308,7 @@ Gura_ImplementMethod(wx_ComboBox, GetMark)
 	long from;
 	long to;
 	pThis->GetEntity()->GetSelection(&from, &to);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, from, to));
+	return ReturnValue(env, sig, args, Value::CreateList(env, from, to));
 }
 
 Gura_DeclareMethod(wx_ComboBox, GetValue)

@@ -851,7 +851,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, DeleteSelectedContent)
 	long newPos = 0;
 	if (args.IsValid(0)) newPos = args.GetLong(0);
 	bool rtn = pThis->GetEntity()->DeleteSelectedContent(&newPos);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, rtn, newPos));
+	return ReturnValue(env, sig, args, Value::CreateList(env, rtn, newPos));
 }
 
 Gura_DeclareMethod(wx_RichTextCtrl, DeleteSelection)
@@ -1537,7 +1537,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, GetSelection)
 	long from = 0;
 	long to = 0;
 	pThis->GetEntity()->GetSelection(&from, &to);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, from, to));
+	return ReturnValue(env, sig, args, Value::CreateList(env, from, to));
 }
 
 Gura_DeclareMethod(wx_RichTextCtrl, GetSelectionRange)
@@ -1807,7 +1807,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, HitTest)
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	long pos = 0;
 	wxTextCtrlHitTestResult rtn = pThis->GetEntity()->HitTest(*pt, &pos);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, rtn, pos));
+	return ReturnValue(env, sig, args, Value::CreateList(env, rtn, pos));
 }
 
 Gura_DeclareMethod(wx_RichTextCtrl, HitTestXY)
@@ -1825,7 +1825,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, HitTestXY)
 	wxTextCoord col = 0;
 	wxTextCoord row = 0;
 	wxTextCtrlHitTestResult rtn = pThis->GetEntity()->HitTest(*pt, &col, &row);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, rtn, col, row));
+	return ReturnValue(env, sig, args, Value::CreateList(env, rtn, col, row));
 }
 
 Gura_DeclareMethod(wx_RichTextCtrl, Init)
@@ -2721,7 +2721,7 @@ Gura_ImplementMethod(wx_RichTextCtrl, PositionToXY)
 	long x = 0;
 	long y = 0;
 	bool rtn = pThis->GetEntity()->PositionToXY(pos, &x, &y);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, rtn, x, y));
+	return ReturnValue(env, sig, args, Value::CreateList(env, rtn, x, y));
 }
 
 Gura_DeclareMethod(wx_RichTextCtrl, PromoteList)

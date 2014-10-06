@@ -805,7 +805,7 @@ Gura_ImplementMethod(wx_Grid, GetCellAlignment)
 	int horiz = 0;
 	int vert = 0;
 	pThis->GetEntity()->GetCellAlignment(row, col, &horiz, &vert);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, horiz, vert));
+	return ReturnValue(env, sig, args, Value::CreateList(env, horiz, vert));
 }
 
 Gura_DeclareMethod(wx_Grid, GetCellBackgroundColour)
@@ -1007,7 +1007,7 @@ Gura_ImplementMethod(wx_Grid, GetColLabelAlignment)
 	int horiz = 0;
 	int vert = 0;
 	pThis->GetEntity()->GetColLabelAlignment(&horiz, &vert);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, horiz, vert));
+	return ReturnValue(env, sig, args, Value::CreateList(env, horiz, vert));
 }
 
 Gura_DeclareMethod(wx_Grid, GetColLabelSize)
@@ -1131,7 +1131,7 @@ Gura_ImplementMethod(wx_Grid, GetDefaultCellAlignment)
 	int horiz = 0;
 	int vert = 0;
 	pThis->GetEntity()->GetDefaultCellAlignment(&horiz, &vert);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, horiz, vert));
+	return ReturnValue(env, sig, args, Value::CreateList(env, horiz, vert));
 }
 
 Gura_DeclareMethod(wx_Grid, GetDefaultCellBackgroundColour)
@@ -1607,7 +1607,7 @@ Gura_ImplementMethod(wx_Grid, GetRowLabelAlignment)
 	int horiz = 0;
 	int vert = 0;
 	pThis->GetEntity()->GetRowLabelAlignment(&horiz, &vert);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, horiz, vert));
+	return ReturnValue(env, sig, args, Value::CreateList(env, horiz, vert));
 }
 
 Gura_DeclareMethod(wx_Grid, GetRowLabelSize)

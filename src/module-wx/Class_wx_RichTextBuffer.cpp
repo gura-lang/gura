@@ -1138,7 +1138,7 @@ Gura_ImplementClassMethod(wx_RichTextBuffer, GetExtWildcard)
 	if (args.IsValid(1)) save = args.GetBoolean(1);
 	wxArrayInt types;
 	wxString rtn = wxRichTextBuffer::GetExtWildcard(combine, save, &types);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env,
+	return ReturnValue(env, sig, args, Value::CreateList(env,
 					Value(static_cast<const char *>(rtn.ToUTF8())),
 					ArrayIntToValue(env, types)));
 }

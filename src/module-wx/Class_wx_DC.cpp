@@ -972,7 +972,7 @@ Gura_ImplementMethod(wx_DC, GetClippingBox)
 	wxCoord width;
 	wxCoord height;
 	pThis->GetEntity()->GetClippingBox(&x, &y, &width, &height);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, x, y, width, height));
+	return ReturnValue(env, sig, args, Value::CreateList(env, x, y, width, height));
 }
 
 Gura_DeclareMethod(wx_DC, GetFont)
@@ -1050,7 +1050,7 @@ Gura_ImplementMethod(wx_DC, GetMultiLineTextExtent)
 	wxCoord h;
 	wxCoord heightLine;
 	pThis->GetEntity()->GetMultiLineTextExtent(string, &w, &h, &heightLine, font);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, w, h, heightLine));
+	return ReturnValue(env, sig, args, Value::CreateList(env, w, h, heightLine));
 }
 
 Gura_DeclareMethod(wx_DC, GetPartialTextExtents)
@@ -1132,7 +1132,7 @@ Gura_ImplementMethod(wx_DC, GetSizeAsList)
 	wxCoord width;
 	wxCoord height;
 	pThis->GetEntity()->GetSize(&width, &height);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, width, height));
+	return ReturnValue(env, sig, args, Value::CreateList(env, width, height));
 }
 
 Gura_DeclareMethod(wx_DC, GetSize)
@@ -1162,7 +1162,7 @@ Gura_ImplementMethod(wx_DC, GetSizeMMAsList)
 	wxCoord width;
 	wxCoord height;
 	pThis->GetEntity()->GetSizeMM(&width, &height);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, width, height));
+	return ReturnValue(env, sig, args, Value::CreateList(env, width, height));
 }
 
 Gura_DeclareMethod(wx_DC, GetSizeMM)
@@ -1213,7 +1213,7 @@ Gura_ImplementMethod(wx_DC, GetTextExtent)
 	wxCoord descent;
 	wxCoord externalLeading;
 	pThis->GetEntity()->GetTextExtent(string, &w, &h, &descent, &externalLeading, font);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, w, h, descent, externalLeading));
+	return ReturnValue(env, sig, args, Value::CreateList(env, w, h, descent, externalLeading));
 }
 
 Gura_DeclareMethod(wx_DC, GetTextExtent_1)
@@ -1259,7 +1259,7 @@ Gura_ImplementMethod(wx_DC, GetUserScale)
 	double x;
 	double y;
 	pThis->GetEntity()->GetUserScale(&x, &y);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, x, y));
+	return ReturnValue(env, sig, args, Value::CreateList(env, x, y));
 }
 
 Gura_DeclareMethod(wx_DC, GradientFillConcentric)

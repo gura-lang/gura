@@ -468,7 +468,7 @@ Gura_ImplementMethod(font, calcsize)
 	String str = args.GetStringSTL(0);
 	size_t width, height;
 	if (!pThis->CalcSize(env, sig, str, width, height, pFuncDeco)) return Value::Null;
-	return Value::CreateAsList(env, 
+	return Value::CreateList(env, 
 			Value(static_cast<unsigned int>(width)),
 			Value(static_cast<unsigned int>(height)));
 }
@@ -492,7 +492,7 @@ Gura_ImplementMethod(font, calcbbox)
 	String str = args.GetStringSTL(2);
 	size_t width, height;
 	if (!pThis->CalcSize(env, sig, str, width, height, pFuncDeco)) return Value::Null;
-	return Value::CreateAsList(env,
+	return Value::CreateList(env,
 			Value(x), Value(y - pThis->GetFace()->ascender / 4),
 			Value(width), Value(height));
 }

@@ -170,11 +170,11 @@ Gura_ImplementMethod(color, tolist)
 	const Color &color = Object_color::GetThisObj(args)->GetColor();
 	bool alphaIncludeFlag = args.IsSet(Gura_Symbol(alpha));
 	if (alphaIncludeFlag) {
-		return Value::CreateAsList(env,
+		return Value::CreateList(env,
 					Value(color.GetR()), Value(color.GetG()),
 					Value(color.GetB()), Value(color.GetA()));
 	} else {
-		return Value::CreateAsList(env,
+		return Value::CreateList(env,
 					Value(color.GetR()), Value(color.GetG()),
 					Value(color.GetB()));
 	}

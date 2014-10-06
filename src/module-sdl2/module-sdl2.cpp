@@ -765,7 +765,7 @@ Gura_ImplementFunction(GetVersion)
 {
 	SDL_version ver;
 	SDL_GetVersion(&ver);
-	return Value::CreateAsList(env, Value(ver.major), Value(ver.minor), Value(ver.patch));
+	return Value::CreateList(env, Value(ver.major), Value(ver.minor), Value(ver.patch));
 }
 
 // sdl2.VERSION()
@@ -780,7 +780,7 @@ Gura_ImplementFunction(VERSION)
 {
 	SDL_version ver;
 	SDL_VERSION(&ver);
-	return Value::CreateAsList(env, Value(ver.major), Value(ver.minor), Value(ver.patch));
+	return Value::CreateList(env, Value(ver.major), Value(ver.minor), Value(ver.patch));
 }
 
 // sdl2.VERSION_ATLEAST(X:number, Y:number, Z:number)
@@ -856,7 +856,7 @@ Gura_ImplementFunction(CreateWindowAndRenderer)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::CreateAsList(env, Value(new Object_Window(window)), Value(new Object_Renderer(renderer)));
+	return Value::CreateList(env, Value(new Object_Window(window)), Value(new Object_Renderer(renderer)));
 }
 
 // sdl2.CreateWindowFrom():void
@@ -1571,7 +1571,7 @@ Gura_ImplementFunction(GetWindowGammaRamp)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::CreateAsList(env, Value(red), Value(green), Value(blue));
+	return Value::CreateList(env, Value(red), Value(green), Value(blue));
 }
 
 // sdl2.GetWindowGrab(window:sdl2.Window)
@@ -1621,7 +1621,7 @@ Gura_ImplementFunction(GetWindowMaximumSize)
 	int w = 0;
 	int h = 0;
 	SDL_GetWindowMaximumSize(window, &w, &h);
-	return Value::CreateAsList(env, Value(w), Value(h));
+	return Value::CreateList(env, Value(w), Value(h));
 }
 
 // sdl2.GetWindowMinimumSize(window:sdl2.Window)
@@ -1639,7 +1639,7 @@ Gura_ImplementFunction(GetWindowMinimumSize)
 	int w = 0;
 	int h = 0;
 	SDL_GetWindowMinimumSize(window, &w, &h);
-	return Value::CreateAsList(env, Value(w), Value(h));
+	return Value::CreateList(env, Value(w), Value(h));
 }
 
 // sdl2.GetWindowPixelFormat(window:sdl2.Window)
@@ -1673,7 +1673,7 @@ Gura_ImplementFunction(GetWindowPosition)
 	int x = 0;
 	int y = 0;
 	SDL_GetWindowPosition(window, &x, &y);
-	return Value::CreateAsList(env, Value(x), Value(y));
+	return Value::CreateList(env, Value(x), Value(y));
 }
 
 // sdl2.GetWindowSize(window:sdl2.Window)
@@ -1691,7 +1691,7 @@ Gura_ImplementFunction(GetWindowSize)
 	int w = 0;
 	int h = 0;
 	SDL_GetWindowSize(window, &w, &h);
-	return Value::CreateAsList(env, Value(w), Value(h));
+	return Value::CreateList(env, Value(w), Value(h));
 }
 
 // sdl2.GetWindowSurface(window:sdl2.Window)
@@ -2435,7 +2435,7 @@ Gura_ImplementFunction(GL_BindTexture)
 	float texw = 0;
 	float texh = 0;
 	SDL_GL_BindTexture(texture, &texw, &texh);
-	return Value::CreateAsList(env, Value(texw), Value(texh));
+	return Value::CreateList(env, Value(texw), Value(texh));
 }
 
 // sdl2.GL_UnbindTexture(texture:sdl2.Texture):void
@@ -2514,7 +2514,7 @@ Gura_ImplementFunction(GetRenderDrawColor)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::CreateAsList(env, Value(r), Value(g), Value(b), Value(a));
+	return Value::CreateList(env, Value(r), Value(g), Value(b), Value(a));
 }
 
 // sdl2.GetRenderDriverInfo(index:number):void
@@ -2622,7 +2622,7 @@ Gura_ImplementFunction(GetRenderOutputSize)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::CreateAsList(env, Value(w), Value(h));
+	return Value::CreateList(env, Value(w), Value(h));
 }
 
 // sdl2.GetTextureAlphaMod(texture:sdl2.Texture)
@@ -2687,7 +2687,7 @@ Gura_ImplementFunction(GetTextureColorMod)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::CreateAsList(env, Value(r), Value(g), Value(b));
+	return Value::CreateList(env, Value(r), Value(g), Value(b));
 }
 
 // sdl2.LockTexture(texture:sdl2.Texture, rect:sdl2.Rect):void

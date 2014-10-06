@@ -800,7 +800,7 @@ Gura_ImplementMethod(wx_ListCtrl, HitTest)
 	int flags = 0;
 	long subItem;
 	long rtn = pThis->GetEntity()->HitTest(*point, flags, &subItem);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, rtn, flags, subItem));
+	return ReturnValue(env, sig, args, Value::CreateList(env, rtn, flags, subItem));
 }
 
 Gura_DeclareMethod(wx_ListCtrl, InsertColumnItem)

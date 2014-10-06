@@ -129,7 +129,7 @@ Gura_ImplementMethod(wx_ScrolledWindow, CalcScrolledPosition)
 	int xx;
 	int yy;
 	pThis->GetEntity()->CalcScrolledPosition(x, y, &xx, &yy);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, xx, yy));
+	return ReturnValue(env, sig, args, Value::CreateList(env, xx, yy));
 }
 
 Gura_DeclareMethod(wx_ScrolledWindow, CalcUnscrolledPosition)
@@ -149,7 +149,7 @@ Gura_ImplementMethod(wx_ScrolledWindow, CalcUnscrolledPosition)
 	int xx;
 	int yy;
 	pThis->GetEntity()->CalcUnscrolledPosition(x, y, &xx, &yy);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, xx, yy));
+	return ReturnValue(env, sig, args, Value::CreateList(env, xx, yy));
 }
 
 Gura_DeclareMethod(wx_ScrolledWindow, Create)
@@ -213,7 +213,7 @@ Gura_ImplementMethod(wx_ScrolledWindow, GetScrollPixelsPerUnit)
 	int xUnit;
 	int yUnit;
 	pThis->GetEntity()->GetScrollPixelsPerUnit(&xUnit, &yUnit);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, xUnit, yUnit));
+	return ReturnValue(env, sig, args, Value::CreateList(env, xUnit, yUnit));
 }
 
 Gura_DeclareMethod(wx_ScrolledWindow, GetViewStart)
@@ -229,7 +229,7 @@ Gura_ImplementMethod(wx_ScrolledWindow, GetViewStart)
 	int x;
 	int y;
 	pThis->GetEntity()->GetViewStart(&x, &y);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, x, y));
+	return ReturnValue(env, sig, args, Value::CreateList(env, x, y));
 }
 
 Gura_DeclareMethod(wx_ScrolledWindow, GetVirtualSize)
@@ -245,7 +245,7 @@ Gura_ImplementMethod(wx_ScrolledWindow, GetVirtualSize)
 	int x;
 	int y;
 	pThis->GetEntity()->GetVirtualSize(&x, &y);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, x, y));
+	return ReturnValue(env, sig, args, Value::CreateList(env, x, y));
 }
 
 Gura_DeclareMethod(wx_ScrolledWindow, IsRetained)

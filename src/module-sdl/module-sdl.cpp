@@ -803,7 +803,7 @@ Gura_ImplementMethod(PixelFormat, GetRGB)
 	SDL_PixelFormat *fmt = Object_PixelFormat::GetThisObj(args)->GetPixelFormat();
 	Uint8 r, g, b;
 	::SDL_GetRGB(args.GetULong(0), fmt, &r, &g, &b);
-	return Value::CreateAsList(env, Value(r), Value(g), Value(b));
+	return Value::CreateList(env, Value(r), Value(g), Value(b));
 }
 
 // sdl.PixelFormat#GetRGBA(pixel:number):void
@@ -826,7 +826,7 @@ Gura_ImplementMethod(PixelFormat, GetRGBA)
 	SDL_PixelFormat *fmt = Object_PixelFormat::GetThisObj(args)->GetPixelFormat();
 	Uint8 r, g, b, a;
 	::SDL_GetRGBA(args.GetULong(0), fmt, &r, &g, &b, &a);
-	return Value::CreateAsList(env, Value(r), Value(g), Value(b), Value(a));
+	return Value::CreateList(env, Value(r), Value(g), Value(b), Value(a));
 }
 
 //-----------------------------------------------------------------------------
@@ -1771,7 +1771,7 @@ Gura_ImplementMethod(Joystick, JoystickGetBall)
 	if (::SDL_JoystickGetBall(pJoystick, args.GetInt(0), &dx, &dy) < 0) {
 		return Value::Null;
 	}
-	return Value::CreateAsList(env, Value(dx), Value(dy));
+	return Value::CreateList(env, Value(dx), Value(dy));
 }
 
 // sdl.Joystick#JoystickClose():void
@@ -3098,7 +3098,7 @@ Gura_ImplementFunction(WM_GetCaption)
 	Value valTitle, valIcon;
 	if (title != NULL) valTitle = Value(title);
 	if (icon != NULL) valIcon = Value(icon);
-	return Value::CreateAsList(env, valTitle, valIcon);
+	return Value::CreateList(env, valTitle, valIcon);
 }
 
 // sdl.WM_SetIcon(icon:sdl.Surface, mask?:binary)
@@ -3645,7 +3645,7 @@ Gura_ImplementFunction(GetMouseState)
 {
 	int x, y;
 	Uint8 state = ::SDL_GetMouseState(&x, &y);
-	return Value::CreateAsList(env, Value(state), Value(x), Value(y));
+	return Value::CreateList(env, Value(state), Value(x), Value(y));
 }
 
 // sdl.GetRelativeMouseState()
@@ -3663,7 +3663,7 @@ Gura_ImplementFunction(GetRelativeMouseState)
 {
 	int x, y;
 	Uint8 state = ::SDL_GetRelativeMouseState(&x, &y);
-	return Value::CreateAsList(env, Value(state), Value(x), Value(y));
+	return Value::CreateList(env, Value(state), Value(x), Value(y));
 }
 
 // sdl.GetAppState()

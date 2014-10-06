@@ -616,7 +616,7 @@ Gura_ImplementMethod(context, get_dash)
 		valList.push_back(Value(dashes[num_dashes]));
 	}
 	delete[] dashes;
-	return Value::CreateAsList(env, rtn, Value(offset));
+	return Value::CreateList(env, rtn, Value(offset));
 }
 
 // cairo.context#set_fill_rule(fill_rule:number):reduce

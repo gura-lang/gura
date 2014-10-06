@@ -557,7 +557,7 @@ Gura_ImplementMethod(wx_StyledTextCtrl, GetCurLine)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int linePos = 0;
 	wxString rtn = pThis->GetEntity()->GetCurLine(&linePos);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, Value(static_cast<const char *>(rtn.ToUTF8())), Value(linePos)));
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(static_cast<const char *>(rtn.ToUTF8())), Value(linePos)));
 }
 
 Gura_DeclareMethod(wx_StyledTextCtrl, GetEndStyled)
@@ -9314,7 +9314,7 @@ Gura_ImplementMethod(wx_StyledTextCtrl, GetCurLineRaw)
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	int linePos = 0;
 	wxCharBuffer rtn = pThis->GetEntity()->GetCurLineRaw(&linePos);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, Value(rtn), Value(linePos)));
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(rtn), Value(linePos)));
 }
 
 Gura_DeclareMethod(wx_StyledTextCtrl, GetLineRaw)
@@ -9555,7 +9555,7 @@ Gura_ImplementMethod(wx_StyledTextCtrl, GetSelection)
 	long from = 0;
 	long to = 0;
 	pThis->GetEntity()->GetSelection(&from, &to);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, Value(from), Value(to)));
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(from), Value(to)));
 }
 
 Gura_DeclareMethod(wx_StyledTextCtrl, IsEditable)
@@ -9750,7 +9750,7 @@ Gura_ImplementMethod(wx_StyledTextCtrl, PositionToXY)
 	long x = 0;
 	long y = 0;
 	bool rtn = pThis->GetEntity()->PositionToXY(pos, &x, &y);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, Value(rtn), Value(x), Value(y)));
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(rtn), Value(x), Value(y)));
 }
 
 Gura_DeclareMethod(wx_StyledTextCtrl, ShowPosition)
@@ -9781,7 +9781,7 @@ Gura_ImplementMethod(wx_StyledTextCtrl, HitTest)
 	wxPoint *pt = Object_wx_Point::GetObject(args, 0)->GetEntity();
 	long pos = 0;
 	wxTextCtrlHitTestResult rtn = pThis->GetEntity()->HitTest(*pt, &pos);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, Value(rtn), Value(pos)));
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(rtn), Value(pos)));
 }
 
 Gura_DeclareMethod(wx_StyledTextCtrl, HitTestXY)
@@ -9798,7 +9798,7 @@ Gura_ImplementMethod(wx_StyledTextCtrl, HitTestXY)
 	wxTextCoord col = 0;
 	wxTextCoord row = 0;
 	wxTextCtrlHitTestResult rtn = pThis->GetEntity()->HitTest(*pt, &col, &row);
-	return ReturnValue(env, sig, args, Value::CreateAsList(env, Value(rtn), Value(col), Value(row)));
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(rtn), Value(col), Value(row)));
 }
 
 //----------------------------------------------------------------------------
