@@ -16,7 +16,69 @@ Object *Object_Point::Clone() const
 
 String Object_Point::ToString(bool exprFlag)
 {
-	return String("<sdl2.Point>");
+	char buff[80];
+	::sprintf(buff, "<sdl2.Point:x=%d,y=%d>", _point.x, _point.y);
+	return String(buff);
+}
+
+bool Object_Point::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
+{
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(x));
+	symbols.insert(Gura_UserSymbol(y));
+	return true;
+}
+
+Value Object_Point::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
+							 const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(x))) {
+		return Value(_point.x);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(y))) {
+		return Value(_point.y);
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+Value Object_Point::DoSetProp(Environment &env, Signal sig,
+							 const Symbol *pSymbol, const Value &value,
+							 const SymbolSet &attrs, bool &evaluatedFlag)
+{
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(x))) {
+		if (!value.MustBe_number(sig)) return Value::Null;
+		_point.x = static_cast<Sint16>(value.GetInt());
+		return value;
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(y))) {
+		if (!value.MustBe_number(sig)) return Value::Null;
+		_point.y = static_cast<Sint16>(value.GetInt());
+		return value;
+	}
+	evaluatedFlag = false;
+	return Value::Null;
+}
+
+//-----------------------------------------------------------------------------
+// Functions
+//-----------------------------------------------------------------------------
+// sdl2.Point(x:number, y:number)
+Gura_DeclareFunction(Point)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(Point)
+{
+	SDL_Point point;
+	point.x = args.GetInt(0);
+	point.y = args.GetInt(1);
+	return Value(new Object_Point(point));
 }
 
 //-----------------------------------------------------------------------------
@@ -25,6 +87,7 @@ String Object_Point::ToString(bool exprFlag)
 // implementation of class Point
 Gura_ImplementUserClass(Point)
 {
+	Gura_AssignFunction(Point);
 }
 
 Gura_EndModuleScope(sdl2)

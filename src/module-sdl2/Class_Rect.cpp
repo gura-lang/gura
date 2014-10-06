@@ -17,7 +17,8 @@ Object *Object_Rect::Clone() const
 String Object_Rect::ToString(bool exprFlag)
 {
 	char buff[80];
-	::sprintf(buff, "<sdl2.Rect:x=%d,y=%d,w=%d,h=%d>", _rect.x, _rect.y, _rect.w, _rect.h);
+	::sprintf(buff, "<sdl2.Rect:x=%d,y=%d,w=%d,h=%d>",
+			  					_rect.x, _rect.y, _rect.w, _rect.h);
 	return String(buff);
 }
 
@@ -75,11 +76,37 @@ Value Object_Rect::DoSetProp(Environment &env, Signal sig,
 }
 
 //-----------------------------------------------------------------------------
+// Functions
+//-----------------------------------------------------------------------------
+// sdl2.Rect(x:number, y:number, w:number, h:number)
+Gura_DeclareFunction(Rect)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "y", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "w", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "h", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(Rect)
+{
+	SDL_Rect rect;
+	rect.x = args.GetInt(0);
+	rect.y = args.GetInt(1);
+	rect.w = args.GetInt(2);
+	rect.h = args.GetInt(3);
+	return Value(new Object_Rect(rect));
+}
+
+//-----------------------------------------------------------------------------
 // Gura interfaces for Rect
 //-----------------------------------------------------------------------------
 // implementation of class Rect
 Gura_ImplementUserClass(Rect)
 {
+	Gura_AssignFunction(Rect);
 }
 
 Gura_EndModuleScope(sdl2)

@@ -2739,8 +2739,8 @@ Gura_DeclareFunction(RenderCopy)
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "srcrect", VTYPE_Rect, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "dstrect", VTYPE_Rect, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "srcrect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
+	DeclareArg(env, "dstrect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
