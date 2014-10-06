@@ -25,6 +25,16 @@ public:
 	inline size_t GetSize() const { return _bytes; }
 	inline char *GetPointer(size_t offset = 0) { return _buff + offset; }
 	inline const char *GetPointer(size_t offset = 0) const { return _buff + offset; }
+	inline operator Int *()		{ return reinterpret_cast<Int *>(_buff);	}
+	inline operator UInt *()	{ return reinterpret_cast<UInt *>(_buff);	}
+	inline operator Char *()	{ return reinterpret_cast<Char *>(_buff);	}
+	inline operator UChar *()	{ return reinterpret_cast<UChar *>(_buff);	}
+	inline operator Short *()	{ return reinterpret_cast<Short *>(_buff);	}
+	inline operator UShort *()	{ return reinterpret_cast<UShort *>(_buff);	}
+	inline operator Long *()	{ return reinterpret_cast<Long *>(_buff);	}
+	inline operator ULong *()	{ return reinterpret_cast<ULong *>(_buff);	}
+	inline operator Int64 *()	{ return reinterpret_cast<Int64 *>(_buff);	}
+	inline operator UInt64 *()	{ return reinterpret_cast<UInt64 *>(_buff);	}
 private:
 	inline Memory(const Memory &memory) {}
 };
