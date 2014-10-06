@@ -373,24 +373,71 @@ RenderClear(SDL_Renderer* renderer):negerr
 RenderCopy(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect):negerr
 RenderCopyEx(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect, double angle, const SDL_Point* center, SDL_RendererFlip flip):negerr
 RenderDrawLine(SDL_Renderer* renderer, int x1, int y1, int x2, int y2):negerr
-RenderDrawLines(SDL_Renderer* renderer, const SDL_Point* #points, int #count):negerr
-
+RenderDrawLines(SDL_Renderer* renderer, [Point;Once;List] points):custom {
+	CArray<SDL_Point> points(CreateCArrayOfPoint(args.GetList(1)));
+	int count = static_cast<int>(points.GetSize());
+	int rtn = SDL_RenderDrawLines(renderer, points, count);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::Null;
+}
 RenderDrawPoint(SDL_Renderer* renderer, int x, int y):negerr
-RenderDrawPoints(SDL_Renderer* renderer, const SDL_Point* #points, int #count):negerr
-
+RenderDrawPoints(SDL_Renderer* renderer, [Point;Once;List] points):custom {
+	CArray<SDL_Point> points(CreateCArrayOfPoint(args.GetList(1)));
+	int count = static_cast<int>(points.GetSize());
+	int rtn = SDL_RenderDrawPoints(renderer, points, count);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::Null;
+}
 RenderDrawRect(SDL_Renderer* renderer, const SDL_Rect* rect):negerr
-RenderDrawRects(SDL_Renderer* renderer, const SDL_Rect* #rects, int #count):negerr
-
+RenderDrawRects(SDL_Renderer* renderer, [Rect;Once;List] rects):custom {
+	CArray<SDL_Rect> rects(CreateCArrayOfRect(args.GetList(1)));
+	int count = static_cast<int>(rects.GetSize());
+	int rtn = SDL_RenderDrawRects(renderer, rects, count);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::Null;
+}
 RenderFillRect(SDL_Renderer* renderer, const SDL_Rect* rect):negerr
-RenderFillRects(SDL_Renderer* renderer, const SDL_Rect* #rects, int #count):negerr
-
-RenderGetClipRect(SDL_Renderer* renderer, SDL_Rect* #rect)
-RenderGetLogicalSize(SDL_Renderer* renderer, int* #w, int* #h)
-
-RenderGetScale(SDL_Renderer* renderer, float* #scaleX, float* #scaleY)
-
-RenderGetViewport(SDL_Renderer* renderer, SDL_Rect* #rect)
-
+RenderFillRects(SDL_Renderer* renderer, [Rect;Once;List] rects):custom {
+	CArray<SDL_Rect> rects(CreateCArrayOfRect(args.GetList(1)));
+	int count = static_cast<int>(rects.GetSize());
+	int rtn = SDL_RenderFillRects(renderer, rects, count);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::Null;
+}
+RenderGetClipRect(SDL_Renderer* renderer):custom {
+	SDL_Rect rect;
+	SDL_RenderGetClipRect(renderer, &rect);
+	return Value(new Object_Rect(rect));
+}
+RenderGetLogicalSize(SDL_Renderer* renderer):custom {
+	int w = 0;
+	int h = 0;
+	SDL_RenderGetLogicalSize(renderer, &w, &h);
+	return Value::CreateList(env, Value(w), Value(h));
+}
+RenderGetScale(SDL_Renderer* renderer):custom {
+	float scaleX = 0;
+	float scaleY = 0;
+	SDL_RenderGetScale(renderer, &scaleX, &scaleY);
+	return Value::CreateList(env, Value(scaleX), Value(scaleY));
+}
+RenderGetViewport(SDL_Renderer* renderer):custom {
+	SDL_Rect rect;
+	SDL_RenderGetViewport(renderer, &rect);
+	return Value(new Object_Rect(rect));
+}
 #RenderIsClipEnabled(SDL_Renderer* renderer):SDL_bool
 RenderPresent(SDL_Renderer* renderer)
 RenderReadPixels(SDL_Renderer* renderer, const SDL_Rect* rect, Uint32 format, void* #pixels, int pitch):negerr
@@ -442,12 +489,12 @@ ConvertPixels(int width, int height, Uint32 src_format, const void* #src, int #s
 ConvertSurface(SDL_Surface* src, const SDL_PixelFormat* fmt, Uint32 flags):SDL_Surface*
 ConvertSurfaceFormat(SDL_Surface* src, Uint32 pixel_format, Uint32 flags):SDL_Surface*
 CreateRGBSurface(Uint32 flags, int width, int height, int depth, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask):SDL_Surface*
-
 CreateRGBSurfaceFrom([image;Once;None] image):custom {
-
-	return Value::Null;
+	Image *pImage = Object_image::GetObject(args, 0)->GetImage();
+	Object_Surface *pObjSurface = Object_Surface::CreateSurfaceFromImage(sig, pImage);
+	if (pObjSurface == NULL) return Value::Null;
+	return Value(pObjSurface);
 }
-
 FillRect(SDL_Surface* dst, const SDL_Rect* rect, Uint32 color):negerr
 FillRects(SDL_Surface* dst, [Rect;Once;List] rects, Uint32 color):custom {
 	CArray<SDL_Rect> rects(CreateCArrayOfRect(args.GetList(1)));

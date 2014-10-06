@@ -84,6 +84,10 @@ Object_Surface *Object_Surface::CreateSurfaceFromImage(Signal sig, Image *pImage
 	}
 	SDL_Surface *pSurface = ::SDL_CreateRGBSurfaceFrom(
 				pixels, width, height, depth, pitch, Rmask, Gmask, Bmask, Amask);
+	if (pSurface == NULL) {
+		SetError_SDL(sig);
+		return NULL;
+	}
 	Object_Surface *pObj = new Object_Surface(pSurface, Image::Reference(pImage));
 	return pObj;
 }
@@ -102,7 +106,7 @@ Gura_ImplementCastFrom(Surface)
 		Image *pImage = Object_image::GetObject(value)->GetImage();
 		Object_Surface *pObjSurface =
 					Object_Surface::CreateSurfaceFromImage(sig, pImage);
-		if (sig.IsSignalled()) return false;
+		if (pObjSurface == NULL) return false;
 		value = Value(pObjSurface);
 		return true;
 	}
