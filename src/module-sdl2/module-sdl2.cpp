@@ -770,7 +770,8 @@ Gura_ImplementFunction(GetVersion)
 {
 	SDL_version ver;
 	SDL_GetVersion(&ver);
-	return Value::CreateList(env, Value(ver.major), Value(ver.minor), Value(ver.patch));
+	return ReturnValue(env, sig, args, Value::CreateList(env,
+					Value(ver.major), Value(ver.minor), Value(ver.patch)));
 }
 
 // sdl2.VERSION
@@ -786,7 +787,8 @@ Gura_ImplementFunction(VERSION)
 {
 	SDL_version ver;
 	SDL_VERSION(&ver);
-	return Value::CreateList(env, Value(ver.major), Value(ver.minor), Value(ver.patch));
+	return ReturnValue(env, sig, args, Value::CreateList(env,
+					Value(ver.major), Value(ver.minor), Value(ver.patch)));
 }
 
 // sdl2.VERSION_ATLEAST
