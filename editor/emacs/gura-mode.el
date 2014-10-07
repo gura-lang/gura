@@ -99,7 +99,8 @@
 	  (while cont-flag
 		(forward-line -1)
 		(setq cont-flag (not (bobp)))
-		(gura-end-of-statement-p)
+		;;(gura-end-of-statement)
+		(end-of-line)
 		(if (eq (char-before) ?\\)
 			(setq indent-offset gura-continued-line-offset)
 		  (setq cont-flag nil)))))
@@ -116,14 +117,15 @@
 	  (when (and pos-block-start (eq (char-after pos-block-start) ?\())
 		(save-excursion
 		  (goto-char pos-block-start)
-		  (gura-end-of-statement-p)
+		  ;;(gura-end-of-statement)
+		  (end-of-line)
 		  (if (eq (+ pos-block-start 1) (point))
 			  (+ (current-indentation) (* 2 default-tab-width)) ;; no elements after parenthesis
 			(progn
 			  (goto-char pos-block-start)
 			  (+ (current-column) 1))))))) ;; elements exist at the same line
    (save-excursion
-	 ;;(gura-end-of-statement-p)
+	 ;;(gura-end-of-statement)
 	 (end-of-line)
 	 (let* ((line-cur (line-number-at-pos)) (pos-cur (point))
 			(syntax (syntax-ppss)) (pos-block-start (nth 1 syntax)))
@@ -157,8 +159,9 @@
   (save-excursion (gura-indent-line))
   (blink-matching-open))
   
-(defun gura-end-of-statement-p ()
+(defun gura-end-of-statement ()
   "Move to end of statement without a comment."
+  (interactive)
   (when (not (eobp))
 	(beginning-of-line)
 	(if (looking-at "[ \\t]*$")
