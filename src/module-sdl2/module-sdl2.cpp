@@ -3576,10 +3576,7 @@ Gura_ImplementFunction(CalculateGammaRamp)
 	float gamma = args.GetFloat(0);
 	Uint16 ramp[256];
 	SDL_CalculateGammaRamp(gamma, ramp);
-	Value rtn;
-	ValueList &valList = rtn.InitAsList(env, 256);
-	for (size_t i = 0; i < 256; i++) valList.push_back(Value(ramp[i]));
-	return ReturnValue(env, sig, args, rtn);
+	return ReturnValue(env, sig, args, Value::CreateList(env, ramp, ArraySizeOf(ramp)));
 }
 
 // sdl2.FreeFormat
@@ -3638,7 +3635,8 @@ Gura_ImplementFunction(GetPixelFormatName)
 // sdl2.GetRGB
 Gura_DeclareFunction(GetRGB)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pixel", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_PixelFormat, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -3647,23 +3645,20 @@ Gura_DeclareFunction(GetRGB)
 
 Gura_ImplementFunction(GetRGB)
 {
-#if 0
 	Uint32 pixel = args.GetULong(0);
 	const SDL_PixelFormat *format = args.IsValid(1)? Object_PixelFormat::GetObject(args, 1)->GetEntity() : NULL;
-	Uint8 *r = args.IsValid(2)? NULL : NULL;
-	Uint8 *g = args.IsValid(3)? NULL : NULL;
-	Uint8 *b = args.IsValid(4)? NULL : NULL;
-	SDL_GetRGB(pixel, format, r, g, b);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "GetRGB");
-	return Value::Null;
+	Uint8 r = 0;
+	Uint8 g = 0;
+	Uint8 b = 0;
+	SDL_GetRGB(pixel, format, &r, &g, &b);
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(r), Value(g), Value(b)));
 }
 
 // sdl2.GetRGBA
 Gura_DeclareFunction(GetRGBA)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "pixel", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "format", VTYPE_PixelFormat, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -3672,18 +3667,15 @@ Gura_DeclareFunction(GetRGBA)
 
 Gura_ImplementFunction(GetRGBA)
 {
-#if 0
 	Uint32 pixel = args.GetULong(0);
 	const SDL_PixelFormat *format = args.IsValid(1)? Object_PixelFormat::GetObject(args, 1)->GetEntity() : NULL;
-	Uint8 *r = args.IsValid(2)? NULL : NULL;
-	Uint8 *g = args.IsValid(3)? NULL : NULL;
-	Uint8 *b = args.IsValid(4)? NULL : NULL;
-	Uint8 *a = args.IsValid(5)? NULL : NULL;
-	SDL_GetRGBA(pixel, format, r, g, b, a);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "GetRGBA");
-	return Value::Null;
+	Uint8 r = 0;
+	Uint8 g = 0;
+	Uint8 b = 0;
+	Uint8 a = 0;
+	SDL_GetRGBA(pixel, format, &r, &g, &b, &a);
+	return ReturnValue(env, sig, args,
+			Value::CreateList(env, Value(r), Value(g), Value(b), Value(a)));
 }
 
 // sdl2.MapRGB
@@ -3771,18 +3763,19 @@ Gura_DeclareFunction(PixelFormatEnumToMasks)
 
 Gura_ImplementFunction(PixelFormatEnumToMasks)
 {
-#if 0
 	Uint32 format = args.GetULong(0);
-	int *bpp = args.IsValid(1)? NULL : NULL;
-	Uint32 *Rmask = args.IsValid(2)? NULL : NULL;
-	Uint32 *Gmask = args.IsValid(3)? NULL : NULL;
-	Uint32 *Bmask = args.IsValid(4)? NULL : NULL;
-	Uint32 *Amask = args.IsValid(5)? NULL : NULL;
-	SDL_bool rtn = SDL_PixelFormatEnumToMasks(format, bpp, Rmask, Gmask, Bmask, Amask);
-	return ReturnValue(env, sig, args, Value(rtn != SDL_FALSE));
-#endif
-	SetError_NotImpFunction(sig, "PixelFormatEnumToMasks");
-	return Value::Null;
+	int bpp = 0;
+	Uint32 Rmask = 0;
+	Uint32 Gmask = 0;
+	Uint32 Bmask = 0;
+	Uint32 Amask = 0;
+	SDL_bool rtn = SDL_PixelFormatEnumToMasks(format, &bpp, &Rmask, &Gmask, &Bmask, &Amask);
+	if (rtn != SDL_TRUE) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args,
+			Value::CreateList(env, Value(bpp), Value(Rmask), Value(Gmask), Value(Bmask), Value(Amask)));
 }
 
 // sdl2.SetPaletteColors

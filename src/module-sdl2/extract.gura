@@ -486,10 +486,7 @@ AllocPalette(int ncolors):SDL_Palette*
 CalculateGammaRamp(float gamma):custom {
 	Uint16 ramp[256];
 	SDL_CalculateGammaRamp(gamma, ramp);
-	Value rtn;
-	ValueList &valList = rtn.InitAsList(env, 256);
-	for (size_t i = 0; i < 256; i++) valList.push_back(Value(ramp[i]));
-	return ReturnValue(env, sig, args, rtn);
+	return ReturnValue(env, sig, args, Value::CreateList(env, ramp, ArraySizeOf(ramp)));
 }
 FreeFormat(SDL_PixelFormat* format)
 FreePalette(SDL_Palette* palette)
@@ -499,13 +496,34 @@ GetRGB(Uint32 pixel, const SDL_PixelFormat* format):custom {
 	Uint8 g = 0;
 	Uint8 b = 0;
 	SDL_GetRGB(pixel, format, &r, &g, &b);
-	
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(r), Value(g), Value(b)));
 }
-GetRGBA(Uint32 pixel, const SDL_PixelFormat* format, Uint8* #r, Uint8* #g, Uint8* #b, Uint8* #a)
+GetRGBA(Uint32 pixel, const SDL_PixelFormat* format):custom {
+	Uint8 r = 0;
+	Uint8 g = 0;
+	Uint8 b = 0;
+	Uint8 a = 0;
+	SDL_GetRGBA(pixel, format, &r, &g, &b, &a);
+	return ReturnValue(env, sig, args,
+			Value::CreateList(env, Value(r), Value(g), Value(b), Value(a)));
+}
 MapRGB(const SDL_PixelFormat* format, Uint8 r, Uint8 g, Uint8 b):Uint32
 MapRGBA(const SDL_PixelFormat* format, Uint8 r, Uint8 g, Uint8 b, Uint8 a):Uint32
 MasksToPixelFormatEnum(int bpp, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask):Uint32
-PixelFormatEnumToMasks(Uint32 format, int* #bpp, Uint32* #Rmask, Uint32* #Gmask, Uint32* #Bmask, Uint32* #Amask):SDL_bool
+PixelFormatEnumToMasks(Uint32 format):custom {
+	int bpp = 0;
+	Uint32 Rmask = 0;
+	Uint32 Gmask = 0;
+	Uint32 Bmask = 0;
+	Uint32 Amask = 0;
+	SDL_bool rtn = SDL_PixelFormatEnumToMasks(format, &bpp, &Rmask, &Gmask, &Bmask, &Amask);
+	if (rtn != SDL_TRUE) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args,
+			Value::CreateList(env, Value(bpp), Value(Rmask), Value(Gmask), Value(Bmask), Value(Amask)));
+}
 SetPaletteColors(SDL_Palette* palette, const SDL_Color* #colors, int firstcolor, int #ncolors):negerr
 SetPixelFormatPalette(SDL_PixelFormat* format, SDL_Palette* palette):negerr
 //-----------------------------------------------------------------------------
