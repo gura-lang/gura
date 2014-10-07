@@ -865,7 +865,8 @@ Gura_ImplementFunction(CreateWindowAndRenderer)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::CreateList(env, Value(new Object_Window(window)), Value(new Object_Renderer(renderer)));
+	return ReturnValue(env, sig, args, Value::CreateList(env,
+			Value(new Object_Window(window)), Value(new Object_Renderer(renderer))));
 }
 
 // sdl2.CreateWindowFrom
@@ -983,7 +984,8 @@ Gura_ImplementFunction(GL_ExtensionSupported)
 // sdl2.GL_GetAttribute
 Gura_DeclareFunction(GL_GetAttribute)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "attr", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -994,12 +996,13 @@ Gura_ImplementFunction(GL_GetAttribute)
 #if 0
 	SDL_GLattr attr = static_cast<SDL_GLattr>(args.GetInt(0));
 	int *value = args.IsValid(1)? NULL : NULL;
-	int rtn = SDL_GL_GetAttribute(attr, value);
+	int value = 0;
+	int rtn = SDL_GL_GetAttribute(attr, &value);
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value(value));
 #endif
 	SetError_NotImpFunction(sig, "GL_GetAttribute");
 	return Value::Null;
@@ -1055,7 +1058,7 @@ Gura_ImplementFunction(GL_GetDrawableSize)
 	int w = 0;
 	int h = 0;
 	SDL_GL_GetDrawableSize(window, &w, &h);
-	return Value::CreateList(env, Value(w), Value(h));
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(w), Value(h)));
 }
 
 // sdl2.GL_GetProcAddress
@@ -1240,7 +1243,7 @@ Gura_ImplementFunction(GetClosestDisplayMode)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value(new Object_DisplayMode(closest));
+	return ReturnValue(env, sig, args, Value(new Object_DisplayMode(closest)));
 }
 
 // sdl2.GetCurrentDisplayMode
@@ -1262,7 +1265,7 @@ Gura_ImplementFunction(GetCurrentDisplayMode)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value(new Object_DisplayMode(mode));
+	return ReturnValue(env, sig, args, Value(new Object_DisplayMode(mode)));
 }
 
 // sdl2.GetCurrentVideoDriver
@@ -1303,7 +1306,7 @@ Gura_ImplementFunction(GetDesktopDisplayMode)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value(new Object_DisplayMode(mode));
+	return ReturnValue(env, sig, args, Value(new Object_DisplayMode(mode)));
 }
 
 // sdl2.GetDisplayBounds
@@ -1325,7 +1328,7 @@ Gura_ImplementFunction(GetDisplayBounds)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value(new Object_Rect(rect));
+	return ReturnValue(env, sig, args, Value(new Object_Rect(rect)));
 }
 
 // sdl2.GetDisplayMode
@@ -1349,7 +1352,7 @@ Gura_ImplementFunction(GetDisplayMode)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value(new Object_DisplayMode(mode));
+	return ReturnValue(env, sig, args, Value(new Object_DisplayMode(mode)));
 }
 
 // sdl2.GetDisplayName
@@ -1582,7 +1585,8 @@ Gura_ImplementFunction(GetWindowGammaRamp)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::CreateList(env, Value(red), Value(green), Value(blue));
+	return ReturnValue(env, sig, args, Value::CreateList(env,
+								Value(red), Value(green), Value(blue)));
 }
 
 // sdl2.GetWindowGrab
@@ -1635,7 +1639,7 @@ Gura_ImplementFunction(GetWindowMaximumSize)
 	int w = 0;
 	int h = 0;
 	SDL_GetWindowMaximumSize(window, &w, &h);
-	return Value::CreateList(env, Value(w), Value(h));
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(w), Value(h)));
 }
 
 // sdl2.GetWindowMinimumSize
@@ -1654,7 +1658,7 @@ Gura_ImplementFunction(GetWindowMinimumSize)
 	int w = 0;
 	int h = 0;
 	SDL_GetWindowMinimumSize(window, &w, &h);
-	return Value::CreateList(env, Value(w), Value(h));
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(w), Value(h)));
 }
 
 // sdl2.GetWindowPixelFormat
@@ -1690,7 +1694,7 @@ Gura_ImplementFunction(GetWindowPosition)
 	int x = 0;
 	int y = 0;
 	SDL_GetWindowPosition(window, &x, &y);
-	return Value::CreateList(env, Value(x), Value(y));
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(x), Value(y)));
 }
 
 // sdl2.GetWindowSize
@@ -1709,7 +1713,7 @@ Gura_ImplementFunction(GetWindowSize)
 	int w = 0;
 	int h = 0;
 	SDL_GetWindowSize(window, &w, &h);
-	return Value::CreateList(env, Value(w), Value(h));
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(w), Value(h)));
 }
 
 // sdl2.GetWindowSurface
@@ -1774,7 +1778,7 @@ Gura_ImplementFunction(GetWindowWMInfo)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value(new Object_SysWMinfo(info));
+	return ReturnValue(env, sig, args, Value(new Object_SysWMinfo(info)));
 #endif
 	SetError_NotImpFunction(sig, "GetWindowWMInfo");
 	return Value::Null;
@@ -1985,8 +1989,7 @@ Gura_ImplementFunction(SetWindowFullscreen)
 // sdl2.SetWindowGammaRamp
 Gura_DeclareFunction(SetWindowGammaRamp)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "red", VTYPE_number, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "green", VTYPE_number, OCCUR_Once, FLAG_List);
@@ -2262,8 +2265,7 @@ Gura_ImplementFunction(UpdateWindowSurface)
 // sdl2.UpdateWindowSurfaceRects
 Gura_DeclareFunction(UpdateWindowSurfaceRects)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "window", VTYPE_Window, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2463,7 +2465,7 @@ Gura_ImplementFunction(GL_BindTexture)
 	float texw = 0;
 	float texh = 0;
 	SDL_GL_BindTexture(texture, &texw, &texh);
-	return Value::CreateList(env, Value(texw), Value(texh));
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(texw), Value(texh)));
 }
 
 // sdl2.GL_UnbindTexture
@@ -2520,7 +2522,7 @@ Gura_ImplementFunction(GetRenderDrawBlendMode)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value(blendMode);
+	return ReturnValue(env, sig, args, Value(blendMode));
 }
 
 // sdl2.GetRenderDrawColor
@@ -2545,7 +2547,8 @@ Gura_ImplementFunction(GetRenderDrawColor)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::CreateList(env, Value(r), Value(g), Value(b), Value(a));
+	return ReturnValue(env, sig, args, Value::CreateList(env,
+								Value(r), Value(g), Value(b), Value(a)));
 }
 
 // sdl2.GetRenderDriverInfo
@@ -2567,7 +2570,7 @@ Gura_ImplementFunction(GetRenderDriverInfo)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value(new Object_RendererInfo(info));
+	return ReturnValue(env, sig, args, Value(new Object_RendererInfo(info)));
 }
 
 // sdl2.GetRenderTarget
@@ -2626,7 +2629,7 @@ Gura_ImplementFunction(GetRendererInfo)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value(new Object_RendererInfo(info));
+	return ReturnValue(env, sig, args, Value(new Object_RendererInfo(info)));
 }
 
 // sdl2.GetRenderOutputSize
@@ -2649,7 +2652,7 @@ Gura_ImplementFunction(GetRenderOutputSize)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::CreateList(env, Value(w), Value(h));
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(w), Value(h)));
 }
 
 // sdl2.GetTextureAlphaMod
@@ -2671,7 +2674,7 @@ Gura_ImplementFunction(GetTextureAlphaMod)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value(alpha);
+	return ReturnValue(env, sig, args, Value(alpha));
 }
 
 // sdl2.GetTextureBlendMode
@@ -2693,7 +2696,7 @@ Gura_ImplementFunction(GetTextureBlendMode)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value(blendMode);
+	return ReturnValue(env, sig, args, Value(blendMode));
 }
 
 // sdl2.GetTextureColorMod
@@ -2717,7 +2720,8 @@ Gura_ImplementFunction(GetTextureColorMod)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::CreateList(env, Value(r), Value(g), Value(b));
+	return ReturnValue(env, sig, args, Value::CreateList(env,
+											Value(r), Value(g), Value(b)));
 }
 
 // sdl2.LockTexture
@@ -2770,7 +2774,8 @@ Gura_ImplementFunction(QueryTexture)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::CreateList(env, Value(format), Value(access), Value(w), Value(h));
+	return ReturnValue(env, sig, args, Value::CreateList(env,
+							Value(format), Value(access), Value(w), Value(h)));
 }
 
 // sdl2.RenderClear
@@ -2882,8 +2887,7 @@ Gura_ImplementFunction(RenderDrawLine)
 // sdl2.RenderDrawLines
 Gura_DeclareFunction(RenderDrawLines)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "points", VTYPE_Point, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2930,8 +2934,7 @@ Gura_ImplementFunction(RenderDrawPoint)
 // sdl2.RenderDrawPoints
 Gura_DeclareFunction(RenderDrawPoints)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "points", VTYPE_Point, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -2976,8 +2979,7 @@ Gura_ImplementFunction(RenderDrawRect)
 // sdl2.RenderDrawRects
 Gura_DeclareFunction(RenderDrawRects)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -3022,8 +3024,7 @@ Gura_ImplementFunction(RenderFillRect)
 // sdl2.RenderFillRects
 Gura_DeclareFunction(RenderFillRects)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_List);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -3058,7 +3059,7 @@ Gura_ImplementFunction(RenderGetClipRect)
 	SDL_Renderer *renderer = args.IsValid(0)? Object_Renderer::GetObject(args, 0)->GetEntity() : NULL;
 	SDL_Rect rect;
 	SDL_RenderGetClipRect(renderer, &rect);
-	return Value(new Object_Rect(rect));
+	return ReturnValue(env, sig, args, Value(new Object_Rect(rect)));
 }
 
 // sdl2.RenderGetLogicalSize
@@ -3077,7 +3078,7 @@ Gura_ImplementFunction(RenderGetLogicalSize)
 	int w = 0;
 	int h = 0;
 	SDL_RenderGetLogicalSize(renderer, &w, &h);
-	return Value::CreateList(env, Value(w), Value(h));
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(w), Value(h)));
 }
 
 // sdl2.RenderGetScale
@@ -3096,7 +3097,7 @@ Gura_ImplementFunction(RenderGetScale)
 	float scaleX = 0;
 	float scaleY = 0;
 	SDL_RenderGetScale(renderer, &scaleX, &scaleY);
-	return Value::CreateList(env, Value(scaleX), Value(scaleY));
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(scaleX), Value(scaleY)));
 }
 
 // sdl2.RenderGetViewport
@@ -3114,7 +3115,7 @@ Gura_ImplementFunction(RenderGetViewport)
 	SDL_Renderer *renderer = args.IsValid(0)? Object_Renderer::GetObject(args, 0)->GetEntity() : NULL;
 	SDL_Rect rect;
 	SDL_RenderGetViewport(renderer, &rect);
-	return Value(new Object_Rect(rect));
+	return ReturnValue(env, sig, args, Value(new Object_Rect(rect)));
 }
 
 // sdl2.RenderIsClipEnabled
@@ -4192,7 +4193,7 @@ Gura_ImplementFunction(CreateRGBSurfaceFrom)
 	Image *pImage = Object_image::GetObject(args, 0)->GetImage();
 	Object_Surface *pObjSurface = Object_Surface::CreateSurfaceFromImage(sig, pImage);
 	if (pObjSurface == NULL) return Value::Null;
-	return Value(pObjSurface);
+	return ReturnValue(env, sig, args, Value(pObjSurface));
 }
 
 // sdl2.FillRect
@@ -4222,8 +4223,7 @@ Gura_ImplementFunction(FillRect)
 // sdl2.FillRects
 Gura_DeclareFunction(FillRects)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
+	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "dst", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "rects", VTYPE_Rect, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "color", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4282,7 +4282,8 @@ Gura_ImplementFunction(GetClipRect)
 // sdl2.GetColorKey
 Gura_DeclareFunction(GetColorKey)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -4290,24 +4291,21 @@ Gura_DeclareFunction(GetColorKey)
 
 Gura_ImplementFunction(GetColorKey)
 {
-#if 0
 	SDL_Surface *surface = args.IsValid(0)? Object_Surface::GetObject(args, 0)->GetEntity() : NULL;
-	Uint32 *key = args.IsValid(1)? NULL : NULL;
-	int rtn = SDL_GetColorKey(surface, key);
+	Uint32 key = 0;
+	int rtn = SDL_GetColorKey(surface, &key);
 	if (rtn < 0) {
-		SetError_SDL(sig);
+		SetError_SDL(sig);	// there may be no error even if rtn is -1.
 		return Value::Null;
 	}
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "GetColorKey");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value(key));
 }
 
 // sdl2.GetSurfaceAlphaMod
 Gura_DeclareFunction(GetSurfaceAlphaMod)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -4315,24 +4313,21 @@ Gura_DeclareFunction(GetSurfaceAlphaMod)
 
 Gura_ImplementFunction(GetSurfaceAlphaMod)
 {
-#if 0
 	SDL_Surface *surface = args.IsValid(0)? Object_Surface::GetObject(args, 0)->GetEntity() : NULL;
-	Uint8 *alpha = args.IsValid(1)? NULL : NULL;
-	int rtn = SDL_GetSurfaceAlphaMod(surface, alpha);
+	Uint8 alpha = 0;
+	int rtn = SDL_GetSurfaceAlphaMod(surface, &alpha);
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "GetSurfaceAlphaMod");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value(alpha));
 }
 
 // sdl2.GetSurfaceBlendMode
 Gura_DeclareFunction(GetSurfaceBlendMode)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -4340,24 +4335,21 @@ Gura_DeclareFunction(GetSurfaceBlendMode)
 
 Gura_ImplementFunction(GetSurfaceBlendMode)
 {
-#if 0
 	SDL_Surface *surface = args.IsValid(0)? Object_Surface::GetObject(args, 0)->GetEntity() : NULL;
-	SDL_BlendMode *blendMode = args.IsValid(1)? NULL : NULL;
-	int rtn = SDL_GetSurfaceBlendMode(surface, blendMode);
+	SDL_BlendMode blendMode = SDL_BLENDMODE_NONE;
+	int rtn = SDL_GetSurfaceBlendMode(surface, &blendMode);
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "GetSurfaceBlendMode");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value(blendMode));
 }
 
 // sdl2.GetSurfaceColorMod
 Gura_DeclareFunction(GetSurfaceColorMod)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -4365,20 +4357,13 @@ Gura_DeclareFunction(GetSurfaceColorMod)
 
 Gura_ImplementFunction(GetSurfaceColorMod)
 {
-#if 0
 	SDL_Surface *surface = args.IsValid(0)? Object_Surface::GetObject(args, 0)->GetEntity() : NULL;
-	Uint8 *r = args.IsValid(1)? NULL : NULL;
-	Uint8 *g = args.IsValid(2)? NULL : NULL;
-	Uint8 *b = args.IsValid(3)? NULL : NULL;
-	int rtn = SDL_GetSurfaceColorMod(surface, r, g, b);
-	if (rtn < 0) {
-		SetError_SDL(sig);
-		return Value::Null;
-	}
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "GetSurfaceColorMod");
-	return Value::Null;
+	Uint8 r = 0;
+	Uint8 g = 0;
+	Uint8 b = 0;
+	int rtn = SDL_GetSurfaceColorMod(surface, &r, &g, &b);
+	return ReturnValue(env, sig, args,
+			Value::CreateList(env, Value(r), Value(g), Value(b)));
 }
 
 // sdl2.LoadBMP
@@ -4752,16 +4737,10 @@ Gura_DeclareFunction(GetClipboardText)
 
 Gura_ImplementFunction(GetClipboardText)
 {
-#if 0
 	char *rtn = SDL_GetClipboardText();
-	if (rtn == NULL) {
-		SetError_SDL(sig);
-		return Value::Null;
-	}
-	return ReturnValue(env, sig, args, Value(rtn));
-#endif
-	SetError_NotImpFunction(sig, "GetClipboardText");
-	return Value::Null;
+	Value value(rtn);
+	SDL_free(rtn);
+	return ReturnValue(env, sig, args, value);
 }
 
 // sdl2.HasClipboardText
@@ -5103,7 +5082,7 @@ Gura_ImplementFunction(PollEvent)
 	SDL_Event event;
 	int rtn = SDL_PollEvent(&event);
 	if (rtn == 0) return Value::Null;
-	return Value(new Object_Event(event));
+	return ReturnValue(env, sig, args, Value(new Object_Event(event)));
 }
 
 // sdl2.PumpEvents
@@ -5278,7 +5257,7 @@ Gura_ImplementFunction(WaitEvent)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value(new Object_Event(event));
+	return ReturnValue(env, sig, args, Value(new Object_Event(event)));
 }
 
 // sdl2.WaitEventTimeout
@@ -5300,7 +5279,7 @@ Gura_ImplementFunction(WaitEventTimeout)
 		SetError_SDL(sig); // no signal if timeout
 		return Value::Null;
 	}
-	return Value(new Object_Event(event));
+	return ReturnValue(env, sig, args, Value(new Object_Event(event)));
 }
 
 // sdl2.GetKeyFromName
@@ -5388,17 +5367,9 @@ Gura_DeclareFunction(GetKeyboardState)
 
 Gura_ImplementFunction(GetKeyboardState)
 {
-#if 0
-	int *numkeys = args.IsValid(0)? NULL : NULL;
-	const Uint8 *rtn = SDL_GetKeyboardState(numkeys);
-	if (rtn == NULL) {
-		SetError_SDL(sig);
-		return Value::Null;
-	}
-	return ReturnValue(env, sig, args, Value::Null);
-#endif
-	SetError_NotImpFunction(sig, "GetKeyboardState");
-	return Value::Null;
+	int numkeys = 0;
+	const Uint8 *rtn = SDL_GetKeyboardState(&numkeys);
+	return ReturnValue(env, sig, args, Value::CreateList(env, rtn, numkeys));
 }
 
 // sdl2.GetModState
@@ -5748,10 +5719,11 @@ Gura_DeclareFunction(GetGlobalMouseState)
 Gura_ImplementFunction(GetGlobalMouseState)
 {
 #if 0
-	int *x = args.IsValid(0)? NULL : NULL;
-	int *y = args.IsValid(1)? NULL : NULL;
-	Uint32 rtn = SDL_GetGlobalMouseState(x, y);
-	return ReturnValue(env, sig, args, Value(rtn));
+	int x = 0;
+	int y = 0;
+	Uint32 rtn = SDL_GetGlobalMouseState(&x, &y);
+	return ReturnValue(env, sig, args, Value::CreateList(env,
+										Value(rtn), Value(x), Value(y)));
 #endif
 	SetError_NotImpFunction(sig, "GetGlobalMouseState");
 	return Value::Null;
@@ -5787,14 +5759,11 @@ Gura_DeclareFunction(GetMouseState)
 
 Gura_ImplementFunction(GetMouseState)
 {
-#if 0
-	int *x = args.IsValid(0)? NULL : NULL;
-	int *y = args.IsValid(1)? NULL : NULL;
-	Uint32 rtn = SDL_GetMouseState(x, y);
-	return ReturnValue(env, sig, args, Value(rtn));
-#endif
-	SetError_NotImpFunction(sig, "GetMouseState");
-	return Value::Null;
+	int x = 0;
+	int y = 0;
+	Uint32 rtn = SDL_GetMouseState(&x, &y);
+	return ReturnValue(env, sig, args, Value::CreateList(env,
+										Value(rtn), Value(x), Value(y)));
 }
 
 // sdl2.GetRelativeMouseMode
@@ -5823,14 +5792,11 @@ Gura_DeclareFunction(GetRelativeMouseState)
 
 Gura_ImplementFunction(GetRelativeMouseState)
 {
-#if 0
-	int *x = args.IsValid(0)? NULL : NULL;
-	int *y = args.IsValid(1)? NULL : NULL;
-	Uint32 rtn = SDL_GetRelativeMouseState(x, y);
-	return ReturnValue(env, sig, args, Value(rtn));
-#endif
-	SetError_NotImpFunction(sig, "GetRelativeMouseState");
-	return Value::Null;
+	int x = 0;
+	int y = 0;
+	Uint32 rtn = SDL_GetRelativeMouseState(&x, &y);
+	return ReturnValue(env, sig, args, Value::CreateList(env,
+										Value(rtn), Value(x), Value(y)));
 }
 
 // sdl2.SetCursor
@@ -6007,7 +5973,8 @@ Gura_ImplementFunction(JoystickGetAxis)
 // sdl2.JoystickGetBall
 Gura_DeclareFunction(JoystickGetBall)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "joystick", VTYPE_Joystick, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "ball", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -6016,20 +5983,16 @@ Gura_DeclareFunction(JoystickGetBall)
 
 Gura_ImplementFunction(JoystickGetBall)
 {
-#if 0
 	SDL_Joystick *joystick = args.IsValid(0)? Object_Joystick::GetObject(args, 0)->GetEntity() : NULL;
 	int ball = args.GetInt(1);
-	int *dx = args.IsValid(2)? NULL : NULL;
-	int *dy = args.IsValid(3)? NULL : NULL;
-	int rtn = SDL_JoystickGetBall(joystick, ball, dx, dy);
+	int dx = 0;
+	int dy = 0;
+	int rtn = SDL_JoystickGetBall(joystick, ball, &dx, &dy);
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "JoystickGetBall");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(dx), Value(dy)));
 }
 
 // sdl2.JoystickGetButton
@@ -9916,14 +9879,11 @@ Gura_DeclareFunction(SDL_GetPowerInfo)
 
 Gura_ImplementFunction(SDL_GetPowerInfo)
 {
-#if 0
-	int *secs = args.IsValid(0)? NULL : NULL;
-	int *pct = args.IsValid(1)? NULL : NULL;
-	SDL_PowerState rtn = SDL_SDL_GetPowerInfo(secs, pct);
-	return ReturnValue(env, sig, args, Value(rtn));
-#endif
-	SetError_NotImpFunction(sig, "SDL_GetPowerInfo");
-	return Value::Null;
+	int secs = 0;
+	int pct = 0;
+	SDL_PowerState rtn = SDL_GetPowerInfo(&secs, &pct);
+	return ReturnValue(env, sig, args, Value::CreateList(env,
+									Value(rtn), Value(secs), Value(pct)));
 }
 
 // sdl2.AndroidGetActivity
