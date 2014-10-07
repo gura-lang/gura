@@ -440,7 +440,31 @@ RenderGetViewport(SDL_Renderer* renderer):custom {
 }
 #RenderIsClipEnabled(SDL_Renderer* renderer):SDL_bool
 RenderPresent(SDL_Renderer* renderer)
-RenderReadPixels(SDL_Renderer* renderer, const SDL_Rect* rect, Uint32 format, void* #pixels, int pitch):negerr
+RenderReadPixels(SDL_Renderer* renderer, const SDL_Rect* rect, [symbol;Once;None] format):custom {
+	Uint32 format = SDL_PIXELFORMAT_UNKNOWN;
+	Image::Format fmtImage = Image::FORMAT_None;
+	const Symbol *pSymbol = args.GetSymbol(2);
+	if (pSymbol->IsIdentical(Gura_Symbol(rgb))) {
+		format = SDL_PIXELFORMAT_BGR888;
+		fmtImage = Image::FORMAT_RGB;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(rgba))) {
+		format = SDL_PIXELFORMAT_BGRA8888;
+		fmtImage = Image::FORMAT_RGBA;
+	} else {
+		sig.SetError(ERR_ValueError, "format must be `rgb or `rgba");
+		return Value::Null;
+	}
+	AutoPtr<Image> pImage(new Image(fmtImage));
+	if (!pImage->AllocBuffer(sig, rect->w, rect->h, 0x00)) return Value::Null;
+	void *pixels = pImage->GetBuffer();
+	int pitch = pImage->GetBytesPerLine();
+	int rtn = SDL_RenderReadPixels(renderer, rect, format, pixels, pitch);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
+}
 RenderSetClipRect(SDL_Renderer* renderer, const SDL_Rect* rect):negerr
 RenderSetLogicalSize(SDL_Renderer* renderer, int w, int h):negerr
 RenderSetScale(SDL_Renderer* renderer, float scaleX, float scaleY):negerr
@@ -459,11 +483,24 @@ UpdateYUVTexture(SDL_Texture* texture, const SDL_Rect* rect, const Uint8* #Yplan
 // Video - Pixel Formats and Conversion Routines
 AllocFormat(Uint32 pixel_format):SDL_PixelFormat*
 AllocPalette(int ncolors):SDL_Palette*
-CalculateGammaRamp(float gamma, Uint16* #ramp)
+CalculateGammaRamp(float gamma):custom {
+	Uint16 ramp[256];
+	SDL_CalculateGammaRamp(gamma, ramp);
+	Value rtn;
+	ValueList &valList = rtn.InitAsList(env, 256);
+	for (size_t i = 0; i < 256; i++) valList.push_back(Value(ramp[i]));
+	return ReturnValue(env, sig, args, rtn);
+}
 FreeFormat(SDL_PixelFormat* format)
 FreePalette(SDL_Palette* palette)
 GetPixelFormatName(Uint32 format):const char*
-GetRGB(Uint32 pixel, const SDL_PixelFormat* format, Uint8* #r, Uint8* #g, Uint8* #b)
+GetRGB(Uint32 pixel, const SDL_PixelFormat* format):custom {
+	Uint8 r = 0;
+	Uint8 g = 0;
+	Uint8 b = 0;
+	SDL_GetRGB(pixel, format, &r, &g, &b);
+	
+}
 GetRGBA(Uint32 pixel, const SDL_PixelFormat* format, Uint8* #r, Uint8* #g, Uint8* #b, Uint8* #a)
 MapRGB(const SDL_PixelFormat* format, Uint8 r, Uint8 g, Uint8 b):Uint32
 MapRGBA(const SDL_PixelFormat* format, Uint8 r, Uint8 g, Uint8 b, Uint8 a):Uint32
@@ -884,7 +921,8 @@ Gura_DeclareFunction(${fi.funcName})
 	${if (fi.voidFlag)}
 	SetMode(RSLTMODE_Void, FLAG_None);
 	${else}
-	SetMode(RSLTMODE_Normal, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	${end}
 	${for (arg in fi.argsGura)}
 	DeclareArg(env, "${arg.name}", VTYPE_${arg.typeGura}, OCCUR_${arg.occurPattern}, ${('FLAG_' + arg.flags.split('|')).join('|')});
@@ -935,17 +973,17 @@ Gura_ImplementFunction(${fi.funcName})
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value(rtn);
+	return ReturnValue(env, sig, args, Value(rtn));
 	${elsif (fi.rtnInfo.typeC == 'negerr_boolean')}
 	int rtn = SDL_${fi.funcName}(${argsCJoined});
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value(rtn != 0);
+	return ReturnValue(env, sig, args, Value(rtn != 0));
 	${elsif (fi.rtnInfo.typeC == 'Uint16_boolean')}
 	Uint16 rtn = SDL_${fi.funcName}(${argsCJoined});
-	return Value(rtn != 0);
+	return ReturnValue(env, sig, args, Value(rtn != 0));
 	${else}
 	${fi.rtnInfo.typeC.sub(r'(\w)$', r'\1 ')}rtn = SDL_${fi.funcName}(${argsCJoined});
 	${if (fi.rtnInfo.typeC.endswith('*'))}
@@ -954,7 +992,7 @@ Gura_ImplementFunction(${fi.funcName})
 		return Value::Null;
 	}
 	${end}
-	return ${fi.rtnInfo.fmtReturn};
+	return ReturnValue(env, sig, args, ${fi.rtnInfo.fmtReturn});
 	${end}
 	${if (!fi.validFlag)}
 #endif
@@ -1347,10 +1385,10 @@ text.eachline {|line, i|
 	}
 }
 
-//print(funcInfos:*RenderImplementation())
-//print(funcInfos:*RenderAsignment())
-
-scope {
+if (sys.argv.len() > 1 && sys.argv[1] == 'test') {
+	print(funcInfos:*RenderImplementation())
+	//print(funcInfos:*RenderAsignment())
+} else {
 	fileNameTmpl = 'module-sdl2.cpp.tmpl'
 	fileNameOut = 'module-sdl2.cpp'
 	template(fileNameTmpl).render(fileNameOut)

@@ -678,6 +678,81 @@ Value Value::CreateList(Environment &env, const Value &v1, const Value &v2,
 	return rtn;
 }
 
+template<typename T>
+Value CreateListTmpl(Environment &env, T buff, size_t n)
+{
+	Value rtn;
+	ValueList &valList = rtn.InitAsList(env, n);
+	T p = buff;
+	for (size_t i = 0; i < n; i++, p++) valList.push_back(Value(*p));
+	return rtn;
+}
+
+Value Value::CreateList(Environment &env, const char *buff, size_t n)
+{
+	return CreateListTmpl(env, buff, n);
+}
+
+Value Value::CreateList(Environment &env, const UChar *buff, size_t n)
+{
+	return CreateListTmpl(env, buff, n);
+}
+
+Value Value::CreateList(Environment &env, const short *buff, size_t n)
+{
+	return CreateListTmpl(env, buff, n);
+}
+
+Value Value::CreateList(Environment &env, const UShort *buff, size_t n)
+{
+	return CreateListTmpl(env, buff, n);
+}
+
+Value Value::CreateList(Environment &env, const long *buff, size_t n)
+{
+	return CreateListTmpl(env, buff, n);
+}
+
+Value Value::CreateList(Environment &env, const ULong *buff, size_t n)
+{
+	return CreateListTmpl(env, buff, n);
+}
+
+Value Value::CreateList(Environment &env, const int *buff, size_t n)
+{
+	return CreateListTmpl(env, buff, n);
+}
+
+Value Value::CreateList(Environment &env, const UInt *buff, size_t n)
+{
+	return CreateListTmpl(env, buff, n);
+}
+
+Value Value::CreateList(Environment &env, const Int64 *buff, size_t n)
+{
+	return CreateListTmpl(env, buff, n);
+}
+
+Value Value::CreateList(Environment &env, const UInt64 *buff, size_t n)
+{
+	return CreateListTmpl(env, buff, n);
+}
+
+Value Value::CreateList(Environment &env, const float *buff, size_t n)
+{
+	return CreateListTmpl(env, buff, n);
+}
+
+Value Value::CreateList(Environment &env, const double *buff, size_t n)
+{
+	return CreateListTmpl(env, buff, n);
+}
+
+Value Value::CreateList(Environment &env, const char *buff[], size_t n)
+{
+	return CreateListTmpl(env, buff, n);
+}
+
 bool Value::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value)
 {
 	const ValueTypeInfo *pValueTypeInfo = value.GetValueTypeInfo();

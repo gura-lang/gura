@@ -433,6 +433,19 @@ public:
 			const Value &v3, const Value &v4, const Value &v5);
 	static Value CreateList(Environment &env, const Value &v1, const Value &v2,
 			const Value &v3, const Value &v4, const Value &v5, const Value &v6);
+	static Value CreateList(Environment &env, const char *buff, size_t n);
+	static Value CreateList(Environment &env, const UChar *buff, size_t n);
+	static Value CreateList(Environment &env, const short *buff, size_t n);
+	static Value CreateList(Environment &env, const UShort *buff, size_t n);
+	static Value CreateList(Environment &env, const long *buff, size_t n);
+	static Value CreateList(Environment &env, const ULong *buff, size_t n);
+	static Value CreateList(Environment &env, const int *buff, size_t n);
+	static Value CreateList(Environment &env, const UInt *buff, size_t n);
+	static Value CreateList(Environment &env, const Int64 *buff, size_t n);
+	static Value CreateList(Environment &env, const UInt64 *buff, size_t n);
+	static Value CreateList(Environment &env, const float *buff, size_t n);
+	static Value CreateList(Environment &env, const double *buff, size_t n);
+	static Value CreateList(Environment &env, const char *strs[], size_t n);
 	static bool Serialize(Environment &env, Signal sig, Stream &stream, const Value &value);
 	static bool Deserialize(Environment &env, Signal sig, Stream &stream, Value &value, bool mustBeValidFlag);
 private:
