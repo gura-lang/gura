@@ -481,6 +481,41 @@ const char *GetEncodingForConsole()
 	return encodingDefault;
 }
 
+#if defined(GURA_ON_DARWIN)
+
+const Symbol *GetLangCode()
+{
+	struct AssocInfo {
+		const char *key;
+		const char *value;
+	};
+	static const AssocInfo assocInfoTbl[] = {
+		{ "0",		"en"	},
+		{ "14",		"ja"	},
+	};
+	String dirName = GetEnv("HOME");
+	String fileName = JoinPathName(dirName.c_str(), ".CFUserTextEncoding");
+	FILE *fp = ::fopen(fileName.c_str(), "rt");
+	if (fp != NULL) {
+		char buff[256];
+		::fgets(buff, sizeof(buff) - 1, fp);
+		::fclose(fp);
+		String strLine = Strip(buff);
+		const char *code = ::strchr(strLine.c_str(), ':');
+		if (code != NULL) {
+			code++;
+			for (int i = 0; i < ArraySizeOf(assocInfoTbl); i++) {
+				if (::strcmp(code, assocInfoTbl[i].key) == 0) {
+					return Symbol::Add(assocInfoTbl[i].value);
+				}
+			}
+		}
+	}
+	return Gura_Symbol(en);
+}
+
+#else
+
 const Symbol *GetLangCode()
 {
 	String str = OAL::GetEnv("LANG");
@@ -493,6 +528,8 @@ const Symbol *GetLangCode()
 	}
 	return Symbol::Add(lang.c_str());
 }
+
+#endif
 
 #endif
 
