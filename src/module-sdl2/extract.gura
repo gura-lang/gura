@@ -89,7 +89,7 @@ EnableScreenSaver()
 GL_CreateContext(SDL_Window* window):SDL_GLContext
 GL_DeleteContext(SDL_GLContext context)
 GL_ExtensionSupported(const char* extension):SDL_bool
-GL_GetAttribute(SDL_GLattr attr, int* #value):custom {
+GL_GetAttribute(SDL_GLattr attr):custom {
 	int value = 0;
 	int rtn = SDL_GL_GetAttribute(attr, &value);
 	if (rtn < 0) {
@@ -261,7 +261,7 @@ ShowSimpleMessageBox(Uint32 flags, const char* title, const char* message, SDL_W
 ShowWindow(SDL_Window* window)
 UpdateWindowSurface(SDL_Window* window):negerr
 UpdateWindowSurfaceRects(SDL_Window* window, [Rect;Once;List] rects):custom_void {
-	CArray<SDL_Rect> rects(CreateCArrayOfRect(args.GetList(1)));
+	CArray<SDL_Rect> rects(CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1)));
 	int numrects = static_cast<int>(rects.GetSize());
 	int rtn = SDL_UpdateWindowSurfaceRects(window, rects, numrects);
 	if (rtn < 0) {
@@ -389,7 +389,7 @@ RenderCopy(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* srcrect
 RenderCopyEx(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect, double angle, const SDL_Point* center, SDL_RendererFlip flip):negerr
 RenderDrawLine(SDL_Renderer* renderer, int x1, int y1, int x2, int y2):negerr
 RenderDrawLines(SDL_Renderer* renderer, [Point;Once;List] points):custom_void {
-	CArray<SDL_Point> points(CreateCArrayOfPoint(args.GetList(1)));
+	CArray<SDL_Point> points(CreateCArray<SDL_Point, Object_Point>(args.GetList(1)));
 	int count = static_cast<int>(points.GetSize());
 	int rtn = SDL_RenderDrawLines(renderer, points, count);
 	if (rtn < 0) {
@@ -400,7 +400,7 @@ RenderDrawLines(SDL_Renderer* renderer, [Point;Once;List] points):custom_void {
 }
 RenderDrawPoint(SDL_Renderer* renderer, int x, int y):negerr
 RenderDrawPoints(SDL_Renderer* renderer, [Point;Once;List] points):custom_void {
-	CArray<SDL_Point> points(CreateCArrayOfPoint(args.GetList(1)));
+	CArray<SDL_Point> points(CreateCArray<SDL_Point, Object_Point>(args.GetList(1)));
 	int count = static_cast<int>(points.GetSize());
 	int rtn = SDL_RenderDrawPoints(renderer, points, count);
 	if (rtn < 0) {
@@ -411,7 +411,7 @@ RenderDrawPoints(SDL_Renderer* renderer, [Point;Once;List] points):custom_void {
 }
 RenderDrawRect(SDL_Renderer* renderer, const SDL_Rect* rect):negerr
 RenderDrawRects(SDL_Renderer* renderer, [Rect;Once;List] rects):custom_void {
-	CArray<SDL_Rect> rects(CreateCArrayOfRect(args.GetList(1)));
+	CArray<SDL_Rect> rects(CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1)));
 	int count = static_cast<int>(rects.GetSize());
 	int rtn = SDL_RenderDrawRects(renderer, rects, count);
 	if (rtn < 0) {
@@ -422,7 +422,7 @@ RenderDrawRects(SDL_Renderer* renderer, [Rect;Once;List] rects):custom_void {
 }
 RenderFillRect(SDL_Renderer* renderer, const SDL_Rect* rect):negerr
 RenderFillRects(SDL_Renderer* renderer, [Rect;Once;List] rects):custom_void {
-	CArray<SDL_Rect> rects(CreateCArrayOfRect(args.GetList(1)));
+	CArray<SDL_Rect> rects(CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1)));
 	int count = static_cast<int>(rects.GetSize());
 	int rtn = SDL_RenderFillRects(renderer, rects, count);
 	if (rtn < 0) {
@@ -539,18 +539,44 @@ PixelFormatEnumToMasks(Uint32 format):custom {
 	return ReturnValue(env, sig, args,
 			Value::CreateList(env, Value(bpp), Value(Rmask), Value(Gmask), Value(Bmask), Value(Amask)));
 }
-SetPaletteColors(SDL_Palette* palette, const SDL_Color* #colors, int firstcolor, int #ncolors):negerr
+SetPaletteColors(SDL_Palette* palette, [Color;Once;List] colors, int firstcolor, int ncolors):custom_void {
+	CArray<SDL_Color> colors(CreateCArray<SDL_Color, Object_Color>(args.GetList(1)));
+	int nmax = static_cast<int>(colors.GetSize());
+	if (firstcolor + ncolors > nmax) {
+		sig.SetError(ERR_IndexError, "out of range");
+		return Value::Null;
+	}
+	int rtn = SDL_SetPaletteColors(palette, colors, firstcolor, ncolors);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::Null;
+}
 SetPixelFormatPalette(SDL_PixelFormat* format, SDL_Palette* palette):negerr
 //-----------------------------------------------------------------------------
 // Video - Rectangle Functions
 EnclosePoints(const SDL_Point* #points, int #count, const SDL_Rect* clip, SDL_Rect* #result):SDL_bool
 HasIntersection(const SDL_Rect* A, const SDL_Rect* B):SDL_bool
-IntersectRect(const SDL_Rect* A, const SDL_Rect* B, SDL_Rect* #result):SDL_bool
+IntersectRect(const SDL_Rect* A, const SDL_Rect* B):custom {
+	SDL_Rect result;
+	SDL_bool rtn = SDL_IntersectRect(A, B, &result);
+	Value value;
+	if (rtn == SDL_TRUE) {
+		value = Value(new Object_Rect(result));
+	}
+	return ReturnValue(env, sig, args, value);
+}
 #IntersectRectAndLine(const SDL_Rect* rect, int X1, int Y1, int X2, int Y2):SDL_bool
 #PointInRect(const SDL_Point* p, const SDL_Rect* r):SDL_bool
 RectEmpty(const SDL_Rect* r):SDL_bool
 RectEquals(const SDL_Rect* a, const SDL_Rect* b):SDL_bool
-UnionRect(const SDL_Rect* A, const SDL_Rect* B, SDL_Rect* #result)
+UnionRect(const SDL_Rect* A, const SDL_Rect* B):custom {
+	SDL_Rect result;
+	SDL_UnionRect(A, B, &result);
+	Value value = Value(new Object_Rect(result));
+	return ReturnValue(env, sig, args, value);
+}
 //-----------------------------------------------------------------------------
 // Video - Surface Creation and Simple Drawing
 BlitScaled(SDL_Surface* src, const SDL_Rect* srcrect, SDL_Surface*dst, SDL_Rect* dstrect):negerr
@@ -567,7 +593,7 @@ CreateRGBSurfaceFrom([image;Once;None] image):custom {
 }
 FillRect(SDL_Surface* dst, const SDL_Rect* rect, Uint32 color):negerr
 FillRects(SDL_Surface* dst, [Rect;Once;List] rects, Uint32 color):custom_void {
-	CArray<SDL_Rect> rects(CreateCArrayOfRect(args.GetList(1)));
+	CArray<SDL_Rect> rects(CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1)));
 	int count = static_cast<int>(rects.GetSize());
 	int rtn = SDL_FillRects(dst, rects, count, color);
 	if (rtn < 0) {

@@ -995,9 +995,7 @@ Gura_DeclareFunction(GL_GetAttribute)
 
 Gura_ImplementFunction(GL_GetAttribute)
 {
-#if 0
 	SDL_GLattr attr = static_cast<SDL_GLattr>(args.GetInt(0));
-	int *value = args.IsValid(1)? NULL : NULL;
 	int value = 0;
 	int rtn = SDL_GL_GetAttribute(attr, &value);
 	if (rtn < 0) {
@@ -1005,9 +1003,6 @@ Gura_ImplementFunction(GL_GetAttribute)
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(value));
-#endif
-	SetError_NotImpFunction(sig, "GL_GetAttribute");
-	return Value::Null;
 }
 
 // sdl2.GL_GetCurrentContext
@@ -2277,7 +2272,7 @@ Gura_DeclareFunction(UpdateWindowSurfaceRects)
 Gura_ImplementFunction(UpdateWindowSurfaceRects)
 {
 	SDL_Window *window = args.IsValid(0)? Object_Window::GetObject(args, 0)->GetEntity() : NULL;
-	CArray<SDL_Rect> rects(CreateCArrayOfRect(args.GetList(1)));
+	CArray<SDL_Rect> rects(CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1)));
 	int numrects = static_cast<int>(rects.GetSize());
 	int rtn = SDL_UpdateWindowSurfaceRects(window, rects, numrects);
 	if (rtn < 0) {
@@ -2899,7 +2894,7 @@ Gura_DeclareFunction(RenderDrawLines)
 Gura_ImplementFunction(RenderDrawLines)
 {
 	SDL_Renderer *renderer = args.IsValid(0)? Object_Renderer::GetObject(args, 0)->GetEntity() : NULL;
-	CArray<SDL_Point> points(CreateCArrayOfPoint(args.GetList(1)));
+	CArray<SDL_Point> points(CreateCArray<SDL_Point, Object_Point>(args.GetList(1)));
 	int count = static_cast<int>(points.GetSize());
 	int rtn = SDL_RenderDrawLines(renderer, points, count);
 	if (rtn < 0) {
@@ -2946,7 +2941,7 @@ Gura_DeclareFunction(RenderDrawPoints)
 Gura_ImplementFunction(RenderDrawPoints)
 {
 	SDL_Renderer *renderer = args.IsValid(0)? Object_Renderer::GetObject(args, 0)->GetEntity() : NULL;
-	CArray<SDL_Point> points(CreateCArrayOfPoint(args.GetList(1)));
+	CArray<SDL_Point> points(CreateCArray<SDL_Point, Object_Point>(args.GetList(1)));
 	int count = static_cast<int>(points.GetSize());
 	int rtn = SDL_RenderDrawPoints(renderer, points, count);
 	if (rtn < 0) {
@@ -2991,7 +2986,7 @@ Gura_DeclareFunction(RenderDrawRects)
 Gura_ImplementFunction(RenderDrawRects)
 {
 	SDL_Renderer *renderer = args.IsValid(0)? Object_Renderer::GetObject(args, 0)->GetEntity() : NULL;
-	CArray<SDL_Rect> rects(CreateCArrayOfRect(args.GetList(1)));
+	CArray<SDL_Rect> rects(CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1)));
 	int count = static_cast<int>(rects.GetSize());
 	int rtn = SDL_RenderDrawRects(renderer, rects, count);
 	if (rtn < 0) {
@@ -3036,7 +3031,7 @@ Gura_DeclareFunction(RenderFillRects)
 Gura_ImplementFunction(RenderFillRects)
 {
 	SDL_Renderer *renderer = args.IsValid(0)? Object_Renderer::GetObject(args, 0)->GetEntity() : NULL;
-	CArray<SDL_Rect> rects(CreateCArrayOfRect(args.GetList(1)));
+	CArray<SDL_Rect> rects(CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1)));
 	int count = static_cast<int>(rects.GetSize());
 	int rtn = SDL_RenderFillRects(renderer, rects, count);
 	if (rtn < 0) {
@@ -3786,26 +3781,29 @@ Gura_DeclareFunction(SetPaletteColors)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "palette", VTYPE_Palette, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "colors", VTYPE_Color, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "firstcolor", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "ncolors", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(SetPaletteColors)
 {
-#if 0
 	SDL_Palette *palette = args.IsValid(0)? Object_Palette::GetObject(args, 0)->GetEntity() : NULL;
-	const SDL_Color *colors = args.IsValid(1)? NULL : NULL;
 	int firstcolor = args.GetInt(2);
-	int ncolors = NULL;
+	int ncolors = args.GetInt(3);
+	CArray<SDL_Color> colors(CreateCArray<SDL_Color, Object_Color>(args.GetList(1)));
+	int nmax = static_cast<int>(colors.GetSize());
+	if (firstcolor + ncolors > nmax) {
+		sig.SetError(ERR_IndexError, "out of range");
+		return Value::Null;
+	}
 	int rtn = SDL_SetPaletteColors(palette, colors, firstcolor, ncolors);
 	if (rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "SetPaletteColors");
 	return Value::Null;
 }
 
@@ -3887,15 +3885,15 @@ Gura_DeclareFunction(IntersectRect)
 
 Gura_ImplementFunction(IntersectRect)
 {
-#if 0
 	const SDL_Rect *A = args.IsValid(0)? Object_Rect::GetObject(args, 0)->GetEntity() : NULL;
 	const SDL_Rect *B = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
-	SDL_Rect *result = args.IsValid(2)? NULL : NULL;
-	SDL_bool rtn = SDL_IntersectRect(A, B, result);
-	return ReturnValue(env, sig, args, Value(rtn != SDL_FALSE));
-#endif
-	SetError_NotImpFunction(sig, "IntersectRect");
-	return Value::Null;
+	SDL_Rect result;
+	SDL_bool rtn = SDL_IntersectRect(A, B, &result);
+	Value value;
+	if (rtn == SDL_TRUE) {
+		value = Value(new Object_Rect(result));
+	}
+	return ReturnValue(env, sig, args, value);
 }
 
 // sdl2.IntersectRectAndLine
@@ -3989,7 +3987,8 @@ Gura_ImplementFunction(RectEquals)
 // sdl2.UnionRect
 Gura_DeclareFunction(UnionRect)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "A", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "B", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -3998,15 +3997,12 @@ Gura_DeclareFunction(UnionRect)
 
 Gura_ImplementFunction(UnionRect)
 {
-#if 0
 	const SDL_Rect *A = args.IsValid(0)? Object_Rect::GetObject(args, 0)->GetEntity() : NULL;
 	const SDL_Rect *B = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
-	SDL_Rect *result = args.IsValid(2)? NULL : NULL;
-	SDL_UnionRect(A, B, result);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "UnionRect");
-	return Value::Null;
+	SDL_Rect result;
+	SDL_UnionRect(A, B, &result);
+	Value value = Value(new Object_Rect(result));
+	return ReturnValue(env, sig, args, value);
 }
 
 // sdl2.BlitScaled
@@ -4237,7 +4233,7 @@ Gura_ImplementFunction(FillRects)
 {
 	SDL_Surface *dst = args.IsValid(0)? Object_Surface::GetObject(args, 0)->GetEntity() : NULL;
 	Uint32 color = args.GetULong(2);
-	CArray<SDL_Rect> rects(CreateCArrayOfRect(args.GetList(1)));
+	CArray<SDL_Rect> rects(CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1)));
 	int count = static_cast<int>(rects.GetSize());
 	int rtn = SDL_FillRects(dst, rects, count, color);
 	if (rtn < 0) {
@@ -11284,26 +11280,6 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // utilities
 //-----------------------------------------------------------------------------
-CArray<SDL_Point> CreateCArrayOfPoint(const ValueList &valList)
-{
-	CArray<SDL_Point> rtn(valList.size());
-	SDL_Point *p = rtn;
-	foreach_const (ValueList, pValue, valList) {
-		*p++ = *Object_Point::GetObject(*pValue)->GetEntity();
-	}
-	return rtn;
-}
-
-CArray<SDL_Rect> CreateCArrayOfRect(const ValueList &valList)
-{
-	CArray<SDL_Rect> rtn(valList.size());
-	SDL_Rect *p = rtn;
-	foreach_const (ValueList, pValue, valList) {
-		*p++ = *Object_Rect::GetObject(*pValue)->GetEntity();
-	}
-	return rtn;
-}
-
 void SetError_SDL(Signal &sig)
 {
 	const char *msg = ::SDL_GetError();

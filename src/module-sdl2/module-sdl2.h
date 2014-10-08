@@ -127,8 +127,16 @@ Gura_DeclareUserSymbol(cur_frame)
 // symbols for other purposes
 Gura_DeclareUserSymbol(thread_);
 
-CArray<SDL_Point> CreateCArrayOfPoint(const ValueList &valList);
-CArray<SDL_Rect> CreateCArrayOfRect(const ValueList &valList);
+template<typename T_SDL, typename T_GURA>
+CArray<T_SDL> CreateCArray(const ValueList &valList)
+{
+	CArray<T_SDL> rtn(valList.size());
+	T_SDL *p = rtn;
+	foreach_const (ValueList, pValue, valList) {
+		*p++ = *T_GURA::GetObject(*pValue)->GetEntity();
+	}
+	return rtn;
+}
 
 void SetError_SDL(Signal &sig);
 void SetError_NotImpFunction(Signal &sig, const char *funcName);
