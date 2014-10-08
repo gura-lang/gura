@@ -481,7 +481,7 @@ const char *GetEncodingForConsole()
 	return encodingDefault;
 }
 
-#if defined(GURA_ON_DARWIN)
+#if 0
 
 const Symbol *GetLangCode()
 {
@@ -491,6 +491,7 @@ const Symbol *GetLangCode()
 	};
 	static const AssocInfo assocInfoTbl[] = {
 		{ "0",		"en"	},
+		{ "3",		"de"	},
 		{ "14",		"ja"	},
 	};
 	String dirName = GetEnv("HOME");
