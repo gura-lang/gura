@@ -2,7 +2,7 @@
 import(sdl2, sdl)
 
 sdl.Init(sdl.INIT_VIDEO)
-window = sdl.CreateWindow('sample',
+window = sdl.CreateWindow(path.filename(sys.argv[0]),
 	sdl.WINDOWPOS_CENTERED, sdl.WINDOWPOS_CENTERED, 640, 480, 0)
 renderer = sdl.CreateRenderer(window, -1, 0)
 sdl.SetRenderDrawColor(renderer, 0, 0, 0, 255)
