@@ -8,7 +8,7 @@ renderer = sdl.CreateRenderer(window, -1, 0)
 sdl.SetRenderDrawColor(renderer, 0, 0, 0, 255)
 sdl.RenderClear(renderer)
 sdl.SetRenderDrawColor(renderer, 255, 0, 0, 255)
-sdl.RenderDrawLine(renderer, 10, 10, 400, 400)
+sdl.RenderDrawLine(renderer, 10, 10, 630, 470)
 sdl.RenderPresent(renderer)
 repeat {
 	event = sdl.WaitEvent()
