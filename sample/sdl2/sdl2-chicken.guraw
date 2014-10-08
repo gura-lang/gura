@@ -10,8 +10,7 @@ sdl.Init(sdl.INIT_EVERYTHING)
 window = sdl.CreateWindow('sample',
 	sdl.WINDOWPOS_CENTERED, sdl.WINDOWPOS_CENTERED, wdScreen, htScreen, 0)
 renderer = sdl.CreateRenderer(window, -1, 0)
-//screen = sdl.SetVideoMode(wdScreen, htScreen, 16, sdl.SWSURFACE)
-wdImage = 200
+wdImage = 100
 imageBg = image(I('Winter.jpg'), `rgb).resize(wdScreen, htScreen)
 imageText = image(`rgba, wdScreen, htScreen)
 imagesL = gif.content(I('chicken-anim.gif'), `rgba).images::resize(wdImage)
@@ -19,11 +18,6 @@ imagesR = imagesL::flip(`horz)
 xStep = wdImage / 10
 font = freetype.font(I('Kaufmann_Bold_BT.ttf'))
 font.height = 32, font.color = `white, font.mode = `alpha
-
-texture = sdl.CreateTextureFromSurface(renderer, imagesL[0])
-sdl.RenderCopy(renderer, texture, nil, sdl.Rect(100, 100, 100, 100))
-sdl.RenderPresent(renderer)
-
 Chicken = class {
 	__init__(x:number, y:number, dir:symbol) = {
 		[this.x, this.y] = [x, y]
@@ -37,10 +31,12 @@ Chicken = class {
 		this.xDir = -xStep
 		this.imageIter = imagesL.cycle()
 	}
-	doAction():void = {
+	doAction(renderer:sdl.Renderer):void = {
 		image = this.imageIter.next()
-		sdl.BlitSurface(image, nil,
-				renderer, sdl.Rect(this.x, this.y - image.height, 0, 0))
+		sdl.CreateTextureFromSurface(renderer, image) {|texture|
+			sdl.RenderCopy(renderer, texture, nil, sdl.Rect(
+					this.x, this.y - image.height, image.width, image.height))
+		}
 		this.x += this.xDir
 		if (this.x + wdImage > wdScreen) { this.turnLeft() }
 		if (this.x < 0) { this.turnRight() }
@@ -54,21 +50,26 @@ chickens = repeat(3):list {
 	Chicken(x, y, dir)
 }
 
-/*
-sdl.AddTimer(100) {
-	sdl.BlitSurface(imageBg, nil, renderer, nil)
-	imageText.clear()
-	imageText.drawtext(font, 10, 50, 'Chickens: %d' % chickens.len())
-	sdl.BlitSurface(imageText, nil, renderer, nil)
-	chickens::doAction()
-	screen.UpdateRect()
-	true
-}
-*/
-
+timePrev = sdl.GetTicks()
 repeat {
-	event = sdl.WaitEvent()
-	if (event.type == sdl.QUIT) {
+	timeCur = sdl.GetTicks()
+	if (timePrev > timeCur || timeCur > timePrev + 100) {
+		sdl.CreateTextureFromSurface(renderer, imageBg) {|texture|
+			sdl.RenderCopy(renderer, texture, nil, nil)
+		}
+		imageText.clear()
+		imageText.drawtext(font, 10, 50, 'Chickens: %d' % chickens.len())
+		sdl.CreateTextureFromSurface(renderer, imageText) {|texture|
+			sdl.RenderCopy(renderer, texture, nil, nil)
+		}
+		chickens::doAction(renderer)
+		sdl.RenderPresent(renderer)
+		timePrev = timeCur
+	}
+	event = sdl.WaitEventTimeout(10)	// 10msec
+	if (!event) {
+		// nothing to do
+	} elsif (event.type == sdl.QUIT) {
 		break
 	} elsif (event.type == sdl.KEYDOWN) {
 		(event.sym == sdl.K_ESCAPE) && break
