@@ -88,12 +88,12 @@ String Error::MakeText(bool lineInfoFlag) const
 {
 	String str;
 	const ExprOwner &exprCauseOwner = GetExprCauseOwner();
-	str += GetTypeName();
 	if (lineInfoFlag && !exprCauseOwner.empty()) {
 		const Expr *pExprCause = exprCauseOwner.front();
-		str += " at ";
 		str += pExprCause->MakePosText();
+		str += ": ";
 	}
+	str += GetTypeName();
 	str += _text;
 	return str;
 }
