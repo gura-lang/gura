@@ -230,7 +230,7 @@ RaiseWindow(SDL_Window* window)
 RestoreWindow(SDL_Window* window)
 SetWindowBordered(SDL_Window* window, SDL_bool bordered)
 SetWindowBrightness(SDL_Window* window, float brightness):negerr
-#SetWindowData(SDL_Window* window, const char* name, void* #userdata)
+#SetWindowData(SDL_Window* window, const char* name, void* userdata#)
 SetWindowDisplayMode(SDL_Window* window, const SDL_DisplayMode* mode):negerr
 SetWindowFullscreen(SDL_Window* window, Uint32 flags):negerr
 SetWindowGammaRamp(SDL_Window* window, [number;Once;List] red, [number;Once;List] green, [number;Once;List] blue):custom_void {
@@ -249,14 +249,14 @@ SetWindowGammaRamp(SDL_Window* window, [number;Once;List] red, [number;Once;List
 	return Value::Null;
 }
 SetWindowGrab(SDL_Window* window, SDL_bool grabbed)
-SetWindowHitTest(SDL_Window* window, SDL_HitTest #callback, void* #callback_data):negerr
+SetWindowHitTest(SDL_Window* window, SDL_HitTest callback#, void* callback_data#):negerr
 SetWindowIcon(SDL_Window* window, SDL_Surface* icon)
 SetWindowMaximumSize(SDL_Window* window, int max_w, int max_h)
 SetWindowMinimumSize(SDL_Window* window, int min_w, int min_h)
 SetWindowPosition(SDL_Window* window, int x, int y)
 SetWindowSize(SDL_Window* window, int w, int h)
 SetWindowTitle(SDL_Window* window, const char* title)
-#ShowMessageBox(const SDL_MessageBoxData* #messageboxdata, int* #buttonid):negerr
+#ShowMessageBox(const SDL_MessageBoxData* messageboxdata#, int* buttonid#):negerr
 ShowSimpleMessageBox(Uint32 flags, const char* title, const char* message, SDL_Window* window):negerr
 ShowWindow(SDL_Window* window)
 UpdateWindowSurface(SDL_Window* window):negerr
@@ -370,7 +370,7 @@ GetTextureColorMod(SDL_Texture* texture):custom {
 	return ReturnValue(env, sig, args, Value::CreateList(env,
 											Value(r), Value(g), Value(b)));
 }
-LockTexture(SDL_Texture* texture, const SDL_Rect* rect, void** #pixels, int* #pitch):negerr
+LockTexture(SDL_Texture* texture, const SDL_Rect* rect, void** pixels#, int* pitch#):negerr
 QueryTexture(SDL_Texture* texture):custom {
 	Uint32 format = 0;
 	int access = 0;
@@ -385,7 +385,7 @@ QueryTexture(SDL_Texture* texture):custom {
 							Value(format), Value(access), Value(w), Value(h)));
 }
 RenderClear(SDL_Renderer* renderer):negerr
-RenderCopy(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect):negerr
+RenderCopy(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* srcrect?, const SDL_Rect* dstrect?):negerr
 RenderCopyEx(SDL_Renderer* renderer, SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect, double angle, const SDL_Point* center, SDL_RendererFlip flip):negerr
 RenderDrawLine(SDL_Renderer* renderer, int x1, int y1, int x2, int y2):negerr
 RenderDrawLines(SDL_Renderer* renderer, [Point;Once;List] points):custom_void {
@@ -492,8 +492,8 @@ SetTextureAlphaMod(SDL_Texture* texture, Uint8 alpha):negerr
 SetTextureBlendMode(SDL_Texture* texture, SDL_BlendMode blendMode):negerr
 SetTextureColorMod(SDL_Texture* texture, Uint8 r, Uint8 g, Uint8 b):negerr
 UnlockTexture(SDL_Texture* texture)
-UpdateTexture(SDL_Texture* texture, const SDL_Rect* rect, const void* #pixels, int pitch):negerr
-UpdateYUVTexture(SDL_Texture* texture, const SDL_Rect* rect, const Uint8* #Yplane, int #Ypitch, const Uint8* #Uplane, int #Upitch, const Uint8* #Vplane, int #Vpitch):negerr
+UpdateTexture(SDL_Texture* texture, const SDL_Rect* rect, const void* pixels#, int pitch):negerr
+#UpdateYUVTexture(SDL_Texture* texture, const SDL_Rect* rect, const Uint8* Yplane, int Ypitch, const Uint8* Uplane, int Upitch, const Uint8* Vplane, int Vpitch):negerr
 //-----------------------------------------------------------------------------
 // Video - Pixel Formats and Conversion Routines
 AllocFormat(Uint32 pixel_format):SDL_PixelFormat*
@@ -556,7 +556,7 @@ SetPaletteColors(SDL_Palette* palette, [Color;Once;List] colors, int firstcolor,
 SetPixelFormatPalette(SDL_PixelFormat* format, SDL_Palette* palette):negerr
 //-----------------------------------------------------------------------------
 // Video - Rectangle Functions
-EnclosePoints(const SDL_Point* #points, int #count, const SDL_Rect* clip, SDL_Rect* #result):SDL_bool
+EnclosePoints(const SDL_Point* points#, int count#, const SDL_Rect* clip, SDL_Rect* result#):SDL_bool
 HasIntersection(const SDL_Rect* A, const SDL_Rect* B):SDL_bool
 IntersectRect(const SDL_Rect* A, const SDL_Rect* B):custom {
 	SDL_Rect result;
@@ -581,7 +581,7 @@ UnionRect(const SDL_Rect* A, const SDL_Rect* B):custom {
 // Video - Surface Creation and Simple Drawing
 BlitScaled(SDL_Surface* src, const SDL_Rect* srcrect, SDL_Surface*dst, SDL_Rect* dstrect):negerr
 BlitSurface(SDL_Surface* src, const SDL_Rect* srcrect, SDL_Surface*dst, SDL_Rect* dstrect):negerr
-ConvertPixels(int width, int height, Uint32 src_format, const void* #src, int #src_pitch, Uint32 dst_format, void* #dst, int #dst_pitch):negerr
+ConvertPixels(int width, int height, Uint32 src_format, const void* src#, int src_pitch#, Uint32 dst_format, void* dst#, int dst_pitch#):negerr
 ConvertSurface(SDL_Surface* src, const SDL_PixelFormat* fmt, Uint32 flags):SDL_Surface*
 ConvertSurfaceFormat(SDL_Surface* src, Uint32 pixel_format, Uint32 flags):SDL_Surface*
 CreateRGBSurface(Uint32 flags, int width, int height, int depth, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask):SDL_Surface*
@@ -657,7 +657,7 @@ SetSurfaceRLE(SDL_Surface* surface, int flag):negerr
 UnlockSurface(SDL_Surface* surface)
 //-----------------------------------------------------------------------------
 // Video - Platform-specific Window Management
-//GetWindowWMInfo(SDL_Window* window, SDL_SysWMinfo* #info):SDL_bool // duplicated
+//GetWindowWMInfo(SDL_Window* window, SDL_SysWMinfo* info#):SDL_bool // duplicated
 //-----------------------------------------------------------------------------
 // Video - Clipboard Handling
 GetClipboardText():custom {
@@ -684,7 +684,7 @@ GetTouchFinger(SDL_TouchID touchId, int index):SDL_Finger*
 HasEvent(Uint32 type):SDL_bool
 HasEvents(Uint32 minType, Uint32 maxType):SDL_bool
 #LoadDollarTemplates(SDL_TouchID touchId, SDL_RWops* src):negerr_number
-PeepEvents(SDL_Event* #events, int #numevents, SDL_eventaction action, Uint32 minType, Uint32 maxType):negerr
+PeepEvents(SDL_Event* events#, int numevents#, SDL_eventaction action, Uint32 minType, Uint32 maxType):negerr
 PollEvent():custom {
 	SDL_Event event;
 	int rtn = SDL_PollEvent(&event);
@@ -743,7 +743,7 @@ StopTextInput()
 // Input Events - Mouse Support
 #CaptureMouse(SDL_bool enalbed):negerr
 CreateColorCursor(SDL_Surface* surface, int hot_x, int hot_y):SDL_Cursor*
-CreateCursor(const Uint8* #data, const Uint8* mask, int w, int h, int hot_x, int hot_y):SDL_Cursor*
+CreateCursor(const Uint8* data#, const Uint8* mask, int w, int h, int hot_x, int hot_y):SDL_Cursor*
 CreateSystemCursor(SDL_SystemCursor id):SDL_Cursor*
 FreeCursor(SDL_Cursor* cursor)
 GetCursor():SDL_Cursor*
@@ -873,7 +873,7 @@ BuildAudioCVT(SDL_AudioCVT* cvt, SDL_AudioFormat src_format, Uint8 src_channels,
 CloseAudio()
 CloseAudioDevice(SDL_AudioDeviceID dev)
 ConvertAudio(SDL_AudioCVT* cvt):negerr
-FreeWAV(Uint8* #audio_buf)
+FreeWAV(Uint8* audio_buf#)
 GetAudioDeviceName(int index, int iscapture):const char*
 GetAudioDeviceStatus(SDL_AudioDeviceID dev):SDL_AudioStatus
 GetAudioDriver(int index):const char*
@@ -882,17 +882,17 @@ GetCurrentAudioDriver():const char*
 GetNumAudioDevices(int iscapture):negerr_number
 GetNumAudioDrivers():int
 #GetQueuedAudioSize(SDL_AudioDeviceID dev):Uint32
-LoadWAV(const char* file, SDL_AudioSpec* spec, Uint8** #audio_buf, Uint32* #audio_len):SDL_AudioSpec*
-#LoadWAV_RW(SDL_RWops* src, int freesrc, SDL_AudioSpec* spec, Uint8** #audio_buf, Uint32* #audio_len):SDL_AudioSpec*
+LoadWAV(const char* file, SDL_AudioSpec* spec, Uint8** audio_buf#, Uint32* audio_len#):SDL_AudioSpec*
+#LoadWAV_RW(SDL_RWops* src, int freesrc, SDL_AudioSpec* spec, Uint8** audio_buf#, Uint32* audio_len#):SDL_AudioSpec*
 LockAudio()
 LockAudioDevice(SDL_AudioDeviceID dev)
-MixAudio(Uint8* #dst, const Uint8* #src, Uint32 #len, int volume)
-MixAudioFormat(Uint8* #dst, const Uint8* #src, SDL_AudioFormat format, Uint32 #len, int volume)
-OpenAudio(SDL_AudioSpec* desired, SDL_AudioSpec* #obtained):negerr
-OpenAudioDevice(const char* device, int iscapture, const SDL_AudioSpec* desired, SDL_AudioSpec* #obtained, int allowed_changes):SDL_AudioDeviceID
+MixAudio(Uint8* dst#, const Uint8* src#, Uint32 len#, int volume)
+MixAudioFormat(Uint8* dst#, const Uint8* src#, SDL_AudioFormat format, Uint32 len#, int volume)
+OpenAudio(SDL_AudioSpec* desired, SDL_AudioSpec* obtained#):negerr
+OpenAudioDevice(const char* device, int iscapture, const SDL_AudioSpec* desired, SDL_AudioSpec* obtained#, int allowed_changes):SDL_AudioDeviceID
 PauseAudio(int pause_on)
 PauseAudioDevice(SDL_AudioDeviceID dev, int pause_on)
-QueueAudio(SDL_AudioDeviceID dev, const void* #data, Uint32 #len):negerr
+QueueAudio(SDL_AudioDeviceID dev, const void* data#, Uint32 len#):negerr
 UnlockAudio()
 UnlockAudioDevice(SDL_AudioDeviceID dev)
 AUDIO_BITSIZE(Uint16 x):Uint16
@@ -951,7 +951,7 @@ AtomicUnlock
 CompilerBarrier
 //-----------------------------------------------------------------------------
 // Timers - Timer Support
-AddTimer(Uint32 interval, SDL_TimerCallback #callback, void* #param):SDL_TimerID
+AddTimer(Uint32 interval, SDL_TimerCallback callback#, void* param#):SDL_TimerID
 Delay(Uint32 ms)
 GetPerformanceCounter():Uint64
 GetPerformanceFrequency():Uint64
@@ -1057,7 +1057,7 @@ Gura_DeclareFunction(${fi.funcName})
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	${end}
 	${for (arg in fi.argsGura)}
-	DeclareArg(env, "${arg.name}", VTYPE_${arg.typeGura}, OCCUR_${arg.occurPattern}, ${('FLAG_' + arg.flags.split('|')).join('|')});
+	DeclareArg(env, "${arg.name}", VTYPE_${arg.typeGura}, OCCUR_${arg.occurPattern}, ${('FLAG_' + arg.flags).join(' | ')});
 	${end}
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -1072,7 +1072,9 @@ Gura_ImplementFunction(${fi.funcName})
 	${for (argC in fi.argsC) {|idx|}}
 	${if (argC.fmtGetter)}
 	${argC.typeC.sub(r'(\w)$', r'\1 ') + argC.name} = ${
-		if (argC.typeC.endswith('*')) {
+		if (!argC.typeC.endswith('*')) {
+			argC.GetArg(idx)
+		} elsif (argC.flags.find('Nil')) {
 			format('args.IsValid(%d)? ', idx) + argC.GetArg(idx) + ' : NULL'
 		} else {
 			argC.GetArg(idx)
@@ -1140,7 +1142,7 @@ tmplAssignment = R'''
 
 ArgInfo = struct(name:string, typeC:string,
 				 moduleName:string:nil, typeGura:string:nil, fmtGetter:string:nil,
-				 occurPattern:string, flags:string) {
+				 occurPattern:string, flags[]:string) {
 	GetArg(idx:number) = format(this.fmtGetter, idx)
 	GetFullTypeGura() = cond(this.moduleName,
 							 this.moduleName + '.' + this.typeGura, this.typeGura)
@@ -1393,29 +1395,32 @@ FuncInfo = class {
 						sys.stderr.printf('%d: invalid argument "%s"\n', lineNo, argRaw)
 						sys.exit(1)
 					}
-					[typeGura, occurPattern, flags] = fields
-					ArgInfo(name, typeC, nil, typeGura, nil, occurPattern, flags)
+					[typeGura, occurPattern, flagsRaw] = fields
+					ArgInfo(name, typeC, nil, typeGura, nil,
+							occurPattern, flagsRaw.split('|')::strip())
 				} else {
 					occurPattern = 'Once'
-					flags = 'None'
-					if (m = argRaw.match(r'^(\w+)\s+(#?\w+)$')) {
-						[typeC, name] = m[1, 2]
-					} elsif (m = argRaw.match(r'^unsigned\s+(\w+)\s+(#?\w+)$')) {
-						[typeC, name] = ['unsigned ' + m[1], m[2]]
-					} elsif (m = argRaw.match(r'^(\w+)\s*(\*+)\s*(#?\w+)$')) {
-						[typeC, name] = [m[1] + ' ' + m[2], m[3]]
-					} elsif (m = argRaw.match(r'^const\s+(\w+)\s*(\*+)\s*(#?\w+)$')) {
-						[typeC, name] = ['const ' + m[1] + ' ' + m[2], m[3]]
+					flags = ['None']
+					if (m = argRaw.match(r'^(\w+)\s+(\w+)([#\?]?)$')) {
+						[typeC, name, attr] = m[1, 2, 3]
+					} elsif (m = argRaw.match(r'^unsigned\s+(\w+)\s+(\w+)([#\?]?)$')) {
+						[typeC, name, attr] = ['unsigned ' + m[1], m[2], m[3]]
+					} elsif (m = argRaw.match(r'^(\w+)\s*(\*+)\s*(\w+)([#\?]?)$')) {
+						[typeC, name, attr] = [m[1] + ' ' + m[2], m[3], m[4]]
+					} elsif (m = argRaw.match(r'^const\s+(\w+)\s*(\*+)\s*(\w+)([#\?]?)$')) {
+						[typeC, name, attr] = ['const ' + m[1] + ' ' + m[2], m[3], m[4]]
 					} else {
 						sys.stderr.printf('%d: invalid argument "%s"\n', lineNo, argRaw)
 						sys.exit(1)
 					}
-					if (name.startswith('#')) {
+					if (attr == '#') {
 						this.validFlag = false
-						ArgInfo(name.replace('#', ''), typeC,
-								nil, nil, 'NULL', occurPattern, flags)
+						ArgInfo(name, typeC, nil, nil, 'NULL', occurPattern, flags)
 					} else {
 						typeConv = typeConvDict.get(typeC)
+						if (attr == '?') {
+							flags = ['Nil']
+						}
 						if (!typeConv) {
 							sys.stderr.printf(
 									'%d: proper conversion not found in table "%s"\n',
