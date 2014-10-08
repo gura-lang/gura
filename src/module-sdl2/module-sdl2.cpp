@@ -947,6 +947,10 @@ Gura_ImplementFunction(GL_CreateContext)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	SDL_GLContext rtn = SDL_GL_CreateContext(window);
+	if (rtn == NULL) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
 	return ReturnValue(env, sig, args, Value(new Object_GLContext(rtn)));
 }
 
@@ -1017,6 +1021,10 @@ Gura_DeclareFunction(GL_GetCurrentContext)
 Gura_ImplementFunction(GL_GetCurrentContext)
 {
 	SDL_GLContext rtn = SDL_GL_GetCurrentContext();
+	if (rtn == NULL) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
 	return ReturnValue(env, sig, args, Value(new Object_GLContext(rtn)));
 }
 
@@ -1088,7 +1096,11 @@ Gura_DeclareFunction(GL_GetSwapInterval)
 Gura_ImplementFunction(GL_GetSwapInterval)
 {
 	int rtn = SDL_GL_GetSwapInterval();
-	return ReturnValue(env, sig, args, Value(rtn));
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(rtn != 0));
 }
 
 // sdl2.GL_LoadLibrary
@@ -1387,6 +1399,10 @@ Gura_ImplementFunction(GetNumDisplayModes)
 {
 	int displayIndex = args.GetInt(0);
 	int rtn = SDL_GetNumDisplayModes(displayIndex);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -1402,6 +1418,10 @@ Gura_DeclareFunction(GetNumVideoDisplays)
 Gura_ImplementFunction(GetNumVideoDisplays)
 {
 	int rtn = SDL_GetNumVideoDisplays();
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -1417,6 +1437,10 @@ Gura_DeclareFunction(GetNumVideoDrivers)
 Gura_ImplementFunction(GetNumVideoDrivers)
 {
 	int rtn = SDL_GetNumVideoDrivers();
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -1672,6 +1696,10 @@ Gura_ImplementFunction(GetWindowPixelFormat)
 {
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
 	Uint32 rtn = SDL_GetWindowPixelFormat(window);
+	if (rtn == SDL_PIXELFORMAT_UNKNOWN) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -2497,6 +2525,10 @@ Gura_DeclareFunction(GetNumRenderDrivers)
 Gura_ImplementFunction(GetNumRenderDrivers)
 {
 	int rtn = SDL_GetNumRenderDrivers();
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -2573,7 +2605,8 @@ Gura_ImplementFunction(GetRenderDriverInfo)
 // sdl2.GetRenderTarget
 Gura_DeclareFunction(GetRenderTarget)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -2582,8 +2615,12 @@ Gura_DeclareFunction(GetRenderTarget)
 Gura_ImplementFunction(GetRenderTarget)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
-	SDL_GetRenderTarget(renderer);
-	return Value::Null;
+	SDL_Texture *rtn = SDL_GetRenderTarget(renderer);
+	Value value;
+	if (rtn != NULL) {
+		value = Value(new Object_Texture(rtn));
+	}
+	return ReturnValue(env, sig, args, value);
 }
 
 // sdl2.GetRenderer
@@ -2827,10 +2864,10 @@ Gura_DeclareFunction(RenderCopyEx)
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "srcrect", VTYPE_Rect, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "dstrect", VTYPE_Rect, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "srcrect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
+	DeclareArg(env, "dstrect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "angle", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "center", VTYPE_Point, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "center", VTYPE_Point, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "flip", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -2840,10 +2877,10 @@ Gura_ImplementFunction(RenderCopyEx)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
 	SDL_Texture *texture = Object_Texture::GetObject(args, 1)->GetEntity();
-	const SDL_Rect *srcrect = Object_Rect::GetObject(args, 2)->GetEntity();
-	const SDL_Rect *dstrect = Object_Rect::GetObject(args, 3)->GetEntity();
+	const SDL_Rect *srcrect = args.IsValid(2)? Object_Rect::GetObject(args, 2)->GetEntity() : NULL;
+	const SDL_Rect *dstrect = args.IsValid(3)? Object_Rect::GetObject(args, 3)->GetEntity() : NULL;
 	double angle = args.GetDouble(4);
-	const SDL_Point *center = Object_Point::GetObject(args, 5)->GetEntity();
+	const SDL_Point *center = args.IsValid(5)? Object_Point::GetObject(args, 5)->GetEntity() : NULL;
 	SDL_RendererFlip flip = static_cast<SDL_RendererFlip>(args.GetInt(6));
 	int rtn = SDL_RenderCopyEx(renderer, texture, srcrect, dstrect, angle, center, flip);
 	if (rtn < 0) {
@@ -2956,7 +2993,7 @@ Gura_DeclareFunction(RenderDrawRect)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
@@ -2964,7 +3001,7 @@ Gura_DeclareFunction(RenderDrawRect)
 Gura_ImplementFunction(RenderDrawRect)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
-	const SDL_Rect *rect = Object_Rect::GetObject(args, 1)->GetEntity();
+	const SDL_Rect *rect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
 	int rtn = SDL_RenderDrawRect(renderer, rect);
 	if (rtn < 0) {
 		SetError_SDL(sig);
@@ -3001,7 +3038,7 @@ Gura_DeclareFunction(RenderFillRect)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
@@ -3009,7 +3046,7 @@ Gura_DeclareFunction(RenderFillRect)
 Gura_ImplementFunction(RenderFillRect)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
-	const SDL_Rect *rect = Object_Rect::GetObject(args, 1)->GetEntity();
+	const SDL_Rect *rect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
 	int rtn = SDL_RenderFillRect(renderer, rect);
 	if (rtn < 0) {
 		SetError_SDL(sig);
@@ -3158,7 +3195,7 @@ Gura_DeclareFunction(RenderReadPixels)
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "format", VTYPE_symbol, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -3167,7 +3204,7 @@ Gura_DeclareFunction(RenderReadPixels)
 Gura_ImplementFunction(RenderReadPixels)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
-	const SDL_Rect *rect = Object_Rect::GetObject(args, 1)->GetEntity();
+	const SDL_Rect *rect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
 	Uint32 format = SDL_PIXELFORMAT_UNKNOWN;
 	Image::Format fmtImage = Image::FORMAT_None;
 	const Symbol *pSymbol = args.GetSymbol(2);
@@ -3198,7 +3235,7 @@ Gura_DeclareFunction(RenderSetClipRect)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
@@ -3206,7 +3243,7 @@ Gura_DeclareFunction(RenderSetClipRect)
 Gura_ImplementFunction(RenderSetClipRect)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
-	const SDL_Rect *rect = Object_Rect::GetObject(args, 1)->GetEntity();
+	const SDL_Rect *rect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
 	int rtn = SDL_RenderSetClipRect(renderer, rect);
 	if (rtn < 0) {
 		SetError_SDL(sig);
@@ -3268,7 +3305,7 @@ Gura_DeclareFunction(RenderSetViewport)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
@@ -3276,7 +3313,7 @@ Gura_DeclareFunction(RenderSetViewport)
 Gura_ImplementFunction(RenderSetViewport)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
-	const SDL_Rect *rect = Object_Rect::GetObject(args, 1)->GetEntity();
+	const SDL_Rect *rect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
 	int rtn = SDL_RenderSetViewport(renderer, rect);
 	if (rtn < 0) {
 		SetError_SDL(sig);
@@ -3353,7 +3390,7 @@ Gura_DeclareFunction(SetRenderTarget)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_Nil);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
@@ -3361,7 +3398,7 @@ Gura_DeclareFunction(SetRenderTarget)
 Gura_ImplementFunction(SetRenderTarget)
 {
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
-	SDL_Texture *texture = Object_Texture::GetObject(args, 1)->GetEntity();
+	SDL_Texture *texture = args.IsValid(1)? Object_Texture::GetObject(args, 1)->GetEntity() : NULL;
 	int rtn = SDL_SetRenderTarget(renderer, texture);
 	if (rtn < 0) {
 		SetError_SDL(sig);
@@ -3461,7 +3498,7 @@ Gura_DeclareFunction(UpdateTexture)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "pitch", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -3471,7 +3508,7 @@ Gura_ImplementFunction(UpdateTexture)
 {
 #if 0
 	SDL_Texture *texture = Object_Texture::GetObject(args, 0)->GetEntity();
-	const SDL_Rect *rect = Object_Rect::GetObject(args, 1)->GetEntity();
+	const SDL_Rect *rect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
 	const void *pixels = NULL;
 	int pitch = args.GetInt(3);
 	int rtn = SDL_UpdateTexture(texture, rect, pixels, pitch);
@@ -3490,7 +3527,7 @@ Gura_DeclareFunction(UpdateYUVTexture)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "texture", VTYPE_Texture, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "Yplane", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "Ypitch", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "Uplane", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3505,7 +3542,7 @@ Gura_ImplementFunction(UpdateYUVTexture)
 {
 #if 0
 	SDL_Texture *texture = Object_Texture::GetObject(args, 0)->GetEntity();
-	const SDL_Rect *rect = Object_Rect::GetObject(args, 1)->GetEntity();
+	const SDL_Rect *rect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
 	const Uint8 *Yplane = args.GetList(2);
 	int Ypitch = args.GetInt(3);
 	const Uint8 *Uplane = args.GetList(4);
@@ -3840,6 +3877,7 @@ Gura_DeclareFunction(EnclosePoints)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "points", VTYPE_Point, OCCUR_Once, FLAG_List);
 	DeclareArg(env, "clip", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -3847,16 +3885,16 @@ Gura_DeclareFunction(EnclosePoints)
 
 Gura_ImplementFunction(EnclosePoints)
 {
-#if 0
-	const SDL_Point *points = NULL;
-	int count = NULL;
-	const SDL_Rect *clip = Object_Rect::GetObject(args, 2)->GetEntity();
-	SDL_Rect *result = NULL;
-	SDL_bool rtn = SDL_EnclosePoints(points, count, clip, result);
-	return ReturnValue(env, sig, args, Value(rtn != SDL_FALSE));
-#endif
-	SetError_NotImpFunction(sig, "EnclosePoints");
-	return Value::Null;
+	const SDL_Rect *clip = Object_Rect::GetObject(args, 1)->GetEntity();
+	CArray<SDL_Point> points(CreateCArray<SDL_Point, Object_Point>(args.GetList(0)));
+	int count = static_cast<int>(points.GetSize());
+	SDL_Rect result;
+	SDL_bool rtn = SDL_EnclosePoints(points, count, clip, &result);
+	Value value;
+	if (rtn == SDL_TRUE) {
+		value = Value(new Object_Rect(result));
+	}
+	return ReturnValue(env, sig, args, value);
 }
 
 // sdl2.HasIntersection
@@ -4016,9 +4054,9 @@ Gura_DeclareFunction(BlitScaled)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "src", VTYPE_Surface, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "srcrect", VTYPE_Rect, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "srcrect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "dst", VTYPE_Surface, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "dstrect", VTYPE_Rect, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "dstrect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
@@ -4026,9 +4064,9 @@ Gura_DeclareFunction(BlitScaled)
 Gura_ImplementFunction(BlitScaled)
 {
 	SDL_Surface *src = Object_Surface::GetObject(args, 0)->GetEntity();
-	const SDL_Rect *srcrect = Object_Rect::GetObject(args, 1)->GetEntity();
+	const SDL_Rect *srcrect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
 	SDL_Surface *dst = Object_Surface::GetObject(args, 2)->GetEntity();
-	SDL_Rect *dstrect = Object_Rect::GetObject(args, 3)->GetEntity();
+	SDL_Rect *dstrect = args.IsValid(3)? Object_Rect::GetObject(args, 3)->GetEntity() : NULL;
 	int rtn = SDL_BlitScaled(src, srcrect, dst, dstrect);
 	if (rtn < 0) {
 		SetError_SDL(sig);
@@ -4042,9 +4080,9 @@ Gura_DeclareFunction(BlitSurface)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "src", VTYPE_Surface, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "srcrect", VTYPE_Rect, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "srcrect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "dst", VTYPE_Surface, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "dstrect", VTYPE_Rect, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "dstrect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
@@ -4052,9 +4090,9 @@ Gura_DeclareFunction(BlitSurface)
 Gura_ImplementFunction(BlitSurface)
 {
 	SDL_Surface *src = Object_Surface::GetObject(args, 0)->GetEntity();
-	const SDL_Rect *srcrect = Object_Rect::GetObject(args, 1)->GetEntity();
+	const SDL_Rect *srcrect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
 	SDL_Surface *dst = Object_Surface::GetObject(args, 2)->GetEntity();
-	SDL_Rect *dstrect = Object_Rect::GetObject(args, 3)->GetEntity();
+	SDL_Rect *dstrect = args.IsValid(3)? Object_Rect::GetObject(args, 3)->GetEntity() : NULL;
 	int rtn = SDL_BlitSurface(src, srcrect, dst, dstrect);
 	if (rtn < 0) {
 		SetError_SDL(sig);
@@ -4187,12 +4225,52 @@ Gura_DeclareFunction(CreateRGBSurfaceFrom)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	DeclareArg(env, "image", VTYPE_image, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "height", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "depth", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "pitch", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "Rmask", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "Gmask", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "Bmask", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "Amask", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(CreateRGBSurfaceFrom)
+{
+#if 0
+	void *pixels = NULL;
+	int width = args.GetInt(1);
+	int height = args.GetInt(2);
+	int depth = args.GetInt(3);
+	int pitch = args.GetInt(4);
+	Uint32 Rmask = args.GetULong(5);
+	Uint32 Gmask = args.GetULong(6);
+	Uint32 Bmask = args.GetULong(7);
+	Uint32 Amask = args.GetULong(8);
+	SDL_Surface *rtn = SDL_CreateRGBSurfaceFrom(pixels, width, height, depth, pitch, Rmask, Gmask, Bmask, Amask);
+	if (rtn == NULL) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_Surface(rtn)));
+#endif
+	SetError_NotImpFunction(sig, "CreateRGBSurfaceFrom");
+	return Value::Null;
+}
+
+// sdl2.CreateRGBSurfaceFromImage
+Gura_DeclareFunction(CreateRGBSurfaceFromImage)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "image", VTYPE_image, OCCUR_Once, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(CreateRGBSurfaceFromImage)
 {
 	Image *pImage = Object_image::GetObject(args, 0)->GetImage();
 	Object_Surface *pObjSurface = Object_Surface::CreateSurfaceFromImage(sig, pImage);
@@ -4205,7 +4283,7 @@ Gura_DeclareFunction(FillRect)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "dst", VTYPE_Surface, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "color", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -4214,7 +4292,7 @@ Gura_DeclareFunction(FillRect)
 Gura_ImplementFunction(FillRect)
 {
 	SDL_Surface *dst = Object_Surface::GetObject(args, 0)->GetEntity();
-	const SDL_Rect *rect = Object_Rect::GetObject(args, 1)->GetEntity();
+	const SDL_Rect *rect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
 	Uint32 color = args.GetULong(2);
 	int rtn = SDL_FillRect(dst, rect, color);
 	if (rtn < 0) {
@@ -4268,9 +4346,9 @@ Gura_ImplementFunction(FreeSurface)
 // sdl2.GetClipRect
 Gura_DeclareFunction(GetClipRect)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
@@ -4278,9 +4356,9 @@ Gura_DeclareFunction(GetClipRect)
 Gura_ImplementFunction(GetClipRect)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
-	SDL_Rect *rect = Object_Rect::GetObject(args, 1)->GetEntity();
-	SDL_GetClipRect(surface, rect);
-	return Value::Null;
+	SDL_Rect rect;
+	SDL_GetClipRect(surface, &rect);
+	return ReturnValue(env, sig, args, Value(new Object_Rect(rect)));
 }
 
 // sdl2.GetColorKey
@@ -4298,11 +4376,14 @@ Gura_ImplementFunction(GetColorKey)
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
 	Uint32 key = 0;
 	int rtn = SDL_GetColorKey(surface, &key);
-	if (rtn < 0) {
-		SetError_SDL(sig);	// there may be no error even if rtn is -1.
+	Value value;
+	if (rtn >= 0) {
+		value = Value(key);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(key));
+	return ReturnValue(env, sig, args, value);
 }
 
 // sdl2.GetSurfaceAlphaMod
@@ -4443,7 +4524,7 @@ Gura_DeclareFunction(LowerBlit)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "src", VTYPE_Surface, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "srcrect", VTYPE_Rect, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "srcrect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	DeclareArg(env, "dst", VTYPE_Surface, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "dstrect", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -4453,7 +4534,7 @@ Gura_DeclareFunction(LowerBlit)
 Gura_ImplementFunction(LowerBlit)
 {
 	SDL_Surface *src = Object_Surface::GetObject(args, 0)->GetEntity();
-	SDL_Rect *srcrect = Object_Rect::GetObject(args, 1)->GetEntity();
+	SDL_Rect *srcrect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
 	SDL_Surface *dst = Object_Surface::GetObject(args, 2)->GetEntity();
 	SDL_Rect *dstrect = Object_Rect::GetObject(args, 3)->GetEntity();
 	int rtn = SDL_LowerBlit(src, srcrect, dst, dstrect);
@@ -4563,7 +4644,7 @@ Gura_DeclareFunction(SetClipRect)
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
@@ -4571,7 +4652,7 @@ Gura_DeclareFunction(SetClipRect)
 Gura_ImplementFunction(SetClipRect)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
-	const SDL_Rect *rect = Object_Rect::GetObject(args, 1)->GetEntity();
+	const SDL_Rect *rect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
 	SDL_bool rtn = SDL_SetClipRect(surface, rect);
 	return ReturnValue(env, sig, args, Value(rtn != SDL_FALSE));
 }
@@ -4936,6 +5017,10 @@ Gura_ImplementFunction(GetNumTouchFingers)
 {
 	SDL_TouchID touchId = static_cast<SDL_TouchID>(args.GetInt(0));
 	int rtn = SDL_GetNumTouchFingers(touchId);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -4953,6 +5038,10 @@ Gura_ImplementFunction(GetTouchDevice)
 {
 	int index = args.GetInt(0);
 	SDL_TouchID rtn = SDL_GetTouchDevice(index);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -5121,7 +5210,7 @@ Gura_ImplementFunction(PushEvent)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, sig, args, Value(rtn != 0));
 }
 
 // sdl2.QuitRequested
@@ -5142,7 +5231,8 @@ Gura_ImplementFunction(QuitRequested)
 // sdl2.RecordGesture
 Gura_DeclareFunction(RecordGesture)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "touchId", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -5156,7 +5246,7 @@ Gura_ImplementFunction(RecordGesture)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value(rtn));
 }
 
 // sdl2.RegisterEvents
@@ -5173,7 +5263,11 @@ Gura_ImplementFunction(RegisterEvents)
 {
 	int numevents = args.GetInt(0);
 	Uint32 rtn = SDL_RegisterEvents(numevents);
-	return ReturnValue(env, sig, args, Value(rtn));
+	Value value;
+	if (rtn != (Uint32)-1) {
+		value = Value(rtn);
+	}
+	return ReturnValue(env, sig, args, value);
 }
 
 // sdl2.SaveAllDollarTemplates
@@ -5279,11 +5373,14 @@ Gura_ImplementFunction(WaitEventTimeout)
 	int timeout = args.GetInt(0);
 	SDL_Event event;
 	int rtn = SDL_WaitEventTimeout(&event, timeout);
-	if (rtn == 0) {
-		SetError_SDL(sig); // no signal if timeout
+	Value value;
+	if (rtn > 0) {
+		value = Value(new Object_Event(event));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Event(event)));
+	return ReturnValue(env, sig, args, value);
 }
 
 // sdl2.GetKeyFromName
@@ -5300,6 +5397,10 @@ Gura_ImplementFunction(GetKeyFromName)
 {
 	const char *name = args.GetString(0);
 	SDL_Keycode rtn = SDL_GetKeyFromName(name);
+	if (rtn == SDLK_UNKNOWN) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -5422,6 +5523,10 @@ Gura_ImplementFunction(GetScancodeFromName)
 {
 	const char *name = args.GetString(0);
 	SDL_Scancode rtn = SDL_GetScancodeFromName(name);
+	if (rtn == SDL_SCANCODE_UNKNOWN) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -5513,14 +5618,14 @@ Gura_ImplementFunction(SetModState)
 Gura_DeclareFunction(SetTextInputRect)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_Nil);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(SetTextInputRect)
 {
-	SDL_Rect *rect = Object_Rect::GetObject(args, 0)->GetEntity();
+	SDL_Rect *rect = args.IsValid(0)? Object_Rect::GetObject(args, 0)->GetEntity() : NULL;
 	SDL_SetTextInputRect(rect);
 	return Value::Null;
 }
@@ -5685,11 +5790,11 @@ Gura_DeclareFunction(GetCursor)
 Gura_ImplementFunction(GetCursor)
 {
 	SDL_Cursor *rtn = SDL_GetCursor();
-	if (rtn == NULL) {
-		SetError_SDL(sig);
-		return Value::Null;
+	Value value;
+	if (rtn != NULL) {
+		value = Value(new Object_Cursor(rtn, false));
 	}
-	return ReturnValue(env, sig, args, Value(new Object_Cursor(rtn, false)));
+	return ReturnValue(env, sig, args, value);
 }
 
 // sdl2.GetDefaultCursor
@@ -10974,6 +11079,7 @@ void AssignFunctions(Environment &env)
 		Gura_AssignFunction(ConvertSurfaceFormat);
 		Gura_AssignFunction(CreateRGBSurface);
 		Gura_AssignFunction(CreateRGBSurfaceFrom);
+		Gura_AssignFunction(CreateRGBSurfaceFromImage);
 		Gura_AssignFunction(FillRect);
 		Gura_AssignFunction(FillRects);
 		Gura_AssignFunction(FreeSurface);
