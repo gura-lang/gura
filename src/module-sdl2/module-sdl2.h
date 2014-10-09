@@ -17,6 +17,7 @@
 #include "Class_Keysym.h"
 #include "Class_Cursor.h"
 #include "Class_Joystick.h"
+#include "Class_JoystickGUID.h"
 #include "Class_GameController.h"
 #include "Class_GameControllerButtonBind.h"
 #include "Class_AudioCVT.h"

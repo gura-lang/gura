@@ -6040,7 +6040,7 @@ Gura_ImplementFunction(JoystickEventState)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, sig, args, Value(rtn != 0));
 }
 
 // sdl2.JoystickGetAttached
@@ -6120,7 +6120,7 @@ Gura_ImplementFunction(JoystickGetButton)
 	SDL_Joystick *joystick = Object_Joystick::GetObject(args, 0)->GetEntity();
 	int button = args.GetInt(1);
 	Uint8 rtn = SDL_JoystickGetButton(joystick, button);
-	return ReturnValue(env, sig, args, Value(rtn));
+	return ReturnValue(env, sig, args, Value(rtn != 0));
 }
 
 // sdl2.JoystickGetDeviceGUID
@@ -10225,6 +10225,7 @@ Gura_ModuleEntry()
 	RealizeClass(Keysym);
 	RealizeClass(Cursor);
 	RealizeClass(Joystick);
+	RealizeClass(JoystickGUID);
 	RealizeClass(GameController);
 	RealizeClass(GameControllerButtonBind);
 	RealizeClass(AudioCVT);
@@ -10249,6 +10250,7 @@ Gura_ModuleEntry()
 	PrepareClass(Keysym);
 	PrepareClass(Cursor);
 	PrepareClass(Joystick);
+	PrepareClass(JoystickGUID);
 	PrepareClass(GameController);
 	PrepareClass(GameControllerButtonBind);
 	PrepareClass(AudioCVT);

@@ -860,15 +860,10 @@ SetRelativeMouseMode(SDL_bool enabled):negerr
 ShowCursor(int toggle):negerr
 #WarpMouseGlobal(int x, int y)
 WarpMouseInWindow(SDL_Window* window, int x, int y)
-
-
-// review required from here
-
-
 //-----------------------------------------------------------------------------
 // Input Events - Joystick Support
 JoystickClose(SDL_Joystick* joystick)
-JoystickEventState(int state):negerr_number
+JoystickEventState(int state):negerr_boolean
 JoystickGetAttached(SDL_Joystick* joystick):SDL_bool
 JoystickGetAxis(SDL_Joystick* joystick, int axis):Sint16
 JoystickGetBall(SDL_Joystick* joystick, int ball):custom {
@@ -881,7 +876,10 @@ JoystickGetBall(SDL_Joystick* joystick, int ball):custom {
 	}
 	return ReturnValue(env, sig, args, Value::CreateList(env, Value(dx), Value(dy)));
 }
-JoystickGetButton(SDL_Joystick* joystick, int button):Uint8
+JoystickGetButton(SDL_Joystick* joystick, int button):custom {
+	Uint8 rtn = SDL_JoystickGetButton(joystick, button);
+	return ReturnValue(env, sig, args, Value(rtn != 0));
+}
 #JoystickGetDeviceGUID(int device_index):int
 #JoystickGetGUID(SDL_Joystick* joystick):int
 #JoystickGetGUIDFromString(const char* pchGUID):int
