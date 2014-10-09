@@ -199,6 +199,10 @@ Gura_ModuleEntry()
 
 void AssignValues(Environment &env)
 {
+	Gura_AssignValueSDL(QUERY);
+	Gura_AssignValueSDL(IGNORE);
+	Gura_AssignValueSDL(ENABLE);
+	Gura_AssignValueSDL(DISABLE);
 	// Basics - Initialization and Shutdown
 	Gura_AssignValueSDL(INIT_TIMER);
 	Gura_AssignValueSDL(INIT_AUDIO);
