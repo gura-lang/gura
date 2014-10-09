@@ -880,12 +880,24 @@ JoystickGetButton(SDL_Joystick* joystick, int button):custom {
 	Uint8 rtn = SDL_JoystickGetButton(joystick, button);
 	return ReturnValue(env, sig, args, Value(rtn != 0));
 }
-#JoystickGetDeviceGUID(int device_index):int
-#JoystickGetGUID(SDL_Joystick* joystick):int
-#JoystickGetGUIDFromString(const char* pchGUID):int
-#JoystickGetGUIDString()
+JoystickGetDeviceGUID(int device_index):SDL_JoystickGUID
+JoystickGetGUID(SDL_Joystick* joystick):SDL_JoystickGUID
+JoystickGetGUIDFromString(const char* pchGUID):SDL_JoystickGUID
+JoystickGetGUIDString(SDL_JoystickGUID guid):custom {
+	char szGUID[64];
+	int cbGUID = sizeof(szGUID);
+	SDL_JoystickGetGUIDString(guid, szGUID, cbGUID);
+	return ReturnValue(env, sig, args, Value(szGUID));
+}
 JoystickGetHat(SDL_Joystick* joystick, int hat):Uint8
-JoystickInstanceID(SDL_Joystick* joystick):SDL_JoystickID
+JoystickInstanceID(SDL_Joystick* joystick):custom {
+	SDL_JoystickID rtn = SDL_JoystickInstanceID(joystick);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(rtn));
+}
 JoystickName(SDL_Joystick* joystick):const char*
 JoystickNameForIndex(int device_index):const char*
 JoystickNumAxes(SDL_Joystick* joystick):negerr_number
@@ -1332,6 +1344,10 @@ typeConvDict = %{
 			nil, 'number',
 			'static_cast<SDL_AudioFormat>(args.GetInt(%d))',
 			'Value(rtn)')
+	'SDL_JoystickGUID' => TypeConv(
+			'sdl2', 'JoystickGUID',
+			'*Object_JoystickGUID::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_JoystickGUID(rtn))')
 	'SDL_GLContext' => TypeConv(
 			'sdl2', 'GLContext',
 			'Object_GLContext::GetObject(args, %d)->GetEntity()',

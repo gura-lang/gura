@@ -6135,13 +6135,9 @@ Gura_DeclareFunction(JoystickGetDeviceGUID)
 
 Gura_ImplementFunction(JoystickGetDeviceGUID)
 {
-#if 0
 	int device_index = args.GetInt(0);
-	int rtn = SDL_JoystickGetDeviceGUID(device_index);
-	return ReturnValue(env, sig, args, Value(rtn));
-#endif
-	SetError_NotImpFunction(sig, "JoystickGetDeviceGUID");
-	return Value::Null;
+	SDL_JoystickGUID rtn = SDL_JoystickGetDeviceGUID(device_index);
+	return ReturnValue(env, sig, args, Value(new Object_JoystickGUID(rtn)));
 }
 
 // sdl2.JoystickGetGUID
@@ -6156,13 +6152,9 @@ Gura_DeclareFunction(JoystickGetGUID)
 
 Gura_ImplementFunction(JoystickGetGUID)
 {
-#if 0
 	SDL_Joystick *joystick = Object_Joystick::GetObject(args, 0)->GetEntity();
-	int rtn = SDL_JoystickGetGUID(joystick);
-	return ReturnValue(env, sig, args, Value(rtn));
-#endif
-	SetError_NotImpFunction(sig, "JoystickGetGUID");
-	return Value::Null;
+	SDL_JoystickGUID rtn = SDL_JoystickGetGUID(joystick);
+	return ReturnValue(env, sig, args, Value(new Object_JoystickGUID(rtn)));
 }
 
 // sdl2.JoystickGetGUIDFromString
@@ -6177,31 +6169,28 @@ Gura_DeclareFunction(JoystickGetGUIDFromString)
 
 Gura_ImplementFunction(JoystickGetGUIDFromString)
 {
-#if 0
 	const char *pchGUID = args.GetString(0);
-	int rtn = SDL_JoystickGetGUIDFromString(pchGUID);
-	return ReturnValue(env, sig, args, Value(rtn));
-#endif
-	SetError_NotImpFunction(sig, "JoystickGetGUIDFromString");
-	return Value::Null;
+	SDL_JoystickGUID rtn = SDL_JoystickGetGUIDFromString(pchGUID);
+	return ReturnValue(env, sig, args, Value(new Object_JoystickGUID(rtn)));
 }
 
 // sdl2.JoystickGetGUIDString
 Gura_DeclareFunction(JoystickGetGUIDString)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "guid", VTYPE_JoystickGUID, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(JoystickGetGUIDString)
 {
-#if 0
-	SDL_JoystickGetGUIDString();
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "JoystickGetGUIDString");
-	return Value::Null;
+	SDL_JoystickGUID guid = *Object_JoystickGUID::GetObject(args, 0)->GetEntity();
+	char szGUID[64];
+	int cbGUID = sizeof(szGUID);
+	SDL_JoystickGetGUIDString(guid, szGUID, cbGUID);
+	return ReturnValue(env, sig, args, Value(szGUID));
 }
 
 // sdl2.JoystickGetHat
@@ -6237,6 +6226,10 @@ Gura_ImplementFunction(JoystickInstanceID)
 {
 	SDL_Joystick *joystick = Object_Joystick::GetObject(args, 0)->GetEntity();
 	SDL_JoystickID rtn = SDL_JoystickInstanceID(joystick);
+	if (rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
 	return ReturnValue(env, sig, args, Value(rtn));
 }
 
@@ -10770,6 +10763,15 @@ void AssignValues(Environment &env)
 	Gura_AssignValueConst(KMOD_RESERVED);
 	// Input Events - Mouse Support
 	// Input Events - Joystick Support
+	Gura_AssignValueSDL(HAT_CENTERED);
+	Gura_AssignValueSDL(HAT_UP);
+	Gura_AssignValueSDL(HAT_RIGHT);
+	Gura_AssignValueSDL(HAT_DOWN);
+	Gura_AssignValueSDL(HAT_LEFT);
+	Gura_AssignValueSDL(HAT_RIGHTUP);
+	Gura_AssignValueSDL(HAT_RIGHTDOWN);
+	Gura_AssignValueSDL(HAT_LEFTUP);
+	Gura_AssignValueSDL(HAT_LEFTDOWN);
 	// Input Events - Game Controller Support
 	Gura_AssignValueSDL(CONTROLLER_AXIS_INVALID);
 	Gura_AssignValueSDL(CONTROLLER_AXIS_LEFTX);
