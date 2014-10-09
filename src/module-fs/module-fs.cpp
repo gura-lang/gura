@@ -209,6 +209,7 @@ bool Stream_File::OpenStdin()
 		_fileName = "stdin", SetReadable(true), SetWritable(false);
 		SetCodec(Codec::CreateCodec(_sig, OAL::GetEncodingForConsole(), true, true));
 	}
+	_blockingFlag = true;
 	return true;
 }
 
@@ -382,6 +383,7 @@ bool Stream_File::OpenStdin()
 	_fp = stdin;
 	_fileName = "stdin", SetReadable(true), SetWritable(false);
 	SetCodec(Codec::CreateCodec(_sig, OAL::GetEncodingForConsole(), true, false));
+	_blockingFlag = true;
 	return true;
 }
 

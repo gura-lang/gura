@@ -51,8 +51,8 @@ GURA_DLLDECLARE const char *GetEncodingForConsole();
 GURA_DLLDECLARE const Symbol *GetLangCode();
 
 GURA_DLLDECLARE int ExecProgram(Environment &env, Signal sig, const char *pathName,
-		const ValueList &valList, Stream *pStreamStdout, Stream *pStreamStderr,
-		bool forkFlag);
+			const ValueList &valList, Stream *pStreamStdin,
+			Stream *pStreamStdout, Stream *pStreamStderr, bool forkFlag);
 GURA_DLLDECLARE String GetEnv(const char *name, bool *pFoundFlag = NULL);
 GURA_DLLDECLARE void PutEnv(const char *name, const char *value);
 GURA_DLLDECLARE void UnsetEnv(const char *name);

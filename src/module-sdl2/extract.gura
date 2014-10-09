@@ -938,6 +938,9 @@ GameControllerNameForIndex(int joystick_index):const char*
 GameControllerOpen(int joystick_index):SDL_GameController*
 GameControllerUpdate()
 IsGameController(int joystick_index):SDL_bool
+
+// review required from here
+
 //-----------------------------------------------------------------------------
 // Force Feedback - Force Feedback Support
 HapticClose(SDL_Haptic* haptic)

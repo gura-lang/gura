@@ -65,6 +65,7 @@ protected:
 	Signal _sig;
 	ULong _attr;
 	size_t _offsetCur;
+	bool _blockingFlag;
 	AutoPtr<Codec> _pCodec;
 	struct {
 		char *buff;
@@ -88,6 +89,8 @@ public:
 	virtual const char *GetIdentifier() const = 0;
 	virtual bool GetAttribute(Attribute &attr);
 	virtual bool SetAttribute(const Attribute &attr);
+	virtual void SetBlocking(bool blockingFlag);
+	virtual bool GetBlocking() const;
 	virtual size_t DoRead(Signal sig, void *buff, size_t len);
 	virtual size_t DoWrite(Signal sig, const void *buff, size_t len);
 	virtual bool DoSeek(Signal sig, long offset, size_t offsetPrev, SeekMode seekMode);

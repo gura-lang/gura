@@ -76,8 +76,8 @@ void SimpleStream::Dump(Signal sig, const void *buff, size_t bytes, bool upperFl
 // Stream
 //-----------------------------------------------------------------------------
 Stream::Stream(Environment &env, Signal sig, ULong attr) :
-			_cntRef(1), _sig(sig), _attr(attr), _offsetCur(0),
-			_pCodec(Codec::CreateCodecNone(true, false))
+		_cntRef(1), _sig(sig), _attr(attr), _offsetCur(0), _blockingFlag(false),
+		_pCodec(Codec::CreateCodecNone(true, false))
 {
 	_peek.buff = NULL;
 	_peek.bytes = 0;
@@ -176,6 +176,15 @@ bool Stream::GetAttribute(Attribute &attr)
 bool Stream::SetAttribute(const Attribute &attr)
 {
 	return false;
+}
+
+void Stream::SetBlocking(bool blockingFlag)
+{
+}
+
+bool Stream::GetBlocking() const
+{
+	return _blockingFlag;
 }
 
 size_t Stream::DoRead(Signal sig, void *buff, size_t len)

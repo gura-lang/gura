@@ -554,8 +554,8 @@ const char FileSeparator = '\\';
 const bool IgnoreCaseInPathNameFlag = true;
 
 int ExecProgram(Environment &env, Signal sig, const char *pathName,
-		const ValueList &valList, Stream *pStreamStdout, Stream *pStreamStderr,
-		bool forkFlag)
+				const ValueList &valList, Stream *pStreamStdin,
+				Stream *pStreamStdout, Stream *pStreamStderr, bool forkFlag)
 {
 	String cmdLine;
 	AppendCmdLine(cmdLine, ToNativeString(pathName).c_str());
@@ -1227,8 +1227,8 @@ const char FileSeparator = '/';
 const bool IgnoreCaseInPathNameFlag = false;
 
 int ExecProgram(Environment &env, Signal sig, const char *pathName,
-		const ValueList &valList, Stream *pStreamStdout, Stream *pStreamStderr,
-		bool forkFlag)
+				const ValueList &valList, Stream *pStreamStdin,
+				Stream *pStreamStdout, Stream *pStreamStderr, bool forkFlag)
 {
 	int exitCode = 0;
 	pid_t pid = 0;
@@ -1252,23 +1252,38 @@ int ExecProgram(Environment &env, Signal sig, const char *pathName,
 		}
 		goto done;
 	}
+	int fdsStdin[2];
 	int fdsStdout[2];
 	int fdsStderr[2];
-	if (::pipe(fdsStdout) < 0 || ::pipe(fdsStderr) < 0) {
+	if (::pipe(fdsStdin) < 0 || ::pipe(fdsStdout) < 0 || ::pipe(fdsStderr) < 0) {
 		sig.SetError(ERR_IOError, "failed to create pipes");
 		goto done;
 	}
 	pid = ::fork();
 	if (pid == 0) {
+		::dup2(fdsStdin[0], 0);
 		::dup2(fdsStdout[1], 1);
 		::dup2(fdsStderr[1], 2);
-		::close(fdsStdout[1]);
-		::close(fdsStderr[1]);
+		for (int i = 0; i < 2; i++) {
+			::close(fdsStdin[i]);
+			::close(fdsStdout[i]);
+			::close(fdsStderr[i]);
+		}
 		::execv("/bin/sh", argv);
 		::exit(1);
 	}
 	fd_set fdsRead;
 	for (;;) {
+		if (pStreamStdin != NULL && !pStreamStdin->GetBlocking()) {
+			char *buff = reinterpret_cast<char *>(pMemory->GetPointer());
+			size_t bytesRead = pStreamStdin->Read(sig, buff, pMemory->GetSize());
+			if (sig.IsSignalled()) return -1;
+			if (bytesRead == 0) {
+				::close(fdsStdin[1]);
+			} else {
+				::write(fdsStdin[1], buff, bytesRead);
+			}
+		}
 		timeval tv;
 		::memset(&tv, 0x00, sizeof(tv));
 		tv.tv_sec = 0;
@@ -1302,6 +1317,7 @@ int ExecProgram(Environment &env, Signal sig, const char *pathName,
 		}
 	}
 	for (int i = 0; i < 2; i++) {
+		::close(fdsStdin[i]);	// fdsStdin[1] may already have been closed.
 		::close(fdsStdout[i]);
 		::close(fdsStderr[i]);
 	}
