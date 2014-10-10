@@ -24,7 +24,7 @@ static Sint64 RWops_seek(SDL_RWops *context, Sint64 offset, int whence)
 	} else if (whence == RW_SEEK_CUR) {
 		seekMode = Stream::SeekCur;
 	} else if (whence == RW_SEEK_END) {
-		seekMode = Stream::SeekCur;
+		seekMode = Stream::SeekEnd;
 	} else {
 		sig.SetError(ERR_ValueError, "invalid value for whence");
 		return -1;
@@ -38,7 +38,8 @@ static size_t RWops_read(SDL_RWops *context, void *ptr, size_t size, size_t maxn
 	RWopsStream *contextEx = reinterpret_cast<RWopsStream *>(context);
 	Stream *pStream = contextEx->pStream;
 	Signal &sig = *contextEx->pSig;
-	return 0;
+	size_t rtn = pStream->Read(sig, ptr, size * maxnum);
+	return rtn / size;
 }
 
 static size_t RWops_write(SDL_RWops *context, const void *ptr, size_t size, size_t num)
@@ -46,7 +47,8 @@ static size_t RWops_write(SDL_RWops *context, const void *ptr, size_t size, size
 	RWopsStream *contextEx = reinterpret_cast<RWopsStream *>(context);
 	Stream *pStream = contextEx->pStream;
 	Signal &sig = *contextEx->pSig;
-	return 0;
+	size_t rtn = pStream->Write(sig, ptr, size * num);
+	return rtn / size;
 }
 
 static int RWops_close(SDL_RWops *context)
@@ -54,10 +56,10 @@ static int RWops_close(SDL_RWops *context)
 	RWopsStream *contextEx = reinterpret_cast<RWopsStream *>(context);
 	Stream *pStream = contextEx->pStream;
 	Signal &sig = *contextEx->pSig;
-	return 0;
+	return pStream->Close()? 0 : -1;
 }
 
-SDL_RWops *CreateRWFromStream(Stream *pStream, Signal *pSig)
+SDL_RWops *CreateRWopsStream(Stream *pStream, Signal *pSig)
 {
 	RWopsStream *contextEx = new RWopsStream();
 	contextEx->context.size = RWops_size;

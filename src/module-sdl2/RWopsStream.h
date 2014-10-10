@@ -9,7 +9,7 @@ struct RWopsStream {
 	Signal *pSig;
 };
 
-SDL_RWops *CreateRWFromStream(Stream *pStream, Signal *pSig);
+SDL_RWops *CreateRWopsStream(Stream *pStream, Signal *pSig);
 
 Gura_EndModuleScope(sdl2)
 

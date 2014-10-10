@@ -4512,23 +4512,21 @@ Gura_DeclareFunction(LoadBMP)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	DeclareArg(env, "file", VTYPE_string, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(LoadBMP)
 {
-	const char *file = args.GetString(0);
-	SDL_Surface *_rtn = SDL_LoadBMP(file);
-	Value _rtnVal;
-	if (_rtn != NULL) {
-		_rtnVal = Value(new Object_Surface(_rtn));
-	} else if (*SDL_GetError() != '\0') {
+	Stream &stream = Object_stream::GetObject(args, 0)->GetStream();
+	std::auto_ptr<SDL_RWops> context(CreateRWopsStream(&stream, &sig));
+	SDL_Surface *_rtn = SDL_LoadBMP_RW(context.get(), 0);
+	if (_rtn == NULL) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, _rtnVal);
+	return ReturnValue(env, sig, args, Value(new Object_Surface(_rtn)));
 }
 
 // sdl2.LoadBMP_RW
@@ -4654,9 +4652,10 @@ Gura_ImplementFunction(MUSTLOCK)
 // sdl2.SaveBMP
 Gura_DeclareFunction(SaveBMP)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "file", VTYPE_string, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
@@ -4664,13 +4663,14 @@ Gura_DeclareFunction(SaveBMP)
 Gura_ImplementFunction(SaveBMP)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
-	const char *file = args.GetString(1);
-	int _rtn = SDL_SaveBMP(surface, file);
+	Stream &stream = Object_stream::GetObject(args, 1)->GetStream();
+	std::auto_ptr<SDL_RWops> context(CreateRWopsStream(&stream, &sig));
+	int _rtn = SDL_SaveBMP_RW(surface, context.get(), 0);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // sdl2.SaveBMP_RW

@@ -699,13 +699,31 @@ GetSurfaceColorMod(SDL_Surface* surface):custom {
 	return ReturnValue(env, sig, args,
 			Value::CreateList(env, Value(r), Value(g), Value(b)));
 }
-LoadBMP(const char* file):SDL_Surface*
+LoadBMP([stream;Once;None] stream):custom {
+	Stream &stream = Object_stream::GetObject(args, 0)->GetStream();
+	std::auto_ptr<SDL_RWops> context(CreateRWopsStream(&stream, &sig));
+	SDL_Surface *_rtn = SDL_LoadBMP_RW(context.get(), 0);
+	if (_rtn == NULL) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_Surface(_rtn)));
+}
 #LoadBMP_RW(SDL_RWops* src, int freesrc):SDL_Surface*
 LockSurface(SDL_Surface* surface):negerr
 LowerBlit(SDL_Surface* src, SDL_Rect* srcrect?, SDL_Surface* dst, SDL_Rect* dstrect):negerr
 LowerBlitScaled(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect):negerr
 MUSTLOCK(SDL_Surface* surface):bool
-SaveBMP(SDL_Surface* surface, const char* file):negerr
+SaveBMP(SDL_Surface* surface, [stream;Once;None] stream):custom {
+	Stream &stream = Object_stream::GetObject(args, 1)->GetStream();
+	std::auto_ptr<SDL_RWops> context(CreateRWopsStream(&stream, &sig));
+	int _rtn = SDL_SaveBMP_RW(surface, context.get(), 0);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(_rtn));
+}
 #SaveBMP_RW(SDL_Surface* surface, SDL_RWops* dst, int freedst):negerr
 SetClipRect(SDL_Surface* surface, const SDL_Rect* rect?):SDL_bool
 SetColorKey(SDL_Surface* surface, int flag, Uint32 key):negerr
