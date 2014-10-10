@@ -121,6 +121,8 @@ argopt.Parser {|p|
 		 ${p.formatHelp() + '\n'}
 		'''.template().render(sys.stderr)
 		sys.exit(1)
+	} elsif (argv[0] == 'build-install') {
+		`build_install
 	} elsif (argv[0] == 'clean') {
 		`clean
 	} elsif (argv[0] == 'install') {
