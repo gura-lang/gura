@@ -37,7 +37,7 @@ public:
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Stream : public SimpleStream {
 public:
-	enum SeekMode { SeekSet, SeekCur };
+	enum SeekMode { SeekSet, SeekCur, SeekEnd };
 	enum Error {
 		ERROR_None,
 		ERROR_Codec,

@@ -300,6 +300,12 @@ bool Stream::Seek(Signal sig, long offset, SeekMode seekMode)
 		_offsetCur = static_cast<size_t>(offset);
 	} else if (seekMode == SeekCur) {
 		_offsetCur = _offsetCur + offset;
+	} else if (seekMode == SeekEnd) {
+		_offsetCur = DoGetSize();
+		if (offset < 0 && _offsetCur < static_cast<size_t>(-offset)) {
+			sig.SetError(ERR_IOError, "seek error");
+			return false;
+		}
 	} else {
 		// this must not happen because illegal value has to be rejected before.
 		return false;
