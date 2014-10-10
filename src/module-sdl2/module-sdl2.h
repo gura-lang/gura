@@ -31,6 +31,7 @@
 #include "Class_Surface.h"
 #include "Class_Finger.h"
 #include "Functions.h"
+#include "RWopsStream.h"
 
 Gura_BeginModuleHeader(sdl2)
 
