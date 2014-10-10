@@ -623,7 +623,21 @@ ConvertPixels(int width, int height, Uint32 src_format, const void* src#, int sr
 ConvertSurface(SDL_Surface* src, const SDL_PixelFormat* fmt, Uint32 flags):SDL_Surface*
 ConvertSurfaceFormat(SDL_Surface* src, Uint32 pixel_format, Uint32 flags):SDL_Surface*
 CreateRGBSurface(Uint32 flags, int width, int height, int depth, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask):SDL_Surface*
-#CreateRGBSurfaceFrom(void* pixels#, int width, int height, int depth, int pitch, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask):SDL_Surface*
+CreateRGBSurfaceFrom([binary;Once;None] pixels, int width, int height, int depth, int pitch, Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask):custom {
+	Binary &binary = Object_binary::GetObject(args, 0)->GetBinary();
+	if (binary.size() < static_cast<size_t>(height * pitch)) {
+		sig.SetError(ERR_ValueError, "pixels doesn not contain enough data");
+		return Value::Null;
+	}
+	void *pixels = const_cast<char *>(binary.data());
+	SDL_Surface *_rtn = SDL_CreateRGBSurfaceFrom(pixels, width, height,
+								depth, pitch, Rmask, Gmask, Bmask, Amask);
+	if (_rtn == NULL) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_Surface(_rtn)));
+}
 CreateRGBSurfaceFromImage([image;Once;None] image):custom {
 	Image *pImage = Object_image::GetObject(args, 0)->GetImage();
 	Object_Surface *pObjSurface = Object_Surface::CreateSurfaceFromImage(sig, pImage);
@@ -938,9 +952,6 @@ GameControllerNameForIndex(int joystick_index):const char*
 GameControllerOpen(int joystick_index):SDL_GameController*
 GameControllerUpdate()
 IsGameController(int joystick_index):SDL_bool
-
-// review required from here
-
 //-----------------------------------------------------------------------------
 // Force Feedback - Force Feedback Support
 HapticClose(SDL_Haptic* haptic)
@@ -982,7 +993,11 @@ BuildAudioCVT(SDL_AudioCVT* cvt, SDL_AudioFormat src_format, Uint8 src_channels,
 CloseAudio()
 CloseAudioDevice(SDL_AudioDeviceID dev)
 ConvertAudio(SDL_AudioCVT* cvt):negerr
-FreeWAV(Uint8* audio_buf#)
+FreeWAV([Wav;Once;None] wav):custom {
+	Object_Wav *pObj = Object_Wav::GetObject(args, 0);
+	Uint8 *buffer = pObj->GetBuffer();
+	SDL_FreeWAV(buffer);
+}
 GetAudioDeviceName(int index, int iscapture):const char*
 GetAudioDeviceStatus(SDL_AudioDeviceID dev):SDL_AudioStatus
 GetAudioDriver(int index):const char*
@@ -991,13 +1006,31 @@ GetCurrentAudioDriver():const char*
 GetNumAudioDevices(int iscapture):negerr_number
 GetNumAudioDrivers():int
 #GetQueuedAudioSize(SDL_AudioDeviceID dev):Uint32
-LoadWAV(const char* file, SDL_AudioSpec* spec, Uint8** audio_buf#, Uint32* audio_len#):SDL_AudioSpec*
+LoadWAV(const char* file):custom {
+	SDL_AudioSpec spec;
+	Uint8 *audio_buf = NULL;
+	Uint32 audio_len = 0;
+	SDL_AudioSpec *_rtn = SDL_LoadWAV(file, &spec, &audio_buf, &audio_len);
+	if (_rtn == NULL) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_Wav(spec, audio_buf, audio_len)));
+}
 #LoadWAV_RW(SDL_RWops* src, int freesrc, SDL_AudioSpec* spec, Uint8** audio_buf#, Uint32* audio_len#):SDL_AudioSpec*
 LockAudio()
 LockAudioDevice(SDL_AudioDeviceID dev)
 MixAudio(Uint8* dst#, const Uint8* src#, Uint32 len#, int volume)
 MixAudioFormat(Uint8* dst#, const Uint8* src#, SDL_AudioFormat format, Uint32 len#, int volume)
-OpenAudio(SDL_AudioSpec* desired, SDL_AudioSpec* obtained#):negerr
+OpenAudio(SDL_AudioSpec* desired):custom {
+	SDL_AudioSpec obtained;
+	int _rtn = SDL_OpenAudio(desired, &obtained);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_AudioSpec(obtained)));
+}
 OpenAudioDevice(const char* device, int iscapture, const SDL_AudioSpec* desired, SDL_AudioSpec* obtained#, int allowed_changes):SDL_AudioDeviceID
 PauseAudio(int pause_on)
 PauseAudioDevice(SDL_AudioDeviceID dev, int pause_on)
@@ -1136,7 +1169,7 @@ SwapLE64
 #MostSignificantBitIndex32(Uint32 x):int
 //-----------------------------------------------------------------------------
 // Power Management - Power Management Status
-SDL_GetPowerInfo():custom {
+GetPowerInfo():custom {
 	int secs = 0;
 	int pct = 0;
 	SDL_PowerState _rtn = SDL_GetPowerInfo(&secs, &pct);

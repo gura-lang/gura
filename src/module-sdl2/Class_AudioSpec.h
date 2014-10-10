@@ -14,9 +14,8 @@ private:
 public:
 	Gura_DeclareObjectAccessor(AudioSpec)
 public:
-	inline Object_AudioSpec() : Object(Gura_UserClass(AudioSpec)) {
-		::SDL_zero(_spec);
-	}
+	inline Object_AudioSpec(const SDL_AudioSpec &spec) :
+						Object(Gura_UserClass(AudioSpec)), _spec(spec) {}
 	virtual ~Object_AudioSpec();
 	virtual Object *Clone() const;
 	virtual String ToString(bool exprFlag);

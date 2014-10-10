@@ -22,6 +22,7 @@
 #include "Class_GameControllerButtonBind.h"
 #include "Class_AudioCVT.h"
 #include "Class_AudioSpec.h"
+#include "Class_Wav.h"
 #include "Class_RendererInfo.h"
 #include "Class_DisplayMode.h"
 #include "Class_GLContext.h"

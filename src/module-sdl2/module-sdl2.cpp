@@ -4307,6 +4307,7 @@ Gura_DeclareFunction(CreateRGBSurfaceFrom)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "pixels", VTYPE_binary, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "width", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "height", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "depth", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -4321,8 +4322,6 @@ Gura_DeclareFunction(CreateRGBSurfaceFrom)
 
 Gura_ImplementFunction(CreateRGBSurfaceFrom)
 {
-#if 0
-	void *pixels = NULL;
 	int width = args.GetInt(1);
 	int height = args.GetInt(2);
 	int depth = args.GetInt(3);
@@ -4331,18 +4330,19 @@ Gura_ImplementFunction(CreateRGBSurfaceFrom)
 	Uint32 Gmask = args.GetULong(6);
 	Uint32 Bmask = args.GetULong(7);
 	Uint32 Amask = args.GetULong(8);
-	SDL_Surface *_rtn = SDL_CreateRGBSurfaceFrom(pixels, width, height, depth, pitch, Rmask, Gmask, Bmask, Amask);
-	Value _rtnVal;
-	if (_rtn != NULL) {
-		_rtnVal = Value(new Object_Surface(_rtn));
-	} else if (*SDL_GetError() != '\0') {
+	Binary &binary = Object_binary::GetObject(args, 0)->GetBinary();
+	if (binary.size() < static_cast<size_t>(height * pitch)) {
+		sig.SetError(ERR_ValueError, "pixels doesn not contain enough data");
+		return Value::Null;
+	}
+	void *pixels = const_cast<char *>(binary.data());
+	SDL_Surface *_rtn = SDL_CreateRGBSurfaceFrom(pixels, width, height,
+								depth, pitch, Rmask, Gmask, Bmask, Amask);
+	if (_rtn == NULL) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, _rtnVal);
-#endif
-	SetError_NotImpFunction(sig, "CreateRGBSurfaceFrom");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value(new Object_Surface(_rtn)));
 }
 
 // sdl2.CreateRGBSurfaceFromImage
@@ -7803,20 +7803,18 @@ Gura_ImplementFunction(ConvertAudio)
 // sdl2.FreeWAV
 Gura_DeclareFunction(FreeWAV)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "wav", VTYPE_Wav, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(FreeWAV)
 {
-#if 0
-	Uint8 *audio_buf = NULL;
-	SDL_FreeWAV(audio_buf);
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "FreeWAV");
-	return Value::Null;
+	Object_Wav *pObj = Object_Wav::GetObject(args, 0);
+	Uint8 *buffer = pObj->GetBuffer();
+	SDL_FreeWAV(buffer);
 }
 
 // sdl2.GetAudioDeviceName
@@ -7990,30 +7988,22 @@ Gura_DeclareFunction(LoadWAV)
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "file", VTYPE_string, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "spec", VTYPE_AudioSpec, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(LoadWAV)
 {
-#if 0
 	const char *file = args.GetString(0);
-	SDL_AudioSpec *spec = Object_AudioSpec::GetObject(args, 1)->GetEntity();
-	Uint8 **audio_buf = NULL;
-	Uint32 *audio_len = NULL;
-	SDL_AudioSpec *_rtn = SDL_LoadWAV(file, spec, audio_buf, audio_len);
-	Value _rtnVal;
-	if (_rtn != NULL) {
-		_rtnVal = Value(new Object_AudioSpec(_rtn));
-	} else if (*SDL_GetError() != '\0') {
+	SDL_AudioSpec spec;
+	Uint8 *audio_buf = NULL;
+	Uint32 audio_len = 0;
+	SDL_AudioSpec *_rtn = SDL_LoadWAV(file, &spec, &audio_buf, &audio_len);
+	if (_rtn == NULL) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, _rtnVal);
-#endif
-	SetError_NotImpFunction(sig, "LoadWAV");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value(new Object_Wav(spec, audio_buf, audio_len)));
 }
 
 // sdl2.LoadWAV_RW
@@ -8131,7 +8121,8 @@ Gura_ImplementFunction(MixAudioFormat)
 // sdl2.OpenAudio
 Gura_DeclareFunction(OpenAudio)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "desired", VTYPE_AudioSpec, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -8139,18 +8130,14 @@ Gura_DeclareFunction(OpenAudio)
 
 Gura_ImplementFunction(OpenAudio)
 {
-#if 0
 	SDL_AudioSpec *desired = Object_AudioSpec::GetObject(args, 0)->GetEntity();
-	SDL_AudioSpec *obtained = NULL;
-	int _rtn = SDL_OpenAudio(desired, obtained);
+	SDL_AudioSpec obtained;
+	int _rtn = SDL_OpenAudio(desired, &obtained);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "OpenAudio");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value(new Object_AudioSpec(obtained)));
 }
 
 // sdl2.OpenAudioDevice
@@ -10217,8 +10204,8 @@ Gura_ImplementFunction(MostSignificantBitIndex32)
 	return Value::Null;
 }
 
-// sdl2.SDL_GetPowerInfo
-Gura_DeclareFunction(SDL_GetPowerInfo)
+// sdl2.GetPowerInfo
+Gura_DeclareFunction(GetPowerInfo)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
@@ -10226,7 +10213,7 @@ Gura_DeclareFunction(SDL_GetPowerInfo)
 	"");
 }
 
-Gura_ImplementFunction(SDL_GetPowerInfo)
+Gura_ImplementFunction(GetPowerInfo)
 {
 	int secs = 0;
 	int pct = 0;
@@ -10471,6 +10458,7 @@ Gura_ModuleEntry()
 	RealizeClass(GameControllerButtonBind);
 	RealizeClass(AudioCVT);
 	RealizeClass(AudioSpec);
+	RealizeClass(Wav);
 	RealizeClass(RendererInfo);
 	RealizeClass(DisplayMode);
 	RealizeClass(GLContext);
@@ -10496,6 +10484,7 @@ Gura_ModuleEntry()
 	PrepareClass(GameControllerButtonBind);
 	PrepareClass(AudioCVT);
 	PrepareClass(AudioSpec);
+	PrepareClass(Wav);
 	PrepareClass(RendererInfo);
 	PrepareClass(DisplayMode);
 	PrepareClass(GLContext);
@@ -11632,7 +11621,7 @@ void AssignFunctions(Environment &env)
 		Gura_AssignFunction(SwapLE32);
 		Gura_AssignFunction(SwapLE64);
 		Gura_AssignFunction(MostSignificantBitIndex32);
-		Gura_AssignFunction(SDL_GetPowerInfo);
+		Gura_AssignFunction(GetPowerInfo);
 		Gura_AssignFunction(AndroidGetActivity);
 		Gura_AssignFunction(AndroidGetExternalStoragePath);
 		Gura_AssignFunction(AndroidGetExternalStorageState);
