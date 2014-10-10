@@ -1677,8 +1677,8 @@ if (sys.argv.len() > 1 && sys.argv[1] == 'test') {
 	print(funcInfos:*RenderImplementation())
 	//print(funcInfos:*RenderAsignment())
 } else {
-	fileNameTmpl = 'module-sdl2.cpp.tmpl'
-	fileNameOut = 'module-sdl2.cpp'
+	fileNameTmpl = 'Functions.cpp.tmpl'
+	fileNameOut = 'Functions.cpp'
 	template(fileNameTmpl).render(fileNameOut)
 	println(fileNameOut, ' was created')
 }

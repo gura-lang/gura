@@ -16,7 +16,7 @@ if (sys.platform == `mswin) {
 }
 builder.precompile = 'stdafx.h'
 builder.progressFlag = true
-builder.build('sdl2', ['module-sdl2.cpp',
+builder.build('sdl2', ['module-sdl2.cpp', 'Functions.cpp',
 	'Class_Window.cpp', 'Class_Renderer.cpp', 'Class_Texture.cpp',
 	'Class_Surface.cpp', 'Class_Event.cpp',
 	'Class_Point.cpp', 'Class_Rect.cpp', 'Class_Color.cpp',

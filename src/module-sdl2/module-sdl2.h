@@ -30,6 +30,7 @@
 #include "Class_HapticEffect.h"
 #include "Class_Surface.h"
 #include "Class_Finger.h"
+#include "Functions.h"
 
 Gura_BeginModuleHeader(sdl2)
 

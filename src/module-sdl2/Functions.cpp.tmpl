@@ -1,0 +1,23 @@
+#include "stdafx.h"
+
+Gura_BeginModuleScope(sdl2)
+
+${funcInfos:*RenderImplementation() + '\n'}
+
+// sdl2.test()
+Gura_DeclareFunction(test)
+{
+}
+
+Gura_ImplementFunction(test)
+{
+	return Value::Null;
+}
+
+void AssignFunctions(Environment &env)
+{
+	${funcInfos:*RenderAssignment()}
+	Gura_AssignFunction(test);
+}
+
+Gura_EndModuleScope(sdl2)
