@@ -4512,16 +4512,16 @@ Gura_DeclareFunction(LoadBMP)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "src", VTYPE_stream, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(LoadBMP)
 {
-	Stream &stream = Object_stream::GetObject(args, 0)->GetStream();
-	std::auto_ptr<SDL_RWops> context(CreateRWopsStream(&stream, &sig));
-	SDL_Surface *_rtn = SDL_LoadBMP_RW(context.get(), 0);
+	Stream &_stream = Object_stream::GetObject(args, 0)->GetStream();
+	std::auto_ptr<SDL_RWops> src(CreateRWopsStream(&_stream, &sig));
+	SDL_Surface *_rtn = SDL_LoadBMP_RW(src.get(), 0);
 	if (_rtn == NULL) {
 		SetError_SDL(sig);
 		return Value::Null;
@@ -4532,10 +4532,7 @@ Gura_ImplementFunction(LoadBMP)
 // sdl2.LoadBMP_RW
 Gura_DeclareFunction(LoadBMP_RW)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	DeclareArg(env, "src", VTYPE_nil, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "freesrc", VTYPE_number, OCCUR_Once, FLAG_None);
+	SetMode(RSLTMODE_Void, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
@@ -4543,17 +4540,8 @@ Gura_DeclareFunction(LoadBMP_RW)
 Gura_ImplementFunction(LoadBMP_RW)
 {
 #if 0
-	SDL_RWops *src = NULL;
-	int freesrc = args.GetInt(1);
-	SDL_Surface *_rtn = SDL_LoadBMP_RW(src, freesrc);
-	Value _rtnVal;
-	if (_rtn != NULL) {
-		_rtnVal = Value(new Object_Surface(_rtn));
-	} else if (*SDL_GetError() != '\0') {
-		SetError_SDL(sig);
-		return Value::Null;
-	}
-	return ReturnValue(env, sig, args, _rtnVal);
+	SDL_LoadBMP_RW();
+	return Value::Null;
 #endif
 	SetError_NotImpFunction(sig, "LoadBMP_RW");
 	return Value::Null;
@@ -4655,7 +4643,7 @@ Gura_DeclareFunction(SaveBMP)
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "stream", VTYPE_stream, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "dst", VTYPE_stream, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
@@ -4663,8 +4651,8 @@ Gura_DeclareFunction(SaveBMP)
 Gura_ImplementFunction(SaveBMP)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
-	Stream &stream = Object_stream::GetObject(args, 1)->GetStream();
-	std::auto_ptr<SDL_RWops> context(CreateRWopsStream(&stream, &sig));
+	Stream &_stream = Object_stream::GetObject(args, 1)->GetStream();
+	std::auto_ptr<SDL_RWops> context(CreateRWopsStream(&_stream, &sig));
 	int _rtn = SDL_SaveBMP_RW(surface, context.get(), 0);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
@@ -4677,9 +4665,6 @@ Gura_ImplementFunction(SaveBMP)
 Gura_DeclareFunction(SaveBMP_RW)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "surface", VTYPE_Surface, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "dst", VTYPE_nil, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "freedst", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
@@ -4687,14 +4672,7 @@ Gura_DeclareFunction(SaveBMP_RW)
 Gura_ImplementFunction(SaveBMP_RW)
 {
 #if 0
-	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
-	SDL_RWops *dst = NULL;
-	int freedst = args.GetInt(2);
-	int _rtn = SDL_SaveBMP_RW(surface, dst, freedst);
-	if (_rtn < 0) {
-		SetError_SDL(sig);
-		return Value::Null;
-	}
+	SDL_SaveBMP_RW();
 	return Value::Null;
 #endif
 	SetError_NotImpFunction(sig, "SaveBMP_RW");
@@ -5182,55 +5160,106 @@ Gura_DeclareFunction(LoadDollarTemplates)
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "touchId", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "src", VTYPE_nil, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "src", VTYPE_stream, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(LoadDollarTemplates)
 {
-#if 0
 	SDL_TouchID touchId = static_cast<SDL_TouchID>(args.GetInt(0));
-	SDL_RWops *src = NULL;
-	int _rtn = SDL_LoadDollarTemplates(touchId, src);
+	Stream &_stream = Object_stream::GetObject(args, 1)->GetStream();
+	std::auto_ptr<SDL_RWops> src(CreateRWopsStream(&_stream, &sig));
+	int _rtn = SDL_LoadDollarTemplates(touchId, src.get());
 	if (_rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(_rtn));
-#endif
-	SetError_NotImpFunction(sig, "LoadDollarTemplates");
-	return Value::Null;
 }
 
-// sdl2.PeepEvents
-Gura_DeclareFunction(PeepEvents)
+// sdl2.AddEvents
+Gura_DeclareFunction(AddEvents)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "action", VTYPE_number, OCCUR_Once, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "events", VTYPE_Event, OCCUR_Once, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(AddEvents)
+{
+	CArray<SDL_Event> events(CreateCArray<SDL_Event, Object_Event>(args.GetList(0)));
+	int numevents = static_cast<int>(events.GetSize());
+	int _rtn = SDL_PeepEvents(events, numevents, SDL_ADDEVENT, 0, 0);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(_rtn));
+}
+
+// sdl2.PeekEvents
+Gura_DeclareFunction(PeekEvents)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "numevents", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "minType", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "maxType", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
-Gura_ImplementFunction(PeepEvents)
+Gura_ImplementFunction(PeekEvents)
 {
-#if 0
-	SDL_Event *events = NULL;
-	int numevents = NULL;
-	SDL_eventaction action = static_cast<SDL_eventaction>(args.GetInt(2));
-	Uint32 minType = args.GetULong(3);
-	Uint32 maxType = args.GetULong(4);
-	int _rtn = SDL_PeepEvents(events, numevents, action, minType, maxType);
+	int numevents = args.GetInt(0);
+	Uint32 minType = args.GetULong(1);
+	Uint32 maxType = args.GetULong(2);
+	CArray<SDL_Event> events(numevents);
+	int _rtn = SDL_PeepEvents(events, numevents, SDL_PEEKEVENT, minType, maxType);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "PeepEvents");
-	return Value::Null;
+	Value _rtnVal;
+	ValueList &_valList = _rtnVal.InitAsList(env, _rtn);
+	for (int i = 0; i < _rtn; i++) {
+		_valList.push_back(Value(new Object_Event(events[i])));
+	}
+	return ReturnValue(env, sig, args, _rtnVal);
+}
+
+// sdl2.GetEvents
+Gura_DeclareFunction(GetEvents)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "numevents", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "minType", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "maxType", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(GetEvents)
+{
+	int numevents = args.GetInt(0);
+	Uint32 minType = args.GetULong(1);
+	Uint32 maxType = args.GetULong(2);
+	CArray<SDL_Event> events(numevents);
+	int _rtn = SDL_PeepEvents(events, numevents, SDL_GETEVENT, minType, maxType);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	Value _rtnVal;
+	ValueList &_valList = _rtnVal.InitAsList(env, _rtn);
+	for (int i = 0; i < _rtn; i++) {
+		_valList.push_back(Value(new Object_Event(events[i])));
+	}
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.PollEvent
@@ -5346,25 +5375,23 @@ Gura_ImplementFunction(RegisterEvents)
 // sdl2.SaveAllDollarTemplates
 Gura_DeclareFunction(SaveAllDollarTemplates)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
-	DeclareArg(env, "dst", VTYPE_nil, OCCUR_Once, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "dst", VTYPE_stream, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(SaveAllDollarTemplates)
 {
-#if 0
-	SDL_RWops *dst = NULL;
-	int _rtn = SDL_SaveAllDollarTemplates(dst);
+	Stream &_stream = Object_stream::GetObject(args, 0)->GetStream();
+	std::auto_ptr<SDL_RWops> dst(CreateRWopsStream(&_stream, &sig));
+	int _rtn = SDL_SaveAllDollarTemplates(dst.get());
 	if (_rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "SaveAllDollarTemplates");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value(_rtn));
 }
 
 // sdl2.SaveDollarTemplate
@@ -5372,24 +5399,21 @@ Gura_DeclareFunction(SaveDollarTemplate)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "gestureId", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "dst", VTYPE_nil, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "dst", VTYPE_stream, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(SaveDollarTemplate)
 {
-#if 0
 	SDL_GestureID gestureId = static_cast<SDL_GestureID>(args.GetInt(0));
-	SDL_RWops *dst = NULL;
-	int _rtn = SDL_SaveDollarTemplate(gestureId, dst);
+	Stream &_stream = Object_stream::GetObject(args, 1)->GetStream();
+	std::auto_ptr<SDL_RWops> dst(CreateRWopsStream(&_stream, &sig));
+	int _rtn = SDL_SaveDollarTemplate(gestureId, dst.get());
 	if (_rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return Value::Null;
-#endif
-	SetError_NotImpFunction(sig, "SaveDollarTemplate");
 	return Value::Null;
 }
 
@@ -5803,7 +5827,8 @@ Gura_DeclareFunction(CreateCursor)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	DeclareArg(env, "mask", VTYPE_number, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "data", VTYPE_binary, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "mask", VTYPE_binary, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "w", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "h", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "hot_x", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -5814,25 +5839,29 @@ Gura_DeclareFunction(CreateCursor)
 
 Gura_ImplementFunction(CreateCursor)
 {
-#if 0
-	const Uint8 *data = NULL;
-	const Uint8 *mask = args.GetList(1);
 	int w = args.GetInt(2);
 	int h = args.GetInt(3);
 	int hot_x = args.GetInt(4);
 	int hot_y = args.GetInt(5);
+	const Binary &_data = Object_binary::GetObject(args, 0)->GetBinary();
+	const Binary &_mask = Object_binary::GetObject(args, 1)->GetBinary();
+	size_t bytesLeast = int((w + 7) / 8) * h;
+	if (_data.size() < bytesLeast) {
+		sig.SetError(ERR_ValueError, "data has insufficient content");
+		return Value::Null;
+	}
+	if (_mask.size() < bytesLeast) {
+		sig.SetError(ERR_ValueError, "mask has insufficient content");
+		return Value::Null;
+	}
+	const Uint8 *data = reinterpret_cast<const Uint8 *>(_data.data());
+	const Uint8 *mask = reinterpret_cast<const Uint8 *>(_mask.data());
 	SDL_Cursor *_rtn = SDL_CreateCursor(data, mask, w, h, hot_x, hot_y);
-	Value _rtnVal;
-	if (_rtn != NULL) {
-		_rtnVal = Value(new Object_Cursor(_rtn, false));
-	} else if (*SDL_GetError() != '\0') {
+	if (_rtn == NULL) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, _rtnVal);
-#endif
-	SetError_NotImpFunction(sig, "CreateCursor");
-	return Value::Null;
+	return ReturnValue(env, sig, args, Value(new Object_Cursor(_rtn, true)));
 }
 
 // sdl2.CreateSystemCursor
@@ -6558,15 +6587,16 @@ Gura_DeclareFunction(GameControllerAddMappingsFromFile)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	DeclareArg(env, "filename", VTYPE_string, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "file", VTYPE_stream, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(GameControllerAddMappingsFromFile)
 {
-	const char *filename = args.GetString(0);
-	int _rtn = SDL_GameControllerAddMappingsFromFile(filename);
+	Stream &_stream = Object_stream::GetObject(args, 0)->GetStream();
+	std::auto_ptr<SDL_RWops> file(CreateRWopsStream(&_stream, &sig));
+	int _rtn = SDL_GameControllerAddMappingsFromRW(file.get(), 0);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
@@ -7958,18 +7988,19 @@ Gura_DeclareFunction(LoadWAV)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	DeclareArg(env, "file", VTYPE_string, OCCUR_Once, FLAG_None);
+	DeclareArg(env, "file", VTYPE_stream, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
 
 Gura_ImplementFunction(LoadWAV)
 {
-	const char *file = args.GetString(0);
+	Stream &_stream = Object_stream::GetObject(args, 0)->GetStream();
+	std::auto_ptr<SDL_RWops> file(CreateRWopsStream(&_stream, &sig));
 	SDL_AudioSpec spec;
 	Uint8 *audio_buf = NULL;
 	Uint32 audio_len = 0;
-	SDL_AudioSpec *_rtn = SDL_LoadWAV(file, &spec, &audio_buf, &audio_len);
+	SDL_AudioSpec *_rtn = SDL_LoadWAV_RW(file.get(), 0, &spec, &audio_buf, &audio_len);
 	if (_rtn == NULL) {
 		SetError_SDL(sig);
 		return Value::Null;
@@ -7980,11 +8011,7 @@ Gura_ImplementFunction(LoadWAV)
 // sdl2.LoadWAV_RW
 Gura_DeclareFunction(LoadWAV_RW)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	DeclareArg(env, "src", VTYPE_nil, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "freesrc", VTYPE_number, OCCUR_Once, FLAG_None);
-	DeclareArg(env, "spec", VTYPE_AudioSpec, OCCUR_Once, FLAG_None);
+	SetMode(RSLTMODE_Void, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
@@ -7992,20 +8019,8 @@ Gura_DeclareFunction(LoadWAV_RW)
 Gura_ImplementFunction(LoadWAV_RW)
 {
 #if 0
-	SDL_RWops *src = NULL;
-	int freesrc = args.GetInt(1);
-	SDL_AudioSpec *spec = Object_AudioSpec::GetObject(args, 2)->GetEntity();
-	Uint8 **audio_buf = NULL;
-	Uint32 *audio_len = NULL;
-	SDL_AudioSpec *_rtn = SDL_LoadWAV_RW(src, freesrc, spec, audio_buf, audio_len);
-	Value _rtnVal;
-	if (_rtn != NULL) {
-		_rtnVal = Value(new Object_AudioSpec(_rtn));
-	} else if (*SDL_GetError() != '\0') {
-		SetError_SDL(sig);
-		return Value::Null;
-	}
-	return ReturnValue(env, sig, args, _rtnVal);
+	SDL_LoadWAV_RW();
+	return Value::Null;
 #endif
 	SetError_NotImpFunction(sig, "LoadWAV_RW");
 	return Value::Null;
@@ -10559,7 +10574,9 @@ void AssignFunctions(Environment &env)
 		Gura_AssignFunction(HasEvent);
 		Gura_AssignFunction(HasEvents);
 		Gura_AssignFunction(LoadDollarTemplates);
-		Gura_AssignFunction(PeepEvents);
+		Gura_AssignFunction(AddEvents);
+		Gura_AssignFunction(PeekEvents);
+		Gura_AssignFunction(GetEvents);
 		Gura_AssignFunction(PollEvent);
 		Gura_AssignFunction(PumpEvents);
 		Gura_AssignFunction(PushEvent);

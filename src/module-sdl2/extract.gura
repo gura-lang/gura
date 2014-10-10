@@ -699,24 +699,24 @@ GetSurfaceColorMod(SDL_Surface* surface):custom {
 	return ReturnValue(env, sig, args,
 			Value::CreateList(env, Value(r), Value(g), Value(b)));
 }
-LoadBMP([stream;Once;None] stream):custom {
-	Stream &stream = Object_stream::GetObject(args, 0)->GetStream();
-	std::auto_ptr<SDL_RWops> context(CreateRWopsStream(&stream, &sig));
-	SDL_Surface *_rtn = SDL_LoadBMP_RW(context.get(), 0);
+LoadBMP([stream;Once;None] src):custom {
+	Stream &_stream = Object_stream::GetObject(args, 0)->GetStream();
+	std::auto_ptr<SDL_RWops> src(CreateRWopsStream(&_stream, &sig));
+	SDL_Surface *_rtn = SDL_LoadBMP_RW(src.get(), 0);
 	if (_rtn == NULL) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_Surface(_rtn)));
 }
-#LoadBMP_RW(SDL_RWops* src, int freesrc):SDL_Surface*
+#LoadBMP_RW
 LockSurface(SDL_Surface* surface):negerr
 LowerBlit(SDL_Surface* src, SDL_Rect* srcrect?, SDL_Surface* dst, SDL_Rect* dstrect):negerr
 LowerBlitScaled(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect):negerr
 MUSTLOCK(SDL_Surface* surface):bool
-SaveBMP(SDL_Surface* surface, [stream;Once;None] stream):custom {
-	Stream &stream = Object_stream::GetObject(args, 1)->GetStream();
-	std::auto_ptr<SDL_RWops> context(CreateRWopsStream(&stream, &sig));
+SaveBMP(SDL_Surface* surface, [stream;Once;None] dst):custom {
+	Stream &_stream = Object_stream::GetObject(args, 1)->GetStream();
+	std::auto_ptr<SDL_RWops> context(CreateRWopsStream(&_stream, &sig));
 	int _rtn = SDL_SaveBMP_RW(surface, context.get(), 0);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
@@ -724,7 +724,7 @@ SaveBMP(SDL_Surface* surface, [stream;Once;None] stream):custom {
 	}
 	return ReturnValue(env, sig, args, Value(_rtn));
 }
-#SaveBMP_RW(SDL_Surface* surface, SDL_RWops* dst, int freedst):negerr
+#SaveBMP_RW
 SetClipRect(SDL_Surface* surface, const SDL_Rect* rect?):SDL_bool
 SetColorKey(SDL_Surface* surface, int flag, Uint32 key):negerr
 SetSurfaceAlphaMod(SDL_Surface* surface, Uint8 alpha):negerr
@@ -768,8 +768,54 @@ GetTouchDevice(int index):custom {
 GetTouchFinger(SDL_TouchID touchId, int index):SDL_Finger*
 HasEvent(Uint32 type):SDL_bool
 HasEvents(Uint32 minType, Uint32 maxType):SDL_bool
-#LoadDollarTemplates(SDL_TouchID touchId, SDL_RWops* src):negerr_number
-PeepEvents(SDL_Event* events#, int numevents#, SDL_eventaction action, Uint32 minType, Uint32 maxType):negerr
+LoadDollarTemplates(SDL_TouchID touchId, [stream;Once;None] src):custom {
+	Stream &_stream = Object_stream::GetObject(args, 1)->GetStream();
+	std::auto_ptr<SDL_RWops> src(CreateRWopsStream(&_stream, &sig));
+	int _rtn = SDL_LoadDollarTemplates(touchId, src.get());
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(_rtn));
+}
+AddEvents([Event;Once;None] events):custom {
+	CArray<SDL_Event> events(CreateCArray<SDL_Event, Object_Event>(args.GetList(0)));
+	int numevents = static_cast<int>(events.GetSize());
+	int _rtn = SDL_PeepEvents(events, numevents, SDL_ADDEVENT, 0, 0);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(_rtn));
+}
+PeekEvents(int numevents, Uint32 minType, Uint32 maxType):custom {
+	CArray<SDL_Event> events(numevents);
+	int _rtn = SDL_PeepEvents(events, numevents, SDL_PEEKEVENT, minType, maxType);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	Value _rtnVal;
+	ValueList &_valList = _rtnVal.InitAsList(env, _rtn);
+	for (int i = 0; i < _rtn; i++) {
+		_valList.push_back(Value(new Object_Event(events[i])));
+	}
+	return ReturnValue(env, sig, args, _rtnVal);
+}
+GetEvents(int numevents, Uint32 minType, Uint32 maxType):custom {
+	CArray<SDL_Event> events(numevents);
+	int _rtn = SDL_PeepEvents(events, numevents, SDL_GETEVENT, minType, maxType);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	Value _rtnVal;
+	ValueList &_valList = _rtnVal.InitAsList(env, _rtn);
+	for (int i = 0; i < _rtn; i++) {
+		_valList.push_back(Value(new Object_Event(events[i])));
+	}
+	return ReturnValue(env, sig, args, _rtnVal);
+}
 PollEvent():custom {
 	SDL_Event event;
 	int _rtn = SDL_PollEvent(&event);
@@ -788,8 +834,26 @@ RegisterEvents(int numevents):custom {
 	}
 	return ReturnValue(env, sig, args, _rtnVal);
 }
-#SaveAllDollarTemplates(SDL_RWops* dst):negerr
-#SaveDollarTemplate(SDL_GestureID gestureId, SDL_RWops* dst):negerr
+SaveAllDollarTemplates([stream;Once;None] dst):custom {
+	Stream &_stream = Object_stream::GetObject(args, 0)->GetStream();
+	std::auto_ptr<SDL_RWops> dst(CreateRWopsStream(&_stream, &sig));
+	int _rtn = SDL_SaveAllDollarTemplates(dst.get());
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(_rtn));
+}
+SaveDollarTemplate(SDL_GestureID gestureId, [stream;Once;None] dst):custom_void {
+	Stream &_stream = Object_stream::GetObject(args, 1)->GetStream();
+	std::auto_ptr<SDL_RWops> dst(CreateRWopsStream(&_stream, &sig));
+	int _rtn = SDL_SaveDollarTemplate(gestureId, dst.get());
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::Null;
+}
 #SetEventFilter()
 WaitEvent():custom {
 	SDL_Event event;
@@ -852,7 +916,27 @@ StopTextInput()
 // Input Events - Mouse Support
 #CaptureMouse(SDL_bool enalbed):negerr
 CreateColorCursor(SDL_Surface* surface, int hot_x, int hot_y):SDL_Cursor*
-CreateCursor(const Uint8* data#, const Uint8* mask, int w, int h, int hot_x, int hot_y):SDL_Cursor*
+CreateCursor([binary;Once;None] data, [binary;Once;None] mask, int w, int h, int hot_x, int hot_y):custom {
+	const Binary &_data = Object_binary::GetObject(args, 0)->GetBinary();
+	const Binary &_mask = Object_binary::GetObject(args, 1)->GetBinary();
+	size_t bytesLeast = int((w + 7) / 8) * h;
+	if (_data.size() < bytesLeast) {
+		sig.SetError(ERR_ValueError, "data has insufficient content");
+		return Value::Null;
+	}
+	if (_mask.size() < bytesLeast) {
+		sig.SetError(ERR_ValueError, "mask has insufficient content");
+		return Value::Null;
+	}
+	const Uint8 *data = reinterpret_cast<const Uint8 *>(_data.data());
+	const Uint8 *mask = reinterpret_cast<const Uint8 *>(_mask.data());
+	SDL_Cursor *_rtn = SDL_CreateCursor(data, mask, w, h, hot_x, hot_y);
+	if (_rtn == NULL) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_Cursor(_rtn, true)));
+}
 CreateSystemCursor(SDL_SystemCursor id):SDL_Cursor*
 FreeCursor(SDL_Cursor* cursor)
 GetCursor():custom {
@@ -942,7 +1026,16 @@ NumJoysticks():negerr_number
 //-----------------------------------------------------------------------------
 // Input Events - Game Controller Support
 GameControllerAddMapping(const char* mappingString):negerr_boolean
-GameControllerAddMappingsFromFile(const char* filename):negerr_number
+GameControllerAddMappingsFromFile([stream;Once;None] file):custom {
+	Stream &_stream = Object_stream::GetObject(args, 0)->GetStream();
+	std::auto_ptr<SDL_RWops> file(CreateRWopsStream(&_stream, &sig));
+	int _rtn = SDL_GameControllerAddMappingsFromRW(file.get(), 0);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(_rtn));
+}
 #GameControllerAddMappingsFromRW(SDL_RWops* rw, int freerw):negerr_number
 GameControllerClose(SDL_GameController* gamecontroller)
 GameControllerEventState(int state):int
@@ -1024,18 +1117,20 @@ GetCurrentAudioDriver():const char*
 GetNumAudioDevices(int iscapture):negerr_number
 GetNumAudioDrivers():int
 #GetQueuedAudioSize(SDL_AudioDeviceID dev):Uint32
-LoadWAV(const char* file):custom {
+LoadWAV([stream;Once;None] file):custom {
+	Stream &_stream = Object_stream::GetObject(args, 0)->GetStream();
+	std::auto_ptr<SDL_RWops> file(CreateRWopsStream(&_stream, &sig));
 	SDL_AudioSpec spec;
 	Uint8 *audio_buf = NULL;
 	Uint32 audio_len = 0;
-	SDL_AudioSpec *_rtn = SDL_LoadWAV(file, &spec, &audio_buf, &audio_len);
+	SDL_AudioSpec *_rtn = SDL_LoadWAV_RW(file.get(), 0, &spec, &audio_buf, &audio_len);
 	if (_rtn == NULL) {
 		SetError_SDL(sig);
 		return Value::Null;
 	}
 	return ReturnValue(env, sig, args, Value(new Object_Wav(spec, audio_buf, audio_len)));
 }
-#LoadWAV_RW(SDL_RWops* src, int freesrc, SDL_AudioSpec* spec, Uint8** audio_buf#, Uint32* audio_len#):SDL_AudioSpec*
+#LoadWAV_RW
 LockAudio()
 LockAudioDevice(SDL_AudioDeviceID dev)
 MixAudio(Uint8* dst#, const Uint8* src#, Uint32 len#, int volume)
