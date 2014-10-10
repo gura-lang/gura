@@ -41,7 +41,7 @@ moduleInfos = @(ModuleInfo) {
 	['re',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['sample',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['sdl',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
-	['sdl2',			`skip,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
+	['sdl2',			`build,	[`mswin,	`darwin,	`ubuntu										]]
 	['sqlite3',			`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['tar',				`build,	[`mswin,	`darwin,	`ubuntu,	`fedora,	`centos,	`redhat	]]
 	['tcl',				`build,	[`mswin,				`ubuntu,	`fedora,	`centos,	`redhat	]]
