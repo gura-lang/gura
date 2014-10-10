@@ -623,7 +623,7 @@ public:
 	inline operator T *() {
 		return reinterpret_cast<T *>(_pMemory->GetPointer());
 	}
-	inline const operator T *() const  {
+	inline operator const T *() const {
 		return reinterpret_cast<T *>(_pMemory->GetPointer());
 	}
 };

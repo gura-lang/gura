@@ -1108,6 +1108,7 @@ FreeWAV([Wav;Once;None] wav):custom {
 	Object_Wav *pObj = Object_Wav::GetObject(args, 0);
 	Uint8 *buffer = pObj->GetBuffer();
 	SDL_FreeWAV(buffer);
+	return Value::Null;
 }
 GetAudioDeviceName(int index, int iscapture):const char*
 GetAudioDeviceStatus(SDL_AudioDeviceID dev):SDL_AudioStatus

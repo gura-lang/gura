@@ -1,5 +1,9 @@
 #include "stdafx.h"
 
+#undef CreateWindow
+#undef CreateMutex
+#undef CreateSemaphore
+
 Gura_BeginModuleScope(sdl2)
 
 // sdl2.Init
@@ -7816,6 +7820,7 @@ Gura_ImplementFunction(FreeWAV)
 	Object_Wav *pObj = Object_Wav::GetObject(args, 0);
 	Uint8 *buffer = pObj->GetBuffer();
 	SDL_FreeWAV(buffer);
+	return Value::Null;
 }
 
 // sdl2.GetAudioDeviceName

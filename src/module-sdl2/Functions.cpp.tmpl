@@ -1,5 +1,9 @@
 #include "stdafx.h"
 
+#undef CreateWindow
+#undef CreateMutex
+#undef CreateSemaphore
+
 Gura_BeginModuleScope(sdl2)
 
 ${funcInfos:*RenderImplementation() + '\n'}
