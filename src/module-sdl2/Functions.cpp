@@ -5484,6 +5484,25 @@ Gura_ImplementFunction(WaitEventTimeout)
 	return ReturnValue(env, sig, args, _rtnVal);
 }
 
+// sdl2.CheckKeyboardState
+Gura_DeclareFunction(CheckKeyboardState)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	DeclareArg(env, "scancode", VTYPE_number, OCCUR_Once, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(CheckKeyboardState)
+{
+	SDL_Scancode scancode = static_cast<SDL_Scancode>(args.GetInt(0));
+	int numkeys = 0;
+	const Uint8 *_keystate = SDL_GetKeyboardState(&numkeys);
+	bool _rtn = (0 <= scancode && scancode < numkeys && _keystate[scancode] != 0);
+	return ReturnValue(env, sig, args, Value(_rtn));
+}
+
 // sdl2.GetKeyFromName
 Gura_DeclareFunction(GetKeyFromName)
 {
@@ -5581,8 +5600,13 @@ Gura_DeclareFunction(GetKeyboardState)
 Gura_ImplementFunction(GetKeyboardState)
 {
 	int numkeys = 0;
-	const Uint8 *_rtn = SDL_GetKeyboardState(&numkeys);
-	return ReturnValue(env, sig, args, Value::CreateList(env, _rtn, numkeys));
+	const Uint8 *_keystate = SDL_GetKeyboardState(&numkeys);
+	Value _rtnVal;
+	ValueList &_valList = _rtnVal.InitAsList(env, numkeys);
+	for (int i = 0; i < numkeys; i++) {
+		_valList.push_back(Value(_keystate[i] != 0));
+	}
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GetModState
@@ -10593,6 +10617,7 @@ void AssignFunctions(Environment &env)
 		Gura_AssignFunction(SetEventFilter);
 		Gura_AssignFunction(WaitEvent);
 		Gura_AssignFunction(WaitEventTimeout);
+		Gura_AssignFunction(CheckKeyboardState);
 		Gura_AssignFunction(GetKeyFromName);
 		Gura_AssignFunction(GetKeyFromScancode);
 		Gura_AssignFunction(GetKeyName);

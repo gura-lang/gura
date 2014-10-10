@@ -878,6 +878,12 @@ WaitEventTimeout(int timeout):custom {
 }
 //-----------------------------------------------------------------------------
 // Input Events - Keyboard Support
+CheckKeyboardState(SDL_Scancode scancode):custom {
+	int numkeys = 0;
+	const Uint8 *_keystate = SDL_GetKeyboardState(&numkeys);
+	bool _rtn = (0 <= scancode && scancode < numkeys && _keystate[scancode] != 0);
+	return ReturnValue(env, sig, args, Value(_rtn));
+}
 GetKeyFromName(const char* name):custom {
 	SDL_Keycode _rtn = SDL_GetKeyFromName(name);
 	if (_rtn == SDLK_UNKNOWN) {
@@ -891,8 +897,13 @@ GetKeyName(SDL_Keycode key):const char*
 GetKeyboardFocus():SDL_Window*
 GetKeyboardState():custom {
 	int numkeys = 0;
-	const Uint8 *_rtn = SDL_GetKeyboardState(&numkeys);
-	return ReturnValue(env, sig, args, Value::CreateList(env, _rtn, numkeys));
+	const Uint8 *_keystate = SDL_GetKeyboardState(&numkeys);
+	Value _rtnVal;
+	ValueList &_valList = _rtnVal.InitAsList(env, numkeys);
+	for (int i = 0; i < numkeys; i++) {
+		_valList.push_back(Value(_keystate[i] != 0));
+	}
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 GetModState():SDL_Keymod
 GetScancodeFromKey(SDL_Keycode key):SDL_Scancode

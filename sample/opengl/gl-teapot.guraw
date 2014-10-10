@@ -56,7 +56,7 @@ cpData = @{
 Teapot(grid:number) = {
 	[p, q, r, s] = repeat (4):list { dim(4, 4, 3) {0} }
 	teaList = 1
-	glNewList(teaList, GL_COMPILE) { glPushMatrix() {
+	glNewList(teaList, GL_COMPILE) { glPushMatrix {
 		glRotatef(270.0, 1.0, 0.0, 0.0)
 		repeat (10) {|i|
 			cross (j in range(4), k in range(4), l in range(3)) {
@@ -132,7 +132,7 @@ Reshape(w:number, h:number) = {
 
 Draw(teaList, rotX, rotY) = {
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
-	glPushMatrix() {
+	glPushMatrix {
 		glTranslatef(0.0, 0.0, -5.0)
 		glRotatef(rotX, 0.0,1.0,0.0)
 		glRotatef(rotY, 1.0,0.0,0.0)
@@ -142,7 +142,7 @@ Draw(teaList, rotX, rotY) = {
 }
 
 scope {
-	import(sdl)
+	import(sdl2, sdl)
 	import(sdlutil)
 	teaList = nil
 	[rotX, rotY] = [0, 0]
@@ -158,22 +158,14 @@ scope {
 			Draw(teaList, rotX, rotY)
 		}
 		OnIdle() = {
-			if (this.CheckKeyState(sdl.K_LEFT)) {
-				rotX -= 1
-			}
-			if (this.CheckKeyState(sdl.K_RIGHT)) {
-				rotX += 1
-			}
-			if (this.CheckKeyState(sdl.K_UP)) {
-				rotY -= 1
-			}
-			if (this.CheckKeyState(sdl.K_DOWN)) {
-				rotY += 1
-			}
+			if (sdl.CheckKeyboardState(sdl.SCANCODE_LEFT)) { rotX -= 1 }
+			if (sdl.CheckKeyboardState(sdl.SCANCODE_RIGHT)) { rotX += 1 }
+			if (sdl.CheckKeyboardState(sdl.SCANCODE_UP)) { rotY -= 1 }
+			if (sdl.CheckKeyboardState(sdl.SCANCODE_DOWN)) { rotY += 1 }
 			Draw(teaList, rotX, rotY)
-			this.SwapBuffers()
+			this.SwapWindow()
 		}
 	}
 	app = App()
-	app.MainLoop(nil, 300, 300, sdl.OPENGL)
+	app.MainLoop(nil, 480, 480, sdl.WINDOW_OPENGL)
 }
