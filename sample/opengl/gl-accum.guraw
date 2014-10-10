@@ -45,7 +45,7 @@ Draw(thing1:number, thing2:number) = {
 }
 
 scope {
-	import(sdl)
+	import(sdl2, sdl)
 	import(sdlutil)
 	thing1 = thing2 = nil
 	App = class(sdlutil.App) {
@@ -56,12 +56,11 @@ scope {
 		OnResize(width:number, height:number) = {
 			Reshape(width, height)
 		}
-		OnDraw() = {
-			Draw(thing1, thing2)
-		}
 		OnIdle() = {
+			Draw(thing1, thing2)
+			this.SwapWindow()
 		}
 	}
 	app = App()
-	app.MainLoop(nil, 300, 300, sdl.OPENGL)
+	app.MainLoop(nil, 300, 300, sdl.WINDOW_OPENGL)
 }
