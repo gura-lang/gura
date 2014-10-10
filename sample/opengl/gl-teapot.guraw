@@ -167,5 +167,5 @@ scope {
 		}
 	}
 	app = App()
-	app.MainLoop(nil, 480, 480, sdl.WINDOW_OPENGL)
+	app.MainLoop(nil, 400, 400, sdl.WINDOW_OPENGL)
 }

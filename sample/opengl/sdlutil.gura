@@ -4,7 +4,6 @@ App = class {
 	MainLoop(caption:string:nil, width:number, height:number, flags:number) = {
 		sdl.Init(sdl.INIT_VIDEO)
 		caption = caption || path.splitext(path.filename(sys.argv[0]))[0]
-		bpp = 32
 		this.window = sdl.CreateWindow(caption,
 							  sdl.WINDOWPOS_CENTERED, sdl.WINDOWPOS_CENTERED,
 							  width, height, flags)
@@ -93,5 +92,5 @@ if (__name__ == '__main__') {
 	}
 	app = AppEx()
 	app.MainLoop('sdlutil', 400, 300, sdl.WINDOW_OPENGL | sdl.WINDOW_RESIZABLE)
-	//sdl.Quit()
+	sdl.Quit()
 }
