@@ -78,7 +78,7 @@ protected:
 	virtual ~Stream();
 public:
 	Stream(Environment &env, Signal sig, ULong attr);
-	void Close();
+	bool Close();
 	void SetCodec(Codec *pCodec);
 	void CopyCodec(Stream *pStream);
 	void CopyCodec(const Codec *pCodec);

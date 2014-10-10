@@ -89,9 +89,9 @@ Stream::~Stream()
 	delete[] _peek.buff;
 }
 
-void Stream::Close()
+bool Stream::Close()
 {
-	DoClose(_sig);
+	return DoClose(_sig);
 }
 
 void Stream::SetCodec(Codec *pCodec)
