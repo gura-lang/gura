@@ -3,7 +3,7 @@ import(sdl2, sdl)
 App = class {
 	MainLoop(caption:string:nil, width:number, height:number, flags:number) = {
 		sdl.Init(sdl.INIT_VIDEO)
-		caption = caption || path.splitext(path.filename(sys.argv[0]))[0]
+		caption = caption || path.filename(sys.argv[0])
 		this.window = sdl.CreateWindow(caption,
 							  sdl.WINDOWPOS_CENTERED, sdl.WINDOWPOS_CENTERED,
 							  width, height, flags)

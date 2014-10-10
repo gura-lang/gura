@@ -294,16 +294,20 @@ Reshape(width:number, height:number) = {
 }
 
 scope {
-	import(gltester)
-	gltester.mainloop(300, 300, 0, `idle) {
-		`onInit => function {
+	import(sdl2, sdl)
+	import(sdlutil)
+	App = class(sdlutil.App) {
+		OnInit() = {
 			Init()
 		}
-		`onResize => function(width:number, height:number) {
+		OnResize(width:number, height:number) = {
 			Reshape(width, height)
 		}
-		`onDraw => function {
+		OnIdle() = {
 			Animate()
+			this.SwapWindow()
 		}
 	}
+	app = App()
+	app.MainLoop(nil, 400, 400, sdl.WINDOW_OPENGL)
 }
