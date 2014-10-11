@@ -2,7 +2,7 @@
 
 Gura_BeginModuleScope(sdl2)
 
-const char *GetEventTypeName(Uint8 type);
+const char *GetEventTypeName(Uint32 type);
 
 //-----------------------------------------------------------------------------
 // Object_Event implementation
@@ -22,11 +22,33 @@ String Object_Event::ToString(bool exprFlag)
 	str += "<sdl.Event:";
 	str += GetEventTypeName(_event.type);
 	char buff[256];
-	if (_event.type == SDL_WINDOWEVENT) {
+	if (_event.type == SDL_QUIT) {
+		const SDL_QuitEvent &event = _event.quit;
+		::sprintf(buff, "(timestamp=%d)",
+				  event.timestamp);
+		str += buff;
+	} else if (_event.type == SDL_APP_TERMINATING) {
+		// nothing to do
+	} else if (_event.type == SDL_APP_LOWMEMORY) {
+		// nothing to do
+	} else if (_event.type == SDL_APP_WILLENTERBACKGROUND) {
+		// nothing to do
+	} else if (_event.type == SDL_APP_DIDENTERBACKGROUND) {
+		// nothing to do
+	} else if (_event.type == SDL_APP_WILLENTERFOREGROUND) {
+		// nothing to do
+	} else if (_event.type == SDL_APP_DIDENTERFOREGROUND) {
+		// nothing to do
+	} else if (_event.type == SDL_WINDOWEVENT) {
 		const SDL_WindowEvent &event = _event.window;
 		::sprintf(buff, "(timestamp=%d, windowID=%d, event=%d, data1=%d, data2=0x%04x)",
 				  event.timestamp, event.windowID,
 				  event.event, event.data1, event.data2);
+		str += buff;
+	} else if (_event.type == SDL_SYSWMEVENT) {
+		const SDL_SysWMEvent &event = _event.syswm;
+		::sprintf(buff, "(timestamp=%d)",
+				  event.timestamp);
 		str += buff;
 	} else if (_event.type == SDL_KEYDOWN || _event.type == SDL_KEYUP) {
 		const SDL_KeyboardEvent &event = _event.key;
@@ -107,46 +129,40 @@ String Object_Event::ToString(bool exprFlag)
 		::sprintf(buff, "(timestamp=%d, which=%d)",
 				  event.timestamp, event.which);
 		str += buff;
-	} else if (_event.type == SDL_QUIT) {
-		const SDL_QuitEvent &event = _event.quit;
-		::sprintf(buff, "(timestamp=%d)",
-				  event.timestamp);
+	} else if (_event.type == SDL_FINGERDOWN ||
+			   _event.type == SDL_FINGERUP ||
+			   _event.type == SDL_FINGERMOTION) {
+		const SDL_TouchFingerEvent &event = _event.tfinger;
+		::sprintf(buff, "(timestamp=%d, fingerId=%lld, x=%f, y=%f, dx=%f, dy=%f, pressure=%f)",
+				  event.timestamp, event.fingerId,
+				  event.x, event.y, event.dx, event.dy, event.pressure);
 		str += buff;
+	} else if (_event.type == SDL_DOLLARGESTURE || _event.type == SDL_DOLLARRECORD) {
+		const SDL_DollarGestureEvent &event = _event.dgesture;
+		::sprintf(buff, "(timestamp=%d, touchId=%lld, gestureId=%lld, numFingers=%d, error=%f, x=%f, y=%f)",
+				  event.timestamp, event.touchId, event.gestureId,
+				  event.numFingers, event.error, event.x, event.y);
+		str += buff;
+	} else if (_event.type == SDL_MULTIGESTURE) {
+		const SDL_MultiGestureEvent &event = _event.mgesture;
+		::sprintf(buff, "(timestamp=%d, touchId=%lld, dTheta=%f, dDist=%f, x=%f, y=%f, numFingers=%d)",
+				  event.timestamp, event.touchId,
+				  event.dTheta, event.dDist, event.x, event.y, event.numFingers);
+		str += buff;
+	} else if (_event.type == SDL_CLIPBOARDUPDATE) {
+		// nothing to do
+	} else if (_event.type == SDL_DROPFILE) {
+		const SDL_DropEvent &event = _event.drop;
+		::sprintf(buff, "(timestamp=%d, file=\"%s\")",
+				  event.timestamp, event.file);
+	} else if (_event.type == SDL_RENDER_TARGETS_RESET) {
+		// nothing to do
 	} else if (_event.type == SDL_USEREVENT) {
 		const SDL_UserEvent &event = _event.user;
 		::sprintf(buff, "(timestamp=%d, windowID=%d, code=%d, data1=%d, data2=0x%04x)",
 				  event.timestamp, event.windowID,
 				  event.code, event.data1, event.data2);
 		str += buff;
-	} else if (_event.type == SDL_SYSWMEVENT) {
-		const SDL_SysWMEvent &event = _event.syswm;
-		::sprintf(buff, "(timestamp=%d)",
-				  event.timestamp);
-		str += buff;
-	} else if (_event.type == SDL_FINGERMOTION ||
-			   _event.type == SDL_FINGERDOWN ||
-			   _event.type == SDL_FINGERUP) {
-		const SDL_TouchFingerEvent &event = _event.tfinger;
-		::sprintf(buff, "(timestamp=%d, fingerId=%d, x=%d, y=%d, dx=%d, dy=%d, pressure=%d)",
-				  event.timestamp, event.fingerId,
-				  event.x, event.y, event.dx, event.dy, event.pressure);
-		str += buff;
-	} else if (_event.type == SDL_MULTIGESTURE) {
-		const SDL_MultiGestureEvent &event = _event.mgesture;
-		::sprintf(buff, "(timestamp=%d, touchId=%d, dTheta=%d, dDist=%d, x=%d, y=%d, numFingers=%d)",
-				  event.timestamp, event.touchId,
-				  event.dTheta, event.dDist, event.x, event.y, event.numFingers);
-		str += buff;
-	} else if (_event.type == SDL_DOLLARGESTURE) {
-		const SDL_DollarGestureEvent &event = _event.dgesture;
-		::sprintf(buff, "(timestamp=%d, touchId=%d, gestureId=%d, numFingers=%d, error=%d, x=%d, y=%d)",
-				  event.timestamp, event.touchId, event.gestureId,
-				  event.numFingers, event.error, event.x, event.y);
-		str += buff;
-	} else if (_event.type == SDL_DROPFILE) {
-		const SDL_DropEvent &event = _event.drop;
-		::sprintf(buff, "(timestamp=%d, file=\"%s\")",
-				  event.timestamp, event.file);
 	}
 	str += ">";
 	return str;
@@ -156,12 +172,28 @@ bool Object_Event::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
 	symbols.insert(Gura_UserSymbol(type));
-	if (_event.type == SDL_WINDOWEVENT) {
+	if (_event.type == SDL_QUIT) {
+		symbols.insert(Gura_UserSymbol(timestamp));
+	} else if (_event.type == SDL_APP_TERMINATING) {
+
+	} else if (_event.type == SDL_APP_LOWMEMORY) {
+
+	} else if (_event.type == SDL_APP_WILLENTERBACKGROUND) {
+
+	} else if (_event.type == SDL_APP_DIDENTERBACKGROUND) {
+
+	} else if (_event.type == SDL_APP_WILLENTERFOREGROUND) {
+
+	} else if (_event.type == SDL_APP_DIDENTERFOREGROUND) {
+
+	} else if (_event.type == SDL_WINDOWEVENT) {
 		symbols.insert(Gura_UserSymbol(timestamp));
 		symbols.insert(Gura_UserSymbol(windowID));
 		symbols.insert(Gura_UserSymbol(event));
 		symbols.insert(Gura_UserSymbol(data1));
 		symbols.insert(Gura_UserSymbol(data2));
+	} else if (_event.type == SDL_SYSWMEVENT) {
+		symbols.insert(Gura_UserSymbol(timestamp));
 	} else if (_event.type == SDL_KEYDOWN || _event.type == SDL_KEYUP) {
 		symbols.insert(Gura_UserSymbol(timestamp));
 		symbols.insert(Gura_UserSymbol(windowID));
@@ -246,19 +278,9 @@ bool Object_Event::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 			   _event.type == SDL_CONTROLLERDEVICEREMAPPED) {
 		symbols.insert(Gura_UserSymbol(timestamp));
 		symbols.insert(Gura_UserSymbol(which));
-	} else if (_event.type == SDL_QUIT) {
-		symbols.insert(Gura_UserSymbol(timestamp));
-	} else if (_event.type == SDL_USEREVENT) {
-		symbols.insert(Gura_UserSymbol(timestamp));
-		symbols.insert(Gura_UserSymbol(windowID));
-		symbols.insert(Gura_UserSymbol(code));
-		symbols.insert(Gura_UserSymbol(data1));
-		symbols.insert(Gura_UserSymbol(data2));
-	} else if (_event.type == SDL_SYSWMEVENT) {
-		symbols.insert(Gura_UserSymbol(timestamp));
-	} else if (_event.type == SDL_FINGERMOTION ||
-			   _event.type == SDL_FINGERDOWN ||
-			   _event.type == SDL_FINGERUP) {
+	} else if (_event.type == SDL_FINGERDOWN ||
+			   _event.type == SDL_FINGERUP ||
+			   _event.type == SDL_FINGERMOTION) {
 		symbols.insert(Gura_UserSymbol(timestamp));
 		symbols.insert(Gura_UserSymbol(fingerId));
 		symbols.insert(Gura_UserSymbol(x));
@@ -266,6 +288,14 @@ bool Object_Event::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 		symbols.insert(Gura_UserSymbol(dx));
 		symbols.insert(Gura_UserSymbol(dy));
 		symbols.insert(Gura_UserSymbol(pressure));
+	} else if (_event.type == SDL_DOLLARGESTURE || _event.type == SDL_DOLLARRECORD) {
+		symbols.insert(Gura_UserSymbol(timestamp));
+		symbols.insert(Gura_UserSymbol(touchId));
+		symbols.insert(Gura_UserSymbol(gestureId));
+		symbols.insert(Gura_UserSymbol(numFingers));
+		symbols.insert(Gura_UserSymbol(error));
+		symbols.insert(Gura_UserSymbol(x));
+		symbols.insert(Gura_UserSymbol(y));
 	} else if (_event.type == SDL_MULTIGESTURE) {
 		symbols.insert(Gura_UserSymbol(timestamp));
 		symbols.insert(Gura_UserSymbol(touchId));
@@ -274,17 +304,19 @@ bool Object_Event::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 		symbols.insert(Gura_UserSymbol(x));
 		symbols.insert(Gura_UserSymbol(y));
 		symbols.insert(Gura_UserSymbol(numFingers));
-	} else if (_event.type == SDL_DOLLARGESTURE) {
-		symbols.insert(Gura_UserSymbol(timestamp));
-		symbols.insert(Gura_UserSymbol(touchId));
-		symbols.insert(Gura_UserSymbol(gestureId));
-		symbols.insert(Gura_UserSymbol(numFingers));
-		symbols.insert(Gura_UserSymbol(error));
-		symbols.insert(Gura_UserSymbol(x));
-		symbols.insert(Gura_UserSymbol(y));
+	} else if (_event.type == SDL_CLIPBOARDUPDATE) {
+
 	} else if (_event.type == SDL_DROPFILE) {
 		symbols.insert(Gura_UserSymbol(timestamp));
 		symbols.insert(Gura_UserSymbol(file));
+	} else if (_event.type == SDL_RENDER_TARGETS_RESET) {
+
+	} else if (_event.type == SDL_USEREVENT) {
+		symbols.insert(Gura_UserSymbol(timestamp));
+		symbols.insert(Gura_UserSymbol(windowID));
+		symbols.insert(Gura_UserSymbol(code));
+		symbols.insert(Gura_UserSymbol(data1));
+		symbols.insert(Gura_UserSymbol(data2));
 	}
 	return true;
 }
@@ -296,7 +328,24 @@ Value Object_Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 	if (pSymbol->IsIdentical(Gura_UserSymbol(type))) {
 		return Value(_event.type);
 	}
-	if (_event.type == SDL_WINDOWEVENT) {
+	if (_event.type == SDL_QUIT) {
+		const SDL_QuitEvent &event = _event.quit;
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
+		}
+	} else if (_event.type == SDL_APP_TERMINATING) {
+
+	} else if (_event.type == SDL_APP_LOWMEMORY) {
+
+	} else if (_event.type == SDL_APP_WILLENTERBACKGROUND) {
+
+	} else if (_event.type == SDL_APP_DIDENTERBACKGROUND) {
+
+	} else if (_event.type == SDL_APP_WILLENTERFOREGROUND) {
+
+	} else if (_event.type == SDL_APP_DIDENTERFOREGROUND) {
+
+	} else if (_event.type == SDL_WINDOWEVENT) {
 		const SDL_WindowEvent &event = _event.window;
 		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
 			return Value(event.timestamp);
@@ -308,6 +357,11 @@ Value Object_Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 			return Value(event.data1);
 		} else if (pSymbol->IsIdentical(Gura_UserSymbol(data2))) {
 			return Value(event.data2);
+		}
+	} else if (_event.type == SDL_SYSWMEVENT) {
+		const SDL_SysWMEvent &event = _event.syswm;
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
 		}
 	} else if (_event.type == SDL_KEYDOWN || _event.type == SDL_KEYUP) {
 		const SDL_KeyboardEvent &event = _event.key;
@@ -486,32 +540,9 @@ Value Object_Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 		} else if (pSymbol->IsIdentical(Gura_UserSymbol(which))) {
 			return Value(event.which);
 		}
-	} else if (_event.type == SDL_QUIT) {
-		const SDL_QuitEvent &event = _event.quit;
-		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
-			return Value(event.timestamp);
-		}
-	} else if (_event.type == SDL_USEREVENT) {
-		const SDL_UserEvent &event = _event.user;
-		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
-			return Value(event.timestamp);
-		} else if (pSymbol->IsIdentical(Gura_UserSymbol(windowID))) {
-			return Value(event.windowID);
-		} else if (pSymbol->IsIdentical(Gura_UserSymbol(code))) {
-			return Value(event.code);
-		} else if (pSymbol->IsIdentical(Gura_UserSymbol(data1))) {
-			return Value(event.data1);
-		} else if (pSymbol->IsIdentical(Gura_UserSymbol(data2))) {
-			return Value(event.data2);
-		}
-	} else if (_event.type == SDL_SYSWMEVENT) {
-		const SDL_SysWMEvent &event = _event.syswm;
-		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
-			return Value(event.timestamp);
-		}
-	} else if (_event.type == SDL_FINGERMOTION ||
-			   _event.type == SDL_FINGERDOWN ||
-			   _event.type == SDL_FINGERUP) {
+	} else if (_event.type == SDL_FINGERDOWN ||
+			   _event.type == SDL_FINGERUP ||
+			   _event.type == SDL_FINGERMOTION) {
 		const SDL_TouchFingerEvent &event = _event.tfinger;
 		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
 			return Value(event.timestamp);
@@ -530,6 +561,23 @@ Value Object_Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 		} else if (pSymbol->IsIdentical(Gura_UserSymbol(pressure))) {
 			return Value(event.pressure);
 		}
+	} else if (_event.type == SDL_DOLLARGESTURE || _event.type == SDL_DOLLARRECORD) {
+		const SDL_DollarGestureEvent &event = _event.dgesture;
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(touchId))) {
+			return Value(event.touchId);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(gestureId))) {
+			return Value(event.gestureId);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(numFingers))) {
+			return Value(event.numFingers);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(error))) {
+			return Value(event.error);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(x))) {
+			return Value(event.x);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(y))) {
+			return Value(event.y);
+		}
 	} else if (_event.type == SDL_MULTIGESTURE) {
 		const SDL_MultiGestureEvent &event = _event.mgesture;
 		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
@@ -547,23 +595,8 @@ Value Object_Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 		} else if (pSymbol->IsIdentical(Gura_UserSymbol(numFingers))) {
 			return Value(event.numFingers);
 		}
-	} else if (_event.type == SDL_DOLLARGESTURE) {
-		const SDL_DollarGestureEvent &event = _event.dgesture;
-		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
-			return Value(event.timestamp);
-		} else if (pSymbol->IsIdentical(Gura_UserSymbol(touchId))) {
-			return Value(event.touchId);
-		} else if (pSymbol->IsIdentical(Gura_UserSymbol(gestureId))) {
-			return Value(event.gestureId);
-		} else if (pSymbol->IsIdentical(Gura_UserSymbol(numFingers))) {
-			return Value(event.numFingers);
-		} else if (pSymbol->IsIdentical(Gura_UserSymbol(error))) {
-			return Value(event.error);
-		} else if (pSymbol->IsIdentical(Gura_UserSymbol(x))) {
-			return Value(event.x);
-		} else if (pSymbol->IsIdentical(Gura_UserSymbol(y))) {
-			return Value(event.y);
-		}
+	} else if (_event.type == SDL_CLIPBOARDUPDATE) {
+
 	} else if (_event.type == SDL_DROPFILE) {
 		const SDL_DropEvent &event = _event.drop;
 		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
@@ -571,15 +604,30 @@ Value Object_Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 		} else if (pSymbol->IsIdentical(Gura_UserSymbol(file))) {
 			return Value(event.file);
 		}
+	} else if (_event.type == SDL_RENDER_TARGETS_RESET) {
+
+	} else if (_event.type == SDL_USEREVENT) {
+		const SDL_UserEvent &event = _event.user;
+		if (pSymbol->IsIdentical(Gura_UserSymbol(timestamp))) {
+			return Value(event.timestamp);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(windowID))) {
+			return Value(event.windowID);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(code))) {
+			return Value(event.code);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(data1))) {
+			return Value(event.data1);
+		} else if (pSymbol->IsIdentical(Gura_UserSymbol(data2))) {
+			return Value(event.data2);
+		}
 	}
 	evaluatedFlag = false;
 	return Value::Null;
 }
 
-const char *GetEventTypeName(Uint8 type)
+const char *GetEventTypeName(Uint32 type)
 {
 	static const struct {
-		Uint8 type;
+		Uint32 type;
 		const char *name;
 	} tbl[] = {
 		{ SDL_WINDOWEVENT,				"WindowEvent",				},

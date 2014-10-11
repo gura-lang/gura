@@ -1,20 +1,17 @@
+#!/usr/bin/env gura
 import(sdl2, sdl)
 
 App = class {
 	MainLoop(caption:string:nil, width:number, height:number, flags:number) = {
 		sdl.Init(sdl.INIT_VIDEO)
-		caption = caption || path.filename(sys.argv[0])
-		this.window = sdl.CreateWindow(caption,
-							  sdl.WINDOWPOS_CENTERED, sdl.WINDOWPOS_CENTERED,
-							  width, height, flags)
-		openglFlag = ((flags | sdl.WINDOW_OPENGL) != 0)
-		if (openglFlag) {
-			this.context = sdl.GL_CreateContext(this.window)
-			sdl.GL_SetAttribute * [
-				[sdl.GL_RED_SIZE, 5], [sdl.GL_GREEN_SIZE, 5], [sdl.GL_BLUE_SIZE, 5],
-				[sdl.GL_DEPTH_SIZE, 32], [sdl.GL_DOUBLEBUFFER, 0]
-			]
-		}
+		this.window = sdl.CreateWindow(caption || path.filename(sys.argv[0]),
+							sdl.WINDOWPOS_CENTERED, sdl.WINDOWPOS_CENTERED,
+							width, height, flags | sdl.WINDOW_OPENGL)
+		this.context = sdl.GL_CreateContext(this.window)
+		sdl.GL_SetAttribute * [
+			[sdl.GL_RED_SIZE, 5], [sdl.GL_GREEN_SIZE, 5], [sdl.GL_BLUE_SIZE, 5],
+			[sdl.GL_DEPTH_SIZE, 32], [sdl.GL_DOUBLEBUFFER, 0]
+		]
 		this.OnInit()
 		this.OnResize(width, height)
 		repeat {
@@ -23,17 +20,15 @@ App = class {
 				// nothing to do
 			} elsif (event.type == sdl.WINDOWEVENT_EXPOSED) {
 				this.OnDraw()
-				openglFlag && this.SwapWindow()
+				this.SwapWindow()
 			} elsif (event.type == sdl.WINDOWEVENT_RESIZED) {
 				this.OnResize(event.w, event.h)
 				this.OnDraw()
-				openglFlag && this.SwapWindow()
+				this.SwapWindow()
 			} elsif (event.type == sdl.QUIT) {
 				break
 			} elsif (event.type == sdl.KEYDOWN) {
-				if (event.sym == sdl.K_ESCAPE) {
-					break
-				}
+				(event.sym == sdl.K_ESCAPE) && break
 				this.OnKeyDown(event)
 			} elsif (event.type == sdl.KEYUP) {
 				this.OnKeyUp(event)
@@ -68,8 +63,10 @@ if (__name__ == '__main__') {
 		OnIdle() = {
 		}
 		OnResize(width:number, height:number) = {
+			println('OnResize')
 		}
 		OnDraw() = {
+			println('OnDraw')
 			glClearColor(0, 0, 1, 1)
 			glClear(GL_COLOR_BUFFER_BIT)
 			glFlush()
@@ -91,6 +88,6 @@ if (__name__ == '__main__') {
 		}
 	}
 	app = AppEx()
-	app.MainLoop('sdlutil', 400, 300, sdl.WINDOW_OPENGL | sdl.WINDOW_RESIZABLE)
+	app.MainLoop('sdlutil', 400, 300, sdl.WINDOW_RESIZABLE)
 	sdl.Quit()
 }
