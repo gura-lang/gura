@@ -122,9 +122,9 @@ Draw() = {
 }
 
 scope {
-	import(sdl)
-	import(sdlutil)
-	App = class(sdlutil.App) {
+	import(sdl2, sdl)
+	import(glapp)
+	App = class(glapp.App) {
 		OnInit() = {
 			Init()
 		}
@@ -138,5 +138,5 @@ scope {
 		}
 	}
 	app = App()
-	app.MainLoop(nil, 300, 300, sdl.OPENGL)
+	app.MainLoop(nil, 300, 300, 0)
 }

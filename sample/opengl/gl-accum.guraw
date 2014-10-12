@@ -46,9 +46,9 @@ Draw(thing1:number, thing2:number) = {
 
 scope {
 	import(sdl2, sdl)
-	import(sdlutil)
+	import(glapp)
 	thing1 = thing2 = nil
-	App = class(sdlutil.App) {
+	App = class(glapp.App) {
 		OnInit() = {
 			extern(thing1, thing2)
 			[thing1, thing2] = Init()
@@ -56,11 +56,10 @@ scope {
 		OnResize(width:number, height:number) = {
 			Reshape(width, height)
 		}
-		OnIdle() = {
+		OnDraw() = {
 			Draw(thing1, thing2)
-			this.SwapWindow()
 		}
 	}
 	app = App()
-	app.MainLoop(nil, 300, 300, sdl.WINDOW_OPENGL)
+	app.MainLoop(nil, 300, 300, 0)
 }

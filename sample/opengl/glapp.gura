@@ -19,14 +19,11 @@ App = class {
 			if (!event) {
 				// nothing to do
 			} elsif (event.type == sdl.WINDOWEVENT) {
-				println(event)
 				if (event.event == sdl.WINDOWEVENT_SHOWN) {
 					this.OnDraw()
-					this.SwapWindow()
 				} elsif (event.event == sdl.WINDOWEVENT_RESIZED) {
 					this.OnResize(event.w, event.h)
 					this.OnDraw()
-					this.SwapWindow()
 				}
 			} elsif (event.type == sdl.QUIT) {
 				break
@@ -46,7 +43,7 @@ App = class {
 		}
 	}
 	SwapWindow() = sdl.GL_SwapWindow(this.window)
-	CheckKeyState(key:number) = sdl.CheckKeyState(key)
+	CheckKeyboardState(key:number) = sdl.CheckKeyboardState(key)
 	OnInit() = {}
 	OnIdle() = {}
 	OnResize(width:number, height:number) = {}
