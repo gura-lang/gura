@@ -18,13 +18,16 @@ App = class {
 			event = sdl.PollEvent()
 			if (!event) {
 				// nothing to do
-			} elsif (event.type == sdl.WINDOWEVENT_EXPOSED) {
-				this.OnDraw()
-				this.SwapWindow()
-			} elsif (event.type == sdl.WINDOWEVENT_RESIZED) {
-				this.OnResize(event.w, event.h)
-				this.OnDraw()
-				this.SwapWindow()
+			} elsif (event.type == sdl.WINDOWEVENT) {
+				println(event)
+				if (event.event == sdl.WINDOWEVENT_SHOWN) {
+					this.OnDraw()
+					this.SwapWindow()
+				} elsif (event.event == sdl.WINDOWEVENT_RESIZED) {
+					this.OnResize(event.w, event.h)
+					this.OnDraw()
+					this.SwapWindow()
+				}
 			} elsif (event.type == sdl.QUIT) {
 				break
 			} elsif (event.type == sdl.KEYDOWN) {

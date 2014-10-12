@@ -143,10 +143,10 @@ Draw(teaList, rotX, rotY) = {
 
 scope {
 	import(sdl2, sdl)
-	import(sdlutil)
+	import(glapp)
 	teaList = nil
 	[rotX, rotY] = [0, 0]
-	App = class(sdlutil.App) {
+	App = class(glapp.App) {
 		OnInit() = {
 			extern(teaList)
 			teaList = Init()
