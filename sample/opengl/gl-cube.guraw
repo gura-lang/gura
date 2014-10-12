@@ -41,11 +41,11 @@ display(degree:number) = {
 }
 
 scope {
-	import(sdl)
-	import(sdlutil)
+	import(sdl2, sdl)
+	import(glapp)
 	degree = 0
 	[width, height] = [300, 300]
-	App = class(sdlutil.App) {
+	App = class(glapp.App) {
 		OnInit() = {
 		}
 		OnResize(width:number, height:number) = {
@@ -53,19 +53,20 @@ scope {
 		OnDraw() = {
 			init(width, height)
 			display(degree)
+			this.SwapWindow()
 		}
 		OnIdle() = {
-			if (this.CheckKeyState(sdl.K_LEFT)) {
+			if (this.CheckKeyboardState(sdl.SCANCODE_LEFT)) {
 				degree += 1
 			}
-			if (this.CheckKeyState(sdl.K_RIGHT)) {
+			if (this.CheckKeyboardState(sdl.SCANCODE_RIGHT)) {
 				degree -= 1
 			}
 			init(width, height)
 			display(degree)
-			this.SwapBuffers()
+			this.SwapWindow()
 		}
 	}
 	app = App()
-	app.MainLoop(nil, width, height, sdl.OPENGL)
+	app.MainLoop(nil, width, height, 0)
 }

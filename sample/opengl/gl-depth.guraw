@@ -74,9 +74,9 @@ Draw() = {
 }
 
 scope {
-	import(sdl)
-	import(sdlutil)
-	App = class(sdlutil.App) {
+	import(sdl2, sdl)
+	import(glapp)
+	App = class(glapp.App) {
 		OnInit() = {
 			Init()
 		}
@@ -85,6 +85,7 @@ scope {
 		}
 		OnDraw() = {
 			Draw()
+			this.SwapWindow()
 		}
 		OnMouseDown(event:sdl.Event) = {
 			extern(x, y)
@@ -100,9 +101,9 @@ scope {
 				stipple = !stipple
 			}
 			Draw()
-			this.SwapBuffers()
+			this.SwapWindow()
 		}
 	}
 	app = App()
-	app.MainLoop(nil, 300, 300, sdl.OPENGL)
+	app.MainLoop(nil, 300, 300, 0)
 }
