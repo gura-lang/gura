@@ -6,7 +6,6 @@
 
 import(glu) {*}
 import(opengl) {*}
-import(gltester)
 import(rgbread)
 
 cRec = struct(x:number, y:number)
@@ -128,20 +127,22 @@ InitVList() = {
 }
 
 scope {
-	import(gltester)
+	import(sdl2, sdl)
+	import(glapp)
 	img:extern = image(`rgb)
 	img.rgbread('1.rgb')
 	widthScaled:extern = 2 ** int(math.log(img.width) / math.log(2.0))
 	heightScaled:extern = 2 ** int(math.log(img.height) / math.log(2.0))
-	gltester.mainloop(widthScaled, heightScaled, 10, `idle) {
-		`onInit => function {
+	App = class(glapp.App) {
+		OnInit() = {
 			Init()
 		}
-		`onDraw => function {
+		OnIdle() = {
 			Animate()
+			this.SwapWindow()
 		}
-		`onKeyDown => %{
-			`space => function {
+		OnKeyDown(event:sdl.Event) = {
+			if (event.scancode == sdl.SCANCODE_SPACE) {
 				if (cList.len() > 1) {
 					InitVList()
 				    cIndex[0] = 0
@@ -152,15 +153,17 @@ scope {
 				}
 			}
 		}
-		`onMouseButtonDown => function(x:number, y:number) {
+		OnMouseButtonDown(event:sdl.Event) = {
 			if (op == `OP_STRETCH) {
 			    glDisable(GL_TEXTURE_2D)
 			    cList:extern = []
 			    op:extern = `OP_DRAWIMAGE
 			} else {
-				cList.add(cRec(x, heightScaled - y))
+				cList.add(cRec(event.x, heightScaled - event.y))
 			    op:extern = `OP_DRAWPOINT
 			}
 		}
 	}
+	app = App()
+	app.MainLoop(nil, widthScaled, heightScaled, 0)
 }

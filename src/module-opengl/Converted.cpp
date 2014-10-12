@@ -5314,9 +5314,9 @@ void ModuleEntrySub(Environment &env, Signal sig)
 	Gura_AssignValue(GL_PHONG_WIN,                       Value(GL_PHONG_WIN));
 	Gura_AssignValue(GL_PHONG_HINT_WIN,                  Value(GL_PHONG_HINT_WIN));
 	Gura_AssignValue(GL_FOG_SPECULAR_TEXTURE_WIN,        Value(GL_FOG_SPECULAR_TEXTURE_WIN));
+#endif
 	Gura_AssignValue(GL_LOGIC_OP,                        Value(GL_LOGIC_OP));
 	Gura_AssignValue(GL_TEXTURE_COMPONENTS,              Value(GL_TEXTURE_COMPONENTS));
-#endif
 	// function assignment
 	Gura_AssignFunction(glAccum);
 	Gura_AssignFunction(glAlphaFunc);

@@ -372,27 +372,29 @@ Draw() = {
 }
 
 scope {
-	import(gltester)
-	gltester.mainloop(400, 300, 0, `keydown) {
-		`onInit => function {
+	import(sdl2, sdl)
+	import(glapp)
+	App = class(glapp.App) {
+		OnInit() = {
 		}
-		`onResize => function(width:number, height:number) {
+		OnResize(width:number, height:number) = {
 		}
-		`onDraw => function {
+		OnDraw() = {
 			Draw()
+			this.SwapWindow()
 		}
-		`onKeyDown => %{
-			`num1 => function {
+		OnKeyDown(event:sdl.Event) = {
+			if (this.CheckKeyboardState(sdl.SCANCODE_1)) {
 				mode1 = !mode1
-			}
-			`num2 => function {
+			} elsif (this.CheckKeyboardState(sdl.SCANCODE_2)) {
 				mode2 = !mode2
-			}
-			`num3 => function {
+			} elsif (this.CheckKeyboardState(sdl.SCANCODE_3)) {
 				RotateColorMask()
 			}
-		}
-		`onKeyPoll => %{
+			Draw()
+			this.SwapWindow()
 		}
 	}
+	app = App()
+	app.MainLoop(nil, 400, 300, 0)
 }

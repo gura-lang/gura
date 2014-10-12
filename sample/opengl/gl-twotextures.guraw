@@ -6,7 +6,6 @@
 
 import(glu) {*}
 import(opengl) {*}
-import(gltester)
 import(rgbread)
 
 winW = 300, winH = 300;
@@ -85,50 +84,55 @@ Draw() = {
 }
 
 scope {
-	import(gltester)
+	import(glapp)
 	earthImage:extern = image(`rgb)
 	earthImage.rgbread('1.rgb')
 	skyImage:extern = image(`rgb)
 	skyImage.rgbread('2.rgb')
-	gltester.mainloop(winW, winH, 0, `idle) {
-		`onInit => function {
+	App = class(glapp.App) {
+		OnInit() = {
 			Init()
 		}
-		`onResize => function(width:number, height:number) {
+		OnResize(width:number, height:number) = {
 			Reshape(width, height)
 		}
-		`onDraw => function {
+		OnDraw() = {
 			Draw()
+			this.SwapWindow()
 		}
-		`onKeyPoll => %{
-			`num1 => function {
+		OnIdle() = {
+			if (this.CheckKeyboardState(sdl.SCANCODE_1)) {
 				horizon:extern -= 5
 				texMinY:extern -= 5.0 / winH
 				texMinY:extern += 5.0 / winH
 				texMaxY:extern += 5.0 / winH
 			}
-			`num2 => function {
+			if (this.CheckKeyboardState(sdl.SCANCODE_2)) {
 				horizon:extern += 5
 				texMinY:extern += 5.0 / winH
 				texMinY:extern -= 5.0 / winH
 				texMaxY:extern -= 5.0 / winH
 			}
-			`left => function {
+			if (this.CheckKeyboardState(sdl.SCANCODE_LEFT)) {
 				texMinX:extern -= 5.0 / winW
 				texMaxX:extern -= 5.0 / winW
 			}
-			`right => function {
+			if (this.CheckKeyboardState(sdl.SCANCODE_RIGHT)) {
 				texMinX:extern += 5.0 / winW
 				texMaxX:extern += 5.0 / winW
 			}
-			`up => function {
+			if (this.CheckKeyboardState(sdl.SCANCODE_UP)) {
 				texMinY:extern += 5.0 / winH
 				texMaxY:extern += 5.0 / winH
 			}
-			`down => function {
+			if (this.CheckKeyboardState(sdl.SCANCODE_DOWN)) {
 				texMinY:extern -= 5.0 / winH
 				texMaxY:extern -= 5.0 / winH
 			}
+			Draw()
+			this.SwapWindow()
 		}
 	}
+	app = App()
+	app.MainLoop(nil, winW, winH, 0)
 }

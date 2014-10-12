@@ -680,8 +680,10 @@ Reshape(width:number, height:number) = {
 
 env = locals()
 scope {
-	gltester.mainloop(300, 300, 0, `idle) {
-		`onInit => function {
+	import(sdl2, sdl)
+	import(glapp)
+	App = class(glapp.App) {
+		OnInit() = {
 			extern(cage, cube, cylinder, torus, genericObject)
 			Init()
 			cage = BuildCage()
@@ -690,17 +692,17 @@ scope {
 			torus = BuildTorus(0.65, 20, .85, 65)
 			genericObject = cube //cylinder //torus //cylinder
 		}
-		`onResize => function(width:number, height:number) {
+		OnResize(width:number, height:number) = {
 			Reshape(width, height)
 		}
-		`onDraw => function {
+		OnDraw() = {
 			Draw(cage, genericObject)
+			this.SwapWindow()
 		}
-		`onKeyDown => %{
-			`a => function {
+		OnKeyDown(event:sdl.Event) = {
+			if (event.scancode == sdl.SCANCODE_A) {
 				autoRotate:extern = !autoRotate
-			}
-			`c => function {
+			} elsif (event.scancode == sdl.SCANCODE_C) {
 				genericObject:extern = \
 					if (genericObject == cube) {
 						cylinder
@@ -709,93 +711,87 @@ scope {
 					} elsif (genericObject == torus) {
 						cube
 					}
-			}
-			`d => function {
+			} elsif (event.scancode == sdl.SCANCODE_D) {
 				extern(textureEnvironment)
 				textureEnvironment = [GL_DECAL]
 				ReInit()
-			}
-			`m => function {
+			} elsif (event.scancode == sdl.SCANCODE_M) {
 				extern(textureEnvironment)
 				textureEnvironment = [GL_MODULATE]
 				ReInit()
-			}
-			`l => function {
+			} elsif (event.scancode == sdl.SCANCODE_L) {
 				extern(isLit)
 				isLit = !isLit
 				ReInit()
-			}
-			`f => function {
+			} elsif (event.scancode == sdl.SCANCODE_F) {
 				extern(isFogged)
 				isFogged = !isFogged
 				ReInit()
-			}
-			`num0 => function {
+			} elsif (event.scancode == sdl.SCANCODE_0) {
 				extern(magFilter)
 				magFilter = [GL_NEAREST]
 				ReInit()
-			}
-			`num1 => function {
+			} elsif (event.scancode == sdl.SCANCODE_1) {
 				extern(magFilter)
 				magFilter = [GL_LINEAR]
 				ReInit()
-			}
-			`num2 => function {
+			} elsif (event.scancode == sdl.SCANCODE_2) {
 				extern(minFilter)
 				minFilter = [GL_NEAREST]
 				ReInit()
-			}
-			`num3 => function {
+			} elsif (event.scancode == sdl.SCANCODE_3) {
 				extern(minFilter)
 				minFilter = [GL_LINEAR]
 				ReInit()
-			}
-			`num4 => function {
+			} elsif (event.scancode == sdl.SCANCODE_4) {
 				extern(minFilter)
 				minFilter = [GL_NEAREST_MIPMAP_NEAREST]
 				ReInit()
-			}
-			`num5 => function {
+			} elsif (event.scancode == sdl.SCANCODE_5) {
 				extern(minFilter)
 				minFilter = [GL_NEAREST_MIPMAP_LINEAR]
 				ReInit()
-			}
-			`num6 => function {
+			} elsif (event.scancode == sdl.SCANCODE_6) {
 				extern(minFilter)
 				minFilter = [GL_LINEAR_MIPMAP_NEAREST]
 				ReInit()
-			}
-			`num7 => function {
+			} elsif (event.scancode == sdl.SCANCODE_7) {
 				extern(minFilter)
 				minFilter = [GL_LINEAR_MIPMAP_LINEAR]
 				ReInit()
 			}
+			Draw(cage, genericObject)
+			this.SwapWindow()
 		}
-		`onKeyPoll => %{
-			`left => function {
+		OnIdle() = {
+			if (this.CheckKeyboardState(sdl.SCANCODE_LEFT)) {
 				extern(yRotation, autoRotate)
 				yRotation -= 0.5
 				autoRotate = false
 				ReInit()
 			}
-			`right => function {
+			if (this.CheckKeyboardState(sdl.SCANCODE_RIGHT)) {
 				extern(yRotation, autoRotate)
 				yRotation += 0.5
 				autoRotate = false
 				ReInit()
 			}
-			`up => function {
+			if (this.CheckKeyboardState(sdl.SCANCODE_UP)) {
 				extern(xRotation, autoRotate)
 				xRotation -= 0.5
 				autoRotate = false
 				ReInit()
 			}
-			`down => function {
+			if (this.CheckKeyboardState(sdl.SCANCODE_DOWN)) {
 				extern(xRotation, autoRotate)
 				xRotation += 0.5
 				autoRotate = false
 				ReInit()
 			}
+			Draw(cage, genericObject)
+			this.SwapWindow()
 		}
 	}
+	app = App()
+	app.MainLoop(nil, 300, 300, 0)
 }

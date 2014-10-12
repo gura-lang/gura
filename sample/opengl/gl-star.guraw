@@ -172,26 +172,32 @@ Draw() = {
 }
 
 scope {
-	import(gltester)
-	gltester.mainloop(windW, windH, 0, `idle) {
-		`onInit => function {
+	import(sdl2, sdl)
+	import(glapp)
+	App = class(glapp.App) {
+		OnInit() = {
 			Init()
 		}
-		`onResize => function(width:number, height:number) {
+		OnResize(width:number, height:number) = {
 			Reshape(width, height)
 		}
-		`onDraw => function {
+		OnDraw() = {
 			Draw()
+			this.SwapWindow()
 		}
-		`onKeyDown => %{
-			`space => function {
+		OnKeyDown(event:sdl.Event) = {
+			if (event.scancode == sdl.SCANCODE_SPACE) {
 				extern(flag)
 				flag = if (flag == `NORMAL) {`WEIRD} else {`NORMAL}
 			}
-			`t => function {
+			if (event.scancode == sdl.SCANCODE_T) {
 				extern(nitro)
 				nitro = 1
 			}
+			Draw()
+			this.SwapWindow()
 		}
 	}
+	app = App()
+	app.MainLoop(nil, windW, windH, 0)
 }
