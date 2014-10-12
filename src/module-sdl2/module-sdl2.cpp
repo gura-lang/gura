@@ -62,6 +62,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(windowID);
 	Gura_RealizeUserSymbol(event);
 	Gura_RealizeUserSymbol(data1);
+	Gura_RealizeUserSymbol(data2);
 	Gura_RealizeUserSymbol(text);
 	Gura_RealizeUserSymbol(start);
 	Gura_RealizeUserSymbol(repeat);

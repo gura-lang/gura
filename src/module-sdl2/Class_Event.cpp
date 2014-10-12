@@ -3,6 +3,7 @@
 Gura_BeginModuleScope(sdl2)
 
 const char *GetEventTypeName(Uint32 type);
+const char *GetWindowEventName(Uint8 event);
 
 //-----------------------------------------------------------------------------
 // Object_Event implementation
@@ -41,9 +42,23 @@ String Object_Event::ToString(bool exprFlag)
 		// nothing to do
 	} else if (_event.type == SDL_WINDOWEVENT) {
 		const SDL_WindowEvent &event = _event.window;
-		::sprintf(buff, "(timestamp=%d, windowID=%d, event=%d, data1=%d, data2=0x%04x)",
-				  event.timestamp, event.windowID,
-				  event.event, event.data1, event.data2);
+		if (event.event == SDL_WINDOWEVENT_MOVED) {
+			::sprintf(buff, "(timestamp=%d, windowID=%d, event=%s, x=%d, y=%d)",
+					  event.timestamp, event.windowID,
+					  GetWindowEventName(event.event), event.data1, event.data2);
+		} else if (event.event == SDL_WINDOWEVENT_RESIZED) {
+			::sprintf(buff, "(timestamp=%d, windowID=%d, event=%s, w=%d, h=%d)",
+					  event.timestamp, event.windowID,
+					  GetWindowEventName(event.event), event.data1, event.data2);
+		} else if (event.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
+			::sprintf(buff, "(timestamp=%d, windowID=%d, event=%s, w=%d, h=%d)",
+					  event.timestamp, event.windowID,
+					  GetWindowEventName(event.event), event.data1, event.data2);
+		} else {
+			::sprintf(buff, "(timestamp=%d, windowID=%d, event=%s, data1=%d, data2=%d)",
+					  event.timestamp, event.windowID,
+					  GetWindowEventName(event.event), event.data1, event.data2);
+		}
 		str += buff;
 	} else if (_event.type == SDL_SYSWMEVENT) {
 		const SDL_SysWMEvent &event = _event.syswm;
@@ -159,7 +174,7 @@ String Object_Event::ToString(bool exprFlag)
 		// nothing to do
 	} else if (_event.type == SDL_USEREVENT) {
 		const SDL_UserEvent &event = _event.user;
-		::sprintf(buff, "(timestamp=%d, windowID=%d, code=%d, data1=%d, data2=0x%04x)",
+		::sprintf(buff, "(timestamp=%d, windowID=%d, code=%d, data1=0x%p, data2=0x%p)",
 				  event.timestamp, event.windowID,
 				  event.code, event.data1, event.data2);
 		str += buff;
@@ -187,11 +202,22 @@ bool Object_Event::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 	} else if (_event.type == SDL_APP_DIDENTERFOREGROUND) {
 
 	} else if (_event.type == SDL_WINDOWEVENT) {
+		const SDL_WindowEvent &event = _event.window;
 		symbols.insert(Gura_UserSymbol(timestamp));
 		symbols.insert(Gura_UserSymbol(windowID));
 		symbols.insert(Gura_UserSymbol(event));
 		symbols.insert(Gura_UserSymbol(data1));
 		symbols.insert(Gura_UserSymbol(data2));
+		if (event.event == SDL_WINDOWEVENT_MOVED) {
+			symbols.insert(Gura_UserSymbol(x));
+			symbols.insert(Gura_UserSymbol(y));
+		} else if (event.event == SDL_WINDOWEVENT_RESIZED) {
+			symbols.insert(Gura_UserSymbol(w));
+			symbols.insert(Gura_UserSymbol(h));
+		} else if (event.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
+			symbols.insert(Gura_UserSymbol(w));
+			symbols.insert(Gura_UserSymbol(h));
+		}
 	} else if (_event.type == SDL_SYSWMEVENT) {
 		symbols.insert(Gura_UserSymbol(timestamp));
 	} else if (_event.type == SDL_KEYDOWN || _event.type == SDL_KEYUP) {
@@ -353,7 +379,27 @@ Value Object_Event::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbo
 			return Value(event.windowID);
 		} else if (pSymbol->IsIdentical(Gura_UserSymbol(event))) {
 			return Value(event.event);
-		} else if (pSymbol->IsIdentical(Gura_UserSymbol(data1))) {
+		}
+		if (event.event == SDL_WINDOWEVENT_MOVED) {
+			if (pSymbol->IsIdentical(Gura_UserSymbol(x))) {
+				return Value(event.data1);
+			} else if (pSymbol->IsIdentical(Gura_UserSymbol(y))) {
+				return Value(event.data2);
+			}
+		} else if (event.event == SDL_WINDOWEVENT_RESIZED) {
+			if (pSymbol->IsIdentical(Gura_UserSymbol(w))) {
+				return Value(event.data1);
+			} else if (pSymbol->IsIdentical(Gura_UserSymbol(h))) {
+				return Value(event.data2);
+			}
+		} else if (event.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
+			if (pSymbol->IsIdentical(Gura_UserSymbol(w))) {
+				return Value(event.data1);
+			} else if (pSymbol->IsIdentical(Gura_UserSymbol(h))) {
+				return Value(event.data2);
+			}
+		}
+		if (pSymbol->IsIdentical(Gura_UserSymbol(data1))) {
 			return Value(event.data1);
 		} else if (pSymbol->IsIdentical(Gura_UserSymbol(data2))) {
 			return Value(event.data2);
@@ -664,6 +710,34 @@ const char *GetEventTypeName(Uint32 type)
 	};
 	for (int i = 0; i < ArraySizeOf(tbl); i++) {
 		if (tbl[i].type == type) return tbl[i].name;
+	}
+	return "(unknown)";
+}
+
+const char *GetWindowEventName(Uint8 event)
+{
+	static const struct {
+		Uint8 event;
+		const char *name;
+	} tbl[] = {
+		{ SDL_WINDOWEVENT_NONE,			"NONE",			},
+		{ SDL_WINDOWEVENT_SHOWN,		"SHOWN",		},
+		{ SDL_WINDOWEVENT_HIDDEN,		"HIDDEN",		},
+		{ SDL_WINDOWEVENT_EXPOSED,		"EXPOSED",		},
+		{ SDL_WINDOWEVENT_MOVED,		"MOVED",		},
+		{ SDL_WINDOWEVENT_RESIZED,		"RESIZED",		},
+		{ SDL_WINDOWEVENT_SIZE_CHANGED,	"SIZE_CHANGED",	},
+		{ SDL_WINDOWEVENT_MINIMIZED,	"MINIMIZED",	},
+		{ SDL_WINDOWEVENT_MAXIMIZED,	"MAXIMIZED",	},
+		{ SDL_WINDOWEVENT_RESTORED,		"RESTORED",		},
+		{ SDL_WINDOWEVENT_ENTER,		"ENTER",		},
+		{ SDL_WINDOWEVENT_LEAVE,		"LEAVE",		},
+		{ SDL_WINDOWEVENT_FOCUS_GAINED,	"FOCUS_GAINED",	},
+		{ SDL_WINDOWEVENT_FOCUS_LOST,	"FOCUS_LOST",	},
+		{ SDL_WINDOWEVENT_CLOSE,		"CLOSE",		},
+	};
+	for (int i = 0; i < ArraySizeOf(tbl); i++) {
+		if (tbl[i].event == event) return tbl[i].name;
 	}
 	return "(unknown)";
 }
