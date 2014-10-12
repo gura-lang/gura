@@ -45,9 +45,9 @@ Draw() = {
 }
 
 scope {
-	import(sdl)
-	import(sdlutil)
-	App = class(sdlutil.App) {
+	import(sdl2, sdl)
+	import(glapp)
+	App = class(glapp.App) {
 		OnInit() = {
 			Init()
 		}
@@ -56,6 +56,7 @@ scope {
 		}
 		OnDraw() = {
 			Draw()
+			this.SwapWindow()
 		}
 		OnMouseDown(event:sdl.Event) = {
 			extern(x, y)
@@ -63,17 +64,17 @@ scope {
 			y = event.y
 		}
 		OnIdle() = {
-			if (this.CheckKeyState(sdl.K_UP)) {
+			if (this.CheckKeyboardState(sdl.SCANCODE_UP)) {
 				zoom += 0.2
 			}
-			if (this.CheckKeyState(sdl.K_DOWN)) {
+			if (this.CheckKeyboardState(sdl.SCANCODE_DOWN)) {
 				zoom -= 0.2
 				if (zoom < 0.2) { zoom = 0.2 }
 			}
 			Draw()
-			this.SwapBuffers()
+			this.SwapWindow()
 		}
 	}
 	app = App()
-	app.MainLoop(nil, 300, 300, sdl.OPENGL)
+	app.MainLoop(nil, 300, 300, 0)
 }
