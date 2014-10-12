@@ -295,8 +295,8 @@ Reshape(width:number, height:number) = {
 
 scope {
 	import(sdl2, sdl)
-	import(sdlutil)
-	App = class(sdlutil.App) {
+	import(glapp)
+	App = class(glapp.App) {
 		OnInit() = {
 			Init()
 		}
@@ -309,5 +309,5 @@ scope {
 		}
 	}
 	app = App()
-	app.MainLoop(nil, 400, 400, sdl.WINDOW_OPENGL)
+	app.MainLoop(nil, 400, 400, 0)
 }
