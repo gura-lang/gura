@@ -1227,7 +1227,8 @@ Draw(logo:number, yRotation:number, zTranslation:number) = {
 }
 
 scope {
-	import(gltester)
+	import(sdl2, sdl)
+	import(glapp)
 	logo = nil
 	yRotation = 30.0
 	zTranslation = -15.0
@@ -1235,93 +1236,76 @@ scope {
 	shade = true
 	doStipple = true
 	polyMode = GL_BACK
-	gltester.mainloop(300, 300, 0, `idle) {
-		`onInit => function {
+	App = class(glapp.App) {
+		OnInit() = {
 			extern(logo)
 			logo = Init()
 		}
-		`onResize => function(width:number, height:number) {
+		OnResize(width:number, height:number) = {
 			Reshape(width, height)
 		}
-		`onDraw => function {
+		OnDraw() = {
 			Draw(logo, yRotation, zTranslation)
+			this.SwapWindow()
 		}
-		`onKeyDown => %{
-			`up => function {
+		OnKeyDown(event:sdl.Event) = {
+			if (event.scancode == sdl.SCANCODE_UP) {
 				plane[3] += 2
-			}
-			`down => function {
+			} elsif (event.scancode == sdl.SCANCODE_DOWN) {
 				plane[3] -= 2
-			}
-			`a => function {
+			} elsif (event.scancode == sdl.SCANCODE_A) {
 				glEnable(GL_TEXTURE_2D)
 				glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, [GL_REPEAT])
 				glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, [GL_REPEAT])
 				glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, [GL_NEAREST])
 				glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, [GL_NEAREST])
 				glTexImage2D(GL_TEXTURE_2D, 0, 3, 0, checkImage)
-			}
-			`s => function {
+			} elsif (event.scancode == sdl.SCANCODE_S) {
 				glEnable(GL_TEXTURE_2D)
 				glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, [GL_REPEAT])
 				glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, [GL_REPEAT])
 				glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, [GL_NEAREST])
 				glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, [GL_NEAREST])
 				glTexImage2D(GL_TEXTURE_2D, 0, 4, 0, brickImage)
-			}
-			`d => function {
+			} elsif (event.scancode == sdl.SCANCODE_D) {
 				glDisable(GL_TEXTURE_2D)
-			}
-			`f => function {
+			} elsif (event.scancode == sdl.SCANCODE_F) {
 				glTexEnvfv(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, [GL_DECAL])
-			}
-			`g => function {
+			} elsif (event.scancode == sdl.SCANCODE_G) {
 				glTexEnvfv(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, [GL_MODULATE])
-			}
-			`q => function {
+			} elsif (event.scancode == sdl.SCANCODE_Q) {
 				glDisable(GL_CULL_FACE)
-			}
-			`w => function {
+			} elsif (event.scancode == sdl.SCANCODE_W) {
 				glEnable(GL_CULL_FACE)
 				glCullFace(GL_FRONT)
-			}
-			`e => function {
+			} elsif (event.scancode == sdl.SCANCODE_E) {
 				glEnable(GL_CULL_FACE)
 				glCullFace(GL_BACK)
-			}
-			`r => function {
+			} elsif (event.scancode == sdl.SCANCODE_R) {
 				glFrontFace(GL_CW)
-			}
-			`t => function {
+			} elsif (event.scancode == sdl.SCANCODE_T) {
 				glFrontFace(GL_CCW)
-			}
-			`y => function {
+			} elsif (event.scancode == sdl.SCANCODE_Y) {
 				glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
 				glPixelStorei(GL_UNPACK_LSB_FIRST, 0)
 				glPolygonStipple(stipple)
-			}
-			`u => function {
+			} elsif (event.scancode == sdl.SCANCODE_U) {
 				glPixelStorei(GL_UNPACK_ALIGNMENT, 1)
 				glPixelStorei(GL_UNPACK_LSB_FIRST, 1)
 				glPolygonStipple(stipple)
-			}
-			`z => function {
+			} elsif (event.scancode == sdl.SCANCODE_Z) {
 				if ((sdl.GetModState() & sdl.KMOD_SHIFT) != 0) {
 					zTranslation += .1
 				} else {
 					zTranslation -= .1
 				}
-			}
-			`num1 => function {
+			} elsif (event.scancode == sdl.SCANCODE_1) {
 				glPolygonMode(polyMode, GL_POINT)
-			}
-			`num2 => function {
+			} elsif (event.scancode == sdl.SCANCODE_2) {
 				glPolygonMode(polyMode, GL_LINE)
-			}
-			`num3 => function {
+			} elsif (event.scancode == sdl.SCANCODE_3) {
 				glPolygonMode(polyMode, GL_FILL)
-			}
-			`num4 => function {
+			} elsif (event.scancode == sdl.SCANCODE_4) {
 				if (polyMode == GL_BACK) {
 					polyMode = GL_FRONT
 				} elsif (polyMode == GL_FRONT) {
@@ -1329,27 +1313,22 @@ scope {
 				} elsif (polyMode == GL_FRONT_AND_BACK) {
 					polyMode = GL_BACK
 				}
-			}
-			`num5 => function {
+			} elsif (event.scancode == sdl.SCANCODE_5) {
 				glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST)
-			}
-			`num6 => function {
+			} elsif (event.scancode == sdl.SCANCODE_6) {
 				glEnable(GL_POLYGON_SMOOTH)
 				glBlendFunc(GL_SRC_ALPHA, GL_ONE)
 				glEnable(GL_BLEND)
 				glDisable(GL_DEPTH_TEST)
-			}
-			`num7 => function {
+			} elsif (event.scancode == sdl.SCANCODE_7) {
 				glDisable(GL_POLYGON_SMOOTH)
 				glBlendFunc(GL_ONE, GL_ZERO)
 				glDisable(GL_BLEND)
 				glEnable(GL_DEPTH_TEST)
-			}
-			`num8 => function {
+			} elsif (event.scancode == sdl.SCANCODE_8) {
 				dithering = !dithering
 				if (dithering) { glEnable(GL_DITHER) } else { glDisable(GL_DITHER) }
-			}
-			`num9 => function {
+			} elsif (event.scancode == sdl.SCANCODE_9) {
 				doStipple = !doStipple
 				if (doStipple) {
 					glPolygonStipple(stipple)
@@ -1357,21 +1336,26 @@ scope {
 				} else {
 					glDisable(GL_POLYGON_STIPPLE)
 				}
-			}
-			`num0 => function {
+			} elsif (event.scancode == sdl.SCANCODE_0) {
 				shade = !shade
 				if (shade) { glShadeModel(GL_SMOOTH) } else { glShadeModel(GL_FLAT) }
 			}
+			Draw(logo, yRotation, zTranslation)
+			this.SwapWindow()
 		}
-		`onKeyPoll => %{
-			`left => function {
+		OnIdle() = {
+			if (this.CheckKeyboardState(sdl.SCANCODE_LEFT)) {
 				extern(yRotation)
 				yRotation += .5
 			}
-			`right => function {
+			if (this.CheckKeyboardState(sdl.SCANCODE_RIGHT)) {
 				extern(yRotation)
 				yRotation -= .5
 			}
+			Draw(logo, yRotation, zTranslation)
+			this.SwapWindow()
 		}
 	}
+	app = App()
+	app.MainLoop(nil, 300, 300, 0)
 }
