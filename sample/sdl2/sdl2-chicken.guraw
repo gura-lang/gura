@@ -20,7 +20,7 @@ xStep = wdImage / 10
 font = freetype.font(I('Kaufmann_Bold_BT.ttf'))
 font.height = 32, font.color = `white, font.mode = `alpha
 Chicken = class {
-	__init__(x:number, y:number, dir:symbol) = {
+	__init__(x:number, y:number, dir:symbol):map = {
 		[this.x, this.y] = [x, y]
 		if (dir == `right) { this.turnRight() } else { this.turnLeft() }
 	}
@@ -44,12 +44,10 @@ Chicken = class {
 	}
 }
 
-chickens = repeat(3):list {
-	x = rand(wdScreen - wdImage)
-	y = rand(htScreen - htImageMax) + htImageMax
-	dir = cond(rand() < .5, `left, `right)
-	Chicken(x, y, dir)
-}
+chickens = Chicken(
+		rands(wdScreen - wdImage),
+		rands(htScreen - htImageMax) + htImageMax,
+		cond(rands() < .5, `left, `right)).head(3):list
 
 timePrev = sdl.GetTicks()
 repeat {
