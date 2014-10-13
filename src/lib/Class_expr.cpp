@@ -27,6 +27,8 @@ Object *Object_expr::Clone() const
 bool Object_expr::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
 	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_Symbol(attrs));
+	symbols.insert(Gura_Symbol(attrsopt));
 	symbols.insert(Gura_Symbol(block));
 	symbols.insert(Gura_Symbol(blockparam));
 	symbols.insert(Gura_Symbol(body));
@@ -54,7 +56,64 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(block))) {
+	if (pSymbol->IsIdentical(Gura_Symbol(attrs))) {
+		const SymbolSet *pAttrs = NULL;
+		if (GetExpr()->IsIdentifier()) {
+			const Expr_Identifier *pExpr = dynamic_cast<const Expr_Identifier *>(GetExpr());
+			pAttrs = &pExpr->GetAttrs();
+		} else if (GetExpr()->IsCaller()) {
+			const Expr_Caller *pExpr = dynamic_cast<const Expr_Caller *>(GetExpr());
+			pAttrs = &pExpr->GetAttrs();
+		}
+		if (pAttrs != NULL) {
+			Value rtn;
+			ValueList &valList = rtn.InitAsList(env, pAttrs->size());
+			foreach_const (SymbolSet, pSymbol, *pAttrs) {
+				valList.push_back(Value(&*pSymbol));
+			}
+			return rtn;
+		}
+		sig.SetError(ERR_ValueError, "expression is not an identifier nor caller");
+		return Value::Null;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(attrsfront))) {
+		const SymbolList *pAttrFront = NULL;
+		if (GetExpr()->IsIdentifier()) {
+			const Expr_Identifier *pExpr = dynamic_cast<const Expr_Identifier *>(GetExpr());
+			pAttrFront = &pExpr->GetAttrFront();
+		} else if (GetExpr()->IsCaller()) {
+			const Expr_Caller *pExpr = dynamic_cast<const Expr_Caller *>(GetExpr());
+			pAttrFront = &pExpr->GetAttrFront();
+		}
+		if (pAttrFront != NULL) {
+			Value rtn;
+			ValueList &valList = rtn.InitAsList(env, pAttrFront->size());
+			foreach_const (SymbolList, pSymbol, *pAttrFront) {
+				valList.push_back(Value(&*pSymbol));
+			}
+			return rtn;
+		}
+		sig.SetError(ERR_ValueError, "expression is not an identifier nor caller");
+		return Value::Null;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(attrsopt))) {
+		const SymbolSet *pAttrsOpt = NULL;
+		if (GetExpr()->IsIdentifier()) {
+			const Expr_Identifier *pExpr = dynamic_cast<const Expr_Identifier *>(GetExpr());
+			pAttrsOpt = &pExpr->GetAttrsOpt();
+		} else if (GetExpr()->IsCaller()) {
+			const Expr_Caller *pExpr = dynamic_cast<const Expr_Caller *>(GetExpr());
+			pAttrsOpt = &pExpr->GetAttrsOpt();
+		}
+		if (pAttrsOpt == NULL) {
+			Value rtn;
+			ValueList &valList = rtn.InitAsList(env, pAttrsOpt->size());
+			foreach_const (SymbolSet, pSymbol, *pAttrsOpt) {
+				valList.push_back(Value(&*pSymbol));
+			}
+			return rtn;
+		}
+		sig.SetError(ERR_ValueError, "expression is not an identifier nor caller");
+		return Value::Null;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(block))) {
 		if (GetExpr()->IsCaller()) {
 			const Expr_Caller *pExpr = dynamic_cast<const Expr_Caller *>(GetExpr());
 			const Expr_Block *pExprBlock = pExpr->GetBlock();
