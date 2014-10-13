@@ -161,8 +161,8 @@ public:
 	Gura_DeclareSymbol(ascend);
 	Gura_DeclareSymbol(ascii);
 	Gura_DeclareSymbol(asctime);
+	Gura_DeclareSymbol(attrfront);
 	Gura_DeclareSymbol(attrs);
-	Gura_DeclareSymbol(attrsfront);
 	Gura_DeclareSymbol(attrsopt);
 	Gura_DeclareSymbol(audiotype);
 	Gura_DeclareSymbol(autoindent);

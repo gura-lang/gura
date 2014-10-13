@@ -174,8 +174,8 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(ascend);
 	Gura_RealizeSymbol(ascii);
 	Gura_RealizeSymbol(asctime);
+	Gura_RealizeSymbol(attrfront);
 	Gura_RealizeSymbol(attrs);
-	Gura_RealizeSymbol(attrsfront);
 	Gura_RealizeSymbol(attrsopt);
 	Gura_RealizeSymbol(audiotype);
 	Gura_RealizeSymbol(autoindent);

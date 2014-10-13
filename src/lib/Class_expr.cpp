@@ -56,26 +56,7 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 						const SymbolSet &attrs, bool &evaluatedFlag)
 {
 	evaluatedFlag = true;
-	if (pSymbol->IsIdentical(Gura_Symbol(attrs))) {
-		const SymbolSet *pAttrs = NULL;
-		if (GetExpr()->IsIdentifier()) {
-			const Expr_Identifier *pExpr = dynamic_cast<const Expr_Identifier *>(GetExpr());
-			pAttrs = &pExpr->GetAttrs();
-		} else if (GetExpr()->IsCaller()) {
-			const Expr_Caller *pExpr = dynamic_cast<const Expr_Caller *>(GetExpr());
-			pAttrs = &pExpr->GetAttrs();
-		}
-		if (pAttrs != NULL) {
-			Value rtn;
-			ValueList &valList = rtn.InitAsList(env, pAttrs->size());
-			foreach_const (SymbolSet, pSymbol, *pAttrs) {
-				valList.push_back(Value(&*pSymbol));
-			}
-			return rtn;
-		}
-		sig.SetError(ERR_ValueError, "expression is not an identifier nor caller");
-		return Value::Null;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(attrsfront))) {
+	if (pSymbol->IsIdentical(Gura_Symbol(attrfront))) {
 		const SymbolList *pAttrFront = NULL;
 		if (GetExpr()->IsIdentifier()) {
 			const Expr_Identifier *pExpr = dynamic_cast<const Expr_Identifier *>(GetExpr());
@@ -88,6 +69,25 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 			Value rtn;
 			ValueList &valList = rtn.InitAsList(env, pAttrFront->size());
 			foreach_const (SymbolList, pSymbol, *pAttrFront) {
+				valList.push_back(Value(&*pSymbol));
+			}
+			return rtn;
+		}
+		sig.SetError(ERR_ValueError, "expression is not an identifier nor caller");
+		return Value::Null;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(attrs))) {
+		const SymbolSet *pAttrs = NULL;
+		if (GetExpr()->IsIdentifier()) {
+			const Expr_Identifier *pExpr = dynamic_cast<const Expr_Identifier *>(GetExpr());
+			pAttrs = &pExpr->GetAttrs();
+		} else if (GetExpr()->IsCaller()) {
+			const Expr_Caller *pExpr = dynamic_cast<const Expr_Caller *>(GetExpr());
+			pAttrs = &pExpr->GetAttrs();
+		}
+		if (pAttrs != NULL) {
+			Value rtn;
+			ValueList &valList = rtn.InitAsList(env, pAttrs->size());
+			foreach_const (SymbolSet, pSymbol, *pAttrs) {
 				valList.push_back(Value(&*pSymbol));
 			}
 			return rtn;
