@@ -21,6 +21,15 @@ String Object_AudioSpec::ToString(bool exprFlag)
 
 bool Object_AudioSpec::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(freq));
+	symbols.insert(Gura_UserSymbol(format));
+	symbols.insert(Gura_UserSymbol(channels));
+	symbols.insert(Gura_UserSymbol(silence));
+	symbols.insert(Gura_UserSymbol(samples));
+	symbols.insert(Gura_UserSymbol(size));
+	symbols.insert(Gura_UserSymbol(callback));
+	symbols.insert(Gura_UserSymbol(userdata));
 	return true;
 }
 

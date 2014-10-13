@@ -65,7 +65,10 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(blit_sw);
 	Gura_RealizeUserSymbol(blit_sw_A);
 	Gura_RealizeUserSymbol(blit_sw_CC);
+	Gura_RealizeUserSymbol(buf);
 	Gura_RealizeUserSymbol(button);
+	Gura_RealizeUserSymbol(callback);
+	Gura_RealizeUserSymbol(channels);
 	Gura_RealizeUserSymbol(clicks);
 	Gura_RealizeUserSymbol(clip_rect);
 	Gura_RealizeUserSymbol(code);
@@ -76,6 +79,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(dTheta);
 	Gura_RealizeUserSymbol(data1);
 	Gura_RealizeUserSymbol(data2);
+	Gura_RealizeUserSymbol(dst_format);
 	Gura_RealizeUserSymbol(dx);
 	Gura_RealizeUserSymbol(dy);
 	Gura_RealizeUserSymbol(error);
@@ -84,6 +88,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(fingerId);
 	Gura_RealizeUserSymbol(flags);
 	Gura_RealizeUserSymbol(format);
+	Gura_RealizeUserSymbol(freq);
 	Gura_RealizeUserSymbol(g);
 	Gura_RealizeUserSymbol(gain);
 	Gura_RealizeUserSymbol(gestureId);
@@ -91,8 +96,13 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(hat);
 	Gura_RealizeUserSymbol(hw_available);
 	Gura_RealizeUserSymbol(id);
+	Gura_RealizeUserSymbol(len);
+	Gura_RealizeUserSymbol(len_cvt);
+	Gura_RealizeUserSymbol(len_mult);
+	Gura_RealizeUserSymbol(len_ratio);
 	Gura_RealizeUserSymbol(length);
 	Gura_RealizeUserSymbol(mod);
+	Gura_RealizeUserSymbol(needed);
 	Gura_RealizeUserSymbol(numFingers);
 	Gura_RealizeUserSymbol(numtracks);
 	Gura_RealizeUserSymbol(offset);
@@ -101,10 +111,15 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(pixels);
 	Gura_RealizeUserSymbol(pressure);
 	Gura_RealizeUserSymbol(r);
+	Gura_RealizeUserSymbol(rate_incr);
 	Gura_RealizeUserSymbol(refcount);
 	Gura_RealizeUserSymbol(refresh_rate);
 	Gura_RealizeUserSymbol(repeat);
+	Gura_RealizeUserSymbol(samples);
+	Gura_RealizeUserSymbol(silence);
+	Gura_RealizeUserSymbol(size);
 	Gura_RealizeUserSymbol(scancode);
+	Gura_RealizeUserSymbol(src_format);
 	Gura_RealizeUserSymbol(start);
 	Gura_RealizeUserSymbol(state);
 	Gura_RealizeUserSymbol(status);
@@ -114,6 +129,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(timestamp);
 	Gura_RealizeUserSymbol(touchId);
 	Gura_RealizeUserSymbol(type);
+	Gura_RealizeUserSymbol(userdata);
 	Gura_RealizeUserSymbol(value);
 	Gura_RealizeUserSymbol(vfmt);
 	Gura_RealizeUserSymbol(video_mem);
