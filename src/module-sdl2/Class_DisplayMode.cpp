@@ -21,12 +21,27 @@ String Object_DisplayMode::ToString(bool exprFlag)
 
 bool Object_DisplayMode::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(format));
+	symbols.insert(Gura_UserSymbol(w));
+	symbols.insert(Gura_UserSymbol(h));
+	symbols.insert(Gura_UserSymbol(refresh_rate));
 	return true;
 }
 
 Value Object_DisplayMode::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(format))) {
+		return Value(_mode.format);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(w))) {
+		return Value(_mode.w);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(h))) {
+		return Value(_mode.h);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(refresh_rate))) {
+		return Value(_mode.refresh_rate);
+	}
 	evaluatedFlag = false;
 	return Value::Null;
 }
