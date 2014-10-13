@@ -25,8 +25,8 @@ bool Object_AudioSpec::DoDirProp(Environment &env, Signal sig, SymbolSet &symbol
 	symbols.insert(Gura_UserSymbol(freq));
 	symbols.insert(Gura_UserSymbol(format));
 	symbols.insert(Gura_UserSymbol(channels));
-	symbols.insert(Gura_UserSymbol(silence));
 	symbols.insert(Gura_UserSymbol(samples));
+	symbols.insert(Gura_UserSymbol(silence));
 	symbols.insert(Gura_UserSymbol(size));
 	symbols.insert(Gura_UserSymbol(callback));
 	symbols.insert(Gura_UserSymbol(userdata));
@@ -36,6 +36,24 @@ bool Object_AudioSpec::DoDirProp(Environment &env, Signal sig, SymbolSet &symbol
 Value Object_AudioSpec::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(freq))) {
+		return Value(_spec.freq);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(format))) {
+		return Value(_spec.format);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(channels))) {
+		return Value(_spec.format);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(samples))) {
+		return Value(_spec.samples);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(silence))) {
+		return Value(_spec.silence);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(size))) {
+		return Value(_spec.size);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(callback))) {
+		return Value::Null;
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(userdata))) {
+		return Value::Null;
+	}
 	evaluatedFlag = false;
 	return Value::Null;
 }

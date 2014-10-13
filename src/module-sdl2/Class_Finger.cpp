@@ -22,12 +22,27 @@ String Object_Finger::ToString(bool exprFlag)
 
 bool Object_Finger::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
+	if (!Object::DoDirProp(env, sig, symbols)) return false;
+	symbols.insert(Gura_UserSymbol(id));
+	symbols.insert(Gura_UserSymbol(x));
+	symbols.insert(Gura_UserSymbol(y));
+	symbols.insert(Gura_UserSymbol(pressure));
 	return true;
 }
 
 Value Object_Finger::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	evaluatedFlag = true;
+	if (pSymbol->IsIdentical(Gura_UserSymbol(id))) {
+		return Value(_pFinger->id);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(x))) {
+		return Value(_pFinger->x);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(y))) {
+		return Value(_pFinger->y);
+	} else if (pSymbol->IsIdentical(Gura_UserSymbol(pressure))) {
+		return Value(_pFinger->pressure);
+	}
 	evaluatedFlag = false;
 	return Value::Null;
 }

@@ -22,12 +22,55 @@ String Object_HapticEffect::ToString(bool exprFlag)
 
 bool Object_HapticEffect::DoDirProp(Environment &env, Signal sig, SymbolSet &symbols)
 {
+	Uint16 type = _pHapticEffect->type;
+	if (type == SDL_HAPTIC_CONSTANT) {
+
+	} else if (type == SDL_HAPTIC_SINE ||
+			   //type == SDL_HAPTIC_SQUARE ||
+			   type == SDL_HAPTIC_TRIANGLE ||
+			   type == SDL_HAPTIC_SAWTOOTHUP ||
+			   type == SDL_HAPTIC_SAWTOOTHDOWN) {
+
+	} else if (type == SDL_HAPTIC_SPRING ||
+			   type == SDL_HAPTIC_DAMPER ||
+			   type == SDL_HAPTIC_INERTIA ||
+			   type == SDL_HAPTIC_FRICTION) {
+
+	} else if (type == SDL_HAPTIC_RAMP) {
+
+	} else if (type == SDL_HAPTIC_LEFTRIGHT) {
+
+	} else if (type == SDL_HAPTIC_CUSTOM) {
+
+	}
 	return true;
 }
 
 Value Object_HapticEffect::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol,
 							  const SymbolSet &attrs, bool &evaluatedFlag)
 {
+	evaluatedFlag = true;
+	Uint16 type = _pHapticEffect->type;
+	if (type == SDL_HAPTIC_CONSTANT) {
+		SDL_HapticConstant &effect = _pHapticEffect->constant;
+	} else if (type == SDL_HAPTIC_SINE ||
+			   //type == SDL_HAPTIC_SQUARE ||
+			   type == SDL_HAPTIC_TRIANGLE ||
+			   type == SDL_HAPTIC_SAWTOOTHUP ||
+			   type == SDL_HAPTIC_SAWTOOTHDOWN) {
+		SDL_HapticPeriodic &effect = _pHapticEffect->periodic;
+	} else if (type == SDL_HAPTIC_SPRING ||
+			   type == SDL_HAPTIC_DAMPER ||
+			   type == SDL_HAPTIC_INERTIA ||
+			   type == SDL_HAPTIC_FRICTION) {
+		SDL_HapticCondition &effect = _pHapticEffect->condition;
+	} else if (type == SDL_HAPTIC_RAMP) {
+		SDL_HapticRamp &effect = _pHapticEffect->ramp;
+	} else if (type == SDL_HAPTIC_LEFTRIGHT) {
+		SDL_HapticLeftRight &effect = _pHapticEffect->leftright;
+	} else if (type == SDL_HAPTIC_CUSTOM) {
+		SDL_HapticCustom &effect = _pHapticEffect->custom;
+	}
 	evaluatedFlag = false;
 	return Value::Null;
 }
