@@ -734,7 +734,7 @@ PixelFormatEnumToMasks(format:Uint32):any = R'''
 			Value::CreateList(env, Value(bpp), Value(Rmask), Value(Gmask), Value(Bmask), Value(Amask)));
 '''
 
-SetPaletteColors(palette:SDL_Palette@, colors[]:Color, firstcolor:int, ncolors:int) = R'''
+SetPaletteColors(palette:SDL_Palette@, colors[]:SDL_Color, firstcolor:int, ncolors:int) = R'''
 	CArray<SDL_Color> colors(CreateCArray<SDL_Color, Object_Color>(args.GetList(1)));
 	int nmax = static_cast<int>(colors.GetSize());
 	if (firstcolor + ncolors > nmax) {
@@ -790,9 +790,9 @@ UnionRect(A:SDL_Rect@:const, B:SDL_Rect@:const):any = R'''
 	return ReturnValue(env, sig, args, _rtnVal);
 '''
 
-BlitScaled(src:SDL_Surface@, srcrect:SDL_Rect@:const, dst:SDL_Surface@, dstrect:SDL_Rect@):negerr
+BlitScaled(src:SDL_Surface@, srcrect:SDL_Rect@:const, dst:SDL_Surface@, dstrect:SDL_Rect@:const):negerr
 
-BlitSurface(src:SDL_Surface@, srcrect:SDL_Rect@:const, dst:SDL_Surface@, dstrect:SDL_Rect@):negerr
+BlitSurface(src:SDL_Surface@, srcrect:SDL_Rect@:const, dst:SDL_Surface@, dstrect:SDL_Rect@:const):negerr
 
 ConvertPixels$(width:int, height:int, src_format:Uint32, dst_format:Uint32):negerr
 
@@ -903,9 +903,9 @@ LoadBMP_RW$()
 
 LockSurface(surface:SDL_Surface@):negerr
 
-LowerBlit(src:SDL_Surface@, srcrect:SDL_Rect@, dst:SDL_Surface@, dstrect:SDL_Rect@):negerr
+LowerBlit(src:SDL_Surface@, srcrect:SDL_Rect@:const, dst:SDL_Surface@, dstrect:SDL_Rect@:const):negerr
 
-LowerBlitScaled(src:SDL_Surface@, srcrect:SDL_Rect@, dst:SDL_Surface@, dstrect:SDL_Rect@):negerr
+LowerBlitScaled(src:SDL_Surface@, srcrect:SDL_Rect@:const, dst:SDL_Surface@, dstrect:SDL_Rect@:const):negerr
 
 MUSTLOCK(surface:SDL_Surface@):bool
 
@@ -993,7 +993,7 @@ LoadDollarTemplates(touchId:SDL_TouchID, src:stream):any = R'''
 	return ReturnValue(env, sig, args, Value(_rtn));
 '''
 
-AddEvents(events:Event):any = R'''
+AddEvents(events[]:SDL_Event):any = R'''
 	CArray<SDL_Event> events(CreateCArray<SDL_Event, Object_Event>(args.GetList(0)));
 	int numevents = static_cast<int>(events.GetSize());
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_ADDEVENT, 0, 0);
@@ -1043,7 +1043,7 @@ PollEvent():any = R'''
 
 PumpEvents()
 
-PushEvent(event:SDL_Event@):negerr_boolean
+PushEvent(event:SDL_Event@:const):negerr_boolean
 
 QuitRequested():bool
 
@@ -1161,7 +1161,7 @@ IsTextInputActive():SDL_bool
 
 SetModState(modstate:SDL_Keymod)
 
-SetTextInputRect(rect:SDL_Rect@)
+SetTextInputRect(rect:SDL_Rect@:const)
 
 StartTextInput()
 
@@ -1325,7 +1325,7 @@ GameControllerAddMappingsFromFile(file:stream):any = R'''
 	return ReturnValue(env, sig, args, Value(_rtn));
 '''
 
-GameControllerAddMappingsFromRW$(rw:SDL_RWops@, freerw:int):negerr_number
+GameControllerAddMappingsFromRW$()
 
 GameControllerClose(gamecontroller:SDL_GameController@)
 
@@ -1446,7 +1446,7 @@ CloseAudioDevice(dev:SDL_AudioDeviceID)
 
 ConvertAudio(cvt:SDL_AudioCVT@):negerr
 
-FreeWAV(wav:Wav):any = R'''
+FreeWAV(wav:Wav@):any = R'''
 	Object_Wav *pObj = Object_Wav::GetObject(args, 0);
 	Uint8 *buffer = pObj->GetBuffer();
 	SDL_FreeWAV(buffer);
@@ -1809,6 +1809,18 @@ typeConvDict = %{
 			'VTYPE_symbol',
 			'const Symbol *', 'args.GetSymbol(%d)',
 			'Value(_rtn)')
+	'binary' => TypeConv(
+			'VTYPE_binary',
+			'const Binary &', 'Object_binary::GetObject(args, %d)->GetBinary()',
+			nil)
+	'stream' => TypeConv(
+			'VTYPE_stream',
+			'const Stream &', 'Object_binary::GetObject(args, %d)->GetStream()',
+			nil)
+	'image' => TypeConv(
+			'VTYPE_image',
+			'const Image *', 'Object_image::GetObject(args, %d)->GetImage()',
+			nil)
 	'Uint16[]' => TypeConv(
 			'VTYPE_number, OCCUR_Once, FLAG_List',
 			'CArray<Uint16>', 'args.GetList(%d)',
@@ -1825,10 +1837,24 @@ typeConvDict = %{
 			'VTYPE_number',
 			'Uint32', 'args.GetULong(%d)',
 			'Value(_rtn)')
+	'Wav@' => TypeConv(
+			'VTYPE_Wav',
+			'Object_Wav *', 'Object_Wav::GetObject(args, %d)',
+			nil);
 	'SDL_bool' => TypeConv(
 			'VTYPE_boolean',
 			'SDL_bool', '(args.GetBoolean(%d)? SDL_TRUE : SDL_FALSE)',
 			'Value(_rtn == SDL_TRUE)')
+	'SDL_Color[]' => TypeConv(
+			'VTYPE_Color, OCCUR_Once, FLAG_List',
+			'CArray<SDL_Color>',
+			'CreateCArray<SDL_Color, Object_Color>(args.GetList(%d))',
+			nil)
+	'SDL_Event[]' => TypeConv(
+			'VTYPE_Event, OCCUR_Once, FLAG_List',
+			'CArray<SDL_Event>',
+			'CreateCArray<SDL_Event, Object_Event>(args.GetList(%d))',
+			nil)
 	'SDL_Point[]' => TypeConv(
 			'VTYPE_Point, OCCUR_Once, FLAG_List',
 			'CArray<SDL_Point>',
@@ -1839,12 +1865,33 @@ typeConvDict = %{
 			'CArray<SDL_Rect>',
 			'CreateCArray<SDL_Rect, Object_Rect>(args.GetList(%d))',
 			nil)
+	TypeConv_Enum('SDL_AudioFormat')
+	TypeConv_Enum('SDL_AudioDeviceID')
 	TypeConv_Enum('SDL_BlendMode')
+	TypeConv_Enum('SDL_GameControllerAxis')
+	TypeConv_Enum('SDL_GameControllerButton')
+	TypeConv_Enum('SDL_GestureID')
 	TypeConv_Enum('SDL_GLattr')
+	TypeConv_Enum('SDL_Keycode')
+	TypeConv_Enum('SDL_Keymod')
 	TypeConv_Enum('SDL_RendererFlip')
+	TypeConv_Enum('SDL_Scancode')
+	TypeConv_Enum('SDL_SystemCursor')
+	TypeConv_Enum('SDL_TimerID')
+	TypeConv_Enum('SDL_TouchID')
+	TypeConv_Class('SDL_AudioCVT@')
+	TypeConv_Class('SDL_AudioSpec@')
+	TypeConv_Class('SDL_AudioSpec@:const')
+	TypeConv_Class('SDL_Cursor@')
 	TypeConv_Class('SDL_DisplayMode@')
 	TypeConv_Class('SDL_DisplayMode@:const')
+	TypeConv_Class('SDL_Event@:const')
+	TypeConv_Class('SDL_GameController@')
 	TypeConv_Class('SDL_GLContext')
+	TypeConv_Class('SDL_Haptic@')
+	TypeConv_Class('SDL_HapticEffect@')
+	TypeConv_Class('SDL_Joystick@')
+	TypeConv_Class('SDL_JoystickGUID')
 	TypeConv_Class('SDL_Palette@')
 	TypeConv_Class('SDL_PixelFormat@')
 	TypeConv_Class('SDL_PixelFormat@:const')
