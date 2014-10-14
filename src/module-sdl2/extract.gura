@@ -1313,6 +1313,40 @@ AndroidGetJNIEnv
 acos(double x):double
 '''
 
+MakeArg(arg):map = {
+	if (!arg.typeC.isempty()) {
+		type = arg.typeC.sub(r'\s\*', '@')
+		if (m = type.match(r'^const (.*)')) {
+			':' + m[1] + ':const'
+		} else {
+			':' + type
+		}
+	} else {
+		':' + arg.typeGura
+	}
+}
+
+MakeReturn(rtnInfo) = {
+	if (rtnInfo) {
+		type = rtnInfo.typeC.sub(r'\s\*', '@')
+		if (m = type.match(r'^const (.*)')) {
+			':' + m[1] + ':const'
+		} else {
+			':' + type
+		}
+	} else {
+		''
+	}
+}
+
+tmplImplementation1 = R'''
+${fi.funcName}${cond(fi.validFlag, '', '$')}(${
+	(fi.argsGura:*name + cond(fi.argsGura:*flags:*find('List'), '[]', '') + \
+	MakeArg(fi.argsGura)).join(', ')})${
+	MakeReturn(fi.rtnInfo)}${if (fi.linesCustom) {' = R\'\'\'\n' + ('\t' + fi.linesCustom.eachline()).join() + '\'\'\''} else {''}}
+
+'''.template()
+
 tmplImplementation = R'''
 // sdl2.${fi.funcName}
 Gura_DeclareFunction(${fi.funcName})

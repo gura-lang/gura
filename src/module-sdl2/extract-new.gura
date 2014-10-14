@@ -1,0 +1,1813 @@
+#!/usr/bin/env gura
+
+decls = `{
+Init(flags:Uint32):negerr
+
+InitSubSystem(flags:Uint32):negerr
+
+Quit()
+
+QuitSubSystem(flags:Uint32)
+
+SetMainReady()
+
+WasInit(flags:Uint32):Uint32
+
+AddHintCallback$()
+
+ClearHints$()
+
+DelhintCallback$()
+
+GetHint$()
+
+SetHint$()
+
+SetHintWithPriority$()
+
+ClearError()
+
+GetError():char@:const
+
+SetError$()
+
+Log$()
+
+LogCritical$()
+
+LogDebug$()
+
+LogError$()
+
+LogGetOutputFunction$()
+
+LogGetPriority$()
+
+LogInfo$()
+
+LogMessage$()
+
+LogMessageV$()
+
+LogResetPriorities$()
+
+LogSetAllPriority$()
+
+LogSetOutputFunction$()
+
+LogSetPriority$()
+
+LogVerbose$()
+
+LogWarn$()
+
+GetAssertionHandler$()
+
+GetAssertionReport$()
+
+GetDefaultAssertionHandler$()
+
+ResetAssertionReport$()
+
+SetAssertionHandler$()
+
+TriggerBreakpoint$()
+
+assert$()
+
+assert_paranoid$()
+
+assert_release$()
+
+GetRevision():char@:const
+
+GetRevisionNumber():int
+
+GetVersion():custom = R'''
+	SDL_version ver;
+	SDL_GetVersion(&ver);
+	return ReturnValue(env, sig, args, Value::CreateList(env,
+					Value(ver.major), Value(ver.minor), Value(ver.patch)));
+'''
+
+VERSION():custom = R'''
+	SDL_version ver;
+	SDL_VERSION(&ver);
+	return ReturnValue(env, sig, args, Value::CreateList(env,
+					Value(ver.major), Value(ver.minor), Value(ver.patch)));
+'''
+
+VERSION_ATLEAST(X:int, Y:int, Z:int):bool
+
+CreateWindow(title:char@:const, x:int, y:int, w:int, h:int, flags:Uint32):SDL_Window@
+
+CreateWindowAndRenderer(width:int, height:int, window_flags:Uint32):custom = R'''
+	SDL_Window *window = NULL;
+	SDL_Renderer *renderer = NULL;
+	int _rtn = SDL_CreateWindowAndRenderer(width, height, window_flags, &window, &renderer);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value::CreateList(env,
+			Value(new Object_Window(window)), Value(new Object_Renderer(renderer))));
+'''
+
+CreateWindowFrom$()
+
+DestroyWindow(window:SDL_Window@)
+
+DisableScreenSaver()
+
+EnableScreenSaver()
+
+GL_CreateContext(window:SDL_Window@):custom = R'''
+	SDL_GLContext _rtn = SDL_GL_CreateContext(window);
+	if (_rtn == NULL) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_GLContext(_rtn)));
+'''
+
+GL_DeleteContext(context:SDL_GLContext)
+
+GL_ExtensionSupported(extension:char@:const):SDL_bool
+
+GL_GetAttribute(attr:SDL_GLattr):custom = R'''
+	int value = 0;
+	int _rtn = SDL_GL_GetAttribute(attr, &value);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(value));
+'''
+
+GL_GetCurrentContext():custom = R'''
+	SDL_GLContext _rtn = SDL_GL_GetCurrentContext();
+	if (_rtn == NULL) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_GLContext(_rtn)));
+'''
+
+GL_GetCurrentWindow():SDL_Window@
+
+GL_GetDrawableSize(window:SDL_Window@):custom = R'''
+	int w = 0;
+	int h = 0;
+	SDL_GL_GetDrawableSize(window, &w, &h);
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(w), Value(h)));
+'''
+
+GL_GetProcAddress$()
+
+GL_GetSwapInterval():negerr_boolean
+
+GL_LoadLibrary(path:char@:const):negerr
+
+GL_MakeCurrent(window:SDL_Window@, context:SDL_GLContext):negerr
+
+GL_ResetAttributes()
+
+GL_SetAttribute(attr:SDL_GLattr, value:int):negerr
+
+GL_SetSwapInterval(interval:int):negerr
+
+GL_SwapWindow(window:SDL_Window@)
+
+GL_UnloadLibrary()
+
+GetClosestDisplayMode(displayIndex:int, mode:SDL_DisplayMode@:const):custom = R'''
+	SDL_DisplayMode closest;
+	SDL_DisplayMode* _rtn = SDL_GetClosestDisplayMode(displayIndex, mode, &closest);
+	if (_rtn == NULL) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_DisplayMode(closest)));
+'''
+
+GetCurrentDisplayMode(displayIndex:int):custom = R'''
+	SDL_DisplayMode mode;
+	int _rtn = SDL_GetCurrentDisplayMode(displayIndex, &mode);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_DisplayMode(mode)));
+'''
+
+GetCurrentVideoDriver():char@:const
+
+GetDesktopDisplayMode(displayIndex:int):custom = R'''
+	SDL_DisplayMode mode;
+	int _rtn = SDL_GetDesktopDisplayMode(displayIndex, &mode);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_DisplayMode(mode)));
+'''
+
+GetDisplayBounds(displayIndex:int):custom = R'''
+	SDL_Rect rect;
+	int _rtn = SDL_GetDisplayBounds(displayIndex, &rect);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_Rect(rect)));
+'''
+
+GetDisplayMode(displayIndex:int, modeIndex:int):custom = R'''
+	SDL_DisplayMode mode;
+	int _rtn = SDL_GetDisplayMode(displayIndex, modeIndex, &mode);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_DisplayMode(mode)));
+'''
+
+GetDisplayName(dipslayIndex:int):char@:const
+
+GetNumDisplayModes(displayIndex:int):negerr_number
+
+GetNumVideoDisplays():negerr_number
+
+GetNumVideoDrivers():negerr_number
+
+GetVideoDriver(index:int):char@:const
+
+GetWindowBrightness(window:SDL_Window@):float
+
+GetWindowData$(window:SDL_Window@, name:char@:const)
+
+GetWindowDisplayIndex(window:SDL_Window@):negerr_number
+
+GetWindowDisplayMode(window:SDL_Window@, mode:SDL_DisplayMode@):negerr
+
+GetWindowFlags(window:SDL_Window@):Uint32
+
+GetWindowFromID(id:Uint32):SDL_Window@
+
+GetWindowGammaRamp(window:SDL_Window@):custom = R'''
+	Uint16 red = 0;
+	Uint16 green = 0;
+	Uint16 blue = 0;
+	int _rtn = SDL_GetWindowGammaRamp(window, &red, &green, &blue);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value::CreateList(env,
+								Value(red), Value(green), Value(blue)));
+'''
+
+GetWindowGrab(window:SDL_Window@):SDL_bool
+
+GetWindowID(window:SDL_Window@):Uint32
+
+GetWindowMaximumSize(window:SDL_Window@):custom = R'''
+	int w = 0;
+	int h = 0;
+	SDL_GetWindowMaximumSize(window, &w, &h);
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(w), Value(h)));
+'''
+
+GetWindowMinimumSize(window:SDL_Window@):custom = R'''
+	int w = 0;
+	int h = 0;
+	SDL_GetWindowMinimumSize(window, &w, &h);
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(w), Value(h)));
+'''
+
+GetWindowPixelFormat(window:SDL_Window@):custom = R'''
+	Uint32 _rtn = SDL_GetWindowPixelFormat(window);
+	if (_rtn == SDL_PIXELFORMAT_UNKNOWN) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(_rtn));
+'''
+
+GetWindowPosition(window:SDL_Window@):custom = R'''
+	int x = 0;
+	int y = 0;
+	SDL_GetWindowPosition(window, &x, &y);
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(x), Value(y)));
+'''
+
+GetWindowSize(window:SDL_Window@):custom = R'''
+	int w = 0;
+	int h = 0;
+	SDL_GetWindowSize(window, &w, &h);
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(w), Value(h)));
+'''
+
+GetWindowSurface(window:SDL_Window@):SDL_Surface@
+
+GetWindowTitle(window:SDL_Window@):char@:const
+
+GetWindowWMInfo$(window:SDL_Window@):custom = R'''
+	SDL_SysWMinfo info;
+	SDL_bool _rtn = SDL_GetWindowWMInfo(window, &info);
+	if (_rtn != SDL_TRUE) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_SysWMinfo(info)));
+'''
+
+HideWindow(window:SDL_Window@)
+
+IsScreenSaverEnabled():SDL_bool
+
+MaximizeWindow(window:SDL_Window@)
+
+MinimizeWindow(window:SDL_Window@)
+
+RaiseWindow(window:SDL_Window@)
+
+RestoreWindow(window:SDL_Window@)
+
+SetWindowBordered(window:SDL_Window@, bordered:SDL_bool)
+
+SetWindowBrightness(window:SDL_Window@, brightness:float):negerr
+
+SetWindowData$(window:SDL_Window@, name:char@:const)
+
+SetWindowDisplayMode(window:SDL_Window@, mode:SDL_DisplayMode@:const):negerr
+
+SetWindowFullscreen(window:SDL_Window@, flags:Uint32):negerr
+
+SetWindowGammaRamp(window:SDL_Window@, red[]:number, green[]:number, blue[]:number):custom_void = R'''
+	CArray<Uint16> red(args.GetList(1));
+	CArray<Uint16> green(args.GetList(2));
+	CArray<Uint16> blue(args.GetList(3));
+	if (red.GetSize() != 256 || green.GetSize() != 256 || blue.GetSize() != 256) {
+		sig.SetError(ERR_ValueError, "red, green and blue must have 256 elements");
+		return Value::Null;
+	}
+	int _rtn = SDL_SetWindowGammaRamp(window, red, green, blue);
+	if (_rtn != SDL_TRUE) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::Null;
+'''
+
+SetWindowGrab(window:SDL_Window@, grabbed:SDL_bool)
+
+SetWindowHitTest$(window:SDL_Window@):negerr
+
+SetWindowIcon(window:SDL_Window@, icon:SDL_Surface@)
+
+SetWindowMaximumSize(window:SDL_Window@, max_w:int, max_h:int)
+
+SetWindowMinimumSize(window:SDL_Window@, min_w:int, min_h:int)
+
+SetWindowPosition(window:SDL_Window@, x:int, y:int)
+
+SetWindowSize(window:SDL_Window@, w:int, h:int)
+
+SetWindowTitle(window:SDL_Window@, title:char@:const)
+
+ShowMessageBox$():negerr
+
+ShowSimpleMessageBox(flags:Uint32, title:char@:const, message:char@:const, window:SDL_Window@):negerr
+
+ShowWindow(window:SDL_Window@)
+
+UpdateWindowSurface(window:SDL_Window@):negerr
+
+UpdateWindowSurfaceRects(window:SDL_Window@, rects[]:Rect):custom_void = R'''
+	CArray<SDL_Rect> rects(CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1)));
+	int numrects = static_cast<int>(rects.GetSize());
+	int _rtn = SDL_UpdateWindowSurfaceRects(window, rects, numrects);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::Null;
+'''
+
+VideoInit(driver_name:char@:const):negerr
+
+VideoQuit()
+
+CreateRenderer(window:SDL_Window@, index:int, flags:Uint32):SDL_Renderer@
+
+CreateSoftwareRenderer(surface:SDL_Surface@):SDL_Renderer@
+
+CreateTexture(renderer:SDL_Renderer@, format:Uint32, access:int, w:int, h:int):SDL_Texture@
+
+CreateTextureFromSurface(renderer:SDL_Renderer@, surface:SDL_Surface@):SDL_Texture@
+
+DestroyRenderer(renderer:SDL_Renderer@)
+
+DestroyTexture(texture:SDL_Texture@)
+
+GL_BindTexture(texture:SDL_Texture@):custom = R'''
+	float texw = 0;
+	float texh = 0;
+	SDL_GL_BindTexture(texture, &texw, &texh);
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(texw), Value(texh)));
+'''
+
+GL_UnbindTexture(texture:SDL_Texture@):negerr
+
+GetNumRenderDrivers():negerr_number
+
+GetRenderDrawBlendMode(renderer:SDL_Renderer@):custom = R'''
+	SDL_BlendMode blendMode = SDL_BLENDMODE_NONE;
+	int _rtn = SDL_GetRenderDrawBlendMode(renderer, &blendMode);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(blendMode));
+'''
+
+GetRenderDrawColor(renderer:SDL_Renderer@):custom = R'''
+	Uint8 r = 0;
+	Uint8 g = 0;
+	Uint8 b = 0;
+	Uint8 a = 0;
+	int _rtn = SDL_GetRenderDrawColor(renderer, &r, &g, &b, &a);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value::CreateList(env,
+								Value(r), Value(g), Value(b), Value(a)));
+'''
+
+GetRenderDriverInfo(index:int):custom = R'''
+	SDL_RendererInfo info;
+	int _rtn = SDL_GetRenderDriverInfo(index, &info);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_RendererInfo(info)));
+'''
+
+GetRenderTarget(renderer:SDL_Renderer@):custom = R'''
+	SDL_Texture *_rtn = SDL_GetRenderTarget(renderer);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Texture(_rtn));
+	}
+	return ReturnValue(env, sig, args, _rtnVal);
+'''
+
+GetRenderer(window:SDL_Window@):SDL_Renderer@
+
+GetRendererInfo(renderer:SDL_Renderer@):custom = R'''
+	SDL_RendererInfo info;
+	int _rtn = SDL_GetRendererInfo(renderer, &info);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_RendererInfo(info)));
+'''
+
+GetRenderOutputSize(renderer:SDL_Renderer@):custom = R'''
+	int w = 0;
+	int h = 0;
+	int _rtn = SDL_GetRendererOutputSize(renderer, &w, &h);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(w), Value(h)));
+'''
+
+GetTextureAlphaMod(texture:SDL_Texture@):custom = R'''
+	Uint8 alpha = 0;
+	int _rtn = SDL_GetTextureAlphaMod(texture, &alpha);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(alpha));
+'''
+
+GetTextureBlendMode(texture:SDL_Texture@):custom = R'''
+	SDL_BlendMode blendMode = SDL_BLENDMODE_NONE;
+	int _rtn = SDL_GetTextureBlendMode(texture, &blendMode);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(blendMode));
+'''
+
+GetTextureColorMod(texture:SDL_Texture@):custom = R'''
+	Uint8 r = 0;
+	Uint8 g = 0;
+	Uint8 b = 0;
+	int _rtn = SDL_GetTextureColorMod(texture, &r, &g, &b);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value::CreateList(env,
+											Value(r), Value(g), Value(b)));
+'''
+
+LockTexture$(texture:SDL_Texture@, rect:SDL_Rect@:const):negerr
+
+QueryTexture(texture:SDL_Texture@):custom = R'''
+	Uint32 format = 0;
+	int access = 0;
+	int w = 0;
+	int h = 0;
+	int _rtn = SDL_QueryTexture(texture, &format, &access, &w, &h);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value::CreateList(env,
+							Value(format), Value(access), Value(w), Value(h)));
+'''
+
+RenderClear(renderer:SDL_Renderer@):negerr
+
+RenderCopy(renderer:SDL_Renderer@, texture:SDL_Texture@, srcrect:SDL_Rect@:const, dstrect:SDL_Rect@:const):negerr
+
+RenderCopyEx(renderer:SDL_Renderer@, texture:SDL_Texture@, srcrect:SDL_Rect@:const, dstrect:SDL_Rect@:const, angle:double, center:SDL_Point@:const, flip:SDL_RendererFlip):negerr
+
+RenderDrawLine(renderer:SDL_Renderer@, x1:int, y1:int, x2:int, y2:int):negerr
+
+RenderDrawLines(renderer:SDL_Renderer@, points[]:Point):custom_void = R'''
+	CArray<SDL_Point> points(CreateCArray<SDL_Point, Object_Point>(args.GetList(1)));
+	int count = static_cast<int>(points.GetSize());
+	int _rtn = SDL_RenderDrawLines(renderer, points, count);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::Null;
+'''
+
+RenderDrawPoint(renderer:SDL_Renderer@, x:int, y:int):negerr
+
+RenderDrawPoints(renderer:SDL_Renderer@, points[]:Point):custom_void = R'''
+	CArray<SDL_Point> points(CreateCArray<SDL_Point, Object_Point>(args.GetList(1)));
+	int count = static_cast<int>(points.GetSize());
+	int _rtn = SDL_RenderDrawPoints(renderer, points, count);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::Null;
+'''
+
+RenderDrawRect(renderer:SDL_Renderer@, rect:SDL_Rect@:const):negerr
+
+RenderDrawRects(renderer:SDL_Renderer@, rects[]:Rect):custom_void = R'''
+	CArray<SDL_Rect> rects(CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1)));
+	int count = static_cast<int>(rects.GetSize());
+	int _rtn = SDL_RenderDrawRects(renderer, rects, count);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::Null;
+'''
+
+RenderFillRect(renderer:SDL_Renderer@, rect:SDL_Rect@:const):negerr
+
+RenderFillRects(renderer:SDL_Renderer@, rects[]:Rect):custom_void = R'''
+	CArray<SDL_Rect> rects(CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1)));
+	int count = static_cast<int>(rects.GetSize());
+	int _rtn = SDL_RenderFillRects(renderer, rects, count);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::Null;
+'''
+
+RenderGetClipRect(renderer:SDL_Renderer@):custom = R'''
+	SDL_Rect rect;
+	SDL_RenderGetClipRect(renderer, &rect);
+	return ReturnValue(env, sig, args, Value(new Object_Rect(rect)));
+'''
+
+RenderGetLogicalSize(renderer:SDL_Renderer@):custom = R'''
+	int w = 0;
+	int h = 0;
+	SDL_RenderGetLogicalSize(renderer, &w, &h);
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(w), Value(h)));
+'''
+
+RenderGetScale(renderer:SDL_Renderer@):custom = R'''
+	float scaleX = 0;
+	float scaleY = 0;
+	SDL_RenderGetScale(renderer, &scaleX, &scaleY);
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(scaleX), Value(scaleY)));
+'''
+
+RenderGetViewport(renderer:SDL_Renderer@):custom = R'''
+	SDL_Rect rect;
+	SDL_RenderGetViewport(renderer, &rect);
+	return ReturnValue(env, sig, args, Value(new Object_Rect(rect)));
+'''
+
+RenderIsClipEnabled$(renderer:SDL_Renderer@):SDL_bool
+
+RenderPresent(renderer:SDL_Renderer@)
+
+RenderReadPixels(renderer:SDL_Renderer@, rect:SDL_Rect@:const, format:symbol):custom = R'''
+	Uint32 format = SDL_PIXELFORMAT_UNKNOWN;
+	Image::Format fmtImage = Image::FORMAT_None;
+	const Symbol *pSymbol = args.GetSymbol(2);
+	if (pSymbol->IsIdentical(Gura_Symbol(rgb))) {
+		format = SDL_PIXELFORMAT_BGR888;
+		fmtImage = Image::FORMAT_RGB;
+	} else if (pSymbol->IsIdentical(Gura_Symbol(rgba))) {
+		format = SDL_PIXELFORMAT_BGRA8888;
+		fmtImage = Image::FORMAT_RGBA;
+	} else {
+		sig.SetError(ERR_ValueError, "format must be `rgb or `rgba");
+		return Value::Null;
+	}
+	AutoPtr<Image> pImage(new Image(fmtImage));
+	if (!pImage->AllocBuffer(sig, rect->w, rect->h, 0x00)) return Value::Null;
+	void *pixels = pImage->GetBuffer();
+	int pitch = pImage->GetBytesPerLine();
+	int _rtn = SDL_RenderReadPixels(renderer, rect, format, pixels, pitch);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
+'''
+
+RenderSetClipRect(renderer:SDL_Renderer@, rect:SDL_Rect@:const):negerr
+
+RenderSetLogicalSize(renderer:SDL_Renderer@, w:int, h:int):negerr
+
+RenderSetScale(renderer:SDL_Renderer@, scaleX:float, scaleY:float):negerr
+
+RenderSetViewport(renderer:SDL_Renderer@, rect:SDL_Rect@:const):negerr
+
+RenderTargetSupported(renderer:SDL_Renderer@):SDL_bool
+
+SetRenderDrawBlendMode(renderer:SDL_Renderer@, blendMode:SDL_BlendMode)
+
+SetRenderDrawColor(renderer:SDL_Renderer@, r:Uint8, g:Uint8, b:Uint8, a:Uint8):negerr
+
+SetRenderTarget(renderer:SDL_Renderer@, texture:SDL_Texture@):negerr
+
+SetTextureAlphaMod(texture:SDL_Texture@, alpha:Uint8):negerr
+
+SetTextureBlendMode(texture:SDL_Texture@, blendMode:SDL_BlendMode):negerr
+
+SetTextureColorMod(texture:SDL_Texture@, r:Uint8, g:Uint8, b:Uint8):negerr
+
+UnlockTexture(texture:SDL_Texture@)
+
+UpdateTexture$(texture:SDL_Texture@, rect:SDL_Rect@:const, pitch:int):negerr
+
+UpdateYUVTexture$(texture:SDL_Texture@, rect:SDL_Rect@:const, Yplane:Uint8@:const, Ypitch:int, Uplane:Uint8@:const, Upitch:int, Vplane:Uint8@:const, Vpitch:int):negerr
+
+AllocFormat(pixel_format:Uint32):SDL_PixelFormat@
+
+AllocPalette(ncolors:int):SDL_Palette@
+
+CalculateGammaRamp(gamma:float):custom = R'''
+	Uint16 ramp[256];
+	SDL_CalculateGammaRamp(gamma, ramp);
+	return ReturnValue(env, sig, args, Value::CreateList(env, ramp, ArraySizeOf(ramp)));
+'''
+
+FreeFormat(format:SDL_PixelFormat@)
+
+FreePalette(palette:SDL_Palette@)
+
+GetPixelFormatName(format:Uint32):char@:const
+
+GetRGB(pixel:Uint32, format:SDL_PixelFormat@:const):custom = R'''
+	Uint8 r = 0;
+	Uint8 g = 0;
+	Uint8 b = 0;
+	SDL_GetRGB(pixel, format, &r, &g, &b);
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(r), Value(g), Value(b)));
+'''
+
+GetRGBA(pixel:Uint32, format:SDL_PixelFormat@:const):custom = R'''
+	Uint8 r = 0;
+	Uint8 g = 0;
+	Uint8 b = 0;
+	Uint8 a = 0;
+	SDL_GetRGBA(pixel, format, &r, &g, &b, &a);
+	return ReturnValue(env, sig, args,
+			Value::CreateList(env, Value(r), Value(g), Value(b), Value(a)));
+'''
+
+MapRGB(format:SDL_PixelFormat@:const, r:Uint8, g:Uint8, b:Uint8):Uint32
+
+MapRGBA(format:SDL_PixelFormat@:const, r:Uint8, g:Uint8, b:Uint8, a:Uint8):Uint32
+
+MasksToPixelFormatEnum(bpp:int, Rmask:Uint32, Gmask:Uint32, Bmask:Uint32, Amask:Uint32):Uint32
+
+PixelFormatEnumToMasks(format:Uint32):custom = R'''
+	int bpp = 0;
+	Uint32 Rmask = 0;
+	Uint32 Gmask = 0;
+	Uint32 Bmask = 0;
+	Uint32 Amask = 0;
+	SDL_bool _rtn = SDL_PixelFormatEnumToMasks(format, &bpp, &Rmask, &Gmask, &Bmask, &Amask);
+	if (_rtn != SDL_TRUE) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args,
+			Value::CreateList(env, Value(bpp), Value(Rmask), Value(Gmask), Value(Bmask), Value(Amask)));
+'''
+
+SetPaletteColors(palette:SDL_Palette@, colors[]:Color, firstcolor:int, ncolors:int):custom_void = R'''
+	CArray<SDL_Color> colors(CreateCArray<SDL_Color, Object_Color>(args.GetList(1)));
+	int nmax = static_cast<int>(colors.GetSize());
+	if (firstcolor + ncolors > nmax) {
+		sig.SetError(ERR_IndexError, "out of range");
+		return Value::Null;
+	}
+	int _rtn = SDL_SetPaletteColors(palette, colors, firstcolor, ncolors);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::Null;
+'''
+
+SetPixelFormatPalette(format:SDL_PixelFormat@, palette:SDL_Palette@):negerr
+
+EnclosePoints(points[]:Point, clip:SDL_Rect@:const):custom = R'''
+	CArray<SDL_Point> points(CreateCArray<SDL_Point, Object_Point>(args.GetList(0)));
+	int count = static_cast<int>(points.GetSize());
+	SDL_Rect result;
+	SDL_bool _rtn = SDL_EnclosePoints(points, count, clip, &result);
+	Value _rtnVal;
+	if (_rtn == SDL_TRUE) {
+		_rtnVal = Value(new Object_Rect(result));
+	}
+	return ReturnValue(env, sig, args, _rtnVal);
+'''
+
+HasIntersection(A:SDL_Rect@:const, B:SDL_Rect@:const):SDL_bool
+
+IntersectRect(A:SDL_Rect@:const, B:SDL_Rect@:const):custom = R'''
+	SDL_Rect result;
+	SDL_bool _rtn = SDL_IntersectRect(A, B, &result);
+	Value _rtnVal;
+	if (_rtn == SDL_TRUE) {
+		_rtnVal = Value(new Object_Rect(result));
+	}
+	return ReturnValue(env, sig, args, _rtnVal);
+'''
+
+IntersectRectAndLine$(rect:SDL_Rect@:const, X1:int, Y1:int, X2:int, Y2:int):SDL_bool
+
+PointInRect$(p:SDL_Point@:const, r:SDL_Rect@:const):SDL_bool
+
+RectEmpty(r:SDL_Rect@:const):SDL_bool
+
+RectEquals(a:SDL_Rect@:const, b:SDL_Rect@:const):SDL_bool
+
+UnionRect(A:SDL_Rect@:const, B:SDL_Rect@:const):custom = R'''
+	SDL_Rect result;
+	SDL_UnionRect(A, B, &result);
+	Value _rtnVal = Value(new Object_Rect(result));
+	return ReturnValue(env, sig, args, _rtnVal);
+'''
+
+BlitScaled(src:SDL_Surface@, srcrect:SDL_Rect@:const, dst:SDL_Surface@, dstrect:SDL_Rect@):negerr
+
+BlitSurface(src:SDL_Surface@, srcrect:SDL_Rect@:const, dst:SDL_Surface@, dstrect:SDL_Rect@):negerr
+
+ConvertPixels$(width:int, height:int, src_format:Uint32, dst_format:Uint32):negerr
+
+ConvertSurface(src:SDL_Surface@, fmt:SDL_PixelFormat@:const, flags:Uint32):SDL_Surface@
+
+ConvertSurfaceFormat(src:SDL_Surface@, pixel_format:Uint32, flags:Uint32):SDL_Surface@
+
+CreateRGBSurface(flags:Uint32, width:int, height:int, depth:int, Rmask:Uint32, Gmask:Uint32, Bmask:Uint32, Amask:Uint32):SDL_Surface@
+
+CreateRGBSurfaceFrom(pixels:binary, width:int, height:int, depth:int, pitch:int, Rmask:Uint32, Gmask:Uint32, Bmask:Uint32, Amask:Uint32):custom = R'''
+	Binary &binary = Object_binary::GetObject(args, 0)->GetBinary();
+	if (binary.size() < static_cast<size_t>(height * pitch)) {
+		sig.SetError(ERR_ValueError, "pixels doesn not contain enough data");
+		return Value::Null;
+	}
+	void *pixels = const_cast<char *>(binary.data());
+	SDL_Surface *_rtn = SDL_CreateRGBSurfaceFrom(pixels, width, height,
+								depth, pitch, Rmask, Gmask, Bmask, Amask);
+	if (_rtn == NULL) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_Surface(_rtn)));
+'''
+
+CreateRGBSurfaceFromImage(image:image):custom = R'''
+	Image *pImage = Object_image::GetObject(args, 0)->GetImage();
+	Object_Surface *pObjSurface = Object_Surface::CreateSurfaceFromImage(sig, pImage);
+	if (pObjSurface == NULL) return Value::Null;
+	return ReturnValue(env, sig, args, Value(pObjSurface));
+'''
+
+FillRect(dst:SDL_Surface@, rect:SDL_Rect@:const, color:Uint32):negerr
+
+FillRects(dst:SDL_Surface@, rects[]:Rect, color:Uint32):custom_void = R'''
+	CArray<SDL_Rect> rects(CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1)));
+	int count = static_cast<int>(rects.GetSize());
+	int _rtn = SDL_FillRects(dst, rects, count, color);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::Null;
+'''
+
+FreeSurface(surface:SDL_Surface@)
+
+GetClipRect(surface:SDL_Surface@):custom = R'''
+	SDL_Rect rect;
+	SDL_GetClipRect(surface, &rect);
+	return ReturnValue(env, sig, args, Value(new Object_Rect(rect)));
+'''
+
+GetColorKey(surface:SDL_Surface@):custom = R'''
+	Uint32 key = 0;
+	int _rtn = SDL_GetColorKey(surface, &key);
+	Value _rtnVal;
+	if (_rtn >= 0) {
+		_rtnVal = Value(key);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, _rtnVal);
+'''
+
+GetSurfaceAlphaMod(surface:SDL_Surface@):custom = R'''
+	Uint8 alpha = 0;
+	int _rtn = SDL_GetSurfaceAlphaMod(surface, &alpha);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(alpha));
+'''
+
+GetSurfaceBlendMode(surface:SDL_Surface@):custom = R'''
+	SDL_BlendMode blendMode = SDL_BLENDMODE_NONE;
+	int _rtn = SDL_GetSurfaceBlendMode(surface, &blendMode);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(blendMode));
+'''
+
+GetSurfaceColorMod(surface:SDL_Surface@):custom = R'''
+	Uint8 r = 0;
+	Uint8 g = 0;
+	Uint8 b = 0;
+	int _rtn = SDL_GetSurfaceColorMod(surface, &r, &g, &b);
+	return ReturnValue(env, sig, args,
+			Value::CreateList(env, Value(r), Value(g), Value(b)));
+'''
+
+LoadBMP(src:stream):custom = R'''
+	Stream &_stream = Object_stream::GetObject(args, 0)->GetStream();
+	std::auto_ptr<SDL_RWops> src(CreateRWopsStream(&_stream, &sig));
+	SDL_Surface *_rtn = SDL_LoadBMP_RW(src.get(), 0);
+	if (_rtn == NULL) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_Surface(_rtn)));
+'''
+
+LoadBMP_RW$()
+
+LockSurface(surface:SDL_Surface@):negerr
+
+LowerBlit(src:SDL_Surface@, srcrect:SDL_Rect@, dst:SDL_Surface@, dstrect:SDL_Rect@):negerr
+
+LowerBlitScaled(src:SDL_Surface@, srcrect:SDL_Rect@, dst:SDL_Surface@, dstrect:SDL_Rect@):negerr
+
+MUSTLOCK(surface:SDL_Surface@):bool
+
+SaveBMP(surface:SDL_Surface@, dst:stream):custom = R'''
+	Stream &_stream = Object_stream::GetObject(args, 1)->GetStream();
+	std::auto_ptr<SDL_RWops> context(CreateRWopsStream(&_stream, &sig));
+	int _rtn = SDL_SaveBMP_RW(surface, context.get(), 0);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(_rtn));
+'''
+
+SaveBMP_RW$()
+
+SetClipRect(surface:SDL_Surface@, rect:SDL_Rect@:const):SDL_bool
+
+SetColorKey(surface:SDL_Surface@, flag:int, key:Uint32):negerr
+
+SetSurfaceAlphaMod(surface:SDL_Surface@, alpha:Uint8):negerr
+
+SetSurfaceBlendMode(surface:SDL_Surface@, blendMode:SDL_BlendMode):negerr
+
+SetSurfaceColorMod(surface:SDL_Surface@, r:Uint8, g:Uint8, b:Uint8):negerr
+
+SetSurfacePalette(surface:SDL_Surface@, palette:SDL_Palette@):negerr
+
+SetSurfaceRLE(surface:SDL_Surface@, flag:int):negerr
+
+UnlockSurface(surface:SDL_Surface@)
+
+GetClipboardText():custom = R'''
+	char *_rtn = SDL_GetClipboardText();
+	Value _rtnVal(_rtn);
+	SDL_free(_rtn);
+	return ReturnValue(env, sig, args, _rtnVal);
+'''
+
+HasClipboardText():SDL_bool
+
+SetClipboardText(text:char@:const):negerr
+
+AddEventWatch$()
+
+DelEventWatch$()
+
+EventState(type:Uint32, state:int):Uint8
+
+FilterEvents$()
+
+FlushEvent(type:Uint32)
+
+FlushEvents(minType:Uint32, maxType:Uint32)
+
+GetEventFilter$()
+
+GetNumTouchDevices():int
+
+GetNumTouchFingers(touchId:SDL_TouchID):negerr_number
+
+GetTouchDevice(index:int):custom = R'''
+	SDL_TouchID _rtn = SDL_GetTouchDevice(index);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(_rtn));
+'''
+
+GetTouchFinger(touchId:SDL_TouchID, index:int):SDL_Finger@
+
+HasEvent(type:Uint32):SDL_bool
+
+HasEvents(minType:Uint32, maxType:Uint32):SDL_bool
+
+LoadDollarTemplates(touchId:SDL_TouchID, src:stream):custom = R'''
+	Stream &_stream = Object_stream::GetObject(args, 1)->GetStream();
+	std::auto_ptr<SDL_RWops> src(CreateRWopsStream(&_stream, &sig));
+	int _rtn = SDL_LoadDollarTemplates(touchId, src.get());
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(_rtn));
+'''
+
+AddEvents(events:Event):custom = R'''
+	CArray<SDL_Event> events(CreateCArray<SDL_Event, Object_Event>(args.GetList(0)));
+	int numevents = static_cast<int>(events.GetSize());
+	int _rtn = SDL_PeepEvents(events, numevents, SDL_ADDEVENT, 0, 0);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(_rtn));
+'''
+
+PeekEvents(numevents:int, minType:Uint32, maxType:Uint32):custom = R'''
+	CArray<SDL_Event> events(numevents);
+	int _rtn = SDL_PeepEvents(events, numevents, SDL_PEEKEVENT, minType, maxType);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	Value _rtnVal;
+	ValueList &_valList = _rtnVal.InitAsList(env, _rtn);
+	for (int i = 0; i < _rtn; i++) {
+		_valList.push_back(Value(new Object_Event(events[i])));
+	}
+	return ReturnValue(env, sig, args, _rtnVal);
+'''
+
+GetEvents(numevents:int, minType:Uint32, maxType:Uint32):custom = R'''
+	CArray<SDL_Event> events(numevents);
+	int _rtn = SDL_PeepEvents(events, numevents, SDL_GETEVENT, minType, maxType);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	Value _rtnVal;
+	ValueList &_valList = _rtnVal.InitAsList(env, _rtn);
+	for (int i = 0; i < _rtn; i++) {
+		_valList.push_back(Value(new Object_Event(events[i])));
+	}
+	return ReturnValue(env, sig, args, _rtnVal);
+'''
+
+PollEvent():custom = R'''
+	SDL_Event event;
+	int _rtn = SDL_PollEvent(&event);
+	if (_rtn == 0) return Value::Null;
+	return ReturnValue(env, sig, args, Value(new Object_Event(event)));
+'''
+
+PumpEvents()
+
+PushEvent(event:SDL_Event@):negerr_boolean
+
+QuitRequested():bool
+
+RecordGesture(touchId:SDL_TouchID):negerr_number
+
+RegisterEvents(numevents:int):custom = R'''
+	Uint32 _rtn = SDL_RegisterEvents(numevents);
+	Value _rtnVal;
+	if (_rtn != (Uint32)-1) {
+		_rtnVal = Value(_rtn);
+	}
+	return ReturnValue(env, sig, args, _rtnVal);
+'''
+
+SaveAllDollarTemplates(dst:stream):custom = R'''
+	Stream &_stream = Object_stream::GetObject(args, 0)->GetStream();
+	std::auto_ptr<SDL_RWops> dst(CreateRWopsStream(&_stream, &sig));
+	int _rtn = SDL_SaveAllDollarTemplates(dst.get());
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(_rtn));
+'''
+
+SaveDollarTemplate(gestureId:SDL_GestureID, dst:stream):custom_void = R'''
+	Stream &_stream = Object_stream::GetObject(args, 1)->GetStream();
+	std::auto_ptr<SDL_RWops> dst(CreateRWopsStream(&_stream, &sig));
+	int _rtn = SDL_SaveDollarTemplate(gestureId, dst.get());
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::Null;
+'''
+
+SetEventFilter$()
+
+WaitEvent():custom = R'''
+	SDL_Event event;
+	int _rtn = SDL_WaitEvent(&event);
+	if (_rtn == 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_Event(event)));
+'''
+
+WaitEventTimeout(timeout:int):custom = R'''
+	SDL_Event event;
+	int _rtn = SDL_WaitEventTimeout(&event, timeout);
+	Value _rtnVal;
+	if (_rtn > 0) {
+		_rtnVal = Value(new Object_Event(event));
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, _rtnVal);
+'''
+
+CheckKeyboardState(scancode:SDL_Scancode):custom = R'''
+	int numkeys = 0;
+	const Uint8 *_keystate = SDL_GetKeyboardState(&numkeys);
+	bool _rtn = (0 <= scancode && scancode < numkeys && _keystate[scancode] != 0);
+	return ReturnValue(env, sig, args, Value(_rtn));
+'''
+
+GetKeyFromName(name:char@:const):custom = R'''
+	SDL_Keycode _rtn = SDL_GetKeyFromName(name);
+	if (_rtn == SDLK_UNKNOWN) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(_rtn));
+'''
+
+GetKeyFromScancode(scancode:SDL_Scancode):SDL_Keycode
+
+GetKeyName(key:SDL_Keycode):char@:const
+
+GetKeyboardFocus():SDL_Window@
+
+GetKeyboardState():custom = R'''
+	int numkeys = 0;
+	const Uint8 *_keystate = SDL_GetKeyboardState(&numkeys);
+	Value _rtnVal;
+	ValueList &_valList = _rtnVal.InitAsList(env, numkeys);
+	for (int i = 0; i < numkeys; i++) {
+		_valList.push_back(Value(_keystate[i] != 0));
+	}
+	return ReturnValue(env, sig, args, _rtnVal);
+'''
+
+GetModState():SDL_Keymod
+
+GetScancodeFromKey(key:SDL_Keycode):SDL_Scancode
+
+GetScancodeFromName(name:char@:const):custom = R'''
+	SDL_Scancode _rtn = SDL_GetScancodeFromName(name);
+	if (_rtn == SDL_SCANCODE_UNKNOWN) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(_rtn));
+'''
+
+GetScancodeName(scancode:SDL_Scancode):char@:const
+
+HasScreenKeyboardSupport():SDL_bool
+
+IsScreenKeyboardShown(window:SDL_Window@):SDL_bool
+
+IsTextInputActive():SDL_bool
+
+SetModState(modstate:SDL_Keymod)
+
+SetTextInputRect(rect:SDL_Rect@)
+
+StartTextInput()
+
+StopTextInput()
+
+CaptureMouse$(enalbed:SDL_bool):negerr
+
+CreateColorCursor(surface:SDL_Surface@, hot_x:int, hot_y:int):SDL_Cursor@
+
+CreateCursor(data:binary, mask:binary, w:int, h:int, hot_x:int, hot_y:int):custom = R'''
+	const Binary &_data = Object_binary::GetObject(args, 0)->GetBinary();
+	const Binary &_mask = Object_binary::GetObject(args, 1)->GetBinary();
+	size_t bytesLeast = int((w + 7) / 8) * h;
+	if (_data.size() < bytesLeast) {
+		sig.SetError(ERR_ValueError, "data has insufficient content");
+		return Value::Null;
+	}
+	if (_mask.size() < bytesLeast) {
+		sig.SetError(ERR_ValueError, "mask has insufficient content");
+		return Value::Null;
+	}
+	const Uint8 *data = reinterpret_cast<const Uint8 *>(_data.data());
+	const Uint8 *mask = reinterpret_cast<const Uint8 *>(_mask.data());
+	SDL_Cursor *_rtn = SDL_CreateCursor(data, mask, w, h, hot_x, hot_y);
+	if (_rtn == NULL) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_Cursor(_rtn, true)));
+'''
+
+CreateSystemCursor(id:SDL_SystemCursor):SDL_Cursor@
+
+FreeCursor(cursor:SDL_Cursor@)
+
+GetCursor():custom = R'''
+	SDL_Cursor *_rtn = SDL_GetCursor();
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(new Object_Cursor(_rtn, false));
+	}
+	return ReturnValue(env, sig, args, _rtnVal);
+'''
+
+GetDefaultCursor():SDL_Cursor@
+
+GetGlobalMouseState$():custom = R'''
+	int x = 0;
+	int y = 0;
+	Uint32 _rtn = SDL_GetGlobalMouseState(&x, &y);
+	return ReturnValue(env, sig, args, Value::CreateList(env,
+										Value(_rtn), Value(x), Value(y)));
+'''
+
+GetMouseFocus():SDL_Window@
+
+GetMouseState():custom = R'''
+	int x = 0;
+	int y = 0;
+	Uint32 _rtn = SDL_GetMouseState(&x, &y);
+	return ReturnValue(env, sig, args, Value::CreateList(env,
+										Value(_rtn), Value(x), Value(y)));
+'''
+
+GetRelativeMouseMode():SDL_bool
+
+GetRelativeMouseState():custom = R'''
+	int x = 0;
+	int y = 0;
+	Uint32 _rtn = SDL_GetRelativeMouseState(&x, &y);
+	return ReturnValue(env, sig, args, Value::CreateList(env,
+										Value(_rtn), Value(x), Value(y)));
+'''
+
+SetCursor(cursor:SDL_Cursor@)
+
+SetRelativeMouseMode(enabled:SDL_bool):negerr
+
+ShowCursor(toggle:int):negerr
+
+WarpMouseGlobal$(x:int, y:int)
+
+WarpMouseInWindow(window:SDL_Window@, x:int, y:int)
+
+JoystickClose(joystick:SDL_Joystick@)
+
+JoystickEventState(state:int):negerr_boolean
+
+JoystickGetAttached(joystick:SDL_Joystick@):SDL_bool
+
+JoystickGetAxis(joystick:SDL_Joystick@, axis:int):Sint16
+
+JoystickGetBall(joystick:SDL_Joystick@, ball:int):custom = R'''
+	int dx = 0;
+	int dy = 0;
+	int _rtn = SDL_JoystickGetBall(joystick, ball, &dx, &dy);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value::CreateList(env, Value(dx), Value(dy)));
+'''
+
+JoystickGetButton(joystick:SDL_Joystick@, button:int):custom = R'''
+	Uint8 _rtn = SDL_JoystickGetButton(joystick, button);
+	return ReturnValue(env, sig, args, Value(_rtn != 0));
+'''
+
+JoystickGetDeviceGUID(device_index:int):SDL_JoystickGUID
+
+JoystickGetGUID(joystick:SDL_Joystick@):SDL_JoystickGUID
+
+JoystickGetGUIDFromString(pchGUID:char@:const):SDL_JoystickGUID
+
+JoystickGetGUIDString(guid:SDL_JoystickGUID):custom = R'''
+	char szGUID[64];
+	int cbGUID = sizeof(szGUID);
+	SDL_JoystickGetGUIDString(guid, szGUID, cbGUID);
+	return ReturnValue(env, sig, args, Value(szGUID));
+'''
+
+JoystickGetHat(joystick:SDL_Joystick@, hat:int):Uint8
+
+JoystickInstanceID(joystick:SDL_Joystick@):custom = R'''
+	SDL_JoystickID _rtn = SDL_JoystickInstanceID(joystick);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(_rtn));
+'''
+
+JoystickName(joystick:SDL_Joystick@):char@:const
+
+JoystickNameForIndex(device_index:int):char@:const
+
+JoystickNumAxes(joystick:SDL_Joystick@):negerr_number
+
+JoystickNumBalls(joystick:SDL_Joystick@):negerr_number
+
+JoystickNumButtons(joystick:SDL_Joystick@):negerr_number
+
+JoystickNumHats(joystick:SDL_Joystick@):negerr_number
+
+JoystickOpen(device_index:int):SDL_Joystick@
+
+JoystickUpdate()
+
+NumJoysticks():negerr_number
+
+GameControllerAddMapping(mappingString:char@:const):negerr_boolean
+
+GameControllerAddMappingsFromFile(file:stream):custom = R'''
+	Stream &_stream = Object_stream::GetObject(args, 0)->GetStream();
+	std::auto_ptr<SDL_RWops> file(CreateRWopsStream(&_stream, &sig));
+	int _rtn = SDL_GameControllerAddMappingsFromRW(file.get(), 0);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(_rtn));
+'''
+
+GameControllerAddMappingsFromRW$(rw:SDL_RWops@, freerw:int):negerr_number
+
+GameControllerClose(gamecontroller:SDL_GameController@)
+
+GameControllerEventState(state:int):int
+
+GameControllerGetAttached(gamecontroller:SDL_GameController@):SDL_bool
+
+GameControllerGetAxis(gamecontroller:SDL_GameController@, axis:SDL_GameControllerAxis):Sint16
+
+GameControllerGetAxisFromString(pchString:char@:const):SDL_GameControllerAxis
+
+GameControllerGetBindForAxis(gamecontroller:SDL_GameController@, axis:SDL_GameControllerAxis):SDL_GameControllerButtonBind
+
+GameControllerGetBindForButton(gamecontroller:SDL_GameController@, button:SDL_GameControllerButton):SDL_GameControllerButtonBind
+
+GameControllerGetButton(gamecontroller:SDL_GameController@, button:SDL_GameControllerButton):custom = R'''
+	Uint8 _rtn = SDL_GameControllerGetButton(gamecontroller, button);
+	if (_rtn == 0 && *SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(_rtn != 0));
+'''
+
+GameControllerGetButtonFromString(pchString:char@:const):SDL_GameControllerButton
+
+GameControllerGetJoystick(gamecontroller:SDL_GameController@):SDL_Joystick@
+
+GameControllerGetStringForAxis(axis:SDL_GameControllerAxis):char@:const
+
+GameControllerGetStringForButton(button:SDL_GameControllerButton):char@:const
+
+GameControllerMapping(gamecontroller:SDL_GameController@):char@:const
+
+GameControllerMappingForGUID(guid:SDL_JoystickGUID):char@:const
+
+GameControllerName(gamecontroller:SDL_GameController@):char@:const
+
+GameControllerNameForIndex(joystick_index:int):char@:const
+
+GameControllerOpen(joystick_index:int):SDL_GameController@
+
+GameControllerUpdate()
+
+IsGameController(joystick_index:int):SDL_bool
+
+HapticClose(haptic:SDL_Haptic@)
+
+HapticDestroyEffect(haptic:SDL_Haptic@, effect:int)
+
+HapticEffectSupported(haptic:SDL_Haptic@, effect:SDL_HapticEffect@):negerr_boolean
+
+HapticGetEffectStatus(haptic:SDL_Haptic@, effect:int):negerr_boolean
+
+HapticIndex(haptic:SDL_Haptic@):negerr_number
+
+HapticName(device_index:int):char@:const
+
+HapticNewEffect(haptic:SDL_Haptic@, effect:SDL_HapticEffect@):negerr_number
+
+HapticNumAxes(haptic:SDL_Haptic@):negerr_number
+
+HapticNumEffects(haptic:SDL_Haptic@):negerr_number
+
+HapticNumEffectsPlaying(haptic:SDL_Haptic@):negerr_number
+
+HapticOpen(device_index:int):SDL_Haptic@
+
+HapticOpenFromJoystick(joystick:SDL_Joystick@):SDL_Haptic@
+
+HapticOpenFromMouse():SDL_Haptic@
+
+HapticOpened(device_index:int):negerr_boolean
+
+HapticPause(haptic:SDL_Haptic@):negerr
+
+HapticQuery(haptic:SDL_Haptic@):unsigned_int
+
+HapticRumbleInit(haptic:SDL_Haptic@):negerr
+
+HapticRumblePlay(haptic:SDL_Haptic@, strength:float, length:Uint32):negerr
+
+HapticRumbleStop(haptic:SDL_Haptic@):negerr
+
+HapticRumbleSupported(haptic:SDL_Haptic@):negerr_boolean
+
+HapticRunEffect(haptic:SDL_Haptic@, effect:int, iterations:Uint32):negerr
+
+HapticSetAutocenter(haptic:SDL_Haptic@, autocenter:int):negerr
+
+HapticSetGain(haptic:SDL_Haptic@, gain:int):negerr
+
+HapticStopAll(haptic:SDL_Haptic@):negerr
+
+HapticStopEffect(haptic:SDL_Haptic@, effect:int):negerr
+
+HapticUnpause(haptic:SDL_Haptic@):negerr
+
+HapticUpdateEffect(haptic:SDL_Haptic@, effect:int, data:SDL_HapticEffect@):negerr
+
+JoystickIsHaptic(joystick:SDL_Joystick@):negerr_boolean
+
+MouseIsHaptic():negerr_boolean
+
+NumHaptics():negerr_number
+
+AudioInit(driver_name:char@:const):negerr
+
+AudioQuit()
+
+BuildAudioCVT(cvt:SDL_AudioCVT@, src_format:SDL_AudioFormat, src_channels:Uint8, src_rate:int, dst_format:SDL_AudioFormat, dst_channels:Uint8, dst_rate:int):negerr_boolean
+
+ClearQueuedAudio$(dev:SDL_AudioDeviceID)
+
+CloseAudio()
+
+CloseAudioDevice(dev:SDL_AudioDeviceID)
+
+ConvertAudio(cvt:SDL_AudioCVT@):negerr
+
+FreeWAV(wav:Wav):custom = R'''
+	Object_Wav *pObj = Object_Wav::GetObject(args, 0);
+	Uint8 *buffer = pObj->GetBuffer();
+	SDL_FreeWAV(buffer);
+	return Value::Null;
+'''
+
+GetAudioDeviceName(index:int, iscapture:int):char@:const
+
+GetAudioDeviceStatus(dev:SDL_AudioDeviceID):SDL_AudioStatus
+
+GetAudioDriver(index:int):char@:const
+
+GetAudioStatus():SDL_AudioStatus
+
+GetCurrentAudioDriver():char@:const
+
+GetNumAudioDevices(iscapture:int):negerr_number
+
+GetNumAudioDrivers():int
+
+GetQueuedAudioSize$(dev:SDL_AudioDeviceID):Uint32
+
+LoadWAV(file:stream):custom = R'''
+	Stream &_stream = Object_stream::GetObject(args, 0)->GetStream();
+	std::auto_ptr<SDL_RWops> file(CreateRWopsStream(&_stream, &sig));
+	SDL_AudioSpec spec;
+	Uint8 *audio_buf = NULL;
+	Uint32 audio_len = 0;
+	SDL_AudioSpec *_rtn = SDL_LoadWAV_RW(file.get(), 0, &spec, &audio_buf, &audio_len);
+	if (_rtn == NULL) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_Wav(spec, audio_buf, audio_len)));
+'''
+
+LoadWAV_RW$()
+
+LockAudio()
+
+LockAudioDevice(dev:SDL_AudioDeviceID)
+
+MixAudio$(volume:int)
+
+MixAudioFormat$(format:SDL_AudioFormat, volume:int)
+
+OpenAudio(desired:SDL_AudioSpec@):custom = R'''
+	SDL_AudioSpec obtained;
+	int _rtn = SDL_OpenAudio(desired, &obtained);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(new Object_AudioSpec(obtained)));
+'''
+
+OpenAudioDevice$(device:char@:const, iscapture:int, desired:SDL_AudioSpec@:const, allowed_changes:int):SDL_AudioDeviceID
+
+PauseAudio(pause_on:int)
+
+PauseAudioDevice(dev:SDL_AudioDeviceID, pause_on:int)
+
+QueueAudio$(dev:SDL_AudioDeviceID):negerr
+
+UnlockAudio()
+
+UnlockAudioDevice(dev:SDL_AudioDeviceID)
+
+AUDIO_BITSIZE(x:Uint16):Uint16
+
+AUDIO_ISFLOAT(x:Uint16):Uint16_boolean
+
+AUDIO_ISBIGENDIAN(x:Uint16):Uint16_boolean
+
+AUDIO_ISSIGNED(x:Uint16):Uint16_boolean
+
+AUDIO_ISINT(x:Uint16):bool
+
+AUDIO_ISLITTLEENDIAN(x:Uint16):bool
+
+AUDIO_ISUNSIGNED(x:Uint16):bool
+
+CreateThread$()
+
+DetachThread$()
+
+GetThreadID$()
+
+GetThreadName$()
+
+GetThreadPriority$()
+
+TLSCreate$()
+
+TLSGet$()
+
+TLSSet$()
+
+ThreadID$()
+
+WaitThread$()
+
+CondBroadcast$()
+
+CondSignal$()
+
+CondWait$()
+
+CondWaitTimeout$()
+
+CreateCond$()
+
+CreateMutex$()
+
+CreateSemaphore$()
+
+DestroyCond$()
+
+DestroyMutex$()
+
+DestroySemaphore$()
+
+LockMutex$()
+
+SemPost$()
+
+SemTryWait$()
+
+SemValue$()
+
+SemWait$()
+
+SemWaitTimeout$()
+
+TryLockMutex$()
+
+UnlockMutex$()
+
+AtomicAdd$()
+
+AtomicCAS$()
+
+AtomicCASPtr$()
+
+AtomicDecRef$()
+
+AtomicGet$()
+
+AtomicGetPtr$()
+
+AtomicIncRef$()
+
+AtomicLock$()
+
+AtomicSet$()
+
+AtomicSetPtr$()
+
+AtomicTryLock$()
+
+AtomicUnlock$()
+
+CompilerBarrier$()
+
+AddTimer$(interval:Uint32):SDL_TimerID
+
+Delay(ms:Uint32)
+
+GetPerformanceCounter():Uint64
+
+GetPerformanceFrequency():Uint64
+
+GetTicks():Uint32
+
+RemoveTimer(id:SDL_TimerID):SDL_bool
+
+TICKS_PASSED(A:Uint32, B:Uint32):bool
+
+GetBasePath$():char@
+
+GetPrefPath$(org:char@:const, app:char@:const):char@
+
+AllocRW$()
+
+FreeRW$()
+
+RWFromConstMem$()
+
+RWFromFP$()
+
+RWFromFile$()
+
+RWFromMem$()
+
+RWclose$()
+
+RWread$()
+
+RWseek$()
+
+RWtell$()
+
+RWwrite$()
+
+ReadBE16$()
+
+ReadBE32$()
+
+ReadBE64$()
+
+ReadLE16$()
+
+ReadLE32$()
+
+ReadLE64$()
+
+WriteBE16$()
+
+WriteBE32$()
+
+WriteBE64$()
+
+WriteLE16$()
+
+WriteLE32$()
+
+WriteLE64$()
+
+GetPlatform():char@:const
+
+GetCPUCacheLineSize():int
+
+GetCPUCount():int
+
+GetSystemRAM():int
+
+Has3DNow():SDL_bool
+
+HasAVX():SDL_bool
+
+HasAVX2$():SDL_bool
+
+HasAltiVec():SDL_bool
+
+HasMMX():SDL_bool
+
+HasRDTSC():SDL_bool
+
+HasSSE():SDL_bool
+
+HasSSE2():SDL_bool
+
+HasSSE3():SDL_bool
+
+HasSSE41():SDL_bool
+
+HasSSE42():SDL_bool
+
+Swap16$()
+
+Swap32$()
+
+Swap64$()
+
+SwapBE16$()
+
+SwapBE32$()
+
+SwapBE64$()
+
+SwapFloat$()
+
+SwapFloatBE$()
+
+SwapFloatLE$()
+
+SwapLE16$()
+
+SwapLE32$()
+
+SwapLE64$()
+
+MostSignificantBitIndex32$(x:Uint32):int
+
+GetPowerInfo():custom = R'''
+	int secs = 0;
+	int pct = 0;
+	SDL_PowerState _rtn = SDL_GetPowerInfo(&secs, &pct);
+	return ReturnValue(env, sig, args, Value::CreateList(env,
+									Value(_rtn), Value(secs), Value(pct)));
+'''
+
+AndroidGetActivity$()
+
+AndroidGetExternalStoragePath$()
+
+AndroidGetExternalStorageState$()
+
+AndroidGetInternalStoragePath$()
+
+AndroidGetJNIEnv$()
+
+acos(x:double):double
+}
+
+ArgInfo = struct(name:string, typeC:string, typeGura:string:nil, fmtGetter:string:nil) {
+	GetArg(idx:number) = format(this.fmtGetter, idx)
+}
+
+ReturnInfo = struct(typeC:string, typeGura:string:nil, fmtReturn:string:nil) {
+}
+
+TypeConv = struct(typeC:string, typeGura:string, fmtGetter:string, fmtReturn:string)
+
+typeConvDict = %{
+	'Uint32' => TypeConv('Uint32', 'number', 'args.GetULong(%d)', 'Value(_rtn)')
+	'int' => TypeConv('int', 'number', 'args.GetInt(%d)', 'Value(_rtn)')
+	'char@' => TypeConv('char *', 'string', 'args.GetString(%d)', 'Value(_rtn)')
+	'SDL_Window@' => TypeConv('SDL_Window *', 'Window', 'Object_Window::GetObject(args, %d)->GetEntity()', 'Value(new Object_Window(_rtn))')
+}
+
+FuncInfo = class {
+	__init__(caller:expr, body:string:nil) = {
+		println(caller)
+		this.funcName = caller.car
+		this.rtnRaw = caller.attrfront
+		this.body = body
+		this.argInfos = caller.cdr.each():list {|arg|
+			if (arg.isindexer()) {
+				identifier = arg.car
+			} else {
+				identifier = arg
+			}
+			argTypeRaw = identifier.attrfront.join('.')
+			typeConv = typeConvDict.get(argTypeRaw)
+			if (!typeConv) {
+				sys.stderr.printf(
+						'%s:%d: proper conversion not found in table "%s"\n',
+						caller.source, caller.lineno, argTypeRaw)
+				sys.exit(1)
+			}
+			name = identifier
+			ArgInfo(name, typeConv.typeC, typeConv.typeGura, typeConv.fmtGetter)
+		}
+		printf('  funcName = %s\n', this.funcName)
+		printf('  args = %s\n', this.argInfos)
+		printf('  rtnRaw = %s\n', this.rtnRaw)
+		if (this.body) {
+			printf('  body =\n')
+			print(body)
+		}
+	}
+}
+
+decls.children.each {|decl|
+	if (decl.isassign()) {
+		caller = decl.left
+		body = decl.right.value
+	} else {
+		caller = decl
+		body = nil
+	}
+	FuncInfo(caller, body)
+}
