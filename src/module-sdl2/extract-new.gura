@@ -1752,55 +1752,55 @@ AndroidGetJNIEnv$()
 acos(x:double):double
 }
 
-ArgInfo = struct(name:string, typeC:string, typeGura:string:nil, fmtGetter:string:nil) {
+ArgInfo = struct(name:string, declGura:string:nil, typeC:string, fmtGetter:string:nil) {
 	GetArg(idx:number) = format(this.fmtGetter, idx)
 }
 
 ReturnInfo = struct(typeC:string, typeGura:string:nil, fmtReturn:string:nil) {
 }
 
-TypeConv = struct(typeC:string, typeGura:string, fmtGetter:string, fmtReturn:string)
+TypeConv = struct(declGura, typeC:string, fmtGetter:string:nil, fmtReturn:string:nil)
 
 typeConvDict = %{
 	'Uint16[]' => TypeConv(
-			'CArray(Uint16)', 'number',
-			'args.GetList(%d)',
+			'VTYPE_number, OCCUR_Once, FLAG_List',
+			'CArray<Uint16>', 'args.GetList(%d)',
 			nil)
 	'Uint32' => TypeConv(
-			'Uint32', 'number',
-			'args.GetULong(%d)',
+			'VTYPE_number',
+			'Uint32', 'args.GetULong(%d)',
 			'Value(_rtn)')
 	'int' => TypeConv(
-			'int', 'number',
-			'args.GetInt(%d)',
+			'VTYPE_number',
+			'int', 'args.GetInt(%d)',
 			'Value(_rtn)')
 	'float' => TypeConv(
-			'float', 'number',
-			'args.GetFloat(%d)',
+			'VTYPE_number',
+			'float', 'args.GetFloat(%d)',
 			'Value(_rtn)')
 	'char@' => TypeConv(
-			'char *', 'string',
-			'args.GetString(%d)',
+			'VTYPE_string',
+			'char *', 'args.GetString(%d)',
 			'Value(_rtn)')
 	'SDL_bool' => TypeConv(
-			'SDL_bool', 'boolean',
-			'(args.GetBoolean(%d)? SDL_TRUE : SDL_FALSE)',
+			'VTYPE_boolean',
+			'SDL_bool', '(args.GetBoolean(%d)? SDL_TRUE : SDL_FALSE)',
 			'Value(_rtn == SDL_TRUE)')
 	'SDL_GLattr' => TypeConv(
-			'SDL_GLattr', 'number',
-			'static_cast<SDL_GLattr>(args.GetInt(%d))',
+			'VTYPE_number',
+			'SDL_GLattr', 'static_cast<SDL_GLattr>(args.GetInt(%d))',
 			'Value(_rtn)')
 	'SDL_Window@' => TypeConv(
-			'SDL_Window *', 'Window',
-			'Object_Window::GetObject(args, %d)->GetEntity()',
+			'VTYPE_Window',
+			'SDL_Window *', 'Object_Window::GetObject(args, %d)->GetEntity()',
 			'Value(new Object_Window(_rtn))')
 	'SDL_DisplayMode@' => TypeConv(
-			'SDL_DisplayMode *', 'DisplayMode',
-			'Object_DisplayMode::GetObject(args, %d)->GetEntity()',
+			'VTYPE_DisplayMode',
+			'SDL_DisplayMode *', 'Object_DisplayMode::GetObject(args, %d)->GetEntity()',
 			'Value(new Object_DisplayMode(_rtn))')
 	'SDL_GLContext' => TypeConv(
-			'SDL_GLContext', 'GLContext',
-			'Object_GLContext::GetObject(args, %d)->GetEntity()',
+			'VTYPE_GLContext',
+			'SDL_GLContext', 'Object_GLContext::GetObject(args, %d)->GetEntity()',
 			'Value(new Object_GLContext(_rtn))')
 }
 
@@ -1825,8 +1825,8 @@ FuncInfo = class {
 						caller.source, caller.lineno, argTypeRaw)
 				sys.exit(1)
 			}
-			name = identifier
-			ArgInfo(name, typeConv.typeC, typeConv.typeGura, typeConv.fmtGetter)
+			name = identifier.symbol
+			ArgInfo(name, typeConv.declGura, typeConv.typeC, typeConv.fmtGetter)
 		}
 		printf('  funcName = %s\n', this.funcName)
 		printf('  args = %s\n', this.argInfos)
