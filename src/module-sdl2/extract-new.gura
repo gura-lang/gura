@@ -83,14 +83,14 @@ GetRevision():char@:const
 
 GetRevisionNumber():int
 
-GetVersion():custom = R'''
+GetVersion():any = R'''
 	SDL_version ver;
 	SDL_GetVersion(&ver);
 	return ReturnValue(env, sig, args, Value::CreateList(env,
 					Value(ver.major), Value(ver.minor), Value(ver.patch)));
 '''
 
-VERSION():custom = R'''
+VERSION():any = R'''
 	SDL_version ver;
 	SDL_VERSION(&ver);
 	return ReturnValue(env, sig, args, Value::CreateList(env,
@@ -101,7 +101,7 @@ VERSION_ATLEAST(X:int, Y:int, Z:int):bool
 
 CreateWindow(title:char@:const, x:int, y:int, w:int, h:int, flags:Uint32):SDL_Window@
 
-CreateWindowAndRenderer(width:int, height:int, window_flags:Uint32):custom = R'''
+CreateWindowAndRenderer(width:int, height:int, window_flags:Uint32):any = R'''
 	SDL_Window *window = NULL;
 	SDL_Renderer *renderer = NULL;
 	int _rtn = SDL_CreateWindowAndRenderer(width, height, window_flags, &window, &renderer);
@@ -121,7 +121,7 @@ DisableScreenSaver()
 
 EnableScreenSaver()
 
-GL_CreateContext(window:SDL_Window@):custom = R'''
+GL_CreateContext(window:SDL_Window@):any = R'''
 	SDL_GLContext _rtn = SDL_GL_CreateContext(window);
 	if (_rtn == NULL) {
 		SetError_SDL(sig);
@@ -134,7 +134,7 @@ GL_DeleteContext(context:SDL_GLContext)
 
 GL_ExtensionSupported(extension:char@:const):SDL_bool
 
-GL_GetAttribute(attr:SDL_GLattr):custom = R'''
+GL_GetAttribute(attr:SDL_GLattr):any = R'''
 	int value = 0;
 	int _rtn = SDL_GL_GetAttribute(attr, &value);
 	if (_rtn < 0) {
@@ -144,7 +144,7 @@ GL_GetAttribute(attr:SDL_GLattr):custom = R'''
 	return ReturnValue(env, sig, args, Value(value));
 '''
 
-GL_GetCurrentContext():custom = R'''
+GL_GetCurrentContext():any = R'''
 	SDL_GLContext _rtn = SDL_GL_GetCurrentContext();
 	if (_rtn == NULL) {
 		SetError_SDL(sig);
@@ -155,7 +155,7 @@ GL_GetCurrentContext():custom = R'''
 
 GL_GetCurrentWindow():SDL_Window@
 
-GL_GetDrawableSize(window:SDL_Window@):custom = R'''
+GL_GetDrawableSize(window:SDL_Window@):any = R'''
 	int w = 0;
 	int h = 0;
 	SDL_GL_GetDrawableSize(window, &w, &h);
@@ -180,7 +180,7 @@ GL_SwapWindow(window:SDL_Window@)
 
 GL_UnloadLibrary()
 
-GetClosestDisplayMode(displayIndex:int, mode:SDL_DisplayMode@:const):custom = R'''
+GetClosestDisplayMode(displayIndex:int, mode:SDL_DisplayMode@:const):any = R'''
 	SDL_DisplayMode closest;
 	SDL_DisplayMode* _rtn = SDL_GetClosestDisplayMode(displayIndex, mode, &closest);
 	if (_rtn == NULL) {
@@ -190,7 +190,7 @@ GetClosestDisplayMode(displayIndex:int, mode:SDL_DisplayMode@:const):custom = R'
 	return ReturnValue(env, sig, args, Value(new Object_DisplayMode(closest)));
 '''
 
-GetCurrentDisplayMode(displayIndex:int):custom = R'''
+GetCurrentDisplayMode(displayIndex:int):any = R'''
 	SDL_DisplayMode mode;
 	int _rtn = SDL_GetCurrentDisplayMode(displayIndex, &mode);
 	if (_rtn < 0) {
@@ -202,7 +202,7 @@ GetCurrentDisplayMode(displayIndex:int):custom = R'''
 
 GetCurrentVideoDriver():char@:const
 
-GetDesktopDisplayMode(displayIndex:int):custom = R'''
+GetDesktopDisplayMode(displayIndex:int):any = R'''
 	SDL_DisplayMode mode;
 	int _rtn = SDL_GetDesktopDisplayMode(displayIndex, &mode);
 	if (_rtn < 0) {
@@ -212,7 +212,7 @@ GetDesktopDisplayMode(displayIndex:int):custom = R'''
 	return ReturnValue(env, sig, args, Value(new Object_DisplayMode(mode)));
 '''
 
-GetDisplayBounds(displayIndex:int):custom = R'''
+GetDisplayBounds(displayIndex:int):any = R'''
 	SDL_Rect rect;
 	int _rtn = SDL_GetDisplayBounds(displayIndex, &rect);
 	if (_rtn < 0) {
@@ -222,7 +222,7 @@ GetDisplayBounds(displayIndex:int):custom = R'''
 	return ReturnValue(env, sig, args, Value(new Object_Rect(rect)));
 '''
 
-GetDisplayMode(displayIndex:int, modeIndex:int):custom = R'''
+GetDisplayMode(displayIndex:int, modeIndex:int):any = R'''
 	SDL_DisplayMode mode;
 	int _rtn = SDL_GetDisplayMode(displayIndex, modeIndex, &mode);
 	if (_rtn < 0) {
@@ -254,7 +254,7 @@ GetWindowFlags(window:SDL_Window@):Uint32
 
 GetWindowFromID(id:Uint32):SDL_Window@
 
-GetWindowGammaRamp(window:SDL_Window@):custom = R'''
+GetWindowGammaRamp(window:SDL_Window@):any = R'''
 	Uint16 red = 0;
 	Uint16 green = 0;
 	Uint16 blue = 0;
@@ -271,21 +271,21 @@ GetWindowGrab(window:SDL_Window@):SDL_bool
 
 GetWindowID(window:SDL_Window@):Uint32
 
-GetWindowMaximumSize(window:SDL_Window@):custom = R'''
+GetWindowMaximumSize(window:SDL_Window@):any = R'''
 	int w = 0;
 	int h = 0;
 	SDL_GetWindowMaximumSize(window, &w, &h);
 	return ReturnValue(env, sig, args, Value::CreateList(env, Value(w), Value(h)));
 '''
 
-GetWindowMinimumSize(window:SDL_Window@):custom = R'''
+GetWindowMinimumSize(window:SDL_Window@):any = R'''
 	int w = 0;
 	int h = 0;
 	SDL_GetWindowMinimumSize(window, &w, &h);
 	return ReturnValue(env, sig, args, Value::CreateList(env, Value(w), Value(h)));
 '''
 
-GetWindowPixelFormat(window:SDL_Window@):custom = R'''
+GetWindowPixelFormat(window:SDL_Window@):any = R'''
 	Uint32 _rtn = SDL_GetWindowPixelFormat(window);
 	if (_rtn == SDL_PIXELFORMAT_UNKNOWN) {
 		SetError_SDL(sig);
@@ -294,14 +294,14 @@ GetWindowPixelFormat(window:SDL_Window@):custom = R'''
 	return ReturnValue(env, sig, args, Value(_rtn));
 '''
 
-GetWindowPosition(window:SDL_Window@):custom = R'''
+GetWindowPosition(window:SDL_Window@):any = R'''
 	int x = 0;
 	int y = 0;
 	SDL_GetWindowPosition(window, &x, &y);
 	return ReturnValue(env, sig, args, Value::CreateList(env, Value(x), Value(y)));
 '''
 
-GetWindowSize(window:SDL_Window@):custom = R'''
+GetWindowSize(window:SDL_Window@):any = R'''
 	int w = 0;
 	int h = 0;
 	SDL_GetWindowSize(window, &w, &h);
@@ -312,7 +312,7 @@ GetWindowSurface(window:SDL_Window@):SDL_Surface@
 
 GetWindowTitle(window:SDL_Window@):char@:const
 
-GetWindowWMInfo$(window:SDL_Window@):custom = R'''
+GetWindowWMInfo$(window:SDL_Window@):any = R'''
 	SDL_SysWMinfo info;
 	SDL_bool _rtn = SDL_GetWindowWMInfo(window, &info);
 	if (_rtn != SDL_TRUE) {
@@ -344,7 +344,7 @@ SetWindowDisplayMode(window:SDL_Window@, mode:SDL_DisplayMode@:const):negerr
 
 SetWindowFullscreen(window:SDL_Window@, flags:Uint32):negerr
 
-SetWindowGammaRamp(window:SDL_Window@, red[]:Uint16, green[]:Uint16, blue[]:Uint16):custom_void = R'''
+SetWindowGammaRamp(window:SDL_Window@, red[]:Uint16, green[]:Uint16, blue[]:Uint16) = R'''
 	CArray<Uint16> red(args.GetList(1));
 	CArray<Uint16> green(args.GetList(2));
 	CArray<Uint16> blue(args.GetList(3));
@@ -384,7 +384,7 @@ ShowWindow(window:SDL_Window@)
 
 UpdateWindowSurface(window:SDL_Window@):negerr
 
-UpdateWindowSurfaceRects(window:SDL_Window@, rects[]:Rect):custom_void = R'''
+UpdateWindowSurfaceRects(window:SDL_Window@, rects[]:Rect) = R'''
 	CArray<SDL_Rect> rects(CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1)));
 	int numrects = static_cast<int>(rects.GetSize());
 	int _rtn = SDL_UpdateWindowSurfaceRects(window, rects, numrects);
@@ -411,7 +411,7 @@ DestroyRenderer(renderer:SDL_Renderer@)
 
 DestroyTexture(texture:SDL_Texture@)
 
-GL_BindTexture(texture:SDL_Texture@):custom = R'''
+GL_BindTexture(texture:SDL_Texture@):any = R'''
 	float texw = 0;
 	float texh = 0;
 	SDL_GL_BindTexture(texture, &texw, &texh);
@@ -422,7 +422,7 @@ GL_UnbindTexture(texture:SDL_Texture@):negerr
 
 GetNumRenderDrivers():negerr_number
 
-GetRenderDrawBlendMode(renderer:SDL_Renderer@):custom = R'''
+GetRenderDrawBlendMode(renderer:SDL_Renderer@):any = R'''
 	SDL_BlendMode blendMode = SDL_BLENDMODE_NONE;
 	int _rtn = SDL_GetRenderDrawBlendMode(renderer, &blendMode);
 	if (_rtn < 0) {
@@ -432,7 +432,7 @@ GetRenderDrawBlendMode(renderer:SDL_Renderer@):custom = R'''
 	return ReturnValue(env, sig, args, Value(blendMode));
 '''
 
-GetRenderDrawColor(renderer:SDL_Renderer@):custom = R'''
+GetRenderDrawColor(renderer:SDL_Renderer@):any = R'''
 	Uint8 r = 0;
 	Uint8 g = 0;
 	Uint8 b = 0;
@@ -446,7 +446,7 @@ GetRenderDrawColor(renderer:SDL_Renderer@):custom = R'''
 								Value(r), Value(g), Value(b), Value(a)));
 '''
 
-GetRenderDriverInfo(index:int):custom = R'''
+GetRenderDriverInfo(index:int):any = R'''
 	SDL_RendererInfo info;
 	int _rtn = SDL_GetRenderDriverInfo(index, &info);
 	if (_rtn < 0) {
@@ -456,7 +456,7 @@ GetRenderDriverInfo(index:int):custom = R'''
 	return ReturnValue(env, sig, args, Value(new Object_RendererInfo(info)));
 '''
 
-GetRenderTarget(renderer:SDL_Renderer@):custom = R'''
+GetRenderTarget(renderer:SDL_Renderer@):any = R'''
 	SDL_Texture *_rtn = SDL_GetRenderTarget(renderer);
 	Value _rtnVal;
 	if (_rtn != NULL) {
@@ -467,7 +467,7 @@ GetRenderTarget(renderer:SDL_Renderer@):custom = R'''
 
 GetRenderer(window:SDL_Window@):SDL_Renderer@
 
-GetRendererInfo(renderer:SDL_Renderer@):custom = R'''
+GetRendererInfo(renderer:SDL_Renderer@):any = R'''
 	SDL_RendererInfo info;
 	int _rtn = SDL_GetRendererInfo(renderer, &info);
 	if (_rtn < 0) {
@@ -477,7 +477,7 @@ GetRendererInfo(renderer:SDL_Renderer@):custom = R'''
 	return ReturnValue(env, sig, args, Value(new Object_RendererInfo(info)));
 '''
 
-GetRenderOutputSize(renderer:SDL_Renderer@):custom = R'''
+GetRenderOutputSize(renderer:SDL_Renderer@):any = R'''
 	int w = 0;
 	int h = 0;
 	int _rtn = SDL_GetRendererOutputSize(renderer, &w, &h);
@@ -488,7 +488,7 @@ GetRenderOutputSize(renderer:SDL_Renderer@):custom = R'''
 	return ReturnValue(env, sig, args, Value::CreateList(env, Value(w), Value(h)));
 '''
 
-GetTextureAlphaMod(texture:SDL_Texture@):custom = R'''
+GetTextureAlphaMod(texture:SDL_Texture@):any = R'''
 	Uint8 alpha = 0;
 	int _rtn = SDL_GetTextureAlphaMod(texture, &alpha);
 	if (_rtn < 0) {
@@ -498,7 +498,7 @@ GetTextureAlphaMod(texture:SDL_Texture@):custom = R'''
 	return ReturnValue(env, sig, args, Value(alpha));
 '''
 
-GetTextureBlendMode(texture:SDL_Texture@):custom = R'''
+GetTextureBlendMode(texture:SDL_Texture@):any = R'''
 	SDL_BlendMode blendMode = SDL_BLENDMODE_NONE;
 	int _rtn = SDL_GetTextureBlendMode(texture, &blendMode);
 	if (_rtn < 0) {
@@ -508,7 +508,7 @@ GetTextureBlendMode(texture:SDL_Texture@):custom = R'''
 	return ReturnValue(env, sig, args, Value(blendMode));
 '''
 
-GetTextureColorMod(texture:SDL_Texture@):custom = R'''
+GetTextureColorMod(texture:SDL_Texture@):any = R'''
 	Uint8 r = 0;
 	Uint8 g = 0;
 	Uint8 b = 0;
@@ -523,7 +523,7 @@ GetTextureColorMod(texture:SDL_Texture@):custom = R'''
 
 LockTexture$(texture:SDL_Texture@, rect:SDL_Rect@:const):negerr
 
-QueryTexture(texture:SDL_Texture@):custom = R'''
+QueryTexture(texture:SDL_Texture@):any = R'''
 	Uint32 format = 0;
 	int access = 0;
 	int w = 0;
@@ -545,7 +545,7 @@ RenderCopyEx(renderer:SDL_Renderer@, texture:SDL_Texture@, srcrect:SDL_Rect@:con
 
 RenderDrawLine(renderer:SDL_Renderer@, x1:int, y1:int, x2:int, y2:int):negerr
 
-RenderDrawLines(renderer:SDL_Renderer@, points[]:Point):custom_void = R'''
+RenderDrawLines(renderer:SDL_Renderer@, points[]:Point) = R'''
 	CArray<SDL_Point> points(CreateCArray<SDL_Point, Object_Point>(args.GetList(1)));
 	int count = static_cast<int>(points.GetSize());
 	int _rtn = SDL_RenderDrawLines(renderer, points, count);
@@ -558,7 +558,7 @@ RenderDrawLines(renderer:SDL_Renderer@, points[]:Point):custom_void = R'''
 
 RenderDrawPoint(renderer:SDL_Renderer@, x:int, y:int):negerr
 
-RenderDrawPoints(renderer:SDL_Renderer@, points[]:Point):custom_void = R'''
+RenderDrawPoints(renderer:SDL_Renderer@, points[]:Point) = R'''
 	CArray<SDL_Point> points(CreateCArray<SDL_Point, Object_Point>(args.GetList(1)));
 	int count = static_cast<int>(points.GetSize());
 	int _rtn = SDL_RenderDrawPoints(renderer, points, count);
@@ -571,7 +571,7 @@ RenderDrawPoints(renderer:SDL_Renderer@, points[]:Point):custom_void = R'''
 
 RenderDrawRect(renderer:SDL_Renderer@, rect:SDL_Rect@:const):negerr
 
-RenderDrawRects(renderer:SDL_Renderer@, rects[]:Rect):custom_void = R'''
+RenderDrawRects(renderer:SDL_Renderer@, rects[]:Rect) = R'''
 	CArray<SDL_Rect> rects(CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1)));
 	int count = static_cast<int>(rects.GetSize());
 	int _rtn = SDL_RenderDrawRects(renderer, rects, count);
@@ -584,7 +584,7 @@ RenderDrawRects(renderer:SDL_Renderer@, rects[]:Rect):custom_void = R'''
 
 RenderFillRect(renderer:SDL_Renderer@, rect:SDL_Rect@:const):negerr
 
-RenderFillRects(renderer:SDL_Renderer@, rects[]:Rect):custom_void = R'''
+RenderFillRects(renderer:SDL_Renderer@, rects[]:Rect) = R'''
 	CArray<SDL_Rect> rects(CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1)));
 	int count = static_cast<int>(rects.GetSize());
 	int _rtn = SDL_RenderFillRects(renderer, rects, count);
@@ -595,27 +595,27 @@ RenderFillRects(renderer:SDL_Renderer@, rects[]:Rect):custom_void = R'''
 	return Value::Null;
 '''
 
-RenderGetClipRect(renderer:SDL_Renderer@):custom = R'''
+RenderGetClipRect(renderer:SDL_Renderer@):any = R'''
 	SDL_Rect rect;
 	SDL_RenderGetClipRect(renderer, &rect);
 	return ReturnValue(env, sig, args, Value(new Object_Rect(rect)));
 '''
 
-RenderGetLogicalSize(renderer:SDL_Renderer@):custom = R'''
+RenderGetLogicalSize(renderer:SDL_Renderer@):any = R'''
 	int w = 0;
 	int h = 0;
 	SDL_RenderGetLogicalSize(renderer, &w, &h);
 	return ReturnValue(env, sig, args, Value::CreateList(env, Value(w), Value(h)));
 '''
 
-RenderGetScale(renderer:SDL_Renderer@):custom = R'''
+RenderGetScale(renderer:SDL_Renderer@):any = R'''
 	float scaleX = 0;
 	float scaleY = 0;
 	SDL_RenderGetScale(renderer, &scaleX, &scaleY);
 	return ReturnValue(env, sig, args, Value::CreateList(env, Value(scaleX), Value(scaleY)));
 '''
 
-RenderGetViewport(renderer:SDL_Renderer@):custom = R'''
+RenderGetViewport(renderer:SDL_Renderer@):any = R'''
 	SDL_Rect rect;
 	SDL_RenderGetViewport(renderer, &rect);
 	return ReturnValue(env, sig, args, Value(new Object_Rect(rect)));
@@ -625,7 +625,7 @@ RenderIsClipEnabled$(renderer:SDL_Renderer@):SDL_bool
 
 RenderPresent(renderer:SDL_Renderer@)
 
-RenderReadPixels(renderer:SDL_Renderer@, rect:SDL_Rect@:const, format:symbol):custom = R'''
+RenderReadPixels(renderer:SDL_Renderer@, rect:SDL_Rect@:const, format:symbol):any = R'''
 	Uint32 format = SDL_PIXELFORMAT_UNKNOWN;
 	Image::Format fmtImage = Image::FORMAT_None;
 	const Symbol *pSymbol = args.GetSymbol(2);
@@ -683,7 +683,7 @@ AllocFormat(pixel_format:Uint32):SDL_PixelFormat@
 
 AllocPalette(ncolors:int):SDL_Palette@
 
-CalculateGammaRamp(gamma:float):custom = R'''
+CalculateGammaRamp(gamma:float):any = R'''
 	Uint16 ramp[256];
 	SDL_CalculateGammaRamp(gamma, ramp);
 	return ReturnValue(env, sig, args, Value::CreateList(env, ramp, ArraySizeOf(ramp)));
@@ -695,7 +695,7 @@ FreePalette(palette:SDL_Palette@)
 
 GetPixelFormatName(format:Uint32):char@:const
 
-GetRGB(pixel:Uint32, format:SDL_PixelFormat@:const):custom = R'''
+GetRGB(pixel:Uint32, format:SDL_PixelFormat@:const):any = R'''
 	Uint8 r = 0;
 	Uint8 g = 0;
 	Uint8 b = 0;
@@ -703,7 +703,7 @@ GetRGB(pixel:Uint32, format:SDL_PixelFormat@:const):custom = R'''
 	return ReturnValue(env, sig, args, Value::CreateList(env, Value(r), Value(g), Value(b)));
 '''
 
-GetRGBA(pixel:Uint32, format:SDL_PixelFormat@:const):custom = R'''
+GetRGBA(pixel:Uint32, format:SDL_PixelFormat@:const):any = R'''
 	Uint8 r = 0;
 	Uint8 g = 0;
 	Uint8 b = 0;
@@ -719,7 +719,7 @@ MapRGBA(format:SDL_PixelFormat@:const, r:Uint8, g:Uint8, b:Uint8, a:Uint8):Uint3
 
 MasksToPixelFormatEnum(bpp:int, Rmask:Uint32, Gmask:Uint32, Bmask:Uint32, Amask:Uint32):Uint32
 
-PixelFormatEnumToMasks(format:Uint32):custom = R'''
+PixelFormatEnumToMasks(format:Uint32):any = R'''
 	int bpp = 0;
 	Uint32 Rmask = 0;
 	Uint32 Gmask = 0;
@@ -734,7 +734,7 @@ PixelFormatEnumToMasks(format:Uint32):custom = R'''
 			Value::CreateList(env, Value(bpp), Value(Rmask), Value(Gmask), Value(Bmask), Value(Amask)));
 '''
 
-SetPaletteColors(palette:SDL_Palette@, colors[]:Color, firstcolor:int, ncolors:int):custom_void = R'''
+SetPaletteColors(palette:SDL_Palette@, colors[]:Color, firstcolor:int, ncolors:int) = R'''
 	CArray<SDL_Color> colors(CreateCArray<SDL_Color, Object_Color>(args.GetList(1)));
 	int nmax = static_cast<int>(colors.GetSize());
 	if (firstcolor + ncolors > nmax) {
@@ -751,7 +751,7 @@ SetPaletteColors(palette:SDL_Palette@, colors[]:Color, firstcolor:int, ncolors:i
 
 SetPixelFormatPalette(format:SDL_PixelFormat@, palette:SDL_Palette@):negerr
 
-EnclosePoints(points[]:Point, clip:SDL_Rect@:const):custom = R'''
+EnclosePoints(points[]:Point, clip:SDL_Rect@:const):any = R'''
 	CArray<SDL_Point> points(CreateCArray<SDL_Point, Object_Point>(args.GetList(0)));
 	int count = static_cast<int>(points.GetSize());
 	SDL_Rect result;
@@ -765,7 +765,7 @@ EnclosePoints(points[]:Point, clip:SDL_Rect@:const):custom = R'''
 
 HasIntersection(A:SDL_Rect@:const, B:SDL_Rect@:const):SDL_bool
 
-IntersectRect(A:SDL_Rect@:const, B:SDL_Rect@:const):custom = R'''
+IntersectRect(A:SDL_Rect@:const, B:SDL_Rect@:const):any = R'''
 	SDL_Rect result;
 	SDL_bool _rtn = SDL_IntersectRect(A, B, &result);
 	Value _rtnVal;
@@ -783,7 +783,7 @@ RectEmpty(r:SDL_Rect@:const):SDL_bool
 
 RectEquals(a:SDL_Rect@:const, b:SDL_Rect@:const):SDL_bool
 
-UnionRect(A:SDL_Rect@:const, B:SDL_Rect@:const):custom = R'''
+UnionRect(A:SDL_Rect@:const, B:SDL_Rect@:const):any = R'''
 	SDL_Rect result;
 	SDL_UnionRect(A, B, &result);
 	Value _rtnVal = Value(new Object_Rect(result));
@@ -802,7 +802,7 @@ ConvertSurfaceFormat(src:SDL_Surface@, pixel_format:Uint32, flags:Uint32):SDL_Su
 
 CreateRGBSurface(flags:Uint32, width:int, height:int, depth:int, Rmask:Uint32, Gmask:Uint32, Bmask:Uint32, Amask:Uint32):SDL_Surface@
 
-CreateRGBSurfaceFrom(pixels:binary, width:int, height:int, depth:int, pitch:int, Rmask:Uint32, Gmask:Uint32, Bmask:Uint32, Amask:Uint32):custom = R'''
+CreateRGBSurfaceFrom(pixels:binary, width:int, height:int, depth:int, pitch:int, Rmask:Uint32, Gmask:Uint32, Bmask:Uint32, Amask:Uint32):any = R'''
 	Binary &binary = Object_binary::GetObject(args, 0)->GetBinary();
 	if (binary.size() < static_cast<size_t>(height * pitch)) {
 		sig.SetError(ERR_ValueError, "pixels doesn not contain enough data");
@@ -818,7 +818,7 @@ CreateRGBSurfaceFrom(pixels:binary, width:int, height:int, depth:int, pitch:int,
 	return ReturnValue(env, sig, args, Value(new Object_Surface(_rtn)));
 '''
 
-CreateRGBSurfaceFromImage(image:image):custom = R'''
+CreateRGBSurfaceFromImage(image:image):any = R'''
 	Image *pImage = Object_image::GetObject(args, 0)->GetImage();
 	Object_Surface *pObjSurface = Object_Surface::CreateSurfaceFromImage(sig, pImage);
 	if (pObjSurface == NULL) return Value::Null;
@@ -827,7 +827,7 @@ CreateRGBSurfaceFromImage(image:image):custom = R'''
 
 FillRect(dst:SDL_Surface@, rect:SDL_Rect@:const, color:Uint32):negerr
 
-FillRects(dst:SDL_Surface@, rects[]:Rect, color:Uint32):custom_void = R'''
+FillRects(dst:SDL_Surface@, rects[]:Rect, color:Uint32) = R'''
 	CArray<SDL_Rect> rects(CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1)));
 	int count = static_cast<int>(rects.GetSize());
 	int _rtn = SDL_FillRects(dst, rects, count, color);
@@ -840,13 +840,13 @@ FillRects(dst:SDL_Surface@, rects[]:Rect, color:Uint32):custom_void = R'''
 
 FreeSurface(surface:SDL_Surface@)
 
-GetClipRect(surface:SDL_Surface@):custom = R'''
+GetClipRect(surface:SDL_Surface@):any = R'''
 	SDL_Rect rect;
 	SDL_GetClipRect(surface, &rect);
 	return ReturnValue(env, sig, args, Value(new Object_Rect(rect)));
 '''
 
-GetColorKey(surface:SDL_Surface@):custom = R'''
+GetColorKey(surface:SDL_Surface@):any = R'''
 	Uint32 key = 0;
 	int _rtn = SDL_GetColorKey(surface, &key);
 	Value _rtnVal;
@@ -859,7 +859,7 @@ GetColorKey(surface:SDL_Surface@):custom = R'''
 	return ReturnValue(env, sig, args, _rtnVal);
 '''
 
-GetSurfaceAlphaMod(surface:SDL_Surface@):custom = R'''
+GetSurfaceAlphaMod(surface:SDL_Surface@):any = R'''
 	Uint8 alpha = 0;
 	int _rtn = SDL_GetSurfaceAlphaMod(surface, &alpha);
 	if (_rtn < 0) {
@@ -869,7 +869,7 @@ GetSurfaceAlphaMod(surface:SDL_Surface@):custom = R'''
 	return ReturnValue(env, sig, args, Value(alpha));
 '''
 
-GetSurfaceBlendMode(surface:SDL_Surface@):custom = R'''
+GetSurfaceBlendMode(surface:SDL_Surface@):any = R'''
 	SDL_BlendMode blendMode = SDL_BLENDMODE_NONE;
 	int _rtn = SDL_GetSurfaceBlendMode(surface, &blendMode);
 	if (_rtn < 0) {
@@ -879,7 +879,7 @@ GetSurfaceBlendMode(surface:SDL_Surface@):custom = R'''
 	return ReturnValue(env, sig, args, Value(blendMode));
 '''
 
-GetSurfaceColorMod(surface:SDL_Surface@):custom = R'''
+GetSurfaceColorMod(surface:SDL_Surface@):any = R'''
 	Uint8 r = 0;
 	Uint8 g = 0;
 	Uint8 b = 0;
@@ -888,7 +888,7 @@ GetSurfaceColorMod(surface:SDL_Surface@):custom = R'''
 			Value::CreateList(env, Value(r), Value(g), Value(b)));
 '''
 
-LoadBMP(src:stream):custom = R'''
+LoadBMP(src:stream):any = R'''
 	Stream &_stream = Object_stream::GetObject(args, 0)->GetStream();
 	std::auto_ptr<SDL_RWops> src(CreateRWopsStream(&_stream, &sig));
 	SDL_Surface *_rtn = SDL_LoadBMP_RW(src.get(), 0);
@@ -909,7 +909,7 @@ LowerBlitScaled(src:SDL_Surface@, srcrect:SDL_Rect@, dst:SDL_Surface@, dstrect:S
 
 MUSTLOCK(surface:SDL_Surface@):bool
 
-SaveBMP(surface:SDL_Surface@, dst:stream):custom = R'''
+SaveBMP(surface:SDL_Surface@, dst:stream):any = R'''
 	Stream &_stream = Object_stream::GetObject(args, 1)->GetStream();
 	std::auto_ptr<SDL_RWops> context(CreateRWopsStream(&_stream, &sig));
 	int _rtn = SDL_SaveBMP_RW(surface, context.get(), 0);
@@ -938,7 +938,7 @@ SetSurfaceRLE(surface:SDL_Surface@, flag:int):negerr
 
 UnlockSurface(surface:SDL_Surface@)
 
-GetClipboardText():custom = R'''
+GetClipboardText():any = R'''
 	char *_rtn = SDL_GetClipboardText();
 	Value _rtnVal(_rtn);
 	SDL_free(_rtn);
@@ -967,7 +967,7 @@ GetNumTouchDevices():int
 
 GetNumTouchFingers(touchId:SDL_TouchID):negerr_number
 
-GetTouchDevice(index:int):custom = R'''
+GetTouchDevice(index:int):any = R'''
 	SDL_TouchID _rtn = SDL_GetTouchDevice(index);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
@@ -982,7 +982,7 @@ HasEvent(type:Uint32):SDL_bool
 
 HasEvents(minType:Uint32, maxType:Uint32):SDL_bool
 
-LoadDollarTemplates(touchId:SDL_TouchID, src:stream):custom = R'''
+LoadDollarTemplates(touchId:SDL_TouchID, src:stream):any = R'''
 	Stream &_stream = Object_stream::GetObject(args, 1)->GetStream();
 	std::auto_ptr<SDL_RWops> src(CreateRWopsStream(&_stream, &sig));
 	int _rtn = SDL_LoadDollarTemplates(touchId, src.get());
@@ -993,7 +993,7 @@ LoadDollarTemplates(touchId:SDL_TouchID, src:stream):custom = R'''
 	return ReturnValue(env, sig, args, Value(_rtn));
 '''
 
-AddEvents(events:Event):custom = R'''
+AddEvents(events:Event):any = R'''
 	CArray<SDL_Event> events(CreateCArray<SDL_Event, Object_Event>(args.GetList(0)));
 	int numevents = static_cast<int>(events.GetSize());
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_ADDEVENT, 0, 0);
@@ -1004,7 +1004,7 @@ AddEvents(events:Event):custom = R'''
 	return ReturnValue(env, sig, args, Value(_rtn));
 '''
 
-PeekEvents(numevents:int, minType:Uint32, maxType:Uint32):custom = R'''
+PeekEvents(numevents:int, minType:Uint32, maxType:Uint32):any = R'''
 	CArray<SDL_Event> events(numevents);
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_PEEKEVENT, minType, maxType);
 	if (_rtn < 0) {
@@ -1019,7 +1019,7 @@ PeekEvents(numevents:int, minType:Uint32, maxType:Uint32):custom = R'''
 	return ReturnValue(env, sig, args, _rtnVal);
 '''
 
-GetEvents(numevents:int, minType:Uint32, maxType:Uint32):custom = R'''
+GetEvents(numevents:int, minType:Uint32, maxType:Uint32):any = R'''
 	CArray<SDL_Event> events(numevents);
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_GETEVENT, minType, maxType);
 	if (_rtn < 0) {
@@ -1034,7 +1034,7 @@ GetEvents(numevents:int, minType:Uint32, maxType:Uint32):custom = R'''
 	return ReturnValue(env, sig, args, _rtnVal);
 '''
 
-PollEvent():custom = R'''
+PollEvent():any = R'''
 	SDL_Event event;
 	int _rtn = SDL_PollEvent(&event);
 	if (_rtn == 0) return Value::Null;
@@ -1049,7 +1049,7 @@ QuitRequested():bool
 
 RecordGesture(touchId:SDL_TouchID):negerr_number
 
-RegisterEvents(numevents:int):custom = R'''
+RegisterEvents(numevents:int):any = R'''
 	Uint32 _rtn = SDL_RegisterEvents(numevents);
 	Value _rtnVal;
 	if (_rtn != (Uint32)-1) {
@@ -1058,7 +1058,7 @@ RegisterEvents(numevents:int):custom = R'''
 	return ReturnValue(env, sig, args, _rtnVal);
 '''
 
-SaveAllDollarTemplates(dst:stream):custom = R'''
+SaveAllDollarTemplates(dst:stream):any = R'''
 	Stream &_stream = Object_stream::GetObject(args, 0)->GetStream();
 	std::auto_ptr<SDL_RWops> dst(CreateRWopsStream(&_stream, &sig));
 	int _rtn = SDL_SaveAllDollarTemplates(dst.get());
@@ -1069,7 +1069,7 @@ SaveAllDollarTemplates(dst:stream):custom = R'''
 	return ReturnValue(env, sig, args, Value(_rtn));
 '''
 
-SaveDollarTemplate(gestureId:SDL_GestureID, dst:stream):custom_void = R'''
+SaveDollarTemplate(gestureId:SDL_GestureID, dst:stream) = R'''
 	Stream &_stream = Object_stream::GetObject(args, 1)->GetStream();
 	std::auto_ptr<SDL_RWops> dst(CreateRWopsStream(&_stream, &sig));
 	int _rtn = SDL_SaveDollarTemplate(gestureId, dst.get());
@@ -1082,7 +1082,7 @@ SaveDollarTemplate(gestureId:SDL_GestureID, dst:stream):custom_void = R'''
 
 SetEventFilter$()
 
-WaitEvent():custom = R'''
+WaitEvent():any = R'''
 	SDL_Event event;
 	int _rtn = SDL_WaitEvent(&event);
 	if (_rtn == 0) {
@@ -1092,7 +1092,7 @@ WaitEvent():custom = R'''
 	return ReturnValue(env, sig, args, Value(new Object_Event(event)));
 '''
 
-WaitEventTimeout(timeout:int):custom = R'''
+WaitEventTimeout(timeout:int):any = R'''
 	SDL_Event event;
 	int _rtn = SDL_WaitEventTimeout(&event, timeout);
 	Value _rtnVal;
@@ -1105,14 +1105,14 @@ WaitEventTimeout(timeout:int):custom = R'''
 	return ReturnValue(env, sig, args, _rtnVal);
 '''
 
-CheckKeyboardState(scancode:SDL_Scancode):custom = R'''
+CheckKeyboardState(scancode:SDL_Scancode):any = R'''
 	int numkeys = 0;
 	const Uint8 *_keystate = SDL_GetKeyboardState(&numkeys);
 	bool _rtn = (0 <= scancode && scancode < numkeys && _keystate[scancode] != 0);
 	return ReturnValue(env, sig, args, Value(_rtn));
 '''
 
-GetKeyFromName(name:char@:const):custom = R'''
+GetKeyFromName(name:char@:const):any = R'''
 	SDL_Keycode _rtn = SDL_GetKeyFromName(name);
 	if (_rtn == SDLK_UNKNOWN) {
 		SetError_SDL(sig);
@@ -1127,7 +1127,7 @@ GetKeyName(key:SDL_Keycode):char@:const
 
 GetKeyboardFocus():SDL_Window@
 
-GetKeyboardState():custom = R'''
+GetKeyboardState():any = R'''
 	int numkeys = 0;
 	const Uint8 *_keystate = SDL_GetKeyboardState(&numkeys);
 	Value _rtnVal;
@@ -1142,7 +1142,7 @@ GetModState():SDL_Keymod
 
 GetScancodeFromKey(key:SDL_Keycode):SDL_Scancode
 
-GetScancodeFromName(name:char@:const):custom = R'''
+GetScancodeFromName(name:char@:const):any = R'''
 	SDL_Scancode _rtn = SDL_GetScancodeFromName(name);
 	if (_rtn == SDL_SCANCODE_UNKNOWN) {
 		SetError_SDL(sig);
@@ -1171,7 +1171,7 @@ CaptureMouse$(enalbed:SDL_bool):negerr
 
 CreateColorCursor(surface:SDL_Surface@, hot_x:int, hot_y:int):SDL_Cursor@
 
-CreateCursor(data:binary, mask:binary, w:int, h:int, hot_x:int, hot_y:int):custom = R'''
+CreateCursor(data:binary, mask:binary, w:int, h:int, hot_x:int, hot_y:int):any = R'''
 	const Binary &_data = Object_binary::GetObject(args, 0)->GetBinary();
 	const Binary &_mask = Object_binary::GetObject(args, 1)->GetBinary();
 	size_t bytesLeast = int((w + 7) / 8) * h;
@@ -1197,7 +1197,7 @@ CreateSystemCursor(id:SDL_SystemCursor):SDL_Cursor@
 
 FreeCursor(cursor:SDL_Cursor@)
 
-GetCursor():custom = R'''
+GetCursor():any = R'''
 	SDL_Cursor *_rtn = SDL_GetCursor();
 	Value _rtnVal;
 	if (_rtn != NULL) {
@@ -1208,7 +1208,7 @@ GetCursor():custom = R'''
 
 GetDefaultCursor():SDL_Cursor@
 
-GetGlobalMouseState$():custom = R'''
+GetGlobalMouseState$():any = R'''
 	int x = 0;
 	int y = 0;
 	Uint32 _rtn = SDL_GetGlobalMouseState(&x, &y);
@@ -1218,7 +1218,7 @@ GetGlobalMouseState$():custom = R'''
 
 GetMouseFocus():SDL_Window@
 
-GetMouseState():custom = R'''
+GetMouseState():any = R'''
 	int x = 0;
 	int y = 0;
 	Uint32 _rtn = SDL_GetMouseState(&x, &y);
@@ -1228,7 +1228,7 @@ GetMouseState():custom = R'''
 
 GetRelativeMouseMode():SDL_bool
 
-GetRelativeMouseState():custom = R'''
+GetRelativeMouseState():any = R'''
 	int x = 0;
 	int y = 0;
 	Uint32 _rtn = SDL_GetRelativeMouseState(&x, &y);
@@ -1254,7 +1254,7 @@ JoystickGetAttached(joystick:SDL_Joystick@):SDL_bool
 
 JoystickGetAxis(joystick:SDL_Joystick@, axis:int):Sint16
 
-JoystickGetBall(joystick:SDL_Joystick@, ball:int):custom = R'''
+JoystickGetBall(joystick:SDL_Joystick@, ball:int):any = R'''
 	int dx = 0;
 	int dy = 0;
 	int _rtn = SDL_JoystickGetBall(joystick, ball, &dx, &dy);
@@ -1265,7 +1265,7 @@ JoystickGetBall(joystick:SDL_Joystick@, ball:int):custom = R'''
 	return ReturnValue(env, sig, args, Value::CreateList(env, Value(dx), Value(dy)));
 '''
 
-JoystickGetButton(joystick:SDL_Joystick@, button:int):custom = R'''
+JoystickGetButton(joystick:SDL_Joystick@, button:int):any = R'''
 	Uint8 _rtn = SDL_JoystickGetButton(joystick, button);
 	return ReturnValue(env, sig, args, Value(_rtn != 0));
 '''
@@ -1276,7 +1276,7 @@ JoystickGetGUID(joystick:SDL_Joystick@):SDL_JoystickGUID
 
 JoystickGetGUIDFromString(pchGUID:char@:const):SDL_JoystickGUID
 
-JoystickGetGUIDString(guid:SDL_JoystickGUID):custom = R'''
+JoystickGetGUIDString(guid:SDL_JoystickGUID):any = R'''
 	char szGUID[64];
 	int cbGUID = sizeof(szGUID);
 	SDL_JoystickGetGUIDString(guid, szGUID, cbGUID);
@@ -1285,7 +1285,7 @@ JoystickGetGUIDString(guid:SDL_JoystickGUID):custom = R'''
 
 JoystickGetHat(joystick:SDL_Joystick@, hat:int):Uint8
 
-JoystickInstanceID(joystick:SDL_Joystick@):custom = R'''
+JoystickInstanceID(joystick:SDL_Joystick@):any = R'''
 	SDL_JoystickID _rtn = SDL_JoystickInstanceID(joystick);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
@@ -1314,7 +1314,7 @@ NumJoysticks():negerr_number
 
 GameControllerAddMapping(mappingString:char@:const):negerr_boolean
 
-GameControllerAddMappingsFromFile(file:stream):custom = R'''
+GameControllerAddMappingsFromFile(file:stream):any = R'''
 	Stream &_stream = Object_stream::GetObject(args, 0)->GetStream();
 	std::auto_ptr<SDL_RWops> file(CreateRWopsStream(&_stream, &sig));
 	int _rtn = SDL_GameControllerAddMappingsFromRW(file.get(), 0);
@@ -1341,7 +1341,7 @@ GameControllerGetBindForAxis(gamecontroller:SDL_GameController@, axis:SDL_GameCo
 
 GameControllerGetBindForButton(gamecontroller:SDL_GameController@, button:SDL_GameControllerButton):SDL_GameControllerButtonBind
 
-GameControllerGetButton(gamecontroller:SDL_GameController@, button:SDL_GameControllerButton):custom = R'''
+GameControllerGetButton(gamecontroller:SDL_GameController@, button:SDL_GameControllerButton):any = R'''
 	Uint8 _rtn = SDL_GameControllerGetButton(gamecontroller, button);
 	if (_rtn == 0 && *SDL_GetError() != '\0') {
 		SetError_SDL(sig);
@@ -1446,7 +1446,7 @@ CloseAudioDevice(dev:SDL_AudioDeviceID)
 
 ConvertAudio(cvt:SDL_AudioCVT@):negerr
 
-FreeWAV(wav:Wav):custom = R'''
+FreeWAV(wav:Wav):any = R'''
 	Object_Wav *pObj = Object_Wav::GetObject(args, 0);
 	Uint8 *buffer = pObj->GetBuffer();
 	SDL_FreeWAV(buffer);
@@ -1469,7 +1469,7 @@ GetNumAudioDrivers():int
 
 GetQueuedAudioSize$(dev:SDL_AudioDeviceID):Uint32
 
-LoadWAV(file:stream):custom = R'''
+LoadWAV(file:stream):any = R'''
 	Stream &_stream = Object_stream::GetObject(args, 0)->GetStream();
 	std::auto_ptr<SDL_RWops> file(CreateRWopsStream(&_stream, &sig));
 	SDL_AudioSpec spec;
@@ -1493,7 +1493,7 @@ MixAudio$(volume:int)
 
 MixAudioFormat$(format:SDL_AudioFormat, volume:int)
 
-OpenAudio(desired:SDL_AudioSpec@):custom = R'''
+OpenAudio(desired:SDL_AudioSpec@):any = R'''
 	SDL_AudioSpec obtained;
 	int _rtn = SDL_OpenAudio(desired, &obtained);
 	if (_rtn < 0) {
@@ -1731,7 +1731,7 @@ SwapLE64$()
 
 MostSignificantBitIndex32$(x:Uint32):int
 
-GetPowerInfo():custom = R'''
+GetPowerInfo():any = R'''
 	int secs = 0;
 	int pct = 0;
 	SDL_PowerState _rtn = SDL_GetPowerInfo(&secs, &pct);
@@ -1778,9 +1778,9 @@ typeConvDict = %{
 			'VTYPE_number',
 			'float', 'args.GetFloat(%d)',
 			'Value(_rtn)')
-	'char@' => TypeConv(
+	'char@:const' => TypeConv(
 			'VTYPE_string',
-			'char *', 'args.GetString(%d)',
+			'const char *', 'args.GetString(%d)',
 			'Value(_rtn)')
 	'SDL_bool' => TypeConv(
 			'VTYPE_boolean',
@@ -1790,18 +1790,22 @@ typeConvDict = %{
 			'VTYPE_number',
 			'SDL_GLattr', 'static_cast<SDL_GLattr>(args.GetInt(%d))',
 			'Value(_rtn)')
-	'SDL_Window@' => TypeConv(
-			'VTYPE_Window',
-			'SDL_Window *', 'Object_Window::GetObject(args, %d)->GetEntity()',
-			'Value(new Object_Window(_rtn))')
 	'SDL_DisplayMode@' => TypeConv(
 			'VTYPE_DisplayMode',
 			'SDL_DisplayMode *', 'Object_DisplayMode::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_DisplayMode(_rtn))')
+	'SDL_DisplayMode@:const' => TypeConv(
+			'VTYPE_DisplayMode',
+			'const SDL_DisplayMode *', 'Object_DisplayMode::GetObject(args, %d)->GetEntity()',
 			'Value(new Object_DisplayMode(_rtn))')
 	'SDL_GLContext' => TypeConv(
 			'VTYPE_GLContext',
 			'SDL_GLContext', 'Object_GLContext::GetObject(args, %d)->GetEntity()',
 			'Value(new Object_GLContext(_rtn))')
+	'SDL_Window@' => TypeConv(
+			'VTYPE_Window',
+			'SDL_Window *', 'Object_Window::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_Window(_rtn))')
 }
 
 FuncInfo = class {
@@ -1817,6 +1821,9 @@ FuncInfo = class {
 			} else {
 				identifier = arg
 				argTypeRaw = identifier.attrfront.join('.')
+			}
+			if (identifier.attrs.find(`const)) {
+				argTypeRaw += ':const'
 			}
 			typeConv = typeConvDict.get(argTypeRaw)
 			if (!typeConv) {
