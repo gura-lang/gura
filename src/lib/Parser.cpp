@@ -657,9 +657,9 @@ Expr *Parser::ParseChar(Environment &env, Signal sig, char ch)
 			_stat = STAT_CommentBlockEnd;
 		} else if (ch == '/') {
 			_stat = STAT_CommentBlockNest;
-		} else if (ch == '"' || ch == '\'') {
-			_stringInfo.chBorder = ch;
-			_stat = STAT_StringInCommentBlock;
+		//} else if (ch == '"' || ch == '\'') {
+		//	_stringInfo.chBorder = ch;
+		//	_stat = STAT_StringInCommentBlock;
 		} else {
 			// nothing to do
 		}
