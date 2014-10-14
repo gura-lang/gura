@@ -344,7 +344,7 @@ SetWindowDisplayMode(window:SDL_Window@, mode:SDL_DisplayMode@:const):negerr
 
 SetWindowFullscreen(window:SDL_Window@, flags:Uint32):negerr
 
-SetWindowGammaRamp(window:SDL_Window@, red[]:number, green[]:number, blue[]:number):custom_void = R'''
+SetWindowGammaRamp(window:SDL_Window@, red[]:Uint16, green[]:Uint16, blue[]:Uint16):custom_void = R'''
 	CArray<Uint16> red(args.GetList(1));
 	CArray<Uint16> green(args.GetList(2));
 	CArray<Uint16> blue(args.GetList(3));
@@ -1762,10 +1762,46 @@ ReturnInfo = struct(typeC:string, typeGura:string:nil, fmtReturn:string:nil) {
 TypeConv = struct(typeC:string, typeGura:string, fmtGetter:string, fmtReturn:string)
 
 typeConvDict = %{
-	'Uint32' => TypeConv('Uint32', 'number', 'args.GetULong(%d)', 'Value(_rtn)')
-	'int' => TypeConv('int', 'number', 'args.GetInt(%d)', 'Value(_rtn)')
-	'char@' => TypeConv('char *', 'string', 'args.GetString(%d)', 'Value(_rtn)')
-	'SDL_Window@' => TypeConv('SDL_Window *', 'Window', 'Object_Window::GetObject(args, %d)->GetEntity()', 'Value(new Object_Window(_rtn))')
+	'Uint16[]' => TypeConv(
+			'CArray(Uint16)', 'number',
+			'args.GetList(%d)',
+			nil)
+	'Uint32' => TypeConv(
+			'Uint32', 'number',
+			'args.GetULong(%d)',
+			'Value(_rtn)')
+	'int' => TypeConv(
+			'int', 'number',
+			'args.GetInt(%d)',
+			'Value(_rtn)')
+	'float' => TypeConv(
+			'float', 'number',
+			'args.GetFloat(%d)',
+			'Value(_rtn)')
+	'char@' => TypeConv(
+			'char *', 'string',
+			'args.GetString(%d)',
+			'Value(_rtn)')
+	'SDL_bool' => TypeConv(
+			'SDL_bool', 'boolean',
+			'(args.GetBoolean(%d)? SDL_TRUE : SDL_FALSE)',
+			'Value(_rtn == SDL_TRUE)')
+	'SDL_GLattr' => TypeConv(
+			'SDL_GLattr', 'number',
+			'static_cast<SDL_GLattr>(args.GetInt(%d))',
+			'Value(_rtn)')
+	'SDL_Window@' => TypeConv(
+			'SDL_Window *', 'Window',
+			'Object_Window::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_Window(_rtn))')
+	'SDL_DisplayMode@' => TypeConv(
+			'SDL_DisplayMode *', 'DisplayMode',
+			'Object_DisplayMode::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_DisplayMode(_rtn))')
+	'SDL_GLContext' => TypeConv(
+			'SDL_GLContext', 'GLContext',
+			'Object_GLContext::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_GLContext(_rtn))')
 }
 
 FuncInfo = class {
@@ -1777,10 +1813,11 @@ FuncInfo = class {
 		this.argInfos = caller.cdr.each():list {|arg|
 			if (arg.isindexer()) {
 				identifier = arg.car
+				argTypeRaw = identifier.attrfront.join('.') + '[]'
 			} else {
 				identifier = arg
+				argTypeRaw = identifier.attrfront.join('.')
 			}
-			argTypeRaw = identifier.attrfront.join('.')
 			typeConv = typeConvDict.get(argTypeRaw)
 			if (!typeConv) {
 				sys.stderr.printf(
