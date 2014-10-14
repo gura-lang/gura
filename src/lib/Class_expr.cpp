@@ -68,8 +68,8 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		if (pAttrFront != NULL) {
 			Value rtn;
 			ValueList &valList = rtn.InitAsList(env, pAttrFront->size());
-			foreach_const (SymbolList, pSymbol, *pAttrFront) {
-				valList.push_back(Value(&*pSymbol));
+			foreach_const (SymbolList, ppSymbol, *pAttrFront) {
+				valList.push_back(Value(*ppSymbol));
 			}
 			return rtn;
 		}
@@ -87,8 +87,8 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		if (pAttrs != NULL) {
 			Value rtn;
 			ValueList &valList = rtn.InitAsList(env, pAttrs->size());
-			foreach_const (SymbolSet, pSymbol, *pAttrs) {
-				valList.push_back(Value(&*pSymbol));
+			foreach_const (SymbolSet, ppSymbol, *pAttrs) {
+				valList.push_back(Value(*ppSymbol));
 			}
 			return rtn;
 		}
@@ -106,8 +106,8 @@ Value Object_expr::DoGetProp(Environment &env, Signal sig, const Symbol *pSymbol
 		if (pAttrsOpt == NULL) {
 			Value rtn;
 			ValueList &valList = rtn.InitAsList(env, pAttrsOpt->size());
-			foreach_const (SymbolSet, pSymbol, *pAttrsOpt) {
-				valList.push_back(Value(&*pSymbol));
+			foreach_const (SymbolSet, ppSymbol, *pAttrsOpt) {
+				valList.push_back(Value(*ppSymbol));
 			}
 			return rtn;
 		}
