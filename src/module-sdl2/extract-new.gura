@@ -625,7 +625,7 @@ RenderIsClipEnabled$(renderer:SDL_Renderer@):SDL_bool
 
 RenderPresent(renderer:SDL_Renderer@)
 
-RenderReadPixels(renderer:SDL_Renderer@, rect:SDL_Rect@:const, format:symbol):any = R'''
+RenderReadPixels(renderer:SDL_Renderer@, rect:SDL_Rect@:const, format:symbol@):any = R'''
 	Uint32 format = SDL_PIXELFORMAT_UNKNOWN;
 	Image::Format fmtImage = Image::FORMAT_None;
 	const Symbol *pSymbol = args.GetSymbol(2);
@@ -677,7 +677,7 @@ UnlockTexture(texture:SDL_Texture@)
 
 UpdateTexture$(texture:SDL_Texture@, rect:SDL_Rect@:const, pitch:int):negerr
 
-UpdateYUVTexture$(texture:SDL_Texture@, rect:SDL_Rect@:const, Yplane:Uint8@:const, Ypitch:int, Uplane:Uint8@:const, Upitch:int, Vplane:Uint8@:const, Vpitch:int):negerr
+UpdateYUVTexture$()
 
 AllocFormat(pixel_format:Uint32):SDL_PixelFormat@
 
@@ -1793,6 +1793,10 @@ typeConvDict = %{
 			'VTYPE_number',
 			'int', 'args.GetInt(%d)',
 			'Value(_rtn)')
+	'double' => TypeConv(
+			'VTYPE_number',
+			'double', 'args.GetDouble(%d)',
+			'Value(_rtn)')
 	'float' => TypeConv(
 			'VTYPE_number',
 			'float', 'args.GetFloat(%d)',
@@ -1801,10 +1805,22 @@ typeConvDict = %{
 			'VTYPE_string',
 			'const char *', 'args.GetString(%d)',
 			'Value(_rtn)')
+	'symbol@' => TypeConv(
+			'VTYPE_symbol',
+			'const Symbol *', 'args.GetSymbol(%d)',
+			'Value(_rtn)')
 	'Uint16[]' => TypeConv(
 			'VTYPE_number, OCCUR_Once, FLAG_List',
 			'CArray<Uint16>', 'args.GetList(%d)',
 			nil)
+	'Uint8' => TypeConv(
+			'VTYPE_number',
+			'Uint8', 'args.GetUChar(%d)',
+			'Value(_rtn)')
+	'Uint16' => TypeConv(
+			'VTYPE_number',
+			'Uint16', 'args.GetUShort(%d)',
+			'Value(_rtn)')
 	'Uint32' => TypeConv(
 			'VTYPE_number',
 			'Uint32', 'args.GetULong(%d)',
@@ -1813,22 +1829,35 @@ typeConvDict = %{
 			'VTYPE_boolean',
 			'SDL_bool', '(args.GetBoolean(%d)? SDL_TRUE : SDL_FALSE)',
 			'Value(_rtn == SDL_TRUE)')
+	'SDL_Point[]' => TypeConv(
+			'VTYPE_Point, OCCUR_Once, FLAG_List',
+			'CArray<SDL_Point>',
+			'CreateCArray<SDL_Point, Object_Point>(args.GetList(%d))',
+			nil)
 	'SDL_Rect[]' => TypeConv(
 			'VTYPE_Rect, OCCUR_Once, FLAG_List',
 			'CArray<SDL_Rect>',
 			'CreateCArray<SDL_Rect, Object_Rect>(args.GetList(%d))',
 			nil)
+	TypeConv_Enum('SDL_BlendMode')
 	TypeConv_Enum('SDL_GLattr')
+	TypeConv_Enum('SDL_RendererFlip')
 	TypeConv_Class('SDL_DisplayMode@')
 	TypeConv_Class('SDL_DisplayMode@:const')
 	TypeConv_Class('SDL_GLContext')
+	TypeConv_Class('SDL_Palette@')
+	TypeConv_Class('SDL_PixelFormat@')
+	TypeConv_Class('SDL_PixelFormat@:const')
+	TypeConv_Class('SDL_Point@:const')
+	TypeConv_Class('SDL_Rect@:const')
+	TypeConv_Class('SDL_Renderer@')
 	TypeConv_Class('SDL_Surface@')
+	TypeConv_Class('SDL_Texture@')
 	TypeConv_Class('SDL_Window@')
 }
 
 FuncInfo = class {
 	__init__(caller:expr, body:string:nil) = {
-		println(caller)
 		this.funcName = caller.car
 		this.rtnRaw = caller.attrfront
 		this.body = body
@@ -1853,6 +1882,8 @@ FuncInfo = class {
 			name = identifier.symbol
 			ArgInfo(name, typeConv.declGura, typeConv.typeC, typeConv.fmtGetter)
 		}
+		/*
+		println(caller)
 		printf('  funcName = %s\n', this.funcName)
 		printf('  args = %s\n', this.argInfos)
 		printf('  rtnRaw = %s\n', this.rtnRaw)
@@ -1860,6 +1891,7 @@ FuncInfo = class {
 			printf('  body =\n')
 			print(body)
 		}
+		*/
 	}
 }
 
