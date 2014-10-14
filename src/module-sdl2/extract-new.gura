@@ -1904,9 +1904,19 @@ typeConvDict = %{
 }
 
 FuncInfo = class {
-	__init__(caller:expr, body:string:nil) = {
-		this.funcName = caller.car
-		this.rtnRaw = caller.attrfront
+	public {
+		funcName, argInfos, rtnRaw, body
+	}
+	__init__(decl:expr):map = {
+		if (decl.isassign()) {
+			caller = decl.left
+			body = decl.right.value
+		} else {
+			caller = decl
+			body = nil
+		}
+		this.funcName = caller.car.symbol
+		this.rtnRaw = caller.attrfront.join('.')
 		this.body = body
 		this.argInfos = caller.cdr.each():list {|arg|
 			if (arg.isindexer()) {
@@ -1929,26 +1939,8 @@ FuncInfo = class {
 			name = identifier.symbol
 			ArgInfo(name, typeConv.declGura, typeConv.typeC, typeConv.fmtGetter)
 		}
-		/*
-		println(caller)
-		printf('  funcName = %s\n', this.funcName)
-		printf('  args = %s\n', this.argInfos)
-		printf('  rtnRaw = %s\n', this.rtnRaw)
-		if (this.body) {
-			printf('  body =\n')
-			print(body)
-		}
-		*/
 	}
 }
 
-decls.children.each {|decl|
-	if (decl.isassign()) {
-		caller = decl.left
-		body = decl.right.value
-	} else {
-		caller = decl
-		body = nil
-	}
-	FuncInfo(caller, body)
-}
+funcInfos = FuncInfo(decls.children):list
+println(funcInfos:*funcName)
