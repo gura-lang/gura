@@ -384,7 +384,7 @@ ShowWindow(window:SDL_Window@)
 
 UpdateWindowSurface(window:SDL_Window@):negerr
 
-UpdateWindowSurfaceRects(window:SDL_Window@, rects[]:Rect) = R'''
+UpdateWindowSurfaceRects(window:SDL_Window@, rects[]:SDL_Rect) = R'''
 	CArray<SDL_Rect> rects(CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1)));
 	int numrects = static_cast<int>(rects.GetSize());
 	int _rtn = SDL_UpdateWindowSurfaceRects(window, rects, numrects);
@@ -545,7 +545,7 @@ RenderCopyEx(renderer:SDL_Renderer@, texture:SDL_Texture@, srcrect:SDL_Rect@:con
 
 RenderDrawLine(renderer:SDL_Renderer@, x1:int, y1:int, x2:int, y2:int):negerr
 
-RenderDrawLines(renderer:SDL_Renderer@, points[]:Point) = R'''
+RenderDrawLines(renderer:SDL_Renderer@, points[]:SDL_Point) = R'''
 	CArray<SDL_Point> points(CreateCArray<SDL_Point, Object_Point>(args.GetList(1)));
 	int count = static_cast<int>(points.GetSize());
 	int _rtn = SDL_RenderDrawLines(renderer, points, count);
@@ -558,7 +558,7 @@ RenderDrawLines(renderer:SDL_Renderer@, points[]:Point) = R'''
 
 RenderDrawPoint(renderer:SDL_Renderer@, x:int, y:int):negerr
 
-RenderDrawPoints(renderer:SDL_Renderer@, points[]:Point) = R'''
+RenderDrawPoints(renderer:SDL_Renderer@, points[]:SDL_Point) = R'''
 	CArray<SDL_Point> points(CreateCArray<SDL_Point, Object_Point>(args.GetList(1)));
 	int count = static_cast<int>(points.GetSize());
 	int _rtn = SDL_RenderDrawPoints(renderer, points, count);
@@ -571,7 +571,7 @@ RenderDrawPoints(renderer:SDL_Renderer@, points[]:Point) = R'''
 
 RenderDrawRect(renderer:SDL_Renderer@, rect:SDL_Rect@:const):negerr
 
-RenderDrawRects(renderer:SDL_Renderer@, rects[]:Rect) = R'''
+RenderDrawRects(renderer:SDL_Renderer@, rects[]:SDL_Rect) = R'''
 	CArray<SDL_Rect> rects(CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1)));
 	int count = static_cast<int>(rects.GetSize());
 	int _rtn = SDL_RenderDrawRects(renderer, rects, count);
@@ -584,7 +584,7 @@ RenderDrawRects(renderer:SDL_Renderer@, rects[]:Rect) = R'''
 
 RenderFillRect(renderer:SDL_Renderer@, rect:SDL_Rect@:const):negerr
 
-RenderFillRects(renderer:SDL_Renderer@, rects[]:Rect) = R'''
+RenderFillRects(renderer:SDL_Renderer@, rects[]:SDL_Rect) = R'''
 	CArray<SDL_Rect> rects(CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1)));
 	int count = static_cast<int>(rects.GetSize());
 	int _rtn = SDL_RenderFillRects(renderer, rects, count);
@@ -751,7 +751,7 @@ SetPaletteColors(palette:SDL_Palette@, colors[]:Color, firstcolor:int, ncolors:i
 
 SetPixelFormatPalette(format:SDL_PixelFormat@, palette:SDL_Palette@):negerr
 
-EnclosePoints(points[]:Point, clip:SDL_Rect@:const):any = R'''
+EnclosePoints(points[]:SDL_Point, clip:SDL_Rect@:const):any = R'''
 	CArray<SDL_Point> points(CreateCArray<SDL_Point, Object_Point>(args.GetList(0)));
 	int count = static_cast<int>(points.GetSize());
 	SDL_Rect result;
@@ -827,7 +827,7 @@ CreateRGBSurfaceFromImage(image:image):any = R'''
 
 FillRect(dst:SDL_Surface@, rect:SDL_Rect@:const, color:Uint32):negerr
 
-FillRects(dst:SDL_Surface@, rects[]:Rect, color:Uint32) = R'''
+FillRects(dst:SDL_Surface@, rects[]:SDL_Rect, color:Uint32) = R'''
 	CArray<SDL_Rect> rects(CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1)));
 	int count = static_cast<int>(rects.GetSize());
 	int _rtn = SDL_FillRects(dst, rects, count, color);
@@ -1761,15 +1761,34 @@ ReturnInfo = struct(typeC:string, typeGura:string:nil, fmtReturn:string:nil) {
 
 TypeConv = struct(declGura, typeC:string, fmtGetter:string:nil, fmtReturn:string:nil)
 
-typeConvDict = %{
-	'Uint16[]' => TypeConv(
-			'VTYPE_number, OCCUR_Once, FLAG_List',
-			'CArray<Uint16>', 'args.GetList(%d)',
-			nil)
-	'Uint32' => TypeConv(
+TypeConv_Enum(typeName:string) = {
+	typeName => TypeConv(
 			'VTYPE_number',
-			'Uint32', 'args.GetULong(%d)',
+			typeName,
+			'static_cast<' + typeName + '>(args.GetInt(%d))',
 			'Value(_rtn)')
+}
+
+TypeConv_Class(typeName:string) = {
+	fields = typeName.split(':'):list
+	if (fields.len() > 1) {
+		[typeNameTmp, attr] = fields
+		constFlag = (attr == 'const')
+	} else {
+		typeNameTmp = fields[0]
+		constFlag = false
+	}
+	pointerFlag = typeNameTmp.find('@')
+	typeNameTmp = typeNameTmp.replace('@', '')
+	typeNameBase = typeNameTmp.replace('SDL_', '')
+	typeName => TypeConv(
+			'VTYPE_' + typeNameTmp,
+			cond(constFlag, 'const ', '') + typeNameTmp + cond(pointerFlag, ' *', ''),
+			'Object_' + typeNameBase + '::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_' + typeNameBase + '(_rtn))')
+}
+
+typeConvDict = %{
 	'int' => TypeConv(
 			'VTYPE_number',
 			'int', 'args.GetInt(%d)',
@@ -1782,30 +1801,29 @@ typeConvDict = %{
 			'VTYPE_string',
 			'const char *', 'args.GetString(%d)',
 			'Value(_rtn)')
+	'Uint16[]' => TypeConv(
+			'VTYPE_number, OCCUR_Once, FLAG_List',
+			'CArray<Uint16>', 'args.GetList(%d)',
+			nil)
+	'Uint32' => TypeConv(
+			'VTYPE_number',
+			'Uint32', 'args.GetULong(%d)',
+			'Value(_rtn)')
 	'SDL_bool' => TypeConv(
 			'VTYPE_boolean',
 			'SDL_bool', '(args.GetBoolean(%d)? SDL_TRUE : SDL_FALSE)',
 			'Value(_rtn == SDL_TRUE)')
-	'SDL_GLattr' => TypeConv(
-			'VTYPE_number',
-			'SDL_GLattr', 'static_cast<SDL_GLattr>(args.GetInt(%d))',
-			'Value(_rtn)')
-	'SDL_DisplayMode@' => TypeConv(
-			'VTYPE_DisplayMode',
-			'SDL_DisplayMode *', 'Object_DisplayMode::GetObject(args, %d)->GetEntity()',
-			'Value(new Object_DisplayMode(_rtn))')
-	'SDL_DisplayMode@:const' => TypeConv(
-			'VTYPE_DisplayMode',
-			'const SDL_DisplayMode *', 'Object_DisplayMode::GetObject(args, %d)->GetEntity()',
-			'Value(new Object_DisplayMode(_rtn))')
-	'SDL_GLContext' => TypeConv(
-			'VTYPE_GLContext',
-			'SDL_GLContext', 'Object_GLContext::GetObject(args, %d)->GetEntity()',
-			'Value(new Object_GLContext(_rtn))')
-	'SDL_Window@' => TypeConv(
-			'VTYPE_Window',
-			'SDL_Window *', 'Object_Window::GetObject(args, %d)->GetEntity()',
-			'Value(new Object_Window(_rtn))')
+	'SDL_Rect[]' => TypeConv(
+			'VTYPE_Rect, OCCUR_Once, FLAG_List',
+			'CArray<SDL_Rect>',
+			'CreateCArray<SDL_Rect, Object_Rect>(args.GetList(%d))',
+			nil)
+	TypeConv_Enum('SDL_GLattr')
+	TypeConv_Class('SDL_DisplayMode@')
+	TypeConv_Class('SDL_DisplayMode@:const')
+	TypeConv_Class('SDL_GLContext')
+	TypeConv_Class('SDL_Surface@')
+	TypeConv_Class('SDL_Window@')
 }
 
 FuncInfo = class {
