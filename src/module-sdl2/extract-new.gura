@@ -1783,7 +1783,7 @@ TypeConv_Class(typeName:string) = {
 	typeNameTmp = typeNameTmp.replace('@', '')
 	typeNameBase = typeNameTmp.replace('SDL_', '')
 	typeName => TypeConv(
-			'VTYPE_' + typeNameTmp,
+			'VTYPE_' + typeNameBase + ', OCCUR_Once, FLAG_None'
 			cond(constFlag, 'const ', '') + typeNameTmp + cond(pointerFlag, ' *', ''),
 			'Object_' + typeNameBase + '::GetObject(args, %d)->GetEntity()',
 			'Value(new Object_' + typeNameBase + '(_rtn))')
@@ -1791,63 +1791,63 @@ TypeConv_Class(typeName:string) = {
 
 typeConvDict = %{
 	'bool' => TypeConv(
-			'VTYPE_boolean',
+			'VTYPE_boolean, OCCUR_Once, FLAG_None',
 			'bool', 'args.GetBoolean(%d)',
 			'Value(_rtn)')
 	'char' => TypeConv(
-			'VTYPE_number',
+			'VTYPE_number, OCCUR_Once, FLAG_None',
 			'char', 'args.GetChar(%d)',
 			'Value(_rtn)')
 	'short' => TypeConv(
-			'VTYPE_number',
+			'VTYPE_number, OCCUR_Once, FLAG_None',
 			'short', 'args.GetShort(%d)',
 			'Value(_rtn)')
 	'int' => TypeConv(
-			'VTYPE_number',
+			'VTYPE_number, OCCUR_Once, FLAG_None',
 			'int', 'args.GetInt(%d)',
 			'Value(_rtn)')
 	'unsigned_char' => TypeConv(
-			'VTYPE_number',
+			'VTYPE_number, OCCUR_Once, FLAG_None',
 			'unsigned char', 'args.GetUChar(%d)',
 			'Value(_rtn)')
 	'unsigned_short' => TypeConv(
-			'VTYPE_number',
+			'VTYPE_number, OCCUR_Once, FLAG_None',
 			'unsigned short', 'args.GetUShort(%d)',
 			'Value(_rtn)')
 	'unsigned_int' => TypeConv(
-			'VTYPE_number',
+			'VTYPE_number, OCCUR_Once, FLAG_None',
 			'unsigned int', 'args.GetUInt(%d)',
 			'Value(_rtn)')
 	'float' => TypeConv(
-			'VTYPE_number',
+			'VTYPE_number, OCCUR_Once, FLAG_None',
 			'float', 'args.GetFloat(%d)',
 			'Value(_rtn)')
 	'double' => TypeConv(
-			'VTYPE_number',
+			'VTYPE_number, OCCUR_Once, FLAG_None',
 			'double', 'args.GetDouble(%d)',
 			'Value(_rtn)')
 	'char@' => TypeConv(
-			'VTYPE_string',
+			'VTYPE_string, OCCUR_Once, FLAG_None',
 			'char *', 'args.GetString(%d)',
 			'Value(_rtn)')
 	'char@:const' => TypeConv(
-			'VTYPE_string',
+			'VTYPE_string, OCCUR_Once, FLAG_None',
 			'const char *', 'args.GetString(%d)',
 			'Value(_rtn)')
 	'symbol@' => TypeConv(
-			'VTYPE_symbol',
+			'VTYPE_symbol, OCCUR_Once, FLAG_None',
 			'const Symbol *', 'args.GetSymbol(%d)',
 			'Value(_rtn)')
 	'binary' => TypeConv(
-			'VTYPE_binary',
+			'VTYPE_binary, OCCUR_Once, FLAG_None',
 			'const Binary &', 'Object_binary::GetObject(args, %d)->GetBinary()',
 			nil)
 	'stream' => TypeConv(
-			'VTYPE_stream',
+			'VTYPE_stream, OCCUR_Once, FLAG_None',
 			'const Stream &', 'Object_binary::GetObject(args, %d)->GetStream()',
 			nil)
 	'image' => TypeConv(
-			'VTYPE_image',
+			'VTYPE_image, OCCUR_Once, FLAG_None',
 			'const Image *', 'Object_image::GetObject(args, %d)->GetImage()',
 			nil)
 	'Uint16[]' => TypeConv(
@@ -1855,43 +1855,43 @@ typeConvDict = %{
 			'CArray<Uint16>', 'args.GetList(%d)',
 			nil)
 	'Sint8' => TypeConv(
-			'VTYPE_number',
+			'VTYPE_number, OCCUR_Once, FLAG_None',
 			'Sint8', 'args.GetChar(%d)',
 			'Value(_rtn)')
 	'Sint16' => TypeConv(
-			'VTYPE_number',
+			'VTYPE_number, OCCUR_Once, FLAG_None',
 			'Sint16', 'args.GetShort(%d)',
 			'Value(_rtn)')
 	'Sint32' => TypeConv(
-			'VTYPE_number',
+			'VTYPE_number, OCCUR_Once, FLAG_None',
 			'Sint32', 'args.GetLong(%d)',
 			'Value(_rtn)')
 	'Sint64' => TypeConv(
-			'VTYPE_number',
+			'VTYPE_number, OCCUR_Once, FLAG_None',
 			'Sint64', 'static_cast<Sint64>(args.GetDouble(%d))',
 			'Value(_rtn)')
 	'Uint8' => TypeConv(
-			'VTYPE_number',
+			'VTYPE_number, OCCUR_Once, FLAG_None',
 			'Uint8', 'args.GetUChar(%d)',
 			'Value(_rtn)')
 	'Uint16' => TypeConv(
-			'VTYPE_number',
+			'VTYPE_number, OCCUR_Once, FLAG_None',
 			'Uint16', 'args.GetUShort(%d)',
 			'Value(_rtn)')
 	'Uint32' => TypeConv(
-			'VTYPE_number',
+			'VTYPE_number, OCCUR_Once, FLAG_None',
 			'Uint32', 'args.GetULong(%d)',
 			'Value(_rtn)')
 	'Uint64' => TypeConv(
-			'VTYPE_number',
+			'VTYPE_number, OCCUR_Once, FLAG_None',
 			'Uint64', 'static_cast<Uint64>(args.GetDouble(%d))',
 			'Value(_rtn)')
 	'Wav@' => TypeConv(
-			'VTYPE_Wav',
+			'VTYPE_Wav, OCCUR_Once, FLAG_None',
 			'Object_Wav *', 'Object_Wav::GetObject(args, %d)',
 			nil);
 	'SDL_bool' => TypeConv(
-			'VTYPE_boolean',
+			'VTYPE_boolean, OCCUR_Once, FLAG_None',
 			'SDL_bool', '(args.GetBoolean(%d)? SDL_TRUE : SDL_FALSE)',
 			'Value(_rtn == SDL_TRUE)')
 	'SDL_Color[]' => TypeConv(
@@ -1914,7 +1914,8 @@ typeConvDict = %{
 			'CArray<SDL_Rect>',
 			'CreateCArray<SDL_Rect, Object_Rect>(args.GetList(%d))',
 			nil)
-	'any' => TypeConv(nil, 'any', nil, nil)
+	'' => TypeConv(nil, nil, nil, nil)
+	'any' => TypeConv(nil, 'any', '', nil)
 	'Uint16_boolean' => TypeConv(nil, 'Uint16_boolean', nil, nil)
 	'negerr' => TypeConv(nil, 'negerr', nil, nil)
 	'negerr_boolean' => TypeConv(nil, 'negerr_boolean', nil, nil)
@@ -1964,7 +1965,7 @@ tmplImplementation = R'''
 // sdl2.${fi.funcName}
 Gura_DeclareFunction(${fi.funcName})
 {
-	${if (fi.rtnInfo)}
+	${if (fi.rtnInfo.fmtReturn)}
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	${else}
@@ -1998,9 +1999,6 @@ Gura_ImplementFunction(${fi.funcName})
 	${end}
 	${if (fi.body)}
 ${fi.body}
-	${elsif (!fi.rtnInfo)}
-	SDL_${fi.funcName}(${argsJoined});
-	return Value::Null;
 	${elsif (fi.rtnInfo.typeC == 'negerr')}
 	int _rtn = SDL_${fi.funcName}(${argsJoined});
 	if (_rtn < 0) {
@@ -2032,7 +2030,7 @@ ${fi.body}
 	${elsif (fi.rtnInfo.typeC == 'Uint16_boolean')}
 	Uint16 _rtn = SDL_${fi.funcName}(${argsJoined});
 	return ReturnValue(env, sig, args, Value(_rtn != 0));
-	${else}
+	${elsif (fi.rtnInfo.fmtReturn)}
 	${fi.rtnInfo.typeC.sub(r'(\w)$', r'\1 ')}_rtn = SDL_${fi.funcName}(${argsJoined});
 	${if (fi.rtnInfo.typeC.endswith('*'))}
 	Value _rtnVal;
@@ -2046,6 +2044,9 @@ ${fi.body}
 	Value _rtnVal = ${fi.rtnInfo.fmtReturn};
 	${end}
 	return ReturnValue(env, sig, args, _rtnVal);
+	${else}
+	SDL_${fi.funcName}(${argsJoined});
+	return Value::Null;
 	${end}
 	${if (!fi.validFlag)}
 #endif
@@ -2080,17 +2081,13 @@ FuncInfo = class {
 		this.funcName = funcNameRaw.replace('$', '')
 		this.validFlag = !funcNameRaw.find('$')
 		this.body = body
-		if (rtnTypeRaw.isempty()) {
-			this.rtnInfo = nil
-		} else {
-			typeConv = typeConvDict.get(rtnTypeRaw)
-			if (!typeConv) {
-				this.PrintError(decl,
-								'proper conversion not found in table "%s"', rtnTypeRaw)
-				sys.exit(1)
-			}
-			this.rtnInfo = ReturnInfo(typeConv.typeC, typeConv.fmtReturn)
+		typeConv = typeConvDict.get(rtnTypeRaw)
+		if (!typeConv) {
+			this.PrintError(decl,
+							'proper conversion not found in table "%s"', rtnTypeRaw)
+			sys.exit(1)
 		}
+		this.rtnInfo = ReturnInfo(typeConv.typeC, typeConv.fmtReturn)
 		this.args = caller.cdr.each():list {|arg|
 			if (arg.isindexer()) {
 				identifier = arg.car
@@ -2127,4 +2124,4 @@ FuncInfo = class {
 }
 
 funcInfos = FuncInfo(decls.children):list
-println(funcInfos::RenderImplementation())
+open('b.cpp', 'w').println(funcInfos::RenderImplementation())
