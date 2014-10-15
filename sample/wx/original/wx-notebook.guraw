@@ -32,6 +32,9 @@ Frame = class(wx.Frame) {
 				book.AddPage(panel, 'Page2', imageId => 1)
 				vbox:local = wx.BoxSizer(wx.VERTICAL)
 				panel.SetSizer(vbox)
+				wx.TextCtrl(panel, wx.ID_ANY) {|ctrl|
+					vbox.Add(ctrl, wx.SizerFlags(1).Expand())
+				}
 			}
 			wx.Panel(book) {|panel|
 				book.AddPage(panel, 'Page3', imageId => 2)
@@ -40,9 +43,11 @@ Frame = class(wx.Frame) {
 			}
 			book.Bind(wx.EVT_NOTEBOOK_PAGE_CHANGING) {|event|
 				log.Printf('changing %d -> %d\n', event.GetOldSelection(), event.GetSelection())
+				event.Skip()
 			}
 			book.Bind(wx.EVT_NOTEBOOK_PAGE_CHANGED) {|event|
 				log.Printf('changed  %d -> %d\n', event.GetOldSelection(), event.GetSelection())
+				event.Skip()
 			}
 			book.Bind(wx.EVT_LEFT_DOWN) {|event|
 				[index, flags] = book.HitTest(event.GetPosition())
