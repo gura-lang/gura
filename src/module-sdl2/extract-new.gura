@@ -1789,17 +1789,37 @@ TypeConv_Class(typeName:string) = {
 }
 
 typeConvDict = %{
+	'char' => TypeConv(
+			'VTYPE_number',
+			'char', 'args.GetChar(%d)',
+			'Value(_rtn)')
+	'short' => TypeConv(
+			'VTYPE_number',
+			'short', 'args.GetShort(%d)',
+			'Value(_rtn)')
 	'int' => TypeConv(
 			'VTYPE_number',
 			'int', 'args.GetInt(%d)',
 			'Value(_rtn)')
-	'double' => TypeConv(
+	'unsigned char' => TypeConv(
 			'VTYPE_number',
-			'double', 'args.GetDouble(%d)',
+			'unsigned char', 'args.GetUChar(%d)',
+			'Value(_rtn)')
+	'unsigned short' => TypeConv(
+			'VTYPE_number',
+			'unsigned short', 'args.GetUShort(%d)',
+			'Value(_rtn)')
+	'unsigned int' => TypeConv(
+			'VTYPE_number',
+			'unsigned int', 'args.GetUInt(%d)',
 			'Value(_rtn)')
 	'float' => TypeConv(
 			'VTYPE_number',
 			'float', 'args.GetFloat(%d)',
+			'Value(_rtn)')
+	'double' => TypeConv(
+			'VTYPE_number',
+			'double', 'args.GetDouble(%d)',
 			'Value(_rtn)')
 	'char@:const' => TypeConv(
 			'VTYPE_string',
@@ -1919,7 +1939,9 @@ FuncInfo = class {
 			caller = decl
 			body = nil
 		}
-		this.funcName = caller.car.symbol
+		funcNameRaw:string = caller.car.symbol
+		this.funcName = funcNameRaw.replace('$', '')
+		this.validFlag = !funcNameRaw.find('$')
 		this.rtnRaw = caller.attrfront.join('.')
 		this.body = body
 		this.argInfos = caller.cdr.each():list {|arg|
