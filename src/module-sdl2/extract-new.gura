@@ -1910,6 +1910,10 @@ FuncInfo = class {
 	__init__(decl:expr):map = {
 		if (decl.isassign()) {
 			caller = decl.left
+			if (!(decl.right.isvalue() && isstring(decl.right.value))) {
+				this.PrintError(decl, 'assigned value must be a string')
+				sys.exit(1)
+			}
 			body = decl.right.value
 		} else {
 			caller = decl
@@ -1931,14 +1935,17 @@ FuncInfo = class {
 			}
 			typeConv = typeConvDict.get(argTypeRaw)
 			if (!typeConv) {
-				sys.stderr.printf(
-						'%s:%d: proper conversion not found in table "%s"\n',
-						caller.source, caller.lineno, argTypeRaw)
+				this.PrintError(decl,
+								'proper conversion not found in table "%s"', argTypeRaw)
 				sys.exit(1)
 			}
 			name = identifier.symbol
 			ArgInfo(name, typeConv.declGura, typeConv.typeC, typeConv.fmtGetter)
 		}
+	}
+	PrintError(decl:expr, fmt:string, args*) = {
+		sys.stderr.printf('%s:%d: %s',
+				  path.filename(decl.source), decl.lineno, format(fmt, args*))
 	}
 }
 
