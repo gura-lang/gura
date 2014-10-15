@@ -7,7 +7,8 @@ log = nil
 I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
 
 Frame = class(wx.Frame) {
-	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0])|
+	__init__(parent:wx.Window) = {|parent, wx.ID_ANY,
+							path.filename(sys.argv[0]), size => wx.Size(640, 480)|
 		panel = wx.Panel(this)
 		vbox = wx.BoxSizer(wx.VERTICAL)
 		panel.SetSizer(vbox)
