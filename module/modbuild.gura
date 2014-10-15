@@ -323,11 +323,7 @@ if (sys.build == `msc) {
 			cflags.append('-I' + this.incDirs)
 			cflags.append('-I' + sys.incdir)
 			this.debugFlag && cflags.append('-g')
-			if (sys.platform == `darwin) {
-				obj = src + '.pch'
-			} else {
-				obj = src + '.gch'
-			}
+			obj = src + '.gch'
 			if (!path.exists(obj) || path.stat(obj).mtime < path.stat(src).mtime) {
 				this.progressFlag && println('-- compiling: ', src)
 				if (!this.execute('gcc', cflags*, '-x', 'c++-header', src)) {

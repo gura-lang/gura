@@ -1587,6 +1587,7 @@ _MS(PrepareClass(ThreadHelper));
 		Gura_AssignWxValue(BITMAP_TYPE_MACCURSOR);
 		Gura_AssignWxValue(BITMAP_TYPE_MACCURSOR_RESOURCE);
 		Gura_AssignWxValue(BITMAP_TYPE_ANY);
+		Gura_AssignWxValue(ICON_DEFAULT_TYPE);
 	} while (0);
 	do {
 		Gura_AssignWxValue(HTML_URL_PAGE);
