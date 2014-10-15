@@ -1,4 +1,5 @@
 #!/usr/bin/env gura
+import(re)
 
 decls = `{
 Init(flags:Uint32):negerr
@@ -1756,7 +1757,7 @@ ArgInfo = struct(name:string, declGura:string:nil, typeC:string, fmtGetter:strin
 	GetArg(idx:number) = format(this.fmtGetter, idx)
 }
 
-ReturnInfo = struct(typeC:string, typeGura:string:nil, fmtReturn:string:nil) {
+ReturnInfo = struct(typeC:string, fmtReturn:string:nil) {
 }
 
 TypeConv = struct(declGura, typeC:string, fmtGetter:string:nil, fmtReturn:string:nil)
@@ -1789,6 +1790,10 @@ TypeConv_Class(typeName:string) = {
 }
 
 typeConvDict = %{
+	'bool' => TypeConv(
+			'VTYPE_boolean',
+			'bool', 'args.GetBoolean(%d)',
+			'Value(_rtn)')
 	'char' => TypeConv(
 			'VTYPE_number',
 			'char', 'args.GetChar(%d)',
@@ -1801,15 +1806,15 @@ typeConvDict = %{
 			'VTYPE_number',
 			'int', 'args.GetInt(%d)',
 			'Value(_rtn)')
-	'unsigned char' => TypeConv(
+	'unsigned_char' => TypeConv(
 			'VTYPE_number',
 			'unsigned char', 'args.GetUChar(%d)',
 			'Value(_rtn)')
-	'unsigned short' => TypeConv(
+	'unsigned_short' => TypeConv(
 			'VTYPE_number',
 			'unsigned short', 'args.GetUShort(%d)',
 			'Value(_rtn)')
-	'unsigned int' => TypeConv(
+	'unsigned_int' => TypeConv(
 			'VTYPE_number',
 			'unsigned int', 'args.GetUInt(%d)',
 			'Value(_rtn)')
@@ -1820,6 +1825,10 @@ typeConvDict = %{
 	'double' => TypeConv(
 			'VTYPE_number',
 			'double', 'args.GetDouble(%d)',
+			'Value(_rtn)')
+	'char@' => TypeConv(
+			'VTYPE_string',
+			'char *', 'args.GetString(%d)',
 			'Value(_rtn)')
 	'char@:const' => TypeConv(
 			'VTYPE_string',
@@ -1845,6 +1854,22 @@ typeConvDict = %{
 			'VTYPE_number, OCCUR_Once, FLAG_List',
 			'CArray<Uint16>', 'args.GetList(%d)',
 			nil)
+	'Sint8' => TypeConv(
+			'VTYPE_number',
+			'Sint8', 'args.GetChar(%d)',
+			'Value(_rtn)')
+	'Sint16' => TypeConv(
+			'VTYPE_number',
+			'Sint16', 'args.GetShort(%d)',
+			'Value(_rtn)')
+	'Sint32' => TypeConv(
+			'VTYPE_number',
+			'Sint32', 'args.GetLong(%d)',
+			'Value(_rtn)')
+	'Sint64' => TypeConv(
+			'VTYPE_number',
+			'Sint64', 'static_cast<Sint64>(args.GetDouble(%d))',
+			'Value(_rtn)')
 	'Uint8' => TypeConv(
 			'VTYPE_number',
 			'Uint8', 'args.GetUChar(%d)',
@@ -1856,6 +1881,10 @@ typeConvDict = %{
 	'Uint32' => TypeConv(
 			'VTYPE_number',
 			'Uint32', 'args.GetULong(%d)',
+			'Value(_rtn)')
+	'Uint64' => TypeConv(
+			'VTYPE_number',
+			'Uint64', 'static_cast<Uint64>(args.GetDouble(%d))',
 			'Value(_rtn)')
 	'Wav@' => TypeConv(
 			'VTYPE_Wav',
@@ -1885,11 +1914,18 @@ typeConvDict = %{
 			'CArray<SDL_Rect>',
 			'CreateCArray<SDL_Rect, Object_Rect>(args.GetList(%d))',
 			nil)
+	'any' => TypeConv(nil, 'any', nil, nil)
+	'Uint16_boolean' => TypeConv(nil, 'Uint16_boolean', nil, nil)
+	'negerr' => TypeConv(nil, 'negerr', nil, nil)
+	'negerr_boolean' => TypeConv(nil, 'negerr_boolean', nil, nil)
+	'negerr_number' => TypeConv(nil, 'negerr_number', nil, nil)
 	TypeConv_Enum('SDL_AudioFormat')
 	TypeConv_Enum('SDL_AudioDeviceID')
+	TypeConv_Enum('SDL_AudioStatus')
 	TypeConv_Enum('SDL_BlendMode')
 	TypeConv_Enum('SDL_GameControllerAxis')
 	TypeConv_Enum('SDL_GameControllerButton')
+	TypeConv_Enum('SDL_GameControllerButtonBind')
 	TypeConv_Enum('SDL_GestureID')
 	TypeConv_Enum('SDL_GLattr')
 	TypeConv_Enum('SDL_Keycode')
@@ -1906,6 +1942,7 @@ typeConvDict = %{
 	TypeConv_Class('SDL_DisplayMode@')
 	TypeConv_Class('SDL_DisplayMode@:const')
 	TypeConv_Class('SDL_Event@:const')
+	TypeConv_Class('SDL_Finger@')
 	TypeConv_Class('SDL_GameController@')
 	TypeConv_Class('SDL_GLContext')
 	TypeConv_Class('SDL_Haptic@')
@@ -1923,9 +1960,108 @@ typeConvDict = %{
 	TypeConv_Class('SDL_Window@')
 }
 
+tmplImplementation = R'''
+// sdl2.${fi.funcName}
+Gura_DeclareFunction(${fi.funcName})
+{
+	${if (fi.rtnInfo)}
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	${else}
+	SetMode(RSLTMODE_Void, FLAG_None);
+	${end}
+	${for (arg in fi.args)}
+	DeclareArg(env, "${arg.name}", ${arg.declGura});
+	${end}
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
+	"");
+}
+
+Gura_ImplementFunction(${fi.funcName})
+{
+	${if (!fi.validFlag)}
+#if 0
+	${end}
+	${argsJoined = fi.args:*name.join(', '), -}
+	${for (arg in fi.args) {|idx|}}
+	${if (arg.fmtGetter)}
+	${arg.typeC.sub(r'(\w)$', r'\1 ') + arg.name} = ${
+		if (!arg.typeC.endswith('*')) {
+			arg.GetArg(idx)
+		} elsif (arg.declGura.find('FLAG_Nil')) {
+			format('args.IsValid(%d)? ', idx) + arg.GetArg(idx) + ' : NULL'
+		} else {
+			arg.GetArg(idx)
+		}
+	};
+	${end}
+	${end}
+	${if (fi.body)}
+${fi.body}
+	${elsif (!fi.rtnInfo)}
+	SDL_${fi.funcName}(${argsJoined});
+	return Value::Null;
+	${elsif (fi.rtnInfo.typeC == 'negerr')}
+	int _rtn = SDL_${fi.funcName}(${argsJoined});
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::Null;
+	${elsif (fi.rtnInfo.typeC == 'boolerr')}
+	int _rtn = SDL_${fi.funcName}(${argsJoined});
+	if (_rtn == 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return Value::Null;
+	${elsif (fi.rtnInfo.typeC == 'negerr_number')}
+	int _rtn = SDL_${fi.funcName}(${argsJoined});
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(_rtn));
+	${elsif (fi.rtnInfo.typeC == 'negerr_boolean')}
+	int _rtn = SDL_${fi.funcName}(${argsJoined});
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, Value(_rtn != 0));
+	${elsif (fi.rtnInfo.typeC == 'Uint16_boolean')}
+	Uint16 _rtn = SDL_${fi.funcName}(${argsJoined});
+	return ReturnValue(env, sig, args, Value(_rtn != 0));
+	${else}
+	${fi.rtnInfo.typeC.sub(r'(\w)$', r'\1 ')}_rtn = SDL_${fi.funcName}(${argsJoined});
+	${if (fi.rtnInfo.typeC.endswith('*'))}
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = ${fi.rtnInfo.fmtReturn};
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	${else}
+	Value _rtnVal = ${fi.rtnInfo.fmtReturn};
+	${end}
+	return ReturnValue(env, sig, args, _rtnVal);
+	${end}
+	${if (!fi.validFlag)}
+#endif
+	SetError_NotImpFunction(sig, "${fi.funcName}");
+	return Value::Null;
+	${end}
+}
+'''.template()
+
+tmplAssignment = R'''
+	Gura_AssignFunction(${fi.funcName});
+'''.template()
+
 FuncInfo = class {
 	public {
-		funcName, argInfos, rtnRaw, body
+		funcName, args, rtnInfo, body
 	}
 	__init__(decl:expr):map = {
 		if (decl.isassign()) {
@@ -1940,11 +2076,22 @@ FuncInfo = class {
 			body = nil
 		}
 		funcNameRaw:string = caller.car.symbol
+		rtnTypeRaw = caller.attrfront.join('.')
 		this.funcName = funcNameRaw.replace('$', '')
 		this.validFlag = !funcNameRaw.find('$')
-		this.rtnRaw = caller.attrfront.join('.')
 		this.body = body
-		this.argInfos = caller.cdr.each():list {|arg|
+		if (rtnTypeRaw.isempty()) {
+			this.rtnInfo = nil
+		} else {
+			typeConv = typeConvDict.get(rtnTypeRaw)
+			if (!typeConv) {
+				this.PrintError(decl,
+								'proper conversion not found in table "%s"', rtnTypeRaw)
+				sys.exit(1)
+			}
+			this.rtnInfo = ReturnInfo(typeConv.typeC, typeConv.fmtReturn)
+		}
+		this.args = caller.cdr.each():list {|arg|
 			if (arg.isindexer()) {
 				identifier = arg.car
 				argTypeRaw = identifier.attrfront.join('.') + '[]'
@@ -1969,7 +2116,15 @@ FuncInfo = class {
 		sys.stderr.printf('%s:%d: %s',
 				  path.filename(decl.source), decl.lineno, format(fmt, args*))
 	}
+	RenderImplementation() = {
+		fi = this
+		tmplImplementation.render()
+	}
+	RenderAssignment() = {
+		fi = this
+		tmplAssignment.render()
+	}
 }
 
 funcInfos = FuncInfo(decls.children):list
-println(funcInfos:*funcName)
+println(funcInfos::RenderImplementation())
