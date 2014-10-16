@@ -346,9 +346,6 @@ SetWindowDisplayMode(window:SDL_Window@, mode:SDL_DisplayMode@:const):negerr
 SetWindowFullscreen(window:SDL_Window@, flags:Uint32):negerr
 
 SetWindowGammaRamp(window:SDL_Window@, red[]:Uint16, green[]:Uint16, blue[]:Uint16) = R'''
-	CArray<Uint16> red(args.GetList(1));
-	CArray<Uint16> green(args.GetList(2));
-	CArray<Uint16> blue(args.GetList(3));
 	if (red.GetSize() != 256 || green.GetSize() != 256 || blue.GetSize() != 256) {
 		sig.SetError(ERR_ValueError, "red, green and blue must have 256 elements");
 		return Value::Null;
@@ -542,12 +539,11 @@ RenderClear(renderer:SDL_Renderer@):negerr
 
 RenderCopy(renderer:SDL_Renderer@, texture:SDL_Texture@, srcrect:SDL_Rect@:const:nil, dstrect:SDL_Rect@:const:nil):negerr
 
-RenderCopyEx(renderer:SDL_Renderer@, texture:SDL_Texture@, srcrect:SDL_Rect@:const:nil, dstrect:SDL_Rect@:const:nil, angle:double, center:SDL_Point@:const, flip:SDL_RendererFlip):negerr
+RenderCopyEx(renderer:SDL_Renderer@, texture:SDL_Texture@, srcrect:SDL_Rect@:const:nil, dstrect:SDL_Rect@:const:nil, angle:double, center:SDL_Point@:const:nil, flip:SDL_RendererFlip):negerr
 
 RenderDrawLine(renderer:SDL_Renderer@, x1:int, y1:int, x2:int, y2:int):negerr
 
 RenderDrawLines(renderer:SDL_Renderer@, points[]:SDL_Point) = R'''
-	CArray<SDL_Point> points(CreateCArray<SDL_Point, Object_Point>(args.GetList(1)));
 	int count = static_cast<int>(points.GetSize());
 	int _rtn = SDL_RenderDrawLines(renderer, points, count);
 	if (_rtn < 0) {
@@ -560,7 +556,6 @@ RenderDrawLines(renderer:SDL_Renderer@, points[]:SDL_Point) = R'''
 RenderDrawPoint(renderer:SDL_Renderer@, x:int, y:int):negerr
 
 RenderDrawPoints(renderer:SDL_Renderer@, points[]:SDL_Point) = R'''
-	CArray<SDL_Point> points(CreateCArray<SDL_Point, Object_Point>(args.GetList(1)));
 	int count = static_cast<int>(points.GetSize());
 	int _rtn = SDL_RenderDrawPoints(renderer, points, count);
 	if (_rtn < 0) {
@@ -570,10 +565,9 @@ RenderDrawPoints(renderer:SDL_Renderer@, points[]:SDL_Point) = R'''
 	return Value::Null;
 '''
 
-RenderDrawRect(renderer:SDL_Renderer@, rect:SDL_Rect@:const):negerr
+RenderDrawRect(renderer:SDL_Renderer@, rect:SDL_Rect@:const:nil):negerr
 
 RenderDrawRects(renderer:SDL_Renderer@, rects[]:SDL_Rect) = R'''
-	CArray<SDL_Rect> rects(CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1)));
 	int count = static_cast<int>(rects.GetSize());
 	int _rtn = SDL_RenderDrawRects(renderer, rects, count);
 	if (_rtn < 0) {
@@ -583,10 +577,9 @@ RenderDrawRects(renderer:SDL_Renderer@, rects[]:SDL_Rect) = R'''
 	return Value::Null;
 '''
 
-RenderFillRect(renderer:SDL_Renderer@, rect:SDL_Rect@:const):negerr
+RenderFillRect(renderer:SDL_Renderer@, rect:SDL_Rect@:const:nil):negerr
 
 RenderFillRects(renderer:SDL_Renderer@, rects[]:SDL_Rect) = R'''
-	CArray<SDL_Rect> rects(CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1)));
 	int count = static_cast<int>(rects.GetSize());
 	int _rtn = SDL_RenderFillRects(renderer, rects, count);
 	if (_rtn < 0) {
@@ -626,15 +619,14 @@ RenderIsClipEnabled$(renderer:SDL_Renderer@):SDL_bool
 
 RenderPresent(renderer:SDL_Renderer@):void
 
-RenderReadPixels(renderer:SDL_Renderer@, rect:SDL_Rect@:const, format:symbol@) = R'''
-	Uint32 format = SDL_PIXELFORMAT_UNKNOWN;
+RenderReadPixels(renderer:SDL_Renderer@, rect:SDL_Rect@:const:nil, format:symbol@) = R'''
+	Uint32 _format = SDL_PIXELFORMAT_UNKNOWN;
 	Image::Format fmtImage = Image::FORMAT_None;
-	const Symbol *pSymbol = args.GetSymbol(2);
-	if (pSymbol->IsIdentical(Gura_Symbol(rgb))) {
-		format = SDL_PIXELFORMAT_BGR888;
+	if (format->IsIdentical(Gura_Symbol(rgb))) {
+		_format = SDL_PIXELFORMAT_BGR888;
 		fmtImage = Image::FORMAT_RGB;
-	} else if (pSymbol->IsIdentical(Gura_Symbol(rgba))) {
-		format = SDL_PIXELFORMAT_BGRA8888;
+	} else if (format->IsIdentical(Gura_Symbol(rgba))) {
+		_format = SDL_PIXELFORMAT_BGRA8888;
 		fmtImage = Image::FORMAT_RGBA;
 	} else {
 		sig.SetError(ERR_ValueError, "format must be `rgb or `rgba");
@@ -644,7 +636,7 @@ RenderReadPixels(renderer:SDL_Renderer@, rect:SDL_Rect@:const, format:symbol@) =
 	if (!pImage->AllocBuffer(sig, rect->w, rect->h, 0x00)) return Value::Null;
 	void *pixels = pImage->GetBuffer();
 	int pitch = pImage->GetBytesPerLine();
-	int _rtn = SDL_RenderReadPixels(renderer, rect, format, pixels, pitch);
+	int _rtn = SDL_RenderReadPixels(renderer, rect, _format, pixels, pitch);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
@@ -652,13 +644,13 @@ RenderReadPixels(renderer:SDL_Renderer@, rect:SDL_Rect@:const, format:symbol@) =
 	return ReturnValue(env, sig, args, Value(new Object_image(env, pImage.release())));
 '''
 
-RenderSetClipRect(renderer:SDL_Renderer@, rect:SDL_Rect@:const):negerr
+RenderSetClipRect(renderer:SDL_Renderer@, rect:SDL_Rect@:const:nil):negerr
 
 RenderSetLogicalSize(renderer:SDL_Renderer@, w:int, h:int):negerr
 
 RenderSetScale(renderer:SDL_Renderer@, scaleX:float, scaleY:float):negerr
 
-RenderSetViewport(renderer:SDL_Renderer@, rect:SDL_Rect@:const):negerr
+RenderSetViewport(renderer:SDL_Renderer@, rect:SDL_Rect@:const:nil):negerr
 
 RenderTargetSupported(renderer:SDL_Renderer@):SDL_bool
 
@@ -666,7 +658,7 @@ SetRenderDrawBlendMode(renderer:SDL_Renderer@, blendMode:SDL_BlendMode):void
 
 SetRenderDrawColor(renderer:SDL_Renderer@, r:Uint8, g:Uint8, b:Uint8, a:Uint8):negerr
 
-SetRenderTarget(renderer:SDL_Renderer@, texture:SDL_Texture@):negerr
+SetRenderTarget(renderer:SDL_Renderer@, texture:SDL_Texture@:nil):negerr
 
 SetTextureAlphaMod(texture:SDL_Texture@, alpha:Uint8):negerr
 
@@ -676,7 +668,7 @@ SetTextureColorMod(texture:SDL_Texture@, r:Uint8, g:Uint8, b:Uint8):negerr
 
 UnlockTexture(texture:SDL_Texture@):void
 
-UpdateTexture$(texture:SDL_Texture@, rect:SDL_Rect@:const, pitch:int):negerr
+UpdateTexture$(texture:SDL_Texture@, rect:SDL_Rect@:const:nil, pitch:int):negerr
 
 UpdateYUVTexture$()
 
@@ -736,7 +728,6 @@ PixelFormatEnumToMasks(format:Uint32) = R'''
 '''
 
 SetPaletteColors(palette:SDL_Palette@, colors[]:SDL_Color, firstcolor:int, ncolors:int) = R'''
-	CArray<SDL_Color> colors(CreateCArray<SDL_Color, Object_Color>(args.GetList(1)));
 	int nmax = static_cast<int>(colors.GetSize());
 	if (firstcolor + ncolors > nmax) {
 		sig.SetError(ERR_IndexError, "out of range");
@@ -753,7 +744,6 @@ SetPaletteColors(palette:SDL_Palette@, colors[]:SDL_Color, firstcolor:int, ncolo
 SetPixelFormatPalette(format:SDL_PixelFormat@, palette:SDL_Palette@):negerr
 
 EnclosePoints(points[]:SDL_Point, clip:SDL_Rect@:const) = R'''
-	CArray<SDL_Point> points(CreateCArray<SDL_Point, Object_Point>(args.GetList(0)));
 	int count = static_cast<int>(points.GetSize());
 	SDL_Rect result;
 	SDL_bool _rtn = SDL_EnclosePoints(points, count, clip, &result);
@@ -791,9 +781,9 @@ UnionRect(A:SDL_Rect@:const, B:SDL_Rect@:const) = R'''
 	return ReturnValue(env, sig, args, _rtnVal);
 '''
 
-BlitScaled(src:SDL_Surface@, srcrect:SDL_Rect@:const, dst:SDL_Surface@, dstrect:SDL_Rect@:const):negerr
+BlitScaled(src:SDL_Surface@, srcrect:SDL_Rect@:const:nil, dst:SDL_Surface@, dstrect:SDL_Rect@:const:nil):negerr
 
-BlitSurface(src:SDL_Surface@, srcrect:SDL_Rect@:const, dst:SDL_Surface@, dstrect:SDL_Rect@:const):negerr
+BlitSurface(src:SDL_Surface@, srcrect:SDL_Rect@:const:nil, dst:SDL_Surface@, dstrect:SDL_Rect@:const:nil):negerr
 
 ConvertPixels$(width:int, height:int, src_format:Uint32, dst_format:Uint32):negerr
 
@@ -804,13 +794,12 @@ ConvertSurfaceFormat(src:SDL_Surface@, pixel_format:Uint32, flags:Uint32):SDL_Su
 CreateRGBSurface(flags:Uint32, width:int, height:int, depth:int, Rmask:Uint32, Gmask:Uint32, Bmask:Uint32, Amask:Uint32):SDL_Surface@
 
 CreateRGBSurfaceFrom(pixels:binary, width:int, height:int, depth:int, pitch:int, Rmask:Uint32, Gmask:Uint32, Bmask:Uint32, Amask:Uint32) = R'''
-	Binary &binary = Object_binary::GetObject(args, 0)->GetBinary();
-	if (binary.size() < static_cast<size_t>(height * pitch)) {
+	if (pixels.size() < static_cast<size_t>(height * pitch)) {
 		sig.SetError(ERR_ValueError, "pixels doesn not contain enough data");
 		return Value::Null;
 	}
-	void *pixels = const_cast<char *>(binary.data());
-	SDL_Surface *_rtn = SDL_CreateRGBSurfaceFrom(pixels, width, height,
+	void *_pixels = const_cast<char *>(pixels.data());
+	SDL_Surface *_rtn = SDL_CreateRGBSurfaceFrom(_pixels, width, height,
 								depth, pitch, Rmask, Gmask, Bmask, Amask);
 	if (_rtn == NULL) {
 		SetError_SDL(sig);
@@ -820,16 +809,14 @@ CreateRGBSurfaceFrom(pixels:binary, width:int, height:int, depth:int, pitch:int,
 '''
 
 CreateRGBSurfaceFromImage(image:image) = R'''
-	Image *pImage = Object_image::GetObject(args, 0)->GetImage();
-	Object_Surface *pObjSurface = Object_Surface::CreateSurfaceFromImage(sig, pImage);
+	Object_Surface *pObjSurface = Object_Surface::CreateSurfaceFromImage(sig, image);
 	if (pObjSurface == NULL) return Value::Null;
 	return ReturnValue(env, sig, args, Value(pObjSurface));
 '''
 
-FillRect(dst:SDL_Surface@, rect:SDL_Rect@:const, color:Uint32):negerr
+FillRect(dst:SDL_Surface@, rect:SDL_Rect@:const:nil, color:Uint32):negerr
 
 FillRects(dst:SDL_Surface@, rects[]:SDL_Rect, color:Uint32) = R'''
-	CArray<SDL_Rect> rects(CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1)));
 	int count = static_cast<int>(rects.GetSize());
 	int _rtn = SDL_FillRects(dst, rects, count, color);
 	if (_rtn < 0) {
@@ -890,9 +877,8 @@ GetSurfaceColorMod(surface:SDL_Surface@) = R'''
 '''
 
 LoadBMP(src:stream) = R'''
-	Stream &_stream = Object_stream::GetObject(args, 0)->GetStream();
-	std::auto_ptr<SDL_RWops> src(CreateRWopsStream(&_stream, &sig));
-	SDL_Surface *_rtn = SDL_LoadBMP_RW(src.get(), 0);
+	std::auto_ptr<SDL_RWops> _src(CreateRWopsStream(&src, &sig));
+	SDL_Surface *_rtn = SDL_LoadBMP_RW(_src.get(), 0);
 	if (_rtn == NULL) {
 		SetError_SDL(sig);
 		return Value::Null;
@@ -904,15 +890,14 @@ LoadBMP_RW$()
 
 LockSurface(surface:SDL_Surface@):negerr
 
-LowerBlit(src:SDL_Surface@, srcrect:SDL_Rect@:const, dst:SDL_Surface@, dstrect:SDL_Rect@:const):negerr
+LowerBlit(src:SDL_Surface@, srcrect:SDL_Rect@:const:nil, dst:SDL_Surface@, dstrect:SDL_Rect@:const:nil):negerr
 
-LowerBlitScaled(src:SDL_Surface@, srcrect:SDL_Rect@:const, dst:SDL_Surface@, dstrect:SDL_Rect@:const):negerr
+LowerBlitScaled(src:SDL_Surface@, srcrect:SDL_Rect@:const:nil, dst:SDL_Surface@, dstrect:SDL_Rect@:const:nil):negerr
 
 MUSTLOCK(surface:SDL_Surface@):bool
 
 SaveBMP(surface:SDL_Surface@, dst:stream) = R'''
-	Stream &_stream = Object_stream::GetObject(args, 1)->GetStream();
-	std::auto_ptr<SDL_RWops> context(CreateRWopsStream(&_stream, &sig));
+	std::auto_ptr<SDL_RWops> context(CreateRWopsStream(&dst, &sig));
 	int _rtn = SDL_SaveBMP_RW(surface, context.get(), 0);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
@@ -984,9 +969,8 @@ HasEvent(type:Uint32):SDL_bool
 HasEvents(minType:Uint32, maxType:Uint32):SDL_bool
 
 LoadDollarTemplates(touchId:SDL_TouchID, src:stream) = R'''
-	Stream &_stream = Object_stream::GetObject(args, 1)->GetStream();
-	std::auto_ptr<SDL_RWops> src(CreateRWopsStream(&_stream, &sig));
-	int _rtn = SDL_LoadDollarTemplates(touchId, src.get());
+	std::auto_ptr<SDL_RWops> _src(CreateRWopsStream(&src, &sig));
+	int _rtn = SDL_LoadDollarTemplates(touchId, _src.get());
 	if (_rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
@@ -995,7 +979,6 @@ LoadDollarTemplates(touchId:SDL_TouchID, src:stream) = R'''
 '''
 
 AddEvents(events[]:SDL_Event) = R'''
-	CArray<SDL_Event> events(CreateCArray<SDL_Event, Object_Event>(args.GetList(0)));
 	int numevents = static_cast<int>(events.GetSize());
 	int _rtn = SDL_PeepEvents(events, numevents, SDL_ADDEVENT, 0, 0);
 	if (_rtn < 0) {
@@ -1060,9 +1043,8 @@ RegisterEvents(numevents:int) = R'''
 '''
 
 SaveAllDollarTemplates(dst:stream) = R'''
-	Stream &_stream = Object_stream::GetObject(args, 0)->GetStream();
-	std::auto_ptr<SDL_RWops> dst(CreateRWopsStream(&_stream, &sig));
-	int _rtn = SDL_SaveAllDollarTemplates(dst.get());
+	std::auto_ptr<SDL_RWops> _dst(CreateRWopsStream(&dst, &sig));
+	int _rtn = SDL_SaveAllDollarTemplates(_dst.get());
 	if (_rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
@@ -1071,9 +1053,8 @@ SaveAllDollarTemplates(dst:stream) = R'''
 '''
 
 SaveDollarTemplate(gestureId:SDL_GestureID, dst:stream) = R'''
-	Stream &_stream = Object_stream::GetObject(args, 1)->GetStream();
-	std::auto_ptr<SDL_RWops> dst(CreateRWopsStream(&_stream, &sig));
-	int _rtn = SDL_SaveDollarTemplate(gestureId, dst.get());
+	std::auto_ptr<SDL_RWops> _dst(CreateRWopsStream(&dst, &sig));
+	int _rtn = SDL_SaveDollarTemplate(gestureId, _dst.get());
 	if (_rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
@@ -1316,9 +1297,8 @@ NumJoysticks():negerr_number
 GameControllerAddMapping(mappingString:char@:const):negerr_boolean
 
 GameControllerAddMappingsFromFile(file:stream) = R'''
-	Stream &_stream = Object_stream::GetObject(args, 0)->GetStream();
-	std::auto_ptr<SDL_RWops> file(CreateRWopsStream(&_stream, &sig));
-	int _rtn = SDL_GameControllerAddMappingsFromRW(file.get(), 0);
+	std::auto_ptr<SDL_RWops> _file(CreateRWopsStream(&file, &sig));
+	int _rtn = SDL_GameControllerAddMappingsFromRW(_file.get(), 0);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
 		return Value::Null;
@@ -1471,12 +1451,11 @@ GetNumAudioDrivers():int
 GetQueuedAudioSize$(dev:SDL_AudioDeviceID):Uint32
 
 LoadWAV(file:stream) = R'''
-	Stream &_stream = Object_stream::GetObject(args, 0)->GetStream();
-	std::auto_ptr<SDL_RWops> file(CreateRWopsStream(&_stream, &sig));
+	std::auto_ptr<SDL_RWops> _file(CreateRWopsStream(&file, &sig));
 	SDL_AudioSpec spec;
 	Uint8 *audio_buf = NULL;
 	Uint32 audio_len = 0;
-	SDL_AudioSpec *_rtn = SDL_LoadWAV_RW(file.get(), 0, &spec, &audio_buf, &audio_len);
+	SDL_AudioSpec *_rtn = SDL_LoadWAV_RW(_file.get(), 0, &spec, &audio_buf, &audio_len);
 	if (_rtn == NULL) {
 		SetError_SDL(sig);
 		return Value::Null;
@@ -1987,7 +1966,7 @@ Gura_ImplementFunction(${fi.funcName})
 	${argsJoined = fi.args:*name.join(', '), -}
 	${for (arg in fi.args) {|idx|}}
 	${if (arg.fmtGetter)}
-	${arg.typeC.sub(r'(\w)$', r'\1 ') + arg.name} = ${
+	${arg.typeC.sub(r'([\w>])$', r'\1 ') + arg.name} = ${
 		if (!arg.typeC.endswith('*')) {
 			arg.GetArg(idx)
 		} elsif (arg.flags.find('Nil')) {
@@ -2082,6 +2061,11 @@ FuncInfo = class {
 		this.validFlag = !funcNameRaw.find('$')
 		this.body = body
 		rtnTypeRaw = caller.attrfront.join('.')
+
+		if (!this.validFlag) {
+			rtnTypeRaw = 'void'
+		}
+		
 		if (caller.attrs.find(`const)) {
 			rtnTypeRaw += ':const'
 		}
