@@ -813,9 +813,9 @@ UnionRect(A:SDL_Rect@:const, B:SDL_Rect@:const) = R'''
 //-----------------------------------------------------------------------------
 // Video - Surface Creation and Simple Drawing
 
-BlitScaled(src:SDL_Surface@, srcrect:SDL_Rect@:const:nil, dst:SDL_Surface@, dstrect:SDL_Rect@:const:nil):negerr
+BlitScaled(src:SDL_Surface@, srcrect:SDL_Rect@:const:nil, dst:SDL_Surface@, dstrect:SDL_Rect@:nil):negerr
 
-BlitSurface(src:SDL_Surface@, srcrect:SDL_Rect@:const:nil, dst:SDL_Surface@, dstrect:SDL_Rect@:const:nil):negerr
+BlitSurface(src:SDL_Surface@, srcrect:SDL_Rect@:const:nil, dst:SDL_Surface@, dstrect:SDL_Rect@:nil):negerr
 
 ConvertPixels$(width:int, height:int, src_format:Uint32, dst_format:Uint32):negerr
 
@@ -922,9 +922,9 @@ LoadBMP_RW$()
 
 LockSurface(surface:SDL_Surface@):negerr
 
-LowerBlit(src:SDL_Surface@, srcrect:SDL_Rect@:const:nil, dst:SDL_Surface@, dstrect:SDL_Rect@:const:nil):negerr
+LowerBlit(src:SDL_Surface@, srcrect:SDL_Rect@:nil, dst:SDL_Surface@, dstrect:SDL_Rect@:nil):negerr
 
-LowerBlitScaled(src:SDL_Surface@, srcrect:SDL_Rect@:const:nil, dst:SDL_Surface@, dstrect:SDL_Rect@:const:nil):negerr
+LowerBlitScaled(src:SDL_Surface@, srcrect:SDL_Rect@:nil, dst:SDL_Surface@, dstrect:SDL_Rect@:nil):negerr
 
 MUSTLOCK(surface:SDL_Surface@):bool
 
@@ -1065,7 +1065,7 @@ PollEvent() = R'''
 
 PumpEvents():void
 
-PushEvent(event:SDL_Event@:const):negerr_boolean
+PushEvent(event:SDL_Event@):negerr_boolean
 
 QuitRequested():bool
 
@@ -1184,7 +1184,7 @@ IsTextInputActive():SDL_bool
 
 SetModState(modstate:SDL_Keymod):void
 
-SetTextInputRect(rect:SDL_Rect@:const):void
+SetTextInputRect(rect:SDL_Rect@):void
 
 StartTextInput():void
 
@@ -1198,20 +1198,18 @@ CaptureMouse$(enalbed:SDL_bool):negerr
 CreateColorCursor(surface:SDL_Surface@, hot_x:int, hot_y:int):SDL_Cursor@
 
 CreateCursor(data:binary, mask:binary, w:int, h:int, hot_x:int, hot_y:int) = R'''
-	const Binary &_data = Object_binary::GetObject(args, 0)->GetBinary();
-	const Binary &_mask = Object_binary::GetObject(args, 1)->GetBinary();
 	size_t bytesLeast = int((w + 7) / 8) * h;
-	if (_data.size() < bytesLeast) {
+	if (data.size() < bytesLeast) {
 		sig.SetError(ERR_ValueError, "data has insufficient content");
 		return Value::Null;
 	}
-	if (_mask.size() < bytesLeast) {
+	if (mask.size() < bytesLeast) {
 		sig.SetError(ERR_ValueError, "mask has insufficient content");
 		return Value::Null;
 	}
-	const Uint8 *data = reinterpret_cast<const Uint8 *>(_data.data());
-	const Uint8 *mask = reinterpret_cast<const Uint8 *>(_mask.data());
-	SDL_Cursor *_rtn = SDL_CreateCursor(data, mask, w, h, hot_x, hot_y);
+	const Uint8 *_data = reinterpret_cast<const Uint8 *>(data.data());
+	const Uint8 *_mask = reinterpret_cast<const Uint8 *>(mask.data());
+	SDL_Cursor *_rtn = SDL_CreateCursor(_data, _mask, w, h, hot_x, hot_y);
 	if (_rtn == NULL) {
 		SetError_SDL(sig);
 		return Value::Null;
@@ -1922,11 +1920,11 @@ typeConvDict = %{
 			nil)
 	'stream' => TypeConv(
 			'VTYPE_stream, OCCUR_Once', [],
-			'const Stream &', 'Object_binary::GetObject(args, %d)->GetStream()',
+			'Stream &', 'Object_stream::GetObject(args, %d)->GetStream()',
 			nil)
 	'image' => TypeConv(
 			'VTYPE_image, OCCUR_Once', [],
-			'const Image *', 'Object_image::GetObject(args, %d)->GetImage()',
+			'Image *', 'Object_image::GetObject(args, %d)->GetImage()',
 			nil)
 	'Uint16[]' => TypeConv(
 			'VTYPE_number, OCCUR_Once', ['List'],
@@ -2004,7 +2002,6 @@ typeConvDict = %{
 	TypeConv_Enum('SDL_BlendMode')
 	TypeConv_Enum('SDL_GameControllerAxis')
 	TypeConv_Enum('SDL_GameControllerButton')
-	TypeConv_Enum('SDL_GameControllerButtonBind')
 	TypeConv_Enum('SDL_GestureID')
 	TypeConv_Enum('SDL_GLattr')
 	TypeConv_Enum('SDL_Keycode')
@@ -2017,12 +2014,18 @@ typeConvDict = %{
 	TypeConv_Class('SDL_AudioCVT@')
 	TypeConv_Class('SDL_AudioSpec@')
 	TypeConv_Class('SDL_AudioSpec@:const')
-	TypeConv_Class('SDL_Cursor@')
+	//TypeConv_Class('SDL_Cursor@')
+	'SDL_Cursor@' => TypeConv(
+			'VTYPE_Cursor, OCCUR_Once', [],
+			'SDL_Cursor *', 'Object_Cursor::GetObject(args, %d)->GetEntity()',
+			'Value(new Object_Cursor(_rtn, true))')
 	TypeConv_Class('SDL_DisplayMode@')
 	TypeConv_Class('SDL_DisplayMode@:const')
+	TypeConv_Class('SDL_Event@')
 	TypeConv_Class('SDL_Event@:const')
 	TypeConv_Class('SDL_Finger@')
 	TypeConv_Class('SDL_GameController@')
+	TypeConv_Class('SDL_GameControllerButtonBind')
 	TypeConv_Class('SDL_GLContext')
 	TypeConv_Class('SDL_Haptic@')
 	TypeConv_Class('SDL_HapticEffect@')
@@ -2032,6 +2035,7 @@ typeConvDict = %{
 	TypeConv_Class('SDL_PixelFormat@')
 	TypeConv_Class('SDL_PixelFormat@:const')
 	TypeConv_Class('SDL_Point@:const')
+	TypeConv_Class('SDL_Rect@')
 	TypeConv_Class('SDL_Rect@:const')
 	TypeConv_Class('SDL_Renderer@')
 	TypeConv_Class('SDL_Surface@')

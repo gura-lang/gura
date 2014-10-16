@@ -25,7 +25,7 @@ public:
 	virtual Value DoSetProp(Environment &env, Signal sig,
 							const Symbol *pSymbol, const Value &value,
 							const SymbolSet &attrs, bool &evaluatedFlag);
-	inline SDL_JoystickGUID *GetEntity() { return &_guid; }
+	inline SDL_JoystickGUID &GetEntity() { return _guid; }
 };
 
 Gura_EndModuleScope(sdl2)

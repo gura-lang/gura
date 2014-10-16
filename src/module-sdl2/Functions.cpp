@@ -4070,7 +4070,7 @@ Gura_ImplementFunction(BlitScaled)
 	SDL_Surface *src = Object_Surface::GetObject(args, 0)->GetEntity();
 	const SDL_Rect *srcrect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
 	SDL_Surface *dst = Object_Surface::GetObject(args, 2)->GetEntity();
-	const SDL_Rect *dstrect = args.IsValid(3)? Object_Rect::GetObject(args, 3)->GetEntity() : NULL;
+	SDL_Rect *dstrect = args.IsValid(3)? Object_Rect::GetObject(args, 3)->GetEntity() : NULL;
 	int _rtn = SDL_BlitScaled(src, srcrect, dst, dstrect);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
@@ -4096,7 +4096,7 @@ Gura_ImplementFunction(BlitSurface)
 	SDL_Surface *src = Object_Surface::GetObject(args, 0)->GetEntity();
 	const SDL_Rect *srcrect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
 	SDL_Surface *dst = Object_Surface::GetObject(args, 2)->GetEntity();
-	const SDL_Rect *dstrect = args.IsValid(3)? Object_Rect::GetObject(args, 3)->GetEntity() : NULL;
+	SDL_Rect *dstrect = args.IsValid(3)? Object_Rect::GetObject(args, 3)->GetEntity() : NULL;
 	int _rtn = SDL_BlitSurface(src, srcrect, dst, dstrect);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
@@ -4280,7 +4280,7 @@ Gura_DeclareFunction(CreateRGBSurfaceFromImage)
 
 Gura_ImplementFunction(CreateRGBSurfaceFromImage)
 {
-	const Image *image = Object_image::GetObject(args, 0)->GetImage();
+	Image *image = Object_image::GetObject(args, 0)->GetImage();
 	Object_Surface *pObjSurface = Object_Surface::CreateSurfaceFromImage(sig, image);
 	if (pObjSurface == NULL) return Value::Null;
 	return ReturnValue(env, sig, args, Value(pObjSurface));
@@ -4472,7 +4472,7 @@ Gura_DeclareFunction(LoadBMP)
 
 Gura_ImplementFunction(LoadBMP)
 {
-	const Stream &src = Object_binary::GetObject(args, 0)->GetStream();
+	Stream &src = Object_stream::GetObject(args, 0)->GetStream();
 	std::auto_ptr<SDL_RWops> _src(CreateRWopsStream(&src, &sig));
 	SDL_Surface *_rtn = SDL_LoadBMP_RW(_src.get(), 0);
 	if (_rtn == NULL) {
@@ -4535,9 +4535,9 @@ Gura_DeclareFunction(LowerBlit)
 Gura_ImplementFunction(LowerBlit)
 {
 	SDL_Surface *src = Object_Surface::GetObject(args, 0)->GetEntity();
-	const SDL_Rect *srcrect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
+	SDL_Rect *srcrect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
 	SDL_Surface *dst = Object_Surface::GetObject(args, 2)->GetEntity();
-	const SDL_Rect *dstrect = args.IsValid(3)? Object_Rect::GetObject(args, 3)->GetEntity() : NULL;
+	SDL_Rect *dstrect = args.IsValid(3)? Object_Rect::GetObject(args, 3)->GetEntity() : NULL;
 	int _rtn = SDL_LowerBlit(src, srcrect, dst, dstrect);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
@@ -4561,9 +4561,9 @@ Gura_DeclareFunction(LowerBlitScaled)
 Gura_ImplementFunction(LowerBlitScaled)
 {
 	SDL_Surface *src = Object_Surface::GetObject(args, 0)->GetEntity();
-	const SDL_Rect *srcrect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
+	SDL_Rect *srcrect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
 	SDL_Surface *dst = Object_Surface::GetObject(args, 2)->GetEntity();
-	const SDL_Rect *dstrect = args.IsValid(3)? Object_Rect::GetObject(args, 3)->GetEntity() : NULL;
+	SDL_Rect *dstrect = args.IsValid(3)? Object_Rect::GetObject(args, 3)->GetEntity() : NULL;
 	int _rtn = SDL_LowerBlitScaled(src, srcrect, dst, dstrect);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
@@ -4604,7 +4604,7 @@ Gura_DeclareFunction(SaveBMP)
 Gura_ImplementFunction(SaveBMP)
 {
 	SDL_Surface *surface = Object_Surface::GetObject(args, 0)->GetEntity();
-	const Stream &dst = Object_binary::GetObject(args, 1)->GetStream();
+	Stream &dst = Object_stream::GetObject(args, 1)->GetStream();
 	std::auto_ptr<SDL_RWops> context(CreateRWopsStream(&dst, &sig));
 	int _rtn = SDL_SaveBMP_RW(surface, context.get(), 0);
 	if (_rtn < 0) {
@@ -5121,7 +5121,7 @@ Gura_DeclareFunction(LoadDollarTemplates)
 Gura_ImplementFunction(LoadDollarTemplates)
 {
 	SDL_TouchID touchId = static_cast<SDL_TouchID>(args.GetInt(0));
-	const Stream &src = Object_binary::GetObject(args, 1)->GetStream();
+	Stream &src = Object_stream::GetObject(args, 1)->GetStream();
 	std::auto_ptr<SDL_RWops> _src(CreateRWopsStream(&src, &sig));
 	int _rtn = SDL_LoadDollarTemplates(touchId, _src.get());
 	if (_rtn < 0) {
@@ -5258,7 +5258,7 @@ Gura_DeclareFunction(PushEvent)
 
 Gura_ImplementFunction(PushEvent)
 {
-	const SDL_Event *event = Object_Event::GetObject(args, 0)->GetEntity();
+	SDL_Event *event = Object_Event::GetObject(args, 0)->GetEntity();
 	int _rtn = SDL_PushEvent(event);
 	if (_rtn < 0) {
 		SetError_SDL(sig);
@@ -5337,7 +5337,7 @@ Gura_DeclareFunction(SaveAllDollarTemplates)
 
 Gura_ImplementFunction(SaveAllDollarTemplates)
 {
-	const Stream &dst = Object_binary::GetObject(args, 0)->GetStream();
+	Stream &dst = Object_stream::GetObject(args, 0)->GetStream();
 	std::auto_ptr<SDL_RWops> _dst(CreateRWopsStream(&dst, &sig));
 	int _rtn = SDL_SaveAllDollarTemplates(_dst.get());
 	if (_rtn < 0) {
@@ -5361,7 +5361,7 @@ Gura_DeclareFunction(SaveDollarTemplate)
 Gura_ImplementFunction(SaveDollarTemplate)
 {
 	SDL_GestureID gestureId = static_cast<SDL_GestureID>(args.GetInt(0));
-	const Stream &dst = Object_binary::GetObject(args, 1)->GetStream();
+	Stream &dst = Object_stream::GetObject(args, 1)->GetStream();
 	std::auto_ptr<SDL_RWops> _dst(CreateRWopsStream(&dst, &sig));
 	int _rtn = SDL_SaveDollarTemplate(gestureId, _dst.get());
 	if (_rtn < 0) {
@@ -5715,7 +5715,7 @@ Gura_DeclareFunction(SetTextInputRect)
 
 Gura_ImplementFunction(SetTextInputRect)
 {
-	const SDL_Rect *rect = Object_Rect::GetObject(args, 0)->GetEntity();
+	SDL_Rect *rect = Object_Rect::GetObject(args, 0)->GetEntity();
 	SDL_SetTextInputRect(rect);
 	return Value::Null;
 }
@@ -5788,7 +5788,7 @@ Gura_ImplementFunction(CreateColorCursor)
 	SDL_Cursor *_rtn = SDL_CreateColorCursor(surface, hot_x, hot_y);
 	Value _rtnVal;
 	if (_rtn != NULL) {
-		_rtnVal = Value(new Object_Cursor(_rtn));
+		_rtnVal = Value(new Object_Cursor(_rtn, true));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
 		return Value::Null;
@@ -5819,20 +5819,18 @@ Gura_ImplementFunction(CreateCursor)
 	int h = args.GetInt(3);
 	int hot_x = args.GetInt(4);
 	int hot_y = args.GetInt(5);
-	const Binary &_data = Object_binary::GetObject(args, 0)->GetBinary();
-	const Binary &_mask = Object_binary::GetObject(args, 1)->GetBinary();
 	size_t bytesLeast = int((w + 7) / 8) * h;
-	if (_data.size() < bytesLeast) {
+	if (data.size() < bytesLeast) {
 		sig.SetError(ERR_ValueError, "data has insufficient content");
 		return Value::Null;
 	}
-	if (_mask.size() < bytesLeast) {
+	if (mask.size() < bytesLeast) {
 		sig.SetError(ERR_ValueError, "mask has insufficient content");
 		return Value::Null;
 	}
-	const Uint8 *data = reinterpret_cast<const Uint8 *>(_data.data());
-	const Uint8 *mask = reinterpret_cast<const Uint8 *>(_mask.data());
-	SDL_Cursor *_rtn = SDL_CreateCursor(data, mask, w, h, hot_x, hot_y);
+	const Uint8 *_data = reinterpret_cast<const Uint8 *>(data.data());
+	const Uint8 *_mask = reinterpret_cast<const Uint8 *>(mask.data());
+	SDL_Cursor *_rtn = SDL_CreateCursor(_data, _mask, w, h, hot_x, hot_y);
 	if (_rtn == NULL) {
 		SetError_SDL(sig);
 		return Value::Null;
@@ -5856,7 +5854,7 @@ Gura_ImplementFunction(CreateSystemCursor)
 	SDL_Cursor *_rtn = SDL_CreateSystemCursor(id);
 	Value _rtnVal;
 	if (_rtn != NULL) {
-		_rtnVal = Value(new Object_Cursor(_rtn));
+		_rtnVal = Value(new Object_Cursor(_rtn, true));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
 		return Value::Null;
@@ -5913,7 +5911,7 @@ Gura_ImplementFunction(GetDefaultCursor)
 	SDL_Cursor *_rtn = SDL_GetDefaultCursor();
 	Value _rtnVal;
 	if (_rtn != NULL) {
-		_rtnVal = Value(new Object_Cursor(_rtn));
+		_rtnVal = Value(new Object_Cursor(_rtn, true));
 	} else if (*SDL_GetError() != '\0') {
 		SetError_SDL(sig);
 		return Value::Null;
@@ -6569,7 +6567,7 @@ Gura_DeclareFunction(GameControllerAddMappingsFromFile)
 
 Gura_ImplementFunction(GameControllerAddMappingsFromFile)
 {
-	const Stream &file = Object_binary::GetObject(args, 0)->GetStream();
+	Stream &file = Object_stream::GetObject(args, 0)->GetStream();
 	std::auto_ptr<SDL_RWops> _file(CreateRWopsStream(&file, &sig));
 	int _rtn = SDL_GameControllerAddMappingsFromRW(_file.get(), 0);
 	if (_rtn < 0) {
@@ -6703,7 +6701,7 @@ Gura_ImplementFunction(GameControllerGetBindForAxis)
 	SDL_GameController *gamecontroller = Object_GameController::GetObject(args, 0)->GetEntity();
 	SDL_GameControllerAxis axis = static_cast<SDL_GameControllerAxis>(args.GetInt(1));
 	SDL_GameControllerButtonBind _rtn = SDL_GameControllerGetBindForAxis(gamecontroller, axis);
-	Value _rtnVal = Value(_rtn);
+	Value _rtnVal = Value(new Object_GameControllerButtonBind(_rtn));
 	return ReturnValue(env, sig, args, _rtnVal);
 }
 
@@ -6723,7 +6721,7 @@ Gura_ImplementFunction(GameControllerGetBindForButton)
 	SDL_GameController *gamecontroller = Object_GameController::GetObject(args, 0)->GetEntity();
 	SDL_GameControllerButton button = static_cast<SDL_GameControllerButton>(args.GetInt(1));
 	SDL_GameControllerButtonBind _rtn = SDL_GameControllerGetBindForButton(gamecontroller, button);
-	Value _rtnVal = Value(_rtn);
+	Value _rtnVal = Value(new Object_GameControllerButtonBind(_rtn));
 	return ReturnValue(env, sig, args, _rtnVal);
 }
 
@@ -7961,7 +7959,7 @@ Gura_DeclareFunction(LoadWAV)
 
 Gura_ImplementFunction(LoadWAV)
 {
-	const Stream &file = Object_binary::GetObject(args, 0)->GetStream();
+	Stream &file = Object_stream::GetObject(args, 0)->GetStream();
 	std::auto_ptr<SDL_RWops> _file(CreateRWopsStream(&file, &sig));
 	SDL_AudioSpec spec;
 	Uint8 *audio_buf = NULL;
