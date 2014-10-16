@@ -2,6 +2,9 @@
 import(re)
 
 decls = `{
+//-----------------------------------------------------------------------------
+// Basics - Initialization and Shutdown
+
 Init(flags:Uint32):negerr
 
 InitSubSystem(flags:Uint32):negerr
@@ -13,6 +16,9 @@ QuitSubSystem(flags:Uint32):void
 SetMainReady():void
 
 WasInit(flags:Uint32):Uint32
+
+//-----------------------------------------------------------------------------
+// Basics - Configuration Variables
 
 AddHintCallback$()
 
@@ -26,11 +32,17 @@ SetHint$()
 
 SetHintWithPriority$()
 
+//-----------------------------------------------------------------------------
+// Basics - Error Handling
+
 ClearError():void
 
 GetError():char@:const
 
 SetError$()
+
+//-----------------------------------------------------------------------------
+// Basics - Log Handling
 
 Log$()
 
@@ -62,6 +74,9 @@ LogVerbose$()
 
 LogWarn$()
 
+//-----------------------------------------------------------------------------
+// Basics - Assertions
+
 GetAssertionHandler$()
 
 GetAssertionReport$()
@@ -84,6 +99,9 @@ GetRevision():char@:const
 
 GetRevisionNumber():int
 
+//-----------------------------------------------------------------------------
+// Basics - Querying SDL Version
+
 GetVersion() = R'''
 	SDL_version ver;
 	SDL_GetVersion(&ver);
@@ -99,6 +117,9 @@ VERSION() = R'''
 '''
 
 VERSION_ATLEAST(X:int, Y:int, Z:int):bool
+
+//-----------------------------------------------------------------------------
+// Video - Display and Window Management
 
 CreateWindow(title:char@:const, x:int, y:int, w:int, h:int, flags:Uint32):SDL_Window@
 
@@ -383,7 +404,6 @@ ShowWindow(window:SDL_Window@):void
 UpdateWindowSurface(window:SDL_Window@):negerr
 
 UpdateWindowSurfaceRects(window:SDL_Window@, rects[]:SDL_Rect) = R'''
-	CArray<SDL_Rect> rects(CreateCArray<SDL_Rect, Object_Rect>(args.GetList(1)));
 	int numrects = static_cast<int>(rects.GetSize());
 	int _rtn = SDL_UpdateWindowSurfaceRects(window, rects, numrects);
 	if (_rtn < 0) {
@@ -396,6 +416,9 @@ UpdateWindowSurfaceRects(window:SDL_Window@, rects[]:SDL_Rect) = R'''
 VideoInit(driver_name:char@:const):negerr
 
 VideoQuit():void
+
+//-----------------------------------------------------------------------------
+// Video - 2D Accelerated Rendering
 
 CreateRenderer(window:SDL_Window@, index:int, flags:Uint32):SDL_Renderer@
 
@@ -672,6 +695,9 @@ UpdateTexture$(texture:SDL_Texture@, rect:SDL_Rect@:const:nil, pitch:int):negerr
 
 UpdateYUVTexture$()
 
+//-----------------------------------------------------------------------------
+// Video - Pixel Formats and Conversion Routines
+
 AllocFormat(pixel_format:Uint32):SDL_PixelFormat@
 
 AllocPalette(ncolors:int):SDL_Palette@
@@ -743,6 +769,9 @@ SetPaletteColors(palette:SDL_Palette@, colors[]:SDL_Color, firstcolor:int, ncolo
 
 SetPixelFormatPalette(format:SDL_PixelFormat@, palette:SDL_Palette@):negerr
 
+//-----------------------------------------------------------------------------
+// Video - Rectangle Functions
+
 EnclosePoints(points[]:SDL_Point, clip:SDL_Rect@:const) = R'''
 	int count = static_cast<int>(points.GetSize());
 	SDL_Rect result;
@@ -780,6 +809,9 @@ UnionRect(A:SDL_Rect@:const, B:SDL_Rect@:const) = R'''
 	Value _rtnVal = Value(new Object_Rect(result));
 	return ReturnValue(env, sig, args, _rtnVal);
 '''
+
+//-----------------------------------------------------------------------------
+// Video - Surface Creation and Simple Drawing
 
 BlitScaled(src:SDL_Surface@, srcrect:SDL_Rect@:const:nil, dst:SDL_Surface@, dstrect:SDL_Rect@:const:nil):negerr
 
@@ -924,6 +956,9 @@ SetSurfaceRLE(surface:SDL_Surface@, flag:int):negerr
 
 UnlockSurface(surface:SDL_Surface@):void
 
+//-----------------------------------------------------------------------------
+// Video - Clipboard Handling
+
 GetClipboardText() = R'''
 	char *_rtn = SDL_GetClipboardText();
 	Value _rtnVal(_rtn);
@@ -932,6 +967,9 @@ GetClipboardText() = R'''
 '''
 
 HasClipboardText():SDL_bool
+
+//-----------------------------------------------------------------------------
+// Input Events - Event Handling
 
 SetClipboardText(text:char@:const):negerr
 
@@ -1087,6 +1125,9 @@ WaitEventTimeout(timeout:int) = R'''
 	return ReturnValue(env, sig, args, _rtnVal);
 '''
 
+//-----------------------------------------------------------------------------
+// Input Events - Keyboard Support
+
 CheckKeyboardState(scancode:SDL_Scancode) = R'''
 	int numkeys = 0;
 	const Uint8 *_keystate = SDL_GetKeyboardState(&numkeys);
@@ -1148,6 +1189,9 @@ SetTextInputRect(rect:SDL_Rect@:const):void
 StartTextInput():void
 
 StopTextInput():void
+
+//-----------------------------------------------------------------------------
+// Input Events - Mouse Support
 
 CaptureMouse$(enalbed:SDL_bool):negerr
 
@@ -1228,6 +1272,9 @@ WarpMouseGlobal$(x:int, y:int)
 
 WarpMouseInWindow(window:SDL_Window@, x:int, y:int):void
 
+//-----------------------------------------------------------------------------
+// Input Events - Joystick Support
+
 JoystickClose(joystick:SDL_Joystick@):void
 
 JoystickEventState(state:int):negerr_boolean
@@ -1294,6 +1341,9 @@ JoystickUpdate():void
 
 NumJoysticks():negerr_number
 
+//-----------------------------------------------------------------------------
+// Input Events - Game Controller Support
+
 GameControllerAddMapping(mappingString:char@:const):negerr_boolean
 
 GameControllerAddMappingsFromFile(file:stream) = R'''
@@ -1352,6 +1402,9 @@ GameControllerOpen(joystick_index:int):SDL_GameController@
 GameControllerUpdate():void
 
 IsGameController(joystick_index:int):SDL_bool
+
+//-----------------------------------------------------------------------------
+// Force Feedback - Force Feedback Support
 
 HapticClose(haptic:SDL_Haptic@):void
 
@@ -1412,6 +1465,9 @@ JoystickIsHaptic(joystick:SDL_Joystick@):negerr_boolean
 MouseIsHaptic():negerr_boolean
 
 NumHaptics():negerr_number
+
+//-----------------------------------------------------------------------------
+// Audio - Audio Device Management, Playing and Recording
 
 AudioInit(driver_name:char@:const):negerr
 
@@ -1509,6 +1565,9 @@ AUDIO_ISLITTLEENDIAN(x:Uint16):bool
 
 AUDIO_ISUNSIGNED(x:Uint16):bool
 
+//-----------------------------------------------------------------------------
+// Threads - Thread Management
+
 CreateThread$()
 
 DetachThread$()
@@ -1528,6 +1587,9 @@ TLSSet$()
 ThreadID$()
 
 WaitThread$()
+
+//-----------------------------------------------------------------------------
+// Threads - Thread Synchronization Primitives
 
 CondBroadcast$()
 
@@ -1565,6 +1627,9 @@ TryLockMutex$()
 
 UnlockMutex$()
 
+//-----------------------------------------------------------------------------
+// Threads - Atomic Operations
+
 AtomicAdd$()
 
 AtomicCAS$()
@@ -1591,6 +1656,9 @@ AtomicUnlock$()
 
 CompilerBarrier$()
 
+//-----------------------------------------------------------------------------
+// Timers - Timer Support
+
 AddTimer$(interval:Uint32):SDL_TimerID
 
 Delay(ms:Uint32):void
@@ -1605,9 +1673,15 @@ RemoveTimer(id:SDL_TimerID):SDL_bool
 
 TICKS_PASSED(A:Uint32, B:Uint32):bool
 
+//-----------------------------------------------------------------------------
+// File Abstraction - Filesystem Paths
+
 GetBasePath$():char@
 
 GetPrefPath$(org:char@:const, app:char@:const):char@
+
+//-----------------------------------------------------------------------------
+// File Abstraction - File I/O Abstraction
 
 AllocRW$()
 
@@ -1655,7 +1729,16 @@ WriteLE32$()
 
 WriteLE64$()
 
+//-----------------------------------------------------------------------------
+// Shared Object Support - Shared Object Loading and Function Lookup
+
+//-----------------------------------------------------------------------------
+// Platform and CPU Information - Platform Detection
+
 GetPlatform():char@:const
+
+//-----------------------------------------------------------------------------
+// Platform and CPU Information - CPU Feature Detection
 
 GetCPUCacheLineSize():int
 
@@ -1685,6 +1768,9 @@ HasSSE41():SDL_bool
 
 HasSSE42():SDL_bool
 
+//-----------------------------------------------------------------------------
+// Platform and CPU Information - Byte Order and Byte Swapping
+
 Swap16$()
 
 Swap32$()
@@ -1709,7 +1795,13 @@ SwapLE32$()
 
 SwapLE64$()
 
+//-----------------------------------------------------------------------------
+// Platform and CPU Information - Bit Manipulation
+
 MostSignificantBitIndex32$(x:Uint32):int
+
+//-----------------------------------------------------------------------------
+// Power Management - Power Management Status
 
 GetPowerInfo() = R'''
 	int secs = 0;
@@ -1718,6 +1810,9 @@ GetPowerInfo() = R'''
 	return ReturnValue(env, sig, args, Value::CreateList(env,
 									Value(_rtn), Value(secs), Value(pct)));
 '''
+
+//-----------------------------------------------------------------------------
+// Additional - Platform-specific functionality
 
 AndroidGetActivity$()
 
@@ -1728,6 +1823,9 @@ AndroidGetExternalStorageState$()
 AndroidGetInternalStoragePath$()
 
 AndroidGetJNIEnv$()
+
+//-----------------------------------------------------------------------------
+// Additional - Other
 
 acos(x:double):double
 }
@@ -2120,4 +2218,12 @@ FuncInfo = class {
 }
 
 funcInfos = FuncInfo(decls.children):list
-open('b.cpp', 'w').println(funcInfos::RenderImplementation())
+if (sys.argv.len() > 1 && sys.argv[1] == 'test') {
+	print(funcInfos:*RenderImplementation())
+	//print(funcInfos:*RenderAsignment())
+} else {
+	fileNameTmpl = 'Functions.cpp.tmpl'
+	fileNameOut = 'Functions.cpp'
+	template(fileNameTmpl).render(fileNameOut)
+	println(fileNameOut, ' was created')
+}
