@@ -1833,10 +1833,11 @@ ArgInfo = struct(name:string, declGura:string:nil,
 	GetArg(idx:number) = format(this.fmtGetter, idx)
 }
 
-ReturnInfo = struct(typeC:string, fmtReturn:string:nil) {
+ReturnInfo = struct(typeC:string, fmtReturn:string:nil, bodyPre:string:nil) {
 }
 
-TypeConv = struct(declGura:string, flags[]:string, typeC:string, fmtGetter:string:nil, fmtReturn:string:nil)
+TypeConv = struct(declGura:string, flags[]:string, typeC:string,
+				  fmtGetter:string:nil, fmtReturn:string:nil, bodyPre?:string)
 
 TypeConv_Enum(typeName:string) = {
 	typeName => TypeConv(
@@ -1990,12 +1991,45 @@ typeConvDict = %{
 			'CArray<SDL_Rect>',
 			'CreateCArray<SDL_Rect, Object_Rect>(args.GetList(%d))',
 			nil)
-	'' => TypeConv(nil, [], nil, '', '')
-	'void' => TypeConv(nil, [], nil, nil, nil)
-	'Uint16_boolean' => TypeConv(nil, [], 'Uint16_boolean', '', '')
-	'negerr' => TypeConv(nil, [], 'negerr', nil, nil)
-	'negerr_boolean' => TypeConv(nil, [], 'negerr_boolean', '', '')
-	'negerr_number' => TypeConv(nil, [], 'negerr_number', '', '')
+	'' => TypeConv(
+			nil, [],
+			nil, '',
+			'')
+	'void' => TypeConv(
+			nil, [],
+			nil, nil,
+			nil)
+	'negerr' => TypeConv(
+			nil, [],
+			'int', nil,
+			nil, R'''
+				if (_rtn < 0) {
+					SetError_SDL(sig);
+					return Value::Null;
+				}
+			''')
+	'negerr_boolean' => TypeConv(
+			nil, [],
+			'int', nil,
+			'Value(_rtn != 0)', R'''
+				if (_rtn < 0) {
+					SetError_SDL(sig);
+					return Value::Null;
+				}
+			''')
+	'negerr_number' => TypeConv(
+			nil, [],
+			'int', nil,
+			'Value(_rtn)', R'''
+				if (_rtn < 0) {
+					SetError_SDL(sig);
+					return Value::Null;
+				}
+			''')
+	'Uint16_boolean' => TypeConv(
+			nil, [],
+			'Uint16', nil,
+			'Value(_rtn != 0)')
 	TypeConv_Enum('SDL_AudioFormat')
 	TypeConv_Enum('SDL_AudioDeviceID')
 	TypeConv_Enum('SDL_AudioStatus')
@@ -2081,39 +2115,14 @@ Gura_ImplementFunction(${fi.funcName})
 	${end}
 	${if (fi.body)}
 ${fi.body}
-	${elsif (fi.rtnInfo.typeC == 'negerr')}
-	int _rtn = SDL_${fi.funcName}(${argsJoined});
-	if (_rtn < 0) {
-		SetError_SDL(sig);
-		return Value::Null;
-	}
-	return Value::Null;
-	${elsif (fi.rtnInfo.typeC == 'boolerr')}
-	int _rtn = SDL_${fi.funcName}(${argsJoined});
-	if (_rtn == 0) {
-		SetError_SDL(sig);
-		return Value::Null;
-	}
-	return Value::Null;
-	${elsif (fi.rtnInfo.typeC == 'negerr_number')}
-	int _rtn = SDL_${fi.funcName}(${argsJoined});
-	if (_rtn < 0) {
-		SetError_SDL(sig);
-		return Value::Null;
-	}
-	return ReturnValue(env, sig, args, Value(_rtn));
-	${elsif (fi.rtnInfo.typeC == 'negerr_boolean')}
-	int _rtn = SDL_${fi.funcName}(${argsJoined});
-	if (_rtn < 0) {
-		SetError_SDL(sig);
-		return Value::Null;
-	}
-	return ReturnValue(env, sig, args, Value(_rtn != 0));
-	${elsif (fi.rtnInfo.typeC == 'Uint16_boolean')}
-	Uint16 _rtn = SDL_${fi.funcName}(${argsJoined});
-	return ReturnValue(env, sig, args, Value(_rtn != 0));
-	${elsif (fi.rtnInfo.fmtReturn)}
+	${else}
+	${if (fi.rtnInfo.typeC && !fi.rtnInfo.typeC.isempty())}
 	${fi.rtnInfo.typeC.sub(r'(\w)$', r'\1 ')}_rtn = SDL_${fi.funcName}(${argsJoined});
+	${else}
+	SDL_${fi.funcName}(${argsJoined});
+	${end}
+${fi.rtnInfo.bodyPre}
+	${if (fi.rtnInfo.fmtReturn)}
 	${if (fi.rtnInfo.typeC.endswith('*'))}
 	Value _rtnVal;
 	if (_rtn != NULL) {
@@ -2127,8 +2136,8 @@ ${fi.body}
 	${end}
 	return ReturnValue(env, sig, args, _rtnVal);
 	${else}
-	SDL_${fi.funcName}(${argsJoined});
 	return Value::Null;
+	${end}
 	${end}
 	${if (!fi.validFlag)}
 #endif
@@ -2177,7 +2186,7 @@ FuncInfo = class {
 							'proper conversion not found in table "%s"', rtnTypeRaw)
 			sys.exit(1)
 		}
-		this.rtnInfo = ReturnInfo(typeConv.typeC, typeConv.fmtReturn)
+		this.rtnInfo = ReturnInfo(typeConv.typeC, typeConv.fmtReturn, typeConv.bodyPre)
 		this.args = caller.cdr.each():list {|arg|
 			if (arg.isindexer()) {
 				identifier = arg.car

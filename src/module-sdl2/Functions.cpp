@@ -1091,7 +1091,8 @@ Gura_ImplementFunction(GL_GetSwapInterval)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn != 0));
+	Value _rtnVal = Value(_rtn != 0);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GL_LoadLibrary
@@ -1400,7 +1401,8 @@ Gura_ImplementFunction(GetNumDisplayModes)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	Value _rtnVal = Value(_rtn);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GetNumVideoDisplays
@@ -1419,7 +1421,8 @@ Gura_ImplementFunction(GetNumVideoDisplays)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	Value _rtnVal = Value(_rtn);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GetNumVideoDrivers
@@ -1438,7 +1441,8 @@ Gura_ImplementFunction(GetNumVideoDrivers)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	Value _rtnVal = Value(_rtn);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GetVideoDriver
@@ -1523,7 +1527,8 @@ Gura_ImplementFunction(GetWindowDisplayIndex)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	Value _rtnVal = Value(_rtn);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GetWindowDisplayMode
@@ -2543,7 +2548,8 @@ Gura_ImplementFunction(GetNumRenderDrivers)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	Value _rtnVal = Value(_rtn);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GetRenderDrawBlendMode
@@ -5019,7 +5025,8 @@ Gura_ImplementFunction(GetNumTouchFingers)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	Value _rtnVal = Value(_rtn);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GetTouchDevice
@@ -5264,7 +5271,8 @@ Gura_ImplementFunction(PushEvent)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn != 0));
+	Value _rtnVal = Value(_rtn != 0);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.QuitRequested
@@ -5301,7 +5309,8 @@ Gura_ImplementFunction(RecordGesture)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	Value _rtnVal = Value(_rtn);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.RegisterEvents
@@ -6146,7 +6155,8 @@ Gura_ImplementFunction(JoystickEventState)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn != 0));
+	Value _rtnVal = Value(_rtn != 0);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.JoystickGetAttached
@@ -6411,7 +6421,8 @@ Gura_ImplementFunction(JoystickNumAxes)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	Value _rtnVal = Value(_rtn);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.JoystickNumBalls
@@ -6432,7 +6443,8 @@ Gura_ImplementFunction(JoystickNumBalls)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	Value _rtnVal = Value(_rtn);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.JoystickNumButtons
@@ -6453,7 +6465,8 @@ Gura_ImplementFunction(JoystickNumButtons)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	Value _rtnVal = Value(_rtn);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.JoystickNumHats
@@ -6474,7 +6487,8 @@ Gura_ImplementFunction(JoystickNumHats)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	Value _rtnVal = Value(_rtn);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.JoystickOpen
@@ -6531,7 +6545,8 @@ Gura_ImplementFunction(NumJoysticks)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	Value _rtnVal = Value(_rtn);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GameControllerAddMapping
@@ -6552,7 +6567,8 @@ Gura_ImplementFunction(GameControllerAddMapping)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn != 0));
+	Value _rtnVal = Value(_rtn != 0);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GameControllerAddMappingsFromFile
@@ -7044,7 +7060,8 @@ Gura_ImplementFunction(HapticEffectSupported)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn != 0));
+	Value _rtnVal = Value(_rtn != 0);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.HapticGetEffectStatus
@@ -7067,7 +7084,8 @@ Gura_ImplementFunction(HapticGetEffectStatus)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn != 0));
+	Value _rtnVal = Value(_rtn != 0);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.HapticIndex
@@ -7088,7 +7106,8 @@ Gura_ImplementFunction(HapticIndex)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	Value _rtnVal = Value(_rtn);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.HapticName
@@ -7135,7 +7154,8 @@ Gura_ImplementFunction(HapticNewEffect)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	Value _rtnVal = Value(_rtn);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.HapticNumAxes
@@ -7156,7 +7176,8 @@ Gura_ImplementFunction(HapticNumAxes)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	Value _rtnVal = Value(_rtn);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.HapticNumEffects
@@ -7177,7 +7198,8 @@ Gura_ImplementFunction(HapticNumEffects)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	Value _rtnVal = Value(_rtn);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.HapticNumEffectsPlaying
@@ -7198,7 +7220,8 @@ Gura_ImplementFunction(HapticNumEffectsPlaying)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	Value _rtnVal = Value(_rtn);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.HapticOpen
@@ -7289,7 +7312,8 @@ Gura_ImplementFunction(HapticOpened)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn != 0));
+	Value _rtnVal = Value(_rtn != 0);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.HapticPause
@@ -7412,7 +7436,8 @@ Gura_ImplementFunction(HapticRumbleSupported)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn != 0));
+	Value _rtnVal = Value(_rtn != 0);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.HapticRunEffect
@@ -7587,7 +7612,8 @@ Gura_ImplementFunction(JoystickIsHaptic)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn != 0));
+	Value _rtnVal = Value(_rtn != 0);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.MouseIsHaptic
@@ -7606,7 +7632,8 @@ Gura_ImplementFunction(MouseIsHaptic)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn != 0));
+	Value _rtnVal = Value(_rtn != 0);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.NumHaptics
@@ -7625,7 +7652,8 @@ Gura_ImplementFunction(NumHaptics)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	Value _rtnVal = Value(_rtn);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.AudioInit
@@ -7692,7 +7720,8 @@ Gura_ImplementFunction(BuildAudioCVT)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn != 0));
+	Value _rtnVal = Value(_rtn != 0);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.ClearQueuedAudio
@@ -7908,7 +7937,8 @@ Gura_ImplementFunction(GetNumAudioDevices)
 		SetError_SDL(sig);
 		return Value::Null;
 	}
-	return ReturnValue(env, sig, args, Value(_rtn));
+	Value _rtnVal = Value(_rtn);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.GetNumAudioDrivers
@@ -8226,7 +8256,8 @@ Gura_ImplementFunction(AUDIO_ISFLOAT)
 {
 	Uint16 x = args.GetUShort(0);
 	Uint16 _rtn = SDL_AUDIO_ISFLOAT(x);
-	return ReturnValue(env, sig, args, Value(_rtn != 0));
+	Value _rtnVal = Value(_rtn != 0);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.AUDIO_ISBIGENDIAN
@@ -8243,7 +8274,8 @@ Gura_ImplementFunction(AUDIO_ISBIGENDIAN)
 {
 	Uint16 x = args.GetUShort(0);
 	Uint16 _rtn = SDL_AUDIO_ISBIGENDIAN(x);
-	return ReturnValue(env, sig, args, Value(_rtn != 0));
+	Value _rtnVal = Value(_rtn != 0);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.AUDIO_ISSIGNED
@@ -8260,7 +8292,8 @@ Gura_ImplementFunction(AUDIO_ISSIGNED)
 {
 	Uint16 x = args.GetUShort(0);
 	Uint16 _rtn = SDL_AUDIO_ISSIGNED(x);
-	return ReturnValue(env, sig, args, Value(_rtn != 0));
+	Value _rtnVal = Value(_rtn != 0);
+	return ReturnValue(env, sig, args, _rtnVal);
 }
 
 // sdl2.AUDIO_ISINT
