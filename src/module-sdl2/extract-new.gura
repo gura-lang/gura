@@ -204,7 +204,7 @@ GL_UnloadLibrary():void
 
 GetClosestDisplayMode(displayIndex:int, mode:SDL_DisplayMode@:const) = R'''
 	SDL_DisplayMode closest;
-	SDL_DisplayMode* _rtn = SDL_GetClosestDisplayMode(displayIndex, mode, &closest);
+	SDL_DisplayMode *_rtn = SDL_GetClosestDisplayMode(displayIndex, mode, &closest);
 	if (_rtn == NULL) {
 		SetError_SDL(sig);
 		return Value::Null;
@@ -1863,8 +1863,19 @@ TypeConv_Class(typeName:string) = {
 			'VTYPE_' + typeNameBase + ', OCCUR_Once', [],
 			cond(constFlag, 'const ', '') + typeNameTmp + cond(pointerFlag, ' *', ''),
 			'Object_' + typeNameBase + '::GetObject(args, %d)->GetEntity()',
-			'Value(new Object_' + typeNameBase + '(_rtn))')
+			'Value(new Object_' + typeNameBase + '(_rtn))',
+			cond(pointerFlag, bodyPrePointer))
 }
+
+bodyPrePointer = R'''
+	if (_rtn == NULL) {
+		if (*SDL_GetError() != '\0') {
+			SetError_SDL(sig);
+			return Value::Null;
+		}
+		return ReturnValue(env, sig, args, Value::Null);
+	}
+'''
 
 typeConvDict = %{
 	'bool' => TypeConv(
@@ -1906,15 +1917,15 @@ typeConvDict = %{
 	'char@' => TypeConv(
 			'VTYPE_string, OCCUR_Once', [],
 			'char *', 'args.GetString(%d)',
-			'Value(_rtn)')
+			'Value(_rtn)', bodyPrePointer)
 	'char@:const' => TypeConv(
 			'VTYPE_string, OCCUR_Once', [],
 			'const char *', 'args.GetString(%d)',
-			'Value(_rtn)')
+			'Value(_rtn)', bodyPrePointer)
 	'symbol@' => TypeConv(
 			'VTYPE_symbol, OCCUR_Once', [],
 			'const Symbol *', 'args.GetSymbol(%d)',
-			'Value(_rtn)')
+			'Value(_rtn)', bodyPrePointer)
 	'binary' => TypeConv(
 			'VTYPE_binary, OCCUR_Once', [],
 			'const Binary &', 'Object_binary::GetObject(args, %d)->GetBinary()',
@@ -1966,7 +1977,7 @@ typeConvDict = %{
 	'Wav@' => TypeConv(
 			'VTYPE_Wav, OCCUR_Once', [],
 			'Object_Wav *', 'Object_Wav::GetObject(args, %d)',
-			nil);
+			nil, bodyPrePointer)
 	'SDL_bool' => TypeConv(
 			'VTYPE_boolean, OCCUR_Once', [],
 			'SDL_bool', '(args.GetBoolean(%d)? SDL_TRUE : SDL_FALSE)',
@@ -2052,7 +2063,7 @@ typeConvDict = %{
 	'SDL_Cursor@' => TypeConv(
 			'VTYPE_Cursor, OCCUR_Once', [],
 			'SDL_Cursor *', 'Object_Cursor::GetObject(args, %d)->GetEntity()',
-			'Value(new Object_Cursor(_rtn, true))')
+			'Value(new Object_Cursor(_rtn, true))', bodyPrePointer)
 	TypeConv_Class('SDL_DisplayMode@')
 	TypeConv_Class('SDL_DisplayMode@:const')
 	TypeConv_Class('SDL_Event@')
@@ -2123,18 +2134,7 @@ ${fi.body}
 	${end}
 ${fi.rtnInfo.bodyPre}
 	${if (fi.rtnInfo.fmtReturn)}
-	${if (fi.rtnInfo.typeC.endswith('*'))}
-	Value _rtnVal;
-	if (_rtn != NULL) {
-		_rtnVal = ${fi.rtnInfo.fmtReturn};
-	} else if (*SDL_GetError() != '\0') {
-		SetError_SDL(sig);
-		return Value::Null;
-	}
-	${else}
-	Value _rtnVal = ${fi.rtnInfo.fmtReturn};
-	${end}
-	return ReturnValue(env, sig, args, _rtnVal);
+	return ReturnValue(env, sig, args, ${fi.rtnInfo.fmtReturn});
 	${else}
 	return Value::Null;
 	${end}
