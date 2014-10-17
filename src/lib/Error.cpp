@@ -53,9 +53,10 @@ void Error::Clear()
 	GetExprCauseOwner().Clear();
 }
 
-void Error::Set(ErrorType errType, const String &text)
+void Error::Set(ErrorType errType, const String &textPre, const String &text)
 {
 	_errType = errType;
+	_textPre = textPre;
 	_text = text;
 }
 
@@ -86,7 +87,7 @@ String Error::MakePosText() const
 
 String Error::MakeText(bool lineInfoFlag) const
 {
-	String str;
+	String str(_textPre);
 	const ExprOwner &exprCauseOwner = GetExprCauseOwner();
 	if (lineInfoFlag && !exprCauseOwner.empty()) {
 		const Expr *pExprCause = exprCauseOwner.front();
@@ -94,6 +95,7 @@ String Error::MakeText(bool lineInfoFlag) const
 		str += ": ";
 	}
 	str += GetTypeName();
+	str += ": ";
 	str += _text;
 	return str;
 }

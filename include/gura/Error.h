@@ -54,6 +54,7 @@ public:
 	};
 private:
 	ErrorType _errType;
+	String _textPre;
 	String _text;
 	AutoPtr<ExprOwner> _pExprCauseOwner;
 	static const TypeInfo _typeInfoTbl[];
@@ -61,7 +62,7 @@ public:
 	Error(ErrorType errType = ERR_None);
 	Error(const Error &err);
 	void Clear();
-	void Set(ErrorType errType, const String &text);
+	void Set(ErrorType errType, const String &textPre, const String &text);
 	const char *GetSourceName() const;
 	int GetLineNoTop() const;
 	int GetLineNoBtm() const;
@@ -69,6 +70,7 @@ public:
 	String MakeText(bool lineInfoFlag = true) const;
 	inline ErrorType GetType() const { return _errType; }
 	inline const char *GetTypeName() const { return GetTypeName(_errType); }
+	inline const char *GetTextPre() const { return _textPre.c_str(); }
 	inline const char *GetText() const { return _text.c_str(); }
 	inline ExprOwner &GetExprCauseOwner() { return *_pExprCauseOwner; }
 	inline const ExprOwner &GetExprCauseOwner() const { return *_pExprCauseOwner; }

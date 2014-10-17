@@ -2199,7 +2199,7 @@ bool Parser::ReduceFiveElems(Environment &env, Signal sig)
 
 void Parser::SetError(Signal sig, ErrorType errType, const char *format, ...)
 {
-	String textPre(" at ");
+	String textPre;
 	if (!_pSourceName->GetStringSTL().empty()) {
 		String fileName;
 		PathMgr::SplitFileName(_pSourceName->GetString(), NULL, &fileName);
