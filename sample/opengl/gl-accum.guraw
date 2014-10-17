@@ -58,6 +58,7 @@ scope {
 		}
 		OnDraw() = {
 			Draw(thing1, thing2)
+			this.SwapWindow()
 		}
 	}
 	app = App()

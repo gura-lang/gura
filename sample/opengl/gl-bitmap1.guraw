@@ -133,6 +133,7 @@ scope {
 		}
 		OnDraw() = {
 			Draw()
+			this.SwapWindow()
 		}
 		OnIdle() = {
 		}
