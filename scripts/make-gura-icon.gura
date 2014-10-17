@@ -6,8 +6,9 @@ import(argopt)
 
 main() = {
 	argopt.Parser {|p|
-		p.addParam('image',	'i',	'output image file', 'SIZE')
-		p.addFlag('icon',	'I',	'output icon file')
+		p.addParam('image',		'i',	'output image file', 'SIZE')
+		p.addFlag('icon',		'I',	'output icon file')
+		p.addFlag('macicon',	'M',	'output Mac icon file')
 		try {
 			[cfg, argv] = p.parse(sys.argv)
 		} catch {|e|
@@ -26,13 +27,33 @@ main() = {
 		image16 = CreateImage(16, 16)
 		msico.content().addimage([image64, image32, image16]).write('gura.ico')
 		println('gura.ico was created')
+	} elsif (cfg['macicon']) {
+		Entry = struct(size:number, fileName:string)
+		dirName = 'gura.iconset'
+		!path.exists(dirName) && fs.mkdir(dirName)
+		entries = @(Entry) {
+			[16,	'icon_16x16.png'		]
+			[32,	'icon_16x16@2x.png'		]
+			[32,	'icon_32x32.png'		]
+			[64,	'icon_32x32@2x.png'		]
+			[128,	'icon_128x128.png'		]
+			[256,	'icon_128x128@2x.png'	]
+			[256,	'icon_256x256.png'		]
+			[512,	'icon_256x256@2x.png'	]
+			[512,	'icon_512x512.png'		]
+			[1024,	'icon_512x512@2x.png'	]
+		}
+		CreateImage(entries:*size, entries:*size):& \
+						write(path.join(dirName, entries:*fileName)):void
+		os.exec('iconutil', '-c', 'icns', '-o', 'gura.icns', 'gura.iconset')
+		println('gura.icns was created')
 	} else {
-		sys.stderr.println('usage: makeguraicon.gura --image=SIZE|--icon')
+		sys.stderr.println('usage: make-gura-icon.gura --image=SIZE|--icon|--macicon')
 		sys.exit(1)
 	}
 }
 
-CreateImage(width:number, height:number) = {
+CreateImage(width:number, height:number):map = {
 	colorBack = color(`white)
 	img = image(`rgba, width, height, colorBack)
 	img.setalpha(0)
