@@ -1828,7 +1828,7 @@ AndroidGetJNIEnv$()
 acos(x:double):double
 }
 
-ArgInfo = struct(name:string, declGura:string:nil,
+ArgInfo = struct(name:string, valType:string:nil, occurPattern:string:nil,
 				 typeC:string, fmtGetter:string:nil, flags[]:string) {
 	GetArg(idx:number) = format(this.fmtGetter, idx)
 }
@@ -1836,12 +1836,12 @@ ArgInfo = struct(name:string, declGura:string:nil,
 ReturnInfo = struct(typeC:string, fmtReturn:string:nil, bodyPre:string:nil) {
 }
 
-TypeConv = struct(declGura:string, flags[]:string, typeC:string,
+TypeConv = struct(valType:string:nil, occurPattern:string:nil, flags[]:string, typeC:string,
 				  fmtGetter:string:nil, fmtReturn:string:nil, bodyPre?:string)
 
 TypeConv_Enum(typeName:string) = {
 	typeName => TypeConv(
-			'VTYPE_number, OCCUR_Once', [],
+			'number', 'Once', [],
 			typeName,
 			'static_cast<' + typeName + '>(args.GetInt(%d))',
 			'Value(_rtn)')
@@ -1860,7 +1860,7 @@ TypeConv_Class(typeName:string) = {
 	typeNameTmp = typeNameTmp.replace('@', '')
 	typeNameBase = typeNameTmp.replace('SDL_', '')
 	typeName => TypeConv(
-			'VTYPE_' + typeNameBase + ', OCCUR_Once', [],
+			typeNameBase, 'Once', [],
 			cond(constFlag, 'const ', '') + typeNameTmp + cond(pointerFlag, ' *', ''),
 			'Object_' + typeNameBase + '::GetObject(args, %d)->GetEntity()',
 			'Value(new Object_' + typeNameBase + '(_rtn))',
@@ -1879,139 +1879,139 @@ bodyPrePointer = R'''
 
 typeConvDict = %{
 	'bool' => TypeConv(
-			'VTYPE_boolean, OCCUR_Once', [],
+			'boolean', 'Once', [],
 			'bool', 'args.GetBoolean(%d)',
 			'Value(_rtn)')
 	'char' => TypeConv(
-			'VTYPE_number, OCCUR_Once', [],
+			'number', 'Once', [],
 			'char', 'args.GetChar(%d)',
 			'Value(_rtn)')
 	'short' => TypeConv(
-			'VTYPE_number, OCCUR_Once', [],
+			'number', 'Once', [],
 			'short', 'args.GetShort(%d)',
 			'Value(_rtn)')
 	'int' => TypeConv(
-			'VTYPE_number, OCCUR_Once', [],
+			'number', 'Once', [],
 			'int', 'args.GetInt(%d)',
 			'Value(_rtn)')
 	'unsigned_char' => TypeConv(
-			'VTYPE_number, OCCUR_Once', [],
+			'number', 'Once', [],
 			'unsigned char', 'args.GetUChar(%d)',
 			'Value(_rtn)')
 	'unsigned_short' => TypeConv(
-			'VTYPE_number, OCCUR_Once', [],
+			'number', 'Once', [],
 			'unsigned short', 'args.GetUShort(%d)',
 			'Value(_rtn)')
 	'unsigned_int' => TypeConv(
-			'VTYPE_number, OCCUR_Once', [],
+			'number', 'Once', [],
 			'unsigned int', 'args.GetUInt(%d)',
 			'Value(_rtn)')
 	'float' => TypeConv(
-			'VTYPE_number, OCCUR_Once', [],
+			'number', 'Once', [],
 			'float', 'args.GetFloat(%d)',
 			'Value(_rtn)')
 	'double' => TypeConv(
-			'VTYPE_number, OCCUR_Once', [],
+			'number', 'Once', [],
 			'double', 'args.GetDouble(%d)',
 			'Value(_rtn)')
 	'char@' => TypeConv(
-			'VTYPE_string, OCCUR_Once', [],
+			'string', 'Once', [],
 			'char *', 'args.GetString(%d)',
 			'Value(_rtn)', bodyPrePointer)
 	'char@:const' => TypeConv(
-			'VTYPE_string, OCCUR_Once', [],
+			'string', 'Once', [],
 			'const char *', 'args.GetString(%d)',
 			'Value(_rtn)', bodyPrePointer)
 	'symbol@' => TypeConv(
-			'VTYPE_symbol, OCCUR_Once', [],
+			'symbol', 'Once', [],
 			'const Symbol *', 'args.GetSymbol(%d)',
 			'Value(_rtn)', bodyPrePointer)
 	'binary' => TypeConv(
-			'VTYPE_binary, OCCUR_Once', [],
+			'binary', 'Once', [],
 			'const Binary &', 'Object_binary::GetObject(args, %d)->GetBinary()',
 			nil)
 	'stream' => TypeConv(
-			'VTYPE_stream, OCCUR_Once', [],
+			'stream', 'Once', [],
 			'Stream &', 'Object_stream::GetObject(args, %d)->GetStream()',
 			nil)
 	'image' => TypeConv(
-			'VTYPE_image, OCCUR_Once', [],
+			'image', 'Once', [],
 			'Image *', 'Object_image::GetObject(args, %d)->GetImage()',
 			nil)
 	'Uint16[]' => TypeConv(
-			'VTYPE_number, OCCUR_Once', ['List'],
+			'number', 'Once', ['List'],
 			'CArray<Uint16>', 'args.GetList(%d)',
 			nil)
 	'Sint8' => TypeConv(
-			'VTYPE_number, OCCUR_Once', [],
+			'number', 'Once', [],
 			'Sint8', 'args.GetChar(%d)',
 			'Value(_rtn)')
 	'Sint16' => TypeConv(
-			'VTYPE_number, OCCUR_Once', [],
+			'number', 'Once', [],
 			'Sint16', 'args.GetShort(%d)',
 			'Value(_rtn)')
 	'Sint32' => TypeConv(
-			'VTYPE_number, OCCUR_Once', [],
+			'number', 'Once', [],
 			'Sint32', 'args.GetLong(%d)',
 			'Value(_rtn)')
 	'Sint64' => TypeConv(
-			'VTYPE_number, OCCUR_Once', [],
+			'number', 'Once', [],
 			'Sint64', 'static_cast<Sint64>(args.GetDouble(%d))',
 			'Value(_rtn)')
 	'Uint8' => TypeConv(
-			'VTYPE_number, OCCUR_Once', [],
+			'number', 'Once', [],
 			'Uint8', 'args.GetUChar(%d)',
 			'Value(_rtn)')
 	'Uint16' => TypeConv(
-			'VTYPE_number, OCCUR_Once', [],
+			'number', 'Once', [],
 			'Uint16', 'args.GetUShort(%d)',
 			'Value(_rtn)')
 	'Uint32' => TypeConv(
-			'VTYPE_number, OCCUR_Once', [],
+			'number', 'Once', [],
 			'Uint32', 'args.GetULong(%d)',
 			'Value(_rtn)')
 	'Uint64' => TypeConv(
-			'VTYPE_number, OCCUR_Once', [],
+			'number', 'Once', [],
 			'Uint64', 'static_cast<Uint64>(args.GetDouble(%d))',
 			'Value(_rtn)')
 	'Wav@' => TypeConv(
-			'VTYPE_Wav, OCCUR_Once', [],
+			'Wav', 'Once', [],
 			'Object_Wav *', 'Object_Wav::GetObject(args, %d)',
 			nil, bodyPrePointer)
 	'SDL_bool' => TypeConv(
-			'VTYPE_boolean, OCCUR_Once', [],
+			'boolean', 'Once', [],
 			'SDL_bool', '(args.GetBoolean(%d)? SDL_TRUE : SDL_FALSE)',
 			'Value(_rtn != SDL_FALSE)')
 	'SDL_Color[]' => TypeConv(
-			'VTYPE_Color, OCCUR_Once', ['List'],
+			'Color', 'Once', ['List'],
 			'CArray<SDL_Color>',
 			'CreateCArray<SDL_Color, Object_Color>(args.GetList(%d))',
 			nil)
 	'SDL_Event[]' => TypeConv(
-			'VTYPE_Event, OCCUR_Once', ['List'],
+			'Event', 'Once', ['List'],
 			'CArray<SDL_Event>',
 			'CreateCArray<SDL_Event, Object_Event>(args.GetList(%d))',
 			nil)
 	'SDL_Point[]' => TypeConv(
-			'VTYPE_Point, OCCUR_Once', ['List'],
+			'Point', 'Once', ['List'],
 			'CArray<SDL_Point>',
 			'CreateCArray<SDL_Point, Object_Point>(args.GetList(%d))',
 			nil)
 	'SDL_Rect[]' => TypeConv(
-			'VTYPE_Rect, OCCUR_Once', ['List'],
+			'Rect', 'Once', ['List'],
 			'CArray<SDL_Rect>',
 			'CreateCArray<SDL_Rect, Object_Rect>(args.GetList(%d))',
 			nil)
 	'' => TypeConv(
-			nil, [],
+			nil, nil, [],
 			nil, '',
 			'')
 	'void' => TypeConv(
-			nil, [],
+			nil, nil, [],
 			nil, nil,
 			nil)
 	'negerr' => TypeConv(
-			nil, [],
+			nil, nil, [],
 			'int', nil,
 			nil, R'''
 				if (_rtn < 0) {
@@ -2020,7 +2020,7 @@ typeConvDict = %{
 				}
 			''')
 	'negerr_boolean' => TypeConv(
-			nil, [],
+			nil, nil, [],
 			'int', nil,
 			'Value(_rtn != 0)', R'''
 				if (_rtn < 0) {
@@ -2029,7 +2029,7 @@ typeConvDict = %{
 				}
 			''')
 	'negerr_number' => TypeConv(
-			nil, [],
+			nil, nil, [],
 			'int', nil,
 			'Value(_rtn)', R'''
 				if (_rtn < 0) {
@@ -2038,7 +2038,7 @@ typeConvDict = %{
 				}
 			''')
 	'Uint16_boolean' => TypeConv(
-			nil, [],
+			nil, nil, [],
 			'Uint16', nil,
 			'Value(_rtn != 0)')
 	TypeConv_Enum('SDL_AudioFormat')
@@ -2061,7 +2061,7 @@ typeConvDict = %{
 	TypeConv_Class('SDL_AudioSpec@:const')
 	//TypeConv_Class('SDL_Cursor@')
 	'SDL_Cursor@' => TypeConv(
-			'VTYPE_Cursor, OCCUR_Once', [],
+			'Cursor', 'Once', [],
 			'SDL_Cursor *', 'Object_Cursor::GetObject(args, %d)->GetEntity()',
 			'Value(new Object_Cursor(_rtn, true))', bodyPrePointer)
 	TypeConv_Class('SDL_DisplayMode@')
@@ -2099,7 +2099,7 @@ Gura_DeclareFunction(${fi.funcNameGura})
 	SetMode(RSLTMODE_Void, FLAG_None);
 	${end}
 	${for (arg in fi.args)}
-	DeclareArg(env, "${arg.name}", ${arg.declGura}, ${('FLAG_' + arg.flags).join('|')});
+	DeclareArg(env, "${arg.name}", VTYPE_${arg.valType}, OCCUR_${arg.occurPattern}, ${('FLAG_' + arg.flags).join('|')});
 	${end}
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -2212,7 +2212,8 @@ FuncInfo = class {
 				flags.append('None')
 			}
 			name = identifier.symbol
-			ArgInfo(name, typeConv.declGura, typeConv.typeC, typeConv.fmtGetter, flags)
+			ArgInfo(name, typeConv.valType, typeConv.occurPattern,
+					typeConv.typeC, typeConv.fmtGetter, flags)
 		}
 	}
 	PrintError(decl:expr, fmt:string, args*) = {
