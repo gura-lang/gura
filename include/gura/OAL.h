@@ -92,6 +92,7 @@ GURA_DLLDECLARE String GetBaseDir();
 GURA_DLLDECLARE String GetDataDir();
 GURA_DLLDECLARE String GetModuleDir();
 GURA_DLLDECLARE String GetIncludeDir();
+GURA_DLLDECLARE String GetLibraryDir();
 GURA_DLLDECLARE String GetLocalDir();
 GURA_DLLDECLARE String PrepareLocalDir();
 GURA_DLLDECLARE void SetupModulePath(StringList &strList);

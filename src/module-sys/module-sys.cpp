@@ -68,9 +68,10 @@ Gura_ModuleEntry()
 	} while (0);
 	Gura_AssignValue(langcode, Value(OAL::GetLangCode()));
 	Gura_AssignValue(executable, Value(OAL::GetExecutable()));
+	Gura_AssignValue(libdir, Value(OAL::GetLibraryDir()));
+	Gura_AssignValue(incdir, Value(OAL::GetIncludeDir()));
 	Gura_AssignValue(datadir, Value(OAL::GetDataDir()));
 	Gura_AssignValue(moddir, Value(OAL::GetModuleDir()));
-	Gura_AssignValue(incdir, Value(OAL::GetIncludeDir()));
 	String dirNameLocal = OAL::GetLocalDir();
 	Gura_AssignValue(localdir, Value(dirNameLocal));
 	Gura_AssignValue(appdir, Value(OAL::JoinPathName(dirNameLocal.c_str(), "application")));

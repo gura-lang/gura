@@ -6,4 +6,4 @@ find_library(LIBREADLINE readline REQUIRED)
 
 target_link_libraries(gura guracore ${LIBREADLINE})
 
-install(TARGETS gura DESTINATION bin)
+install(TARGETS gura DESTINATION ${GURA_RELDIR_BINARY})

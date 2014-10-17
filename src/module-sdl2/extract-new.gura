@@ -2078,8 +2078,8 @@ typeConvDict = %{
 }
 
 tmplImplementation = R'''
-// sdl2.${fi.funcName}
-Gura_DeclareFunction(${fi.funcName})
+// sdl2.${fi.funcNameGura}
+Gura_DeclareFunction(${fi.funcNameGura})
 {
 	${if (fi.rtnInfo.fmtReturn)}
 	SetMode(RSLTMODE_Normal, FLAG_Map);
@@ -2094,7 +2094,7 @@ Gura_DeclareFunction(${fi.funcName})
 	"");
 }
 
-Gura_ImplementFunction(${fi.funcName})
+Gura_ImplementFunction(${fi.funcNameGura})
 {
 	${if (!fi.validFlag)}
 #if 0
@@ -2117,9 +2117,9 @@ Gura_ImplementFunction(${fi.funcName})
 ${fi.body}
 	${else}
 	${if (fi.rtnInfo.typeC && !fi.rtnInfo.typeC.isempty())}
-	${fi.rtnInfo.typeC.sub(r'(\w)$', r'\1 ')}_rtn = SDL_${fi.funcName}(${argsJoined});
+	${fi.rtnInfo.typeC.sub(r'(\w)$', r'\1 ')}_rtn = ${fi.funcNameC}(${argsJoined});
 	${else}
-	SDL_${fi.funcName}(${argsJoined});
+	${fi.funcNameC}(${argsJoined});
 	${end}
 ${fi.rtnInfo.bodyPre}
 	${if (fi.rtnInfo.fmtReturn)}
@@ -2141,19 +2141,19 @@ ${fi.rtnInfo.bodyPre}
 	${end}
 	${if (!fi.validFlag)}
 #endif
-	SetError_NotImpFunction(sig, "${fi.funcName}");
+	SetError_NotImpFunction(sig, "${fi.funcNameGura}");
 	return Value::Null;
 	${end}
 }
 '''.template()
 
 tmplAssignment = R'''
-	Gura_AssignFunction(${fi.funcName});
+	Gura_AssignFunction(${fi.funcNameGura});
 '''.template()
 
 FuncInfo = class {
 	public {
-		funcName, args, rtnInfo, body
+		funcNameC, funcNameGura, args, rtnInfo, body
 	}
 	__init__(decl:expr):map = {
 		if (decl.isassign()) {
@@ -2168,7 +2168,8 @@ FuncInfo = class {
 			body = nil
 		}
 		funcNameRaw:string = caller.car.symbol
-		this.funcName = funcNameRaw.replace('$', '')
+		this.funcNameGura = funcNameRaw.replace('$', '')
+		this.funcNameC = 'SDL_' + this.funcNameGura
 		this.validFlag = !funcNameRaw.find('$')
 		this.body = body
 		rtnTypeRaw = caller.attrfront.join('.')

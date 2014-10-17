@@ -900,6 +900,11 @@ String GetIncludeDir()
 	return JoinPathName(GetBaseDir().c_str(), "include");
 }
 
+String GetLibraryDir()
+{
+	return JoinPathName(GetBaseDir().c_str(), "lib");
+}
+
 String GetLocalDir()
 {
 	char buff[MAX_PATH];
@@ -1624,16 +1629,21 @@ String GetIncludeDir()
 	return JoinPathName(GetBaseDir().c_str(), dirName);
 }
 
+String GetLibraryDir()
+{
+	return JoinPathName(GetBaseDir().c_str(), "lib");
+}
+
 #else
 
 String GetExecutable()
 {
-	return JoinPathName(GURA_BINDIR, "gura");
+	return JoinPathName(GURA_DIR_BINARY, "gura");
 }
 
 String GetBaseDir()
 {
-	return String(GURA_PKGDATADIR);
+	return String(GURA_DIR_SHARE);
 }
 
 String GetDataDir()
@@ -1643,12 +1653,17 @@ String GetDataDir()
 
 String GetModuleDir()
 {
-	return JoinPathName(GURA_PKGLIBDIR, "module");
+	return GURA_DIR_MODULE;
 }
 
 String GetIncludeDir()
 {
-	return GURA_PKGINCDIR;
+	return GURA_DIR_INCLUDE;
+}
+
+String GetLibraryDir()
+{
+	return GURA_DIR_LIBRARY;
 }
 
 #endif

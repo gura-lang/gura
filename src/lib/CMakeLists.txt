@@ -105,15 +105,10 @@ set_property(TARGET guracore PROPERTY
 set_property(SOURCE Random.cpp ../dSFMT-src-2.2.1/dSFMT.c PROPERTY
   COMPILE_DEFINITIONS DSFMT_MEXP=19937)
 
-#set(CMAKE_SKIP_BUILD_RPATH            FALSE)
-#set(CMAKE_BUILD_WITH_INSTALL_RPATH    TRUE)
-#set(CMAKE_INSTALL_RPATH               "@loader_path/../lib")
-#set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-
 set_target_properties(guracore PROPERTIES
   VERSION      ${GURA_VERSION}
   SOVERSION    ${GURA_VERSION_SO}
   BUILD_WITH_INSTALL_RPATH 1
-  INSTALL_NAME_DIR "@loader_path/../lib")
+  INSTALL_NAME_DIR "@executable_path/../lib")
 
-install(TARGETS guracore DESTINATION lib)
+install(TARGETS guracore DESTINATION ${GURA_RELDIR_LIBRARY})
