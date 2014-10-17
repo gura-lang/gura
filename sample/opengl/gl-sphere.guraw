@@ -6,7 +6,6 @@
 
 import(glu) {*}
 import(opengl) {*}
-import(gltester)
 import(rgbread)
 
 W = 400, H = 400
