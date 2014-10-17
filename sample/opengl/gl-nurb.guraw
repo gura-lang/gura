@@ -172,13 +172,13 @@ ctlpoints = @{
 
 Init() = {
 	theNurbs = gluNewNurbsRenderer()
-	//theNurbs.gluNurbsCallback(GLU_ERROR, ErrorCallback)
-	theNurbs.gluNurbsProperty(GLU_SAMPLING_TOLERANCE, 15.0)
-	theNurbs.gluNurbsProperty(GLU_DISPLAY_MODE, GLU_OUTLINE_PATCH)
+	//gluNurbsCallback(theNurbs, GLU_ERROR, ErrorCallback)
+	gluNurbsProperty(theNurbs, GLU_SAMPLING_TOLERANCE, 15.0)
+	gluNurbsProperty(theNurbs, GLU_DISPLAY_MODE, GLU_OUTLINE_PATCH)
 	expectedError = GLU_INVALID_ENUM
-	theNurbs.gluNurbsProperty(~0, 15.0)
+	gluNurbsProperty(theNurbs, ~0, 15.0)
 	expectedError = GLU_NURBS_ERROR13
-	theNurbs.gluEndSurface()
+	gluEndSurface(theNurbs)
 	expectedError = 0
 	glColor3f(1.0, 1.0, 1.0)
 	theNurbs
@@ -200,8 +200,8 @@ Draw(theNurbs, rotX, rotY) = {
 		glRotatef(rotY, 1, 0, 0)
 		glRotatef(rotX, 0, 1, 0)
 		glTranslatef(-4.0, -4.5, -2.5)
-		theNurbs.gluBeginSurface() {
-			theNurbs.gluNurbsSurface(sknots, glutnots, 4 * T_NUMPOINTS, 4,
+		gluBeginSurface(theNurbs) {
+			gluNurbsSurface(theNurbs, sknots, glutnots, 4 * T_NUMPOINTS, 4,
 					 ctlpoints.flat(), S_ORDER, T_ORDER, GL_MAP2_VERTEX_4)
 		}
 	}
