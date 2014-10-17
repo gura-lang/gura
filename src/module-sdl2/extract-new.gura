@@ -2173,11 +2173,9 @@ FuncInfo = class {
 		this.validFlag = !funcNameRaw.find('$')
 		this.body = body
 		rtnTypeRaw = caller.attrfront.join('.')
-
-		if (!this.validFlag) {
+		if (rtnTypeRaw.isempty() && !this.validFlag) {
 			rtnTypeRaw = 'void'
 		}
-		
 		if (caller.attrs.find(`const)) {
 			rtnTypeRaw += ':const'
 		}

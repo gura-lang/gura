@@ -2090,7 +2090,11 @@ Gura_ImplementFunction(SetWindowHitTest)
 {
 #if 0
 	SDL_Window *window = Object_Window::GetObject(args, 0)->GetEntity();
-	SDL_SetWindowHitTest(window);
+	int _rtn = SDL_SetWindowHitTest(window);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
 	return Value::Null;
 #endif
 	SetError_NotImpFunction(sig, "SetWindowHitTest");
@@ -2224,7 +2228,11 @@ Gura_DeclareFunction(ShowMessageBox)
 Gura_ImplementFunction(ShowMessageBox)
 {
 #if 0
-	SDL_ShowMessageBox();
+	int _rtn = SDL_ShowMessageBox();
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
 	return Value::Null;
 #endif
 	SetError_NotImpFunction(sig, "ShowMessageBox");
@@ -2796,7 +2804,11 @@ Gura_ImplementFunction(LockTexture)
 #if 0
 	SDL_Texture *texture = Object_Texture::GetObject(args, 0)->GetEntity();
 	const SDL_Rect *rect = Object_Rect::GetObject(args, 1)->GetEntity();
-	SDL_LockTexture(texture, rect);
+	int _rtn = SDL_LockTexture(texture, rect);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
 	return Value::Null;
 #endif
 	SetError_NotImpFunction(sig, "LockTexture");
@@ -3176,7 +3188,8 @@ Gura_ImplementFunction(RenderGetViewport)
 // sdl2.RenderIsClipEnabled
 Gura_DeclareFunction(RenderIsClipEnabled)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "renderer", VTYPE_Renderer, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -3186,8 +3199,9 @@ Gura_ImplementFunction(RenderIsClipEnabled)
 {
 #if 0
 	SDL_Renderer *renderer = Object_Renderer::GetObject(args, 0)->GetEntity();
-	SDL_RenderIsClipEnabled(renderer);
-	return Value::Null;
+	SDL_bool _rtn = SDL_RenderIsClipEnabled(renderer);
+	Value _rtnVal = Value(_rtn != SDL_FALSE);
+	return ReturnValue(env, sig, args, _rtnVal);
 #endif
 	SetError_NotImpFunction(sig, "RenderIsClipEnabled");
 	return Value::Null;
@@ -3531,7 +3545,11 @@ Gura_ImplementFunction(UpdateTexture)
 	SDL_Texture *texture = Object_Texture::GetObject(args, 0)->GetEntity();
 	const SDL_Rect *rect = args.IsValid(1)? Object_Rect::GetObject(args, 1)->GetEntity() : NULL;
 	int pitch = args.GetInt(2);
-	SDL_UpdateTexture(texture, rect, pitch);
+	int _rtn = SDL_UpdateTexture(texture, rect, pitch);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
 	return Value::Null;
 #endif
 	SetError_NotImpFunction(sig, "UpdateTexture");
@@ -3953,7 +3971,8 @@ Gura_ImplementFunction(IntersectRect)
 // sdl2.IntersectRectAndLine
 Gura_DeclareFunction(IntersectRectAndLine)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "rect", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "X1", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "Y1", VTYPE_number, OCCUR_Once, FLAG_None);
@@ -3971,8 +3990,9 @@ Gura_ImplementFunction(IntersectRectAndLine)
 	int Y1 = args.GetInt(2);
 	int X2 = args.GetInt(3);
 	int Y2 = args.GetInt(4);
-	SDL_IntersectRectAndLine(rect, X1, Y1, X2, Y2);
-	return Value::Null;
+	SDL_bool _rtn = SDL_IntersectRectAndLine(rect, X1, Y1, X2, Y2);
+	Value _rtnVal = Value(_rtn != SDL_FALSE);
+	return ReturnValue(env, sig, args, _rtnVal);
 #endif
 	SetError_NotImpFunction(sig, "IntersectRectAndLine");
 	return Value::Null;
@@ -3981,7 +4001,8 @@ Gura_ImplementFunction(IntersectRectAndLine)
 // sdl2.PointInRect
 Gura_DeclareFunction(PointInRect)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "p", VTYPE_Point, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "r", VTYPE_Rect, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -3993,8 +4014,9 @@ Gura_ImplementFunction(PointInRect)
 #if 0
 	const SDL_Point *p = Object_Point::GetObject(args, 0)->GetEntity();
 	const SDL_Rect *r = Object_Rect::GetObject(args, 1)->GetEntity();
-	SDL_PointInRect(p, r);
-	return Value::Null;
+	SDL_bool _rtn = SDL_PointInRect(p, r);
+	Value _rtnVal = Value(_rtn != SDL_FALSE);
+	return ReturnValue(env, sig, args, _rtnVal);
 #endif
 	SetError_NotImpFunction(sig, "PointInRect");
 	return Value::Null;
@@ -4130,7 +4152,11 @@ Gura_ImplementFunction(ConvertPixels)
 	int height = args.GetInt(1);
 	Uint32 src_format = args.GetULong(2);
 	Uint32 dst_format = args.GetULong(3);
-	SDL_ConvertPixels(width, height, src_format, dst_format);
+	int _rtn = SDL_ConvertPixels(width, height, src_format, dst_format);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
 	return Value::Null;
 #endif
 	SetError_NotImpFunction(sig, "ConvertPixels");
@@ -5770,7 +5796,11 @@ Gura_ImplementFunction(CaptureMouse)
 {
 #if 0
 	SDL_bool enalbed = (args.GetBoolean(0)? SDL_TRUE : SDL_FALSE);
-	SDL_CaptureMouse(enalbed);
+	int _rtn = SDL_CaptureMouse(enalbed);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
 	return Value::Null;
 #endif
 	SetError_NotImpFunction(sig, "CaptureMouse");
@@ -7960,7 +7990,8 @@ Gura_ImplementFunction(GetNumAudioDrivers)
 // sdl2.GetQueuedAudioSize
 Gura_DeclareFunction(GetQueuedAudioSize)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "dev", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -7970,8 +8001,9 @@ Gura_ImplementFunction(GetQueuedAudioSize)
 {
 #if 0
 	SDL_AudioDeviceID dev = static_cast<SDL_AudioDeviceID>(args.GetInt(0));
-	SDL_GetQueuedAudioSize(dev);
-	return Value::Null;
+	Uint32 _rtn = SDL_GetQueuedAudioSize(dev);
+	Value _rtnVal = Value(_rtn);
+	return ReturnValue(env, sig, args, _rtnVal);
 #endif
 	SetError_NotImpFunction(sig, "GetQueuedAudioSize");
 	return Value::Null;
@@ -8117,7 +8149,8 @@ Gura_ImplementFunction(OpenAudio)
 // sdl2.OpenAudioDevice
 Gura_DeclareFunction(OpenAudioDevice)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "device", VTYPE_string, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "iscapture", VTYPE_number, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "desired", VTYPE_AudioSpec, OCCUR_Once, FLAG_None);
@@ -8133,8 +8166,9 @@ Gura_ImplementFunction(OpenAudioDevice)
 	int iscapture = args.GetInt(1);
 	const SDL_AudioSpec *desired = Object_AudioSpec::GetObject(args, 2)->GetEntity();
 	int allowed_changes = args.GetInt(3);
-	SDL_OpenAudioDevice(device, iscapture, desired, allowed_changes);
-	return Value::Null;
+	SDL_AudioDeviceID _rtn = SDL_OpenAudioDevice(device, iscapture, desired, allowed_changes);
+	Value _rtnVal = Value(_rtn);
+	return ReturnValue(env, sig, args, _rtnVal);
 #endif
 	SetError_NotImpFunction(sig, "OpenAudioDevice");
 	return Value::Null;
@@ -8187,7 +8221,11 @@ Gura_ImplementFunction(QueueAudio)
 {
 #if 0
 	SDL_AudioDeviceID dev = static_cast<SDL_AudioDeviceID>(args.GetInt(0));
-	SDL_QueueAudio(dev);
+	int _rtn = SDL_QueueAudio(dev);
+	if (_rtn < 0) {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
 	return Value::Null;
 #endif
 	SetError_NotImpFunction(sig, "QueueAudio");
@@ -9091,7 +9129,8 @@ Gura_ImplementFunction(CompilerBarrier)
 // sdl2.AddTimer
 Gura_DeclareFunction(AddTimer)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "interval", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -9101,8 +9140,9 @@ Gura_ImplementFunction(AddTimer)
 {
 #if 0
 	Uint32 interval = args.GetULong(0);
-	SDL_AddTimer(interval);
-	return Value::Null;
+	SDL_TimerID _rtn = SDL_AddTimer(interval);
+	Value _rtnVal = Value(_rtn);
+	return ReturnValue(env, sig, args, _rtnVal);
 #endif
 	SetError_NotImpFunction(sig, "AddTimer");
 	return Value::Null;
@@ -9213,7 +9253,8 @@ Gura_ImplementFunction(TICKS_PASSED)
 // sdl2.GetBasePath
 Gura_DeclareFunction(GetBasePath)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
@@ -9221,8 +9262,15 @@ Gura_DeclareFunction(GetBasePath)
 Gura_ImplementFunction(GetBasePath)
 {
 #if 0
-	SDL_GetBasePath();
-	return Value::Null;
+	char *_rtn = SDL_GetBasePath();
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, _rtnVal);
 #endif
 	SetError_NotImpFunction(sig, "GetBasePath");
 	return Value::Null;
@@ -9231,7 +9279,8 @@ Gura_ImplementFunction(GetBasePath)
 // sdl2.GetPrefPath
 Gura_DeclareFunction(GetPrefPath)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "org", VTYPE_string, OCCUR_Once, FLAG_None);
 	DeclareArg(env, "app", VTYPE_string, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
@@ -9243,8 +9292,15 @@ Gura_ImplementFunction(GetPrefPath)
 #if 0
 	const char *org = args.GetString(0);
 	const char *app = args.GetString(1);
-	SDL_GetPrefPath(org, app);
-	return Value::Null;
+	char *_rtn = SDL_GetPrefPath(org, app);
+	Value _rtnVal;
+	if (_rtn != NULL) {
+		_rtnVal = Value(_rtn);
+	} else if (*SDL_GetError() != '\0') {
+		SetError_SDL(sig);
+		return Value::Null;
+	}
+	return ReturnValue(env, sig, args, _rtnVal);
 #endif
 	SetError_NotImpFunction(sig, "GetPrefPath");
 	return Value::Null;
@@ -9769,7 +9825,8 @@ Gura_ImplementFunction(HasAVX)
 // sdl2.HasAVX2
 Gura_DeclareFunction(HasAVX2)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
 }
@@ -9777,8 +9834,9 @@ Gura_DeclareFunction(HasAVX2)
 Gura_ImplementFunction(HasAVX2)
 {
 #if 0
-	SDL_HasAVX2();
-	return Value::Null;
+	SDL_bool _rtn = SDL_HasAVX2();
+	Value _rtnVal = Value(_rtn != SDL_FALSE);
+	return ReturnValue(env, sig, args, _rtnVal);
 #endif
 	SetError_NotImpFunction(sig, "HasAVX2");
 	return Value::Null;
@@ -10131,7 +10189,8 @@ Gura_ImplementFunction(SwapLE64)
 // sdl2.MostSignificantBitIndex32
 Gura_DeclareFunction(MostSignificantBitIndex32)
 {
-	SetMode(RSLTMODE_Void, FLAG_None);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareArg(env, "x", VTYPE_number, OCCUR_Once, FLAG_None);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"");
@@ -10141,8 +10200,9 @@ Gura_ImplementFunction(MostSignificantBitIndex32)
 {
 #if 0
 	Uint32 x = args.GetULong(0);
-	SDL_MostSignificantBitIndex32(x);
-	return Value::Null;
+	int _rtn = SDL_MostSignificantBitIndex32(x);
+	Value _rtnVal = Value(_rtn);
+	return ReturnValue(env, sig, args, _rtnVal);
 #endif
 	SetError_NotImpFunction(sig, "MostSignificantBitIndex32");
 	return Value::Null;
