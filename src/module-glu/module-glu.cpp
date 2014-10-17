@@ -110,14 +110,14 @@ void Object_Quadric::Callback_QuadricErrorProc(GLenum err)
 // Gura interfaces for Object_Quadric
 //-----------------------------------------------------------------------------
 // glu.gluQuadricNormals(qobj:Quadric, normals:number):void
-Gura_DeclareMethod(Quadric, gluQuadricNormals)
+Gura_DeclareFunction(gluQuadricNormals)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "qobj", VTYPE_Quadric);
 	DeclareArg(env, "normals", VTYPE_number);
 }
 
-Gura_ImplementMethod(Quadric, gluQuadricNormals)
+Gura_ImplementFunction(gluQuadricNormals)
 {
 	GLUquadric *qobj = Object_Quadric::GetObject(args, 0)->GetQuadric();
     GLenum normals = args.GetUInt(1);
@@ -125,15 +125,15 @@ Gura_ImplementMethod(Quadric, gluQuadricNormals)
 	return Value::Null;
 }
 
-// glu.quadric#gluQuadricTexture(textureCoords:boolean):void
-Gura_DeclareMethod(Quadric, gluQuadricTexture)
+// glu.gluQuadricTexture(qobj:Quadric, textureCoords:boolean):void
+Gura_DeclareFunction(gluQuadricTexture)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "qobj", VTYPE_Quadric);
 	DeclareArg(env, "textureCoords", VTYPE_boolean);
 }
 
-Gura_ImplementMethod(Quadric, gluQuadricTexture)
+Gura_ImplementFunction(gluQuadricTexture)
 {
 	GLUquadric *qobj = Object_Quadric::GetObject(args, 0)->GetQuadric();
     GLboolean textureCoords = args.GetBoolean(0)? 1 : 0;
@@ -141,15 +141,15 @@ Gura_ImplementMethod(Quadric, gluQuadricTexture)
 	return Value::Null;
 }
 
-// glu.quadric#gluQuadricOrientation(orientation:number):void
-Gura_DeclareMethod(Quadric, gluQuadricOrientation)
+// glu.gluQuadricOrientation(qobj:Quadric, orientation:number):void
+Gura_DeclareFunction(gluQuadricOrientation)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "qobj", VTYPE_Quadric);
 	DeclareArg(env, "normals", VTYPE_number);
 }
 
-Gura_ImplementMethod(Quadric, gluQuadricOrientation)
+Gura_ImplementFunction(gluQuadricOrientation)
 {
 	GLUquadric *qobj = Object_Quadric::GetObject(args, 0)->GetQuadric();
     GLenum normals = args.GetUInt(1);
@@ -157,15 +157,15 @@ Gura_ImplementMethod(Quadric, gluQuadricOrientation)
 	return Value::Null;
 }
 
-// glu.quadric#gluQuadricDrawStyle(drawStyle:number):void
-Gura_DeclareMethod(Quadric, gluQuadricDrawStyle)
+// glu.gluQuadricDrawStyle(qobj:Quadric, drawStyle:number):void
+Gura_DeclareFunction(gluQuadricDrawStyle)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "qobj", VTYPE_Quadric);
 	DeclareArg(env, "drawStyle", VTYPE_number);
 }
 
-Gura_ImplementMethod(Quadric, gluQuadricDrawStyle)
+Gura_ImplementFunction(gluQuadricDrawStyle)
 {
 	GLUquadric *qobj = Object_Quadric::GetObject(args, 0)->GetQuadric();
     GLenum drawStyle = args.GetUInt(1);
@@ -173,9 +173,9 @@ Gura_ImplementMethod(Quadric, gluQuadricDrawStyle)
 	return Value::Null;
 }
 
-// glu.quadric#gluCylinder(baseRadius:number, topRadius:number, height:number,
+// glu.gluCylinder(qobj:Quadric, baseRadius:number, topRadius:number, height:number,
 //                         slices:number, stacks:number):void
-Gura_DeclareMethod(Quadric, gluCylinder)
+Gura_DeclareFunction(gluCylinder)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "qobj", VTYPE_Quadric);
@@ -186,7 +186,7 @@ Gura_DeclareMethod(Quadric, gluCylinder)
 	DeclareArg(env, "stacks", VTYPE_number);
 }
 
-Gura_ImplementMethod(Quadric, gluCylinder)
+Gura_ImplementFunction(gluCylinder)
 {
 	GLUquadric *qobj = Object_Quadric::GetObject(args, 0)->GetQuadric();
 	GLdouble baseRadius	= args.GetDouble(1);
@@ -198,9 +198,9 @@ Gura_ImplementMethod(Quadric, gluCylinder)
 	return Value::Null;
 }
 
-// glu.quadric#gluDisk(innerRadius:number, outerRadius:number,
+// glu.gluDisk(qobj:Quadric, innerRadius:number, outerRadius:number,
 //                     slices:number, loops:number):void
-Gura_DeclareMethod(Quadric, gluDisk)
+Gura_DeclareFunction(gluDisk)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "qobj", VTYPE_Quadric);
@@ -210,7 +210,7 @@ Gura_DeclareMethod(Quadric, gluDisk)
 	DeclareArg(env, "loops", VTYPE_number);
 }
 
-Gura_ImplementMethod(Quadric, gluDisk)
+Gura_ImplementFunction(gluDisk)
 {
 	GLUquadric *qobj = Object_Quadric::GetObject(args, 0)->GetQuadric();
 	GLdouble innerRadius	= args.GetDouble(1);
@@ -221,9 +221,9 @@ Gura_ImplementMethod(Quadric, gluDisk)
 	return Value::Null;
 }
 
-// glu.quadric#gluPartialDisk(innerRadius:number, outerRadius:number,
+// glu.gluPartialDisk(qobj:Quadric, innerRadius:number, outerRadius:number,
 //     slices:number, loops:number, startAngle:number, sweepAngle:number):void
-Gura_DeclareMethod(Quadric, gluPartialDisk)
+Gura_DeclareFunction(gluPartialDisk)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "qobj", VTYPE_Quadric);
@@ -235,7 +235,7 @@ Gura_DeclareMethod(Quadric, gluPartialDisk)
 	DeclareArg(env, "sweepAngle", VTYPE_number);
 }
 
-Gura_ImplementMethod(Quadric, gluPartialDisk)
+Gura_ImplementFunction(gluPartialDisk)
 {
 	GLUquadric *qobj = Object_Quadric::GetObject(args, 0)->GetQuadric();
 	GLdouble innerRadius	= args.GetDouble(1);
@@ -248,8 +248,8 @@ Gura_ImplementMethod(Quadric, gluPartialDisk)
 	return Value::Null;
 }
 
-// glu.quadric#gluSphere(radius:number, slices:number, stacks:number):void
-Gura_DeclareMethod(Quadric, gluSphere)
+// glu.gluSphere(qobj:Quadric, radius:number, slices:number, stacks:number):void
+Gura_DeclareFunction(gluSphere)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "qobj", VTYPE_Quadric);
@@ -258,7 +258,7 @@ Gura_DeclareMethod(Quadric, gluSphere)
 	DeclareArg(env, "stacks", VTYPE_number);
 }
 
-Gura_ImplementMethod(Quadric, gluSphere)
+Gura_ImplementFunction(gluSphere)
 {
 	GLUquadric *qobj = Object_Quadric::GetObject(args, 0)->GetQuadric();
 	GLdouble radius = args.GetDouble(1);
@@ -268,8 +268,8 @@ Gura_ImplementMethod(Quadric, gluSphere)
 	return Value::Null;
 }
 
-// glu.quadric#gluQuadricCallback(which:number, fn:function):void
-Gura_DeclareMethod(Quadric, gluQuadricCallback)
+// glu.gluQuadricCallback(qobj:Quadric, which:number, fn:function):void
+Gura_DeclareFunction(gluQuadricCallback)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "qobj", VTYPE_Quadric);
@@ -277,7 +277,7 @@ Gura_DeclareMethod(Quadric, gluQuadricCallback)
 	DeclareArg(env, "fn", VTYPE_function);
 }
 
-Gura_ImplementMethod(Quadric, gluQuadricCallback)
+Gura_ImplementFunction(gluQuadricCallback)
 {
 	typedef void (__stdcall *funcType)();
 	//typedef void (*funcType)();
@@ -293,15 +293,15 @@ Gura_ImplementMethod(Quadric, gluQuadricCallback)
 // implementation of class Quadric
 Gura_ImplementUserClass(Quadric)
 {
-	Gura_AssignMethod(Quadric, gluQuadricNormals);
-	Gura_AssignMethod(Quadric, gluQuadricTexture);
-	Gura_AssignMethod(Quadric, gluQuadricOrientation);
-	Gura_AssignMethod(Quadric, gluQuadricDrawStyle);
-	Gura_AssignMethod(Quadric, gluCylinder);
-	Gura_AssignMethod(Quadric, gluDisk);
-	Gura_AssignMethod(Quadric, gluPartialDisk);
-	Gura_AssignMethod(Quadric, gluSphere);
-	Gura_AssignMethod(Quadric, gluQuadricCallback);
+	Gura_AssignFunction(gluQuadricNormals);
+	Gura_AssignFunction(gluQuadricTexture);
+	Gura_AssignFunction(gluQuadricOrientation);
+	Gura_AssignFunction(gluQuadricDrawStyle);
+	Gura_AssignFunction(gluCylinder);
+	Gura_AssignFunction(gluDisk);
+	Gura_AssignFunction(gluPartialDisk);
+	Gura_AssignFunction(gluSphere);
+	Gura_AssignFunction(gluQuadricCallback);
 }
 
 //-----------------------------------------------------------------------------
@@ -325,15 +325,15 @@ String Object_Tesselator::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_Tesselator
 //-----------------------------------------------------------------------------
-// glu.tesselator#gluTessBeginPolygon():void {block?}
-Gura_DeclareMethod(Tesselator, gluTessBeginPolygon)
+// glu.gluTessBeginPolygon(tess:Tesselator):void {block?}
+Gura_DeclareFunction(gluTessBeginPolygon)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(Tesselator, gluTessBeginPolygon)
+Gura_ImplementFunction(gluTessBeginPolygon)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	::gluTessBeginPolygon(tess, tess); // pass this object pointer to callback
@@ -347,15 +347,15 @@ Gura_ImplementMethod(Tesselator, gluTessBeginPolygon)
 	return Value::Null;
 }
 
-// glu.tesselator#gluTessBeginContour():void {block?}
-Gura_DeclareMethod(Tesselator, gluTessBeginContour)
+// glu.gluTessBeginContour(tess:Tesselator):void {block?}
+Gura_DeclareFunction(gluTessBeginContour)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(Tesselator, gluTessBeginContour)
+Gura_ImplementFunction(gluTessBeginContour)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	::gluTessBeginContour(tess);
@@ -369,15 +369,15 @@ Gura_ImplementMethod(Tesselator, gluTessBeginContour)
 	return Value::Null;
 }
 
-// glu.tesselator#gluTessVertex(coords[]:number):void
-Gura_DeclareMethod(Tesselator, gluTessVertex)
+// glu.gluTessVertex(tess:Tesselator, coords[]:number):void
+Gura_DeclareFunction(gluTessVertex)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator);
 	DeclareArg(env, "coords", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
-Gura_ImplementMethod(Tesselator, gluTessVertex)
+Gura_ImplementFunction(gluTessVertex)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	DeclareArray(GLdouble, coords, 3, 1);
@@ -385,36 +385,36 @@ Gura_ImplementMethod(Tesselator, gluTessVertex)
 	return Value::Null;
 }
 
-// glu.tesselator#gluTessEndContour():void
-Gura_DeclareMethod(Tesselator, gluTessEndContour)
+// glu.gluTessEndContour(tess:Tesselator):void
+Gura_DeclareFunction(gluTessEndContour)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator);
 }
 
-Gura_ImplementMethod(Tesselator, gluTessEndContour)
+Gura_ImplementFunction(gluTessEndContour)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	::gluTessEndContour(tess);
 	return Value::Null;
 }
 
-// glu.tesselator#gluTessEndPolygon():void
-Gura_DeclareMethod(Tesselator, gluTessEndPolygon)
+// glu.gluTessEndPolygon(tess:Tesselator):void
+Gura_DeclareFunction(gluTessEndPolygon)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator);
 }
 
-Gura_ImplementMethod(Tesselator, gluTessEndPolygon)
+Gura_ImplementFunction(gluTessEndPolygon)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	::gluTessEndPolygon(tess);
 	return Value::Null;
 }
 
-// glu.tesselator#gluTessProperty(which:number, value:number):void
-Gura_DeclareMethod(Tesselator, gluTessProperty)
+// glu.gluTessProperty(tess:Tesselator, which:number, value:number):void
+Gura_DeclareFunction(gluTessProperty)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator);
@@ -422,7 +422,7 @@ Gura_DeclareMethod(Tesselator, gluTessProperty)
 	DeclareArg(env, "value", VTYPE_number);
 }
 
-Gura_ImplementMethod(Tesselator, gluTessProperty)
+Gura_ImplementFunction(gluTessProperty)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	GLenum   which = args.GetUInt(1);
@@ -431,8 +431,8 @@ Gura_ImplementMethod(Tesselator, gluTessProperty)
 	return Value::Null;
 }
 
-// glu.tesselator#gluTessNormal(x:number, y:number, z:number):void
-Gura_DeclareMethod(Tesselator, gluTessNormal)
+// glu.gluTessNormal(tess:Tesselator, x:number, y:number, z:number):void
+Gura_DeclareFunction(gluTessNormal)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator);
@@ -441,7 +441,7 @@ Gura_DeclareMethod(Tesselator, gluTessNormal)
 	DeclareArg(env, "z", VTYPE_number);
 }
 
-Gura_ImplementMethod(Tesselator, gluTessNormal)
+Gura_ImplementFunction(gluTessNormal)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	GLdouble x = args.GetDouble(1);
@@ -451,8 +451,8 @@ Gura_ImplementMethod(Tesselator, gluTessNormal)
 	return Value::Null;
 }
 
-// glu.tesselator#gluTessCallback(which:number, fn:function):void
-Gura_DeclareMethod(Tesselator, gluTessCallback)
+// glu.gluTessCallback(tess:Tesselator, which:number, fn:function):void
+Gura_DeclareFunction(gluTessCallback)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator);
@@ -460,7 +460,7 @@ Gura_DeclareMethod(Tesselator, gluTessCallback)
 	DeclareArg(env, "fn", VTYPE_function);
 }
 
-Gura_ImplementMethod(Tesselator, gluTessCallback)
+Gura_ImplementFunction(gluTessCallback)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 #if 0
@@ -474,15 +474,15 @@ Gura_ImplementMethod(Tesselator, gluTessCallback)
 	return Value::Null;
 }
 
-// glu.tesselator#gluGetTessProperty(which:number)
-Gura_DeclareMethod(Tesselator, gluGetTessProperty)
+// glu.gluGetTessProperty(tess:Tesselator, which:number)
+Gura_DeclareFunction(gluGetTessProperty)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator);
 	DeclareArg(env, "which", VTYPE_number);
 }
 
-Gura_ImplementMethod(Tesselator, gluGetTessProperty)
+Gura_ImplementFunction(gluGetTessProperty)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	GLenum   which = args.GetUInt(1);
@@ -491,15 +491,15 @@ Gura_ImplementMethod(Tesselator, gluGetTessProperty)
 	return Value(static_cast<Number>(value));
 }
 
-// glu.tesselator#gluBeginPolygon():void {block?}
-Gura_DeclareMethod(Tesselator, gluBeginPolygon)
+// glu.gluBeginPolygon(tess:Tesselator):void {block?}
+Gura_DeclareFunction(gluBeginPolygon)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(Tesselator, gluBeginPolygon)
+Gura_ImplementFunction(gluBeginPolygon)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	::gluBeginPolygon(tess);
@@ -513,15 +513,15 @@ Gura_ImplementMethod(Tesselator, gluBeginPolygon)
 	return Value::Null;
 }
 
-// glu.tesselator#gluNextContour(type:number):void
-Gura_DeclareMethod(Tesselator, gluNextContour)
+// glu.gluNextContour(tess:Tesselator, type:number):void
+Gura_DeclareFunction(gluNextContour)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator);
 	DeclareArg(env, "type", VTYPE_number);
 }
 
-Gura_ImplementMethod(Tesselator, gluNextContour)
+Gura_ImplementFunction(gluNextContour)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	GLenum type = args.GetUInt(1);
@@ -529,14 +529,14 @@ Gura_ImplementMethod(Tesselator, gluNextContour)
 	return Value::Null;
 }
 
-// glu.tesselator#gluEndPolygon():void
-Gura_DeclareMethod(Tesselator, gluEndPolygon)
+// glu.gluEndPolygon(tess:Tesselator):void
+Gura_DeclareFunction(gluEndPolygon)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "tess", VTYPE_Tesselator);
 }
 
-Gura_ImplementMethod(Tesselator, gluEndPolygon)
+Gura_ImplementFunction(gluEndPolygon)
 {
 	GLUtesselator *tess = Object_Tesselator::GetObject(args, 0)->GetTesselator();
 	::gluEndPolygon(tess);
@@ -546,18 +546,18 @@ Gura_ImplementMethod(Tesselator, gluEndPolygon)
 // implementation of class Tesselator
 Gura_ImplementUserClass(Tesselator)
 {
-	Gura_AssignMethod(Tesselator, gluTessBeginPolygon);
-	Gura_AssignMethod(Tesselator, gluTessBeginContour);
-	Gura_AssignMethod(Tesselator, gluTessVertex);
-	Gura_AssignMethod(Tesselator, gluTessEndContour);
-	Gura_AssignMethod(Tesselator, gluTessEndPolygon);
-	Gura_AssignMethod(Tesselator, gluTessProperty);
-	Gura_AssignMethod(Tesselator, gluTessNormal);
-	Gura_AssignMethod(Tesselator, gluTessCallback);
-	Gura_AssignMethod(Tesselator, gluGetTessProperty);
-	Gura_AssignMethod(Tesselator, gluBeginPolygon);
-	Gura_AssignMethod(Tesselator, gluNextContour);
-	Gura_AssignMethod(Tesselator, gluEndPolygon);
+	Gura_AssignFunction(gluTessBeginPolygon);
+	Gura_AssignFunction(gluTessBeginContour);
+	Gura_AssignFunction(gluTessVertex);
+	Gura_AssignFunction(gluTessEndContour);
+	Gura_AssignFunction(gluTessEndPolygon);
+	Gura_AssignFunction(gluTessProperty);
+	Gura_AssignFunction(gluTessNormal);
+	Gura_AssignFunction(gluTessCallback);
+	Gura_AssignFunction(gluGetTessProperty);
+	Gura_AssignFunction(gluBeginPolygon);
+	Gura_AssignFunction(gluNextContour);
+	Gura_AssignFunction(gluEndPolygon);
 }
 
 //-----------------------------------------------------------------------------
@@ -581,15 +581,15 @@ String Object_Nurbs::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_Nurbs
 //-----------------------------------------------------------------------------
-// glu.nurbs#gluBeginSurface():void {block?}
-Gura_DeclareMethod(Nurbs, gluBeginSurface)
+// glu.gluBeginSurface(nobj:Nurbs):void {block?}
+Gura_DeclareFunction(gluBeginSurface)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(Nurbs, gluBeginSurface)
+Gura_ImplementFunction(gluBeginSurface)
 {
 	GLUnurbs *nobj = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	::gluBeginSurface(nobj);
@@ -603,15 +603,15 @@ Gura_ImplementMethod(Nurbs, gluBeginSurface)
 	return Value::Null;
 }
 
-// glu.nurbs#gluBeginCurve():void {block?}
-Gura_DeclareMethod(Nurbs, gluBeginCurve)
+// glu.gluBeginCurve(nobj:Nurbs):void {block?}
+Gura_DeclareFunction(gluBeginCurve)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(Nurbs, gluBeginCurve)
+Gura_ImplementFunction(gluBeginCurve)
 {
 	GLUnurbs *nobj = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	::gluBeginCurve(nobj);
@@ -625,43 +625,43 @@ Gura_ImplementMethod(Nurbs, gluBeginCurve)
 	return Value::Null;
 }
 
-// glu.nurbs#gluEndCurve():void
-Gura_DeclareMethod(Nurbs, gluEndCurve)
+// glu.gluEndCurve(nobj:Nurbs):void
+Gura_DeclareFunction(gluEndCurve)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
 }
 
-Gura_ImplementMethod(Nurbs, gluEndCurve)
+Gura_ImplementFunction(gluEndCurve)
 {
 	GLUnurbs *nobj = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	::gluEndCurve(nobj);
 	return Value::Null;
 }
 
-// glu.nurbs#gluEndSurface():void
-Gura_DeclareMethod(Nurbs, gluEndSurface)
+// glu.gluEndSurface(nobj:Nurbs):void
+Gura_DeclareFunction(gluEndSurface)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
 }
 
-Gura_ImplementMethod(Nurbs, gluEndSurface)
+Gura_ImplementFunction(gluEndSurface)
 {
 	GLUnurbs *nobj = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	::gluEndSurface(nobj);
 	return Value::Null;
 }
 
-// glu.nurbs#gluBeginTrim():void {block?}
-Gura_DeclareMethod(Nurbs, gluBeginTrim)
+// glu.gluBeginTrim(nobj:Nurbs):void {block?}
+Gura_DeclareFunction(gluBeginTrim)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(Nurbs, gluBeginTrim)
+Gura_ImplementFunction(gluBeginTrim)
 {
 	GLUnurbs *nobj = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	::gluBeginTrim(nobj);
@@ -675,22 +675,22 @@ Gura_ImplementMethod(Nurbs, gluBeginTrim)
 	return Value::Null;
 }
 
-// glu.nurbs#gluEndTrim():void
-Gura_DeclareMethod(Nurbs, gluEndTrim)
+// glu.gluEndTrim(nobj:Nurbs):void
+Gura_DeclareFunction(gluEndTrim)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
 }
 
-Gura_ImplementMethod(Nurbs, gluEndTrim)
+Gura_ImplementFunction(gluEndTrim)
 {
 	GLUnurbs *nobj = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	::gluEndTrim(nobj);
 	return Value::Null;
 }
 
-// glu.nurbs#gluPwlCurve(data[]:number, stride:number, type:number):void
-Gura_DeclareMethod(Nurbs, gluPwlCurve)
+// glu.gluPwlCurve(nobj:Nurbs, data[]:number, stride:number, type:number):void
+Gura_DeclareFunction(gluPwlCurve)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
@@ -699,7 +699,7 @@ Gura_DeclareMethod(Nurbs, gluPwlCurve)
 	DeclareArg(env, "type", VTYPE_number);
 }
 
-Gura_ImplementMethod(Nurbs, gluPwlCurve)
+Gura_ImplementFunction(gluPwlCurve)
 {
 	GLUnurbs *nobj = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	size_t n = args.GetList(1).size();
@@ -720,9 +720,9 @@ Gura_ImplementMethod(Nurbs, gluPwlCurve)
 	return Value::Null;
 }
 
-// glu.nurbs#gluNurbsCurve(knot[]:number, stride:number,
+// glu.gluNurbsCurve(nobj:Nurbs, knot[]:number, stride:number,
 //                         ctlarray[]:number, order:number, type:number):void
-Gura_DeclareMethod(Nurbs, gluNurbsCurve)
+Gura_DeclareFunction(gluNurbsCurve)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
@@ -733,7 +733,7 @@ Gura_DeclareMethod(Nurbs, gluNurbsCurve)
 	DeclareArg(env, "type", VTYPE_number);
 }
 
-Gura_ImplementMethod(Nurbs, gluNurbsCurve)
+Gura_ImplementFunction(gluNurbsCurve)
 {
 	GLUnurbs *nobj = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	GLint   nknots = static_cast<GLint>(args.GetList(1).size());
@@ -748,9 +748,9 @@ Gura_ImplementMethod(Nurbs, gluNurbsCurve)
 	return Value::Null;
 }
 
-// glu.gluNurbsSurface(sknot[]:number, tknot[]:number, s_stride:number, t_stride:number,
+// glu.gluNurbsSurface(nobj:Nurbs, sknot[]:number, tknot[]:number, s_stride:number, t_stride:number,
 //                     ctlarray[]:number, order:number, torder:number, type:number):void
-Gura_DeclareMethod(Nurbs, gluNurbsSurface)
+Gura_DeclareFunction(gluNurbsSurface)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
@@ -764,7 +764,7 @@ Gura_DeclareMethod(Nurbs, gluNurbsSurface)
 	DeclareArg(env, "type", VTYPE_number);
 }
 
-Gura_ImplementMethod(Nurbs, gluNurbsSurface)
+Gura_ImplementFunction(gluNurbsSurface)
 {
 	GLUnurbs *nobj = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	GLint   sknot_count = static_cast<GLint>(args.GetList(1).size());
@@ -785,8 +785,8 @@ Gura_ImplementMethod(Nurbs, gluNurbsSurface)
 	return Value::Null;
 }
 
-// glu.gluLoadSamplingMatrices(model[]:number, perspective[]:number, view[]:number):void
-Gura_DeclareMethod(Nurbs, gluLoadSamplingMatrices)
+// glu.gluLoadSamplingMatrices(nobj:Nurbs, model[]:number, perspective[]:number, view[]:number):void
+Gura_DeclareFunction(gluLoadSamplingMatrices)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
@@ -795,7 +795,7 @@ Gura_DeclareMethod(Nurbs, gluLoadSamplingMatrices)
 	DeclareArg(env, "view", VTYPE_number, OCCUR_Once, FLAG_List);
 }
 
-Gura_ImplementMethod(Nurbs, gluLoadSamplingMatrices)
+Gura_ImplementFunction(gluLoadSamplingMatrices)
 {
 	GLUnurbs *nobj = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	DeclareArray(GLfloat, model, 16, 1);
@@ -805,8 +805,8 @@ Gura_ImplementMethod(Nurbs, gluLoadSamplingMatrices)
 	return Value::Null;
 }
 
-// glu.gluNurbsProperty(property:number, value:number):void
-Gura_DeclareMethod(Nurbs, gluNurbsProperty)
+// glu.gluNurbsProperty(nobj:Nurbs, property:number, value:number):void
+Gura_DeclareFunction(gluNurbsProperty)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
@@ -814,7 +814,7 @@ Gura_DeclareMethod(Nurbs, gluNurbsProperty)
 	DeclareArg(env, "value", VTYPE_number);
 }
 
-Gura_ImplementMethod(Nurbs, gluNurbsProperty)
+Gura_ImplementFunction(gluNurbsProperty)
 {
 	GLUnurbs *nobj = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	GLenum  property = args.GetUInt(1);
@@ -823,15 +823,15 @@ Gura_ImplementMethod(Nurbs, gluNurbsProperty)
 	return Value::Null;
 }
 
-// glu.gluGetNurbsProperty(property:number)
-Gura_DeclareMethod(Nurbs, gluGetNurbsProperty)
+// glu.gluGetNurbsProperty(nobj:Nurbs, property:number)
+Gura_DeclareFunction(gluGetNurbsProperty)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
 	DeclareArg(env, "property", VTYPE_number);
 }
 
-Gura_ImplementMethod(Nurbs, gluGetNurbsProperty)
+Gura_ImplementFunction(gluGetNurbsProperty)
 {
 	GLUnurbs *nobj = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	GLenum  property = args.GetUInt(1);
@@ -840,14 +840,14 @@ Gura_ImplementMethod(Nurbs, gluGetNurbsProperty)
 	return Value(static_cast<Number>(value));
 }
 
-// glu.gluNurbsCallback():void
-Gura_DeclareMethod(Nurbs, gluNurbsCallback)
+// glu.gluNurbsCallback(nobj:Nurbs):void
+Gura_DeclareFunction(gluNurbsCallback)
 {
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "nobj", VTYPE_Nurbs);
 }
 
-Gura_ImplementMethod(Nurbs, gluNurbsCallback)
+Gura_ImplementFunction(gluNurbsCallback)
 {
 	GLUnurbs *nobj = Object_Nurbs::GetObject(args, 0)->GetNurbs();
 	sig.SetError(ERR_SystemError, "not implemented");
@@ -857,19 +857,19 @@ Gura_ImplementMethod(Nurbs, gluNurbsCallback)
 // implementation of class Nurbs
 Gura_ImplementUserClass(Nurbs)
 {
-	Gura_AssignMethod(Nurbs, gluBeginSurface);
-	Gura_AssignMethod(Nurbs, gluBeginCurve);
-	Gura_AssignMethod(Nurbs, gluEndCurve);
-	Gura_AssignMethod(Nurbs, gluEndSurface);
-	Gura_AssignMethod(Nurbs, gluBeginTrim);
-	Gura_AssignMethod(Nurbs, gluEndTrim);
-	Gura_AssignMethod(Nurbs, gluPwlCurve);
-	Gura_AssignMethod(Nurbs, gluNurbsCurve);
-	Gura_AssignMethod(Nurbs, gluNurbsSurface);
-	Gura_AssignMethod(Nurbs, gluLoadSamplingMatrices);
-	Gura_AssignMethod(Nurbs, gluNurbsProperty);
-	Gura_AssignMethod(Nurbs, gluGetNurbsProperty);
-	Gura_AssignMethod(Nurbs, gluNurbsCallback);
+	Gura_AssignFunction(gluBeginSurface);
+	Gura_AssignFunction(gluBeginCurve);
+	Gura_AssignFunction(gluEndCurve);
+	Gura_AssignFunction(gluEndSurface);
+	Gura_AssignFunction(gluBeginTrim);
+	Gura_AssignFunction(gluEndTrim);
+	Gura_AssignFunction(gluPwlCurve);
+	Gura_AssignFunction(gluNurbsCurve);
+	Gura_AssignFunction(gluNurbsSurface);
+	Gura_AssignFunction(gluLoadSamplingMatrices);
+	Gura_AssignFunction(gluNurbsProperty);
+	Gura_AssignFunction(gluGetNurbsProperty);
+	Gura_AssignFunction(gluNurbsCallback);
 }
 
 //-----------------------------------------------------------------------------
