@@ -1833,11 +1833,11 @@ ArgInfo = struct(name:string, valType:string:nil, occurPattern:string:nil,
 	GetArg(idx:number) = format(this.fmtGetter, idx)
 }
 
-ReturnInfo = struct(typeC:string, fmtReturn:string:nil, bodyPre:string:nil) {
-}
+ReturnInfo = struct(typeC:string, fmtReturn:string:nil, bodyPre:string:nil)
 
-TypeConv = struct(valType:string:nil, occurPattern:string:nil, flags[]:string, typeC:string,
-				  fmtGetter:string:nil, fmtReturn:string:nil, bodyPre?:string)
+TypeConv = struct(
+		valType:string:nil, occurPattern:string:nil, flags[]:string,
+		typeC:string, fmtGetter:string:nil, fmtReturn:string:nil, bodyPre?:string)
 
 TypeConv_Enum(typeName:string) = {
 	typeName => TypeConv(
@@ -2155,7 +2155,7 @@ FuncInfo = class {
 	public {
 		funcNameC, funcNameGura, args, rtnInfo, body
 	}
-	__init__(decl:expr):map = {
+	__init__(decl:expr, funcNameTranslator:function):map = {
 		if (decl.isassign()) {
 			caller = decl.left
 			if (!(decl.right.isvalue() && isstring(decl.right.value))) {
@@ -2169,7 +2169,7 @@ FuncInfo = class {
 		}
 		funcNameRaw:string = caller.car.symbol
 		this.funcNameC = funcNameRaw.replace('$', '')
-		this.funcNameGura = this.funcNameC.sub('^SDL_', '')
+		this.funcNameGura = funcNameTranslator(this.funcNameC)
 		this.validFlag = !funcNameRaw.find('$')
 		this.body = body
 		rtnTypeRaw = caller.attrfront.join('.')
@@ -2230,7 +2230,8 @@ FuncInfo = class {
 	}
 }
 
-funcInfos = FuncInfo(decls.children):list
+funcInfos = FuncInfo(decls.children, &{$funcNameC.sub('^SDL_', '')}):list
+
 if (sys.argv.len() > 1 && sys.argv[1] == 'test') {
 	print(funcInfos:*RenderImplementation())
 	//print(funcInfos:*RenderAsignment())
