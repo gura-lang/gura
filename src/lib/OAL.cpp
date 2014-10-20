@@ -24,6 +24,7 @@ typedef int mode_t;
 #include <dlfcn.h>
 #include <pthread.h>
 #include <fcntl.h>
+#include <errno.h>
 #include <sys/time.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
