@@ -2080,12 +2080,12 @@ typeConvDict = %{
 }
 
 Renderer(decls.children, &{$funcNameC.sub('^SDL_', '')}) {|renderer|
-	fileNameTmpl = 'Functions.cpp.tmpl'
-	fileNameOut = 'Functions.cpp'
 	if (sys.argv.len() > 1 && sys.argv[1] == 'test') {
 		print(renderer.RenderImplementation())
 		//print(renderer.RenderAsignment())
 	} else {
+		fileNameTmpl = 'Functions.cpp.tmpl'
+		fileNameOut = 'Functions.cpp'
 		template(fileNameTmpl).render(fileNameOut)
 		println(fileNameOut, ' was created')
 	}
