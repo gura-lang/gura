@@ -1599,6 +1599,16 @@ String _GetExecutablePath()
 	return String("");
 }
 
+#else
+	
+String _GetExecutablePath()
+{
+	// /proc/self/exe
+	return "/usr/bin/gura";
+}
+
+#endif
+
 String _ReadLink(const char *pathName)
 {
 	size_t bufsize = 128;
@@ -1618,7 +1628,7 @@ String _ReadLink(const char *pathName)
 	return String("");
 }
 
-String GetExecutableEntity()
+String GetExecutable()
 {
 	String pathName = _GetExecutablePath();
 	for (int i = 0; i < 100; i++) {
@@ -1634,14 +1644,9 @@ String GetExecutableEntity()
 	return pathName;
 }
 
-String GetExecutable()
-{
-	return GetExecutableEntity();
-}
-
 String GetBaseDir()
 {
-	String pathName = EliminateBottomDirName(GetExecutableEntity().c_str());
+	String pathName = EliminateBottomDirName(GetExecutable().c_str());
 	pathName = EliminateBottomDirName(pathName.c_str());
 	if (pathName.empty()) pathName = "/";
 	return pathName;
@@ -1672,40 +1677,6 @@ String GetLibraryDir()
 {
 	return JoinPathName(GetBaseDir().c_str(), "lib");
 }
-
-#else
-
-String GetExecutable()
-{
-	return JoinPathName(GURA_DIR_BINARY, "gura");
-}
-
-String GetBaseDir()
-{
-	return String(GURA_DIR_SHARE);
-}
-
-String GetDataDir()
-{
-	return GetBaseDir();
-}
-
-String GetModuleDir()
-{
-	return GURA_DIR_MODULE;
-}
-
-String GetIncludeDir()
-{
-	return GURA_DIR_INCLUDE;
-}
-
-String GetLibraryDir()
-{
-	return GURA_DIR_LIBRARY;
-}
-
-#endif
 
 String GetLocalDir()
 {

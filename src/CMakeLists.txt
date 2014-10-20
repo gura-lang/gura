@@ -49,10 +49,6 @@ set(GURA_DSTDIR_MODULE		${CMAKE_INSTALL_PREFIX}/${GURA_RELDIR_MODULE})
 set(GURA_DSTDIR_GUESTS		${CMAKE_INSTALL_PREFIX}/${GURA_RELDIR_GUESTS})
 
 configure_file(
-  ${GURA_SRCDIR_INCLUDE}/gura/config.h.in
-  ${GURA_SRCDIR_INCLUDE}/gura/config.h)
-
-configure_file(
   ${PROJECT_SOURCE_DIR}/resource/build/build-modules.in
   ${CMAKE_BINARY_DIR}/tmp/build-modules)
 

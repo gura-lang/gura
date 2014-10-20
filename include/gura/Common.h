@@ -46,9 +46,6 @@ typedef unsigned __int64 uint64;
 #define strcasecmp stricmp
 #define GURA_USE_MSWIN_DIB 1
 #else
-#if defined(HAVE_CONFIG_H)
-#include "config.h"
-#endif
 #define GURA_DLLIMPORT
 #define GURA_DLLEXPORT
 #define GURA_DLLDECLARE
