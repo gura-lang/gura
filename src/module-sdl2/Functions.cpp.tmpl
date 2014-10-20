@@ -6,7 +6,7 @@
 
 Gura_BeginModuleScope(sdl2)
 
-${funcInfos:*RenderImplementation() + '\n'}
+${renderer.RenderImplementation()}
 
 // sdl2.test()
 Gura_DeclareFunction(test)
@@ -20,7 +20,7 @@ Gura_ImplementFunction(test)
 
 void AssignFunctions(Environment &env)
 {
-	${funcInfos:*RenderAssignment()}
+	${renderer.RenderAssignment()}
 	Gura_AssignFunction(test);
 }
 

@@ -1828,16 +1828,7 @@ SDL_AndroidGetJNIEnv$()
 SDL_acos(x:double):double
 }
 
-ArgInfo = struct(name:string, valType:string:nil, occurPattern:string:nil,
-				 typeC:string, fmtGetter:string:nil, flags[]:string) {
-	GetArg(idx:number) = format(this.fmtGetter, idx)
-}
-
-ReturnInfo = struct(typeC:string, fmtReturn:string:nil, bodyPre:string:nil)
-
-TypeConv = struct(
-		valType:string:nil, occurPattern:string:nil, flags[]:string,
-		typeC:string, fmtGetter:string:nil, fmtReturn:string:nil, bodyPre?:string)
+import(modimp) {TypeConv, Renderer}
 
 TypeConv_Enum(typeName:string) = {
 	typeName => TypeConv(
@@ -2088,156 +2079,14 @@ typeConvDict = %{
 	TypeConv_Class('SDL_Window@')
 }
 
-tmplImplementation = R'''
-// sdl2.${fi.funcNameGura}
-Gura_DeclareFunction(${fi.funcNameGura})
-{
-	${if (fi.rtnInfo.fmtReturn)}
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-	${else}
-	SetMode(RSLTMODE_Void, FLAG_None);
-	${end}
-	${for (arg in fi.args)}
-	DeclareArg(env, "${arg.name}", VTYPE_${arg.valType}, OCCUR_${arg.occurPattern}, ${('FLAG_' + arg.flags).join('|')});
-	${end}
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"");
-}
-
-Gura_ImplementFunction(${fi.funcNameGura})
-{
-	${if (!fi.validFlag)}
-#if 0
-	${end}
-	${argsJoined = fi.args:*name.join(', '), -}
-	${for (arg in fi.args) {|idx|}}
-	${if (arg.fmtGetter)}
-	${arg.typeC.sub(r'([\w>])$', r'\1 ') + arg.name} = ${
-		if (!arg.typeC.endswith('*')) {
-			arg.GetArg(idx)
-		} elsif (arg.flags.find('Nil')) {
-			format('args.IsValid(%d)? ', idx) + arg.GetArg(idx) + ' : NULL'
-		} else {
-			arg.GetArg(idx)
-		}
-	};
-	${end}
-	${end}
-	${if (fi.body)}
-${fi.body}
-	${else}
-	${if (fi.rtnInfo.typeC && !fi.rtnInfo.typeC.isempty())}
-	${fi.rtnInfo.typeC.sub(r'(\w)$', r'\1 ')}_rtn = ${fi.funcNameC}(${argsJoined});
-	${else}
-	${fi.funcNameC}(${argsJoined});
-	${end}
-${fi.rtnInfo.bodyPre}
-	${if (fi.rtnInfo.fmtReturn)}
-	return ReturnValue(env, sig, args, ${fi.rtnInfo.fmtReturn});
-	${else}
-	return Value::Null;
-	${end}
-	${end}
-	${if (!fi.validFlag)}
-#endif
-	SetError_NotImpFunction(sig, "${fi.funcNameGura}");
-	return Value::Null;
-	${end}
-}
-'''.template()
-
-tmplAssignment = R'''
-	Gura_AssignFunction(${fi.funcNameGura});
-'''.template()
-
-FuncInfo = class {
-	public {
-		funcNameC, funcNameGura, args, rtnInfo, body
-	}
-	__init__(decl:expr, funcNameTranslator:function):map = {
-		if (decl.isassign()) {
-			caller = decl.left
-			if (!(decl.right.isvalue() && isstring(decl.right.value))) {
-				this.PrintError(decl, 'assigned value must be a string')
-				sys.exit(1)
-			}
-			body = decl.right.value
-		} else {
-			caller = decl
-			body = nil
-		}
-		funcNameRaw:string = caller.car.symbol
-		this.funcNameC = funcNameRaw.replace('$', '')
-		this.funcNameGura = funcNameTranslator(this.funcNameC)
-		this.validFlag = !funcNameRaw.find('$')
-		this.body = body
-		rtnTypeRaw = caller.attrfront.join('.')
-		if (rtnTypeRaw.isempty() && !this.validFlag) {
-			rtnTypeRaw = 'void'
-		}
-		if (caller.attrs.find(`const)) {
-			rtnTypeRaw += ':const'
-		}
-		typeConv = typeConvDict.get(rtnTypeRaw)
-		if (!typeConv) {
-			this.PrintError(decl,
-							'proper conversion not found in table "%s"', rtnTypeRaw)
-			sys.exit(1)
-		}
-		this.rtnInfo = ReturnInfo(typeConv.typeC, typeConv.fmtReturn, typeConv.bodyPre)
-		this.args = caller.cdr.each():list {|arg|
-			if (arg.isindexer()) {
-				identifier = arg.car
-				argTypeRaw = identifier.attrfront.join('.') + '[]'
-			} else {
-				identifier = arg
-				argTypeRaw = identifier.attrfront.join('.')
-			}
-			if (identifier.attrs.find(`const)) {
-				argTypeRaw += ':const'
-			}
-			typeConv = typeConvDict.get(argTypeRaw)
-			if (!typeConv) {
-				this.PrintError(decl,
-								'proper conversion not found in table "%s"', argTypeRaw)
-				sys.exit(1)
-			}
-			flags = []
-			flags.append(typeConv.flags)
-			if (identifier.attrs.find(`nil)) {
-				flags.append('Nil')
-			}
-			if (flags.isempty()) {
-				flags.append('None')
-			}
-			name = identifier.symbol
-			ArgInfo(name, typeConv.valType, typeConv.occurPattern,
-					typeConv.typeC, typeConv.fmtGetter, flags)
-		}
-	}
-	PrintError(decl:expr, fmt:string, args*) = {
-		sys.stderr.printf('%s:%d: %s',
-				  path.filename(decl.source), decl.lineno, format(fmt, args*))
-	}
-	RenderImplementation() = {
-		fi = this
-		tmplImplementation.render()
-	}
-	RenderAssignment() = {
-		fi = this
-		tmplAssignment.render()
-	}
-}
-
-funcInfos = FuncInfo(decls.children, &{$funcNameC.sub('^SDL_', '')}):list
-
-if (sys.argv.len() > 1 && sys.argv[1] == 'test') {
-	print(funcInfos:*RenderImplementation())
-	//print(funcInfos:*RenderAsignment())
-} else {
+Renderer(decls.children, &{$funcNameC.sub('^SDL_', '')}) {|renderer|
 	fileNameTmpl = 'Functions.cpp.tmpl'
 	fileNameOut = 'Functions.cpp'
-	template(fileNameTmpl).render(fileNameOut)
-	println(fileNameOut, ' was created')
+	if (sys.argv.len() > 1 && sys.argv[1] == 'test') {
+		print(renderer.RenderImplementation())
+		//print(renderer.RenderAsignment())
+	} else {
+		template(fileNameTmpl).render(fileNameOut)
+		println(fileNameOut, ' was created')
+	}
 }
