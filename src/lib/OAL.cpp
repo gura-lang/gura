@@ -47,12 +47,19 @@ bool IsAbsPathName(const char *pathName)
 						(IsAlpha(*pathName) && *(pathName + 1) == ':');
 }
 
-String MakeAbsPathName(char chSeparator, const char *fileName)
+String MakeAbsPathName(char chSeparator, const char *fileName, const char *dirNameBase)
 {
 	bool cutLastSepFlag = false;
 	String pathName;
-	if (!IsAbsPathName(fileName)) {
+	if (IsAbsPathName(fileName)) {
+		// nothing to do
+	} else if (dirNameBase == NULL) {
 		pathName += GetCurDir();
+	} else {
+		pathName += dirNameBase;
+		if (pathName.empty() || !IsFileSeparator(pathName[pathName.size() - 1])) {
+			pathName += FileSeparator;
+		}
 	}
 	pathName += fileName;
 	return RegulatePathName(chSeparator, pathName.c_str(), cutLastSepFlag);
@@ -738,7 +745,7 @@ String GetCurDir()
 	char pathName[MAX_PATH];
 	::GetCurrentDirectory(MAX_PATH, pathName);
 	String rtn = FromNativeString(pathName);
-	if (!rtn.empty() && !IsFileSeparator(rtn[rtn.size() - 1])) {
+	if (rtn.empty() || !IsFileSeparator(rtn[rtn.size() - 1])) {
 		rtn += FileSeparator;
 	}
 	return rtn;
@@ -1485,7 +1492,7 @@ String GetCurDir()
 	char *pathName = ::getcwd(NULL, 0);
 	String rtn = FromNativeString(pathName);
 	::free(pathName);
-	if (!rtn.empty() && !IsFileSeparator(rtn[rtn.size() - 1])) {
+	if (rtn.empty() || !IsFileSeparator(rtn[rtn.size() - 1])) {
 		rtn += FileSeparator;
 	}
 	return rtn;
@@ -1575,37 +1582,69 @@ int GetSecsOffsetTZ()
 	return -tz.tz_minuteswest * 60;
 }
 
-#if 0
+#if defined(GURA_ON_DARWIN)
+
+String _GetExecutablePath()
+{
+	uint32_t bufsize = 1024;
+	for (int i = 0; i < 2; i++) {
+		char *buf = new char [bufsize];
+		if (::_NSGetExecutablePath(buf, &bufsize) == 0) {
+			String rtn = FromNativeString(buf);
+			delete[] buf;
+			return rtn;
+		}
+		delete[] buf;
+	}
+	return String("");
+}
+
+String _ReadLink(const char *pathName)
+{
+	size_t bufsize = 128;
+	for (int i = 0; i < 8; i++) {
+		char *buf = new char [bufsize + 1];
+		ssize_t size = ::readlink(pathName, buf, bufsize);
+		if (size >= 0) {
+			buf[size] = '\0';
+			String rtn = FromNativeString(buf);
+			delete[] buf;
+			return rtn;
+		}
+		delete[] buf;
+		if (errno != EFAULT) return String("");
+		bufsize *= 2;
+	}
+	return String("");
+}
+
+String GetExecutableEntity()
+{
+	String pathName = _GetExecutablePath();
+	for (int i = 0; i < 100; i++) {
+		struct stat sb;
+		int rtn = ::lstat(pathName.c_str(), &sb);
+		if (rtn < 0 || !S_ISLNK(sb.st_mode)) break;
+		String linkName = _ReadLink(pathName.c_str());
+		if (linkName.empty()) break; // this must not happen.
+		String dirNameBase = EliminateBottomDirName(pathName.c_str());
+		if (dirNameBase.empty()) dirNameBase = "/";
+		pathName = MakeAbsPathName(FileSeparator, linkName.c_str(), dirNameBase.c_str());
+	}
+	return pathName;
+}
 
 String GetExecutable()
 {
-	char pathName[1024];
-	uint32_t size = sizeof(pathName);
-	// This API returns a path name to the executable even if the path is a symbolic link.
-	::_NSGetExecutablePath(pathName, &size);
-	return FromNativeString(pathName);
+	return GetExecutableEntity();
 }
 
 String GetBaseDir()
 {
-	char pathName[1024];
-	uint32_t size = sizeof(pathName);
-	::_NSGetExecutablePath(pathName, &size);
-	char *p = pathName + ::strlen(pathName);
-	for ( ; p >= pathName; p--) {
-		if (*p == '/') {
-			*p = '\0';
-			break;
-		}
-	}
-	if (p > pathName) p--;
-	for ( ; p >= pathName; p--) {
-		if (*p == '/') {
-			*p = '\0';
-			break;
-		}
-	}
-	return FromNativeString(pathName);
+	String pathName = EliminateBottomDirName(GetExecutableEntity().c_str());
+	pathName = EliminateBottomDirName(pathName.c_str());
+	if (pathName.empty()) pathName = "/";
+	return pathName;
 }
 
 String GetDataDir()
