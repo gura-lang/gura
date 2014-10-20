@@ -440,7 +440,7 @@ const char *GetEncodingForConsole()
 		const char *key;
 		const char *value;
 	};
-	String str = OAL::GetEnv("LANG");
+	String str = GetEnv("LANG");
 	if (str.empty()) return encodingDefault;
 	const char *strp = str.c_str();
 	const char *p = ::strchr(strp, '.');
@@ -526,7 +526,7 @@ const Symbol *GetLangCode()
 
 const Symbol *GetLangCode()
 {
-	String str = OAL::GetEnv("LANG");
+	String str = GetEnv("LANG");
 	const char *strp = str.c_str();
 	const char *p = strp;
 	while (*p != '\0' && *p != '_' && *p != '.') p++;
@@ -1016,9 +1016,9 @@ FileStat::FileStat(const char *pathName, const BY_HANDLE_FILE_INFORMATION &attrD
 	_pathName(pathName), _attr(0), _bytes(attrData.nFileSizeLow),
 	_uid(0), _gid(0)
 {
-	_atime = OAL::ToDateTime(attrData.ftLastAccessTime);
-	_mtime = OAL::ToDateTime(attrData.ftLastWriteTime);
-	_ctime = OAL::ToDateTime(attrData.ftCreationTime);
+	_atime = ToDateTime(attrData.ftLastAccessTime);
+	_mtime = ToDateTime(attrData.ftLastWriteTime);
+	_ctime = ToDateTime(attrData.ftCreationTime);
 	if (attrData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
 		_attr |= ATTR_Dir;
 	} else {
@@ -1034,9 +1034,9 @@ FileStat::FileStat(const char *pathName, const BY_HANDLE_FILE_INFORMATION &attrD
 FileStat::FileStat(const char *pathName, const WIN32_FILE_ATTRIBUTE_DATA &attrData) :
 	_pathName(pathName), _attr(0), _bytes(attrData.nFileSizeLow), _uid(0), _gid(0)
 {
-	_atime = OAL::ToDateTime(attrData.ftLastAccessTime);
-	_mtime = OAL::ToDateTime(attrData.ftLastWriteTime);
-	_ctime = OAL::ToDateTime(attrData.ftCreationTime);
+	_atime = ToDateTime(attrData.ftLastAccessTime);
+	_mtime = ToDateTime(attrData.ftLastWriteTime);
+	_ctime = ToDateTime(attrData.ftCreationTime);
 	if (attrData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
 		_attr |= ATTR_Dir;
 	} else {
@@ -1052,9 +1052,9 @@ FileStat::FileStat(const char *pathName, const WIN32_FILE_ATTRIBUTE_DATA &attrDa
 FileStat::FileStat(const char *pathName, const WIN32_FIND_DATA &findData) :
 	_pathName(pathName), _attr(0), _bytes(findData.nFileSizeLow), _uid(0), _gid(0)
 {
-	_atime = OAL::ToDateTime(findData.ftLastAccessTime);
-	_mtime = OAL::ToDateTime(findData.ftLastWriteTime);
-	_ctime = OAL::ToDateTime(findData.ftCreationTime);
+	_atime = ToDateTime(findData.ftLastAccessTime);
+	_mtime = ToDateTime(findData.ftLastWriteTime);
+	_ctime = ToDateTime(findData.ftCreationTime);
 	if (findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
 		_attr |= ATTR_Dir;
 	} else {
@@ -1071,8 +1071,8 @@ FileStat *FileStat::Generate(Signal sig, const char *fileName)
 {
 	ULong attr = 0;
 	WIN32_FILE_ATTRIBUTE_DATA attrData;
-	String pathName = OAL::ToNativeString(OAL::MakeAbsPathName(
-								OAL::FileSeparator, fileName).c_str());
+	String pathName = ToNativeString(MakeAbsPathName(
+								FileSeparator, fileName).c_str());
 	if (::GetFileAttributesEx(pathName.c_str(), GetFileExInfoStandard, &attrData) == 0) {
 		sig.SetError(ERR_IOError, "failed to get file status of %s", pathName.c_str());
 		return NULL;
@@ -1781,9 +1781,9 @@ FileStat::FileStat(const char *pathName, const struct stat &stat) :
 	_pathName(pathName), _attr(0), _bytes(stat.st_size),
 	_uid(stat.st_uid), _gid(stat.st_gid)
 {
-	_atime = OAL::ToDateTime(stat.st_atime);
-	_mtime = OAL::ToDateTime(stat.st_mtime);
-	_ctime = OAL::ToDateTime(stat.st_ctime);
+	_atime = ToDateTime(stat.st_atime);
+	_mtime = ToDateTime(stat.st_mtime);
+	_ctime = ToDateTime(stat.st_ctime);
 	if (S_ISDIR(stat.st_mode)) _attr |= ATTR_Dir;
 	if (S_ISCHR(stat.st_mode)) _attr |= ATTR_Chr;
 	if (S_ISBLK(stat.st_mode)) _attr |= ATTR_Blk;
@@ -1798,8 +1798,8 @@ FileStat *FileStat::Generate(Signal sig, const char *fileName)
 {
 	ULong attr = 0;
 	struct stat stat;
-	String pathName = OAL::ToNativeString(OAL::MakeAbsPathName(
-								OAL::FileSeparator, fileName).c_str());
+	String pathName = ToNativeString(MakeAbsPathName(
+								FileSeparator, fileName).c_str());
 	if (::stat(pathName.c_str(), &stat) != 0) {
 		sig.SetError(ERR_IOError, "failed to get file status of %s", pathName.c_str());
 		return NULL;
