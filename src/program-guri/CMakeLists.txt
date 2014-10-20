@@ -1,6 +1,6 @@
 add_executable(guri guri.cpp)
 
-set_property(TARGET guri PROPERTY COMPILE_DEFINITIONS HAVE_CONFIG_H)
+set_property(TARGET guri PROPERTY COMPILE_DEFINITIONS)
 
 target_link_libraries(guri guracore)
 

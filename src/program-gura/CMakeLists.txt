@@ -1,6 +1,6 @@
 add_executable(gura gura.cpp)
 
-set_property(TARGET gura PROPERTY COMPILE_DEFINITIONS HAVE_CONFIG_H)
+set_property(TARGET gura PROPERTY COMPILE_DEFINITIONS)
 
 find_library(LIBREADLINE readline REQUIRED)
 
