@@ -125,8 +125,9 @@
 			  (goto-char pos-block-start)
 			  (+ (current-column) 1))))))) ;; elements exist at the same line
    (save-excursion
-	 ;;(gura-end-of-statement)
 	 (end-of-line)
+	 (let ((ch (char-before)))
+	   (unless (or (eq ch ?}) (eq ch ?])) (beginning-of-line)))
 	 (let* ((line-cur (line-number-at-pos)) (pos-cur (point))
 			(syntax (syntax-ppss)) (pos-block-start (nth 1 syntax)))
 	   (if pos-block-start
