@@ -8,7 +8,12 @@ if (sys.platform == `mswin) {
 	builder.libDirs.append(path.join(dirBase, 'VisualC/SDL/Win32/Release'))
 	builder.libs.append('SDL2.lib')
 } elsif (sys.platform == `linux) {
-	
+	builder.libs.append('SDL')
+	builder.incDirs.append('/usr/include/SDL2', '/usr/local/include/SDL2')
+	builder.debFiles = ['libsdl2-dev']
+	builder.rpmFiles = ['SDL2-devel']
+	builder.debFilesDevel = ['libsdl2-dev']
+	builder.rpmFilesDevel = ['SDL2-devel']
 } elsif (sys.platform == `darwin) {
 	builder.incDirs.append('guests/include/SDL2')
 	builder.libDirs.append('guests/dylib')
