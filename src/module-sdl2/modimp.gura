@@ -178,6 +178,10 @@ typeConvDict_BuiltIn = %{
 			'number', 'Once', [],
 			'int', 'args.GetInt(%d)',
 			'Value(_rtn)')
+	'long' => TypeConv(
+			'number', 'Once', [],
+			'long', 'args.GetLong(%d)',
+			'Value(_rtn)')
 	'unsigned_char' => TypeConv(
 			'number', 'Once', [],
 			'unsigned char', 'args.GetUChar(%d)',
@@ -190,6 +194,34 @@ typeConvDict_BuiltIn = %{
 			'number', 'Once', [],
 			'unsigned int', 'args.GetUInt(%d)',
 			'Value(_rtn)')
+	'unsigned_long' => TypeConv(
+			'number', 'Once', [],
+			'unsigned long', 'args.GetULong(%d)',
+			'Value(_rtn)')
+	'UChar' => TypeConv(
+			'number', 'Once', [],
+			'UChar', 'args.GetUChar(%d)',
+			'Value(_rtn)')
+	'UShort' => TypeConv(
+			'number', 'Once', [],
+			'UShort', 'args.GetUShort(%d)',
+			'Value(_rtn)')
+	'UInt' => TypeConv(
+			'number', 'Once', [],
+			'UInt', 'args.GetUInt(%d)',
+			'Value(_rtn)')
+	'ULong' => TypeConv(
+			'number', 'Once', [],
+			'ULong', 'args.GetULong(%d)',
+			'Value(_rtn)')
+	'Int64' => TypeConv(
+			'number', 'Once', [],
+			'Int64', 'static_cast<Int64>(args.GetDouble(%d))',
+			'Value(_rtn)')
+	'UInt64' => TypeConv(
+			'number', 'Once', [],
+			'UInt64', 'static_cast<UInt64>(args.GetDouble(%d))',
+			'Value(_rtn)')
 	'float' => TypeConv(
 			'number', 'Once', [],
 			'float', 'args.GetFloat(%d)',
@@ -198,6 +230,38 @@ typeConvDict_BuiltIn = %{
 			'number', 'Once', [],
 			'double', 'args.GetDouble(%d)',
 			'Value(_rtn)')
+	'char[]' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<char>', 'args.GetList(%d)',
+			nil)
+	'short[]' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<short>', 'args.GetList(%d)',
+			nil)
+	'int[]' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<int>', 'args.GetList(%d)',
+			nil)
+	'long[]' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<long>', 'args.GetList(%d)',
+			nil)
+	'unsigned_char[]' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<unsigned char>', 'args.GetList(%d)',
+			nil)
+	'unsigned_short[]' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<unsigned short>', 'args.GetList(%d)',
+			nil)
+	'unsigned_int[]' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<unsigned int>', 'args.GetList(%d)',
+			nil)
+	'unsigned_long[]' => TypeConv(
+			'number', 'Once', ['List'],
+			'CArray<unsigned long>', 'args.GetList(%d)',
+			nil)
 	'char@' => TypeConv(
 			'string', 'Once', [],
 			'char *', 'args.GetString(%d)',
