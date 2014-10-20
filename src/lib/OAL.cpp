@@ -1583,33 +1583,6 @@ int GetSecsOffsetTZ()
 	return -tz.tz_minuteswest * 60;
 }
 
-#if defined(GURA_ON_DARWIN)
-
-String _GetExecutablePath()
-{
-	uint32_t bufsize = 1024;
-	for (int i = 0; i < 2; i++) {
-		char *buf = new char [bufsize];
-		if (::_NSGetExecutablePath(buf, &bufsize) == 0) {
-			String rtn = FromNativeString(buf);
-			delete[] buf;
-			return rtn;
-		}
-		delete[] buf;
-	}
-	return String("");
-}
-
-#else
-	
-String _GetExecutablePath()
-{
-	// /proc/self/exe
-	return "/usr/bin/gura";
-}
-
-#endif
-
 String _ReadLink(const char *pathName)
 {
 	size_t bufsize = 128;
@@ -1628,6 +1601,40 @@ String _ReadLink(const char *pathName)
 	}
 	return String("");
 }
+
+#if defined(GURA_ON_DARWIN)
+
+String _GetExecutablePath()
+{
+	uint32_t bufsize = 1024;
+	for (int i = 0; i < 2; i++) {
+		char *buf = new char [bufsize];
+		if (::_NSGetExecutablePath(buf, &bufsize) == 0) {
+			String rtn = FromNativeString(buf);
+			delete[] buf;
+			return rtn;
+		}
+		delete[] buf;
+	}
+	return String("");
+}
+
+#elif defined(GURA_ON_LINUX)
+	
+String _GetExecutablePath()
+{
+	return _ReadLink("/proc/self/exe");
+}
+
+#else
+
+String _GetExecutablePath()
+{
+	return String("/usr/bin/gura");
+}
+
+#endif
+
 
 String GetExecutable()
 {
