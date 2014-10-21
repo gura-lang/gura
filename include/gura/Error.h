@@ -41,6 +41,7 @@ enum ErrorType {
 	ERR_FormatError,
 	ERR_ResourceError,
 	ERR_MemberAccessError,
+	ERR_VersionError,
 };
 
 //-----------------------------------------------------------------------------

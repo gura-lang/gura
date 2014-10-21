@@ -39,6 +39,33 @@ Gura_ImplementFunction(exit)
 	return Value::Null;
 }
 
+// sys.required_version(major:number, minor:number, patch:number)
+Gura_DeclareFunction(required_version)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "major", VTYPE_number);
+	DeclareArg(env, "minor", VTYPE_number);
+	DeclareArg(env, "patch", VTYPE_number);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Raises an error if the running interpreter doesn't satisfy the required version.");
+}
+
+Gura_ImplementFunction(required_version)
+{
+	int verMajor = args.GetInt(0);
+	int verMinor = args.GetInt(1);
+	int verPatch = args.GetInt(2);
+	int numReq = verMajor * 1000000 + verMinor * 1000 + verPatch;
+	int numSys = GURA_VERSION_MAJOR * 1000000 +
+				GURA_VERSION_MINOR * 1000 + GURA_VERSION_PATCH;
+	if (numReq > numSys) {
+		sig.SetError(ERR_VersionError,
+			 "required version is %d.%d.%d or later", verMajor, verMinor, verPatch);
+		return Value::Null;
+	}
+	return Value::Null;
+}
+
 Gura_ModuleEntry()
 {
 	// value assignment
@@ -80,6 +107,7 @@ Gura_ModuleEntry()
 	// function assignment
 	Gura_AssignFunction(echo);
 	Gura_AssignFunction(exit);
+	Gura_AssignFunction(required_version);
 	return true;
 }
 

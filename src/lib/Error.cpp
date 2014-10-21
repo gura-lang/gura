@@ -34,6 +34,7 @@ const Error::TypeInfo Error::_typeInfoTbl[] = {
 	{ ERR_FormatError,			"FormatError"			},
 	{ ERR_ResourceError,		"ResourceError"			},
 	{ ERR_MemberAccessError,	"MemberAccessError"		},
+	{ ERR_VersionError,			"VersionError"			},
 	{ ERR_None,					NULL					},
 };
 
