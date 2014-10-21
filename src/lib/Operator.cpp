@@ -1006,10 +1006,6 @@ Expr *Operator_Pow::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 			Expr::Reference(dynamic_cast<const Expr_UnaryOp *>(pExprLeft)->GetChild());
 		Expr::Delete(pExprLeft);
 		return Operator_Pow::OptimizeExpr(env, sig, pExpr, pExprRight);
-	//} else if (pExprRight->IsConstNumber(0.5)) {
-	//	// n ** 0.5 = math.sqrt(n)
-	//	Expr::Delete(pExprRight);
-	//	return Gura_Module(math)::CreateExprCaller(Gura_Symbol(sqrt), pExprLeft);
 	}
 	return new Expr_BinaryOp(env.GetOperator(OPTYPE_Pow), pExprLeft, pExprRight);
 }
