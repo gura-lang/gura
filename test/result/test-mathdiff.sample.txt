@@ -41,3 +41,7 @@ math.sqrt(num):map -> 1 / (2 * math.sqrt(num))
 { math.exp(x) - math.exp(-x) } -> math.exp(x) + math.exp(-x)
 { (math.sin(x + 2) + x + 2) * (math.sin(x + 3) + x + 3) } -> (math.cos(x + 2) + 1) * (math.sin(x + 3) + x + 3) + (math.sin(x + 2) + x + 2) * (math.cos(x + 3) + 1)
 { math.sin(math.sin(x ** 2 / 3)) } -> math.cos(math.sin(x ** 2 / 3)) * (math.cos(x ** 2 / 3) * (2 * x * 3 / 9))
+
+======== #2 ========
+
+(3 * (x ** 2 + x * 3) ** 2 + 2 * (x ** 2 + x * 3) + 1) * (2 * x + 3)
