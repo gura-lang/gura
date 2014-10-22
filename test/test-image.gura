@@ -212,7 +212,7 @@ testcase {
 testcase('image#resize') {
 	img = image(I('Water_lilies.jpg'), `rgb)
 	tester_image(img.resize(100), 'resize - smaller',
-		 '5b383946166ac8ff913738d7246e80d5;87fd4678eea4d63ffefd8351af3f8f75'):nomap
+		 '5b383946166ac8ff913738d7246e80d5;87fd4678eea4d63ffefd8351af3f8f75;f882b6bf43dd81b1784e342d8b120316'):nomap
 	img = image(I('chicken-anim.gif'), `rgb)
 	tester_image(img, 'resize - original',
 		'f9b52fb52a4133c74d831a724e9d5810'):nomap
