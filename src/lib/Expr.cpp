@@ -62,8 +62,8 @@ Expr::Expr(ExprType exprType) : _exprType(exprType),
 }
 
 Expr::Expr(const Expr &expr) : _exprType(expr._exprType),
-	_cntRef(1), _lineNoTop(expr._lineNoTop), _lineNoBtm(expr._lineNoBtm), _pExprParent(expr._pExprParent),
-	_pSourceName(StringRef::Reference(expr._pSourceName.get()))
+	_cntRef(1), _lineNoTop(expr._lineNoTop), _lineNoBtm(expr._lineNoBtm),
+	_pExprParent(NULL), _pSourceName(StringRef::Reference(expr._pSourceName.get()))
 {
 }
 
