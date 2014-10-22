@@ -34,7 +34,7 @@ public:
 	inline Expr *GetExprBody() { return _pExprBody.get(); }
 	inline const Expr *GetExprBody() const { return _pExprBody.get(); }
 	inline void SetExprBody(Expr *pExprBody) { _pExprBody.reset(pExprBody); }
-	virtual Expr *DiffUnary(Environment &env, Signal sig,
+	virtual Expr *MathDiff(Environment &env, Signal sig,
 						const Expr *pExprArg, const Symbol *pSymbol) const;
 	static FunctionCustom *CreateBlockFunc(Environment &env, Signal sig,
 		const Symbol *pSymbol, const Expr_Block *pExprBlock, FunctionType funcType);

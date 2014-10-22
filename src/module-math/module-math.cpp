@@ -122,7 +122,7 @@ Gura_ImplementFunction(conj)
 }
 
 // math.acos(num):map:[deg]
-Gura_DeclareFunctionWithDiffUnary(acos)
+Gura_DeclareFunctionWithMathDiff(acos)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
@@ -144,7 +144,7 @@ Gura_ImplementFunction(acos)
 	return Value(result);
 }
 
-Gura_ImplementDiffUnary(acos)
+Gura_ImplementMathDiff(acos)
 {
 	// acos(x)' = -1 / sqrt(1 - x ** 2)
 	return new Expr_BinaryOp(
@@ -162,7 +162,7 @@ Gura_ImplementDiffUnary(acos)
 }
 
 // math.asin(num):map:[deg]
-Gura_DeclareFunctionWithDiffUnary(asin)
+Gura_DeclareFunctionWithMathDiff(asin)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
@@ -184,7 +184,7 @@ Gura_ImplementFunction(asin)
 	return Value(result);
 }
 
-Gura_ImplementDiffUnary(asin)
+Gura_ImplementMathDiff(asin)
 {
 	// asin(x)' = 1 / sqrt(1 - x ** 2)
 	return new Expr_BinaryOp(
@@ -202,7 +202,7 @@ Gura_ImplementDiffUnary(asin)
 }
 
 // math.atan(num):map:[deg]
-Gura_DeclareFunctionWithDiffUnary(atan)
+Gura_DeclareFunctionWithMathDiff(atan)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
@@ -224,7 +224,7 @@ Gura_ImplementFunction(atan)
 	return Value(result);
 }
 
-Gura_ImplementDiffUnary(atan)
+Gura_ImplementMathDiff(atan)
 {
 	// atan(x)' = 1 / (1 + x ** 2)
 	return new Expr_BinaryOp(
@@ -286,7 +286,7 @@ Gura_ImplementFunction(ceil)
 }
 
 // math.cos(num):map:[deg]
-Gura_DeclareFunctionWithDiffUnary(cos)
+Gura_DeclareFunctionWithMathDiff(cos)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
@@ -310,7 +310,7 @@ Gura_ImplementFunction(cos)
 	return result;
 }
 
-Gura_ImplementDiffUnary(cos)
+Gura_ImplementMathDiff(cos)
 {
 	// cos(x)' = -sin(x)
 	return new Expr_UnaryOp(
@@ -344,7 +344,7 @@ Gura_ImplementFunction(cosh)
 }
 
 // math.exp(num):map
-Gura_DeclareFunctionWithDiffUnary(exp)
+Gura_DeclareFunctionWithMathDiff(exp)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
@@ -365,7 +365,7 @@ Gura_ImplementFunction(exp)
 	return result;
 }
 
-Gura_ImplementDiffUnary(exp)
+Gura_ImplementMathDiff(exp)
 {
 	// exp(x)' = exp(x)
 	return Expr_Caller::Create(
@@ -417,7 +417,7 @@ Gura_ImplementFunction(floor)
 }
 
 // math.log(num):map
-Gura_DeclareFunctionWithDiffUnary(log)
+Gura_DeclareFunctionWithMathDiff(log)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
@@ -442,7 +442,7 @@ Gura_ImplementFunction(log)
 	return result;
 }
 
-Gura_ImplementDiffUnary(log)
+Gura_ImplementMathDiff(log)
 {
 	// log(x)' = 1 / x
 	return new Expr_BinaryOp(
@@ -452,7 +452,7 @@ Gura_ImplementDiffUnary(log)
 }
 
 // math.log10(num):map
-Gura_DeclareFunctionWithDiffUnary(log10)
+Gura_DeclareFunctionWithMathDiff(log10)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
@@ -477,7 +477,7 @@ Gura_ImplementFunction(log10)
 	return result;
 }
 
-Gura_ImplementDiffUnary(log10)
+Gura_ImplementMathDiff(log10)
 {
 	// log10(x)' = 1 / (x * log(10))
 	return new Expr_BinaryOp(
@@ -491,7 +491,7 @@ Gura_ImplementDiffUnary(log10)
 }
 
 // math.sin(num):map:[deg]
-Gura_DeclareFunctionWithDiffUnary(sin)
+Gura_DeclareFunctionWithMathDiff(sin)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
@@ -515,7 +515,7 @@ Gura_ImplementFunction(sin)
 	return result;
 }
 
-Gura_ImplementDiffUnary(sin)
+Gura_ImplementMathDiff(sin)
 {
 	// sin(x)' = cos(x)
 	return Expr_Caller::Create(
@@ -546,7 +546,7 @@ Gura_ImplementFunction(sinh)
 }
 
 // math.sqrt(num):map
-Gura_DeclareFunctionWithDiffUnary(sqrt)
+Gura_DeclareFunctionWithMathDiff(sqrt)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
@@ -571,7 +571,7 @@ Gura_ImplementFunction(sqrt)
 	return result;
 }
 
-Gura_ImplementDiffUnary(sqrt)
+Gura_ImplementMathDiff(sqrt)
 {
 	// sqrt(x)' = 1 / (2 * sqrt(x))
 	return new Expr_BinaryOp(
@@ -586,7 +586,7 @@ Gura_ImplementDiffUnary(sqrt)
 }
 
 // math.tan(num):map:[deg]
-Gura_DeclareFunctionWithDiffUnary(tan)
+Gura_DeclareFunctionWithMathDiff(tan)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "num", VTYPE_any);
@@ -610,7 +610,7 @@ Gura_ImplementFunction(tan)
 	return result;
 }
 
-Gura_ImplementDiffUnary(tan)
+Gura_ImplementMathDiff(tan)
 {
 	// tan(x)' = 1 / cos(x) ** 2
 	return new Expr_BinaryOp(

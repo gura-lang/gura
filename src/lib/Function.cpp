@@ -392,14 +392,14 @@ Value Function::ReturnIterator(Environment &env, Signal sig,
 	return result;
 }
 
-Expr *Function::DiffUnary(Environment &env, Signal sig,
+Expr *Function::MathDiff(Environment &env, Signal sig,
 							const Expr *pExprArg, const Symbol *pSymbol) const
 {
 	SetError_MathDiffError(sig);
 	return NULL;
 }
 
-Expr *Function::OptimizeUnary(Environment &env, Signal sig, Expr *pExprOpt) const
+Expr *Function::MathOptimize(Environment &env, Signal sig, Expr *pExprOpt) const
 {
 	SetError_MathOptimizeError(sig);
 	return NULL;

@@ -280,7 +280,7 @@ Gura_ImplementMethod(function, diff)
 		if (sig.IsSignalled()) return Value::Null;
 	} else {
 		AutoPtr<Expr> pExprArg(new Expr_Identifier(pSymbol));
-		pExprDiff.reset(pFunc->DiffUnary(env, sig, pExprArg.get(), pSymbol));
+		pExprDiff.reset(pFunc->MathDiff(env, sig, pExprArg.get(), pSymbol));
 		if (sig.IsSignalled()) return Value::Null;
 	}
 	AutoPtr<FunctionCustom> pFuncDiff(new FunctionCustom(env,

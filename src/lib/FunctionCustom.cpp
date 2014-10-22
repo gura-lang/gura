@@ -49,7 +49,7 @@ Value FunctionCustom::DoEval(Environment &env, Signal sig, Args &args) const
 #endif
 }
 
-Expr *FunctionCustom::DiffUnary(Environment &env, Signal sig,
+Expr *FunctionCustom::MathDiff(Environment &env, Signal sig,
 							const Expr *pExprArg, const Symbol *pSymbol) const
 {
 	SetError_MathDiffError(sig);

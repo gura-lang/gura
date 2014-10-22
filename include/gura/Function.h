@@ -34,19 +34,19 @@ Func_##name::Func_##name(Environment &env, const char *name) : \
 
 #define Gura_DeclareFunction(name) Gura_DeclareFunctionAlias(name, #name)
 
-// DeclareFunctionWithDiffUnary
-#define Gura_DeclareFunctionWithDiffUnaryAlias(name, nameAlias) \
+// DeclareFunctionWithMathDiff
+#define Gura_DeclareFunctionWithMathDiffAlias(name, nameAlias) \
 class Func_##name : public Function { \
 public: \
 	Func_##name(Environment &env, const char *name = nameAlias); \
 	virtual Value DoEval(Environment &env, Signal sig, Args &args) const; \
-	virtual Expr *DiffUnary(Environment &env, Signal sig, const Expr *pExprArg, const Symbol *pSymbol) const; \
+	virtual Expr *MathDiff(Environment &env, Signal sig, const Expr *pExprArg, const Symbol *pSymbol) const; \
 }; \
 Func_##name::Func_##name(Environment &env, const char *name) : \
 					Function(env, Symbol::Add(name), FUNCTYPE_Function, FLAG_None)
 
-#define Gura_DeclareFunctionWithDiffUnary(name) \
-Gura_DeclareFunctionWithDiffUnaryAlias(name, #name)
+#define Gura_DeclareFunctionWithMathDiff(name) \
+Gura_DeclareFunctionWithMathDiffAlias(name, #name)
 
 // DeclareFunctionTrailer
 #define Gura_DeclareFunctionTrailerAlias(name, nameAlias) \
@@ -106,8 +106,8 @@ Value Func_##className##__##name::DoEval(Environment &env, Signal sig, Args &arg
 #define Gura_ImplementClassMethod(className, name) \
 Value Func_##className##__##name::DoEval(Environment &env, Signal sig, Args &args) const
 
-#define Gura_ImplementDiffUnary(name) \
-Expr *Func_##name::DiffUnary(Environment &env, Signal sig, const Expr *pExprArg, const Symbol *pSymbol) const
+#define Gura_ImplementMathDiff(name) \
+Expr *Func_##name::MathDiff(Environment &env, Signal sig, const Expr *pExprArg, const Symbol *pSymbol) const
 
 #define Gura_Function(name) Func_##name
 
@@ -351,9 +351,9 @@ public:
 	void SetError_InvalidFunctionExpression(Signal sig) const;
 	void SetError_MathDiffError(Signal sig) const;
 	void SetError_MathOptimizeError(Signal sig) const;
-	virtual Expr *DiffUnary(Environment &env, Signal sig,
+	virtual Expr *MathDiff(Environment &env, Signal sig,
 							const Expr *pExprArg, const Symbol *pSymbol) const;
-	virtual Expr *OptimizeUnary(Environment &env, Signal sig, Expr *pExprOpt) const;
+	virtual Expr *MathOptimize(Environment &env, Signal sig, Expr *pExprOpt) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 protected:
 	Value ReturnValue(Environment &env, Signal sig,

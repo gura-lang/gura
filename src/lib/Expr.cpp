@@ -2177,7 +2177,7 @@ Expr *Expr_Caller::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol)
 	if (pExprArgDiff->IsConstNumber(0)) {
 		return pExprArgDiff;
 	}
-	Expr *pExprFuncDiff = value.GetFunction()->DiffUnary(env, sig, pExprArg, pSymbol);
+	Expr *pExprFuncDiff = value.GetFunction()->MathDiff(env, sig, pExprArg, pSymbol);
 	if (sig.IsSignalled()) {
 		sig.AddExprCause(this);
 		return NULL;
