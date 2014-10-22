@@ -480,7 +480,7 @@ Value Expr_TmplString::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeq
 	return Value::Null;
 }
 
-void Expr_TmplString::Accept(ExprVisitor &visitor) const
+void Expr_TmplString::Accept(ExprVisitor &visitor)
 {
 	visitor.Visit(this);
 }

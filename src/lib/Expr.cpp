@@ -151,13 +151,15 @@ bool Expr::IsAtSameLine(const Expr *pExpr) const
 void Expr::GatherSymbol(SymbolSet &symbolSet) const
 {
 	ExprVisitor_GatherSymbol visitor(symbolSet);
-	Accept(visitor);
+	// It's guaranteed that visitor of ExprVisitor_GatherSymbol doesn't modify.
+	const_cast<Expr *>(this)->Accept(visitor);
 }
 
 void Expr::GatherSimpleLambdaArgs(ExprOwner &exprOwnerArg) const
 {
 	ExprVisitor_GatherSimpleLambdaArgs visitor(exprOwnerArg);
-	Accept(visitor);
+	// It's guaranteed that visitor of ExprVisitor_GatherSimpleLambdaArgs doesn't modify.
+	const_cast<Expr *>(this)->Accept(visitor);
 }
 
 // this function makes a list of symbols chained by member operator "."
@@ -367,7 +369,7 @@ Expr::ScriptStyle Expr::SymbolToScriptStyle(const Symbol *pSymbol)
 //-----------------------------------------------------------------------------
 // Expr::ExprVisitor_GatherSymbol
 //-----------------------------------------------------------------------------
-bool Expr::ExprVisitor_GatherSymbol::Visit(const Expr *pExpr)
+bool Expr::ExprVisitor_GatherSymbol::Visit(Expr *pExpr)
 {
 	if (pExpr->IsIdentifier()) {
 		const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(pExpr);
@@ -379,7 +381,7 @@ bool Expr::ExprVisitor_GatherSymbol::Visit(const Expr *pExpr)
 //-----------------------------------------------------------------------------
 // Expr::ExprVisitor_GatherSimpleLambdaArgs
 //-----------------------------------------------------------------------------
-bool Expr::ExprVisitor_GatherSimpleLambdaArgs::Visit(const Expr *pExpr)
+bool Expr::ExprVisitor_GatherSimpleLambdaArgs::Visit(Expr *pExpr)
 {
 	if (pExpr->IsCaller()) {
 		// avoid searching in a simple lambda inside
@@ -406,7 +408,7 @@ bool Expr::ExprVisitor_GatherSimpleLambdaArgs::Visit(const Expr *pExpr)
 //-----------------------------------------------------------------------------
 // Expr::ExprVisitor_SearchBar
 //-----------------------------------------------------------------------------
-bool Expr::ExprVisitor_SearchBar::Visit(const Expr *pExpr)
+bool Expr::ExprVisitor_SearchBar::Visit(Expr *pExpr)
 {
 	OpType opType = OPTYPE_None;
 	if (pExpr->IsBinaryOp()) {
@@ -490,9 +492,9 @@ void ExprList::ExtractTrace(ExprOwner &exprOwner) const
 	}
 }
 
-void ExprList::Accept(ExprVisitor &visitor) const
+void ExprList::Accept(ExprVisitor &visitor)
 {
-	foreach_const (ExprList, ppExpr, *this) {
+	foreach (ExprList, ppExpr, *this) {
 		(*ppExpr)->Accept(visitor);
 	}
 }
@@ -736,7 +738,7 @@ Expr *Expr_Value::MathOptimize(Environment &env, Signal sig) const
 	return Clone();
 }
 
-void Expr_Value::Accept(ExprVisitor &visitor) const
+void Expr_Value::Accept(ExprVisitor &visitor)
 {
 	visitor.Visit(this);
 }
@@ -921,7 +923,7 @@ Value Expr_Identifier::DoAssign(Environment &env, Signal sig, Value &valueAssign
 	return valueAssigned;
 }
 
-void Expr_Identifier::Accept(ExprVisitor &visitor) const
+void Expr_Identifier::Accept(ExprVisitor &visitor)
 {
 	visitor.Visit(this);
 }
@@ -1033,7 +1035,7 @@ Value Expr_Suffixed::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPo
 	return result;
 }
 
-void Expr_Suffixed::Accept(ExprVisitor &visitor) const
+void Expr_Suffixed::Accept(ExprVisitor &visitor)
 {
 	visitor.Visit(this);
 }
@@ -1090,7 +1092,7 @@ Expr_Unary::~Expr_Unary()
 	if (!_pExprChild.IsNull()) _pExprChild->SetParent(GetParent());
 }
 
-void Expr_Unary::Accept(ExprVisitor &visitor) const
+void Expr_Unary::Accept(ExprVisitor &visitor)
 {
 	if (visitor.Visit(this) && !_pExprChild.IsNull()) {
 		_pExprChild->Accept(visitor);
@@ -1132,7 +1134,7 @@ Expr_Binary::~Expr_Binary()
 	if (!_pExprRight.IsNull()) _pExprRight->SetParent(GetParent());
 }
 
-void Expr_Binary::Accept(ExprVisitor &visitor) const
+void Expr_Binary::Accept(ExprVisitor &visitor)
 {
 	if (visitor.Visit(this)) {
 		if (!_pExprLeft.IsNull()) _pExprLeft->Accept(visitor);
@@ -1172,7 +1174,7 @@ Expr_Collector::~Expr_Collector()
 	GetExprOwner().SetParent(GetParent());
 }
 
-void Expr_Collector::Accept(ExprVisitor &visitor) const
+void Expr_Collector::Accept(ExprVisitor &visitor)
 {
 	if (visitor.Visit(this)) {
 		GetExprOwner().Accept(visitor);
@@ -1306,7 +1308,7 @@ Expr *Expr_Block::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) 
 			Expr::MathDiff(env, sig, pSymbol);
 }
 
-void Expr_Block::Accept(ExprVisitor &visitor) const
+void Expr_Block::Accept(ExprVisitor &visitor)
 {
 	if (GetExprOwnerParam() != NULL) GetExprOwnerParam()->Accept(visitor);
 	Expr_Collector::Accept(visitor);
@@ -1328,7 +1330,7 @@ bool Expr_Block::GenerateScript(Signal sig, SimpleStream &stream,
 		if (sig.IsSignalled()) return false;
 		const char *sepText = (scriptStyle == Expr::SCRSTYLE_Crammed)? "," : ", ";
 		foreach_const (ExprList, ppExpr, *GetExprOwnerParam()) {
-			const Expr *pExpr = *ppExpr;
+			Expr *pExpr = *ppExpr;
 			if (ppExpr != GetExprOwnerParam()->begin()) {
 				stream.Print(sig, sepText);
 				if (sig.IsSignalled()) return false;
@@ -1806,7 +1808,7 @@ Value Expr_Indexer::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
 	return valueAssigned;
 }
 
-void Expr_Indexer::Accept(ExprVisitor &visitor) const
+void Expr_Indexer::Accept(ExprVisitor &visitor)
 {
 	if (visitor.Visit(this)) {
 		GetCar()->Accept(visitor);
@@ -2140,7 +2142,7 @@ Value Expr_Caller::DoAssign(Environment &env, Signal sig, Value &valueAssigned,
 	return valueFunc;
 }
 
-void Expr_Caller::Accept(ExprVisitor &visitor) const
+void Expr_Caller::Accept(ExprVisitor &visitor)
 {
 	if (visitor.Visit(this)) {
 		GetCar()->Accept(visitor);

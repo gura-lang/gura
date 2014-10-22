@@ -6,6 +6,19 @@
 namespace Gura {
 
 //-----------------------------------------------------------------------------
+// ExprVisitor_Replace
+//-----------------------------------------------------------------------------
+class ExprVisitor_Replace : public ExprVisitor {
+private:
+	const Symbol *_pSymbol;
+	const Expr *_pExprSub;
+public:
+	inline ExprVisitor_Replace(const Symbol *pSymbol, const Expr *pExprSub) :
+		_pSymbol(pSymbol), _pExprSub(pExprSub) {}
+	virtual bool Visit(Expr *pExpr);
+};
+
+//-----------------------------------------------------------------------------
 // FunctionCustom
 //-----------------------------------------------------------------------------
 bool FunctionCustom::IsCustom() const { return true; }
@@ -54,7 +67,8 @@ Expr *FunctionCustom::MathDiff(Environment &env, Signal sig,
 {
 	AutoPtr<Expr> pExpr(GetExprBody()->MathDiff(env, sig, pSymbol));
 	if (sig.IsSignalled()) return NULL;
-	// TODO: replacement process is required here
+	ExprVisitor_Replace visitor(pSymbol, pExprArg);
+	pExpr->Accept(visitor);
 	return pExpr.release();
 }
 
@@ -73,6 +87,14 @@ FunctionCustom *FunctionCustom::CreateBlockFunc(Environment &env, Signal sig,
 		}
 	}
 	return pFunc.release();
+}
+
+//-----------------------------------------------------------------------------
+// ExprVisitor_Replace
+//-----------------------------------------------------------------------------
+bool ExprVisitor_Replace::Visit(Expr *pExpr)
+{
+	return true;
 }
 
 //-----------------------------------------------------------------------------

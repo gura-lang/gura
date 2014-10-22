@@ -82,7 +82,7 @@ public:
 	}
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
-	virtual void Accept(ExprVisitor &visitor) const;
+	virtual void Accept(ExprVisitor &visitor);
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;

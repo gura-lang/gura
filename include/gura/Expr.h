@@ -73,7 +73,7 @@ public:
 //-----------------------------------------------------------------------------
 class ExprVisitor {
 public:
-	virtual bool Visit(const Expr *pExpr) = 0;
+	virtual bool Visit(Expr *pExpr) = 0;
 };
 
 //-----------------------------------------------------------------------------
@@ -114,7 +114,7 @@ public:
 	public:
 		inline ExprVisitor_GatherSymbol(SymbolSet &symbolSet) :
 												_symbolSet(symbolSet) {}
-		virtual bool Visit(const Expr *pExpr);
+		virtual bool Visit(Expr *pExpr);
 	};
 	class GURA_DLLDECLARE ExprVisitor_GatherSimpleLambdaArgs : public ExprVisitor {
 	private:
@@ -122,14 +122,14 @@ public:
 		ExprOwner &_exprOwnerArg;
 	public:
 		inline ExprVisitor_GatherSimpleLambdaArgs(ExprOwner &exprOwnerArg) : _exprOwnerArg(exprOwnerArg) {}
-		virtual bool Visit(const Expr *pExpr);
+		virtual bool Visit(Expr *pExpr);
 	};
 	class GURA_DLLDECLARE ExprVisitor_SearchBar : public ExprVisitor {
 	private:
 		bool _foundFlag;
 	public:
 		inline ExprVisitor_SearchBar() : _foundFlag(false) {}
-		virtual bool Visit(const Expr *pExpr);
+		virtual bool Visit(Expr *pExpr);
 		inline bool GetFoundFlag() const { return _foundFlag; }
 	};
 	class GURA_DLLDECLARE SequenceRoot : public Sequence {
@@ -193,7 +193,7 @@ private:
 	virtual Value DoAssign(Environment &env, Signal sig, Value &valueAssigned,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 public:
-	virtual void Accept(ExprVisitor &visitor) const = 0;
+	virtual void Accept(ExprVisitor &visitor) = 0;
 	virtual bool IsParentOf(const Expr *pExpr) const;
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
@@ -257,7 +257,7 @@ public:
 	bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	bool GenerateScript(Signal sig, SimpleStream &stream,
 		Expr::ScriptStyle scriptStyle, int nestLevel, Expr::Separator sep) const;
-	void Accept(ExprVisitor &visitor) const;
+	void Accept(ExprVisitor &visitor);
 	bool IsContained(const Expr *pExpr) const;
 	void SetParent(const Expr *pExpr);
 	bool IsAtSameLine() const;
@@ -348,7 +348,7 @@ public:
 	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
-	virtual void Accept(ExprVisitor &visitor) const;
+	virtual void Accept(ExprVisitor &visitor);
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
@@ -377,7 +377,7 @@ public:
 	Value Exec(Environment &env, Signal sig, const Value &valueThis, SeqPostHandler *pSeqPostHandler) const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
-	virtual void Accept(ExprVisitor &visitor) const;
+	virtual void Accept(ExprVisitor &visitor);
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
 	inline void AddAttr(const Symbol *pSymbol) { _attrs.Insert(pSymbol); }
@@ -418,7 +418,7 @@ public:
 	virtual bool IsSuffixed() const;
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
-	virtual void Accept(ExprVisitor &visitor) const;
+	virtual void Accept(ExprVisitor &visitor);
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
@@ -438,7 +438,7 @@ public:
 	}
 	virtual ~Expr_Unary();
 	virtual bool IsUnary() const;
-	virtual void Accept(ExprVisitor &visitor) const;
+	virtual void Accept(ExprVisitor &visitor);
 	virtual bool IsParentOf(const Expr *pExpr) const;
 	inline Expr *GetChild() { return _pExprChild.get(); }
 	inline const Expr *GetChild() const { return _pExprChild.get(); }
@@ -459,7 +459,7 @@ public:
 	}
 	virtual ~Expr_Binary();
 	virtual bool IsBinary() const;
-	virtual void Accept(ExprVisitor &visitor) const;
+	virtual void Accept(ExprVisitor &visitor);
 	virtual bool IsParentOf(const Expr *pExpr) const;
 	inline Expr *GetLeft() { return _pExprLeft.get(); }
 	inline Expr *GetRight() { return _pExprRight.get(); }
@@ -482,7 +482,7 @@ public:
 	}
 	virtual bool IsCollector() const;
 	virtual ~Expr_Collector();
-	virtual void Accept(ExprVisitor &visitor) const;
+	virtual void Accept(ExprVisitor &visitor);
 	virtual bool IsParentOf(const Expr *pExpr) const;
 	inline void AddExpr(Expr *pExpr) {
 		GetExprOwner().push_back(pExpr);
@@ -528,7 +528,7 @@ public:
 	virtual Expr *Clone() const;
 	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
-	virtual void Accept(ExprVisitor &visitor) const;
+	virtual void Accept(ExprVisitor &visitor);
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
@@ -639,7 +639,7 @@ public:
 	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
-	virtual void Accept(ExprVisitor &visitor) const;
+	virtual void Accept(ExprVisitor &visitor);
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
@@ -675,7 +675,7 @@ public:
 	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
 	virtual Value DoAssign(Environment &env, Signal sig, Value &value,
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
-	virtual void Accept(ExprVisitor &visitor) const;
+	virtual void Accept(ExprVisitor &visitor);
 	virtual bool IsParentOf(const Expr *pExpr) const;
 	virtual Expr *MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
