@@ -273,16 +273,9 @@ Gura_ImplementMethod(function, diff)
 	} else {
 		pSymbol = declOwner.front()->GetSymbol();
 	}
-	AutoPtr<Expr> pExprDiff;
-	if (pFunc->IsCustom()) {
-		const FunctionCustom *pFuncCustom = dynamic_cast<const FunctionCustom *>(pFunc);
-		pExprDiff.reset(pFuncCustom->GetExprBody()->MathDiff(env, sig, pSymbol));
-		if (sig.IsSignalled()) return Value::Null;
-	} else {
-		AutoPtr<Expr> pExprArg(new Expr_Identifier(pSymbol));
-		pExprDiff.reset(pFunc->MathDiff(env, sig, pExprArg.get(), pSymbol));
-		if (sig.IsSignalled()) return Value::Null;
-	}
+	AutoPtr<Expr> pExprArg(new Expr_Identifier(pSymbol));
+	AutoPtr<Expr> pExprDiff(pFunc->MathDiff(env, sig, pExprArg.get(), pSymbol));
+	if (sig.IsSignalled()) return Value::Null;
 	AutoPtr<FunctionCustom> pFuncDiff(new FunctionCustom(env,
 			Gura_Symbol(_anonymous_), pExprDiff.release(), FUNCTYPE_Function));
 	pFuncDiff->CopyDeclare(*pFunc);

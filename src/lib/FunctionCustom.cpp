@@ -52,8 +52,10 @@ Value FunctionCustom::DoEval(Environment &env, Signal sig, Args &args) const
 Expr *FunctionCustom::MathDiff(Environment &env, Signal sig,
 							const Expr *pExprArg, const Symbol *pSymbol) const
 {
-	SetError_MathDiffError(sig);
-	return NULL;
+	AutoPtr<Expr> pExpr(GetExprBody()->MathDiff(env, sig, pSymbol));
+	if (sig.IsSignalled()) return NULL;
+	// TODO: replacement process is required here
+	return pExpr.release();
 }
 
 FunctionCustom *FunctionCustom::CreateBlockFunc(Environment &env, Signal sig,
