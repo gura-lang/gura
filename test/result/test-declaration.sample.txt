@@ -383,9 +383,9 @@ formatter
   isuppercase()
 function
   addhelp(lang:symbol, format:string, help:string):map:void
-  diff(var?:symbol):reduce
   gethelp(lang?:symbol):map
   help(lang?:symbol):map:void
+  mathdiff(var?:symbol):reduce
 help
 image
   allocbuff(width:number, height:number, color?:color):reduce
