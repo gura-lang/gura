@@ -353,11 +353,7 @@ public:
 	void SetError_MathOptimizeError(Signal sig) const;
 	virtual Expr *DiffUnary(Environment &env, Signal sig,
 							const Expr *pExprArg, const Symbol *pSymbol) const;
-	virtual Expr *DiffBinary(Environment &env, Signal sig,
-			const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const;
 	virtual Expr *OptimizeUnary(Environment &env, Signal sig, Expr *pExprOpt) const;
-	virtual Expr *OptimizeBinary(Environment &env, Signal sig,
-										Expr *pExprOpt1, Expr *pExprOpt2) const;
 	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
 protected:
 	Value ReturnValue(Environment &env, Signal sig,

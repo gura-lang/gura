@@ -399,21 +399,7 @@ Expr *Function::DiffUnary(Environment &env, Signal sig,
 	return NULL;
 }
 
-Expr *Function::DiffBinary(Environment &env, Signal sig,
-		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const
-{
-	SetError_MathDiffError(sig);
-	return NULL;
-}
-
 Expr *Function::OptimizeUnary(Environment &env, Signal sig, Expr *pExprOpt) const
-{
-	SetError_MathOptimizeError(sig);
-	return NULL;
-}
-
-Expr *Function::OptimizeBinary(Environment &env, Signal sig,
-										Expr *pExprOpt1, Expr *pExprOpt2) const
 {
 	SetError_MathOptimizeError(sig);
 	return NULL;
