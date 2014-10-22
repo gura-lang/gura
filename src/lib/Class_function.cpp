@@ -252,14 +252,14 @@ Gura_ImplementMethod(function, addhelp)
 	return Value::Null;
 }
 
-// function#diff(var?:symbol)
-Gura_DeclareMethod(function, diff)
+// function#mathdiff(var?:symbol)
+Gura_DeclareMethod(function, mathdiff)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "var", VTYPE_symbol, OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(function, diff)
+Gura_ImplementMethod(function, mathdiff)
 {
 	Object_function *pThis = Object_function::GetThisObj(args);
 	const Function *pFunc = pThis->GetFunction();
@@ -336,7 +336,7 @@ void Class_function::Prepare(Environment &env)
 	Gura_AssignFunction(function);
 	Gura_AssignFunctionEx(function, "&");
 	Gura_AssignMethod(function, addhelp);
-	Gura_AssignMethod(function, diff);
+	Gura_AssignMethod(function, mathdiff);
 	Gura_AssignMethod(function, gethelp);
 	Gura_AssignMethod(function, help);
 }
