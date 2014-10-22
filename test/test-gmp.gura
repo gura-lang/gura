@@ -104,7 +104,8 @@ testcase('comparator') {
 }
 testcase('precision for mpf') {
 	prec = gmp.mpf.get_default_prec()
-	[10, 100, 1000, 10000].each {|prec|
+	// gmp and mpir generate different result for prec=10000.
+	[10, 100, 1000, 9900].each {|prec|
 		gmp.mpf.set_default_prec(prec)
 		printf('prec=%-5d %.f\n', prec, 355L / 113)
 	}
