@@ -222,6 +222,7 @@ public:
 	virtual bool IsValue() const;
 	virtual bool IsIdentifier() const;
 	virtual bool IsSuffixed() const;
+	bool IsSymbol(const Symbol *pSymbol) const;
 	bool IsConstNumber(Number num) const;
 	bool IsConstEvenNumber() const;
 	bool IsConstNegNumber() const;
@@ -440,6 +441,10 @@ public:
 	virtual bool IsUnary() const;
 	virtual void Accept(ExprVisitor &visitor);
 	virtual bool IsParentOf(const Expr *pExpr) const;
+	inline void SetChild(Expr *pExprChild) {
+		_pExprChild.reset(pExprChild);
+		_pExprChild->SetParent(this);
+	}
 	inline Expr *GetChild() { return _pExprChild.get(); }
 	inline const Expr *GetChild() const { return _pExprChild.get(); }
 };
@@ -461,6 +466,14 @@ public:
 	virtual bool IsBinary() const;
 	virtual void Accept(ExprVisitor &visitor);
 	virtual bool IsParentOf(const Expr *pExpr) const;
+	inline void SetLeft(Expr *pExprLeft) {
+		_pExprLeft.reset(pExprLeft);
+		_pExprLeft->SetParent(this);
+	}
+	inline void SetRight(Expr *pExprRight) {
+		_pExprRight.reset(pExprRight);
+		_pExprRight->SetParent(this);
+	}
 	inline Expr *GetLeft() { return _pExprLeft.get(); }
 	inline Expr *GetRight() { return _pExprRight.get(); }
 	inline const Expr *GetLeft() const { return _pExprLeft.get(); }

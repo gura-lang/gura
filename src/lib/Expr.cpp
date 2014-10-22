@@ -200,6 +200,12 @@ bool Expr::NeedParenthesis(const Operator *pOperatorOuter,
 	return rtn > 0;
 }
 
+bool Expr::IsSymbol(const Symbol *pSymbol) const
+{
+	if (!IsIdentifier()) return false;
+	return dynamic_cast<const Expr_Identifier *>(this)->GetSymbol()->IsIdentical(pSymbol);
+}
+
 bool Expr::IsConstNumber(Number num) const
 {
 	if (!IsValue()) return false;

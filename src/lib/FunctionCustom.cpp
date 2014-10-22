@@ -94,6 +94,54 @@ FunctionCustom *FunctionCustom::CreateBlockFunc(Environment &env, Signal sig,
 //-----------------------------------------------------------------------------
 bool ExprVisitor_Replace::Visit(Expr *pExpr)
 {
+	if (pExpr->IsBlock()) {
+		Expr_Block *pExprEx = dynamic_cast<Expr_Block *>(pExpr);
+		foreach (ExprList, ppExprElem, pExprEx->GetExprOwner()) {
+			Expr *pExprElem = *ppExprElem;
+			if (pExprElem->IsSymbol(_pSymbol)) {
+				*ppExprElem = _pExprSub->Clone();
+				(*ppExprElem)->SetParent(pExpr);
+				Expr::Delete(pExprElem);
+			} else {
+				pExprElem->Accept(*this);
+			}
+		}
+		return false;
+	} else if (pExpr->IsCaller()) {
+		Expr_Caller *pExprEx = dynamic_cast<Expr_Caller *>(pExpr);
+		foreach (ExprList, ppExprElem, pExprEx->GetExprOwner()) {
+			Expr *pExprElem = *ppExprElem;
+			if (pExprElem->IsSymbol(_pSymbol)) {
+				*ppExprElem = _pExprSub->Clone();
+				(*ppExprElem)->SetParent(pExpr);
+				Expr::Delete(pExprElem);
+			} else {
+				pExprElem->Accept(*this);
+			}
+		}
+		return false;
+	} else if (pExpr->IsUnaryOp()) {
+		Expr_UnaryOp *pExprEx = dynamic_cast<Expr_UnaryOp *>(pExpr);
+		if (pExprEx->GetChild()->IsSymbol(_pSymbol)) {
+			pExprEx->SetChild(_pExprSub->Clone());
+		} else {
+			pExprEx->GetChild()->Accept(*this);
+		}
+		return false;
+	} else if (pExpr->IsBinaryOp()) {
+		Expr_BinaryOp *pExprEx = dynamic_cast<Expr_BinaryOp *>(pExpr);
+		if (pExprEx->GetLeft()->IsSymbol(_pSymbol)) {
+			pExprEx->SetLeft(_pExprSub->Clone());
+		} else {
+			pExprEx->GetLeft()->Accept(*this);
+		}
+		if (pExprEx->GetRight()->IsSymbol(_pSymbol)) {
+			pExprEx->SetRight(_pExprSub->Clone());
+		} else {
+			pExprEx->GetRight()->Accept(*this);
+		}
+		return false;
+	}
 	return true;
 }
 
