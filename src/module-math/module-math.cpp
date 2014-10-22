@@ -147,12 +147,18 @@ Gura_ImplementFunction(acos)
 Gura_ImplementDiffUnary(acos)
 {
 	// acos(x)' = -1 / sqrt(1 - x ** 2)
-	return new Expr_BinaryOp(env.GetOperator(OPTYPE_Div), new Expr_Value(-1),
-			CreateExprCaller(Gura_Symbol(sqrt), new Expr_BinaryOp(env.GetOperator(OPTYPE_Sub),
-					new Expr_Value(1),
-					new Expr_BinaryOp(
-						env.GetOperator(OPTYPE_Pow),
-						pExprArg->Clone(), new Expr_Value(2)))));
+	return new Expr_BinaryOp(
+		env.GetOperator(OPTYPE_Div),
+		new Expr_Value(-1),
+		Expr_Caller::Create(
+			Gura_Symbol(math), Gura_Symbol(sqrt),
+			new Expr_BinaryOp(
+				env.GetOperator(OPTYPE_Sub),
+				new Expr_Value(1),
+				new Expr_BinaryOp(
+					env.GetOperator(OPTYPE_Pow),
+					pExprArg->Clone(),
+					new Expr_Value(2)))));
 }
 
 // math.asin(num):map:[deg]
@@ -181,12 +187,18 @@ Gura_ImplementFunction(asin)
 Gura_ImplementDiffUnary(asin)
 {
 	// asin(x)' = 1 / sqrt(1 - x ** 2)
-	return new Expr_BinaryOp(env.GetOperator(OPTYPE_Div), new Expr_Value(1),
-			CreateExprCaller(Gura_Symbol(sqrt), new Expr_BinaryOp(env.GetOperator(OPTYPE_Sub),
-					new Expr_Value(1),
-					new Expr_BinaryOp(
-						env.GetOperator(OPTYPE_Pow),
-						pExprArg->Clone(), new Expr_Value(2)))));
+	return new Expr_BinaryOp(
+		env.GetOperator(OPTYPE_Div),
+		new Expr_Value(1),
+		Expr_Caller::Create(
+			Gura_Symbol(math), Gura_Symbol(sqrt),
+			new Expr_BinaryOp(
+				env.GetOperator(OPTYPE_Sub),
+				new Expr_Value(1),
+				new Expr_BinaryOp(
+					env.GetOperator(OPTYPE_Pow),
+					pExprArg->Clone(),
+					new Expr_Value(2)))));
 }
 
 // math.atan(num):map:[deg]
@@ -215,12 +227,16 @@ Gura_ImplementFunction(atan)
 Gura_ImplementDiffUnary(atan)
 {
 	// atan(x)' = 1 / (1 + x ** 2)
-	return new Expr_BinaryOp(env.GetOperator(OPTYPE_Div), new Expr_Value(1),
-			new Expr_BinaryOp(env.GetOperator(OPTYPE_Add),
-					new Expr_Value(1),
-					new Expr_BinaryOp(
-						env.GetOperator(OPTYPE_Pow),
-						pExprArg->Clone(), new Expr_Value(2))));
+	return new Expr_BinaryOp(
+		env.GetOperator(OPTYPE_Div),
+		new Expr_Value(1),
+		new Expr_BinaryOp(
+			env.GetOperator(OPTYPE_Add),
+			new Expr_Value(1),
+			new Expr_BinaryOp(
+				env.GetOperator(OPTYPE_Pow),
+				pExprArg->Clone(),
+				new Expr_Value(2))));
 }
 
 // math.atan2(num1, num2):map:[deg]
@@ -299,7 +315,10 @@ Gura_ImplementDiffUnary(cos)
 	// cos(x)' = -sin(x)
 	return new Expr_UnaryOp(
 		env.GetOperator(OPTYPE_Neg),
-		CreateExprCaller(Gura_Symbol(sin), pExprArg->Clone()), false);
+		Expr_Caller::Create(
+			Gura_Symbol(math), Gura_Symbol(sin),
+			pExprArg->Clone()),
+		false);
 }
 
 // math.cosh(num):map
@@ -349,7 +368,9 @@ Gura_ImplementFunction(exp)
 Gura_ImplementDiffUnary(exp)
 {
 	// exp(x)' = exp(x)
-	return CreateExprCaller(Gura_Symbol(exp), pExprArg->Clone());
+	return Expr_Caller::Create(
+		Gura_Symbol(math), Gura_Symbol(exp),
+		pExprArg->Clone());
 }
 
 // math.abs(num):map
@@ -426,7 +447,8 @@ Gura_ImplementDiffUnary(log)
 	// log(x)' = 1 / x
 	return new Expr_BinaryOp(
 		env.GetOperator(OPTYPE_Div),
-		new Expr_Value(1), pExprArg->Clone());
+		new Expr_Value(1),
+		pExprArg->Clone());
 }
 
 // math.log10(num):map
@@ -458,10 +480,14 @@ Gura_ImplementFunction(log10)
 Gura_ImplementDiffUnary(log10)
 {
 	// log10(x)' = 1 / (x * log(10))
-	return new Expr_BinaryOp(env.GetOperator(OPTYPE_Div), new Expr_Value(1),
-			new Expr_BinaryOp(
-				env.GetOperator(OPTYPE_Mul),
-				pExprArg->Clone(), CreateExprCaller(Gura_Symbol(log), new Expr_Value(10))));
+	return new Expr_BinaryOp(
+		env.GetOperator(OPTYPE_Div), new Expr_Value(1),
+		new Expr_BinaryOp(
+			env.GetOperator(OPTYPE_Mul),
+			pExprArg->Clone(),
+			Expr_Caller::Create(
+				Gura_Symbol(math), Gura_Symbol(log),
+				new Expr_Value(10))));
 }
 
 // math.sin(num):map:[deg]
@@ -492,7 +518,9 @@ Gura_ImplementFunction(sin)
 Gura_ImplementDiffUnary(sin)
 {
 	// sin(x)' = cos(x)
-	return CreateExprCaller(Gura_Symbol(cos), pExprArg->Clone());
+	return Expr_Caller::Create(
+		Gura_Symbol(math), Gura_Symbol(cos),
+		pExprArg->Clone());
 }
 
 // math.sinh(num):map
@@ -546,11 +574,15 @@ Gura_ImplementFunction(sqrt)
 Gura_ImplementDiffUnary(sqrt)
 {
 	// sqrt(x)' = 1 / (2 * sqrt(x))
-	return new Expr_BinaryOp(env.GetOperator(OPTYPE_Div), new Expr_Value(1),
-			new Expr_BinaryOp(
-				env.GetOperator(OPTYPE_Mul),
-				new Expr_Value(2),
-				CreateExprCaller(Gura_Symbol(sqrt), pExprArg->Clone())));
+	return new Expr_BinaryOp(
+		env.GetOperator(OPTYPE_Div),
+		new Expr_Value(1),
+		new Expr_BinaryOp(
+			env.GetOperator(OPTYPE_Mul),
+			new Expr_Value(2),
+			Expr_Caller::Create(
+				Gura_Symbol(math), Gura_Symbol(sqrt),
+				pExprArg->Clone())));
 }
 
 // math.tan(num):map:[deg]
@@ -581,11 +613,15 @@ Gura_ImplementFunction(tan)
 Gura_ImplementDiffUnary(tan)
 {
 	// tan(x)' = 1 / cos(x) ** 2
-	return new Expr_BinaryOp(env.GetOperator(OPTYPE_Div), new Expr_Value(1),
-			new Expr_BinaryOp(
-				env.GetOperator(OPTYPE_Pow),
-				CreateExprCaller(Gura_Symbol(cos), pExprArg->Clone()),
-				new Expr_Value(2)));
+	return new Expr_BinaryOp(
+		env.GetOperator(OPTYPE_Div),
+		new Expr_Value(1),
+		new Expr_BinaryOp(
+			env.GetOperator(OPTYPE_Pow),
+			Expr_Caller::Create(
+				Gura_Symbol(math), Gura_Symbol(cos),
+				pExprArg->Clone()),
+			new Expr_Value(2)));
 }
 
 // math.tanh(num):map
@@ -1146,12 +1182,6 @@ Gura_ModuleTerminate()
 //-----------------------------------------------------------------------------
 // utility functions
 //-----------------------------------------------------------------------------
-Expr_Caller *CreateExprCaller(const Symbol *pSymbol, Expr *pExprArg)
-{
-	return new Expr_Caller(
-		new Expr_Member(new Expr_Identifier(Gura_Symbol(math)), new Expr_Identifier(pSymbol)),
-		new Expr_Lister(pExprArg), NULL);
-}
 
 Gura_EndModuleBody(math, math)
 

@@ -976,8 +976,8 @@ Expr *Operator_Pow::DiffBinary(Environment &env, Signal sig,
 			Operator_Mul::OptimizeExpr(
 				env, sig,
 				pExprDiff2.release(),
-				Gura_Module(math)::CreateExprCaller(
-					Gura_Symbol(log), pExprArg1->Clone())),
+				Expr_Caller::Create(
+					Gura_Symbol(math), Gura_Symbol(log), pExprArg1->Clone())),
 			Operator_Pow::OptimizeExpr(
 				env, sig, pExprArg1->Clone(), pExprArg2->Clone())));
 }

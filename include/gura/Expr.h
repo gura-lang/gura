@@ -552,9 +552,6 @@ public:
 	};
 public:
 	inline Expr_Lister() : Expr_Collector(EXPRTYPE_Lister) {}
-	inline Expr_Lister(Expr *pExpr) : Expr_Collector(EXPRTYPE_Lister) {
-		AddExpr(pExpr);
-	}
 	inline Expr_Lister(const Expr_Lister &expr) : Expr_Collector(expr) {}
 	inline static Expr_Lister *Reference(const Expr_Lister *pExpr) {
 		return dynamic_cast<Expr_Lister *>(Expr::Reference(pExpr));
@@ -685,6 +682,9 @@ public:
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;
+	static Expr_Caller *Create(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
+							   Expr *pExprArg1 = NULL, Expr *pExprArg2 = NULL,
+							   Expr *pExprArg3 = NULL, Expr *pExprArg4 = NULL);
 	Value EvalEach(Environment &env, Signal sig, const Value &valueThis,
 		Iterator *pIteratorThis, bool listThisFlag, TrailCtrlHolder *pTrailCtrlHolder) const;
 	inline void AddAttr(const Symbol *pSymbol) { _attrs.Insert(pSymbol); }

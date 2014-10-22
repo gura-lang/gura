@@ -2290,6 +2290,22 @@ bool Expr_Caller::GenerateScript(Signal sig, SimpleStream &stream,
 	return true;
 }
 
+Expr_Caller *Expr_Caller::Create(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
+								 Expr *pExprArg1, Expr *pExprArg2,
+								 Expr *pExprArg3, Expr *pExprArg4)
+{
+	Expr *pExprCar = new Expr_Identifier(pFuncSymbol);
+	if (pContainerSymbol != NULL) {
+		pExprCar =  new Expr_Member(new Expr_Identifier(pContainerSymbol), pExprCar);
+	}
+	Expr_Lister *pExprLister = new Expr_Lister();
+	if (pExprArg1 != NULL) pExprLister->AddExpr(pExprArg1);
+	if (pExprArg2 != NULL) pExprLister->AddExpr(pExprArg2);
+	if (pExprArg3 != NULL) pExprLister->AddExpr(pExprArg3);
+	if (pExprArg4 != NULL) pExprLister->AddExpr(pExprArg4);
+	return new Expr_Caller(pExprCar, pExprLister, NULL);
+}
+
 Expr_Caller::SequenceEx::SequenceEx(Environment *pEnv) : Sequence(pEnv)
 {
 }

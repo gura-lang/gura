@@ -7,8 +7,6 @@
 
 Gura_BeginModuleHeader(math)
 
-GURA_DLLEXPORT Expr_Caller *CreateExprCaller(const Symbol *pSymbol, Expr *pExprArg);
-
 Gura_EndModuleHeader(math)
 
 #endif
