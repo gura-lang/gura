@@ -2176,7 +2176,7 @@ Expr *Expr_Caller::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol)
 		Expr::Delete(pExprArgDiff);
 		return pExprFuncDiff;
 	}
-	return Operator_Mul::OptimizeExpr(env, sig, pExprFuncDiff, pExprArgDiff);
+	return Operator_Mul::MathOptimizeExpr(env, sig, pExprFuncDiff, pExprArgDiff);
 }
 
 Expr *Expr_Caller::MathOptimize(Environment &env, Signal sig) const
@@ -2336,7 +2336,7 @@ Value Expr_UnaryOp::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPos
 
 Expr *Expr_UnaryOp::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
 {
-	return _pOperator->DiffUnary(env, sig, GetChild(), pSymbol);
+	return _pOperator->MathDiffUnary(env, sig, GetChild(), pSymbol);
 }
 
 Expr *Expr_UnaryOp::MathOptimize(Environment &env, Signal sig) const
@@ -2346,7 +2346,7 @@ Expr *Expr_UnaryOp::MathOptimize(Environment &env, Signal sig) const
 		sig.AddExprCause(this);
 		return NULL;
 	}
-	return _pOperator->OptimizeUnary(env, sig, pExprOpt);
+	return _pOperator->MathOptimizeUnary(env, sig, pExprOpt);
 }
 
 bool Expr_UnaryOp::GenerateCode(Environment &env, Signal sig, Stream &stream)
@@ -2457,7 +2457,7 @@ Value Expr_BinaryOp::DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPo
 
 Expr *Expr_BinaryOp::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol) const
 {
-	return _pOperator->DiffBinary(env, sig, GetLeft(), GetRight(), pSymbol);
+	return _pOperator->MathDiffBinary(env, sig, GetLeft(), GetRight(), pSymbol);
 }
 
 Expr *Expr_BinaryOp::MathOptimize(Environment &env, Signal sig) const
@@ -2472,7 +2472,7 @@ Expr *Expr_BinaryOp::MathOptimize(Environment &env, Signal sig) const
 		sig.AddExprCause(this);
 		return NULL;
 	}
-	return _pOperator->OptimizeBinary(env, sig, pExprOpt1.release(), pExprOpt2.release());
+	return _pOperator->MathOptimizeBinary(env, sig, pExprOpt1.release(), pExprOpt2.release());
 }
 
 bool Expr_BinaryOp::GenerateCode(Environment &env, Signal sig, Stream &stream)
