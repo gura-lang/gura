@@ -65,6 +65,12 @@ int Main(int argc, const char *argv[])
 		::fprintf(stderr, "\n");
 	}
 	bool interactiveFlag = true;
+	bool versionPrintedFlag = false;
+	bool quietFlag = opt.IsSet("quiet");
+	if (opt.IsSet("interactive") && !quietFlag) {
+		PrintVersion(stdout);
+		versionPrintedFlag = true;
+	}
 	if (opt.IsSet("import")) {
 		foreach_const (StringList, pModuleNames, opt.GetStringList("import")) {
 			if (!env.ImportModules(sig, pModuleNames->c_str(), false, false)) {
@@ -154,7 +160,7 @@ int Main(int argc, const char *argv[])
 		interactiveFlag = false;
 	}
 	if (interactiveFlag || opt.IsSet("interactive")) {
-		PrintVersion(stdout);
+		if (!versionPrintedFlag && !quietFlag) PrintVersion(stdout);
 		env.GetGlobal()->SetEchoFlag(true);
 		ReadEvalPrintLoop(env, sig);
 	}
@@ -176,6 +182,7 @@ void PrintHelp(FILE *fp)
 "-i module[,..] import module(s) before parsing\n"
 "-I dir         specify a directory to search for modules\n"
 "-c cmd         execute program from command line\n"
+"-q             suppress version printing at the beginning of interactive mode\n"
 "-T template    evaluate script code embedded in template\n"
 "-C dir         change directory before executing scripts\n"
 "-d coding      set character coding to describe script\n"
