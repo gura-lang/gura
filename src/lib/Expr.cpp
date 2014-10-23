@@ -227,6 +227,18 @@ bool Expr::IsConstNegNumber() const
 	return value.Is_number() && value.GetNumber() < 0;
 }
 
+bool Expr::IsUnaryOp(OpType opType) const
+{
+	return IsUnaryOp() &&
+		dynamic_cast<const Expr_UnaryOp *>(this)->GetOperator()->GetOpType() == opType;
+}
+
+bool Expr::IsBinaryOp(OpType opType) const
+{
+	return IsBinaryOp() &&
+		dynamic_cast<const Expr_BinaryOp *>(this)->GetOperator()->GetOpType() == opType;
+}
+
 bool Expr::IsOperatorNeg() const
 {
 	return IsUnaryOp() &&

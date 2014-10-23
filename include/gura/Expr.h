@@ -226,6 +226,8 @@ public:
 	bool IsConstNumber(Number num) const;
 	bool IsConstEvenNumber() const;
 	bool IsConstNegNumber() const;
+	bool IsUnaryOp(OpType opType) const;
+	bool IsBinaryOp(OpType opType) const;
 	bool IsOperatorNeg() const;
 	bool IsOperatorMul() const;
 	bool IsOperatorPow() const;

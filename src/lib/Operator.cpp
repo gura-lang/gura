@@ -703,6 +703,17 @@ Expr *Operator_Mul::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 					Operator_Add::OptimizeExpr(env, sig, pExprPowR, new Expr_Value(1)));
 			}
 		}
+	} else if (pExprLeft->IsBinaryOp(OPTYPE_Div)) {
+		// n / m * l = n * l / m
+		const Expr_BinaryOp *pExprBinOpL =
+							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
+		Expr *pExprLeftL = pExprBinOpL->GetLeft()->Clone();
+		Expr *pExprLeftR = pExprBinOpL->GetRight()->Clone();
+		Expr::Delete(pExprLeft);
+		return Operator_Div::OptimizeExpr(
+			env, sig,
+			Operator_Mul::OptimizeExpr(env, sig, pExprLeftL, pExprRight),
+			pExprLeftR);
 	} else if (pExprLeft->IsOperatorPow() && pExprRight->IsIdentifier()) {
 		const Expr_BinaryOp *pExprBinOpL =
 							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
@@ -716,7 +727,8 @@ Expr *Operator_Mul::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 				Expr *pExprPowL = pExprBinOpL->GetRight()->Clone();
 				Expr::Delete(pExprLeft);
 				return Operator_Pow::OptimizeExpr(
-					env, sig, pExprRight,
+					env, sig,
+					pExprRight,
 					Operator_Add::OptimizeExpr(env, sig, pExprPowL, new Expr_Value(1)));
 			}
 		}
@@ -738,7 +750,8 @@ Expr *Operator_Mul::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 				Expr::Delete(pExprLeft);
 				Expr::Delete(pExprRight);
 				return Operator_Pow::OptimizeExpr(
-					env, sig, pExprBase,
+					env, sig,
+					pExprBase,
 					Operator_Add::OptimizeExpr(env, sig, pExprPowL, pExprPowR));
 			}
 		}
@@ -1026,9 +1039,9 @@ Expr *Operator_Pow::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 		Expr::Delete(pExprLeft);
 		return Operator_Pow::OptimizeExpr(env, sig, pExpr, pExprRight);
 	} else if (pExprLeft->IsOperatorPow()) {
+		// n ** m ** l = n ** (m * l)
 		const Expr_BinaryOp *pExprBinOpL =
 							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
-		// n ** m ** l = n ** (m * l)
 		Expr *pExprLeftL = pExprBinOpL->GetLeft()->Clone();
 		Expr *pExprLeftR = pExprBinOpL->GetRight()->Clone();
 		Expr::Delete(pExprLeft);

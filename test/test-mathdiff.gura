@@ -45,6 +45,7 @@ testcase {
 		_(x) { math.exp(x) - math.exp(-x) }
 		_(x) { (math.sin(x + 2) + x + 2) * (math.sin(x + 3) + x + 3) }
 		_(x) { math.sin(math.sin(x ** 2 / 3)) }
+		_(x) { (2 * x - 1) / x ** 2 }
 	]
 	printf('%s -> %s\n', funcs:*expr || funcs, funcs:*mathdiff():*expr)
 }

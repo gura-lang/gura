@@ -111,6 +111,8 @@ testcase {
 		`((-x) ** 4)
 		`((-x) ** 5)
 		`((-x) ** 6)
+		`(x ** 3 ** 4)
+		`((-x) ** 3 ** 4)
 	]
 	printf('%s -> %s\n', tests:*tostring(), math.optimize(tests):*tostring())
 }
