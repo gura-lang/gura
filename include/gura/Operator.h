@@ -186,7 +186,7 @@ public:
 	virtual Expr *MathDiffUnary(Environment &env, Signal sig,
 							const Expr *pExprArg, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimizeUnary(Environment &env, Signal sig, Expr *pExprOpt) const;
-	static Expr *MathOptimizeExpr(Environment &env, Signal sig, Expr *pExprChild);
+	static Expr *MathOptimize(Environment &env, Signal sig, Expr *pExprChild);
 };
 
 //-----------------------------------------------------------------------------
@@ -198,7 +198,7 @@ public:
 	virtual Expr *MathDiffUnary(Environment &env, Signal sig,
 							const Expr *pExprArg, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimizeUnary(Environment &env, Signal sig, Expr *pExprOpt) const;
-	static Expr *MathOptimizeExpr(Environment &env, Signal sig, Expr *pExprChild);
+	static Expr *MathOptimize(Environment &env, Signal sig, Expr *pExprChild);
 };
 
 //-----------------------------------------------------------------------------
@@ -251,7 +251,7 @@ public:
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimizeBinary(Environment &env, Signal sig,
 										Expr *pExprOpt1, Expr *pExprOpt2) const;
-	static Expr *MathOptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
+	static Expr *MathOptimize(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
 //-----------------------------------------------------------------------------
@@ -264,7 +264,7 @@ public:
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimizeBinary(Environment &env, Signal sig,
 										Expr *pExprOpt1, Expr *pExprOpt2) const;
-	static Expr *MathOptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
+	static Expr *MathOptimize(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
 //-----------------------------------------------------------------------------
@@ -279,7 +279,7 @@ public:
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimizeBinary(Environment &env, Signal sig,
 										Expr *pExprOpt1, Expr *pExprOpt2) const;
-	static Expr *MathOptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
+	static Expr *MathOptimize(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
 //-----------------------------------------------------------------------------
@@ -292,7 +292,7 @@ public:
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimizeBinary(Environment &env, Signal sig,
 										Expr *pExprOpt1, Expr *pExprOpt2) const;
-	static Expr *MathOptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
+	static Expr *MathOptimize(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
 //-----------------------------------------------------------------------------
@@ -315,7 +315,7 @@ public:
 		const Expr *pExprArg1, const Expr *pExprArg2, const Symbol *pSymbol) const;
 	virtual Expr *MathOptimizeBinary(Environment &env, Signal sig,
 										Expr *pExprOpt1, Expr *pExprOpt2) const;
-	static Expr *MathOptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
+	static Expr *MathOptimize(Environment &env, Signal sig, Expr *pExprLeft, Expr *pExprRight);
 };
 
 //-----------------------------------------------------------------------------

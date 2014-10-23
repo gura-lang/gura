@@ -2176,7 +2176,7 @@ Expr *Expr_Caller::MathDiff(Environment &env, Signal sig, const Symbol *pSymbol)
 		Expr::Delete(pExprArgDiff);
 		return pExprFuncDiff;
 	}
-	return Operator_Mul::MathOptimizeExpr(env, sig, pExprFuncDiff, pExprArgDiff);
+	return Operator_Mul::MathOptimize(env, sig, pExprFuncDiff, pExprArgDiff);
 }
 
 Expr *Expr_Caller::MathOptimize(Environment &env, Signal sig) const
