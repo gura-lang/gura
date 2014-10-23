@@ -1025,6 +1025,17 @@ Expr *Operator_Pow::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 		Expr *pExpr = dynamic_cast<const Expr_UnaryOp *>(pExprLeft)->GetChild()->Clone();
 		Expr::Delete(pExprLeft);
 		return Operator_Pow::OptimizeExpr(env, sig, pExpr, pExprRight);
+	} else if (pExprLeft->IsOperatorPow()) {
+		const Expr_BinaryOp *pExprBinOpL =
+							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
+		// n ** m ** l = n ** (m * l)
+		Expr *pExprLeftL = pExprBinOpL->GetLeft()->Clone();
+		Expr *pExprLeftR = pExprBinOpL->GetRight()->Clone();
+		Expr::Delete(pExprLeft);
+		return Operator_Pow::OptimizeExpr(
+			env, sig,
+			pExprLeftL,
+			Operator_Mul::OptimizeExpr(env, sig, pExprLeftR, pExprRight));
 	}
 	return new Expr_BinaryOp(env.GetOperator(OPTYPE_Pow), pExprLeft, pExprRight);
 }
