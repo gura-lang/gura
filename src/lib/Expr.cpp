@@ -239,36 +239,6 @@ bool Expr::IsBinaryOp(OpType opType) const
 		dynamic_cast<const Expr_BinaryOp *>(this)->GetOperator()->GetOpType() == opType;
 }
 
-bool Expr::IsOperatorNeg() const
-{
-	return IsUnaryOp() &&
-			dynamic_cast<const Expr_UnaryOp *>(this)->GetOperator()->GetOpType() == OPTYPE_Neg;
-}
-
-bool Expr::IsOperatorMul() const
-{
-	return IsBinaryOp() &&
-		dynamic_cast<const Expr_BinaryOp *>(this)->GetOperator()->GetOpType() == OPTYPE_Mul;
-}
-
-bool Expr::IsOperatorPow() const
-{
-	return IsBinaryOp() &&
-		dynamic_cast<const Expr_BinaryOp *>(this)->GetOperator()->GetOpType() == OPTYPE_Pow;
-}
-
-bool Expr::IsOperatorSeq() const
-{
-	return IsBinaryOp() &&
-		dynamic_cast<const Expr_BinaryOp *>(this)->GetOperator()->GetOpType() == OPTYPE_Seq;
-}
-
-bool Expr::IsOperatorPair() const
-{
-	return IsBinaryOp() &&
-		dynamic_cast<const Expr_BinaryOp *>(this)->GetOperator()->GetOpType() == OPTYPE_Pair;
-}
-
 // type chekers - Unary and descendants
 bool Expr::IsUnary() const			{ return false; }
 bool Expr::IsUnaryOp() const		{ return false; }

@@ -228,11 +228,6 @@ public:
 	bool IsConstNegNumber() const;
 	bool IsUnaryOp(OpType opType) const;
 	bool IsBinaryOp(OpType opType) const;
-	bool IsOperatorNeg() const;
-	bool IsOperatorMul() const;
-	bool IsOperatorPow() const;
-	bool IsOperatorSeq() const;
-	bool IsOperatorPair() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
 							ScriptStyle scriptStyle, int nestLevel) const;

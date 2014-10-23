@@ -39,7 +39,7 @@ Declaration *Declaration::Create(Environment &env, Signal sig, const Expr *pExpr
 	OccurPattern occurPattern = OCCUR_Once;
 	ValueType valType = VTYPE_any;
 	Expr *pExprDefault = NULL;
-	if (pExpr->IsOperatorPair()) {
+	if (pExpr->IsBinaryOp(OPTYPE_Pair)) {
 		const Expr_BinaryOp *pExprBinaryOp =
 								dynamic_cast<const Expr_BinaryOp *>(pExpr);
 		pExpr = pExprBinaryOp->GetLeft();

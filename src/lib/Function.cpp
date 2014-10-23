@@ -760,7 +760,7 @@ bool Function::SequenceEx::DoStep(Signal sig, Value &result)
 		}
 		const Expr *pExprArg = *_ppExprArg++;
 		bool quoteFlag = _ppDecl != _pFunc->GetDeclOwner().end() && (*_ppDecl)->IsQuote();
-		if (!quoteFlag && pExprArg->IsOperatorPair()) {
+		if (!quoteFlag && pExprArg->IsBinaryOp(OPTYPE_Pair)) {
 			const Expr_BinaryOp *pExprBinaryOp =
 							dynamic_cast<const Expr_BinaryOp *>(pExprArg);
 			const Expr *pExprLeft = pExprBinaryOp->GetLeft()->Unquote();
