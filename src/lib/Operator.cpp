@@ -279,7 +279,7 @@ Expr *Operator_Neg::OptimizeExpr(Environment &env, Signal sig, Expr *pExprChild)
 		bool suffixFlag = false;
 		return env.GetOperator(OPTYPE_Neg)->OptimizeConst(env, sig,
 							dynamic_cast<Expr_Value *>(pExprChild), suffixFlag);
-	} else if (pExprChild->IsOperatorNeg()) {
+	} else if (pExprChild->IsUnaryOp(OPTYPE_Neg)) {
 		// -(-n) = n
 		Expr *pExpr =
 			dynamic_cast<const Expr_UnaryOp *>(pExprChild)->GetChild()->Clone();
@@ -350,7 +350,7 @@ Expr *Operator_Add::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 		// n + 0 = n
 		Expr::Delete(pExprRight);
 		return pExprLeft;
-	} else if (pExprRight->IsOperatorNeg()) {
+	} else if (pExprRight->IsUnaryOp(OPTYPE_Neg)) {
 		// n + (-m) = n - m
 		Expr *pExpr =
 			dynamic_cast<const Expr_UnaryOp *>(pExprRight)->GetChild()->Clone();
@@ -366,7 +366,7 @@ Expr *Operator_Add::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 			Expr::Delete(pExprRight);
 			return Operator_Mul::OptimizeExpr(env, sig, pExprLeft, new Expr_Value(2));
 		}
-	} else if (pExprLeft->IsIdentifier() && pExprRight->IsOperatorMul()) {
+	} else if (pExprLeft->IsIdentifier() && pExprRight->IsBinaryOp(OPTYPE_Mul)) {
 		const Expr_Identifier *pExprIdentifierL =
 							dynamic_cast<const Expr_Identifier *>(pExprLeft);
 		const Expr_BinaryOp *pExprBinOpR =
@@ -383,7 +383,7 @@ Expr *Operator_Add::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 					Operator_Add::OptimizeExpr(env, sig, new Expr_Value(1), pExprMulR));
 			}
 		}
-	} else if (pExprLeft->IsOperatorMul() && pExprRight->IsIdentifier()) {
+	} else if (pExprLeft->IsBinaryOp(OPTYPE_Mul) && pExprRight->IsIdentifier()) {
 		const Expr_BinaryOp *pExprBinOpL =
 							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
 		const Expr_Identifier *pExprIdentifierR =
@@ -400,7 +400,7 @@ Expr *Operator_Add::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 					Operator_Add::OptimizeExpr(env, sig, pExprMulL, new Expr_Value(1)));
 			}
 		}
-	} else if (pExprLeft->IsOperatorMul() && pExprRight->IsOperatorMul()) {
+	} else if (pExprLeft->IsBinaryOp(OPTYPE_Mul) && pExprRight->IsBinaryOp(OPTYPE_Mul)) {
 		const Expr_BinaryOp *pExprBinOpL =
 							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
 		const Expr_BinaryOp *pExprBinOpR =
@@ -466,7 +466,7 @@ Expr *Operator_Sub::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 		// n - 0 = n
 		Expr::Delete(pExprRight);
 		return pExprLeft;
-	} else if (pExprRight->IsOperatorNeg()) {
+	} else if (pExprRight->IsUnaryOp(OPTYPE_Neg)) {
 		// n - (-m) = n + m
 		Expr *pExpr =
 			dynamic_cast<const Expr_UnaryOp *>(pExprRight)->GetChild()->Clone();
@@ -483,7 +483,7 @@ Expr *Operator_Sub::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 			Expr::Delete(pExprRight);
 			return new Expr_Value(0);
 		}
-	} else if (pExprLeft->IsIdentifier() && pExprRight->IsOperatorMul()) {
+	} else if (pExprLeft->IsIdentifier() && pExprRight->IsBinaryOp(OPTYPE_Mul)) {
 		const Expr_Identifier *pExprIdentifierL =
 							dynamic_cast<const Expr_Identifier *>(pExprLeft);
 		const Expr_BinaryOp *pExprBinOpR =
@@ -500,7 +500,7 @@ Expr *Operator_Sub::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 					Operator_Sub::OptimizeExpr(env, sig, new Expr_Value(1), pExprMulR));
 			}
 		}
-	} else if (pExprLeft->IsOperatorMul() && pExprRight->IsIdentifier()) {
+	} else if (pExprLeft->IsBinaryOp(OPTYPE_Mul) && pExprRight->IsIdentifier()) {
 		const Expr_BinaryOp *pExprBinOpL =
 							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
 		const Expr_Identifier *pExprIdentifierR =
@@ -517,7 +517,7 @@ Expr *Operator_Sub::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 					Operator_Sub::OptimizeExpr(env, sig, pExprMulL, new Expr_Value(1)));
 			}
 		}
-	} else if (pExprLeft->IsOperatorMul() && pExprRight->IsOperatorMul()) {
+	} else if (pExprLeft->IsBinaryOp(OPTYPE_Mul) && pExprRight->IsBinaryOp(OPTYPE_Mul)) {
 		const Expr_BinaryOp *pExprBinOpL =
 							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
 		const Expr_BinaryOp *pExprBinOpR =
@@ -651,7 +651,7 @@ Expr *Operator_Mul::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 		// n * (-1) = -n
 		Expr::Delete(pExprRight);
 		return Operator_Neg::OptimizeExpr(env, sig, pExprLeft);
-	} else if (pExprLeft->IsOperatorNeg() && pExprRight->IsOperatorNeg()) {
+	} else if (pExprLeft->IsUnaryOp(OPTYPE_Neg) && pExprRight->IsUnaryOp(OPTYPE_Neg)) {
 		// (-n) * (-m) = n * m
 		Expr *pExpr1 =
 			dynamic_cast<const Expr_UnaryOp *>(pExprLeft)->GetChild()->Clone();
@@ -660,7 +660,7 @@ Expr *Operator_Mul::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 		Expr::Delete(pExprLeft);
 		Expr::Delete(pExprRight);
 		return Operator_Mul::OptimizeExpr(env, sig, pExpr1, pExpr2);
-	} else if (pExprLeft->IsOperatorNeg()) {
+	} else if (pExprLeft->IsUnaryOp(OPTYPE_Neg)) {
 		// (-n) * m = -(n * m)
 		Expr *pExpr =
 			dynamic_cast<const Expr_UnaryOp *>(pExprLeft)->GetChild()->Clone();
@@ -668,7 +668,7 @@ Expr *Operator_Mul::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 		return Operator_Neg::OptimizeExpr(
 			env, sig,
 			Operator_Mul::OptimizeExpr(env, sig, pExpr, pExprRight));
-	} else if (pExprRight->IsOperatorNeg()) {
+	} else if (pExprRight->IsUnaryOp(OPTYPE_Neg)) {
 		// n * (-m) = -(n * m)
 		Expr *pExpr =
 			dynamic_cast<const Expr_UnaryOp *>(pExprRight)->GetChild()->Clone();
@@ -686,7 +686,7 @@ Expr *Operator_Mul::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 			Expr::Delete(pExprRight);
 			return Operator_Pow::OptimizeExpr(env, sig, pExprLeft, new Expr_Value(2));
 		}
-	} else if (pExprLeft->IsIdentifier() && pExprRight->IsOperatorPow()) {
+	} else if (pExprLeft->IsIdentifier() && pExprRight->IsBinaryOp(OPTYPE_Pow)) {
 		const Expr_Identifier *pExprIdentifierL =
 							dynamic_cast<const Expr_Identifier *>(pExprLeft);
 		const Expr_BinaryOp *pExprBinOpR =
@@ -714,7 +714,7 @@ Expr *Operator_Mul::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 			env, sig,
 			Operator_Mul::OptimizeExpr(env, sig, pExprLeftL, pExprRight),
 			pExprLeftR);
-	} else if (pExprLeft->IsOperatorPow() && pExprRight->IsIdentifier()) {
+	} else if (pExprLeft->IsBinaryOp(OPTYPE_Pow) && pExprRight->IsIdentifier()) {
 		const Expr_BinaryOp *pExprBinOpL =
 							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
 		const Expr_Identifier *pExprIdentifierR =
@@ -732,7 +732,7 @@ Expr *Operator_Mul::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 					Operator_Add::OptimizeExpr(env, sig, pExprPowL, new Expr_Value(1)));
 			}
 		}
-	} else if (pExprLeft->IsOperatorPow() && pExprRight->IsOperatorPow()) {
+	} else if (pExprLeft->IsBinaryOp(OPTYPE_Pow) && pExprRight->IsBinaryOp(OPTYPE_Pow)) {
 		const Expr_BinaryOp *pExprBinOpL =
 							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
 		const Expr_BinaryOp *pExprBinOpR =
@@ -807,7 +807,7 @@ Expr *Operator_Div::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 		// n / (-1) = -n
 		Expr::Delete(pExprRight);
 		return Operator_Neg::OptimizeExpr(env, sig, pExprLeft);
-	} else if (pExprLeft->IsOperatorNeg() && pExprRight->IsOperatorNeg()) {
+	} else if (pExprLeft->IsUnaryOp(OPTYPE_Neg) && pExprRight->IsUnaryOp(OPTYPE_Neg)) {
 		// (-n) / (-m) = n / m
 		Expr *pExpr1 =
 			dynamic_cast<const Expr_UnaryOp *>(pExprLeft)->GetChild()->Clone();
@@ -816,7 +816,7 @@ Expr *Operator_Div::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 		Expr::Delete(pExprLeft);
 		Expr::Delete(pExprRight);
 		return Operator_Div::OptimizeExpr(env, sig, pExpr1, pExpr2);
-	} else if (pExprLeft->IsOperatorNeg()) {
+	} else if (pExprLeft->IsUnaryOp(OPTYPE_Neg)) {
 		// (-n) / m = -(n / m)
 		Expr *pExpr =
 			dynamic_cast<const Expr_UnaryOp *>(pExprLeft)->GetChild()->Clone();
@@ -824,7 +824,7 @@ Expr *Operator_Div::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 		return Operator_Neg::OptimizeExpr(
 			env, sig,
 			Operator_Div::OptimizeExpr(env, sig, pExpr, pExprRight));
-	} else if (pExprRight->IsOperatorNeg()) {
+	} else if (pExprRight->IsUnaryOp(OPTYPE_Neg)) {
 		// n / (-m) = -(n / m)
 		Expr *pExpr =
 			dynamic_cast<const Expr_UnaryOp *>(pExprRight)->GetChild()->Clone();
@@ -843,7 +843,7 @@ Expr *Operator_Div::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 			Expr::Delete(pExprRight);
 			return new Expr_Value(1);
 		}
-	} else if (pExprLeft->IsIdentifier() && pExprRight->IsOperatorPow()) {
+	} else if (pExprLeft->IsIdentifier() && pExprRight->IsBinaryOp(OPTYPE_Pow)) {
 		const Expr_Identifier *pExprIdentifierL =
 							dynamic_cast<const Expr_Identifier *>(pExprLeft);
 		const Expr_BinaryOp *pExprBinOpR =
@@ -860,7 +860,7 @@ Expr *Operator_Div::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 					Operator_Sub::OptimizeExpr(env, sig, new Expr_Value(1), pExprPowR));
 			}
 		}
-	} else if (pExprLeft->IsOperatorPow() && pExprRight->IsIdentifier()) {
+	} else if (pExprLeft->IsBinaryOp(OPTYPE_Pow) && pExprRight->IsIdentifier()) {
 		const Expr_BinaryOp *pExprBinOpL =
 							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
 		const Expr_Identifier *pExprIdentifierR =
@@ -877,7 +877,7 @@ Expr *Operator_Div::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 					Operator_Sub::OptimizeExpr(env, sig, pExprPowL, new Expr_Value(1)));
 			}
 		}
-	} else if (pExprLeft->IsOperatorPow() && pExprRight->IsOperatorPow()) {
+	} else if (pExprLeft->IsBinaryOp(OPTYPE_Pow) && pExprRight->IsBinaryOp(OPTYPE_Pow)) {
 		const Expr_BinaryOp *pExprBinOpL =
 							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
 		const Expr_BinaryOp *pExprBinOpR =
@@ -1033,12 +1033,12 @@ Expr *Operator_Pow::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 		// n ** (-1) = 1 / n
 		Expr::Delete(pExprRight);
 		return Operator_Div::OptimizeExpr(env, sig, new Expr_Value(1), pExprLeft);
-	} else if (pExprLeft->IsOperatorNeg() && pExprRight->IsConstEvenNumber()) {
+	} else if (pExprLeft->IsUnaryOp(OPTYPE_Neg) && pExprRight->IsConstEvenNumber()) {
 		// (-n) ** (2m) = n ** (2m)
 		Expr *pExpr = dynamic_cast<const Expr_UnaryOp *>(pExprLeft)->GetChild()->Clone();
 		Expr::Delete(pExprLeft);
 		return Operator_Pow::OptimizeExpr(env, sig, pExpr, pExprRight);
-	} else if (pExprLeft->IsOperatorPow()) {
+	} else if (pExprLeft->IsBinaryOp(OPTYPE_Pow)) {
 		// n ** m ** l = n ** (m * l)
 		const Expr_BinaryOp *pExprBinOpL =
 							dynamic_cast<const Expr_BinaryOp *>(pExprLeft);
