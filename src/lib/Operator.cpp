@@ -379,7 +379,8 @@ Expr *Operator_Add::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 				Expr *pExprMulR = pExprBinOpR->GetRight()->Clone();
 				Expr::Delete(pExprRight);
 				return Operator_Mul::OptimizeExpr(
-					env, sig, pExprLeft,
+					env, sig,
+					pExprLeft,
 					Operator_Add::OptimizeExpr(env, sig, new Expr_Value(1), pExprMulR));
 			}
 		}
@@ -396,7 +397,8 @@ Expr *Operator_Add::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 				Expr *pExprMulL = pExprBinOpL->GetRight()->Clone();
 				Expr::Delete(pExprLeft);
 				return Operator_Mul::OptimizeExpr(
-					env, sig, pExprRight,
+					env, sig,
+					pExprRight,
 					Operator_Add::OptimizeExpr(env, sig, pExprMulL, new Expr_Value(1)));
 			}
 		}
@@ -418,7 +420,8 @@ Expr *Operator_Add::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 				Expr::Delete(pExprLeft);
 				Expr::Delete(pExprRight);
 				return Operator_Mul::OptimizeExpr(
-					env, sig, pExprBase,
+					env, sig,
+					pExprBase,
 					Operator_Add::OptimizeExpr(env, sig, pExprMulL, pExprMulR));
 			}
 		}
@@ -496,7 +499,8 @@ Expr *Operator_Sub::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 				Expr *pExprMulR = pExprBinOpR->GetRight()->Clone();
 				Expr::Delete(pExprRight);
 				return Operator_Mul::OptimizeExpr(
-					env, sig, pExprLeft,
+					env, sig,
+					pExprLeft,
 					Operator_Sub::OptimizeExpr(env, sig, new Expr_Value(1), pExprMulR));
 			}
 		}
@@ -513,7 +517,8 @@ Expr *Operator_Sub::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 				Expr *pExprMulL = pExprBinOpL->GetRight()->Clone();
 				Expr::Delete(pExprLeft);
 				return Operator_Mul::OptimizeExpr(
-					env, sig, pExprRight,
+					env, sig,
+					pExprRight,
 					Operator_Sub::OptimizeExpr(env, sig, pExprMulL, new Expr_Value(1)));
 			}
 		}
@@ -535,7 +540,8 @@ Expr *Operator_Sub::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 				Expr::Delete(pExprLeft);
 				Expr::Delete(pExprRight);
 				return Operator_Mul::OptimizeExpr(
-					env, sig, pExprBase,
+					env, sig,
+					pExprBase,
 					Operator_Sub::OptimizeExpr(env, sig, pExprMulL, pExprMulR));
 			}
 		}
@@ -699,7 +705,8 @@ Expr *Operator_Mul::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 				Expr *pExprPowR = pExprBinOpR->GetRight()->Clone();
 				Expr::Delete(pExprRight);
 				return Operator_Pow::OptimizeExpr(
-					env, sig, pExprLeft,
+					env, sig,
+					pExprLeft,
 					Operator_Add::OptimizeExpr(env, sig, pExprPowR, new Expr_Value(1)));
 			}
 		}
@@ -856,7 +863,8 @@ Expr *Operator_Div::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 				Expr *pExprPowR = pExprBinOpR->GetRight()->Clone();
 				Expr::Delete(pExprRight);
 				return Operator_Pow::OptimizeExpr(
-					env, sig, pExprLeft,
+					env, sig,
+					pExprLeft,
 					Operator_Sub::OptimizeExpr(env, sig, new Expr_Value(1), pExprPowR));
 			}
 		}
@@ -873,7 +881,8 @@ Expr *Operator_Div::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 				Expr *pExprPowL = pExprBinOpL->GetRight()->Clone();
 				Expr::Delete(pExprLeft);
 				return Operator_Pow::OptimizeExpr(
-					env, sig, pExprRight,
+					env, sig,
+					pExprRight,
 					Operator_Sub::OptimizeExpr(env, sig, pExprPowL, new Expr_Value(1)));
 			}
 		}
@@ -895,7 +904,8 @@ Expr *Operator_Div::OptimizeExpr(Environment &env, Signal sig, Expr *pExprLeft, 
 				Expr::Delete(pExprLeft);
 				Expr::Delete(pExprRight);
 				return Operator_Pow::OptimizeExpr(
-					env, sig, pExprBase,
+					env, sig,
+					pExprBase,
 					Operator_Sub::OptimizeExpr(env, sig, pExprPowL, pExprPowR));
 			}
 		}
