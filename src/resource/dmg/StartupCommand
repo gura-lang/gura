@@ -4,5 +4,6 @@ set DirCurrent to POSIX path of ((path to me as text) & "::")
 set DirResources to DirCurrent & "../Resources/"
 set PathGura to DirResources & "bin/gura"
 tell application "Terminal"
+  activate
   do script "clear;" & PathGura & " -t -i macsetup"
 end
