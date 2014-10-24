@@ -6,7 +6,7 @@ import(conio)
 
 strSep = '-' * 72
 fileNameLink = '/usr/bin/gura'
-if (!sys.executable.startswith('/Applications/')) {
+if (sys.executable.startswith('/Volumes/')) {
 	println(strSep)
 	print('Install by dragging ')
 	conio.setcolor(`green) { print('Gura.app') }
