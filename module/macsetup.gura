@@ -1,0 +1,33 @@
+#!/usr/bin/env gura
+//-----------------------------------------------------------------------------
+// Mac Setup Module used in Gura.app
+//-----------------------------------------------------------------------------
+import(conio)
+
+fileNameLink = '/usr/bin/gura'
+if (sys.executable.startswith('/Applications/')) {
+	if (!path.exists(fileNameLink)) {
+		println('-' * 72)
+		print('Execute function ')
+		conio.setcolor(`green) { print('setup()') }
+		printf(' to create a symbolic link %s.\n', fileNameLink)
+		println('-' * 72)
+	}
+} else {
+	println('-' * 72)
+	print('Install by dragging ')
+	conio.setcolor(`green) { print('Gura.app') }
+	print(' to ')
+	conio.setcolor(`green) { print('Applications') }
+	println()
+	println('-' * 72)
+}
+
+root.setup() = {
+	if (os.exec('sudo', 'ln', '-s', sys.executable, fileNameLink) == 0) {
+		conio.setcolor(`green) {
+			println('Symbolic link ', fileNameLink, ' was created.')
+		}
+	}
+	nil
+}
