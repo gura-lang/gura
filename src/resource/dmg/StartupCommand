@@ -1,4 +1,8 @@
-#!/bin/sh
+#!/usr/bin/osascript
 
-DIR_RESOURCES="`dirname "$0"`/../Resources"
-/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal "$DIR_RESOURCES/bin/gura"
+set DirCurrent to POSIX path of ((path to me as text) & "::")
+set DirResources to DirCurrent & "../Resources/"
+set PathGura to DirResources & "bin/gura"
+tell application "Terminal"
+  do script "clear;" & PathGura & " -t -i macsetup"
+end
