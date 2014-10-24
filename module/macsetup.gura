@@ -4,21 +4,22 @@
 //-----------------------------------------------------------------------------
 import(conio)
 
+strSep = '-' * 72
 fileNameLink = '/usr/bin/gura'
 if (!sys.executable.startswith('/Applications/')) {
-	println('-' * 72)
+	println(strSep)
 	print('Install by dragging ')
 	conio.setcolor(`green) { print('Gura.app') }
 	print(' to ')
 	conio.setcolor(`green) { print('Applications') }
 	println()
-	println('-' * 72)
+	println(strSep)
 } elsif (!path.exists(fileNameLink)) {
-	println('-' * 72)
+	println(strSep)
 	print('Execute function ')
 	conio.setcolor(`green) { print('setup()') }
 	printf(' to create a symbolic link %s.\n', fileNameLink)
-	println('-' * 72)
+	println(strSep)
 	root.setup():void = {
 		if (os.exec('sudo', 'ln', '-s', sys.executable, fileNameLink) == 0) {
 			conio.setcolor(`green) {
