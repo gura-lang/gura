@@ -126,16 +126,20 @@
 			  (goto-char pos-block-start)
 			  (+ (current-column) 1))))))) ;; elements exist at the same line
    (save-excursion
-	 (end-of-line)
-	 (let ((ch (char-before)))
-	   (unless (or (eq ch ?}) (eq ch ?])) (beginning-of-line)))
-	 (let* ((line-cur (line-number-at-pos)) (pos-cur (point))
+	 (beginning-of-line)
+	 (when (search-forward-regexp
+			(rx (0+ (not (any "{"))) (group "}")) (line-end-position) t)
+	   (goto-char (match-end 1)))
+	 (when (search-forward-regexp
+			(rx (0+ (not (any "["))) (group "]")) (line-end-position) t)
+	   (goto-char (match-end 1)))
+     (let* ((line-cur (line-number-at-pos)) (pos-cur (point))
 			(syntax (syntax-ppss)) (pos-block-start (nth 1 syntax)))
 	   (if pos-block-start
 		   (progn
 			 (goto-char pos-block-start)
 			 (or
-			  (when (looking-at (rx "{" (0+ space) "|"))
+			  (when (search-forward-regexp (rx "{" (0+ space) "|") (line-end-position) t)
 				(save-excursion
 				  (goto-char (match-end 0))
 				  (let ((line-param-start (line-number-at-pos))
