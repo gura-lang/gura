@@ -8,9 +8,9 @@ strSep = '-' * 72
 fileNameLink = '/usr/bin/gura'
 if (sys.executable.startswith('/Volumes/')) {
 	println(strSep)
-	print('Install by dragging ')
+	print('Install by dragging icon ')
 	conio.setcolor(`green) { print('Gura.app') }
-	print(' icon to ')
+	print(' to ')
 	conio.setcolor(`green) { print('Applications') }
 	println('.')
 	println(strSep)
