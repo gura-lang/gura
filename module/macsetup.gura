@@ -10,9 +10,9 @@ if (sys.executable.startswith('/Volumes/')) {
 	println(strSep)
 	print('Install by dragging ')
 	conio.setcolor(`green) { print('Gura.app') }
-	print(' to ')
+	print(' icon to ')
 	conio.setcolor(`green) { print('Applications') }
-	println()
+	println('.')
 	println(strSep)
 } elsif (!path.exists(fileNameLink)) {
 	println(strSep)
