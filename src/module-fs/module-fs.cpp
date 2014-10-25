@@ -667,124 +667,6 @@ Directory *PathMgr_FileSys::DoOpenDirectory(Environment &env, Signal sig,
 //-----------------------------------------------------------------------------
 // Gura module functions: fs
 //-----------------------------------------------------------------------------
-// fs.copy(src:string, dst:string):map:void:[overwrite]
-Gura_DeclareFunction(copy)
-{
-	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "src", VTYPE_string);
-	DeclareArg(env, "dst", VTYPE_string);
-	DeclareAttr(Gura_Symbol(overwrite));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Copies a file.");
-}
-
-Gura_ImplementFunction(copy)
-{
-	bool failIfExistsFlag = !args.IsSet(Gura_Symbol(overwrite));
-	if (!OAL::Copy(args.GetString(0), args.GetString(1), failIfExistsFlag)) {
-		sig.SetError(ERR_IOError, "failed to copy a file");
-	}
-	return Value::Null;
-}
-
-// fs.rename(src:string, dst:string):map:void
-Gura_DeclareFunction(rename)
-{
-	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "src", VTYPE_string);
-	DeclareArg(env, "dst", VTYPE_string);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Renames a file or directory.");
-}
-
-Gura_ImplementFunction(rename)
-{
-	if (!OAL::Rename(args.GetString(0), args.GetString(1))) {
-		sig.SetError(ERR_IOError, "failed to rename a file or directory");
-	}
-	return Value::Null;
-}
-
-// fs.remove(pathname:string):map:void
-Gura_DeclareFunction(remove)
-{
-	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "pathname", VTYPE_string);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Removes a file from the file system.");
-}
-
-Gura_ImplementFunction(remove)
-{
-	if (!OAL::Remove(args.GetString(0))) {
-		sig.SetError(ERR_IOError, "failed to remove a file");
-	}
-	return Value::Null;
-}
-
-// fs.cpdir(src:string, dst:string):map:void[:tree]
-Gura_DeclareFunction(cpdir)
-{
-	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "src", VTYPE_string);
-	DeclareArg(env, "dst", VTYPE_string);
-	DeclareAttr(Gura_UserSymbol(tree));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Copies a directory.");
-}
-
-Gura_ImplementFunction(cpdir)
-{
-	const char *dirNameSrc = args.GetString(0);
-	const char *dirNameDst = args.GetString(1);
-	bool rtn = args.IsSet(Gura_UserSymbol(tree))?
-				OAL::CopyDirTree(dirNameSrc, dirNameDst) :
-				OAL::CopyDir(dirNameSrc, dirNameDst);
-	if (!rtn) {
-		sig.SetError(ERR_IOError, "failed to copies a directory '%s' to '%s'",
-													dirNameSrc, dirNameDst);
-	}
-	return Value::Null;
-}
-
-// fs.mkdir(pathname:string):map:void[:tree]
-Gura_DeclareFunction(mkdir)
-{
-	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "pathname", VTYPE_string);
-	DeclareAttr(Gura_UserSymbol(tree));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Creates a directory.");
-}
-
-Gura_ImplementFunction(mkdir)
-{
-	const char *pathName = args.GetString(0);
-	bool rtn = args.IsSet(Gura_UserSymbol(tree))?
-				OAL::MakeDirTree(pathName) :
-				OAL::MakeDir(pathName);
-	if (!rtn) {
-		sig.SetError(ERR_IOError, "failed to create a directory %s", pathName);
-	}
-	return Value::Null;
-}
-
-// fs.rmdir(pathname:string):map:void[:tree]
-Gura_DeclareFunction(rmdir)
-{
-	SetMode(RSLTMODE_Void, FLAG_Map);
-	DeclareArg(env, "pathname", VTYPE_string);
-	DeclareAttr(Gura_UserSymbol(tree));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Removes a directory.");
-}
-
-Gura_ImplementFunction(rmdir)
-{
-	const char *pathName = args.GetString(0);
-	bool rtn = args.IsSet(Gura_UserSymbol(tree))?
-				OAL::RemoveDirTree(pathName) :
-				OAL::RemoveDir(pathName);
-	if (!rtn) {
-		sig.SetError(ERR_IOError, "failed to remove a directory %s", pathName);
-	}
-	return Value::Null;
-}
-
 // fs.chdir(pathname:string) {block?}
 Gura_DeclareFunction(chdir)
 {
@@ -815,19 +697,6 @@ Gura_ImplementFunction(chdir)
 	return Value::Null;
 }
 
-// fs.getcwd()
-Gura_DeclareFunction(getcwd)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the current working directory.");
-}
-
-Gura_ImplementFunction(getcwd)
-{
-	String pathName = OAL::GetCurDir();
-	return Value(pathName);
-}
-
 // fs.chmod(mode, pathname:string):map:void
 Gura_DeclareFunction(chmod)
 {
@@ -853,6 +722,138 @@ Gura_ImplementFunction(chmod)
 	}
 	return Value::Null;
 }
+
+// fs.copy(src:string, dst:string):map:void:[overwrite]
+Gura_DeclareFunction(copy)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "src", VTYPE_string);
+	DeclareArg(env, "dst", VTYPE_string);
+	DeclareAttr(Gura_Symbol(overwrite));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Copies a file.");
+}
+
+Gura_ImplementFunction(copy)
+{
+	bool failIfExistsFlag = !args.IsSet(Gura_Symbol(overwrite));
+	if (!OAL::Copy(args.GetString(0), args.GetString(1), failIfExistsFlag)) {
+		sig.SetError(ERR_IOError, "failed to copy a file");
+	}
+	return Value::Null;
+}
+
+// fs.cpdir(src:string, dst:string):map:void[:tree]
+Gura_DeclareFunction(cpdir)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "src", VTYPE_string);
+	DeclareArg(env, "dst", VTYPE_string);
+	DeclareAttr(Gura_UserSymbol(tree));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Copies a directory.");
+}
+
+Gura_ImplementFunction(cpdir)
+{
+	const char *dirNameSrc = args.GetString(0);
+	const char *dirNameDst = args.GetString(1);
+	bool rtn = args.IsSet(Gura_UserSymbol(tree))?
+				OAL::CopyDirTree(dirNameSrc, dirNameDst) :
+				OAL::CopyDir(dirNameSrc, dirNameDst);
+	if (!rtn) {
+		sig.SetError(ERR_IOError, "failed to copies a directory '%s' to '%s'",
+													dirNameSrc, dirNameDst);
+	}
+	return Value::Null;
+}
+
+// fs.getcwd()
+Gura_DeclareFunction(getcwd)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the current working directory.");
+}
+
+Gura_ImplementFunction(getcwd)
+{
+	String pathName = OAL::GetCurDir();
+	return Value(pathName);
+}
+
+// fs.mkdir(pathname:string):map:void[:tree]
+Gura_DeclareFunction(mkdir)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "pathname", VTYPE_string);
+	DeclareAttr(Gura_UserSymbol(tree));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Creates a directory.");
+}
+
+Gura_ImplementFunction(mkdir)
+{
+	const char *pathName = args.GetString(0);
+	bool rtn = args.IsSet(Gura_UserSymbol(tree))?
+				OAL::MakeDirTree(pathName) :
+				OAL::MakeDir(pathName);
+	if (!rtn) {
+		sig.SetError(ERR_IOError, "failed to create a directory %s", pathName);
+	}
+	return Value::Null;
+}
+
+// fs.remove(pathname:string):map:void
+Gura_DeclareFunction(remove)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "pathname", VTYPE_string);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Removes a file from the file system.");
+}
+
+Gura_ImplementFunction(remove)
+{
+	if (!OAL::Remove(args.GetString(0))) {
+		sig.SetError(ERR_IOError, "failed to remove a file");
+	}
+	return Value::Null;
+}
+
+// fs.rename(src:string, dst:string):map:void
+Gura_DeclareFunction(rename)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "src", VTYPE_string);
+	DeclareArg(env, "dst", VTYPE_string);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Renames a file or directory.");
+}
+
+Gura_ImplementFunction(rename)
+{
+	if (!OAL::Rename(args.GetString(0), args.GetString(1))) {
+		sig.SetError(ERR_IOError, "failed to rename a file or directory");
+	}
+	return Value::Null;
+}
+
+// fs.rmdir(pathname:string):map:void[:tree]
+Gura_DeclareFunction(rmdir)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "pathname", VTYPE_string);
+	DeclareAttr(Gura_UserSymbol(tree));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Removes a directory.");
+}
+
+Gura_ImplementFunction(rmdir)
+{
+	const char *pathName = args.GetString(0);
+	bool rtn = args.IsSet(Gura_UserSymbol(tree))?
+				OAL::RemoveDirTree(pathName) :
+				OAL::RemoveDir(pathName);
+	if (!rtn) {
+		sig.SetError(ERR_IOError, "failed to remove a directory %s", pathName);
+	}
+	return Value::Null;
+}
+
 
 // Module entry
 Gura_ModuleEntry()
@@ -900,15 +901,15 @@ Gura_ModuleEntry()
 					Value(new Object_stream(env, pStream)), EXTRA_Public);
 	} while (0);
 	// function assignment
-	Gura_AssignFunction(copy);
-	Gura_AssignFunction(rename);
-	Gura_AssignFunction(remove);
-	Gura_AssignFunction(cpdir);
-	Gura_AssignFunction(mkdir);
-	Gura_AssignFunction(rmdir);
 	Gura_AssignFunction(chdir);
-	Gura_AssignFunction(getcwd);
 	Gura_AssignFunction(chmod);
+	Gura_AssignFunction(copy);
+	Gura_AssignFunction(cpdir);
+	Gura_AssignFunction(getcwd);
+	Gura_AssignFunction(mkdir);
+	Gura_AssignFunction(remove);
+	Gura_AssignFunction(rename);
+	Gura_AssignFunction(rmdir);
 	return true;
 }
 
