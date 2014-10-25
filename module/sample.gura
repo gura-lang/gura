@@ -1,0 +1,20 @@
+#!/usr/bin/env gura
+
+dirNameSample = path.join(sys.datadir, 'sample/')
+list(dirNameSub?:string) = {
+	if (dirNameSub) {
+		dirName = path.join(dirNameSample, dirNameSub)
+		path.dir(dirName, '*.gura', '*.guraw') {|pathName|
+			println(pathName.replace(dirNameSample, ''))
+		}
+	} else {
+		path.dir(dirNameSample):dir {|pathName|
+			println(pathName.replace(dirNameSample, ''))
+		}
+	}
+}
+
+run(fileName:string) = {
+	pathName = path.join(dirNameSample, fileName)
+	os.exec(sys.executable, pathName):fork
+}
