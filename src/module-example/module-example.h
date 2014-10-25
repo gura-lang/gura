@@ -1,11 +1,11 @@
 //-----------------------------------------------------------------------------
-// Gura module: sample
+// Gura module: example
 //-----------------------------------------------------------------------------
-#ifndef __GURA_MODULE_SAMPLE_H__
-#define __GURA_MODULE_SAMPLE_H__
+#ifndef __GURA_MODULE_EXAMPLE_H__
+#define __GURA_MODULE_EXAMPLE_H__
 #include <gura.h>
 
-Gura_BeginModuleHeader(sample)
+Gura_BeginModuleHeader(example)
 
 Gura_DeclareUserSymbol(hoge_symbol);
 
@@ -25,6 +25,6 @@ public:
 	virtual String ToString(bool exprFlag);
 };
 
-Gura_EndModuleHeader(sample)
+Gura_EndModuleHeader(example)
 
 #endif

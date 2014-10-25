@@ -1,9 +1,9 @@
 //-----------------------------------------------------------------------------
-// Gura module: sample
+// Gura module: example
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
 
-Gura_BeginModuleBody(sample)
+Gura_BeginModuleBody(example)
 
 //-----------------------------------------------------------------------------
 // Object_foo implementation
@@ -25,7 +25,7 @@ String Object_foo::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Gura interfaces for Object_foo
 //-----------------------------------------------------------------------------
-// sample.foo#test()
+// example.foo#test()
 Gura_DeclareMethod(foo, test)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -44,9 +44,9 @@ Gura_ImplementUserClass(foo)
 }
 
 //-----------------------------------------------------------------------------
-// Gura module functions: sample
+// Gura module functions: example
 //-----------------------------------------------------------------------------
-// sample.foo()
+// example.foo()
 Gura_DeclareFunction(foo)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -57,7 +57,7 @@ Gura_ImplementFunction(foo)
 	return Value(new Object_foo());
 }
 
-// result = sample.adder(num1:number, num2:number)
+// result = example.adder(num1:number, num2:number)
 Gura_DeclareFunction(adder)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
@@ -78,7 +78,7 @@ Gura_ModuleEntry()
 	// class realization
 	Gura_RealizeUserClass(foo, env.LookupClass(VTYPE_object));
 	// value assignment
-	Gura_AssignValue(foo, Value("a value in sample module"));
+	Gura_AssignValue(foo, Value("a value in example module"));
 	// function assignment
 	Gura_AssignFunction(foo);
 	Gura_AssignFunction(adder);
@@ -89,6 +89,6 @@ Gura_ModuleTerminate()
 {
 }
 
-Gura_EndModuleBody(sample, sample)
+Gura_EndModuleBody(example, example)
 
-Gura_RegisterModule(sample)
+Gura_RegisterModule(example)
