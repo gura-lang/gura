@@ -75,7 +75,7 @@ fs:module = <module:fs:<integrated>>
   __source__:string = <integrated>
   __symbol__:symbol = fs
   chdir(pathname:string) {block?}
-  chmod(mode, pathname:string):map:void
+  chmod(mode, pathname:string):map:void:[follow_link]
   copy(src:string, dst:string):map:void:[overwrite]
   cpdir(src:string, dst:string):map:void:[tree]
   getcwd()

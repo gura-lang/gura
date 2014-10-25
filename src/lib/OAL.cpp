@@ -308,7 +308,7 @@ bool CopyDir(const char *dirNameSrc, const char *dirNameDst)
 		if (dirFlag) continue;
 		String pathNameSrc = JoinPathName(dirNameSrc, fileName.c_str());
 		String pathNameDst = JoinPathName(dirNameDst, fileName.c_str());
-		if (!Copy(pathNameSrc.c_str(), pathNameDst.c_str(), false)) return false;
+		if (!Copy(pathNameSrc.c_str(), pathNameDst.c_str(), false, false)) return false;
 	}
 	return true;
 }
@@ -335,7 +335,7 @@ bool CopyDirTree(const char *dirNameSrc, const char *dirNameDst)
 			}
 			String pathNameSrc = JoinPathName(dirNameIterSrc.c_str(), fileName.c_str());
 			String pathNameDst = JoinPathName(dirNameIterDst.c_str(), fileName.c_str());
-			if (!Copy(pathNameSrc.c_str(), pathNameDst.c_str(), false)) return false;
+			if (!Copy(pathNameSrc.c_str(), pathNameDst.c_str(), false, false)) return false;
 		}
 	}
 	return true;
@@ -386,12 +386,12 @@ bool RemoveDirTree(const char *dirName)
 			if (dirFlag) {
 				// nothing to do
 			} else if (!Remove(pathName.c_str())) {
-				ChangeMode("u+w", pathName.c_str());
+				ChangeMode("u+w", pathName.c_str(), false);
 				if (!Remove(pathName.c_str())) rtn = false;
 			}
 		}
 		if (!RemoveDir(dirNameIter)) {
-			ChangeMode("u+w", dirNameIter);
+			ChangeMode("u+w", dirNameIter, false);
 			if (!RemoveDir(dirNameIter)) rtn = false;
 		}
 	}
@@ -691,7 +691,7 @@ void UnsetEnv(const char *name)
 	::SetEnvironmentVariable(ToNativeString(name).c_str(), NULL);
 }
 
-bool Copy(const char *src, const char *dst, bool failIfExistsFlag)
+bool Copy(const char *src, const char *dst, bool failIfExistsFlag, bool followLinkFlag)
 {
 	String srcNative = ToNativeString(src);
 	String dstNative = ToNativeString(dst);
@@ -752,8 +752,9 @@ String GetCurDir()
 	return rtn;
 }
 
-bool ChangeMode(int modeOct, const char *pathName)
+bool ChangeMode(int modeOct, const char *pathName, bool followLinkFlag)
 {
+	// followLinkFlag is ignored
 	String pathNameEnc = ToNativeString(pathName);
 	DWORD dwFileAttrs = ::GetFileAttributes(pathNameEnc.c_str()) &
 													~FILE_ATTRIBUTE_READONLY;
@@ -761,7 +762,7 @@ bool ChangeMode(int modeOct, const char *pathName)
 	return ::SetFileAttributes(pathNameEnc.c_str(), dwFileAttrs)? true : false;
 }
 
-bool ChangeMode(const char *mode, const char *pathName)
+bool ChangeMode(const char *mode, const char *pathName, bool followLinkFlag)
 {
 	String pathNameEnc = ToNativeString(pathName);
 	DWORD dwFileAttrs = ::GetFileAttributes(pathNameEnc.c_str());
@@ -1361,17 +1362,16 @@ void UnsetEnv(const char *name)
 	::unsetenv(name);
 }
 
-bool Copy(const char *src, const char *dst, bool failIfExistsFlag)
+bool Copy(const char *src, const char *dst, bool failIfExistsFlag, bool followLinkFlag)
 {
-	bool copySymLinkFlag = true;
 	int fdSrc = -1, fdDst = -1;
 	struct stat statSrc, statDst;
 	String srcNative = ToNativeString(src);
 	String dstNative = ToNativeString(dst);
-	if (copySymLinkFlag) {
-		if (::lstat(srcNative.c_str(), &statSrc) < 0) return false;
-	} else {
+	if (followLinkFlag) {
 		if (::stat(srcNative.c_str(), &statSrc) < 0) return false;
+	} else {
+		if (::lstat(srcNative.c_str(), &statSrc) < 0) return false;
 	}
 	if (S_ISREG(statSrc.st_mode)) {
 		if (::stat(dstNative.c_str(), &statDst) < 0) {
@@ -1499,22 +1499,30 @@ String GetCurDir()
 	return rtn;
 }
 
-bool ChangeMode(int modeOct, const char *pathName)
+bool ChangeMode(int modeOct, const char *pathName, bool followLinkFlag)
 {
-	return ::chmod(ToNativeString(pathName).c_str(), modeOct) == 0;
+	return followLinkFlag?
+		::chmod(ToNativeString(pathName).c_str(), modeOct) == 0 :
+		::lchmod(ToNativeString(pathName).c_str(), modeOct) == 0;
 }
 
-bool ChangeMode(const char *mode, const char *pathName)
+bool ChangeMode(const char *mode, const char *pathName, bool followLinkFlag)
 {
 	String pathNameEnc = ToNativeString(pathName);
 	mode_t st_mode = 0;
 	do {
 		struct stat statFs;
-		if (::stat(pathNameEnc.c_str(), &statFs) < 0) return false;
+		if (followLinkFlag) {
+			if (::stat(pathNameEnc.c_str(), &statFs) < 0) return false;
+		} else {
+			if (::lstat(pathNameEnc.c_str(), &statFs) < 0) return false;
+		}
 		st_mode = statFs.st_mode;
 	} while (0);
 	if (!ParseStatMode(mode, st_mode)) return false;
-	return ::chmod(pathNameEnc.c_str(), st_mode) == 0;
+	return followLinkFlag?
+		::chmod(pathNameEnc.c_str(), st_mode) == 0 :
+		::lchmod(pathNameEnc.c_str(), st_mode) == 0;
 }
 
 void Sleep(Number delay)	// unit: sec

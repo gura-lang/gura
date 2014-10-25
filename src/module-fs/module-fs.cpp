@@ -22,6 +22,7 @@ Gura_DeclarePrivUserSymbol(isfifo);
 Gura_DeclarePrivUserSymbol(islnk);
 Gura_DeclarePrivUserSymbol(issock);
 Gura_DeclarePrivUserSymbol(tree);
+Gura_DeclarePrivUserSymbol(follow_link);
 
 //-----------------------------------------------------------------------------
 // Object_Stat implementation
@@ -697,22 +698,24 @@ Gura_ImplementFunction(chdir)
 	return Value::Null;
 }
 
-// fs.chmod(mode, pathname:string):map:void
+// fs.chmod(mode, pathname:string):map:void:[follow_link]
 Gura_DeclareFunction(chmod)
 {
 	SetMode(RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "mode", VTYPE_any);
 	DeclareArg(env, "pathname", VTYPE_string);
+	DeclareAttr(Gura_UserSymbol(follow_link));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Changes the access mode of a file.");
 }
 
 Gura_ImplementFunction(chmod)
 {
 	bool rtn = false;
+	bool followLinkFlag = args.IsSet(Gura_UserSymbol(follow_link));
 	if (args.Is_string(0)) {
-		rtn = OAL::ChangeMode(args.GetString(0), args.GetString(1));
+		rtn = OAL::ChangeMode(args.GetString(0), args.GetString(1), followLinkFlag);
 	} else if (args.Is_number(0)) {
-		rtn = OAL::ChangeMode(args.GetInt(0), args.GetString(1));
+		rtn = OAL::ChangeMode(args.GetInt(0), args.GetString(1), followLinkFlag);
 	} else {
 		sig.SetError(ERR_ValueError, "number or string must be specified as mode");
 		return Value::Null;
@@ -730,13 +733,15 @@ Gura_DeclareFunction(copy)
 	DeclareArg(env, "src", VTYPE_string);
 	DeclareArg(env, "dst", VTYPE_string);
 	DeclareAttr(Gura_Symbol(overwrite));
+	//DeclareAttr(Gura_Symbol(follow_link));
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Copies a file.");
 }
 
 Gura_ImplementFunction(copy)
 {
 	bool failIfExistsFlag = !args.IsSet(Gura_Symbol(overwrite));
-	if (!OAL::Copy(args.GetString(0), args.GetString(1), failIfExistsFlag)) {
+	bool followLinkFlag = args.IsSet(Gura_UserSymbol(follow_link));
+	if (!OAL::Copy(args.GetString(0), args.GetString(1), failIfExistsFlag, followLinkFlag)) {
 		sig.SetError(ERR_IOError, "failed to copy a file");
 	}
 	return Value::Null;
@@ -876,6 +881,7 @@ Gura_ModuleEntry()
 	Gura_RealizeUserSymbol(islnk);
 	Gura_RealizeUserSymbol(issock);
 	Gura_RealizeUserSymbol(tree);
+	Gura_RealizeUserSymbol(follow_link);
 	// class realization
 	Gura_RealizeUserClassEx(Stat, "stat", env.LookupClass(VTYPE_object));
 	// symbol realization
