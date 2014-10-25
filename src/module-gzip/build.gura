@@ -2,7 +2,7 @@
 import(modbuild)
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
-	baseDir = path.join(builder.guestsDir, 'zlib-1.2.8')
+	baseDir = path.join(builder.guestDir, 'zlib-1.2.8')
 	builder.incDirs.append(baseDir)
 	builder.libDirs.append(baseDir)
 	builder.libs.append('zlib.lib')

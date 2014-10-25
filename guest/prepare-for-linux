@@ -1,6 +1,6 @@
 #/bin/sh
 prefix=/usr
-libdir_guests=$prefix/lib/gura/guests
+libdir_guest=$prefix/lib/gura/guest
 make_option=-j3
 #---------------------------------------------------------------------------
 files=""
@@ -8,7 +8,7 @@ files="$files wxWidgets-3.0.1.tar.bz2"
 for file in $files
 do
 	echo $file
-	curl -O http://www.gura-lang.org/guests/$file
+	curl -O http://www.gura-lang.org/guest/$file
 done
 #---------------------------------------------------------------------------
 tar xfj wxWidgets-3.0.1.tar.bz2

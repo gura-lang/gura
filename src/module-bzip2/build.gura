@@ -2,7 +2,7 @@
 import(modbuild)
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
-	baseDir = path.join(builder.guestsDir, 'bzip2-1.0.6')
+	baseDir = path.join(builder.guestDir, 'bzip2-1.0.6')
 	builder.incDirs.append(baseDir)
 	builder.libDirs.append(baseDir)
 	builder.libs.append('libbz2.lib')

@@ -2,7 +2,7 @@
 import(modbuild)
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
-	dirBase = path.join(builder.guestsDir, 'SDL-1.2.15')
+	dirBase = path.join(builder.guestDir, 'SDL-1.2.15')
 	builder.incDirs.append(path.join(dirBase, 'include'))
 	builder.libDirs.append(path.join(dirBase, 'VisualC/Release'))
 	builder.libs.append('SDL.lib')
@@ -14,8 +14,8 @@ if (sys.platform == `mswin) {
 	builder.debFilesDevel = ['libsdl1.2-dev']
 	builder.rpmFilesDevel = ['SDL-devel']
 } elsif (sys.platform == `darwin) {
-	builder.incDirs.append('guests/include/SDL')
-	builder.libDirs.append('guests/lib/SDL')
+	builder.incDirs.append('guest/include/SDL')
+	builder.libDirs.append('guest/lib/SDL')
 	builder.libs.append('SDL')
 }
 builder.build('sdl', ['module-sdl.cpp'])

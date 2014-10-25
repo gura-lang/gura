@@ -975,10 +975,10 @@ void SetupExecutablePath()
 	String dirBase = GetBaseDir();
 	String path;
 	path += dirBase;
-	path += "\\guests\\dylib";
+	path += "\\guest\\dylib";
 	path += ";";
 	path += dirBase;
-	path += "\\guests\\tcl\\bin";
+	path += "\\guest\\tcl\\bin";
 	path += ";";
 	path += GetEnv("PATH");
 	PutEnv("PATH", path.c_str());

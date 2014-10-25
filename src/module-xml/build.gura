@@ -2,7 +2,7 @@
 import(modbuild)
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
-	baseDir = path.join(builder.guestsDir, 'expat-2.1.0')
+	baseDir = path.join(builder.guestDir, 'expat-2.1.0')
 	builder.incDirs.append(path.join(baseDir, 'lib'))
 	builder.libDirs.append(path.join(baseDir, 'win32/bin/release'))
 	builder.libs.append('libexpatMT.lib')
@@ -14,8 +14,8 @@ if (sys.platform == `mswin) {
 	builder.debFilesDevel = ['libexpat1-dev']
 	builder.rpmFilesDevel = ['expat-devel']
 } elsif (sys.platform == `darwin) {
-	builder.incDirs.append('guests/include/expat')
-	builder.libDirs.append('guests/lib')
+	builder.incDirs.append('guest/include/expat')
+	builder.libDirs.append('guest/lib')
 	builder.libs.append('expat')
 }
 builder.build('xml', ['module-xml.cpp'])

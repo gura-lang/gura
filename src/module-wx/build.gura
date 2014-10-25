@@ -597,7 +597,7 @@ builder = modbuild.Builder()
 if (sys.platform == `mswin) {
 	builder.precompile = 'stdafx.h'
 	srcs.append(srcs_MSW)
-	dirBase = path.join(builder.guestsDir, 'wxWidgets-3.0.1')
+	dirBase = path.join(builder.guestDir, 'wxWidgets-3.0.1')
 	builder.incDirs.append(
 		path.join(dirBase, 'include')
 		path.join(dirBase, 'lib/vc_lib/mswu'))
@@ -629,13 +629,13 @@ if (sys.platform == `mswin) {
 } elsif (sys.platform == `linux_a) {
 	builder.precompile = 'stdafx.h'
 	builder.incDirs.append(
-		'guests/lib/wx/wx/include/gtk2-unicode-static-3.0',
-		'guests/include/wx')
+		'guest/lib/wx/wx/include/gtk2-unicode-static-3.0',
+		'guest/include/wx')
 	builder.cflags.append(
 		'-D_FILE_OFFSET_BITS=64',
 		'-D__WXGTK__',
 		'-pthread')
-	builder.libDirs.append('guests/lib/wx')
+	builder.libDirs.append('guest/lib/wx')
 	builder.libs.append(		
 		'wx_gtk2u_xrc-3.0',
 		'wx_gtk2u_qa-3.0',
@@ -709,14 +709,14 @@ if (sys.platform == `mswin) {
 } elsif (sys.platform == `darwin) {
 	builder.precompile = 'stdafx.h'
 	builder.incDirs.append(
-		'guests/lib/wx/wx/include/osx_cocoa-unicode-static-3.0',
-		'guests/include/wx')
+		'guest/lib/wx/wx/include/osx_cocoa-unicode-static-3.0',
+		'guest/include/wx')
 	builder.cflags.append(
 		'-D_FILE_OFFSET_BITS=64',
 		'-D__WXMAC__',
 		'-D__WXOSX__',
 		'-D__WXOSX_COCOA__')
-	builder.libDirs.append('guests/lib/wx')
+	builder.libDirs.append('guest/lib/wx')
 	builder.ldflags.append(
 		'-framework', 'IOKit',
 		'-framework', 'Carbon',

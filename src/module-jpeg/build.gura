@@ -2,7 +2,7 @@
 import(modbuild)
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
-	baseDir = path.join(builder.guestsDir, 'jpeg-9a')
+	baseDir = path.join(builder.guestDir, 'jpeg-9a')
 	builder.incDirs.append(baseDir)
 	builder.libDirs.append(baseDir)
 	builder.libs.append('libjpeg.lib')
@@ -14,7 +14,7 @@ if (sys.platform == `mswin) {
 	builder.rpmFilesDevel = ['libjpeg-devel']
 } elsif (sys.platform == `darwin) {
 	builder.libs.append('jpeg')
-	builder.incDirs.append('guests/include/jpeg')
-	builder.libDirs.append('guests/lib')
+	builder.incDirs.append('guest/include/jpeg')
+	builder.libDirs.append('guest/lib')
 }
 builder.build('jpeg', ['module-jpeg.cpp', 'Class_exif.cpp', 'Class_ifd.cpp', 'Class_tag.cpp'])

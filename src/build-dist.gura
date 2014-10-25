@@ -78,9 +78,9 @@ gatherFiles() = {
 		]):*or()))
 		fileNames.append(path.glob('gura-doc/*.pdf'))
 		fileNames.append(path.glob('module/*.gurd'))
-		fileNames.append(path.glob('guests/tcl/bin/*.dll'))
-		fileNames.append(path.walk('guests/tcl/lib', nil):file)
-		fileNames.append(path.glob('guests/dylib/*.dll'))
+		fileNames.append(path.glob('guest/tcl/bin/*.dll'))
+		fileNames.append(path.walk('guest/tcl/lib', nil):file)
+		fileNames.append(path.glob('guest/dylib/*.dll'))
 	}
 	set(path.regulate(fileNames)).sort()
 }

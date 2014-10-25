@@ -6,7 +6,7 @@ import(argopt)
 //-----------------------------------------------------------------------------
 BuilderBase = class {
 	public {
-		guestsDir
+		guestDir
 		errorFlag
 		debFiles
 		rpmFiles
@@ -177,7 +177,7 @@ BuilderBase = class {
 if (sys.build == `msc) {
 	Builder = class(BuilderBase) {
 		__init__() = {|'msc'|
-			this.guestsDir = path.join(sys.datadir, 'guests')
+			this.guestDir = path.join(sys.datadir, 'guest')
 			this.cflags = [
 				'/nologo', '/DGURA_MODULE_SEPARATED'
 				'/EHsc', '/MD'

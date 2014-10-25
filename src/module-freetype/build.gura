@@ -27,7 +27,7 @@ srcs = [
 ]
 builder = modbuild.Builder()
 if (sys.platform == `mswin) {
-	baseDir = path.join(path.join(builder.guestsDir, 'freetype-2.5.3'))
+	baseDir = path.join(path.join(builder.guestDir, 'freetype-2.5.3'))
 	builder.incDirs.append(path.join(baseDir, 'include'))
 	builder.libDirs.append(path.join(baseDir, 'objs/win32/vc2010'))
 	builder.libs.append('freetype253.lib')
@@ -39,8 +39,8 @@ if (sys.platform == `mswin) {
 	builder.debFilesDevel = ['libfreetype6-dev']
 	builder.rpmFilesDevel = ['freetype-devel']
 } elsif (sys.platform == `darwin) {
-	builder.incDirs.append('guests/include/freetype')
-	builder.libDirs.append('guests/lib')
+	builder.incDirs.append('guest/include/freetype')
+	builder.libDirs.append('guest/lib')
 	builder.libs.append('freetype', 'z', 'bz2')
 }
 builder.precompile = 'stdafx.h'
