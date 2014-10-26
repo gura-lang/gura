@@ -74,7 +74,7 @@ gatherFiles() = {
 		}
 		lines = readlines(buff):chop
 		fileNames.append(lines.filter(lines:*startswith([
-			'bin-x86', 'module/', 'sample/', 'include/'
+			'bin-x86', 'module/', 'sample/', 'script/', 'include/'
 		]):*or()))
 		fileNames.append(path.glob('gura-doc/*.pdf'))
 		fileNames.append(path.glob('module/*.gurd'))

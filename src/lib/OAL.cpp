@@ -489,41 +489,37 @@ const char *GetEncodingForConsole()
 	return encodingDefault;
 }
 
-#if 0
-
-const Symbol *GetLangCode()
+const Symbol *GetLangCodeFromCFUserTextEncoding()
 {
 	struct AssocInfo {
-		const char *key;
+		ULong key;
 		const char *value;
 	};
 	static const AssocInfo assocInfoTbl[] = {
-		{ "0",		"en"	},
-		{ "3",		"de"	},
-		{ "14",		"ja"	},
+		{ 0,		"en"	},	// English
+		{ 1,		"fr"	},	// French (not confirmed)
+		{ 2,		"ru"	},	// Russian (not confirmed)
+		{ 3,		"de"	},	// German (not confirmed)
+		{ 4,		"it"	},	// Italian (not confirmed)
+		{ 14,		"ja"	},	// Japanese
+		{ 51,		"ko"	},	// Korean (not confirmed)
+		{ 52,		"zh"	},	// Chinese (not confirmed)
 	};
-	String dirName = GetEnv("HOME");
-	String fileName = JoinPathName(dirName.c_str(), ".CFUserTextEncoding");
-	FILE *fp = ::fopen(fileName.c_str(), "rt");
-	if (fp != NULL) {
-		char buff[256];
-		::fgets(buff, sizeof(buff) - 1, fp);
-		::fclose(fp);
-		String strLine = Strip(buff);
-		const char *code = ::strchr(strLine.c_str(), ':');
-		if (code != NULL) {
-			code++;
-			for (int i = 0; i < ArraySizeOf(assocInfoTbl); i++) {
-				if (::strcmp(code, assocInfoTbl[i].key) == 0) {
-					return Symbol::Add(assocInfoTbl[i].value);
-				}
-			}
+	String strLine = GetEnv("__CF_USER_TEXT_ENCODING");
+	char *strp = ::strchr(strLine.c_str(), ':');
+	if (strp == NULL) return Gura_Symbol(en);
+	strp++;
+	strp = ::strchr(strp, ':');
+	if (strp == NULL) return Gura_Symbol(en);
+	strp++;
+	ULong key = ::strtoul(strp, NULL, 0); // returns zero for invalid format
+	for (int i = 0; i < ArraySizeOf(assocInfoTbl); i++) {
+		if (assocInfoTbl[i].key == key) {
+			return Symbol::Add(assocInfoTbl[i].value);
 		}
 	}
 	return Gura_Symbol(en);
 }
-
-#else
 
 const Symbol *GetLangCode()
 {
@@ -532,13 +528,13 @@ const Symbol *GetLangCode()
 	const char *p = strp;
 	while (*p != '\0' && *p != '_' && *p != '.') p++;
 	String lang = String(strp, p - strp);
-	if (lang.empty() || lang == "C") {
-		lang = "en";
+	if (lang.empty()) {
+		return GetLangCodeFromCFUserTextEncoding();	// for Mac environment
+	} else if (lang == "C") {
+		return Gura_Symbol(en);
 	}
 	return Symbol::Add(lang.c_str());
 }
-
-#endif
 
 #endif
 
