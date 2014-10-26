@@ -100,6 +100,11 @@ inline T ChooseMin(T a, T b) { return (a < b)? a : b; }
 template<typename T>
 inline T ChooseMax(T a, T b) { return (a > b)? a : b; }
 
+#if defined(GURA_ON_LINUX)
+// Linux doesn't provide a function to change mode of a symbolic link.
+inline int lchmod(const char *path, mode_t mode) { return 0; }
+#endif
+
 GURA_DLLDECLARE extern const int MAX_STACK_LEVEL;
 GURA_DLLDECLARE extern const size_t InvalidSize;
 

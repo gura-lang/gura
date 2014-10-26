@@ -506,7 +506,7 @@ const Symbol *GetLangCodeFromCFUserTextEncoding()
 		{ 52,		"zh"	},	// Chinese (not confirmed)
 	};
 	String strLine = GetEnv("__CF_USER_TEXT_ENCODING");
-	char *strp = ::strchr(strLine.c_str(), ':');
+	const char *strp = ::strchr(strLine.c_str(), ':');
 	if (strp == NULL) return Gura_Symbol(en);
 	strp++;
 	strp = ::strchr(strp, ':');
@@ -1499,7 +1499,7 @@ bool ChangeMode(int modeOct, const char *pathName, bool followLinkFlag)
 {
 	return followLinkFlag?
 		::chmod(ToNativeString(pathName).c_str(), modeOct) == 0 :
-		::lchmod(ToNativeString(pathName).c_str(), modeOct) == 0;
+		lchmod(ToNativeString(pathName).c_str(), modeOct) == 0;
 }
 
 bool ChangeMode(const char *mode, const char *pathName, bool followLinkFlag)
@@ -1518,7 +1518,7 @@ bool ChangeMode(const char *mode, const char *pathName, bool followLinkFlag)
 	if (!ParseStatMode(mode, st_mode)) return false;
 	return followLinkFlag?
 		::chmod(pathNameEnc.c_str(), st_mode) == 0 :
-		::lchmod(pathNameEnc.c_str(), st_mode) == 0;
+		lchmod(pathNameEnc.c_str(), st_mode) == 0;
 }
 
 void Sleep(Number delay)	// unit: sec
