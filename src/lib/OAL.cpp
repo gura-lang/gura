@@ -1616,7 +1616,7 @@ String _GetExecutablePath()
 		if (::_NSGetExecutablePath(buf, &bufsize) == 0) {
 			String rtn = FromNativeString(buf);
 			delete[] buf;
-			return rtn;
+			return RegulatePathName(FileSeparator, rtn.c_str(), false);
 		}
 		delete[] buf;
 	}
@@ -1627,7 +1627,8 @@ String _GetExecutablePath()
 	
 String _GetExecutablePath()
 {
-	return _ReadLink("/proc/self/exe");
+	String rtn = _ReadLink("/proc/self/exe");
+	return RegulatePathName(FileSeparator, rtn.c_str(), false);
 }
 
 #else
