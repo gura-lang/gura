@@ -21,7 +21,7 @@ testcase {
 '''.template()
 
 //======== Template of Precompiled Header File ========
-tmpl_Afx = R'''
+tmpl_fileAfx = R'''
 #ifndef ${incOnceMacroNameAfx}
 #define ${incOnceMacroNameAfx}
 #include "${fileHdr}"
