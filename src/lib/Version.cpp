@@ -13,7 +13,7 @@ const char *Version::GetVersion()
 	return GURA_VERSION;
 }
 
-const char *Version::GetOpening()
+const char *Version::GetBanner()
 {
 	static char buff[256];
 #if defined(_MSC_VER)

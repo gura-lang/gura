@@ -208,6 +208,7 @@ public:
 	Gura_DeclareSymbol(child);
 	Gura_DeclareSymbol(children);
 	Gura_DeclareSymbol(chop);
+	Gura_DeclareSymbol(clang);
 	Gura_DeclareSymbol(codec);
 	Gura_DeclareSymbol(codecs);
 	Gura_DeclareSymbol(color);
@@ -468,6 +469,7 @@ public:
 	Gura_DeclareSymbol(u8);
 	Gura_DeclareSymbol(unary);
 	Gura_DeclareSymbol(unixtime);
+	Gura_DeclareSymbol(unknown);
 	Gura_DeclareSymbol(up);
 	Gura_DeclareSymbol(upper);
 	Gura_DeclareSymbol(uri);

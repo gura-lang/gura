@@ -69,41 +69,26 @@ Gura_ImplementFunction(required_version)
 Gura_ModuleEntry()
 {
 	// value assignment
-	Gura_AssignValue(version, Value(GURA_VERSION));
-	Gura_AssignValue(ps1, Value(">>> "));
-	Gura_AssignValue(ps2, Value("... "));
-	do {
-		Value valueBuild, valuePlatform;
-#if defined(_MSC_VER)
-		valueBuild = Value(Gura_Symbol(msc));
-#elif defined(__GNUC__) && defined(__GNUC_MINOR__)
-		valueBuild = Value(Gura_Symbol(gnuc));
-#else
-		valueBuild = Value::Null;
-#endif
-#if defined(GURA_ON_MSWIN)
-		valuePlatform = Value(Gura_Symbol(mswin));
-#elif defined(GURA_ON_LINUX)
-		valuePlatform = Value(Gura_Symbol(linux));
-#elif defined(GURA_ON_DARWIN)
-		valuePlatform = Value(Gura_Symbol(darwin));
-#else
-		valuePlatform = Value::Null;
-#endif
-		Gura_AssignValue(build, valueBuild);
-		Gura_AssignValue(platform, valuePlatform);
-	} while (0);
-	Gura_AssignValue(langcode, Value(OAL::GetLangCode()));
-	Gura_AssignValue(executable, Value(OAL::GetExecutable()));
-	Gura_AssignValue(libdir, Value(OAL::GetLibraryDir()));
-	Gura_AssignValue(incdir, Value(OAL::GetIncludeDir()));
-	Gura_AssignValue(datadir, Value(OAL::GetDataDir()));
-	Gura_AssignValue(moddir, Value(OAL::GetModuleDir()));
+	Gura_AssignValue(version,		Value(GURA_VERSION));
+	Gura_AssignValue(banner,		Value(Version::GetBanner()));
+	Gura_AssignValue(build,			Value(Symbol::Add(GURA_HOST_COMPILER_NAME)));
+	Gura_AssignValue(platform,		Value(Symbol::Add(GURA_PLATFORM_NAME)));
+	Gura_AssignValue(ps1,			Value(">>> "));
+	Gura_AssignValue(ps2,			Value("... "));
+	Gura_AssignValue(langcode,		Value(OAL::GetLangCode()));
+	Gura_AssignValue(executable,	Value(OAL::GetExecutable()));
+	Gura_AssignValue(libdir,		Value(OAL::GetLibraryDir()));
+	Gura_AssignValue(incdir,		Value(OAL::GetIncludeDir()));
+	Gura_AssignValue(datadir,		Value(OAL::GetDataDir()));
+	Gura_AssignValue(moddir,		Value(OAL::GetModuleDir()));
 	String dirNameLocal = OAL::GetLocalDir();
 	Gura_AssignValue(localdir, Value(dirNameLocal));
-	Gura_AssignValue(appdir, Value(OAL::JoinPathName(dirNameLocal.c_str(), "application")));
-	Gura_AssignValue(cfgdir, Value(OAL::JoinPathName(dirNameLocal.c_str(), "config")));
-	Gura_AssignValue(workdir, Value(OAL::JoinPathName(dirNameLocal.c_str(), "work")));
+	Gura_AssignValue(
+		appdir, Value(OAL::JoinPathName(dirNameLocal.c_str(), "application")));
+	Gura_AssignValue(
+		cfgdir, Value(OAL::JoinPathName(dirNameLocal.c_str(), "config")));
+	Gura_AssignValue(
+		workdir, Value(OAL::JoinPathName(dirNameLocal.c_str(), "work")));
 	// function assignment
 	Gura_AssignFunction(echo);
 	Gura_AssignFunction(exit);

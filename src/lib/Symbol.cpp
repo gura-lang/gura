@@ -221,6 +221,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(child);
 	Gura_RealizeSymbol(children);
 	Gura_RealizeSymbol(chop);
+	Gura_RealizeSymbol(clang);
 	Gura_RealizeSymbol(codec);
 	Gura_RealizeSymbol(codecs);
 	Gura_RealizeSymbol(color);
@@ -481,6 +482,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(u8);
 	Gura_RealizeSymbol(unary);
 	Gura_RealizeSymbol(unixtime);
+	Gura_RealizeSymbol(unknown);
 	Gura_RealizeSymbol(up);
 	Gura_RealizeSymbol(upper);
 	Gura_RealizeSymbol(uri);
