@@ -77,8 +77,8 @@ Gura_ModuleEntry()
 	Gura_AssignValue(ps2,			Value("... "));
 	Gura_AssignValue(langcode,		Value(OAL::GetLangCode()));
 	Gura_AssignValue(executable,	Value(OAL::GetExecutable()));
-	Gura_AssignValue(libdir,		Value(OAL::GetLibraryDir()));
 	Gura_AssignValue(incdir,		Value(OAL::GetIncludeDir()));
+	Gura_AssignValue(libdir,		Value(OAL::GetLibraryDir()));
 	Gura_AssignValue(datadir,		Value(OAL::GetDataDir()));
 	Gura_AssignValue(moddir,		Value(OAL::GetModuleDir()));
 	String dirNameLocal = OAL::GetLocalDir();

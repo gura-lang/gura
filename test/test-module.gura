@@ -4,8 +4,8 @@ import(helper.test) {*}
 sys.path.add('test-module')
 
 testcase {
-	import(sample)
-	println(dir(sample).join(', '))
+	import(example)
+	println(dir(example).join(', '))
 }
 testcase {
 	re = 3

@@ -4,7 +4,7 @@ import(helper.test)
 listSymbols(skipWords:list, indent:number => 0, m?:module) = {
 	skipWordsMap = %{
 		'sys' => ['stdin', 'stdout', 'stderr', 'path', 'argv',
-				'executable', 'build', 'platform',
+				'executable', 'build', 'platform', 'banner',
 				'datadir', 'libdir', 'localdir', 'maindir', 'moddir', 'incdir',
 				  'appdir', 'cfgdir', 'workdir', 'langcode', 'version']
 		'path' => ['sep_file']
