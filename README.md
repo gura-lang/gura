@@ -47,7 +47,7 @@ Build for Windows
 
 6. Launch the install and follow instructions.
 
-7. You can find Gura folder in Start Menu. Launch `Gura Console` and try short script:
+7. You can find Gura folder in Start Menu. Launch `Gura Console` and try some scripts:
 
 		>>> println(1..5)
 		1
@@ -104,7 +104,7 @@ Build for Mac OSX
    Open it and install the content by dragging an icon `Gura.app`.
 
 7. Launching `Gura.app` will open a terminal application with Gura console.
-   Try a short script:
+   Try some scripts:
 
 		>>> println(1..5)
 		1
@@ -166,7 +166,7 @@ Build for Linux
 
         $ sudo rpm -i gura-x.x.x-fedora.rpm
 
-7. Execute `gura` and try a short script:
+7. Execute `gura` and try some scripts:
 
 		>>> println(1..5)
 		1
