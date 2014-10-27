@@ -690,7 +690,14 @@ void UnsetEnv(const char *name)
 bool Copy(const char *src, const char *dst, bool failIfExistsFlag, bool followLinkFlag)
 {
 	String srcNative = ToNativeString(src);
-	String dstNative = ToNativeString(dst);
+	String dstNative;
+	if (IsDir(dst, NULL)) {
+		String fileName;
+		PathMgr::SplitFileName(src, NULL, &fileName);
+		dstNative = ToNativeString(JoinPathName(dst, fileName.c_str()).c_str());
+	} else {
+		dstNative = ToNativeString(dst);
+	}
 	return ::CopyFile(srcNative.c_str(), dstNative.c_str(), failIfExistsFlag)? true : false;
 }
 
@@ -1363,7 +1370,14 @@ bool Copy(const char *src, const char *dst, bool failIfExistsFlag, bool followLi
 	int fdSrc = -1, fdDst = -1;
 	struct stat statSrc, statDst;
 	String srcNative = ToNativeString(src);
-	String dstNative = ToNativeString(dst);
+	String dstNative;
+	if (IsDir(dst, NULL)) {
+		String fileName;
+		PathMgr::SplitFileName(src, NULL, &fileName);
+		dstNative = ToNativeString(JoinPathName(dst, fileName.c_str()).c_str());
+	} else {
+		dstNative = ToNativeString(dst);
+	}
 	if (followLinkFlag) {
 		if (::stat(srcNative.c_str(), &statSrc) < 0) return false;
 	} else {
