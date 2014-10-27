@@ -39,9 +39,9 @@ if (sys.executable.startswith('/Volumes/')) {
 		if (os.exec('sudo', 'ln', '-s', sys.executable, fileNameLink) == 0) {
 			conio.setcolor(`green) {
 				if (sys.langcode == `ja) {
-					println('Symbolic link ', fileNameLink, ' was created.')
-				} else {
 					println('シンボリックリンク ', fileNameLink, ' を作成しました.')
+				} else {
+					println('Symbolic link ', fileNameLink, ' was created.')
 				}
 			}
 		}
