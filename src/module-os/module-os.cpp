@@ -2,6 +2,9 @@
 // Gura module: os
 //-----------------------------------------------------------------------------
 #include "stdafx.h"
+#if !defined(GURA_ON_MSWIN)
+#include "unistd.h"
+#endif
 
 Gura_BeginModuleBody(os)
 
@@ -161,6 +164,28 @@ Gura_ImplementFunction(sleep)
 	return Value::Null;
 }
 
+// os.symlink(src:string, tgt:string):map:void
+Gura_DeclareFunction(symlink)
+{
+	SetMode(RSLTMODE_Void, FLAG_Map);
+	DeclareArg(env, "src", VTYPE_string);
+	DeclareArg(env, "tgt", VTYPE_string);
+}
+
+Gura_ImplementFunction(symlink)
+{
+#if defined(GURA_ON_MSWIN)
+	sig.SetError(ERR_NotImplementedError, "unsupported function");
+	return Value::Null;
+#else
+	if (::symlink(args.GetString(0), args.GetString(1)) < 0) {
+		sig.SetError(ERR_IOError, "failed to create a symbolic link");
+		return Value::Null;
+	}
+	return Value::Null;
+#endif
+}
+
 // os.tonative(str:string):map
 Gura_DeclareFunction(tonative)
 {
@@ -220,6 +245,7 @@ Gura_ModuleEntry()
 	Gura_AssignFunction(putenv);
 	Gura_AssignFunction(redirect);
 	Gura_AssignFunction(sleep);
+	Gura_AssignFunction(symlink);
 	Gura_AssignFunction(tonative);
 	Gura_AssignFunction(unsetenv);
 	return true;
