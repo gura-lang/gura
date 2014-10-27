@@ -10,19 +10,6 @@ static Environment *_pEnvThis = NULL;
 //-----------------------------------------------------------------------------
 // Gura module functions: os
 //-----------------------------------------------------------------------------
-// os.sleep(secs)
-Gura_DeclareFunction(sleep)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "secs", VTYPE_number);
-}
-
-Gura_ImplementFunction(sleep)
-{
-	OAL::Sleep(args.GetNumber(0));
-	return Value::Null;
-}
-
 // os.clock()
 Gura_DeclareFunction(clock)
 {
@@ -32,50 +19,6 @@ Gura_DeclareFunction(clock)
 Gura_ImplementFunction(clock)
 {
 	return Value(OAL::GetTickTime());
-}
-
-// os.redirect(stdin:stream:nil:r, stdout:stream:nil:w, stderr?:stream:w) {block?}
-Gura_DeclareFunction(redirect)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "stdin", VTYPE_stream, OCCUR_Once, FLAG_Nil | FLAG_Read);
-	DeclareArg(env, "stdout", VTYPE_stream, OCCUR_Once, FLAG_Nil | FLAG_Write);
-	DeclareArg(env, "stderr", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementFunction(redirect)
-{
-	Value *pValue = NULL;
-	Value value_stdin, value_stdout, value_stderr;
-	if ((pValue = _pEnvThis->LookupValue(Gura_Symbol(stdin), ENVREF_NoEscalate)) != NULL) {
-		value_stdin = *pValue;
-	}
-	if ((pValue = _pEnvThis->LookupValue(Gura_Symbol(stdout), ENVREF_NoEscalate)) != NULL) {
-		value_stdout = *pValue;
-	}
-	if ((pValue = _pEnvThis->LookupValue(Gura_Symbol(stderr), ENVREF_NoEscalate)) != NULL) {
-		value_stderr = *pValue;
-	}
-	_pEnvThis->AssignValue(Gura_Symbol(stdin), args.GetValue(0), EXTRA_Public);
-	_pEnvThis->AssignValue(Gura_Symbol(stdout), args.GetValue(1), EXTRA_Public);
-	if (args.IsDefined(2)) {
-		_pEnvThis->AssignValue(Gura_Symbol(stderr), args.GetValue(2), EXTRA_Public);
-	} else {
-		_pEnvThis->AssignValue(Gura_Symbol(stderr), args.GetValue(1), EXTRA_Public);
-	}
-	Value result;
-	if (args.IsBlockSpecified()) {
-		SeqPostHandler *pSeqPostHandler = NULL;
-		AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
-		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
-		if (sig.IsSignalled()) return Value::Null;
-		result = pExprBlock->Exec2(*pEnvBlock, sig, pSeqPostHandler);
-		_pEnvThis->AssignValue(Gura_Symbol(stdin), value_stdin, EXTRA_Public);
-		_pEnvThis->AssignValue(Gura_Symbol(stdout), value_stdout, EXTRA_Public);
-		_pEnvThis->AssignValue(Gura_Symbol(stderr), value_stderr, EXTRA_Public);
-	}
-	return result;
 }
 
 // os.exec(pathname:string, args*:string):map:[fork,binary]
@@ -129,22 +72,6 @@ Gura_ImplementFunction(fromnative)
 	return Value(str);
 }
 
-// os.tonative(str:string):map
-Gura_DeclareFunction(tonative)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "str", VTYPE_string);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Converts Gura's regulated string into binary data that includes OS's native string.");
-}
-
-Gura_ImplementFunction(tonative)
-{
-	const char *str = args.GetString(0);
-	String buff = OAL::ToNativeString(str);
-	return Value(new Object_binary(env, buff.data(), buff.size(), true));
-}
-
 // os.getenv(name:string, default?:string):map
 Gura_DeclareFunction(getenv)
 {
@@ -175,6 +102,79 @@ Gura_ImplementFunction(putenv)
 {
 	OAL::PutEnv(args.GetString(0), args.GetString(1));
 	return Value::Null;
+}
+
+// os.redirect(stdin:stream:nil:r, stdout:stream:nil:w, stderr?:stream:w) {block?}
+Gura_DeclareFunction(redirect)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "stdin", VTYPE_stream, OCCUR_Once, FLAG_Nil | FLAG_Read);
+	DeclareArg(env, "stdout", VTYPE_stream, OCCUR_Once, FLAG_Nil | FLAG_Write);
+	DeclareArg(env, "stderr", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementFunction(redirect)
+{
+	Value *pValue = NULL;
+	Value value_stdin, value_stdout, value_stderr;
+	if ((pValue = _pEnvThis->LookupValue(Gura_Symbol(stdin), ENVREF_NoEscalate)) != NULL) {
+		value_stdin = *pValue;
+	}
+	if ((pValue = _pEnvThis->LookupValue(Gura_Symbol(stdout), ENVREF_NoEscalate)) != NULL) {
+		value_stdout = *pValue;
+	}
+	if ((pValue = _pEnvThis->LookupValue(Gura_Symbol(stderr), ENVREF_NoEscalate)) != NULL) {
+		value_stderr = *pValue;
+	}
+	_pEnvThis->AssignValue(Gura_Symbol(stdin), args.GetValue(0), EXTRA_Public);
+	_pEnvThis->AssignValue(Gura_Symbol(stdout), args.GetValue(1), EXTRA_Public);
+	if (args.IsDefined(2)) {
+		_pEnvThis->AssignValue(Gura_Symbol(stderr), args.GetValue(2), EXTRA_Public);
+	} else {
+		_pEnvThis->AssignValue(Gura_Symbol(stderr), args.GetValue(1), EXTRA_Public);
+	}
+	Value result;
+	if (args.IsBlockSpecified()) {
+		SeqPostHandler *pSeqPostHandler = NULL;
+		AutoPtr<Environment> pEnvBlock(new Environment(&env, ENVTYPE_local));
+		const Expr_Block *pExprBlock = args.GetBlock(*pEnvBlock, sig);
+		if (sig.IsSignalled()) return Value::Null;
+		result = pExprBlock->Exec2(*pEnvBlock, sig, pSeqPostHandler);
+		_pEnvThis->AssignValue(Gura_Symbol(stdin), value_stdin, EXTRA_Public);
+		_pEnvThis->AssignValue(Gura_Symbol(stdout), value_stdout, EXTRA_Public);
+		_pEnvThis->AssignValue(Gura_Symbol(stderr), value_stderr, EXTRA_Public);
+	}
+	return result;
+}
+
+// os.sleep(secs)
+Gura_DeclareFunction(sleep)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "secs", VTYPE_number);
+}
+
+Gura_ImplementFunction(sleep)
+{
+	OAL::Sleep(args.GetNumber(0));
+	return Value::Null;
+}
+
+// os.tonative(str:string):map
+Gura_DeclareFunction(tonative)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "str", VTYPE_string);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Converts Gura's regulated string into binary data that includes OS's native string.");
+}
+
+Gura_ImplementFunction(tonative)
+{
+	const char *str = args.GetString(0);
+	String buff = OAL::ToNativeString(str);
+	return Value(new Object_binary(env, buff.data(), buff.size(), true));
 }
 
 // os.unsetenv(name:string):void
@@ -213,14 +213,14 @@ Gura_ModuleEntry()
 		Gura_AssignValue(stderr, *pValue);
 	} while (0);
 	// function assignment
-	Gura_AssignFunction(sleep);
 	Gura_AssignFunction(clock);
-	Gura_AssignFunction(redirect);
 	Gura_AssignFunction(exec);
 	Gura_AssignFunction(fromnative);
-	Gura_AssignFunction(tonative);
 	Gura_AssignFunction(getenv);
 	Gura_AssignFunction(putenv);
+	Gura_AssignFunction(redirect);
+	Gura_AssignFunction(sleep);
+	Gura_AssignFunction(tonative);
 	Gura_AssignFunction(unsetenv);
 	return true;
 }
