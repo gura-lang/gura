@@ -702,7 +702,7 @@ Value Object_ole::CallableOLE::DoCall(Environment &env, Signal sig, Args &argsEx
 	StringList argNames;
 	foreach_const (ExprList, ppExpr, exprListArg) {
 		const Expr *pExpr = *ppExpr;
-		if (pExpr->IsOperatorPair()) {
+		if (pExpr->IsBinaryOp(OPTYPE_Pair)) {
 			const Expr_BinaryOp *pExprBinaryOp =
 						dynamic_cast<const Expr_BinaryOp *>(pExpr);
 			const Expr *pExprLeft = pExprBinaryOp->GetLeft()->Unquote();
