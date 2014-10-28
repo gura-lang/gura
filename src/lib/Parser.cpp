@@ -1822,16 +1822,23 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 				pExpr = pExprLeft;
 				Expr::Delete(pExprRight);
 			} else if (pExprRight->IsMember()) {
+				Expr_Member *pExprMember = dynamic_cast<Expr_Member *>(pExprRight);
+				SymbolSet *pAttrs = NULL;
+				SymbolSet *pAttrsOpt = NULL;
 				SymbolList *pAttrFront = NULL;
 				if (pExprDst->IsIdentifier()) {
 					Expr_Identifier *pExprIdentifier =
 									dynamic_cast<Expr_Identifier *>(pExprDst);
+					pAttrs = &pExprIdentifier->GetAttrs();
+					pAttrsOpt = &pExprIdentifier->GetAttrsOpt();
 					pAttrFront = &pExprIdentifier->GetAttrFront();
 				} else if (pExprDst->IsCaller()) {
 					Expr_Caller *pExprCaller =
 									dynamic_cast<Expr_Caller *>(pExprDst);
 					Expr_Caller *pExprTrailer =
 									pExprCaller->GetLastTrailer();
+					pAttrs = &pExprTrailer->GetAttrs();
+					pAttrsOpt = &pExprTrailer->GetAttrsOpt();
 					pAttrFront = &pExprTrailer->GetAttrFront();
 				} else {
 					SetError_InvalidElement(sig, __LINE__);
@@ -1841,6 +1848,12 @@ bool Parser::ReduceThreeElems(Environment &env, Signal sig)
 					sig.SetError(ERR_SyntaxError,
 							"value type must be specified as a first attribute");
 					return false;
+				}
+				if (pExprMember->GetRight()->IsIdentifier()) {
+					Expr_Identifier *pExprIdentifier =
+						dynamic_cast<Expr_Identifier *>(pExprMember->GetRight());
+					pAttrs->Insert(pExprIdentifier->GetAttrs());
+					pAttrsOpt->Insert(pExprIdentifier->GetAttrsOpt());
 				}
 				if (!pExprRight->GetChainedSymbolList(*pAttrFront)) {
 					sig.SetError(ERR_SyntaxError, "invalid declaration of value type");

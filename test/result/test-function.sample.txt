@@ -289,3 +289,7 @@ trailer
 2
 3
 [1, 2, 3]
+
+======== #40 attribute after membered type ========
+
+f(x:m.A:nil)

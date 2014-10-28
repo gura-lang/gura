@@ -420,3 +420,8 @@ testcase('nomap() test') {
 	f([1, 2, 3])
 	f([1, 2, 3].nomap())
 }
+testcase('attribute after membered type') {
+	m = module { A = struct(n) }
+	f(x:m.A:nil) = {}
+	println(f)
+}

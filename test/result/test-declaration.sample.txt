@@ -180,6 +180,7 @@ os:module = <module:os:<integrated>>
   putenv(name:string, value:string):void
   redirect(stdin:stream:nil:r, stdout:stream:nil:w, stderr?:stream:w) {block?}
   sleep(secs:number)
+  symlink(src:string, tgt:string):map:void
   tonative(str:string):map
   unsetenv(name:string):void
 outers() {block?}
