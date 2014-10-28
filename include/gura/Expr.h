@@ -380,6 +380,8 @@ public:
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
 	inline void AddAttr(const Symbol *pSymbol) { _attrs.Insert(pSymbol); }
 	inline void AddAttrOpt(const Symbol *pSymbol) { _attrsOpt.Insert(pSymbol); }
+	inline SymbolSet &GetAttrs() { return _attrs; }
+	inline SymbolSet &GetAttrsOpt() { return _attrsOpt; }
 	inline const SymbolSet &GetAttrs() const { return _attrs; }
 	inline const SymbolSet &GetAttrsOpt() const { return _attrsOpt; }
 	inline const Symbol *GetSymbol() const { return _pSymbol; }
@@ -699,6 +701,8 @@ public:
 		Iterator *pIteratorThis, bool listThisFlag, TrailCtrlHolder *pTrailCtrlHolder) const;
 	inline void AddAttr(const Symbol *pSymbol) { _attrs.Insert(pSymbol); }
 	inline void AddAttrOpt(const Symbol *pSymbol) { _attrsOpt.Insert(pSymbol); }
+	inline SymbolSet &GetAttrs() { return _attrs; }
+	inline SymbolSet &GetAttrsOpt() { return _attrsOpt; }
 	inline const SymbolSet &GetAttrs() const { return _attrs; }
 	inline const SymbolSet &GetAttrsOpt() const { return _attrsOpt; }
 	inline SymbolList &GetAttrFront() { return _attrFront; }

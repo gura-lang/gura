@@ -103,6 +103,11 @@ void SymbolSet::operator=(const SymbolSet &symbolSet)
 	foreach_const (SymbolSet, ppSymbol, symbolSet) Insert(*ppSymbol);
 }
 
+void SymbolSet::Insert(const SymbolSet &symbolSet)
+{
+	foreach_const (SymbolSet, ppSymbol, symbolSet) Insert(*ppSymbol);
+}
+
 //-----------------------------------------------------------------------------
 // SymbolPool
 //-----------------------------------------------------------------------------

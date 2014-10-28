@@ -103,6 +103,7 @@ public:
 	inline void Insert(const Symbol *pSymbol) {
 		insert(pSymbol);
 	}
+	void Insert(const SymbolSet &symbolSet);
 };
 
 //-----------------------------------------------------------------------------
