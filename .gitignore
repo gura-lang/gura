@@ -43,6 +43,7 @@ Debug.*/
 .deps/
 .libs/
 CMakeFiles/
+.DS_Store
 cmake_install.cmake
 install_manifest.txt
 install-deb.sh

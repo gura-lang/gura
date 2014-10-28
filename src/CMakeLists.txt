@@ -1,10 +1,10 @@
 # CMake Configuration for Gura
 # Available operations:
-#  - Build library and executables
+#  - Build library and executables.
 #    $ make
-#  - Install files to the system
+#  - Install files to the system.
 #    $ sudo make install
-#  - Make packages of Debian and RPM
+#  - Make packages of Debian, RPM and DMG.
 #    $ make package
 # When you want to see the detailed process, run "make VERBOSE=1".
 
@@ -12,11 +12,11 @@ cmake_minimum_required(VERSION 2.6)
 
 project(gura)
 
-# Modify content of include/gura/Version.h as well.
+# Needs to modify content of include/gura/Version.h as well.
 
 set(GURA_VERSION_MAJOR	0)
-set(GURA_VERSION_MINOR	5)
-set(GURA_VERSION_PATCH	3)
+set(GURA_VERSION_MINOR	6)
+set(GURA_VERSION_PATCH	0)
 
 if (APPLE)
   set(CMAKE_INSTALL_PREFIX	/Applications/Gura.app/Contents/Resources)
