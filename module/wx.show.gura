@@ -13,6 +13,7 @@ import(bmp)
 Panel = class(wx.Panel) {
 	__init__(parent:wx.Window) = {|parent|
 		vbox = wx.BoxSizer(wx.VERTICAL)
+		this.imgFrame = nil
 		this.SetSizer(vbox)
 		wx.ScrolledWindow(this, style => wx.BORDER_SUNKEN | wx.HSCROLL | wx.VSCROLL) {|panel|
 			vbox.Add(panel, wx.SizerFlags(1).Expand().Border(wx.TOP, 2))
@@ -24,7 +25,7 @@ Panel = class(wx.Panel) {
 					wx.PaintDC(panel) {|dc|
 						panel.PrepareDC(dc)
 						size = panel.GetClientSize()
-						dc.DrawBitmap(this.imgFrame, 0, 0, false)
+						this.imgFrame && dc.DrawBitmap(this.imgFrame, 0, 0, false)
 					}
 				} catch {|e|
 					println(e)
