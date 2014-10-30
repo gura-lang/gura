@@ -4,7 +4,7 @@
 #    $ make
 #  - Install files to the system.
 #    $ sudo make install
-#  - Make packages of Debian, RPM and DMG.
+#  - Make packages of Debian, RPM or DMG.
 #    $ make package
 # When you want to see the detailed process, run "make VERBOSE=1".
 
@@ -18,11 +18,11 @@ set(GURA_VERSION_MAJOR	0)
 set(GURA_VERSION_MINOR	6)
 set(GURA_VERSION_PATCH	0)
 
-if (APPLE)
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
   set(CMAKE_INSTALL_PREFIX	/Applications/Gura.app/Contents/Resources)
-else (APPLE)
+else (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
   set(CMAKE_INSTALL_PREFIX	/usr)
-endif (APPLE)
+endif (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 
 set(GURA_VERSION		${GURA_VERSION_MAJOR}.${GURA_VERSION_MINOR}.${GURA_VERSION_PATCH})
 set(GURA_VERSION_SO		${GURA_VERSION_MAJOR})
@@ -58,14 +58,15 @@ file(COPY ${CMAKE_BINARY_DIR}/tmp/build-modules
   FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
                    GROUP_READ GROUP_EXECUTE WORLD_READ)
 
-configure_file(
-  ${PROJECT_SOURCE_DIR}/resource/build/setup-guest.in
-  ${CMAKE_BINARY_DIR}/tmp/setup-guest)
-
-file(COPY ${CMAKE_BINARY_DIR}/tmp/setup-guest
-  DESTINATION ${CMAKE_BINARY_DIR}
-  FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
-                   GROUP_READ GROUP_EXECUTE WORLD_READ)
+if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+  configure_file(
+    ${PROJECT_SOURCE_DIR}/resource/build/setup-guest.in
+    ${CMAKE_BINARY_DIR}/tmp/setup-guest)
+  file(COPY ${CMAKE_BINARY_DIR}/tmp/setup-guest
+    DESTINATION ${CMAKE_BINARY_DIR}
+    FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
+                     GROUP_READ GROUP_EXECUTE WORLD_READ)
+endif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 
 include_directories(
   ${GURA_SRCDIR_INCLUDE}
@@ -117,8 +118,8 @@ set(CPACK_PACKAGE_VERSION_MINOR			${GURA_VERSION_MINOR})
 set(CPACK_PACKAGE_VERSION_PATCH			${GURA_VERSION_PATCH})
 set(CPACK_PACKAGE_VERSION				"${GURA_VERSION_MAJOR}.${GURA_VERSION_MINOR}.${GURA_VERSION_PATCH}")
 
-if (APPLE)
-  message(STATUS "Packaging disk image: OK")
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+  message(STATUS "Packaging disk image file -- OK")
   set(CPACK_GENERATOR "Bundle")   
   set(CPACK_BUNDLE_ICON					"${PROJECT_SOURCE_DIR}/resource/dmg/Gura.icns")
   set(CPACK_BUNDLE_NAME					"Gura")
@@ -127,12 +128,12 @@ if (APPLE)
   set(CPACK_BUNDLE_ICON					"${PROJECT_SOURCE_DIR}/resource/dmg/Gura.icns")
   set(CPACK_PACKAGE_FILE_NAME			"${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}")
   set(CPACK_PACKAGE_ICON				"${PROJECT_SOURCE_DIR}/resource/dmg/Gura.icns")
-else (APPLE)
+else (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
   set(CPACK_SET_DESTDIR					true)
   set(CPACK_PACKAGE_RELOCATABLE			false)
   if (DPKG)
     get_filename_component(DPKG_PATH ${DPKG} ABSOLUTE)
-    message(STATUS "Packaging deb using ${DPKG_PATH}: OK")
+    message(STATUS "Packaging deb file using ${DPKG_PATH} -- OK")
     set(CPACK_GENERATOR "DEB")
     set(CPACK_PACKAGE_FILE_NAME				"${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-ubuntu")
 	set(CPACK_DEBIAN_PACKAGE_NAME			${CPACK_PACKAGE_NAME})
@@ -149,7 +150,7 @@ else (APPLE)
 	endif ()
   elseif (RPMBUILD)
     get_filename_component(RPMBUILD_PATH ${RPMBUILD} ABSOLUTE)
-    message(STATUS "Packaging rpm using ${RPMBUILD_PATH}: OK")
+    message(STATUS "Packaging rpm file using ${RPMBUILD_PATH} -- OK")
     if (DEFINED CPACK_GENERATOR)
       set(CPACK_GENERATOR ${CPACK_GENERATOR} "RPM")
     else ()
@@ -167,6 +168,6 @@ else (APPLE)
       set(CPACK_RPM_PACKAGE_ARCHITECTURE	"i386")
     endif ()
   endif ()
-endif (APPLE)
+endif (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 
 include(CPack)
