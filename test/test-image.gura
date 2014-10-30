@@ -40,9 +40,9 @@ testcase {
 	])
 }
 testcase {
-	img = image(I('Water_lilies.jpg'), `rgb)
+	img = image(I('seashore.jpg'), `rgb)
 	tester_image(img.reducecolor(palette(`win256)).delpalette(), 'reducecolor',
-		 '2309d5011098eb2253ea7c8336c60769;d1df3abe4d3d73dcdc328f284ccfd783'):nomap
+		 '41c6034439cdb599016da021c72dc028'):nomap
 	img = image(I('kangaroo.png'), `rgba)
 	tester_image(img, 'normal kangaroo', '4710c4ce4b37c7de6426ed6067d9ac2d')
 	tester_image(img.flip(`horz), 'flip horizontal', 'fe02358ec3635a0d6f16ed5ae44425f3')
@@ -127,9 +127,9 @@ testcase {
 	println('chicken256.bmp to BMP: ', md5.hexdigest == '3224bf2c42fdb023ff99e30ba5b08544' || md5.hexdigest)
 	image(I('chicken16.bmp'), `rgb).delpalette().bmpwrite(md5.init())
 	println('chicken16.bmp to BMP: ', md5.hexdigest == '8712312fbe16655082a66fced12c525a' || md5.hexdigest)
-	image(I('Winter.jpg'), `rgb).bmpwrite(md5.init())
-	println('Winter.jpg to BMP: ',
-			md5.hexdigest in ['48a79ea74da499f00aa9a212024c49be', '98169f2b50287fec7305cb1c05da04e3'] || md5.hexdigest)
+	image(I('seashore.jpg'), `rgb).bmpwrite(md5.init())
+	println('seashore.jpg to BMP: ',
+			md5.hexdigest in ['acc0d75162f7df885b55142c45443af5'] || md5.hexdigest)
 	image(I('kangaroo.png'), `rgb).bmpwrite(md5.init())
 	println('kangaroo.png to BMP: ', md5.hexdigest == '2ec680a08f0303d449d0888158aeb529' || md5.hexdigest)
 	image(I('kangaroo.gif'), `rgb).delpalette().bmpwrite(md5.init())
@@ -140,14 +140,14 @@ testcase {
 	println('kangaroo.png to GIF (alpha): ', md5.hexdigest == '66d0bf310167e78ba4162ba64c8166ec' || md5.hexdigest)
 	img:image = I('kangaroo.png'), img.gifwrite(md5.init())
 	println('kangaroo.png to GIF (cast): ', md5.hexdigest == '66d0bf310167e78ba4162ba64c8166ec' || md5.hexdigest)
-	image(I('Winter.jpg'), `rgb).jpegwrite(md5.init())
-	println('Winter.jpg to JPEG: ',
-			md5.hexdigest in ['a2251d539c1e46aa6418ec83584bb6a7', '82fec614c4f6c1b801b5ba68f98efb73'] || md5.hexdigest)
-	image(I('Winter.jpg'), `rgb).pngwrite(md5.init())
-	println('Winter.jpg to PNG: ',
-			md5.hexdigest in ['f6a1550a12459ae6887cba27a8d9c17e', '65cd08b2a30ff0687845ae0652e2722e'] || md5.hexdigest)
+	image(I('seashore.jpg'), `rgb).jpegwrite(md5.init())
+	println('seashore.jpg to JPEG: ',
+			md5.hexdigest in ['9111b04ed5fc4dc03ff6c98e99fdda9c'] || md5.hexdigest)
+	image(I('seashore.jpg'), `rgb).pngwrite(md5.init())
+	println('seashore.jpg to PNG: ',
+			md5.hexdigest in ['a87795bc780d23e88053f065d51fc684'] || md5.hexdigest)
 	try {
-		image(I('Winter.jpg'), `rgb, 'png')
+		image(I('seashore.jpg'), `rgb, 'png')
 	} catch {|e|
 		println('expected error occurs: ', e.text)
 	}
@@ -201,18 +201,18 @@ testcase('test of scan') {
 }
 testcase {
 	map = interval(128, 160, 256)
-	img = image(I('Water_lilies.jpg'), `rgb)
+	img = image(I('seashore.jpg'), `rgb)
 	tester_image(img.mapcolorlevel(map), 'mapcolorlevel',
-		 '725dcff116c476633f1bca699cb437cb;e7a3946628a295b1b72376688e4db31f'):nomap
+		 '22a381f713261948d4130b870d1339ef'):nomap
 	tester_image(img.mapcolorlevel(map, map), 'mapcolorlevel',
-		 '725dcff116c476633f1bca699cb437cb;e7a3946628a295b1b72376688e4db31f'):nomap
+		 '22a381f713261948d4130b870d1339ef'):nomap
 	tester_image(img.mapcolorlevel(map, map, map), 'mapcolorlevel',
-		 '725dcff116c476633f1bca699cb437cb;e7a3946628a295b1b72376688e4db31f'):nomap
+		 '22a381f713261948d4130b870d1339ef'):nomap
 }
 testcase('image#resize') {
-	img = image(I('Water_lilies.jpg'), `rgb)
+	img = image(I('seashore.jpg'), `rgb)
 	tester_image(img.resize(100), 'resize - smaller',
-		 '5b383946166ac8ff913738d7246e80d5;87fd4678eea4d63ffefd8351af3f8f75;f882b6bf43dd81b1784e342d8b120316'):nomap
+		 '58181fc0e45ce0732edf561fc2791ac9'):nomap
 	img = image(I('chicken-anim.gif'), `rgb)
 	tester_image(img, 'resize - original',
 		'f9b52fb52a4133c74d831a724e9d5810'):nomap

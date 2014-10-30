@@ -58,14 +58,14 @@ image written in script binary: true
 
 chicken256.bmp to BMP: true
 chicken16.bmp to BMP: true
-Winter.jpg to BMP: true
+seashore.jpg to BMP: true
 kangaroo.png to BMP: true
 kangaroo.gif to BMP: true
 kangaroo.png to GIF: true
 kangaroo.png to GIF (alpha): true
 kangaroo.png to GIF (cast): true
-Winter.jpg to JPEG: true
-Winter.jpg to PNG: true
+seashore.jpg to JPEG: true
+seashore.jpg to PNG: true
 expected error occurs: FormatError: Not a PNG file
 expected error occurs: FormatError: Not a JPEG file: starts with 0x89 0x50
 expected error occurs: FormatError: Not a GIF file
