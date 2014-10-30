@@ -467,3 +467,22 @@ testcase('test of inheritance and loop') {
 	${end}
 	'''.template().render(sys.stdout)
 }
+testcase('') {
+	x = 'hoge'
+	R'''
+	$
+	$$
+	$$$
+	$$$$
+	$$$$$
+	$$$$$$
+	$abc
+	$0
+	${x}
+	$${x}
+	$$${x}
+	$$$${x}
+	${x}$
+	${x}$$
+	'''.template().render(sys.stdout)
+}

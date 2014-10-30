@@ -167,16 +167,10 @@ bool Template::Parser::ParseStream(Environment &env, Signal sig,
 					nDepth = 1;
 					strTmplScript.clear();
 					stat = STAT_ScriptFirst;
-				} else if (ch == chMarker) {
-					str += strIndent;
-					strIndent.clear();
-					str += ch;
-					stringAheadFlag = true;
-					stat = STAT_String;
 				} else {
 					str += strIndent;
 					strIndent.clear();
-					str += ch;
+					str += chMarker;
 					stringAheadFlag = true;
 					continueFlag = true;
 					stat = STAT_String;
