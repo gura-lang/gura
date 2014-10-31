@@ -1370,14 +1370,15 @@ bool Copy(const char *src, const char *dst, bool failIfExistsFlag, bool followLi
 	int fdSrc = -1, fdDst = -1;
 	struct stat statSrc, statDst;
 	String srcNative = ToNativeString(src);
-	String dstNative;
+	String dstWork;
 	if (IsDir(dst, NULL)) {
 		String fileName;
 		PathMgr::SplitFileName(src, NULL, &fileName);
-		dstNative = ToNativeString(JoinPathName(dst, fileName.c_str()).c_str());
+		dstWork = JoinPathName(dst, fileName.c_str()).c_str();
 	} else {
-		dstNative = ToNativeString(dst);
+		dstWork = dst;
 	}
+	String dstNative = ToNativeString(dstWork.c_str());
 	if (followLinkFlag) {
 		if (::stat(srcNative.c_str(), &statSrc) < 0) return false;
 	} else {
@@ -1388,9 +1389,9 @@ bool Copy(const char *src, const char *dst, bool failIfExistsFlag, bool followLi
 			// nothing to do
 		} else if (failIfExistsFlag) {
 			return false;
-		} else if (!Remove(dst)) {
-			//ChangeMode("u+w", dst);
-			//if (!Remove(dst)) return false;
+		} else if (!Remove(dstWork.c_str())) {
+			//ChangeMode("u+w", dstWork.c_str());
+			//if (!Remove(dstWork.c_str())) return false;
 			return false;
 		}
 		fdSrc = ::open(srcNative.c_str(), O_RDONLY);
@@ -1440,9 +1441,9 @@ bool Copy(const char *src, const char *dst, bool failIfExistsFlag, bool followLi
 			// nothing to do
 		} else if (failIfExistsFlag) {
 			return false;
-		} else if (!Remove(dst)) {
-			//ChangeMode("u+w", dst);
-			//if (!Remove(dst)) return false;
+		} else if (!Remove(dstWork.c_str())) {
+			//ChangeMode("u+w", dstWork.c_str());
+			//if (!Remove(dstWork.c_str())) return false;
 			return false;
 		}
 		char *tgt = new char [statSrc.st_size];
