@@ -1,20 +1,58 @@
 #!/usr/bin/env gura
+//----------------------------------------------------------------------------
+// sample.gura
+// Gura module to navigate sample scripts.
+//----------------------------------------------------------------------------
+import(conio)
 
-dirNameSample = path.join(sys.datadir, 'sample/')
-list(dirNameSub?:string) = {
-	if (dirNameSub) {
-		dirName = path.join(dirNameSample, dirNameSub)
-		path.dir(dirName, '*.gura', '*.guraw') {|pathName|
-			println(pathName.replace(dirNameSample, ''))
-		}
-	} else {
-		path.dir(dirNameSample):dir {|pathName|
-			println(pathName.replace(dirNameSample, ''))
-		}
+dirNameBase = path.join(sys.datadir, 'sample')
+relNameCur = ''
+
+cd(dirNameSub?:string):void:symbol_func = {
+	relNameCur:extern = SetRelNameCur(dirNameSub)
+}
+
+ls(dirNameSub?:string):void:symbol_func = {
+	relName = SetRelNameCur(dirNameSub)
+	dirName = path.join(dirNameBase, relName) + '/'
+	path.dir(dirName):dir {|pathName|
+		println(pathName.replace(dirName, ''))
+	}
+	path.dir(dirName, '*.gura', '*.guraw') {|pathName|
+		println(pathName.replace(dirName, ''))
 	}
 }
 
-run(fileName:string) = {
-	pathName = path.join(dirNameSample, fileName)
+run(fileName:string):void:symbol_func = {
+	pathName = path.regulate(path.join(dirNameBase, relNameCur, fileName))
+	print('running: ')
+	conio.setcolor(`green) { println(path.filename(fileName)) }
 	os.exec(sys.executable, pathName):fork
 }
+
+cp(fileName:string, dst?:string):void = {
+	pathName = path.regulate(path.join(dirNameBase, relNameCur, fileName))
+	if (!dst) {
+		dst = fs.getcwd()
+	} elsif (dst == '~' || dst.startswith('~/')) {
+		dst = dst.replace('~', os.getenv('HOME'))
+	}
+	fs.copy(pathName, dst)
+	print('copy to: ')
+	conio.setcolor(`green) { println(dst) }
+}
+
+SetRelNameCur(dirNameSub:string:nil):private = {
+	if (!dirNameSub) {
+		// nothing to do
+	} elsif (dirNameSub.startswith('/')) {
+		relNameCur = dirNameSub.mid(1)
+	} else {
+		relNameCur = path.regulate(path.join(relNameCur, dirNameSub))
+	}
+	print('current directory: ')
+	conio.setcolor(`green) { println('/' + relNameCur) }
+	relNameCur
+}
+
+cd()
