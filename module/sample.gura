@@ -15,10 +15,10 @@ cd(dirNameSub?:string):void:symbol_func = {
 ls(dirNameSub?:string):void:symbol_func = {
 	relName = SetRelNameCur(dirNameSub)
 	dirName = path.join(dirNameBase, relName) + '/'
-	path.dir(dirName):dir {|pathName|
+	(path.dir(dirName):dir).sort {|pathName|
 		println(pathName.replace(dirName, ''))
 	}
-	path.dir(dirName, '*.gura', '*.guraw') {|pathName|
+	(path.dir(dirName, '*.gura', '*.guraw')).sort {|pathName|
 		println(pathName.replace(dirName, ''))
 	}
 }
