@@ -467,7 +467,7 @@ testcase('test of inheritance and loop') {
 	${end}
 	'''.template().render(sys.stdout)
 }
-testcase('') {
+testcase('marker handling') {
 	x = 'hoge'
 	R'''
 	$

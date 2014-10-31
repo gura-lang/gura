@@ -1,9 +1,11 @@
 #!/usr/bin/osascript
 
-set DirCurrent to POSIX path of ((path to me as text) & "::")
-set DirResources to DirCurrent & "../Resources/"
-set PathGura to DirResources & "bin/gura"
-tell application "Terminal"
-  activate
-  do script "clear;" & PathGura & " -t -i macsetup"
-end
+on run argv
+  set dirCurrent to POSIX path of ((path to me as text) & "::")
+  set dirResources to dirCurrent & "../Resources/"
+  set pathGura to dirResources & "bin/gura"
+  tell application "Terminal"
+    activate
+    do script "clear;\"" & pathGura & "\" -t -i macsetup"
+  end
+end run

@@ -471,3 +471,20 @@ expected error occurs: KeyError: duplicated symbol: hoge1
   </ul>
 </body>
 </html>
+
+======== #23 marker handling ========
+
+$
+$$
+$$$
+$$$$
+$$$$$
+$$$$$$
+$abc
+$0
+hoge
+$hoge
+$$hoge
+$$$hoge
+hoge$
+hoge$$
