@@ -87,9 +87,10 @@ Value Expr::Exec(Environment &env, Signal sig,
 		// in the following example, "&&" operator returns "return" function
 		// object as its result, and then the block of "repeat" shall evaluate it.
 		//   repeat { flag && return }
-		const Function *pFunc = result.GetFunction();
+		Object_function *pFuncObj = Object_function::GetObject(result);
 		AutoPtr<Args> pArgs(new Args());
-		result = pFunc->Call(env, sig, *pArgs);
+		pArgs->SetThis(pFuncObj->GetThis());
+		result = pFuncObj->GetFunction()->Call(env, sig, *pArgs);
 		if (sig.IsSignalled()) {
 			sig.AddExprCause(this);
 			return Value::Null;
