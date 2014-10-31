@@ -170,7 +170,7 @@ testList = @{
 		cr.arc(128.0, 128.0, 76.8)
 		cr.clip()
 		cr.new_path()
-		img = image(I('Water_lilies.jpg'))
+		img = image(I('flower.jpg'))
 		cr.scale(256.0 / img.width, 256.0 / img.height)
 		cr.set_source_surface(img, 0, 0)
 		cr.paint()
@@ -299,7 +299,7 @@ testList = @{
 		cr.fill()
 	}
 	'image', function(cr:cairo.context) {
-		img = image(I('Water_lilies.jpg'))
+		img = image(I('flower.jpg'))
 		[w, h] = [img.width, img.height]
 		cr.translate(128.0, 128.0)
 		cr.rotate(45 * math.pi / 180)
@@ -309,7 +309,7 @@ testList = @{
 		cr.paint()
 	}
 	'image pattern', function(cr:cairo.context) {
-		img = image(I('Water_lilies.jpg'))
+		img = image(I('flower.jpg'))
 		[w, h] = [img.width, img.height]
 		pattern = cairo.pattern.create_for_surface(img)
 		pattern.set_extend(cairo.EXTEND_REPEAT)
@@ -477,8 +477,9 @@ Frame = class(wx.Frame) {
 		vbox.Add(canvas, wx.SizerFlags().Centre())
 		entries = [Entry * testList.fold(2)]
 		wx.ListCtrl(panel, wx.ID_ANY, style => wx.LC_REPORT | wx.LC_SINGLE_SEL) {|ctrl|
-			vbox.Add(ctrl, wx.SizerFlags(1).Expand())
-			ctrl.SetFont(wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL,
+			vbox.Add(ctrl, wx.SizerFlags(1).Expand().\
+					 Border(wx.LEFT | wx.RIGHT | wx.BOTTOM, 4))
+			ctrl.SetFont(wx.Font(12, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL,
 								wx.FONTWEIGHT_NORMAL, false))
 			ctrl.InsertColumn(0, 'Id', width => 40)
 			ctrl.InsertColumn(1, 'Name', width => 200)
