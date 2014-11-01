@@ -14,12 +14,12 @@ cd(dirNameSub?:string):void:symbol_func = {
 
 ls(dirNameSub?:string):void:symbol_func = {
 	relName = SetRelNameCur(dirNameSub)
-	dirName = path.join(dirNameBase, relName) + '/'
+	dirName = path.join(dirNameBase, relName)
 	(path.dir(dirName):dir).sort {|pathName|
-		println(pathName.replace(dirName, ''))
+		println(path.bottom(pathName), '/')
 	}
 	(path.dir(dirName, '*.gura', '*.guraw')).sort {|pathName|
-		println(pathName.replace(dirName, ''))
+		println(path.bottom(pathName))
 	}
 }
 
@@ -56,3 +56,10 @@ SetRelNameCur(dirNameSub:string:nil):private = {
 }
 
 cd()
+print(R'''
+commands:
+sample.cd(dirName?)
+sample.ls(dirName?)
+sample.run(fileName)
+sample.cp(fileName, dst)
+''')
