@@ -17,9 +17,12 @@ fileNames = path.dir(I(''), '*.jpg', '*.png', '*.bmp').cycle()
 sdl.SetRenderDrawColor(renderer, bgColor.r, bgColor.g, bgColor.b, 255)
 sdl.RenderClear(renderer)
 sdl.RenderPresent(renderer)
+timePrev = sdl.GetTicks()
 repeat {
 	event = sdl.WaitEventTimeout(1000)	// 1000msec
-	if (!event) {
+	timeCur = sdl.GetTicks()
+	if (timeCur < timePrev || timeCur > timePrev + 1000) { // 1000msec
+		timePrev = timeCur
 		fileName = fileNames.next()
 		img = image(fileName).thumbnail(wdScreen, htScreen)
 		sdl.SetRenderDrawColor(renderer, bgColor.r, bgColor.g, bgColor.b, 255)
@@ -29,6 +32,9 @@ repeat {
 			sdl.RenderCopy(renderer, texture, nil, sdl.Rect(x, y, img.width, img.height))
 		}
 		sdl.RenderPresent(renderer)
+	}
+	if (!event) {
+		// nothing to do
 	} elsif (event.type == sdl.QUIT) {
 		break
 	} elsif (event.type == sdl.KEYDOWN) {
