@@ -1,0 +1,37 @@
+#!/usr/bin/env gura
+import(sdl2, sdl)
+import(jpeg)
+import(png)
+import(bmp)
+
+I(filename:string) = path.join(sys.datadir, 'sample', 'resource', filename)
+
+bgColor = color(`green)
+fgFont = color(`white)
+[wdScreen, htScreen] = [640, 480]
+sdl.Init(sdl.INIT_EVERYTHING)
+window = sdl.CreateWindow(path.filename(sys.argv[0]),
+	sdl.WINDOWPOS_CENTERED, sdl.WINDOWPOS_CENTERED, wdScreen, htScreen, 0)
+renderer = sdl.CreateRenderer(window, -1, 0)
+fileNames = path.dir(I(''), '*.jpg', '*.png', '*.bmp').cycle()
+sdl.SetRenderDrawColor(renderer, bgColor.r, bgColor.g, bgColor.b, 255)
+sdl.RenderClear(renderer)
+sdl.RenderPresent(renderer)
+repeat {
+	event = sdl.WaitEventTimeout(1000)	// 1000msec
+	if (!event) {
+		fileName = fileNames.next()
+		img = image(fileName).thumbnail(wdScreen, htScreen)
+		sdl.SetRenderDrawColor(renderer, bgColor.r, bgColor.g, bgColor.b, 255)
+		sdl.RenderClear(renderer)
+		[x, y] = [(wdScreen - img.width) / 2, (htScreen - img.height) / 2]
+		sdl.CreateTextureFromSurface(renderer, img) {|texture|
+			sdl.RenderCopy(renderer, texture, nil, sdl.Rect(x, y, img.width, img.height))
+		}
+		sdl.RenderPresent(renderer)
+	} elsif (event.type == sdl.QUIT) {
+		break
+	} elsif (event.type == sdl.KEYDOWN) {
+		(event.sym == sdl.K_ESCAPE) && break
+	}
+}
