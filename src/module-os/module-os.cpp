@@ -24,7 +24,7 @@ Gura_ImplementFunction(clock)
 	return Value(OAL::GetTickTime());
 }
 
-// os.exec(pathname:string, args*:string):map:[fork,binary]
+// os.exec(pathname:string, args*:string):map:[fork]
 Gura_DeclareFunction(exec)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);

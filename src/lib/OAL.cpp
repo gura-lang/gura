@@ -1294,7 +1294,7 @@ int ExecProgram(Environment &env, Signal sig, const char *pathName,
 		if (pStreamStdin != NULL && !pStreamStdin->GetBlocking()) {
 			char *buff = reinterpret_cast<char *>(pMemory->GetPointer());
 			size_t bytesRead = pStreamStdin->Read(sig, buff, pMemory->GetSize());
-			if (sig.IsSignalled()) return -1;
+			if (sig.IsSignalled()) goto done;
 			if (bytesRead == 0) {
 				::close(fdsStdin[1]);
 			} else {
@@ -1315,14 +1315,14 @@ int ExecProgram(Environment &env, Signal sig, const char *pathName,
 			char *buff = reinterpret_cast<char *>(pMemory->GetPointer());
 			size_t bytesRead = ::read(fdsStdout[0], buff, pMemory->GetSize());
 			pStreamStdout->Write(sig, buff, bytesRead);
-			if (sig.IsSignalled()) return -1;
+			if (sig.IsSignalled()) goto done;
 		}
 		if (FD_ISSET(fdsStderr[0], &fdsRead)) {
 			idleFlag = false;
 			char *buff = reinterpret_cast<char *>(pMemory->GetPointer());
 			size_t bytesRead = ::read(fdsStderr[0], buff, pMemory->GetSize());
 			pStreamStderr->Write(sig, buff, bytesRead);
-			if (sig.IsSignalled()) return -1;
+			if (sig.IsSignalled()) goto done;
 		}
 		if (idleFlag) {
 			int status;

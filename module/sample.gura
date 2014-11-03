@@ -27,7 +27,11 @@ run(fileName:string):void:symbol_func = {
 	pathName = path.regulate(path.join(dirNameBase, relNameCur, fileName))
 	print('running: ')
 	conio.setcolor(`green) { println(path.filename(fileName)) }
-	os.exec(sys.executable, pathName):fork
+	if (pathName.endswith('.guraw'):icase) {
+		os.exec(sys.executable, pathName):fork
+	} else {
+		os.exec(sys.executable, pathName)
+	}
 }
 
 cp(fileName:string, dst?:string):void = {
@@ -56,10 +60,3 @@ SetRelNameCur(dirNameSub:string:nil):private = {
 }
 
 cd()
-print(R'''
-commands:
-sample.cd(dirName?)
-sample.ls(dirName?)
-sample.run(fileName)
-sample.cp(fileName, dst)
-''')
