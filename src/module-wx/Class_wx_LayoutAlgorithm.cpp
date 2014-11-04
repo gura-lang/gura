@@ -109,6 +109,9 @@ Gura_ImplementMethod(wx_LayoutAlgorithm, LayoutWindow)
 	Object_wx_LayoutAlgorithm *pThis = Object_wx_LayoutAlgorithm::GetThisObj(args);
 	if (pThis->IsInvalid(sig)) return Value::Null;
 	wxWindow *parent = Object_wx_Window::GetObject(args, 0)->GetEntity();
+	// When the application runs on MacOS and is about to be closed, it sometimes happen
+	// that parent has been destoyed before this function is called.
+	if (parent == NULL) return Value::Null;
 	wxWindow *mainWindow = (wxWindow *)(NULL);
 	if (args.IsValid(1)) mainWindow = Object_wx_Window::GetObject(args, 1)->GetEntity();
 	bool rtn = pThis->GetEntity()->LayoutWindow(parent, mainWindow);
