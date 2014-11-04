@@ -19,6 +19,9 @@ const char *Version::GetBanner()
 #if defined(_MSC_VER)
 	::sprintf(buff, "Gura %s [MSC v.%d, %s] %s",
 				GURA_VERSION, _MSC_VER, __DATE__, GURA_COPYRIGHT);
+#elif defined(__clang_major__) && defined(__clang_minor__)
+	::sprintf(buff, "Gura %s [clang v.%d.%d, %s] %s",
+				GURA_VERSION, __clang_major__, __clang_minor__, __DATE__, GURA_COPYRIGHT);
 #elif defined(__GNUC__) && defined(__GNUC_MINOR__)
 	::sprintf(buff, "Gura %s [GNUC v.%d.%d, %s] %s",
 				GURA_VERSION, __GNUC__, __GNUC_MINOR__, __DATE__, GURA_COPYRIGHT);
