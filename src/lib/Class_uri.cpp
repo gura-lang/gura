@@ -118,6 +118,18 @@ Gura_ImplementFunction(uri)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
+// uri#getfragment()
+Gura_DeclareMethod(uri, getfragment)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(uri, getfragment)
+{
+	const Uri &uri = Object_uri::GetThisObj(args)->GetUri();
+	return Value(uri.ExtractFragment(uri.GetUrlPath()));
+}
+
 // uri#getpath()
 Gura_DeclareMethod(uri, getpath)
 {
@@ -145,18 +157,6 @@ Gura_ImplementMethod(uri, getquery)
 	return result;
 }
 
-// uri#getfragment()
-Gura_DeclareMethod(uri, getfragment)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(uri, getfragment)
-{
-	const Uri &uri = Object_uri::GetThisObj(args)->GetUri();
-	return Value(uri.ExtractFragment(uri.GetUrlPath()));
-}
-
 // uri.parsequery(query:string):map
 Gura_DeclareClassMethod(uri, parsequery)
 {
@@ -182,9 +182,9 @@ Class_uri::Class_uri(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_uri)
 void Class_uri::Prepare(Environment &env)
 {
 	Gura_AssignFunction(uri);
+	Gura_AssignMethod(uri, getfragment);
 	Gura_AssignMethod(uri, getpath);
 	Gura_AssignMethod(uri, getquery);
-	Gura_AssignMethod(uri, getfragment);
 	Gura_AssignMethod(uri, parsequery);
 }
 

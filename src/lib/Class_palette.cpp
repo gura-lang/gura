@@ -150,6 +150,24 @@ Gura_ImplementMethod(palette, nearest)
 	return pThis->GetPalette()->GetColorValue(env, idx);
 }
 
+// palette#shrink():reduce:[align]
+Gura_DeclareMethod(palette, shrink)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareAttr(Gura_Symbol(align));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Shrinks the size of the palette to a number powered by two that is\n"
+	"enough to contain unique entries. The ordef of existing entries will\n"
+	"be kept intact.");
+}
+
+Gura_ImplementMethod(palette, shrink)
+{
+	Object_palette *pThis = Object_palette::GetThisObj(args);
+	pThis->GetPalette()->Shrink(pThis->GetPalette()->NextBlankIndex(), args.IsSet(Gura_Symbol(align)));
+	return args.GetThis();
+}
+
 // palette#updateby(image_or_palette):reduce:[shrink,align]
 Gura_DeclareMethod(palette, updateby)
 {
@@ -189,24 +207,6 @@ Gura_ImplementMethod(palette, updateby)
 	return args.GetThis();
 }
 
-// palette#shrink():reduce:[align]
-Gura_DeclareMethod(palette, shrink)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareAttr(Gura_Symbol(align));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Shrinks the size of the palette to a number powered by two that is\n"
-	"enough to contain unique entries. The ordef of existing entries will\n"
-	"be kept intact.");
-}
-
-Gura_ImplementMethod(palette, shrink)
-{
-	Object_palette *pThis = Object_palette::GetThisObj(args);
-	pThis->GetPalette()->Shrink(pThis->GetPalette()->NextBlankIndex(), args.IsSet(Gura_Symbol(align)));
-	return args.GetThis();
-}
-
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
@@ -219,8 +219,8 @@ void Class_palette::Prepare(Environment &env)
 	Gura_AssignFunction(palette);
 	Gura_AssignMethod(palette, each);
 	Gura_AssignMethod(palette, nearest);
-	Gura_AssignMethod(palette, updateby);
 	Gura_AssignMethod(palette, shrink);
+	Gura_AssignMethod(palette, updateby);
 }
 
 bool Class_palette::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)
