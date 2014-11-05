@@ -216,6 +216,86 @@ Gura_ImplementFunction(MatrixInit)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
+// matrix#col(col:number):map
+Gura_DeclareMethod(matrix, col)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "col", VTYPE_number);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Returns a list of values copied from a specified column of the matrix.\n"
+	"Modification on the returned sub matrix will affect on the original one.");
+}
+
+Gura_ImplementMethod(matrix, col)
+{
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	return pThis->GetMatrix()->GetCol(env, sig, args.GetSizeT(0));
+}
+
+// matrix#colsize()
+Gura_DeclareMethod(matrix, colsize)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the matrix column size.");
+}
+
+Gura_ImplementMethod(matrix, colsize)
+{
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	return Value(static_cast<UInt>(pThis->GetMatrix()->GetCols()));
+}
+
+// matrix#each():[transpose]
+Gura_DeclareMethod(matrix, each)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(transpose));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Returns an iterator that picks up each cell by scanning the matrix.\n"
+	"In default, that scan is done in a horizontal direction.\n"
+	"When an attribute :transpose is specified, it's done in a vertical direction.");
+}
+
+Gura_ImplementMethod(matrix, each)
+{
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	Iterator *pIterator = new Matrix::IteratorEach(Matrix::Reference(pThis->GetMatrix()),
+								args.IsSet(Gura_Symbol(transpose)));
+	return ReturnIterator(env, sig, args, pIterator);
+}
+
+// matrix#eachcol()
+Gura_DeclareMethod(matrix, eachcol)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Returns an iterator that generates lists of values copied from each column\n"
+	"of the matrix.\n");
+}
+
+Gura_ImplementMethod(matrix, eachcol)
+{
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	return ReturnIterator(env, sig, args,
+		new Matrix::IteratorEachCol(Matrix::Reference(pThis->GetMatrix())));
+}
+
+// matrix#eachrow()
+Gura_DeclareMethod(matrix, eachrow)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Returns an iterator that generates lists of values copied from each row\n"
+	"of the matrix.\n");
+}
+
+Gura_ImplementMethod(matrix, eachrow)
+{
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	return ReturnIterator(env, sig, args,
+		new Matrix::IteratorEachRow(Matrix::Reference(pThis->GetMatrix())));
+}
+
 // matrix.identity(n:number):static:map {block?}
 Gura_DeclareClassMethod(matrix, identity)
 {
@@ -228,6 +308,33 @@ Gura_ImplementClassMethod(matrix, identity)
 {
 	AutoPtr<Matrix> pMat(Matrix::CreateIdentity(args.GetInt(0)));
 	return ReturnValue(env, sig, args, Value(new Object_matrix(env, pMat.release())));
+}
+
+// matrix#invert()
+Gura_DeclareMethod(matrix, invert)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns an inverted matrix.");
+}
+
+Gura_ImplementMethod(matrix, invert)
+{
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	if (sig.IsSignalled()) return Value::Null;
+	return pThis->GetMatrix()->Invert(env, sig);
+}
+
+// matrix#issquare()
+Gura_DeclareMethod(matrix, issquare)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns true if the matrix is a square one.");
+}
+
+Gura_ImplementMethod(matrix, issquare)
+{
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	return Value(pThis->GetMatrix()->GetRows() == pThis->GetMatrix()->GetCols());
 }
 
 // matrix.rotation(angle:number, tx?:number, ty?:number):static:map:[deg] {block?}
@@ -369,6 +476,51 @@ Gura_ImplementClassMethod(matrix, rotation_z)
 	return ReturnValue(env, sig, args, Value(new Object_matrix(env, pMat.release())));
 }
 
+// matrix#roundoff(threshold:number => 1e-10)
+Gura_DeclareMethod(matrix, roundoff)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "threshold", VTYPE_number, OCCUR_Once, FLAG_None,
+										new Expr_Value(RoundOffThreshold));
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a matrix with values that have been rounded off.");
+}
+
+Gura_ImplementMethod(matrix, roundoff)
+{
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	if (sig.IsSignalled()) return Value::Null;
+	return pThis->GetMatrix()->RoundOff(env, sig, args.GetNumber(0));
+}
+
+// matrix#row(row:number):map
+Gura_DeclareMethod(matrix, row)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "row", VTYPE_number);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
+	"Returns a list of values copied from a specified row of the matrix.\n"
+	"Modification on the returned sub matrix will affect on the original one.");
+}
+
+Gura_ImplementMethod(matrix, row)
+{
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	return pThis->GetMatrix()->GetRow(env, sig, args.GetSizeT(0));
+}
+
+// matrix#rowsize()
+Gura_DeclareMethod(matrix, rowsize)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the matrix row size.");
+}
+
+Gura_ImplementMethod(matrix, rowsize)
+{
+	Object_matrix *pThis = Object_matrix::GetThisObj(args);
+	return Value(static_cast<UInt>(pThis->GetMatrix()->GetRows()));
+}
+
 // matrix#set(value)
 Gura_DeclareMethod(matrix, set)
 {
@@ -385,26 +537,6 @@ Gura_ImplementMethod(matrix, set)
 								new Iterator_Constant(args.GetValue(0)));
 	if (sig.IsSignalled()) return Value::Null;
 	pThis->GetMatrix()->Set(env, sig, *pIterator);
-	return Value::Null;
-}
-
-// matrix#setrow(row:number, value)
-Gura_DeclareMethod(matrix, setrow)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "row", VTYPE_number);
-	DeclareArg(env, "value", VTYPE_any);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Sets cells in a selected row of the matrix with a specified value.");
-}
-
-Gura_ImplementMethod(matrix, setrow)
-{
-	Object_matrix *pThis = Object_matrix::GetThisObj(args);
-	AutoPtr<Iterator> pIterator((args.Is_list(1) || args.Is_iterator(1))?
-								args.GetValue(1).CreateIterator(sig) :
-								new Iterator_Constant(args.GetValue(1)));
-	if (sig.IsSignalled()) return Value::Null;
-	pThis->GetMatrix()->SetRow(env, sig, args.GetSizeT(0), *pIterator);
 	return Value::Null;
 }
 
@@ -428,43 +560,24 @@ Gura_ImplementMethod(matrix, setcol)
 	return Value::Null;
 }
 
-// matrix#rowsize()
-Gura_DeclareMethod(matrix, rowsize)
+// matrix#setrow(row:number, value)
+Gura_DeclareMethod(matrix, setrow)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the matrix row size.");
+	DeclareArg(env, "row", VTYPE_number);
+	DeclareArg(env, "value", VTYPE_any);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Sets cells in a selected row of the matrix with a specified value.");
 }
 
-Gura_ImplementMethod(matrix, rowsize)
+Gura_ImplementMethod(matrix, setrow)
 {
 	Object_matrix *pThis = Object_matrix::GetThisObj(args);
-	return Value(static_cast<UInt>(pThis->GetMatrix()->GetRows()));
-}
-
-// matrix#colsize()
-Gura_DeclareMethod(matrix, colsize)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the matrix column size.");
-}
-
-Gura_ImplementMethod(matrix, colsize)
-{
-	Object_matrix *pThis = Object_matrix::GetThisObj(args);
-	return Value(static_cast<UInt>(pThis->GetMatrix()->GetCols()));
-}
-
-// matrix#issquare()
-Gura_DeclareMethod(matrix, issquare)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns true if the matrix is a square one.");
-}
-
-Gura_ImplementMethod(matrix, issquare)
-{
-	Object_matrix *pThis = Object_matrix::GetThisObj(args);
-	return Value(pThis->GetMatrix()->GetRows() == pThis->GetMatrix()->GetCols());
+	AutoPtr<Iterator> pIterator((args.Is_list(1) || args.Is_iterator(1))?
+								args.GetValue(1).CreateIterator(sig) :
+								new Iterator_Constant(args.GetValue(1)));
+	if (sig.IsSignalled()) return Value::Null;
+	pThis->GetMatrix()->SetRow(env, sig, args.GetSizeT(0), *pIterator);
+	return Value::Null;
 }
 
 // matrix#submat(row:number, col:number, nrows:number, ncols:number):map
@@ -486,89 +599,6 @@ Gura_ImplementMethod(matrix, submat)
 	//return pThis->GetMatrix()->GetSub(args.GetSizeT(0), args.GetSizeT(1),
 	//					args.GetSizeT(2), args.GetSizeT(3));
 	return Value::Null;
-}
-
-// matrix#row(row:number):map
-Gura_DeclareMethod(matrix, row)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "row", VTYPE_number);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a list of values copied from a specified row of the matrix.\n"
-	"Modification on the returned sub matrix will affect on the original one.");
-}
-
-Gura_ImplementMethod(matrix, row)
-{
-	Object_matrix *pThis = Object_matrix::GetThisObj(args);
-	return pThis->GetMatrix()->GetRow(env, sig, args.GetSizeT(0));
-}
-
-// matrix#col(col:number):map
-Gura_DeclareMethod(matrix, col)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "col", VTYPE_number);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a list of values copied from a specified column of the matrix.\n"
-	"Modification on the returned sub matrix will affect on the original one.");
-}
-
-Gura_ImplementMethod(matrix, col)
-{
-	Object_matrix *pThis = Object_matrix::GetThisObj(args);
-	return pThis->GetMatrix()->GetCol(env, sig, args.GetSizeT(0));
-}
-
-// matrix#each():[transpose]
-Gura_DeclareMethod(matrix, each)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareAttr(Gura_Symbol(transpose));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns an iterator that picks up each cell by scanning the matrix.\n"
-	"In default, that scan is done in a horizontal direction.\n"
-	"When an attribute :transpose is specified, it's done in a vertical direction.");
-}
-
-Gura_ImplementMethod(matrix, each)
-{
-	Object_matrix *pThis = Object_matrix::GetThisObj(args);
-	Iterator *pIterator = new Matrix::IteratorEach(Matrix::Reference(pThis->GetMatrix()),
-								args.IsSet(Gura_Symbol(transpose)));
-	return ReturnIterator(env, sig, args, pIterator);
-}
-
-// matrix#eachrow()
-Gura_DeclareMethod(matrix, eachrow)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns an iterator that generates lists of values copied from each row\n"
-	"of the matrix.\n");
-}
-
-Gura_ImplementMethod(matrix, eachrow)
-{
-	Object_matrix *pThis = Object_matrix::GetThisObj(args);
-	return ReturnIterator(env, sig, args,
-		new Matrix::IteratorEachRow(Matrix::Reference(pThis->GetMatrix())));
-}
-
-// matrix#eachcol()
-Gura_DeclareMethod(matrix, eachcol)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns an iterator that generates lists of values copied from each column\n"
-	"of the matrix.\n");
-}
-
-Gura_ImplementMethod(matrix, eachcol)
-{
-	Object_matrix *pThis = Object_matrix::GetThisObj(args);
-	return ReturnIterator(env, sig, args,
-		new Matrix::IteratorEachCol(Matrix::Reference(pThis->GetMatrix())));
 }
 
 // matrix#tolist():[transpose,flat]
@@ -600,22 +630,6 @@ Gura_ImplementMethod(matrix, tolist)
 	return result;
 }
 
-// matrix#roundoff(threshold:number => 1e-10)
-Gura_DeclareMethod(matrix, roundoff)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "threshold", VTYPE_number, OCCUR_Once, FLAG_None,
-										new Expr_Value(RoundOffThreshold));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a matrix with values that have been rounded off.");
-}
-
-Gura_ImplementMethod(matrix, roundoff)
-{
-	Object_matrix *pThis = Object_matrix::GetThisObj(args);
-	if (sig.IsSignalled()) return Value::Null;
-	return pThis->GetMatrix()->RoundOff(env, sig, args.GetNumber(0));
-}
-
 // matrix#transpose()
 Gura_DeclareMethod(matrix, transpose)
 {
@@ -630,20 +644,6 @@ Gura_ImplementMethod(matrix, transpose)
 	return pThis->GetMatrix()->Transpose(env, sig);
 }
 
-// matrix#invert()
-Gura_DeclareMethod(matrix, invert)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns an inverted matrix.");
-}
-
-Gura_ImplementMethod(matrix, invert)
-{
-	Object_matrix *pThis = Object_matrix::GetThisObj(args);
-	if (sig.IsSignalled()) return Value::Null;
-	return pThis->GetMatrix()->Invert(env, sig);
-}
-
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
@@ -655,27 +655,27 @@ void Class_matrix::Prepare(Environment &env)
 {
 	Gura_AssignFunction(matrix);
 	Gura_AssignFunctionEx(MatrixInit, "@@");
+	Gura_AssignMethod(matrix, col);
+	Gura_AssignMethod(matrix, colsize);
+	Gura_AssignMethod(matrix, each);
+	Gura_AssignMethod(matrix, eachcol);
+	Gura_AssignMethod(matrix, eachrow);
 	Gura_AssignMethod(matrix, identity);
+	Gura_AssignMethod(matrix, invert);
+	Gura_AssignMethod(matrix, issquare);
 	Gura_AssignMethod(matrix, rotation);
 	Gura_AssignMethod(matrix, rotation_x);
 	Gura_AssignMethod(matrix, rotation_y);
 	Gura_AssignMethod(matrix, rotation_z);
-	Gura_AssignMethod(matrix, set);
-	Gura_AssignMethod(matrix, setrow);
-	Gura_AssignMethod(matrix, setcol);
-	Gura_AssignMethod(matrix, rowsize);
-	Gura_AssignMethod(matrix, colsize);
-	Gura_AssignMethod(matrix, issquare);
-	Gura_AssignMethod(matrix, submat);
-	Gura_AssignMethod(matrix, row);
-	Gura_AssignMethod(matrix, col);
-	Gura_AssignMethod(matrix, each);
-	Gura_AssignMethod(matrix, eachrow);
-	Gura_AssignMethod(matrix, eachcol);
-	Gura_AssignMethod(matrix, tolist);
 	Gura_AssignMethod(matrix, roundoff);
+	Gura_AssignMethod(matrix, row);
+	Gura_AssignMethod(matrix, rowsize);
+	Gura_AssignMethod(matrix, set);
+	Gura_AssignMethod(matrix, setcol);
+	Gura_AssignMethod(matrix, setrow);
+	Gura_AssignMethod(matrix, submat);
+	Gura_AssignMethod(matrix, tolist);
 	Gura_AssignMethod(matrix, transpose);
-	Gura_AssignMethod(matrix, invert);
 }
 
 bool Class_matrix::Serialize(Environment &env, Signal sig, Stream &stream, const Value &value) const
