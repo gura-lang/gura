@@ -1814,6 +1814,64 @@ void Iterator_Concat::GatherFollower(Environment::Frame *pFrame, EnvironmentSet 
 }
 
 //-----------------------------------------------------------------------------
+// Iterator_Walk
+//-----------------------------------------------------------------------------
+Iterator_Walk::Iterator_Walk(Iterator *pIterator, Mode mode) : Iterator(true), _mode(mode)
+{
+	_iterDeque.push_back(pIterator);
+	_pIteratorCur = pIterator;
+}
+
+Iterator_Walk::~Iterator_Walk()
+{
+	foreach (IteratorDeque, ppIterator, _iterDeque) {
+		Iterator *pIterator = *ppIterator;
+		Iterator::Delete(pIterator);
+	}
+}
+
+Iterator *Iterator_Walk::GetSource()
+{
+	return _pIteratorCur;
+}
+
+bool Iterator_Walk::DoNext(Environment &env, Signal sig, Value &value)
+{
+	while (_pIteratorCur != NULL) {
+		if (_pIteratorCur->Next(env, sig, value)) {
+			if (!value.IsListOrIterator()) return true;
+			Iterator *pIterator = value.CreateIterator(sig);
+			if (pIterator == NULL) return false;
+			_iterDeque.push_back(pIterator);
+			if (_mode == MODE_DepthFirstSearch) {
+				_pIteratorCur = pIterator;
+			}
+		} else {
+			Iterator::Delete(_pIteratorCur);
+			if (_mode == MODE_DepthFirstSearch) {
+				_iterDeque.pop_back();
+				_pIteratorCur = _iterDeque.empty()? NULL : _iterDeque.back();
+			} else { // _mode == MODE_BreadthFirstSearch
+				_iterDeque.pop_front();
+				_pIteratorCur = _iterDeque.empty()? NULL : _iterDeque.front();
+			}
+		}
+	}
+	return false;
+}
+
+String Iterator_Walk::ToString() const
+{
+	String rtn;
+	rtn += "walk";
+	return rtn;
+}
+
+void Iterator_Walk::GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet)
+{
+}
+
+//-----------------------------------------------------------------------------
 // Iterator_Repeater
 //-----------------------------------------------------------------------------
 Iterator_Repeater::Iterator_Repeater(Environment *pEnv, Signal sig, Function *pFuncBlock,

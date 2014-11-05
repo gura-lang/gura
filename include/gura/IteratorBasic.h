@@ -803,6 +803,28 @@ public:
 };
 
 //-----------------------------------------------------------------------------
+// Iterator_Walk
+//-----------------------------------------------------------------------------
+class GURA_DLLDECLARE Iterator_Walk : public Iterator {
+public:
+	enum Mode {
+		MODE_DepthFirstSearch,
+		MODE_BreadthFirstSearch,
+	};
+private:
+	IteratorDeque _iterDeque;
+	Iterator *_pIteratorCur;
+	Mode _mode;
+public:
+	Iterator_Walk(Iterator *pIterator, Mode mode);
+	~Iterator_Walk();
+	virtual Iterator *GetSource();
+	virtual bool DoNext(Environment &env, Signal sig, Value &value);
+	virtual String ToString() const;
+	virtual void GatherFollower(Environment::Frame *pFrame, EnvironmentSet &envSet);
+};
+
+//-----------------------------------------------------------------------------
 // Iterator_Repeater
 //-----------------------------------------------------------------------------
 class GURA_DLLDECLARE Iterator_Repeater : public Iterator {

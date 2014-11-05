@@ -189,6 +189,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(basic);
 	Gura_RealizeSymbol(bcc);
 	Gura_RealizeSymbol(begin);
+	Gura_RealizeSymbol(bfs);
 	Gura_RealizeSymbol(bg);
 	Gura_RealizeSymbol(bgr);
 	Gura_RealizeSymbol(bgra);
@@ -250,6 +251,7 @@ void SymbolPool::_Initialize()
 	Gura_RealizeSymbol(deg);
 	Gura_RealizeSymbol(denom);
 	Gura_RealizeSymbol(descend);
+	Gura_RealizeSymbol(dfs);
 	Gura_RealizeSymbol(dir);
 	Gura_RealizeSymbol(down);
 	Gura_RealizeSymbol(dynamic_scope);

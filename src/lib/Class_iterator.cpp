@@ -1112,6 +1112,35 @@ Gura_ImplementMethod(iterator, variance)
 	return result;
 }
 
+// iterator#walk(mode?:symbol) {block?}
+Gura_DeclareMethod(iterator, walk)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareArg(env, "mode", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(iterator, walk)
+{
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Iterator_Walk::Mode mode = Iterator_Walk::MODE_DepthFirstSearch;
+	if (args.Is_symbol(0)) {
+		const Symbol *pSymbol = args.GetSymbol(0);
+		if (pSymbol->IsIdentical(Gura_Symbol(dfs))) {
+			mode = Iterator_Walk::MODE_DepthFirstSearch;
+		} else if (pSymbol->IsIdentical(Gura_Symbol(bfs))) {
+			mode = Iterator_Walk::MODE_BreadthFirstSearch;
+		} else {
+			sig.SetError(ERR_ValueError, "mode must be `dfs or `bfs");
+			return Value::Null;
+		}
+	}
+	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
+	Iterator *pIterator = new Iterator_Walk(pIteratorSrc, mode);
+	if (sig.IsSignalled()) return Value::Null;
+	return ReturnIterator(env, sig, args, pIterator);
+}
+
 // iterator#while(criteria) {block?}
 Gura_DeclareMethodAlias(iterator, while_, "while")
 {
@@ -1192,6 +1221,7 @@ void Class_iterator::Prepare(Environment &env)
 	Gura_AssignMethod(iterator, tail);
 	Gura_AssignMethod(iterator, until);
 	Gura_AssignMethod(iterator, variance);
+	Gura_AssignMethod(iterator, walk);
 	Gura_AssignMethod(iterator, while_);
 }
 

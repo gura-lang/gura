@@ -172,6 +172,7 @@ public:
 	Gura_DeclareSymbol(basic);
 	Gura_DeclareSymbol(bcc);
 	Gura_DeclareSymbol(begin);
+	Gura_DeclareSymbol(bfs);
 	Gura_DeclareSymbol(bg);
 	Gura_DeclareSymbol(bgr);
 	Gura_DeclareSymbol(bgra);
@@ -233,6 +234,7 @@ public:
 	Gura_DeclareSymbol(deg);
 	Gura_DeclareSymbol(denom);
 	Gura_DeclareSymbol(descend);
+	Gura_DeclareSymbol(dfs);
 	Gura_DeclareSymbol(dir);
 	Gura_DeclareSymbol(down);
 	Gura_DeclareSymbol(dynamic_scope);
