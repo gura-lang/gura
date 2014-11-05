@@ -602,6 +602,10 @@ Gura_DeclareMethod(iterator, join)
 Gura_ImplementMethod(iterator, join)
 {
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	if (pThis->GetIterator()->IsInfinite()) {
+		Iterator::SetError_InfiniteNotAllowed(sig);
+		return Value::Null;
+	}
 	const char *sep = args.Is_string(0)? args.GetString(0) : "";
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	String rtn;
@@ -632,6 +636,10 @@ Gura_DeclareMethod(iterator, joinb)
 Gura_ImplementMethod(iterator, joinb)
 {
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	if (pThis->GetIterator()->IsInfinite()) {
+		Iterator::SetError_InfiniteNotAllowed(sig);
+		return Value::Null;
+	}
 	const char *sep = args.Is_string(0)? args.GetString(0) : "";
 	AutoPtr<Iterator> pIterator(pThis->GetIterator()->Clone());
 	Binary buff;
