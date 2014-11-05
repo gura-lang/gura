@@ -133,6 +133,11 @@ public:
 	bool PrepareForMap(Signal sig, const DeclarationList &declList, const ValueList &valListArg);
 };
 
+//-----------------------------------------------------------------------------
+// IteratorDeque
+//-----------------------------------------------------------------------------
+typedef std::deque<Iterator *> IteratorDeque;
+
 }
 
 #endif
