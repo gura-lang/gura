@@ -44,6 +44,19 @@ String Object_args::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
+// args#finalize_trailer():void
+Gura_DeclareMethod(args, finalize_trailer)
+{
+	SetMode(RSLTMODE_Void, FLAG_None);
+}
+
+Gura_ImplementMethod(args, finalize_trailer)
+{
+	Args *pArgs = Object_args::GetThisObj(args)->GetArgs();
+	pArgs->FinalizeTrailer();
+	return Value::Null;
+}
+
 // args#isset(symbol:symbol)
 Gura_DeclareMethod(args, isset)
 {
@@ -71,19 +84,6 @@ Gura_ImplementMethod(args, quit_trailer)
 	return Value::Null;
 }
 
-// args#finalize_trailer():void
-Gura_DeclareMethod(args, finalize_trailer)
-{
-	SetMode(RSLTMODE_Void, FLAG_None);
-}
-
-Gura_ImplementMethod(args, finalize_trailer)
-{
-	Args *pArgs = Object_args::GetThisObj(args)->GetArgs();
-	pArgs->FinalizeTrailer();
-	return Value::Null;
-}
-
 //----------------------------------------------------------------------------
 // Implementation of class
 //----------------------------------------------------------------------------
@@ -93,9 +93,9 @@ Class_args::Class_args(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_args)
 
 void Class_args::Prepare(Environment &env)
 {
+	Gura_AssignMethod(args, finalize_trailer);
 	Gura_AssignMethod(args, isset);
 	Gura_AssignMethod(args, quit_trailer);
-	Gura_AssignMethod(args, finalize_trailer);
 }
 
 Object *Class_args::CreateDescendant(Environment &env, Signal sig, Class *pClass)

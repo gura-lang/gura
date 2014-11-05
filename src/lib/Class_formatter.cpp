@@ -50,16 +50,53 @@ String Object_formatter::ToString(bool exprFlag)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// formatter#isuppercase()
-Gura_DeclareMethod(formatter, isuppercase)
+// formatter#getfieldminwidth()
+Gura_DeclareMethod(formatter, getfieldminwidth)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 }
 
-Gura_ImplementMethod(formatter, isuppercase)
+Gura_ImplementMethod(formatter, getfieldminwidth)
 {
 	const Formatter::Flags &flags = Object_formatter::GetThisObj(args)->GetFlags();
-	return Value(flags.upperCaseFlag);
+	return Value(flags.fieldMinWidth);
+}
+
+// formatter#getpadding()
+Gura_DeclareMethod(formatter, getpadding)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(formatter, getpadding)
+{
+	const Formatter::Flags &flags = Object_formatter::GetThisObj(args)->GetFlags();
+	char str[] = { flags.charPadding, '\0' };
+	return Value(str);
+}
+
+// formatter#getplusmode()
+Gura_DeclareMethod(formatter, getplusmode)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(formatter, getplusmode)
+{
+	const Formatter::Flags &flags = Object_formatter::GetThisObj(args)->GetFlags();
+	return Value(flags.plusMode);
+}
+
+// formatter#getprecision()
+Gura_DeclareMethod(formatter, getprecision)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+}
+
+Gura_ImplementMethod(formatter, getprecision)
+{
+	const Formatter::Flags &flags = Object_formatter::GetThisObj(args)->GetFlags();
+	return Value(flags.precision);
 }
 
 // formatter#isleftalign()
@@ -86,53 +123,16 @@ Gura_ImplementMethod(formatter, issharp)
 	return Value(flags.sharpFlag);
 }
 
-// formatter#getfieldminwidth()
-Gura_DeclareMethod(formatter, getfieldminwidth)
+// formatter#isuppercase()
+Gura_DeclareMethod(formatter, isuppercase)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 }
 
-Gura_ImplementMethod(formatter, getfieldminwidth)
+Gura_ImplementMethod(formatter, isuppercase)
 {
 	const Formatter::Flags &flags = Object_formatter::GetThisObj(args)->GetFlags();
-	return Value(flags.fieldMinWidth);
-}
-
-// formatter#getprecision()
-Gura_DeclareMethod(formatter, getprecision)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(formatter, getprecision)
-{
-	const Formatter::Flags &flags = Object_formatter::GetThisObj(args)->GetFlags();
-	return Value(flags.precision);
-}
-
-// formatter#getplusmode()
-Gura_DeclareMethod(formatter, getplusmode)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(formatter, getplusmode)
-{
-	const Formatter::Flags &flags = Object_formatter::GetThisObj(args)->GetFlags();
-	return Value(flags.plusMode);
-}
-
-// formatter#getpadding()
-Gura_DeclareMethod(formatter, getpadding)
-{
-	SetMode(RSLTMODE_Normal, FLAG_None);
-}
-
-Gura_ImplementMethod(formatter, getpadding)
-{
-	const Formatter::Flags &flags = Object_formatter::GetThisObj(args)->GetFlags();
-	char str[] = { flags.charPadding, '\0' };
-	return Value(str);
+	return Value(flags.upperCaseFlag);
 }
 
 //-----------------------------------------------------------------------------
@@ -144,13 +144,13 @@ Class_formatter::Class_formatter(Environment *pEnvOuter) : Class(pEnvOuter, VTYP
 
 void Class_formatter::Prepare(Environment &env)
 {
-	Gura_AssignMethod(formatter, isuppercase);
+	Gura_AssignMethod(formatter, getfieldminwidth);
+	Gura_AssignMethod(formatter, getpadding);
+	Gura_AssignMethod(formatter, getplusmode);
+	Gura_AssignMethod(formatter, getprecision);
 	Gura_AssignMethod(formatter, isleftalign);
 	Gura_AssignMethod(formatter, issharp);
-	Gura_AssignMethod(formatter, getfieldminwidth);
-	Gura_AssignMethod(formatter, getprecision);
-	Gura_AssignMethod(formatter, getplusmode);
-	Gura_AssignMethod(formatter, getpadding);
+	Gura_AssignMethod(formatter, isuppercase);
 }
 
 Object *Class_formatter::CreateDescendant(Environment &env, Signal sig, Class *pClass)

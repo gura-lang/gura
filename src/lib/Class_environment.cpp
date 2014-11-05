@@ -78,21 +78,6 @@ Gura_ImplementMethod(environment, getprop_X)
 	return *pValue;
 }
 
-// environment#setprop!(symbol:symbol, value):map
-Gura_DeclareMethodAlias(environment, setprop_X, "setprop!")
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "symbol", VTYPE_symbol);
-	DeclareArg(env, "value", VTYPE_any);
-}
-
-Gura_ImplementMethod(environment, setprop_X)
-{
-	Object_environment *pThis = Object_environment::GetThisObj(args);
-	pThis->GetEnv().AssignValue(args.GetSymbol(0), args.GetValue(1), EXTRA_Public);
-	return Value::Null;
-}
-
 // environment#lookup(symbol:symbol, escalate:boolean => true):map
 Gura_DeclareMethod(environment, lookup)
 {
@@ -117,6 +102,21 @@ Gura_ImplementMethod(environment, lookup)
 	return *pValue;
 }
 
+// environment#setprop!(symbol:symbol, value):map
+Gura_DeclareMethodAlias(environment, setprop_X, "setprop!")
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "symbol", VTYPE_symbol);
+	DeclareArg(env, "value", VTYPE_any);
+}
+
+Gura_ImplementMethod(environment, setprop_X)
+{
+	Object_environment *pThis = Object_environment::GetThisObj(args);
+	pThis->GetEnv().AssignValue(args.GetSymbol(0), args.GetValue(1), EXTRA_Public);
+	return Value::Null;
+}
+
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
@@ -127,8 +127,8 @@ Class_environment::Class_environment(Environment *pEnvOuter) : Class(pEnvOuter, 
 void Class_environment::Prepare(Environment &env)
 {
 	Gura_AssignMethod(environment, getprop_X);
-	Gura_AssignMethod(environment, setprop_X);
 	Gura_AssignMethod(environment, lookup);
+	Gura_AssignMethod(environment, setprop_X);
 }
 
 Object *Class_environment::CreateDescendant(Environment &env, Signal sig, Class *pClass)

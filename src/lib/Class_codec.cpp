@@ -70,6 +70,24 @@ Gura_ImplementMethod(codec, addcr)
 	return args.GetThis();
 }
 
+// codec#decode(buff:binary):map
+Gura_DeclareMethod(codec, decode)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "buff", VTYPE_binary);
+	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "");
+}
+
+Gura_ImplementMethod(codec, decode)
+{
+	Object_codec *pThis = Object_codec::GetThisObj(args);
+	String dst;
+	if (!pThis->GetCodec()->GetDecoder()->Decode(sig, dst, args.GetBinary(0))) {
+		return Value::Null;
+	}
+	return Value(dst);
+}
+
 // codec#delcr(flag?:boolean):reduce
 Gura_DeclareMethod(codec, delcr)
 {
@@ -103,24 +121,6 @@ Gura_ImplementMethod(codec, encode)
 	return Value(new Object_binary(env, dst, true));
 }
 
-// codec#decode(buff:binary):map
-Gura_DeclareMethod(codec, decode)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "buff", VTYPE_binary);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "");
-}
-
-Gura_ImplementMethod(codec, decode)
-{
-	Object_codec *pThis = Object_codec::GetThisObj(args);
-	String dst;
-	if (!pThis->GetCodec()->GetDecoder()->Decode(sig, dst, args.GetBinary(0))) {
-		return Value::Null;
-	}
-	return Value(dst);
-}
-
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
@@ -132,9 +132,9 @@ void Class_codec::Prepare(Environment &env)
 {
 	Gura_AssignFunction(codec);
 	Gura_AssignMethod(codec, addcr);
+	Gura_AssignMethod(codec, decode);
 	Gura_AssignMethod(codec, delcr);
 	Gura_AssignMethod(codec, encode);
-	Gura_AssignMethod(codec, decode);
 	do {
 		Environment &env = *this;
 		Gura_AssignValue(bom_utf8, Value(new Object_binary(env, Codec::BOM_UTF8, false)));

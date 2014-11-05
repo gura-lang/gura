@@ -252,36 +252,6 @@ Gura_ImplementMethod(function, addhelp)
 	return Value::Null;
 }
 
-// function#mathdiff(var?:symbol)
-Gura_DeclareMethod(function, mathdiff)
-{
-	SetMode(RSLTMODE_Reduce, FLAG_None);
-	DeclareArg(env, "var", VTYPE_symbol, OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(function, mathdiff)
-{
-	Object_function *pThis = Object_function::GetThisObj(args);
-	const Function *pFunc = pThis->GetFunction();
-	const DeclarationOwner &declOwner = pFunc->GetDeclOwner();
-	const Symbol *pSymbol = NULL;
-	if (args.Is_symbol(0)) {
-		pSymbol = args.GetSymbol(0);
-	} else if (declOwner.empty()) {
-		sig.SetError(ERR_ValueError, "variable symbol must be specified");
-		return Value::Null;
-	} else {
-		pSymbol = declOwner.front()->GetSymbol();
-	}
-	AutoPtr<Expr> pExprArg(new Expr_Identifier(pSymbol));
-	AutoPtr<Expr> pExprDiff(pFunc->MathDiff(env, sig, pExprArg.get(), pSymbol));
-	if (sig.IsSignalled()) return Value::Null;
-	AutoPtr<FunctionCustom> pFuncDiff(new FunctionCustom(env,
-			Gura_Symbol(_anonymous_), pExprDiff.release(), FUNCTYPE_Function));
-	pFuncDiff->CopyDeclare(*pFunc);
-	return Value(new Object_function(env, pFuncDiff.release()));
-}
-
 // function#gethelp(lang?:symbol):map
 Gura_DeclareMethod(function, gethelp)
 {
@@ -324,6 +294,36 @@ Gura_ImplementMethod(function, help)
 	return Value::Null;
 }
 
+// function#mathdiff(var?:symbol)
+Gura_DeclareMethod(function, mathdiff)
+{
+	SetMode(RSLTMODE_Reduce, FLAG_None);
+	DeclareArg(env, "var", VTYPE_symbol, OCCUR_ZeroOrOnce);
+}
+
+Gura_ImplementMethod(function, mathdiff)
+{
+	Object_function *pThis = Object_function::GetThisObj(args);
+	const Function *pFunc = pThis->GetFunction();
+	const DeclarationOwner &declOwner = pFunc->GetDeclOwner();
+	const Symbol *pSymbol = NULL;
+	if (args.Is_symbol(0)) {
+		pSymbol = args.GetSymbol(0);
+	} else if (declOwner.empty()) {
+		sig.SetError(ERR_ValueError, "variable symbol must be specified");
+		return Value::Null;
+	} else {
+		pSymbol = declOwner.front()->GetSymbol();
+	}
+	AutoPtr<Expr> pExprArg(new Expr_Identifier(pSymbol));
+	AutoPtr<Expr> pExprDiff(pFunc->MathDiff(env, sig, pExprArg.get(), pSymbol));
+	if (sig.IsSignalled()) return Value::Null;
+	AutoPtr<FunctionCustom> pFuncDiff(new FunctionCustom(env,
+			Gura_Symbol(_anonymous_), pExprDiff.release(), FUNCTYPE_Function));
+	pFuncDiff->CopyDeclare(*pFunc);
+	return Value(new Object_function(env, pFuncDiff.release()));
+}
+
 //-----------------------------------------------------------------------------
 // Implementation of class
 //-----------------------------------------------------------------------------
@@ -336,9 +336,9 @@ void Class_function::Prepare(Environment &env)
 	Gura_AssignFunction(function);
 	Gura_AssignFunctionEx(function, "&");
 	Gura_AssignMethod(function, addhelp);
-	Gura_AssignMethod(function, mathdiff);
 	Gura_AssignMethod(function, gethelp);
 	Gura_AssignMethod(function, help);
+	Gura_AssignMethod(function, mathdiff);
 }
 
 bool Class_function::CastFrom(Environment &env, Signal sig, Value &value, const Declaration *pDecl)

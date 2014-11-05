@@ -150,17 +150,16 @@ Gura_ImplementFunction(audio)
 //-----------------------------------------------------------------------------
 // Implementation of methods
 //-----------------------------------------------------------------------------
-// audio#sinewave(channel:number, freq:number, len:number, amplitude?:number):reduce:map
-Gura_DeclareMethod(audio, sinewave)
+// audio#each(channel:number, offset?:number):map {block?}
+Gura_DeclareMethod(audio, each)
 {
-	SetMode(RSLTMODE_Reduce, FLAG_Map);
+	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
-	DeclareArg(env, "freq", VTYPE_number);
-	DeclareArg(env, "len", VTYPE_number);
-	DeclareArg(env, "amplitude", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "offset", VTYPE_number, OCCUR_ZeroOrOnce);
+	DeclareBlock(OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(audio, sinewave)
+Gura_ImplementMethod(audio, each)
 {
 	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
 	size_t iChannel = args.GetSizeT(0);
@@ -168,13 +167,35 @@ Gura_ImplementMethod(audio, sinewave)
 		sig.SetError(ERR_ValueError, "channel is out of range");
 		return Value::Null;
 	}
-	double freq = args.GetDouble(1);
-	size_t nSamples = static_cast<size_t>(args.GetDouble(2) * pAudio->GetSamplesPerSec());
-	int amplitude = args.Is_number(3)? args.GetInt(3) : -1;
-	if (!pAudio->AddSineWave(sig, iChannel, freq, nSamples, amplitude)) {
+	size_t offset = args.Is_number(1)? args.GetSizeT(1) : 0;
+	AutoPtr<Iterator> pIterator(new Audio::IteratorEach(
+								pAudio->Reference(), iChannel, offset));
+	return ReturnIterator(env, sig, args, pIterator.release());
+}
+
+// audio#get(channel:number, offset:number):map
+Gura_DeclareMethod(audio, get)
+{
+	SetMode(RSLTMODE_Normal, FLAG_Map);
+	DeclareArg(env, "channel", VTYPE_number);
+	DeclareArg(env, "offset", VTYPE_number);
+}
+
+Gura_ImplementMethod(audio, get)
+{
+	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
+	size_t iChannel = args.GetSizeT(0);
+	if (iChannel >= pAudio->GetChannels()) {
+		sig.SetError(ERR_ValueError, "channel is out of range");
 		return Value::Null;
 	}
-	return args.GetThis();
+	size_t offset = args.GetSizeT(1);
+	int data = 0;
+	if (!pAudio->GetData(iChannel, offset, &data)) {
+		sig.SetError(ERR_IndexError, "offset is out of range");
+		return Value::Null;
+	}
+	return Value(data);
 }
 
 // audio#put(channel:number, offset:number, data:number):reduce:map
@@ -203,15 +224,17 @@ Gura_ImplementMethod(audio, put)
 	return args.GetThis();
 }
 
-// audio#get(channel:number, offset:number):map
-Gura_DeclareMethod(audio, get)
+// audio#sinewave(channel:number, freq:number, len:number, amplitude?:number):reduce:map
+Gura_DeclareMethod(audio, sinewave)
 {
-	SetMode(RSLTMODE_Normal, FLAG_Map);
+	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "channel", VTYPE_number);
-	DeclareArg(env, "offset", VTYPE_number);
+	DeclareArg(env, "freq", VTYPE_number);
+	DeclareArg(env, "len", VTYPE_number);
+	DeclareArg(env, "amplitude", VTYPE_number, OCCUR_ZeroOrOnce);
 }
 
-Gura_ImplementMethod(audio, get)
+Gura_ImplementMethod(audio, sinewave)
 {
 	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
 	size_t iChannel = args.GetSizeT(0);
@@ -219,36 +242,13 @@ Gura_ImplementMethod(audio, get)
 		sig.SetError(ERR_ValueError, "channel is out of range");
 		return Value::Null;
 	}
-	size_t offset = args.GetSizeT(1);
-	int data = 0;
-	if (!pAudio->GetData(iChannel, offset, &data)) {
-		sig.SetError(ERR_IndexError, "offset is out of range");
+	double freq = args.GetDouble(1);
+	size_t nSamples = static_cast<size_t>(args.GetDouble(2) * pAudio->GetSamplesPerSec());
+	int amplitude = args.Is_number(3)? args.GetInt(3) : -1;
+	if (!pAudio->AddSineWave(sig, iChannel, freq, nSamples, amplitude)) {
 		return Value::Null;
 	}
-	return Value(data);
-}
-
-// audio#each(channel:number, offset?:number):map {block?}
-Gura_DeclareMethod(audio, each)
-{
-	SetMode(RSLTMODE_Normal, FLAG_Map);
-	DeclareArg(env, "channel", VTYPE_number);
-	DeclareArg(env, "offset", VTYPE_number, OCCUR_ZeroOrOnce);
-	DeclareBlock(OCCUR_ZeroOrOnce);
-}
-
-Gura_ImplementMethod(audio, each)
-{
-	Audio *pAudio = Object_audio::GetThisObj(args)->GetAudio();
-	size_t iChannel = args.GetSizeT(0);
-	if (iChannel >= pAudio->GetChannels()) {
-		sig.SetError(ERR_ValueError, "channel is out of range");
-		return Value::Null;
-	}
-	size_t offset = args.Is_number(1)? args.GetSizeT(1) : 0;
-	AutoPtr<Iterator> pIterator(new Audio::IteratorEach(
-								pAudio->Reference(), iChannel, offset));
-	return ReturnIterator(env, sig, args, pIterator.release());
+	return args.GetThis();
 }
 
 // audio#store(channel:number, offset:number, data:iterator):reduce
@@ -285,10 +285,10 @@ Class_audio::Class_audio(Environment *pEnvOuter) : Class(pEnvOuter, VTYPE_audio)
 void Class_audio::Prepare(Environment &env)
 {
 	Gura_AssignFunction(audio);
-	Gura_AssignMethod(audio, sinewave);
-	Gura_AssignMethod(audio, put);
-	Gura_AssignMethod(audio, get);
 	Gura_AssignMethod(audio, each);
+	Gura_AssignMethod(audio, get);
+	Gura_AssignMethod(audio, put);
+	Gura_AssignMethod(audio, sinewave);
 	Gura_AssignMethod(audio, store);
 }
 
