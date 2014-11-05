@@ -9,9 +9,9 @@
 
 #define GURA_VERSION_MAJOR	0
 #define GURA_VERSION_MINOR	6
-#define GURA_VERSION_PATCH	0
+#define GURA_VERSION_PATCH	1
 
-#define GURA_VERSION	"0.6.0"
+#define GURA_VERSION	"0.6.1"
 
 #define GURA_COPYRIGHT	"Copyright (C) 2011-2014 ypsitau"
 
