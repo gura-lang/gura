@@ -1816,7 +1816,10 @@ void Iterator_Concat::GatherFollower(Environment::Frame *pFrame, EnvironmentSet 
 //-----------------------------------------------------------------------------
 // Iterator_Walk
 //-----------------------------------------------------------------------------
-Iterator_Walk::Iterator_Walk(Iterator *pIterator, Mode mode) : Iterator(true), _mode(mode)
+Iterator_Walk::Iterator_Walk(Iterator *pIterator, Mode mode,
+							 bool walkListFlag, bool walkIteratorFlag) :
+	Iterator(pIterator->IsInfinite() || walkIteratorFlag), _mode(mode),
+	_walkListFlag(walkListFlag), _walkIteratorFlag(walkIteratorFlag)
 {
 	_iterDeque.push_back(pIterator);
 	_pIteratorCur = pIterator;
@@ -1839,7 +1842,13 @@ bool Iterator_Walk::DoNext(Environment &env, Signal sig, Value &value)
 {
 	while (_pIteratorCur != NULL) {
 		if (_pIteratorCur->Next(env, sig, value)) {
-			if (!value.IsListOrIterator()) return true;
+			if (value.Is_list()) {
+				if (!_walkListFlag) return true;
+			} else if (value.Is_iterator()) {
+				if (!_walkIteratorFlag) return true;
+			} else {
+				return true;
+			}
 			Iterator *pIterator = value.CreateIterator(sig);
 			if (pIterator == NULL) return false;
 			_iterDeque.push_back(pIterator);

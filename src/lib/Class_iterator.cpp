@@ -396,7 +396,9 @@ Gura_ImplementMethod(iterator, and_)
 Gura_DeclareMethod(iterator, average)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns an average of values in the iterator.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns an average of values in the iterator.");
 }
 
 Gura_ImplementMethod(iterator, average)
@@ -432,8 +434,9 @@ Gura_DeclareMethod(iterator, contains)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns true if a specified value exists in the iterated elements.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns true if a specified value exists in the iterated elements.");
 }
 
 Gura_ImplementMethod(iterator, contains)
@@ -540,6 +543,34 @@ Gura_ImplementMethod(iterator, find)
 	if (idx == InvalidSize) return Value::Null;
 	if (args.IsSet(Gura_Symbol(index))) return Value(static_cast<UInt>(idx));
 	return value;
+}
+
+// iterator#flat():[dfs,bfs] {block?}
+Gura_DeclareMethod(iterator, flat)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(dfs));
+	DeclareAttr(Gura_Symbol(bfs));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns an iterator that searches items recursively if they are lists or iterators.\n"
+		"Searching is done in order of depth-first-search by default.\n"
+		"Specifying attribute `:bfs` will process in breadth-first-search order.\n"
+		"Unlike `iterator#walk`, this always returns an iterator without an infinite flag.\n");
+}
+
+Gura_ImplementMethod(iterator, flat)
+{
+	Object_iterator *pThis = Object_iterator::GetThisObj(args);
+	Iterator_Walk::Mode mode = args.IsSet(Gura_Symbol(bfs))?
+		Iterator_Walk::MODE_BreadthFirstSearch : Iterator_Walk::MODE_DepthFirstSearch;
+	bool walkListFlag = true;
+	bool walkIteratorFlag = true;
+	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
+	Iterator *pIterator = new Iterator_Walk(pIteratorSrc, mode, walkListFlag, walkIteratorFlag);
+	pIterator->SetInfiniteFlag(false);
+	return ReturnIterator(env, sig, args, pIterator);
 }
 
 // iterator#fold(n:number):[iteritem] {block?}
@@ -659,7 +690,9 @@ Gura_ImplementMethod(iterator, joinb)
 Gura_DeclareMethod(iterator, len)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the length of the iterator.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns the length of the iterator.");
 }
 
 Gura_ImplementMethod(iterator, len)
@@ -701,13 +734,14 @@ Gura_DeclareMethod(iterator, max)
 	DeclareAttr(Gura_Symbol(index));
 	DeclareAttr(Gura_Symbol(last_index));
 	DeclareAttr(Gura_Symbol(indices));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns the maximum value in the iterator when no attribute is specified.\n"
-	"With an attribute :index, it returns an index of the maximum value.\n"
-	"With an attribute :last_index, it returns the last index of the maximum value\n"
-	"when more than one elements have the same value.\n"
-	"With an attribute :indices, it returns a list of indices of elements that\n"
-	"has the maximum value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns the maximum value in the iterator when no attribute is specified.\n"
+		"With an attribute :index, it returns an index of the maximum value.\n"
+		"With an attribute :last_index, it returns the last index of the maximum value\n"
+		"when more than one elements have the same value.\n"
+		"With an attribute :indices, it returns a list of indices of elements that\n"
+		"has the maximum value.");
 }
 
 Gura_ImplementMethod(iterator, max)
@@ -726,13 +760,14 @@ Gura_DeclareMethod(iterator, min)
 	DeclareAttr(Gura_Symbol(index));
 	DeclareAttr(Gura_Symbol(last_index));
 	DeclareAttr(Gura_Symbol(indices));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns the minimum value in the iterator when no attribute is specified.\n"
-	"With an attribute :index, it returns an index of the minimum value.\n"
-	"With an attribute :last_index, it returns the last index of the minimum value\n"
-	"when more than one elements have the same value.\n"
-	"With an attribute :indices, it returns a list of indices of elements that\n"
-	"has the minimum value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns the minimum value in the iterator when no attribute is specified.\n"
+		"With an attribute :index, it returns an index of the minimum value.\n"
+		"With an attribute :last_index, it returns the last index of the minimum value\n"
+		"when more than one elements have the same value.\n"
+		"With an attribute :indices, it returns a list of indices of elements that\n"
+		"has the minimum value.");
 }
 
 Gura_ImplementMethod(iterator, min)
@@ -1029,7 +1064,9 @@ Gura_ImplementMethod(iterator, sort)
 Gura_DeclareMethod(iterator, stddev)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a standard deviation of values in the iterator.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a standard deviation of values in the iterator.");
 }
 
 Gura_ImplementMethod(iterator, stddev)
@@ -1047,7 +1084,9 @@ Gura_ImplementMethod(iterator, stddev)
 Gura_DeclareMethod(iterator, sum)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a sum of values in the iterator.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a sum of values in the iterator.");
 }
 
 Gura_ImplementMethod(iterator, sum)
@@ -1106,7 +1145,9 @@ Gura_ImplementMethod(iterator, until)
 Gura_DeclareMethod(iterator, variance)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a variance of values in the iterator.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a variance of values in the iterator.");
 }
 
 Gura_ImplementMethod(iterator, variance)
@@ -1120,32 +1161,29 @@ Gura_ImplementMethod(iterator, variance)
 	return result;
 }
 
-// iterator#walk(mode?:symbol) {block?}
+// iterator#walk():[dfs,bfs] {block?}
 Gura_DeclareMethod(iterator, walk)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	DeclareArg(env, "mode", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareAttr(Gura_Symbol(dfs));
+	DeclareAttr(Gura_Symbol(bfs));
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns an iterator that searches items recursively if they are lists or iterators.\n"
+		"Searching is done in order of depth-first-search by default.\n"
+		"Specifying attribute `:bfs` will process in breadth-first-search order.");
 }
 
 Gura_ImplementMethod(iterator, walk)
 {
 	Object_iterator *pThis = Object_iterator::GetThisObj(args);
-	Iterator_Walk::Mode mode = Iterator_Walk::MODE_DepthFirstSearch;
-	if (args.Is_symbol(0)) {
-		const Symbol *pSymbol = args.GetSymbol(0);
-		if (pSymbol->IsIdentical(Gura_Symbol(dfs))) {
-			mode = Iterator_Walk::MODE_DepthFirstSearch;
-		} else if (pSymbol->IsIdentical(Gura_Symbol(bfs))) {
-			mode = Iterator_Walk::MODE_BreadthFirstSearch;
-		} else {
-			sig.SetError(ERR_ValueError, "mode must be `dfs or `bfs");
-			return Value::Null;
-		}
-	}
+	Iterator_Walk::Mode mode = args.IsSet(Gura_Symbol(bfs))?
+		Iterator_Walk::MODE_BreadthFirstSearch : Iterator_Walk::MODE_DepthFirstSearch;
+	bool walkListFlag = true;
+	bool walkIteratorFlag = true;
 	Iterator *pIteratorSrc = pThis->GetIterator()->Clone();
-	Iterator *pIterator = new Iterator_Walk(pIteratorSrc, mode);
-	if (sig.IsSignalled()) return Value::Null;
+	Iterator *pIterator = new Iterator_Walk(pIteratorSrc, mode, walkListFlag, walkIteratorFlag);
 	return ReturnIterator(env, sig, args, pIterator);
 }
 
@@ -1200,6 +1238,7 @@ void Class_iterator::Prepare(Environment &env)
 	Gura_AssignMethod(iterator, each);
 	Gura_AssignMethod(iterator, filter);
 	Gura_AssignMethod(iterator, find);
+	Gura_AssignMethod(iterator, flat);
 	Gura_AssignMethod(iterator, fold);
 	Gura_AssignMethod(iterator, format);
 	Gura_AssignMethod(iterator, head);

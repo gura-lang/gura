@@ -815,8 +815,10 @@ private:
 	IteratorDeque _iterDeque;
 	Iterator *_pIteratorCur;
 	Mode _mode;
+	bool _walkListFlag;
+	bool _walkIteratorFlag;
 public:
-	Iterator_Walk(Iterator *pIterator, Mode mode);
+	Iterator_Walk(Iterator *pIterator, Mode mode, bool walkListFlag, bool walkIteratorFlag);
 	~Iterator_Walk();
 	virtual Iterator *GetSource();
 	virtual bool DoNext(Environment &env, Signal sig, Value &value);

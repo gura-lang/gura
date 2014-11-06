@@ -705,9 +705,10 @@ Gura_DeclareClassMethod(list, zip)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "values", VTYPE_any, OCCUR_OnceOrMore);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Creates an iterator generating lists that bind given argument values.\n"
-	"When the value is a list or an iterator, each item in it would be zipped.\n"
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Creates an iterator generating lists that bind given argument values.\n"
+		"When the value is a list or an iterator, each item in it would be zipped.\n"
 	GURA_ITERATOR_HELP);
 }
 
@@ -756,7 +757,9 @@ Gura_DeclareMethod(list, add)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "elem", VTYPE_any, OCCUR_OnceOrMore);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Add specified items to the list.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Add specified items to the list.");
 }
 
 Gura_ImplementMethod(list, add)
@@ -774,9 +777,10 @@ Gura_DeclareMethod(list, append)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "elem", VTYPE_any, OCCUR_OnceOrMore);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Adds specified items to the list. If the item is a list or an iterator,\n"
-	"each element in such an item is added to the list.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Adds specified items to the list. If the item is a list or an iterator,\n"
+		"each element in such an item is added to the list.");
 }
 
 Gura_ImplementMethod(list, append)
@@ -807,7 +811,9 @@ Gura_ImplementMethod(list, append)
 Gura_DeclareMethod(list, clear)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Clear the content of the list.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Clear the content of the list.");
 }
 
 Gura_ImplementMethod(list, clear)
@@ -823,11 +829,12 @@ Gura_DeclareMethod(list, combination)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Creates an iterator that generates lists that contain elements picked up\n"
-	"from the original list in a combination manner.\n"
-	GURA_ITERATOR_HELP
-	"Block parameter format: |value:list, idx:number|");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Creates an iterator that generates lists that contain elements picked up\n"
+		"from the original list in a combination manner.\n"
+		GURA_ITERATOR_HELP
+		"Block parameter format: |value:list, idx:number|");
 }
 
 Gura_ImplementMethod(list, combination)
@@ -848,7 +855,9 @@ Gura_DeclareMethod(list, erase)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "idx", VTYPE_number, OCCUR_ZeroOrMore);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Erases elements at the specified indices.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Erases elements at the specified indices.");
 }
 
 Gura_ImplementMethod(list, erase)
@@ -876,8 +885,9 @@ Gura_ImplementMethod(list, erase)
 Gura_DeclareMethod(list, first)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a first value in the list. An error occurs when the list is empty.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a first value in the list. An error occurs when the list is empty.");
 }
 
 Gura_ImplementMethod(list, first)
@@ -891,11 +901,14 @@ Gura_ImplementMethod(list, first)
 	return valList.front();
 }
 
+#if 0
 // list#flat()
 Gura_DeclareMethod(list, flat)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the flattened list.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns the flattened list.");
 }
 
 Gura_ImplementMethod(list, flat)
@@ -906,15 +919,46 @@ Gura_ImplementMethod(list, flat)
 	pThis->GetList().ExtractFlat(valList);
 	return result;
 }
+#endif
+
+// list#flat():[dfs,bfs]
+Gura_DeclareMethod(list, flat)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(dfs));
+	DeclareAttr(Gura_Symbol(bfs));
+	//DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates a flattened list by searching items recursively if they are lists or iterators.\n"
+		"Searching is done in order of depth-first-search by default.\n"
+		"Specifying attribute `:bfs` will process in breadth-first-search order.");
+}
+
+Gura_ImplementMethod(list, flat)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	Iterator_Walk::Mode mode = args.IsSet(Gura_Symbol(bfs))?
+		Iterator_Walk::MODE_BreadthFirstSearch : Iterator_Walk::MODE_DepthFirstSearch;
+	bool walkListFlag = true;
+	bool walkIteratorFlag = true;
+	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
+	if (sig.IsSignalled()) return Value::Null;
+	AutoPtr<Iterator> pIterator(new Iterator_Walk(
+									pIteratorSrc, mode, walkListFlag, walkIteratorFlag));
+	pIterator->SetInfiniteFlag(false);
+	return pIterator->ToList(env, sig, true, false);
+}
 
 // list#get(index:number):map:flat
 Gura_DeclareMethod(list, get)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map | FLAG_Flat);
 	DeclareArg(env, "index", VTYPE_number);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a value stored at the specified index in the list.\n"
-	"An error occurs when the index is out of range.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a value stored at the specified index in the list.\n"
+		"An error occurs when the index is out of range.");
 }
 
 Gura_ImplementMethod(list, get)
@@ -929,7 +973,9 @@ Gura_DeclareMethod(list, insert)
 	SetMode(RSLTMODE_Reduce, FLAG_None);
 	DeclareArg(env, "idx", VTYPE_number);
 	DeclareArg(env, "elem", VTYPE_any, OCCUR_OnceOrMore);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Insert specified items to the list from the selected index.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Insert specified items to the list from the selected index.");
 }
 
 Gura_ImplementMethod(list, insert)
@@ -952,7 +998,9 @@ Gura_ImplementMethod(list, insert)
 Gura_DeclareMethod(list, isempty)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Return true if the list is empty.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Return true if the list is empty.");
 }
 
 Gura_ImplementMethod(list, isempty)
@@ -965,8 +1013,9 @@ Gura_ImplementMethod(list, isempty)
 Gura_DeclareMethod(list, last)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a last value in the list. An error occurs when the list is empty.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a last value in the list. An error occurs when the list is empty.");
 }
 
 Gura_ImplementMethod(list, last)
@@ -986,11 +1035,12 @@ Gura_DeclareMethod(list, permutation)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "n", VTYPE_number, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Creates an iterator that generates lists that contain elements picked up\n"
-	"from the original list in a permutation manner.\n"
-	GURA_ITERATOR_HELP
-	"Block parameter format: |value:list, idx:number|");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Creates an iterator that generates lists that contain elements picked up\n"
+		"from the original list in a permutation manner.\n"
+		GURA_ITERATOR_HELP
+		"Block parameter format: |value:list, idx:number|");
 }
 
 Gura_ImplementMethod(list, permutation)
@@ -1012,7 +1062,9 @@ Gura_DeclareMethod(list, printf)
 	SetMode(RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
 	DeclareArg(env, "stream", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Prints items in the list by using the format.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Prints items in the list by using the format.");
 }
 
 Gura_ImplementMethod(list, printf)
@@ -1032,9 +1084,10 @@ Gura_DeclareMethod(list, put)
 	SetMode(RSLTMODE_Reduce, FLAG_Map);
 	DeclareArg(env, "index", VTYPE_number);
 	DeclareArg(env, "value", VTYPE_any, OCCUR_Once, FLAG_NoMap);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Stores a value at the specified index in the list.\n"
-	"An error occurs when the index is out of range.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Stores a value at the specified index in the list.\n"
+		"An error occurs when the index is out of range.");
 }
 
 Gura_ImplementMethod(list, put)
@@ -1048,7 +1101,9 @@ Gura_ImplementMethod(list, put)
 Gura_DeclareMethod(list, shuffle)
 {
 	SetMode(RSLTMODE_Reduce, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Shuffle the order of the list content based on random numbers.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Shuffle the order of the list content based on random numbers.");
 }
 
 Gura_ImplementMethod(list, shuffle)
@@ -1065,11 +1120,12 @@ Gura_DeclareMethod(list, shift)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareAttr(Gura_Symbol(raise));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Shifts the elements of the list. If the content of the list is [1, 2, 3, 4],\n"
-	"it becomes [2, 3, 4] after calling this method. In default, no error occurs\n"
-	"even when the list is empty. To raise an error for executing this method on\n"
-	"an empty list, specify :raise attribute.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Shifts the elements of the list. If the content of the list is [1, 2, 3, 4],\n"
+		"it becomes [2, 3, 4] after calling this method. In default, no error occurs\n"
+		"even when the list is empty. To raise an error for executing this method on\n"
+		"an empty list, specify :raise attribute.");
 }
 
 Gura_ImplementMethod(list, shift)
@@ -1093,12 +1149,13 @@ Gura_DeclareMethod(list, after)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Creates an iterator that picks up each element in the list after criteria\n"
-	"is evaluated as true. You can specify a function object, a list or an iterator\n"
-	"as the criteria.\n"
-	GURA_ITERATOR_HELP
-	"Block parameter format: |value:list, idx:number|");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Creates an iterator that picks up each element in the list after criteria\n"
+		"is evaluated as true. You can specify a function object, a list or an iterator\n"
+		"as the criteria.\n"
+		GURA_ITERATOR_HELP
+		"Block parameter format: |value:list, idx:number|");
 }
 
 Gura_ImplementMethod(list, after)
@@ -1136,10 +1193,11 @@ Gura_ImplementMethod(list, align)
 Gura_DeclareMethodAlias(list, and_, "and")
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Calculates a logical AND result of all the values in the list.\n"
-	"Values of boolean type's false and nil are recognized as false\n"
-	"while others are true.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Calculates a logical AND result of all the values in the list.\n"
+		"Values of boolean type's false and nil are recognized as false\n"
+		"while others are true.");
 }
 
 Gura_ImplementMethod(list, and_)
@@ -1156,7 +1214,9 @@ Gura_ImplementMethod(list, and_)
 Gura_DeclareMethod(list, average)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns an average of values in the list.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns an average of values in the list.");
 }
 
 Gura_ImplementMethod(list, average)
@@ -1176,12 +1236,13 @@ Gura_DeclareMethod(list, before)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Creates an iterator that picks up each element in the list before criteria\n"
-	"is evaluated as true. You can specify a function object, a list or an iterator\n"
-	"as the criteria.\n"
-	GURA_ITERATOR_HELP
-	"Block parameter format: |value:list, idx:number|");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Creates an iterator that picks up each element in the list before criteria\n"
+		"is evaluated as true. You can specify a function object, a list or an iterator\n"
+		"as the criteria.\n"
+		GURA_ITERATOR_HELP
+		"Block parameter format: |value:list, idx:number|");
 }
 
 Gura_ImplementMethod(list, before)
@@ -1202,8 +1263,9 @@ Gura_DeclareMethod(list, contains)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "value", VTYPE_any);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns true if a specified value exists in the list.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns true if a specified value exists in the list.");
 }
 
 Gura_ImplementMethod(list, contains)
@@ -1221,11 +1283,12 @@ Gura_DeclareMethod(list, count)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a number of elements that matches the given criteria which is a single-argument\n"
-	"function or a value. When a function is applied, it counts the number of true after\n"
-	"evaluating element value with the function. If a value is applied, it counts the number\n"
-	"of elements that are equal to the value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a number of elements that matches the given criteria which is a single-argument\n"
+		"function or a value. When a function is applied, it counts the number of true after\n"
+		"evaluating element value with the function. If a value is applied, it counts the number\n"
+		"of elements that are equal to the value.");
 }
 
 Gura_ImplementMethod(list, count)
@@ -1261,10 +1324,11 @@ Gura_DeclareMethod(list, each)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Creates an iterator that iterates each element in the list.\n"
-	GURA_ITERATOR_HELP
-	"Block parameter format: |value, idx:number|");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Creates an iterator that iterates each element in the list.\n"
+		GURA_ITERATOR_HELP
+		"Block parameter format: |value, idx:number|");
 }
 
 Gura_ImplementMethod(list, each)
@@ -1281,13 +1345,14 @@ Gura_DeclareMethod(list, filter)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a list that consists of elements of the original list after filtering\n"
-	"by a criteria. A criteria can be an iterator or a function object.\n"
-	"When an iterator is supplied as a criteria, it picks up true value in the iterator\n"
-	"and creates a list that contains elements at corresponding position in the original list\n"
-	"When a function object is applied, each element is passed to the function\n"
-	"as an argument, and it collects values with evaluated results being true.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a list that consists of elements of the original list after filtering\n"
+		"by a criteria. A criteria can be an iterator or a function object.\n"
+		"When an iterator is supplied as a criteria, it picks up true value in the iterator\n"
+		"and creates a list that contains elements at corresponding position in the original list\n"
+		"When a function object is applied, each element is passed to the function\n"
+		"as an argument, and it collects values with evaluated results being true.");
 }
 
 Gura_ImplementMethod(list, filter)
@@ -1353,9 +1418,10 @@ Gura_DeclareMethod(list, format)
 {
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "format", VTYPE_string);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Applies element values in the list to format string that contains C printf"
-	"specifiers	and returns a formatted string.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Applies element values in the list to format string that contains C printf"
+		"specifiers	and returns a formatted string.");
 }
 
 Gura_ImplementMethod(list, format)
@@ -1386,8 +1452,9 @@ Gura_DeclareMethod(list, join)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "sep", VTYPE_string, OCCUR_Once, FLAG_None, new Expr_Value(Value("")));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a string that joins strings of elements with the specified separator.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a string that joins strings of elements with the specified separator.");
 }
 
 Gura_ImplementMethod(list, join)
@@ -1401,7 +1468,9 @@ Gura_ImplementMethod(list, join)
 Gura_DeclareMethod(list, len)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the length of the list.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns the length of the list.");
 }
 
 Gura_ImplementMethod(list, len)
@@ -1417,11 +1486,12 @@ Gura_DeclareMethod(list, map)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "func", VTYPE_function);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Creates an iterator that generates element values after applying the specfied\n"
-	"function on them. The function must take one argument.\n"
-	GURA_ITERATOR_HELP
-	"Block parameter format: |value, idx:number|");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Creates an iterator that generates element values after applying the specfied\n"
+		"function on them. The function must take one argument.\n"
+		GURA_ITERATOR_HELP
+		"Block parameter format: |value, idx:number|");
 }
 
 Gura_ImplementMethod(list, map)
@@ -1441,13 +1511,14 @@ Gura_DeclareMethod(list, max)
 	DeclareAttr(Gura_Symbol(index));
 	DeclareAttr(Gura_Symbol(last_index));
 	DeclareAttr(Gura_Symbol(indices));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns the maximum value in the list when no attribute is specified.\n"
-	"With an attribute :index, it returns an index of the maximum value.\n"
-	"With an attribute :last_index, it returns the last index of the maximum value\n"
-	"when more than one elements have the same value.\n"
-	"With an attribute :indices, it returns a list of indices of elements that\n"
-	"has the maximum value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns the maximum value in the list when no attribute is specified.\n"
+		"With an attribute :index, it returns an index of the maximum value.\n"
+		"With an attribute :last_index, it returns the last index of the maximum value\n"
+		"when more than one elements have the same value.\n"
+		"With an attribute :indices, it returns a list of indices of elements that\n"
+		"has the maximum value.");
 }
 
 Gura_ImplementMethod(list, max)
@@ -1467,13 +1538,14 @@ Gura_DeclareMethod(list, min)
 	DeclareAttr(Gura_Symbol(index));
 	DeclareAttr(Gura_Symbol(last_index));
 	DeclareAttr(Gura_Symbol(indices));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns the minimum value in the list when no attribute is specified.\n"
-	"With an attribute :index, it returns an index of the minimum value.\n"
-	"With an attribute :last_index, it returns the last index of the minimum value\n"
-	"when more than one elements have the same value.\n"
-	"With an attribute :indices, it returns a list of indices of elements that\n"
-	"has the minimum value.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns the minimum value in the list when no attribute is specified.\n"
+		"With an attribute :index, it returns an index of the minimum value.\n"
+		"With an attribute :last_index, it returns the last index of the minimum value\n"
+		"when more than one elements have the same value.\n"
+		"With an attribute :indices, it returns a list of indices of elements that\n"
+		"has the minimum value.");
 }
 
 Gura_ImplementMethod(list, min)
@@ -1525,10 +1597,11 @@ Gura_ImplementMethod(list, offset)
 Gura_DeclareMethodAlias(list, or_, "or")
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Calculates a logical OR result of all the values in the list.\n"
-	"Values of boolean type's false and nil are recognized as false\n"
-	"while others are true.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Calculates a logical OR result of all the values in the list.\n"
+		"Values of boolean type's false and nil are recognized as false\n"
+		"while others are true.");
 }
 
 Gura_ImplementMethod(list, or_)
@@ -1546,34 +1619,35 @@ Gura_DeclareMethod(list, pack)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "format", VTYPE_string);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a binary object packing elements values according to a format string.\n"
-	"Following markers specify the order of how a multi-byte number is stored.\n"
-	"\n"
-	"- `@` .. sets as a native order for the current platform\n"
-	"- `=` .. sets as a native order for the current platform\n"
-	"- `<` .. sets as a little-endian order\n"
-	"- `>` .. sets as a big-endian order\n"
-	"- `!` .. sets as a big-endian order\n"
-	"\n"
-	"Following markers specify a storing format. They can be preceded by a number\n"
-	"that specifies the number of values.\n"
-	"\n"
-	"- `x` .. just skips one byte\n"
-	"- `c` .. takes a string that contains one character and stores it as a byte value\n"
-	"- `b` .. stores a number as a signed byte value\n"
-	"- `B` .. stores a number as an unsigned byte value\n"
-	"- `h` .. stores a number as a signed half-word (2 bytes) value\n"
-	"- `H` .. stores a number as an unsigned half-word (2 bytes) value\n"
-	"- `i` .. stores a number as a signed integer (4 bytes) value\n"
-	"- `I` .. stores a number as an unsigned integer (4 bytes) value\n"
-	"- `l` .. stores a number as a signed integer (4 bytes) value\n"
-	"- `L` .. stores a number as an unsigned integer (4 bytes) value\n"
-	"- `q` .. stores a number as a signed long integer (8 bytes) value\n"
-	"- `Q` .. stores a number as an unsigned long integer (8 bytes) value\n"
-	"- `f` .. stores a number as a float (4 bytes) value\n"
-	"- `d` .. stores a number as a double (8 bytes) value\n"
-	"- `s` .. stores a string after character encoding\n");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a binary object packing elements values according to a format string.\n"
+		"Following markers specify the order of how a multi-byte number is stored.\n"
+		"\n"
+		"- `@` .. sets as a native order for the current platform\n"
+		"- `=` .. sets as a native order for the current platform\n"
+		"- `<` .. sets as a little-endian order\n"
+		"- `>` .. sets as a big-endian order\n"
+		"- `!` .. sets as a big-endian order\n"
+		"\n"
+		"Following markers specify a storing format. They can be preceded by a number\n"
+		"that specifies the number of values.\n"
+		"\n"
+		"- `x` .. just skips one byte\n"
+		"- `c` .. takes a string that contains one character and stores it as a byte value\n"
+		"- `b` .. stores a number as a signed byte value\n"
+		"- `B` .. stores a number as an unsigned byte value\n"
+		"- `h` .. stores a number as a signed half-word (2 bytes) value\n"
+		"- `H` .. stores a number as an unsigned half-word (2 bytes) value\n"
+		"- `i` .. stores a number as a signed integer (4 bytes) value\n"
+		"- `I` .. stores a number as an unsigned integer (4 bytes) value\n"
+		"- `l` .. stores a number as a signed integer (4 bytes) value\n"
+		"- `L` .. stores a number as an unsigned integer (4 bytes) value\n"
+		"- `q` .. stores a number as a signed long integer (8 bytes) value\n"
+		"- `Q` .. stores a number as an unsigned long integer (8 bytes) value\n"
+		"- `f` .. stores a number as a float (4 bytes) value\n"
+		"- `d` .. stores a number as a double (8 bytes) value\n"
+		"- `s` .. stores a string after character encoding\n");
 }
 
 Gura_ImplementMethod(list, pack)
@@ -1618,18 +1692,19 @@ Gura_DeclareMethod(list, rank)
 	DeclareArg(env, "directive", VTYPE_any, OCCUR_ZeroOrOnce);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	DeclareAttr(Gura_Symbol(stable));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns a list of rank numbers for elements after sorting them.\n"
-	"In default, they are sorted in an ascending order. You can specify the following\n"
-	"directives for sorting.\n"
-	"\n"
-	"- `` `ascend`` .. ascending order\n"
-	"- `` `descend`` .. descending order\n"
-	"- function .. it takes two element values x and y and returns zero for x == y,\n"
-	"           plus value for x < y and minus value for x > y.\n"
-	"\n"
-	"When an attribute :stable is specified, the original order shall be kept for\n"
-	"elements that are determined as the same.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns a list of rank numbers for elements after sorting them.\n"
+		"In default, they are sorted in an ascending order. You can specify the following\n"
+		"directives for sorting.\n"
+		"\n"
+		"- `` `ascend`` .. ascending order\n"
+		"- `` `descend`` .. descending order\n"
+		"- function .. it takes two element values x and y and returns zero for x == y,\n"
+		"           plus value for x < y and minus value for x > y.\n"
+		"\n"
+		"When an attribute :stable is specified, the original order shall be kept for\n"
+		"elements that are determined as the same.");
 }
 
 Gura_ImplementMethod(list, rank)
@@ -1648,9 +1723,10 @@ Gura_DeclareMethod(list, reduce)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "accum", VTYPE_any);
 	DeclareBlock(OCCUR_Once);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Evaluates a block with a parameter format |value, accum| and leaves the result\n"
-	"as the next accum value. It returns the final accum value as its result.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Evaluates a block with a parameter format |value, accum| and leaves the result\n"
+		"as the next accum value. It returns the final accum value as its result.");
 }
 
 Gura_ImplementMethod(list, reduce)
@@ -1741,12 +1817,13 @@ Gura_DeclareMethod(list, since)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Creates an iterator that picks up each element in the list since criteria\n"
-	"is evaluated as true. You can specify a function object, a list or an iterator\n"
-	"as the criteria.\n"
-	GURA_ITERATOR_HELP
-	"Block parameter format: |value:list, idx:number|");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Creates an iterator that picks up each element in the list since criteria\n"
+		"is evaluated as true. You can specify a function object, a list or an iterator\n"
+		"as the criteria.\n"
+		GURA_ITERATOR_HELP
+		"Block parameter format: |value:list, idx:number|");
 }
 
 Gura_ImplementMethod(list, since)
@@ -1803,19 +1880,20 @@ Gura_DeclareMethod(list, sort)
 	DeclareArg(env, "keys", VTYPE_any, OCCUR_ZeroOrOnce, FLAG_List);
 	DeclareAttr(Gura_Symbol(stable));
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Returns an iterator of elements after sorting them.\n"
-	"In default, they are sorted in an ascending order. You can specify the following\n"
-	"directives for sorting.\n"
-	"\n"
-	"- `` `ascend`` .. ascending order\n"
-	"- `` `descend`` .. descending order\n"
-	"- function .. it takes two element values x and y and returns zero for x == y,\n"
-	"           plus value for x < y and minus value for x > y.\n"
-	"\n"
-	"If keys is specified, it shall be used as a key instead of element values.\n"
-	"When an attribute :stable is specified, the original order shall be kept for\n"
-	"elements that are determined as the same.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Returns an iterator of elements after sorting them.\n"
+		"In default, they are sorted in an ascending order. You can specify the following\n"
+		"directives for sorting.\n"
+		"\n"
+		"- `` `ascend`` .. ascending order\n"
+		"- `` `descend`` .. descending order\n"
+		"- function .. it takes two element values x and y and returns zero for x == y,\n"
+		"           plus value for x < y and minus value for x > y.\n"
+		"\n"
+		"If keys is specified, it shall be used as a key instead of element values.\n"
+		"When an attribute :stable is specified, the original order shall be kept for\n"
+		"elements that are determined as the same.");
 }
 
 Gura_ImplementMethod(list, sort)
@@ -1833,7 +1911,9 @@ Gura_ImplementMethod(list, sort)
 Gura_DeclareMethod(list, stddev)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a standard deviation of values in the list.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a standard deviation of values in the list.");
 }
 
 Gura_ImplementMethod(list, stddev)
@@ -1851,7 +1931,9 @@ Gura_ImplementMethod(list, stddev)
 Gura_DeclareMethod(list, sum)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a sum of values in the list.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a sum of values in the list.");
 }
 
 Gura_ImplementMethod(list, sum)
@@ -1890,12 +1972,13 @@ Gura_DeclareMethod(list, until)
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Creates an iterator that picks up each element in the list until criteria\n"
-	"is evaluated as true. You can specify a function object, a list or an iterator\n"
-	"as the criteria.\n"
-	GURA_ITERATOR_HELP
-	"Block parameter format: |value:list, idx:number|");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Creates an iterator that picks up each element in the list until criteria\n"
+		"is evaluated as true. You can specify a function object, a list or an iterator\n"
+		"as the criteria.\n"
+		GURA_ITERATOR_HELP
+		"Block parameter format: |value:list, idx:number|");
 }
 
 Gura_ImplementMethod(list, until)
@@ -1915,7 +1998,9 @@ Gura_ImplementMethod(list, until)
 Gura_DeclareMethod(list, variance)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns a variance of values in the list.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns a variance of values in the list.");
 }
 
 Gura_ImplementMethod(list, variance)
@@ -1929,18 +2014,46 @@ Gura_ImplementMethod(list, variance)
 	return result;
 }
 
+// list#walk():[dfs,bfs] {block?}
+Gura_DeclareMethod(list, walk)
+{
+	SetMode(RSLTMODE_Normal, FLAG_None);
+	DeclareAttr(Gura_Symbol(dfs));
+	DeclareAttr(Gura_Symbol(bfs));
+	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns an iterator that searches items recursively if they are lists or iterators.\n"
+		"Searching is done in order of depth-first-search by default.\n"
+		"Specifying attribute `:bfs` will process in breadth-first-search order.");
+}
+
+Gura_ImplementMethod(list, walk)
+{
+	Object_list *pThis = Object_list::GetThisObj(args);
+	Iterator_Walk::Mode mode = args.IsSet(Gura_Symbol(bfs))?
+		Iterator_Walk::MODE_BreadthFirstSearch : Iterator_Walk::MODE_DepthFirstSearch;
+	bool walkListFlag = true;
+	bool walkIteratorFlag = true;
+	Iterator *pIteratorSrc = pThis->CreateIterator(sig);
+	if (sig.IsSignalled()) return Value::Null;
+	Iterator *pIterator = new Iterator_Walk(pIteratorSrc, mode, walkListFlag, walkIteratorFlag);
+	return ReturnIterator(env, sig, args, pIterator);
+}
+
 // list#while(criteria) {block?}
 Gura_DeclareMethodAlias(list, while_, "while")
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "criteria", VTYPE_any);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Creates an iterator that picks up each element in the list while criteria\n"
-	"is evaluated as true. You can specify a function object, a list or an iterator\n"
-	"as the criteria.\n"
-	GURA_ITERATOR_HELP
-	"Block parameter format: |value:list, idx:number|");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Creates an iterator that picks up each element in the list while criteria\n"
+		"is evaluated as true. You can specify a function object, a list or an iterator\n"
+		"as the criteria.\n"
+		GURA_ITERATOR_HELP
+		"Block parameter format: |value:list, idx:number|");
 }
 
 Gura_ImplementMethod(list, while_)
@@ -2029,6 +2142,7 @@ void Class_list::Prepare(Environment &env)
 	Gura_AssignMethod(list, tail);
 	Gura_AssignMethod(list, until);
 	Gura_AssignMethod(list, variance);
+	Gura_AssignMethod(list, walk);
 	Gura_AssignMethod(list, while_);
 }
 
