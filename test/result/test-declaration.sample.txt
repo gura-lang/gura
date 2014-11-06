@@ -427,6 +427,7 @@ iterator
   each() {block?}
   filter(criteria?) {block?}
   find(criteria?):[index]
+  flat():[bfs,dfs] {block?}
   fold(n:number):[iteritem] {block?}
   format(format:string) {block?}
   head(n:number):map {block?}
@@ -462,6 +463,7 @@ iterator
   tail(n:number) {block?}
   until(criteria) {block?}
   variance()
+  walk():[bfs,dfs] {block?}
   while (criteria) {block?}
 list
   add(elem+):reduce
@@ -481,7 +483,7 @@ list
   filter(criteria?) {block?}
   find(criteria?):[index]
   first()
-  flat()
+  flat():[bfs,dfs]
   fold(n:number, nstep?:number):[iteritem] {block?}
   format(format:string):map
   get(index:number):map:flat
@@ -519,6 +521,7 @@ list
   tail(n:number):map {block?}
   until(criteria) {block?}
   variance()
+  walk():[bfs,dfs] {block?}
   while (criteria) {block?}
   zip(values+):static {block?}
 matrix

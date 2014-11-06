@@ -734,3 +734,14 @@ testcase('test of iterable#sum()') {
 	tester(`x.sum())
 	tester(`x.average())
 }
+
+testcase('test of iterable#flat()') {
+	x = [[1, 2, 3, [4, [5, 6], 7], 8], [9, 10, 11], 12].each()
+	println([x]):nomap
+	println(x.flat().join(', '))
+	println((x.flat():bfs).join(', '))
+	x = [[1, 2, 3, [4, [5, 6], 7], 8], [9, 10, 11], 12]
+	println(x):nomap
+	println(x.flat().join(', '))
+	println((x.flat():bfs).join(', '))
+}
