@@ -119,8 +119,9 @@ nmake -f makefile.vc release TCLDIR=..\..\tcl8.5.16
 nmake -f makefile.vc install INSTALLDIR=..\..
 popd
 rem ---------------------------------------------------------------------------
+rem Building wxWidgets library using /m option doesn't produce correct results.
 %UNZIP% x -y -owxWidgets-3.0.1 wxWidgets-3.0.1.7z
-msbuild wxWidgets-3.0.1\build\msw\wx_vc10.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32 /m
+msbuild wxWidgets-3.0.1\build\msw\wx_vc10.sln /clp:DisableConsoleColor /t:Build /p:Configuration=Release /p:Platform=win32
 rem ---------------------------------------------------------------------------
 %UNZIP% x -y pixman-0.32.6.tar.gz
 %UNZIP% x -y pixman-0.32.6.tar
