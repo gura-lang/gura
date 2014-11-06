@@ -103,18 +103,18 @@ testList = @{
 		cr.close_path()
 		cr.set_source_color(`green)
 		cr.stroke()
-		function {
+		scope {
 			cr.set_source_color(`lime, .5)
 			cr.arc(0.25, 0.25, .03)
 			cr.fill()
-		}()
-		function {
+		}
+		scope {
 			cr.set_source_color(`purple, .5)
 			for (pt in pts) {
 				cr.arc(pt.x, pt.y, .03)
 				cr.fill()
 			}
-		}()
+		}
 	}
 	'arc', function(cr:cairo.context) {
 		[xc, yc] = [128.0, 128.0]
@@ -472,6 +472,9 @@ Frame = class(wx.Frame) {
 	__init__(parent:wx.Window) = {|parent, wx.ID_ANY, path.filename(sys.argv[0]),
 								   size => wx.Size(800, 640)|
 		this.SetIcon(wx.IconFromXPMData(sample_xpm))
+		wx.MenuBar {|menuBar|
+			this.SetMenuBar(menuBar)
+		}
 		panel = wx.Panel(this)
 		outer = wx.BoxSizer(wx.HORIZONTAL)
 		panel.SetSizer(outer)
