@@ -31,7 +31,9 @@ Gura_DeclareFunction(exec)
 	DeclareArg(env, "pathname", VTYPE_string);
 	DeclareArg(env, "args", VTYPE_string, OCCUR_ZeroOrMore);
 	DeclareAttr(Gura_Symbol(fork));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Executes the specified executable file.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Executes the specified executable file.");
 }
 
 Gura_ImplementFunction(exec)
@@ -64,8 +66,9 @@ Gura_DeclareFunction(fromnative)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "buff", VTYPE_binary);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Converts binary data that includes OS's native string into Gura's regulated string.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Converts binary data that includes OS's native string into Gura's regulated string.");
 }
 
 Gura_ImplementFunction(fromnative)
@@ -81,7 +84,9 @@ Gura_DeclareFunction(getenv)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "name", VTYPE_string);
 	DeclareArg(env, "default", VTYPE_string, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Returns the value of an environment variable.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Returns the value of an environment variable.");
 }
 
 Gura_ImplementFunction(getenv)
@@ -98,7 +103,9 @@ Gura_DeclareFunction(putenv)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "name", VTYPE_string);
 	DeclareArg(env, "value", VTYPE_string);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Set the value of an environment variable.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Set the value of an environment variable.");
 }
 
 Gura_ImplementFunction(putenv)
@@ -115,6 +122,10 @@ Gura_DeclareFunction(redirect)
 	DeclareArg(env, "stdout", VTYPE_stream, OCCUR_Once, FLAG_Nil | FLAG_Write);
 	DeclareArg(env, "stderr", VTYPE_stream, OCCUR_ZeroOrOnce, FLAG_Write);
 	DeclareBlock(OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Modifies variables `os.stdin`, `os.stdout` and `os.stderr` with values of arguments.\n"
+		"When `block` is specified, the modification only has effect within the block.");
 }
 
 Gura_ImplementFunction(redirect)
@@ -156,6 +167,9 @@ Gura_DeclareFunction(sleep)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "secs", VTYPE_number);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Sleeps for the specified time in seconds.");
 }
 
 Gura_ImplementFunction(sleep)
@@ -170,6 +184,9 @@ Gura_DeclareFunction(symlink)
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_Map);
 	DeclareArg(env, "src", VTYPE_string);
 	DeclareArg(env, "tgt", VTYPE_string);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Creates a symbol link.");
 }
 
 Gura_ImplementFunction(symlink)
@@ -191,8 +208,9 @@ Gura_DeclareFunction(tonative)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "str", VTYPE_string);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, 
-	"Converts Gura's regulated string into binary data that includes OS's native string.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown, 
+		"Converts Gura's regulated string into binary data that includes OS's native string.");
 }
 
 Gura_ImplementFunction(tonative)
@@ -207,7 +225,9 @@ Gura_DeclareFunction(unsetenv)
 {
 	SetFuncAttr(VTYPE_any, RSLTMODE_Void, FLAG_None);
 	DeclareArg(env, "name", VTYPE_string);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Unset an environment variable.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Unset an environment variable.");
 }
 
 Gura_ImplementFunction(unsetenv)
