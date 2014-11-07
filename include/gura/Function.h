@@ -251,6 +251,7 @@ protected:
 	AutoPtr<Environment> _pEnvScope;
 	AutoPtr<DeclarationOwner> _pDeclOwner;
 	FunctionType _funcType;
+	ValueType _valTypeResult;
 	ResultMode _resultMode;
 	ULong _flags;
 	SymbolSet _attrsOpt;
@@ -284,9 +285,12 @@ public:
 	Value EvalMap(Environment &env, Signal sig, Args &args) const;
 	inline FunctionType GetType() const { return _funcType; }
 	inline const char *GetTypeName() const { return GetFuncTypeName(_funcType); }
-	inline void SetMode(ResultMode resultMode, ULong flags) {
-		_resultMode = resultMode, _flags |= flags;
+	inline void SetMode(ResultMode resultMode, ULong flags, ValueType valTypeResult = VTYPE_any) {
+		_valTypeResult = valTypeResult;
+		_resultMode = resultMode;
+		_flags |= flags;
 	}
+	inline ValueType GetValueTypeResult() const { return _valTypeResult; }
 	inline ResultMode GetResultMode() const { return _resultMode; }
 	inline ULong GetFlags() const { return _flags; }
 	inline const SymbolSet &GetAttrsOpt() const { return _attrsOpt; }
@@ -374,6 +378,7 @@ private:
 class GURA_DLLDECLARE Args {
 private:
 	int _cntRef;
+	ValueType _valTypeResult;
 	ResultMode _resultMode;
 	ULong _flags;
 	bool _listThisFlag;
@@ -392,11 +397,13 @@ public:
 	Gura_DeclareReferenceAccessor(Args);
 public:
 	inline Args() : _cntRef(1),
+		_valTypeResult(VTYPE_any),
 		_resultMode(RSLTMODE_Normal),
 		_flags(FLAG_None),
 		_listThisFlag(false),
 		_pValDictArg(new ValueDict()) {}
 	inline Args(const Args &args) : _cntRef(1),
+		_valTypeResult(args._valTypeResult),
 		_resultMode(args._resultMode),
 		_flags(args._flags),
 		_listThisFlag(args._listThisFlag),
@@ -412,6 +419,7 @@ public:
 		_pExprBlock(Expr_Block::Reference(args._pExprBlock.get())),
 		_pFuncBlock(Function::Reference(args._pFuncBlock.get())) {}
 	inline Args(const Args &args, const ValueList &valListArg) : _cntRef(1),
+		_valTypeResult(args._valTypeResult),
 		_resultMode(args._resultMode),
 		_flags(args._flags),
 		_listThisFlag(args._listThisFlag),
@@ -435,6 +443,8 @@ public:
 	inline void SetAttrsOpt(const SymbolSet &attrsOpt) { _attrsOpt = attrsOpt; }
 	inline const SymbolSet &GetAttrs() const { return _attrs; }
 	inline const SymbolSet &GetAttrsOpt() const { return _attrsOpt; }
+	inline void SetValueTypeResult(ValueType valTypeResult) { _valTypeResult = valTypeResult; }
+	inline ValueType GetValueTypeResult() const { return _valTypeResult; }
 	inline void SetResultMode(ResultMode resultMode) { _resultMode = resultMode; }
 	inline ResultMode GetResultMode() const { return _resultMode; }
 	inline void SetFlags(ULong flags) { _flags = flags; }
