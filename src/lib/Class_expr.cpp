@@ -277,8 +277,9 @@ Gura_DeclareFunction(expr)
 	DeclareArg(env, "src", VTYPE_stream, OCCUR_Once, FLAG_Read);
 	DeclareBlock(OCCUR_ZeroOrOnce);
 	SetClassToConstruct(env.LookupClass(VTYPE_expr));
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"Parse a content of a script stream and returns an expr object.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Parses a content of a script stream and returns an expr object.");
 }
 
 Gura_ImplementFunction(expr)
@@ -295,7 +296,11 @@ Gura_DeclareMethod(expr, eval)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "env", VTYPE_environment, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Evaluate an expr object.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Evaluates an expr object.\n"
+		"If argument `env` is specified, that environment is used for evaluation.\n"
+		"Otherwise, environment of the current scope is used.\n");
 }
 
 Gura_ImplementMethod(expr, eval)
@@ -313,7 +318,11 @@ Gura_DeclareClassMethod(expr, parse)
 	SetMode(RSLTMODE_Normal, FLAG_Map);
 	DeclareArg(env, "script", VTYPE_string);
 	DeclareBlock(OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown, "Parse a string returns an expr object.");
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"Parses a string and returns an expr object.\n"
+		"If `block` is specified, it will be evaluated with block parameter\n"
+		"in a format of `|expr:expr|` where `expr` is the created object.");
 }
 
 Gura_ImplementClassMethod(expr, parse)
@@ -325,13 +334,15 @@ Gura_ImplementClassMethod(expr, parse)
 	return ReturnValue(env, sig, args, Value(new Object_expr(env, pExpr.release())));
 }
 
-// expr#textize(style?:symbol)
+// expr#textize(style?:symbol, indent?:string)
 Gura_DeclareMethod(expr, textize)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "style", VTYPE_symbol, OCCUR_ZeroOrOnce);
-	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
-	"");
+	DeclareArg(env, "indent", VTYPE_string, OCCUR_ZeroOrOnce);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(expr, textize)
@@ -347,9 +358,10 @@ Gura_ImplementMethod(expr, textize)
 			return Value::Null;
 		}
 	}
+	const char *strIndent = args.Is_string(1)? args.GetString(1) : Expr::IndentDefault;
 	String strDst;
 	SimpleStream_StringWriter streamDst(strDst);
-	if (!pExpr->GenerateScript(sig, streamDst, scriptStyle, 0)) return Value::Null;
+	if (!pExpr->GenerateScript(sig, streamDst, scriptStyle, 0, strIndent)) return Value::Null;
 	return Value(strDst);
 }
 
@@ -358,6 +370,9 @@ Gura_DeclareMethod(expr, tofunction)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "args", VTYPE_quote, OCCUR_ZeroOrMore);
+	AddHelp(
+		Gura_Symbol(en), Help::FMT_markdown,
+		"");
 }
 
 Gura_ImplementMethod(expr, tofunction)
@@ -397,12 +412,13 @@ Gura_ImplementMethod(expr, unquote)
 	return Value(pObj);
 }
 
-// expr#write(dst:stream:w, style?:symbol)
+// expr#write(dst:stream:w, style?:symbol, indent?:string)
 Gura_DeclareMethod(expr, write)
 {
 	SetMode(RSLTMODE_Normal, FLAG_None);
 	DeclareArg(env, "dst", VTYPE_stream, OCCUR_Once, FLAG_Write);
 	DeclareArg(env, "style", VTYPE_symbol, OCCUR_ZeroOrOnce);
+	DeclareArg(env, "indent", VTYPE_string, OCCUR_ZeroOrOnce);
 	AddHelp(Gura_Symbol(en), Help::FMT_markdown,
 	"Outputs a script that describes the expression to the specified `stream`.\n");
 }
@@ -420,7 +436,8 @@ Gura_ImplementMethod(expr, write)
 			return Value::Null;
 		}
 	}
-	pExpr->GenerateScript(sig, args.GetStream(0), scriptStyle, 0);
+	const char *strIndent = args.Is_string(2)? args.GetString(2) : Expr::IndentDefault;
+	pExpr->GenerateScript(sig, args.GetStream(0), scriptStyle, 0, strIndent);
 	return Value::Null;
 }
 

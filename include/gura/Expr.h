@@ -108,6 +108,8 @@ public:
 		SEP_NewLine,
 	};
 public:
+	static const char *IndentDefault;
+public:
 	class GURA_DLLDECLARE ExprVisitor_GatherSymbol : public ExprVisitor {
 	private:
 		SymbolSet &_symbolSet;
@@ -230,10 +232,11 @@ public:
 	bool IsBinaryOp(OpType opType) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
+							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
 	virtual String ToString(ScriptStyle scriptStyle) const;
 	String MakePosText() const;
-	static bool PutNestIndent(Signal sig, SimpleStream &stream, int nestLevel);
+	static bool PutNestIndent(Signal sig, SimpleStream &stream,
+							  int nestLevel, const char *strIndent);
 	static ScriptStyle SymbolToScriptStyle(const Symbol *pSymbol);
 };
 
@@ -254,7 +257,7 @@ public:
 	void ExtractTrace(ExprOwner &exprOwner) const;
 	bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	bool GenerateScript(Signal sig, SimpleStream &stream,
-		Expr::ScriptStyle scriptStyle, int nestLevel, Expr::Separator sep) const;
+		Expr::ScriptStyle scriptStyle, int nestLevel, const char *strIndent, Expr::Separator sep) const;
 	void Accept(ExprVisitor &visitor);
 	bool IsContained(const Expr *pExpr) const;
 	void SetParent(const Expr *pExpr);
@@ -349,7 +352,7 @@ public:
 	virtual void Accept(ExprVisitor &visitor);
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
+							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -389,11 +392,11 @@ public:
 	inline const SymbolList &GetAttrFront() const { return _attrFront; }
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
+							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
 	bool GenerateScriptHead(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
+							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
 	bool GenerateScriptTail(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
+							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -421,7 +424,7 @@ public:
 	virtual void Accept(ExprVisitor &visitor);
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
+							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -519,7 +522,7 @@ public:
 	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
+							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -543,7 +546,7 @@ public:
 	virtual void Accept(ExprVisitor &visitor);
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
+							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
 	inline void SetExprOwnerParam(ExprOwner *pExprOwnerParam) {
 		_pExprOwnerParam.reset(pExprOwnerParam);
 	}
@@ -575,7 +578,7 @@ public:
 					const SymbolSet *pSymbolsAssignable, bool escalateFlag) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
+							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -603,7 +606,7 @@ public:
 	virtual Value DoExec(Environment &env, Signal sig, SeqPostHandler *pSeqPostHandler) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
+							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -654,7 +657,7 @@ public:
 	virtual void Accept(ExprVisitor &visitor);
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
+							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -693,7 +696,7 @@ public:
 	virtual Expr *MathOptimize(Environment &env, Signal sig) const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
+							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
 	static Expr_Caller *Create(const Symbol *pContainerSymbol, const Symbol *pFuncSymbol,
 							   Expr *pExprArg1 = NULL, Expr *pExprArg2 = NULL,
 							   Expr *pExprArg3 = NULL, Expr *pExprArg4 = NULL);
@@ -758,7 +761,7 @@ public:
 	virtual bool IsUnaryOpSuffix() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
+							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
 	inline static bool IsSuffixed(const Expr *pExpr, const Symbol *pSymbol) {
 		return pExpr->IsUnaryOpSuffix() && dynamic_cast<const Expr_UnaryOp *>(pExpr)->
 								GetOperator()->GetSymbol()->IsIdentical(pSymbol);
@@ -794,7 +797,7 @@ public:
 	virtual bool IsBinaryOp() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
+							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -820,7 +823,7 @@ public:
 	virtual bool IsQuote() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
+							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -852,7 +855,7 @@ public:
 	virtual bool IsAssign() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
+							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
 };
 
 //-----------------------------------------------------------------------------
@@ -890,7 +893,7 @@ public:
 	virtual bool IsMember() const;
 	virtual bool GenerateCode(Environment &env, Signal sig, Stream &stream);
 	virtual bool GenerateScript(Signal sig, SimpleStream &stream,
-							ScriptStyle scriptStyle, int nestLevel) const;
+							ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const;
 };
 
 }

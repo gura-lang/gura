@@ -56,6 +56,8 @@ const char *GetExprTypeName(ExprType exprType)
 //        `- Expr_Compound <--+- Expr_Indexer
 //                            `- Expr_Caller
 //-----------------------------------------------------------------------------
+const char *Expr::IndentDefault = "    ";
+
 Expr::Expr(ExprType exprType) : _exprType(exprType),
 	_cntRef(1), _lineNoTop(0), _lineNoBtm(0), _pExprParent(NULL)
 {
@@ -296,17 +298,18 @@ bool Expr::GenerateCode(Environment &env, Signal sig, Stream &stream)
 }
 
 bool Expr::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
+								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	return false;
 }
 
 String Expr::ToString(ScriptStyle scriptStyle) const
 {
+	const char *strIndent = IndentDefault;
 	Signal sig;
 	String str;
 	SimpleStream_StringWriter stream(str);
-	GenerateScript(sig, stream, scriptStyle, 0);
+	GenerateScript(sig, stream, scriptStyle, 0, strIndent);
 	return str;
 }
 
@@ -331,10 +334,10 @@ String Expr::MakePosText() const
 	return str;
 }
 
-bool Expr::PutNestIndent(Signal sig, SimpleStream &stream, int nestLevel)
+bool Expr::PutNestIndent(Signal sig, SimpleStream &stream, int nestLevel, const char *strIndent)
 {
 	for (int i = 0; i < nestLevel; i++) {
-		stream.Print(sig, "    ");
+		stream.Print(sig, strIndent);
 		if (sig.IsSignalled()) return false;
 	}
 	return true;
@@ -502,7 +505,7 @@ bool ExprList::GenerateCode(Environment &env, Signal sig, Stream &stream)
 }
 
 bool ExprList::GenerateScript(Signal sig, SimpleStream &stream,
-			Expr::ScriptStyle scriptStyle, int nestLevel, Expr::Separator sep) const
+			Expr::ScriptStyle scriptStyle, int nestLevel, const char *strIndent, Expr::Separator sep) const
 {
 	const char *sepText =
 		(sep == Expr::SEP_Comma)? ((scriptStyle == Expr::SCRSTYLE_Crammed)? "," : ", ") :
@@ -514,8 +517,8 @@ bool ExprList::GenerateScript(Signal sig, SimpleStream &stream,
 			if (sig.IsSignalled()) return false;
 		}
 		if (sep == Expr::SEP_NewLine &&
-					!Expr::PutNestIndent(sig, stream, nestLevel)) return false;
-		if (!pExpr->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+			!Expr::PutNestIndent(sig, stream, nestLevel, strIndent)) return false;
+		if (!pExpr->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 	}
 	return true;
 }
@@ -739,7 +742,7 @@ bool Expr_Value::GenerateCode(Environment &env, Signal sig, Stream &stream)
 }
 
 bool Expr_Value::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
+								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	if (_value.Is_string()) {
 		const char *str = _value.GetString();
@@ -935,15 +938,15 @@ bool Expr_Identifier::GenerateCode(Environment &env, Signal sig, Stream &stream)
 }
 
 bool Expr_Identifier::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
+								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
-	if (!GenerateScriptHead(sig, stream, scriptStyle, nestLevel)) return false;
-	if (!GenerateScriptTail(sig, stream, scriptStyle, nestLevel)) return false;
+	if (!GenerateScriptHead(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
+	if (!GenerateScriptTail(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 	return true;
 }
 
 bool Expr_Identifier::GenerateScriptHead(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
+								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	stream.Print(sig, GetSymbol()->GetName());
 	if (sig.IsSignalled()) return false;
@@ -951,7 +954,7 @@ bool Expr_Identifier::GenerateScriptHead(Signal sig, SimpleStream &stream,
 }
 
 bool Expr_Identifier::GenerateScriptTail(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
+								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	const Symbol *pSymbolFront = Gura_Symbol(Str_Empty);
 	if (!_attrFront.empty()) {
@@ -1036,7 +1039,7 @@ bool Expr_Suffixed::GenerateCode(Environment &env, Signal sig, Stream &stream)
 }
 
 bool Expr_Suffixed::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
+								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	if (_numberFlag) {
 		if (scriptStyle == SCRSTYLE_Brief && _body.size() > MaxCharsForBriefStyle) {
@@ -1207,9 +1210,9 @@ bool Expr_Root::GenerateCode(Environment &env, Signal sig, Stream &stream)
 }
 
 bool Expr_Root::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
+								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
-	if (!GetExprOwner().GenerateScript(sig, stream, scriptStyle, nestLevel,
+	if (!GetExprOwner().GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent,
 		(scriptStyle == SCRSTYLE_Fancy)? SEP_NewLine : SEP_Comma)) return false;
 	if (scriptStyle == SCRSTYLE_Fancy) {
 		stream.PutChar(sig, '\n');
@@ -1310,7 +1313,7 @@ bool Expr_Block::GenerateCode(Environment &env, Signal sig, Stream &stream)
 }
 
 bool Expr_Block::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
+								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	stream.PutChar(sig, '{');
 	if (sig.IsSignalled()) return false;
@@ -1329,11 +1332,11 @@ bool Expr_Block::GenerateScript(Signal sig, SimpleStream &stream,
 			if (visitor.GetFoundFlag()) {
 				stream.PutChar(sig, '(');
 				if (sig.IsSignalled()) return false;
-				if (!pExpr->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+				if (!pExpr->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 				stream.PutChar(sig, ')');
 				if (sig.IsSignalled()) return false;
 			} else {
-				if (!pExpr->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+				if (!pExpr->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 			}
 		}
 		stream.PutChar(sig, '|');
@@ -1356,12 +1359,12 @@ bool Expr_Block::GenerateScript(Signal sig, SimpleStream &stream,
 			(scriptStyle == SCRSTYLE_Fancy)? "\n" : "";
 		stream.Print(sig, sepText);
 		if (sig.IsSignalled()) return false;
-		if (!GetExprOwner().GenerateScript(sig, stream, scriptStyle, nestLevel + 1,
+		if (!GetExprOwner().GenerateScript(sig, stream, scriptStyle, nestLevel + 1, strIndent,
 			(scriptStyle == SCRSTYLE_Fancy)? SEP_NewLine : SEP_Comma)) return false;
 		stream.Print(sig, sepText);
 		if (sig.IsSignalled()) return false;
 		if (scriptStyle == SCRSTYLE_Fancy &&
-					!PutNestIndent(sig, stream, nestLevel)) return false;
+			!PutNestIndent(sig, stream, nestLevel, strIndent)) return false;
 	}
 	stream.PutChar(sig, '}');
 	if (sig.IsSignalled()) return false;
@@ -1493,7 +1496,7 @@ bool Expr_Lister::GenerateCode(Environment &env, Signal sig, Stream &stream)
 }
 
 bool Expr_Lister::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
+								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	stream.PutChar(sig, '[');
 	if (sig.IsSignalled()) return false;
@@ -1504,7 +1507,7 @@ bool Expr_Lister::GenerateScript(Signal sig, SimpleStream &stream,
 		if (sig.IsSignalled()) return false;
 	} else {
 		if (!GetExprOwner().GenerateScript(sig, stream,
-							scriptStyle, nestLevel, SEP_Comma)) return false;
+							scriptStyle, nestLevel, strIndent, SEP_Comma)) return false;
 	}
 	stream.PutChar(sig, ']');
 	if (sig.IsSignalled()) return false;
@@ -1566,7 +1569,7 @@ bool Expr_Iterer::GenerateCode(Environment &env, Signal sig, Stream &stream)
 }
 
 bool Expr_Iterer::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
+								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	stream.PutChar(sig, '(');
 	if (sig.IsSignalled()) return false;
@@ -1577,7 +1580,7 @@ bool Expr_Iterer::GenerateScript(Signal sig, SimpleStream &stream,
 		if (sig.IsSignalled()) return false;
 	} else {
 		if (!GetExprOwner().GenerateScript(sig, stream,
-						scriptStyle, nestLevel, SEP_Comma)) return false;
+						scriptStyle, nestLevel, strIndent, SEP_Comma)) return false;
 		if (GetExprOwner().size() == 1) {
 			stream.PutChar(sig, ',');
 			if (sig.IsSignalled()) return false;
@@ -1812,11 +1815,11 @@ bool Expr_Indexer::GenerateCode(Environment &env, Signal sig, Stream &stream)
 }
 
 bool Expr_Indexer::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
+								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	if (GetCar()->IsIdentifier()) {
 		const Expr_Identifier *pExprIdentifier = dynamic_cast<const Expr_Identifier *>(GetCar());
-		if (!pExprIdentifier->GenerateScriptHead(sig, stream, scriptStyle, nestLevel)) return false;
+		if (!pExprIdentifier->GenerateScriptHead(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 		stream.PutChar(sig, '[');
 		if (sig.IsSignalled()) return false;
 		if (GetExprOwner().empty()) {
@@ -1826,11 +1829,11 @@ bool Expr_Indexer::GenerateScript(Signal sig, SimpleStream &stream,
 			if (sig.IsSignalled()) return false;
 		} else {
 			if (!GetExprOwner().GenerateScript(sig, stream,
-								scriptStyle, nestLevel, SEP_Comma)) return false;
+								scriptStyle, nestLevel, strIndent, SEP_Comma)) return false;
 		}
 		stream.PutChar(sig, ']');
 		if (sig.IsSignalled()) return false;
-		if (!pExprIdentifier->GenerateScriptTail(sig, stream, scriptStyle, nestLevel)) return false;
+		if (!pExprIdentifier->GenerateScriptTail(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 		return true;
 	} else {
 		bool needParenthesisFlag = false;
@@ -1842,7 +1845,7 @@ bool Expr_Indexer::GenerateScript(Signal sig, SimpleStream &stream,
 			stream.PutChar(sig, '(');
 			if (sig.IsSignalled()) return false;
 		}
-		if (!GetCar()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+		if (!GetCar()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 		if (needParenthesisFlag) {
 			stream.PutChar(sig, ')');
 			if (sig.IsSignalled()) return false;
@@ -1856,7 +1859,7 @@ bool Expr_Indexer::GenerateScript(Signal sig, SimpleStream &stream,
 			if (sig.IsSignalled()) return false;
 		} else {
 			if (!GetExprOwner().GenerateScript(sig, stream,
-								scriptStyle, nestLevel, SEP_Comma)) return false;
+								scriptStyle, nestLevel, strIndent, SEP_Comma)) return false;
 		}
 		stream.PutChar(sig, ']');
 		if (sig.IsSignalled()) return false;
@@ -2196,13 +2199,13 @@ bool Expr_Caller::GenerateCode(Environment &env, Signal sig, Stream &stream)
 }
 
 bool Expr_Caller::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
+								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	bool argListFlag = !GetExprOwner().empty() ||
 									!_attrs.empty() || _pExprBlock.IsNull();
 	if (_pExprCar->IsIdentifier()) {
 		const Symbol *pSymbol = dynamic_cast<const Expr_Identifier *>(GetCar())->GetSymbol();
-		if (!_pExprCar->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+		if (!_pExprCar->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 		if (pSymbol->IsFlowControlSymbol() && argListFlag) {
 			stream.PutChar(sig, ' ');
 			if (sig.IsSignalled()) return false;
@@ -2210,16 +2213,16 @@ bool Expr_Caller::GenerateScript(Signal sig, SimpleStream &stream,
 	} else if (_pExprCar->IsCaller()) {
 		stream.PutChar(sig, '(');
 		if (sig.IsSignalled()) return false;
-		if (!_pExprCar->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+		if (!_pExprCar->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 		stream.PutChar(sig, ')');
 		if (sig.IsSignalled()) return false;
 	} else {
-		if (!_pExprCar->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+		if (!_pExprCar->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 	}
 	if (argListFlag) {
 		stream.PutChar(sig, '(');
 		if (sig.IsSignalled()) return false;
-		if (!GetExprOwner().GenerateScript(sig, stream, scriptStyle, nestLevel, SEP_Comma)) return false;
+		if (!GetExprOwner().GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent, SEP_Comma)) return false;
 		stream.PutChar(sig, ')');
 		if (sig.IsSignalled()) return false;
 	}
@@ -2269,14 +2272,14 @@ bool Expr_Caller::GenerateScript(Signal sig, SimpleStream &stream,
 			stream.PutChar(sig, ' ');
 			if (sig.IsSignalled()) return false;
 		}
-		if (!_pExprBlock->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+		if (!_pExprBlock->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 	}
 	if (!_pExprTrailer.IsNull()) {
 		if (scriptStyle != SCRSTYLE_Crammed) {
 			stream.PutChar(sig, ' ');
 			if (sig.IsSignalled()) return false;
 		}
-		if (!_pExprTrailer->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+		if (!_pExprTrailer->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 	}
 	return true;
 }
@@ -2357,7 +2360,7 @@ bool Expr_UnaryOp::GenerateCode(Environment &env, Signal sig, Stream &stream)
 }
 
 bool Expr_UnaryOp::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
+								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	bool needParenthesisFlag = false;
 	if (GetParent() != NULL) {
@@ -2372,7 +2375,7 @@ bool Expr_UnaryOp::GenerateScript(Signal sig, SimpleStream &stream,
 		stream.Print(sig, _pOperator->GetSymbol()->GetName());
 		if (sig.IsSignalled()) return false;
 	}
-	if (!GetChild()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+	if (!GetChild()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 	if (_suffixFlag) {
 		stream.Print(sig, _pOperator->GetSymbol()->GetName());
 		if (sig.IsSignalled()) return false;
@@ -2483,7 +2486,7 @@ bool Expr_BinaryOp::GenerateCode(Environment &env, Signal sig, Stream &stream)
 }
 
 bool Expr_BinaryOp::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
+								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	bool needParenthesisFlag = false;
 	if (GetParent() == NULL) {
@@ -2502,14 +2505,14 @@ bool Expr_BinaryOp::GenerateScript(Signal sig, SimpleStream &stream,
 		stream.PutChar(sig, '(');
 		if (sig.IsSignalled()) return false;
 	}
-	if (!GetLeft()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+	if (!GetLeft()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 	String text;
 	if (scriptStyle != SCRSTYLE_Crammed) text += ' ';
 	text += _pOperator->GetSymbol()->GetName();
 	if (scriptStyle != SCRSTYLE_Crammed) text += ' ';
 	stream.Print(sig, text.c_str());
 	if (sig.IsSignalled()) return false;
-	if (!GetRight()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+	if (!GetRight()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 	if (needParenthesisFlag) {
 		stream.PutChar(sig, ')');
 		if (sig.IsSignalled()) return false;
@@ -2569,18 +2572,18 @@ bool Expr_Quote::GenerateCode(Environment &env, Signal sig, Stream &stream)
 }
 
 bool Expr_Quote::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
+								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	if (GetChild()->IsUnary() || GetChild()->IsBinary()) {
 		stream.Print(sig, "`(");
 		if (sig.IsSignalled()) return false;
-		if (!GetChild()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+		if (!GetChild()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 		stream.Print(sig, ")");
 		if (sig.IsSignalled()) return false;
 	} else {
 		stream.Print(sig, "`");
 		if (sig.IsSignalled()) return false;
-		if (!GetChild()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+		if (!GetChild()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 	}
 	return true;
 }
@@ -2653,7 +2656,7 @@ bool Expr_Assign::GenerateCode(Environment &env, Signal sig, Stream &stream)
 }
 
 bool Expr_Assign::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
+								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	bool needParenthesisFlag = false;
 	if (GetParent() != NULL) {
@@ -2664,7 +2667,7 @@ bool Expr_Assign::GenerateScript(Signal sig, SimpleStream &stream,
 		stream.PutChar(sig, '(');
 		if (sig.IsSignalled()) return false;
 	}
-	if (!GetLeft()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+	if (!GetLeft()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 	String text;
 	if (scriptStyle != SCRSTYLE_Crammed) text += ' ';
 	if (_pOperatorToApply != NULL) {
@@ -2674,7 +2677,7 @@ bool Expr_Assign::GenerateScript(Signal sig, SimpleStream &stream,
 	if (scriptStyle != SCRSTYLE_Crammed) text += ' ';
 	stream.Print(sig, text.c_str());
 	if (sig.IsSignalled()) return false;
-	if (!GetRight()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+	if (!GetRight()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 	if (needParenthesisFlag) {
 		stream.PutChar(sig, ')');
 		if (sig.IsSignalled()) return false;
@@ -2816,7 +2819,7 @@ bool Expr_Member::GenerateCode(Environment &env, Signal sig, Stream &stream)
 }
 
 bool Expr_Member::GenerateScript(Signal sig, SimpleStream &stream,
-								ScriptStyle scriptStyle, int nestLevel) const
+								ScriptStyle scriptStyle, int nestLevel, const char *strIndent) const
 {
 	bool needParenthesisFlag = false;
 	const Expr *pExprLeft = GetLeft();
@@ -2834,11 +2837,11 @@ bool Expr_Member::GenerateScript(Signal sig, SimpleStream &stream,
 	if (needParenthesisFlag) {
 		stream.PutChar(sig, '(');
 		if (sig.IsSignalled()) return false;
-		if (!GetLeft()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+		if (!GetLeft()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 		stream.PutChar(sig, ')');
 		if (sig.IsSignalled()) return false;
 	} else {
-		if (!GetLeft()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+		if (!GetLeft()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 	}
 	const char *str =
 		(_mode == MODE_Normal)? "." :
@@ -2850,7 +2853,7 @@ bool Expr_Member::GenerateScript(Signal sig, SimpleStream &stream,
 		return false;
 	}
 	stream.Print(sig, str);
-	if (!GetRight()->GenerateScript(sig, stream, scriptStyle, nestLevel)) return false;
+	if (!GetRight()->GenerateScript(sig, stream, scriptStyle, nestLevel, strIndent)) return false;
 	return true;
 }
 

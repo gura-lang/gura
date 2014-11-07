@@ -370,10 +370,10 @@ expr
   isunaryop()
   isvalue()
   parse(script:string):static:map {block?}
-  textize(style?:symbol)
+  textize(style?:symbol, indent?:string)
   tofunction(`args*)
   unquote()
-  write(dst:stream:w, style?:symbol)
+  write(dst:stream:w, style?:symbol, indent?:string)
 formatter
   getfieldminwidth()
   getpadding()
